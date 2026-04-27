@@ -4,10 +4,10 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 ## Summary
 
-- ranges: `11`
+- ranges: `12`
 - total bytes: `65536`
-- source bytes: `6165`
-- data gap bytes: `59371`
+- source bytes: `6522`
+- data gap bytes: `59014`
 
 ## Ranges
 
@@ -19,7 +19,8 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/ef/ef_4a40_4e20_sound_stone_presentation_table_data.asm` | `EF:4A40..EF:4E20` | 992 | 0 | 992 | `ea78ee3d61cd39ebf81f5ac0793353e61ff7c41e` |
 | `build-candidate` | `src/ef/ef_4e20_c51b_text_payload_data.asm` | `EF:4E20..EF:C51B` | 30459 | 0 | 30459 | `1419dd1b8b80745a5a22e78d498fcb67a60547aa` |
 | `build-candidate` | `src/ef/ef_c51b_d56f_text_glyph_mask_tables.asm` | `EF:C51B..EF:D56F` | 4180 | 0 | 4180 | `73467ad28329342430e2add59df931780f2e488b` |
-| `build-candidate` | `src/ef/ef_d56f_eb5f_debug_menu_preserved_corridor.asm` | `EF:D56F..EF:EB5F` | 5616 | 0 | 5616 | `c6ffda4d02be599fce942c4fb7ab326e6db28179` |
+| `build-candidate` | `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm` | `EF:D56F..EF:D6D4` | 357 | 357 | 0 | `50ea92d8170a2fe213f113009bd9918f69a04d91` |
+| `build-candidate` | `src/ef/ef_d6d4_eb5f_debug_menu_mixed_preserved_corridor.asm` | `EF:D6D4..EF:EB5F` | 5259 | 0 | 5259 | `600d9fdf1e4e1282c9f2eaebae1c1ae0b7792f2b` |
 | `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 1041 | 0 | `7d8195145f270d5d310df09b7c73a32cca868614` |
 | `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 71 | 0 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
 | `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 288 | 0 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
@@ -143,7 +144,24 @@ Evidence:
 - `notes/text-token-glyph-run-stager-c44b3a-c44e61.md`
 - `notes/ef-readable-source-split-queue.md`
 
-### `src/ef/ef_d56f_eb5f_debug_menu_preserved_corridor.asm`
+### `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:D56F..EF:D6D4` | 357 | `DebugSoundMenuHelpers` | `50ea92d8170a2fe213f113009bd9918f69a04d91` |
+
+Labels:
+
+- `EF:D56F DebugSoundMenuHelpers`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-sound-menu-prefix-d56f-d6d4.md`
+
+### `src/ef/ef_d6d4_eb5f_debug_menu_mixed_preserved_corridor.asm`
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
@@ -151,17 +169,18 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:D56F..EF:EB5F` (`5616` bytes, SHA-1 `c6ffda4d02be599fce942c4fb7ab326e6db28179`) `EfDebugMenuPreservedCorridor`
+- `EF:D6D4..EF:EB5F` (`5259` bytes, SHA-1 `600d9fdf1e4e1282c9f2eaebae1c1ae0b7792f2b`) `EfDebugMenuMixedPreservedCorridor`
 
 Labels:
 
-- `EF:D56F EfDebugMenuPreservedCorridor`
+- `EF:D6D4 EfDebugMenuMixedPreservedCorridor`
 
 Evidence:
 
 - `notes/bank-ef-first-pass.md`
 - `notes/debug-menu-reachability-c0-c1-ef.md`
 - `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-sound-menu-prefix-d56f-d6d4.md`
 
 ### `src/ef/asset_debug_menu_font.asm`
 

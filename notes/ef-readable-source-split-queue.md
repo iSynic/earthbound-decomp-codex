@@ -102,6 +102,10 @@ tables into explicit data contracts.
 - `EF:D56F..EF:EB5F` remains the next source/data mixed corridor, centered on
   debug menu strings/helpers and the one known non-debug overworld caller seam
   around `EF:E759`.
+- `EF:D56F..EF:D6D4` is now promoted into
+  `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm` as decoded source for the
+  debug sound-menu tile/value helper prefix. `EF:D6D4..EF:EB5F` remains the
+  next mixed debug code/string/data corridor.
 - `notes/ef-byte-equivalence-validation.md` confirms the combined EF scaffold
   still matches the original ROM with `0` mismatches.
 
