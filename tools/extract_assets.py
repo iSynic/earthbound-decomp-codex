@@ -465,6 +465,53 @@ def write_battle_bg_arrangement_png(
     }
 
 
+def write_battle_sprite_png(
+    graphics_data: bytes,
+    palette_data: bytes,
+    path: Path,
+    spec: dict[str, Any],
+) -> dict[str, Any]:
+    width = int(spec.get("width", 0))
+    height = int(spec.get("height", 0))
+    if width <= 0 or height <= 0 or width % 8 != 0 or height % 8 != 0:
+        raise ValueError(f"Battle sprite dimensions must be positive tile multiples: {width}x{height}")
+
+    expected_bytes = width * height // 2
+    if len(graphics_data) != expected_bytes:
+        raise ValueError(
+            f"Battle sprite expected {expected_bytes} graphics bytes for {width}x{height}, "
+            f"got {len(graphics_data)}"
+        )
+
+    tiles = decode_snes_4bpp_tile_list(graphics_data)
+    entries = decode_snes_bgr555_palette(palette_data, count=palette_entry_count(palette_data, spec))
+    tiles_per_row = width // 8
+    rows = [[(0, 0, 0) for _ in range(width)] for _ in range(height)]
+
+    for tile_index, tile in enumerate(tiles):
+        tile_x = (tile_index % tiles_per_row) * 8
+        tile_y = (tile_index // tiles_per_row) * 8
+        for y in range(8):
+            for x in range(8):
+                color = tile[y][x]
+                if color >= len(entries):
+                    raise ValueError(
+                        f"Tile color {color} is outside palette with {len(entries)} colors"
+                    )
+                entry = entries[color]
+                rows[tile_y + y][tile_x + x] = (entry.red8, entry.green8, entry.blue8)
+
+    write_rgb_png(path, rows)
+    return {
+        "colors": len(entries),
+        "palette_source_range": spec["palette_source"]["range"],
+        "sprite_id": spec["sprite_id"],
+        "palette_id": spec["palette_id"],
+        "width": width,
+        "height": height,
+    }
+
+
 def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> dict[str, Any]:
     kind = spec.get("kind")
     relative_path = spec.get("path")
@@ -507,6 +554,18 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
             write_battle_bg_arrangement_png(
                 decompressed,
                 source_data(rom, spec, "graphics_source"),
+                source_data(rom, spec, "palette_source"),
+                path,
+                spec,
+            )
+        )
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "earthbound_lzhal_battle_sprite_png":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        metadata.update(
+            write_battle_sprite_png(
+                decompressed,
                 source_data(rom, spec, "palette_source"),
                 path,
                 spec,

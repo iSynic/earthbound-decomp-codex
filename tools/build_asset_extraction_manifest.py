@@ -263,6 +263,22 @@ def load_battle_sprite_palette_usage() -> dict[int, list[int]]:
     return {sprite: sorted(palettes) for sprite, palettes in usage.items()}
 
 
+def load_battle_sprite_sizes() -> dict[int, tuple[int, int]]:
+    path = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "data" / "battle" / "battle_sprites_pointers.asm"
+    if not path.exists():
+        return {}
+
+    sizes: dict[int, tuple[int, int]] = {}
+    text = path.read_text(encoding="utf-8")
+    pattern = re.compile(
+        r"\.DWORD\s+BATTLE_SPRITE_(\d+)\s*\n\s*"
+        r"\.BYTE\s+BATTLE_SPRITE_SIZE::_(\d+)X(\d+)"
+    )
+    for match in pattern.finditer(text):
+        sizes[int(match.group(1))] = (int(match.group(2)), int(match.group(3)))
+    return sizes
+
+
 def load_battle_bg_graphics_registry(
     bank_manifest_dir: Path,
     rom: bytes,
@@ -388,6 +404,7 @@ def battle_sprite_palette_preview_outputs(
     entry: dict[str, Any],
     palette_registry: dict[int, dict[str, Any]],
     palette_usage: dict[int, list[int]],
+    sprite_sizes: dict[int, tuple[int, int]],
     compressed: bool,
 ) -> list[dict[str, Any]]:
     number = battle_sprite_asset_number(entry, "gfx")
@@ -395,6 +412,7 @@ def battle_sprite_palette_preview_outputs(
         return []
 
     outputs: list[dict[str, Any]] = []
+    sprite_size = sprite_sizes.get(number)
     for palette in palette_usage[number]:
         palette_source = palette_registry.get(palette)
         if palette_source is None:
@@ -414,6 +432,20 @@ def battle_sprite_palette_preview_outputs(
                 "palette_source": palette_source,
             }
         )
+        if compressed and sprite_size is not None:
+            width, height = sprite_size
+            outputs.append(
+                {
+                    "kind": "earthbound_lzhal_battle_sprite_png",
+                    "path": preview_path(raw_path, f"palette_{palette:02d}_sprite"),
+                    "width": width,
+                    "height": height,
+                    "colors": 16,
+                    "sprite_id": number,
+                    "palette_id": palette,
+                    "palette_source": palette_source,
+                }
+            )
     return outputs
 
 
@@ -425,6 +457,7 @@ def binary_outputs(
     graphics_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
+    battle_sprite_sizes: dict[int, tuple[int, int]],
 ) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
@@ -466,6 +499,7 @@ def binary_outputs(
                     entry,
                     battle_sprite_palette_registry,
                     battle_sprite_palette_usage,
+                    battle_sprite_sizes,
                     compressed=True,
                 )
             )
@@ -521,6 +555,7 @@ def convert_binary_asset(
     graphics_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
+    battle_sprite_sizes: dict[int, tuple[int, int]],
 ) -> dict[str, Any]:
     label = str(entry.get("label") or "")
     payload = str(entry.get("payload_path") or "")
@@ -547,6 +582,7 @@ def convert_binary_asset(
             graphics_registry,
             battle_sprite_palette_registry,
             battle_sprite_palette_usage,
+            battle_sprite_sizes,
         ),
         "notes": notes,
     }
@@ -620,6 +656,7 @@ def convert_manifest(
     graphics_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
+    battle_sprite_sizes: dict[int, tuple[int, int]],
 ) -> dict[str, Any]:
     bank = str(bank_manifest["bank"]).upper()
     assets: list[dict[str, Any]] = []
@@ -634,6 +671,7 @@ def convert_manifest(
                 graphics_registry,
                 battle_sprite_palette_registry,
                 battle_sprite_palette_usage,
+                battle_sprite_sizes,
             )
         )
 
@@ -691,6 +729,7 @@ def main() -> int:
     graphics_registry = load_battle_bg_graphics_registry(bank_manifest_dir, rom)
     battle_sprite_palette_registry = load_battle_sprite_palette_registry(bank_manifest_dir, rom)
     battle_sprite_palette_usage = load_battle_sprite_palette_usage()
+    battle_sprite_sizes = load_battle_sprite_sizes()
 
     for raw_bank in args.bank:
         bank = raw_bank.upper()
@@ -704,6 +743,7 @@ def main() -> int:
             graphics_registry=graphics_registry,
             battle_sprite_palette_registry=battle_sprite_palette_registry,
             battle_sprite_palette_usage=battle_sprite_palette_usage,
+            battle_sprite_sizes=battle_sprite_sizes,
         )
         path = write_manifest(out_dir, bank, extraction_manifest)
         print(f"{bank}: wrote {len(extraction_manifest['assets'])} assets to {rel(path)}")
