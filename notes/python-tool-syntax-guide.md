@@ -387,6 +387,13 @@ Join the same NPC config rows to event/actionscript movement targets from refs:
 python tools/build_map_movement_usage_contract.py
 ```
 
+Combine map placements, sprite roles, movement targets, event flags, and text
+pointers into one object-bundle contract:
+
+```powershell
+python tools/build_map_object_bundle_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 
