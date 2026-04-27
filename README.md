@@ -55,9 +55,12 @@ This repo should be useful if you want to answer questions like:
 
 Good starting points:
 
+- `notes/project-status.md`
+- `notes/how-to-validate.md`
+- `notes/python-tool-syntax-guide.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`
-- `notes/source-scaffold-status.md` if regenerated locally
+- `notes/source-scaffold-status.md`
 - `notes/reference-first-workflow.md`
 - `tools/inspect_battle_action.py`
 - `tools/inspect_item.py`
@@ -198,6 +201,9 @@ High-use tools:
 - `build_source_bank_scaffold.py`: regenerate a durable bank scaffold
 - `validate_source_bank_byte_equivalence.py`: prove generated source bytes match
   the original ROM
+
+See `notes/python-tool-syntax-guide.md` for common command forms, address
+formats, and copy/paste examples.
 
 Most generated output goes under `build/` and is intentionally ignored. Commit
 durable conclusions in `notes/`, source modules in `src/`, and reusable tooling
