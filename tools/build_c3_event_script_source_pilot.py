@@ -58,6 +58,25 @@ PRESET_ROWS = [
 ]
 
 LABEL_OVERRIDES = {
+    "C3:43DB": "LoopTimedDeliveryDeparturePulseUntilOffscreen",
+    "C3:43E8": "TimedDeliveryDeparturePulseAnimation0Half",
+    "C3:4402": "Event500_TimedDeliveryExistingRowGate",
+    "C3:441A": "Event499_TimedDeliverySetup",
+    "C3:4432": "TimedDeliveryCommonCountdownLoop",
+    "C3:443E": "TimedDeliveryRetryWaitLoop",
+    "C3:444D": "TimedDeliveryReadinessGate",
+    "C3:4457": "TimedDeliverySuccessGateAndPresentationSetup",
+    "C3:447A": "StartTimedDeliveryArrivalMovementTask",
+    "C3:447D": "TimedDeliveryFailureTeardown",
+    "C3:4488": "PrepareTimedDeliveryActorForPresentation",
+    "C3:4499": "WaitTimedDeliveryActorPresentationPrep",
+    "C3:44A7": "ReturnFromTimedDeliveryActorPrep",
+    "C3:44A8": "RunTimedDeliveryDepartureMovement",
+    "C3:44C1": "LoopTimedDeliveryDepartureMovement",
+    "C3:44D2": "FinishTimedDeliveryDepartureAndYieldText",
+    "C3:44DE": "RunTimedDeliveryArrivalMovement",
+    "C3:44EE": "LoopTimedDeliveryArrivalMovement",
+    "C3:44FF": "HoldTimedDeliveryArrivalCompletion",
     "C3:A09F": "LoopActiveEntityWalkAnimationPulse",
     "C3:A0B2": "LoopActiveEntityWalkPulse24Frame",
     "C3:A0C5": "LoopActiveEntityWalkPulse12Frame",
@@ -93,10 +112,54 @@ LABEL_OVERRIDES = {
     "C3:AAFE": "InitMovementPreset00_02C40015Pulse6Frame",
     "C3:AB12": "InitMovementPreset00_06C40015Branch",
     "C3:AB26": "InitAlternatePhysicsVar4WalkPulse",
+    "C0:A82F": "DisableCurrentEntityCollision2",
+    "EF:0C87": "ReadActivePartySlotCacheWord",
+    "EF:0C97": "ClearActivePartySlotCacheWord",
+    "EF:0CA7": "CheckCurrentDeliveryRetryThreshold",
+    "EF:0D23": "GetCurrentDeliveryRetryWait",
+    "EF:0D46": "SeedCurrentDeliveryCountdown",
+    "EF:0D73": "DecrementCurrentDeliveryCountdown",
+    "EF:0D8D": "QueueCurrentDeliveryPointer1",
+    "EF:0DFA": "QueueCurrentDeliveryPointer2",
+    "EF:0E67": "GetCurrentDeliveryEnterSpeed",
+    "EF:0E8A": "GetCurrentDeliveryExitSpeed",
+    "EF:0F60": "CheckDeliveryServiceReadyForArrival",
+    "EF:0FDB": "BeginDeliverySuccessArrivalState",
+    "EF:0FF6": "ResetDeliveryArrivalState",
 }
 
 VAR_NAMES = {
+    0x00: "!ACTIONSCRIPT_VARS_V0",
+    0x01: "!ACTIONSCRIPT_VARS_V1",
+    0x02: "!ACTIONSCRIPT_VARS_V2",
+    0x03: "!ACTIONSCRIPT_VARS_V3",
     0x04: "!ACTIONSCRIPT_VARS_V4",
+    0x05: "!ACTIONSCRIPT_VARS_V5",
+    0x06: "!ACTIONSCRIPT_VARS_V6",
+    0x07: "!ACTIONSCRIPT_VARS_V7",
+}
+
+FAMILY_DEFAULTS = {
+    "movement-pulse-presets": {
+        "output": DEFAULT_OUTPUT,
+        "report": DEFAULT_REPORT,
+        "manifest": DEFAULT_MANIFEST,
+        "rows": SCRIPT_ROWS + PRESET_ROWS,
+        "spans": [],
+        "description": "Movement pulse preset family emitted as labeled event/actionscript macro assembly.",
+        "next": "Promote another C3 family through this same generator pattern, then teach the bank scaffold to include source-form families in place of their opaque `script_event_payloads_0000_e450.asm` `db` corridors once enough families have stable labels and macro coverage.",
+    },
+    "timed-delivery-controller": {
+        "output": ROOT / "src" / "c3" / "event_scripts" / "timed_delivery_controller.asar.asm",
+        "report": ROOT / "notes" / "c3-timed-delivery-source-pilot.md",
+        "manifest": ROOT / "build" / "c3-timed-delivery-source-pilot.json",
+        "rows": [],
+        "spans": [
+            ("C3:43DB", "C3:4508", "TimedDeliveryControllerAndPulseTask"),
+        ],
+        "description": "Timed-delivery controller proper emitted as labeled event/actionscript macro assembly. This covers the departure pulse task, event 499/500 setup, shared countdown/retry/readiness gates, success/failure branches, and arrival/departure movement loops.",
+        "next": "Promote the adjacent service-event movement scripts at `C3:4508..C3:48C4`, then decide whether `C3:48C4..C3:4964` belongs with that follow-up family or with the neighboring service animation scripts.",
+    },
 }
 
 
@@ -124,6 +187,7 @@ class RowSource:
     size: int
     raw: bytes
     instructions: tuple[Instruction, ...]
+    source: str = "source-data-map"
 
 
 def parse_address_key(text: str) -> Address:
@@ -274,6 +338,40 @@ def load_rows(
                 size=size,
                 raw=raw,
                 instructions=decode_exact_row(raw, address),
+                source=row.get("path") or "source-data-map",
+            )
+        )
+    return rows
+
+
+def load_spans(
+    rom: bytes,
+    spans: list[tuple[str, str, str]],
+    names: dict[str, list[str]],
+) -> list[RowSource]:
+    rows: list[RowSource] = []
+    for start_key, end_key, name in spans:
+        start = parse_address_key(start_key)
+        end = parse_address_key(end_key)
+        if start.bank != end.bank:
+            raise ValueError(f"span cannot cross banks: {start_key}..{end_key}")
+        size = end.offset - start.offset
+        if size <= 0:
+            raise ValueError(f"span must have positive size: {start_key}..{end_key}")
+        file_offset = hirom_to_file_offset(start.bank, start.offset, len(rom))
+        if file_offset is None:
+            raise ValueError(f"{start_key} is not a mapped HiROM address")
+        raw = rom[file_offset : file_offset + size]
+        display_name = LABEL_OVERRIDES.get(start.key) or names.get(start.key, [name])[0]
+        rows.append(
+            RowSource(
+                address=start,
+                key=f"{start.key}..{end.key}",
+                name=sanitize_symbol(display_name),
+                size=size,
+                raw=raw,
+                instructions=decode_exact_row(raw, start),
+                source="explicit-span",
             )
         )
     return rows
@@ -305,6 +403,12 @@ def collect_label_map(rows: list[RowSource], names: dict[str, list[str]]) -> dic
         for row in rows
         for instruction in row.instructions
     }
+    for key, label in LABEL_OVERRIDES.items():
+        address = parse_address_key(key)
+        if key in labels:
+            continue
+        if in_selected_ranges(address, ranges) and key in instruction_addresses:
+            labels[key] = sanitize_symbol(label)
     for key in collect_c3_targets(rows):
         address = parse_address_key(key)
         if key in labels:
@@ -325,13 +429,25 @@ def constant_name(address: Address, names: dict[str, list[str]]) -> str:
 def operand_expr(
     operand: Operand,
     *,
+    instruction: Instruction,
+    index: int,
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
 ) -> str:
     if operand.kind == "byte":
         value = int(operand.value)
-        return VAR_NAMES.get(value, fmt_byte(value))
+        var_slot_operands = {
+            "EVENT_SET_VAR": {0},
+            "EVENT_WRITE_VAR_TO_TEMPVAR": {0},
+            "EVENT_WRITE_TEMPVAR_TO_VAR": {0},
+            "EVENT_WRITE_VAR_TO_WAIT_TIMER": {0},
+            "EVENT_SET_ANIMATION_FRAME_VAR": {0},
+            "EVENT_BINOP": {0},
+        }
+        if index in var_slot_operands.get(instruction.opcode.name, set()):
+            return VAR_NAMES.get(value, fmt_byte(value))
+        return fmt_byte(value)
     if operand.kind in {"word", "call_arg_byte"}:
         value = int(operand.value)
         return fmt_byte(value) if operand.kind == "call_arg_byte" else fmt_word(value)
@@ -370,8 +486,15 @@ def render_instruction(
     constants: dict[str, str],
 ) -> str:
     rendered_operands = [
-        operand_expr(operand, labels=labels, names=names, constants=constants)
-        for operand in instruction.operands
+        operand_expr(
+            operand,
+            instruction=instruction,
+            index=index,
+            labels=labels,
+            names=names,
+            constants=constants,
+        )
+        for index, operand in enumerate(instruction.operands)
     ]
     args = ", ".join(rendered_operands)
     raw = " ".join(f"{byte:02X}" for byte in instruction.raw)
@@ -383,10 +506,14 @@ def render_instruction(
 def macro_definitions(used_macros: set[str]) -> list[str]:
     bodies = {
         "EVENT_BREAK_IF_FALSE": ["    db $16", "    dw <target>"],
+        "EVENT_BINOP": ["    db $14, <var>, <op>", "    dw <value>"],
         "EVENT_CALLROUTINE_0": ["    db $42", "    dl <target>"],
+        "EVENT_CALLROUTINE_1": ["    db $42", "    dl <target>", "    db <arg0>"],
         "EVENT_CALLROUTINE_2": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>"],
         "EVENT_CLEAR_TICK_CALLBACK": ["    db $0F"],
         "EVENT_END": ["    db $00"],
+        "EVENT_END_LAST_TASK": ["    db $13"],
+        "EVENT_END_TASK": ["    db $0C"],
         "EVENT_HALT": ["    db $09"],
         "EVENT_LOOP": ["    db $01, <count>"],
         "EVENT_LOOP_END": ["    db $02"],
@@ -395,9 +522,12 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_SET_ANIMATION": ["    db $3B, <animation>"],
         "EVENT_SET_PHYSICS_CALLBACK": ["    db $25", "    dw <target>"],
         "EVENT_SET_POSITION_CHANGE_CALLBACK": ["    db $23", "    dw <target>"],
+        "EVENT_SET_PRIORITY": ["    db $43, <priority>"],
         "EVENT_SET_TICK_CALLBACK": ["    db $08", "    dl <target>"],
         "EVENT_SET_VAR": ["    db $0E, <var>", "    dw <value>"],
         "EVENT_SET_VELOCITIES_ZERO": ["    db $39"],
+        "EVENT_SET_X": ["    db $28", "    dw <value>"],
+        "EVENT_SET_Y": ["    db $29", "    dw <value>"],
         "EVENT_SHORTCALL": ["    db $1A", "    dw <target>"],
         "EVENT_SHORTCALL_CONDITIONAL": ["    db $0A", "    dw <target>"],
         "EVENT_SHORTCALL_CONDITIONAL_NOT": ["    db $0B", "    dw <target>"],
@@ -405,24 +535,31 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_SHORT_RETURN": ["    db $1B"],
         "EVENT_START_TASK": ["    db $07", "    dw <target>"],
         "EVENT_WRITE_VAR_TO_TEMPVAR": ["    db $20, <var>"],
+        "EVENT_WRITE_WORD_TEMPVAR": ["    db $1D", "    dw <value>"],
     }
     args = {
         "EVENT_BREAK_IF_FALSE": "target",
+        "EVENT_BINOP": "var, op, value",
         "EVENT_CALLROUTINE_0": "target",
+        "EVENT_CALLROUTINE_1": "target, arg0",
         "EVENT_CALLROUTINE_2": "target, arg0, arg1",
         "EVENT_LOOP": "count",
         "EVENT_PAUSE": "frames",
         "EVENT_SET_ANIMATION": "animation",
         "EVENT_SET_PHYSICS_CALLBACK": "target",
         "EVENT_SET_POSITION_CHANGE_CALLBACK": "target",
+        "EVENT_SET_PRIORITY": "priority",
         "EVENT_SET_TICK_CALLBACK": "target",
         "EVENT_SET_VAR": "var, value",
+        "EVENT_SET_X": "value",
+        "EVENT_SET_Y": "value",
         "EVENT_SHORTCALL": "target",
         "EVENT_SHORTCALL_CONDITIONAL": "target",
         "EVENT_SHORTCALL_CONDITIONAL_NOT": "target",
         "EVENT_SHORTJUMP": "target",
         "EVENT_START_TASK": "target",
         "EVENT_WRITE_VAR_TO_TEMPVAR": "var",
+        "EVENT_WRITE_WORD_TEMPVAR": "value",
     }
     missing = sorted(used_macros - bodies.keys())
     if missing:
@@ -436,8 +573,17 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
     return lines
 
 
-def render_source(rows: list[RowSource], labels: dict[str, str], names: dict[str, list[str]]) -> tuple[str, dict[str, str]]:
-    constants: dict[str, str] = {"!ACTIONSCRIPT_VARS_V4": "$04"}
+def render_source(
+    rows: list[RowSource],
+    labels: dict[str, str],
+    names: dict[str, list[str]],
+    *,
+    family_id: str,
+) -> tuple[str, dict[str, str]]:
+    constants: dict[str, str] = {
+        symbol: fmt_byte(value)
+        for value, symbol in sorted(VAR_NAMES.items())
+    }
     used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
 
     rendered_rows: list[str] = []
@@ -459,7 +605,7 @@ def render_source(rows: list[RowSource], labels: dict[str, str], names: dict[str
 
     header = [
         "; Generated by tools/build_c3_event_script_source_pilot.py",
-        "; C3 event/actionscript source pilot: movement pulse presets.",
+        f"; C3 event/actionscript source pilot: {family_id}.",
         "; This file is intentionally not wired into the bank C3 scaffold yet.",
         "hirom",
         "",
@@ -482,6 +628,9 @@ def row_manifest(row: RowSource) -> dict[str, Any]:
 def render_report(
     rows: list[RowSource],
     *,
+    family_id: str,
+    description: str,
+    next_step: str,
     output_path: Path,
     manifest_path: Path,
     mismatches: list[str],
@@ -494,19 +643,19 @@ def render_report(
         "",
         "## Summary",
         "",
-        f"- Family: `{FAMILY_ID}`.",
+        f"- Family: `{family_id}`.",
         f"- Source: `{output_path.relative_to(ROOT).as_posix()}`.",
         f"- Manifest: `{manifest_path.relative_to(ROOT).as_posix()}`.",
-        f"- Rows emitted: {len(rows)}.",
+        f"- Spans emitted: {len(rows)}.",
         f"- Bytes represented: {total_bytes}.",
         f"- Instructions represented: {total_instructions}.",
         f"- ROM byte validation: {validation}.",
         "",
-        "This is the first checked-in C3 event/actionscript source-form pilot. It keeps the ROM-derived byte corridor intact, but presents the movement pulse preset family as labeled macro assembly instead of opaque `db` rows.",
+        description,
         "",
         "The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deliberate: this pass proves the representation and byte validation before replacing generated byte corridors in the bank scaffold.",
         "",
-        "## Covered Rows",
+        "## Covered Spans",
         "",
         "| Address | Label | Bytes | Instructions |",
         "| --- | --- | ---: | ---: |",
@@ -524,13 +673,13 @@ def render_report(
         for mismatch in mismatches:
             lines.append(f"- {mismatch}")
     else:
-        lines.append("- Every emitted row was decoded over its exact source/data-map byte span and revalidated against the ROM bytes used to generate it.")
+        lines.append("- Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.")
     lines.extend(
         [
             "",
             "## Next Promotion Step",
             "",
-            "Promote another C3 family through this same generator pattern, then teach the bank scaffold to include source-form families in place of their opaque `script_event_payloads_0000_e450.asm` `db` corridors once enough families have stable labels and macro coverage.",
+            next_step,
         ]
     )
     return "\n".join(lines) + "\n"
@@ -539,28 +688,42 @@ def render_report(
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Generate a C3 event/actionscript source-form pilot.")
     parser.add_argument("--rom", help="path to EarthBound (USA).sfc")
+    parser.add_argument(
+        "--family",
+        choices=sorted(FAMILY_DEFAULTS),
+        default=FAMILY_ID,
+        help="script family to emit",
+    )
     parser.add_argument("--source-map", type=Path, default=DEFAULT_SOURCE_MAP)
     parser.add_argument("--index", type=Path, default=DEFAULT_REF_INDEX)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
-    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument("--output", type=Path, help="override source output path")
+    parser.add_argument("--report", type=Path, help="override markdown report path")
+    parser.add_argument("--manifest", type=Path, help="override generated JSON manifest path")
     return parser
 
 
 def main() -> int:
     args = build_parser().parse_args()
+    family = FAMILY_DEFAULTS[args.family]
     source_map = args.source_map if args.source_map.is_absolute() else ROOT / args.source_map
     index_path = args.index if args.index.is_absolute() else ROOT / args.index
-    output_path = args.output if args.output.is_absolute() else ROOT / args.output
-    report_path = args.report if args.report.is_absolute() else ROOT / args.report
-    manifest_path = args.manifest if args.manifest.is_absolute() else ROOT / args.manifest
+    default_output = family["output"]
+    default_report = family["report"]
+    default_manifest = family["manifest"]
+    output_arg = args.output or default_output
+    report_arg = args.report or default_report
+    manifest_arg = args.manifest or default_manifest
+    output_path = output_arg if output_arg.is_absolute() else ROOT / output_arg
+    report_path = report_arg if report_arg.is_absolute() else ROOT / report_arg
+    manifest_path = manifest_arg if manifest_arg.is_absolute() else ROOT / manifest_arg
 
     rom = load_rom(find_rom(args.rom))
     names = load_names(index_path)
     rows_by_address = load_row_map(source_map)
-    rows = load_rows(rom, rows_by_address, SCRIPT_ROWS + PRESET_ROWS, names)
+    rows = load_rows(rom, rows_by_address, list(family["rows"]), names)
+    rows.extend(load_spans(rom, list(family["spans"]), names))
     labels = collect_label_map(rows, names)
-    source, constants = render_source(rows, labels, names)
+    source, constants = render_source(rows, labels, names, family_id=args.family)
 
     mismatches: list[str] = []
     for row in rows:
@@ -578,7 +741,7 @@ def main() -> int:
     manifest = {
         "schema": "earthbound-decomp.c3-event-script-source-pilot.v1",
         "generated_by": "tools/build_c3_event_script_source_pilot.py",
-        "family": FAMILY_ID,
+        "family": args.family,
         "source": output_path.relative_to(ROOT).as_posix(),
         "report": report_path.relative_to(ROOT).as_posix(),
         "rows": [row_manifest(row) for row in rows],
@@ -590,7 +753,15 @@ def main() -> int:
     }
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     report_path.write_text(
-        render_report(rows, output_path=output_path, manifest_path=manifest_path, mismatches=mismatches),
+        render_report(
+            rows,
+            family_id=args.family,
+            description=str(family["description"]),
+            next_step=str(family["next"]),
+            output_path=output_path,
+            manifest_path=manifest_path,
+            mismatches=mismatches,
+        ),
         encoding="utf-8",
     )
 

@@ -32,6 +32,20 @@ References:
 
 `C3:44DE` is the arrival movement phase. It applies the row's enter speed through `EF:0E67` and `C0:A685`, clears `V4`, loops movement/visual updates at `C3:44EE`, then sets `V4 = 1` at `C3:44FF` and holds there. That makes `C3:44FF` the completion hold for the concurrently started arrival task.
 
+## Source-form pilot
+
+The controller proper is now emitted as a C3 event/actionscript source-form
+pilot:
+
+- generator: `tools/build_c3_event_script_source_pilot.py --family timed-delivery-controller`
+- source: `src/c3/event_scripts/timed_delivery_controller.asar.asm`
+- report: `notes/c3-timed-delivery-source-pilot.md`
+
+The pilot covers `C3:43DB..C3:4508`: the departure pulse task, event `499` and
+`500` setup paths, the shared countdown/retry/readiness loop, success/failure
+branches, and the paired arrival/departure movement loops. The adjacent
+`C3:4508..C3:48C4` service-event movement scripts remain a follow-up family.
+
 ## Placeholder table
 
 `C3:FDBD` is a four-word fallback descriptor table:
