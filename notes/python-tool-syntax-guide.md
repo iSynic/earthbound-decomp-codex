@@ -439,6 +439,13 @@ Render ignored map scene composition preview BMPs:
 python tools/render_map_scene_composition_previews.py
 ```
 
+Render ignored grayscale sector previews from real `.fts` metatile composition:
+
+```powershell
+python tools/render_map_scene_metatile_previews.py --limit 24
+python tools/render_map_scene_metatile_previews.py --scene 329 --scale 1
+```
+
 Render ignored grayscale previews from the audited 64-character tile rows:
 
 ```powershell
