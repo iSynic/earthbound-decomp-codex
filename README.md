@@ -72,6 +72,7 @@ Good starting points:
 - `notes/map-scene-composition-contract.md`
 - `notes/map-collision-attribute-context.md`
 - `notes/map-collision-pointer-contract.md`
+- `notes/map-collision-runtime-bit-contract.md`
 - `notes/map-palette-descriptor-context.md`
 - `notes/map-palette-pointer-table-contract.md`
 - `notes/map-palette-command-usage-contract.md`

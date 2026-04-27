@@ -268,6 +268,26 @@ Working name:
 
 - `C0:5769` -> `Probe_SurfaceMaskCollisionSamples`
 
+## Follow-up: Runtime Bit Contract
+
+The map milestone now has a machine-readable follow-up in
+`notes/map-collision-runtime-bit-contract.md`.
+
+The important refinements are:
+
+- `C0:5769`'s six sample points decode from `C2:00B9/C2:00C5` as `(-8,0)`,
+  `(0,0)`, `(7,0)`, `(-8,7)`, `(0,7)`, and `(7,7)`.
+- The returned surface-sample value is a six-bit occupancy mask: result bit
+  `N` is set when selected sample point `N` had `collision_byte & #$00C0`.
+- Runtime high-collision tests use mask `#$00C0`, but the verified D8/`.fts`
+  collision data currently uses observed bit `0x80`; bit `0x40` is supported
+  by the code but absent from the verified map collision data.
+- `0x10` is now a stronger special-surface coordinate-latch bit: `C0:54C9`
+  writes `$5DA8/$5DAA`, and player movement consumes that latched coordinate.
+- `0x04/0x08` are stronger entity terrain-compatibility class bits through
+  `C0:5DE7`; `0x01/0x02` remain low modifier bits pending more caller-side
+  naming.
+
 ## Surface-Class Decoders
 
 `C0:57E8` calls `C0:5769` with mask `#$0007`.

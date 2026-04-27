@@ -75,11 +75,12 @@ collision record byte used by the runtime loader.
 ## Interpretation Boundary
 
 This contract proves the storage and load relationship for the collision
-byte grid. It does not fully name every low-bit gameplay behavior.
-The strongest current bit names remain: high collision family for `0x80`,
-coordinate-latching/special surface behavior for `0x10`, and low terrain
-modifier families for `0x01`, `0x02`, `0x04`, and `0x08` pending deeper
-runtime branch naming.
+byte grid. Runtime mask names are now owned by
+`notes/map-collision-runtime-bit-contract.md`: `0x80` is the observed
+solid/high-collision bit, `0x10` is the special surface coordinate-latch
+bit, and `0x04/0x08` feed the entity terrain-compatibility class. The
+remaining `0x01/0x02` low modifier labels still need more caller-side
+evidence before they should become final gameplay names.
 
 ## Machine-Readable Data
 
