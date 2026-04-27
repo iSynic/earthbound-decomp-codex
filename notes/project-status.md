@@ -13,6 +13,8 @@ before this becomes true human-readable source.
   `65536` protected bytes, `0` residual bytes, and validation status `OK` for
   each bank.
 - `notes/source-scaffold-status.md` is the dashboard for the full bank table.
+- `notes/readable-source-bank-closure.md` is the stricter dashboard for the
+  next phase: decoded asm versus preserved corridors in the source-heavy banks.
 - `notes/source-readiness-triage.md` is the implementation queue for the next
   semantic phase.
 
@@ -38,6 +40,12 @@ Use these terms carefully:
 
 Most banks are scaffold-backed. Code-heavy banks such as `C0`, `C1`, `C2`,
 `C4`, and `EF` still need a lot of decoded source and semantic promotion.
+
+The first readable-source closure audit currently shows that `C1`, `C2`, and
+`C4` are closed by the decoded-assembly metric, `C0` has only a tiny prefix
+corridor left, and `EF` remains the major source/data splitter target.
+`notes/ef-readable-source-split-queue.md` is the first targeted queue for
+reducing that EF preserved-corridor debt.
 
 ## What Is Not Complete
 

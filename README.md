@@ -60,6 +60,8 @@ Good starting points:
 - `notes/project-status.md`
 - `notes/how-to-validate.md`
 - `notes/python-tool-syntax-guide.md`
+- `notes/readable-source-bank-closure.md`
+- `notes/ef-readable-source-split-queue.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
 - `notes/map-object-bundles.md`
@@ -164,6 +166,7 @@ Regenerate source-bank docs:
 ```powershell
 python tools/build_source_bank_candidate_ranges_doc.py --bank C2
 python tools/build_source_bank_residual_map.py --bank C2
+python tools/build_readable_source_bank_closure.py
 ```
 
 Inspect a ROM table or gameplay record:
@@ -243,6 +246,8 @@ High-use tools:
   exports, palette settings, and sector dependencies
 - `run_map_contracts.py`: regenerate the checked-in map contract milestone in
   dependency order
+- `build_readable_source_bank_closure.py`: audit source-heavy banks for decoded
+  asm versus preserved corridors after byte-equivalent scaffold closure
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
 - `promote_linear_range_to_decoded_source.py`: replace one byte corridor with

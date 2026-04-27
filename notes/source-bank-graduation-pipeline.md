@@ -158,3 +158,16 @@ A source bank slice is considered scaffold-graduated when:
 This is still short of a full linked decompilation. It proves a stronger,
 repeatable invariant: documented source, assembler-shaped source text, preserved
 data gaps, and original ROM bytes all agree under a checked-in build artifact.
+
+## Readable Closure Follow-Up
+
+After scaffold graduation, run the readable-source closure audit:
+
+```powershell
+python tools\build_readable_source_bank_closure.py
+```
+
+That report separates decoded 65816 assembly from preserved corridors and known
+data/text/asset payloads. A bank can be scaffold-graduated while still failing
+readable source-bank closure if a large source-bearing region is only emitted as
+`db` bytes.
