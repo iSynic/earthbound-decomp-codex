@@ -4,9 +4,12 @@ This audit compares live-scene descriptor palette bits against the bank DA
 map palette payload shape. Each map palette variant is `192` bytes, or
 `96` SNES BGR555 colors: six 16-color subpalettes.
 
-The arrangement descriptor still exposes a three-bit palette field. This
-report keeps the field named literally and measures candidate offsets
-instead of picking an unproven interpretation.
+The arrangement descriptor exposes a three-bit SNES BG palette field.
+Community RAM notes and the local C0 palette loaders split the CGRAM
+shadow as text palettes at `$0200..$023F`, map palettes at
+`$0240..$02FF`, and sprite palettes after that. This makes the bank DA
+map palette payload the six BG palette block for descriptor palettes
+`2..7`, with descriptor palette `N` mapping to DA subpalette `N - 2`.
 
 ## Summary
 
@@ -15,6 +18,10 @@ instead of picking an unproven interpretation.
 - pixels per cell: `64`
 - map palette variant colors: `96`
 - available 16-color subpalettes per variant: `6`
+- resolved DA descriptor offset: `-2`
+- DA map-palette fit overflow cells: `0`
+- descriptor palette 0/1 text-palette cells: `291628`
+- descriptor palette 2-7 map-palette cells: `681172`
 
 ## Descriptor Palette Counts
 
@@ -29,7 +36,25 @@ instead of picking an unproven interpretation.
 | 6 | 188674 | 12075136 |
 | 7 | 77713 | 4973632 |
 
-## Candidate Offset Fit
+## Resolved CGRAM Roles
+
+| Descriptor Palette | CGRAM Shadow Range | Role | DA Subpalette | Cells |
+| ---: | --- | --- | ---: | ---: |
+| 0 | `$0200..$021F` | `current_text_palette` |  | 185419 |
+| 1 | `$0220..$023F` | `current_text_palette` |  | 106209 |
+| 2 | `$0240..$025F` | `current_map_palette` | 0 | 121553 |
+| 3 | `$0260..$027F` | `current_map_palette` | 1 | 108496 |
+| 4 | `$0280..$029F` | `current_map_palette` | 2 | 109510 |
+| 5 | `$02A0..$02BF` | `current_map_palette` | 3 | 75226 |
+| 6 | `$02C0..$02DF` | `current_map_palette` | 4 | 188674 |
+| 7 | `$02E0..$02FF` | `current_map_palette` | 5 | 77713 |
+
+## Historical Candidate Offset Fit
+
+These rows are kept for continuity with earlier audits. Offset `-2` is now
+the resolved DA map-palette offset for descriptor palettes `2..7`; its
+remaining overflow is exactly descriptor palettes `0..1`, which belong
+to the text/common palette block rather than the DA map-palette payload.
 
 | Offset | Overflow Cells | Overflow Pixels | Overflow % |
 | ---: | ---: | ---: | ---: |
@@ -61,4 +86,5 @@ instead of picking an unproven interpretation.
 ## Machine-Readable Data
 
 `notes/map-palette-descriptor-context.json` records global, per-tileset,
-and per-tileset/palette descriptor counts plus offset fit statistics.
+and per-tileset/palette descriptor counts, resolved CGRAM roles, and
+historical offset fit statistics.

@@ -55,10 +55,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--palette-subpalette-offset",
         type=int,
-        default=0,
+        default=-2,
         help=(
             "Offset applied to descriptor palette bits before indexing the six "
-            "16-color map subpalettes. Default 0 preserves the raw descriptor."
+            "16-color map subpalettes. Default -2 maps SNES BG descriptor "
+            "palettes 2-7 to the six bank DA map subpalettes."
         ),
     )
     parser.add_argument(

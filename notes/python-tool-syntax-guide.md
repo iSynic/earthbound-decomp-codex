@@ -441,7 +441,7 @@ python tools/build_map_collision_attribute_context.py
 ```
 
 Audit descriptor palette-bit use against the six-subpalette bank DA map palette
-variant shape:
+variant shape and resolved CGRAM roles:
 
 ```powershell
 python tools/build_map_palette_descriptor_context.py
@@ -474,6 +474,11 @@ variants:
 python tools/render_map_scene_metatile_previews.py --color-palette --limit 12 --scale 1
 python tools/render_map_scene_metatile_previews.py --color-palette --scene 329 --scale 1
 ```
+
+In color mode, the renderer defaults to the resolved map palette offset:
+descriptor palettes `2..7` index DA subpalettes `0..5`. Descriptor palettes
+`0..1` still render with the overflow/fallback color until the text/common
+palette source is joined into the preview path.
 
 Render ignored grayscale previews from the audited 64-character tile rows:
 
