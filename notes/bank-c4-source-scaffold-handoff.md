@@ -9,8 +9,8 @@ Bank `C4` is byte-complete for the current source-scaffold phase.
 - protected bytes: `65536 / 65536`
 - residual bytes: `0`
 - modules: `142`
-- source bytes: `50153`
-- preserved data-gap bytes: `15383`
+- source bytes: `65536`
+- preserved data-gap bytes: `0`
 - byte-equivalence: `OK`, `0` mismatches
 
 The source scaffold is not claiming final semantic names for every helper or
@@ -49,7 +49,7 @@ every residual byte. The most useful references were:
 - `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm`
 - ebsrc event fragments under `refs/ebsrc-main/ebsrc-main/src/data/events/`
 
-The last residual ranges were promoted as protected data corridors:
+The last residual ranges were promoted as explicit source data blocks:
 
 | Range | Stub | Purpose |
 | --- | --- | --- |
@@ -62,15 +62,17 @@ The last residual ranges were promoted as protected data corridors:
 
 ## Source/Data Boundary
 
-The scaffold currently splits C4 into:
+C4 is now fully source-backed. The scaffold still distinguishes decoded
+executable helpers from explicit `db` assets/tables:
 
-- source helpers: `50153` bytes
-- preserved source-adjacent data: `15383` bytes
+- checked-in scaffold source: `65536` bytes
+- preserved manifest data gaps: `0` bytes
 
-The preserved data includes text fragments, event scripts, pointer tables,
-visual/entity profile tables, Sound Stone and music tables, file-select text,
-Lumine Hall/Event 353 text payloads, and bank-end padding. These are valid
-source-scaffold inputs, but many are still intentionally coarse asset stubs.
+The explicit data source includes text fragments, event scripts, pointer
+tables, visual/entity profile tables, Sound Stone and music tables, file-select
+text, Lumine Hall/Event 353 text payloads, and bank-end padding. These are
+valid source-scaffold inputs, but many are still intentionally coarse asset
+stubs.
 
 ## Remaining Semantic Work
 

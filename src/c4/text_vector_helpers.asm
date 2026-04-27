@@ -2,7 +2,7 @@
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
-; - C4 source-bank scaffold slice with source-adjacent data gaps.
+; - C4 source-bank scaffold slice with explicit source-adjacent data blocks.
 ; - Derived from notes/c4-text-tile-staging-and-vector-helpers-1db6-213f.md.
 ; - ROM byte range, SHA-1, and source signature are tracked by
 ;   build/c4-build-candidate-ranges.json.
@@ -14,7 +14,7 @@
 ; - C4:1FFF..C4:205D direction projection helper
 ; - C4:213F..C4:2172 fractional multiply helper
 ;
-; Data gaps preserved by the scaffold:
+; Data blocks emitted by the scaffold:
 ; - C4:1EB9..C4:1EE9 glyph tile staging masks
 ; - C4:1FC5..C4:1FFF direction/octant threshold tables
 ; - C4:205D..C4:213F projection scale tables
@@ -214,6 +214,16 @@ C41EB0_RenderMaskedGlyphIntoTextTileStaging_StoreMax:
 ; C4:1EE9
 
 ; TrackTextTileStagingMinDirtyOffset
+
+; ---------------------------------------------------------------------------
+; C4:1EB9
+
+C41EB9_GlyphTileStagingMaskTables:
+    ; data bytes: C4:1EB9..C4:1EE9
+    db $FF,$FF,$7F,$7F,$3F,$3F,$1F,$1F,$0F,$0F,$07,$07,$03,$03,$01,$01
+    db $F0,$F0,$F8,$F8,$FC,$FC,$FE,$FE,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$80,$80,$C0,$C0,$E0,$E0
+
 C41EE9_TrackTextTileStagingMinDirtyOffset:
     lda $0A
     cmp TEXT_TILE_MIN_DIRTY_OFFSET
@@ -363,6 +373,17 @@ C41FC1_ComputeDirectionOctantFromDelta_Done:
 ; C4:1FFF
 
 ; ProjectMagnitudeByDirectionAngle
+
+; ---------------------------------------------------------------------------
+; C4:1FC5
+
+C41FC5_DirectionOctantThresholdTables:
+    ; data bytes: C4:1FC5..C4:1FFF
+    db $00,$40,$00,$80,$00,$00,$00,$C0,$00,$80,$FF,$FF,$00,$00,$FF,$FF
+    db $00,$40,$00,$C0,$FF,$FF,$FF,$FF,$00,$00,$0D,$00,$26,$00,$40,$00
+    db $5C,$00,$79,$00,$99,$00,$BE,$00,$E8,$00,$1A,$01,$59,$01,$AB,$01
+    db $1D,$02,$CB,$02,$FD,$03,$BB,$06,$3D,$14
+
 C41FFF_ProjectMagnitudeByDirectionAngle:
     rep #$20
     phd
@@ -428,6 +449,28 @@ C42054_ProjectMagnitudeByDirectionAngle_StoreX:
 ; C4:213F
 
 ; ScaleU16ByU8Fraction
+
+; ---------------------------------------------------------------------------
+; C4:205D
+
+C4205D_DirectionProjectionScaleTables:
+    ; data bytes: C4:205D..C4:213F
+    db $00,$00,$19,$00,$32,$00,$4A,$00,$62,$00,$79,$00,$8E,$00,$A2,$00
+    db $B5,$00,$C6,$00,$D5,$00,$E2,$00,$EC,$00,$F5,$00,$FB,$00,$FE,$00
+    db $00,$01,$FE,$00,$FB,$00,$F5,$00,$ED,$00,$E2,$00,$D5,$00,$C6,$00
+    db $B5,$00,$A2,$00,$8E,$00,$79,$00,$62,$00,$4A,$00,$32,$00,$19,$00
+    db $00,$00,$19,$00,$32,$00,$4A,$00,$62,$00,$79,$00,$8E,$00,$A2,$00
+    db $B5,$00,$C6,$00,$D5,$00,$E2,$00,$EC,$00,$F5,$00,$FB,$00,$FE,$00
+    db $00,$01,$FE,$00,$FB,$00,$F5,$00,$EC,$00,$E2,$00,$D5,$00,$C6,$00
+    db $B5,$00,$A3,$00,$8E,$00,$79,$00,$62,$00,$4B,$00,$32,$00,$19,$00
+    db $00,$00,$19,$00,$32,$00,$4A,$00,$62,$00,$79,$00,$8E,$00,$A2,$00
+    db $B5,$00,$C6,$00,$D5,$00,$E2,$00,$EC,$00,$F5,$00,$FB,$00,$FE,$00
+    db $00,$01,$FE,$00,$FB,$00,$F5,$00,$ED,$00,$E2,$00,$D5,$00,$C6,$00
+    db $B5,$00,$A2,$00,$8E,$00,$79,$00,$62,$00,$4A,$00,$32,$00,$19,$00
+    db $00,$00,$19,$00,$32,$00,$4A,$00,$62,$00,$79,$00,$8E,$00,$A2,$00
+    db $B5,$00,$C6,$00,$D5,$00,$E2,$00,$EC,$00,$F5,$00,$FB,$00,$FE,$00
+    db $00,$01
+
 C4213F_ScaleU16ByU8Fraction:
     sty $00
     sta $02

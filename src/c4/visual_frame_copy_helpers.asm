@@ -2,7 +2,7 @@
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
-; - C4 source-bank scaffold pilot slice with one source-adjacent data gap.
+; - C4 source-bank scaffold pilot slice with one explicit source-adjacent data block.
 ; - Derived from notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md.
 ; - ROM byte range, SHA-1, and source signature are tracked by
 ;   build/c4-build-candidate-ranges.json.
@@ -11,7 +11,7 @@
 ; - C4:283F..C4:2955 frame copy / masked row merge helpers
 ; - C4:2965..C4:2A1F masked pair merge / render strip / HDMA helpers
 ;
-; Data gap preserved by the scaffold:
+; Data block emitted by the scaffold:
 ; - C4:2955..C4:2965 TileColumnWordPairMaskTable
 
 ; ---------------------------------------------------------------------------
@@ -274,6 +274,14 @@ C42937_MergeMasked7fTileColumnRows_WordLoop:
 ; C4:2965
 
 ; MergeMasked7fTileColumnPair
+
+; ---------------------------------------------------------------------------
+; C4:2955
+
+C42955_TileColumnWordPairMaskTable:
+    ; data bytes: C4:2955..C4:2965
+    db $80,$80,$40,$40,$20,$20,$10,$10,$08,$08,$04,$04,$02,$02,$01,$01
+
 C42965_MergeMasked7fTileColumnPair:
     rep #$20
     phd

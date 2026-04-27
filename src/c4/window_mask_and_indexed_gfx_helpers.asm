@@ -24,6 +24,14 @@ C425FD_StartWh2HdmaFromDpStream           = $C425FD
 ; ---------------------------------------------------------------------------
 ; C4:7501
 
+
+; ---------------------------------------------------------------------------
+; C4:74F6
+
+C474F6_WhWindowSpanRadiusRampTable:
+    ; data bytes: C4:74F6..C4:7501
+    db $10,$10,$0F,$0F,$0E,$0D,$0C,$0B,$09,$06,$03
+
 C47501_WriteCurrentEntityWhWindowSpan:
     rep #$31
     phd

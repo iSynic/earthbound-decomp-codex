@@ -63,6 +63,14 @@ TRACKED_ITEM_RANDOM_WINDOW                 = $0002
 ; C4:8C69
 
 ; ClearMovementPulseAccumulator
+
+; ---------------------------------------------------------------------------
+; C4:8C59
+
+C48C59_MovementOctantToPulseSelectorTable:
+    ; data bytes: C4:8C59..C4:8C69
+    db $00,$08,$00,$09,$00,$01,$00,$05,$00,$04,$00,$06,$00,$02,$00,$0A
+
 C48C69_ClearMovementPulseAccumulator:
     rep #$31
     phd
@@ -192,6 +200,15 @@ C48D34_AppendMovementPulseSelectorRun_Return:
 ; C4:8D58
 
 ; BuildStagedMovementPulsesAndReturnDelay
+
+; ---------------------------------------------------------------------------
+; C4:8D38
+
+C48D38_MovementOctantSignedUnitDeltaTable:
+    ; data bytes: C4:8D38..C4:8D58
+    db $00,$00,$01,$00,$01,$00,$01,$00,$00,$00,$FF,$FF,$FF,$FF,$FF,$FF
+    db $FF,$FF,$FF,$FF,$00,$00,$01,$00,$01,$00,$01,$00,$00,$00,$FF,$FF
+
 C48D58_BuildStagedMovementPulsesAndReturnDelay:
     rep #$31
     phd

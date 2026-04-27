@@ -31,6 +31,14 @@ C46B41_RoundedAngleToWalkDirectionTable           = $C46B41
 ; ---------------------------------------------------------------------------
 ; C4:6A6E
 
+
+; ---------------------------------------------------------------------------
+; C4:6A5E
+
+C46A5E_PlayerDirection987fTurnBiasTable:
+    ; data bytes: C4:6A5E..C4:6A6E
+    db $01,$00,$01,$00,$01,$00,$05,$00,$05,$00,$05,$00,$05,$00,$01,$00
+
 C46A6E_MapPlayerDirection987fToTurnBias:
     rep #$31
     lda $987F
@@ -42,7 +50,18 @@ C46A6E_MapPlayerDirection987fToTurnBias:
 ; ---------------------------------------------------------------------------
 ; C4:6A9A
 
+
+; ---------------------------------------------------------------------------
+; C4:6A7A
+
+C46A7A_DirectionOctantToAltFacingQuadrantTable:
+    ; data bytes: C4:6A7A..C4:6A8A
+    db $00,$00,$02,$00,$02,$00,$02,$00,$04,$00,$06,$00,$06,$00,$06,$00
+
 C46A8A_DirectionOctantToSpriteFacingQuadrantTable:
+    ; data bytes: C4:6A8A..C4:6A9A
+    db $00,$00,$00,$00,$02,$00,$04,$00,$04,$00,$04,$00,$06,$00,$00,$00
+
 C46A9A_MapOctantToAltFacingQuadrant:
     rep #$31
     asl A
@@ -143,6 +162,14 @@ C46B37_RotateDirectionOctantHalfTurn:
 
 ; ---------------------------------------------------------------------------
 ; C4:6B51
+
+
+; ---------------------------------------------------------------------------
+; C4:6B41
+
+C46B41_RoundedAngleToWalkDirectionTable:
+    ; data bytes: C4:6B41..C4:6B51
+    db $02,$00,$03,$00,$04,$00,$05,$00,$06,$00,$07,$00,$07,$00,$01,$00
 
 C46B51_RoundAngleToWalkDirectionStep:
     rep #$31

@@ -16,6 +16,14 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C4:A1F5
 
+
+; ---------------------------------------------------------------------------
+; C4:A1F2
+
+C4A1F2_BattleTargetValidityPadding:
+    ; data bytes: C4:A1F2..C4:A1F5
+    db $12,$0F,$30
+
 C4A1F5_CheckIfValidTarget:
     rep #$31
     ldy.w #$004E

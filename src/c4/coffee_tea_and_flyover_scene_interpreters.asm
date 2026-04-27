@@ -236,6 +236,15 @@ C49E86_RunCoffeeTeaScene_ClearTileBufferCheck:
 ; C4:9EC4
 
 ; RunFlyoverIntroTextSceneByIndex
+
+; ---------------------------------------------------------------------------
+; C4:9EA4
+
+C49EA4_FlyoverIntroTextPointerTable:
+    ; data bytes: C4:9EA4..C4:9EC4
+    db $86,$0B,$E1,$00,$9C,$0B,$E1,$00,$C2,$0B,$E1,$00,$D2,$0B,$E1,$00
+    db $FD,$0B,$E1,$00,$1B,$0C,$E1,$00,$38,$0C,$E1,$00,$61,$0C,$E1,$00
+
 C49EC4_RunFlyoverIntroTextSceneByIndex:
     rep #$31
     phd

@@ -6,29 +6,29 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 - ranges: `142`
 - total bytes: `65536`
-- source bytes: `50153`
-- data gap bytes: `15383`
+- source bytes: `65536`
+- data gap bytes: `0`
 
 ## Ranges
 
 | Level | Source Path | Range | Span Bytes | Source Bytes | Data Gap Bytes | SHA-1 |
 | --- | --- | --- | ---: | ---: | ---: | --- |
 | `build-candidate` | `src/c4/system_error_screen_helpers.asm` | `C4:0B51..C4:0BD4` | 131 | 131 | 0 | `82ec06d8ff7aefb64e7df28b3e63dc71de3c1c07` |
-| `build-candidate` | `src/c4/text_vector_helpers.asm` | `C4:1DB6..C4:2172` | 956 | 624 | 332 | `cdbbaab1768104259b348846e99e93980cf14c6d` |
+| `build-candidate` | `src/c4/text_vector_helpers.asm` | `C4:1DB6..C4:2172` | 956 | 956 | 0 | `cdbbaab1768104259b348846e99e93980cf14c6d` |
 | `build-candidate` | `src/c4/window_color_hdma_helpers.asm` | `C4:23DC..C4:2631` | 597 | 597 | 0 | `c2a55b5a9f5d49e066a31705b0ffc983a98f862d` |
 | `build-candidate` | `src/c4/screen_position_interpolation_helpers.asm` | `C4:2631..C4:26ED` | 188 | 188 | 0 | `7e392d6a8adeb49039e6abf4763aa55d9a7bb88b` |
 | `build-candidate` | `src/c4/palette_component_interpolation_helpers.asm` | `C4:26ED..C4:279F` | 178 | 178 | 0 | `6a351e3124aa250db6951e5ef0b255c28d08247a` |
-| `build-candidate` | `src/c4/visual_frame_copy_helpers.asm` | `C4:283F..C4:2A1F` | 480 | 464 | 16 | `cea81ddc039c083814e4cc662e388041da028137` |
+| `build-candidate` | `src/c4/visual_frame_copy_helpers.asm` | `C4:283F..C4:2A1F` | 480 | 480 | 0 | `cea81ddc039c083814e4cc662e388041da028137` |
 | `build-candidate` | `src/c4/party_state_reset_helpers.asm` | `C4:30EC..C4:334A` | 606 | 606 | 0 | `7fd25e2c201620e6cab7970a0f4d3ac9a2070672` |
-| `build-candidate` | `src/c4/staged_movement_and_tracked_item_pulse_helpers.asm` | `C4:8C59..C4:90EE` | 1173 | 1125 | 48 | `65a50965cc9f478eea7c913a416b2d996f680868` |
+| `build-candidate` | `src/c4/staged_movement_and_tracked_item_pulse_helpers.asm` | `C4:8C59..C4:90EE` | 1173 | 1173 | 0 | `65a50965cc9f478eea7c913a416b2d996f680868` |
 | `build-candidate` | `src/c4/landing_palette_display_helpers.asm` | `C4:9496..C4:9841` | 939 | 939 | 0 | `62089fc5a146fbaf8160bc2fae7452663ca5af8a` |
 | `build-candidate` | `src/c4/coffee_tea_tile_buffer_helpers.asm` | `C4:9841..C4:9D6A` | 1321 | 1321 | 0 | `ed656b972b430194e923a906a375d511a562d4fe` |
-| `build-candidate` | `src/c4/coffee_tea_and_flyover_scene_interpreters.asm` | `C4:9D6A..C4:9FE1` | 631 | 599 | 32 | `de44590396ab845633e1c4f651a6f40f6095668c` |
+| `build-candidate` | `src/c4/coffee_tea_and_flyover_scene_interpreters.asm` | `C4:9D6A..C4:9FE1` | 631 | 631 | 0 | `de44590396ab845633e1c4f651a6f40f6095668c` |
 | `build-candidate` | `src/c4/gas_station_intro_visual_loader.asm` | `C4:A377..C4:A591` | 538 | 538 | 0 | `1f64cb8eaa0c7ea4cd9535b4fe8ab77583afb762` |
-| `build-candidate` | `src/c4/battle_overlay_transition_data.asm` | `C4:A591..C4:A67E` | 237 | 0 | 237 | `41e0373e42938ac3426174dae73d1af7c818d6de` |
+| `build-candidate` | `src/c4/battle_overlay_transition_data.asm` | `C4:A591..C4:A67E` | 237 | 237 | 0 | `41e0373e42938ac3426174dae73d1af7c818d6de` |
 | `build-candidate` | `src/c4/battle_overlay_script_state_helpers.asm` | `C4:A67E..C4:A7B0` | 306 | 306 | 0 | `ddcf860671d59af21274a7a43a5553afb242bdb1` |
 | `build-candidate` | `src/c4/battle_overlay_script_stepper.asm` | `C4:A7B0..C4:AC57` | 1191 | 1191 | 0 | `36553eb8f1d48253bd91815a7aa6360655479282` |
-| `build-candidate` | `src/c4/sound_stone_presentation_tables.asm` | `C4:AC57..C4:ACCE` | 119 | 0 | 119 | `c19f36290471d97979480ad826393f62b32f7310` |
+| `build-candidate` | `src/c4/sound_stone_presentation_tables.asm` | `C4:AC57..C4:ACCE` | 119 | 119 | 0 | `c19f36290471d97979480ad826393f62b32f7310` |
 | `build-candidate` | `src/c4/sound_stone_presentation_controller.asm` | `C4:ACCE..C4:B1B8` | 1258 | 1258 | 0 | `21c17ea7604afe56c55ab2e762df10a4b456d4e5` |
 | `build-candidate` | `src/c4/landing_display_asset_stream_helpers.asm` | `C4:B1B8..C4:B329` | 369 | 369 | 0 | `171566a3103b34f85e493bda370e4d0813fb12f4` |
 | `build-candidate` | `src/c4/landing_child_anchor_spawn_helpers.asm` | `C4:B329..C4:B4BE` | 405 | 405 | 0 | `da5481e1a93c1f9cf04cbf95971d571755236d34` |
@@ -96,65 +96,65 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/c4/music_change_pack_loader.asm` | `C4:FBBD..C4:FD18` | 347 | 347 | 0 | `e7a0911bb630b17ce709cc227c191eda12037332` |
 | `build-candidate` | `src/c4/audio_channel_mode_loader.asm` | `C4:FD18..C4:FD45` | 45 | 45 | 0 | `554094eef799b19bdefb10fe321a1db358ff4849` |
 | `build-candidate` | `src/c4/auto_sector_music_change_latch.asm` | `C4:FD45..C4:FD4B` | 6 | 6 | 0 | `7a05e120b48fbdec62e6ae9c053de25d9174024f` |
-| `build-candidate` | `src/c4/file_select_text_data.asm` | `C4:C05E..C4:C2DE` | 640 | 0 | 640 | `931c8e162038111e339b613d3018d184358c65ba` |
-| `build-candidate` | `src/c4/music_dataset_and_pack_pointer_tables.asm` | `C4:F70A..C4:FB42` | 1080 | 0 | 1080 | `195dc43e5dbf39401df49813565ea0bd48adff8b` |
+| `build-candidate` | `src/c4/file_select_text_data.asm` | `C4:C05E..C4:C2DE` | 640 | 640 | 0 | `931c8e162038111e339b613d3018d184358c65ba` |
+| `build-candidate` | `src/c4/music_dataset_and_pack_pointer_tables.asm` | `C4:F70A..C4:FB42` | 1080 | 1080 | 0 | `195dc43e5dbf39401df49813565ea0bd48adff8b` |
 | `build-candidate` | `src/c4/early_ppu_and_text_tile_helpers.asm` | `C4:0000..C4:0085` | 133 | 133 | 0 | `cac08223d1791ba36b1847fe384d4c5a162aa514` |
 | `build-candidate` | `src/c4/text_tile_bitset_allocator.asm` | `C4:0085..C4:00D4` | 79 | 79 | 0 | `4ef7be20277d129d36a12f5f938916730f667dd7` |
 | `build-candidate` | `src/c4/door_destination_probe_helpers.asm` | `C4:334A..C4:343E` | 244 | 244 | 0 | `32a17d36177abcb9fc712458c62df92fc0ab23df` |
 | `build-candidate` | `src/c4/battle_and_text_window_row_helpers.asm` | `C4:3568..C4:38A5` | 829 | 829 | 0 | `a56a35c87846354c58705aa54374edbb11e72be8` |
 | `build-candidate` | `src/c4/active_window_descriptor_cursor_wrapper.asm` | `C4:38A5..C4:38B1` | 12 | 12 | 0 | `b96b3a745d840e287f4093f4324fff82bd2f9785` |
 | `build-candidate` | `src/c4/active_window_line_advance_helper.asm` | `C4:38B1..C4:3915` | 100 | 100 | 0 | `d4403c13e48066f91b738999a6991b07aac3014f` |
-| `build-candidate` | `src/c4/locked_text_tiles_data.asm` | `C4:3915..C4:3B15` | 512 | 0 | 512 | `b6d7172078996f932b7b47360becc9288c21283e` |
+| `build-candidate` | `src/c4/locked_text_tiles_data.asm` | `C4:3915..C4:3B15` | 512 | 512 | 0 | `b6d7172078996f932b7b47360becc9288c21283e` |
 | `build-candidate` | `src/c4/active_window_attribute_and_glyph_state_helpers.asm` | `C4:3B15..C4:3F77` | 1122 | 1122 | 0 | `90deb03356c231767bd8875080ba375bbf65c192` |
 | `build-candidate` | `src/c4/active_window_glyph_print_and_cursor_read_helpers.asm` | `C4:3F77..C4:40B5` | 318 | 318 | 0 | `614d30da03fe94ff551090108e1bac25bd311ad2` |
 | `build-candidate` | `src/c4/text_input_option_metric_and_strip_render_helpers.asm` | `C4:40B5..C4:44FB` | 1094 | 1094 | 0 | `4428b3d1a73469692b1f1a0752139aae016b8f30` |
 | `build-candidate` | `src/c4/window_title_wrap_and_fixed_string_print_helpers.asm` | `C4:44FB..C4:4963` | 1128 | 1128 | 0 | `45dc91068f7223fead0433d9e3ba3ba6cd69377a` |
 | `build-candidate` | `src/c4/text_window_vram_plane_refresh_helpers.asm` | `C4:4963..C4:4AD7` | 372 | 372 | 0 | `c790f81260189f43a319e1e605096122ad233979` |
-| `build-candidate` | `src/c4/text_tile_bit_clear_mask_table.asm` | `C4:4AD7..C4:4AF7` | 32 | 0 | 32 | `fc6bbc0d664cdb77ce3a1e3fe6ea4d6a41d70a1b` |
+| `build-candidate` | `src/c4/text_tile_bit_clear_mask_table.asm` | `C4:4AD7..C4:4AF7` | 32 | 32 | 0 | `fc6bbc0d664cdb77ce3a1e3fe6ea4d6a41d70a1b` |
 | `build-candidate` | `src/c4/text_tile_bitset_release_helper.asm` | `C4:4AF7..C4:4B3A` | 67 | 67 | 0 | `f0f87fcdcc44289b450b484e55eef3cc39c1fa40` |
 | `build-candidate` | `src/c4/text_token_glyph_scratch_renderer.asm` | `C4:4B3A..C4:4C6C` | 306 | 306 | 0 | `06ed30f17ef403b6409add571325d6c6763f7810` |
-| `build-candidate` | `src/c4/text_tile_power_of_two_word_table.asm` | `C4:4C6C..C4:4C8C` | 32 | 0 | 32 | `9e6d370242d86bbd5bb43b96ff859307d98bcb19` |
+| `build-candidate` | `src/c4/text_tile_power_of_two_word_table.asm` | `C4:4C6C..C4:4C8C` | 32 | 32 | 0 | `9e6d370242d86bbd5bb43b96ff859307d98bcb19` |
 | `build-candidate` | `src/c4/text_tile_placement_and_release_helpers.asm` | `C4:4C8C..C4:4E61` | 469 | 469 | 0 | `5ecd86d73edeeb1741ccc533a28faf1adde601d5` |
 | `build-candidate` | `src/c4/active_window_text_token_glyph_run_staging.asm` | `C4:4E61..C4:4FF3` | 402 | 402 | 0 | `5f5392c2b3c23e25352f68fd156ed139ba6e92d8` |
 | `build-candidate` | `src/c4/active_window_right_aligned_decimal_printer.asm` | `C4:507A..C4:51FA` | 384 | 384 | 0 | `22a8865ccb40855d5bebbe528a12a92d3d5e7a28` |
 | `build-candidate` | `src/c4/glyph_byte_run_pixel_width_metric_helper.asm` | `C4:4FF3..C4:507A` | 135 | 135 | 0 | `52ccb3df0a21b7b25ee3f7c6b8b9462847fbb983` |
 | `build-candidate` | `src/c4/active_text_entry_chain_layout_helper.asm` | `C4:51FA..C4:54F2` | 760 | 760 | 0 | `711762baf15d7f7a3c310afe68bdce75b2705966` |
-| `build-candidate` | `src/c4/battle_row_position_text_fragments.asm` | `C4:54F2..C4:550E` | 28 | 0 | 28 | `798bd90616a19c9ce43d39bdeeda465f3216b11b` |
+| `build-candidate` | `src/c4/battle_row_position_text_fragments.asm` | `C4:54F2..C4:550E` | 28 | 28 | 0 | `798bd90616a19c9ce43d39bdeeda465f3216b11b` |
 | `build-candidate` | `src/c4/masked_menu_glyph_scratch_renderer.asm` | `C4:5C90..C4:5DDD` | 333 | 333 | 0 | `481579f953c2c7cf1c7aa3feb4bec2a5e3e101c6` |
 | `build-candidate` | `src/c4/menu_glyph_scratch_vram_flush_helper.asm` | `C4:5DDD..C4:5E96` | 185 | 185 | 0 | `f97096e35ebe10cbcb84c99bcd5c978822005045` |
-| `build-candidate` | `src/c4/glyph_scratch_psi_rng_direction_helpers.asm` | `C4:5E96..C4:6028` | 402 | 384 | 18 | `4da8597ce6cf77195c1267e5cee3cf56d9764579` |
+| `build-candidate` | `src/c4/glyph_scratch_psi_rng_direction_helpers.asm` | `C4:5E96..C4:6028` | 402 | 402 | 0 | `4da8597ce6cf77195c1267e5cee3cf56d9764579` |
 | `build-candidate` | `src/c4/entity_slot_resolver_frame_selector_helpers.asm` | `C4:6028..C4:645A` | 1074 | 1074 | 0 | `09431994b88df9416bb07ff4d8d3f7dbddadf7e2` |
 | `build-candidate` | `src/c4/entity_visual_flag_current_slot_wrappers.asm` | `C4:645A..C4:6A5E` | 1540 | 1540 | 0 | `e8ac9bf2826bb6cb73b4fbbd8829a0c8e7ab5ca9` |
-| `build-candidate` | `src/c4/direction_octant_target_helpers.asm` | `C4:6A5E..C4:6C45` | 487 | 423 | 64 | `0bf21c1403fc9dd856a76064e660a71e167b42c8` |
+| `build-candidate` | `src/c4/direction_octant_target_helpers.asm` | `C4:6A5E..C4:6C45` | 487 | 487 | 0 | `0bf21c1403fc9dd856a76064e660a71e167b42c8` |
 | `build-candidate` | `src/c4/current_slot_anchor_staging_helpers.asm` | `C4:6C45..C4:6D4B` | 262 | 262 | 0 | `68ac143257625a8cda798edca13b4d2bc62eadf8` |
 | `build-candidate` | `src/c4/movement_target_bounds_and_vector_refresh_helpers.asm` | `C4:6EF8..C4:7369` | 1137 | 1137 | 0 | `7ade0755775699bccf4a65de8af5838dd7a4632a` |
 | `build-candidate` | `src/c4/photo_and_new_entity_preparation_helpers.asm` | `C4:6D4B..C4:6EF8` | 429 | 429 | 0 | `7cbf211b3f1e1bbe0d1724ea8143850e2d60ad83` |
 | `build-candidate` | `src/c4/battlebg_load_and_palette_brightness_helpers.asm` | `C4:7370..C4:74F6` | 390 | 390 | 0 | `8ec9114df864418d1516941ea96e0d8a7d6bf7c5` |
-| `build-candidate` | `src/c4/window_mask_and_indexed_gfx_helpers.asm` | `C4:74F6..C4:7C3F` | 1865 | 1854 | 11 | `b4b844956ea8dc1a3a76565057903200e1e67aff` |
+| `build-candidate` | `src/c4/window_mask_and_indexed_gfx_helpers.asm` | `C4:74F6..C4:7C3F` | 1865 | 1865 | 0 | `b4b844956ea8dc1a3a76565057903200e1e67aff` |
 | `build-candidate` | `src/c4/event353_message_tile_reveal_helpers.asm` | `C4:810E..C4:8B2C` | 2590 | 2590 | 0 | `7890b67497c8db5b06a38c0c64ecd896150cffd3` |
 | `build-candidate` | `src/c4/teleport_event670_landing_mode_helper.asm` | `C4:8B2C..C4:8B3B` | 15 | 15 | 0 | `667c4fe0c3db809b7709d3ba35d5eecb8f366006` |
 | `build-candidate` | `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm` | `C4:90EE..C4:9496` | 936 | 936 | 0 | `e1a3a39e0cf8e22c2e2824739a4d77fbc29c7793` |
 | `build-candidate` | `src/c4/actionscript_camera_and_screen_position_callbacks.asm` | `C4:8B3B..C4:8C59` | 286 | 286 | 0 | `f796f0d526d4c61883ab69625cdfe5cc1c3a489b` |
-| `build-candidate` | `src/c4/battle_target_candidate_selection_helpers.asm` | `C4:9FE1..C4:A1F2` | 529 | 291 | 238 | `dbbc098c2838854a8858d99bd2fee48fb3b5d017` |
-| `build-candidate` | `src/c4/battle_check_if_valid_target.asm` | `C4:A1F2..C4:A228` | 54 | 51 | 3 | `296abb87b5b465068562db9e71f415693d03b3ae` |
-| `build-candidate` | `src/c4/party_equipment_comparison_visual_state_rows.asm` | `C4:343E..C4:3568` | 298 | 274 | 24 | `6928d1d39f9cdfea04199fa3880f70bfa5f4e3d3` |
-| `build-candidate` | `src/c4/ranked_battler_target_ordinal_writer.asm` | `C4:A228..C4:A377` | 335 | 81 | 254 | `f7522d2eccffc4f84a2208bde3ec22f6ddcd65d6` |
+| `build-candidate` | `src/c4/battle_target_candidate_selection_helpers.asm` | `C4:9FE1..C4:A1F2` | 529 | 529 | 0 | `dbbc098c2838854a8858d99bd2fee48fb3b5d017` |
+| `build-candidate` | `src/c4/battle_check_if_valid_target.asm` | `C4:A1F2..C4:A228` | 54 | 54 | 0 | `296abb87b5b465068562db9e71f415693d03b3ae` |
+| `build-candidate` | `src/c4/party_equipment_comparison_visual_state_rows.asm` | `C4:343E..C4:3568` | 298 | 298 | 0 | `6928d1d39f9cdfea04199fa3880f70bfa5f4e3d3` |
+| `build-candidate` | `src/c4/ranked_battler_target_ordinal_writer.asm` | `C4:A228..C4:A377` | 335 | 335 | 0 | `f7522d2eccffc4f84a2208bde3ec22f6ddcd65d6` |
 | `build-candidate` | `src/c4/map_strip_refresh_far_wrapper.asm` | `C4:7369..C4:7370` | 7 | 7 | 0 | `887110f067632b116d44c66d0e27a184d2d9f9fe` |
-| `build-candidate` | `src/c4/window_gfx_load_and_flyover_undraw_helpers.asm` | `C4:7C3F..C4:810E` | 1231 | 1016 | 215 | `034dd43798323af44e5cc93c29dceaceddd665dc` |
-| `build-candidate` | `src/c4/battle_inventory_status_text_and_tables.asm` | `C4:550E..C4:5637` | 297 | 0 | 297 | `a9a8fb3912fd349499121935ab35b69e2f8c4d32` |
+| `build-candidate` | `src/c4/window_gfx_load_and_flyover_undraw_helpers.asm` | `C4:7C3F..C4:810E` | 1231 | 1231 | 0 | `034dd43798323af44e5cc93c29dceaceddd665dc` |
+| `build-candidate` | `src/c4/battle_inventory_status_text_and_tables.asm` | `C4:550E..C4:5637` | 297 | 297 | 0 | `a9a8fb3912fd349499121935ab35b69e2f8c4d32` |
 | `build-candidate` | `src/c4/party_inventory_search_helpers.asm` | `C4:5637..C4:577D` | 326 | 326 | 0 | `f99f5e3ad83f213272bf96f0eaa443ad3cda577d` |
-| `build-candidate` | `src/c4/equipment_item_usable_flags.asm` | `C4:58AB..C4:58AF` | 4 | 0 | 4 | `d3759f70f1732218f863b5a15ed41a79466daf58` |
+| `build-candidate` | `src/c4/equipment_item_usable_flags.asm` | `C4:58AB..C4:58AF` | 4 | 4 | 0 | `d3759f70f1732218f863b5a15ed41a79466daf58` |
 | `build-candidate` | `src/c4/equipped_slot_index_update_helpers.asm` | `C4:577D..C4:58AB` | 302 | 302 | 0 | `45384ff4642db379433250a5e448add9ce344f60` |
-| `build-candidate` | `src/c4/target_and_phone_text_fragments.asm` | `C4:5963..C4:599A` | 55 | 0 | 55 | `764944456da28f6bfb311b322eb9734e2cb6f20d` |
+| `build-candidate` | `src/c4/target_and_phone_text_fragments.asm` | `C4:5963..C4:599A` | 55 | 55 | 0 | `764944456da28f6bfb311b322eb9734e2cb6f20d` |
 | `build-candidate` | `src/c4/status_group_read_write_helpers.asm` | `C4:58AF..C4:5963` | 180 | 180 | 0 | `48863bdadc3f5ae7ac51e4aef4b497101389031f` |
 | `build-candidate` | `src/c4/required_experience_remaining_helper.asm` | `C4:599A..C4:5A27` | 141 | 141 | 0 | `ea770998e2d4097edb09f77974859c94aae050d5` |
-| `build-candidate` | `src/c4/status_equip_window_and_homesickness_data.asm` | `C4:5A27..C4:5C90` | 617 | 0 | 617 | `894d4d03ca00de1a8b775fe44ac8e79629e3a214` |
-| `build-candidate` | `src/c4/event_script_pointer_table.asm` | `C4:00D4..C4:0B51` | 2685 | 0 | 2685 | `48279abad123ab4d47bb6574b005dd22ed27c2f5` |
-| `build-candidate` | `src/c4/event_script_payloads_279f_283f.asm` | `C4:279F..C4:283F` | 160 | 0 | 160 | `e399c653021a6e872b1b8fee1a3330260f61ff43` |
-| `build-candidate` | `src/c4/event_script_payloads_2172_23dc.asm` | `C4:2172..C4:23DC` | 618 | 0 | 618 | `00832eccc65a8a958fcbb9b635d7c2eb9af49a13` |
-| `build-candidate` | `src/c4/entity_footprint_visual_profile_tables.asm` | `C4:2A1F..C4:30EC` | 1741 | 0 | 1741 | `2fc199175e66ded8e16084804a9db9819ea54ebd` |
-| `build-candidate` | `src/c4/early_event_overlay_data_payloads.asm` | `C4:0BD4..C4:1DB6` | 4578 | 0 | 4578 | `93c97c0d0b52f4350853cca875660ea0bb98e23c` |
-| `build-candidate` | `src/c4/bank_end_padding.asm` | `C4:FD4B..C4:10000` | 693 | 0 | 693 | `ac14c3c2a6f86a4020ba7f5b57664d5a1a06aa14` |
+| `build-candidate` | `src/c4/status_equip_window_and_homesickness_data.asm` | `C4:5A27..C4:5C90` | 617 | 617 | 0 | `894d4d03ca00de1a8b775fe44ac8e79629e3a214` |
+| `build-candidate` | `src/c4/event_script_pointer_table.asm` | `C4:00D4..C4:0B51` | 2685 | 2685 | 0 | `48279abad123ab4d47bb6574b005dd22ed27c2f5` |
+| `build-candidate` | `src/c4/event_script_payloads_279f_283f.asm` | `C4:279F..C4:283F` | 160 | 160 | 0 | `e399c653021a6e872b1b8fee1a3330260f61ff43` |
+| `build-candidate` | `src/c4/event_script_payloads_2172_23dc.asm` | `C4:2172..C4:23DC` | 618 | 618 | 0 | `00832eccc65a8a958fcbb9b635d7c2eb9af49a13` |
+| `build-candidate` | `src/c4/entity_footprint_visual_profile_tables.asm` | `C4:2A1F..C4:30EC` | 1741 | 1741 | 0 | `2fc199175e66ded8e16084804a9db9819ea54ebd` |
+| `build-candidate` | `src/c4/early_event_overlay_data_payloads.asm` | `C4:0BD4..C4:1DB6` | 4578 | 4578 | 0 | `93c97c0d0b52f4350853cca875660ea0bb98e23c` |
+| `build-candidate` | `src/c4/bank_end_padding.asm` | `C4:FD4B..C4:10000` | 693 | 693 | 0 | `ac14c3c2a6f86a4020ba7f5b57664d5a1a06aa14` |
 
 ## Source Segments
 
@@ -182,17 +182,14 @@ Evidence:
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
 | `C4:1DB6..C4:1EB9` | 259 | `RenderMaskedGlyphIntoTextTileStaging` | `55a322b29e66fb435b90a8da64638aff0868e6f6` |
+| `C4:1EB9..C4:1EE9` | 48 | `GlyphTileStagingMaskTables` | `41810ecd56b9f2124326b036959e9f63b5d1027e` |
 | `C4:1EE9..C4:1EF4` | 11 | `TrackTextTileStagingMinDirtyOffset` | `ff7955aa5e446241685246e18b5099e11875cafa` |
 | `C4:1EF4..C4:1EFF` | 11 | `TrackTextTileStagingMaxDirtyOffset` | `23437d05095f1c372c9bc05c9a73774eae49f8cf` |
 | `C4:1EFF..C4:1FC5` | 198 | `ComputeDirectionOctantFromDelta` | `ed363f297379194b7cbd11c9e0a0e49a6dea1324` |
+| `C4:1FC5..C4:1FFF` | 58 | `DirectionOctantThresholdTables` | `2f0c7e260e4b31816056095ef496094cd65006b8` |
 | `C4:1FFF..C4:205D` | 94 | `ProjectMagnitudeByDirectionAngle` | `7e7e6f29cf221a066118f30c5cbd4915f8b5edb6` |
+| `C4:205D..C4:213F` | 226 | `DirectionProjectionScaleTables` | `a813f9ac18d1bcd813a16faf05c5f000e38d3de4` |
 | `C4:213F..C4:2172` | 51 | `ScaleU16ByU8Fraction` | `2498cc2c8ea21de4fc5ff24c2d7d1f50bde50a7e` |
-
-Data gaps inside protected span:
-
-- `C4:1EB9..C4:1EE9` (`48` bytes, SHA-1 `41810ecd56b9f2124326b036959e9f63b5d1027e`) `GlyphTileStagingMaskTables`
-- `C4:1FC5..C4:1FFF` (`58` bytes, SHA-1 `2f0c7e260e4b31816056095ef496094cd65006b8`) `DirectionOctantThresholdTables`
-- `C4:205D..C4:213F` (`226` bytes, SHA-1 `a813f9ac18d1bcd813a16faf05c5f000e38d3de4`) `DirectionProjectionScaleTables`
 
 Labels:
 
@@ -299,13 +296,10 @@ Evidence:
 | `C4:2884..C4:28D1` | 77 | `CopyDirectionalVisualProfileFrameWords` | `e8592b2dd0da0d54314b262fba2b1064fb0b3172` |
 | `C4:28D1..C4:28FC` | 43 | `Copy7fWordsEvery16ByCount` | `beb19e2ba750cfcb6a2ff5d298d8bd3f7696fcfd` |
 | `C4:28FC..C4:2955` | 89 | `MergeMasked7fTileColumnRows` | `73579f0b7fb59cc8b32d5386a3e0ee1ffa5d0efb` |
+| `C4:2955..C4:2965` | 16 | `TileColumnWordPairMaskTable` | `0100182b51c943adce206906ba3921c6013e9b72` |
 | `C4:2965..C4:29AE` | 73 | `MergeMasked7fTileColumnPair` | `4f1c7adf6574794a357374d451d54d14b2448270` |
 | `C4:29AE..C4:29E8` | 58 | `GenerateVisualProfileRenderDmaStrips` | `44cc42c27889ae7750f57e5eccdddf77ab5e3521` |
 | `C4:29E8..C4:2A1F` | 55 | `StartMainScreenLayerHdmaFromAdb8` | `21ff60846537d9a31cdd8faf73572ba0af306675` |
-
-Data gaps inside protected span:
-
-- `C4:2955..C4:2965` (`16` bytes, SHA-1 `0100182b51c943adce206906ba3921c6013e9b72`) `TileColumnWordPairMaskTable`
 
 Labels:
 
@@ -347,8 +341,10 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
+| `C4:8C59..C4:8C69` | 16 | `MovementOctantToPulseSelectorTable` | `27087fb113cfdd79d452f1a7ede7850b29f96eb8` |
 | `C4:8C69..C4:8C97` | 46 | `ClearMovementPulseAccumulator` | `d9f07375e8680c1b503e6ba3c96d17e8d67d5e87` |
 | `C4:8C97..C4:8D38` | 161 | `AppendMovementPulseSelectorRun` | `cbfc675d0eb40c2db15622081838d1e4710694b6` |
+| `C4:8D38..C4:8D58` | 32 | `MovementOctantSignedUnitDeltaTable` | `f7051eb36c33656cf03bd523d76e72e72e632b57` |
 | `C4:8D58..C4:8E6B` | 275 | `BuildStagedMovementPulsesAndReturnDelay` | `cdf1f8243ccc2e648705b9b675951a5a789cefe5` |
 | `C4:8E6B..C4:8E95` | 42 | `AppendRepeatedMovementPulseSelector` | `6f91dc2b663f085c2643b417c93112378345106c` |
 | `C4:8E95..C4:8ECE` | 57 | `InstallGeneratedMovementPulseScript` | `1b5c12df347f42140895872095c2ef3a23830cc0` |
@@ -356,11 +352,6 @@ Evidence:
 | `C4:8EEB..C4:8F98` | 173 | `ArmTrackedItemPulseSlotFromD5f4bb` | `a25a5e7cf59fc72c25890811f34619e02e3f4d69` |
 | `C4:8F98..C4:8FC4` | 44 | `ClearTrackedItemPulseSlot` | `fe3eff5988cb1bb514de4b0126a0faa2b4a3a670` |
 | `C4:8FC4..C4:90EE` | 298 | `StepTrackedItemPulseSlots` | `3a509c3fce4ced80171a99db3ee6f386f9141dd1` |
-
-Data gaps inside protected span:
-
-- `C4:8C59..C4:8C69` (`16` bytes, SHA-1 `27087fb113cfdd79d452f1a7ede7850b29f96eb8`) `MovementOctantToPulseSelectorTable`
-- `C4:8D38..C4:8D58` (`32` bytes, SHA-1 `f7051eb36c33656cf03bd523d76e72e72e632b57`) `MovementOctantSignedUnitDeltaTable`
 
 Labels:
 
@@ -459,11 +450,8 @@ Evidence:
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
 | `C4:9D6A..C4:9EA4` | 314 | `RunCoffeeTeaScene` | `a38a1aeb918386373ee0bd04f2e99d09df18cad6` |
+| `C4:9EA4..C4:9EC4` | 32 | `FlyoverIntroTextPointerTable` | `2626de77a2914c43a47d7250898992cc31615ca1` |
 | `C4:9EC4..C4:9FE1` | 285 | `RunFlyoverIntroTextSceneByIndex` | `000afcc14a0b293df29b707a52ff3ad3ca2d7831` |
-
-Data gaps inside protected span:
-
-- `C4:9EA4..C4:9EC4` (`32` bytes, SHA-1 `2626de77a2914c43a47d7250898992cc31615ca1`) `FlyoverIntroTextPointerTable`
 
 Labels:
 
@@ -496,11 +484,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:A591..C4:A67E` (`237` bytes, SHA-1 `41e0373e42938ac3426174dae73d1af7c818d6de`) `BattleOverlayTransitionDataBlock`
+| `C4:A591..C4:A67E` | 237 | `BattleOverlayTransitionDataBlock` | `41e0373e42938ac3426174dae73d1af7c818d6de` |
 
 Labels:
 
@@ -551,11 +535,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:AC57..C4:ACCE` (`119` bytes, SHA-1 `c19f36290471d97979480ad826393f62b32f7310`) `SoundStonePresentationTableBlock`
+| `C4:AC57..C4:ACCE` | 119 | `SoundStonePresentationTableBlock` | `c19f36290471d97979480ad826393f62b32f7310` |
 
 Labels:
 
@@ -1663,11 +1643,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:C05E..C4:C2DE` (`640` bytes, SHA-1 `931c8e162038111e339b613d3018d184358c65ba`) `FileSelectTextData`
+| `C4:C05E..C4:C2DE` | 640 | `FileSelectTextData` | `931c8e162038111e339b613d3018d184358c65ba` |
 
 Labels:
 
@@ -1682,12 +1658,8 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:F70A..C4:F947` (`573` bytes, SHA-1 `b449c58897c4f99674868a48b61b5eecc9ba69e5`) `MusicDatasetTable`
-- `C4:F947..C4:FB42` (`507` bytes, SHA-1 `f18980670044ba36aeedc9e2808c53426b080574`) `MusicPackPointerTable`
+| `C4:F70A..C4:F947` | 573 | `MusicDatasetTable` | `b449c58897c4f99674868a48b61b5eecc9ba69e5` |
+| `C4:F947..C4:FB42` | 507 | `MusicPackPointerTable` | `f18980670044ba36aeedc9e2808c53426b080574` |
 
 Labels:
 
@@ -1825,11 +1797,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:3915..C4:3B15` (`512` bytes, SHA-1 `b6d7172078996f932b7b47360becc9288c21283e`) `LockedTextTilesData`
+| `C4:3915..C4:3B15` | 512 | `LockedTextTilesData` | `b6d7172078996f932b7b47360becc9288c21283e` |
 
 Labels:
 
@@ -1959,11 +1927,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:4AD7..C4:4AF7` (`32` bytes, SHA-1 `fc6bbc0d664cdb77ce3a1e3fe6ea4d6a41d70a1b`) `TextTileBitClearMaskTable`
+| `C4:4AD7..C4:4AF7` | 32 | `TextTileBitClearMaskTable` | `fc6bbc0d664cdb77ce3a1e3fe6ea4d6a41d70a1b` |
 
 Labels:
 
@@ -2011,11 +1975,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:4C6C..C4:4C8C` (`32` bytes, SHA-1 `9e6d370242d86bbd5bb43b96ff859307d98bcb19`) `TextTileBitMaskTable`
+| `C4:4C6C..C4:4C8C` | 32 | `TextTileBitMaskTable` | `9e6d370242d86bbd5bb43b96ff859307d98bcb19` |
 
 Labels:
 
@@ -2118,11 +2078,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:54F2..C4:550E` (`28` bytes, SHA-1 `798bd90616a19c9ce43d39bdeeda465f3216b11b`) `BattleRowPositionTextFragments`
+| `C4:54F2..C4:550E` | 28 | `BattleRowPositionTextFragments` | `798bd90616a19c9ce43d39bdeeda465f3216b11b` |
 
 Labels:
 
@@ -2173,11 +2129,8 @@ Evidence:
 | `C4:5E96..C4:5ECE` | 56 | `ResetGlyphScratchAndAdvanceUploadCursor` | `c1e406b5ec38682f3c73a751ed2830e89c342a73` |
 | `C4:5ECE..C4:5F7B` | 173 | `CheckPartyMemberPsiKnown` | `477f02983b6e1b933fb8f6a1a34ce2900a24147d` |
 | `C4:5F7B..C4:5F96` | 27 | `GetRandomModuloInclusive` | `1215efdd5527fe44a57326885867d1298df1a6b4` |
+| `C4:5F96..C4:5FA8` | 18 | `DirectionMatrix` | `3800d09db0017d9113cad7e6856b7b2e97ec009d` |
 | `C4:5FA8..C4:6028` | 128 | `GetDirectionToCoordinateDelta` | `8e497e68b342cad115d838c5a74a6f1a4eca226b` |
-
-Data gaps inside protected span:
-
-- `C4:5F96..C4:5FA8` (`18` bytes, SHA-1 `3800d09db0017d9113cad7e6856b7b2e97ec009d`) `DirectionMatrix`
 
 Labels:
 
@@ -2235,16 +2188,13 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
+| `C4:6A5E..C4:6A6E` | 16 | `PlayerDirection987fTurnBiasTable` | `53c018603aa43e4ef633198d3231530f91df0228` |
 | `C4:6A6E..C4:6A7A` | 12 | `MapPlayerDirection987fToTurnBias` | `875f2e74d00e405ec39ba7f0531339106606be97` |
+| `C4:6A7A..C4:6A8A` | 16 | `DirectionOctantToAltFacingQuadrantTable` | `2e84d71538f95d8d4dbccf078eea77ea0903d867` |
+| `C4:6A8A..C4:6A9A` | 16 | `DirectionOctantToSpriteFacingQuadrantTable` | `7c6ba761e5c15120f8e8dccfde86e6855a914638` |
 | `C4:6A9A..C4:6B41` | 167 | `DirectionOctantNormalizerHelpers` | `2638fa66c4a8de45e5d30489be877df80fb2951b` |
+| `C4:6B41..C4:6B51` | 16 | `RoundedAngleToWalkDirectionTable` | `0dde21e2ef8e448f55be4b0b1f201f02c889d098` |
 | `C4:6B51..C4:6C45` | 244 | `DirectionTargetSetterHelpers` | `8d27b264937fb1f12bcf3d6150e7cd213d8acc82` |
-
-Data gaps inside protected span:
-
-- `C4:6A5E..C4:6A6E` (`16` bytes, SHA-1 `53c018603aa43e4ef633198d3231530f91df0228`) `PlayerDirection987fTurnBiasTable`
-- `C4:6A7A..C4:6A8A` (`16` bytes, SHA-1 `2e84d71538f95d8d4dbccf078eea77ea0903d867`) `DirectionOctantToAltFacingQuadrantTable`
-- `C4:6A8A..C4:6A9A` (`16` bytes, SHA-1 `7c6ba761e5c15120f8e8dccfde86e6855a914638`) `DirectionOctantToSpriteFacingQuadrantTable`
-- `C4:6B41..C4:6B51` (`16` bytes, SHA-1 `0dde21e2ef8e448f55be4b0b1f201f02c889d098`) `RoundedAngleToWalkDirectionTable`
 
 Labels:
 
@@ -2333,11 +2283,8 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
+| `C4:74F6..C4:7501` | 11 | `WhWindowSpanRadiusRampTable` | `506f7bb5765fcb8737f912081c70e047e316bf53` |
 | `C4:7501..C4:7C3F` | 1854 | `WindowMaskAndIndexedGfxHelpers` | `68a20022b2bb97b8a45f9ea4f09345dcf702822c` |
-
-Data gaps inside protected span:
-
-- `C4:74F6..C4:7501` (`11` bytes, SHA-1 `506f7bb5765fcb8737f912081c70e047e316bf53`) `WhWindowSpanRadiusRampTable`
 
 Labels:
 
@@ -2444,12 +2391,9 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
+| `C4:9FE1..C4:A0CF` | 238 | `BattleMenuAndTargetPrecheckData` | `6be42ba2d03193ddc22acb8df24f60b22062fe6d` |
 | `C4:A0CF..C4:A15D` | 142 | `SelectClosestRankedBattleTargetCandidate` | `b08d363b41cbd9588a90713b87e2b63c2bb66b5e` |
 | `C4:A15D..C4:A1F2` | 149 | `SelectLowestRangeRankedBattleTargetCandidate` | `92266176b4e544c0afeddebdc37b31b5a5139cf7` |
-
-Data gaps inside protected span:
-
-- `C4:9FE1..C4:A0CF` (`238` bytes, SHA-1 `6be42ba2d03193ddc22acb8df24f60b22062fe6d`) `BattleMenuAndTargetPrecheckData`
 
 Labels:
 
@@ -2467,11 +2411,8 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
+| `C4:A1F2..C4:A1F5` | 3 | `BattleTargetValidityPadding` | `33a9fb49aa16641120eaefbd440c274488b09809` |
 | `C4:A1F5..C4:A228` | 51 | `CheckIfValidTarget` | `8ac8f3cd564b53479c25c4e0e62ec33cc49beea6` |
-
-Data gaps inside protected span:
-
-- `C4:A1F2..C4:A1F5` (`3` bytes, SHA-1 `33a9fb49aa16641120eaefbd440c274488b09809`) `BattleTargetValidityPadding`
 
 Labels:
 
@@ -2488,10 +2429,7 @@ Evidence:
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
 | `C4:343E..C4:3550` | 274 | `BuildPartyEquipmentComparisonVisualStateRows` | `c809a8e8477128ebe45492ace8a8eb9f57e1a4cf` |
-
-Data gaps inside protected span:
-
-- `C4:3550..C4:3568` (`24` bytes, SHA-1 `9202e5877f0ebf1ff148fc37498bc449f8339df8`) `EquipmentComparisonVisualStateSeedRows`
+| `C4:3550..C4:3568` | 24 | `EquipmentComparisonVisualStateSeedRows` | `9202e5877f0ebf1ff148fc37498bc449f8339df8` |
 
 Labels:
 
@@ -2508,10 +2446,7 @@ Evidence:
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
 | `C4:A228..C4:A279` | 81 | `StoreRankedBattlerTargetOrdinal` | `a2bbf409d8a51ab9c13d7ae655f1901ac955deaa` |
-
-Data gaps inside protected span:
-
-- `C4:A279..C4:A377` (`254` bytes, SHA-1 `38749115bf3f45c29faae425718831e5ba5a4e66`) `RankedTargetOrdinalSupportTables`
+| `C4:A279..C4:A377` | 254 | `RankedTargetOrdinalSupportTables` | `38749115bf3f45c29faae425718831e5ba5a4e66` |
 
 Labels:
 
@@ -2544,10 +2479,7 @@ Evidence:
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
 | `C4:7C3F..C4:8037` | 1016 | `WindowGfxLoadAndFlyoverUndrawHelpers` | `6d36efebddbd79256325330b31f2f1c2c9ede238` |
-
-Data gaps inside protected span:
-
-- `C4:8037..C4:810E` (`215` bytes, SHA-1 `5edfc2fc1a539c4ef6d5bc9ba355a507ada5cc4f`) `LumineHallAndEvent353TextPayload`
+| `C4:8037..C4:810E` | 215 | `LumineHallAndEvent353TextPayload` | `5edfc2fc1a539c4ef6d5bc9ba355a507ada5cc4f` |
 
 Labels:
 
@@ -2567,11 +2499,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:550E..C4:5637` (`297` bytes, SHA-1 `a9a8fb3912fd349499121935ab35b69e2f8c4d32`) `BattleInventoryStatusTextAndSelectorTables`
+| `C4:550E..C4:5637` | 297 | `BattleInventoryStatusTextAndSelectorTables` | `a9a8fb3912fd349499121935ab35b69e2f8c4d32` |
 
 Labels:
 
@@ -2605,11 +2533,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:58AB..C4:58AF` (`4` bytes, SHA-1 `d3759f70f1732218f863b5a15ed41a79466daf58`) `EquipmentItemUsableFlags`
+| `C4:58AB..C4:58AF` | 4 | `EquipmentItemUsableFlags` | `d3759f70f1732218f863b5a15ed41a79466daf58` |
 
 Labels:
 
@@ -2640,11 +2564,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:5963..C4:599A` (`55` bytes, SHA-1 `764944456da28f6bfb311b322eb9734e2cb6f20d`) `TargetAndPhoneTextFragments`
+| `C4:5963..C4:599A` | 55 | `TargetAndPhoneTextFragments` | `764944456da28f6bfb311b322eb9734e2cb6f20d` |
 
 Labels:
 
@@ -2693,11 +2613,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:5A27..C4:5C90` (`617` bytes, SHA-1 `894d4d03ca00de1a8b775fe44ac8e79629e3a214`) `StatusEquipWindowAndHomesicknessData`
+| `C4:5A27..C4:5C90` | 617 | `StatusEquipWindowAndHomesicknessData` | `894d4d03ca00de1a8b775fe44ac8e79629e3a214` |
 
 Labels:
 
@@ -2714,11 +2630,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:00D4..C4:0B51` (`2685` bytes, SHA-1 `48279abad123ab4d47bb6574b005dd22ed27c2f5`) `EventScriptPointerTable`
+| `C4:00D4..C4:0B51` | 2685 | `EventScriptPointerTable` | `48279abad123ab4d47bb6574b005dd22ed27c2f5` |
 
 Labels:
 
@@ -2734,11 +2646,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:279F..C4:283F` (`160` bytes, SHA-1 `e399c653021a6e872b1b8fee1a3330260f61ff43`) `EventScriptPayloads279fTo283f`
+| `C4:279F..C4:283F` | 160 | `EventScriptPayloads279fTo283f` | `e399c653021a6e872b1b8fee1a3330260f61ff43` |
 
 Labels:
 
@@ -2756,11 +2664,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:2172..C4:23DC` (`618` bytes, SHA-1 `00832eccc65a8a958fcbb9b635d7c2eb9af49a13`) `EventScriptPayloads2172To23dc`
+| `C4:2172..C4:23DC` | 618 | `EventScriptPayloads2172To23dc` | `00832eccc65a8a958fcbb9b635d7c2eb9af49a13` |
 
 Labels:
 
@@ -2779,11 +2683,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:2A1F..C4:30EC` (`1741` bytes, SHA-1 `2fc199175e66ded8e16084804a9db9819ea54ebd`) `EntityFootprintVisualProfileTables`
+| `C4:2A1F..C4:30EC` | 1741 | `EntityFootprintVisualProfileTables` | `2fc199175e66ded8e16084804a9db9819ea54ebd` |
 
 Labels:
 
@@ -2801,11 +2701,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:0BD4..C4:1DB6` (`4578` bytes, SHA-1 `93c97c0d0b52f4350853cca875660ea0bb98e23c`) `EarlyEventOverlayDataPayloads`
+| `C4:0BD4..C4:1DB6` | 4578 | `EarlyEventOverlayDataPayloads` | `93c97c0d0b52f4350853cca875660ea0bb98e23c` |
 
 Labels:
 
@@ -2825,11 +2721,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `C4:FD4B..C4:10000` (`693` bytes, SHA-1 `ac14c3c2a6f86a4020ba7f5b57664d5a1a06aa14`) `BankEndZeroPadding`
+| `C4:FD4B..C4:10000` | 693 | `BankEndZeroPadding` | `ac14c3c2a6f86a4020ba7f5b57664d5a1a06aa14` |
 
 Labels:
 

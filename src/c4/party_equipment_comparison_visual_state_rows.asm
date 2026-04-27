@@ -167,3 +167,11 @@ C4354C_PartyEquipmentComparisonVisualStateRows_L354C:
     rep #$20
     pld
     rtl
+
+; ---------------------------------------------------------------------------
+; C4:3550
+
+C43550_EquipmentComparisonVisualStateSeedRows:
+    ; data bytes: C4:3550..C4:3568
+    db $85,$A3,$95,$00,$00,$00,$77,$99,$A6,$95,$00,$00,$74,$A2,$9F,$A0
+    db $00,$00,$78,$95,$9C,$A0,$51,$00
