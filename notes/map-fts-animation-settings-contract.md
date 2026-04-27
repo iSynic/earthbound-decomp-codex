@@ -17,12 +17,79 @@ labels for map tile animation graphics/properties near the map tileset data.
 - row shape: `variable rows per tileset; each row is 5 blocks of 58 base32-like characters`
 - unique row IDs: `168`
 - duplicate row IDs: `none`
+- single-tileset-owned row groups: `32`
+- multi-tileset row groups: `0`
 - character set: `0123456789abcdefghijklmnopqrstuv`
+- referenced animation graphics payloads: `20`
 
 ## Row ID Distribution
 
 - groups: `0`:4, `1`:3, `2`:4, `3`:2, `4`:2, `5`:4, `6`:7, `7`:1, `8`:2, `9`:6, `a`:8, `b`:8, `c`:8, `d`:4, `e`:8, `f`:8, `g`:4, `h`:8, `i`:1, `j`:7, `k`:8, `l`:5, `m`:5, `n`:4, `o`:5, `p`:8, `q`:6, `r`:5, `s`:6, `t`:6, `u`:3, `v`:8
 - slots: `0`:32, `1`:30, `2`:27, `3`:25, `4`:19, `5`:15, `6`:11, `7`:9
+
+## Reference Anchors
+
+- WRAM runtime state: `$43DC..$445B` (`128` bytes) is labeled map tile animation data in `refs/community-earthbound-docs/RAM_map.txt`.
+- Legacy ROM map anchors tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`, plus EF pointer/property tables at `0x2F13CB..0x2F153E`.
+- ebsrc exposes `MAP_DATA_TILE_ANIMATION_PTR_TABLE`, `MAP_DATA_WEIRD_TILE_ANIMATION_PTR_TABLE`, and `MAP_DATA_TILE_ANIMATION_GFX_0..19` symbols.
+- Local bank maps identify `20` `MAP_DATA_TILE_ANIMATION_GFX_N` payloads; 25-byte placeholder/tiny payload IDs are `2, 3, 4, 9, 10, 11, 14, 15`.
+- Bank EF's include list names the tileset animation pointer table, animation properties pointer table, and per-tileset animation property files `00..19`.
+
+## Row ID Model
+
+The leading two characters of each 290-character row are now treated as a
+structural row ID: `row_id[0]` is the base32-like animation/settings group
+and `row_id[1]` is the slot within that group. This is a strong export-shape
+model, not yet a claim that the group number directly equals an EF property
+pointer index or compressed graphics ID.
+
+| Group | Owner tileset(s) | Slots |
+| --- | --- | --- |
+| `0` | `0` | `0, 1, 2, 3` |
+| `1` | `1` | `0, 1, 2` |
+| `2` | `2` | `0, 1, 2, 3` |
+| `3` | `3` | `0, 1` |
+| `4` | `4` | `0, 1` |
+| `5` | `5` | `0, 1, 2, 3` |
+| `6` | `6` | `0, 1, 2, 3, 4, 5, 6` |
+| `7` | `7` | `0` |
+| `8` | `8` | `0, 1` |
+| `9` | `9` | `0, 1, 2, 3, 4, 5` |
+| `a` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `b` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `c` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `d` | `17` | `0, 1, 2, 3` |
+| `e` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `f` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `g` | `10` | `0, 1, 2, 3` |
+| `h` | `10` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `i` | `18` | `0` |
+| `j` | `16` | `0, 1, 2, 3, 4, 5, 6` |
+| `k` | `12` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `l` | `11` | `0, 1, 2, 3, 4` |
+| `m` | `11` | `0, 1, 2, 3, 4` |
+| `n` | `11` | `0, 1, 2, 3` |
+| `o` | `15` | `0, 1, 2, 3, 4` |
+| `p` | `14` | `0, 1, 2, 3, 4, 5, 6, 7` |
+| `q` | `19` | `0, 1, 2, 3, 4, 5` |
+| `r` | `13` | `0, 1, 2, 3, 4` |
+| `s` | `13` | `0, 1, 2, 3, 4, 5` |
+| `t` | `13` | `0, 1, 2, 3, 4, 5` |
+| `u` | `13` | `0, 1, 2` |
+| `v` | `0` | `0, 1, 2, 3, 4, 5, 6, 7` |
+
+## Block Position Profiles
+
+Each row splits into five 58-character blocks. The profile below records
+stable position-level shape without committing the raw block text.
+
+| Block | Unique blocks | Zero-only blocks | Constant zero positions | Common chars |
+| ---: | ---: | ---: | --- | --- |
+| 0 | 168 | 0 | `2, 3, 4, 50, 51, 52` | `0`:2884, `v`:879, `8`:349, `h`:262, `k`:252 |
+| 1 | 160 | 0 | `40, 41, 42` | `0`:2210, `v`:1263, `8`:352, `j`:283, `f`:279 |
+| 2 | 153 | 1 | `30, 31, 32` | `0`:2653, `v`:1234, `8`:336, `f`:285, `j`:260 |
+| 3 | 146 | 2 | `20, 21, 22` | `0`:3008, `v`:1071, `8`:360, `j`:257, `f`:251 |
+| 4 | 138 | 2 | `10, 11, 12` | `0`:3211, `v`:1000, `8`:471, `6`:262, `k`:261 |
 
 ## Per-Tileset Shape
 
