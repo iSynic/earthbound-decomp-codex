@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Inspect `C3:48C4..C3:4964` as the next source-form candidate and decide whether it belongs with these service-event movement scripts or starts a neighboring service animation family.
+The neighboring service animation helpers and events are now emitted by `--family service-animation-helpers`; inspect `C3:4D39..C3:4E73` next.
