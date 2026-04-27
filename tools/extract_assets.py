@@ -312,7 +312,7 @@ def main() -> int:
     report["rom_verified"] = not problems
     report["rom_info"] = rom_info.to_dict()
 
-    report_path = out_root / "asset-extraction-report.json"
+    report_path = out_root / f"asset-extraction-report-{manifest_path.stem}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
 

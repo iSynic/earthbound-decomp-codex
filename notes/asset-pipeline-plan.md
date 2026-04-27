@@ -44,6 +44,12 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 - **Next**: SNES palettes, tilemaps, compressed graphics blocks, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
+## Tooling Path
+
+- `tools/build_asset_extraction_manifest.py` converts the existing `asset-bank-xx.json` layout data into checked-in extraction manifests.
+- `tools/extract_assets.py` consumes those manifests and writes local ROM-derived outputs under `build/assets/`.
+- Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
+
 Existing refs are useful for this phase:
 
 - `refs/eb-decompile-4ef92` has extracted battle sprites, fonts, music, sprite groups, tilesets, town maps, and window graphics.
