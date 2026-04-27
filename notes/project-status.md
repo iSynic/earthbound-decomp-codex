@@ -8,7 +8,7 @@ before this becomes true human-readable source.
 
 - First-pass bank notes exist for all `48 / 48` configured banks from `C0`
   through `EF`.
-- Source scaffolds exist for all `48 / 48` banks under `src/<bank>/`.
+- Byte-equivalent scaffolds exist for all `48 / 48` banks under `src/<bank>/`.
 - Every current bank scaffold is byte-equivalent against the expected ROM:
   `65536` protected bytes, `0` residual bytes, and validation status `OK` for
   each bank.
@@ -18,13 +18,26 @@ before this becomes true human-readable source.
 
 ## What Is Complete
 
-The structural source-scaffold phase is complete across the configured ROM
-banks.
+The structural scaffold phase is complete across the configured ROM banks.
 
 That means the project can reproduce and protect every byte in banks `C0..EF`
-through checked-in source scaffold files. The scaffolds are stable enough to use
-as an organizing layer for romhacking, source extraction, table work, asset
+through checked-in assembler scaffold files. The scaffolds are stable enough to
+use as an organizing layer for romhacking, source extraction, table work, asset
 emission, and future porting research.
+
+## Terminology
+
+Use these terms carefully:
+
+- **Scaffold-backed**: bytes are represented in checked-in assembler artifacts
+  and pass byte-equivalence validation.
+- **Decoded source**: bytes have been converted into instruction-by-instruction
+  assembly, table definitions, or typed data emitters.
+- **Semantically understood**: decoded source has reliable names, comments,
+  call/data evidence, and subsystem contracts.
+
+Most banks are scaffold-backed. Code-heavy banks such as `C0`, `C1`, `C2`,
+`C4`, and `EF` still need a lot of decoded source and semantic promotion.
 
 ## What Is Not Complete
 

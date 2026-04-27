@@ -27,8 +27,8 @@ promote known assembly into clearer abstractions over time.
 ## Current Status
 
 The repo contains a closed byte-equivalent scaffold for all ROM banks currently
-covered by the project. In practical terms, every bank has a source scaffold that
-can be validated against the original ROM bytes.
+covered by the project. In practical terms, every bank has a scaffold that can be
+validated against the original ROM bytes.
 
 That does not mean every routine is fully understood. The work is in layers:
 
@@ -39,9 +39,11 @@ That does not mean every routine is fully understood. The work is in layers:
 4. Promote working names and structures into clearer source.
 5. Eventually translate well-understood subsystems into higher-level code.
 
-Banks `C0`, `C1`, and `C2` are the most source-heavy runtime banks and have
-received the deepest semantic pass so far. Later banks are increasingly heavy in
-assets, tables, text/script payloads, and audio/data packs.
+Banks `C0`, `C1`, and `C2` are the most code-heavy runtime banks. They are
+structurally protected, but much of their checked-in scaffold is still
+byte-preserved data corridors rather than decoded instruction-by-instruction
+assembly. Later banks are increasingly heavy in assets, tables, text/script
+payloads, and audio/data packs.
 
 ## For Romhackers
 
@@ -222,6 +224,10 @@ The scaffold is intentionally conservative.
 
 This lets the project support two tracks at once: practical romhacking today and
 eventual decompilation or porting work later.
+
+Terminology note: "scaffold-backed" means the bytes are accounted for in a
+checked-in, byte-equivalent assembler artifact. It does not necessarily mean the
+range has been converted into human-readable mnemonic assembly yet.
 
 ## Porting Outlook
 
