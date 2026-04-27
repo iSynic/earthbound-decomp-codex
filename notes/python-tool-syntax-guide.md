@@ -426,6 +426,19 @@ Audit structural stats from the `.fts` tile-animation/settings rows:
 python tools/build_map_fts_animation_settings_contract.py
 ```
 
+Join sectors, tilesets, `.fts` contracts, palette variants, and `map_tiles.map`
+window hashes into scene-composition metadata:
+
+```powershell
+python tools/build_map_scene_composition_contract.py
+```
+
+Render ignored map scene composition preview BMPs:
+
+```powershell
+python tools/render_map_scene_composition_previews.py
+```
+
 Render ignored grayscale previews from the audited 64-character tile rows:
 
 ```powershell

@@ -69,6 +69,7 @@ Good starting points:
 - `notes/map-fts-format-audit.md`
 - `notes/map-fts-arrangement-contract.md`
 - `notes/map-fts-animation-settings-contract.md`
+- `notes/map-scene-composition-contract.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`
