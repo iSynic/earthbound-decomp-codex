@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `4` families, `3015` validated
+- Current source-form event/actionscript pilots: `5` families, `3329` validated
   bytes
 
 This means the byte layer is stable. The open work is semantic: opcode
@@ -171,7 +171,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: four pilots complete.
+Status: five pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -181,6 +181,8 @@ Status: four pilots complete.
   movement scripts, `C3:4508..C3:48C4`, `956` validated bytes.
 - `notes/c3-service-animation-source-pilot.md`: neighboring service animation
   helpers and events, `C3:48C4..C3:4D39`, `1141` validated bytes.
+- `notes/c3-service-presentation-effects-source-pilot.md`: neighboring
+  presentation/effect corridor, `C3:4D39..C3:4E73`, `314` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -191,7 +193,8 @@ Candidate/follow-up families for this milestone:
 - `C3:43DB..C3:4508` timed-delivery controller family - pilot complete
 - `C3:4508..C3:48C4` adjacent service-event movement scripts - pilot complete
 - `C3:48C4..C3:4D39` neighboring service animation helpers/events - pilot complete
-- `C3:4D39..C3:4E73` next neighboring service presentation candidate
+- `C3:4D39..C3:4E73` neighboring service presentation/effect corridor - pilot complete
+- `C3:4E73..C3:5F8B` larger event payload cluster - split before source-form promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -209,6 +212,7 @@ Keep these out of the event VM decoder unless evidence changes:
 ## Suggested Immediate Target
 
 The movement pulse preset family, timed-delivery controller, adjacent
-service-event movement scripts, and neighboring service-animation helper/event
-cluster now have source-form pilots. Move next to `C3:4D39..C3:4E73`, the
-small follow-up presentation corridor before the larger `C3:4E73` payload.
+service-event movement scripts, neighboring service-animation helper/event
+cluster, and presentation/effect corridor now have source-form pilots. Move next
+to `C3:4E73..C3:5F8B`, but split the larger payload into referenced sublabels
+or ebsrc include groups before source-form promotion.

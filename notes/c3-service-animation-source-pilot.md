@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Inspect `C3:4D39..C3:4E73` as the next source-form candidate. It starts after the event 569 presentation path and before the larger `C3:4E73` event payload cluster.
+The neighboring presentation/effect corridor is now emitted by `--family service-presentation-effects`; inspect the larger `C3:4E73..C3:5F8B` payload cluster next.
