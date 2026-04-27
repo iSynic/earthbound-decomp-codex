@@ -64,6 +64,7 @@ Good starting points:
 - `notes/map-movement-usage-contract.md`
 - `notes/map-object-bundles.md`
 - `notes/map-object-layer-closure.md`
+- `notes/map-milestone-closure.md`
 - `notes/map-sector-bundles.md`
 - `notes/map-tileset-bundles.md`
 - `notes/map-fts-format-audit.md`
@@ -201,6 +202,12 @@ python tools/build_map_sector_bundle_contract.py
 python tools/build_map_tileset_bundle_contract.py
 ```
 
+Regenerate the full checked-in map contract milestone:
+
+```powershell
+python tools/run_map_contracts.py
+```
+
 Build cross-bank naming or data-contract reports:
 
 ```powershell
@@ -234,6 +241,8 @@ High-use tools:
   metadata, enemy groups, music options, hotspots, and map tile hashes
 - `build_map_tileset_bundle_contract.py`: catalog map tileset IDs, `.fts`
   exports, palette settings, and sector dependencies
+- `run_map_contracts.py`: regenerate the checked-in map contract milestone in
+  dependency order
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
 - `promote_linear_range_to_decoded_source.py`: replace one byte corridor with
