@@ -342,8 +342,8 @@ python tools/validate_asset_manifests.py --extract
 ```
 
 The same extraction pass also emits first-pass palette-aware battle-background
-tile-sheet previews where a 4bpp graphics payload has a matching same-numbered
-16-color battle background palette.
+tile-sheet previews and composed 32x32 battle-background arrangement previews
+where matching same-numbered graphics/palette payloads line up mechanically.
 
 Render SNES 4bpp data when a graphics payload boundary is known:
 

@@ -431,6 +431,30 @@
         {
           "kind": "earthbound_lzhal",
           "path": "ca/battle_bgs/arrangements/37.arr"
+        },
+        {
+          "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+          "path": "ca/battle_bgs/arrangements/37_composed_preview.png",
+          "width_tiles": 32,
+          "height_tiles": 32,
+          "bpp": 2,
+          "colors": 4,
+          "arrangement_id": 37,
+          "graphics_id": 37,
+          "palette_id": 37,
+          "graphics_source": {
+            "type": "rom-range",
+            "range": "CA:7314..CA:7F6C",
+            "bytes": 3160,
+            "sha1": "524f9b898bfe240cdbb8ad398934ffa12852030f",
+            "compression": "earthbound_lzhal"
+          },
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D234..CB:D254",
+            "bytes": 32,
+            "sha1": "4a0913d7fe0b4cdec1d9ce1712437d04af7c3e6e"
+          }
         }
       ],
       "notes": [
@@ -488,6 +512,30 @@
         {
           "kind": "earthbound_lzhal",
           "path": "ca/battle_bgs/arrangements/38.arr"
+        },
+        {
+          "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+          "path": "ca/battle_bgs/arrangements/38_composed_preview.png",
+          "width_tiles": 32,
+          "height_tiles": 32,
+          "bpp": 2,
+          "colors": 4,
+          "arrangement_id": 38,
+          "graphics_id": 38,
+          "palette_id": 38,
+          "graphics_source": {
+            "type": "rom-range",
+            "range": "CA:65D3..CA:7314",
+            "bytes": 3393,
+            "sha1": "f80daeee2439c1e7d08be94b93c204bc1aa1f2a2",
+            "compression": "earthbound_lzhal"
+          },
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D214..CB:D234",
+            "bytes": 32,
+            "sha1": "47080439f0564dc4e27bdc9c04303533580adab8"
+          }
         }
       ],
       "notes": [
@@ -514,6 +562,30 @@
         {
           "kind": "earthbound_lzhal",
           "path": "ca/battle_bgs/arrangements/39.arr"
+        },
+        {
+          "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+          "path": "ca/battle_bgs/arrangements/39_composed_preview.png",
+          "width_tiles": 32,
+          "height_tiles": 32,
+          "bpp": 2,
+          "colors": 4,
+          "arrangement_id": 39,
+          "graphics_id": 39,
+          "palette_id": 39,
+          "graphics_source": {
+            "type": "rom-range",
+            "range": "CA:8B4F..CA:965F",
+            "bytes": 2832,
+            "sha1": "d860b0da53d11c280d02635eb0454d555c2be6f1",
+            "compression": "earthbound_lzhal"
+          },
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D1F4..CB:D214",
+            "bytes": 32,
+            "sha1": "1cf12627d389de875783eea144a9f3788f3197e3"
+          }
         }
       ],
       "notes": [
@@ -540,6 +612,30 @@
         {
           "kind": "earthbound_lzhal",
           "path": "ca/battle_bgs/arrangements/42.arr"
+        },
+        {
+          "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+          "path": "ca/battle_bgs/arrangements/42_composed_preview.png",
+          "width_tiles": 32,
+          "height_tiles": 32,
+          "bpp": 2,
+          "colors": 4,
+          "arrangement_id": 42,
+          "graphics_id": 42,
+          "palette_id": 42,
+          "graphics_source": {
+            "type": "rom-range",
+            "range": "CA:5723..CA:65D3",
+            "bytes": 3760,
+            "sha1": "fc083cada58e86186930360e238fa8e9981d59e9",
+            "compression": "earthbound_lzhal"
+          },
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D194..CB:D1B4",
+            "bytes": 32,
+            "sha1": "f5b615fa054e2a7c060b14d909307cfe75edf00a"
+          }
         }
       ],
       "notes": [
@@ -566,6 +662,30 @@
         {
           "kind": "earthbound_lzhal",
           "path": "ca/battle_bgs/arrangements/100.arr"
+        },
+        {
+          "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+          "path": "ca/battle_bgs/arrangements/100_composed_preview.png",
+          "width_tiles": 32,
+          "height_tiles": 32,
+          "bpp": 4,
+          "colors": 16,
+          "arrangement_id": 100,
+          "graphics_id": 100,
+          "palette_id": 100,
+          "graphics_source": {
+            "type": "rom-range",
+            "range": "CB:C2C9..CB:C32C",
+            "bytes": 99,
+            "sha1": "9b6f11ee05489628ecede47ee7ea2b5ee8998be9",
+            "compression": "earthbound_lzhal"
+          },
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:CD54..CB:CD74",
+            "bytes": 32,
+            "sha1": "3219172e174e5329f9b33f29398ff909b94ea8c8"
+          }
         }
       ],
       "notes": [

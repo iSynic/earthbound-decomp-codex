@@ -144,6 +144,26 @@ def read_entry_bytes(rom: bytes, entry: dict[str, Any]) -> bytes:
     return data
 
 
+def source_bytes_from_manifest_source(rom: bytes, source: dict[str, Any]) -> bytes:
+    range_text = str(source["range"])
+    start_text, end_text = range_text.split("..", 1)
+    start_bank_text, start_addr_text = start_text.split(":", 1)
+    end_bank_text, end_addr_text = end_text.split(":", 1)
+    start_bank = int(start_bank_text, 16)
+    end_bank = int(end_bank_text, 16)
+    if start_bank != end_bank:
+        raise ValueError(f"Cross-bank source range is not supported: {range_text}")
+    start_addr = int(start_addr_text, 16)
+    end_addr = int(end_addr_text, 16)
+    start_offset = rom_tools.hirom_to_file_offset(start_bank, start_addr, len(rom))
+    if start_offset is None:
+        raise ValueError(f"Source range does not map to ROM: {range_text}")
+    data = rom[start_offset : start_offset + (end_addr - start_addr)]
+    if len(data) != int(source["bytes"]):
+        raise ValueError(f"Source range byte count mismatch: {range_text}")
+    return data
+
+
 def lzhal_decompressed_size(rom: bytes, entry: dict[str, Any]) -> int | None:
     try:
         decompressed, consumed = decompress_c41a9e.decompress_blob(
@@ -180,6 +200,29 @@ def load_battle_bg_palette_registry(
             if str(entry.get("extension", "")).lower() != "pal":
                 continue
             number = battle_bg_asset_number(entry, "palettes", "pal")
+            if number is None:
+                continue
+            source = make_source(entry, rom)
+            if entry.get("compressed") or str(entry.get("payload_path", "")).lower().endswith(".lzhal"):
+                source["compression"] = "earthbound_lzhal"
+            registry[number] = source
+    return registry
+
+
+def load_battle_bg_graphics_registry(
+    bank_manifest_dir: Path,
+    rom: bytes,
+) -> dict[int, dict[str, Any]]:
+    registry: dict[int, dict[str, Any]] = {}
+    for path in sorted(bank_manifest_dir.glob("asset-bank-*.json")):
+        try:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for entry in manifest.get("binary_assets", []):
+            if str(entry.get("extension", "")).lower() != "gfx":
+                continue
+            number = battle_bg_asset_number(entry, "graphics", "gfx")
             if number is None:
                 continue
             source = make_source(entry, rom)
@@ -230,11 +273,68 @@ def battle_bg_palette_preview_output(
     }
 
 
+def battle_bg_arrangement_preview_output(
+    raw_path: str,
+    entry: dict[str, Any],
+    graphics_registry: dict[int, dict[str, Any]],
+    palette_registry: dict[int, dict[str, Any]],
+    compressed: bool,
+    rom: bytes,
+) -> dict[str, Any] | None:
+    number = battle_bg_asset_number(entry, "arrangements", "arr")
+    if number is None:
+        return None
+    graphics_source = graphics_registry.get(number)
+    palette_source = palette_registry.get(number)
+    if graphics_source is None or palette_source is None:
+        return None
+    arrangement_data = source_bytes_from_manifest_source(rom, make_source(entry, rom))
+    if compressed:
+        arrangement_data, _ = decompress_c41a9e.decompress_blob(arrangement_data, dest_base=0xC000)
+    if len(arrangement_data) != 2048:
+        return None
+    max_tile = max(
+        arrangement_data[offset] | ((arrangement_data[offset + 1] & 0x03) << 8)
+        for offset in range(0, len(arrangement_data), 2)
+    )
+
+    graphics_data = source_bytes_from_manifest_source(rom, graphics_source)
+    if graphics_source.get("compression") == "earthbound_lzhal":
+        graphics_data, _ = decompress_c41a9e.decompress_blob(graphics_data, dest_base=0xC000)
+    palette_data = source_bytes_from_manifest_source(rom, palette_source)
+    if palette_source.get("compression") == "earthbound_lzhal":
+        palette_data, _ = decompress_c41a9e.decompress_blob(palette_data, dest_base=0xC000)
+
+    if len(graphics_data) % 32 == 0 and len(graphics_data) // 32 > max_tile and len(palette_data) >= 32:
+        bpp = 4
+        colors = 16
+    elif len(graphics_data) % 16 == 0 and len(graphics_data) // 16 > max_tile and len(palette_data) >= 8:
+        bpp = 2
+        colors = 4
+    else:
+        return None
+
+    return {
+        "kind": "earthbound_lzhal_battle_bg_arrangement_png",
+        "path": preview_path(raw_path, "composed_preview"),
+        "width_tiles": 32,
+        "height_tiles": 32,
+        "bpp": bpp,
+        "colors": colors,
+        "arrangement_id": number,
+        "graphics_id": number,
+        "palette_id": number,
+        "graphics_source": graphics_source,
+        "palette_source": palette_source,
+    }
+
+
 def binary_outputs(
     bank: str,
     entry: dict[str, Any],
     rom: bytes,
     palette_registry: dict[int, dict[str, Any]],
+    graphics_registry: dict[int, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
@@ -270,6 +370,17 @@ def binary_outputs(
             )
             if palette_preview is not None:
                 outputs.append(palette_preview)
+        if extension == "arr" and decompressed_size == 2048:
+            arrangement_preview = battle_bg_arrangement_preview_output(
+                decompressed_path,
+                entry,
+                graphics_registry,
+                palette_registry,
+                compressed=True,
+                rom=rom,
+            )
+            if arrangement_preview is not None:
+                outputs.append(arrangement_preview)
         return outputs
 
     if extension == "gfx" and not compressed and size % 32 == 0:
@@ -308,6 +419,7 @@ def convert_binary_asset(
     entry: dict[str, Any],
     rom: bytes,
     palette_registry: dict[int, dict[str, Any]],
+    graphics_registry: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     label = str(entry.get("label") or "")
     payload = str(entry.get("payload_path") or "")
@@ -326,7 +438,13 @@ def convert_binary_asset(
         "title": label or payload,
         "category": binary_category(entry),
         "source": make_source(entry, rom),
-        "outputs": binary_outputs(bank, entry, rom, palette_registry),
+        "outputs": binary_outputs(
+            bank,
+            entry,
+            rom,
+            palette_registry,
+            graphics_registry,
+        ),
         "notes": notes,
     }
 
@@ -396,12 +514,21 @@ def convert_manifest(
     include_tables: bool,
     include_gaps: bool,
     palette_registry: dict[int, dict[str, Any]],
+    graphics_registry: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     bank = str(bank_manifest["bank"]).upper()
     assets: list[dict[str, Any]] = []
 
     for entry in bank_manifest.get("binary_assets", []):
-        assets.append(convert_binary_asset(bank, entry, rom, palette_registry))
+        assets.append(
+            convert_binary_asset(
+                bank,
+                entry,
+                rom,
+                palette_registry,
+                graphics_registry,
+            )
+        )
 
     if include_tables:
         for entry in bank_manifest.get("table_includes", []):
@@ -454,6 +581,7 @@ def main() -> int:
     bank_manifest_dir = Path(args.bank_manifest_dir)
     out_dir = Path(args.out_dir)
     palette_registry = load_battle_bg_palette_registry(bank_manifest_dir, rom)
+    graphics_registry = load_battle_bg_graphics_registry(bank_manifest_dir, rom)
 
     for raw_bank in args.bank:
         bank = raw_bank.upper()
@@ -464,6 +592,7 @@ def main() -> int:
             include_tables=args.include_tables,
             include_gaps=args.include_gaps,
             palette_registry=palette_registry,
+            graphics_registry=graphics_registry,
         )
         path = write_manifest(out_dir, bank, extraction_manifest)
         print(f"{bank}: wrote {len(extraction_manifest['assets'])} assets to {rel(path)}")

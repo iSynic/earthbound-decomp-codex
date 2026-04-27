@@ -324,6 +324,143 @@ def write_snes_4bpp_palette_png(
     return {"colors": len(entries), "palette_source_range": spec["palette_source"]["range"]}
 
 
+def source_data(rom: bytes, spec: dict[str, Any], key: str) -> bytes:
+    source = spec.get(key)
+    if not isinstance(source, dict):
+        raise ValueError(f"Output requires {key}: {spec!r}")
+    if source.get("type") != "rom-range":
+        raise ValueError(f"Only rom-range sources are supported for {key}: {source!r}")
+    range_text = source.get("range")
+    if not isinstance(range_text, str):
+        raise ValueError(f"{key} is missing a range: {source!r}")
+    data, _ = rom_range_slice(rom, range_text)
+    expected_bytes = source.get("bytes")
+    if expected_bytes is not None and len(data) != int(expected_bytes):
+        raise ValueError(f"{key} {range_text}: expected {expected_bytes} bytes, got {len(data)}")
+    expected_sha1 = source.get("sha1")
+    if expected_sha1 is not None:
+        actual_sha1 = hashlib.sha1(data).hexdigest()
+        if actual_sha1 != expected_sha1:
+            raise ValueError(
+                f"{key} SHA-1 mismatch for {range_text}: expected {expected_sha1}, got {actual_sha1}"
+            )
+    compression = source.get("compression")
+    if compression is None:
+        return data
+    if compression == "earthbound_lzhal":
+        decompressed, _ = decompress_earthbound_lzhal(data)
+        return decompressed
+    raise ValueError(f"Unsupported {key} compression: {compression}")
+
+
+def decode_snes_4bpp_tile_list(data: bytes) -> list[list[list[int]]]:
+    if len(data) % 32 != 0:
+        raise ValueError(f"SNES 4bpp tile data must be a multiple of 32 bytes, got {len(data)}")
+    tiles: list[list[list[int]]] = []
+    for tile_offset in range(0, len(data), 32):
+        tile = data[tile_offset : tile_offset + 32]
+        rows: list[list[int]] = []
+        for y in range(8):
+            plane0 = tile[y * 2]
+            plane1 = tile[y * 2 + 1]
+            plane2 = tile[16 + y * 2]
+            plane3 = tile[16 + y * 2 + 1]
+            row = []
+            for x in range(8):
+                bit = 7 - x
+                row.append(
+                    ((plane0 >> bit) & 1)
+                    | (((plane1 >> bit) & 1) << 1)
+                    | (((plane2 >> bit) & 1) << 2)
+                    | (((plane3 >> bit) & 1) << 3)
+                )
+            rows.append(row)
+        tiles.append(rows)
+    return tiles
+
+
+def decode_snes_2bpp_tile_list(data: bytes) -> list[list[list[int]]]:
+    if len(data) % 16 != 0:
+        raise ValueError(f"SNES 2bpp tile data must be a multiple of 16 bytes, got {len(data)}")
+    tiles: list[list[list[int]]] = []
+    for tile_offset in range(0, len(data), 16):
+        tile = data[tile_offset : tile_offset + 16]
+        rows: list[list[int]] = []
+        for y in range(8):
+            plane0 = tile[y * 2]
+            plane1 = tile[y * 2 + 1]
+            row = []
+            for x in range(8):
+                bit = 7 - x
+                row.append(((plane0 >> bit) & 1) | (((plane1 >> bit) & 1) << 1))
+            rows.append(row)
+        tiles.append(rows)
+    return tiles
+
+
+def write_battle_bg_arrangement_png(
+    arrangement_data: bytes,
+    graphics_data: bytes,
+    palette_data: bytes,
+    path: Path,
+    spec: dict[str, Any],
+) -> dict[str, Any]:
+    width_tiles = int(spec.get("width_tiles", 32))
+    height_tiles = int(spec.get("height_tiles", 32))
+    expected_bytes = width_tiles * height_tiles * 2
+    if len(arrangement_data) != expected_bytes:
+        raise ValueError(
+            f"Battle background arrangement expected {expected_bytes} bytes, "
+            f"got {len(arrangement_data)}"
+        )
+
+    bpp = int(spec.get("bpp", 4))
+    if bpp == 2:
+        tiles = decode_snes_2bpp_tile_list(graphics_data)
+    elif bpp == 4:
+        tiles = decode_snes_4bpp_tile_list(graphics_data)
+    else:
+        raise ValueError(f"Unsupported battle background arrangement bpp: {bpp}")
+    entries = decode_snes_bgr555_palette(palette_data, count=palette_entry_count(palette_data, spec))
+    rows = [[(0, 0, 0) for _ in range(width_tiles * 8)] for _ in range(height_tiles * 8)]
+    max_tile = 0
+
+    for tilemap_index in range(width_tiles * height_tiles):
+        word_offset = tilemap_index * 2
+        word = arrangement_data[word_offset] | (arrangement_data[word_offset + 1] << 8)
+        tile_index = word & 0x03FF
+        max_tile = max(max_tile, tile_index)
+        if tile_index >= len(tiles):
+            raise ValueError(
+                f"Arrangement references tile {tile_index}, but graphics only has {len(tiles)} tiles"
+            )
+        hflip = bool(word & 0x4000)
+        vflip = bool(word & 0x8000)
+        tile_x = (tilemap_index % width_tiles) * 8
+        tile_y = (tilemap_index // width_tiles) * 8
+        tile = tiles[tile_index]
+        for y in range(8):
+            src_y = 7 - y if vflip else y
+            for x in range(8):
+                src_x = 7 - x if hflip else x
+                color = tile[src_y][src_x]
+                if color >= len(entries):
+                    raise ValueError(
+                        f"Tile color {color} is outside palette with {len(entries)} colors"
+                    )
+                entry = entries[color]
+                rows[tile_y + y][tile_x + x] = (entry.red8, entry.green8, entry.blue8)
+
+    write_rgb_png(path, rows)
+    return {
+        "colors": len(entries),
+        "graphics_source_range": spec["graphics_source"]["range"],
+        "palette_source_range": spec["palette_source"]["range"],
+        "bpp": bpp,
+        "max_tile": max_tile,
+    }
+
+
 def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> dict[str, Any]:
     kind = spec.get("kind")
     relative_path = spec.get("path")
@@ -357,6 +494,19 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         decompressed, consumed = decompress_earthbound_lzhal(data)
         metadata.update(
             write_snes_4bpp_palette_png(decompressed, palette_source_data(rom, spec), path, spec)
+        )
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "earthbound_lzhal_battle_bg_arrangement_png":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        metadata.update(
+            write_battle_bg_arrangement_png(
+                decompressed,
+                source_data(rom, spec, "graphics_source"),
+                source_data(rom, spec, "palette_source"),
+                path,
+                spec,
+            )
         )
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
