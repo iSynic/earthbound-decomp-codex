@@ -17,6 +17,23 @@ Supporting reports:
 - `notes/bank-c3-progress-audit.md`
 - `notes/bank-c3-reference-frontier.md`
 - `notes/bank-c3-working-name-proposals.md`
+- `notes/c3-build-candidate-ranges.md`
+- `notes/c3-byte-equivalence-validation.md`
+- `notes/c3-source-residual-map.md`
+
+Source scaffold status:
+
+- durable scaffold: `src/c3/bank_c3_helpers_asar.asm`
+- manifest: `build/c3-build-candidate-ranges.json`
+- modules: `11`
+- source-backed bytes: `65536 / 65536`
+- preserved data-gap bytes: `0`
+- byte-equivalence: `OK`, `0` mismatches
+
+This means every C3 byte is now represented by checked-in scaffold source.
+Most of `C3:0000..E450` is still event/actionscript or raw data source, not
+ordinary 65816 code; the remaining semantic work is VM/script decoding and
+table typing rather than byte-corridor closure.
 
 Working-name outputs:
 
