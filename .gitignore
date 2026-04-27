@@ -1,0 +1,39 @@
+# Keep the repository focused on durable documentation, source scaffolds, and tools.
+
+# ROMs and extracted game data must not be committed.
+*.sfc
+*.smc
+*.fig
+*.bin
+*.rom
+baserom/
+asm/
+dumps/
+
+# Local scratch/probe files.
+tmp_*.asm
+tmp*.asm
+*.tmp
+*.bak
+
+# Generated validation/build output. Regenerate from tools/ and notes/src state.
+build/
+
+# Local inbox / automation scratch.
+inbox/
+
+# Vendored/reference checkouts are useful locally but should be curated before publishing.
+refs/
+
+# Python/editor/system noise.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

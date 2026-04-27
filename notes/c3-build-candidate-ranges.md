@@ -1,0 +1,799 @@
+# C3 build-candidate byte ranges
+
+This manifest records source slices promoted into the reusable source-bank scaffold pipeline.
+
+## Summary
+
+- ranges: `11`
+- total bytes: `65536`
+- source bytes: `3629`
+- data gap bytes: `61907`
+
+## Ranges
+
+| Level | Source Path | Range | Span Bytes | Source Bytes | Data Gap Bytes | SHA-1 |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| `build-candidate` | `src/c3/script_event_payloads_0000_e450.asm` | `C3:0000..C3:E450` | 58448 | 0 | 58448 | `9a09de8dd23da105748731d0eb1fec808552b747` |
+| `build-candidate` | `src/c3/window_text_helpers.asm` | `C3:E450..C3:E84E` | 1022 | 1022 | 0 | `cf5ed3d3fae1e6adbd71e07feeee7419b5cf8207` |
+| `build-candidate` | `src/c3/data_debug_menu_mixed_inventory_prefix.asm` | `C3:E84E..C3:E977` | 297 | 0 | 297 | `f3ad9bfaadef5a560a91fb2bc89d4009df1907d8` |
+| `build-candidate` | `src/c3/inventory_equipment_tracked_items.asm` | `C3:E977..C3:EC1F` | 680 | 680 | 0 | `5faf2c4d221e21edfa75e8aa5ce59031eca5b8c7` |
+| `build-candidate` | `src/c3/hp_pp_adjustment_helpers.asm` | `C3:EC1F..C3:EE14` | 501 | 501 | 0 | `010b248a397746426cb6846d75c2170b2e12c265` |
+| `build-candidate` | `src/c3/equipment_battle_selector_helpers.asm` | `C3:EE14..C3:EF23` | 271 | 271 | 0 | `715d3d673026fff3c5f799264f2962425bcf4ab3` |
+| `build-candidate` | `src/c3/data_battle_menu_tables_ef23_f1ec.asm` | `C3:EF23..C3:F1EC` | 713 | 0 | 713 | `ef1803162fd0f037e79307cfa88d14bbcc984adf` |
+| `build-candidate` | `src/c3/jeff_repair_psi_helpers.asm` | `C3:F1EC..C3:F2B1` | 197 | 197 | 0 | `78d0a226bf94c9d95e0a52a8c176d10d84e2a66c` |
+| `build-candidate` | `src/c3/data_battle_visual_tables_f2b1_f5f9.asm` | `C3:F2B1..C3:F5F9` | 840 | 0 | 840 | `a8240072a68ad0cadf6a8353b249c7a56241d602` |
+| `build-candidate` | `src/c3/battle_visual_effect_helpers.asm` | `C3:F5F9..C3:FB1F` | 1318 | 958 | 360 | `3164d2a491b0fe7e790fb85ef0266ae2df073f98` |
+| `build-candidate` | `src/c3/data_battle_tail_and_delivery_payloads_fb1f_10000.asm` | `C3:FB1F..C3:10000` | 1249 | 0 | 1249 | `8693790fa90900b734844aafa08eb1ad3406f561` |
+
+## Source Segments
+
+### `src/c3/script_event_payloads_0000_e450.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `C3:0000..C3:0188` (`392` bytes, SHA-1 `0d40ceefcd4a255b251e48f47edbd0e6ec08e822`) `C30000Unmapped`
+- `C3:0188..C3:0295` (`269` bytes, SHA-1 `52dfb0af8822ce042fbaa0af080417ba18e4cd26`) `C30188RawData`
+- `C3:0295..C3:098B` (`1782` bytes, SHA-1 `572bd210d104d48cf1a1b4d0b5ce076f54aa3c0d`) `MoveActiveEntityLeftToScriptVarsAndWait`
+- `C3:098B..C3:0A1F` (`148` bytes, SHA-1 `fa0438fedfa687e02134355f9573a15cc6fb0fd4`) `C3098BEventScript`
+- `C3:0A1F..C3:0C55` (`566` bytes, SHA-1 `78a957dd80b5d06526f090d50e3843f3946f1091`) `C30A1FEventScript`
+- `C3:0C55..C3:0C67` (`18` bytes, SHA-1 `fe613b253e0f38e3a726e5471cf2fc47d7ed7688`) `C30C55EventScript`
+- `C3:0C67..C3:1D2D` (`4294` bytes, SHA-1 `c9e627a7a399eb6e4bcea16db31f5e2483fbc74a`) `C30C67EventScript`
+- `C3:1D2D..C3:1D4F` (`34` bytes, SHA-1 `3be5da7912f29bd395a1e7fc4bae426cc00a0066`) `C31D2DEventScript`
+- `C3:1D4F..C3:1DF4` (`165` bytes, SHA-1 `c72388ae2f73d08bc048f2134a8b6efbaf59bcb7`) `C31D4FEventScript`
+- `C3:1DF4..C3:1E2D` (`57` bytes, SHA-1 `aae341e9008a5183103ab22470aa0fe843fe6be8`) `C31DF4EventScript`
+- `C3:1E2D..C3:1EC1` (`148` bytes, SHA-1 `969ea527dfd5a5dc9d77d9af67d950381abcae0c`) `C31E2DEventScript`
+- `C3:1EC1..C3:1ED8` (`23` bytes, SHA-1 `f0040e1e0ab7f7db362ceb9716c05094dc40fa85`) `C31EC1EventScript`
+- `C3:1ED8..C3:1EEF` (`23` bytes, SHA-1 `dcbcafe97a5cdc93d28d4b6dba8b5ad7098136f2`) `C31ED8EventScript`
+- `C3:1EEF..C3:2138` (`585` bytes, SHA-1 `c6c664a7b70f81bf52b6b15ad7340c7addbc9014`) `C31EEFEventScript`
+- `C3:2138..C3:2CD2` (`2970` bytes, SHA-1 `1043ae54e937aecdebf8ef8b6d31d17e95496d98`) `C32138EventScript`
+- `C3:2CD2..C3:3399` (`1735` bytes, SHA-1 `3f32df9df4482584080b54bce7fa5b31ea4b0bda`) `C32CD2EventScript`
+- `C3:3399..C3:33AA` (`17` bytes, SHA-1 `9f6f70dad230d3ee42ba0a5aaddbe2032fd568e5`) `C33399EventScript`
+- `C3:33AA..C3:33BB` (`17` bytes, SHA-1 `6f02091e60f2e6edf974ca3fa99f84d1961660b8`) `C333AAEventScript`
+- `C3:33BB..C3:33CC` (`17` bytes, SHA-1 `2d1ee0d7bafb1e482789c1d55ea72627b3126b1c`) `C333BBEventScript`
+- `C3:33CC..C3:33DD` (`17` bytes, SHA-1 `e54cfc33f4a2d3494d2f5fa10d7413e76dd0093e`) `C333CCEventScript`
+- `C3:33DD..C3:3549` (`364` bytes, SHA-1 `2e2f80d843160c695ae85f71074c77bd3ddcd038`) `C333DDEventScript`
+- `C3:3549..C3:3BFB` (`1714` bytes, SHA-1 `3bc772eb225106dc2c8a67a54f5f524c278aeb7d`) `C33549EventScript`
+- `C3:3BFB..C3:3C18` (`29` bytes, SHA-1 `c5410922a0a039279ca320a9b6d2e21a863fa1a6`) `C33BFBEventScript`
+- `C3:3C18..C3:3C1D` (`5` bytes, SHA-1 `8fc5272eee0ce2f69560c98bfb57126cc8c28e89`) `C33C18EventScript`
+- `C3:3C1D..C3:3DBE` (`417` bytes, SHA-1 `5afa3e7b672b3b09290160ed60fa11204689933f`) `C33C1DEventScript`
+- `C3:3DBE..C3:4392` (`1492` bytes, SHA-1 `2f05f74a02eebccc0d2f79acb8b101680f92736c`) `C33DBEEventScript`
+- `C3:4392..C3:43AE` (`28` bytes, SHA-1 `6f2e611b59efcbb3f009c5c6a1da2457f004f7b1`) `C34392EventScript`
+- `C3:43AE..C3:43DB` (`45` bytes, SHA-1 `5ac66cb7260be89a3f6024fa193881e8d28d2451`) `C343AEEventScript`
+- `C3:43DB..C3:43E8` (`13` bytes, SHA-1 `a11dc872426720df0640ceb0d8fb42438b6626b1`) `LoopTimedDeliveryDeparturePulseUntilOffscreen`
+- `C3:43E8..C3:443E` (`86` bytes, SHA-1 `384ea50508928b6771e6906c514798df4007b859`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart43E8`
+- `C3:443E..C3:444D` (`15` bytes, SHA-1 `3a5c136ff185981a200c081b1e2459cf8911de65`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart443E`
+- `C3:444D..C3:4457` (`10` bytes, SHA-1 `7cff48e3053573021322f22c5bcd141dc4ede62d`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart444D`
+- `C3:4457..C3:447A` (`35` bytes, SHA-1 `e8003bbc1a7fdaf0dbbbdb23f8f14fb4f4b8e7c4`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart4457`
+- `C3:447A..C3:447D` (`3` bytes, SHA-1 `7b98efb0e32e8aa9a64f1ba132f8b6eabf6b7060`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart447A`
+- `C3:447D..C3:4488` (`11` bytes, SHA-1 `26a0621cd3894df981f29b9ef9a6c692433c5fa9`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart447D`
+- `C3:4488..C3:4499` (`17` bytes, SHA-1 `809cd5480e233d2eb42c8d93d0a051189a74d81b`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart4488`
+- `C3:4499..C3:44A7` (`14` bytes, SHA-1 `d812d2942de8294ab4272d13cff2125d663b170e`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart4499`
+- `C3:44A7..C3:44A8` (`1` bytes, SHA-1 `27f57cb359a8f86acf4af811c47a6380b4bb4209`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A7`
+- `C3:44A8..C3:44C1` (`25` bytes, SHA-1 `162b51c6de4458470990129cca97097beff0137e`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A8`
+- `C3:44C1..C3:44D2` (`17` bytes, SHA-1 `135c3d62f9cb2e5d4594763e80a401f3e7bbb6f4`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44C1`
+- `C3:44D2..C3:44DE` (`12` bytes, SHA-1 `14c6fceb865e90572c14f4b1efce9528c55fa3cd`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44D2`
+- `C3:44DE..C3:44EE` (`16` bytes, SHA-1 `23f3b6cc6b61096cd057ff2f9243cccd551702e5`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44DE`
+- `C3:44EE..C3:44FF` (`17` bytes, SHA-1 `ba1daa705058625ad02287f457006802bdad5969`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44EE`
+- `C3:44FF..C3:48C4` (`965` bytes, SHA-1 `07bb89dc94614e58f35a3525ad95bce2a21d5ad5`) `LoopTimedDeliveryDeparturePulseUntilOffscreenPart44FF`
+- `C3:48C4..C3:4964` (`160` bytes, SHA-1 `59286c6ec50d11a8799f16dca86f913fcc96a6fb`) `C348C4EventScript`
+- `C3:4964..C3:4A61` (`253` bytes, SHA-1 `159f312a0771dce255e33e4aa66da493fb73dcb2`) `C34964EventScript`
+- `C3:4A61..C3:4B62` (`257` bytes, SHA-1 `bbfaf82faaa99ffb6c4ccea3a3da0e10c7817390`) `C34A61EventScript`
+- `C3:4B62..C3:4D39` (`471` bytes, SHA-1 `772a1ddffa756461cb2acce9e867e509d7cd6a32`) `C34B62EventScript`
+- `C3:4D39..C3:4E73` (`314` bytes, SHA-1 `8bd657f36fef2e110d91c749f65a9063de543af2`) `C34D39EventScript`
+- `C3:4E73..C3:5F8B` (`4376` bytes, SHA-1 `86e23fc1f3c037f784a5dc50185b92e63714d6b3`) `C34E73EventScript`
+- `C3:5F8B..C3:5FB6` (`43` bytes, SHA-1 `3d35a26742bc61b36c2030c52c8cfc92bbce442c`) `C35F8BEventScript`
+- `C3:5FB6..C3:5FCD` (`23` bytes, SHA-1 `0cd62b84df4eccc626e13dd4d5e2cd03e8361b63`) `C35FB6EventScript`
+- `C3:5FCD..C3:62C0` (`755` bytes, SHA-1 `59be32ecce01252ac8d79eab79d65235672005af`) `C35FCDEventScript`
+- `C3:62C0..C3:6834` (`1396` bytes, SHA-1 `a15eeba18a0293fe0fbb30a23fe1ba6084a6ebe4`) `C362C0EventScript`
+- `C3:6834..C3:6A3E` (`522` bytes, SHA-1 `f80866314de24a50dfd6ea23d622bb1204e50314`) `C36834EventScript`
+- `C3:6A3E..C3:6A41` (`3` bytes, SHA-1 `71ca597338581747527da57879b54b47c62a81f1`) `C36A3EEventScript`
+- `C3:6A41..C3:6BB4` (`371` bytes, SHA-1 `57b294809db60977b87c2a512377eadb067abe58`) `C36A41EventScript`
+- `C3:6BB4..C3:6BEA` (`54` bytes, SHA-1 `b45d94b56fd88e00296db951f9c52193161f291f`) `C36BB4EventScript`
+- `C3:6BEA..C3:6D18` (`302` bytes, SHA-1 `bbdd37d083a02b226870655d9fc2bddb42ddcf7a`) `C36BEAEventScript`
+- `C3:6D18..C3:6E41` (`297` bytes, SHA-1 `7a8052cd18486e3c59f3c2401067518e3554a4b2`) `C36D18EventScript`
+- `C3:6E41..C3:7439` (`1528` bytes, SHA-1 `f5ab9c9108b19e3300875f0b6764c01fc18299dc`) `C36E41EventScript`
+- `C3:7439..C3:7545` (`268` bytes, SHA-1 `97aafbb71fc68e3dee6e1839b6115b71c7bbb3ac`) `C37439EventScript`
+- `C3:7545..C3:7559` (`20` bytes, SHA-1 `4d5f5c7c79aa860cb4168ef7c7b2a129cd2db68a`) `C37545EventScript`
+- `C3:7559..C3:7A7C` (`1315` bytes, SHA-1 `47bc8a8b84b3b5b9fa0ac9cdb597770892481870`) `C37559EventScript`
+- `C3:7A7C..C3:835D` (`2273` bytes, SHA-1 `0fcab9efb98d942c78bbab94fbec47d088f45d1e`) `C37A7CEventScript`
+- `C3:835D..C3:83BC` (`95` bytes, SHA-1 `b05dcfe4a7fc930e3d126a1740cbcae08c351dfc`) `C3835DEventScript`
+- `C3:83BC..C3:8978` (`1468` bytes, SHA-1 `4974ae145ba29e3c7e1e012bb49097b514d7b668`) `C383BCEventScript`
+- `C3:8978..C3:899E` (`38` bytes, SHA-1 `6f12a67b22995eae4a6787147180abf4449c2e0b`) `C38978EventScript`
+- `C3:899E..C3:9AC7` (`4393` bytes, SHA-1 `b59e092be232536d4eb8b56391422a2672535fc6`) `C3899EEventScript`
+- `C3:9AC7..C3:9E01` (`826` bytes, SHA-1 `639cd8baac9d1a9a2cea57a9ca6c4ae283cedf26`) `C39AC7EventScript`
+- `C3:9E01..C3:9FF2` (`497` bytes, SHA-1 `b4096e2f2c5049e084d8294fc815ed76f8b30e33`) `C39E01EventScript`
+- `C3:9FF2..C3:A010` (`30` bytes, SHA-1 `6df2940c1c54296ab265d883cc9f8860bd47195d`) `IntroMovementPatternPointerTable`
+- `C3:A010..C3:A01B` (`11` bytes, SHA-1 `28b0421bbcbc34a82d9fb32f50e8a22d524a21c2`) `IntroMovementPattern09Loop`
+- `C3:A01B..C3:A026` (`11` bytes, SHA-1 `ac0c73b293f01851708bf9116f4c4e4a3515f6a5`) `IntroMovementPattern08Loop`
+- `C3:A026..C3:A02D` (`7` bytes, SHA-1 `9f9cc08bbe5b461805afb32ae5ad40c270587f08`) `IntroMovementPatternFFLoop`
+- `C3:A02D..C3:A038` (`11` bytes, SHA-1 `92eba5dfc42d1823e232772874c54f54e0e93b2d`) `IntroMovementPattern08LoopAlt`
+- `C3:A038..C3:A043` (`11` bytes, SHA-1 `39d6c75f175f17889aee606fbf3a94a84733d183`) `IntroMovementPattern04Loop`
+- `C3:A043..C3:A04E` (`11` bytes, SHA-1 `6c19edb72a73618b91ea9ee187cab8da7852cef6`) `IntroMovementPattern04LoopPartA043`
+- `C3:A04E..C3:A052` (`4` bytes, SHA-1 `7b658c8a4a33bccd9175d8b621fc4871d608790e`) `IntroMovementPattern04LoopPartA04E`
+- `C3:A052..C3:A05E` (`12` bytes, SHA-1 `dd3b273a407a85afcfb19245754a792c78ce20b3`) `IntroMovementPattern04LoopPartA052`
+- `C3:A05E..C3:A076` (`24` bytes, SHA-1 `6dbbe413183a2023b9be91c17ff2b73f2335e1cb`) `IntroMovementPattern04LoopPartA05E`
+- `C3:A076..C3:A07F` (`9` bytes, SHA-1 `0dc7755f84a51e0c777006c6dfd3169d33585e20`) `IntroMovementPattern04LoopPartA076`
+- `C3:A07F..C3:A09F` (`32` bytes, SHA-1 `3eaff0582b6e45c988cbb3013ffc11d3fc6cc932`) `HaltEventScript`
+- `C3:A09F..C3:A0B2` (`19` bytes, SHA-1 `0c2ab2505a9434a0fd5bdd269c51e2fe4d0368ce`) `LoopActiveEntityWalkAnimationPulse`
+- `C3:A0B2..C3:A0C5` (`19` bytes, SHA-1 `65689aec0ee0ca58c93da95cf42bd2364a232183`) `LoopActiveEntityWalkPulse24Frame`
+- `C3:A0C5..C3:A0D8` (`19` bytes, SHA-1 `a28eeeb214a54e1a6876df13552d68c800968dbe`) `LoopActiveEntityWalkPulse12Frame`
+- `C3:A0D8..C3:A0EB` (`19` bytes, SHA-1 `ff8a1062ff1ceca90fa9bbc61a2851fe5c5800d1`) `LoopActiveEntityWalkPulse9FrameConditional`
+- `C3:A0EB..C3:A0FE` (`19` bytes, SHA-1 `604adb72c94029692af1936bb5c28af97d0303ee`) `LoopActiveEntityWalkPulse9FrameConditionalPartA0EB`
+- `C3:A0FE..C3:A111` (`19` bytes, SHA-1 `ab08c85295fd35e449edec4912d6e1c1ded441dd`) `LoopActiveEntityWalkPulse9FrameConditionalPartA0FE`
+- `C3:A111..C3:A12E` (`29` bytes, SHA-1 `9b7f9511765242fcd52dbd750b50e28385da34a0`) `LoopActiveEntityWalkPulse9FrameConditionalPartA111`
+- `C3:A12E..C3:A15E` (`48` bytes, SHA-1 `3219df9ec406ba078b871d3ea1b9eea5a52962fe`) `LoopActiveEntityWalkPulseVar4Countdown`
+- `C3:A15E..C3:A17B` (`29` bytes, SHA-1 `813d1b9da3dbf07e6e66f4c30638272e155cb3f4`) `LoopC40015Var4GatedPulseUntilRelease`
+- `C3:A17B..C3:A18F` (`20` bytes, SHA-1 `6244cf27b4ce34d21f26a4be04b4a7694eb68f71`) `LoopC40015SlowPulseUntilRelease`
+- `C3:A18F..C3:A1A3` (`20` bytes, SHA-1 `1c5c3a052b83b2ff111a00d2868c35afb2f23e85`) `LoopC40015FastPulseUntilRelease`
+- `C3:A1A3..C3:A1B7` (`20` bytes, SHA-1 `75d24c0ee3b02b1b55958fb178c3fd56ceb91745`) `C3A1A3EventScript`
+- `C3:A1B7..C3:A1CB` (`20` bytes, SHA-1 `13a3e009563409711db9272da156a006211e29d6`) `C3A1B7EventScript`
+- `C3:A1CB..C3:A1DF` (`20` bytes, SHA-1 `d40d695736aaf391a1935afec44a2f9917ab534f`) `C3A1CBEventScript`
+- `C3:A1DF..C3:A1F3` (`20` bytes, SHA-1 `6c93db42cb73acf5792fdb56e7f1ed8d46b34f6e`) `LoopActiveEntityWalkPulse2FrameC40015Branch`
+- `C3:A1F3..C3:A204` (`17` bytes, SHA-1 `f78e8b8074f967df8f7e233afffb227a3b552645`) `LoopC40015Pulse16FrameUntilRelease`
+- `C3:A204..C3:A209` (`5` bytes, SHA-1 `c21252ee0c6161c5d94c8dc7bcdbd7b98e3318c1`) `LoopC40015Pulse16FrameUntilReleasePartA204`
+- `C3:A209..C3:A20E` (`5` bytes, SHA-1 `b6ce7b97fbf647a4ab616fd0f81aa3236cb62dbc`) `DelayThenReleaseCurrentVisualEntity`
+- `C3:A20E..C3:A22C` (`30` bytes, SHA-1 `040136191b05041b6a246ba334b6650af1f27082`) `LoopVar0SelectedAnimationUntilOffscreen`
+- `C3:A22C..C3:A234` (`8` bytes, SHA-1 `05a687c6bc008b8c494a72086f02fb45e7ad5151`) `LoopVar0SelectedAnimationUntilOffscreenPartA22C`
+- `C3:A234..C3:A23D` (`9` bytes, SHA-1 `e783be54ab14741e0dd2dfe64acf80a0aca9159b`) `LoopVar0SelectedAnimationUntilOffscreenPartA234`
+- `C3:A23D..C3:A24E` (`17` bytes, SHA-1 `dc6a36a1e89d09fa28e77303ca2537b60c22e5ea`) `LoopVar0SelectedAnimationUntilOffscreenPartA23D`
+- `C3:A24E..C3:A25F` (`17` bytes, SHA-1 `4c1b26cbcef42edb059be0a8d00c65f3aed583fc`) `LoopVar0SelectedAnimationUntilOffscreenPartA24E`
+- `C3:A25F..C3:A262` (`3` bytes, SHA-1 `97dfaa17eeb3955f63d56d86c2911a92e5a9bbf8`) `LoopVar0SelectedAnimationUntilOffscreenPartA25F`
+- `C3:A262..C3:A271` (`15` bytes, SHA-1 `7690c9d9a487aa7aff12e96575d55430a0549c81`) `LoopActiveEntityCollisionProbeRefresh`
+- `C3:A271..C3:A272` (`1` bytes, SHA-1 `1e32e3c360501a0ede378bc45a24420dc2e53fba`) `C3A271EventScript`
+- `C3:A272..C3:A2AA` (`56` bytes, SHA-1 `eef7491ac73c084e804f97238059b7678ef3c6b7`) `C3A272EventScript`
+- `C3:A2AA..C3:A381` (`215` bytes, SHA-1 `d9ecec609aa02b7b987b3ad37164aa3e79abd35a`) `C3A272EventScriptPartA2AA`
+- `C3:A381..C3:A3A1` (`32` bytes, SHA-1 `d11ddff2f9c945735f25c3ce3029301888c3cf3f`) `C3A272EventScriptPartA381`
+- `C3:A3A1..C3:A3B7` (`22` bytes, SHA-1 `c78d06a205a9aa3ff92a3fa9320f31d7af9e7bc6`) `C3A272EventScriptPartA3A1`
+- `C3:A3B7..C3:A3C9` (`18` bytes, SHA-1 `edc81e62e47bb80b06fc8e311edd10a0cbdc71c1`) `C3A272EventScriptPartA3B7`
+- `C3:A3C9..C3:A3D6` (`13` bytes, SHA-1 `9e44b5e6df173b48aae13df2edb69a2bad850fdf`) `C3A272EventScriptPartA3C9`
+- `C3:A3D6..C3:A3E7` (`17` bytes, SHA-1 `72ec1b33f5678f28274628372fa044a01d65d651`) `C3A272EventScriptPartA3D6`
+- `C3:A3E7..C3:A401` (`26` bytes, SHA-1 `367cf8ce6fd0986553277a95dddeafdf9b237033`) `C3A272EventScriptPartA3E7`
+- `C3:A401..C3:A426` (`37` bytes, SHA-1 `567cc794d4d4c958977b56aaa62a3dda61041a86`) `InitNpcAttentionPathIfNoCachedNeighbor`
+- `C3:A426..C3:A42D` (`7` bytes, SHA-1 `8dc5d4c30ce2856aaf9b4f991996d0a6ac00fc0e`) `InitNpcAttentionPathIfNoCachedNeighborPartA426`
+- `C3:A42D..C3:A434` (`7` bytes, SHA-1 `3d0205a87370eb56ffc997b004e6f125ec6c1118`) `InitNpcAttentionPathIfNoCachedNeighborPartA42D`
+- `C3:A434..C3:A448` (`20` bytes, SHA-1 `da881fa5cd4324ac57602c98f74a93e34798b319`) `InitNpcAttentionPathIfNoCachedNeighborPartA434`
+- `C3:A448..C3:A45C` (`20` bytes, SHA-1 `001165101121f449aec8e4f7c8085909e1f995f3`) `InitNpcAttentionPathIfNoCachedNeighborPartA448`
+- `C3:A45C..C3:A47C` (`32` bytes, SHA-1 `6e89ed564fcd192a0fd434263c0094303bf22d8e`) `InitNpcAttentionPathIfNoCachedNeighborPartA45C`
+- `C3:A47C..C3:AA1E` (`1442` bytes, SHA-1 `6d63bebd1c22b3ab37c3b0d30191f9947f3b2341`) `InitNpcAttentionPathIfNoCachedNeighborPartA47C`
+- `C3:AA1E..C3:AA2B` (`13` bytes, SHA-1 `05b04248932806321cd0d8395591ee8160782109`) `C3AA1EEventScript`
+- `C3:AA2B..C3:AA38` (`13` bytes, SHA-1 `7b0aa9b46fccbf6eefe21cece3eecc84cb4451f4`) `C3AA2BEventScript`
+- `C3:AA38..C3:AA46` (`14` bytes, SHA-1 `14d1bd86a48f744c19912e4dd95c4fa085d07043`) `InitActionScriptMovementState`
+- `C3:AA46..C3:AA5A` (`20` bytes, SHA-1 `c6d238fcd88a468c4159123570a047128e7c0285`) `InitMovementPreset40_00Pulse24Frame`
+- `C3:AA5A..C3:AA6E` (`20` bytes, SHA-1 `ea55d1896dee5b7e4488dd8bbf2e1ad9737999da`) `InitMovementPreset00_01Pulse12Frame`
+- `C3:AA6E..C3:AA82` (`20` bytes, SHA-1 `d9756a46646e8c0ec6398d04b926ad37bddc0cab`) `InitMovementPreset60_01Pulse9Frame`
+- `C3:AA82..C3:AA96` (`20` bytes, SHA-1 `c412f7fc23a3e94570b76558c6ea46eb05be8685`) `InitMovementPreset00_02Pulse6Frame`
+- `C3:AA96..C3:AAAA` (`20` bytes, SHA-1 `96437539570812dc2aa552a8e5b2c9cc52c7a0cb`) `InitMovementPreset00_06Pulse2Frame`
+- `C3:AAAA..C3:AAB8` (`14` bytes, SHA-1 `a7334f5f11adac2d7fd88db0afb314de7b383233`) `InitMovementPresetVar4Countdown`
+- `C3:AAB8..C3:AAC2` (`10` bytes, SHA-1 `2f7ab5a015ea328fee0818b0e52c8b8b36422fcf`) `C3AAB8EventScript`
+- `C3:AAC2..C3:AAD6` (`20` bytes, SHA-1 `c1848497337452700d64a690155c4b0693985950`) `C3AAC2EventScript`
+- `C3:AAD6..C3:AAEA` (`20` bytes, SHA-1 `1561293e7c528b15e51519af4c42709a2bf4f00b`) `C3AAD6EventScript`
+- `C3:AAEA..C3:AAFE` (`20` bytes, SHA-1 `88064056fa42d38842ff7641fb84308dc86155e8`) `C3AAEAEventScript`
+- `C3:AAFE..C3:AB12` (`20` bytes, SHA-1 `b9dbda937266cbb9bb5589cff19b100b74c3a1ad`) `C3AAFEEventScript`
+- `C3:AB12..C3:AB26` (`20` bytes, SHA-1 `ea08c1feed06807db0fccbe2b4f373fb371b953a`) `InitMovementPreset00_06C40015Branch`
+- `C3:AB26..C3:AB37` (`17` bytes, SHA-1 `fe5d4b320f54a4e50c5275470299bc38b9a656bf`) `InitAlternatePhysicsVar4WalkPulse`
+- `C3:AB37..C3:AB44` (`13` bytes, SHA-1 `3a947771c8c3f07508a25ec3760d37d95e5e7d18`) `C3AB37EventScript`
+- `C3:AB44..C3:AB59` (`21` bytes, SHA-1 `2108fc180fe5520dfe04f73f5e5824315e6d4e1c`) `RefreshActiveEntityDirectionAndVisualProfile`
+- `C3:AB59..C3:AB67` (`14` bytes, SHA-1 `d402a0699b556f242952b16ca3c023282b7c26e4`) `WaitForActiveEntityMovementToFinish`
+- `C3:AB67..C3:AB8A` (`35` bytes, SHA-1 `5fb561d481070d37c137547ae0a1f8f3d809356d`) `C3AB67EventScript`
+- `C3:AB8A..C3:AB94` (`10` bytes, SHA-1 `f3fe103d39c2bc0ac06737fb5fdb593a123d92f8`) `WaitUntilPlayerLeavesActiveArea`
+- `C3:AB94..C3:AB9E` (`10` bytes, SHA-1 `42e39cb3fa990173e5b80cdbf29fe42e01fbb4cc`) `C3AB94EventScript`
+- `C3:AB9E..C3:ABE0` (`66` bytes, SHA-1 `feec817a319e9d143382d6b233164c978df1f413`) `C3AB9EEventScript`
+- `C3:ABE0..C3:AFA3` (`963` bytes, SHA-1 `07053264e020e808624c74442092626fa4d82c97`) `C3ABE0EventScript`
+- `C3:AFA3..C3:B0B6` (`275` bytes, SHA-1 `be2d4636937479b9f4681c5d2be580faaa0d3e93`) `LoopPartyLooksAtActiveEntity`
+- `C3:B0B6..C3:B431` (`891` bytes, SHA-1 `0c983f5e99ca283a0a373573be4980c70e8160ad`) `C3B0B6EventScript`
+- `C3:B431..C3:B70C` (`731` bytes, SHA-1 `be2edf6463bbe65a3972a2c9252c10d55166f22d`) `C3B431EventScript`
+- `C3:B70C..C3:BAA3` (`919` bytes, SHA-1 `6ff125da5c2928a9d884d68e37285728a2dcdd4f`) `C3B70CEventScript`
+- `C3:BAA3..C3:BAC4` (`33` bytes, SHA-1 `bf142b22cd5e39f89cb69fdf1aea3342a3fcd8b4`) `C3BAA3EventScript`
+- `C3:BAC4..C3:BAD7` (`19` bytes, SHA-1 `4f8ff1cf75cf3db12adc48294b05d3e1d71b112f`) `C3BAC4EventScript`
+- `C3:BAD7..C3:BB5C` (`133` bytes, SHA-1 `c75ce82506835a14dd8fbde22e69ca613086b950`) `C3BAD7EventScript`
+- `C3:BB5C..C3:BB73` (`23` bytes, SHA-1 `e491926f8a5f4fed4cfdad8b288c3628bdb3bfc1`) `C3BB5CEventScript`
+- `C3:BB73..C3:BD03` (`400` bytes, SHA-1 `b6bc9445a8bbd402fda9b70b74dfbc8bfdc61815`) `C3BB73EventScript`
+- `C3:BD03..C3:BEA4` (`417` bytes, SHA-1 `01d0412332fd709a8304f3a2723e9a48a69d2480`) `C3BD03EventScript`
+- `C3:BEA4..C3:BED4` (`48` bytes, SHA-1 `74efb56d939a115abce7a18d302d0816d86c837e`) `C3BEA4EventScript`
+- `C3:BED4..C3:C143` (`623` bytes, SHA-1 `d45c2faea11d5ed6674e6c0264e67f16cc51ed9c`) `C3BED4EventScript`
+- `C3:C143..C3:C1E0` (`157` bytes, SHA-1 `e30e107d02cc3bdb29c51ece18bad1591ecec5c2`) `C3C143EventScript`
+- `C3:C1E0..C3:C20F` (`47` bytes, SHA-1 `d750d8932c9fc04e00a1f255b953db4991f46d5a`) `C3C1E0EventScript`
+- `C3:C20F..C3:C227` (`24` bytes, SHA-1 `8db8bb9196cf31d012d70abb37bbb10b3a43e075`) `C3C20FEventScript`
+- `C3:C227..C3:C35D` (`310` bytes, SHA-1 `c32599e0e288eb12866729b2bebb023e52f5c439`) `C3C227EventScript`
+- `C3:C35D..C3:C810` (`1203` bytes, SHA-1 `b336ac67d6a1d648cb9b95be36018c4d5492e82a`) `C3C35DEventScript`
+- `C3:C810..C3:C81A` (`10` bytes, SHA-1 `f7a35fe8f9205982c93c817b00019d0f9226dcd2`) `C3C810EventScript`
+- `C3:C81A..C3:C824` (`10` bytes, SHA-1 `06cd7e8e062185865b4344d292d2854bf7e6e815`) `C3C81AEventScript`
+- `C3:C824..C3:C871` (`77` bytes, SHA-1 `1c3b85c452d9e391907c0e93a00ba7e7e9f20dff`) `C3C824EventScript`
+- `C3:C871..C3:C8FD` (`140` bytes, SHA-1 `3702b1b0fdfdecd32b9e66bff262596b3f29534b`) `C3C871EventScript`
+- `C3:C8FD..C3:C90C` (`15` bytes, SHA-1 `7db23d28e7e16ac0d63bb522714ca2a3ec79ad5c`) `C3C8FDEventScript`
+- `C3:C90C..C3:C94E` (`66` bytes, SHA-1 `c3a657f8fe91ec69e502d78e4a35716118aa3d8e`) `C3C90CEventScript`
+- `C3:C94E..C3:CC24` (`726` bytes, SHA-1 `f8e493340607628730bced36b7ecf0f5ab2c87cf`) `C3C94EEventScript`
+- `C3:CC24..C3:CC5C` (`56` bytes, SHA-1 `f9097af8f5ed16039eda955c02d29128be6951f3`) `C3CC24EventScript`
+- `C3:CC5C..C3:CC94` (`56` bytes, SHA-1 `5e4e73ed74fff1141f7a2bd1d92c5cec6bb89f7f`) `C3CC5CEventScript`
+- `C3:CC94..C3:CCA8` (`20` bytes, SHA-1 `2136343c04f7abd093c630815e3bb2b165a31e6f`) `C3CC94EventScript`
+- `C3:CCA8..C3:CEA2` (`506` bytes, SHA-1 `6e7f8db678932747330406533ccc71e92a35e857`) `C3CCA8EventScript`
+- `C3:CEA2..C3:CEB9` (`23` bytes, SHA-1 `f96626881618089910ee13a0e7e5a9fc1c711ced`) `C3CEA2EventScript`
+- `C3:CEB9..C3:D0A4` (`491` bytes, SHA-1 `7e9f44090153ed3f1d19a4a0cb49b4119f767878`) `C3CEB9EventScript`
+- `C3:D0A4..C3:D913` (`2159` bytes, SHA-1 `a1793d3dab20808fa2f690399425fd12bca5eedf`) `C3D0A4EventScript`
+- `C3:D913..C3:DB7A` (`615` bytes, SHA-1 `0f7a6e5f6991a0e1f6e2f1f2273a62575c8cdd32`) `C3D913EventScript`
+- `C3:DB7A..C3:DBDB` (`97` bytes, SHA-1 `25396ff0955ddccf589568fb395e6e49a2d0ef72`) `C3DB7AEventScript`
+- `C3:DBDB..C3:DF90` (`949` bytes, SHA-1 `a7c19e33987559ef1dda5366553db468b0c1e23c`) `C3DBDBEventScript`
+- `C3:DF90..C3:DFB5` (`37` bytes, SHA-1 `a780ec1b71a831e0974ce2b6b9fc5d9115c9ddc9`) `C3DF90EventScript`
+- `C3:DFB5..C3:DFD4` (`31` bytes, SHA-1 `46852491efc940ed8e7303ce83eeb225c637284a`) `C3DFB5EventScript`
+- `C3:DFD4..C3:DFE8` (`20` bytes, SHA-1 `96d8bf1086c7f4035023582ec623d197abe1870e`) `C3DFD4EventScript`
+- `C3:DFE8..C3:E12C` (`324` bytes, SHA-1 `c8b5553f7c8f6c6be02558b54136874ce0e1b344`) `C3DFE8RawData`
+- `C3:E12C..C3:E148` (`28` bytes, SHA-1 `436090b50654b8d414e40d24caf45f14b5aa8131`) `C3DFE8RawDataPartE12C`
+- `C3:E148..C3:E158` (`16` bytes, SHA-1 `aa56f62b68734e89bec1e6beb4f2b7194faea347`) `InteractionProbeDirectionXOffsetTable`
+- `C3:E158..C3:E168` (`16` bytes, SHA-1 `47ef9f1546f615c7d169b979d1efec3f8da1b033`) `InteractionProbeDirectionYOffsetTable`
+- `C3:E168..C3:E1D8` (`112` bytes, SHA-1 `ebdc9849ee78ceed554b4f3d1c51d7ddfaf2da14`) `C3E168RawData`
+- `C3:E1D8..C3:E1E0` (`8` bytes, SHA-1 `cb8509fab72283ba550cdd5208c3a152a7ac8dcc`) `MapEntityPlacementDirectionParamTable`
+- `C3:E1E0..C3:E200` (`32` bytes, SHA-1 `70d872cb20d02b3e62be1d6643f195869980ef6b`) `MapEntityPlacementDirectionParamTable_Page1`
+- `C3:E200..C3:E208` (`8` bytes, SHA-1 `84f979295a5ebade4cbff18db7880000ad59f788`) `StagedMovementPrimaryDirectionParamTable`
+- `C3:E208..C3:E210` (`8` bytes, SHA-1 `f902d292905280e3f53651af2fcb6f40ed521e65`) `StagedMovementAlternateDirectionParamTable`
+- `C3:E210..C3:E218` (`8` bytes, SHA-1 `db906072cde25ebab6ddee1238dbc81b208ecde5`) `StagedMovementSubtileOffsetSetA_X`
+- `C3:E218..C3:E220` (`8` bytes, SHA-1 `933e13c8ed3a324682b7eb9504f87d67bccb8503`) `StagedMovementSubtileOffsetSetA_Y`
+- `C3:E220..C3:E228` (`8` bytes, SHA-1 `cef30f8abb90c5d6ea018630bd454ea27147127d`) `StagedMovementSubtileOffsetSetB_X`
+- `C3:E228..C3:E230` (`8` bytes, SHA-1 `ad82f98fc58b9a00ca9ce8bf3fcb81108769f9ce`) `StagedMovementSubtileOffsetSetB_Y`
+- `C3:E230..C3:E240` (`16` bytes, SHA-1 `1f2b6aaaf383b8b1c6629dbea81d56ce00733fe0`) `DoorCandidateDirectionOffsetX`
+- `C3:E240..C3:E3F8` (`440` bytes, SHA-1 `fdce3d2c945ddb5613724d1d1a2937fcc0bfbb2c`) `DoorCandidateDirectionOffsetY`
+- `C3:E3F8..C3:E406` (`14` bytes, SHA-1 `5ac9997a716d3f5217d44ae4df8420f97e38f7c5`) `MenuCursorTilePrefixTable`
+- `C3:E406..C3:E40E` (`8` bytes, SHA-1 `d19b7847ce32212f525598ba1e641bcb97c2a685`) `MenuCursorTilePrefixTablePartE406`
+- `C3:E40E..C3:E416` (`8` bytes, SHA-1 `144fe62789ed263b06f6d0b416fd0a97c1e45366`) `TitleNameBufferCursorTileRun`
+- `C3:E416..C3:E41C` (`6` bytes, SHA-1 `10f8b632096a7bf07d91487dd0e4e9d4847e3a55`) `TitleNameBufferCursorTileRunPartE416`
+- `C3:E41C..C3:E424` (`8` bytes, SHA-1 `837244ecfc65a42fee502fe1149cee5224f602ff`) `BlinkingTriangleWaitFrame0Tiles`
+- `C3:E424..C3:E42C` (`8` bytes, SHA-1 `6039e07be15d7f490d5b1c72bd84521699790f1d`) `BlinkingTriangleWaitFrame0TilesPartE424`
+- `C3:E42C..C3:E434` (`8` bytes, SHA-1 `d3545589cf92868af54edad00ce0626b3c34c81d`) `BlinkingTriangleWaitFrame0TilesPartE42C`
+- `C3:E434..C3:E43C` (`8` bytes, SHA-1 `f31dae5affb2f637e37d9b97eaa786e4e51cca21`) `BlinkingTriangleWaitFrame0TilesPartE434`
+- `C3:E43C..C3:E44C` (`16` bytes, SHA-1 `dd96e6babe9fe08239399b5b3e5c610853d4f42f`) `BlinkingTriangleWaitFrame0TilesPartE43C`
+- `C3:E44C..C3:E450` (`4` bytes, SHA-1 `b62680165ca8d485f7feb588b9f91eea00925a29`) `WindowTickTransferPreludeData`
+
+Labels:
+
+- `C3:0000 C30000Unmapped`
+- `C3:0188 C30188RawData`
+- `C3:0295 MoveActiveEntityLeftToScriptVarsAndWait`
+- `C3:098B C3098BEventScript`
+- `C3:0A1F C30A1FEventScript`
+- `C3:0C55 C30C55EventScript`
+- `C3:0C67 C30C67EventScript`
+- `C3:1D2D C31D2DEventScript`
+- `C3:1D4F C31D4FEventScript`
+- `C3:1DF4 C31DF4EventScript`
+- `C3:1E2D C31E2DEventScript`
+- `C3:1EC1 C31EC1EventScript`
+- `C3:1ED8 C31ED8EventScript`
+- `C3:1EEF C31EEFEventScript`
+- `C3:2138 C32138EventScript`
+- `C3:2CD2 C32CD2EventScript`
+- `C3:3399 C33399EventScript`
+- `C3:33AA C333AAEventScript`
+- `C3:33BB C333BBEventScript`
+- `C3:33CC C333CCEventScript`
+- `C3:33DD C333DDEventScript`
+- `C3:3549 C33549EventScript`
+- `C3:3BFB C33BFBEventScript`
+- `C3:3C18 C33C18EventScript`
+- `C3:3C1D C33C1DEventScript`
+- `C3:3DBE C33DBEEventScript`
+- `C3:4392 C34392EventScript`
+- `C3:43AE C343AEEventScript`
+- `C3:43DB LoopTimedDeliveryDeparturePulseUntilOffscreen`
+- `C3:43E8 LoopTimedDeliveryDeparturePulseUntilOffscreenPart43E8`
+- `C3:443E LoopTimedDeliveryDeparturePulseUntilOffscreenPart443E`
+- `C3:444D LoopTimedDeliveryDeparturePulseUntilOffscreenPart444D`
+- `C3:4457 LoopTimedDeliveryDeparturePulseUntilOffscreenPart4457`
+- `C3:447A LoopTimedDeliveryDeparturePulseUntilOffscreenPart447A`
+- `C3:447D LoopTimedDeliveryDeparturePulseUntilOffscreenPart447D`
+- `C3:4488 LoopTimedDeliveryDeparturePulseUntilOffscreenPart4488`
+- `C3:4499 LoopTimedDeliveryDeparturePulseUntilOffscreenPart4499`
+- `C3:44A7 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A7`
+- `C3:44A8 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A8`
+- `C3:44C1 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44C1`
+- `C3:44D2 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44D2`
+- `C3:44DE LoopTimedDeliveryDeparturePulseUntilOffscreenPart44DE`
+- `C3:44EE LoopTimedDeliveryDeparturePulseUntilOffscreenPart44EE`
+- `C3:44FF LoopTimedDeliveryDeparturePulseUntilOffscreenPart44FF`
+- `C3:48C4 C348C4EventScript`
+- `C3:4964 C34964EventScript`
+- `C3:4A61 C34A61EventScript`
+- `C3:4B62 C34B62EventScript`
+- `C3:4D39 C34D39EventScript`
+- `C3:4E73 C34E73EventScript`
+- `C3:5F8B C35F8BEventScript`
+- `C3:5FB6 C35FB6EventScript`
+- `C3:5FCD C35FCDEventScript`
+- `C3:62C0 C362C0EventScript`
+- `C3:6834 C36834EventScript`
+- `C3:6A3E C36A3EEventScript`
+- `C3:6A41 C36A41EventScript`
+- `C3:6BB4 C36BB4EventScript`
+- `C3:6BEA C36BEAEventScript`
+- `C3:6D18 C36D18EventScript`
+- `C3:6E41 C36E41EventScript`
+- `C3:7439 C37439EventScript`
+- `C3:7545 C37545EventScript`
+- `C3:7559 C37559EventScript`
+- `C3:7A7C C37A7CEventScript`
+- `C3:835D C3835DEventScript`
+- `C3:83BC C383BCEventScript`
+- `C3:8978 C38978EventScript`
+- `C3:899E C3899EEventScript`
+- `C3:9AC7 C39AC7EventScript`
+- `C3:9E01 C39E01EventScript`
+- `C3:9FF2 IntroMovementPatternPointerTable`
+- `C3:A010 IntroMovementPattern09Loop`
+- `C3:A01B IntroMovementPattern08Loop`
+- `C3:A026 IntroMovementPatternFFLoop`
+- `C3:A02D IntroMovementPattern08LoopAlt`
+- `C3:A038 IntroMovementPattern04Loop`
+- `C3:A043 IntroMovementPattern04LoopPartA043`
+- `C3:A04E IntroMovementPattern04LoopPartA04E`
+- `C3:A052 IntroMovementPattern04LoopPartA052`
+- `C3:A05E IntroMovementPattern04LoopPartA05E`
+- `C3:A076 IntroMovementPattern04LoopPartA076`
+- `C3:A07F HaltEventScript`
+- `C3:A09F LoopActiveEntityWalkAnimationPulse`
+- `C3:A0B2 LoopActiveEntityWalkPulse24Frame`
+- `C3:A0C5 LoopActiveEntityWalkPulse12Frame`
+- `C3:A0D8 LoopActiveEntityWalkPulse9FrameConditional`
+- `C3:A0EB LoopActiveEntityWalkPulse9FrameConditionalPartA0EB`
+- `C3:A0FE LoopActiveEntityWalkPulse9FrameConditionalPartA0FE`
+- `C3:A111 LoopActiveEntityWalkPulse9FrameConditionalPartA111`
+- `C3:A12E LoopActiveEntityWalkPulseVar4Countdown`
+- `C3:A15E LoopC40015Var4GatedPulseUntilRelease`
+- `C3:A17B LoopC40015SlowPulseUntilRelease`
+- `C3:A18F LoopC40015FastPulseUntilRelease`
+- `C3:A1A3 C3A1A3EventScript`
+- `C3:A1B7 C3A1B7EventScript`
+- `C3:A1CB C3A1CBEventScript`
+- `C3:A1DF LoopActiveEntityWalkPulse2FrameC40015Branch`
+- `C3:A1F3 LoopC40015Pulse16FrameUntilRelease`
+- `C3:A204 LoopC40015Pulse16FrameUntilReleasePartA204`
+- `C3:A209 DelayThenReleaseCurrentVisualEntity`
+- `C3:A20E LoopVar0SelectedAnimationUntilOffscreen`
+- `C3:A22C LoopVar0SelectedAnimationUntilOffscreenPartA22C`
+- `C3:A234 LoopVar0SelectedAnimationUntilOffscreenPartA234`
+- `C3:A23D LoopVar0SelectedAnimationUntilOffscreenPartA23D`
+- `C3:A24E LoopVar0SelectedAnimationUntilOffscreenPartA24E`
+- `C3:A25F LoopVar0SelectedAnimationUntilOffscreenPartA25F`
+- `C3:A262 LoopActiveEntityCollisionProbeRefresh`
+- `C3:A271 C3A271EventScript`
+- `C3:A272 C3A272EventScript`
+- `C3:A2AA C3A272EventScriptPartA2AA`
+- `C3:A381 C3A272EventScriptPartA381`
+- `C3:A3A1 C3A272EventScriptPartA3A1`
+- `C3:A3B7 C3A272EventScriptPartA3B7`
+- `C3:A3C9 C3A272EventScriptPartA3C9`
+- `C3:A3D6 C3A272EventScriptPartA3D6`
+- `C3:A3E7 C3A272EventScriptPartA3E7`
+- `C3:A401 InitNpcAttentionPathIfNoCachedNeighbor`
+- `C3:A426 InitNpcAttentionPathIfNoCachedNeighborPartA426`
+- `C3:A42D InitNpcAttentionPathIfNoCachedNeighborPartA42D`
+- `C3:A434 InitNpcAttentionPathIfNoCachedNeighborPartA434`
+- `C3:A448 InitNpcAttentionPathIfNoCachedNeighborPartA448`
+- `C3:A45C InitNpcAttentionPathIfNoCachedNeighborPartA45C`
+- `C3:A47C InitNpcAttentionPathIfNoCachedNeighborPartA47C`
+- `C3:AA1E C3AA1EEventScript`
+- `C3:AA2B C3AA2BEventScript`
+- `C3:AA38 InitActionScriptMovementState`
+- `C3:AA46 InitMovementPreset40_00Pulse24Frame`
+- `C3:AA5A InitMovementPreset00_01Pulse12Frame`
+- `C3:AA6E InitMovementPreset60_01Pulse9Frame`
+- `C3:AA82 InitMovementPreset00_02Pulse6Frame`
+- `C3:AA96 InitMovementPreset00_06Pulse2Frame`
+- `C3:AAAA InitMovementPresetVar4Countdown`
+- `C3:AAB8 C3AAB8EventScript`
+- `C3:AAC2 C3AAC2EventScript`
+- `C3:AAD6 C3AAD6EventScript`
+- `C3:AAEA C3AAEAEventScript`
+- `C3:AAFE C3AAFEEventScript`
+- `C3:AB12 InitMovementPreset00_06C40015Branch`
+- `C3:AB26 InitAlternatePhysicsVar4WalkPulse`
+- `C3:AB37 C3AB37EventScript`
+- `C3:AB44 RefreshActiveEntityDirectionAndVisualProfile`
+- `C3:AB59 WaitForActiveEntityMovementToFinish`
+- `C3:AB67 C3AB67EventScript`
+- `C3:AB8A WaitUntilPlayerLeavesActiveArea`
+- `C3:AB94 C3AB94EventScript`
+- `C3:AB9E C3AB9EEventScript`
+- `C3:ABE0 C3ABE0EventScript`
+- `C3:AFA3 LoopPartyLooksAtActiveEntity`
+- `C3:B0B6 C3B0B6EventScript`
+- `C3:B431 C3B431EventScript`
+- `C3:B70C C3B70CEventScript`
+- `C3:BAA3 C3BAA3EventScript`
+- `C3:BAC4 C3BAC4EventScript`
+- `C3:BAD7 C3BAD7EventScript`
+- `C3:BB5C C3BB5CEventScript`
+- `C3:BB73 C3BB73EventScript`
+- `C3:BD03 C3BD03EventScript`
+- `C3:BEA4 C3BEA4EventScript`
+- `C3:BED4 C3BED4EventScript`
+- `C3:C143 C3C143EventScript`
+- `C3:C1E0 C3C1E0EventScript`
+- `C3:C20F C3C20FEventScript`
+- `C3:C227 C3C227EventScript`
+- `C3:C35D C3C35DEventScript`
+- `C3:C810 C3C810EventScript`
+- `C3:C81A C3C81AEventScript`
+- `C3:C824 C3C824EventScript`
+- `C3:C871 C3C871EventScript`
+- `C3:C8FD C3C8FDEventScript`
+- `C3:C90C C3C90CEventScript`
+- `C3:C94E C3C94EEventScript`
+- `C3:CC24 C3CC24EventScript`
+- `C3:CC5C C3CC5CEventScript`
+- `C3:CC94 C3CC94EventScript`
+- `C3:CCA8 C3CCA8EventScript`
+- `C3:CEA2 C3CEA2EventScript`
+- `C3:CEB9 C3CEB9EventScript`
+- `C3:D0A4 C3D0A4EventScript`
+- `C3:D913 C3D913EventScript`
+- `C3:DB7A C3DB7AEventScript`
+- `C3:DBDB C3DBDBEventScript`
+- `C3:DF90 C3DF90EventScript`
+- `C3:DFB5 C3DFB5EventScript`
+- `C3:DFD4 C3DFD4EventScript`
+- `C3:DFE8 C3DFE8RawData`
+- `C3:E12C C3DFE8RawDataPartE12C`
+- `C3:E148 InteractionProbeDirectionXOffsetTable`
+- `C3:E158 InteractionProbeDirectionYOffsetTable`
+- `C3:E168 C3E168RawData`
+- `C3:E1D8 MapEntityPlacementDirectionParamTable`
+- `C3:E1E0 MapEntityPlacementDirectionParamTable_Page1`
+- `C3:E200 StagedMovementPrimaryDirectionParamTable`
+- `C3:E208 StagedMovementAlternateDirectionParamTable`
+- `C3:E210 StagedMovementSubtileOffsetSetA_X`
+- `C3:E218 StagedMovementSubtileOffsetSetA_Y`
+- `C3:E220 StagedMovementSubtileOffsetSetB_X`
+- `C3:E228 StagedMovementSubtileOffsetSetB_Y`
+- `C3:E230 DoorCandidateDirectionOffsetX`
+- `C3:E240 DoorCandidateDirectionOffsetY`
+- `C3:E3F8 MenuCursorTilePrefixTable`
+- `C3:E406 MenuCursorTilePrefixTablePartE406`
+- `C3:E40E TitleNameBufferCursorTileRun`
+- `C3:E416 TitleNameBufferCursorTileRunPartE416`
+- `C3:E41C BlinkingTriangleWaitFrame0Tiles`
+- `C3:E424 BlinkingTriangleWaitFrame0TilesPartE424`
+- `C3:E42C BlinkingTriangleWaitFrame0TilesPartE42C`
+- `C3:E434 BlinkingTriangleWaitFrame0TilesPartE434`
+- `C3:E43C BlinkingTriangleWaitFrame0TilesPartE43C`
+- `C3:E44C WindowTickTransferPreludeData`
+
+Evidence:
+
+- `build/c3-source-data-map.json`
+- `build/c3-source-residual-map.json`
+- `notes/c3-event-222-224-movement-helper-cluster.md:138`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:103`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:90`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:91`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:92`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:93`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:94`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:95`
+- `notes/c3-intro-script-frontier-9ff2-a07f.md:101`
+- `notes/c3-event-222-224-movement-helper-cluster.md:143`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:84`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:85`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:90`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:105`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:106`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:107`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:91`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:108`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:110`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:111`
+- `notes/c3-event-222-224-movement-helper-cluster.md:144`
+- `notes/c3-temporary-actor-movement-and-release-scripts.md:123`
+- `notes/c3-event-222-224-movement-helper-cluster.md:139`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:92`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:93`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:94`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:95`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:96`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:97`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:98`
+- `notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:99`
+- `notes/c3-event-222-224-movement-helper-cluster.md:140`
+- `notes/c3-event-222-224-movement-helper-cluster.md:141`
+- `notes/c3-event-222-224-movement-helper-cluster.md:142`
+- `notes/c3-event-222-224-movement-helper-cluster.md:145`
+- `notes/input-direction-and-interaction-probes-c0402b-c04116.md:26`
+- `notes/input-direction-and-interaction-probes-c0402b-c04116.md:27`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:70`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:71`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:72`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:73`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:74`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:75`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:76`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:77`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:78`
+- `notes/c3-map-movement-parameter-table-e1d8-e240.md:79`
+- `notes/c3-menu-cursor-tile-data-e3f8-e450.md:67`
+- `notes/c3-menu-cursor-tile-data-e3f8-e450.md:69`
+- `notes/c3-menu-cursor-tile-data-e3f8-e450.md:71`
+- `notes/c3-menu-cursor-tile-data-e3f8-e450.md:76`
+
+### `src/c3/window_text_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:E450..C3:E4EF` | 159 | `WindowTickTransferDynamicTileBlock` | `272aa3aff41aa7a21d787e6b5a479bf7a0776dff` |
+| `C3:E4EF..C3:E6F8` | 521 | `FindFirstFreeWindowSlot` | `a16f0e5c50d8f15fb7e880786103676c39c88eb2` |
+| `C3:E6F8..C3:E75D` | 101 | `ClearFocusedPartyHpPpActorAndBlankRow` | `a0eea0ae022b2016ca4c0a5f8e69365306addbc5` |
+| `C3:E75D..C3:E7E3` | 134 | `ResolveReflectedHitSideArticleTokens` | `c941a39d04f86a3f74a6906e9af6750467d46397` |
+| `C3:E7E3..C3:E84E` | 107 | `ClearWindowRegisteredCopyChain` | `80bcc70bdd0ba8135eeb9e51c1faadcc0c0bc052` |
+
+Labels:
+
+- `C3:E450 WindowTickTransferDynamicTileBlock`
+- `C3:E4CA ClearInstantPrinting`
+- `C3:E4D4 SetInstantPrinting`
+- `C3:E4E0 TickWindowWithoutInstantPrinting`
+- `C3:E4EF FindFirstFreeWindowSlot`
+- `C3:E521 CloseWindowAndReleaseTileState`
+- `C3:E6F8 ClearFocusedPartyHpPpActorAndBlankRow`
+- `C3:E75D ResolveReflectedHitSideArticleTokens`
+- `C3:E773 ClearFirstReflectedHitSideArticleTokenFlag`
+- `C3:E78F ClearSecondReflectedHitSideArticleTokenFlag`
+- `C3:E7E3 ClearWindowRegisteredCopyChain`
+
+Evidence:
+
+- `notes/c3-menu-cursor-tile-data-e3f8-e450.md:77`
+- `notes/c3-window-text-source-helper-corridor-e450-e7e3.md:98`
+- `notes/c3-shared-helper-working-name-promotion.md:77`
+- `notes/c3-window-lifecycle-source-contract-e4ef-e6f7.md:7`
+- `notes/c3-window-text-source-helper-corridor-e450-e7e3.md:102`
+- `notes/c3-focused-party-hppp-actor-clear-e6f8.md:29`
+- `notes/c3-window-text-source-helper-corridor-e450-e7e3.md:104`
+- `notes/class2-reflected-hit-side-token-consumers.md:46`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:76`
+- `notes/c3-window-text-source-helper-corridor-e450-e7e3.md:105`
+
+### `src/c3/data_debug_menu_mixed_inventory_prefix.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `C3:E84E..C3:E977` (`297` bytes, SHA-1 `f3ad9bfaadef5a560a91fb2bc89d4009df1907d8`) `C3E84EMixed`
+
+Labels:
+
+- `C3:E84E C3E84EMixed`
+
+Evidence:
+
+- `build/c3-source-data-map.json`
+- `build/c3-source-residual-map.json`
+- `C3:E977 ReadCharacterInventorySlotByte`
+- `C3:E9A0 CheckEquippedInventorySlotReference`
+
+### `src/c3/inventory_equipment_tracked_items.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:E977..C3:E9A0` | 41 | `ReadCharacterInventorySlotByte` | `518c22bc2e33bca2447f094a79a4d8d1c3e85c1f` |
+| `C3:E9A0..C3:E9F7` | 87 | `CheckEquippedInventorySlotReference` | `e4e5818f5c3ffe09eaf055a11eb8c61c1b1f2b98` |
+| `C3:E9F7..C3:EAD0` | 217 | `CheckEquippedInventoryItemPresence` | `2b0c924b0e5bdde6126f78f9671d75d5426344ee` |
+| `C3:EAD0..C3:EB1C` | 76 | `RefreshEggFamilyLifecycleOnInsert` | `687b1fdc6270bdcdc4f69ba373ccc8c1789e0a1e` |
+| `C3:EB1C..C3:EBCA` | 174 | `RefreshEggFamilyLifecycleOnRemove` | `8028c61b67c2e04087e2209c028a69a5ba88ccf2` |
+| `C3:EBCA..C3:EC1F` | 85 | `SyncPartyOverlayTrackedItemFamilyState` | `d32d690d7ee3d057e5851329d30f1926994660db` |
+
+Labels:
+
+- `C3:E977 ReadCharacterInventorySlotByte`
+- `C3:E9A0 CheckEquippedInventorySlotReference`
+- `C3:E9F7 CheckEquippedInventoryItemPresence`
+- `C3:EAD0 RefreshEggFamilyLifecycleOnInsert`
+- `C3:EB1C RefreshEggFamilyLifecycleOnRemove`
+- `C3:EBCA SyncPartyOverlayTrackedItemFamilyState`
+
+Evidence:
+
+- `notes/c3-e84e-debug-menu-and-embedded-item-helpers-split.md:7`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:7`
+- `notes/c3-shared-helper-working-name-promotion.md:79`
+- `notes/c3-e84e-debug-menu-and-embedded-item-helpers-split.md:8`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:8`
+- `notes/c3-shared-helper-working-name-promotion.md:80`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:9`
+- `notes/c3-shared-helper-working-name-promotion.md:81`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:10`
+- `notes/c3-shared-helper-working-name-promotion.md:82`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:11`
+- `notes/c3-shared-helper-working-name-promotion.md:83`
+- `notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md:12`
+- `notes/c3-shared-helper-working-name-promotion.md:84`
+- `notes/c3-tracked-item-sync-source-contract-ebca.md:7`
+
+### `src/c3/hp_pp_adjustment_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:EC1F..C3:EC8B` | 108 | `DepleteCharacterHp` | `c895f05cec449f0f1c431a49bc18d365780abd33` |
+| `C3:EC8B..C3:ED2C` | 161 | `RecoverCharacterHp` | `dd06e768f1031811d8a30bb0f754ef956436362a` |
+| `C3:ED2C..C3:ED98` | 108 | `DepleteCharacterPp` | `554efd5dc2cde686b6d0b4c4b737cc3b551abfe7` |
+| `C3:ED98..C3:EE14` | 124 | `RecoverCharacterPp` | `5c97b005d6e4a6472956aaa48017cf8c4a6cf429` |
+
+Labels:
+
+- `C3:EC1F DepleteCharacterHp`
+- `C3:EC8B RecoverCharacterHp`
+- `C3:ED2C DepleteCharacterPp`
+- `C3:ED98 RecoverCharacterPp`
+
+Evidence:
+
+- `notes/c3-hp-pp-source-contract-quartet-ec1f-ee13.md:7`
+- `notes/c3-shared-helper-working-name-promotion.md:85`
+- `notes/c3-hp-pp-source-contract-quartet-ec1f-ee13.md:8`
+- `notes/c3-shared-helper-working-name-promotion.md:86`
+- `notes/c3-hp-pp-source-contract-quartet-ec1f-ee13.md:9`
+- `notes/c3-shared-helper-working-name-promotion.md:87`
+- `notes/c3-hp-pp-source-contract-quartet-ec1f-ee13.md:10`
+- `notes/c3-shared-helper-working-name-promotion.md:88`
+
+### `src/c3/equipment_battle_selector_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:EE14..C3:EE4D` | 57 | `CheckItemEquipmentSlotCompatibility` | `dcf848ef5b38a9c35d94efa694a069660835ef30` |
+| `C3:EE4D..C3:EE7A` | 45 | `RefreshWorldAndReleaseActiveVisualHandle` | `fe8f86d9a41323da252bdd701221abfa41a21b85` |
+| `C3:EE7A..C3:EF23` | 169 | `ResolveStatisticSelectorValue` | `25ae1311daa18f4608918c20bec335fdef312c41` |
+
+Labels:
+
+- `C3:EE14 CheckItemEquipmentSlotCompatibility`
+- `C3:EE4D RefreshWorldAndReleaseActiveVisualHandle`
+- `C3:EE7A ResolveStatisticSelectorValue`
+
+Evidence:
+
+- `notes/c3-equipment-selector-source-contract-ee14-ef22.md:7`
+- `notes/c3-shared-helper-working-name-promotion.md:89`
+- `notes/c3-equipment-selector-source-contract-ee14-ef22.md:8`
+- `notes/c3-shared-helper-working-name-promotion.md:90`
+- `notes/c3-equipment-selector-source-contract-ee14-ef22.md:9`
+- `notes/c3-shared-helper-working-name-promotion.md:91`
+
+### `src/c3/data_battle_menu_tables_ef23_f1ec.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `C3:EF23..C3:EF26` (`3` bytes, SHA-1 `dde45a04b5b3b55e35ad5a3f8beb6e613f9c033a`) `C3EF23Null`
+- `C3:EF26..C3:F016` (`240` bytes, SHA-1 `51def1eb80fc140e6a40e477898c39f344a8fe57`) `BattlePsiMenuSelectorGroupTable`
+- `C3:F016..C3:F054` (`62` bytes, SHA-1 `e43214441a1e13253bc4f08f5c80ec11b99c838f`) `BattlePsiMenuSelectorGroupTablePartF016`
+- `C3:F054..C3:F0B0` (`92` bytes, SHA-1 `09f777a7f3ce52dc0f6112799393ba6ff93668cd`) `BattlePsiMenuSelectorGroupTablePartF054`
+- `C3:F0B0..C3:F112` (`98` bytes, SHA-1 `87d07b8ee1ef30d50609e921e4fe756950b09ec9`) `BattlePsiKnownStateGateTable`
+- `C3:F112..C3:F11C` (`10` bytes, SHA-1 `5b19488a911ce353690efdd04b0a1dc0cc465a1a`) `BattlePsiKnownStateGateTablePartF112`
+- `C3:F11C..C3:F124` (`8` bytes, SHA-1 `bd68b454bcaea0ca648a635704dd37c60a80ad9c`) `BattlePsiKnownStateGateTablePartF11C`
+- `C3:F124..C3:F1EC` (`200` bytes, SHA-1 `9f8fe9e201a8440627174fbd5f60eeeaedb28335`) `BattlePsiKnownStateGateTablePartF124`
+
+Labels:
+
+- `C3:EF23 C3EF23Null`
+- `C3:EF26 BattlePsiMenuSelectorGroupTable`
+- `C3:F016 BattlePsiMenuSelectorGroupTablePartF016`
+- `C3:F054 BattlePsiMenuSelectorGroupTablePartF054`
+- `C3:F0B0 BattlePsiKnownStateGateTable`
+- `C3:F112 BattlePsiKnownStateGateTablePartF112`
+- `C3:F11C BattlePsiKnownStateGateTablePartF11C`
+- `C3:F124 BattlePsiKnownStateGateTablePartF124`
+
+Evidence:
+
+- `build/c3-source-data-map.json`
+- `build/c3-source-residual-map.json`
+- `notes/c3-shared-helper-working-name-promotion.md:92`
+- `notes/c3-shared-helper-working-name-promotion.md:94`
+
+### `src/c3/jeff_repair_psi_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:F1EC..C3:F2B1` | 197 | `TryRepairJeffBrokenInventoryItem` | `78d0a226bf94c9d95e0a52a8c176d10d84e2a66c` |
+
+Labels:
+
+- `C3:F1EC TryRepairJeffBrokenInventoryItem`
+
+Evidence:
+
+- `notes/c3-jeff-repair-source-contract-f1ec.md:9`
+- `notes/c3-shared-helper-working-name-promotion.md:98`
+
+### `src/c3/data_battle_visual_tables_f2b1_f5f9.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `C3:F2B1..C3:F5F9` (`840` bytes, SHA-1 `a8240072a68ad0cadf6a8353b249c7a56241d602`) `C3F2B1RawData`
+
+Labels:
+
+- `C3:F2B1 C3F2B1RawData`
+
+Evidence:
+
+- `build/c3-source-data-map.json`
+- `build/c3-source-residual-map.json`
+
+### `src/c3/battle_visual_effect_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `C3:F5F9..C3:F67D` | 132 | `QueueVisualTileRowsLinear` | `bfa86628fb5c85a4c058d51070016e4419357172` |
+| `C3:F67D..C3:F705` | 136 | `QueueVisualTileRowsWrapped` | `41fcd4a1c996572c1284aa382241a99debaeff12` |
+| `C3:F705..C3:F7FB` | 246 | `QueueVisualTileBlockFromStream` | `a60740040448d593780ddde476bf3312acbdfe76` |
+| `C3:F7FB..C3:F819` | 30 | `QueueFixedEfEb3dVisualTileBlock` | `d17491c6e2189f3d9405f9b97345a3c5975c98ed` |
+| `C3:F981..C3:FAC9` | 328 | `DispatchBattleVisualEffectToken` | `eaa5fd3f993419a0e055ef3793fbc031f34418be` |
+| `C3:FAC9..C3:FB09` | 64 | `DispatchBattleActorVisualEffectToken` | `e7543045832c1f9fe65781892a0ff147be3cc8be` |
+| `C3:FB09..C3:FB1F` | 22 | `CheckCurrentBattleActorVisualFlag` | `035e00e211fd3bc84014a18fd6bd9f9da9eba462` |
+
+Data gaps inside protected span:
+
+- `C3:F819..C3:F981` (`360` bytes, SHA-1 `93df16de751cde7f7fb95ec2810abfa30cddfe4d`) `None`
+
+Labels:
+
+- `C3:F5F9 QueueVisualTileRowsLinear`
+- `C3:F67D QueueVisualTileRowsWrapped`
+- `C3:F705 QueueVisualTileBlockFromStream`
+- `C3:F7FB QueueFixedEfEb3dVisualTileBlock`
+- `C3:F981 DispatchBattleVisualEffectToken`
+- `C3:F9A2 ApplyBattleVisualToken23To2dColourEffect`
+- `C3:FA4A ApplyBattleVisualToken31To35ColourEffect`
+- `C3:FAC7 ReturnFromBattleVisualEffectTokenDispatch`
+- `C3:FAC9 DispatchBattleActorVisualEffectToken`
+- `C3:FB09 CheckCurrentBattleActorVisualFlag`
+
+Evidence:
+
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:77`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:78`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:79`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:80`
+- `notes/c3-battle-visual-effect-dispatch-source-contract-f981.md:7`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:81`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:82`
+- `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:83`
+- `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:46125`
+
+### `src/c3/data_battle_tail_and_delivery_payloads_fb1f_10000.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `C3:FB1F..C3:FDBD` (`670` bytes, SHA-1 `5d101ca2bd7c6ec943bb2dad73cba005c5aea3a0`) `C3FB1FUnmapped`
+- `C3:FDBD..C3:10000` (`579` bytes, SHA-1 `4dcedbc4d6d7eb835b9a93cdbcea6e1b0323d807`) `DeliveryPlaceholderSpriteTable`
+
+Labels:
+
+- `C3:FB1F C3FB1FUnmapped`
+- `C3:FDBD DeliveryPlaceholderSpriteTable`
+
+Evidence:
+
+- `build/c3-source-data-map.json`
+- `build/c3-source-residual-map.json`
+- `notes/c3-timed-delivery-controller-working-names.md:61`
+
+## Notes
+
+The scaffold preserves intentional source-adjacent data gaps from the manifest and validates each protected span against the original ROM bytes.

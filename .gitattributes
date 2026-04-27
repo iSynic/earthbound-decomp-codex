@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+*.asm text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+
+*.sfc binary
+*.smc binary
+*.bin binary
+*.rom binary

@@ -1,0 +1,1737 @@
+# Cross-bank data contract manifest
+
+Generated from local notes plus quarantined reference structs. This is the machine-readable struct/table front door for source and data emission work; edit `tools/build_data_contract_manifest.py`, then regenerate this file.
+
+## Summary
+
+- schema: `earthbound-decomp.data-contracts.v1`
+- contracts: `85`
+- fields: `448`
+
+| Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
+| --- | --- | --- | ---: | ---: | --- | ---: | --- |
+| GAME_STATE | wram-root | `7E:9801` | `0x1D9` | 1 | `game_state` | 26 | corroborated |
+| PARTY_CHARACTERS | wram-root | `7E:99CE` | `0x5F` | 6 | `char_struct` | 41 | corroborated |
+| BATTLERS_TABLE | wram-root | `7E:9FAC` | `0x4E` | 32 | `battler` | 49 | corroborated |
+| ITEM_CONFIGURATION_TABLE | rom-table | `D5:5000` | `0x27` | 254 | `item` | 7 | corroborated |
+| STORE_TABLE | rom-table | `D5:76B2` | `0x7` | 66 | `store_inventory` | 7 | corroborated |
+| PSI_TELEPORT_DEST_TABLE | rom-table | `D5:7880` | `0x1F` | 16 | `psi_teleport_destination` | 4 | corroborated |
+| TELEPHONE_CONTACTS_TABLE | rom-table | `D5:7AAE` | `0x1F` | 6 | `telephone_contact` | 3 | corroborated |
+| BATTLE_ACTION_TABLE | rom-table | `D5:7B68` | `0xC` | 318 | `battle_action` | 6 | corroborated |
+| PSI_ABILITY_TABLE | rom-table | `D5:8A50` | `0xF` | 54 | `psi_ability` | 11 | corroborated |
+| PSI_NAME_TABLE | rom-table | `D5:8D7A` | `0x19` | 17 | `psi_name` | 1 | corroborated |
+| NPC_AI_TABLE | rom-table | `D5:8F23` | `0x1` | 38 | `npc_ai_selector` | 1 | corroborated |
+| EXP_TABLE | rom-table | `D5:8F49` | `0x190` | 4 | `character_exp_curve` | 1 | corroborated |
+| ENEMY_CONFIGURATION_TABLE | rom-table | `D5:9589` | `0x5E` | 231 | `enemy_data` | 42 | corroborated |
+| STATS_GROWTH_VARS | rom-table | `D5:EA5B` | `0x7` | 4 | `stats_growth_vars` | 7 | corroborated |
+| CONDIMENT_TABLE | rom-table | `D5:EA77` | `0x7` | 44 | `condiment_rule` | 7 | corroborated |
+| TELEPORT_DESTINATION_TABLE | rom-table | `D5:EBAB` | `0x8` | 234 | `teleport_destination` | 6 | corroborated |
+| MAP_HOTSPOTS | rom-table | `D5:F2FB` | `0x8` | 56 | `map_hotspot` | 4 | corroborated |
+| TIMED_ITEM_TRANSFORMATION_TABLE | rom-table | `D5:F4BB` | `0x5` | 4 | `timed_item_transformation` | 5 | corroborated |
+| DONT_CARE_NAMES | rom-table | `D5:F4CF` | `0x2A` | 7 | `default_name_set` | 7 | corroborated |
+| INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
+| TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery` | 1 | boundary-corroborated |
+| CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
+| CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
+| D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `far_pointer` | 1 | exact |
+| SCREEN_TRANSITION_CONFIG_TABLE | rom-table | `D0:1400` | `0xC` | 34 | `screen_transition_config` | 12 | corroborated |
+| EVENT_CONTROL_PTR_TABLE | rom-table | `D0:1598` | `0x2` | 20 | `word_pointer` | 1 | exact |
+| MAP_TILE_EVENT_CONTROL_TABLE | rom-variable-table | `D0:15C0` | `0x2C0` | 1 | `map_tile_event_chain_block` | 1 | exact-variable-chains |
+| MAP_ENEMY_PLACEMENT | rom-table | `D0:1880` | `0x2` | 20480 | `map_enemy_placement` | 1 | corroborated |
+| ENEMY_PLACEMENT_GROUPS_PTR_TABLE | rom-table | `D0:B880` | `0x4` | 203 | `far_pointer` | 1 | exact |
+| ENEMY_PLACEMENT_GROUPS_TABLE | rom-variable-table | `D0:BBAC` | `0xA61` | 1 | `enemy_placement_group_lists` | 1 | exact-variable-lists |
+| BTL_ENTRY_PTR_TABLE | rom-table | `D0:C60D` | `0x8` | 484 | `battle_entry_ptr_entry` | 4 | corroborated |
+| ENEMY_BATTLE_GROUPS_TABLE | rom-variable-table | `D0:D52D` | `0xA87` | 1 | `enemy_battle_group_payloads` | 1 | exact-variable-lists |
+| MAP_TILE_COLLISION_DATA | rom-block | `D8:0000` | `0x8F50` | 1 | `raw_tile_collision_data` | 1 | exact-boundary |
+| MAP_DATA_TILE_COLLISION_PTR_TABLE | rom-table | `EF:117B` | `0x4` | 20 | `far_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_2 | rom-table | `D8:9C6A` | `0x2` | 827 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_3 | rom-table | `D8:A2E0` | `0x2` | 524 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_4 | rom-table | `D8:A6F8` | `0x2` | 935 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_5 | rom-table | `D8:AE46` | `0x2` | 287 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_6 | rom-table | `D8:B084` | `0x2` | 875 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_7 | rom-table | `D8:B75A` | `0x2` | 749 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_8 | rom-table | `D8:BD34` | `0x2` | 628 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_9 | rom-table | `D8:C21C` | `0x2` | 933 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_10 | rom-table | `D8:C966` | `0x2` | 871 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_11 | rom-table | `D8:D034` | `0x2` | 713 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_12 | rom-table | `D8:D5C6` | `0x2` | 462 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_13 | rom-table | `D8:D962` | `0x2` | 882 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_14 | rom-table | `D8:E046` | `0x2` | 203 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_15 | rom-table | `D8:E1DC` | `0x2` | 143 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_16 | rom-table | `D8:E2FA` | `0x2` | 390 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `word_pointer` | 1 | exact |
+| OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
+| OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
+| CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
+| SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `word_pointer` | 1 | exact |
+| SPRITE_PLACEMENT_TABLE | rom-variable-table | `CF:6BE7` | `0x1D9E` | 1 | `sprite_placement_sector_list_block` | 1 | exact-variable-lists |
+| NPC_CONFIG_TABLE | rom-table | `CF:8985` | `0x11` | 1584 | `npc_config` | 8 | corroborated |
+| BATTLE_SELECTION_SNAPSHOT | wram-overlay | `7E:9FFA` | `0x4E` | 1 | `battle_menu_selection_header_plus_snapshot` | 17 | corroborated-overlay |
+| LOADED_BG_DATA_LAYER1 | wram-root | `7E:ADD4` | `0x77` | 1 | `loaded_bg_data` | 36 | corroborated |
+| LOADED_BG_DATA_LAYER2 | wram-root | `7E:AE4B` | `0x77` | 1 | `loaded_bg_data` | 36 | corroborated |
+| INPUT_DIRECTION_PERMISSION_MASK_TABLE | rom-table | `C3:E12C` | `0x2` | 14 | `input_direction_permission_mask` | 1 | corroborated |
+| INTERACTION_PROBE_DIRECTION_X_OFFSETS | rom-table | `C3:E148` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
+| INTERACTION_PROBE_DIRECTION_Y_OFFSETS | rom-table | `C3:E158` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
+| MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE | rom-table | `C3:E1D8` | `0x2` | 20 | `map_entity_placement_direction_param` | 1 | proposed |
+| STAGED_MOVEMENT_PRIMARY_DIRECTION_PARAM_TABLE | rom-table | `C3:E200` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
+| STAGED_MOVEMENT_ALTERNATE_DIRECTION_PARAM_TABLE | rom-table | `C3:E208` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
+| STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_X | rom-table | `C3:E210` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
+| STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_Y | rom-table | `C3:E218` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
+| STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_X | rom-table | `C3:E220` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
+| STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_Y | rom-table | `C3:E228` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
+| TITLE_NAME_BUFFER_CURSOR_TILE_RUN | rom-table | `C3:E40E` | `0x8` | 1 | `four_tile_word_run` | 4 | corroborated |
+| BLINKING_TRIANGLE_WAIT_FRAME_TILES | rom-table | `C3:E41C` | `0x8` | 4 | `four_tile_word_frame` | 4 | corroborated |
+| BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS | rom-table | `C3:F871` | `0x8` | 8 | `battle_visual_strip_offset_page` | 4 | corroborated |
+| BATTLE_VISUAL_OAM_TILE_INDEX_GRID | rom-table | `C3:F8B1` | `0x10` | 4 | `battle_visual_oam_tile_index_row` | 8 | corroborated |
+| BATTLE_PALETTE_SET_ROWS | rom-table | `C3:F8F1` | `0x20` | 3 | `rgb555_palette_row` | 16 | corroborated |
+| BATTLE_VISUAL_TOKEN_23_TO_2D_COLOUR_TRIPLES | rom-table | `C3:F951` | `0x3` | 11 | `battle_visual_fixed_colour_triple` | 3 | corroborated |
+| BATTLE_VISUAL_TOKEN_31_TO_35_COLOUR_TRIPLES | rom-table | `C3:F972` | `0x3` | 5 | `battle_visual_fixed_colour_triple` | 3 | corroborated |
+| BLANK_COMMON_TILE_SOURCE_BLOCK | rom-table | `C4:0BE8` | `0x200` | 1 | `blank_common_tile_source_block` | 1 | corroborated |
+| WH_WINDOW_SPAN_RADIUS_RAMP_TABLE | rom-table | `C4:74F6` | `0x1` | 11 | `wh_window_span_radius_ramp_entry` | 1 | corroborated |
+| MOVEMENT_OCTANT_TO_PULSE_SELECTOR_TABLE | rom-table | `C4:8C59` | `0x2` | 8 | `movement_octant_pulse_selector` | 1 | corroborated |
+| MOVEMENT_OCTANT_SIGNED_UNIT_DELTA_TABLE | rom-table | `C4:8D38` | `0x20` | 1 | `movement_octant_signed_unit_delta_components` | 1 | proposed |
+| YOUR_SANCTUARY_LOCATION_COORDINATE_TABLE | rom-table | `C4:DE78` | `0x4` | 8 | `your_sanctuary_location_coordinate_pair` | 2 | corroborated |
+
+## Contracts
+
+### GAME_STATE
+
+- domain: `wram-root`
+- address: `7E:9801`
+- stride: `0x1D9`
+- count: `1`
+- struct: `game_state`
+- confidence: `corroborated`
+- note: saveblock game_state root from ebsrc ram.asm
+- evidence: `tools/lookup_wram_field.py`, `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/ram.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `mother2_playername` | 1 | 12 | 12-byte Mother 2 carryover name buffer |
+| `0xC` | `earthbound_playername` | 1 | 24 | 24-byte EarthBound player-name buffer |
+| `0x24` | `pet_name` | 1 | 6 | 6-byte pet-name buffer |
+| `0x2A` | `favourite_food` | 1 | 6 | 6-byte favourite-food buffer |
+| `0x30` | `favourite_thing` | 1 | 12 | 12-byte favourite-thing / PSI naming buffer |
+| `0x3C` | `money_carried` | 4 | 1 | party money carried |
+| `0x40` | `bank_balance` | 4 | 1 | bank account balance |
+| `0x44` | `party_psi` | 1 | 1 | party PSI latch byte |
+| `0x45` | `party_npc_1` | 1 | 1 | party NPC slot 1 id |
+| `0x46` | `party_npc_2` | 1 | 1 | party NPC slot 2 id |
+| `0x4B` | `party_status` | 1 | 1 | party status byte |
+| `0x52` | `wallet_backup` | 4 | 1 | wallet backup dword |
+| `0x56` | `escargo_express_items` | 1 | 36 | Escargo Express stored-item queue |
+| `0x7A` | `party_members` | 1 | 6 | party member ids |
+| `0x82` | `leader_x_coord` | 2 | 1 | leader X coordinate |
+| `0x86` | `leader_y_coord` | 2 | 1 | leader Y coordinate |
+| `0x8A` | `leader_direction` | 2 | 1 | leader facing direction |
+| `0x8C` | `trodden_tile_type` | 2 | 1 | trodden tile type |
+| `0x8E` | `walking_style` | 2 | 1 | walking style |
+| `0x94` | `current_party_members` | 2 | 1 | current party-members word |
+| `0xAE` | `party_count` | 1 | 1 | party count |
+| `0xAF` | `player_controlled_party_count` | 1 | 1 | player-controlled party count |
+| `0xC1` | `text_speed` | 1 | 1 | selected text speed |
+| `0xC2` | `sound_setting` | 1 | 1 | sound setting |
+| `0x1D4` | `timer` | 4 | 1 | global timer dword |
+| `0x1D8` | `text_flavour` | 1 | 1 | text flavour byte |
+
+### PARTY_CHARACTERS
+
+- domain: `wram-root`
+- address: `7E:99CE`
+- stride: `0x5F`
+- count: `6`
+- struct: `char_struct`
+- confidence: `corroborated`
+- note: party char_struct array from ebsrc ram.asm
+- evidence: `tools/lookup_wram_field.py`, `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/ram.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 5 | 5-byte party member name buffer |
+| `0x5` | `level` | 1 | 1 | level |
+| `0x6` | `exp` | 4 | 1 | experience dword |
+| `0xA` | `max_hp` | 2 | 1 | max HP |
+| `0xC` | `max_pp` | 2 | 1 | max PP |
+| `0xE` | `afflictions` | 1 | 7 | char_struct affliction-group bytes |
+| `0x15` | `offense` | 1 | 1 | display-facing offense |
+| `0x16` | `defense` | 1 | 1 | display-facing defense |
+| `0x17` | `speed` | 1 | 1 | display-facing speed |
+| `0x18` | `guts` | 1 | 1 | display-facing guts |
+| `0x19` | `luck` | 1 | 1 | display-facing luck |
+| `0x1A` | `vitality` | 1 | 1 | display-facing vitality |
+| `0x1B` | `iq` | 1 | 1 | display-facing IQ |
+| `0x1C` | `base_offense` | 1 | 1 | base offense before equipment refresh |
+| `0x1D` | `base_defense` | 1 | 1 | base defense before equipment refresh |
+| `0x1E` | `base_speed` | 1 | 1 | base speed |
+| `0x1F` | `base_guts` | 1 | 1 | base guts |
+| `0x20` | `base_luck` | 1 | 1 | base luck |
+| `0x21` | `base_vitality` | 1 | 1 | base vitality |
+| `0x22` | `base_iq` | 1 | 1 | base IQ |
+| `0x23` | `items` | 1 | 14 | inventory item ids |
+| `0x31` | `equipment` | 1 | 4 | equipped item ids by slot family |
+| `0x3D` | `position_index` | 2 | 1 | position index word |
+| `0x43` | `current_hp_fraction` | 2 | 1 | HP rolling fraction |
+| `0x45` | `current_hp` | 2 | 1 | current HP |
+| `0x47` | `current_hp_target` | 2 | 1 | HP target |
+| `0x49` | `current_pp_fraction` | 2 | 1 | PP rolling fraction |
+| `0x4B` | `current_pp` | 2 | 1 | current PP |
+| `0x4D` | `current_pp_target` | 2 | 1 | PP target |
+| `0x4F` | `hp_pp_window_options` | 2 | 1 | HP/PP window options |
+| `0x51` | `miss_rate` | 1 | 1 | miss-rate byte |
+| `0x52` | `fire_resist` | 1 | 1 | fire resistance |
+| `0x53` | `freeze_resist` | 1 | 1 | freeze resistance |
+| `0x54` | `flash_resist` | 1 | 1 | flash resistance |
+| `0x55` | `paralysis_resist` | 1 | 1 | paralysis resistance |
+| `0x56` | `hypnosis_brainshock_resist` | 1 | 1 | hypnosis/brainshock resistance |
+| `0x57` | `boosted_speed` | 1 | 1 | boosted speed adder |
+| `0x58` | `boosted_guts` | 1 | 1 | boosted guts adder |
+| `0x59` | `boosted_vitality` | 1 | 1 | boosted vitality adder |
+| `0x5A` | `boosted_iq` | 1 | 1 | boosted IQ adder |
+| `0x5B` | `boosted_luck` | 1 | 1 | boosted luck adder |
+
+### BATTLERS_TABLE
+
+- domain: `wram-root`
+- address: `7E:9FAC`
+- stride: `0x4E`
+- count: `32`
+- struct: `battler`
+- confidence: `corroborated`
+- note: battler array from ebsrc ram.asm
+- evidence: `tools/lookup_wram_field.py`, `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/ram.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `id` | 2 | 1 | battler id |
+| `0x2` | `sprite` | 1 | 1 | sprite id |
+| `0x4` | `current_action` | 2 | 1 | current action id |
+| `0x6` | `action_order_var` | 1 | 1 | action-order variable |
+| `0x7` | `action_item_slot` | 1 | 1 | selected item slot |
+| `0x8` | `current_action_argument` | 1 | 1 | current action argument |
+| `0x9` | `action_targetting` | 1 | 1 | action targeting mode |
+| `0xA` | `current_target` | 1 | 1 | current target id |
+| `0xB` | `the_flag` | 1 | 1 | enemy data the_flag copy |
+| `0xC` | `consciousness` | 1 | 1 | consciousness gate byte |
+| `0xD` | `has_taken_turn` | 1 | 1 | turn-taken latch |
+| `0xE` | `ally_or_enemy` | 1 | 1 | ally-or-enemy side byte |
+| `0xF` | `npc_id` | 1 | 1 | NPC or enemy id |
+| `0x10` | `row` | 1 | 1 | front/back row byte |
+| `0x11` | `hp` | 2 | 1 | battle HP |
+| `0x13` | `hp_target` | 2 | 1 | battle HP target |
+| `0x15` | `hp_max` | 2 | 1 | battle max HP |
+| `0x17` | `pp` | 2 | 1 | battle PP |
+| `0x19` | `pp_target` | 2 | 1 | battle PP target |
+| `0x1B` | `pp_max` | 2 | 1 | battle max PP |
+| `0x1D` | `afflictions` | 1 | 7 | battler affliction-group bytes |
+| `0x24` | `guarding` | 1 | 1 | guarding flag |
+| `0x25` | `shield_hp` | 1 | 1 | shield HP |
+| `0x26` | `offense` | 2 | 1 | battle offense |
+| `0x28` | `defense` | 2 | 1 | battle defense |
+| `0x2A` | `speed` | 2 | 1 | battle speed |
+| `0x2C` | `guts` | 2 | 1 | battle guts |
+| `0x2E` | `luck` | 2 | 1 | battle luck |
+| `0x30` | `vitality` | 1 | 1 | battle vitality |
+| `0x31` | `iq` | 1 | 1 | battle IQ |
+| `0x32` | `base_offense` | 1 | 1 | base offense |
+| `0x33` | `base_defense` | 1 | 1 | base defense |
+| `0x34` | `base_speed` | 1 | 1 | base speed |
+| `0x35` | `base_guts` | 1 | 1 | base guts |
+| `0x36` | `base_luck` | 1 | 1 | base luck |
+| `0x37` | `paralysis_resist` | 1 | 1 | paralysis resistance |
+| `0x38` | `freeze_resist` | 1 | 1 | freeze resistance |
+| `0x39` | `flash_resist` | 1 | 1 | flash resistance |
+| `0x3A` | `fire_resist` | 1 | 1 | fire resistance |
+| `0x3B` | `brainshock_resist` | 1 | 1 | brainshock resistance |
+| `0x3C` | `hypnosis_resist` | 1 | 1 | hypnosis resistance |
+| `0x3D` | `money` | 2 | 1 | money drop |
+| `0x3F` | `exp` | 4 | 1 | experience yield |
+| `0x43` | `vram_sprite_index` | 1 | 1 | VRAM sprite index |
+| `0x44` | `sprite_x` | 1 | 1 | battle sprite X |
+| `0x45` | `sprite_y` | 1 | 1 | battle sprite Y |
+| `0x46` | `initiative` | 1 | 1 | initiative byte |
+| `0x4B` | `use_alt_spritemap` | 1 | 1 | alternate spritemap flag |
+| `0x4D` | `id2` | 1 | 1 | secondary id byte |
+
+### ITEM_CONFIGURATION_TABLE
+
+- domain: `rom-table`
+- address: `D5:5000`
+- stride: `0x27`
+- count: `254`
+- struct: `item`
+- confidence: `corroborated`
+- note: Fixed-stride item table used by C1/C2 inventory, equipment, and item-effect helpers.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/d5-table-splits.md`, `notes/item-byte-19-packed-class-and-slot.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 25 | USA item-name buffer |
+| `0x19` | `packed_class_and_slot` | 1 | 1 | item type byte; local notes decode class/equipment slot packing |
+| `0x1A` | `cost` | 2 | 1 | store cost |
+| `0x1C` | `flags` | 1 | 1 | item flags |
+| `0x1D` | `effect` | 2 | 1 | item effect id |
+| `0x1F` | `params` | 4 | 1 | item parameter dword |
+| `0x23` | `help_text` | 4 | 1 | help text pointer |
+
+### STORE_TABLE
+
+- domain: `rom-table`
+- address: `D5:76B2`
+- stride: `0x7`
+- count: `66`
+- struct: `store_inventory`
+- confidence: `corroborated`
+- note: Store inventory rows immediately following the 254-row item table.
+- evidence: `refs/eb-decompile-4ef92/store_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `item_id_0` | 1 | 1 |  |
+| `0x1` | `item_id_1` | 1 | 1 |  |
+| `0x2` | `item_id_2` | 1 | 1 |  |
+| `0x3` | `item_id_3` | 1 | 1 |  |
+| `0x4` | `item_id_4` | 1 | 1 |  |
+| `0x5` | `item_id_5` | 1 | 1 |  |
+| `0x6` | `item_id_6` | 1 | 1 |  |
+
+### PSI_TELEPORT_DEST_TABLE
+
+- domain: `rom-table`
+- address: `D5:7880`
+- stride: `0x1F`
+- count: `16`
+- struct: `psi_teleport_destination`
+- confidence: `corroborated`
+- note: Teleport-menu destination rows with fixed-width name, event flag, and map coordinates.
+- evidence: `refs/eb-decompile-4ef92/psi_teleport_dest_table.yml`, `notes/landing-destination-table-d57880.md`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 25 | fixed-width USA destination name |
+| `0x19` | `event_flag` | 2 | 1 |  |
+| `0x1B` | `x` | 2 | 1 |  |
+| `0x1D` | `y` | 2 | 1 |  |
+
+### TELEPHONE_CONTACTS_TABLE
+
+- domain: `rom-table`
+- address: `D5:7AAE`
+- stride: `0x1F`
+- count: `6`
+- struct: `telephone_contact`
+- confidence: `corroborated`
+- note: Phone contact rows with fixed-width name, event flag, and text pointer.
+- evidence: `refs/eb-decompile-4ef92/telephone_contacts_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 25 | fixed-width USA phone contact name |
+| `0x19` | `event_flag` | 2 | 1 |  |
+| `0x1B` | `text_pointer` | 4 | 1 |  |
+
+### BATTLE_ACTION_TABLE
+
+- domain: `rom-table`
+- address: `D5:7B68`
+- stride: `0xC`
+- count: `318`
+- struct: `battle_action`
+- confidence: `corroborated`
+- note: Battle action rows consumed by targetting, menu, PP-cost, text, and battle-function dispatch paths.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/data/battle/action_table.asm`, `notes/d5-table-splits.md`, `notes/battle-targetting-resolver-c1adb4-af50.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `direction` | 1 | 1 | enemy/ally/immediate direction selector |
+| `0x1` | `target` | 1 | 1 | target subtype consumed by the C1 targetting resolver |
+| `0x2` | `type` | 1 | 1 | battle action type |
+| `0x3` | `pp_cost` | 1 | 1 | PSI/action PP cost |
+| `0x4` | `description_text_pointer` | 4 | 1 | battle text pointer |
+| `0x8` | `battle_function_pointer` | 4 | 1 | battle action handler pointer |
+
+### PSI_ABILITY_TABLE
+
+- domain: `rom-table`
+- address: `D5:8A50`
+- stride: `0xF`
+- count: `54`
+- struct: `psi_ability`
+- confidence: `corroborated`
+- note: PSI menu metadata table, including linked battle action ids and learn levels.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/d5-table-splits.md`, `notes/battle-psi-ability-table-d58a50.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 1 | PSI name id |
+| `0x1` | `level` | 1 | 1 | PSI alpha/beta/gamma/omega level |
+| `0x2` | `category` | 1 | 1 |  |
+| `0x3` | `usability` | 1 | 1 | menu/use gating byte |
+| `0x4` | `battle_action` | 2 | 1 | linked D5:7B68 battle action id |
+| `0x6` | `ness_level` | 1 | 1 |  |
+| `0x7` | `paula_level` | 1 | 1 |  |
+| `0x8` | `poo_level` | 1 | 1 |  |
+| `0x9` | `menu_x` | 1 | 1 |  |
+| `0xA` | `menu_y` | 1 | 1 |  |
+| `0xB` | `text` | 4 | 1 | description text pointer |
+
+### PSI_NAME_TABLE
+
+- domain: `rom-table`
+- address: `D5:8D7A`
+- stride: `0x19`
+- count: `17`
+- struct: `psi_name`
+- confidence: `corroborated`
+- note: Fixed-width PSI display names.
+- evidence: `refs/eb-decompile-4ef92/psi_name_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name` | 1 | 25 | fixed-width USA PSI name |
+
+### NPC_AI_TABLE
+
+- domain: `rom-table`
+- address: `D5:8F23`
+- stride: `0x1`
+- count: `38`
+- struct: `npc_ai_selector`
+- confidence: `corroborated`
+- note: One-byte NPC battle AI selector table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/data/battle/npc_ai_table.asm`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 1 | 1 |  |
+
+### EXP_TABLE
+
+- domain: `rom-table`
+- address: `D5:8F49`
+- stride: `0x190`
+- count: `4`
+- struct: `character_exp_curve`
+- confidence: `corroborated`
+- note: Four character EXP curves with 100 32-bit thresholds per curve.
+- evidence: `refs/eb-decompile-4ef92/exp_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `level_1_to_100_exp` | 4 | 100 | little-endian EXP thresholds |
+
+### ENEMY_CONFIGURATION_TABLE
+
+- domain: `rom-table`
+- address: `D5:9589`
+- stride: `0x5E`
+- count: `231`
+- struct: `enemy_data`
+- confidence: `corroborated`
+- note: Enemy configuration records copied into battler slots by the C2 battle-init paths.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/d5-table-splits.md`, `notes/class2-005e-record-domain.md`, `notes/class2-local-enemy-id-to-battler-init-chain.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `the_flag` | 1 | 1 |  |
+| `0x1` | `name` | 1 | 25 | USA enemy-name buffer |
+| `0x1A` | `gender` | 1 | 1 |  |
+| `0x1B` | `type` | 1 | 1 |  |
+| `0x1C` | `battle_sprite` | 2 | 1 |  |
+| `0x1E` | `overworld_sprite` | 2 | 1 |  |
+| `0x20` | `run_flag` | 1 | 1 |  |
+| `0x21` | `hp` | 2 | 1 |  |
+| `0x23` | `pp` | 2 | 1 |  |
+| `0x25` | `exp` | 4 | 1 |  |
+| `0x29` | `money` | 2 | 1 |  |
+| `0x2B` | `event_script` | 2 | 1 |  |
+| `0x2D` | `encounter_text_ptr` | 4 | 1 |  |
+| `0x31` | `death_text_ptr` | 4 | 1 |  |
+| `0x35` | `battle_sprite_palette` | 1 | 1 |  |
+| `0x36` | `level` | 1 | 1 |  |
+| `0x37` | `music` | 1 | 1 |  |
+| `0x38` | `offense` | 2 | 1 |  |
+| `0x3A` | `defense` | 2 | 1 |  |
+| `0x3C` | `speed` | 1 | 1 |  |
+| `0x3D` | `guts` | 1 | 1 |  |
+| `0x3E` | `luck` | 1 | 1 |  |
+| `0x3F` | `fire_vulnerability` | 1 | 1 |  |
+| `0x40` | `freeze_vulnerability` | 1 | 1 |  |
+| `0x41` | `flash_vulnerability` | 1 | 1 |  |
+| `0x42` | `paralysis_vulnerability` | 1 | 1 |  |
+| `0x43` | `hypnosis_brainshock_vulnerability` | 1 | 1 |  |
+| `0x44` | `miss_rate` | 1 | 1 |  |
+| `0x45` | `action_order` | 1 | 1 |  |
+| `0x46` | `actions` | 2 | 4 | normal action ids |
+| `0x4E` | `final_action` | 2 | 1 |  |
+| `0x50` | `action_args` | 1 | 4 | arguments for normal actions |
+| `0x54` | `final_action_arg` | 1 | 1 |  |
+| `0x55` | `iq` | 1 | 1 |  |
+| `0x56` | `boss` | 1 | 1 |  |
+| `0x57` | `item_drop_rate` | 1 | 1 | locally still softer than the core 0x5E enemy record match |
+| `0x58` | `item_dropped` | 1 | 1 | locally still softer than the core 0x5E enemy record match |
+| `0x59` | `initial_status` | 1 | 1 |  |
+| `0x5A` | `death_type` | 1 | 1 |  |
+| `0x5B` | `row` | 1 | 1 |  |
+| `0x5C` | `max_called` | 1 | 1 |  |
+| `0x5D` | `mirror_success` | 1 | 1 |  |
+
+### STATS_GROWTH_VARS
+
+- domain: `rom-table`
+- address: `D5:EA5B`
+- stride: `0x7`
+- count: `4`
+- struct: `stats_growth_vars`
+- confidence: `corroborated`
+- note: Seven-byte per-character stat growth parameter rows.
+- evidence: `refs/eb-decompile-4ef92/stats_growth_vars.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `offense` | 1 | 1 |  |
+| `0x1` | `defense` | 1 | 1 |  |
+| `0x2` | `speed` | 1 | 1 |  |
+| `0x3` | `guts` | 1 | 1 |  |
+| `0x4` | `vitality` | 1 | 1 |  |
+| `0x5` | `iq` | 1 | 1 |  |
+| `0x6` | `luck` | 1 | 1 |  |
+
+### CONDIMENT_TABLE
+
+- domain: `rom-table`
+- address: `D5:EA77`
+- stride: `0x7`
+- count: `44`
+- struct: `condiment_rule`
+- confidence: `corroborated`
+- note: Food/condiment pairing table with recovery and runtime effect bytes.
+- evidence: `refs/eb-decompile-4ef92/condiment_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `food` | 1 | 1 |  |
+| `0x1` | `condiment_1` | 1 | 1 |  |
+| `0x2` | `condiment_2` | 1 | 1 |  |
+| `0x3` | `effect` | 1 | 1 |  |
+| `0x4` | `good_recover` | 1 | 1 |  |
+| `0x5` | `bad_recover` | 1 | 1 |  |
+| `0x6` | `run_time` | 1 | 1 |  |
+
+### TELEPORT_DESTINATION_TABLE
+
+- domain: `rom-table`
+- address: `D5:EBAB`
+- stride: `0x8`
+- count: `234`
+- struct: `teleport_destination`
+- confidence: `corroborated`
+- note: Map teleport destination coordinate/style rows.
+- evidence: `refs/eb-decompile-4ef92/teleport_destination_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 2 | 1 |  |
+| `0x2` | `y` | 2 | 1 |  |
+| `0x4` | `direction` | 1 | 1 |  |
+| `0x5` | `warp_style` | 1 | 1 |  |
+| `0x6` | `unknown` | 1 | 1 |  |
+| `0x7` | `reserved` | 1 | 1 |  |
+
+### MAP_HOTSPOTS
+
+- domain: `rom-table`
+- address: `D5:F2FB`
+- stride: `0x8`
+- count: `56`
+- struct: `map_hotspot`
+- confidence: `corroborated`
+- note: Rectangular map hotspot coordinate records.
+- evidence: `refs/eb-decompile-4ef92/map_hotspots.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x1` | 2 | 1 |  |
+| `0x2` | `y1` | 2 | 1 |  |
+| `0x4` | `x2` | 2 | 1 |  |
+| `0x6` | `y2` | 2 | 1 |  |
+
+### TIMED_ITEM_TRANSFORMATION_TABLE
+
+- domain: `rom-table`
+- address: `D5:F4BB`
+- stride: `0x5`
+- count: `4`
+- struct: `timed_item_transformation`
+- confidence: `corroborated`
+- note: Timed item conversion rows for delayed item changes and sound feedback.
+- evidence: `refs/eb-decompile-4ef92/timed_item_transformation_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `item_id` | 1 | 1 |  |
+| `0x1` | `sound_effect` | 1 | 1 |  |
+| `0x2` | `sound_frequency` | 1 | 1 |  |
+| `0x3` | `new_item` | 1 | 1 |  |
+| `0x4` | `delay` | 1 | 1 |  |
+
+### DONT_CARE_NAMES
+
+- domain: `rom-table`
+- address: `D5:F4CF`
+- stride: `0x2A`
+- count: `7`
+- struct: `default_name_set`
+- confidence: `corroborated`
+- note: Default naming-screen choices as seven fixed-width names per row.
+- evidence: `refs/eb-decompile-4ef92/dont_care_names.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `name_1` | 1 | 6 | fixed-width USA name |
+| `0x6` | `name_2` | 1 | 6 | fixed-width USA name |
+| `0xC` | `name_3` | 1 | 6 | fixed-width USA name |
+| `0x12` | `name_4` | 1 | 6 | fixed-width USA name |
+| `0x18` | `name_5` | 1 | 6 | fixed-width USA name |
+| `0x1E` | `name_6` | 1 | 6 | fixed-width USA name |
+| `0x24` | `name_7` | 1 | 6 | fixed-width USA name |
+
+### INITIAL_STATS
+
+- domain: `rom-table`
+- address: `D5:F5F5`
+- stride: `0x15`
+- count: `4`
+- struct: `initial_party_member_stats`
+- confidence: `corroborated`
+- note: Initial character setup rows with level, money, EXP, and starting inventory.
+- evidence: `refs/eb-decompile-4ef92/initial_stats.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `unknown` | 1 | 4 |  |
+| `0x4` | `money` | 2 | 1 |  |
+| `0x6` | `level` | 1 | 1 |  |
+| `0x7` | `experience_points` | 4 | 1 |  |
+| `0xB` | `items_possessed` | 1 | 10 |  |
+
+### TIMED_DELIVERY_TABLE
+
+- domain: `rom-table`
+- address: `D5:F649`
+- stride: `0x14`
+- count: `10`
+- struct: `timed_delivery`
+- confidence: `boundary-corroborated`
+- note: Timed delivery rows. Table boundary and row count are exact; subfield ordering remains intentionally raw pending consumer-code confirmation.
+- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation |
+
+### CF_DOOR_DATA
+
+- domain: `rom-block`
+- address: `CF:0000`
+- stride: `0x264F`
+- count: `1`
+- struct: `cf_door_data_payload`
+- confidence: `exact-boundary`
+- note: CF door-data payload block before the 1280 counted sector door-list records.
+- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_payload` | 1 | 9807 | exact CF door-data payload block; subrecords are variable/packed |
+
+### CF_DOOR_CONFIG_TABLE
+
+- domain: `rom-variable-table`
+- address: `CF:264F`
+- stride: `0x32A0`
+- count: `1`
+- struct: `door_sector_list_block`
+- confidence: `exact-variable-lists`
+- note: 1280 counted door sector lists; D0 door pointers address individual lists inside this block.
+- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_sector_lists` | 1 | 12960 | 1280 counted sector door lists; each list is count word plus five-byte entries |
+
+### D0_DOOR_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `D0:0000`
+- stride: `0x4`
+- count: `1280`
+- struct: `far_pointer`
+- confidence: `exact`
+- note: 40x32 long-pointer grid into the CF door sector lists.
+- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### SCREEN_TRANSITION_CONFIG_TABLE
+
+- domain: `rom-table`
+- address: `D0:1400`
+- stride: `0xC`
+- count: `34`
+- struct: `screen_transition_config`
+- confidence: `corroborated`
+- note: Fixed-size screen transition configuration rows before the event-control pointer table.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `duration` | 1 | 1 |  |
+| `0x1` | `animation_id` | 1 | 1 |  |
+| `0x2` | `animation_flags` | 1 | 1 |  |
+| `0x3` | `fade_style` | 1 | 1 |  |
+| `0x4` | `direction` | 1 | 1 |  |
+| `0x5` | `unknown5` | 1 | 1 |  |
+| `0x6` | `slide_speed` | 1 | 1 |  |
+| `0x7` | `start_sound_effect` | 1 | 1 |  |
+| `0x8` | `secondary_duration` | 1 | 1 |  |
+| `0x9` | `secondary_animation_id` | 1 | 1 |  |
+| `0xA` | `secondary_animation_flags` | 1 | 1 |  |
+| `0xB` | `ending_sound_effect` | 1 | 1 |  |
+
+### EVENT_CONTROL_PTR_TABLE
+
+- domain: `rom-table`
+- address: `D0:1598`
+- stride: `0x2`
+- count: `20`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets to the 20 MAP_TILE_EVENT chains.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_TILE_EVENT_CONTROL_TABLE
+
+- domain: `rom-variable-table`
+- address: `D0:15C0`
+- stride: `0x2C0`
+- count: `1`
+- struct: `map_tile_event_chain_block`
+- confidence: `exact-variable-chains`
+- note: 20 variable MAP_TILE_EVENT chains, each terminated by a zero event flag word.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_event_chains` | 1 | 704 | 20 variable MAP_TILE_EVENT chains |
+
+### MAP_ENEMY_PLACEMENT
+
+- domain: `rom-table`
+- address: `D0:1880`
+- stride: `0x2`
+- count: `20480`
+- struct: `map_enemy_placement`
+- confidence: `corroborated`
+- note: 20480 word enemy-map-group entries.
+- evidence: `refs/eb-decompile-4ef92/map_enemy_placement.yml`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `enemy_map_group` | 2 | 1 |  |
+
+### ENEMY_PLACEMENT_GROUPS_PTR_TABLE
+
+- domain: `rom-table`
+- address: `D0:B880`
+- stride: `0x4`
+- count: `203`
+- struct: `far_pointer`
+- confidence: `exact`
+- note: Long pointers into ENEMY_PLACEMENT_GROUPS_TABLE.
+- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### ENEMY_PLACEMENT_GROUPS_TABLE
+
+- domain: `rom-variable-table`
+- address: `D0:BBAC`
+- stride: `0xA61`
+- count: `1`
+- struct: `enemy_placement_group_lists`
+- confidence: `exact-variable-lists`
+- note: 203 variable enemy placement group lists.
+- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_group_lists` | 1 | 2657 | 203 variable enemy placement group lists |
+
+### BTL_ENTRY_PTR_TABLE
+
+- domain: `rom-table`
+- address: `D0:C60D`
+- stride: `0x8`
+- count: `484`
+- struct: `battle_entry_ptr_entry`
+- confidence: `corroborated`
+- note: Battle-entry pointer records with run-away and letterbox metadata.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+| `0x4` | `run_away_flag` | 2 | 1 |  |
+| `0x6` | `run_away_flag_state` | 1 | 1 |  |
+| `0x7` | `letterbox_style` | 1 | 1 |  |
+
+### ENEMY_BATTLE_GROUPS_TABLE
+
+- domain: `rom-variable-table`
+- address: `D0:D52D`
+- stride: `0xA87`
+- count: `1`
+- struct: `enemy_battle_group_payloads`
+- confidence: `exact-variable-lists`
+- note: Variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE.
+- evidence: `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_battle_groups` | 1 | 2695 | variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE |
+
+### MAP_TILE_COLLISION_DATA
+
+- domain: `rom-block`
+- address: `D8:0000`
+- stride: `0x8F50`
+- count: `1`
+- struct: `raw_tile_collision_data`
+- confidence: `exact-boundary`
+- note: Raw tile collision data block before the 20 D8 collision pointer tables.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_collision_data` | 1 | 36688 | raw tile collision data addressed by the D8 collision pointer tables |
+
+### MAP_DATA_TILE_COLLISION_PTR_TABLE
+
+- domain: `rom-table`
+- address: `EF:117B`
+- stride: `0x4`
+- count: `20`
+- struct: `far_pointer`
+- confidence: `exact`
+- note: 20-entry long-pointer table anchoring the D8 tileset collision pointer-table family.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`, `notes/d8-table-splits.md`, `notes/landing-hdma-dispatch-family-ef117b-c00d7e.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_0
+
+- domain: `rom-table`
+- address: `D8:8F50`
+- stride: `0x2`
+- count: `832`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_1
+
+- domain: `rom-table`
+- address: `D8:95D0`
+- stride: `0x2`
+- count: `845`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_2
+
+- domain: `rom-table`
+- address: `D8:9C6A`
+- stride: `0x2`
+- count: `827`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_3
+
+- domain: `rom-table`
+- address: `D8:A2E0`
+- stride: `0x2`
+- count: `524`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_4
+
+- domain: `rom-table`
+- address: `D8:A6F8`
+- stride: `0x2`
+- count: `935`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_5
+
+- domain: `rom-table`
+- address: `D8:AE46`
+- stride: `0x2`
+- count: `287`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_6
+
+- domain: `rom-table`
+- address: `D8:B084`
+- stride: `0x2`
+- count: `875`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_7
+
+- domain: `rom-table`
+- address: `D8:B75A`
+- stride: `0x2`
+- count: `749`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_8
+
+- domain: `rom-table`
+- address: `D8:BD34`
+- stride: `0x2`
+- count: `628`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_9
+
+- domain: `rom-table`
+- address: `D8:C21C`
+- stride: `0x2`
+- count: `933`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_10
+
+- domain: `rom-table`
+- address: `D8:C966`
+- stride: `0x2`
+- count: `871`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_11
+
+- domain: `rom-table`
+- address: `D8:D034`
+- stride: `0x2`
+- count: `713`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_12
+
+- domain: `rom-table`
+- address: `D8:D5C6`
+- stride: `0x2`
+- count: `462`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_13
+
+- domain: `rom-table`
+- address: `D8:D962`
+- stride: `0x2`
+- count: `882`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_14
+
+- domain: `rom-table`
+- address: `D8:E046`
+- stride: `0x2`
+- count: `203`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_15
+
+- domain: `rom-table`
+- address: `D8:E1DC`
+- stride: `0x2`
+- count: `143`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_16
+
+- domain: `rom-table`
+- address: `D8:E2FA`
+- stride: `0x2`
+- count: `390`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_17
+
+- domain: `rom-table`
+- address: `D8:E606`
+- stride: `0x2`
+- count: `343`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_18
+
+- domain: `rom-table`
+- address: `D8:E8B4`
+- stride: `0x2`
+- count: `445`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_DATA_TILE_COLLISION_POINTERS_19
+
+- domain: `rom-table`
+- address: `D8:EC2E`
+- stride: `0x2`
+- count: `536`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### OVERWORLD_EVENT_MUSIC_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `CF:58EF`
+- stride: `0x2`
+- count: `165`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: Offsets into the CF overworld event-music table.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### OVERWORLD_EVENT_MUSIC_TABLE
+
+- domain: `rom-variable-table`
+- address: `CF:5A39`
+- stride: `0x7A4`
+- count: `1`
+- struct: `overworld_event_music_rows`
+- confidence: `exact-boundary`
+- note: Variable-length event flag/music rows ending at the inline bank0f byte block.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_event_music_rows` | 1 | 1956 | variable-length event-flag/music rows |
+
+### CF_INLINE_EVENT_MUSIC_TRAILER
+
+- domain: `rom-block`
+- address: `CF:61DD`
+- stride: `0xA`
+- count: `1`
+- struct: `inline_event_music_trailer`
+- confidence: `exact`
+- note: Inline ten-byte bank0f block between event music and sprite placement pointers.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `byte` | 1 | 10 | inline bank0f byte block |
+
+### SPRITE_PLACEMENT_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `CF:61E7`
+- stride: `0x2`
+- count: `1280`
+- struct: `word_pointer`
+- confidence: `exact`
+- note: 40x32 sector pointer grid into the CF sprite placement table; zero means empty.
+- evidence: `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### SPRITE_PLACEMENT_TABLE
+
+- domain: `rom-variable-table`
+- address: `CF:6BE7`
+- stride: `0x1D9E`
+- count: `1`
+- struct: `sprite_placement_sector_list_block`
+- confidence: `exact-variable-lists`
+- note: 627 counted sprite-placement sector lists; each entry matches the ebsrc sprite_placement struct.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `raw_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; each entry is sprite_placement |
+
+### NPC_CONFIG_TABLE
+
+- domain: `rom-table`
+- address: `CF:8985`
+- stride: `0x11`
+- count: `1584`
+- struct: `npc_config`
+- confidence: `corroborated`
+- note: Fixed-size NPC configuration rows ending exactly at CF's audio tail.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/npc_config_table.yml`, `notes/cf-table-splits.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `type` | 1 | 1 |  |
+| `0x1` | `sprite` | 2 | 1 |  |
+| `0x3` | `direction` | 1 | 1 |  |
+| `0x4` | `event_script` | 2 | 1 |  |
+| `0x6` | `event_flag` | 2 | 1 |  |
+| `0x8` | `appearance_style` | 1 | 1 |  |
+| `0x9` | `text_pointer` | 4 | 1 |  |
+| `0xD` | `secondary_payload` | 4 | 1 | union: item byte or second text pointer depending on NPC type |
+
+### BATTLE_SELECTION_SNAPSHOT
+
+- domain: `wram-overlay`
+- address: `7E:9FFA`
+- stride: `0x4E`
+- count: `1`
+- struct: `battle_menu_selection_header_plus_snapshot`
+- confidence: `corroborated-overlay`
+- note: Formal battle_menu_selection header at the front of a larger C2:B930 selected-slot snapshot overlay. This base overlaps BATTLERS_TABLE[1] in local address terms, so consumers should treat it as an overlay/scratch contract rather than an independent root.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/battle-selection-snapshot-export-c2b930.md`, `notes/battle-targetting-resolver-c1adb4-af50.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `user` | 1 | 1 |  |
+| `0x1` | `param1` | 1 | 1 |  |
+| `0x2` | `selected_action` | 2 | 1 |  |
+| `0x4` | `targetting` | 1 | 1 |  |
+| `0x5` | `selected_target` | 1 | 1 |  |
+| `0xC` | `snapshot_active` | 1 | 1 | C2:B930 sets this byte to 1 when exporting a live slot snapshot |
+| `0xE` | `snapshot_ally_or_enemy` | 1 | 1 | snapshot byte cleared by C2:B930; same offset family as battler::ally_or_enemy |
+| `0xF` | `snapshot_npc_id` | 1 | 1 | snapshot byte cleared by C2:B930; same offset family as battler::npc_id |
+| `0x10` | `selected_user_zero_based` | 1 | 1 | zero-based selected user or battler id |
+| `0x11` | `current_hp` | 2 | 1 | copied from selected char_struct current_hp |
+| `0x13` | `current_hp_target` | 2 | 1 | copied from selected char_struct current_hp_target |
+| `0x15` | `max_hp` | 2 | 1 | copied from selected char_struct max_hp |
+| `0x17` | `current_pp` | 2 | 1 | copied from selected char_struct current_pp |
+| `0x19` | `current_pp_target` | 2 | 1 | copied from selected char_struct current_pp_target |
+| `0x1B` | `max_pp` | 2 | 1 | copied from selected char_struct max_pp |
+| `0x1D` | `afflictions` | 1 | 7 | copied from selected char_struct affliction/status bytes |
+| `0x37` | `resistance_summary` | 1 | 6 | derived from selected char_struct late resistance fields |
+
+### LOADED_BG_DATA_LAYER1
+
+- domain: `wram-root`
+- address: `7E:ADD4`
+- stride: `0x77`
+- count: `1`
+- struct: `loaded_bg_data`
+- confidence: `corroborated`
+- note: Layer 1 runtime state for battle background palette, scroll, and distortion effects.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/ram.asm`, `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `target_layer` | 1 | 1 |  |
+| `0x1` | `bitdepth` | 1 | 1 |  |
+| `0x2` | `freeze_palette_scrolling` | 1 | 1 |  |
+| `0x3` | `palette_shifting_style` | 1 | 1 |  |
+| `0x4` | `palette_cycle_1_first` | 1 | 1 |  |
+| `0x5` | `palette_cycle_1_last` | 1 | 1 |  |
+| `0x6` | `palette_cycle_2_first` | 1 | 1 |  |
+| `0x7` | `palette_cycle_2_last` | 1 | 1 |  |
+| `0x8` | `palette_cycle_1_step` | 1 | 1 |  |
+| `0x9` | `palette_cycle_2_step` | 1 | 1 |  |
+| `0xA` | `palette_change_speed` | 1 | 1 |  |
+| `0xB` | `palette_change_duration_left` | 1 | 1 |  |
+| `0xC` | `palette` | 2 | 16 | current RGB555 palette words |
+| `0x2C` | `palette2` | 2 | 16 | backup/original RGB555 palette words |
+| `0x4C` | `palette_pointer` | 2 | 1 | displayed palette destination pointer |
+| `0x4E` | `scrolling_movements` | 1 | 4 |  |
+| `0x52` | `current_scrolling_movement` | 1 | 1 |  |
+| `0x53` | `scrolling_duration_left` | 2 | 1 |  |
+| `0x55` | `horizontal_position` | 2 | 1 |  |
+| `0x57` | `vertical_position` | 2 | 1 |  |
+| `0x59` | `horizontal_velocity` | 2 | 1 |  |
+| `0x5B` | `vertical_velocity` | 2 | 1 |  |
+| `0x5D` | `horizontal_acceleration` | 2 | 1 |  |
+| `0x5F` | `vertical_acceleration` | 2 | 1 |  |
+| `0x61` | `distortion_styles` | 1 | 4 |  |
+| `0x65` | `current_distortion_style_index` | 1 | 1 |  |
+| `0x66` | `distortion_duration_left` | 2 | 1 |  |
+| `0x68` | `distortion_type` | 1 | 1 |  |
+| `0x69` | `distortion_ripple_frequency` | 2 | 1 |  |
+| `0x6B` | `distortion_ripple_amplitude` | 2 | 1 |  |
+| `0x6D` | `distortion_speed` | 1 | 1 |  |
+| `0x6E` | `distortion_compression_rate` | 2 | 1 |  |
+| `0x70` | `distortion_ripple_frequency_acceleration` | 2 | 1 |  |
+| `0x72` | `distortion_ripple_amplitude_acceleration` | 2 | 1 |  |
+| `0x74` | `distortion_speed_acceleration` | 1 | 1 |  |
+| `0x75` | `distortion_compression_acceleration` | 2 | 1 |  |
+
+### LOADED_BG_DATA_LAYER2
+
+- domain: `wram-root`
+- address: `7E:AE4B`
+- stride: `0x77`
+- count: `1`
+- struct: `loaded_bg_data`
+- confidence: `corroborated`
+- note: Layer 2 runtime state for battle background palette, scroll, and distortion effects.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/ram.asm`, `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `target_layer` | 1 | 1 |  |
+| `0x1` | `bitdepth` | 1 | 1 |  |
+| `0x2` | `freeze_palette_scrolling` | 1 | 1 |  |
+| `0x3` | `palette_shifting_style` | 1 | 1 |  |
+| `0x4` | `palette_cycle_1_first` | 1 | 1 |  |
+| `0x5` | `palette_cycle_1_last` | 1 | 1 |  |
+| `0x6` | `palette_cycle_2_first` | 1 | 1 |  |
+| `0x7` | `palette_cycle_2_last` | 1 | 1 |  |
+| `0x8` | `palette_cycle_1_step` | 1 | 1 |  |
+| `0x9` | `palette_cycle_2_step` | 1 | 1 |  |
+| `0xA` | `palette_change_speed` | 1 | 1 |  |
+| `0xB` | `palette_change_duration_left` | 1 | 1 |  |
+| `0xC` | `palette` | 2 | 16 | current RGB555 palette words |
+| `0x2C` | `palette2` | 2 | 16 | backup/original RGB555 palette words |
+| `0x4C` | `palette_pointer` | 2 | 1 | displayed palette destination pointer |
+| `0x4E` | `scrolling_movements` | 1 | 4 |  |
+| `0x52` | `current_scrolling_movement` | 1 | 1 |  |
+| `0x53` | `scrolling_duration_left` | 2 | 1 |  |
+| `0x55` | `horizontal_position` | 2 | 1 |  |
+| `0x57` | `vertical_position` | 2 | 1 |  |
+| `0x59` | `horizontal_velocity` | 2 | 1 |  |
+| `0x5B` | `vertical_velocity` | 2 | 1 |  |
+| `0x5D` | `horizontal_acceleration` | 2 | 1 |  |
+| `0x5F` | `vertical_acceleration` | 2 | 1 |  |
+| `0x61` | `distortion_styles` | 1 | 4 |  |
+| `0x65` | `current_distortion_style_index` | 1 | 1 |  |
+| `0x66` | `distortion_duration_left` | 2 | 1 |  |
+| `0x68` | `distortion_type` | 1 | 1 |  |
+| `0x69` | `distortion_ripple_frequency` | 2 | 1 |  |
+| `0x6B` | `distortion_ripple_amplitude` | 2 | 1 |  |
+| `0x6D` | `distortion_speed` | 1 | 1 |  |
+| `0x6E` | `distortion_compression_rate` | 2 | 1 |  |
+| `0x70` | `distortion_ripple_frequency_acceleration` | 2 | 1 |  |
+| `0x72` | `distortion_ripple_amplitude_acceleration` | 2 | 1 |  |
+| `0x74` | `distortion_speed_acceleration` | 1 | 1 |  |
+| `0x75` | `distortion_compression_acceleration` | 2 | 1 |  |
+
+### INPUT_DIRECTION_PERMISSION_MASK_TABLE
+
+- domain: `rom-table`
+- address: `C3:E12C`
+- stride: `0x2`
+- count: `14`
+- struct: `input_direction_permission_mask`
+- confidence: `corroborated`
+- note: Direction permission mask table consumed by C0:404F MapInputToDirection.
+- evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `permission_mask` | 2 | 1 | bitmask consumed by C0:404F MapInputToDirection |
+
+### INTERACTION_PROBE_DIRECTION_X_OFFSETS
+
+- domain: `rom-table`
+- address: `C3:E148`
+- stride: `0x2`
+- count: `8`
+- struct: `signed_direction_offset_word`
+- confidence: `corroborated`
+- note: Signed X probe offsets used by C0:4116 for one facing-direction interaction probe.
+- evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md`, `notes/front-interaction-flow.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `offset_pixels` | 2 | 1 | signed probe offset in pixels for one direction index |
+
+### INTERACTION_PROBE_DIRECTION_Y_OFFSETS
+
+- domain: `rom-table`
+- address: `C3:E158`
+- stride: `0x2`
+- count: `8`
+- struct: `signed_direction_offset_word`
+- confidence: `corroborated`
+- note: Signed Y probe offsets used by C0:4116 for one facing-direction interaction probe.
+- evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md`, `notes/front-interaction-flow.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `offset_pixels` | 2 | 1 | signed probe offset in pixels for one direction index |
+
+### MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE
+
+- domain: `rom-table`
+- address: `C3:E1D8`
+- stride: `0x2`
+- count: `20`
+- struct: `map_entity_placement_direction_param`
+- confidence: `proposed`
+- note: Word table consumed by the C0 entity placement path around C0:6D27/C0:6D91.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`, `notes/staged-movement-wrapper-70cb.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_PRIMARY_DIRECTION_PARAM_TABLE
+
+- domain: `rom-table`
+- address: `C3:E200`
+- stride: `0x2`
+- count: `4`
+- struct: `staged_movement_direction_param`
+- confidence: `corroborated`
+- note: Primary direction parameter words consumed by staged movement setup.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_ALTERNATE_DIRECTION_PARAM_TABLE
+
+- domain: `rom-table`
+- address: `C3:E208`
+- stride: `0x2`
+- count: `4`
+- struct: `staged_movement_direction_param`
+- confidence: `corroborated`
+- note: Alternate direction parameter words consumed by staged movement setup.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_X
+
+- domain: `rom-table`
+- address: `C3:E210`
+- stride: `0x2`
+- count: `4`
+- struct: `signed_subtile_offset_word`
+- confidence: `corroborated`
+- note: X offsets for staged movement subtile offset set A.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_Y
+
+- domain: `rom-table`
+- address: `C3:E218`
+- stride: `0x2`
+- count: `4`
+- struct: `signed_subtile_offset_word`
+- confidence: `corroborated`
+- note: Y offsets for staged movement subtile offset set A.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_X
+
+- domain: `rom-table`
+- address: `C3:E220`
+- stride: `0x2`
+- count: `4`
+- struct: `signed_subtile_offset_word`
+- confidence: `corroborated`
+- note: X offsets for staged movement subtile offset set B.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_Y
+
+- domain: `rom-table`
+- address: `C3:E228`
+- stride: `0x2`
+- count: `4`
+- struct: `signed_subtile_offset_word`
+- confidence: `corroborated`
+- note: Y offsets for staged movement subtile offset set B.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### TITLE_NAME_BUFFER_CURSOR_TILE_RUN
+
+- domain: `rom-table`
+- address: `C3:E40E`
+- stride: `0x8`
+- count: `1`
+- struct: `four_tile_word_run`
+- confidence: `corroborated`
+- note: Four tile/attribute words copied by C2:0266 into the title/name upload buffer.
+- evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md`, `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `tile_0` | 2 | 1 |  |
+| `0x2` | `tile_1` | 2 | 1 |  |
+| `0x4` | `tile_2` | 2 | 1 |  |
+| `0x6` | `tile_3` | 2 | 1 |  |
+
+### BLINKING_TRIANGLE_WAIT_FRAME_TILES
+
+- domain: `rom-table`
+- address: `C3:E41C`
+- stride: `0x8`
+- count: `4`
+- struct: `four_tile_word_frame`
+- confidence: `corroborated`
+- note: Four 4-word blinking/down cursor frames selected by the long pointer table at C3:E43C.
+- evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `tile_0` | 2 | 1 |  |
+| `0x2` | `tile_1` | 2 | 1 |  |
+| `0x4` | `tile_2` | 2 | 1 |  |
+| `0x6` | `tile_3` | 2 | 1 |  |
+
+### BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS
+
+- domain: `rom-table`
+- address: `C3:F871`
+- stride: `0x8`
+- count: `8`
+- struct: `battle_visual_strip_offset_page`
+- confidence: `corroborated`
+- note: Eight pages of four source-strip offsets into the $7F:0000 battle visual work buffer.
+- evidence: `notes/c3-battle-visual-offset-tables-f871-f8f1.md`, `notes/c3-battle-visual-table-and-token-sublabels.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `strip_0_offset` | 2 | 1 |  |
+| `0x2` | `strip_1_offset` | 2 | 1 |  |
+| `0x4` | `strip_2_offset` | 2 | 1 |  |
+| `0x6` | `strip_3_offset` | 2 | 1 |  |
+
+### BATTLE_VISUAL_OAM_TILE_INDEX_GRID
+
+- domain: `rom-table`
+- address: `C3:F8B1`
+- stride: `0x10`
+- count: `4`
+- struct: `battle_visual_oam_tile_index_row`
+- confidence: `corroborated`
+- note: Four-row OAM tile-index grid consumed by the C2 battle visual sprite renderer.
+- evidence: `notes/c3-battle-visual-offset-tables-f871-f8f1.md`, `notes/c3-battle-visual-table-and-token-sublabels.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `tile_0` | 2 | 1 |  |
+| `0x2` | `tile_1` | 2 | 1 |  |
+| `0x4` | `tile_2` | 2 | 1 |  |
+| `0x6` | `tile_3` | 2 | 1 |  |
+| `0x8` | `tile_4` | 2 | 1 |  |
+| `0xA` | `tile_5` | 2 | 1 |  |
+| `0xC` | `tile_6` | 2 | 1 |  |
+| `0xE` | `tile_7` | 2 | 1 |  |
+
+### BATTLE_PALETTE_SET_ROWS
+
+- domain: `rom-table`
+- address: `C3:F8F1`
+- stride: `0x20`
+- count: `3`
+- struct: `rgb555_palette_row`
+- confidence: `corroborated`
+- note: Three confirmed 16-colour palette rows selected by C2:FEF9.
+- evidence: `notes/c3-battle-visual-offset-tables-f871-f8f1.md`, `notes/c3-battle-visual-table-and-token-sublabels.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `rgb555_colour_0` | 2 | 1 |  |
+| `0x2` | `rgb555_colour_1` | 2 | 1 |  |
+| `0x4` | `rgb555_colour_2` | 2 | 1 |  |
+| `0x6` | `rgb555_colour_3` | 2 | 1 |  |
+| `0x8` | `rgb555_colour_4` | 2 | 1 |  |
+| `0xA` | `rgb555_colour_5` | 2 | 1 |  |
+| `0xC` | `rgb555_colour_6` | 2 | 1 |  |
+| `0xE` | `rgb555_colour_7` | 2 | 1 |  |
+| `0x10` | `rgb555_colour_8` | 2 | 1 |  |
+| `0x12` | `rgb555_colour_9` | 2 | 1 |  |
+| `0x14` | `rgb555_colour_10` | 2 | 1 |  |
+| `0x16` | `rgb555_colour_11` | 2 | 1 |  |
+| `0x18` | `rgb555_colour_12` | 2 | 1 |  |
+| `0x1A` | `rgb555_colour_13` | 2 | 1 |  |
+| `0x1C` | `rgb555_colour_14` | 2 | 1 |  |
+| `0x1E` | `rgb555_colour_15` | 2 | 1 |  |
+
+### BATTLE_VISUAL_TOKEN_23_TO_2D_COLOUR_TRIPLES
+
+- domain: `rom-table`
+- address: `C3:F951`
+- stride: `0x3`
+- count: `11`
+- struct: `battle_visual_fixed_colour_triple`
+- confidence: `corroborated`
+- note: RGB component triples for visual tokens #$23..#$2D.
+- evidence: `notes/c3-battle-visual-table-and-token-sublabels.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `red_component` | 1 | 1 | table byte 0; passed through Y to SetFixedColourRgbComponents |
+| `0x1` | `green_component` | 1 | 1 | table byte 1; passed through X to SetFixedColourRgbComponents |
+| `0x2` | `blue_component` | 1 | 1 | table byte 2; passed through A to SetFixedColourRgbComponents |
+
+### BATTLE_VISUAL_TOKEN_31_TO_35_COLOUR_TRIPLES
+
+- domain: `rom-table`
+- address: `C3:F972`
+- stride: `0x3`
+- count: `5`
+- struct: `battle_visual_fixed_colour_triple`
+- confidence: `corroborated`
+- note: RGB component triples for visual tokens #$31..#$35.
+- evidence: `notes/c3-battle-visual-table-and-token-sublabels.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `red_component` | 1 | 1 | table byte 0; passed through Y to SetFixedColourRgbComponents |
+| `0x1` | `green_component` | 1 | 1 | table byte 1; passed through X to SetFixedColourRgbComponents |
+| `0x2` | `blue_component` | 1 | 1 | table byte 2; passed through A to SetFixedColourRgbComponents |
+
+### BLANK_COMMON_TILE_SOURCE_BLOCK
+
+- domain: `rom-table`
+- address: `C4:0BE8`
+- stride: `0x200`
+- count: `1`
+- struct: `blank_common_tile_source_block`
+- confidence: `corroborated`
+- note: Zero-filled C4 source block used by setup/visual paths as a common blank graphics or tile-memory seed.
+- evidence: `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`, `notes/bank-c4-progress-audit.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `zero_byte` | 1 | 512 | all bytes are zero; copied as a blank graphics/tile source block |
+
+### WH_WINDOW_SPAN_RADIUS_RAMP_TABLE
+
+- domain: `rom-table`
+- address: `C4:74F6`
+- stride: `0x1`
+- count: `11`
+- struct: `wh_window_span_radius_ramp_entry`
+- confidence: `corroborated`
+- note: Half-width/radius bytes indexed in reverse by C4:7501 while generating tapered WH window spans.
+- evidence: `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 1 | 1 |  |
+
+### MOVEMENT_OCTANT_TO_PULSE_SELECTOR_TABLE
+
+- domain: `rom-table`
+- address: `C4:8C59`
+- stride: `0x2`
+- count: `8`
+- struct: `movement_octant_pulse_selector`
+- confidence: `corroborated`
+- note: Eight word selectors mapping rounded movement octants to generated movement pulse ids.
+- evidence: `notes/staged-movement-pulse-and-tracked-item-registry-c48c59-c48f98.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### MOVEMENT_OCTANT_SIGNED_UNIT_DELTA_TABLE
+
+- domain: `rom-table`
+- address: `C4:8D38`
+- stride: `0x20`
+- count: `1`
+- struct: `movement_octant_signed_unit_delta_components`
+- confidence: `proposed`
+- note: Sixteen signed words forming two eight-entry unit-delta component arrays adjacent to the staged movement builder.
+- evidence: `notes/staged-movement-pulse-and-tracked-item-registry-c48c59-c48f98.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `component` | 2 | 16 | two eight-word signed unit-vector component arrays |
+
+### YOUR_SANCTUARY_LOCATION_COORDINATE_TABLE
+
+- domain: `rom-table`
+- address: `C4:DE78`
+- stride: `0x4`
+- count: `8`
+- struct: `your_sanctuary_location_coordinate_pair`
+- confidence: `corroborated`
+- note: Eight two-word coordinate/source records consumed by the Your Sanctuary display loader at C4:E281.
+- evidence: `notes/your-sanctuary-location-coordinate-table-c4de78.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `word_0` | 2 | 1 | first coordinate/source word passed to C4:E13E |
+| `0x2` | `word_1` | 2 | 1 | second coordinate/source word passed to C4:E13E |
