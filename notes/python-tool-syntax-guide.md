@@ -447,6 +447,13 @@ variant shape:
 python tools/build_map_palette_descriptor_context.py
 ```
 
+Verify the bank DA map palette long-pointer table and join each entry to the
+matching `MAP_DATA_PALETTE_N` asset:
+
+```powershell
+python tools/build_map_palette_pointer_table_contract.py
+```
+
 Render ignored map scene composition preview BMPs:
 
 ```powershell
