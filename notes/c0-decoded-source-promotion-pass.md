@@ -60,7 +60,8 @@ The first two linear promotion sweeps decoded the runtime-heavy C0 ranges:
 The remaining C0 corridors were promoted with explicit table/data source or
 split-aware mixed source:
 
-- `C0:0000..C0:0085`: bank prefix/prologue bytes.
+- `C0:0000..C0:0085`: clear draw-sorting table and overworld VRAM setup
+  prefix, now promoted to decoded source instead of raw bank-prefix bytes.
 - `C0:6BFF..C0:6E1A`: deferred script transition helper, split as code
   `C0:6BFF..C0:6E02` plus data `C0:6E02..C0:6E1A`.
 - `C0:8ED2..C0:8FC2`: copy helper, split as code `C0:8ED2..C0:8F9A` plus

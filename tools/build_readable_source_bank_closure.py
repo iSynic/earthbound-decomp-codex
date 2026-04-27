@@ -370,16 +370,23 @@ def render_markdown(report: dict[str, Any]) -> str:
             "",
             "## Largest Preserved Corridors",
             "",
-            "| Bank | Range | Bytes | Source Path | Reason | Next Action |",
-            "| --- | --- | ---: | --- | --- | --- |",
         ]
     )
-    for row in report["largest_preserved_corridors"]:
-        next_action = corridor_next_action(row)
-        lines.append(
-            f"| `{row['bank']}` | `{row['start']}..{row['end']}` | {row['size']} | "
-            f"`{row['source_path']}` | {row['reason']} | {next_action} |"
+    if report["largest_preserved_corridors"]:
+        lines.extend(
+            [
+                "| Bank | Range | Bytes | Source Path | Reason | Next Action |",
+                "| --- | --- | ---: | --- | --- | --- |",
+            ]
         )
+        for row in report["largest_preserved_corridors"]:
+            next_action = corridor_next_action(row)
+            lines.append(
+                f"| `{row['bank']}` | `{row['start']}..{row['end']}` | {row['size']} | "
+                f"`{row['source_path']}` | {row['reason']} | {next_action} |"
+            )
+    else:
+        lines.append("No preserved source corridors remain in the audited banks.")
 
     lines.extend(
         [
@@ -395,12 +402,25 @@ def render_markdown(report: dict[str, Any]) -> str:
             "python tools/build_readable_source_bank_closure.py",
             "```",
             "",
-            "The best next closure pass should attack the largest preserved corridor that is",
-            "actually source-bearing, then rerun this report and the relevant byte-equivalence",
-            "validation.",
-            "",
         ]
     )
+    if summary["preserved_corridor_bytes"]:
+        lines.extend(
+            [
+                "The best next closure pass should attack the largest preserved corridor that is",
+                "actually source-bearing, then rerun this report and the relevant byte-equivalence",
+                "validation.",
+                "",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "Readable source-bank closure is complete for the audited banks. The next work",
+                "moves to decoder maturity, runtime semantics, and asset/data contracts.",
+                "",
+            ]
+        )
     return "\n".join(lines)
 
 

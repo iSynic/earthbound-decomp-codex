@@ -12,7 +12,7 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 
 | Status | Source Path | Range | Size | Mismatches | Generated ASM |
 | --- | --- | --- | ---: | ---: | --- |
-| `OK` | `src/c0/c0_0000_bank_prefix_byte_corridor.asm` | `C0:0000..C0:0085` | 133 | 0 | `src/c0/bank_c0_helpers_asar.asm` |
+| `OK` | `src/c0/c0_0000_0085_clear_draw_sorting_and_vram_setup_prefix.asm` | `C0:0000..C0:0085` | 133 | 0 | `src/c0/bank_c0_helpers_asar.asm` |
 | `OK` | `src/c0/c0_0085_install_landing_animated_graphics_strip.asm` | `C0:0085..C0:0172` | 237 | 0 | `src/c0/bank_c0_helpers_asar.asm` |
 | `OK` | `src/c0/c0_0172_tick_landing_profile_animated_vram_uploads.asm` | `C0:0172..C0:023F` | 205 | 0 | `src/c0/bank_c0_helpers_asar.asm` |
 | `OK` | `src/c0/c0_023f_build_landing_profile_step_sequencer.asm` | `C0:023F..C0:030F` | 208 | 0 | `src/c0/bank_c0_helpers_asar.asm` |
