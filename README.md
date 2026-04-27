@@ -60,6 +60,7 @@ Good starting points:
 - `notes/project-status.md`
 - `notes/how-to-validate.md`
 - `notes/python-tool-syntax-guide.md`
+- `notes/map-sprite-usage-contract.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`

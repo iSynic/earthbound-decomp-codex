@@ -375,6 +375,12 @@ descriptor-pass roles:
 python tools/build_overworld_sprite_animation_role_contract.py
 ```
 
+Join map sprite placements and NPC config rows to overworld sprite roles:
+
+```powershell
+python tools/build_map_sprite_usage_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 
