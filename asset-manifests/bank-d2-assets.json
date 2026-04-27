@@ -48,6 +48,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0123_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0123_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 123,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -74,6 +88,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0124_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0124_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 124,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -100,6 +128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0125_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0125_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 125,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -126,6 +168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0126_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0126_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 126,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -152,6 +208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0127_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0127_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 127,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -178,6 +248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0128_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0128_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 128,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -204,6 +288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0129_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0129_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 129,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -230,6 +328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0130_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0130_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 130,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -256,6 +368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0131_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0131_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 131,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -282,6 +408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0132_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0132_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 132,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -308,6 +448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0133_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0133_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 133,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -334,6 +488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0134_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0134_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 134,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -360,6 +528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0135_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0135_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 135,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -386,6 +568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0136_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0136_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 136,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -412,6 +608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0137_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0137_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 137,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -438,6 +648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0138_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0138_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 138,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -464,6 +688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0139_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0139_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 139,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -490,6 +728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0140_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0140_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 140,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -516,6 +768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0141_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0141_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 141,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -542,6 +808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0142_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0142_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 142,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -568,6 +848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0143_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0143_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 143,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -594,6 +888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0144_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0144_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 144,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -620,6 +928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0145_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0145_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 145,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -646,6 +968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0146_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0146_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 146,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -672,6 +1008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0147_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0147_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 147,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -698,6 +1048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0148_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0148_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 148,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -724,6 +1088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0149_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0149_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 149,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -750,6 +1128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0150_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0150_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 150,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -776,6 +1168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0151_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0151_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 151,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -802,6 +1208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0152_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0152_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 152,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -828,6 +1248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0153_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0153_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 153,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -854,6 +1288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0154_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0154_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 154,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -880,6 +1328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0155_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0155_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 155,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -906,6 +1368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0156_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0156_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 156,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -932,6 +1408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0157_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0157_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 157,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -958,6 +1448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0158_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0158_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 158,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -984,6 +1488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0159_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0159_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 159,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1010,6 +1528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0160_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0160_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 160,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1036,6 +1568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0161_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0161_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 161,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1062,6 +1608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0162_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0162_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 162,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1088,6 +1648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0163_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0163_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 163,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1114,6 +1688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0164_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0164_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 164,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1140,6 +1728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0165_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0165_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 165,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1166,6 +1768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0166_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0166_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 166,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1192,6 +1808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0167_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0167_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 167,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1218,6 +1848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0168_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0168_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 168,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1244,6 +1888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0169_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0169_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 169,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1270,6 +1928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0170_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0170_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 170,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1296,6 +1968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0171_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0171_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 171,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1322,6 +2008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0172_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0172_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 172,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1348,6 +2048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0173_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0173_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 173,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1374,6 +2088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0174_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0174_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 174,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1400,6 +2128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0175_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0175_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 175,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1426,6 +2168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0176_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0176_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 176,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1452,6 +2208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0177_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0177_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 177,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1478,6 +2248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0178_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0178_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 178,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1504,6 +2288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0179_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0179_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 179,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1530,6 +2328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0180_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0180_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 180,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1556,6 +2368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0181_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0181_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 181,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1582,6 +2408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0182_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0182_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 182,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1608,6 +2448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0183_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0183_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 183,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1634,6 +2488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0184_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0184_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 184,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1660,6 +2528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0185_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0185_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 185,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1686,6 +2568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0186_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0186_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 186,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1712,6 +2608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0187_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0187_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 187,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1738,6 +2648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0188_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0188_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 188,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1764,6 +2688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0189_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0189_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 189,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1790,6 +2728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0190_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0190_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 190,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1816,6 +2768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0191_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0191_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 191,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1842,6 +2808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0192_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0192_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 192,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1868,6 +2848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0193_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0193_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 193,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1894,6 +2888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0194_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0194_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 194,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1920,6 +2928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0195_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0195_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 195,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1946,6 +2968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0196_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0196_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 196,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1972,6 +3008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0197_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0197_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 197,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -1998,6 +3048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0198_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0198_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 198,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2024,6 +3088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0199_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0199_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 199,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2050,6 +3128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0200_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0200_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 200,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2076,6 +3168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0201_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0201_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 201,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2102,6 +3208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0202_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0202_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 202,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2128,6 +3248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0203_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0203_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 203,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2154,6 +3288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0204_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0204_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 204,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2180,6 +3328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0205_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0205_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 205,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2206,6 +3368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0206_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0206_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 206,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2232,6 +3408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0207_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0207_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 207,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2258,6 +3448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0208_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0208_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 208,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2284,6 +3488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0209_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0209_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 209,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2310,6 +3528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0210_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0210_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 210,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2336,6 +3568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0211_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0211_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 211,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2362,6 +3608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0212_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0212_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 212,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2388,6 +3648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0213_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0213_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 213,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2414,6 +3688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0214_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0214_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 214,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2440,6 +3728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0215_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0215_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 215,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2466,6 +3768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0216_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0216_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 216,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2492,6 +3808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0217_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0217_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 217,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2518,6 +3848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0218_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0218_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 218,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2544,6 +3888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0219_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0219_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 219,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2570,6 +3928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0220_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0220_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 220,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2596,6 +3968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0221_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0221_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 221,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2622,6 +4008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0222_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0222_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 222,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2648,6 +4048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0223_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0223_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 223,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2674,6 +4088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0224_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0224_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 224,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2700,6 +4128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0225_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0225_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 225,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2726,6 +4168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0226_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0226_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 226,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2752,6 +4208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0227_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0227_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 227,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2778,6 +4248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0228_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0228_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 228,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2804,6 +4288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0229_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0229_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 229,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2830,6 +4328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0230_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0230_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 230,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2856,6 +4368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0231_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0231_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 231,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2882,6 +4408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0232_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0232_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 232,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2908,6 +4448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0233_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0233_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 233,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2934,6 +4488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0234_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0234_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 234,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2960,6 +4528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0235_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0235_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 235,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -2986,6 +4568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0236_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0236_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 236,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3012,6 +4608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0237_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0237_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 237,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3038,6 +4648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0238_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0238_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 238,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3064,6 +4688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0239_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0239_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 239,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3090,6 +4728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0240_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0240_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 240,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3116,6 +4768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0241_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0241_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 241,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3142,6 +4808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0242_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0242_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 242,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3168,6 +4848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0243_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0243_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 243,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3194,6 +4888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0244_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0244_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 244,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3220,6 +4928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0245_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0245_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 245,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3246,6 +4968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0246_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0246_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 246,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3272,6 +5008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0247_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0247_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 247,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3298,6 +5048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0248_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0248_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 248,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3324,6 +5088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0249_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0249_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 249,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3350,6 +5128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0250_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0250_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 250,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3376,6 +5168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0251_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0251_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 251,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3402,6 +5208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0252_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0252_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 252,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3428,6 +5248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0253_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0253_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 253,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3454,6 +5288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0254_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0254_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 254,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3480,6 +5328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0255_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0255_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 255,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3506,6 +5368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0256_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0256_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 256,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3532,6 +5408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0257_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0257_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 257,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3558,6 +5448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0258_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0258_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 258,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3584,6 +5488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0259_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0259_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 259,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3610,6 +5528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0260_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0260_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 260,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3636,6 +5568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0261_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0261_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 261,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3662,6 +5608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0262_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0262_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 262,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3688,6 +5648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0263_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0263_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 263,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3714,6 +5688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0264_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0264_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 264,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3740,6 +5728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0265_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0265_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 265,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3766,6 +5768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0266_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0266_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 266,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3792,6 +5808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0267_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0267_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 267,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3818,6 +5848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0268_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0268_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 268,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3844,6 +5888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0269_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0269_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 269,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3870,6 +5928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0270_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0270_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 270,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3896,6 +5968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0271_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0271_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 271,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3922,6 +6008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0272_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0272_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 272,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3948,6 +6048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0273_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0273_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 273,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -3974,6 +6088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0274_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0274_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 274,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4000,6 +6128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0275_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0275_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 275,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4026,6 +6168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0276_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0276_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 276,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4052,6 +6208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0277_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0277_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 277,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4078,6 +6248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0278_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0278_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 278,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4104,6 +6288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0279_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0279_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 279,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4130,6 +6328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0280_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0280_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 280,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4156,6 +6368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0281_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0281_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 281,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4182,6 +6408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0282_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0282_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 282,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4208,6 +6448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0283_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0283_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 283,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4234,6 +6488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0284_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0284_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 284,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4260,6 +6528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0285_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0285_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 285,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4286,6 +6568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0286_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0286_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 286,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4312,6 +6608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0287_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0287_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 287,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4338,6 +6648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0288_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0288_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 288,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4364,6 +6688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0289_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0289_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 289,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4390,6 +6728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0290_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0290_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 290,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4416,6 +6768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0291_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0291_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 291,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4442,6 +6808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0292_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0292_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 292,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4468,6 +6848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0293_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0293_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 293,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4494,6 +6888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0294_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0294_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 294,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4520,6 +6928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0295_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0295_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 295,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4546,6 +6968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0296_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0296_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 296,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4572,6 +7008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0297_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0297_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 297,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4598,6 +7048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0298_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0298_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 298,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4624,6 +7088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0299_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0299_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 299,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4650,6 +7128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0300_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0300_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 300,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4676,6 +7168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0301_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0301_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 301,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4702,6 +7208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0302_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0302_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 302,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4728,6 +7248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0303_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0303_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 303,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4754,6 +7288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0304_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0304_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 304,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4780,6 +7328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0305_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0305_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 305,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4806,6 +7368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0306_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0306_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 306,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4832,6 +7408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0307_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0307_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 307,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4858,6 +7448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0308_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0308_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 308,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4884,6 +7488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0309_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0309_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 309,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4910,6 +7528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0310_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0310_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 310,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4936,6 +7568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0311_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0311_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 311,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4962,6 +7608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0312_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0312_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 312,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -4988,6 +7648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0313_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0313_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 313,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5014,6 +7688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0314_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0314_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 314,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5040,6 +7728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0315_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0315_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 315,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5066,6 +7768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0316_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0316_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 316,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5092,6 +7808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0317_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0317_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 317,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5118,6 +7848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0318_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0318_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 318,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5144,6 +7888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0319_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0319_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 319,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5170,6 +7928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0320_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0320_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 320,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5196,6 +7968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0321_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0321_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 321,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5222,6 +8008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0322_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0322_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 322,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5248,6 +8048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0323_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0323_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 323,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5274,6 +8088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0324_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0324_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 324,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5300,6 +8128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0325_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0325_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 325,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5326,6 +8168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0326_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0326_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 326,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5352,6 +8208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0327_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0327_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 327,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5378,6 +8248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0328_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0328_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 328,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5404,6 +8288,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0329_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0329_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 329,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5430,6 +8328,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0330_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0330_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 330,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5456,6 +8368,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0331_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0331_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 331,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5482,6 +8408,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0332_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0332_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 332,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5508,6 +8448,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0333_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0333_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 333,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5534,6 +8488,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0334_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0334_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 334,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5560,6 +8528,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0335_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0335_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 335,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5586,6 +8568,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0336_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0336_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 336,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5612,6 +8608,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0337_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0337_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 337,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5638,6 +8648,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0338_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0338_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 338,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5664,6 +8688,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0339_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0339_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 339,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5690,6 +8728,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0340_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0340_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 340,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5716,6 +8768,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0341_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0341_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 341,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5742,6 +8808,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0342_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0342_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 342,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5768,6 +8848,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0343_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0343_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 343,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5794,6 +8888,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0344_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0344_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 344,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5820,6 +8928,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0345_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0345_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 345,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5846,6 +8968,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0346_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0346_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 346,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5872,6 +9008,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0347_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0347_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 347,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5898,6 +9048,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0348_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0348_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 348,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5924,6 +9088,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0349_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0349_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 349,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5950,6 +9128,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0350_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0350_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 350,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -5976,6 +9168,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0351_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0351_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 351,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -6002,6 +9208,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0352_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0352_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 352,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [
@@ -6028,6 +9248,20 @@
           "kind": "snes_4bpp_tiles_png",
           "path": "d2/overworld_sprites/gfx/0353_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "snes_4bpp_tiles_palette_png",
+          "path": "d2/overworld_sprites/gfx/0353_palette_00_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 353,
+          "palette_id": 0,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "C3:0000..C3:0020",
+            "bytes": 32,
+            "sha1": "ec19ba264a2c8430ecba455c016d17da86e55916"
+          }
         }
       ],
       "notes": [

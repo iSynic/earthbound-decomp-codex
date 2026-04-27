@@ -198,6 +198,14 @@ def battle_sprite_asset_number(entry: dict[str, Any], extension: str) -> int | N
     return int(match.group(1))
 
 
+def overworld_sprite_asset_number(entry: dict[str, Any]) -> int | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    match = re.match(r"^overworld_sprites/gfx/(\d+)\.gfx$", payload)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
 def load_battle_bg_palette_registry(
     bank_manifest_dir: Path,
     rom: bytes,
@@ -218,6 +226,61 @@ def load_battle_bg_palette_registry(
             if entry.get("compressed") or str(entry.get("payload_path", "")).lower().endswith(".lzhal"):
                 source["compression"] = "earthbound_lzhal"
             registry[number] = source
+    return registry
+
+
+def source_from_file_offset(rom: bytes, offset: int, size: int) -> dict[str, Any]:
+    if size <= 0:
+        raise ValueError(f"Source size must be positive, got {size}")
+    bank = rom_tools.canonical_bank_for_file_offset(offset)
+    start = offset % 0x10000
+    end = start + size
+    if end > 0x10000:
+        raise ValueError(f"Source crosses a bank boundary: offset 0x{offset:06X} size {size}")
+    data = rom[offset : offset + size]
+    if len(data) != size:
+        raise ValueError(f"ROM slice extends past EOF at 0x{offset:06X} size {size}")
+    return {
+        "type": "rom-range",
+        "range": f"{bank:02X}:{start:04X}..{bank:02X}:{end:04X}",
+        "bytes": size,
+        "sha1": hashlib.sha1(data).hexdigest(),
+    }
+
+
+def load_overworld_sprite_palette_registry(
+    yml_path: Path,
+    rom: bytes,
+) -> dict[int, dict[str, Any]]:
+    registry: dict[int, dict[str, Any]] = {}
+    if not yml_path.exists():
+        return registry
+
+    current: dict[str, str] = {}
+    for line in yml_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("- subdir:"):
+            current = {"subdir": line.split(":", 1)[1].strip().strip("'\"")}
+            continue
+        if not current:
+            continue
+        match = re.match(r"\s+(name|offset|size|extension|compressed):\s*(.+)$", line)
+        if match is None:
+            continue
+        current[match.group(1)] = match.group(2).strip().strip("'\"")
+        if {"subdir", "name", "offset", "size", "extension", "compressed"} <= set(current):
+            if (
+                current["subdir"] == "overworld_sprites/palettes"
+                and current["extension"].lower() == "pal"
+            ):
+                palette_id = int(current["name"])
+                offset = int(current["offset"], 0)
+                size = int(current["size"], 0)
+                source = source_from_file_offset(rom, offset, size)
+                if current["compressed"].lower() == "true":
+                    source["compression"] = "earthbound_lzhal"
+                registry[palette_id] = source
+            current = {}
+
     return registry
 
 
@@ -449,6 +512,28 @@ def battle_sprite_palette_preview_outputs(
     return outputs
 
 
+def overworld_sprite_palette_preview_outputs(
+    raw_path: str,
+    entry: dict[str, Any],
+    palette_registry: dict[int, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    number = overworld_sprite_asset_number(entry)
+    if number is None or 0 not in palette_registry:
+        return []
+
+    return [
+        {
+            "kind": "snes_4bpp_tiles_palette_png",
+            "path": preview_path(raw_path, "palette_00_preview"),
+            "columns": 8,
+            "colors": 16,
+            "sprite_id": number,
+            "palette_id": 0,
+            "palette_source": palette_registry[0],
+        }
+    ]
+
+
 def binary_outputs(
     bank: str,
     entry: dict[str, Any],
@@ -458,6 +543,7 @@ def binary_outputs(
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
     battle_sprite_sizes: dict[int, tuple[int, int]],
+    overworld_sprite_palette_registry: dict[int, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
@@ -532,6 +618,13 @@ def binary_outputs(
         )
         if palette_preview is not None:
             outputs.append(palette_preview)
+        outputs.extend(
+            overworld_sprite_palette_preview_outputs(
+                raw_path,
+                entry,
+                overworld_sprite_palette_registry,
+            )
+        )
     if extension == "pal" and not compressed and size % 2 == 0:
         outputs.extend(palette_outputs(raw_path, compressed=False))
     return outputs
@@ -556,6 +649,7 @@ def convert_binary_asset(
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
     battle_sprite_sizes: dict[int, tuple[int, int]],
+    overworld_sprite_palette_registry: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     label = str(entry.get("label") or "")
     payload = str(entry.get("payload_path") or "")
@@ -583,6 +677,7 @@ def convert_binary_asset(
             battle_sprite_palette_registry,
             battle_sprite_palette_usage,
             battle_sprite_sizes,
+            overworld_sprite_palette_registry,
         ),
         "notes": notes,
     }
@@ -657,6 +752,7 @@ def convert_manifest(
     battle_sprite_palette_registry: dict[int, dict[str, Any]],
     battle_sprite_palette_usage: dict[int, list[int]],
     battle_sprite_sizes: dict[int, tuple[int, int]],
+    overworld_sprite_palette_registry: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     bank = str(bank_manifest["bank"]).upper()
     assets: list[dict[str, Any]] = []
@@ -672,6 +768,7 @@ def convert_manifest(
                 battle_sprite_palette_registry,
                 battle_sprite_palette_usage,
                 battle_sprite_sizes,
+                overworld_sprite_palette_registry,
             )
         )
 
@@ -730,6 +827,7 @@ def main() -> int:
     battle_sprite_palette_registry = load_battle_sprite_palette_registry(bank_manifest_dir, rom)
     battle_sprite_palette_usage = load_battle_sprite_palette_usage()
     battle_sprite_sizes = load_battle_sprite_sizes()
+    overworld_sprite_palette_registry = load_overworld_sprite_palette_registry(yml_path, rom)
 
     for raw_bank in args.bank:
         bank = raw_bank.upper()
@@ -744,6 +842,7 @@ def main() -> int:
             battle_sprite_palette_registry=battle_sprite_palette_registry,
             battle_sprite_palette_usage=battle_sprite_palette_usage,
             battle_sprite_sizes=battle_sprite_sizes,
+            overworld_sprite_palette_registry=overworld_sprite_palette_registry,
         )
         path = write_manifest(out_dir, bank, extraction_manifest)
         print(f"{bank}: wrote {len(extraction_manifest['assets'])} assets to {rel(path)}")

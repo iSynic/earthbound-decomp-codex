@@ -8,7 +8,7 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 
 - manifests: `38`
 - assets: `2218`
-- output recipes: `5028`
+- output recipes: `6174`
 - raw ROM-backed outputs: `2218`
 - LZHAL decompressed outputs: `466`
 - SNES palette JSON recipes: `216`
@@ -17,6 +17,7 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 - LZHAL-decompressed SNES palette swatch PNG recipes: `10`
 - LZHAL-decompressed battle-background palette-aware 4bpp preview PNG recipes: `68`
 - LZHAL-decompressed battle-sprite palette-aware 4bpp preview PNG recipes: `166`
+- Default-palette overworld sprite 4bpp preview PNG recipes: `1146`
 - LZHAL-decompressed battle-sprite composed PNG recipes: `166`
   - 32x32 composed previews: `35`
   - 32x64 composed previews: `64`
@@ -66,7 +67,7 @@ Result:
 
 - validated `38` manifests
 - validated `2218` assets
-- validated `5028` output recipes
+- validated `6174` output recipes
 - extracted every manifest against the local EarthBound US ROM
 - all manifest range SHA-1 checks passed
 - generated reports stayed under ignored `build/assets/`
@@ -81,10 +82,11 @@ Result:
 - Battle background `.arr` payloads now get composed 32x32 tilemap PNG previews when matching same-numbered graphics/palette payloads line up mechanically. The renderer supports both 2bpp and 4bpp arrangement previews and records the graphics and palette source ranges in the extraction report.
 - Battle sprite `.gfx` payloads now get palette-aware 4bpp tile-sheet previews for observed enemy-table sprite/palette combinations. This currently covers `166` combinations across `110` mapped battle sprite graphics and all `32` battle sprite palette IDs.
 - Battle sprite `.gfx` payloads also get size-aware composed PNG previews for the same `166` observed enemy-table sprite/palette combinations. Dimensions come from `refs/ebsrc-main/ebsrc-main/src/data/battle/battle_sprites_pointers.asm`.
+- Overworld sprite `.gfx` payloads in `D1`-`D5` now get default-palette 4bpp tile-sheet previews. The palette source is the ROM-backed `SPRITE_GROUP_PALETTES` table at `C3:0000`, corroborated by `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm`.
 
 ## Next Useful Decoders
 
-1. Palette-aware PNG rendering for overworld sprites.
-2. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
-3. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
+1. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
+2. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
+3. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
 4. BRR/audio pack manifests split into sample/song/pack-level contracts.
