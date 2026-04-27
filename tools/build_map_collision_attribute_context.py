@@ -21,9 +21,13 @@ from render_map_scene_metatile_previews import (
 DEFAULT_JSON_OUT = ROOT / "notes" / "map-collision-attribute-context.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "map-collision-attribute-context.md"
 SCHEMA = "earthbound-decomp.map-collision-attribute-context.v1"
+COMMUNITY_RAM_MAP = ROOT / "refs" / "community-earthbound-docs" / "RAM_map.txt"
+COMMUNITY_ROM_MAP = ROOT / "refs" / "community-earthbound-docs" / "ROM_map.txt"
+D8_ASSET_MAP = ROOT / "notes" / "bank-d8-asset-data-map.md"
 SECTOR_TILE_WIDTH = 8
 SECTOR_TILE_HEIGHT = 8
 CELLS_PER_METATILE = 16
+ATTRIBUTE_BITS = (0x01, 0x02, 0x04, 0x08, 0x10, 0x80)
 
 
 def parse_args() -> argparse.Namespace:
@@ -60,6 +64,48 @@ def top_named_counter(counter: Counter[str], limit: int = 12) -> list[dict[str, 
     return [
         {"name": name, "count": count}
         for name, count in counter.most_common(limit)
+    ]
+
+
+def bit_name(bit: int) -> str:
+    if bit == 0x80:
+        return "bit_7_high_collision_family_candidate"
+    if bit == 0x10:
+        return "bit_4_special_surface_modifier_candidate"
+    return f"bit_{bit.bit_length() - 1}_low_modifier_candidate"
+
+
+def bit_presence_rows(
+    cell_counts: Counter[int],
+    scene_presence: Counter[int] | None = None,
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for bit in ATTRIBUTE_BITS:
+        row = {
+            "bit": f"0x{bit:02X}",
+            "working_name": bit_name(bit),
+            "cell_count": sum(count for value, count in cell_counts.items() if value & bit),
+            "exact_values": [f"0x{value:02X}" for value in sorted(cell_counts) if value & bit],
+        }
+        if scene_presence is not None:
+            row["scene_presence"] = sum(
+                count for value, count in scene_presence.items() if value & bit
+            )
+        rows.append(row)
+    return rows
+
+
+def nibble_rows(counter: Counter[int]) -> list[dict[str, Any]]:
+    grouped: Counter[int] = Counter()
+    for value, count in counter.items():
+        grouped[value & 0x0F] += count
+    return [
+        {
+            "low_nibble": f"0x{value:X}",
+            "cell_count": count,
+            "exact_values": [f"0x{exact:02X}" for exact in sorted(counter) if (exact & 0x0F) == value],
+        }
+        for value, count in sorted(grouped.items())
     ]
 
 
@@ -124,6 +170,7 @@ def build_context(args: argparse.Namespace) -> dict[str, Any]:
     ]
     global_counts: Counter[int] = Counter()
     scene_presence: Counter[int] = Counter()
+    bit_scene_presence: Counter[int] = Counter()
     tileset_counts: dict[int, Counter[int]] = defaultdict(Counter)
     setting_counts: dict[str, Counter[int]] = defaultdict(Counter)
     town_map_counts: dict[str, Counter[int]] = defaultdict(Counter)
@@ -142,6 +189,10 @@ def build_context(args: argparse.Namespace) -> dict[str, Any]:
         town_map_counts[str(scene["scene_features"]["town_map"])].update(counts)
         for value in counts:
             scene_presence[value] += 1
+        for bit in ATTRIBUTE_BITS:
+            if any(value & bit for value in counts):
+                bit_scene_presence[bit] += 1
+        for value in counts:
             features = scene["scene_features"]
             if int(features["door_count"]) > 0:
                 feature_presence["has_doors"][value] += 1
@@ -172,6 +223,26 @@ def build_context(args: argparse.Namespace) -> dict[str, Any]:
             "map_tiles": rel(Path(args.map_tiles)),
             "tileset_dir": rel(Path(args.tileset_dir)),
             "scene_contract": rel(Path(args.contract)),
+            "community_ram_map": rel(COMMUNITY_RAM_MAP),
+            "community_rom_map": rel(COMMUNITY_ROM_MAP),
+            "d8_asset_data_map": rel(D8_ASSET_MAP),
+        },
+        "reference_anchors": {
+            "wram_current_tileset_collision_data": {
+                "range": "$01F800..$01FF7F",
+                "source": rel(COMMUNITY_RAM_MAP),
+                "note": "Community RAM map label; used as runtime corroboration for current tileset collision payloads.",
+            },
+            "rom_tile_collision_data": {
+                "range": "D8:0000..D8:F05E",
+                "source": rel(D8_ASSET_MAP),
+                "note": "Current ebsrc-derived bank D8 table span for data/map/tile_collision_data.asm and covered collision pointer includes.",
+            },
+            "legacy_rom_collision_labels": {
+                "ranges": ["file 0x180200..0x18914F", "file 0x189150..0x18F25D"],
+                "source": rel(COMMUNITY_ROM_MAP),
+                "note": "Older community ROM map corroborates a collision-data/pointer-table corridor in bank D8, but its end boundary overlaps later ebsrc assets, so exact local boundaries come from the D8 asset map.",
+            },
         },
         "summary": {
             "direct_scenes": len(scenes),
@@ -182,12 +253,24 @@ def build_context(args: argparse.Namespace) -> dict[str, Any]:
             "unique_attribute_values": [f"0x{value:02X}" for value in sorted(global_counts)],
             "attribute_counts": hex_counter(global_counts),
             "attribute_scene_presence": hex_counter(scene_presence),
+            "low_nibble_counts": nibble_rows(global_counts),
+            "bit_presence": bit_presence_rows(global_counts, bit_scene_presence),
+            "working_model": {
+                "confidence": "medium-structural",
+                "attribute_byte_role": "third byte of each 4x4 arrangement cell; runtime collision/behavior candidate",
+                "zero_value": "plain/default surface candidate",
+                "high_bit": "dominant collision-family candidate present in most direct scenes",
+                "low_bits": "sparser modifier family; exact gameplay meaning still needs runtime branch corroboration",
+                "known_runtime_buffer": "$01F800..$01FF7F current tileset collision data",
+            },
         },
         "by_tileset": [
             {
                 "tileset_id": tileset_id,
                 "scene_count": sum(1 for scene in scenes if int(scene["tileset_id"]) == tileset_id),
                 "attribute_counts": hex_counter(counter),
+                "low_nibble_counts": nibble_rows(counter),
+                "bit_presence": bit_presence_rows(counter),
                 "top_attribute_counts": top_hex_counter(counter, 8),
             }
             for tileset_id, counter in sorted(tileset_counts.items())
@@ -258,6 +341,8 @@ def write_markdown(context: dict[str, Any], path: Path) -> None:
         f"- high-bit attribute cells: `{summary['high_bit_attribute_cells']}`",
         "- unique attribute values: "
         + ", ".join(f"`{value}`" for value in summary["unique_attribute_values"]),
+        f"- working model confidence: `{summary['working_model']['confidence']}`",
+        f"- runtime buffer anchor: `{summary['working_model']['known_runtime_buffer']}`",
         "",
         "## Attribute Counts In Scene Use",
         "",
@@ -270,6 +355,53 @@ def write_markdown(context: dict[str, Any], path: Path) -> None:
     }
     for row in summary["attribute_counts"]:
         lines.append(f"| `{row['value']}` | {row['count']} | {scene_presence[row['value']]} |")
+
+    lines.extend(
+        [
+            "",
+            "## Bit Family Counts",
+            "",
+            "| Bit | Working Name | Cell Count | Scene Presence | Exact Values |",
+            "| ---: | --- | ---: | ---: | --- |",
+        ]
+    )
+    for row in summary["bit_presence"]:
+        values = ", ".join(f"`{value}`" for value in row["exact_values"])
+        lines.append(
+            f"| `{row['bit']}` | `{row['working_name']}` | "
+            f"{row['cell_count']} | {row['scene_presence']} | {values} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Low-Nibble Families",
+            "",
+            "| Low Nibble | Cell Count | Exact Values |",
+            "| ---: | ---: | --- |",
+        ]
+    )
+    for row in summary["low_nibble_counts"]:
+        values = ", ".join(f"`{value}`" for value in row["exact_values"])
+        lines.append(f"| `{row['low_nibble']}` | {row['cell_count']} | {values} |")
+
+    anchors = context["reference_anchors"]
+    lines.extend(
+        [
+            "",
+            "## Reference Anchors",
+            "",
+            "- WRAM current tileset collision data: "
+            f"`{anchors['wram_current_tileset_collision_data']['range']}` "
+            f"({anchors['wram_current_tileset_collision_data']['source']})",
+            "- ebsrc-derived D8 collision table span: "
+            f"`{anchors['rom_tile_collision_data']['range']}` "
+            f"({anchors['rom_tile_collision_data']['source']})",
+            "- Legacy ROM map also labels a bank-D8 collision-data/pointer corridor,",
+            "  but its exact end boundary overlaps later modern ebsrc assets, so this",
+            "  contract treats it as corroborating evidence rather than byte-boundary authority.",
+        ]
+    )
 
     lines.extend(
         [
@@ -316,8 +448,8 @@ def write_markdown(context: dict[str, Any], path: Path) -> None:
             "## Machine-Readable Data",
             "",
             "`notes/map-collision-attribute-context.json` records global counts,",
-            "per-tileset counts, scene-presence correlations with coarse scene",
-            "features, and the top scenes by nonzero attribute-byte cells.",
+            "bit-family counts, per-tileset counts, scene-presence correlations with",
+            "coarse scene features, and the top scenes by nonzero attribute-byte cells.",
         ]
     )
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")

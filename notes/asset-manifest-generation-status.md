@@ -117,7 +117,7 @@ Result:
 - Map `.fts` arrangement/collision contracts now decode the 96-character records as `16` three-byte cells in a 4x4 grid. The first two bytes form a high-confidence little-endian SNES BG tilemap descriptor word; the third byte remains a collision/behavior candidate pending runtime corroboration.
 - Map `.fts` animation/settings contracts now cover `168` variable rows across the `20` direct exports. Each row has a unique two-character base32-like row ID and splits into five 58-character blocks for the later animation/settings decoder.
 - Map scene composition contracts now expose all `1280` sectors as `map_scene.NNNN` rows that join tileset/`.fts` component status, palette variant availability, scene feature counts, and true 8x8 sector-local `map_tiles.map` tile-reference window hashes. `950` sectors have direct `.fts` contracts and `330` currently use palette-settings-only tilesets; all sector palettes have matching variants.
-- Map collision attribute context audits now sample `972800` live-scene arrangement cells across the `950` direct `.fts` sectors. The third cell byte remains cautiously named, but `0x80` dominates scene use (`520402` cells, present in `937` direct scenes), while selective low-value families such as `0x04`, `0x08`, `0x0C`, and `0x10` now have concrete scene-use counts for runtime follow-up.
+- Map collision attribute context audits now sample `972800` live-scene arrangement cells across the `950` direct `.fts` sectors and promote the third cell byte into a structural bit-family contract. The contract records the `$01F800..$01FF7F` current-tileset-collision WRAM anchor, the ebsrc-derived D8 collision table span, low-nibble families, and bit candidates: `0x80` dominates scene use (`522397` cells, present in `937` direct scenes), while low/modifier bits such as `0x01`, `0x02`, `0x04`, `0x08`, and `0x10` now have explicit cell and scene-presence counts for runtime branch follow-up.
 - Map palette descriptor context audits now resolve the live arrangement descriptor palette field as a SNES BG palette number. Descriptor palettes `0..1` belong to the current text/common palette block at `$0200..$023F`; descriptor palettes `2..7` map exactly onto the six bank DA map-palette subpalettes at `$0240..$02FF` using offset `-2`, with `0` DA map-palette overflow cells across the `950` direct `.fts` scenes.
 - Map palette pointer-table contracts now verify `DA:FAA7..DA:FB07` as a 96-byte, 32-entry long-pointer table. Every entry points exactly at its corresponding `MAP_DATA_PALETTE_0..31` payload, and each asset's 192-byte variant count matches the palette-setting count from the map tileset bundle contract.
 - Map `.fts` tile preview sheets can now be generated locally under ignored `build/map-fts-tile-previews/`, giving a fast visual check for the tile-pixel section before sector-to-map composition work.
@@ -128,6 +128,6 @@ Result:
 
 ## Next Useful Decoders
 
-1. Runtime corroboration for the third `.fts` arrangement/collision byte across live map scenes.
+1. Runtime branch corroboration for the third `.fts` arrangement/collision byte bit families across live map scenes.
 2. Tile animation/settings row decoding for the variable 290-character `.fts` section.
 3. BRR/audio pack manifests split into sample/song/pack-level contracts.

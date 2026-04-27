@@ -12,6 +12,8 @@ where it appears, but they do not by themselves prove collision semantics.
 - nonzero attribute cells: `603176`
 - high-bit attribute cells: `522397`
 - unique attribute values: `0x00`, `0x01`, `0x02`, `0x03`, `0x04`, `0x05`, `0x07`, `0x08`, `0x09`, `0x0B`, `0x0C`, `0x0D`, `0x0F`, `0x10`, `0x80`, `0x82`, `0x90`, `0x92`, `0x94`
+- working model confidence: `medium-structural`
+- runtime buffer anchor: `$01F800..$01FF7F current tileset collision data`
 
 ## Attribute Counts In Scene Use
 
@@ -36,6 +38,43 @@ where it appears, but they do not by themselves prove collision semantics.
 | `0x90` | 1734 | 363 |
 | `0x92` | 6 | 4 |
 | `0x94` | 17 | 8 |
+
+## Bit Family Counts
+
+| Bit | Working Name | Cell Count | Scene Presence | Exact Values |
+| ---: | --- | ---: | ---: | --- |
+| `0x01` | `bit_0_low_modifier_candidate` | 56978 | 707 | `0x01`, `0x03`, `0x05`, `0x07`, `0x09`, `0x0B`, `0x0D`, `0x0F` |
+| `0x02` | `bit_1_low_modifier_candidate` | 28990 | 587 | `0x02`, `0x03`, `0x07`, `0x0B`, `0x0F`, `0x82`, `0x92` |
+| `0x04` | `bit_2_low_modifier_candidate` | 15630 | 99 | `0x04`, `0x05`, `0x07`, `0x0C`, `0x0D`, `0x0F`, `0x94` |
+| `0x08` | `bit_3_low_modifier_candidate` | 16962 | 111 | `0x08`, `0x09`, `0x0B`, `0x0C`, `0x0D`, `0x0F` |
+| `0x10` | `bit_4_special_surface_modifier_candidate` | 2618 | 416 | `0x10`, `0x90`, `0x92`, `0x94` |
+| `0x80` | `bit_7_high_collision_family_candidate` | 522397 | 937 | `0x80`, `0x82`, `0x90`, `0x92`, `0x94` |
+
+## Low-Nibble Families
+
+| Low Nibble | Cell Count | Exact Values |
+| ---: | ---: | --- |
+| `0x0` | 892621 | `0x00`, `0x10`, `0x80`, `0x90` |
+| `0x1` | 26104 | `0x01` |
+| `0x2` | 246 | `0x02`, `0x82`, `0x92` |
+| `0x3` | 25763 | `0x03` |
+| `0x4` | 10896 | `0x04`, `0x94` |
+| `0x5` | 198 | `0x05` |
+| `0x7` | 10 | `0x07` |
+| `0x8` | 9325 | `0x08` |
+| `0x9` | 1451 | `0x09` |
+| `0xB` | 1660 | `0x0B` |
+| `0xC` | 2734 | `0x0C` |
+| `0xD` | 481 | `0x0D` |
+| `0xF` | 1311 | `0x0F` |
+
+## Reference Anchors
+
+- WRAM current tileset collision data: `$01F800..$01FF7F` (refs/community-earthbound-docs/RAM_map.txt)
+- ebsrc-derived D8 collision table span: `D8:0000..D8:F05E` (notes/bank-d8-asset-data-map.md)
+- Legacy ROM map also labels a bank-D8 collision-data/pointer corridor,
+  but its exact end boundary overlaps later modern ebsrc assets, so this
+  contract treats it as corroborating evidence rather than byte-boundary authority.
 
 ## Top Nonzero Scenes
 
@@ -72,5 +111,5 @@ where it appears, but they do not by themselves prove collision semantics.
 ## Machine-Readable Data
 
 `notes/map-collision-attribute-context.json` records global counts,
-per-tileset counts, scene-presence correlations with coarse scene
-features, and the top scenes by nonzero attribute-byte cells.
+bit-family counts, per-tileset counts, scene-presence correlations with
+coarse scene features, and the top scenes by nonzero attribute-byte cells.

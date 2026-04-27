@@ -434,7 +434,7 @@ python tools/build_map_scene_composition_contract.py
 ```
 
 Audit the unresolved third arrangement/collision byte in actual direct `.fts`
-scene use:
+scene use and emit bit-family counts:
 
 ```powershell
 python tools/build_map_collision_attribute_context.py
