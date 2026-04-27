@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Promote the adjacent service-event movement scripts at `C3:4508..C3:48C4`, then decide whether `C3:48C4..C3:4964` belongs with that follow-up family or with the neighboring service animation scripts.
+The adjacent service-event movement scripts are now emitted by `--family service-event-movement`; inspect `C3:48C4..C3:4964` next and decide whether it belongs with that follow-up family or starts a neighboring service animation family.

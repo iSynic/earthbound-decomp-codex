@@ -91,11 +91,11 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Two source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `918` validated bytes across the
-   movement pulse preset family and timed-delivery controller. The next C3 work
-   is promoting more script families through that pattern, not unknown opcode
-   recovery.
+   callback byte-count seeds captured. Three source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `1874` validated bytes across the
+   movement pulse preset and timed-delivery/service-event movement families. The
+   next C3 work is promoting more script families through that pattern, not
+   unknown opcode recovery.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
    text payloads.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
@@ -112,6 +112,7 @@ that romhackers need to edit confidently:
 - `notes/c3-actionscript-semantics-audit.md`
 - `notes/c3-event-script-source-pilot.md`
 - `notes/c3-timed-delivery-source-pilot.md`
+- `notes/c3-service-event-movement-source-pilot.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/data-contracts-c0-c4.md`
 - `notes/reference-first-workflow.md`

@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `2` families, `918` validated
+- Current source-form event/actionscript pilots: `3` families, `1874` validated
   bytes
 
 This means the byte layer is stable. The open work is semantic: opcode
@@ -171,12 +171,14 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: two pilots complete.
+Status: three pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
 - `notes/c3-timed-delivery-source-pilot.md`: timed-delivery controller proper,
   `C3:43DB..C3:4508`, `301` validated bytes.
+- `notes/c3-service-event-movement-source-pilot.md`: adjacent service-event
+  movement scripts, `C3:4508..C3:48C4`, `956` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits both as labeled macro-source
 representations while validating against the local ROM bytes.
@@ -185,7 +187,8 @@ Candidate/follow-up families for this milestone:
 
 - `C3:A0B2..C3:AB26` movement pulse preset family - pilot complete
 - `C3:43DB..C3:4508` timed-delivery controller family - pilot complete
-- `C3:4508..C3:48C4` adjacent service-event movement scripts
+- `C3:4508..C3:48C4` adjacent service-event movement scripts - pilot complete
+- `C3:48C4..C3:4964` neighboring service animation candidate
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -203,6 +206,6 @@ Keep these out of the event VM decoder unless evidence changes:
 ## Suggested Immediate Target
 
 The movement pulse preset family and timed-delivery controller now have
-source-form pilots. Move next to the adjacent service-event movement scripts at
-`C3:4508..C3:48C4`, then decide whether `C3:48C4..C3:4964` belongs with that
-follow-up family or with the neighboring service animation scripts.
+source-form pilots, and the adjacent service-event movement scripts now do too.
+Move next to `C3:48C4..C3:4964`, then decide whether it belongs with the
+service-event movement family or starts a neighboring service animation family.

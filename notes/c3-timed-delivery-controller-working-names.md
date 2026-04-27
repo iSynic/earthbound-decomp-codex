@@ -44,7 +44,8 @@ pilot:
 The pilot covers `C3:43DB..C3:4508`: the departure pulse task, event `499` and
 `500` setup paths, the shared countdown/retry/readiness loop, success/failure
 branches, and the paired arrival/departure movement loops. The adjacent
-`C3:4508..C3:48C4` service-event movement scripts remain a follow-up family.
+`C3:4508..C3:48C4` service-event movement scripts now have their own follow-up
+pilot in `notes/c3-service-event-movement-source-pilot.md`.
 
 ## Placeholder table
 
