@@ -154,6 +154,13 @@ def operand_width_suffix(text: str, raw: bytes) -> str:
     return text
 
 
+def asar_operand_syntax(text: str) -> str:
+    text = re.sub(r"\[([0-9A-Fa-f]{4})\]", r"[$\1]", text)
+    text = re.sub(r"\(([0-9A-Fa-f]{4})\)", r"($\1)", text)
+    text = re.sub(r"\(([0-9A-Fa-f]{4}),X\)", r"($\1,X)", text)
+    return text
+
+
 def branch_target(text: str) -> int | None:
     if " " not in text:
         return None
@@ -282,7 +289,7 @@ def render_module(
     for instruction in instructions:
         if instruction.address in labels:
             out.append(f"{labels[instruction.address]}:")
-        text = instruction.text
+        text = asar_operand_syntax(instruction.text)
         target = branch_target(text)
         if target is None:
             target = same_bank_long_call_target(text, bank)

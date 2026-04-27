@@ -314,9 +314,16 @@ def parse_cpu_address(text: str) -> tuple[int, int]:
     if ':' not in cleaned:
         raise argparse.ArgumentTypeError('address must look like C1:244C')
     bank_text, addr_text = cleaned.split(':', 1)
-    if len(bank_text) != 2 or len(addr_text) != 4:
+    if len(bank_text) != 2 or len(addr_text) not in {4, 5}:
         raise argparse.ArgumentTypeError('address must look like C1:244C')
-    return int(bank_text, 16), int(addr_text, 16)
+    try:
+        bank = int(bank_text, 16)
+        address = int(addr_text, 16)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError('address must look like C1:244C') from exc
+    if address > 0x10000 or (len(addr_text) == 5 and address != 0x10000):
+        raise argparse.ArgumentTypeError('address must look like C1:244C')
+    return bank, address
 
 
 def read_u16(data: bytes, offset: int) -> int:

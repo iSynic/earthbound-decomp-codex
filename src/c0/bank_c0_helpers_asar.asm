@@ -7368,47 +7368,280 @@ C0329D_Spawn_Vertical_L329D:
 hirom
 org $C0329F
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0329F_Clear_CharacterAfflictionBytes:
-
-; Original data gap before C034D6_Clear_CharacterAfflictionBytes_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$AA,$86,$10,$8A,$A0,$5F
-db $00,$22,$F7,$8F,$C0,$AA,$E2,$20,$9E,$DC,$99,$C2,$20,$A9,$01,$00
-db $85,$0E,$80,$22,$85,$02,$A6,$10,$8A,$A0,$5F,$00,$22,$F7,$8F,$C0
-db $18,$69,$DC,$99,$18,$65,$02,$AA,$E2,$20,$A9,$00,$9D,$00,$00,$C2
-db $20,$A5,$0E,$1A,$85,$0E,$C9,$07,$00,$90,$D9,$2B,$6B,$C2,$31,$0B
-db $7B,$69,$E7,$FF,$5B,$A0,$00,$00,$80,$01,$C8,$B9,$6F,$98,$29,$FF
-db $00,$F0,$13,$29,$FF,$00,$85,$02,$A9,$05,$00,$18,$E5,$02,$70,$04
-db $10,$E8,$80,$02,$30,$E4,$98,$E2,$20,$8D,$A4,$98,$C2,$20,$A9,$3A
-db $98,$85,$04,$A6,$04,$E2,$20,$BD,$00,$00,$85,$00,$85,$18,$C2,$20
-db $98,$18,$69,$6F,$98,$85,$16,$E2,$20,$B2,$16,$85,$15,$85,$01,$A5
-db $00,$C5,$01,$D0,$03,$4C,$99,$34,$C2,$20,$A9,$3B,$98,$85,$02,$A6
-db $02,$E2,$20,$BD,$00,$00,$85,$01,$A5,$15,$85,$00,$A5,$01,$C5,$00
-db $D0,$45,$A5,$01,$A6,$04,$9D,$00,$00,$A2,$3E,$98,$86,$13,$C2,$20
-db $BD,$00,$00,$8D,$3C,$98,$E2,$20,$B9,$70,$98,$A6,$02,$9D,$00,$00
-db $C2,$20,$29,$FF,$00,$0A,$AA,$E8,$BF,$23,$8F,$D5,$29,$FF,$00,$A0
-db $5E,$00,$22,$F7,$8F,$C0,$18,$69,$21,$00,$AA,$BF,$89,$95,$D5,$A6
-db $13,$9D,$00,$00,$4C,$D2,$34,$A5,$18,$85,$00,$D9,$70,$98,$D0,$44
-db $A5,$00,$A6,$02,$9D,$00,$00,$A2,$3C,$98,$86,$13,$C2,$20,$BD,$00
-db $00,$8D,$3E,$98,$E2,$20,$B2,$16,$A6,$04,$9D,$00,$00,$C2,$20,$29
-db $FF,$00,$0A,$AA,$E8,$BF,$23,$8F,$D5,$29,$FF,$00,$A0,$5E,$00,$22
-db $F7,$8F,$C0,$18,$69,$21,$00,$AA,$BF,$89,$95,$D5,$A6,$13,$9D,$00
-db $00,$4C,$D2,$34,$A5,$15,$A6,$04,$9D,$00,$00,$BB,$E8,$C2,$20,$A9
-db $89,$95,$85,$0A,$A9,$D5,$00,$85,$0C,$A9,$23,$8F,$85,$06,$A9,$D5
-db $00,$85,$08,$A5,$06,$85,$0F,$A5,$08,$85,$11,$A5,$15,$29,$FF,$00
-db $0A,$1A,$18,$65,$06,$85,$06,$A7,$06,$29,$FF,$00,$A0,$5E,$00,$22
-db $F7,$8F,$C0,$18,$69,$21,$00,$A4,$0A,$84,$06,$A4,$0C,$84,$08,$18
-db $65,$06,$85,$06,$A7,$06,$8D,$3C,$98,$E2,$20,$BD,$6F,$98,$85,$0E
-db $85,$00,$A6,$02,$BD,$00,$00,$C5,$00,$F0,$78,$A5,$0E,$A6,$02,$9D
-db $00,$00,$C2,$20,$29,$FF,$00,$0A,$1A,$A6,$0F,$86,$06,$A6,$11,$86
-db $08,$18,$65,$06,$85,$06,$A7,$06,$29,$FF,$00,$A0,$5E,$00,$22,$F7
-db $8F,$C0,$18,$69,$21,$00,$A6,$0A,$86,$06,$A6,$0C,$86,$08,$18,$65
-db $06,$85,$06,$A7,$06,$8D,$3E,$98,$80,$39,$C8,$A2,$3B,$98,$B9,$6F
-db $98,$85,$0E,$85,$00,$BD,$00,$00,$C5,$00,$F0,$27,$A5,$0E,$9D,$00
-db $00,$C2,$20,$29,$FF,$00,$0A,$AA,$E8,$BF,$23,$8F,$D5,$29,$FF,$00
-db $A0,$5E,$00,$22,$F7,$8F,$C0,$18,$69,$21,$00,$AA,$BF,$89,$95,$D5
-db $8D,$3E,$98,$C2,$20,$2B,$6B
-
-C034D6_Clear_CharacterAfflictionBytes_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    tax
+    stx $10
+    txa
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    sep #$20
+    stz $99DC,X
+    rep #$20
+    lda.w #$0001
+    sta $0E
+    bra C032E5_Clear_CharacterAfflictionBytes_L32E5
+C032C3_Clear_CharacterAfflictionBytes_L32C3:
+    sta $02
+    ldx $10
+    txa
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99DC
+    clc
+    adc $02
+    tax
+    sep #$20
+    lda.b #$00
+    sta $0000,X
+    rep #$20
+    lda $0E
+    inc A
+    sta $0E
+C032E5_Clear_CharacterAfflictionBytes_L32E5:
+    cmp.w #$0007
+    bcc C032C3_Clear_CharacterAfflictionBytes_L32C3
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE7
+    tcd
+    ldy.w #$0000
+    bra C032FA_Clear_CharacterAfflictionBytes_L32FA
+C032F9_Clear_CharacterAfflictionBytes_L32F9:
+    iny
+C032FA_Clear_CharacterAfflictionBytes_L32FA:
+    lda $986F,Y
+    and.w #$00FF
+    beq C03315_Clear_CharacterAfflictionBytes_L3315
+    and.w #$00FF
+    sta $02
+    lda.w #$0005
+    clc
+    sbc $02
+    bvs C03313_Clear_CharacterAfflictionBytes_L3313
+    bpl C032F9_Clear_CharacterAfflictionBytes_L32F9
+    bra C03315_Clear_CharacterAfflictionBytes_L3315
+C03313_Clear_CharacterAfflictionBytes_L3313:
+    bmi C032F9_Clear_CharacterAfflictionBytes_L32F9
+C03315_Clear_CharacterAfflictionBytes_L3315:
+    tya
+    sep #$20
+    sta $98A4
+    rep #$20
+    lda.w #$983A
+    sta $04
+    ldx $04
+    sep #$20
+    lda $0000,X
+    sta $00
+    sta $18
+    rep #$20
+    tya
+    clc
+    adc.w #$986F
+    sta $16
+    sep #$20
+    lda ($16)
+    sta $15
+    sta $01
+    lda $00
+    cmp $01
+    bne C03347_Clear_CharacterAfflictionBytes_L3347
+    jmp.w C03499_Clear_CharacterAfflictionBytes_L3499
+C03347_Clear_CharacterAfflictionBytes_L3347:
+    rep #$20
+    lda.w #$983B
+    sta $02
+    ldx $02
+    sep #$20
+    lda $0000,X
+    sta $01
+    lda $15
+    sta $00
+    lda $01
+    cmp $00
+    bne C033A6_Clear_CharacterAfflictionBytes_L33A6
+    lda $01
+    ldx $04
+    sta $0000,X
+    ldx.w #$983E
+    stx $13
+    rep #$20
+    lda $0000,X
+    sta $983C
+    sep #$20
+    lda $9870,Y
+    ldx $02
+    sta $0000,X
+    rep #$20
+    and.w #$00FF
+    asl A
+    tax
+    inx
+    lda $D58F23,X
+    and.w #$00FF
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0021
+    tax
+    lda $D59589,X
+    ldx $13
+    sta $0000,X
+    jmp.w C034D2_Clear_CharacterAfflictionBytes_L34D2
+C033A6_Clear_CharacterAfflictionBytes_L33A6:
+    lda $18
+    sta $00
+    cmp $9870,Y
+    bne C033F3_Clear_CharacterAfflictionBytes_L33F3
+    lda $00
+    ldx $02
+    sta $0000,X
+    ldx.w #$983C
+    stx $13
+    rep #$20
+    lda $0000,X
+    sta $983E
+    sep #$20
+    lda ($16)
+    ldx $04
+    sta $0000,X
+    rep #$20
+    and.w #$00FF
+    asl A
+    tax
+    inx
+    lda $D58F23,X
+    and.w #$00FF
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0021
+    tax
+    lda $D59589,X
+    ldx $13
+    sta $0000,X
+    jmp.w C034D2_Clear_CharacterAfflictionBytes_L34D2
+C033F3_Clear_CharacterAfflictionBytes_L33F3:
+    lda $15
+    ldx $04
+    sta $0000,X
+    tyx
+    inx
+    rep #$20
+    lda.w #$9589
+    sta $0A
+    lda.w #$00D5
+    sta $0C
+    lda.w #$8F23
+    sta $06
+    lda.w #$00D5
+    sta $08
+    lda $06
+    sta $0F
+    lda $08
+    sta $11
+    lda $15
+    and.w #$00FF
+    asl A
+    inc A
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    and.w #$00FF
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0021
+    ldy $0A
+    sty $06
+    ldy $0C
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $983C
+    sep #$20
+    lda $986F,X
+    sta $0E
+    sta $00
+    ldx $02
+    lda $0000,X
+    cmp $00
+    beq C034D2_Clear_CharacterAfflictionBytes_L34D2
+    lda $0E
+    ldx $02
+    sta $0000,X
+    rep #$20
+    and.w #$00FF
+    asl A
+    inc A
+    ldx $0F
+    stx $06
+    ldx $11
+    stx $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    and.w #$00FF
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0021
+    ldx $0A
+    stx $06
+    ldx $0C
+    stx $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $983E
+    bra C034D2_Clear_CharacterAfflictionBytes_L34D2
+C03499_Clear_CharacterAfflictionBytes_L3499:
+    iny
+    ldx.w #$983B
+    lda $986F,Y
+    sta $0E
+    sta $00
+    lda $0000,X
+    cmp $00
+    beq C034D2_Clear_CharacterAfflictionBytes_L34D2
+    lda $0E
+    sta $0000,X
+    rep #$20
+    and.w #$00FF
+    asl A
+    tax
+    inx
+    lda $D58F23,X
+    and.w #$00FF
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0021
+    tax
+    lda $D59589,X
+    sta $983E
+C034D2_Clear_CharacterAfflictionBytes_L34D2:
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7418,40 +7651,247 @@ C034D6_Clear_CharacterAfflictionBytes_End:
 hirom
 org $C034D6
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C47F87_RefreshWindowFlavorPalette = $C47F87
 C034D6_SortAndExport_MushroomizedWalkingEntries:
-
-; Original data gap before C0369B_SortAndExport_MushroomizedWalkingEntries_End:
-db $C2,$31,$0B,$7B,$69,$B2,$FF,$5B,$AD,$A3,$98,$29,$FF,$00,$85,$4C
-db $A9,$00,$00,$85,$4A,$80,$1E,$0A,$48,$A5,$4A,$AA,$BD,$91,$98,$29
-db $FF,$00,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$0B,$9A,$FA,$95,$0E
-db $A5,$4A,$1A,$85,$4A,$C5,$4C,$90,$DE,$A0,$00,$00,$84,$48,$80,$5A
-db $B9,$8B,$98,$29,$FF,$00,$85,$46,$C9,$05,$00,$90,$08,$18,$69,$00
-db $03,$85,$46,$80,$2C,$98,$0A,$AA,$BD,$97,$98,$0A,$AA,$BD,$9A,$0E
-db $A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$DC,$99,$29,$FF,$00,$AA,$E0
-db $01,$00,$F0,$05,$E0,$02,$00,$D0,$08,$A5,$46,$18,$69,$00,$01,$85
-db $46,$A4,$48,$98,$0A,$AA,$A5,$46,$95,$1A,$BD,$97,$98,$95,$26,$B9
-db $91,$98,$29,$FF,$00,$95,$32,$C8,$84,$48,$C4,$4C,$90,$A2,$64,$44
-db $4C,$0D,$36,$64,$42,$4C,$FF,$35,$A5,$42,$0A,$85,$02,$7B,$18,$69
-db $1A,$00,$18,$65,$02,$A8,$B9,$00,$00,$85,$46,$A5,$02,$85,$04,$E6
-db $04,$E6,$04,$7B,$18,$69,$1A,$00,$18,$65,$04,$AA,$BD,$00,$00,$85
-db $4A,$A5,$46,$C5,$4A,$90,$50,$F0,$4E,$A5,$4A,$99,$00,$00,$A5,$46
-db $9D,$00,$00,$7B,$18,$69,$26,$00,$18,$65,$02,$A8,$B9,$00,$00,$85
-db $40,$7B,$18,$69,$26,$00,$18,$65,$04,$AA,$BD,$00,$00,$99,$00,$00
-db $A5,$40,$9D,$00,$00,$7B,$18,$69,$32,$00,$18,$65,$02,$A8,$B9,$00
-db $00,$85,$4A,$7B,$18,$69,$32,$00,$18,$65,$04,$AA,$BD,$00,$00,$99
-db $00,$00,$A5,$4A,$9D,$00,$00,$E6,$42,$A5,$4C,$3A,$C5,$42,$F0,$05
-db $90,$03,$4C,$7E,$35,$E6,$44,$A5,$4C,$3A,$C5,$44,$F0,$05,$90,$03
-db $4C,$79,$35,$A9,$00,$00,$85,$46,$80,$63,$18,$69,$F5,$97,$A8,$A5
-db $46,$0A,$85,$04,$A6,$04,$E2,$20,$B5,$1A,$99,$96,$00,$C2,$20,$A5
-db $04,$18,$69,$97,$98,$AA,$86,$3E,$A6,$04,$B5,$26,$A6,$3E,$9D,$00
-db $00,$7B,$18,$69,$32,$00,$18,$65,$04,$85,$02,$A6,$02,$E2,$20,$BD
-db $00,$00,$99,$9C,$00,$A6,$02,$C2,$20,$BD,$00,$00,$A0,$5F,$00,$22
-db $F7,$8F,$C0,$48,$A6,$04,$B5,$0E,$FA,$9D,$0B,$9A,$A6,$3E,$BD,$00
-db $00,$0A,$AA,$A5,$04,$9D,$8A,$0F,$A5,$46,$1A,$85,$46,$C5,$4C,$90
-db $99,$AD,$97,$98,$8D,$89,$98,$22,$EC,$32,$C0,$22,$3E,$2C,$C0,$22
-db $87,$7F,$C4,$2B,$6B
-
-C0369B_SortAndExport_MushroomizedWalkingEntries_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFB2
+    tcd
+    lda $98A3
+    and.w #$00FF
+    sta $4C
+    lda.w #$0000
+    sta $4A
+    bra C0350B_SortAndExport_MushroomizedWalkingEntries_L350B
+C034ED_SortAndExport_MushroomizedWalkingEntries_L34ED:
+    asl A
+    pha
+    lda $4A
+    tax
+    lda $9891,X
+    and.w #$00FF
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $9A0B,X
+    plx
+    sta $0E,X
+    lda $4A
+    inc A
+    sta $4A
+C0350B_SortAndExport_MushroomizedWalkingEntries_L350B:
+    cmp $4C
+    bcc C034ED_SortAndExport_MushroomizedWalkingEntries_L34ED
+    ldy.w #$0000
+    sty $48
+    bra C03570_SortAndExport_MushroomizedWalkingEntries_L3570
+C03516_SortAndExport_MushroomizedWalkingEntries_L3516:
+    lda $988B,Y
+    and.w #$00FF
+    sta $46
+    cmp.w #$0005
+    bcc C0352B_SortAndExport_MushroomizedWalkingEntries_L352B
+    clc
+    adc.w #$0300
+    sta $46
+    bra C03557_SortAndExport_MushroomizedWalkingEntries_L3557
+C0352B_SortAndExport_MushroomizedWalkingEntries_L352B:
+    tya
+    asl A
+    tax
+    lda $9897,X
+    asl A
+    tax
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $99DC,X
+    and.w #$00FF
+    tax
+    cpx.w #$0001
+    beq C0354F_SortAndExport_MushroomizedWalkingEntries_L354F
+    cpx.w #$0002
+    bne C03557_SortAndExport_MushroomizedWalkingEntries_L3557
+C0354F_SortAndExport_MushroomizedWalkingEntries_L354F:
+    lda $46
+    clc
+    adc.w #$0100
+    sta $46
+C03557_SortAndExport_MushroomizedWalkingEntries_L3557:
+    ldy $48
+    tya
+    asl A
+    tax
+    lda $46
+    sta $1A,X
+    lda $9897,X
+    sta $26,X
+    lda $9891,Y
+    and.w #$00FF
+    sta $32,X
+    iny
+    sty $48
+C03570_SortAndExport_MushroomizedWalkingEntries_L3570:
+    cpy $4C
+    bcc C03516_SortAndExport_MushroomizedWalkingEntries_L3516
+    stz $44
+    jmp.w C0360D_SortAndExport_MushroomizedWalkingEntries_L360D
+C03579_SortAndExport_MushroomizedWalkingEntries_L3579:
+    stz $42
+    jmp.w C035FF_SortAndExport_MushroomizedWalkingEntries_L35FF
+C0357E_SortAndExport_MushroomizedWalkingEntries_L357E:
+    lda $42
+    asl A
+    sta $02
+    tdc
+    clc
+    adc.w #$001A
+    clc
+    adc $02
+    tay
+    lda $0000,Y
+    sta $46
+    lda $02
+    sta $04
+    inc $04
+    inc $04
+    tdc
+    clc
+    adc.w #$001A
+    clc
+    adc $04
+    tax
+    lda $0000,X
+    sta $4A
+    lda $46
+    cmp $4A
+    bcc C035FD_SortAndExport_MushroomizedWalkingEntries_L35FD
+    beq C035FD_SortAndExport_MushroomizedWalkingEntries_L35FD
+    lda $4A
+    sta $0000,Y
+    lda $46
+    sta $0000,X
+    tdc
+    clc
+    adc.w #$0026
+    clc
+    adc $02
+    tay
+    lda $0000,Y
+    sta $40
+    tdc
+    clc
+    adc.w #$0026
+    clc
+    adc $04
+    tax
+    lda $0000,X
+    sta $0000,Y
+    lda $40
+    sta $0000,X
+    tdc
+    clc
+    adc.w #$0032
+    clc
+    adc $02
+    tay
+    lda $0000,Y
+    sta $4A
+    tdc
+    clc
+    adc.w #$0032
+    clc
+    adc $04
+    tax
+    lda $0000,X
+    sta $0000,Y
+    lda $4A
+    sta $0000,X
+C035FD_SortAndExport_MushroomizedWalkingEntries_L35FD:
+    inc $42
+C035FF_SortAndExport_MushroomizedWalkingEntries_L35FF:
+    lda $4C
+    dec A
+    cmp $42
+    beq C0360B_SortAndExport_MushroomizedWalkingEntries_L360B
+    bcc C0360B_SortAndExport_MushroomizedWalkingEntries_L360B
+    jmp.w C0357E_SortAndExport_MushroomizedWalkingEntries_L357E
+C0360B_SortAndExport_MushroomizedWalkingEntries_L360B:
+    inc $44
+C0360D_SortAndExport_MushroomizedWalkingEntries_L360D:
+    lda $4C
+    dec A
+    cmp $44
+    beq C03619_SortAndExport_MushroomizedWalkingEntries_L3619
+    bcc C03619_SortAndExport_MushroomizedWalkingEntries_L3619
+    jmp.w C03579_SortAndExport_MushroomizedWalkingEntries_L3579
+C03619_SortAndExport_MushroomizedWalkingEntries_L3619:
+    lda.w #$0000
+    sta $46
+    bra C03683_SortAndExport_MushroomizedWalkingEntries_L3683
+C03620_SortAndExport_MushroomizedWalkingEntries_L3620:
+    clc
+    adc.w #$97F5
+    tay
+    lda $46
+    asl A
+    sta $04
+    ldx $04
+    sep #$20
+    lda $1A,X
+    sta $0096,Y
+    rep #$20
+    lda $04
+    clc
+    adc.w #$9897
+    tax
+    stx $3E
+    ldx $04
+    lda $26,X
+    ldx $3E
+    sta $0000,X
+    tdc
+    clc
+    adc.w #$0032
+    clc
+    adc $04
+    sta $02
+    ldx $02
+    sep #$20
+    lda $0000,X
+    sta $009C,Y
+    ldx $02
+    rep #$20
+    lda $0000,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    pha
+    ldx $04
+    lda $0E,X
+    plx
+    sta $9A0B,X
+    ldx $3E
+    lda $0000,X
+    asl A
+    tax
+    lda $04
+    sta $0F8A,X
+    lda $46
+    inc A
+    sta $46
+C03683_SortAndExport_MushroomizedWalkingEntries_L3683:
+    cmp $4C
+    bcc C03620_SortAndExport_MushroomizedWalkingEntries_L3620
+    lda $9897
+    sta $9889
+    jsl $C032EC
+    jsl $C02C3E
+    jsl !C47F87_RefreshWindowFlavorPalette
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7461,31 +7901,171 @@ C0369B_SortAndExport_MushroomizedWalkingEntries_End:
 hirom
 org $C0369B
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0369B_Insert_MushroomizedWalkingActiveEntry:
-
-; Original data gap before C037D0_Insert_MushroomizedWalkingActiveEntry_End:
-db $C2,$31,$0B,$48,$7B,$69,$E4,$FF,$5B,$68,$A8,$84,$1A,$A2,$00,$00
-db $86,$18,$C0,$05,$00,$90,$19,$BD,$8B,$98,$29,$FF,$00,$F0,$59,$29
-db $FF,$00,$85,$02,$98,$C5,$02,$90,$4F,$F0,$4D,$E8,$86,$18,$80,$E7
-db $BD,$8B,$98,$29,$FF,$00,$F0,$40,$29,$FF,$00,$85,$16,$85,$02,$A9
-db $05,$00,$18,$E5,$02,$50,$04,$10,$2F,$80,$02,$30,$2B,$A4,$1A,$84
-db $02,$A5,$16,$C5,$02,$F0,$02,$B0,$1F,$0A,$AA,$BD,$9A,$0E,$A0,$5F
-db $00,$22,$F7,$8F,$C0,$AA,$BD,$DC,$99,$29,$FF,$00,$C9,$01,$00,$F0
-db $07,$A6,$18,$E8,$86,$18,$80,$B8,$A6,$18,$BD,$8B,$98,$29,$FF,$00
-db $F0,$53,$A9,$05,$00,$85,$14,$80,$40,$18,$69,$F5,$97,$85,$12,$A5
-db $14,$3A,$85,$04,$18,$69,$F5,$97,$85,$02,$A6,$02,$E2,$20,$BD,$96
-db $00,$A0,$96,$00,$91,$12,$C2,$20,$A5,$14,$0A,$48,$A5,$04,$0A,$AA
-db $BD,$97,$98,$FA,$9D,$97,$98,$A6,$02,$E2,$20,$BD,$9C,$00,$A0,$9C
-db $00,$91,$12,$C2,$20,$A5,$04,$85,$14,$A6,$18,$8A,$3A,$85,$02,$A5
-db $14,$C5,$02,$D0,$B4,$A4,$1A,$98,$E2,$20,$9D,$8B,$98,$C2,$20,$A9
-db $A3,$98,$48,$AA,$E2,$20,$BD,$00,$00,$1A,$FA,$9D,$00,$00,$C2,$20
-db $98,$3A,$85,$12,$8D,$38,$0A,$A5,$12,$0A,$0A,$0A,$18,$69,$06,$00
-db $AA,$BF,$12,$E0,$C3,$85,$1A,$0A,$AA,$BD,$62,$0A,$C9,$FF,$FF,$F0
-db $02,$E6,$1A,$A6,$18,$8A,$0A,$AA,$A5,$1A,$9D,$97,$98,$A5,$1A,$8D
-db $3A,$0A,$38,$E9,$18,$00,$8D,$3A,$0A,$E2,$20,$AD,$3A,$0A,$A6,$18
-db $9D,$91,$98,$C2,$20
-
-C037D0_Insert_MushroomizedWalkingActiveEntry_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE4
+    tcd
+    pla
+    tay
+    sty $1A
+    ldx.w #$0000
+    stx $18
+    cpy.w #$0005
+    bcc C036CB_Insert_MushroomizedWalkingActiveEntry_L36CB
+C036B2_Insert_MushroomizedWalkingActiveEntry_L36B2:
+    lda $988B,X
+    and.w #$00FF
+    beq C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    and.w #$00FF
+    sta $02
+    tya
+    cmp $02
+    bcc C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    beq C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    inx
+    stx $18
+    bra C036B2_Insert_MushroomizedWalkingActiveEntry_L36B2
+C036CB_Insert_MushroomizedWalkingActiveEntry_L36CB:
+    lda $988B,X
+    and.w #$00FF
+    beq C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    and.w #$00FF
+    sta $16
+    sta $02
+    lda.w #$0005
+    clc
+    sbc $02
+    bvc C036E6_Insert_MushroomizedWalkingActiveEntry_L36E6
+    bpl C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    bra C036E8_Insert_MushroomizedWalkingActiveEntry_L36E8
+C036E6_Insert_MushroomizedWalkingActiveEntry_L36E6:
+    bmi C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+C036E8_Insert_MushroomizedWalkingActiveEntry_L36E8:
+    ldy $1A
+    sty $02
+    lda $16
+    cmp $02
+    beq C036F4_Insert_MushroomizedWalkingActiveEntry_L36F4
+    bcs C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+C036F4_Insert_MushroomizedWalkingActiveEntry_L36F4:
+    asl A
+    tax
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $99DC,X
+    and.w #$00FF
+    cmp.w #$0001
+    beq C03713_Insert_MushroomizedWalkingActiveEntry_L3713
+    ldx $18
+    inx
+    stx $18
+    bra C036CB_Insert_MushroomizedWalkingActiveEntry_L36CB
+C03713_Insert_MushroomizedWalkingActiveEntry_L3713:
+    ldx $18
+    lda $988B,X
+    and.w #$00FF
+    beq C03770_Insert_MushroomizedWalkingActiveEntry_L3770
+    lda.w #$0005
+    sta $14
+    bra C03764_Insert_MushroomizedWalkingActiveEntry_L3764
+C03724_Insert_MushroomizedWalkingActiveEntry_L3724:
+    clc
+    adc.w #$97F5
+    sta $12
+    lda $14
+    dec A
+    sta $04
+    clc
+    adc.w #$97F5
+    sta $02
+    ldx $02
+    sep #$20
+    lda $0096,X
+    ldy.w #$0096
+    sta ($12),Y
+    rep #$20
+    lda $14
+    asl A
+    pha
+    lda $04
+    asl A
+    tax
+    lda $9897,X
+    plx
+    sta $9897,X
+    ldx $02
+    sep #$20
+    lda $009C,X
+    ldy.w #$009C
+    sta ($12),Y
+    rep #$20
+    lda $04
+    sta $14
+C03764_Insert_MushroomizedWalkingActiveEntry_L3764:
+    ldx $18
+    txa
+    dec A
+    sta $02
+    lda $14
+    cmp $02
+    bne C03724_Insert_MushroomizedWalkingActiveEntry_L3724
+C03770_Insert_MushroomizedWalkingActiveEntry_L3770:
+    ldy $1A
+    tya
+    sep #$20
+    sta $988B,X
+    rep #$20
+    lda.w #$98A3
+    pha
+    tax
+    sep #$20
+    lda $0000,X
+    inc A
+    plx
+    sta $0000,X
+    rep #$20
+    tya
+    dec A
+    sta $12
+    sta $0A38
+    lda $12
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$0006
+    tax
+    lda $C3E012,X
+    sta $1A
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    beq C037AE_Insert_MushroomizedWalkingActiveEntry_L37AE
+    inc $1A
+C037AE_Insert_MushroomizedWalkingActiveEntry_L37AE:
+    ldx $18
+    txa
+    asl A
+    tax
+    lda $1A
+    sta $9897,X
+    lda $1A
+    sta $0A3A
+    sec
+    sbc.w #$0018
+    sta $0A3A
+    sep #$20
+    lda $0A3A
+    ldx $18
+    sta $9891,X
+    rep #$20
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7495,45 +8075,277 @@ C037D0_Insert_MushroomizedWalkingActiveEntry_End:
 hirom
 org $C037D0
 
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C037D0_AppendMushroomizedEntryAndRefreshController:
-
-; Original data gap before C039E5_AppendMushroomizedEntryAndRefreshController_End:
-db $AD,$A3,$98,$29,$FF,$00,$C9,$01,$00,$D0,$13,$AD,$3A,$0A,$A0,$5F
-db $00,$22,$F7,$8F,$C0,$AA,$AD,$7D,$98,$9D,$0B,$9A,$80,$35,$E0,$00
-db $00,$D0,$07,$AD,$7D,$98,$85,$16,$80,$19,$8A,$3A,$0A,$AA,$BD,$97
-db $98,$0A,$AA,$BD,$9A,$0E,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$0B
-db $9A,$85,$16,$AD,$3A,$0A,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$A5,$16
-db $9D,$0B,$9A,$AD,$3A,$0A,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$0B
-db $9A,$F0,$04,$AA,$CA,$80,$03,$A2,$FF,$00,$8A,$85,$04,$0A,$65,$04
-db $0A,$0A,$AA,$BD,$56,$51,$85,$04,$BD,$58,$51,$85,$02,$AD,$87,$98
-db $C9,$03,$00,$F0,$0E,$A5,$12,$0A,$0A,$0A,$AA,$BF,$12,$E0,$C3,$85
-db $18,$80,$0E,$A5,$12,$0A,$0A,$0A,$AA,$E8,$E8,$BF,$12,$E0,$C3,$85
-db $18,$A9,$12,$E0,$85,$06,$A9,$C3,$00,$85,$08,$A5,$04,$85,$0E,$A5
-db $02,$85,$10,$A4,$1A,$A5,$12,$0A,$0A,$0A,$1A,$1A,$1A,$1A,$A6,$06
-db $86,$0A,$A6,$08,$86,$0C,$18,$65,$0A,$85,$0A,$A7,$0A,$AA,$A5,$18
-db $22,$49,$1E,$C0,$A5,$1A,$0A,$AA,$86,$14,$A5,$04,$38,$ED,$31,$00
-db $9D,$16,$0B,$A5,$02,$38,$ED,$33,$00,$9D,$52,$0B,$A0,$89,$98,$84
-db $18,$AD,$8B,$98,$29,$FF,$00,$3A,$0A,$0A,$0A,$18,$69,$06,$00,$18
-db $65,$06,$85,$06,$A7,$06,$99,$00,$00,$22,$D7,$9C,$C0,$22,$EC,$32
-db $C0,$AD,$97,$98,$A4,$18,$99,$00,$00,$22,$D6,$34,$C0,$A5,$04,$8D
-db $2D,$9E,$A5,$02,$8D,$2F,$9E,$A6,$14,$BD,$F6,$2A,$8D,$31,$9E,$A5
-db $1A,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$02,$A0
-db $00,$00,$80,$01,$C8,$B9,$8B,$98,$29,$FF,$00,$C5,$02,$F0,$05,$C0
-db $06,$00,$D0,$F0,$C0,$06,$00,$D0,$03,$4C,$E3,$39,$98,$0A,$AA,$BD
-db $97,$98,$85,$02,$98,$85,$10,$80,$39,$18,$69,$F5,$97,$AA,$86,$0E
-db $A5,$10,$AA,$E2,$20,$BD,$8C,$98,$A6,$0E,$9D,$96,$00,$C2,$20,$A5
-db $10,$0A,$85,$04,$A6,$04,$BD,$99,$98,$A6,$04,$9D,$97,$98,$A5,$10
-db $AA,$E2,$20,$BD,$92,$98,$A6,$0E,$9D,$9C,$00,$C2,$20,$A5,$10,$1A
-db $85,$10,$C9,$05,$00,$90,$C2,$C0,$00,$00,$D0,$2F,$A9,$0B,$9A,$85
-db $04,$AD,$91,$98,$29,$FF,$00,$A0,$5F,$00,$22,$F7,$8F,$C0,$18,$65
-db $04,$48,$A5,$02,$0A,$AA,$BD,$9A,$0E,$A0,$5F,$00,$22,$F7,$8F,$C0
-db $18,$65,$04,$AA,$BD,$00,$00,$FA,$9D,$00,$00,$A5,$10,$AA,$E2,$20
-db $9E,$8B,$98,$A2,$A3,$98,$BD,$00,$00,$3A,$9D,$00,$00,$C2,$20,$A5
-db $02,$0A,$AA,$BD,$8E,$0B,$8D,$2D,$9E,$BD,$CA,$0B,$8D,$2F,$9E,$BD
-db $F6,$2A,$8D,$31,$9E,$A5,$02,$22,$40,$21,$C0,$22,$EC,$32,$C0,$22
-db $D6,$34,$C0,$2B,$6B
-
-C039E5_AppendMushroomizedEntryAndRefreshController_End:
+    lda $98A3
+    and.w #$00FF
+    cmp.w #$0001
+    bne C037EE_AppendMushroomizedEntryAndRefreshController_L37EE
+    lda $0A3A
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $987D
+    sta $9A0B,X
+    bra C03823_AppendMushroomizedEntryAndRefreshController_L3823
+C037EE_AppendMushroomizedEntryAndRefreshController_L37EE:
+    cpx.w #$0000
+    bne C037FA_AppendMushroomizedEntryAndRefreshController_L37FA
+    lda $987D
+    sta $16
+    bra C03813_AppendMushroomizedEntryAndRefreshController_L3813
+C037FA_AppendMushroomizedEntryAndRefreshController_L37FA:
+    txa
+    dec A
+    asl A
+    tax
+    lda $9897,X
+    asl A
+    tax
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $9A0B,X
+    sta $16
+C03813_AppendMushroomizedEntryAndRefreshController_L3813:
+    lda $0A3A
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $16
+    sta $9A0B,X
+C03823_AppendMushroomizedEntryAndRefreshController_L3823:
+    lda $0A3A
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $9A0B,X
+    beq C03837_AppendMushroomizedEntryAndRefreshController_L3837
+    tax
+    dex
+    bra C0383A_AppendMushroomizedEntryAndRefreshController_L383A
+C03837_AppendMushroomizedEntryAndRefreshController_L3837:
+    ldx.w #$00FF
+C0383A_AppendMushroomizedEntryAndRefreshController_L383A:
+    txa
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    tax
+    lda $5156,X
+    sta $04
+    lda $5158,X
+    sta $02
+    lda $9887
+    cmp.w #$0003
+    beq C03863_AppendMushroomizedEntryAndRefreshController_L3863
+    lda $12
+    asl A
+    asl A
+    asl A
+    tax
+    lda $C3E012,X
+    sta $18
+    bra C03871_AppendMushroomizedEntryAndRefreshController_L3871
+C03863_AppendMushroomizedEntryAndRefreshController_L3863:
+    lda $12
+    asl A
+    asl A
+    asl A
+    tax
+    inx
+    inx
+    lda $C3E012,X
+    sta $18
+C03871_AppendMushroomizedEntryAndRefreshController_L3871:
+    lda.w #$E012
+    sta $06
+    lda.w #$00C3
+    sta $08
+    lda $04
+    sta $0E
+    lda $02
+    sta $10
+    ldy $1A
+    lda $12
+    asl A
+    asl A
+    asl A
+    inc A
+    inc A
+    inc A
+    inc A
+    ldx $06
+    stx $0A
+    ldx $08
+    stx $0C
+    clc
+    adc $0A
+    sta $0A
+    lda [$0A]
+    tax
+    lda $18
+    jsl !C01E49_CreateEntityFromDescriptor
+    lda $1A
+    asl A
+    tax
+    stx $14
+    lda $04
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $02
+    sec
+    sbc $0033
+    sta $0B52,X
+    ldy.w #$9889
+    sty $18
+    lda $988B
+    and.w #$00FF
+    dec A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$0006
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $0000,Y
+    jsl $C09CD7
+    jsl $C032EC
+    lda $9897
+    ldy $18
+    sta $0000,Y
+    jsl $C034D6
+    lda $04
+    sta $9E2D
+    lda $02
+    sta $9E2F
+    ldx $14
+    lda $2AF6,X
+    sta $9E31
+    lda $1A
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $02
+    ldy.w #$0000
+    bra C03915_AppendMushroomizedEntryAndRefreshController_L3915
+C03914_AppendMushroomizedEntryAndRefreshController_L3914:
+    iny
+C03915_AppendMushroomizedEntryAndRefreshController_L3915:
+    lda $988B,Y
+    and.w #$00FF
+    cmp $02
+    beq C03924_AppendMushroomizedEntryAndRefreshController_L3924
+    cpy.w #$0006
+    bne C03914_AppendMushroomizedEntryAndRefreshController_L3914
+C03924_AppendMushroomizedEntryAndRefreshController_L3924:
+    cpy.w #$0006
+    bne C0392C_AppendMushroomizedEntryAndRefreshController_L392C
+    jmp.w C039E3_AppendMushroomizedEntryAndRefreshController_L39E3
+C0392C_AppendMushroomizedEntryAndRefreshController_L392C:
+    tya
+    asl A
+    tax
+    lda $9897,X
+    sta $02
+    tya
+    sta $10
+    bra C03972_AppendMushroomizedEntryAndRefreshController_L3972
+C03939_AppendMushroomizedEntryAndRefreshController_L3939:
+    clc
+    adc.w #$97F5
+    tax
+    stx $0E
+    lda $10
+    tax
+    sep #$20
+    lda $988C,X
+    ldx $0E
+    sta $0096,X
+    rep #$20
+    lda $10
+    asl A
+    sta $04
+    ldx $04
+    lda $9899,X
+    ldx $04
+    sta $9897,X
+    lda $10
+    tax
+    sep #$20
+    lda $9892,X
+    ldx $0E
+    sta $009C,X
+    rep #$20
+    lda $10
+    inc A
+    sta $10
+C03972_AppendMushroomizedEntryAndRefreshController_L3972:
+    cmp.w #$0005
+    bcc C03939_AppendMushroomizedEntryAndRefreshController_L3939
+    cpy.w #$0000
+    bne C039AB_AppendMushroomizedEntryAndRefreshController_L39AB
+    lda.w #$9A0B
+    sta $04
+    lda $9891
+    and.w #$00FF
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc $04
+    pha
+    lda $02
+    asl A
+    tax
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc $04
+    tax
+    lda $0000,X
+    plx
+    sta $0000,X
+C039AB_AppendMushroomizedEntryAndRefreshController_L39AB:
+    lda $10
+    tax
+    sep #$20
+    stz $988B,X
+    ldx.w #$98A3
+    lda $0000,X
+    dec A
+    sta $0000,X
+    rep #$20
+    lda $02
+    asl A
+    tax
+    lda $0B8E,X
+    sta $9E2D
+    lda $0BCA,X
+    sta $9E2F
+    lda $2AF6,X
+    sta $9E31
+    lda $02
+    jsl $C02140
+    jsl $C032EC
+    jsl $C034D6
+C039E3_AppendMushroomizedEntryAndRefreshController_L39E3:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7544,14 +8356,40 @@ hirom
 org $C039E5
 
 C039E5_RefreshMushroomizedEntryTargetPositions:
-
-; Original data gap before C03A24_RefreshMushroomizedEntryTargetPositions_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A0,$00,$00,$84,$10,$80,$29,$B9
-db $8B,$98,$29,$FF,$00,$F0,$1C,$98,$0A,$AA,$BD,$97,$98,$85,$0E,$0A
-db $AA,$AD,$77,$98,$9D,$8E,$0B,$AD,$7B,$98,$9D,$CA,$0B,$A5,$0E,$22
-db $54,$A2,$C0,$A4,$10,$C8,$84,$10,$C0,$06,$00,$90,$D2,$2B,$6B
-
-C03A24_RefreshMushroomizedEntryTargetPositions_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    ldy.w #$0000
+    sty $10
+    bra C03A1D_RefreshMushroomizedEntryTargetPositions_L3A1D
+C039F4_RefreshMushroomizedEntryTargetPositions_L39F4:
+    lda $988B,Y
+    and.w #$00FF
+    beq C03A18_RefreshMushroomizedEntryTargetPositions_L3A18
+    tya
+    asl A
+    tax
+    lda $9897,X
+    sta $0E
+    asl A
+    tax
+    lda $9877
+    sta $0B8E,X
+    lda $987B
+    sta $0BCA,X
+    lda $0E
+    jsl $C0A254
+C03A18_RefreshMushroomizedEntryTargetPositions_L3A18:
+    ldy $10
+    iny
+    sty $10
+C03A1D_RefreshMushroomizedEntryTargetPositions_L3A1D:
+    cpy.w #$0006
+    bcc C039F4_RefreshMushroomizedEntryTargetPositions_L39F4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7562,17 +8400,62 @@ hirom
 org $C03A24
 
 C03A24_Rebuild_MushroomizedWalkingController:
-
-; Original data gap before C03A94_Rebuild_MushroomizedWalkingController_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$E2,$20,$A9,$00,$8D,$A4,$98,$8D
-db $A3,$98,$C2,$20,$A9,$00,$00,$85,$0E,$80,$1B,$18,$69,$F5,$97,$AA
-db $E2,$20,$9E,$96,$00,$9E,$9C,$00,$C2,$20,$A5,$0E,$0A,$AA,$9E,$97
-db $98,$A5,$0E,$1A,$85,$0E,$C9,$06,$00,$90,$E0,$A9,$01,$00,$8D,$7E
-db $5D,$A2,$00,$00,$86,$0E,$80,$14,$BD,$6F,$98,$29,$FF,$00,$F0,$11
-db $29,$FF,$00,$22,$9B,$36,$C0,$A6,$0E,$E8,$86,$0E,$E0,$06,$00,$90
-db $E7,$9C,$7E,$5D,$AD,$87,$98,$0A,$8D,$9A,$28,$9C,$9C,$28,$2B,$6B
-
-C03A94_Rebuild_MushroomizedWalkingController_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    sep #$20
+    lda.b #$00
+    sta $98A4
+    sta $98A3
+    rep #$20
+    lda.w #$0000
+    sta $0E
+    bra C03A5A_Rebuild_MushroomizedWalkingController_L3A5A
+C03A3F_Rebuild_MushroomizedWalkingController_L3A3F:
+    clc
+    adc.w #$97F5
+    tax
+    sep #$20
+    stz $0096,X
+    stz $009C,X
+    rep #$20
+    lda $0E
+    asl A
+    tax
+    stz $9897,X
+    lda $0E
+    inc A
+    sta $0E
+C03A5A_Rebuild_MushroomizedWalkingController_L3A5A:
+    cmp.w #$0006
+    bcc C03A3F_Rebuild_MushroomizedWalkingController_L3A3F
+    lda.w #$0001
+    sta $5D7E
+    ldx.w #$0000
+    stx $0E
+    bra C03A80_Rebuild_MushroomizedWalkingController_L3A80
+C03A6C_Rebuild_MushroomizedWalkingController_L3A6C:
+    lda $986F,X
+    and.w #$00FF
+    beq C03A85_Rebuild_MushroomizedWalkingController_L3A85
+    and.w #$00FF
+    jsl $C0369B
+    ldx $0E
+    inx
+    stx $0E
+C03A80_Rebuild_MushroomizedWalkingController_L3A80:
+    cpx.w #$0006
+    bcc C03A6C_Rebuild_MushroomizedWalkingController_L3A6C
+C03A85_Rebuild_MushroomizedWalkingController_L3A85:
+    stz $5D7E
+    lda $9887
+    asl A
+    sta $289A
+    stz $289C
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7582,37 +8465,199 @@ C03A94_Rebuild_MushroomizedWalkingController_End:
 hirom
 org $C03A94
 
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C03A94_RefreshPositionDerivedVisualContextClass:
-
-; Original data gap before C03C25_RefreshPositionDerivedVisualContextClass_End:
-db $C2,$31,$0B,$48,$7B,$69,$E0,$FF,$5B,$68,$85,$1E,$AD,$8A,$43,$0D
-db $8C,$43,$F0,$11,$AD,$8A,$43,$0A,$0A,$0A,$85,$1C,$AD,$8C,$43,$0A
-db $0A,$0A,$AA,$80,$08,$AD,$77,$98,$85,$1C,$AE,$7B,$98,$A5,$1C,$22
-db $A1,$0A,$C0,$29,$07,$00,$85,$1A,$8D,$87,$98,$0A,$8D,$9A,$28,$9C
-db $9C,$28,$A5,$1A,$C9,$03,$00,$F0,$05,$9C,$83,$98,$80,$06,$A9,$0A
-db $00,$8D,$83,$98,$AD,$42,$1A,$85,$18,$A9,$FF,$FF,$8D,$42,$1A,$64
-db $16,$4C,$D7,$3B,$A0,$8B,$98,$B1,$16,$29,$FF,$00,$AA,$D0,$03,$4C
-db $D5,$3B,$8A,$3A,$85,$04,$A5,$16,$0A,$A8,$B9,$97,$98,$85,$02,$0A
-db $AA,$BD,$5E,$0E,$8D,$38,$0A,$BD,$9A,$0E,$8D,$3A,$0A,$8C,$42,$0A
-db $BD,$6A,$11,$85,$14,$BD,$B6,$10,$85,$1A,$A5,$02,$22,$40,$21,$C0
-db $A5,$02,$8D,$73,$9F,$AD,$87,$98,$C9,$03,$00,$F0,$3E,$A5,$16,$A0
-db $5F,$00,$22,$F7,$8F,$C0,$18,$69,$CE,$99,$A8,$A2,$00,$00,$A5,$04
-db $22,$0F,$78,$C0,$85,$1C,$AD,$77,$98,$85,$0E,$AD,$7B,$98,$85,$10
-db $A4,$02,$A5,$04,$0A,$0A,$0A,$AA,$E8,$E8,$E8,$E8,$BF,$12,$E0,$C3
-db $AA,$A5,$1C,$22,$49,$1E,$C0,$85,$12,$80,$3C,$A5,$16,$A0,$5F,$00
-db $22,$F7,$8F,$C0,$18,$69,$CE,$99,$A8,$A2,$0A,$00,$A5,$04,$22,$0F
-db $78,$C0,$85,$1C,$AD,$77,$98,$85,$0E,$AD,$7B,$98,$85,$10,$A4,$02
-db $A5,$04,$0A,$0A,$0A,$AA,$E8,$E8,$E8,$E8,$BF,$12,$E0,$C3,$AA,$A5
-db $1C,$22,$49,$1E,$C0,$85,$12,$0A,$AA,$A5,$14,$9D,$6A,$11,$A5,$1A
-db $9D,$B6,$10,$A5,$1E,$9D,$F6,$2A,$9E,$F2,$10,$A5,$12,$22,$80,$A7
-db $C0,$E6,$16,$A5,$16,$C9,$06,$00,$B0,$05,$F0,$03,$4C,$F8,$3A,$A5
-db $18,$8D,$42,$1A,$22,$E5,$39,$C0,$A9,$FF,$FF,$8D,$A8,$5D,$AD,$9A
-db $5D,$85,$02,$9C,$9A,$5D,$A9,$04,$00,$85,$0E,$AC,$89,$98,$AE,$7B
-db $98,$AD,$77,$98,$22,$7B,$5B,$C0,$A5,$02,$8D,$9A,$5D,$AD,$A8,$5D
-db $C9,$FF,$FF,$F0,$0A,$AE,$AA,$5D,$AD,$A8,$5D,$22,$26,$75,$C0,$2B
-db $6B
-
-C03C25_RefreshPositionDerivedVisualContextClass_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE0
+    tcd
+    pla
+    sta $1E
+    lda $438A
+    ora $438C
+    beq C03AB9_RefreshPositionDerivedVisualContextClass_L3AB9
+    lda $438A
+    asl A
+    asl A
+    asl A
+    sta $1C
+    lda $438C
+    asl A
+    asl A
+    asl A
+    tax
+    bra C03AC1_RefreshPositionDerivedVisualContextClass_L3AC1
+C03AB9_RefreshPositionDerivedVisualContextClass_L3AB9:
+    lda $9877
+    sta $1C
+    ldx $987B
+C03AC1_RefreshPositionDerivedVisualContextClass_L3AC1:
+    lda $1C
+    jsl $C00AA1
+    and.w #$0007
+    sta $1A
+    sta $9887
+    asl A
+    sta $289A
+    stz $289C
+    lda $1A
+    cmp.w #$0003
+    beq C03AE2_RefreshPositionDerivedVisualContextClass_L3AE2
+    stz $9883
+    bra C03AE8_RefreshPositionDerivedVisualContextClass_L3AE8
+C03AE2_RefreshPositionDerivedVisualContextClass_L3AE2:
+    lda.w #$000A
+    sta $9883
+C03AE8_RefreshPositionDerivedVisualContextClass_L3AE8:
+    lda $1A42
+    sta $18
+    lda.w #$FFFF
+    sta $1A42
+    stz $16
+    jmp.w C03BD7_RefreshPositionDerivedVisualContextClass_L3BD7
+C03AF8_RefreshPositionDerivedVisualContextClass_L3AF8:
+    ldy.w #$988B
+    lda ($16),Y
+    and.w #$00FF
+    tax
+    bne C03B06_RefreshPositionDerivedVisualContextClass_L3B06
+    jmp.w C03BD5_RefreshPositionDerivedVisualContextClass_L3BD5
+C03B06_RefreshPositionDerivedVisualContextClass_L3B06:
+    txa
+    dec A
+    sta $04
+    lda $16
+    asl A
+    tay
+    lda $9897,Y
+    sta $02
+    asl A
+    tax
+    lda $0E5E,X
+    sta $0A38
+    lda $0E9A,X
+    sta $0A3A
+    sty $0A42
+    lda $116A,X
+    sta $14
+    lda $10B6,X
+    sta $1A
+    lda $02
+    jsl $C02140
+    lda $02
+    sta $9F73
+    lda $9887
+    cmp.w #$0003
+    beq C03B7F_RefreshPositionDerivedVisualContextClass_L3B7F
+    lda $16
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tay
+    ldx.w #$0000
+    lda $04
+    jsl $C0780F
+    sta $1C
+    lda $9877
+    sta $0E
+    lda $987B
+    sta $10
+    ldy $02
+    lda $04
+    asl A
+    asl A
+    asl A
+    tax
+    inx
+    inx
+    inx
+    inx
+    lda $C3E012,X
+    tax
+    lda $1C
+    jsl !C01E49_CreateEntityFromDescriptor
+    sta $12
+    bra C03BBB_RefreshPositionDerivedVisualContextClass_L3BBB
+C03B7F_RefreshPositionDerivedVisualContextClass_L3B7F:
+    lda $16
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tay
+    ldx.w #$000A
+    lda $04
+    jsl $C0780F
+    sta $1C
+    lda $9877
+    sta $0E
+    lda $987B
+    sta $10
+    ldy $02
+    lda $04
+    asl A
+    asl A
+    asl A
+    tax
+    inx
+    inx
+    inx
+    inx
+    lda $C3E012,X
+    tax
+    lda $1C
+    jsl !C01E49_CreateEntityFromDescriptor
+    sta $12
+C03BBB_RefreshPositionDerivedVisualContextClass_L3BBB:
+    asl A
+    tax
+    lda $14
+    sta $116A,X
+    lda $1A
+    sta $10B6,X
+    lda $1E
+    sta $2AF6,X
+    stz $10F2,X
+    lda $12
+    jsl $C0A780
+C03BD5_RefreshPositionDerivedVisualContextClass_L3BD5:
+    inc $16
+C03BD7_RefreshPositionDerivedVisualContextClass_L3BD7:
+    lda $16
+    cmp.w #$0006
+    bcs C03BE3_RefreshPositionDerivedVisualContextClass_L3BE3
+    beq C03BE3_RefreshPositionDerivedVisualContextClass_L3BE3
+    jmp.w C03AF8_RefreshPositionDerivedVisualContextClass_L3AF8
+C03BE3_RefreshPositionDerivedVisualContextClass_L3BE3:
+    lda $18
+    sta $1A42
+    jsl $C039E5
+    lda.w #$FFFF
+    sta $5DA8
+    lda $5D9A
+    sta $02
+    stz $5D9A
+    lda.w #$0004
+    sta $0E
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05B7B
+    lda $02
+    sta $5D9A
+    lda $5DA8
+    cmp.w #$FFFF
+    beq C03C23_RefreshPositionDerivedVisualContextClass_L3C23
+    ldx $5DAA
+    lda $5DA8
+    jsl $C07526
+C03C23_RefreshPositionDerivedVisualContextClass_L3C23:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7622,14 +8667,22 @@ C03C25_RefreshPositionDerivedVisualContextClass_End:
 hirom
 org $C03C25
 
+!C08756_WaitOneFrameAndPollInput = $C08756
 C03C25_Refresh_DestinationContextIfPositionChanged:
-
-; Original data gap before C03C4B_Refresh_DestinationContextIfPositionChanged_End:
-db $C2,$31,$A9,$01,$00,$8D,$DA,$5D,$AE,$7B,$98,$AD,$77,$98,$22,$F4
-db $68,$C0,$AD,$D6,$5D,$CD,$D4,$5D,$F0,$08,$22,$56,$87,$C0,$22,$AF
-db $69,$C0,$9C,$DA,$5D,$60
-
-C03C4B_Refresh_DestinationContextIfPositionChanged_End:
+    rep #$31
+    lda.w #$0001
+    sta $5DDA
+    ldx $987B
+    lda $9877
+    jsl $C068F4
+    lda $5DD6
+    cmp $5DD4
+    beq C03C47_Refresh_DestinationContextIfPositionChanged_L3C47
+    jsl !C08756_WaitOneFrameAndPollInput
+    jsl $C069AF
+C03C47_Refresh_DestinationContextIfPositionChanged_L3C47:
+    stz $5DDA
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7640,12 +8693,13 @@ hirom
 org $C03C4B
 
 C03C4B_Probe_CurrentPositionHighCollisionBits:
-
-; Original data gap before C03C5E_Probe_CurrentPositionHighCollisionBits_End:
-db $C2,$31,$A0,$0C,$00,$AE,$7B,$98,$AD,$77,$98,$22,$8B,$5D,$C0,$29
-db $C0,$00,$6B
-
-C03C5E_Probe_CurrentPositionHighCollisionBits_End:
+    rep #$31
+    ldy.w #$000C
+    ldx $987B
+    lda $9877
+    jsl $C05D8B
+    and.w #$00C0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7655,21 +8709,70 @@ C03C5E_Probe_CurrentPositionHighCollisionBits_End:
 hirom
 org $C03C5E
 
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C03C5E_Get_OnBicycle:
-
-; Original data gap before C03CFD_Get_OnBicycle_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$A3,$98,$29,$FF,$00,$C9,$01
-db $00,$F0,$03,$4C,$FB,$3C,$AD,$8B,$98,$29,$FF,$00,$C9,$01,$00,$F0
-db $03,$4C,$FB,$3C,$AD,$D8,$5D,$D0,$07,$A9,$52,$00,$22,$BD,$FB,$C4
-db $A9,$18,$00,$22,$40,$21,$C0,$A9,$06,$00,$8D,$87,$98,$A9,$03,$00
-db $8D,$83,$98,$9C,$0B,$9A,$9C,$7D,$98,$9C,$38,$0A,$9C,$3A,$0A,$AD
-db $BE,$0B,$85,$0E,$AD,$FA,$0B,$85,$10,$A0,$18,$00,$A2,$02,$00,$A9
-db $07,$00,$22,$49,$1E,$C0,$A2,$E6,$10,$BD,$00,$00,$09,$00,$80,$9D
-db $00,$00,$A2,$32,$10,$BD,$00,$00,$09,$00,$30,$9D,$00,$00,$9C,$22
-db $11,$AD,$7F,$98,$8D,$26,$2B,$A9,$00,$00,$22,$45,$FD,$C4,$A9,$01
-db $00,$8D,$85,$98,$8D,$BA,$5D,$A9,$02,$00,$8D,$74,$5D,$2B,$6B
-
-C03CFD_Get_OnBicycle_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $98A3
+    and.w #$00FF
+    cmp.w #$0001
+    beq C03C74_Get_OnBicycle_L3C74
+    jmp.w C03CFB_Get_OnBicycle_L3CFB
+C03C74_Get_OnBicycle_L3C74:
+    lda $988B
+    and.w #$00FF
+    cmp.w #$0001
+    beq C03C82_Get_OnBicycle_L3C82
+    jmp.w C03CFB_Get_OnBicycle_L3CFB
+C03C82_Get_OnBicycle_L3C82:
+    lda $5DD8
+    bne C03C8E_Get_OnBicycle_L3C8E
+    lda.w #$0052
+    jsl !C4FBBD_PlaySoundStoneMelody
+C03C8E_Get_OnBicycle_L3C8E:
+    lda.w #$0018
+    jsl $C02140
+    lda.w #$0006
+    sta $9887
+    lda.w #$0003
+    sta $9883
+    stz $9A0B
+    stz $987D
+    stz $0A38
+    stz $0A3A
+    lda $0BBE
+    sta $0E
+    lda $0BFA
+    sta $10
+    ldy.w #$0018
+    ldx.w #$0002
+    lda.w #$0007
+    jsl !C01E49_CreateEntityFromDescriptor
+    ldx.w #$10E6
+    lda $0000,X
+    ora.w #$8000
+    sta $0000,X
+    ldx.w #$1032
+    lda $0000,X
+    ora.w #$3000
+    sta $0000,X
+    stz $1122
+    lda $987F
+    sta $2B26
+    lda.w #$0000
+    jsl $C4FD45
+    lda.w #$0001
+    sta $9885
+    sta $5DBA
+    lda.w #$0002
+    sta $5D74
+C03CFB_Get_OnBicycle_L3CFB:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7679,22 +8782,77 @@ C03CFD_Get_OnBicycle_End:
 hirom
 org $C03CFD
 
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C09466_RefreshActiveEntitySpriteState = $C09466
 C03CFD_Restore_LeaderEntityFromBicycleMode:
-
-; Original data gap before C03DAA_Restore_LeaderEntityFromBicycleMode_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$83,$98,$C9,$03,$00,$F0,$03
-db $4C,$A8,$3D,$A9,$01,$00,$22,$45,$FD,$C4,$AD,$C2,$4D,$D0,$09,$AD
-db $9A,$5D,$D0,$04,$22,$07,$6A,$C0,$A9,$18,$00,$22,$40,$21,$C0,$9C
-db $87,$98,$9C,$83,$98,$9C,$0B,$9A,$9C,$7D,$98,$AD,$9A,$5D,$D0,$10
-db $22,$B1,$88,$C0,$22,$66,$94,$C0,$22,$26,$8B,$C0,$22,$56,$87,$C0
-db $9C,$38,$0A,$9C,$3A,$0A,$AD,$BE,$0B,$85,$0E,$AD,$FA,$0B,$85,$10
-db $A0,$18,$00,$A2,$02,$00,$A9,$01,$00,$22,$49,$1E,$C0,$9C,$22,$11
-db $AD,$7F,$98,$8D,$26,$2B,$A2,$32,$10,$BD,$00,$00,$09,$00,$90,$9D
-db $00,$00,$AD,$9A,$5D,$F0,$1B,$A2,$E6,$10,$BD,$00,$00,$09,$00,$C0
-db $9D,$00,$00,$22,$56,$87,$C0,$22,$56,$87,$C0,$A9,$18,$00,$22,$80
-db $A7,$C0,$9C,$BA,$5D,$A9,$02,$00,$8D,$74,$5D,$2B,$6B
-
-C03DAA_Restore_LeaderEntityFromBicycleMode_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $9883
+    cmp.w #$0003
+    beq C03D10_Restore_LeaderEntityFromBicycleMode_L3D10
+    jmp.w C03DA8_Restore_LeaderEntityFromBicycleMode_L3DA8
+C03D10_Restore_LeaderEntityFromBicycleMode_L3D10:
+    lda.w #$0001
+    jsl $C4FD45
+    lda $4DC2
+    bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
+    lda $5D9A
+    bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
+    jsl $C06A07
+C03D25_Restore_LeaderEntityFromBicycleMode_L3D25:
+    lda.w #$0018
+    jsl $C02140
+    stz $9887
+    stz $9883
+    stz $9A0B
+    stz $987D
+    lda $5D9A
+    bne C03D4D_Restore_LeaderEntityFromBicycleMode_L3D4D
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+C03D4D_Restore_LeaderEntityFromBicycleMode_L3D4D:
+    stz $0A38
+    stz $0A3A
+    lda $0BBE
+    sta $0E
+    lda $0BFA
+    sta $10
+    ldy.w #$0018
+    ldx.w #$0002
+    lda.w #$0001
+    jsl !C01E49_CreateEntityFromDescriptor
+    stz $1122
+    lda $987F
+    sta $2B26
+    ldx.w #$1032
+    lda $0000,X
+    ora.w #$9000
+    sta $0000,X
+    lda $5D9A
+    beq C03D9F_Restore_LeaderEntityFromBicycleMode_L3D9F
+    ldx.w #$10E6
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+    jsl !C08756_WaitOneFrameAndPollInput
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda.w #$0018
+    jsl $C0A780
+C03D9F_Restore_LeaderEntityFromBicycleMode_L3D9F:
+    stz $5DBA
+    lda.w #$0002
+    sta $5D74
+C03DA8_Restore_LeaderEntityFromBicycleMode_L3DA8:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7704,19 +8862,62 @@ C03DAA_Restore_LeaderEntityFromBicycleMode_End:
 hirom
 org $C03DAA
 
+!C08E9A_GetRandom16 = $C08E9A
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C03DAA_Sync_CurrentSlotToPartyCharacterRecord:
-
-; Original data gap before C03E25_Sync_CurrentSlotToPartyCharacterRecord_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$85,$02,$0A,$A8,$84
-db $0E,$A9,$FF,$FF,$99,$56,$34,$98,$18,$69,$12,$0F,$85,$04,$A9,$08
-db $00,$A6,$04,$9D,$00,$00,$22,$9A,$8E,$C0,$29,$0F,$00,$A4,$0E,$99
-db $D6,$0E,$A5,$02,$22,$80,$A7,$C0,$A4,$0E,$B9,$9A,$0E,$A0,$5F,$00
-db $22,$F7,$8F,$C0,$18,$69,$CE,$99,$AA,$A5,$02,$9D,$3B,$00,$A4,$0E
-db $B9,$5E,$0E,$9D,$35,$00,$9E,$39,$00,$A9,$FF,$FF,$9D,$5C,$00,$BD
-db $0E,$00,$29,$FF,$00,$C9,$01,$00,$D0,$08,$A9,$10,$00,$A6,$04,$9D
-db $00,$00,$AD,$89,$98,$0A,$8D,$98,$28,$2B,$6B
-
-C03E25_Sync_CurrentSlotToPartyCharacterRecord_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    sta $02
+    asl A
+    tay
+    sty $0E
+    lda.w #$FFFF
+    sta $3456,Y
+    tya
+    clc
+    adc.w #$0F12
+    sta $04
+    lda.w #$0008
+    ldx $04
+    sta $0000,X
+    jsl !C08E9A_GetRandom16
+    and.w #$000F
+    ldy $0E
+    sta $0ED6,Y
+    lda $02
+    jsl $C0A780
+    ldy $0E
+    lda $0E9A,Y
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tax
+    lda $02
+    sta $003B,X
+    ldy $0E
+    lda $0E5E,Y
+    sta $0035,X
+    stz $0039,X
+    lda.w #$FFFF
+    sta $005C,X
+    lda $000E,X
+    and.w #$00FF
+    cmp.w #$0001
+    bne C03E1C_Sync_CurrentSlotToPartyCharacterRecord_L3E1C
+    lda.w #$0010
+    ldx $04
+    sta $0000,X
+C03E1C_Sync_CurrentSlotToPartyCharacterRecord_L3E1C:
+    lda $9889
+    asl A
+    sta $2898
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7727,14 +8928,37 @@ hirom
 org $C03E25
 
 C03E25_Get_PreviousRegistryTypeCode:
-
-; Original data gap before C03E5A_Get_PreviousRegistryTypeCode_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$A2,$00,$00,$80
-db $01,$E8,$A5,$0E,$85,$02,$E6,$02,$BD,$8B,$98,$29,$FF,$00,$C5,$02
-db $D0,$EF,$E0,$00,$00,$D0,$05,$A9,$FF,$FF,$80,$07,$CA,$BD,$8B,$98
-db $29,$FF,$00,$2B,$60
-
-C03E5A_Get_PreviousRegistryTypeCode_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    ldx.w #$0000
+    bra C03E37_Get_PreviousRegistryTypeCode_L3E37
+C03E36_Get_PreviousRegistryTypeCode_L3E36:
+    inx
+C03E37_Get_PreviousRegistryTypeCode_L3E37:
+    lda $0E
+    sta $02
+    inc $02
+    lda $988B,X
+    and.w #$00FF
+    cmp $02
+    bne C03E36_Get_PreviousRegistryTypeCode_L3E36
+    cpx.w #$0000
+    bne C03E51_Get_PreviousRegistryTypeCode_L3E51
+    lda.w #$FFFF
+    bra C03E58_Get_PreviousRegistryTypeCode_L3E58
+C03E51_Get_PreviousRegistryTypeCode_L3E51:
+    dex
+    lda $988B,X
+    and.w #$00FF
+C03E58_Get_PreviousRegistryTypeCode_L3E58:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7745,15 +8969,47 @@ hirom
 org $C03E5A
 
 C03E5A_Get_PreviousRegistryObjectOrderByte:
-
-; Original data gap before C03E9D_Get_PreviousRegistryObjectOrderByte_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$A2,$00,$00,$80
-db $01,$E8,$A5,$0E,$85,$02,$E6,$02,$BD,$8B,$98,$29,$FF,$00,$C5,$02
-db $D0,$EF,$E0,$00,$00,$D0,$05,$A9,$FF,$FF,$80,$15,$8A,$3A,$0A,$AA
-db $BD,$97,$98,$0A,$AA,$BD,$9A,$0E,$0A,$AA,$BD,$C8,$4D,$AA,$BD,$3D
-db $00,$2B,$60
-
-C03E9D_Get_PreviousRegistryObjectOrderByte_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    ldx.w #$0000
+    bra C03E6C_Get_PreviousRegistryObjectOrderByte_L3E6C
+C03E6B_Get_PreviousRegistryObjectOrderByte_L3E6B:
+    inx
+C03E6C_Get_PreviousRegistryObjectOrderByte_L3E6C:
+    lda $0E
+    sta $02
+    inc $02
+    lda $988B,X
+    and.w #$00FF
+    cmp $02
+    bne C03E6B_Get_PreviousRegistryObjectOrderByte_L3E6B
+    cpx.w #$0000
+    bne C03E86_Get_PreviousRegistryObjectOrderByte_L3E86
+    lda.w #$FFFF
+    bra C03E9B_Get_PreviousRegistryObjectOrderByte_L3E9B
+C03E86_Get_PreviousRegistryObjectOrderByte_L3E86:
+    txa
+    dec A
+    asl A
+    tax
+    lda $9897,X
+    asl A
+    tax
+    lda $0E9A,X
+    asl A
+    tax
+    lda $4DC8,X
+    tax
+    lda $003D,X
+C03E9B_Get_PreviousRegistryObjectOrderByte_L3E9B:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7764,13 +9020,28 @@ hirom
 org $C03E9D
 
 C03E9D_Measure_PreviousRegistryOrderDelta:
-
-; Original data gap before C03EC3_Measure_PreviousRegistryOrderDelta_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$20,$5A,$3E,$85,$0E,$AE
-db $C6,$4D,$BD,$3D,$00,$85,$02,$A5,$0E,$C5,$02,$B0,$04,$18,$69,$00
-db $01,$38,$E5,$02,$2B,$6B
-
-C03EC3_Measure_PreviousRegistryOrderDelta_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    jsr $3E5A
+    sta $0E
+    ldx $4DC6
+    lda $003D,X
+    sta $02
+    lda $0E
+    cmp $02
+    bcs C03EBE_Measure_PreviousRegistryOrderDelta_L3EBE
+    clc
+    adc.w #$0100
+C03EBE_Measure_PreviousRegistryOrderDelta_L3EBE:
+    sec
+    sbc $02
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7781,16 +9052,57 @@ hirom
 org $C03EC3
 
 C03EC3_Advance_RegistryOrderAndUpdateGapFlag:
-
-; Original data gap before C03F1E_Advance_RegistryOrderAndUpdateGapFlag_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$84,$0E,$86,$02,$AA,$A5
-db $1E,$85,$04,$8A,$22,$9D,$3E,$C0,$C5,$02,$D0,$19,$A4,$0E,$C8,$84
-db $0E,$AD,$42,$1A,$0A,$18,$69,$02,$10,$AA,$BD,$00,$00,$29,$FF,$EF
-db $9D,$00,$00,$80,$21,$C5,$02,$90,$1D,$F0,$1B,$A4,$0E,$98,$18,$65
-db $04,$A8,$84,$0E,$AD,$42,$1A,$0A,$18,$69,$02,$10,$AA,$BD,$00,$00
-db $09,$00,$10,$9D,$00,$00,$A4,$0E,$98,$2B,$6B
-
-C03F1E_Advance_RegistryOrderAndUpdateGapFlag_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sty $0E
+    stx $02
+    tax
+    lda $1E
+    sta $04
+    txa
+    jsl $C03E9D
+    cmp $02
+    bne C03EF8_Advance_RegistryOrderAndUpdateGapFlag_L3EF8
+    ldy $0E
+    iny
+    sty $0E
+    lda $1A42
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    and.w #$EFFF
+    sta $0000,X
+    bra C03F19_Advance_RegistryOrderAndUpdateGapFlag_L3F19
+C03EF8_Advance_RegistryOrderAndUpdateGapFlag_L3EF8:
+    cmp $02
+    bcc C03F19_Advance_RegistryOrderAndUpdateGapFlag_L3F19
+    beq C03F19_Advance_RegistryOrderAndUpdateGapFlag_L3F19
+    ldy $0E
+    tya
+    clc
+    adc $04
+    tay
+    sty $0E
+    lda $1A42
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$1000
+    sta $0000,X
+C03F19_Advance_RegistryOrderAndUpdateGapFlag_L3F19:
+    ldy $0E
+    tya
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7801,19 +9113,70 @@ hirom
 org $C03F1E
 
 C03F1E_Apply_TransitionSnapshotToRegistryEntities:
-
-; Original data gap before C03FA9_Apply_TransitionSnapshotToRegistryEntities_End:
-db $C2,$31,$0B,$7B,$69,$F2,$FF,$5B,$9C,$7D,$98,$A2,$56,$51,$A0,$02
-db $00,$AD,$77,$98,$9D,$00,$00,$AD,$7B,$98,$9D,$02,$00,$AD,$7F,$98
-db $9D,$08,$00,$AD,$83,$98,$9D,$06,$00,$AD,$81,$98,$9D,$04,$00,$9C
-db $56,$5D,$9E,$0A,$00,$8A,$18,$69,$F4,$0B,$AA,$88,$D0,$D3,$A0,$00
-db $00,$80,$39,$B9,$91,$98,$29,$FF,$00,$0A,$AA,$BD,$C8,$4D,$AA,$9E
-db $3D,$00,$A9,$FF,$FF,$9D,$41,$00,$9D,$37,$00,$98,$0A,$AA,$BD,$97
-db $98,$0A,$AA,$AD,$77,$98,$9D,$8E,$0B,$AD,$7B,$98,$9D,$CA,$0B,$AD
-db $7F,$98,$9D,$F6,$2A,$AD,$81,$98,$9D,$AA,$2B,$C8,$AD,$A3,$98,$29
-db $FF,$00,$85,$02,$98,$C5,$02,$90,$BA,$2B,$6B
-
-C03FA9_Apply_TransitionSnapshotToRegistryEntities_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF2
+    tcd
+    stz $987D
+    ldx.w #$5156
+    ldy.w #$0002
+C03F2F_Apply_TransitionSnapshotToRegistryEntities_L3F2F:
+    lda $9877
+    sta $0000,X
+    lda $987B
+    sta $0002,X
+    lda $987F
+    sta $0008,X
+    lda $9883
+    sta $0006,X
+    lda $9881
+    sta $0004,X
+    stz $5D56
+    stz $000A,X
+    txa
+    clc
+    adc.w #$0BF4
+    tax
+    dey
+    bne C03F2F_Apply_TransitionSnapshotToRegistryEntities_L3F2F
+    ldy.w #$0000
+    bra C03F9A_Apply_TransitionSnapshotToRegistryEntities_L3F9A
+C03F61_Apply_TransitionSnapshotToRegistryEntities_L3F61:
+    lda $9891,Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $4DC8,X
+    tax
+    stz $003D,X
+    lda.w #$FFFF
+    sta $0041,X
+    sta $0037,X
+    tya
+    asl A
+    tax
+    lda $9897,X
+    asl A
+    tax
+    lda $9877
+    sta $0B8E,X
+    lda $987B
+    sta $0BCA,X
+    lda $987F
+    sta $2AF6,X
+    lda $9881
+    sta $2BAA,X
+    iny
+C03F9A_Apply_TransitionSnapshotToRegistryEntities_L3F9A:
+    lda $98A3
+    and.w #$00FF
+    sta $02
+    tya
+    cmp $02
+    bcc C03F61_Apply_TransitionSnapshotToRegistryEntities_L3F61
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7823,20 +9186,71 @@ C03FA9_Apply_TransitionSnapshotToRegistryEntities_End:
 hirom
 org $C03FA9
 
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C21628_CheckEventFlag = $C21628
 C03FA9_Refresh_PostTransitionEntityPlacement:
-
-; Original data gap before C0402B_Refresh_PostTransitionEntityPlacement_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$84,$02,$85,$0E,$8D,$77
-db $98,$8E,$7B,$98,$A5,$02,$8D,$7F,$98,$AC,$89,$98,$A5,$0E,$22,$33
-db $5F,$C0,$8D,$81,$98,$A5,$02,$22,$94,$3A,$C0,$22,$1E,$3F,$C0,$A9
-db $00,$00,$85,$0E,$80,$0D,$0A,$AA,$A9,$FF,$FF,$9D,$86,$34,$A5,$0E
-db $1A,$85,$0E,$C9,$06,$00,$90,$EE,$A9,$FF,$FF,$8D,$6B,$9F,$9C,$8C
-db $43,$9C,$8A,$43,$AF,$86,$01,$C3,$22,$28,$16,$C2,$8D,$71,$9F,$22
-db $52,$7B,$C0,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85
-db $0E,$8A,$38,$E9,$70,$00,$AA,$A5,$0E,$38,$E9,$80,$00,$20,$58,$15
-db $2B,$6B
-
-C0402B_Refresh_PostTransitionEntityPlacement_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sty $02
+    sta $0E
+    sta $9877
+    stx $987B
+    lda $02
+    sta $987F
+    ldy $9889
+    lda $0E
+    jsl $C05F33
+    sta $9881
+    lda $02
+    jsl $C03A94
+    jsl $C03F1E
+    lda.w #$0000
+    sta $0E
+    bra C03FEC_Refresh_PostTransitionEntityPlacement_L3FEC
+C03FDF_Refresh_PostTransitionEntityPlacement_L3FDF:
+    asl A
+    tax
+    lda.w #$FFFF
+    sta $3486,X
+    lda $0E
+    inc A
+    sta $0E
+C03FEC_Refresh_PostTransitionEntityPlacement_L3FEC:
+    cmp.w #$0006
+    bcc C03FDF_Refresh_PostTransitionEntityPlacement_L3FDF
+    lda.w #$FFFF
+    sta $9F6B
+    stz $438C
+    stz $438A
+    lda $C30186
+    jsl !C21628_CheckEventFlag
+    sta $9F71
+    jsl !C07B52_RebuildPartyRecordsOrEntityState
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    txa
+    sec
+    sbc.w #$0070
+    tax
+    lda $0E
+    sec
+    sbc.w #$0080
+    jsr $1558
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7847,12 +9261,22 @@ hirom
 org $C0402B
 
 C0402B_Install_AnimationScriptFromCallerPointer:
-
-; Original data gap before C04049_Install_AnimationScriptFromCallerPointer_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A5,$20,$85,$06,$A5,$22,$85,$08
-db $A5,$06,$85,$0E,$A5,$08,$85,$10,$22,$E3,$83,$C0,$2B,$6B
-
-C04049_Install_AnimationScriptFromCallerPointer_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $20
+    sta $06
+    lda $22
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsl $C083E3
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7863,11 +9287,9 @@ hirom
 org $C04049
 
 C04049_Clear_AnimationScriptCountdown:
-
-; Original data gap before C0404F_Clear_AnimationScriptCountdown_End:
-db $C2,$31,$9C,$81,$00,$6B
-
-C0404F_Clear_AnimationScriptCountdown_End:
+    rep #$31
+    stz $0081
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7878,23 +9300,106 @@ hirom
 org $C0404F
 
 C0404F_MapInputToDirection:
-
-; Original data gap before C04116_MapInputToDirection_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$10,$A2,$FF,$FF,$86
-db $0E,$AD,$9A,$5D,$F0,$04,$8A,$4C,$14,$41,$A5,$10,$0A,$AA,$BF,$2C
-db $E1,$C3,$85,$10,$AD,$65,$00,$29,$00,$0F,$C9,$00,$08,$F0,$25,$C9
-db $00,$09,$F0,$2E,$C9,$00,$01,$F0,$37,$C9,$00,$05,$F0,$40,$C9,$00
-db $04,$F0,$49,$C9,$00,$06,$F0,$52,$C9,$00,$02,$F0,$5B,$C9,$00,$0A
-db $F0,$64,$80,$6E,$A5,$10,$29,$01,$00,$F0,$67,$A2,$00,$00,$86,$0E
-db $80,$60,$A5,$10,$29,$02,$00,$F0,$59,$A2,$01,$00,$86,$0E,$80,$52
-db $A5,$10,$29,$04,$00,$F0,$4B,$A2,$02,$00,$86,$0E,$80,$44,$A5,$10
-db $29,$08,$00,$F0,$3D,$A2,$03,$00,$86,$0E,$80,$36,$A5,$10,$29,$10
-db $00,$F0,$2F,$A2,$04,$00,$86,$0E,$80,$28,$A5,$10,$29,$20,$00,$F0
-db $21,$A2,$05,$00,$86,$0E,$80,$1A,$A5,$10,$29,$40,$00,$F0,$13,$A2
-db $06,$00,$86,$0E,$80,$0C,$A5,$10,$29,$80,$00,$F0,$05,$A2,$07,$00
-db $86,$0E,$A6,$0E,$8A,$2B,$6B
-
-C04116_MapInputToDirection_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $10
+    ldx.w #$FFFF
+    stx $0E
+    lda $5D9A
+    beq C04069_MapInputToDirection_L4069
+    txa
+    jmp.w C04114_MapInputToDirection_L4114
+C04069_MapInputToDirection_L4069:
+    lda $10
+    asl A
+    tax
+    lda $C3E12C,X
+    sta $10
+    lda $0065
+    and.w #$0F00
+    cmp.w #$0800
+    beq C040A3_MapInputToDirection_L40A3
+    cmp.w #$0900
+    beq C040B1_MapInputToDirection_L40B1
+    cmp.w #$0100
+    beq C040BF_MapInputToDirection_L40BF
+    cmp.w #$0500
+    beq C040CD_MapInputToDirection_L40CD
+    cmp.w #$0400
+    beq C040DB_MapInputToDirection_L40DB
+    cmp.w #$0600
+    beq C040E9_MapInputToDirection_L40E9
+    cmp.w #$0200
+    beq C040F7_MapInputToDirection_L40F7
+    cmp.w #$0A00
+    beq C04105_MapInputToDirection_L4105
+    bra C04111_MapInputToDirection_L4111
+C040A3_MapInputToDirection_L40A3:
+    lda $10
+    and.w #$0001
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0000
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040B1_MapInputToDirection_L40B1:
+    lda $10
+    and.w #$0002
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0001
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040BF_MapInputToDirection_L40BF:
+    lda $10
+    and.w #$0004
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0002
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040CD_MapInputToDirection_L40CD:
+    lda $10
+    and.w #$0008
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0003
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040DB_MapInputToDirection_L40DB:
+    lda $10
+    and.w #$0010
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0004
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040E9_MapInputToDirection_L40E9:
+    lda $10
+    and.w #$0020
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0005
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C040F7_MapInputToDirection_L40F7:
+    lda $10
+    and.w #$0040
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0006
+    stx $0E
+    bra C04111_MapInputToDirection_L4111
+C04105_MapInputToDirection_L4105:
+    lda $10
+    and.w #$0080
+    beq C04111_MapInputToDirection_L4111
+    ldx.w #$0007
+    stx $0E
+C04111_MapInputToDirection_L4111:
+    ldx $0E
+    txa
+C04114_MapInputToDirection_L4114:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7905,23 +9410,109 @@ hirom
 org $C04116
 
 C04116_Probe_InteractableInFacingDirection:
-
-; Original data gap before C041E3_Probe_InteractableInFacingDirection_End:
-db $C2,$31,$0B,$48,$7B,$69,$E8,$FF,$5B,$68,$85,$16,$0A,$AA,$BF,$48
-db $E1,$C3,$18,$6D,$77,$98,$85,$14,$BF,$58,$E1,$C3,$18,$6D,$7B,$98
-db $85,$04,$AD,$58,$5D,$85,$12,$A9,$01,$00,$8D,$58,$5D,$A9,$89,$98
-db $85,$02,$A6,$02,$BD,$00,$00,$A8,$A6,$04,$A5,$14,$22,$F6,$5F,$C0
-db $85,$10,$C9,$00,$80,$B0,$0F,$0A,$AA,$BD,$9A,$2C,$8D,$62,$5D,$A5
-db $10,$8D,$64,$5D,$80,$5A,$A5,$16,$85,$0E,$A6,$02,$BD,$00,$00,$A8
-db $A6,$04,$A5,$14,$22,$D7,$5C,$C0,$29,$82,$00,$C9,$82,$00,$D0,$40
-db $A5,$16,$0A,$AA,$BF,$48,$E1,$C3,$F0,$13,$29,$00,$80,$F0,$05,$A2
-db $F8,$FF,$80,$03,$A2,$08,$00,$8A,$18,$65,$14,$85,$14,$A5,$16,$0A
-db $AA,$BF,$58,$E1,$C3,$F0,$96,$29,$00,$80,$F0,$05,$A2,$F8,$FF,$80
-db $03,$A2,$08,$00,$86,$02,$A5,$04,$18,$65,$02,$85,$04,$4C,$43,$41
-db $A5,$12,$8D,$58,$5D,$AD,$62,$5D,$C9,$FF,$FF,$F0,$05,$AD,$62,$5D
-db $D0,$06,$A5,$16,$22,$4A,$33,$C4,$AD,$62,$5D,$2B,$60
-
-C041E3_Probe_InteractableInFacingDirection_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE8
+    tcd
+    pla
+    sta $16
+    asl A
+    tax
+    lda $C3E148,X
+    clc
+    adc $9877
+    sta $14
+    lda $C3E158,X
+    clc
+    adc $987B
+    sta $04
+    lda $5D58
+    sta $12
+    lda.w #$0001
+    sta $5D58
+C04143_Probe_InteractableInFacingDirection_L4143:
+    lda.w #$9889
+    sta $02
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $04
+    lda $14
+    jsl $C05FF6
+    sta $10
+    cmp.w #$8000
+    bcs C0416C_Probe_InteractableInFacingDirection_L416C
+    asl A
+    tax
+    lda $2C9A,X
+    sta $5D62
+    lda $10
+    sta $5D64
+    bra C041C6_Probe_InteractableInFacingDirection_L41C6
+C0416C_Probe_InteractableInFacingDirection_L416C:
+    lda $16
+    sta $0E
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $04
+    lda $14
+    jsl $C05CD7
+    and.w #$0082
+    cmp.w #$0082
+    bne C041C6_Probe_InteractableInFacingDirection_L41C6
+    lda $16
+    asl A
+    tax
+    lda $C3E148,X
+    beq C041A3_Probe_InteractableInFacingDirection_L41A3
+    and.w #$8000
+    beq C0419A_Probe_InteractableInFacingDirection_L419A
+    ldx.w #$FFF8
+    bra C0419D_Probe_InteractableInFacingDirection_L419D
+C0419A_Probe_InteractableInFacingDirection_L419A:
+    ldx.w #$0008
+C0419D_Probe_InteractableInFacingDirection_L419D:
+    txa
+    clc
+    adc $14
+    sta $14
+C041A3_Probe_InteractableInFacingDirection_L41A3:
+    lda $16
+    asl A
+    tax
+    lda $C3E158,X
+    beq C04143_Probe_InteractableInFacingDirection_L4143
+    and.w #$8000
+    beq C041B7_Probe_InteractableInFacingDirection_L41B7
+    ldx.w #$FFF8
+    bra C041BA_Probe_InteractableInFacingDirection_L41BA
+C041B7_Probe_InteractableInFacingDirection_L41B7:
+    ldx.w #$0008
+C041BA_Probe_InteractableInFacingDirection_L41BA:
+    stx $02
+    lda $04
+    clc
+    adc $02
+    sta $04
+    jmp.w C04143_Probe_InteractableInFacingDirection_L4143
+C041C6_Probe_InteractableInFacingDirection_L41C6:
+    lda $12
+    sta $5D58
+    lda $5D62
+    cmp.w #$FFFF
+    beq C041D8_Probe_InteractableInFacingDirection_L41D8
+    lda $5D62
+    bne C041DE_Probe_InteractableInFacingDirection_L41DE
+C041D8_Probe_InteractableInFacingDirection_L41D8:
+    lda $16
+    jsl $C4334A
+C041DE_Probe_InteractableInFacingDirection_L41DE:
+    lda $5D62
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7932,20 +9523,89 @@ hirom
 org $C041E3
 
 C041E3_Probe_InteractableAlongFacing:
-
-; Original data gap before C04279_Probe_InteractableAlongFacing_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$7F,$98,$29,$FE,$FF,$A8,$84
-db $10,$BB,$86,$0E,$8A,$20,$16,$41,$C9,$FF,$FF,$F0,$0A,$C9,$00,$00
-db $F0,$05,$A6,$0E,$8A,$80,$6D,$A6,$0E,$8A,$1A,$1A,$29,$07,$00,$AA
-db $86,$0E,$8E,$7F,$98,$8A,$20,$16,$41,$C9,$FF,$FF,$F0,$0A,$C9,$00
-db $00,$F0,$05,$A6,$0E,$8A,$80,$4C,$A6,$0E,$8A,$1A,$1A,$1A,$1A,$29
-db $07,$00,$AA,$86,$0E,$8E,$7F,$98,$8A,$20,$16,$41,$C9,$FF,$FF,$F0
-db $0A,$C9,$00,$00,$F0,$05,$A6,$0E,$8A,$80,$29,$A6,$0E,$8A,$3A,$3A
-db $29,$07,$00,$AA,$86,$0E,$8E,$7F,$98,$8A,$20,$16,$41,$C9,$FF,$FF
-db $F0,$0A,$C9,$00,$00,$F0,$05,$A6,$0E,$8A,$80,$08,$A4,$10,$8C,$7F
-db $98,$A9,$FF,$FF,$2B,$60
-
-C04279_Probe_InteractableAlongFacing_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $987F
+    and.w #$FFFE
+    tay
+    sty $10
+    tyx
+    stx $0E
+    txa
+    jsr $4116
+    cmp.w #$FFFF
+    beq C0420A_Probe_InteractableAlongFacing_L420A
+    cmp.w #$0000
+    beq C0420A_Probe_InteractableAlongFacing_L420A
+    ldx $0E
+    txa
+    bra C04277_Probe_InteractableAlongFacing_L4277
+C0420A_Probe_InteractableAlongFacing_L420A:
+    ldx $0E
+    txa
+    inc A
+    inc A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $4116
+    cmp.w #$FFFF
+    beq C0422B_Probe_InteractableAlongFacing_L422B
+    cmp.w #$0000
+    beq C0422B_Probe_InteractableAlongFacing_L422B
+    ldx $0E
+    txa
+    bra C04277_Probe_InteractableAlongFacing_L4277
+C0422B_Probe_InteractableAlongFacing_L422B:
+    ldx $0E
+    txa
+    inc A
+    inc A
+    inc A
+    inc A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $4116
+    cmp.w #$FFFF
+    beq C0424E_Probe_InteractableAlongFacing_L424E
+    cmp.w #$0000
+    beq C0424E_Probe_InteractableAlongFacing_L424E
+    ldx $0E
+    txa
+    bra C04277_Probe_InteractableAlongFacing_L4277
+C0424E_Probe_InteractableAlongFacing_L424E:
+    ldx $0E
+    txa
+    dec A
+    dec A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $4116
+    cmp.w #$FFFF
+    beq C0426F_Probe_InteractableAlongFacing_L426F
+    cmp.w #$0000
+    beq C0426F_Probe_InteractableAlongFacing_L426F
+    ldx $0E
+    txa
+    bra C04277_Probe_InteractableAlongFacing_L4277
+C0426F_Probe_InteractableAlongFacing_L426F:
+    ldy $10
+    sty $987F
+    lda.w #$FFFF
+C04277_Probe_InteractableAlongFacing_L4277:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7955,19 +9615,68 @@ C04279_Probe_InteractableAlongFacing_End:
 hirom
 org $C04279
 
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
 C04279_Resolve_InteractableAlongFacingTarget:
-
-; Original data gap before C042EF_Resolve_InteractableAlongFacingTarget_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A9,$FF,$FF,$8D,$62,$5D,$8D,$64
-db $5D,$20,$E3,$41,$85,$10,$C9,$FF,$FF,$F0,$29,$A2,$89,$98,$86,$0E
-db $BD,$00,$00,$0A,$AA,$A5,$10,$DD,$F6,$2A,$F0,$18,$8D,$7F,$98,$A6
-db $0E,$BD,$00,$00,$0A,$AA,$A5,$10,$9D,$F6,$2A,$A6,$0E,$BD,$00,$00
-db $22,$80,$A7,$C0,$AD,$62,$5D,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$F0
-db $FF,$5B,$68,$AA,$86,$0E,$8A,$0A,$48,$AD,$7F,$98,$0A,$AA,$BF,$68
-db $E1,$C3,$FA,$9D,$F6,$2A,$A6,$0E,$8A,$22,$07,$99,$C0,$A6,$0E,$8A
-db $22,$8F,$A4,$C0,$2B,$6B
-
-C042EF_Resolve_InteractableAlongFacingTarget_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda.w #$FFFF
+    sta $5D62
+    sta $5D64
+    jsr $41E3
+    sta $10
+    cmp.w #$FFFF
+    beq C042BD_Resolve_InteractableAlongFacingTarget_L42BD
+    ldx.w #$9889
+    stx $0E
+    lda $0000,X
+    asl A
+    tax
+    lda $10
+    cmp $2AF6,X
+    beq C042BD_Resolve_InteractableAlongFacingTarget_L42BD
+    sta $987F
+    ldx $0E
+    lda $0000,X
+    asl A
+    tax
+    lda $10
+    sta $2AF6,X
+    ldx $0E
+    lda $0000,X
+    jsl $C0A780
+C042BD_Resolve_InteractableAlongFacingTarget_L42BD:
+    lda $5D62
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    tax
+    stx $0E
+    txa
+    asl A
+    pha
+    lda $987F
+    asl A
+    tax
+    lda $C3E168,X
+    plx
+    sta $2AF6,X
+    ldx $0E
+    txa
+    jsl $C09907
+    ldx $0E
+    txa
+    jsl !C0A48F_RefreshVisualProfileForSlot
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -7978,23 +9687,109 @@ hirom
 org $C042EF
 
 C042EF_Probe_FrontInteractionFacing:
-
-; Original data gap before C043BC_Probe_FrontInteractionFacing_End:
-db $C2,$31,$0B,$48,$7B,$69,$E4,$FF,$5B,$68,$85,$1A,$0A,$AA,$BF,$48
-db $E1,$C3,$85,$18,$BF,$58,$E1,$C3,$85,$16,$AD,$77,$98,$18,$65,$18
-db $85,$14,$AD,$7B,$98,$18,$65,$16,$85,$04,$AD,$58,$5D,$85,$12,$A9
-db $01,$00,$8D,$58,$5D,$A9,$89,$98,$85,$02,$A6,$02,$BD,$00,$00,$A8
-db $A6,$04,$A5,$14,$22,$F6,$5F,$C0,$85,$10,$C9,$00,$80,$B0,$0F,$0A
-db $AA,$BD,$9A,$2C,$8D,$62,$5D,$A5,$10,$8D,$64,$5D,$80,$52,$A5,$1A
-db $85,$0E,$A6,$02,$BD,$00,$00,$A8,$A6,$04,$A5,$14,$22,$D7,$5C,$C0
-db $29,$82,$00,$C9,$82,$00,$D0,$38,$A5,$18,$F0,$15,$A5,$18,$29,$00
-db $80,$F0,$05,$A2,$F8,$FF,$80,$03,$A2,$08,$00,$8A,$18,$65,$14,$85
-db $14,$A5,$16,$F0,$A0,$A5,$16,$29,$00,$80,$F0,$05,$A2,$F8,$FF,$80
-db $03,$A2,$08,$00,$86,$02,$A5,$04,$18,$65,$02,$85,$04,$4C,$24,$43
-db $A5,$12,$8D,$58,$5D,$AD,$62,$5D,$F0,$08,$AD,$62,$5D,$C9,$FF,$FF
-db $D0,$06,$A5,$1A,$22,$C2,$65,$C0,$AD,$62,$5D,$2B,$60
-
-C043BC_Probe_FrontInteractionFacing_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE4
+    tcd
+    pla
+    sta $1A
+    asl A
+    tax
+    lda $C3E148,X
+    sta $18
+    lda $C3E158,X
+    sta $16
+    lda $9877
+    clc
+    adc $18
+    sta $14
+    lda $987B
+    clc
+    adc $16
+    sta $04
+    lda $5D58
+    sta $12
+    lda.w #$0001
+    sta $5D58
+C04324_Probe_FrontInteractionFacing_L4324:
+    lda.w #$9889
+    sta $02
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $04
+    lda $14
+    jsl $C05FF6
+    sta $10
+    cmp.w #$8000
+    bcs C0434D_Probe_FrontInteractionFacing_L434D
+    asl A
+    tax
+    lda $2C9A,X
+    sta $5D62
+    lda $10
+    sta $5D64
+    bra C0439F_Probe_FrontInteractionFacing_L439F
+C0434D_Probe_FrontInteractionFacing_L434D:
+    lda $1A
+    sta $0E
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $04
+    lda $14
+    jsl $C05CD7
+    and.w #$0082
+    cmp.w #$0082
+    bne C0439F_Probe_FrontInteractionFacing_L439F
+    lda $18
+    beq C04380_Probe_FrontInteractionFacing_L4380
+    lda $18
+    and.w #$8000
+    beq C04377_Probe_FrontInteractionFacing_L4377
+    ldx.w #$FFF8
+    bra C0437A_Probe_FrontInteractionFacing_L437A
+C04377_Probe_FrontInteractionFacing_L4377:
+    ldx.w #$0008
+C0437A_Probe_FrontInteractionFacing_L437A:
+    txa
+    clc
+    adc $14
+    sta $14
+C04380_Probe_FrontInteractionFacing_L4380:
+    lda $16
+    beq C04324_Probe_FrontInteractionFacing_L4324
+    lda $16
+    and.w #$8000
+    beq C04390_Probe_FrontInteractionFacing_L4390
+    ldx.w #$FFF8
+    bra C04393_Probe_FrontInteractionFacing_L4393
+C04390_Probe_FrontInteractionFacing_L4390:
+    ldx.w #$0008
+C04393_Probe_FrontInteractionFacing_L4393:
+    stx $02
+    lda $04
+    clc
+    adc $02
+    sta $04
+    jmp.w C04324_Probe_FrontInteractionFacing_L4324
+C0439F_Probe_FrontInteractionFacing_L439F:
+    lda $12
+    sta $5D58
+    lda $5D62
+    beq C043B1_Probe_FrontInteractionFacing_L43B1
+    lda $5D62
+    cmp.w #$FFFF
+    bne C043B7_Probe_FrontInteractionFacing_L43B7
+C043B1_Probe_FrontInteractionFacing_L43B1:
+    lda $1A
+    jsl $C065C2
+C043B7_Probe_FrontInteractionFacing_L43B7:
+    lda $5D62
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8005,20 +9800,89 @@ hirom
 org $C043BC
 
 C043BC_Resolve_InteractionFacingRotation:
-
-; Original data gap before C04452_Resolve_InteractionFacingRotation_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$7F,$98,$29,$FE,$FF,$A8,$84
-db $10,$BB,$86,$0E,$8A,$20,$EF,$42,$C9,$FF,$FF,$F0,$0A,$C9,$00,$00
-db $F0,$05,$A6,$0E,$8A,$80,$6D,$A6,$0E,$8A,$1A,$1A,$29,$07,$00,$AA
-db $86,$0E,$8E,$7F,$98,$8A,$20,$EF,$42,$C9,$FF,$FF,$F0,$0A,$C9,$00
-db $00,$F0,$05,$A6,$0E,$8A,$80,$4C,$A6,$0E,$8A,$1A,$1A,$1A,$1A,$29
-db $07,$00,$AA,$86,$0E,$8E,$7F,$98,$8A,$20,$EF,$42,$C9,$FF,$FF,$F0
-db $0A,$C9,$00,$00,$F0,$05,$A6,$0E,$8A,$80,$29,$A6,$0E,$8A,$3A,$3A
-db $29,$07,$00,$AA,$86,$0E,$8E,$7F,$98,$8A,$20,$EF,$42,$C9,$FF,$FF
-db $F0,$0A,$C9,$00,$00,$F0,$05,$A6,$0E,$8A,$80,$08,$A4,$10,$8C,$7F
-db $98,$A9,$FF,$FF,$2B,$60
-
-C04452_Resolve_InteractionFacingRotation_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $987F
+    and.w #$FFFE
+    tay
+    sty $10
+    tyx
+    stx $0E
+    txa
+    jsr $42EF
+    cmp.w #$FFFF
+    beq C043E3_Resolve_InteractionFacingRotation_L43E3
+    cmp.w #$0000
+    beq C043E3_Resolve_InteractionFacingRotation_L43E3
+    ldx $0E
+    txa
+    bra C04450_Resolve_InteractionFacingRotation_L4450
+C043E3_Resolve_InteractionFacingRotation_L43E3:
+    ldx $0E
+    txa
+    inc A
+    inc A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $42EF
+    cmp.w #$FFFF
+    beq C04404_Resolve_InteractionFacingRotation_L4404
+    cmp.w #$0000
+    beq C04404_Resolve_InteractionFacingRotation_L4404
+    ldx $0E
+    txa
+    bra C04450_Resolve_InteractionFacingRotation_L4450
+C04404_Resolve_InteractionFacingRotation_L4404:
+    ldx $0E
+    txa
+    inc A
+    inc A
+    inc A
+    inc A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $42EF
+    cmp.w #$FFFF
+    beq C04427_Resolve_InteractionFacingRotation_L4427
+    cmp.w #$0000
+    beq C04427_Resolve_InteractionFacingRotation_L4427
+    ldx $0E
+    txa
+    bra C04450_Resolve_InteractionFacingRotation_L4450
+C04427_Resolve_InteractionFacingRotation_L4427:
+    ldx $0E
+    txa
+    dec A
+    dec A
+    and.w #$0007
+    tax
+    stx $0E
+    stx $987F
+    txa
+    jsr $42EF
+    cmp.w #$FFFF
+    beq C04448_Resolve_InteractionFacingRotation_L4448
+    cmp.w #$0000
+    beq C04448_Resolve_InteractionFacingRotation_L4448
+    ldx $0E
+    txa
+    bra C04450_Resolve_InteractionFacingRotation_L4450
+C04448_Resolve_InteractionFacingRotation_L4448:
+    ldy $10
+    sty $987F
+    lda.w #$FFFF
+C04450_Resolve_InteractionFacingRotation_L4450:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8029,15 +9893,40 @@ hirom
 org $C04452
 
 C04452_Resolve_FrontInteractionTarget:
-
-; Original data gap before C0449B_Resolve_FrontInteractionTarget_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A9,$FF,$FF,$8D,$62,$5D,$8D,$64
-db $5D,$20,$BC,$43,$85,$10,$C9,$FF,$FF,$F0,$29,$A2,$89,$98,$86,$0E
-db $BD,$00,$00,$0A,$AA,$A5,$10,$DD,$F6,$2A,$F0,$18,$8D,$7F,$98,$A6
-db $0E,$BD,$00,$00,$0A,$AA,$A5,$10,$9D,$F6,$2A,$A6,$0E,$BD,$00,$00
-db $22,$80,$A7,$C0,$AD,$62,$5D,$2B,$6B
-
-C0449B_Resolve_FrontInteractionTarget_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda.w #$FFFF
+    sta $5D62
+    sta $5D64
+    jsr $43BC
+    sta $10
+    cmp.w #$FFFF
+    beq C04496_Resolve_FrontInteractionTarget_L4496
+    ldx.w #$9889
+    stx $0E
+    lda $0000,X
+    asl A
+    tax
+    lda $10
+    cmp $2AF6,X
+    beq C04496_Resolve_FrontInteractionTarget_L4496
+    sta $987F
+    ldx $0E
+    lda $0000,X
+    asl A
+    tax
+    lda $10
+    sta $2AF6,X
+    ldx $0E
+    lda $0000,X
+    jsl $C0A780
+C04496_Resolve_FrontInteractionTarget_L4496:
+    lda $5D62
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8048,56 +9937,333 @@ hirom
 org $C0449B
 
 C0449B_Step_PlayerFromDirectionalInput:
-
-; Original data gap before C0476D_Step_PlayerFromDirectionalInput_End:
-db $C2,$31,$0B,$7B,$69,$DA,$FF,$5B,$9C,$85,$98,$AD,$A0,$5D,$F0,$03
-db $20,$89,$2C,$A2,$83,$98,$86,$24,$BD,$00,$00,$22,$4F,$40,$C0,$85
-db $02,$AD,$60,$5D,$F0,$22,$AE,$60,$5D,$CA,$8E,$60,$5D,$F0,$10,$AC
-db $89,$98,$AE,$7B,$98,$AD,$77,$98,$22,$F6,$5F,$C0,$4C,$6B,$47,$A9
-db $FF,$FF,$8D,$C2,$4D,$4C,$6B,$47,$A5,$02,$C9,$FF,$FF,$D0,$10,$AC
-db $89,$98,$AE,$7B,$98,$AD,$77,$98,$22,$F6,$5F,$C0,$4C,$6B,$47,$A6
-db $24,$BD,$00,$00,$C9,$0D,$00,$D0,$57,$AD,$C4,$5D,$C9,$00,$01,$F0
-db $08,$AD,$C4,$5D,$C9,$00,$02,$D0,$17,$A5,$02,$C9,$03,$00,$F0,$02
-db $B0,$07,$A9,$01,$00,$85,$02,$80,$20,$A9,$05,$00,$85,$02,$80,$19
-db $A5,$02,$3A,$29,$07,$00,$C9,$03,$00,$F0,$02,$B0,$07,$A9,$03,$00
-db $85,$02,$80,$05,$A9,$07,$00,$85,$02,$A5,$02,$C9,$04,$00,$B0,$08
-db $A9,$02,$00,$8D,$7F,$98,$80,$15,$A9,$06,$00,$8D,$7F,$98,$80,$0D
-db $AD,$56,$5D,$29,$01,$00,$D0,$05,$A5,$02,$8D,$7F,$98,$EE,$90,$28
-db $A2,$85,$98,$BD,$00,$00,$1A,$9D,$00,$00,$AD,$81,$98,$85,$22,$A9
-db $75,$98,$85,$20,$A4,$20,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08
-db $A5,$06,$85,$1C,$A5,$08,$85,$1E,$A5,$06,$85,$12,$A5,$08,$85,$14
-db $A9,$79,$98,$85,$1A,$A4,$1A,$B9,$00,$00,$85,$06,$B9,$02,$00,$85
-db $08,$A5,$06,$85,$16,$A5,$08,$85,$18,$A5,$1C,$85,$06,$A5,$1E,$85
-db $08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A6,$22,$A5,$02,$20,$8F,$2D
-db $A5,$06,$85,$12,$A5,$08,$85,$14,$A5,$16,$85,$06,$A5,$18,$85,$08
-db $A5,$06,$85,$0E,$A5,$08,$85,$10,$A6,$22,$A5,$02,$20,$17,$30,$A5
-db $06,$85,$16,$A5,$08,$85,$18,$A9,$FF,$FF,$8D,$A8,$5D,$AD,$56,$5D
-db $29,$02,$00,$D0,$62,$A5,$02,$85,$0E,$AC,$89,$98,$A6,$18,$A5,$14
-db $22,$7B,$5B,$C0,$85,$04,$A5,$02,$CD,$A6,$5D,$F0,$65,$A4,$20,$B9
-db $00,$00,$85,$06,$B9,$02,$00,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85
-db $10,$A6,$22,$AD,$A6,$5D,$20,$8F,$2D,$A5,$06,$85,$12,$A5,$08,$85
-db $14,$A4,$1A,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$A5,$06,$85
-db $0E,$A5,$08,$85,$10,$A6,$22,$AD,$A6,$5D,$20,$17,$30,$A5,$06,$85
-db $16,$A5,$08,$85,$18,$80,$1B,$AD,$81,$00,$D0,$11,$AC,$89,$98,$A6
-db $18,$A5,$14,$20,$D1,$5F,$29,$3F,$00,$85,$04,$80,$05,$A9,$00,$00
-db $85,$04,$A5,$04,$8D,$81,$98,$A9,$01,$00,$85,$02,$AC,$89,$98,$A6
-db $18,$A5,$14,$22,$F6,$5F,$C0,$AD,$CC,$28,$C9,$FF,$FF,$F0,$05,$A9
-db $00,$00,$85,$02,$A5,$04,$29,$C0,$00,$F0,$05,$A9,$00,$00,$85,$02
-db $AD,$A8,$5D,$C9,$FF,$FF,$F0,$0E,$AE,$AA,$5D,$AD,$A8,$5D,$22,$26
-db $75,$C0,$85,$02,$80,$10,$AE,$83,$98,$E0,$07,$00,$F0,$05,$E0,$08
-db $00,$D0,$03,$9C,$83,$98,$A5,$02,$F0,$26,$A5,$12,$85,$06,$A5,$14
-db $85,$08,$A5,$06,$8D,$75,$98,$A5,$08,$8D,$77,$98,$A5,$16,$85,$06
-db $A5,$18,$85,$08,$A5,$06,$8D,$79,$98,$A5,$08,$8D,$7B,$98,$80,$03
-db $9C,$85,$98,$AD,$02,$00,$29,$FF,$00,$29,$01,$00,$D0,$0C,$AD,$3C
-db $5E,$F0,$07,$A9,$00,$00,$22,$C0,$73,$C0,$AD,$02,$00,$29,$FF,$00
-db $29,$01,$00,$F0,$0C,$AD,$4A,$5E,$F0,$07,$A9,$01,$00,$22,$C0,$73
-db $C0,$AE,$83,$98,$E0,$07,$00,$F0,$05,$E0,$08,$00,$D0,$0D,$AD,$A8
-db $5D,$0A,$0A,$0A,$18,$69,$08,$00,$8D,$77,$98,$AD,$6C,$43,$F0,$20
-db $AD,$65,$00,$29,$40,$00,$F0,$18,$A2,$77,$98,$BD,$00,$00,$29,$F8
-db $FF,$9D,$00,$00,$A2,$7B,$98,$BD,$00,$00,$29,$F8,$FF,$9D,$00,$00
-db $2B,$60
-
-C0476D_Step_PlayerFromDirectionalInput_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFDA
+    tcd
+    stz $9885
+    lda $5DA0
+    beq C044AE_Step_PlayerFromDirectionalInput_L44AE
+    jsr $2C89
+C044AE_Step_PlayerFromDirectionalInput_L44AE:
+    ldx.w #$9883
+    stx $24
+    lda $0000,X
+    jsl $C0404F
+    sta $02
+    lda $5D60
+    beq C044E3_Step_PlayerFromDirectionalInput_L44E3
+    ldx $5D60
+    dex
+    stx $5D60
+    beq C044DA_Step_PlayerFromDirectionalInput_L44DA
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05FF6
+    jmp.w C0476B_Step_PlayerFromDirectionalInput_L476B
+C044DA_Step_PlayerFromDirectionalInput_L44DA:
+    lda.w #$FFFF
+    sta $4DC2
+    jmp.w C0476B_Step_PlayerFromDirectionalInput_L476B
+C044E3_Step_PlayerFromDirectionalInput_L44E3:
+    lda $02
+    cmp.w #$FFFF
+    bne C044FA_Step_PlayerFromDirectionalInput_L44FA
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05FF6
+    jmp.w C0476B_Step_PlayerFromDirectionalInput_L476B
+C044FA_Step_PlayerFromDirectionalInput_L44FA:
+    ldx $24
+    lda $0000,X
+    cmp.w #$000D
+    bne C0455B_Step_PlayerFromDirectionalInput_L455B
+    lda $5DC4
+    cmp.w #$0100
+    beq C04514_Step_PlayerFromDirectionalInput_L4514
+    lda $5DC4
+    cmp.w #$0200
+    bne C0452B_Step_PlayerFromDirectionalInput_L452B
+C04514_Step_PlayerFromDirectionalInput_L4514:
+    lda $02
+    cmp.w #$0003
+    beq C0451D_Step_PlayerFromDirectionalInput_L451D
+    bcs C04524_Step_PlayerFromDirectionalInput_L4524
+C0451D_Step_PlayerFromDirectionalInput_L451D:
+    lda.w #$0001
+    sta $02
+    bra C04544_Step_PlayerFromDirectionalInput_L4544
+C04524_Step_PlayerFromDirectionalInput_L4524:
+    lda.w #$0005
+    sta $02
+    bra C04544_Step_PlayerFromDirectionalInput_L4544
+C0452B_Step_PlayerFromDirectionalInput_L452B:
+    lda $02
+    dec A
+    and.w #$0007
+    cmp.w #$0003
+    beq C04538_Step_PlayerFromDirectionalInput_L4538
+    bcs C0453F_Step_PlayerFromDirectionalInput_L453F
+C04538_Step_PlayerFromDirectionalInput_L4538:
+    lda.w #$0003
+    sta $02
+    bra C04544_Step_PlayerFromDirectionalInput_L4544
+C0453F_Step_PlayerFromDirectionalInput_L453F:
+    lda.w #$0007
+    sta $02
+C04544_Step_PlayerFromDirectionalInput_L4544:
+    lda $02
+    cmp.w #$0004
+    bcs C04553_Step_PlayerFromDirectionalInput_L4553
+    lda.w #$0002
+    sta $987F
+    bra C04568_Step_PlayerFromDirectionalInput_L4568
+C04553_Step_PlayerFromDirectionalInput_L4553:
+    lda.w #$0006
+    sta $987F
+    bra C04568_Step_PlayerFromDirectionalInput_L4568
+C0455B_Step_PlayerFromDirectionalInput_L455B:
+    lda $5D56
+    and.w #$0001
+    bne C04568_Step_PlayerFromDirectionalInput_L4568
+    lda $02
+    sta $987F
+C04568_Step_PlayerFromDirectionalInput_L4568:
+    inc $2890
+    ldx.w #$9885
+    lda $0000,X
+    inc A
+    sta $0000,X
+    lda $9881
+    sta $22
+    lda.w #$9875
+    sta $20
+    ldy $20
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $1C
+    lda $08
+    sta $1E
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$9879
+    sta $1A
+    ldy $1A
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    lda $1C
+    sta $06
+    lda $1E
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $22
+    lda $02
+    jsr $2D8F
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $16
+    sta $06
+    lda $18
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $22
+    lda $02
+    jsr $3017
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    lda.w #$FFFF
+    sta $5DA8
+    lda $5D56
+    and.w #$0002
+    bne C04662_Step_PlayerFromDirectionalInput_L4662
+    lda $02
+    sta $0E
+    ldy $9889
+    ldx $18
+    lda $14
+    jsl $C05B7B
+    sta $04
+    lda $02
+    cmp $5DA6
+    beq C0467D_Step_PlayerFromDirectionalInput_L467D
+    ldy $20
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $22
+    lda $5DA6
+    jsr $2D8F
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    ldy $1A
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $22
+    lda $5DA6
+    jsr $3017
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    bra C0467D_Step_PlayerFromDirectionalInput_L467D
+C04662_Step_PlayerFromDirectionalInput_L4662:
+    lda $0081
+    bne C04678_Step_PlayerFromDirectionalInput_L4678
+    ldy $9889
+    ldx $18
+    lda $14
+    jsr $5FD1
+    and.w #$003F
+    sta $04
+    bra C0467D_Step_PlayerFromDirectionalInput_L467D
+C04678_Step_PlayerFromDirectionalInput_L4678:
+    lda.w #$0000
+    sta $04
+C0467D_Step_PlayerFromDirectionalInput_L467D:
+    lda $04
+    sta $9881
+    lda.w #$0001
+    sta $02
+    ldy $9889
+    ldx $18
+    lda $14
+    jsl $C05FF6
+    lda $28CC
+    cmp.w #$FFFF
+    beq C0469F_Step_PlayerFromDirectionalInput_L469F
+    lda.w #$0000
+    sta $02
+C0469F_Step_PlayerFromDirectionalInput_L469F:
+    lda $04
+    and.w #$00C0
+    beq C046AB_Step_PlayerFromDirectionalInput_L46AB
+    lda.w #$0000
+    sta $02
+C046AB_Step_PlayerFromDirectionalInput_L46AB:
+    lda $5DA8
+    cmp.w #$FFFF
+    beq C046C1_Step_PlayerFromDirectionalInput_L46C1
+    ldx $5DAA
+    lda $5DA8
+    jsl $C07526
+    sta $02
+    bra C046D1_Step_PlayerFromDirectionalInput_L46D1
+C046C1_Step_PlayerFromDirectionalInput_L46C1:
+    ldx $9883
+    cpx.w #$0007
+    beq C046CE_Step_PlayerFromDirectionalInput_L46CE
+    cpx.w #$0008
+    bne C046D1_Step_PlayerFromDirectionalInput_L46D1
+C046CE_Step_PlayerFromDirectionalInput_L46CE:
+    stz $9883
+C046D1_Step_PlayerFromDirectionalInput_L46D1:
+    lda $02
+    beq C046FB_Step_PlayerFromDirectionalInput_L46FB
+    lda $12
+    sta $06
+    lda $14
+    sta $08
+    lda $06
+    sta $9875
+    lda $08
+    sta $9877
+    lda $16
+    sta $06
+    lda $18
+    sta $08
+    lda $06
+    sta $9879
+    lda $08
+    sta $987B
+    bra C046FE_Step_PlayerFromDirectionalInput_L46FE
+C046FB_Step_PlayerFromDirectionalInput_L46FB:
+    stz $9885
+C046FE_Step_PlayerFromDirectionalInput_L46FE:
+    lda $0002
+    and.w #$00FF
+    and.w #$0001
+    bne C04715_Step_PlayerFromDirectionalInput_L4715
+    lda $5E3C
+    beq C04715_Step_PlayerFromDirectionalInput_L4715
+    lda.w #$0000
+    jsl $C073C0
+C04715_Step_PlayerFromDirectionalInput_L4715:
+    lda $0002
+    and.w #$00FF
+    and.w #$0001
+    beq C0472C_Step_PlayerFromDirectionalInput_L472C
+    lda $5E4A
+    beq C0472C_Step_PlayerFromDirectionalInput_L472C
+    lda.w #$0001
+    jsl $C073C0
+C0472C_Step_PlayerFromDirectionalInput_L472C:
+    ldx $9883
+    cpx.w #$0007
+    beq C04739_Step_PlayerFromDirectionalInput_L4739
+    cpx.w #$0008
+    bne C04746_Step_PlayerFromDirectionalInput_L4746
+C04739_Step_PlayerFromDirectionalInput_L4739:
+    lda $5DA8
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$0008
+    sta $9877
+C04746_Step_PlayerFromDirectionalInput_L4746:
+    lda $436C
+    beq C0476B_Step_PlayerFromDirectionalInput_L476B
+    lda $0065
+    and.w #$0040
+    beq C0476B_Step_PlayerFromDirectionalInput_L476B
+    ldx.w #$9877
+    lda $0000,X
+    and.w #$FFF8
+    sta $0000,X
+    ldx.w #$987B
+    lda $0000,X
+    and.w #$FFF8
+    sta $0000,X
+C0476B_Step_PlayerFromDirectionalInput_L476B:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8108,17 +10274,52 @@ hirom
 org $C0476D
 
 C0476D_Sync_PlayerGlobalsFromActiveSlot:
-
-; Original data gap before C047CF_Sync_PlayerGlobalsFromActiveSlot_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A9,$00,$00,$85,$04,$AD,$33,$9E
-db $0A,$AA,$BC,$8E,$0B,$BD,$CA,$0B,$85,$0E,$BD,$42,$0C,$85,$02,$BD
-db $7E,$0C,$AA,$CC,$77,$98,$D0,$13,$A5,$0E,$CD,$7B,$98,$D0,$0C,$A5
-db $02,$CD,$75,$98,$D0,$05,$EC,$79,$98,$F0,$05,$A9,$01,$00,$85,$04
-db $8C,$77,$98,$A5,$0E,$8D,$7B,$98,$A5,$02,$8D,$75,$98,$8E,$79,$98
-db $AD,$33,$9E,$0A,$AA,$BD,$F6,$2A,$8D,$7F,$98,$A5,$04,$8D,$85,$98
-db $2B,$60
-
-C047CF_Sync_PlayerGlobalsFromActiveSlot_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda.w #$0000
+    sta $04
+    lda $9E33
+    asl A
+    tax
+    ldy $0B8E,X
+    lda $0BCA,X
+    sta $0E
+    lda $0C42,X
+    sta $02
+    lda $0C7E,X
+    tax
+    cpy $9877
+    bne C047A8_Sync_PlayerGlobalsFromActiveSlot_L47A8
+    lda $0E
+    cmp $987B
+    bne C047A8_Sync_PlayerGlobalsFromActiveSlot_L47A8
+    lda $02
+    cmp $9875
+    bne C047A8_Sync_PlayerGlobalsFromActiveSlot_L47A8
+    cpx $9879
+    beq C047AD_Sync_PlayerGlobalsFromActiveSlot_L47AD
+C047A8_Sync_PlayerGlobalsFromActiveSlot_L47A8:
+    lda.w #$0001
+    sta $04
+C047AD_Sync_PlayerGlobalsFromActiveSlot_L47AD:
+    sty $9877
+    lda $0E
+    sta $987B
+    lda $02
+    sta $9875
+    stx $9879
+    lda $9E33
+    asl A
+    tax
+    lda $2AF6,X
+    sta $987F
+    lda $04
+    sta $9885
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8129,27 +10330,129 @@ hirom
 org $C047CF
 
 C047CF_Step_ScriptedMode0C:
-
-; Original data gap before C048D3_Step_ScriptedMode0C_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AD,$BA,$4D,$F0,$03,$4C,$D1,$48
-db $AD,$60,$5D,$F0,$06,$CE,$60,$5D,$4C,$D1,$48,$AD,$C6,$5D,$29,$00
-db $03,$F0,$11,$C9,$00,$02,$F0,$15,$C9,$00,$01,$F0,$19,$C9,$00,$03
-db $F0,$1D,$80,$22,$A9,$07,$00,$85,$02,$85,$14,$80,$19,$A9,$05,$00
-db $85,$02,$85,$14,$80,$10,$A9,$01,$00,$85,$02,$85,$14,$80,$07,$A9
-db $03,$00,$85,$02,$85,$14,$A9,$FF,$FF,$8D,$A8,$5D,$A5,$14,$85,$02
-db $85,$0E,$AC,$89,$98,$AE,$7B,$98,$AD,$77,$98,$22,$7B,$5B,$C0,$AD
-db $A8,$5D,$C9,$FF,$FF,$F0,$0A,$AE,$AA,$5D,$AD,$A8,$5D,$22,$26,$75
-db $C0,$A2,$01,$00,$F0,$76,$A0,$75,$98,$84,$12,$A5,$02,$0A,$0A,$85
-db $10,$18,$69,$56,$4F,$A8,$B9,$00,$00,$85,$0A,$B9,$02,$00,$85,$0C
-db $A4,$12,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$18,$A5,$06,$65
-db $0A,$85,$06,$A5,$08,$65,$0C,$85,$08,$A5,$06,$99,$00,$00,$A5,$08
-db $99,$02,$00,$A0,$79,$98,$84,$14,$A5,$10,$18,$69,$16,$51,$A8,$B9
-db $00,$00,$85,$0A,$B9,$02,$00,$85,$0C,$A4,$14,$B9,$00,$00,$85,$06
-db $B9,$02,$00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C
-db $85,$08,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A9,$01,$00,$8D
-db $85,$98,$2B,$60
-
-C048D3_Step_ScriptedMode0C_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda $4DBA
+    beq C047DF_Step_ScriptedMode0C_L47DF
+    jmp.w C048D1_Step_ScriptedMode0C_L48D1
+C047DF_Step_ScriptedMode0C_L47DF:
+    lda $5D60
+    beq C047EA_Step_ScriptedMode0C_L47EA
+    dec $5D60
+    jmp.w C048D1_Step_ScriptedMode0C_L48D1
+C047EA_Step_ScriptedMode0C_L47EA:
+    lda $5DC6
+    and.w #$0300
+    beq C04803_Step_ScriptedMode0C_L4803
+    cmp.w #$0200
+    beq C0480C_Step_ScriptedMode0C_L480C
+    cmp.w #$0100
+    beq C04815_Step_ScriptedMode0C_L4815
+    cmp.w #$0300
+    beq C0481E_Step_ScriptedMode0C_L481E
+    bra C04825_Step_ScriptedMode0C_L4825
+C04803_Step_ScriptedMode0C_L4803:
+    lda.w #$0007
+    sta $02
+    sta $14
+    bra C04825_Step_ScriptedMode0C_L4825
+C0480C_Step_ScriptedMode0C_L480C:
+    lda.w #$0005
+    sta $02
+    sta $14
+    bra C04825_Step_ScriptedMode0C_L4825
+C04815_Step_ScriptedMode0C_L4815:
+    lda.w #$0001
+    sta $02
+    sta $14
+    bra C04825_Step_ScriptedMode0C_L4825
+C0481E_Step_ScriptedMode0C_L481E:
+    lda.w #$0003
+    sta $02
+    sta $14
+C04825_Step_ScriptedMode0C_L4825:
+    lda.w #$FFFF
+    sta $5DA8
+    lda $14
+    sta $02
+    sta $0E
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05B7B
+    lda $5DA8
+    cmp.w #$FFFF
+    beq C04850_Step_ScriptedMode0C_L4850
+    ldx $5DAA
+    lda $5DA8
+    jsl $C07526
+C04850_Step_ScriptedMode0C_L4850:
+    ldx.w #$0001
+    beq C048CB_Step_ScriptedMode0C_L48CB
+    ldy.w #$9875
+    sty $12
+    lda $02
+    asl A
+    asl A
+    sta $10
+    clc
+    adc.w #$4F56
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $12
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldy.w #$9879
+    sty $14
+    lda $10
+    clc
+    adc.w #$5116
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $14
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+C048CB_Step_ScriptedMode0C_L48CB:
+    lda.w #$0001
+    sta $9885
+C048D1_Step_ScriptedMode0C_L48D1:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8160,37 +10463,203 @@ hirom
 org $C048D3
 
 C048D3_Step_BicycleTraversalMode:
-
-; Original data gap before C04A7B_Step_BicycleTraversalMode_End:
-db $C2,$31,$0B,$48,$7B,$69,$DE,$FF,$5B,$68,$AA,$86,$20,$AD,$83,$98
-db $22,$4F,$40,$C0,$A8,$84,$1E,$84,$02,$AD,$60,$5D,$F0,$22,$AE,$60
-db $5D,$CA,$8E,$60,$5D,$F0,$10,$AC,$89,$98,$AE,$7B,$98,$AD,$77,$98
-db $22,$F6,$5F,$C0,$4C,$79,$4A,$A9,$FF,$FF,$8D,$C2,$4D,$4C,$79,$4A
-db $AD,$6D,$00,$29,$10,$00,$F0,$07,$A9,$17,$00,$22,$E0,$AB,$C0,$A4
-db $1E,$C0,$FF,$FF,$D0,$1B,$A6,$20,$F0,$07,$AC,$7F,$98,$84,$1E,$80
-db $10,$AC,$89,$98,$AE,$7B,$98,$AD,$77,$98,$22,$F6,$5F,$C0,$4C,$79
-db $4A,$98,$29,$01,$00,$F0,$08,$A9,$04,$00,$8D,$5A,$5D,$80,$21,$AD
-db $5A,$5D,$F0,$1C,$AE,$5A,$5D,$CA,$8E,$5A,$5D,$F0,$07,$AC,$7F,$98
-db $84,$1E,$80,$0C,$A5,$02,$C9,$FF,$FF,$D0,$05,$AC,$7F,$98,$84,$1E
-db $8C,$7F,$98,$A9,$75,$98,$85,$1C,$98,$0A,$0A,$85,$1A,$18,$69,$36
-db $4E,$A8,$B9,$00,$00,$85,$0A,$B9,$02,$00,$85,$0C,$A4,$1C,$B9,$00
-db $00,$85,$06,$B9,$02,$00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5
-db $08,$65,$0C,$85,$08,$A5,$06,$85,$10,$A5,$08,$85,$12,$A9,$79,$98
-db $85,$20,$A5,$1A,$18,$69,$F6,$4F,$A8,$B9,$00,$00,$85,$0A,$B9,$02
-db $00,$85,$0C,$A4,$20,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$18
-db $A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C,$85,$08,$A5,$06,$85,$14
-db $A5,$08,$85,$16,$A9,$FF,$FF,$8D,$A8,$5D,$7B,$18,$69,$12,$00,$85
-db $04,$7B,$18,$69,$16,$00,$85,$02,$A4,$1E,$84,$0E,$A0,$18,$00,$A6
-db $02,$BD,$00,$00,$AA,$86,$18,$A6,$04,$BD,$00,$00,$A6,$18,$22,$D7
-db $5C,$C0,$85,$1A,$AC,$89,$98,$A6,$02,$BD,$00,$00,$AA,$86,$1E,$A6
-db $04,$BD,$00,$00,$A6,$1E,$22,$F6,$5F,$C0,$AD,$CC,$28,$C9,$FF,$FF
-db $D0,$44,$A2,$85,$98,$BD,$00,$00,$1A,$9D,$00,$00,$EE,$90,$28,$A5
-db $1A,$29,$C0,$00,$F0,$08,$A9,$00,$00,$9D,$00,$00,$80,$28,$A5,$10
-db $85,$06,$A5,$12,$85,$08,$A4,$1C,$A5,$06,$99,$00,$00,$A5,$08,$99
-db $02,$00,$A5,$14,$85,$06,$A5,$16,$85,$08,$A4,$20,$A5,$06,$99,$00
-db $00,$A5,$08,$99,$02,$00,$2B,$60
-
-C04A7B_Step_BicycleTraversalMode_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFDE
+    tcd
+    pla
+    tax
+    stx $20
+    lda $9883
+    jsl $C0404F
+    tay
+    sty $1E
+    sty $02
+    lda $5D60
+    beq C04913_Step_BicycleTraversalMode_L4913
+    ldx $5D60
+    dex
+    stx $5D60
+    beq C0490A_Step_BicycleTraversalMode_L490A
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05FF6
+    jmp.w C04A79_Step_BicycleTraversalMode_L4A79
+C0490A_Step_BicycleTraversalMode_L490A:
+    lda.w #$FFFF
+    sta $4DC2
+    jmp.w C04A79_Step_BicycleTraversalMode_L4A79
+C04913_Step_BicycleTraversalMode_L4913:
+    lda $006D
+    and.w #$0010
+    beq C04922_Step_BicycleTraversalMode_L4922
+    lda.w #$0017
+    jsl $C0ABE0
+C04922_Step_BicycleTraversalMode_L4922:
+    ldy $1E
+    cpy.w #$FFFF
+    bne C04944_Step_BicycleTraversalMode_L4944
+    ldx $20
+    beq C04934_Step_BicycleTraversalMode_L4934
+    ldy $987F
+    sty $1E
+    bra C04944_Step_BicycleTraversalMode_L4944
+C04934_Step_BicycleTraversalMode_L4934:
+    ldy $9889
+    ldx $987B
+    lda $9877
+    jsl $C05FF6
+    jmp.w C04A79_Step_BicycleTraversalMode_L4A79
+C04944_Step_BicycleTraversalMode_L4944:
+    tya
+    and.w #$0001
+    beq C04952_Step_BicycleTraversalMode_L4952
+    lda.w #$0004
+    sta $5D5A
+    bra C04973_Step_BicycleTraversalMode_L4973
+C04952_Step_BicycleTraversalMode_L4952:
+    lda $5D5A
+    beq C04973_Step_BicycleTraversalMode_L4973
+    ldx $5D5A
+    dex
+    stx $5D5A
+    beq C04967_Step_BicycleTraversalMode_L4967
+    ldy $987F
+    sty $1E
+    bra C04973_Step_BicycleTraversalMode_L4973
+C04967_Step_BicycleTraversalMode_L4967:
+    lda $02
+    cmp.w #$FFFF
+    bne C04973_Step_BicycleTraversalMode_L4973
+    ldy $987F
+    sty $1E
+C04973_Step_BicycleTraversalMode_L4973:
+    sty $987F
+    lda.w #$9875
+    sta $1C
+    tya
+    asl A
+    asl A
+    sta $1A
+    clc
+    adc.w #$4E36
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $1C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $10
+    lda $08
+    sta $12
+    lda.w #$9879
+    sta $20
+    lda $1A
+    clc
+    adc.w #$4FF6
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $20
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $14
+    lda $08
+    sta $16
+    lda.w #$FFFF
+    sta $5DA8
+    tdc
+    clc
+    adc.w #$0012
+    sta $04
+    tdc
+    clc
+    adc.w #$0016
+    sta $02
+    ldy $1E
+    sty $0E
+    ldy.w #$0018
+    ldx $02
+    lda $0000,X
+    tax
+    stx $18
+    ldx $04
+    lda $0000,X
+    ldx $18
+    jsl $C05CD7
+    sta $1A
+    ldy $9889
+    ldx $02
+    lda $0000,X
+    tax
+    stx $1E
+    ldx $04
+    lda $0000,X
+    ldx $1E
+    jsl $C05FF6
+    lda $28CC
+    cmp.w #$FFFF
+    bne C04A79_Step_BicycleTraversalMode_L4A79
+    ldx.w #$9885
+    lda $0000,X
+    inc A
+    sta $0000,X
+    inc $2890
+    lda $1A
+    and.w #$00C0
+    beq C04A51_Step_BicycleTraversalMode_L4A51
+    lda.w #$0000
+    sta $0000,X
+    bra C04A79_Step_BicycleTraversalMode_L4A79
+C04A51_Step_BicycleTraversalMode_L4A51:
+    lda $10
+    sta $06
+    lda $12
+    sta $08
+    ldy $1C
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    lda $14
+    sta $06
+    lda $16
+    sta $08
+    ldy $20
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+C04A79_Step_BicycleTraversalMode_L4A79:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8201,11 +10670,11 @@ hirom
 org $C04A7B
 
 C04A7B_Restore_TemporaryMovementMode:
-
-; Original data gap before C04A88_Restore_TemporaryMovementMode_End:
-db $C2,$31,$AD,$7A,$5D,$8D,$A5,$98,$22,$9B,$D1,$C0,$6B
-
-C04A88_Restore_TemporaryMovementMode_End:
+    rep #$31
+    lda $5D7A
+    sta $98A5
+    jsl $C0D19B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8215,14 +10684,21 @@ C04A88_Restore_TemporaryMovementMode_End:
 hirom
 org $C04A88
 
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 C04A88_Enter_TemporaryPartyFacingRefreshMode:
-
-; Original data gap before C04AAD_Enter_TemporaryPartyFacingRefreshMode_End:
-db $C2,$31,$A9,$0C,$00,$8D,$7C,$5D,$A2,$A5,$98,$BD,$00,$00,$8D,$7A
-db $5D,$A9,$03,$00,$9D,$00,$00,$A9,$02,$00,$22,$0C,$AC,$C0,$A9,$01
-db $00,$8D,$98,$5D,$6B
-
-C04AAD_Enter_TemporaryPartyFacingRefreshMode_End:
+    rep #$31
+    lda.w #$000C
+    sta $5D7C
+    ldx.w #$98A5
+    lda $0000,X
+    sta $5D7A
+    lda.w #$0003
+    sta $0000,X
+    lda.w #$0002
+    jsl !C0AC0C_QueuePresentationSfxOrCounter
+    lda.w #$0001
+    sta $5D98
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8232,22 +10708,91 @@ C04AAD_Enter_TemporaryPartyFacingRefreshMode_End:
 hirom
 org $C04AAD
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C04AAD_Tick_TemporaryPartyFacingRefreshMode:
-
-; Original data gap before C04B53_Tick_TemporaryPartyFacingRefreshMode_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AE,$7C,$5D,$CA,$8E,$7C,$5D,$D0
-db $03,$4C,$4D,$4B,$AD,$83,$98,$22,$4F,$40,$C0,$85,$04,$85,$10,$A5
-db $04,$C9,$FF,$FF,$D0,$03,$4C,$51,$4B,$A9,$18,$00,$85,$02,$80,$5E
-db $A5,$02,$0A,$AA,$BD,$62,$0A,$C9,$FF,$FF,$F0,$50,$8A,$18,$69,$F6
-db $2A,$A8,$84,$0E,$A5,$10,$85,$04,$B9,$00,$00,$C5,$04,$F0,$3D,$BD
-db $9A,$0E,$A0,$5F,$00,$22,$F7,$8F,$C0,$18,$69,$CE,$99,$AA,$8E,$C6
-db $4D,$BD,$3D,$00,$85,$04,$0A,$65,$04,$0A,$0A,$18,$69,$56,$51,$AA
-db $BD,$06,$00,$C9,$08,$00,$F0,$14,$C9,$07,$00,$F0,$0F,$A5,$10,$85
-db $04,$A4,$0E,$99,$00,$00,$A5,$02,$22,$80,$A7,$C0,$E6,$02,$A5,$02
-db $C9,$1D,$00,$90,$9B,$F0,$99,$A5,$10,$85,$04,$8D,$7F,$98,$80,$04
-db $22,$7B,$4A,$C0,$2B,$60
-
-C04B53_Tick_TemporaryPartyFacingRefreshMode_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    ldx $5D7C
+    dex
+    stx $5D7C
+    bne C04AC1_Tick_TemporaryPartyFacingRefreshMode_L4AC1
+    jmp.w C04B4D_Tick_TemporaryPartyFacingRefreshMode_L4B4D
+C04AC1_Tick_TemporaryPartyFacingRefreshMode_L4AC1:
+    lda $9883
+    jsl $C0404F
+    sta $04
+    sta $10
+    lda $04
+    cmp.w #$FFFF
+    bne C04AD6_Tick_TemporaryPartyFacingRefreshMode_L4AD6
+    jmp.w C04B51_Tick_TemporaryPartyFacingRefreshMode_L4B51
+C04AD6_Tick_TemporaryPartyFacingRefreshMode_L4AD6:
+    lda.w #$0018
+    sta $02
+    bra C04B3B_Tick_TemporaryPartyFacingRefreshMode_L4B3B
+C04ADD_Tick_TemporaryPartyFacingRefreshMode_L4ADD:
+    lda $02
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    beq C04B39_Tick_TemporaryPartyFacingRefreshMode_L4B39
+    txa
+    clc
+    adc.w #$2AF6
+    tay
+    sty $0E
+    lda $10
+    sta $04
+    lda $0000,Y
+    cmp $04
+    beq C04B39_Tick_TemporaryPartyFacingRefreshMode_L4B39
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tax
+    stx $4DC6
+    lda $003D,X
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    tax
+    lda $0006,X
+    cmp.w #$0008
+    beq C04B39_Tick_TemporaryPartyFacingRefreshMode_L4B39
+    cmp.w #$0007
+    beq C04B39_Tick_TemporaryPartyFacingRefreshMode_L4B39
+    lda $10
+    sta $04
+    ldy $0E
+    sta $0000,Y
+    lda $02
+    jsl $C0A780
+C04B39_Tick_TemporaryPartyFacingRefreshMode_L4B39:
+    inc $02
+C04B3B_Tick_TemporaryPartyFacingRefreshMode_L4B3B:
+    lda $02
+    cmp.w #$001D
+    bcc C04ADD_Tick_TemporaryPartyFacingRefreshMode_L4ADD
+    beq C04ADD_Tick_TemporaryPartyFacingRefreshMode_L4ADD
+    lda $10
+    sta $04
+    sta $987F
+    bra C04B51_Tick_TemporaryPartyFacingRefreshMode_L4B51
+C04B4D_Tick_TemporaryPartyFacingRefreshMode_L4B4D:
+    jsl $C04A7B
+C04B51_Tick_TemporaryPartyFacingRefreshMode_L4B51:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8258,26 +10803,126 @@ hirom
 org $C04B53
 
 C04B53_Dispatch_TemporaryMovementMode98A5:
-
-; Original data gap before C04C45_Dispatch_TemporaryMovementMode98A5_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AE,$83,$98,$86,$12,$E0,$0D,$00
-db $F0,$07,$AD,$7F,$98,$85,$10,$80,$05,$AD,$CA,$5D,$85,$10,$A9,$A5
-db $98,$85,$02,$A6,$02,$BD,$00,$00,$29,$FF,$00,$C9,$01,$00,$F0,$13
-db $C9,$02,$00,$D0,$03,$4C,$3B,$4C,$C9,$03,$00,$D0,$03,$4C,$40,$4C
-db $4C,$43,$4C,$A0,$75,$98,$84,$0E,$A5,$10,$0A,$0A,$85,$04,$A6,$12
-db $8A,$0A,$0A,$0A,$0A,$0A,$18,$65,$04,$85,$10,$18,$69,$D6,$4D,$A8
-db $B9,$00,$00,$85,$0A,$B9,$02,$00,$85,$0C,$A4,$0E,$B9,$00,$00,$85
-db $06,$B9,$02,$00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65
-db $0C,$85,$08,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A0,$79,$98
-db $84,$12,$A5,$10,$18,$69,$96,$4F,$A8,$B9,$00,$00,$85,$0A,$B9,$02
-db $00,$85,$0C,$A4,$12,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$18
-db $A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C,$85,$08,$A5,$06,$99,$00
-db $00,$A5,$08,$99,$02,$00,$A2,$A7,$98,$BD,$00,$00,$3A,$9D,$00,$00
-db $D0,$0E,$A9,$00,$00,$A6,$02,$9D,$00,$00,$AD,$A9,$98,$8D,$83,$98
-db $A9,$01,$00,$8D,$85,$98,$80,$08,$20,$6D,$47,$80,$03,$20,$AD,$4A
-db $2B,$60
-
-C04C45_Dispatch_TemporaryMovementMode98A5_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    ldx $9883
+    stx $12
+    cpx.w #$000D
+    beq C04B6C_Dispatch_TemporaryMovementMode98A5_L4B6C
+    lda $987F
+    sta $10
+    bra C04B71_Dispatch_TemporaryMovementMode98A5_L4B71
+C04B6C_Dispatch_TemporaryMovementMode98A5_L4B6C:
+    lda $5DCA
+    sta $10
+C04B71_Dispatch_TemporaryMovementMode98A5_L4B71:
+    lda.w #$98A5
+    sta $02
+    ldx $02
+    lda $0000,X
+    and.w #$00FF
+    cmp.w #$0001
+    beq C04B96_Dispatch_TemporaryMovementMode98A5_L4B96
+    cmp.w #$0002
+    bne C04B8B_Dispatch_TemporaryMovementMode98A5_L4B8B
+    jmp.w C04C3B_Dispatch_TemporaryMovementMode98A5_L4C3B
+C04B8B_Dispatch_TemporaryMovementMode98A5_L4B8B:
+    cmp.w #$0003
+    bne C04B93_Dispatch_TemporaryMovementMode98A5_L4B93
+    jmp.w C04C40_Dispatch_TemporaryMovementMode98A5_L4C40
+C04B93_Dispatch_TemporaryMovementMode98A5_L4B93:
+    jmp.w C04C43_Dispatch_TemporaryMovementMode98A5_L4C43
+C04B96_Dispatch_TemporaryMovementMode98A5_L4B96:
+    ldy.w #$9875
+    sty $0E
+    lda $10
+    asl A
+    asl A
+    sta $04
+    ldx $12
+    txa
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    sta $10
+    clc
+    adc.w #$4DD6
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $0E
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldy.w #$9879
+    sty $12
+    lda $10
+    clc
+    adc.w #$4F96
+    tay
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    ldy $12
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldx.w #$98A7
+    lda $0000,X
+    dec A
+    sta $0000,X
+    bne C04C33_Dispatch_TemporaryMovementMode98A5_L4C33
+    lda.w #$0000
+    ldx $02
+    sta $0000,X
+    lda $98A9
+    sta $9883
+C04C33_Dispatch_TemporaryMovementMode98A5_L4C33:
+    lda.w #$0001
+    sta $9885
+    bra C04C43_Dispatch_TemporaryMovementMode98A5_L4C43
+C04C3B_Dispatch_TemporaryMovementMode98A5_L4C3B:
+    jsr $476D
+    bra C04C43_Dispatch_TemporaryMovementMode98A5_L4C43
+C04C40_Dispatch_TemporaryMovementMode98A5_L4C40:
+    jsr $4AAD
+C04C43_Dispatch_TemporaryMovementMode98A5_L4C43:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8288,30 +10933,145 @@ hirom
 org $C04C45
 
 C04C45_Commit_PlayerPositionSnapshotTick:
-
-; Original data gap before C04D78_Commit_PlayerPositionSnapshotTick_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$A2,$85,$98,$BD,$00,$00,$85,$14
-db $A9,$00,$00,$9D,$00,$00,$AD,$58,$5D,$F0,$07,$22,$5B,$7C,$C0,$CE
-db $58,$5D,$AD,$6C,$43,$F0,$16,$AD,$65,$00,$29,$40,$00,$F0,$0E,$AD
-db $02,$00,$29,$FF,$00,$29,$0F,$00,$F0,$03,$4C,$76,$4D,$AD,$89,$98
-db $0A,$AA,$BD,$9A,$0E,$0A,$AA,$BD,$C8,$4D,$AA,$AD,$7D,$98,$9D,$3D
-db $00,$AD,$A5,$98,$F0,$05,$20,$53,$4B,$80,$1E,$AD,$83,$98,$C9,$0C
-db $00,$F0,$07,$C9,$03,$00,$F0,$07,$80,$0C,$20,$CF,$47,$80,$0A,$A5
-db $14,$20,$D3,$48,$80,$03,$20,$9B,$44,$A9,$7D,$98,$85,$14,$B2,$14
-db $85,$12,$85,$04,$0A,$65,$04,$0A,$0A,$18,$69,$56,$51,$85,$10,$A9
-db $77,$98,$85,$04,$A9,$7B,$98,$85,$02,$AC,$89,$98,$A6,$02,$BD,$00
-db $00,$AA,$86,$0E,$A6,$04,$BD,$00,$00,$A6,$0E,$22,$82,$5F,$C0,$8D
-db $81,$98,$AD,$85,$98,$F0,$34,$A6,$04,$BD,$00,$00,$92,$10,$A6,$02
-db $BD,$00,$00,$A0,$02,$00,$91,$10,$A5,$12,$1A,$29,$FF,$00,$92,$14
-db $A6,$02,$BD,$00,$00,$AA,$86,$0E,$A6,$04,$BD,$00,$00,$A6,$0E,$22
-db $0E,$40,$C0,$A9,$01,$00,$8D,$D4,$4D,$80,$03,$9C,$D4,$4D,$A2,$81
-db $98,$BD,$00,$00,$A0,$04,$00,$91,$10,$AD,$83,$98,$A0,$06,$00,$91
-db $10,$AD,$7F,$98,$A0,$08,$00,$91,$10,$A0,$9C,$28,$A9,$00,$00,$99
-db $00,$00,$BD,$00,$00,$85,$14,$29,$08,$00,$F0,$15,$A5,$14,$29,$04
-db $00,$F0,$08,$A9,$10,$00,$99,$00,$00,$80,$06,$A9,$12,$00,$99,$00
-db $00,$2B,$6B
-
-C04D78_Commit_PlayerPositionSnapshotTick_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    ldx.w #$9885
+    lda $0000,X
+    sta $14
+    lda.w #$0000
+    sta $0000,X
+    lda $5D58
+    beq C04C67_Commit_PlayerPositionSnapshotTick_L4C67
+    jsl $C07C5B
+    dec $5D58
+C04C67_Commit_PlayerPositionSnapshotTick_L4C67:
+    lda $436C
+    beq C04C82_Commit_PlayerPositionSnapshotTick_L4C82
+    lda $0065
+    and.w #$0040
+    beq C04C82_Commit_PlayerPositionSnapshotTick_L4C82
+    lda $0002
+    and.w #$00FF
+    and.w #$000F
+    beq C04C82_Commit_PlayerPositionSnapshotTick_L4C82
+    jmp.w C04D76_Commit_PlayerPositionSnapshotTick_L4D76
+C04C82_Commit_PlayerPositionSnapshotTick_L4C82:
+    lda $9889
+    asl A
+    tax
+    lda $0E9A,X
+    asl A
+    tax
+    lda $4DC8,X
+    tax
+    lda $987D
+    sta $003D,X
+    lda $98A5
+    beq C04CA0_Commit_PlayerPositionSnapshotTick_L4CA0
+    jsr $4B53
+    bra C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE
+C04CA0_Commit_PlayerPositionSnapshotTick_L4CA0:
+    lda $9883
+    cmp.w #$000C
+    beq C04CAF_Commit_PlayerPositionSnapshotTick_L4CAF
+    cmp.w #$0003
+    beq C04CB4_Commit_PlayerPositionSnapshotTick_L4CB4
+    bra C04CBB_Commit_PlayerPositionSnapshotTick_L4CBB
+C04CAF_Commit_PlayerPositionSnapshotTick_L4CAF:
+    jsr $47CF
+    bra C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE
+C04CB4_Commit_PlayerPositionSnapshotTick_L4CB4:
+    lda $14
+    jsr $48D3
+    bra C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE
+C04CBB_Commit_PlayerPositionSnapshotTick_L4CBB:
+    jsr $449B
+C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE:
+    lda.w #$987D
+    sta $14
+    lda ($14)
+    sta $12
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    sta $10
+    lda.w #$9877
+    sta $04
+    lda.w #$987B
+    sta $02
+    ldy $9889
+    ldx $02
+    lda $0000,X
+    tax
+    stx $0E
+    ldx $04
+    lda $0000,X
+    ldx $0E
+    jsl $C05F82
+    sta $9881
+    lda $9885
+    beq C04D30_Commit_PlayerPositionSnapshotTick_L4D30
+    ldx $04
+    lda $0000,X
+    sta ($10)
+    ldx $02
+    lda $0000,X
+    ldy.w #$0002
+    sta ($10),Y
+    lda $12
+    inc A
+    and.w #$00FF
+    sta ($14)
+    ldx $02
+    lda $0000,X
+    tax
+    stx $0E
+    ldx $04
+    lda $0000,X
+    ldx $0E
+    jsl $C0400E
+    lda.w #$0001
+    sta $4DD4
+    bra C04D33_Commit_PlayerPositionSnapshotTick_L4D33
+C04D30_Commit_PlayerPositionSnapshotTick_L4D30:
+    stz $4DD4
+C04D33_Commit_PlayerPositionSnapshotTick_L4D33:
+    ldx.w #$9881
+    lda $0000,X
+    ldy.w #$0004
+    sta ($10),Y
+    lda $9883
+    ldy.w #$0006
+    sta ($10),Y
+    lda $987F
+    ldy.w #$0008
+    sta ($10),Y
+    ldy.w #$289C
+    lda.w #$0000
+    sta $0000,Y
+    lda $0000,X
+    sta $14
+    and.w #$0008
+    beq C04D76_Commit_PlayerPositionSnapshotTick_L4D76
+    lda $14
+    and.w #$0004
+    beq C04D70_Commit_PlayerPositionSnapshotTick_L4D70
+    lda.w #$0010
+    sta $0000,Y
+    bra C04D76_Commit_PlayerPositionSnapshotTick_L4D76
+C04D70_Commit_PlayerPositionSnapshotTick_L4D70:
+    lda.w #$0012
+    sta $0000,Y
+C04D76_Commit_PlayerPositionSnapshotTick_L4D76:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8322,34 +11082,188 @@ hirom
 org $C04D78
 
 C04D78_Tick_Event2SnapshotObjectReconcile:
-
-; Original data gap before C04EF0_Tick_Event2SnapshotObjectReconcile_End:
-db $C2,$31,$0B,$7B,$69,$E2,$FF,$5B,$AD,$A5,$98,$C9,$03,$00,$D0,$03
-db $4C,$EE,$4E,$AD,$60,$5D,$F0,$03,$4C,$EE,$4E,$AD,$BA,$4D,$F0,$03
-db $4C,$EE,$4E,$AD,$C2,$4D,$F0,$03,$4C,$EE,$4E,$AD,$42,$1A,$85,$04
-db $85,$1C,$A5,$04,$0A,$AA,$86,$1A,$BD,$5E,$0E,$85,$18,$BD,$9A,$0E
-db $0A,$AA,$BC,$C8,$4D,$8C,$C6,$4D,$B9,$3D,$00,$85,$16,$85,$04,$0A
-db $65,$04,$0A,$0A,$18,$69,$56,$51,$85,$14,$A0,$08,$00,$B1,$14,$A6
-db $1A,$9D,$F6,$2A,$A0,$04,$00,$B1,$14,$9D,$AA,$2B,$A5,$14,$18,$69
-db $06,$00,$85,$02,$AC,$42,$1A,$A6,$02,$BD,$00,$00,$AA,$A5,$18,$22
-db $56,$7A,$C0,$AD,$85,$98,$D0,$0D,$A6,$02,$BD,$00,$00,$C9,$0C,$00
-db $F0,$03,$4C,$EE,$4E,$A5,$1C,$85,$04,$0A,$AA,$B2,$14,$9D,$8E,$0B
-db $A0,$02,$00,$B1,$14,$9D,$CA,$0B,$A2,$00,$00,$86,$1C,$AD,$8B,$98
-db $29,$FF,$00,$85,$02,$A5,$18,$1A,$C5,$02,$F0,$53,$A0,$06,$00,$B1
-db $14,$29,$FF,$00,$C9,$07,$00,$F0,$11,$C9,$08,$00,$F0,$0C,$C9,$0C
-db $00,$F0,$0E,$C9,$0D,$00,$F0,$1C,$80,$21,$A9,$1E,$00,$85,$12,$80
-db $2E,$AD,$83,$98,$D0,$07,$A2,$01,$00,$86,$1C,$80,$22,$A9,$1E,$00
-db $85,$12,$80,$1B,$A9,$18,$00,$85,$12,$80,$14,$AD,$87,$98,$C9,$03
-db $00,$D0,$07,$A9,$08,$00,$85,$12,$80,$05,$A9,$0C,$00,$85,$12,$AD
-db $42,$1A,$0A,$AA,$BD,$5E,$0E,$0A,$AA,$BF,$9A,$E0,$C3,$18,$65,$12
-db $85,$10,$A0,$06,$00,$B1,$14,$AE,$C6,$4D,$9D,$41,$00,$AD,$8B,$98
-db $29,$FF,$00,$85,$02,$A5,$18,$1A,$C5,$02,$F0,$18,$A6,$1C,$D0,$14
-db $A9,$02,$00,$85,$0E,$A4,$16,$A5,$10,$AA,$A5,$18,$22,$C3,$3E,$C0
-db $85,$1A,$80,$17,$A5,$16,$1A,$85,$1A,$AD,$42,$1A,$0A,$18,$69,$02
-db $10,$AA,$BD,$00,$00,$29,$FF,$EF,$9D,$00,$00,$A5,$1A,$29,$FF,$00
-db $AE,$C6,$4D,$9D,$3D,$00,$2B,$6B
-
-C04EF0_Tick_Event2SnapshotObjectReconcile_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE2
+    tcd
+    lda $98A5
+    cmp.w #$0003
+    bne C04D8B_Tick_Event2SnapshotObjectReconcile_L4D8B
+    jmp.w C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE
+C04D8B_Tick_Event2SnapshotObjectReconcile_L4D8B:
+    lda $5D60
+    beq C04D93_Tick_Event2SnapshotObjectReconcile_L4D93
+    jmp.w C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE
+C04D93_Tick_Event2SnapshotObjectReconcile_L4D93:
+    lda $4DBA
+    beq C04D9B_Tick_Event2SnapshotObjectReconcile_L4D9B
+    jmp.w C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE
+C04D9B_Tick_Event2SnapshotObjectReconcile_L4D9B:
+    lda $4DC2
+    beq C04DA3_Tick_Event2SnapshotObjectReconcile_L4DA3
+    jmp.w C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE
+C04DA3_Tick_Event2SnapshotObjectReconcile_L4DA3:
+    lda $1A42
+    sta $04
+    sta $1C
+    lda $04
+    asl A
+    tax
+    stx $1A
+    lda $0E5E,X
+    sta $18
+    lda $0E9A,X
+    asl A
+    tax
+    ldy $4DC8,X
+    sty $4DC6
+    lda $003D,Y
+    sta $16
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    sta $14
+    ldy.w #$0008
+    lda ($14),Y
+    ldx $1A
+    sta $2AF6,X
+    ldy.w #$0004
+    lda ($14),Y
+    sta $2BAA,X
+    lda $14
+    clc
+    adc.w #$0006
+    sta $02
+    ldy $1A42
+    ldx $02
+    lda $0000,X
+    tax
+    lda $18
+    jsl $C07A56
+    lda $9885
+    bne C04E0D_Tick_Event2SnapshotObjectReconcile_L4E0D
+    ldx $02
+    lda $0000,X
+    cmp.w #$000C
+    beq C04E0D_Tick_Event2SnapshotObjectReconcile_L4E0D
+    jmp.w C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE
+C04E0D_Tick_Event2SnapshotObjectReconcile_L4E0D:
+    lda $1C
+    sta $04
+    asl A
+    tax
+    lda ($14)
+    sta $0B8E,X
+    ldy.w #$0002
+    lda ($14),Y
+    sta $0BCA,X
+    ldx.w #$0000
+    stx $1C
+    lda $988B
+    and.w #$00FF
+    sta $02
+    lda $18
+    inc A
+    cmp $02
+    beq C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+    ldy.w #$0006
+    lda ($14),Y
+    and.w #$00FF
+    cmp.w #$0007
+    beq C04E52_Tick_Event2SnapshotObjectReconcile_L4E52
+    cmp.w #$0008
+    beq C04E52_Tick_Event2SnapshotObjectReconcile_L4E52
+    cmp.w #$000C
+    beq C04E59_Tick_Event2SnapshotObjectReconcile_L4E59
+    cmp.w #$000D
+    beq C04E6C_Tick_Event2SnapshotObjectReconcile_L4E6C
+    bra C04E73_Tick_Event2SnapshotObjectReconcile_L4E73
+C04E52_Tick_Event2SnapshotObjectReconcile_L4E52:
+    lda.w #$001E
+    sta $12
+    bra C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+C04E59_Tick_Event2SnapshotObjectReconcile_L4E59:
+    lda $9883
+    bne C04E65_Tick_Event2SnapshotObjectReconcile_L4E65
+    ldx.w #$0001
+    stx $1C
+    bra C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+C04E65_Tick_Event2SnapshotObjectReconcile_L4E65:
+    lda.w #$001E
+    sta $12
+    bra C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+C04E6C_Tick_Event2SnapshotObjectReconcile_L4E6C:
+    lda.w #$0018
+    sta $12
+    bra C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+C04E73_Tick_Event2SnapshotObjectReconcile_L4E73:
+    lda $9887
+    cmp.w #$0003
+    bne C04E82_Tick_Event2SnapshotObjectReconcile_L4E82
+    lda.w #$0008
+    sta $12
+    bra C04E87_Tick_Event2SnapshotObjectReconcile_L4E87
+C04E82_Tick_Event2SnapshotObjectReconcile_L4E82:
+    lda.w #$000C
+    sta $12
+C04E87_Tick_Event2SnapshotObjectReconcile_L4E87:
+    lda $1A42
+    asl A
+    tax
+    lda $0E5E,X
+    asl A
+    tax
+    lda $C3E09A,X
+    clc
+    adc $12
+    sta $10
+    ldy.w #$0006
+    lda ($14),Y
+    ldx $4DC6
+    sta $0041,X
+    lda $988B
+    and.w #$00FF
+    sta $02
+    lda $18
+    inc A
+    cmp $02
+    beq C04ECC_Tick_Event2SnapshotObjectReconcile_L4ECC
+    ldx $1C
+    bne C04ECC_Tick_Event2SnapshotObjectReconcile_L4ECC
+    lda.w #$0002
+    sta $0E
+    ldy $16
+    lda $10
+    tax
+    lda $18
+    jsl $C03EC3
+    sta $1A
+    bra C04EE3_Tick_Event2SnapshotObjectReconcile_L4EE3
+C04ECC_Tick_Event2SnapshotObjectReconcile_L4ECC:
+    lda $16
+    inc A
+    sta $1A
+    lda $1A42
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    and.w #$EFFF
+    sta $0000,X
+C04EE3_Tick_Event2SnapshotObjectReconcile_L4EE3:
+    lda $1A
+    and.w #$00FF
+    ldx $4DC6
+    sta $003D,X
+C04EEE_Tick_Event2SnapshotObjectReconcile_L4EEE:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8359,18 +11273,63 @@ C04EF0_Tick_Event2SnapshotObjectReconcile_End:
 hirom
 org $C04EF0
 
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
 C04EF0_Restore_CurrentSlotFromSnapshotRecord:
-
-; Original data gap before C04F60_Restore_CurrentSlotFromSnapshotRecord_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$0A,$A8,$B9,$9A,$0E
-db $0A,$AA,$BD,$C8,$4D,$AA,$8E,$C6,$4D,$BD,$3D,$00,$85,$04,$0A,$65
-db $04,$0A,$0A,$18,$69,$56,$51,$AA,$86,$0E,$BD,$08,$00,$99,$F6,$2A
-db $AD,$42,$1A,$0A,$48,$BD,$04,$00,$FA,$9D,$AA,$2B,$AC,$42,$1A,$A6
-db $0E,$BD,$06,$00,$AA,$86,$0E,$AD,$42,$1A,$0A,$AA,$BD,$5E,$0E,$A6
-db $0E,$22,$56,$7A,$C0,$2B,$6B,$C2,$31,$AD,$72,$5D,$8D,$00,$02,$E2
-db $20,$A9,$17,$8D,$1A,$00,$C2,$20,$A9,$08,$00,$22,$6B,$85,$C0,$6B
-
-C04F60_Restore_CurrentSlotFromSnapshotRecord_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    asl A
+    tay
+    lda $0E9A,Y
+    asl A
+    tax
+    lda $4DC8,X
+    tax
+    stx $4DC6
+    lda $003D,X
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    tax
+    stx $0E
+    lda $0008,X
+    sta $2AF6,Y
+    lda $1A42
+    asl A
+    pha
+    lda $0004,X
+    plx
+    sta $2BAA,X
+    ldy $1A42
+    ldx $0E
+    lda $0006,X
+    tax
+    stx $0E
+    lda $1A42
+    asl A
+    tax
+    lda $0E5E,X
+    ldx $0E
+    jsl $C07A56
+    pld
+    rtl
+    rep #$31
+    lda $5D72
+    sta $0200
+    sep #$20
+    lda.b #$17
+    sta $001A
+    rep #$20
+    lda.w #$0008
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8380,15 +11339,35 @@ C04F60_Restore_CurrentSlotFromSnapshotRecord_End:
 hirom
 org $C04F60
 
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
 C04F60_Queue_PartyObjectConditionDecayCallback:
-
-; Original data gap before C04F9F_Queue_PartyObjectConditionDecayCallback_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$60,$5D,$D0,$30,$AD,$BA,$4D
-db $D0,$2B,$AD,$00,$02,$8D,$72,$5D,$A9,$1F,$00,$8D,$00,$02,$E2,$20
-db $9C,$1A,$00,$C2,$20,$A9,$08,$00,$22,$6B,$85,$C0,$A9,$47,$4F,$85
-db $0E,$A9,$C0,$00,$85,$10,$A9,$01,$00,$22,$E6,$DB,$C0,$2B,$60
-
-C04F9F_Queue_PartyObjectConditionDecayCallback_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $5D60
+    bne C04F9D_Queue_PartyObjectConditionDecayCallback_L4F9D
+    lda $4DBA
+    bne C04F9D_Queue_PartyObjectConditionDecayCallback_L4F9D
+    lda $0200
+    sta $5D72
+    lda.w #$001F
+    sta $0200
+    sep #$20
+    stz $001A
+    rep #$20
+    lda.w #$0008
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    lda.w #$4F47
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$0001
+    jsl $C0DBE6
+C04F9D_Queue_PartyObjectConditionDecayCallback_L4F9D:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8398,17 +11377,63 @@ C04F9F_Queue_PartyObjectConditionDecayCallback_End:
 hirom
 org $C04F9F
 
+!C0915B_DivideUnsignedWordByY = $C0915B
 C04F9F_Update_PartyObjectConditionThresholdLatch:
-
-; Original data gap before C04FFE_Update_PartyObjectConditionThresholdLatch_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$A8,$84,$10,$B9,$91,$98
-db $29,$FF,$00,$0A,$AA,$BD,$C8,$4D,$AA,$86,$0E,$A0,$64,$00,$BD,$0A
-db $00,$85,$04,$0A,$0A,$65,$04,$0A,$0A,$22,$5B,$91,$C0,$DD,$45,$00
-db $90,$23,$F0,$21,$A4,$10,$98,$0A,$AA,$BD,$8C,$5D,$D0,$0A,$A6,$0E
-db $BD,$35,$00,$1A,$22,$BB,$DB,$C1,$A4,$10,$98,$0A,$AA,$A9,$01,$00
-db $9D,$8C,$5D,$80,$08,$A4,$10,$98,$0A,$AA,$9E,$8C,$5D,$2B,$60
-
-C04FFE_Update_PartyObjectConditionThresholdLatch_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    tay
+    sty $10
+    lda $9891,Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $4DC8,X
+    tax
+    stx $0E
+    ldy.w #$0064
+    lda $000A,X
+    sta $04
+    asl A
+    asl A
+    adc $04
+    asl A
+    asl A
+    jsl !C0915B_DivideUnsignedWordByY
+    cmp $0045,X
+    bcc C04FF4_Update_PartyObjectConditionThresholdLatch_L4FF4
+    beq C04FF4_Update_PartyObjectConditionThresholdLatch_L4FF4
+    ldy $10
+    tya
+    asl A
+    tax
+    lda $5D8C,X
+    bne C04FE7_Update_PartyObjectConditionThresholdLatch_L4FE7
+    ldx $0E
+    lda $0035,X
+    inc A
+    jsl $C1DBBB
+C04FE7_Update_PartyObjectConditionThresholdLatch_L4FE7:
+    ldy $10
+    tya
+    asl A
+    tax
+    lda.w #$0001
+    sta $5D8C,X
+    bra C04FFC_Update_PartyObjectConditionThresholdLatch_L4FFC
+C04FF4_Update_PartyObjectConditionThresholdLatch_L4FF4:
+    ldy $10
+    tya
+    asl A
+    tax
+    stz $5D8C,X
+C04FFC_Update_PartyObjectConditionThresholdLatch_L4FFC:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8418,44 +11443,264 @@ C04FFE_Update_PartyObjectConditionThresholdLatch_End:
 hirom
 org $C04FFE
 
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C09451_RestoreSavedCoordinateState = $C09451
 C04FFE_Process_PartyObjectConditionDecayGate:
-
-; Original data gap before C05200_Process_PartyObjectConditionDecayGate_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$AD,$A5,$98,$C9,$02,$00,$D0,$06
-db $A9,$01,$00,$4C,$FE,$51,$AD,$98,$5D,$F0,$06,$A9,$01,$00,$4C,$FE
-db $51,$64,$16,$64,$14,$A9,$00,$00,$85,$04,$85,$02,$85,$12,$4C,$C0
-db $51,$BD,$9C,$00,$29,$FF,$00,$0A,$AA,$BD,$C8,$4D,$8D,$C6,$4D,$AA
-db $BD,$0E,$00,$29,$FF,$00,$A8,$84,$10,$C0,$01,$00,$D0,$03,$4C,$B6
-db $51,$C0,$02,$00,$D0,$03,$4C,$B6,$51,$C0,$05,$00,$D0,$4D,$A5,$02
-db $0A,$18,$69,$66,$5D,$AA,$BD,$00,$00,$F0,$37,$3A,$9D,$00,$00,$F0
-db $03,$4C,$3D,$51,$E6,$04,$AD,$C6,$4D,$18,$69,$45,$00,$AA,$BD,$00
-db $00,$38,$E9,$0A,$00,$9D,$00,$00,$AD,$C6,$4D,$18,$69,$47,$00,$AA
-db $BD,$00,$00,$38,$E9,$0A,$00,$9D,$00,$00,$A5,$02,$20,$9F,$4F,$4C
-db $3D,$51,$A9,$78,$00,$9D,$00,$00,$4C,$3D,$51,$C0,$04,$00,$90,$07
-db $C0,$07,$00,$90,$10,$F0,$0E,$AD,$81,$98,$29,$0C,$00,$C9,$0C,$00
-db $F0,$03,$4C,$3D,$51,$A5,$02,$0A,$18,$69,$66,$5D,$AA,$BD,$00,$00
-db $F0,$5A,$3A,$9D,$00,$00,$D0,$67,$E6,$04,$C0,$04,$00,$D0,$26,$AD
-db $C6,$4D,$18,$69,$45,$00,$AA,$BD,$00,$00,$38,$E9,$0A,$00,$9D,$00
-db $00,$AD,$C6,$4D,$18,$69,$47,$00,$AA,$BD,$00,$00,$38,$E9,$0A,$00
-db $9D,$00,$00,$80,$20,$AD,$C6,$4D,$18,$69,$45,$00,$AA,$BD,$00,$00
-db $3A,$3A,$9D,$00,$00,$AD,$C6,$4D,$18,$69,$47,$00,$AA,$BD,$00,$00
-db $3A,$3A,$9D,$00,$00,$A5,$02,$20,$9F,$4F,$80,$13,$C0,$04,$00,$D0
-db $08,$A9,$78,$00,$9D,$00,$00,$80,$06,$A9,$F0,$00,$9D,$00,$00,$AE
-db $C6,$4D,$BD,$45,$00,$C9,$00,$80,$F0,$02,$B0,$05,$C9,$00,$00,$D0
-db $5B,$A4,$10,$C0,$01,$00,$F0,$60,$A9,$00,$00,$85,$0E,$80,$13,$A5
-db $0E,$18,$6D,$C6,$4D,$AA,$E2,$20,$9E,$0E,$00,$C2,$20,$A5,$0E,$1A
-db $85,$0E,$85,$02,$A9,$06,$00,$18,$E5,$02,$70,$04,$10,$E1,$80,$02
-db $30,$DD,$E2,$20,$A9,$01,$AE,$C6,$4D,$9D,$0E,$00,$AE,$C6,$4D,$C2
-db $20,$9E,$47,$00,$AE,$C6,$4D,$9E,$45,$00,$AE,$C6,$4D,$BD,$3B,$00
-db $0A,$AA,$A9,$10,$00,$9D,$12,$0F,$E6,$16,$80,$0C,$A4,$10,$C0,$02
-db $00,$F0,$05,$18,$65,$14,$85,$14,$A5,$12,$85,$02,$E6,$02,$A5,$02
-db $85,$12,$A5,$02,$18,$69,$F5,$97,$AA,$BD,$96,$00,$29,$FF,$00,$F0
-db $13,$29,$FF,$00,$18,$E9,$04,$00,$50,$05,$30,$08,$4C,$2F,$50,$10
-db $03,$4C,$2F,$50,$A5,$04,$F0,$03,$20,$60,$4F,$A5,$16,$F0,$0F,$9C
-db $C4,$4D,$22,$D6,$34,$C0,$22,$52,$7B,$C0,$22,$51,$94,$C0,$A5,$14
-db $2B,$6B
-
-C05200_Process_PartyObjectConditionDecayGate_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda $98A5
+    cmp.w #$0002
+    bne C05014_Process_PartyObjectConditionDecayGate_L5014
+    lda.w #$0001
+    jmp.w C051FE_Process_PartyObjectConditionDecayGate_L51FE
+C05014_Process_PartyObjectConditionDecayGate_L5014:
+    lda $5D98
+    beq C0501F_Process_PartyObjectConditionDecayGate_L501F
+    lda.w #$0001
+    jmp.w C051FE_Process_PartyObjectConditionDecayGate_L51FE
+C0501F_Process_PartyObjectConditionDecayGate_L501F:
+    stz $16
+    stz $14
+    lda.w #$0000
+    sta $04
+    sta $02
+    sta $12
+    jmp.w C051C0_Process_PartyObjectConditionDecayGate_L51C0
+C0502F_Process_PartyObjectConditionDecayGate_L502F:
+    lda $009C,X
+    and.w #$00FF
+    asl A
+    tax
+    lda $4DC8,X
+    sta $4DC6
+    tax
+    lda $000E,X
+    and.w #$00FF
+    tay
+    sty $10
+    cpy.w #$0001
+    bne C0504F_Process_PartyObjectConditionDecayGate_L504F
+    jmp.w C051B6_Process_PartyObjectConditionDecayGate_L51B6
+C0504F_Process_PartyObjectConditionDecayGate_L504F:
+    cpy.w #$0002
+    bne C05057_Process_PartyObjectConditionDecayGate_L5057
+    jmp.w C051B6_Process_PartyObjectConditionDecayGate_L51B6
+C05057_Process_PartyObjectConditionDecayGate_L5057:
+    cpy.w #$0005
+    bne C050A9_Process_PartyObjectConditionDecayGate_L50A9
+    lda $02
+    asl A
+    clc
+    adc.w #$5D66
+    tax
+    lda $0000,X
+    beq C050A0_Process_PartyObjectConditionDecayGate_L50A0
+    dec A
+    sta $0000,X
+    beq C05072_Process_PartyObjectConditionDecayGate_L5072
+    jmp.w C0513D_Process_PartyObjectConditionDecayGate_L513D
+C05072_Process_PartyObjectConditionDecayGate_L5072:
+    inc $04
+    lda $4DC6
+    clc
+    adc.w #$0045
+    tax
+    lda $0000,X
+    sec
+    sbc.w #$000A
+    sta $0000,X
+    lda $4DC6
+    clc
+    adc.w #$0047
+    tax
+    lda $0000,X
+    sec
+    sbc.w #$000A
+    sta $0000,X
+    lda $02
+    jsr $4F9F
+    jmp.w C0513D_Process_PartyObjectConditionDecayGate_L513D
+C050A0_Process_PartyObjectConditionDecayGate_L50A0:
+    lda.w #$0078
+    sta $0000,X
+    jmp.w C0513D_Process_PartyObjectConditionDecayGate_L513D
+C050A9_Process_PartyObjectConditionDecayGate_L50A9:
+    cpy.w #$0004
+    bcc C050B5_Process_PartyObjectConditionDecayGate_L50B5
+    cpy.w #$0007
+    bcc C050C3_Process_PartyObjectConditionDecayGate_L50C3
+    beq C050C3_Process_PartyObjectConditionDecayGate_L50C3
+C050B5_Process_PartyObjectConditionDecayGate_L50B5:
+    lda $9881
+    and.w #$000C
+    cmp.w #$000C
+    beq C050C3_Process_PartyObjectConditionDecayGate_L50C3
+    jmp.w C0513D_Process_PartyObjectConditionDecayGate_L513D
+C050C3_Process_PartyObjectConditionDecayGate_L50C3:
+    lda $02
+    asl A
+    clc
+    adc.w #$5D66
+    tax
+    lda $0000,X
+    beq C0512A_Process_PartyObjectConditionDecayGate_L512A
+    dec A
+    sta $0000,X
+    bne C0513D_Process_PartyObjectConditionDecayGate_L513D
+    inc $04
+    cpy.w #$0004
+    bne C05103_Process_PartyObjectConditionDecayGate_L5103
+    lda $4DC6
+    clc
+    adc.w #$0045
+    tax
+    lda $0000,X
+    sec
+    sbc.w #$000A
+    sta $0000,X
+    lda $4DC6
+    clc
+    adc.w #$0047
+    tax
+    lda $0000,X
+    sec
+    sbc.w #$000A
+    sta $0000,X
+    bra C05123_Process_PartyObjectConditionDecayGate_L5123
+C05103_Process_PartyObjectConditionDecayGate_L5103:
+    lda $4DC6
+    clc
+    adc.w #$0045
+    tax
+    lda $0000,X
+    dec A
+    dec A
+    sta $0000,X
+    lda $4DC6
+    clc
+    adc.w #$0047
+    tax
+    lda $0000,X
+    dec A
+    dec A
+    sta $0000,X
+C05123_Process_PartyObjectConditionDecayGate_L5123:
+    lda $02
+    jsr $4F9F
+    bra C0513D_Process_PartyObjectConditionDecayGate_L513D
+C0512A_Process_PartyObjectConditionDecayGate_L512A:
+    cpy.w #$0004
+    bne C05137_Process_PartyObjectConditionDecayGate_L5137
+    lda.w #$0078
+    sta $0000,X
+    bra C0513D_Process_PartyObjectConditionDecayGate_L513D
+C05137_Process_PartyObjectConditionDecayGate_L5137:
+    lda.w #$00F0
+    sta $0000,X
+C0513D_Process_PartyObjectConditionDecayGate_L513D:
+    ldx $4DC6
+    lda $0045,X
+    cmp.w #$8000
+    beq C0514A_Process_PartyObjectConditionDecayGate_L514A
+    bcs C0514F_Process_PartyObjectConditionDecayGate_L514F
+C0514A_Process_PartyObjectConditionDecayGate_L514A:
+    cmp.w #$0000
+    bne C051AA_Process_PartyObjectConditionDecayGate_L51AA
+C0514F_Process_PartyObjectConditionDecayGate_L514F:
+    ldy $10
+    cpy.w #$0001
+    beq C051B6_Process_PartyObjectConditionDecayGate_L51B6
+    lda.w #$0000
+    sta $0E
+    bra C05170_Process_PartyObjectConditionDecayGate_L5170
+C0515D_Process_PartyObjectConditionDecayGate_L515D:
+    lda $0E
+    clc
+    adc $4DC6
+    tax
+    sep #$20
+    stz $000E,X
+    rep #$20
+    lda $0E
+    inc A
+    sta $0E
+C05170_Process_PartyObjectConditionDecayGate_L5170:
+    sta $02
+    lda.w #$0006
+    clc
+    sbc $02
+    bvs C0517E_Process_PartyObjectConditionDecayGate_L517E
+    bpl C0515D_Process_PartyObjectConditionDecayGate_L515D
+    bra C05180_Process_PartyObjectConditionDecayGate_L5180
+C0517E_Process_PartyObjectConditionDecayGate_L517E:
+    bmi C0515D_Process_PartyObjectConditionDecayGate_L515D
+C05180_Process_PartyObjectConditionDecayGate_L5180:
+    sep #$20
+    lda.b #$01
+    ldx $4DC6
+    sta $000E,X
+    ldx $4DC6
+    rep #$20
+    stz $0047,X
+    ldx $4DC6
+    stz $0045,X
+    ldx $4DC6
+    lda $003B,X
+    asl A
+    tax
+    lda.w #$0010
+    sta $0F12,X
+    inc $16
+    bra C051B6_Process_PartyObjectConditionDecayGate_L51B6
+C051AA_Process_PartyObjectConditionDecayGate_L51AA:
+    ldy $10
+    cpy.w #$0002
+    beq C051B6_Process_PartyObjectConditionDecayGate_L51B6
+    clc
+    adc $14
+    sta $14
+C051B6_Process_PartyObjectConditionDecayGate_L51B6:
+    lda $12
+    sta $02
+    inc $02
+    lda $02
+    sta $12
+C051C0_Process_PartyObjectConditionDecayGate_L51C0:
+    lda $02
+    clc
+    adc.w #$97F5
+    tax
+    lda $0096,X
+    and.w #$00FF
+    beq C051E2_Process_PartyObjectConditionDecayGate_L51E2
+    and.w #$00FF
+    clc
+    sbc.w #$0004
+    bvc C051DD_Process_PartyObjectConditionDecayGate_L51DD
+    bmi C051E2_Process_PartyObjectConditionDecayGate_L51E2
+    jmp.w C0502F_Process_PartyObjectConditionDecayGate_L502F
+C051DD_Process_PartyObjectConditionDecayGate_L51DD:
+    bpl C051E2_Process_PartyObjectConditionDecayGate_L51E2
+    jmp.w C0502F_Process_PartyObjectConditionDecayGate_L502F
+C051E2_Process_PartyObjectConditionDecayGate_L51E2:
+    lda $04
+    beq C051E9_Process_PartyObjectConditionDecayGate_L51E9
+    jsr $4F60
+C051E9_Process_PartyObjectConditionDecayGate_L51E9:
+    lda $16
+    beq C051FC_Process_PartyObjectConditionDecayGate_L51FC
+    stz $4DC4
+    jsl $C034D6
+    jsl !C07B52_RebuildPartyRecordsOrEntityState
+    jsl !C09451_RestoreSavedCoordinateState
+C051FC_Process_PartyObjectConditionDecayGate_L51FC:
+    lda $14
+C051FE_Process_PartyObjectConditionDecayGate_L51FE:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8466,14 +11711,31 @@ hirom
 org $C05200
 
 C05200_Tick_OverworldPlayerPositionAndCallbacks:
-
-; Original data gap before C05238_Tick_OverworldPlayerPositionAndCallbacks_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$C2,$4D,$F0,$03,$4C,$A8,$52
-db $AD,$6F,$9F,$F0,$0E,$AD,$6B,$9F,$C9,$FF,$FF,$D0,$12,$22,$16,$77
-db $C0,$80,$0C,$AD,$6B,$9F,$C9,$FF,$FF,$F0,$04,$22,$7A,$77,$C0,$AD
-db $72,$44,$F0,$04,$22,$72,$01,$C0
-
-C05238_Tick_OverworldPlayerPositionAndCallbacks_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $4DC2
+    beq C05210_Tick_OverworldPlayerPositionAndCallbacks_L5210
+    jmp $52A8
+C05210_Tick_OverworldPlayerPositionAndCallbacks_L5210:
+    lda $9F6F
+    beq C05223_Tick_OverworldPlayerPositionAndCallbacks_L5223
+    lda $9F6B
+    cmp.w #$FFFF
+    bne C0522F_Tick_OverworldPlayerPositionAndCallbacks_L522F
+    jsl $C07716
+    bra C0522F_Tick_OverworldPlayerPositionAndCallbacks_L522F
+C05223_Tick_OverworldPlayerPositionAndCallbacks_L5223:
+    lda $9F6B
+    cmp.w #$FFFF
+    beq C0522F_Tick_OverworldPlayerPositionAndCallbacks_L522F
+    jsl $C0777A
+C0522F_Tick_OverworldPlayerPositionAndCallbacks_L522F:
+    lda $4472
+    db $F0, $04
+    jsl $C00172
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8483,21 +11745,77 @@ C05238_Tick_OverworldPlayerPositionAndCallbacks_End:
 hirom
 org $C05238
 
+!C08814_SetDisplayTransitionMode = $C08814
 C05238_Tick_LandingProfileStepSequencerIfActive:
-
-; Original data gap before C052D4_Tick_LandingProfileStepSequencerIfActive_End:
-db $AD,$74,$44,$F0,$04,$22,$0F,$03,$C0,$AD,$2A,$9F,$F0,$04,$22,$C4
-db $8F,$C4,$22,$45,$4C,$C0,$AD,$77,$98,$EB,$29,$FF,$00,$85,$0E,$AD
-db $7B,$98,$EB,$29,$FF,$00,$AA,$A5,$0E,$4D,$5C,$5D,$D0,$06,$8A,$4D
-db $5E,$5D,$F0,$10,$A5,$0E,$8D,$5C,$5D,$8E,$5E,$5D,$AD,$49,$B5,$F0
-db $03,$20,$25,$3C,$AD,$54,$9E,$D0,$0C,$AD,$A5,$98,$C9,$02,$00,$F0
-db $04,$22,$C6,$DC,$C0,$9C,$6F,$9F,$AD,$7F,$98,$8D,$76,$5D,$AD,$89
-db $98,$0A,$8D,$78,$5D,$AD,$85,$98,$F0,$06,$A9,$01,$00,$8D,$34,$0A
-db $2B,$6B,$C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A0,$00,$00,$A2,$01,$00
-db $8A,$22,$14,$88,$C0,$22,$21,$48,$C2,$85,$0E,$22,$D6,$34,$C0,$A9
-db $01,$00,$8D,$C4,$4D,$9C,$C2,$4D,$A5,$0E,$2B,$6B
-
-C052D4_Tick_LandingProfileStepSequencerIfActive_End:
+    lda $4474
+    beq C05241_Tick_LandingProfileStepSequencerIfActive_L5241
+    jsl $C0030F
+C05241_Tick_LandingProfileStepSequencerIfActive_L5241:
+    lda $9F2A
+    beq C0524A_Tick_LandingProfileStepSequencerIfActive_L524A
+    jsl $C48FC4
+C0524A_Tick_LandingProfileStepSequencerIfActive_L524A:
+    jsl $C04C45
+    lda $9877
+    xba
+    and.w #$00FF
+    sta $0E
+    lda $987B
+    xba
+    and.w #$00FF
+    tax
+    lda $0E
+    eor $5D5C
+    bne C0526C_Tick_LandingProfileStepSequencerIfActive_L526C
+    txa
+    eor $5D5E
+    beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
+C0526C_Tick_LandingProfileStepSequencerIfActive_L526C:
+    lda $0E
+    sta $5D5C
+    stx $5D5E
+    lda $B549
+    beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
+    jsr $3C25
+C0527C_Tick_LandingProfileStepSequencerIfActive_L527C:
+    lda $9E54
+    bne C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
+    lda $98A5
+    cmp.w #$0002
+    beq C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
+    jsl $C0DCC6
+C0528D_Tick_LandingProfileStepSequencerIfActive_L528D:
+    stz $9F6F
+    lda $987F
+    sta $5D76
+    lda $9889
+    asl A
+    sta $5D78
+    lda $9885
+    beq C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8
+    lda.w #$0001
+    sta $0A34
+C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    ldy.w #$0000
+    ldx.w #$0001
+    txa
+    jsl !C08814_SetDisplayTransitionMode
+    jsl $C24821
+    sta $0E
+    jsl $C034D6
+    lda.w #$0001
+    sta $4DC4
+    stz $4DC2
+    lda $0E
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8507,37 +11825,211 @@ C052D4_Tick_LandingProfileStepSequencerIfActive_End:
 hirom
 org $C052D4
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C052D4_Seed_PartyTrailSnapshotRing:
-
-; Original data gap before C0546B_Seed_PartyTrailSnapshotRing_End:
-db $C2,$31,$0B,$48,$7B,$69,$D6,$FF,$5B,$68,$85,$28,$A9,$FF,$00,$85
-db $26,$8D,$7D,$98,$AD,$77,$98,$85,$24,$AD,$7B,$98,$85,$22,$AD,$81
-db $98,$85,$04,$85,$20,$AD,$83,$98,$85,$1E,$A5,$28,$1A,$1A,$1A,$1A
-db $29,$07,$00,$85,$02,$A0,$75,$98,$84,$1C,$B9,$00,$00,$85,$06,$B9
-db $02,$00,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A6,$04,$A5,$02
-db $20,$8F,$2D,$A4,$1C,$B9,$00,$00,$85,$0A,$B9,$02,$00,$85,$0C,$38
-db $A5,$06,$E5,$0A,$85,$06,$A5,$08,$E5,$0C,$85,$08,$A5,$06,$85,$12
-db $A5,$08,$85,$14,$A0,$79,$98,$84,$1C,$B9,$00,$00,$85,$06,$B9,$02
-db $00,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A6,$04,$A5,$02,$20
-db $17,$30,$A4,$1C,$B9,$00,$00,$85,$0A,$B9,$02,$00,$85,$0C,$38,$A5
-db $06,$E5,$0A,$85,$06,$A5,$08,$E5,$0C,$85,$08,$A5,$06,$85,$16,$A5
-db $08,$85,$18,$A2,$00,$01,$80,$3F,$8A,$3A,$85,$1C,$85,$04,$0A,$65
-db $04,$0A,$0A,$18,$69,$56,$51,$AA,$A5,$24,$9D,$00,$00,$A5,$22,$9D
-db $02,$00,$A5,$20,$85,$04,$9D,$04,$00,$A5,$1E,$9D,$06,$00,$A5,$28
-db $9D,$08,$00,$9E,$0A,$00,$A5,$24,$18,$65,$14,$85,$24,$A5,$22,$18
-db $65,$18,$85,$22,$A5,$1C,$AA,$D0,$BF,$A5,$26,$85,$04,$0A,$65,$04
-db $0A,$0A,$18,$69,$56,$51,$AA,$86,$1C,$A9,$00,$00,$85,$1A,$80,$72
-db $AA,$BD,$91,$98,$29,$FF,$00,$A0,$5F,$00,$22,$F7,$8F,$C0,$18,$69
-db $CE,$99,$A8,$A5,$26,$99,$3D,$00,$A9,$FF,$FF,$99,$41,$00,$99,$37
-db $00,$A5,$1A,$0A,$85,$02,$18,$69,$97,$98,$A8,$B9,$00,$00,$0A,$48
-db $A6,$1C,$BD,$00,$00,$FA,$9D,$8E,$0B,$B9,$00,$00,$0A,$48,$A6,$1C
-db $BD,$02,$00,$FA,$9D,$CA,$0B,$A6,$1C,$BD,$08,$00,$A6,$02,$9D,$F6
-db $2A,$A6,$1C,$BD,$04,$00,$A6,$02,$9D,$AA,$2B,$A5,$26,$38,$E9,$10
-db $00,$85,$26,$A6,$1C,$8A,$38,$E9,$C0,$00,$AA,$86,$1C,$A5,$1A,$1A
-db $85,$1A,$AD,$A3,$98,$29,$FF,$00,$85,$02,$A5,$1A,$C5,$02,$B0,$05
-db $F0,$03,$4C,$E4,$53,$2B,$6B
-
-C0546B_Seed_PartyTrailSnapshotRing_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFD6
+    tcd
+    pla
+    sta $28
+    lda.w #$00FF
+    sta $26
+    sta $987D
+    lda $9877
+    sta $24
+    lda $987B
+    sta $22
+    lda $9881
+    sta $04
+    sta $20
+    lda $9883
+    sta $1E
+    lda $28
+    inc A
+    inc A
+    inc A
+    inc A
+    and.w #$0007
+    sta $02
+    ldy.w #$9875
+    sty $1C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $04
+    lda $02
+    jsr $2D8F
+    ldy $1C
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    sec
+    lda $06
+    sbc $0A
+    sta $06
+    lda $08
+    sbc $0C
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    ldy.w #$9879
+    sty $1C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $04
+    lda $02
+    jsr $3017
+    ldy $1C
+    lda $0000,Y
+    sta $0A
+    lda $0002,Y
+    sta $0C
+    sec
+    lda $06
+    sbc $0A
+    sta $06
+    lda $08
+    sbc $0C
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    ldx.w #$0100
+    bra C053CB_Seed_PartyTrailSnapshotRing_L53CB
+C0538C_Seed_PartyTrailSnapshotRing_L538C:
+    txa
+    dec A
+    sta $1C
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    tax
+    lda $24
+    sta $0000,X
+    lda $22
+    sta $0002,X
+    lda $20
+    sta $04
+    sta $0004,X
+    lda $1E
+    sta $0006,X
+    lda $28
+    sta $0008,X
+    stz $000A,X
+    lda $24
+    clc
+    adc $14
+    sta $24
+    lda $22
+    clc
+    adc $18
+    sta $22
+    lda $1C
+    tax
+C053CB_Seed_PartyTrailSnapshotRing_L53CB:
+    bne C0538C_Seed_PartyTrailSnapshotRing_L538C
+    lda $26
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    tax
+    stx $1C
+    lda.w #$0000
+    sta $1A
+    bra C05456_Seed_PartyTrailSnapshotRing_L5456
+C053E4_Seed_PartyTrailSnapshotRing_L53E4:
+    tax
+    lda $9891,X
+    and.w #$00FF
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tay
+    lda $26
+    sta $003D,Y
+    lda.w #$FFFF
+    sta $0041,Y
+    sta $0037,Y
+    lda $1A
+    asl A
+    sta $02
+    clc
+    adc.w #$9897
+    tay
+    lda $0000,Y
+    asl A
+    pha
+    ldx $1C
+    lda $0000,X
+    plx
+    sta $0B8E,X
+    lda $0000,Y
+    asl A
+    pha
+    ldx $1C
+    lda $0002,X
+    plx
+    sta $0BCA,X
+    ldx $1C
+    lda $0008,X
+    ldx $02
+    sta $2AF6,X
+    ldx $1C
+    lda $0004,X
+    ldx $02
+    sta $2BAA,X
+    lda $26
+    sec
+    sbc.w #$0010
+    sta $26
+    ldx $1C
+    txa
+    sec
+    sbc.w #$00C0
+    tax
+    stx $1C
+    lda $1A
+    inc A
+    sta $1A
+C05456_Seed_PartyTrailSnapshotRing_L5456:
+    lda $98A3
+    and.w #$00FF
+    sta $02
+    lda $1A
+    cmp $02
+    bcs C05469_Seed_PartyTrailSnapshotRing_L5469
+    beq C05469_Seed_PartyTrailSnapshotRing_L5469
+    jmp.w C053E4_Seed_PartyTrailSnapshotRing_L53E4
+C05469_Seed_PartyTrailSnapshotRing_L5469:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8547,17 +12039,60 @@ C0546B_Seed_PartyTrailSnapshotRing_End:
 hirom
 org $C0546B
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0546B_Sum_ActivePartyLevels:
-
-; Original data gap before C054C9_Sum_ActivePartyLevels_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A0,$00,$00,$84,$10,$98,$85,$0E
-db $80,$3B,$18,$69,$F5,$97,$AA,$BD,$96,$00,$29,$FF,$00,$18,$E9,$04
-db $00,$70,$04,$10,$23,$80,$02,$30,$1F,$BD,$9C,$00,$29,$FF,$00,$A0
-db $5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$D3,$99,$29,$FF,$00,$85,$02,$A4
-db $10,$98,$18,$65,$02,$A8,$84,$10,$A5,$0E,$1A,$85,$0E,$AD,$A3,$98
-db $29,$FF,$00,$85,$02,$A5,$0E,$C5,$02,$D0,$B7,$98,$2B,$6B
-
-C054C9_Sum_ActivePartyLevels_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    ldy.w #$0000
+    sty $10
+    tya
+    sta $0E
+    bra C054B8_Sum_ActivePartyLevels_L54B8
+C0547D_Sum_ActivePartyLevels_L547D:
+    clc
+    adc.w #$97F5
+    tax
+    lda $0096,X
+    and.w #$00FF
+    clc
+    sbc.w #$0004
+    bvs C05492_Sum_ActivePartyLevels_L5492
+    bpl C054B3_Sum_ActivePartyLevels_L54B3
+    bra C05494_Sum_ActivePartyLevels_L5494
+C05492_Sum_ActivePartyLevels_L5492:
+    bmi C054B3_Sum_ActivePartyLevels_L54B3
+C05494_Sum_ActivePartyLevels_L5494:
+    lda $009C,X
+    and.w #$00FF
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $99D3,X
+    and.w #$00FF
+    sta $02
+    ldy $10
+    tya
+    clc
+    adc $02
+    tay
+    sty $10
+C054B3_Sum_ActivePartyLevels_L54B3:
+    lda $0E
+    inc A
+    sta $0E
+C054B8_Sum_ActivePartyLevels_L54B8:
+    lda $98A3
+    and.w #$00FF
+    sta $02
+    lda $0E
+    cmp $02
+    bne C0547D_Sum_ActivePartyLevels_L547D
+    tya
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8568,14 +12103,41 @@ hirom
 org $C054C9
 
 C054C9_Read_CollisionByteAndLatchBit10Coord:
-
-; Original data gap before C05503_Read_CollisionByteAndLatchBit10Coord_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$86,$10,$85,$0E,$29,$3F
-db $00,$85,$02,$8A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$02
-db $AA,$BD,$00,$E0,$29,$FF,$00,$A8,$29,$10,$00,$F0,$0A,$A5,$0E,$8D
-db $A8,$5D,$A6,$10,$8E,$AA,$5D,$98,$2B,$60
-
-C05503_Read_CollisionByteAndLatchBit10Coord_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    stx $10
+    sta $0E
+    and.w #$003F
+    sta $02
+    txa
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    tay
+    and.w #$0010
+    beq C05500_Read_CollisionByteAndLatchBit10Coord_L5500
+    lda $0E
+    sta $5DA8
+    ldx $10
+    stx $5DAA
+C05500_Read_CollisionByteAndLatchBit10Coord_L5500:
+    tya
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8586,20 +12148,99 @@ hirom
 org $C05503
 
 C05503_OR_CollisionHorizontalEdgeA:
-
-; Original data gap before C0559C_OR_CollisionHorizontalEdgeA_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$A8,$AD,$A4,$5D,$85,$14
-db $8A,$0A,$AA,$BF,$A7,$2A,$C4,$85,$12,$AD,$AE,$5D,$4A,$4A,$4A,$85
-db $04,$98,$4A,$4A,$4A,$29,$3F,$00,$85,$02,$A5,$04,$29,$3F,$00,$0A
-db $0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$BD,$00,$E0,$29,$FF,$00,$85
-db $02,$A5,$14,$05,$02,$85,$02,$85,$10,$98,$18,$69,$07,$00,$4A,$4A
-db $4A,$AA,$86,$14,$A9,$00,$00,$85,$0E,$80,$33,$8A,$29,$3F,$00,$85
-db $02,$A5,$04,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA
-db $BD,$00,$E0,$29,$FF,$00,$48,$A5,$10,$85,$02,$7A,$84,$02,$05,$02
-db $85,$02,$85,$10,$A6,$14,$E8,$86,$14,$A5,$0E,$1A,$85,$0E,$C5,$12
-db $90,$C9,$A5,$02,$8D,$A4,$5D,$2B,$60
-
-C0559C_OR_CollisionHorizontalEdgeA_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    tay
+    lda $5DA4
+    sta $14
+    txa
+    asl A
+    tax
+    lda $C42AA7,X
+    sta $12
+    lda $5DAE
+    lsr A
+    lsr A
+    lsr A
+    sta $04
+    tya
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    sta $02
+    lda $04
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    lda $14
+    ora $02
+    sta $02
+    sta $10
+    tya
+    clc
+    adc.w #$0007
+    lsr A
+    lsr A
+    lsr A
+    tax
+    stx $14
+    lda.w #$0000
+    sta $0E
+    bra C05591_OR_CollisionHorizontalEdgeA_L5591
+C0555E_OR_CollisionHorizontalEdgeA_L555E:
+    txa
+    and.w #$003F
+    sta $02
+    lda $04
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    pha
+    lda $10
+    sta $02
+    ply
+    sty $02
+    ora $02
+    sta $02
+    sta $10
+    ldx $14
+    inx
+    stx $14
+    lda $0E
+    inc A
+    sta $0E
+C05591_OR_CollisionHorizontalEdgeA_L5591:
+    cmp $12
+    bcc C0555E_OR_CollisionHorizontalEdgeA_L555E
+    lda $02
+    sta $5DA4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8610,20 +12251,104 @@ hirom
 org $C0559C
 
 C0559C_OR_CollisionHorizontalEdgeB:
-
-; Original data gap before C05639_OR_CollisionHorizontalEdgeB_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$12,$AC,$A4,$5D,$8A
-db $0A,$AA,$BF,$A7,$2A,$C4,$85,$04,$BF,$C9,$2A,$C4,$0A,$0A,$0A,$18
-db $6D,$AE,$5D,$3A,$4A,$4A,$4A,$85,$02,$85,$10,$A5,$12,$4A,$4A,$4A
-db $29,$3F,$00,$48,$A5,$02,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$FA
-db $86,$02,$18,$65,$02,$AA,$BD,$00,$E0,$29,$FF,$00,$85,$02,$98,$05
-db $02,$A8,$A5,$12,$18,$69,$07,$00,$4A,$4A,$4A,$AA,$86,$12,$A9,$00
-db $00,$85,$0E,$80,$2F,$8A,$29,$3F,$00,$48,$A5,$10,$85,$02,$29,$3F
-db $00,$0A,$0A,$0A,$0A,$0A,$0A,$FA,$86,$02,$18,$65,$02,$AA,$BD,$00
-db $E0,$29,$FF,$00,$85,$02,$98,$05,$02,$A8,$A6,$12,$E8,$86,$12,$A5
-db $0E,$1A,$85,$0E,$C5,$04,$90,$CD,$8C,$A4,$5D,$2B,$60
-
-C05639_OR_CollisionHorizontalEdgeB_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $12
+    ldy $5DA4
+    txa
+    asl A
+    tax
+    lda $C42AA7,X
+    sta $04
+    lda $C42AC9,X
+    asl A
+    asl A
+    asl A
+    clc
+    adc $5DAE
+    dec A
+    lsr A
+    lsr A
+    lsr A
+    sta $02
+    sta $10
+    lda $12
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    pha
+    lda $02
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    plx
+    stx $02
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    tya
+    ora $02
+    tay
+    lda $12
+    clc
+    adc.w #$0007
+    lsr A
+    lsr A
+    lsr A
+    tax
+    stx $12
+    lda.w #$0000
+    sta $0E
+    bra C05630_OR_CollisionHorizontalEdgeB_L5630
+C05601_OR_CollisionHorizontalEdgeB_L5601:
+    txa
+    and.w #$003F
+    pha
+    lda $10
+    sta $02
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    plx
+    stx $02
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    tya
+    ora $02
+    tay
+    ldx $12
+    inx
+    stx $12
+    lda $0E
+    inc A
+    sta $0E
+C05630_OR_CollisionHorizontalEdgeB_L5630:
+    cmp $04
+    bcc C05601_OR_CollisionHorizontalEdgeB_L5601
+    sty $5DA4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8634,20 +12359,98 @@ hirom
 org $C05639
 
 C05639_OR_CollisionVerticalEdgeA:
-
-; Original data gap before C056D0_OR_CollisionVerticalEdgeA_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$A8,$8A,$0A,$AA,$BF,$C9
-db $2A,$C4,$85,$14,$AD,$A4,$5D,$85,$12,$AD,$AC,$5D,$4A,$4A,$4A,$85
-db $04,$29,$3F,$00,$85,$02,$98,$4A,$4A,$4A,$29,$3F,$00,$0A,$0A,$0A
-db $0A,$0A,$0A,$18,$65,$02,$AA,$BD,$00,$E0,$29,$FF,$00,$85,$02,$A5
-db $12,$05,$02,$85,$02,$85,$10,$98,$18,$69,$07,$00,$4A,$4A,$4A,$AA
-db $86,$12,$A9,$00,$00,$85,$0E,$80,$33,$A5,$04,$29,$3F,$00,$85,$02
-db $8A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$BD,$00
-db $E0,$29,$FF,$00,$48,$A5,$10,$85,$02,$7A,$84,$02,$05,$02,$85,$02
-db $85,$10,$A6,$12,$E8,$86,$12,$A5,$0E,$1A,$85,$0E,$C5,$14,$90,$C9
-db $A5,$02,$8D,$A4,$5D,$2B,$60
-
-C056D0_OR_CollisionVerticalEdgeA_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    tay
+    txa
+    asl A
+    tax
+    lda $C42AC9,X
+    sta $14
+    lda $5DA4
+    sta $12
+    lda $5DAC
+    lsr A
+    lsr A
+    lsr A
+    sta $04
+    and.w #$003F
+    sta $02
+    tya
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    lda $12
+    ora $02
+    sta $02
+    sta $10
+    tya
+    clc
+    adc.w #$0007
+    lsr A
+    lsr A
+    lsr A
+    tax
+    stx $12
+    lda.w #$0000
+    sta $0E
+    bra C056C5_OR_CollisionVerticalEdgeA_L56C5
+C05692_OR_CollisionVerticalEdgeA_L5692:
+    lda $04
+    and.w #$003F
+    sta $02
+    txa
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    pha
+    lda $10
+    sta $02
+    ply
+    sty $02
+    ora $02
+    sta $02
+    sta $10
+    ldx $12
+    inx
+    stx $12
+    lda $0E
+    inc A
+    sta $0E
+C056C5_OR_CollisionVerticalEdgeA_L56C5:
+    cmp $14
+    bcc C05692_OR_CollisionVerticalEdgeA_L5692
+    lda $02
+    sta $5DA4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8658,20 +12461,100 @@ hirom
 org $C056D0
 
 C056D0_OR_CollisionVerticalEdgeB:
-
-; Original data gap before C05769_OR_CollisionVerticalEdgeB_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$12,$AC,$A4,$5D,$8A
-db $0A,$AA,$BF,$C9,$2A,$C4,$85,$04,$BF,$A7,$2A,$C4,$0A,$0A,$0A,$18
-db $6D,$AC,$5D,$3A,$4A,$4A,$4A,$85,$02,$85,$10,$A5,$02,$29,$3F,$00
-db $85,$02,$A5,$12,$4A,$4A,$4A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A
-db $18,$65,$02,$AA,$BD,$00,$E0,$29,$FF,$00,$85,$02,$98,$05,$02,$A8
-db $A5,$12,$18,$69,$07,$00,$4A,$4A,$4A,$AA,$86,$12,$A9,$00,$00,$85
-db $0E,$80,$2D,$A5,$10,$85,$02,$29,$3F,$00,$85,$02,$8A,$29,$3F,$00
-db $0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$BD,$00,$E0,$29,$FF,$00
-db $85,$02,$98,$05,$02,$A8,$A6,$12,$E8,$86,$12,$A5,$0E,$1A,$85,$0E
-db $C5,$04,$90,$CF,$8C,$A4,$5D,$2B,$60
-
-C05769_OR_CollisionVerticalEdgeB_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $12
+    ldy $5DA4
+    txa
+    asl A
+    tax
+    lda $C42AC9,X
+    sta $04
+    lda $C42AA7,X
+    asl A
+    asl A
+    asl A
+    clc
+    adc $5DAC
+    dec A
+    lsr A
+    lsr A
+    lsr A
+    sta $02
+    sta $10
+    lda $02
+    and.w #$003F
+    sta $02
+    lda $12
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    tya
+    ora $02
+    tay
+    lda $12
+    clc
+    adc.w #$0007
+    lsr A
+    lsr A
+    lsr A
+    tax
+    stx $12
+    lda.w #$0000
+    sta $0E
+    bra C05760_OR_CollisionVerticalEdgeB_L5760
+C05733_OR_CollisionVerticalEdgeB_L5733:
+    lda $10
+    sta $02
+    and.w #$003F
+    sta $02
+    txa
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    sta $02
+    tya
+    ora $02
+    tay
+    ldx $12
+    inx
+    stx $12
+    lda $0E
+    inc A
+    sta $0E
+C05760_OR_CollisionVerticalEdgeB_L5760:
+    cmp $04
+    bcc C05733_OR_CollisionVerticalEdgeB_L5733
+    sty $5DA4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8682,18 +12565,77 @@ hirom
 org $C05769
 
 C05769_Probe_SurfaceMaskCollisionSamples:
-
-; Original data gap before C057E8_Probe_SurfaceMaskCollisionSamples_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$85,$04,$A0,$00,$00,$84
-db $14,$84,$02,$A5,$02,$85,$12,$80,$50,$A5,$04,$29,$01,$00,$F0,$3A
-db $98,$0A,$85,$10,$AA,$BF,$C5,$00,$C2,$18,$6D,$AE,$5D,$4A,$4A,$4A
-db $AA,$86,$0E,$A5,$10,$AA,$BF,$B9,$00,$C2,$18,$6D,$AC,$5D,$4A,$4A
-db $4A,$A6,$0E,$20,$C9,$54,$85,$0E,$05,$12,$85,$12,$A5,$0E,$29,$C0
-db $00,$F0,$07,$A5,$02,$09,$40,$00,$85,$02,$A5,$02,$4A,$85,$02,$A5
-db $04,$4A,$85,$04,$A4,$14,$C8,$84,$14,$C0,$06,$00,$90,$AB,$AD,$B4
-db $5D,$C9,$01,$00,$D0,$05,$A5,$12,$8D,$A4,$5D,$A5,$02,$2B,$60
-
-C057E8_Probe_SurfaceMaskCollisionSamples_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    sta $04
+    ldy.w #$0000
+    sty $14
+    sty $02
+    lda $02
+    sta $12
+    bra C057D2_Probe_SurfaceMaskCollisionSamples_L57D2
+C05782_Probe_SurfaceMaskCollisionSamples_L5782:
+    lda $04
+    and.w #$0001
+    beq C057C3_Probe_SurfaceMaskCollisionSamples_L57C3
+    tya
+    asl A
+    sta $10
+    tax
+    lda $C200C5,X
+    clc
+    adc $5DAE
+    lsr A
+    lsr A
+    lsr A
+    tax
+    stx $0E
+    lda $10
+    tax
+    lda $C200B9,X
+    clc
+    adc $5DAC
+    lsr A
+    lsr A
+    lsr A
+    ldx $0E
+    jsr $54C9
+    sta $0E
+    ora $12
+    sta $12
+    lda $0E
+    and.w #$00C0
+    beq C057C3_Probe_SurfaceMaskCollisionSamples_L57C3
+    lda $02
+    ora.w #$0040
+    sta $02
+C057C3_Probe_SurfaceMaskCollisionSamples_L57C3:
+    lda $02
+    lsr A
+    sta $02
+    lda $04
+    lsr A
+    sta $04
+    ldy $14
+    iny
+    sty $14
+C057D2_Probe_SurfaceMaskCollisionSamples_L57D2:
+    cpy.w #$0006
+    bcc C05782_Probe_SurfaceMaskCollisionSamples_L5782
+    lda $5DB4
+    cmp.w #$0001
+    bne C057E4_Probe_SurfaceMaskCollisionSamples_L57E4
+    lda $12
+    sta $5DA4
+C057E4_Probe_SurfaceMaskCollisionSamples_L57E4:
+    lda $02
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8704,16 +12646,46 @@ hirom
 org $C057E8
 
 C057E8_Resolve_SurfaceMask0007:
-
-; Original data gap before C0583C_Resolve_SurfaceMask0007_End:
-db $C2,$31,$9C,$A4,$5D,$EE,$B4,$5D,$A9,$07,$00,$20,$69,$57,$8D,$B6
-db $5D,$C9,$07,$00,$F0,$05,$C9,$02,$00,$D0,$05,$A9,$00,$FF,$80,$33
-db $C9,$00,$00,$D0,$05,$A9,$FF,$FF,$80,$29,$C9,$01,$00,$D0,$05,$A9
-db $01,$00,$80,$1F,$C9,$04,$00,$D0,$05,$A9,$07,$00,$80,$15,$C9,$06
-db $00,$D0,$0D,$AD,$AC,$5D,$29,$07,$00,$D0,$05,$A9,$07,$00,$80,$03
-db $A9,$FF,$FF,$60
-
-C0583C_Resolve_SurfaceMask0007_End:
+    rep #$31
+    stz $5DA4
+    inc $5DB4
+    lda.w #$0007
+    jsr $5769
+    sta $5DB6
+    cmp.w #$0007
+    beq C05803_Resolve_SurfaceMask0007_L5803
+    cmp.w #$0002
+    bne C05808_Resolve_SurfaceMask0007_L5808
+C05803_Resolve_SurfaceMask0007_L5803:
+    lda.w #$FF00
+    bra C0583B_Resolve_SurfaceMask0007_L583B
+C05808_Resolve_SurfaceMask0007_L5808:
+    cmp.w #$0000
+    bne C05812_Resolve_SurfaceMask0007_L5812
+    lda.w #$FFFF
+    bra C0583B_Resolve_SurfaceMask0007_L583B
+C05812_Resolve_SurfaceMask0007_L5812:
+    cmp.w #$0001
+    bne C0581C_Resolve_SurfaceMask0007_L581C
+    lda.w #$0001
+    bra C0583B_Resolve_SurfaceMask0007_L583B
+C0581C_Resolve_SurfaceMask0007_L581C:
+    cmp.w #$0004
+    bne C05826_Resolve_SurfaceMask0007_L5826
+    lda.w #$0007
+    bra C0583B_Resolve_SurfaceMask0007_L583B
+C05826_Resolve_SurfaceMask0007_L5826:
+    cmp.w #$0006
+    bne C05838_Resolve_SurfaceMask0007_L5838
+    lda $5DAC
+    and.w #$0007
+    bne C05838_Resolve_SurfaceMask0007_L5838
+    lda.w #$0007
+    bra C0583B_Resolve_SurfaceMask0007_L583B
+C05838_Resolve_SurfaceMask0007_L5838:
+    lda.w #$FFFF
+C0583B_Resolve_SurfaceMask0007_L583B:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8724,16 +12696,46 @@ hirom
 org $C0583C
 
 C0583C_Resolve_SurfaceMask0038:
-
-; Original data gap before C05890_Resolve_SurfaceMask0038_End:
-db $C2,$31,$9C,$A4,$5D,$EE,$B4,$5D,$A9,$38,$00,$20,$69,$57,$8D,$B6
-db $5D,$C9,$07,$00,$F0,$05,$C9,$10,$00,$D0,$05,$A9,$00,$FF,$80,$33
-db $C9,$00,$00,$D0,$05,$A9,$FF,$FF,$80,$29,$C9,$08,$00,$D0,$05,$A9
-db $03,$00,$80,$1F,$C9,$20,$00,$D0,$05,$A9,$05,$00,$80,$15,$C9,$30
-db $00,$D0,$0D,$AD,$AC,$5D,$29,$07,$00,$D0,$05,$A9,$05,$00,$80,$03
-db $A9,$FF,$FF,$60
-
-C05890_Resolve_SurfaceMask0038_End:
+    rep #$31
+    stz $5DA4
+    inc $5DB4
+    lda.w #$0038
+    jsr $5769
+    sta $5DB6
+    cmp.w #$0007
+    beq C05857_Resolve_SurfaceMask0038_L5857
+    cmp.w #$0010
+    bne C0585C_Resolve_SurfaceMask0038_L585C
+C05857_Resolve_SurfaceMask0038_L5857:
+    lda.w #$FF00
+    bra C0588F_Resolve_SurfaceMask0038_L588F
+C0585C_Resolve_SurfaceMask0038_L585C:
+    cmp.w #$0000
+    bne C05866_Resolve_SurfaceMask0038_L5866
+    lda.w #$FFFF
+    bra C0588F_Resolve_SurfaceMask0038_L588F
+C05866_Resolve_SurfaceMask0038_L5866:
+    cmp.w #$0008
+    bne C05870_Resolve_SurfaceMask0038_L5870
+    lda.w #$0003
+    bra C0588F_Resolve_SurfaceMask0038_L588F
+C05870_Resolve_SurfaceMask0038_L5870:
+    cmp.w #$0020
+    bne C0587A_Resolve_SurfaceMask0038_L587A
+    lda.w #$0005
+    bra C0588F_Resolve_SurfaceMask0038_L588F
+C0587A_Resolve_SurfaceMask0038_L587A:
+    cmp.w #$0030
+    bne C0588C_Resolve_SurfaceMask0038_L588C
+    lda $5DAC
+    and.w #$0007
+    bne C0588C_Resolve_SurfaceMask0038_L588C
+    lda.w #$0005
+    bra C0588F_Resolve_SurfaceMask0038_L588F
+C0588C_Resolve_SurfaceMask0038_L588C:
+    lda.w #$FFFF
+C0588F_Resolve_SurfaceMask0038_L588F:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8744,32 +12746,187 @@ hirom
 org $C05890
 
 C05890_Resolve_SurfaceMask0009:
-
-; Original data gap before C059EF_Resolve_SurfaceMask0009_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$A0,$FF,$FF,$84,$12,$A9,$00,$00
-db $85,$02,$AA,$86,$10,$9C,$A4,$5D,$A9,$01,$00,$8D,$B4,$5D,$A9,$09
-db $00,$20,$69,$57,$85,$0E,$C9,$00,$00,$D0,$24,$CE,$AC,$5D,$CE,$AC
-db $5D,$CE,$AC,$5D,$CE,$AC,$5D,$A9,$09,$00,$20,$69,$57,$85,$0E,$C9
-db $00,$00,$D0,$06,$A9,$06,$00,$4C,$ED,$59,$A9,$01,$00,$85,$02,$A5
-db $0E,$29,$09,$00,$C9,$09,$00,$D0,$18,$AD,$AE,$5D,$29,$07,$00,$F0
-db $10,$A5,$02,$F0,$06,$A9,$06,$00,$4C,$ED,$59,$A9,$FF,$FF,$4C,$ED
-db $59,$AD,$AC,$5D,$38,$E9,$04,$00,$4A,$4A,$4A,$29,$3F,$00,$85,$04
-db $AD,$AE,$5D,$3A,$3A,$4A,$4A,$4A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A
-db $0A,$18,$65,$04,$AA,$BD,$00,$E0,$29,$FF,$00,$29,$C0,$00,$F0,$09
-db $A6,$10,$8A,$09,$01,$00,$AA,$86,$10,$AD,$AC,$5D,$38,$E9,$04,$00
-db $4A,$4A,$4A,$29,$3F,$00,$85,$04,$AD,$AE,$5D,$18,$69,$09,$00,$4A
-db $4A,$4A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$04,$AA,$BD
-db $00,$E0,$29,$FF,$00,$29,$C0,$00,$F0,$09,$A6,$10,$8A,$09,$02,$00
-db $AA,$86,$10,$A5,$0E,$C9,$09,$00,$F0,$0C,$C9,$01,$00,$F0,$3F,$C9
-db $08,$00,$F0,$49,$80,$54,$A6,$10,$E0,$01,$00,$D0,$07,$A0,$05,$00
-db $84,$12,$80,$46,$E0,$02,$00,$D0,$07,$A0,$07,$00,$84,$12,$80,$3A
-db $E0,$00,$00,$D0,$35,$AD,$AE,$5D,$29,$07,$00,$C9,$04,$00,$B0,$07
-db $A0,$07,$00,$84,$12,$80,$23,$A0,$05,$00,$84,$12,$80,$1C,$A6,$10
-db $8A,$29,$02,$00,$D0,$14,$A0,$05,$00,$84,$12,$80,$0D,$A6,$10,$8A
-db $29,$01,$00,$D0,$05,$A0,$07,$00,$84,$12,$A5,$02,$F0,$0C,$A4,$12
-db $C0,$FF,$FF,$D0,$05,$A9,$06,$00,$80,$03,$A4,$12,$98,$2B,$60
-
-C059EF_Resolve_SurfaceMask0009_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    ldy.w #$FFFF
+    sty $12
+    lda.w #$0000
+    sta $02
+    tax
+    stx $10
+    stz $5DA4
+    lda.w #$0001
+    sta $5DB4
+    lda.w #$0009
+    jsr $5769
+    sta $0E
+    cmp.w #$0000
+    bne C058DF_Resolve_SurfaceMask0009_L58DF
+    dec $5DAC
+    dec $5DAC
+    dec $5DAC
+    dec $5DAC
+    lda.w #$0009
+    jsr $5769
+    sta $0E
+    cmp.w #$0000
+    bne C058DA_Resolve_SurfaceMask0009_L58DA
+    lda.w #$0006
+    jmp.w C059ED_Resolve_SurfaceMask0009_L59ED
+C058DA_Resolve_SurfaceMask0009_L58DA:
+    lda.w #$0001
+    sta $02
+C058DF_Resolve_SurfaceMask0009_L58DF:
+    lda $0E
+    and.w #$0009
+    cmp.w #$0009
+    bne C05901_Resolve_SurfaceMask0009_L5901
+    lda $5DAE
+    and.w #$0007
+    beq C05901_Resolve_SurfaceMask0009_L5901
+    lda $02
+    beq C058FB_Resolve_SurfaceMask0009_L58FB
+    lda.w #$0006
+    jmp.w C059ED_Resolve_SurfaceMask0009_L59ED
+C058FB_Resolve_SurfaceMask0009_L58FB:
+    lda.w #$FFFF
+    jmp.w C059ED_Resolve_SurfaceMask0009_L59ED
+C05901_Resolve_SurfaceMask0009_L5901:
+    lda $5DAC
+    sec
+    sbc.w #$0004
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    sta $04
+    lda $5DAE
+    dec A
+    dec A
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    tax
+    lda $E000,X
+    and.w #$00FF
+    and.w #$00C0
+    beq C05939_Resolve_SurfaceMask0009_L5939
+    ldx $10
+    txa
+    ora.w #$0001
+    tax
+    stx $10
+C05939_Resolve_SurfaceMask0009_L5939:
+    lda $5DAC
+    sec
+    sbc.w #$0004
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    sta $04
+    lda $5DAE
+    clc
+    adc.w #$0009
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    tax
+    lda $E000,X
+    and.w #$00FF
+    and.w #$00C0
+    beq C05973_Resolve_SurfaceMask0009_L5973
+    ldx $10
+    txa
+    ora.w #$0002
+    tax
+    stx $10
+C05973_Resolve_SurfaceMask0009_L5973:
+    lda $0E
+    cmp.w #$0009
+    beq C05986_Resolve_SurfaceMask0009_L5986
+    cmp.w #$0001
+    beq C059BE_Resolve_SurfaceMask0009_L59BE
+    cmp.w #$0008
+    beq C059CD_Resolve_SurfaceMask0009_L59CD
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C05986_Resolve_SurfaceMask0009_L5986:
+    ldx $10
+    cpx.w #$0001
+    bne C05994_Resolve_SurfaceMask0009_L5994
+    ldy.w #$0005
+    sty $12
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C05994_Resolve_SurfaceMask0009_L5994:
+    cpx.w #$0002
+    bne C059A0_Resolve_SurfaceMask0009_L59A0
+    ldy.w #$0007
+    sty $12
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C059A0_Resolve_SurfaceMask0009_L59A0:
+    cpx.w #$0000
+    bne C059DA_Resolve_SurfaceMask0009_L59DA
+    lda $5DAE
+    and.w #$0007
+    cmp.w #$0004
+    bcs C059B7_Resolve_SurfaceMask0009_L59B7
+    ldy.w #$0007
+    sty $12
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C059B7_Resolve_SurfaceMask0009_L59B7:
+    ldy.w #$0005
+    sty $12
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C059BE_Resolve_SurfaceMask0009_L59BE:
+    ldx $10
+    txa
+    and.w #$0002
+    bne C059DA_Resolve_SurfaceMask0009_L59DA
+    ldy.w #$0005
+    sty $12
+    bra C059DA_Resolve_SurfaceMask0009_L59DA
+C059CD_Resolve_SurfaceMask0009_L59CD:
+    ldx $10
+    txa
+    and.w #$0001
+    bne C059DA_Resolve_SurfaceMask0009_L59DA
+    ldy.w #$0007
+    sty $12
+C059DA_Resolve_SurfaceMask0009_L59DA:
+    lda $02
+    beq C059EA_Resolve_SurfaceMask0009_L59EA
+    ldy $12
+    cpy.w #$FFFF
+    bne C059EA_Resolve_SurfaceMask0009_L59EA
+    lda.w #$0006
+    bra C059ED_Resolve_SurfaceMask0009_L59ED
+C059EA_Resolve_SurfaceMask0009_L59EA:
+    ldy $12
+    tya
+C059ED_Resolve_SurfaceMask0009_L59ED:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8780,32 +12937,191 @@ hirom
 org $C059EF
 
 C059EF_Resolve_SurfaceMask0024:
-
-; Original data gap before C05B4E_Resolve_SurfaceMask0024_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$A0,$FF,$FF,$84,$12,$A9,$00,$00
-db $85,$02,$AA,$86,$10,$9C,$A4,$5D,$A9,$01,$00,$8D,$B4,$5D,$A9,$24
-db $00,$20,$69,$57,$85,$0E,$C9,$00,$00,$D0,$24,$EE,$AC,$5D,$EE,$AC
-db $5D,$EE,$AC,$5D,$EE,$AC,$5D,$A9,$24,$00,$20,$69,$57,$85,$0E,$C9
-db $00,$00,$D0,$06,$A9,$02,$00,$4C,$4C,$5B,$A9,$01,$00,$85,$02,$A5
-db $0E,$29,$24,$00,$C9,$24,$00,$D0,$18,$AD,$AE,$5D,$29,$07,$00,$F0
-db $10,$A5,$02,$F0,$06,$A9,$02,$00,$4C,$4C,$5B,$A9,$FF,$FF,$4C,$4C
-db $5B,$AD,$AC,$5D,$1A,$1A,$1A,$1A,$4A,$4A,$4A,$29,$3F,$00,$85,$04
-db $AD,$AE,$5D,$3A,$3A,$4A,$4A,$4A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A
-db $0A,$18,$65,$04,$AA,$BD,$00,$E0,$29,$FF,$00,$29,$C0,$00,$F0,$09
-db $A6,$10,$8A,$09,$01,$00,$AA,$86,$10,$AD,$AC,$5D,$1A,$1A,$1A,$1A
-db $4A,$4A,$4A,$29,$3F,$00,$85,$04,$AD,$AE,$5D,$18,$69,$09,$00,$4A
-db $4A,$4A,$29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$04,$AA,$BD
-db $00,$E0,$29,$FF,$00,$29,$C0,$00,$F0,$09,$A6,$10,$8A,$09,$02,$00
-db $AA,$86,$10,$A5,$0E,$C9,$24,$00,$F0,$0C,$C9,$04,$00,$F0,$3F,$C9
-db $20,$00,$F0,$49,$80,$54,$A6,$10,$E0,$01,$00,$D0,$07,$A0,$03,$00
-db $84,$12,$80,$46,$E0,$02,$00,$D0,$07,$A0,$01,$00,$84,$12,$80,$3A
-db $E0,$00,$00,$D0,$35,$AD,$AE,$5D,$29,$07,$00,$C9,$04,$00,$B0,$07
-db $A0,$01,$00,$84,$12,$80,$23,$A0,$03,$00,$84,$12,$80,$1C,$A6,$10
-db $8A,$29,$02,$00,$D0,$14,$A0,$03,$00,$84,$12,$80,$0D,$A6,$10,$8A
-db $29,$01,$00,$D0,$05,$A0,$01,$00,$84,$12,$A5,$02,$F0,$0C,$A4,$12
-db $C0,$FF,$FF,$D0,$05,$A9,$02,$00,$80,$03,$A4,$12,$98,$2B,$60
-
-C05B4E_Resolve_SurfaceMask0024_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    ldy.w #$FFFF
+    sty $12
+    lda.w #$0000
+    sta $02
+    tax
+    stx $10
+    stz $5DA4
+    lda.w #$0001
+    sta $5DB4
+    lda.w #$0024
+    jsr $5769
+    sta $0E
+    cmp.w #$0000
+    bne C05A3E_Resolve_SurfaceMask0024_L5A3E
+    inc $5DAC
+    inc $5DAC
+    inc $5DAC
+    inc $5DAC
+    lda.w #$0024
+    jsr $5769
+    sta $0E
+    cmp.w #$0000
+    bne C05A39_Resolve_SurfaceMask0024_L5A39
+    lda.w #$0002
+    jmp.w C05B4C_Resolve_SurfaceMask0024_L5B4C
+C05A39_Resolve_SurfaceMask0024_L5A39:
+    lda.w #$0001
+    sta $02
+C05A3E_Resolve_SurfaceMask0024_L5A3E:
+    lda $0E
+    and.w #$0024
+    cmp.w #$0024
+    bne C05A60_Resolve_SurfaceMask0024_L5A60
+    lda $5DAE
+    and.w #$0007
+    beq C05A60_Resolve_SurfaceMask0024_L5A60
+    lda $02
+    beq C05A5A_Resolve_SurfaceMask0024_L5A5A
+    lda.w #$0002
+    jmp.w C05B4C_Resolve_SurfaceMask0024_L5B4C
+C05A5A_Resolve_SurfaceMask0024_L5A5A:
+    lda.w #$FFFF
+    jmp.w C05B4C_Resolve_SurfaceMask0024_L5B4C
+C05A60_Resolve_SurfaceMask0024_L5A60:
+    lda $5DAC
+    inc A
+    inc A
+    inc A
+    inc A
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    sta $04
+    lda $5DAE
+    dec A
+    dec A
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    tax
+    lda $E000,X
+    and.w #$00FF
+    and.w #$00C0
+    beq C05A98_Resolve_SurfaceMask0024_L5A98
+    ldx $10
+    txa
+    ora.w #$0001
+    tax
+    stx $10
+C05A98_Resolve_SurfaceMask0024_L5A98:
+    lda $5DAC
+    inc A
+    inc A
+    inc A
+    inc A
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    sta $04
+    lda $5DAE
+    clc
+    adc.w #$0009
+    lsr A
+    lsr A
+    lsr A
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    tax
+    lda $E000,X
+    and.w #$00FF
+    and.w #$00C0
+    beq C05AD2_Resolve_SurfaceMask0024_L5AD2
+    ldx $10
+    txa
+    ora.w #$0002
+    tax
+    stx $10
+C05AD2_Resolve_SurfaceMask0024_L5AD2:
+    lda $0E
+    cmp.w #$0024
+    beq C05AE5_Resolve_SurfaceMask0024_L5AE5
+    cmp.w #$0004
+    beq C05B1D_Resolve_SurfaceMask0024_L5B1D
+    cmp.w #$0020
+    beq C05B2C_Resolve_SurfaceMask0024_L5B2C
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05AE5_Resolve_SurfaceMask0024_L5AE5:
+    ldx $10
+    cpx.w #$0001
+    bne C05AF3_Resolve_SurfaceMask0024_L5AF3
+    ldy.w #$0003
+    sty $12
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05AF3_Resolve_SurfaceMask0024_L5AF3:
+    cpx.w #$0002
+    bne C05AFF_Resolve_SurfaceMask0024_L5AFF
+    ldy.w #$0001
+    sty $12
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05AFF_Resolve_SurfaceMask0024_L5AFF:
+    cpx.w #$0000
+    bne C05B39_Resolve_SurfaceMask0024_L5B39
+    lda $5DAE
+    and.w #$0007
+    cmp.w #$0004
+    bcs C05B16_Resolve_SurfaceMask0024_L5B16
+    ldy.w #$0001
+    sty $12
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05B16_Resolve_SurfaceMask0024_L5B16:
+    ldy.w #$0003
+    sty $12
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05B1D_Resolve_SurfaceMask0024_L5B1D:
+    ldx $10
+    txa
+    and.w #$0002
+    bne C05B39_Resolve_SurfaceMask0024_L5B39
+    ldy.w #$0003
+    sty $12
+    bra C05B39_Resolve_SurfaceMask0024_L5B39
+C05B2C_Resolve_SurfaceMask0024_L5B2C:
+    ldx $10
+    txa
+    and.w #$0001
+    bne C05B39_Resolve_SurfaceMask0024_L5B39
+    ldy.w #$0001
+    sty $12
+C05B39_Resolve_SurfaceMask0024_L5B39:
+    lda $02
+    beq C05B49_Resolve_SurfaceMask0024_L5B49
+    ldy $12
+    cpy.w #$FFFF
+    bne C05B49_Resolve_SurfaceMask0024_L5B49
+    lda.w #$0002
+    bra C05B4C_Resolve_SurfaceMask0024_L5B4C
+C05B49_Resolve_SurfaceMask0024_L5B49:
+    ldy $12
+    tya
+C05B4C_Resolve_SurfaceMask0024_L5B4C:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8816,13 +13132,33 @@ hirom
 org $C05B4E
 
 C05B4E_Validate_SingleSurfaceModeAgainstMask:
-
-; Original data gap before C05B7B_Validate_SingleSurfaceModeAgainstMask_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$AA,$86,$0E,$9C,$A4,$5D
-db $EE,$B4,$5D,$8A,$4A,$0A,$AA,$BF,$D1,$00,$C2,$20,$69,$57,$C9,$00
-db $00,$F0,$05,$A9,$00,$FF,$80,$03,$A6,$0E,$8A,$2B,$60
-
-C05B7B_Validate_SingleSurfaceModeAgainstMask_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    tax
+    stx $0E
+    stz $5DA4
+    inc $5DB4
+    txa
+    lsr A
+    asl A
+    tax
+    lda $C200D1,X
+    jsr $5769
+    cmp.w #$0000
+    beq C05B76_Validate_SingleSurfaceModeAgainstMask_L5B76
+    lda.w #$FF00
+    bra C05B79_Validate_SingleSurfaceModeAgainstMask_L5B79
+C05B76_Validate_SingleSurfaceModeAgainstMask_L5B76:
+    ldx $0E
+    txa
+C05B79_Validate_SingleSurfaceModeAgainstMask_L5B79:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8833,32 +13169,171 @@ hirom
 org $C05B7B
 
 C05B7B_Resolve_MovementSurfaceCollision:
-
-; Original data gap before C05CD7_Resolve_MovementSurfaceCollision_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$86,$04,$A8,$A6,$24,$86
-db $14,$9C,$B8,$5D,$9C,$B4,$5D,$9C,$A4,$5D,$A5,$14,$8D,$A6,$5D,$A5
-db $14,$8D,$A2,$5D,$8C,$AC,$5D,$A5,$04,$8D,$AE,$5D,$A5,$14,$F0,$3B
-db $C9,$04,$00,$D0,$03,$4C,$2D,$5C,$C9,$06,$00,$D0,$03,$4C,$73,$5C
-db $C9,$02,$00,$D0,$03,$4C,$7C,$5C,$C9,$07,$00,$D0,$03,$4C,$85,$5C
-db $C9,$01,$00,$D0,$03,$4C,$85,$5C,$C9,$05,$00,$D0,$03,$4C,$85,$5C
-db $C9,$03,$00,$D0,$03,$4C,$85,$5C,$4C,$9B,$5C,$20,$E8,$57,$85,$02
-db $85,$12,$A5,$02,$C9,$FF,$FF,$F0,$03,$4C,$9B,$5C,$AE,$A8,$5D,$86
-db $10,$AD,$AE,$5D,$29,$07,$00,$C9,$05,$00,$B0,$1F,$CE,$AE,$5D,$CE
-db $AE,$5D,$CE,$AE,$5D,$CE,$AE,$5D,$20,$E8,$57,$85,$0E,$29,$00,$FF
-db $C9,$00,$FF,$F0,$06,$A5,$0E,$85,$02,$85,$12,$A6,$10,$8E,$A8,$5D
-db $80,$6E,$20,$3C,$58,$85,$02,$85,$12,$A5,$02,$C9,$FF,$FF,$D0,$60
-db $AE,$A8,$5D,$86,$10,$AD,$AE,$5D,$29,$07,$00,$C9,$03,$00,$90,$21
-db $F0,$1F,$EE,$AE,$5D,$EE,$AE,$5D,$EE,$AE,$5D,$EE,$AE,$5D,$20,$3C
-db $58,$85,$0E,$29,$00,$FF,$C9,$00,$FF,$F0,$06,$A5,$0E,$85,$02,$85
-db $12,$A6,$10,$8E,$A8,$5D,$80,$28,$20,$90,$58,$85,$02,$85,$12,$80
-db $1F,$20,$EF,$59,$85,$02,$85,$12,$80,$16,$A5,$14,$20,$4E,$5B,$85
-db $02,$85,$12,$A5,$02,$C9,$00,$FF,$F0,$06,$A5,$14,$85,$02,$85,$12
-db $AD,$9A,$5D,$F0,$06,$A9,$FF,$FF,$8D,$A8,$5D,$A5,$12,$85,$02,$C9
-db $FF,$FF,$F0,$07,$A5,$02,$C9,$00,$FF,$D0,$05,$AD,$A4,$5D,$80,$1A
-db $A2,$00,$00,$A5,$02,$C5,$14,$F0,$03,$A2,$01,$00,$8E,$B8,$5D,$A5
-db $02,$8D,$A6,$5D,$AD,$A4,$5D,$29,$3F,$00,$2B,$6B
-
-C05CD7_Resolve_MovementSurfaceCollision_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    stx $04
+    tay
+    ldx $24
+    stx $14
+    stz $5DB8
+    stz $5DB4
+    stz $5DA4
+    lda $14
+    sta $5DA6
+    lda $14
+    sta $5DA2
+    sty $5DAC
+    lda $04
+    sta $5DAE
+    lda $14
+    beq C05BE6_Resolve_MovementSurfaceCollision_L5BE6
+    cmp.w #$0004
+    bne C05BB3_Resolve_MovementSurfaceCollision_L5BB3
+    jmp.w C05C2D_Resolve_MovementSurfaceCollision_L5C2D
+C05BB3_Resolve_MovementSurfaceCollision_L5BB3:
+    cmp.w #$0006
+    bne C05BBB_Resolve_MovementSurfaceCollision_L5BBB
+    jmp.w C05C73_Resolve_MovementSurfaceCollision_L5C73
+C05BBB_Resolve_MovementSurfaceCollision_L5BBB:
+    cmp.w #$0002
+    bne C05BC3_Resolve_MovementSurfaceCollision_L5BC3
+    jmp.w C05C7C_Resolve_MovementSurfaceCollision_L5C7C
+C05BC3_Resolve_MovementSurfaceCollision_L5BC3:
+    cmp.w #$0007
+    bne C05BCB_Resolve_MovementSurfaceCollision_L5BCB
+    jmp.w C05C85_Resolve_MovementSurfaceCollision_L5C85
+C05BCB_Resolve_MovementSurfaceCollision_L5BCB:
+    cmp.w #$0001
+    bne C05BD3_Resolve_MovementSurfaceCollision_L5BD3
+    jmp.w C05C85_Resolve_MovementSurfaceCollision_L5C85
+C05BD3_Resolve_MovementSurfaceCollision_L5BD3:
+    cmp.w #$0005
+    bne C05BDB_Resolve_MovementSurfaceCollision_L5BDB
+    jmp.w C05C85_Resolve_MovementSurfaceCollision_L5C85
+C05BDB_Resolve_MovementSurfaceCollision_L5BDB:
+    cmp.w #$0003
+    bne C05BE3_Resolve_MovementSurfaceCollision_L5BE3
+    jmp.w C05C85_Resolve_MovementSurfaceCollision_L5C85
+C05BE3_Resolve_MovementSurfaceCollision_L5BE3:
+    jmp.w C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05BE6_Resolve_MovementSurfaceCollision_L5BE6:
+    jsr $57E8
+    sta $02
+    sta $12
+    lda $02
+    cmp.w #$FFFF
+    beq C05BF7_Resolve_MovementSurfaceCollision_L5BF7
+    jmp.w C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05BF7_Resolve_MovementSurfaceCollision_L5BF7:
+    ldx $5DA8
+    stx $10
+    lda $5DAE
+    and.w #$0007
+    cmp.w #$0005
+    bcs C05C26_Resolve_MovementSurfaceCollision_L5C26
+    dec $5DAE
+    dec $5DAE
+    dec $5DAE
+    dec $5DAE
+    jsr $57E8
+    sta $0E
+    and.w #$FF00
+    cmp.w #$FF00
+    beq C05C26_Resolve_MovementSurfaceCollision_L5C26
+    lda $0E
+    sta $02
+    sta $12
+C05C26_Resolve_MovementSurfaceCollision_L5C26:
+    ldx $10
+    stx $5DA8
+    bra C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05C2D_Resolve_MovementSurfaceCollision_L5C2D:
+    jsr $583C
+    sta $02
+    sta $12
+    lda $02
+    cmp.w #$FFFF
+    bne C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+    ldx $5DA8
+    stx $10
+    lda $5DAE
+    and.w #$0007
+    cmp.w #$0003
+    bcc C05C6C_Resolve_MovementSurfaceCollision_L5C6C
+    beq C05C6C_Resolve_MovementSurfaceCollision_L5C6C
+    inc $5DAE
+    inc $5DAE
+    inc $5DAE
+    inc $5DAE
+    jsr $583C
+    sta $0E
+    and.w #$FF00
+    cmp.w #$FF00
+    beq C05C6C_Resolve_MovementSurfaceCollision_L5C6C
+    lda $0E
+    sta $02
+    sta $12
+C05C6C_Resolve_MovementSurfaceCollision_L5C6C:
+    ldx $10
+    stx $5DA8
+    bra C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05C73_Resolve_MovementSurfaceCollision_L5C73:
+    jsr $5890
+    sta $02
+    sta $12
+    bra C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05C7C_Resolve_MovementSurfaceCollision_L5C7C:
+    jsr $59EF
+    sta $02
+    sta $12
+    bra C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+C05C85_Resolve_MovementSurfaceCollision_L5C85:
+    lda $14
+    jsr $5B4E
+    sta $02
+    sta $12
+    lda $02
+    cmp.w #$FF00
+    beq C05C9B_Resolve_MovementSurfaceCollision_L5C9B
+    lda $14
+    sta $02
+    sta $12
+C05C9B_Resolve_MovementSurfaceCollision_L5C9B:
+    lda $5D9A
+    beq C05CA6_Resolve_MovementSurfaceCollision_L5CA6
+    lda.w #$FFFF
+    sta $5DA8
+C05CA6_Resolve_MovementSurfaceCollision_L5CA6:
+    lda $12
+    sta $02
+    cmp.w #$FFFF
+    beq C05CB6_Resolve_MovementSurfaceCollision_L5CB6
+    lda $02
+    cmp.w #$FF00
+    bne C05CBB_Resolve_MovementSurfaceCollision_L5CBB
+C05CB6_Resolve_MovementSurfaceCollision_L5CB6:
+    lda $5DA4
+    bra C05CD5_Resolve_MovementSurfaceCollision_L5CD5
+C05CBB_Resolve_MovementSurfaceCollision_L5CBB:
+    ldx.w #$0000
+    lda $02
+    cmp $14
+    beq C05CC7_Resolve_MovementSurfaceCollision_L5CC7
+    ldx.w #$0001
+C05CC7_Resolve_MovementSurfaceCollision_L5CC7:
+    stx $5DB8
+    lda $02
+    sta $5DA6
+    lda $5DA4
+    and.w #$003F
+C05CD5_Resolve_MovementSurfaceCollision_L5CD5:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8869,22 +13344,98 @@ hirom
 org $C05CD7
 
 C05CD7_Probe_FootprintCollisionEdges:
-
-; Original data gap before C05D8B_Probe_FootprintCollisionEdges_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$86,$04,$85,$12,$A6,$22
-db $86,$10,$9C,$A4,$5D,$98,$0A,$AA,$BD,$6E,$2B,$85,$02,$0A,$85,$0E
-db $A6,$0E,$A5,$12,$38,$FF,$1F,$2A,$C4,$A8,$8C,$AC,$5D,$A6,$0E,$A5
-db $04,$38,$FF,$41,$2A,$C4,$A6,$0E,$18,$7F,$EB,$2A,$C4,$85,$0E,$8D
-db $AE,$5D,$A6,$10,$8A,$C9,$01,$00,$F0,$25,$C9,$00,$00,$F0,$27,$C9
-db $03,$00,$F0,$2C,$C9,$02,$00,$F0,$2D,$C9,$05,$00,$F0,$32,$C9,$04
-db $00,$F0,$34,$C9,$07,$00,$F0,$39,$C9,$06,$00,$F0,$3A,$80,$40,$A6
-db $02,$A5,$0E,$20,$D0,$56,$A6,$02,$AD,$AC,$5D,$20,$03,$55,$80,$2F
-db $A6,$02,$98,$20,$9C,$55,$A6,$02,$AD,$AE,$5D,$20,$D0,$56,$80,$1F
-db $A6,$02,$A5,$0E,$20,$39,$56,$A6,$02,$AD,$AC,$5D,$20,$9C,$55,$80
-db $0E,$A6,$02,$98,$20,$03,$55,$A6,$02,$AD,$AE,$5D,$20,$39,$56,$AD
-db $A4,$5D,$2B,$6B
-
-C05D8B_Probe_FootprintCollisionEdges_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    stx $04
+    sta $12
+    ldx $22
+    stx $10
+    stz $5DA4
+    tya
+    asl A
+    tax
+    lda $2B6E,X
+    sta $02
+    asl A
+    sta $0E
+    ldx $0E
+    lda $12
+    sec
+    sbc $C42A1F,X
+    tay
+    sty $5DAC
+    ldx $0E
+    lda $04
+    sec
+    sbc $C42A41,X
+    ldx $0E
+    clc
+    adc $C42AEB,X
+    sta $0E
+    sta $5DAE
+    ldx $10
+    txa
+    cmp.w #$0001
+    beq C05D46_Probe_FootprintCollisionEdges_L5D46
+    cmp.w #$0000
+    beq C05D4D_Probe_FootprintCollisionEdges_L5D4D
+    cmp.w #$0003
+    beq C05D57_Probe_FootprintCollisionEdges_L5D57
+    cmp.w #$0002
+    beq C05D5D_Probe_FootprintCollisionEdges_L5D5D
+    cmp.w #$0005
+    beq C05D67_Probe_FootprintCollisionEdges_L5D67
+    cmp.w #$0004
+    beq C05D6E_Probe_FootprintCollisionEdges_L5D6E
+    cmp.w #$0007
+    beq C05D78_Probe_FootprintCollisionEdges_L5D78
+    cmp.w #$0006
+    beq C05D7E_Probe_FootprintCollisionEdges_L5D7E
+    bra C05D86_Probe_FootprintCollisionEdges_L5D86
+C05D46_Probe_FootprintCollisionEdges_L5D46:
+    ldx $02
+    lda $0E
+    jsr $56D0
+C05D4D_Probe_FootprintCollisionEdges_L5D4D:
+    ldx $02
+    lda $5DAC
+    jsr $5503
+    bra C05D86_Probe_FootprintCollisionEdges_L5D86
+C05D57_Probe_FootprintCollisionEdges_L5D57:
+    ldx $02
+    tya
+    jsr $559C
+C05D5D_Probe_FootprintCollisionEdges_L5D5D:
+    ldx $02
+    lda $5DAE
+    jsr $56D0
+    bra C05D86_Probe_FootprintCollisionEdges_L5D86
+C05D67_Probe_FootprintCollisionEdges_L5D67:
+    ldx $02
+    lda $0E
+    jsr $5639
+C05D6E_Probe_FootprintCollisionEdges_L5D6E:
+    ldx $02
+    lda $5DAC
+    jsr $559C
+    bra C05D86_Probe_FootprintCollisionEdges_L5D86
+C05D78_Probe_FootprintCollisionEdges_L5D78:
+    ldx $02
+    tya
+    jsr $5503
+C05D7E_Probe_FootprintCollisionEdges_L5D7E:
+    ldx $02
+    lda $5DAE
+    jsr $5639
+C05D86_Probe_FootprintCollisionEdges_L5D86:
+    lda $5DA4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8895,16 +13446,52 @@ hirom
 org $C05D8B
 
 C05D8B_Probe_FullFootprintCollision:
-
-; Original data gap before C05DE7_Probe_FullFootprintCollision_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$84,$12,$86,$10,$85,$0E
-db $98,$0A,$85,$02,$A6,$02,$A5,$0E,$38,$FF,$1F,$2A,$C4,$85,$0E,$8D
-db $AC,$5D,$A6,$10,$8A,$A6,$02,$38,$FF,$41,$2A,$C4,$A6,$02,$18,$7F
-db $EB,$2A,$C4,$8D,$AE,$5D,$BB,$A5,$0E,$20,$03,$55,$A4,$12,$BB,$AD
-db $AC,$5D,$20,$9C,$55,$A4,$12,$BB,$AD,$AE,$5D,$20,$39,$56,$A4,$12
-db $BB,$AD,$AE,$5D,$20,$D0,$56,$AD,$A4,$5D,$2B,$6B
-
-C05DE7_Probe_FullFootprintCollision_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sty $12
+    stx $10
+    sta $0E
+    tya
+    asl A
+    sta $02
+    ldx $02
+    lda $0E
+    sec
+    sbc $C42A1F,X
+    sta $0E
+    sta $5DAC
+    ldx $10
+    txa
+    ldx $02
+    sec
+    sbc $C42A41,X
+    ldx $02
+    clc
+    adc $C42AEB,X
+    sta $5DAE
+    tyx
+    lda $0E
+    jsr $5503
+    ldy $12
+    tyx
+    lda $5DAC
+    jsr $559C
+    ldy $12
+    tyx
+    lda $5DAE
+    jsr $5639
+    ldy $12
+    tyx
+    lda $5DAE
+    jsr $56D0
+    lda $5DA4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8914,17 +13501,52 @@ C05DE7_Probe_FullFootprintCollision_End:
 hirom
 org $C05DE7
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C05DE7_Classify_EntityTerrainCompatibility:
-
-; Original data gap before C05E3B_Classify_EntityTerrainCompatibility_End:
-db $C2,$31,$0B,$48,$7B,$69,$F2,$FF,$5B,$68,$A2,$00,$00,$29,$0C,$00
-db $F0,$11,$C9,$04,$00,$F0,$11,$C9,$08,$00,$F0,$11,$C9,$0C,$00,$F0
-db $0C,$80,$0D,$A2,$04,$00,$80,$08,$A2,$02,$00,$80,$03,$A2,$01,$00
-db $86,$02,$98,$A0,$5E,$00,$22,$F7,$8F,$C0,$18,$69,$20,$00,$AA,$BF
-db $89,$95,$D5,$29,$FF,$00,$25,$02,$F0,$05,$A9,$00,$00,$80,$03,$A9
-db $80,$00,$2B,$6B
-
-C05E3B_Classify_EntityTerrainCompatibility_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF2
+    tcd
+    pla
+    ldx.w #$0000
+    and.w #$000C
+    beq C05E0A_Classify_EntityTerrainCompatibility_L5E0A
+    cmp.w #$0004
+    beq C05E0F_Classify_EntityTerrainCompatibility_L5E0F
+    cmp.w #$0008
+    beq C05E14_Classify_EntityTerrainCompatibility_L5E14
+    cmp.w #$000C
+    beq C05E14_Classify_EntityTerrainCompatibility_L5E14
+    bra C05E17_Classify_EntityTerrainCompatibility_L5E17
+C05E0A_Classify_EntityTerrainCompatibility_L5E0A:
+    ldx.w #$0004
+    bra C05E17_Classify_EntityTerrainCompatibility_L5E17
+C05E0F_Classify_EntityTerrainCompatibility_L5E0F:
+    ldx.w #$0002
+    bra C05E17_Classify_EntityTerrainCompatibility_L5E17
+C05E14_Classify_EntityTerrainCompatibility_L5E14:
+    ldx.w #$0001
+C05E17_Classify_EntityTerrainCompatibility_L5E17:
+    stx $02
+    tya
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0020
+    tax
+    lda $D59589,X
+    and.w #$00FF
+    and $02
+    beq C05E36_Classify_EntityTerrainCompatibility_L5E36
+    lda.w #$0000
+    bra C05E39_Classify_EntityTerrainCompatibility_L5E39
+C05E36_Classify_EntityTerrainCompatibility_L5E36:
+    lda.w #$0080
+C05E39_Classify_EntityTerrainCompatibility_L5E39:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8935,14 +13557,37 @@ hirom
 org $C05E3B
 
 C05E3B_Update_SlotCollisionCache:
-
-; Original data gap before C05E76_Update_SlotCollisionCache_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$10,$22,$FF,$9E,$C0
-db $AA,$D0,$05,$A9,$00,$FF,$80,$21,$A5,$10,$0A,$85,$02,$A6,$02,$BD
-db $F6,$2A,$85,$0E,$A5,$10,$A8,$AE,$4A,$28,$AD,$48,$28,$22,$D7,$5C
-db $C0,$29,$D0,$00,$A6,$02,$9D,$DA,$28,$2B,$60
-
-C05E76_Update_SlotCollisionCache_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $10
+    jsl $C09EFF
+    tax
+    bne C05E53_Update_SlotCollisionCache_L5E53
+    lda.w #$FF00
+    bra C05E74_Update_SlotCollisionCache_L5E74
+C05E53_Update_SlotCollisionCache_L5E53:
+    lda $10
+    asl A
+    sta $02
+    ldx $02
+    lda $2AF6,X
+    sta $0E
+    lda $10
+    tay
+    ldx $284A
+    lda $2848
+    jsl $C05CD7
+    and.w #$00D0
+    ldx $02
+    sta $28DA,X
+C05E74_Update_SlotCollisionCache_L5E74:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8953,11 +13598,11 @@ hirom
 org $C05E76
 
 C05E76_Update_CurrentSlotCollisionCache:
-
-; Original data gap before C05E82_Update_CurrentSlotCollisionCache_End:
-db $C2,$31,$AD,$42,$1A,$20,$3B,$5E,$29,$FF,$00,$6B
-
-C05E82_Update_CurrentSlotCollisionCache_End:
+    rep #$31
+    lda $1A42
+    jsr $5E3B
+    and.w #$00FF
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8968,15 +13613,46 @@ hirom
 org $C05E82
 
 C05E82_Update_CurrentSlotCollisionCache_WithTerrainCompatibility:
-
-; Original data gap before C05ECE_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AE,$42,$1A,$86,$10,$8A,$20,$3B
-db $5E,$85,$0E,$C9,$00,$FF,$D0,$05,$A9,$00,$00,$80,$2D,$C9,$00,$00
-db $F0,$05,$A9,$00,$00,$80,$23,$A6,$10,$8A,$0A,$A8,$18,$69,$DA,$28
-db $85,$02,$B9,$12,$2D,$A8,$A5,$0E,$22,$E7,$5D,$C0,$85,$04,$A6,$02
-db $BD,$00,$00,$05,$04,$A6,$02,$9D,$00,$00,$2B,$6B
-
-C05ECE_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    ldx $1A42
+    stx $10
+    txa
+    jsr $5E3B
+    sta $0E
+    cmp.w #$FF00
+    bne C05E9F_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5E9F
+    lda.w #$0000
+    bra C05ECC_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5ECC
+C05E9F_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5E9F:
+    cmp.w #$0000
+    beq C05EA9_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5EA9
+    lda.w #$0000
+    bra C05ECC_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5ECC
+C05EA9_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5EA9:
+    ldx $10
+    txa
+    asl A
+    tay
+    clc
+    adc.w #$28DA
+    sta $02
+    lda $2D12,Y
+    tay
+    lda $0E
+    jsl $C05DE7
+    sta $04
+    ldx $02
+    lda $0000,X
+    ora $04
+    ldx $02
+    sta $0000,X
+C05ECC_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5ECC:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -8987,17 +13663,56 @@ hirom
 org $C05ECE
 
 C05ECE_Update_CurrentSlotCollisionCache_FromHorizontalEdges:
-
-; Original data gap before C05F33_Update_CurrentSlotCollisionCache_FromHorizontalEdges_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$42,$1A,$85,$10,$22,$FF,$9E
-db $C0,$C9,$00,$00,$D0,$05,$A9,$00,$00,$80,$48,$A4,$10,$AE,$4A,$28
-db $AD,$48,$28,$22,$82,$5F,$C0,$29,$D0,$00,$85,$02,$A5,$10,$0A,$AA
-db $86,$0E,$8A,$18,$69,$DA,$28,$85,$04,$A5,$02,$A6,$04,$9D,$00,$00
-db $A5,$02,$F0,$05,$A9,$00,$00,$80,$1A,$A6,$0E,$BC,$12,$2D,$A6,$10
-db $A5,$02,$22,$E7,$5D,$C0,$48,$A5,$02,$7A,$84,$02,$05,$02,$A6,$04
-db $9D,$00,$00,$2B,$6B
-
-C05F33_Update_CurrentSlotCollisionCache_FromHorizontalEdges_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $1A42
+    sta $10
+    jsl $C09EFF
+    cmp.w #$0000
+    bne C05EE9_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5EE9
+    lda.w #$0000
+    bra C05F31_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5F31
+C05EE9_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5EE9:
+    ldy $10
+    ldx $284A
+    lda $2848
+    jsl $C05F82
+    and.w #$00D0
+    sta $02
+    lda $10
+    asl A
+    tax
+    stx $0E
+    txa
+    clc
+    adc.w #$28DA
+    sta $04
+    lda $02
+    ldx $04
+    sta $0000,X
+    lda $02
+    beq C05F17_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5F17
+    lda.w #$0000
+    bra C05F31_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5F31
+C05F17_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5F17:
+    ldx $0E
+    ldy $2D12,X
+    ldx $10
+    lda $02
+    jsl $C05DE7
+    pha
+    lda $02
+    ply
+    sty $02
+    ora $02
+    ldx $04
+    sta $0000,X
+C05F31_Update_CurrentSlotCollisionCache_FromHorizontalEdges_L5F31:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9008,15 +13723,47 @@ hirom
 org $C05F33
 
 C05F33_Probe_FootprintVerticalEdges:
-
-; Original data gap before C05F82_Probe_FootprintVerticalEdges_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$86,$12,$85,$10,$98,$0A
-db $AA,$BC,$6E,$2B,$84,$0E,$9C,$A4,$5D,$98,$0A,$85,$02,$A6,$02,$A5
-db $10,$38,$FF,$1F,$2A,$C4,$8D,$AC,$5D,$A6,$12,$8A,$A6,$02,$38,$FF
-db $41,$2A,$C4,$A6,$02,$18,$7F,$EB,$2A,$C4,$8D,$AE,$5D,$BB,$20,$39
-db $56,$A4,$0E,$BB,$AD,$AE,$5D,$20,$D0,$56,$AD,$A4,$5D,$2B,$6B
-
-C05F82_Probe_FootprintVerticalEdges_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    stx $12
+    sta $10
+    tya
+    asl A
+    tax
+    ldy $2B6E,X
+    sty $0E
+    stz $5DA4
+    tya
+    asl A
+    sta $02
+    ldx $02
+    lda $10
+    sec
+    sbc $C42A1F,X
+    sta $5DAC
+    ldx $12
+    txa
+    ldx $02
+    sec
+    sbc $C42A41,X
+    ldx $02
+    clc
+    adc $C42AEB,X
+    sta $5DAE
+    tyx
+    jsr $5639
+    ldy $0E
+    tyx
+    lda $5DAE
+    jsr $56D0
+    lda $5DA4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9027,15 +13774,47 @@ hirom
 org $C05F82
 
 C05F82_Probe_FootprintHorizontalEdges:
-
-; Original data gap before C05FD1_Probe_FootprintHorizontalEdges_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$86,$12,$85,$10,$9C,$A4
-db $5D,$98,$0A,$AA,$BC,$6E,$2B,$84,$0E,$98,$0A,$85,$02,$A6,$12,$8A
-db $A6,$02,$38,$FF,$41,$2A,$C4,$A6,$02,$18,$7F,$EB,$2A,$C4,$8D,$AE
-db $5D,$A6,$02,$A5,$10,$38,$FF,$1F,$2A,$C4,$8D,$AC,$5D,$BB,$20,$03
-db $55,$A4,$0E,$BB,$AD,$AC,$5D,$20,$9C,$55,$AD,$A4,$5D,$2B,$6B
-
-C05FD1_Probe_FootprintHorizontalEdges_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    stx $12
+    sta $10
+    stz $5DA4
+    tya
+    asl A
+    tax
+    ldy $2B6E,X
+    sty $0E
+    tya
+    asl A
+    sta $02
+    ldx $12
+    txa
+    ldx $02
+    sec
+    sbc $C42A41,X
+    ldx $02
+    clc
+    adc $C42AEB,X
+    sta $5DAE
+    ldx $02
+    lda $10
+    sec
+    sbc $C42A1F,X
+    sta $5DAC
+    tyx
+    jsr $5503
+    ldy $0E
+    tyx
+    lda $5DAC
+    jsr $559C
+    lda $5DA4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9046,13 +13825,32 @@ hirom
 org $C05FD1
 
 C05FD1_Read_CenteredCollisionTile:
-
-; Original data gap before C05FF6_Read_CenteredCollisionTile_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$9C,$A4,$5D,$8A
-db $1A,$1A,$1A,$1A,$4A,$4A,$4A,$AA,$A5,$0E,$4A,$4A,$4A,$20,$C9,$54
-db $8D,$A4,$5D,$2B,$60
-
-C05FF6_Read_CenteredCollisionTile_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    stz $5DA4
+    txa
+    inc A
+    inc A
+    inc A
+    inc A
+    lsr A
+    lsr A
+    lsr A
+    tax
+    lda $0E
+    lsr A
+    lsr A
+    lsr A
+    jsr $54C9
+    sta $5DA4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9063,31 +13861,182 @@ hirom
 org $C05FF6
 
 C05FF6_Find_OverlappingEntitySlot:
-
-; Original data gap before C0613C_Find_OverlappingEntitySlot_End:
-db $C2,$31,$0B,$48,$7B,$69,$E2,$FF,$5B,$68,$86,$1C,$85,$02,$A9,$FF
-db $FF,$85,$1A,$98,$0A,$AA,$BD,$2A,$33,$D0,$03,$4C,$33,$61,$AD,$56
-db $5D,$29,$02,$00,$F0,$03,$4C,$33,$61,$AD,$83,$98,$C9,$0C,$00,$D0
-db $03,$4C,$33,$61,$AD,$81,$00,$F0,$03,$4C,$33,$61,$BD,$F6,$2A,$C9
-db $02,$00,$F0,$05,$C9,$06,$00,$D0,$0F,$98,$0A,$AA,$BD,$DE,$33,$85
-db $18,$BD,$4A,$1A,$85,$04,$80,$0A,$BD,$66,$33,$85,$18,$BD,$A2,$33
-db $85,$04,$A5,$18,$48,$A5,$02,$7A,$84,$02,$38,$E5,$02,$85,$16,$A5
-db $18,$0A,$85,$14,$A5,$1C,$38,$E5,$04,$85,$1C,$A9,$00,$00,$85,$02
-db $85,$12,$4C,$29,$61,$A5,$02,$0A,$AA,$BD,$62,$0A,$C9,$FF,$FF,$D0
-db $03,$4C,$1F,$61,$BD,$9E,$28,$C9,$00,$80,$D0,$03,$4C,$1F,$61,$AD
-db $58,$5D,$F0,$0C,$BD,$9A,$2C,$1A,$C9,$01,$80,$90,$03,$4C,$1F,$61
-db $A5,$02,$0A,$AA,$BD,$2A,$33,$F0,$70,$BD,$F6,$2A,$C9,$02,$00,$F0
-db $05,$C9,$06,$00,$D0,$0E,$A5,$02,$0A,$AA,$BC,$DE,$33,$BD,$4A,$1A
-db $85,$10,$80,$08,$BC,$66,$33,$BD,$A2,$33,$85,$10,$A5,$02,$0A,$AA
-db $A5,$10,$85,$02,$BD,$CA,$0B,$38,$E5,$02,$85,$0E,$38,$E5,$04,$C5
-db $1C,$B0,$36,$A5,$10,$18,$65,$0E,$C5,$1C,$90,$2D,$F0,$2B,$84,$02
-db $BD,$8E,$0B,$38,$E5,$02,$85,$0E,$98,$0A,$AA,$A5,$0E,$38,$E5,$14
-db $C5,$16,$B0,$15,$86,$02,$A5,$0E,$18,$65,$02,$C5,$16,$90,$0A,$F0
-db $08,$A5,$12,$85,$02,$85,$1A,$80,$14,$A5,$12,$85,$02,$E6,$02,$A5
-db $02,$85,$12,$A5,$02,$C9,$17,$00,$F0,$03,$4C,$7B,$60,$A5,$1A,$8D
-db $CC,$28,$A5,$1A,$2B,$6B
-
-C0613C_Find_OverlappingEntitySlot_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE2
+    tcd
+    pla
+    stx $1C
+    sta $02
+    lda.w #$FFFF
+    sta $1A
+    tya
+    asl A
+    tax
+    lda $332A,X
+    bne C06014_Find_OverlappingEntitySlot_L6014
+    jmp.w C06133_Find_OverlappingEntitySlot_L6133
+C06014_Find_OverlappingEntitySlot_L6014:
+    lda $5D56
+    and.w #$0002
+    beq C0601F_Find_OverlappingEntitySlot_L601F
+    jmp.w C06133_Find_OverlappingEntitySlot_L6133
+C0601F_Find_OverlappingEntitySlot_L601F:
+    lda $9883
+    cmp.w #$000C
+    bne C0602A_Find_OverlappingEntitySlot_L602A
+    jmp.w C06133_Find_OverlappingEntitySlot_L6133
+C0602A_Find_OverlappingEntitySlot_L602A:
+    lda $0081
+    beq C06032_Find_OverlappingEntitySlot_L6032
+    jmp.w C06133_Find_OverlappingEntitySlot_L6133
+C06032_Find_OverlappingEntitySlot_L6032:
+    lda $2AF6,X
+    cmp.w #$0002
+    beq C0603F_Find_OverlappingEntitySlot_L603F
+    cmp.w #$0006
+    bne C0604E_Find_OverlappingEntitySlot_L604E
+C0603F_Find_OverlappingEntitySlot_L603F:
+    tya
+    asl A
+    tax
+    lda $33DE,X
+    sta $18
+    lda $1A4A,X
+    sta $04
+    bra C06058_Find_OverlappingEntitySlot_L6058
+C0604E_Find_OverlappingEntitySlot_L604E:
+    lda $3366,X
+    sta $18
+    lda $33A2,X
+    sta $04
+C06058_Find_OverlappingEntitySlot_L6058:
+    lda $18
+    pha
+    lda $02
+    ply
+    sty $02
+    sec
+    sbc $02
+    sta $16
+    lda $18
+    asl A
+    sta $14
+    lda $1C
+    sec
+    sbc $04
+    sta $1C
+    lda.w #$0000
+    sta $02
+    sta $12
+    jmp.w C06129_Find_OverlappingEntitySlot_L6129
+C0607B_Find_OverlappingEntitySlot_L607B:
+    lda $02
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    bne C0608A_Find_OverlappingEntitySlot_L608A
+    jmp.w C0611F_Find_OverlappingEntitySlot_L611F
+C0608A_Find_OverlappingEntitySlot_L608A:
+    lda $289E,X
+    cmp.w #$8000
+    bne C06095_Find_OverlappingEntitySlot_L6095
+    jmp.w C0611F_Find_OverlappingEntitySlot_L611F
+C06095_Find_OverlappingEntitySlot_L6095:
+    lda $5D58
+    beq C060A6_Find_OverlappingEntitySlot_L60A6
+    lda $2C9A,X
+    inc A
+    cmp.w #$8001
+    bcc C060A6_Find_OverlappingEntitySlot_L60A6
+    jmp.w C0611F_Find_OverlappingEntitySlot_L611F
+C060A6_Find_OverlappingEntitySlot_L60A6:
+    lda $02
+    asl A
+    tax
+    lda $332A,X
+    beq C0611F_Find_OverlappingEntitySlot_L611F
+    lda $2AF6,X
+    cmp.w #$0002
+    beq C060BC_Find_OverlappingEntitySlot_L60BC
+    cmp.w #$0006
+    bne C060CA_Find_OverlappingEntitySlot_L60CA
+C060BC_Find_OverlappingEntitySlot_L60BC:
+    lda $02
+    asl A
+    tax
+    ldy $33DE,X
+    lda $1A4A,X
+    sta $10
+    bra C060D2_Find_OverlappingEntitySlot_L60D2
+C060CA_Find_OverlappingEntitySlot_L60CA:
+    ldy $3366,X
+    lda $33A2,X
+    sta $10
+C060D2_Find_OverlappingEntitySlot_L60D2:
+    lda $02
+    asl A
+    tax
+    lda $10
+    sta $02
+    lda $0BCA,X
+    sec
+    sbc $02
+    sta $0E
+    sec
+    sbc $04
+    cmp $1C
+    bcs C0611F_Find_OverlappingEntitySlot_L611F
+    lda $10
+    clc
+    adc $0E
+    cmp $1C
+    bcc C0611F_Find_OverlappingEntitySlot_L611F
+    beq C0611F_Find_OverlappingEntitySlot_L611F
+    sty $02
+    lda $0B8E,X
+    sec
+    sbc $02
+    sta $0E
+    tya
+    asl A
+    tax
+    lda $0E
+    sec
+    sbc $14
+    cmp $16
+    bcs C0611F_Find_OverlappingEntitySlot_L611F
+    stx $02
+    lda $0E
+    clc
+    adc $02
+    cmp $16
+    bcc C0611F_Find_OverlappingEntitySlot_L611F
+    beq C0611F_Find_OverlappingEntitySlot_L611F
+    lda $12
+    sta $02
+    sta $1A
+    bra C06133_Find_OverlappingEntitySlot_L6133
+C0611F_Find_OverlappingEntitySlot_L611F:
+    lda $12
+    sta $02
+    inc $02
+    lda $02
+    sta $12
+C06129_Find_OverlappingEntitySlot_L6129:
+    lda $02
+    cmp.w #$0017
+    beq C06133_Find_OverlappingEntitySlot_L6133
+    jmp.w C0607B_Find_OverlappingEntitySlot_L607B
+C06133_Find_OverlappingEntitySlot_L6133:
+    lda $1A
+    sta $28CC
+    lda $1A
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9098,29 +14047,169 @@ hirom
 org $C0613C
 
 C0613C_Update_SlotNeighborCache_BroadScan:
-
-; Original data gap before C06267_Update_SlotNeighborCache_BroadScan_End:
-db $C2,$31,$0B,$48,$7B,$69,$E0,$FF,$5B,$68,$84,$1E,$86,$02,$86,$1C
-db $A8,$A9,$FF,$FF,$85,$1A,$A5,$1E,$0A,$AA,$BD,$2A,$33,$D0,$03,$4C
-db $5A,$62,$BD,$F6,$2A,$C9,$02,$00,$F0,$05,$C9,$06,$00,$D0,$10,$A5
-db $1E,$0A,$AA,$BD,$DE,$33,$85,$18,$BD,$4A,$1A,$85,$04,$80,$0A,$BD
-db $66,$33,$85,$18,$BD,$A2,$33,$85,$04,$A5,$18,$85,$02,$98,$38,$E5
-db $02,$85,$16,$A5,$18,$0A,$85,$14,$A5,$1C,$85,$02,$38,$E5,$04,$85
-db $1C,$A9,$00,$00,$85,$02,$85,$12,$4C,$50,$62,$A5,$02,$C5,$1E,$D0
-db $03,$4C,$46,$62,$A5,$02,$C9,$17,$00,$D0,$03,$4C,$46,$62,$A5,$02
-db $0A,$AA,$BD,$62,$0A,$C9,$FF,$FF,$D0,$03,$4C,$46,$62,$BD,$9E,$28
-db $C9,$00,$80,$F0,$75,$BD,$2A,$33,$F0,$70,$BD,$F6,$2A,$C9,$02,$00
-db $F0,$05,$C9,$06,$00,$D0,$0E,$A5,$02,$0A,$AA,$BC,$DE,$33,$BD,$4A
-db $1A,$85,$10,$80,$08,$BC,$66,$33,$BD,$A2,$33,$85,$10,$A5,$02,$0A
-db $AA,$A5,$10,$85,$02,$BD,$CA,$0B,$38,$E5,$02,$85,$0E,$38,$E5,$04
-db $C5,$1C,$B0,$36,$A5,$10,$18,$65,$0E,$C5,$1C,$90,$2D,$F0,$2B,$84
-db $02,$BD,$8E,$0B,$38,$E5,$02,$85,$0E,$98,$0A,$AA,$A5,$0E,$38,$E5
-db $14,$C5,$16,$B0,$15,$86,$02,$A5,$0E,$18,$65,$02,$C5,$16,$90,$0A
-db $F0,$08,$A5,$12,$85,$02,$85,$1A,$80,$14,$A5,$12,$85,$02,$E6,$02
-db $A5,$02,$85,$12,$A5,$02,$C9,$1E,$00,$F0,$03,$4C,$A7,$61,$A5,$1E
-db $0A,$AA,$A5,$1A,$9D,$9E,$28,$A5,$1A,$2B,$6B
-
-C06267_Update_SlotNeighborCache_BroadScan_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE0
+    tcd
+    pla
+    sty $1E
+    stx $02
+    stx $1C
+    tay
+    lda.w #$FFFF
+    sta $1A
+    lda $1E
+    asl A
+    tax
+    lda $332A,X
+    bne C0615E_Update_SlotNeighborCache_BroadScan_L615E
+    jmp.w C0625A_Update_SlotNeighborCache_BroadScan_L625A
+C0615E_Update_SlotNeighborCache_BroadScan_L615E:
+    lda $2AF6,X
+    cmp.w #$0002
+    beq C0616B_Update_SlotNeighborCache_BroadScan_L616B
+    cmp.w #$0006
+    bne C0617B_Update_SlotNeighborCache_BroadScan_L617B
+C0616B_Update_SlotNeighborCache_BroadScan_L616B:
+    lda $1E
+    asl A
+    tax
+    lda $33DE,X
+    sta $18
+    lda $1A4A,X
+    sta $04
+    bra C06185_Update_SlotNeighborCache_BroadScan_L6185
+C0617B_Update_SlotNeighborCache_BroadScan_L617B:
+    lda $3366,X
+    sta $18
+    lda $33A2,X
+    sta $04
+C06185_Update_SlotNeighborCache_BroadScan_L6185:
+    lda $18
+    sta $02
+    tya
+    sec
+    sbc $02
+    sta $16
+    lda $18
+    asl A
+    sta $14
+    lda $1C
+    sta $02
+    sec
+    sbc $04
+    sta $1C
+    lda.w #$0000
+    sta $02
+    sta $12
+    jmp.w C06250_Update_SlotNeighborCache_BroadScan_L6250
+C061A7_Update_SlotNeighborCache_BroadScan_L61A7:
+    lda $02
+    cmp $1E
+    bne C061B0_Update_SlotNeighborCache_BroadScan_L61B0
+    jmp.w C06246_Update_SlotNeighborCache_BroadScan_L6246
+C061B0_Update_SlotNeighborCache_BroadScan_L61B0:
+    lda $02
+    cmp.w #$0017
+    bne C061BA_Update_SlotNeighborCache_BroadScan_L61BA
+    jmp.w C06246_Update_SlotNeighborCache_BroadScan_L6246
+C061BA_Update_SlotNeighborCache_BroadScan_L61BA:
+    lda $02
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    bne C061C9_Update_SlotNeighborCache_BroadScan_L61C9
+    jmp.w C06246_Update_SlotNeighborCache_BroadScan_L6246
+C061C9_Update_SlotNeighborCache_BroadScan_L61C9:
+    lda $289E,X
+    cmp.w #$8000
+    beq C06246_Update_SlotNeighborCache_BroadScan_L6246
+    lda $332A,X
+    beq C06246_Update_SlotNeighborCache_BroadScan_L6246
+    lda $2AF6,X
+    cmp.w #$0002
+    beq C061E3_Update_SlotNeighborCache_BroadScan_L61E3
+    cmp.w #$0006
+    bne C061F1_Update_SlotNeighborCache_BroadScan_L61F1
+C061E3_Update_SlotNeighborCache_BroadScan_L61E3:
+    lda $02
+    asl A
+    tax
+    ldy $33DE,X
+    lda $1A4A,X
+    sta $10
+    bra C061F9_Update_SlotNeighborCache_BroadScan_L61F9
+C061F1_Update_SlotNeighborCache_BroadScan_L61F1:
+    ldy $3366,X
+    lda $33A2,X
+    sta $10
+C061F9_Update_SlotNeighborCache_BroadScan_L61F9:
+    lda $02
+    asl A
+    tax
+    lda $10
+    sta $02
+    lda $0BCA,X
+    sec
+    sbc $02
+    sta $0E
+    sec
+    sbc $04
+    cmp $1C
+    bcs C06246_Update_SlotNeighborCache_BroadScan_L6246
+    lda $10
+    clc
+    adc $0E
+    cmp $1C
+    bcc C06246_Update_SlotNeighborCache_BroadScan_L6246
+    beq C06246_Update_SlotNeighborCache_BroadScan_L6246
+    sty $02
+    lda $0B8E,X
+    sec
+    sbc $02
+    sta $0E
+    tya
+    asl A
+    tax
+    lda $0E
+    sec
+    sbc $14
+    cmp $16
+    bcs C06246_Update_SlotNeighborCache_BroadScan_L6246
+    stx $02
+    lda $0E
+    clc
+    adc $02
+    cmp $16
+    bcc C06246_Update_SlotNeighborCache_BroadScan_L6246
+    beq C06246_Update_SlotNeighborCache_BroadScan_L6246
+    lda $12
+    sta $02
+    sta $1A
+    bra C0625A_Update_SlotNeighborCache_BroadScan_L625A
+C06246_Update_SlotNeighborCache_BroadScan_L6246:
+    lda $12
+    sta $02
+    inc $02
+    lda $02
+    sta $12
+C06250_Update_SlotNeighborCache_BroadScan_L6250:
+    lda $02
+    cmp.w #$001E
+    beq C0625A_Update_SlotNeighborCache_BroadScan_L625A
+    jmp.w C061A7_Update_SlotNeighborCache_BroadScan_L61A7
+C0625A_Update_SlotNeighborCache_BroadScan_L625A:
+    lda $1E
+    asl A
+    tax
+    lda $1A
+    sta $289E,X
+    lda $1A
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9131,44 +14220,301 @@ hirom
 org $C06267
 
 C06267_Update_SlotNeighborCache_PriorityScan:
-
-; Original data gap before C06478_Update_SlotNeighborCache_PriorityScan_End:
-db $C2,$31,$0B,$48,$7B,$69,$E0,$FF,$5B,$68,$84,$1E,$9B,$AA,$86,$1C
-db $A9,$FF,$FF,$85,$1A,$A5,$1E,$0A,$85,$04,$A6,$04,$BD,$2A,$33,$D0
-db $03,$4C,$6B,$64,$A6,$04,$BD,$F6,$2A,$C9,$02,$00,$F0,$05,$C9,$06
-db $00,$D0,$15,$A5,$1E,$0A,$85,$18,$AA,$BD,$DE,$33,$85,$02,$A5,$18
-db $AA,$BD,$4A,$1A,$85,$16,$80,$0E,$A6,$04,$BD,$66,$33,$85,$02,$A6
-db $04,$BD,$A2,$33,$85,$16,$A6,$1C,$8A,$38,$E5,$02,$85,$04,$A5,$02
-db $0A,$85,$18,$98,$38,$E5,$16,$85,$02,$85,$14,$AD,$58,$5D,$F0,$03
-db $4C,$99,$63,$A2,$18,$00,$4C,$91,$63,$8A,$0A,$A8,$B9,$62,$0A,$C9
-db $FF,$FF,$D0,$03,$4C,$90,$63,$B9,$9E,$28,$C9,$00,$80,$D0,$03,$4C
-db $90,$63,$B9,$2A,$33,$D0,$03,$4C,$90,$63,$B9,$F6,$2A,$C9,$02,$00
-db $F0,$05,$C9,$06,$00,$D0,$0F,$8A,$0A,$A8,$B9,$DE,$33,$85,$12,$B9
-db $4A,$1A,$85,$10,$80,$0A,$B9,$66,$33,$85,$12,$B9,$A2,$33,$85,$10
-db $8A,$0A,$85,$0E,$A0,$CA,$0B,$B1,$0E,$38,$E5,$10,$A8,$38,$E5,$16
-db $48,$A5,$14,$85,$02,$8D,$C0,$00,$68,$85,$02,$AD,$C0,$00,$C5,$02
-db $90,$47,$F0,$45,$98,$18,$65,$10,$48,$A5,$14,$85,$02,$7A,$84,$02
-db $C5,$02,$B0,$35,$A5,$12,$85,$02,$A0,$8E,$0B,$B1,$0E,$38,$E5,$02
-db $A8,$A5,$12,$0A,$85,$12,$98,$38,$E5,$18,$85,$02,$A5,$04,$C5,$02
-db $90,$17,$F0,$15,$A5,$12,$85,$02,$98,$18,$65,$02,$85,$02,$A5,$04
-db $C5,$02,$B0,$05,$86,$1A,$4C,$6B,$64,$E8,$E0,$1E,$00,$F0,$03,$4C
-db $E0,$62,$A2,$00,$00,$4C,$63,$64,$E4,$1E,$D0,$03,$4C,$62,$64,$8A
-db $0A,$A8,$B9,$62,$0A,$C9,$FF,$FF,$D0,$03,$4C,$62,$64,$B9,$9A,$2C
-db $C9,$00,$10,$90,$03,$4C,$62,$64,$B9,$9E,$28,$C9,$00,$80,$D0,$03
-db $4C,$62,$64,$B9,$2A,$33,$D0,$03,$4C,$62,$64,$B9,$F6,$2A,$C9,$02
-db $00,$F0,$05,$C9,$06,$00,$D0,$0F,$8A,$0A,$A8,$B9,$DE,$33,$85,$12
-db $B9,$4A,$1A,$85,$10,$80,$0A,$B9,$66,$33,$85,$12,$B9,$A2,$33,$85
-db $10,$8A,$0A,$85,$0E,$A0,$CA,$0B,$B1,$0E,$38,$E5,$10,$A8,$38,$E5
-db $16,$48,$A5,$14,$85,$02,$8D,$C0,$00,$68,$85,$02,$AD,$C0,$00,$C5
-db $02,$90,$48,$F0,$46,$98,$18,$65,$10,$3A,$48,$A5,$14,$85,$02,$7A
-db $84,$02,$C5,$02,$B0,$35,$A5,$12,$85,$02,$A0,$8E,$0B,$B1,$0E,$38
-db $E5,$02,$A8,$A5,$12,$0A,$85,$12,$98,$38,$E5,$18,$85,$02,$A5,$04
-db $C5,$02,$90,$17,$F0,$15,$A5,$12,$85,$02,$98,$18,$65,$02,$3A,$85
-db $02,$A5,$04,$C5,$02,$B0,$04,$86,$1A,$80,$09,$E8,$E0,$17,$00,$F0
-db $03,$4C,$9F,$63,$A5,$1E,$0A,$AA,$A5,$1A,$9D,$9E,$28,$A5,$1A,$2B
-db $6B
-
-C06478_Update_SlotNeighborCache_PriorityScan_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE0
+    tcd
+    pla
+    sty $1E
+    txy
+    tax
+    stx $1C
+    lda.w #$FFFF
+    sta $1A
+    lda $1E
+    asl A
+    sta $04
+    ldx $04
+    lda $332A,X
+    bne C0628B_Update_SlotNeighborCache_PriorityScan_L628B
+    jmp.w C0646B_Update_SlotNeighborCache_PriorityScan_L646B
+C0628B_Update_SlotNeighborCache_PriorityScan_L628B:
+    ldx $04
+    lda $2AF6,X
+    cmp.w #$0002
+    beq C0629A_Update_SlotNeighborCache_PriorityScan_L629A
+    cmp.w #$0006
+    bne C062AF_Update_SlotNeighborCache_PriorityScan_L62AF
+C0629A_Update_SlotNeighborCache_PriorityScan_L629A:
+    lda $1E
+    asl A
+    sta $18
+    tax
+    lda $33DE,X
+    sta $02
+    lda $18
+    tax
+    lda $1A4A,X
+    sta $16
+    bra C062BD_Update_SlotNeighborCache_PriorityScan_L62BD
+C062AF_Update_SlotNeighborCache_PriorityScan_L62AF:
+    ldx $04
+    lda $3366,X
+    sta $02
+    ldx $04
+    lda $33A2,X
+    sta $16
+C062BD_Update_SlotNeighborCache_PriorityScan_L62BD:
+    ldx $1C
+    txa
+    sec
+    sbc $02
+    sta $04
+    lda $02
+    asl A
+    sta $18
+    tya
+    sec
+    sbc $16
+    sta $02
+    sta $14
+    lda $5D58
+    beq C062DA_Update_SlotNeighborCache_PriorityScan_L62DA
+    jmp.w C06399_Update_SlotNeighborCache_PriorityScan_L6399
+C062DA_Update_SlotNeighborCache_PriorityScan_L62DA:
+    ldx.w #$0018
+    jmp.w C06391_Update_SlotNeighborCache_PriorityScan_L6391
+C062E0_Update_SlotNeighborCache_PriorityScan_L62E0:
+    txa
+    asl A
+    tay
+    lda $0A62,Y
+    cmp.w #$FFFF
+    bne C062EE_Update_SlotNeighborCache_PriorityScan_L62EE
+    jmp.w C06390_Update_SlotNeighborCache_PriorityScan_L6390
+C062EE_Update_SlotNeighborCache_PriorityScan_L62EE:
+    lda $289E,Y
+    cmp.w #$8000
+    bne C062F9_Update_SlotNeighborCache_PriorityScan_L62F9
+    jmp.w C06390_Update_SlotNeighborCache_PriorityScan_L6390
+C062F9_Update_SlotNeighborCache_PriorityScan_L62F9:
+    lda $332A,Y
+    bne C06301_Update_SlotNeighborCache_PriorityScan_L6301
+    jmp.w C06390_Update_SlotNeighborCache_PriorityScan_L6390
+C06301_Update_SlotNeighborCache_PriorityScan_L6301:
+    lda $2AF6,Y
+    cmp.w #$0002
+    beq C0630E_Update_SlotNeighborCache_PriorityScan_L630E
+    cmp.w #$0006
+    bne C0631D_Update_SlotNeighborCache_PriorityScan_L631D
+C0630E_Update_SlotNeighborCache_PriorityScan_L630E:
+    txa
+    asl A
+    tay
+    lda $33DE,Y
+    sta $12
+    lda $1A4A,Y
+    sta $10
+    bra C06327_Update_SlotNeighborCache_PriorityScan_L6327
+C0631D_Update_SlotNeighborCache_PriorityScan_L631D:
+    lda $3366,Y
+    sta $12
+    lda $33A2,Y
+    sta $10
+C06327_Update_SlotNeighborCache_PriorityScan_L6327:
+    txa
+    asl A
+    sta $0E
+    ldy.w #$0BCA
+    lda ($0E),Y
+    sec
+    sbc $10
+    tay
+    sec
+    sbc $16
+    pha
+    lda $14
+    sta $02
+    sta $00C0
+    pla
+    sta $02
+    lda $00C0
+    cmp $02
+    bcc C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    beq C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    tya
+    clc
+    adc $10
+    pha
+    lda $14
+    sta $02
+    ply
+    sty $02
+    cmp $02
+    bcs C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    lda $12
+    sta $02
+    ldy.w #$0B8E
+    lda ($0E),Y
+    sec
+    sbc $02
+    tay
+    lda $12
+    asl A
+    sta $12
+    tya
+    sec
+    sbc $18
+    sta $02
+    lda $04
+    cmp $02
+    bcc C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    beq C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    lda $12
+    sta $02
+    tya
+    clc
+    adc $02
+    sta $02
+    lda $04
+    cmp $02
+    bcs C06390_Update_SlotNeighborCache_PriorityScan_L6390
+    stx $1A
+    jmp.w C0646B_Update_SlotNeighborCache_PriorityScan_L646B
+C06390_Update_SlotNeighborCache_PriorityScan_L6390:
+    inx
+C06391_Update_SlotNeighborCache_PriorityScan_L6391:
+    cpx.w #$001E
+    beq C06399_Update_SlotNeighborCache_PriorityScan_L6399
+    jmp.w C062E0_Update_SlotNeighborCache_PriorityScan_L62E0
+C06399_Update_SlotNeighborCache_PriorityScan_L6399:
+    ldx.w #$0000
+    jmp.w C06463_Update_SlotNeighborCache_PriorityScan_L6463
+C0639F_Update_SlotNeighborCache_PriorityScan_L639F:
+    cpx $1E
+    bne C063A6_Update_SlotNeighborCache_PriorityScan_L63A6
+    jmp.w C06462_Update_SlotNeighborCache_PriorityScan_L6462
+C063A6_Update_SlotNeighborCache_PriorityScan_L63A6:
+    txa
+    asl A
+    tay
+    lda $0A62,Y
+    cmp.w #$FFFF
+    bne C063B4_Update_SlotNeighborCache_PriorityScan_L63B4
+    jmp.w C06462_Update_SlotNeighborCache_PriorityScan_L6462
+C063B4_Update_SlotNeighborCache_PriorityScan_L63B4:
+    lda $2C9A,Y
+    cmp.w #$1000
+    bcc C063BF_Update_SlotNeighborCache_PriorityScan_L63BF
+    jmp.w C06462_Update_SlotNeighborCache_PriorityScan_L6462
+C063BF_Update_SlotNeighborCache_PriorityScan_L63BF:
+    lda $289E,Y
+    cmp.w #$8000
+    bne C063CA_Update_SlotNeighborCache_PriorityScan_L63CA
+    jmp.w C06462_Update_SlotNeighborCache_PriorityScan_L6462
+C063CA_Update_SlotNeighborCache_PriorityScan_L63CA:
+    lda $332A,Y
+    bne C063D2_Update_SlotNeighborCache_PriorityScan_L63D2
+    jmp.w C06462_Update_SlotNeighborCache_PriorityScan_L6462
+C063D2_Update_SlotNeighborCache_PriorityScan_L63D2:
+    lda $2AF6,Y
+    cmp.w #$0002
+    beq C063DF_Update_SlotNeighborCache_PriorityScan_L63DF
+    cmp.w #$0006
+    bne C063EE_Update_SlotNeighborCache_PriorityScan_L63EE
+C063DF_Update_SlotNeighborCache_PriorityScan_L63DF:
+    txa
+    asl A
+    tay
+    lda $33DE,Y
+    sta $12
+    lda $1A4A,Y
+    sta $10
+    bra C063F8_Update_SlotNeighborCache_PriorityScan_L63F8
+C063EE_Update_SlotNeighborCache_PriorityScan_L63EE:
+    lda $3366,Y
+    sta $12
+    lda $33A2,Y
+    sta $10
+C063F8_Update_SlotNeighborCache_PriorityScan_L63F8:
+    txa
+    asl A
+    sta $0E
+    ldy.w #$0BCA
+    lda ($0E),Y
+    sec
+    sbc $10
+    tay
+    sec
+    sbc $16
+    pha
+    lda $14
+    sta $02
+    sta $00C0
+    pla
+    sta $02
+    lda $00C0
+    cmp $02
+    bcc C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    beq C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    tya
+    clc
+    adc $10
+    dec A
+    pha
+    lda $14
+    sta $02
+    ply
+    sty $02
+    cmp $02
+    bcs C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    lda $12
+    sta $02
+    ldy.w #$0B8E
+    lda ($0E),Y
+    sec
+    sbc $02
+    tay
+    lda $12
+    asl A
+    sta $12
+    tya
+    sec
+    sbc $18
+    sta $02
+    lda $04
+    cmp $02
+    bcc C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    beq C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    lda $12
+    sta $02
+    tya
+    clc
+    adc $02
+    dec A
+    sta $02
+    lda $04
+    cmp $02
+    bcs C06462_Update_SlotNeighborCache_PriorityScan_L6462
+    stx $1A
+    bra C0646B_Update_SlotNeighborCache_PriorityScan_L646B
+C06462_Update_SlotNeighborCache_PriorityScan_L6462:
+    inx
+C06463_Update_SlotNeighborCache_PriorityScan_L6463:
+    cpx.w #$0017
+    beq C0646B_Update_SlotNeighborCache_PriorityScan_L646B
+    jmp.w C0639F_Update_SlotNeighborCache_PriorityScan_L639F
+C0646B_Update_SlotNeighborCache_PriorityScan_L646B:
+    lda $1E
+    asl A
+    tax
+    lda $1A
+    sta $289E,X
+    lda $1A
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9179,13 +14525,30 @@ hirom
 org $C06478
 
 C06478_Update_CurrentSlotNeighborCache_Priority:
-
-; Original data gap before C064A6_Update_CurrentSlotNeighborCache_Priority_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AE,$42,$1A,$86,$0E,$8A,$0A,$AA
-db $BD,$9E,$28,$C9,$00,$80,$F0,$14,$A6,$0E,$8A,$22,$08,$9F,$C0,$A6
-db $0E,$9B,$AE,$4A,$28,$AD,$48,$28,$22,$67,$62,$C0,$2B,$6B
-
-C064A6_Update_CurrentSlotNeighborCache_Priority_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    ldx $1A42
+    stx $0E
+    txa
+    asl A
+    tax
+    lda $289E,X
+    cmp.w #$8000
+    beq C064A4_Update_CurrentSlotNeighborCache_Priority_L64A4
+    ldx $0E
+    txa
+    jsl $C09F08
+    ldx $0E
+    txy
+    ldx $284A
+    lda $2848
+    jsl $C06267
+C064A4_Update_CurrentSlotNeighborCache_Priority_L64A4:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9196,14 +14559,36 @@ hirom
 org $C064A6
 
 C064A6_Update_CurrentSlotNeighborCache_Broad:
-
-; Original data gap before C064E3_Update_CurrentSlotNeighborCache_Broad_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AE,$42,$1A,$86,$0E,$8A,$0A,$AA
-db $BD,$9E,$28,$C9,$00,$80,$F0,$14,$A6,$0E,$8A,$22,$08,$9F,$C0,$A6
-db $0E,$9B,$AE,$4A,$28,$AD,$48,$28,$22,$3C,$61,$C0,$2B,$6B,$C2,$31
-db $9C,$04,$5E,$9C,$02,$5E,$A9,$FF,$FF,$8D,$C0,$5D,$6B
-
-C064E3_Update_CurrentSlotNeighborCache_Broad_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    ldx $1A42
+    stx $0E
+    txa
+    asl A
+    tax
+    lda $289E,X
+    cmp.w #$8000
+    beq C064D2_Update_CurrentSlotNeighborCache_Broad_L64D2
+    ldx $0E
+    txa
+    jsl $C09F08
+    ldx $0E
+    txy
+    ldx $284A
+    lda $2848
+    jsl $C0613C
+C064D2_Update_CurrentSlotNeighborCache_Broad_L64D2:
+    pld
+    rtl
+    rep #$31
+    stz $5E04
+    stz $5E02
+    lda.w #$FFFF
+    sta $5DC0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9214,24 +14599,130 @@ hirom
 org $C064E3
 
 C064E3_Enqueue_MovementRecord:
-
-; Original data gap before C065C2_Enqueue_MovementRecord_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$A5,$1E,$85,$06
-db $A5,$20,$85,$08,$A5,$0E,$CD,$C0,$5D,$F0,$37,$AD,$04,$5E,$85,$04
-db $0A,$65,$04,$0A,$AA,$A5,$0E,$9D,$EA,$5D,$AD,$04,$5E,$85,$04,$0A
-db $65,$04,$0A,$18,$69,$EC,$5D,$A8,$A5,$06,$99,$00,$00,$A5,$08,$99
-db $02,$00,$AD,$04,$5E,$1A,$29,$03,$00,$8D,$04,$5E,$A9,$01,$00,$8D
-db $9A,$5D,$2B,$6B,$C2,$31,$0B,$7B,$69,$F2,$FF,$5B,$AD,$02,$5E,$85
-db $04,$0A,$65,$04,$0A,$AA,$BD,$EA,$5D,$2B,$6B,$C2,$31,$0B,$7B,$69
-db $F2,$FF,$5B,$AD,$02,$5E,$85,$04,$0A,$65,$04,$0A,$18,$69,$EC,$5D
-db $A8,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$A5,$06,$85,$14,$A5
-db $08,$85,$16,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$86
-db $10,$85,$0E,$AD,$36,$5E,$0A,$0A,$AA,$A5,$0E,$9D,$06,$5E,$A6,$10
-db $DA,$AD,$36,$5E,$0A,$0A,$AA,$68,$9D,$08,$5E,$EE,$36,$5E,$2B,$6B
-db $C2,$31,$80,$15,$AD,$36,$5E,$3A,$8D,$36,$5E,$0A,$0A,$A8,$B9,$08
-db $5E,$AA,$B9,$06,$5E,$22,$07,$65,$C4,$AD,$36,$5E,$D0,$E6,$6B
-
-C065C2_Enqueue_MovementRecord_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    lda $1E
+    sta $06
+    lda $20
+    sta $08
+    lda $0E
+    cmp $5DC0
+    beq C06535_Enqueue_MovementRecord_L6535
+    lda $5E04
+    sta $04
+    asl A
+    adc $04
+    asl A
+    tax
+    lda $0E
+    sta $5DEA,X
+    lda $5E04
+    sta $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5DEC
+    tay
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    lda $5E04
+    inc A
+    and.w #$0003
+    sta $5E04
+    lda.w #$0001
+    sta $5D9A
+C06535_Enqueue_MovementRecord_L6535:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF2
+    tcd
+    lda $5E02
+    sta $04
+    asl A
+    adc $04
+    asl A
+    tax
+    lda $5DEA,X
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF2
+    tcd
+    lda $5E02
+    sta $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5DEC
+    tay
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $14
+    lda $08
+    sta $16
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    stx $10
+    sta $0E
+    lda $5E36
+    asl A
+    asl A
+    tax
+    lda $0E
+    sta $5E06,X
+    ldx $10
+    phx
+    lda $5E36
+    asl A
+    asl A
+    tax
+    pla
+    sta $5E08,X
+    inc $5E36
+    pld
+    rtl
+    rep #$31
+    bra C065BC_Enqueue_MovementRecord_L65BC
+C065A7_Enqueue_MovementRecord_L65A7:
+    lda $5E36
+    dec A
+    sta $5E36
+    asl A
+    asl A
+    tay
+    lda $5E08,Y
+    tax
+    lda $5E06,Y
+    jsl $C46507
+C065BC_Enqueue_MovementRecord_L65BC:
+    lda $5E36
+    bne C065A7_Enqueue_MovementRecord_L65A7
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9241,79 +14732,540 @@ C065C2_Enqueue_MovementRecord_End:
 hirom
 org $C065C2
 
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C0886C_SetDisplayTransitionState = $C0886C
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C21628_CheckEventFlag = $C21628
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C065C2_Probe_Type6DoorCandidate:
-
-; Original data gap before C069F7_Probe_Type6DoorCandidate_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$10,$0A,$AA,$AD,$77
-db $98,$4A,$4A,$4A,$18,$7F,$30,$E2,$C3,$A8,$84,$0E,$AD,$7B,$98,$4A
-db $4A,$4A,$18,$7F,$40,$E2,$C3,$85,$02,$A5,$10,$C9,$06,$00,$D0,$03
-db $88,$84,$0E,$A6,$02,$98,$22,$77,$74,$C0,$C2,$20,$29,$FF,$00,$AA
-db $E0,$FF,$00,$D0,$10,$A6,$02,$A4,$0E,$98,$1A,$22,$77,$74,$C0,$C2
-db $20,$29,$FF,$00,$AA,$E0,$FF,$00,$F0,$44,$E0,$06,$00,$D0,$3F,$A9
-db $00,$00,$85,$06,$A9,$CF,$00,$85,$08,$AD,$BC,$5D,$29,$FF,$7F,$18
-db $65,$06,$85,$06,$AD,$BE,$5D,$8D,$DC,$5D,$A5,$06,$85,$0A,$A5,$08
-db $85,$0C,$A0,$02,$00,$B7,$0A,$A8,$A7,$0A,$85,$06,$84,$08,$A5,$06
-db $8D,$DE,$5D,$A5,$08,$8D,$E0,$5D,$A9,$FE,$FF,$8D,$62,$5D,$2B,$6B
-db $C2,$31,$0B,$48,$7B,$69,$DF,$FF,$5B,$68,$9B,$84,$1F,$85,$1D,$A9
-db $00,$14,$85,$06,$A9,$D0,$00,$85,$08,$A5,$1D,$85,$04,$0A,$65,$04
-db $0A,$0A,$18,$65,$06,$85,$06,$85,$19,$A5,$08,$85,$1B,$A5,$06,$85
-db $0A,$A5,$08,$85,$0C,$A7,$0A,$29,$FF,$00,$85,$02,$C9,$FF,$00,$D0
-db $05,$A9,$84,$03,$85,$02,$E2,$20,$A0,$04,$00,$B7,$06,$C2,$20,$29
-db $FF,$00,$0A,$0A,$AA,$A0,$05,$00,$B7,$06,$22,$31,$26,$C4,$A4,$1F
-db $C0,$01,$00,$F0,$03,$4C,$D2,$67,$22,$3C,$94,$C0,$A9,$02,$00,$22
-db $2C,$DD,$C0,$E2,$20,$A0,$01,$00,$B7,$06,$85,$18,$C2,$20,$29,$FF
-db $00,$F0,$18,$E2,$20,$A0,$02,$00,$B7,$06,$C2,$20,$29,$FF,$00,$AA
-db $E8,$E8,$A5,$18,$29,$FF,$00,$22,$7E,$A6,$C4,$A9,$00,$02,$85,$06
-db $8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08
-db $85,$14,$A9,$7E,$00,$85,$14,$A5,$12,$85,$06,$A5,$14,$85,$08,$A5
-db $06,$85,$0E,$A5,$08,$85,$10,$A5,$19,$85,$06,$A5,$1B,$85,$08,$E2
-db $20,$A0,$03,$00,$B7,$06,$C2,$20,$29,$FF,$00,$22,$4C,$95,$C4,$A2
-db $FF,$FF,$A5,$02,$22,$E7,$96,$C4,$A9,$00,$00,$85,$16,$80,$31,$AD
-db $30,$00,$29,$FF,$00,$F0,$04,$22,$56,$87,$C0,$22,$ED,$26,$C4,$22
-db $B1,$88,$C0,$22,$8A,$26,$C4,$22,$C7,$26,$C4,$22,$66,$94,$C0,$22
-db $26,$8B,$C0,$22,$B0,$A7,$C4,$22,$56,$87,$C0,$A5,$16,$1A,$85,$16
-db $C5,$02,$90,$CB,$E2,$20,$A0,$03,$00,$B7,$06,$C2,$20,$29,$FF,$00
-db $85,$02,$A9,$32,$00,$18,$E5,$02,$50,$04,$10,$0A,$80,$02,$30,$06
-db $22,$26,$87,$C0,$80,$23,$E2,$20,$A9,$FF,$85,$0E,$A2,$00,$02,$C2
-db $20,$A9,$00,$02,$22,$FC,$8E,$C0,$A9,$18,$00,$22,$6B,$85,$C0,$22
-db $56,$87,$C0,$A9,$01,$00,$8D,$76,$46,$22,$51,$94,$C0,$4C,$97,$68
-db $A2,$00,$00,$E2,$20,$A0,$03,$00,$B7,$06,$C2,$20,$29,$FF,$00,$85
-db $02,$A9,$32,$00,$18,$E5,$02,$50,$04,$10,$07,$80,$02,$30,$03,$A2
-db $01,$00,$9B,$84,$1D,$F0,$0A,$A2,$01,$00,$8A,$22,$6C,$88,$C0,$80
-db $13,$A2,$FF,$FF,$E2,$20,$A0,$08,$00,$B7,$06,$C2,$20,$29,$FF,$00
-db $22,$E7,$96,$C4,$E2,$20,$A0,$09,$00,$B7,$06,$85,$18,$C2,$20,$29
-db $FF,$00,$F0,$16,$E2,$20,$A0,$0A,$00,$B7,$06,$C2,$20,$29,$FF,$00
-db $AA,$A5,$18,$29,$FF,$00,$22,$7E,$A6,$C4,$A9,$00,$00,$85,$16,$80
-db $38,$A4,$1D,$D0,$10,$AD,$30,$00,$29,$FF,$00,$F0,$04,$22,$56,$87
-db $C0,$22,$ED,$26,$C4,$22,$B1,$88,$C0,$22,$66,$94,$C0,$22,$B0,$A7
-db $C4,$22,$26,$8B,$C0,$22,$56,$87,$C0,$A5,$16,$C9,$01,$00,$D0,$04
-db $22,$3C,$94,$C0,$A5,$16,$1A,$85,$16,$E2,$20,$A0,$08,$00,$B7,$06
-db $C2,$20,$29,$FF,$00,$85,$02,$A5,$16,$C5,$02,$90,$B4,$A4,$1D,$D0
-db $04,$22,$40,$97,$C4,$AD,$7A,$A9,$C9,$04,$00,$B0,$04,$22,$AA,$EA
-db $C2,$22,$51,$94,$C0,$9C,$AA,$5D,$9C,$A8,$5D,$2B,$6B,$C2,$31,$0B
-db $48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$A9,$00,$14,$85,$06,$A9,$D0
-db $00,$85,$08,$A5,$0E,$85,$04,$0A,$65,$04,$0A,$0A,$18,$65,$06,$85
-db $06,$E0,$00,$00,$D0,$0E,$E2,$20,$A0,$0B,$00,$B7,$06,$C2,$20,$29
-db $FF,$00,$80,$0C,$E2,$20,$A0,$07,$00,$B7,$06,$C2,$20,$29,$FF,$00
-db $2B,$6B,$C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$10,$AD,$D8
-db $5D,$F0,$03,$4C,$AD,$69,$A5,$10,$EB,$29,$FF,$00,$85,$02,$A0,$80
-db $00,$8A,$22,$5B,$91,$C0,$0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$BF
-db $37,$D6,$DC,$29,$FF,$00,$85,$10,$A9,$00,$00,$85,$0A,$A9,$CF,$00
-db $85,$0C,$A5,$10,$0A,$AA,$BF,$EF,$58,$CF,$29,$FF,$7F,$18,$65,$0A
-db $85,$0A,$A5,$0A,$85,$06,$A5,$0C,$85,$08,$A7,$06,$F0,$2A,$29,$FF
-db $7F,$22,$28,$16,$C2,$85,$0E,$A2,$00,$00,$A7,$06,$C9,$00,$80,$90
-db $05,$F0,$03,$A2,$01,$00,$86,$02,$A5,$0E,$C5,$02,$F0,$0A,$A9,$04
-db $00,$18,$65,$0A,$85,$0A,$80,$CA,$A5,$0A,$85,$06,$A5,$0C,$85,$08
-db $A5,$06,$8D,$38,$5E,$A5,$08,$8D,$3A,$5E,$E2,$20,$A0,$02,$00,$B7
-db $0A,$C2,$20,$29,$FF,$00,$AA,$8E,$D6,$5D,$AD,$DA,$5D,$D0,$0C,$EC
-db $D4,$5D,$F0,$07,$A9,$02,$00,$22,$0C,$AC,$C0,$2B,$6B,$C2,$31,$0B
-db $7B,$69,$F2,$FF,$5B,$AD,$D8,$5D,$D0,$2F,$AD,$38,$5E,$85,$06,$AD
-db $3A,$5E,$85,$08,$AD,$D6,$5D,$CD,$D4,$5D,$F0,$1D,$AD,$D6,$5D,$8D
-db $D4,$5D,$AD,$D6,$5D,$22,$BD,$FB,$C4,$E2,$20,$A0,$03,$00,$B7,$06
-db $C2,$20,$29,$FF,$00,$22,$0C,$AC,$C0,$2B,$6B,$C2,$31,$AD,$D6,$5D
-db $22,$BD,$FB,$C4,$6B
-
-C069F7_Probe_Type6DoorCandidate_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $10
+    asl A
+    tax
+    lda $9877
+    lsr A
+    lsr A
+    lsr A
+    clc
+    adc $C3E230,X
+    tay
+    sty $0E
+    lda $987B
+    lsr A
+    lsr A
+    lsr A
+    clc
+    adc $C3E240,X
+    sta $02
+    lda $10
+    cmp.w #$0006
+    bne C065F5_Probe_Type6DoorCandidate_L65F5
+    dey
+    sty $0E
+C065F5_Probe_Type6DoorCandidate_L65F5:
+    ldx $02
+    tya
+    jsl $C07477
+    rep #$20
+    and.w #$00FF
+    tax
+    cpx.w #$00FF
+    bne C06617_Probe_Type6DoorCandidate_L6617
+    ldx $02
+    ldy $0E
+    tya
+    inc A
+    jsl $C07477
+    rep #$20
+    and.w #$00FF
+    tax
+C06617_Probe_Type6DoorCandidate_L6617:
+    cpx.w #$00FF
+    beq C06660_Probe_Type6DoorCandidate_L6660
+    cpx.w #$0006
+    bne C06660_Probe_Type6DoorCandidate_L6660
+    lda.w #$0000
+    sta $06
+    lda.w #$00CF
+    sta $08
+    lda $5DBC
+    and.w #$7FFF
+    clc
+    adc $06
+    sta $06
+    lda $5DBE
+    sta $5DDC
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    ldy.w #$0002
+    lda [$0A],Y
+    tay
+    lda [$0A]
+    sta $06
+    sty $08
+    lda $06
+    sta $5DDE
+    lda $08
+    sta $5DE0
+    lda.w #$FFFE
+    sta $5D62
+C06660_Probe_Type6DoorCandidate_L6660:
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFDF
+    tcd
+    pla
+    txy
+    sty $1F
+    sta $1D
+    lda.w #$1400
+    sta $06
+    lda.w #$00D0
+    sta $08
+    lda $1D
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc $06
+    sta $06
+    sta $19
+    lda $08
+    sta $1B
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda [$0A]
+    and.w #$00FF
+    sta $02
+    cmp.w #$00FF
+    bne C066A8_Probe_Type6DoorCandidate_L66A8
+    lda.w #$0384
+    sta $02
+C066A8_Probe_Type6DoorCandidate_L66A8:
+    sep #$20
+    ldy.w #$0004
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    asl A
+    asl A
+    tax
+    ldy.w #$0005
+    lda [$06],Y
+    jsl $C42631
+    ldy $1F
+    cpy.w #$0001
+    beq C066CA_Probe_Type6DoorCandidate_L66CA
+    jmp.w C067D2_Probe_Type6DoorCandidate_L67D2
+C066CA_Probe_Type6DoorCandidate_L66CA:
+    jsl !C0943C_SaveCurrentCoordinateState
+    lda.w #$0002
+    jsl $C0DD2C
+    sep #$20
+    ldy.w #$0001
+    lda [$06],Y
+    sta $18
+    rep #$20
+    and.w #$00FF
+    beq C066FD_Probe_Type6DoorCandidate_L66FD
+    sep #$20
+    ldy.w #$0002
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    tax
+    inx
+    inx
+    lda $18
+    and.w #$00FF
+    jsl $C4A67E
+C066FD_Probe_Type6DoorCandidate_L66FD:
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$007E
+    sta $14
+    lda $12
+    sta $06
+    lda $14
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $19
+    sta $06
+    lda $1B
+    sta $08
+    sep #$20
+    ldy.w #$0003
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    jsl !C4954C_SeedPaletteFadeWorkBuffer
+    ldx.w #$FFFF
+    lda $02
+    jsl !C496E7_StartPaletteFadeFromWorkBuffer
+    lda.w #$0000
+    sta $16
+    bra C06782_Probe_Type6DoorCandidate_L6782
+C06751_Probe_Type6DoorCandidate_L6751:
+    lda $0030
+    and.w #$00FF
+    beq C0675D_Probe_Type6DoorCandidate_L675D
+    jsl !C08756_WaitOneFrameAndPollInput
+C0675D_Probe_Type6DoorCandidate_L675D:
+    jsl !C426ED_ApplyPaletteComponentInterpolationStep
+    jsl !C088B1_ResetRendererFrameState
+    jsl $C4268A
+    jsl $C426C7
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C4A7B0_StepBattleOverlayScriptState
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $16
+    inc A
+    sta $16
+C06782_Probe_Type6DoorCandidate_L6782:
+    cmp $02
+    bcc C06751_Probe_Type6DoorCandidate_L6751
+    sep #$20
+    ldy.w #$0003
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    sta $02
+    lda.w #$0032
+    clc
+    sbc $02
+    bvc C067A0_Probe_Type6DoorCandidate_L67A0
+    bpl C067A8_Probe_Type6DoorCandidate_L67A8
+    bra C067A2_Probe_Type6DoorCandidate_L67A2
+C067A0_Probe_Type6DoorCandidate_L67A0:
+    bmi C067A8_Probe_Type6DoorCandidate_L67A8
+C067A2_Probe_Type6DoorCandidate_L67A2:
+    jsl !C08726_BlankWaitAndDisableHdma
+    bra C067CB_Probe_Type6DoorCandidate_L67CB
+C067A8_Probe_Type6DoorCandidate_L67A8:
+    sep #$20
+    lda.b #$FF
+    sta $0E
+    ldx.w #$0200
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    lda.w #$0018
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda.w #$0001
+    sta $4676
+C067CB_Probe_Type6DoorCandidate_L67CB:
+    jsl !C09451_RestoreSavedCoordinateState
+    jmp.w C06897_Probe_Type6DoorCandidate_L6897
+C067D2_Probe_Type6DoorCandidate_L67D2:
+    ldx.w #$0000
+    sep #$20
+    ldy.w #$0003
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    sta $02
+    lda.w #$0032
+    clc
+    sbc $02
+    bvc C067EF_Probe_Type6DoorCandidate_L67EF
+    bpl C067F4_Probe_Type6DoorCandidate_L67F4
+    bra C067F1_Probe_Type6DoorCandidate_L67F1
+C067EF_Probe_Type6DoorCandidate_L67EF:
+    bmi C067F4_Probe_Type6DoorCandidate_L67F4
+C067F1_Probe_Type6DoorCandidate_L67F1:
+    ldx.w #$0001
+C067F4_Probe_Type6DoorCandidate_L67F4:
+    txy
+    sty $1D
+    beq C06803_Probe_Type6DoorCandidate_L6803
+    ldx.w #$0001
+    txa
+    jsl !C0886C_SetDisplayTransitionState
+    bra C06816_Probe_Type6DoorCandidate_L6816
+C06803_Probe_Type6DoorCandidate_L6803:
+    ldx.w #$FFFF
+    sep #$20
+    ldy.w #$0008
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    jsl !C496E7_StartPaletteFadeFromWorkBuffer
+C06816_Probe_Type6DoorCandidate_L6816:
+    sep #$20
+    ldy.w #$0009
+    lda [$06],Y
+    sta $18
+    rep #$20
+    and.w #$00FF
+    beq C0683C_Probe_Type6DoorCandidate_L683C
+    sep #$20
+    ldy.w #$000A
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    tax
+    lda $18
+    and.w #$00FF
+    jsl $C4A67E
+C0683C_Probe_Type6DoorCandidate_L683C:
+    lda.w #$0000
+    sta $16
+    bra C0687B_Probe_Type6DoorCandidate_L687B
+C06843_Probe_Type6DoorCandidate_L6843:
+    ldy $1D
+    bne C06857_Probe_Type6DoorCandidate_L6857
+    lda $0030
+    and.w #$00FF
+    beq C06853_Probe_Type6DoorCandidate_L6853
+    jsl !C08756_WaitOneFrameAndPollInput
+C06853_Probe_Type6DoorCandidate_L6853:
+    jsl !C426ED_ApplyPaletteComponentInterpolationStep
+C06857_Probe_Type6DoorCandidate_L6857:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C4A7B0_StepBattleOverlayScriptState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $16
+    cmp.w #$0001
+    bne C06876_Probe_Type6DoorCandidate_L6876
+    jsl !C0943C_SaveCurrentCoordinateState
+C06876_Probe_Type6DoorCandidate_L6876:
+    lda $16
+    inc A
+    sta $16
+C0687B_Probe_Type6DoorCandidate_L687B:
+    sep #$20
+    ldy.w #$0008
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    sta $02
+    lda $16
+    cmp $02
+    bcc C06843_Probe_Type6DoorCandidate_L6843
+    ldy $1D
+    bne C06897_Probe_Type6DoorCandidate_L6897
+    jsl !C49740_FinishPaletteFadeWorkBuffer
+C06897_Probe_Type6DoorCandidate_L6897:
+    lda $A97A
+    cmp.w #$0004
+    bcs C068A3_Probe_Type6DoorCandidate_L68A3
+    jsl !C2EAAA_FinishBattleSwirlOverlay
+C068A3_Probe_Type6DoorCandidate_L68A3:
+    jsl !C09451_RestoreSavedCoordinateState
+    stz $5DAA
+    stz $5DA8
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    lda.w #$1400
+    sta $06
+    lda.w #$00D0
+    sta $08
+    lda $0E
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc $06
+    sta $06
+    cpx.w #$0000
+    bne C068E6_Probe_Type6DoorCandidate_L68E6
+    sep #$20
+    ldy.w #$000B
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    bra C068F2_Probe_Type6DoorCandidate_L68F2
+C068E6_Probe_Type6DoorCandidate_L68E6:
+    sep #$20
+    ldy.w #$0007
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+C068F2_Probe_Type6DoorCandidate_L68F2:
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $10
+    lda $5DD8
+    beq C06908_Probe_Type6DoorCandidate_L6908
+    jmp.w C069AD_Probe_Type6DoorCandidate_L69AD
+C06908_Probe_Type6DoorCandidate_L6908:
+    lda $10
+    xba
+    and.w #$00FF
+    sta $02
+    ldy.w #$0080
+    txa
+    jsl !C0915B_DivideUnsignedWordByY
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $DCD637,X
+    and.w #$00FF
+    sta $10
+    lda.w #$0000
+    sta $0A
+    lda.w #$00CF
+    sta $0C
+    lda $10
+    asl A
+    tax
+    lda $CF58EF,X
+    and.w #$7FFF
+    clc
+    adc $0A
+    sta $0A
+C06944_Probe_Type6DoorCandidate_L6944:
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda [$06]
+    beq C0697A_Probe_Type6DoorCandidate_L697A
+    and.w #$7FFF
+    jsl !C21628_CheckEventFlag
+    sta $0E
+    ldx.w #$0000
+    lda [$06]
+    cmp.w #$8000
+    bcc C06968_Probe_Type6DoorCandidate_L6968
+    beq C06968_Probe_Type6DoorCandidate_L6968
+    ldx.w #$0001
+C06968_Probe_Type6DoorCandidate_L6968:
+    stx $02
+    lda $0E
+    cmp $02
+    beq C0697A_Probe_Type6DoorCandidate_L697A
+    lda.w #$0004
+    clc
+    adc $0A
+    sta $0A
+    bra C06944_Probe_Type6DoorCandidate_L6944
+C0697A_Probe_Type6DoorCandidate_L697A:
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda $06
+    sta $5E38
+    lda $08
+    sta $5E3A
+    sep #$20
+    ldy.w #$0002
+    lda [$0A],Y
+    rep #$20
+    and.w #$00FF
+    tax
+    stx $5DD6
+    lda $5DDA
+    bne C069AD_Probe_Type6DoorCandidate_L69AD
+    cpx $5DD4
+    beq C069AD_Probe_Type6DoorCandidate_L69AD
+    lda.w #$0002
+    jsl !C0AC0C_QueuePresentationSfxOrCounter
+C069AD_Probe_Type6DoorCandidate_L69AD:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF2
+    tcd
+    lda $5DD8
+    bne C069EB_Probe_Type6DoorCandidate_L69EB
+    lda $5E38
+    sta $06
+    lda $5E3A
+    sta $08
+    lda $5DD6
+    cmp $5DD4
+    beq C069EB_Probe_Type6DoorCandidate_L69EB
+    lda $5DD6
+    sta $5DD4
+    lda $5DD6
+    jsl !C4FBBD_PlaySoundStoneMelody
+    sep #$20
+    ldy.w #$0003
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    jsl !C0AC0C_QueuePresentationSfxOrCounter
+C069EB_Probe_Type6DoorCandidate_L69EB:
+    pld
+    rtl
+    rep #$31
+    lda $5DD6
+    jsl !C4FBBD_PlaySoundStoneMelody
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9324,11 +15276,12 @@ hirom
 org $C069F7
 
 C069F7_Get_CurrentPositionMusicOrAreaId:
-
-; Original data gap before C06A07_Get_CurrentPositionMusicOrAreaId_End:
-db $C2,$31,$AE,$7B,$98,$AD,$77,$98,$22,$F4,$68,$C0,$AD,$D6,$5D,$6B
-
-C06A07_Get_CurrentPositionMusicOrAreaId_End:
+    rep #$31
+    ldx $987B
+    lda $9877
+    jsl $C068F4
+    lda $5DD6
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9338,13 +15291,15 @@ C06A07_Get_CurrentPositionMusicOrAreaId_End:
 hirom
 org $C06A07
 
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C06A07_Apply_CurrentPositionMusicOrAreaId:
-
-; Original data gap before C06A1B_Apply_CurrentPositionMusicOrAreaId_End:
-db $C2,$31,$AE,$7B,$98,$AD,$77,$98,$22,$F4,$68,$C0,$AD,$D6,$5D,$22
-db $BD,$FB,$C4,$6B
-
-C06A1B_Apply_CurrentPositionMusicOrAreaId_End:
+    rep #$31
+    ldx $987B
+    lda $9877
+    jsl $C068F4
+    lda $5DD6
+    jsl !C4FBBD_PlaySoundStoneMelody
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9354,18 +15309,65 @@ C06A1B_Apply_CurrentPositionMusicOrAreaId_End:
 hirom
 org $C06A1B
 
+!C21628_CheckEventFlag = $C21628
 C06A1B_MovementTriggerType0_QueueDoorDestination:
-
-; Original data gap before C06A8B_MovementTriggerType0_QueueDoorDestination_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$29,$FF,$7F,$85,$14,$A9
-db $00,$00,$85,$0A,$A9,$CF,$00,$85,$0C,$A5,$14,$18,$65,$0A,$85,$0A
-db $85,$06,$A5,$0C,$85,$08,$A7,$06,$29,$FF,$7F,$22,$28,$16,$C2,$AA
-db $A9,$00,$00,$85,$12,$A7,$06,$C9,$00,$80,$90,$07,$F0,$05,$A9,$01
-db $00,$85,$12,$A5,$12,$85,$02,$8A,$C5,$02,$D0,$22,$A0,$02,$00,$B7
-db $0A,$48,$C8,$C8,$B7,$0A,$85,$08,$68,$85,$06,$85,$0E,$A5,$08,$85
-db $10,$A9,$00,$00,$22,$E3,$64,$C0,$9C,$AA,$5D,$9C,$A8,$5D,$2B,$60
-
-C06A8B_MovementTriggerType0_QueueDoorDestination_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    and.w #$7FFF
+    sta $14
+    lda.w #$0000
+    sta $0A
+    lda.w #$00CF
+    sta $0C
+    lda $14
+    clc
+    adc $0A
+    sta $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda [$06]
+    and.w #$7FFF
+    jsl !C21628_CheckEventFlag
+    tax
+    lda.w #$0000
+    sta $12
+    lda [$06]
+    cmp.w #$8000
+    bcc C06A5E_MovementTriggerType0_QueueDoorDestination_L6A5E
+    beq C06A5E_MovementTriggerType0_QueueDoorDestination_L6A5E
+    lda.w #$0001
+    sta $12
+C06A5E_MovementTriggerType0_QueueDoorDestination_L6A5E:
+    lda $12
+    sta $02
+    txa
+    cmp $02
+    bne C06A89_MovementTriggerType0_QueueDoorDestination_L6A89
+    ldy.w #$0002
+    lda [$0A],Y
+    pha
+    iny
+    iny
+    lda [$0A],Y
+    sta $08
+    pla
+    sta $06
+    sta $0E
+    lda $08
+    sta $10
+    lda.w #$0000
+    jsl $C064E3
+    stz $5DAA
+    stz $5DA8
+C06A89_MovementTriggerType0_QueueDoorDestination_L6A89:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9376,11 +15378,8 @@ hirom
 org $C06A8B
 
 C06A8B_MovementTriggerType5Or7_NoOp:
-
-; Original data gap before C06A8E_MovementTriggerType5Or7_NoOp_End:
-db $C2,$31,$60
-
-C06A8E_MovementTriggerType5Or7_NoOp_End:
+    rep #$31
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9391,11 +15390,8 @@ hirom
 org $C06A8E
 
 C06A8E_MovementTriggerType6_NoOp:
-
-; Original data gap before C06A91_MovementTriggerType6_NoOp_End:
-db $C2,$31,$60
-
-C06A91_MovementTriggerType6_NoOp_End:
+    rep #$31
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9406,14 +15402,31 @@ hirom
 org $C06A91
 
 C06A91_MovementTriggerType1_SetState07Or08:
-
-; Original data gap before C06ACA_MovementTriggerType1_SetState07Or08_End:
-db $C2,$31,$A8,$A2,$83,$98,$BD,$00,$00,$C9,$07,$00,$F0,$2A,$C9,$08
-db $00,$F0,$25,$C0,$00,$00,$D0,$08,$A9,$07,$00,$9D,$00,$00,$80,$06
-db $A9,$08,$00,$9D,$00,$00,$A2,$7F,$98,$BD,$00,$00,$29,$FE,$FF,$9D
-db $00,$00,$A9,$FF,$FF,$8D,$C4,$5D,$60
-
-C06ACA_MovementTriggerType1_SetState07Or08_End:
+    rep #$31
+    tay
+    ldx.w #$9883
+    lda $0000,X
+    cmp.w #$0007
+    beq C06AC9_MovementTriggerType1_SetState07Or08_L6AC9
+    cmp.w #$0008
+    beq C06AC9_MovementTriggerType1_SetState07Or08_L6AC9
+    cpy.w #$0000
+    bne C06AB1_MovementTriggerType1_SetState07Or08_L6AB1
+    lda.w #$0007
+    sta $0000,X
+    bra C06AB7_MovementTriggerType1_SetState07Or08_L6AB7
+C06AB1_MovementTriggerType1_SetState07Or08_L6AB1:
+    lda.w #$0008
+    sta $0000,X
+C06AB7_MovementTriggerType1_SetState07Or08_L6AB7:
+    ldx.w #$987F
+    lda $0000,X
+    and.w #$FFFE
+    sta $0000,X
+    lda.w #$FFFF
+    sta $5DC4
+C06AC9_MovementTriggerType1_SetState07Or08_L6AC9:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9424,16 +15437,46 @@ hirom
 org $C06ACA
 
 C06ACA_MovementTriggerType2_QueueDoorTransition:
-
-; Original data gap before C06B21_MovementTriggerType2_QueueDoorTransition_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$12,$AD,$34,$0A,$F0
-db $44,$AD,$A5,$98,$C9,$02,$00,$F0,$3C,$AD,$9A,$5D,$D0,$37,$AD,$BA
-db $4D,$0D,$60,$5D,$D0,$2F,$A5,$12,$29,$FF,$7F,$85,$12,$A9,$01,$00
-db $8D,$C2,$5D,$A9,$00,$00,$85,$06,$A9,$CF,$00,$85,$08,$A5,$12,$18
-db $65,$06,$85,$06,$85,$0E,$A5,$08,$85,$10,$A9,$02,$00,$22,$E3,$64
-db $C0,$22,$5B,$7C,$C0,$2B,$60
-
-C06B21_MovementTriggerType2_QueueDoorTransition_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $12
+    lda $0A34
+    beq C06B1F_MovementTriggerType2_QueueDoorTransition_L6B1F
+    lda $98A5
+    cmp.w #$0002
+    beq C06B1F_MovementTriggerType2_QueueDoorTransition_L6B1F
+    lda $5D9A
+    bne C06B1F_MovementTriggerType2_QueueDoorTransition_L6B1F
+    lda $4DBA
+    ora $5D60
+    bne C06B1F_MovementTriggerType2_QueueDoorTransition_L6B1F
+    lda $12
+    and.w #$7FFF
+    sta $12
+    lda.w #$0001
+    sta $5DC2
+    lda.w #$0000
+    sta $06
+    lda.w #$00CF
+    sta $08
+    lda $12
+    clc
+    adc $06
+    sta $06
+    sta $0E
+    lda $08
+    sta $10
+    lda.w #$0002
+    jsl $C064E3
+    jsl $C07C5B
+C06B1F_MovementTriggerType2_QueueDoorTransition_L6B1F:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9443,13 +15486,21 @@ C06B21_MovementTriggerType2_QueueDoorTransition_End:
 hirom
 org $C06B21
 
+!C186B1_PrintTextFromPointer = $C186B1
 C06B21_RunPostTransitionScriptHookAndSelectorPass:
-
-; Original data gap before C06B3D_RunPostTransitionScriptHookAndSelectorPass_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A9,$35,$EA,$85,$0E,$A9,$C5,$00
-db $85,$10,$22,$B1,$86,$C1,$22,$E8,$0E,$EF,$2B,$6B
-
-C06B3D_RunPostTransitionScriptHookAndSelectorPass_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda.w #$EA35
+    sta $0E
+    lda.w #$00C5
+    sta $10
+    jsl !C186B1_PrintTextFromPointer
+    jsl $EF0EE8
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9460,23 +15511,110 @@ hirom
 org $C06B3D
 
 C06B3D_PreserveDeferredScriptPointersAcrossTransition:
-
-; Original data gap before C06BFF_PreserveDeferredScriptPointersAcrossTransition_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$A2,$00,$00,$86,$14,$9B,$84,$12
-db $80,$35,$22,$37,$65,$C0,$C9,$0A,$00,$D0,$1D,$22,$4E,$65,$C0,$A4
-db $12,$98,$0A,$0A,$18,$69,$58,$5E,$A8,$A5,$06,$99,$00,$00,$A5,$08
-db $99,$02,$00,$A4,$12,$C8,$84,$12,$AD,$02,$5E,$1A,$29,$03,$00,$8D
-db $02,$5E,$A6,$14,$E8,$86,$14,$86,$02,$A9,$04,$00,$18,$E5,$02,$50
-db $04,$10,$0C,$80,$02,$30,$08,$AD,$02,$5E,$CD,$04,$5E,$D0,$B3,$A9
-db $00,$00,$85,$06,$A9,$00,$00,$85,$08,$A4,$12,$98,$0A,$0A,$18,$69
-db $58,$5E,$A8,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A2,$00,$00
-db $86,$14,$80,$14,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A9,$0A,$00,$22
-db $E3,$64,$C0,$A6,$14,$E8,$86,$14,$8A,$0A,$0A,$18,$69,$58,$5E,$A8
-db $B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$A9,$00,$00,$85,$0A,$A9
-db $00,$00,$85,$0C,$A5,$08,$C5,$0C,$D0,$04,$A5,$06,$C5,$0A,$D0,$C4
-db $2B,$6B
-
-C06BFF_PreserveDeferredScriptPointersAcrossTransition_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    ldx.w #$0000
+    stx $14
+    txy
+    sty $12
+    bra C06B84_PreserveDeferredScriptPointersAcrossTransition_L6B84
+C06B4F_PreserveDeferredScriptPointersAcrossTransition_L6B4F:
+    jsl $C06537
+    cmp.w #$000A
+    bne C06B75_PreserveDeferredScriptPointersAcrossTransition_L6B75
+    jsl $C0654E
+    ldy $12
+    tya
+    asl A
+    asl A
+    clc
+    adc.w #$5E58
+    tay
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldy $12
+    iny
+    sty $12
+C06B75_PreserveDeferredScriptPointersAcrossTransition_L6B75:
+    lda $5E02
+    inc A
+    and.w #$0003
+    sta $5E02
+    ldx $14
+    inx
+    stx $14
+C06B84_PreserveDeferredScriptPointersAcrossTransition_L6B84:
+    stx $02
+    lda.w #$0004
+    clc
+    sbc $02
+    bvc C06B92_PreserveDeferredScriptPointersAcrossTransition_L6B92
+    bpl C06B9C_PreserveDeferredScriptPointersAcrossTransition_L6B9C
+    bra C06B94_PreserveDeferredScriptPointersAcrossTransition_L6B94
+C06B92_PreserveDeferredScriptPointersAcrossTransition_L6B92:
+    bmi C06B9C_PreserveDeferredScriptPointersAcrossTransition_L6B9C
+C06B94_PreserveDeferredScriptPointersAcrossTransition_L6B94:
+    lda $5E02
+    cmp $5E04
+    bne C06B4F_PreserveDeferredScriptPointersAcrossTransition_L6B4F
+C06B9C_PreserveDeferredScriptPointersAcrossTransition_L6B9C:
+    lda.w #$0000
+    sta $06
+    lda.w #$0000
+    sta $08
+    ldy $12
+    tya
+    asl A
+    asl A
+    clc
+    adc.w #$5E58
+    tay
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldx.w #$0000
+    stx $14
+    bra C06BD5_PreserveDeferredScriptPointersAcrossTransition_L6BD5
+C06BC1_PreserveDeferredScriptPointersAcrossTransition_L6BC1:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda.w #$000A
+    jsl $C064E3
+    ldx $14
+    inx
+    stx $14
+C06BD5_PreserveDeferredScriptPointersAcrossTransition_L6BD5:
+    txa
+    asl A
+    asl A
+    clc
+    adc.w #$5E58
+    tay
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda.w #$0000
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    lda $08
+    cmp $0C
+    bne C06BFB_PreserveDeferredScriptPointersAcrossTransition_L6BFB
+    lda $06
+    cmp $0A
+C06BFB_PreserveDeferredScriptPointersAcrossTransition_L6BFB:
+    bne C06BC1_PreserveDeferredScriptPointersAcrossTransition_L6BC1
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9535,12 +15673,13 @@ hirom
 org $C06E1A
 
 C06E1A_Reset_StagedMovementState:
-
-; Original data gap before C06E2C_Reset_StagedMovementState_End:
-db $C2,$31,$A9,$FF,$FF,$8D,$C4,$5D,$9C,$83,$98,$9C,$56,$5D,$9C,$BA
-db $5D,$6B
-
-C06E2C_Reset_StagedMovementState_End:
+    rep #$31
+    lda.w #$FFFF
+    sta $5DC4
+    stz $9883
+    stz $5D56
+    stz $5DBA
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9551,12 +15690,17 @@ hirom
 org $C06E2C
 
 C06E2C_TimerCallback_CommitStagedPosition_State0C:
-
-; Original data gap before C06E4A_TimerCallback_CommitStagedPosition_State0C_End:
-db $C2,$31,$A9,$0C,$00,$8D,$83,$98,$9C,$56,$5D,$AD,$D0,$5D,$8D,$77
-db $98,$AD,$D2,$5D,$8D,$7B,$98,$9C,$79,$98,$9C,$75,$98,$6B
-
-C06E4A_TimerCallback_CommitStagedPosition_State0C_End:
+    rep #$31
+    lda.w #$000C
+    sta $9883
+    stz $5D56
+    lda $5DD0
+    sta $9877
+    lda $5DD2
+    sta $987B
+    stz $9879
+    stz $9875
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9567,13 +15711,19 @@ hirom
 org $C06E4A
 
 C06E4A_TimerCallback_CommitStagedPosition_ClearMotion:
-
-; Original data gap before C06E6E_TimerCallback_CommitStagedPosition_ClearMotion_End:
-db $C2,$31,$A9,$FF,$FF,$8D,$C4,$5D,$9C,$83,$98,$9C,$56,$5D,$9C,$BA
-db $5D,$AD,$D0,$5D,$8D,$77,$98,$AD,$D2,$5D,$8D,$7B,$98,$9C,$79,$98
-db $9C,$75,$98,$6B
-
-C06E6E_TimerCallback_CommitStagedPosition_ClearMotion_End:
+    rep #$31
+    lda.w #$FFFF
+    sta $5DC4
+    stz $9883
+    stz $5D56
+    stz $5DBA
+    lda $5DD0
+    sta $9877
+    lda $5DD2
+    sta $987B
+    stz $9879
+    stz $9875
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9584,26 +15734,122 @@ hirom
 org $C06E6E
 
 C06E6E_MovementTriggerType3_QueueOffsetStep:
-
-; Original data gap before C06F68_MovementTriggerType3_QueueOffsetStep_End:
-db $C2,$31,$0B,$48,$7B,$69,$E4,$FF,$5B,$68,$84,$1A,$86,$18,$85,$16
-db $AD,$81,$00,$F0,$03,$4C,$80,$6F,$22,$69,$8C,$C4,$A6,$18,$8A,$0A
-db $0A,$0A,$AA,$86,$14,$A4,$1A,$98,$0A,$0A,$0A,$85,$12,$A5,$16,$29
-db $00,$80,$F0,$73,$A0,$83,$98,$B9,$00,$00,$C9,$0C,$00,$F0,$03,$4C
-db $80,$6F,$A9,$00,$00,$99,$00,$00,$A9,$03,$00,$8D,$56,$5D,$AD,$C6
-db $5D,$EB,$29,$FF,$00,$0A,$85,$02,$8A,$A6,$02,$18,$7F,$0A,$6E,$C0
-db $85,$04,$A5,$12,$85,$0E,$A4,$04,$AE,$7B,$98,$AD,$77,$98,$22,$58
-db $8D,$C4,$A8,$84,$1A,$A2,$10,$00,$86,$18,$A6,$02,$BF,$12,$6E,$C0
-db $A6,$18,$22,$6B,$8E,$C4,$A9,$4A,$6E,$85,$0E,$A9,$C0,$00,$85,$10
-db $A4,$1A,$98,$1A,$22,$E6,$DB,$C0,$22,$95,$8E,$C4,$9C,$C6,$5D,$A9
-db $01,$00,$8D,$BA,$5D,$80,$5B,$AD,$83,$98,$C9,$0C,$00,$F0,$63,$A9
-db $01,$00,$8D,$BA,$5D,$A5,$16,$8D,$C6,$5D,$EB,$29,$FF,$00,$0A,$85
-db $16,$AA,$BF,$12,$6E,$C0,$8D,$7F,$98,$A9,$03,$00,$8D,$56,$5D,$A5
-db $16,$48,$A6,$14,$8A,$FA,$18,$7F,$02,$6E,$C0,$85,$04,$A5,$12,$85
-db $0E,$A4,$04,$AE,$7B,$98,$AD,$77,$98,$22,$58,$8D,$C4,$AA,$A9,$2C
-db $6E,$85,$0E,$A9,$C0,$00,$85,$10,$8A,$1A
-
-C06F68_MovementTriggerType3_QueueOffsetStep_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE4
+    tcd
+    pla
+    sty $1A
+    stx $18
+    sta $16
+    lda $0081
+    beq C06E86_MovementTriggerType3_QueueOffsetStep_L6E86
+    jmp $6F80
+C06E86_MovementTriggerType3_QueueOffsetStep_L6E86:
+    jsl $C48C69
+    ldx $18
+    txa
+    asl A
+    asl A
+    asl A
+    tax
+    stx $14
+    ldy $1A
+    tya
+    asl A
+    asl A
+    asl A
+    sta $12
+    lda $16
+    and.w #$8000
+    beq C06F15_MovementTriggerType3_QueueOffsetStep_L6F15
+    ldy.w #$9883
+    lda $0000,Y
+    cmp.w #$000C
+    beq C06EB0_MovementTriggerType3_QueueOffsetStep_L6EB0
+    jmp $6F80
+C06EB0_MovementTriggerType3_QueueOffsetStep_L6EB0:
+    lda.w #$0000
+    sta $0000,Y
+    lda.w #$0003
+    sta $5D56
+    lda $5DC6
+    xba
+    and.w #$00FF
+    asl A
+    sta $02
+    txa
+    ldx $02
+    clc
+    adc $C06E0A,X
+    sta $04
+    lda $12
+    sta $0E
+    ldy $04
+    ldx $987B
+    lda $9877
+    jsl $C48D58
+    tay
+    sty $1A
+    ldx.w #$0010
+    stx $18
+    ldx $02
+    lda $C06E12,X
+    ldx $18
+    jsl $C48E6B
+    lda.w #$6E4A
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    ldy $1A
+    tya
+    inc A
+    jsl $C0DBE6
+    jsl $C48E95
+    stz $5DC6
+    lda.w #$0001
+    sta $5DBA
+    db $80, $5B
+C06F15_MovementTriggerType3_QueueOffsetStep_L6F15:
+    lda $9883
+    cmp.w #$000C
+    db $F0, $63
+    lda.w #$0001
+    sta $5DBA
+    lda $16
+    sta $5DC6
+    xba
+    and.w #$00FF
+    asl A
+    sta $16
+    tax
+    lda $C06E12,X
+    sta $987F
+    lda.w #$0003
+    sta $5D56
+    lda $16
+    pha
+    ldx $14
+    txa
+    plx
+    clc
+    adc $C06E02,X
+    sta $04
+    lda $12
+    sta $0E
+    ldy $04
+    ldx $987B
+    lda $9877
+    jsl $C48D58
+    tax
+    lda.w #$6E2C
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    txa
+    inc A
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9614,12 +15860,16 @@ hirom
 org $C06F68
 
 C06F68_Arm_StagedMovementTimerFromTable48D58:
-
-; Original data gap before C06F82_Arm_StagedMovementTimerFromTable48D58_End:
-db $22,$E6,$DB,$C0,$22,$95,$8E,$C4,$A5,$04,$8D,$D0,$5D,$A5,$12,$8D
-db $D2,$5D,$A9,$FF,$FF,$8D,$C4,$5D,$2B,$60
-
-C06F82_Arm_StagedMovementTimerFromTable48D58_End:
+    jsl $C0DBE6
+    jsl $C48E95
+    lda $04
+    sta $5DD0
+    lda $12
+    sta $5DD2
+    lda.w #$FFFF
+    sta $5DC4
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9630,17 +15880,56 @@ hirom
 org $C06F82
 
 C06F82_TimerCallback_WaitForStagedY_State0D:
-
-; Original data gap before C06FED_TimerCallback_WaitForStagedY_State0D_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$A9,$00,$00,$85,$12,$AD,$C4,$5D
-db $F0,$08,$AD,$C4,$5D,$C9,$00,$01,$D0,$12,$AD,$CE,$5D,$3A,$CD,$7B
-db $98,$90,$17,$F0,$15,$A9,$01,$00,$85,$12,$80,$0E,$AD,$CE,$5D,$1A
-db $CD,$7B,$98,$B0,$05,$A9,$01,$00,$85,$12,$A5,$12,$F0,$1A,$A9,$0D
-db $00,$8D,$83,$98,$AD,$CC,$5D,$8D,$77,$98,$AD,$CE,$5D,$8D,$7B,$98
-db $9C,$79,$98,$9C,$75,$98,$80,$11,$A9,$82,$6F,$85,$0E,$A9,$C0,$00
-db $85,$10,$A9,$01,$00,$22,$E6,$DB,$C0,$2B,$6B
-
-C06FED_TimerCallback_WaitForStagedY_State0D_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda.w #$0000
+    sta $12
+    lda $5DC4
+    beq C06F9C_TimerCallback_WaitForStagedY_State0D_L6F9C
+    lda $5DC4
+    cmp.w #$0100
+    bne C06FAE_TimerCallback_WaitForStagedY_State0D_L6FAE
+C06F9C_TimerCallback_WaitForStagedY_State0D_L6F9C:
+    lda $5DCE
+    dec A
+    cmp $987B
+    bcc C06FBC_TimerCallback_WaitForStagedY_State0D_L6FBC
+    beq C06FBC_TimerCallback_WaitForStagedY_State0D_L6FBC
+    lda.w #$0001
+    sta $12
+    bra C06FBC_TimerCallback_WaitForStagedY_State0D_L6FBC
+C06FAE_TimerCallback_WaitForStagedY_State0D_L6FAE:
+    lda $5DCE
+    inc A
+    cmp $987B
+    bcs C06FBC_TimerCallback_WaitForStagedY_State0D_L6FBC
+    lda.w #$0001
+    sta $12
+C06FBC_TimerCallback_WaitForStagedY_State0D_L6FBC:
+    lda $12
+    beq C06FDA_TimerCallback_WaitForStagedY_State0D_L6FDA
+    lda.w #$000D
+    sta $9883
+    lda $5DCC
+    sta $9877
+    lda $5DCE
+    sta $987B
+    stz $9879
+    stz $9875
+    bra C06FEB_TimerCallback_WaitForStagedY_State0D_L6FEB
+C06FDA_TimerCallback_WaitForStagedY_State0D_L6FDA:
+    lda.w #$6F82
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$0001
+    jsl $C0DBE6
+C06FEB_TimerCallback_WaitForStagedY_State0D_L6FEB:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9651,18 +15940,57 @@ hirom
 org $C06FED
 
 C06FED_TimerCallback_WaitForStagedY_ClearMotion:
-
-; Original data gap before C0705F_TimerCallback_WaitForStagedY_ClearMotion_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$A9,$00,$00,$85,$12,$AD,$C4,$5D
-db $F0,$08,$AD,$C4,$5D,$C9,$00,$01,$D0,$0F,$AD,$7B,$98,$CD,$CE,$5D
-db $B0,$16,$A9,$01,$00,$85,$12,$80,$0F,$AD,$7B,$98,$CD,$CE,$5D,$90
-db $07,$F0,$05,$A9,$01,$00,$85,$12,$A5,$12,$F0,$23,$A9,$FF,$FF,$8D
-db $C4,$5D,$9C,$83,$98,$9C,$56,$5D,$AD,$CC,$5D,$8D,$77,$98,$AD,$CE
-db $5D,$8D,$7B,$98,$9C,$79,$98,$9C,$75,$98,$9C,$BA,$5D,$80,$11,$A9
-db $ED,$6F,$85,$0E,$A9,$C0,$00,$85,$10,$A9,$01,$00,$22,$E6,$DB,$C0
-db $2B,$6B
-
-C0705F_TimerCallback_WaitForStagedY_ClearMotion_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda.w #$0000
+    sta $12
+    lda $5DC4
+    beq C07007_TimerCallback_WaitForStagedY_ClearMotion_L7007
+    lda $5DC4
+    cmp.w #$0100
+    bne C07016_TimerCallback_WaitForStagedY_ClearMotion_L7016
+C07007_TimerCallback_WaitForStagedY_ClearMotion_L7007:
+    lda $987B
+    cmp $5DCE
+    bcs C07025_TimerCallback_WaitForStagedY_ClearMotion_L7025
+    lda.w #$0001
+    sta $12
+    bra C07025_TimerCallback_WaitForStagedY_ClearMotion_L7025
+C07016_TimerCallback_WaitForStagedY_ClearMotion_L7016:
+    lda $987B
+    cmp $5DCE
+    bcc C07025_TimerCallback_WaitForStagedY_ClearMotion_L7025
+    beq C07025_TimerCallback_WaitForStagedY_ClearMotion_L7025
+    lda.w #$0001
+    sta $12
+C07025_TimerCallback_WaitForStagedY_ClearMotion_L7025:
+    lda $12
+    beq C0704C_TimerCallback_WaitForStagedY_ClearMotion_L704C
+    lda.w #$FFFF
+    sta $5DC4
+    stz $9883
+    stz $5D56
+    lda $5DCC
+    sta $9877
+    lda $5DCE
+    sta $987B
+    stz $9879
+    stz $9875
+    stz $5DBA
+    bra C0705D_TimerCallback_WaitForStagedY_ClearMotion_L705D
+C0704C_TimerCallback_WaitForStagedY_ClearMotion_L704C:
+    lda.w #$6FED
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$0001
+    jsl $C0DBE6
+C0705D_TimerCallback_WaitForStagedY_ClearMotion_L705D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9673,17 +16001,62 @@ hirom
 org $C0705F
 
 C0705F_Select_StagedMovementFacing:
-
-; Original data gap before C070CB_Select_StagedMovementFacing_End:
-db $C2,$31,$A0,$01,$00,$AE,$7F,$98,$C9,$00,$01,$F0,$11,$C9,$00,$00
-db $F0,$22,$C9,$00,$03,$F0,$33,$C9,$00,$02,$F0,$3F,$80,$4C,$E0,$00
-db $00,$F0,$06,$8A,$29,$03,$00,$F0,$03,$A0,$00,$00,$A9,$02,$00,$8D
-db $CA,$5D,$80,$36,$E0,$00,$00,$F0,$06,$8A,$29,$03,$00,$F0,$03,$A0
-db $00,$00,$A9,$06,$00,$8D,$CA,$5D,$80,$20,$8A,$29,$07,$00,$F0,$03
-db $A0,$00,$00,$A9,$02,$00,$8D,$CA,$5D,$80,$0F,$8A,$29,$07,$00,$F0
-db $03,$A0,$00,$00,$A9,$06,$00,$8D,$CA,$5D,$98,$60
-
-C070CB_Select_StagedMovementFacing_End:
+    rep #$31
+    ldy.w #$0001
+    ldx $987F
+    cmp.w #$0100
+    beq C0707D_Select_StagedMovementFacing_L707D
+    cmp.w #$0000
+    beq C07093_Select_StagedMovementFacing_L7093
+    cmp.w #$0300
+    beq C070A9_Select_StagedMovementFacing_L70A9
+    cmp.w #$0200
+    beq C070BA_Select_StagedMovementFacing_L70BA
+    bra C070C9_Select_StagedMovementFacing_L70C9
+C0707D_Select_StagedMovementFacing_L707D:
+    cpx.w #$0000
+    beq C07088_Select_StagedMovementFacing_L7088
+    txa
+    and.w #$0003
+    beq C0708B_Select_StagedMovementFacing_L708B
+C07088_Select_StagedMovementFacing_L7088:
+    ldy.w #$0000
+C0708B_Select_StagedMovementFacing_L708B:
+    lda.w #$0002
+    sta $5DCA
+    bra C070C9_Select_StagedMovementFacing_L70C9
+C07093_Select_StagedMovementFacing_L7093:
+    cpx.w #$0000
+    beq C0709E_Select_StagedMovementFacing_L709E
+    txa
+    and.w #$0003
+    beq C070A1_Select_StagedMovementFacing_L70A1
+C0709E_Select_StagedMovementFacing_L709E:
+    ldy.w #$0000
+C070A1_Select_StagedMovementFacing_L70A1:
+    lda.w #$0006
+    sta $5DCA
+    bra C070C9_Select_StagedMovementFacing_L70C9
+C070A9_Select_StagedMovementFacing_L70A9:
+    txa
+    and.w #$0007
+    beq C070B2_Select_StagedMovementFacing_L70B2
+    ldy.w #$0000
+C070B2_Select_StagedMovementFacing_L70B2:
+    lda.w #$0002
+    sta $5DCA
+    bra C070C9_Select_StagedMovementFacing_L70C9
+C070BA_Select_StagedMovementFacing_L70BA:
+    txa
+    and.w #$0007
+    beq C070C3_Select_StagedMovementFacing_L70C3
+    ldy.w #$0000
+C070C3_Select_StagedMovementFacing_L70C3:
+    lda.w #$0006
+    sta $5DCA
+C070C9_Select_StagedMovementFacing_L70C9:
+    tya
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9694,22 +16067,97 @@ hirom
 org $C070CB
 
 C070CB_Queue_StagedMovementFromGridCoords:
-
-; Original data gap before C07180_Queue_StagedMovementFromGridCoords_End:
-db $C2,$31,$0B,$48,$7B,$69,$E6,$FF,$5B,$68,$84,$02,$9B,$84,$18,$85
-db $16,$AD,$81,$00,$F0,$03,$4C,$E3,$71,$22,$69,$8C,$C4,$A5,$16,$AA
-db $EB,$29,$FF,$00,$85,$04,$A4,$18,$98,$0A,$0A,$0A,$A8,$84,$18,$A5
-db $02,$0A,$0A,$0A,$85,$02,$AD,$83,$98,$F0,$03,$4C,$86,$71,$8A,$20
-db $5F,$70,$C9,$00,$00,$F0,$03,$4C,$E3,$71,$AD,$CA,$5D,$8D,$7F,$98
-db $9C,$B8,$5D,$A9,$03,$00,$8D,$56,$5D,$A9,$01,$00,$8D,$BA,$5D,$A5
-db $04,$EB,$29,$00,$FF,$8D,$C4,$5D,$A5,$04,$0A,$AA,$A4,$18,$98,$18
-db $7F,$10,$E2,$C3,$85,$16,$A5,$02,$18,$7F,$18,$E2,$C3,$85,$02,$85
-db $0E,$A4,$16,$AE,$7B,$98,$AD,$77,$98,$22,$58,$8D,$C4,$A8,$84,$14
-db $D0,$03,$C8,$84,$14,$A2,$06,$00,$86,$12,$A5,$04,$0A,$AA,$BF,$00
-db $E2,$C3,$A6,$12,$22,$6B,$8E,$C4,$A9,$82,$6F,$85,$0E,$A9,$C0,$00
-db $85,$10,$A4,$14,$98
-
-C07180_Queue_StagedMovementFromGridCoords_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE6
+    tcd
+    pla
+    sty $02
+    txy
+    sty $18
+    sta $16
+    lda $0081
+    beq C070E4_Queue_StagedMovementFromGridCoords_L70E4
+    jmp $71E3
+C070E4_Queue_StagedMovementFromGridCoords_L70E4:
+    jsl $C48C69
+    lda $16
+    tax
+    xba
+    and.w #$00FF
+    sta $04
+    ldy $18
+    tya
+    asl A
+    asl A
+    asl A
+    tay
+    sty $18
+    lda $02
+    asl A
+    asl A
+    asl A
+    sta $02
+    lda $9883
+    beq C07109_Queue_StagedMovementFromGridCoords_L7109
+    jmp $7186
+C07109_Queue_StagedMovementFromGridCoords_L7109:
+    txa
+    jsr $705F
+    cmp.w #$0000
+    beq C07115_Queue_StagedMovementFromGridCoords_L7115
+    jmp $71E3
+C07115_Queue_StagedMovementFromGridCoords_L7115:
+    lda $5DCA
+    sta $987F
+    stz $5DB8
+    lda.w #$0003
+    sta $5D56
+    lda.w #$0001
+    sta $5DBA
+    lda $04
+    xba
+    and.w #$FF00
+    sta $5DC4
+    lda $04
+    asl A
+    tax
+    ldy $18
+    tya
+    clc
+    adc $C3E210,X
+    sta $16
+    lda $02
+    clc
+    adc $C3E218,X
+    sta $02
+    sta $0E
+    ldy $16
+    ldx $987B
+    lda $9877
+    jsl $C48D58
+    tay
+    sty $14
+    bne C07160_Queue_StagedMovementFromGridCoords_L7160
+    iny
+    sty $14
+C07160_Queue_StagedMovementFromGridCoords_L7160:
+    ldx.w #$0006
+    stx $12
+    lda $04
+    asl A
+    tax
+    lda $C3E200,X
+    ldx $12
+    jsl $C48E6B
+    lda.w #$6F82
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    ldy $14
+    tya
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9720,16 +16168,44 @@ hirom
 org $C07180
 
 C07180_Arm_StagedMovementTimerFromTable48E6B:
-
-; Original data gap before C071D1_Arm_StagedMovementTimerFromTable48E6B_End:
-db $22,$E6,$DB,$C0,$80,$4F,$A5,$04,$0A,$AA,$98,$18,$7F,$20,$E2,$C3
-db $85,$16,$A5,$02,$18,$7F,$28,$E2,$C3,$85,$02,$85,$0E,$A4,$16,$AE
-db $7B,$98,$AD,$77,$98,$22,$58,$8D,$C4,$A8,$84,$14,$D0,$03,$C8,$84
-db $14,$A2,$0C,$00,$86,$18,$A5,$04,$0A,$AA,$BF,$08,$E2,$C3,$A6,$18
-db $22,$6B,$8E,$C4,$A9,$ED,$6F,$85,$0E,$A9,$C0,$00,$85,$10,$A4,$14
-db $98
-
-C071D1_Arm_StagedMovementTimerFromTable48E6B_End:
+    jsl $C0DBE6
+    db $80, $4F
+    lda $04
+    asl A
+    tax
+    tya
+    clc
+    adc $C3E220,X
+    sta $16
+    lda $02
+    clc
+    adc $C3E228,X
+    sta $02
+    sta $0E
+    ldy $16
+    ldx $987B
+    lda $9877
+    jsl $C48D58
+    tay
+    sty $14
+    bne C071B1_Arm_StagedMovementTimerFromTable48E6B_L71B1
+    iny
+    sty $14
+C071B1_Arm_StagedMovementTimerFromTable48E6B_L71B1:
+    ldx.w #$000C
+    stx $18
+    lda $04
+    asl A
+    tax
+    lda $C3E208,X
+    ldx $18
+    jsl $C48E6B
+    lda.w #$6FED
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    ldy $14
+    tya
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9740,41 +16216,275 @@ hirom
 org $C071D1
 
 C071D1_Arm_StagedMovementTimerFromDirectionTables:
-
-; Original data gap before C073C0_Arm_StagedMovementTimerFromDirectionTables_End:
-db $22,$E6,$DB,$C0,$A5,$16,$8D,$CC,$5D,$A5,$02,$8D,$CE,$5D,$22,$95
-db $8E,$C4,$2B,$60,$C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$AA,$CA
-db $86,$0E,$8A,$85,$04,$0A,$65,$04,$0A,$65,$04,$0A,$18,$69,$3C,$5E
-db $AA,$A9,$00,$00,$9D,$00,$00,$A6,$0E,$E2,$20,$9E,$BD,$98,$C2,$20
-db $2B,$6B,$C2,$31,$0B,$7B,$69,$F1,$FF,$5B,$A9,$00,$00,$85,$02,$4C
-db $C1,$72,$A5,$02,$18,$69,$F5,$97,$A8,$E2,$20,$B9,$C8,$00,$85,$0E
-db $C2,$20,$29,$FF,$00,$D0,$03,$4C,$BF,$72,$A5,$02,$85,$04,$0A,$65
-db $04,$0A,$65,$04,$0A,$18,$69,$3C,$5E,$AA,$A9,$FB,$F2,$85,$06,$A9
-db $D5,$00,$85,$08,$B9,$CA,$00,$29,$FF,$00,$0A,$0A,$0A,$18,$65,$06
-db $85,$06,$A5,$0E,$29,$FF,$00,$9D,$00,$00,$A5,$06,$85,$0A,$A5,$08
-db $85,$0C,$A7,$0A,$0A,$0A,$0A,$9D,$02,$00,$A0,$04,$00,$B7,$06,$0A
-db $0A,$0A,$9D,$06,$00,$A0,$02,$00,$B7,$06,$0A,$0A,$0A,$9D,$04,$00
-db $A0,$06,$00,$B7,$06,$0A,$0A,$0A,$9D,$08,$00,$A5,$02,$0A,$0A,$18
-db $69,$C1,$98,$A8,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$8A,$18
-db $69,$0A,$00,$A8,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$E6,$02
-db $A5,$02,$C9,$02,$00,$B0,$05,$F0,$03,$4C,$23,$72,$2B,$6B,$C2,$31
-db $0B,$48,$7B,$69,$E2,$FF,$5B,$68,$86,$1C,$85,$1A,$A5,$2C,$85,$0A
-db $A5,$2E,$85,$0C,$A9,$FB,$F2,$85,$06,$A9,$D5,$00,$85,$08,$A5,$1C
-db $0A,$0A,$0A,$18,$65,$06,$85,$06,$85,$16,$A5,$08,$85,$18,$A5,$1A
-db $3A,$85,$04,$0A,$65,$04,$0A,$65,$04,$0A,$18,$69,$3C,$5E,$A8,$84
-db $14,$AD,$77,$98,$85,$12,$AE,$7B,$98,$A7,$06,$0A,$0A,$0A,$85,$10
-db $A5,$16,$85,$06,$A5,$18,$85,$08,$A0,$02,$00,$B7,$06,$0A,$0A,$0A
-db $85,$0E,$A0,$04,$00,$B7,$06,$0A,$0A,$0A,$85,$02,$A0,$06,$00,$B7
-db $06,$0A,$0A,$0A,$85,$04,$A5,$12,$C5,$10,$90,$16,$F0,$14,$C5,$02
-db $B0,$10,$E4,$0E,$90,$0C,$F0,$0A,$8A,$C5,$04,$B0,$05,$A2,$01,$00
-db $80,$03,$A2,$02,$00,$8A,$A4,$14,$99,$00,$00,$A5,$10,$99,$02,$00
-db $A5,$02,$99,$06,$00,$A5,$0E,$99,$04,$00,$A5,$04,$99,$08,$00,$98
-db $18,$69,$0A,$00,$A8,$A5,$0A,$99,$00,$00,$A5,$0C,$99,$02,$00,$A5
-db $1A,$3A,$85,$12,$18,$69,$F5,$97,$A8,$8A,$E2,$20,$99,$C8,$00,$C2
-db $20,$A5,$1C,$E2,$20,$99,$CA,$00,$C2,$20,$A5,$12,$0A,$0A,$18,$69
-db $C1,$98,$A8,$A5,$0A,$99,$00,$00,$A5,$0C,$99,$02,$00,$2B,$6B
-
-C073C0_Arm_StagedMovementTimerFromDirectionTables_End:
+    jsl $C0DBE6
+    lda $16
+    sta $5DCC
+    lda $02
+    sta $5DCE
+    jsl $C48E95
+    pld
+    rts
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    tax
+    dex
+    stx $0E
+    txa
+    sta $04
+    asl A
+    adc $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5E3C
+    tax
+    lda.w #$0000
+    sta $0000,X
+    ldx $0E
+    sep #$20
+    stz $98BD,X
+    rep #$20
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF1
+    tcd
+    lda.w #$0000
+    sta $02
+    jmp.w C072C1_Arm_StagedMovementTimerFromDirectionTables_L72C1
+C07223_Arm_StagedMovementTimerFromDirectionTables_L7223:
+    lda $02
+    clc
+    adc.w #$97F5
+    tay
+    sep #$20
+    lda $00C8,Y
+    sta $0E
+    rep #$20
+    and.w #$00FF
+    bne C0723B_Arm_StagedMovementTimerFromDirectionTables_L723B
+    jmp.w C072BF_Arm_StagedMovementTimerFromDirectionTables_L72BF
+C0723B_Arm_StagedMovementTimerFromDirectionTables_L723B:
+    lda $02
+    sta $04
+    asl A
+    adc $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5E3C
+    tax
+    lda.w #$F2FB
+    sta $06
+    lda.w #$00D5
+    sta $08
+    lda $00CA,Y
+    and.w #$00FF
+    asl A
+    asl A
+    asl A
+    clc
+    adc $06
+    sta $06
+    lda $0E
+    and.w #$00FF
+    sta $0000,X
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda [$0A]
+    asl A
+    asl A
+    asl A
+    sta $0002,X
+    ldy.w #$0004
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $0006,X
+    ldy.w #$0002
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $0004,X
+    ldy.w #$0006
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $0008,X
+    lda $02
+    asl A
+    asl A
+    clc
+    adc.w #$98C1
+    tay
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    txa
+    clc
+    adc.w #$000A
+    tay
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+C072BF_Arm_StagedMovementTimerFromDirectionTables_L72BF:
+    inc $02
+C072C1_Arm_StagedMovementTimerFromDirectionTables_L72C1:
+    lda $02
+    cmp.w #$0002
+    bcs C072CD_Arm_StagedMovementTimerFromDirectionTables_L72CD
+    beq C072CD_Arm_StagedMovementTimerFromDirectionTables_L72CD
+    jmp.w C07223_Arm_StagedMovementTimerFromDirectionTables_L7223
+C072CD_Arm_StagedMovementTimerFromDirectionTables_L72CD:
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE2
+    tcd
+    pla
+    stx $1C
+    sta $1A
+    lda $2C
+    sta $0A
+    lda $2E
+    sta $0C
+    lda.w #$F2FB
+    sta $06
+    lda.w #$00D5
+    sta $08
+    lda $1C
+    asl A
+    asl A
+    asl A
+    clc
+    adc $06
+    sta $06
+    sta $16
+    lda $08
+    sta $18
+    lda $1A
+    dec A
+    sta $04
+    asl A
+    adc $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5E3C
+    tay
+    sty $14
+    lda $9877
+    sta $12
+    ldx $987B
+    lda [$06]
+    asl A
+    asl A
+    asl A
+    sta $10
+    lda $16
+    sta $06
+    lda $18
+    sta $08
+    ldy.w #$0002
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $0E
+    ldy.w #$0004
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $02
+    ldy.w #$0006
+    lda [$06],Y
+    asl A
+    asl A
+    asl A
+    sta $04
+    lda $12
+    cmp $10
+    bcc C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    beq C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    cmp $02
+    bcs C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    cpx $0E
+    bcc C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    beq C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    txa
+    cmp $04
+    bcs C07363_Arm_StagedMovementTimerFromDirectionTables_L7363
+    ldx.w #$0001
+    bra C07366_Arm_StagedMovementTimerFromDirectionTables_L7366
+C07363_Arm_StagedMovementTimerFromDirectionTables_L7363:
+    ldx.w #$0002
+C07366_Arm_StagedMovementTimerFromDirectionTables_L7366:
+    txa
+    ldy $14
+    sta $0000,Y
+    lda $10
+    sta $0002,Y
+    lda $02
+    sta $0006,Y
+    lda $0E
+    sta $0004,Y
+    lda $04
+    sta $0008,Y
+    tya
+    clc
+    adc.w #$000A
+    tay
+    lda $0A
+    sta $0000,Y
+    lda $0C
+    sta $0002,Y
+    lda $1A
+    dec A
+    sta $12
+    clc
+    adc.w #$97F5
+    tay
+    txa
+    sep #$20
+    sta $00C8,Y
+    rep #$20
+    lda $1C
+    sep #$20
+    sta $00CA,Y
+    rep #$20
+    lda $12
+    asl A
+    asl A
+    clc
+    adc.w #$98C1
+    tay
+    lda $0A
+    sta $0000,Y
+    lda $0C
+    sta $0002,Y
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9785,22 +16495,100 @@ hirom
 org $C073C0
 
 C073C0_Check_MovementBoundaryTrigger:
-
-; Original data gap before C07477_Check_MovementBoundaryTrigger_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$85,$04,$85,$14,$AD,$04
-db $5E,$4D,$04,$5E,$F0,$03,$4C,$73,$74,$AD,$3F,$9F,$F0,$03,$4C,$73
-db $74,$A5,$04,$85,$04,$0A,$65,$04,$0A,$65,$04,$0A,$18,$69,$3C,$5E
-db $A8,$B9,$00,$00,$85,$12,$AE,$77,$98,$AD,$7B,$98,$85,$02,$A5,$12
-db $C9,$01,$00,$D0,$20,$8A,$D9,$02,$00,$90,$38,$8A,$D9,$06,$00,$F0
-db $02,$B0,$30,$A5,$02,$D9,$04,$00,$90,$29,$A5,$02,$D9,$08,$00,$F0
-db $02,$B0,$20,$80,$4E,$8A,$D9,$02,$00,$90,$48,$F0,$46,$8A,$D9,$06
-db $00,$B0,$40,$A5,$02,$D9,$04,$00,$90,$39,$F0,$37,$A5,$02,$D9,$08
-db $00,$B0,$30,$A9,$00,$00,$99,$00,$00,$98,$18,$69,$0A,$00,$A8,$B9
-db $00,$00,$85,$06,$B9,$02,$00,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85
-db $10,$A9,$09,$00,$22,$E3,$64,$C0,$A5,$14,$85,$04,$A6,$04,$E2,$20
-db $9E,$BD,$98,$C2,$20,$2B,$6B
-
-C07477_Check_MovementBoundaryTrigger_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    sta $04
+    sta $14
+    lda $5E04
+    eor $5E04
+    beq C073D9_Check_MovementBoundaryTrigger_L73D9
+    jmp.w C07473_Check_MovementBoundaryTrigger_L7473
+C073D9_Check_MovementBoundaryTrigger_L73D9:
+    lda $9F3F
+    beq C073E1_Check_MovementBoundaryTrigger_L73E1
+    jmp.w C07473_Check_MovementBoundaryTrigger_L7473
+C073E1_Check_MovementBoundaryTrigger_L73E1:
+    lda $04
+    sta $04
+    asl A
+    adc $04
+    asl A
+    adc $04
+    asl A
+    clc
+    adc.w #$5E3C
+    tay
+    lda $0000,Y
+    sta $12
+    ldx $9877
+    lda $987B
+    sta $02
+    lda $12
+    cmp.w #$0001
+    bne C07425_Check_MovementBoundaryTrigger_L7425
+    txa
+    cmp $0002,Y
+    bcc C07443_Check_MovementBoundaryTrigger_L7443
+    txa
+    cmp $0006,Y
+    beq C07413_Check_MovementBoundaryTrigger_L7413
+    bcs C07443_Check_MovementBoundaryTrigger_L7443
+C07413_Check_MovementBoundaryTrigger_L7413:
+    lda $02
+    cmp $0004,Y
+    bcc C07443_Check_MovementBoundaryTrigger_L7443
+    lda $02
+    cmp $0008,Y
+    beq C07423_Check_MovementBoundaryTrigger_L7423
+    bcs C07443_Check_MovementBoundaryTrigger_L7443
+C07423_Check_MovementBoundaryTrigger_L7423:
+    bra C07473_Check_MovementBoundaryTrigger_L7473
+C07425_Check_MovementBoundaryTrigger_L7425:
+    txa
+    cmp $0002,Y
+    bcc C07473_Check_MovementBoundaryTrigger_L7473
+    beq C07473_Check_MovementBoundaryTrigger_L7473
+    txa
+    cmp $0006,Y
+    bcs C07473_Check_MovementBoundaryTrigger_L7473
+    lda $02
+    cmp $0004,Y
+    bcc C07473_Check_MovementBoundaryTrigger_L7473
+    beq C07473_Check_MovementBoundaryTrigger_L7473
+    lda $02
+    cmp $0008,Y
+    bcs C07473_Check_MovementBoundaryTrigger_L7473
+C07443_Check_MovementBoundaryTrigger_L7443:
+    lda.w #$0000
+    sta $0000,Y
+    tya
+    clc
+    adc.w #$000A
+    tay
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda.w #$0009
+    jsl $C064E3
+    lda $14
+    sta $04
+    ldx $04
+    sep #$20
+    stz $98BD,X
+C07473_Check_MovementBoundaryTrigger_L7473:
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9811,21 +16599,101 @@ hirom
 org $C07477
 
 C07477_Lookup_MovementTriggerType:
-
-; Original data gap before C07526_Lookup_MovementTriggerType_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$9B,$84,$10,$85,$0E,$A9
-db $00,$00,$85,$0A,$A9,$D0,$00,$85,$0C,$A5,$0E,$4A,$4A,$4A,$4A,$4A
-db $85,$02,$98,$29,$E0,$FF,$18,$65,$02,$0A,$0A,$18,$65,$0A,$85,$0A
-db $A0,$02,$00,$B7,$0A,$A8,$A7,$0A,$85,$06,$84,$08,$A7,$06,$AA,$D0
-db $06,$E2,$20,$A9,$FF,$80,$66,$E6,$06,$E6,$06,$A5,$0E,$29,$1F,$00
-db $85,$02,$A4,$10,$98,$29,$1F,$00,$85,$0E,$80,$48,$E2,$20,$A0,$01
-db $00,$B7,$06,$C2,$20,$29,$FF,$00,$C5,$02,$D0,$2F,$A5,$0E,$85,$04
-db $A5,$06,$85,$0A,$A5,$08,$85,$0C,$A7,$0A,$29,$FF,$00,$C5,$04,$D0
-db $1A,$A0,$03,$00,$B7,$06,$8D,$BC,$5D,$E6,$06,$E6,$06,$A7,$06,$29
-db $FF,$00,$8D,$BE,$5D,$E2,$20,$A7,$06,$80,$12,$A9,$05,$00,$18,$65
-db $06,$85,$06,$CA,$E0,$00,$00,$D0,$B3,$E2,$20,$A9,$FF,$2B,$6B
-
-C07526_Lookup_MovementTriggerType_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    txy
+    sty $10
+    sta $0E
+    lda.w #$0000
+    sta $0A
+    lda.w #$00D0
+    sta $0C
+    lda $0E
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    sta $02
+    tya
+    and.w #$FFE0
+    clc
+    adc $02
+    asl A
+    asl A
+    clc
+    adc $0A
+    sta $0A
+    ldy.w #$0002
+    lda [$0A],Y
+    tay
+    lda [$0A]
+    sta $06
+    sty $08
+    lda [$06]
+    tax
+    bne C074BE_Lookup_MovementTriggerType_L74BE
+    sep #$20
+    lda.b #$FF
+    bra C07524_Lookup_MovementTriggerType_L7524
+C074BE_Lookup_MovementTriggerType_L74BE:
+    inc $06
+    inc $06
+    lda $0E
+    and.b #$1F
+    brk #$85
+    cop.b #$A4
+    db $10, $98
+    and.b #$1F
+    brk #$85
+    asl $4880
+C074D3_Lookup_MovementTriggerType_L74D3:
+    sep #$20
+    ldy.w #$0001
+    lda [$06],Y
+    rep #$20
+    and.w #$00FF
+    cmp $02
+    bne C07512_Lookup_MovementTriggerType_L7512
+    lda $0E
+    sta $04
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda [$0A]
+    and.w #$00FF
+    cmp $04
+    bne C07512_Lookup_MovementTriggerType_L7512
+    ldy.w #$0003
+    lda [$06],Y
+    sta $5DBC
+    inc $06
+    inc $06
+    lda [$06]
+    and.w #$00FF
+    sta $5DBE
+    sep #$20
+    lda [$06]
+    bra C07524_Lookup_MovementTriggerType_L7524
+C07512_Lookup_MovementTriggerType_L7512:
+    lda.b #$05
+    brk #$18
+    adc $06
+    sta $06
+    dex
+    cpx.w #$0000
+    bne C074D3_Lookup_MovementTriggerType_L74D3
+    sep #$20
+    lda.b #$FF
+C07524_Lookup_MovementTriggerType_L7524:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9836,22 +16704,94 @@ hirom
 org $C07526
 
 C07526_Dispatch_MovementHelperFromLookup:
-
-; Original data gap before C075DD_Dispatch_MovementHelperFromLookup_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$9B,$84,$10,$85,$02,$BB
-db $A5,$02,$22,$77,$74,$C0,$C2,$20,$29,$FF,$00,$F0,$25,$C9,$01,$00
-db $F0,$2F,$C9,$02,$00,$F0,$39,$C9,$03,$00,$F0,$43,$C9,$04,$00,$F0
-db $51,$C9,$05,$00,$F0,$5F,$C9,$07,$00,$F0,$5A,$C9,$06,$00,$F0,$64
-db $80,$6F,$AD,$BC,$5D,$20,$1B,$6A,$A9,$00,$00,$85,$04,$85,$0E,$80
-db $60,$AD,$BC,$5D,$20,$91,$6A,$A9,$01,$00,$85,$04,$85,$0E,$80,$51
-db $AD,$BC,$5D,$20,$CA,$6A,$A9,$00,$00,$85,$04,$85,$0E,$80,$42,$A4
-db $10,$A6,$02,$AD,$BC,$5D,$20,$6E,$6E,$A9,$00,$00,$85,$04,$85,$0E
-db $80,$2F,$A4,$10,$A6,$02,$AD,$BC,$5D,$20,$CB,$70,$A9,$01,$00,$85
-db $04,$85,$0E,$80,$1C,$AD,$BC,$5D,$20,$8B,$6A,$A9,$00,$00,$85,$04
-db $85,$0E,$80,$0D,$AD,$BC,$5D,$20,$8E,$6A,$A9,$00,$00,$85,$04,$85
-db $0E,$A5,$0E,$85,$04,$2B,$6B
-
-C075DD_Dispatch_MovementHelperFromLookup_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    txy
+    sty $10
+    sta $02
+    tyx
+    lda $02
+    jsl $C07477
+    rep #$20
+    and.w #$00FF
+    beq C07568_Dispatch_MovementHelperFromLookup_L7568
+    cmp.w #$0001
+    beq C07577_Dispatch_MovementHelperFromLookup_L7577
+    cmp.w #$0002
+    beq C07586_Dispatch_MovementHelperFromLookup_L7586
+    cmp.w #$0003
+    beq C07595_Dispatch_MovementHelperFromLookup_L7595
+    cmp.w #$0004
+    beq C075A8_Dispatch_MovementHelperFromLookup_L75A8
+    cmp.w #$0005
+    beq C075BB_Dispatch_MovementHelperFromLookup_L75BB
+    cmp.w #$0007
+    beq C075BB_Dispatch_MovementHelperFromLookup_L75BB
+    cmp.w #$0006
+    beq C075CA_Dispatch_MovementHelperFromLookup_L75CA
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C07568_Dispatch_MovementHelperFromLookup_L7568:
+    lda $5DBC
+    jsr $6A1B
+    lda.w #$0000
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C07577_Dispatch_MovementHelperFromLookup_L7577:
+    lda $5DBC
+    jsr $6A91
+    lda.w #$0001
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C07586_Dispatch_MovementHelperFromLookup_L7586:
+    lda $5DBC
+    jsr $6ACA
+    lda.w #$0000
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C07595_Dispatch_MovementHelperFromLookup_L7595:
+    ldy $10
+    ldx $02
+    lda $5DBC
+    jsr $6E6E
+    lda.w #$0000
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C075A8_Dispatch_MovementHelperFromLookup_L75A8:
+    ldy $10
+    ldx $02
+    lda $5DBC
+    jsr $70CB
+    lda.w #$0001
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C075BB_Dispatch_MovementHelperFromLookup_L75BB:
+    lda $5DBC
+    jsr $6A8B
+    lda.w #$0000
+    sta $04
+    sta $0E
+    bra C075D7_Dispatch_MovementHelperFromLookup_L75D7
+C075CA_Dispatch_MovementHelperFromLookup_L75CA:
+    lda $5DBC
+    jsr $6A8E
+    lda.w #$0000
+    sta $04
+    sta $0E
+C075D7_Dispatch_MovementHelperFromLookup_L75D7:
+    lda $0E
+    sta $04
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9861,38 +16801,215 @@ C075DD_Dispatch_MovementHelperFromLookup_End:
 hirom
 org $C075DD
 
+!C01E49_CreateEntityFromDescriptor = $C01E49
 C075DD_Consume_MovementRecordQueue:
-
-; Original data gap before C0778A_Consume_MovementRecordQueue_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AD,$02,$5E,$85,$04,$0A,$65,$04
-db $0A,$AA,$BD,$EA,$5D,$85,$12,$8A,$18,$69,$EC,$5D,$A8,$B9,$00,$00
-db $85,$06,$B9,$02,$00,$85,$08,$A5,$12,$8D,$C0,$5D,$AD,$02,$5E,$1A
-db $29,$03,$00,$8D,$02,$5E,$AD,$58,$5D,$29,$FE,$FF,$8D,$58,$5D,$22
-db $5B,$7C,$C0,$A5,$12,$C9,$02,$00,$F0,$16,$C9,$0A,$00,$F0,$1E,$C9
-db $00,$00,$F0,$46,$C9,$08,$00,$F0,$41,$C9,$09,$00,$F0,$3C,$80,$46
-db $A5,$06,$85,$0E,$A5,$08,$85,$10,$20,$FF,$6B,$80,$39,$A5,$06,$85
-db $0E,$A5,$08,$85,$10,$22,$04,$00,$C1,$A9,$3E,$D3,$85,$0A,$A9,$C7
-db $00,$85,$0C,$A5,$08,$C5,$0C,$D0,$04,$A5,$06,$C5,$0A,$D0,$17,$A9
-db $97,$06,$8D,$54,$9E,$9C,$56,$9E,$80,$0C,$A5,$06,$85,$0E,$A5,$08
-db $85,$10,$22,$04,$00,$C1,$A2,$00,$00,$AD,$02,$5E,$CD,$04,$5E,$F0
-db $03,$A2,$01,$00,$8E,$9A,$5D,$A9,$FF,$FF,$8D,$C0,$5D,$2B,$6B,$C2
-db $31,$0B,$7B,$69,$F0,$FF,$5B,$E2,$20,$9C,$40,$98,$C2,$20,$A9,$18
-db $00,$85,$0E,$80,$0D,$0A,$AA,$A9,$08,$00,$9D,$12,$0F,$A5,$0E,$1A
-db $85,$0E,$C9,$1D,$00,$90,$EE,$F0,$EC,$2B,$6B,$C2,$31,$0B,$48,$7B
-db $69,$EC,$FF,$5B,$68,$A8,$A2,$40,$98,$BD,$00,$00,$29,$FF,$00,$C9
-db $03,$00,$F0,$33,$E2,$20,$A9,$03,$9D,$00,$00,$C2,$20,$A9,$18,$00
-db $85,$12,$80,$0D,$0A,$AA,$A9,$05,$00,$9D,$12,$0F,$A5,$12,$1A,$85
-db $12,$C9,$1D,$00,$90,$EE,$F0,$EC,$A9,$9C,$76,$85,$0E,$A9,$C0,$00
-db $85,$10,$98,$22,$E6,$DB,$C0,$2B,$6B,$C2,$31,$0B,$7B,$69,$EE,$FF
-db $5B,$AD,$89,$98,$0A,$AA,$BD,$B6,$10,$29,$00,$C0,$D0,$4D,$BD,$6A
-db $11,$29,$00,$80,$D0,$45,$AD,$A5,$98,$C9,$02,$00,$F0,$3D,$64,$0E
-db $64,$10,$A0,$FF,$FF,$A2,$12,$03,$A9,$08,$01,$22,$49,$1E,$C0,$8D
-db $6B,$9F,$0A,$AA,$A9,$FF,$FF,$9D,$F2,$10,$AD,$6B,$9F,$0A,$AA,$A9
-db $00,$FF,$9D,$52,$0B,$AD,$6B,$9F,$0A,$AA,$A9,$00,$FF,$9D,$CA,$0B
-db $AD,$6B,$9F,$0A,$AA,$A9,$00,$FF,$9D,$8E,$0B,$2B,$6B,$C2,$31,$AD
-db $6B,$9F,$22,$40,$21,$C0,$A9,$FF,$FF,$8D,$6B,$9F,$6B
-
-C0778A_Consume_MovementRecordQueue_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda $5E02
+    sta $04
+    asl A
+    adc $04
+    asl A
+    tax
+    lda $5DEA,X
+    sta $12
+    txa
+    clc
+    adc.w #$5DEC
+    tay
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    lda $12
+    sta $5DC0
+    lda $5E02
+    inc A
+    and.w #$0003
+    sta $5E02
+    lda $5D58
+    and.w #$FFFE
+    sta $5D58
+    jsl $C07C5B
+    lda $12
+    cmp.w #$0002
+    beq C0763D_Consume_MovementRecordQueue_L763D
+    cmp.w #$000A
+    beq C0764A_Consume_MovementRecordQueue_L764A
+    cmp.w #$0000
+    beq C07677_Consume_MovementRecordQueue_L7677
+    cmp.w #$0008
+    beq C07677_Consume_MovementRecordQueue_L7677
+    cmp.w #$0009
+    beq C07677_Consume_MovementRecordQueue_L7677
+    bra C07683_Consume_MovementRecordQueue_L7683
+C0763D_Consume_MovementRecordQueue_L763D:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsr $6BFF
+    bra C07683_Consume_MovementRecordQueue_L7683
+C0764A_Consume_MovementRecordQueue_L764A:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsl $C10004
+    lda.w #$D33E
+    sta $0A
+    lda.w #$00C7
+    sta $0C
+    lda $08
+    cmp $0C
+    bne C0766A_Consume_MovementRecordQueue_L766A
+    lda $06
+    cmp $0A
+C0766A_Consume_MovementRecordQueue_L766A:
+    bne C07683_Consume_MovementRecordQueue_L7683
+    lda.w #$0697
+    sta $9E54
+    stz $9E56
+    bra C07683_Consume_MovementRecordQueue_L7683
+C07677_Consume_MovementRecordQueue_L7677:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsl $C10004
+C07683_Consume_MovementRecordQueue_L7683:
+    ldx.w #$0000
+    lda $5E02
+    cmp $5E04
+    beq C07691_Consume_MovementRecordQueue_L7691
+    ldx.w #$0001
+C07691_Consume_MovementRecordQueue_L7691:
+    stx $5D9A
+    lda.w #$FFFF
+    sta $5DC0
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    sep #$20
+    stz $9840
+    rep #$20
+    lda.w #$0018
+    sta $0E
+    bra C076BF_Consume_MovementRecordQueue_L76BF
+C076B2_Consume_MovementRecordQueue_L76B2:
+    asl A
+    tax
+    lda.w #$0008
+    sta $0F12,X
+    lda $0E
+    inc A
+    sta $0E
+C076BF_Consume_MovementRecordQueue_L76BF:
+    cmp.w #$001D
+    bcc C076B2_Consume_MovementRecordQueue_L76B2
+    beq C076B2_Consume_MovementRecordQueue_L76B2
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    tay
+    ldx.w #$9840
+    lda $0000,X
+    and.w #$00FF
+    cmp.w #$0003
+    beq C07714_Consume_MovementRecordQueue_L7714
+    sep #$20
+    lda.b #$03
+    sta $0000,X
+    rep #$20
+    lda.w #$0018
+    sta $12
+    bra C076FE_Consume_MovementRecordQueue_L76FE
+C076F1_Consume_MovementRecordQueue_L76F1:
+    asl A
+    tax
+    lda.w #$0005
+    sta $0F12,X
+    lda $12
+    inc A
+    sta $12
+C076FE_Consume_MovementRecordQueue_L76FE:
+    cmp.w #$001D
+    bcc C076F1_Consume_MovementRecordQueue_L76F1
+    beq C076F1_Consume_MovementRecordQueue_L76F1
+    lda.w #$769C
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    tya
+    jsl $C0DBE6
+C07714_Consume_MovementRecordQueue_L7714:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $9889
+    asl A
+    tax
+    lda $10B6,X
+    and.w #$C000
+    bne C07778_Consume_MovementRecordQueue_L7778
+    lda $116A,X
+    and.w #$8000
+    bne C07778_Consume_MovementRecordQueue_L7778
+    lda $98A5
+    cmp.w #$0002
+    beq C07778_Consume_MovementRecordQueue_L7778
+    stz $0E
+    stz $10
+    ldy.w #$FFFF
+    ldx.w #$0312
+    lda.w #$0108
+    jsl !C01E49_CreateEntityFromDescriptor
+    sta $9F6B
+    asl A
+    tax
+    lda.w #$FFFF
+    sta $10F2,X
+    lda $9F6B
+    asl A
+    tax
+    lda.w #$FF00
+    sta $0B52,X
+    lda $9F6B
+    asl A
+    tax
+    lda.w #$FF00
+    sta $0BCA,X
+    lda $9F6B
+    asl A
+    tax
+    lda.w #$FF00
+    sta $0B8E,X
+C07778_Consume_MovementRecordQueue_L7778:
+    pld
+    rtl
+    rep #$31
+    lda $9F6B
+    jsl $C02140
+    lda.w #$FFFF
+    sta $9F6B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9903,19 +17020,73 @@ hirom
 org $C0778A
 
 C0778A_Update_CurrentSlotOrbitOffsetFromLeader:
-
-; Original data gap before C0780F_Update_CurrentSlotOrbitOffsetFromLeader_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$89,$98,$0A,$AA,$BD,$B6,$10
-db $29,$00,$C0,$F0,$0D,$AD,$42,$1A,$0A,$AA,$A9,$FF,$FF,$9D,$F2,$10
-db $80,$61,$A2,$00,$30,$AD,$6D,$9F,$22,$FF,$1F,$C4,$A5,$06,$85,$0E
-db $A5,$08,$85,$10,$AD,$42,$1A,$0A,$AA,$A5,$10,$29,$00,$FF,$EB,$10
-db $03,$09,$00,$FF,$18,$6D,$77,$98,$9D,$8E,$0B,$AD,$42,$1A,$0A,$48
-db $E2,$20,$A9,$0A,$E2,$10,$A8,$C2,$20,$A5,$0E,$22,$5B,$92,$C0,$85
-db $02,$AD,$7B,$98,$38,$E9,$08,$00,$18,$65,$02,$C2,$10,$FA,$9D,$CA
-db $0B,$AD,$6D,$9F,$18,$69,$00,$03,$8D,$6D,$9F,$AD,$42,$1A,$0A,$AA
-db $9E,$F2,$10,$2B,$6B
-
-C0780F_Update_CurrentSlotOrbitOffsetFromLeader_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $9889
+    asl A
+    tax
+    lda $10B6,X
+    and.w #$C000
+    beq C077AC_Update_CurrentSlotOrbitOffsetFromLeader_L77AC
+    lda $1A42
+    asl A
+    tax
+    lda.w #$FFFF
+    sta $10F2,X
+    bra C0780D_Update_CurrentSlotOrbitOffsetFromLeader_L780D
+C077AC_Update_CurrentSlotOrbitOffsetFromLeader_L77AC:
+    ldx.w #$3000
+    lda $9F6D
+    jsl $C41FFF
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $1A42
+    asl A
+    tax
+    lda $10
+    and.w #$FF00
+    xba
+    bpl C077CE_Update_CurrentSlotOrbitOffsetFromLeader_L77CE
+    ora.w #$FF00
+C077CE_Update_CurrentSlotOrbitOffsetFromLeader_L77CE:
+    clc
+    adc $9877
+    sta $0B8E,X
+    lda $1A42
+    asl A
+    pha
+    sep #$20
+    lda.b #$0A
+    sep #$10
+    tay
+    rep #$20
+    lda $0E
+    jsl $C0925B
+    sta $02
+    lda $987B
+    sec
+    sbc.w #$0008
+    clc
+    adc $02
+    rep #$10
+    plx
+    sta $0BCA,X
+    lda $9F6D
+    clc
+    adc.w #$0300
+    sta $9F6D
+    lda $1A42
+    asl A
+    tax
+    stz $10F2,X
+C0780D_Update_CurrentSlotOrbitOffsetFromLeader_L780D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9926,35 +17097,199 @@ hirom
 org $C0780F
 
 C0780F_ResolveVisualSelectorRowToPoseIndex:
-
-; Original data gap before C07994_ResolveVisualSelectorRowToPoseIndex_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$84,$04,$86,$12,$85,$10
-db $A0,$00,$00,$AD,$73,$9F,$85,$02,$A5,$10,$D0,$10,$AD,$B6,$B4,$D0
-db $0B,$AD,$71,$9F,$F0,$06,$A9,$B5,$01,$4C,$EA,$79,$A5,$02,$C9,$FF
-db $FF,$F0,$07,$A5,$02,$0A,$AA,$9E,$7A,$2E,$AD,$40,$98,$29,$FF,$00
-db $C9,$01,$00,$D0,$14,$AD,$87,$98,$C9,$03,$00,$F0,$06,$A9,$0D,$00
-db $4C,$EA,$79,$A9,$25,$00,$4C,$EA,$79,$A6,$04,$BD,$0E,$00,$29,$FF
-db $00,$C9,$01,$00,$F0,$0C,$C9,$02,$00,$F0,$0C,$C9,$04,$00,$F0,$1B
-db $80,$31,$A0,$01,$00,$80,$2C,$AD,$87,$98,$C9,$03,$00,$F0,$06,$A9
-db $0C,$00,$4C,$EA,$79,$A9,$24,$00,$4C,$EA,$79,$A5,$02,$C9,$FF,$FF
-db $F0,$11,$A5,$02,$0A,$18,$69,$7A,$2E,$AA,$BD,$00,$00,$09,$00,$80
-db $9D,$00,$00,$A6,$04,$BD,$0F,$00,$29,$FF,$00,$C9,$01,$00,$F0,$07
-db $C9,$02,$00,$F0,$1C,$80,$1D,$A5,$02,$C9,$FF,$FF,$F0,$16,$A5,$02
-db $0A,$18,$69,$7A,$2E,$AA,$BD,$00,$00,$09,$00,$40,$9D,$00,$00,$80
-db $03,$EE,$6F,$9F,$AD,$87,$98,$C9,$06,$00,$F0,$07,$C9,$04,$00,$F0
-db $08,$80,$13,$A9,$07,$00,$4C,$EA,$79,$A6,$04,$BD,$35,$00,$D0,$06
-db $A9,$06,$00,$4C,$EA,$79,$C0,$00,$00,$D0,$31,$A5,$12,$F0,$1B,$C9
-db $0C,$00,$F0,$16,$C9,$0D,$00,$F0,$11,$C9,$04,$00,$F0,$11,$C9,$07
-db $00,$F0,$11,$C9,$08,$00,$F0,$11,$80,$12,$A0,$00,$00,$80,$0D,$A0
-db $01,$00,$80,$08,$A0,$02,$00,$80,$03,$A0,$03,$00,$AE,$87,$98,$E0
-db $03,$00,$D0,$0D,$C8,$C8,$C8,$C8,$A5,$02,$0A,$AA,$9E,$7A,$2E,$80
-db $10,$E0,$05,$00,$D0,$0B,$C0,$00,$00,$D0,$06,$98,$18,$69,$06,$00
-db $A8,$AD,$40,$98,$29,$FF,$00,$C9,$03,$00,$D0,$0C,$A5,$02,$0A,$AA
-db $A9,$05,$00,$9D,$12,$0F,$80,$4A,$A6,$04,$BD,$0E,$00,$29,$FF,$00
-db $C9,$01,$00,$D0,$0C,$A5,$02,$0A,$AA,$A9,$10,$00,$9D,$12,$0F,$80
-db $31,$A5,$02,$0A,$AA
-
-C07994_ResolveVisualSelectorRowToPoseIndex_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sty $04
+    stx $12
+    sta $10
+    ldy.w #$0000
+    lda $9F73
+    sta $02
+    lda $10
+    bne C0783B_ResolveVisualSelectorRowToPoseIndex_L783B
+    lda $B4B6
+    bne C0783B_ResolveVisualSelectorRowToPoseIndex_L783B
+    lda $9F71
+    beq C0783B_ResolveVisualSelectorRowToPoseIndex_L783B
+    lda.w #$01B5
+    jmp $79EA
+C0783B_ResolveVisualSelectorRowToPoseIndex_L783B:
+    lda $02
+    cmp.w #$FFFF
+    beq C07849_ResolveVisualSelectorRowToPoseIndex_L7849
+    lda $02
+    asl A
+    tax
+    stz $2E7A,X
+C07849_ResolveVisualSelectorRowToPoseIndex_L7849:
+    lda $9840
+    and.w #$00FF
+    cmp.w #$0001
+    bne C07868_ResolveVisualSelectorRowToPoseIndex_L7868
+    lda $9887
+    cmp.w #$0003
+    beq C07862_ResolveVisualSelectorRowToPoseIndex_L7862
+    lda.w #$000D
+    jmp $79EA
+C07862_ResolveVisualSelectorRowToPoseIndex_L7862:
+    lda.w #$0025
+    jmp $79EA
+C07868_ResolveVisualSelectorRowToPoseIndex_L7868:
+    ldx $04
+    lda $000E,X
+    and.w #$00FF
+    cmp.w #$0001
+    beq C07881_ResolveVisualSelectorRowToPoseIndex_L7881
+    cmp.w #$0002
+    beq C07886_ResolveVisualSelectorRowToPoseIndex_L7886
+    cmp.w #$0004
+    beq C0789A_ResolveVisualSelectorRowToPoseIndex_L789A
+    bra C078B2_ResolveVisualSelectorRowToPoseIndex_L78B2
+C07881_ResolveVisualSelectorRowToPoseIndex_L7881:
+    ldy.w #$0001
+    bra C078B2_ResolveVisualSelectorRowToPoseIndex_L78B2
+C07886_ResolveVisualSelectorRowToPoseIndex_L7886:
+    lda $9887
+    cmp.w #$0003
+    beq C07894_ResolveVisualSelectorRowToPoseIndex_L7894
+    lda.w #$000C
+    jmp $79EA
+C07894_ResolveVisualSelectorRowToPoseIndex_L7894:
+    lda.w #$0024
+    jmp $79EA
+C0789A_ResolveVisualSelectorRowToPoseIndex_L789A:
+    lda $02
+    cmp.w #$FFFF
+    beq C078B2_ResolveVisualSelectorRowToPoseIndex_L78B2
+    lda $02
+    asl A
+    clc
+    adc.w #$2E7A
+    tax
+    lda $0000,X
+    ora.w #$8000
+    sta $0000,X
+C078B2_ResolveVisualSelectorRowToPoseIndex_L78B2:
+    ldx $04
+    lda $000F,X
+    and.w #$00FF
+    cmp.w #$0001
+    beq C078C6_ResolveVisualSelectorRowToPoseIndex_L78C6
+    cmp.w #$0002
+    beq C078E0_ResolveVisualSelectorRowToPoseIndex_L78E0
+    bra C078E3_ResolveVisualSelectorRowToPoseIndex_L78E3
+C078C6_ResolveVisualSelectorRowToPoseIndex_L78C6:
+    lda $02
+    cmp.w #$FFFF
+    beq C078E3_ResolveVisualSelectorRowToPoseIndex_L78E3
+    lda $02
+    asl A
+    clc
+    adc.w #$2E7A
+    tax
+    lda $0000,X
+    ora.w #$4000
+    sta $0000,X
+    bra C078E3_ResolveVisualSelectorRowToPoseIndex_L78E3
+C078E0_ResolveVisualSelectorRowToPoseIndex_L78E0:
+    inc $9F6F
+C078E3_ResolveVisualSelectorRowToPoseIndex_L78E3:
+    lda $9887
+    cmp.w #$0006
+    beq C078F2_ResolveVisualSelectorRowToPoseIndex_L78F2
+    cmp.w #$0004
+    beq C078F8_ResolveVisualSelectorRowToPoseIndex_L78F8
+    bra C07905_ResolveVisualSelectorRowToPoseIndex_L7905
+C078F2_ResolveVisualSelectorRowToPoseIndex_L78F2:
+    lda.w #$0007
+    jmp $79EA
+C078F8_ResolveVisualSelectorRowToPoseIndex_L78F8:
+    ldx $04
+    lda $0035,X
+    bne C07905_ResolveVisualSelectorRowToPoseIndex_L7905
+    lda.w #$0006
+    jmp $79EA
+C07905_ResolveVisualSelectorRowToPoseIndex_L7905:
+    cpy.w #$0000
+    bne C0793B_ResolveVisualSelectorRowToPoseIndex_L793B
+    lda $12
+    beq C07929_ResolveVisualSelectorRowToPoseIndex_L7929
+    cmp.w #$000C
+    beq C07929_ResolveVisualSelectorRowToPoseIndex_L7929
+    cmp.w #$000D
+    beq C07929_ResolveVisualSelectorRowToPoseIndex_L7929
+    cmp.w #$0004
+    beq C0792E_ResolveVisualSelectorRowToPoseIndex_L792E
+    cmp.w #$0007
+    beq C07933_ResolveVisualSelectorRowToPoseIndex_L7933
+    cmp.w #$0008
+    beq C07938_ResolveVisualSelectorRowToPoseIndex_L7938
+    bra C0793B_ResolveVisualSelectorRowToPoseIndex_L793B
+C07929_ResolveVisualSelectorRowToPoseIndex_L7929:
+    ldy.w #$0000
+    bra C0793B_ResolveVisualSelectorRowToPoseIndex_L793B
+C0792E_ResolveVisualSelectorRowToPoseIndex_L792E:
+    ldy.w #$0001
+    bra C0793B_ResolveVisualSelectorRowToPoseIndex_L793B
+C07933_ResolveVisualSelectorRowToPoseIndex_L7933:
+    ldy.w #$0002
+    bra C0793B_ResolveVisualSelectorRowToPoseIndex_L793B
+C07938_ResolveVisualSelectorRowToPoseIndex_L7938:
+    ldy.w #$0003
+C0793B_ResolveVisualSelectorRowToPoseIndex_L793B:
+    ldx $9887
+    cpx.w #$0003
+    bne C07950_ResolveVisualSelectorRowToPoseIndex_L7950
+    iny
+    iny
+    iny
+    iny
+    lda $02
+    asl A
+    tax
+    stz $2E7A,X
+    bra C07960_ResolveVisualSelectorRowToPoseIndex_L7960
+C07950_ResolveVisualSelectorRowToPoseIndex_L7950:
+    cpx.w #$0005
+    bne C07960_ResolveVisualSelectorRowToPoseIndex_L7960
+    cpy.w #$0000
+    bne C07960_ResolveVisualSelectorRowToPoseIndex_L7960
+    tya
+    clc
+    adc.w #$0006
+    tay
+C07960_ResolveVisualSelectorRowToPoseIndex_L7960:
+    lda $9840
+    and.w #$00FF
+    cmp.w #$0003
+    bne C07977_ResolveVisualSelectorRowToPoseIndex_L7977
+    lda $02
+    asl A
+    tax
+    lda.w #$0005
+    sta $0F12,X
+    db $80, $4A
+C07977_ResolveVisualSelectorRowToPoseIndex_L7977:
+    ldx $04
+    lda $000E,X
+    and.w #$00FF
+    cmp.w #$0001
+    bne C07990_ResolveVisualSelectorRowToPoseIndex_L7990
+    lda $02
+    asl A
+    tax
+    lda.w #$0010
+    sta $0F12,X
+    db $80, $31
+C07990_ResolveVisualSelectorRowToPoseIndex_L7990:
+    lda $02
+    asl A
+    tax
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9965,20 +17300,91 @@ hirom
 org $C07994
 
 C07994_SetLandingDisplayTimerFromControlBits:
-
-; Original data gap before C07A31_SetLandingDisplayTimerFromControlBits_End:
-db $BD,$AA,$2B,$85,$0E,$29,$0C,$00,$C9,$0C,$00,$D0,$08,$A9,$18,$00
-db $9D,$12,$0F,$80,$18,$A5,$0E,$29,$08,$00,$C9,$08,$00,$D0,$08,$A9
-db $10,$00,$9D,$12,$0F,$80,$06,$A9,$08,$00,$9D,$12,$0F,$A6,$04,$BD
-db $0E,$00,$29,$FF,$00,$C9,$03,$00,$D0,$0A,$A5,$02,$0A,$AA,$A9,$38
-db $00,$9D,$12,$0F,$98,$0A,$85,$02,$A5,$10,$0A,$0A,$0A,$0A,$18,$65
-db $02,$AA,$BF,$B5,$F2,$C3,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$F0,$FF
-db $5B,$68,$85,$0E,$A2,$00,$00,$29,$20,$00,$F0,$05,$A2,$01,$00,$80
-db $0C,$A5,$0E,$29,$40,$00,$F0,$05,$A9,$0C,$00,$80,$1E,$8A,$0A,$85
-db $02,$A5,$0E,$29,$1F,$00,$3A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$BF
-db $B5,$F2,$C3,$C9,$01,$00,$D0,$03,$A9,$0E,$00,$2B,$6B
-
-C07A31_SetLandingDisplayTimerFromControlBits_End:
+    lda $2BAA,X
+    sta $0E
+    and.w #$000C
+    cmp.w #$000C
+    bne C079A9_SetLandingDisplayTimerFromControlBits_L79A9
+    lda.w #$0018
+    sta $0F12,X
+    bra C079C1_SetLandingDisplayTimerFromControlBits_L79C1
+C079A9_SetLandingDisplayTimerFromControlBits_L79A9:
+    lda $0E
+    and.w #$0008
+    cmp.w #$0008
+    bne C079BB_SetLandingDisplayTimerFromControlBits_L79BB
+    lda.w #$0010
+    sta $0F12,X
+    bra C079C1_SetLandingDisplayTimerFromControlBits_L79C1
+C079BB_SetLandingDisplayTimerFromControlBits_L79BB:
+    lda.w #$0008
+    sta $0F12,X
+C079C1_SetLandingDisplayTimerFromControlBits_L79C1:
+    ldx $04
+    lda $000E,X
+    and.w #$00FF
+    cmp.w #$0003
+    bne C079D8_SetLandingDisplayTimerFromControlBits_L79D8
+    lda $02
+    asl A
+    tax
+    lda.w #$0038
+    sta $0F12,X
+C079D8_SetLandingDisplayTimerFromControlBits_L79D8:
+    tya
+    asl A
+    sta $02
+    lda $10
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $C3F2B5,X
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    ldx.w #$0000
+    and.w #$0020
+    beq C07A05_SetLandingDisplayTimerFromControlBits_L7A05
+    ldx.w #$0001
+    bra C07A11_SetLandingDisplayTimerFromControlBits_L7A11
+C07A05_SetLandingDisplayTimerFromControlBits_L7A05:
+    lda $0E
+    and.w #$0040
+    beq C07A11_SetLandingDisplayTimerFromControlBits_L7A11
+    lda.w #$000C
+    bra C07A2F_SetLandingDisplayTimerFromControlBits_L7A2F
+C07A11_SetLandingDisplayTimerFromControlBits_L7A11:
+    txa
+    asl A
+    sta $02
+    lda $0E
+    and.w #$001F
+    dec A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    lda $C3F2B5,X
+    cmp.w #$0001
+    bne C07A2F_SetLandingDisplayTimerFromControlBits_L7A2F
+    lda.w #$000E
+C07A2F_SetLandingDisplayTimerFromControlBits_L7A2F:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -9989,29 +17395,153 @@ hirom
 org $C07A31
 
 C07A31_Set_SlotOverlayFlag4000IfRequested:
-
-; Original data gap before C07B52_Set_SlotOverlayFlag4000IfRequested_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$8A,$29,$80,$00
-db $F0,$11,$A5,$0E,$0A,$18,$69,$7A,$2E,$AA,$BD,$00,$00,$09,$00,$40
-db $9D,$00,$00,$2B,$6B,$C2,$31,$0B,$48,$7B,$69,$E8,$FF,$5B,$68,$84
-db $04,$86,$02,$86,$16,$85,$14,$A5,$04,$8D,$73,$9F,$AC,$C6,$4D,$A6
-db $02,$A5,$14,$22,$0F,$78,$C0,$85,$12,$C9,$FF,$FF,$D0,$0C,$A5,$04
-db $0A,$AA,$A5,$12,$9D,$F2,$10,$4C,$37,$7B,$A9,$3F,$13,$85,$0A,$A9
-db $EF,$00,$85,$0C,$A5,$12,$0A,$0A,$18,$65,$0A,$85,$0A,$A0,$02,$00
-db $B7,$0A,$A8,$A7,$0A,$85,$06,$84,$08,$A5,$06,$85,$0E,$A5,$08,$85
-db $10,$A5,$04,$0A,$AA,$A5,$10,$9D,$06,$2A,$A5,$0E,$18,$69,$09,$00
-db $9D,$CA,$29,$A0,$08,$00,$B7,$0E,$29,$FF,$00,$9D,$42,$2A,$A5,$02
-db $9D,$22,$2C,$AD,$C6,$4D,$18,$69,$37,$00,$A8,$B9,$00,$00,$48,$A5
-db $02,$8D,$C0,$00,$68,$85,$02,$AD,$C0,$00,$C5,$02,$F0,$16,$A5,$16
-db $85,$02,$99,$00,$00,$8A,$18,$69,$02,$10,$AA,$BD,$00,$00,$09,$00
-db $80,$9D,$00,$00,$AD,$85,$98,$F0,$1C,$A5,$16,$85,$02,$C9,$0C,$00
-db $F0,$13,$A5,$04,$0A,$18,$69,$02,$10,$AA,$BD,$00,$00,$29,$FF,$1F
-db $9D,$00,$00,$80,$11,$A5,$04,$0A,$18,$69,$02,$10,$AA,$BD,$00,$00
-db $09,$00,$60,$9D,$00,$00,$AD,$A5,$98,$C9,$02,$00,$D0,$11,$A5,$04
-db $0A,$18,$69,$02,$10,$AA,$BD,$00,$00,$09,$00,$10,$9D,$00,$00,$2B
-db $6B
-
-C07B52_Set_SlotOverlayFlag4000IfRequested_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    txa
+    and.w #$0080
+    beq C07A54_Set_SlotOverlayFlag4000IfRequested_L7A54
+    lda $0E
+    asl A
+    clc
+    adc.w #$2E7A
+    tax
+    lda $0000,X
+    ora.w #$4000
+    sta $0000,X
+C07A54_Set_SlotOverlayFlag4000IfRequested_L7A54:
+    pld
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE8
+    tcd
+    pla
+    sty $04
+    stx $02
+    stx $16
+    sta $14
+    lda $04
+    sta $9F73
+    ldy $4DC6
+    ldx $02
+    lda $14
+    jsl $C0780F
+    sta $12
+    cmp.w #$FFFF
+    bne C07A8B_Set_SlotOverlayFlag4000IfRequested_L7A8B
+    lda $04
+    asl A
+    tax
+    lda $12
+    sta $10F2,X
+    jmp.w C07B37_Set_SlotOverlayFlag4000IfRequested_L7B37
+C07A8B_Set_SlotOverlayFlag4000IfRequested_L7A8B:
+    lda.w #$133F
+    sta $0A
+    lda.w #$00EF
+    sta $0C
+    lda $12
+    asl A
+    asl A
+    clc
+    adc $0A
+    sta $0A
+    ldy.w #$0002
+    lda [$0A],Y
+    tay
+    lda [$0A]
+    sta $06
+    sty $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $04
+    asl A
+    tax
+    lda $10
+    sta $2A06,X
+    lda $0E
+    clc
+    adc.w #$0009
+    sta $29CA,X
+    ldy.w #$0008
+    lda [$0E],Y
+    and.w #$00FF
+    sta $2A42,X
+    lda $02
+    sta $2C22,X
+    lda $4DC6
+    clc
+    adc.w #$0037
+    tay
+    lda $0000,Y
+    pha
+    lda $02
+    sta $00C0
+    pla
+    sta $02
+    lda $00C0
+    cmp $02
+    beq C07B05_Set_SlotOverlayFlag4000IfRequested_L7B05
+    lda $16
+    sta $02
+    sta $0000,Y
+    txa
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$8000
+    sta $0000,X
+C07B05_Set_SlotOverlayFlag4000IfRequested_L7B05:
+    lda $9885
+    beq C07B26_Set_SlotOverlayFlag4000IfRequested_L7B26
+    lda $16
+    sta $02
+    cmp.w #$000C
+    beq C07B26_Set_SlotOverlayFlag4000IfRequested_L7B26
+    lda $04
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    and.w #$1FFF
+    sta $0000,X
+    bra C07B37_Set_SlotOverlayFlag4000IfRequested_L7B37
+C07B26_Set_SlotOverlayFlag4000IfRequested_L7B26:
+    lda $04
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$6000
+    sta $0000,X
+C07B37_Set_SlotOverlayFlag4000IfRequested_L7B37:
+    lda $98A5
+    cmp.w #$0002
+    bne C07B50_Set_SlotOverlayFlag4000IfRequested_L7B50
+    lda $04
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$1000
+    sta $0000,X
+C07B50_Set_SlotOverlayFlag4000IfRequested_L7B50:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10021,110 +17551,756 @@ C07B52_Set_SlotOverlayFlag4000IfRequested_End:
 hirom
 org $C07B52
 
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C07B52_Refresh_VisibleEntityScreenPositions:
-
-; Original data gap before C08180_Refresh_VisibleEntityScreenPositions_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AD,$0B,$9A,$85,$14,$A9,$18,$00
-db $85,$12,$4C,$4D,$7C,$A5,$12,$0A,$85,$04,$85,$10,$A6,$04,$BD,$62
-db $0A,$C9,$FF,$FF,$D0,$03,$4C,$4B,$7C,$A5,$04,$18,$69,$B6,$10,$AA
-db $BD,$00,$00,$09,$00,$C0,$9D,$00,$00,$A6,$04,$BD,$9A,$0E,$A0,$5F
-db $00,$22,$F7,$8F,$C0,$18,$69,$CE,$99,$AA,$8E,$C6,$4D,$AD,$89,$98
-db $C5,$12,$F0,$07,$BD,$3D,$00,$C5,$14,$D0,$3C,$A5,$12,$0A,$85,$02
-db $A4,$12,$AE,$83,$98,$86,$0E,$A6,$02,$BD,$5E,$0E,$A6,$0E,$22,$56
-db $7A,$C0,$AD,$77,$98,$A6,$02,$9D,$8E,$0B,$AD,$7B,$98,$A6,$02,$9D
-db $CA,$0B,$AD,$A3,$98,$29,$FF,$00,$C9,$01,$00,$F0,$4E,$AD,$7F,$98
-db $A6,$02,$9D,$F6,$2A,$80,$44,$85,$04,$0A,$65,$04,$0A,$0A,$18,$69
-db $56,$51,$85,$02,$A4,$12,$A6,$02,$BD,$06,$00,$AA,$86,$0E,$A5,$10
-db $85,$04,$A6,$04,$BD,$5E,$0E,$A6,$0E,$22,$56,$7A,$C0,$A6,$02,$BD
-db $00,$00,$A6,$04,$9D,$8E,$0B,$A6,$02,$BD,$02,$00,$A6,$04,$9D,$CA
-db $0B,$A6,$02,$BD,$08,$00,$A6,$04,$9D,$F6,$2A,$A5,$12,$0A,$AA,$BD
-db $8E,$0B,$38,$ED,$31,$00,$9D,$16,$0B,$BD,$CA,$0B,$38,$ED,$33,$00
-db $9D,$52,$0B,$A5,$12,$22,$80,$A7,$C0,$E6,$12,$A5,$12,$C9,$1E,$00
-db $B0,$05,$F0,$03,$4C,$67,$7B,$2B,$6B,$C2,$31,$0B,$7B,$69,$F0,$FF
-db $5B,$AD,$58,$5D,$F0,$20,$A9,$18,$00,$85,$0E,$80,$14,$0A,$18,$69
-db $6A,$11,$AA,$BD,$00,$00,$29,$FF,$7F,$9D,$00,$00,$A5,$0E,$1A,$85
-db $0E,$C9,$1E,$00,$90,$E7,$2B,$6B,$C2,$31,$0B,$7B,$69,$E0,$FF,$5B
-db $A5,$32,$85,$0A,$A5,$34,$85,$0C,$A5,$2E,$85,$06,$A5,$30,$85,$08
-db $A5,$06,$85,$1C,$A5,$08,$85,$1E,$A5,$1C,$85,$06,$A5,$1E,$85,$08
-db $A5,$06,$85,$18,$A5,$08,$85,$1A,$80,$0A,$E6,$06,$A5,$06,$85,$18
-db $A5,$08,$85,$1A,$A7,$06,$29,$FF,$00,$D0,$EF,$A5,$0A,$85,$06,$A5
-db $0C,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$22,$22,$8F,$C0,$85
-db $16,$A5,$18,$85,$06,$A5,$1A,$85,$08,$A5,$06,$85,$0E,$A5,$08,$85
-db $10,$A5,$0A,$85,$06,$A5,$0C,$85,$08,$A5,$06,$85,$12,$A5,$08,$85
-db $14,$A5,$16,$1A,$22,$ED,$8E,$C0,$A5,$1C,$85,$06,$A5,$1E,$85,$08
-db $A5,$06,$85,$26,$A5,$08,$85,$28,$2B,$6B,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$9C,$00
-db $42,$64,$00,$A2,$00,$A0,$01,$C2,$30,$A9,$FE,$1F,$54,$00,$00,$9A
-db $A9,$00,$1F,$5B,$E2,$20,$A9,$80,$8D,$00,$21,$8D,$0D,$00,$9C,$01
-db $21,$9C,$02,$21,$9C,$03,$21,$9C,$05,$21,$9C,$06,$21,$9C,$07,$21
-db $9C,$08,$21,$9C,$09,$21,$9C,$0A,$21,$9C,$0B,$21,$9C,$0C,$21,$9C
-db $0D,$21,$9C,$0D,$21,$9C,$0E,$21,$9C,$0E,$21,$9C,$0F,$21,$9C,$0F
-db $21,$9C,$10,$21,$9C,$10,$21,$9C,$11,$21,$9C,$11,$21,$9C,$12,$21
-db $9C,$12,$21,$9C,$13,$21,$9C,$13,$21,$9C,$14,$21,$9C,$14,$21,$A9
-db $80,$8D,$15,$21,$9C,$16,$21,$9C,$17,$21,$9C,$1A,$21,$9C,$1B,$21
-db $A9,$01,$8D,$1B,$21,$9C,$1C,$21,$9C,$1C,$21,$9C,$1D,$21,$9C,$1D
-db $21,$9C,$1E,$21,$8D,$1E,$21,$9C,$1F,$21,$9C,$1F,$21,$9C,$20,$21
-db $9C,$20,$21,$9C,$21,$21,$9C,$23,$21,$9C,$24,$21,$9C,$25,$21,$9C
-db $26,$21,$9C,$27,$21,$9C,$28,$21,$9C,$29,$21,$9C,$2A,$21,$9C,$2B
-db $21,$A9,$1F,$8D,$2C,$21,$9C,$2D,$21,$9C,$2E,$21,$9C,$2F,$21,$9C
-db $30,$21,$9C,$31,$21,$A9,$E0,$8D,$32,$21,$9C,$33,$21,$A9,$FF,$8D
-db $02,$42,$9C,$02,$42,$9C,$03,$42,$9C,$04,$42,$9C,$05,$42,$9C,$06
-db $42,$9C,$07,$42,$9C,$08,$42,$9C,$09,$42,$9C,$0A,$42,$9C,$0B,$42
-db $9C,$0C,$42,$A9,$01,$8D,$0D,$42,$C2,$30,$A9,$FF,$DF,$54,$7E,$7E
-db $A9,$00,$20,$8D,$A1,$00,$8D,$A3,$00,$A9,$FF,$FF,$8D,$02,$24,$A9
-db $34,$12,$8D,$24,$00,$A9,$78,$56,$8D,$26,$00,$A9,$01,$00,$8D,$2E
-db $00,$A9,$1B,$85,$8D,$20,$00,$22,$19,$8B,$C0,$5C,$9A,$B9,$C0,$18
-db $FB,$5C,$00,$80,$C0,$5C,$70,$81,$C0,$5C,$4F,$81,$C0,$08,$C2,$30
-db $48,$DA,$5A,$0B,$F4,$00,$00,$2B,$8B,$F4,$00,$00,$AB,$AB,$E2,$20
-db $AD,$11,$42,$30,$1C,$C2,$30,$AB,$2B,$7A,$FA,$68,$28,$40,$08,$C2
-db $30,$48,$DA,$5A,$0B,$F4,$00,$00,$2B,$8B,$F4,$00,$00,$AB
-
-C08180_Refresh_VisibleEntityScreenPositions_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda $9A0B
+    sta $14
+    lda.w #$0018
+    sta $12
+    jmp.w C07C4D_Refresh_VisibleEntityScreenPositions_L7C4D
+C07B67_Refresh_VisibleEntityScreenPositions_L7B67:
+    lda $12
+    asl A
+    sta $04
+    sta $10
+    ldx $04
+    lda $0A62,X
+    cmp.w #$FFFF
+    bne C07B7B_Refresh_VisibleEntityScreenPositions_L7B7B
+    jmp.w C07C4B_Refresh_VisibleEntityScreenPositions_L7C4B
+C07B7B_Refresh_VisibleEntityScreenPositions_L7B7B:
+    lda $04
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+    ldx $04
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tax
+    stx $4DC6
+    lda $9889
+    cmp $12
+    beq C07BAD_Refresh_VisibleEntityScreenPositions_L7BAD
+    lda $003D,X
+    cmp $14
+    bne C07BE9_Refresh_VisibleEntityScreenPositions_L7BE9
+C07BAD_Refresh_VisibleEntityScreenPositions_L7BAD:
+    lda $12
+    asl A
+    sta $02
+    ldy $12
+    ldx $9883
+    stx $0E
+    ldx $02
+    lda $0E5E,X
+    ldx $0E
+    jsl $C07A56
+    lda $9877
+    ldx $02
+    sta $0B8E,X
+    lda $987B
+    ldx $02
+    sta $0BCA,X
+    lda $98A3
+    and.w #$00FF
+    cmp.w #$0001
+    beq C07C2D_Refresh_VisibleEntityScreenPositions_L7C2D
+    lda $987F
+    ldx $02
+    sta $2AF6,X
+    bra C07C2D_Refresh_VisibleEntityScreenPositions_L7C2D
+C07BE9_Refresh_VisibleEntityScreenPositions_L7BE9:
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    sta $02
+    ldy $12
+    ldx $02
+    lda $0006,X
+    tax
+    stx $0E
+    lda $10
+    sta $04
+    ldx $04
+    lda $0E5E,X
+    ldx $0E
+    jsl $C07A56
+    ldx $02
+    lda $0000,X
+    ldx $04
+    sta $0B8E,X
+    ldx $02
+    lda $0002,X
+    ldx $04
+    sta $0BCA,X
+    ldx $02
+    lda $0008,X
+    ldx $04
+    sta $2AF6,X
+C07C2D_Refresh_VisibleEntityScreenPositions_L7C2D:
+    lda $12
+    asl A
+    tax
+    lda $0B8E,X
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $0033
+    sta $0B52,X
+    lda $12
+    jsl $C0A780
+C07C4B_Refresh_VisibleEntityScreenPositions_L7C4B:
+    inc $12
+C07C4D_Refresh_VisibleEntityScreenPositions_L7C4D:
+    lda $12
+    cmp.w #$001E
+    bcs C07C59_Refresh_VisibleEntityScreenPositions_L7C59
+    beq C07C59_Refresh_VisibleEntityScreenPositions_L7C59
+    jmp.w C07B67_Refresh_VisibleEntityScreenPositions_L7B67
+C07C59_Refresh_VisibleEntityScreenPositions_L7C59:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $5D58
+    beq C07C88_Refresh_VisibleEntityScreenPositions_L7C88
+    lda.w #$0018
+    sta $0E
+    bra C07C83_Refresh_VisibleEntityScreenPositions_L7C83
+C07C6F_Refresh_VisibleEntityScreenPositions_L7C6F:
+    asl A
+    clc
+    adc.w #$116A
+    tax
+    lda $0000,X
+    and.w #$7FFF
+    sta $0000,X
+    lda $0E
+    inc A
+    sta $0E
+C07C83_Refresh_VisibleEntityScreenPositions_L7C83:
+    cmp.w #$001E
+    bcc C07C6F_Refresh_VisibleEntityScreenPositions_L7C6F
+C07C88_Refresh_VisibleEntityScreenPositions_L7C88:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE0
+    tcd
+    lda $32
+    sta $0A
+    lda $34
+    sta $0C
+    lda $2E
+    sta $06
+    lda $30
+    sta $08
+    lda $06
+    sta $1C
+    lda $08
+    sta $1E
+    lda $1C
+    sta $06
+    lda $1E
+    sta $08
+    lda $06
+    sta $18
+    lda $08
+    sta $1A
+    bra C07CC6_Refresh_VisibleEntityScreenPositions_L7CC6
+C07CBC_Refresh_VisibleEntityScreenPositions_L7CBC:
+    inc $06
+    lda $06
+    sta $18
+    lda $08
+    sta $1A
+C07CC6_Refresh_VisibleEntityScreenPositions_L7CC6:
+    lda [$06]
+    and.w #$00FF
+    bne C07CBC_Refresh_VisibleEntityScreenPositions_L7CBC
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsl $C08F22
+    sta $16
+    lda $18
+    sta $06
+    lda $1A
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $16
+    inc A
+    jsl !C08EED_CopyToVramOrRendererBuffer
+    lda $1C
+    sta $06
+    lda $1E
+    sta $08
+    lda $06
+    sta $26
+    lda $08
+    sta $28
+    pld
+    rtl
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    brk #$00
+    stz $4200
+    stz $00
+    ldx.w #$A000
+    ora ($C2,X)
+    db $30, $A9
+    inc $541F,X
+    brk #$00
+    txs
+    lda.w #$1F00
+    tcd
+    sep #$20
+    lda.b #$80
+    sta $2100
+    sta $000D
+    stz $2101
+    stz $2102
+    stz $2103
+    stz $2105
+    stz $2106
+    stz $2107
+    stz $2108
+    stz $2109
+    stz $210A
+    stz $210B
+    stz $210C
+    stz $210D
+    stz $210D
+    stz $210E
+    stz $210E
+    stz $210F
+    stz $210F
+    stz $2110
+    stz $2110
+    stz $2111
+    stz $2111
+    stz $2112
+    stz $2112
+    stz $2113
+    stz $2113
+    stz $2114
+    stz $2114
+    lda.b #$80
+    sta $2115
+    stz $2116
+    stz $2117
+    stz $211A
+    stz $211B
+    lda.b #$01
+    sta $211B
+    stz $211C
+    stz $211C
+    stz $211D
+    stz $211D
+    stz $211E
+    sta $211E
+    stz $211F
+    stz $211F
+    stz $2120
+    stz $2120
+    stz $2121
+    stz $2123
+    stz $2124
+    stz $2125
+    stz $2126
+    stz $2127
+    stz $2128
+    stz $2129
+    stz $212A
+    stz $212B
+    lda.b #$1F
+    sta $212C
+    stz $212D
+    stz $212E
+    stz $212F
+    stz $2130
+    stz $2131
+    lda.b #$E0
+    sta $2132
+    stz $2133
+    lda.b #$FF
+    sta $4202
+    stz $4202
+    stz $4203
+    stz $4204
+    stz $4205
+    stz $4206
+    stz $4207
+    stz $4208
+    stz $4209
+    stz $420A
+    stz $420B
+    stz $420C
+    lda.b #$01
+    sta $420D
+    rep #$30
+    lda.w #$DFFF
+    mvn $7E,$7E
+    lda.w #$2000
+    sta $00A1
+    sta $00A3
+    lda.w #$FFFF
+    sta $2402
+    lda.w #$1234
+    sta $0024
+    lda.w #$5678
+    sta $0026
+    lda.w #$0001
+    sta $002E
+    lda.w #$851B
+    sta $0020
+    jsl $C08B19
+    jml $C0B99A
+    clc
+    xce
+    jml $C08000
+    jml $C08170
+    jml $C0814F
+    php
+    rep #$30
+    pha
+    phx
+    phy
+    phd
+    pea $0000
+    pld
+    phb
+    pea $0000
+    plb
+    plb
+    sep #$20
+    lda $4211
+    db $30, $1C
+    rep #$30
+    plb
+    pld
+    ply
+    plx
+    pla
+    plp
+    rti
+    php
+    rep #$30
+    pha
+    phx
+    phy
+    phd
+    pea $0000
+    pld
+    phb
+    pea $0000
+    plb
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10135,22 +18311,96 @@ hirom
 org $C08180
 
 C08180_NmiHandler_UpdatePpuAndQueues:
-
-; Original data gap before C08240_NmiHandler_UpdatePpuAndQueues_End:
-db $AB,$E2,$20,$AD,$10,$42,$9C,$0C,$42,$A9,$80,$8D,$00,$21,$E6,$2B
-db $E6,$02,$C2,$20,$E2,$10,$A6,$2C,$F0,$2E,$A0,$00,$9C,$02,$21,$8C
-db $00,$43,$8C,$04,$43,$A0,$04,$8C,$01,$43,$A9,$00,$05,$A6,$2C,$CA
-db $F0,$03,$A9,$00,$08,$8D,$02,$43,$A9,$20,$02,$8D,$05,$43,$A0,$01
-db $8C,$0B,$42,$18,$65,$99,$85,$99,$AE,$30,$00,$F0,$2A,$BD,$94,$8F
-db $8D,$02,$43,$BC,$96,$8F,$8C,$21,$21,$A9,$00,$22,$8D,$00,$43,$A0
-db $00,$8C,$04,$43,$8C,$30,$00,$BD,$92,$8F,$8D,$05,$43,$A0,$01,$8C
-db $0B,$42,$18,$65,$99,$85,$99,$E2,$20,$A5,$28,$F0,$22,$C6,$2A,$10
-db $1E,$A5,$29,$85,$2A,$A5,$0D,$29,$0F,$18,$65,$28,$10,$07,$9C,$1F
-db $00,$A9,$80,$80,$06,$C9,$10,$90,$04,$A9,$0F,$64,$28,$85,$0D,$C2
-db $10,$A5,$0D,$8D,$00,$21,$A5,$10,$8D,$06,$21,$A4,$15,$8C,$0B,$21
-db $A4,$17,$A0,$FF,$00,$8C,$28,$21,$C2,$20,$E2,$10,$A6,$01,$80,$32
-
-C08240_NmiHandler_UpdatePpuAndQueues_End:
+    plb
+    sep #$20
+    lda $4210
+    stz $420C
+    lda.b #$80
+    sta $2100
+    inc $2B
+    inc $02
+    rep #$20
+    sep #$10
+    ldx $2C
+    beq C081C8_NmiHandler_UpdatePpuAndQueues_L81C8
+    ldy.b #$00
+    stz $2102
+    sty $4300
+    sty $4304
+    ldy.b #$04
+    sty $4301
+    lda.w #$0500
+    ldx $2C
+    dex
+    beq C081B5_NmiHandler_UpdatePpuAndQueues_L81B5
+    lda.w #$0800
+C081B5_NmiHandler_UpdatePpuAndQueues_L81B5:
+    sta $4302
+    lda.w #$0220
+    sta $4305
+    ldy.b #$01
+    sty $420B
+    clc
+    adc $99
+    sta $99
+C081C8_NmiHandler_UpdatePpuAndQueues_L81C8:
+    ldx $0030
+    beq C081F7_NmiHandler_UpdatePpuAndQueues_L81F7
+    lda $8F94,X
+    sta $4302
+    ldy $8F96,X
+    sty $2121
+    lda.w #$2200
+    sta $4300
+    ldy.b #$00
+    sty $4304
+    sty $0030
+    lda $8F92,X
+    sta $4305
+    ldy.b #$01
+    sty $420B
+    clc
+    adc $99
+    sta $99
+C081F7_NmiHandler_UpdatePpuAndQueues_L81F7:
+    sep #$20
+    lda $28
+    beq C0821F_NmiHandler_UpdatePpuAndQueues_L821F
+    dec $2A
+    bpl C0821F_NmiHandler_UpdatePpuAndQueues_L821F
+    lda $29
+    sta $2A
+    lda $0D
+    and.b #$0F
+    clc
+    adc $28
+    bpl C08215_NmiHandler_UpdatePpuAndQueues_L8215
+    stz $001F
+    lda.b #$80
+    bra C0821B_NmiHandler_UpdatePpuAndQueues_L821B
+C08215_NmiHandler_UpdatePpuAndQueues_L8215:
+    cmp.b #$10
+    bcc C0821D_NmiHandler_UpdatePpuAndQueues_L821D
+    lda.b #$0F
+C0821B_NmiHandler_UpdatePpuAndQueues_L821B:
+    stz $28
+C0821D_NmiHandler_UpdatePpuAndQueues_L821D:
+    sta $0D
+C0821F_NmiHandler_UpdatePpuAndQueues_L821F:
+    rep #$10
+    lda $0D
+    sta $2100
+    lda $10
+    sta $2106
+    ldy $15
+    sty $210B
+    ldy $17
+    ldy.w #$00FF
+    sty $2128
+    rep #$20
+    sep #$10
+    ldx $01
+    db $80, $32
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10161,15 +18411,36 @@ hirom
 org $C08240
 
 C08240_NmiDrainQueuedVramDmaDescriptors:
-
-; Original data gap before C08284_NmiDrainQueuedVramDmaDescriptors_End:
-db $BC,$00,$04,$B9,$B0,$8F,$8D,$00,$43,$B9,$B2,$8F,$8D,$15,$21,$BD
-db $01,$04,$8D,$05,$43,$BD,$03,$04,$8D,$02,$43,$BC,$05,$04,$8C,$04
-db $43,$BD,$06,$04,$8D,$16,$21,$8A,$18,$69,$08,$00,$AA,$A0,$01,$8C
-db $0B,$42,$E4,$00,$D0,$CA,$86,$01,$E2,$20,$A5,$2C,$D0,$03,$4C,$34
-db $83,$3A,$D0,$52
-
-C08284_NmiDrainQueuedVramDmaDescriptors_End:
+    ldy $0400,X
+    lda $8FB0,Y
+    sta $4300
+    lda $8FB2,Y
+    sta $2115
+    lda $0401,X
+    sta $4305
+    lda $0403,X
+    sta $4302
+    ldy $0405,X
+    sty $4304
+    lda $0406,X
+    sta $2116
+    txa
+    clc
+    adc.w #$0008
+    tax
+    ldy.w #$8C01
+    phd
+    wdm #$E4
+    brk #$D0
+    dex
+    stx $01
+    sep #$20
+    lda $2C
+    bne C08281_NmiDrainQueuedVramDmaDescriptors_L8281
+    jmp $8334
+C08281_NmiDrainQueuedVramDmaDescriptors_L8281:
+    dec A
+    db $D0, $52
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10180,23 +18451,88 @@ hirom
 org $C08284
 
 C08284_NmiCommitBg1ScrollRegisters:
-
-; Original data gap before C0834E_NmiCommitBg1ScrollRegisters_End:
-db $A5,$41,$8D,$0D,$21,$A5,$42,$8D,$0D,$21,$A5,$45,$8D,$0E,$21,$A5
-db $46,$8D,$0E,$21,$A5,$49,$8D,$0F,$21,$A5,$4A,$8D,$0F,$21,$A5,$4D
-db $8D,$10,$21,$A5,$4E,$8D,$10,$21,$A5,$51,$8D,$11,$21,$A5,$52,$8D
-db $11,$21,$A5,$55,$8D,$12,$21,$A5,$56,$8D,$12,$21,$A5,$59,$8D,$13
-db $21,$A5,$5A,$8D,$13,$21,$A5,$5D,$8D,$14,$21,$A5,$5E,$8D,$14,$21
-db $80,$5E,$A5,$43,$8D,$0D,$21,$A5,$44,$8D,$0D,$21,$A5,$47,$8D,$0E
-db $21,$A5,$48,$8D,$0E,$21,$A5,$4B,$8D,$0F,$21,$A5,$4C,$8D,$0F,$21
-db $A5,$4F,$8D,$10,$21,$A5,$50,$8D,$10,$21,$A5,$53,$8D,$11,$21,$A5
-db $54,$8D,$11,$21,$A5,$57,$8D,$12,$21,$A5,$58,$8D,$12,$21,$A5,$5B
-db $8D,$13,$21,$A5,$5C,$8D,$13,$21,$A5,$5F,$8D,$14,$21,$A5,$60,$8D
-db $14,$21,$C2,$20,$AD,$31,$00,$8D,$61,$00,$AD,$33,$00,$8D,$63,$00
-db $A0,$00,$84,$2C,$A6,$0D,$30,$0F,$A6,$1A,$8E,$2C,$21,$A6,$1B,$8E
-db $2D,$21,$A6,$1F,$8E,$0C,$42,$20,$01,$85
-
-C0834E_NmiCommitBg1ScrollRegisters_End:
+    lda $41
+    sta $210D
+    lda $42
+    sta $210D
+    lda $45
+    sta $210E
+    lda $46
+    sta $210E
+    lda $49
+    sta $210F
+    lda $4A
+    sta $210F
+    lda $4D
+    sta $2110
+    lda $4E
+    sta $2110
+    lda $51
+    sta $2111
+    lda $52
+    sta $2111
+    lda $55
+    sta $2112
+    lda $56
+    sta $2112
+    lda $59
+    sta $2113
+    lda $5A
+    sta $2113
+    lda $5D
+    sta $2114
+    lda $5E
+    sta $2114
+    bra C08334_NmiCommitBg1ScrollRegisters_L8334
+    lda $43
+    sta $210D
+    lda $44
+    sta $210D
+    lda $47
+    sta $210E
+    lda $48
+    sta $210E
+    lda $4B
+    sta $210F
+    lda $4C
+    sta $210F
+    lda $4F
+    sta $2110
+    lda $50
+    sta $2110
+    lda $53
+    sta $2111
+    lda $54
+    sta $2111
+    lda $57
+    sta $2112
+    lda $58
+    sta $2112
+    lda $5B
+    sta $2113
+    lda $5C
+    sta $2113
+    lda $5F
+    sta $2114
+    lda $60
+    sta $2114
+    rep #$20
+    lda $0031
+    sta $0061
+    lda $0033
+    sta $0063
+C08334_NmiCommitBg1ScrollRegisters_L8334:
+    ldy.w #$8400
+    bit $0DA6
+    bmi C0834B_NmiCommitBg1ScrollRegisters_L834B
+    ldx $1A
+    stx $212C
+    ldx $1B
+    stx $212D
+    ldx $1F
+    stx $420C
+C0834B_NmiCommitBg1ScrollRegisters_L834B:
+    jsr $8501
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10207,17 +18543,60 @@ hirom
 org $C0834E
 
 C0834E_NmiPostPpuBookkeeping:
-
-; Original data gap before C083B8_NmiPostPpuBookkeeping_End:
-db $C2,$30,$64,$99,$AD,$22,$00,$D0,$16,$EE,$22,$00,$8B,$F4,$7E,$7E
-db $AB,$AB,$0B,$F4,$00,$02,$2B,$20,$18,$85,$2B,$AB,$9C,$22,$00,$A9
-db $00,$20,$C5,$A3,$D0,$03,$A9,$00,$22,$85,$A3,$85,$A1,$A9,$00,$00
-db $8F,$2B,$9E,$7E,$64,$AB,$E6,$A7,$D0,$02,$E6,$A9,$AB,$2B,$7A,$FA
-db $68,$28,$40,$E2,$20,$A9,$30,$8F,$F0,$7F,$30,$1A,$8F,$F0,$7F,$31
-db $CF,$F0,$7F,$30,$F0,$0E,$1A,$8F,$F0,$7F,$32,$CF,$F0,$7F,$30,$F0
-db $03,$8D,$36,$0A,$C2,$30,$AD,$36,$0A,$6B
-
-C083B8_NmiPostPpuBookkeeping_End:
+    rep #$30
+    stz $99
+    lda $0022
+    bne C0836D_NmiPostPpuBookkeeping_L836D
+    inc $0022
+    phb
+    pea $7E7E
+    plb
+    plb
+    phd
+    pea $0200
+    pld
+    jsr $8518
+    pld
+    plb
+    stz $0022
+C0836D_NmiPostPpuBookkeeping_L836D:
+    lda.w #$2000
+    cmp $A3
+    bne C08377_NmiPostPpuBookkeeping_L8377
+    lda.w #$2200
+C08377_NmiPostPpuBookkeeping_L8377:
+    sta $A3
+    sta $A1
+    lda.w #$0000
+    sta $7E9E2B
+    stz $AB
+    inc $A7
+    bne C0838A_NmiPostPpuBookkeeping_L838A
+    inc $A9
+C0838A_NmiPostPpuBookkeeping_L838A:
+    plb
+    pld
+    ply
+    plx
+    pla
+    plp
+    rti
+    sep #$20
+    lda.b #$30
+    sta $307FF0
+    inc A
+    sta $317FF0
+    cmp $307FF0
+    beq C083B2_NmiPostPpuBookkeeping_L83B2
+    inc A
+    sta $327FF0
+    cmp $307FF0
+    beq C083B2_NmiPostPpuBookkeeping_L83B2
+    sta $0A36
+C083B2_NmiPostPpuBookkeeping_L83B2:
+    rep #$30
+    lda $0A36
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10228,11 +18607,10 @@ hirom
 org $C083B8
 
 C083B8_Clear_InputPlaybackOrRecordStream:
-
-; Original data gap before C083C1_Clear_InputPlaybackOrRecordStream_End:
-db $C2,$30,$A9,$00,$00,$8D,$7B,$00,$6B
-
-C083C1_Clear_InputPlaybackOrRecordStream_End:
+    rep #$30
+    lda.w #$0000
+    sta $007B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10243,13 +18621,19 @@ hirom
 org $C083C1
 
 C083C1_Start_InputRecordStream:
-
-; Original data gap before C083E3_Start_InputRecordStream_End:
-db $C2,$30,$A5,$0E,$8D,$85,$00,$A5,$10,$8D,$87,$00,$AD,$65,$00,$8D
-db $8B,$00,$A9,$01,$00,$8D,$89,$00,$A9,$00,$80,$0D,$7B,$00,$8D,$7B
-db $00,$6B
-
-C083E3_Start_InputRecordStream_End:
+    rep #$30
+    lda $0E
+    sta $0085
+    lda $10
+    sta $0087
+    lda $0065
+    sta $008B
+    lda.w #$0001
+    sta $0089
+    lda.w #$8000
+    ora $007B
+    sta $007B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10260,14 +18644,29 @@ hirom
 org $C083E3
 
 C083E3_Install_InputPlaybackStream:
-
-; Original data gap before C0841B_Install_InputPlaybackStream_End:
-db $C2,$30,$AD,$7B,$00,$29,$00,$40,$D0,$2D,$A7,$0E,$29,$FF,$00,$F0
-db $C4,$8D,$81,$00,$A0,$01,$00,$B7,$0E,$8D,$83,$00,$A5,$0E,$8D,$7D
-db $00,$A5,$10,$8D,$7F,$00,$B7,$0E,$8D,$77,$00,$8D,$79,$00,$A9,$00
-db $40,$0D,$7B,$00,$8D,$7B,$00,$6B
-
-C0841B_Install_InputPlaybackStream_End:
+    rep #$30
+    lda $007B
+    and.w #$4000
+    bne C0841A_Install_InputPlaybackStream_L841A
+    lda [$0E]
+    and.w #$00FF
+    db $F0, $C4
+    sta $0081
+    ldy.w #$0001
+    lda [$0E],Y
+    sta $0083
+    lda $0E
+    sta $007D
+    lda $10
+    sta $007F
+    lda [$0E],Y
+    sta $0077
+    sta $0079
+    lda.w #$4000
+    ora $007B
+    sta $007B
+C0841A_Install_InputPlaybackStream_L841A:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10278,14 +18677,36 @@ hirom
 org $C0841B
 
 C0841B_Advance_InputPlaybackStream:
-
-; Original data gap before C08456_Advance_InputPlaybackStream_End:
-db $C2,$30,$A5,$7B,$F0,$2A,$29,$00,$40,$F0,$25,$C6,$81,$D0,$2B,$E6
-db $7D,$E6,$7D,$E6,$7D,$A7,$7D,$29,$FF,$00,$F0,$0D,$85,$81,$A0,$01
-db $00,$B7,$7D,$85,$77,$85,$79,$80,$11,$A5,$7B,$29,$FF,$BF,$85,$7B
-db $AD,$1A,$42,$85,$79,$AD,$18,$42,$85,$77,$60
-
-C08456_Advance_InputPlaybackStream_End:
+    rep #$30
+    lda $7B
+    beq C0844B_Advance_InputPlaybackStream_L844B
+    and.w #$4000
+    beq C0844B_Advance_InputPlaybackStream_L844B
+    dec $81
+    bne C08455_Advance_InputPlaybackStream_L8455
+    inc $7D
+    inc $7D
+    inc $7D
+    lda [$7D]
+    and.w #$00FF
+    beq C08444_Advance_InputPlaybackStream_L8444
+    sta $81
+    ldy.w #$0001
+    lda [$7D],Y
+    sta $77
+    sta $79
+    bra C08455_Advance_InputPlaybackStream_L8455
+C08444_Advance_InputPlaybackStream_L8444:
+    lda $7B
+    and.w #$BFFF
+    sta $7B
+C0844B_Advance_InputPlaybackStream_L844B:
+    lda $421A
+    sta $79
+    lda $4218
+    sta $77
+C08455_Advance_InputPlaybackStream_L8455:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10296,14 +18717,39 @@ hirom
 org $C08456
 
 C08456_Advance_InputRecordStream:
-
-; Original data gap before C08496_Advance_InputRecordStream_End:
-db $C2,$30,$A5,$7B,$29,$00,$80,$F0,$36,$A5,$77,$05,$79,$AA,$C5,$8B
-db $D0,$09,$E6,$89,$A5,$89,$C9,$FF,$00,$D0,$24,$A5,$89,$87,$85,$E6
-db $85,$A5,$8B,$87,$85,$E6,$85,$E6,$85,$86,$8B,$64,$89,$E6,$89,$A9
-db $00,$00,$87,$85,$A5,$85,$10,$07,$A5,$7B,$29,$FF,$7F,$85,$7B,$60
-
-C08496_Advance_InputRecordStream_End:
+    rep #$30
+    lda $7B
+    and.w #$8000
+    beq C08495_Advance_InputRecordStream_L8495
+    lda $77
+    ora $79
+    tax
+    cmp $8B
+    bne C08471_Advance_InputRecordStream_L8471
+    inc $89
+    lda $89
+    cmp.w #$00FF
+    bne C08495_Advance_InputRecordStream_L8495
+C08471_Advance_InputRecordStream_L8471:
+    lda $89
+    sta [$85]
+    inc $85
+    lda $8B
+    sta [$85]
+    inc $85
+    inc $85
+    stx $8B
+    stz $89
+    inc $89
+    lda.w #$0000
+    sta [$85]
+    lda $85
+    bpl C08495_Advance_InputRecordStream_L8495
+    lda $7B
+    and.w #$7FFF
+    sta $7B
+C08495_Advance_InputRecordStream_L8495:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10314,17 +18760,63 @@ hirom
 org $C08496
 
 C08496_Poll_FrameInputAndStreams:
-
-; Original data gap before C08501_Poll_FrameInputAndStreams_End:
-db $E2,$20,$AD,$12,$42,$4A,$B0,$FA,$20,$1B,$84,$20,$56,$84,$C2,$30
-db $A2,$02,$00,$B5,$77,$29,$F0,$FF,$85,$75,$B5,$65,$49,$FF,$FF,$25
-db $75,$95,$6D,$A5,$75,$D5,$65,$95,$65,$F0,$0B,$B5,$6D,$95,$69,$A9
-db $14,$00,$95,$71,$80,$11,$B4,$71,$F0,$06,$D6,$71,$74,$69,$80,$07
-db $95,$69,$A9,$03,$00,$95,$71,$CA,$CA,$10,$C8,$AF,$6C,$43,$7E,$D0
-db $12,$A5,$67,$05,$65,$85,$65,$A5,$6B,$05,$69,$85,$69,$A5,$6F,$05
-db $6D,$85,$6D,$A5,$6D,$F0,$03,$EE,$34,$0A,$60
-
-C08501_Poll_FrameInputAndStreams_End:
+    sep #$20
+C08498_Poll_FrameInputAndStreams_L8498:
+    lda $4212
+    lsr A
+    bcs C08498_Poll_FrameInputAndStreams_L8498
+    jsr $841B
+    jsr $8456
+    rep #$30
+    ldx.w #$0002
+C084A9_Poll_FrameInputAndStreams_L84A9:
+    lda $77,X
+    and.w #$FFF0
+    sta $75
+    lda $65,X
+    eor.w #$FFFF
+    and $75
+    sta $6D,X
+    lda $75
+    cmp $65,X
+    sta $65,X
+    beq C084CC_Poll_FrameInputAndStreams_L84CC
+    lda $6D,X
+    sta $69,X
+    lda.w #$0014
+    sta $71,X
+    bra C084DD_Poll_FrameInputAndStreams_L84DD
+C084CC_Poll_FrameInputAndStreams_L84CC:
+    ldy $71,X
+    beq C084D6_Poll_FrameInputAndStreams_L84D6
+    dec $71,X
+    stz $69,X
+    bra C084DD_Poll_FrameInputAndStreams_L84DD
+C084D6_Poll_FrameInputAndStreams_L84D6:
+    sta $69,X
+    lda.w #$0003
+    sta $71,X
+C084DD_Poll_FrameInputAndStreams_L84DD:
+    dex
+    dex
+    bpl C084A9_Poll_FrameInputAndStreams_L84A9
+    lda $7E436C
+    bne C084F9_Poll_FrameInputAndStreams_L84F9
+    lda $67
+    ora $65
+    sta $65
+    lda $6B
+    ora $69
+    sta $69
+    lda $6F
+    ora $6D
+    sta $6D
+C084F9_Poll_FrameInputAndStreams_L84F9:
+    lda $6D
+    beq C08500_Poll_FrameInputAndStreams_L8500
+    inc $0A34
+C08500_Poll_FrameInputAndStreams_L8500:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10335,12 +18827,19 @@ hirom
 org $C08501
 
 C08501_Nmi_ServiceAudioQueue:
-
-; Original data gap before C08518_Nmi_ServiceAudioQueue_End:
-db $E2,$30,$A6,$CB,$E4,$CA,$F0,$0C,$BD,$C2,$1A,$8D,$43,$21,$8A,$1A
-db $29,$07,$85,$CB,$C2,$30,$60
-
-C08518_Nmi_ServiceAudioQueue_End:
+    sep #$30
+    ldx $CB
+    cpx $CA
+    beq C08515_Nmi_ServiceAudioQueue_L8515
+    lda $1AC2,X
+    sta $2143
+    txa
+    inc A
+    and.b #$07
+    sta $CB
+C08515_Nmi_ServiceAudioQueue_L8515:
+    rep #$30
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10351,11 +18850,7 @@ hirom
 org $C08518
 
 C08518_Frame_CallbackDispatcher:
-
-; Original data gap before C0851B_Frame_CallbackDispatcher_End:
-db $6C,$20,$00
-
-C0851B_Frame_CallbackDispatcher_End:
+    jmp ($0020)
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10366,11 +18861,7 @@ hirom
 org $C0851B
 
 C0851B_Frame_CallbackReturn:
-
-; Original data gap before C0851C_Frame_CallbackReturn_End:
-db $60
-
-C0851C_Frame_CallbackReturn_End:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10381,11 +18872,9 @@ hirom
 org $C0851C
 
 C0851C_Set_FrameCallbackPtr:
-
-; Original data gap before C08522_Set_FrameCallbackPtr_End:
-db $C2,$30,$8D,$20,$00,$6B
-
-C08522_Set_FrameCallbackPtr_End:
+    rep #$30
+    sta $0020
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10396,11 +18885,9 @@ hirom
 org $C08522
 
 C08522_Reset_FrameCallbackToDefault:
-
-; Original data gap before C08529_Reset_FrameCallbackToDefault_End:
-db $A9,$1B,$85,$8D,$20,$00,$6B
-
-C08529_Reset_FrameCallbackToDefault_End:
+    lda.w #$851B
+    sta $0020
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10411,15 +18898,51 @@ hirom
 org $C08529
 
 C08529_Copy_RecordBlockAndSetTransferFlag:
-
-; Original data gap before C08573_Copy_RecordBlockAndSetTransferFlag_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$04,$00,$5B,$68,$A0,$02,$00,$B7,$0E
-db $85,$00,$C8,$C8,$B7,$0E,$85,$02,$C8,$C8,$B7,$0E,$AA,$A7,$0E,$29
-db $FF,$01,$A8,$80,$07,$B7,$00,$9D,$00,$00,$E8,$E8,$88,$88,$10,$F5
-db $E2,$20,$A0,$01,$00,$B7,$0E,$4A,$0D,$30,$00,$8D,$30,$00,$C2,$20
-db $2B,$6B,$E2,$20,$8D,$30,$00,$C2,$20,$6B
-
-C08573_Copy_RecordBlockAndSetTransferFlag_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0004
+    tcd
+    pla
+    ldy.w #$0002
+    lda [$0E],Y
+    sta $00
+    iny
+    iny
+    lda [$0E],Y
+    sta $02
+    iny
+    iny
+    lda [$0E],Y
+    tax
+    lda [$0E]
+    and.w #$01FF
+    tay
+    bra C08555_Copy_RecordBlockAndSetTransferFlag_L8555
+C0854E_Copy_RecordBlockAndSetTransferFlag_L854E:
+    lda [$00],Y
+    sta $0000,X
+    inx
+    inx
+C08555_Copy_RecordBlockAndSetTransferFlag_L8555:
+    dey
+    dey
+    bpl C0854E_Copy_RecordBlockAndSetTransferFlag_L854E
+    sep #$20
+    ldy.w #$0001
+    lda [$0E],Y
+    lsr A
+    ora $0030
+    sta $0030
+    rep #$20
+    pld
+    rtl
+    sep #$20
+    sta $0030
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10430,21 +18953,93 @@ hirom
 org $C08573
 
 C08573_Submit_TransferDescriptorList:
-
-; Original data gap before C08616_Submit_TransferDescriptorList_End:
-db $08,$C2,$30,$A5,$0E,$8D,$8D,$00,$E2,$10,$A6,$10,$8E,$8F,$00,$0B
-db $F4,$00,$00,$2B,$8B,$A0,$00,$5A,$AB,$C2,$10,$80,$17,$C8,$C8,$B7
-db $8D,$85,$93,$C8,$C8,$B7,$8D,$85,$95,$C8,$C8,$B7,$8D,$85,$97,$C8
-db $C8,$20,$5F,$86,$B7,$8D,$85,$91,$29,$FF,$00,$C9,$FF,$00,$D0,$DD
-db $AB,$2B,$28,$6B,$C2,$30,$8D,$91,$00,$AD,$99,$00,$D0,$FB,$A5,$0E
-db $8D,$94,$00,$A5,$10,$8D,$96,$00,$8C,$97,$00,$E0,$01,$12,$90,$31
-db $A9,$00,$12,$8D,$92,$00,$E0,$01,$12,$90,$26,$AD,$99,$00,$D0,$FB
-db $DA,$22,$43,$86,$C0,$AD,$94,$00,$18,$69,$00,$12,$8D,$94,$00,$AD
-db $97,$00,$18,$69,$00,$09,$8D,$97,$00,$68,$38,$E9,$00,$12,$AA,$80
-db $D5,$8E,$92,$00,$AD,$99,$00,$D0,$FB,$22,$43,$86,$C0,$AD,$99,$00
-db $D0,$FB,$6B
-
-C08616_Submit_TransferDescriptorList_End:
+    php
+    rep #$30
+    lda $0E
+    sta $008D
+    sep #$10
+    ldx $10
+    stx $008F
+    phd
+    pea $0000
+    pld
+    phb
+    ldy.b #$00
+    phy
+    plb
+    rep #$10
+    bra C085A7_Submit_TransferDescriptorList_L85A7
+C08590_Submit_TransferDescriptorList_L8590:
+    iny
+    iny
+    lda [$8D],Y
+    sta $93
+    iny
+    iny
+    lda [$8D],Y
+    sta $95
+    iny
+    iny
+    lda [$8D],Y
+    sta $97
+    iny
+    iny
+    jsr $865F
+C085A7_Submit_TransferDescriptorList_L85A7:
+    lda [$8D],Y
+    sta $91
+    and.w #$00FF
+    cmp.w #$00FF
+    bne C08590_Submit_TransferDescriptorList_L8590
+    plb
+    pld
+    plp
+    rtl
+    rep #$30
+    sta $0091
+C085BC_Submit_TransferDescriptorList_L85BC:
+    lda $0099
+    bne C085BC_Submit_TransferDescriptorList_L85BC
+    lda $0E
+    sta $0094
+    lda $10
+    sta $0096
+    sty $0097
+    cpx.w #$1201
+    bcc C08604_Submit_TransferDescriptorList_L8604
+    lda.w #$1200
+    sta $0092
+C085D9_Submit_TransferDescriptorList_L85D9:
+    cpx.w #$1201
+    bcc C08604_Submit_TransferDescriptorList_L8604
+C085DE_Submit_TransferDescriptorList_L85DE:
+    lda $0099
+    bne C085DE_Submit_TransferDescriptorList_L85DE
+    phx
+    jsl $C08643
+    lda $0094
+    clc
+    adc.w #$1200
+    sta $0094
+    lda $0097
+    clc
+    adc.w #$0900
+    sta $0097
+    pla
+    sec
+    sbc.w #$1200
+    tax
+    bra C085D9_Submit_TransferDescriptorList_L85D9
+C08604_Submit_TransferDescriptorList_L8604:
+    stx $0092
+C08607_Submit_TransferDescriptorList_L8607:
+    lda $0099
+    bne C08607_Submit_TransferDescriptorList_L8607
+    jsl $C08643
+C08610_Submit_TransferDescriptorList_L8610:
+    lda $0099
+    bne C08610_Submit_TransferDescriptorList_L8610
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10455,13 +19050,23 @@ hirom
 org $C08616
 
 C08616_QueueVramTransfer_FromDpSource:
-
-; Original data gap before C08643_QueueVramTransfer_FromDpSource_End:
-db $C2,$30,$8D,$91,$00,$8E,$92,$00,$A5,$0E,$8D,$94,$00,$A5,$10,$8D
-db $96,$00,$8C,$97,$00,$4C,$43,$86,$C2,$30,$8D,$91,$00,$8E,$92,$00
-db $8C,$94,$00,$A5,$0E,$8D,$96,$00,$A5,$10,$8D,$97,$00
-
-C08643_QueueVramTransfer_FromDpSource_End:
+    rep #$30
+    sta $0091
+    stx $0092
+    lda $0E
+    sta $0094
+    lda $10
+    sta $0096
+    sty $0097
+    jmp $8643
+    rep #$30
+    sta $0091
+    stx $0092
+    sty $0094
+    lda $0E
+    sta $0096
+    lda $10
+    sta $0097
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10472,12 +19077,24 @@ hirom
 org $C08643
 
 C08643_SubmitQueuedOrImmediateVramTransfer:
-
-; Original data gap before C0865F_SubmitQueuedOrImmediateVramTransfer_End:
-db $08,$C2,$20,$E2,$10,$0B,$F4,$00,$00,$2B,$8B,$A0,$00,$5A,$AB,$C2
-db $10,$20,$5F,$86,$AB,$2B,$28,$6B,$20,$5F,$86,$6B
-
-C0865F_SubmitQueuedOrImmediateVramTransfer_End:
+    php
+    rep #$20
+    sep #$10
+    phd
+    pea $0000
+    pld
+    phb
+    ldy.b #$00
+    phy
+    plb
+    rep #$10
+    jsr $865F
+    plb
+    pld
+    plp
+    rtl
+    jsr $865F
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10488,26 +19105,128 @@ hirom
 org $C0865F
 
 C0865F_Submit_TransferDescriptorOrImmediateDma:
-
-; Original data gap before C08756_Submit_TransferDescriptorOrImmediateDma_End:
-db $08,$5A,$E2,$10,$A4,$0D,$30,$3E,$A5,$92,$18,$65,$99,$C9,$01,$12
-db $90,$06,$A5,$99,$D0,$FC,$A5,$92,$85,$99,$A4,$01,$84,$A5,$A4,$00
-db $A5,$91,$99,$00,$04,$A5,$93,$99,$02,$04,$A5,$95,$99,$04,$04,$A5
-db $97,$99,$06,$04,$98,$18,$69,$08,$00,$A8,$C4,$A5,$D0,$04,$C4,$01
-db $F0,$FC,$84,$00,$80,$34,$A4,$91,$B9,$B0,$8F,$8D,$10,$43,$BE,$B2
-db $8F,$8E,$15,$21,$A5,$92,$8D,$15,$43,$A5,$94,$8D,$12,$43,$A6,$96
-db $8E,$14,$43,$A5,$97,$8D,$16,$21,$A2,$02,$8E,$0B,$42,$AD,$A3,$00
-db $8D,$A1,$00,$A9,$00,$00,$8F,$2B,$9E,$7E,$C2,$10,$7A,$28,$60,$C2
-db $30,$A8,$98,$18,$6D,$A1,$00,$38,$E9,$00,$02,$CD,$A3,$00,$B0,$0B
-db $69,$00,$02,$AC,$A1,$00,$8D,$A1,$00,$98,$6B,$AD,$2B,$00,$F0,$FB
-db $9C,$2B,$00,$80,$DD,$08,$E2,$20,$AD,$1E,$00,$29,$7F,$8D,$1E,$00
-db $8F,$00,$42,$00,$28,$6B,$08,$E2,$20,$AD,$1E,$00,$09,$81,$8D,$1E
-db $00,$8F,$00,$42,$00,$28,$6B,$E2,$20,$A9,$80,$8D,$0D,$00,$9C,$1F
-db $00,$9C,$28,$00,$9C,$2B,$00,$AD,$2B,$00,$F0,$FB,$A9,$00,$8F,$0C
-db $42,$00,$C2,$30,$6B,$E2,$20,$A9,$80,$8D,$0D,$00,$9C,$2B,$00,$AD
-db $2B,$00,$F0,$FB,$C2,$30,$6B
-
-C08756_Submit_TransferDescriptorOrImmediateDma_End:
+    php
+    phy
+    sep #$10
+    ldy $0D
+    bmi C086A5_Submit_TransferDescriptorOrImmediateDma_L86A5
+    lda $92
+    clc
+    adc $99
+    cmp.w #$1201
+    bcc C08677_Submit_TransferDescriptorOrImmediateDma_L8677
+C08671_Submit_TransferDescriptorOrImmediateDma_L8671:
+    lda $99
+    bne C08671_Submit_TransferDescriptorOrImmediateDma_L8671
+    lda $92
+C08677_Submit_TransferDescriptorOrImmediateDma_L8677:
+    sta $99
+    ldy $01
+    sty $A5
+    ldy $00
+    lda $91
+    sta $0400,Y
+    lda $93
+    sta $0402,Y
+    lda $95
+    sta $0404,Y
+    lda $97
+    sta $0406,Y
+    tya
+    clc
+    adc.w #$0008
+    tay
+    cpy $A5
+    bne C086A1_Submit_TransferDescriptorOrImmediateDma_L86A1
+C0869D_Submit_TransferDescriptorOrImmediateDma_L869D:
+    cpy $01
+    beq C0869D_Submit_TransferDescriptorOrImmediateDma_L869D
+C086A1_Submit_TransferDescriptorOrImmediateDma_L86A1:
+    sty $00
+    bra C086D9_Submit_TransferDescriptorOrImmediateDma_L86D9
+C086A5_Submit_TransferDescriptorOrImmediateDma_L86A5:
+    ldy $91
+    lda $8FB0,Y
+    sta $4310
+    ldx $8FB2,Y
+    stx $2115
+    lda $92
+    sta $4315
+    lda $94
+    sta $4312
+    ldx $96
+    stx $4314
+    lda $97
+    sta $2116
+    ldx.b #$02
+    stx $420B
+    lda $00A3
+    sta $00A1
+    lda.w #$0000
+    sta $7E9E2B
+C086D9_Submit_TransferDescriptorOrImmediateDma_L86D9:
+    rep #$10
+    ply
+    plp
+    rts
+    rep #$30
+    tay
+C086E1_Submit_TransferDescriptorOrImmediateDma_L86E1:
+    tya
+    clc
+    adc $00A1
+    sec
+    sbc.w #$0200
+    cmp $00A3
+    bcs C086FA_Submit_TransferDescriptorOrImmediateDma_L86FA
+    adc.w #$0200
+    ldy $00A1
+    sta $00A1
+    tya
+    rtl
+C086FA_Submit_TransferDescriptorOrImmediateDma_L86FA:
+    lda $002B
+    beq C086FA_Submit_TransferDescriptorOrImmediateDma_L86FA
+    stz $002B
+    bra C086E1_Submit_TransferDescriptorOrImmediateDma_L86E1
+    php
+    sep #$20
+    lda $001E
+    and.b #$7F
+    sta $001E
+    sta $004200
+    plp
+    rtl
+    php
+    sep #$20
+    lda $001E
+    ora.b #$81
+    sta $001E
+    sta $004200
+    plp
+    rtl
+    sep #$20
+    lda.b #$80
+    sta $000D
+    stz $001F
+    stz $0028
+    stz $002B
+C08736_Submit_TransferDescriptorOrImmediateDma_L8736:
+    lda $002B
+    beq C08736_Submit_TransferDescriptorOrImmediateDma_L8736
+    lda.b #$00
+    sta $00420C
+    rep #$30
+    rtl
+    sep #$20
+    lda.b #$80
+    sta $000D
+    stz $002B
+C0874E_Submit_TransferDescriptorOrImmediateDma_L874E:
+    lda $002B
+    beq C0874E_Submit_TransferDescriptorOrImmediateDma_L874E
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10518,14 +19237,35 @@ hirom
 org $C08756
 
 C08756_Wait_OneFrameAndPollInput:
-
-; Original data gap before C0878B_Wait_OneFrameAndPollInput_End:
-db $E2,$20,$AD,$1E,$00,$29,$B0,$F0,$0A,$AD,$2B,$00,$F0,$FB,$9C,$2B
-db $00,$80,$0C,$AF,$12,$42,$00,$30,$FA,$AF,$12,$42,$00,$10,$FA,$9C
-db $2B,$00,$0B,$F4,$00,$00,$2B,$8B,$F4,$00,$00,$AB,$AB,$20,$96,$84
-db $AB,$2B,$C2,$20,$6B
-
-C0878B_Wait_OneFrameAndPollInput_End:
+    sep #$20
+    lda $001E
+    and.b #$B0
+    beq C08769_Wait_OneFrameAndPollInput_L8769
+C0875F_Wait_OneFrameAndPollInput_L875F:
+    lda $002B
+    beq C0875F_Wait_OneFrameAndPollInput_L875F
+    stz $002B
+    bra C08775_Wait_OneFrameAndPollInput_L8775
+C08769_Wait_OneFrameAndPollInput_L8769:
+    lda $004212
+    bmi C08769_Wait_OneFrameAndPollInput_L8769
+C0876F_Wait_OneFrameAndPollInput_L876F:
+    lda $004212
+    bpl C0876F_Wait_OneFrameAndPollInput_L876F
+C08775_Wait_OneFrameAndPollInput_L8775:
+    stz $002B
+    phd
+    pea $0000
+    pld
+    phb
+    pea $0000
+    plb
+    plb
+    jsr $8496
+    plb
+    pld
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10535,13 +19275,28 @@ C0878B_Wait_OneFrameAndPollInput_End:
 hirom
 org $C0878B
 
+!C08756_WaitOneFrameAndPollInput = $C08756
 C0878B_Wait_Frames_CountA:
-
-; Original data gap before C087AB_Wait_Frames_CountA_End:
-db $AA,$EE,$2C,$00,$DA,$22,$56,$87,$C0,$FA,$CA,$D0,$F4,$6B,$20,$9D
-db $87,$6B,$08,$E2,$20,$29,$8F,$8D,$0D,$00,$28,$60,$20,$AB,$87,$6B
-
-C087AB_Wait_Frames_CountA_End:
+    tax
+C0878C_Wait_Frames_CountA_L878C:
+    inc $002C
+    phx
+    jsl !C08756_WaitOneFrameAndPollInput
+    plx
+    dex
+    bne C0878C_Wait_Frames_CountA_L878C
+    rtl
+    jsr.w C0879D_Wait_Frames_CountA_L879D
+    rtl
+C0879D_Wait_Frames_CountA_L879D:
+    php
+    sep #$20
+    and.b #$8F
+    sta $000D
+    plp
+    rts
+    jsr $87AB
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10552,23 +19307,113 @@ hirom
 org $C087AB
 
 C087AB_Update_DisplayNibble10From0D:
-
-; Original data gap before C0886C_Update_DisplayNibble10From0D_End:
-db $08,$C2,$20,$0B,$48,$7B,$38,$E9,$02,$00,$5B,$68,$85,$00,$E2,$20
-db $AD,$0D,$00,$49,$FF,$0A,$0A,$0A,$0A,$29,$F0,$05,$00,$8D,$10,$00
-db $2B,$28,$60,$08,$C2,$20,$0B,$48,$7B,$38,$E9,$06,$00,$5B,$68,$9C
-db $28,$00,$85,$00,$86,$02,$84,$04,$E2,$20,$9C,$0D,$00,$E2,$20,$9C
-db $10,$00,$AD,$0D,$00,$18,$65,$00,$C9,$0F,$C2,$20,$B0,$12,$20,$9D
-db $87,$A5,$04,$F0,$03,$20,$AB,$87,$A5,$02,$22,$8B,$87,$C0,$80,$DD
-db $A9,$0F,$00,$20,$9D,$87,$2B,$28,$6B,$08,$C2,$20,$0B,$48,$7B,$38
-db $E9,$06,$00,$5B,$68,$9C,$28,$00,$85,$00,$86,$02,$84,$04,$E2,$20
-db $9C,$10,$00,$AD,$0D,$00,$30,$19,$38,$E5,$00,$C2,$20,$30,$12,$20
-db $9D,$87,$A5,$04,$F0,$03,$20,$AB,$87,$A5,$02,$22,$8B,$87,$C0,$80
-db $DD,$C2,$20,$A9,$80,$00,$20,$9D,$87,$E2,$20,$9C,$1F,$00,$9C,$2B
-db $00,$AD,$2B,$00,$F0,$FB,$A9,$00,$8F,$0C,$42,$00,$C2,$20,$2B,$28
-db $6B
-
-C0886C_Update_DisplayNibble10From0D_End:
+    php
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0002
+    tcd
+    pla
+    sta $00
+    sep #$20
+    lda $000D
+    eor.b #$FF
+    asl A
+    asl A
+    asl A
+    asl A
+    and.b #$F0
+    ora $00
+    sta $0010
+    pld
+    plp
+    rts
+    php
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0006
+    tcd
+    pla
+    stz $0028
+    sta $00
+    stx $02
+    sty $04
+    sep #$20
+    stz $000D
+C087E8_Update_DisplayNibble10From0D_L87E8:
+    sep #$20
+    stz $0010
+    lda $000D
+    clc
+    adc $00
+    cmp.b #$0F
+    rep #$20
+    bcs C0880B_Update_DisplayNibble10From0D_L880B
+    jsr $879D
+    lda $04
+    beq C08803_Update_DisplayNibble10From0D_L8803
+    jsr.w C087AB_Update_DisplayNibble10From0D
+C08803_Update_DisplayNibble10From0D_L8803:
+    lda $02
+    jsl $C0878B
+    bra C087E8_Update_DisplayNibble10From0D_L87E8
+C0880B_Update_DisplayNibble10From0D_L880B:
+    lda.w #$000F
+    jsr $879D
+    pld
+    plp
+    rtl
+    php
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0006
+    tcd
+    pla
+    stz $0028
+    sta $00
+    stx $02
+    sty $04
+C08829_Update_DisplayNibble10From0D_L8829:
+    sep #$20
+    stz $0010
+    lda $000D
+    bmi C0884C_Update_DisplayNibble10From0D_L884C
+    sec
+    sbc $00
+    rep #$20
+    bmi C0884C_Update_DisplayNibble10From0D_L884C
+    jsr $879D
+    lda $04
+    beq C08844_Update_DisplayNibble10From0D_L8844
+    jsr.w C087AB_Update_DisplayNibble10From0D
+C08844_Update_DisplayNibble10From0D_L8844:
+    lda $02
+    jsl $C0878B
+    bra C08829_Update_DisplayNibble10From0D_L8829
+C0884C_Update_DisplayNibble10From0D_L884C:
+    rep #$20
+    lda.w #$0080
+    jsr $879D
+    sep #$20
+    stz $001F
+    stz $002B
+C0885C_Update_DisplayNibble10From0D_L885C:
+    lda $002B
+    beq C0885C_Update_DisplayNibble10From0D_L885C
+    lda.b #$00
+    sta $00420C
+    rep #$20
+    pld
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10579,11 +19424,13 @@ hirom
 org $C0886C
 
 C0886C_Set_DisplayWaitCounter:
-
-; Original data gap before C0887A_Set_DisplayWaitCounter_End:
-db $08,$E2,$30,$8D,$28,$00,$8E,$29,$00,$8E,$2A,$00,$28,$6B
-
-C0887A_Set_DisplayWaitCounter_End:
+    php
+    sep #$30
+    sta $0028
+    stx $0029
+    stx $002A
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10594,12 +19441,15 @@ hirom
 org $C0887A
 
 C0887A_Set_NegatedDisplayWaitCounter:
-
-; Original data gap before C0888B_Set_NegatedDisplayWaitCounter_End:
-db $08,$E2,$30,$49,$FF,$1A,$8D,$28,$00,$8E,$29,$00,$8E,$2A,$00,$28
-db $6B
-
-C0888B_Set_NegatedDisplayWaitCounter_End:
+    php
+    sep #$30
+    eor.b #$FF
+    inc A
+    sta $0028
+    stx $0029
+    stx $002A
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10609,13 +19459,21 @@ C0888B_Set_NegatedDisplayWaitCounter_End:
 hirom
 org $C0888B
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
 C0888B_Run_DisplayWaitLoopUntilCounterClear:
-
-; Original data gap before C088A5_Run_DisplayWaitLoopUntilCounterClear_End:
-db $E2,$20,$AD,$28,$00,$F0,$10,$C2,$30,$22,$B1,$88,$C0,$22,$26,$8B
-db $C0,$22,$56,$87,$C0,$80,$E9,$C2,$30,$6B
-
-C088A5_Run_DisplayWaitLoopUntilCounterClear_End:
+    sep #$20
+    lda $0028
+    beq C088A2_Run_DisplayWaitLoopUntilCounterClear_L88A2
+    rep #$30
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+    bra C0888B_Run_DisplayWaitLoopUntilCounterClear
+C088A2_Run_DisplayWaitLoopUntilCounterClear_L88A2:
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10626,50 +19484,318 @@ hirom
 org $C088A5
 
 C088A5_Swap_DisplayFlag0B:
-
-; Original data gap before C08B20_Swap_DisplayFlag0B_End:
-db $E2,$30,$AE,$0B,$00,$8D,$0B,$00,$8A,$C2,$30,$6B,$E2,$20,$C2,$10
-db $A2,$00,$00,$8E,$04,$25,$8E,$06,$26,$8E,$08,$27,$8E,$0A,$28,$AE
-db $2E,$00,$CA,$F0,$03,$4C,$F3,$89,$A2,$00,$05,$8E,$03,$00,$A2,$00
-db $07,$8E,$05,$00,$A2,$00,$07,$8E,$07,$00,$A9,$80,$8D,$0A,$00,$A9
-db $E0,$0B,$F4,$00,$05,$2B,$85,$01,$85,$05,$85,$09,$85,$0D,$85,$11
-db $85,$15,$85,$19,$85,$1D,$85,$21,$85,$25,$85,$29,$85,$2D,$85,$31
-db $85,$35,$85,$39,$85,$3D,$85,$41,$85,$45,$85,$49,$85,$4D,$85,$51
-db $85,$55,$85,$59,$85,$5D,$85,$61,$85,$65,$85,$69,$85,$6D,$85,$71
-db $85,$75,$85,$79,$85,$7D,$85,$81,$85,$85,$85,$89,$85,$8D,$85,$91
-db $85,$95,$85,$99,$85,$9D,$85,$A1,$85,$A5,$85,$A9,$85,$AD,$85,$B1
-db $85,$B5,$85,$B9,$85,$BD,$85,$C1,$85,$C5,$85,$C9,$85,$CD,$85,$D1
-db $85,$D5,$85,$D9,$85,$DD,$85,$E1,$85,$E5,$85,$E9,$85,$ED,$85,$F1
-db $85,$F5,$85,$F9,$85,$FD,$F4,$00,$06,$2B,$85,$01,$85,$05,$85,$09
-db $85,$0D,$85,$11,$85,$15,$85,$19,$85,$1D,$85,$21,$85,$25,$85,$29
-db $85,$2D,$85,$31,$85,$35,$85,$39,$85,$3D,$85,$41,$85,$45,$85,$49
-db $85,$4D,$85,$51,$85,$55,$85,$59,$85,$5D,$85,$61,$85,$65,$85,$69
-db $85,$6D,$85,$71,$85,$75,$85,$79,$85,$7D,$85,$81,$85,$85,$85,$89
-db $85,$8D,$85,$91,$85,$95,$85,$99,$85,$9D,$85,$A1,$85,$A5,$85,$A9
-db $85,$AD,$85,$B1,$85,$B5,$85,$B9,$85,$BD,$85,$C1,$85,$C5,$85,$C9
-db $85,$CD,$85,$D1,$85,$D5,$85,$D9,$85,$DD,$85,$E1,$85,$E5,$85,$E9
-db $85,$ED,$85,$F1,$85,$F5,$85,$F9,$85,$FD,$2B,$C2,$20,$6B,$A2,$00
-db $08,$8E,$03,$00,$A2,$00,$0A,$8E,$05,$00,$A2,$00,$0A,$8E,$07,$00
-db $A9,$80,$8D,$0A,$00,$A9,$E0,$0B,$F4,$00,$08,$2B,$85,$01,$85,$05
-db $85,$09,$85,$0D,$85,$11,$85,$15,$85,$19,$85,$1D,$85,$21,$85,$25
-db $85,$29,$85,$2D,$85,$31,$85,$35,$85,$39,$85,$3D,$85,$41,$85,$45
-db $85,$49,$85,$4D,$85,$51,$85,$55,$85,$59,$85,$5D,$85,$61,$85,$65
-db $85,$69,$85,$6D,$85,$71,$85,$75,$85,$79,$85,$7D,$85,$81,$85,$85
-db $85,$89,$85,$8D,$85,$91,$85,$95,$85,$99,$85,$9D,$85,$A1,$85,$A5
-db $85,$A9,$85,$AD,$85,$B1,$85,$B5,$85,$B9,$85,$BD,$85,$C1,$85,$C5
-db $85,$C9,$85,$CD,$85,$D1,$85,$D5,$85,$D9,$85,$DD,$85,$E1,$85,$E5
-db $85,$E9,$85,$ED,$85,$F1,$85,$F5,$85,$F9,$85,$FD,$F4,$00,$09,$2B
-db $85,$01,$85,$05,$85,$09,$85,$0D,$85,$11,$85,$15,$85,$19,$85,$1D
-db $85,$21,$85,$25,$85,$29,$85,$2D,$85,$31,$85,$35,$85,$39,$85,$3D
-db $85,$41,$85,$45,$85,$49,$85,$4D,$85,$51,$85,$55,$85,$59,$85,$5D
-db $85,$61,$85,$65,$85,$69,$85,$6D,$85,$71,$85,$75,$85,$79,$85,$7D
-db $85,$81,$85,$85,$85,$89,$85,$8D,$85,$91,$85,$95,$85,$99,$85,$9D
-db $85,$A1,$85,$A5,$85,$A9,$85,$AD,$85,$B1,$85,$B5,$85,$B9,$85,$BD
-db $85,$C1,$85,$C5,$85,$C9,$85,$CD,$85,$D1,$85,$D5,$85,$D9,$85,$DD
-db $85,$E1,$85,$E5,$85,$E9,$85,$ED,$85,$F1,$85,$F5,$85,$F9,$85,$FD
-db $2B,$C2,$20,$6B,$E2,$20,$A9,$00,$8D,$09,$00
-
-C08B20_Swap_DisplayFlag0B_End:
+    sep #$30
+    ldx $000B
+    sta $000B
+    txa
+    rep #$30
+    rtl
+    sep #$20
+    rep #$10
+    ldx.w #$0000
+    stx $2504
+    stx $2606
+    stx $2708
+    stx $280A
+    ldx $002E
+    dex
+    beq C088CD_Swap_DisplayFlag0B_L88CD
+    jmp.w C089F3_Swap_DisplayFlag0B_L89F3
+C088CD_Swap_DisplayFlag0B_L88CD:
+    ldx.w #$0500
+    stx $0003
+    ldx.w #$0700
+    stx $0005
+    ldx.w #$0700
+    stx $0007
+    lda.b #$80
+    sta $000A
+    lda.b #$E0
+    phd
+    pea $0500
+    pld
+    sta $01
+    sta $05
+    sta $09
+    sta $0D
+    sta $11
+    sta $15
+    sta $19
+    sta $1D
+    sta $21
+    sta $25
+    sta $29
+    sta $2D
+    sta $31
+    sta $35
+    sta $39
+    sta $3D
+    sta $41
+    sta $45
+    sta $49
+    sta $4D
+    sta $51
+    sta $55
+    sta $59
+    sta $5D
+    sta $61
+    sta $65
+    sta $69
+    sta $6D
+    sta $71
+    sta $75
+    sta $79
+    sta $7D
+    sta $81
+    sta $85
+    sta $89
+    sta $8D
+    sta $91
+    sta $95
+    sta $99
+    sta $9D
+    sta $A1
+    sta $A5
+    sta $A9
+    sta $AD
+    sta $B1
+    sta $B5
+    sta $B9
+    sta $BD
+    sta $C1
+    sta $C5
+    sta $C9
+    sta $CD
+    sta $D1
+    sta $D5
+    sta $D9
+    sta $DD
+    sta $E1
+    sta $E5
+    sta $E9
+    sta $ED
+    sta $F1
+    sta $F5
+    sta $F9
+    sta $FD
+    pea $0600
+    pld
+    sta $01
+    sta $05
+    sta $09
+    sta $0D
+    sta $11
+    sta $15
+    sta $19
+    sta $1D
+    sta $21
+    sta $25
+    sta $29
+    sta $2D
+    sta $31
+    sta $35
+    sta $39
+    sta $3D
+    sta $41
+    sta $45
+    sta $49
+    sta $4D
+    sta $51
+    sta $55
+    sta $59
+    sta $5D
+    sta $61
+    sta $65
+    sta $69
+    sta $6D
+    sta $71
+    sta $75
+    sta $79
+    sta $7D
+    sta $81
+    sta $85
+    sta $89
+    sta $8D
+    sta $91
+    sta $95
+    sta $99
+    sta $9D
+    sta $A1
+    sta $A5
+    sta $A9
+    sta $AD
+    sta $B1
+    sta $B5
+    sta $B9
+    sta $BD
+    sta $C1
+    sta $C5
+    sta $C9
+    sta $CD
+    sta $D1
+    sta $D5
+    sta $D9
+    sta $DD
+    sta $E1
+    sta $E5
+    sta $E9
+    sta $ED
+    sta $F1
+    sta $F5
+    sta $F9
+    sta $FD
+    pld
+    rep #$20
+    rtl
+C089F3_Swap_DisplayFlag0B_L89F3:
+    ldx.w #$0800
+    stx $0003
+    ldx.w #$0A00
+    stx $0005
+    ldx.w #$0A00
+    stx $0007
+    lda.w #$8D80
+    asl A
+    brk #$A9
+    cpx.w #$F40B
+    brk #$08
+    pld
+    sta $01
+    sta $05
+    sta $09
+    sta $0D
+    sta $11
+    sta $15
+    sta $19
+    sta $1D
+    sta $21
+    sta $25
+    sta $29
+    sta $2D
+    sta $31
+    sta $35
+    sta $39
+    sta $3D
+    sta $41
+    sta $45
+    sta $49
+    sta $4D
+    sta $51
+    sta $55
+    sta $59
+    sta $5D
+    sta $61
+    sta $65
+    sta $69
+    sta $6D
+    sta $71
+    sta $75
+    sta $79
+    sta $7D
+    sta $81
+    sta $85
+    sta $89
+    sta $8D
+    sta $91
+    sta $95
+    sta $99
+    sta $9D
+    sta $A1
+    sta $A5
+    sta $A9
+    sta $AD
+    sta $B1
+    sta $B5
+    sta $B9
+    sta $BD
+    sta $C1
+    sta $C5
+    sta $C9
+    sta $CD
+    sta $D1
+    sta $D5
+    sta $D9
+    sta $DD
+    sta $E1
+    sta $E5
+    sta $E9
+    sta $ED
+    sta $F1
+    sta $F5
+    sta $F9
+    sta $FD
+    pea $0900
+    pld
+    sta $01
+    sta $05
+    sta $09
+    sta $0D
+    sta $11
+    sta $15
+    sta $19
+    sta $1D
+    sta $21
+    sta $25
+    sta $29
+    sta $2D
+    sta $31
+    sta $35
+    sta $39
+    sta $3D
+    sta $41
+    sta $45
+    sta $49
+    sta $4D
+    sta $51
+    sta $55
+    sta $59
+    sta $5D
+    sta $61
+    sta $65
+    sta $69
+    sta $6D
+    sta $71
+    sta $75
+    sta $79
+    sta $7D
+    sta $81
+    sta $85
+    sta $89
+    sta $8D
+    sta $91
+    sta $95
+    sta $99
+    sta $9D
+    sta $A1
+    sta $A5
+    sta $A9
+    sta $AD
+    sta $B1
+    sta $B5
+    sta $B9
+    sta $BD
+    sta $C1
+    sta $C5
+    sta $C9
+    sta $CD
+    sta $D1
+    sta $D5
+    sta $D9
+    sta $DD
+    sta $E1
+    sta $E5
+    sta $E9
+    sta $ED
+    sta $F1
+    sta $F5
+    sta $F9
+    sta $FD
+    pld
+    rep #$20
+    rtl
+    sep #$20
+    lda.b #$00
+    sta $0009
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10679,18 +19805,58 @@ C08B20_Swap_DisplayFlag0B_End:
 hirom
 org $C08B20
 
+!C088B1_ResetRendererFrameState = $C088B1
 C08B20_PublishRuntimeScrollShadowsToNmiBuffers:
-
-; Original data gap before C08B8E_PublishRuntimeScrollShadowsToNmiBuffers_End:
-db $C2,$20,$22,$B1,$88,$C0,$C2,$30,$20,$8E,$8B,$E2,$20,$8B,$68,$C9
-db $FF,$D0,$02,$80,$FE,$AD,$0A,$00,$C9,$80,$F0,$04,$4A,$4A,$90,$FC
-db $AE,$07,$00,$9D,$00,$00,$C2,$30,$AD,$2E,$00,$3A,$0A,$AA,$AD,$31
-db $00,$9D,$41,$00,$AD,$33,$00,$9D,$45,$00,$AD,$35,$00,$9D,$49,$00
-db $AD,$37,$00,$9D,$4D,$00,$AD,$39,$00,$9D,$51,$00,$AD,$3B,$00,$9D
-db $55,$00,$AD,$3D,$00,$9D,$59,$00,$AD,$3F,$00,$9D,$5D,$00,$E2,$20
-db $AD,$2E,$00,$8D,$2C,$00,$49,$03,$8D,$2E,$00,$C2,$30,$6B
-
-C08B8E_PublishRuntimeScrollShadowsToNmiBuffers_End:
+    rep #$20
+    jsl !C088B1_ResetRendererFrameState
+    rep #$30
+    jsr $8B8E
+    sep #$20
+    phb
+    pla
+    cmp.b #$FF
+    bne C08B35_PublishRuntimeScrollShadowsToNmiBuffers_L8B35
+C08B33_PublishRuntimeScrollShadowsToNmiBuffers_L8B33:
+    bra C08B33_PublishRuntimeScrollShadowsToNmiBuffers_L8B33
+C08B35_PublishRuntimeScrollShadowsToNmiBuffers_L8B35:
+    lda $000A
+    cmp.b #$80
+    beq C08B40_PublishRuntimeScrollShadowsToNmiBuffers_L8B40
+C08B3C_PublishRuntimeScrollShadowsToNmiBuffers_L8B3C:
+    lsr A
+    lsr A
+    bcc C08B3C_PublishRuntimeScrollShadowsToNmiBuffers_L8B3C
+C08B40_PublishRuntimeScrollShadowsToNmiBuffers_L8B40:
+    ldx $0007
+    sta $0000,X
+    rep #$30
+    lda $002E
+    dec A
+    asl A
+    tax
+    lda $0031
+    sta $0041,X
+    lda $0033
+    sta $0045,X
+    lda $0035
+    sta $0049,X
+    lda $0037
+    sta $004D,X
+    lda $0039
+    sta $0051,X
+    lda $003B
+    sta $0055,X
+    lda $003D
+    sta $0059,X
+    lda $003F
+    sta $005D,X
+    sep #$20
+    lda $002E
+    sta $002C
+    eor.b #$03
+    sta $002E
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10700,24 +19866,112 @@ C08B8E_PublishRuntimeScrollShadowsToNmiBuffers_End:
 hirom
 org $C08B8E
 
+!C08CD5_DrawTileStagingBlock = $C08CD5
 C08B8E_Drain_DisplayRendererUpdateQueues:
-
-; Original data gap before C08C53_Drain_DisplayRendererUpdateQueues_End:
-db $08,$C2,$20,$AD,$02,$24,$C9,$00,$00,$D0,$03,$20,$53,$8C,$A2,$00
-db $00,$80,$1B,$BD,$C4,$24,$8D,$0B,$00,$DA,$BD,$04,$24,$48,$BD,$84
-db $24,$A8,$BD,$44,$24,$AA,$68,$22,$D5,$8C,$C0,$FA,$E8,$E8,$EC,$04
-db $25,$90,$E0,$AD,$02,$24,$C9,$01,$00,$D0,$03,$20,$53,$8C,$A2,$00
-db $00,$80,$1B,$BD,$C6,$25,$8D,$0B,$00,$DA,$BD,$06,$25,$48,$BD,$86
-db $25,$A8,$BD,$46,$25,$AA,$68,$22,$D5,$8C,$C0,$FA,$E8,$E8,$EC,$06
-db $26,$90,$E0,$AD,$02,$24,$C9,$02,$00,$D0,$03,$20,$53,$8C,$A2,$00
-db $00,$80,$1B,$BD,$C8,$26,$8D,$0B,$00,$DA,$BD,$08,$26,$48,$BD,$88
-db $26,$A8,$BD,$48,$26,$AA,$68,$22,$D5,$8C,$C0,$FA,$E8,$E8,$EC,$08
-db $27,$90,$E0,$AD,$02,$24,$C9,$03,$00,$D0,$03,$20,$53,$8C,$A2,$00
-db $00,$80,$1B,$BD,$CA,$27,$8D,$0B,$00,$DA,$BD,$0A,$27,$48,$BD,$8A
-db $27,$A8,$BD,$4A,$27,$AA,$68,$22,$D5,$8C,$C0,$FA,$E8,$E8,$EC,$0A
-db $28,$90,$E0,$28,$60
-
-C08C53_Drain_DisplayRendererUpdateQueues_End:
+    php
+    rep #$20
+    lda $2402
+    cmp.w #$0000
+    bne C08B9C_Drain_DisplayRendererUpdateQueues_L8B9C
+    jsr $8C53
+C08B9C_Drain_DisplayRendererUpdateQueues_L8B9C:
+    ldx.w #$0000
+    bra C08BBC_Drain_DisplayRendererUpdateQueues_L8BBC
+C08BA1_Drain_DisplayRendererUpdateQueues_L8BA1:
+    lda $24C4,X
+    sta $000B
+    phx
+    lda $2404,X
+    pha
+    lda $2484,X
+    tay
+    lda $2444,X
+    tax
+    pla
+    jsl !C08CD5_DrawTileStagingBlock
+    plx
+    inx
+    inx
+C08BBC_Drain_DisplayRendererUpdateQueues_L8BBC:
+    cpx $2504
+    bcc C08BA1_Drain_DisplayRendererUpdateQueues_L8BA1
+    lda $2402
+    cmp.w #$0001
+    bne C08BCC_Drain_DisplayRendererUpdateQueues_L8BCC
+    jsr $8C53
+C08BCC_Drain_DisplayRendererUpdateQueues_L8BCC:
+    ldx.w #$0000
+    bra C08BEC_Drain_DisplayRendererUpdateQueues_L8BEC
+C08BD1_Drain_DisplayRendererUpdateQueues_L8BD1:
+    lda $25C6,X
+    sta $000B
+    phx
+    lda $2506,X
+    pha
+    lda $2586,X
+    tay
+    lda $2546,X
+    tax
+    pla
+    jsl !C08CD5_DrawTileStagingBlock
+    plx
+    inx
+    inx
+C08BEC_Drain_DisplayRendererUpdateQueues_L8BEC:
+    cpx $2606
+    bcc C08BD1_Drain_DisplayRendererUpdateQueues_L8BD1
+    lda $2402
+    cmp.w #$0002
+    bne C08BFC_Drain_DisplayRendererUpdateQueues_L8BFC
+    jsr $8C53
+C08BFC_Drain_DisplayRendererUpdateQueues_L8BFC:
+    ldx.w #$0000
+    bra C08C1C_Drain_DisplayRendererUpdateQueues_L8C1C
+C08C01_Drain_DisplayRendererUpdateQueues_L8C01:
+    lda $26C8,X
+    sta $000B
+    phx
+    lda $2608,X
+    pha
+    lda $2688,X
+    tay
+    lda $2648,X
+    tax
+    pla
+    jsl !C08CD5_DrawTileStagingBlock
+    plx
+    inx
+    inx
+C08C1C_Drain_DisplayRendererUpdateQueues_L8C1C:
+    cpx $2708
+    bcc C08C01_Drain_DisplayRendererUpdateQueues_L8C01
+    lda $2402
+    cmp.w #$0003
+    bne C08C2C_Drain_DisplayRendererUpdateQueues_L8C2C
+    jsr $8C53
+C08C2C_Drain_DisplayRendererUpdateQueues_L8C2C:
+    ldx.w #$0000
+    bra C08C4C_Drain_DisplayRendererUpdateQueues_L8C4C
+C08C31_Drain_DisplayRendererUpdateQueues_L8C31:
+    lda $27CA,X
+    sta $000B
+    phx
+    lda $270A,X
+    pha
+    lda $278A,X
+    tay
+    lda $274A,X
+    tax
+    pla
+    jsl !C08CD5_DrawTileStagingBlock
+    plx
+    inx
+    inx
+C08C4C_Drain_DisplayRendererUpdateQueues_L8C4C:
+    cpx $280A
+    bcc C08C31_Drain_DisplayRendererUpdateQueues_L8C31
+    plp
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10728,11 +19982,7 @@ hirom
 org $C08C53
 
 C08C53_DisplayQueue_NoOpHook:
-
-; Original data gap before C08C54_DisplayQueue_NoOpHook_End:
-db $60
-
-C08C54_DisplayQueue_NoOpHook_End:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10743,11 +19993,8 @@ hirom
 org $C08C54
 
 C08C54_Enqueue_DisplayRecord_FarWrapper:
-
-; Original data gap before C08C58_Enqueue_DisplayRecord_FarWrapper_End:
-db $20,$58,$8C,$6B
-
-C08C58_Enqueue_DisplayRecord_FarWrapper_End:
+    jsr $8C58
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10758,18 +20005,66 @@ hirom
 org $C08C58
 
 C08C58_Enqueue_DisplayRendererUpdateRecord:
-
-; Original data gap before C08CD5_Enqueue_DisplayRendererUpdateRecord_End:
-db $C2,$20,$DA,$48,$AD,$00,$24,$0A,$AA,$68,$7C,$65,$8C,$6D,$8C,$87
-db $8C,$A1,$8C,$BB,$8C,$AE,$04,$25,$9D,$04,$24,$68,$9D,$44,$24,$98
-db $9D,$84,$24,$AD,$0B,$00,$9D,$C4,$24,$E8,$E8,$8E,$04,$25,$60,$AE
-db $06,$26,$9D,$06,$25,$68,$9D,$46,$25,$98,$9D,$86,$25,$AD,$0B,$00
-db $9D,$C6,$25,$E8,$E8,$8E,$06,$26,$60,$AE,$08,$27,$9D,$08,$26,$68
-db $9D,$48,$26,$98,$9D,$88,$26,$AD,$0B,$00,$9D,$C8,$26,$E8,$E8,$8E
-db $08,$27,$60,$AE,$0A,$28,$9D,$0A,$27,$68,$9D,$4A,$27,$98,$9D,$8A
-db $27,$AD,$0B,$00,$9D,$CA,$27,$E8,$E8,$8E,$0A,$28,$60
-
-C08CD5_Enqueue_DisplayRendererUpdateRecord_End:
+    rep #$20
+    phx
+    pha
+    lda $2400
+    asl A
+    tax
+    pla
+    jmp ($8C65,X)
+    adc $878C
+    sty $8CA1
+    tyx
+    sty $04AE
+    and $9D
+    tsb $24
+    pla
+    sta $2444,X
+    tya
+    sta $2484,X
+    lda $000B
+    sta $24C4,X
+    inx
+    inx
+    stx $2504
+    rts
+    ldx $2606
+    sta $2506,X
+    pla
+    sta $2546,X
+    tya
+    sta $2586,X
+    lda $000B
+    sta $25C6,X
+    inx
+    inx
+    stx $2606
+    rts
+    ldx $2708
+    sta $2608,X
+    pla
+    sta $2648,X
+    tya
+    sta $2688,X
+    lda $000B
+    sta $26C8,X
+    inx
+    inx
+    stx $2708
+    rts
+    ldx $280A
+    sta $270A,X
+    pla
+    sta $274A,X
+    tya
+    sta $278A,X
+    lda $000B
+    sta $27CA,X
+    inx
+    inx
+    stx $280A
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10780,21 +20075,106 @@ hirom
 org $C08CD5
 
 C08CD5_Apply_DisplayRendererQueueRecord:
-
-; Original data gap before C08D79_Apply_DisplayRendererQueueRecord_End:
-db $08,$0B,$F4,$00,$00,$2B,$C2,$30,$86,$9B,$84,$9D,$A8,$A6,$03,$E4
-db $05,$90,$03,$2B,$28,$6B,$8B,$E2,$20,$A5,$0B,$48,$AB,$80,$0B,$B9
-db $01,$00,$A8,$80,$05,$C8,$C8,$C8,$C8,$C8,$C2,$20,$B9,$00,$00,$29
-db $FF,$00,$C9,$80,$00,$90,$06,$F0,$E6,$09,$00,$FF,$18,$65,$9D,$3A
-db $C9,$E0,$00,$90,$0E,$C9,$E0,$FF,$B0,$09,$E2,$20,$B9,$04,$00,$10
-db $D4,$80,$4B,$85,$9F,$B9,$01,$00,$95,$02,$B9,$03,$00,$29,$FF,$00
-db $C9,$80,$00,$90,$04,$09,$00,$FF,$18,$65,$9B,$E2,$20,$95,$00,$EB
-db $F0,$04,$C9,$FF,$D0,$D6,$2A,$66,$0A,$B9,$04,$00,$6A,$66,$0A,$90
-db $0A,$A5,$0A,$87,$07,$E6,$07,$A9,$80,$85,$0A,$A5,$9F,$95,$01,$E8
-db $E8,$E8,$E8,$B9,$04,$00,$30,$06,$C2,$20,$E4,$05,$90,$87,$86,$03
-db $AB,$2B,$28,$6B
-
-C08D79_Apply_DisplayRendererQueueRecord_End:
+    php
+    phd
+    pea $0000
+    pld
+    rep #$30
+    stx $9B
+    sty $9D
+    tay
+    ldx $03
+    cpx $05
+    bcc C08CEB_Apply_DisplayRendererQueueRecord_L8CEB
+    pld
+    plp
+    rtl
+C08CEB_Apply_DisplayRendererQueueRecord_L8CEB:
+    phb
+    sep #$20
+    lda $0B
+    pha
+    plb
+    bra C08CFF_Apply_DisplayRendererQueueRecord_L8CFF
+C08CF4_Apply_DisplayRendererQueueRecord_L8CF4:
+    lda $0001,Y
+    tay
+    bra C08CFF_Apply_DisplayRendererQueueRecord_L8CFF
+C08CFA_Apply_DisplayRendererQueueRecord_L8CFA:
+    iny
+    iny
+    iny
+    iny
+    iny
+C08CFF_Apply_DisplayRendererQueueRecord_L8CFF:
+    rep #$20
+    lda $0000,Y
+    and.w #$00FF
+    cmp.w #$0080
+    bcc C08D12_Apply_DisplayRendererQueueRecord_L8D12
+    beq C08CF4_Apply_DisplayRendererQueueRecord_L8CF4
+    ora.w #$FF00
+    clc
+C08D12_Apply_DisplayRendererQueueRecord_L8D12:
+    adc $9D
+    dec A
+    cmp.w #$00E0
+    bcc C08D28_Apply_DisplayRendererQueueRecord_L8D28
+    cmp.w #$FFE0
+    bcs C08D28_Apply_DisplayRendererQueueRecord_L8D28
+    sep #$20
+C08D21_Apply_DisplayRendererQueueRecord_L8D21:
+    lda $0004,Y
+    bpl C08CFA_Apply_DisplayRendererQueueRecord_L8CFA
+    bra C08D73_Apply_DisplayRendererQueueRecord_L8D73
+C08D28_Apply_DisplayRendererQueueRecord_L8D28:
+    sta $9F
+    lda $0001,Y
+    sta $02,X
+    lda $0003,Y
+    and.b #$FF
+    brk #$C9
+    bra C08D38_Apply_DisplayRendererQueueRecord_L8D38
+C08D38_Apply_DisplayRendererQueueRecord_L8D38:
+    db $90, $04
+    ora.b #$00
+    sbc $9B6518,X
+    sep #$20
+    sta $00,X
+    xba
+    beq C08D4B_Apply_DisplayRendererQueueRecord_L8D4B
+    cmp.b #$FF
+    bne C08D21_Apply_DisplayRendererQueueRecord_L8D21
+C08D4B_Apply_DisplayRendererQueueRecord_L8D4B:
+    rol A
+    ror $0A
+    lda $0004,Y
+    ror A
+    ror $0A
+    bcc C08D60_Apply_DisplayRendererQueueRecord_L8D60
+    lda $0A
+    sta [$07]
+    inc $07
+    lda.b #$80
+    sta $0A
+C08D60_Apply_DisplayRendererQueueRecord_L8D60:
+    lda $9F
+    sta $01,X
+    inx
+    inx
+    inx
+    inx
+    lda $0004,Y
+    bmi C08D73_Apply_DisplayRendererQueueRecord_L8D73
+    rep #$20
+    cpx $05
+    bcc C08CFA_Apply_DisplayRendererQueueRecord_L8CFA
+C08D73_Apply_DisplayRendererQueueRecord_L8D73:
+    stx $03
+    plb
+    pld
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10805,12 +20185,18 @@ hirom
 org $C08D79
 
 C08D79_Update_BgModeRegisterFromQueue:
-
-; Original data gap before C08D92_Update_BgModeRegisterFromQueue_End:
-db $08,$E2,$20,$EB,$AD,$0F,$00,$29,$F0,$8D,$0F,$00,$EB,$0D,$0F,$00
-db $8D,$0F,$00,$8F,$05,$21,$00,$28,$6B
-
-C08D92_Update_BgModeRegisterFromQueue_End:
+    php
+    sep #$20
+    xba
+    lda $000F
+    and.b #$F0
+    sta $000F
+    xba
+    ora $000F
+    sta $000F
+    sta $002105
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10821,11 +20207,12 @@ hirom
 org $C08D92
 
 C08D92_Update_ObselRegisterFromQueue:
-
-; Original data gap before C08D9E_Update_ObselRegisterFromQueue_End:
-db $08,$E2,$20,$8D,$0E,$00,$8F,$01,$21,$00,$28,$6B
-
-C08D9E_Update_ObselRegisterFromQueue_End:
+    php
+    sep #$20
+    sta $000E
+    sta $002101
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10836,14 +20223,37 @@ hirom
 org $C08D9E
 
 C08D9E_Update_Bg1ScreenBaseRegistersFromQueue:
-
-; Original data gap before C08DDE_Update_Bg1ScreenBaseRegistersFromQueue_End:
-db $08,$E2,$20,$C2,$10,$29,$03,$8D,$11,$00,$C2,$20,$8A,$EB,$E2,$20
-db $29,$FC,$0D,$11,$00,$8D,$11,$00,$8F,$07,$21,$00,$AD,$15,$00,$29
-db $F0,$8D,$15,$00,$C2,$20,$9C,$31,$00,$9C,$33,$00,$98,$EB,$E2,$20
-db $4A,$4A,$4A,$4A,$0D,$15,$00,$8D,$15,$00,$8F,$0B,$21,$00,$28,$6B
-
-C08DDE_Update_Bg1ScreenBaseRegistersFromQueue_End:
+    php
+    sep #$20
+    rep #$10
+    and.b #$03
+    sta $0011
+    rep #$20
+    txa
+    xba
+    sep #$20
+    and.b #$FC
+    ora $0011
+    sta $0011
+    sta $002107
+    lda $0015
+    and.b #$F0
+    sta $0015
+    rep #$20
+    stz $0031
+    stz $0033
+    tya
+    xba
+    sep #$20
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    ora $0015
+    sta $0015
+    sta $00210B
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10854,14 +20264,34 @@ hirom
 org $C08DDE
 
 C08DDE_Update_Bg2ScreenBaseRegistersFromQueue:
-
-; Original data gap before C08E1C_Update_Bg2ScreenBaseRegistersFromQueue_End:
-db $08,$E2,$20,$C2,$10,$29,$03,$8D,$12,$00,$C2,$20,$8A,$EB,$E2,$20
-db $29,$FC,$0D,$12,$00,$8D,$12,$00,$8F,$08,$21,$00,$AD,$15,$00,$29
-db $0F,$8D,$15,$00,$C2,$20,$9C,$35,$00,$9C,$37,$00,$98,$EB,$E2,$20
-db $29,$F0,$0D,$15,$00,$8D,$15,$00,$8F,$0B,$21,$00,$28,$6B
-
-C08E1C_Update_Bg2ScreenBaseRegistersFromQueue_End:
+    php
+    sep #$20
+    rep #$10
+    and.b #$03
+    sta $0012
+    rep #$20
+    txa
+    xba
+    sep #$20
+    and.b #$FC
+    ora $0012
+    sta $0012
+    sta $002108
+    lda $0015
+    and.b #$0F
+    sta $0015
+    rep #$20
+    stz $0035
+    stz $0037
+    tya
+    xba
+    sep #$20
+    and.b #$F0
+    ora $0015
+    sta $0015
+    sta $00210B
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10872,14 +20302,37 @@ hirom
 org $C08E1C
 
 C08E1C_Update_Bg3ScreenBaseRegistersFromQueue:
-
-; Original data gap before C08E5C_Update_Bg3ScreenBaseRegistersFromQueue_End:
-db $08,$E2,$20,$C2,$10,$29,$03,$8D,$13,$00,$C2,$20,$8A,$EB,$E2,$20
-db $29,$FC,$0D,$13,$00,$8D,$13,$00,$8F,$09,$21,$00,$AD,$16,$00,$29
-db $F0,$8D,$16,$00,$C2,$20,$9C,$39,$00,$9C,$3B,$00,$98,$EB,$E2,$20
-db $4A,$4A,$4A,$4A,$0D,$16,$00,$8D,$16,$00,$8F,$0C,$21,$00,$28,$6B
-
-C08E5C_Update_Bg3ScreenBaseRegistersFromQueue_End:
+    php
+    sep #$20
+    rep #$10
+    and.b #$03
+    sta $0013
+    rep #$20
+    txa
+    xba
+    sep #$20
+    and.b #$FC
+    ora $0013
+    sta $0013
+    sta $002109
+    lda $0016
+    and.b #$F0
+    sta $0016
+    rep #$20
+    stz $0039
+    stz $003B
+    tya
+    xba
+    sep #$20
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    ora $0016
+    sta $0016
+    sta $00210C
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10890,18 +20343,63 @@ hirom
 org $C08E5C
 
 C08E5C_Update_Bg4ScreenBaseRegistersFromQueue:
-
-; Original data gap before C08ED2_Update_Bg4ScreenBaseRegistersFromQueue_End:
-db $08,$E2,$20,$C2,$10,$29,$03,$8D,$14,$00,$C2,$20,$8A,$EB,$E2,$20
-db $29,$FC,$0D,$14,$00,$8D,$14,$00,$8F,$0A,$21,$00,$AD,$16,$00,$29
-db $0F,$8D,$16,$00,$C2,$20,$9C,$3D,$00,$9C,$3F,$00,$98,$EB,$E2,$20
-db $29,$F0,$0D,$16,$00,$8D,$16,$00,$8F,$0C,$21,$00,$28,$6B,$08,$C2
-db $20,$AD,$24,$00,$E2,$20,$EB,$AD,$26,$00,$C2,$20,$8F,$02,$42,$00
-db $18,$69,$6D,$00,$8D,$26,$00,$AF,$16,$42,$00,$6A,$6A,$48,$29,$03
-db $00,$18,$6D,$24,$00,$6A,$90,$03,$09,$00,$80,$8D,$24,$00,$68,$6A
-db $6A,$29,$FF,$00,$28,$6B
-
-C08ED2_Update_Bg4ScreenBaseRegistersFromQueue_End:
+    php
+    sep #$20
+    rep #$10
+    and.b #$03
+    sta $0014
+    rep #$20
+    txa
+    xba
+    sep #$20
+    and.b #$FC
+    ora $0014
+    sta $0014
+    sta $00210A
+    lda $0016
+    and.b #$0F
+    sta $0016
+    rep #$20
+    stz $003D
+    stz $003F
+    tya
+    xba
+    sep #$20
+    and.b #$F0
+    ora $0016
+    sta $0016
+    sta $00210C
+    plp
+    rtl
+    php
+    rep #$20
+    lda $0024
+    sep #$20
+    xba
+    lda $0026
+    rep #$20
+    sta $004202
+    clc
+    adc.w #$006D
+    sta $0026
+    lda $004216
+    ror A
+    ror A
+    pha
+    and.w #$0003
+    clc
+    adc $0024
+    ror A
+    bcc C08EC7_Update_Bg4ScreenBaseRegistersFromQueue_L8EC7
+    ora.w #$8000
+C08EC7_Update_Bg4ScreenBaseRegistersFromQueue_L8EC7:
+    sta $0024
+    pla
+    ror A
+    ror A
+    and.w #$00FF
+    plp
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10958,12 +20456,15 @@ hirom
 org $C08FE6
 
 C08FE6_Multiply8x8_ViaHardwareRegisters:
-
-; Original data gap before C08FF7_Multiply8x8_ViaHardwareRegisters_End:
-db $EB,$98,$C2,$20,$8F,$02,$42,$00,$EA,$EA,$AF,$16,$42,$00,$E2,$20
-db $6B
-
-C08FF7_Multiply8x8_ViaHardwareRegisters_End:
+    xba
+    tya
+    rep #$20
+    sta $004202
+    nop
+    nop
+    lda $004216
+    sep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10974,14 +20475,38 @@ hirom
 org $C08FF7
 
 C08FF7_Multiply16By8_ViaHardwareRegisters:
-
-; Original data gap before C09032_Multiply16By8_ViaHardwareRegisters_End:
-db $C2,$10,$EB,$F0,$26,$E2,$20,$EB,$48,$98,$C2,$20,$8F,$02,$42,$00
-db $EA,$EA,$AF,$16,$42,$00,$A8,$E2,$20,$68,$8F,$03,$42,$00,$C2,$20
-db $98,$EB,$29,$00,$FF,$18,$6F,$16,$42,$00,$6B,$E2,$20,$98,$C2,$20
-db $8F,$02,$42,$00,$EA,$EA,$AF,$16,$42,$00,$6B
-
-C09032_Multiply16By8_ViaHardwareRegisters_End:
+    rep #$10
+    xba
+    beq C09022_Multiply16By8_ViaHardwareRegisters_L9022
+    sep #$20
+    xba
+    pha
+    tya
+    rep #$20
+    sta $004202
+    nop
+    nop
+    lda $004216
+    tay
+    sep #$20
+    pla
+    sta $004203
+    rep #$20
+    tya
+    xba
+    and.w #$FF00
+    clc
+    adc $004216
+    rtl
+C09022_Multiply16By8_ViaHardwareRegisters_L9022:
+    sep #$20
+    tya
+    rep #$20
+    sta $004202
+    nop
+    nop
+    lda $004216
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -10991,30 +20516,146 @@ C09032_Multiply16By8_ViaHardwareRegisters_End:
 hirom
 org $C09032
 
+!C09032_DivideUnsignedWordByIndex = $C09032
 C09032_Multiply16By16_ViaHardwareRegisters:
-
-; Original data gap before C0915B_Multiply16By16_ViaHardwareRegisters_End:
-db $8C,$B4,$00,$8D,$B6,$00,$9C,$B2,$00,$EE,$C4,$00,$AD,$B5,$00,$E2
-db $20,$98,$C2,$20,$8F,$02,$42,$00,$AC,$B5,$00,$C2,$20,$AF,$16,$42
-db $00,$8D,$B0,$00,$98,$8F,$02,$42,$00,$AD,$B6,$00,$E2,$20,$AD,$B4
-db $00,$C2,$20,$A8,$AF,$16,$42,$00,$18,$6D,$B1,$00,$8D,$B1,$00,$98
-db $8F,$02,$42,$00,$EA,$AD,$B1,$00,$18,$6F,$16,$42,$00,$8D,$B1,$00
-db $AD,$B0,$00,$6B,$A5,$08,$8D,$BA,$00,$A5,$06,$8D,$B8,$00,$A4,$0A
-db $22,$32,$90,$C0,$85,$06,$AD,$B4,$00,$E2,$20,$AD,$B7,$00,$C2,$20
-db $8F,$02,$42,$00,$AD,$B2,$00,$EA,$18,$6F,$16,$42,$00,$85,$08,$AD
-db $B8,$00,$A4,$0C,$22,$32,$90,$C0,$18,$65,$08,$85,$08,$AD,$BA,$00
-db $A4,$0A,$22,$32,$90,$C0,$18,$65,$08,$85,$08,$6B,$48,$8C,$B4,$00
-db $4D,$B4,$00,$8D,$B4,$00,$68,$22,$1E,$91,$C0,$2E,$B4,$00,$90,$03
-db $49,$FF,$1A,$6B,$48,$8C,$B4,$00,$4D,$B4,$00,$8D,$B4,$00,$68,$22
-db $4B,$91,$C0,$2E,$B4,$00,$90,$04,$49,$FF,$FF,$1A,$6B,$A5,$08,$45
-db $0C,$8D,$B4,$00,$22,$7C,$91,$C0,$2E,$B4,$00,$90,$0E,$A9,$00,$00
-db $E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$6B,$48,$98,$10,$04
-db $49,$FF,$1A,$A8,$68,$10,$03,$49,$FF,$1A,$8F,$04,$42,$00,$A9,$00
-db $8F,$05,$42,$00,$98,$8F,$06,$42,$00,$EA,$EA,$EA,$EA,$EA,$EA,$AF
-db $16,$42,$00,$A8,$AF,$14,$42,$00,$6B,$48,$98,$10,$05,$49,$FF,$FF
-db $1A,$A8,$68,$10,$04,$49,$FF,$FF,$1A
-
-C0915B_Multiply16By16_ViaHardwareRegisters_End:
+    sty $00B4
+    sta $00B6
+    stz $00B2
+    inc $00C4
+    lda $00B5
+    sep #$20
+    tya
+    rep #$20
+    sta $004202
+    ldy $00B5
+    rep #$20
+    lda $004216
+    sta $00B0
+    tya
+    sta $004202
+    lda $00B6
+    sep #$20
+    lda $00B4
+    rep #$20
+    tay
+    lda $004216
+    clc
+    adc $00B1
+    sta $00B1
+    tya
+    sta $004202
+    nop
+    lda $00B1
+    clc
+    adc $004216
+    sta $00B1
+    lda $00B0
+    rtl
+    lda $08
+    sta $00BA
+    lda $06
+    sta $00B8
+    ldy $0A
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    sta $06
+    lda $00B4
+    sep #$20
+    lda $00B7
+    rep #$20
+    sta $004202
+    lda $00B2
+    nop
+    clc
+    adc $004216
+    sta $08
+    lda $00B8
+    ldy $0C
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    clc
+    adc $08
+    sta $08
+    lda $00BA
+    ldy $0A
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    clc
+    adc $08
+    sta $08
+    rtl
+    pha
+    sty $00B4
+    eor $00B4
+    sta $00B4
+    pla
+    jsl C0911E_Multiply16By16_ViaHardwareRegisters_L911E
+    rol $00B4
+    bcc C090E5_Multiply16By16_ViaHardwareRegisters_L90E5
+    eor.w #$1AFF
+C090E5_Multiply16By16_ViaHardwareRegisters_L90E5:
+    rtl
+    pha
+    sty $00B4
+    eor $00B4
+    sta $00B4
+    pla
+    jsl C0914B_Multiply16By16_ViaHardwareRegisters_L914B
+    rol $00B4
+    bcc C090FE_Multiply16By16_ViaHardwareRegisters_L90FE
+    eor.w #$FFFF
+    inc A
+C090FE_Multiply16By16_ViaHardwareRegisters_L90FE:
+    rtl
+    lda $08
+    eor $0C
+    sta $00B4
+    jsl $C0917C
+    rol $00B4
+    bcc C0911D_Multiply16By16_ViaHardwareRegisters_L911D
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+C0911D_Multiply16By16_ViaHardwareRegisters_L911D:
+    rtl
+C0911E_Multiply16By16_ViaHardwareRegisters_L911E:
+    pha
+    tya
+    bpl C09126_Multiply16By16_ViaHardwareRegisters_L9126
+    eor.w #$1AFF
+    tay
+C09126_Multiply16By16_ViaHardwareRegisters_L9126:
+    pla
+    bpl C0912C_Multiply16By16_ViaHardwareRegisters_L912C
+    eor.w #$1AFF
+C0912C_Multiply16By16_ViaHardwareRegisters_L912C:
+    sta $004204
+    lda.w #$8F00
+    ora $42
+    brk #$98
+    sta $004206
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    lda $004216
+    tay
+    lda $004214
+    rtl
+C0914B_Multiply16By16_ViaHardwareRegisters_L914B:
+    pha
+    tya
+    bpl C09154_Multiply16By16_ViaHardwareRegisters_L9154
+    eor.w #$FFFF
+    inc A
+    tay
+C09154_Multiply16By16_ViaHardwareRegisters_L9154:
+    pla
+    db $10, $04
+    eor.w #$FFFF
+    inc A
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11024,29 +20665,168 @@ C0915B_Multiply16By16_ViaHardwareRegisters_End:
 hirom
 org $C0915B
 
+!C0915B_DivideUnsignedWordByY = $C0915B
 C0915B_NormalizeFixedPointDivisionResult:
-
-; Original data gap before C09279_NormalizeFixedPointDivisionResult_End:
-db $8D,$B0,$00,$8C,$B2,$00,$A9,$00,$00,$A0,$10,$00,$2E,$B0,$00,$2A
-db $CD,$B2,$00,$90,$03,$ED,$B2,$00,$88,$D0,$F1,$A8,$AD,$B0,$00,$2A
-db $6B,$A5,$08,$10,$11,$49,$FF,$FF,$85,$08,$A5,$06,$49,$FF,$FF,$1A
-db $85,$06,$D0,$02,$E6,$08,$A5,$0C,$10,$11,$49,$FF,$FF,$85,$0C,$A5
-db $0A,$49,$FF,$FF,$1A,$85,$0A,$D0,$02,$E6,$0C,$A5,$0A,$8D,$B0,$00
-db $A5,$0C,$8D,$B2,$00,$64,$0A,$64,$0C,$A0,$20,$00,$26,$06,$26,$08
-db $26,$0A,$26,$0C,$A5,$0C,$CD,$B2,$00,$D0,$05,$A5,$0A,$CD,$B0,$00
-db $90,$0E,$A5,$0A,$ED,$B0,$00,$85,$0A,$A5,$0C,$ED,$B2,$00,$85,$0C
-db $88,$D0,$D9,$26,$06,$26,$08,$6B,$8D,$B4,$00,$22,$1E,$91,$C0,$98
-db $2E,$B4,$00,$90,$03,$49,$FF,$1A,$6B,$8D,$B4,$00,$22,$4B,$91,$C0
-db $98,$2E,$B4,$00,$90,$04,$49,$FF,$FF,$1A,$6B,$A5,$08,$8D,$B4,$00
-db $22,$7C,$91,$C0,$2E,$B4,$00,$90,$0E,$A9,$00,$00,$E5,$0A,$85,$06
-db $A9,$00,$00,$E5,$0C,$80,$06,$A5,$0A,$85,$06,$A5,$0C,$85,$08,$6B
-db $22,$2C,$91,$C0,$98,$6B,$22,$5B,$91,$C0,$98,$6B,$22,$A6,$91,$C0
-db $80,$E5,$0A,$88,$10,$FC,$6B,$06,$06,$26,$08,$88,$10,$F9,$6B,$C9
-db $00,$10,$03,$30,$07,$4A,$88,$10,$FC,$6B,$38,$6A,$88,$10,$FB,$6B
-db $C9,$00,$00,$10,$F1,$30,$F5,$A5,$08,$10,$06,$30,$0D,$46,$08,$66
-db $06,$88,$10,$F9,$6B,$38,$66,$08,$66,$06,$88,$10,$F8,$6B
-
-C09279_NormalizeFixedPointDivisionResult_End:
+    sta $00B0
+    sty $00B2
+    lda.w #$0000
+    ldy.w #$0010
+C09167_NormalizeFixedPointDivisionResult_L9167:
+    rol $00B0
+    rol A
+    cmp $00B2
+    bcc C09173_NormalizeFixedPointDivisionResult_L9173
+    sbc $00B2
+C09173_NormalizeFixedPointDivisionResult_L9173:
+    dey
+    bne C09167_NormalizeFixedPointDivisionResult_L9167
+    tay
+    lda $00B0
+    rol A
+    rtl
+C0917C_NormalizeFixedPointDivisionResult_L917C:
+    lda $08
+    bpl C09191_NormalizeFixedPointDivisionResult_L9191
+    eor.w #$FFFF
+    sta $08
+    lda $06
+    eor.w #$FFFF
+    inc A
+    sta $06
+    bne C09191_NormalizeFixedPointDivisionResult_L9191
+    inc $08
+C09191_NormalizeFixedPointDivisionResult_L9191:
+    lda $0C
+    bpl C091A6_NormalizeFixedPointDivisionResult_L91A6
+    eor.w #$FFFF
+    sta $0C
+    lda $0A
+    eor.w #$FFFF
+    inc A
+    sta $0A
+    bne C091A6_NormalizeFixedPointDivisionResult_L91A6
+    inc $0C
+C091A6_NormalizeFixedPointDivisionResult_L91A6:
+    lda $0A
+    sta $00B0
+    lda $0C
+    sta $00B2
+    stz $0A
+    stz $0C
+    ldy.w #$0020
+C091B7_NormalizeFixedPointDivisionResult_L91B7:
+    rol $06
+    rol $08
+    rol $0A
+    rol $0C
+    lda $0C
+    cmp $00B2
+    bne C091CB_NormalizeFixedPointDivisionResult_L91CB
+    lda $0A
+    cmp $00B0
+C091CB_NormalizeFixedPointDivisionResult_L91CB:
+    bcc C091DB_NormalizeFixedPointDivisionResult_L91DB
+    lda $0A
+    sbc $00B0
+    sta $0A
+    lda $0C
+    sbc $00B2
+    sta $0C
+C091DB_NormalizeFixedPointDivisionResult_L91DB:
+    dey
+    bne C091B7_NormalizeFixedPointDivisionResult_L91B7
+    rol $06
+    rol $08
+    rtl
+    sta $00B4
+    jsl $C0911E
+    tya
+    rol $00B4
+    bcc C091F3_NormalizeFixedPointDivisionResult_L91F3
+    eor.w #$1AFF
+C091F3_NormalizeFixedPointDivisionResult_L91F3:
+    rtl
+    sta $00B4
+    jsl $C0914B
+    tya
+    rol $00B4
+    bcc C09205_NormalizeFixedPointDivisionResult_L9205
+    eor.w #$FFFF
+    inc A
+C09205_NormalizeFixedPointDivisionResult_L9205:
+    rtl
+    lda $08
+    sta $00B4
+    jsl C0917C_NormalizeFixedPointDivisionResult_L917C
+    rol $00B4
+    bcc C09222_NormalizeFixedPointDivisionResult_L9222
+    lda.w #$0000
+    sbc $0A
+    sta $06
+    lda.w #$0000
+    sbc $0C
+    bra C09228_NormalizeFixedPointDivisionResult_L9228
+C09222_NormalizeFixedPointDivisionResult_L9222:
+    lda $0A
+    sta $06
+    lda $0C
+C09228_NormalizeFixedPointDivisionResult_L9228:
+    sta $08
+    rtl
+    jsl $C0912C
+    tya
+    rtl
+    jsl C0915B_NormalizeFixedPointDivisionResult
+    tya
+    rtl
+    jsl C091A6_NormalizeFixedPointDivisionResult_L91A6
+    bra C09222_NormalizeFixedPointDivisionResult_L9222
+C0923D_NormalizeFixedPointDivisionResult_L923D:
+    asl A
+    dey
+    bpl C0923D_NormalizeFixedPointDivisionResult_L923D
+    rtl
+C09242_NormalizeFixedPointDivisionResult_L9242:
+    asl $06
+    rol $08
+    dey
+    bpl C09242_NormalizeFixedPointDivisionResult_L9242
+    rtl
+    cmp.w #$1000
+    ora $30,S
+    ora [$4A]
+C09251_NormalizeFixedPointDivisionResult_L9251:
+    dey
+    db $10, $FC
+    rtl
+C09255_NormalizeFixedPointDivisionResult_L9255:
+    sec
+    ror A
+C09257_NormalizeFixedPointDivisionResult_L9257:
+    dey
+    bpl C09255_NormalizeFixedPointDivisionResult_L9255
+    rtl
+    cmp.w #$0000
+    bpl C09251_NormalizeFixedPointDivisionResult_L9251
+    bmi C09257_NormalizeFixedPointDivisionResult_L9257
+    lda $08
+    bpl C0926C_NormalizeFixedPointDivisionResult_L926C
+    bmi C09275_NormalizeFixedPointDivisionResult_L9275
+C09268_NormalizeFixedPointDivisionResult_L9268:
+    lsr $08
+    ror $06
+C0926C_NormalizeFixedPointDivisionResult_L926C:
+    dey
+    bpl C09268_NormalizeFixedPointDivisionResult_L9268
+    rtl
+C09270_NormalizeFixedPointDivisionResult_L9270:
+    sec
+    ror $08
+    ror $06
+C09275_NormalizeFixedPointDivisionResult_L9275:
+    dey
+    bpl C09270_NormalizeFixedPointDivisionResult_L9270
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11057,11 +20837,7 @@ hirom
 org $C09279
 
 C09279_Dispatch_DelayedActionTarget:
-
-; Original data gap before C0927C_Dispatch_DelayedActionTarget_End:
-db $DC,$BC,$00
-
-C0927C_Dispatch_DelayedActionTarget_End:
+    jml [$00BC]
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11072,21 +20848,79 @@ hirom
 org $C0927C
 
 C0927C_Init_DelayedActionPools:
-
-; Original data gap before C09321_Init_DelayedActionPools_End:
-db $A9,$0F,$DB,$8D,$5E,$0A,$A2,$FF,$FF,$8E,$50,$0A,$8E,$D8,$0A,$8E
-db $E4,$12,$E8,$8E,$52,$0A,$8E,$54,$0A,$18,$A2,$38,$00,$8A,$69,$02
-db $00,$9D,$9E,$0A,$CA,$CA,$10,$F5,$A2,$88,$00,$8A,$69,$02,$00,$9D
-db $5A,$12,$CA,$CA,$10,$F5,$A2,$3A,$00,$A9,$FF,$FF,$9D,$62,$0A,$CA
-db $CA,$10,$F9,$A2,$3A,$00,$9E,$6A,$11,$9E,$B6,$10,$CA,$CA,$10,$F6
-db $A2,$06,$00,$9E,$12,$1A,$9E,$1A,$1A,$9E,$22,$1A,$9E,$32,$1A,$9E
-db $2A,$1A,$9E,$3A,$1A,$9E,$02,$1A,$9E,$0A,$1A,$9E,$3E,$10,$CA,$CA
-db $10,$E1,$20,$00,$00,$9C,$60,$0A,$6B,$48,$9C,$48,$0A,$9C,$38,$0A
-db $9C,$3A,$0A,$9C,$3C,$0A,$9C,$3E,$0A,$9C,$40,$0A,$9C,$42,$0A,$9C
-db $44,$0A,$9C,$46,$0A,$9C,$4A,$0A,$A9,$00,$00,$8D,$4C,$0A,$A9,$1E
-db $00,$8D,$4E,$0A,$68
-
-C09321_Init_DelayedActionPools_End:
+    lda.w #$DB0F
+    sta $0A5E
+    ldx.w #$FFFF
+    stx $0A50
+    stx $0AD8
+    stx $12E4
+    inx
+    stx $0A52
+    stx $0A54
+    clc
+    ldx.w #$0038
+C09299_Init_DelayedActionPools_L9299:
+    txa
+    adc.w #$0002
+    sta $0A9E,X
+    dex
+    dex
+    bpl C09299_Init_DelayedActionPools_L9299
+    ldx.w #$0088
+C092A7_Init_DelayedActionPools_L92A7:
+    txa
+    adc.w #$0002
+    sta $125A,X
+    dex
+    dex
+    bpl C092A7_Init_DelayedActionPools_L92A7
+    ldx.w #$003A
+    lda.w #$FFFF
+C092B8_Init_DelayedActionPools_L92B8:
+    sta $0A62,X
+    dex
+    dex
+    bpl C092B8_Init_DelayedActionPools_L92B8
+    ldx.w #$003A
+C092C2_Init_DelayedActionPools_L92C2:
+    stz $116A,X
+    stz $10B6,X
+    dex
+    dex
+    bpl C092C2_Init_DelayedActionPools_L92C2
+    ldx.w #$0006
+C092CF_Init_DelayedActionPools_L92CF:
+    stz $1A12,X
+    stz $1A1A,X
+    stz $1A22,X
+    stz $1A32,X
+    stz $1A2A,X
+    stz $1A3A,X
+    stz $1A02,X
+    stz $1A0A,X
+    stz $103E,X
+    dex
+    dex
+    bpl C092CF_Init_DelayedActionPools_L92CF
+    jsr $0000
+    stz $0A60
+    rtl
+    pha
+    stz $0A48
+    stz $0A38
+    stz $0A3A
+    stz $0A3C
+    stz $0A3E
+    stz $0A40
+    stz $0A42
+    stz $0A44
+    stz $0A46
+    stz $0A4A
+    lda.w #$0000
+    sta $0A4C
+    lda.w #$001E
+    sta $0A4E
+    pla
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11097,26 +20931,118 @@ hirom
 org $C09321
 
 C09321_Init_DelayedActionState:
-
-; Original data gap before C0941E_Init_DelayedActionState_End:
-db $48,$5A,$DA,$AD,$4C,$0A,$0A,$8D,$4C,$0A,$AD,$4E,$0A,$0A,$8D,$4E
-db $0A,$20,$02,$9C,$90,$07,$68,$68,$68,$A9,$00,$00,$6B,$20,$03,$9D
-db $98,$9D,$DA,$0A,$A9,$FF,$FF,$99,$5A,$12,$A9,$C8,$9F,$9D,$1E,$12
-db $A9,$23,$A0,$9D,$A6,$11,$A9,$A4,$A3,$9D,$E2,$11,$AD,$38,$0A,$9D
-db $5E,$0E,$AD,$3A,$0A,$9D,$9A,$0E,$AD,$3C,$0A,$9D,$D6,$0E,$AD,$3E
-db $0A,$9D,$12,$0F,$AD,$40,$0A,$9D,$4E,$0F,$AD,$42,$0A,$9D,$8A,$0F
-db $AD,$44,$0A,$9D,$C6,$0F,$AD,$46,$0A,$9D,$02,$10,$AD,$4A,$0A,$9D
-db $3E,$10,$A9,$00,$80,$9D,$42,$0C,$9D,$7E,$0C,$9D,$BA,$0C,$68,$9D
-db $8E,$0B,$9D,$16,$0B,$68,$9D,$CA,$0B,$9D,$52,$0B,$AD,$48,$0A,$9D
-db $06,$0C,$20,$57,$9C,$68,$80,$12,$48,$20,$99,$9C,$20,$03,$9D,$98
-db $9D,$DA,$0A,$A9,$FF,$FF,$99,$5A,$12,$68,$9D,$62,$0A,$DA,$0A,$7D
-db $62,$0A,$9B,$AA,$BF,$D6,$00,$C4,$A8,$BF,$D4,$00,$C4,$FA,$9E,$F2
-db $10,$DE,$F2,$10,$9E,$AA,$0D,$9E,$F6,$0C,$9E,$E6,$0D,$9E,$32,$0D
-db $9E,$22,$0E,$9E,$6E,$0D,$80,$25,$48,$8A,$0A,$AA,$68,$22,$03,$94
-db $C0,$6B,$5A,$48,$BD,$62,$0A,$10,$02,$80,$FE,$20,$99,$9C,$20,$03
-db $9D,$98,$9D,$DA,$0A,$A9,$FF,$FF,$99,$5A,$12,$68,$7A
-
-C0941E_Init_DelayedActionState_End:
+    pha
+    phy
+    phx
+    lda $0A4C
+    asl A
+    sta $0A4C
+    lda $0A4E
+    asl A
+    sta $0A4E
+    jsr $9C02
+    bcc C0933E_Init_DelayedActionState_L933E
+    pla
+    pla
+    pla
+    lda.w #$0000
+    rtl
+C0933E_Init_DelayedActionState_L933E:
+    jsr $9D03
+    tya
+    sta $0ADA,X
+    lda.w #$FFFF
+    sta $125A,Y
+    lda.w #$9FC8
+    sta $121E,X
+    lda.w #$A023
+    sta $11A6,X
+    lda.w #$A3A4
+    sta $11E2,X
+    lda $0A38
+    sta $0E5E,X
+    lda $0A3A
+    sta $0E9A,X
+    lda $0A3C
+    sta $0ED6,X
+    lda $0A3E
+    sta $0F12,X
+    lda $0A40
+    sta $0F4E,X
+    lda $0A42
+    sta $0F8A,X
+    lda $0A44
+    sta $0FC6,X
+    lda $0A46
+    sta $1002,X
+    lda $0A4A
+    sta $103E,X
+    lda.w #$8000
+    sta $0C42,X
+    sta $0C7E,X
+    sta $0CBA,X
+    pla
+    sta $0B8E,X
+    sta $0B16,X
+    pla
+    sta $0BCA,X
+    sta $0B52,X
+    lda $0A48
+    sta $0C06,X
+    jsr $9C57
+    pla
+    bra C093CB_Init_DelayedActionState_L93CB
+    pha
+    jsr $9C99
+    jsr $9D03
+    tya
+    sta $0ADA,X
+    lda.w #$FFFF
+    sta $125A,Y
+    pla
+C093CB_Init_DelayedActionState_L93CB:
+    sta $0A62,X
+    phx
+    asl A
+    adc $0A62,X
+    txy
+    tax
+    lda $C400D6,X
+    tay
+    lda $C400D4,X
+    plx
+    stz $10F2,X
+    dec $10F2,X
+    stz $0DAA,X
+    stz $0CF6,X
+    stz $0DE6,X
+    stz $0D32,X
+    stz $0E22,X
+    stz $0D6E,X
+    db $80, $25
+    pha
+    txa
+    asl A
+    tax
+    pla
+    jsl C09403_Init_DelayedActionState_L9403
+    rtl
+C09403_Init_DelayedActionState_L9403:
+    phy
+    pha
+    lda $0A62,X
+    bpl C0940C_Init_DelayedActionState_L940C
+C0940A_Init_DelayedActionState_L940A:
+    bra C0940A_Init_DelayedActionState_L940A
+C0940C_Init_DelayedActionState_L940C:
+    jsr $9C99
+    jsr $9D03
+    tya
+    sta $0ADA,X
+    lda.w #$FFFF
+    sta $125A,Y
+    pla
+    ply
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11127,12 +21053,22 @@ hirom
 org $C0941E
 
 C0941E_Init_TaskRecordScriptState:
-
-; Original data gap before C0943C_Init_TaskRecordScriptState_End:
-db $5A,$48,$20,$A1,$9D,$9B,$BE,$DA,$0A,$68,$9D,$FE,$13,$68,$29,$FF
-db $00,$9D,$8A,$14,$9E,$72,$13,$9E,$E6,$12,$98,$4A,$18,$6B
-
-C0943C_Init_TaskRecordScriptState_End:
+    phy
+    pha
+    jsr $9DA1
+    txy
+    ldx $0ADA,Y
+    pla
+    sta $13FE,X
+    pla
+    and.w #$00FF
+    sta $148A,X
+    stz $1372,X
+    stz $12E6,X
+    tya
+    lsr A
+    clc
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11143,17 +21079,60 @@ hirom
 org $C0943C
 
 C0943C_MarkWorldObjectChainForSetup:
-
-; Original data gap before C094AA_MarkWorldObjectChainForSetup_End:
-db $AE,$50,$0A,$30,$0F,$BD,$B6,$10,$09,$00,$C0,$9D,$B6,$10,$BD,$9E
-db $0A,$AA,$10,$F1,$6B,$AE,$50,$0A,$30,$0F,$BD,$B6,$10,$29,$FF,$3F
-db $9D,$B6,$10,$BD,$9E,$0A,$AA,$10,$F1,$6B,$AD,$60,$0A,$F0,$01,$6B
-db $5C,$70,$94,$80,$C2,$30,$C2,$20,$0B,$48,$7B,$38,$E9,$A0,$00,$29
-db $00,$FF,$5B,$68,$EE,$60,$0A,$AE,$50,$0A,$30,$43,$64,$80,$64,$86
-db $86,$88,$8E,$44,$1A,$8E,$42,$1A,$4E,$42,$1A,$BD,$9E,$0A,$8D,$56
-db $0A,$20,$D0,$94,$AE,$56,$0A,$10,$E7,$AE,$50,$0A,$30,$21
-
-C094AA_MarkWorldObjectChainForSetup_End:
+    ldx $0A50
+    bmi C09450_MarkWorldObjectChainForSetup_L9450
+C09441_MarkWorldObjectChainForSetup_L9441:
+    lda $10B6,X
+    ora.w #$C000
+    sta $10B6,X
+    lda $0A9E,X
+    tax
+    bpl C09441_MarkWorldObjectChainForSetup_L9441
+C09450_MarkWorldObjectChainForSetup_L9450:
+    rtl
+    ldx $0A50
+    bmi C09465_MarkWorldObjectChainForSetup_L9465
+C09456_MarkWorldObjectChainForSetup_L9456:
+    lda $10B6,X
+    and.w #$3FFF
+    sta $10B6,X
+    lda $0A9E,X
+    tax
+    bpl C09456_MarkWorldObjectChainForSetup_L9456
+C09465_MarkWorldObjectChainForSetup_L9465:
+    rtl
+    lda $0A60
+    beq C0946C_MarkWorldObjectChainForSetup_L946C
+    rtl
+C0946C_MarkWorldObjectChainForSetup_L946C:
+    jml $809470
+    rep #$30
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$00A0
+    and.w #$FF00
+    tcd
+    pla
+    inc $0A60
+    ldx $0A50
+    db $30, $43
+    stz $80
+    stz $86
+C0948C_MarkWorldObjectChainForSetup_L948C:
+    stx $88
+    stx $1A44
+    stx $1A42
+    lsr $1A42
+    lda $0A9E,X
+    sta $0A56
+    jsr $94D0
+    ldx $0A56
+    bpl C0948C_MarkWorldObjectChainForSetup_L948C
+    ldx $0A50
+    db $30, $21
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11164,16 +21143,46 @@ hirom
 org $C094AA
 
 C094AA_Process_ActiveTaskSlots:
-
-; Original data gap before C09506_Process_ActiveTaskSlots_End:
-db $8E,$42,$1A,$4E,$42,$1A,$86,$88,$3C,$B6,$10,$70,$03,$FC,$1E,$12
-db $FC,$A6,$11,$A6,$88,$BD,$9E,$0A,$AA,$10,$E5,$A2,$00,$00,$FC,$5E
-db $0A,$2B,$9C,$60,$0A,$6B,$3C,$B6,$10,$70,$1E,$BC,$DA,$0A,$84,$8A
-db $8C,$48,$1A,$8C,$46,$1A,$4E,$46,$1A,$B9,$5A,$12,$8D,$58,$0A,$20
-db $06,$95,$AC,$58,$0A,$10,$E7,$A6,$88,$BD,$B6,$10,$30,$0D,$8D,$5C
-db $0A,$BD,$7A,$10,$8D,$5A,$0A,$22,$9E,$9D,$C0,$60
-
-C09506_Process_ActiveTaskSlots_End:
+    stx $1A42
+    lsr $1A42
+    stx $88
+    bit $10B6,X
+    bvs C094BA_Process_ActiveTaskSlots_L94BA
+    jsr ($121E,X)
+C094BA_Process_ActiveTaskSlots_L94BA:
+    jsr ($11A6,X)
+    ldx $88
+    lda $0A9E,X
+    tax
+    bpl C094AA_Process_ActiveTaskSlots
+    ldx.w #$0000
+    jsr ($0A5E,X)
+    pld
+    stz $0A60
+    rtl
+    bit $10B6,X
+    bvs C094F3_Process_ActiveTaskSlots_L94F3
+    ldy $0ADA,X
+C094D8_Process_ActiveTaskSlots_L94D8:
+    sty $8A
+    sty $1A48
+    sty $1A46
+    lsr $1A46
+    lda $125A,Y
+    sta $0A58
+    jsr $9506
+    ldy $0A58
+    bpl C094D8_Process_ActiveTaskSlots_L94D8
+    ldx $88
+C094F3_Process_ActiveTaskSlots_L94F3:
+    lda $10B6,X
+    bmi C09505_Process_ActiveTaskSlots_L9505
+    sta $0A5C
+    lda $107A,X
+    sta $0A5A
+    jsl $C09D9E
+C09505_Process_ActiveTaskSlots_L9505:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11184,16 +21193,50 @@ hirom
 org $C09506
 
 C09506_Run_ActionScriptFrame:
-
-; Original data gap before C09558_Run_ActionScriptFrame_End:
-db $A6,$8A,$BD,$72,$13,$D0,$47,$BC,$FE,$13,$BD,$8A,$14,$85,$82,$8A
-db $0A,$0A,$0A,$69,$A2,$15,$85,$84,$B7,$80,$C8,$29,$FF,$00,$C9,$70
-db $00,$B0,$07,$0A,$AA,$FC,$58,$95,$80,$14,$85,$90,$29,$0F,$00,$9D
-db $72,$13,$A5,$90,$29,$70,$00,$4A,$4A,$4A,$AA,$FC,$E2,$95,$A6,$8A
-db $BD,$72,$13,$F0,$D3,$98,$9D,$FE,$13,$A5,$82,$9D,$8A,$14,$DE,$72
-db $13,$60
-
-C09558_Run_ActionScriptFrame_End:
+    ldx $8A
+    lda $1372,X
+    bne C09554_Run_ActionScriptFrame_L9554
+    ldy $13FE,X
+    lda $148A,X
+    sta $82
+    txa
+    asl A
+    asl A
+    asl A
+    adc.w #$15A2
+    sta $84
+C0951E_Run_ActionScriptFrame_L951E:
+    lda [$80],Y
+    iny
+    and.w #$00FF
+    cmp.w #$0070
+    bcs C09530_Run_ActionScriptFrame_L9530
+    asl A
+    tax
+    jsr ($9558,X)
+    bra C09544_Run_ActionScriptFrame_L9544
+C09530_Run_ActionScriptFrame_L9530:
+    sta $90
+    and.w #$000F
+    sta $1372,X
+    lda $90
+    and.w #$0070
+    lsr A
+    lsr A
+    lsr A
+    tax
+    jsr ($95E2,X)
+C09544_Run_ActionScriptFrame_L9544:
+    ldx $8A
+    lda $1372,X
+    beq C0951E_Run_ActionScriptFrame_L951E
+    tya
+    sta $13FE,X
+    lda $82
+    sta $148A,X
+C09554_Run_ActionScriptFrame_L9554:
+    dec $1372,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11320,11 +21363,10 @@ hirom
 org $C09AC5
 
 C09AC5_ScriptOp_MutateTarget_AND:
-
-; Original data gap before C09ACC_ScriptOp_MutateTarget_AND_End:
-db $B2,$8C,$25,$90,$92,$8C,$60
-
-C09ACC_ScriptOp_MutateTarget_AND_End:
+    lda ($8C)
+    and $90
+    sta ($8C)
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11335,11 +21377,10 @@ hirom
 org $C09ACC
 
 C09ACC_ScriptOp_MutateTarget_OR:
-
-; Original data gap before C09AD3_ScriptOp_MutateTarget_OR_End:
-db $B2,$8C,$05,$90,$92,$8C,$60
-
-C09AD3_ScriptOp_MutateTarget_OR_End:
+    lda ($8C)
+    ora $90
+    sta ($8C)
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11350,11 +21391,11 @@ hirom
 org $C09AD3
 
 C09AD3_ScriptOp_MutateTarget_ADD:
-
-; Original data gap before C09ADB_ScriptOp_MutateTarget_ADD_End:
-db $B2,$8C,$18,$65,$90,$92,$8C,$60
-
-C09ADB_ScriptOp_MutateTarget_ADD_End:
+    lda ($8C)
+    clc
+    adc $90
+    sta ($8C)
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11365,12 +21406,23 @@ hirom
 org $C09ADB
 
 C09ADB_ScriptOp_MutateTarget_EOR:
-
-; Original data gap before C09AF9_ScriptOp_MutateTarget_EOR_End:
-db $B2,$8C,$45,$90,$92,$8C,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$BF,$F9
-db $9A,$C0,$65,$88,$AA,$C8,$B7,$80,$9D,$00,$00,$C8,$C8,$60
-
-C09AF9_ScriptOp_MutateTarget_EOR_End:
+    lda ($8C)
+    eor $90
+    sta ($8C)
+    rts
+    lda [$80],Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $C09AF9,X
+    adc $88
+    tax
+    iny
+    lda [$80],Y
+    sta $0000,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11396,11 +21448,9 @@ hirom
 org $C09B09
 
 C09B09_ScriptOp_InitCurrentTaskRecordDefaults:
-
-; Original data gap before C09B0F_ScriptOp_InitCurrentTaskRecordDefaults_End:
-db $A6,$88,$20,$A1,$9D,$60
-
-C09B0F_ScriptOp_InitCurrentTaskRecordDefaults_End:
+    ldx $88
+    jsr $9DA1
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11411,11 +21461,16 @@ hirom
 org $C09B0F
 
 C09B0F_ScriptOp_WriteImmediateByteToAddress:
-
-; Original data gap before C09B1F_ScriptOp_WriteImmediateByteToAddress_End:
-db $B7,$80,$AA,$C8,$C8,$E2,$20,$B7,$80,$9D,$00,$00,$C2,$20,$C8,$60
-
-C09B1F_ScriptOp_WriteImmediateByteToAddress_End:
+    lda [$80],Y
+    tax
+    iny
+    iny
+    sep #$20
+    lda [$80],Y
+    sta $0000,X
+    rep #$20
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11426,11 +21481,15 @@ hirom
 org $C09B1F
 
 C09B1F_ScriptOp_WriteImmediateWordToAddress:
-
-; Original data gap before C09B2C_ScriptOp_WriteImmediateWordToAddress_End:
-db $B7,$80,$AA,$C8,$C8,$B7,$80,$9D,$00,$00,$C8,$C8,$60
-
-C09B2C_ScriptOp_WriteImmediateWordToAddress_End:
+    lda [$80],Y
+    tax
+    iny
+    iny
+    lda [$80],Y
+    sta $0000,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11441,12 +21500,20 @@ hirom
 org $C09B2C
 
 C09B2C_ScriptOp_BranchIfScratchZeroAndReturn:
-
-; Original data gap before C09B44_ScriptOp_BranchIfScratchZeroAndReturn_End:
-db $A6,$8A,$BD,$16,$15,$D0,$0E,$B7,$80,$A8,$BD,$E6,$12,$38,$E9,$03
-db $00,$9D,$E6,$12,$60,$C8,$C8,$60
-
-C09B44_ScriptOp_BranchIfScratchZeroAndReturn_End:
+    ldx $8A
+    lda $1516,X
+    bne C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41
+    lda [$80],Y
+    tay
+    lda $12E6,X
+    sec
+    sbc.w #$0003
+    sta $12E6,X
+    rts
+C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41:
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11457,11 +21524,10 @@ hirom
 org $C09B44
 
 C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn:
-
-; Original data gap before C09B4D_ScriptOp_BranchIfScratchNonzeroAndReturn_End:
-db $A6,$8A,$BD,$16,$15,$F0,$F6,$80,$E6
-
-C09B4D_ScriptOp_BranchIfScratchNonzeroAndReturn_End:
+    ldx $8A
+    lda $1516,X
+    db $F0, $F6
+    db $80, $E6
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11472,12 +21538,17 @@ hirom
 org $C09B4D
 
 C09B4D_ScriptOp_InstallFarDataPointer:
-
-; Original data gap before C09B61_ScriptOp_InstallFarDataPointer_End:
-db $A6,$88,$B7,$80,$9D,$2E,$11,$C8,$C8,$E2,$20,$B7,$80,$9D,$6A,$11
-db $C2,$20,$C8,$60
-
-C09B61_ScriptOp_InstallFarDataPointer_End:
+    ldx $88
+    lda [$80],Y
+    sta $112E,X
+    iny
+    iny
+    sep #$20
+    lda [$80],Y
+    sta $116A,X
+    rep #$20
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11488,11 +21559,12 @@ hirom
 org $C09B61
 
 C09B61_ScriptOp_LoadScratchImmediateWord:
-
-; Original data gap before C09B6B_ScriptOp_LoadScratchImmediateWord_End:
-db $B7,$80,$A6,$8A,$9D,$16,$15,$C8,$C8,$60
-
-C09B6B_ScriptOp_LoadScratchImmediateWord_End:
+    lda [$80],Y
+    ldx $8A
+    sta $1516,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11503,11 +21575,14 @@ hirom
 org $C09B6B
 
 C09B6B_ScriptOp_LoadScratchFromAddress:
-
-; Original data gap before C09B79_ScriptOp_LoadScratchFromAddress_End:
-db $B7,$80,$AA,$BD,$00,$00,$A6,$8A,$9D,$16,$15,$C8,$C8,$60
-
-C09B79_ScriptOp_LoadScratchFromAddress_End:
+    lda [$80],Y
+    tax
+    lda $0000,X
+    ldx $8A
+    sta $1516,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11518,12 +21593,18 @@ hirom
 org $C09B79
 
 C09B79_ScriptOp_StoreScratchToEntityVar:
-
-; Original data gap before C09B91_ScriptOp_StoreScratchToEntityVar_End:
-db $B7,$80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$65,$88,$85,$8C,$A6
-db $8A,$BD,$16,$15,$92,$8C,$C8,$60
-
-C09B91_ScriptOp_StoreScratchToEntityVar_End:
+    lda [$80],Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $C09AF9,X
+    adc $88
+    sta $8C
+    ldx $8A
+    lda $1516,X
+    sta ($8C)
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11534,12 +21615,18 @@ hirom
 org $C09B91
 
 C09B91_ScriptOp_LoadScratchFromEntityVar:
-
-; Original data gap before C09BA9_ScriptOp_LoadScratchFromEntityVar_End:
-db $B7,$80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$65,$88,$AA,$BD,$00
-db $00,$A6,$8A,$9D,$16,$15,$C8,$60
-
-C09BA9_ScriptOp_LoadScratchFromEntityVar_End:
+    lda [$80],Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $C09AF9,X
+    adc $88
+    tax
+    lda $0000,X
+    ldx $8A
+    sta $1516,X
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11550,11 +21637,12 @@ hirom
 org $C09BA9
 
 C09BA9_ScriptOp_CopyScratchToWaitCounterIfNonzero:
-
-; Original data gap before C09BB4_ScriptOp_CopyScratchToWaitCounterIfNonzero_End:
-db $A6,$8A,$BD,$16,$15,$F0,$03,$9D,$72,$13,$60
-
-C09BB4_ScriptOp_CopyScratchToWaitCounterIfNonzero_End:
+    ldx $8A
+    lda $1516,X
+    beq C09BB3_ScriptOp_CopyScratchToWaitCounterIfNonzero_L9BB3
+    sta $1372,X
+C09BB3_ScriptOp_CopyScratchToWaitCounterIfNonzero_L9BB3:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11565,12 +21653,18 @@ hirom
 org $C09BB4
 
 C09BB4_ScriptOp_LoadWaitCounterFromEntityVar:
-
-; Original data gap before C09BCC_ScriptOp_LoadWaitCounterFromEntityVar_End:
-db $B7,$80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$65,$88,$AA,$BD,$00
-db $00,$A6,$8A,$9D,$72,$13,$C8,$60
-
-C09BCC_ScriptOp_LoadWaitCounterFromEntityVar_End:
+    lda [$80],Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $C09AF9,X
+    adc $88
+    tax
+    lda $0000,X
+    ldx $8A
+    sta $1372,X
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11581,12 +21675,18 @@ hirom
 org $C09BCC
 
 C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar:
-
-; Original data gap before C09BE4_ScriptOp_LoadTaskField10F2FromEntityVar_End:
-db $B7,$80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$65,$88,$AA,$BD,$00
-db $00,$A6,$88,$9D,$F2,$10,$C8,$60
-
-C09BE4_ScriptOp_LoadTaskField10F2FromEntityVar_End:
+    lda [$80],Y
+    and.w #$00FF
+    asl A
+    tax
+    lda $C09AF9,X
+    adc $88
+    tax
+    lda $0000,X
+    ldx $88
+    sta $10F2,X
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11597,11 +21697,12 @@ hirom
 org $C09BE4
 
 C09BE4_ScriptOp_InstallTaskCallback11E2:
-
-; Original data gap before C09BEE_ScriptOp_InstallTaskCallback11E2_End:
-db $B7,$80,$A6,$88,$9D,$E2,$11,$C8,$C8,$60
-
-C09BEE_ScriptOp_InstallTaskCallback11E2_End:
+    lda [$80],Y
+    ldx $88
+    sta $11E2,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11612,11 +21713,12 @@ hirom
 org $C09BEE
 
 C09BEE_ScriptOp_InstallTaskCallback11A6:
-
-; Original data gap before C09BF8_ScriptOp_InstallTaskCallback11A6_End:
-db $B7,$80,$A6,$88,$9D,$A6,$11,$C8,$C8,$60
-
-C09BF8_ScriptOp_InstallTaskCallback11A6_End:
+    lda [$80],Y
+    ldx $88
+    sta $11A6,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11627,11 +21729,12 @@ hirom
 org $C09BF8
 
 C09BF8_ScriptOp_InstallTaskCallback121E:
-
-; Original data gap before C09C02_ScriptOp_InstallTaskCallback121E_End:
-db $B7,$80,$A6,$88,$9D,$1E,$12,$C8,$C8,$60
-
-C09C02_ScriptOp_InstallTaskCallback121E_End:
+    lda [$80],Y
+    ldx $88
+    sta $121E,X
+    iny
+    iny
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11642,16 +21745,55 @@ hirom
 org $C09C02
 
 C09C02_Alloc_TaskSlotOrFail:
-
-; Original data gap before C09C57_Alloc_TaskSlotOrFail_End:
-db $AD,$54,$0A,$30,$19,$A0,$FF,$FF,$AD,$52,$0A,$30,$11,$AA,$EC,$4C
-db $0A,$90,$05,$EC,$4E,$0A,$90,$08,$9B,$BD,$9E,$0A,$10,$EF,$38,$60
-db $98,$10,$08,$BD,$9E,$0A,$8D,$52,$0A,$18,$60,$BD,$9E,$0A,$99,$9E
-db $0A,$18,$60,$0A,$AA,$20,$3B,$9C,$6B,$48,$BD,$62,$0A,$30,$14,$5A
-db $A9,$FF,$FF,$9D,$62,$0A,$20,$A1,$9D,$20,$99,$9C,$20,$73,$9C,$20
-db $8F,$9C,$7A,$68,$60
-
-C09C57_Alloc_TaskSlotOrFail_End:
+    lda $0A54
+    bmi C09C20_Alloc_TaskSlotOrFail_L9C20
+    ldy.w #$FFFF
+    lda $0A52
+    bmi C09C20_Alloc_TaskSlotOrFail_L9C20
+C09C0F_Alloc_TaskSlotOrFail_L9C0F:
+    tax
+    cpx $0A4C
+    bcc C09C1A_Alloc_TaskSlotOrFail_L9C1A
+    cpx $0A4E
+    bcc C09C22_Alloc_TaskSlotOrFail_L9C22
+C09C1A_Alloc_TaskSlotOrFail_L9C1A:
+    txy
+    lda $0A9E,X
+    bpl C09C0F_Alloc_TaskSlotOrFail_L9C0F
+C09C20_Alloc_TaskSlotOrFail_L9C20:
+    sec
+    rts
+C09C22_Alloc_TaskSlotOrFail_L9C22:
+    tya
+    bpl C09C2D_Alloc_TaskSlotOrFail_L9C2D
+    lda $0A9E,X
+    sta $0A52
+    clc
+    rts
+C09C2D_Alloc_TaskSlotOrFail_L9C2D:
+    lda $0A9E,X
+    sta $0A9E,Y
+    clc
+    rts
+    asl A
+    tax
+    jsr.w C09C3B_Alloc_TaskSlotOrFail_L9C3B
+    rtl
+C09C3B_Alloc_TaskSlotOrFail_L9C3B:
+    pha
+    lda $0A62,X
+    bmi C09C55_Alloc_TaskSlotOrFail_L9C55
+    phy
+    lda.w #$FFFF
+    sta $0A62,X
+    jsr $9DA1
+    jsr $9C99
+    jsr $9C73
+    jsr $9C8F
+    ply
+C09C55_Alloc_TaskSlotOrFail_L9C55:
+    pla
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11662,12 +21804,21 @@ hirom
 org $C09C57
 
 C09C57_Link_TaskSlotIntoActiveList:
-
-; Original data gap before C09C73_Link_TaskSlotIntoActiveList_End:
-db $A9,$FF,$FF,$9D,$9E,$0A,$8A,$AE,$50,$0A,$10,$05,$8D,$50,$0A,$80
-db $09,$9B,$BE,$9E,$0A,$10,$FA,$99,$9E,$0A,$AA,$60
-
-C09C73_Link_TaskSlotIntoActiveList_End:
+    lda.w #$FFFF
+    sta $0A9E,X
+    txa
+    ldx $0A50
+    bpl C09C68_Link_TaskSlotIntoActiveList_L9C68
+    sta $0A50
+    bra C09C71_Link_TaskSlotIntoActiveList_L9C71
+C09C68_Link_TaskSlotIntoActiveList_L9C68:
+    txy
+    ldx $0A9E,Y
+    bpl C09C68_Link_TaskSlotIntoActiveList_L9C68
+    sta $0A9E,Y
+C09C71_Link_TaskSlotIntoActiveList_L9C71:
+    tax
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11678,12 +21829,20 @@ hirom
 org $C09C73
 
 C09C73_Detach_TaskSlotLink:
-
-; Original data gap before C09C8F_Detach_TaskSlotLink_End:
-db $20,$B5,$9C,$BD,$9E,$0A,$C0,$FF,$FF,$F0,$05,$99,$9E,$0A,$80,$03
-db $8D,$50,$0A,$EC,$56,$0A,$D0,$03,$8D,$56,$0A,$60
-
-C09C8F_Detach_TaskSlotLink_End:
+    jsr $9CB5
+    lda $0A9E,X
+    cpy.w #$FFFF
+    beq C09C83_Detach_TaskSlotLink_L9C83
+    sta $0A9E,Y
+    bra C09C86_Detach_TaskSlotLink_L9C86
+C09C83_Detach_TaskSlotLink_L9C83:
+    sta $0A50
+C09C86_Detach_TaskSlotLink_L9C86:
+    cpx $0A56
+    bne C09C8E_Detach_TaskSlotLink_L9C8E
+    sta $0A56
+C09C8E_Detach_TaskSlotLink_L9C8E:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11694,11 +21853,10 @@ hirom
 org $C09C8F
 
 C09C8F_Push_TaskSlotToFreeList:
-
-; Original data gap before C09C99_Push_TaskSlotToFreeList_End:
-db $AD,$52,$0A,$9D,$9E,$0A,$8E,$52,$0A,$60
-
-C09C99_Push_TaskSlotToFreeList_End:
+    lda $0A52
+    sta $0A9E,X
+    stx $0A52
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11709,14 +21867,44 @@ hirom
 org $C09C99
 
 C09C99_Restore_TaskRecordChain:
-
-; Original data gap before C09CD7_Restore_TaskRecordChain_End:
-db $BD,$DA,$0A,$30,$16,$DA,$AD,$54,$0A,$48,$BD,$DA,$0A,$8D,$54,$0A
-db $AA,$BD,$5A,$12,$10,$FA,$68,$9D,$5A,$12,$FA,$60,$C2,$20,$0B,$48
-db $7B,$38,$E9,$02,$00,$5B,$68,$86,$00,$A0,$FF,$FF,$AE,$50,$0A,$E4
-db $00,$F0,$07,$9B,$BD,$9E,$0A,$AA,$80,$F5,$A6,$00,$2B,$60
-
-C09CD7_Restore_TaskRecordChain_End:
+    lda $0ADA,X
+    bmi C09CB4_Restore_TaskRecordChain_L9CB4
+    phx
+    lda $0A54
+    pha
+    lda $0ADA,X
+    sta $0A54
+C09CA9_Restore_TaskRecordChain_L9CA9:
+    tax
+    lda $125A,X
+    bpl C09CA9_Restore_TaskRecordChain_L9CA9
+    pla
+    sta $125A,X
+    plx
+C09CB4_Restore_TaskRecordChain_L9CB4:
+    rts
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0002
+    tcd
+    pla
+    stx $00
+    ldy.w #$FFFF
+    ldx $0A50
+C09CC8_Restore_TaskRecordChain_L9CC8:
+    cpx $00
+    beq C09CD3_Restore_TaskRecordChain_L9CD3
+    txy
+    lda $0A9E,X
+    tax
+    bra C09CC8_Restore_TaskRecordChain_L9CC8
+C09CD3_Restore_TaskRecordChain_L9CD3:
+    ldx $00
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11727,13 +21915,30 @@ hirom
 org $C09CD7
 
 C09CD7_Compact_TaskSlotFreeList:
-
-; Original data gap before C09D03_Compact_TaskSlotFreeList_End:
-db $A9,$00,$80,$AE,$52,$0A,$80,$07,$BC,$9E,$0A,$9D,$9E,$0A,$BB,$10
-db $F7,$A2,$3A,$00,$A0,$FF,$FF,$BD,$9E,$0A,$C9,$00,$80,$D0,$05,$98
-db $9D,$9E,$0A,$9B,$CA,$CA,$10,$EF,$8C,$52,$0A,$6B
-
-C09D03_Compact_TaskSlotFreeList_End:
+    lda.w #$8000
+    ldx $0A52
+    bra C09CE6_Compact_TaskSlotFreeList_L9CE6
+C09CDF_Compact_TaskSlotFreeList_L9CDF:
+    ldy $0A9E,X
+    sta $0A9E,X
+    tyx
+C09CE6_Compact_TaskSlotFreeList_L9CE6:
+    bpl C09CDF_Compact_TaskSlotFreeList_L9CDF
+    ldx.w #$003A
+    ldy.w #$FFFF
+C09CEE_Compact_TaskSlotFreeList_L9CEE:
+    lda $0A9E,X
+    cmp.w #$8000
+    bne C09CFB_Compact_TaskSlotFreeList_L9CFB
+    tya
+    sta $0A9E,X
+    txy
+C09CFB_Compact_TaskSlotFreeList_L9CFB:
+    dex
+    dex
+    bpl C09CEE_Compact_TaskSlotFreeList_L9CEE
+    sty $0A52
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11744,11 +21949,15 @@ hirom
 org $C09D03
 
 C09D03_Pop_TaskRecordFromFreeList:
-
-; Original data gap before C09D12_Pop_TaskRecordFromFreeList_End:
-db $AC,$54,$0A,$10,$02,$38,$60,$B9,$5A,$12,$8D,$54,$0A,$18,$60
-
-C09D12_Pop_TaskRecordFromFreeList_End:
+    ldy $0A54
+    bpl C09D0A_Pop_TaskRecordFromFreeList_L9D0A
+    sec
+    rts
+C09D0A_Pop_TaskRecordFromFreeList_L9D0A:
+    lda $125A,Y
+    sta $0A54
+    clc
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11759,11 +21968,11 @@ hirom
 org $C09D12
 
 C09D12_Push_TaskRecordToFreeList:
-
-; Original data gap before C09D1F_Push_TaskRecordToFreeList_End:
-db $20,$1F,$9D,$AD,$54,$0A,$99,$5A,$12,$8C,$54,$0A,$60
-
-C09D1F_Push_TaskRecordToFreeList_End:
+    jsr $9D1F
+    lda $0A54
+    sta $125A,Y
+    sty $0A54
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11774,12 +21983,23 @@ hirom
 org $C09D1F
 
 C09D1F_Unlink_TaskRecordFromSlotChain:
-
-; Original data gap before C09D3E_Unlink_TaskRecordFromSlotChain_End:
-db $DA,$20,$3E,$9D,$B9,$5A,$12,$E0,$FF,$FF,$F0,$06,$9D,$5A,$12,$FA
-db $80,$04,$FA,$9D,$DA,$0A,$CC,$58,$0A,$D0,$03,$8D,$58,$0A,$60
-
-C09D3E_Unlink_TaskRecordFromSlotChain_End:
+    phx
+    jsr $9D3E
+    lda $125A,Y
+    cpx.w #$FFFF
+    beq C09D31_Unlink_TaskRecordFromSlotChain_L9D31
+    sta $125A,X
+    plx
+    bra C09D35_Unlink_TaskRecordFromSlotChain_L9D35
+C09D31_Unlink_TaskRecordFromSlotChain_L9D31:
+    plx
+    sta $0ADA,X
+C09D35_Unlink_TaskRecordFromSlotChain_L9D35:
+    cpy $0A58
+    bne C09D3D_Unlink_TaskRecordFromSlotChain_L9D3D
+    sta $0A58
+C09D3D_Unlink_TaskRecordFromSlotChain_L9D3D:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11790,13 +22010,28 @@ hirom
 org $C09D3E
 
 C09D3E_Find_TaskRecordPredecessor:
-
-; Original data gap before C09D60_Find_TaskRecordPredecessor_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$02,$00,$5B,$68,$84,$00,$BC,$DA,$0A
-db $A2,$FF,$FF,$C4,$00,$F0,$07,$BB,$B9,$5A,$12,$A8,$80,$F5,$A4,$00
-db $2B,$60
-
-C09D60_Find_TaskRecordPredecessor_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0002
+    tcd
+    pla
+    sty $00
+    ldy $0ADA,X
+    ldx.w #$FFFF
+C09D51_Find_TaskRecordPredecessor_L9D51:
+    cpy $00
+    beq C09D5C_Find_TaskRecordPredecessor_L9D5C
+    tyx
+    lda $125A,Y
+    tay
+    bra C09D51_Find_TaskRecordPredecessor_L9D51
+C09D5C_Find_TaskRecordPredecessor_L9D5C:
+    ldy $00
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11807,12 +22042,20 @@ hirom
 org $C09D60
 
 C09D60_Count_RecordLinksUntilY:
-
-; Original data gap before C09D78_Count_RecordLinksUntilY_End:
-db $84,$94,$64,$00,$BD,$DA,$0A,$C5,$94,$F0,$0A,$E6,$00,$A8,$B9,$5A
-db $12,$C5,$94,$D0,$F6,$A5,$00,$60
-
-C09D78_Count_RecordLinksUntilY_End:
+    sty $94
+    stz $00
+    lda $0ADA,X
+    cmp $94
+    beq C09D75_Count_RecordLinksUntilY_L9D75
+C09D6B_Count_RecordLinksUntilY_L9D6B:
+    inc $00
+    tay
+    lda $125A,Y
+    cmp $94
+    bne C09D6B_Count_RecordLinksUntilY_L9D6B
+C09D75_Count_RecordLinksUntilY_L9D75:
+    lda $00
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11823,13 +22066,33 @@ hirom
 org $C09D78
 
 C09D78_Select_NthTaskRecordInA:
-
-; Original data gap before C09DA1_Select_NthTaskRecordInA_End:
-db $BC,$DA,$0A,$3A,$30,$07,$B9,$5A,$12,$A8,$3A,$10,$F9,$60,$B7,$80
-db $C8,$29,$FF,$00,$6B,$B7,$80,$C8,$29,$FF,$00,$60,$B7,$80,$C8,$C8
-db $6B,$B7,$80,$C8,$C8,$60,$DC,$5A,$0A
-
-C09DA1_Select_NthTaskRecordInA_End:
+    ldy $0ADA,X
+    dec A
+    bmi C09D85_Select_NthTaskRecordInA_L9D85
+C09D7E_Select_NthTaskRecordInA_L9D7E:
+    lda $125A,Y
+    tay
+    dec A
+    bpl C09D7E_Select_NthTaskRecordInA_L9D7E
+C09D85_Select_NthTaskRecordInA_L9D85:
+    rts
+    lda [$80],Y
+    iny
+    and.w #$00FF
+    rtl
+    lda [$80],Y
+    iny
+    and.w #$00FF
+    rts
+    lda [$80],Y
+    iny
+    iny
+    rtl
+    lda [$80],Y
+    iny
+    iny
+    rts
+    jml [$0A5A]
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11840,11 +22103,11 @@ hirom
 org $C09DA1
 
 C09DA1_Init_TaskRecordDefaults:
-
-; Original data gap before C09DAE_Init_TaskRecordDefaults_End:
-db $A9,$3B,$94,$9D,$7A,$10,$A9,$C0,$00,$9D,$B6,$10,$60
-
-C09DAE_Init_TaskRecordDefaults_End:
+    lda.w #$943B
+    sta $107A,X
+    lda.w #$00C0
+    sta $10B6,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11855,16 +22118,42 @@ hirom
 org $C09DAE
 
 C09DAE_Script_CreateTask_DefaultSlotRange:
-
-; Original data gap before C09E0A_Script_CreateTask_DefaultSlotRange_End:
-db $9C,$4C,$0A,$A9,$3C,$00,$8D,$4E,$0A,$A6,$88,$20,$99,$9D,$85,$96
-db $20,$99,$9D,$18,$7D,$16,$0B,$85,$98,$20,$99,$9D,$18,$7D,$52,$0B
-db $85,$9A,$20,$99,$9D,$18,$7D,$06,$0C,$8D,$48,$0A,$20,$99,$9D,$8D
-db $38,$0A,$20,$99,$9D,$18,$7D,$9A,$0E,$8D,$3A,$0A,$8E,$3C,$0A,$9C
-db $3E,$0A,$9C,$40,$0A,$9C,$42,$0A,$9C,$44,$0A,$9C,$46,$0A,$84,$94
-db $A4,$9A,$A6,$98,$A5,$96,$29,$FF,$7F,$4C,$21,$93
-
-C09E0A_Script_CreateTask_DefaultSlotRange_End:
+    stz $0A4C
+    lda.w #$003C
+    sta $0A4E
+    ldx $88
+    jsr $9D99
+    sta $96
+    jsr $9D99
+    clc
+    adc $0B16,X
+    sta $98
+    jsr $9D99
+    clc
+    adc $0B52,X
+    sta $9A
+    jsr $9D99
+    clc
+    adc $0C06,X
+    sta $0A48
+    jsr $9D99
+    sta $0A38
+    jsr $9D99
+    clc
+    adc $0E9A,X
+    sta $0A3A
+    stx $0A3C
+    stz $0A3E
+    stz $0A40
+    stz $0A42
+    stz $0A44
+    stz $0A46
+    sty $94
+    ldy $9A
+    ldx $98
+    lda $96
+    and.w #$7FFF
+    jmp $9321
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11875,11 +22164,11 @@ hirom
 org $C09E0A
 
 C09E0A_Script_CreateTask_WithSlotRange:
-
-; Original data gap before C09E18_Script_CreateTask_WithSlotRange_End:
-db $20,$8D,$9D,$8D,$4C,$0A,$20,$8D,$9D,$8D,$4E,$0A,$80,$9F
-
-C09E18_Script_CreateTask_WithSlotRange_End:
+    jsr $9D8D
+    sta $0A4C
+    jsr $9D8D
+    sta $0A4E
+    db $80, $9F
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11890,11 +22179,12 @@ hirom
 org $C09E18
 
 C09E18_Script_CreateTask_OneSlotRange:
-
-; Original data gap before C09E25_Script_CreateTask_OneSlotRange_End:
-db $20,$8D,$9D,$8D,$4C,$0A,$1A,$1A,$8D,$4E,$0A,$80,$92
-
-C09E25_Script_CreateTask_OneSlotRange_End:
+    jsr $9D8D
+    sta $0A4C
+    inc A
+    inc A
+    sta $0A4E
+    db $80, $92
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11905,12 +22195,16 @@ hirom
 org $C09E25
 
 C09E25_Script_RecreateTaskInOneSlotRange:
-
-; Original data gap before C09E3B_Script_RecreateTaskInOneSlotRange_End:
-db $20,$8D,$9D,$8D,$4C,$0A,$AA,$1A,$1A,$8D,$4E,$0A,$84,$94,$20,$3B
-db $9C,$A4,$94,$4C,$B7,$9D
-
-C09E3B_Script_RecreateTaskInOneSlotRange_End:
+    jsr $9D8D
+    sta $0A4C
+    tax
+    inc A
+    inc A
+    sta $0A4E
+    sty $94
+    jsr $9C3B
+    ldy $94
+    jmp $9DB7
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11921,14 +22215,26 @@ hirom
 org $C09E3B
 
 C09E3B_Script_CreateTask_AbsolutePosition:
-
-; Original data gap before C09E71_Script_CreateTask_AbsolutePosition_End:
-db $9C,$4C,$0A,$A9,$3C,$00,$8D,$4E,$0A,$9C,$3A,$0A,$9C,$3E,$0A,$9C
-db $40,$0A,$9C,$42,$0A,$9C,$44,$0A,$9C,$46,$0A,$9C,$48,$0A,$20,$99
-db $9D,$AA,$20,$99,$9D,$84,$94,$8D,$38,$0A,$A5,$88,$8D,$3C,$0A,$8A
-db $29,$FF,$7F,$4C,$21,$93
-
-C09E71_Script_CreateTask_AbsolutePosition_End:
+    stz $0A4C
+    lda.w #$003C
+    sta $0A4E
+    stz $0A3A
+    stz $0A3E
+    stz $0A40
+    stz $0A42
+    stz $0A44
+    stz $0A46
+    stz $0A48
+    jsr $9D99
+    tax
+    jsr $9D99
+    sty $94
+    sta $0A38
+    lda $88
+    sta $0A3C
+    txa
+    and.w #$7FFF
+    jmp $9321
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11939,11 +22245,9 @@ hirom
 org $C09E71
 
 C09E71_Script_SetupTaskPath92F5:
-
-; Original data gap before C09E79_Script_SetupTaskPath92F5_End:
-db $20,$99,$9D,$84,$94,$4C,$F5,$92
-
-C09E79_Script_SetupTaskPath92F5_End:
+    jsr $9D99
+    sty $94
+    jmp $92F5
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11954,12 +22258,17 @@ hirom
 org $C09E79
 
 C09E79_Script_ReleaseTaskFromEntityVar:
-
-; Original data gap before C09E8E_Script_ReleaseTaskFromEntityVar_End:
-db $20,$8D,$9D,$84,$94,$0A,$AA,$BD,$F9,$9A,$18,$65,$88,$AA,$BD,$00
-db $00,$AA,$4C,$3B,$9C
-
-C09E8E_Script_ReleaseTaskFromEntityVar_End:
+    jsr $9D8D
+    sty $94
+    asl A
+    tax
+    lda $9AF9,X
+    clc
+    adc $88
+    tax
+    lda $0000,X
+    tax
+    jmp $9C3B
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11970,11 +22279,11 @@ hirom
 org $C09E8E
 
 C09E8E_Script_ReleaseExplicitTaskSlot:
-
-; Original data gap before C09E98_Script_ReleaseExplicitTaskSlot_End:
-db $20,$8D,$9D,$84,$94,$AA,$20,$3B,$9C,$6B
-
-C09E98_Script_ReleaseExplicitTaskSlot_End:
+    jsr $9D8D
+    sty $94
+    tax
+    jsr $9C3B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -11985,12 +22294,17 @@ hirom
 org $C09E98
 
 C09E98_Script_ReleaseAllOtherTasks:
-
-; Original data gap before C09EAC_Script_ReleaseAllOtherTasks_End:
-db $AE,$50,$0A,$BD,$9E,$0A,$85,$96,$E4,$88,$F0,$03,$20,$3B,$9C,$A6
-db $96,$10,$F0,$6B
-
-C09EAC_Script_ReleaseAllOtherTasks_End:
+    ldx $0A50
+C09E9B_Script_ReleaseAllOtherTasks_L9E9B:
+    lda $0A9E,X
+    sta $96
+    cpx $88
+    beq C09EA7_Script_ReleaseAllOtherTasks_L9EA7
+    jsr $9C3B
+C09EA7_Script_ReleaseAllOtherTasks_L9EA7:
+    ldx $96
+    bpl C09E9B_Script_ReleaseAllOtherTasks_L9E9B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12001,13 +22315,23 @@ hirom
 org $C09EAC
 
 C09EAC_Script_ReleaseTasksByStateExceptCurrent:
-
-; Original data gap before C09ECE_Script_ReleaseTasksByStateExceptCurrent_End:
-db $20,$99,$9D,$84,$94,$AE,$50,$0A,$BC,$9E,$0A,$84,$96,$DD,$62,$0A
-db $D0,$0B,$E4,$88,$F0,$07,$85,$98,$20,$3B,$9C,$A5,$98,$A6,$96,$10
-db $E7,$6B
-
-C09ECE_Script_ReleaseTasksByStateExceptCurrent_End:
+    jsr $9D99
+    sty $94
+    ldx $0A50
+C09EB4_Script_ReleaseTasksByStateExceptCurrent_L9EB4:
+    ldy $0A9E,X
+    sty $96
+    cmp $0A62,X
+    bne C09EC9_Script_ReleaseTasksByStateExceptCurrent_L9EC9
+    cpx $88
+    beq C09EC9_Script_ReleaseTasksByStateExceptCurrent_L9EC9
+    sta $98
+    jsr $9C3B
+    lda $98
+C09EC9_Script_ReleaseTasksByStateExceptCurrent_L9EC9:
+    ldx $96
+    bpl C09EB4_Script_ReleaseTasksByStateExceptCurrent_L9EB4
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12018,14 +22342,33 @@ hirom
 org $C09ECE
 
 C09ECE_Script_SetupTaskWithThreeParameters:
-
-; Original data gap before C09EFF_Script_SetupTaskWithThreeParameters_End:
-db $20,$8D,$9D,$AA,$20,$99,$9D,$48,$20,$8D,$9D,$84,$94,$A8,$68,$4C
-db $03,$94,$AE,$44,$1A,$80,$06,$A6,$88,$80,$02,$0A,$AA,$A0,$00,$00
-db $E2,$20,$BD,$17,$0B,$D0,$06,$BD,$53,$0B,$D0,$01,$88,$C2,$20,$98
-db $6B
-
-C09EFF_Script_SetupTaskWithThreeParameters_End:
+    jsr $9D8D
+    tax
+    jsr $9D99
+    pha
+    jsr $9D8D
+    sty $94
+    tay
+    pla
+    jmp $9403
+    ldx $1A44
+    bra C09EEB_Script_SetupTaskWithThreeParameters_L9EEB
+    ldx $88
+    bra C09EEB_Script_SetupTaskWithThreeParameters_L9EEB
+    asl A
+    tax
+C09EEB_Script_SetupTaskWithThreeParameters_L9EEB:
+    ldy.w #$0000
+    sep #$20
+    lda $0B17,X
+    bne C09EFB_Script_SetupTaskWithThreeParameters_L9EFB
+    lda $0B53,X
+    bne C09EFB_Script_SetupTaskWithThreeParameters_L9EFB
+    dey
+C09EFB_Script_SetupTaskWithThreeParameters_L9EFB:
+    rep #$20
+    tya
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12036,11 +22379,10 @@ hirom
 org $C09EFF
 
 C09EFF_Resolve_ActiveSlotPositionContext:
-
-; Original data gap before C09F08_Resolve_ActiveSlotPositionContext_End:
-db $AE,$44,$1A,$80,$06,$A6,$88,$80,$02
-
-C09F08_Resolve_ActiveSlotPositionContext_End:
+    ldx $1A44
+    db $80, $06
+    ldx $88
+    db $80, $02
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12051,14 +22393,31 @@ hirom
 org $C09F08
 
 C09F08_Resolve_SlotPositionContext:
-
-; Original data gap before C09F3B_Resolve_SlotPositionContext_End:
-db $0A,$AA,$A0,$00,$00,$BD,$42,$0C,$18,$7D,$AA,$0D,$BD,$8E,$0B,$7D
-db $F6,$0C,$8D,$48,$28,$DD,$8E,$0B,$F0,$01,$C8,$BD,$7E,$0C,$18,$7D
-db $E6,$0D,$BD,$CA,$0B,$7D,$32,$0D,$8D,$4A,$28,$DD,$CA,$0B,$F0,$01
-db $C8,$98,$6B
-
-C09F3B_Resolve_SlotPositionContext_End:
+    asl A
+    tax
+    ldy.w #$0000
+    lda $0C42,X
+    clc
+    adc $0DAA,X
+    lda $0B8E,X
+    adc $0CF6,X
+    sta $2848
+    cmp $0B8E,X
+    beq C09F23_Resolve_SlotPositionContext_L9F23
+    iny
+C09F23_Resolve_SlotPositionContext_L9F23:
+    lda $0C7E,X
+    clc
+    adc $0DE6,X
+    lda $0BCA,X
+    adc $0D32,X
+    sta $284A
+    cmp $0BCA,X
+    beq C09F39_Resolve_SlotPositionContext_L9F39
+    iny
+C09F39_Resolve_SlotPositionContext_L9F39:
+    tya
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12069,11 +22428,9 @@ hirom
 org $C09F3B
 
 C09F3B_Freeze_AllActiveTasksExceptMarked:
-
-; Original data gap before C09F43_Freeze_AllActiveTasksExceptMarked_End:
-db $C2,$30,$A9,$FF,$FF,$8D,$44,$1A
-
-C09F43_Freeze_AllActiveTasksExceptMarked_End:
+    rep #$30
+    lda.w #$FFFF
+    sta $1A44
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12084,13 +22441,31 @@ hirom
 org $C09F43
 
 C09F43_Freeze_AllActiveTasksExceptA:
-
-; Original data gap before C09F71_Freeze_AllActiveTasksExceptA_End:
-db $C2,$30,$48,$A2,$00,$00,$BD,$B6,$10,$9D,$4C,$28,$E8,$E8,$E0,$3C
-db $00,$D0,$F3,$68,$AE,$50,$0A,$30,$14,$EC,$44,$1A,$F0,$09,$BD,$B6
-db $10,$09,$00,$C0,$9D,$B6,$10,$BD,$9E,$0A,$AA,$10,$EC,$6B
-
-C09F71_Freeze_AllActiveTasksExceptA_End:
+    rep #$30
+    pha
+    ldx.w #$0000
+C09F49_Freeze_AllActiveTasksExceptA_L9F49:
+    lda $10B6,X
+    sta $284C,X
+    inx
+    inx
+    cpx.w #$003C
+    bne C09F49_Freeze_AllActiveTasksExceptA_L9F49
+    pla
+    ldx $0A50
+    bmi C09F70_Freeze_AllActiveTasksExceptA_L9F70
+C09F5C_Freeze_AllActiveTasksExceptA_L9F5C:
+    cpx $1A44
+    beq C09F6A_Freeze_AllActiveTasksExceptA_L9F6A
+    lda $10B6,X
+    ora.w #$C000
+    sta $10B6,X
+C09F6A_Freeze_AllActiveTasksExceptA_L9F6A:
+    lda $0A9E,X
+    tax
+    bpl C09F5C_Freeze_AllActiveTasksExceptA_L9F5C
+C09F70_Freeze_AllActiveTasksExceptA_L9F70:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12101,12 +22476,15 @@ hirom
 org $C09F71
 
 C09F71_Restore_TaskFlagsFromFreezeSnapshot:
-
-; Original data gap before C09F82_Restore_TaskFlagsFromFreezeSnapshot_End:
-db $A2,$00,$00,$BD,$4C,$28,$9D,$B6,$10,$E8,$E8,$E0,$3C,$00,$D0,$F3
-db $6B
-
-C09F82_Restore_TaskFlagsFromFreezeSnapshot_End:
+    ldx.w #$0000
+C09F74_Restore_TaskFlagsFromFreezeSnapshot_L9F74:
+    lda $284C,X
+    sta $10B6,X
+    inx
+    inx
+    cpx.w #$003C
+    bne C09F74_Restore_TaskFlagsFromFreezeSnapshot_L9F74
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12116,14 +22494,28 @@ C09F82_Restore_TaskFlagsFromFreezeSnapshot_End:
 hirom
 org $C09F82
 
+!C08E9A_GetRandom16 = $C08E9A
 C09F82_ChooseRandomScriptWord:
-
-; Original data gap before C09FA8_ChooseRandomScriptWord_End:
-db $B7,$80,$29,$FF,$00,$85,$90,$C8,$84,$94,$A8,$22,$9A,$8E,$C0,$E2
-db $20,$22,$2C,$91,$C0,$C2,$20,$98,$0A,$65,$94,$A8,$A5,$90,$0A,$65
-db $94,$85,$94,$B7,$80,$6B
-
-C09FA8_ChooseRandomScriptWord_End:
+    lda [$80],Y
+    and.w #$00FF
+    sta $90
+    iny
+    sty $94
+    tay
+    jsl !C08E9A_GetRandom16
+    sep #$20
+    jsl $C0912C
+    rep #$20
+    tya
+    asl A
+    adc $94
+    tay
+    lda $90
+    asl A
+    adc $94
+    sta $94
+    lda [$80],Y
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12133,12 +22525,11 @@ C09FA8_ChooseRandomScriptWord_End:
 hirom
 org $C09FA8
 
+!C08E9A_GetRandom16 = $C08E9A
 C09FA8_ChooseRandomScriptByte:
-
-; Original data gap before C09FAE_ChooseRandomScriptByte_End:
-db $22,$9A,$8E,$C0,$EB,$6B
-
-C09FAE_ChooseRandomScriptByte_End:
+    jsl !C08E9A_GetRandom16
+    xba
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12148,12 +22539,16 @@ C09FAE_ChooseRandomScriptByte_End:
 hirom
 org $C09FAE
 
+!C0886C_SetDisplayTransitionState = $C0886C
 C09FAE_ActionScript_FadeInWrapper:
-
-; Original data gap before C09FBB_ActionScript_FadeInWrapper_End:
-db $B7,$80,$C8,$C8,$84,$94,$EB,$AA,$EB,$5C,$6C,$88,$C0
-
-C09FBB_ActionScript_FadeInWrapper_End:
+    lda [$80],Y
+    iny
+    iny
+    sty $94
+    xba
+    tax
+    xba
+    jml !C0886C_SetDisplayTransitionState
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12163,12 +22558,16 @@ C09FBB_ActionScript_FadeInWrapper_End:
 hirom
 org $C09FBB
 
+!C0887A_ClearDisplayTransitionState = $C0887A
 C09FBB_ActionScript_FadeOutWrapper:
-
-; Original data gap before C09FC8_ActionScript_FadeOutWrapper_End:
-db $B7,$80,$C8,$C8,$84,$94,$EB,$AA,$EB,$5C,$7A,$88,$C0
-
-C09FC8_ActionScript_FadeOutWrapper_End:
+    lda [$80],Y
+    iny
+    iny
+    sty $94
+    xba
+    tax
+    xba
+    jml !C0887A_ClearDisplayTransitionState
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12179,13 +22578,22 @@ hirom
 org $C09FC8
 
 C09FC8_Integrate_XYVelocityOnly:
-
-; Original data gap before C09FF1_Integrate_XYVelocityOnly_End:
-db $A6,$88,$BD,$42,$0C,$18,$7D,$AA,$0D,$9D,$42,$0C,$BD,$8E,$0B,$7D
-db $F6,$0C,$9D,$8E,$0B,$BD,$7E,$0C,$18,$7D,$E6,$0D,$9D,$7E,$0C,$BD
-db $CA,$0B,$7D,$32,$0D,$9D,$CA,$0B,$60
-
-C09FF1_Integrate_XYVelocityOnly_End:
+    ldx $88
+    lda $0C42,X
+    clc
+    adc $0DAA,X
+    sta $0C42,X
+    lda $0B8E,X
+    adc $0CF6,X
+    sta $0B8E,X
+    lda $0C7E,X
+    clc
+    adc $0DE6,X
+    sta $0C7E,X
+    lda $0BCA,X
+    adc $0D32,X
+    sta $0BCA,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12196,12 +22604,16 @@ hirom
 org $C09FF1
 
 C09FF1_Integrate_XYAndZVelocity_WithSpriteRefresh:
-
-; Original data gap before C0A00C_Integrate_XYAndZVelocity_WithSpriteRefresh_End:
-db $20,$C8,$9F,$BD,$BA,$0C,$18,$7D,$22,$0E,$9D,$BA,$0C,$BD,$06,$0C
-db $7D,$6E,$0D,$9D,$06,$0C,$22,$DB,$C7,$C0,$60
-
-C0A00C_Integrate_XYAndZVelocity_WithSpriteRefresh_End:
+    jsr $9FC8
+    lda $0CBA,X
+    clc
+    adc $0E22,X
+    sta $0CBA,X
+    lda $0C06,X
+    adc $0D6E,X
+    sta $0C06,X
+    jsl $C0C7DB
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12212,12 +22624,15 @@ hirom
 org $C0A00C
 
 C0A00C_Integrate_XYAndZVelocity:
-
-; Original data gap before C0A023_Integrate_XYAndZVelocity_End:
-db $20,$C8,$9F,$BD,$BA,$0C,$18,$7D,$22,$0E,$9D,$BA,$0C,$BD,$06,$0C
-db $7D,$6E,$0D,$9D,$06,$0C,$60
-
-C0A023_Integrate_XYAndZVelocity_End:
+    jsr $9FC8
+    lda $0CBA,X
+    clc
+    adc $0E22,X
+    sta $0CBA,X
+    lda $0C06,X
+    adc $0D6E,X
+    sta $0C06,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12228,12 +22643,16 @@ hirom
 org $C0A023
 
 C0A023_ProjectWorldToScreen_FromCamera31:
-
-; Original data gap before C0A03A_ProjectWorldToScreen_FromCamera31_End:
-db $A6,$88,$BD,$8E,$0B,$38,$ED,$31,$00,$9D,$16,$0B,$BD,$CA,$0B,$38
-db $ED,$33,$00,$9D,$52,$0B,$60
-
-C0A03A_ProjectWorldToScreen_FromCamera31_End:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $0033
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12244,12 +22663,18 @@ hirom
 org $C0A03A
 
 C0A03A_ProjectWorldToScreen_FromCamera31AndHeight:
-
-; Original data gap before C0A055_ProjectWorldToScreen_FromCamera31AndHeight_End:
-db $A6,$88,$BD,$8E,$0B,$38,$ED,$31,$00,$9D,$16,$0B,$BD,$CA,$0B,$38
-db $ED,$33,$00,$38,$FD,$06,$0C,$9D,$52,$0B,$60
-
-C0A055_ProjectWorldToScreen_FromCamera31AndHeight_End:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $0033
+    sec
+    sbc $0C06,X
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12260,12 +22685,16 @@ hirom
 org $C0A055
 
 C0A055_ProjectWorldToScreen_FromCamera39:
-
-; Original data gap before C0A06C_ProjectWorldToScreen_FromCamera39_End:
-db $A6,$88,$BD,$8E,$0B,$38,$ED,$39,$00,$9D,$16,$0B,$BD,$CA,$0B,$38
-db $ED,$3B,$00,$9D,$52,$0B,$60
-
-C0A06C_ProjectWorldToScreen_FromCamera39_End:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0039
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $003B
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12276,12 +22705,18 @@ hirom
 org $C0A06C
 
 C0A06C_ProjectWorldToScreen_DirectCamera39Event:
-
-; Original data gap before C0A089_ProjectWorldToScreen_DirectCamera39Event_End:
-db $A6,$88,$BD,$8E,$0B,$38,$ED,$39,$00,$9D,$8E,$0B,$9D,$16,$0B,$BD
-db $CA,$0B,$38,$ED,$3B,$00,$9D,$CA,$0B,$9D,$52,$0B,$6B
-
-C0A089_ProjectWorldToScreen_DirectCamera39Event_End:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0039
+    sta $0B8E,X
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $003B
+    sta $0BCA,X
+    sta $0B52,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12292,12 +22727,16 @@ hirom
 org $C0A089
 
 C0A089_AddCamera39ToWorldPosition:
-
-; Original data gap before C0A0A0_AddCamera39ToWorldPosition_End:
-db $A6,$88,$BD,$8E,$0B,$18,$6D,$39,$00,$9D,$8E,$0B,$BD,$CA,$0B,$18
-db $6D,$3B,$00,$9D,$CA,$0B,$6B
-
-C0A0A0_AddCamera39ToWorldPosition_End:
+    ldx $88
+    lda $0B8E,X
+    clc
+    adc $0039
+    sta $0B8E,X
+    lda $0BCA,X
+    clc
+    adc $003B
+    sta $0BCA,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12308,12 +22747,18 @@ hirom
 org $C0A0A0
 
 C0A0A0_ProjectWorldToScreen_FromCamera39AndHeight:
-
-; Original data gap before C0A0BB_ProjectWorldToScreen_FromCamera39AndHeight_End:
-db $A6,$88,$BD,$8E,$0B,$38,$ED,$39,$00,$9D,$16,$0B,$BD,$CA,$0B,$38
-db $ED,$3B,$00,$38,$FD,$06,$0C,$9D,$52,$0B,$60
-
-C0A0BB_ProjectWorldToScreen_FromCamera39AndHeight_End:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0039
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $003B
+    sec
+    sbc $0C06,X
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12324,11 +22769,12 @@ hirom
 org $C0A0BB
 
 C0A0BB_ProjectWorldToScreen_CopyWorld:
-
-; Original data gap before C0A0CA_ProjectWorldToScreen_CopyWorld_End:
-db $A6,$88,$BD,$8E,$0B,$9D,$16,$0B,$BD,$CA,$0B,$9D,$52,$0B,$60
-
-C0A0CA_ProjectWorldToScreen_CopyWorld_End:
+    ldx $88
+    lda $0B8E,X
+    sta $0B16,X
+    lda $0BCA,X
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12339,12 +22785,23 @@ hirom
 org $C0A0CA
 
 C0A0CA_Run_TaskDataCallbackByIndex:
-
-; Original data gap before C0A0E3_Run_TaskDataCallbackByIndex_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$A0,$00,$29,$00,$FF,$5B,$68,$30,$FE
-db $0A,$AA,$86,$88,$20,$E3,$A0,$2B,$60
-
-C0A0E3_Run_TaskDataCallbackByIndex_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$00A0
+    and.w #$FF00
+    tcd
+    pla
+C0A0D8_Run_TaskDataCallbackByIndex_LA0D8:
+    bmi C0A0D8_Run_TaskDataCallbackByIndex_LA0D8
+    asl A
+    tax
+    stx $88
+    jsr $A0E3
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12355,12 +22812,17 @@ hirom
 org $C0A0E3
 
 C0A0E3_Run_CurrentTaskDataCallback:
-
-; Original data gap before C0A0FA_Run_CurrentTaskDataCallback_End:
-db $BD,$6A,$11,$30,$11,$70,$0F,$85,$8E,$BD,$2E,$11,$85,$8C,$BD,$F2
-db $10,$30,$03,$7C,$E2,$11,$60
-
-C0A0FA_Run_CurrentTaskDataCallback_End:
+    lda $116A,X
+    bmi C0A0F9_Run_CurrentTaskDataCallback_LA0F9
+    bvs C0A0F9_Run_CurrentTaskDataCallback_LA0F9
+    sta $8E
+    lda $112E,X
+    sta $8C
+    lda $10F2,X
+    bmi C0A0F9_Run_CurrentTaskDataCallback_LA0F9
+    jmp ($11E2,X)
+C0A0F9_Run_CurrentTaskDataCallback_LA0F9:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12371,16 +22833,46 @@ hirom
 org $C0A0FA
 
 C0A0FA_Draw_TaskDataRecordAtIndex:
-
-; Original data gap before C0A152_Draw_TaskDataRecordAtIndex_End:
-db $0A,$A8,$E2,$20,$A5,$8E,$8D,$0B,$00,$C2,$20,$B7,$8C,$85,$96,$BD
-db $3E,$10,$8D,$00,$24,$BC,$CA,$0B,$BD,$8E,$0B,$AA,$A5,$96,$4C,$58
-db $8C,$60,$E2,$20,$A9,$30,$8F,$F0,$7F,$30,$1A,$8F,$F0,$7F,$31,$CF
-db $F0,$7F,$30,$F0,$0C,$C2,$20,$68,$3B,$E9,$00,$01,$5B,$5C,$00,$01
-db $C3,$AF,$3F,$21,$00,$29,$10,$F0,$0C,$C2,$20,$68,$3B,$E9,$00,$01
-db $5B,$5C,$42,$01,$C3,$C2,$20,$6B
-
-C0A152_Draw_TaskDataRecordAtIndex_End:
+    asl A
+    tay
+    sep #$20
+    lda $8E
+    sta $000B
+    rep #$20
+    lda [$8C],Y
+    sta $96
+    lda $103E,X
+    sta $2400
+    ldy $0BCA,X
+    lda $0B8E,X
+    tax
+    lda $96
+    jmp $8C58
+    rts
+    sep #$20
+    lda.b #$30
+    sta $307FF0
+    inc A
+    sta $317FF0
+    cmp $307FF0
+    beq C0A13B_Draw_TaskDataRecordAtIndex_LA13B
+    rep #$20
+    pla
+    tsc
+    sbc.w #$0100
+    tcd
+    jml $C30100
+C0A13B_Draw_TaskDataRecordAtIndex_LA13B:
+    lda $00213F
+    and.w #$F010
+    tsb $20C2
+    pla
+    tsc
+    sbc.w #$0100
+    tcd
+    jml $C30142
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12391,11 +22883,8 @@ hirom
 org $C0A152
 
 C0A152_Lookup_CachedMapPropertyNibble_Far:
-
-; Original data gap before C0A156_Lookup_CachedMapPropertyNibble_Far_End:
-db $20,$56,$A1,$6B
-
-C0A156_Lookup_CachedMapPropertyNibble_Far_End:
+    jsr $A156
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12406,16 +22895,56 @@ hirom
 org $C0A156
 
 C0A156_Lookup_CachedMapPropertyNibble:
-
-; Original data gap before C0A1AE_Lookup_CachedMapPropertyNibble_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$0A,$00,$5B,$68,$85,$00,$86,$02,$05
-db $02,$10,$05,$A9,$FF,$FF,$2B,$60,$A5,$00,$CD,$88,$28,$D0,$0A,$EC
-db $8A,$28,$D0,$05,$AD,$8C,$28,$2B,$60,$8D,$88,$28,$8E,$8A,$28,$8A
-db $4A,$4A,$4A,$EB,$05,$00,$A8,$A9,$D7,$00,$85,$06,$A2,$00,$50,$A5
-db $02,$29,$04,$00,$F0,$03,$A2,$00,$80,$86,$04,$A5,$02,$29,$07,$00
-db $0A,$0A,$AA,$B7,$04,$7C,$AE,$A1
-
-C0A1AE_Lookup_CachedMapPropertyNibble_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$000A
+    tcd
+    pla
+    sta $00
+    stx $02
+    ora $02
+    bpl C0A16E_Lookup_CachedMapPropertyNibble_LA16E
+    lda.w #$FFFF
+    pld
+    rts
+C0A16E_Lookup_CachedMapPropertyNibble_LA16E:
+    lda $00
+    cmp $2888
+    bne C0A17F_Lookup_CachedMapPropertyNibble_LA17F
+    cpx $288A
+    bne C0A17F_Lookup_CachedMapPropertyNibble_LA17F
+    lda $288C
+    pld
+    rts
+C0A17F_Lookup_CachedMapPropertyNibble_LA17F:
+    sta $2888
+    stx $288A
+    txa
+    lsr A
+    lsr A
+    lsr A
+    xba
+    ora $00
+    tay
+    lda.w #$00D7
+    sta $06
+    ldx.w #$5000
+    lda $02
+    and.w #$0004
+    beq C0A19F_Lookup_CachedMapPropertyNibble_LA19F
+    ldx.w #$8000
+C0A19F_Lookup_CachedMapPropertyNibble_LA19F:
+    stx $04
+    lda $02
+    and.w #$0007
+    asl A
+    asl A
+    tax
+    lda [$04],Y
+    jmp ($A1AE,X)
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12442,11 +22971,8 @@ hirom
 org $C0A1CE
 
 C0A1CE_SelectPackedMapPropertyBits0:
-
-; Original data gap before C0A1D0_SelectPackedMapPropertyBits0_End:
-db $4A,$4A
-
-C0A1D0_SelectPackedMapPropertyBits0_End:
+    lsr A
+    lsr A
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12457,11 +22983,8 @@ hirom
 org $C0A1D0
 
 C0A1D0_SelectPackedMapPropertyBits1:
-
-; Original data gap before C0A1D2_SelectPackedMapPropertyBits1_End:
-db $4A,$4A
-
-C0A1D2_SelectPackedMapPropertyBits1_End:
+    lsr A
+    lsr A
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12472,11 +22995,8 @@ hirom
 org $C0A1D2
 
 C0A1D2_SelectPackedMapPropertyBits2:
-
-; Original data gap before C0A1D4_SelectPackedMapPropertyBits2_End:
-db $4A,$4A
-
-C0A1D4_SelectPackedMapPropertyBits2_End:
+    lsr A
+    lsr A
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12487,12 +23007,19 @@ hirom
 org $C0A1D4
 
 C0A1D4_SelectPackedMapPropertyBits3:
-
-; Original data gap before C0A1F2_SelectPackedMapPropertyBits3_End:
-db $29,$03,$00,$EB,$85,$08,$BF,$64,$2F,$C4,$85,$04,$BF,$66,$2F,$C4
-db $85,$06,$B7,$04,$29,$FF,$00,$05,$08,$8D,$8C,$28,$2B,$60
-
-C0A1F2_SelectPackedMapPropertyBits3_End:
+    and.w #$0003
+    xba
+    sta $08
+    lda $C42F64,X
+    sta $04
+    lda $C42F66,X
+    sta $06
+    lda [$04],Y
+    and.w #$00FF
+    ora $08
+    sta $288C
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12503,12 +23030,18 @@ hirom
 org $C0A1F2
 
 C0A1F2_Copy_MapBufferPageToWorkBuffer:
-
-; Original data gap before C0A20C_Copy_MapBufferPageToWorkBuffer_End:
-db $0A,$AA,$BF,$0C,$A2,$C0,$AA,$A0,$40,$02,$A9,$BF,$00,$54,$7E,$7E
-db $E2,$20,$A9,$08,$8D,$30,$00,$C2,$20,$6B
-
-C0A20C_Copy_MapBufferPageToWorkBuffer_End:
+    asl A
+    tax
+    lda $C0A20C,X
+    tax
+    ldy.w #$0240
+    lda.w #$00BF
+    mvn $7E,$7E
+    sep #$20
+    lda.b #$08
+    sta $0030
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12534,12 +23067,18 @@ hirom
 org $C0A21C
 
 C0A21C_FindActiveTaskByField2C9A:
-
-; Original data gap before C0A230_FindActiveTaskByField2C9A_End:
-db $AC,$50,$0A,$30,$0B,$BB,$DD,$9A,$2C,$F0,$08,$BC,$9E,$0A,$10,$F5
-db $A9,$00,$00,$6B
-
-C0A230_FindActiveTaskByField2C9A_End:
+    ldy $0A50
+    bmi C0A22C_FindActiveTaskByField2C9A_LA22C
+C0A221_FindActiveTaskByField2C9A_LA221:
+    tyx
+    cmp $2C9A,X
+    beq C0A22F_FindActiveTaskByField2C9A_LA22F
+    ldy $0A9E,X
+    bpl C0A221_FindActiveTaskByField2C9A_LA221
+C0A22C_FindActiveTaskByField2C9A_LA22C:
+    lda.w #$0000
+C0A22F_FindActiveTaskByField2C9A_LA22F:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12550,13 +23089,20 @@ hirom
 org $C0A230
 
 C0A230_AddLinkedSlotPositionToCurrentProjection:
-
-; Original data gap before C0A254_AddLinkedSlotPositionToCurrentProjection_End:
-db $BC,$5E,$0E,$B9,$42,$0C,$18,$7D,$42,$0C,$B9,$16,$0B,$7D,$8E,$0B
-db $9D,$16,$0B,$B9,$7E,$0C,$18,$7D,$7E,$0C,$B9,$52,$0B,$7D,$CA,$0B
-db $9D,$52,$0B,$60
-
-C0A254_AddLinkedSlotPositionToCurrentProjection_End:
+    ldy $0E5E,X
+    lda $0C42,Y
+    clc
+    adc $0C42,X
+    lda $0B16,Y
+    adc $0B8E,X
+    sta $0B16,X
+    lda $0C7E,Y
+    clc
+    adc $0C7E,X
+    lda $0B52,Y
+    adc $0BCA,X
+    sta $0B52,X
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12567,12 +23113,17 @@ hirom
 org $C0A254
 
 C0A254_ProjectSlotWorldPositionFromCamera31:
-
-; Original data gap before C0A26B_ProjectSlotWorldPositionFromCamera31_End:
-db $0A,$AA,$BD,$8E,$0B,$38,$ED,$31,$00,$9D,$16,$0B,$BD,$CA,$0B,$38
-db $ED,$33,$00,$9D,$52,$0B,$6B
-
-C0A26B_ProjectSlotWorldPositionFromCamera31_End:
+    asl A
+    tax
+    lda $0B8E,X
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $0033
+    sta $0B52,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12583,14 +23134,36 @@ hirom
 org $C0A26B
 
 C0A26B_PhysicsCallback_TargetComparisonAndProjection:
-
-; Original data gap before C0A2AB_PhysicsCallback_TargetComparisonAndProjection_End:
-db $A6,$88,$EC,$78,$5D,$F0,$20,$BD,$02,$10,$29,$00,$18,$D0,$18,$AD
-db $B8,$5D,$D0,$13,$BD,$F6,$2A,$CD,$76,$5D,$D0,$0B,$0A,$AA,$AC,$78
-db $5D,$FC,$50,$A3,$0A,$F0,$16,$A6,$88,$BD,$8E,$0B,$38,$ED,$31,$00
-db $9D,$16,$0B,$BD,$CA,$0B,$38,$ED,$33,$00,$9D,$52,$0B,$A6,$88,$60
-
-C0A2AB_PhysicsCallback_TargetComparisonAndProjection_End:
+    ldx $88
+    cpx $5D78
+    beq C0A292_PhysicsCallback_TargetComparisonAndProjection_LA292
+    lda $1002,X
+    and.w #$1800
+    bne C0A292_PhysicsCallback_TargetComparisonAndProjection_LA292
+    lda $5DB8
+    bne C0A292_PhysicsCallback_TargetComparisonAndProjection_LA292
+    lda $2AF6,X
+    cmp $5D76
+    bne C0A292_PhysicsCallback_TargetComparisonAndProjection_LA292
+    asl A
+    tax
+    ldy $5D78
+    jsr ($A350,X)
+    asl A
+    beq C0A2A8_PhysicsCallback_TargetComparisonAndProjection_LA2A8
+C0A292_PhysicsCallback_TargetComparisonAndProjection_LA292:
+    ldx $88
+    lda $0B8E,X
+    sec
+    sbc $0031
+    sta $0B16,X
+    lda $0BCA,X
+    sec
+    sbc $0033
+    sta $0B52,X
+C0A2A8_PhysicsCallback_TargetComparisonAndProjection_LA2A8:
+    ldx $88
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12616,13 +23189,29 @@ hirom
 org $C0A2B7
 
 C0A2B7_CompareProjectedXThenYDistanceThreshold:
-
-; Original data gap before C0A2E1_CompareProjectedXThenYDistanceThreshold_End:
-db $A6,$88,$B9,$16,$0B,$5D,$16,$0B,$D0,$1F,$B9,$CA,$0B,$38,$FD,$CA
-db $0B,$10,$04,$49,$FF,$FF,$1A,$BC,$8A,$0F,$BB,$38,$FF,$AB,$A2,$C0
-db $10,$04,$49,$FF,$FF,$1A,$F0,$01,$3A,$60
-
-C0A2E1_CompareProjectedXThenYDistanceThreshold_End:
+    ldx $88
+    lda $0B16,Y
+    eor $0B16,X
+    bne C0A2E0_CompareProjectedXThenYDistanceThreshold_LA2E0
+    lda $0BCA,Y
+    sec
+    sbc $0BCA,X
+    bpl C0A2CE_CompareProjectedXThenYDistanceThreshold_LA2CE
+    eor.w #$FFFF
+    inc A
+C0A2CE_CompareProjectedXThenYDistanceThreshold_LA2CE:
+    ldy $0F8A,X
+    tyx
+    sec
+    sbc $C0A2AB,X
+    bpl C0A2DD_CompareProjectedXThenYDistanceThreshold_LA2DD
+    eor.w #$FFFF
+    inc A
+C0A2DD_CompareProjectedXThenYDistanceThreshold_LA2DD:
+    beq C0A2E0_CompareProjectedXThenYDistanceThreshold_LA2E0
+    dec A
+C0A2E0_CompareProjectedXThenYDistanceThreshold_LA2E0:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12633,13 +23222,29 @@ hirom
 org $C0A2E1
 
 C0A2E1_CompareProjectedYThenXDistanceThreshold:
-
-; Original data gap before C0A30B_CompareProjectedYThenXDistanceThreshold_End:
-db $A6,$88,$B9,$52,$0B,$5D,$52,$0B,$D0,$1F,$B9,$8E,$0B,$38,$FD,$8E
-db $0B,$10,$04,$49,$FF,$FF,$1A,$BC,$8A,$0F,$BB,$38,$FF,$AB,$A2,$C0
-db $10,$04,$49,$FF,$FF,$1A,$F0,$01,$3A,$60
-
-C0A30B_CompareProjectedYThenXDistanceThreshold_End:
+    ldx $88
+    lda $0B52,Y
+    eor $0B52,X
+    bne C0A30A_CompareProjectedYThenXDistanceThreshold_LA30A
+    lda $0B8E,Y
+    sec
+    sbc $0B8E,X
+    bpl C0A2F8_CompareProjectedYThenXDistanceThreshold_LA2F8
+    eor.w #$FFFF
+    inc A
+C0A2F8_CompareProjectedYThenXDistanceThreshold_LA2F8:
+    ldy $0F8A,X
+    tyx
+    sec
+    sbc $C0A2AB,X
+    bpl C0A307_CompareProjectedYThenXDistanceThreshold_LA307
+    eor.w #$FFFF
+    inc A
+C0A307_CompareProjectedYThenXDistanceThreshold_LA307:
+    beq C0A30A_CompareProjectedYThenXDistanceThreshold_LA30A
+    dec A
+C0A30A_CompareProjectedYThenXDistanceThreshold_LA30A:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12665,14 +23270,38 @@ hirom
 org $C0A317
 
 C0A317_CompareWorldXDistanceAndNormalizeDelta:
-
-; Original data gap before C0A350_CompareWorldXDistanceAndNormalizeDelta_End:
-db $A6,$88,$B9,$8E,$0B,$38,$FD,$8E,$0B,$10,$04,$49,$FF,$FF,$1A,$85
-db $00,$BD,$8A,$0F,$AA,$A5,$00,$DF,$0B,$A3,$C0,$90,$1B,$A6,$88,$B9
-db $CA,$0B,$38,$FD,$CA,$0B,$10,$04,$49,$FF,$FF,$1A,$38,$E5,$00,$F0
-db $07,$10,$04,$49,$FF,$FF,$1A,$3A,$60
-
-C0A350_CompareWorldXDistanceAndNormalizeDelta_End:
+    ldx $88
+    lda $0B8E,Y
+    sec
+    sbc $0B8E,X
+    bpl C0A326_CompareWorldXDistanceAndNormalizeDelta_LA326
+    eor.w #$FFFF
+    inc A
+C0A326_CompareWorldXDistanceAndNormalizeDelta_LA326:
+    sta $00
+    lda $0F8A,X
+    tax
+    lda $00
+    cmp $C0A30B,X
+    bcc C0A34F_CompareWorldXDistanceAndNormalizeDelta_LA34F
+    ldx $88
+    lda $0BCA,Y
+    sec
+    sbc $0BCA,X
+    bpl C0A343_CompareWorldXDistanceAndNormalizeDelta_LA343
+    eor.w #$FFFF
+    inc A
+C0A343_CompareWorldXDistanceAndNormalizeDelta_LA343:
+    sec
+    sbc $00
+    beq C0A34F_CompareWorldXDistanceAndNormalizeDelta_LA34F
+    bpl C0A34E_CompareWorldXDistanceAndNormalizeDelta_LA34E
+    eor.w #$FFFF
+    inc A
+C0A34E_CompareWorldXDistanceAndNormalizeDelta_LA34E:
+    dec A
+C0A34F_CompareWorldXDistanceAndNormalizeDelta_LA34F:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12698,12 +23327,18 @@ hirom
 org $C0A360
 
 C0A360_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh:
-
-; Original data gap before C0A37A_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_End:
-db $A6,$88,$BD,$5E,$2C,$30,$15,$BD,$DA,$28,$29,$D0,$00,$F0,$03,$4C
-db $F2,$98,$A6,$88,$BD,$9E,$28,$30,$03,$60
-
-C0A37A_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_End:
+    ldx $88
+    lda $2C5E,X
+    db $30, $15
+    lda $28DA,X
+    and.w #$00D0
+    beq C0A372_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_LA372
+    jmp $98F2
+C0A372_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_LA372:
+    ldx $88
+    lda $289E,X
+    db $30, $03
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12714,11 +23349,10 @@ hirom
 org $C0A37A
 
 C0A37A_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot:
-
-; Original data gap before C0A384_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot_End:
-db $A6,$88,$20,$CA,$9F,$22,$DB,$C7,$C0,$60
-
-C0A384_UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot_End:
+    ldx $88
+    jsr $9FCA
+    jsl $C0C7DB
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12729,12 +23363,18 @@ hirom
 org $C0A384
 
 C0A384_UpdatePosition_WhenNoNeighbor:
-
-; Original data gap before C0A39E_UpdatePosition_WhenNoNeighbor_End:
-db $A6,$88,$BD,$5E,$2C,$30,$15,$BD,$DA,$28,$29,$D0,$00,$F0,$03,$4C
-db $F2,$98,$A6,$88,$BD,$9E,$28,$30,$03,$60
-
-C0A39E_UpdatePosition_WhenNoNeighbor_End:
+    ldx $88
+    lda $2C5E,X
+    db $30, $15
+    lda $28DA,X
+    and.w #$00D0
+    beq C0A396_UpdatePosition_WhenNoNeighbor_LA396
+    jmp $98F2
+C0A396_UpdatePosition_WhenNoNeighbor_LA396:
+    ldx $88
+    lda $289E,X
+    db $30, $03
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12745,11 +23385,9 @@ hirom
 org $C0A39E
 
 C0A39E_UpdatePosition_WhenNoNeighbor_CurrentSlot:
-
-; Original data gap before C0A3A4_UpdatePosition_WhenNoNeighbor_CurrentSlot_End:
-db $A6,$88,$20,$CA,$9F,$60
-
-C0A3A4_UpdatePosition_WhenNoNeighbor_CurrentSlot_End:
+    ldx $88
+    jsr $9FCA
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12760,20 +23398,94 @@ hirom
 org $C0A3A4
 
 C0A3A4_Build_DisplayRecordFromCurrentTaskData:
-
-; Original data gap before C0A443_Build_DisplayRecordFromCurrentTaskData_End:
-db $BD,$1A,$34,$29,$01,$00,$F0,$08,$BD,$16,$29,$18,$65,$8C,$85,$8C
-db $E2,$30,$A9,$30,$A0,$20,$85,$00,$85,$02,$BD,$AA,$2B,$4A,$90,$02
-db $84,$02,$4A,$90,$02,$84,$00,$BD,$E7,$2B,$AA,$A0,$FD,$80,$0D,$C8
-db $C8,$C8,$C8,$C8,$B7,$8C,$29,$CF,$05,$00,$97,$8C,$CA,$10,$F0,$A6
-db $88,$BD,$E6,$2B,$AA,$80,$0D,$C8,$C8,$C8,$C8,$C8,$B7,$8C,$29,$CF
-db $05,$02,$97,$8C,$CA,$10,$F0,$C2,$10,$A6,$88,$A5,$8E,$8D,$0B,$00
-db $C2,$20,$BD,$3E,$10,$8D,$00,$24,$A8,$29,$00,$80,$F0,$1A,$98,$29
-db $3F,$00,$0A,$AA,$BD,$3E,$10,$A6,$88,$8D,$00,$24,$98,$29,$00,$40
-db $D0,$06,$A9,$00,$00,$9D,$3E,$10,$22,$43,$AC,$C0,$A6,$88,$A5,$8E
-db $8D,$0B,$00,$BC,$52,$0B,$BD,$16,$0B,$AA,$A5,$8C,$4C,$58,$8C
-
-C0A443_Build_DisplayRecordFromCurrentTaskData_End:
+    lda $341A,X
+    and.w #$0001
+    beq C0A3B4_Build_DisplayRecordFromCurrentTaskData_LA3B4
+    lda $2916,X
+    clc
+    adc $8C
+    sta $8C
+C0A3B4_Build_DisplayRecordFromCurrentTaskData_LA3B4:
+    sep #$30
+    lda.b #$30
+    ldy.b #$20
+    sta $00
+    sta $02
+    lda $2BAA,X
+    lsr A
+    bcc C0A3C6_Build_DisplayRecordFromCurrentTaskData_LA3C6
+    sty $02
+C0A3C6_Build_DisplayRecordFromCurrentTaskData_LA3C6:
+    lsr A
+    bcc C0A3CB_Build_DisplayRecordFromCurrentTaskData_LA3CB
+    sty $00
+C0A3CB_Build_DisplayRecordFromCurrentTaskData_LA3CB:
+    lda $2BE7,X
+    tax
+    ldy.b #$FD
+    bra C0A3E0_Build_DisplayRecordFromCurrentTaskData_LA3E0
+C0A3D3_Build_DisplayRecordFromCurrentTaskData_LA3D3:
+    iny
+    iny
+    iny
+    iny
+    iny
+    lda [$8C],Y
+    and.b #$CF
+    ora $00
+    sta [$8C],Y
+C0A3E0_Build_DisplayRecordFromCurrentTaskData_LA3E0:
+    dex
+    bpl C0A3D3_Build_DisplayRecordFromCurrentTaskData_LA3D3
+    ldx $88
+    lda $2BE6,X
+    tax
+    bra C0A3F8_Build_DisplayRecordFromCurrentTaskData_LA3F8
+C0A3EB_Build_DisplayRecordFromCurrentTaskData_LA3EB:
+    iny
+    iny
+    iny
+    iny
+    iny
+    lda [$8C],Y
+    and.b #$CF
+    ora $02
+    sta [$8C],Y
+C0A3F8_Build_DisplayRecordFromCurrentTaskData_LA3F8:
+    dex
+    bpl C0A3EB_Build_DisplayRecordFromCurrentTaskData_LA3EB
+    rep #$10
+    ldx $88
+    lda $8E
+    sta $000B
+    rep #$20
+    lda $103E,X
+    sta $2400
+    tay
+    and.w #$8000
+    beq C0A42C_Build_DisplayRecordFromCurrentTaskData_LA42C
+    tya
+    and.w #$003F
+    asl A
+    tax
+    lda $103E,X
+    ldx $88
+    sta $2400
+    tya
+    and.w #$4000
+    bne C0A42C_Build_DisplayRecordFromCurrentTaskData_LA42C
+    lda.w #$0000
+    sta $103E,X
+C0A42C_Build_DisplayRecordFromCurrentTaskData_LA42C:
+    jsl $C0AC43
+    ldx $88
+    lda $8E
+    sta $000B
+    ldy $0B52,X
+    lda $0B16,X
+    tax
+    lda $8C
+    jmp $8C58
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12784,15 +23496,47 @@ hirom
 org $C0A443
 
 C0A443_RefreshCurrentSlotProfileIfCompositeKeyChanged:
-
-; Original data gap before C0A48F_RefreshCurrentSlotProfileIfCompositeKeyChanged_End:
-db $A6,$88,$AD,$90,$28,$18,$6D,$42,$1A,$4A,$4A,$4A,$29,$01,$00,$85
-db $00,$BD,$F6,$2A,$0A,$05,$00,$85,$02,$BD,$22,$2C,$EB,$05,$02,$DD
-db $56,$34,$D0,$01,$6B,$9D,$56,$34,$A5,$00,$8D,$92,$28,$80,$50,$AD
-db $02,$00,$4A,$4A,$4A,$29,$01,$00,$8D,$92,$28,$80,$42,$A4,$88,$C2
-db $20,$0B,$48,$7B,$38,$E9,$06,$00,$5B,$68,$80,$0D
-
-C0A48F_RefreshCurrentSlotProfileIfCompositeKeyChanged_End:
+    ldx $88
+    lda $2890
+    clc
+    adc $1A42
+    lsr A
+    lsr A
+    lsr A
+    and.w #$0001
+    sta $00
+    lda $2AF6,X
+    asl A
+    ora $00
+    sta $02
+    lda $2C22,X
+    xba
+    ora $02
+    cmp $3456,X
+    bne C0A468_RefreshCurrentSlotProfileIfCompositeKeyChanged_LA468
+    rtl
+C0A468_RefreshCurrentSlotProfileIfCompositeKeyChanged_LA468:
+    sta $3456,X
+    lda $00
+    sta $2892
+    db $80, $50
+    lda $0002
+    lsr A
+    lsr A
+    lsr A
+    and.w #$0001
+    sta $2892
+    db $80, $42
+    ldy $88
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0006
+    tcd
+    pla
+    db $80, $0D
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12803,12 +23547,21 @@ hirom
 org $C0A48F
 
 C0A48F_RefreshSlotVisualProfileByIndex:
-
-; Original data gap before C0A4A8_RefreshSlotVisualProfileByIndex_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$06,$00,$5B,$68,$0A,$A8,$B9,$F2,$10
-db $8D,$92,$28,$22,$C4,$A4,$C0,$2B,$6B
-
-C0A4A8_RefreshSlotVisualProfileByIndex_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0006
+    tcd
+    pla
+    asl A
+    tay
+    lda $10F2,Y
+    sta $2892
+    jsl $C0A4C4
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12819,11 +23572,10 @@ hirom
 org $C0A4A8
 
 C0A4A8_RefreshCurrentSlotVisualProfile_Mode0IfAligned:
-
-; Original data gap before C0A4B2_RefreshCurrentSlotVisualProfile_Mode0IfAligned_End:
-db $9C,$92,$28,$22,$11,$C7,$C0,$D0,$11,$6B
-
-C0A4B2_RefreshCurrentSlotVisualProfile_Mode0IfAligned_End:
+    stz $2892
+    jsl $C0C711
+    db $D0, $11
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12834,11 +23586,11 @@ hirom
 org $C0A4B2
 
 C0A4B2_RefreshCurrentSlotVisualProfile_Mode1IfAligned:
-
-; Original data gap before C0A4BF_RefreshCurrentSlotVisualProfile_Mode1IfAligned_End:
-db $A9,$01,$00,$8D,$92,$28,$22,$11,$C7,$C0,$D0,$04,$6B
-
-C0A4BF_RefreshCurrentSlotVisualProfile_Mode1IfAligned_End:
+    lda.w #$0001
+    sta $2892
+    jsl $C0C711
+    db $D0, $04
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12849,11 +23601,8 @@ hirom
 org $C0A4BF
 
 C0A4BF_RefreshCurrentSlotVisualProfile_Mode0:
-
-; Original data gap before C0A4C4_RefreshCurrentSlotVisualProfile_Mode0_End:
-db $9C,$92,$28,$A4,$88
-
-C0A4C4_RefreshCurrentSlotVisualProfile_Mode0_End:
+    stz $2892
+    ldy $88
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12864,21 +23613,83 @@ hirom
 org $C0A4C4
 
 C0A4C4_RefreshSlotVisualProfileShared:
-
-; Original data gap before C0A56E_RefreshSlotVisualProfileShared_End:
-db $84,$08,$B9,$BA,$2A,$85,$00,$B9,$7E,$2A,$8D,$92,$00,$B9,$8E,$29
-db $8D,$97,$00,$B9,$06,$2A,$85,$04,$B9,$CA,$29,$85,$02,$B9,$F6,$2A
-db $0A,$AA,$BF,$0B,$A6,$C0,$F0,$0C,$AA,$A5,$02,$18,$69,$04,$00,$CA
-db $D0,$FA,$85,$02,$AD,$92,$28,$F0,$04,$E6,$02,$E6,$02,$A7,$02,$29
-db $02,$00,$D0,$35,$B9,$AA,$2B,$85,$06,$29,$08,$00,$F0,$2B,$E2,$20
-db $A9,$03,$8D,$91,$00,$A9,$C4,$8D,$96,$00,$C2,$20,$A9,$E8,$0B,$8D
-db $94,$00,$22,$6E,$A5,$C0,$C6,$00,$F0,$3F,$A5,$06,$29,$04,$00,$F0
-db $08,$22,$6E,$A5,$C0,$C6,$00,$F0,$30,$A4,$08,$A7,$02,$99,$1A,$34
-db $29,$F0,$FF,$8D,$94,$00,$E2,$20,$A9,$00,$8D,$91,$00,$B9,$42,$2A
-db $8D,$96,$00,$C2,$20,$22,$6E,$A5,$C0,$C6,$00,$F0,$0C,$AD,$94,$00
-db $18,$6D,$92,$00,$8D,$94,$00,$80,$EC,$6B
-
-C0A56E_RefreshSlotVisualProfileShared_End:
+    sty $08
+    lda $2ABA,Y
+    sta $00
+    lda $2A7E,Y
+    sta $0092
+    lda $298E,Y
+    sta $0097
+    lda $2A06,Y
+    sta $04
+    lda $29CA,Y
+    sta $02
+    lda $2AF6,Y
+    asl A
+    tax
+    lda $C0A60B,X
+    beq C0A4F8_RefreshSlotVisualProfileShared_LA4F8
+    tax
+    lda $02
+    clc
+C0A4F0_RefreshSlotVisualProfileShared_LA4F0:
+    adc.w #$0004
+    dex
+    bne C0A4F0_RefreshSlotVisualProfileShared_LA4F0
+    sta $02
+C0A4F8_RefreshSlotVisualProfileShared_LA4F8:
+    lda $2892
+    beq C0A501_RefreshSlotVisualProfileShared_LA501
+    inc $02
+    inc $02
+C0A501_RefreshSlotVisualProfileShared_LA501:
+    lda [$02]
+    and.w #$0002
+    bne C0A53D_RefreshSlotVisualProfileShared_LA53D
+    lda $2BAA,Y
+    sta $06
+    and.w #$0008
+    beq C0A53D_RefreshSlotVisualProfileShared_LA53D
+    sep #$20
+    lda.b #$03
+    sta $0091
+    lda.b #$C4
+    sta $0096
+    rep #$20
+    lda.w #$0BE8
+    sta $0094
+    jsl $C0A56E
+    dec $00
+    beq C0A56D_RefreshSlotVisualProfileShared_LA56D
+    lda $06
+    and.w #$0004
+    beq C0A53D_RefreshSlotVisualProfileShared_LA53D
+    jsl $C0A56E
+    dec $00
+    beq C0A56D_RefreshSlotVisualProfileShared_LA56D
+C0A53D_RefreshSlotVisualProfileShared_LA53D:
+    ldy $08
+    lda [$02]
+    sta $341A,Y
+    and.w #$FFF0
+    sta $0094
+    sep #$20
+    lda.b #$00
+    sta $0091
+    lda $2A42,Y
+    sta $0096
+    rep #$20
+C0A559_RefreshSlotVisualProfileShared_LA559:
+    jsl $C0A56E
+    dec $00
+    beq C0A56D_RefreshSlotVisualProfileShared_LA56D
+    lda $0094
+    clc
+    adc $0092
+    sta $0094
+    bra C0A559_RefreshSlotVisualProfileShared_LA559
+C0A56D_RefreshSlotVisualProfileShared_LA56D:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12889,20 +23700,84 @@ hirom
 org $C0A56E
 
 C0A56E_Generate_RenderDmaStripDescriptors:
-
-; Original data gap before C0A60B_Generate_RenderDmaStripDescriptors_End:
-db $AD,$92,$00,$4A,$18,$6D,$97,$00,$3A,$4D,$97,$00,$29,$00,$01,$F0
-db $4F,$AD,$94,$00,$48,$AD,$92,$00,$48,$AD,$97,$00,$48,$18,$69,$00
-db $01,$29,$00,$FF,$48,$38,$ED,$97,$00,$0A,$8D,$92,$00,$22,$43,$86
-db $C0,$AD,$94,$00,$18,$6D,$92,$00,$8D,$94,$00,$68,$18,$69,$00,$01
-db $8D,$97,$00,$FA,$68,$48,$DA,$38,$ED,$92,$00,$8D,$92,$00,$22,$43
-db $86,$C0,$68,$8D,$97,$00,$68,$8D,$92,$00,$68,$8D,$94,$00,$80,$04
-db $22,$43,$86,$C0,$AD,$97,$00,$29,$00,$01,$D0,$0B,$AD,$97,$00,$18
-db $69,$00,$01,$8D,$97,$00,$6B,$AD,$92,$00,$18,$69,$20,$00,$29,$C0
-db $FF,$4A,$18,$6D,$97,$00,$48,$4D,$97,$00,$29,$00,$01,$F0,$05,$68
-db $8D,$97,$00,$6B,$68,$38,$E9,$00,$01,$8D,$97,$00,$6B
-
-C0A60B_Generate_RenderDmaStripDescriptors_End:
+    lda $0092
+    lsr A
+    clc
+    adc $0097
+    dec A
+    eor $0097
+    and.w #$0100
+    beq C0A5CE_Generate_RenderDmaStripDescriptors_LA5CE
+    lda $0094
+    pha
+    lda $0092
+    pha
+    lda $0097
+    pha
+    clc
+    adc.w #$0100
+    and.w #$FF00
+    pha
+    sec
+    sbc $0097
+    asl A
+    sta $0092
+    jsl $C08643
+    lda $0094
+    clc
+    adc $0092
+    sta $0094
+    pla
+    clc
+    adc.w #$0100
+    sta $0097
+    plx
+    pla
+    pha
+    phx
+    sec
+    sbc $0092
+    sta $0092
+    jsl $C08643
+    pla
+    sta $0097
+    pla
+    sta $0092
+    pla
+    sta $0094
+    bra C0A5D2_Generate_RenderDmaStripDescriptors_LA5D2
+C0A5CE_Generate_RenderDmaStripDescriptors_LA5CE:
+    jsl $C08643
+C0A5D2_Generate_RenderDmaStripDescriptors_LA5D2:
+    lda $0097
+    and.w #$0100
+    bne C0A5E5_Generate_RenderDmaStripDescriptors_LA5E5
+    lda $0097
+    clc
+    adc.w #$0100
+    sta $0097
+    rtl
+C0A5E5_Generate_RenderDmaStripDescriptors_LA5E5:
+    lda $0092
+    clc
+    adc.w #$0020
+    and.w #$FFC0
+    lsr A
+    clc
+    adc $0097
+    pha
+    eor $0097
+    and.w #$0100
+    beq C0A602_Generate_RenderDmaStripDescriptors_LA602
+    pla
+    sta $0097
+    rtl
+C0A602_Generate_RenderDmaStripDescriptors_LA602:
+    pla
+    sec
+    sbc.w #$0100
+    sta $0097
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12945,11 +23820,11 @@ hirom
 org $C0A643
 
 C0A643_Script_SetDirectionClassAndField2C9A:
-
-; Original data gap before C0A651_Script_SetDirectionClassAndField2C9A_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$5F,$A6,$C0,$9D,$9A,$2C,$6B
-
-C0A651_Script_SetDirectionClassAndField2C9A_End:
+    jsl $C09D94
+    sty $94
+    jsl $C0A65F
+    sta $2C9A,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12960,11 +23835,11 @@ hirom
 org $C0A651
 
 C0A651_Script_SetDirectionClassAndField1A86:
-
-; Original data gap before C0A65F_Script_SetDirectionClassAndField1A86_End:
-db $22,$86,$9D,$C0,$84,$94,$22,$5F,$A6,$C0,$9D,$86,$1A,$6B
-
-C0A65F_Script_SetDirectionClassAndField1A86_End:
+    jsl $C09D86
+    sty $94
+    jsl $C0A65F
+    sta $1A86,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12975,11 +23850,15 @@ hirom
 org $C0A65F
 
 C0A65F_SetCurrentSlotDirectionClassIfActive:
-
-; Original data gap before C0A66D_SetCurrentSlotDirectionClassIfActive_End:
-db $A6,$88,$A8,$BD,$5E,$2C,$30,$04,$98,$9D,$F6,$2A,$98,$6B
-
-C0A66D_SetCurrentSlotDirectionClassIfActive_End:
+    ldx $88
+    tay
+    lda $2C5E,X
+    bmi C0A66B_SetCurrentSlotDirectionClassIfActive_LA66B
+    tya
+    sta $2AF6,X
+C0A66B_SetCurrentSlotDirectionClassIfActive_LA66B:
+    tya
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -12990,11 +23869,9 @@ hirom
 org $C0A66D
 
 C0A66D_SetCurrentSlotDirectionClass:
-
-; Original data gap before C0A673_SetCurrentSlotDirectionClass_End:
-db $A6,$88,$9D,$F6,$2A,$6B
-
-C0A673_SetCurrentSlotDirectionClass_End:
+    ldx $88
+    sta $2AF6,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13005,11 +23882,9 @@ hirom
 org $C0A673
 
 C0A673_GetCurrentSlotDirectionClass:
-
-; Original data gap before C0A679_GetCurrentSlotDirectionClass_End:
-db $A6,$88,$BD,$F6,$2A,$6B
-
-C0A679_GetCurrentSlotDirectionClass_End:
+    ldx $88
+    lda $2AF6,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13020,11 +23895,11 @@ hirom
 org $C0A679
 
 C0A679_Script_SetCurrentSlotDisplayControlBits:
-
-; Original data gap before C0A685_Script_SetCurrentSlotDisplayControlBits_End:
-db $22,$86,$9D,$C0,$84,$94,$A6,$88,$9D,$AA,$2B,$6B
-
-C0A685_Script_SetCurrentSlotDisplayControlBits_End:
+    jsl $C09D86
+    sty $94
+    ldx $88
+    sta $2BAA,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13035,11 +23910,8 @@ hirom
 org $C0A685
 
 C0A685_Script_SetCurrentSlotField2B32:
-
-; Original data gap before C0A68B_Script_SetCurrentSlotField2B32_End:
-db $22,$94,$9D,$C0,$84,$94
-
-C0A68B_Script_SetCurrentSlotField2B32_End:
+    jsl $C09D94
+    sty $94
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13050,11 +23922,9 @@ hirom
 org $C0A68B
 
 C0A68B_StoreAInCurrentSlotField2B32:
-
-; Original data gap before C0A691_StoreAInCurrentSlotField2B32_End:
-db $A6,$88,$9D,$32,$2B,$6B
-
-C0A691_StoreAInCurrentSlotField2B32_End:
+    ldx $88
+    sta $2B32,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13065,11 +23935,9 @@ hirom
 org $C0A691
 
 C0A691_GetCurrentSlotField2B32:
-
-; Original data gap before C0A697_GetCurrentSlotField2B32_End:
-db $A6,$88,$BD,$32,$2B,$6B
-
-C0A697_GetCurrentSlotField2B32_End:
+    ldx $88
+    lda $2B32,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13080,11 +23948,10 @@ hirom
 org $C0A697
 
 C0A697_Script_SetMovementStateC83B:
-
-; Original data gap before C0A6A2_Script_SetMovementStateC83B_End:
-db $22,$86,$9D,$C0,$84,$94,$22,$3B,$C8,$C0,$6B
-
-C0A6A2_Script_SetMovementStateC83B_End:
+    jsl $C09D86
+    sty $94
+    jsl $C0C83B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13095,11 +23962,10 @@ hirom
 org $C0A6A2
 
 C0A6A2_Script_SetMovementStateCA4E:
-
-; Original data gap before C0A6AD_Script_SetMovementStateCA4E_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$4E,$CA,$C0,$6B
-
-C0A6AD_Script_SetMovementStateCA4E_End:
+    jsl $C09D94
+    sty $94
+    jsl $C0CA4E
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13110,11 +23976,10 @@ hirom
 org $C0A6AD
 
 C0A6AD_Script_SetMovementStateCBD3:
-
-; Original data gap before C0A6B8_Script_SetMovementStateCBD3_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$D3,$CB,$C0,$6B
-
-C0A6B8_Script_SetMovementStateCBD3_End:
+    jsl $C09D94
+    sty $94
+    jsl $C0CBD3
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13125,11 +23990,14 @@ hirom
 org $C0A6B8
 
 C0A6B8_GetCurrentSlotHasNoCachedNeighborFlag:
-
-; Original data gap before C0A6C5_GetCurrentSlotHasNoCachedNeighborFlag_End:
-db $A0,$00,$00,$A6,$88,$BD,$9E,$28,$30,$01,$88,$98,$6B
-
-C0A6C5_GetCurrentSlotHasNoCachedNeighborFlag_End:
+    ldy.w #$0000
+    ldx $88
+    lda $289E,X
+    bmi C0A6C3_GetCurrentSlotHasNoCachedNeighborFlag_LA6C3
+    dey
+C0A6C3_GetCurrentSlotHasNoCachedNeighborFlag_LA6C3:
+    tya
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13140,11 +24008,9 @@ hirom
 org $C0A6C5
 
 C0A6C5_GetCurrentSlotCollisionFlags28DA:
-
-; Original data gap before C0A6CB_GetCurrentSlotCollisionFlags28DA_End:
-db $A6,$88,$BD,$DA,$28,$6B
-
-C0A6CB_GetCurrentSlotCollisionFlags28DA_End:
+    ldx $88
+    lda $28DA,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13155,12 +24021,17 @@ hirom
 org $C0A6CB
 
 C0A6CB_GetCurrentSlotActivityState2C5E:
-
-; Original data gap before C0A6E3_GetCurrentSlotActivityState2C5E_End:
-db $A6,$88,$BD,$5E,$2C,$6B,$A6,$88,$A9,$00,$80,$9D,$9E,$28,$6B,$A6
-db $88,$A9,$FF,$FF,$9D,$9E,$28,$6B
-
-C0A6E3_GetCurrentSlotActivityState2C5E_End:
+    ldx $88
+    lda $2C5E,X
+    rtl
+    ldx $88
+    lda.w #$8000
+    sta $289E,X
+    rtl
+    ldx $88
+    lda.w #$FFFF
+    sta $289E,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13171,12 +24042,14 @@ hirom
 org $C0A6E3
 
 C0A6E3_WatchAndRefreshCompanionVisualPhase:
-
-; Original data gap before C0A6F7_WatchAndRefreshCompanionVisualPhase_End:
-db $A6,$88,$8E,$96,$28,$BD,$22,$2C,$EB,$1D,$F6,$2A,$DD,$56,$34,$F0
-db $07,$9D,$56,$34
-
-C0A6F7_WatchAndRefreshCompanionVisualPhase_End:
+    ldx $88
+    stx $2896
+    lda $2C22,X
+    xba
+    ora $2AF6,X
+    cmp $3456,X
+    db $F0, $07
+    sta $3456,X
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13187,16 +24060,44 @@ hirom
 org $C0A6F7
 
 C0A6F7_RefreshCompanionVisualOnSignatureChange:
-
-; Original data gap before C0A750_RefreshCompanionVisualOnSignatureChange_End:
-db $20,$94,$A7,$6B,$BD,$02,$10,$10,$08,$29,$FF,$7F,$9D,$02,$10,$80
-db $48,$29,$00,$20,$F0,$0A,$BD,$F2,$10,$F0,$41,$9E,$F2,$10,$80,$39
-db $AD,$60,$5D,$D0,$37,$DE,$D6,$0E,$30,$02,$D0,$30,$BD,$12,$0F,$9D
-db $D6,$0E,$BD,$F2,$10,$49,$02,$00,$9D,$F2,$10,$D0,$1C,$EC,$98,$28
-db $D0,$17,$AE,$9C,$28,$D0,$03,$AE,$9A,$28,$BF,$D4,$0B,$C4,$F0,$09
-db $AE,$B6,$B4,$D0,$04,$22,$E0,$AB,$C0
-
-C0A750_RefreshCompanionVisualOnSignatureChange_End:
+    jsr $A794
+    rtl
+    lda $1002,X
+    bpl C0A708_RefreshCompanionVisualOnSignatureChange_LA708
+    and.w #$7FFF
+    sta $1002,X
+    db $80, $48
+C0A708_RefreshCompanionVisualOnSignatureChange_LA708:
+    and.w #$2000
+    beq C0A717_RefreshCompanionVisualOnSignatureChange_LA717
+    lda $10F2,X
+    db $F0, $41
+    stz $10F2,X
+    db $80, $39
+C0A717_RefreshCompanionVisualOnSignatureChange_LA717:
+    lda $5D60
+    db $D0, $37
+    dec $0ED6,X
+    bmi C0A723_RefreshCompanionVisualOnSignatureChange_LA723
+    db $D0, $30
+C0A723_RefreshCompanionVisualOnSignatureChange_LA723:
+    lda $0F12,X
+    sta $0ED6,X
+    lda $10F2,X
+    eor.w #$0002
+    sta $10F2,X
+    db $D0, $1C
+    cpx $2898
+    db $D0, $17
+    ldx $289C
+    bne C0A741_RefreshCompanionVisualOnSignatureChange_LA741
+    ldx $289A
+C0A741_RefreshCompanionVisualOnSignatureChange_LA741:
+    lda $C40BD4,X
+    db $F0, $09
+    ldx $B4B6
+    db $D0, $04
+    jsl $C0ABE0
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13207,13 +24108,29 @@ hirom
 org $C0A750
 
 C0A750_RefreshCompanionVisualOnWatcherRerun:
-
-; Original data gap before C0A780_RefreshCompanionVisualOnWatcherRerun_End:
-db $20,$94,$A7,$A6,$88,$AD,$3F,$9F,$D0,$25,$AD,$58,$5D,$F0,$20,$C9
-db $2D,$00,$B0,$05,$29,$03,$00,$D0,$0D,$29,$01,$00,$D0,$08,$BD,$6A
-db $11,$09,$00,$80,$80,$06,$BD,$6A,$11,$29,$FF,$7F,$9D,$6A,$11,$6B
-
-C0A780_RefreshCompanionVisualOnWatcherRerun_End:
+    jsr $A794
+    ldx $88
+    lda $9F3F
+    bne C0A77F_RefreshCompanionVisualOnWatcherRerun_LA77F
+    lda $5D58
+    beq C0A77F_RefreshCompanionVisualOnWatcherRerun_LA77F
+    cmp.w #$002D
+    bcs C0A769_RefreshCompanionVisualOnWatcherRerun_LA769
+    and.w #$0003
+    bne C0A776_RefreshCompanionVisualOnWatcherRerun_LA776
+C0A769_RefreshCompanionVisualOnWatcherRerun_LA769:
+    and.w #$0001
+    bne C0A776_RefreshCompanionVisualOnWatcherRerun_LA776
+    lda $116A,X
+    ora.w #$8000
+    bra C0A77C_RefreshCompanionVisualOnWatcherRerun_LA77C
+C0A776_RefreshCompanionVisualOnWatcherRerun_LA776:
+    lda $116A,X
+    and.w #$7FFF
+C0A77C_RefreshCompanionVisualOnWatcherRerun_LA77C:
+    sta $116A,X
+C0A77F_RefreshCompanionVisualOnWatcherRerun_LA77F:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13224,11 +24141,16 @@ hirom
 org $C0A780
 
 C0A780_RefreshCompanionVisualProfileForEntry:
-
-; Original data gap before C0A78F_RefreshCompanionVisualProfileForEntry_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$08,$00,$5B,$68,$0A,$8D,$96,$28
-
-C0A78F_RefreshCompanionVisualProfileForEntry_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$0008
+    tcd
+    pla
+    asl A
+    sta $2896
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13239,11 +24161,9 @@ hirom
 org $C0A78F
 
 C0A78F_RefreshCompanionVisualDirectWrapper:
-
-; Original data gap before C0A794_RefreshCompanionVisualDirectWrapper_End:
-db $20,$94,$A7,$2B,$6B
-
-C0A794_RefreshCompanionVisualDirectWrapper_End:
+    jsr $A794
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13254,21 +24174,80 @@ hirom
 org $C0A794
 
 C0A794_RefreshCompanionVisualProfile_PhaseBiased:
-
-; Original data gap before C0A841_RefreshCompanionVisualProfile_PhaseBiased_End:
-db $AC,$96,$28,$B9,$BA,$2A,$85,$00,$B9,$7E,$2A,$8D,$92,$00,$B9,$8E
-db $29,$8D,$97,$00,$B9,$06,$2A,$85,$04,$B9,$F6,$2A,$0A,$AA,$BF,$23
-db $A6,$C0,$0A,$0A,$18,$79,$CA,$29,$79,$F2,$10,$85,$02,$A7,$02,$29
-db $02,$00,$D0,$35,$B9,$AA,$2B,$85,$06,$29,$08,$00,$F0,$2B,$E2,$20
-db $A9,$03,$8D,$91,$00,$A9,$C4,$8D,$96,$00,$C2,$20,$A9,$E8,$0B,$8D
-db $94,$00,$22,$6E,$A5,$C0,$C6,$00,$F0,$40,$A5,$06,$29,$04,$00,$F0
-db $08,$22,$6E,$A5,$C0,$C6,$00,$F0,$31,$AC,$96,$28,$A7,$02,$99,$1A
-db $34,$29,$FE,$FF,$8D,$94,$00,$E2,$20,$A9,$00,$8D,$91,$00,$B9,$42
-db $2A,$8D,$96,$00,$C2,$20,$22,$6E,$A5,$C0,$C6,$00,$F0,$0C,$AD,$94
-db $00,$18,$6D,$92,$00,$8D,$94,$00,$80,$EC,$60,$A9,$00,$80,$A6,$88
-db $9D,$9E,$28,$6B,$A9,$FF,$FF,$A6,$88,$9D,$9E,$28,$6B
-
-C0A841_RefreshCompanionVisualProfile_PhaseBiased_End:
+    ldy $2896
+    lda $2ABA,Y
+    sta $00
+    lda $2A7E,Y
+    sta $0092
+    lda $298E,Y
+    sta $0097
+    lda $2A06,Y
+    sta $04
+    lda $2AF6,Y
+    asl A
+    tax
+    lda $C0A623,X
+    asl A
+    asl A
+    clc
+    adc $29CA,Y
+    adc $10F2,Y
+    sta $02
+    lda [$02]
+    and.w #$0002
+    bne C0A7FD_RefreshCompanionVisualProfile_PhaseBiased_LA7FD
+    lda $2BAA,Y
+    sta $06
+    and.w #$0008
+    beq C0A7FD_RefreshCompanionVisualProfile_PhaseBiased_LA7FD
+    sep #$20
+    lda.b #$03
+    sta $0091
+    lda.b #$C4
+    sta $0096
+    rep #$20
+    lda.w #$0BE8
+    sta $0094
+    jsl $C0A56E
+    dec $00
+    beq C0A82E_RefreshCompanionVisualProfile_PhaseBiased_LA82E
+    lda $06
+    and.w #$0004
+    beq C0A7FD_RefreshCompanionVisualProfile_PhaseBiased_LA7FD
+    jsl $C0A56E
+    dec $00
+    beq C0A82E_RefreshCompanionVisualProfile_PhaseBiased_LA82E
+C0A7FD_RefreshCompanionVisualProfile_PhaseBiased_LA7FD:
+    ldy $2896
+    lda [$02]
+    sta $341A,Y
+    and.w #$FFFE
+    sta $0094
+    sep #$20
+    lda.b #$00
+    sta $0091
+    lda $2A42,Y
+    sta $0096
+    rep #$20
+C0A81A_RefreshCompanionVisualProfile_PhaseBiased_LA81A:
+    jsl $C0A56E
+    dec $00
+    beq C0A82E_RefreshCompanionVisualProfile_PhaseBiased_LA82E
+    lda $0094
+    clc
+    adc $0092
+    sta $0094
+    bra C0A81A_RefreshCompanionVisualProfile_PhaseBiased_LA81A
+C0A82E_RefreshCompanionVisualProfile_PhaseBiased_LA82E:
+    rts
+    lda.w #$8000
+    ldx $88
+    sta $289E,X
+    rtl
+    lda.w #$FFFF
+    ldx $88
+    sta $289E,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13279,11 +24258,10 @@ hirom
 org $C0A841
 
 C0A841_Script_PlaySoundEffectParameter:
-
-; Original data gap before C0A84C_Script_PlaySoundEffectParameter_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$E0,$AB,$C0,$6B
-
-C0A84C_Script_PlaySoundEffectParameter_End:
+    jsl $C09D94
+    sty $94
+    jsl $C0ABE0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13293,12 +24271,12 @@ C0A84C_Script_PlaySoundEffectParameter_End:
 hirom
 org $C0A84C
 
+!C21628_CheckEventFlag = $C21628
 C0A84C_ScriptWrapper_C21628_ReadWord:
-
-; Original data gap before C0A857_ScriptWrapper_C21628_ReadWord_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$28,$16,$C2,$6B
-
-C0A857_ScriptWrapper_C21628_ReadWord_End:
+    jsl $C09D94
+    sty $94
+    jsl !C21628_CheckEventFlag
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13308,12 +24286,14 @@ C0A857_ScriptWrapper_C21628_ReadWord_End:
 hirom
 org $C0A857
 
+!C2165E_SetEventFlagOrState = $C2165E
 C0A857_ScriptWrapper_C2165E_ReadWordPreserveMode:
-
-; Original data gap before C0A864_ScriptWrapper_C2165E_ReadWordPreserveMode_End:
-db $48,$22,$94,$9D,$C0,$84,$94,$FA,$22,$5E,$16,$C2,$6B
-
-C0A864_ScriptWrapper_C2165E_ReadWordPreserveMode_End:
+    pha
+    jsl $C09D94
+    sty $94
+    plx
+    jsl !C2165E_SetEventFlagOrState
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13324,11 +24304,10 @@ hirom
 org $C0A864
 
 C0A864_ScriptWrapper_C46C9B_ReadByte:
-
-; Original data gap before C0A86F_ScriptWrapper_C46C9B_ReadByte_End:
-db $22,$86,$9D,$C0,$84,$94,$22,$9B,$6C,$C4,$6B
-
-C0A86F_ScriptWrapper_C46C9B_ReadByte_End:
+    jsl $C09D86
+    sty $94
+    jsl $C46C9B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13339,11 +24318,10 @@ hirom
 org $C0A86F
 
 C0A86F_ScriptWrapper_C46CC7_ReadByte:
-
-; Original data gap before C0A87A_ScriptWrapper_C46CC7_ReadByte_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$C7,$6C,$C4,$6B
-
-C0A87A_ScriptWrapper_C46CC7_ReadByte_End:
+    jsl $C09D94
+    sty $94
+    jsl $C46CC7
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13354,12 +24332,14 @@ hirom
 org $C0A87A
 
 C0A87A_ScriptWrapper_C46CF5_ReadByte:
-
-; Original data gap before C0A88D_ScriptWrapper_C46CF5_ReadByte_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$84,$94,$FA,$22,$F5
-db $6C,$C4,$6B
-
-C0A88D_ScriptWrapper_C46CF5_ReadByte_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    plx
+    jsl $C46CF5
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13370,12 +24350,14 @@ hirom
 org $C0A88D
 
 C0A88D_ScriptWrapper_C46E4F_ReadWordByte:
-
-; Original data gap before C0A8A0_ScriptWrapper_C46E4F_ReadWordByte_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$84,$94,$FA,$22,$4F
-db $6E,$C4,$6B
-
-C0A8A0_ScriptWrapper_C46E4F_ReadWordByte_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    plx
+    jsl $C46E4F
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13386,12 +24368,14 @@ hirom
 org $C0A8A0
 
 C0A8A0_ScriptWrapper_C466F0_ReadWordByte:
-
-; Original data gap before C0A8B3_ScriptWrapper_C466F0_ReadWordByte_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$84,$94,$FA,$22,$F0
-db $66,$C4,$6B
-
-C0A8B3_ScriptWrapper_C466F0_ReadWordByte_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    plx
+    jsl $C466F0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13402,12 +24386,14 @@ hirom
 org $C0A8B3
 
 C0A8B3_ScriptWrapper_C46C5E_ReadWordByte:
-
-; Original data gap before C0A8C6_ScriptWrapper_C46C5E_ReadWordByte_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$84,$94,$FA,$22,$5E
-db $6C,$C4,$6B
-
-C0A8C6_ScriptWrapper_C46C5E_ReadWordByte_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    plx
+    jsl $C46C5E
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13418,11 +24404,10 @@ hirom
 org $C0A8C6
 
 C0A8C6_ScriptWrapper_C47143_Mode00:
-
-; Original data gap before C0A8D1_ScriptWrapper_C47143_Mode00_End:
-db $A9,$00,$00,$A2,$00,$00,$22,$43,$71,$C4,$6B
-
-C0A8D1_ScriptWrapper_C47143_Mode00_End:
+    lda.w #$0000
+    ldx.w #$0000
+    jsl $C47143
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13433,11 +24418,10 @@ hirom
 org $C0A8D1
 
 C0A8D1_ScriptWrapper_C47143_Mode10:
-
-; Original data gap before C0A8DC_ScriptWrapper_C47143_Mode10_End:
-db $A9,$01,$00,$A2,$00,$00,$22,$43,$71,$C4,$6B
-
-C0A8DC_ScriptWrapper_C47143_Mode10_End:
+    lda.w #$0001
+    ldx.w #$0000
+    jsl $C47143
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13448,11 +24432,10 @@ hirom
 org $C0A8DC
 
 C0A8DC_ScriptWrapper_C47143_Mode01:
-
-; Original data gap before C0A8E7_ScriptWrapper_C47143_Mode01_End:
-db $A9,$00,$00,$A2,$01,$00,$22,$43,$71,$C4,$6B
-
-C0A8E7_ScriptWrapper_C47143_Mode01_End:
+    lda.w #$0000
+    ldx.w #$0001
+    jsl $C47143
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13463,11 +24446,9 @@ hirom
 org $C0A8E7
 
 C0A8E7_ScriptWrapper_C472A8_Mode0:
-
-; Original data gap before C0A8EF_ScriptWrapper_C472A8_Mode0_End:
-db $A9,$00,$00,$22,$A8,$72,$C4,$6B
-
-C0A8EF_ScriptWrapper_C472A8_Mode0_End:
+    lda.w #$0000
+    jsl $C472A8
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13478,11 +24459,9 @@ hirom
 org $C0A8EF
 
 C0A8EF_ScriptWrapper_C472A8_Mode1:
-
-; Original data gap before C0A8F7_ScriptWrapper_C472A8_Mode1_End:
-db $A9,$01,$00,$22,$A8,$72,$C4,$6B
-
-C0A8F7_ScriptWrapper_C472A8_Mode1_End:
+    lda.w #$0001
+    jsl $C472A8
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13493,11 +24472,9 @@ hirom
 org $C0A8F7
 
 C0A8F7_ActionScript_PrepareNewEntityAtSelf:
-
-; Original data gap before C0A8FF_ActionScript_PrepareNewEntityAtSelf_End:
-db $A9,$00,$00,$22,$AD,$6D,$C4,$6B
-
-C0A8FF_ActionScript_PrepareNewEntityAtSelf_End:
+    lda.w #$0000
+    jsl $C46DAD
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13508,11 +24485,9 @@ hirom
 org $C0A8FF
 
 C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader:
-
-; Original data gap before C0A907_ActionScript_PrepareNewEntityAtPartyLeader_End:
-db $A9,$01,$00,$22,$AD,$6D,$C4,$6B
-
-C0A907_ActionScript_PrepareNewEntityAtPartyLeader_End:
+    lda.w #$0001
+    jsl $C46DAD
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13523,11 +24498,10 @@ hirom
 org $C0A907
 
 C0A907_ActionScript_PrepareNewEntityAtTeleportDestination:
-
-; Original data gap before C0A912_ActionScript_PrepareNewEntityAtTeleportDestination_End:
-db $22,$86,$9D,$C0,$84,$94,$22,$E5,$6D,$C4,$6B
-
-C0A912_ActionScript_PrepareNewEntityAtTeleportDestination_End:
+    jsl $C09D86
+    sty $94
+    jsl $C46DE5
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13538,12 +24512,18 @@ hirom
 org $C0A912
 
 C0A912_ActionScript_PrepareNewEntity:
-
-; Original data gap before C0A92D_ActionScript_PrepareNewEntity_End:
-db $22,$94,$9D,$C0,$84,$94,$48,$22,$94,$9D,$C0,$84,$94,$48,$22,$86
-db $9D,$C0,$84,$94,$7A,$FA,$22,$37,$6E,$C4,$6B
-
-C0A92D_ActionScript_PrepareNewEntity_End:
+    jsl $C09D94
+    sty $94
+    pha
+    jsl $C09D94
+    sty $94
+    pha
+    jsl $C09D86
+    sty $94
+    ply
+    plx
+    jsl $C46E37
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13554,11 +24534,10 @@ hirom
 org $C0A92D
 
 C0A92D_ScriptWrapper_C46B8D_ReadWord:
-
-; Original data gap before C0A938_ScriptWrapper_C46B8D_ReadWord_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$8D,$6B,$C4,$6B
-
-C0A938_ScriptWrapper_C46B8D_ReadWord_End:
+    jsl $C09D94
+    sty $94
+    jsl $C46B8D
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13569,11 +24548,10 @@ hirom
 org $C0A938
 
 C0A938_ScriptWrapper_C46BBB_ReadWord:
-
-; Original data gap before C0A943_ScriptWrapper_C46BBB_ReadWord_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$BB,$6B,$C4,$6B
-
-C0A943_ScriptWrapper_C46BBB_ReadWord_End:
+    jsl $C09D94
+    sty $94
+    jsl $C46BBB
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13584,11 +24562,10 @@ hirom
 org $C0A943
 
 C0A943_ActionScript_GetPositionOfPartyMember:
-
-; Original data gap before C0A94E_ActionScript_GetPositionOfPartyMember_End:
-db $22,$86,$9D,$C0,$84,$94,$22,$E9,$6B,$C4,$6B
-
-C0A94E_ActionScript_GetPositionOfPartyMember_End:
+    jsl $C09D86
+    sty $94
+    jsl $C46BE9
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13599,11 +24576,10 @@ hirom
 org $C0A94E
 
 C0A94E_ScriptWrapper_C46984_ReadWord:
-
-; Original data gap before C0A959_ScriptWrapper_C46984_ReadWord_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$84,$69,$C4,$6B
-
-C0A959_ScriptWrapper_C46984_ReadWord_End:
+    jsl $C09D94
+    sty $94
+    jsl $C46984
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13614,11 +24590,10 @@ hirom
 org $C0A959
 
 C0A959_ScriptWrapper_C469F1_ReadWord:
-
-; Original data gap before C0A964_ScriptWrapper_C469F1_ReadWord_End:
-db $22,$94,$9D,$C0,$84,$94,$22,$F1,$69,$C4,$6B
-
-C0A964_ScriptWrapper_C469F1_ReadWord_End:
+    jsl $C09D94
+    sty $94
+    jsl $C469F1
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13629,12 +24604,14 @@ hirom
 org $C0A964
 
 C0A964_ScriptWrapper_C47225_ReadTwoWords:
-
-; Original data gap before C0A977_ScriptWrapper_C47225_ReadTwoWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$84,$94,$FA,$22,$25
-db $72,$C4,$6B
-
-C0A977_ScriptWrapper_C47225_ReadTwoWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    plx
+    jsl $C47225
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13645,12 +24622,15 @@ hirom
 org $C0A977
 
 C0A977_Movement_LoadBattleBg:
-
-; Original data gap before C0A98B_Movement_LoadBattleBg_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$AA,$84,$94,$68,$22
-db $70,$73,$C4,$6B
-
-C0A98B_Movement_LoadBattleBg_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    tax
+    sty $94
+    pla
+    jsl $C47370
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13661,12 +24641,15 @@ hirom
 org $C0A98B
 
 C0A98B_ScriptWrapper_C46534_ReadThreeWords:
-
-; Original data gap before C0A99F_ScriptWrapper_C46534_ReadThreeWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$AA,$84,$94,$68,$22
-db $34,$65,$C4,$6B
-
-C0A99F_ScriptWrapper_C46534_ReadThreeWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    tax
+    sty $94
+    pla
+    jsl $C46534
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13677,12 +24660,15 @@ hirom
 org $C0A99F
 
 C0A99F_ScriptWrapper_C4ECAD_ReadThreeWords:
-
-; Original data gap before C0A9B3_ScriptWrapper_C4ECAD_ReadThreeWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$AA,$84,$94,$68,$22
-db $AD,$EC,$C4,$6B
-
-C0A9B3_ScriptWrapper_C4ECAD_ReadThreeWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    tax
+    sty $94
+    pla
+    jsl $C4ECAD
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13693,12 +24679,19 @@ hirom
 org $C0A9B3
 
 C0A9B3_ScriptWrapper_C4EBAD_ReadThreeWords:
-
-; Original data gap before C0A9CF_ScriptWrapper_C4EBAD_ReadThreeWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$48,$84,$94,$22,$94
-db $9D,$C0,$84,$94,$A8,$FA,$68,$22,$AD,$EB,$C4,$6B
-
-C0A9CF_ScriptWrapper_C4EBAD_ReadThreeWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    tay
+    plx
+    pla
+    jsl $C4EBAD
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13709,12 +24702,19 @@ hirom
 org $C0A9CF
 
 C0A9CF_ScriptWrapper_C4EC05_ReadThreeWords:
-
-; Original data gap before C0A9EB_ScriptWrapper_C4EC05_ReadThreeWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$48,$84,$94,$22,$94
-db $9D,$C0,$84,$94,$A8,$FA,$68,$22,$05,$EC,$C4,$6B
-
-C0A9EB_ScriptWrapper_C4EC05_ReadThreeWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    tay
+    plx
+    pla
+    jsl $C4EC05
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13725,12 +24725,19 @@ hirom
 org $C0A9EB
 
 C0A9EB_ScriptWrapper_C4EC52_ReadThreeWords:
-
-; Original data gap before C0AA07_ScriptWrapper_C4EC52_ReadThreeWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$48,$84,$94,$22,$94
-db $9D,$C0,$84,$94,$A8,$FA,$68,$22,$52,$EC,$C4,$6B
-
-C0AA07_ScriptWrapper_C4EC52_ReadThreeWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    tay
+    plx
+    pla
+    jsl $C4EC52
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13740,13 +24747,21 @@ C0AA07_ScriptWrapper_C4EC52_ReadThreeWords_End:
 hirom
 org $C0AA07
 
+!C08814_SetDisplayTransitionMode = $C08814
 C0AA07_ActionScript_FadeOutWithMosaic:
-
-; Original data gap before C0AA23_ActionScript_FadeOutWithMosaic_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$48,$84,$94,$22,$94
-db $9D,$C0,$84,$94,$A8,$FA,$68,$22,$14,$88,$C0,$6B
-
-C0AA23_ActionScript_FadeOutWithMosaic_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    tay
+    plx
+    pla
+    jsl !C08814_SetDisplayTransitionMode
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13757,12 +24772,19 @@ hirom
 org $C0AA23
 
 C0AA23_ScriptWrapper_C47765_ReadTwoWords:
-
-; Original data gap before C0AA3F_ScriptWrapper_C47765_ReadTwoWords_End:
-db $22,$94,$9D,$C0,$48,$84,$94,$22,$94,$9D,$C0,$48,$84,$94,$22,$94
-db $9D,$C0,$84,$94,$A8,$FA,$68,$22,$65,$77,$C4,$6B
-
-C0AA3F_ScriptWrapper_C47765_ReadTwoWords_End:
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    pha
+    sty $94
+    jsl $C09D94
+    sty $94
+    tay
+    plx
+    pla
+    jsl $C47765
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13773,13 +24795,26 @@ hirom
 org $C0AA3F
 
 C0AA3F_Script_SetVisualSetupBytesByMode:
-
-; Original data gap before C0AA6E_Script_SetVisualSetupBytesByMode_End:
-db $C2,$30,$A2,$33,$00,$3A,$D0,$03,$A2,$B3,$00,$DA,$22,$86,$9D,$C0
-db $84,$94,$8D,$37,$9E,$22,$86,$9D,$C0,$84,$94,$8D,$38,$9E,$22,$86
-db $9D,$C0,$84,$94,$8D,$39,$9E,$68,$22,$39,$24,$C4,$C2,$30,$6B
-
-C0AA6E_Script_SetVisualSetupBytesByMode_End:
+    rep #$30
+    ldx.w #$0033
+    dec A
+    bne C0AA4A_Script_SetVisualSetupBytesByMode_LAA4A
+    ldx.w #$00B3
+C0AA4A_Script_SetVisualSetupBytesByMode_LAA4A:
+    phx
+    jsl $C09D86
+    sty $94
+    sta $9E37
+    jsl $C09D86
+    sty $94
+    sta $9E38
+    jsl $C09D86
+    sty $94
+    sta $9E39
+    pla
+    jsl $C42439
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13790,14 +24825,29 @@ hirom
 org $C0AA6E
 
 C0AA6E_Script_ApplyCurrentSlotVisualCountdownState:
-
-; Original data gap before C0AAA8_Script_ApplyCurrentSlotVisualCountdownState_End:
-db $A6,$88,$BD,$5E,$0E,$D0,$1B,$22,$86,$9D,$C0,$84,$94,$9D,$F6,$2A
-db $22,$86,$9D,$C0,$84,$94,$9D,$F2,$10,$8D,$92,$28,$9B,$22,$C4,$A4
-db $C0,$6B,$A6,$88,$22,$86,$9D,$C0,$84,$94,$9D,$F6,$2A,$22,$86,$9D
-db $C0,$84,$94,$0A,$9D,$F2,$10,$8E,$96,$28
-
-C0AAA8_Script_ApplyCurrentSlotVisualCountdownState_End:
+    ldx $88
+    lda $0E5E,X
+    bne C0AA90_Script_ApplyCurrentSlotVisualCountdownState_LAA90
+    jsl $C09D86
+    sty $94
+    sta $2AF6,X
+    jsl $C09D86
+    sty $94
+    sta $10F2,X
+    sta $2892
+    txy
+    jsl $C0A4C4
+    rtl
+C0AA90_Script_ApplyCurrentSlotVisualCountdownState_LAA90:
+    ldx $88
+    jsl $C09D86
+    sty $94
+    sta $2AF6,X
+    jsl $C09D86
+    sty $94
+    asl A
+    sta $10F2,X
+    stx $2896
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13808,11 +24858,8 @@ hirom
 org $C0AAA8
 
 C0AAA8_ScriptRefreshCompanionVisualProfile_PhaseBiased:
-
-; Original data gap before C0AAAC_ScriptRefreshCompanionVisualProfile_PhaseBiased_End:
-db $20,$94,$A7,$6B
-
-C0AAAC_ScriptRefreshCompanionVisualProfile_PhaseBiased_End:
+    jsr $A794
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13823,11 +24870,8 @@ hirom
 org $C0AAAC
 
 C0AAAC_Script_RefreshCurrentSlotVisualProfile:
-
-; Original data gap before C0AAB1_Script_RefreshCurrentSlotVisualProfile_End:
-db $A6,$88,$8E,$96,$28
-
-C0AAB1_Script_RefreshCurrentSlotVisualProfile_End:
+    ldx $88
+    stx $2896
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13838,11 +24882,8 @@ hirom
 org $C0AAB1
 
 C0AAB1_ScriptRefreshCompanionVisualProfile_CurrentSlot:
-
-; Original data gap before C0AAB5_ScriptRefreshCompanionVisualProfile_CurrentSlot_End:
-db $20,$94,$A7,$6B
-
-C0AAB5_ScriptRefreshCompanionVisualProfile_CurrentSlot_End:
+    jsr $A794
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13853,12 +24894,15 @@ hirom
 org $C0AAB5
 
 C0AAB5_ScriptWrapper_C497C0_ReadWordByteByte:
-
-; Original data gap before C0AACD_ScriptWrapper_C497C0_ReadWordByteByte_End:
-db $22,$94,$9D,$C0,$85,$90,$22,$86,$9D,$C0,$AA,$22,$86,$9D,$C0,$84
-db $94,$A4,$90,$22,$C0,$97,$C4,$6B
-
-C0AACD_ScriptWrapper_C497C0_ReadWordByteByte_End:
+    jsl $C09D94
+    sta $90
+    jsl $C09D86
+    tax
+    jsl $C09D86
+    sty $94
+    ldy $90
+    jsl $C497C0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13869,11 +24913,8 @@ hirom
 org $C0AACD
 
 C0AACD_ReturnX0002:
-
-; Original data gap before C0AAD1_ReturnX0002_End:
-db $A2,$02,$00,$6B
-
-C0AAD1_ReturnX0002_End:
+    ldx.w #$0002
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13884,11 +24925,8 @@ hirom
 org $C0AAD1
 
 C0AAD1_ReturnX0004:
-
-; Original data gap before C0AAD5_ReturnX0004_End:
-db $A2,$04,$00,$6B
-
-C0AAD5_ReturnX0004_End:
+    ldx.w #$0004
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13899,13 +24937,27 @@ hirom
 org $C0AAD5
 
 C0AAD5_Script_CountdownThenJumpTarget:
-
-; Original data gap before C0AAFD_Script_CountdownThenJumpTarget_End:
-db $22,$86,$9D,$C0,$84,$94,$1A,$85,$90,$22,$94,$9D,$C0,$84,$94,$85
-db $92,$A0,$0C,$00,$B1,$84,$D0,$04,$A5,$90,$91,$84,$B1,$84,$3A,$91
-db $84,$F0,$04,$A5,$92,$85,$94,$6B
-
-C0AAFD_Script_CountdownThenJumpTarget_End:
+    jsl $C09D86
+    sty $94
+    inc A
+    sta $90
+    jsl $C09D94
+    sty $94
+    sta $92
+    ldy.w #$000C
+    lda ($84),Y
+    bne C0AAF1_Script_CountdownThenJumpTarget_LAAF1
+    lda $90
+    sta ($84),Y
+C0AAF1_Script_CountdownThenJumpTarget_LAAF1:
+    lda ($84),Y
+    dec A
+    sta ($84),Y
+    beq C0AAFC_Script_CountdownThenJumpTarget_LAAFC
+    lda $92
+    sta $94
+C0AAFC_Script_CountdownThenJumpTarget_LAAFC:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13916,11 +24968,10 @@ hirom
 org $C0AAFD
 
 C0AAFD_Script_ClearFrameCountdown:
-
-; Original data gap before C0AB06_Script_ClearFrameCountdown_End:
-db $A9,$00,$00,$A0,$0C,$00,$91,$84,$6B
-
-C0AB06_Script_ClearFrameCountdown_End:
+    lda.w #$0000
+    ldy.w #$000C
+    sta ($84),Y
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13931,21 +24982,98 @@ hirom
 org $C0AB06
 
 C0AB06_LoadSpc700DataStream:
-
-; Original data gap before C0ABA8_LoadSpc700DataStream_End:
-db $C2,$30,$8D,$C6,$00,$8E,$C8,$00,$8B,$F4,$00,$00,$AB,$AB,$0B,$F4
-db $00,$00,$2B,$A0,$00,$00,$AD,$40,$21,$C9,$AA,$BB,$F0,$03,$20,$A8
-db $AB,$E2,$20,$AD,$1E,$00,$29,$7F,$8D,$1E,$00,$8F,$00,$42,$00,$A9
-db $CC,$80,$26,$B7,$C6,$C8,$EB,$A9,$00,$80,$0B,$EB,$B7,$C6,$C8,$EB
-db $CD,$40,$21,$D0,$FB,$1A,$C2,$20,$8D,$40,$21,$E2,$20,$CA,$D0,$EB
-db $CD,$40,$21,$D0,$FB,$69,$03,$F0,$FC,$48,$C2,$20,$B7,$C6,$D0,$06
-db $AA,$A9,$00,$05,$80,$07,$AA,$C8,$C8,$B7,$C6,$C8,$C8,$8D,$42,$21
-db $E2,$20,$E0,$01,$00,$A9,$00,$2A,$8D,$41,$21,$69,$7F,$68,$8D,$40
-db $21,$CD,$40,$21,$D0,$FB,$70,$AB,$C2,$20,$AD,$40,$21,$D0,$FB,$E2
-db $20,$AD,$1E,$00,$09,$80,$8D,$1E,$00,$8F,$00,$42,$00,$C2,$20,$2B
-db $AB,$6B
-
-C0ABA8_LoadSpc700DataStream_End:
+    rep #$30
+    sta $00C6
+    stx $00C8
+    phb
+    pea $0000
+    plb
+    plb
+    phd
+    pea $0000
+    pld
+    ldy.w #$0000
+    lda $2140
+    cmp.w #$BBAA
+    beq C0AB27_LoadSpc700DataStream_LAB27
+    jsr $ABA8
+C0AB27_LoadSpc700DataStream_LAB27:
+    sep #$20
+    lda $001E
+    and.b #$7F
+    sta $001E
+    sta $004200
+    lda.b #$CC
+    bra C0AB5F_LoadSpc700DataStream_LAB5F
+C0AB39_LoadSpc700DataStream_LAB39:
+    lda [$C6],Y
+    iny
+    xba
+    lda.b #$00
+    bra C0AB4C_LoadSpc700DataStream_LAB4C
+C0AB41_LoadSpc700DataStream_LAB41:
+    xba
+    lda [$C6],Y
+    iny
+    xba
+C0AB46_LoadSpc700DataStream_LAB46:
+    cmp $2140
+    bne C0AB46_LoadSpc700DataStream_LAB46
+    inc A
+C0AB4C_LoadSpc700DataStream_LAB4C:
+    rep #$20
+    sta $2140
+    sep #$20
+    dex
+    bne C0AB41_LoadSpc700DataStream_LAB41
+C0AB56_LoadSpc700DataStream_LAB56:
+    cmp $2140
+    bne C0AB56_LoadSpc700DataStream_LAB56
+C0AB5B_LoadSpc700DataStream_LAB5B:
+    adc.b #$03
+    beq C0AB5B_LoadSpc700DataStream_LAB5B
+C0AB5F_LoadSpc700DataStream_LAB5F:
+    pha
+    rep #$20
+    lda [$C6],Y
+    bne C0AB6C_LoadSpc700DataStream_LAB6C
+    tax
+    lda.w #$0500
+    bra C0AB73_LoadSpc700DataStream_LAB73
+C0AB6C_LoadSpc700DataStream_LAB6C:
+    tax
+    iny
+    iny
+    lda [$C6],Y
+    iny
+    iny
+C0AB73_LoadSpc700DataStream_LAB73:
+    sta $2142
+    sep #$20
+    cpx.w #$0001
+    lda.b #$00
+    rol A
+    sta $2141
+    adc.b #$7F
+    pla
+    sta $2140
+C0AB87_LoadSpc700DataStream_LAB87:
+    cmp $2140
+    bne C0AB87_LoadSpc700DataStream_LAB87
+    bvs C0AB39_LoadSpc700DataStream_LAB39
+    rep #$20
+C0AB90_LoadSpc700DataStream_LAB90:
+    lda $2140
+    bne C0AB90_LoadSpc700DataStream_LAB90
+    sep #$20
+    lda $001E
+    ora.b #$80
+    sta $001E
+    sta $004200
+    rep #$20
+    pld
+    plb
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13956,12 +25084,15 @@ hirom
 org $C0ABA8
 
 C0ABA8_WaitForSpcReadyAndResetApuPorts:
-
-; Original data gap before C0ABBD_WaitForSpcReadyAndResetApuPorts_End:
-db $9C,$42,$21,$9C,$40,$21,$A9,$FF,$00,$8D,$40,$21,$AD,$40,$21,$C9
-db $AA,$BB,$D0,$F2,$60
-
-C0ABBD_WaitForSpcReadyAndResetApuPorts_End:
+    stz $2142
+    stz $2140
+C0ABAE_WaitForSpcReadyAndResetApuPorts_LABAE:
+    lda.w #$00FF
+    sta $2140
+    lda $2140
+    cmp.w #$BBAA
+    bne C0ABAE_WaitForSpcReadyAndResetApuPorts_LABAE
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13972,11 +25103,10 @@ hirom
 org $C0ABBD
 
 C0ABBD_SendApuPort0CommandByte:
-
-; Original data gap before C0ABC6_SendApuPort0CommandByte_End:
-db $E2,$20,$8F,$40,$21,$00,$C2,$30,$6B
-
-C0ABC6_SendApuPort0CommandByte_End:
+    sep #$20
+    sta $002140
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13987,12 +25117,17 @@ hirom
 org $C0ABC6
 
 C0ABC6_StopMusicAndLatchNoTrack:
-
-; Original data gap before C0ABE0_StopMusicAndLatchNoTrack_End:
-db $E2,$20,$A9,$00,$8F,$40,$21,$00,$C2,$30,$22,$20,$AC,$C0,$C9,$00
-db $00,$D0,$F7,$A9,$FF,$FF,$8D,$3B,$B5,$6B
-
-C0ABE0_StopMusicAndLatchNoTrack_End:
+    sep #$20
+    lda.b #$00
+    sta $002140
+    rep #$30
+C0ABD0_StopMusicAndLatchNoTrack_LABD0:
+    jsl $C0AC20
+    cmp.w #$0000
+    bne C0ABD0_StopMusicAndLatchNoTrack_LABD0
+    lda.w #$FFFF
+    sta $B53B
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14003,13 +25138,27 @@ hirom
 org $C0ABE0
 
 C0ABE0_QueueSoundEffectOrPlayApuPort3Cue:
-
-; Original data gap before C0AC0C_QueueSoundEffectOrPlayApuPort3Cue_End:
-db $E2,$30,$C9,$00,$F0,$1B,$AE,$CA,$00,$0D,$CA,$1A,$9D,$C2,$1A,$8A
-db $1A,$29,$07,$8D,$CA,$00,$A9,$80,$4D,$CA,$1A,$8D,$CA,$1A,$C2,$30
-db $6B,$E2,$20,$A9,$57,$8F,$43,$21,$00,$C2,$30,$6B
-
-C0AC0C_QueueSoundEffectOrPlayApuPort3Cue_End:
+    sep #$30
+    cmp.b #$00
+    beq C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01
+    ldx $00CA
+    ora $1ACA
+    sta $1AC2,X
+    txa
+    inc A
+    and.b #$07
+    sta $00CA
+    lda.b #$80
+    eor $1ACA
+    sta $1ACA
+    rep #$30
+    rtl
+C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01:
+    sep #$20
+    lda.b #$57
+    sta $002143
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14020,12 +25169,14 @@ hirom
 org $C0AC0C
 
 C0AC0C_ToggleAndSendApuPort1Command:
-
-; Original data gap before C0AC20_ToggleAndSendApuPort1Command_End:
-db $E2,$20,$0D,$CB,$1A,$8F,$41,$21,$00,$A9,$80,$4D,$CB,$1A,$8D,$CB
-db $1A,$C2,$30,$6B
-
-C0AC20_ToggleAndSendApuPort1Command_End:
+    sep #$20
+    ora $1ACB
+    sta $002141
+    lda.b #$80
+    eor $1ACB
+    sta $1ACB
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14036,12 +25187,18 @@ hirom
 org $C0AC20
 
 C0AC20_ReadApuPort0Byte:
-
-; Original data gap before C0AC3A_ReadApuPort0Byte_End:
-db $E2,$20,$AF,$40,$21,$00,$C2,$30,$29,$FF,$00,$6B,$01,$00,$31,$04
-db $00,$00,$00,$01,$00,$31,$04,$01,$00,$00
-
-C0AC3A_ReadApuPort0Byte_End:
+    sep #$20
+    lda $002140
+    rep #$30
+    and.w #$00FF
+    rtl
+    ora ($00,X)
+    and ($04),Y
+    brk #$00
+    brk #$01
+    brk #$31
+    tsb $01
+    brk #$00
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14052,11 +25209,10 @@ hirom
 org $C0AC3A
 
 C0AC3A_SendApuPort2Byte:
-
-; Original data gap before C0AC43_SendApuPort2Byte_End:
-db $E2,$20,$8F,$42,$21,$00,$C2,$30,$6B
-
-C0AC43_SendApuPort2Byte_End:
+    sep #$20
+    sta $002142
+    rep #$30
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14067,13 +25223,21 @@ hirom
 org $C0AC43
 
 C0AC43_SelectAndEmitBattleBgTransferDescriptors:
-
-; Original data gap before C0AC68_SelectAndEmitBattleBgTransferDescriptors_End:
-db $A9,$C4,$00,$85,$04,$8D,$0B,$00,$A0,$00,$00,$BD,$AA,$2B,$29,$01
-db $00,$F0,$03,$A0,$05,$00,$84,$00,$BD,$AA,$2B,$29,$0C,$00,$F0,$74
-db $C9,$04,$00,$F0,$79
-
-C0AC68_SelectAndEmitBattleBgTransferDescriptors_End:
+    lda.w #$00C4
+    sta $04
+    sta $000B
+    ldy.w #$0000
+    lda $2BAA,X
+    and.w #$0001
+    beq C0AC59_SelectAndEmitBattleBgTransferDescriptors_LAC59
+    ldy.w #$0005
+C0AC59_SelectAndEmitBattleBgTransferDescriptors_LAC59:
+    sty $00
+    lda $2BAA,X
+    and.w #$000C
+    db $F0, $74
+    cmp.w #$0004
+    db $F0, $79
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14084,18 +25248,64 @@ hirom
 org $C0AC68
 
 C0AC68_Tick_LandingDisplayStreamGroup301EOr30D2:
-
-; Original data gap before C0ACE6_Tick_LandingDisplayStreamGroup301EOr30D2_End:
-db $BD,$7E,$2A,$C9,$40,$00,$D0,$31,$BD,$1E,$30,$85,$02,$BD,$5A,$30
-db $D0,$0F,$A9,$96,$30,$20,$56,$AD,$A6,$88,$9D,$1E,$30,$98,$9D,$5A
-db $30,$DE,$5A,$30,$BD,$16,$0B,$85,$06,$BC,$52,$0B,$BD,$96,$30,$18
-db $65,$00,$A6,$06,$20,$58,$8C,$80,$36,$BD,$D2,$30,$85,$02,$BD,$0E
-db $31,$D0,$0F,$A9,$4A,$31,$20,$56,$AD,$A6,$88,$9D,$D2,$30,$98,$9D
-db $0E,$31,$DE,$0E,$31,$BD,$16,$0B,$85,$06,$BD,$52,$0B,$18,$69,$08
-db $00,$A8,$BD,$4A,$31,$18,$65,$00,$65,$00,$A6,$06,$20,$58,$8C,$A6
-db $88,$BD,$7A,$2E,$D0,$01,$6B,$10,$38,$E0,$2E,$00,$90,$6F
-
-C0ACE6_Tick_LandingDisplayStreamGroup301EOr30D2_End:
+    lda $2A7E,X
+    cmp.w #$0040
+    bne C0ACA1_Tick_LandingDisplayStreamGroup301EOr30D2_LACA1
+    lda $301E,X
+    sta $02
+    lda $305A,X
+    bne C0AC89_Tick_LandingDisplayStreamGroup301EOr30D2_LAC89
+    lda.w #$3096
+    jsr $AD56
+    ldx $88
+    sta $301E,X
+    tya
+    sta $305A,X
+C0AC89_Tick_LandingDisplayStreamGroup301EOr30D2_LAC89:
+    dec $305A,X
+    lda $0B16,X
+    sta $06
+    ldy $0B52,X
+    lda $3096,X
+    clc
+    adc $00
+    ldx $06
+    jsr $8C58
+    bra C0ACD7_Tick_LandingDisplayStreamGroup301EOr30D2_LACD7
+C0ACA1_Tick_LandingDisplayStreamGroup301EOr30D2_LACA1:
+    lda $30D2,X
+    sta $02
+    lda $310E,X
+    bne C0ACBA_Tick_LandingDisplayStreamGroup301EOr30D2_LACBA
+    lda.w #$314A
+    jsr $AD56
+    ldx $88
+    sta $30D2,X
+    tya
+    sta $310E,X
+C0ACBA_Tick_LandingDisplayStreamGroup301EOr30D2_LACBA:
+    dec $310E,X
+    lda $0B16,X
+    sta $06
+    lda $0B52,X
+    clc
+    adc.w #$0008
+    tay
+    lda $314A,X
+    clc
+    adc $00
+    adc $00
+    ldx $06
+    jsr $8C58
+C0ACD7_Tick_LandingDisplayStreamGroup301EOr30D2_LACD7:
+    ldx $88
+    lda $2E7A,X
+    bne C0ACDF_Tick_LandingDisplayStreamGroup301EOr30D2_LACDF
+    rtl
+C0ACDF_Tick_LandingDisplayStreamGroup301EOr30D2_LACDF:
+    db $10, $38
+    cpx.w #$002E
+    db $90, $6F
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14106,14 +25316,34 @@ hirom
 org $C0ACE6
 
 C0ACE6_Tick_LandingDisplayStreamGroup2F6A:
-
-; Original data gap before C0AD26_Tick_LandingDisplayStreamGroup2F6A_End:
-db $BD,$6A,$2F,$85,$02,$BD,$A6,$2F,$D0,$0F,$A9,$E2,$2F,$20,$56,$AD
-db $A6,$88,$9D,$6A,$2F,$98,$9D,$A6,$2F,$DE,$A6,$2F,$BD,$16,$0B,$85
-db $06,$BC,$52,$0B,$BD,$E2,$2F,$F0,$0A,$18,$65,$00,$A6,$06,$20,$58
-db $8C,$A6,$88,$BD,$7A,$2E,$29,$00,$40,$F0,$34,$E0,$2E,$00,$90,$2F
-
-C0AD26_Tick_LandingDisplayStreamGroup2F6A_End:
+    lda $2F6A,X
+    sta $02
+    lda $2FA6,X
+    bne C0ACFF_Tick_LandingDisplayStreamGroup2F6A_LACFF
+    lda.w #$2FE2
+    jsr $AD56
+    ldx $88
+    sta $2F6A,X
+    tya
+    sta $2FA6,X
+C0ACFF_Tick_LandingDisplayStreamGroup2F6A_LACFF:
+    dec $2FA6,X
+    lda $0B16,X
+    sta $06
+    ldy $0B52,X
+    lda $2FE2,X
+    beq C0AD19_Tick_LandingDisplayStreamGroup2F6A_LAD19
+    clc
+    adc $00
+    ldx $06
+    jsr $8C58
+    ldx $88
+C0AD19_Tick_LandingDisplayStreamGroup2F6A_LAD19:
+    lda $2E7A,X
+    and.w #$4000
+    db $F0, $34
+    cpx.w #$002E
+    db $90, $2F
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14124,13 +25354,27 @@ hirom
 org $C0AD26
 
 C0AD26_Tick_LandingDisplayStreamGroup2EB6:
-
-; Original data gap before C0AD56_Tick_LandingDisplayStreamGroup2EB6_End:
-db $BD,$B6,$2E,$85,$02,$BD,$F2,$2E,$D0,$0F,$A9,$2E,$2F,$20,$56,$AD
-db $A6,$88,$9D,$B6,$2E,$98,$9D,$F2,$2E,$DE,$F2,$2E,$BD,$16,$0B,$85
-db $06,$BC,$52,$0B,$BD,$2E,$2F,$18,$65,$00,$A6,$06,$20,$58,$8C,$6B
-
-C0AD56_Tick_LandingDisplayStreamGroup2EB6_End:
+    lda $2EB6,X
+    sta $02
+    lda $2EF2,X
+    bne C0AD3F_Tick_LandingDisplayStreamGroup2EB6_LAD3F
+    lda.w #$2F2E
+    jsr $AD56
+    ldx $88
+    sta $2EB6,X
+    tya
+    sta $2EF2,X
+C0AD3F_Tick_LandingDisplayStreamGroup2EB6_LAD3F:
+    dec $2EF2,X
+    lda $0B16,X
+    sta $06
+    ldy $0B52,X
+    lda $2F2E,X
+    clc
+    adc $00
+    ldx $06
+    jsr $8C58
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14141,14 +25385,38 @@ hirom
 org $C0AD56
 
 C0AD56_ExpandBattleBgTransferDescriptorStream:
-
-; Original data gap before C0AD8A_ExpandBattleBgTransferDescriptorStream_End:
-db $18,$65,$88,$AA,$A0,$00,$00,$B7,$02,$C8,$C8,$C9,$01,$00,$D0,$09
-db $B7,$02,$C8,$C8,$9D,$00,$00,$80,$EE,$C9,$03,$00,$D0,$09,$B7,$02
-db $85,$02,$A0,$00,$00,$80,$E0,$B7,$02,$C8,$C8,$84,$08,$A8,$A5,$02
-db $18,$65,$08,$60
-
-C0AD8A_ExpandBattleBgTransferDescriptorStream_End:
+    clc
+    adc $88
+    tax
+    ldy.w #$0000
+C0AD5D_ExpandBattleBgTransferDescriptorStream_LAD5D:
+    lda [$02],Y
+    iny
+    iny
+    cmp.w #$0001
+    bne C0AD6F_ExpandBattleBgTransferDescriptorStream_LAD6F
+    lda [$02],Y
+    iny
+    iny
+    sta $0000,X
+    bra C0AD5D_ExpandBattleBgTransferDescriptorStream_LAD5D
+C0AD6F_ExpandBattleBgTransferDescriptorStream_LAD6F:
+    cmp.w #$0003
+    bne C0AD7D_ExpandBattleBgTransferDescriptorStream_LAD7D
+    lda [$02],Y
+    sta $02
+    ldy.w #$0000
+    bra C0AD5D_ExpandBattleBgTransferDescriptorStream_LAD5D
+C0AD7D_ExpandBattleBgTransferDescriptorStream_LAD7D:
+    lda [$02],Y
+    iny
+    iny
+    sty $08
+    tay
+    lda $02
+    clc
+    adc $08
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14159,12 +25427,16 @@ hirom
 org $C0AD8A
 
 C0AD8A_Event786_CurrentSlotOrbitScript:
-
-; Original data gap before C0AD9F_Event786_CurrentSlotOrbitScript_End:
-db $23,$39,$A0,$25,$6B,$A2,$06,$08,$3B,$00,$42,$A8,$A4,$C0,$F1,$8A
-db $77,$C0,$19,$98,$AD
-
-C0AD9F_Event786_CurrentSlotOrbitScript_End:
+    and $39,S
+    ldy.w #$6B25
+    ldx.w #$0806
+    tsc
+    brk #$42
+    tay
+    ldy $C0
+    sbc ($8A),Y
+    adc [$C0],Y
+    ora $AD98,Y
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14175,12 +25447,13 @@ hirom
 org $C0AD9F
 
 C0AD9F_WriteVramAddressFrom3B3C:
-
-; Original data gap before C0ADB2_WriteVramAddressFrom3B3C_End:
-db $E2,$20,$AD,$3B,$00,$8F,$12,$21,$00,$AD,$3C,$00,$8F,$12,$21,$00
-db $C2,$20,$60
-
-C0ADB2_WriteVramAddressFrom3B3C_End:
+    sep #$20
+    lda $003B
+    sta $002112
+    lda $003C
+    sta $002112
+    rep #$20
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14191,17 +25464,57 @@ hirom
 org $C0ADB2
 
 C0ADB2_ConfigureBattleBgDmaChannel:
-
-; Original data gap before C0AE16_ConfigureBattleBgDmaChannel_End:
-db $5A,$A8,$BF,$1D,$AE,$C0,$48,$98,$0A,$0A,$0A,$0A,$AA,$E2,$20,$A9
-db $7E,$9F,$04,$43,$00,$9F,$07,$43,$00,$68,$9F,$01,$43,$00,$68,$A9
-db $42,$9F,$00,$43,$00,$C2,$20,$68,$DA,$D0,$13,$A2,$06,$00,$BF,$26
-db $AE,$C0,$9D,$32,$3C,$CA,$CA,$10,$F5,$A9,$32,$3C,$80,$11,$A2,$06
-db $00,$BF,$2D,$AE,$C0,$9D,$3C,$3C,$CA,$CA,$10,$F5,$A9,$3C,$3C,$FA
-db $9F,$02,$43,$00,$E2,$20,$BB,$AD,$1F,$00,$1F,$16,$AE,$C0,$8D,$1F
-db $00,$C2,$20,$6B
-
-C0AE16_ConfigureBattleBgDmaChannel_End:
+    phy
+    tay
+    lda $C0AE1D,X
+    pha
+    tya
+    asl A
+    asl A
+    asl A
+    asl A
+    tax
+    sep #$20
+    lda.b #$7E
+    sta $004304,X
+    sta $004307,X
+    pla
+    sta $004301,X
+    pla
+    lda.b #$42
+    sta $004300,X
+    rep #$20
+    pla
+    phx
+    bne C0ADF0_ConfigureBattleBgDmaChannel_LADF0
+    ldx.w #$0006
+C0ADE0_ConfigureBattleBgDmaChannel_LADE0:
+    lda $C0AE26,X
+    sta $3C32,X
+    dex
+    dex
+    bpl C0ADE0_ConfigureBattleBgDmaChannel_LADE0
+    lda.w #$3C32
+    bra C0AE01_ConfigureBattleBgDmaChannel_LAE01
+C0ADF0_ConfigureBattleBgDmaChannel_LADF0:
+    ldx.w #$0006
+C0ADF3_ConfigureBattleBgDmaChannel_LADF3:
+    lda $C0AE2D,X
+    sta $3C3C,X
+    dex
+    dex
+    bpl C0ADF3_ConfigureBattleBgDmaChannel_LADF3
+    lda.w #$3C3C
+C0AE01_ConfigureBattleBgDmaChannel_LAE01:
+    plx
+    sta $004302,X
+    sep #$20
+    tyx
+    lda $001F
+    ora $C0AE16,X
+    sta $001F
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14257,11 +25570,13 @@ hirom
 org $C0AE34
 
 C0AE34_ClearPendingDmaChannelBit:
-
-; Original data gap before C0AE44_ClearPendingDmaChannelBit_End:
-db $AA,$E2,$20,$AD,$1F,$00,$3F,$44,$AE,$C0,$8D,$1F,$00,$C2,$20,$6B
-
-C0AE44_ClearPendingDmaChannelBit_End:
+    tax
+    sep #$20
+    lda $001F
+    and $C0AE44,X
+    sta $001F
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14311,15 +25626,40 @@ hirom
 org $C0AFCD
 
 C0AFCD_ApplyBattleBgColourMathPreset:
-
-; Original data gap before C0B01A_ApplyBattleBgColourMathPreset_End:
-db $AA,$E2,$20,$BF,$F1,$AF,$C0,$8D,$1A,$00,$BF,$FC,$AF,$C0,$8D,$1B
-db $00,$BF,$06,$B0,$C0,$8F,$30,$21,$00,$BF,$10,$B0,$C0,$8F,$31,$21
-db $00,$C2,$20,$6B,$17,$1F,$17,$17,$17,$17,$15,$15,$15,$15,$15,$00
-db $00,$08,$08,$08,$08,$02,$02,$02,$02,$00,$00,$02,$02,$02,$02,$02
-db $02,$02,$02,$00,$00,$24,$64,$A4,$E4,$21,$61,$A1,$E1
-
-C0B01A_ApplyBattleBgColourMathPreset_End:
+    tax
+    sep #$20
+    lda $C0AFF1,X
+    sta $001A
+    lda $C0AFFC,X
+    sta $001B
+    lda $C0B006,X
+    sta $002130
+    lda $C0B010,X
+    sta $002131
+    rep #$20
+    rtl
+    ora [$1F],Y
+    ora [$17],Y
+    ora [$17],Y
+    ora $15,X
+    ora $15,X
+    ora $00,X
+    brk #$08
+    php
+    php
+    php
+    cop.b #$02
+    cop.b #$02
+    brk #$00
+    cop.b #$02
+    cop.b #$02
+    cop.b #$02
+    cop.b #$02
+    brk #$00
+    bit $64
+    ldy $E4
+    and ($61,X)
+    lda ($E1,X)
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14330,12 +25670,20 @@ hirom
 org $C0B01A
 
 C0B01A_SetFixedColourRgbComponents:
-
-; Original data gap before C0B039_SetFixedColourRgbComponents_End:
-db $E2,$20,$29,$1F,$09,$20,$8F,$32,$21,$00,$8A,$29,$1F,$09,$40,$8F
-db $32,$21,$00,$98,$29,$1F,$09,$80,$8F,$32,$21,$00,$C2,$20,$6B
-
-C0B039_SetFixedColourRgbComponents_End:
+    sep #$20
+    and.b #$1F
+    ora.b #$20
+    sta $002132
+    txa
+    and.b #$1F
+    ora.b #$40
+    sta $002132
+    tya
+    and.b #$1F
+    ora.b #$80
+    sta $002132
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14346,11 +25694,12 @@ hirom
 org $C0B039
 
 C0B039_SetColourAddSubModeRegisters:
-
-; Original data gap before C0B047_SetColourAddSubModeRegisters_End:
-db $E2,$20,$8F,$30,$21,$00,$8A,$8F,$31,$21,$00,$C2,$20,$6B
-
-C0B047_SetColourAddSubModeRegisters_End:
+    sep #$20
+    sta $002130
+    txa
+    sta $002131
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14361,16 +25710,53 @@ hirom
 org $C0B047
 
 C0B047_SetWindowMaskRegisters:
-
-; Original data gap before C0B0A6_SetWindowMaskRegisters_End:
-db $9B,$E2,$20,$48,$48,$29,$03,$AA,$BF,$A6,$B0,$C0,$C0,$00,$00,$F0
-db $02,$29,$AA,$8F,$23,$21,$00,$68,$4A,$4A,$48,$29,$03,$AA,$BF,$A6
-db $B0,$C0,$C0,$00,$00,$F0,$02,$29,$AA,$8F,$24,$21,$00,$68,$4A,$4A
-db $29,$03,$AA,$BF,$A6,$B0,$C0,$C0,$00,$00,$F0,$02,$29,$AA,$8F,$25
-db $21,$00,$68,$29,$1F,$8F,$2E,$21,$00,$8F,$2F,$21,$00,$C2,$20,$A9
-db $55,$55,$C0,$00,$00,$F0,$03,$A9,$00,$00,$8F,$2A,$21,$00,$6B
-
-C0B0A6_SetWindowMaskRegisters_End:
+    txy
+    sep #$20
+    pha
+    pha
+    and.b #$03
+    tax
+    lda $C0B0A6,X
+    cpy.w #$0000
+    beq C0B05A_SetWindowMaskRegisters_LB05A
+    and.b #$AA
+C0B05A_SetWindowMaskRegisters_LB05A:
+    sta $002123
+    pla
+    lsr A
+    lsr A
+    pha
+    and.b #$03
+    tax
+    lda $C0B0A6,X
+    cpy.w #$0000
+    beq C0B070_SetWindowMaskRegisters_LB070
+    and.b #$AA
+C0B070_SetWindowMaskRegisters_LB070:
+    sta $002124
+    pla
+    lsr A
+    lsr A
+    and.b #$03
+    tax
+    lda $C0B0A6,X
+    cpy.w #$0000
+    beq C0B085_SetWindowMaskRegisters_LB085
+    and.b #$AA
+C0B085_SetWindowMaskRegisters_LB085:
+    sta $002125
+    pla
+    and.b #$1F
+    sta $00212E
+    sta $00212F
+    rep #$20
+    lda.w #$5555
+    cpy.w #$0000
+    beq C0B0A1_SetWindowMaskRegisters_LB0A1
+    lda.w #$0000
+C0B0A1_SetWindowMaskRegisters_LB0A1:
+    sta $00212A
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14396,11 +25782,11 @@ hirom
 org $C0B0AA
 
 C0B0AA_ResetWindowLeftPositions:
-
-; Original data gap before C0B0B8_ResetWindowLeftPositions_End:
-db $C2,$20,$A9,$FF,$00,$8F,$26,$21,$00,$8F,$28,$21,$00,$6B
-
-C0B0B8_ResetWindowLeftPositions_End:
+    rep #$20
+    lda.w #$00FF
+    sta $002126
+    sta $002128
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14411,14 +25797,31 @@ hirom
 org $C0B0B8
 
 C0B0B8_ConfigureWindowPositionDmaFromSource:
-
-; Original data gap before C0B0EF_ConfigureWindowPositionDmaFromSource_End:
-db $A8,$0A,$0A,$0A,$0A,$AA,$E2,$20,$A5,$10,$9F,$04,$43,$00,$9F,$07
-db $43,$00,$A9,$26,$9F,$01,$43,$00,$A7,$0E,$9F,$00,$43,$00,$C2,$20
-db $A5,$0E,$1A,$9F,$02,$43,$00,$E2,$20,$BB,$AD,$1F,$00,$1F,$16,$AE
-db $C0,$8D,$1F,$00,$C2,$20,$6B
-
-C0B0EF_ConfigureWindowPositionDmaFromSource_End:
+    tay
+    asl A
+    asl A
+    asl A
+    asl A
+    tax
+    sep #$20
+    lda $10
+    sta $004304,X
+    sta $004307,X
+    lda.b #$26
+    sta $004301,X
+    lda [$0E]
+    sta $004300,X
+    rep #$20
+    lda $0E
+    inc A
+    sta $004302,X
+    sep #$20
+    tyx
+    lda $001F
+    ora $C0AE16,X
+    sta $001F
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14429,16 +25832,46 @@ hirom
 org $C0B0EF
 
 C0B0EF_BuildAndConfigureWindowPositionDmaDescriptor:
-
-; Original data gap before C0B149_BuildAndConfigureWindowPositionDmaDescriptor_End:
-db $48,$DA,$0A,$0A,$0A,$0A,$AA,$E2,$20,$A9,$E4,$8D,$C6,$3F,$A0,$D0
-db $3F,$8C,$C7,$3F,$A9,$FC,$8D,$C9,$3F,$A9,$00,$8D,$CC,$3F,$A9,$7E
-db $9F,$04,$43,$00,$9F,$07,$43,$00,$A9,$26,$9F,$01,$43,$00,$68,$9F
-db $00,$43,$00,$A0,$98,$40,$29,$04,$F0,$03,$A0,$60,$41,$8C,$CA,$3F
-db $68,$C2,$20,$A9,$C6,$3F,$9F,$02,$43,$00,$E2,$20,$FA,$AD,$1F,$00
-db $1F,$16,$AE,$C0,$8D,$1F,$00,$C2,$20,$6B
-
-C0B149_BuildAndConfigureWindowPositionDmaDescriptor_End:
+    pha
+    phx
+    asl A
+    asl A
+    asl A
+    asl A
+    tax
+    sep #$20
+    lda.b #$E4
+    sta $3FC6
+    ldy.w #$3FD0
+    sty $3FC7
+    lda.b #$FC
+    sta $3FC9
+    lda.b #$00
+    sta $3FCC
+    lda.b #$7E
+    sta $004304,X
+    sta $004307,X
+    lda.b #$26
+    sta $004301,X
+    pla
+    sta $004300,X
+    ldy.w #$4098
+    and.b #$04
+    beq C0B12C_BuildAndConfigureWindowPositionDmaDescriptor_LB12C
+    ldy.w #$4160
+C0B12C_BuildAndConfigureWindowPositionDmaDescriptor_LB12C:
+    sty $3FCA
+    pla
+    rep #$20
+    lda.w #$3FC6
+    sta $004302,X
+    sep #$20
+    plx
+    lda $001F
+    ora $C0AE16,X
+    sta $001F
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14449,38 +25882,261 @@ hirom
 org $C0B149
 
 C0B149_BuildBattleBgOffsetEffectTable3FD0:
-
-; Original data gap before C0B2FF_BuildBattleBgOffsetEffectTable3FD0_End:
-db $C2,$20,$0B,$48,$7B,$38,$E9,$0E,$00,$5B,$68,$85,$00,$86,$02,$84
-db $04,$A5,$1C,$85,$06,$8A,$30,$05,$C9,$70,$00,$B0,$03,$4C,$33,$B2
-db $A0,$00,$00,$A5,$02,$38,$E5,$06,$30,$11,$F0,$0F,$AA,$A9,$FF,$00
-db $99,$D0,$3F,$C8,$C8,$CA,$D0,$F8,$A9,$00,$00,$18,$65,$06,$85,$0A
-db $A5,$04,$8F,$02,$42,$00,$A5,$0A,$D0,$04,$A5,$04,$80,$31,$EB,$8F
-db $04,$42,$00,$E2,$20,$A5,$06,$8F,$06,$42,$00,$C2,$20,$EA,$EA,$EA
-db $EA,$EA,$AF,$14,$42,$00,$AA,$E2,$20,$BF,$FF,$B2,$C0,$8F,$03,$42
-db $00,$C2,$20,$A9,$80,$00,$18,$6F,$16,$42,$00,$EB,$29,$FF,$00,$85
-db $08,$18,$65,$00,$30,$25,$C9,$00,$01,$90,$03,$A9,$FF,$00,$85,$0C
-db $A5,$00,$38,$E5,$08,$30,$07,$C9,$00,$01,$B0,$0F,$80,$03,$A9,$00
-db $00,$E2,$20,$EB,$A5,$0C,$EB,$C2,$20,$80,$03,$A9,$FF,$00,$99,$D0
-db $3F,$48,$A5,$0A,$0A,$0A,$85,$0C,$98,$18,$65,$0C,$AA,$68,$E0,$C0
-db $01,$B0,$03,$9D,$D0,$3F,$C8,$C8,$C6,$0A,$30,$03,$4C,$8F,$B1,$98
-db $18,$65,$06,$65,$06,$A8,$C0,$C0,$01,$B0,$0D,$A9,$FF,$00,$99,$D0
-db $3F,$C8,$C8,$C0,$C0,$01,$90,$F6,$2B,$6B,$A0,$BE,$01,$A9,$E0,$00
-db $38,$E5,$02,$38,$E5,$06,$30,$11,$F0,$0F,$AA,$A9,$FF,$00,$99,$D0
-db $3F,$88,$88,$CA,$D0,$F8,$A9,$00,$00,$18,$65,$06,$85,$0A,$A5,$04
-db $8F,$02,$42,$00,$A5,$0A,$D0,$04,$A5,$04,$80,$31,$EB,$8F,$04,$42
-db $00,$E2,$20,$A5,$06,$8F,$06,$42,$00,$C2,$20,$EA,$EA,$EA,$EA,$EA
-db $AF,$14,$42,$00,$AA,$E2,$20,$BF,$FF,$B2,$C0,$8F,$03,$42,$00,$C2
-db $20,$A9,$80,$00,$18,$6F,$16,$42,$00,$EB,$29,$FF,$00,$85,$08,$18
-db $65,$00,$30,$25,$C9,$00,$01,$90,$03,$A9,$FF,$00,$85,$0C,$A5,$00
-db $38,$E5,$08,$30,$07,$C9,$00,$01,$B0,$0F,$80,$03,$A9,$00,$00,$E2
-db $20,$EB,$A5,$0C,$EB,$C2,$20,$80,$03,$A9,$FF,$00,$99,$D0,$3F,$48
-db $A5,$0A,$0A,$0A,$85,$0C,$98,$38,$E5,$0C,$AA,$68,$E0,$00,$00,$30
-db $03,$9D,$D0,$3F,$88,$88,$C6,$0A,$30,$03,$4C,$5D,$B2,$98,$38,$E5
-db $06,$38,$E5,$06,$A8,$C0,$00,$00,$30,$0A,$A9,$FF,$00,$99,$D0,$3F
-db $88,$88,$10,$F9,$2B,$6B
-
-C0B2FF_BuildBattleBgOffsetEffectTable3FD0_End:
+    rep #$20
+    phd
+    pha
+    tdc
+    sec
+    sbc.w #$000E
+    tcd
+    pla
+    sta $00
+    stx $02
+    sty $04
+    lda $1C
+    sta $06
+    txa
+    bmi C0B166_BuildBattleBgOffsetEffectTable3FD0_LB166
+    cmp.w #$0070
+    bcs C0B169_BuildBattleBgOffsetEffectTable3FD0_LB169
+C0B166_BuildBattleBgOffsetEffectTable3FD0_LB166:
+    jmp.w C0B233_BuildBattleBgOffsetEffectTable3FD0_LB233
+C0B169_BuildBattleBgOffsetEffectTable3FD0_LB169:
+    ldy.w #$0000
+    lda $02
+    sec
+    sbc $06
+    bmi C0B184_BuildBattleBgOffsetEffectTable3FD0_LB184
+    beq C0B184_BuildBattleBgOffsetEffectTable3FD0_LB184
+    tax
+    lda.w #$00FF
+C0B179_BuildBattleBgOffsetEffectTable3FD0_LB179:
+    sta $3FD0,Y
+    iny
+    iny
+    dex
+    bne C0B179_BuildBattleBgOffsetEffectTable3FD0_LB179
+    lda.w #$0000
+C0B184_BuildBattleBgOffsetEffectTable3FD0_LB184:
+    clc
+    adc $06
+    sta $0A
+    lda $04
+    sta $004202
+C0B18F_BuildBattleBgOffsetEffectTable3FD0_LB18F:
+    lda $0A
+    bne C0B197_BuildBattleBgOffsetEffectTable3FD0_LB197
+    lda $04
+    bra C0B1C8_BuildBattleBgOffsetEffectTable3FD0_LB1C8
+C0B197_BuildBattleBgOffsetEffectTable3FD0_LB197:
+    xba
+    sta $004204
+    sep #$20
+    lda $06
+    sta $004206
+    rep #$20
+    nop
+    nop
+    nop
+    nop
+    nop
+    lda $004214
+    tax
+    sep #$20
+    lda $C0B2FF,X
+    sta $004203
+    rep #$20
+    lda.w #$0080
+    clc
+    adc $004216
+    xba
+    and.w #$00FF
+C0B1C8_BuildBattleBgOffsetEffectTable3FD0_LB1C8:
+    sta $08
+    clc
+    adc $00
+    bmi C0B1F4_BuildBattleBgOffsetEffectTable3FD0_LB1F4
+    cmp.w #$0100
+    bcc C0B1D7_BuildBattleBgOffsetEffectTable3FD0_LB1D7
+    lda.w #$00FF
+C0B1D7_BuildBattleBgOffsetEffectTable3FD0_LB1D7:
+    sta $0C
+    lda $00
+    sec
+    sbc $08
+    bmi C0B1E7_BuildBattleBgOffsetEffectTable3FD0_LB1E7
+    cmp.w #$0100
+    bcs C0B1F4_BuildBattleBgOffsetEffectTable3FD0_LB1F4
+    bra C0B1EA_BuildBattleBgOffsetEffectTable3FD0_LB1EA
+C0B1E7_BuildBattleBgOffsetEffectTable3FD0_LB1E7:
+    lda.w #$0000
+C0B1EA_BuildBattleBgOffsetEffectTable3FD0_LB1EA:
+    sep #$20
+    xba
+    lda $0C
+    xba
+    rep #$20
+    bra C0B1F7_BuildBattleBgOffsetEffectTable3FD0_LB1F7
+C0B1F4_BuildBattleBgOffsetEffectTable3FD0_LB1F4:
+    lda.w #$00FF
+C0B1F7_BuildBattleBgOffsetEffectTable3FD0_LB1F7:
+    sta $3FD0,Y
+    pha
+    lda $0A
+    asl A
+    asl A
+    sta $0C
+    tya
+    clc
+    adc $0C
+    tax
+    pla
+    cpx.w #$01C0
+    bcs C0B20F_BuildBattleBgOffsetEffectTable3FD0_LB20F
+    sta $3FD0,X
+C0B20F_BuildBattleBgOffsetEffectTable3FD0_LB20F:
+    iny
+    iny
+    dec $0A
+    bmi C0B218_BuildBattleBgOffsetEffectTable3FD0_LB218
+    jmp.w C0B18F_BuildBattleBgOffsetEffectTable3FD0_LB18F
+C0B218_BuildBattleBgOffsetEffectTable3FD0_LB218:
+    tya
+    clc
+    adc $06
+    adc $06
+    tay
+    cpy.w #$01C0
+    bcs C0B231_BuildBattleBgOffsetEffectTable3FD0_LB231
+    lda.w #$00FF
+C0B227_BuildBattleBgOffsetEffectTable3FD0_LB227:
+    sta $3FD0,Y
+    iny
+    iny
+    cpy.w #$01C0
+    bcc C0B227_BuildBattleBgOffsetEffectTable3FD0_LB227
+C0B231_BuildBattleBgOffsetEffectTable3FD0_LB231:
+    pld
+    rtl
+C0B233_BuildBattleBgOffsetEffectTable3FD0_LB233:
+    ldy.w #$01BE
+    lda.w #$00E0
+    sec
+    sbc $02
+    sec
+    sbc $06
+    bmi C0B252_BuildBattleBgOffsetEffectTable3FD0_LB252
+    beq C0B252_BuildBattleBgOffsetEffectTable3FD0_LB252
+    tax
+    lda.w #$00FF
+C0B247_BuildBattleBgOffsetEffectTable3FD0_LB247:
+    sta $3FD0,Y
+    dey
+    dey
+    dex
+    bne C0B247_BuildBattleBgOffsetEffectTable3FD0_LB247
+    lda.w #$0000
+C0B252_BuildBattleBgOffsetEffectTable3FD0_LB252:
+    clc
+    adc $06
+    sta $0A
+    lda $04
+    sta $004202
+C0B25D_BuildBattleBgOffsetEffectTable3FD0_LB25D:
+    lda $0A
+    bne C0B265_BuildBattleBgOffsetEffectTable3FD0_LB265
+    lda $04
+    bra C0B296_BuildBattleBgOffsetEffectTable3FD0_LB296
+C0B265_BuildBattleBgOffsetEffectTable3FD0_LB265:
+    xba
+    sta $004204
+    sep #$20
+    lda $06
+    sta $004206
+    rep #$20
+    nop
+    nop
+    nop
+    nop
+    nop
+    lda $004214
+    tax
+    sep #$20
+    lda $C0B2FF,X
+    sta $004203
+    rep #$20
+    lda.w #$0080
+    clc
+    adc $004216
+    xba
+    and.w #$00FF
+C0B296_BuildBattleBgOffsetEffectTable3FD0_LB296:
+    sta $08
+    clc
+    adc $00
+    bmi C0B2C2_BuildBattleBgOffsetEffectTable3FD0_LB2C2
+    cmp.w #$0100
+    bcc C0B2A5_BuildBattleBgOffsetEffectTable3FD0_LB2A5
+    lda.w #$00FF
+C0B2A5_BuildBattleBgOffsetEffectTable3FD0_LB2A5:
+    sta $0C
+    lda $00
+    sec
+    sbc $08
+    bmi C0B2B5_BuildBattleBgOffsetEffectTable3FD0_LB2B5
+    cmp.w #$0100
+    bcs C0B2C2_BuildBattleBgOffsetEffectTable3FD0_LB2C2
+    bra C0B2B8_BuildBattleBgOffsetEffectTable3FD0_LB2B8
+C0B2B5_BuildBattleBgOffsetEffectTable3FD0_LB2B5:
+    lda.w #$0000
+C0B2B8_BuildBattleBgOffsetEffectTable3FD0_LB2B8:
+    sep #$20
+    xba
+    lda $0C
+    xba
+    rep #$20
+    bra C0B2C5_BuildBattleBgOffsetEffectTable3FD0_LB2C5
+C0B2C2_BuildBattleBgOffsetEffectTable3FD0_LB2C2:
+    lda.w #$00FF
+C0B2C5_BuildBattleBgOffsetEffectTable3FD0_LB2C5:
+    sta $3FD0,Y
+    pha
+    lda $0A
+    asl A
+    asl A
+    sta $0C
+    tya
+    sec
+    sbc $0C
+    tax
+    pla
+    cpx.w #$0000
+    bmi C0B2DD_BuildBattleBgOffsetEffectTable3FD0_LB2DD
+    sta $3FD0,X
+C0B2DD_BuildBattleBgOffsetEffectTable3FD0_LB2DD:
+    dey
+    dey
+    dec $0A
+    bmi C0B2E6_BuildBattleBgOffsetEffectTable3FD0_LB2E6
+    jmp.w C0B25D_BuildBattleBgOffsetEffectTable3FD0_LB25D
+C0B2E6_BuildBattleBgOffsetEffectTable3FD0_LB2E6:
+    tya
+    sec
+    sbc $06
+    sec
+    sbc $06
+    tay
+    cpy.w #$0000
+    bmi C0B2FD_BuildBattleBgOffsetEffectTable3FD0_LB2FD
+    lda.w #$00FF
+C0B2F6_BuildBattleBgOffsetEffectTable3FD0_LB2F6:
+    sta $3FD0,Y
+    dey
+    dey
+    bpl C0B2F6_BuildBattleBgOffsetEffectTable3FD0_LB2F6
+C0B2FD_BuildBattleBgOffsetEffectTable3FD0_LB2FD:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14559,12 +26215,20 @@ hirom
 org $C0B65F
 
 C0B65F_SeedPlayerOverworldStartPosition:
-
-; Original data gap before C0B67F_SeedPlayerOverworldStartPosition_End:
-db $C2,$31,$9B,$AA,$8E,$77,$98,$8C,$7B,$98,$A9,$02,$00,$8D,$7F,$98
-db $E2,$20,$A9,$01,$8D,$6F,$98,$8E,$46,$0B,$8C,$82,$0B,$C2,$20,$6B
-
-C0B67F_SeedPlayerOverworldStartPosition_End:
+    rep #$31
+    txy
+    tax
+    stx $9877
+    sty $987B
+    lda.w #$0002
+    sta $987F
+    sep #$20
+    lda.b #$01
+    sta $986F
+    stx $0B46
+    sty $0B82
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14574,58 +26238,324 @@ C0B67F_SeedPlayerOverworldStartPosition_End:
 hirom
 org $C0B67F
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C0886C_SetDisplayTransitionState = $C0886C
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 C0B67F_InitializeIntroOverworldScene:
-
-; Original data gap before C0B967_InitializeIntroOverworldScene_End:
-db $C2,$31,$0B,$7B,$69,$F1,$FF,$5B,$22,$7C,$92,$C0,$22,$86,$1A,$C0
-db $A2,$00,$00,$A9,$00,$80,$22,$11,$1C,$C0,$22,$69,$1A,$C0,$9C,$C2
-db $4D,$9C,$74,$5D,$A9,$01,$00,$8D,$58,$4A,$A9,$FF,$FF,$8D,$5A,$4A
-db $A9,$0A,$00,$8D,$5E,$4A,$9C,$60,$5D,$9C,$9A,$5D,$A9,$01,$00,$22
-db $45,$FD,$C4,$A9,$97,$06,$8D,$54,$9E,$A9,$4E,$DC,$22,$1C,$85,$C0
-db $9C,$41,$9F,$9C,$3F,$9F,$A9,$FF,$FF,$8D,$A8,$B4,$A9,$17,$00,$8D
-db $4C,$0A,$A9,$18,$00,$8D,$4E,$0A,$A0,$00,$00,$BB,$A9,$01,$00,$22
-db $21,$93,$C0,$22,$29,$2D,$C0,$22,$24,$3A,$C0,$E2,$20,$64,$0E,$A2
-db $00,$02,$C2,$20,$A9,$00,$02,$22,$FC,$8E,$C0,$22,$87,$7F,$C4,$22
-db $4B,$00,$C0,$AE,$7B,$98,$AD,$77,$98,$22,$F6,$13,$C0,$22,$21,$6B
-db $C0,$22,$3F,$7C,$C4,$A9,$01,$00,$22,$63,$49,$C4,$22,$E5,$39,$C0
-db $2B,$60,$C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$C2,$4D,$D0,$03,$4C
-db $D6,$B7,$AD,$6C,$43,$F0,$09,$22,$08,$E7,$EF,$C9,$FF,$FF,$F0,$49
-db $22,$34,$66,$C2,$C9,$00,$00,$F0,$09,$22,$BD,$61,$C2,$9C,$C2,$4D
-db $80,$37,$22,$AA,$52,$C0,$AA,$86,$10,$22,$52,$7B,$C0,$9C,$98,$5D
-db $AD,$3F,$9F,$D0,$20,$A6,$10,$F0,$0E,$AD,$6C,$43,$F0,$59,$22,$46
-db $E7,$EF,$C9,$00,$00,$D0,$50,$22,$F3,$18,$C0,$A2,$01,$00,$8A,$22
-db $6C,$88,$C0,$80,$04,$22,$99,$EA,$C0,$A9,$00,$00,$85,$0E,$80,$1F
-db $0A,$AA,$A9,$FF,$FF,$9D,$9E,$28,$9E,$5E,$2C,$8A,$18,$69,$6A,$11
-db $AA,$BD,$00,$00,$29,$FF,$7F,$9D,$00,$00,$A5,$0E,$1A,$85,$0E,$C9
-db $17,$00,$D0,$DC,$9C,$98,$5D,$22,$51,$94,$C0,$A9,$78,$00,$8D,$58
-db $5D,$A9,$FF,$FF,$8D,$B6,$4D,$2B,$6B,$C2,$31,$0B,$7B,$69,$F0,$FF
-db $5B,$22,$17,$33,$C4,$A9,$20,$0A,$22,$42,$8F,$C0,$22,$D2,$DA,$C4
-db $20,$25,$B5,$20,$7F,$B6,$22,$B1,$88,$C0,$22,$66,$94,$C0,$A2,$01
-db $00,$8A,$22,$6C,$88,$C0,$22,$26,$8B,$C0,$A9,$2A,$0A,$22,$42,$8F
-db $C0,$22,$53,$3F,$C4,$22,$B1,$88,$C0,$22,$66,$94,$C0,$22,$26,$8B
-db $C0,$22,$B0,$A7,$C4,$22,$56,$87,$C0,$AD,$02,$5E,$38,$ED,$04,$5E
-db $F0,$19,$AD,$60,$5D,$D0,$14,$AD,$BA,$4D,$D0,$0F,$AD,$C2,$4D,$D0
-db $0A,$22,$DD,$75,$C0,$EE,$74,$5D,$4C,$5E,$B9,$AD,$A5,$98,$C9,$02
-db $00,$D0,$03,$4C,$5E,$B9,$AE,$83,$98,$E0,$0C,$00,$D0,$03,$4C,$5E
-db $B9,$AD,$60,$5D,$F0,$03,$4C,$5E,$B9,$AD,$C2,$4D,$F0,$09,$22,$31
-db $B7,$C0,$EE,$74,$5D,$80,$1C,$AD,$6D,$00,$29,$A0,$00,$F0,$14,$E0
-db $03,$00,$D0,$0F,$22,$3C,$94,$C0,$22,$C6,$BE,$C1,$22,$51,$94,$C0
-db $4C,$14,$B8,$AD,$6C,$43,$F0,$2F,$AD,$65,$00,$29,$00,$A0,$F0,$0F
-db $AD,$6D,$00,$29,$10,$00,$F0,$07,$22,$63,$2E,$C1,$4C,$14,$B8,$AD
-db $6F,$00,$29,$80,$00,$F0,$04,$22,$EE,$90,$C4,$AD,$6F,$00,$29,$00
-db $80,$F0,$04,$22,$66,$E3,$C4,$AD,$60,$5D,$F0,$03,$4C,$14,$B8,$AD
-db $BA,$4D,$F0,$03,$4C,$14,$B8,$AD,$74,$5D,$D0,$45,$AD,$9A,$5D,$D0
-db $43,$AD,$6D,$00,$29,$80,$00,$F0,$06,$22,$A7,$34,$C1,$80,$35,$AD
-db $6D,$00,$29,$00,$A0,$F0,$0E,$AD,$83,$98,$C9,$03,$00,$F0,$06,$22
-db $A1,$3C,$C1,$80,$1F,$AD,$6D,$00,$29,$40,$00,$F0,$06,$22,$E5,$3C
-db $C1,$80,$11,$AD,$6D,$00,$29,$20,$00,$F0,$09,$22,$32,$3C,$C1,$80
-db $03,$CE,$74,$5D,$AD,$3F,$9F,$F0,$04,$22,$99,$EA,$C0,$AD,$6C,$43
-db $F0,$2D,$AD,$6F,$00,$29,$00,$80,$F0,$25,$A9,$00,$00,$85,$0E,$80
-db $19,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$BD,$D8,$99,$9D,$15,$9A,$BD
-db $DA,$99,$9D,$1B,$9A,$A5,$0E,$1A,$85,$0E,$C9,$06,$00,$90,$E2,$22
-db $FE,$4F,$C0,$C9,$00,$00,$D0,$13
-
-C0B967_InitializeIntroOverworldScene_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF1
+    tcd
+    jsl $C0927C
+    jsl !C01A86_ResetEntityBytePool467E
+    ldx.w #$0000
+    lda.w #$8000
+    jsl !C01C11_InitializeEntityStateMask
+    jsl !C01A69_ResetEntitySlotStateTables
+    stz $4DC2
+    stz $5D74
+    lda.w #$0001
+    sta $4A58
+    lda.w #$FFFF
+    sta $4A5A
+    lda.w #$000A
+    sta $4A5E
+    stz $5D60
+    stz $5D9A
+    lda.w #$0001
+    jsl $C4FD45
+    lda.w #$0697
+    sta $9E54
+    lda.w #$DC4E
+    jsl $C0851C
+    stz $9F41
+    stz $9F3F
+    lda.w #$FFFF
+    sta $B4A8
+    lda.w #$0017
+    sta $0A4C
+    lda.w #$0018
+    sta $0A4E
+    ldy.w #$0000
+    tyx
+    lda.w #$0001
+    jsl $C09321
+    jsl $C02D29
+    jsl $C03A24
+    sep #$20
+    stz $0E
+    ldx.w #$0200
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    jsl !C47F87_RefreshWindowFlavorPalette
+    jsl $C0004B
+    ldx $987B
+    lda $9877
+    jsl $C013F6
+    jsl !C06B21_RunPostTransitionDeferredScriptQueue
+    jsl !C47C3F_ClearWindowOrMenuMaskState
+    lda.w #$0001
+    jsl !C44963_ResetActiveTextGlyphRun
+    jsl $C039E5
+    pld
+    rts
+C0B731_InitializeIntroOverworldScene_LB731:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $4DC2
+    bne C0B741_InitializeIntroOverworldScene_LB741
+    jmp.w C0B7D6_InitializeIntroOverworldScene_LB7D6
+C0B741_InitializeIntroOverworldScene_LB741:
+    lda $436C
+    beq C0B74F_InitializeIntroOverworldScene_LB74F
+    jsl $EFE708
+    cmp.w #$FFFF
+    beq C0B798_InitializeIntroOverworldScene_LB798
+C0B74F_InitializeIntroOverworldScene_LB74F:
+    jsl $C26634
+    cmp.w #$0000
+    beq C0B761_InitializeIntroOverworldScene_LB761
+    jsl $C261BD
+    stz $4DC2
+    bra C0B798_InitializeIntroOverworldScene_LB798
+C0B761_InitializeIntroOverworldScene_LB761:
+    jsl $C052AA
+    tax
+    stx $10
+    jsl !C07B52_RebuildPartyRecordsOrEntityState
+    stz $5D98
+    lda $9F3F
+    bne C0B794_InitializeIntroOverworldScene_LB794
+    ldx $10
+    beq C0B786_InitializeIntroOverworldScene_LB786
+    lda $436C
+    beq C0B7D6_InitializeIntroOverworldScene_LB7D6
+    jsl $EFE746
+    cmp.w #$0000
+    bne C0B7D6_InitializeIntroOverworldScene_LB7D6
+C0B786_InitializeIntroOverworldScene_LB786:
+    jsl !C018F3_CloseOrResetPresentationState
+    ldx.w #$0001
+    txa
+    jsl !C0886C_SetDisplayTransitionState
+    bra C0B798_InitializeIntroOverworldScene_LB798
+C0B794_InitializeIntroOverworldScene_LB794:
+    jsl $C0EA99
+C0B798_InitializeIntroOverworldScene_LB798:
+    lda.w #$0000
+    sta $0E
+    bra C0B7BE_InitializeIntroOverworldScene_LB7BE
+C0B79F_InitializeIntroOverworldScene_LB79F:
+    asl A
+    tax
+    lda.w #$FFFF
+    sta $289E,X
+    stz $2C5E,X
+    txa
+    clc
+    adc.w #$116A
+    tax
+    lda $0000,X
+    and.w #$7FFF
+    sta $0000,X
+    lda $0E
+    inc A
+    sta $0E
+C0B7BE_InitializeIntroOverworldScene_LB7BE:
+    cmp.w #$0017
+    bne C0B79F_InitializeIntroOverworldScene_LB79F
+    stz $5D98
+    jsl !C09451_RestoreSavedCoordinateState
+    lda.w #$0078
+    sta $5D58
+    lda.w #$FFFF
+    sta $4DB6
+C0B7D6_InitializeIntroOverworldScene_LB7D6:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    jsl $C43317
+    lda.w #$0A20
+    jsl $C08F42
+    jsl $C4DAD2
+    jsr $B525
+    jsr.w C0B67F_InitializeIntroOverworldScene
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    ldx.w #$0001
+    txa
+    jsl !C0886C_SetDisplayTransitionState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    lda.w #$0A2A
+    jsl $C08F42
+    jsl $C43F53
+C0B814_InitializeIntroOverworldScene_LB814:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C4A7B0_StepBattleOverlayScriptState
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $5E02
+    sec
+    sbc $5E04
+    beq C0B84A_InitializeIntroOverworldScene_LB84A
+    lda $5D60
+    bne C0B84A_InitializeIntroOverworldScene_LB84A
+    lda $4DBA
+    bne C0B84A_InitializeIntroOverworldScene_LB84A
+    lda $4DC2
+    bne C0B84A_InitializeIntroOverworldScene_LB84A
+    jsl $C075DD
+    inc $5D74
+    jmp.w C0B95E_InitializeIntroOverworldScene_LB95E
+C0B84A_InitializeIntroOverworldScene_LB84A:
+    lda $98A5
+    cmp.w #$0002
+    bne C0B855_InitializeIntroOverworldScene_LB855
+    jmp.w C0B95E_InitializeIntroOverworldScene_LB95E
+C0B855_InitializeIntroOverworldScene_LB855:
+    ldx $9883
+    cpx.w #$000C
+    bne C0B860_InitializeIntroOverworldScene_LB860
+    jmp.w C0B95E_InitializeIntroOverworldScene_LB95E
+C0B860_InitializeIntroOverworldScene_LB860:
+    lda $5D60
+    beq C0B868_InitializeIntroOverworldScene_LB868
+    jmp.w C0B95E_InitializeIntroOverworldScene_LB95E
+C0B868_InitializeIntroOverworldScene_LB868:
+    lda $4DC2
+    beq C0B876_InitializeIntroOverworldScene_LB876
+    jsl C0B731_InitializeIntroOverworldScene_LB731
+    inc $5D74
+    bra C0B892_InitializeIntroOverworldScene_LB892
+C0B876_InitializeIntroOverworldScene_LB876:
+    lda $006D
+    and.w #$00A0
+    beq C0B892_InitializeIntroOverworldScene_LB892
+    cpx.w #$0003
+    bne C0B892_InitializeIntroOverworldScene_LB892
+    jsl !C0943C_SaveCurrentCoordinateState
+    jsl $C1BEC6
+    jsl !C09451_RestoreSavedCoordinateState
+    jmp.w C0B814_InitializeIntroOverworldScene_LB814
+C0B892_InitializeIntroOverworldScene_LB892:
+    lda $436C
+    beq C0B8C6_InitializeIntroOverworldScene_LB8C6
+    lda $0065
+    and.w #$A000
+    beq C0B8AE_InitializeIntroOverworldScene_LB8AE
+    lda $006D
+    and.w #$0010
+    beq C0B8AE_InitializeIntroOverworldScene_LB8AE
+    jsl $C12E63
+    jmp.w C0B814_InitializeIntroOverworldScene_LB814
+C0B8AE_InitializeIntroOverworldScene_LB8AE:
+    lda $006F
+    and.w #$0080
+    beq C0B8BA_InitializeIntroOverworldScene_LB8BA
+    jsl $C490EE
+C0B8BA_InitializeIntroOverworldScene_LB8BA:
+    lda $006F
+    and.w #$8000
+    beq C0B8C6_InitializeIntroOverworldScene_LB8C6
+    jsl $C4E366
+C0B8C6_InitializeIntroOverworldScene_LB8C6:
+    lda $5D60
+    beq C0B8CE_InitializeIntroOverworldScene_LB8CE
+    jmp.w C0B814_InitializeIntroOverworldScene_LB814
+C0B8CE_InitializeIntroOverworldScene_LB8CE:
+    lda $4DBA
+    beq C0B8D6_InitializeIntroOverworldScene_LB8D6
+    jmp.w C0B814_InitializeIntroOverworldScene_LB814
+C0B8D6_InitializeIntroOverworldScene_LB8D6:
+    lda $5D74
+    bne C0B920_InitializeIntroOverworldScene_LB920
+    lda $5D9A
+    bne C0B923_InitializeIntroOverworldScene_LB923
+    lda $006D
+    and.w #$0080
+    beq C0B8EE_InitializeIntroOverworldScene_LB8EE
+    jsl $C134A7
+    bra C0B923_InitializeIntroOverworldScene_LB923
+C0B8EE_InitializeIntroOverworldScene_LB8EE:
+    lda $006D
+    and.w #$A000
+    beq C0B904_InitializeIntroOverworldScene_LB904
+    lda $9883
+    cmp.w #$0003
+    beq C0B904_InitializeIntroOverworldScene_LB904
+    jsl $C13CA1
+    bra C0B923_InitializeIntroOverworldScene_LB923
+C0B904_InitializeIntroOverworldScene_LB904:
+    lda $006D
+    and.w #$0040
+    beq C0B912_InitializeIntroOverworldScene_LB912
+    jsl $C13CE5
+    bra C0B923_InitializeIntroOverworldScene_LB923
+C0B912_InitializeIntroOverworldScene_LB912:
+    lda $006D
+    and.w #$0020
+    beq C0B923_InitializeIntroOverworldScene_LB923
+    jsl $C13C32
+    bra C0B923_InitializeIntroOverworldScene_LB923
+C0B920_InitializeIntroOverworldScene_LB920:
+    dec $5D74
+C0B923_InitializeIntroOverworldScene_LB923:
+    lda $9F3F
+    beq C0B92C_InitializeIntroOverworldScene_LB92C
+    jsl $C0EA99
+C0B92C_InitializeIntroOverworldScene_LB92C:
+    lda $436C
+    beq C0B95E_InitializeIntroOverworldScene_LB95E
+    lda $006F
+    and.w #$8000
+    beq C0B95E_InitializeIntroOverworldScene_LB95E
+    lda.w #$0000
+    sta $0E
+    bra C0B959_InitializeIntroOverworldScene_LB959
+C0B940_InitializeIntroOverworldScene_LB940:
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda $99D8,X
+    sta $9A15,X
+    lda $99DA,X
+    sta $9A1B,X
+    lda $0E
+    inc A
+    sta $0E
+C0B959_InitializeIntroOverworldScene_LB959:
+    cmp.w #$0006
+    bcc C0B940_InitializeIntroOverworldScene_LB940
+C0B95E_InitializeIntroOverworldScene_LB95E:
+    jsl $C04FFE
+    cmp.w #$0000
+    db $D0, $13
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14635,17 +26565,41 @@ C0B967_InitializeIntroOverworldScene_End:
 hirom
 org $C0B967
 
+!C08756_WaitOneFrameAndPollInput = $C08756
 C0B967_TrySavedCoordinateReloadLanding:
-
-; Original data gap before C0B9BC_TrySavedCoordinateReloadLanding_End:
-db $22,$18,$C7,$C4,$C9,$00,$00,$F0,$0A,$A2,$00,$00,$A9,$20,$0A,$22
-db $68,$8F,$C0,$AD,$6C,$43,$D0,$03,$4C,$14,$B8,$AD,$65,$00,$29,$00
-db $10,$D0,$03,$4C,$14,$B8,$AD,$65,$00,$29,$00,$20,$D0,$03,$4C,$14
-db $B8,$2B,$6B,$C2,$31,$22,$9E,$0B,$EF,$22,$58,$FB,$C4,$22,$15,$87
-db $C0,$22,$1C,$A1,$C0,$22,$56,$87,$C0,$22,$56,$87,$C0,$9C,$6C,$43
-db $22,$D8,$B7,$C0,$60
-
-C0B9BC_TrySavedCoordinateReloadLanding_End:
+    jsl $C4C718
+    cmp.w #$0000
+    beq C0B97A_TrySavedCoordinateReloadLanding_LB97A
+    ldx.w #$0000
+    lda.w #$0A20
+    jsl $C08F68
+C0B97A_TrySavedCoordinateReloadLanding_LB97A:
+    lda $436C
+    bne C0B982_TrySavedCoordinateReloadLanding_LB982
+    jmp $B814
+C0B982_TrySavedCoordinateReloadLanding_LB982:
+    lda $0065
+    and.w #$1000
+    bne C0B98D_TrySavedCoordinateReloadLanding_LB98D
+    jmp $B814
+C0B98D_TrySavedCoordinateReloadLanding_LB98D:
+    lda $0065
+    and.w #$2000
+    bne C0B998_TrySavedCoordinateReloadLanding_LB998
+    jmp $B814
+C0B998_TrySavedCoordinateReloadLanding_LB998:
+    pld
+    rtl
+    rep #$31
+    jsl $EF0B9E
+    jsl $C4FB58
+    jsl $C08715
+    jsl $C0A11C
+    jsl !C08756_WaitOneFrameAndPollInput
+    jsl !C08756_WaitOneFrameAndPollInput
+    stz $436C
+    jsl $C0B7D8
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14656,18 +26610,76 @@ hirom
 org $C0B9BC
 
 C0B9BC_SnapshotPartyPositionsToPathGridRecords:
-
-; Original data gap before C0BA35_SnapshotPartyPositionsToPathGridRecords_End:
-db $C2,$31,$0B,$48,$7B,$69,$E8,$FF,$5B,$68,$84,$16,$86,$14,$85,$12
-db $A6,$26,$86,$04,$A9,$00,$00,$85,$02,$80,$56,$A5,$02,$0A,$AA,$BD
-db $97,$98,$0A,$A8,$B9,$6E,$2B,$85,$10,$A5,$02,$0A,$0A,$18,$65,$12
-db $AA,$86,$0E,$A5,$10,$0A,$85,$10,$AA,$B9,$8E,$0B,$38,$FF,$1F,$2A
-db $C4,$4A,$4A,$4A,$38,$E5,$16,$29,$3F,$00,$A6,$0E,$9D,$7E,$00,$A5
-db $10,$48,$AA,$B9,$CA,$0B,$38,$FF,$41,$2A,$C4,$FA,$18,$7F,$EB,$2A
-db $C4,$4A,$4A,$4A,$38,$E5,$04,$29,$3F,$00,$A6,$0E,$9D,$7C,$00,$E6
-db $02,$A5,$02,$C5,$14,$90,$A4,$2B,$60
-
-C0BA35_SnapshotPartyPositionsToPathGridRecords_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE8
+    tcd
+    pla
+    sty $16
+    stx $14
+    sta $12
+    ldx $26
+    stx $04
+    lda.w #$0000
+    sta $02
+    bra C0BA2D_SnapshotPartyPositionsToPathGridRecords_LBA2D
+C0B9D7_SnapshotPartyPositionsToPathGridRecords_LB9D7:
+    lda $02
+    asl A
+    tax
+    lda $9897,X
+    asl A
+    tay
+    lda $2B6E,Y
+    sta $10
+    lda $02
+    asl A
+    asl A
+    clc
+    adc $12
+    tax
+    stx $0E
+    lda $10
+    asl A
+    sta $10
+    tax
+    lda $0B8E,Y
+    sec
+    sbc $C42A1F,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $16
+    and.w #$003F
+    ldx $0E
+    sta $007E,X
+    lda $10
+    pha
+    tax
+    lda $0BCA,Y
+    sec
+    sbc $C42A41,X
+    plx
+    clc
+    adc $C42AEB,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $04
+    and.w #$003F
+    ldx $0E
+    sta $007C,X
+    inc $02
+C0BA2D_SnapshotPartyPositionsToPathGridRecords_LBA2D:
+    lda $02
+    cmp $14
+    bcc C0B9D7_SnapshotPartyPositionsToPathGridRecords_LB9D7
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14678,46 +26690,310 @@ hirom
 org $C0BA35
 
 C0BA35_BuildPathfindingOccupancyAndCandidateBuffers:
-
-; Original data gap before C0BC74_BuildPathfindingOccupancyAndCandidateBuffers_End:
-db $C2,$31,$0B,$48,$7B,$69,$C6,$FF,$5B,$68,$84,$38,$86,$36,$85,$04
-db $85,$34,$A5,$4E,$85,$32,$A5,$4C,$85,$30,$A6,$4A,$86,$2E,$A4,$48
-db $84,$2C,$A9,$00,$30,$85,$06,$A9,$7F,$00,$85,$08,$A5,$36,$A6,$04
-db $9D,$9C,$00,$A2,$00,$00,$86,$2A,$80,$58,$A9,$00,$00,$85,$28,$80
-db $45,$18,$65,$38,$29,$3F,$00,$48,$A6,$2A,$86,$02,$98,$18,$65,$02
-db $29,$3F,$00,$0A,$0A,$0A,$0A,$0A,$0A,$FA,$86,$02,$18,$65,$02,$AA
-db $BD,$00,$E0,$29,$FF,$00,$29,$C0,$00,$F0,$0C,$E2,$20,$A9,$FD,$87
-db $06,$C2,$20,$E6,$06,$80,$0A,$E2,$20,$A9,$00,$87,$06,$C2,$20,$E6
-db $06,$A5,$28,$1A,$85,$28,$A6,$04,$DD,$78,$00,$D0,$B4,$A6,$2A,$E8
-db $86,$2A,$8A,$A6,$04,$DD,$7A,$00,$D0,$A0,$A9,$00,$00,$85,$02,$85
-db $26,$85,$28,$4C,$88,$BB,$0A,$85,$24,$A0,$62,$0A,$B1,$24,$C9,$FF
-db $FF,$D0,$03,$4C,$83,$BB,$A0,$5E,$2C,$B1,$24,$C9,$FF,$FF,$F0,$03
-db $4C,$83,$BB,$A0,$6E,$2B,$B1,$24,$85,$22,$A5,$02,$85,$04,$0A,$0A
-db $0A,$65,$04,$0A,$85,$02,$A5,$34,$85,$04,$18,$65,$02,$AA,$86,$2A
-db $A5,$28,$9D,$B0,$00,$A5,$2E,$9D,$A0,$00,$A5,$22,$0A,$85,$22,$A6
-db $22,$BF,$A7,$2A,$C4,$A6,$2A,$9D,$A4,$00,$A6,$22,$BF,$C9,$2A,$C4
-db $A6,$2A,$9D,$A2,$00,$A6,$22,$A0,$8E,$0B,$B1,$24,$38,$FF,$1F,$2A
-db $C4,$4A,$4A,$4A,$38,$E5,$38,$29,$3F,$00,$A6,$2A,$9D,$A8,$00,$A4
-db $2C,$84,$02,$A6,$22,$A0,$CA,$0B,$B1,$24,$38,$FF,$41,$2A,$C4,$A6
-db $22,$18,$7F,$EB,$2A,$C4,$4A,$4A,$4A,$38,$E5,$02,$29,$3F,$00,$A6
-db $2A,$9D,$A6,$00,$A5,$26,$85,$02,$E6,$02,$A5,$02,$85,$26,$A5,$28
-db $1A,$85,$28,$C9,$1E,$00,$F0,$03,$4C,$DB,$BA,$A5,$02,$A6,$04,$9D
-db $9E,$00,$A9,$00,$30,$85,$0E,$A9,$7F,$00,$85,$10,$A9,$04,$00,$85
-db $12,$A5,$36,$85,$14,$A5,$04,$18,$69,$7C,$00,$85,$16,$A5,$02,$85
-db $18,$A5,$04,$18,$69,$A0,$00,$85,$1A,$A9,$FF,$FF,$85,$1C,$A5,$30
-db $85,$1E,$A5,$32,$85,$20,$A5,$04,$18,$69,$78,$00,$A8,$A2,$00,$F4
-db $A9,$00,$0C,$22,$9F,$B5,$C4,$AA,$86,$28,$22,$95,$B5,$C4,$C9,$00
-db $0C,$F0,$02,$B0,$F5,$A6,$28,$D0,$26,$A9,$00,$00,$85,$28,$80,$15
-db $0A,$AA,$BD,$62,$0A,$C9,$FF,$FF,$F0,$06,$A9,$01,$00,$9D,$5E,$2C
-db $A5,$28,$1A,$85,$28,$C9,$1E,$00,$D0,$E6,$A9,$FF,$FF,$80,$5E,$A9
-db $00,$00,$85,$28,$80,$4C,$85,$04,$0A,$0A,$0A,$65,$04,$0A,$85,$02
-db $A5,$34,$85,$04,$18,$65,$02,$AA,$BD,$B0,$00,$85,$22,$8A,$18,$69
-db $AA,$00,$A8,$84,$30,$B9,$00,$00,$F0,$19,$A5,$22,$0A,$85,$22,$BD
-db $AC,$00,$A0,$02,$2E,$91,$22,$A4,$30,$B9,$00,$00,$A0,$3E,$2E,$91
-db $22,$80,$0A,$A5,$22,$0A,$AA,$A9,$01,$00,$9D,$5E,$2C,$A5,$28,$1A
-db $85,$28,$A6,$26,$86,$02,$C5,$02,$90,$AC,$A9,$00,$00,$2B,$60
-
-C0BC74_BuildPathfindingOccupancyAndCandidateBuffers_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFC6
+    tcd
+    pla
+    sty $38
+    stx $36
+    sta $04
+    sta $34
+    lda $4E
+    sta $32
+    lda $4C
+    sta $30
+    ldx $4A
+    stx $2E
+    ldy $48
+    sty $2C
+    lda.w #$3000
+    sta $06
+    lda.w #$007F
+    sta $08
+    lda $36
+    ldx $04
+    sta $009C,X
+    ldx.w #$0000
+    stx $2A
+    bra C0BAC7_BuildPathfindingOccupancyAndCandidateBuffers_LBAC7
+C0BA6F_BuildPathfindingOccupancyAndCandidateBuffers_LBA6F:
+    lda.w #$0000
+    sta $28
+    bra C0BABB_BuildPathfindingOccupancyAndCandidateBuffers_LBABB
+C0BA76_BuildPathfindingOccupancyAndCandidateBuffers_LBA76:
+    clc
+    adc $38
+    and.w #$003F
+    pha
+    ldx $2A
+    stx $02
+    tya
+    clc
+    adc $02
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    plx
+    stx $02
+    clc
+    adc $02
+    tax
+    lda $E000,X
+    and.w #$00FF
+    and.w #$00C0
+    beq C0BAAC_BuildPathfindingOccupancyAndCandidateBuffers_LBAAC
+    sep #$20
+    lda.b #$FD
+    sta [$06]
+    rep #$20
+    inc $06
+    bra C0BAB6_BuildPathfindingOccupancyAndCandidateBuffers_LBAB6
+C0BAAC_BuildPathfindingOccupancyAndCandidateBuffers_LBAAC:
+    sep #$20
+    lda.b #$00
+    sta [$06]
+    rep #$20
+    inc $06
+C0BAB6_BuildPathfindingOccupancyAndCandidateBuffers_LBAB6:
+    lda $28
+    inc A
+    sta $28
+C0BABB_BuildPathfindingOccupancyAndCandidateBuffers_LBABB:
+    ldx $04
+    cmp $0078,X
+    bne C0BA76_BuildPathfindingOccupancyAndCandidateBuffers_LBA76
+    ldx $2A
+    inx
+    stx $2A
+C0BAC7_BuildPathfindingOccupancyAndCandidateBuffers_LBAC7:
+    txa
+    ldx $04
+    cmp $007A,X
+    bne C0BA6F_BuildPathfindingOccupancyAndCandidateBuffers_LBA6F
+    lda.w #$0000
+    sta $02
+    sta $26
+    sta $28
+    jmp.w C0BB88_BuildPathfindingOccupancyAndCandidateBuffers_LBB88
+C0BADB_BuildPathfindingOccupancyAndCandidateBuffers_LBADB:
+    asl A
+    sta $24
+    ldy.w #$0A62
+    lda ($24),Y
+    cmp.w #$FFFF
+    bne C0BAEB_BuildPathfindingOccupancyAndCandidateBuffers_LBAEB
+    jmp.w C0BB83_BuildPathfindingOccupancyAndCandidateBuffers_LBB83
+C0BAEB_BuildPathfindingOccupancyAndCandidateBuffers_LBAEB:
+    ldy.w #$2C5E
+    lda ($24),Y
+    cmp.w #$FFFF
+    beq C0BAF8_BuildPathfindingOccupancyAndCandidateBuffers_LBAF8
+    jmp.w C0BB83_BuildPathfindingOccupancyAndCandidateBuffers_LBB83
+C0BAF8_BuildPathfindingOccupancyAndCandidateBuffers_LBAF8:
+    ldy.w #$2B6E
+    lda ($24),Y
+    sta $22
+    lda $02
+    sta $04
+    asl A
+    asl A
+    asl A
+    adc $04
+    asl A
+    sta $02
+    lda $34
+    sta $04
+    clc
+    adc $02
+    tax
+    stx $2A
+    lda $28
+    sta $00B0,X
+    lda $2E
+    sta $00A0,X
+    lda $22
+    asl A
+    sta $22
+    ldx $22
+    lda $C42AA7,X
+    ldx $2A
+    sta $00A4,X
+    ldx $22
+    lda $C42AC9,X
+    ldx $2A
+    sta $00A2,X
+    ldx $22
+    ldy.w #$0B8E
+    lda ($24),Y
+    sec
+    sbc $C42A1F,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $38
+    and.w #$003F
+    ldx $2A
+    sta $00A8,X
+    ldy $2C
+    sty $02
+    ldx $22
+    ldy.w #$0BCA
+    lda ($24),Y
+    sec
+    sbc $C42A41,X
+    ldx $22
+    clc
+    adc $C42AEB,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $02
+    and.w #$003F
+    ldx $2A
+    sta $00A6,X
+    lda $26
+    sta $02
+    inc $02
+    lda $02
+    sta $26
+C0BB83_BuildPathfindingOccupancyAndCandidateBuffers_LBB83:
+    lda $28
+    inc A
+    sta $28
+C0BB88_BuildPathfindingOccupancyAndCandidateBuffers_LBB88:
+    cmp.w #$001E
+    beq C0BB90_BuildPathfindingOccupancyAndCandidateBuffers_LBB90
+    jmp.w C0BADB_BuildPathfindingOccupancyAndCandidateBuffers_LBADB
+C0BB90_BuildPathfindingOccupancyAndCandidateBuffers_LBB90:
+    lda $02
+    ldx $04
+    sta $009E,X
+    lda.w #$3000
+    sta $0E
+    lda.w #$007F
+    sta $10
+    lda.w #$0004
+    sta $12
+    lda $36
+    sta $14
+    lda $04
+    clc
+    adc.w #$007C
+    sta $16
+    lda $02
+    sta $18
+    lda $04
+    clc
+    adc.w #$00A0
+    sta $1A
+    lda.w #$FFFF
+    sta $1C
+    lda $30
+    sta $1E
+    lda $32
+    sta $20
+    lda $04
+    clc
+    adc.w #$0078
+    tay
+    ldx.w #$F400
+    lda.w #$0C00
+    jsl $C4B59F
+    tax
+    stx $28
+C0BBDF_BuildPathfindingOccupancyAndCandidateBuffers_LBBDF:
+    jsl $C4B595
+    cmp.w #$0C00
+    beq C0BBEA_BuildPathfindingOccupancyAndCandidateBuffers_LBBEA
+    bcs C0BBDF_BuildPathfindingOccupancyAndCandidateBuffers_LBBDF
+C0BBEA_BuildPathfindingOccupancyAndCandidateBuffers_LBBEA:
+    ldx $28
+    bne C0BC14_BuildPathfindingOccupancyAndCandidateBuffers_LBC14
+    lda.w #$0000
+    sta $28
+    bra C0BC0A_BuildPathfindingOccupancyAndCandidateBuffers_LBC0A
+C0BBF5_BuildPathfindingOccupancyAndCandidateBuffers_LBBF5:
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    beq C0BC05_BuildPathfindingOccupancyAndCandidateBuffers_LBC05
+    lda.w #$0001
+    sta $2C5E,X
+C0BC05_BuildPathfindingOccupancyAndCandidateBuffers_LBC05:
+    lda $28
+    inc A
+    sta $28
+C0BC0A_BuildPathfindingOccupancyAndCandidateBuffers_LBC0A:
+    cmp.w #$001E
+    bne C0BBF5_BuildPathfindingOccupancyAndCandidateBuffers_LBBF5
+    lda.w #$FFFF
+    bra C0BC72_BuildPathfindingOccupancyAndCandidateBuffers_LBC72
+C0BC14_BuildPathfindingOccupancyAndCandidateBuffers_LBC14:
+    lda.w #$0000
+    sta $28
+    bra C0BC67_BuildPathfindingOccupancyAndCandidateBuffers_LBC67
+C0BC1B_BuildPathfindingOccupancyAndCandidateBuffers_LBC1B:
+    sta $04
+    asl A
+    asl A
+    asl A
+    adc $04
+    asl A
+    sta $02
+    lda $34
+    sta $04
+    clc
+    adc $02
+    tax
+    lda $00B0,X
+    sta $22
+    txa
+    clc
+    adc.w #$00AA
+    tay
+    sty $30
+    lda $0000,Y
+    beq C0BC58_BuildPathfindingOccupancyAndCandidateBuffers_LBC58
+    lda $22
+    asl A
+    sta $22
+    lda $00AC,X
+    ldy.w #$2E02
+    sta ($22),Y
+    ldy $30
+    lda $0000,Y
+    ldy.w #$2E3E
+    sta ($22),Y
+    bra C0BC62_BuildPathfindingOccupancyAndCandidateBuffers_LBC62
+C0BC58_BuildPathfindingOccupancyAndCandidateBuffers_LBC58:
+    lda $22
+    asl A
+    tax
+    lda.w #$0001
+    sta $2C5E,X
+C0BC62_BuildPathfindingOccupancyAndCandidateBuffers_LBC62:
+    lda $28
+    inc A
+    sta $28
+C0BC67_BuildPathfindingOccupancyAndCandidateBuffers_LBC67:
+    ldx $26
+    stx $02
+    cmp $02
+    bcc C0BC1B_BuildPathfindingOccupancyAndCandidateBuffers_LBC1B
+    lda.w #$0000
+C0BC72_BuildPathfindingOccupancyAndCandidateBuffers_LBC72:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14728,29 +27004,160 @@ hirom
 org $C0BC74
 
 C0BC74_FindPathToParty:
-
-; Original data gap before C0BD96_FindPathToParty_End:
-db $C2,$31,$0B,$48,$7B,$69,$D4,$FF,$5B,$68,$85,$2A,$AD,$89,$98,$85
-db $28,$A9,$00,$F2,$85,$26,$8E,$78,$F2,$8C,$7A,$F2,$AD,$78,$F2,$4A
-db $85,$04,$8D,$92,$4A,$AD,$7A,$F2,$4A,$85,$02,$85,$24,$A5,$02,$8D
-db $94,$4A,$A5,$28,$0A,$85,$28,$18,$69,$8E,$0B,$A8,$84,$22,$A9,$1F
-db $2A,$85,$0A,$A9,$C4,$00,$85,$0C,$A5,$28,$18,$69,$6E,$2B,$85,$20
-db $B2,$20,$0A,$A6,$0A,$86,$06,$A6,$0C,$86,$08,$18,$65,$06,$85,$06
-db $A7,$06,$85,$02,$B9,$00,$00,$38,$E5,$02,$4A,$4A,$4A,$8D,$8E,$4A
-db $A5,$28,$18,$69,$CA,$0B,$AA,$A9,$41,$2A,$85,$06,$A9,$C4,$00,$85
-db $08,$A5,$06,$85,$1C,$A5,$08,$85,$1E,$B2,$20,$0A,$85,$1A,$A9,$EB
-db $2A,$85,$16,$A9,$C4,$00,$85,$18,$A5,$1A,$A8,$18,$65,$06,$85,$06
-db $A7,$06,$85,$02,$BD,$00,$00,$38,$E5,$02,$18,$77,$16,$4A,$4A,$4A
-db $8D,$90,$4A,$B2,$20,$0A,$85,$1A,$18,$65,$0A,$85,$0A,$A7,$0A,$85
-db $02,$A4,$22,$B9,$00,$00,$38,$E5,$02,$4A,$4A,$4A,$38,$E5,$04,$85
-db $04,$A5,$1A,$A8,$48,$A5,$1C,$85,$06,$A5,$1E,$85,$08,$68,$18,$65
-db $06,$85,$06,$A7,$06,$85,$02,$BD,$00,$00,$38,$E5,$02,$18,$77,$16
-db $4A,$4A,$4A,$A6,$24,$86,$02,$38,$E5,$02,$85,$02,$85,$0E,$A4,$04
-db $A6,$2A,$A5,$26,$20,$BC,$B9,$A5,$02,$85,$0E,$64,$10,$A9,$40,$00
-db $85,$12,$A9,$32,$00,$85,$14,$A4,$04,$A6,$2A,$A5,$26,$20,$35,$BA
-db $2B,$6B
-
-C0BD96_FindPathToParty_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFD4
+    tcd
+    pla
+    sta $2A
+    lda $9889
+    sta $28
+    lda.w #$F200
+    sta $26
+    stx $F278
+    sty $F27A
+    lda $F278
+    lsr A
+    sta $04
+    sta $4A92
+    lda $F27A
+    lsr A
+    sta $02
+    sta $24
+    lda $02
+    sta $4A94
+    lda $28
+    asl A
+    sta $28
+    clc
+    adc.w #$0B8E
+    tay
+    sty $22
+    lda.w #$2A1F
+    sta $0A
+    lda.w #$00C4
+    sta $0C
+    lda $28
+    clc
+    adc.w #$2B6E
+    sta $20
+    lda ($20)
+    asl A
+    ldx $0A
+    stx $06
+    ldx $0C
+    stx $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,Y
+    sec
+    sbc $02
+    lsr A
+    lsr A
+    lsr A
+    sta $4A8E
+    lda $28
+    clc
+    adc.w #$0BCA
+    tax
+    lda.w #$2A41
+    sta $06
+    lda.w #$00C4
+    sta $08
+    lda $06
+    sta $1C
+    lda $08
+    sta $1E
+    lda ($20)
+    asl A
+    sta $1A
+    lda.w #$2AEB
+    sta $16
+    lda.w #$00C4
+    sta $18
+    lda $1A
+    tay
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,X
+    sec
+    sbc $02
+    clc
+    adc [$16],Y
+    lsr A
+    lsr A
+    lsr A
+    sta $4A90
+    lda ($20)
+    asl A
+    sta $1A
+    clc
+    adc $0A
+    sta $0A
+    lda [$0A]
+    sta $02
+    ldy $22
+    lda $0000,Y
+    sec
+    sbc $02
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $04
+    sta $04
+    lda $1A
+    tay
+    pha
+    lda $1C
+    sta $06
+    lda $1E
+    sta $08
+    pla
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,X
+    sec
+    sbc $02
+    clc
+    adc [$16],Y
+    lsr A
+    lsr A
+    lsr A
+    ldx $24
+    stx $02
+    sec
+    sbc $02
+    sta $02
+    sta $0E
+    ldy $04
+    ldx $2A
+    lda $26
+    jsr $B9BC
+    lda $02
+    sta $0E
+    stz $10
+    lda.w #$0040
+    sta $12
+    lda.w #$0032
+    sta $14
+    ldy $04
+    ldx $2A
+    lda $26
+    jsr $BA35
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14761,40 +27168,265 @@ hirom
 org $C0BD96
 
 C0BD96_BuildPathRequestToPartyMemberAndApplyStep:
-
-; Original data gap before C0BF72_BuildPathRequestToPartyMemberAndApplyStep_End:
-db $C2,$31,$0B,$7B,$69,$D4,$FF,$5B,$AD,$89,$98,$85,$2A,$A9,$00,$F2
-db $85,$28,$A9,$38,$00,$8D,$78,$F2,$8D,$7A,$F2,$AD,$78,$F2,$4A,$85
-db $04,$8D,$92,$4A,$AD,$7A,$F2,$4A,$85,$02,$85,$26,$A5,$02,$8D,$94
-db $4A,$A5,$2A,$0A,$85,$2A,$18,$69,$8E,$0B,$A8,$84,$24,$A9,$1F,$2A
-db $85,$20,$A9,$C4,$00,$85,$22,$A5,$2A,$18,$69,$6E,$2B,$85,$1E,$B2
-db $1E,$0A,$48,$B9,$00,$00,$7A,$38,$F7,$20,$4A,$4A,$4A,$8D,$8E,$4A
-db $A5,$2A,$18,$69,$CA,$0B,$AA,$A9,$41,$2A,$85,$0A,$A9,$C4,$00,$85
-db $0C,$B2,$1E,$0A,$85,$1C,$A9,$EB,$2A,$85,$06,$A9,$C4,$00,$85,$08
-db $A5,$06,$85,$18,$A5,$08,$85,$1A,$A5,$1C,$18,$65,$06,$85,$06,$A7
-db $06,$48,$A5,$1C,$A4,$0A,$84,$06,$A4,$0C,$84,$08,$18,$65,$06,$85
-db $06,$A7,$06,$85,$02,$BD,$00,$00,$38,$E5,$02,$7A,$84,$02,$18,$65
-db $02,$4A,$4A,$4A,$8D,$90,$4A,$B2,$1E,$0A,$85,$1C,$48,$A4,$24,$B9
-db $00,$00,$7A,$38,$F7,$20,$4A,$4A,$4A,$38,$E5,$04,$85,$04,$A5,$1C
-db $A4,$18,$84,$06,$A4,$1A,$84,$08,$18,$65,$06,$85,$06,$A7,$06,$48
-db $A5,$1C,$A4,$0A,$84,$06,$A4,$0C,$84,$08,$18,$65,$06,$85,$06,$A7
-db $06,$85,$02,$BD,$00,$00,$38,$E5,$02,$7A,$84,$02,$18,$65,$02,$4A
-db $4A,$4A,$A6,$26,$86,$02,$38,$E5,$02,$85,$02,$85,$0E,$A4,$04,$A2
-db $01,$00,$A5,$28,$20,$BC,$B9,$A5,$02,$85,$0E,$A9,$01,$00,$85,$10
-db $A9,$FC,$00,$85,$12,$A9,$32,$00,$85,$14,$A4,$04,$A2,$01,$00,$A5
-db $28,$20,$35,$BA,$85,$2A,$C9,$00,$00,$F0,$03,$4C,$70,$BF,$AE,$B0
-db $F2,$8A,$0A,$85,$02,$85,$16,$A6,$02,$BC,$6E,$2B,$98,$0A,$AA,$86
-db $28,$9B,$AD,$A8,$F2,$0A,$0A,$0A,$18,$77,$20,$85,$04,$AD,$8E,$4A
-db $38,$ED,$92,$4A,$0A,$0A,$0A,$18,$65,$04,$A6,$02,$9D,$8E,$0B,$A6
-db $28,$8A,$A4,$0A,$84,$06,$A4,$0C,$84,$08,$18,$65,$06,$85,$06,$A7
-db $06,$48,$8A,$A6,$18,$86,$06,$A6,$1A,$86,$08,$18,$65,$06,$85,$06
-db $A7,$06,$85,$02,$AD,$A6,$F2,$0A,$0A,$0A,$38,$E5,$02,$7A,$84,$02
-db $18,$65,$02,$85,$04,$AD,$90,$4A,$38,$ED,$94,$4A,$0A,$0A,$0A,$18
-db $65,$04,$A6,$16,$86,$02,$9D,$CA,$0B,$A5,$02,$18,$69,$02,$2E,$AA
-db $BD,$00,$00,$1A,$1A,$1A,$1A,$9D,$00,$00,$A5,$02,$18,$69,$3E,$2E
-db $AA,$BD,$00,$00,$3A,$9D,$00,$00,$A5,$2A,$2B,$6B
-
-C0BF72_BuildPathRequestToPartyMemberAndApplyStep_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFD4
+    tcd
+    lda $9889
+    sta $2A
+    lda.w #$F200
+    sta $28
+    lda.w #$0038
+    sta $F278
+    sta $F27A
+    lda $F278
+    lsr A
+    sta $04
+    sta $4A92
+    lda $F27A
+    lsr A
+    sta $02
+    sta $26
+    lda $02
+    sta $4A94
+    lda $2A
+    asl A
+    sta $2A
+    clc
+    adc.w #$0B8E
+    tay
+    sty $24
+    lda.w #$2A1F
+    sta $20
+    lda.w #$00C4
+    sta $22
+    lda $2A
+    clc
+    adc.w #$2B6E
+    sta $1E
+    lda ($1E)
+    asl A
+    pha
+    lda $0000,Y
+    ply
+    sec
+    sbc [$20],Y
+    lsr A
+    lsr A
+    lsr A
+    sta $4A8E
+    lda $2A
+    clc
+    adc.w #$0BCA
+    tax
+    lda.w #$2A41
+    sta $0A
+    lda.w #$00C4
+    sta $0C
+    lda ($1E)
+    asl A
+    sta $1C
+    lda.w #$2AEB
+    sta $06
+    lda.w #$00C4
+    sta $08
+    lda $06
+    sta $18
+    lda $08
+    sta $1A
+    lda $1C
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    pha
+    lda $1C
+    ldy $0A
+    sty $06
+    ldy $0C
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,X
+    sec
+    sbc $02
+    ply
+    sty $02
+    clc
+    adc $02
+    lsr A
+    lsr A
+    lsr A
+    sta $4A90
+    lda ($1E)
+    asl A
+    sta $1C
+    pha
+    ldy $24
+    lda $0000,Y
+    ply
+    sec
+    sbc [$20],Y
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $04
+    sta $04
+    lda $1C
+    ldy $18
+    sty $06
+    ldy $1A
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    pha
+    lda $1C
+    ldy $0A
+    sty $06
+    ldy $0C
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,X
+    sec
+    sbc $02
+    ply
+    sty $02
+    clc
+    adc $02
+    lsr A
+    lsr A
+    lsr A
+    ldx $26
+    stx $02
+    sec
+    sbc $02
+    sta $02
+    sta $0E
+    ldy $04
+    ldx.w #$0001
+    lda $28
+    jsr $B9BC
+    lda $02
+    sta $0E
+    lda.w #$0001
+    sta $10
+    lda.w #$00FC
+    sta $12
+    lda.w #$0032
+    sta $14
+    ldy $04
+    ldx.w #$0001
+    lda $28
+    jsr $BA35
+    sta $2A
+    cmp.w #$0000
+    beq C0BED4_BuildPathRequestToPartyMemberAndApplyStep_LBED4
+    jmp.w C0BF70_BuildPathRequestToPartyMemberAndApplyStep_LBF70
+C0BED4_BuildPathRequestToPartyMemberAndApplyStep_LBED4:
+    ldx $F2B0
+    txa
+    asl A
+    sta $02
+    sta $16
+    ldx $02
+    ldy $2B6E,X
+    tya
+    asl A
+    tax
+    stx $28
+    txy
+    lda $F2A8
+    asl A
+    asl A
+    asl A
+    clc
+    adc [$20],Y
+    sta $04
+    lda $4A8E
+    sec
+    sbc $4A92
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    ldx $02
+    sta $0B8E,X
+    ldx $28
+    txa
+    ldy $0A
+    sty $06
+    ldy $0C
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    pha
+    txa
+    ldx $18
+    stx $06
+    ldx $1A
+    stx $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $F2A6
+    asl A
+    asl A
+    asl A
+    sec
+    sbc $02
+    ply
+    sty $02
+    clc
+    adc $02
+    sta $04
+    lda $4A90
+    sec
+    sbc $4A94
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    ldx $16
+    stx $02
+    sta $0BCA,X
+    lda $02
+    clc
+    adc.w #$2E02
+    tax
+    lda $0000,X
+    inc A
+    inc A
+    inc A
+    inc A
+    sta $0000,X
+    lda $02
+    clc
+    adc.w #$2E3E
+    tax
+    lda $0000,X
+    dec A
+    sta $0000,X
+    lda $2A
+C0BF70_BuildPathRequestToPartyMemberAndApplyStep_LBF70:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14805,31 +27437,173 @@ hirom
 org $C0BF72
 
 C0BF72_BuildPathRequestToCurrentEntity:
-
-; Original data gap before C0C0B4_BuildPathRequestToCurrentEntity_End:
-db $C2,$31,$0B,$7B,$69,$D6,$FF,$5B,$AD,$42,$1A,$85,$28,$A9,$00,$F2
-db $85,$26,$A9,$38,$00,$8D,$78,$F2,$8D,$7A,$F2,$AD,$78,$F2,$4A,$85
-db $04,$8D,$92,$4A,$AD,$7A,$F2,$4A,$85,$24,$8D,$94,$4A,$A5,$28,$0A
-db $85,$28,$18,$69,$8E,$0B,$85,$02,$85,$22,$A9,$1F,$2A,$85,$1E,$A9
-db $C4,$00,$85,$20,$A5,$28,$18,$69,$6E,$2B,$AA,$86,$1C,$BD,$00,$00
-db $0A,$A8,$A6,$02,$BD,$00,$00,$38,$F7,$1E,$4A,$4A,$4A,$8D,$8E,$4A
-db $A5,$28,$18,$69,$CA,$0B,$A8,$84,$28,$A9,$41,$2A,$85,$0A,$A9,$C4
-db $00,$85,$0C,$A6,$1C,$BD,$00,$00,$0A,$85,$1A,$A9,$EB,$2A,$85,$06
-db $A9,$C4,$00,$85,$08,$A5,$06,$85,$16,$A5,$08,$85,$18,$A5,$1A,$18
-db $65,$06,$85,$06,$A7,$06,$48,$A5,$1A,$48,$A5,$0A,$85,$06,$A5,$0C
-db $85,$08,$68,$18,$65,$06,$85,$06,$A7,$06,$85,$02,$B9,$00,$00,$38
-db $E5,$02,$7A,$84,$02,$18,$65,$02,$4A,$4A,$4A,$8D,$90,$4A,$BD,$00
-db $00,$0A,$85,$1C,$A8,$A5,$22,$85,$02,$A6,$02,$BD,$00,$00,$38,$F7
-db $1E,$4A,$4A,$4A,$38,$E5,$04,$AA,$A5,$1C,$A4,$16,$84,$06,$A4,$18
-db $84,$08,$18,$65,$06,$85,$06,$A7,$06,$48,$A5,$1C,$A4,$0A,$84,$06
-db $A4,$0C,$84,$08,$18,$65,$06,$85,$06,$A7,$06,$85,$02,$A4,$28,$B9
-db $00,$00,$38,$E5,$02,$7A,$84,$02,$18,$65,$02,$4A,$4A,$4A,$38,$E5
-db $24,$85,$28,$A5,$04,$29,$3F,$00,$8D,$7E,$F2,$AD,$94,$4A,$29,$3F
-db $00,$8D,$7C,$F2,$A5,$28,$85,$0E,$A9,$01,$00,$85,$10,$A9,$FC,$00
-db $85,$12,$A9,$32,$00,$85,$14,$9B,$A2,$01,$00,$A5,$26,$20,$35,$BA
-db $2B,$6B
-
-C0C0B4_BuildPathRequestToCurrentEntity_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFD6
+    tcd
+    lda $1A42
+    sta $28
+    lda.w #$F200
+    sta $26
+    lda.w #$0038
+    sta $F278
+    sta $F27A
+    lda $F278
+    lsr A
+    sta $04
+    sta $4A92
+    lda $F27A
+    lsr A
+    sta $24
+    sta $4A94
+    lda $28
+    asl A
+    sta $28
+    clc
+    adc.w #$0B8E
+    sta $02
+    sta $22
+    lda.w #$2A1F
+    sta $1E
+    lda.w #$00C4
+    sta $20
+    lda $28
+    clc
+    adc.w #$2B6E
+    tax
+    stx $1C
+    lda $0000,X
+    asl A
+    tay
+    ldx $02
+    lda $0000,X
+    sec
+    sbc [$1E],Y
+    lsr A
+    lsr A
+    lsr A
+    sta $4A8E
+    lda $28
+    clc
+    adc.w #$0BCA
+    tay
+    sty $28
+    lda.w #$2A41
+    sta $0A
+    lda.w #$00C4
+    sta $0C
+    ldx $1C
+    lda $0000,X
+    asl A
+    sta $1A
+    lda.w #$2AEB
+    sta $06
+    lda.w #$00C4
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    lda $1A
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    pha
+    lda $1A
+    pha
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    pla
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    lda $0000,Y
+    sec
+    sbc $02
+    ply
+    sty $02
+    clc
+    adc $02
+    lsr A
+    lsr A
+    lsr A
+    sta $4A90
+    lda $0000,X
+    asl A
+    sta $1C
+    tay
+    lda $22
+    sta $02
+    ldx $02
+    lda $0000,X
+    sec
+    sbc [$1E],Y
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $04
+    tax
+    lda $1C
+    ldy $16
+    sty $06
+    ldy $18
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    pha
+    lda $1C
+    ldy $0A
+    sty $06
+    ldy $0C
+    sty $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $02
+    ldy $28
+    lda $0000,Y
+    sec
+    sbc $02
+    ply
+    sty $02
+    clc
+    adc $02
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc $24
+    sta $28
+    lda $04
+    and.w #$003F
+    sta $F27E
+    lda $4A94
+    and.w #$003F
+    sta $F27C
+    lda $28
+    sta $0E
+    lda.w #$0001
+    sta $10
+    lda.w #$00FC
+    sta $12
+    lda.w #$0032
+    sta $14
+    txy
+    ldx.w #$0001
+    lda $26
+    jsr $BA35
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14840,25 +27614,128 @@ hirom
 org $C0C0B4
 
 C0C0B4_CopyPathToLane_FromPartyPath:
-
-; Original data gap before C0C19B_CopyPathToLane_FromPartyPath_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$12,$AC,$42,$1A,$84
-db $10,$AE,$7B,$98,$AD,$77,$98,$22,$A1,$0A,$C0,$29,$07,$00,$AA,$BF
-db $E8,$DF,$C3,$29,$FF,$00,$D0,$03,$4C,$96,$C1,$A4,$10,$98,$0A,$85
-db $04,$18,$69,$5E,$2C,$85,$02,$A9,$FF,$FF,$A6,$02,$9D,$00,$00,$A0
-db $30,$00,$BB,$A9,$01,$00,$22,$74,$BC,$C0,$C9,$00,$00,$F0,$03,$4C
-db $96,$C1,$A9,$00,$00,$A6,$02,$9D,$00,$00,$A5,$04,$18,$69,$02,$2E
-db $AA,$BD,$00,$00,$1A,$1A,$1A,$1A,$9D,$00,$00,$A5,$04,$18,$69,$3E
-db $2E,$A8,$B9,$00,$00,$3A,$99,$00,$00,$D0,$05,$A9,$01,$00,$80,$65
-db $BD,$00,$00,$85,$02,$A5,$12,$85,$04,$0A,$0A,$65,$04,$0A,$0A,$0A
-db $0A,$18,$69,$96,$4A,$85,$0E,$9D,$00,$00,$B9,$00,$00,$A8,$A2,$00
-db $00,$86,$10,$80,$2E,$A5,$0E,$48,$A6,$02,$BD,$00,$00,$FA,$9D,$00
-db $00,$A5,$0E,$48,$A6,$02,$BD,$02,$00,$FA,$9D,$02,$00,$E6,$02,$E6
-db $02,$E6,$02,$E6,$02,$A5,$0E,$1A,$1A,$1A,$1A,$85,$0E,$88,$A6,$10
-db $E8,$86,$10,$C0,$00,$00,$F0,$05,$E0,$14,$00,$90,$C8,$A9,$00,$00
-db $80,$03,$A9,$01,$00,$2B,$6B
-
-C0C19B_CopyPathToLane_FromPartyPath_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $12
+    ldy $1A42
+    sty $10
+    ldx $987B
+    lda $9877
+    jsl $C00AA1
+    and.w #$0007
+    tax
+    lda $C3DFE8,X
+    and.w #$00FF
+    bne C0C0DF_CopyPathToLane_FromPartyPath_LC0DF
+    jmp.w C0C196_CopyPathToLane_FromPartyPath_LC196
+C0C0DF_CopyPathToLane_FromPartyPath_LC0DF:
+    ldy $10
+    tya
+    asl A
+    sta $04
+    clc
+    adc.w #$2C5E
+    sta $02
+    lda.w #$FFFF
+    ldx $02
+    sta $0000,X
+    ldy.w #$0030
+    tyx
+    lda.w #$0001
+    jsl $C0BC74
+    cmp.w #$0000
+    beq C0C106_CopyPathToLane_FromPartyPath_LC106
+    jmp.w C0C196_CopyPathToLane_FromPartyPath_LC196
+C0C106_CopyPathToLane_FromPartyPath_LC106:
+    lda.w #$0000
+    ldx $02
+    sta $0000,X
+    lda $04
+    clc
+    adc.w #$2E02
+    tax
+    lda $0000,X
+    inc A
+    inc A
+    inc A
+    inc A
+    sta $0000,X
+    lda $04
+    clc
+    adc.w #$2E3E
+    tay
+    lda $0000,Y
+    dec A
+    sta $0000,Y
+    bne C0C134_CopyPathToLane_FromPartyPath_LC134
+    lda.w #$0001
+    bra C0C199_CopyPathToLane_FromPartyPath_LC199
+C0C134_CopyPathToLane_FromPartyPath_LC134:
+    lda $0000,X
+    sta $02
+    lda $12
+    sta $04
+    asl A
+    asl A
+    adc $04
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$4A96
+    sta $0E
+    sta $0000,X
+    lda $0000,Y
+    tay
+    ldx.w #$0000
+    stx $10
+    bra C0C187_CopyPathToLane_FromPartyPath_LC187
+C0C159_CopyPathToLane_FromPartyPath_LC159:
+    lda $0E
+    pha
+    ldx $02
+    lda $0000,X
+    plx
+    sta $0000,X
+    lda $0E
+    pha
+    ldx $02
+    lda $0002,X
+    plx
+    sta $0002,X
+    inc $02
+    inc $02
+    inc $02
+    inc $02
+    lda $0E
+    inc A
+    inc A
+    inc A
+    inc A
+    sta $0E
+    dey
+    ldx $10
+    inx
+    stx $10
+C0C187_CopyPathToLane_FromPartyPath_LC187:
+    cpy.w #$0000
+    beq C0C191_CopyPathToLane_FromPartyPath_LC191
+    cpx.w #$0014
+    bcc C0C159_CopyPathToLane_FromPartyPath_LC159
+C0C191_CopyPathToLane_FromPartyPath_LC191:
+    lda.w #$0000
+    bra C0C199_CopyPathToLane_FromPartyPath_LC199
+C0C196_CopyPathToLane_FromPartyPath_LC196:
+    lda.w #$0001
+C0C199_CopyPathToLane_FromPartyPath_LC199:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14869,22 +27746,102 @@ hirom
 org $C0C19B
 
 C0C19B_CopyPathToLane_FromPartyMemberRequest:
-
-; Original data gap before C0C251_CopyPathToLane_FromPartyMemberRequest_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$04,$AC,$42,$1A,$84
-db $12,$AE,$7B,$98,$AD,$77,$98,$22,$A1,$0A,$C0,$29,$07,$00,$AA,$BF
-db $E8,$DF,$C3,$29,$FF,$00,$D0,$03,$4C,$4C,$C2,$A4,$12,$98,$0A,$85
-db $10,$18,$69,$5E,$2C,$AA,$86,$0E,$A9,$FF,$FF,$9D,$00,$00,$22,$96
-db $BD,$C0,$A8,$D0,$6C,$A9,$00,$00,$A6,$0E,$9D,$00,$00,$A5,$10,$18
-db $69,$02,$2E,$AA,$BD,$00,$00,$85,$02,$A5,$04,$85,$04,$0A,$0A,$65
-db $04,$0A,$0A,$0A,$0A,$18,$69,$96,$4A,$A8,$9D,$00,$00,$A5,$10,$AA
-db $BD,$3E,$2E,$85,$10,$A2,$00,$00,$86,$0E,$80,$26,$A6,$02,$BD,$00
-db $00,$99,$00,$00,$A6,$02,$BD,$02,$00,$99,$02,$00,$E6,$02,$E6,$02
-db $E6,$02,$E6,$02,$C8,$C8,$C8,$C8,$A5,$10,$3A,$85,$10,$A6,$0E,$E8
-db $86,$0E,$C9,$00,$00,$F0,$05,$E0,$14,$00,$90,$D0,$A9,$00,$00,$80
-db $03,$A9,$01,$00,$2B,$6B
-
-C0C251_CopyPathToLane_FromPartyMemberRequest_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $04
+    ldy $1A42
+    sty $12
+    ldx $987B
+    lda $9877
+    jsl $C00AA1
+    and.w #$0007
+    tax
+    lda $C3DFE8,X
+    and.w #$00FF
+    bne C0C1C6_CopyPathToLane_FromPartyMemberRequest_LC1C6
+    jmp.w C0C24C_CopyPathToLane_FromPartyMemberRequest_LC24C
+C0C1C6_CopyPathToLane_FromPartyMemberRequest_LC1C6:
+    ldy $12
+    tya
+    asl A
+    sta $10
+    clc
+    adc.w #$2C5E
+    tax
+    stx $0E
+    lda.w #$FFFF
+    sta $0000,X
+    jsl $C0BD96
+    tay
+    bne C0C24C_CopyPathToLane_FromPartyMemberRequest_LC24C
+    lda.w #$0000
+    ldx $0E
+    sta $0000,X
+    lda $10
+    clc
+    adc.w #$2E02
+    tax
+    lda $0000,X
+    sta $02
+    lda $04
+    sta $04
+    asl A
+    asl A
+    adc $04
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$4A96
+    tay
+    sta $0000,X
+    lda $10
+    tax
+    lda $2E3E,X
+    sta $10
+    ldx.w #$0000
+    stx $0E
+    bra C0C23D_CopyPathToLane_FromPartyMemberRequest_LC23D
+C0C217_CopyPathToLane_FromPartyMemberRequest_LC217:
+    ldx $02
+    lda $0000,X
+    sta $0000,Y
+    ldx $02
+    lda $0002,X
+    sta $0002,Y
+    inc $02
+    inc $02
+    inc $02
+    inc $02
+    iny
+    iny
+    iny
+    iny
+    lda $10
+    dec A
+    sta $10
+    ldx $0E
+    inx
+    stx $0E
+C0C23D_CopyPathToLane_FromPartyMemberRequest_LC23D:
+    cmp.w #$0000
+    beq C0C247_CopyPathToLane_FromPartyMemberRequest_LC247
+    cpx.w #$0014
+    bcc C0C217_CopyPathToLane_FromPartyMemberRequest_LC217
+C0C247_CopyPathToLane_FromPartyMemberRequest_LC247:
+    lda.w #$0000
+    bra C0C24F_CopyPathToLane_FromPartyMemberRequest_LC24F
+C0C24C_CopyPathToLane_FromPartyMemberRequest_LC24C:
+    lda.w #$0001
+C0C24F_CopyPathToLane_FromPartyMemberRequest_LC24F:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14895,22 +27852,110 @@ hirom
 org $C0C251
 
 C0C251_CopyPathToLane_FromCurrentEntityRequestReverse:
-
-; Original data gap before C0C30C_CopyPathToLane_FromCurrentEntityRequestReverse_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$85,$04,$AD,$42,$1A,$0A
-db $85,$02,$18,$69,$5E,$2C,$AA,$86,$14,$A9,$FF,$FF,$9D,$00,$00,$22
-db $72,$BF,$C0,$C9,$00,$00,$F0,$03,$4C,$07,$C3,$A9,$00,$00,$A6,$14
-db $9D,$00,$00,$A5,$02,$18,$69,$3E,$2E,$A8,$B9,$00,$00,$3A,$85,$12
-db $99,$00,$00,$A5,$02,$18,$69,$02,$2E,$AA,$A5,$12,$3A,$0A,$0A,$85
-db $02,$BD,$00,$00,$18,$65,$02,$85,$02,$A5,$04,$85,$04,$0A,$0A,$65
-db $04,$0A,$0A,$0A,$0A,$18,$69,$96,$4A,$85,$10,$9D,$00,$00,$B9,$00
-db $00,$A8,$A2,$00,$00,$86,$0E,$80,$2E,$A5,$10,$48,$A6,$02,$BD,$00
-db $00,$FA,$9D,$00,$00,$A5,$10,$48,$A6,$02,$BD,$02,$00,$FA,$9D,$02
-db $00,$A5,$02,$38,$E9,$04,$00,$85,$02,$A5,$10,$1A,$1A,$1A,$1A,$85
-db $10,$88,$A6,$0E,$E8,$86,$0E,$C0,$00,$00,$F0,$05,$E0,$14,$00,$90
-db $C8,$A9,$00,$00,$80,$03,$A9,$01,$00,$2B,$6B
-
-C0C30C_CopyPathToLane_FromCurrentEntityRequestReverse_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    sta $04
+    lda $1A42
+    asl A
+    sta $02
+    clc
+    adc.w #$2C5E
+    tax
+    stx $14
+    lda.w #$FFFF
+    sta $0000,X
+    jsl $C0BF72
+    cmp.w #$0000
+    beq C0C27C_CopyPathToLane_FromCurrentEntityRequestReverse_LC27C
+    jmp.w C0C307_CopyPathToLane_FromCurrentEntityRequestReverse_LC307
+C0C27C_CopyPathToLane_FromCurrentEntityRequestReverse_LC27C:
+    lda.w #$0000
+    ldx $14
+    sta $0000,X
+    lda $02
+    clc
+    adc.w #$2E3E
+    tay
+    lda $0000,Y
+    dec A
+    sta $12
+    sta $0000,Y
+    lda $02
+    clc
+    adc.w #$2E02
+    tax
+    lda $12
+    dec A
+    asl A
+    asl A
+    sta $02
+    lda $0000,X
+    clc
+    adc $02
+    sta $02
+    lda $04
+    sta $04
+    asl A
+    asl A
+    adc $04
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$4A96
+    sta $10
+    sta $0000,X
+    lda $0000,Y
+    tay
+    ldx.w #$0000
+    stx $0E
+    bra C0C2F8_CopyPathToLane_FromCurrentEntityRequestReverse_LC2F8
+C0C2CA_CopyPathToLane_FromCurrentEntityRequestReverse_LC2CA:
+    lda $10
+    pha
+    ldx $02
+    lda $0000,X
+    plx
+    sta $0000,X
+    lda $10
+    pha
+    ldx $02
+    lda $0002,X
+    plx
+    sta $0002,X
+    lda $02
+    sec
+    sbc.w #$0004
+    sta $02
+    lda $10
+    inc A
+    inc A
+    inc A
+    inc A
+    sta $10
+    dey
+    ldx $0E
+    inx
+    stx $0E
+C0C2F8_CopyPathToLane_FromCurrentEntityRequestReverse_LC2F8:
+    cpy.w #$0000
+    beq C0C302_CopyPathToLane_FromCurrentEntityRequestReverse_LC302
+    cpx.w #$0014
+    bcc C0C2CA_CopyPathToLane_FromCurrentEntityRequestReverse_LC2CA
+C0C302_CopyPathToLane_FromCurrentEntityRequestReverse_LC302:
+    lda.w #$0000
+    bra C0C30A_CopyPathToLane_FromCurrentEntityRequestReverse_LC30A
+C0C307_CopyPathToLane_FromCurrentEntityRequestReverse_LC307:
+    lda.w #$0001
+C0C30A_CopyPathToLane_FromCurrentEntityRequestReverse_LC30A:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14920,16 +27965,49 @@ C0C30C_CopyPathToLane_FromCurrentEntityRequestReverse_End:
 hirom
 org $C0C30C
 
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C21628_CheckEventFlag = $C21628
 C0C30C_RefreshCurrentSlotProfileFromField2C9A:
-
-; Original data gap before C0C353_RefreshCurrentSlotProfileFromField2C9A_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$A8,$84,$10,$98,$0A,$AA
-db $86,$0E,$BD,$9A,$2C,$85,$04,$0A,$0A,$0A,$0A,$65,$04,$18,$69,$06
-db $00,$AA,$BF,$85,$89,$CF,$22,$28,$16,$C2,$C9,$00,$00,$F0,$07,$A6
-db $0E,$9E,$F6,$2A,$80,$08,$A9,$04,$00,$A6,$0E,$9D,$F6,$2A,$A4,$10
-db $98,$22,$8F,$A4,$C0,$2B,$6B
-
-C0C353_RefreshCurrentSlotProfileFromField2C9A_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    tay
+    sty $10
+    tya
+    asl A
+    tax
+    stx $0E
+    lda $2C9A,X
+    sta $04
+    asl A
+    asl A
+    asl A
+    asl A
+    adc $04
+    clc
+    adc.w #$0006
+    tax
+    lda $CF8985,X
+    jsl !C21628_CheckEventFlag
+    cmp.w #$0000
+    beq C0C342_RefreshCurrentSlotProfileFromField2C9A_LC342
+    ldx $0E
+    stz $2AF6,X
+    bra C0C34A_RefreshCurrentSlotProfileFromField2C9A_LC34A
+C0C342_RefreshCurrentSlotProfileFromField2C9A_LC342:
+    lda.w #$0004
+    ldx $0E
+    sta $2AF6,X
+C0C34A_RefreshCurrentSlotProfileFromField2C9A_LC34A:
+    ldy $10
+    tya
+    jsl !C0A48F_RefreshVisualProfileForSlot
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14940,11 +28018,10 @@ hirom
 org $C0C353
 
 C0C353_RefreshCurrentSlotProfileFromField2C9A_Current:
-
-; Original data gap before C0C35D_RefreshCurrentSlotProfileFromField2C9A_Current_End:
-db $C2,$31,$AD,$42,$1A,$22,$0C,$C3,$C0,$6B
-
-C0C35D_RefreshCurrentSlotProfileFromField2C9A_Current_End:
+    rep #$31
+    lda $1A42
+    jsl $C0C30C
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14955,11 +28032,9 @@ hirom
 org $C0C35D
 
 C0C35D_GetPlayerContext9885:
-
-; Original data gap before C0C363_GetPlayerContext9885_End:
-db $C2,$31,$AD,$85,$98,$6B
-
-C0C363_GetPlayerContext9885_End:
+    rep #$31
+    lda $9885
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14970,20 +28045,99 @@ hirom
 org $C0C363
 
 C0C363_GetPlayerDistanceBucketWide:
-
-; Original data gap before C0C3F9_GetPlayerDistanceBucketWide_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$0A,$AA,$AD,$77,$98
-db $38,$FD,$8E,$0B,$85,$02,$AD,$7B,$98,$38,$FD,$CA,$0B,$85,$0E,$85
-db $04,$A9,$00,$00,$18,$E5,$04,$50,$04,$10,$0E,$80,$02,$30,$0A,$A5
-db $0E,$49,$FF,$FF,$1A,$85,$04,$80,$04,$A5,$0E,$85,$04,$A9,$00,$00
-db $18,$E5,$02,$50,$04,$10,$0C,$80,$02,$30,$08,$A5,$02,$49,$FF,$FF
-db $1A,$80,$02,$A5,$02,$18,$65,$04,$85,$0E,$18,$E9,$00,$01,$50,$04
-db $10,$09,$80,$02,$30,$05,$A9,$03,$00,$80,$29,$A5,$0E,$18,$E9,$A0
-db $00,$50,$04,$10,$09,$80,$02,$30,$05,$A9,$02,$00,$80,$16,$A5,$0E
-db $18,$E9,$80,$00,$50,$04,$10,$09,$80,$02,$30,$05,$A9,$01,$00,$80
-db $03,$A9,$00,$00,$2B,$6B
-
-C0C3F9_GetPlayerDistanceBucketWide_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    asl A
+    tax
+    lda $9877
+    sec
+    sbc $0B8E,X
+    sta $02
+    lda $987B
+    sec
+    sbc $0BCA,X
+    sta $0E
+    sta $04
+    lda.w #$0000
+    clc
+    sbc $04
+    bvc C0C390_GetPlayerDistanceBucketWide_LC390
+    bpl C0C39C_GetPlayerDistanceBucketWide_LC39C
+    bra C0C392_GetPlayerDistanceBucketWide_LC392
+C0C390_GetPlayerDistanceBucketWide_LC390:
+    bmi C0C39C_GetPlayerDistanceBucketWide_LC39C
+C0C392_GetPlayerDistanceBucketWide_LC392:
+    lda $0E
+    eor.w #$FFFF
+    inc A
+    sta $04
+    bra C0C3A0_GetPlayerDistanceBucketWide_LC3A0
+C0C39C_GetPlayerDistanceBucketWide_LC39C:
+    lda $0E
+    sta $04
+C0C3A0_GetPlayerDistanceBucketWide_LC3A0:
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0C3AC_GetPlayerDistanceBucketWide_LC3AC
+    bpl C0C3B6_GetPlayerDistanceBucketWide_LC3B6
+    bra C0C3AE_GetPlayerDistanceBucketWide_LC3AE
+C0C3AC_GetPlayerDistanceBucketWide_LC3AC:
+    bmi C0C3B6_GetPlayerDistanceBucketWide_LC3B6
+C0C3AE_GetPlayerDistanceBucketWide_LC3AE:
+    lda $02
+    eor.w #$FFFF
+    inc A
+    bra C0C3B8_GetPlayerDistanceBucketWide_LC3B8
+C0C3B6_GetPlayerDistanceBucketWide_LC3B6:
+    lda $02
+C0C3B8_GetPlayerDistanceBucketWide_LC3B8:
+    clc
+    adc $04
+    sta $0E
+    clc
+    sbc.w #$0100
+    bvc C0C3C7_GetPlayerDistanceBucketWide_LC3C7
+    bpl C0C3CE_GetPlayerDistanceBucketWide_LC3CE
+    bra C0C3C9_GetPlayerDistanceBucketWide_LC3C9
+C0C3C7_GetPlayerDistanceBucketWide_LC3C7:
+    bmi C0C3CE_GetPlayerDistanceBucketWide_LC3CE
+C0C3C9_GetPlayerDistanceBucketWide_LC3C9:
+    lda.w #$0003
+    bra C0C3F7_GetPlayerDistanceBucketWide_LC3F7
+C0C3CE_GetPlayerDistanceBucketWide_LC3CE:
+    lda $0E
+    clc
+    sbc.w #$00A0
+    bvc C0C3DA_GetPlayerDistanceBucketWide_LC3DA
+    bpl C0C3E1_GetPlayerDistanceBucketWide_LC3E1
+    bra C0C3DC_GetPlayerDistanceBucketWide_LC3DC
+C0C3DA_GetPlayerDistanceBucketWide_LC3DA:
+    bmi C0C3E1_GetPlayerDistanceBucketWide_LC3E1
+C0C3DC_GetPlayerDistanceBucketWide_LC3DC:
+    lda.w #$0002
+    bra C0C3F7_GetPlayerDistanceBucketWide_LC3F7
+C0C3E1_GetPlayerDistanceBucketWide_LC3E1:
+    lda $0E
+    clc
+    sbc.w #$0080
+    bvc C0C3ED_GetPlayerDistanceBucketWide_LC3ED
+    bpl C0C3F4_GetPlayerDistanceBucketWide_LC3F4
+    bra C0C3EF_GetPlayerDistanceBucketWide_LC3EF
+C0C3ED_GetPlayerDistanceBucketWide_LC3ED:
+    bmi C0C3F4_GetPlayerDistanceBucketWide_LC3F4
+C0C3EF_GetPlayerDistanceBucketWide_LC3EF:
+    lda.w #$0001
+    bra C0C3F7_GetPlayerDistanceBucketWide_LC3F7
+C0C3F4_GetPlayerDistanceBucketWide_LC3F4:
+    lda.w #$0000
+C0C3F7_GetPlayerDistanceBucketWide_LC3F7:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -14994,20 +28148,99 @@ hirom
 org $C0C3F9
 
 C0C3F9_GetPlayerDistanceBucketTight:
-
-; Original data gap before C0C48F_GetPlayerDistanceBucketTight_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$0A,$AA,$AD,$77,$98
-db $38,$FD,$8E,$0B,$85,$02,$AD,$7B,$98,$38,$FD,$CA,$0B,$85,$0E,$85
-db $04,$A9,$00,$00,$18,$E5,$04,$50,$04,$10,$0E,$80,$02,$30,$0A,$A5
-db $0E,$49,$FF,$FF,$1A,$85,$04,$80,$04,$A5,$0E,$85,$04,$A9,$00,$00
-db $18,$E5,$02,$50,$04,$10,$0C,$80,$02,$30,$08,$A5,$02,$49,$FF,$FF
-db $1A,$80,$02,$A5,$02,$18,$65,$04,$85,$0E,$18,$E9,$80,$00,$50,$04
-db $10,$09,$80,$02,$30,$05,$A9,$03,$00,$80,$29,$A5,$0E,$18,$E9,$50
-db $00,$50,$04,$10,$09,$80,$02,$30,$05,$A9,$02,$00,$80,$16,$A5,$0E
-db $18,$E9,$40,$00,$50,$04,$10,$09,$80,$02,$30,$05,$A9,$01,$00,$80
-db $03,$A9,$00,$00,$2B,$6B
-
-C0C48F_GetPlayerDistanceBucketTight_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    asl A
+    tax
+    lda $9877
+    sec
+    sbc $0B8E,X
+    sta $02
+    lda $987B
+    sec
+    sbc $0BCA,X
+    sta $0E
+    sta $04
+    lda.w #$0000
+    clc
+    sbc $04
+    bvc C0C426_GetPlayerDistanceBucketTight_LC426
+    bpl C0C432_GetPlayerDistanceBucketTight_LC432
+    bra C0C428_GetPlayerDistanceBucketTight_LC428
+C0C426_GetPlayerDistanceBucketTight_LC426:
+    bmi C0C432_GetPlayerDistanceBucketTight_LC432
+C0C428_GetPlayerDistanceBucketTight_LC428:
+    lda $0E
+    eor.w #$FFFF
+    inc A
+    sta $04
+    bra C0C436_GetPlayerDistanceBucketTight_LC436
+C0C432_GetPlayerDistanceBucketTight_LC432:
+    lda $0E
+    sta $04
+C0C436_GetPlayerDistanceBucketTight_LC436:
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0C442_GetPlayerDistanceBucketTight_LC442
+    bpl C0C44C_GetPlayerDistanceBucketTight_LC44C
+    bra C0C444_GetPlayerDistanceBucketTight_LC444
+C0C442_GetPlayerDistanceBucketTight_LC442:
+    bmi C0C44C_GetPlayerDistanceBucketTight_LC44C
+C0C444_GetPlayerDistanceBucketTight_LC444:
+    lda $02
+    eor.w #$FFFF
+    inc A
+    bra C0C44E_GetPlayerDistanceBucketTight_LC44E
+C0C44C_GetPlayerDistanceBucketTight_LC44C:
+    lda $02
+C0C44E_GetPlayerDistanceBucketTight_LC44E:
+    clc
+    adc $04
+    sta $0E
+    clc
+    sbc.w #$0080
+    bvc C0C45D_GetPlayerDistanceBucketTight_LC45D
+    bpl C0C464_GetPlayerDistanceBucketTight_LC464
+    bra C0C45F_GetPlayerDistanceBucketTight_LC45F
+C0C45D_GetPlayerDistanceBucketTight_LC45D:
+    bmi C0C464_GetPlayerDistanceBucketTight_LC464
+C0C45F_GetPlayerDistanceBucketTight_LC45F:
+    lda.w #$0003
+    bra C0C48D_GetPlayerDistanceBucketTight_LC48D
+C0C464_GetPlayerDistanceBucketTight_LC464:
+    lda $0E
+    clc
+    sbc.w #$0050
+    bvc C0C470_GetPlayerDistanceBucketTight_LC470
+    bpl C0C477_GetPlayerDistanceBucketTight_LC477
+    bra C0C472_GetPlayerDistanceBucketTight_LC472
+C0C470_GetPlayerDistanceBucketTight_LC470:
+    bmi C0C477_GetPlayerDistanceBucketTight_LC477
+C0C472_GetPlayerDistanceBucketTight_LC472:
+    lda.w #$0002
+    bra C0C48D_GetPlayerDistanceBucketTight_LC48D
+C0C477_GetPlayerDistanceBucketTight_LC477:
+    lda $0E
+    clc
+    sbc.w #$0040
+    bvc C0C483_GetPlayerDistanceBucketTight_LC483
+    bpl C0C48A_GetPlayerDistanceBucketTight_LC48A
+    bra C0C485_GetPlayerDistanceBucketTight_LC485
+C0C483_GetPlayerDistanceBucketTight_LC483:
+    bmi C0C48A_GetPlayerDistanceBucketTight_LC48A
+C0C485_GetPlayerDistanceBucketTight_LC485:
+    lda.w #$0001
+    bra C0C48D_GetPlayerDistanceBucketTight_LC48D
+C0C48A_GetPlayerDistanceBucketTight_LC48A:
+    lda.w #$0000
+C0C48D_GetPlayerDistanceBucketTight_LC48D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15018,12 +28251,23 @@ hirom
 org $C0C48F
 
 C0C48F_GateWidePlayerDistanceBucket:
-
-; Original data gap before C0C4AF_GateWidePlayerDistanceBucket_End:
-db $C2,$31,$AD,$42,$1A,$0A,$AA,$BD,$5E,$2C,$F0,$05,$A9,$00,$00,$80
-db $0E,$AD,$58,$5D,$D0,$06,$22,$63,$C3,$C0,$80,$03,$A9,$FF,$FF,$6B
-
-C0C4AF_GateWidePlayerDistanceBucket_End:
+    rep #$31
+    lda $1A42
+    asl A
+    tax
+    lda $2C5E,X
+    beq C0C4A0_GateWidePlayerDistanceBucket_LC4A0
+    lda.w #$0000
+    bra C0C4AE_GateWidePlayerDistanceBucket_LC4AE
+C0C4A0_GateWidePlayerDistanceBucket_LC4A0:
+    lda $5D58
+    bne C0C4AB_GateWidePlayerDistanceBucket_LC4AB
+    jsl $C0C363
+    bra C0C4AE_GateWidePlayerDistanceBucket_LC4AE
+C0C4AB_GateWidePlayerDistanceBucket_LC4AB:
+    lda.w #$FFFF
+C0C4AE_GateWidePlayerDistanceBucket_LC4AE:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15034,12 +28278,23 @@ hirom
 org $C0C4AF
 
 C0C4AF_GateTightPlayerDistanceBucket:
-
-; Original data gap before C0C4CF_GateTightPlayerDistanceBucket_End:
-db $C2,$31,$AD,$42,$1A,$0A,$AA,$BD,$5E,$2C,$F0,$05,$A9,$00,$00,$80
-db $0E,$AD,$58,$5D,$D0,$06,$22,$F9,$C3,$C0,$80,$03,$A9,$FF,$FF,$6B
-
-C0C4CF_GateTightPlayerDistanceBucket_End:
+    rep #$31
+    lda $1A42
+    asl A
+    tax
+    lda $2C5E,X
+    beq C0C4C0_GateTightPlayerDistanceBucket_LC4C0
+    lda.w #$0000
+    bra C0C4CE_GateTightPlayerDistanceBucket_LC4CE
+C0C4C0_GateTightPlayerDistanceBucket_LC4C0:
+    lda $5D58
+    bne C0C4CB_GateTightPlayerDistanceBucket_LC4CB
+    jsl $C0C3F9
+    bra C0C4CE_GateTightPlayerDistanceBucket_LC4CE
+C0C4CB_GateTightPlayerDistanceBucket_LC4CB:
+    lda.w #$FFFF
+C0C4CE_GateTightPlayerDistanceBucket_LC4CE:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15067,13 +28322,29 @@ hirom
 org $C0C4F7
 
 C0C4F7_GetDirectionFromPlayerToEntity:
-
-; Original data gap before C0C524_GetDirectionFromPlayerToEntity_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AD,$42,$1A,$0A,$85,$12,$AD,$7B
-db $98,$85,$0E,$AC,$77,$98,$A5,$12,$AA,$BD,$CA,$0B,$AA,$86,$10,$A5
-db $12,$AA,$BD,$8E,$0B,$A6,$10,$22,$A8,$5F,$C4,$2B,$6B
-
-C0C524_GetDirectionFromPlayerToEntity_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda $1A42
+    asl A
+    sta $12
+    lda $987B
+    sta $0E
+    ldy $9877
+    lda $12
+    tax
+    lda $0BCA,X
+    tax
+    stx $10
+    lda $12
+    tax
+    lda $0B8E,X
+    ldx $10
+    jsl $C45FA8
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15083,26 +28354,131 @@ C0C524_GetDirectionFromPlayerToEntity_End:
 hirom
 org $C0C524
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C21628_CheckEventFlag = $C21628
 C0C524_CheckCurrentSlotDirectionEncounterGate:
-
-; Original data gap before C0C608_CheckCurrentSlotDirectionEncounterGate_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AD,$42,$1A,$0A,$AA,$BD,$9A,$2C
-db $29,$FF,$7F,$85,$12,$A9,$0D,$C6,$85,$06,$A9,$D0,$00,$85,$08,$A5
-db $12,$0A,$0A,$0A,$AA,$86,$10,$8A,$1A,$1A,$1A,$1A,$A6,$06,$86,$0A
-db $A6,$08,$86,$0C,$18,$65,$0A,$85,$0A,$A7,$0A,$F0,$25,$22,$28,$16
-db $C2,$85,$0E,$A6,$10,$8A,$18,$69,$06,$00,$18,$65,$06,$85,$06,$A7
-db $06,$29,$FF,$00,$85,$02,$A5,$0E,$C5,$02,$D0,$06,$A9,$01,$00,$4C
-db $06,$C6,$22,$6B,$54,$C0,$A8,$84,$0E,$AD,$42,$1A,$0A,$AA,$86,$12
-db $BD,$12,$2D,$A0,$5E,$00,$22,$F7,$8F,$C0,$18,$69,$36,$00,$AA,$BF
-db $89,$95,$D5,$29,$FF,$00,$85,$10,$85,$04,$0A,$0A,$65,$04,$0A,$85
-db $02,$A4,$0E,$98,$C5,$02,$90,$07,$F0,$05,$A9,$01,$00,$80,$43,$A5
-db $10,$0A,$0A,$0A,$85,$02,$98,$C5,$02,$90,$11,$F0,$0F,$A6,$12,$BD
-db $86,$31,$C9,$C0,$00,$B0,$05,$A9,$01,$00,$80,$26,$A5,$10,$85,$04
-db $0A,$65,$04,$0A,$85,$02,$98,$C5,$02,$90,$14,$F0,$12,$AD,$42,$1A
-db $0A,$AA,$BD,$86,$31,$C9,$80,$00,$B0,$05,$A9,$01,$00,$80,$03,$A9
-db $00,$00,$2B,$6B
-
-C0C608_CheckCurrentSlotDirectionEncounterGate_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda $1A42
+    asl A
+    tax
+    lda $2C9A,X
+    and.w #$7FFF
+    sta $12
+    lda.w #$C60D
+    sta $06
+    lda.w #$00D0
+    sta $08
+    lda $12
+    asl A
+    asl A
+    asl A
+    tax
+    stx $10
+    txa
+    inc A
+    inc A
+    inc A
+    inc A
+    ldx $06
+    stx $0A
+    ldx $08
+    stx $0C
+    clc
+    adc $0A
+    sta $0A
+    lda [$0A]
+    beq C0C586_CheckCurrentSlotDirectionEncounterGate_LC586
+    jsl !C21628_CheckEventFlag
+    sta $0E
+    ldx $10
+    txa
+    clc
+    adc.w #$0006
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    and.w #$00FF
+    sta $02
+    lda $0E
+    cmp $02
+    bne C0C586_CheckCurrentSlotDirectionEncounterGate_LC586
+    lda.w #$0001
+    jmp.w C0C606_CheckCurrentSlotDirectionEncounterGate_LC606
+C0C586_CheckCurrentSlotDirectionEncounterGate_LC586:
+    jsl $C0546B
+    tay
+    sty $0E
+    lda $1A42
+    asl A
+    tax
+    stx $12
+    lda $2D12,X
+    ldy.w #$005E
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$0036
+    tax
+    lda $D59589,X
+    and.w #$00FF
+    sta $10
+    sta $04
+    asl A
+    asl A
+    adc $04
+    asl A
+    sta $02
+    ldy $0E
+    tya
+    cmp $02
+    bcc C0C5C3_CheckCurrentSlotDirectionEncounterGate_LC5C3
+    beq C0C5C3_CheckCurrentSlotDirectionEncounterGate_LC5C3
+    lda.w #$0001
+    bra C0C606_CheckCurrentSlotDirectionEncounterGate_LC606
+C0C5C3_CheckCurrentSlotDirectionEncounterGate_LC5C3:
+    lda $10
+    asl A
+    asl A
+    asl A
+    sta $02
+    tya
+    cmp $02
+    bcc C0C5E0_CheckCurrentSlotDirectionEncounterGate_LC5E0
+    beq C0C5E0_CheckCurrentSlotDirectionEncounterGate_LC5E0
+    ldx $12
+    lda $3186,X
+    cmp.w #$00C0
+    bcs C0C5E0_CheckCurrentSlotDirectionEncounterGate_LC5E0
+    lda.w #$0001
+    bra C0C606_CheckCurrentSlotDirectionEncounterGate_LC606
+C0C5E0_CheckCurrentSlotDirectionEncounterGate_LC5E0:
+    lda $10
+    sta $04
+    asl A
+    adc $04
+    asl A
+    sta $02
+    tya
+    cmp $02
+    bcc C0C603_CheckCurrentSlotDirectionEncounterGate_LC603
+    beq C0C603_CheckCurrentSlotDirectionEncounterGate_LC603
+    lda $1A42
+    asl A
+    tax
+    lda $3186,X
+    cmp.w #$0080
+    bcs C0C603_CheckCurrentSlotDirectionEncounterGate_LC603
+    lda.w #$0001
+    bra C0C606_CheckCurrentSlotDirectionEncounterGate_LC606
+C0C603_CheckCurrentSlotDirectionEncounterGate_LC603:
+    lda.w #$0000
+C0C606_CheckCurrentSlotDirectionEncounterGate_LC606:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15113,11 +28489,12 @@ hirom
 org $C0C608
 
 C0C608_GetOppositeDirectionFromPlayerToEntity:
-
-; Original data gap before C0C615_GetOppositeDirectionFromPlayerToEntity_End:
-db $C2,$31,$22,$F7,$C4,$C0,$0A,$AA,$BF,$E7,$C4,$C0,$6B
-
-C0C615_GetOppositeDirectionFromPlayerToEntity_End:
+    rep #$31
+    jsl $C0C4F7
+    asl A
+    tax
+    lda $C0C4E7,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15128,12 +28505,16 @@ hirom
 org $C0C615
 
 C0C615_GetGatedOppositeOrDirectPlayerEntityDirection:
-
-; Original data gap before C0C62B_GetGatedOppositeOrDirectPlayerEntityDirection_End:
-db $C2,$31,$22,$24,$C5,$C0,$C9,$00,$00,$F0,$06,$22,$08,$C6,$C0,$80
-db $04,$22,$F7,$C4,$C0,$6B
-
-C0C62B_GetGatedOppositeOrDirectPlayerEntityDirection_End:
+    rep #$31
+    jsl $C0C524
+    cmp.w #$0000
+    beq C0C626_GetGatedOppositeOrDirectPlayerEntityDirection_LC626
+    jsl $C0C608
+    bra C0C62A_GetGatedOppositeOrDirectPlayerEntityDirection_LC62A
+C0C626_GetGatedOppositeOrDirectPlayerEntityDirection_LC626:
+    jsl $C0C4F7
+C0C62A_GetGatedOppositeOrDirectPlayerEntityDirection_LC62A:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15144,16 +28525,51 @@ hirom
 org $C0C62B
 
 C0C62B_GetGatedEntityPositionDirectionFlag:
-
-; Original data gap before C0C682_GetGatedEntityPositionDirectionFlag_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AE,$42,$1A,$86,$12,$A9,$00,$00
-db $85,$02,$8A,$0A,$AA,$BD,$9A,$2C,$C9,$FF,$7F,$90,$10,$F0,$0E,$22
-db $24,$C5,$C0,$C9,$00,$00,$F0,$05,$A9,$00,$80,$85,$02,$A6,$12,$8A
-db $0A,$85,$12,$AA,$BD,$02,$10,$85,$0E,$A5,$12,$AA,$BC,$C6,$0F,$AA
-db $BD,$CA,$0B,$AA,$86,$10,$A5,$12,$AA,$BD,$8E,$0B,$A6,$10,$22,$FF
-db $1E,$C4,$18,$65,$02,$2B,$6B
-
-C0C682_GetGatedEntityPositionDirectionFlag_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    ldx $1A42
+    stx $12
+    lda.w #$0000
+    sta $02
+    txa
+    asl A
+    tax
+    lda $2C9A,X
+    cmp.w #$7FFF
+    bcc C0C658_GetGatedEntityPositionDirectionFlag_LC658
+    beq C0C658_GetGatedEntityPositionDirectionFlag_LC658
+    jsl $C0C524
+    cmp.w #$0000
+    beq C0C658_GetGatedEntityPositionDirectionFlag_LC658
+    lda.w #$8000
+    sta $02
+C0C658_GetGatedEntityPositionDirectionFlag_LC658:
+    ldx $12
+    txa
+    asl A
+    sta $12
+    tax
+    lda $1002,X
+    sta $0E
+    lda $12
+    tax
+    ldy $0FC6,X
+    tax
+    lda $0BCA,X
+    tax
+    stx $10
+    lda $12
+    tax
+    lda $0B8E,X
+    ldx $10
+    jsl $C41EFF
+    clc
+    adc $02
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15164,12 +28580,23 @@ hirom
 org $C0C682
 
 C0C682_RotateDirectionByCurrentSlotClass:
-
-; Original data gap before C0C69E_RotateDirectionByCurrentSlotClass_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$AD,$42,$1A,$0A
-db $AA,$A5,$0E,$18,$7D,$F6,$2A,$29,$07,$00,$2B,$6B
-
-C0C69E_RotateDirectionByCurrentSlotClass_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    lda $1A42
+    asl A
+    tax
+    lda $0E
+    clc
+    adc $2AF6,X
+    and.w #$0007
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15179,13 +28606,19 @@ C0C69E_RotateDirectionByCurrentSlotClass_End:
 hirom
 org $C0C69E
 
+!C08E9A_GetRandom16 = $C08E9A
 C0C69E_GetDirectionTurnedRandomlyLeftOrRight:
-
-; Original data gap before C0C6B6_GetDirectionTurnedRandomlyLeftOrRight_End:
-db $C2,$31,$22,$9A,$8E,$C0,$29,$01,$00,$F0,$05,$A9,$01,$00,$80,$03
-db $A9,$FF,$FF,$22,$82,$C6,$C0,$6B
-
-C0C6B6_GetDirectionTurnedRandomlyLeftOrRight_End:
+    rep #$31
+    jsl !C08E9A_GetRandom16
+    and.w #$0001
+    beq C0C6AE_GetDirectionTurnedRandomlyLeftOrRight_LC6AE
+    lda.w #$0001
+    bra C0C6B1_GetDirectionTurnedRandomlyLeftOrRight_LC6B1
+C0C6AE_GetDirectionTurnedRandomlyLeftOrRight_LC6AE:
+    lda.w #$FFFF
+C0C6B1_GetDirectionTurnedRandomlyLeftOrRight_LC6B1:
+    jsl $C0C682
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15196,16 +28629,54 @@ hirom
 org $C0C6B6
 
 C0C6B6_CheckCurrentSlotInsideLiveAreaWindow:
-
-; Original data gap before C0C711_CheckCurrentSlotInsideLiveAreaWindow_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$47,$9F,$C9,$04,$00,$90,$05
-db $A9,$FF,$FF,$80,$44,$AD,$42,$1A,$0A,$AA,$AD,$77,$98,$38,$E9,$80
-db $00,$85,$02,$BD,$8E,$0B,$38,$E5,$02,$85,$0E,$AD,$7B,$98,$38,$E9
-db $70,$00,$85,$02,$BD,$CA,$0B,$38,$E5,$02,$AA,$A5,$0E,$C9,$C0,$FF
-db $B0,$05,$C9,$40,$01,$B0,$0F,$E0,$C0,$FF,$B0,$05,$E0,$40,$01,$B0
-db $05,$A9,$FF,$FF,$80,$03,$A9,$00,$00,$2B,$6B
-
-C0C711_CheckCurrentSlotInsideLiveAreaWindow_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $9F47
+    cmp.w #$0004
+    bcc C0C6CB_CheckCurrentSlotInsideLiveAreaWindow_LC6CB
+    lda.w #$FFFF
+    bra C0C70F_CheckCurrentSlotInsideLiveAreaWindow_LC70F
+C0C6CB_CheckCurrentSlotInsideLiveAreaWindow_LC6CB:
+    lda $1A42
+    asl A
+    tax
+    lda $9877
+    sec
+    sbc.w #$0080
+    sta $02
+    lda $0B8E,X
+    sec
+    sbc $02
+    sta $0E
+    lda $987B
+    sec
+    sbc.w #$0070
+    sta $02
+    lda $0BCA,X
+    sec
+    sbc $02
+    tax
+    lda $0E
+    cmp.w #$FFC0
+    bcs C0C6FD_CheckCurrentSlotInsideLiveAreaWindow_LC6FD
+    cmp.w #$0140
+    bcs C0C70C_CheckCurrentSlotInsideLiveAreaWindow_LC70C
+C0C6FD_CheckCurrentSlotInsideLiveAreaWindow_LC6FD:
+    cpx.w #$FFC0
+    bcs C0C707_CheckCurrentSlotInsideLiveAreaWindow_LC707
+    cpx.w #$0140
+    bcs C0C70C_CheckCurrentSlotInsideLiveAreaWindow_LC70C
+C0C707_CheckCurrentSlotInsideLiveAreaWindow_LC707:
+    lda.w #$FFFF
+    bra C0C70F_CheckCurrentSlotInsideLiveAreaWindow_LC70F
+C0C70C_CheckCurrentSlotInsideLiveAreaWindow_LC70C:
+    lda.w #$0000
+C0C70F_CheckCurrentSlotInsideLiveAreaWindow_LC70F:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15216,15 +28687,49 @@ hirom
 org $C0C711
 
 C0C711_CheckCurrentSlotDirectionAdjustedGridAlignment:
-
-; Original data gap before C0C760_CheckCurrentSlotDirectionAdjustedGridAlignment_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$0A,$AA,$86,$0E,$BD
-db $6E,$2B,$0A,$A8,$BD,$16,$0B,$BB,$38,$FF,$1F,$2A,$C4,$85,$04,$A6
-db $0E,$BD,$52,$0B,$85,$0E,$BB,$38,$FF,$41,$2A,$C4,$85,$02,$A5,$0E
-db $18,$69,$08,$00,$48,$A5,$04,$05,$04,$05,$02,$7A,$84,$02,$05,$02
-db $29,$00,$FF,$F0,$05,$A9,$00,$00,$80,$03,$A9,$FF,$FF,$2B,$6B
-
-C0C760_CheckCurrentSlotDirectionAdjustedGridAlignment_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    asl A
+    tax
+    stx $0E
+    lda $2B6E,X
+    asl A
+    tay
+    lda $0B16,X
+    tyx
+    sec
+    sbc $C42A1F,X
+    sta $04
+    ldx $0E
+    lda $0B52,X
+    sta $0E
+    tyx
+    sec
+    sbc $C42A41,X
+    sta $02
+    lda $0E
+    clc
+    adc.w #$0008
+    pha
+    lda $04
+    ora $04
+    ora $02
+    ply
+    sty $02
+    ora $02
+    and.w #$FF00
+    beq C0C75B_CheckCurrentSlotDirectionAdjustedGridAlignment_LC75B
+    lda.w #$0000
+    bra C0C75E_CheckCurrentSlotDirectionAdjustedGridAlignment_LC75E
+C0C75B_CheckCurrentSlotDirectionAdjustedGridAlignment_LC75B:
+    lda.w #$FFFF
+C0C75E_CheckCurrentSlotDirectionAdjustedGridAlignment_LC75E:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15235,15 +28740,51 @@ hirom
 org $C0C760
 
 C0C760_CheckDirectionAdjustedGridAlignment:
-
-; Original data gap before C0C7AC_CheckDirectionAdjustedGridAlignment_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$86,$10,$85,$0E,$98,$0A
-db $A8,$BB,$A5,$0E,$38,$FF,$1F,$2A,$C4,$85,$02,$A6,$10,$8A,$BB,$38
-db $FF,$41,$2A,$C4,$85,$0E,$A6,$10,$8A,$18,$69,$08,$00,$85,$04,$A5
-db $0E,$48,$A5,$02,$05,$02,$7A,$84,$02,$05,$02,$05,$04,$29,$00,$FF
-db $F0,$05,$A9,$00,$00,$80,$03,$A9,$FF,$FF,$2B,$6B
-
-C0C7AC_CheckDirectionAdjustedGridAlignment_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    stx $10
+    sta $0E
+    tya
+    asl A
+    tay
+    tyx
+    lda $0E
+    sec
+    sbc $C42A1F,X
+    sta $02
+    ldx $10
+    txa
+    tyx
+    sec
+    sbc $C42A41,X
+    sta $0E
+    ldx $10
+    txa
+    clc
+    adc.w #$0008
+    sta $04
+    lda $0E
+    pha
+    lda $02
+    ora $02
+    ply
+    sty $02
+    ora $02
+    ora $04
+    and.w #$FF00
+    beq C0C7A7_CheckDirectionAdjustedGridAlignment_LC7A7
+    lda.w #$0000
+    bra C0C7AA_CheckDirectionAdjustedGridAlignment_LC7AA
+C0C7A7_CheckDirectionAdjustedGridAlignment_LC7A7:
+    lda.w #$FFFF
+C0C7AA_CheckDirectionAdjustedGridAlignment_LC7AA:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15254,13 +28795,29 @@ hirom
 org $C0C7AC
 
 C0C7AC_RefreshCurrentSlotFootprintMaskFromCachedPosition:
-
-; Original data gap before C0C7DB_RefreshCurrentSlotFootprintMaskFromCachedPosition_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$85,$02,$22,$FF,$9E
-db $C0,$C9,$00,$00,$F0,$17,$A4,$02,$AE,$4A,$28,$AD,$48,$28,$22,$33
-db $5F,$C0,$85,$0E,$A5,$02,$0A,$AA,$A5,$0E,$9D,$AA,$2B,$2B,$6B
-
-C0C7DB_RefreshCurrentSlotFootprintMaskFromCachedPosition_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    sta $02
+    jsl $C09EFF
+    cmp.w #$0000
+    beq C0C7D9_RefreshCurrentSlotFootprintMaskFromCachedPosition_LC7D9
+    ldy $02
+    ldx $284A
+    lda $2848
+    jsl $C05F33
+    sta $0E
+    lda $02
+    asl A
+    tax
+    lda $0E
+    sta $2BAA,X
+C0C7D9_RefreshCurrentSlotFootprintMaskFromCachedPosition_LC7D9:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15271,13 +28828,29 @@ hirom
 org $C0C7DB
 
 C0C7DB_UpdateCurrentSlotFootprintMask:
-
-; Original data gap before C0C808_UpdateCurrentSlotFootprintMask_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$42,$1A,$85,$10,$0A,$85,$02
-db $A5,$10,$A8,$A6,$02,$BD,$CA,$0B,$AA,$86,$0E,$A6,$02,$BD,$8E,$0B
-db $A6,$0E,$22,$33,$5F,$C0,$A6,$02,$9D,$AA,$2B,$2B,$6B
-
-C0C808_UpdateCurrentSlotFootprintMask_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $1A42
+    sta $10
+    asl A
+    sta $02
+    lda $10
+    tay
+    ldx $02
+    lda $0BCA,X
+    tax
+    stx $0E
+    ldx $02
+    lda $0B8E,X
+    ldx $0E
+    jsl $C05F33
+    ldx $02
+    sta $2BAA,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15288,14 +28861,32 @@ hirom
 org $C0C808
 
 C0C808_UpdateCurrentSlotFootprintMaskWithHeightOffset:
-
-; Original data gap before C0C83B_UpdateCurrentSlotFootprintMaskWithHeightOffset_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$42,$1A,$85,$10,$0A,$85,$02
-db $A5,$10,$A8,$A6,$02,$BD,$CA,$0B,$A6,$02,$38,$FD,$06,$0C,$AA,$86
-db $0E,$A6,$02,$BD,$8E,$0B,$A6,$0E,$22,$33,$5F,$C0,$A6,$02,$9D,$AA
-db $2B,$2B,$6B
-
-C0C83B_UpdateCurrentSlotFootprintMaskWithHeightOffset_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $1A42
+    sta $10
+    asl A
+    sta $02
+    lda $10
+    tay
+    ldx $02
+    lda $0BCA,X
+    ldx $02
+    sec
+    sbc $0C06,X
+    tax
+    stx $0E
+    ldx $02
+    lda $0B8E,X
+    ldx $0E
+    jsl $C05F33
+    ldx $02
+    sta $2BAA,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15306,44 +28897,272 @@ hirom
 org $C0C83B
 
 C0C83B_InstallScriptMovementVectorFromDirection:
-
-; Original data gap before C0CA4E_InstallScriptMovementVectorFromDirection_End:
-db $C2,$31,$0B,$48,$7B,$69,$E2,$FF,$5B,$68,$85,$1C,$AC,$42,$1A,$84
-db $1A,$98,$0A,$AA,$A5,$1C,$9D,$86,$1A,$29,$01,$00,$F0,$31,$A9,$05
-db $B5,$85,$0A,$A9,$00,$00,$85,$0C,$BD,$32,$2B,$85,$06,$64,$08,$22
-db $86,$90,$C0,$A5,$07,$85,$06,$E2,$20,$A5,$09,$85,$08,$64,$09,$10
-db $02,$C6,$09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$80,$2F,$A9
-db $00,$00,$85,$0A,$A9,$01,$00,$85,$0C,$BD,$32,$2B,$85,$06,$64,$08
-db $22,$86,$90,$C0,$A5,$07,$85,$06,$E2,$20,$A5,$09,$85,$08,$64,$09
-db $10,$02,$C6,$09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A5,$1C
-db $F0,$38,$C9,$01,$00,$F0,$5F,$C9,$02,$00,$D0,$03,$4C,$53,$C9,$C9
-db $03,$00,$D0,$03,$4C,$70,$C9,$C9,$04,$00,$D0,$03,$4C,$93,$C9,$C9
-db $05,$00,$D0,$03,$4C,$B0,$C9,$C9,$06,$00,$D0,$03,$4C,$E1,$C9,$C9
-db $07,$00,$D0,$03,$4C,$0C,$CA,$4C,$33,$CA,$A9,$00,$00,$85,$12,$A9
-db $00,$00,$85,$14,$A5,$0E,$85,$06,$A5,$10,$85,$08,$38,$A9,$00,$00
-db $E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$85,$16,$A5
-db $08,$85,$18,$4C,$33,$CA,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06
-db $85,$12,$A5,$08,$85,$14,$A5,$0E,$85,$06,$A5,$10,$85,$08,$38,$A9
-db $00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$85
-db $16,$A5,$08,$85,$18,$4C,$33,$CA,$A5,$0E,$85,$06,$A5,$10,$85,$08
-db $A5,$06,$85,$12,$A5,$08,$85,$14,$A9,$00,$00,$85,$16,$A9,$00,$00
-db $85,$18,$4C,$33,$CA,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06,$85
-db $12,$A5,$08,$85,$14,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06,$85
-db $16,$A5,$08,$85,$18,$4C,$33,$CA,$A9,$00,$00,$85,$12,$A9,$00,$00
-db $85,$14,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06,$85,$16,$A5,$08
-db $85,$18,$4C,$33,$CA,$A5,$0E,$85,$06,$A5,$10,$85,$08,$38,$A9,$00
-db $00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$85,$12
-db $A5,$08,$85,$14,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06,$85,$16
-db $A5,$08,$85,$18,$80,$52,$A5,$0E,$85,$06,$A5,$10,$85,$08,$38,$A9
-db $00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$85
-db $12,$A5,$08,$85,$14,$A9,$00,$00,$85,$16,$A9,$00,$00,$85,$18,$80
-db $27,$A5,$0E,$85,$06,$A5,$10,$85,$08,$38,$A9,$00,$00,$E5,$06,$85
-db $06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$85,$12,$A5,$08,$85,$14
-db $A5,$06,$85,$16,$A5,$08,$85,$18,$A4,$1A,$98,$0A,$AA,$A5,$14,$9D
-db $F6,$0C,$A5,$12,$9D,$AA,$0D,$A5,$18,$9D,$32,$0D,$A5,$16,$9D,$E6
-db $0D,$2B,$6B
-
-C0CA4E_InstallScriptMovementVectorFromDirection_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE2
+    tcd
+    pla
+    sta $1C
+    ldy $1A42
+    sty $1A
+    tya
+    asl A
+    tax
+    lda $1C
+    sta $1A86,X
+    and.w #$0001
+    beq C0C88A_InstallScriptMovementVectorFromDirection_LC88A
+    lda.w #$B505
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    lda $2B32,X
+    sta $06
+    stz $08
+    jsl $C09086
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0C87E_InstallScriptMovementVectorFromDirection_LC87E
+    dec $09
+C0C87E_InstallScriptMovementVectorFromDirection_LC87E:
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    bra C0C8B9_InstallScriptMovementVectorFromDirection_LC8B9
+C0C88A_InstallScriptMovementVectorFromDirection_LC88A:
+    lda.w #$0000
+    sta $0A
+    lda.w #$0001
+    sta $0C
+    lda $2B32,X
+    sta $06
+    stz $08
+    jsl $C09086
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0C8AF_InstallScriptMovementVectorFromDirection_LC8AF
+    dec $09
+C0C8AF_InstallScriptMovementVectorFromDirection_LC8AF:
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+C0C8B9_InstallScriptMovementVectorFromDirection_LC8B9:
+    lda $1C
+    beq C0C8F5_InstallScriptMovementVectorFromDirection_LC8F5
+    cmp.w #$0001
+    beq C0C921_InstallScriptMovementVectorFromDirection_LC921
+    cmp.w #$0002
+    bne C0C8CA_InstallScriptMovementVectorFromDirection_LC8CA
+    jmp.w C0C953_InstallScriptMovementVectorFromDirection_LC953
+C0C8CA_InstallScriptMovementVectorFromDirection_LC8CA:
+    cmp.w #$0003
+    bne C0C8D2_InstallScriptMovementVectorFromDirection_LC8D2
+    jmp.w C0C970_InstallScriptMovementVectorFromDirection_LC970
+C0C8D2_InstallScriptMovementVectorFromDirection_LC8D2:
+    cmp.w #$0004
+    bne C0C8DA_InstallScriptMovementVectorFromDirection_LC8DA
+    jmp.w C0C993_InstallScriptMovementVectorFromDirection_LC993
+C0C8DA_InstallScriptMovementVectorFromDirection_LC8DA:
+    cmp.w #$0005
+    bne C0C8E2_InstallScriptMovementVectorFromDirection_LC8E2
+    jmp.w C0C9B0_InstallScriptMovementVectorFromDirection_LC9B0
+C0C8E2_InstallScriptMovementVectorFromDirection_LC8E2:
+    cmp.w #$0006
+    bne C0C8EA_InstallScriptMovementVectorFromDirection_LC8EA
+    jmp.w C0C9E1_InstallScriptMovementVectorFromDirection_LC9E1
+C0C8EA_InstallScriptMovementVectorFromDirection_LC8EA:
+    cmp.w #$0007
+    bne C0C8F2_InstallScriptMovementVectorFromDirection_LC8F2
+    jmp.w C0CA0C_InstallScriptMovementVectorFromDirection_LCA0C
+C0C8F2_InstallScriptMovementVectorFromDirection_LC8F2:
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C8F5_InstallScriptMovementVectorFromDirection_LC8F5:
+    lda.w #$0000
+    sta $12
+    lda.w #$0000
+    sta $14
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C921_InstallScriptMovementVectorFromDirection_LC921:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C953_InstallScriptMovementVectorFromDirection_LC953:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$0000
+    sta $16
+    lda.w #$0000
+    sta $18
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C970_InstallScriptMovementVectorFromDirection_LC970:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C993_InstallScriptMovementVectorFromDirection_LC993:
+    lda.w #$0000
+    sta $12
+    lda.w #$0000
+    sta $14
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    jmp.w C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C9B0_InstallScriptMovementVectorFromDirection_LC9B0:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    bra C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0C9E1_InstallScriptMovementVectorFromDirection_LC9E1:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$0000
+    sta $16
+    lda.w #$0000
+    sta $18
+    bra C0CA33_InstallScriptMovementVectorFromDirection_LCA33
+C0CA0C_InstallScriptMovementVectorFromDirection_LCA0C:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+C0CA33_InstallScriptMovementVectorFromDirection_LCA33:
+    ldy $1A
+    tya
+    asl A
+    tax
+    lda $14
+    sta $0CF6,X
+    lda $12
+    sta $0DAA,X
+    lda $18
+    sta $0D32,X
+    lda $16
+    sta $0DE6,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15353,36 +29172,218 @@ C0CA4E_InstallScriptMovementVectorFromDirection_End:
 hirom
 org $C0CA4E
 
+!C090FF_AddLongPointerOffset = $C090FF
 C0CA4E_SetMovementTaskTimerFromActiveVector:
-
-; Original data gap before C0CBD3_SetMovementTaskTimerFromActiveVector_End:
-db $C2,$31,$0B,$48,$7B,$69,$E4,$FF,$5B,$68,$85,$1A,$AE,$42,$1A,$8A
-db $0A,$AA,$BD,$F6,$0C,$85,$10,$BD,$AA,$0D,$85,$0E,$BD,$32,$0D,$85
-db $14,$BD,$E6,$0D,$85,$12,$85,$0A,$A5,$14,$85,$0C,$A9,$00,$00,$85
-db $06,$A9,$00,$00,$85,$08,$18,$A5,$06,$E5,$0A,$A5,$08,$E5,$0C,$50
-db $04,$10,$25,$80,$02,$30,$21,$A5,$12,$85,$06,$A5,$14,$85,$08,$38
-db $A9,$00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06
-db $85,$16,$A5,$08,$85,$18,$80,$10,$A5,$12,$85,$06,$A5,$14,$85,$08
-db $A5,$06,$85,$16,$A5,$08,$85,$18,$A5,$0E,$85,$06,$A5,$10,$85,$08
-db $A9,$00,$00,$85,$0A,$A9,$00,$00,$85,$0C,$18,$A5,$0A,$E5,$06,$A5
-db $0C,$E5,$08,$50,$04,$10,$1D,$80,$02,$30,$19,$A5,$0E,$85,$0A,$A5
-db $10,$85,$0C,$38,$A9,$00,$00,$E5,$0A,$85,$0A,$A9,$00,$00,$E5,$0C
-db $85,$0C,$80,$08,$A5,$0E,$85,$0A,$A5,$10,$85,$0C,$A5,$16,$85,$06
-db $A5,$18,$85,$08,$18,$A5,$0A,$E5,$06,$A5,$0C,$E5,$08,$50,$04,$10
-db $4A,$80,$02,$30,$46,$A5,$0E,$85,$0A,$A5,$10,$85,$0C,$A9,$00,$00
-db $85,$06,$A9,$00,$00,$85,$08,$18,$A5,$06,$E5,$0A,$A5,$08,$E5,$0C
-db $50,$04,$10,$1D,$80,$02,$30,$19,$A5,$0E,$85,$0A,$A5,$10,$85,$0C
-db $38,$A9,$00,$00,$E5,$0A,$85,$0A,$A9,$00,$00,$E5,$0C,$85,$0C,$80
-db $4E,$A5,$0E,$85,$0A,$A5,$10,$85,$0C,$80,$44,$A5,$12,$85,$0A,$A5
-db $14,$85,$0C,$A9,$00,$00,$85,$06,$A9,$00,$00,$85,$08,$18,$A5,$06
-db $E5,$0A,$A5,$08,$E5,$0C,$50,$04,$10,$1D,$80,$02,$30,$19,$A5,$12
-db $85,$0A,$A5,$14,$85,$0C,$38,$A9,$00,$00,$E5,$0A,$85,$0A,$A9,$00
-db $00,$E5,$0C,$85,$0C,$80,$08,$A5,$12,$85,$0A,$A5,$14,$85,$0C,$AD
-db $46,$1A,$0A,$48,$E2,$20,$A9,$10,$E2,$10,$A8,$C2,$20,$A5,$1A,$85
-db $06,$64,$08,$22,$46,$92,$C0,$C2,$10,$22,$FF,$90,$C0,$A5,$06,$FA
-db $9D,$72,$13,$2B,$6B
-
-C0CBD3_SetMovementTaskTimerFromActiveVector_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE4
+    tcd
+    pla
+    sta $1A
+    ldx $1A42
+    txa
+    asl A
+    tax
+    lda $0CF6,X
+    sta $10
+    lda $0DAA,X
+    sta $0E
+    lda $0D32,X
+    sta $14
+    lda $0DE6,X
+    sta $12
+    sta $0A
+    lda $14
+    sta $0C
+    lda.w #$0000
+    sta $06
+    lda.w #$0000
+    sta $08
+    clc
+    lda $06
+    sbc $0A
+    lda $08
+    sbc $0C
+    bvc C0CA93_SetMovementTaskTimerFromActiveVector_LCA93
+    bpl C0CAB6_SetMovementTaskTimerFromActiveVector_LCAB6
+    bra C0CA95_SetMovementTaskTimerFromActiveVector_LCA95
+C0CA93_SetMovementTaskTimerFromActiveVector_LCA93:
+    bmi C0CAB6_SetMovementTaskTimerFromActiveVector_LCAB6
+C0CA95_SetMovementTaskTimerFromActiveVector_LCA95:
+    lda $12
+    sta $06
+    lda $14
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+    bra C0CAC6_SetMovementTaskTimerFromActiveVector_LCAC6
+C0CAB6_SetMovementTaskTimerFromActiveVector_LCAB6:
+    lda $12
+    sta $06
+    lda $14
+    sta $08
+    lda $06
+    sta $16
+    lda $08
+    sta $18
+C0CAC6_SetMovementTaskTimerFromActiveVector_LCAC6:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda.w #$0000
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    clc
+    lda $0A
+    sbc $06
+    lda $0C
+    sbc $08
+    bvc C0CAE7_SetMovementTaskTimerFromActiveVector_LCAE7
+    bpl C0CB02_SetMovementTaskTimerFromActiveVector_LCB02
+    bra C0CAE9_SetMovementTaskTimerFromActiveVector_LCAE9
+C0CAE7_SetMovementTaskTimerFromActiveVector_LCAE7:
+    bmi C0CB02_SetMovementTaskTimerFromActiveVector_LCB02
+C0CAE9_SetMovementTaskTimerFromActiveVector_LCAE9:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+    sec
+    lda.w #$0000
+    sbc $0A
+    sta $0A
+    lda.w #$0000
+    sbc $0C
+    sta $0C
+    bra C0CB0A_SetMovementTaskTimerFromActiveVector_LCB0A
+C0CB02_SetMovementTaskTimerFromActiveVector_LCB02:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+C0CB0A_SetMovementTaskTimerFromActiveVector_LCB0A:
+    lda $16
+    sta $06
+    lda $18
+    sta $08
+    clc
+    lda $0A
+    sbc $06
+    lda $0C
+    sbc $08
+    bvc C0CB21_SetMovementTaskTimerFromActiveVector_LCB21
+    bpl C0CB69_SetMovementTaskTimerFromActiveVector_LCB69
+    bra C0CB23_SetMovementTaskTimerFromActiveVector_LCB23
+C0CB21_SetMovementTaskTimerFromActiveVector_LCB21:
+    bmi C0CB69_SetMovementTaskTimerFromActiveVector_LCB69
+C0CB23_SetMovementTaskTimerFromActiveVector_LCB23:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+    lda.w #$0000
+    sta $06
+    lda.w #$0000
+    sta $08
+    clc
+    lda $06
+    sbc $0A
+    lda $08
+    sbc $0C
+    bvc C0CB44_SetMovementTaskTimerFromActiveVector_LCB44
+    bpl C0CB5F_SetMovementTaskTimerFromActiveVector_LCB5F
+    bra C0CB46_SetMovementTaskTimerFromActiveVector_LCB46
+C0CB44_SetMovementTaskTimerFromActiveVector_LCB44:
+    bmi C0CB5F_SetMovementTaskTimerFromActiveVector_LCB5F
+C0CB46_SetMovementTaskTimerFromActiveVector_LCB46:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+    sec
+    lda.w #$0000
+    sbc $0A
+    sta $0A
+    lda.w #$0000
+    sbc $0C
+    sta $0C
+    bra C0CBAD_SetMovementTaskTimerFromActiveVector_LCBAD
+C0CB5F_SetMovementTaskTimerFromActiveVector_LCB5F:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+    bra C0CBAD_SetMovementTaskTimerFromActiveVector_LCBAD
+C0CB69_SetMovementTaskTimerFromActiveVector_LCB69:
+    lda $12
+    sta $0A
+    lda $14
+    sta $0C
+    lda.w #$0000
+    sta $06
+    lda.w #$0000
+    sta $08
+    clc
+    lda $06
+    sbc $0A
+    lda $08
+    sbc $0C
+    bvc C0CB8A_SetMovementTaskTimerFromActiveVector_LCB8A
+    bpl C0CBA5_SetMovementTaskTimerFromActiveVector_LCBA5
+    bra C0CB8C_SetMovementTaskTimerFromActiveVector_LCB8C
+C0CB8A_SetMovementTaskTimerFromActiveVector_LCB8A:
+    bmi C0CBA5_SetMovementTaskTimerFromActiveVector_LCBA5
+C0CB8C_SetMovementTaskTimerFromActiveVector_LCB8C:
+    lda $12
+    sta $0A
+    lda $14
+    sta $0C
+    sec
+    lda.w #$0000
+    sbc $0A
+    sta $0A
+    lda.w #$0000
+    sbc $0C
+    sta $0C
+    bra C0CBAD_SetMovementTaskTimerFromActiveVector_LCBAD
+C0CBA5_SetMovementTaskTimerFromActiveVector_LCBA5:
+    lda $12
+    sta $0A
+    lda $14
+    sta $0C
+C0CBAD_SetMovementTaskTimerFromActiveVector_LCBAD:
+    lda $1A46
+    asl A
+    pha
+    sep #$20
+    lda.b #$10
+    sep #$10
+    tay
+    rep #$20
+    lda $1A
+    sta $06
+    stz $08
+    jsl $C09246
+    rep #$10
+    jsl !C090FF_AddLongPointerOffset
+    lda $06
+    plx
+    sta $1372,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15392,15 +29393,41 @@ C0CBD3_SetMovementTaskTimerFromActiveVector_End:
 hirom
 org $C0CBD3
 
+!C090FF_AddLongPointerOffset = $C090FF
 C0CBD3_SetMovementTaskTimerFromSpeedScale:
-
-; Original data gap before C0CC11_SetMovementTaskTimerFromSpeedScale_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$AD,$46,$1A,$0A
-db $48,$AD,$42,$1A,$0A,$AA,$BD,$32,$2B,$85,$0A,$64,$0C,$E2,$20,$A9
-db $08,$E2,$10,$A8,$C2,$20,$A5,$0E,$85,$06,$64,$08,$22,$46,$92,$C0
-db $C2,$10,$22,$FF,$90,$C0,$A5,$06,$FA,$9D,$72,$13,$2B,$6B
-
-C0CC11_SetMovementTaskTimerFromSpeedScale_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    lda $1A46
+    asl A
+    pha
+    lda $1A42
+    asl A
+    tax
+    lda $2B32,X
+    sta $0A
+    stz $0C
+    sep #$20
+    lda.b #$08
+    sep #$10
+    tay
+    rep #$20
+    lda $0E
+    sta $06
+    stz $08
+    jsl $C09246
+    rep #$10
+    jsl !C090FF_AddLongPointerOffset
+    lda $06
+    plx
+    sta $1372,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15410,23 +29437,114 @@ C0CC11_SetMovementTaskTimerFromSpeedScale_End:
 hirom
 org $C0CC11
 
+!C090FF_AddLongPointerOffset = $C090FF
 C0CC11_SetMovementTaskTimerFromCachedTarget:
-
-; Original data gap before C0CCCC_SetMovementTaskTimerFromCachedTarget_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AD,$42,$1A,$85,$04,$0A,$AA,$BD
-db $C6,$0F,$38,$FD,$8E,$0B,$85,$12,$85,$02,$A9,$00,$00,$18,$E5,$02
-db $50,$04,$10,$0C,$80,$02,$30,$08,$A5,$12,$49,$FF,$FF,$1A,$80,$02
-db $A5,$12,$A8,$A5,$04,$0A,$AA,$BD,$02,$10,$38,$FD,$CA,$0B,$85,$12
-db $85,$02,$A9,$00,$00,$18,$E5,$02,$50,$04,$10,$0C,$80,$02,$30,$08
-db $A5,$12,$49,$FF,$FF,$1A,$80,$02,$A5,$12,$85,$02,$98,$C5,$02,$90
-db $15,$F0,$13,$98,$85,$12,$A5,$04,$0A,$AA,$BD,$F6,$0C,$85,$10,$BD
-db $AA,$0D,$85,$0E,$80,$12,$A5,$02,$85,$12,$A5,$04,$0A,$AA,$BD,$32
-db $0D,$85,$10,$BD,$E6,$0D,$85,$0E,$A5,$0E,$85,$0A,$A5,$10,$85,$0C
-db $E2,$10,$A0,$10,$A5,$12,$22,$3E,$92,$C0,$85,$06,$64,$08,$C2,$10
-db $22,$FF,$90,$C0,$A5,$06,$85,$12,$D0,$05,$A9,$01,$00,$85,$12,$AD
-db $46,$1A,$0A,$AA,$A5,$12,$9D,$72,$13,$2B,$6B
-
-C0CCCC_SetMovementTaskTimerFromCachedTarget_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda $1A42
+    sta $04
+    asl A
+    tax
+    lda $0FC6,X
+    sec
+    sbc $0B8E,X
+    sta $12
+    sta $02
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0CC37_SetMovementTaskTimerFromCachedTarget_LCC37
+    bpl C0CC41_SetMovementTaskTimerFromCachedTarget_LCC41
+    bra C0CC39_SetMovementTaskTimerFromCachedTarget_LCC39
+C0CC37_SetMovementTaskTimerFromCachedTarget_LCC37:
+    bmi C0CC41_SetMovementTaskTimerFromCachedTarget_LCC41
+C0CC39_SetMovementTaskTimerFromCachedTarget_LCC39:
+    lda $12
+    eor.w #$FFFF
+    inc A
+    bra C0CC43_SetMovementTaskTimerFromCachedTarget_LCC43
+C0CC41_SetMovementTaskTimerFromCachedTarget_LCC41:
+    lda $12
+C0CC43_SetMovementTaskTimerFromCachedTarget_LCC43:
+    tay
+    lda $04
+    asl A
+    tax
+    lda $1002,X
+    sec
+    sbc $0BCA,X
+    sta $12
+    sta $02
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0CC5F_SetMovementTaskTimerFromCachedTarget_LCC5F
+    bpl C0CC69_SetMovementTaskTimerFromCachedTarget_LCC69
+    bra C0CC61_SetMovementTaskTimerFromCachedTarget_LCC61
+C0CC5F_SetMovementTaskTimerFromCachedTarget_LCC5F:
+    bmi C0CC69_SetMovementTaskTimerFromCachedTarget_LCC69
+C0CC61_SetMovementTaskTimerFromCachedTarget_LCC61:
+    lda $12
+    eor.w #$FFFF
+    inc A
+    bra C0CC6B_SetMovementTaskTimerFromCachedTarget_LCC6B
+C0CC69_SetMovementTaskTimerFromCachedTarget_LCC69:
+    lda $12
+C0CC6B_SetMovementTaskTimerFromCachedTarget_LCC6B:
+    sta $02
+    tya
+    cmp $02
+    bcc C0CC87_SetMovementTaskTimerFromCachedTarget_LCC87
+    beq C0CC87_SetMovementTaskTimerFromCachedTarget_LCC87
+    tya
+    sta $12
+    lda $04
+    asl A
+    tax
+    lda $0CF6,X
+    sta $10
+    lda $0DAA,X
+    sta $0E
+    bra C0CC99_SetMovementTaskTimerFromCachedTarget_LCC99
+C0CC87_SetMovementTaskTimerFromCachedTarget_LCC87:
+    lda $02
+    sta $12
+    lda $04
+    asl A
+    tax
+    lda $0D32,X
+    sta $10
+    lda $0DE6,X
+    sta $0E
+C0CC99_SetMovementTaskTimerFromCachedTarget_LCC99:
+    lda $0E
+    sta $0A
+    lda $10
+    sta $0C
+    sep #$10
+    ldy.b #$10
+    lda $12
+    jsl $C0923E
+    sta $06
+    stz $08
+    rep #$10
+    jsl !C090FF_AddLongPointerOffset
+    lda $06
+    sta $12
+    bne C0CCC0_SetMovementTaskTimerFromCachedTarget_LCCC0
+    lda.w #$0001
+    sta $12
+C0CCC0_SetMovementTaskTimerFromCachedTarget_LCCC0:
+    lda $1A46
+    asl A
+    tax
+    lda $12
+    sta $1372,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15436,20 +29554,76 @@ C0CCCC_SetMovementTaskTimerFromCachedTarget_End:
 hirom
 org $C0CCCC
 
+!C08E9A_GetRandom16 = $C08E9A
+!C090FF_AddLongPointerOffset = $C090FF
 C0CCCC_InitializeArcMovementTargetState:
-
-; Original data gap before C0CD50_InitializeArcMovementTargetState_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AC,$42,$1A,$84,$14,$98,$0A,$AA
-db $86,$12,$BD,$8E,$0B,$9D,$C6,$0F,$BD,$CA,$0B,$18,$69,$10,$00,$9D
-db $02,$10,$64,$0E,$BD,$32,$2B,$4A,$4A,$4A,$4A,$85,$10,$A9,$00,$48
-db $85,$0A,$A9,$06,$00,$85,$0C,$A5,$0E,$85,$06,$A5,$10,$85,$08,$22
-db $FF,$90,$C0,$A5,$06,$EB,$29,$00,$FF,$9D,$8A,$0F,$22,$9A,$8E,$C0
-db $29,$01,$00,$F0,$07,$A6,$12,$9E,$F6,$2A,$80,$08,$A9,$04,$00,$A6
-db $12,$9D,$F6,$2A,$A4,$14,$98,$0A,$AA,$BD,$F6,$2A,$C9,$04,$00,$B0
-db $05,$9E,$C6,$2D,$80,$06,$A9,$FF,$FF,$9D,$C6,$2D,$98,$0A,$AA,$9E
-db $4E,$0F,$2B,$6B
-
-C0CD50_InitializeArcMovementTargetState_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    ldy $1A42
+    sty $14
+    tya
+    asl A
+    tax
+    stx $12
+    lda $0B8E,X
+    sta $0FC6,X
+    lda $0BCA,X
+    clc
+    adc.w #$0010
+    sta $1002,X
+    stz $0E
+    lda $2B32,X
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    sta $10
+    lda.w #$4800
+    sta $0A
+    lda.w #$0006
+    sta $0C
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    jsl !C090FF_AddLongPointerOffset
+    lda $06
+    xba
+    and.w #$FF00
+    sta $0F8A,X
+    jsl !C08E9A_GetRandom16
+    and.w #$0001
+    beq C0CD28_InitializeArcMovementTargetState_LCD28
+    ldx $12
+    stz $2AF6,X
+    bra C0CD30_InitializeArcMovementTargetState_LCD30
+C0CD28_InitializeArcMovementTargetState_LCD28:
+    lda.w #$0004
+    ldx $12
+    sta $2AF6,X
+C0CD30_InitializeArcMovementTargetState_LCD30:
+    ldy $14
+    tya
+    asl A
+    tax
+    lda $2AF6,X
+    cmp.w #$0004
+    bcs C0CD42_InitializeArcMovementTargetState_LCD42
+    stz $2DC6,X
+    bra C0CD48_InitializeArcMovementTargetState_LCD48
+C0CD42_InitializeArcMovementTargetState_LCD42:
+    lda.w #$FFFF
+    sta $2DC6,X
+C0CD48_InitializeArcMovementTargetState_LCD48:
+    tya
+    asl A
+    tax
+    stz $0F4E,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15460,33 +29634,192 @@ hirom
 org $C0CD50
 
 C0CD50_AdvanceArcMovementVectorFromPhase:
-
-; Original data gap before C0CEBE_AdvanceArcMovementVectorFromPhase_End:
-db $C2,$31,$0B,$7B,$69,$C8,$FF,$5B,$AD,$42,$1A,$85,$36,$0A,$AA,$BD
-db $C6,$2D,$85,$04,$D0,$0B,$BD,$4E,$0F,$18,$7D,$8A,$0F,$85,$02,$80
-db $09,$BD,$4E,$0F,$38,$FD,$8A,$0F,$85,$02,$A5,$36,$0A,$A8,$84,$36
-db $A5,$02,$99,$4E,$0F,$A2,$00,$10,$A5,$02,$22,$FF,$1F,$C4,$A5,$06
-db $85,$0E,$A5,$08,$85,$10,$64,$1E,$64,$1A,$A5,$10,$85,$1C,$A5,$0E
-db $85,$20,$A5,$1A,$85,$06,$A5,$1C,$85,$08,$A5,$07,$85,$06,$E2,$20
-db $A5,$09,$85,$08,$64,$09,$10,$02,$C6,$09,$C2,$20,$A5,$06,$85,$0A
-db $A5,$08,$85,$0C,$A5,$0A,$85,$06,$A5,$0C,$85,$08,$A5,$06,$85,$1A
-db $A5,$08,$85,$1C,$A5,$1E,$85,$06,$A5,$20,$85,$08,$A5,$07,$85,$06
-db $E2,$20,$A5,$09,$85,$08,$64,$09,$10,$02,$C6,$09,$C2,$20,$A5,$06
-db $85,$32,$A5,$08,$85,$34,$A5,$06,$85,$1E,$A5,$08,$85,$20,$64,$26
-db $64,$22,$A4,$36,$B9,$C6,$0F,$85,$24,$B9,$02,$10,$85,$28,$B9,$8E
-db $0B,$85,$14,$B9,$42,$0C,$85,$12,$B9,$CA,$0B,$85,$18,$B9,$7E,$0C
-db $85,$16,$A5,$22,$85,$06,$A5,$24,$85,$08,$18,$A5,$06,$65,$0A,$85
-db $06,$A5,$08,$65,$0C,$85,$08,$A5,$12,$85,$0A,$A5,$14,$85,$0C,$38
-db $A5,$06,$E5,$0A,$85,$06,$A5,$08,$E5,$0C,$85,$08,$A5,$06,$85,$2A
-db $A5,$08,$85,$2C,$A5,$32,$85,$06,$A5,$34,$85,$08,$A5,$06,$85,$0A
-db $A5,$08,$85,$0C,$A5,$26,$85,$06,$A5,$28,$85,$08,$18,$A5,$06,$65
-db $0A,$85,$06,$A5,$08,$65,$0C,$85,$08,$A5,$16,$85,$0A,$A5,$18,$85
-db $0C,$38,$A5,$06,$E5,$0A,$85,$06,$A5,$08,$E5,$0C,$85,$08,$A5,$06
-db $85,$2E,$A5,$08,$85,$30,$A5,$2C,$99,$F6,$0C,$A5,$2A,$99,$AA,$0D
-db $A5,$30,$99,$32,$0D,$A5,$2E,$99,$E6,$0D,$A5,$04,$D0,$08,$A5,$02
-db $18,$69,$00,$40,$80,$06,$A5,$02,$38,$E9,$00,$40,$2B,$6B
-
-C0CEBE_AdvanceArcMovementVectorFromPhase_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFC8
+    tcd
+    lda $1A42
+    sta $36
+    asl A
+    tax
+    lda $2DC6,X
+    sta $04
+    bne C0CD71_AdvanceArcMovementVectorFromPhase_LCD71
+    lda $0F4E,X
+    clc
+    adc $0F8A,X
+    sta $02
+    bra C0CD7A_AdvanceArcMovementVectorFromPhase_LCD7A
+C0CD71_AdvanceArcMovementVectorFromPhase_LCD71:
+    lda $0F4E,X
+    sec
+    sbc $0F8A,X
+    sta $02
+C0CD7A_AdvanceArcMovementVectorFromPhase_LCD7A:
+    lda $36
+    asl A
+    tay
+    sty $36
+    lda $02
+    sta $0F4E,Y
+    ldx.w #$1000
+    lda $02
+    jsl $C41FFF
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    stz $1E
+    stz $1A
+    lda $10
+    sta $1C
+    lda $0E
+    sta $20
+    lda $1A
+    sta $06
+    lda $1C
+    sta $08
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0CDBA_AdvanceArcMovementVectorFromPhase_LCDBA
+    dec $09
+C0CDBA_AdvanceArcMovementVectorFromPhase_LCDBA:
+    rep #$20
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    lda $06
+    sta $1A
+    lda $08
+    sta $1C
+    lda $1E
+    sta $06
+    lda $20
+    sta $08
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0CDEC_AdvanceArcMovementVectorFromPhase_LCDEC
+    dec $09
+C0CDEC_AdvanceArcMovementVectorFromPhase_LCDEC:
+    rep #$20
+    lda $06
+    sta $32
+    lda $08
+    sta $34
+    lda $06
+    sta $1E
+    lda $08
+    sta $20
+    stz $26
+    stz $22
+    ldy $36
+    lda $0FC6,Y
+    sta $24
+    lda $1002,Y
+    sta $28
+    lda $0B8E,Y
+    sta $14
+    lda $0C42,Y
+    sta $12
+    lda $0BCA,Y
+    sta $18
+    lda $0C7E,Y
+    sta $16
+    lda $22
+    sta $06
+    lda $24
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $12
+    sta $0A
+    lda $14
+    sta $0C
+    sec
+    lda $06
+    sbc $0A
+    sta $06
+    lda $08
+    sbc $0C
+    sta $08
+    lda $06
+    sta $2A
+    lda $08
+    sta $2C
+    lda $32
+    sta $06
+    lda $34
+    sta $08
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda $26
+    sta $06
+    lda $28
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $16
+    sta $0A
+    lda $18
+    sta $0C
+    sec
+    lda $06
+    sbc $0A
+    sta $06
+    lda $08
+    sbc $0C
+    sta $08
+    lda $06
+    sta $2E
+    lda $08
+    sta $30
+    lda $2C
+    sta $0CF6,Y
+    lda $2A
+    sta $0DAA,Y
+    lda $30
+    sta $0D32,Y
+    lda $2E
+    sta $0DE6,Y
+    lda $04
+    bne C0CEB6_AdvanceArcMovementVectorFromPhase_LCEB6
+    lda $02
+    clc
+    adc.w #$4000
+    bra C0CEBC_AdvanceArcMovementVectorFromPhase_LCEBC
+C0CEB6_AdvanceArcMovementVectorFromPhase_LCEB6:
+    lda $02
+    sec
+    sbc.w #$4000
+C0CEBC_AdvanceArcMovementVectorFromPhase_LCEBC:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15525,31 +29858,189 @@ hirom
 org $C0CF97
 
 C0CF97_FindNearbyCollisionMapTarget:
-
-; Original data gap before C0D0D9_FindNearbyCollisionMapTarget_End:
-db $C2,$31,$0B,$48,$7B,$69,$E2,$FF,$5B,$68,$86,$1C,$E2,$20,$85,$00
-db $C2,$20,$AD,$42,$1A,$85,$1A,$0A,$AA,$86,$18,$BD,$6E,$2B,$85,$16
-db $A9,$58,$CF,$85,$06,$A9,$C0,$00,$85,$08,$A5,$16,$0A,$85,$14,$48
-db $BD,$8E,$0B,$FA,$38,$FF,$1F,$2A,$C4,$4A,$4A,$4A,$38,$E9,$04,$00
-db $A8,$A5,$14,$48,$48,$A6,$18,$BD,$CA,$0B,$FA,$38,$FF,$41,$2A,$C4
-db $FA,$18,$7F,$EB,$2A,$C4,$4A,$4A,$4A,$38,$E9,$04,$00,$85,$02,$85
-db $12,$98,$29,$3F,$00,$AA,$86,$10,$A5,$02,$29,$3F,$00,$85,$18,$A9
-db $00,$00,$85,$04,$4C,$91,$D0,$A6,$10,$E0,$40,$00,$B0,$2A,$A5,$18
-db $C9,$40,$00,$B0,$23,$8A,$29,$3F,$00,$85,$02,$A5,$18,$29,$3F,$00
-db $0A,$0A,$0A,$0A,$0A,$0A,$18,$65,$02,$AA,$E2,$20,$A5,$00,$3D,$00
-db $E0,$C2,$20,$29,$FF,$00,$D0,$60,$A7,$06,$29,$FF,$00,$85,$0E,$E6
-db $06,$A5,$0E,$C9,$01,$00,$F0,$11,$C9,$02,$00,$F0,$1C,$C9,$03,$00
-db $F0,$1F,$C9,$04,$00,$F0,$2B,$80,$2F,$A5,$18,$3A,$85,$18,$A5,$12
-db $85,$02,$3A,$85,$02,$85,$12,$80,$1F,$A6,$10,$E8,$86,$10,$C8,$80
-db $17,$A5,$18,$1A,$85,$18,$A5,$12,$85,$02,$E6,$02,$A5,$02,$85,$12
-db $80,$06,$A6,$10,$CA,$86,$10,$88,$E6,$04,$A5,$04,$C5,$1C,$F0,$03
-db $4C,$0E,$D0,$A9,$00,$00,$80,$38,$A5,$1A,$0A,$85,$1C,$A5,$16,$0A
-db $AA,$86,$14,$A5,$1C,$48,$98,$0A,$0A,$0A,$18,$7F,$1F,$2A,$C4,$FA
-db $9D,$C6,$0F,$A5,$1C,$48,$A6,$14,$A5,$12,$85,$02,$0A,$0A,$0A,$38
-db $FF,$EB,$2A,$C4,$18,$7F,$41,$2A,$C4,$FA,$9D,$02,$10,$A9,$FF,$FF
-db $2B,$60
-
-C0D0D9_FindNearbyCollisionMapTarget_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE2
+    tcd
+    pla
+    stx $1C
+    sep #$20
+    sta $00
+    rep #$20
+    lda $1A42
+    sta $1A
+    asl A
+    tax
+    stx $18
+    lda $2B6E,X
+    sta $16
+    lda.w #$CF58
+    sta $06
+    lda.w #$00C0
+    sta $08
+    lda $16
+    asl A
+    sta $14
+    pha
+    lda $0B8E,X
+    plx
+    sec
+    sbc $C42A1F,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc.w #$0004
+    tay
+    lda $14
+    pha
+    pha
+    ldx $18
+    lda $0BCA,X
+    plx
+    sec
+    sbc $C42A41,X
+    plx
+    clc
+    adc $C42AEB,X
+    lsr A
+    lsr A
+    lsr A
+    sec
+    sbc.w #$0004
+    sta $02
+    sta $12
+    tya
+    and.w #$003F
+    tax
+    stx $10
+    lda $02
+    and.w #$003F
+    sta $18
+    lda.w #$0000
+    sta $04
+    jmp.w C0D091_FindNearbyCollisionMapTarget_LD091
+C0D00E_FindNearbyCollisionMapTarget_LD00E:
+    ldx $10
+    cpx.w #$0040
+    bcs C0D03F_FindNearbyCollisionMapTarget_LD03F
+    lda $18
+    cmp.w #$0040
+    bcs C0D03F_FindNearbyCollisionMapTarget_LD03F
+    txa
+    and.w #$003F
+    sta $02
+    lda $18
+    and.w #$003F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    tax
+    sep #$20
+    lda $00
+    and $E000,X
+    rep #$20
+    and.w #$00FF
+    bne C0D09F_FindNearbyCollisionMapTarget_LD09F
+C0D03F_FindNearbyCollisionMapTarget_LD03F:
+    lda [$06]
+    and.w #$00FF
+    sta $0E
+    inc $06
+    lda $0E
+    cmp.w #$0001
+    beq C0D060_FindNearbyCollisionMapTarget_LD060
+    cmp.w #$0002
+    beq C0D070_FindNearbyCollisionMapTarget_LD070
+    cmp.w #$0003
+    beq C0D078_FindNearbyCollisionMapTarget_LD078
+    cmp.w #$0004
+    beq C0D089_FindNearbyCollisionMapTarget_LD089
+    bra C0D08F_FindNearbyCollisionMapTarget_LD08F
+C0D060_FindNearbyCollisionMapTarget_LD060:
+    lda $18
+    dec A
+    sta $18
+    lda $12
+    sta $02
+    dec A
+    sta $02
+    sta $12
+    bra C0D08F_FindNearbyCollisionMapTarget_LD08F
+C0D070_FindNearbyCollisionMapTarget_LD070:
+    ldx $10
+    inx
+    stx $10
+    iny
+    bra C0D08F_FindNearbyCollisionMapTarget_LD08F
+C0D078_FindNearbyCollisionMapTarget_LD078:
+    lda $18
+    inc A
+    sta $18
+    lda $12
+    sta $02
+    inc $02
+    lda $02
+    sta $12
+    bra C0D08F_FindNearbyCollisionMapTarget_LD08F
+C0D089_FindNearbyCollisionMapTarget_LD089:
+    ldx $10
+    dex
+    stx $10
+    dey
+C0D08F_FindNearbyCollisionMapTarget_LD08F:
+    inc $04
+C0D091_FindNearbyCollisionMapTarget_LD091:
+    lda $04
+    cmp $1C
+    beq C0D09A_FindNearbyCollisionMapTarget_LD09A
+    jmp.w C0D00E_FindNearbyCollisionMapTarget_LD00E
+C0D09A_FindNearbyCollisionMapTarget_LD09A:
+    lda.w #$0000
+    bra C0D0D7_FindNearbyCollisionMapTarget_LD0D7
+C0D09F_FindNearbyCollisionMapTarget_LD09F:
+    lda $1A
+    asl A
+    sta $1C
+    lda $16
+    asl A
+    tax
+    stx $14
+    lda $1C
+    pha
+    tya
+    asl A
+    asl A
+    asl A
+    clc
+    adc $C42A1F,X
+    plx
+    sta $0FC6,X
+    lda $1C
+    pha
+    ldx $14
+    lda $12
+    sta $02
+    asl A
+    asl A
+    asl A
+    sec
+    sbc $C42AEB,X
+    clc
+    adc $C42A41,X
+    plx
+    sta $1002,X
+    lda.w #$FFFF
+C0D0D7_FindNearbyCollisionMapTarget_LD0D7:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15560,11 +30051,12 @@ hirom
 org $C0D0D9
 
 C0D0D9_FindNearbyRoamingCollisionTarget:
-
-; Original data gap before C0D0E6_FindNearbyRoamingCollisionTarget_End:
-db $C2,$31,$A2,$3C,$00,$E2,$20,$A9,$03,$20,$97,$CF,$6B
-
-C0D0E6_FindNearbyRoamingCollisionTarget_End:
+    rep #$31
+    ldx.w #$003C
+    sep #$20
+    lda.b #$03
+    jsr $CF97
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15575,18 +30067,60 @@ hirom
 org $C0D0E6
 
 C0D0E6_MoveOrSnapSlotTowardCachedPlayerTarget:
-
-; Original data gap before C0D15C_MoveOrSnapSlotTowardCachedPlayerTarget_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$85,$02,$22,$63,$C3
-db $C0,$C9,$00,$00,$D0,$1A,$A5,$02,$0A,$AA,$BD,$5E,$2C,$F0,$11,$AD
-db $77,$98,$9D,$8E,$0B,$AD,$7B,$98,$9D,$CA,$0B,$A9,$FF,$FF,$80,$44
-db $22,$FF,$9E,$C0,$A9,$04,$00,$85,$0E,$A4,$02,$AE,$4A,$28,$AD,$48
-db $28,$22,$D7,$5C,$C0,$29,$C0,$00,$F0,$17,$A5,$02,$0A,$18,$69,$32
-db $2B,$AA,$BD,$00,$00,$38,$E9,$00,$10,$9D,$00,$00,$A9,$00,$00,$80
-db $13,$A5,$02,$0A,$AA,$AD,$48,$28,$9D,$8E,$0B,$AD,$4A,$28,$9D,$CA
-db $0B,$A9,$FF,$FF,$2B,$6B
-
-C0D15C_MoveOrSnapSlotTowardCachedPlayerTarget_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    sta $02
+    jsl $C0C363
+    cmp.w #$0000
+    bne C0D116_MoveOrSnapSlotTowardCachedPlayerTarget_LD116
+    lda $02
+    asl A
+    tax
+    lda $2C5E,X
+    beq C0D116_MoveOrSnapSlotTowardCachedPlayerTarget_LD116
+    lda $9877
+    sta $0B8E,X
+    lda $987B
+    sta $0BCA,X
+    lda.w #$FFFF
+    bra C0D15A_MoveOrSnapSlotTowardCachedPlayerTarget_LD15A
+C0D116_MoveOrSnapSlotTowardCachedPlayerTarget_LD116:
+    jsl $C09EFF
+    lda.w #$0004
+    sta $0E
+    ldy $02
+    ldx $284A
+    lda $2848
+    jsl $C05CD7
+    and.w #$00C0
+    beq C0D147_MoveOrSnapSlotTowardCachedPlayerTarget_LD147
+    lda $02
+    asl A
+    clc
+    adc.w #$2B32
+    tax
+    lda $0000,X
+    sec
+    sbc.w #$1000
+    sta $0000,X
+    lda.w #$0000
+    bra C0D15A_MoveOrSnapSlotTowardCachedPlayerTarget_LD15A
+C0D147_MoveOrSnapSlotTowardCachedPlayerTarget_LD147:
+    lda $02
+    asl A
+    tax
+    lda $2848
+    sta $0B8E,X
+    lda $284A
+    sta $0BCA,X
+    lda.w #$FFFF
+C0D15A_MoveOrSnapSlotTowardCachedPlayerTarget_LD15A:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15597,14 +30131,36 @@ hirom
 org $C0D15C
 
 C0D15C_HasUsableOverlapNeighborContext:
-
-; Original data gap before C0D195_HasUsableOverlapNeighborContext_End:
-db $C2,$31,$AD,$56,$5D,$29,$02,$00,$F0,$05,$A9,$00,$00,$80,$29,$AD
-db $CC,$28,$CD,$42,$1A,$D0,$05,$A9,$FF,$FF,$80,$1C,$AD,$42,$1A,$0A
-db $AA,$BD,$9E,$28,$C9,$FF,$7F,$F0,$02,$B0,$05,$C9,$17,$00,$B0,$05
-db $A9,$00,$00,$80,$03,$A9,$FF,$FF,$6B
-
-C0D195_HasUsableOverlapNeighborContext_End:
+    rep #$31
+    lda $5D56
+    and.w #$0002
+    beq C0D16B_HasUsableOverlapNeighborContext_LD16B
+    lda.w #$0000
+    bra C0D194_HasUsableOverlapNeighborContext_LD194
+C0D16B_HasUsableOverlapNeighborContext_LD16B:
+    lda $28CC
+    cmp $1A42
+    bne C0D178_HasUsableOverlapNeighborContext_LD178
+    lda.w #$FFFF
+    bra C0D194_HasUsableOverlapNeighborContext_LD194
+C0D178_HasUsableOverlapNeighborContext_LD178:
+    lda $1A42
+    asl A
+    tax
+    lda $289E,X
+    cmp.w #$7FFF
+    beq C0D187_HasUsableOverlapNeighborContext_LD187
+    bcs C0D18C_HasUsableOverlapNeighborContext_LD18C
+C0D187_HasUsableOverlapNeighborContext_LD187:
+    cmp.w #$0017
+    bcs C0D191_HasUsableOverlapNeighborContext_LD191
+C0D18C_HasUsableOverlapNeighborContext_LD18C:
+    lda.w #$0000
+    bra C0D194_HasUsableOverlapNeighborContext_LD194
+C0D191_HasUsableOverlapNeighborContext_LD191:
+    lda.w #$FFFF
+C0D194_HasUsableOverlapNeighborContext_LD194:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15615,11 +30171,9 @@ hirom
 org $C0D195
 
 C0D195_ReturnFalse_MovementPredicate:
-
-; Original data gap before C0D19B_ReturnFalse_MovementPredicate_End:
-db $C2,$31,$A9,$00,$00,$6B
-
-C0D19B_ReturnFalse_MovementPredicate_End:
+    rep #$31
+    lda.w #$0000
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15629,36 +30183,203 @@ C0D19B_ReturnFalse_MovementPredicate_End:
 hirom
 org $C0D19B
 
+!C0915B_DivideUnsignedWordByY = $C0915B
 C0D19B_Prepare_NpcAttentionPathSet:
-
-; Original data gap before C0D323_Prepare_NpcAttentionPathSet_End:
-db $C2,$31,$0B,$7B,$69,$DE,$FF,$5B,$AD,$B6,$4D,$85,$20,$9C,$BA,$4D
-db $A5,$20,$0A,$85,$1E,$18,$69,$86,$1A,$85,$02,$A6,$02,$BD,$00,$00
-db $C9,$08,$00,$D0,$08,$A0,$00,$00,$A2,$01,$00,$80,$6B,$AD,$B8,$4D
-db $0A,$AA,$BD,$CA,$0B,$85,$0E,$BC,$8E,$0B,$A5,$1E,$AA,$BD,$CA,$0B
-db $AA,$86,$1C,$A5,$1E,$AA,$BD,$8E,$0B,$A6,$1C,$22,$FF,$1E,$C4,$A0
-db $00,$20,$18,$69,$00,$10,$22,$5B,$91,$C0,$85,$04,$A6,$02,$BD,$00
-db $00,$38,$E5,$04,$29,$07,$00,$F0,$0A,$C9,$01,$00,$F0,$05,$C9,$07
-db $00,$D0,$05,$A0,$01,$00,$80,$03,$A0,$00,$00,$AD,$7F,$98,$38,$E5
-db $04,$29,$07,$00,$F0,$0A,$C9,$01,$00,$F0,$05,$C9,$07,$00,$D0,$05
-db $A2,$00,$00,$80,$03,$A2,$01,$00,$9C,$BC,$4D,$E0,$01,$00,$D0,$0B
-db $C0,$00,$00,$D0,$06,$A9,$01,$00,$8D,$BC,$4D,$C0,$01,$00,$D0,$0B
-db $E0,$00,$00,$D0,$06,$A9,$02,$00,$8D,$BC,$4D,$A9,$78,$00,$8D,$60
-db $5D,$A5,$20,$0A,$AA,$BD,$9A,$2C,$29,$FF,$7F,$85,$1A,$8D,$8C,$4A
-db $A9,$0D,$C6,$85,$0A,$A9,$D0,$00,$85,$0C,$A5,$1A,$0A,$0A,$0A,$18
-db $65,$0A,$85,$0A,$A0,$02,$00,$B7,$0A,$A8,$A7,$0A,$85,$06,$84,$08
-db $22,$E0,$E8,$C2,$A9,$00,$00,$85,$04,$4C,$19,$D3,$A5,$06,$85,$0A
-db $A5,$08,$85,$0C,$A7,$0A,$29,$FF,$00,$85,$02,$C9,$FF,$00,$F0,$59
-db $A0,$00,$00,$A5,$02,$85,$1A,$F0,$46,$A0,$01,$00,$B7,$06,$A8,$A5
-db $20,$0A,$AA,$98,$DD,$12,$2D,$D0,$0B,$A9,$FF,$FF,$9D,$5E,$2C,$A5
-db $1A,$3A,$85,$1A,$A5,$1A,$F0,$27,$A9,$00,$00,$85,$18,$80,$1B,$0A
-db $AA,$BD,$62,$0A,$C9,$FF,$FF,$F0,$0C,$98,$DD,$12,$2D,$D0,$06,$A9
-db $FF,$FF,$9D,$5E,$2C,$A5,$18,$1A,$85,$18,$C9,$17,$00,$D0,$E0,$A9
-db $03,$00,$18,$65,$06,$85,$06,$80,$06,$A0,$00,$00,$98,$85,$02,$A5
-db $04,$0A,$AA,$98,$9D,$7C,$4A,$A5,$02,$9D,$84,$4A,$E6,$04,$A5,$04
-db $C9,$04,$00,$F0,$03,$4C,$97,$D2
-
-C0D323_Prepare_NpcAttentionPathSet_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFDE
+    tcd
+    lda $4DB6
+    sta $20
+    stz $4DBA
+    lda $20
+    asl A
+    sta $1E
+    clc
+    adc.w #$1A86
+    sta $02
+    ldx $02
+    lda $0000,X
+    cmp.w #$0008
+    bne C0D1C8_Prepare_NpcAttentionPathSet_LD1C8
+    ldy.w #$0000
+    ldx.w #$0001
+    bra C0D233_Prepare_NpcAttentionPathSet_LD233
+C0D1C8_Prepare_NpcAttentionPathSet_LD1C8:
+    lda $4DB8
+    asl A
+    tax
+    lda $0BCA,X
+    sta $0E
+    ldy $0B8E,X
+    lda $1E
+    tax
+    lda $0BCA,X
+    tax
+    stx $1C
+    lda $1E
+    tax
+    lda $0B8E,X
+    ldx $1C
+    jsl $C41EFF
+    ldy.w #$2000
+    clc
+    adc.w #$1000
+    jsl !C0915B_DivideUnsignedWordByY
+    sta $04
+    ldx $02
+    lda $0000,X
+    sec
+    sbc $04
+    and.w #$0007
+    beq C0D20E_Prepare_NpcAttentionPathSet_LD20E
+    cmp.w #$0001
+    beq C0D20E_Prepare_NpcAttentionPathSet_LD20E
+    cmp.w #$0007
+    bne C0D213_Prepare_NpcAttentionPathSet_LD213
+C0D20E_Prepare_NpcAttentionPathSet_LD20E:
+    ldy.w #$0001
+    bra C0D216_Prepare_NpcAttentionPathSet_LD216
+C0D213_Prepare_NpcAttentionPathSet_LD213:
+    ldy.w #$0000
+C0D216_Prepare_NpcAttentionPathSet_LD216:
+    lda $987F
+    sec
+    sbc $04
+    and.w #$0007
+    beq C0D22B_Prepare_NpcAttentionPathSet_LD22B
+    cmp.w #$0001
+    beq C0D22B_Prepare_NpcAttentionPathSet_LD22B
+    cmp.w #$0007
+    bne C0D230_Prepare_NpcAttentionPathSet_LD230
+C0D22B_Prepare_NpcAttentionPathSet_LD22B:
+    ldx.w #$0000
+    bra C0D233_Prepare_NpcAttentionPathSet_LD233
+C0D230_Prepare_NpcAttentionPathSet_LD230:
+    ldx.w #$0001
+C0D233_Prepare_NpcAttentionPathSet_LD233:
+    stz $4DBC
+    cpx.w #$0001
+    bne C0D246_Prepare_NpcAttentionPathSet_LD246
+    cpy.w #$0000
+    bne C0D246_Prepare_NpcAttentionPathSet_LD246
+    lda.w #$0001
+    sta $4DBC
+C0D246_Prepare_NpcAttentionPathSet_LD246:
+    cpy.w #$0001
+    bne C0D256_Prepare_NpcAttentionPathSet_LD256
+    cpx.w #$0000
+    bne C0D256_Prepare_NpcAttentionPathSet_LD256
+    lda.w #$0002
+    sta $4DBC
+C0D256_Prepare_NpcAttentionPathSet_LD256:
+    lda.w #$0078
+    sta $5D60
+    lda $20
+    asl A
+    tax
+    lda $2C9A,X
+    and.w #$7FFF
+    sta $1A
+    sta $4A8C
+    lda.w #$C60D
+    sta $0A
+    lda.w #$00D0
+    sta $0C
+    lda $1A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $0A
+    sta $0A
+    ldy.w #$0002
+    lda [$0A],Y
+    tay
+    lda [$0A]
+    sta $06
+    sty $08
+    jsl $C2E8E0
+    lda.w #$0000
+    sta $04
+    jmp.w C0D319_Prepare_NpcAttentionPathSet_LD319
+C0D297_Prepare_NpcAttentionPathSet_LD297:
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda [$0A]
+    and.w #$00FF
+    sta $02
+    cmp.w #$00FF
+    beq C0D304_Prepare_NpcAttentionPathSet_LD304
+    ldy.w #$0000
+    lda $02
+    sta $1A
+    beq C0D2FA_Prepare_NpcAttentionPathSet_LD2FA
+    ldy.w #$0001
+    lda [$06],Y
+    tay
+    lda $20
+    asl A
+    tax
+    tya
+    cmp $2D12,X
+    bne C0D2CF_Prepare_NpcAttentionPathSet_LD2CF
+    lda.w #$FFFF
+    sta $2C5E,X
+    lda $1A
+    dec A
+    sta $1A
+C0D2CF_Prepare_NpcAttentionPathSet_LD2CF:
+    lda $1A
+    beq C0D2FA_Prepare_NpcAttentionPathSet_LD2FA
+    lda.w #$0000
+    sta $18
+    bra C0D2F5_Prepare_NpcAttentionPathSet_LD2F5
+C0D2DA_Prepare_NpcAttentionPathSet_LD2DA:
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    beq C0D2F0_Prepare_NpcAttentionPathSet_LD2F0
+    tya
+    cmp $2D12,X
+    bne C0D2F0_Prepare_NpcAttentionPathSet_LD2F0
+    lda.w #$FFFF
+    sta $2C5E,X
+C0D2F0_Prepare_NpcAttentionPathSet_LD2F0:
+    lda $18
+    inc A
+    sta $18
+C0D2F5_Prepare_NpcAttentionPathSet_LD2F5:
+    cmp.w #$0017
+    bne C0D2DA_Prepare_NpcAttentionPathSet_LD2DA
+C0D2FA_Prepare_NpcAttentionPathSet_LD2FA:
+    lda.w #$0003
+    clc
+    adc $06
+    sta $06
+    bra C0D30A_Prepare_NpcAttentionPathSet_LD30A
+C0D304_Prepare_NpcAttentionPathSet_LD304:
+    ldy.w #$0000
+    tya
+    sta $02
+C0D30A_Prepare_NpcAttentionPathSet_LD30A:
+    lda $04
+    asl A
+    tax
+    tya
+    sta $4A7C,X
+    lda $02
+    sta $4A84,X
+    inc $04
+C0D319_Prepare_NpcAttentionPathSet_LD319:
+    lda $04
+    cmp.w #$0004
+    db $F0, $03
+    jmp.w C0D297_Prepare_NpcAttentionPathSet_LD297
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15669,38 +30390,251 @@ hirom
 org $C0D323
 
 C0D323_BuildCurrentEnemyBattleIdList:
-
-; Original data gap before C0D4DE_BuildCurrentEnemyBattleIdList_End:
-db $9C,$8A,$9F,$A0,$40,$00,$BB,$AD,$A3,$98,$29,$FF,$00,$22,$74,$BC
-db $C0,$A9,$00,$F2,$85,$16,$A9,$0D,$C6,$85,$0A,$A9,$D0,$00,$85,$0C
-db $AD,$8C,$4A,$0A,$0A,$0A,$18,$65,$0A,$85,$0A,$A0,$02,$00,$B7,$0A
-db $A8,$A7,$0A,$85,$06,$84,$08,$64,$1E,$4C,$7D,$D4,$A5,$06,$85,$0A
-db $A5,$08,$85,$0C,$A7,$0A,$29,$FF,$00,$AA,$86,$14,$E0,$FF,$00,$D0
-db $03,$4C,$7B,$D4,$E0,$00,$00,$D0,$03,$4C,$73,$D4,$A0,$01,$00,$B7
-db $06,$85,$1A,$E0,$00,$00,$D0,$03,$4C,$73,$D4,$A9,$00,$00,$85,$18
-db $A8,$84,$12,$80,$23,$A4,$12,$98,$85,$04,$0A,$0A,$0A,$65,$04,$0A
-db $18,$65,$16,$AA,$BD,$B0,$00,$0A,$AA,$BD,$12,$2D,$C5,$1A,$D0,$05
-db $A5,$18,$1A,$85,$18,$C8,$84,$12,$98,$A0,$9E,$00,$D1,$16,$90,$D5
-db $A6,$14,$86,$02,$A5,$18,$C5,$02,$F0,$02,$B0,$03,$4C,$73,$D4,$86
-db $02,$38,$E5,$02,$85,$04,$85,$12,$4C,$5E,$D4,$A9,$FF,$FF,$85,$02
-db $85,$10,$A0,$00,$00,$84,$1C,$98,$85,$18,$80,$39,$85,$04,$0A,$0A
-db $0A,$65,$04,$0A,$18,$65,$16,$AA,$86,$14,$BD,$B0,$00,$0A,$AA,$BD
-db $12,$2D,$C5,$1A,$D0,$1A,$A6,$14,$BD,$AE,$00,$AA,$A4,$1C,$84,$02
-db $8A,$C5,$02,$90,$0B,$F0,$09,$A5,$18,$85,$02,$85,$10,$9B,$84,$1C
-db $A5,$18,$1A,$85,$18,$A0,$9E,$00,$D1,$16,$90,$C0,$A5,$10,$85,$02
-db $85,$04,$0A,$0A,$0A,$65,$04,$0A,$18,$65,$16,$85,$18,$18,$69,$B0
-db $00,$AA,$86,$14,$BD,$00,$00,$C5,$20,$F0,$10,$A5,$18,$AA,$9E,$AE
-db $00,$A6,$14,$BD,$00,$00,$0A,$AA,$9E,$5E,$2C,$A5,$12,$85,$04,$A6
-db $04,$A5,$04,$3A,$85,$04,$85,$12,$E0,$00,$00,$F0,$03,$4C,$DE,$D3
-db $A9,$03,$00,$18,$65,$06,$85,$06,$E6,$1E,$A5,$1E,$C9,$04,$00,$F0
-db $03,$4C,$5F,$D3,$A9,$00,$00,$85,$18,$80,$33,$C5,$20,$F0,$2A,$0A
-db $AA,$BD,$5E,$2C,$C9,$FF,$FF,$D0,$11,$8A,$18,$69,$B6,$10,$AA,$BD
-db $00,$00,$29,$FF,$3F,$9D,$00,$00,$80,$0F,$8A,$18,$69,$6A,$11,$AA
-db $BD,$00,$00,$09,$00,$80,$9D,$00,$00,$A5,$18,$1A,$85,$18,$C9,$17
-db $00,$D0,$C8,$A5,$20,$0A,$AA,$9E,$5E,$2C,$AD,$8A,$9F,$0A,$48,$BD
-db $12,$2D,$FA,$9D,$8C,$9F,$EE,$8A,$9F,$2B,$6B
-
-C0D4DE_BuildCurrentEnemyBattleIdList_End:
+    stz $9F8A
+    ldy.w #$0040
+    tyx
+    lda $98A3
+    and.w #$00FF
+    jsl $C0BC74
+    lda.w #$F200
+    sta $16
+    lda.w #$C60D
+    sta $0A
+    lda.w #$00D0
+    sta $0C
+    lda $4A8C
+    asl A
+    asl A
+    asl A
+    clc
+    adc $0A
+    sta $0A
+    ldy.w #$0002
+    lda [$0A],Y
+    tay
+    lda [$0A]
+    sta $06
+    sty $08
+    stz $1E
+    jmp.w C0D47D_BuildCurrentEnemyBattleIdList_LD47D
+C0D35F_BuildCurrentEnemyBattleIdList_LD35F:
+    lda $06
+    sta $0A
+    lda $08
+    sta $0C
+    lda [$0A]
+    and.w #$00FF
+    tax
+    stx $14
+    cpx.w #$00FF
+    bne C0D377_BuildCurrentEnemyBattleIdList_LD377
+    jmp.w C0D47B_BuildCurrentEnemyBattleIdList_LD47B
+C0D377_BuildCurrentEnemyBattleIdList_LD377:
+    cpx.w #$0000
+    bne C0D37F_BuildCurrentEnemyBattleIdList_LD37F
+    jmp.w C0D473_BuildCurrentEnemyBattleIdList_LD473
+C0D37F_BuildCurrentEnemyBattleIdList_LD37F:
+    ldy.w #$0001
+    lda [$06],Y
+    sta $1A
+    cpx.w #$0000
+    bne C0D38E_BuildCurrentEnemyBattleIdList_LD38E
+    jmp.w C0D473_BuildCurrentEnemyBattleIdList_LD473
+C0D38E_BuildCurrentEnemyBattleIdList_LD38E:
+    lda.w #$0000
+    sta $18
+    tay
+    sty $12
+    bra C0D3BB_BuildCurrentEnemyBattleIdList_LD3BB
+C0D398_BuildCurrentEnemyBattleIdList_LD398:
+    ldy $12
+    tya
+    sta $04
+    asl A
+    asl A
+    asl A
+    adc $04
+    asl A
+    clc
+    adc $16
+    tax
+    lda $00B0,X
+    asl A
+    tax
+    lda $2D12,X
+    cmp $1A
+    bne C0D3B8_BuildCurrentEnemyBattleIdList_LD3B8
+    lda $18
+    inc A
+    sta $18
+C0D3B8_BuildCurrentEnemyBattleIdList_LD3B8:
+    iny
+    sty $12
+C0D3BB_BuildCurrentEnemyBattleIdList_LD3BB:
+    tya
+    ldy.w #$009E
+    cmp ($16),Y
+    bcc C0D398_BuildCurrentEnemyBattleIdList_LD398
+    ldx $14
+    stx $02
+    lda $18
+    cmp $02
+    beq C0D3CF_BuildCurrentEnemyBattleIdList_LD3CF
+    bcs C0D3D2_BuildCurrentEnemyBattleIdList_LD3D2
+C0D3CF_BuildCurrentEnemyBattleIdList_LD3CF:
+    jmp.w C0D473_BuildCurrentEnemyBattleIdList_LD473
+C0D3D2_BuildCurrentEnemyBattleIdList_LD3D2:
+    stx $02
+    sec
+    sbc $02
+    sta $04
+    sta $12
+    jmp.w C0D45E_BuildCurrentEnemyBattleIdList_LD45E
+C0D3DE_BuildCurrentEnemyBattleIdList_LD3DE:
+    lda.w #$FFFF
+    sta $02
+    sta $10
+    ldy.w #$0000
+    sty $1C
+    tya
+    sta $18
+    bra C0D428_BuildCurrentEnemyBattleIdList_LD428
+C0D3EF_BuildCurrentEnemyBattleIdList_LD3EF:
+    sta $04
+    asl A
+    asl A
+    asl A
+    adc $04
+    asl A
+    clc
+    adc $16
+    tax
+    stx $14
+    lda $00B0,X
+    asl A
+    tax
+    lda $2D12,X
+    cmp $1A
+    bne C0D423_BuildCurrentEnemyBattleIdList_LD423
+    ldx $14
+    lda $00AE,X
+    tax
+    ldy $1C
+    sty $02
+    txa
+    cmp $02
+    bcc C0D423_BuildCurrentEnemyBattleIdList_LD423
+    beq C0D423_BuildCurrentEnemyBattleIdList_LD423
+    lda $18
+    sta $02
+    sta $10
+    txy
+    sty $1C
+C0D423_BuildCurrentEnemyBattleIdList_LD423:
+    lda $18
+    inc A
+    sta $18
+C0D428_BuildCurrentEnemyBattleIdList_LD428:
+    ldy.w #$009E
+    cmp ($16),Y
+    bcc C0D3EF_BuildCurrentEnemyBattleIdList_LD3EF
+    lda $10
+    sta $02
+    sta $04
+    asl A
+    asl A
+    asl A
+    adc $04
+    asl A
+    clc
+    adc $16
+    sta $18
+    clc
+    adc.w #$00B0
+    tax
+    stx $14
+    lda $0000,X
+    cmp $20
+    beq C0D45E_BuildCurrentEnemyBattleIdList_LD45E
+    lda $18
+    tax
+    stz $00AE,X
+    ldx $14
+    lda $0000,X
+    asl A
+    tax
+    stz $2C5E,X
+C0D45E_BuildCurrentEnemyBattleIdList_LD45E:
+    lda $12
+    sta $04
+    ldx $04
+    lda $04
+    dec A
+    sta $04
+    sta $12
+    cpx.w #$0000
+    beq C0D473_BuildCurrentEnemyBattleIdList_LD473
+    jmp.w C0D3DE_BuildCurrentEnemyBattleIdList_LD3DE
+C0D473_BuildCurrentEnemyBattleIdList_LD473:
+    lda.w #$0003
+    clc
+    adc $06
+    sta $06
+C0D47B_BuildCurrentEnemyBattleIdList_LD47B:
+    inc $1E
+C0D47D_BuildCurrentEnemyBattleIdList_LD47D:
+    lda $1E
+    cmp.w #$0004
+    beq C0D487_BuildCurrentEnemyBattleIdList_LD487
+    jmp.w C0D35F_BuildCurrentEnemyBattleIdList_LD35F
+C0D487_BuildCurrentEnemyBattleIdList_LD487:
+    lda.w #$0000
+    sta $18
+    bra C0D4C1_BuildCurrentEnemyBattleIdList_LD4C1
+C0D48E_BuildCurrentEnemyBattleIdList_LD48E:
+    cmp $20
+    beq C0D4BC_BuildCurrentEnemyBattleIdList_LD4BC
+    asl A
+    tax
+    lda $2C5E,X
+    cmp.w #$FFFF
+    bne C0D4AD_BuildCurrentEnemyBattleIdList_LD4AD
+    txa
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    and.w #$3FFF
+    sta $0000,X
+    bra C0D4BC_BuildCurrentEnemyBattleIdList_LD4BC
+C0D4AD_BuildCurrentEnemyBattleIdList_LD4AD:
+    txa
+    clc
+    adc.w #$116A
+    tax
+    lda $0000,X
+    ora.w #$8000
+    sta $0000,X
+C0D4BC_BuildCurrentEnemyBattleIdList_LD4BC:
+    lda $18
+    inc A
+    sta $18
+C0D4C1_BuildCurrentEnemyBattleIdList_LD4C1:
+    cmp.w #$0017
+    bne C0D48E_BuildCurrentEnemyBattleIdList_LD48E
+    lda $20
+    asl A
+    tax
+    stz $2C5E,X
+    lda $9F8A
+    asl A
+    pha
+    lda $2D12,X
+    plx
+    sta $9F8C,X
+    inc $9F8A
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15710,23 +30644,110 @@ C0D4DE_BuildCurrentEnemyBattleIdList_End:
 hirom
 org $C0D4DE
 
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C0915B_DivideUnsignedWordByY = $C0915B
 C0D4DE_Prepare_RandomizedNpcAttentionCandidates:
-
-; Original data gap before C0D59B_Prepare_RandomizedNpcAttentionCandidates_End:
-db $C2,$31,$0B,$7B,$69,$E4,$FF,$5B,$A9,$00,$20,$85,$0E,$A9,$7F,$00
-db $85,$10,$A9,$00,$02,$85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2
-db $20,$A5,$06,$85,$12,$A5,$08,$85,$14,$A9,$00,$02,$22,$ED,$8E,$C0
-db $A9,$00,$00,$85,$04,$80,$71,$A5,$04,$0A,$18,$69,$00,$02,$A8,$84
-db $1A,$B9,$00,$00,$85,$18,$29,$1F,$00,$AA,$86,$16,$A5,$18,$4A,$4A
-db $4A,$4A,$4A,$29,$1F,$00,$85,$02,$E2,$20,$A9,$0A,$E2,$10,$A8,$C2
-db $20,$A5,$18,$22,$51,$92,$C0,$29,$1F,$00,$C2,$10,$A0,$03,$00,$48
-db $A6,$16,$8A,$18,$65,$02,$FA,$86,$02,$18,$65,$02,$22,$5B,$91,$C0
-db $85,$16,$E2,$10,$A0,$0A,$22,$3E,$92,$C0,$48,$A5,$16,$0A,$0A,$0A
-db $0A,$0A,$85,$02,$A5,$16,$18,$65,$02,$C2,$10,$7A,$84,$02,$18,$65
-db $02,$A4,$1A,$99,$00,$00,$E6,$04,$A5,$04,$C9,$80,$00,$B0,$05,$F0
-db $03,$4C,$15,$D5,$A9,$18,$00,$22,$6B,$85,$C0,$2B,$6B
-
-C0D59B_Prepare_RandomizedNpcAttentionCandidates_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE4
+    tcd
+    lda.w #$2000
+    sta $0E
+    lda.w #$007F
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$0200
+    jsl !C08EED_CopyToVramOrRendererBuffer
+    lda.w #$0000
+    sta $04
+    bra C0D586_Prepare_RandomizedNpcAttentionCandidates_LD586
+C0D515_Prepare_RandomizedNpcAttentionCandidates_LD515:
+    lda $04
+    asl A
+    clc
+    adc.w #$0200
+    tay
+    sty $1A
+    lda $0000,Y
+    sta $18
+    and.w #$001F
+    tax
+    stx $16
+    lda $18
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    lsr A
+    and.w #$001F
+    sta $02
+    sep #$20
+    lda.b #$0A
+    sep #$10
+    tay
+    rep #$20
+    lda $18
+    jsl $C09251
+    and.w #$001F
+    rep #$10
+    ldy.w #$0003
+    pha
+    ldx $16
+    txa
+    clc
+    adc $02
+    plx
+    stx $02
+    clc
+    adc $02
+    jsl !C0915B_DivideUnsignedWordByY
+    sta $16
+    sep #$10
+    ldy.b #$0A
+    jsl $C0923E
+    pha
+    lda $16
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    sta $02
+    lda $16
+    clc
+    adc $02
+    rep #$10
+    ply
+    sty $02
+    clc
+    adc $02
+    ldy $1A
+    sta $0000,Y
+    inc $04
+C0D586_Prepare_RandomizedNpcAttentionCandidates_LD586:
+    lda $04
+    cmp.w #$0080
+    bcs C0D592_Prepare_RandomizedNpcAttentionCandidates_LD592
+    beq C0D592_Prepare_RandomizedNpcAttentionCandidates_LD592
+    jmp.w C0D515_Prepare_RandomizedNpcAttentionCandidates_LD515
+C0D592_Prepare_RandomizedNpcAttentionCandidates_LD592:
+    lda.w #$0018
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15737,12 +30758,18 @@ hirom
 org $C0D59B
 
 C0D59B_Check_NpcAttentionCoordinatorActive:
-
-; Original data gap before C0D5B0_Check_NpcAttentionCoordinatorActive_End:
-db $C2,$31,$AD,$60,$5D,$D0,$05,$AD,$BA,$4D,$F0,$05,$A9,$01,$00,$80
-db $03,$A9,$00,$00,$6B
-
-C0D5B0_Check_NpcAttentionCoordinatorActive_End:
+    rep #$31
+    lda $5D60
+    bne C0D5A7_Check_NpcAttentionCoordinatorActive_LD5A7
+    lda $4DBA
+    beq C0D5AC_Check_NpcAttentionCoordinatorActive_LD5AC
+C0D5A7_Check_NpcAttentionCoordinatorActive_LD5A7:
+    lda.w #$0001
+    bra C0D5AF_Check_NpcAttentionCoordinatorActive_LD5AF
+C0D5AC_Check_NpcAttentionCoordinatorActive_LD5AC:
+    lda.w #$0000
+C0D5AF_Check_NpcAttentionCoordinatorActive_LD5AF:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15753,39 +30780,234 @@ hirom
 org $C0D5B0
 
 C0D5B0_Gate_NpcAttentionCoordinatorFromScript:
-
-; Original data gap before C0D77F_Gate_NpcAttentionCoordinatorFromScript_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AD,$C2,$4D,$F0,$06,$A9,$00,$00
-db $4C,$7D,$D7,$AD,$C2,$5D,$F0,$06,$A9,$00,$00,$4C,$7D,$D7,$AD,$42
-db $1A,$85,$02,$AD,$60,$5D,$F0,$07,$A5,$02,$CD,$B6,$4D,$F0,$52,$AD
-db $A5,$98,$C9,$02,$00,$D0,$06,$A9,$00,$00,$4C,$7D,$D7,$AD,$56,$5D
-db $29,$02,$00,$F0,$06,$A9,$00,$00,$4C,$7D,$D7,$AD,$83,$98,$C9,$0C
-db $00,$D0,$06,$A9,$00,$00,$4C,$7D,$D7,$AD,$58,$5D,$F0,$06,$A9,$00
-db $00,$4C,$7D,$D7,$AD,$60,$5D,$F0,$09,$A5,$02,$0A,$AA,$BD,$3E,$2E
-db $F0,$0F,$22,$5C,$D1,$C0,$C9,$00,$00,$D0,$06,$A9,$00,$00,$4C,$7D
-db $D7,$AD,$60,$5D,$D0,$17,$AD,$BA,$4D,$D0,$12,$A5,$02,$0A,$AA,$BD
-db $12,$2D,$C9,$E1,$00,$D0,$06,$A9,$01,$00,$4C,$7D,$D7,$AD,$60,$5D
-db $D0,$5C,$AD,$BA,$4D,$D0,$57,$A9,$01,$00,$8D,$BA,$4D,$22,$DE,$D4
-db $C0,$A5,$02,$CD,$CC,$28,$D0,$08,$A9,$18,$00,$8D,$B8,$4D,$80,$0A
-db $A5,$02,$0A,$AA,$BD,$9E,$28,$8D,$B8,$4D,$A5,$02,$8D,$B6,$4D,$A9
-db $00,$00,$85,$14,$80,$19,$C9,$17,$00,$F0,$0F,$0A,$18,$69,$B6,$10
-db $AA,$BD,$00,$00,$09,$00,$C0,$9D,$00,$00,$A5,$14,$1A,$85,$14,$C9
-db $1E,$00,$90,$E2,$22,$88,$4A,$C0,$A9,$01,$00,$4C,$7D,$D7,$A5,$02
-db $0A,$AA,$A9,$00,$80,$9D,$9E,$28,$64,$12,$AD,$60,$5D,$D0,$03,$4C
-db $7B,$D7,$A5,$02,$CD,$B6,$4D,$D0,$17,$8A,$18,$69,$B6,$10,$AA,$BD
-db $00,$00,$09,$00,$C0,$9D,$00,$00,$A9,$01,$00,$85,$12,$4C,$7B,$D7
-db $BD,$12,$2D,$85,$04,$A0,$00,$00,$64,$12,$98,$85,$10,$80,$4E,$0A
-db $AA,$A5,$04,$DD,$7C,$4A,$D0,$36,$8A,$18,$69,$84,$4A,$AA,$BD,$00
-db $00,$85,$0E,$F0,$29,$A5,$0E,$3A,$9D,$00,$00,$A9,$01,$00,$85,$12
-db $A5,$02,$0A,$18,$69,$B6,$10,$AA,$BD,$00,$00,$09,$00,$C0,$9D,$00
-db $00,$AD,$8A,$9F,$0A,$AA,$A5,$04,$9D,$8C,$9F,$EE,$8A,$9F,$A5,$10
-db $0A,$AA,$98,$18,$7D,$84,$4A,$A8,$A5,$10,$1A,$85,$10,$C9,$04,$00
-db $D0,$AD,$C0,$00,$00,$D0,$34,$22,$C8,$E9,$C2,$C9,$00,$00,$D0,$2B
-db $A9,$00,$00,$85,$14,$80,$19,$C9,$17,$00,$F0,$0F,$0A,$18,$69,$B6
-db $10,$AA,$BD,$00,$00,$09,$00,$C0,$9D,$00,$00,$A5,$14,$1A,$85,$14
-db $C9,$1E,$00,$90,$E2,$A9,$01,$00,$8D,$60,$5D,$A5,$12,$2B,$6B
-
-C0D77F_Gate_NpcAttentionCoordinatorFromScript_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda $4DC2
+    beq C0D5C3_Gate_NpcAttentionCoordinatorFromScript_LD5C3
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D5C3_Gate_NpcAttentionCoordinatorFromScript_LD5C3:
+    lda $5DC2
+    beq C0D5CE_Gate_NpcAttentionCoordinatorFromScript_LD5CE
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D5CE_Gate_NpcAttentionCoordinatorFromScript_LD5CE:
+    lda $1A42
+    sta $02
+    lda $5D60
+    beq C0D5DF_Gate_NpcAttentionCoordinatorFromScript_LD5DF
+    lda $02
+    cmp $4DB6
+    beq C0D631_Gate_NpcAttentionCoordinatorFromScript_LD631
+C0D5DF_Gate_NpcAttentionCoordinatorFromScript_LD5DF:
+    lda $98A5
+    cmp.w #$0002
+    bne C0D5ED_Gate_NpcAttentionCoordinatorFromScript_LD5ED
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D5ED_Gate_NpcAttentionCoordinatorFromScript_LD5ED:
+    lda $5D56
+    and.w #$0002
+    beq C0D5FB_Gate_NpcAttentionCoordinatorFromScript_LD5FB
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D5FB_Gate_NpcAttentionCoordinatorFromScript_LD5FB:
+    lda $9883
+    cmp.w #$000C
+    bne C0D609_Gate_NpcAttentionCoordinatorFromScript_LD609
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D609_Gate_NpcAttentionCoordinatorFromScript_LD609:
+    lda $5D58
+    beq C0D614_Gate_NpcAttentionCoordinatorFromScript_LD614
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D614_Gate_NpcAttentionCoordinatorFromScript_LD614:
+    lda $5D60
+    beq C0D622_Gate_NpcAttentionCoordinatorFromScript_LD622
+    lda $02
+    asl A
+    tax
+    lda $2E3E,X
+    beq C0D631_Gate_NpcAttentionCoordinatorFromScript_LD631
+C0D622_Gate_NpcAttentionCoordinatorFromScript_LD622:
+    jsl $C0D15C
+    cmp.w #$0000
+    bne C0D631_Gate_NpcAttentionCoordinatorFromScript_LD631
+    lda.w #$0000
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D631_Gate_NpcAttentionCoordinatorFromScript_LD631:
+    lda $5D60
+    bne C0D64D_Gate_NpcAttentionCoordinatorFromScript_LD64D
+    lda $4DBA
+    bne C0D64D_Gate_NpcAttentionCoordinatorFromScript_LD64D
+    lda $02
+    asl A
+    tax
+    lda $2D12,X
+    cmp.w #$00E1
+    bne C0D64D_Gate_NpcAttentionCoordinatorFromScript_LD64D
+    lda.w #$0001
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D64D_Gate_NpcAttentionCoordinatorFromScript_LD64D:
+    lda $5D60
+    bne C0D6AE_Gate_NpcAttentionCoordinatorFromScript_LD6AE
+    lda $4DBA
+    bne C0D6AE_Gate_NpcAttentionCoordinatorFromScript_LD6AE
+    lda.w #$0001
+    sta $4DBA
+    jsl $C0D4DE
+    lda $02
+    cmp $28CC
+    bne C0D670_Gate_NpcAttentionCoordinatorFromScript_LD670
+    lda.w #$0018
+    sta $4DB8
+    bra C0D67A_Gate_NpcAttentionCoordinatorFromScript_LD67A
+C0D670_Gate_NpcAttentionCoordinatorFromScript_LD670:
+    lda $02
+    asl A
+    tax
+    lda $289E,X
+    sta $4DB8
+C0D67A_Gate_NpcAttentionCoordinatorFromScript_LD67A:
+    lda $02
+    sta $4DB6
+    lda.w #$0000
+    sta $14
+    bra C0D69F_Gate_NpcAttentionCoordinatorFromScript_LD69F
+C0D686_Gate_NpcAttentionCoordinatorFromScript_LD686:
+    cmp.w #$0017
+    beq C0D69A_Gate_NpcAttentionCoordinatorFromScript_LD69A
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+C0D69A_Gate_NpcAttentionCoordinatorFromScript_LD69A:
+    lda $14
+    inc A
+    sta $14
+C0D69F_Gate_NpcAttentionCoordinatorFromScript_LD69F:
+    cmp.w #$001E
+    bcc C0D686_Gate_NpcAttentionCoordinatorFromScript_LD686
+    jsl $C04A88
+    lda.w #$0001
+    jmp.w C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D
+C0D6AE_Gate_NpcAttentionCoordinatorFromScript_LD6AE:
+    lda $02
+    asl A
+    tax
+    lda.w #$8000
+    sta $289E,X
+    stz $12
+    lda $5D60
+    bne C0D6C2_Gate_NpcAttentionCoordinatorFromScript_LD6C2
+    jmp.w C0D77B_Gate_NpcAttentionCoordinatorFromScript_LD77B
+C0D6C2_Gate_NpcAttentionCoordinatorFromScript_LD6C2:
+    lda $02
+    cmp $4DB6
+    bne C0D6E0_Gate_NpcAttentionCoordinatorFromScript_LD6E0
+    txa
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+    lda.w #$0001
+    sta $12
+    jmp.w C0D77B_Gate_NpcAttentionCoordinatorFromScript_LD77B
+C0D6E0_Gate_NpcAttentionCoordinatorFromScript_LD6E0:
+    lda $2D12,X
+    sta $04
+    ldy.w #$0000
+    stz $12
+    tya
+    sta $10
+    bra C0D73D_Gate_NpcAttentionCoordinatorFromScript_LD73D
+C0D6EF_Gate_NpcAttentionCoordinatorFromScript_LD6EF:
+    asl A
+    tax
+    lda $04
+    cmp $4A7C,X
+    bne C0D72E_Gate_NpcAttentionCoordinatorFromScript_LD72E
+    txa
+    clc
+    adc.w #$4A84
+    tax
+    lda $0000,X
+    sta $0E
+    beq C0D72E_Gate_NpcAttentionCoordinatorFromScript_LD72E
+    lda $0E
+    dec A
+    sta $0000,X
+    lda.w #$0001
+    sta $12
+    lda $02
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+    lda $9F8A
+    asl A
+    tax
+    lda $04
+    sta $9F8C,X
+    inc $9F8A
+C0D72E_Gate_NpcAttentionCoordinatorFromScript_LD72E:
+    lda $10
+    asl A
+    tax
+    tya
+    clc
+    adc $4A84,X
+    tay
+    lda $10
+    inc A
+    sta $10
+C0D73D_Gate_NpcAttentionCoordinatorFromScript_LD73D:
+    cmp.w #$0004
+    bne C0D6EF_Gate_NpcAttentionCoordinatorFromScript_LD6EF
+    cpy.w #$0000
+    bne C0D77B_Gate_NpcAttentionCoordinatorFromScript_LD77B
+    jsl $C2E9C8
+    cmp.w #$0000
+    bne C0D77B_Gate_NpcAttentionCoordinatorFromScript_LD77B
+    lda.w #$0000
+    sta $14
+    bra C0D770_Gate_NpcAttentionCoordinatorFromScript_LD770
+C0D757_Gate_NpcAttentionCoordinatorFromScript_LD757:
+    cmp.w #$0017
+    beq C0D76B_Gate_NpcAttentionCoordinatorFromScript_LD76B
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+C0D76B_Gate_NpcAttentionCoordinatorFromScript_LD76B:
+    lda $14
+    inc A
+    sta $14
+C0D770_Gate_NpcAttentionCoordinatorFromScript_LD770:
+    cmp.w #$001E
+    bcc C0D757_Gate_NpcAttentionCoordinatorFromScript_LD757
+    lda.w #$0001
+    sta $5D60
+C0D77B_Gate_NpcAttentionCoordinatorFromScript_LD77B:
+    lda $12
+C0D77D_Gate_NpcAttentionCoordinatorFromScript_LD77D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15796,14 +31018,35 @@ hirom
 org $C0D77F
 
 C0D77F_MarkOtherSlotsAttentionLocked:
-
-; Original data gap before C0D7B3_MarkOtherSlotsAttentionLocked_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A9,$00,$00,$85,$0E,$80,$1E,$CD
-db $42,$1A,$F0,$14,$C9,$17,$00,$F0,$0F,$0A,$18,$69,$B6,$10,$AA,$BD
-db $00,$00,$09,$00,$C0,$9D,$00,$00,$A5,$0E,$1A,$85,$0E,$C9,$1E,$00
-db $90,$DD,$2B,$6B
-
-C0D7B3_MarkOtherSlotsAttentionLocked_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda.w #$0000
+    sta $0E
+    bra C0D7AC_MarkOtherSlotsAttentionLocked_LD7AC
+C0D78E_MarkOtherSlotsAttentionLocked_LD78E:
+    cmp $1A42
+    beq C0D7A7_MarkOtherSlotsAttentionLocked_LD7A7
+    cmp.w #$0017
+    beq C0D7A7_MarkOtherSlotsAttentionLocked_LD7A7
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+C0D7A7_MarkOtherSlotsAttentionLocked_LD7A7:
+    lda $0E
+    inc A
+    sta $0E
+C0D7AC_MarkOtherSlotsAttentionLocked_LD7AC:
+    cmp.w #$001E
+    bcc C0D78E_MarkOtherSlotsAttentionLocked_LD78E
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15814,12 +31057,15 @@ hirom
 org $C0D7B3
 
 C0D7B3_Save_CurrentSlotAttentionPosition:
-
-; Original data gap before C0D7C7_Save_CurrentSlotAttentionPosition_End:
-db $C2,$31,$AD,$42,$1A,$0A,$AA,$BD,$8E,$0B,$8D,$BE,$4D,$BD,$CA,$0B
-db $8D,$C0,$4D,$6B
-
-C0D7C7_Save_CurrentSlotAttentionPosition_End:
+    rep #$31
+    lda $1A42
+    asl A
+    tax
+    lda $0B8E,X
+    sta $4DBE
+    lda $0BCA,X
+    sta $4DC0
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15830,12 +31076,18 @@ hirom
 org $C0D7C7
 
 C0D7C7_Restore_CurrentSlotAttentionPosition:
-
-; Original data gap before C0D7E0_Restore_CurrentSlotAttentionPosition_End:
-db $C2,$31,$AD,$42,$1A,$0A,$AA,$AD,$BE,$4D,$9D,$8E,$0B,$AD,$42,$1A
-db $0A,$AA,$AD,$C0,$4D,$9D,$CA,$0B,$6B
-
-C0D7E0_Restore_CurrentSlotAttentionPosition_End:
+    rep #$31
+    lda $1A42
+    asl A
+    tax
+    lda $4DBE
+    sta $0B8E,X
+    lda $1A42
+    asl A
+    tax
+    lda $4DC0
+    sta $0BCA,X
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15846,12 +31098,18 @@ hirom
 org $C0D7E0
 
 C0D7E0_Normalize_CurrentSlotAttentionState:
-
-; Original data gap before C0D7F7_Normalize_CurrentSlotAttentionState_End:
-db $C2,$31,$AD,$42,$1A,$0A,$18,$69,$5E,$2C,$AA,$BD,$00,$00,$F0,$06
-db $A9,$01,$00,$9D,$00,$00,$6B
-
-C0D7F7_Normalize_CurrentSlotAttentionState_End:
+    rep #$31
+    lda $1A42
+    asl A
+    clc
+    adc.w #$2C5E
+    tax
+    lda $0000,X
+    beq C0D7F6_Normalize_CurrentSlotAttentionState_LD7F6
+    lda.w #$0001
+    sta $0000,X
+C0D7F6_Normalize_CurrentSlotAttentionState_LD7F6:
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15862,36 +31120,236 @@ hirom
 org $C0D7F7
 
 C0D7F7_Consume_CurrentSlotAttentionPath:
-
-; Original data gap before C0D98F_Consume_CurrentSlotAttentionPath_End:
-db $C2,$31,$0B,$7B,$69,$E0,$FF,$5B,$AD,$42,$1A,$85,$1E,$0A,$AA,$BD
-db $5E,$2C,$C9,$FF,$FF,$F0,$03,$4C,$8D,$D9,$BD,$6E,$2B,$85,$1C,$BD
-db $02,$2E,$85,$02,$85,$1A,$BD,$8E,$0B,$85,$18,$BD,$CA,$0B,$85,$16
-db $A5,$1C,$0A,$AA,$86,$14,$A6,$02,$BD,$02,$00,$0A,$0A,$0A,$A6,$14
-db $18,$7F,$1F,$2A,$C4,$85,$04,$AD,$8E,$4A,$38,$ED,$92,$4A,$0A,$0A
-db $0A,$18,$65,$04,$85,$12,$A6,$02,$BD,$00,$00,$0A,$0A,$0A,$A6,$14
-db $38,$FF,$EB,$2A,$C4,$18,$7F,$41,$2A,$C4,$85,$02,$AD,$90,$4A,$38
-db $ED,$94,$4A,$0A,$0A,$0A,$18,$65,$02,$85,$04,$A5,$18,$38,$E5,$12
-db $85,$10,$85,$02,$A9,$00,$00,$18,$E5,$02,$50,$04,$10,$0C,$80,$02
-db $30,$08,$A5,$10,$49,$FF,$FF,$1A,$80,$02,$A5,$10,$85,$02,$A9,$03
-db $00,$18,$E5,$02,$50,$05,$30,$08,$4C,$4F,$D9,$10,$03,$4C,$4F,$D9
-db $A5,$16,$38,$E5,$04,$85,$10,$85,$02,$A9,$00,$00,$18,$E5,$02,$50
-db $04,$10,$0C,$80,$02,$30,$08,$A5,$10,$49,$FF,$FF,$1A,$80,$02,$A5
-db $10,$85,$02,$A9,$03,$00,$18,$E5,$02,$50,$04,$10,$7B,$80,$02,$30
-db $77,$A5,$1E,$0A,$85,$10,$18,$69,$3E,$2E,$AA,$BD,$00,$00,$A8,$88
-db $98,$9D,$00,$00,$F0,$62,$A5,$1A,$85,$02,$A6,$02,$E8,$E8,$E8,$E8
-db $86,$14,$DA,$A5,$10,$AA,$68,$9D,$02,$2E,$A5,$1C,$0A,$85,$1C,$48
-db $A6,$14,$BD,$02,$00,$0A,$0A,$0A,$FA,$18,$7F,$1F,$2A,$C4,$85,$02
-db $AD,$8E,$4A,$38,$ED,$92,$4A,$0A,$0A,$0A,$18,$65,$02,$85,$12,$A5
-db $1C,$48,$48,$A6,$14,$BD,$00,$00,$0A,$0A,$0A,$FA,$38,$FF,$EB,$2A
-db $C4,$FA,$18,$7F,$41,$2A,$C4,$85,$02,$AD,$90,$4A,$38,$ED,$94,$4A
-db $0A,$0A,$0A,$18,$65,$02,$85,$04,$A5,$1E,$0A,$85,$02,$A6,$02,$BD
-db $3E,$2E,$F0,$1D,$A5,$04,$85,$0E,$A4,$12,$A6,$16,$A5,$18,$22,$FF
-db $1E,$C4,$22,$44,$70,$C4,$22,$0A,$6B,$C4,$A6,$02,$9D,$F6,$2A,$80
-db $15,$A6,$02,$9E,$5E,$2C,$A5,$02,$18,$69,$DA,$28,$AA,$BD,$00,$00
-db $09,$80,$00,$9D,$00,$00,$2B,$6B
-
-C0D98F_Consume_CurrentSlotAttentionPath_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE0
+    tcd
+    lda $1A42
+    sta $1E
+    asl A
+    tax
+    lda $2C5E,X
+    cmp.w #$FFFF
+    beq C0D811_Consume_CurrentSlotAttentionPath_LD811
+    jmp.w C0D98D_Consume_CurrentSlotAttentionPath_LD98D
+C0D811_Consume_CurrentSlotAttentionPath_LD811:
+    lda $2B6E,X
+    sta $1C
+    lda $2E02,X
+    sta $02
+    sta $1A
+    lda $0B8E,X
+    sta $18
+    lda $0BCA,X
+    sta $16
+    lda $1C
+    asl A
+    tax
+    stx $14
+    ldx $02
+    lda $0002,X
+    asl A
+    asl A
+    asl A
+    ldx $14
+    clc
+    adc $C42A1F,X
+    sta $04
+    lda $4A8E
+    sec
+    sbc $4A92
+    asl A
+    asl A
+    asl A
+    clc
+    adc $04
+    sta $12
+    ldx $02
+    lda $0000,X
+    asl A
+    asl A
+    asl A
+    ldx $14
+    sec
+    sbc $C42AEB,X
+    clc
+    adc $C42A41,X
+    sta $02
+    lda $4A90
+    sec
+    sbc $4A94
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    sta $04
+    lda $18
+    sec
+    sbc $12
+    sta $10
+    sta $02
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0D887_Consume_CurrentSlotAttentionPath_LD887
+    bpl C0D891_Consume_CurrentSlotAttentionPath_LD891
+    bra C0D889_Consume_CurrentSlotAttentionPath_LD889
+C0D887_Consume_CurrentSlotAttentionPath_LD887:
+    bmi C0D891_Consume_CurrentSlotAttentionPath_LD891
+C0D889_Consume_CurrentSlotAttentionPath_LD889:
+    lda $10
+    eor.w #$FFFF
+    inc A
+    bra C0D893_Consume_CurrentSlotAttentionPath_LD893
+C0D891_Consume_CurrentSlotAttentionPath_LD891:
+    lda $10
+C0D893_Consume_CurrentSlotAttentionPath_LD893:
+    sta $02
+    lda.w #$0003
+    clc
+    sbc $02
+    bvc C0D8A2_Consume_CurrentSlotAttentionPath_LD8A2
+    bmi C0D8A7_Consume_CurrentSlotAttentionPath_LD8A7
+    jmp.w C0D94F_Consume_CurrentSlotAttentionPath_LD94F
+C0D8A2_Consume_CurrentSlotAttentionPath_LD8A2:
+    bpl C0D8A7_Consume_CurrentSlotAttentionPath_LD8A7
+    jmp.w C0D94F_Consume_CurrentSlotAttentionPath_LD94F
+C0D8A7_Consume_CurrentSlotAttentionPath_LD8A7:
+    lda $16
+    sec
+    sbc $04
+    sta $10
+    sta $02
+    lda.w #$0000
+    clc
+    sbc $02
+    bvc C0D8BC_Consume_CurrentSlotAttentionPath_LD8BC
+    bpl C0D8C6_Consume_CurrentSlotAttentionPath_LD8C6
+    bra C0D8BE_Consume_CurrentSlotAttentionPath_LD8BE
+C0D8BC_Consume_CurrentSlotAttentionPath_LD8BC:
+    bmi C0D8C6_Consume_CurrentSlotAttentionPath_LD8C6
+C0D8BE_Consume_CurrentSlotAttentionPath_LD8BE:
+    lda $10
+    eor.w #$FFFF
+    inc A
+    bra C0D8C8_Consume_CurrentSlotAttentionPath_LD8C8
+C0D8C6_Consume_CurrentSlotAttentionPath_LD8C6:
+    lda $10
+C0D8C8_Consume_CurrentSlotAttentionPath_LD8C8:
+    sta $02
+    lda.w #$0003
+    clc
+    sbc $02
+    bvc C0D8D6_Consume_CurrentSlotAttentionPath_LD8D6
+    bpl C0D94F_Consume_CurrentSlotAttentionPath_LD94F
+    bra C0D8D8_Consume_CurrentSlotAttentionPath_LD8D8
+C0D8D6_Consume_CurrentSlotAttentionPath_LD8D6:
+    bmi C0D94F_Consume_CurrentSlotAttentionPath_LD94F
+C0D8D8_Consume_CurrentSlotAttentionPath_LD8D8:
+    lda $1E
+    asl A
+    sta $10
+    clc
+    adc.w #$2E3E
+    tax
+    lda $0000,X
+    tay
+    dey
+    tya
+    sta $0000,X
+    beq C0D94F_Consume_CurrentSlotAttentionPath_LD94F
+    lda $1A
+    sta $02
+    ldx $02
+    inx
+    inx
+    inx
+    inx
+    stx $14
+    phx
+    lda $10
+    tax
+    pla
+    sta $2E02,X
+    lda $1C
+    asl A
+    sta $1C
+    pha
+    ldx $14
+    lda $0002,X
+    asl A
+    asl A
+    asl A
+    plx
+    clc
+    adc $C42A1F,X
+    sta $02
+    lda $4A8E
+    sec
+    sbc $4A92
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    sta $12
+    lda $1C
+    pha
+    pha
+    ldx $14
+    lda $0000,X
+    asl A
+    asl A
+    asl A
+    plx
+    sec
+    sbc $C42AEB,X
+    plx
+    clc
+    adc $C42A41,X
+    sta $02
+    lda $4A90
+    sec
+    sbc $4A94
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    sta $04
+C0D94F_Consume_CurrentSlotAttentionPath_LD94F:
+    lda $1E
+    asl A
+    sta $02
+    ldx $02
+    lda $2E3E,X
+    beq C0D978_Consume_CurrentSlotAttentionPath_LD978
+    lda $04
+    sta $0E
+    ldy $12
+    ldx $16
+    lda $18
+    jsl $C41EFF
+    jsl $C47044
+    jsl $C46B0A
+    ldx $02
+    sta $2AF6,X
+    bra C0D98D_Consume_CurrentSlotAttentionPath_LD98D
+C0D978_Consume_CurrentSlotAttentionPath_LD978:
+    ldx $02
+    stz $2C5E,X
+    lda $02
+    clc
+    adc.w #$28DA
+    tax
+    lda $0000,X
+    ora.w #$0080
+    sta $0000,X
+C0D98D_Consume_CurrentSlotAttentionPath_LD98D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15902,34 +31360,229 @@ hirom
 org $C0D98F
 
 C0D98F_Export_CurrentSlotAttentionTarget:
-
-; Original data gap before C0DB0F_Export_CurrentSlotAttentionTarget_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$AD,$42,$1A,$0A,$A8,$18,$69,$3E
-db $2E,$85,$04,$A6,$04,$BD,$00,$00,$D0,$06,$A9,$00,$00,$4C,$2F,$DA
-db $B9,$6E,$2B,$85,$12,$98,$18,$69,$02,$2E,$85,$02,$85,$10,$A6,$02
-db $BD,$00,$00,$AA,$86,$0E,$A5,$12,$0A,$85,$12,$48,$BD,$02,$00,$0A
-db $0A,$0A,$FA,$18,$7F,$1F,$2A,$C4,$85,$02,$AD,$8E,$4A,$38,$ED,$92
-db $4A,$0A,$0A,$0A,$18,$65,$02,$99,$C6,$0F,$A5,$12,$48,$48,$A6,$0E
-db $BD,$00,$00,$0A,$0A,$0A,$FA,$38,$FF,$EB,$2A,$C4,$FA,$18,$7F,$41
-db $2A,$C4,$85,$02,$AD,$90,$4A,$38,$ED,$94,$4A,$0A,$0A,$0A,$18,$65
-db $02,$99,$02,$10,$A6,$04,$BD,$00,$00,$3A,$A6,$04,$9D,$00,$00,$A6
-db $0E,$8A,$1A,$1A,$1A,$1A,$A6,$10,$86,$02,$9D,$00,$00,$A9,$01,$00
-db $2B,$6B,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AD,$50,$0A,$1A,$D0,$03
-db $4C,$0D,$DB,$A9,$00,$00,$85,$02,$A8,$84,$14,$80,$31,$98,$0A,$AA
-db $BD,$62,$0A,$1A,$F0,$23,$BD,$3E,$10,$3A,$D0,$19,$BD,$52,$0B,$18
-db $69,$08,$00,$29,$00,$FE,$D0,$0D,$A5,$02,$0A,$AA,$98,$1A,$9D,$0C
-db $28,$E6,$02,$80,$04,$98,$20,$CA,$A0,$A4,$14,$C8,$84,$14,$C0,$1E
-db $00,$D0,$CA,$A5,$02,$0A,$AA,$A9,$FF,$FF,$9D,$0C,$28,$A5,$02,$85
-db $04,$80,$6B,$A2,$00,$00,$86,$14,$80,$05,$A6,$14,$E8,$86,$14,$8A
-db $0A,$AA,$BD,$0C,$28,$F0,$F3,$A6,$14,$86,$02,$86,$12,$3A,$0A,$AA
-db $BC,$CA,$0B,$80,$1E,$A5,$10,$F0,$1A,$3A,$0A,$AA,$BD,$CA,$0B,$85
-db $0E,$85,$02,$98,$C5,$02,$B0,$0B,$A5,$0E,$A8,$A6,$14,$86,$02,$A5
-db $02,$85,$12,$A6,$14,$E8,$86,$14,$8A,$0A,$AA,$BD,$0C,$28,$85,$10
-db $1A,$D0,$D2,$A5,$12,$85,$02,$0A,$18,$69,$0C,$28,$AA,$86,$10,$BD
-db $00,$00,$3A,$20,$CA,$A0,$A9,$00,$00,$A6,$10,$9D,$00,$00,$A5,$04
-db $85,$0E,$A5,$04,$3A,$85,$04,$A5,$0E,$F0,$03,$4C,$92,$DA,$2B,$60
-
-C0DB0F_Export_CurrentSlotAttentionTarget_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda $1A42
+    asl A
+    tay
+    clc
+    adc.w #$2E3E
+    sta $04
+    ldx $04
+    lda $0000,X
+    bne C0D9AF_Export_CurrentSlotAttentionTarget_LD9AF
+    lda.w #$0000
+    jmp.w C0DA2F_Export_CurrentSlotAttentionTarget_LDA2F
+C0D9AF_Export_CurrentSlotAttentionTarget_LD9AF:
+    lda $2B6E,Y
+    sta $12
+    tya
+    clc
+    adc.w #$2E02
+    sta $02
+    sta $10
+    ldx $02
+    lda $0000,X
+    tax
+    stx $0E
+    lda $12
+    asl A
+    sta $12
+    pha
+    lda $0002,X
+    asl A
+    asl A
+    asl A
+    plx
+    clc
+    adc $C42A1F,X
+    sta $02
+    lda $4A8E
+    sec
+    sbc $4A92
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    sta $0FC6,Y
+    lda $12
+    pha
+    pha
+    ldx $0E
+    lda $0000,X
+    asl A
+    asl A
+    asl A
+    plx
+    sec
+    sbc $C42AEB,X
+    plx
+    clc
+    adc $C42A41,X
+    sta $02
+    lda $4A90
+    sec
+    sbc $4A94
+    asl A
+    asl A
+    asl A
+    clc
+    adc $02
+    sta $1002,Y
+    ldx $04
+    lda $0000,X
+    dec A
+    ldx $04
+    sta $0000,X
+    ldx $0E
+    txa
+    inc A
+    inc A
+    inc A
+    inc A
+    ldx $10
+    stx $02
+    sta $0000,X
+    lda.w #$0001
+C0DA2F_Export_CurrentSlotAttentionTarget_LDA2F:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda $0A50
+    inc A
+    bne C0DA42_Export_CurrentSlotAttentionTarget_LDA42
+    jmp.w C0DB0D_Export_CurrentSlotAttentionTarget_LDB0D
+C0DA42_Export_CurrentSlotAttentionTarget_LDA42:
+    lda.w #$0000
+    sta $02
+    tay
+    sty $14
+    bra C0DA7D_Export_CurrentSlotAttentionTarget_LDA7D
+C0DA4C_Export_CurrentSlotAttentionTarget_LDA4C:
+    tya
+    asl A
+    tax
+    lda $0A62,X
+    inc A
+    beq C0DA78_Export_CurrentSlotAttentionTarget_LDA78
+    lda $103E,X
+    dec A
+    bne C0DA74_Export_CurrentSlotAttentionTarget_LDA74
+    lda $0B52,X
+    clc
+    adc.w #$0008
+    and.w #$FE00
+    bne C0DA74_Export_CurrentSlotAttentionTarget_LDA74
+    lda $02
+    asl A
+    tax
+    tya
+    inc A
+    sta $280C,X
+    inc $02
+    bra C0DA78_Export_CurrentSlotAttentionTarget_LDA78
+C0DA74_Export_CurrentSlotAttentionTarget_LDA74:
+    tya
+    jsr $A0CA
+C0DA78_Export_CurrentSlotAttentionTarget_LDA78:
+    ldy $14
+    iny
+    sty $14
+C0DA7D_Export_CurrentSlotAttentionTarget_LDA7D:
+    cpy.w #$001E
+    bne C0DA4C_Export_CurrentSlotAttentionTarget_LDA4C
+    lda $02
+    asl A
+    tax
+    lda.w #$FFFF
+    sta $280C,X
+    lda $02
+    sta $04
+    bra C0DAFD_Export_CurrentSlotAttentionTarget_LDAFD
+C0DA92_Export_CurrentSlotAttentionTarget_LDA92:
+    ldx.w #$0000
+    stx $14
+    bra C0DA9E_Export_CurrentSlotAttentionTarget_LDA9E
+C0DA99_Export_CurrentSlotAttentionTarget_LDA99:
+    ldx $14
+    inx
+    stx $14
+C0DA9E_Export_CurrentSlotAttentionTarget_LDA9E:
+    txa
+    asl A
+    tax
+    lda $280C,X
+    beq C0DA99_Export_CurrentSlotAttentionTarget_LDA99
+    ldx $14
+    stx $02
+    stx $12
+    dec A
+    asl A
+    tax
+    ldy $0BCA,X
+    bra C0DAD2_Export_CurrentSlotAttentionTarget_LDAD2
+C0DAB4_Export_CurrentSlotAttentionTarget_LDAB4:
+    lda $10
+    beq C0DAD2_Export_CurrentSlotAttentionTarget_LDAD2
+    dec A
+    asl A
+    tax
+    lda $0BCA,X
+    sta $0E
+    sta $02
+    tya
+    cmp $02
+    bcs C0DAD2_Export_CurrentSlotAttentionTarget_LDAD2
+    lda $0E
+    tay
+    ldx $14
+    stx $02
+    lda $02
+    sta $12
+C0DAD2_Export_CurrentSlotAttentionTarget_LDAD2:
+    ldx $14
+    inx
+    stx $14
+    txa
+    asl A
+    tax
+    lda $280C,X
+    sta $10
+    inc A
+    bne C0DAB4_Export_CurrentSlotAttentionTarget_LDAB4
+    lda $12
+    sta $02
+    asl A
+    clc
+    adc.w #$280C
+    tax
+    stx $10
+    lda $0000,X
+    dec A
+    jsr $A0CA
+    lda.w #$0000
+    ldx $10
+    sta $0000,X
+C0DAFD_Export_CurrentSlotAttentionTarget_LDAFD:
+    lda $04
+    sta $0E
+    lda $04
+    dec A
+    sta $04
+    lda $0E
+    beq C0DB0D_Export_CurrentSlotAttentionTarget_LDB0D
+    jmp.w C0DA92_Export_CurrentSlotAttentionTarget_LDA92
+C0DB0D_Export_CurrentSlotAttentionTarget_LDB0D:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15940,24 +31593,135 @@ hirom
 org $C0DB0F
 
 C0DB0F_Dispatch_ActiveTaskSlots:
-
-; Original data gap before C0DBE6_Dispatch_ActiveTaskSlots_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$AD,$67,$00,$29,$00,$20,$F0,$06
-db $20,$31,$DA,$4C,$E4,$DB,$A9,$FF,$FF,$85,$16,$AC,$50,$0A,$84,$14
-db $80,$4B,$98,$4A,$0A,$AA,$BD,$52,$0B,$C9,$00,$01,$90,$05,$C9,$C0
-db $FF,$90,$2F,$98,$4A,$0A,$AA,$BD,$16,$0B,$C9,$40,$01,$90,$05,$C9
-db $C0,$FF,$90,$1E,$98,$4A,$85,$12,$0A,$AA,$BD,$3E,$10,$C9,$01,$00
-db $D0,$0B,$A5,$16,$9D,$0C,$28,$A5,$12,$85,$16,$80,$05,$A5,$12,$20
-db $CA,$A0,$A4,$14,$98,$4A,$0A,$AA,$BC,$9E,$0A,$84,$14,$98,$1A,$D0
-db $B1,$80,$5D,$A5,$16,$85,$10,$A5,$16,$0A,$AA,$BD,$CA,$0B,$85,$0E
-db $A9,$FF,$FF,$85,$04,$A5,$16,$85,$02,$BC,$0C,$28,$80,$1A,$98,$0A
-db $AA,$BD,$CA,$0B,$C5,$0E,$90,$08,$85,$0E,$84,$10,$A5,$02,$85,$04
-db $84,$02,$98,$0A,$AA,$BC,$0C,$28,$98,$1A,$D0,$E2,$A5,$10,$20,$CA
-db $A0,$A5,$04,$1A,$F0,$11,$A5,$04,$0A,$48,$A5,$10,$0A,$AA,$BD,$0C
-db $28,$FA,$9D,$0C,$28,$80,$09,$A5,$10,$0A,$AA,$BD,$0C,$28,$85,$16
-db $A5,$16,$1A,$D0,$9E,$2B,$60
-
-C0DBE6_Dispatch_ActiveTaskSlots_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda $0067
+    and.w #$2000
+    beq C0DB25_Dispatch_ActiveTaskSlots_LDB25
+    jsr $DA31
+    jmp.w C0DBE4_Dispatch_ActiveTaskSlots_LDBE4
+C0DB25_Dispatch_ActiveTaskSlots_LDB25:
+    lda.w #$FFFF
+    sta $16
+    ldy $0A50
+    sty $14
+    bra C0DB7C_Dispatch_ActiveTaskSlots_LDB7C
+C0DB31_Dispatch_ActiveTaskSlots_LDB31:
+    tya
+    lsr A
+    asl A
+    tax
+    lda $0B52,X
+    cmp.w #$0100
+    bcc C0DB42_Dispatch_ActiveTaskSlots_LDB42
+    cmp.w #$FFC0
+    bcc C0DB71_Dispatch_ActiveTaskSlots_LDB71
+C0DB42_Dispatch_ActiveTaskSlots_LDB42:
+    tya
+    lsr A
+    asl A
+    tax
+    lda $0B16,X
+    cmp.w #$0140
+    bcc C0DB53_Dispatch_ActiveTaskSlots_LDB53
+    cmp.w #$FFC0
+    bcc C0DB71_Dispatch_ActiveTaskSlots_LDB71
+C0DB53_Dispatch_ActiveTaskSlots_LDB53:
+    tya
+    lsr A
+    sta $12
+    asl A
+    tax
+    lda $103E,X
+    cmp.w #$0001
+    bne C0DB6C_Dispatch_ActiveTaskSlots_LDB6C
+    lda $16
+    sta $280C,X
+    lda $12
+    sta $16
+    bra C0DB71_Dispatch_ActiveTaskSlots_LDB71
+C0DB6C_Dispatch_ActiveTaskSlots_LDB6C:
+    lda $12
+    jsr $A0CA
+C0DB71_Dispatch_ActiveTaskSlots_LDB71:
+    ldy $14
+    tya
+    lsr A
+    asl A
+    tax
+    ldy $0A9E,X
+    sty $14
+C0DB7C_Dispatch_ActiveTaskSlots_LDB7C:
+    tya
+    inc A
+    bne C0DB31_Dispatch_ActiveTaskSlots_LDB31
+    bra C0DBDF_Dispatch_ActiveTaskSlots_LDBDF
+C0DB82_Dispatch_ActiveTaskSlots_LDB82:
+    lda $16
+    sta $10
+    lda $16
+    asl A
+    tax
+    lda $0BCA,X
+    sta $0E
+    lda.w #$FFFF
+    sta $04
+    lda $16
+    sta $02
+    ldy $280C,X
+    bra C0DBB7_Dispatch_ActiveTaskSlots_LDBB7
+C0DB9D_Dispatch_ActiveTaskSlots_LDB9D:
+    tya
+    asl A
+    tax
+    lda $0BCA,X
+    cmp $0E
+    bcc C0DBAF_Dispatch_ActiveTaskSlots_LDBAF
+    sta $0E
+    sty $10
+    lda $02
+    sta $04
+C0DBAF_Dispatch_ActiveTaskSlots_LDBAF:
+    sty $02
+    tya
+    asl A
+    tax
+    ldy $280C,X
+C0DBB7_Dispatch_ActiveTaskSlots_LDBB7:
+    tya
+    inc A
+    bne C0DB9D_Dispatch_ActiveTaskSlots_LDB9D
+    lda $10
+    jsr $A0CA
+    lda $04
+    inc A
+    beq C0DBD6_Dispatch_ActiveTaskSlots_LDBD6
+    lda $04
+    asl A
+    pha
+    lda $10
+    asl A
+    tax
+    lda $280C,X
+    plx
+    sta $280C,X
+    bra C0DBDF_Dispatch_ActiveTaskSlots_LDBDF
+C0DBD6_Dispatch_ActiveTaskSlots_LDBD6:
+    lda $10
+    asl A
+    tax
+    lda $280C,X
+    sta $16
+C0DBDF_Dispatch_ActiveTaskSlots_LDBDF:
+    lda $16
+    inc A
+    bne C0DB82_Dispatch_ActiveTaskSlots_LDB82
+C0DBE4_Dispatch_ActiveTaskSlots_LDBE4:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15968,16 +31732,54 @@ hirom
 org $C0DBE6
 
 C0DBE6_Queue_DelayedActionTimer:
-
-; Original data gap before C0DC38_Queue_DelayedActionTimer_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$A8,$A5,$20,$85,$06,$A5
-db $22,$85,$08,$A9,$3C,$9E,$85,$10,$A2,$00,$00,$86,$0E,$80,$13,$AA
-db $BD,$00,$00,$F0,$12,$A5,$10,$18,$69,$06,$00,$85,$10,$A6,$0E,$E8
-db $86,$0E,$E0,$04,$00,$90,$E8,$A5,$10,$AA,$98,$9D,$00,$00,$A5,$10
-db $A8,$C8,$C8,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A6,$0E,$8A
-db $2B,$6B
-
-C0DC38_Queue_DelayedActionTimer_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    tay
+    lda $20
+    sta $06
+    lda $22
+    sta $08
+    lda.w #$9E3C
+    sta $10
+    ldx.w #$0000
+    stx $0E
+    bra C0DC18_Queue_DelayedActionTimer_LDC18
+C0DC05_Queue_DelayedActionTimer_LDC05:
+    tax
+    lda $0000,X
+    beq C0DC1D_Queue_DelayedActionTimer_LDC1D
+    lda $10
+    clc
+    adc.w #$0006
+    sta $10
+    ldx $0E
+    inx
+    stx $0E
+C0DC18_Queue_DelayedActionTimer_LDC18:
+    cpx.w #$0004
+    bcc C0DC05_Queue_DelayedActionTimer_LDC05
+C0DC1D_Queue_DelayedActionTimer_LDC1D:
+    lda $10
+    tax
+    tya
+    sta $0000,X
+    lda $10
+    tay
+    iny
+    iny
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldx $0E
+    txa
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -15988,12 +31790,21 @@ hirom
 org $C0DC38
 
 C0DC38_Clear_DelayedActionTimerSlot:
-
-; Original data gap before C0DC4E_Clear_DelayedActionTimerSlot_End:
-db $C2,$31,$0B,$48,$7B,$69,$F2,$FF,$5B,$68,$85,$04,$0A,$65,$04,$0A
-db $AA,$9E,$3C,$9E,$2B,$6B
-
-C0DC4E_Clear_DelayedActionTimerSlot_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF2
+    tcd
+    pla
+    sta $04
+    asl A
+    adc $04
+    asl A
+    tax
+    stz $9E3C,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16003,24 +31814,100 @@ C0DC4E_Clear_DelayedActionTimerSlot_End:
 hirom
 org $C0DC4E
 
+!C21628_CheckEventFlag = $C21628
 C0DC4E_FrameCallback_ProcessDelayedActions:
-
-; Original data gap before C0DD0F_FrameCallback_ProcessDelayedActions_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$02,$00,$29,$FF,$00,$D0,$08
-db $AD,$54,$9E,$F0,$03,$CE,$54,$9E,$AD,$E0,$88,$C9,$FF,$FF,$D0,$56
-db $AD,$43,$96,$D0,$51,$AD,$60,$5D,$D0,$4C,$AD,$BA,$4D,$D0,$47,$A0
-db $3C,$9E,$84,$0E,$A9,$00,$00,$85,$02,$80,$34,$B9,$00,$00,$F0,$23
-db $BB,$3A,$9D,$00,$00,$D0,$1C,$C8,$C8,$B9,$00,$00,$85,$06,$B9,$02
-db $00,$85,$08,$48,$A5,$06,$8D,$BC,$00,$A5,$08,$8D,$BE,$00,$68,$22
-db $79,$92,$C0,$A4,$0E,$98,$18,$69,$06,$00,$A8,$84,$0E,$E6,$02,$A5
-db $02,$C9,$04,$00,$90,$C5,$2B,$60,$C2,$31,$0B,$7B,$69,$EE,$FF,$5B
-db $AD,$E0,$88,$C9,$FF,$FF,$D0,$37,$AD,$43,$96,$D0,$32,$AD,$60,$5D
-db $D0,$2D,$AD,$BA,$4D,$D0,$28,$AD,$56,$9E,$D0,$23,$A9,$07,$03,$22
-db $28,$16,$C2,$C9,$00,$00,$D0,$17,$A9,$3E,$D3,$85,$0E,$A9,$C7,$00
-db $85,$10,$A9,$0A,$00,$22,$E3,$64,$C0,$A9,$01,$00,$8D,$56,$9E,$2B
-db $6B
-
-C0DD0F_FrameCallback_ProcessDelayedActions_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $0002
+    and.w #$00FF
+    bne C0DC66_FrameCallback_ProcessDelayedActions_LDC66
+    lda $9E54
+    beq C0DC66_FrameCallback_ProcessDelayedActions_LDC66
+    dec $9E54
+C0DC66_FrameCallback_ProcessDelayedActions_LDC66:
+    lda $88E0
+    cmp.w #$FFFF
+    bne C0DCC4_FrameCallback_ProcessDelayedActions_LDCC4
+    lda $9643
+    bne C0DCC4_FrameCallback_ProcessDelayedActions_LDCC4
+    lda $5D60
+    bne C0DCC4_FrameCallback_ProcessDelayedActions_LDCC4
+    lda $4DBA
+    bne C0DCC4_FrameCallback_ProcessDelayedActions_LDCC4
+    ldy.w #$9E3C
+    sty $0E
+    lda.w #$0000
+    sta $02
+    bra C0DCBD_FrameCallback_ProcessDelayedActions_LDCBD
+C0DC89_FrameCallback_ProcessDelayedActions_LDC89:
+    lda $0000,Y
+    beq C0DCB1_FrameCallback_ProcessDelayedActions_LDCB1
+    tyx
+    dec A
+    sta $0000,X
+    bne C0DCB1_FrameCallback_ProcessDelayedActions_LDCB1
+    iny
+    iny
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    pha
+    lda $06
+    sta $00BC
+    lda $08
+    sta $00BE
+    pla
+    jsl $C09279
+C0DCB1_FrameCallback_ProcessDelayedActions_LDCB1:
+    ldy $0E
+    tya
+    clc
+    adc.w #$0006
+    tay
+    sty $0E
+    inc $02
+C0DCBD_FrameCallback_ProcessDelayedActions_LDCBD:
+    lda $02
+    cmp.w #$0004
+    bcc C0DC89_FrameCallback_ProcessDelayedActions_LDC89
+C0DCC4_FrameCallback_ProcessDelayedActions_LDCC4:
+    pld
+    rts
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $88E0
+    cmp.w #$FFFF
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda $9643
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda $5D60
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda $4DBA
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda $9E56
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda.w #$0307
+    jsl !C21628_CheckEventFlag
+    cmp.w #$0000
+    bne C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D
+    lda.w #$D33E
+    sta $0E
+    lda.w #$00C7
+    sta $10
+    lda.w #$000A
+    jsl $C064E3
+    lda.w #$0001
+    sta $9E56
+C0DD0D_FrameCallback_ProcessDelayedActions_LDD0D:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16030,13 +31917,23 @@ C0DD0F_FrameCallback_ProcessDelayedActions_End:
 hirom
 org $C0DD0F
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C09466_RefreshActiveEntitySpriteState = $C09466
 C0DD0F_WaitForFramePumpIdle:
-
-; Original data gap before C0DD2C_WaitForFramePumpIdle_End:
-db $C2,$31,$80,$10,$22,$B1,$88,$C0,$22,$66,$94,$C0,$22,$26,$8B,$C0
-db $22,$56,$87,$C0,$AD,$28,$00,$29,$FF,$00,$D0,$E8,$60
-
-C0DD2C_WaitForFramePumpIdle_End:
+    rep #$31
+    bra C0DD23_WaitForFramePumpIdle_LDD23
+C0DD13_WaitForFramePumpIdle_LDD13:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+C0DD23_WaitForFramePumpIdle_LDD23:
+    lda $0028
+    and.w #$00FF
+    bne C0DD13_WaitForFramePumpIdle_LDD13
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16046,14 +31943,32 @@ C0DD2C_WaitForFramePumpIdle_End:
 hirom
 org $C0DD2C
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C09466_RefreshActiveEntitySpriteState = $C09466
 C0DD2C_WaitFramePumpCountA:
-
-; Original data gap before C0DD53_WaitFramePumpCountA_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$80,$15,$22,$B1
-db $88,$C0,$22,$66,$94,$C0,$22,$26,$8B,$C0,$22,$56,$87,$C0,$A5,$0E
-db $3A,$85,$0E,$D0,$E9,$2B,$6B
-
-C0DD53_WaitFramePumpCountA_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    bra C0DD4F_WaitFramePumpCountA_LDD4F
+C0DD3A_WaitFramePumpCountA_LDD3A:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $0E
+    dec A
+    sta $0E
+C0DD4F_WaitFramePumpCountA_LDD4F:
+    bne C0DD3A_WaitFramePumpCountA_LDD3A
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16064,13 +31979,26 @@ hirom
 org $C0DD53
 
 C0DD53_SetTeleportStateSelectors:
-
-; Original data gap before C0DD79_SetTeleportStateSelectors_End:
-db $C2,$31,$0B,$48,$7B,$69,$F1,$FF,$5B,$68,$E2,$20,$85,$00,$A5,$1D
-db $85,$0E,$C2,$20,$A5,$00,$29,$FF,$00,$8D,$3F,$9F,$A5,$0E,$29,$FF
-db $00,$8D,$41,$9F,$2B,$6B
-
-C0DD79_SetTeleportStateSelectors_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF1
+    tcd
+    pla
+    sep #$20
+    sta $00
+    lda $1D
+    sta $0E
+    rep #$20
+    lda $00
+    and.w #$00FF
+    sta $9F3F
+    lda $0E
+    and.w #$00FF
+    sta $9F41
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16080,21 +32008,89 @@ C0DD79_SetTeleportStateSelectors_End:
 hirom
 org $C0DD79
 
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C2165E_SetEventFlagOrState = $C2165E
 C0DD79_PrepareTeleportDestinationState:
-
-; Original data gap before C0DE16_PrepareTeleportDestinationState_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$3F,$9F,$85,$02,$A0,$01,$00
-db $84,$10,$80,$0D,$A2,$00,$00,$98,$22,$5E,$16,$C2,$A4,$10,$C8,$84
-db $10,$C0,$0A,$00,$90,$EE,$F0,$EC,$A9,$80,$78,$85,$06,$A9,$D5,$00
-db $85,$08,$A5,$02,$A0,$1F,$00,$22,$F7,$8F,$C0,$85,$10,$18,$69,$1B
-db $00,$A6,$06,$86,$0A,$A6,$08,$86,$0C,$18,$65,$0A,$85,$0A,$A7,$0A
-db $AA,$8E,$8A,$43,$A5,$10,$18,$69,$1D,$00,$18,$65,$06,$85,$06,$A7
-db $06,$85,$10,$8D,$8C,$43,$8A,$0A,$0A,$0A,$85,$02,$A5,$10,$0A,$0A
-db $0A,$85,$0E,$AD,$41,$9F,$C9,$03,$00,$F0,$08,$A5,$02,$18,$69,$3C
-db $01,$85,$02,$A9,$FF,$FF,$8D,$D4,$5D,$8D,$70,$43,$8D,$6E,$43,$A0
-db $06,$00,$A5,$0E,$AA,$A5,$02,$22,$B2,$19,$C0,$2B,$6B
-
-C0DE16_PrepareTeleportDestinationState_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $9F3F
+    sta $02
+    ldy.w #$0001
+    sty $10
+    bra C0DD9A_PrepareTeleportDestinationState_LDD9A
+C0DD8D_PrepareTeleportDestinationState_LDD8D:
+    ldx.w #$0000
+    tya
+    jsl !C2165E_SetEventFlagOrState
+    ldy $10
+    iny
+    sty $10
+C0DD9A_PrepareTeleportDestinationState_LDD9A:
+    cpy.w #$000A
+    bcc C0DD8D_PrepareTeleportDestinationState_LDD8D
+    beq C0DD8D_PrepareTeleportDestinationState_LDD8D
+    lda.w #$7880
+    sta $06
+    lda.w #$00D5
+    sta $08
+    lda $02
+    ldy.w #$001F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    sta $10
+    clc
+    adc.w #$001B
+    ldx $06
+    stx $0A
+    ldx $08
+    stx $0C
+    clc
+    adc $0A
+    sta $0A
+    lda [$0A]
+    tax
+    stx $438A
+    lda $10
+    clc
+    adc.w #$001D
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    sta $10
+    sta $438C
+    txa
+    asl A
+    asl A
+    asl A
+    sta $02
+    lda $10
+    asl A
+    asl A
+    asl A
+    sta $0E
+    lda $9F41
+    cmp.w #$0003
+    beq C0DDFC_PrepareTeleportDestinationState_LDDFC
+    lda $02
+    clc
+    adc.w #$013C
+    sta $02
+C0DDFC_PrepareTeleportDestinationState_LDDFC:
+    lda.w #$FFFF
+    sta $5DD4
+    sta $4370
+    sta $436E
+    ldy.w #$0006
+    lda $0E
+    tax
+    lda $02
+    jsl !C019B2_RestorePartyStateAfterTransition
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16105,13 +32101,33 @@ hirom
 org $C0DE16
 
 C0DE16_FreezeTeleportTransitionObjects:
-
-; Original data gap before C0DE46_FreezeTeleportTransitionObjects_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A0,$18,$00,$80,$1C,$98,$0A,$85
-db $0E,$AA,$A9,$08,$00,$9D,$12,$0F,$A5,$0E,$18,$69,$02,$10,$AA,$BD
-db $00,$00,$09,$00,$08,$9D,$00,$00,$C8,$C0,$1E,$00,$90,$DF,$2B,$60
-
-C0DE46_FreezeTeleportTransitionObjects_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    ldy.w #$0018
+    bra C0DE3F_FreezeTeleportTransitionObjects_LDE3F
+C0DE23_FreezeTeleportTransitionObjects_LDE23:
+    tya
+    asl A
+    sta $0E
+    tax
+    lda.w #$0008
+    sta $0F12,X
+    lda $0E
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$0800
+    sta $0000,X
+    iny
+C0DE3F_FreezeTeleportTransitionObjects_LDE3F:
+    cpy.w #$001E
+    bcc C0DE23_FreezeTeleportTransitionObjects_LDE23
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16121,15 +32137,30 @@ C0DE46_FreezeTeleportTransitionObjects_End:
 hirom
 org $C0DE46
 
+!C08E9A_GetRandom16 = $C08E9A
 C0DE46_InitializeTeleportTransitionObjectsAndVectors:
-
-; Original data gap before C0DE7C_InitializeTeleportTransitionObjectsAndVectors_End:
-db $C2,$31,$20,$16,$DE,$22,$9A,$8E,$C0,$EB,$29,$00,$FF,$8D,$61,$9F
-db $AD,$41,$9F,$C9,$02,$00,$D0,$08,$A9,$04,$00,$8D,$63,$9F,$80,$09
-db $A9,$08,$00,$8D,$63,$9F,$9C,$65,$9F,$AD,$77,$98,$8D,$67,$9F,$AD
-db $7B,$98,$8D,$69,$9F,$60
-
-C0DE7C_InitializeTeleportTransitionObjectsAndVectors_End:
+    rep #$31
+    jsr $DE16
+    jsl !C08E9A_GetRandom16
+    xba
+    and.w #$FF00
+    sta $9F61
+    lda $9F41
+    cmp.w #$0002
+    bne C0DE66_InitializeTeleportTransitionObjectsAndVectors_LDE66
+    lda.w #$0004
+    sta $9F63
+    bra C0DE6F_InitializeTeleportTransitionObjectsAndVectors_LDE6F
+C0DE66_InitializeTeleportTransitionObjectsAndVectors_LDE66:
+    lda.w #$0008
+    sta $9F63
+    stz $9F65
+C0DE6F_InitializeTeleportTransitionObjectsAndVectors_LDE6F:
+    lda $9877
+    sta $9F67
+    lda $987B
+    sta $9F69
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16140,16 +32171,50 @@ hirom
 org $C0DE7C
 
 C0DE7C_UnfreezeTeleportTransitionObjects:
-
-; Original data gap before C0DED9_UnfreezeTeleportTransitionObjects_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A9,$CE,$99,$8D,$C6,$4D,$A0,$18
-db $00,$80,$3F,$98,$0A,$85,$0E,$AA,$A9,$08,$00,$9D,$12,$0F,$A5,$0E
-db $18,$69,$02,$10,$AA,$BD,$00,$00,$29,$FF,$F7,$9D,$00,$00,$A5,$0E
-db $18,$69,$9E,$28,$AA,$BD,$00,$00,$29,$FF,$7F,$9D,$00,$00,$A9,$FF
-db $FF,$AE,$C6,$4D,$9D,$37,$00,$AD,$C6,$4D,$18,$69,$5F,$00,$8D,$C6
-db $4D,$C8,$C0,$1E,$00,$90,$BC,$22,$ED,$69,$C0,$2B,$60
-
-C0DED9_UnfreezeTeleportTransitionObjects_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda.w #$99CE
+    sta $4DC6
+    ldy.w #$0018
+    bra C0DECE_UnfreezeTeleportTransitionObjects_LDECE
+C0DE8F_UnfreezeTeleportTransitionObjects_LDE8F:
+    tya
+    asl A
+    sta $0E
+    tax
+    lda.w #$0008
+    sta $0F12,X
+    lda $0E
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    and.w #$F7FF
+    sta $0000,X
+    lda $0E
+    clc
+    adc.w #$289E
+    tax
+    lda $0000,X
+    and.w #$7FFF
+    sta $0000,X
+    lda.w #$FFFF
+    ldx $4DC6
+    sta $0037,X
+    lda $4DC6
+    clc
+    adc.w #$005F
+    sta $4DC6
+    iny
+C0DECE_UnfreezeTeleportTransitionObjects_LDECE:
+    cpy.w #$001E
+    bcc C0DE8F_UnfreezeTeleportTransitionObjects_LDE8F
+    jsl $C069ED
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16160,15 +32225,44 @@ hirom
 org $C0DED9
 
 C0DED9_ProbeTeleportTwoPointFootprintCollision:
-
-; Original data gap before C0DF22_ProbeTeleportTwoPointFootprintCollision_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$84,$12,$86,$04,$85,$10
-db $A6,$22,$86,$0E,$AD,$43,$9F,$F0,$05,$A9,$00,$00,$80,$29,$A9,$89
-db $98,$85,$02,$A6,$02,$BD,$00,$00,$A8,$A6,$04,$A5,$10,$22,$33,$5F
-db $C0,$85,$04,$A6,$02,$BD,$00,$00,$A8,$A6,$0E,$A5,$12,$22,$33,$5F
-db $C0,$85,$02,$A5,$04,$05,$02,$2B,$60
-
-C0DF22_ProbeTeleportTwoPointFootprintCollision_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sty $12
+    stx $04
+    sta $10
+    ldx $22
+    stx $0E
+    lda $9F43
+    beq C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7
+    lda.w #$0000
+    bra C0DF20_ProbeTeleportTwoPointFootprintCollision_LDF20
+C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7:
+    lda.w #$9889
+    sta $02
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $04
+    lda $10
+    jsl $C05F33
+    sta $04
+    ldx $02
+    lda $0000,X
+    tay
+    ldx $0E
+    lda $12
+    jsl $C05F33
+    sta $02
+    lda $04
+    ora $02
+C0DF20_ProbeTeleportTwoPointFootprintCollision_LDF20:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16179,50 +32273,309 @@ hirom
 org $C0DF22
 
 C0DF22_UpdateTeleportDirectionVectorState:
-
-; Original data gap before C0E196_UpdateTeleportDirectionVectorState_End:
-db $C2,$31,$0B,$48,$7B,$69,$EC,$FF,$5B,$68,$85,$12,$AD,$43,$9F,$C9
-db $01,$00,$F0,$08,$C9,$03,$00,$F0,$4D,$4C,$D0,$DF,$AD,$87,$98,$C9
-db $03,$00,$D0,$21,$AD,$45,$9F,$85,$06,$AD,$47,$9F,$85,$08,$18,$A5
-db $06,$69,$1E,$05,$85,$06,$90,$02,$E6,$08,$A5,$06,$85,$0E,$A5,$08
-db $85,$10,$4C,$16,$E0,$AD,$45,$9F,$85,$06,$AD,$47,$9F,$85,$08,$18
-db $A5,$06,$69,$33,$33,$85,$06,$90,$02,$E6,$08,$A5,$06,$85,$0E,$A5
-db $08,$85,$10,$4C,$16,$E0,$AD,$87,$98,$C9,$03,$00,$D0,$20,$AD,$45
-db $9F,$85,$06,$AD,$47,$9F,$85,$08,$38,$A5,$06,$E9,$99,$19,$85,$06
-db $B0,$02,$C6,$08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$80,$66,$AD,$45
-db $9F,$85,$06,$AD,$47,$9F,$85,$08,$38,$A5,$06,$E9,$99,$19,$85,$06
-db $B0,$02,$C6,$08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$80,$46,$AD,$87
-db $98,$C9,$03,$00,$D0,$20,$AD,$45,$9F,$85,$06,$AD,$47,$9F,$85,$08
-db $18,$A5,$06,$69,$FB,$29,$85,$06,$90,$02,$E6,$08,$A5,$06,$85,$0E
-db $A5,$08,$85,$10,$80,$1E,$AD,$45,$9F,$85,$06,$AD,$47,$9F,$85,$08
-db $18,$A5,$06,$69,$51,$18,$85,$06,$90,$02,$E6,$08,$A5,$06,$85,$0E
-db $A5,$08,$85,$10,$A5,$0E,$85,$06,$A5,$10,$85,$08,$A5,$06,$8D,$45
-db $9F,$A5,$08,$8D,$47,$9F,$A5,$12,$29,$01,$00,$F0,$50,$A5,$0E,$85
-db $06,$A5,$10,$85,$08,$A5,$07,$85,$06,$E2,$20,$A5,$09,$85,$08,$64
-db $09,$10,$02,$C6,$09,$C2,$20,$A9,$05,$B5,$85,$0A,$A9,$00,$00,$85
-db $0C,$22,$86,$90,$C0,$A5,$07,$85,$06,$E2,$20,$A5,$09,$85,$08,$64
-db $09,$10,$02,$C6,$09,$C2,$20,$A5,$06,$8D,$49,$9F,$A5,$08,$8D,$4B
-db $9F,$A5,$06,$8D,$4D,$9F,$A5,$08,$8D,$4F,$9F,$80,$1C,$A5,$0E,$85
-db $06,$A5,$10,$85,$08,$A5,$06,$8D,$4D,$9F,$A5,$08,$8D,$4F,$9F,$A5
-db $06,$8D,$49,$9F,$A5,$08,$8D,$4B,$9F,$A5,$12,$F0,$27,$C9,$04,$00
-db $F0,$45,$C9,$06,$00,$F0,$4F,$C9,$02,$00,$F0,$6D,$C9,$01,$00,$F0
-db $76,$C9,$07,$00,$D0,$03,$4C,$4E,$E1,$C9,$05,$00,$D0,$03,$4C,$71
-db $E1,$4C,$94,$E1,$AD,$4D,$9F,$85,$06,$AD,$4F,$9F,$85,$08,$38,$A9
-db $00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$8D
-db $4D,$9F,$A5,$08,$8D,$4F,$9F,$A9,$00,$00,$8D,$49,$9F,$A9,$00,$00
-db $8D,$4B,$9F,$4C,$94,$E1,$AD,$49,$9F,$85,$06,$AD,$4B,$9F,$85,$08
-db $38,$A9,$00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08,$A5
-db $06,$8D,$49,$9F,$A5,$08,$8D,$4B,$9F,$A9,$00,$00,$8D,$4D,$9F,$A9
-db $00,$00,$8D,$4F,$9F,$80,$6B,$AD,$4D,$9F,$85,$06,$AD,$4F,$9F,$85
-db $08,$38,$A9,$00,$00,$E5,$06,$85,$06,$A9,$00,$00,$E5,$08,$85,$08
-db $A5,$06,$8D,$4D,$9F,$A5,$08,$8D,$4F,$9F,$80,$46,$AD,$4D,$9F,$85
-db $06,$AD,$4F,$9F,$85,$08,$38,$A9,$00,$00,$E5,$06,$85,$06,$A9,$00
-db $00,$E5,$08,$85,$08,$A5,$06,$8D,$4D,$9F,$A5,$08,$8D,$4F,$9F,$AD
-db $49,$9F,$85,$06,$AD,$4B,$9F,$85,$08,$38,$A9,$00,$00,$E5,$06,$85
-db $06,$A9,$00,$00,$E5,$08,$85,$08,$A5,$06,$8D,$49,$9F,$A5,$08,$8D
-db $4B,$9F,$2B,$60
-
-C0E196_UpdateTeleportDirectionVectorState_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEC
+    tcd
+    pla
+    sta $12
+    lda $9F43
+    cmp.w #$0001
+    beq C0DF3E_UpdateTeleportDirectionVectorState_LDF3E
+    cmp.w #$0003
+    beq C0DF88_UpdateTeleportDirectionVectorState_LDF88
+    jmp.w C0DFD0_UpdateTeleportDirectionVectorState_LDFD0
+C0DF3E_UpdateTeleportDirectionVectorState_LDF3E:
+    lda $9887
+    cmp.w #$0003
+    bne C0DF67_UpdateTeleportDirectionVectorState_LDF67
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    clc
+    lda $06
+    adc.w #$051E
+    sta $06
+    bcc C0DF5C_UpdateTeleportDirectionVectorState_LDF5C
+    inc $08
+C0DF5C_UpdateTeleportDirectionVectorState_LDF5C:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jmp.w C0E016_UpdateTeleportDirectionVectorState_LE016
+C0DF67_UpdateTeleportDirectionVectorState_LDF67:
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    clc
+    lda $06
+    adc.w #$3333
+    sta $06
+    bcc C0DF7D_UpdateTeleportDirectionVectorState_LDF7D
+    inc $08
+C0DF7D_UpdateTeleportDirectionVectorState_LDF7D:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jmp.w C0E016_UpdateTeleportDirectionVectorState_LE016
+C0DF88_UpdateTeleportDirectionVectorState_LDF88:
+    lda $9887
+    cmp.w #$0003
+    bne C0DFB0_UpdateTeleportDirectionVectorState_LDFB0
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    sec
+    lda $06
+    sbc.w #$1999
+    sta $06
+    bcs C0DFA6_UpdateTeleportDirectionVectorState_LDFA6
+    dec $08
+C0DFA6_UpdateTeleportDirectionVectorState_LDFA6:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    bra C0E016_UpdateTeleportDirectionVectorState_LE016
+C0DFB0_UpdateTeleportDirectionVectorState_LDFB0:
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    sec
+    lda $06
+    sbc.w #$1999
+    sta $06
+    bcs C0DFC6_UpdateTeleportDirectionVectorState_LDFC6
+    dec $08
+C0DFC6_UpdateTeleportDirectionVectorState_LDFC6:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    bra C0E016_UpdateTeleportDirectionVectorState_LE016
+C0DFD0_UpdateTeleportDirectionVectorState_LDFD0:
+    lda $9887
+    cmp.w #$0003
+    bne C0DFF8_UpdateTeleportDirectionVectorState_LDFF8
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    clc
+    lda $06
+    adc.w #$29FB
+    sta $06
+    bcc C0DFEE_UpdateTeleportDirectionVectorState_LDFEE
+    inc $08
+C0DFEE_UpdateTeleportDirectionVectorState_LDFEE:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    bra C0E016_UpdateTeleportDirectionVectorState_LE016
+C0DFF8_UpdateTeleportDirectionVectorState_LDFF8:
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    clc
+    lda $06
+    adc.w #$1851
+    sta $06
+    bcc C0E00E_UpdateTeleportDirectionVectorState_LE00E
+    inc $08
+C0E00E_UpdateTeleportDirectionVectorState_LE00E:
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+C0E016_UpdateTeleportDirectionVectorState_LE016:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $9F45
+    lda $08
+    sta $9F47
+    lda $12
+    and.w #$0001
+    beq C0E07F_UpdateTeleportDirectionVectorState_LE07F
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0E047_UpdateTeleportDirectionVectorState_LE047
+    dec $09
+C0E047_UpdateTeleportDirectionVectorState_LE047:
+    rep #$20
+    lda.w #$B505
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    jsl $C09086
+    lda $07
+    sta $06
+    sep #$20
+    lda $09
+    sta $08
+    stz $09
+    bpl C0E067_UpdateTeleportDirectionVectorState_LE067
+    dec $09
+C0E067_UpdateTeleportDirectionVectorState_LE067:
+    rep #$20
+    lda $06
+    sta $9F49
+    lda $08
+    sta $9F4B
+    lda $06
+    sta $9F4D
+    lda $08
+    sta $9F4F
+    bra C0E09B_UpdateTeleportDirectionVectorState_LE09B
+C0E07F_UpdateTeleportDirectionVectorState_LE07F:
+    lda $0E
+    sta $06
+    lda $10
+    sta $08
+    lda $06
+    sta $9F4D
+    lda $08
+    sta $9F4F
+    lda $06
+    sta $9F49
+    lda $08
+    sta $9F4B
+C0E09B_UpdateTeleportDirectionVectorState_LE09B:
+    lda $12
+    beq C0E0C6_UpdateTeleportDirectionVectorState_LE0C6
+    cmp.w #$0004
+    beq C0E0E9_UpdateTeleportDirectionVectorState_LE0E9
+    cmp.w #$0006
+    beq C0E0F8_UpdateTeleportDirectionVectorState_LE0F8
+    cmp.w #$0002
+    beq C0E11B_UpdateTeleportDirectionVectorState_LE11B
+    cmp.w #$0001
+    beq C0E129_UpdateTeleportDirectionVectorState_LE129
+    cmp.w #$0007
+    bne C0E0BB_UpdateTeleportDirectionVectorState_LE0BB
+    jmp.w C0E14E_UpdateTeleportDirectionVectorState_LE14E
+C0E0BB_UpdateTeleportDirectionVectorState_LE0BB:
+    cmp.w #$0005
+    bne C0E0C3_UpdateTeleportDirectionVectorState_LE0C3
+    jmp.w C0E171_UpdateTeleportDirectionVectorState_LE171
+C0E0C3_UpdateTeleportDirectionVectorState_LE0C3:
+    jmp.w C0E194_UpdateTeleportDirectionVectorState_LE194
+C0E0C6_UpdateTeleportDirectionVectorState_LE0C6:
+    lda $9F4D
+    sta $06
+    lda $9F4F
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $9F4D
+    lda $08
+    sta $9F4F
+C0E0E9_UpdateTeleportDirectionVectorState_LE0E9:
+    lda.w #$0000
+    sta $9F49
+    lda.w #$0000
+    sta $9F4B
+    jmp.w C0E194_UpdateTeleportDirectionVectorState_LE194
+C0E0F8_UpdateTeleportDirectionVectorState_LE0F8:
+    lda $9F49
+    sta $06
+    lda $9F4B
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $9F49
+    lda $08
+    sta $9F4B
+C0E11B_UpdateTeleportDirectionVectorState_LE11B:
+    lda.w #$0000
+    sta $9F4D
+    lda.w #$0000
+    sta $9F4F
+    bra C0E194_UpdateTeleportDirectionVectorState_LE194
+C0E129_UpdateTeleportDirectionVectorState_LE129:
+    lda $9F4D
+    sta $06
+    lda $9F4F
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $9F4D
+    lda $08
+    sta $9F4F
+    bra C0E194_UpdateTeleportDirectionVectorState_LE194
+C0E14E_UpdateTeleportDirectionVectorState_LE14E:
+    lda $9F4D
+    sta $06
+    lda $9F4F
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $9F4D
+    lda $08
+    sta $9F4F
+C0E171_UpdateTeleportDirectionVectorState_LE171:
+    lda $9F49
+    sta $06
+    lda $9F4B
+    sta $08
+    sec
+    lda.w #$0000
+    sbc $06
+    sta $06
+    lda.w #$0000
+    sbc $08
+    sta $08
+    lda $06
+    sta $9F49
+    lda $08
+    sta $9F4B
+C0E194_UpdateTeleportDirectionVectorState_LE194:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16233,18 +32586,64 @@ hirom
 org $C0E196
 
 C0E196_SnapshotTeleportPlayerStateToRing:
-
-; Original data gap before C0E214_SnapshotTeleportPlayerStateToRing_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$A9,$7D,$98,$85,$04,$85,$14,$A6
-db $04,$BD,$00,$00,$85,$04,$0A,$65,$04,$0A,$0A,$18,$69,$56,$51,$85
-db $02,$A9,$77,$98,$85,$12,$AA,$BD,$00,$00,$A6,$02,$9D,$00,$00,$A2
-db $7B,$98,$86,$10,$BD,$00,$00,$A6,$02,$9D,$02,$00,$AC,$89,$98,$A6
-db $10,$BD,$00,$00,$AA,$86,$0E,$A5,$12,$AA,$BD,$00,$00,$A6,$0E,$22
-db $33,$5F,$C0,$A6,$02,$9D,$04,$00,$A6,$02,$9E,$06,$00,$AD,$7F,$98
-db $A6,$02,$9D,$08,$00,$A5,$14,$85,$04,$A6,$04,$BD,$00,$00,$1A,$A6
-db $04,$9D,$00,$00,$29,$FF,$00,$A6,$04,$9D,$00,$00,$2B,$60
-
-C0E214_SnapshotTeleportPlayerStateToRing_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda.w #$987D
+    sta $04
+    sta $14
+    ldx $04
+    lda $0000,X
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    sta $02
+    lda.w #$9877
+    sta $12
+    tax
+    lda $0000,X
+    ldx $02
+    sta $0000,X
+    ldx.w #$987B
+    stx $10
+    lda $0000,X
+    ldx $02
+    sta $0002,X
+    ldy $9889
+    ldx $10
+    lda $0000,X
+    tax
+    stx $0E
+    lda $12
+    tax
+    lda $0000,X
+    ldx $0E
+    jsl $C05F33
+    ldx $02
+    sta $0004,X
+    ldx $02
+    stz $0006,X
+    lda $987F
+    ldx $02
+    sta $0008,X
+    lda $14
+    sta $04
+    ldx $04
+    lda $0000,X
+    inc A
+    ldx $04
+    sta $0000,X
+    and.w #$00FF
+    ldx $04
+    sta $0000,X
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16255,14 +32654,42 @@ hirom
 org $C0E214
 
 C0E214_AdvanceTeleportObjectSnapshotRingCursor:
-
-; Original data gap before C0E254_AdvanceTeleportObjectSnapshotRingCursor_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$02,$9B,$8A,$1A,$29
-db $FF,$00,$85,$10,$A5,$02,$85,$04,$E6,$04,$AD,$8B,$98,$29,$FF,$00
-db $C5,$04,$D0,$04,$A5,$10,$80,$16,$AD,$47,$9F,$D0,$03,$98,$80,$0E
-db $A9,$02,$00,$85,$0E,$A2,$06,$00,$A5,$02,$22,$C3,$3E,$C0,$2B,$60
-
-C0E254_AdvanceTeleportObjectSnapshotRingCursor_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $02
+    txy
+    txa
+    inc A
+    and.w #$00FF
+    sta $10
+    lda $02
+    sta $04
+    inc $04
+    lda $988B
+    and.w #$00FF
+    cmp $04
+    bne C0E23C_AdvanceTeleportObjectSnapshotRingCursor_LE23C
+    lda $10
+    bra C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252
+C0E23C_AdvanceTeleportObjectSnapshotRingCursor_LE23C:
+    lda $9F47
+    bne C0E244_AdvanceTeleportObjectSnapshotRingCursor_LE244
+    tya
+    bra C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252
+C0E244_AdvanceTeleportObjectSnapshotRingCursor_LE244:
+    lda.w #$0002
+    sta $0E
+    ldx.w #$0006
+    lda $02
+    jsl $C03EC3
+C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16273,14 +32700,42 @@ hirom
 org $C0E254
 
 C0E254_UpdateTeleportTransitionObjectCadence:
-
-; Original data gap before C0E28F_UpdateTeleportTransitionObjectCadence_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$A9,$0C,$00,$38,$ED,$47,$9F,$AA
-db $86,$10,$F0,$06,$8A,$29,$00,$80,$F0,$05,$A2,$01,$00,$86,$10,$A9
-db $18,$00,$85,$0E,$80,$0E,$A6,$10,$DA,$0A,$AA,$68,$9D,$12,$0F,$A5
-db $0E,$1A,$85,$0E,$C9,$1D,$00,$90,$ED,$2B,$60
-
-C0E28F_UpdateTeleportTransitionObjectCadence_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda.w #$000C
+    sec
+    sbc $9F47
+    tax
+    stx $10
+    beq C0E26E_UpdateTeleportTransitionObjectCadence_LE26E
+    txa
+    and.w #$8000
+    beq C0E273_UpdateTeleportTransitionObjectCadence_LE273
+C0E26E_UpdateTeleportTransitionObjectCadence_LE26E:
+    ldx.w #$0001
+    stx $10
+C0E273_UpdateTeleportTransitionObjectCadence_LE273:
+    lda.w #$0018
+    sta $0E
+    bra C0E288_UpdateTeleportTransitionObjectCadence_LE288
+C0E27A_UpdateTeleportTransitionObjectCadence_LE27A:
+    ldx $10
+    phx
+    asl A
+    tax
+    pla
+    sta $0F12,X
+    lda $0E
+    inc A
+    sta $0E
+C0E288_UpdateTeleportTransitionObjectCadence_LE288:
+    cmp.w #$001D
+    bcc C0E27A_UpdateTeleportTransitionObjectCadence_LE27A
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16291,30 +32746,137 @@ hirom
 org $C0E28F
 
 C0E28F_TickTeleportStraightMovementCallback:
-
-; Original data gap before C0E3C1_TickTeleportStraightMovementCallback_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$A9,$01,$00,$8D,$85,$98,$A9,$00
-db $00,$22,$4F,$40,$C0,$85,$02,$AD,$7F,$98,$85,$16,$A5,$02,$49,$04
-db $00,$85,$04,$A5,$16,$C5,$04,$D0,$02,$85,$02,$A5,$02,$C9,$FF,$FF
-db $D0,$05,$AD,$7F,$98,$85,$02,$A5,$02,$8D,$7F,$98,$AD,$60,$5D,$F0
-db $0C,$A9,$02,$00,$8D,$43,$9F,$A9,$01,$00,$8D,$C2,$4D,$A5,$02,$20
-db $22,$DF,$AD,$75,$98,$85,$0A,$AD,$77,$98,$85,$0C,$AD,$49,$9F,$85
-db $06,$AD,$4B,$9F,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65
-db $0C,$85,$08,$A5,$06,$8D,$51,$9F,$A5,$08,$8D,$53,$9F,$AD,$79,$98
-db $85,$0A,$AD,$7B,$98,$85,$0C,$AD,$4D,$9F,$85,$06,$AD,$4F,$9F,$85
-db $08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C,$85,$08,$A5,$06
-db $8D,$55,$9F,$A5,$08,$8D,$57,$9F,$AC,$89,$98,$AE,$57,$9F,$AD,$53
-db $9F,$22,$F6,$5F,$C0,$C9,$FF,$FF,$F0,$06,$A9,$02,$00,$8D,$43,$9F
-db $AD,$57,$9F,$85,$0E,$A5,$02,$85,$10,$AC,$53,$9F,$AE,$7B,$98,$AD
-db $77,$98,$20,$D9,$DE,$29,$C0,$00,$F0,$06,$A9,$02,$00,$8D,$43,$9F
-db $AD,$43,$9F,$C9,$02,$00,$F0,$28,$AD,$51,$9F,$85,$06,$AD,$53,$9F
-db $85,$08,$A5,$06,$8D,$75,$98,$A5,$08,$8D,$77,$98,$AD,$55,$9F,$85
-db $06,$AD,$57,$9F,$85,$08,$A5,$06,$8D,$79,$98,$A5,$08,$8D,$7B,$98
-db $AE,$7B,$98,$AD,$77,$98,$22,$0E,$40,$C0,$20,$96,$E1,$20,$54,$E2
-db $AD,$47,$9F,$C9,$09,$00,$90,$08,$F0,$06,$A9,$01,$00,$8D,$43,$9F
-db $2B,$6B
-
-C0E3C1_TickTeleportStraightMovementCallback_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda.w #$0001
+    sta $9885
+    lda.w #$0000
+    jsl $C0404F
+    sta $02
+    lda $987F
+    sta $16
+    lda $02
+    eor.w #$0004
+    sta $04
+    lda $16
+    cmp $04
+    bne C0E2BA_TickTeleportStraightMovementCallback_LE2BA
+    sta $02
+C0E2BA_TickTeleportStraightMovementCallback_LE2BA:
+    lda $02
+    cmp.w #$FFFF
+    bne C0E2C6_TickTeleportStraightMovementCallback_LE2C6
+    lda $987F
+    sta $02
+C0E2C6_TickTeleportStraightMovementCallback_LE2C6:
+    lda $02
+    sta $987F
+    lda $5D60
+    beq C0E2DC_TickTeleportStraightMovementCallback_LE2DC
+    lda.w #$0002
+    sta $9F43
+    lda.w #$0001
+    sta $4DC2
+C0E2DC_TickTeleportStraightMovementCallback_LE2DC:
+    lda $02
+    jsr $DF22
+    lda $9875
+    sta $0A
+    lda $9877
+    sta $0C
+    lda $9F49
+    sta $06
+    lda $9F4B
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $9F51
+    lda $08
+    sta $9F53
+    lda $9879
+    sta $0A
+    lda $987B
+    sta $0C
+    lda $9F4D
+    sta $06
+    lda $9F4F
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $9F55
+    lda $08
+    sta $9F57
+    ldy $9889
+    ldx $9F57
+    lda $9F53
+    jsl $C05FF6
+    cmp.w #$FFFF
+    beq C0E34F_TickTeleportStraightMovementCallback_LE34F
+    lda.w #$0002
+    sta $9F43
+C0E34F_TickTeleportStraightMovementCallback_LE34F:
+    lda $9F57
+    sta $0E
+    lda $02
+    sta $10
+    ldy $9F53
+    ldx $987B
+    lda $9877
+    jsr $DED9
+    and.w #$00C0
+    beq C0E36F_TickTeleportStraightMovementCallback_LE36F
+    lda.w #$0002
+    sta $9F43
+C0E36F_TickTeleportStraightMovementCallback_LE36F:
+    lda $9F43
+    cmp.w #$0002
+    beq C0E39F_TickTeleportStraightMovementCallback_LE39F
+    lda $9F51
+    sta $06
+    lda $9F53
+    sta $08
+    lda $06
+    sta $9875
+    lda $08
+    sta $9877
+    lda $9F55
+    sta $06
+    lda $9F57
+    sta $08
+    lda $06
+    sta $9879
+    lda $08
+    sta $987B
+C0E39F_TickTeleportStraightMovementCallback_LE39F:
+    ldx $987B
+    lda $9877
+    jsl $C0400E
+    jsr $E196
+    jsr $E254
+    lda $9F47
+    cmp.w #$0009
+    bcc C0E3BF_TickTeleportStraightMovementCallback_LE3BF
+    beq C0E3BF_TickTeleportStraightMovementCallback_LE3BF
+    lda.w #$0001
+    sta $9F43
+C0E3BF_TickTeleportStraightMovementCallback_LE3BF:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16324,20 +32886,71 @@ C0E3C1_TickTeleportStraightMovementCallback_End:
 hirom
 org $C0E3C1
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0E3C1_RestoreTeleportObjectFromSnapshotRing:
-
-; Original data gap before C0E44D_RestoreTeleportObjectFromSnapshotRing_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$AD,$42,$1A,$0A,$85,$04,$85,$14
-db $A6,$04,$BD,$9A,$0E,$A0,$5F,$00,$22,$F7,$8F,$C0,$18,$69,$CE,$99
-db $AA,$86,$12,$8E,$C6,$4D,$A6,$04,$BD,$5E,$0E,$85,$10,$A6,$12,$BD
-db $3D,$00,$85,$0E,$85,$04,$0A,$65,$04,$0A,$0A,$18,$69,$56,$51,$85
-db $02,$AC,$42,$1A,$A6,$02,$BD,$06,$00,$AA,$A5,$10,$22,$56,$7A,$C0
-db $A6,$02,$BD,$00,$00,$A6,$14,$86,$04,$9D,$8E,$0B,$A6,$02,$BD,$02
-db $00,$A6,$04,$9D,$CA,$0B,$A6,$02,$BD,$08,$00,$A6,$04,$9D,$F6,$2A
-db $A6,$02,$BD,$04,$00,$A6,$04,$9D,$AA,$2B,$A6,$0E,$A5,$10,$20,$14
-db $E2,$29,$FF,$00,$AE,$C6,$4D,$9D,$3D,$00,$2B,$6B
-
-C0E44D_RestoreTeleportObjectFromSnapshotRing_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda $1A42
+    asl A
+    sta $04
+    sta $14
+    ldx $04
+    lda $0E9A,X
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tax
+    stx $12
+    stx $4DC6
+    ldx $04
+    lda $0E5E,X
+    sta $10
+    ldx $12
+    lda $003D,X
+    sta $0E
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    sta $02
+    ldy $1A42
+    ldx $02
+    lda $0006,X
+    tax
+    lda $10
+    jsl $C07A56
+    ldx $02
+    lda $0000,X
+    ldx $14
+    stx $04
+    sta $0B8E,X
+    ldx $02
+    lda $0002,X
+    ldx $04
+    sta $0BCA,X
+    ldx $02
+    lda $0008,X
+    ldx $04
+    sta $2AF6,X
+    ldx $02
+    lda $0004,X
+    ldx $04
+    sta $2BAA,X
+    ldx $0E
+    lda $10
+    jsr $E214
+    and.w #$00FF
+    ldx $4DC6
+    sta $003D,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16348,14 +32961,37 @@ hirom
 org $C0E44D
 
 C0E44D_ApplyTeleportBetaManualSteering:
-
-; Original data gap before C0E48A_ApplyTeleportBetaManualSteering_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$41,$9F,$C9,$04,$00,$F0,$2B
-db $AD,$65,$00,$85,$0E,$29,$00,$08,$F0,$03,$CE,$69,$9F,$A5,$0E,$29
-db $00,$04,$F0,$03,$EE,$69,$9F,$A5,$0E,$29,$00,$02,$F0,$03,$CE,$67
-db $9F,$A5,$0E,$29,$00,$01,$F0,$03,$EE,$67,$9F,$2B,$60
-
-C0E48A_ApplyTeleportBetaManualSteering_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $9F41
+    cmp.w #$0004
+    beq C0E488_ApplyTeleportBetaManualSteering_LE488
+    lda $0065
+    sta $0E
+    and.w #$0800
+    beq C0E46A_ApplyTeleportBetaManualSteering_LE46A
+    dec $9F69
+C0E46A_ApplyTeleportBetaManualSteering_LE46A:
+    lda $0E
+    and.w #$0400
+    beq C0E474_ApplyTeleportBetaManualSteering_LE474
+    inc $9F69
+C0E474_ApplyTeleportBetaManualSteering_LE474:
+    lda $0E
+    and.w #$0200
+    beq C0E47E_ApplyTeleportBetaManualSteering_LE47E
+    dec $9F67
+C0E47E_ApplyTeleportBetaManualSteering_LE47E:
+    lda $0E
+    and.w #$0100
+    beq C0E488_ApplyTeleportBetaManualSteering_LE488
+    inc $9F67
+C0E488_ApplyTeleportBetaManualSteering_LE488:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16366,19 +33002,68 @@ hirom
 org $C0E48A
 
 C0E48A_SeedTeleportPostSuccessDriftVector:
-
-; Original data gap before C0E516_SeedTeleportPostSuccessDriftVector_End:
-db $C2,$31,$A2,$4F,$9F,$A9,$00,$00,$9D,$00,$00,$A0,$4B,$9F,$99,$00
-db $00,$AD,$7F,$98,$F0,$25,$C9,$01,$00,$F0,$28,$C9,$02,$00,$F0,$31
-db $C9,$03,$00,$F0,$34,$C9,$04,$00,$F0,$3A,$C9,$05,$00,$F0,$3D,$C9
-db $06,$00,$F0,$46,$C9,$07,$00,$F0,$49,$80,$50,$A9,$FB,$FF,$9D,$00
-db $00,$80,$48,$A9,$FB,$FF,$9D,$00,$00,$A9,$05,$00,$99,$00,$00,$80
-db $3A,$A9,$05,$00,$99,$00,$00,$80,$32,$A9,$05,$00,$9D,$00,$00,$99
-db $00,$00,$80,$27,$A9,$05,$00,$9D,$00,$00,$80,$1F,$A9,$05,$00,$9D
-db $00,$00,$A9,$FB,$FF,$99,$00,$00,$80,$11,$A9,$FB,$FF,$99,$00,$00
-db $80,$09,$A9,$FB,$FF,$99,$00,$00,$9D,$00,$00,$60
-
-C0E516_SeedTeleportPostSuccessDriftVector_End:
+    rep #$31
+    ldx.w #$9F4F
+    lda.w #$0000
+    sta $0000,X
+    ldy.w #$9F4B
+    sta $0000,Y
+    lda $987F
+    beq C0E4C5_SeedTeleportPostSuccessDriftVector_LE4C5
+    cmp.w #$0001
+    beq C0E4CD_SeedTeleportPostSuccessDriftVector_LE4CD
+    cmp.w #$0002
+    beq C0E4DB_SeedTeleportPostSuccessDriftVector_LE4DB
+    cmp.w #$0003
+    beq C0E4E3_SeedTeleportPostSuccessDriftVector_LE4E3
+    cmp.w #$0004
+    beq C0E4EE_SeedTeleportPostSuccessDriftVector_LE4EE
+    cmp.w #$0005
+    beq C0E4F6_SeedTeleportPostSuccessDriftVector_LE4F6
+    cmp.w #$0006
+    beq C0E504_SeedTeleportPostSuccessDriftVector_LE504
+    cmp.w #$0007
+    beq C0E50C_SeedTeleportPostSuccessDriftVector_LE50C
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4C5_SeedTeleportPostSuccessDriftVector_LE4C5:
+    lda.w #$FFFB
+    sta $0000,X
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4CD_SeedTeleportPostSuccessDriftVector_LE4CD:
+    lda.w #$FFFB
+    sta $0000,X
+    lda.w #$0005
+    sta $0000,Y
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4DB_SeedTeleportPostSuccessDriftVector_LE4DB:
+    lda.w #$0005
+    sta $0000,Y
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4E3_SeedTeleportPostSuccessDriftVector_LE4E3:
+    lda.w #$0005
+    sta $0000,X
+    sta $0000,Y
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4EE_SeedTeleportPostSuccessDriftVector_LE4EE:
+    lda.w #$0005
+    sta $0000,X
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E4F6_SeedTeleportPostSuccessDriftVector_LE4F6:
+    lda.w #$0005
+    sta $0000,X
+    lda.w #$FFFB
+    sta $0000,Y
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E504_SeedTeleportPostSuccessDriftVector_LE504:
+    lda.w #$FFFB
+    sta $0000,Y
+    bra C0E515_SeedTeleportPostSuccessDriftVector_LE515
+C0E50C_SeedTeleportPostSuccessDriftVector_LE50C:
+    lda.w #$FFFB
+    sta $0000,Y
+    sta $0000,X
+C0E515_SeedTeleportPostSuccessDriftVector_LE515:
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16389,32 +33074,157 @@ hirom
 org $C0E516
 
 C0E516_TickTeleportCurvedMovementCallback:
-
-; Original data gap before C0E674_TickTeleportCurvedMovementCallback_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$A9,$01,$00,$8D,$85,$98,$20,$4D
-db $E4,$AE,$63,$9F,$AD,$61,$9F,$22,$FF,$1F,$C4,$A5,$06,$85,$12,$A5
-db $08,$85,$14,$29,$00,$FF,$EB,$10,$03,$09,$00,$FF,$18,$6D,$67,$9F
-db $AA,$8E,$53,$9F,$A5,$12,$29,$00,$FF,$EB,$10,$03,$09,$00,$FF,$18
-db $6D,$69,$9F,$85,$16,$8D,$57,$9F,$AD,$41,$9F,$C9,$04,$00,$F0,$47
-db $A5,$16,$85,$0E,$AD,$7F,$98,$85,$10,$9B,$AE,$7B,$98,$AD,$77,$98
-db $20,$D9,$DE,$29,$C0,$00,$F0,$06,$A9,$02,$00,$8D,$43,$9F,$AD,$60
-db $5D,$F0,$0C,$A9,$02,$00,$8D,$43,$9F,$A9,$01,$00,$8D,$C2,$4D,$AC
-db $89,$98,$AE,$57,$9F,$AD,$53,$9F,$22,$F6,$5F,$C0,$C9,$FF,$FF,$F0
-db $06,$A9,$02,$00,$8D,$43,$9F,$AD,$43,$9F,$C9,$02,$00,$F0,$0C,$AD
-db $53,$9F,$8D,$77,$98,$AD,$57,$9F,$8D,$7B,$98,$E2,$10,$A0,$0D,$AD
-db $61,$9F,$22,$51,$92,$C0,$1A,$1A,$29,$07,$00,$8D,$7F,$98,$C2,$10
-db $A0,$45,$9F,$B9,$00,$00,$85,$06,$B9,$02,$00,$85,$08,$18,$A5,$06
-db $69,$51,$18,$85,$06,$90,$02,$E6,$08,$A5,$06,$99,$00,$00,$A5,$08
-db $99,$02,$00,$AD,$41,$9F,$C9,$02,$00,$D0,$16,$AD,$61,$9F,$18,$69
-db $00,$0A,$8D,$61,$9F,$AD,$63,$9F,$18,$69,$0C,$00,$8D,$63,$9F,$80
-db $1B,$AD,$65,$9F,$18,$69,$20,$00,$8D,$65,$9F,$18,$6D,$61,$9F,$8D
-db $61,$9F,$AD,$63,$9F,$18,$69,$10,$00,$8D,$63,$9F,$AE,$7B,$98,$AD
-db $77,$98,$22,$0E,$40,$C0,$20,$96,$E1,$20,$54,$E2,$AD,$41,$9F,$C9
-db $02,$00,$D0,$15,$AD,$63,$9F,$C9,$00,$10,$90,$20,$F0,$1E,$A9,$01
-db $00,$8D,$43,$9F,$20,$8A,$E4,$80,$13,$AD,$65,$9F,$C9,$00,$18,$90
-db $0B,$F0,$09,$A9,$01,$00,$8D,$43,$9F,$20,$8A,$E4,$2B,$6B
-
-C0E674_TickTeleportCurvedMovementCallback_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda.w #$0001
+    sta $9885
+    jsr $E44D
+    ldx $9F63
+    lda $9F61
+    jsl $C41FFF
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    and.w #$FF00
+    xba
+    bpl C0E542_TickTeleportCurvedMovementCallback_LE542
+    ora.w #$FF00
+C0E542_TickTeleportCurvedMovementCallback_LE542:
+    clc
+    adc $9F67
+    tax
+    stx $9F53
+    lda $12
+    and.w #$FF00
+    xba
+    bpl C0E555_TickTeleportCurvedMovementCallback_LE555
+    ora.w #$FF00
+C0E555_TickTeleportCurvedMovementCallback_LE555:
+    clc
+    adc $9F69
+    sta $16
+    sta $9F57
+    lda $9F41
+    cmp.w #$0004
+    beq C0E5AD_TickTeleportCurvedMovementCallback_LE5AD
+    lda $16
+    sta $0E
+    lda $987F
+    sta $10
+    txy
+    ldx $987B
+    lda $9877
+    jsr $DED9
+    and.w #$00C0
+    beq C0E584_TickTeleportCurvedMovementCallback_LE584
+    lda.w #$0002
+    sta $9F43
+C0E584_TickTeleportCurvedMovementCallback_LE584:
+    lda $5D60
+    beq C0E595_TickTeleportCurvedMovementCallback_LE595
+    lda.w #$0002
+    sta $9F43
+    lda.w #$0001
+    sta $4DC2
+C0E595_TickTeleportCurvedMovementCallback_LE595:
+    ldy $9889
+    ldx $9F57
+    lda $9F53
+    jsl $C05FF6
+    cmp.w #$FFFF
+    beq C0E5AD_TickTeleportCurvedMovementCallback_LE5AD
+    lda.w #$0002
+    sta $9F43
+C0E5AD_TickTeleportCurvedMovementCallback_LE5AD:
+    lda $9F43
+    cmp.w #$0002
+    beq C0E5C1_TickTeleportCurvedMovementCallback_LE5C1
+    lda $9F53
+    sta $9877
+    lda $9F57
+    sta $987B
+C0E5C1_TickTeleportCurvedMovementCallback_LE5C1:
+    sep #$10
+    ldy.b #$0D
+    lda $9F61
+    jsl $C09251
+    inc A
+    inc A
+    and.w #$0007
+    sta $987F
+    rep #$10
+    ldy.w #$9F45
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc.w #$1851
+    sta $06
+    bcc C0E5EF_TickTeleportCurvedMovementCallback_LE5EF
+    inc $08
+C0E5EF_TickTeleportCurvedMovementCallback_LE5EF:
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    lda $9F41
+    cmp.w #$0002
+    bne C0E617_TickTeleportCurvedMovementCallback_LE617
+    lda $9F61
+    clc
+    adc.w #$0A00
+    sta $9F61
+    lda $9F63
+    clc
+    adc.w #$000C
+    sta $9F63
+    bra C0E632_TickTeleportCurvedMovementCallback_LE632
+C0E617_TickTeleportCurvedMovementCallback_LE617:
+    lda $9F65
+    clc
+    adc.w #$0020
+    sta $9F65
+    clc
+    adc $9F61
+    sta $9F61
+    lda $9F63
+    clc
+    adc.w #$0010
+    sta $9F63
+C0E632_TickTeleportCurvedMovementCallback_LE632:
+    ldx $987B
+    lda $9877
+    jsl $C0400E
+    jsr $E196
+    jsr $E254
+    lda $9F41
+    cmp.w #$0002
+    bne C0E65F_TickTeleportCurvedMovementCallback_LE65F
+    lda $9F63
+    cmp.w #$1000
+    bcc C0E672_TickTeleportCurvedMovementCallback_LE672
+    beq C0E672_TickTeleportCurvedMovementCallback_LE672
+    lda.w #$0001
+    sta $9F43
+    jsr $E48A
+    bra C0E672_TickTeleportCurvedMovementCallback_LE672
+C0E65F_TickTeleportCurvedMovementCallback_LE65F:
+    lda $9F65
+    cmp.w #$1800
+    bcc C0E672_TickTeleportCurvedMovementCallback_LE672
+    beq C0E672_TickTeleportCurvedMovementCallback_LE672
+    lda.w #$0001
+    sta $9F43
+    jsr $E48A
+C0E672_TickTeleportCurvedMovementCallback_LE672:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16425,19 +33235,68 @@ hirom
 org $C0E674
 
 C0E674_TickTeleportPostSuccessDriftCallback:
-
-; Original data gap before C0E6FE_TickTeleportPostSuccessDriftCallback_End:
-db $C2,$31,$0B,$7B,$69,$F2,$FF,$5B,$AD,$7F,$98,$20,$22,$DF,$A0,$75
-db $98,$AD,$49,$9F,$85,$0A,$AD,$4B,$9F,$85,$0C,$B9,$00,$00,$85,$06
-db $B9,$02,$00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C
-db $85,$08,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A0,$79,$98,$AD
-db $4D,$9F,$85,$0A,$AD,$4F,$9F,$85,$0C,$B9,$00,$00,$85,$06,$B9,$02
-db $00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C,$85,$08
-db $A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$AD,$5B,$9F,$18,$6D,$59
-db $9F,$A8,$8C,$5B,$9F,$AD,$5F,$9F,$18,$6D,$5D,$9F,$8D,$5F,$9F,$AA
-db $98,$22,$0E,$40,$C0,$20,$96,$E1,$2B,$6B
-
-C0E6FE_TickTeleportPostSuccessDriftCallback_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF2
+    tcd
+    lda $987F
+    jsr $DF22
+    ldy.w #$9875
+    lda $9F49
+    sta $0A
+    lda $9F4B
+    sta $0C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldy.w #$9879
+    lda $9F4D
+    sta $0A
+    lda $9F4F
+    sta $0C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    lda $9F5B
+    clc
+    adc $9F59
+    tay
+    sty $9F5B
+    lda $9F5F
+    clc
+    adc $9F5D
+    sta $9F5F
+    tax
+    tya
+    jsl $C0400E
+    jsr $E196
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16447,19 +33306,62 @@ C0E6FE_TickTeleportPostSuccessDriftCallback_End:
 hirom
 org $C0E6FE
 
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0E6FE_RestoreTeleportExitObjectFromSnapshotRing:
-
-; Original data gap before C0E776_RestoreTeleportExitObjectFromSnapshotRing_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$42,$1A,$0A,$A8,$84,$10,$B9
-db $9A,$0E,$A0,$5F,$00,$22,$F7,$8F,$C0,$18,$69,$CE,$99,$AA,$8E,$C6
-db $4D,$BD,$3D,$00,$85,$04,$85,$0E,$A5,$04,$85,$04,$0A,$65,$04,$0A
-db $0A,$18,$69,$56,$51,$AA,$A4,$10,$B9,$5E,$0E,$85,$02,$BD,$00,$00
-db $99,$8E,$0B,$BD,$02,$00,$99,$CA,$0B,$BD,$08,$00,$99,$F6,$2A,$BD
-db $04,$00,$99,$AA,$2B,$AC,$42,$1A,$BD,$06,$00,$AA,$A5,$02,$22,$56
-db $7A,$C0,$A5,$0E,$85,$04,$A6,$04,$A5,$02,$20,$14,$E2,$29,$FF,$00
-db $AE,$C6,$4D,$9D,$3D,$00,$2B,$6B
-
-C0E776_RestoreTeleportExitObjectFromSnapshotRing_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $1A42
+    asl A
+    tay
+    sty $10
+    lda $0E9A,Y
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    clc
+    adc.w #$99CE
+    tax
+    stx $4DC6
+    lda $003D,X
+    sta $04
+    sta $0E
+    lda $04
+    sta $04
+    asl A
+    adc $04
+    asl A
+    asl A
+    clc
+    adc.w #$5156
+    tax
+    ldy $10
+    lda $0E5E,Y
+    sta $02
+    lda $0000,X
+    sta $0B8E,Y
+    lda $0002,X
+    sta $0BCA,Y
+    lda $0008,X
+    sta $2AF6,Y
+    lda $0004,X
+    sta $2BAA,Y
+    ldy $1A42
+    lda $0006,X
+    tax
+    lda $02
+    jsl $C07A56
+    lda $0E
+    sta $04
+    ldx $04
+    lda $02
+    jsr $E214
+    and.w #$00FF
+    ldx $4DC6
+    sta $003D,X
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16470,20 +33372,75 @@ hirom
 org $C0E776
 
 C0E776_TickTeleportStraightExitCallback:
-
-; Original data gap before C0E815_TickTeleportStraightExitCallback_End:
-db $C2,$31,$0B,$7B,$69,$EE,$FF,$5B,$AD,$7F,$98,$20,$22,$DF,$A0,$75
-db $98,$AD,$49,$9F,$85,$0A,$AD,$4B,$9F,$85,$0C,$B9,$00,$00,$85,$06
-db $B9,$02,$00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C
-db $85,$08,$A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A0,$79,$98,$AD
-db $4D,$9F,$85,$0A,$AD,$4F,$9F,$85,$0C,$B9,$00,$00,$85,$06,$B9,$02
-db $00,$85,$08,$18,$A5,$06,$65,$0A,$85,$06,$A5,$08,$65,$0C,$85,$08
-db $A5,$06,$99,$00,$00,$A5,$08,$99,$02,$00,$A9,$02,$00,$85,$0A,$A9
-db $00,$00,$85,$0C,$AD,$45,$9F,$85,$06,$AD,$47,$9F,$85,$08,$22,$86
-db $90,$C0,$A5,$06,$85,$0E,$A5,$08,$85,$10,$AE,$7B,$98,$AD,$77,$98
-db $38,$E5,$10,$22,$0E,$40,$C0,$20,$96,$E1,$20,$54,$E2,$2B,$6B
-
-C0E815_TickTeleportStraightExitCallback_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEE
+    tcd
+    lda $987F
+    jsr $DF22
+    ldy.w #$9875
+    lda $9F49
+    sta $0A
+    lda $9F4B
+    sta $0C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    ldy.w #$9879
+    lda $9F4D
+    sta $0A
+    lda $9F4F
+    sta $0C
+    lda $0000,Y
+    sta $06
+    lda $0002,Y
+    sta $08
+    clc
+    lda $06
+    adc $0A
+    sta $06
+    lda $08
+    adc $0C
+    sta $08
+    lda $06
+    sta $0000,Y
+    lda $08
+    sta $0002,Y
+    lda.w #$0002
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    lda $9F45
+    sta $06
+    lda $9F47
+    sta $08
+    jsl $C09086
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx $987B
+    lda $9877
+    sec
+    sbc $10
+    jsl $C0400E
+    jsr $E196
+    jsr $E254
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16493,20 +33450,64 @@ C0E815_TickTeleportStraightExitCallback_End:
 hirom
 org $C0E815
 
+!C0887A_ClearDisplayTransitionState = $C0887A
 C0E815_SetupTeleportSuccessfulArrival:
-
-; Original data gap before C0E897_SetupTeleportSuccessfulArrival_End:
-db $C2,$31,$0B,$7B,$69,$E6,$FF,$5B,$AD,$41,$9F,$C9,$03,$00,$F0,$70
-db $A9,$18,$00,$85,$18,$80,$0D,$0A,$AA,$A9,$00,$80,$9D,$9E,$28,$A5
-db $18,$1A,$85,$18,$C9,$1E,$00,$90,$EE,$A0,$4F,$9F,$84,$16,$A9,$00
-db $00,$99,$00,$00,$A2,$4B,$9F,$86,$18,$9D,$00,$00,$A9,$74,$E6,$85
-db $0E,$A9,$C0,$00,$85,$10,$A9,$C1,$E3,$85,$12,$A9,$C0,$00,$85,$14
-db $A9,$17,$00,$22,$45,$2F,$C4,$A6,$18,$BD,$00,$00,$8D,$59,$9F,$AD
-db $77,$98,$8D,$5B,$9F,$A4,$16,$B9,$00,$00,$8D,$5D,$9F,$AD,$7B,$98
-db $8D,$5F,$9F,$A2,$04,$00,$A9,$01,$00,$22,$7A,$88,$C0,$20,$0F,$DD
-db $2B,$60
-
-C0E897_SetupTeleportSuccessfulArrival_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE6
+    tcd
+    lda $9F41
+    cmp.w #$0003
+    beq C0E895_SetupTeleportSuccessfulArrival_LE895
+    lda.w #$0018
+    sta $18
+    bra C0E839_SetupTeleportSuccessfulArrival_LE839
+C0E82C_SetupTeleportSuccessfulArrival_LE82C:
+    asl A
+    tax
+    lda.w #$8000
+    sta $289E,X
+    lda $18
+    inc A
+    sta $18
+C0E839_SetupTeleportSuccessfulArrival_LE839:
+    cmp.w #$001E
+    bcc C0E82C_SetupTeleportSuccessfulArrival_LE82C
+    ldy.w #$9F4F
+    sty $16
+    lda.w #$0000
+    sta $0000,Y
+    ldx.w #$9F4B
+    stx $18
+    sta $0000,X
+    lda.w #$E674
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E3C1
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    ldx $18
+    lda $0000,X
+    sta $9F59
+    lda $9877
+    sta $9F5B
+    ldy $16
+    lda $0000,Y
+    sta $9F5D
+    lda $987B
+    sta $9F5F
+    ldx.w #$0004
+    lda.w #$0001
+    jsl !C0887A_ClearDisplayTransitionState
+    jsr $DD0F
+C0E895_SetupTeleportSuccessfulArrival_LE895:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16516,26 +33517,108 @@ C0E897_SetupTeleportSuccessfulArrival_End:
 hirom
 org $C0E897
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C0886C_SetDisplayTransitionState = $C0886C
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0E897_FinalizeTeleportArrivalOrFailure:
-
-; Original data gap before C0E979_FinalizeTeleportArrivalOrFailure_End:
-db $C2,$31,$0B,$7B,$69,$E6,$FF,$5B,$AD,$41,$9F,$C9,$03,$00,$D0,$18
-db $AE,$7B,$98,$AD,$77,$98,$22,$0E,$40,$C0,$A2,$01,$00,$8A,$22,$6C
-db $88,$C0,$20,$0F,$DD,$4C,$77,$E9,$A9,$00,$00,$85,$02,$80,$2D,$A5
-db $02,$A0,$5F,$00,$22,$F7,$8F,$C0,$AA,$A9,$FF,$FF,$9D,$05,$9A,$A5
-db $02,$18,$69,$18,$00,$A8,$A2,$00,$00,$86,$18,$A6,$02,$BD,$8B,$98
-db $29,$FF,$00,$3A,$A6,$18,$22,$56,$7A,$C0,$E6,$02,$A5,$02,$C9,$06
-db $00,$90,$CC,$A9,$00,$00,$8D,$45,$9F,$A9,$08,$00,$8D,$47,$9F,$A9
-db $06,$00,$8D,$7F,$98,$A9,$03,$00,$8D,$43,$9F,$A9,$76,$E7,$85,$0E
-db $A9,$C0,$00,$85,$10,$A9,$C1,$E3,$85,$12,$A9,$C0,$00,$85,$14,$A9
-db $17,$00,$22,$45,$2F,$C4,$20,$16,$DE,$A9,$87,$00,$22,$BD,$FB,$C4
-db $A2,$00,$00,$86,$16,$80,$09,$22,$56,$87,$C0,$A6,$16,$E8,$86,$16
-db $E0,$1E,$00,$90,$F2,$A2,$04,$00,$A9,$01,$00,$22,$6C,$88,$C0,$80
-db $10,$22,$B1,$88,$C0,$22,$66,$94,$C0,$22,$26,$8B,$C0,$22,$56,$87
-db $C0,$AD,$47,$9F,$D0,$EB,$AE,$7B,$98,$AD,$77,$98,$22,$0E,$40,$C0
-db $2B,$60
-
-C0E979_FinalizeTeleportArrivalOrFailure_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE6
+    tcd
+    lda $9F41
+    cmp.w #$0003
+    bne C0E8BF_FinalizeTeleportArrivalOrFailure_LE8BF
+    ldx $987B
+    lda $9877
+    jsl $C0400E
+    ldx.w #$0001
+    txa
+    jsl !C0886C_SetDisplayTransitionState
+    jsr $DD0F
+    jmp.w C0E977_FinalizeTeleportArrivalOrFailure_LE977
+C0E8BF_FinalizeTeleportArrivalOrFailure_LE8BF:
+    lda.w #$0000
+    sta $02
+    bra C0E8F3_FinalizeTeleportArrivalOrFailure_LE8F3
+C0E8C6_FinalizeTeleportArrivalOrFailure_LE8C6:
+    lda $02
+    ldy.w #$005F
+    jsl !C08FF7_ResolveIndexedPointerOffset
+    tax
+    lda.w #$FFFF
+    sta $9A05,X
+    lda $02
+    clc
+    adc.w #$0018
+    tay
+    ldx.w #$0000
+    stx $18
+    ldx $02
+    lda $988B,X
+    and.w #$00FF
+    dec A
+    ldx $18
+    jsl $C07A56
+    inc $02
+C0E8F3_FinalizeTeleportArrivalOrFailure_LE8F3:
+    lda $02
+    cmp.w #$0006
+    bcc C0E8C6_FinalizeTeleportArrivalOrFailure_LE8C6
+    lda.w #$0000
+    sta $9F45
+    lda.w #$0008
+    sta $9F47
+    lda.w #$0006
+    sta $987F
+    lda.w #$0003
+    sta $9F43
+    lda.w #$E776
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E3C1
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    jsr $DE16
+    lda.w #$0087
+    jsl !C4FBBD_PlaySoundStoneMelody
+    ldx.w #$0000
+    stx $16
+    bra C0E947_FinalizeTeleportArrivalOrFailure_LE947
+C0E93E_FinalizeTeleportArrivalOrFailure_LE93E:
+    jsl !C08756_WaitOneFrameAndPollInput
+    ldx $16
+    inx
+    stx $16
+C0E947_FinalizeTeleportArrivalOrFailure_LE947:
+    cpx.w #$001E
+    bcc C0E93E_FinalizeTeleportArrivalOrFailure_LE93E
+    ldx.w #$0004
+    lda.w #$0001
+    jsl !C0886C_SetDisplayTransitionState
+    bra C0E968_FinalizeTeleportArrivalOrFailure_LE968
+C0E958_FinalizeTeleportArrivalOrFailure_LE958:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+C0E968_FinalizeTeleportArrivalOrFailure_LE968:
+    lda $9F47
+    bne C0E958_FinalizeTeleportArrivalOrFailure_LE958
+    ldx $987B
+    lda $9877
+    jsl $C0400E
+C0E977_FinalizeTeleportArrivalOrFailure_LE977:
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16546,11 +33629,8 @@ hirom
 org $C0E979
 
 C0E979_TeleportNoOpCallback:
-
-; Original data gap before C0E97C_TeleportNoOpCallback_End:
-db $C2,$31,$6B
-
-C0E97C_TeleportNoOpCallback_End:
+    rep #$31
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16561,14 +33641,35 @@ hirom
 org $C0E97C
 
 C0E97C_RefreshTeleportCurrentSlotPose:
-
-; Original data gap before C0E9BA_RefreshTeleportCurrentSlotPose_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$AD,$42,$1A,$85,$04,$0A,$85,$02
-db $A4,$04,$A6,$02,$BD,$CA,$0B,$AA,$86,$0E,$A6,$02,$BD,$8E,$0B,$A6
-db $0E,$22,$33,$5F,$C0,$A6,$02,$9D,$AA,$2B,$A4,$04,$A2,$FF,$FF,$86
-db $0E,$A6,$02,$BD,$5E,$0E,$A6,$0E,$22,$56,$7A,$C0,$2B,$6B
-
-C0E9BA_RefreshTeleportCurrentSlotPose_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda $1A42
+    sta $04
+    asl A
+    sta $02
+    ldy $04
+    ldx $02
+    lda $0BCA,X
+    tax
+    stx $0E
+    ldx $02
+    lda $0B8E,X
+    ldx $0E
+    jsl $C05F33
+    ldx $02
+    sta $2BAA,X
+    ldy $04
+    ldx.w #$FFFF
+    stx $0E
+    ldx $02
+    lda $0E5E,X
+    ldx $0E
+    jsl $C07A56
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16578,20 +33679,71 @@ C0E9BA_RefreshTeleportCurrentSlotPose_End:
 hirom
 org $C0E9BA
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0E9BA_HoldTeleportFailureState:
-
-; Original data gap before C0EA3E_HoldTeleportFailureState_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$A9,$01,$00,$8D,$B6,$B4,$A9,$0E
-db $00,$22,$BD,$FB,$C4,$A9,$18,$00,$85,$16,$80,$14,$0A,$18,$69,$02
-db $10,$AA,$BD,$00,$00,$09,$00,$80,$9D,$00,$00,$A5,$16,$1A,$85,$16
-db $C9,$1E,$00,$90,$E7,$A9,$79,$E9,$85,$0E,$A9,$C0,$00,$85,$10,$A9
-db $7C,$E9,$85,$12,$A9,$C0,$00,$85,$14,$A9,$17,$00,$22,$45,$2F,$C4
-db $E2,$20,$A9,$01,$8D,$40,$98,$A2,$00,$00,$86,$16,$80,$15,$22,$B1
-db $88,$C0,$22,$66,$94,$C0,$22,$26,$8B,$C0,$22,$56,$87,$C0,$A6,$16
-db $E8,$86,$16,$E0,$B4,$00,$90,$E6,$E2,$20,$9C,$40,$98,$C2,$20,$9C
-db $B6,$B4,$2B,$60
-
-C0EA3E_HoldTeleportFailureState_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda.w #$0001
+    sta $B4B6
+    lda.w #$000E
+    jsl !C4FBBD_PlaySoundStoneMelody
+    lda.w #$0018
+    sta $16
+    bra C0E9EA_HoldTeleportFailureState_LE9EA
+C0E9D6_HoldTeleportFailureState_LE9D6:
+    asl A
+    clc
+    adc.w #$1002
+    tax
+    lda $0000,X
+    ora.w #$8000
+    sta $0000,X
+    lda $16
+    inc A
+    sta $16
+C0E9EA_HoldTeleportFailureState_LE9EA:
+    cmp.w #$001E
+    bcc C0E9D6_HoldTeleportFailureState_LE9D6
+    lda.w #$E979
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E97C
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    sep #$20
+    lda.b #$01
+    sta $9840
+    ldx.w #$0000
+    stx $16
+    bra C0EA2D_HoldTeleportFailureState_LEA2D
+C0EA18_HoldTeleportFailureState_LEA18:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+    ldx $16
+    inx
+    stx $16
+C0EA2D_HoldTeleportFailureState_LEA2D:
+    cpx.w #$00B4
+    bcc C0EA18_HoldTeleportFailureState_LEA18
+    sep #$20
+    stz $9840
+    rep #$20
+    stz $B4B6
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16602,13 +33754,30 @@ hirom
 org $C0EA3E
 
 C0EA3E_SuppressInteractionsForTeleportSlots:
-
-; Original data gap before C0EA68_SuppressInteractionsForTeleportSlots_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A9,$00,$00,$85,$0E,$80,$14,$0A
-db $18,$69,$B6,$10,$AA,$BD,$00,$00,$09,$00,$C0,$9D,$00,$00,$A5,$0E
-db $1A,$85,$0E,$C9,$17,$00,$90,$E7,$2B,$60
-
-C0EA68_SuppressInteractionsForTeleportSlots_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda.w #$0000
+    sta $0E
+    bra C0EA61_SuppressInteractionsForTeleportSlots_LEA61
+C0EA4D_SuppressInteractionsForTeleportSlots_LEA4D:
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    ora.w #$C000
+    sta $0000,X
+    lda $0E
+    inc A
+    sta $0E
+C0EA61_SuppressInteractionsForTeleportSlots_LEA61:
+    cmp.w #$0017
+    bcc C0EA4D_SuppressInteractionsForTeleportSlots_LEA4D
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16619,14 +33788,34 @@ hirom
 org $C0EA68
 
 C0EA68_EnsureTeleportSlotInteractionSuppression:
-
-; Original data gap before C0EA99_EnsureTeleportSlotInteractionSuppression_End:
-db $C2,$31,$0B,$7B,$69,$F0,$FF,$5B,$A0,$00,$00,$80,$1D,$98,$0A,$18
-db $69,$B6,$10,$AA,$BD,$00,$00,$85,$0E,$29,$00,$C0,$C9,$00,$C0,$F0
-db $08,$A5,$0E,$09,$00,$C0,$9D,$00,$00,$C8,$C0,$17,$00,$90,$DE,$2B
-db $60
-
-C0EA99_EnsureTeleportSlotInteractionSuppression_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    ldy.w #$0000
+    bra C0EA92_EnsureTeleportSlotInteractionSuppression_LEA92
+C0EA75_EnsureTeleportSlotInteractionSuppression_LEA75:
+    tya
+    asl A
+    clc
+    adc.w #$10B6
+    tax
+    lda $0000,X
+    sta $0E
+    and.w #$C000
+    cmp.w #$C000
+    beq C0EA91_EnsureTeleportSlotInteractionSuppression_LEA91
+    lda $0E
+    ora.w #$C000
+    sta $0000,X
+C0EA91_EnsureTeleportSlotInteractionSuppression_LEA91:
+    iny
+C0EA92_EnsureTeleportSlotInteractionSuppression_LEA92:
+    cpy.w #$0017
+    bcc C0EA75_EnsureTeleportSlotInteractionSuppression_LEA75
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16636,32 +33825,143 @@ C0EA99_EnsureTeleportSlotInteractionSuppression_End:
 hirom
 org $C0EA99
 
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0EA99_TeleportMainloopStateMachine:
-
-; Original data gap before C0EBE0_TeleportMainloopStateMachine_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$22,$C6,$AB,$C0,$22,$56,$87,$C0
-db $20,$3E,$EA,$A9,$01,$00,$8D,$BA,$5D,$A9,$00,$00,$8D,$45,$9F,$A9
-db $00,$00,$8D,$47,$9F,$9C,$43,$9F,$22,$5B,$7C,$C0,$20,$46,$DE,$AD
-db $41,$9F,$C9,$01,$00,$F0,$16,$C9,$05,$00,$F0,$11,$C9,$02,$00,$F0
-db $29,$C9,$03,$00,$F0,$41,$C9,$04,$00,$F0,$44,$80,$5D,$A9,$8F,$E2
-db $85,$0E,$A9,$C0,$00,$85,$10,$A9,$C1,$E3,$85,$12,$A9,$C0,$00,$85
-db $14,$A9,$17,$00,$22,$45,$2F,$C4,$80,$40,$A9,$16,$E5,$85,$0E,$A9
-db $C0,$00,$85,$10,$A9,$C1,$E3,$85,$12,$A9,$C0,$00,$85,$14,$A9,$17
-db $00,$22,$45,$2F,$C4,$80,$23,$A9,$01,$00,$8D,$43,$9F,$80,$1B,$A9
-db $16,$E5,$85,$0E,$A9,$C0,$00,$85,$10,$A9,$C1,$E3,$85,$12,$A9,$C0
-db $00,$85,$14,$A9,$17,$00,$22,$45,$2F,$C4,$AD,$41,$9F,$C9,$03,$00
-db $F0,$1C,$A9,$0D,$00,$22,$BD,$FB,$C4,$80,$13,$22,$B1,$88,$C0,$22
-db $66,$94,$C0,$20,$68,$EA,$22,$26,$8B,$C0,$22,$56,$87,$C0,$AD,$43
-db $9F,$F0,$E8,$AD,$43,$9F,$C9,$01,$00,$F0,$07,$C9,$02,$00,$F0,$24
-db $80,$2C,$20,$15,$E8,$22,$79,$DD,$C0,$20,$97,$E8,$AD,$41,$9F,$C9
-db $05,$00,$D0,$1A,$A9,$E7,$2A,$85,$0E,$A9,$C6,$00,$85,$10,$22,$81
-db $68,$C4,$80,$0A,$20,$BA,$E9,$A9,$0A,$00,$22,$2C,$DD,$C0,$A9,$00
-db $52,$85,$0E,$A9,$C0,$00,$85,$10,$A9,$78,$4D,$85,$12,$A9,$C0,$00
-db $85,$14,$A9,$17,$00,$22,$45,$2F,$C4,$20,$7C,$DE,$22,$51,$94,$C0
-db $9C,$BA,$5D,$A9,$00,$00,$8D,$45,$9F,$A9,$00,$00,$8D,$47,$9F,$9C
-db $58,$5D,$9C,$3F,$9F,$2B,$6B
-
-C0EBE0_TeleportMainloopStateMachine_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    jsl !C0ABC6_ClearPresentationQueues
+    jsl !C08756_WaitOneFrameAndPollInput
+    jsr $EA3E
+    lda.w #$0001
+    sta $5DBA
+    lda.w #$0000
+    sta $9F45
+    lda.w #$0000
+    sta $9F47
+    stz $9F43
+    jsl $C07C5B
+    jsr $DE46
+    lda $9F41
+    cmp.w #$0001
+    beq C0EAE6_TeleportMainloopStateMachine_LEAE6
+    cmp.w #$0005
+    beq C0EAE6_TeleportMainloopStateMachine_LEAE6
+    cmp.w #$0002
+    beq C0EB03_TeleportMainloopStateMachine_LEB03
+    cmp.w #$0003
+    beq C0EB20_TeleportMainloopStateMachine_LEB20
+    cmp.w #$0004
+    beq C0EB28_TeleportMainloopStateMachine_LEB28
+    bra C0EB43_TeleportMainloopStateMachine_LEB43
+C0EAE6_TeleportMainloopStateMachine_LEAE6:
+    lda.w #$E28F
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E3C1
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    bra C0EB43_TeleportMainloopStateMachine_LEB43
+C0EB03_TeleportMainloopStateMachine_LEB03:
+    lda.w #$E516
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E3C1
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    bra C0EB43_TeleportMainloopStateMachine_LEB43
+C0EB20_TeleportMainloopStateMachine_LEB20:
+    lda.w #$0001
+    sta $9F43
+    bra C0EB43_TeleportMainloopStateMachine_LEB43
+C0EB28_TeleportMainloopStateMachine_LEB28:
+    lda.w #$E516
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$E3C1
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+C0EB43_TeleportMainloopStateMachine_LEB43:
+    lda $9F41
+    cmp.w #$0003
+    beq C0EB67_TeleportMainloopStateMachine_LEB67
+    lda.w #$000D
+    jsl !C4FBBD_PlaySoundStoneMelody
+    bra C0EB67_TeleportMainloopStateMachine_LEB67
+C0EB54_TeleportMainloopStateMachine_LEB54:
+    jsl !C088B1_ResetRendererFrameState
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsr $EA68
+    jsl !C08B26_FlushQueuedSpriteOrTileWork
+    jsl !C08756_WaitOneFrameAndPollInput
+C0EB67_TeleportMainloopStateMachine_LEB67:
+    lda $9F43
+    beq C0EB54_TeleportMainloopStateMachine_LEB54
+    lda $9F43
+    cmp.w #$0001
+    beq C0EB7B_TeleportMainloopStateMachine_LEB7B
+    cmp.w #$0002
+    beq C0EB9D_TeleportMainloopStateMachine_LEB9D
+    bra C0EBA7_TeleportMainloopStateMachine_LEBA7
+C0EB7B_TeleportMainloopStateMachine_LEB7B:
+    jsr $E815
+    jsl $C0DD79
+    jsr $E897
+    lda $9F41
+    cmp.w #$0005
+    bne C0EBA7_TeleportMainloopStateMachine_LEBA7
+    lda.w #$2AE7
+    sta $0E
+    lda.w #$00C6
+    sta $10
+    jsl $C46881
+    bra C0EBA7_TeleportMainloopStateMachine_LEBA7
+C0EB9D_TeleportMainloopStateMachine_LEB9D:
+    jsr $E9BA
+    lda.w #$000A
+    jsl $C0DD2C
+C0EBA7_TeleportMainloopStateMachine_LEBA7:
+    lda.w #$5200
+    sta $0E
+    lda.w #$00C0
+    sta $10
+    lda.w #$4D78
+    sta $12
+    lda.w #$00C0
+    sta $14
+    lda.w #$0017
+    jsl $C42F45
+    jsr $DE7C
+    jsl !C09451_RestoreSavedCoordinateState
+    stz $5DBA
+    lda.w #$0000
+    sta $9F45
+    lda.w #$0000
+    sta $9F47
+    stz $5D58
+    stz $9F3F
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16671,21 +33971,75 @@ C0EBE0_TeleportMainloopStateMachine_End:
 hirom
 org $C0EBE0
 
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C0EBE0_Load_TitleLogoGraphicsAndTilemap:
-
-; Original data gap before C0EC77_Load_TitleLogoGraphicsAndTilemap_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$A9,$00,$00,$85,$06,$A9,$7F,$00
-db $85,$08,$A9,$11,$B2,$85,$0E,$A9,$E1,$00,$85,$10,$A5,$06,$85,$12
-db $A5,$08,$85,$14,$22,$9E,$1A,$C4,$A5,$06,$85,$0E,$A5,$08,$85,$10
-db $A0,$00,$00,$A2,$00,$B0,$E2,$20,$98,$22,$16,$86,$C0,$A9,$7D,$AF
-db $85,$0E,$A9,$E1,$00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22
-db $9E,$1A,$C4,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$58,$A2,$00
-db $10,$E2,$20,$A9,$00,$22,$16,$86,$C0,$A9,$E5,$C6,$85,$0E,$A9,$E1
-db $00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$A5
-db $06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$60,$A2,$00,$40,$E2,$20,$A9
-db $00,$22,$16,$86,$C0,$2B,$6B
-
-C0EC77_Load_TitleLogoGraphicsAndTilemap_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda.w #$0000
+    sta $06
+    lda.w #$007F
+    sta $08
+    lda.w #$B211
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$0000
+    ldx.w #$B000
+    sep #$20
+    tya
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.b #$7D
+    lda $A90E85
+    sbc ($00,X)
+    sta $10
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$5800
+    ldx.w #$1000
+    sep #$20
+    lda.b #$00
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.b #$E5
+    dec $85
+    asl $E1A9
+    brk #$85
+    db $10, $A5
+    asl $85
+    ora ($A5)
+    php
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$6000
+    ldx.w #$4000
+    sep #$20
+    lda.b #$00
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16695,15 +34049,39 @@ C0EC77_Load_TitleLogoGraphicsAndTilemap_End:
 hirom
 org $C0EC77
 
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C0EC77_Load_TitleScreenLetterOrGlowPalettes:
-
-; Original data gap before C0ECB7_Load_TitleScreenLetterOrGlowPalettes_End:
-db $C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$D0,$1A,$A9,$83,$AE,$85
-db $0E,$A9,$E1,$00,$85,$10,$A9,$00,$00,$85,$12,$A9,$7F,$00,$85,$14
-db $22,$9E,$1A,$C4,$80,$18,$A9,$FD,$AE,$85,$0E,$A9,$E1,$00,$85,$10
-db $A9,$00,$00,$85,$12,$A9,$7F,$00,$85,$14,$22,$9E,$1A,$C4,$2B,$6B
-
-C0ECB7_Load_TitleScreenLetterOrGlowPalettes_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    bne C0EC9D_Load_TitleScreenLetterOrGlowPalettes_LEC9D
+    lda.w #$AE83
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0000
+    sta $12
+    lda.w #$007F
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    bra C0ECB5_Load_TitleScreenLetterOrGlowPalettes_LECB5
+C0EC9D_Load_TitleScreenLetterOrGlowPalettes_LEC9D:
+    lda.w #$AEFD
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0000
+    sta $12
+    lda.w #$007F
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+C0ECB5_Load_TitleScreenLetterOrGlowPalettes_LECB5:
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16713,17 +34091,51 @@ C0ECB7_Load_TitleScreenLetterOrGlowPalettes_End:
 hirom
 org $C0ECB7
 
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 C0ECB7_Load_TitleScreenBackgroundPalettes:
-
-; Original data gap before C0ED14_Load_TitleScreenBackgroundPalettes_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$E2,$20,$9C,$30,$00,$C2,$20,$A9
-db $E1,$CD,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85,$06,$8B,$E2
-db $20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08,$85,$14
-db $22,$9E,$1A,$C4,$22,$F9,$96,$C4,$E2,$20,$64,$0E,$A2,$00,$01,$C2
-db $20,$A9,$00,$02,$22,$FC,$8E,$C0,$A2,$FF,$00,$A9,$A5,$00,$22,$E7
-db $96,$C4,$E2,$20,$A9,$18,$8D,$30,$00,$C2,$20,$2B,$6B
-
-C0ED14_Load_TitleScreenBackgroundPalettes_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    sep #$20
+    stz $0030
+    rep #$20
+    lda.w #$CDE1
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    jsl $C496F9
+    sep #$20
+    stz $0E
+    ldx.w #$0100
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    ldx.w #$00FF
+    lda.w #$00A5
+    jsl !C496E7_StartPaletteFadeFromWorkBuffer
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16733,14 +34145,26 @@ C0ED14_Load_TitleScreenBackgroundPalettes_End:
 hirom
 org $C0ED14
 
+!C08EFC_CommitTileBufferToStaging = $C08EFC
 C0ED14_Install_TitlePaletteFillFF:
-
-; Original data gap before C0ED39_Install_TitlePaletteFillFF_End:
-db $C2,$31,$0B,$7B,$69,$F1,$FF,$5B,$E2,$20,$A9,$FF,$85,$0E,$A2,$00
-db $01,$C2,$20,$A9,$00,$02,$22,$FC,$8E,$C0,$E2,$20,$A9,$18,$8D,$30
-db $00,$C2,$20,$2B,$6B
-
-C0ED39_Install_TitlePaletteFillFF_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF1
+    tcd
+    sep #$20
+    lda.b #$FF
+    sta $0E
+    ldx.w #$0100
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16750,14 +34174,25 @@ C0ED39_Install_TitlePaletteFillFF_End:
 hirom
 org $C0ED39
 
+!C08EFC_CommitTileBufferToStaging = $C08EFC
 C0ED39_Install_TitlePaletteFill00:
-
-; Original data gap before C0ED5C_Install_TitlePaletteFill00_End:
-db $C2,$31,$0B,$7B,$69,$F1,$FF,$5B,$E2,$20,$64,$0E,$A2,$00,$01,$C2
-db $20,$A9,$00,$02,$22,$FC,$8E,$C0,$E2,$20,$A9,$18,$8D,$30,$00,$C2
-db $20,$2B,$6B
-
-C0ED5C_Install_TitlePaletteFill00_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF1
+    tcd
+    sep #$20
+    stz $0E
+    ldx.w #$0100
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16767,19 +34202,58 @@ C0ED5C_Install_TitlePaletteFill00_End:
 hirom
 org $C0ED5C
 
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C0ED5C_Build_TitleScreenSkippedAnimationPaletteState:
-
-; Original data gap before C0EDD1_Build_TitleScreenSkippedAnimationPaletteState_End:
-db $C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$E2,$20,$9C,$30,$00,$C2,$20,$A9
-db $E1,$CD,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85,$06,$8B,$E2
-db $20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08,$85,$14
-db $22,$9E,$1A,$C4,$A9,$00,$00,$22,$77,$EC,$C0,$A9,$A0,$01,$85,$0E
-db $A9,$7F,$00,$85,$10,$A2,$20,$00,$A9,$00,$03,$22,$D2,$8E,$C0,$A9
-db $01,$00,$22,$77,$EC,$C0,$A9,$60,$02,$85,$0E,$A9,$7F,$00,$85,$10
-db $A2,$20,$00,$A9,$E0,$02,$22,$D2,$8E,$C0,$E2,$20,$A9,$18,$8D,$30
-db $00,$C2,$20,$2B,$6B
-
-C0EDD1_Build_TitleScreenSkippedAnimationPaletteState_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    sep #$20
+    stz $0030
+    rep #$20
+    lda.w #$CDE1
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$0000
+    jsl $C0EC77
+    lda.w #$01A0
+    sta $0E
+    lda.w #$007F
+    sta $10
+    ldx.w #$0020
+    lda.w #$0300
+    jsl !C08ED2_QueueOrTransferDynamicTileBlock
+    lda.w #$0001
+    jsl $C0EC77
+    lda.w #$0260
+    sta $0E
+    lda.w #$007F
+    sta $10
+    ldx.w #$0020
+    lda.w #$02E0
+    jsl !C08ED2_QueueOrTransferDynamicTileBlock
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16790,11 +34264,10 @@ hirom
 org $C0EDD1
 
 C0EDD1_Set_TitleScreenControlState2:
-
-; Original data gap before C0EDDA_Set_TitleScreenControlState2_End:
-db $C2,$31,$A9,$02,$00,$8D,$41,$96,$6B
-
-C0EDDA_Set_TitleScreenControlState2_End:
+    rep #$31
+    lda.w #$0002
+    sta $9641
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16804,18 +34277,68 @@ C0EDDA_Set_TitleScreenControlState2_End:
 hirom
 org $C0EDDA
 
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 C0EDDA_Advance_TitleScreenPaletteFrame:
-
-; Original data gap before C0EE47_Advance_TitleScreenPaletteFrame_End:
-db $C2,$31,$0B,$7B,$69,$E8,$FF,$5B,$AD,$42,$1A,$0A,$AA,$BC,$5E,$0E
-db $84,$16,$BD,$9A,$0E,$85,$14,$BD,$D6,$0E,$85,$02,$A9,$00,$00,$85
-db $06,$A9,$7F,$00,$85,$08,$98,$0A,$0A,$0A,$0A,$0A,$18,$65,$06,$85
-db $06,$85,$0E,$A5,$08,$85,$10,$A2,$20,$00,$A5,$14,$0A,$0A,$0A,$0A
-db $0A,$18,$69,$00,$02,$22,$D2,$8E,$C0,$A4,$16,$98,$1A,$85,$12,$C5
-db $02,$D0,$05,$A9,$00,$00,$85,$12,$AD,$42,$1A,$0A,$AA,$A5,$12,$9D
-db $5E,$0E,$E2,$20,$A9,$18,$8D,$30,$00,$C2,$20,$2B,$6B
-
-C0EE47_Advance_TitleScreenPaletteFrame_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE8
+    tcd
+    lda $1A42
+    asl A
+    tax
+    ldy $0E5E,X
+    sty $16
+    lda $0E9A,X
+    sta $14
+    lda $0ED6,X
+    sta $02
+    lda.w #$0000
+    sta $06
+    lda.w #$007F
+    sta $08
+    tya
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc $06
+    sta $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx.w #$0020
+    lda $14
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$0200
+    jsl !C08ED2_QueueOrTransferDynamicTileBlock
+    ldy $16
+    tya
+    inc A
+    sta $12
+    cmp $02
+    bne C0EE32_Advance_TitleScreenPaletteFrame_LEE32
+    lda.w #$0000
+    sta $12
+C0EE32_Advance_TitleScreenPaletteFrame_LEE32:
+    lda $1A42
+    asl A
+    tax
+    lda $12
+    sta $0E5E,X
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16826,11 +34349,12 @@ hirom
 org $C0EE47
 
 C0EE47_Set_DisplayMode13:
-
-; Original data gap before C0EE53_Set_DisplayMode13_End:
-db $C2,$31,$E2,$20,$A9,$13,$8D,$1A,$00,$C2,$20,$6B
-
-C0EE53_Set_DisplayMode13_End:
+    rep #$31
+    sep #$20
+    lda.b #$13
+    sta $001A
+    rep #$20
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16840,36 +34364,184 @@ C0EE53_Set_DisplayMode13_End:
 hirom
 org $C0EE53
 
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C0EE53_Clear_CurrentTitleObjectHiddenFlag:
-
-; Original data gap before C0EFE1_Clear_CurrentTitleObjectHiddenFlag_End:
-db $C2,$31,$AD,$42,$1A,$0A,$18,$69,$6A,$11,$AA,$BD,$00,$00,$29,$FF
-db $7F,$9D,$00,$00,$6B,$C2,$31,$0B,$48,$7B,$69,$EA,$FF,$5B,$68,$85
-db $02,$A9,$01,$00,$22,$79,$8D,$C0,$A0,$00,$00,$A2,$00,$40,$98,$22
-db $1C,$8E,$C0,$E2,$20,$A9,$04,$8D,$1A,$00,$C2,$20,$A5,$02,$F0,$10
-db $C9,$01,$00,$F0,$63,$C9,$02,$00,$D0,$03,$4C,$52,$EF,$4C,$A7,$EF
-db $A9,$9E,$54,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$00,$85,$12,$A9
-db $7F,$00,$85,$14,$22,$9E,$1A,$C4,$A9,$55,$54,$85,$0E,$A9,$E1,$00
-db $85,$10,$A9,$00,$80,$85,$12,$A9,$7E,$00,$85,$14,$22,$9E,$1A,$C4
-db $A9,$8F,$55,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85,$06,$8B
-db $E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08,$85
-db $14,$22,$9E,$1A,$C4,$4C,$A7,$EF,$A9,$2A,$4F,$85,$0E,$A9,$E1,$00
-db $85,$10,$A9,$00,$00,$85,$12,$A9,$7F,$00,$85,$14,$22,$9E,$1A,$C4
-db $A9,$C1,$4E,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$80,$85,$12,$A9
-db $7E,$00,$85,$14,$22,$9E,$1A,$C4,$A9,$30,$51,$85,$0E,$A9,$E1,$00
-db $85,$10,$A9,$00,$02,$85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2
-db $20,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$80,$55,$A9
-db $E8,$51,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$00,$85,$12,$A9,$7F
-db $00,$85,$14,$22,$9E,$1A,$C4,$A9,$74,$51,$85,$0E,$A9,$E1,$00,$85
-db $10,$A9,$00,$80,$85,$12,$A9,$7E,$00,$85,$14,$22,$9E,$1A,$C4,$A9
-db $B8,$53,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85,$06,$8B,$E2
-db $20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08,$85,$14
-db $22,$9E,$1A,$C4,$A9,$00,$00,$85,$0E,$A9,$7F,$00,$85,$10,$A0,$00
-db $00,$A2,$00,$80,$E2,$20,$98,$22,$16,$86,$C0,$A9,$00,$80,$85,$0E
-db $A9,$7E,$00,$85,$10,$A0,$00,$40,$A2,$00,$08,$E2,$20,$A9,$00,$22
-db $16,$86,$C0,$E2,$20,$A9,$18,$8D,$30,$00,$C2,$20,$2B,$60
-
-C0EFE1_Clear_CurrentTitleObjectHiddenFlag_End:
+    rep #$31
+    lda $1A42
+    asl A
+    clc
+    adc.w #$116A
+    tax
+    lda $0000,X
+    and.w #$7FFF
+    sta $0000,X
+    rtl
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEA
+    tcd
+    pla
+    sta $02
+    lda.w #$0001
+    jsl !C08D79_UpdateBgModeRegisterFromQueue
+    ldy.w #$0000
+    ldx.w #$4000
+    tya
+    jsl !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
+    sep #$20
+    lda.b #$04
+    sta $001A
+    rep #$20
+    lda $02
+    beq C0EEA3_Clear_CurrentTitleObjectHiddenFlag_LEEA3
+    cmp.w #$0001
+    beq C0EEFB_Clear_CurrentTitleObjectHiddenFlag_LEEFB
+    cmp.w #$0002
+    bne C0EEA0_Clear_CurrentTitleObjectHiddenFlag_LEEA0
+    jmp.w C0EF52_Clear_CurrentTitleObjectHiddenFlag_LEF52
+C0EEA0_Clear_CurrentTitleObjectHiddenFlag_LEEA0:
+    jmp.w C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7
+C0EEA3_Clear_CurrentTitleObjectHiddenFlag_LEEA3:
+    lda.w #$549E
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0000
+    sta $12
+    lda.w #$007F
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$5455
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$8000
+    sta $12
+    lda.w #$007E
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$558F
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    jmp.w C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7
+C0EEFB_Clear_CurrentTitleObjectHiddenFlag_LEEFB:
+    lda.w #$4F2A
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0000
+    sta $12
+    lda.w #$007F
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$4EC1
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$8000
+    sta $12
+    lda.w #$007E
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$5130
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    bra C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7
+C0EF52_Clear_CurrentTitleObjectHiddenFlag_LEF52:
+    lda.w #$51E8
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0000
+    sta $12
+    lda.w #$007F
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$5174
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$8000
+    sta $12
+    lda.w #$007E
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$53B8
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
+    lda.w #$0000
+    sta $0E
+    lda.w #$007F
+    sta $10
+    ldy.w #$0000
+    ldx.w #$8000
+    sep #$20
+    tya
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.b #$00
+    db $80, $85
+    asl $7EA9
+    brk #$85
+    db $10, $A0
+    brk #$40
+    ldx.w #$0800
+    sep #$20
+    lda.b #$00
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    sep #$20
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16879,43 +34551,224 @@ C0EFE1_Clear_CurrentTitleObjectHiddenFlag_End:
 hirom
 org $C0EFE1
 
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 C0EFE1_WaitFramesWithIntroCancel:
-
-; Original data gap before C0F1D2_WaitFramesWithIntroCancel_End:
-db $C2,$31,$0B,$48,$7B,$69,$F0,$FF,$5B,$68,$85,$0E,$80,$13,$AD,$6D
-db $00,$F0,$05,$A9,$01,$00,$80,$0E,$22,$56,$87,$C0,$A5,$0E,$3A,$85
-db $0E,$D0,$EB,$A9,$00,$00,$2B,$60,$C2,$31,$0B,$7B,$69,$F0,$FF,$5B
-db $A9,$00,$00,$20,$68,$EE,$A0,$00,$00,$A2,$02,$00,$A9,$01,$00,$22
-db $CE,$87,$C0,$AD,$6C,$43,$F0,$08,$A9,$B4,$00,$20,$E1,$EF,$80,$15
-db $A2,$00,$00,$86,$0E,$80,$09,$22,$56,$87,$C0,$A6,$0E,$E8,$86,$0E
-db $E0,$B4,$00,$90,$F2,$A0,$00,$00,$A2,$02,$00,$A9,$01,$00,$22,$14
-db $88,$C0,$A9,$01,$00,$20,$68,$EE,$A0,$00,$00,$A2,$02,$00,$A9,$01
-db $00,$22,$CE,$87,$C0,$A9,$78,$00,$20,$E1,$EF,$C9,$00,$00,$F0,$12
-db $A0,$00,$00,$A2,$01,$00,$A9,$02,$00,$22,$14,$88,$C0,$A9,$01,$00
-db $80,$4D,$A0,$00,$00,$A2,$02,$00,$A9,$01,$00,$22,$14,$88,$C0,$A9
-db $02,$00,$20,$68,$EE,$A0,$00,$00,$A2,$02,$00,$A9,$01,$00,$22,$CE
-db $87,$C0,$A9,$78,$00,$20,$E1,$EF,$C9,$00,$00,$F0,$12,$A0,$00,$00
-db $A2,$01,$00,$A9,$02,$00,$22,$14,$88,$C0,$A9,$01,$00,$80,$10,$A0
-db $00,$00,$A2,$02,$00,$A9,$01,$00,$22,$14,$88,$C0,$A9,$00,$00,$2B
-db $6B,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$9C,$37,$00,$9C,$35,$00,$9C
-db $33,$00,$9C,$31,$00,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$A9
-db $33,$5B,$85,$0E,$A9,$E1,$00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85
-db $14,$22,$9E,$1A,$C4,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$00
-db $A2,$00,$C0,$E2,$20,$98,$22,$16,$86,$C0,$A9,$D3,$55,$85,$0E,$A9
-db $E1,$00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4
-db $A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$78,$A2,$00,$08,$E2,$20
-db $A9,$00,$22,$16,$86,$C0,$A9,$B7,$A9,$85,$0E,$A9,$E1,$00,$85,$10
-db $A9,$00,$02,$85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5
-db $06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$22,$77,$A3,$C4,$22
-db $F9,$96,$C4,$A9,$40,$00,$85,$0E,$A9,$7F,$00,$85,$10,$A2,$20,$00
-db $E2,$20,$A9,$00,$22,$15,$8F,$C0,$E2,$20,$64,$0E,$A2,$40,$00,$C2
-db $20,$A9,$00,$02,$22,$FC,$8E,$C0,$E2,$20,$64,$0E,$A2,$A0,$01,$C2
-db $20,$A9,$60,$02,$22,$FC,$8E,$C0,$A2,$FF,$FF,$A9,$E0,$01,$22,$E7
-db $96,$C4,$E2,$20,$A9,$01,$8D,$1A,$00,$A9,$02,$8D,$1B,$00,$8F,$30
-db $21,$00,$A9,$03,$8F,$31,$21,$00,$A9,$18,$8D,$30,$00,$C2,$20,$2B
-db $60
-
-C0F1D2_WaitFramesWithIntroCancel_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFF0
+    tcd
+    pla
+    sta $0E
+    bra C0F002_WaitFramesWithIntroCancel_LF002
+C0EFEF_WaitFramesWithIntroCancel_LEFEF:
+    lda $006D
+    beq C0EFF9_WaitFramesWithIntroCancel_LEFF9
+    lda.w #$0001
+    bra C0F007_WaitFramesWithIntroCancel_LF007
+C0EFF9_WaitFramesWithIntroCancel_LEFF9:
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $0E
+    dec A
+    sta $0E
+C0F002_WaitFramesWithIntroCancel_LF002:
+    bne C0EFEF_WaitFramesWithIntroCancel_LEFEF
+    lda.w #$0000
+C0F007_WaitFramesWithIntroCancel_LF007:
+    pld
+    rts
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFF0
+    tcd
+    lda.w #$0000
+    jsr $EE68
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl $C087CE
+    lda $436C
+    beq C0F031_WaitFramesWithIntroCancel_LF031
+    lda.w #$00B4
+    jsr.w C0EFE1_WaitFramesWithIntroCancel
+    bra C0F046_WaitFramesWithIntroCancel_LF046
+C0F031_WaitFramesWithIntroCancel_LF031:
+    ldx.w #$0000
+    stx $0E
+    bra C0F041_WaitFramesWithIntroCancel_LF041
+C0F038_WaitFramesWithIntroCancel_LF038:
+    jsl !C08756_WaitOneFrameAndPollInput
+    ldx $0E
+    inx
+    stx $0E
+C0F041_WaitFramesWithIntroCancel_LF041:
+    cpx.w #$00B4
+    bcc C0F038_WaitFramesWithIntroCancel_LF038
+C0F046_WaitFramesWithIntroCancel_LF046:
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl !C08814_SetDisplayTransitionMode
+    lda.w #$0001
+    jsr $EE68
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl $C087CE
+    lda.w #$0078
+    jsr.w C0EFE1_WaitFramesWithIntroCancel
+    cmp.w #$0000
+    beq C0F083_WaitFramesWithIntroCancel_LF083
+    ldy.w #$0000
+    ldx.w #$0001
+    lda.w #$0002
+    jsl !C08814_SetDisplayTransitionMode
+    lda.w #$0001
+    bra C0F0D0_WaitFramesWithIntroCancel_LF0D0
+C0F083_WaitFramesWithIntroCancel_LF083:
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl !C08814_SetDisplayTransitionMode
+    lda.w #$0002
+    jsr $EE68
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl $C087CE
+    lda.w #$0078
+    jsr.w C0EFE1_WaitFramesWithIntroCancel
+    cmp.w #$0000
+    beq C0F0C0_WaitFramesWithIntroCancel_LF0C0
+    ldy.w #$0000
+    ldx.w #$0001
+    lda.w #$0002
+    jsl !C08814_SetDisplayTransitionMode
+    lda.w #$0001
+    bra C0F0D0_WaitFramesWithIntroCancel_LF0D0
+C0F0C0_WaitFramesWithIntroCancel_LF0C0:
+    ldy.w #$0000
+    ldx.w #$0002
+    lda.w #$0001
+    jsl !C08814_SetDisplayTransitionMode
+    lda.w #$0000
+C0F0D0_WaitFramesWithIntroCancel_LF0D0:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    stz $0037
+    stz $0035
+    stz $0033
+    stz $0031
+    lda.w #$0000
+    sta $06
+    lda.w #$007F
+    sta $08
+    lda.w #$5B33
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$0000
+    ldx.w #$C000
+    sep #$20
+    tya
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.b #$D3
+    eor $85,X
+    asl $E1A9
+    brk #$85
+    db $10, $A5
+    asl $85
+    ora ($A5)
+    php
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$7800
+    ldx.w #$0800
+    sep #$20
+    lda.b #$00
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.b #$B7
+    lda.b #$85
+    asl $E1A9
+    brk #$85
+    db $10, $A9
+    brk #$02
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    jsl $C4A377
+    jsl $C496F9
+    lda.w #$0040
+    sta $0E
+    lda.w #$007F
+    sta $10
+    ldx.w #$0020
+    sep #$20
+    lda.b #$00
+    jsl !C08F15_ClearVramOrRendererBuffer
+    sep #$20
+    stz $0E
+    ldx.w #$0040
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    sep #$20
+    stz $0E
+    ldx.w #$01A0
+    rep #$20
+    lda.w #$0260
+    jsl !C08EFC_CommitTileBufferToStaging
+    ldx.w #$FFFF
+    lda.w #$01E0
+    jsl !C496E7_StartPaletteFadeFromWorkBuffer
+    sep #$20
+    lda.b #$01
+    sta $001A
+    lda.b #$02
+    sta $001B
+    sta $002130
+    lda.b #$03
+    sta $002131
+    lda.b #$18
+    sta $0030
+    rep #$20
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16925,16 +34778,48 @@ C0F1D2_WaitFramesWithIntroCancel_End:
 hirom
 org $C0F1D2
 
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 C0F1D2_RunIntroTimedPaletteFadeTail:
-
-; Original data gap before C0F21E_RunIntroTimedPaletteFadeTail_End:
-db $C2,$31,$0B,$48,$7B,$69,$E8,$FF,$5B,$68,$A8,$84,$16,$A9,$00,$02
-db $85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12
-db $A5,$08,$85,$14,$A9,$7E,$00,$85,$14,$A5,$12,$85,$06,$A5,$14,$85
-db $08,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A9,$64,$00,$22,$4C,$95,$C4
-db $A2,$FF,$FF,$A4,$16,$98,$22,$E7,$96,$C4,$2B,$60
-
-C0F21E_RunIntroTimedPaletteFadeTail_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFE8
+    tcd
+    pla
+    tay
+    sty $16
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    lda.w #$007E
+    sta $14
+    lda $12
+    sta $06
+    lda $14
+    sta $08
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda.w #$0064
+    jsl !C4954C_SeedPaletteFadeWorkBuffer
+    ldx.w #$FFFF
+    ldy $16
+    tya
+    jsl !C496E7_StartPaletteFadeFromWorkBuffer
+    pld
+    rts
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -16944,43 +34829,254 @@ C0F21E_RunIntroTimedPaletteFadeTail_End:
 hirom
 org $C0F21E
 
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C0886C_SetDisplayTransitionState = $C0886C
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0F21E_RunGasStationIntroScreenLoop:
-
-; Original data gap before C0F41E_RunGasStationIntroScreenLoop_End:
-db $C2,$31,$0B,$7B,$69,$EC,$FF,$5B,$A9,$00,$00,$85,$04,$AA,$86,$12
-db $80,$18,$AD,$6D,$00,$F0,$06,$A9,$01,$00,$4C,$3A,$F3,$22,$3F,$DB
-db $C2,$22,$56,$87,$C0,$A6,$12,$E8,$86,$12,$E0,$EC,$00,$90,$E3,$A9
-db $00,$00,$85,$02,$80,$6E,$AD,$6D,$00,$F0,$06,$A9,$01,$00,$4C,$3A
-db $F3,$A0,$40,$02,$84,$12,$98,$85,$06,$8B,$E2,$20,$68,$85,$08,$64
-db $09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A2,$20,$00,$A9,$76
-db $44,$22,$D2,$8E,$C0,$22,$ED,$26,$C4,$E2,$20,$9C,$30,$00,$22,$14
-db $DB,$C2,$A9,$76,$44,$85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2
-db $20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A2,$20,$00,$A4,$12,$98,$22
-db $D2,$8E,$C0,$22,$3F,$DB,$C2,$E2,$20,$A9,$18,$8D,$30,$00,$22,$56
-db $87,$C0,$E6,$02,$A5,$02,$C9,$E0,$01,$B0,$05,$F0,$03,$4C,$54,$F2
-db $22,$40,$97,$C4,$E2,$20,$A9,$00,$8F,$31,$21,$00,$8F,$30,$21,$00
-db $A9,$01,$8D,$1A,$00,$9C,$1B,$00,$C2,$20,$A9,$78,$00,$20,$E1,$EF
-db $C9,$00,$00,$F0,$05,$A9,$01,$00,$80,$42,$A9,$AE,$00,$22,$BD,$FB
-db $C4,$A0,$00,$00,$BB,$A9,$5C,$03,$22,$F5,$92,$C0,$85,$12,$80,$18
-db $22,$66,$94,$C0,$22,$56,$87,$C0,$AD,$6D,$00,$F0,$0B,$A5,$12,$22
-db $35,$9C,$C0,$A9,$01,$00,$80,$14,$A5,$12,$0A,$AA,$BD,$62,$0A,$C9
-db $FF,$FF,$D0,$DC,$A9,$4A,$01,$20,$D2,$F1,$A5,$04,$2B,$60,$C2,$31
-db $0B,$7B,$69,$ED,$FF,$5B,$22,$7C,$92,$C0,$20,$D2,$F0,$A2,$0B,$00
-db $A9,$01,$00,$22,$6C,$88,$C0,$20,$1E,$F2,$A8,$84,$11,$F0,$05,$A9
-db $01,$00,$80,$4E,$A2,$00,$00,$86,$0F,$80,$17,$AD,$6D,$00,$F0,$05
-db $A9,$01,$00,$80,$3D,$22,$ED,$26,$C4,$22,$56,$87,$C0,$A6,$0F,$E8
-db $86,$0F,$E0,$4A,$01,$90,$E4,$E2,$20,$9C,$1A,$00,$64,$0E,$A2,$00
-db $02,$C2,$20,$A9,$00,$02,$22,$FC,$8E,$C0,$E2,$20,$A9,$18,$8D,$30
-db $00,$A4,$11,$D0,$08,$C2,$20,$A9,$1E,$00,$20,$E1,$EF,$A4,$11,$C2
-db $20,$98,$2B,$6B,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$A9,$5D,$AA,$85
-db $0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85,$06,$8B,$E2,$20,$68,$85
-db $08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A
-db $C4,$A9,$18,$00,$22,$6B,$85,$C0,$2B,$6B,$C2,$31,$0B,$7B,$69,$EA
-db $FF,$5B,$A9,$B7,$A9,$85,$0E,$A9,$E1,$00,$85,$10,$A9,$00,$02,$85
-db $06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$12,$A5
-db $08,$85,$14,$22,$9E,$1A,$C4,$A9,$18,$00,$22,$6B,$85,$C0,$2B,$6B
-
-C0F41E_RunGasStationIntroScreenLoop_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEC
+    tcd
+    lda.w #$0000
+    sta $04
+    tax
+    stx $12
+    bra C0F248_RunGasStationIntroScreenLoop_LF248
+C0F230_RunGasStationIntroScreenLoop_LF230:
+    lda $006D
+    beq C0F23B_RunGasStationIntroScreenLoop_LF23B
+    lda.w #$0001
+    jmp.w C0F33A_RunGasStationIntroScreenLoop_LF33A
+C0F23B_RunGasStationIntroScreenLoop_LF23B:
+    jsl $C2DB3F
+    jsl !C08756_WaitOneFrameAndPollInput
+    ldx $12
+    inx
+    stx $12
+C0F248_RunGasStationIntroScreenLoop_LF248:
+    cpx.w #$00EC
+    bcc C0F230_RunGasStationIntroScreenLoop_LF230
+    lda.w #$0000
+    sta $02
+    bra C0F2C2_RunGasStationIntroScreenLoop_LF2C2
+    lda $006D
+    beq C0F25F_RunGasStationIntroScreenLoop_LF25F
+    lda.w #$0001
+    jmp.w C0F33A_RunGasStationIntroScreenLoop_LF33A
+C0F25F_RunGasStationIntroScreenLoop_LF25F:
+    ldy.w #$0240
+    sty $12
+    tya
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx.w #$0020
+    lda.w #$4476
+    jsl !C08ED2_QueueOrTransferDynamicTileBlock
+    jsl !C426ED_ApplyPaletteComponentInterpolationStep
+    sep #$20
+    stz $0030
+    jsl $C2DB14
+    lda.b #$76
+    mvp $85,$06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldx.w #$0020
+    ldy $12
+    tya
+    jsl !C08ED2_QueueOrTransferDynamicTileBlock
+    jsl $C2DB3F
+    sep #$20
+    lda.b #$18
+    sta $0030
+    jsl !C08756_WaitOneFrameAndPollInput
+    inc $02
+C0F2C2_RunGasStationIntroScreenLoop_LF2C2:
+    lda $02
+    cmp.b #$E0
+    ora ($B0,X)
+    ora $F0
+    ora $4C,S
+    mvn $F2,$22
+    rti
+    sta [$C4],Y
+    sep #$20
+    lda.b #$00
+    sta $002131
+    sta $002130
+    lda.b #$01
+    sta $001A
+    stz $001B
+    rep #$20
+    lda.w #$0078
+    jsr $EFE1
+    cmp.w #$0000
+    beq C0F2F8_RunGasStationIntroScreenLoop_LF2F8
+    lda.w #$0001
+    bra C0F33A_RunGasStationIntroScreenLoop_LF33A
+C0F2F8_RunGasStationIntroScreenLoop_LF2F8:
+    lda.w #$00AE
+    jsl !C4FBBD_PlaySoundStoneMelody
+    ldy.w #$0000
+    tyx
+    lda.w #$035C
+    jsl !C092F5_AllocateEntityOrSpriteSlot
+    sta $12
+    bra C0F326_RunGasStationIntroScreenLoop_LF326
+C0F30E_RunGasStationIntroScreenLoop_LF30E:
+    jsl !C09466_RefreshActiveEntitySpriteState
+    jsl !C08756_WaitOneFrameAndPollInput
+    lda $006D
+    beq C0F326_RunGasStationIntroScreenLoop_LF326
+    lda $12
+    jsl $C09C35
+    lda.w #$0001
+    bra C0F33A_RunGasStationIntroScreenLoop_LF33A
+C0F326_RunGasStationIntroScreenLoop_LF326:
+    lda $12
+    asl A
+    tax
+    lda $0A62,X
+    cmp.w #$FFFF
+    bne C0F30E_RunGasStationIntroScreenLoop_LF30E
+    lda.w #$014A
+    jsr $F1D2
+    lda $04
+C0F33A_RunGasStationIntroScreenLoop_LF33A:
+    pld
+    rts
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFED
+    tcd
+    jsl $C0927C
+    jsr $F0D2
+    ldx.w #$000B
+    lda.w #$0001
+    jsl !C0886C_SetDisplayTransitionState
+    jsr.w C0F21E_RunGasStationIntroScreenLoop
+    tay
+    sty $11
+    beq C0F362_RunGasStationIntroScreenLoop_LF362
+    lda.w #$0001
+    bra C0F3B0_RunGasStationIntroScreenLoop_LF3B0
+C0F362_RunGasStationIntroScreenLoop_LF362:
+    ldx.w #$0000
+    stx $0F
+    bra C0F380_RunGasStationIntroScreenLoop_LF380
+C0F369_RunGasStationIntroScreenLoop_LF369:
+    lda $006D
+    beq C0F373_RunGasStationIntroScreenLoop_LF373
+    lda.w #$0001
+    bra C0F3B0_RunGasStationIntroScreenLoop_LF3B0
+C0F373_RunGasStationIntroScreenLoop_LF373:
+    jsl !C426ED_ApplyPaletteComponentInterpolationStep
+    jsl !C08756_WaitOneFrameAndPollInput
+    ldx $0F
+    inx
+    stx $0F
+C0F380_RunGasStationIntroScreenLoop_LF380:
+    cpx.w #$014A
+    bcc C0F369_RunGasStationIntroScreenLoop_LF369
+    sep #$20
+    stz $001A
+    stz $0E
+    ldx.w #$0200
+    rep #$20
+    lda.w #$0200
+    jsl !C08EFC_CommitTileBufferToStaging
+    sep #$20
+    lda.b #$18
+    sta $0030
+    ldy $11
+    bne C0F3AB_RunGasStationIntroScreenLoop_LF3AB
+    rep #$20
+    lda.w #$001E
+    jsr $EFE1
+C0F3AB_RunGasStationIntroScreenLoop_LF3AB:
+    ldy $11
+    rep #$20
+    tya
+C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda.w #$AA5D
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$0018
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    pld
+    rtl
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    lda.w #$A9B7
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl !C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$0018
+    jsl !C0856B_WaitFramesOrTransitionDelay
+    pld
+    rtl
 
 
 ; Generated by tools/build_source_bank_scaffold.py
