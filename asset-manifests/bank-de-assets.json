@@ -44,6 +44,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/6.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/6.gfx"
         }
       ],
       "notes": [
@@ -66,6 +70,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/7.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/7.gfx"
         }
       ],
       "notes": [
@@ -88,6 +96,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/8.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/8.gfx"
         }
       ],
       "notes": [
@@ -110,6 +122,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/2.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/2.gfx"
         }
       ],
       "notes": [
@@ -132,6 +148,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/10.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/10.gfx"
         }
       ],
       "notes": [
@@ -154,6 +174,10 @@
         {
           "kind": "raw",
           "path": "de/maps/gfx/11.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/gfx/11.gfx"
         }
       ],
       "notes": [
@@ -176,6 +200,15 @@
         {
           "kind": "raw",
           "path": "de/maps/anim_gfx/15.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/anim_gfx/15.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "de/maps/anim_gfx/15_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -198,6 +231,15 @@
         {
           "kind": "raw",
           "path": "de/maps/anim_gfx/16.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/anim_gfx/16.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "de/maps/anim_gfx/16_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -220,6 +262,15 @@
         {
           "kind": "raw",
           "path": "de/maps/anim_gfx/17.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/anim_gfx/17.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "de/maps/anim_gfx/17_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -242,6 +293,15 @@
         {
           "kind": "raw",
           "path": "de/maps/anim_gfx/18.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/anim_gfx/18.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "de/maps/anim_gfx/18_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -264,6 +324,15 @@
         {
           "kind": "raw",
           "path": "de/maps/anim_gfx/19.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "de/maps/anim_gfx/19.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "de/maps/anim_gfx/19_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [

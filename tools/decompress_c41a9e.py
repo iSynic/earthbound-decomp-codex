@@ -91,6 +91,10 @@ def decompress(data: bytes, src_off: int, dest_base: int = 0) -> tuple[bytes, in
     return bytes(out), i - src_off
 
 
+def decompress_blob(data: bytes, dest_base: int = 0xC000) -> tuple[bytes, int]:
+    return decompress(data, 0, dest_base=dest_base)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Decompress an EarthBound C4:1A9E-format blob")
     parser.add_argument("source", help="CPU address like DF:C243")

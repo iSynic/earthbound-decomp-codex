@@ -13,6 +13,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import build_asset_bank_manifest
+import decompress_c41a9e
 import rom_tools
 
 
@@ -123,14 +124,61 @@ def preview_path(raw_path: str, suffix: str) -> str:
     return path.with_name(f"{path.stem}_{suffix}.png").as_posix()
 
 
-def binary_outputs(bank: str, entry: dict[str, Any]) -> list[dict[str, Any]]:
+def without_lzhal_suffix(raw_path: str) -> str:
+    if raw_path.lower().endswith(".lzhal"):
+        return raw_path[:-6]
+    return f"{raw_path}.decompressed"
+
+
+def read_entry_bytes(rom: bytes, entry: dict[str, Any]) -> bytes:
+    offset = int(str(entry["file_offset"]), 16)
+    size = int(entry["size"])
+    data = rom[offset : offset + size]
+    if len(data) != size:
+        raise ValueError(f"ROM slice extends past EOF at {entry['file_offset']} size {size}")
+    return data
+
+
+def lzhal_decompressed_size(rom: bytes, entry: dict[str, Any]) -> int | None:
+    try:
+        decompressed, consumed = decompress_c41a9e.decompress_blob(
+            read_entry_bytes(rom, entry),
+            dest_base=0xC000,
+        )
+    except (IndexError, ValueError):
+        return None
+    if consumed <= 0 or consumed > int(entry["size"]):
+        return None
+    return len(decompressed)
+
+
+def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
     outputs: list[dict[str, Any]] = [{"kind": "raw", "path": raw_path}]
 
     extension = str(entry.get("extension", "")).lower()
     size = int(entry["size"])
-    compressed = bool(entry.get("compressed"))
+    compressed = bool(entry.get("compressed")) or payload.lower().endswith(".lzhal")
+    if compressed:
+        decompressed_path = without_lzhal_suffix(raw_path)
+        outputs.append(
+            {
+                "kind": "earthbound_lzhal",
+                "path": decompressed_path,
+            }
+        )
+        decompressed_size = lzhal_decompressed_size(rom, entry)
+        if extension == "gfx" and decompressed_size is not None and decompressed_size % 32 == 0:
+            outputs.append(
+                {
+                    "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+                    "path": preview_path(decompressed_path, "4bpp_preview"),
+                    "columns": 8,
+                }
+            )
+        return outputs
+
     if extension == "gfx" and not compressed and size % 32 == 0:
         outputs.append(
             {
@@ -170,7 +218,7 @@ def convert_binary_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[s
         "title": label or payload,
         "category": binary_category(entry),
         "source": make_source(entry, rom),
-        "outputs": binary_outputs(bank, entry),
+        "outputs": binary_outputs(bank, entry, rom),
         "notes": notes,
     }
 

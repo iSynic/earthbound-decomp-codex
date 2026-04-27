@@ -46,6 +46,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/43.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/43.arr"
         }
       ],
       "notes": [
@@ -68,6 +72,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/60.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/60.arr"
         }
       ],
       "notes": [
@@ -90,6 +98,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/41.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/41.arr"
         }
       ],
       "notes": [
@@ -112,6 +124,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/62.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/62.arr"
         }
       ],
       "notes": [
@@ -134,6 +150,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/86.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/86.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/86_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -156,6 +181,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/61.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/61.arr"
         }
       ],
       "notes": [
@@ -178,6 +207,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/63.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/63.arr"
         }
       ],
       "notes": [
@@ -200,6 +233,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/10.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/10.arr"
         }
       ],
       "notes": [
@@ -222,6 +259,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/40.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/40.arr"
         }
       ],
       "notes": [
@@ -244,6 +285,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/16.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/16.arr"
         }
       ],
       "notes": [
@@ -266,6 +311,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/9.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/9.arr"
         }
       ],
       "notes": [
@@ -288,6 +337,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/97.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/97.arr"
         }
       ],
       "notes": [
@@ -310,6 +363,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/26.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/26.arr"
         }
       ],
       "notes": [
@@ -332,6 +389,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/66.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/66.arr"
         }
       ],
       "notes": [
@@ -354,6 +415,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/6.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/6.arr"
         }
       ],
       "notes": [
@@ -376,6 +441,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/84.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/84.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/84_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -398,6 +472,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/98.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/98.arr"
         }
       ],
       "notes": [
@@ -420,6 +498,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/4.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/4.arr"
         }
       ],
       "notes": [
@@ -442,6 +524,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/7.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/7.arr"
         }
       ],
       "notes": [
@@ -464,6 +550,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/9.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/9.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/9_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -486,6 +581,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/8.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/8.arr"
         }
       ],
       "notes": [
@@ -508,6 +607,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/2.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/2.arr"
         }
       ],
       "notes": [
@@ -530,6 +633,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/84.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/84.arr"
         }
       ],
       "notes": [
@@ -552,6 +659,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/86.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/86.arr"
         }
       ],
       "notes": [
@@ -574,6 +685,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/51.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/51.arr"
         }
       ],
       "notes": [
@@ -596,6 +711,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/64.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/64.arr"
         }
       ],
       "notes": [
@@ -618,6 +737,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/53.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/53.arr"
         }
       ],
       "notes": [
@@ -640,6 +763,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/5.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/5.arr"
         }
       ],
       "notes": [
@@ -662,6 +789,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/56.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/56.arr"
         }
       ],
       "notes": [
@@ -684,6 +815,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/93.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/93.arr"
         }
       ],
       "notes": [
@@ -706,6 +841,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/59.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/59.arr"
         }
       ],
       "notes": [
@@ -728,6 +867,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/89.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/89.arr"
         }
       ],
       "notes": [
@@ -750,6 +893,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/18.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/18.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/18_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -772,6 +924,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/52.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/52.arr"
         }
       ],
       "notes": [
@@ -794,6 +950,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/4.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/4.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/4_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -816,6 +981,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/25.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/25.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/25_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -838,6 +1012,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/8.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/8.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/8_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -860,6 +1043,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/95.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/95.arr"
         }
       ],
       "notes": [
@@ -882,6 +1069,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/94.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/94.arr"
         }
       ],
       "notes": [
@@ -904,6 +1095,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/101.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/101.arr"
         }
       ],
       "notes": [
@@ -926,6 +1121,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/36.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/36.arr"
         }
       ],
       "notes": [
@@ -948,6 +1147,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/16.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/16.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/16_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -970,6 +1178,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/35.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/35.arr"
         }
       ],
       "notes": [
@@ -992,6 +1204,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/53.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/53.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/53_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1014,6 +1235,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/82.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/82.arr"
         }
       ],
       "notes": [
@@ -1036,6 +1261,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/12.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/12.arr"
         }
       ],
       "notes": [
@@ -1058,6 +1287,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/49.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/49.arr"
         }
       ],
       "notes": [
@@ -1080,6 +1313,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/85.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/85.arr"
         }
       ],
       "notes": [
@@ -1102,6 +1339,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/1.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/1.arr"
         }
       ],
       "notes": [
@@ -1124,6 +1365,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/99.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/99.arr"
         }
       ],
       "notes": [
@@ -1146,6 +1391,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/96.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/96.arr"
         }
       ],
       "notes": [
@@ -1168,6 +1417,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/78.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/78.arr"
         }
       ],
       "notes": [
@@ -1190,6 +1443,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/15.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/15.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/15_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1212,6 +1474,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/10.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/10.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/10_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1234,6 +1505,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/82.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/82.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/82_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1256,6 +1536,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/47.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/47.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/47_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1278,6 +1567,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/34.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/34.arr"
         }
       ],
       "notes": [
@@ -1300,6 +1593,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/44.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/44.arr"
         }
       ],
       "notes": [
@@ -1322,6 +1619,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/102.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/102.arr"
         }
       ],
       "notes": [
@@ -1344,6 +1645,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/52.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/52.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/52_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1366,6 +1676,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/50.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/50.arr"
         }
       ],
       "notes": [
@@ -1388,6 +1702,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/27.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/27.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/27_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1410,6 +1733,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/98.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/98.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/98_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1432,6 +1764,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/5.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/5.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/5_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1454,6 +1795,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/3.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/3.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/3_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1476,6 +1826,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/6.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/6.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/6_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1498,6 +1857,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/17.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/17.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/17_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1520,6 +1888,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/15.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/15.arr"
         }
       ],
       "notes": [
@@ -1542,6 +1914,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/68.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/68.arr"
         }
       ],
       "notes": [
@@ -1564,6 +1940,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/28.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/28.arr"
         }
       ],
       "notes": [
@@ -1586,6 +1966,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/85.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/85.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/85_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1608,6 +1997,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/1.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/1.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/1_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1630,6 +2028,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/14.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/14.arr"
         }
       ],
       "notes": [
@@ -1652,6 +2054,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/89.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/89.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/89_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1674,6 +2085,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/93.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/93.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/93_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1696,6 +2116,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/31.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/31.arr"
         }
       ],
       "notes": [
@@ -1718,6 +2142,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/68.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/68.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/68_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1740,6 +2173,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/54.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/54.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/54_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1762,6 +2204,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/99.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/99.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/99_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1784,6 +2235,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/24.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/24.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/24_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1806,6 +2266,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/65.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/65.arr"
         }
       ],
       "notes": [
@@ -1828,6 +2292,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/47.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/47.arr"
         }
       ],
       "notes": [
@@ -1850,6 +2318,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/55.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/55.arr"
         }
       ],
       "notes": [
@@ -1872,6 +2344,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/27.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/27.arr"
         }
       ],
       "notes": [
@@ -1894,6 +2370,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/101.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/101.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/101_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1916,6 +2401,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/2.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/2.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/2_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1938,6 +2432,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/3.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/3.arr"
         }
       ],
       "notes": [
@@ -1960,6 +2458,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/70.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/70.arr"
         }
       ],
       "notes": [
@@ -1982,6 +2484,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/45.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/45.arr"
         }
       ],
       "notes": [
@@ -2004,6 +2510,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/7.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/7.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/7_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2026,6 +2541,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/69.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/69.arr"
         }
       ],
       "notes": [
@@ -2048,6 +2567,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/54.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/54.arr"
         }
       ],
       "notes": [
@@ -2070,6 +2593,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/13.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/13.arr"
         }
       ],
       "notes": [
@@ -2092,6 +2619,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/70.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/70.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/70_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2114,6 +2650,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/91.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/91.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/91_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2136,6 +2681,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/14.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/14.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/14_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2158,6 +2712,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/36.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/36.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/36_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2180,6 +2743,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/58.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/58.arr"
         }
       ],
       "notes": [
@@ -2202,6 +2769,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/23.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/23.arr"
         }
       ],
       "notes": [
@@ -2224,6 +2795,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/20.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/20.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/20_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2246,6 +2826,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/18.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/18.arr"
         }
       ],
       "notes": [
@@ -2268,6 +2852,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/65.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/65.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/65_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2290,6 +2883,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/32.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/32.arr"
         }
       ],
       "notes": [
@@ -2312,6 +2909,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/24.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/24.arr"
         }
       ],
       "notes": [
@@ -2334,6 +2935,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/20.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/20.arr"
         }
       ],
       "notes": [
@@ -2356,6 +2961,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/30.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/30.arr"
         }
       ],
       "notes": [
@@ -2378,6 +2987,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/102.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/102.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/102_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2400,6 +3018,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/88.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/88.arr"
         }
       ],
       "notes": [
@@ -2422,6 +3044,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/57.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/57.arr"
         }
       ],
       "notes": [
@@ -2444,6 +3070,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/48.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/48.arr"
         }
       ],
       "notes": [
@@ -2466,6 +3096,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/32.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/32.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/32_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2488,6 +3127,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/91.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/91.arr"
         }
       ],
       "notes": [
@@ -2510,6 +3153,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/51.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/51.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/51_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2532,6 +3184,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/67.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/67.arr"
         }
       ],
       "notes": [
@@ -2554,6 +3210,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/29.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/29.arr"
         }
       ],
       "notes": [
@@ -2576,6 +3236,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/34.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/34.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/34_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2598,6 +3267,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/25.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/25.arr"
         }
       ],
       "notes": [
@@ -2620,6 +3293,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/17.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/17.arr"
         }
       ],
       "notes": [
@@ -2642,6 +3319,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/100.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/100.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/100_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2664,6 +3350,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/23.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/23.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/23_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2686,6 +3381,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/19.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/19.arr"
         }
       ],
       "notes": [
@@ -2708,6 +3407,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/46.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/46.arr"
         }
       ],
       "notes": [
@@ -2730,6 +3433,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/33.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/33.arr"
         }
       ],
       "notes": [
@@ -2752,6 +3459,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/22.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/22.arr"
         }
       ],
       "notes": [
@@ -2774,6 +3485,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/21.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/21.arr"
         }
       ],
       "notes": [
@@ -2796,6 +3511,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/11.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/11.arr"
         }
       ],
       "notes": [
@@ -2818,6 +3537,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/31.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/31.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/31_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2840,6 +3568,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/88.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/88.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/88_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2862,6 +3599,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/19.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/19.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/19_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2884,6 +3630,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/21.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/21.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/21_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2906,6 +3661,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/92.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/92.arr"
         }
       ],
       "notes": [
@@ -2928,6 +3687,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/59.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/59.gfx"
         }
       ],
       "notes": [
@@ -2950,6 +3713,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/22.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/22.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/22_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2972,6 +3744,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/97.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/97.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/97_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2994,6 +3775,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/94.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/94.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/94_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3016,6 +3806,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/55.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/55.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/55_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3038,6 +3837,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/92.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/92.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/92_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3060,6 +3868,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/96.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/96.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/96_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3082,6 +3899,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/69.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/69.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/69_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3104,6 +3930,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/13.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/13.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/13_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3126,6 +3961,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/35.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/35.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/35_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3148,6 +3992,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/95.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/95.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/95_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3170,6 +4023,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/26.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/26.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/26_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3192,6 +4054,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/28.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/28.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/28_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3214,6 +4085,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/33.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/33.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/33_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3236,6 +4116,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/78.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/78.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/78_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3258,6 +4147,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/11.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/11.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/11_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -3280,6 +4178,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/45.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/45.gfx"
         }
       ],
       "notes": [
@@ -3302,6 +4204,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/58.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/58.gfx"
         }
       ],
       "notes": [
@@ -3324,6 +4230,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/46.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/46.gfx"
         }
       ],
       "notes": [
@@ -3346,6 +4256,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/57.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/57.gfx"
         }
       ],
       "notes": [
@@ -3368,6 +4282,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/29.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/29.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/29_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5196,6 +6119,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/48.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/48.gfx"
         }
       ],
       "notes": [
@@ -5218,6 +6145,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/50.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/50.gfx"
         }
       ],
       "notes": [
@@ -5240,6 +6171,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/44.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/44.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/44_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5262,6 +6202,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/30.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/30.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/30_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5284,6 +6233,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/12.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/12.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/12_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5306,6 +6264,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/49.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/49.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/49_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5328,6 +6295,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/67.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/67.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/67_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5938,6 +6914,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/73.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/73.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/73_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -5960,6 +6945,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/90.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/90.arr"
         }
       ],
       "notes": [
@@ -5982,6 +6971,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/87.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/87.arr"
         }
       ],
       "notes": [
@@ -6004,6 +6997,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/83.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/83.arr"
         }
       ],
       "notes": [
@@ -6026,6 +7023,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/81.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/81.arr"
         }
       ],
       "notes": [
@@ -6048,6 +7049,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/80.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/80.arr"
         }
       ],
       "notes": [
@@ -6070,6 +7075,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/79.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/79.arr"
         }
       ],
       "notes": [
@@ -6092,6 +7101,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/77.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/77.arr"
         }
       ],
       "notes": [
@@ -6114,6 +7127,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/76.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/76.arr"
         }
       ],
       "notes": [
@@ -6136,6 +7153,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/75.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/75.arr"
         }
       ],
       "notes": [
@@ -6158,6 +7179,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/74.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/74.arr"
         }
       ],
       "notes": [
@@ -6180,6 +7205,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/73.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/73.arr"
         }
       ],
       "notes": [
@@ -6202,6 +7231,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/72.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/72.arr"
         }
       ],
       "notes": [
@@ -6224,6 +7257,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/71.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/71.arr"
         }
       ],
       "notes": [
@@ -6246,6 +7283,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/arrangements/0.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/arrangements/0.arr"
         }
       ],
       "notes": [
@@ -6268,6 +7309,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/87.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/87.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/87_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6290,6 +7340,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/83.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/83.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/83_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6312,6 +7371,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/81.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/81.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/81_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6334,6 +7402,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/80.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/80.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/80_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6356,6 +7433,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/79.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/79.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/79_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6378,6 +7464,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/77.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/77.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/77_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6400,6 +7495,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/76.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/76.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/76_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6422,6 +7526,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/75.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/75.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/75_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6444,6 +7557,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/74.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/74.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/74_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6466,6 +7588,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/72.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/72.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/72_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6488,6 +7619,15 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/71.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/71.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cb/battle_bgs/graphics/71_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -6510,6 +7650,10 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/graphics/0.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cb/battle_bgs/graphics/0.gfx"
         }
       ],
       "notes": [

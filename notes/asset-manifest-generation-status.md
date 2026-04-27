@@ -8,9 +8,11 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 
 - manifests: `38`
 - assets: `2218`
-- output recipes: `3370`
+- output recipes: `4073`
 - raw ROM-backed outputs: `2218`
+- LZHAL decompressed outputs: `466`
 - SNES 4bpp preview PNG recipes: `1151`
+- LZHAL-decompressed SNES 4bpp preview PNG recipes: `237`
 - SNES 2bpp preview PNG recipes: `1`
 
 Category breakdown:
@@ -47,7 +49,7 @@ Result:
 
 - validated `38` manifests
 - validated `2218` assets
-- validated `3370` output recipes
+- validated `4073` output recipes
 - extracted every manifest against the local EarthBound US ROM
 - all manifest range SHA-1 checks passed
 - generated reports stayed under ignored `build/assets/`
@@ -56,11 +58,11 @@ Result:
 
 - Generated table IDs include source order so repeated generic includes such as `inline:WORD` cannot collide.
 - Uncompressed `.gfx` payloads whose byte length is a multiple of 32 get a grayscale `snes_4bpp_tiles_png` preview recipe.
-- Compressed `.lzhal` graphics currently extract as raw compressed payloads; decoded previews should wait on a dedicated LZHAL decode stage.
+- Compressed `.lzhal` assets now emit decompressed local outputs. Decompressed `.gfx` payloads whose byte length is a multiple of 32 also get grayscale `earthbound_lzhal_snes_4bpp_tiles_png` preview recipes.
 
 ## Next Useful Decoders
 
-1. LZHAL graphics/arrangement decompression for battle backgrounds and battle sprites.
-2. SNES palette decoding for `.pal` payloads and palette tables.
+1. SNES palette decoding for `.pal` payloads and palette tables.
+2. Palette-aware PNG rendering for decompressed battle backgrounds, battle sprites, and overworld sprites.
 3. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
 4. BRR/audio pack manifests split into sample/song/pack-level contracts.

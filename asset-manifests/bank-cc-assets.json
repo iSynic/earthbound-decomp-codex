@@ -47,6 +47,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/lightning_reflect.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/lightning_reflect.anim"
         }
       ],
       "notes": [
@@ -69,6 +73,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/lightning_strike.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/lightning_strike.anim"
         }
       ],
       "notes": [
@@ -91,6 +99,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/starman_jr_teleport.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/starman_jr_teleport.anim"
         }
       ],
       "notes": [
@@ -113,6 +125,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/boom.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/boom.anim"
         }
       ],
       "notes": [
@@ -135,6 +151,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/zombies.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/zombies.anim"
         }
       ],
       "notes": [
@@ -157,6 +177,10 @@
         {
           "kind": "raw",
           "path": "cc/graphics/animations/the_end.anim.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/graphics/animations/the_end.anim"
         }
       ],
       "notes": [
@@ -179,6 +203,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/20.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/20.arr"
         }
       ],
       "notes": [
@@ -201,6 +229,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/31.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/31.arr"
         }
       ],
       "notes": [
@@ -223,6 +255,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/19.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/19.arr"
         }
       ],
       "notes": [
@@ -245,6 +281,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/21.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/21.arr"
         }
       ],
       "notes": [
@@ -267,6 +307,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/13.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/13.arr"
         }
       ],
       "notes": [
@@ -289,6 +333,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/23.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/23.arr"
         }
       ],
       "notes": [
@@ -311,6 +359,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/18.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/18.arr"
         }
       ],
       "notes": [
@@ -333,6 +385,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/8.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/8.arr"
         }
       ],
       "notes": [
@@ -355,6 +411,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/30.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/30.arr"
         }
       ],
       "notes": [
@@ -377,6 +437,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/29.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/29.arr"
         }
       ],
       "notes": [
@@ -399,6 +463,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/28.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/28.arr"
         }
       ],
       "notes": [
@@ -421,6 +489,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/25.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/25.arr"
         }
       ],
       "notes": [
@@ -443,6 +515,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/26.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/26.arr"
         }
       ],
       "notes": [
@@ -465,6 +541,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/9.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/9.arr"
         }
       ],
       "notes": [
@@ -487,6 +567,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/gfx/0.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/gfx/0.gfx"
         }
       ],
       "notes": [
@@ -509,6 +593,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/5.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/5.arr"
         }
       ],
       "notes": [
@@ -531,6 +619,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/gfx/1.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/gfx/1.gfx"
         }
       ],
       "notes": [
@@ -553,6 +645,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/3.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/3.arr"
         }
       ],
       "notes": [
@@ -575,6 +671,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/7.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/7.arr"
         }
       ],
       "notes": [
@@ -597,6 +697,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/0.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/0.arr"
         }
       ],
       "notes": [
@@ -619,6 +723,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/6.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/6.arr"
         }
       ],
       "notes": [
@@ -641,6 +749,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/17.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/17.arr"
         }
       ],
       "notes": [
@@ -663,6 +775,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/33.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/33.arr"
         }
       ],
       "notes": [
@@ -685,6 +801,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/22.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/22.arr"
         }
       ],
       "notes": [
@@ -707,6 +827,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/12.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/12.arr"
         }
       ],
       "notes": [
@@ -729,6 +853,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/2.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/2.arr"
         }
       ],
       "notes": [
@@ -751,6 +879,15 @@
         {
           "kind": "raw",
           "path": "cc/psianims/gfx/2.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/gfx/2.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "cc/psianims/gfx/2_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -773,6 +910,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/1.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/1.arr"
         }
       ],
       "notes": [
@@ -795,6 +936,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/24.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/24.arr"
         }
       ],
       "notes": [
@@ -817,6 +962,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/gfx/3.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/gfx/3.gfx"
         }
       ],
       "notes": [
@@ -839,6 +988,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/16.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/16.arr"
         }
       ],
       "notes": [
@@ -861,6 +1014,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/15.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/15.arr"
         }
       ],
       "notes": [
@@ -883,6 +1040,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/11.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/11.arr"
         }
       ],
       "notes": [
@@ -905,6 +1066,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/14.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/14.arr"
         }
       ],
       "notes": [
@@ -927,6 +1092,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/32.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/32.arr"
         }
       ],
       "notes": [
@@ -949,6 +1118,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/27.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/27.arr"
         }
       ],
       "notes": [
@@ -971,6 +1144,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/4.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/4.arr"
         }
       ],
       "notes": [
@@ -993,6 +1170,10 @@
         {
           "kind": "raw",
           "path": "cc/psianims/arrangements/10.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "cc/psianims/arrangements/10.arr"
         }
       ],
       "notes": [

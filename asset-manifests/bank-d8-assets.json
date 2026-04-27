@@ -46,6 +46,10 @@
         {
           "kind": "raw",
           "path": "d8/errors/antipiracy.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "d8/errors/antipiracy.arr"
         }
       ],
       "notes": [
@@ -68,6 +72,15 @@
         {
           "kind": "raw",
           "path": "d8/errors/antipiracy.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "d8/errors/antipiracy.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "d8/errors/antipiracy_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -111,6 +124,10 @@
         {
           "kind": "raw",
           "path": "d8/errors/faulty.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "d8/errors/faulty.arr"
         }
       ],
       "notes": [
@@ -133,6 +150,15 @@
         {
           "kind": "raw",
           "path": "d8/errors/faulty.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "d8/errors/faulty.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "d8/errors/faulty_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [

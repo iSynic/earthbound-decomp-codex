@@ -45,6 +45,15 @@
         {
           "kind": "raw",
           "path": "e0/graphics/text_window.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/graphics/text_window.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e0/graphics/text_window_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -67,6 +76,10 @@
         {
           "kind": "raw",
           "path": "e0/graphics/flavoured_text.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/graphics/flavoured_text.gfx"
         }
       ],
       "notes": [
@@ -110,6 +123,10 @@
         {
           "kind": "raw",
           "path": "e0/mystery_sram.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/mystery_sram.bin"
         }
       ],
       "notes": [
@@ -180,6 +197,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/0.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/0.bin"
         }
       ],
       "notes": [
@@ -202,6 +223,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/1.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/1.bin"
         }
       ],
       "notes": [
@@ -224,6 +249,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/2.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/2.bin"
         }
       ],
       "notes": [
@@ -246,6 +275,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/3.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/3.bin"
         }
       ],
       "notes": [
@@ -268,6 +301,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/4.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/4.bin"
         }
       ],
       "notes": [
@@ -290,6 +327,10 @@
         {
           "kind": "raw",
           "path": "e0/town_maps/5.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e0/town_maps/5.bin"
         }
       ],
       "notes": [

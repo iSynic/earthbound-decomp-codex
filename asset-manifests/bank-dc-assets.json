@@ -45,6 +45,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/12.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/12.arr"
         }
       ],
       "notes": [
@@ -67,6 +71,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/13.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/13.arr"
         }
       ],
       "notes": [
@@ -89,6 +97,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/14.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/14.arr"
         }
       ],
       "notes": [
@@ -111,6 +123,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/15.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/15.arr"
         }
       ],
       "notes": [
@@ -133,6 +149,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/18.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/18.arr"
         }
       ],
       "notes": [
@@ -155,6 +175,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/arrangements/19.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/arrangements/19.arr"
         }
       ],
       "notes": [
@@ -177,6 +201,10 @@
         {
           "kind": "raw",
           "path": "dc/maps/gfx/14.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "dc/maps/gfx/14.gfx"
         }
       ],
       "notes": [

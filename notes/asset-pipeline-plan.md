@@ -41,7 +41,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 ## Decoder Roadmap
 
 - **Near term**: raw ROM slices, 2bpp tile preview PNGs, extraction reports.
-- **Next**: SNES palettes, tilemaps, compressed graphics blocks, BRR/sample packs, text tables, and map sector data.
+- **Next**: SNES palettes, palette-aware tile rendering, tilemaps, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
 ## Tooling Path

@@ -45,6 +45,10 @@
         {
           "kind": "raw",
           "path": "da/maps/arrangements/5.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "da/maps/arrangements/5.arr"
         }
       ],
       "notes": [
@@ -67,6 +71,10 @@
         {
           "kind": "raw",
           "path": "da/maps/arrangements/6.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "da/maps/arrangements/6.arr"
         }
       ],
       "notes": [
@@ -89,6 +97,10 @@
         {
           "kind": "raw",
           "path": "da/maps/arrangements/7.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "da/maps/arrangements/7.arr"
         }
       ],
       "notes": [

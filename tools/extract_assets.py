@@ -18,6 +18,7 @@ from rom_tools import (
     read_rom_info,
     verify_earthbound_us,
 )
+from decompress_c41a9e import decompress_blob
 
 
 def parse_args() -> argparse.Namespace:
@@ -119,6 +120,15 @@ def write_raw(data: bytes, path: Path) -> None:
     path.write_bytes(data)
 
 
+def decompress_earthbound_lzhal(data: bytes) -> tuple[bytes, int]:
+    decompressed, consumed = decompress_blob(data, dest_base=0xC000)
+    if consumed <= 0 or consumed > len(data):
+        raise ValueError(
+            f"LZHAL decompressor consumed an invalid byte count: {consumed}/{len(data)}"
+        )
+    return decompressed, consumed
+
+
 def png_chunk(kind: bytes, data: bytes) -> bytes:
     return (
         struct.pack(">I", len(data))
@@ -212,24 +222,38 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any
         raise ValueError(f"Output spec must include string kind/path: {spec!r}")
 
     path = output_path(root, relative_path)
+    metadata: dict[str, Any] = {}
     if kind == "raw":
         write_raw(data, path)
+    elif kind == "earthbound_lzhal":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        write_raw(decompressed, path)
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         write_grayscale_png(path, decode_snes_2bpp_tiles(data, columns))
     elif kind == "snes_4bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         write_grayscale_png(path, decode_snes_4bpp_tiles(data, columns))
+    elif kind == "earthbound_lzhal_snes_4bpp_tiles_png":
+        columns = int(spec.get("columns", 16))
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        write_grayscale_png(path, decode_snes_4bpp_tiles(decompressed, columns))
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
     else:
         raise ValueError(f"Unsupported output kind: {kind}")
 
     output_data = path.read_bytes()
-    return {
+    result = {
         "kind": kind,
         "path": str(path),
         "bytes": len(output_data),
         "sha1": hashlib.sha1(output_data).hexdigest(),
     }
+    result.update(metadata)
+    return result
 
 
 def asset_source(asset: dict[str, Any]) -> dict[str, Any]:

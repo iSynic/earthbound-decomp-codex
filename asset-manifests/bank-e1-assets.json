@@ -235,6 +235,10 @@
         {
           "kind": "raw",
           "path": "e1/unknown_palette.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/unknown_palette.pal"
         }
       ],
       "notes": [
@@ -257,6 +261,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/ape.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/ape.arr"
         }
       ],
       "notes": [
@@ -279,6 +287,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/ape.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/ape.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/logos/ape_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -301,6 +318,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/ape.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/ape.pal"
         }
       ],
       "notes": [
@@ -323,6 +344,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/halken.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/halken.arr"
         }
       ],
       "notes": [
@@ -345,6 +370,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/halken.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/halken.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/logos/halken_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -367,6 +401,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/halken.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/halken.pal"
         }
       ],
       "notes": [
@@ -389,6 +427,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/nintendo.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/nintendo.arr"
         }
       ],
       "notes": [
@@ -411,6 +453,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/nintendo.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/nintendo.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/logos/nintendo_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -433,6 +484,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/logos/nintendo.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/logos/nintendo.pal"
         }
       ],
       "notes": [
@@ -455,6 +510,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/gas_station.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/gas_station.arr"
         }
       ],
       "notes": [
@@ -477,6 +536,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/gas_station.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/gas_station.gfx"
         }
       ],
       "notes": [
@@ -499,6 +562,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/gas_station.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/gas_station.pal"
         }
       ],
       "notes": [
@@ -521,6 +588,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/gas_station2.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/gas_station2.pal"
         }
       ],
       "notes": [
@@ -543,6 +614,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/attract/produced_by_itoi.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/attract/produced_by_itoi.arr"
         }
       ],
       "notes": [
@@ -565,6 +640,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/attract/produced_by_itoi.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/attract/produced_by_itoi.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/attract/produced_by_itoi_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -587,6 +671,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/attract/nintendo_presentation.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/attract/nintendo_presentation.arr"
         }
       ],
       "notes": [
@@ -609,6 +697,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/attract/nintendo_presentation.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/attract/nintendo_presentation.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/attract/nintendo_presentation_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -631,6 +728,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/attract/nintendo_itoi.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/attract/nintendo_itoi.pal"
         }
       ],
       "notes": [
@@ -653,6 +754,10 @@
         {
           "kind": "raw",
           "path": "e1/E1AE7C.bin.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/E1AE7C.bin"
         }
       ],
       "notes": [
@@ -676,6 +781,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/title_screen.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/title_screen.arr"
         }
       ],
       "notes": [
@@ -698,6 +807,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/title_screen.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/title_screen.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/title_screen_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -720,6 +838,15 @@
         {
           "kind": "raw",
           "path": "e1/intro/title_screen_letters.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/title_screen_letters.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/intro/title_screen_letters_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -742,6 +869,10 @@
         {
           "kind": "raw",
           "path": "e1/intro/title_screen.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/intro/title_screen.pal"
         }
       ],
       "notes": [
@@ -764,6 +895,15 @@
         {
           "kind": "raw",
           "path": "e1/E1CFAF.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/E1CFAF.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/E1CFAF_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -786,6 +926,10 @@
         {
           "kind": "raw",
           "path": "e1/E1D4F4.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/E1D4F4.pal"
         }
       ],
       "notes": [
@@ -808,6 +952,10 @@
         {
           "kind": "raw",
           "path": "e1/E1D5E8.arr.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/E1D5E8.arr"
         }
       ],
       "notes": [
@@ -830,6 +978,15 @@
         {
           "kind": "raw",
           "path": "e1/E1D6E1.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/E1D6E1.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/E1D6E1_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -853,6 +1010,15 @@
         {
           "kind": "raw",
           "path": "e1/ending/cast_names.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/ending/cast_names.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/ending/cast_names_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -875,6 +1041,10 @@
         {
           "kind": "raw",
           "path": "e1/ending/cast_names.pal.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/ending/cast_names.pal"
         }
       ],
       "notes": [
@@ -897,6 +1067,15 @@
         {
           "kind": "raw",
           "path": "e1/ending/credits_font.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/ending/credits_font.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/ending/credits_font_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -940,6 +1119,15 @@
         {
           "kind": "raw",
           "path": "e1/town_maps/label.gfx.lzhal"
+        },
+        {
+          "kind": "earthbound_lzhal",
+          "path": "e1/town_maps/label.gfx"
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
+          "path": "e1/town_maps/label_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
