@@ -17,6 +17,7 @@ DEFAULT_OVERWORLD_SPRITES = (
 )
 DEFAULT_BANKCONFIG_DIR = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "bankconfig" / "common"
 DEFAULT_ASSET_MANIFEST_DIR = ROOT / "asset-manifests"
+DEFAULT_ALIAS_MAP = ROOT / "notes" / "overworld-sprite-group-aliases.json"
 DEFAULT_JSON_OUT = ROOT / "notes" / "overworld-sprite-groups.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "overworld-sprite-group-contracts.md"
 
@@ -36,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--overworld-sprites", default=str(DEFAULT_OVERWORLD_SPRITES))
     parser.add_argument("--bankconfig-dir", default=str(DEFAULT_BANKCONFIG_DIR))
     parser.add_argument("--asset-manifest-dir", default=str(DEFAULT_ASSET_MANIFEST_DIR))
+    parser.add_argument("--alias-map", default=str(DEFAULT_ALIAS_MAP))
     parser.add_argument("--json-out", default=str(DEFAULT_JSON_OUT))
     parser.add_argument("--markdown-out", default=str(DEFAULT_MARKDOWN_OUT))
     return parser.parse_args()
@@ -116,6 +118,22 @@ def parse_overworld_sprite_enum(path: Path) -> dict[str, int]:
         if match:
             entries[match.group(1)] = int(match.group(2))
     return entries
+
+
+def load_alias_map(path: Path) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    document = json.loads(path.read_text(encoding="utf-8"))
+    aliases: dict[str, dict[str, Any]] = {}
+    for entry in document.get("aliases", []):
+        label = str(entry.get("label"))
+        enum_name = str(entry.get("enum_name"))
+        if not label or not enum_name:
+            raise ValueError(f"Alias entry in {path} is missing label or enum_name: {entry!r}")
+        if label in aliases:
+            raise ValueError(f"Duplicate alias label in {path}: {label}")
+        aliases[label] = entry
+    return aliases
 
 
 def parse_group_payloads(bankconfig_dir: Path) -> list[dict[str, Any]]:
@@ -265,16 +283,30 @@ def attach_metadata(
     enum_by_name: dict[str, int],
     metadata_by_id: dict[int, dict[str, Any]],
     asset_by_sprite_id: dict[int, dict[str, Any]],
+    alias_by_label: dict[str, dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     enriched: list[dict[str, Any]] = []
     missing_assets: list[dict[str, Any]] = []
     unmatched_labels: list[str] = []
     alias_candidates: list[dict[str, Any]] = []
     payload_count = 0
+    group_labels = {group["label"] for group in groups}
+    unused_aliases = sorted(set(alias_by_label) - group_labels)
+    if unused_aliases:
+        raise ValueError(f"Alias labels do not match ebsrc group labels: {unused_aliases}")
 
     for group in groups:
         enum_name = enum_name_for_group_label(group["label"])
+        metadata_match = "exact"
+        alias_entry = None
         overworld_sprite_id = enum_by_name.get(enum_name)
+        if overworld_sprite_id is None and group["label"] in alias_by_label:
+            alias_entry = alias_by_label[group["label"]]
+            enum_name = alias_entry["enum_name"]
+            if enum_name not in enum_by_name:
+                raise ValueError(f"Alias {group['label']} points to missing enum {enum_name}")
+            overworld_sprite_id = enum_by_name[enum_name]
+            metadata_match = "alias"
         metadata = metadata_by_id.get(overworld_sprite_id) if overworld_sprite_id is not None else None
         if overworld_sprite_id is None:
             unmatched_labels.append(group["label"])
@@ -300,6 +332,8 @@ def attach_metadata(
                 "label": group["label"],
                 "enum_name": enum_name,
                 "overworld_sprite_id": overworld_sprite_id,
+                "metadata_match": metadata_match if metadata is not None else None,
+                "alias": alias_entry,
                 "metadata": metadata,
                 "bank_config": group["bank_config"],
                 "line": group["line"],
@@ -312,6 +346,12 @@ def attach_metadata(
         "group_count": len(enriched),
         "groups_with_metadata": sum(1 for group in enriched if group["metadata"] is not None),
         "groups_without_metadata": sum(1 for group in enriched if group["metadata"] is None),
+        "groups_with_exact_metadata": sum(
+            1 for group in enriched if group["metadata_match"] == "exact"
+        ),
+        "groups_with_alias_metadata": sum(
+            1 for group in enriched if group["metadata_match"] == "alias"
+        ),
         "referenced_sprite_payloads": payload_count,
         "unique_referenced_sprite_payloads": len(
             {payload["sprite_id"] for group in enriched for payload in group["sprite_payloads"]}
@@ -354,7 +394,7 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
         "",
         "This note summarizes the checked-in sprite group contract in "
         "`notes/overworld-sprite-groups.json`. It ties ebsrc `SPRITE_GROUP_*` labels to the "
-        "D1-D5 sprite tile payloads and, when the labels match, EBDecomp group size/collision metadata.",
+        "D1-D5 sprite tile payloads and EBDecomp group size/collision metadata.",
         "",
         "## Inputs",
         "",
@@ -366,7 +406,9 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "## Coverage",
             "",
             f"- Sprite groups from ebsrc bankconfig: {summary['group_count']}",
-            f"- Groups with exact EBDecomp metadata matches: {summary['groups_with_metadata']}",
+            f"- Groups with EBDecomp metadata matches: {summary['groups_with_metadata']}",
+            f"  - Exact label matches: {summary['groups_with_exact_metadata']}",
+            f"  - Alias map matches: {summary['groups_with_alias_metadata']}",
             f"- Groups still needing enum alias mapping: {summary['groups_without_metadata']}",
             f"- Referenced sprite payload records: {summary['referenced_sprite_payloads']}",
             f"- Unique referenced sprite payloads: {summary['unique_referenced_sprite_payloads']}",
@@ -389,9 +431,9 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "",
             "- The JSON records the sprite tile payload sequence, source ranges, and default palette previews.",
             "- It does not yet infer the full animation frame order or direction table semantics.",
-            "- Several ebsrc group labels use names that differ from the `OVERWORLD_SPRITE` enum names, so their "
-            "size/collision metadata is intentionally left unresolved until an alias map is added.",
-            "- Ranked enum alias candidates are included in the JSON as hints only; they are not applied to metadata.",
+            "- `notes/overworld-sprite-group-aliases.json` resolves ebsrc names that differ from the "
+            "`OVERWORLD_SPRITE` enum names.",
+            "- Ranked enum alias candidates remain in the JSON only for unresolved labels.",
             "- No ROM-derived bytes or rendered assets are committed by this contract; generated outputs remain under `build/`.",
             "",
             "## Enum Alias Frontier",
@@ -435,12 +477,16 @@ def main() -> int:
     overworld_sprites = Path(args.overworld_sprites)
     bankconfig_dir = Path(args.bankconfig_dir)
     asset_manifest_dir = Path(args.asset_manifest_dir)
+    alias_map = Path(args.alias_map)
 
     metadata_by_id = parse_sprite_group_metadata(sprite_groups_yml)
     enum_by_name = parse_overworld_sprite_enum(overworld_sprites)
+    alias_by_label = load_alias_map(alias_map)
     group_payloads = parse_group_payloads(bankconfig_dir)
     asset_by_sprite_id = load_sprite_asset_lookup(asset_manifest_dir)
-    groups, diagnostics = attach_metadata(group_payloads, enum_by_name, metadata_by_id, asset_by_sprite_id)
+    groups, diagnostics = attach_metadata(
+        group_payloads, enum_by_name, metadata_by_id, asset_by_sprite_id, alias_by_label
+    )
 
     document = {
         "schema": SCHEMA,
@@ -466,6 +512,7 @@ def main() -> int:
             rel(asset_manifest_dir / "bank-d3-assets.json"),
             rel(asset_manifest_dir / "bank-d4-assets.json"),
             rel(asset_manifest_dir / "bank-d5-assets.json"),
+            rel(alias_map),
         ],
         "summary": diagnostics["summary"],
         "unmatched_group_labels": diagnostics["unmatched_group_labels"],
