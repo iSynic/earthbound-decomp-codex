@@ -4,10 +4,10 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 ## Summary
 
-- ranges: `15`
+- ranges: `22`
 - total bytes: `65536`
-- source bytes: `7354`
-- data gap bytes: `58182`
+- source bytes: `11565`
+- data gap bytes: `53971`
 
 ## Ranges
 
@@ -23,7 +23,14 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/ef/ef_d6d4_d8b5_debug_sound_menu_controller.asm` | `EF:D6D4..EF:D8B5` | 481 | 481 | 0 | `7dfefdcb21fdb15ad5774c0b8e05d249a9456610` |
 | `build-candidate` | `src/ef/ef_d8b5_d95e_debug_menu_option_strings.asm` | `EF:D8B5..EF:D95E` | 169 | 0 | 169 | `395083f64a645515a8e42c25127744e5764ec74c` |
 | `build-candidate` | `src/ef/ef_d95e_dabd_debug_menu_graphics_state_init.asm` | `EF:D95E..EF:DABD` | 351 | 351 | 0 | `593aca35ad4b1bf4127ae9cc2d8ca981b37b8ac8` |
-| `build-candidate` | `src/ef/ef_dabd_eb5f_debug_menu_mixed_preserved_corridor.asm` | `EF:DABD..EF:EB5F` | 4258 | 0 | 4258 | `41a624ab76fd2d9e172248dd0ec5c5d49d031ecd` |
+| `build-candidate` | `src/ef/ef_dabd_dcbc_debug_menu_text_number_helpers.asm` | `EF:DABD..EF:DCBC` | 511 | 511 | 0 | `69230efc6b0048c238d040518a61002058c4bc4c` |
+| `build-candidate` | `src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm` | `EF:DCBC..EF:DE1A` | 350 | 350 | 0 | `7be9bf793988efca02669a8a91b6ceea495b57bb` |
+| `build-candidate` | `src/ef/ef_de1a_df0b_debug_view_character_overlay.asm` | `EF:DE1A..EF:DF0B` | 241 | 241 | 0 | `810ee840a220dbb001b044ad9d1df00b0b7b8895` |
+| `build-candidate` | `src/ef/ef_df0b_e175_debug_overlay_tile_helpers.asm` | `EF:DF0B..EF:E175` | 618 | 618 | 0 | `15cd4ce61ad31ea3f03158483c285caf717d41d8` |
+| `build-candidate` | `src/ef/ef_e175_eb1d_debug_menu_runtime_helpers.asm` | `EF:E175..EF:EB1D` | 2472 | 2472 | 0 | `622254c8aa62a39311c8331d5a5fc32a1dee77c6` |
+| `build-candidate` | `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm` | `EF:EB1D..EF:EB2A` | 13 | 0 | 13 | `49c3bca75bbbe59051ec87f6e80fc31946136449` |
+| `build-candidate` | `src/ef/ef_eb2a_eb3d_debug_color_math_dma_reset.asm` | `EF:EB2A..EF:EB3D` | 19 | 19 | 0 | `b7703e2d448dca9da5dd3146081d989ae457fc32` |
+| `build-candidate` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | `EF:EB3D..EF:EB5F` | 34 | 0 | 34 | `dd51f90c8b6debd5ab65cfcad48a0f1cf3a4fb6a` |
 | `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 1041 | 0 | `7d8195145f270d5d310df09b7c73a32cca868614` |
 | `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 71 | 0 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
 | `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 288 | 0 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
@@ -219,7 +226,92 @@ Evidence:
 - `notes/ef-readable-source-split-queue.md`
 - `notes/ef-debug-menu-controller-and-loader-d6d4-dabd.md`
 
-### `src/ef/ef_dabd_eb5f_debug_menu_mixed_preserved_corridor.asm`
+### `src/ef/ef_dabd_dcbc_debug_menu_text_number_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:DABD..EF:DCBC` | 511 | `DebugMenuTextAndNumberHelpers` | `69230efc6b0048c238d040518a61002058c4bc4c` |
+
+Labels:
+
+- `EF:DABD DebugMenuTextAndNumberHelpers`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:DCBC..EF:DE1A` | 350 | `DebugCheckPositionOverlayWriter` | `7be9bf793988efca02669a8a91b6ceea495b57bb` |
+
+Labels:
+
+- `EF:DCBC DebugCheckPositionOverlayWriter`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_de1a_df0b_debug_view_character_overlay.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:DE1A..EF:DF0B` | 241 | `DebugViewCharacterOverlayWriter` | `810ee840a220dbb001b044ad9d1df00b0b7b8895` |
+
+Labels:
+
+- `EF:DE1A DebugViewCharacterOverlayWriter`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_df0b_e175_debug_overlay_tile_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:DF0B..EF:E175` | 618 | `DebugOverlayTileHelpers` | `15cd4ce61ad31ea3f03158483c285caf717d41d8` |
+
+Labels:
+
+- `EF:DF0B DebugOverlayTileHelpers`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_e175_eb1d_debug_menu_runtime_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:E175..EF:EB1D` | 2472 | `DebugMenuRuntimeAndMapViewHelpers` | `622254c8aa62a39311c8331d5a5fc32a1dee77c6` |
+
+Labels:
+
+- `EF:E175 DebugMenuRuntimeAndMapViewHelpers`
+
+Evidence:
+
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm`
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
@@ -227,18 +319,59 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:DABD..EF:EB5F` (`4258` bytes, SHA-1 `41a624ab76fd2d9e172248dd0ec5c5d49d031ecd`) `EfDebugMenuMixedPreservedCorridor`
+- `EF:EB1D..EF:EB2A` (`13` bytes, SHA-1 `49c3bca75bbbe59051ec87f6e80fc31946136449`) `EfDebugColorMathWindowTable`
 
 Labels:
 
-- `EF:DABD EfDebugMenuMixedPreservedCorridor`
+- `EF:EB1D EfDebugColorMathWindowTable`
 
 Evidence:
 
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
 - `notes/bank-ef-first-pass.md`
 - `notes/debug-menu-reachability-c0-c1-ef.md`
 - `notes/ef-readable-source-split-queue.md`
-- `notes/ef-debug-menu-controller-and-loader-d6d4-dabd.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_eb2a_eb3d_debug_color_math_dma_reset.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:EB2A..EF:EB3D` | 19 | `DebugColorMathDmaResetHelper` | `b7703e2d448dca9da5dd3146081d989ae457fc32` |
+
+Labels:
+
+- `EF:EB2A DebugColorMathDmaResetHelper`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
+
+### `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `EF:EB3D..EF:EB5F` (`34` bytes, SHA-1 `dd51f90c8b6debd5ab65cfcad48a0f1cf3a4fb6a`) `EfDebugCursorTilemapData`
+
+Labels:
+
+- `EF:EB3D EfDebugCursorTilemapData`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/debug-menu-reachability-c0-c1-ef.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-debug-menu-runtime-closure-dabd-eb5f.md`
 
 ### `src/ef/asset_debug_menu_font.asm`
 

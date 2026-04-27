@@ -1,4 +1,4 @@
-; EarthBound EF debug menu mixed preserved source/data corridor.
+; EarthBound EF debug color math window table.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate data corridor.
@@ -7,10 +7,10 @@
 ;   as one data gap before the terminal label below.
 ;
 ; Source units covered:
-; - EF:DABD..EF:EB5F EfDebugMenuMixedPreservedCorridor
+; - EF:EB1D..EF:EB2A EfDebugColorMathWindowTable
 
 ; ---------------------------------------------------------------------------
-; EF:EB5F
+; EF:EB2A
 
-; EfDebugMenuMixedPreservedCorridorEnd
-EFEB5F_EfDebugMenuMixedPreservedCorridorEnd:
+; EfDebugColorMathWindowTableEnd
+EFEB2A_EfDebugColorMathWindowTableEnd:

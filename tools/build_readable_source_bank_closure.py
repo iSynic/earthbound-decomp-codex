@@ -205,6 +205,9 @@ def classify_range(row: dict[str, Any], metrics: SourceMetrics) -> tuple[str, st
     has_preserved_hint = any(hint in text for hint in PRESERVED_HINTS)
     has_decoded_source_hint = "decoded-source" in text or text.endswith("-source")
 
+    if has_known_data_hint and metrics.instruction_lines == 0:
+        return "known-data-or-asset", "path/subsystem carries data, script, text, table, or asset hint"
+
     if has_preserved_hint and not (has_decoded_source_hint and metrics.instruction_lines > metrics.data_lines):
         return "preserved-corridor", "path/subsystem carries preserved or unknown corridor hint"
 

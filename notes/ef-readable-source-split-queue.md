@@ -99,30 +99,35 @@ tables into explicit data contracts.
   map tileset and sprite grouping tables, Sound Stone presentation data, text
   payload data, and text glyph mask tables. This keeps the largest known
   data/text payloads out of the remaining source-heavy debug corridor.
-- `EF:D56F..EF:EB5F` remains the next source/data mixed corridor, centered on
+- `EF:D56F..EF:EB5F` is now closed as explicit source/data lanes, centered on
   debug menu strings/helpers and the one known non-debug overworld caller seam
   around `EF:E759`.
 - `EF:D56F..EF:D6D4` is now promoted into
   `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm` as decoded source for the
-  debug sound-menu tile/value helper prefix. `EF:D6D4..EF:EB5F` remains the
-  next mixed debug code/string/data corridor.
+  debug sound-menu tile/value helper prefix.
 - `EF:D6D4..EF:DABD` is now split into the decoded sound-menu controller,
   debug menu option strings, and decoded graphics/state initialization helpers.
-  `EF:DABD..EF:EB5F` remains the next mixed debug menu text/overlay/helper
-  corridor.
+- `EF:DABD..EF:DF0B` is now split into decoded menu text and number formatting
+  helpers plus the check-position and view-character overlay writers.
+- `EF:DF0B..EF:EB5F` is now split into decoded overlay tile helpers, the debug
+  menu runtime/cursor/command/input-playback helper cluster, the `EF:EB2A`
+  color-math reset helper, and two tiny preserved data islands at
+  `EF:EB1D..EF:EB2A` and `EF:EB3D..EF:EB5F`.
 - `notes/ef-byte-equivalence-validation.md` confirms the combined EF scaffold
   still matches the original ROM with `0` mismatches.
 
-## Success Criteria
+## Remaining Success Criteria
 
 The next EF readable-source pass should:
 
-1. split one EF lane out of `src/ef/table_002_unknown_ef_ef00bb_asm.asm`
+1. target the remaining front preserved source/data uncertainty before
+   `EF:0CA7`; the late tail after `EF:F0D7` is now asset/data maturity work
+   rather than ordinary readable-source debt
 2. preserve byte equivalence with `validate_source_bank_byte_equivalence.py`
 3. rerun `tools/build_readable_source_bank_closure.py`
-4. reduce EF preserved-corridor bytes or move known data into the
+4. reduce EF preserved-corridor bytes or move remaining known payloads into the
    `known data/assets` bucket
-5. leave the unresolved text and debug lanes documented rather than hidden
+5. leave unresolved text, table, and tail lanes documented rather than hidden
 
 That gives us a clean loop: source split, validate, rerun the closure dashboard,
 then choose the next lane by measured remaining debt.
