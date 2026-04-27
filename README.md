@@ -30,6 +30,11 @@ The repo contains a closed byte-equivalent scaffold for all ROM banks currently
 covered by the project. In practical terms, every bank has a scaffold that can be
 validated against the original ROM bytes.
 
+The stricter readable-source closure milestone is also complete for the audited
+source-heavy banks: `C0`, `C1`, `C2`, `C4`, and `EF` now report `0` preserved
+source corridors in `notes/readable-source-bank-closure.md`. Those banks are no
+longer hiding native 65816 source behind coarse byte blobs.
+
 That does not mean every routine is fully understood. The work is in layers:
 
 1. Preserve every byte in a reproducible source scaffold.
@@ -39,11 +44,15 @@ That does not mean every routine is fully understood. The work is in layers:
 4. Promote working names and structures into clearer source.
 5. Eventually translate well-understood subsystems into higher-level code.
 
-Banks `C0`, `C1`, and `C2` are the most code-heavy runtime banks. They are
-structurally protected, but much of their checked-in scaffold is still
-byte-preserved data corridors rather than decoded instruction-by-instruction
-assembly. Later banks are increasingly heavy in assets, tables, text/script
-payloads, and audio/data packs.
+The next major work is semantic: turning byte-accurate source/data into
+romhacker-grade contracts. The highest-priority gap is not hidden native source,
+but game-specific bytecode and payload semantics: C3 event/actionscript assets,
+text-command payloads, map/table contracts, graphics/audio asset metadata, and
+the tooling needed to reassemble or safely modify those structures.
+
+The C3 event/actionscript audit is now a concrete baseline: `177` script rows
+decode syntactically with the current VM decoder, with `85` native callback
+byte-count seeds captured for the next semantic naming pass.
 
 ## For Romhackers
 
@@ -53,6 +62,8 @@ This repo should be useful if you want to answer questions like:
 - What WRAM fields or ROM tables does a routine touch?
 - Which banks contain code versus script/data/assets?
 - How can a byte range be changed without losing track of exact ROM behavior?
+- Which scripts, text commands, tables, or assets still need stronger semantic
+  docs before they are comfortable to edit?
 - What references already exist in `ebsrc`, legacy disassemblies, or local notes?
 
 Good starting points:
@@ -61,7 +72,8 @@ Good starting points:
 - `notes/how-to-validate.md`
 - `notes/python-tool-syntax-guide.md`
 - `notes/readable-source-bank-closure.md`
-- `notes/ef-readable-source-split-queue.md`
+- `notes/c3-actionscript-semantics-roadmap.md`
+- `notes/c3-actionscript-semantics-audit.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
 - `notes/map-object-bundles.md`
@@ -193,6 +205,7 @@ python tools/extract_ebtext.py C2:0998 --length 4 --count 2 --stride 4
 python tools/find_ebtext_command.py 1C 05 --limit 12
 python tools/inspect_ebtext_hits.py 1D 24 --limit 2 --before 24 --after 56
 python tools/decode_event_script.py C3:0295 C3:AB59
+python tools/build_c3_actionscript_semantics_audit.py
 ```
 
 Join map object visuals and behavior:
@@ -248,6 +261,10 @@ High-use tools:
   dependency order
 - `build_readable_source_bank_closure.py`: audit source-heavy banks for decoded
   asm versus preserved corridors after byte-equivalent scaffold closure
+- `decode_event_script.py`: decode C3 event/actionscript payloads while the VM
+  semantics are being promoted into durable docs
+- `build_c3_actionscript_semantics_audit.py`: regenerate the C3
+  event/actionscript frontier report from the source/data map and local ROM
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
 - `promote_linear_range_to_decoded_source.py`: replace one byte corridor with

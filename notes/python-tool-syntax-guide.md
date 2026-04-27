@@ -214,6 +214,20 @@ Decode C3-style event/actionscript payloads:
 python tools/decode_event_script.py C3:0295 C3:AB59
 ```
 
+Regenerate the C3 event/actionscript semantic frontier from the source/data
+map, reference index, and local ROM:
+
+```powershell
+python tools/build_c3_actionscript_semantics_audit.py
+```
+
+Useful options while experimenting:
+
+```powershell
+python tools/build_c3_actionscript_semantics_audit.py --max-instructions 160 --max-bytes 0x600
+python tools/build_c3_actionscript_semantics_audit.py --json-out build/c3-audit.json --markdown-out notes/c3-actionscript-semantics-audit.md
+```
+
 ## Reference Lookups
 
 Build the local reference index:
