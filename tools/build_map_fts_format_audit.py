@@ -29,8 +29,8 @@ SECTION_LABELS = {
         "confidence": "high",
     },
     290: {
-        "component": "palette_or_settings_rows_290_chars",
-        "interpretation": "base36-like palette/settings text rows; variable count by tileset",
+        "component": "tile_animation_settings_rows_290_chars",
+        "interpretation": "base32-like tile-animation/settings rows; 5 blocks of 58 characters per row",
         "confidence": "medium",
     },
 }
@@ -189,7 +189,7 @@ def summarize(files: list[dict[str, Any]]) -> dict[str, Any]:
             normalized["hex_byte_count_total_if_packed"] = None
         normalized_totals[component] = normalized
 
-    row290_counts = [
+    animation_settings_row_counts = [
         section["row_count"]
         for item in files
         for section in item["sections"]
@@ -200,7 +200,11 @@ def summarize(files: list[dict[str, Any]]) -> dict[str, Any]:
         "matching_current_export_shape_count": export_shape_count,
         "tileset_ids_with_exports": [item["tileset_id"] for item in files],
         "section_totals": normalized_totals,
-        "palette_or_settings_row_count_range": [min(row290_counts), max(row290_counts)] if row290_counts else [0, 0],
+        "tile_animation_settings_row_count_range": (
+            [min(animation_settings_row_counts), max(animation_settings_row_counts)]
+            if animation_settings_row_counts
+            else [0, 0]
+        ),
     }
 
 
@@ -235,7 +239,7 @@ def write_markdown(audit: dict[str, Any], path: Path) -> None:
         f"- direct `.fts` exports audited: `{summary['direct_fts_export_count']}`",
         f"- exports matching current 64/290/96 shape: `{summary['matching_current_export_shape_count']}`",
         f"- tileset IDs with exports: `{', '.join(str(item) for item in summary['tileset_ids_with_exports'])}`",
-        f"- variable 290-character row count range: `{summary['palette_or_settings_row_count_range'][0]}-{summary['palette_or_settings_row_count_range'][1]}`",
+        f"- variable 290-character row count range: `{summary['tile_animation_settings_row_count_range'][0]}-{summary['tile_animation_settings_row_count_range'][1]}`",
         "",
         "## Inferred Components",
         "",
@@ -273,8 +277,8 @@ def write_markdown(audit: dict[str, Any], path: Path) -> None:
             "",
             "- `tile_pixel_rows_64_chars`: high-confidence 8x8 indexed tile rows. Each row",
             "  has 64 hex-like nibbles, matching one 4bpp 8x8 tile if packed to 32 bytes.",
-            "- `palette_or_settings_rows_290_chars`: variable-count base36-like settings rows.",
-            "  These are not hex byte rows and need a dedicated decoder.",
+            "- `tile_animation_settings_rows_290_chars`: variable-count base32-like",
+            "  animation/settings rows. Each row splits into 5 blocks of 58 characters.",
             "- `arrangement_collision_rows_96_chars`: fixed 1024-row arrangement/collision",
             "  records. Each row splits into 16 three-byte cells, matching a 4x4 grid of",
             "  8x8 subtiles per map tile/metatile.",

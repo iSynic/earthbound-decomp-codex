@@ -149,7 +149,7 @@
         "byte_count": 169895,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 12,
+          "tile_animation_settings_rows_290_chars": 12,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -301,7 +301,7 @@
         "byte_count": 167276,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 3,
+          "tile_animation_settings_rows_290_chars": 3,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -564,7 +564,7 @@
         "byte_count": 167567,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 4,
+          "tile_animation_settings_rows_290_chars": 4,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -623,7 +623,7 @@
         "byte_count": 166985,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 2,
+          "tile_animation_settings_rows_290_chars": 2,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -670,7 +670,7 @@
         "byte_count": 166985,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 2,
+          "tile_animation_settings_rows_290_chars": 2,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -874,7 +874,7 @@
         "byte_count": 167567,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 4,
+          "tile_animation_settings_rows_290_chars": 4,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1002,7 +1002,7 @@
         "byte_count": 168440,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 7,
+          "tile_animation_settings_rows_290_chars": 7,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1225,7 +1225,7 @@
         "byte_count": 166694,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 1,
+          "tile_animation_settings_rows_290_chars": 1,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1353,7 +1353,7 @@
         "byte_count": 166985,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 2,
+          "tile_animation_settings_rows_290_chars": 2,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1414,7 +1414,7 @@
         "byte_count": 168149,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 6,
+          "tile_animation_settings_rows_290_chars": 6,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1538,7 +1538,7 @@
         "byte_count": 181535,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 52,
+          "tile_animation_settings_rows_290_chars": 52,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1659,7 +1659,7 @@
         "byte_count": 170477,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 14,
+          "tile_animation_settings_rows_290_chars": 14,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1798,7 +1798,7 @@
         "byte_count": 168731,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 8,
+          "tile_animation_settings_rows_290_chars": 8,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -1909,7 +1909,7 @@
         "byte_count": 172223,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 20,
+          "tile_animation_settings_rows_290_chars": 20,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2077,7 +2077,7 @@
         "byte_count": 168731,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 8,
+          "tile_animation_settings_rows_290_chars": 8,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2199,7 +2199,7 @@
         "byte_count": 167858,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 5,
+          "tile_animation_settings_rows_290_chars": 5,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2325,7 +2325,7 @@
         "byte_count": 168440,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 7,
+          "tile_animation_settings_rows_290_chars": 7,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2413,7 +2413,7 @@
         "byte_count": 167567,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 4,
+          "tile_animation_settings_rows_290_chars": 4,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2537,7 +2537,7 @@
         "byte_count": 166694,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 1,
+          "tile_animation_settings_rows_290_chars": 1,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {
@@ -2624,7 +2624,7 @@
         "byte_count": 168149,
         "inferred_component_counts": {
           "arrangement_collision_rows_96_hex_chars": 1024,
-          "palette_or_settings_rows_290_chars": 6,
+          "tile_animation_settings_rows_290_chars": 6,
           "tile_graphic_rows_64_hex_chars": 1024
         },
         "line_length_counts": {

@@ -420,6 +420,12 @@ Decode structural stats from the `.fts` arrangement/collision rows:
 python tools/build_map_fts_arrangement_contract.py
 ```
 
+Audit structural stats from the `.fts` tile-animation/settings rows:
+
+```powershell
+python tools/build_map_fts_animation_settings_contract.py
+```
+
 Render ignored grayscale previews from the audited 64-character tile rows:
 
 ```powershell

@@ -15,15 +15,15 @@ checking in raw export rows or decoded graphics/data payloads.
 | Component | Files | Row Length | Rows/File | Packed Bytes Total | Hex-Like | Character Set |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `arrangement_collision_rows_96_chars` | 20 | 96 | 1024 | 983040 | `yes` | `0123456789abcdef` |
-| `palette_or_settings_rows_290_chars` | 20 | 290 | 1-52 |  | `no` | `0123456789abcdefghijklmnopqrstuv` |
+| `tile_animation_settings_rows_290_chars` | 20 | 290 | 1-52 |  | `no` | `0123456789abcdefghijklmnopqrstuv` |
 | `tile_pixel_rows_64_chars` | 20 | 64 | 1024 | 655360 | `yes` | `0123456789abcdef` |
 
 ## Current Interpretation
 
 - `tile_pixel_rows_64_chars`: high-confidence 8x8 indexed tile rows. Each row
   has 64 hex-like nibbles, matching one 4bpp 8x8 tile if packed to 32 bytes.
-- `palette_or_settings_rows_290_chars`: variable-count base36-like settings rows.
-  These are not hex byte rows and need a dedicated decoder.
+- `tile_animation_settings_rows_290_chars`: variable-count base32-like
+  animation/settings rows. Each row splits into 5 blocks of 58 characters.
 - `arrangement_collision_rows_96_chars`: fixed 1024-row arrangement/collision
   records. Each row splits into 16 three-byte cells, matching a 4x4 grid of
   8x8 subtiles per map tile/metatile.

@@ -62,6 +62,8 @@ decoding step.
 with per-section hashes, packed byte counts, and conservative component labels.
 `notes/map-fts-arrangement-contract.md` decodes the 96-character section
 as 1024 arrangement/collision records with 16 three-byte cells each.
+`notes/map-fts-animation-settings-contract.md` records the 290-character
+tile-animation/settings rows as five 58-character blocks per row.
 
 ## Machine-Readable Data
 
