@@ -186,6 +186,18 @@ def battle_bg_asset_number(entry: dict[str, Any], subdir: str, extension: str) -
     return int(match.group(1))
 
 
+def battle_sprite_asset_number(entry: dict[str, Any], extension: str) -> int | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    if extension == "pal":
+        pattern = r"^battle_sprites/palettes/(\d+)\.pal(?:\.lzhal)?$"
+    else:
+        pattern = rf"^battle_sprites/(\d+)\.{extension}(?:\.lzhal)?$"
+    match = re.match(pattern, payload)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
 def load_battle_bg_palette_registry(
     bank_manifest_dir: Path,
     rom: bytes,
@@ -207,6 +219,48 @@ def load_battle_bg_palette_registry(
                 source["compression"] = "earthbound_lzhal"
             registry[number] = source
     return registry
+
+
+def load_battle_sprite_palette_registry(
+    bank_manifest_dir: Path,
+    rom: bytes,
+) -> dict[int, dict[str, Any]]:
+    registry: dict[int, dict[str, Any]] = {}
+    for path in sorted(bank_manifest_dir.glob("asset-bank-*.json")):
+        try:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for entry in manifest.get("binary_assets", []):
+            if str(entry.get("extension", "")).lower() != "pal":
+                continue
+            number = battle_sprite_asset_number(entry, "pal")
+            if number is None:
+                continue
+            source = make_source(entry, rom)
+            if entry.get("compressed") or str(entry.get("payload_path", "")).lower().endswith(".lzhal"):
+                source["compression"] = "earthbound_lzhal"
+            registry[number] = source
+    return registry
+
+
+def load_battle_sprite_palette_usage() -> dict[int, list[int]]:
+    path = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "data" / "battle" / "enemies.asm"
+    if not path.exists():
+        return {}
+
+    usage: dict[int, set[int]] = {}
+    text = path.read_text(encoding="utf-8")
+    for block in re.split(r"\n\s*\n", text):
+        sprite_match = re.search(r"\.WORD\s+\$([0-9A-Fa-f]{4})\s*;Battle sprite", block)
+        palette_match = re.search(r"\.BYTE\s+\$([0-9A-Fa-f]{2})\s*;Palette", block)
+        if sprite_match is None or palette_match is None:
+            continue
+        sprite = int(sprite_match.group(1), 16)
+        palette = int(palette_match.group(1), 16)
+        usage.setdefault(sprite, set()).add(palette)
+
+    return {sprite: sorted(palettes) for sprite, palettes in usage.items()}
 
 
 def load_battle_bg_graphics_registry(
@@ -329,12 +383,48 @@ def battle_bg_arrangement_preview_output(
     }
 
 
+def battle_sprite_palette_preview_outputs(
+    raw_path: str,
+    entry: dict[str, Any],
+    palette_registry: dict[int, dict[str, Any]],
+    palette_usage: dict[int, list[int]],
+    compressed: bool,
+) -> list[dict[str, Any]]:
+    number = battle_sprite_asset_number(entry, "gfx")
+    if number is None or number not in palette_usage:
+        return []
+
+    outputs: list[dict[str, Any]] = []
+    for palette in palette_usage[number]:
+        palette_source = palette_registry.get(palette)
+        if palette_source is None:
+            continue
+        outputs.append(
+            {
+                "kind": (
+                    "earthbound_lzhal_snes_4bpp_tiles_palette_png"
+                    if compressed
+                    else "snes_4bpp_tiles_palette_png"
+                ),
+                "path": preview_path(raw_path, f"palette_{palette:02d}_preview"),
+                "columns": 8,
+                "colors": 16,
+                "sprite_id": number,
+                "palette_id": palette,
+                "palette_source": palette_source,
+            }
+        )
+    return outputs
+
+
 def binary_outputs(
     bank: str,
     entry: dict[str, Any],
     rom: bytes,
     palette_registry: dict[int, dict[str, Any]],
     graphics_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_usage: dict[int, list[int]],
 ) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
@@ -370,6 +460,15 @@ def binary_outputs(
             )
             if palette_preview is not None:
                 outputs.append(palette_preview)
+            outputs.extend(
+                battle_sprite_palette_preview_outputs(
+                    decompressed_path,
+                    entry,
+                    battle_sprite_palette_registry,
+                    battle_sprite_palette_usage,
+                    compressed=True,
+                )
+            )
         if extension == "arr" and decompressed_size == 2048:
             arrangement_preview = battle_bg_arrangement_preview_output(
                 decompressed_path,
@@ -420,6 +519,8 @@ def convert_binary_asset(
     rom: bytes,
     palette_registry: dict[int, dict[str, Any]],
     graphics_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_usage: dict[int, list[int]],
 ) -> dict[str, Any]:
     label = str(entry.get("label") or "")
     payload = str(entry.get("payload_path") or "")
@@ -444,6 +545,8 @@ def convert_binary_asset(
             rom,
             palette_registry,
             graphics_registry,
+            battle_sprite_palette_registry,
+            battle_sprite_palette_usage,
         ),
         "notes": notes,
     }
@@ -515,6 +618,8 @@ def convert_manifest(
     include_gaps: bool,
     palette_registry: dict[int, dict[str, Any]],
     graphics_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_registry: dict[int, dict[str, Any]],
+    battle_sprite_palette_usage: dict[int, list[int]],
 ) -> dict[str, Any]:
     bank = str(bank_manifest["bank"]).upper()
     assets: list[dict[str, Any]] = []
@@ -527,6 +632,8 @@ def convert_manifest(
                 rom,
                 palette_registry,
                 graphics_registry,
+                battle_sprite_palette_registry,
+                battle_sprite_palette_usage,
             )
         )
 
@@ -582,6 +689,8 @@ def main() -> int:
     out_dir = Path(args.out_dir)
     palette_registry = load_battle_bg_palette_registry(bank_manifest_dir, rom)
     graphics_registry = load_battle_bg_graphics_registry(bank_manifest_dir, rom)
+    battle_sprite_palette_registry = load_battle_sprite_palette_registry(bank_manifest_dir, rom)
+    battle_sprite_palette_usage = load_battle_sprite_palette_usage()
 
     for raw_bank in args.bank:
         bank = raw_bank.upper()
@@ -593,6 +702,8 @@ def main() -> int:
             include_gaps=args.include_gaps,
             palette_registry=palette_registry,
             graphics_registry=graphics_registry,
+            battle_sprite_palette_registry=battle_sprite_palette_registry,
+            battle_sprite_palette_usage=battle_sprite_palette_usage,
         )
         path = write_manifest(out_dir, bank, extraction_manifest)
         print(f"{bank}: wrote {len(extraction_manifest['assets'])} assets to {rel(path)}")

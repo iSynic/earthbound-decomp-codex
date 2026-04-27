@@ -8,7 +8,7 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 
 - manifests: `38`
 - assets: `2218`
-- output recipes: `4696`
+- output recipes: `4862`
 - raw ROM-backed outputs: `2218`
 - LZHAL decompressed outputs: `466`
 - SNES palette JSON recipes: `216`
@@ -16,6 +16,7 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 - LZHAL-decompressed SNES palette JSON recipes: `10`
 - LZHAL-decompressed SNES palette swatch PNG recipes: `10`
 - LZHAL-decompressed battle-background palette-aware 4bpp preview PNG recipes: `68`
+- LZHAL-decompressed battle-sprite palette-aware 4bpp preview PNG recipes: `166`
 - LZHAL-decompressed battle-background composed arrangement preview PNG recipes: `103`
   - 2bpp composed previews: `43`
   - 4bpp composed previews: `60`
@@ -58,7 +59,7 @@ Result:
 
 - validated `38` manifests
 - validated `2218` assets
-- validated `4696` output recipes
+- validated `4862` output recipes
 - extracted every manifest against the local EarthBound US ROM
 - all manifest range SHA-1 checks passed
 - generated reports stayed under ignored `build/assets/`
@@ -71,10 +72,12 @@ Result:
 - Uncompressed `.pal` payloads now emit decoded SNES BGR555 JSON plus RGB swatch PNG previews. Compressed `.pal.lzhal` payloads get the same decoded outputs after LZHAL decompression.
 - Battle background `.gfx` payloads with matching same-numbered 16-color `.pal` payloads now get palette-aware 4bpp tile-sheet previews. The recipe records the palette ROM range and SHA-1 directly so extraction does not depend on manifest run order.
 - Battle background `.arr` payloads now get composed 32x32 tilemap PNG previews when matching same-numbered graphics/palette payloads line up mechanically. The renderer supports both 2bpp and 4bpp arrangement previews and records the graphics and palette source ranges in the extraction report.
+- Battle sprite `.gfx` payloads now get palette-aware 4bpp tile-sheet previews for observed enemy-table sprite/palette combinations. This currently covers `166` combinations across `110` mapped battle sprite graphics and all `32` battle sprite palette IDs.
 
 ## Next Useful Decoders
 
-1. Palette-aware PNG rendering for battle sprites and overworld sprites.
-2. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
-3. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
-4. BRR/audio pack manifests split into sample/song/pack-level contracts.
+1. Palette-aware PNG rendering for overworld sprites.
+2. Battle sprite size-aware composed previews using `battle_sprites_pointers.asm`.
+3. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
+4. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
+5. BRR/audio pack manifests split into sample/song/pack-level contracts.

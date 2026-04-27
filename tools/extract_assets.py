@@ -321,7 +321,11 @@ def write_snes_4bpp_palette_png(
         for row in indices
     ]
     write_rgb_png(path, rows)
-    return {"colors": len(entries), "palette_source_range": spec["palette_source"]["range"]}
+    result = {"colors": len(entries), "palette_source_range": spec["palette_source"]["range"]}
+    for key in ("sprite_id", "graphics_id", "palette_id"):
+        if key in spec:
+            result[key] = spec[key]
+    return result
 
 
 def source_data(rom: bytes, spec: dict[str, Any], key: str) -> bytes:

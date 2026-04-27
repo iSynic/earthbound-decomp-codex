@@ -52,6 +52,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/107_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/107_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 107,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -83,6 +97,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/64_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/64_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 64,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
         }
       ],
       "notes": [
@@ -114,6 +142,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/40_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/40_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 40,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -145,6 +187,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/97_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/97_palette_06_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 97,
+          "palette_id": 6,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65D4..CE:65F4",
+            "bytes": 32,
+            "sha1": "76271cbf844387612f098e604748da8e6c14564d"
+          }
         }
       ],
       "notes": [
@@ -176,6 +232,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/41_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/41_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 41,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/41_palette_24_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 41,
+          "palette_id": 24,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6814..CE:6834",
+            "bytes": 32,
+            "sha1": "39d102365fc59b61a3bd33d038103f17186d5d8a"
+          }
         }
       ],
       "notes": [
@@ -207,6 +291,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/86_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/86_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 86,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/86_palette_30_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 86,
+          "palette_id": 30,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:68D4..CE:68F4",
+            "bytes": 32,
+            "sha1": "ff5ddd0bcd8163f6a1a19df39f9db728fbc3306d"
+          }
         }
       ],
       "notes": [
@@ -238,6 +350,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/39_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/39_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 39,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -269,6 +395,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/38_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/38_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 38,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -300,6 +440,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/56_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/56_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 56,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/56_palette_18_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 56,
+          "palette_id": 18,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6754..CE:6774",
+            "bytes": 32,
+            "sha1": "94e5d1621aa1890dfbec4f072166ec961a926c18"
+          }
         }
       ],
       "notes": [
@@ -331,6 +499,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/100_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/100_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 100,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
         }
       ],
       "notes": [
@@ -362,6 +544,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/96_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/96_palette_06_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 96,
+          "palette_id": 6,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65D4..CE:65F4",
+            "bytes": 32,
+            "sha1": "76271cbf844387612f098e604748da8e6c14564d"
+          }
         }
       ],
       "notes": [
@@ -393,6 +589,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/36_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/36_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 36,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/36_palette_26_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 36,
+          "palette_id": 26,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6854..CE:6874",
+            "bytes": 32,
+            "sha1": "35a357ca88721b79a221315c2c0292a55c0d7d88"
+          }
         }
       ],
       "notes": [
@@ -424,6 +648,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/73_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/73_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 73,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/73_palette_04_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 73,
+          "palette_id": 4,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6594..CE:65B4",
+            "bytes": 32,
+            "sha1": "5c7726303be2b3b9a81d539001f1b6ee9150daa9"
+          }
         }
       ],
       "notes": [
@@ -455,6 +707,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/75_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/75_palette_04_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 75,
+          "palette_id": 4,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6594..CE:65B4",
+            "bytes": 32,
+            "sha1": "5c7726303be2b3b9a81d539001f1b6ee9150daa9"
+          }
         }
       ],
       "notes": [
@@ -486,6 +752,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/35_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/35_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 35,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -517,6 +797,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/74_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/74_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 74,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
         }
       ],
       "notes": [
@@ -548,6 +842,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/101_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/101_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 101,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
         }
       ],
       "notes": [
@@ -579,6 +887,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/94_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/94_palette_06_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 94,
+          "palette_id": 6,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65D4..CE:65F4",
+            "bytes": 32,
+            "sha1": "76271cbf844387612f098e604748da8e6c14564d"
+          }
         }
       ],
       "notes": [
@@ -610,6 +932,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/37_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/37_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 37,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -641,6 +977,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/87_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/87_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 87,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/87_palette_19_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 87,
+          "palette_id": 19,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6774..CE:6794",
+            "bytes": 32,
+            "sha1": "07e6e002e500fc8d75d7c7b543c7cdd7848aa07e"
+          }
         }
       ],
       "notes": [
@@ -672,6 +1036,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/13_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/13_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 13,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/13_palette_27_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 13,
+          "palette_id": 27,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6874..CE:6894",
+            "bytes": 32,
+            "sha1": "d3caf4539281e8b48fe16acbc5599c50aa02503d"
+          }
         }
       ],
       "notes": [
@@ -703,6 +1095,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/104_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/104_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 104,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/104_palette_21_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 104,
+          "palette_id": 21,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:67B4..CE:67D4",
+            "bytes": 32,
+            "sha1": "49c383ce25f6d2e21a11e644a16ba9cc86e8a577"
+          }
         }
       ],
       "notes": [
@@ -734,6 +1154,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/99_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/99_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 99,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/99_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 99,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
         }
       ],
       "notes": [
@@ -765,6 +1213,48 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/55_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/55_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 55,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/55_palette_12_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 55,
+          "palette_id": 12,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6694..CE:66B4",
+            "bytes": 32,
+            "sha1": "19412dc1602a92711a8cc367d3106088aa64b017"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/55_palette_26_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 55,
+          "palette_id": 26,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6854..CE:6874",
+            "bytes": 32,
+            "sha1": "35a357ca88721b79a221315c2c0292a55c0d7d88"
+          }
         }
       ],
       "notes": [
@@ -796,6 +1286,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/95_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/95_palette_06_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 95,
+          "palette_id": 6,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65D4..CE:65F4",
+            "bytes": 32,
+            "sha1": "76271cbf844387612f098e604748da8e6c14564d"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/95_palette_14_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 95,
+          "palette_id": 14,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:66D4..CE:66F4",
+            "bytes": 32,
+            "sha1": "2aa90d108ab0974e15807a692547fc4dfccd3680"
+          }
         }
       ],
       "notes": [
@@ -827,6 +1345,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/105_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/105_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 105,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/105_palette_24_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 105,
+          "palette_id": 24,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6814..CE:6834",
+            "bytes": 32,
+            "sha1": "39d102365fc59b61a3bd33d038103f17186d5d8a"
+          }
         }
       ],
       "notes": [
@@ -858,6 +1404,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/72_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/72_palette_04_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 72,
+          "palette_id": 4,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6594..CE:65B4",
+            "bytes": 32,
+            "sha1": "5c7726303be2b3b9a81d539001f1b6ee9150daa9"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/72_palette_10_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 72,
+          "palette_id": 10,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6654..CE:6674",
+            "bytes": 32,
+            "sha1": "355a7c5f2163479d337fe2879515720b1e08a734"
+          }
         }
       ],
       "notes": [
@@ -889,6 +1463,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/51_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/51_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 51,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
         }
       ],
       "notes": [
@@ -920,6 +1508,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/22_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/22_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 22,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -951,6 +1553,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/102_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/102_palette_07_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 102,
+          "palette_id": 7,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65F4..CE:6614",
+            "bytes": 32,
+            "sha1": "fba1228947b1f03b034d5e88feaea203cd708735"
+          }
         }
       ],
       "notes": [
@@ -982,6 +1598,48 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/84_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/84_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 84,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/84_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 84,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/84_palette_21_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 84,
+          "palette_id": 21,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:67B4..CE:67D4",
+            "bytes": 32,
+            "sha1": "49c383ce25f6d2e21a11e644a16ba9cc86e8a577"
+          }
         }
       ],
       "notes": [
@@ -1013,6 +1671,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/67_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/67_palette_04_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 67,
+          "palette_id": 4,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6594..CE:65B4",
+            "bytes": 32,
+            "sha1": "5c7726303be2b3b9a81d539001f1b6ee9150daa9"
+          }
         }
       ],
       "notes": [
@@ -1044,6 +1716,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/63_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/63_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 63,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
         }
       ],
       "notes": [
@@ -1075,6 +1761,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/11_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/11_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 11,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
         }
       ],
       "notes": [
@@ -1106,6 +1806,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/106_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/106_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 106,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/106_palette_16_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 106,
+          "palette_id": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6714..CE:6734",
+            "bytes": 32,
+            "sha1": "d4f8494c1599d76b8d0b4205d44ad95523d4085d"
+          }
         }
       ],
       "notes": [
@@ -1137,6 +1865,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/54_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/54_palette_02_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 54,
+          "palette_id": 2,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6554..CE:6574",
+            "bytes": 32,
+            "sha1": "dfffb8e3eaaadc4d4439b161d653defcc655a9b1"
+          }
         }
       ],
       "notes": [
@@ -1168,6 +1910,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/14_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/14_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 14,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
         }
       ],
       "notes": [
@@ -1199,6 +1955,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/32_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/32_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 32,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -1230,6 +2000,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/81_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/81_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 81,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
         }
       ],
       "notes": [
@@ -1261,6 +2045,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/62_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/62_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 62,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
         }
       ],
       "notes": [
@@ -1292,6 +2090,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/93_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/93_palette_06_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 93,
+          "palette_id": 6,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65D4..CE:65F4",
+            "bytes": 32,
+            "sha1": "76271cbf844387612f098e604748da8e6c14564d"
+          }
         }
       ],
       "notes": [
@@ -1323,6 +2135,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/83_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/83_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 83,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/83_palette_21_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 83,
+          "palette_id": 21,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:67B4..CE:67D4",
+            "bytes": 32,
+            "sha1": "49c383ce25f6d2e21a11e644a16ba9cc86e8a577"
+          }
         }
       ],
       "notes": [
@@ -1354,6 +2194,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/34_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/34_palette_08_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 34,
+          "palette_id": 8,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6614..CE:6634",
+            "bytes": 32,
+            "sha1": "eda35c2802fad47d5e597b931e7bf415ddec5808"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/34_palette_16_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 34,
+          "palette_id": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6714..CE:6734",
+            "bytes": 32,
+            "sha1": "d4f8494c1599d76b8d0b4205d44ad95523d4085d"
+          }
         }
       ],
       "notes": [
@@ -1385,6 +2253,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/12_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/12_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 12,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/12_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 12,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
         }
       ],
       "notes": [
@@ -1416,6 +2312,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/60_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/60_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 60,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
         }
       ],
       "notes": [
@@ -1447,6 +2357,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/71_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/71_palette_04_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 71,
+          "palette_id": 4,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6594..CE:65B4",
+            "bytes": 32,
+            "sha1": "5c7726303be2b3b9a81d539001f1b6ee9150daa9"
+          }
         }
       ],
       "notes": [
@@ -1478,6 +2402,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/10_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/10_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 10,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
         }
       ],
       "notes": [
@@ -1509,6 +2447,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/9_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/9_palette_09_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 9,
+          "palette_id": 9,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6634..CE:6654",
+            "bytes": 32,
+            "sha1": "d354b71f55d4f2022b74d12aade02e6ff0e9b48c"
+          }
         }
       ],
       "notes": [
@@ -1540,6 +2492,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/28_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/28_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 28,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/28_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 28,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
         }
       ],
       "notes": [
@@ -1571,6 +2551,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/108_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/108_palette_20_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 108,
+          "palette_id": 20,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6794..CE:67B4",
+            "bytes": 32,
+            "sha1": "d9404ac51a34dbc3290ba74fa6c84063529e5375"
+          }
         }
       ],
       "notes": [
@@ -1602,6 +2596,34 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/79_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/79_palette_03_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 79,
+          "palette_id": 3,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6574..CE:6594",
+            "bytes": 32,
+            "sha1": "15d98c5ecd990596d012d3b599a03e47a0ae2880"
+          }
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/79_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 79,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
         }
       ],
       "notes": [
@@ -1633,6 +2655,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/27_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/27_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 27,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -1664,6 +2700,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/78_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/78_palette_05_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 78,
+          "palette_id": 5,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:65B4..CE:65D4",
+            "bytes": 32,
+            "sha1": "82c2d62e04c790cf39e94432fb00cf29e7a722d1"
+          }
         }
       ],
       "notes": [
@@ -1695,6 +2745,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/30_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/30_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 30,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
@@ -1726,6 +2790,20 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "cd/battle_sprites/23_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "cd/battle_sprites/23_palette_01_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "sprite_id": 23,
+          "palette_id": 1,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CE:6534..CE:6554",
+            "bytes": 32,
+            "sha1": "8eb8eecf04e4d5115e4767f883b07b18d64ba98c"
+          }
         }
       ],
       "notes": [
