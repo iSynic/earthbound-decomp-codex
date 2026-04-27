@@ -9,15 +9,16 @@ Bank `C1` is byte-complete for the current source-scaffold phase.
 - protected bytes: `65536 / 65536`
 - residual bytes: `0`
 - modules: `172`
-- source bytes: `65519`
-- preserved data-gap bytes: `17`
+- source bytes: `65536`
+- preserved data-gap bytes: `0`
 - byte-equivalence: `OK`, `0` mismatches
 
-C1 is structurally closed as a working-name anchored source scaffold, and it is now essentially source-complete for this phase. All protected C1 byte ranges assemble from decoded source except the intentional 17-byte terminal constant/padding gap at `C1:FFEF..10000`, which is modeled as data inside the mixed bank-end module. The remaining preserved bytes are not an unknown code corridor.
+C1 is structurally closed as a working-name anchored source scaffold, and it is now source-complete for this phase. All C1 byte ranges assemble from checked-in source. The terminal checksum constant/padding bytes at `C1:FFEF..10000` are modeled explicitly as data inside the mixed bank-end module rather than as a preserved manifest gap.
 
 Current notable byte-preserved targets:
 
-- `C1:FFEF..10000` terminal bank-end constant/padding, preserved as data under `src/c1/c1_ff99_compute_centered_text_layout_metric.asm`.
+- No remaining preserved C1 data gaps.
+- `C1:FFEF..10000` terminal bank-end constant/padding is now explicit source data under `src/c1/c1_ff99_compute_centered_text_layout_metric.asm`.
 - No remaining C1 code corridors are byte-preserved in the current source-bank manifest.
 
 ## Regenerate And Validate

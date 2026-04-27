@@ -6,8 +6,8 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 - ranges: `172`
 - total bytes: `65536`
-- source bytes: `65519`
-- data gap bytes: `17`
+- source bytes: `65536`
+- data gap bytes: `0`
 
 ## Ranges
 
@@ -184,7 +184,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/c1/c1_dc1c_display_battle_text_from_pointer.asm` | `C1:DC1C..C1:DC66` | 74 | 74 | 0 | `708b0501ec877e0cbaed78234ecd782025186920` |
 | `build-candidate` | `src/c1/c1_dc66_display_battle_text_with_substitution_payload.asm` | `C1:DC66..C1:DCCB` | 101 | 101 | 0 | `950a389f2300186ef1fd2a4ec9755a615bfa2255` |
 | `build-candidate` | `src/c1/c1_dccb_initialize_party_battle_start_state.asm` | `C1:DCCB..C1:DD3B` | 112 | 112 | 0 | `3ae598fa0583ec8e169fc1db8cc0ffc797fdea2d` |
-| `build-candidate` | `src/c1/c1_ff99_compute_centered_text_layout_metric.asm` | `C1:FF99..C1:10000` | 103 | 86 | 17 | `4457178b89b69e639aa3db1a86e5b29c3349279e` |
+| `build-candidate` | `src/c1/c1_ff99_compute_centered_text_layout_metric.asm` | `C1:FF99..C1:10000` | 103 | 103 | 0 | `4457178b89b69e639aa3db1a86e5b29c3349279e` |
 
 ## Source Segments
 
@@ -3160,10 +3160,7 @@ Evidence:
 | --- | ---: | --- | --- |
 | `C1:FF99..C1:FFD3` | 58 | `ComputeCenteredTextLayoutMetric` | `62e27f3297d9b5a6a04b244093c1a8728e0ce066` |
 | `C1:FFD3..C1:FFEF` | 28 | `ComputeBankC1ChecksumTail` | `38d13798765274b47d90632bcf5093c252f5e4b7` |
-
-Data gaps inside protected span:
-
-- `C1:FFEF..C1:10000` (`17` bytes, SHA-1 `9381be87378c73e548ad79cc377cd0da932d4ef3`) `BankC1ChecksumConstantAndPadding`
+| `C1:FFEF..C1:10000` | 17 | `BankC1ChecksumConstantAndPadding` | `9381be87378c73e548ad79cc377cd0da932d4ef3` |
 
 Labels:
 

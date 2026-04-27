@@ -8,6 +8,7 @@
 ; Source units covered:
 ; - C1:FF99..C1:FFD3 ComputeCenteredTextLayoutMetric
 ; - C1:FFD3..C1:FFEF ComputeBankC1ChecksumTail
+; - C1:FFEF..C1:10000 BankC1ChecksumConstantAndPadding
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -70,3 +71,13 @@ C1FFDE_ComputeBankC1ChecksumTail_LFFDE:
     sbc C1FFEF_BankC1ChecksumConstant
     sta $B539
     rtl
+
+; ---------------------------------------------------------------------------
+; C1:FFEF
+
+C1FFEF_BankC1ChecksumConstantAndPadding:
+    ; checksum constant followed by bank-end padding
+    db $D8,$2A,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00
+
+; C1:10000

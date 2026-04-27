@@ -35455,7 +35455,6 @@ C1FFDE_ComputeBankC1ChecksumTail_LFFDE:
     sbc !C1FFEF_BankC1ChecksumConstant
     sta $B539
     rtl
-
-; Original terminal data gap ending at $C110000
-db $D8,$2A,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00
+C1FFEF_BankC1ChecksumConstantAndPadding:
+    db $D8,$2A,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00
