@@ -427,6 +427,13 @@ Audit structural stats, ref anchors, and row-group/block profiles from the
 python tools/build_map_fts_animation_settings_contract.py
 ```
 
+Verify the C0/EF map tile-animation graphics pointer table, upload-script
+pointer table, decoded upload records, and `$43DC` runtime fields:
+
+```powershell
+python tools/build_map_tile_animation_runtime_contract.py
+```
+
 Join sectors, tilesets, `.fts` contracts, palette variants, and `map_tiles.map`
 window hashes into scene-composition metadata:
 

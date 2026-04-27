@@ -23,6 +23,7 @@ EBSRC_MAP_SYMBOLS = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "include" / "s
 BANK_DE_ASSET_MAP = ROOT / "notes" / "bank-de-asset-data-map.md"
 BANK_DF_ASSET_MAP = ROOT / "notes" / "bank-df-asset-data-map.md"
 BANK_EF_ASSET_MAP = ROOT / "notes" / "bank-ef-asset-data-map.md"
+MAP_TILE_ANIMATION_RUNTIME_CONTRACT = ROOT / "notes" / "map-tile-animation-runtime-contract.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -241,20 +242,31 @@ def build_reference_anchors() -> dict[str, Any]:
                 "file_span": "0x1FC443..0x1FE6E0",
                 "source": rel(COMMUNITY_ROM_MAP),
             },
+        ],
+        "runtime_tables": [
             {
-                "label": "Tile Animation Characters Pointer Table",
-                "file_span": "0x2F13CB..0x2F141A",
-                "source": rel(COMMUNITY_ROM_MAP),
+                "label": "Active tile-animation graphics pointer table",
+                "cpu_span": "EF:11CB..EF:121B",
+                "source": rel(MAP_TILE_ANIMATION_RUNTIME_CONTRACT),
             },
             {
-                "label": "Tile Animation Properties Pointer Table",
-                "file_span": "0x2F141B..0x2F146A",
-                "source": rel(COMMUNITY_ROM_MAP),
+                "label": "Active tile-animation upload-script pointer table",
+                "cpu_span": "EF:121B..EF:126B",
+                "source": rel(MAP_TILE_ANIMATION_RUNTIME_CONTRACT),
             },
             {
-                "label": "Tile Animation Properties Table",
-                "file_span": "0x2F146B..0x2F153E",
+                "label": "Active tile-animation upload-script records",
+                "cpu_span": "EF:126B..EF:133F",
+                "source": rel(MAP_TILE_ANIMATION_RUNTIME_CONTRACT),
+            },
+        ],
+        "legacy_label_conflicts": [
+            {
+                "label": "Community ROM map EF tile-animation pointer/property spans",
+                "file_span": "0x2F13CB..0x2F153E",
                 "source": rel(COMMUNITY_ROM_MAP),
+                "status": "treated_as_stale_for_runtime_table_identity",
+                "reason": "Local C0 runtime uses EF:11CB/EF:121B; the sprite-frame contract places EF:133F..EF:1A7F in the sprite grouping pointer table.",
             },
         ],
         "ebsrc_symbols": [
@@ -358,7 +370,7 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             "Each 290-character row splits evenly into 5 blocks of 58 base32-like characters.",
             "Row IDs use the same 0-v alphabet seen in the row payload, are unique across the local export set, and divide into a structural group/slot model.",
             "Every observed row group is owned by one direct .fts export, matching a tileset-local animation/settings ownership model.",
-            "ebsrc and community ROM maps expose map tile animation graphics, pointer tables, properties tables, and WRAM animation state anchors near the tileset data.",
+            "ebsrc and community ROM maps expose map tile animation graphics and WRAM animation state anchors near the tileset data; local runtime-table identity is now taken from the ROM-verified C0/EF contract.",
         ],
         "reference_anchors": build_reference_anchors(),
         "summary": summarize(rows),
@@ -406,7 +418,9 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
         "## Reference Anchors",
         "",
         f"- WRAM runtime state: `$43DC..$445B` (`{anchors['wram'][0]['byte_count']}` bytes) is labeled map tile animation data in `{anchors['wram'][0]['source']}`.",
-        "- Legacy ROM map anchors tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`, plus EF pointer/property tables at `0x2F13CB..0x2F153E`.",
+        "- Legacy ROM map anchors compressed tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`.",
+        "- The ROM-verified runtime contract anchors the active C0 tables at `EF:11CB..EF:121B` for graphics pointers, `EF:121B..EF:126B` for upload-script pointers, and `EF:126B..EF:133F` for upload-script records.",
+        "- Older community ROM map labels around `0x2F13CB..0x2F153E` conflict with local C0/sprite-grouping evidence and are treated as stale for runtime table identity.",
         "- ebsrc exposes `MAP_DATA_TILE_ANIMATION_PTR_TABLE`, `MAP_DATA_WEIRD_TILE_ANIMATION_PTR_TABLE`, and `MAP_DATA_TILE_ANIMATION_GFX_0..19` symbols.",
         f"- Local bank maps identify `{anchors['asset_payload_summary']['count']}` `MAP_DATA_TILE_ANIMATION_GFX_N` payloads; 25-byte placeholder/tiny payload IDs are `{', '.join(str(item) for item in anchors['asset_payload_summary']['tiny_25_byte_placeholder_asset_ids'])}`.",
         "- Bank EF's include list names the tileset animation pointer table, animation properties pointer table, and per-tileset animation property files `00..19`.",

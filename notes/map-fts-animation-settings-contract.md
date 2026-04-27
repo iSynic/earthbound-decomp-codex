@@ -30,7 +30,9 @@ labels for map tile animation graphics/properties near the map tileset data.
 ## Reference Anchors
 
 - WRAM runtime state: `$43DC..$445B` (`128` bytes) is labeled map tile animation data in `refs/community-earthbound-docs/RAM_map.txt`.
-- Legacy ROM map anchors tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`, plus EF pointer/property tables at `0x2F13CB..0x2F153E`.
+- Legacy ROM map anchors compressed tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`.
+- The ROM-verified runtime contract anchors the active C0 tables at `EF:11CB..EF:121B` for graphics pointers, `EF:121B..EF:126B` for upload-script pointers, and `EF:126B..EF:133F` for upload-script records.
+- Older community ROM map labels around `0x2F13CB..0x2F153E` conflict with local C0/sprite-grouping evidence and are treated as stale for runtime table identity.
 - ebsrc exposes `MAP_DATA_TILE_ANIMATION_PTR_TABLE`, `MAP_DATA_WEIRD_TILE_ANIMATION_PTR_TABLE`, and `MAP_DATA_TILE_ANIMATION_GFX_0..19` symbols.
 - Local bank maps identify `20` `MAP_DATA_TILE_ANIMATION_GFX_N` payloads; 25-byte placeholder/tiny payload IDs are `2, 3, 4, 9, 10, 11, 14, 15`.
 - Bank EF's include list names the tileset animation pointer table, animation properties pointer table, and per-tileset animation property files `00..19`.

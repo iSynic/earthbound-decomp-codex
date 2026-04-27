@@ -556,7 +556,7 @@
     "Each 290-character row splits evenly into 5 blocks of 58 base32-like characters.",
     "Row IDs use the same 0-v alphabet seen in the row payload, are unique across the local export set, and divide into a structural group/slot model.",
     "Every observed row group is owned by one direct .fts export, matching a tileset-local animation/settings ownership model.",
-    "ebsrc and community ROM maps expose map tile animation graphics, pointer tables, properties tables, and WRAM animation state anchors near the tileset data."
+    "ebsrc and community ROM maps expose map tile animation graphics and WRAM animation state anchors near the tileset data; local runtime-table identity is now taken from the ROM-verified C0/EF contract."
   ],
   "generator": "tools/build_map_fts_animation_settings_contract.py",
   "reference_anchors": {
@@ -801,6 +801,15 @@
         "source": "notes/bank-ef-asset-data-map.md"
       }
     ],
+    "legacy_label_conflicts": [
+      {
+        "file_span": "0x2F13CB..0x2F153E",
+        "label": "Community ROM map EF tile-animation pointer/property spans",
+        "reason": "Local C0 runtime uses EF:11CB/EF:121B; the sprite-frame contract places EF:133F..EF:1A7F in the sprite grouping pointer table.",
+        "source": "refs/community-earthbound-docs/ROM_map.txt",
+        "status": "treated_as_stale_for_runtime_table_identity"
+      }
+    ],
     "legacy_rom_map": [
       {
         "file_span": "0x1EF2E7..0x1EFEDC",
@@ -811,21 +820,23 @@
         "file_span": "0x1FC443..0x1FE6E0",
         "label": "Compressed Tile Animation Characters Data Block 2",
         "source": "refs/community-earthbound-docs/ROM_map.txt"
+      }
+    ],
+    "runtime_tables": [
+      {
+        "cpu_span": "EF:11CB..EF:121B",
+        "label": "Active tile-animation graphics pointer table",
+        "source": "notes/map-tile-animation-runtime-contract.json"
       },
       {
-        "file_span": "0x2F13CB..0x2F141A",
-        "label": "Tile Animation Characters Pointer Table",
-        "source": "refs/community-earthbound-docs/ROM_map.txt"
+        "cpu_span": "EF:121B..EF:126B",
+        "label": "Active tile-animation upload-script pointer table",
+        "source": "notes/map-tile-animation-runtime-contract.json"
       },
       {
-        "file_span": "0x2F141B..0x2F146A",
-        "label": "Tile Animation Properties Pointer Table",
-        "source": "refs/community-earthbound-docs/ROM_map.txt"
-      },
-      {
-        "file_span": "0x2F146B..0x2F153E",
-        "label": "Tile Animation Properties Table",
-        "source": "refs/community-earthbound-docs/ROM_map.txt"
+        "cpu_span": "EF:126B..EF:133F",
+        "label": "Active tile-animation upload-script records",
+        "source": "notes/map-tile-animation-runtime-contract.json"
       }
     ],
     "wram": [
