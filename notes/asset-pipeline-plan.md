@@ -41,7 +41,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 ## Decoder Roadmap
 
 - **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, first-pass battle-background and battle-sprite palette-aware tile previews, composed battle-background arrangement previews, size-aware composed battle sprite previews, default-palette overworld sprite previews, overworld sprite group payload/metadata contracts with enum aliases, ROM-extracted overworld sprite frame/slot pointer contracts with named low-bit renderer effects, generated overworld slot preview sheets, secondary visual descriptor contracts, prototype composed overworld preview sheets, extraction reports.
-- **Next**: refine composed overworld previews with secondary descriptor size/attribute bits, optional overworld palette variants, palette table splitting, tilemaps, BRR/sample packs, text tables, and map sector data.
+- **Next**: name or visualize the secondary descriptor trailing byte, render overworld priority bands separately, add optional overworld palette variants, split palette tables, then continue into tilemaps, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
 ## Tooling Path

@@ -22,6 +22,7 @@ DEFAULT_SECONDARY_CONTRACT = ROOT / "notes" / "secondary-visual-descriptor-contr
 DEFAULT_ASSET_ROOT = ROOT / "build" / "assets"
 DEFAULT_OUT = ROOT / "build" / "overworld-sprite-composed-previews"
 TILE_SIZE = 8
+PIECE_SIZE = 16
 CANVAS_PADDING = 32
 
 
@@ -69,6 +70,21 @@ def crop_tile(sheet: list[list[RGBA]], tile_index: int) -> list[list[RGBA]]:
     return [row[left : left + TILE_SIZE] for row in sheet[top : top + TILE_SIZE]]
 
 
+def compose_metatile_16x16(sheet: list[list[RGBA]], chunk_index: int) -> list[list[RGBA]]:
+    """Build one 16x16 piece from the extracted tile-preview stream."""
+    base_tile_index = chunk_index * 4
+    top_left = crop_tile(sheet, base_tile_index)
+    top_right = crop_tile(sheet, base_tile_index + 1)
+    bottom_left = crop_tile(sheet, base_tile_index + 2)
+    bottom_right = crop_tile(sheet, base_tile_index + 3)
+    rows = blank(PIECE_SIZE, PIECE_SIZE, (0, 0, 0, 0))
+    paste(rows, top_left, 0, 0)
+    paste(rows, top_right, TILE_SIZE, 0)
+    paste(rows, bottom_left, 0, TILE_SIZE)
+    paste(rows, bottom_right, TILE_SIZE, TILE_SIZE)
+    return rows
+
+
 def descriptor_by_index(secondary_contract: dict[str, Any]) -> dict[int, dict[str, Any]]:
     by_index: dict[int, dict[str, Any]] = {}
     by_address = {descriptor["address"]: descriptor for descriptor in secondary_contract["descriptors"]}
@@ -92,7 +108,7 @@ def compose_slot(
     max_x = max_y = 0
     for piece in pieces:
         tile_index = int(piece["source_tile_low_or_spatial_byte"]) // 2
-        tile = crop_tile(source_sheet, tile_index)
+        tile = compose_metatile_16x16(source_sheet, tile_index)
         if piece["attribute_bits"]["horizontal_flip"]:
             tile = flip_horizontal(tile)
         if piece["attribute_bits"]["vertical_flip"]:
@@ -101,8 +117,8 @@ def compose_slot(
         y = signed_byte(int(piece["relative_y"]))
         min_x = min(min_x, x)
         min_y = min(min_y, y)
-        max_x = max(max_x, x + TILE_SIZE)
-        max_y = max(max_y, y + TILE_SIZE)
+        max_x = max(max_x, x + PIECE_SIZE)
+        max_y = max(max_y, y + PIECE_SIZE)
         placed.append((tile, x, y, piece))
 
     width = max(1, max_x - min_x) + (CANVAS_PADDING * 2)
@@ -121,9 +137,9 @@ def compose_slot(
         "piece_count": len(pieces),
         "source_asset": slot["resolved_asset"]["asset_id"],
         "source_range": slot["resolved_asset"]["source_range"],
+        "piece_render_model": "16x16_metatile_from_extracted_tile_stream",
         "limitations": [
-            "prototype_uses_8x8_piece_crops_only",
-            "does_not_yet_apply_sprite_size_bits_from_trailing_attribute",
+            "does_not_yet_name_or_visualize_trailing_attribute_byte",
             "does_not_yet_apply_palette_variants_or_priority_bands_visually",
         ],
     }
@@ -213,7 +229,8 @@ def main() -> int:
             "uses_secondary_visual_descriptor_piece_positions",
             "uses_pointer_bit0_to_select_descriptor_pass0_or_pass1",
             "uses_raw_palette_00_tile_previews",
-            "does_not_yet_apply_16x16_or_large_sprite_size_bits",
+            "uses_16x16_piece_chunks_from_extracted_tile_stream",
+            "does_not_yet_name_or_visualize_trailing_attribute_byte",
             "does_not_yet_render_priority_bands_separately",
         ],
         "groups": [],

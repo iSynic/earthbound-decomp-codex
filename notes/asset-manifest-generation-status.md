@@ -92,11 +92,12 @@ Result:
 - Overworld sprite frame contracts now classify all `267` groups into runtime slot models, payload reuse models, and layout families, and extract the actual `spritepointerarray` records from `EF:133F..EF:4A40`. All `2438` runtime pointer slots resolve to concrete D1-D5 sprite payload assets; `1769` are exact pointer-word matches and `669` use masked low-two-bit flags. The low-bit effects are now named from renderer behavior: bit 0 `select_flipped_piece_record_pass` affects `657` slots, and bit 1 `suppress_auxiliary_c40be8_prepass` affects `16` slots. Direction/phase labels remain semantic hints from the ebsrc `DIRECTION` enum.
 - Overworld sprite preview sheets can now be generated for all `267` sprite groups from the frame contract and extracted palette-00 tile previews. The generated PNGs and `index.json` stay under ignored `build/overworld-sprite-preview-sheets/`.
 - Secondary visual descriptors now have a machine-readable C4 contract covering the `17` pointer-table entries at `C4:2B0D..C4:2B51`, `16` unique descriptor records at `C4:2B51..C4:2F45`, and the adjacent `C4:2F45..C4:2F8C` non-descriptor ranges before the tile-base and tile-word support tables.
-- Prototype composed overworld preview sheets can now be generated under ignored `build/overworld-sprite-composed-previews/`. They combine resolved runtime slots with secondary descriptor piece positions and use pointer bit 0 to choose pass 0 or the horizontally flipped pass 1; the current renderer still uses 8x8 tile crops and does not yet apply larger sprite-size bits, palette variants, or priority-band visualization.
+- Prototype composed overworld preview sheets can now be generated under ignored `build/overworld-sprite-composed-previews/`. They combine resolved runtime slots with secondary descriptor piece positions and use pointer bit 0 to choose pass 0 or the horizontally flipped pass 1. The renderer now builds recognizable 16x16 pieces from the extracted tile stream; trailing-attribute naming, palette variants, and priority-band visualization are still open.
 
 ## Next Useful Decoders
 
-1. Apply secondary descriptor trailing size/attribute bits so composed overworld previews graduate from 8x8-piece audit sheets toward in-game sprite/OAM previews.
-2. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
-3. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
-4. BRR/audio pack manifests split into sample/song/pack-level contracts.
+1. Name or visualize the secondary descriptor trailing byte so composed overworld previews can audit its `$00/$80` pattern instead of only carrying it as metadata.
+2. Render priority bands separately from the secondary descriptor header counts.
+3. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
+4. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
+5. BRR/audio pack manifests split into sample/song/pack-level contracts.
