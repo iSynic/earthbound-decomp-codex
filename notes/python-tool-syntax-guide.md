@@ -453,6 +453,14 @@ python tools/render_map_scene_metatile_previews.py --limit 24
 python tools/render_map_scene_metatile_previews.py --scene 329 --scale 1
 ```
 
+Render ROM-backed diagnostic RGB sector previews from bank DA map palette
+variants:
+
+```powershell
+python tools/render_map_scene_metatile_previews.py --color-palette --limit 12 --scale 1
+python tools/render_map_scene_metatile_previews.py --color-palette --scene 329 --scale 1
+```
+
 Render ignored grayscale previews from the audited 64-character tile rows:
 
 ```powershell
