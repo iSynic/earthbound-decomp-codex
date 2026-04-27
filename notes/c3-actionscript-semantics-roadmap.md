@@ -18,6 +18,8 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
+- Current source-form event/actionscript pilots: `1` family, `617` validated
+  bytes
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source
@@ -169,13 +171,20 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
+Status: first pilot complete in `notes/c3-event-script-source-pilot.md`.
+`tools/build_c3_event_script_source_pilot.py` emits
+`src/c3/event_scripts/movement_pulse_presets.asar.asm`, a labeled macro-source
+representation of the movement pulse preset family. The pilot covers `27` rows,
+`617` bytes, and validates against the local ROM bytes used by the C3
+source/data map.
+
 Use a compact, already-documented family as the first source-form pilot:
 
 - `C3:A0B2..C3:AB26` movement pulse preset family
 - `C3:43DB..C3:48C4` timed-delivery controller family
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
-The first pilot should emit symbolic event bytecode with labels, opcodes, and
+The next pilots should emit symbolic event bytecode with labels, opcodes, and
 operands while preserving byte-equivalence against the ROM-backed scaffold.
 
 ### 4. Non-Event Payload Split
@@ -189,10 +198,6 @@ Keep these out of the event VM decoder unless evidence changes:
 
 ## Suggested Immediate Target
 
-Start with the movement pulse preset family. It is small, repeatedly decoded by
-the existing tool, has strong local notes, and exercises the most important
-event VM concepts: pauses, animation changes, loopbacks, tasks, callback
-bridges, variables, and velocity clears.
-
-After that, move to timed delivery because it connects the C3 script VM to the
-newly closed EF helper source and makes a useful cross-bank romhacking example.
+The movement pulse preset family now has a source-form pilot. Move next to timed
+delivery because it connects the C3 script VM to the newly closed EF helper
+source and makes a useful cross-bank romhacking example.

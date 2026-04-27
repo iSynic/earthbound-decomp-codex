@@ -79,6 +79,16 @@ This cluster is the action/event script equivalent of a movement-preset library.
 
 The `C0:A685` parameter pairs are still named conservatively because their exact field-level semantics come from C0 state code, not from C3 alone. The local byte shape is firm; the preset names should stay descriptive until that field pair has a stronger data contract.
 
+## Source-form pilot
+
+This family is now the first C3 event/actionscript source-form pilot:
+
+- generator: `tools/build_c3_event_script_source_pilot.py`
+- source: `src/c3/event_scripts/movement_pulse_presets.asar.asm`
+- report: `notes/c3-event-script-source-pilot.md`
+
+The pilot covers the pulse task island and matching AAxx/ABxx preset installers as labeled macro assembly. It validates `617` ROM bytes across `27` source/data-map rows while keeping the opaque scaffold corridor untouched until the replacement flow is mature.
+
 ## Working Names
 
 - `C3:A0B2` = `LoopActiveEntityWalkPulse24Frame`

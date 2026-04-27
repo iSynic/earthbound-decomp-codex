@@ -52,7 +52,10 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for the next semantic naming pass.
+byte-count seeds captured for semantic naming. The first source-form pilot is
+also checked in: `src/c3/event_scripts/movement_pulse_presets.asar.asm`
+represents the movement pulse preset family as labeled event/actionscript macro
+assembly while validating `617` ROM bytes.
 
 ## For Romhackers
 
@@ -74,6 +77,7 @@ Good starting points:
 - `notes/readable-source-bank-closure.md`
 - `notes/c3-actionscript-semantics-roadmap.md`
 - `notes/c3-actionscript-semantics-audit.md`
+- `notes/c3-event-script-source-pilot.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
 - `notes/map-object-bundles.md`
@@ -206,6 +210,7 @@ python tools/find_ebtext_command.py 1C 05 --limit 12
 python tools/inspect_ebtext_hits.py 1D 24 --limit 2 --before 24 --after 56
 python tools/decode_event_script.py C3:0295 C3:AB59
 python tools/build_c3_actionscript_semantics_audit.py
+python tools/build_c3_event_script_source_pilot.py
 ```
 
 Join map object visuals and behavior:
