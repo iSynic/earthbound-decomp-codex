@@ -54,11 +54,14 @@ All present `.fts` exports have a stable line profile:
 - a variable number of nonblank rows of length `290`
 
 The contract stores these as inferred component counts and SHA-1 hashes for
-future decoders. The exact split into graphics, metatiles, collision, and
-palette/setting data remains a follow-up decoding step.
+future decoders. The 96-character section is now split structurally as
+arrangement/collision records; palette/settings rows remain a follow-up
+decoding step.
 
 `notes/map-fts-format-audit.md` expands this into a checked format audit
 with per-section hashes, packed byte counts, and conservative component labels.
+`notes/map-fts-arrangement-contract.md` decodes the 96-character section
+as 1024 arrangement/collision records with 16 three-byte cells each.
 
 ## Machine-Readable Data
 

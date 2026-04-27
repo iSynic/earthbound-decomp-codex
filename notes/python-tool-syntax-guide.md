@@ -414,6 +414,12 @@ Audit the `.fts` export format without checking in payload rows:
 python tools/build_map_fts_format_audit.py
 ```
 
+Decode structural stats from the `.fts` arrangement/collision rows:
+
+```powershell
+python tools/build_map_fts_arrangement_contract.py
+```
+
 Render ignored grayscale previews from the audited 64-character tile rows:
 
 ```powershell

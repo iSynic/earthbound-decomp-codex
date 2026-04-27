@@ -14,7 +14,7 @@ checking in raw export rows or decoded graphics/data payloads.
 
 | Component | Files | Row Length | Rows/File | Packed Bytes Total | Hex-Like | Character Set |
 | --- | ---: | ---: | ---: | ---: | --- | --- |
-| `metatile_or_collision_rows_96_chars` | 20 | 96 | 1024 | 983040 | `yes` | `0123456789abcdef` |
+| `arrangement_collision_rows_96_chars` | 20 | 96 | 1024 | 983040 | `yes` | `0123456789abcdef` |
 | `palette_or_settings_rows_290_chars` | 20 | 290 | 1-52 |  | `no` | `0123456789abcdefghijklmnopqrstuv` |
 | `tile_pixel_rows_64_chars` | 20 | 64 | 1024 | 655360 | `yes` | `0123456789abcdef` |
 
@@ -24,9 +24,9 @@ checking in raw export rows or decoded graphics/data payloads.
   has 64 hex-like nibbles, matching one 4bpp 8x8 tile if packed to 32 bytes.
 - `palette_or_settings_rows_290_chars`: variable-count base36-like settings rows.
   These are not hex byte rows and need a dedicated decoder.
-- `metatile_or_collision_rows_96_chars`: fixed 1024-row records. They are
-  hex-like, but the field split is still unresolved; keep this as a target for
-  the next decoder rather than naming it more strongly yet.
+- `arrangement_collision_rows_96_chars`: fixed 1024-row arrangement/collision
+  records. Each row splits into 16 three-byte cells, matching a 4x4 grid of
+  8x8 subtiles per map tile/metatile.
 
 ## Per-File Shape
 
