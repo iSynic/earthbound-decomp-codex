@@ -25,6 +25,25 @@ POINTER_TABLE_ENTRIES = 464
 SPRITE_GROUPING_DATA_END = 0x4A40
 GROUPING_HEADER_SIZE = 9
 SPRITE_ASSET_BANKS = ["d1", "d2", "d3", "d4", "d5"]
+POINTER_FLAG_BIT_MEANINGS = {
+    0: {
+        "name": "display_record_base_bias",
+        "mask": "$0001",
+        "effect": "C0:A3A4 tests cached $341A bit 0; when set, it adds $2916 to the display-record base pointer before renderer queue submission.",
+        "evidence": ["src/c0/c0_a3a4_build_display_record_from_current_task_data.asm"],
+        "confidence": "medium",
+    },
+    1: {
+        "name": "suppress_auxiliary_c40be8_prepass",
+        "mask": "$0002",
+        "effect": "C0:A4C4 and C0:A794 test the selected pointer word with #$0002; when set, they skip the optional C4:0BE8 auxiliary render/DMA prepass and go straight to the main D1-D5 payload stream.",
+        "evidence": [
+            "src/c0/c0_a4c4_refresh_slot_visual_profile_shared.asm",
+            "src/c0/c0_a794_refresh_companion_visual_profile_phase_biased.asm",
+        ],
+        "confidence": "high",
+    },
+}
 
 DIRECTION_ORDER = [
     "up",
@@ -287,6 +306,14 @@ def resolve_asset(
     return "unresolved", None, normalized_word, flags
 
 
+def pointer_flag_bits(flags: int) -> list[dict[str, Any]]:
+    bits: list[dict[str, Any]] = []
+    for bit, meaning in sorted(POINTER_FLAG_BIT_MEANINGS.items()):
+        if flags & (1 << bit):
+            bits.append({"bit": bit, **meaning})
+    return bits
+
+
 def read_grouping_slots(
     rom: bytes,
     pointer_entry: dict[str, Any],
@@ -333,6 +360,7 @@ def read_grouping_slots(
                 "raw_pointer_word": hex_word(raw_word),
                 "normalized_pointer_offset": hex_word(normalized_word),
                 "pointer_flags": flags,
+                "pointer_flag_bits": pointer_flag_bits(flags),
                 "sprite_bank": f"{sprite_bank:02X}",
                 "resolution": resolution,
                 "ownership": ownership,
@@ -418,6 +446,7 @@ def build_frame_contract(group_contract: dict[str, Any], rom_arg: str | None) ->
     slot_model_counts: Counter[str] = Counter()
     payload_model_counts: Counter[str] = Counter()
     pointer_flag_counts: Counter[str] = Counter()
+    pointer_flag_effect_counts: Counter[str] = Counter()
     slot_resolution_counts: Counter[str] = Counter()
     slot_ownership_counts: Counter[str] = Counter()
     total_runtime_slots = 0
@@ -450,6 +479,8 @@ def build_frame_contract(group_contract: dict[str, Any], rom_arg: str | None) ->
         slot_ownership_counts.update(ownerships)
         for slot in resolved_slots:
             pointer_flag_counts[str(slot["pointer_flags"])] += 1
+            for bit_info in slot["pointer_flag_bits"]:
+                pointer_flag_effect_counts[bit_info["name"]] += 1
         record_end = int(pointer_entry["target_offset"]) + int(grouping_record["record_bytes"])
         max_grouping_record_end = max(max_grouping_record_end, record_end)
         unresolved_slots = resolutions["unresolved"]
@@ -539,6 +570,11 @@ def build_frame_contract(group_contract: dict[str, Any], rom_arg: str | None) ->
             "unresolved_runtime_slots": slot_resolution_counts["unresolved"],
             "slot_resolution_counts": dict(sorted(slot_resolution_counts.items())),
             "pointer_flag_counts": dict(sorted(pointer_flag_counts.items())),
+            "pointer_flag_effect_counts": dict(sorted(pointer_flag_effect_counts.items())),
+            "pointer_flag_bit_meanings": [
+                {"bit": bit, **meaning}
+                for bit, meaning in sorted(POINTER_FLAG_BIT_MEANINGS.items())
+            ],
             "slot_asset_ownership": dict(sorted(slot_ownership_counts.items())),
             "runtime_slot_models": dict(sorted(slot_model_counts.items())),
             "payload_models": dict(sorted(payload_model_counts.items())),
@@ -617,6 +653,22 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
         lines.append(f"| `{key}` | {count} |")
 
     lines.extend(
+        [
+            "",
+            "## Pointer Flag Effects",
+            "",
+            "| Bit | Name | Slots | Confidence | Evidence |",
+            "| ---: | --- | ---: | --- | --- |",
+        ]
+    )
+    for meaning in summary["pointer_flag_bit_meanings"]:
+        count = summary["pointer_flag_effect_counts"].get(meaning["name"], 0)
+        evidence = ", ".join(f"`{item}`" for item in meaning["evidence"])
+        lines.append(
+            f"| {meaning['bit']} | `{meaning['name']}` | {count} | {meaning['confidence']} | {evidence} |"
+        )
+
+    lines.extend(
         ["", "## Slot Asset Ownership", "", "| Ownership | Slots |", "| --- | ---: |"]
     )
     for key, count in summary["slot_asset_ownership"].items():
@@ -628,7 +680,9 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "## Interpretation Rules",
             "",
             "- `runtime_slot_count` comes from EBDecomp `sprite_groups.yml` `Length`, matching the variable `spritepointerarray` size described by ebsrc `sprite_grouping`.",
-            "- `runtime_slots` now record the exact ROM pointer word, normalized D1-D5 graphics offset, low two pointer flag bits, and resolved asset ID for every slot.",
+            "- `runtime_slots` now record the exact ROM pointer word, normalized D1-D5 graphics offset, named low-bit renderer effects, and resolved asset ID for every slot.",
+            "- Bit 0 is cached in `$341A` and later biases the display-record base by `$2916`; its exact visual name is still cautious.",
+            "- Bit 1 is directly tested by both visual-profile refresh paths and suppresses the optional `C4:0BE8` auxiliary prepass.",
             "- Direction and phase labels still use the ebsrc `DIRECTION` enum order as semantic hints until verified against runtime animation code.",
             "- `payload_model` describes how many unique D1-D5 payloads are available relative to the runtime slot count.",
             "- `layout_family` is a deterministic classification from payload count, slot count, size, and collision metadata; it is not yet a final animation name.",
@@ -636,7 +690,7 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "",
             "## Next Step",
             "",
-            "Name the low-bit pointer flags against renderer behavior, then use these exact slot mappings to build composed directional preview sheets for overworld sprite groups.",
+            "Use these exact slot mappings and renderer flag effects to build composed directional preview sheets for overworld sprite groups.",
         ]
     )
 

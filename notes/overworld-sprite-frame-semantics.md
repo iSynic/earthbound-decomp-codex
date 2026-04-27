@@ -62,6 +62,13 @@ This note summarizes `notes/overworld-sprite-frame-contracts.json`, a ROM-resolv
 | `2` | 12 |
 | `3` | 4 |
 
+## Pointer Flag Effects
+
+| Bit | Name | Slots | Confidence | Evidence |
+| ---: | --- | ---: | --- | --- |
+| 0 | `display_record_base_bias` | 657 | medium | `src/c0/c0_a3a4_build_display_record_from_current_task_data.asm` |
+| 1 | `suppress_auxiliary_c40be8_prepass` | 16 | high | `src/c0/c0_a4c4_refresh_slot_visual_profile_shared.asm`, `src/c0/c0_a794_refresh_companion_visual_profile_phase_biased.asm` |
+
 ## Slot Asset Ownership
 
 | Ownership | Slots |
@@ -72,7 +79,9 @@ This note summarizes `notes/overworld-sprite-frame-contracts.json`, a ROM-resolv
 ## Interpretation Rules
 
 - `runtime_slot_count` comes from EBDecomp `sprite_groups.yml` `Length`, matching the variable `spritepointerarray` size described by ebsrc `sprite_grouping`.
-- `runtime_slots` now record the exact ROM pointer word, normalized D1-D5 graphics offset, low two pointer flag bits, and resolved asset ID for every slot.
+- `runtime_slots` now record the exact ROM pointer word, normalized D1-D5 graphics offset, named low-bit renderer effects, and resolved asset ID for every slot.
+- Bit 0 is cached in `$341A` and later biases the display-record base by `$2916`; its exact visual name is still cautious.
+- Bit 1 is directly tested by both visual-profile refresh paths and suppresses the optional `C4:0BE8` auxiliary prepass.
 - Direction and phase labels still use the ebsrc `DIRECTION` enum order as semantic hints until verified against runtime animation code.
 - `payload_model` describes how many unique D1-D5 payloads are available relative to the runtime slot count.
 - `layout_family` is a deterministic classification from payload count, slot count, size, and collision metadata; it is not yet a final animation name.
@@ -80,4 +89,4 @@ This note summarizes `notes/overworld-sprite-frame-contracts.json`, a ROM-resolv
 
 ## Next Step
 
-Name the low-bit pointer flags against renderer behavior, then use these exact slot mappings to build composed directional preview sheets for overworld sprite groups.
+Use these exact slot mappings and renderer flag effects to build composed directional preview sheets for overworld sprite groups.

@@ -348,6 +348,19 @@ Battle sprite graphics also get palette-aware previews for observed
 enemy-table sprite/palette combinations, plus size-aware composed sprite
 previews using the reference battle sprite pointer table.
 
+Build ignored overworld sprite slot contact sheets from the resolved frame
+contract and generated palette-00 tile previews:
+
+```powershell
+python tools/build_overworld_sprite_preview_sheets.py
+```
+
+Render one or two specific overworld sprite IDs:
+
+```powershell
+python tools/build_overworld_sprite_preview_sheets.py --group-id 1 --group-id 7
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell
