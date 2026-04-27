@@ -24,6 +24,10 @@ DEFAULT_OUT = ROOT / "build" / "overworld-sprite-composed-previews"
 TILE_SIZE = 8
 PIECE_SIZE = 16
 CANVAS_PADDING = 32
+BAND_COLORS = {
+    "first_priority_band": (44, 134, 255, 255),
+    "second_priority_band": (255, 181, 46, 255),
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,6 +47,11 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--slot-limit", type=int, default=None)
+    parser.add_argument(
+        "--show-priority-bands",
+        action="store_true",
+        help="Tint and outline pieces by the secondary descriptor header's two priority bands.",
+    )
     return parser.parse_args()
 
 
@@ -56,6 +65,43 @@ def flip_horizontal(tile: list[list[RGBA]]) -> list[list[RGBA]]:
 
 def flip_vertical(tile: list[list[RGBA]]) -> list[list[RGBA]]:
     return list(reversed(tile))
+
+
+def tint_image(rows: list[list[RGBA]], color: RGBA, alpha: int = 72) -> list[list[RGBA]]:
+    tinted: list[list[RGBA]] = []
+    for row in rows:
+        out_row: list[RGBA] = []
+        for red, green, blue, pixel_alpha in row:
+            if pixel_alpha == 0:
+                out_row.append((red, green, blue, pixel_alpha))
+                continue
+            out_row.append(
+                (
+                    ((red * (255 - alpha)) + (color[0] * alpha)) // 255,
+                    ((green * (255 - alpha)) + (color[1] * alpha)) // 255,
+                    ((blue * (255 - alpha)) + (color[2] * alpha)) // 255,
+                    pixel_alpha,
+                )
+            )
+        tinted.append(out_row)
+    return tinted
+
+
+def draw_rect(
+    rows: list[list[RGBA]], left: int, top: int, width: int, height: int, color: RGBA
+) -> None:
+    right = left + width - 1
+    bottom = top + height - 1
+    for x in range(max(0, left), min(len(rows[0]), left + width)):
+        if 0 <= top < len(rows):
+            rows[top][x] = color
+        if 0 <= bottom < len(rows):
+            rows[bottom][x] = color
+    for y in range(max(0, top), min(len(rows), top + height)):
+        if 0 <= left < len(rows[0]):
+            rows[y][left] = color
+        if 0 <= right < len(rows[0]):
+            rows[y][right] = color
 
 
 def crop_tile(sheet: list[list[RGBA]], tile_index: int) -> list[list[RGBA]]:
@@ -97,35 +143,60 @@ def compose_slot(
     slot: dict[str, Any],
     descriptor: dict[str, Any],
     asset_root: Path,
+    show_priority_bands: bool,
 ) -> tuple[list[list[RGBA]], dict[str, Any]]:
     preview = asset_root / slot["resolved_asset"]["palette_00_preview"]
     source_sheet = read_png_rgba(preview)
     pass_index = 1 if (int(slot["pointer_flags"]) & 0x01) else 0
     pieces = descriptor["body_passes"][pass_index]
+    first_band_count = int(descriptor["header"]["first_priority_band_count"])
+    second_band_count = int(descriptor["header"]["second_priority_band_count"])
 
-    placed: list[tuple[list[list[RGBA]], int, int, dict[str, Any]]] = []
+    placed: list[tuple[list[list[RGBA]], int, int, dict[str, Any], str]] = []
+    piece_metadata = []
     min_x = min_y = 0
     max_x = max_y = 0
     for piece in pieces:
+        priority_band = (
+            "first_priority_band"
+            if int(piece["ordinal"]) < first_band_count
+            else "second_priority_band"
+        )
         tile_index = int(piece["source_tile_low_or_spatial_byte"]) // 2
         tile = compose_metatile_16x16(source_sheet, tile_index)
         if piece["attribute_bits"]["horizontal_flip"]:
             tile = flip_horizontal(tile)
         if piece["attribute_bits"]["vertical_flip"]:
             tile = flip_vertical(tile)
+        if show_priority_bands:
+            tile = tint_image(tile, BAND_COLORS[priority_band])
         x = signed_byte(int(piece["relative_x"]))
         y = signed_byte(int(piece["relative_y"]))
         min_x = min(min_x, x)
         min_y = min(min_y, y)
         max_x = max(max_x, x + PIECE_SIZE)
         max_y = max(max_y, y + PIECE_SIZE)
-        placed.append((tile, x, y, piece))
+        placed.append((tile, x, y, piece, priority_band))
+        piece_metadata.append(
+            {
+                "ordinal": piece["ordinal"],
+                "contract_priority_band": priority_band,
+                "relative_x": x,
+                "relative_y": y,
+                "source_tile_chunk_index": tile_index,
+                "trailing_attribute": piece["trailing_attribute"],
+            }
+        )
 
     width = max(1, max_x - min_x) + (CANVAS_PADDING * 2)
     height = max(1, max_y - min_y) + (CANVAS_PADDING * 2)
     canvas = blank(width, height, (20, 22, 26, 0))
-    for tile, x, y, _piece in placed:
-        paste(canvas, tile, x - min_x + CANVAS_PADDING, y - min_y + CANVAS_PADDING)
+    for tile, x, y, _piece, priority_band in placed:
+        left = x - min_x + CANVAS_PADDING
+        top = y - min_y + CANVAS_PADDING
+        paste(canvas, tile, left, top)
+        if show_priority_bands:
+            draw_rect(canvas, left, top, PIECE_SIZE, PIECE_SIZE, BAND_COLORS[priority_band])
 
     return canvas, {
         "slot_index": slot["slot_index"],
@@ -135,12 +206,18 @@ def compose_slot(
         "descriptor_pass_index": pass_index,
         "descriptor": descriptor["label"],
         "piece_count": len(pieces),
+        "priority_band_counts": {
+            "first_priority_band": first_band_count,
+            "second_priority_band": second_band_count,
+        },
+        "pieces": piece_metadata,
         "source_asset": slot["resolved_asset"]["asset_id"],
         "source_range": slot["resolved_asset"]["source_range"],
         "piece_render_model": "16x16_metatile_from_extracted_tile_stream",
+        "priority_band_overlay": show_priority_bands,
         "limitations": [
             "does_not_yet_name_or_visualize_trailing_attribute_byte",
-            "does_not_yet_apply_palette_variants_or_priority_bands_visually",
+            "does_not_yet_apply_palette_variants",
         ],
     }
 
@@ -151,6 +228,7 @@ def build_group_sheet(
     asset_root: Path,
     out_dir: Path,
     slot_limit: int | None,
+    show_priority_bands: bool,
 ) -> dict[str, Any]:
     slots = group["runtime_slots"][:slot_limit]
     if not slots:
@@ -168,7 +246,7 @@ def build_group_sheet(
     composed = []
     max_w = max_h = 1
     for slot in slots:
-        image, metadata = compose_slot(slot, descriptor, asset_root)
+        image, metadata = compose_slot(slot, descriptor, asset_root, show_priority_bands)
         composed.append((image, metadata))
         max_w = max(max_w, len(image[0]))
         max_h = max(max_h, len(image))
@@ -194,6 +272,7 @@ def build_group_sheet(
         "rendered": True,
         "secondary_descriptor_index": group["sprite_grouping_record"]["header"]["size_code"],
         "secondary_descriptor": descriptor["label"],
+        "priority_band_overlay": show_priority_bands,
         "sheet": rel(out_path),
         "slots": slot_metadata,
     }
@@ -230,9 +309,16 @@ def main() -> int:
             "uses_pointer_bit0_to_select_descriptor_pass0_or_pass1",
             "uses_raw_palette_00_tile_previews",
             "uses_16x16_piece_chunks_from_extracted_tile_stream",
+            "can_tint_contract_priority_bands_with_show_priority_bands",
             "does_not_yet_name_or_visualize_trailing_attribute_byte",
-            "does_not_yet_render_priority_bands_separately",
         ],
+        "render_options": {
+            "show_priority_bands": args.show_priority_bands,
+            "priority_band_colors": {
+                key: f"#{red:02X}{green:02X}{blue:02X}"
+                for key, (red, green, blue, _alpha) in BAND_COLORS.items()
+            },
+        },
         "groups": [],
     }
     for group in groups:
@@ -251,7 +337,14 @@ def main() -> int:
             )
             continue
         index["groups"].append(
-            build_group_sheet(group, descriptor, asset_root, out_dir, args.slot_limit)
+            build_group_sheet(
+                group,
+                descriptor,
+                asset_root,
+                out_dir,
+                args.slot_limit,
+                args.show_priority_bands,
+            )
         )
 
     index_path = out_dir / "index.json"

@@ -382,6 +382,12 @@ python tools/build_overworld_sprite_composed_previews.py --group-id 1 --group-id
 python tools/build_overworld_sprite_composed_previews.py --group-id 7 --slot-limit 4
 ```
 
+Render a separate priority-band audit set:
+
+```powershell
+python tools/build_overworld_sprite_composed_previews.py --show-priority-bands --out build\overworld-sprite-composed-priority-bands
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell
