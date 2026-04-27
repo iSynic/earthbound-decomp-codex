@@ -118,6 +118,30 @@ def output_payload_path(bank: str, payload: str) -> str:
     return f"{bank.lower()}/{cleaned}"
 
 
+def preview_path(raw_path: str, suffix: str) -> str:
+    path = Path(raw_path)
+    return path.with_name(f"{path.stem}_{suffix}.png").as_posix()
+
+
+def binary_outputs(bank: str, entry: dict[str, Any]) -> list[dict[str, Any]]:
+    payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
+    raw_path = output_payload_path(bank, payload)
+    outputs: list[dict[str, Any]] = [{"kind": "raw", "path": raw_path}]
+
+    extension = str(entry.get("extension", "")).lower()
+    size = int(entry["size"])
+    compressed = bool(entry.get("compressed"))
+    if extension == "gfx" and not compressed and size % 32 == 0:
+        outputs.append(
+            {
+                "kind": "snes_4bpp_tiles_png",
+                "path": preview_path(raw_path, "4bpp_preview"),
+                "columns": 8,
+            }
+        )
+    return outputs
+
+
 def make_source(entry: dict[str, Any], rom: bytes) -> dict[str, Any]:
     size = int(entry["size"])
     return {
@@ -146,12 +170,7 @@ def convert_binary_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[s
         "title": label or payload,
         "category": binary_category(entry),
         "source": make_source(entry, rom),
-        "outputs": [
-            {
-                "kind": "raw",
-                "path": output_payload_path(bank, payload or f"asset_{entry['order']:03d}.bin"),
-            }
-        ],
+        "outputs": binary_outputs(bank, entry),
         "notes": notes,
     }
 
@@ -172,7 +191,7 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append("Size was inferred from the next known binary asset boundary.")
 
     return {
-        "id": f"table.{bank.lower()}.{stable_name}",
+        "id": f"table.{bank.lower()}.{int(entry['order']):03d}_{stable_name}",
         "title": include,
         "category": "raw-table",
         "source": make_source(entry, rom),

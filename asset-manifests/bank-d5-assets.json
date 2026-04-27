@@ -43,6 +43,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1028.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1028_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -64,6 +69,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1029.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1029_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -85,6 +95,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1030.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1030_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -106,6 +121,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1031.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1031_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -127,6 +147,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1032.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1032_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -148,6 +173,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1033.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1033_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -169,6 +199,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1034.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1034_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -190,6 +225,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1035.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1035_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -211,6 +251,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1036.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1036_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -232,6 +277,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1037.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1037_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -253,6 +303,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1038.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1038_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -274,6 +329,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1039.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1039_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -295,6 +355,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1040.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1040_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -316,6 +381,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1041.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1041_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -337,6 +407,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1042.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1042_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -358,6 +433,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1043.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1043_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -379,6 +459,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1044.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1044_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -400,6 +485,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1045.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1045_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -421,6 +511,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1046.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1046_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -442,6 +537,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1047.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1047_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -463,6 +563,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1048.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1048_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -484,6 +589,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1049.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1049_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -505,6 +615,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1050.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1050_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -526,6 +641,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1051.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1051_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -547,6 +667,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1052.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1052_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -568,6 +693,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1053.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1053_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -589,6 +719,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1054.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1054_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -610,6 +745,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1055.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1055_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -631,6 +771,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1056.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1056_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -652,6 +797,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1057.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1057_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -673,6 +823,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1058.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1058_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -694,6 +849,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1059.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1059_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -715,6 +875,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1060.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1060_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -736,6 +901,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1061.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1061_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -757,6 +927,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1062.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1062_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -778,6 +953,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1063.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1063_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -799,6 +979,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1064.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1064_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -820,6 +1005,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1065.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1065_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -841,6 +1031,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1066.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1066_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -862,6 +1057,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1067.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1067_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -883,6 +1083,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1068.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1068_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -904,6 +1109,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1069.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1069_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -925,6 +1135,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1070.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1070_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -946,6 +1161,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1071.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1071_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -967,6 +1187,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1072.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1072_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -988,6 +1213,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1073.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1073_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1009,6 +1239,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1074.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1074_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1030,6 +1265,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1075.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1075_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1051,6 +1291,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1076.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1076_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1072,6 +1317,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1077.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1077_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1093,6 +1343,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1078.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1078_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1114,6 +1369,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1079.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1079_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1135,6 +1395,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1080.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1080_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1156,6 +1421,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1081.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1081_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1177,6 +1447,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1082.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1082_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1198,6 +1473,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1083.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1083_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1219,6 +1499,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1084.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1084_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1240,6 +1525,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1085.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1085_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1261,6 +1551,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1086.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1086_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1282,6 +1577,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1087.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1087_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1303,6 +1603,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1088.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1088_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1324,6 +1629,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1089.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1089_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1345,6 +1655,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1090.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1090_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1366,6 +1681,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1091.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1091_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1387,6 +1707,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1092.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1092_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1408,6 +1733,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1093.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1093_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1429,6 +1759,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1094.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1094_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1450,6 +1785,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1095.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1095_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1471,6 +1811,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1096.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1096_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1492,6 +1837,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1097.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1097_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1513,6 +1863,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1098.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1098_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1534,6 +1889,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1099.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1099_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1555,6 +1915,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1100.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1100_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1576,6 +1941,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1101.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1101_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1597,6 +1967,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1102.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1102_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1618,6 +1993,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1103.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1103_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1639,6 +2019,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1104.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1104_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1660,6 +2045,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1105.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1105_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1681,6 +2071,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1106.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1106_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1702,6 +2097,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1107.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1107_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1723,6 +2123,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1108.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1108_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1744,6 +2149,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1109.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1109_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1765,6 +2175,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1110.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1110_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1786,6 +2201,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1111.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1111_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1807,6 +2227,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1112.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1112_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1828,6 +2253,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1113.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1113_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1849,6 +2279,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1114.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1114_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1870,6 +2305,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1115.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1115_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1891,6 +2331,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1116.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1116_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1912,6 +2357,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1117.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1117_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1933,6 +2383,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1118.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1118_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1954,6 +2409,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1119.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1119_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1975,6 +2435,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1120.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1120_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -1996,6 +2461,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1121.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1121_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2017,6 +2487,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1122.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1122_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2038,6 +2513,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1123.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1123_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2059,6 +2539,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1124.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1124_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2080,6 +2565,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1125.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1125_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2101,6 +2591,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1126.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1126_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2122,6 +2617,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1127.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1127_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2143,6 +2643,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1128.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1128_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2164,6 +2669,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1129.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1129_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2185,6 +2695,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1130.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1130_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2206,6 +2721,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1131.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1131_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2227,6 +2747,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1132.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1132_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2248,6 +2773,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1133.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1133_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2269,6 +2799,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1134.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1134_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2290,6 +2825,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1135.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1135_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2311,6 +2851,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1136.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1136_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2332,6 +2877,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1137.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1137_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2353,6 +2903,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1138.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1138_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2374,6 +2929,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1139.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1139_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2395,6 +2955,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1140.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1140_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2416,6 +2981,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1141.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1141_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2437,6 +3007,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1142.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1142_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2458,6 +3033,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1143.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1143_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2479,6 +3059,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1144.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1144_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2500,6 +3085,11 @@
         {
           "kind": "raw",
           "path": "d5/overworld_sprites/gfx/1145.gfx"
+        },
+        {
+          "kind": "snes_4bpp_tiles_png",
+          "path": "d5/overworld_sprites/gfx/1145_4bpp_preview.png",
+          "columns": 8
         }
       ],
       "notes": [
@@ -2508,7 +3098,7 @@
       ]
     },
     {
-      "id": "table.d5.inline_byte",
+      "id": "table.d5.118_inline_byte",
       "title": "inline:BYTE",
       "category": "raw-table",
       "source": {

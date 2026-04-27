@@ -172,6 +172,39 @@ def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
     return pixels
 
 
+def decode_snes_4bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
+    if len(data) % 32 != 0:
+        raise ValueError(f"SNES 4bpp tile data must be a multiple of 32 bytes, got {len(data)}")
+    if columns <= 0:
+        raise ValueError("Tile preview columns must be positive")
+
+    tile_count = len(data) // 32
+    rows_of_tiles = math.ceil(tile_count / columns)
+    pixels = [[255 for _ in range(columns * 8)] for _ in range(rows_of_tiles * 8)]
+    palette = [255, 238, 221, 204, 187, 170, 153, 136, 119, 102, 85, 68, 51, 34, 17, 0]
+
+    for tile_index in range(tile_count):
+        tile_x = (tile_index % columns) * 8
+        tile_y = (tile_index // columns) * 8
+        tile = data[tile_index * 32 : (tile_index + 1) * 32]
+        for y in range(8):
+            plane0 = tile[y * 2]
+            plane1 = tile[y * 2 + 1]
+            plane2 = tile[16 + y * 2]
+            plane3 = tile[16 + y * 2 + 1]
+            for x in range(8):
+                bit = 7 - x
+                color = (
+                    ((plane0 >> bit) & 1)
+                    | (((plane1 >> bit) & 1) << 1)
+                    | (((plane2 >> bit) & 1) << 2)
+                    | (((plane3 >> bit) & 1) << 3)
+                )
+                pixels[tile_y + y][tile_x + x] = palette[color]
+
+    return pixels
+
+
 def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any]:
     kind = spec.get("kind")
     relative_path = spec.get("path")
@@ -184,6 +217,9 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         write_grayscale_png(path, decode_snes_2bpp_tiles(data, columns))
+    elif kind == "snes_4bpp_tiles_png":
+        columns = int(spec.get("columns", 16))
+        write_grayscale_png(path, decode_snes_4bpp_tiles(data, columns))
     else:
         raise ValueError(f"Unsupported output kind: {kind}")
 

@@ -471,7 +471,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_graphics_pointers_asm",
+      "id": "table.ca.020_data_battle_backgrounds_graphics_pointers_asm",
       "title": "data/battle/backgrounds/graphics_pointers.asm",
       "category": "raw-table",
       "source": {
@@ -492,7 +492,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_arrangement_pointers_asm",
+      "id": "table.ca.021_data_battle_backgrounds_arrangement_pointers_asm",
       "title": "data/battle/backgrounds/arrangement_pointers.asm",
       "category": "raw-table",
       "source": {
@@ -513,7 +513,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_palette_pointers_asm",
+      "id": "table.ca.022_data_battle_backgrounds_palette_pointers_asm",
       "title": "data/battle/backgrounds/palette_pointers.asm",
       "category": "raw-table",
       "source": {
@@ -534,7 +534,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_config_table_asm",
+      "id": "table.ca.023_data_battle_backgrounds_config_table_asm",
       "title": "data/battle/backgrounds/config_table.asm",
       "category": "raw-table",
       "source": {
@@ -555,7 +555,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_scrolling_table_asm",
+      "id": "table.ca.024_data_battle_backgrounds_scrolling_table_asm",
       "title": "data/battle/backgrounds/scrolling_table.asm",
       "category": "raw-table",
       "source": {
@@ -576,7 +576,7 @@
       ]
     },
     {
-      "id": "table.ca.data_battle_backgrounds_distortion_table_asm",
+      "id": "table.ca.025_data_battle_backgrounds_distortion_table_asm",
       "title": "data/battle/backgrounds/distortion_table.asm",
       "category": "raw-table",
       "source": {

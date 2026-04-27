@@ -48,6 +48,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 
 - `tools/build_asset_extraction_manifest.py` converts the existing `asset-bank-xx.json` layout data into checked-in extraction manifests.
 - `tools/extract_assets.py` consumes those manifests and writes local ROM-derived outputs under `build/assets/`.
+- `tools/validate_asset_manifests.py` validates all checked-in manifests, checks duplicate asset IDs, and can run a full local extraction pass.
 - Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
 
 Existing refs are useful for this phase:
