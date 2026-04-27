@@ -106,6 +106,10 @@ tables into explicit data contracts.
   `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm` as decoded source for the
   debug sound-menu tile/value helper prefix. `EF:D6D4..EF:EB5F` remains the
   next mixed debug code/string/data corridor.
+- `EF:D6D4..EF:DABD` is now split into the decoded sound-menu controller,
+  debug menu option strings, and decoded graphics/state initialization helpers.
+  `EF:DABD..EF:EB5F` remains the next mixed debug menu text/overlay/helper
+  corridor.
 - `notes/ef-byte-equivalence-validation.md` confirms the combined EF scaffold
   still matches the original ROM with `0` mismatches.
 

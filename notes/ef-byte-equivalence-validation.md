@@ -4,7 +4,7 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 
 - status: `OK`
 - mode: `durable-scaffold`
-- modules: `12`
+- modules: `15`
 - non-OK modules: `0`
 - mismatches: `0`
 
@@ -19,7 +19,10 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 | `OK` | `src/ef/ef_4e20_c51b_text_payload_data.asm` | `EF:4E20..EF:C51B` | 30459 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/ef_c51b_d56f_text_glyph_mask_tables.asm` | `EF:C51B..EF:D56F` | 4180 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/ef_d56f_d6d4_debug_sound_menu_helpers.asm` | `EF:D56F..EF:D6D4` | 357 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
-| `OK` | `src/ef/ef_d6d4_eb5f_debug_menu_mixed_preserved_corridor.asm` | `EF:D6D4..EF:EB5F` | 5259 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_d6d4_d8b5_debug_sound_menu_controller.asm` | `EF:D6D4..EF:D8B5` | 481 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_d8b5_d95e_debug_menu_option_strings.asm` | `EF:D8B5..EF:D95E` | 169 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_d95e_dabd_debug_menu_graphics_state_init.asm` | `EF:D95E..EF:DABD` | 351 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_dabd_eb5f_debug_menu_mixed_preserved_corridor.asm` | `EF:DABD..EF:EB5F` | 4258 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 0 | `src/ef/bank_ef_helpers_asar.asm` |

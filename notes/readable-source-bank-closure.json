@@ -11,11 +11,11 @@
       "EF"
     ],
     "total_bytes": 327680,
-    "decoded_asm_bytes": 245916,
-    "known_data_or_asset_bytes": 73062,
-    "preserved_corridor_bytes": 8702,
-    "source_like_bytes": 254618,
-    "readable_source_percent": 96.58
+    "decoded_asm_bytes": 246748,
+    "known_data_or_asset_bytes": 73231,
+    "preserved_corridor_bytes": 7701,
+    "source_like_bytes": 254449,
+    "readable_source_percent": 96.97
   },
   "banks": [
     {
@@ -73,19 +73,19 @@
     },
     {
       "bank": "EF",
-      "decoded_asm_bytes": 1241,
-      "known_data_or_asset_bytes": 55726,
-      "preserved_corridor_bytes": 8569,
+      "decoded_asm_bytes": 2073,
+      "known_data_or_asset_bytes": 55895,
+      "preserved_corridor_bytes": 7568,
       "total_bytes": 65536,
-      "source_like_bytes": 9810,
-      "readable_source_percent": 12.65,
+      "source_like_bytes": 9641,
+      "readable_source_percent": 21.5,
       "largest_preserved_corridors": [
         {
           "bank": "EF",
-          "start": "EF:D6D4",
+          "start": "EF:DABD",
           "end": "EF:EB5F",
-          "size": 5259,
-          "source_path": "src/ef/ef_d6d4_eb5f_debug_menu_mixed_preserved_corridor.asm",
+          "size": 4258,
+          "source_path": "src/ef/ef_dabd_eb5f_debug_menu_mixed_preserved_corridor.asm",
           "subsystem": "ef-debug-menu-mixed-preserved-corridor",
           "category": "preserved-corridor",
           "reason": "path/subsystem carries preserved or unknown corridor hint",
@@ -122,10 +122,10 @@
   "largest_preserved_corridors": [
     {
       "bank": "EF",
-      "start": "EF:D6D4",
+      "start": "EF:DABD",
       "end": "EF:EB5F",
-      "size": 5259,
-      "source_path": "src/ef/ef_d6d4_eb5f_debug_menu_mixed_preserved_corridor.asm",
+      "size": 4258,
+      "source_path": "src/ef/ef_dabd_eb5f_debug_menu_mixed_preserved_corridor.asm",
       "subsystem": "ef-debug-menu-mixed-preserved-corridor",
       "category": "preserved-corridor",
       "reason": "path/subsystem carries preserved or unknown corridor hint",

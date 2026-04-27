@@ -1,4 +1,4 @@
-; EarthBound EF debug menu mixed preserved source/data corridor.
+; EarthBound EF debug menu option string data.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate data corridor.
@@ -7,10 +7,10 @@
 ;   as one data gap before the terminal label below.
 ;
 ; Source units covered:
-; - EF:D6D4..EF:EB5F EfDebugMenuMixedPreservedCorridor
+; - EF:D8B5..EF:D95E EfDebugMenuOptionStrings
 
 ; ---------------------------------------------------------------------------
-; EF:EB5F
+; EF:D95E
 
-; EfDebugMenuMixedPreservedCorridorEnd
-EFEB5F_EfDebugMenuMixedPreservedCorridorEnd:
+; EfDebugMenuOptionStringsEnd
+EFD95E_EfDebugMenuOptionStringsEnd:
