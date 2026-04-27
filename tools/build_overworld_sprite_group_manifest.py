@@ -138,11 +138,11 @@ def load_alias_map(path: Path) -> dict[str, dict[str, Any]]:
 
 def parse_group_payloads(bankconfig_dir: Path) -> list[dict[str, Any]]:
     groups: list[dict[str, Any]] = []
-    current_group: dict[str, Any] | None = None
-    pending_sprite_id: int | None = None
 
     for bank in range(11, 16):
         path = bankconfig_dir / f"bank{bank}.asm"
+        current_group: dict[str, Any] | None = None
+        pending_sprite_id: int | None = None
         for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
             line = raw_line.strip()
             group_match = GROUP_LABEL_RE.match(line)
@@ -289,6 +289,8 @@ def attach_metadata(
     missing_assets: list[dict[str, Any]] = []
     unmatched_labels: list[str] = []
     alias_candidates: list[dict[str, Any]] = []
+    referenced_sprite_ids: set[int] = set()
+    overflow_payloads: list[dict[str, Any]] = []
     payload_count = 0
     group_labels = {group["label"] for group in groups}
     unused_aliases = sorted(set(alias_by_label) - group_labels)
@@ -318,10 +320,24 @@ def attach_metadata(
                 }
             )
 
+        declared_length = int(metadata.get("Length", 0)) if metadata is not None else 0
+        source_payloads = list(group["sprite_payloads"])
+        if declared_length and len(source_payloads) > declared_length:
+            for payload in source_payloads[declared_length:]:
+                overflow_payloads.append(
+                    {
+                        "group": group["label"],
+                        "sprite_id": payload["sprite_id"],
+                        "reason": f"group has {len(source_payloads)} payload labels but metadata Length is {declared_length}",
+                    }
+                )
+            source_payloads = source_payloads[:declared_length]
+
         payloads: list[dict[str, Any]] = []
-        for payload in group["sprite_payloads"]:
+        for payload in source_payloads:
             sprite_id = payload["sprite_id"]
             payload_count += 1
+            referenced_sprite_ids.add(sprite_id)
             asset = asset_by_sprite_id.get(sprite_id)
             if asset is None:
                 missing_assets.append({"group": group["label"], "sprite_id": sprite_id})
@@ -342,6 +358,10 @@ def attach_metadata(
             }
         )
 
+    unreferenced_sprite_assets = [
+        {"sprite_id": sprite_id, **asset_by_sprite_id[sprite_id]}
+        for sprite_id in sorted(set(asset_by_sprite_id) - referenced_sprite_ids)
+    ]
     summary = {
         "group_count": len(enriched),
         "groups_with_metadata": sum(1 for group in enriched if group["metadata"] is not None),
@@ -358,11 +378,15 @@ def attach_metadata(
         ),
         "available_sprite_assets": len(asset_by_sprite_id),
         "missing_sprite_assets": len(missing_assets),
+        "overflow_sprite_payloads": len(overflow_payloads),
+        "unreferenced_sprite_assets": len(unreferenced_sprite_assets),
         "unmatched_group_labels": len(unmatched_labels),
     }
     return enriched, {
         "summary": summary,
         "missing_sprite_assets": missing_assets,
+        "overflow_sprite_payloads": overflow_payloads,
+        "unreferenced_sprite_assets": unreferenced_sprite_assets,
         "unmatched_group_labels": unmatched_labels,
         "alias_candidates": alias_candidates,
     }
@@ -379,6 +403,8 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
     unmatched = document["unmatched_group_labels"]
     alias_candidates = document["alias_candidates"]
     missing = document["missing_sprite_assets"]
+    overflow = document["overflow_sprite_payloads"]
+    unreferenced = document["unreferenced_sprite_assets"]
     groups = document["groups"]
     payloads_by_bank: dict[str, int] = {}
     for group in groups:
@@ -414,6 +440,8 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             f"- Unique referenced sprite payloads: {summary['unique_referenced_sprite_payloads']}",
             f"- Available D1-D5 sprite assets: {summary['available_sprite_assets']}",
             f"- Missing D1-D5 sprite assets: {summary['missing_sprite_assets']}",
+            f"- Overflow payload labels past group pointer length: {summary['overflow_sprite_payloads']}",
+            f"- D1-D5 sprite assets not referenced by ebsrc group labels: {summary['unreferenced_sprite_assets']}",
             "",
             "## Payload Distribution",
             "",
@@ -464,6 +492,30 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
     lines.extend(["", "## Missing Payload Assets", ""])
     if missing:
         lines.extend(f"- `{item['group']}` references sprite `{item['sprite_id']:04d}`" for item in missing)
+    else:
+        lines.append("- None.")
+
+    lines.extend(["", "## Overflow Payload Labels", ""])
+    if overflow:
+        preview = overflow[:24]
+        lines.extend(
+            f"- `{item['group']}` overflowed at `SPRITE_{item['sprite_id']:04d}`: {item['reason']}"
+            for item in preview
+        )
+        if len(overflow) > len(preview):
+            lines.append(f"- ... {len(overflow) - len(preview)} more in `notes/overworld-sprite-groups.json`")
+    else:
+        lines.append("- None.")
+
+    lines.extend(["", "## Ungrouped Sprite Payloads", ""])
+    if unreferenced:
+        preview = unreferenced[:24]
+        lines.extend(
+            f"- `SPRITE_{item['sprite_id']:04d}` from `{item['manifest']}`"
+            for item in preview
+        )
+        if len(unreferenced) > len(preview):
+            lines.append(f"- ... {len(unreferenced) - len(preview)} more in `notes/overworld-sprite-groups.json`")
     else:
         lines.append("- None.")
 
@@ -518,6 +570,8 @@ def main() -> int:
         "unmatched_group_labels": diagnostics["unmatched_group_labels"],
         "alias_candidates": diagnostics["alias_candidates"],
         "missing_sprite_assets": diagnostics["missing_sprite_assets"],
+        "overflow_sprite_payloads": diagnostics["overflow_sprite_payloads"],
+        "unreferenced_sprite_assets": diagnostics["unreferenced_sprite_assets"],
         "groups": groups,
     }
 

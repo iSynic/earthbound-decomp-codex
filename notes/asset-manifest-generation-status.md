@@ -55,6 +55,7 @@ EF remains hand-curated for now because its manifest intentionally names the deb
 - `tools/snes_palette.py` decodes SNES BGR555 palette words and writes JSON plus PNG swatch previews.
 - `tools/validate_asset_manifests.py` validates every manifest, checks duplicate IDs, and can run the full extraction pass.
 - `tools/build_overworld_sprite_group_manifest.py` builds `notes/overworld-sprite-groups.json`, a checked-in contract tying ebsrc sprite group labels to D1-D5 sprite payload assets and EBDecomp group metadata.
+- `tools/build_overworld_sprite_frame_contract.py` builds `notes/overworld-sprite-frame-contracts.json`, a conservative runtime slot/payload classification layer over the sprite group contract.
 
 ## Validation
 
@@ -84,11 +85,12 @@ Result:
 - Battle sprite `.gfx` payloads now get palette-aware 4bpp tile-sheet previews for observed enemy-table sprite/palette combinations. This currently covers `166` combinations across `110` mapped battle sprite graphics and all `32` battle sprite palette IDs.
 - Battle sprite `.gfx` payloads also get size-aware composed PNG previews for the same `166` observed enemy-table sprite/palette combinations. Dimensions come from `refs/ebsrc-main/ebsrc-main/src/data/battle/battle_sprites_pointers.asm`.
 - Overworld sprite `.gfx` payloads in `D1`-`D5` now get default-palette 4bpp tile-sheet previews. The palette source is the ROM-backed `SPRITE_GROUP_PALETTES` table at `C3:0000`, corroborated by `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm`.
-- Overworld sprite groups now have a machine-readable metadata contract covering all `267` ebsrc `SPRITE_GROUP_*` labels, `1146` referenced D1-D5 sprite payloads, and `267` EBDecomp size/collision metadata matches. `200` groups match the `OVERWORLD_SPRITE` enum directly; the remaining `67` are resolved by `notes/overworld-sprite-group-aliases.json`.
+- Overworld sprite groups now have a machine-readable metadata contract covering all `267` ebsrc `SPRITE_GROUP_*` labels, `742` group-owned D1-D5 sprite payloads, and `267` EBDecomp size/collision metadata matches. `200` groups match the `OVERWORLD_SPRITE` enum directly; the remaining `67` are resolved by `notes/overworld-sprite-group-aliases.json`. The contract also records `224` overflow payload labels and `404` D1-D5 sprite payload assets that are not owned by a group label after bank-boundary and pointer-length guards are applied.
+- Overworld sprite frame contracts now classify all `267` groups into runtime slot models, payload reuse models, and layout families. Direction slot order is documented as a hypothesis from the ebsrc `DIRECTION` enum until the actual `spritepointerarray` entries are extracted.
 
 ## Next Useful Decoders
 
-1. Sprite group frame/direction semantics so the new group contract can become engine-facing animation records.
+1. Extract actual `spritepointerarray` entries so frame contracts can map runtime slots to concrete payload ordinals.
 2. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
 3. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
 4. BRR/audio pack manifests split into sample/song/pack-level contracts.
