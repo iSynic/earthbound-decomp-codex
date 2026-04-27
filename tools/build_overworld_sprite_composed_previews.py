@@ -5,21 +5,26 @@ import json
 from pathlib import Path
 from typing import Any
 
+import build_asset_bank_manifest
+from build_asset_extraction_manifest import load_overworld_sprite_palette_registry
 from build_overworld_sprite_preview_sheets import (
     RGBA,
     blank,
     paste,
-    read_png_rgba,
     rel,
     slug,
     write_png_rgba,
 )
+from extract_assets import decode_snes_4bpp_tile_indices, palette_source_data
+import rom_tools
+from snes_palette import PaletteEntry, decode_snes_bgr555_palette
 
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FRAME_CONTRACT = ROOT / "notes" / "overworld-sprite-frame-contracts.json"
 DEFAULT_SECONDARY_CONTRACT = ROOT / "notes" / "secondary-visual-descriptor-contracts.json"
 DEFAULT_ASSET_ROOT = ROOT / "build" / "assets"
+DEFAULT_YML = build_asset_bank_manifest.DEFAULT_YML
 DEFAULT_OUT = ROOT / "build" / "overworld-sprite-composed-previews"
 TILE_SIZE = 8
 PIECE_SIZE = 16
@@ -38,6 +43,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--frame-contract", default=str(DEFAULT_FRAME_CONTRACT))
     parser.add_argument("--secondary-contract", default=str(DEFAULT_SECONDARY_CONTRACT))
     parser.add_argument("--asset-root", default=str(DEFAULT_ASSET_ROOT))
+    parser.add_argument("--rom", default=None, help="EarthBound US ROM path.")
+    parser.add_argument(
+        "--yml",
+        default=str(DEFAULT_YML),
+        help="Path to refs/ebsrc-main/ebsrc-main/earthbound.yml for sprite palette ranges.",
+    )
     parser.add_argument("--out", default=str(DEFAULT_OUT))
     parser.add_argument(
         "--group-id",
@@ -57,6 +68,18 @@ def parse_args() -> argparse.Namespace:
         "--show-trailing-markers",
         action="store_true",
         help="Mark pieces whose trailing byte has the pass-terminal bit set.",
+    )
+    parser.add_argument(
+        "--palette-mode",
+        choices=["sprite", "zero"],
+        default="sprite",
+        help="Use each sprite group's decoded OAM palette id, or force palette 0.",
+    )
+    parser.add_argument(
+        "--palette-id",
+        type=int,
+        default=None,
+        help="Force a specific overworld sprite palette id 0-7 for all groups.",
     )
     return parser.parse_args()
 
@@ -137,6 +160,62 @@ def compose_metatile_16x16(sheet: list[list[RGBA]], chunk_index: int) -> list[li
     return rows
 
 
+def snes_4bpp_rgba_rows(raw_path: Path, palette_entries: list[PaletteEntry]) -> list[list[RGBA]]:
+    indices = decode_snes_4bpp_tile_indices(raw_path.read_bytes(), columns=8)
+    rows: list[list[RGBA]] = []
+    for row in indices:
+        out_row: list[RGBA] = []
+        for color_index in row:
+            if color_index >= len(palette_entries):
+                raise ValueError(
+                    f"{raw_path} uses color {color_index}, but palette only has "
+                    f"{len(palette_entries)} colors"
+                )
+            entry = palette_entries[color_index]
+            alpha = 0 if color_index == 0 else 255
+            out_row.append((entry.red8, entry.green8, entry.blue8, alpha))
+        rows.append(out_row)
+    return rows
+
+
+def oam_palette_id_from_group(group: dict[str, Any]) -> int:
+    header = group["sprite_grouping_record"]["header"]
+    if "oam_palette_id" in header:
+        return int(header["oam_palette_id"])
+    return (int(header["palette"]) >> 1) & 0x07
+
+
+def group_base_oam_attribute_byte(group: dict[str, Any]) -> int:
+    header = group["sprite_grouping_record"]["header"]
+    return int(header.get("base_oam_attribute_byte", header["palette"]))
+
+
+def palette_id_for_group(
+    group: dict[str, Any], palette_mode: str, forced_palette_id: int | None
+) -> int:
+    if forced_palette_id is not None:
+        return forced_palette_id
+    if palette_mode == "zero":
+        return 0
+    return oam_palette_id_from_group(group)
+
+
+def palette_entries_for_id(
+    rom: bytes, palette_registry: dict[int, dict[str, Any]], palette_id: int
+) -> tuple[list[PaletteEntry], dict[str, Any]]:
+    palette_source = palette_registry.get(palette_id)
+    if palette_source is None:
+        raise ValueError(f"No overworld sprite palette source found for palette id {palette_id}")
+    palette_data = palette_source_data(
+        rom,
+        {
+            "palette_source": palette_source,
+            "colors": 16,
+        },
+    )
+    return decode_snes_bgr555_palette(palette_data, count=16), palette_source
+
+
 def descriptor_by_index(secondary_contract: dict[str, Any]) -> dict[int, dict[str, Any]]:
     by_index: dict[int, dict[str, Any]] = {}
     by_address = {descriptor["address"]: descriptor for descriptor in secondary_contract["descriptors"]}
@@ -149,11 +228,16 @@ def compose_slot(
     slot: dict[str, Any],
     descriptor: dict[str, Any],
     asset_root: Path,
+    palette_entries: list[PaletteEntry],
+    palette_id: int,
+    palette_mode: str,
+    palette_source: dict[str, Any],
+    base_oam_attribute_byte: int,
     show_priority_bands: bool,
     show_trailing_markers: bool,
 ) -> tuple[list[list[RGBA]], dict[str, Any]]:
-    preview = asset_root / slot["resolved_asset"]["palette_00_preview"]
-    source_sheet = read_png_rgba(preview)
+    raw_path = asset_root / slot["resolved_asset"]["raw_output"]
+    source_sheet = snes_4bpp_rgba_rows(raw_path, palette_entries)
     pass_index = 1 if (int(slot["pointer_flags"]) & 0x01) else 0
     pieces = descriptor["body_passes"][pass_index]
     first_band_count = int(descriptor["header"]["first_priority_band_count"])
@@ -227,12 +311,16 @@ def compose_slot(
         "pieces": piece_metadata,
         "source_asset": slot["resolved_asset"]["asset_id"],
         "source_range": slot["resolved_asset"]["source_range"],
+        "source_raw_graphics": slot["resolved_asset"]["raw_output"],
         "piece_render_model": "16x16_metatile_from_extracted_tile_stream",
+        "palette_render_model": "raw_4bpp_graphics_plus_overworld_sprite_palette",
+        "palette_mode": palette_mode,
+        "palette_id": palette_id,
+        "palette_source_range": palette_source["range"],
+        "base_oam_attribute_byte": f"${base_oam_attribute_byte:02X}",
         "priority_band_overlay": show_priority_bands,
         "trailing_marker_overlay": show_trailing_markers,
-        "limitations": [
-            "does_not_yet_apply_palette_variants",
-        ],
+        "limitations": [],
     }
 
 
@@ -241,6 +329,10 @@ def build_group_sheet(
     descriptor: dict[str, Any],
     asset_root: Path,
     out_dir: Path,
+    palette_entries: list[PaletteEntry],
+    palette_id: int,
+    palette_mode: str,
+    palette_source: dict[str, Any],
     slot_limit: int | None,
     show_priority_bands: bool,
     show_trailing_markers: bool,
@@ -260,9 +352,19 @@ def build_group_sheet(
 
     composed = []
     max_w = max_h = 1
+    base_oam_attribute_byte = group_base_oam_attribute_byte(group)
     for slot in slots:
         image, metadata = compose_slot(
-            slot, descriptor, asset_root, show_priority_bands, show_trailing_markers
+            slot,
+            descriptor,
+            asset_root,
+            palette_entries,
+            palette_id,
+            palette_mode,
+            palette_source,
+            base_oam_attribute_byte,
+            show_priority_bands,
+            show_trailing_markers,
         )
         composed.append((image, metadata))
         max_w = max(max_w, len(image[0]))
@@ -289,6 +391,11 @@ def build_group_sheet(
         "rendered": True,
         "secondary_descriptor_index": group["sprite_grouping_record"]["header"]["size_code"],
         "secondary_descriptor": descriptor["label"],
+        "base_oam_attribute_byte": f"${base_oam_attribute_byte:02X}",
+        "oam_palette_id": oam_palette_id_from_group(group),
+        "rendered_palette_id": palette_id,
+        "palette_mode": palette_mode,
+        "palette_source_range": palette_source["range"],
         "priority_band_overlay": show_priority_bands,
         "trailing_marker_overlay": show_trailing_markers,
         "sheet": rel(out_path),
@@ -298,11 +405,17 @@ def build_group_sheet(
 
 def main() -> int:
     args = parse_args()
+    if args.palette_id is not None and not 0 <= args.palette_id <= 7:
+        raise SystemExit("--palette-id must be in range 0..7")
+
     frame_contract = json.loads(Path(args.frame_contract).read_text(encoding="utf-8"))
     secondary_contract = json.loads(Path(args.secondary_contract).read_text(encoding="utf-8"))
     descriptors = descriptor_by_index(secondary_contract)
     asset_root = Path(args.asset_root)
     out_dir = Path(args.out)
+    rom_path = rom_tools.find_rom(args.rom)
+    rom = rom_tools.load_rom(rom_path)
+    palette_registry = load_overworld_sprite_palette_registry(Path(args.yml), rom)
 
     groups = frame_contract["groups"]
     if args.group_id:
@@ -325,7 +438,7 @@ def main() -> int:
         "prototype_limitations": [
             "uses_secondary_visual_descriptor_piece_positions",
             "uses_pointer_bit0_to_select_descriptor_pass0_or_pass1",
-            "uses_raw_palette_00_tile_previews",
+            "renders_raw_4bpp_graphics_with_decoded_oam_palette_id",
             "uses_16x16_piece_chunks_from_extracted_tile_stream",
             "can_tint_contract_priority_bands_with_show_priority_bands",
             "can_mark_pass_terminal_pieces_with_show_trailing_markers",
@@ -333,6 +446,9 @@ def main() -> int:
         "render_options": {
             "show_priority_bands": args.show_priority_bands,
             "show_trailing_markers": args.show_trailing_markers,
+            "palette_mode": args.palette_mode,
+            "forced_palette_id": args.palette_id,
+            "palette_source": rel(Path(args.yml)),
             "priority_band_colors": {
                 key: f"#{red:02X}{green:02X}{blue:02X}"
                 for key, (red, green, blue, _alpha) in BAND_COLORS.items()
@@ -356,12 +472,20 @@ def main() -> int:
                 }
             )
             continue
+        palette_id = palette_id_for_group(group, args.palette_mode, args.palette_id)
+        palette_entries, palette_source = palette_entries_for_id(
+            rom, palette_registry, palette_id
+        )
         index["groups"].append(
             build_group_sheet(
                 group,
                 descriptor,
                 asset_root,
                 out_dir,
+                palette_entries,
+                palette_id,
+                args.palette_mode,
+                palette_source,
                 args.slot_limit,
                 args.show_priority_bands,
                 args.show_trailing_markers,

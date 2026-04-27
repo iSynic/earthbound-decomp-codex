@@ -369,7 +369,7 @@ python tools/build_secondary_visual_descriptor_contract.py
 ```
 
 Build prototype composed overworld sprite previews from the frame contract,
-secondary descriptor contract, and generated D1-D5 palette-00 previews:
+secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 
 ```powershell
 python tools/build_overworld_sprite_composed_previews.py
@@ -380,6 +380,13 @@ Render specific overworld sprite IDs or cap the number of slots per group:
 ```powershell
 python tools/build_overworld_sprite_composed_previews.py --group-id 1 --group-id 7
 python tools/build_overworld_sprite_composed_previews.py --group-id 7 --slot-limit 4
+```
+
+Force a palette for palette-audit comparisons:
+
+```powershell
+python tools/build_overworld_sprite_composed_previews.py --palette-mode zero --out build\overworld-sprite-composed-palette-00
+python tools/build_overworld_sprite_composed_previews.py --palette-id 5 --group-id 1
 ```
 
 Render a separate priority-band audit set:

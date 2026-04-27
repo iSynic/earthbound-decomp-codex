@@ -43,10 +43,10 @@ These names describe observed renderer behavior, not yet final art-facing termin
 
 Those sheets apply the flag effects as metadata and colored cell borders first. They are not final in-game OAM composition yet; they are a visual QA layer over the exact slot-to-payload mapping.
 
-`tools/build_overworld_sprite_composed_previews.py` is the next prototype layer. It consumes the frame contract, the secondary visual descriptor contract, and generated D1-D5 palette-00 tile previews to write ignored composed preview sheets under `build/overworld-sprite-composed-previews/`. It uses bit 0 to choose descriptor pass 0 or pass 1 and records that choice per slot.
+`tools/build_overworld_sprite_composed_previews.py` is the next prototype layer. It consumes the frame contract, the secondary visual descriptor contract, raw D1-D5 graphics, and the ROM-backed overworld sprite palettes to write ignored composed preview sheets under `build/overworld-sprite-composed-previews/`. It uses bit 0 to choose descriptor pass 0 or pass 1 and records that choice per slot.
 
-The composed preview tool now builds each secondary descriptor piece as a 16x16 chunk from the extracted D1-D5 tile-preview stream. It can tint the contract priority bands and can outline pieces whose trailing byte carries the pass-terminal marker. Palette variants are still pending.
+The composed preview tool now builds each secondary descriptor piece as a 16x16 chunk from the extracted D1-D5 tile stream. Sprite grouping header byte +3 is preserved as the base OAM attribute byte; the previewer decodes its palette bits as `(byte >> 1) & 7` and uses that palette by default. It can also force palette 0 or a specific palette ID for audit comparisons, tint the contract priority bands, and outline pieces whose trailing byte carries the pass-terminal marker.
 
 ## Next Step
 
-Refine the composed previews with palette variants once the remaining C0/C4 palette-selection contracts are pinned.
+Use the composed preview metadata to keep tightening art-facing direction and phase names against movement/controller code.

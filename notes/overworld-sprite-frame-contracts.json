@@ -572,11 +572,13 @@
       "sprite_grouping_record": {
         "address": "EF:1B75",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 6,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "06 40 0C 1A 08 10 10 08 D1",
           "size_code": 12,
@@ -1086,11 +1088,13 @@
       "sprite_grouping_record": {
         "address": "EF:3463",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 32,
           "hitbox_north_south_height": 24,
           "hitbox_north_south_width": 20,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "06 80 0E 1C 14 18 20 10 D1",
           "size_code": 14,
@@ -1600,11 +1604,13 @@
       "sprite_grouping_record": {
         "address": "EF:308D",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 24,
           "hitbox_east_west_width": 32,
           "hitbox_north_south_height": 24,
           "hitbox_north_south_width": 32,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 80 0E 1E 20 18 20 18 D1",
           "size_code": 14,
@@ -2095,11 +2101,13 @@
       "sprite_grouping_record": {
         "address": "EF:30B6",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 24,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 24,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "04 60 09 1E 18 10 18 10 D1",
           "size_code": 9,
@@ -2619,11 +2627,13 @@
       "sprite_grouping_record": {
         "address": "EF:1FE7",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 10,
           "hitbox_east_west_height": 24,
           "hitbox_east_west_width": 24,
           "hitbox_north_south_height": 24,
           "hitbox_north_south_width": 24,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "0A 80 10 16 18 18 18 18 D1",
           "size_code": 16,
@@ -2871,11 +2881,13 @@
       "sprite_grouping_record": {
         "address": "EF:3554",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 8,
           "hitbox_east_west_height": 24,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 24,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "08 80 0F 14 10 18 10 18 D1",
           "size_code": 15,
@@ -3142,11 +3154,13 @@
       "sprite_grouping_record": {
         "address": "EF:344A",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 40 08 14 00 00 00 00 D1",
           "size_code": 8,
@@ -3469,11 +3483,13 @@
       "sprite_grouping_record": {
         "address": "EF:3D3A",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 12,
           "hitbox_east_west_width": 10,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 9,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 09 0B 0A 0C D1",
           "size_code": 8,
@@ -3796,11 +3812,13 @@
       "sprite_grouping_record": {
         "address": "EF:3D21",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 12,
           "hitbox_east_west_width": 10,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 10,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 0A 0B 0A 0C D1",
           "size_code": 8,
@@ -4123,11 +4141,13 @@
       "sprite_grouping_record": {
         "address": "EF:3D08",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 9,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 7,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 07 08 09 08 D1",
           "size_code": 8,
@@ -4450,11 +4470,13 @@
       "sprite_grouping_record": {
         "address": "EF:3CEF",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 12,
           "hitbox_east_west_width": 11,
           "hitbox_north_south_height": 12,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 0C 0C 0B 0C D1",
           "size_code": 8,
@@ -4777,11 +4799,13 @@
       "sprite_grouping_record": {
         "address": "EF:3B3E",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 12,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 9,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 40 08 14 09 10 0C 0C D1",
           "size_code": 8,
@@ -5104,11 +5128,13 @@
       "sprite_grouping_record": {
         "address": "EF:3B25",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 14,
           "hitbox_north_south_height": 12,
           "hitbox_north_south_width": 11,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 0B 0C 0E 08 D1",
           "size_code": 8,
@@ -5431,11 +5457,13 @@
       "sprite_grouping_record": {
         "address": "EF:39DC",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 14,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 9,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 09 10 0E 08 D1",
           "size_code": 8,
@@ -5758,11 +5786,13 @@
       "sprite_grouping_record": {
         "address": "EF:39AA",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 14,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 08 08 0E 08 D1",
           "size_code": 8,
@@ -6085,11 +6115,13 @@
       "sprite_grouping_record": {
         "address": "EF:3978",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 13,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 08 10 0D 08 D1",
           "size_code": 8,
@@ -6412,11 +6444,13 @@
       "sprite_grouping_record": {
         "address": "EF:405C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 6,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 40 08 1C 06 08 0C 08 D1",
           "size_code": 8,
@@ -6739,11 +6773,13 @@
       "sprite_grouping_record": {
         "address": "EF:38F9",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 14,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 40 08 1C 0E 10 10 10 D1",
           "size_code": 8,
@@ -7313,11 +7349,13 @@
       "sprite_grouping_record": {
         "address": "EF:478D",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D1",
           "size_code": 5,
@@ -7895,11 +7933,13 @@
       "sprite_grouping_record": {
         "address": "EF:1B4C",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D1",
           "size_code": 5,
@@ -8477,11 +8517,13 @@
       "sprite_grouping_record": {
         "address": "EF:1B23",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D1",
           "size_code": 5,
@@ -9059,11 +9101,13 @@
       "sprite_grouping_record": {
         "address": "EF:1A7F",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D1",
           "size_code": 5,
@@ -9376,11 +9420,13 @@
       "sprite_grouping_record": {
         "address": "EF:44DA",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 24,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 24,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 60 09 1C 18 10 18 10 D1",
           "size_code": 9,
@@ -9685,11 +9731,13 @@
       "sprite_grouping_record": {
         "address": "EF:41A1",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 60 09 14 10 10 10 10 D1",
           "size_code": 9,
@@ -9938,11 +9986,13 @@
       "sprite_grouping_record": {
         "address": "EF:3EFE",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "06 40 0C 18 00 00 00 00 D1",
           "size_code": 12,
@@ -10191,11 +10241,13 @@
       "sprite_grouping_record": {
         "address": "EF:315C",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 40 0C 1E 00 00 00 00 D1",
           "size_code": 12,
@@ -10463,11 +10515,13 @@
       "sprite_grouping_record": {
         "address": "EF:30DF",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 32,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 32,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 80 0E 1E 20 10 20 10 D1",
           "size_code": 14,
@@ -10735,11 +10789,13 @@
       "sprite_grouping_record": {
         "address": "EF:30F8",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 32,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 32,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 80 0E 1E 20 10 20 10 D1",
           "size_code": 14,
@@ -11314,11 +11370,13 @@
       "sprite_grouping_record": {
         "address": "EF:1DA7",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D1",
           "size_code": 5,
@@ -11566,11 +11624,13 @@
       "sprite_grouping_record": {
         "address": "EF:48C9",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "04 20 07 1E 08 08 08 08 D1",
           "size_code": 7,
@@ -12145,11 +12205,13 @@
       "sprite_grouping_record": {
         "address": "EF:1AFA",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D2",
           "size_code": 5,
@@ -12732,11 +12794,13 @@
       "sprite_grouping_record": {
         "address": "EF:1AD1",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D2",
           "size_code": 5,
@@ -13319,11 +13383,13 @@
       "sprite_grouping_record": {
         "address": "EF:1AA8",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D2",
           "size_code": 5,
@@ -13599,11 +13665,13 @@
       "sprite_grouping_record": {
         "address": "EF:3586",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 24,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 24,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 60 0D 1E 18 10 18 10 D2",
           "size_code": 13,
@@ -13871,11 +13939,13 @@
       "sprite_grouping_record": {
         "address": "EF:312A",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "06 60 0D 14 10 10 10 10 D2",
           "size_code": 13,
@@ -14115,11 +14185,13 @@
       "sprite_grouping_record": {
         "address": "EF:3111",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "06 60 0D 14 10 10 10 10 D2",
           "size_code": 13,
@@ -14442,11 +14514,13 @@
       "sprite_grouping_record": {
         "address": "EF:2923",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 10,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 10,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 30 06 1C 0A 08 0A 08 D2",
           "size_code": 6,
@@ -14769,11 +14843,13 @@
       "sprite_grouping_record": {
         "address": "EF:290A",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 10,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 10,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 30 06 1C 0A 08 0A 08 D2",
           "size_code": 6,
@@ -15312,11 +15388,13 @@
       "sprite_grouping_record": {
         "address": "EF:1FBE",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 30 06 1A 0C 08 0C 08 D2",
           "size_code": 6,
@@ -15573,11 +15651,13 @@
       "sprite_grouping_record": {
         "address": "EF:4897",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "04 40 08 18 0C 08 0C 08 D2",
           "size_code": 8,
@@ -15826,11 +15906,13 @@
       "sprite_grouping_record": {
         "address": "EF:44C1",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 4,
           "hitbox_east_west_height": 18,
           "hitbox_east_west_width": 14,
           "hitbox_north_south_height": 18,
           "hitbox_north_south_width": 14,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "04 40 08 1E 0E 12 0E 12 D2",
           "size_code": 8,
@@ -16079,11 +16161,13 @@
       "sprite_grouping_record": {
         "address": "EF:4476",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 40 08 14 0C 08 0C 08 D2",
           "size_code": 8,
@@ -16332,11 +16416,13 @@
       "sprite_grouping_record": {
         "address": "EF:364E",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 14,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 14,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 40 08 14 0C 0E 0C 0E D2",
           "size_code": 8,
@@ -16585,11 +16671,13 @@
       "sprite_grouping_record": {
         "address": "EF:487E",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 40 08 1C 08 08 08 08 D2",
           "size_code": 8,
@@ -16838,11 +16926,13 @@
       "sprite_grouping_record": {
         "address": "EF:4833",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 08 08 08 08 D2",
           "size_code": 8,
@@ -17119,11 +17209,13 @@
       "sprite_grouping_record": {
         "address": "EF:296E",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 4,
           "hitbox_east_west_height": 12,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 12,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "04 40 08 18 0C 0C 0C 0C D2",
           "size_code": 8,
@@ -17372,11 +17464,13 @@
       "sprite_grouping_record": {
         "address": "EF:210F",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "04 40 08 1A 08 08 08 08 D2",
           "size_code": 8,
@@ -17681,11 +17775,13 @@
       "sprite_grouping_record": {
         "address": "EF:495F",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 40 08 1C 08 08 08 08 D2",
           "size_code": 8,
@@ -18010,11 +18106,13 @@
       "sprite_grouping_record": {
         "address": "EF:3D53",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "04 40 08 1E 10 10 10 10 D2",
           "size_code": 8,
@@ -18292,11 +18390,13 @@
       "sprite_grouping_record": {
         "address": "EF:3CD6",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 15,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 15,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 0F 10 0F 10 D2",
           "size_code": 8,
@@ -18573,11 +18673,13 @@
       "sprite_grouping_record": {
         "address": "EF:3CBD",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 14,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 14,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "04 40 08 16 0E 10 0E 10 D2",
           "size_code": 8,
@@ -18854,11 +18956,13 @@
       "sprite_grouping_record": {
         "address": "EF:39F5",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 15,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 15,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 0F 10 0F 10 D2",
           "size_code": 8,
@@ -19107,11 +19211,13 @@
       "sprite_grouping_record": {
         "address": "EF:39C3",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 4,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "04 40 08 18 0C 0B 0C 0B D2",
           "size_code": 8,
@@ -19482,11 +19588,13 @@
       "sprite_grouping_record": {
         "address": "EF:3991",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 13,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 13,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 0D 0B 0D 0B D2",
           "size_code": 8,
@@ -19735,11 +19843,13 @@
       "sprite_grouping_record": {
         "address": "EF:395F",
         "header": {
+          "base_oam_attribute_byte": 18,
           "height_units": 4,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 9,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 9,
+          "oam_palette_id": 1,
           "palette": 18,
           "raw": "04 40 08 12 09 08 09 08 D2",
           "size_code": 8,
@@ -19988,11 +20098,13 @@
       "sprite_grouping_record": {
         "address": "EF:3912",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 40 08 1C 10 10 10 10 D2",
           "size_code": 8,
@@ -20310,11 +20422,13 @@
       "sprite_grouping_record": {
         "address": "EF:2ECB",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -20632,11 +20746,13 @@
       "sprite_grouping_record": {
         "address": "EF:2EB2",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -20954,11 +21070,13 @@
       "sprite_grouping_record": {
         "address": "EF:2E99",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -21310,11 +21428,13 @@
       "sprite_grouping_record": {
         "address": "EF:25CF",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -21667,11 +21787,13 @@
       "sprite_grouping_record": {
         "address": "EF:3ABD",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "03 20 05 14 08 08 08 08 D2",
           "size_code": 5,
@@ -22024,11 +22146,13 @@
       "sprite_grouping_record": {
         "address": "EF:3891",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 0B 08 0B D2",
           "size_code": 5,
@@ -22269,11 +22393,13 @@
       "sprite_grouping_record": {
         "address": "EF:46B5",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 6,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "06 40 0C 14 0C 10 0C 10 D2",
           "size_code": 12,
@@ -22513,11 +22639,13 @@
       "sprite_grouping_record": {
         "address": "EF:461F",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "06 40 0C 18 00 00 00 00 D2",
           "size_code": 12,
@@ -22803,11 +22931,13 @@
       "sprite_grouping_record": {
         "address": "EF:45D4",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 40 03 1C 00 00 00 00 D2",
           "size_code": 3,
@@ -23103,11 +23233,13 @@
       "sprite_grouping_record": {
         "address": "EF:44F3",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 20,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 20,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 60 09 1C 14 10 14 10 D2",
           "size_code": 9,
@@ -23366,11 +23498,13 @@
       "sprite_grouping_record": {
         "address": "EF:35D1",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D4",
           "size_code": 1,
@@ -23666,11 +23800,13 @@
       "sprite_grouping_record": {
         "address": "EF:416F",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "06 40 0C 18 00 00 00 00 D2",
           "size_code": 12,
@@ -23910,11 +24046,13 @@
       "sprite_grouping_record": {
         "address": "EF:4156",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "06 40 0C 18 00 00 00 00 D2",
           "size_code": 12,
@@ -24154,11 +24292,13 @@
       "sprite_grouping_record": {
         "address": "EF:413D",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "06 40 0C 18 00 00 00 00 D2",
           "size_code": 12,
@@ -24416,11 +24556,13 @@
       "sprite_grouping_record": {
         "address": "EF:35B8",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 4,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "04 20 07 1E 00 00 00 00 D2",
           "size_code": 7,
@@ -24660,11 +24802,13 @@
       "sprite_grouping_record": {
         "address": "EF:359F",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 24,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 24,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "04 60 09 1C 18 10 18 10 D2",
           "size_code": 9,
@@ -24904,11 +25048,13 @@
       "sprite_grouping_record": {
         "address": "EF:3418",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 4,
           "hitbox_east_west_height": 16,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 16,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "04 60 09 14 10 10 10 10 D2",
           "size_code": 9,
@@ -25148,11 +25294,13 @@
       "sprite_grouping_record": {
         "address": "EF:3305",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 6,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "06 40 0C 1E 0C 08 0C 08 D2",
           "size_code": 12,
@@ -25419,11 +25567,13 @@
       "sprite_grouping_record": {
         "address": "EF:31A7",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "03 20 05 1E 08 08 08 08 D2",
           "size_code": 5,
@@ -25746,11 +25896,13 @@
       "sprite_grouping_record": {
         "address": "EF:437C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -25990,11 +26142,13 @@
       "sprite_grouping_record": {
         "address": "EF:4075",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 6,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "06 40 0C 1C 00 00 00 00 D2",
           "size_code": 12,
@@ -26317,11 +26471,13 @@
       "sprite_grouping_record": {
         "address": "EF:2EFD",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -26860,11 +27016,13 @@
       "sprite_grouping_record": {
         "address": "EF:2E3E",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -27195,11 +27353,13 @@
       "sprite_grouping_record": {
         "address": "EF:2DDA",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -27522,11 +27682,13 @@
       "sprite_grouping_record": {
         "address": "EF:2DA8",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -27849,11 +28011,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D8F",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -28176,11 +28340,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D76",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -28503,11 +28669,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D5D",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -28830,11 +28998,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D44",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -29157,11 +29327,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D2B",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -29456,11 +29628,13 @@
       "sprite_grouping_record": {
         "address": "EF:2D12",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -29755,11 +29929,13 @@
       "sprite_grouping_record": {
         "address": "EF:25EA",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -30082,11 +30258,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C95",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -30409,11 +30587,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C7C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -30736,11 +30916,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C63",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -31063,11 +31245,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C4A",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -31390,11 +31574,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C31",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -31717,11 +31903,13 @@
       "sprite_grouping_record": {
         "address": "EF:2C18",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -32044,11 +32232,13 @@
       "sprite_grouping_record": {
         "address": "EF:2BFF",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -32371,11 +32561,13 @@
       "sprite_grouping_record": {
         "address": "EF:2BCD",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -32698,11 +32890,13 @@
       "sprite_grouping_record": {
         "address": "EF:2BB4",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -33025,11 +33219,13 @@
       "sprite_grouping_record": {
         "address": "EF:2B9B",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -33352,11 +33548,13 @@
       "sprite_grouping_record": {
         "address": "EF:2B69",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -33679,11 +33877,13 @@
       "sprite_grouping_record": {
         "address": "EF:2B50",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -34006,11 +34206,13 @@
       "sprite_grouping_record": {
         "address": "EF:2B37",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -34549,11 +34751,13 @@
       "sprite_grouping_record": {
         "address": "EF:2B0E",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D2",
           "size_code": 5,
@@ -34801,11 +35005,13 @@
       "sprite_grouping_record": {
         "address": "EF:46E7",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "02 20 00 18 00 00 00 00 D2",
           "size_code": 0,
@@ -35128,11 +35334,13 @@
       "sprite_grouping_record": {
         "address": "EF:2552",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -35455,11 +35663,13 @@
       "sprite_grouping_record": {
         "address": "EF:2539",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -35782,11 +35992,13 @@
       "sprite_grouping_record": {
         "address": "EF:2520",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -36109,11 +36321,13 @@
       "sprite_grouping_record": {
         "address": "EF:2507",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -36436,11 +36650,13 @@
       "sprite_grouping_record": {
         "address": "EF:24EE",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -36763,11 +36979,13 @@
       "sprite_grouping_record": {
         "address": "EF:24D5",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -37090,11 +37308,13 @@
       "sprite_grouping_record": {
         "address": "EF:24BC",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -37417,11 +37637,13 @@
       "sprite_grouping_record": {
         "address": "EF:24A3",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -37744,11 +37966,13 @@
       "sprite_grouping_record": {
         "address": "EF:2471",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -38071,11 +38295,13 @@
       "sprite_grouping_record": {
         "address": "EF:243F",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -38398,11 +38624,13 @@
       "sprite_grouping_record": {
         "address": "EF:2426",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -38725,11 +38953,13 @@
       "sprite_grouping_record": {
         "address": "EF:240D",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -39052,11 +39282,13 @@
       "sprite_grouping_record": {
         "address": "EF:23F4",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -39379,11 +39611,13 @@
       "sprite_grouping_record": {
         "address": "EF:23DB",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -39706,11 +39940,13 @@
       "sprite_grouping_record": {
         "address": "EF:23C2",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -40033,11 +40269,13 @@
       "sprite_grouping_record": {
         "address": "EF:23A9",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -40360,11 +40598,13 @@
       "sprite_grouping_record": {
         "address": "EF:2390",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -40723,11 +40963,13 @@
       "sprite_grouping_record": {
         "address": "EF:2377",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -41050,11 +41292,13 @@
       "sprite_grouping_record": {
         "address": "EF:235E",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -41377,11 +41621,13 @@
       "sprite_grouping_record": {
         "address": "EF:2345",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -41704,11 +41950,13 @@
       "sprite_grouping_record": {
         "address": "EF:232C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -42031,11 +42279,13 @@
       "sprite_grouping_record": {
         "address": "EF:2313",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -42358,11 +42608,13 @@
       "sprite_grouping_record": {
         "address": "EF:22FA",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -42685,11 +42937,13 @@
       "sprite_grouping_record": {
         "address": "EF:22E1",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -43012,11 +43266,13 @@
       "sprite_grouping_record": {
         "address": "EF:22C8",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -43339,11 +43595,13 @@
       "sprite_grouping_record": {
         "address": "EF:22AF",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -43666,11 +43924,13 @@
       "sprite_grouping_record": {
         "address": "EF:2296",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -43993,11 +44253,13 @@
       "sprite_grouping_record": {
         "address": "EF:227D",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -44320,11 +44582,13 @@
       "sprite_grouping_record": {
         "address": "EF:2264",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -44647,11 +44911,13 @@
       "sprite_grouping_record": {
         "address": "EF:224B",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -44974,11 +45240,13 @@
       "sprite_grouping_record": {
         "address": "EF:2219",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -45301,11 +45569,13 @@
       "sprite_grouping_record": {
         "address": "EF:2200",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -45628,11 +45898,13 @@
       "sprite_grouping_record": {
         "address": "EF:21E7",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -45955,11 +46227,13 @@
       "sprite_grouping_record": {
         "address": "EF:21CE",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -46282,11 +46556,13 @@
       "sprite_grouping_record": {
         "address": "EF:21B5",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -46609,11 +46885,13 @@
       "sprite_grouping_record": {
         "address": "EF:219C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -46936,11 +47214,13 @@
       "sprite_grouping_record": {
         "address": "EF:2183",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -47290,11 +47570,13 @@
       "sprite_grouping_record": {
         "address": "EF:216A",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D3",
           "size_code": 5,
@@ -47833,11 +48115,13 @@
       "sprite_grouping_record": {
         "address": "EF:20E6",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -48384,11 +48668,13 @@
       "sprite_grouping_record": {
         "address": "EF:2094",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -48935,11 +49221,13 @@
       "sprite_grouping_record": {
         "address": "EF:206B",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -49486,11 +49774,13 @@
       "sprite_grouping_record": {
         "address": "EF:2042",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -50145,11 +50435,13 @@
       "sprite_grouping_record": {
         "address": "EF:1F95",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -50603,11 +50895,13 @@
       "sprite_grouping_record": {
         "address": "EF:2141",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D4",
           "size_code": 5,
@@ -51061,11 +51355,13 @@
       "sprite_grouping_record": {
         "address": "EF:1C42",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -51519,11 +51815,13 @@
       "sprite_grouping_record": {
         "address": "EF:1C19",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -51977,11 +52275,13 @@
       "sprite_grouping_record": {
         "address": "EF:1BF0",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -52435,11 +52735,13 @@
       "sprite_grouping_record": {
         "address": "EF:1BC7",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -52893,11 +53195,13 @@
       "sprite_grouping_record": {
         "address": "EF:1B9E",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -53219,11 +53523,13 @@
       "sprite_grouping_record": {
         "address": "EF:248A",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D4",
           "size_code": 5,
@@ -53554,11 +53860,13 @@
       "sprite_grouping_record": {
         "address": "EF:2232",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D4",
           "size_code": 5,
@@ -53861,11 +54169,13 @@
       "sprite_grouping_record": {
         "address": "EF:2128",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 5,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "05 30 0A 1A 00 00 00 00 D4",
           "size_code": 10,
@@ -54179,11 +54489,13 @@
       "sprite_grouping_record": {
         "address": "EF:1EA6",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -54497,11 +54809,13 @@
       "sprite_grouping_record": {
         "address": "EF:1E8D",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -55031,11 +55345,13 @@
       "sprite_grouping_record": {
         "address": "EF:1E64",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -55573,11 +55889,13 @@
       "sprite_grouping_record": {
         "address": "EF:1E3B",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -56115,11 +56433,13 @@
       "sprite_grouping_record": {
         "address": "EF:1E12",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -56657,11 +56977,13 @@
       "sprite_grouping_record": {
         "address": "EF:1DE9",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D4",
           "size_code": 0,
@@ -56918,11 +57240,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D8E",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -57171,11 +57495,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D75",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -57424,11 +57750,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D5C",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -57731,11 +58059,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D43",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -58144,11 +58474,13 @@
       "sprite_grouping_record": {
         "address": "EF:20BD",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -58459,11 +58791,13 @@
       "sprite_grouping_record": {
         "address": "EF:2029",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D4",
           "size_code": 5,
@@ -58703,11 +59037,13 @@
       "sprite_grouping_record": {
         "address": "EF:2E67",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 40 03 1C 08 08 08 08 D5",
           "size_code": 3,
@@ -58956,11 +59292,13 @@
       "sprite_grouping_record": {
         "address": "EF:4237",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 00 00 00 00 D5",
           "size_code": 0,
@@ -59209,11 +59547,13 @@
       "sprite_grouping_record": {
         "address": "EF:41BA",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 00 00 00 00 D5",
           "size_code": 0,
@@ -59650,11 +59990,13 @@
       "sprite_grouping_record": {
         "address": "EF:1F01",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D5",
           "size_code": 0,
@@ -60155,11 +60497,13 @@
       "sprite_grouping_record": {
         "address": "EF:1ED8",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D5",
           "size_code": 0,
@@ -60416,11 +60760,13 @@
       "sprite_grouping_record": {
         "address": "EF:1EBF",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 03 06 03 06 D5",
           "size_code": 0,
@@ -60660,11 +61006,13 @@
       "sprite_grouping_record": {
         "address": "EF:1CAD",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 16,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 16,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 40 03 1A 10 08 10 08 D5",
           "size_code": 3,
@@ -60969,11 +61317,13 @@
       "sprite_grouping_record": {
         "address": "EF:43E0",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 04 08 04 08 D5",
           "size_code": 0,
@@ -61222,11 +61572,13 @@
       "sprite_grouping_record": {
         "address": "EF:261C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 08 08 08 D5",
           "size_code": 0,
@@ -61503,11 +61855,13 @@
       "sprite_grouping_record": {
         "address": "EF:2458",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 08 08 08 D5",
           "size_code": 0,
@@ -61812,11 +62166,13 @@
       "sprite_grouping_record": {
         "address": "EF:3EB3",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 04 08 04 08 D4",
           "size_code": 0,
@@ -62141,11 +62497,13 @@
       "sprite_grouping_record": {
         "address": "EF:3BBB",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 08 08 08 08 D4",
           "size_code": 0,
@@ -62395,11 +62753,13 @@
       "sprite_grouping_record": {
         "address": "EF:3B89",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 08 08 08 08 D5",
           "size_code": 0,
@@ -62770,11 +63130,13 @@
       "sprite_grouping_record": {
         "address": "EF:3B70",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 4,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 4,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 03 04 03 04 D5",
           "size_code": 0,
@@ -63051,11 +63413,13 @@
       "sprite_grouping_record": {
         "address": "EF:3A27",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 2,
           "hitbox_east_west_height": 4,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 4,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "02 20 00 14 08 04 08 04 D5",
           "size_code": 0,
@@ -63304,11 +63668,13 @@
       "sprite_grouping_record": {
         "address": "EF:3812",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 7,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 7,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 07 08 07 08 D5",
           "size_code": 0,
@@ -63557,11 +63923,13 @@
       "sprite_grouping_record": {
         "address": "EF:37F9",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 0B 08 0B D5",
           "size_code": 0,
@@ -63810,11 +64178,13 @@
       "sprite_grouping_record": {
         "address": "EF:37C7",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 7,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 7,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 07 08 07 08 D5",
           "size_code": 0,
@@ -64091,11 +64461,13 @@
       "sprite_grouping_record": {
         "address": "EF:37AE",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 0B 08 0B D5",
           "size_code": 0,
@@ -64344,11 +64716,13 @@
       "sprite_grouping_record": {
         "address": "EF:3795",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 11,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 11,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 0B 08 0B D5",
           "size_code": 0,
@@ -64588,11 +64962,13 @@
       "sprite_grouping_record": {
         "address": "EF:3F94",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "02 30 02 18 00 00 00 00 D5",
           "size_code": 2,
@@ -64888,11 +65264,13 @@
       "sprite_grouping_record": {
         "address": "EF:3761",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 04 08 04 08 D5",
           "size_code": 5,
@@ -65132,11 +65510,13 @@
       "sprite_grouping_record": {
         "address": "EF:4865",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -65376,11 +65756,13 @@
       "sprite_grouping_record": {
         "address": "EF:4395",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 00 00 00 00 D5",
           "size_code": 5,
@@ -65620,11 +66002,13 @@
       "sprite_grouping_record": {
         "address": "EF:3FAD",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 30 02 1C 0C 08 0C 08 D5",
           "size_code": 2,
@@ -65864,11 +66248,13 @@
       "sprite_grouping_record": {
         "address": "EF:3F62",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -66108,11 +66494,13 @@
       "sprite_grouping_record": {
         "address": "EF:2E0C",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 30 02 1C 08 08 08 08 D5",
           "size_code": 2,
@@ -66352,11 +66740,13 @@
       "sprite_grouping_record": {
         "address": "EF:41D3",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -66596,11 +66986,13 @@
       "sprite_grouping_record": {
         "address": "EF:2CE0",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -66840,11 +67232,13 @@
       "sprite_grouping_record": {
         "address": "EF:3E4F",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -67084,11 +67478,13 @@
       "sprite_grouping_record": {
         "address": "EF:3E36",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -67328,11 +67724,13 @@
       "sprite_grouping_record": {
         "address": "EF:3E1D",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -67572,11 +67970,13 @@
       "sprite_grouping_record": {
         "address": "EF:3E04",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -67816,11 +68216,13 @@
       "sprite_grouping_record": {
         "address": "EF:3DEB",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -68088,11 +68490,13 @@
       "sprite_grouping_record": {
         "address": "EF:4991",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -68360,11 +68764,13 @@
       "sprite_grouping_record": {
         "address": "EF:4946",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -68632,11 +69038,13 @@
       "sprite_grouping_record": {
         "address": "EF:492D",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -68904,11 +69312,13 @@
       "sprite_grouping_record": {
         "address": "EF:4363",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -69176,11 +69586,13 @@
       "sprite_grouping_record": {
         "address": "EF:434A",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -69448,11 +69860,13 @@
       "sprite_grouping_record": {
         "address": "EF:4331",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -69692,11 +70106,13 @@
       "sprite_grouping_record": {
         "address": "EF:3DD2",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -69936,11 +70352,13 @@
       "sprite_grouping_record": {
         "address": "EF:3DB9",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -70180,11 +70598,13 @@
       "sprite_grouping_record": {
         "address": "EF:3DA0",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -70424,11 +70844,13 @@
       "sprite_grouping_record": {
         "address": "EF:3D87",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 00 00 00 00 D5",
           "size_code": 5,
@@ -70696,11 +71118,13 @@
       "sprite_grouping_record": {
         "address": "EF:1DD0",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -70996,11 +71420,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D2A",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -71296,11 +71722,13 @@
       "sprite_grouping_record": {
         "address": "EF:1D11",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -71596,11 +72024,13 @@
       "sprite_grouping_record": {
         "address": "EF:1CF8",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -71896,11 +72326,13 @@
       "sprite_grouping_record": {
         "address": "EF:1CDF",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -72168,11 +72600,13 @@
       "sprite_grouping_record": {
         "address": "EF:1CC6",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 30 02 1A 0C 08 0C 08 D5",
           "size_code": 2,
@@ -72412,11 +72846,13 @@
       "sprite_grouping_record": {
         "address": "EF:1C94",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -72816,11 +73252,13 @@
       "sprite_grouping_record": {
         "address": "EF:1C6B",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -73124,11 +73562,13 @@
       "sprite_grouping_record": {
         "address": "EF:272F",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -73368,11 +73808,13 @@
       "sprite_grouping_record": {
         "address": "EF:26B2",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "03 20 05 1C 08 08 08 08 D5",
           "size_code": 5,
@@ -73612,11 +74054,13 @@
       "sprite_grouping_record": {
         "address": "EF:2680",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 30 02 1C 0C 08 0C 08 D5",
           "size_code": 2,
@@ -73856,11 +74300,13 @@
       "sprite_grouping_record": {
         "address": "EF:2667",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 12,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 12,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 30 02 1C 0C 08 0C 08 D5",
           "size_code": 2,
@@ -74156,11 +74602,13 @@
       "sprite_grouping_record": {
         "address": "EF:2010",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "03 20 05 1A 08 08 08 08 D5",
           "size_code": 5,
@@ -74400,11 +74848,13 @@
       "sprite_grouping_record": {
         "address": "EF:45A2",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 7,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 7,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "03 20 05 14 07 08 07 08 D5",
           "size_code": 5,
@@ -74664,11 +75114,13 @@
       "sprite_grouping_record": {
         "address": "EF:3AF1",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 3,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "03 20 05 14 08 08 08 08 D5",
           "size_code": 5,
@@ -74909,11 +75361,13 @@
       "sprite_grouping_record": {
         "address": "EF:4606",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "02 20 00 18 08 08 08 08 D5",
           "size_code": 0,
@@ -75153,11 +75607,13 @@
       "sprite_grouping_record": {
         "address": "EF:45ED",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 00 00 00 00 D5",
           "size_code": 0,
@@ -75397,11 +75853,13 @@
       "sprite_grouping_record": {
         "address": "EF:44A8",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -75641,11 +76099,13 @@
       "sprite_grouping_record": {
         "address": "EF:445D",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -75886,11 +76346,13 @@
       "sprite_grouping_record": {
         "address": "EF:4250",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -76130,11 +76592,13 @@
       "sprite_grouping_record": {
         "address": "EF:4188",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 08 08 08 D5",
           "size_code": 0,
@@ -76374,11 +76838,13 @@
       "sprite_grouping_record": {
         "address": "EF:4124",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 00 00 00 00 D5",
           "size_code": 0,
@@ -76618,11 +77084,13 @@
       "sprite_grouping_record": {
         "address": "EF:40A7",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 00 00 00 00 D5",
           "size_code": 0,
@@ -76862,11 +77330,13 @@
       "sprite_grouping_record": {
         "address": "EF:3FC6",
         "header": {
+          "base_oam_attribute_byte": 24,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 4,
           "palette": 24,
           "raw": "02 20 00 18 00 00 00 00 D5",
           "size_code": 0,
@@ -77106,11 +77576,13 @@
       "sprite_grouping_record": {
         "address": "EF:3F49",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -77350,11 +77822,13 @@
       "sprite_grouping_record": {
         "address": "EF:3F30",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 00 00 00 00 D5",
           "size_code": 0,
@@ -77594,11 +78068,13 @@
       "sprite_grouping_record": {
         "address": "EF:3716",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -77838,11 +78314,13 @@
       "sprite_grouping_record": {
         "address": "EF:36E4",
         "header": {
+          "base_oam_attribute_byte": 20,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 2,
           "palette": 20,
           "raw": "02 20 00 14 08 08 08 08 D5",
           "size_code": 0,
@@ -78111,11 +78589,13 @@
       "sprite_grouping_record": {
         "address": "EF:3680",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -78355,11 +78835,13 @@
       "sprite_grouping_record": {
         "address": "EF:34F0",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 6,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 6,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 06 08 06 08 D5",
           "size_code": 0,
@@ -78599,11 +79081,13 @@
       "sprite_grouping_record": {
         "address": "EF:34D7",
         "header": {
+          "base_oam_attribute_byte": 22,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 3,
           "palette": 22,
           "raw": "02 20 00 16 00 00 00 00 D5",
           "size_code": 0,
@@ -78844,11 +79328,13 @@
       "sprite_grouping_record": {
         "address": "EF:3431",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 04 08 04 08 D5",
           "size_code": 1,
@@ -79088,11 +79574,13 @@
       "sprite_grouping_record": {
         "address": "EF:33FF",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -79332,11 +79820,13 @@
       "sprite_grouping_record": {
         "address": "EF:33E6",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 4,
           "hitbox_east_west_width": 2,
           "hitbox_north_south_height": 4,
           "hitbox_north_south_width": 2,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 02 04 02 04 D5",
           "size_code": 0,
@@ -79576,11 +80066,13 @@
       "sprite_grouping_record": {
         "address": "EF:33CD",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 4,
           "hitbox_east_west_width": 2,
           "hitbox_north_south_height": 4,
           "hitbox_north_south_width": 2,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 02 04 02 04 D5",
           "size_code": 0,
@@ -79821,11 +80313,13 @@
       "sprite_grouping_record": {
         "address": "EF:3350",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -80066,11 +80560,13 @@
       "sprite_grouping_record": {
         "address": "EF:32BA",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 01 1A 00 00 00 00 D5",
           "size_code": 1,
@@ -80310,11 +80806,13 @@
       "sprite_grouping_record": {
         "address": "EF:32A1",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 04 08 04 08 D5",
           "size_code": 0,
@@ -80554,11 +81052,13 @@
       "sprite_grouping_record": {
         "address": "EF:3288",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 04 08 04 08 D5",
           "size_code": 0,
@@ -80798,11 +81298,13 @@
       "sprite_grouping_record": {
         "address": "EF:326F",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 04 08 04 08 D5",
           "size_code": 0,
@@ -81043,11 +81545,13 @@
       "sprite_grouping_record": {
         "address": "EF:31F2",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -81344,11 +81848,13 @@
       "sprite_grouping_record": {
         "address": "EF:31D9",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -81588,11 +82094,13 @@
       "sprite_grouping_record": {
         "address": "EF:3175",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 00 1E 08 08 08 08 D5",
           "size_code": 0,
@@ -81833,11 +82341,13 @@
       "sprite_grouping_record": {
         "address": "EF:2FAC",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -82078,11 +82588,13 @@
       "sprite_grouping_record": {
         "address": "EF:2F7A",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -82323,11 +82835,13 @@
       "sprite_grouping_record": {
         "address": "EF:2F48",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -82624,11 +83138,13 @@
       "sprite_grouping_record": {
         "address": "EF:2F2F",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -82869,11 +83385,13 @@
       "sprite_grouping_record": {
         "address": "EF:2F16",
         "header": {
+          "base_oam_attribute_byte": 30,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 7,
           "palette": 30,
           "raw": "02 20 01 1E 00 00 00 00 D5",
           "size_code": 1,
@@ -83113,11 +83631,13 @@
       "sprite_grouping_record": {
         "address": "EF:48B0",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 00 00 00 00 D5",
           "size_code": 0,
@@ -83357,11 +83877,13 @@
       "sprite_grouping_record": {
         "address": "EF:2DF3",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 8,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 8,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 08 08 08 08 D5",
           "size_code": 0,
@@ -83601,11 +84123,13 @@
       "sprite_grouping_record": {
         "address": "EF:3E68",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 00 00 00 00 D5",
           "size_code": 0,
@@ -83845,11 +84369,13 @@
       "sprite_grouping_record": {
         "address": "EF:1F7C",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D5",
           "size_code": 0,
@@ -84249,11 +84775,13 @@
       "sprite_grouping_record": {
         "address": "EF:1F53",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D5",
           "size_code": 0,
@@ -84661,11 +85189,13 @@
       "sprite_grouping_record": {
         "address": "EF:1F2A",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 6,
           "hitbox_east_west_width": 3,
           "hitbox_north_south_height": 6,
           "hitbox_north_south_width": 3,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 03 06 03 06 D5",
           "size_code": 0,
@@ -84913,11 +85443,13 @@
       "sprite_grouping_record": {
         "address": "EF:4683",
         "header": {
+          "base_oam_attribute_byte": 28,
           "height_units": 2,
           "hitbox_east_west_height": 8,
           "hitbox_east_west_width": 4,
           "hitbox_north_south_height": 8,
           "hitbox_north_south_width": 4,
+          "oam_palette_id": 6,
           "palette": 28,
           "raw": "02 20 00 1C 04 08 04 08 D5",
           "size_code": 0,
@@ -85157,11 +85689,13 @@
       "sprite_grouping_record": {
         "address": "EF:4651",
         "header": {
+          "base_oam_attribute_byte": 26,
           "height_units": 2,
           "hitbox_east_west_height": 0,
           "hitbox_east_west_width": 0,
           "hitbox_north_south_height": 0,
           "hitbox_north_south_width": 0,
+          "oam_palette_id": 5,
           "palette": 26,
           "raw": "02 20 00 1A 00 00 00 00 D5",
           "size_code": 0,

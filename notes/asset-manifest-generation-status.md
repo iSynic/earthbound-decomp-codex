@@ -58,7 +58,7 @@ EF remains hand-curated for now because its manifest intentionally names the deb
 - `tools/build_overworld_sprite_frame_contract.py` builds `notes/overworld-sprite-frame-contracts.json`, a ROM-verified runtime slot/payload contract over the sprite group contract and EF sprite grouping pointer table, including named low-bit renderer effects.
 - `tools/build_overworld_sprite_preview_sheets.py` builds ignored `build/overworld-sprite-preview-sheets/` PNG contact sheets and an index from the resolved frame contract.
 - `tools/build_secondary_visual_descriptor_contract.py` builds `notes/secondary-visual-descriptor-contracts.json`, a ROM-verified contract for the C4 secondary visual descriptor pointer table and 5-byte piece records.
-- `tools/build_overworld_sprite_composed_previews.py` builds ignored prototype composed overworld preview sheets from the frame contract, secondary visual descriptor contract, and generated D1-D5 palette-00 previews. It can optionally tint pieces by the secondary descriptor's two priority bands or outline pass-terminal pieces from the trailing-byte marker.
+- `tools/build_overworld_sprite_composed_previews.py` builds ignored prototype composed overworld preview sheets from the frame contract, secondary visual descriptor contract, raw D1-D5 graphics, and decoded overworld sprite palette IDs. It can optionally tint pieces by the secondary descriptor's two priority bands or outline pass-terminal pieces from the trailing-byte marker.
 
 ## Validation
 
@@ -92,10 +92,10 @@ Result:
 - Overworld sprite frame contracts now classify all `267` groups into runtime slot models, payload reuse models, and layout families, and extract the actual `spritepointerarray` records from `EF:133F..EF:4A40`. All `2438` runtime pointer slots resolve to concrete D1-D5 sprite payload assets; `1769` are exact pointer-word matches and `669` use masked low-two-bit flags. The low-bit effects are now named from renderer behavior: bit 0 `select_flipped_piece_record_pass` affects `657` slots, and bit 1 `suppress_auxiliary_c40be8_prepass` affects `16` slots. Direction/phase labels remain semantic hints from the ebsrc `DIRECTION` enum.
 - Overworld sprite preview sheets can now be generated for all `267` sprite groups from the frame contract and extracted palette-00 tile previews. The generated PNGs and `index.json` stay under ignored `build/overworld-sprite-preview-sheets/`.
 - Secondary visual descriptors now have a machine-readable C4 contract covering the `17` pointer-table entries at `C4:2B0D..C4:2B51`, `16` unique descriptor records at `C4:2B51..C4:2F45`, and the adjacent `C4:2F45..C4:2F8C` non-descriptor ranges before the tile-base and tile-word support tables. Body record byte `4` now has a named high-confidence bit: `pass_terminal_piece_marker`, set exactly on the final piece of each body pass (`$80` on `32` pieces, `$00` on the other `164`, `0` mismatches).
-- Prototype composed overworld preview sheets can now be generated under ignored `build/overworld-sprite-composed-previews/`. They combine resolved runtime slots with secondary descriptor piece positions and use pointer bit 0 to choose pass 0 or the horizontally flipped pass 1. The renderer builds recognizable 16x16 pieces from the extracted tile stream and can write separate priority-band and terminal-marker audit sets under ignored `build/overworld-sprite-composed-priority-bands/` and `build/overworld-sprite-composed-terminal-markers/`; palette variants are still open.
+- Prototype composed overworld preview sheets can now be generated under ignored `build/overworld-sprite-composed-previews/`. They combine resolved runtime slots with secondary descriptor piece positions, use pointer bit 0 to choose pass 0 or the horizontally flipped pass 1, and render raw D1-D5 4bpp graphics with the decoded OAM palette id from sprite grouping header byte +3. The renderer builds recognizable 16x16 pieces from the extracted tile stream and can write separate priority-band and terminal-marker audit sets under ignored `build/overworld-sprite-composed-priority-bands/` and `build/overworld-sprite-composed-terminal-markers/`.
 
 ## Next Useful Decoders
 
-1. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
-2. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
-3. BRR/audio pack manifests split into sample/song/pack-level contracts.
+1. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
+2. BRR/audio pack manifests split into sample/song/pack-level contracts.
+3. Map/tile sector asset manifests that connect graphics, arrangements, palettes, and collision data into portable scene bundles.

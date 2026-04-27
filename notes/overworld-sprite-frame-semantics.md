@@ -80,6 +80,7 @@ This note summarizes `notes/overworld-sprite-frame-contracts.json`, a ROM-resolv
 
 - `runtime_slot_count` comes from EBDecomp `sprite_groups.yml` `Length`, matching the variable `spritepointerarray` size described by ebsrc `sprite_grouping`.
 - `runtime_slots` now record the exact ROM pointer word, normalized D1-D5 graphics offset, named low-bit renderer effects, and resolved asset ID for every slot.
+- Sprite grouping header byte +3 is preserved as `base_oam_attribute_byte`; its OAM palette bits decode to `oam_palette_id = (byte >> 1) & 7` and feed the composed preview palette selector.
 - Bit 0 is cached in `$341A` and later adds `$2916` to the display-record base. `$2916` is initialized as `piece_count * 10`, exactly one secondary-descriptor body-pass span, so the bit selects the pass-1 horizontally flipped piece records.
 - Bit 1 is directly tested by both visual-profile refresh paths and suppresses the optional `C4:0BE8` auxiliary prepass.
 - Direction and phase labels still use the ebsrc `DIRECTION` enum order as semantic hints until verified against runtime animation code.
