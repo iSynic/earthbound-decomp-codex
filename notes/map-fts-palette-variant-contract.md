@@ -85,6 +85,9 @@ not the base visual row stored inline in the `.fts` palette row.
 The map tile-animation runtime path remains documented separately in
 `notes/map-tile-animation-runtime-contract.md`.
 
+Script-side palette changes are joined back to these rows in
+`notes/map-palette-command-usage-contract.md`.
+
 ## Machine-Readable Data
 
 `notes/map-fts-palette-variant-contract.json` records one row per

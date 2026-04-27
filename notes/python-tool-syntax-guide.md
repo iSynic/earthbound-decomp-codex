@@ -434,6 +434,12 @@ bank DA palette assets and `map_palette_settings.yml`:
 python tools/build_map_fts_palette_variant_contract.py
 ```
 
+Join parsed EBText `CHANGE_MAP_PALETTE` commands to those palette variants:
+
+```powershell
+python tools/build_map_palette_command_usage_contract.py
+```
+
 Verify the C0/EF map tile-animation graphics pointer table, upload-script
 pointer table, decoded upload records, and `$43DC` runtime fields:
 
