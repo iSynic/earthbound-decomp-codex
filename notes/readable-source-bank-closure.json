@@ -12,10 +12,10 @@
     ],
     "total_bytes": 327680,
     "decoded_asm_bytes": 245559,
-    "known_data_or_asset_bytes": 22546,
-    "preserved_corridor_bytes": 59575,
-    "source_like_bytes": 305134,
-    "readable_source_percent": 80.48
+    "known_data_or_asset_bytes": 73062,
+    "preserved_corridor_bytes": 9059,
+    "source_like_bytes": 254618,
+    "readable_source_percent": 96.44
   },
   "banks": [
     {
@@ -74,19 +74,19 @@
     {
       "bank": "EF",
       "decoded_asm_bytes": 884,
-      "known_data_or_asset_bytes": 5210,
-      "preserved_corridor_bytes": 59442,
+      "known_data_or_asset_bytes": 55726,
+      "preserved_corridor_bytes": 8926,
       "total_bytes": 65536,
-      "source_like_bytes": 60326,
-      "readable_source_percent": 1.47,
+      "source_like_bytes": 9810,
+      "readable_source_percent": 9.01,
       "largest_preserved_corridors": [
         {
           "bank": "EF",
-          "start": "EF:101B",
+          "start": "EF:D56F",
           "end": "EF:EB5F",
-          "size": 56132,
-          "source_path": "src/ef/ef_101b_eb5f_map_text_debug_preserved_corridor.asm",
-          "subsystem": "ef-map-text-debug-preserved-corridor",
+          "size": 5616,
+          "source_path": "src/ef/ef_d56f_eb5f_debug_menu_preserved_corridor.asm",
+          "subsystem": "ef-debug-menu-preserved-corridor",
           "category": "preserved-corridor",
           "reason": "path/subsystem carries preserved or unknown corridor hint",
           "instruction_lines": 0,
@@ -122,11 +122,11 @@
   "largest_preserved_corridors": [
     {
       "bank": "EF",
-      "start": "EF:101B",
+      "start": "EF:D56F",
       "end": "EF:EB5F",
-      "size": 56132,
-      "source_path": "src/ef/ef_101b_eb5f_map_text_debug_preserved_corridor.asm",
-      "subsystem": "ef-map-text-debug-preserved-corridor",
+      "size": 5616,
+      "source_path": "src/ef/ef_d56f_eb5f_debug_menu_preserved_corridor.asm",
+      "subsystem": "ef-debug-menu-preserved-corridor",
       "category": "preserved-corridor",
       "reason": "path/subsystem carries preserved or unknown corridor hint",
       "instruction_lines": 0,

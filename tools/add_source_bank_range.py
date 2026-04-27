@@ -74,7 +74,7 @@ def recalculate_summary(manifest: dict[str, Any]) -> None:
 def build_entry(args: argparse.Namespace, rom: bytes) -> dict[str, Any]:
     data = rom_bytes_for_range(rom, args.start, args.end)
     digest = hashlib.sha1(data).hexdigest()
-    evidence = args.evidence or []
+    evidence = [item.replace("\\", "/") for item in args.evidence or []]
     segments = build_segments(args, rom, evidence)
     source_segments = [segment for segment in segments if segment["kind"] == "source"]
     data_gaps = [segment for segment in segments if segment["kind"] == "data-gap"]

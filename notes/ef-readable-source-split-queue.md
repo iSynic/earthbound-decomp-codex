@@ -83,9 +83,9 @@ Expected source-facing labels:
 
 ## Second Practical Target
 
-After that, split `EF:101B..EF:4A3F` as typed data, not source. This will not
-make EF "more decoded asm," but it will remove a large amount of false source
-debt from the preserved corridor by reclassifying map tables and sprite grouping
+After that, split `EF:101B..EF:4A3F` as typed data, not source. This does not
+make EF "more decoded asm," but it removes a large amount of false source debt
+from the preserved corridor by reclassifying map tables and sprite grouping
 tables into explicit data contracts.
 
 ## Completed Split Checkpoints
@@ -95,6 +95,13 @@ tables into explicit data contracts.
   source. The split leaves `EF:0000..EF:0CA7` and `EF:101B..EF:EB5F` as
   explicit preserved corridors instead of hiding the whole EF front run behind
   one coarse blob.
+- `EF:101B..EF:D56F` is now split into broad typed data/text lanes:
+  map tileset and sprite grouping tables, Sound Stone presentation data, text
+  payload data, and text glyph mask tables. This keeps the largest known
+  data/text payloads out of the remaining source-heavy debug corridor.
+- `EF:D56F..EF:EB5F` remains the next source/data mixed corridor, centered on
+  debug menu strings/helpers and the one known non-debug overworld caller seam
+  around `EF:E759`.
 - `notes/ef-byte-equivalence-validation.md` confirms the combined EF scaffold
   still matches the original ROM with `0` mismatches.
 
