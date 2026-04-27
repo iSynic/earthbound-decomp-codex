@@ -66,6 +66,12 @@ That makes `C0:5200` the best current "normal overworld tick callback" boundary 
 
 `C0:4C45` is directly called from `C0:524A`.
 
+The live emulator follow-up in
+`notes/overworld-live-walking-controller-c04c45-c04d33.md` confirms this routine
+on the ordinary walking stack upstream of the smooth `C0:400E -> C0:4010 ->
+C0:1558` camera path, and narrows the next walking-state investigation to the
+`C0:4C45 -> C0:5F82 -> C0:400E/4010` chain.
+
 It is the main local coordinator:
 
 1. Save the old `$9885` dirty/moved word, then clear `$9885`.

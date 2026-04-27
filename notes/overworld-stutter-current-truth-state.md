@@ -2,12 +2,13 @@
 
 This note reconciles the March 27 decomp-side investigation with the later March 30 patch-thread follow-up work, so the overworld walking microstutter lane has one current baseline again.
 
-See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
-See also [overworld-a794-watcher-gate-safe-v4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-a794-watcher-gate-safe-v4.md).
-See also [overworld-companion-family-priority-a794.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-companion-family-priority-a794.md).
-See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
-See also [overworld-visible-entity-refresh-slice-c07b52-c07c5a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-visible-entity-refresh-slice-c07b52-c07c5a.md).
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](overworld-walking-stutter-producer-split-c01558-c01ca8.md).
+See also [overworld-a794-watcher-gate-safe-v4.md](overworld-a794-watcher-gate-safe-v4.md).
+See also [overworld-companion-family-priority-a794.md](overworld-companion-family-priority-a794.md).
+See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](overworld-timing-scroll-commit-slice-c08b20-c08284.md).
+See also [overworld-visible-entity-refresh-slice-c07b52-c07c5a.md](overworld-visible-entity-refresh-slice-c07b52-c07c5a.md).
+See also [overworld-live-walking-controller-c04c45-c04d33.md](overworld-live-walking-controller-c04c45-c04d33.md).
+See also [rom-patch-overworld-stutter-plan.md](rom-patch-overworld-stutter-plan.md).
 
 ## Main result
 
@@ -179,6 +180,10 @@ The strip family is no longer the whole story, but it is also not cleared. The b
 1. `C0:7B52..7C5A`
 2. `C0:A780 / A794`
 3. caller-family attribution around the hottest `A794` reruns during diagonal walking
+
+If the investigation returns to walking-state cadence before the visual
+descriptor family, the live stack note for `C0:4C45 -> C0:5F82 -> C0:400E/4010`
+is the cleaner upstream entry point.
 
 ## Practical guidance before moving on
 
