@@ -381,6 +381,12 @@ Join map sprite placements and NPC config rows to overworld sprite roles:
 python tools/build_map_sprite_usage_contract.py
 ```
 
+Join the same NPC config rows to event/actionscript movement targets from refs:
+
+```powershell
+python tools/build_map_movement_usage_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 

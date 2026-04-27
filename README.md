@@ -61,6 +61,7 @@ Good starting points:
 - `notes/how-to-validate.md`
 - `notes/python-tool-syntax-guide.md`
 - `notes/map-sprite-usage-contract.md`
+- `notes/map-movement-usage-contract.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`
@@ -176,6 +177,13 @@ python tools/inspect_ebtext_hits.py 1D 24 --limit 2 --before 24 --after 56
 python tools/decode_event_script.py C3:0295 C3:AB59
 ```
 
+Join map object visuals and behavior:
+
+```powershell
+python tools/build_map_sprite_usage_contract.py
+python tools/build_map_movement_usage_contract.py
+```
+
 Build cross-bank naming or data-contract reports:
 
 ```powershell
@@ -199,6 +207,10 @@ High-use tools:
 - `inspect_battle_action.py`: decode battle action records
 - `lookup_wram_field.py`: map WRAM addresses to known reference structures
 - `lookup_data_contract.py`: query curated ROM/WRAM data contracts
+- `build_map_sprite_usage_contract.py`: join map placements to overworld
+  sprite roles
+- `build_map_movement_usage_contract.py`: join NPC movement IDs to ebsrc
+  event/actionscript pointer targets
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
 - `promote_linear_range_to_decoded_source.py`: replace one byte corridor with
