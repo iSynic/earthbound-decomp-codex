@@ -30,6 +30,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:00D4..C4:00D7",
+      "pointer_target_address": "C2:FFB7",
       "referenced_c3_labels": [
         {
           "address": "C0:A0BB",
@@ -163,6 +165,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:00E9..C4:00EC",
+      "pointer_target_address": "C3:A287",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -336,6 +340,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:00EC..C4:00EF",
+      "pointer_target_address": "C3:A2AA",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -557,6 +563,8 @@
           "value": "item"
         }
       ],
+      "pointer_source_range": "C4:00EF..C4:00F2",
+      "pointer_target_address": "C3:A299",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -746,6 +754,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:00F2..C4:00F5",
+      "pointer_target_address": "C3:A2D3",
       "referenced_c3_labels": [
         {
           "address": "C3:A1F3",
@@ -955,6 +965,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:00F8..C4:00FB",
+      "pointer_target_address": "C3:A2E4",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -1220,6 +1232,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:00FB..C4:00FE",
+      "pointer_target_address": "C3:A33B",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -1351,6 +1365,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:00FE..C4:0101",
+      "pointer_target_address": "C3:A349",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -1479,6 +1495,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0104..C4:0107",
+      "pointer_target_address": "C3:A365",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -1605,6 +1623,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0107..C4:010A",
+      "pointer_target_address": "C3:A373",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -1691,6 +1711,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:010A..C4:010D",
+      "pointer_target_address": "C3:A381",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -1818,6 +1840,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0143..C4:0146",
+      "pointer_target_address": "C3:AD7A",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -1993,6 +2017,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0146..C4:0149",
+      "pointer_target_address": "C3:AE1E",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -2150,6 +2176,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:014C..C4:014F",
+      "pointer_target_address": "C3:AEA0",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -2240,6 +2268,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:015B..C4:015E",
+      "pointer_target_address": "C3:AF0F",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -2385,6 +2415,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0179..C4:017C",
+      "pointer_target_address": "C3:AFAC",
       "referenced_c3_labels": [
         {
           "address": "C0:A37A",
@@ -2536,6 +2568,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:017F..C4:0182",
+      "pointer_target_address": "C3:B208",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -2697,6 +2731,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0182..C4:0185",
+      "pointer_target_address": "C3:B25D",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -2858,6 +2894,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0185..C4:0188",
+      "pointer_target_address": "C3:B2B2",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -3007,6 +3045,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0188..C4:018B",
+      "pointer_target_address": "C3:B2FA",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -3164,6 +3204,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01BB..C4:01BE",
+      "pointer_target_address": "C3:B810",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -3341,6 +3383,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01BE..C4:01C1",
+      "pointer_target_address": "C3:B86C",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -3494,6 +3538,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01C1..C4:01C4",
+      "pointer_target_address": "C3:B8A5",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -3655,6 +3701,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01C4..C4:01C7",
+      "pointer_target_address": "C3:B8E8",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -3774,6 +3822,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01D3..C4:01D6",
+      "pointer_target_address": "C3:B9D4",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -3868,6 +3918,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01D6..C4:01D9",
+      "pointer_target_address": "C3:B9F2",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -3962,6 +4014,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01D9..C4:01DC",
+      "pointer_target_address": "C3:BA1C",
       "referenced_c3_labels": [
         {
           "address": "C3:BAC4",
@@ -4061,6 +4115,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01DC..C4:01DF",
+      "pointer_target_address": "C3:BA07",
       "referenced_c3_labels": [
         {
           "address": "C3:BAA3",
@@ -4160,6 +4216,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01DF..C4:01E2",
+      "pointer_target_address": "C3:BA31",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -4254,6 +4312,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01E2..C4:01E5",
+      "pointer_target_address": "C3:BA4F",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -4348,6 +4408,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01EE..C4:01F1",
+      "pointer_target_address": "C3:BA64",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -4414,6 +4476,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01F1..C4:01F4",
+      "pointer_target_address": "C3:BA67",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -4480,6 +4544,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01F4..C4:01F7",
+      "pointer_target_address": "C3:BA6A",
       "referenced_c3_labels": [
         {
           "address": "C3:BAA3",
@@ -4549,6 +4615,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01F7..C4:01FA",
+      "pointer_target_address": "C3:BA6D",
       "referenced_c3_labels": [
         {
           "address": "C3:BAD7",
@@ -4618,6 +4686,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:01FA..C4:01FD",
+      "pointer_target_address": "C3:BA70",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -4684,6 +4754,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0215..C4:0218",
+      "pointer_target_address": "C3:BD56",
       "referenced_c3_labels": [
         {
           "address": "C3:A1F3",
@@ -4847,6 +4919,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0218..C4:021B",
+      "pointer_target_address": "C3:BD80",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -4982,6 +5056,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0227..C4:022A",
+      "pointer_target_address": "C3:BE57",
       "referenced_c3_labels": [
         {
           "address": "C3:AB94",
@@ -5135,6 +5211,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0266..C4:0269",
+      "pointer_target_address": "C3:C3ED",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -5294,6 +5372,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:02EA..C4:02ED",
+      "pointer_target_address": "C3:C57A",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -5429,6 +5509,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:030E..C4:0311",
+      "pointer_target_address": "C3:D423",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -5586,6 +5668,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:036B..C4:036E",
+      "pointer_target_address": "C3:0195",
       "referenced_c3_labels": [
         {
           "address": "C3:AA38",
@@ -5785,6 +5869,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:03A4..C4:03A7",
+      "pointer_target_address": "C3:03E5",
       "referenced_c3_labels": [
         {
           "address": "C3:AA38",
@@ -5942,6 +6028,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:03C2..C4:03C5",
+      "pointer_target_address": "C3:05EF",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -6117,6 +6205,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:03D4..C4:03D7",
+      "pointer_target_address": "C3:0716",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -6286,6 +6376,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:03DA..C4:03DD",
+      "pointer_target_address": "C3:0796",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -6400,6 +6492,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:03E0..C4:03E3",
+      "pointer_target_address": "C3:0832",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -6555,6 +6649,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0407..C4:040A",
+      "pointer_target_address": "C3:0B4E",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -6726,6 +6822,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0419..C4:041C",
+      "pointer_target_address": "C3:0C37",
       "referenced_c3_labels": [
         {
           "address": "C3:0C55",
@@ -6809,6 +6907,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:041C..C4:041F",
+      "pointer_target_address": "C3:0C3D",
       "referenced_c3_labels": [
         {
           "address": "C3:0C55",
@@ -6892,6 +6992,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:041F..C4:0422",
+      "pointer_target_address": "C3:0C43",
       "referenced_c3_labels": [
         {
           "address": "C3:0C55",
@@ -6975,6 +7077,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0422..C4:0425",
+      "pointer_target_address": "C3:0C49",
       "referenced_c3_labels": [
         {
           "address": "C3:0C55",
@@ -7058,6 +7162,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0425..C4:0428",
+      "pointer_target_address": "C3:0C4F",
       "referenced_c3_labels": [
         {
           "address": "C3:0C55",
@@ -7141,6 +7247,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0428..C4:042B",
+      "pointer_target_address": "C3:0CE2",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -7272,6 +7380,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:042E..C4:0431",
+      "pointer_target_address": "C3:0DB6",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -7394,6 +7504,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0683..C4:0686",
+      "pointer_target_address": "C3:40CE",
       "referenced_c3_labels": [
         {
           "address": "C3:A1F3",
@@ -7565,6 +7677,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0686..C4:0689",
+      "pointer_target_address": "C3:410B",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -7647,6 +7761,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:06AA..C4:06AD",
+      "pointer_target_address": "C3:42B1",
       "referenced_c3_labels": [
         {
           "address": "C3:AB94",
@@ -7804,6 +7920,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07A3..C4:07A6",
+      "pointer_target_address": "C3:4DCB",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -7918,6 +8036,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07AC..C4:07AF",
+      "pointer_target_address": "C3:6A53",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -8041,6 +8161,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07AF..C4:07B2",
+      "pointer_target_address": "C3:6A98",
       "referenced_c3_labels": [
         {
           "address": "C3:6A41",
@@ -8172,6 +8294,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07B2..C4:07B5",
+      "pointer_target_address": "C3:6ABF",
       "referenced_c3_labels": [
         {
           "address": "C3:6A41",
@@ -8303,6 +8427,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07B8..C4:07BB",
+      "pointer_target_address": "C3:6AFF",
       "referenced_c3_labels": [
         {
           "address": "C3:6A41",
@@ -8402,6 +8528,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07BB..C4:07BE",
+      "pointer_target_address": "C3:6B18",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -8509,6 +8637,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07BE..C4:07C1",
+      "pointer_target_address": "C3:6B4B",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -8664,6 +8794,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07C1..C4:07C4",
+      "pointer_target_address": "C3:6BC6",
       "referenced_c3_labels": [
         {
           "address": "C3:AA38",
@@ -8790,6 +8922,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07C4..C4:07C7",
+      "pointer_target_address": "C3:6BEB",
       "referenced_c3_labels": [
         {
           "address": "C3:AA38",
@@ -8911,6 +9045,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07CD..C4:07D0",
+      "pointer_target_address": "C3:6C94",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -9028,6 +9164,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07D3..C4:07D6",
+      "pointer_target_address": "C3:6D29",
       "referenced_c3_labels": [
         {
           "address": "C3:AA2B",
@@ -9178,6 +9316,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07D6..C4:07D9",
+      "pointer_target_address": "C3:6D40",
       "referenced_c3_labels": [
         {
           "address": "C3:AA2B",
@@ -9350,6 +9490,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07D9..C4:07DC",
+      "pointer_target_address": "C3:6D53",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -9485,6 +9627,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07DC..C4:07DF",
+      "pointer_target_address": "C3:6D5C",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -9647,6 +9791,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07DF..C4:07E2",
+      "pointer_target_address": "C3:6D7B",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -9838,6 +9984,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07E2..C4:07E5",
+      "pointer_target_address": "C3:6D9F",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -10048,6 +10196,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:07EB..C4:07EE",
+      "pointer_target_address": "C3:6E19",
       "referenced_c3_labels": [
         {
           "address": "C3:6E41",
@@ -10264,6 +10414,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07EE..C4:07F1",
+      "pointer_target_address": "C3:6E2D",
       "referenced_c3_labels": [
         {
           "address": "C3:6E41",
@@ -10448,6 +10600,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07F1..C4:07F4",
+      "pointer_target_address": "C3:6E52",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -10573,6 +10727,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07F4..C4:07F7",
+      "pointer_target_address": "C3:6E5E",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -10690,6 +10846,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07F7..C4:07FA",
+      "pointer_target_address": "C3:6E6A",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -10796,6 +10954,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:07FA..C4:07FD",
+      "pointer_target_address": "C3:6E76",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -10886,6 +11046,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0824..C4:0827",
+      "pointer_target_address": "C3:71F4",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -10960,6 +11122,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:082D..C4:0830",
+      "pointer_target_address": "C3:7276",
       "referenced_c3_labels": [
         {
           "address": "C3:A17B",
@@ -11069,6 +11233,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0830..C4:0833",
+      "pointer_target_address": "C3:7287",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -11215,6 +11381,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0833..C4:0836",
+      "pointer_target_address": "C3:72B0",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -11390,6 +11558,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0839..C4:083C",
+      "pointer_target_address": "C3:7409",
       "referenced_c3_labels": [
         {
           "address": "C3:7439",
@@ -11473,6 +11643,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:083C..C4:083F",
+      "pointer_target_address": "C3:740F",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -11594,6 +11766,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0869..C4:086C",
+      "pointer_target_address": "C3:7751",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -11720,6 +11894,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:08A2..C4:08A5",
+      "pointer_target_address": "C3:7AB5",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -11915,6 +12091,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08B4..C4:08B7",
+      "pointer_target_address": "C3:7D33",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12065,6 +12243,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08B7..C4:08BA",
+      "pointer_target_address": "C3:7D92",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12215,6 +12395,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08BA..C4:08BD",
+      "pointer_target_address": "C3:7DF1",
       "referenced_c3_labels": [
         {
           "address": "C3:7EAE",
@@ -12372,6 +12554,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08D5..C4:08D8",
+      "pointer_target_address": "C3:80C0",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12522,6 +12706,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08D8..C4:08DB",
+      "pointer_target_address": "C3:8146",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12713,6 +12899,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:08F3..C4:08F6",
+      "pointer_target_address": "C3:83D2",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12859,6 +13047,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:08F6..C4:08F9",
+      "pointer_target_address": "C3:840A",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -12997,6 +13187,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0905..C4:0908",
+      "pointer_target_address": "C3:8515",
       "referenced_c3_labels": [
         {
           "address": "C3:AAAA",
@@ -13144,6 +13336,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0908..C4:090B",
+      "pointer_target_address": "C3:8544",
       "referenced_c3_labels": [
         {
           "address": "C3:AB59",
@@ -13324,6 +13518,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0914..C4:0917",
+      "pointer_target_address": "C3:86A9",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -13410,6 +13606,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:091D..C4:0920",
+      "pointer_target_address": "C3:8771",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -13488,6 +13686,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0920..C4:0923",
+      "pointer_target_address": "C3:877A",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -13566,6 +13766,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0923..C4:0926",
+      "pointer_target_address": "C3:8783",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -13644,6 +13846,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0926..C4:0929",
+      "pointer_target_address": "C3:878C",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -13722,6 +13926,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0929..C4:092C",
+      "pointer_target_address": "C3:886C",
       "referenced_c3_labels": [
         {
           "address": "C3:AB8A",
@@ -13879,6 +14085,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:09B6..C4:09B9",
+      "pointer_target_address": "C3:924D",
       "referenced_c3_labels": [
         {
           "address": "C3:AA38",
@@ -14016,6 +14224,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:09D1..C4:09D4",
+      "pointer_target_address": "C3:9B25",
       "referenced_c3_labels": [
         {
           "address": "C0:A360",
@@ -14197,6 +14407,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:09D7..C4:09DA",
+      "pointer_target_address": "C3:9CD7",
       "referenced_c3_labels": [
         {
           "address": "C0:A03A",
@@ -14366,6 +14578,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:09DD..C4:09E0",
+      "pointer_target_address": "C3:9D85",
       "referenced_c3_labels": [
         {
           "address": "C3:AAB8",
@@ -14537,6 +14751,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0A04..C4:0A07",
+      "pointer_target_address": "C3:9FBA",
       "referenced_c3_labels": [],
       "referenced_event_labels": [
         {
@@ -14675,6 +14891,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0AEE..C4:0AF1",
+      "pointer_target_address": "C3:949B",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -14810,6 +15028,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0AF1..C4:0AF4",
+      "pointer_target_address": "C3:94CC",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -14945,6 +15165,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0AF4..C4:0AF7",
+      "pointer_target_address": "C3:94FD",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -15080,6 +15302,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0AF7..C4:0AFA",
+      "pointer_target_address": "C3:952E",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -15215,6 +15439,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0AFA..C4:0AFD",
+      "pointer_target_address": "C3:955F",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -15350,6 +15576,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0AFD..C4:0B00",
+      "pointer_target_address": "C3:9590",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -15485,6 +15713,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B00..C4:0B03",
+      "pointer_target_address": "C3:95C1",
       "referenced_c3_labels": [
         {
           "address": "C3:9AC7",
@@ -15620,6 +15850,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B06..C4:0B09",
+      "pointer_target_address": "C3:9623",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 875,
@@ -15672,6 +15904,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B09..C4:0B0C",
+      "pointer_target_address": "C3:9654",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 876,
@@ -15724,6 +15958,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B0C..C4:0B0F",
+      "pointer_target_address": "C3:9685",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 877,
@@ -15776,6 +16012,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B0F..C4:0B12",
+      "pointer_target_address": "C3:96B6",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 878,
@@ -15828,6 +16066,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B15..C4:0B18",
+      "pointer_target_address": "C3:9718",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 880,
@@ -15880,6 +16120,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B18..C4:0B1B",
+      "pointer_target_address": "C3:9749",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 881,
@@ -15932,6 +16174,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0B1B..C4:0B1E",
+      "pointer_target_address": "C3:977A",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 882,
@@ -15984,6 +16228,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B1E..C4:0B21",
+      "pointer_target_address": "C3:97AB",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 883,
@@ -16036,6 +16282,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B21..C4:0B24",
+      "pointer_target_address": "C3:97DC",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 884,
@@ -16088,6 +16336,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B24..C4:0B27",
+      "pointer_target_address": "C3:980D",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 885,
@@ -16140,6 +16390,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B27..C4:0B2A",
+      "pointer_target_address": "C3:983E",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 886,
@@ -16192,6 +16444,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0B2A..C4:0B2D",
+      "pointer_target_address": "C3:986F",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 887,
@@ -16244,6 +16498,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B2D..C4:0B30",
+      "pointer_target_address": "C3:98A0",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 888,
@@ -16296,6 +16552,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0B30..C4:0B33",
+      "pointer_target_address": "C3:98D1",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 889,
@@ -16348,6 +16606,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B33..C4:0B36",
+      "pointer_target_address": "C3:9902",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 890,
@@ -16400,6 +16660,8 @@
           "value": "object"
         }
       ],
+      "pointer_source_range": "C4:0B36..C4:0B39",
+      "pointer_target_address": "C3:9933",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 891,
@@ -16452,6 +16714,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B39..C4:0B3C",
+      "pointer_target_address": "C3:9964",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 892,
@@ -16504,6 +16768,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B3C..C4:0B3F",
+      "pointer_target_address": "C3:9995",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 893,
@@ -16556,6 +16822,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B3F..C4:0B42",
+      "pointer_target_address": "C3:99C6",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 894,
@@ -16608,6 +16876,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B42..C4:0B45",
+      "pointer_target_address": "C3:99F7",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 895,
@@ -16660,6 +16930,8 @@
           "value": "person"
         }
       ],
+      "pointer_source_range": "C4:0B45..C4:0B48",
+      "pointer_target_address": "C3:9A28",
       "referenced_c3_labels": [],
       "referenced_event_labels": [],
       "script_pointer_line": 896,
@@ -16705,6 +16977,7 @@
   "sources": {
     "bankconfig": "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm",
     "c3_source_map": "build/c3-source-data-map.json",
+    "event_pointer_table_source": "src/c4/event_script_pointer_table.asm",
     "json_out": "notes/map-movement-usage-contract.json",
     "map_usage": "notes/map-sprite-usage-contract.json",
     "script_dir": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts",
@@ -16724,6 +16997,7 @@
     "movement_ids_with_script_file": 115,
     "movement_ids_without_script_file": 21,
     "movement_pointer_count": 895,
+    "movement_pointer_targets_decoded": 895,
     "npc_config_count": 1584,
     "script_label_count": 971,
     "shared_pointer_targets_used": 2,
@@ -16733,6 +17007,7 @@
         "map_placement_count": 393,
         "movement_id": 8,
         "npc_config_count": 393,
+        "pointer_target_address": "C3:A2AA",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/008.asm",
         "target_label": "EVENT_8",
         "top_sprites": [
@@ -16755,6 +17030,7 @@
         "map_placement_count": 253,
         "movement_id": 12,
         "npc_config_count": 253,
+        "pointer_target_address": "C3:A2E4",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/006+012.asm",
         "target_label": "EVENT_6_12",
         "top_sprites": [
@@ -16777,6 +17053,7 @@
         "map_placement_count": 240,
         "movement_id": 606,
         "npc_config_count": 240,
+        "pointer_target_address": "C3:6E2D",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/606.asm",
         "target_label": "EVENT_606",
         "top_sprites": [
@@ -16799,6 +17076,7 @@
         "map_placement_count": 177,
         "movement_id": 9,
         "npc_config_count": 177,
+        "pointer_target_address": "C3:A299",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/009.asm",
         "target_label": "EVENT_9",
         "top_sprites": [
@@ -16821,6 +17099,7 @@
         "map_placement_count": 143,
         "movement_id": 10,
         "npc_config_count": 144,
+        "pointer_target_address": "C3:A2D3",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/010+011.asm",
         "target_label": "EVENT_10_11",
         "top_sprites": [
@@ -16843,6 +17122,7 @@
         "map_placement_count": 108,
         "movement_id": 605,
         "npc_config_count": 108,
+        "pointer_target_address": "C3:6E19",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/605.asm",
         "target_label": "EVENT_605",
         "top_sprites": [
@@ -16865,6 +17145,7 @@
         "map_placement_count": 41,
         "movement_id": 13,
         "npc_config_count": 41,
+        "pointer_target_address": "C3:A33B",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/013.asm",
         "target_label": "EVENT_13",
         "top_sprites": [
@@ -16887,6 +17168,7 @@
         "map_placement_count": 27,
         "movement_id": 599,
         "npc_config_count": 27,
+        "pointer_target_address": "C3:6D53",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/599.asm",
         "target_label": "EVENT_599",
         "top_sprites": [
@@ -16909,6 +17191,7 @@
         "map_placement_count": 11,
         "movement_id": 16,
         "npc_config_count": 11,
+        "pointer_target_address": "C3:A365",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/016.asm",
         "target_label": "EVENT_16",
         "top_sprites": [
@@ -16931,6 +17214,7 @@
         "map_placement_count": 10,
         "movement_id": 600,
         "npc_config_count": 10,
+        "pointer_target_address": "C3:6D5C",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/600.asm",
         "target_label": "EVENT_600",
         "top_sprites": [
@@ -16953,6 +17237,7 @@
         "map_placement_count": 10,
         "movement_id": 693,
         "npc_config_count": 10,
+        "pointer_target_address": "C3:83D2",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/693.asm",
         "target_label": "EVENT_693",
         "top_sprites": [
@@ -16975,6 +17260,7 @@
         "map_placement_count": 9,
         "movement_id": 602,
         "npc_config_count": 9,
+        "pointer_target_address": "C3:6D9F",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/602.asm",
         "target_label": "EVENT_602",
         "top_sprites": [
@@ -16997,6 +17283,7 @@
         "map_placement_count": 7,
         "movement_id": 769,
         "npc_config_count": 7,
+        "pointer_target_address": "C3:9CD7",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/769.asm",
         "target_label": "EVENT_769",
         "top_sprites": [
@@ -17011,6 +17298,7 @@
         "map_placement_count": 6,
         "movement_id": 607,
         "npc_config_count": 6,
+        "pointer_target_address": "C3:6E52",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/607.asm",
         "target_label": "EVENT_607",
         "top_sprites": [
@@ -17033,6 +17321,7 @@
         "map_placement_count": 5,
         "movement_id": 80,
         "npc_config_count": 5,
+        "pointer_target_address": "C3:B8E8",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/080.asm",
         "target_label": "EVENT_80",
         "top_sprites": [
@@ -17055,6 +17344,7 @@
         "map_placement_count": 5,
         "movement_id": 784,
         "npc_config_count": 5,
+        "pointer_target_address": "C3:9FBA",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/784.asm",
         "target_label": "EVENT_784",
         "top_sprites": [
@@ -17069,6 +17359,7 @@
         "map_placement_count": 4,
         "movement_id": 598,
         "npc_config_count": 4,
+        "pointer_target_address": "C3:6D40",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/598.asm",
         "target_label": "EVENT_598",
         "top_sprites": [
@@ -17087,6 +17378,7 @@
         "map_placement_count": 4,
         "movement_id": 608,
         "npc_config_count": 4,
+        "pointer_target_address": "C3:6E5E",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/608.asm",
         "target_label": "EVENT_608",
         "top_sprites": [
@@ -17109,6 +17401,7 @@
         "map_placement_count": 4,
         "movement_id": 609,
         "npc_config_count": 4,
+        "pointer_target_address": "C3:6E6A",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/609.asm",
         "target_label": "EVENT_609",
         "top_sprites": [
@@ -17131,6 +17424,7 @@
         "map_placement_count": 3,
         "movement_id": 7,
         "npc_config_count": 3,
+        "pointer_target_address": "C3:A287",
         "source_file": "refs/ebsrc-main/ebsrc-main/src/data/events/scripts/007.asm",
         "target_label": "EVENT_7",
         "top_sprites": [

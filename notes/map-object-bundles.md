@@ -75,6 +75,9 @@ position, event flag, and text pointer fields into one row per placed NPC object
 
 The JSON file records `objects` with stable `map_object.NNNN` IDs and nested
 `visual`, `behavior`, `interaction`, `classification`, `sector`, and `position` fields.
+Behavior entries include the movement ID, ebsrc label, decoded C4 pointer-table
+target address, source status, and expected ref script file when the local script
+file is missing.
 The behavior rows intentionally store compact movement IDs and source status; detailed
 event macro and C3-reference profiles remain in `notes/map-movement-usage-contract.json`.
 It also includes per-sector summaries and unplaced NPC config rows.

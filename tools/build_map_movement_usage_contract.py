@@ -15,6 +15,7 @@ DEFAULT_SCRIPT_POINTERS = (
 )
 DEFAULT_SCRIPT_DIR = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "data" / "events" / "scripts"
 DEFAULT_BANKCONFIG = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "bankconfig" / "US" / "bank03.asm"
+DEFAULT_EVENT_POINTER_TABLE_SOURCE = ROOT / "src" / "c4" / "event_script_pointer_table.asm"
 DEFAULT_C3_SOURCE_MAP = ROOT / "build" / "c3-source-data-map.json"
 DEFAULT_JSON_OUT = ROOT / "notes" / "map-movement-usage-contract.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "map-movement-usage-contract.md"
@@ -25,6 +26,8 @@ LABEL_RE = re.compile(r"^\s*([A-Za-z0-9_@.]+):")
 EVENT_OP_RE = re.compile(r"^\s*(EVENT_[A-Z0-9_]+)\b")
 ADDRESS_RE = re.compile(r"\b(?:UNKNOWN_|REDIRECT_|DATA_|CODE_|NULL_)?(C[0-9A-F]{5})\b", re.IGNORECASE)
 EVENT_REF_RE = re.compile(r"\b(EVENT_[0-9A-Z_]+)\b")
+DB_BYTE_RE = re.compile(r"\$([0-9A-Fa-f]{2})")
+EVENT_POINTER_TABLE_START = 0x00D4
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,6 +38,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--script-pointers", default=str(DEFAULT_SCRIPT_POINTERS))
     parser.add_argument("--script-dir", default=str(DEFAULT_SCRIPT_DIR))
     parser.add_argument("--bankconfig", default=str(DEFAULT_BANKCONFIG))
+    parser.add_argument("--event-pointer-table-source", default=str(DEFAULT_EVENT_POINTER_TABLE_SOURCE))
     parser.add_argument("--c3-source-map", default=str(DEFAULT_C3_SOURCE_MAP))
     parser.add_argument("--json-out", default=str(DEFAULT_JSON_OUT))
     parser.add_argument("--markdown-out", default=str(DEFAULT_MARKDOWN_OUT))
@@ -69,6 +73,29 @@ def parse_script_pointers(path: Path) -> list[dict[str, Any]]:
             }
         )
     return pointers
+
+
+def parse_event_pointer_table_source(path: Path) -> dict[int, dict[str, Any]]:
+    if not path.exists():
+        return {}
+    raw: list[int] = []
+    for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        if not line.strip().startswith("db "):
+            continue
+        raw.extend(int(match.group(1), 16) for match in DB_BYTE_RE.finditer(line))
+    entries: dict[int, dict[str, Any]] = {}
+    for movement_id in range(len(raw) // 3):
+        base = movement_id * 3
+        lo, hi, bank = raw[base : base + 3]
+        word = lo | (hi << 8)
+        source_start = EVENT_POINTER_TABLE_START + base
+        entries[movement_id] = {
+            "pointer_target_address": f"{bank:02X}:{word:04X}",
+            "pointer_source_range": f"C4:{source_start:04X}..C4:{source_start + 3:04X}",
+            "pointer_bank": f"{bank:02X}",
+            "pointer_word": f"${word:04X}",
+        }
+    return entries
 
 
 def address_key(text: str) -> str:
@@ -208,6 +235,7 @@ def summarize_usage(
     pointers: list[dict[str, Any]],
     labels: dict[str, dict[str, Any]],
     expected_scripts: dict[int, str],
+    pointer_targets: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     pointer_by_id = {int(row["movement_id"]): row for row in pointers}
     movement_to_npcs: dict[int, list[dict[str, Any]]] = defaultdict(list)
@@ -226,6 +254,7 @@ def summarize_usage(
         npcs = movement_to_npcs[movement_id]
         pointer = pointer_by_id.get(movement_id)
         target_label = str(pointer["target_label"]) if pointer else None
+        pointer_target = pointer_targets.get(movement_id, {})
         script_info = labels.get(target_label or "")
         expected_script = expected_scripts.get(movement_id)
         source_status = "script_file_present" if script_info else "script_file_missing"
@@ -249,6 +278,8 @@ def summarize_usage(
             {
                 "movement_id": movement_id,
                 "target_label": target_label,
+                "pointer_target_address": pointer_target.get("pointer_target_address"),
+                "pointer_source_range": pointer_target.get("pointer_source_range"),
                 "script_pointer_line": pointer.get("source_line") if pointer else None,
                 "source_file": script_info.get("source_file") if script_info else None,
                 "expected_source_file": expected_script if expected_script and not script_info else None,
@@ -282,16 +313,18 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
     script_pointers_path = Path(args.script_pointers)
     script_dir = Path(args.script_dir)
     bankconfig_path = Path(args.bankconfig)
+    event_pointer_table_source_path = Path(args.event_pointer_table_source)
     c3_source_map_path = Path(args.c3_source_map)
 
     map_usage = json.loads(map_usage_path.read_text(encoding="utf-8"))
     pointers = parse_script_pointers(script_pointers_path)
+    pointer_targets = parse_event_pointer_table_source(event_pointer_table_source_path)
     c3_names, expected_from_source_map = load_c3_source_map(c3_source_map_path)
     expected_scripts = parse_expected_scripts_from_bankconfig(bankconfig_path)
     for script_id, include_path in expected_from_source_map.items():
         expected_scripts.setdefault(script_id, include_path)
     labels = parse_script_files(script_dir, c3_names)
-    usage = summarize_usage(map_usage, pointers, labels, expected_scripts)
+    usage = summarize_usage(map_usage, pointers, labels, expected_scripts, pointer_targets)
     rows = usage["movement_usage"]
 
     unresolved = [row for row in rows if row["source_file"] is None]
@@ -315,12 +348,14 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             "script_pointers": rel(script_pointers_path),
             "script_dir": rel(script_dir),
             "bankconfig": rel(bankconfig_path),
+            "event_pointer_table_source": rel(event_pointer_table_source_path),
             "c3_source_map": rel(c3_source_map_path),
         },
         "summary": {
             "npc_config_count": len(map_usage["npc_configs"]),
             "map_placement_count": len(map_usage["placements"]),
             "movement_pointer_count": len(pointers),
+            "movement_pointer_targets_decoded": len(pointer_targets),
             "script_label_count": len(labels),
             "unique_movement_ids_in_npc_configs": len(rows),
             "unique_movement_ids_with_map_placements": len(placed_rows),
@@ -334,6 +369,7 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
                 {
                     "movement_id": row["movement_id"],
                     "target_label": row["target_label"],
+                    "pointer_target_address": row["pointer_target_address"],
                     "source_file": row["source_file"],
                     "behavior_bucket": row["behavior_bucket"],
                     "npc_config_count": row["npc_config_count"],
@@ -364,6 +400,7 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
         f"- NPC config rows: `{summary['npc_config_count']}`",
         f"- map placements: `{summary['map_placement_count']}`",
         f"- event script pointer entries: `{summary['movement_pointer_count']}`",
+        f"- event pointer table targets decoded: `{summary['movement_pointer_targets_decoded']}`",
         f"- script labels indexed from refs: `{summary['script_label_count']}`",
         f"- unique movement IDs used by NPC configs: `{summary['unique_movement_ids_in_npc_configs']}`",
         f"- unique movement IDs used by placed NPC configs: `{summary['unique_movement_ids_with_map_placements']}`",
@@ -386,17 +423,18 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
             "",
             "## Top Movement IDs By Placement Count",
             "",
-            "| Movement | Target | Bucket | NPC configs | Placements | Top sprites | Source file |",
-            "| ---: | --- | --- | ---: | ---: | --- | --- |",
+            "| Movement | Target | Address | Bucket | NPC configs | Placements | Top sprites | Source file |",
+            "| ---: | --- | --- | --- | ---: | ---: | --- | --- |",
         ]
     )
     for row in summary["top_movements_by_map_placement_count"]:
         sprites = ", ".join(f"{item['value']} ({item['count']})" for item in row["top_sprites"])
         lines.append(
-            "| {movement_id} | `{target_label}` | `{behavior_bucket}` | {npc_config_count} | "
-            "{map_placement_count} | {sprites} | `{source_file}` |".format(
+            "| {movement_id} | `{target_label}` | `{pointer_target_address}` | `{behavior_bucket}` | "
+            "{npc_config_count} | {map_placement_count} | {sprites} | `{source_file}` |".format(
                 movement_id=row["movement_id"],
                 target_label=row["target_label"],
+                pointer_target_address=row["pointer_target_address"],
                 behavior_bucket=row["behavior_bucket"],
                 npc_config_count=row["npc_config_count"],
                 map_placement_count=row["map_placement_count"],
@@ -429,11 +467,23 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
                 "",
                 "## Unresolved Movement IDs",
                 "",
-                "These movement IDs are used by NPC configs but did not resolve to a script file label in refs.",
+                "These movement IDs are used by NPC configs and have decoded C4 pointer-table targets,",
+                "but the expected ebsrc script files are absent from the local ref checkout.",
                 "",
-                ", ".join(f"`{item}`" for item in unresolved),
+                "| Movement | Target | Address | Expected file | NPC IDs | Top sprites |",
+                "| ---: | --- | --- | --- | --- | --- |",
             ]
         )
+        unresolved_rows = [
+            row for row in contract["movement_usage"] if row["movement_id"] in set(unresolved)
+        ]
+        for row in unresolved_rows:
+            npc_ids = ", ".join(str(item) for item in row["example_npc_ids"])
+            sprites = ", ".join(f"{item['value']} ({item['count']})" for item in row["top_sprites"][:3])
+            lines.append(
+                f"| {row['movement_id']} | `{row['target_label']}` | `{row['pointer_target_address']}` | "
+                f"`{row['expected_source_file']}` | `{npc_ids}` | {sprites} |"
+            )
 
     lines.extend(
         [
