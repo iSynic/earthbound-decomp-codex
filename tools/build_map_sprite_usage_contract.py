@@ -7,6 +7,14 @@ from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+from build_overworld_sprite_frame_contract import (
+    decode_pointer_table,
+    load_sprite_asset_lookup,
+    read_grouping_slots,
+    runtime_slots,
+)
+import rom_tools
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_ROLE_CONTRACT = ROOT / "notes" / "overworld-sprite-animation-roles.json"
@@ -30,6 +38,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--map-sprites", default=str(DEFAULT_MAP_SPRITES))
     parser.add_argument("--sprite-groups", default=str(DEFAULT_SPRITE_GROUPS))
     parser.add_argument("--overworld-sprite-enum", default=str(DEFAULT_OVERWORLD_SPRITE_ENUM))
+    parser.add_argument("--rom", default=None, help="EarthBound US ROM path.")
     parser.add_argument("--json-out", default=str(DEFAULT_JSON_OUT))
     parser.add_argument("--markdown-out", default=str(DEFAULT_MARKDOWN_OUT))
     return parser.parse_args()
@@ -185,11 +194,103 @@ def metadata_role_model(slot_count: int) -> str:
     return "custom_slot_sequence"
 
 
+def direct_runtime_role_summary(
+    sprite_id: int,
+    metadata: dict[str, Any],
+    enum_name: str | None,
+    pointer_entries: list[dict[str, Any]],
+    asset_lookup: dict[tuple[int, int], dict[str, Any]],
+    rom: bytes,
+) -> dict[str, Any] | None:
+    slot_count = int(metadata.get("Length", 0))
+    if slot_count == 0 or sprite_id >= len(pointer_entries):
+        return None
+    try:
+        grouping_record, resolved_slots, resolutions, _ownerships = read_grouping_slots(
+            rom,
+            pointer_entries[sprite_id],
+            slot_count,
+            runtime_slots(slot_count),
+            set(),
+            asset_lookup,
+        )
+    except (IndexError, ValueError):
+        return None
+
+    resolved_slot_count = int(resolutions["exact"]) + int(resolutions["masked_low_two_bits"])
+    label = f"OVERWORLD_SPRITE::{enum_name}" if enum_name else f"OVERWORLD_SPRITE::{sprite_id}"
+    return {
+        "sprite_label": label,
+        "sprite_role_model": metadata_role_model(slot_count),
+        "sprite_palette_id": grouping_record["header"]["oam_palette_id"],
+        "sprite_group_length": slot_count,
+        "sprite_group_size": metadata.get("Size"),
+        "role_resolution": (
+            "rom_runtime_slot_contract"
+            if resolved_slot_count == slot_count
+            else "rom_runtime_slot_contract_partially_unresolved"
+        ),
+        "runtime_slot_count": slot_count,
+        "resolved_runtime_slots": resolved_slot_count,
+        "slot_resolution_counts": dict(sorted(resolutions.items())),
+        "sprite_grouping_record": grouping_record,
+        "slots": [
+            {
+                "slot_index": slot["slot_index"],
+                "direction_hint": slot.get("direction_hint"),
+                "phase_hint": slot.get("phase_hint"),
+                "pointer_flags": slot["pointer_flags"],
+                "raw_pointer_word": slot["raw_pointer_word"],
+                "normalized_pointer_offset": slot["normalized_pointer_offset"],
+                "sprite_bank": slot["sprite_bank"],
+                "resolved_asset": (
+                    slot["resolved_asset"]["asset_id"]
+                    if isinstance(slot.get("resolved_asset"), dict)
+                    else None
+                ),
+                "source_range": (
+                    slot["resolved_asset"]["source_range"]
+                    if isinstance(slot.get("resolved_asset"), dict)
+                    else None
+                ),
+            }
+            for slot in resolved_slots
+        ],
+    }
+
+
+def build_direct_runtime_summaries(
+    sprite_ids: set[int],
+    sprite_group_metadata: dict[int, dict[str, Any]],
+    enum_names: dict[int, str],
+    rom: bytes,
+) -> dict[int, dict[str, Any]]:
+    pointer_entries = decode_pointer_table(rom)
+    asset_lookup = load_sprite_asset_lookup()
+    summaries: dict[int, dict[str, Any]] = {}
+    for sprite_id in sorted(sprite_ids):
+        metadata = sprite_group_metadata.get(sprite_id)
+        if metadata is None:
+            continue
+        summary = direct_runtime_role_summary(
+            sprite_id,
+            metadata,
+            enum_names.get(sprite_id),
+            pointer_entries,
+            asset_lookup,
+            rom,
+        )
+        if summary is not None:
+            summaries[sprite_id] = summary
+    return summaries
+
+
 def sprite_role_summary(
     sprite_id: int,
     roles: dict[int, dict[str, Any]],
     sprite_group_metadata: dict[int, dict[str, Any]],
     enum_names: dict[int, str],
+    direct_runtime_roles: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     role = roles.get(sprite_id)
     enum_name = enum_names.get(sprite_id)
@@ -204,6 +305,25 @@ def sprite_role_summary(
             "sprite_group_length": role["runtime_slot_count"],
             "sprite_group_size": None,
             "role_resolution": "full_animation_role_contract",
+            "runtime_slot_count": role["runtime_slot_count"],
+            "resolved_runtime_slots": len(
+                [slot for slot in role["slots"] if slot["resolved_asset"] is not None]
+            ),
+        }
+    direct_role = direct_runtime_roles.get(sprite_id)
+    if direct_role is not None:
+        return {
+            "sprite_id": sprite_id,
+            "sprite_group": None,
+            "sprite_label": direct_role["sprite_label"],
+            "sprite_enum_name": enum_name,
+            "sprite_role_model": direct_role["sprite_role_model"],
+            "sprite_palette_id": direct_role["sprite_palette_id"],
+            "sprite_group_length": direct_role["sprite_group_length"],
+            "sprite_group_size": direct_role["sprite_group_size"],
+            "role_resolution": direct_role["role_resolution"],
+            "runtime_slot_count": direct_role["runtime_slot_count"],
+            "resolved_runtime_slots": direct_role["resolved_runtime_slots"],
         }
     metadata = sprite_group_metadata.get(sprite_id)
     if metadata is not None:
@@ -217,6 +337,8 @@ def sprite_role_summary(
             "sprite_group_length": metadata.get("Length"),
             "sprite_group_size": metadata.get("Size"),
             "role_resolution": "sprite_group_metadata_only",
+            "runtime_slot_count": None,
+            "resolved_runtime_slots": None,
         }
     return {
         "sprite_id": sprite_id,
@@ -228,6 +350,8 @@ def sprite_role_summary(
         "sprite_group_length": None,
         "sprite_group_size": None,
         "role_resolution": "sprite_metadata_missing",
+        "runtime_slot_count": None,
+        "resolved_runtime_slots": None,
     }
 
 
@@ -237,10 +361,13 @@ def normalize_config(
     roles: dict[int, dict[str, Any]],
     sprite_group_metadata: dict[int, dict[str, Any]],
     enum_names: dict[int, str],
+    direct_runtime_roles: dict[int, dict[str, Any]],
     placement_count: int,
 ) -> dict[str, Any]:
     sprite_id = int(config["Sprite"])
-    role = sprite_role_summary(sprite_id, roles, sprite_group_metadata, enum_names)
+    role = sprite_role_summary(
+        sprite_id, roles, sprite_group_metadata, enum_names, direct_runtime_roles
+    )
     return {
         "npc_id": npc_id,
         "type": config["Type"],
@@ -253,6 +380,8 @@ def normalize_config(
         "sprite_group_length": role["sprite_group_length"],
         "sprite_group_size": role["sprite_group_size"],
         "role_resolution": role["role_resolution"],
+        "runtime_slot_count": role["runtime_slot_count"],
+        "resolved_runtime_slots": role["resolved_runtime_slots"],
         "direction": config["Direction"],
         "movement": config["Movement"],
         "show_sprite": config["Show Sprite"],
@@ -270,6 +399,8 @@ def build_document(
     placements: list[dict[str, Any]],
     sprite_group_metadata: dict[int, dict[str, Any]],
     enum_names: dict[int, str],
+    direct_runtime_roles: dict[int, dict[str, Any]],
+    rom_info: Any,
     role_contract_path: Path,
     npc_config_path: Path,
     map_sprites_path: Path,
@@ -289,6 +420,7 @@ def build_document(
             roles,
             sprite_group_metadata,
             enum_names,
+            direct_runtime_roles,
             placement_counts_by_npc[npc_id],
         )
         for npc_id in sorted(npc_configs)
@@ -307,6 +439,10 @@ def build_document(
                 "sprite_label": npc["sprite_label"] if npc is not None else None,
                 "sprite_role_model": npc["sprite_role_model"] if npc is not None else None,
                 "role_resolution": npc["role_resolution"] if npc is not None else None,
+                "runtime_slot_count": npc["runtime_slot_count"] if npc is not None else None,
+                "resolved_runtime_slots": (
+                    npc["resolved_runtime_slots"] if npc is not None else None
+                ),
                 "initial_direction": npc["direction"] if npc is not None else None,
                 "movement": npc["movement"] if npc is not None else None,
                 "show_sprite": npc["show_sprite"] if npc is not None else None,
@@ -333,6 +469,8 @@ def build_document(
                 "sprite_group_length": row["sprite_group_length"],
                 "sprite_group_size": row["sprite_group_size"],
                 "role_resolution": row["role_resolution"],
+                "runtime_slot_count": row["runtime_slot_count"],
+                "resolved_runtime_slots": row["resolved_runtime_slots"],
                 "npc_config_count": 0,
                 "map_placement_count": 0,
                 "npc_types": Counter(),
@@ -388,6 +526,7 @@ def build_document(
         "title": "Map sprite usage contract",
         "source_policy": {
             "contains_rom_derived_outputs": False,
+            "requires_user_supplied_rom_for_runtime_slot_fallback": True,
             "safe_to_commit": True,
         },
         "generator": {
@@ -399,6 +538,10 @@ def build_document(
             "map_sprites": rel(map_sprites_path),
             "sprite_groups": rel(sprite_groups_path),
             "overworld_sprite_enum": rel(enum_path),
+        },
+        "rom": {
+            "sha1": rom_info.sha1,
+            "verified": True,
         },
         "references": [
             "refs/eb-decompile-4ef92/npc_config_table.yml",
@@ -421,9 +564,15 @@ def build_document(
             "unique_sprite_ids_with_full_animation_roles": sum(
                 1 for row in sprite_usage_rows if row["role_resolution"] == "full_animation_role_contract"
             ),
+            "unique_sprite_ids_with_rom_runtime_roles": sum(
+                1
+                for row in sprite_usage_rows
+                if str(row["role_resolution"]).startswith("rom_runtime_slot_contract")
+            ),
             "unique_sprite_ids_with_metadata_roles": sum(
                 1 for row in sprite_usage_rows if row["role_resolution"] == "sprite_group_metadata_only"
             ),
+            "direct_runtime_role_count": len(direct_runtime_roles),
             "npc_config_join_status": dict(sorted(config_join_counts.items())),
             "placement_join_status": dict(sorted(placement_join_counts.items())),
             "npc_type_counts": dict(sorted(type_counts.items())),
@@ -432,6 +581,8 @@ def build_document(
                     "sprite_id": row["sprite_id"],
                     "sprite_label": row["sprite_label"],
                     "role_resolution": row["role_resolution"],
+                    "runtime_slot_count": row["runtime_slot_count"],
+                    "resolved_runtime_slots": row["resolved_runtime_slots"],
                     "map_placement_count": row["map_placement_count"],
                     "npc_config_count": row["npc_config_count"],
                 }
@@ -441,6 +592,10 @@ def build_document(
         "sprite_usage": sprite_usage_rows,
         "npc_configs": npc_rows,
         "placements": enriched_placements,
+        "direct_runtime_roles": {
+            str(sprite_id): direct_runtime_roles[sprite_id]
+            for sprite_id in sorted(direct_runtime_roles)
+        },
     }
 
 
@@ -467,6 +622,7 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
         f"- Sectors with placements: {summary['sectors_with_placements']} / {summary['sector_grid']['sector_count']}",
         f"- Unique sprite IDs in NPC configs: {summary['unique_sprite_ids_in_npc_configs']}",
         f"- Unique sprite IDs with full animation roles: {summary['unique_sprite_ids_with_full_animation_roles']}",
+        f"- Unique sprite IDs with direct ROM runtime roles: {summary['unique_sprite_ids_with_rom_runtime_roles']}",
         f"- Unique sprite IDs with metadata-only roles: {summary['unique_sprite_ids_with_metadata_roles']}",
         "",
         "## Join Status",
@@ -488,14 +644,15 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "",
             "## Top Sprites By Map Placement Count",
             "",
-            "| Sprite ID | Sprite Label | Resolution | Placements | NPC Configs |",
-            "| ---: | --- | --- | ---: | ---: |",
+            "| Sprite ID | Sprite Label | Resolution | Slots | Placements | NPC Configs |",
+            "| ---: | --- | --- | ---: | ---: | ---: |",
         ]
     )
     for row in summary["top_sprites_by_map_placement_count"]:
         label = row["sprite_label"] or "unresolved"
+        slots = row["runtime_slot_count"] if row["runtime_slot_count"] is not None else "n/a"
         lines.append(
-            f"| {row['sprite_id']} | `{label}` | `{row['role_resolution']}` | {row['map_placement_count']} | {row['npc_config_count']} |"
+            f"| {row['sprite_id']} | `{label}` | `{row['role_resolution']}` | {slots} | {row['map_placement_count']} | {row['npc_config_count']} |"
         )
 
     lines.extend(
@@ -507,6 +664,7 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "- `placements` preserve the 40x32 sector grid from `map_sprites.yml`; `world_pixel_x/y` are sector-local coordinates expanded by 256 pixels per sector.",
             "- `sprite_usage` is the compact join table ports and editors should consult first when asking which map objects use a sprite group.",
             "- `full_animation_role_contract` rows have resolved payload/slot/palette roles from `notes/overworld-sprite-animation-roles.json`.",
+            "- `rom_runtime_slot_contract` rows decode the EF grouping record directly from the user-supplied ROM and resolve runtime slots to D1-D5 assets even when no ebsrc `SPRITE_GROUP_*` label exists. Their slot details live under `direct_runtime_roles` in the JSON.",
             "- `sprite_group_metadata_only` rows fall back to `sprite_groups.yml` length/size metadata and the `OVERWORLD_SPRITE` enum name; these still need payload-level joins.",
             "- The source refs are not committed runtime assets. This contract preserves their semantic join so future ROM-backed tools can reproduce or replace the reference import.",
             "",
@@ -532,12 +690,27 @@ def main() -> int:
     placements = parse_map_sprites(map_sprites_path)
     sprite_group_metadata = parse_sprite_group_metadata(sprite_groups_path)
     enum_names = parse_overworld_sprite_enum(enum_path)
+    rom_path = rom_tools.find_rom(args.rom)
+    rom = rom_tools.load_rom(rom_path)
+    rom_info = rom_tools.read_rom_info(rom_path)
+    verification_problems = rom_tools.verify_earthbound_us(rom_info)
+    if verification_problems:
+        raise ValueError(
+            "ROM identity verification failed:\n"
+            + "\n".join(f"- {problem}" for problem in verification_problems)
+        )
+    unique_sprite_ids = {int(config["Sprite"]) for config in npc_configs.values()}
+    direct_runtime_roles = build_direct_runtime_summaries(
+        unique_sprite_ids, sprite_group_metadata, enum_names, rom
+    )
     document = build_document(
         role_contract,
         npc_configs,
         placements,
         sprite_group_metadata,
         enum_names,
+        direct_runtime_roles,
+        rom_info,
         role_contract_path,
         npc_config_path,
         map_sprites_path,
@@ -550,7 +723,8 @@ def main() -> int:
         "Built map sprite usage contract: "
         f"{document['summary']['npc_config_count']} NPC configs, "
         f"{document['summary']['map_placement_count']} placements, "
-        f"{document['summary']['unique_sprite_ids_with_full_animation_roles']} full sprite-role IDs."
+        f"{document['summary']['unique_sprite_ids_with_full_animation_roles']} full sprite-role IDs, "
+        f"{document['summary']['unique_sprite_ids_with_rom_runtime_roles']} direct ROM runtime IDs."
     )
     print(f"Wrote {rel(Path(args.json_out))}")
     print(f"Wrote {rel(Path(args.markdown_out))}")

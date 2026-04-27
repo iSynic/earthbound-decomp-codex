@@ -13,16 +13,18 @@ This note summarizes `notes/map-sprite-usage-contract.json`, which joins map spr
 - Sectors with placements: 627 / 1280
 - Unique sprite IDs in NPC configs: 297
 - Unique sprite IDs with full animation roles: 163
-- Unique sprite IDs with metadata-only roles: 134
+- Unique sprite IDs with direct ROM runtime roles: 133
+- Unique sprite IDs with metadata-only roles: 1
 
 ## Join Status
 
 | Scope | Status | Count |
 | --- | --- | ---: |
 | NPC config | `full_animation_role_contract` | 733 |
-| NPC config | `sprite_group_metadata_only` | 851 |
+| NPC config | `rom_runtime_slot_contract` | 850 |
+| NPC config | `sprite_group_metadata_only` | 1 |
 | Placement | `full_animation_role_contract` | 732 |
-| Placement | `sprite_group_metadata_only` | 850 |
+| Placement | `rom_runtime_slot_contract` | 850 |
 
 ## NPC Types
 
@@ -34,28 +36,28 @@ This note summarizes `notes/map-sprite-usage-contract.json`, which joins map spr
 
 ## Top Sprites By Map Placement Count
 
-| Sprite ID | Sprite Label | Resolution | Placements | NPC Configs |
-| ---: | --- | --- | ---: | ---: |
-| 195 | `OVERWORLD_SPRITE::GIFT_BOX` | `sprite_group_metadata_only` | 123 | 123 |
-| 133 | `OVERWORLD_SPRITE::MONKEY` | `sprite_group_metadata_only` | 35 | 35 |
-| 381 | `OVERWORLD_SPRITE::INVISIBLE_2` | `sprite_group_metadata_only` | 32 | 32 |
-| 171 | `SPRITE_GROUP_MR_SATURN` | `full_animation_role_contract` | 31 | 31 |
-| 214 | `OVERWORLD_SPRITE::TRASH_CAN` | `sprite_group_metadata_only` | 26 | 26 |
-| 74 | `SPRITE_GROUP_COP_IN_SUNGLASSES` | `full_animation_role_contract` | 24 | 24 |
-| 101 | `OVERWORLD_SPRITE::INSANE_CULTIST` | `sprite_group_metadata_only` | 22 | 22 |
-| 64 | `SPRITE_GROUP_NERDY_REDHEAD` | `full_animation_role_contract` | 21 | 21 |
-| 213 | `SPRITE_GROUP_SIGN` | `full_animation_role_contract` | 21 | 21 |
-| 233 | `OVERWORLD_SPRITE::DALAAM_PRESENT` | `sprite_group_metadata_only` | 21 | 21 |
-| 259 | `OVERWORLD_SPRITE::ATM_MACHINE` | `sprite_group_metadata_only` | 20 | 20 |
-| 204 | `OVERWORLD_SPRITE::STREET_SIGN` | `sprite_group_metadata_only` | 18 | 18 |
-| 215 | `SPRITE_GROUP_TELEPHONE` | `full_animation_role_contract` | 17 | 17 |
-| 325 | `OVERWORLD_SPRITE::GUARDIAN_HIEROGLYPH` | `sprite_group_metadata_only` | 17 | 17 |
-| 70 | `SPRITE_GROUP_YOUNG_BLONDE_GUY_IN_BLUE` | `full_animation_role_contract` | 16 | 16 |
-| 56 | `SPRITE_GROUP_SORTA_BALD_GUY_IN_SUIT` | `full_animation_role_contract` | 15 | 15 |
-| 59 | `SPRITE_GROUP_FAT_GUY_IN_RED_SUIT` | `full_animation_role_contract` | 15 | 15 |
-| 68 | `SPRITE_GROUP_BLONDE_HAPPY_LADY` | `full_animation_role_contract` | 15 | 15 |
-| 71 | `SPRITE_GROUP_SURFER` | `full_animation_role_contract` | 15 | 15 |
-| 201 | `OVERWORLD_SPRITE::STREETLIGHT` | `sprite_group_metadata_only` | 15 | 15 |
+| Sprite ID | Sprite Label | Resolution | Slots | Placements | NPC Configs |
+| ---: | --- | --- | ---: | ---: | ---: |
+| 195 | `OVERWORLD_SPRITE::GIFT_BOX` | `rom_runtime_slot_contract` | 8 | 123 | 123 |
+| 133 | `OVERWORLD_SPRITE::MONKEY` | `rom_runtime_slot_contract` | 8 | 35 | 35 |
+| 381 | `OVERWORLD_SPRITE::INVISIBLE_2` | `rom_runtime_slot_contract` | 8 | 32 | 32 |
+| 171 | `SPRITE_GROUP_MR_SATURN` | `full_animation_role_contract` | 8 | 31 | 31 |
+| 214 | `OVERWORLD_SPRITE::TRASH_CAN` | `rom_runtime_slot_contract` | 8 | 26 | 26 |
+| 74 | `SPRITE_GROUP_COP_IN_SUNGLASSES` | `full_animation_role_contract` | 8 | 24 | 24 |
+| 101 | `OVERWORLD_SPRITE::INSANE_CULTIST` | `rom_runtime_slot_contract` | 8 | 22 | 22 |
+| 64 | `SPRITE_GROUP_NERDY_REDHEAD` | `full_animation_role_contract` | 8 | 21 | 21 |
+| 213 | `SPRITE_GROUP_SIGN` | `full_animation_role_contract` | 8 | 21 | 21 |
+| 233 | `OVERWORLD_SPRITE::DALAAM_PRESENT` | `rom_runtime_slot_contract` | 8 | 21 | 21 |
+| 259 | `OVERWORLD_SPRITE::ATM_MACHINE` | `rom_runtime_slot_contract` | 8 | 20 | 20 |
+| 204 | `OVERWORLD_SPRITE::STREET_SIGN` | `rom_runtime_slot_contract` | 8 | 18 | 18 |
+| 215 | `SPRITE_GROUP_TELEPHONE` | `full_animation_role_contract` | 8 | 17 | 17 |
+| 325 | `OVERWORLD_SPRITE::GUARDIAN_HIEROGLYPH` | `rom_runtime_slot_contract` | 9 | 17 | 17 |
+| 70 | `SPRITE_GROUP_YOUNG_BLONDE_GUY_IN_BLUE` | `full_animation_role_contract` | 8 | 16 | 16 |
+| 56 | `SPRITE_GROUP_SORTA_BALD_GUY_IN_SUIT` | `full_animation_role_contract` | 8 | 15 | 15 |
+| 59 | `SPRITE_GROUP_FAT_GUY_IN_RED_SUIT` | `full_animation_role_contract` | 8 | 15 | 15 |
+| 68 | `SPRITE_GROUP_BLONDE_HAPPY_LADY` | `full_animation_role_contract` | 8 | 15 | 15 |
+| 71 | `SPRITE_GROUP_SURFER` | `full_animation_role_contract` | 8 | 15 | 15 |
+| 201 | `OVERWORLD_SPRITE::STREETLIGHT` | `rom_runtime_slot_contract` | 8 | 15 | 15 |
 
 ## Interpretation Rules
 
@@ -63,6 +65,7 @@ This note summarizes `notes/map-sprite-usage-contract.json`, which joins map spr
 - `placements` preserve the 40x32 sector grid from `map_sprites.yml`; `world_pixel_x/y` are sector-local coordinates expanded by 256 pixels per sector.
 - `sprite_usage` is the compact join table ports and editors should consult first when asking which map objects use a sprite group.
 - `full_animation_role_contract` rows have resolved payload/slot/palette roles from `notes/overworld-sprite-animation-roles.json`.
+- `rom_runtime_slot_contract` rows decode the EF grouping record directly from the user-supplied ROM and resolve runtime slots to D1-D5 assets even when no ebsrc `SPRITE_GROUP_*` label exists. Their slot details live under `direct_runtime_roles` in the JSON.
 - `sprite_group_metadata_only` rows fall back to `sprite_groups.yml` length/size metadata and the `OVERWORLD_SPRITE` enum name; these still need payload-level joins.
 - The source refs are not committed runtime assets. This contract preserves their semantic join so future ROM-backed tools can reproduce or replace the reference import.
 
