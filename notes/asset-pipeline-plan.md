@@ -14,7 +14,7 @@ This project should keep source control focused on documentation, source scaffol
 
 1. **ROM recipe layer**: records the source ROM span, table source, expected SHA-1, and any required decoder.
 2. **Portable asset layer**: emits local files such as raw `.bin`, preview `.png`, decoded maps, BRR/audio intermediates, text JSON, or engine-ready bundles.
-3. **Semantic ID layer**: exposes stable IDs like `asset.debug.cursor_graphics` or `table.map.tileset_pointers` to tools and eventual ports.
+3. **Semantic ID layer**: exposes stable IDs like `asset.debug.cursor_graphics`, `table.map.tileset_pointers`, or `SPRITE_GROUP_NESS_BICYCLE` to tools and eventual ports.
 4. **Validation layer**: checks the supplied ROM identity, byte counts, range hashes, and generated output hashes.
 
 Ports should consume the semantic IDs and generated output paths, not hard-code `C0`-style bank ranges except in compatibility shims.
@@ -40,8 +40,8 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 
 ## Decoder Roadmap
 
-- **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, first-pass battle-background and battle-sprite palette-aware tile previews, composed battle-background arrangement previews, size-aware composed battle sprite previews, default-palette overworld sprite previews, extraction reports.
-- **Next**: sprite group metadata decoding, optional overworld palette variants, palette table splitting, tilemaps, BRR/sample packs, text tables, and map sector data.
+- **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, first-pass battle-background and battle-sprite palette-aware tile previews, composed battle-background arrangement previews, size-aware composed battle sprite previews, default-palette overworld sprite previews, overworld sprite group payload/metadata contracts, extraction reports.
+- **Next**: sprite group enum aliases and frame/direction semantics, optional overworld palette variants, palette table splitting, tilemaps, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
 ## Tooling Path
@@ -49,6 +49,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 - `tools/build_asset_extraction_manifest.py` converts the existing `asset-bank-xx.json` layout data into checked-in extraction manifests.
 - `tools/extract_assets.py` consumes those manifests and writes local ROM-derived outputs under `build/assets/`.
 - `tools/snes_palette.py` provides the shared SNES BGR555 palette decoder used by the extraction pipeline.
+- `tools/build_overworld_sprite_group_manifest.py` consumes ignored refs and checked-in D1-D5 manifests to produce `notes/overworld-sprite-groups.json` without committing ROM-derived payload bytes.
 - `tools/validate_asset_manifests.py` validates all checked-in manifests, checks duplicate asset IDs, and can run a full local extraction pass.
 - Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
 
