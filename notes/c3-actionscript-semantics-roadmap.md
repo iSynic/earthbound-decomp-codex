@@ -18,8 +18,9 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `7` families, `4235` validated
+- Current source-form event/actionscript pilots: `8` families, `4287` validated
   bytes
+- Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source
@@ -171,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: seven pilots complete.
+Status: eight pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -189,6 +190,9 @@ Status: seven pilots complete.
 - `notes/c3-intro-presentation-paths-source-pilot.md`: second split from the
   large `C3:4E73..C3:5F8B` payload cluster, `C3:4FC7..C3:51FD`, `566`
   validated bytes.
+- `notes/c3-intro-cast-scroll-setup-source-pilot.md`: third split from the
+  large `C3:4E73..C3:5F8B` payload cluster, `C3:51FD..C3:5231`, `52`
+  validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -202,12 +206,15 @@ Candidate/follow-up families for this milestone:
 - `C3:4D39..C3:4E73` neighboring service presentation/effect corridor - pilot complete
 - `C3:4E73..C3:4FC7` Itoi production intro first split - pilot complete
 - `C3:4FC7..C3:51FD` intro/presentation movement paths - pilot complete
-- `C3:51FD..C3:5F8B` remaining intro/cast-scene payloads - split scripts
-  799-800 from the larger script 801 before source-form promotion
+- `C3:51FD..C3:5231` intro cast-scroll setup scripts 799-800 - pilot complete
+- `C3:5231..C3:5F8B` script 801 cast-scroll/cast-spawn payload - blocked on
+  additional native callback contracts and macro coverage before promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
 operands while preserving byte-equivalence against the ROM-backed scaffold.
+Use `tools/build_c3_source_pilot_frontier.py` to rank ready seams before picking
+the next family.
 
 ### 4. Non-Event Payload Split
 
@@ -223,6 +230,7 @@ Keep these out of the event VM decoder unless evidence changes:
 The movement pulse preset family, timed-delivery controller, adjacent
 service-event movement scripts, neighboring service-animation helper/event
 cluster, presentation/effect corridor, first Itoi production intro split, and
-intro/presentation movement paths now have source-form pilots. Continue at
-`C3:51FD` with scripts 799-800, then handle the larger script 801 as a separate
-cast-scroll/cast-spawn family.
+intro/presentation movement paths and cast-scroll setup scripts now have
+source-form pilots. Continue by either resolving the `C3:5231` script 801
+callback/macro blockers or taking one of the high-ranked ready seams from
+`notes/c3-source-pilot-frontier.md`.

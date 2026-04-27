@@ -143,6 +143,7 @@ CALL_ARG_COUNTS: dict[str, int] = {
     "C0:9451": 0,
     "C0:AA3F": 3,
     "C0:AA6E": 2,
+    "C0:AAAC": 0,
     "C0:AACD": 0,
     "C0:C19B": 0,
     "C0:C251": 0,

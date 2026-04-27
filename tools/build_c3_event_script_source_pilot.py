@@ -139,6 +139,9 @@ LABEL_OVERRIDES = {
     "C3:50F4": "Event544_FoursideSpectatorTextPath",
     "C3:5154": "Event545_RightFacingMovementPath",
     "C3:5198": "Event546_NintendoPresentationIntroPath",
+    "C3:51FD": "Event799_ObscuredDownFacingCastActorHalt",
+    "C3:5214": "Event800_ObscuredDownFacingCastActorRefreshGate",
+    "C3:5226": "LoopWaitForCastActorRefreshFlag",
     "C3:6E2D": "Event606_DoseiBoxAppearFallback",
     "C3:A2B8": "Event8_Entry2WaitUntilOffscreenRelease",
     "C3:A09F": "LoopActiveEntityWalkAnimationPulse",
@@ -182,6 +185,7 @@ LABEL_OVERRIDES = {
     "C0:9FF0": "PhysicsCallback_C09FF0",
     "C0:AACD": "ReturnX0002",
     "C0:AA3F": "Script_SetVisualSetupBytesByMode",
+    "C0:AAAC": "Script_RefreshCurrentSlotVisualProfile",
     "C0:C83B": "InstallScriptMovementVectorFromDirection",
     "C4:240A": "SetFullscreenColorWindowRangePreset",
     "C4:248A": "StopWh0HdmaChannel4AndClearWhsel",
@@ -293,7 +297,18 @@ FAMILY_DEFAULTS = {
             ("C3:4FC7", "C3:51FD", "IntroPresentationPaths"),
         ],
         "description": "Second split from the large `C3:4E73..C3:5F8B` payload cluster emitted as labeled event/actionscript macro assembly. This covers event 539 plus event 540-546 intro/presentation movement paths, including the left-facing task loop and Nintendo presentation asset load path.",
-        "next": "Continue at `C3:51FD` with scripts 799-800, then handle script 801 as a separate cast-scroll/cast-spawn family because it is structurally different and much larger.",
+        "next": "Scripts 799-800 are now emitted by `--family intro-cast-scroll-setup`; continue at `C3:5231` with script 801 as a separate cast-scroll/cast-spawn family.",
+    },
+    "intro-cast-scroll-setup": {
+        "output": ROOT / "src" / "c3" / "event_scripts" / "intro_cast_scroll_setup.asar.asm",
+        "report": ROOT / "notes" / "c3-intro-cast-scroll-setup-source-pilot.md",
+        "manifest": ROOT / "build" / "c3-intro-cast-scroll-setup-source-pilot.json",
+        "rows": [],
+        "spans": [
+            ("C3:51FD", "C3:5231", "IntroCastScrollSetup"),
+        ],
+        "description": "Third split from the large `C3:4E73..C3:5F8B` payload cluster emitted as labeled event/actionscript macro assembly. This covers scripts 799-800: obscured, down-facing cast actor setup plus the WRAM `$0099` refresh gate.",
+        "next": "Continue at `C3:5231` with script 801 as its own cast-scroll/cast-spawn source pilot; it needs additional native callback names and macro coverage before it should be promoted.",
     },
 }
 
@@ -679,7 +694,9 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_START_TASK": ["    db $07", "    dw <target>"],
         "EVENT_WRITE_VAR_TO_TEMPVAR": ["    db $20, <var>"],
         "EVENT_WRITE_BYTE_WRAM": ["    db $12", "    dw <addr>", "    db <value>"],
+        "EVENT_WRITE_VAR_TO_WAIT_TIMER": ["    db $21, <var>"],
         "EVENT_WRITE_WORD_TEMPVAR": ["    db $1D", "    dw <value>"],
+        "EVENT_WRITE_WRAM_TEMPVAR": ["    db $1E", "    dw <addr>"],
         "EVENT_WRITE_TEMPVAR_WAITTIMER": ["    db $44"],
     }
     args = {
@@ -713,7 +730,9 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_START_TASK": "target",
         "EVENT_WRITE_VAR_TO_TEMPVAR": "var",
         "EVENT_WRITE_BYTE_WRAM": "addr, value",
+        "EVENT_WRITE_VAR_TO_WAIT_TIMER": "var",
         "EVENT_WRITE_WORD_TEMPVAR": "value",
+        "EVENT_WRITE_WRAM_TEMPVAR": "addr",
     }
     missing = sorted(used_macros - bodies.keys())
     if missing:

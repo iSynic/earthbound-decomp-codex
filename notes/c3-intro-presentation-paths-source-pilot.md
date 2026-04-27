@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue at `C3:51FD` with scripts 799-800, then handle script 801 as a separate cast-scroll/cast-spawn family because it is structurally different and much larger.
+Scripts 799-800 are now emitted by `--family intro-cast-scroll-setup`; continue at `C3:5231` with script 801 as a separate cast-scroll/cast-spawn family.

@@ -52,12 +52,14 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Seven source-form pilots are also
+byte-count seeds captured for semantic naming. Eight source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
-intro/presentation movement path clusters. Together they represent `4235` ROM
-bytes as labeled event/actionscript macro assembly.
+intro/presentation movement path and cast-scroll setup clusters. Together they
+represent `4287` ROM bytes as labeled event/actionscript macro assembly. The
+checked-in C3 source-pilot frontier ranks the remaining script spans so future
+promotion passes can start from the highest-value ready seams.
 
 ## For Romhackers
 
@@ -86,6 +88,8 @@ Good starting points:
 - `notes/c3-service-presentation-effects-source-pilot.md`
 - `notes/c3-itoi-production-intro-source-pilot.md`
 - `notes/c3-intro-presentation-paths-source-pilot.md`
+- `notes/c3-intro-cast-scroll-setup-source-pilot.md`
+- `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
 - `notes/map-object-bundles.md`
@@ -225,6 +229,8 @@ python tools/build_c3_event_script_source_pilot.py --family service-animation-he
 python tools/build_c3_event_script_source_pilot.py --family service-presentation-effects
 python tools/build_c3_event_script_source_pilot.py --family itoi-production-intro
 python tools/build_c3_event_script_source_pilot.py --family intro-presentation-paths
+python tools/build_c3_event_script_source_pilot.py --family intro-cast-scroll-setup
+python tools/build_c3_source_pilot_frontier.py
 ```
 
 Join map object visuals and behavior:
