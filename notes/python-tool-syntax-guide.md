@@ -408,6 +408,18 @@ dependencies:
 python tools/build_map_tileset_bundle_contract.py
 ```
 
+Audit the `.fts` export format without checking in payload rows:
+
+```powershell
+python tools/build_map_fts_format_audit.py
+```
+
+Render ignored grayscale previews from the audited 64-character tile rows:
+
+```powershell
+python tools/render_map_fts_tile_previews.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 

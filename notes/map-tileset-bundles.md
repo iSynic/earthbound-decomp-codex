@@ -57,6 +57,9 @@ The contract stores these as inferred component counts and SHA-1 hashes for
 future decoders. The exact split into graphics, metatiles, collision, and
 palette/setting data remains a follow-up decoding step.
 
+`notes/map-fts-format-audit.md` expands this into a checked format audit
+with per-section hashes, packed byte counts, and conservative component labels.
+
 ## Machine-Readable Data
 
 `notes/map-tileset-bundles.json` records one row per tileset ID with:

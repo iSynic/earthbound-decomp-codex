@@ -66,6 +66,7 @@ Good starting points:
 - `notes/map-object-layer-closure.md`
 - `notes/map-sector-bundles.md`
 - `notes/map-tileset-bundles.md`
+- `notes/map-fts-format-audit.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`
