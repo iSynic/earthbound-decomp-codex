@@ -368,6 +368,20 @@ composition path:
 python tools/build_secondary_visual_descriptor_contract.py
 ```
 
+Build prototype composed overworld sprite previews from the frame contract,
+secondary descriptor contract, and generated D1-D5 palette-00 previews:
+
+```powershell
+python tools/build_overworld_sprite_composed_previews.py
+```
+
+Render specific overworld sprite IDs or cap the number of slots per group:
+
+```powershell
+python tools/build_overworld_sprite_composed_previews.py --group-id 1 --group-id 7
+python tools/build_overworld_sprite_composed_previews.py --group-id 7 --slot-limit 4
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell
