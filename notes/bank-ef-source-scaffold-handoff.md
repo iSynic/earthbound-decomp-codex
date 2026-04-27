@@ -9,11 +9,11 @@ Bank `EF` is byte-complete for the current source-scaffold phase.
 - protected bytes: `65536 / 65536`
 - residual bytes: `0`
 - modules: `5`
-- source bytes: `0`
-- preserved data-gap bytes: `65536`
+- source bytes: `65536`
+- preserved data-gap bytes: `0`
 - byte-equivalence: `OK`, `0` mismatches
 
-EF is protected as coarse exact corridors for the mixed save/map/text/debug bank: one large inferred front/middle source-order span, debug font assets, a small debug palette/unknown span, debug cursor graphics, and the named late tail.
+EF is source-backed as coarse exact corridors for the mixed save/map/text/debug bank: one large inferred front/middle source-order span, debug font assets, a small debug palette/unknown span, debug cursor graphics, and the named late tail. These are explicit `db` source blocks, not decoded 65816 routines.
 
 ## Regenerate And Validate
 
@@ -36,5 +36,5 @@ Expected validation:
 
 - split the coarse EF:0000..EF:EB5F span into save/SRAM helpers, map tileset/sprite grouping tables, Sound Stone data, text runs, glyph tables, and debug routines
 - split EF:F0D7..EF:10000 into the named late tail includes from bank2F.asm
-- promote true EF source helpers separately instead of leaving them only as opaque data corridors
+- promote true EF source helpers separately where consumers prove they are executable code instead of opaque asset/data corridors
 - decode EF text-script families using D5/C1 consumers

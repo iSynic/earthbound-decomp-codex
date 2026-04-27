@@ -6,18 +6,18 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 - ranges: `5`
 - total bytes: `65536`
-- source bytes: `0`
-- data gap bytes: `65536`
+- source bytes: `65536`
+- data gap bytes: `0`
 
 ## Ranges
 
 | Level | Source Path | Range | Span Bytes | Source Bytes | Data Gap Bytes | SHA-1 |
 | --- | --- | --- | ---: | ---: | ---: | --- |
-| `build-candidate` | `src/ef/table_002_unknown_ef_ef00bb_asm.asm` | `EF:0000..EF:EB5F` | 60255 | 0 | 60255 | `72ac26c6a5d4500126dda954e33cace132286a4c` |
-| `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 0 | 1041 | `7d8195145f270d5d310df09b7c73a32cca868614` |
-| `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 0 | 71 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
-| `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 0 | 288 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
-| `build-candidate` | `src/ef/asset_bank_ef_gap_1_tailpadding.asm` | `EF:F0D7..EF:10000` | 3881 | 0 | 3881 | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
+| `build-candidate` | `src/ef/table_002_unknown_ef_ef00bb_asm.asm` | `EF:0000..EF:EB5F` | 60255 | 60255 | 0 | `72ac26c6a5d4500126dda954e33cace132286a4c` |
+| `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 1041 | 0 | `7d8195145f270d5d310df09b7c73a32cca868614` |
+| `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 71 | 0 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
+| `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 288 | 0 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
+| `build-candidate` | `src/ef/asset_bank_ef_gap_1_tailpadding.asm` | `EF:F0D7..EF:10000` | 3881 | 3881 | 0 | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
 
 ## Source Segments
 
@@ -25,11 +25,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `EF:0000..EF:EB5F` (`60255` bytes, SHA-1 `72ac26c6a5d4500126dda954e33cace132286a4c`) `TableEf00bb`
+| `EF:0000..EF:EB5F` | 60255 | `TableEf00bb` | `72ac26c6a5d4500126dda954e33cace132286a4c` |
 
 Labels:
 
@@ -46,11 +42,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `EF:EB5F..EF:EF70` (`1041` bytes, SHA-1 `7d8195145f270d5d310df09b7c73a32cca868614`) `AssetDebugMenuFont`
+| `EF:EB5F..EF:EF70` | 1041 | `AssetDebugMenuFont` | `7d8195145f270d5d310df09b7c73a32cca868614` |
 
 Labels:
 
@@ -67,11 +59,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `EF:EF70..EF:EFB7` (`71` bytes, SHA-1 `274b0fc73b39180dd07b1df5e5fd1077c481387d`) `TableEfef70`
+| `EF:EF70..EF:EFB7` | 71 | `TableEfef70` | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
 
 Labels:
 
@@ -88,11 +76,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `EF:EFB7..EF:F0D7` (`288` bytes, SHA-1 `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8`) `AssetDebugCursorGraphics`
+| `EF:EFB7..EF:F0D7` | 288 | `AssetDebugCursorGraphics` | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
 
 Labels:
 
@@ -109,11 +93,7 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| n/a | 0 | `data-only protected span` | n/a |
-
-Data gaps inside protected span:
-
-- `EF:F0D7..EF:10000` (`3881` bytes, SHA-1 `8e09b47444551098bd77c1dd73e19f0a9ba0a71f`) `AssetBankEFGap1TailPadding`
+| `EF:F0D7..EF:10000` | 3881 | `AssetBankEFGap1TailPadding` | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
 
 Labels:
 
