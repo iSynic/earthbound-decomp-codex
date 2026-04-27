@@ -433,6 +433,13 @@ window hashes into scene-composition metadata:
 python tools/build_map_scene_composition_contract.py
 ```
 
+Audit the unresolved third arrangement/collision byte in actual direct `.fts`
+scene use:
+
+```powershell
+python tools/build_map_collision_attribute_context.py
+```
+
 Render ignored map scene composition preview BMPs:
 
 ```powershell
