@@ -440,6 +440,13 @@ scene use:
 python tools/build_map_collision_attribute_context.py
 ```
 
+Audit descriptor palette-bit use against the six-subpalette bank DA map palette
+variant shape:
+
+```powershell
+python tools/build_map_palette_descriptor_context.py
+```
+
 Render ignored map scene composition preview BMPs:
 
 ```powershell
