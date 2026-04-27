@@ -1,12 +1,14 @@
-# Map FTS Animation/Settings Contract
+# Map FTS 290-Row Structural Contract
 
 This contract maps the variable 290-character section of each local EBDecomp
 `.fts` tileset export. It keeps the payload opaque but records the stable
-row/block shape needed for a later animation/settings decoder.
+row/block shape that led to the resolved palette-variant decoder.
 
-The working interpretation is tile-animation/settings metadata. This is based
-on its position in the `.fts` export, its variable row count, and reference
-labels for map tile animation graphics/properties near the map tileset data.
+The initial working label was tile-animation/settings metadata. That is now
+split: `notes/map-fts-palette-variant-contract.md` resolves these 290-character
+rows as map palette variant visual payloads, while
+`notes/map-tile-animation-runtime-contract.md` covers the separate C0/EF
+tile-animation runtime tables.
 
 ## Summary
 
@@ -20,14 +22,18 @@ labels for map tile animation graphics/properties near the map tileset data.
 - single-tileset-owned row groups: `32`
 - multi-tileset row groups: `0`
 - character set: `0123456789abcdefghijklmnopqrstuv`
-- referenced animation graphics payloads: `20`
+- separate runtime animation graphics payloads tracked elsewhere: `20`
 
 ## Row ID Distribution
 
 - groups: `0`:4, `1`:3, `2`:4, `3`:2, `4`:2, `5`:4, `6`:7, `7`:1, `8`:2, `9`:6, `a`:8, `b`:8, `c`:8, `d`:4, `e`:8, `f`:8, `g`:4, `h`:8, `i`:1, `j`:7, `k`:8, `l`:5, `m`:5, `n`:4, `o`:5, `p`:8, `q`:6, `r`:5, `s`:6, `t`:6, `u`:3, `v`:8
 - slots: `0`:32, `1`:30, `2`:27, `3`:25, `4`:19, `5`:15, `6`:11, `7`:9
 
-## Reference Anchors
+## Separate Runtime Animation Anchors
+
+These anchors are retained to document why the original broad working
+label included animation. They describe the separate C0/EF tile-animation
+runtime path, not the resolved 290-character palette payload rows.
 
 - WRAM runtime state: `$43DC..$445B` (`128` bytes) is labeled map tile animation data in `refs/community-earthbound-docs/RAM_map.txt`.
 - Legacy ROM map anchors compressed tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`.
@@ -40,10 +46,10 @@ labels for map tile animation graphics/properties near the map tileset data.
 ## Row ID Model
 
 The leading two characters of each 290-character row are now treated as a
-structural row ID: `row_id[0]` is the base32-like animation/settings group
-and `row_id[1]` is the slot within that group. This is a strong export-shape
-model, not yet a claim that the group number directly equals an EF property
-pointer index or compressed graphics ID.
+structural row ID: `row_id[0]` is the base32-like palette/tileset group
+and `row_id[1]` is the palette variant slot within that group. The
+resolved palette contract verifies this model against `MAP_DATA_PALETTE_N`
+assets and `map_palette_settings.yml`.
 
 | Group | Owner tileset(s) | Slots |
 | --- | --- | --- |

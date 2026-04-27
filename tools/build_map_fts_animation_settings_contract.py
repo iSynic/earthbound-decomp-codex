@@ -28,7 +28,7 @@ MAP_TILE_ANIMATION_RUNTIME_CONTRACT = ROOT / "notes" / "map-tile-animation-runti
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Audit the 290-character EBDecomp .fts tile-animation/settings rows."
+        description="Audit the 290-character EBDecomp .fts palette/settings rows."
     )
     parser.add_argument("--tileset-dir", default=str(DEFAULT_TILESET_DIR))
     parser.add_argument("--json-out", default=str(DEFAULT_JSON_OUT))
@@ -346,7 +346,7 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
     row_group_ownership = summarize_row_group_ownership(rows)
     return {
         "schema": SCHEMA,
-        "title": "Map FTS Animation/Settings Contract",
+        "title": "Map FTS 290-Row Structural Contract",
         "generator": "tools/build_map_fts_animation_settings_contract.py",
         "source_policy": (
             "Reference-derived structural contract. This records row IDs, hashes, "
@@ -369,8 +369,8 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             "All present .fts exports place the 290-character rows between tile-pixel rows and arrangement/collision rows.",
             "Each 290-character row splits evenly into 5 blocks of 58 base32-like characters.",
             "Row IDs use the same 0-v alphabet seen in the row payload, are unique across the local export set, and divide into a structural group/slot model.",
-            "Every observed row group is owned by one direct .fts export, matching a tileset-local animation/settings ownership model.",
-            "ebsrc and community ROM maps expose map tile animation graphics and WRAM animation state anchors near the tileset data; local runtime-table identity is now taken from the ROM-verified C0/EF contract.",
+            "Every observed row group is physically owned by one direct .fts export; the resolved palette contract now shows the row group itself is the map palette/tileset ID.",
+            "The dedicated palette-variant contract resolves these rows as DA map palette visual payloads. Map tile animation runtime identity is tracked separately by the ROM-verified C0/EF contract.",
         ],
         "reference_anchors": build_reference_anchors(),
         "summary": summarize(rows),
@@ -386,15 +386,17 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
     group_counts = ", ".join(f"`{item['group']}`:{item['count']}" for item in summary["row_group_counts"])
     slot_counts = ", ".join(f"`{item['slot']}`:{item['count']}" for item in summary["row_slot_counts"])
     lines = [
-        "# Map FTS Animation/Settings Contract",
+        "# Map FTS 290-Row Structural Contract",
         "",
         "This contract maps the variable 290-character section of each local EBDecomp",
         "`.fts` tileset export. It keeps the payload opaque but records the stable",
-        "row/block shape needed for a later animation/settings decoder.",
+        "row/block shape that led to the resolved palette-variant decoder.",
         "",
-        "The working interpretation is tile-animation/settings metadata. This is based",
-        "on its position in the `.fts` export, its variable row count, and reference",
-        "labels for map tile animation graphics/properties near the map tileset data.",
+        "The initial working label was tile-animation/settings metadata. That is now",
+        "split: `notes/map-fts-palette-variant-contract.md` resolves these 290-character",
+        "rows as map palette variant visual payloads, while",
+        "`notes/map-tile-animation-runtime-contract.md` covers the separate C0/EF",
+        "tile-animation runtime tables.",
         "",
         "## Summary",
         "",
@@ -408,14 +410,18 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
         f"- single-tileset-owned row groups: `{summary['single_tileset_owned_row_group_count']}`",
         f"- multi-tileset row groups: `{summary['multi_tileset_row_group_count']}`",
         f"- character set: `{summary['character_set']}`",
-        f"- referenced animation graphics payloads: `{anchors['asset_payload_summary']['count']}`",
+        f"- separate runtime animation graphics payloads tracked elsewhere: `{anchors['asset_payload_summary']['count']}`",
         "",
         "## Row ID Distribution",
         "",
         f"- groups: {group_counts}",
         f"- slots: {slot_counts}",
         "",
-        "## Reference Anchors",
+        "## Separate Runtime Animation Anchors",
+        "",
+        "These anchors are retained to document why the original broad working",
+        "label included animation. They describe the separate C0/EF tile-animation",
+        "runtime path, not the resolved 290-character palette payload rows.",
         "",
         f"- WRAM runtime state: `$43DC..$445B` (`{anchors['wram'][0]['byte_count']}` bytes) is labeled map tile animation data in `{anchors['wram'][0]['source']}`.",
         "- Legacy ROM map anchors compressed tile-animation character blocks at `0x1EF2E7..0x1EFEDC` and `0x1FC443..0x1FE6E0`.",
@@ -428,10 +434,10 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
         "## Row ID Model",
         "",
         "The leading two characters of each 290-character row are now treated as a",
-        "structural row ID: `row_id[0]` is the base32-like animation/settings group",
-        "and `row_id[1]` is the slot within that group. This is a strong export-shape",
-        "model, not yet a claim that the group number directly equals an EF property",
-        "pointer index or compressed graphics ID.",
+        "structural row ID: `row_id[0]` is the base32-like palette/tileset group",
+        "and `row_id[1]` is the palette variant slot within that group. The",
+        "resolved palette contract verifies this model against `MAP_DATA_PALETTE_N`",
+        "assets and `map_palette_settings.yml`.",
         "",
         "| Group | Owner tileset(s) | Slots |",
         "| --- | --- | --- |",

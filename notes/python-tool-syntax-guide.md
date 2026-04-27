@@ -420,11 +420,18 @@ Decode structural stats from the `.fts` arrangement/collision rows:
 python tools/build_map_fts_arrangement_contract.py
 ```
 
-Audit structural stats, ref anchors, and row-group/block profiles from the
-`.fts` tile-animation/settings rows:
+Audit structural stats and row-group/block profiles from the legacy `.fts`
+290-character rows:
 
 ```powershell
 python tools/build_map_fts_animation_settings_contract.py
+```
+
+Verify those 290-character rows as map palette variant visual payloads against
+bank DA palette assets and `map_palette_settings.yml`:
+
+```powershell
+python tools/build_map_fts_palette_variant_contract.py
 ```
 
 Verify the C0/EF map tile-animation graphics pointer table, upload-script
