@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Inspect `C3:4E73..C3:5F8B` next. It is much larger than this corridor, so split it into referenced sublabels or ebsrc include groups before deciding whether to emit it as one source-form family.
+The first split from the larger `C3:4E73..C3:5F8B` payload cluster is now emitted by `--family itoi-production-intro`; continue at `C3:4FC7`.

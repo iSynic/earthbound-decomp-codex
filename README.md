@@ -52,11 +52,12 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Five source-form pilots are also
+byte-count seeds captured for semantic naming. Six source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
-service-animation helper/event and presentation/effect clusters. Together they
-represent `3329` ROM bytes as labeled event/actionscript macro assembly.
+service-animation helper/event, presentation/effect, and Itoi production intro
+clusters. Together they represent `3669` ROM bytes as labeled event/actionscript
+macro assembly.
 
 ## For Romhackers
 
@@ -218,6 +219,7 @@ python tools/build_c3_event_script_source_pilot.py --family timed-delivery-contr
 python tools/build_c3_event_script_source_pilot.py --family service-event-movement
 python tools/build_c3_event_script_source_pilot.py --family service-animation-helpers
 python tools/build_c3_event_script_source_pilot.py --family service-presentation-effects
+python tools/build_c3_event_script_source_pilot.py --family itoi-production-intro
 ```
 
 Join map object visuals and behavior:

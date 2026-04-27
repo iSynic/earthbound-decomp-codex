@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `5` families, `3329` validated
+- Current source-form event/actionscript pilots: `6` families, `3669` validated
   bytes
 
 This means the byte layer is stable. The open work is semantic: opcode
@@ -171,7 +171,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: five pilots complete.
+Status: six pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -183,6 +183,9 @@ Status: five pilots complete.
   helpers and events, `C3:48C4..C3:4D39`, `1141` validated bytes.
 - `notes/c3-service-presentation-effects-source-pilot.md`: neighboring
   presentation/effect corridor, `C3:4D39..C3:4E73`, `314` validated bytes.
+- `notes/c3-itoi-production-intro-source-pilot.md`: first split from the large
+  `C3:4E73..C3:5F8B` payload cluster, `C3:4E73..C3:4FC7`, `340` validated
+  bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -194,7 +197,10 @@ Candidate/follow-up families for this milestone:
 - `C3:4508..C3:48C4` adjacent service-event movement scripts - pilot complete
 - `C3:48C4..C3:4D39` neighboring service animation helpers/events - pilot complete
 - `C3:4D39..C3:4E73` neighboring service presentation/effect corridor - pilot complete
-- `C3:4E73..C3:5F8B` larger event payload cluster - split before source-form promotion
+- `C3:4E73..C3:4FC7` Itoi production intro first split - pilot complete
+- `C3:4FC7..C3:5F8B` remaining intro/cast-scene movement payloads - split into
+  event 539, event 540-546, and script 799-801 groups before source-form
+  promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -213,6 +219,6 @@ Keep these out of the event VM decoder unless evidence changes:
 
 The movement pulse preset family, timed-delivery controller, adjacent
 service-event movement scripts, neighboring service-animation helper/event
-cluster, and presentation/effect corridor now have source-form pilots. Move next
-to `C3:4E73..C3:5F8B`, but split the larger payload into referenced sublabels
-or ebsrc include groups before source-form promotion.
+cluster, presentation/effect corridor, and first Itoi production intro split now
+have source-form pilots. Continue at `C3:4FC7`, beginning with event 539 and the
+subsequent event 540-546 movement paths before grouping scripts 799-801.
