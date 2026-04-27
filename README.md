@@ -199,6 +199,8 @@ High-use tools:
 - `lookup_data_contract.py`: query curated ROM/WRAM data contracts
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
+- `promote_linear_range_to_decoded_source.py`: replace one byte corridor with
+  decoded linear source and update the local range manifest
 - `add_source_bank_range.py`: register a source range in a bank manifest
 - `build_source_bank_scaffold.py`: regenerate a durable bank scaffold
 - `validate_source_bank_byte_equivalence.py`: prove generated source bytes match

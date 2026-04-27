@@ -261,6 +261,12 @@ Promote working-name corridors into source scaffolds:
 python tools/promote_working_names_to_source_scaffold.py --bank C2 --working-names build/working-names-c0-c2.json --force
 ```
 
+Promote one scaffolded byte corridor into decoded linear source:
+
+```powershell
+python tools/promote_linear_range_to_decoded_source.py --bank C0 --module c0_0085_install_landing_animated_graphics_strip --subsystem landing-display-decoded-source
+```
+
 ## Source Scaffold Tools
 
 Generate a source-bank scaffold:
