@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue the split at `C3:4FC7`, starting with event 539 and the subsequent event 540-546 movement paths before deciding how to group scripts 799-801.
+The subsequent event 539-546 movement paths are now emitted by `--family intro-presentation-paths`; continue at `C3:51FD` with scripts 799-800 before deciding how to handle the large cast-scroll script 801.
