@@ -19,6 +19,11 @@ from rom_tools import (
     verify_earthbound_us,
 )
 from decompress_c41a9e import decompress_blob
+from snes_palette import (
+    decode_snes_bgr555_palette,
+    write_palette_json,
+    write_palette_swatch_png,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -156,6 +161,27 @@ def write_grayscale_png(path: Path, rows: list[list[int]]) -> None:
     path.write_bytes(payload)
 
 
+def palette_entry_count(data: bytes, spec: dict[str, Any]) -> int | None:
+    count = spec.get("colors")
+    if count is None:
+        return None
+    return int(count)
+
+
+def write_snes_palette_json(data: bytes, path: Path, spec: dict[str, Any]) -> int:
+    entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
+    write_palette_json(path, entries)
+    return len(entries)
+
+
+def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any]) -> int:
+    entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
+    per_row = int(spec.get("per_row", 16))
+    swatch = int(spec.get("swatch", 16))
+    write_palette_swatch_png(path, entries, per_row=per_row, swatch=swatch)
+    return len(entries)
+
+
 def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
     if len(data) % 16 != 0:
         raise ValueError(f"SNES 2bpp tile data must be a multiple of 16 bytes, got {len(data)}")
@@ -240,6 +266,20 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any
         columns = int(spec.get("columns", 16))
         decompressed, consumed = decompress_earthbound_lzhal(data)
         write_grayscale_png(path, decode_snes_4bpp_tiles(decompressed, columns))
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "snes_palette_json":
+        metadata["colors"] = write_snes_palette_json(data, path, spec)
+    elif kind == "snes_palette_swatch_png":
+        metadata["colors"] = write_snes_palette_swatch_png(data, path, spec)
+    elif kind == "earthbound_lzhal_snes_palette_json":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        metadata["colors"] = write_snes_palette_json(decompressed, path, spec)
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "earthbound_lzhal_snes_palette_swatch_png":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        metadata["colors"] = write_snes_palette_swatch_png(decompressed, path, spec)
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
     else:

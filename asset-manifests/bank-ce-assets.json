@@ -1751,6 +1751,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/0.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/0_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/0_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1772,6 +1782,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/1.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/1_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/1_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1793,6 +1813,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/2.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/2_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/2_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1814,6 +1844,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/3.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/3_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/3_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1835,6 +1875,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/4.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/4_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/4_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1856,6 +1906,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/5.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/5_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/5_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1877,6 +1937,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/6.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/6_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/6_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1898,6 +1968,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/7.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/7_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/7_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1919,6 +1999,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/8.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/8_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/8_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1940,6 +2030,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/9.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/9_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/9_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1961,6 +2061,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/10.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/10_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/10_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1982,6 +2092,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/11.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/11_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/11_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2003,6 +2123,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/12.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/12_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/12_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2024,6 +2154,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/13.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/13_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/13_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2045,6 +2185,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/14.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/14_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/14_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2066,6 +2216,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/15.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/15_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/15_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2087,6 +2247,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/16.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/16_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/16_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2108,6 +2278,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/17.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/17_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/17_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2129,6 +2309,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/18.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/18_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/18_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2150,6 +2340,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/19.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/19_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/19_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2171,6 +2371,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/20.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/20_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/20_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2192,6 +2402,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/21.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/21_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/21_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2213,6 +2433,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/22.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/22_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/22_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2234,6 +2464,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/23.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/23_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/23_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2255,6 +2495,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/24.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/24_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/24_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2276,6 +2526,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/25.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/25_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/25_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2297,6 +2557,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/26.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/26_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/26_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2318,6 +2588,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/27.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/27_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/27_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2339,6 +2619,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/28.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/28_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/28_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2360,6 +2650,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/29.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/29_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/29_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2381,6 +2681,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/30.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/30_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/30_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -2402,6 +2712,16 @@
         {
           "kind": "raw",
           "path": "ce/battle_sprites/palettes/31.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/battle_sprites/palettes/31_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/battle_sprites/palettes/31_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5100,6 +5420,16 @@
         {
           "kind": "raw",
           "path": "ce/sound_stone.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "ce/sound_stone_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "ce/sound_stone_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [

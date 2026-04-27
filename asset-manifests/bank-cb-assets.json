@@ -4313,6 +4313,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/113.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/113_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/113_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4334,6 +4344,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/112.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/112_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/112_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4355,6 +4375,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/111.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/111_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/111_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4376,6 +4406,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/110.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/110_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/110_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4397,6 +4437,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/109.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/109_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/109_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4418,6 +4468,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/107.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/107_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/107_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4439,6 +4499,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/106.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/106_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/106_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4460,6 +4530,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/105.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/105_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/105_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4481,6 +4561,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/104.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/104_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/104_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4502,6 +4592,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/103.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/103_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/103_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4523,6 +4623,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/101.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/101_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/101_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4544,6 +4654,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/100.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/100_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/100_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4565,6 +4685,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/99.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/99_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/99_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4586,6 +4716,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/98.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/98_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/98_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4607,6 +4747,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/97.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/97_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/97_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4628,6 +4778,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/96.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/96_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/96_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4649,6 +4809,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/93.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/93_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/93_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4670,6 +4840,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/92.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/92_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/92_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4691,6 +4871,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/91.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/91_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/91_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4712,6 +4902,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/90.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/90_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/90_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4733,6 +4933,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/89.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/89_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/89_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4754,6 +4964,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/88.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/88_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/88_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4775,6 +4995,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/87.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/87_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/87_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4796,6 +5026,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/86.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/86_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/86_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4817,6 +5057,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/85.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/85_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/85_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4838,6 +5088,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/84.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/84_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/84_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4859,6 +5119,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/83.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/83_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/83_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4880,6 +5150,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/82.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/82_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/82_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4901,6 +5181,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/79.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/79_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/79_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4922,6 +5212,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/77.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/77_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/77_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4943,6 +5243,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/73.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/73_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/73_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4964,6 +5274,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/70.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/70_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/70_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -4985,6 +5305,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/55.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/55_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/55_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5006,6 +5336,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/54.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/54_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/54_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5027,6 +5367,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/53.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/53_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/53_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5048,6 +5398,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/52.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/52_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/52_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5069,6 +5429,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/51.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/51_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/51_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5090,6 +5460,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/50.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/50_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/50_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5111,6 +5491,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/49.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/49_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/49_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5132,6 +5522,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/48.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/48_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/48_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5153,6 +5553,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/47.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/47_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/47_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5174,6 +5584,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/46.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/46_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/46_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5195,6 +5615,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/45.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/45_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/45_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5216,6 +5646,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/44.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/44_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/44_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5237,6 +5677,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/43.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/43_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/43_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5258,6 +5708,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/42.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/42_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/42_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5279,6 +5739,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/41.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/41_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/41_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5300,6 +5770,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/40.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/40_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/40_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5321,6 +5801,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/39.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/39_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/39_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5342,6 +5832,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/38.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/38_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/38_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5363,6 +5863,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/37.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/37_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/37_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5384,6 +5894,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/36.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/36_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/36_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5405,6 +5925,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/35.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/35_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/35_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5426,6 +5956,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/34.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/34_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/34_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5447,6 +5987,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/33.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/33_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/33_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5468,6 +6018,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/32.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/32_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/32_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5489,6 +6049,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/31.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/31_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/31_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5510,6 +6080,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/30.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/30_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/30_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5531,6 +6111,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/29.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/29_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/29_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5552,6 +6142,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/28.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/28_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/28_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5573,6 +6173,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/27.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/27_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/27_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5594,6 +6204,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/26.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/26_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/26_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5615,6 +6235,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/25.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/25_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/25_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5636,6 +6266,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/24.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/24_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/24_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5657,6 +6297,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/23.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/23_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/23_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5678,6 +6328,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/21.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/21_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/21_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5699,6 +6359,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/20.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/20_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/20_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5720,6 +6390,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/19.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/19_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/19_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5741,6 +6421,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/18.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/18_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/18_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5762,6 +6452,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/17.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/17_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/17_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5783,6 +6483,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/16.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/16_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/16_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5804,6 +6514,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/15.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/15_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/15_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5825,6 +6545,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/14.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/14_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/14_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5846,6 +6576,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/13.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/13_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/13_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5867,6 +6607,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/12.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/12_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/12_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5888,6 +6638,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/11.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/11_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/11_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5909,6 +6669,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/10.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/10_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/10_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5930,6 +6700,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/9.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/9_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/9_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5951,6 +6731,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/8.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/8_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/8_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5972,6 +6762,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/7.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/7_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/7_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -5993,6 +6793,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/6.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/6_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/6_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6014,6 +6824,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/5.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/5_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/5_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6035,6 +6855,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/4.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/4_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/4_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6056,6 +6886,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/3.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/3_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/3_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6077,6 +6917,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/2.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/2_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/2_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6098,6 +6948,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/1.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/1_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/1_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6326,6 +7186,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/108.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/108_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/108_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6347,6 +7217,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/102.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/102_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/102_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6368,6 +7248,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/95.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/95_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/95_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6389,6 +7279,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/94.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/94_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/94_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6410,6 +7310,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/81.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/81_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/81_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6431,6 +7341,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/80.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/80_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/80_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6452,6 +7372,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/78.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/78_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/78_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6473,6 +7403,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/76.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/76_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/76_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6494,6 +7434,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/75.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/75_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/75_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6515,6 +7465,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/74.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/74_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/74_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6536,6 +7496,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/72.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/72_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/72_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6557,6 +7527,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/71.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/71_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/71_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6578,6 +7558,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/69.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/69_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/69_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6599,6 +7589,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/68.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/68_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/68_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6620,6 +7620,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/67.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/67_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/67_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6641,6 +7651,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/66.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/66_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/66_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6662,6 +7682,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/65.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/65_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/65_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6683,6 +7713,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/64.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/64_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/64_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6704,6 +7744,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/63.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/63_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/63_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6725,6 +7775,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/62.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/62_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/62_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6746,6 +7806,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/61.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/61_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/61_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6767,6 +7837,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/60.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/60_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/60_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6788,6 +7868,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/59.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/59_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/59_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6809,6 +7899,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/58.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/58_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/58_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6830,6 +7930,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/57.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/57_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/57_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6851,6 +7961,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/56.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/56_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/56_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6872,6 +7992,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/22.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/22_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/22_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -6893,6 +8023,16 @@
         {
           "kind": "raw",
           "path": "cb/battle_bgs/palettes/0.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cb/battle_bgs/palettes/0_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cb/battle_bgs/palettes/0_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [

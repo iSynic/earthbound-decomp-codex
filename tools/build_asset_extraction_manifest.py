@@ -124,6 +124,11 @@ def preview_path(raw_path: str, suffix: str) -> str:
     return path.with_name(f"{path.stem}_{suffix}.png").as_posix()
 
 
+def sidecar_path(raw_path: str, suffix: str, extension: str) -> str:
+    path = Path(raw_path)
+    return path.with_name(f"{path.stem}_{suffix}{extension}").as_posix()
+
+
 def without_lzhal_suffix(raw_path: str) -> str:
     if raw_path.lower().endswith(".lzhal"):
         return raw_path[:-6]
@@ -152,6 +157,22 @@ def lzhal_decompressed_size(rom: bytes, entry: dict[str, Any]) -> int | None:
     return len(decompressed)
 
 
+def palette_outputs(raw_path: str, compressed: bool) -> list[dict[str, Any]]:
+    prefix = "earthbound_lzhal_" if compressed else ""
+    return [
+        {
+            "kind": f"{prefix}snes_palette_json",
+            "path": sidecar_path(raw_path, "palette", ".json"),
+        },
+        {
+            "kind": f"{prefix}snes_palette_swatch_png",
+            "path": sidecar_path(raw_path, "palette", ".png"),
+            "per_row": 16,
+            "swatch": 16,
+        },
+    ]
+
+
 def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
@@ -169,6 +190,8 @@ def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[st
             }
         )
         decompressed_size = lzhal_decompressed_size(rom, entry)
+        if extension == "pal" and decompressed_size is not None and decompressed_size % 2 == 0:
+            outputs.extend(palette_outputs(decompressed_path, compressed=True))
         if extension == "gfx" and decompressed_size is not None and decompressed_size % 32 == 0:
             outputs.append(
                 {
@@ -187,6 +210,8 @@ def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[st
                 "columns": 8,
             }
         )
+    if extension == "pal" and not compressed and size % 2 == 0:
+        outputs.extend(palette_outputs(raw_path, compressed=False))
     return outputs
 
 

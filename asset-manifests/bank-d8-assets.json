@@ -103,6 +103,16 @@
         {
           "kind": "raw",
           "path": "d8/errors/shared.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "d8/errors/shared_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "d8/errors/shared_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [

@@ -40,14 +40,15 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 
 ## Decoder Roadmap
 
-- **Near term**: raw ROM slices, 2bpp tile preview PNGs, extraction reports.
-- **Next**: SNES palettes, palette-aware tile rendering, tilemaps, BRR/sample packs, text tables, and map sector data.
+- **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, extraction reports.
+- **Next**: palette-aware tile rendering, palette table splitting, tilemaps, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
 ## Tooling Path
 
 - `tools/build_asset_extraction_manifest.py` converts the existing `asset-bank-xx.json` layout data into checked-in extraction manifests.
 - `tools/extract_assets.py` consumes those manifests and writes local ROM-derived outputs under `build/assets/`.
+- `tools/snes_palette.py` provides the shared SNES BGR555 palette decoder used by the extraction pipeline.
 - `tools/validate_asset_manifests.py` validates all checked-in manifests, checks duplicate asset IDs, and can run a full local extraction pass.
 - Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
 

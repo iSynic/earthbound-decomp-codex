@@ -8,9 +8,13 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 
 - manifests: `38`
 - assets: `2218`
-- output recipes: `4073`
+- output recipes: `4525`
 - raw ROM-backed outputs: `2218`
 - LZHAL decompressed outputs: `466`
+- SNES palette JSON recipes: `216`
+- SNES palette swatch PNG recipes: `216`
+- LZHAL-decompressed SNES palette JSON recipes: `10`
+- LZHAL-decompressed SNES palette swatch PNG recipes: `10`
 - SNES 4bpp preview PNG recipes: `1151`
 - LZHAL-decompressed SNES 4bpp preview PNG recipes: `237`
 - SNES 2bpp preview PNG recipes: `1`
@@ -35,6 +39,7 @@ EF remains hand-curated for now because its manifest intentionally names the deb
 
 - `tools/build_asset_extraction_manifest.py` converts `build/asset-bank-xx.json` layout data into `asset-manifest.v1`.
 - `tools/extract_assets.py` extracts assets and writes per-manifest reports under ignored `build/assets/`.
+- `tools/snes_palette.py` decodes SNES BGR555 palette words and writes JSON plus PNG swatch previews.
 - `tools/validate_asset_manifests.py` validates every manifest, checks duplicate IDs, and can run the full extraction pass.
 
 ## Validation
@@ -49,7 +54,7 @@ Result:
 
 - validated `38` manifests
 - validated `2218` assets
-- validated `4073` output recipes
+- validated `4525` output recipes
 - extracted every manifest against the local EarthBound US ROM
 - all manifest range SHA-1 checks passed
 - generated reports stayed under ignored `build/assets/`
@@ -59,10 +64,11 @@ Result:
 - Generated table IDs include source order so repeated generic includes such as `inline:WORD` cannot collide.
 - Uncompressed `.gfx` payloads whose byte length is a multiple of 32 get a grayscale `snes_4bpp_tiles_png` preview recipe.
 - Compressed `.lzhal` assets now emit decompressed local outputs. Decompressed `.gfx` payloads whose byte length is a multiple of 32 also get grayscale `earthbound_lzhal_snes_4bpp_tiles_png` preview recipes.
+- Uncompressed `.pal` payloads now emit decoded SNES BGR555 JSON plus RGB swatch PNG previews. Compressed `.pal.lzhal` payloads get the same decoded outputs after LZHAL decompression.
 
 ## Next Useful Decoders
 
-1. SNES palette decoding for `.pal` payloads and palette tables.
-2. Palette-aware PNG rendering for decompressed battle backgrounds, battle sprites, and overworld sprites.
+1. Palette-aware PNG rendering for decompressed battle backgrounds, battle sprites, and overworld sprites.
+2. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
 3. Sprite group metadata decoding so overworld sprite graphics can become engine-facing animation/frame records.
 4. BRR/audio pack manifests split into sample/song/pack-level contracts.

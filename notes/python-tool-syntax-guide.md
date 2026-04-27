@@ -335,6 +335,12 @@ Inspect SNES palette words:
 python tools/inspect_snes_palette.py C4:3492 --count 8
 ```
 
+Generate ROM-backed palette JSON and swatch PNG outputs from checked-in manifests:
+
+```powershell
+python tools/validate_asset_manifests.py --extract
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell

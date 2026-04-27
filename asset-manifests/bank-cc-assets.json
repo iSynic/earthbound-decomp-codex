@@ -1196,6 +1196,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/00.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/00_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/00_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1217,6 +1227,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/01.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/01_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/01_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1238,6 +1258,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/02.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/02_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/02_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1259,6 +1289,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/03.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/03_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/03_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1280,6 +1320,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/04.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/04_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/04_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1301,6 +1351,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/05.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/05_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/05_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1322,6 +1382,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/06.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/06_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/06_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1343,6 +1413,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/07.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/07_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/07_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1364,6 +1444,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/08.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/08_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/08_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1385,6 +1475,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/09.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/09_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/09_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1406,6 +1506,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/10.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/10_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/10_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1427,6 +1537,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/11.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/11_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/11_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1448,6 +1568,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/12.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/12_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/12_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1469,6 +1599,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/13.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/13_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/13_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1490,6 +1630,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/14.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/14_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/14_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1511,6 +1661,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/15.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/15_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/15_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1532,6 +1692,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/16.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/16_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/16_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1553,6 +1723,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/17.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/17_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/17_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1574,6 +1754,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/18.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/18_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/18_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1595,6 +1785,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/19.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/19_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/19_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1616,6 +1816,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/20.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/20_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/20_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1637,6 +1847,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/21.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/21_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/21_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1658,6 +1878,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/22.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/22_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/22_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1679,6 +1909,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/23.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/23_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/23_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1700,6 +1940,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/24.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/24_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/24_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1721,6 +1971,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/25.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/25_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/25_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1742,6 +2002,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/26.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/26_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/26_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1763,6 +2033,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/27.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/27_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/27_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1784,6 +2064,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/28.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/28_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/28_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1805,6 +2095,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/29.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/29_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/29_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1826,6 +2126,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/30.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/30_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/30_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1847,6 +2157,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/31.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/31_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/31_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1868,6 +2188,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/32.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/32_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/32_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
@@ -1889,6 +2219,16 @@
         {
           "kind": "raw",
           "path": "cc/psianims/palettes/33.pal"
+        },
+        {
+          "kind": "snes_palette_json",
+          "path": "cc/psianims/palettes/33_palette.json"
+        },
+        {
+          "kind": "snes_palette_swatch_png",
+          "path": "cc/psianims/palettes/33_palette.png",
+          "per_row": 16,
+          "swatch": 16
         }
       ],
       "notes": [
