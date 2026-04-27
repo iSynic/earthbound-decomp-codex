@@ -218,7 +218,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -317,7 +317,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -412,7 +412,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -507,7 +507,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -598,7 +598,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -685,7 +685,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -804,7 +804,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -903,7 +903,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1002,7 +1002,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1089,7 +1089,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1180,7 +1180,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1271,7 +1271,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1366,7 +1366,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1473,7 +1473,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1568,7 +1568,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1659,7 +1659,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1750,7 +1750,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1837,7 +1837,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -1940,7 +1940,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,
@@ -2035,7 +2035,7 @@
       ],
       "cell_count": 16384,
       "cell_shape": {
-        "attribute_byte_layout": "unresolved collision/behavior byte candidate",
+        "attribute_byte_layout": "tile collision/behavior byte; storage is ROM-verified by notes/map-collision-pointer-contract.json",
         "bytes_per_cell": 3,
         "cell_grid_height": 4,
         "cell_grid_width": 4,

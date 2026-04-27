@@ -70,6 +70,11 @@ Good starting points:
 - `notes/map-fts-arrangement-contract.md`
 - `notes/map-fts-animation-settings-contract.md`
 - `notes/map-scene-composition-contract.md`
+- `notes/map-collision-attribute-context.md`
+- `notes/map-collision-pointer-contract.md`
+- `notes/map-palette-descriptor-context.md`
+- `notes/map-palette-pointer-table-contract.md`
+- `notes/map-palette-command-usage-contract.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`

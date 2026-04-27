@@ -3,9 +3,10 @@
 This contract decodes the 96-character section of each local EBDecomp `.fts`
 tileset export as `1024` arrangement/collision records.
 
-The naming is intentionally cautious: reference labels and the row shape both
-point at tile arrangement plus collision/behavior data, but the final meaning
-of the third byte in each cell still needs runtime corroboration.
+The first two bytes in each cell are the BG tilemap descriptor. The
+third byte is now storage-verified as the tile collision/behavior byte
+by `notes/map-collision-pointer-contract.md`; only its exact low-bit
+gameplay meanings remain under runtime naming.
 
 ## Summary
 
@@ -27,7 +28,7 @@ of the third byte in each cell still needs runtime corroboration.
 | Offset In Cell | Size | Working Name | Status |
 | ---: | ---: | --- | --- |
 | 0 | 2 | `descriptor_word_le` | high-confidence SNES BG tilemap-word candidate |
-| 2 | 1 | `attribute_byte` | unresolved collision/behavior candidate |
+| 2 | 1 | `collision_attribute_byte` | ROM-verified tile collision/behavior byte; low-bit gameplay names still pending |
 
 `descriptor_word_le` cleanly yields normal SNES tilemap fields: tile index
 bits `0-9`, palette bits `10-12`, priority bit `13`, horizontal flip bit
