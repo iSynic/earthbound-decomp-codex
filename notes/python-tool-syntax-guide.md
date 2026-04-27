@@ -368,6 +368,13 @@ composition path:
 python tools/build_secondary_visual_descriptor_contract.py
 ```
 
+Promote resolved overworld sprite slots into art-facing direction, phase, and
+descriptor-pass roles:
+
+```powershell
+python tools/build_overworld_sprite_animation_role_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 
