@@ -1,0 +1,328 @@
+from __future__ import annotations
+
+import argparse
+import binascii
+import hashlib
+import json
+import math
+import struct
+import zlib
+from pathlib import Path
+from typing import Any
+
+from rom_tools import (
+    EXPECTED_SHA1,
+    find_rom,
+    hirom_to_file_offset,
+    load_rom,
+    read_rom_info,
+    verify_earthbound_us,
+)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Extract manifest-described assets from a user-supplied ROM."
+    )
+    parser.add_argument(
+        "--manifest",
+        required=True,
+        help="Path to an asset manifest JSON file.",
+    )
+    parser.add_argument(
+        "--rom",
+        default=None,
+        help="Path to the EarthBound ROM. Defaults to the usual workspace locations.",
+    )
+    parser.add_argument(
+        "--out",
+        default=None,
+        help="Output root. Defaults to manifest source_policy.default_output_root or build/assets.",
+    )
+    parser.add_argument(
+        "--asset-id",
+        action="append",
+        default=[],
+        help="Extract only a specific asset ID. Can be passed more than once.",
+    )
+    parser.add_argument(
+        "--allow-rom-mismatch",
+        action="store_true",
+        help="Continue when the ROM header/SHA-1 does not match EarthBound US.",
+    )
+    parser.add_argument(
+        "--allow-range-mismatch",
+        action="store_true",
+        help="Write outputs even when a manifest range SHA-1 does not match.",
+    )
+    return parser.parse_args()
+
+
+def load_manifest(path: Path) -> dict[str, Any]:
+    with path.open("r", encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    if manifest.get("schema") != "earthbound-decomp.asset-manifest.v1":
+        raise ValueError(f"Unsupported manifest schema in {path}")
+    if not isinstance(manifest.get("assets"), list):
+        raise ValueError(f"Manifest has no assets list: {path}")
+    return manifest
+
+
+def parse_bank_range(text: str) -> tuple[int, int, int]:
+    try:
+        start_text, end_text = text.split("..", 1)
+        start_bank_text, start_addr_text = start_text.split(":", 1)
+        end_bank_text, end_addr_text = end_text.split(":", 1)
+    except ValueError as exc:
+        raise ValueError(f"Invalid range {text!r}; expected BB:AAAA..BB:AAAA") from exc
+
+    start_bank = int(start_bank_text, 16)
+    end_bank = int(end_bank_text, 16)
+    if start_bank != end_bank:
+        raise ValueError(f"Cross-bank ranges are not supported yet: {text}")
+
+    start_addr = int(start_addr_text, 16)
+    end_addr = int(end_addr_text, 16)
+    if not 0 <= start_addr <= 0x10000 or not 0 <= end_addr <= 0x10000:
+        raise ValueError(f"Range address outside bank bounds: {text}")
+    if end_addr < start_addr:
+        raise ValueError(f"Range end precedes start: {text}")
+    return start_bank, start_addr, end_addr
+
+
+def rom_range_slice(rom: bytes, range_text: str) -> tuple[bytes, int]:
+    bank, start_addr, end_addr = parse_bank_range(range_text)
+    start_offset = hirom_to_file_offset(bank, start_addr, len(rom))
+    if start_offset is None:
+        raise ValueError(f"Range start is not a ROM address: {range_text}")
+
+    length = end_addr - start_addr
+    end_offset = start_offset + length
+    if end_offset > len(rom):
+        raise ValueError(
+            f"Range {range_text} extends past ROM EOF: 0x{end_offset:06X} > 0x{len(rom):06X}"
+        )
+    return rom[start_offset:end_offset], start_offset
+
+
+def output_path(root: Path, relative_path: str) -> Path:
+    path = root / relative_path
+    resolved_root = root.resolve()
+    resolved_path = path.resolve()
+    if resolved_root != resolved_path and resolved_root not in resolved_path.parents:
+        raise ValueError(f"Output escapes root: {relative_path}")
+    return path
+
+
+def write_raw(data: bytes, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(data)
+
+
+def png_chunk(kind: bytes, data: bytes) -> bytes:
+    return (
+        struct.pack(">I", len(data))
+        + kind
+        + data
+        + struct.pack(">I", binascii.crc32(kind + data) & 0xFFFFFFFF)
+    )
+
+
+def write_grayscale_png(path: Path, rows: list[list[int]]) -> None:
+    if not rows or not rows[0]:
+        raise ValueError("Cannot write an empty PNG")
+    width = len(rows[0])
+    height = len(rows)
+    for row in rows:
+        if len(row) != width:
+            raise ValueError("PNG rows have inconsistent widths")
+
+    raw = b"".join(bytes([0]) + bytes(row) for row in rows)
+    payload = b"\x89PNG\r\n\x1a\n"
+    payload += png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0))
+    payload += png_chunk(b"IDAT", zlib.compress(raw))
+    payload += png_chunk(b"IEND", b"")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(payload)
+
+
+def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
+    if len(data) % 16 != 0:
+        raise ValueError(f"SNES 2bpp tile data must be a multiple of 16 bytes, got {len(data)}")
+    if columns <= 0:
+        raise ValueError("Tile preview columns must be positive")
+
+    tile_count = len(data) // 16
+    rows_of_tiles = math.ceil(tile_count / columns)
+    pixels = [[255 for _ in range(columns * 8)] for _ in range(rows_of_tiles * 8)]
+    palette = [255, 170, 85, 0]
+
+    for tile_index in range(tile_count):
+        tile_x = (tile_index % columns) * 8
+        tile_y = (tile_index // columns) * 8
+        tile = data[tile_index * 16 : (tile_index + 1) * 16]
+        for y in range(8):
+            low = tile[y * 2]
+            high = tile[y * 2 + 1]
+            for x in range(8):
+                bit = 7 - x
+                color = ((high >> bit) & 1) << 1 | ((low >> bit) & 1)
+                pixels[tile_y + y][tile_x + x] = palette[color]
+
+    return pixels
+
+
+def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any]:
+    kind = spec.get("kind")
+    relative_path = spec.get("path")
+    if not isinstance(kind, str) or not isinstance(relative_path, str):
+        raise ValueError(f"Output spec must include string kind/path: {spec!r}")
+
+    path = output_path(root, relative_path)
+    if kind == "raw":
+        write_raw(data, path)
+    elif kind == "snes_2bpp_tiles_png":
+        columns = int(spec.get("columns", 16))
+        write_grayscale_png(path, decode_snes_2bpp_tiles(data, columns))
+    else:
+        raise ValueError(f"Unsupported output kind: {kind}")
+
+    output_data = path.read_bytes()
+    return {
+        "kind": kind,
+        "path": str(path),
+        "bytes": len(output_data),
+        "sha1": hashlib.sha1(output_data).hexdigest(),
+    }
+
+
+def asset_source(asset: dict[str, Any]) -> dict[str, Any]:
+    source = asset.get("source")
+    if not isinstance(source, dict):
+        raise ValueError(f"Asset {asset.get('id', '<missing>')} has no source object")
+    if source.get("type") != "rom-range":
+        raise ValueError(f"Only rom-range sources are supported: {asset.get('id')}")
+    return source
+
+
+def extract_assets(
+    manifest: dict[str, Any],
+    manifest_path: Path,
+    rom_path: Path,
+    rom: bytes,
+    out_root: Path,
+    selected_ids: set[str],
+    allow_range_mismatch: bool,
+) -> dict[str, Any]:
+    extracted: list[dict[str, Any]] = []
+
+    for asset in manifest["assets"]:
+        asset_id = asset.get("id")
+        if not isinstance(asset_id, str):
+            raise ValueError(f"Asset is missing string id: {asset!r}")
+        if selected_ids and asset_id not in selected_ids:
+            continue
+
+        source = asset_source(asset)
+        range_text = source.get("range")
+        if not isinstance(range_text, str):
+            raise ValueError(f"Asset {asset_id} has no source range")
+
+        data, file_offset = rom_range_slice(rom, range_text)
+        expected_bytes = source.get("bytes")
+        if expected_bytes is not None and len(data) != int(expected_bytes):
+            raise ValueError(
+                f"{asset_id}: expected {expected_bytes} bytes from {range_text}, got {len(data)}"
+            )
+
+        actual_sha1 = hashlib.sha1(data).hexdigest()
+        expected_sha1 = source.get("sha1")
+        sha1_ok = expected_sha1 is None or actual_sha1 == expected_sha1
+        if not sha1_ok and not allow_range_mismatch:
+            raise ValueError(
+                f"{asset_id}: range SHA-1 mismatch for {range_text}: "
+                f"expected {expected_sha1}, got {actual_sha1}"
+            )
+
+        outputs = asset.get("outputs", [])
+        if not isinstance(outputs, list):
+            raise ValueError(f"Asset {asset_id} outputs must be a list")
+
+        written = [write_output(data, out_root, spec) for spec in outputs]
+        extracted.append(
+            {
+                "id": asset_id,
+                "title": asset.get("title"),
+                "range": range_text,
+                "file_offset": f"0x{file_offset:06X}",
+                "bytes": len(data),
+                "sha1": actual_sha1,
+                "sha1_ok": sha1_ok,
+                "outputs": written,
+            }
+        )
+
+    unknown_ids = selected_ids - {asset["id"] for asset in manifest["assets"]}
+    if unknown_ids:
+        raise ValueError(f"Requested asset IDs not found in manifest: {sorted(unknown_ids)}")
+
+    return {
+        "schema": "earthbound-decomp.asset-extraction-report.v1",
+        "manifest": str(manifest_path),
+        "rom": str(rom_path),
+        "rom_sha1": hashlib.sha1(rom).hexdigest(),
+        "output_root": str(out_root),
+        "asset_count": len(extracted),
+        "assets": extracted,
+    }
+
+
+def main() -> int:
+    args = parse_args()
+    manifest_path = Path(args.manifest).resolve()
+    manifest = load_manifest(manifest_path)
+
+    rom_path = find_rom(args.rom)
+    rom = load_rom(rom_path)
+    rom_info = read_rom_info(rom_path)
+    problems = verify_earthbound_us(rom_info)
+    if problems and not args.allow_rom_mismatch:
+        formatted = "\n".join(f"- {problem}" for problem in problems)
+        raise SystemExit(
+            "ROM did not match expected EarthBound US metadata:\n"
+            f"{formatted}\n"
+            f"Expected SHA-1: {EXPECTED_SHA1}"
+        )
+
+    out_root = Path(
+        args.out
+        or manifest.get("source_policy", {}).get("default_output_root")
+        or "build/assets"
+    ).resolve()
+
+    report = extract_assets(
+        manifest=manifest,
+        manifest_path=manifest_path,
+        rom_path=rom_path,
+        rom=rom,
+        out_root=out_root,
+        selected_ids=set(args.asset_id),
+        allow_range_mismatch=args.allow_range_mismatch,
+    )
+    report["rom_verified"] = not problems
+    report["rom_info"] = rom_info.to_dict()
+
+    report_path = out_root / "asset-extraction-report.json"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+
+    print(
+        f"Extracted {report['asset_count']} assets from {manifest_path.name} "
+        f"to {out_root}"
+    )
+    print(f"Wrote report: {report_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

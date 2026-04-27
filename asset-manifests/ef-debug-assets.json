@@ -1,0 +1,127 @@
+{
+  "schema": "earthbound-decomp.asset-manifest.v1",
+  "game": "earthbound-us",
+  "title": "Bank EF debug and late-tail asset seed",
+  "source_policy": {
+    "requires_user_supplied_rom": true,
+    "do_not_commit_generated_outputs": true,
+    "default_output_root": "build/assets"
+  },
+  "references": [
+    "notes/bank-ef-asset-data-map.md",
+    "notes/ef-build-candidate-ranges.md",
+    "notes/ef-byte-equivalence-validation.md",
+    "src/ef/bank_ef_helpers_asar.asm"
+  ],
+  "assets": [
+    {
+      "id": "table.ef.front_mixed_data_code",
+      "title": "EF front mixed table/code corridor",
+      "category": "raw-preserved-corridor",
+      "source": {
+        "type": "rom-range",
+        "range": "EF:0000..EF:EB5F",
+        "bytes": 60255,
+        "sha1": "72ac26c6a5d4500126dda954e33cace132286a4c"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "ef/front_mixed_data_code.bin"
+        }
+      ],
+      "notes": [
+        "Coarse source-backed corridor from the EF scaffold; split into semantic assets as EF is decoded further.",
+        "Includes save helpers, map/tile/sprite tables, text data, and debug routines according to bank2F reference includes."
+      ]
+    },
+    {
+      "id": "asset.debug.menu_font",
+      "title": "Debug menu font graphics",
+      "category": "graphics",
+      "source": {
+        "type": "rom-range",
+        "range": "EF:EB5F..EF:EF70",
+        "bytes": 1041,
+        "sha1": "7d8195145f270d5d310df09b7c73a32cca868614"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "ef/debug_menu_font.gfx"
+        }
+      ],
+      "notes": [
+        "Named DEBUG_MENU_FONT in the EF asset map and asset_debug_menu_font.asm.",
+        "Kept raw until the exact debug font packing is documented."
+      ]
+    },
+    {
+      "id": "table.ef.debug_font_palette_or_unknown",
+      "title": "Debug font palette or adjacent EF table",
+      "category": "raw-table",
+      "source": {
+        "type": "rom-range",
+        "range": "EF:EF70..EF:EFB7",
+        "bytes": 71,
+        "sha1": "274b0fc73b39180dd07b1df5e5fd1077c481387d"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "ef/debug_font_palette_or_unknown.bin"
+        }
+      ],
+      "notes": [
+        "Source order places data/debug/debug_font_palette.asm inside this span, but the exact field split is not yet isolated."
+      ]
+    },
+    {
+      "id": "asset.debug.cursor_graphics",
+      "title": "Debug cursor graphics",
+      "category": "graphics",
+      "source": {
+        "type": "rom-range",
+        "range": "EF:EFB7..EF:F0D7",
+        "bytes": 288,
+        "sha1": "d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "ef/debug_cursor.gfx"
+        },
+        {
+          "kind": "snes_2bpp_tiles_png",
+          "path": "ef/debug_cursor_preview.png",
+          "columns": 6
+        }
+      ],
+      "notes": [
+        "Named DEBUG_CURSOR_GRAPHICS in the EF asset map and asset_debug_cursor_graphics.asm.",
+        "288 bytes is 18 SNES 2bpp 8x8 tiles."
+      ]
+    },
+    {
+      "id": "table.ef.late_tail",
+      "title": "EF late tail mixed data",
+      "category": "raw-preserved-corridor",
+      "source": {
+        "type": "rom-range",
+        "range": "EF:F0D7..EF:10000",
+        "bytes": 3881,
+        "sha1": "8e09b47444551098bd77c1dd73e19f0a9ba0a71f"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "ef/late_tail.bin"
+        }
+      ],
+      "notes": [
+        "Covers named late-tail includes that were missing from source refs during EF scaffold closure.",
+        "Contains palette-like data, a version string, tile indices, and debug cursor spritemap-looking records that should be split later."
+      ]
+    }
+  ]
+}
