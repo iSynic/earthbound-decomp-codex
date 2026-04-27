@@ -12,19 +12,101 @@
 hirom
 org $C00000
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C00000_BankPrefixByteCorridor:
-
-; Original data gap before C00085_BankPrefixByteCorridor_End:
-db $9C,$0C,$28,$A2,$0C,$28,$A0,$0D,$28,$A9,$3B,$00,$54,$7E,$7E,$A9
-db $0C,$28,$60,$C2,$31,$A9,$09,$00,$22,$79,$8D,$C0,$A0,$00,$00,$A2
-db $00,$38,$A9,$01,$00,$22,$9E,$8D,$C0,$A0,$00,$20,$A2,$00,$58,$A9
-db $01,$00,$22,$DE,$8D,$C0,$A0,$00,$60,$A2,$00,$7C,$A9,$00,$00,$22
-db $1C,$8E,$C0,$A9,$62,$00,$22,$92,$8D,$C0,$6B,$C2,$31,$0B,$7B,$69
-db $EE,$FF,$5B,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$22,$13,$00
-db $C0,$A9,$00,$00,$87,$06,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00
-db $00,$BB,$E2,$20,$A9,$03,$22,$16,$86,$C0,$A9,$FF,$FF,$8D,$70,$43
-db $8D,$6E,$43,$2B,$6B
-
+    db $9C,$0C,$28,$A2,$0C,$28,$A0,$0D,$28,$A9,$3B,$00,$54,$7E,$7E,$A9
+    db $0C,$28,$60,$C2,$31,$A9,$09,$00,$22,$79,$8D,$C0,$A0,$00,$00,$A2
+    db $00,$38,$A9,$01,$00,$22,$9E,$8D,$C0,$A0,$00,$20,$A2,$00,$58,$A9
+    db $01,$00,$22,$DE,$8D,$C0,$A0,$00,$60,$A2,$00,$7C,$A9,$00,$00,$22
+    db $1C,$8E,$C0,$A9,$62,$00,$22,$92,$8D,$C0,$6B,$C2,$31,$0B,$7B,$69
+    db $EE,$FF,$5B,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$22,$13,$00
+    db $C0,$A9,$00,$00,$87,$06,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00
+    db $00,$BB,$E2,$20,$A9,$03,$22,$16,$86,$C0,$A9,$FF,$FF,$8D,$70,$43
+    db $8D,$6E,$43,$2B,$6B
 C00085_BankPrefixByteCorridor_End:
 
 
@@ -15624,45 +15706,331 @@ C06BFB_PreserveDeferredScriptPointersAcrossTransition_L6BFB:
 hirom
 org $C06BFF
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C06BFF_RunDeferredScriptPointerAndRefreshTransitionState:
-
-; Original data gap before C06E1A_RunDeferredScriptPointerAndRefreshTransitionState_End:
-db $C2,$31,$0B,$7B,$69,$E6,$FF,$5B,$A5,$28,$85,$0A,$A5,$2A,$85,$0C
-db $A5,$0A,$85,$16,$A5,$0C,$85,$18,$A5,$0A,$85,$06,$A5,$0C,$85,$08
-db $A0,$02,$00,$B7,$06,$A8,$A7,$06,$85,$06,$84,$08,$A9,$00,$00,$85
-db $0A,$A9,$00,$00,$85,$0C,$A5,$08,$C5,$0C,$D0,$04,$A5,$06,$C5,$0A
-db $F0,$0C,$A5,$06,$85,$0E,$A5,$08,$85,$10,$22,$04,$00,$C1,$9C,$AA
-db $5D,$9C,$A8,$5D,$A9,$04,$00,$A6,$16,$86,$0A,$A6,$18,$86,$0C,$A6
-db $0A,$86,$06,$A6,$0C,$86,$08,$18,$65,$06,$85,$06,$A7,$06,$F0,$26
-db $29,$FF,$7F,$22,$28,$16,$C2,$85,$14,$A2,$00,$00,$A7,$06,$C9,$00
-db $80,$90,$05,$F0,$03,$A2,$01,$00,$86,$02,$A5,$14,$C5,$02,$F0,$06
-db $9C,$C2,$5D,$4C,$00,$6E,$A0,$01,$00,$84,$12,$80,$0D,$A2,$00,$00
-db $98,$22,$5E,$16,$C2,$A4,$12,$C8,$84,$12,$C0,$0A,$00,$90,$EE,$F0
-db $EC,$22,$3D,$6B,$C0,$22,$5B,$7C,$C0,$A9,$FF,$FF,$8D,$A8,$B4,$9C
-db $58,$5D,$A9,$0A,$00,$A6,$0A,$86,$06,$A6,$0C,$86,$08,$18,$65,$06
-db $85,$06,$A2,$01,$00,$A7,$06,$29,$FF,$00,$22,$AF,$68,$C0,$22,$E0
-db $AB,$C0,$AD,$B6,$B4,$F0,$0A,$A2,$01,$00,$8A,$22,$7A,$88,$C0,$80
-db $0C,$A2,$01,$00,$A7,$06,$29,$FF,$00,$22,$62,$66,$C0,$A0,$08,$00
-db $B7,$0A,$0A,$0A,$0A,$85,$02,$A0,$06,$00,$B7,$0A,$85,$14,$29,$FF
-db $3F,$0A,$0A,$0A,$85,$04,$E2,$20,$A9,$0E,$E2,$10,$A8,$C2,$20,$A5
-db $14,$22,$51,$92,$C0,$0A,$C2,$10,$AA,$BF,$D8,$E1,$C3,$C9,$02,$00
-db $F0,$08,$A5,$02,$18,$69,$08,$00,$85,$02,$AD,$6C,$43,$F0,$27,$AD
-db $59,$B5,$C9,$06,$00,$F0,$08,$A6,$04,$A5,$02,$22,$F4,$68,$C0,$AD
-db $67,$B5,$D0,$1A,$E2,$20,$A0,$0A,$00,$B7,$0A,$C2,$20,$29,$FF,$00
-db $22,$95,$E8,$EF,$80,$08,$A6,$04,$A5,$02,$22,$F4,$68,$C0,$A6,$04
-db $A5,$02,$22,$F6,$13,$C0,$9C,$90,$28,$9C,$83,$98,$E2,$20,$A9,$0E
-db $48,$C2,$20,$A0,$06,$00,$B7,$0A,$E2,$10,$7A,$22,$51,$92,$C0,$0A
-db $C2,$10,$AA,$BF,$D8,$E1,$C3,$A8,$A6,$04,$A5,$02,$22,$A9,$3F,$C0
-db $AD,$6C,$43,$F0,$09,$AD,$67,$B5,$D0,$04,$22,$71,$E7,$EF,$22,$AF
-db $69,$C0,$22,$A3,$65,$C0,$A9,$0A,$00,$A6,$0A,$86,$06,$A6,$0C,$86
-db $08,$18,$65,$06,$85,$06,$A2,$00,$00,$A7,$06,$29,$FF,$00,$22,$AF
-db $68,$C0,$22,$E0,$AB,$C0,$AD,$B6,$B4,$F0,$0A,$A2,$01,$00,$8A,$22
-db $6C,$88,$C0,$80,$0C,$A2,$00,$00,$A7,$06,$29,$FF,$00,$22,$62,$66
-db $C0,$A9,$FF,$FF,$8D,$C4,$5D,$9C,$34,$0A,$22,$21,$6B,$C0,$9C,$C2
-db $5D,$2B,$60,$08,$00,$00,$00,$00,$00,$08,$00,$00,$00,$08,$00,$00
-db $00,$08,$00,$06,$00,$02,$00,$06,$00,$02,$00
-
-C06E1A_RunDeferredScriptPointerAndRefreshTransitionState_End:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFE6
+    tcd
+    lda $28
+    sta $0A
+    lda $2A
+    sta $0C
+    lda $0A
+    sta $16
+    lda $0C
+    sta $18
+    lda $0A
+    sta $06
+    lda $0C
+    sta $08
+    ldy.w #$0002
+    lda [$06],Y
+    tay
+    lda [$06]
+    sta $06
+    sty $08
+    lda.w #$0000
+    sta $0A
+    lda.w #$0000
+    sta $0C
+    lda $08
+    cmp $0C
+    bne C06C3F_RunDeferredScriptPointerAndRefreshTransitionState_L6C3F
+    lda $06
+    cmp $0A
+C06C3F_RunDeferredScriptPointerAndRefreshTransitionState_L6C3F:
+    beq C06C4D_RunDeferredScriptPointerAndRefreshTransitionState_L6C4D
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    jsl $C10004
+C06C4D_RunDeferredScriptPointerAndRefreshTransitionState_L6C4D:
+    stz $5DAA
+    stz $5DA8
+    lda.w #$0004
+    ldx $16
+    stx $0A
+    ldx $18
+    stx $0C
+    ldx $0A
+    stx $06
+    ldx $0C
+    stx $08
+    clc
+    adc $06
+    sta $06
+    lda [$06]
+    beq C06C95_RunDeferredScriptPointerAndRefreshTransitionState_L6C95
+    and.w #$7FFF
+    jsl !C21628_CheckEventFlag
+    sta $14
+    ldx.w #$0000
+    lda [$06]
+    cmp.w #$8000
+    bcc C06C87_RunDeferredScriptPointerAndRefreshTransitionState_L6C87
+    beq C06C87_RunDeferredScriptPointerAndRefreshTransitionState_L6C87
+    ldx.w #$0001
+C06C87_RunDeferredScriptPointerAndRefreshTransitionState_L6C87:
+    stx $02
+    lda $14
+    cmp $02
+    beq C06C95_RunDeferredScriptPointerAndRefreshTransitionState_L6C95
+    stz $5DC2
+    jmp.w C06E00_RunDeferredScriptPointerAndRefreshTransitionState_L6E00
+C06C95_RunDeferredScriptPointerAndRefreshTransitionState_L6C95:
+    ldy.w #$0001
+    sty $12
+    bra C06CA9_RunDeferredScriptPointerAndRefreshTransitionState_L6CA9
+C06C9C_RunDeferredScriptPointerAndRefreshTransitionState_L6C9C:
+    ldx.w #$0000
+    tya
+    jsl !C2165E_SetEventFlagOrState
+    ldy $12
+    iny
+    sty $12
+C06CA9_RunDeferredScriptPointerAndRefreshTransitionState_L6CA9:
+    cpy.w #$000A
+    bcc C06C9C_RunDeferredScriptPointerAndRefreshTransitionState_L6C9C
+    beq C06C9C_RunDeferredScriptPointerAndRefreshTransitionState_L6C9C
+    jsl $C06B3D
+    jsl $C07C5B
+    lda.w #$FFFF
+    sta $B4A8
+    stz $5D58
+    lda.w #$000A
+    ldx $0A
+    stx $06
+    ldx $0C
+    stx $08
+    clc
+    adc $06
+    sta $06
+    ldx.w #$0001
+    lda [$06]
+    and.w #$00FF
+    jsl $C068AF
+    jsl $C0ABE0
+    lda $B4B6
+    beq C06CF0_RunDeferredScriptPointerAndRefreshTransitionState_L6CF0
+    ldx.w #$0001
+    txa
+    jsl !C0887A_ClearDisplayTransitionState
+    bra C06CFC_RunDeferredScriptPointerAndRefreshTransitionState_L6CFC
+C06CF0_RunDeferredScriptPointerAndRefreshTransitionState_L6CF0:
+    ldx.w #$0001
+    lda [$06]
+    and.w #$00FF
+    jsl $C06662
+C06CFC_RunDeferredScriptPointerAndRefreshTransitionState_L6CFC:
+    ldy.w #$0008
+    lda [$0A],Y
+    asl A
+    asl A
+    asl A
+    sta $02
+    ldy.w #$0006
+    lda [$0A],Y
+    sta $14
+    and.w #$3FFF
+    asl A
+    asl A
+    asl A
+    sta $04
+    sep #$20
+    lda.b #$0E
+    sep #$10
+    tay
+    rep #$20
+    lda $14
+    jsl $C09251
+    asl A
+    rep #$10
+    tax
+    lda $C3E1D8,X
+    cmp.w #$0002
+    beq C06D39_RunDeferredScriptPointerAndRefreshTransitionState_L6D39
+    lda $02
+    clc
+    adc.w #$0008
+    sta $02
+C06D39_RunDeferredScriptPointerAndRefreshTransitionState_L6D39:
+    lda $436C
+    beq C06D65_RunDeferredScriptPointerAndRefreshTransitionState_L6D65
+    lda $B559
+    cmp.w #$0006
+    beq C06D4E_RunDeferredScriptPointerAndRefreshTransitionState_L6D4E
+    ldx $04
+    lda $02
+    jsl $C068F4
+C06D4E_RunDeferredScriptPointerAndRefreshTransitionState_L6D4E:
+    lda $B567
+    bne C06D6D_RunDeferredScriptPointerAndRefreshTransitionState_L6D6D
+    sep #$20
+    ldy.w #$000A
+    lda [$0A],Y
+    rep #$20
+    and.w #$00FF
+    jsl $EFE895
+    bra C06D6D_RunDeferredScriptPointerAndRefreshTransitionState_L6D6D
+C06D65_RunDeferredScriptPointerAndRefreshTransitionState_L6D65:
+    ldx $04
+    lda $02
+    jsl $C068F4
+C06D6D_RunDeferredScriptPointerAndRefreshTransitionState_L6D6D:
+    ldx $04
+    lda $02
+    jsl $C013F6
+    stz $2890
+    stz $9883
+    sep #$20
+    lda.b #$0E
+    pha
+    rep #$20
+    ldy.w #$0006
+    lda [$0A],Y
+    sep #$10
+    ply
+    jsl $C09251
+    asl A
+    rep #$10
+    tax
+    lda $C3E1D8,X
+    tay
+    ldx $04
+    lda $02
+    jsl $C03FA9
+    lda $436C
+    beq C06DAD_RunDeferredScriptPointerAndRefreshTransitionState_L6DAD
+    lda $B567
+    bne C06DAD_RunDeferredScriptPointerAndRefreshTransitionState_L6DAD
+    jsl $EFE771
+C06DAD_RunDeferredScriptPointerAndRefreshTransitionState_L6DAD:
+    jsl $C069AF
+    jsl $C065A3
+    lda.w #$000A
+    ldx $0A
+    stx $06
+    ldx $0C
+    stx $08
+    clc
+    adc $06
+    sta $06
+    ldx.w #$0000
+    lda [$06]
+    and.w #$00FF
+    jsl $C068AF
+    jsl $C0ABE0
+    lda $B4B6
+    beq C06DE4_RunDeferredScriptPointerAndRefreshTransitionState_L6DE4
+    ldx.w #$0001
+    txa
+    jsl !C0886C_SetDisplayTransitionState
+    bra C06DF0_RunDeferredScriptPointerAndRefreshTransitionState_L6DF0
+C06DE4_RunDeferredScriptPointerAndRefreshTransitionState_L6DE4:
+    ldx.w #$0000
+    lda [$06]
+    and.w #$00FF
+    jsl $C06662
+C06DF0_RunDeferredScriptPointerAndRefreshTransitionState_L6DF0:
+    lda.w #$FFFF
+    sta $5DC4
+    stz $0A34
+    jsl !C06B21_RunPostTransitionDeferredScriptQueue
+    stz $5DC2
+C06E00_RunDeferredScriptPointerAndRefreshTransitionState_L6E00:
+    pld
+    rts
+C06E02_DeferredTransitionStateTemplate:
+    db $08,$00,$00,$00,$00,$00,$08,$00,$00,$00,$08,$00,$00,$00,$08,$00
+    db $06,$00,$02,$00,$06,$00,$02,$00
+C06E1A_DeferredTransitionStateTemplate_End:
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -20409,26 +20777,224 @@ C08EC7_Update_Bg4ScreenBaseRegistersFromQueue_L8EC7:
 hirom
 org $C08ED2
 
-C08ED2_CopyWordsFromLongSource:
-
-; Original data gap before C08FC2_CopyWordsFromLongSource_End:
-db $8E,$A5,$00,$4E,$A5,$00,$AA,$A0,$00,$00,$80,$09,$B7,$0E,$9D,$00
-db $00,$E8,$E8,$C8,$C8,$CE,$A5,$00,$10,$F2,$6B,$A8,$E2,$20,$80,$04
-db $B7,$12,$97,$0E,$88,$10,$F9,$C2,$30,$6B,$9B,$AA,$98,$4A,$A8,$E2
-db $20,$A5,$0E,$EB,$A5,$0E,$C2,$20,$80,$05,$9D,$00,$00,$E8,$E8,$88
-db $10,$F8,$6B,$E2,$20,$9B,$88,$30,$04,$97,$0E,$80,$F9,$C2,$30,$6B
-db $E2,$30,$A0,$FF,$C8,$B7,$0E,$D0,$FB,$C2,$30,$98,$6B,$E2,$20,$A0
-db $FF,$FF,$C8,$B7,$0E,$F0,$06,$D7,$12,$F0,$F7,$A9,$01,$C2,$30,$6B
-db $C2,$30,$A8,$8B,$F4,$00,$00,$AB,$AB,$A3,$01,$99,$00,$00,$A3,$03
-db $99,$02,$00,$08,$08,$68,$99,$04,$00,$7B,$99,$05,$00,$3B,$99,$07
-db $00,$AB,$A9,$00,$00,$6B,$C2,$30,$A8,$F4,$00,$00,$AB,$AB,$B9,$07
-db $00,$1B,$B9,$05,$00,$5B,$B9,$03,$00,$48,$28,$28,$B9,$00,$00,$83
-db $01,$B9,$02,$00,$83,$03,$AB,$8A,$6B,$E2,$20,$AD,$00,$00,$CD,$01
-db $00,$D0,$FB,$C2,$30,$6B,$80,$FE,$00,$01,$00,$02,$00,$00,$00,$00
-db $00,$01,$00,$03,$80,$00,$00,$00,$00,$02,$00,$02,$00,$00,$01,$18
-db $80,$09,$18,$80,$00,$18,$00,$08,$18,$00,$00,$19,$80,$08,$19,$80
-
-C08FC2_CopyWordsFromLongSource_End:
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+C08ED2_CopyWordsAndSmallRuntimeHelpers:
+    stx $00A5
+    lsr $00A5
+    tax
+    ldy.w #$0000
+    bra C08EE7_CopyWordsAndSmallRuntimeHelpers_L8EE7
+C08EDE_CopyWordsAndSmallRuntimeHelpers_L8EDE:
+    lda [$0E],Y
+    sta $0000,X
+    inx
+    inx
+    iny
+    iny
+C08EE7_CopyWordsAndSmallRuntimeHelpers_L8EE7:
+    dec $00A5
+    bpl C08EDE_CopyWordsAndSmallRuntimeHelpers_L8EDE
+    rtl
+    tay
+    sep #$20
+    bra C08EF6_CopyWordsAndSmallRuntimeHelpers_L8EF6
+C08EF2_CopyWordsAndSmallRuntimeHelpers_L8EF2:
+    lda [$12],Y
+    sta [$0E],Y
+C08EF6_CopyWordsAndSmallRuntimeHelpers_L8EF6:
+    dey
+    bpl C08EF2_CopyWordsAndSmallRuntimeHelpers_L8EF2
+    rep #$30
+    rtl
+    txy
+    tax
+    tya
+    lsr A
+    tay
+    sep #$20
+    lda $0E
+    xba
+    lda $0E
+    rep #$20
+    bra C08F11_CopyWordsAndSmallRuntimeHelpers_L8F11
+C08F0C_CopyWordsAndSmallRuntimeHelpers_L8F0C:
+    sta $0000,X
+    inx
+    inx
+C08F11_CopyWordsAndSmallRuntimeHelpers_L8F11:
+    dey
+    bpl C08F0C_CopyWordsAndSmallRuntimeHelpers_L8F0C
+    rtl
+    sep #$20
+    txy
+C08F18_CopyWordsAndSmallRuntimeHelpers_L8F18:
+    dey
+    bmi C08F1F_CopyWordsAndSmallRuntimeHelpers_L8F1F
+    sta [$0E],Y
+    bra C08F18_CopyWordsAndSmallRuntimeHelpers_L8F18
+C08F1F_CopyWordsAndSmallRuntimeHelpers_L8F1F:
+    rep #$30
+    rtl
+    sep #$30
+    ldy.b #$FF
+C08F26_CopyWordsAndSmallRuntimeHelpers_L8F26:
+    iny
+    lda [$0E],Y
+    bne C08F26_CopyWordsAndSmallRuntimeHelpers_L8F26
+    rep #$30
+    tya
+    rtl
+    sep #$20
+    ldy.w #$FFFF
+C08F34_CopyWordsAndSmallRuntimeHelpers_L8F34:
+    iny
+    lda [$0E],Y
+    beq C08F3F_CopyWordsAndSmallRuntimeHelpers_L8F3F
+    cmp [$12],Y
+    beq C08F34_CopyWordsAndSmallRuntimeHelpers_L8F34
+    lda.b #$01
+C08F3F_CopyWordsAndSmallRuntimeHelpers_L8F3F:
+    rep #$30
+    rtl
+    rep #$30
+    tay
+    phb
+    pea $0000
+    plb
+    plb
+    lda $01,S
+    sta $0000,Y
+    lda $03,S
+    sta $0002,Y
+    php
+    php
+    pla
+    sta $0004,Y
+    tdc
+    sta $0005,Y
+    tsc
+    sta $0007,Y
+    plb
+    lda.w #$0000
+    rtl
+    rep #$30
+    tay
+    pea $0000
+    plb
+    plb
+    lda $0007,Y
+    tcs
+    lda $0005,Y
+    tcd
+    lda $0003,Y
+    pha
+    plp
+    plp
+    lda $0000,Y
+    sta $01,S
+    lda $0002,Y
+    sta $03,S
+    plb
+    txa
+    rtl
+    sep #$20
+    lda $0000
+C08F90_CopyWordsAndSmallRuntimeHelpers_L8F90:
+    cmp $0001
+    bne C08F90_CopyWordsAndSmallRuntimeHelpers_L8F90
+    rep #$30
+    rtl
+C08F98_CopyWordsAndSmallRuntimeHelpers_L8F98:
+    bra C08F98_CopyWordsAndSmallRuntimeHelpers_L8F98
+C08F9A_VramPortDescriptorTableHead:
+    db $00,$01,$00,$02,$00,$00,$00,$00,$00,$01,$00,$03,$80,$00,$00,$00
+    db $00,$02,$00,$02,$00,$00,$01,$18,$80,$09,$18,$80,$00,$18,$00,$08
+    db $18,$00,$00,$19,$80,$08,$19,$80
+C08FC2_VramPortDescriptorTableHead_End:
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -20438,13 +21004,95 @@ C08FC2_CopyWordsFromLongSource_End:
 hirom
 org $C08FC2
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C08FC2_VRAMPortTripleTable_Tail:
-
-; Original data gap before C08FE6_VRAMPortTripleTable_Tail_End:
-db $81,$39,$80,$80,$39,$00,$80,$3A,$80,$01,$18,$81,$09,$18,$81,$00
-db $18,$01,$08,$18,$01,$00,$19,$81,$08,$19,$81,$81,$39,$81,$80,$39
-db $01,$80,$3A,$81
-
+    db $81,$39,$80,$80,$39,$00,$80,$3A,$80,$01,$18,$81,$09,$18,$81,$00
+    db $18,$01,$08,$18,$01,$00,$19,$81,$08,$19,$81,$81,$39,$81,$80,$39
+    db $01,$80,$3A,$81
 C08FE6_VRAMPortTripleTable_Tail_End:
 
 
@@ -21246,97 +21894,179 @@ C09554_Run_ActionScriptFrame_L9554:
 hirom
 org $C09558
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C09558_ScriptOpcodePointerTable:
-
-; Original data gap before C09ABD_ScriptOpcodePointerTable_End:
-db $F2,$95,$03,$96,$27,$96,$4D,$96,$85,$96,$AA,$96,$C3,$96,$DD,$99
-db $1A,$9A,$2E,$9A,$5D,$99,$6B,$99,$C3,$99,$9F,$9A,$E2,$9A,$09,$9B
-db $79,$99,$9E,$99,$0F,$9B,$0E,$9A,$87,$9A,$1F,$9B,$2C,$9B,$44,$9B
-db $5C,$9A,$49,$96,$58,$96,$6F,$96,$4D,$9B,$61,$9B,$6B,$9B,$79,$9B
-db $91,$9B,$B4,$9B,$E4,$9B,$EE,$9B,$20,$96,$F8,$9B,$CC,$9B,$97,$9A
-db $E3,$96,$F3,$96,$03,$97,$A0,$98,$AE,$98,$BC,$98,$6D,$97,$92,$97
-db $B7,$97,$DC,$97,$EF,$97,$02,$98,$26,$98,$4A,$98,$75,$98,$CA,$98
-db $DE,$98,$F2,$98,$1C,$99,$CF,$96,$38,$9A,$3E,$9A,$44,$9A,$13,$97
-db $31,$97,$4F,$97,$3D,$99,$31,$99,$A9,$9B,$CF,$96,$38,$9A,$3E,$9A
-db $44,$9A,$13,$97,$31,$97,$4F,$97,$3D,$99,$A6,$88,$20,$3B,$9C,$A6
-db $8A,$A9,$FF,$FF,$9D,$72,$13,$8D,$58,$0A,$60,$B7,$80,$A6,$8A,$C8
-db $85,$90,$84,$94,$98,$BC,$E6,$12,$91,$84,$C8,$C8,$A5,$90,$91,$84
-db $C8,$98,$9D,$E6,$12,$A4,$94,$60,$A6,$8A,$BD,$16,$15,$80,$E1,$84
-db $94,$A6,$8A,$BC,$E6,$12,$88,$E2,$20,$B1,$84,$3A,$91,$84,$C2,$20
-db $D0,$09,$88,$88,$98,$9D,$E6,$12,$A4,$94,$60,$88,$88,$B1,$84,$A8
-db $60,$B7,$80,$A8,$60,$B7,$80,$AA,$C8,$C8,$B7,$80,$85,$82,$9B,$60
-db $B7,$80,$85,$90,$C8,$C8,$98,$A6,$8A,$BC,$E6,$12,$91,$84,$C8,$C8
-db $98,$9D,$E6,$12,$A4,$90,$60,$84,$94,$A6,$8A,$BC,$E6,$12,$D0,$03
-db $4C,$C3,$99,$88,$88,$98,$9D,$E6,$12,$B1,$84,$A8,$60,$B7,$80,$85
-db $8C,$C8,$C8,$B7,$80,$85,$8E,$C8,$98,$A6,$8A,$BC,$E6,$12,$91,$84
-db $C8,$C8,$A5,$82,$91,$84,$C8,$98,$9D,$E6,$12,$A5,$8E,$85,$82,$A4
-db $8C,$60,$A6,$8A,$BC,$E6,$12,$D0,$03,$4C,$C3,$99,$88,$B1,$84,$85
-db $82,$88,$88,$98,$9D,$E6,$12,$B1,$84,$A8,$60,$A6,$8A,$B7,$80,$29
-db $FF,$00,$9D,$72,$13,$C8,$60,$A6,$88,$B7,$80,$29,$FF,$00,$C9,$FF
-db $00,$D0,$03,$A9,$FF,$FF,$9D,$F2,$10,$C8,$60,$A6,$88,$B7,$80,$C8
-db $C8,$9D,$8E,$0B,$A9,$00,$80,$9D,$42,$0C,$60,$A6,$88,$B7,$80,$C8
-db $C8,$9D,$CA,$0B,$A9,$00,$80,$9D,$7E,$0C,$60,$A6,$88,$B7,$80,$C8
-db $C8,$9D,$06,$0C,$A9,$00,$80,$9D,$BA,$0C,$60,$A6,$88,$B7,$80,$C8
-db $C8,$85,$90,$29,$FF,$00,$EB,$9D,$AA,$0D,$A5,$90,$29,$00,$FF,$10
-db $03,$09,$FF,$00,$EB,$9D,$F6,$0C,$60,$A6,$88,$B7,$80,$C8,$C8,$85
-db $90,$29,$FF,$00,$EB,$9D,$E6,$0D,$A5,$90,$29,$00,$FF,$10,$03,$09
-db $FF,$00,$EB,$9D,$32,$0D,$60,$A6,$88,$B7,$80,$C8,$C8,$85,$90,$29
-db $FF,$00,$EB,$9D,$22,$0E,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00
-db $EB,$9D,$6E,$0D,$60,$A6,$88,$B7,$80,$C8,$C8,$85,$90,$29,$FF,$00
-db $EB,$18,$7D,$AA,$0D,$9D,$AA,$0D,$A5,$90,$29,$00,$FF,$10,$03,$09
-db $FF,$00,$EB,$7D,$F6,$0C,$9D,$F6,$0C,$60,$A6,$88,$B7,$80,$C8,$C8
-db $85,$90,$29,$FF,$00,$EB,$18,$7D,$E6,$0D,$9D,$E6,$0D,$A5,$90,$29
-db $00,$FF,$10,$03,$09,$FF,$00,$EB,$7D,$32,$0D,$9D,$32,$0D,$60,$A6
-db $88,$B7,$80,$C8,$C8,$85,$90,$29,$FF,$00,$EB,$18,$7D,$22,$0E,$9D
-db $22,$0E,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$7D,$6E,$0D
-db $9D,$6E,$0D,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$9D,$02
-db $1A,$9E,$12,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7
-db $80,$9D,$0A,$1A,$9E,$1A,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A
-db $AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$9D,$32,$1A,$A5,$90,$29
-db $00,$FF,$10,$03,$09,$FF,$00,$EB,$9D,$22,$1A,$C8,$C8,$60,$B7,$80
-db $29,$FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$9D,$3A
-db $1A,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$9D,$2A,$1A,$C8
-db $C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF
-db $00,$EB,$18,$7D,$32,$1A,$9D,$32,$1A,$A5,$90,$29,$00,$FF,$10,$03
-db $09,$FF,$00,$EB,$7D,$22,$1A,$9D,$22,$1A,$C8,$C8,$60,$B7,$80,$29
-db $FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$18,$7D,$3A
-db $1A,$9D,$3A,$1A,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$7D
-db $2A,$1A,$9D,$2A,$1A,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$8E,$0B
-db $9D,$8E,$0B,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$CA,$0B,$9D,$CA
-db $0B,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$06,$0C,$9D,$06,$0C,$C8
-db $C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$18,$7D,$02,$1A
-db $9D,$02,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80
-db $18,$7D,$0A,$1A,$9D,$0A,$1A,$C8,$C8,$60,$A6,$88,$9E,$AA,$0D,$9E
-db $F6,$0C,$9E,$E6,$0D,$9E,$32,$0D,$9E,$22,$0E,$9E,$6E,$0D,$60,$0A
-db $AA,$9E,$AA,$0D,$9E,$F6,$0C,$9E,$E6,$0D,$9E,$32,$0D,$9E,$22,$0E
-db $9E,$6E,$0D,$6B,$B7,$80,$29,$FF,$00,$0A,$AA,$9E,$32,$1A,$9E,$22
-db $1A,$9E,$3A,$1A,$9E,$2A,$1A,$C8,$60,$A6,$88,$B7,$80,$29,$FF,$00
-db $C8,$9D,$3E,$10,$60,$B7,$80,$8D,$5A,$0A,$C8,$C8,$B7,$80,$C8,$8D
-db $5C,$0A,$84,$94,$A6,$8A,$BD,$16,$15,$22,$9E,$9D,$C0,$A6,$8A,$9D
-db $16,$15,$A4,$94,$60,$A6,$8A,$BD,$16,$15,$D0,$04,$B7,$80,$A8,$60
-db $C8,$C8,$60,$A6,$8A,$BD,$16,$15,$F0,$04,$B7,$80,$A8,$60,$C8,$C8
-db $60,$A6,$8A,$BD,$16,$15,$85,$90,$B7,$80,$29,$FF,$00,$C8,$84,$94
-db $C5,$90,$90,$02,$D0,$05,$0A,$65,$94,$A8,$60,$A5,$90,$0A,$18,$65
-db $94,$A8,$B7,$80,$A8,$60,$A6,$8A,$BD,$16,$15,$85,$90,$B7,$80,$29
-db $FF,$00,$C8,$84,$94,$C5,$90,$90,$DD,$F0,$DB,$BC,$E6,$12,$0A,$65
-db $94,$91,$84,$C8,$C8,$98,$9D,$E6,$12,$80,$D0,$84,$94,$A4,$8A,$A6
-db $88,$20,$12,$9D,$A9,$FF,$FF,$99,$72,$13,$BD,$DA,$0A,$10,$03,$4C
-db $F2,$95,$A4,$94,$60,$84,$94,$20,$03,$9D,$B0,$25,$8C,$58,$0A,$A6
-db $8A,$BD,$5A,$12,$99,$5A,$12,$98,$9D,$5A,$12,$BB,$9E,$E6,$12,$9E
-db $72,$13,$A4,$94,$B7,$80,$9D,$FE,$13,$A5,$82,$9D,$8A,$14,$C8,$C8
-db $60,$A4,$94,$C8,$C8,$60,$84,$94,$A6,$8A,$BC,$5A,$12,$10,$B0,$A4
-db $94,$60,$A6,$88,$B7,$80,$9D,$7A,$10,$C8,$C8,$E2,$20,$B7,$80,$9D
-db $B6,$10,$C2,$20,$C8,$60,$88,$A6,$8A,$A9,$FF,$FF,$9D,$72,$13,$60
-db $A6,$88,$FE,$F2,$10,$60,$A6,$88,$DE,$F2,$10,$60,$A6,$88,$B7,$80
-db $29,$FF,$00,$C9,$80,$00,$90,$04,$09,$00,$FF,$18,$7D,$F2,$10,$9D
-db $F2,$10,$C8,$60,$B7,$80,$85,$8C,$C8,$C8,$B7,$80,$29,$FF,$00,$0A
-db $AA,$C8,$B7,$80,$85,$90,$C8,$BF,$BD,$9A,$C0,$8D,$5A,$0A,$A9,$00
-db $00,$8D,$5C,$0A,$A2,$00,$00,$E2,$20,$20,$9E,$9D,$C2,$20,$60,$B7
-db $80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$18,$65,$88,$80,$0B,$A9
-db $16,$15,$18,$65,$8A,$80,$04,$B7,$80,$C8,$C8,$85,$8C,$B7,$80,$29
-db $FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$C8,$C8,$BF,$BD,$9A,$C0,$8D
-db $5A,$0A,$6C,$5A,$0A
-
+    db $F2,$95,$03,$96,$27,$96,$4D,$96,$85,$96,$AA,$96,$C3,$96,$DD,$99
+    db $1A,$9A,$2E,$9A,$5D,$99,$6B,$99,$C3,$99,$9F,$9A,$E2,$9A,$09,$9B
+    db $79,$99,$9E,$99,$0F,$9B,$0E,$9A,$87,$9A,$1F,$9B,$2C,$9B,$44,$9B
+    db $5C,$9A,$49,$96,$58,$96,$6F,$96,$4D,$9B,$61,$9B,$6B,$9B,$79,$9B
+    db $91,$9B,$B4,$9B,$E4,$9B,$EE,$9B,$20,$96,$F8,$9B,$CC,$9B,$97,$9A
+    db $E3,$96,$F3,$96,$03,$97,$A0,$98,$AE,$98,$BC,$98,$6D,$97,$92,$97
+    db $B7,$97,$DC,$97,$EF,$97,$02,$98,$26,$98,$4A,$98,$75,$98,$CA,$98
+    db $DE,$98,$F2,$98,$1C,$99,$CF,$96,$38,$9A,$3E,$9A,$44,$9A,$13,$97
+    db $31,$97,$4F,$97,$3D,$99,$31,$99,$A9,$9B,$CF,$96,$38,$9A,$3E,$9A
+    db $44,$9A,$13,$97,$31,$97,$4F,$97,$3D,$99,$A6,$88,$20,$3B,$9C,$A6
+    db $8A,$A9,$FF,$FF,$9D,$72,$13,$8D,$58,$0A,$60,$B7,$80,$A6,$8A,$C8
+    db $85,$90,$84,$94,$98,$BC,$E6,$12,$91,$84,$C8,$C8,$A5,$90,$91,$84
+    db $C8,$98,$9D,$E6,$12,$A4,$94,$60,$A6,$8A,$BD,$16,$15,$80,$E1,$84
+    db $94,$A6,$8A,$BC,$E6,$12,$88,$E2,$20,$B1,$84,$3A,$91,$84,$C2,$20
+    db $D0,$09,$88,$88,$98,$9D,$E6,$12,$A4,$94,$60,$88,$88,$B1,$84,$A8
+    db $60,$B7,$80,$A8,$60,$B7,$80,$AA,$C8,$C8,$B7,$80,$85,$82,$9B,$60
+    db $B7,$80,$85,$90,$C8,$C8,$98,$A6,$8A,$BC,$E6,$12,$91,$84,$C8,$C8
+    db $98,$9D,$E6,$12,$A4,$90,$60,$84,$94,$A6,$8A,$BC,$E6,$12,$D0,$03
+    db $4C,$C3,$99,$88,$88,$98,$9D,$E6,$12,$B1,$84,$A8,$60,$B7,$80,$85
+    db $8C,$C8,$C8,$B7,$80,$85,$8E,$C8,$98,$A6,$8A,$BC,$E6,$12,$91,$84
+    db $C8,$C8,$A5,$82,$91,$84,$C8,$98,$9D,$E6,$12,$A5,$8E,$85,$82,$A4
+    db $8C,$60,$A6,$8A,$BC,$E6,$12,$D0,$03,$4C,$C3,$99,$88,$B1,$84,$85
+    db $82,$88,$88,$98,$9D,$E6,$12,$B1,$84,$A8,$60,$A6,$8A,$B7,$80,$29
+    db $FF,$00,$9D,$72,$13,$C8,$60,$A6,$88,$B7,$80,$29,$FF,$00,$C9,$FF
+    db $00,$D0,$03,$A9,$FF,$FF,$9D,$F2,$10,$C8,$60,$A6,$88,$B7,$80,$C8
+    db $C8,$9D,$8E,$0B,$A9,$00,$80,$9D,$42,$0C,$60,$A6,$88,$B7,$80,$C8
+    db $C8,$9D,$CA,$0B,$A9,$00,$80,$9D,$7E,$0C,$60,$A6,$88,$B7,$80,$C8
+    db $C8,$9D,$06,$0C,$A9,$00,$80,$9D,$BA,$0C,$60,$A6,$88,$B7,$80,$C8
+    db $C8,$85,$90,$29,$FF,$00,$EB,$9D,$AA,$0D,$A5,$90,$29,$00,$FF,$10
+    db $03,$09,$FF,$00,$EB,$9D,$F6,$0C,$60,$A6,$88,$B7,$80,$C8,$C8,$85
+    db $90,$29,$FF,$00,$EB,$9D,$E6,$0D,$A5,$90,$29,$00,$FF,$10,$03,$09
+    db $FF,$00,$EB,$9D,$32,$0D,$60,$A6,$88,$B7,$80,$C8,$C8,$85,$90,$29
+    db $FF,$00,$EB,$9D,$22,$0E,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00
+    db $EB,$9D,$6E,$0D,$60,$A6,$88,$B7,$80,$C8,$C8,$85,$90,$29,$FF,$00
+    db $EB,$18,$7D,$AA,$0D,$9D,$AA,$0D,$A5,$90,$29,$00,$FF,$10,$03,$09
+    db $FF,$00,$EB,$7D,$F6,$0C,$9D,$F6,$0C,$60,$A6,$88,$B7,$80,$C8,$C8
+    db $85,$90,$29,$FF,$00,$EB,$18,$7D,$E6,$0D,$9D,$E6,$0D,$A5,$90,$29
+    db $00,$FF,$10,$03,$09,$FF,$00,$EB,$7D,$32,$0D,$9D,$32,$0D,$60,$A6
+    db $88,$B7,$80,$C8,$C8,$85,$90,$29,$FF,$00,$EB,$18,$7D,$22,$0E,$9D
+    db $22,$0E,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$7D,$6E,$0D
+    db $9D,$6E,$0D,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$9D,$02
+    db $1A,$9E,$12,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7
+    db $80,$9D,$0A,$1A,$9E,$1A,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A
+    db $AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$9D,$32,$1A,$A5,$90,$29
+    db $00,$FF,$10,$03,$09,$FF,$00,$EB,$9D,$22,$1A,$C8,$C8,$60,$B7,$80
+    db $29,$FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$9D,$3A
+    db $1A,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$9D,$2A,$1A,$C8
+    db $C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF
+    db $00,$EB,$18,$7D,$32,$1A,$9D,$32,$1A,$A5,$90,$29,$00,$FF,$10,$03
+    db $09,$FF,$00,$EB,$7D,$22,$1A,$9D,$22,$1A,$C8,$C8,$60,$B7,$80,$29
+    db $FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$29,$FF,$00,$EB,$18,$7D,$3A
+    db $1A,$9D,$3A,$1A,$A5,$90,$29,$00,$FF,$10,$03,$09,$FF,$00,$EB,$7D
+    db $2A,$1A,$9D,$2A,$1A,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$8E,$0B
+    db $9D,$8E,$0B,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$CA,$0B,$9D,$CA
+    db $0B,$C8,$C8,$60,$A6,$88,$B7,$80,$18,$7D,$06,$0C,$9D,$06,$0C,$C8
+    db $C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80,$18,$7D,$02,$1A
+    db $9D,$02,$1A,$C8,$C8,$60,$B7,$80,$29,$FF,$00,$0A,$AA,$C8,$B7,$80
+    db $18,$7D,$0A,$1A,$9D,$0A,$1A,$C8,$C8,$60,$A6,$88,$9E,$AA,$0D,$9E
+    db $F6,$0C,$9E,$E6,$0D,$9E,$32,$0D,$9E,$22,$0E,$9E,$6E,$0D,$60,$0A
+    db $AA,$9E,$AA,$0D,$9E,$F6,$0C,$9E,$E6,$0D,$9E,$32,$0D,$9E,$22,$0E
+    db $9E,$6E,$0D,$6B,$B7,$80,$29,$FF,$00,$0A,$AA,$9E,$32,$1A,$9E,$22
+    db $1A,$9E,$3A,$1A,$9E,$2A,$1A,$C8,$60,$A6,$88,$B7,$80,$29,$FF,$00
+    db $C8,$9D,$3E,$10,$60,$B7,$80,$8D,$5A,$0A,$C8,$C8,$B7,$80,$C8,$8D
+    db $5C,$0A,$84,$94,$A6,$8A,$BD,$16,$15,$22,$9E,$9D,$C0,$A6,$8A,$9D
+    db $16,$15,$A4,$94,$60,$A6,$8A,$BD,$16,$15,$D0,$04,$B7,$80,$A8,$60
+    db $C8,$C8,$60,$A6,$8A,$BD,$16,$15,$F0,$04,$B7,$80,$A8,$60,$C8,$C8
+    db $60,$A6,$8A,$BD,$16,$15,$85,$90,$B7,$80,$29,$FF,$00,$C8,$84,$94
+    db $C5,$90,$90,$02,$D0,$05,$0A,$65,$94,$A8,$60,$A5,$90,$0A,$18,$65
+    db $94,$A8,$B7,$80,$A8,$60,$A6,$8A,$BD,$16,$15,$85,$90,$B7,$80,$29
+    db $FF,$00,$C8,$84,$94,$C5,$90,$90,$DD,$F0,$DB,$BC,$E6,$12,$0A,$65
+    db $94,$91,$84,$C8,$C8,$98,$9D,$E6,$12,$80,$D0,$84,$94,$A4,$8A,$A6
+    db $88,$20,$12,$9D,$A9,$FF,$FF,$99,$72,$13,$BD,$DA,$0A,$10,$03,$4C
+    db $F2,$95,$A4,$94,$60,$84,$94,$20,$03,$9D,$B0,$25,$8C,$58,$0A,$A6
+    db $8A,$BD,$5A,$12,$99,$5A,$12,$98,$9D,$5A,$12,$BB,$9E,$E6,$12,$9E
+    db $72,$13,$A4,$94,$B7,$80,$9D,$FE,$13,$A5,$82,$9D,$8A,$14,$C8,$C8
+    db $60,$A4,$94,$C8,$C8,$60,$84,$94,$A6,$8A,$BC,$5A,$12,$10,$B0,$A4
+    db $94,$60,$A6,$88,$B7,$80,$9D,$7A,$10,$C8,$C8,$E2,$20,$B7,$80,$9D
+    db $B6,$10,$C2,$20,$C8,$60,$88,$A6,$8A,$A9,$FF,$FF,$9D,$72,$13,$60
+    db $A6,$88,$FE,$F2,$10,$60,$A6,$88,$DE,$F2,$10,$60,$A6,$88,$B7,$80
+    db $29,$FF,$00,$C9,$80,$00,$90,$04,$09,$00,$FF,$18,$7D,$F2,$10,$9D
+    db $F2,$10,$C8,$60,$B7,$80,$85,$8C,$C8,$C8,$B7,$80,$29,$FF,$00,$0A
+    db $AA,$C8,$B7,$80,$85,$90,$C8,$BF,$BD,$9A,$C0,$8D,$5A,$0A,$A9,$00
+    db $00,$8D,$5C,$0A,$A2,$00,$00,$E2,$20,$20,$9E,$9D,$C2,$20,$60,$B7
+    db $80,$29,$FF,$00,$0A,$AA,$BF,$F9,$9A,$C0,$18,$65,$88,$80,$0B,$A9
+    db $16,$15,$18,$65,$8A,$80,$04,$B7,$80,$C8,$C8,$85,$8C,$B7,$80,$29
+    db $FF,$00,$0A,$AA,$C8,$B7,$80,$85,$90,$C8,$C8,$BF,$BD,$9A,$C0,$8D
+    db $5A,$0A,$6C,$5A,$0A
 C09ABD_ScriptOpcodePointerTable_End:
 
 
@@ -21347,11 +22077,93 @@ C09ABD_ScriptOpcodePointerTable_End:
 hirom
 org $C09ABD
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C09ABD_ScriptOpTargetMutationTable:
-
-; Original data gap before C09AC5_ScriptOpTargetMutationTable_End:
-db $C5,$9A,$CC,$9A,$D3,$9A,$DB,$9A
-
+    db $C5,$9A,$CC,$9A,$D3,$9A,$DB,$9A
 C09AC5_ScriptOpTargetMutationTable_End:
 
 
@@ -21432,11 +22244,93 @@ C09ADB_ScriptOp_MutateTarget_EOR:
 hirom
 org $C09AF9
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C09AF9_EntityScriptVarTablePointers:
-
-; Original data gap before C09B09_EntityScriptVarTablePointers_End:
-db $5E,$0E,$9A,$0E,$D6,$0E,$12,$0F,$4E,$0F,$8A,$0F,$C6,$0F,$02,$10
-
+    db $5E,$0E,$9A,$0E,$D6,$0E,$12,$0F,$4E,$0F,$8A,$0F,$C6,$0F,$02,$10
 C09B09_EntityScriptVarTablePointers_End:
 
 
@@ -22954,12 +23848,94 @@ C0A19F_Lookup_CachedMapPropertyNibble_LA19F:
 hirom
 org $C0A1AE
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A1AE_CachedMapPropertyShiftDispatchTable:
-
-; Original data gap before C0A1CE_CachedMapPropertyShiftDispatchTable_End:
-db $D4,$A1,$00,$00,$D2,$A1,$00,$00,$D0,$A1,$00,$00,$CE,$A1,$00,$00
-db $D4,$A1,$00,$00,$D2,$A1,$00,$00,$D0,$A1,$00,$00,$CE,$A1,$00,$00
-
+    db $D4,$A1,$00,$00,$D2,$A1,$00,$00,$D0,$A1,$00,$00,$CE,$A1,$00,$00
+    db $D4,$A1,$00,$00,$D2,$A1,$00,$00,$D0,$A1,$00,$00,$CE,$A1,$00,$00
 C0A1CE_CachedMapPropertyShiftDispatchTable_End:
 
 
@@ -23051,11 +24027,93 @@ C0A1F2_Copy_MapBufferPageToWorkBuffer:
 hirom
 org $C0A20C
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A20C_MapBufferPageSourcePointerTable:
-
-; Original data gap before C0A21C_MapBufferPageSourcePointerTable_End:
-db $00,$B8,$C0,$B8,$80,$B9,$40,$BA,$00,$BB,$C0,$BB,$80,$BC,$40,$BD
-
+    db $00,$B8,$C0,$B8,$80,$B9,$40,$BA,$00,$BB,$C0,$BB,$80,$BC,$40,$BD
 C0A21C_MapBufferPageSourcePointerTable_End:
 
 
@@ -23173,11 +24231,93 @@ C0A2A8_PhysicsCallback_TargetComparisonAndProjection_LA2A8:
 hirom
 org $C0A2AB
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A2AB_PhysicsCallbackDistanceThresholdTableA:
-
-; Original data gap before C0A2B7_PhysicsCallbackDistanceThresholdTableA_End:
-db $00,$00,$11,$00,$20,$00,$2F,$00,$3E,$00,$4D,$00
-
+    db $00,$00,$11,$00,$20,$00,$2F,$00,$3E,$00,$4D,$00
 C0A2B7_PhysicsCallbackDistanceThresholdTableA_End:
 
 
@@ -23254,11 +24394,93 @@ C0A30A_CompareProjectedYThenXDistanceThreshold_LA30A:
 hirom
 org $C0A30B
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A30B_PhysicsCallbackDistanceThresholdTableB:
-
-; Original data gap before C0A317_PhysicsCallbackDistanceThresholdTableB_End:
-db $00,$00,$0B,$00,$16,$00,$20,$00,$2B,$00,$36,$00
-
+    db $00,$00,$0B,$00,$16,$00,$20,$00,$2B,$00,$36,$00
 C0A317_PhysicsCallbackDistanceThresholdTableB_End:
 
 
@@ -23311,11 +24533,93 @@ C0A34F_CompareWorldXDistanceAndNormalizeDelta_LA34F:
 hirom
 org $C0A350
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A350_PhysicsCallbackComparisonDispatchTable:
-
-; Original data gap before C0A360_PhysicsCallbackComparisonDispatchTable_End:
-db $B7,$A2,$17,$A3,$E1,$A2,$17,$A3,$B7,$A2,$17,$A3,$E1,$A2,$17,$A3
-
+    db $B7,$A2,$17,$A3,$E1,$A2,$17,$A3,$B7,$A2,$17,$A3,$E1,$A2,$17,$A3
 C0A360_PhysicsCallbackComparisonDispatchTable_End:
 
 
@@ -23787,12 +25091,94 @@ C0A602_Generate_RenderDmaStripDescriptors_LA602:
 hirom
 org $C0A60B
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A60B_VisualProfileDirectionOffsetTable:
-
-; Original data gap before C0A623_VisualProfileDirectionOffsetTable_End:
-db $00,$00,$00,$00,$01,$00,$02,$00,$02,$00,$02,$00,$03,$00,$00,$00
-db $04,$00,$05,$00,$06,$00,$07,$00
-
+    db $00,$00,$00,$00,$01,$00,$02,$00,$02,$00,$02,$00,$03,$00,$00,$00
+    db $04,$00,$05,$00,$06,$00,$07,$00
 C0A623_VisualProfileDirectionOffsetTable_End:
 
 
@@ -23803,12 +25189,94 @@ C0A623_VisualProfileDirectionOffsetTable_End:
 hirom
 org $C0A623
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0A623_VisualProfileSecondaryOffsetTable:
-
-; Original data gap before C0A643_VisualProfileSecondaryOffsetTable_End:
-db $00,$00,$04,$00,$01,$00,$05,$00,$02,$00,$06,$00,$03,$00,$07,$00
-db $22,$9A,$8E,$C0,$29,$03,$00,$6B,$22,$9A,$8E,$C0,$29,$07,$00,$6B
-
+    db $00,$00,$04,$00,$01,$00,$05,$00,$02,$00,$06,$00,$03,$00,$07,$00
+    db $22,$9A,$8E,$C0,$29,$03,$00,$6B,$22,$9A,$8E,$C0,$29,$07,$00,$6B
 C0A643_VisualProfileSecondaryOffsetTable_End:
 
 
@@ -25524,11 +26992,93 @@ C0AE01_ConfigureBattleBgDmaChannel_LAE01:
 hirom
 org $C0AE16
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0AE16_DmaChannelFlagTable:
-
-; Original data gap before C0AE1D_DmaChannelFlagTable_End:
-db $01,$02,$04,$08,$10,$20,$40
-
+    db $01,$02,$04,$08,$10,$20,$40
 C0AE1D_DmaChannelFlagTable_End:
 
 
@@ -25539,11 +27089,93 @@ C0AE1D_DmaChannelFlagTable_End:
 hirom
 org $C0AE1D
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0AE1D_BattleBgDmaBbusRegisterTable:
-
-; Original data gap before C0AE26_BattleBgDmaBbusRegisterTable_End:
-db $80,$0D,$0F,$11,$13,$0E,$10,$12,$14
-
+    db $80,$0D,$0F,$11,$13,$0E,$10,$12,$14
 C0AE26_BattleBgDmaBbusRegisterTable_End:
 
 
@@ -25554,11 +27186,93 @@ C0AE26_BattleBgDmaBbusRegisterTable_End:
 hirom
 org $C0AE26
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0AE26_BattleBgDmaSourceDescriptorTemplates:
-
-; Original data gap before C0AE34_BattleBgDmaSourceDescriptorTemplates_End:
-db $E4,$46,$3C,$FC,$0E,$3D,$00,$E4,$06,$3E,$FC,$CE,$3E,$00
-
+    db $E4,$46,$3C,$FC,$0E,$3D,$00,$E4,$06,$3E,$FC,$CE,$3E,$00
 C0AE34_BattleBgDmaSourceDescriptorTemplates_End:
 
 
@@ -25586,35 +27300,117 @@ C0AE34_ClearPendingDmaChannelBit:
 hirom
 org $C0AE44
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0AE44_InverseDmaChannelMaskTable:
-
-; Original data gap before C0AFCD_InverseDmaChannelMaskTable_End:
-db $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F,$8D,$CC,$1A,$8E,$CE,$1A,$8C,$D2
-db $1A,$6B,$8D,$D4,$1A,$6B,$0B,$48,$7B,$38,$E9,$0B,$00,$29,$00,$FF
-db $5B,$68,$85,$00,$8A,$E2,$20,$8F,$1B,$21,$00,$EB,$8F,$1B,$21,$00
-db $64,$02,$84,$03,$64,$04,$C2,$20,$A9,$00,$00,$A2,$C0,$01,$AC,$D2
-db $1A,$F0,$04,$8A,$A2,$80,$03,$85,$07,$86,$09,$AD,$CC,$1A,$C9,$02
-db $00,$90,$08,$D0,$03,$4C,$24,$AF,$4C,$65,$AF,$AD,$CE,$1A,$F0,$12
-db $3A,$0A,$0A,$AA,$BD,$33,$00,$18,$65,$03,$29,$FF,$00,$85,$03,$BD
-db $31,$00,$85,$05,$AD,$CC,$1A,$D0,$25,$A4,$07,$A6,$03,$BF,$25,$B4
-db $C0,$8F,$1C,$21,$00,$AF,$35,$21,$00,$18,$65,$05,$99,$46,$3C,$A5
-db $02,$18,$65,$00,$85,$02,$C8,$C8,$C4,$09,$90,$DF,$2B,$6B,$A4,$07
-db $A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$AF,$35,$21,$00,$18,$65
-db $05,$99,$46,$3C,$A5,$02,$18,$65,$00,$85,$02,$A6,$03,$BF,$25,$B4
-db $C0,$8F,$1C,$21,$00,$A5,$05,$38,$EF,$35,$21,$00,$99,$48,$3C,$A5
-db $02,$18,$65,$00,$85,$02,$C8,$C8,$C8,$C8,$C4,$09,$90,$C2,$2B,$6B
-db $AD,$CE,$1A,$F0,$07,$3A,$0A,$0A,$AA,$BD,$33,$00,$EB,$29,$00,$FF
-db $85,$05,$A4,$07,$A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$A5,$05
-db $18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00,$18,$6F,$35,$21,$00,$99
-db $46,$3C,$A5,$02,$18,$65,$00,$85,$02,$C8,$C8,$C4,$09,$90,$D5,$2B
-db $6B,$AD,$CE,$1A,$F0,$07,$3A,$0A,$0A,$AA,$BD,$33,$00,$EB,$29,$00
-db $FF,$85,$05,$A4,$07,$A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$A5
-db $05,$18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00,$18,$6F,$35,$21,$00
-db $99,$46,$3C,$A5,$02,$18,$65,$00,$85,$02,$A6,$03,$BF,$25,$B4,$C0
-db $8F,$1C,$21,$00,$A5,$05,$18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00
-db $38,$EF,$35,$21,$00,$99,$48,$3C,$A5,$02,$18,$65,$00,$85,$02,$C8
-db $C8,$C8,$C8,$C4,$09,$90,$AE,$2B,$6B
-
+    db $FE,$FD,$FB,$F7,$EF,$DF,$BF,$7F,$8D,$CC,$1A,$8E,$CE,$1A,$8C,$D2
+    db $1A,$6B,$8D,$D4,$1A,$6B,$0B,$48,$7B,$38,$E9,$0B,$00,$29,$00,$FF
+    db $5B,$68,$85,$00,$8A,$E2,$20,$8F,$1B,$21,$00,$EB,$8F,$1B,$21,$00
+    db $64,$02,$84,$03,$64,$04,$C2,$20,$A9,$00,$00,$A2,$C0,$01,$AC,$D2
+    db $1A,$F0,$04,$8A,$A2,$80,$03,$85,$07,$86,$09,$AD,$CC,$1A,$C9,$02
+    db $00,$90,$08,$D0,$03,$4C,$24,$AF,$4C,$65,$AF,$AD,$CE,$1A,$F0,$12
+    db $3A,$0A,$0A,$AA,$BD,$33,$00,$18,$65,$03,$29,$FF,$00,$85,$03,$BD
+    db $31,$00,$85,$05,$AD,$CC,$1A,$D0,$25,$A4,$07,$A6,$03,$BF,$25,$B4
+    db $C0,$8F,$1C,$21,$00,$AF,$35,$21,$00,$18,$65,$05,$99,$46,$3C,$A5
+    db $02,$18,$65,$00,$85,$02,$C8,$C8,$C4,$09,$90,$DF,$2B,$6B,$A4,$07
+    db $A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$AF,$35,$21,$00,$18,$65
+    db $05,$99,$46,$3C,$A5,$02,$18,$65,$00,$85,$02,$A6,$03,$BF,$25,$B4
+    db $C0,$8F,$1C,$21,$00,$A5,$05,$38,$EF,$35,$21,$00,$99,$48,$3C,$A5
+    db $02,$18,$65,$00,$85,$02,$C8,$C8,$C8,$C8,$C4,$09,$90,$C2,$2B,$6B
+    db $AD,$CE,$1A,$F0,$07,$3A,$0A,$0A,$AA,$BD,$33,$00,$EB,$29,$00,$FF
+    db $85,$05,$A4,$07,$A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$A5,$05
+    db $18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00,$18,$6F,$35,$21,$00,$99
+    db $46,$3C,$A5,$02,$18,$65,$00,$85,$02,$C8,$C8,$C4,$09,$90,$D5,$2B
+    db $6B,$AD,$CE,$1A,$F0,$07,$3A,$0A,$0A,$AA,$BD,$33,$00,$EB,$29,$00
+    db $FF,$85,$05,$A4,$07,$A6,$03,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$A5
+    db $05,$18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00,$18,$6F,$35,$21,$00
+    db $99,$46,$3C,$A5,$02,$18,$65,$00,$85,$02,$A6,$03,$BF,$25,$B4,$C0
+    db $8F,$1C,$21,$00,$A5,$05,$18,$6D,$D4,$1A,$85,$05,$EB,$29,$FF,$00
+    db $38,$EF,$35,$21,$00,$99,$48,$3C,$A5,$02,$18,$65,$00,$85,$02,$C8
+    db $C8,$C8,$C8,$C4,$09,$90,$AE,$2B,$6B
 C0AFCD_InverseDmaChannelMaskTable_End:
 
 
@@ -25766,11 +27562,93 @@ C0B0A1_SetWindowMaskRegisters_LB0A1:
 hirom
 org $C0B0A6
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0B0A6_WindowMaskNibbleLookupTable:
-
-; Original data gap before C0B0AA_WindowMaskNibbleLookupTable_End:
-db $00,$0F,$F0,$FF
-
+    db $00,$0F,$F0,$FF
 C0B0AA_WindowMaskNibbleLookupTable_End:
 
 
@@ -26146,64 +28024,146 @@ C0B2FD_BuildBattleBgOffsetEffectTable3FD0_LB2FD:
 hirom
 org $C0B2FF
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0B2FF_BattleBgOffsetClampLookupTable:
-
-; Original data gap before C0B65F_BattleBgOffsetClampLookupTable_End:
-db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
-db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FE,$FE,$FE,$FE
-db $FE,$FE,$FE,$FE,$FD,$FD,$FD,$FD,$FD,$FD,$FD,$FC,$FC,$FC,$FC,$FC
-db $FB,$FB,$FB,$FB,$FB,$FA,$FA,$FA,$FA,$FA,$F9,$F9,$F9,$F9,$F8,$F8
-db $F8,$F8,$F7,$F7,$F7,$F7,$F6,$F6,$F6,$F5,$F5,$F5,$F4,$F4,$F4,$F4
-db $F3,$F3,$F3,$F2,$F2,$F1,$F1,$F1,$F0,$F0,$F0,$EF,$EF,$EF,$EE,$EE
-db $ED,$ED,$EC,$EC,$EC,$EB,$EB,$EA,$EA,$E9,$E9,$E9,$E8,$E8,$E7,$E7
-db $E6,$E6,$E5,$E5,$E4,$E4,$E3,$E3,$E2,$E2,$E1,$E1,$E0,$DF,$DF,$DE
-db $DE,$DD,$DD,$DC,$DB,$DB,$DA,$DA,$D9,$D8,$D8,$D7,$D6,$D6,$D5,$D4
-db $D4,$D3,$D2,$D2,$D1,$D0,$CF,$CF,$CE,$CD,$CC,$CC,$CB,$CA,$C9,$C9
-db $C8,$C7,$C6,$C5,$C5,$C4,$C3,$C2,$C1,$C0,$BF,$BF,$BE,$BD,$BC,$BB
-db $BA,$B9,$B8,$B7,$B6,$B5,$B4,$B3,$B2,$B1,$B0,$AF,$AE,$AD,$AC,$AA
-db $A9,$A8,$A7,$A6,$A5,$A3,$A2,$A1,$A0,$9F,$9D,$9C,$9B,$99,$98,$97
-db $95,$94,$92,$91,$8F,$8E,$8C,$8B,$89,$88,$86,$85,$83,$81,$7F,$7E
-db $7C,$7A,$78,$76,$74,$72,$70,$6E,$6C,$6A,$68,$66,$63,$61,$5E,$5C
-db $59,$56,$53,$51,$4D,$4A,$47,$43,$3F,$3B,$37,$32,$2D,$27,$20,$17
-db $00,$48,$8A,$38,$E9,$40,$00,$29,$FF,$00,$AA,$68,$E2,$20,$8F,$1B
-db $21,$00,$EB,$8F,$1B,$21,$00,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$C2
-db $20,$AF,$35,$21,$00,$6B,$00,$03,$06,$09,$0C,$0F,$12,$15,$18,$1C
-db $1F,$22,$25,$28,$2B,$2E,$30,$33,$36,$39,$3C,$3F,$41,$44,$47,$49
-db $4C,$4E,$51,$53,$55,$58,$5A,$5C,$5E,$60,$62,$64,$66,$68,$6A,$6C
-db $6D,$6F,$70,$72,$73,$75,$76,$77,$78,$79,$7A,$7B,$7C,$7C,$7D,$7E
-db $7E,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7E,$7E,$7D,$7C
-db $7C,$7B,$7A,$79,$78,$77,$76,$75,$73,$72,$70,$6F,$6D,$6C,$6A,$68
-db $66,$64,$62,$60,$5E,$5C,$5A,$58,$55,$53,$51,$4E,$4C,$49,$47,$44
-db $41,$3F,$3C,$39,$36,$33,$30,$2E,$2B,$28,$25,$22,$1F,$1C,$18,$15
-db $12,$0F,$0C,$09,$06,$03,$00,$FD,$FA,$F7,$F4,$F1,$EE,$EB,$E8,$E4
-db $E1,$DE,$DB,$D8,$D5,$D2,$D0,$CD,$CA,$C7,$C4,$C1,$BF,$BC,$B9,$B7
-db $B4,$B2,$AF,$AD,$AB,$A8,$A6,$A4,$A2,$A0,$9E,$9C,$9A,$98,$96,$94
-db $93,$91,$90,$8E,$8D,$8B,$8A,$89,$88,$87,$86,$85,$84,$84,$83,$82
-db $82,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$82,$82,$83,$84
-db $84,$85,$86,$87,$88,$89,$8A,$8B,$8D,$8E,$90,$91,$93,$94,$96,$98
-db $9A,$9C,$9E,$A0,$A2,$A4,$A6,$A8,$AB,$AD,$AF,$B2,$B4,$B7,$B9,$BC
-db $BF,$C1,$C4,$C7,$CA,$CD,$D0,$D2,$D5,$D8,$DB,$DE,$E1,$E4,$E8,$EB
-db $EE,$F1,$F4,$F7,$FA,$FD,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$22,$26
-db $87,$C0,$22,$7C,$92,$C0,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$22,$86
-db $1A,$C0,$A2,$00,$00,$A9,$00,$80,$22,$11,$1C,$C0,$22,$69,$1A,$C0
-db $22,$13,$00,$C0,$22,$B1,$32,$C4,$22,$E7,$05,$C0,$A9,$00,$00,$85
-db $0E,$A9,$C3,$00,$85,$10,$A2,$00,$01,$A9,$00,$03,$22,$D2,$8E,$C0
-db $22,$D9,$00,$C2,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$A9,$00
-db $00,$87,$06,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$7C,$A2,$00
-db $08,$E2,$20,$A9,$03,$22,$16,$86,$C0,$A9,$00,$00,$85,$0E,$A9,$E0
-db $00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$A9
-db $00,$20,$85,$0E,$A9,$7F,$00,$85,$10,$A9,$00,$10,$85,$12,$A9,$7F
-db $00,$85,$14,$A9,$00,$2A,$22,$ED,$8E,$C0,$A9,$01,$00,$22,$63,$49
-db $C4,$A9,$C8,$1F,$85,$0E,$A9,$E0,$00,$85,$10,$A2,$40,$00,$A9,$00
-db $02,$22,$D2,$8E,$C0,$E2,$20,$A9,$18,$8D,$30,$00,$A2,$00,$00,$C2
-db $20,$A9,$E6,$00,$22,$70,$73,$C4,$A9,$17,$00,$8D,$4C,$0A,$A9,$18
-db $00,$8D,$4E,$0A,$A0,$00,$00,$BB,$A9,$13,$03,$22,$21,$93,$C0,$E2
-db $20,$A9,$16,$8D,$1A,$00,$C2,$20,$9C,$37,$00,$9C,$33,$00,$9C,$35
-db $00,$9C,$31,$00,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$A2,$01,$00,$8A
-db $22,$6C,$88,$C0,$22,$6B,$FF,$C1,$A0,$00,$00,$A2,$01,$00,$8A,$22
-db $14,$88,$C0,$A9,$17,$00,$22,$35,$9C,$C0,$E2,$20,$A9,$17,$8D,$1A
-db $00,$C2,$20,$AD,$B7,$98,$29,$FF,$00,$3A,$22,$18,$FD,$C4,$2B,$60
-
+    db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+    db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FE,$FE,$FE,$FE
+    db $FE,$FE,$FE,$FE,$FD,$FD,$FD,$FD,$FD,$FD,$FD,$FC,$FC,$FC,$FC,$FC
+    db $FB,$FB,$FB,$FB,$FB,$FA,$FA,$FA,$FA,$FA,$F9,$F9,$F9,$F9,$F8,$F8
+    db $F8,$F8,$F7,$F7,$F7,$F7,$F6,$F6,$F6,$F5,$F5,$F5,$F4,$F4,$F4,$F4
+    db $F3,$F3,$F3,$F2,$F2,$F1,$F1,$F1,$F0,$F0,$F0,$EF,$EF,$EF,$EE,$EE
+    db $ED,$ED,$EC,$EC,$EC,$EB,$EB,$EA,$EA,$E9,$E9,$E9,$E8,$E8,$E7,$E7
+    db $E6,$E6,$E5,$E5,$E4,$E4,$E3,$E3,$E2,$E2,$E1,$E1,$E0,$DF,$DF,$DE
+    db $DE,$DD,$DD,$DC,$DB,$DB,$DA,$DA,$D9,$D8,$D8,$D7,$D6,$D6,$D5,$D4
+    db $D4,$D3,$D2,$D2,$D1,$D0,$CF,$CF,$CE,$CD,$CC,$CC,$CB,$CA,$C9,$C9
+    db $C8,$C7,$C6,$C5,$C5,$C4,$C3,$C2,$C1,$C0,$BF,$BF,$BE,$BD,$BC,$BB
+    db $BA,$B9,$B8,$B7,$B6,$B5,$B4,$B3,$B2,$B1,$B0,$AF,$AE,$AD,$AC,$AA
+    db $A9,$A8,$A7,$A6,$A5,$A3,$A2,$A1,$A0,$9F,$9D,$9C,$9B,$99,$98,$97
+    db $95,$94,$92,$91,$8F,$8E,$8C,$8B,$89,$88,$86,$85,$83,$81,$7F,$7E
+    db $7C,$7A,$78,$76,$74,$72,$70,$6E,$6C,$6A,$68,$66,$63,$61,$5E,$5C
+    db $59,$56,$53,$51,$4D,$4A,$47,$43,$3F,$3B,$37,$32,$2D,$27,$20,$17
+    db $00,$48,$8A,$38,$E9,$40,$00,$29,$FF,$00,$AA,$68,$E2,$20,$8F,$1B
+    db $21,$00,$EB,$8F,$1B,$21,$00,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$C2
+    db $20,$AF,$35,$21,$00,$6B,$00,$03,$06,$09,$0C,$0F,$12,$15,$18,$1C
+    db $1F,$22,$25,$28,$2B,$2E,$30,$33,$36,$39,$3C,$3F,$41,$44,$47,$49
+    db $4C,$4E,$51,$53,$55,$58,$5A,$5C,$5E,$60,$62,$64,$66,$68,$6A,$6C
+    db $6D,$6F,$70,$72,$73,$75,$76,$77,$78,$79,$7A,$7B,$7C,$7C,$7D,$7E
+    db $7E,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7E,$7E,$7D,$7C
+    db $7C,$7B,$7A,$79,$78,$77,$76,$75,$73,$72,$70,$6F,$6D,$6C,$6A,$68
+    db $66,$64,$62,$60,$5E,$5C,$5A,$58,$55,$53,$51,$4E,$4C,$49,$47,$44
+    db $41,$3F,$3C,$39,$36,$33,$30,$2E,$2B,$28,$25,$22,$1F,$1C,$18,$15
+    db $12,$0F,$0C,$09,$06,$03,$00,$FD,$FA,$F7,$F4,$F1,$EE,$EB,$E8,$E4
+    db $E1,$DE,$DB,$D8,$D5,$D2,$D0,$CD,$CA,$C7,$C4,$C1,$BF,$BC,$B9,$B7
+    db $B4,$B2,$AF,$AD,$AB,$A8,$A6,$A4,$A2,$A0,$9E,$9C,$9A,$98,$96,$94
+    db $93,$91,$90,$8E,$8D,$8B,$8A,$89,$88,$87,$86,$85,$84,$84,$83,$82
+    db $82,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$82,$82,$83,$84
+    db $84,$85,$86,$87,$88,$89,$8A,$8B,$8D,$8E,$90,$91,$93,$94,$96,$98
+    db $9A,$9C,$9E,$A0,$A2,$A4,$A6,$A8,$AB,$AD,$AF,$B2,$B4,$B7,$B9,$BC
+    db $BF,$C1,$C4,$C7,$CA,$CD,$D0,$D2,$D5,$D8,$DB,$DE,$E1,$E4,$E8,$EB
+    db $EE,$F1,$F4,$F7,$FA,$FD,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$22,$26
+    db $87,$C0,$22,$7C,$92,$C0,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$22,$86
+    db $1A,$C0,$A2,$00,$00,$A9,$00,$80,$22,$11,$1C,$C0,$22,$69,$1A,$C0
+    db $22,$13,$00,$C0,$22,$B1,$32,$C4,$22,$E7,$05,$C0,$A9,$00,$00,$85
+    db $0E,$A9,$C3,$00,$85,$10,$A2,$00,$01,$A9,$00,$03,$22,$D2,$8E,$C0
+    db $22,$D9,$00,$C2,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$A9,$00
+    db $00,$87,$06,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$7C,$A2,$00
+    db $08,$E2,$20,$A9,$03,$22,$16,$86,$C0,$A9,$00,$00,$85,$0E,$A9,$E0
+    db $00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$A9
+    db $00,$20,$85,$0E,$A9,$7F,$00,$85,$10,$A9,$00,$10,$85,$12,$A9,$7F
+    db $00,$85,$14,$A9,$00,$2A,$22,$ED,$8E,$C0,$A9,$01,$00,$22,$63,$49
+    db $C4,$A9,$C8,$1F,$85,$0E,$A9,$E0,$00,$85,$10,$A2,$40,$00,$A9,$00
+    db $02,$22,$D2,$8E,$C0,$E2,$20,$A9,$18,$8D,$30,$00,$A2,$00,$00,$C2
+    db $20,$A9,$E6,$00,$22,$70,$73,$C4,$A9,$17,$00,$8D,$4C,$0A,$A9,$18
+    db $00,$8D,$4E,$0A,$A0,$00,$00,$BB,$A9,$13,$03,$22,$21,$93,$C0,$E2
+    db $20,$A9,$16,$8D,$1A,$00,$C2,$20,$9C,$37,$00,$9C,$33,$00,$9C,$35
+    db $00,$9C,$31,$00,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$A2,$01,$00,$8A
+    db $22,$6C,$88,$C0,$22,$6B,$FF,$C1,$A0,$00,$00,$A2,$01,$00,$8A,$22
+    db $14,$88,$C0,$A9,$17,$00,$22,$35,$9C,$C0,$E2,$20,$A9,$17,$8D,$1A
+    db $00,$C2,$20,$AD,$B7,$98,$29,$FF,$00,$3A,$22,$18,$FD,$C4,$2B,$60
 C0B65F_BattleBgOffsetClampLookupTable_End:
 
 
@@ -28304,13 +30264,95 @@ C0C4CE_GateTightPlayerDistanceBucket_LC4CE:
 hirom
 org $C0C4CF
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0C4CF_PlayerDirectionRemapTable:
-
-; Original data gap before C0C4F7_PlayerDirectionRemapTable_End:
-db $00,$00,$01,$00,$02,$00,$00,$00,$07,$00,$06,$00,$04,$00,$05,$00
-db $06,$00,$04,$00,$03,$00,$02,$00,$04,$00,$05,$00,$06,$00,$07,$00
-db $00,$00,$01,$00,$02,$00,$03,$00
-
+    db $00,$00,$01,$00,$02,$00,$00,$00,$07,$00,$06,$00,$04,$00,$05,$00
+    db $06,$00,$04,$00,$03,$00,$02,$00,$04,$00,$05,$00,$06,$00,$07,$00
+    db $00,$00,$01,$00,$02,$00,$03,$00
 C0C4F7_PlayerDirectionRemapTable_End:
 
 
@@ -29829,25 +31871,182 @@ C0CEBC_AdvanceArcMovementVectorFromPhase_LCEBC:
 hirom
 org $C0CEBE
 
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0CEBE_TurnArcPhaseTowardTargetAngle:
-
-; Original data gap before C0CF97_TurnArcPhaseTowardTargetAngle_End:
-db $C2,$31,$0B,$48,$7B,$69,$EE,$FF,$5B,$68,$85,$10,$AD,$42,$1A,$85
-db $0E,$0A,$AA,$BD,$4E,$0F,$85,$02,$85,$04,$A5,$10,$C5,$02,$F0,$40
-db $C5,$02,$90,$14,$F0,$12,$38,$E5,$02,$C9,$00,$80,$B0,$05,$A2,$00
-db $00,$80,$19,$A2,$FF,$FF,$80,$14,$85,$04,$A5,$02,$38,$E5,$04,$C9
-db $00,$80,$B0,$05,$A2,$FF,$FF,$80,$03,$A2,$00,$00,$D0,$0A,$A5,$02
-db $18,$69,$00,$08,$85,$04,$80,$08,$A5,$02,$38,$E9,$00,$08,$85,$04
-db $A5,$0E,$0A,$AA,$18,$69,$32,$2B,$A8,$B9,$00,$00,$DD,$12,$0F,$B0
-db $07,$18,$69,$10,$00,$99,$00,$00,$A5,$02,$22,$0A,$6B,$C4,$AA,$86
-db $10,$A5,$04,$22,$0A,$6B,$C4,$85,$02,$A6,$10,$8A,$C5,$02,$F0,$06
-db $A5,$0E,$22,$8F,$A4,$C0,$A5,$04,$2B,$6B,$02,$02,$02,$02,$02,$02
-db $02,$03,$03,$03,$03,$03,$03,$03,$04,$04,$04,$04,$04,$04,$04,$01
-db $01,$01,$01,$01,$01,$02,$02,$02,$02,$02,$02,$03,$03,$03,$03,$03
-db $04,$04,$04,$04,$04,$01,$01,$01,$01,$02,$02,$02,$02,$03,$03,$03
-db $04,$04,$04,$01,$01,$02,$02,$03,$04
-
-C0CF97_TurnArcPhaseTowardTargetAngle_End:
+    rep #$31
+    phd
+    pha
+    tdc
+    adc.w #$FFEE
+    tcd
+    pla
+    sta $10
+    lda $1A42
+    sta $0E
+    asl A
+    tax
+    lda $0F4E,X
+    sta $02
+    sta $04
+    lda $10
+    cmp $02
+    beq C0CF1E_TurnArcPhaseTowardTargetAngle_LCF1E
+    cmp $02
+    bcc C0CEF6_TurnArcPhaseTowardTargetAngle_LCEF6
+    beq C0CEF6_TurnArcPhaseTowardTargetAngle_LCEF6
+    sec
+    sbc $02
+    cmp.w #$8000
+    bcs C0CEF1_TurnArcPhaseTowardTargetAngle_LCEF1
+    ldx.w #$0000
+    bra C0CF0A_TurnArcPhaseTowardTargetAngle_LCF0A
+C0CEF1_TurnArcPhaseTowardTargetAngle_LCEF1:
+    ldx.w #$FFFF
+    bra C0CF0A_TurnArcPhaseTowardTargetAngle_LCF0A
+C0CEF6_TurnArcPhaseTowardTargetAngle_LCEF6:
+    sta $04
+    lda $02
+    sec
+    sbc $04
+    cmp.w #$8000
+    bcs C0CF07_TurnArcPhaseTowardTargetAngle_LCF07
+    ldx.w #$FFFF
+    bra C0CF0A_TurnArcPhaseTowardTargetAngle_LCF0A
+C0CF07_TurnArcPhaseTowardTargetAngle_LCF07:
+    ldx.w #$0000
+C0CF0A_TurnArcPhaseTowardTargetAngle_LCF0A:
+    bne C0CF16_TurnArcPhaseTowardTargetAngle_LCF16
+    lda $02
+    clc
+    adc.w #$0800
+    sta $04
+    bra C0CF1E_TurnArcPhaseTowardTargetAngle_LCF1E
+C0CF16_TurnArcPhaseTowardTargetAngle_LCF16:
+    lda $02
+    sec
+    sbc.w #$0800
+    sta $04
+C0CF1E_TurnArcPhaseTowardTargetAngle_LCF1E:
+    lda $0E
+    asl A
+    tax
+    clc
+    adc.w #$2B32
+    tay
+    lda $0000,Y
+    cmp $0F12,X
+    bcs C0CF36_TurnArcPhaseTowardTargetAngle_LCF36
+    clc
+    adc.w #$0010
+    sta $0000,Y
+C0CF36_TurnArcPhaseTowardTargetAngle_LCF36:
+    lda $02
+    jsl $C46B0A
+    tax
+    stx $10
+    lda $04
+    jsl $C46B0A
+    sta $02
+    ldx $10
+    txa
+    cmp $02
+    beq C0CF54_TurnArcPhaseTowardTargetAngle_LCF54
+    lda $0E
+    jsl !C0A48F_RefreshVisualProfileForSlot
+C0CF54_TurnArcPhaseTowardTargetAngle_LCF54:
+    lda $04
+    pld
+    rtl
+C0CF58_TurnArcPhaseStepTable:
+    db $02,$02,$02,$02,$02,$02,$02,$03,$03,$03,$03,$03,$03,$03,$04,$04
+    db $04,$04,$04,$04,$04,$01,$01,$01,$01,$01,$01,$02,$02,$02,$02,$02
+    db $02,$03,$03,$03,$03,$03,$04,$04,$04,$04,$04,$01,$01,$01,$01,$02
+    db $02,$02,$02,$03,$03,$03,$04,$04,$04,$01,$01,$02,$02,$03,$04
+C0CF97_TurnArcPhaseStepTable_End:
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -35086,197 +37285,857 @@ C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
 hirom
 org $C0F41E
 
-C0F41E_FrameCallback_ProcessCommandStream:
-
-; Original terminal data gap ending at $C010000
-db $C2,$31,$0B,$7B,$69,$DB,$FF,$5B,$AD,$3B,$00,$CD,$E3,$B4,$F0,$02
-db $B0,$03,$4C,$5F,$F8,$AD,$F7,$B4,$85,$23,$AD,$F7,$B4,$1A,$85,$21
-db $AD,$F7,$B4,$1A,$1A,$29,$0F,$00,$8D,$F7,$B4,$AD,$3B,$00,$4A,$4A
-db $4A,$18,$69,$1D,$00,$29,$1F,$00,$85,$04,$A9,$00,$00,$85,$02,$85
-db $1F,$AD,$E7,$B4,$85,$06,$AD,$E9,$B4,$85,$08,$A5,$06,$85,$1B,$A5
-db $08,$85,$1D,$A5,$23,$0A,$0A,$0A,$0A,$0A,$0A,$18,$69,$FE,$7D,$85
-db $06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$17,$A5
-db $08,$85,$19,$A5,$21,$0A,$0A,$0A,$0A,$0A,$0A,$18,$69,$FE,$7D,$85
-db $0A,$8B,$E2,$20,$68,$85,$0C,$64,$0D,$C2,$20,$A7,$1B,$29,$FF,$00
-db $85,$15,$A5,$1B,$85,$06,$A5,$1D,$85,$08,$E6,$06,$A5,$06,$85,$1B
-db $A5,$08,$85,$1D,$A5,$15,$C9,$01,$00,$F0,$23,$C9,$02,$00,$D0,$03
-db $4C,$81,$F5,$C9,$03,$00,$D0,$03,$4C,$68,$F6,$C9,$04,$00,$D0,$03
-db $4C,$7A,$F6,$C9,$FF,$00,$D0,$03,$4C,$45,$F8,$4C,$4B,$F8,$AD,$E3
-db $B4,$18,$69,$08,$00,$8D,$E3,$B4,$80,$39,$29,$FF,$00,$18,$69,$00
-db $20,$A6,$17,$86,$06,$A6,$19,$86,$08,$87,$06,$A5,$1B,$85,$06,$A5
-db $1D,$85,$08,$E6,$06,$A5,$06,$85,$1B,$A5,$08,$85,$1D,$A5,$17,$85
-db $06,$A5,$19,$85,$08,$E6,$06,$E6,$06,$A5,$06,$85,$17,$A5,$08,$85
-db $19,$E6,$02,$A7,$1B,$29,$FF,$00,$D0,$C0,$A5,$02,$4A,$48,$A5,$04
-db $0A,$0A,$0A,$0A,$0A,$18,$69,$10,$6C,$7A,$84,$04,$38,$E5,$04,$85
-db $15,$A5,$23,$0A,$0A,$0A,$0A,$0A,$0A,$18,$69,$FE,$7D,$85,$06,$8B
-db $E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85
-db $10,$A5,$15,$A8,$A5,$02,$0A,$AA,$E2,$20,$A9,$00,$22,$C4,$EF,$C4
-db $4C,$4B,$F8,$AD,$E3,$B4,$18,$69,$10,$00,$8D,$E3,$B4,$80,$44,$29
-db $FF,$00,$18,$69,$00,$24,$A6,$17,$86,$06,$A6,$19,$86,$08,$87,$06
-db $E6,$06,$E6,$06,$A5,$06,$85,$17,$A5,$08,$85,$19,$A7,$1B,$29,$FF
-db $00,$18,$69,$10,$24,$87,$0A,$A5,$1B,$85,$06,$A5,$1D,$85,$08,$E6
-db $06,$A5,$06,$85,$1B,$A5,$08,$85,$1D,$E6,$0A,$E6,$0A,$E6,$02,$A5
-db $02,$85,$1F,$A7,$1B,$29,$FF,$00,$D0,$B5,$A5,$02,$4A,$85,$02,$A5
-db $04,$0A,$0A,$0A,$0A,$0A,$18,$69,$10,$6C,$38,$E5,$02,$85,$13,$A5
-db $23,$0A,$0A,$0A,$0A,$0A,$0A,$18,$69,$FE,$7D,$85,$06,$8B,$E2,$20
-db $68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A4
-db $13,$A5,$1F,$85,$02,$0A,$AA,$E2,$20,$A9,$00,$22,$C4,$EF,$C4,$A5
-db $04,$C9,$1F,$00,$F0,$0A,$A5,$13,$18,$69,$20,$00,$85,$23,$80,$08
-db $A5,$13,$38,$E9,$E0,$03,$85,$23,$A5,$21,$0A,$0A,$0A,$0A,$0A,$0A
-db $18,$69,$FE,$7D,$85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20
-db $A5,$06,$85,$0E,$A5,$08,$85,$10,$A5,$23,$A8,$A5,$02,$0A,$AA,$E2
-db $20,$A9,$00,$22,$C4,$EF,$C4,$4C,$4B,$F8,$A7,$1B,$29,$FF,$00,$0A
-db $0A,$0A,$18,$6D,$E3,$B4,$8D,$E3,$B4,$4C,$4B,$F8,$A2,$01,$98,$86
-db $15,$BD,$00,$00,$29,$FF,$00,$D0,$03,$4C,$31,$F8,$A0,$F9,$B4,$E2
-db $20,$A9,$00,$85,$12,$4C,$2A,$F7,$A5,$00,$29,$FF,$00,$85,$13,$C9
-db $AC,$00,$F0,$0C,$C9,$AE,$00,$F0,$1C,$C9,$AF,$00,$F0,$2C,$80,$3F
-db $A5,$12,$29,$FF,$00,$85,$02,$98,$18,$65,$02,$AA,$E2,$20,$A9,$7C
-db $9D,$00,$00,$80,$5D,$A5,$12,$29,$FF,$00,$85,$02,$98,$18,$65,$02
-db $AA,$E2,$20,$A9,$7E,$9D,$00,$00,$80,$48,$A5,$12,$29,$FF,$00,$85
-db $02,$98,$18,$65,$02,$AA,$E2,$20,$A9,$7F,$9D,$00,$00,$80,$33,$A5
-db $13,$18,$E9,$90,$00,$50,$04,$10,$0E,$80,$02,$30,$0A,$A5,$13,$38
-db $E9,$50,$00,$85,$13,$80,$08,$A5,$13,$38,$E9,$30,$00,$85,$13,$A5
-db $12,$29,$FF,$00,$85,$02,$98,$18,$65,$02,$AA,$A5,$13,$E2,$20,$9D
-db $00,$00,$A6,$15,$E8,$86,$15,$A5,$12,$1A,$85,$12,$BD,$00,$00,$85
-db $00,$C2,$20,$A5,$00,$29,$FF,$00,$F0,$03,$4C,$96,$F6,$AD,$E3,$B4
-db $18,$69,$10,$00,$8D,$E3,$B4,$A2,$00,$00,$80,$4B,$29,$FF,$00,$85
-db $02,$29,$F0,$00,$18,$65,$02,$18,$69,$00,$24,$48,$A5,$17,$85,$06
-db $A5,$19,$85,$08,$68,$87,$06,$E6,$06,$E6,$06,$A5,$06,$85,$17,$A5
-db $08,$85,$19,$B9,$00,$00,$29,$FF,$00,$85,$02,$29,$F0,$00,$18,$65
-db $02,$18,$69,$10,$24,$87,$0A,$E6,$0A,$E6,$0A,$C8,$A5,$1F,$85,$02
-db $E6,$02,$A5,$02,$85,$1F,$E8,$B9,$00,$00,$29,$FF,$00,$F0,$05,$E0
-db $18,$00,$90,$A8,$A5,$1F,$85,$02,$4A,$85,$02,$A5,$04,$0A,$0A,$0A
-db $0A,$0A,$18,$69,$10,$6C,$38,$E5,$02,$85,$13,$A5,$23,$0A,$0A,$0A
-db $0A,$0A,$0A,$18,$69,$FE,$7D,$85,$06,$8B,$E2,$20,$68,$85,$08,$64
-db $09,$C2,$20,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A4,$13,$A5,$1F,$85
-db $02,$0A,$AA,$E2,$20,$A9,$00,$22,$C4,$EF,$C4,$A5,$04,$C9,$1F,$00
-db $F0,$0A,$A5,$13,$18,$69,$20,$00,$85,$23,$80,$08,$A5,$13,$38,$E9
-db $E0,$03,$85,$23,$A5,$21,$0A,$0A,$0A,$0A,$0A,$0A,$18,$69,$FE,$7D
-db $85,$06,$8B,$E2,$20,$68,$85,$08,$64,$09,$C2,$20,$A5,$06,$85,$0E
-db $A5,$08,$85,$10,$A5,$23,$A8,$A5,$02,$0A,$AA,$E2,$20,$A9,$00,$22
-db $C4,$EF,$C4,$A5,$1B,$85,$06,$A5,$1D,$85,$08,$C6,$06,$A5,$06,$85
-db $1B,$A5,$08,$85,$1D,$80,$06,$A9,$FF,$FF,$8D,$E3,$B4,$A5,$1B,$85
-db $06,$A5,$1D,$85,$08,$E6,$06,$A5,$06,$8D,$E7,$B4,$A5,$08,$8D,$E9
-db $B4,$AD,$E5,$B4,$CD,$3B,$00,$B0,$33,$AD,$E5,$B4,$18,$69,$08,$00
-db $8D,$E5,$B4,$A9,$E8,$0B,$85,$0E,$A9,$C4,$00,$85,$10,$AD,$3B,$00
-db $4A,$4A,$4A,$3A,$29,$1F,$00,$0A,$0A,$0A,$0A,$0A,$18,$69,$00,$6C
-db $A8,$A2,$40,$00,$E2,$20,$A9,$03,$22,$C4,$EF,$C4,$AD,$EB,$B4,$85
-db $06,$AD,$ED,$B4,$85,$08,$18,$A5,$06,$69,$00,$40,$85,$06,$90,$02
-db $E6,$08,$A5,$06,$8D,$EB,$B4,$A5,$08,$8D,$ED,$B4,$8D,$3B,$00,$20
-db $9F,$AD,$2B,$60,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$30,$31,$4D,$42,$20,$20,$00,$00,$00,$00,$00,$00,$00,$00
-db $00,$00,$45,$41,$52,$54,$48,$20,$42,$4F,$55,$4E,$44,$20,$20,$20
-db $20,$20,$20,$20,$20,$20,$20,$31,$02,$0C,$03,$01,$33,$00,$B7,$BF
-db $48,$40,$00,$00,$00,$00,$FF,$5F,$FF,$5F,$FF,$5F,$47,$81,$00,$00
-db $4B,$81,$00,$00,$00,$00,$FF,$5F,$00,$00,$FF,$5F,$FF,$5F,$41,$81
-db $FF,$5F
+!C018F3_CloseOrResetPresentationState = $C018F3
+!C019B2_RestorePartyStateAfterTransition = $C019B2
+!C01A69_ResetEntitySlotStateTables = $C01A69
+!C01A86_ResetEntityBytePool467E = $C01A86
+!C01C11_InitializeEntityStateMask = $C01C11
+!C01E49_CreateEntityFromDescriptor = $C01E49
+!C064D4_ResetEntityOverlapAndCollisionState = $C064D4
+!C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+!C07B52_RebuildPartyRecordsOrEntityState = $C07B52
+!C0856B_WaitFramesOrTransitionDelay = $C0856B
+!C085B7_QueueChunkedVramDma = $C085B7
+!C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08726_BlankWaitAndDisableHdma = $C08726
+!C08744_OpenDisplayTransitionBracket = $C08744
+!C08756_WaitOneFrameAndPollInput = $C08756
+!C08814_SetDisplayTransitionMode = $C08814
+!C0886C_SetDisplayTransitionState = $C0886C
+!C0887A_ClearDisplayTransitionState = $C0887A
+!C0888B_WaitForDisplayTransition = $C0888B
+!C088A5_SetRendererWorkBank = $C088A5
+!C088B1_ResetRendererFrameState = $C088B1
+!C08B26_FlushQueuedSpriteOrTileWork = $C08B26
+!C08C54_DrawTilemapIconAtPosition = $C08C54
+!C08CD5_DrawTileStagingBlock = $C08CD5
+!C08D79_UpdateBgModeRegisterFromQueue = $C08D79
+!C08D92_UpdateObjSizeAndBaseRegister = $C08D92
+!C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C08E9A_GetRandom16 = $C08E9A
+!C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C08EED_CopyToVramOrRendererBuffer = $C08EED
+!C08EFC_CommitTileBufferToStaging = $C08EFC
+!C08F15_ClearVramOrRendererBuffer = $C08F15
+!C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09032_DivideUnsignedWordByIndex = $C09032
+!C090FF_AddLongPointerOffset = $C090FF
+!C0915B_DivideUnsignedWordByY = $C0915B
+!C09231_ModUnsignedWordByIndex = $C09231
+!C092F5_AllocateEntityOrSpriteSlot = $C092F5
+!C093F9_RunEntityScriptRecordForSlot = $C093F9
+!C0943C_SaveCurrentCoordinateState = $C0943C
+!C09451_RestoreSavedCoordinateState = $C09451
+!C09466_RefreshActiveEntitySpriteState = $C09466
+!C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C0B400_ProjectPresentationXOffset = $C0B400
+!C0B40B_ProjectPresentationYOffset = $C0B40B
+!C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C186B1_PrintTextFromPointer = $C186B1
+!C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C200D9_ClearBattleOrPresentationState = $C200D9
+!C21628_CheckEventFlag = $C21628
+!C2165E_SetEventFlagOrState = $C2165E
+!C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
+!C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
+!C2D121_LoadPresentationSpriteResource = $C2D121
+!C2EA15_BeginBattleSwirlOverlayScript = $C2EA15
+!C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
+!C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
+!C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
+!C3FB45_NamingVowelRemapTable = $C3FB45
+!C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C4283F_CopySecondaryVisualProfileFrameWords = $C4283F
+!C42884_CopyPrimaryVisualProfileFrameWords = $C42884
+!C428D1_Copy7fWordsEvery16ByCount = $C428D1
+!C428FC_MergeMasked7fTileColumnRows = $C428FC
+!C42965_MergeMasked7fTileColumnPair = $C42965
+!C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
+!C42A63_VisualProfileFootprintWidthTable = $C42A63
+!C44963_ResetActiveTextGlyphRun = $C44963
+!C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4800B_RestoreWorldDisplayState = $C4800B
+!C49208_BuildLandingInterpolationPlanesFrom7f7800 = $C49208
+!C492D2_RunLandingInterpolationFrame = $C492D2
+!C4954C_SeedPaletteFadeWorkBuffer = $C4954C
+!C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
+!C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+C0F41E_FrameCallbackProcessCommandStream:
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFDB
+    tcd
+    lda $003B
+    cmp $B4E3
+    beq C0F430_FrameCallbackProcessCommandStream_LF430
+    bcs C0F433_FrameCallbackProcessCommandStream_LF433
+C0F430_FrameCallbackProcessCommandStream_LF430:
+    jmp.w C0F85F_FrameCallbackProcessCommandStream_LF85F
+C0F433_FrameCallbackProcessCommandStream_LF433:
+    lda $B4F7
+    sta $23
+    lda $B4F7
+    inc A
+    sta $21
+    lda $B4F7
+    inc A
+    inc A
+    and.w #$000F
+    sta $B4F7
+    lda $003B
+    lsr A
+    lsr A
+    lsr A
+    clc
+    adc.w #$001D
+    and.w #$001F
+    sta $04
+    lda.w #$0000
+    sta $02
+    sta $1F
+    lda $B4E7
+    sta $06
+    lda $B4E9
+    sta $08
+    lda $06
+    sta $1B
+    lda $08
+    sta $1D
+    lda $23
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $17
+    lda $08
+    sta $19
+    lda $21
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $0A
+    phb
+    sep #$20
+    pla
+    sta $0C
+    stz $0D
+    rep #$20
+    lda [$1B]
+    and.w #$00FF
+    sta $15
+    lda $1B
+    sta $06
+    lda $1D
+    sta $08
+    inc $06
+    lda $06
+    sta $1B
+    lda $08
+    sta $1D
+    lda $15
+    cmp.w #$0001
+    beq C0F4EC_FrameCallbackProcessCommandStream_LF4EC
+    cmp.w #$0002
+    bne C0F4D1_FrameCallbackProcessCommandStream_LF4D1
+    jmp.w C0F581_FrameCallbackProcessCommandStream_LF581
+C0F4D1_FrameCallbackProcessCommandStream_LF4D1:
+    cmp.w #$0003
+    bne C0F4D9_FrameCallbackProcessCommandStream_LF4D9
+    jmp.w C0F668_FrameCallbackProcessCommandStream_LF668
+C0F4D9_FrameCallbackProcessCommandStream_LF4D9:
+    cmp.w #$0004
+    bne C0F4E1_FrameCallbackProcessCommandStream_LF4E1
+    jmp.w C0F67A_FrameCallbackProcessCommandStream_LF67A
+C0F4E1_FrameCallbackProcessCommandStream_LF4E1:
+    cmp.w #$00FF
+    bne C0F4E9_FrameCallbackProcessCommandStream_LF4E9
+    jmp.w C0F845_FrameCallbackProcessCommandStream_LF845
+C0F4E9_FrameCallbackProcessCommandStream_LF4E9:
+    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
+C0F4EC_FrameCallbackProcessCommandStream_LF4EC:
+    lda $B4E3
+    clc
+    adc.w #$0008
+    sta $B4E3
+    bra C0F531_FrameCallbackProcessCommandStream_LF531
+C0F4F8_FrameCallbackProcessCommandStream_LF4F8:
+    and.w #$00FF
+    clc
+    adc.w #$2000
+    ldx $17
+    stx $06
+    ldx $19
+    stx $08
+    sta [$06]
+    lda $1B
+    sta $06
+    lda $1D
+    sta $08
+    inc $06
+    lda $06
+    sta $1B
+    lda $08
+    sta $1D
+    lda $17
+    sta $06
+    lda $19
+    sta $08
+    inc $06
+    inc $06
+    lda $06
+    sta $17
+    lda $08
+    sta $19
+    inc $02
+C0F531_FrameCallbackProcessCommandStream_LF531:
+    lda [$1B]
+    and.w #$00FF
+    bne C0F4F8_FrameCallbackProcessCommandStream_LF4F8
+    lda $02
+    lsr A
+    pha
+    lda $04
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$6C10
+    ply
+    sty $04
+    sec
+    sbc $04
+    sta $15
+    lda $23
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $15
+    tay
+    lda $02
+    asl A
+    tax
+    sep #$20
+    lda.b #$00
+    jsl $C4EFC4
+    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
+C0F581_FrameCallbackProcessCommandStream_LF581:
+    lda $B4E3
+    clc
+    adc.w #$0010
+    sta $B4E3
+    bra C0F5D1_FrameCallbackProcessCommandStream_LF5D1
+C0F58D_FrameCallbackProcessCommandStream_LF58D:
+    and.w #$00FF
+    clc
+    adc.w #$2400
+    ldx $17
+    stx $06
+    ldx $19
+    stx $08
+    sta [$06]
+    inc $06
+    inc $06
+    lda $06
+    sta $17
+    lda $08
+    sta $19
+    lda [$1B]
+    and.w #$00FF
+    clc
+    adc.w #$2410
+    sta [$0A]
+    lda $1B
+    sta $06
+    lda $1D
+    sta $08
+    inc $06
+    lda $06
+    sta $1B
+    lda $08
+    sta $1D
+    inc $0A
+    inc $0A
+    inc $02
+    lda $02
+    sta $1F
+C0F5D1_FrameCallbackProcessCommandStream_LF5D1:
+    lda [$1B]
+    and.w #$00FF
+    bne C0F58D_FrameCallbackProcessCommandStream_LF58D
+    lda $02
+    lsr A
+    sta $02
+    lda $04
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$6C10
+    sec
+    sbc $02
+    sta $13
+    lda $23
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy $13
+    lda $1F
+    sta $02
+    asl A
+    tax
+    sep #$20
+    lda.b #$00
+    jsl $C4EFC4
+    lda $04
+    cmp.w #$001F
+    beq C0F62E_FrameCallbackProcessCommandStream_LF62E
+    lda $13
+    clc
+    adc.w #$0020
+    sta $23
+    bra C0F636_FrameCallbackProcessCommandStream_LF636
+C0F62E_FrameCallbackProcessCommandStream_LF62E:
+    lda $13
+    sec
+    sbc.w #$03E0
+    sta $23
+C0F636_FrameCallbackProcessCommandStream_LF636:
+    lda $21
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $23
+    tay
+    lda $02
+    asl A
+    tax
+    sep #$20
+    lda.b #$00
+    jsl $C4EFC4
+    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
+C0F668_FrameCallbackProcessCommandStream_LF668:
+    lda [$1B]
+    and.w #$00FF
+    asl A
+    asl A
+    asl A
+    clc
+    adc $B4E3
+    sta $B4E3
+    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
+C0F67A_FrameCallbackProcessCommandStream_LF67A:
+    ldx.w #$9801
+    stx $15
+    lda $0000,X
+    and.w #$00FF
+    bne C0F68A_FrameCallbackProcessCommandStream_LF68A
+    jmp.w C0F831_FrameCallbackProcessCommandStream_LF831
+C0F68A_FrameCallbackProcessCommandStream_LF68A:
+    ldy.w #$B4F9
+    sep #$20
+    lda.b #$00
+    sta $12
+    jmp.w C0F72A_FrameCallbackProcessCommandStream_LF72A
+C0F696_FrameCallbackProcessCommandStream_LF696:
+    lda $00
+    and.w #$00FF
+    sta $13
+    cmp.w #$00AC
+    beq C0F6AE_FrameCallbackProcessCommandStream_LF6AE
+    cmp.w #$00AE
+    beq C0F6C3_FrameCallbackProcessCommandStream_LF6C3
+    cmp.w #$00AF
+    beq C0F6D8_FrameCallbackProcessCommandStream_LF6D8
+    bra C0F6ED_FrameCallbackProcessCommandStream_LF6ED
+C0F6AE_FrameCallbackProcessCommandStream_LF6AE:
+    lda $12
+    and.w #$00FF
+    sta $02
+    tya
+    clc
+    adc $02
+    tax
+    sep #$20
+    lda.b #$7C
+    sta $0000,X
+    bra C0F720_FrameCallbackProcessCommandStream_LF720
+C0F6C3_FrameCallbackProcessCommandStream_LF6C3:
+    lda $12
+    and.w #$00FF
+    sta $02
+    tya
+    clc
+    adc $02
+    tax
+    sep #$20
+    lda.b #$7E
+    sta $0000,X
+    bra C0F720_FrameCallbackProcessCommandStream_LF720
+C0F6D8_FrameCallbackProcessCommandStream_LF6D8:
+    lda $12
+    and.w #$00FF
+    sta $02
+    tya
+    clc
+    adc $02
+    tax
+    sep #$20
+    lda.b #$7F
+    sta $0000,X
+    bra C0F720_FrameCallbackProcessCommandStream_LF720
+C0F6ED_FrameCallbackProcessCommandStream_LF6ED:
+    lda $13
+    clc
+    sbc.w #$0090
+    bvc C0F6F9_FrameCallbackProcessCommandStream_LF6F9
+    bpl C0F705_FrameCallbackProcessCommandStream_LF705
+    bra C0F6FB_FrameCallbackProcessCommandStream_LF6FB
+C0F6F9_FrameCallbackProcessCommandStream_LF6F9:
+    bmi C0F705_FrameCallbackProcessCommandStream_LF705
+C0F6FB_FrameCallbackProcessCommandStream_LF6FB:
+    lda $13
+    sec
+    sbc.w #$0050
+    sta $13
+    bra C0F70D_FrameCallbackProcessCommandStream_LF70D
+C0F705_FrameCallbackProcessCommandStream_LF705:
+    lda $13
+    sec
+    sbc.w #$0030
+    sta $13
+C0F70D_FrameCallbackProcessCommandStream_LF70D:
+    lda $12
+    and.w #$00FF
+    sta $02
+    tya
+    clc
+    adc $02
+    tax
+    lda $13
+    sep #$20
+    sta $0000,X
+C0F720_FrameCallbackProcessCommandStream_LF720:
+    ldx $15
+    inx
+    stx $15
+    lda $12
+    inc A
+    sta $12
+C0F72A_FrameCallbackProcessCommandStream_LF72A:
+    lda $0000,X
+    sta $00
+    rep #$20
+    lda $00
+    and.w #$00FF
+    beq C0F73B_FrameCallbackProcessCommandStream_LF73B
+    jmp.w C0F696_FrameCallbackProcessCommandStream_LF696
+C0F73B_FrameCallbackProcessCommandStream_LF73B:
+    lda $B4E3
+    clc
+    adc.w #$0010
+    sta $B4E3
+    ldx.w #$0000
+    bra C0F795_FrameCallbackProcessCommandStream_LF795
+C0F74A_FrameCallbackProcessCommandStream_LF74A:
+    and.w #$00FF
+    sta $02
+    and.w #$00F0
+    clc
+    adc $02
+    clc
+    adc.w #$2400
+    pha
+    lda $17
+    sta $06
+    lda $19
+    sta $08
+    pla
+    sta [$06]
+    inc $06
+    inc $06
+    lda $06
+    sta $17
+    lda $08
+    sta $19
+    lda $0000,Y
+    and.w #$00FF
+    sta $02
+    and.w #$00F0
+    clc
+    adc $02
+    clc
+    adc.w #$2410
+    sta [$0A]
+    inc $0A
+    inc $0A
+    iny
+    lda $1F
+    sta $02
+    inc $02
+    lda $02
+    sta $1F
+    inx
+C0F795_FrameCallbackProcessCommandStream_LF795:
+    lda $0000,Y
+    and.w #$00FF
+    beq C0F7A2_FrameCallbackProcessCommandStream_LF7A2
+    cpx.w #$0018
+    bcc C0F74A_FrameCallbackProcessCommandStream_LF74A
+C0F7A2_FrameCallbackProcessCommandStream_LF7A2:
+    lda $1F
+    sta $02
+    lsr A
+    sta $02
+    lda $04
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$6C10
+    sec
+    sbc $02
+    sta $13
+    lda $23
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy $13
+    lda $1F
+    sta $02
+    asl A
+    tax
+    sep #$20
+    lda.b #$00
+    jsl $C4EFC4
+    lda $04
+    cmp.w #$001F
+    beq C0F7FA_FrameCallbackProcessCommandStream_LF7FA
+    lda $13
+    clc
+    adc.w #$0020
+    sta $23
+    bra C0F802_FrameCallbackProcessCommandStream_LF802
+C0F7FA_FrameCallbackProcessCommandStream_LF7FA:
+    lda $13
+    sec
+    sbc.w #$03E0
+    sta $23
+C0F802_FrameCallbackProcessCommandStream_LF802:
+    lda $21
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$7DFE
+    sta $06
+    phb
+    sep #$20
+    pla
+    sta $08
+    stz $09
+    rep #$20
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    lda $23
+    tay
+    lda $02
+    asl A
+    tax
+    sep #$20
+    lda.b #$00
+    jsl $C4EFC4
+C0F831_FrameCallbackProcessCommandStream_LF831:
+    lda $1B
+    sta $06
+    lda $1D
+    sta $08
+    dec $06
+    lda $06
+    sta $1B
+    lda $08
+    sta $1D
+    bra C0F84B_FrameCallbackProcessCommandStream_LF84B
+C0F845_FrameCallbackProcessCommandStream_LF845:
+    lda.w #$FFFF
+    sta $B4E3
+C0F84B_FrameCallbackProcessCommandStream_LF84B:
+    lda $1B
+    sta $06
+    lda $1D
+    sta $08
+    inc $06
+    lda $06
+    sta $B4E7
+    lda $08
+    sta $B4E9
+C0F85F_FrameCallbackProcessCommandStream_LF85F:
+    lda $B4E5
+    cmp $003B
+    bcs C0F89A_FrameCallbackProcessCommandStream_LF89A
+    lda $B4E5
+    clc
+    adc.w #$0008
+    sta $B4E5
+    lda.w #$0BE8
+    sta $0E
+    lda.w #$00C4
+    sta $10
+    lda $003B
+    lsr A
+    lsr A
+    lsr A
+    dec A
+    and.w #$001F
+    asl A
+    asl A
+    asl A
+    asl A
+    asl A
+    clc
+    adc.w #$6C00
+    tay
+    ldx.w #$0040
+    sep #$20
+    lda.b #$03
+    jsl $C4EFC4
+C0F89A_FrameCallbackProcessCommandStream_LF89A:
+    lda $B4EB
+    sta $06
+    lda $B4ED
+    sta $08
+    clc
+    lda $06
+    adc.w #$4000
+    sta $06
+    bcc C0F8B0_FrameCallbackProcessCommandStream_LF8B0
+    inc $08
+C0F8B0_FrameCallbackProcessCommandStream_LF8B0:
+    lda $06
+    sta $B4EB
+    lda $08
+    sta $B4ED
+    sta $003B
+    jsr $AD9F
+    pld
+    rts
+C0F8C2_BankTailHeaderAndVectors:
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$30,$31
+    db $4D,$42,$20,$20,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$45,$41
+    db $52,$54,$48,$20,$42,$4F,$55,$4E,$44,$20,$20,$20,$20,$20,$20,$20
+    db $20,$20,$20,$31,$02,$0C,$03,$01,$33,$00,$B7,$BF,$48,$40,$00,$00
+    db $00,$00,$FF,$5F,$FF,$5F,$FF,$5F,$47,$81,$00,$00,$4B,$81,$00,$00
+    db $00,$00,$FF,$5F,$00,$00,$FF,$5F,$FF,$5F,$41,$81,$FF,$5F
+C010000_BankTailHeaderAndVectors_End:
