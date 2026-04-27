@@ -1,7 +1,7 @@
 # Map Sector Bundle Contract
 
 This first-pass sector contract joins the 40x32 world-sector grid to placed
-objects, sector metadata, door/rope/ladder/object trigger refs, enemy-map groups, music
+objects, sector metadata, tileset bundle references, door/rope/ladder/object trigger refs, enemy-map groups, music
 options, hotspots, map-change group counts, and per-sector `map_tiles.map` hashes.
 
 It does not yet decode map graphics, arrangements, palettes, or collision into
@@ -94,6 +94,7 @@ decoders can attach to next.
 `notes/map-sector-bundles.json` records one row per sector with:
 
 - `metadata` from `map_sectors.yml`
+- `tileset_dependency` as a stable `map_tileset.NN` reference
 - `objects` as stable IDs from `notes/map-object-bundles.json`
 - `doors` from `map_doors.yml`
 - `enemy_map_group` from `map_enemy_placement.yml`

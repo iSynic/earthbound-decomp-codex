@@ -401,6 +401,13 @@ enemy-map groups, music options, hotspots, and map tile hashes:
 python tools/build_map_sector_bundle_contract.py
 ```
 
+Catalog map tileset IDs, EBDecomp `.fts` exports, palette settings, and sector
+dependencies:
+
+```powershell
+python tools/build_map_tileset_bundle_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 

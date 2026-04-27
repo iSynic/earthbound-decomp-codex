@@ -147,6 +147,11 @@ map-sector bundle contract that joins:
 5. enemy-map groups, music options, hotspots, map-change group counts, and
    `map_tiles.map` sector hashes
 
+`notes/map-tileset-bundles.json` now adds the first tileset dependency layer:
+all sector rows point at stable `map_tileset.NN` IDs, `18` used tileset IDs have
+direct `.fts` exports in refs, and `10` used IDs currently have palette settings
+only.
+
 The remaining refinements are to attach true decoder outputs:
 
 1. tileset graphics

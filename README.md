@@ -65,6 +65,7 @@ Good starting points:
 - `notes/map-object-bundles.md`
 - `notes/map-object-layer-closure.md`
 - `notes/map-sector-bundles.md`
+- `notes/map-tileset-bundles.md`
 - `notes/overworld-sprite-animation-roles.md`
 - `notes/bank-c0-c2-closure.md`
 - `notes/bank-c2-source-scaffold-handoff.md`
@@ -187,6 +188,7 @@ python tools/build_map_sprite_usage_contract.py
 python tools/build_map_movement_usage_contract.py
 python tools/build_map_object_bundle_contract.py
 python tools/build_map_sector_bundle_contract.py
+python tools/build_map_tileset_bundle_contract.py
 ```
 
 Build cross-bank naming or data-contract reports:
@@ -220,6 +222,8 @@ High-use tools:
   behavior entrypoints, event flags, text pointers, and map positions
 - `build_map_sector_bundle_contract.py`: join sectors to objects, triggers,
   metadata, enemy groups, music options, hotspots, and map tile hashes
+- `build_map_tileset_bundle_contract.py`: catalog map tileset IDs, `.fts`
+  exports, palette settings, and sector dependencies
 - `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
   range
 - `promote_linear_range_to_decoded_source.py`: replace one byte corridor with

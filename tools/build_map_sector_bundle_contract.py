@@ -19,6 +19,7 @@ DEFAULT_MAP_MUSIC = REFS / "map_music.yml"
 DEFAULT_MAP_HOTSPOTS = REFS / "map_hotspots.yml"
 DEFAULT_MAP_CHANGES = REFS / "map_changes.yml"
 DEFAULT_MAP_TILES = REFS / "map_tiles.map"
+DEFAULT_TILESET_DIR = REFS / "Tilesets"
 DEFAULT_JSON_OUT = ROOT / "notes" / "map-sector-bundles.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "map-sector-bundles.md"
 SCHEMA = "earthbound-decomp.map-sector-bundles.v1"
@@ -42,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--map-hotspots", default=str(DEFAULT_MAP_HOTSPOTS))
     parser.add_argument("--map-changes", default=str(DEFAULT_MAP_CHANGES))
     parser.add_argument("--map-tiles", default=str(DEFAULT_MAP_TILES))
+    parser.add_argument("--tileset-dir", default=str(DEFAULT_TILESET_DIR))
     parser.add_argument("--json-out", default=str(DEFAULT_JSON_OUT))
     parser.add_argument("--markdown-out", default=str(DEFAULT_MARKDOWN_OUT))
     return parser.parse_args()
@@ -244,6 +246,15 @@ def map_tile_blocks(path: Path) -> dict[int, dict[str, Any]]:
     return blocks
 
 
+def direct_tileset_exports(path: Path) -> dict[int, Path]:
+    exports: dict[int, Path] = {}
+    for file_path in sorted(path.glob("*.fts")):
+        match = re.fullmatch(r"(\d{2})\.fts", file_path.name)
+        if match is not None:
+            exports[int(match.group(1))] = file_path
+    return exports
+
+
 def build_contract(args: argparse.Namespace) -> dict[str, Any]:
     object_bundles_path = Path(args.object_bundles)
     map_sectors_path = Path(args.map_sectors)
@@ -253,6 +264,7 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
     map_hotspots_path = Path(args.map_hotspots)
     map_changes_path = Path(args.map_changes)
     map_tiles_path = Path(args.map_tiles)
+    tileset_dir = Path(args.tileset_dir)
 
     object_bundles = json.loads(object_bundles_path.read_text(encoding="utf-8"))
     object_sector_map: dict[int, list[str]] = defaultdict(list)
@@ -270,12 +282,15 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             hotspots_by_sector[index].append(int(hotspot["hotspot_id"]))
     map_change_counts = parse_map_change_counts(map_changes_path)
     tile_blocks = map_tile_blocks(map_tiles_path)
+    tileset_exports = direct_tileset_exports(tileset_dir)
 
     rows: list[dict[str, Any]] = []
     for linear_index in range(SECTOR_COUNT):
         sector = sector_coords(linear_index)
         metadata = sectors.get(linear_index, {})
         tileset = metadata.get("Tileset")
+        tileset_id = int(tileset) if tileset is not None else None
+        tileset_export = tileset_exports.get(tileset_id) if tileset_id is not None else None
         doors = doors_by_sector.get(linear_index, [])
         door_count = sum(1 for row in doors if row.get("Type") == "door")
         object_trigger_count = sum(1 for row in doors if row.get("Type") == "object")
@@ -284,6 +299,12 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             {
                 "sector": sector,
                 "metadata": metadata,
+                "tileset_dependency": {
+                    "tileset_bundle_id": f"map_tileset.{tileset_id:02d}" if tileset_id is not None else None,
+                    "tileset_id": tileset_id,
+                    "dependency_status": "direct_fts_export" if tileset_export is not None else "palette_settings_only",
+                    "direct_fts_export": rel(tileset_export) if tileset_export is not None else None,
+                },
                 "map_tile_block": tile_blocks[linear_index],
                 "objects": object_sector_map.get(linear_index, []),
                 "doors": doors,
@@ -328,6 +349,7 @@ def build_contract(args: argparse.Namespace) -> dict[str, Any]:
             "map_hotspots": rel(map_hotspots_path),
             "map_changes": rel(map_changes_path),
             "map_tiles": rel(map_tiles_path),
+            "tileset_dir": rel(tileset_dir),
         },
         "summary": {
             "sector_grid": {"columns": SECTOR_COLUMNS, "rows": SECTOR_ROWS, "sector_count": SECTOR_COUNT},
@@ -398,7 +420,7 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
         "# Map Sector Bundle Contract",
         "",
         "This first-pass sector contract joins the 40x32 world-sector grid to placed",
-        "objects, sector metadata, door/rope/ladder/object trigger refs, enemy-map groups, music",
+        "objects, sector metadata, tileset bundle references, door/rope/ladder/object trigger refs, enemy-map groups, music",
         "options, hotspots, map-change group counts, and per-sector `map_tiles.map` hashes.",
         "",
         "It does not yet decode map graphics, arrangements, palettes, or collision into",
@@ -468,6 +490,7 @@ def write_markdown(contract: dict[str, Any], path: Path) -> None:
             "`notes/map-sector-bundles.json` records one row per sector with:",
             "",
             "- `metadata` from `map_sectors.yml`",
+            "- `tileset_dependency` as a stable `map_tileset.NN` reference",
             "- `objects` as stable IDs from `notes/map-object-bundles.json`",
             "- `doors` from `map_doors.yml`",
             "- `enemy_map_group` from `map_enemy_placement.yml`",
