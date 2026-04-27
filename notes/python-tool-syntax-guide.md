@@ -394,6 +394,13 @@ pointers into one object-bundle contract:
 python tools/build_map_object_bundle_contract.py
 ```
 
+Join the 40x32 world-sector grid to object membership, triggers, metadata,
+enemy-map groups, music options, hotspots, and map tile hashes:
+
+```powershell
+python tools/build_map_sector_bundle_contract.py
+```
+
 Build prototype composed overworld sprite previews from the frame contract,
 secondary descriptor contract, raw D1-D5 graphics, and decoded OAM palette IDs:
 

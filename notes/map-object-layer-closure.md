@@ -136,12 +136,24 @@ Those are the next natural world-layer targets.
 
 ## Recommended Next Frontier
 
-Start a map-sector bundle contract that joins:
+The next frontier has started with `notes/map-sector-bundles.json`, a first-pass
+map-sector bundle contract that joins:
 
 1. sector IDs from the same 40x32 world grid used by object placements
-2. tileset/arrangement/palette refs from available map asset refs
-3. collision and door/warp metadata where available
-4. placed `map_object.NNNN` IDs from `notes/map-object-bundles.json`
+2. placed `map_object.NNNN` IDs from `notes/map-object-bundles.json`
+3. sector metadata from `map_sectors.yml`
+4. door, rope, ladder, stairway, escalator, switch, person, and object trigger
+   refs from `map_doors.yml`
+5. enemy-map groups, music options, hotspots, map-change group counts, and
+   `map_tiles.map` sector hashes
 
-That would turn the current object layer into scene bundles: not just "what
+The remaining refinements are to attach true decoder outputs:
+
+1. tileset graphics
+2. arrangements
+3. palettes
+4. collision
+5. door/warp destination bundles
+
+That will turn the current sector inventory into scene bundles: not just "what
 objects exist," but "what world surface are they standing on?"
