@@ -141,7 +141,7 @@ A useful cross-check comes from [entity_overlays.asm](/F:/Earthbound%20Decomp%20
 - relative Y byte
 - tile/attribute word
 - relative X byte
-- trailing attribute byte
+- trailing attribute byte, whose bit `7` marks the final piece in each body pass
 
 So the safest current 5-byte entry sketch is:
 
@@ -149,7 +149,7 @@ So the safest current 5-byte entry sketch is:
 - byte `1` = tile-word low byte, regenerated at runtime from `DATA_C4303C`
 - byte `2` = sprite tile/attribute high byte
 - byte `3` = relative X position
-- byte `4` = trailing attribute/extension byte
+- byte `4` = trailing attribute/extension byte; bit `7` is the pass-terminal piece marker
 
 That is materially better than the older "two coordinate-like fields plus flags" wording.
 
@@ -280,7 +280,7 @@ So this descriptor clearly participates in the broader visual-state initializati
 
 ## What still remains open
 
-- The exact semantics of trailing attribute byte `4` in body entries. In the `C4:2BBF` descriptor the last pass-0 and last pass-1 entries carry `#$80` there while other entries carry `#$00`. No direct local consumer of that byte has been traced yet.
+- The exact runtime consumer of trailing attribute byte `4` still needs to be traced, but the local data invariant is now pinned: bit `7` marks the final piece in each copied body pass, and low bits are unused in all decoded descriptors.
 - The full bit decomposition of bits `1-3` of runtime byte `2`.
 - A direct local bridge from the two priority bands into a named upper/lower-body entity state path.
 
@@ -293,6 +293,7 @@ So this descriptor clearly participates in the broader visual-state initializati
 - bit `6` = horizontal flip
 - bits `4-5` = draw-time priority field
 - bit `0` = generated tile-number high bit
+- body byte `4` bit `7` = pass-terminal piece marker
 - pose byte `+3` = shared base attribute byte
 
 ## Descriptor record inventory
@@ -352,4 +353,4 @@ These labels are deliberately structural. They are useful for source generation 
 
 ## Best next target
 
-The best next move is to tighten the remaining low-bit attribute split in runtime byte `2` or find a direct consumer of trailing byte `4`, because the high-level struct is now in fairly good shape.
+The best next move is to tighten the remaining low-bit attribute split in runtime byte `2` or find the direct runtime consumer of body byte `4`, because the high-level struct is now in fairly good shape.

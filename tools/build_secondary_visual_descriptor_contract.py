@@ -111,6 +111,10 @@ def decode_piece(raw: bytes, pass_index: int, ordinal: int) -> dict[str, Any]:
         "attribute_byte": f"${attr:02X}",
         "relative_x": raw[3],
         "trailing_attribute": f"${trailing:02X}",
+        "trailing_attribute_bits": {
+            "pass_terminal_piece_marker": bool(trailing & 0x80),
+            "unknown_low_bits_raw": trailing & 0x7F,
+        },
         "attribute_bits": {
             "vertical_flip": bool(attr & 0x80),
             "horizontal_flip": bool(attr & 0x40),
@@ -184,6 +188,17 @@ def build_contract(rom_path_arg: str | None) -> dict[str, Any]:
     piece_count_counts = Counter(
         str(descriptor["header"]["piece_count_per_pass"]) for descriptor in descriptors
     )
+    trailing_attribute_counts: Counter[str] = Counter()
+    terminal_marker_mismatches = 0
+    for descriptor in descriptors:
+        piece_count = descriptor["header"]["piece_count_per_pass"]
+        for body_pass in descriptor["body_passes"]:
+            for piece in body_pass:
+                trailing_attribute_counts[piece["trailing_attribute"]] += 1
+                expected_terminal = piece["ordinal"] == piece_count - 1
+                actual_terminal = piece["trailing_attribute_bits"]["pass_terminal_piece_marker"]
+                if expected_terminal != actual_terminal:
+                    terminal_marker_mismatches += 1
     max_record_end = max(int(descriptor["range"].split("..")[1].split(":")[1], 16) for descriptor in descriptors)
 
     return {
@@ -236,6 +251,13 @@ def build_contract(rom_path_arg: str | None) -> dict[str, Any]:
             ],
             "descriptor_count": len(descriptors),
             "piece_count_models": dict(sorted(piece_count_counts.items())),
+            "trailing_attribute_counts": dict(sorted(trailing_attribute_counts.items())),
+            "trailing_attribute_invariant": {
+                "name": "pass_terminal_piece_marker",
+                "confidence": "high",
+                "observed_pattern": "Only bit 7 is used; it is set exactly on the final piece of each descriptor body pass.",
+                "mismatches": terminal_marker_mismatches,
+            },
             "tile_base_vram_offset_table": {
                 "range": bank_range(
                     POINTER_TABLE_BANK, TILE_BASE_TABLE_START, TILE_BASE_TABLE_END
@@ -304,6 +326,24 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
     for key, count in summary["piece_count_models"].items():
         lines.append(f"| {key} | {count} |")
 
+    trailing = summary["trailing_attribute_invariant"]
+    lines.extend(
+        [
+            "",
+            "## Trailing Attribute Byte",
+            "",
+            f"- Current name: `{trailing['name']}`",
+            f"- Confidence: `{trailing['confidence']}`",
+            f"- Observed pattern: {trailing['observed_pattern']}",
+            f"- Invariant mismatches: {trailing['mismatches']}",
+            "",
+            "| Trailing byte | Pieces |",
+            "| --- | ---: |",
+        ]
+    )
+    for key, count in summary["trailing_attribute_counts"].items():
+        lines.append(f"| `{key}` | {count} |")
+
     lines.extend(
         [
             "",
@@ -344,6 +384,7 @@ def write_markdown(path: Path, document: dict[str, Any]) -> None:
             "- Descriptor byte `1` is the first priority-band count; `byte0 - byte1` is the second band count packed into `$2BE6` low byte.",
             "- Each body pass has `piece_count` repeated 5-byte piece records.",
             "- Pass 1 carries the horizontally flipped partner records in the known descriptors.",
+            "- Body record byte `4` uses bit `7` as a pass-terminal piece marker in all decoded descriptors; it is set exactly on the final piece of each body pass, and low bits are currently unused.",
             "- Runtime byte `2` is an OAM-like attribute byte: bit 6 is horizontal flip, bit 7 is likely vertical flip, and bits 4-5 are patched as priority by `C0:A3A4`.",
         ]
     )

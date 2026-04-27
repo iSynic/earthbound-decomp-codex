@@ -19,7 +19,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -38,7 +42,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -73,7 +81,11 @@
             "relative_x": 244,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -90,7 +102,11 @@
             "relative_x": 4,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -109,7 +125,11 @@
             "relative_x": 252,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -126,7 +146,11 @@
             "relative_x": 236,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -161,7 +185,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -178,7 +206,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -197,7 +229,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -214,7 +250,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -249,7 +289,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -266,7 +310,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -283,7 +331,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -302,7 +354,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -319,7 +375,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -336,7 +396,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -371,7 +435,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -388,7 +456,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -407,7 +479,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -424,7 +500,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -459,7 +539,11 @@
             "relative_x": 244,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -476,7 +560,11 @@
             "relative_x": 4,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -493,7 +581,11 @@
             "relative_x": 244,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -510,7 +602,11 @@
             "relative_x": 4,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -529,7 +625,11 @@
             "relative_x": 252,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -546,7 +646,11 @@
             "relative_x": 236,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -563,7 +667,11 @@
             "relative_x": 252,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -580,7 +688,11 @@
             "relative_x": 236,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -615,7 +727,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -632,7 +748,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -651,7 +771,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -668,7 +792,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -703,7 +831,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -720,7 +852,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -737,7 +873,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -754,7 +894,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -773,7 +917,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -790,7 +938,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -807,7 +959,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -824,7 +980,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -859,7 +1019,11 @@
             "relative_x": 232,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -876,7 +1040,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -893,7 +1061,11 @@
             "relative_x": 8,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -910,7 +1082,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -927,7 +1103,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -944,7 +1124,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -963,7 +1147,11 @@
             "relative_x": 8,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -980,7 +1168,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -997,7 +1189,11 @@
             "relative_x": 232,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1014,7 +1210,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1031,7 +1231,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1048,7 +1252,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -1083,7 +1291,11 @@
             "relative_x": 244,
             "relative_y": 224,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1100,7 +1312,11 @@
             "relative_x": 4,
             "relative_y": 224,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1117,7 +1333,11 @@
             "relative_x": 244,
             "relative_y": 240,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1134,7 +1354,11 @@
             "relative_x": 4,
             "relative_y": 240,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1151,7 +1375,11 @@
             "relative_x": 244,
             "relative_y": 0,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1168,7 +1396,11 @@
             "relative_x": 4,
             "relative_y": 0,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -1187,7 +1419,11 @@
             "relative_x": 252,
             "relative_y": 224,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1204,7 +1440,11 @@
             "relative_x": 236,
             "relative_y": 224,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1221,7 +1461,11 @@
             "relative_x": 252,
             "relative_y": 240,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1238,7 +1482,11 @@
             "relative_x": 236,
             "relative_y": 240,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1255,7 +1503,11 @@
             "relative_x": 252,
             "relative_y": 0,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1272,7 +1524,11 @@
             "relative_x": 236,
             "relative_y": 0,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -1307,7 +1563,11 @@
             "relative_x": 248,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1324,7 +1584,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1341,7 +1605,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -1360,7 +1628,11 @@
             "relative_x": 248,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1377,7 +1649,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1394,7 +1670,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -1429,7 +1709,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1446,7 +1730,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1463,7 +1751,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1480,7 +1772,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1497,7 +1793,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1514,7 +1814,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -1533,7 +1837,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1550,7 +1858,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1567,7 +1879,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1584,7 +1900,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1601,7 +1921,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1618,7 +1942,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -1653,7 +1981,11 @@
             "relative_x": 232,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1670,7 +2002,11 @@
             "relative_x": 248,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1687,7 +2023,11 @@
             "relative_x": 8,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1704,7 +2044,11 @@
             "relative_x": 232,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1721,7 +2065,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1738,7 +2086,11 @@
             "relative_x": 8,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1755,7 +2107,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1772,7 +2128,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1789,7 +2149,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -1808,7 +2172,11 @@
             "relative_x": 8,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1825,7 +2193,11 @@
             "relative_x": 248,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1842,7 +2214,11 @@
             "relative_x": 232,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1859,7 +2235,11 @@
             "relative_x": 8,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1876,7 +2256,11 @@
             "relative_x": 248,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1893,7 +2277,11 @@
             "relative_x": 232,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1910,7 +2298,11 @@
             "relative_x": 8,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1927,7 +2319,11 @@
             "relative_x": 248,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1944,7 +2340,11 @@
             "relative_x": 232,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -1979,7 +2379,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -1996,7 +2400,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2013,7 +2421,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2030,7 +2442,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2047,7 +2463,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2064,7 +2484,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2081,7 +2505,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2098,7 +2526,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2115,7 +2547,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2132,7 +2568,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2149,7 +2589,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2166,7 +2610,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -2185,7 +2633,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2202,7 +2654,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2219,7 +2675,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2236,7 +2696,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2253,7 +2717,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2270,7 +2738,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2287,7 +2759,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2304,7 +2780,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2321,7 +2801,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2338,7 +2822,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2355,7 +2843,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2372,7 +2864,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -2407,7 +2903,11 @@
             "relative_x": 224,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2424,7 +2924,11 @@
             "relative_x": 240,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2441,7 +2945,11 @@
             "relative_x": 0,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2458,7 +2966,11 @@
             "relative_x": 16,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2475,7 +2987,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2492,7 +3008,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2509,7 +3029,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2526,7 +3050,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2543,7 +3071,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2560,7 +3092,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2577,7 +3113,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2594,7 +3134,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2611,7 +3155,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 24,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2628,7 +3176,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 26,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2645,7 +3197,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 28,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2662,7 +3218,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 30,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -2681,7 +3241,11 @@
             "relative_x": 16,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2698,7 +3262,11 @@
             "relative_x": 0,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2715,7 +3283,11 @@
             "relative_x": 240,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2732,7 +3304,11 @@
             "relative_x": 224,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2749,7 +3325,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2766,7 +3346,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2783,7 +3367,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2800,7 +3388,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2817,7 +3409,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2834,7 +3430,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2851,7 +3451,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2868,7 +3472,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2885,7 +3493,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 24,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2902,7 +3514,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 26,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2919,7 +3535,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 28,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2936,7 +3556,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 30,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -2971,7 +3595,11 @@
             "relative_x": 224,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -2988,7 +3616,11 @@
             "relative_x": 240,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3005,7 +3637,11 @@
             "relative_x": 0,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3022,7 +3658,11 @@
             "relative_x": 16,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3039,7 +3679,11 @@
             "relative_x": 224,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3056,7 +3700,11 @@
             "relative_x": 240,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3073,7 +3721,11 @@
             "relative_x": 0,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3090,7 +3742,11 @@
             "relative_x": 16,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3107,7 +3763,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3124,7 +3784,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3141,7 +3805,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3158,7 +3826,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3175,7 +3847,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 24,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3192,7 +3868,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 26,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3209,7 +3889,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 28,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3226,7 +3910,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 30,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3243,7 +3931,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 32,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3260,7 +3952,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 34,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3277,7 +3973,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 36,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3294,7 +3994,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 38,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ],
         [
@@ -3313,7 +4017,11 @@
             "relative_x": 16,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 0,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3330,7 +4038,11 @@
             "relative_x": 0,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 2,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3347,7 +4059,11 @@
             "relative_x": 240,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 4,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3364,7 +4080,11 @@
             "relative_x": 224,
             "relative_y": 184,
             "source_tile_low_or_spatial_byte": 6,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3381,7 +4101,11 @@
             "relative_x": 16,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 8,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3398,7 +4122,11 @@
             "relative_x": 0,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 10,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3415,7 +4143,11 @@
             "relative_x": 240,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 12,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3432,7 +4164,11 @@
             "relative_x": 224,
             "relative_y": 200,
             "source_tile_low_or_spatial_byte": 14,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3449,7 +4185,11 @@
             "relative_x": 16,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 16,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3466,7 +4206,11 @@
             "relative_x": 0,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 18,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3483,7 +4227,11 @@
             "relative_x": 240,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 20,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3500,7 +4248,11 @@
             "relative_x": 224,
             "relative_y": 216,
             "source_tile_low_or_spatial_byte": 22,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3517,7 +4269,11 @@
             "relative_x": 16,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 24,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3534,7 +4290,11 @@
             "relative_x": 0,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 26,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3551,7 +4311,11 @@
             "relative_x": 240,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 28,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3568,7 +4332,11 @@
             "relative_x": 224,
             "relative_y": 232,
             "source_tile_low_or_spatial_byte": 30,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3585,7 +4353,11 @@
             "relative_x": 16,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 32,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3602,7 +4374,11 @@
             "relative_x": 0,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 34,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3619,7 +4395,11 @@
             "relative_x": 240,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 36,
-            "trailing_attribute": "$00"
+            "trailing_attribute": "$00",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": false,
+              "unknown_low_bits_raw": 0
+            }
           },
           {
             "attribute_bits": {
@@ -3636,7 +4416,11 @@
             "relative_x": 224,
             "relative_y": 248,
             "source_tile_low_or_spatial_byte": 38,
-            "trailing_attribute": "$80"
+            "trailing_attribute": "$80",
+            "trailing_attribute_bits": {
+              "pass_terminal_piece_marker": true,
+              "unknown_low_bits_raw": 0
+            }
           }
         ]
       ],
@@ -3849,6 +4633,16 @@
     "tile_base_vram_offset_table": {
       "entries": 88,
       "range": "C4:2F8C..C4:303C"
+    },
+    "trailing_attribute_counts": {
+      "$00": 164,
+      "$80": 32
+    },
+    "trailing_attribute_invariant": {
+      "confidence": "high",
+      "mismatches": 0,
+      "name": "pass_terminal_piece_marker",
+      "observed_pattern": "Only bit 7 is used; it is set exactly on the final piece of each descriptor body pass."
     },
     "visual_piece_tile_word_ladder": {
       "entries": 72,

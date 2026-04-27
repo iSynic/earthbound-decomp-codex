@@ -32,6 +32,18 @@ This note summarizes `notes/secondary-visual-descriptor-contracts.json`, a ROM-v
 | 6 | 3 |
 | 9 | 1 |
 
+## Trailing Attribute Byte
+
+- Current name: `pass_terminal_piece_marker`
+- Confidence: `high`
+- Observed pattern: Only bit 7 is used; it is set exactly on the final piece of each descriptor body pass.
+- Invariant mismatches: 0
+
+| Trailing byte | Pieces |
+| --- | ---: |
+| `$00` | 164 |
+| `$80` | 32 |
+
 ## Pointer Entries
 
 | Index | Target | Label | Alias Count |
@@ -81,4 +93,5 @@ This note summarizes `notes/secondary-visual-descriptor-contracts.json`, a ROM-v
 - Descriptor byte `1` is the first priority-band count; `byte0 - byte1` is the second band count packed into `$2BE6` low byte.
 - Each body pass has `piece_count` repeated 5-byte piece records.
 - Pass 1 carries the horizontally flipped partner records in the known descriptors.
+- Body record byte `4` uses bit `7` as a pass-terminal piece marker in all decoded descriptors; it is set exactly on the final piece of each body pass, and low bits are currently unused.
 - Runtime byte `2` is an OAM-like attribute byte: bit 6 is horizontal flip, bit 7 is likely vertical flip, and bits 4-5 are patched as priority by `C0:A3A4`.

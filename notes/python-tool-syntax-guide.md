@@ -388,6 +388,12 @@ Render a separate priority-band audit set:
 python tools/build_overworld_sprite_composed_previews.py --show-priority-bands --out build\overworld-sprite-composed-priority-bands
 ```
 
+Render a separate pass-terminal marker audit set:
+
+```powershell
+python tools/build_overworld_sprite_composed_previews.py --show-trailing-markers --out build\overworld-sprite-composed-terminal-markers
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell

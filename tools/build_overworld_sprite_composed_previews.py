@@ -28,6 +28,7 @@ BAND_COLORS = {
     "first_priority_band": (44, 134, 255, 255),
     "second_priority_band": (255, 181, 46, 255),
 }
+TERMINAL_MARKER_COLOR = (255, 72, 184, 255)
 
 
 def parse_args() -> argparse.Namespace:
@@ -51,6 +52,11 @@ def parse_args() -> argparse.Namespace:
         "--show-priority-bands",
         action="store_true",
         help="Tint and outline pieces by the secondary descriptor header's two priority bands.",
+    )
+    parser.add_argument(
+        "--show-trailing-markers",
+        action="store_true",
+        help="Mark pieces whose trailing byte has the pass-terminal bit set.",
     )
     return parser.parse_args()
 
@@ -144,6 +150,7 @@ def compose_slot(
     descriptor: dict[str, Any],
     asset_root: Path,
     show_priority_bands: bool,
+    show_trailing_markers: bool,
 ) -> tuple[list[list[RGBA]], dict[str, Any]]:
     preview = asset_root / slot["resolved_asset"]["palette_00_preview"]
     source_sheet = read_png_rgba(preview)
@@ -157,6 +164,8 @@ def compose_slot(
     min_x = min_y = 0
     max_x = max_y = 0
     for piece in pieces:
+        trailing_bits = piece.get("trailing_attribute_bits", {})
+        is_terminal_piece = bool(trailing_bits.get("pass_terminal_piece_marker"))
         priority_band = (
             "first_priority_band"
             if int(piece["ordinal"]) < first_band_count
@@ -185,6 +194,7 @@ def compose_slot(
                 "relative_y": y,
                 "source_tile_chunk_index": tile_index,
                 "trailing_attribute": piece["trailing_attribute"],
+                "is_pass_terminal_piece": is_terminal_piece,
             }
         )
 
@@ -197,6 +207,10 @@ def compose_slot(
         paste(canvas, tile, left, top)
         if show_priority_bands:
             draw_rect(canvas, left, top, PIECE_SIZE, PIECE_SIZE, BAND_COLORS[priority_band])
+        if show_trailing_markers and _piece.get("trailing_attribute_bits", {}).get(
+            "pass_terminal_piece_marker"
+        ):
+            draw_rect(canvas, left, top, PIECE_SIZE, PIECE_SIZE, TERMINAL_MARKER_COLOR)
 
     return canvas, {
         "slot_index": slot["slot_index"],
@@ -215,8 +229,8 @@ def compose_slot(
         "source_range": slot["resolved_asset"]["source_range"],
         "piece_render_model": "16x16_metatile_from_extracted_tile_stream",
         "priority_band_overlay": show_priority_bands,
+        "trailing_marker_overlay": show_trailing_markers,
         "limitations": [
-            "does_not_yet_name_or_visualize_trailing_attribute_byte",
             "does_not_yet_apply_palette_variants",
         ],
     }
@@ -229,6 +243,7 @@ def build_group_sheet(
     out_dir: Path,
     slot_limit: int | None,
     show_priority_bands: bool,
+    show_trailing_markers: bool,
 ) -> dict[str, Any]:
     slots = group["runtime_slots"][:slot_limit]
     if not slots:
@@ -246,7 +261,9 @@ def build_group_sheet(
     composed = []
     max_w = max_h = 1
     for slot in slots:
-        image, metadata = compose_slot(slot, descriptor, asset_root, show_priority_bands)
+        image, metadata = compose_slot(
+            slot, descriptor, asset_root, show_priority_bands, show_trailing_markers
+        )
         composed.append((image, metadata))
         max_w = max(max_w, len(image[0]))
         max_h = max(max_h, len(image))
@@ -273,6 +290,7 @@ def build_group_sheet(
         "secondary_descriptor_index": group["sprite_grouping_record"]["header"]["size_code"],
         "secondary_descriptor": descriptor["label"],
         "priority_band_overlay": show_priority_bands,
+        "trailing_marker_overlay": show_trailing_markers,
         "sheet": rel(out_path),
         "slots": slot_metadata,
     }
@@ -310,14 +328,16 @@ def main() -> int:
             "uses_raw_palette_00_tile_previews",
             "uses_16x16_piece_chunks_from_extracted_tile_stream",
             "can_tint_contract_priority_bands_with_show_priority_bands",
-            "does_not_yet_name_or_visualize_trailing_attribute_byte",
+            "can_mark_pass_terminal_pieces_with_show_trailing_markers",
         ],
         "render_options": {
             "show_priority_bands": args.show_priority_bands,
+            "show_trailing_markers": args.show_trailing_markers,
             "priority_band_colors": {
                 key: f"#{red:02X}{green:02X}{blue:02X}"
                 for key, (red, green, blue, _alpha) in BAND_COLORS.items()
             },
+            "terminal_marker_color": f"#{TERMINAL_MARKER_COLOR[0]:02X}{TERMINAL_MARKER_COLOR[1]:02X}{TERMINAL_MARKER_COLOR[2]:02X}",
         },
         "groups": [],
     }
@@ -344,6 +364,7 @@ def main() -> int:
                 out_dir,
                 args.slot_limit,
                 args.show_priority_bands,
+                args.show_trailing_markers,
             )
         )
 

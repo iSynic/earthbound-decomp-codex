@@ -45,8 +45,8 @@ Those sheets apply the flag effects as metadata and colored cell borders first. 
 
 `tools/build_overworld_sprite_composed_previews.py` is the next prototype layer. It consumes the frame contract, the secondary visual descriptor contract, and generated D1-D5 palette-00 tile previews to write ignored composed preview sheets under `build/overworld-sprite-composed-previews/`. It uses bit 0 to choose descriptor pass 0 or pass 1 and records that choice per slot.
 
-The composed preview tool now builds each secondary descriptor piece as a 16x16 chunk from the extracted D1-D5 tile-preview stream. It is still conservative about the descriptor trailing byte: that byte is carried in the source contract, but the previewer does not yet name or visualize its `$00/$80` pattern. Palette variants and priority-band visualization are also still pending.
+The composed preview tool now builds each secondary descriptor piece as a 16x16 chunk from the extracted D1-D5 tile-preview stream. It can tint the contract priority bands and can outline pieces whose trailing byte carries the pass-terminal marker. Palette variants are still pending.
 
 ## Next Step
 
-Refine the composed previews by naming or visualizing the trailing byte from the secondary visual descriptor records, then split priority bands and palette variants once the remaining C0/C4 renderer contracts are pinned.
+Refine the composed previews with palette variants once the remaining C0/C4 palette-selection contracts are pinned.
