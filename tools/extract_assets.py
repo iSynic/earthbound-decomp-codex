@@ -161,6 +161,30 @@ def write_grayscale_png(path: Path, rows: list[list[int]]) -> None:
     path.write_bytes(payload)
 
 
+def write_rgb_png(path: Path, rows: list[list[tuple[int, int, int]]]) -> None:
+    if not rows or not rows[0]:
+        raise ValueError("Cannot write an empty PNG")
+    width = len(rows[0])
+    height = len(rows)
+    for row in rows:
+        if len(row) != width:
+            raise ValueError("PNG rows have inconsistent widths")
+
+    raw_rows = []
+    for row in rows:
+        payload = bytearray([0])
+        for red, green, blue in row:
+            payload.extend((red, green, blue))
+        raw_rows.append(bytes(payload))
+
+    payload = b"\x89PNG\r\n\x1a\n"
+    payload += png_chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+    payload += png_chunk(b"IDAT", zlib.compress(b"".join(raw_rows)))
+    payload += png_chunk(b"IEND", b"")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(payload)
+
+
 def palette_entry_count(data: bytes, spec: dict[str, Any]) -> int | None:
     count = spec.get("colors")
     if count is None:
@@ -208,7 +232,7 @@ def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
     return pixels
 
 
-def decode_snes_4bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
+def decode_snes_4bpp_tile_indices(data: bytes, columns: int) -> list[list[int]]:
     if len(data) % 32 != 0:
         raise ValueError(f"SNES 4bpp tile data must be a multiple of 32 bytes, got {len(data)}")
     if columns <= 0:
@@ -216,8 +240,7 @@ def decode_snes_4bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
 
     tile_count = len(data) // 32
     rows_of_tiles = math.ceil(tile_count / columns)
-    pixels = [[255 for _ in range(columns * 8)] for _ in range(rows_of_tiles * 8)]
-    palette = [255, 238, 221, 204, 187, 170, 153, 136, 119, 102, 85, 68, 51, 34, 17, 0]
+    pixels = [[0 for _ in range(columns * 8)] for _ in range(rows_of_tiles * 8)]
 
     for tile_index in range(tile_count):
         tile_x = (tile_index % columns) * 8
@@ -236,12 +259,72 @@ def decode_snes_4bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
                     | (((plane2 >> bit) & 1) << 2)
                     | (((plane3 >> bit) & 1) << 3)
                 )
-                pixels[tile_y + y][tile_x + x] = palette[color]
+                pixels[tile_y + y][tile_x + x] = color
 
     return pixels
 
 
-def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any]:
+def decode_snes_4bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
+    palette = [255, 238, 221, 204, 187, 170, 153, 136, 119, 102, 85, 68, 51, 34, 17, 0]
+    return [[palette[color] for color in row] for row in decode_snes_4bpp_tile_indices(data, columns)]
+
+
+def palette_source_data(rom: bytes, spec: dict[str, Any]) -> bytes:
+    source = spec.get("palette_source")
+    if not isinstance(source, dict):
+        raise ValueError(f"Palette-aware output requires palette_source: {spec!r}")
+    if source.get("type") != "rom-range":
+        raise ValueError(f"Only rom-range palette sources are supported: {source!r}")
+    range_text = source.get("range")
+    if not isinstance(range_text, str):
+        raise ValueError(f"Palette source is missing a range: {source!r}")
+    data, _ = rom_range_slice(rom, range_text)
+    expected_bytes = source.get("bytes")
+    if expected_bytes is not None and len(data) != int(expected_bytes):
+        raise ValueError(
+            f"Palette source {range_text}: expected {expected_bytes} bytes, got {len(data)}"
+        )
+    expected_sha1 = source.get("sha1")
+    if expected_sha1 is not None:
+        actual_sha1 = hashlib.sha1(data).hexdigest()
+        if actual_sha1 != expected_sha1:
+            raise ValueError(
+                f"Palette source SHA-1 mismatch for {range_text}: "
+                f"expected {expected_sha1}, got {actual_sha1}"
+            )
+    compression = source.get("compression")
+    if compression is None:
+        return data
+    if compression == "earthbound_lzhal":
+        decompressed, _ = decompress_earthbound_lzhal(data)
+        return decompressed
+    raise ValueError(f"Unsupported palette source compression: {compression}")
+
+
+def write_snes_4bpp_palette_png(
+    data: bytes,
+    palette_data: bytes,
+    path: Path,
+    spec: dict[str, Any],
+) -> dict[str, Any]:
+    columns = int(spec.get("columns", 16))
+    entries = decode_snes_bgr555_palette(palette_data, count=palette_entry_count(palette_data, spec))
+    indices = decode_snes_4bpp_tile_indices(data, columns)
+    max_color = max((max(row) for row in indices), default=0)
+    if max_color >= len(entries):
+        raise ValueError(
+            f"4bpp tile data uses palette index {max_color}, "
+            f"but palette only has {len(entries)} colors"
+        )
+    rows = [
+        [(entries[color].red8, entries[color].green8, entries[color].blue8) for color in row]
+        for row in indices
+    ]
+    write_rgb_png(path, rows)
+    return {"colors": len(entries), "palette_source_range": spec["palette_source"]["range"]}
+
+
+def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> dict[str, Any]:
     kind = spec.get("kind")
     relative_path = spec.get("path")
     if not isinstance(kind, str) or not isinstance(relative_path, str):
@@ -266,6 +349,15 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any]) -> dict[str, Any
         columns = int(spec.get("columns", 16))
         decompressed, consumed = decompress_earthbound_lzhal(data)
         write_grayscale_png(path, decode_snes_4bpp_tiles(decompressed, columns))
+        metadata["compressed_bytes_consumed"] = consumed
+        metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "snes_4bpp_tiles_palette_png":
+        metadata.update(write_snes_4bpp_palette_png(data, palette_source_data(rom, spec), path, spec))
+    elif kind == "earthbound_lzhal_snes_4bpp_tiles_palette_png":
+        decompressed, consumed = decompress_earthbound_lzhal(data)
+        metadata.update(
+            write_snes_4bpp_palette_png(decompressed, palette_source_data(rom, spec), path, spec)
+        )
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "snes_palette_json":
@@ -348,7 +440,7 @@ def extract_assets(
         if not isinstance(outputs, list):
             raise ValueError(f"Asset {asset_id} outputs must be a list")
 
-        written = [write_output(data, out_root, spec) for spec in outputs]
+        written = [write_output(data, out_root, spec, rom) for spec in outputs]
         extracted.append(
             {
                 "id": asset_id,

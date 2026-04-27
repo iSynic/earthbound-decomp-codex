@@ -341,6 +341,10 @@ Generate ROM-backed palette JSON and swatch PNG outputs from checked-in manifest
 python tools/validate_asset_manifests.py --extract
 ```
 
+The same extraction pass also emits first-pass palette-aware battle-background
+tile-sheet previews where a 4bpp graphics payload has a matching same-numbered
+16-color battle background palette.
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell

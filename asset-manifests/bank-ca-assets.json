@@ -198,6 +198,18 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "ca/battle_bgs/graphics/38_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "ca/battle_bgs/graphics/38_palette_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D214..CB:D234",
+            "bytes": 32,
+            "sha1": "47080439f0564dc4e27bdc9c04303533580adab8"
+          }
         }
       ],
       "notes": [
@@ -281,6 +293,18 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "ca/battle_bgs/graphics/39_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "ca/battle_bgs/graphics/39_palette_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D1F4..CB:D214",
+            "bytes": 32,
+            "sha1": "1cf12627d389de875783eea144a9f3788f3197e3"
+          }
         }
       ],
       "notes": [
@@ -369,6 +393,18 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "ca/battle_bgs/graphics/40_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "ca/battle_bgs/graphics/40_palette_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:D1D4..CB:D1F4",
+            "bytes": 32,
+            "sha1": "86c7cf4b520ce9d9cb14e335b6545cc47912e47e"
+          }
         }
       ],
       "notes": [
@@ -592,6 +628,18 @@
           "kind": "earthbound_lzhal_snes_4bpp_tiles_png",
           "path": "ca/battle_bgs/graphics/90_4bpp_preview.png",
           "columns": 8
+        },
+        {
+          "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+          "path": "ca/battle_bgs/graphics/90_palette_preview.png",
+          "columns": 8,
+          "colors": 16,
+          "palette_source": {
+            "type": "rom-range",
+            "range": "CB:CE54..CB:CE74",
+            "bytes": 32,
+            "sha1": "259f34cef5d70b3ca18a9332121e16ef09deee8e"
+          }
         }
       ],
       "notes": [

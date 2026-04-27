@@ -157,6 +157,38 @@ def lzhal_decompressed_size(rom: bytes, entry: dict[str, Any]) -> int | None:
     return len(decompressed)
 
 
+def battle_bg_asset_number(entry: dict[str, Any], subdir: str, extension: str) -> int | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    pattern = rf"^battle_bgs/{subdir}/(\d+)\.{extension}(?:\.lzhal)?$"
+    match = re.match(pattern, payload)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
+def load_battle_bg_palette_registry(
+    bank_manifest_dir: Path,
+    rom: bytes,
+) -> dict[int, dict[str, Any]]:
+    registry: dict[int, dict[str, Any]] = {}
+    for path in sorted(bank_manifest_dir.glob("asset-bank-*.json")):
+        try:
+            manifest = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for entry in manifest.get("binary_assets", []):
+            if str(entry.get("extension", "")).lower() != "pal":
+                continue
+            number = battle_bg_asset_number(entry, "palettes", "pal")
+            if number is None:
+                continue
+            source = make_source(entry, rom)
+            if entry.get("compressed") or str(entry.get("payload_path", "")).lower().endswith(".lzhal"):
+                source["compression"] = "earthbound_lzhal"
+            registry[number] = source
+    return registry
+
+
 def palette_outputs(raw_path: str, compressed: bool) -> list[dict[str, Any]]:
     prefix = "earthbound_lzhal_" if compressed else ""
     return [
@@ -173,7 +205,37 @@ def palette_outputs(raw_path: str, compressed: bool) -> list[dict[str, Any]]:
     ]
 
 
-def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[str, Any]]:
+def battle_bg_palette_preview_output(
+    raw_path: str,
+    entry: dict[str, Any],
+    palette_registry: dict[int, dict[str, Any]],
+    compressed: bool,
+) -> dict[str, Any] | None:
+    number = battle_bg_asset_number(entry, "graphics", "gfx")
+    if number is None or number not in palette_registry:
+        return None
+    palette_source = palette_registry[number]
+    if palette_source.get("compression") is None and int(palette_source.get("bytes", 0)) < 32:
+        return None
+    return {
+        "kind": (
+            "earthbound_lzhal_snes_4bpp_tiles_palette_png"
+            if compressed
+            else "snes_4bpp_tiles_palette_png"
+        ),
+        "path": preview_path(raw_path, "palette_preview"),
+        "columns": 8,
+        "colors": 16,
+        "palette_source": palette_source,
+    }
+
+
+def binary_outputs(
+    bank: str,
+    entry: dict[str, Any],
+    rom: bytes,
+    palette_registry: dict[int, dict[str, Any]],
+) -> list[dict[str, Any]]:
     payload = str(entry.get("payload_path") or f"asset_{entry['order']:03d}.bin")
     raw_path = output_payload_path(bank, payload)
     outputs: list[dict[str, Any]] = [{"kind": "raw", "path": raw_path}]
@@ -200,6 +262,14 @@ def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[st
                     "columns": 8,
                 }
             )
+            palette_preview = battle_bg_palette_preview_output(
+                decompressed_path,
+                entry,
+                palette_registry,
+                compressed=True,
+            )
+            if palette_preview is not None:
+                outputs.append(palette_preview)
         return outputs
 
     if extension == "gfx" and not compressed and size % 32 == 0:
@@ -210,6 +280,14 @@ def binary_outputs(bank: str, entry: dict[str, Any], rom: bytes) -> list[dict[st
                 "columns": 8,
             }
         )
+        palette_preview = battle_bg_palette_preview_output(
+            raw_path,
+            entry,
+            palette_registry,
+            compressed=False,
+        )
+        if palette_preview is not None:
+            outputs.append(palette_preview)
     if extension == "pal" and not compressed and size % 2 == 0:
         outputs.extend(palette_outputs(raw_path, compressed=False))
     return outputs
@@ -225,7 +303,12 @@ def make_source(entry: dict[str, Any], rom: bytes) -> dict[str, Any]:
     }
 
 
-def convert_binary_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[str, Any]:
+def convert_binary_asset(
+    bank: str,
+    entry: dict[str, Any],
+    rom: bytes,
+    palette_registry: dict[int, dict[str, Any]],
+) -> dict[str, Any]:
     label = str(entry.get("label") or "")
     payload = str(entry.get("payload_path") or "")
     stable_name = slug(label or payload, f"asset_{entry['order']}")
@@ -243,7 +326,7 @@ def convert_binary_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[s
         "title": label or payload,
         "category": binary_category(entry),
         "source": make_source(entry, rom),
-        "outputs": binary_outputs(bank, entry, rom),
+        "outputs": binary_outputs(bank, entry, rom, palette_registry),
         "notes": notes,
     }
 
@@ -312,12 +395,13 @@ def convert_manifest(
     rom: bytes,
     include_tables: bool,
     include_gaps: bool,
+    palette_registry: dict[int, dict[str, Any]],
 ) -> dict[str, Any]:
     bank = str(bank_manifest["bank"]).upper()
     assets: list[dict[str, Any]] = []
 
     for entry in bank_manifest.get("binary_assets", []):
-        assets.append(convert_binary_asset(bank, entry, rom))
+        assets.append(convert_binary_asset(bank, entry, rom, palette_registry))
 
     if include_tables:
         for entry in bank_manifest.get("table_includes", []):
@@ -369,6 +453,7 @@ def main() -> int:
     yml_path = Path(args.yml)
     bank_manifest_dir = Path(args.bank_manifest_dir)
     out_dir = Path(args.out_dir)
+    palette_registry = load_battle_bg_palette_registry(bank_manifest_dir, rom)
 
     for raw_bank in args.bank:
         bank = raw_bank.upper()
@@ -378,6 +463,7 @@ def main() -> int:
             rom,
             include_tables=args.include_tables,
             include_gaps=args.include_gaps,
+            palette_registry=palette_registry,
         )
         path = write_manifest(out_dir, bank, extraction_manifest)
         print(f"{bank}: wrote {len(extraction_manifest['assets'])} assets to {rel(path)}")
