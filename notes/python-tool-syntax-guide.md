@@ -361,6 +361,13 @@ Render one or two specific overworld sprite IDs:
 python tools/build_overworld_sprite_preview_sheets.py --group-id 1 --group-id 7
 ```
 
+Build the C4 secondary visual descriptor contract used by the in-game
+composition path:
+
+```powershell
+python tools/build_secondary_visual_descriptor_contract.py
+```
+
 Render SNES 4bpp data when a graphics payload boundary is known:
 
 ```powershell

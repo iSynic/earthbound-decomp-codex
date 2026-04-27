@@ -40,7 +40,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 
 ## Decoder Roadmap
 
-- **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, first-pass battle-background and battle-sprite palette-aware tile previews, composed battle-background arrangement previews, size-aware composed battle sprite previews, default-palette overworld sprite previews, overworld sprite group payload/metadata contracts with enum aliases, ROM-extracted overworld sprite frame/slot pointer contracts with named low-bit renderer effects, generated overworld slot preview sheets, extraction reports.
+- **Done in the base pipeline**: raw ROM slices, LZHAL decompression, 2bpp/4bpp tile preview PNGs, SNES BGR555 palette JSON, palette swatch PNGs, first-pass battle-background and battle-sprite palette-aware tile previews, composed battle-background arrangement previews, size-aware composed battle sprite previews, default-palette overworld sprite previews, overworld sprite group payload/metadata contracts with enum aliases, ROM-extracted overworld sprite frame/slot pointer contracts with named low-bit renderer effects, generated overworld slot preview sheets, secondary visual descriptor contracts, extraction reports.
 - **Next**: optional overworld palette variants, in-game composed sprite/OAM previews, palette table splitting, tilemaps, BRR/sample packs, text tables, and map sector data.
 - **Later**: engine-ready asset bundles with IDs, dependency metadata, and loaders that can target native ports or ROM rebuilding.
 
@@ -52,6 +52,7 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 - `tools/build_overworld_sprite_group_manifest.py` consumes ignored refs and checked-in D1-D5 manifests to produce `notes/overworld-sprite-groups.json` without committing ROM-derived payload bytes.
 - `tools/build_overworld_sprite_frame_contract.py` consumes the sprite group contract, the user-supplied ROM, and D1-D5 manifests to resolve EF sprite grouping pointer slots to concrete payload assets and named renderer flag effects for ports and editors.
 - `tools/build_overworld_sprite_preview_sheets.py` consumes the frame contract and generated asset previews to write ignored overworld slot contact sheets under `build/overworld-sprite-preview-sheets/`.
+- `tools/build_secondary_visual_descriptor_contract.py` consumes the user-supplied ROM to decode the C4 secondary visual descriptor pointer table, per-pass piece records, priority-band counts, and adjacent support table ranges.
 - `tools/validate_asset_manifests.py` validates all checked-in manifests, checks duplicate asset IDs, and can run a full local extraction pass.
 - Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
 

@@ -57,6 +57,7 @@ EF remains hand-curated for now because its manifest intentionally names the deb
 - `tools/build_overworld_sprite_group_manifest.py` builds `notes/overworld-sprite-groups.json`, a checked-in contract tying ebsrc sprite group labels to D1-D5 sprite payload assets and EBDecomp group metadata.
 - `tools/build_overworld_sprite_frame_contract.py` builds `notes/overworld-sprite-frame-contracts.json`, a ROM-verified runtime slot/payload contract over the sprite group contract and EF sprite grouping pointer table, including named low-bit renderer effects.
 - `tools/build_overworld_sprite_preview_sheets.py` builds ignored `build/overworld-sprite-preview-sheets/` PNG contact sheets and an index from the resolved frame contract.
+- `tools/build_secondary_visual_descriptor_contract.py` builds `notes/secondary-visual-descriptor-contracts.json`, a ROM-verified contract for the C4 secondary visual descriptor pointer table and 5-byte piece records.
 
 ## Validation
 
@@ -89,10 +90,11 @@ Result:
 - Overworld sprite groups now have a machine-readable metadata contract covering all `267` ebsrc `SPRITE_GROUP_*` labels, `742` group-owned D1-D5 sprite payloads, and `267` EBDecomp size/collision metadata matches. `200` groups match the `OVERWORLD_SPRITE` enum directly; the remaining `67` are resolved by `notes/overworld-sprite-group-aliases.json`. The contract also records `224` overflow payload labels and `404` D1-D5 sprite payload assets that are not owned by a group label after bank-boundary and pointer-length guards are applied.
 - Overworld sprite frame contracts now classify all `267` groups into runtime slot models, payload reuse models, and layout families, and extract the actual `spritepointerarray` records from `EF:133F..EF:4A40`. All `2438` runtime pointer slots resolve to concrete D1-D5 sprite payload assets; `1769` are exact pointer-word matches and `669` use masked low-two-bit flags. The low-bit effects are now named from renderer behavior: bit 0 `display_record_base_bias` affects `657` slots, and bit 1 `suppress_auxiliary_c40be8_prepass` affects `16` slots. Direction/phase labels remain semantic hints from the ebsrc `DIRECTION` enum.
 - Overworld sprite preview sheets can now be generated for all `267` sprite groups from the frame contract and extracted palette-00 tile previews. The generated PNGs and `index.json` stay under ignored `build/overworld-sprite-preview-sheets/`.
+- Secondary visual descriptors now have a machine-readable C4 contract covering the `17` pointer-table entries at `C4:2B0D..C4:2B51`, `16` unique descriptor records at `C4:2B51..C4:2F45`, and the adjacent `C4:2F45..C4:2F8C` non-descriptor ranges before the tile-base and tile-word support tables.
 
 ## Next Useful Decoders
 
 1. Optional overworld sprite palette-variant rendering once entity/map palette selection is documented.
-2. Move from contact-sheet tile previews toward in-game composed sprite/OAM previews once the display-record layout is fully pinned.
+2. Move from contact-sheet tile previews toward in-game composed sprite/OAM previews using the secondary visual descriptor contract and display-record layout.
 3. Palette table splitting for pointer/table corridors that are not standalone `.pal` payloads yet.
 4. BRR/audio pack manifests split into sample/song/pack-level contracts.
