@@ -1,21 +1,16 @@
 # EF Readable Source Split Queue
 
-This note translates the EF first-pass map into the next readable source-bank
-closure queue.
-
-The immediate problem is measurable now: `notes/readable-source-bank-closure.md`
-shows `EF` as the dominant preserved-corridor debt, with `EF:0000..EF:EB5F`
-still emitted as one coarse `db` corridor. That is byte-safe, but it is not
-readable source.
+This note began as the EF first-pass source-bank closure queue. It now records
+the split strategy and the completed checkpoints that retired the broad EF
+preserved corridors.
 
 ## Current Boundary
 
 - Structural scaffold: closed and byte-equivalent.
-- Readable source closure: open.
-- Main debt: `EF:0000..EF:EB5F`, `60255` bytes.
-- Secondary debts: `EF:EF70..EF:EFB7`, `71` bytes, and the late named tail
-  `EF:F0D7..EF:FFFF`, already noted as blocked by missing includes in the asset
-  map.
+- Readable source closure: closed for EF; `notes/readable-source-bank-closure.md`
+  now reports `0` EF preserved-corridor bytes.
+- Remaining EF work is decoder maturity and asset/data semantics, especially
+  text/table payloads and the late named tail after `EF:F0D7`.
 
 ## Source Order From Refs
 
@@ -27,7 +22,7 @@ The strongest global guide is still:
 - `notes/bank-ef-asset-data-map.md`
 
 Those refs do not give us every local file body, but they do give source order,
-include names, and many encoded address anchors. That is enough to split the
+include names, and many encoded address anchors. That was enough to split the
 coarse corridor into safer lanes.
 
 ## Split Lanes
@@ -45,9 +40,9 @@ coarse corridor into safer lanes.
 | Exact debug graphics | `EF:EB5F..EF:EF6F`, `EF:EFB7..EF:F0D6` | Debug font and cursor graphics. | already exact assets | `asset-manifests/ef-debug-assets.json` |
 | Late tail | `EF:F0D7..EF:FFFF` | Named unknown/version/unused/debug cursor spritemap tail. | typed data split | `bank2f.asm`, asset map gap |
 
-## First Practical Promotion Target
+## Historical First Practical Promotion Target
 
-The best first readable-source promotion seam is:
+The first readable-source promotion seam was:
 
 ```text
 EF:0CA7..EF:101B
@@ -81,7 +76,7 @@ Expected source-facing labels:
 - `EF:0FDB` begin delivery success arrival state
 - `EF:0FF6` reset delivery arrival state
 
-## Second Practical Target
+## Historical Second Practical Target
 
 After that, split `EF:101B..EF:4A3F` as typed data, not source. This does not
 make EF "more decoded asm," but it removes a large amount of false source debt
@@ -90,11 +85,16 @@ tables into explicit data contracts.
 
 ## Completed Split Checkpoints
 
+- `EF:0000..EF:0CA7` is now closed as source/data lanes: enemy flashing
+  helpers, battle/overworld visual helpers, audio flag helpers, overworld
+  entity snapshot helpers, the SRAM signature/flag island, save/SRAM helpers,
+  and the load-slot/overworld refresh tail. The retired preserved-corridor
+  scaffold has been replaced by the promoted modules documented in
+  `notes/ef-front-source-closure-0000-0ca7.md`.
 - `EF:0CA7..EF:101B` is now promoted into
   `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm` as decoded helper
-  source. The split leaves `EF:0000..EF:0CA7` and `EF:101B..EF:EB5F` as
-  explicit preserved corridors instead of hiding the whole EF front run behind
-  one coarse blob.
+  source. The split was the first step in retiring the broad EF front corridor
+  and isolating the later table/text/debug lanes.
 - `EF:101B..EF:D56F` is now split into broad typed data/text lanes:
   map tileset and sprite grouping tables, Sound Stone presentation data, text
   payload data, and text glyph mask tables. This keeps the largest known
@@ -118,16 +118,17 @@ tables into explicit data contracts.
 
 ## Remaining Success Criteria
 
-The next EF readable-source pass should:
+Future EF refinement should:
 
-1. target the remaining front preserved source/data uncertainty before
-   `EF:0CA7`; the late tail after `EF:F0D7` is now asset/data maturity work
-   rather than ordinary readable-source debt
+1. keep the EF front source/data contract validated; the late tail after
+   `EF:F0D7` is now asset/data maturity work rather than ordinary
+   readable-source debt
 2. preserve byte equivalence with `validate_source_bank_byte_equivalence.py`
 3. rerun `tools/build_readable_source_bank_closure.py`
-4. reduce EF preserved-corridor bytes or move remaining known payloads into the
-   `known data/assets` bucket
+4. keep remaining known payloads in the `known data/assets` bucket instead of
+   reintroducing broad preserved corridors
 5. leave unresolved text, table, and tail lanes documented rather than hidden
 
-That gives us a clean loop: source split, validate, rerun the closure dashboard,
-then choose the next lane by measured remaining debt.
+That gives us a clean loop for any future bank: source/data split, validate,
+rerun the closure dashboard, then choose the next lane by measured remaining
+debt.

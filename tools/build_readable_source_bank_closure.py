@@ -123,6 +123,7 @@ KNOWN_DATA_HINTS = (
     "padding",
     "payload",
     "script",
+    "signature",
     "sprite",
     "table",
     "text",

@@ -1,4 +1,4 @@
-; EarthBound EF front preserved source/data corridor.
+; EarthBound EF SRAM signature and save-block flag bytes.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate data corridor.
@@ -7,10 +7,10 @@
 ;   as one data gap before the terminal label below.
 ;
 ; Source units covered:
-; - EF:0000..EF:0CA7 EfFrontPreservedCorridor
+; - EF:0591..EF:05A9 EfSramSignatureAndSaveBlockFlags
 
 ; ---------------------------------------------------------------------------
-; EF:0CA7
+; EF:05A9
 
-; EfFrontPreservedCorridorEnd
-EF0CA7_EfFrontPreservedCorridorEnd:
+; EfSramSignatureAndSaveBlockFlagsEnd
+EF05A9_EfSramSignatureAndSaveBlockFlagsEnd:

@@ -4,16 +4,22 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 ## Summary
 
-- ranges: `22`
+- ranges: `28`
 - total bytes: `65536`
-- source bytes: `11565`
-- data gap bytes: `53971`
+- source bytes: `14780`
+- data gap bytes: `50756`
 
 ## Ranges
 
 | Level | Source Path | Range | Span Bytes | Source Bytes | Data Gap Bytes | SHA-1 |
 | --- | --- | --- | ---: | ---: | ---: | --- |
-| `build-candidate` | `src/ef/ef_0000_0ca7_front_preserved_corridor.asm` | `EF:0000..EF:0CA7` | 3239 | 0 | 3239 | `b4010203684b333d3841ab3df35037ba4fa2825c` |
+| `build-candidate` | `src/ef/ef_0000_00bb_enemy_flashing_helpers.asm` | `EF:0000..EF:00BB` | 187 | 187 | 0 | `77dd6f3f57c4a6fea5be7aa4af69a2691e32b8c7` |
+| `build-candidate` | `src/ef/ef_00bb_0256_battle_overworld_visual_helpers.asm` | `EF:00BB..EF:0256` | 411 | 411 | 0 | `3c3e08e10a1dec3621ddfcfeef514509a9acc646` |
+| `build-candidate` | `src/ef/ef_0256_027d_audio_pause_resume_flags.asm` | `EF:0256..EF:027D` | 39 | 39 | 0 | `9a99a99d847f6e82b9f4fa3bcd194daa2f18905d` |
+| `build-candidate` | `src/ef/ef_027d_0591_overworld_entity_snapshot_helpers.asm` | `EF:027D..EF:0591` | 788 | 788 | 0 | `45d47823667c42199d00e777f6dc6110314aa187` |
+| `build-candidate` | `src/ef/ef_0591_05a9_sram_signature_and_save_block_flags.asm` | `EF:0591..EF:05A9` | 24 | 0 | 24 | `7301afe764d5f3200bbbcab6bc2436e84975ecd4` |
+| `build-candidate` | `src/ef/ef_05a9_0c3d_save_sram_helpers.asm` | `EF:05A9..EF:0C3D` | 1684 | 1684 | 0 | `e4fbde63d6b5388fcafd04510977c570aeed2702` |
+| `build-candidate` | `src/ef/ef_0c3d_0ca7_front_unknown_tail_helpers.asm` | `EF:0C3D..EF:0CA7` | 106 | 106 | 0 | `1959bd78161c2d3b053fbb4a84349a3adbcdcdfa` |
 | `build-candidate` | `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm` | `EF:0CA7..EF:101B` | 884 | 884 | 0 | `67263f36ee80d3155ec61cce95d7194870b8c2d7` |
 | `build-candidate` | `src/ef/ef_101b_4a40_map_tileset_sprite_table_data.asm` | `EF:101B..EF:4A40` | 14885 | 0 | 14885 | `6e3c7770032eabf33502d47f18c448999ffb2023` |
 | `build-candidate` | `src/ef/ef_4a40_4e20_sound_stone_presentation_table_data.asm` | `EF:4A40..EF:4E20` | 992 | 0 | 992 | `ea78ee3d61cd39ebf81f5ac0793353e61ff7c41e` |
@@ -38,7 +44,79 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 ## Source Segments
 
-### `src/ef/ef_0000_0ca7_front_preserved_corridor.asm`
+### `src/ef/ef_0000_00bb_enemy_flashing_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:0000..EF:00BB` | 187 | `EnemyFlashingHelpers` | `77dd6f3f57c4a6fea5be7aa4af69a2691e32b8c7` |
+
+Labels:
+
+- `EF:0000 EnemyFlashingHelpers`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/ebsrc-main/ebsrc-main/src/battle/enemy_flashing_off.asm`
+- `refs/ebsrc-main/ebsrc-main/src/battle/enemy_flashing_on.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_00bb_0256_battle_overworld_visual_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:00BB..EF:0256` | 411 | `BattleOverworldVisualHelpers` | `3c3e08e10a1dec3621ddfcfeef514509a9acc646` |
+
+Labels:
+
+- `EF:00BB BattleOverworldVisualHelpers`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_0256_027d_audio_pause_resume_flags.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:0256..EF:027D` | 39 | `AudioPauseResumeFlags` | `9a99a99d847f6e82b9f4fa3bcd194daa2f18905d` |
+
+Labels:
+
+- `EF:0256 AudioPauseResumeFlags`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/ebsrc-main/ebsrc-main/src/audio/pause_music.asm`
+- `refs/ebsrc-main/ebsrc-main/src/audio/resume_music.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_027d_0591_overworld_entity_snapshot_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:027D..EF:0591` | 788 | `OverworldEntitySnapshotHelpers` | `45d47823667c42199d00e777f6dc6110314aa187` |
+
+Labels:
+
+- `EF:027D OverworldEntitySnapshotHelpers`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_0591_05a9_sram_signature_and_save_block_flags.asm`
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
@@ -46,16 +124,55 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 Data gaps inside protected span:
 
-- `EF:0000..EF:0CA7` (`3239` bytes, SHA-1 `b4010203684b333d3841ab3df35037ba4fa2825c`) `EfFrontPreservedCorridor`
+- `EF:0591..EF:05A9` (`24` bytes, SHA-1 `7301afe764d5f3200bbbcab6bc2436e84975ecd4`) `EfSramSignatureAndSaveBlockFlags`
 
 Labels:
 
-- `EF:0000 EfFrontPreservedCorridor`
+- `EF:0591 EfSramSignatureAndSaveBlockFlags`
 
 Evidence:
 
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/ebsrc-main/ebsrc-main/include/symbols/bank2f.inc.asm`
 - `notes/bank-ef-first-pass.md`
 - `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_05a9_0c3d_save_sram_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:05A9..EF:0C3D` | 1684 | `SaveSramHelperCluster` | `e4fbde63d6b5388fcafd04510977c570aeed2702` |
+
+Labels:
+
+- `EF:05A9 SaveSramHelperCluster`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/ebsrc-main/ebsrc-main/include/symbols/bank2f.inc.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
+
+### `src/ef/ef_0c3d_0ca7_front_unknown_tail_helpers.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| `EF:0C3D..EF:0CA7` | 106 | `EfFrontUnknownTailHelpers` | `1959bd78161c2d3b053fbb4a84349a3adbcdcdfa` |
+
+Labels:
+
+- `EF:0C3D EfFrontUnknownTailHelpers`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/ebsrc-main/ebsrc-main/include/symbols/bank2f.inc.asm`
+- `notes/bank-ef-first-pass.md`
+- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-front-source-closure-0000-0ca7.md`
 
 ### `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm`
 

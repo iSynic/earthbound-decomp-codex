@@ -11,11 +11,11 @@
       "EF"
     ],
     "total_bytes": 327680,
-    "decoded_asm_bytes": 250959,
-    "known_data_or_asset_bytes": 73349,
-    "preserved_corridor_bytes": 3372,
-    "source_like_bytes": 254331,
-    "readable_source_percent": 98.67
+    "decoded_asm_bytes": 254174,
+    "known_data_or_asset_bytes": 73373,
+    "preserved_corridor_bytes": 133,
+    "source_like_bytes": 254307,
+    "readable_source_percent": 99.95
   },
   "banks": [
     {
@@ -73,41 +73,16 @@
     },
     {
       "bank": "EF",
-      "decoded_asm_bytes": 6284,
-      "known_data_or_asset_bytes": 56013,
-      "preserved_corridor_bytes": 3239,
+      "decoded_asm_bytes": 9499,
+      "known_data_or_asset_bytes": 56037,
+      "preserved_corridor_bytes": 0,
       "total_bytes": 65536,
-      "source_like_bytes": 9523,
-      "readable_source_percent": 65.99,
-      "largest_preserved_corridors": [
-        {
-          "bank": "EF",
-          "start": "EF:0000",
-          "end": "EF:0CA7",
-          "size": 3239,
-          "source_path": "src/ef/ef_0000_0ca7_front_preserved_corridor.asm",
-          "subsystem": "ef-front-preserved-corridor",
-          "category": "preserved-corridor",
-          "reason": "path/subsystem carries preserved or unknown corridor hint",
-          "instruction_lines": 0,
-          "data_lines": 0
-        }
-      ]
+      "source_like_bytes": 9499,
+      "readable_source_percent": 100.0,
+      "largest_preserved_corridors": []
     }
   ],
   "largest_preserved_corridors": [
-    {
-      "bank": "EF",
-      "start": "EF:0000",
-      "end": "EF:0CA7",
-      "size": 3239,
-      "source_path": "src/ef/ef_0000_0ca7_front_preserved_corridor.asm",
-      "subsystem": "ef-front-preserved-corridor",
-      "category": "preserved-corridor",
-      "reason": "path/subsystem carries preserved or unknown corridor hint",
-      "instruction_lines": 0,
-      "data_lines": 0
-    },
     {
       "bank": "C0",
       "start": "C0:0000",

@@ -4,7 +4,7 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 
 - status: `OK`
 - mode: `durable-scaffold`
-- modules: `22`
+- modules: `28`
 - non-OK modules: `0`
 - mismatches: `0`
 
@@ -12,7 +12,13 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 
 | Status | Source Path | Range | Size | Mismatches | Generated ASM |
 | --- | --- | --- | ---: | ---: | --- |
-| `OK` | `src/ef/ef_0000_0ca7_front_preserved_corridor.asm` | `EF:0000..EF:0CA7` | 3239 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_0000_00bb_enemy_flashing_helpers.asm` | `EF:0000..EF:00BB` | 187 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_00bb_0256_battle_overworld_visual_helpers.asm` | `EF:00BB..EF:0256` | 411 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_0256_027d_audio_pause_resume_flags.asm` | `EF:0256..EF:027D` | 39 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_027d_0591_overworld_entity_snapshot_helpers.asm` | `EF:027D..EF:0591` | 788 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_0591_05a9_sram_signature_and_save_block_flags.asm` | `EF:0591..EF:05A9` | 24 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_05a9_0c3d_save_sram_helpers.asm` | `EF:05A9..EF:0C3D` | 1684 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `OK` | `src/ef/ef_0c3d_0ca7_front_unknown_tail_helpers.asm` | `EF:0C3D..EF:0CA7` | 106 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm` | `EF:0CA7..EF:101B` | 884 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/ef_101b_4a40_map_tileset_sprite_table_data.asm` | `EF:101B..EF:4A40` | 14885 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 | `OK` | `src/ef/ef_4a40_4e20_sound_stone_presentation_table_data.asm` | `EF:4A40..EF:4E20` | 992 | 0 | `src/ef/bank_ef_helpers_asar.asm` |
