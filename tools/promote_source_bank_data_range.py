@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from add_source_bank_range import ROOT, build_entry, recalculate_summary
+from add_source_bank_range import ROOT, build_entry, ranges_overlap, recalculate_summary
 from rom_tools import find_rom, load_rom
 
 
@@ -69,6 +69,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--rom")
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument(
+        "--replace-overlaps",
+        action="store_true",
+        help="remove existing manifest ranges that overlap the new data corridor",
+    )
     return parser
 
 
@@ -115,11 +120,18 @@ def main() -> int:
     )
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     entry = build_entry(entry_args, rom)
-    ranges = [
-        item
-        for item in manifest.get("ranges", [])
-        if item.get("source_path") != entry["source_path"]
-    ]
+    ranges = []
+    for item in manifest.get("ranges", []):
+        if item.get("source_path") == entry["source_path"]:
+            continue
+        if args.replace_overlaps and ranges_overlap(
+            item["start"],
+            item["end"],
+            entry["start"],
+            entry["end"],
+        ):
+            continue
+        ranges.append(item)
     ranges.append(entry)
     manifest["ranges"] = ranges
     recalculate_summary(manifest)

@@ -50,7 +50,7 @@ coarse corridor into safer lanes.
 The best first readable-source promotion seam is:
 
 ```text
-EF:0CA7..EF:0FF6
+EF:0CA7..EF:101B
 ```
 
 Why this one first:
@@ -59,8 +59,11 @@ Why this one first:
 - Existing notes already explain most of the semantics.
 - It connects to a typed D5 table contract (`D5:F645`) instead of relying only
   on local instruction shape.
-- It should be small enough to split out of the coarse EF corridor without
-  redesigning the whole EF scaffold at once.
+- It ends immediately before the `EF:101B` map table data, which keeps the
+  following payload classified as data instead of decoding into false
+  `BRK`/`COP`-looking instructions.
+- It is small enough to split out of the coarse EF corridor without redesigning
+  the whole EF scaffold at once.
 
 Expected source-facing labels:
 
@@ -74,6 +77,9 @@ Expected source-facing labels:
 - `EF:0E8A` current-row exit-speed getter
 - `EF:0EAD` instantiate delivery row sprite/placeholder
 - `EF:0EE8` scan delivery/service rows by event flag
+- `EF:0F60` delivery-arrival readiness check
+- `EF:0FDB` begin delivery success arrival state
+- `EF:0FF6` reset delivery arrival state
 
 ## Second Practical Target
 
@@ -81,6 +87,16 @@ After that, split `EF:101B..EF:4A3F` as typed data, not source. This will not
 make EF "more decoded asm," but it will remove a large amount of false source
 debt from the preserved corridor by reclassifying map tables and sprite grouping
 tables into explicit data contracts.
+
+## Completed Split Checkpoints
+
+- `EF:0CA7..EF:101B` is now promoted into
+  `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm` as decoded helper
+  source. The split leaves `EF:0000..EF:0CA7` and `EF:101B..EF:EB5F` as
+  explicit preserved corridors instead of hiding the whole EF front run behind
+  one coarse blob.
+- `notes/ef-byte-equivalence-validation.md` confirms the combined EF scaffold
+  still matches the original ROM with `0` mismatches.
 
 ## Success Criteria
 

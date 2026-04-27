@@ -55,7 +55,11 @@ def byte_preview(data: bytes, *, tail: bool = False) -> str:
 
 
 def recalculate_summary(manifest: dict[str, Any]) -> None:
-    ranges = manifest.get("ranges", [])
+    ranges = sorted(
+        manifest.get("ranges", []),
+        key=lambda item: parse_bank_address(item["start"]),
+    )
+    manifest["ranges"] = ranges
     total = sum(int(item["size"]) for item in ranges)
     source = sum(int(item.get("source_size", item["size"])) for item in ranges)
     data_gap = sum(int(item.get("data_gap_size", 0)) for item in ranges)

@@ -11,11 +11,11 @@
       "EF"
     ],
     "total_bytes": 327680,
-    "decoded_asm_bytes": 244675,
+    "decoded_asm_bytes": 245559,
     "known_data_or_asset_bytes": 22546,
-    "preserved_corridor_bytes": 60459,
+    "preserved_corridor_bytes": 59575,
     "source_like_bytes": 305134,
-    "readable_source_percent": 80.19
+    "readable_source_percent": 80.48
   },
   "banks": [
     {
@@ -73,24 +73,36 @@
     },
     {
       "bank": "EF",
-      "decoded_asm_bytes": 0,
+      "decoded_asm_bytes": 884,
       "known_data_or_asset_bytes": 5210,
-      "preserved_corridor_bytes": 60326,
+      "preserved_corridor_bytes": 59442,
       "total_bytes": 65536,
       "source_like_bytes": 60326,
-      "readable_source_percent": 0.0,
+      "readable_source_percent": 1.47,
       "largest_preserved_corridors": [
         {
           "bank": "EF",
-          "start": "EF:0000",
+          "start": "EF:101B",
           "end": "EF:EB5F",
-          "size": 60255,
-          "source_path": "src/ef/table_002_unknown_ef_ef00bb_asm.asm",
-          "subsystem": "asset table unknown/EF/EF00BB.asm",
+          "size": 56132,
+          "source_path": "src/ef/ef_101b_eb5f_map_text_debug_preserved_corridor.asm",
+          "subsystem": "ef-map-text-debug-preserved-corridor",
           "category": "preserved-corridor",
           "reason": "path/subsystem carries preserved or unknown corridor hint",
           "instruction_lines": 0,
-          "data_lines": 3766
+          "data_lines": 0
+        },
+        {
+          "bank": "EF",
+          "start": "EF:0000",
+          "end": "EF:0CA7",
+          "size": 3239,
+          "source_path": "src/ef/ef_0000_0ca7_front_preserved_corridor.asm",
+          "subsystem": "ef-front-preserved-corridor",
+          "category": "preserved-corridor",
+          "reason": "path/subsystem carries preserved or unknown corridor hint",
+          "instruction_lines": 0,
+          "data_lines": 0
         },
         {
           "bank": "EF",
@@ -110,15 +122,27 @@
   "largest_preserved_corridors": [
     {
       "bank": "EF",
-      "start": "EF:0000",
+      "start": "EF:101B",
       "end": "EF:EB5F",
-      "size": 60255,
-      "source_path": "src/ef/table_002_unknown_ef_ef00bb_asm.asm",
-      "subsystem": "asset table unknown/EF/EF00BB.asm",
+      "size": 56132,
+      "source_path": "src/ef/ef_101b_eb5f_map_text_debug_preserved_corridor.asm",
+      "subsystem": "ef-map-text-debug-preserved-corridor",
       "category": "preserved-corridor",
       "reason": "path/subsystem carries preserved or unknown corridor hint",
       "instruction_lines": 0,
-      "data_lines": 3766
+      "data_lines": 0
+    },
+    {
+      "bank": "EF",
+      "start": "EF:0000",
+      "end": "EF:0CA7",
+      "size": 3239,
+      "source_path": "src/ef/ef_0000_0ca7_front_preserved_corridor.asm",
+      "subsystem": "ef-front-preserved-corridor",
+      "category": "preserved-corridor",
+      "reason": "path/subsystem carries preserved or unknown corridor hint",
+      "instruction_lines": 0,
+      "data_lines": 0
     },
     {
       "bank": "C0",
