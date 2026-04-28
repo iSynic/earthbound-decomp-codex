@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `101` families, `40487` validated
+- Current source-form event/actionscript pilots: `116` families, `46146` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -597,6 +597,21 @@ Candidate/follow-up families for this milestone:
 - `C3:A272..C3:A299` direction follower/display reset scripts 4 and 7 - pilot complete
 - `C3:1D4F..C3:1D6A`, `C3:1DF4..C3:1E14`, and `C3:1E2D..C3:1E4D` stage brightness terminal helpers - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
+- `C3:2C1C..C3:2CD2` T-Stage long choreography release paths - pilot complete
+- `C3:2DFE..C3:2F8D` T-Stage/V-Stage route release paths - pilot complete
+- `C3:CF76..C3:CFDE` photo-scene jump release paths - pilot complete
+- `C3:A48A..C3:A554` bus-driver attention coordinator paths - pilot complete
+- `C3:C15A..C3:C17A` NPC attention wide-distance gate - pilot complete
+- `C3:B06D..C3:B35D` meteorite/window party approach paths - pilot complete
+- `C3:9AFA..C3:9B4C` bus-driver attention release paths - pilot complete
+- `C3:BAD7..C3:BB49` Magic Butterfly PP-restore release paths - pilot complete
+- `C3:DB7A..C3:DBF2` Boogy city-bus movement dispatch paths - pilot complete
+- `C3:C5C6..C3:C810` Winters ride input and route release paths - pilot complete
+- `C3:1452..C3:15F8` winter input/Bubble Monkey routes - pilot complete
+- `C3:15F8..C3:176F` winter coordinate/facing routes - pilot complete
+- `C3:176F..C3:18D0` winter coordinate transition routes - pilot complete
+- `C3:18D0..C3:199E` winter input battle-BG transition paths - pilot complete
+- `C3:A55D..C3:A868` flyover palette/random movement paths - pilot complete
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
 operands while preserving byte-equivalence against the ROM-backed scaffold.
@@ -652,9 +667,12 @@ animation-port/Pokey paths, battle-swirl recovery paths, Sky Runner
 landing/fall handoffs, stage brightness/visual continuations, T-Stage text
 continuations, Onett door-close arc/display continuations, cast-screen
 orbit/step-spawn continuations, party-member orbit damping, Threed escaper
-arc/landing continuations, and T-Stage/T-Stage 3 performance corridors now have
-source-form pilots. The refreshed frontier now has `16` remaining gaps and
-`0` ready-ranked gaps. The next best C3 source seam is the split terminal batch
-at `C3:35B5..C3:3980`; after that, the higher-value path is pinning callback
-contracts such as `C4:67E6`, `C0:C682`, `C4:68A9`, `C0:A838`, and the blocked
-`C3:5231` script 801 cast-scroll/cast-spawn payload.
+arc/landing continuations, T-Stage/T-Stage 3 performance corridors, T-Stage
+long choreography releases, photo-scene release jumps, meteorite/window party
+approach paths, bus-driver attention/Magic Butterfly releases, Winters route
+transitions, and flyover palette/random movement paths now have source-form
+pilots. The refreshed frontier now has `11` remaining gaps and `0`
+ready-ranked gaps. The next best C3 source seam is `C3:199E..C3:1A04`, blocked
+on the unpinned `C0:18F3` callback contract; after that, the higher-value path
+is pinning callback contracts such as `C0:C682`, `C0:C353`, `C4:6A6E`,
+`EF:027D`, `C0:A838`, `C4:67E6`, `C4:E4DA`, `C4:6B65`, and `C0:A87A`.

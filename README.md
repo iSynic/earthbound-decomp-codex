@@ -52,16 +52,19 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. There are now `101`
-source-form pilots checked in under `src/c3/event_scripts/`, covering `40487`
+byte-count seeds captured for semantic naming. There are now `116`
+source-form pilots checked in under `src/c3/event_scripts/`, covering `46146`
 validated ROM bytes as labeled event/actionscript macro assembly.
 
 Recent C3 promotions leaned hard on the C4 callback docs and ebsrc script refs:
 cast-screen orbit/step-spawn continuations, party-member orbit damping, Threed
-escaper arc/landing continuations, and a large T-Stage/T-Stage 3 performance
-push are now source-backed. The checked-in C3 source-pilot frontier ranks the
-remaining script spans; it currently has `16` gaps and `0` ready-ranked gaps,
-with the next best seam being the split terminal batch at `C3:35B5..C3:3980`.
+escaper arc/landing continuations, T-Stage/T-Stage 3 performance routes,
+meteorite/window paths, bus-driver attention/Magic Butterfly releases, Winters
+route transitions, and flyover palette/random movement paths are now
+source-backed. The checked-in C3 source-pilot frontier ranks the remaining
+script spans; it currently has `11` gaps and `0` ready-ranked gaps, with the
+next best seam being `C3:199E..C3:1A04`, blocked on the unpinned `C0:18F3`
+callback contract.
 
 ## For Romhackers
 
@@ -175,6 +178,21 @@ Good starting points:
 - `notes/c3-tstage-dual-window-position-paths-source-pilot.md`
 - `notes/c3-tstage-performance-upper-corridor-source-pilot.md`
 - `notes/c3-tstage3-performance-routes-source-pilot.md`
+- `notes/c3-tstage-long-choreography-release-source-pilot.md`
+- `notes/c3-tstage-vstage-route-release-paths-source-pilot.md`
+- `notes/c3-photo-scene-jump-release-source-pilot.md`
+- `notes/c3-bus-driver-attention-coordinator-source-pilot.md`
+- `notes/c3-npc-attention-wide-distance-gate-source-pilot.md`
+- `notes/c3-meteorite-window-party-approach-paths-source-pilot.md`
+- `notes/c3-bus-driver-attention-release-source-pilot.md`
+- `notes/c3-magic-butterfly-pp-restore-release-source-pilot.md`
+- `notes/c3-boogy-city-bus-movement-dispatch-source-pilot.md`
+- `notes/c3-winters-ride-input-and-route-release-source-pilot.md`
+- `notes/c3-winter-input-bubble-monkey-routes-source-pilot.md`
+- `notes/c3-winter-coordinate-facing-routes-source-pilot.md`
+- `notes/c3-winter-coordinate-transition-routes-source-pilot.md`
+- `notes/c3-winter-input-battle-bg-transition-source-pilot.md`
+- `notes/c3-flyover-palette-random-movement-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
