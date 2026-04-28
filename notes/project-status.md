@@ -76,6 +76,10 @@ branch macro as a two-target source branch over existing menu/display/branch
 VM primitives. `notes/localization-display-inventory-aliases.md` splits the
 display and inventory authoring vocabulary into direct `0x1C` / `0x1D` VM
 aliases versus higher-level shop/Escargo/display source macros.
+`notes/text-vm-localization-semantics-closeout.md` closes this milestone as
+phase-good-enough: remaining runtime-only leaves, parser artifacts, authoring
+format markers, and higher-level macro lanes are bounded and explicitly
+deferred rather than unknown.
 
 ## Public Good-Enough Definition
 
@@ -181,7 +185,8 @@ that romhackers need to edit confidently:
    bytes and `0` frontier gaps. C3 is good enough for this semantics milestone;
    later C3 work should be targeted polish rather than the next blocking lane.
 2. `C1` plus `C5..C9`/`EF`: Text VM / Localization Script Semantics and
-   reassembly-friendly text payloads. The new
+   reassembly-friendly text payloads. This lane is now good enough for this
+   phase; see `notes/text-vm-localization-semantics-closeout.md`. The
    `notes/text-script-assets-frontier.md` is the active work queue for this
    lane. It separates real runtime-only C1 leaves from parser-only
    compressed-bank pseudo-opcodes, likely parser artifacts, and recovered
@@ -197,10 +202,9 @@ that romhackers need to edit confidently:
    `notes/localization-set-loopreg-gosub-lowering.md` treats the broad
    `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
    syntax. `notes/localization-selgoto-lowering.md` treats `@SELGOTO` as
-   source-level selection branch syntax. The next best target is
-   milestone closeout: confirm remaining runtime-only leaves and parser
-   artifacts are non-blocking, then mark Text VM / Localization Script
-   Semantics good enough for this phase.
+   source-level selection branch syntax. Remaining work in this lane is
+   targeted follow-up only when needed by concrete text editing, reinsertion,
+   or porting tasks.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

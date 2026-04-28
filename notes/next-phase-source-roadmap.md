@@ -152,6 +152,10 @@
   display and inventory authoring commands against the existing `0x1C`,
   `0x1D`, `0x1A`, and `0x19` Text VM families. It separates direct source
   aliases from higher-level shop/Escargo/display source macros.
+- `notes/text-vm-localization-semantics-closeout.md` closes the Text VM /
+  Localization Script Semantics milestone as phase-good-enough. Remaining
+  runtime-only leaves, parser artifacts, authoring-format markers, and
+  higher-level macro lanes are bounded follow-up work, not blockers.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -308,8 +312,9 @@ Completed splitter patterns:
 
 ### 3. Text VM / Localization Script Semantics
 
-Keep these as bytecode/text assets until their VM and localization authoring
-contracts are stronger.
+This workstream is good enough for this phase. Keep text/script assets as
+bytecode/text assets unless a concrete source-editing, reinsertion, or porting
+task needs a deeper pass.
 
 The text-command VM now has a generated baseline:
 `notes/text-command-semantics-manifest.md`. Use it before opening a new
@@ -325,7 +330,7 @@ may be metadata or macro expansion rather than a direct VM opcode.
 The authoring syntax expansion queue is generated at
 `notes/localization-macro-expansion-frontier.md`.
 
-Best candidates after C3's good-enough semantics milestone:
+Future targeted candidates:
 
 - `C1` runtime-only text-command leaves: document semantics even when the
   current decoded text-bank corpus has no hit.
@@ -350,31 +355,15 @@ These banks are closer to packaging work than archaeology:
 
 ## Recommended Immediate Move
 
-Move to workstream `3`, Text VM / Localization Script Semantics. Use
-`notes/text-script-assets-frontier.md` as the live queue rather than reopening
-the completed C3 milestone by default.
+Move out of workstream `3` by default. The best next manual work is subsystem
+semantics or asset/decode planning:
 
-The first pass should target text-command semantics and authoring syntax:
+- `C0` / `C2` / `C4`: side-effect contracts for overworld, battle, and
+  rendering workflows.
+- Asset banks: render/decode fixtures and public-safe extraction planning for
+  map, graphics, UI/font, and audio payloads.
+- Text VM follow-up only when a concrete source-editing, reinsertion, or
+  porting task needs it.
 
-- pick one runtime-only family leaf cluster and add source-backed notes
-- use the parser artifact bucket to improve text-bank boundary rules around
-  `EDEBUG`, `ENEWS`, `EHINT`, and `EBATTLE8`
-- classify high-count recovered `.MSG` commands into direct VM mappings,
-  authoring-only metadata, and macro expansions
-- use `notes/localization-macro-expansion-frontier.md` to prioritize macro
-  expansion models, starting with text-VM control macros
-- use `notes/localization-control-macro-context.md` to prove one source macro
-  lowering pattern at a time
-- use `notes/localization-control-macro-patterns.md` when choosing the next
-  lowering proof; the strongest motifs are `@CMP > @ONGOSUB`,
-  `@SET_LOOPREG > @GOSUB`, and `@DSP_ITEM > @SELGOTO`
-- use `notes/localization-cmp-ongosub-lowering.md` and
-  `notes/localization-set-loopreg-gosub-lowering.md` plus
-  `notes/localization-selgoto-lowering.md` as templates for future focused
-  macro-lowering notes
-- move next to milestone closeout: confirm remaining runtime-only leaves and
-  parser artifacts are non-blocking, then mark Text VM / Localization Script
-  Semantics good enough for this phase
-
-C3 can still receive targeted polish, but it is no longer the blocking next
-lane.
+C3 and Text VM work can still receive targeted polish, but neither is the
+blocking next lane.
