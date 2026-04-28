@@ -74,8 +74,11 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "psi_animation_runtime_tables": {
         "label": "PSI animation runtime tables",
         "runtime_contract": "Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects.",
-        "portable_contract": "Expose as structured runtime tables before assigning engine-ready animation schema fields.",
-        "docs": ["notes/c3-battle-visual-effect-dispatch-source-contract-f981.md"],
+        "portable_contract": "Expose as animation-id bundles that join graphics sets, arrangements, palettes, frame timing, target mode, and enemy-color effects.",
+        "docs": [
+            "notes/psi-animation-bundle-contracts.md",
+            "notes/c3-battle-visual-effect-dispatch-source-contract-f981.md",
+        ],
     },
     "battle_sprite_graphics": {
         "label": "Battle sprite graphics",
@@ -294,6 +297,11 @@ def build_contract() -> dict[str, Any]:
                 "source": "notes/battle-background-scene-bundles.md",
             },
             {
+                "id": "psi_animation_bundle",
+                "shape": "PSI_ANIM_CFG row + PSI_ANIM_POINTERS arrangement pointer + animation-id palette slot join each PSI visual effect to graphics, arrangement, palette, timing, target mode, and enemy-color metadata.",
+                "source": "notes/psi-animation-bundle-contracts.md",
+            },
+            {
                 "id": "battle_sprite_bundle",
                 "shape": "CE battle-sprite pointer table selects compressed sprite graphics; CE palette assets supply renderer palettes; C2 renders with palette-tail helpers.",
                 "source": "notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md",
@@ -306,7 +314,7 @@ def build_contract() -> dict[str, Any]:
         ],
         "next_open_questions": [
             "Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.",
-            "Name PSI animation config fields and join arrangement/gfx/palette payloads into animation bundles.",
+            "Promote PSI animation target-mode aliases once caller-side effect names are exhaustively tied to battle actions.",
             "Join CE battle sprite pointer rows to graphics and palette ids.",
             "Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.",
         ],
