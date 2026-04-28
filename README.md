@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Fifty-nine source-form pilots are also
+byte-count seeds captured for semantic naming. Sixty-three source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -76,8 +76,10 @@ pulse paths, Pokey/Bubble Monkey paths, Monotoly coordinate/text paths,
 T-Stage dance sequence paths, gum-machine/flyover paths, flyover scene/wait
 paths, position-watch/new-entity paths, and town hall direction common paths.
 The remaining town hall/coffee-tea/gatekeeper continuation, bus-transition
-route cluster, Twoson bus route paths, and bus tunnel/desert route paths are
-also promoted. Together they represent `25677` ROM bytes as labeled
+route cluster, Twoson bus route paths, bus tunnel/desert route paths, Space
+Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
+paths, and bus bridge terminal routes are also promoted. Together they represent
+`27494` ROM bytes as labeled
 event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -161,6 +163,10 @@ Good starting points:
 - `notes/c3-bus-transition-route-paths-source-pilot.md`
 - `notes/c3-twoson-bus-route-paths-source-pilot.md`
 - `notes/c3-bus-tunnel-desert-route-paths-source-pilot.md`
+- `notes/c3-space-tunnel-crash-paths-source-pilot.md`
+- `notes/c3-skyrunner-crash-winter-paths-source-pilot.md`
+- `notes/c3-party-member-tracker-winter-paths-source-pilot.md`
+- `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
@@ -335,6 +341,10 @@ python tools/build_c3_event_script_source_pilot.py --family townhall-coffee-tea-
 python tools/build_c3_event_script_source_pilot.py --family bus-transition-route-paths
 python tools/build_c3_event_script_source_pilot.py --family twoson-bus-route-paths
 python tools/build_c3_event_script_source_pilot.py --family bus-tunnel-desert-route-paths
+python tools/build_c3_event_script_source_pilot.py --family space-tunnel-crash-paths
+python tools/build_c3_event_script_source_pilot.py --family skyrunner-crash-winter-paths
+python tools/build_c3_event_script_source_pilot.py --family party-member-tracker-winter-paths
+python tools/build_c3_event_script_source_pilot.py --family bus-bridge-route-terminal-paths
 python tools/build_c3_source_pilot_frontier.py
 ```
 

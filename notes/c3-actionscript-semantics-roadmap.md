@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `59` families, `25677` validated
+- Current source-form event/actionscript pilots: `63` families, `27494` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: fifty-nine pilots complete.
+Status: sixty-three pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -403,6 +403,25 @@ Status: fifty-nine pilots complete.
   around ebsrc scripts 211-220, including route movement, transition snapshot
   handoffs, queued bus text, and recurring driver dialog loops,
   `C3:D913..C3:DB7A`, `615` validated bytes.
+- `notes/c3-space-tunnel-crash-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 287-294 plus the brightness task started by
+  script 294: Space Tunnel flag/text handoffs, face-target shake paths,
+  coordinate routes, Skyrunner crash movement, teleport destination writes, and
+  a palette-brightness task, `C3:0DCD..C3:1068`, `667` validated bytes.
+- `notes/c3-skyrunner-crash-winter-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 295-302 after the Space Tunnel crash
+  batch: Skyrunner crash party tracking, Winters coordinate movement,
+  transition releases, teleport destination writes, temp-flag waits, and door
+  open/close movement paths, `C3:1068..C3:126E`, `518` validated bytes.
+- `notes/c3-party-member-tracker-winter-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 303-310: temp-flag party-member
+  tracking, shared party-member/visual-type arrival loops, door-close movement
+  release, compact Winters coordinate releases, and the traffic-light wait
+  shortcut, `C3:126E..C3:1389`, `283` validated bytes.
+- `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 455-462: compact bus/bridge coordinate
+  moves, recurring driver dialog loops, simple route text halts, and one
+  transition snapshot release, `C3:DBF2..C3:DD4F`, `349` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -475,6 +494,10 @@ Candidate/follow-up families for this milestone:
 - `C3:D1C9..C3:D913` bus-transition route paths - pilot complete
 - `C3:B431..C3:B70C` Twoson bus route paths scripts 64-72 - pilot complete
 - `C3:D913..C3:DB7A` bus tunnel/desert route paths scripts 211-220 - pilot complete
+- `C3:0DCD..C3:1068` Space Tunnel crash paths scripts 287-294 - pilot complete
+- `C3:1068..C3:126E` Skyrunner crash/Winters paths scripts 295-302 - pilot complete
+- `C3:126E..C3:1389` party-member tracker Winters paths scripts 303-310 - pilot complete
+- `C3:DBF2..C3:DD4F` bus bridge terminal paths scripts 455-462 - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -514,10 +537,12 @@ paths, stage visual pulse paths, tunnel ghost entity setup paths, Monotoly
 coordinate/text paths, T-Stage dance sequence paths, gum-machine/flyover paths,
 flyover scene/wait paths, position-watch/new-entity paths, town hall direction
 common paths, town hall/coffee-tea/gatekeeper continuation paths, bus-transition
-route paths, Twoson bus route paths, bus tunnel/desert route paths, and var0 animation/collision-probe, area-wait/random-wander,
+route paths, Twoson bus route paths, bus tunnel/desert route paths, Space
+Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
+paths, bus bridge terminal routes, and var0 animation/collision-probe, area-wait/random-wander,
 teleport/flyover coordinate, Threed fight Matent, position door-close helpers,
 and position/text-yield paths now have source-form pilots. The refreshed frontier
-currently points at `C3:0DCD..C3:1055` as the best ready seam;
+currently points at `C3:C4CF..C3:C5C6` as the best ready seam;
 adjacent follow-ups include
 `C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`

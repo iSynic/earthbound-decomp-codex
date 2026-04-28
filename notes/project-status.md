@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Fifty-nine source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `25677` validated bytes across the
+   callback byte-count seeds captured. Sixty-three source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `27494` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -115,8 +115,9 @@ that romhackers need to edit confidently:
    coordinate/text paths, T-Stage dance sequence paths, and gum-machine/flyover
    paths, flyover scene/wait paths, position-watch/new-entity paths, town hall
    direction common paths, the town hall/coffee-tea/gatekeeper continuation,
-   a bus-transition route cluster, Twoson bus route paths, and bus
-   tunnel/desert route paths.
+   a bus-transition route cluster, Twoson bus route paths, bus tunnel/desert
+   route paths, Space Tunnel crash paths, Skyrunner crash/Winters paths,
+   party-member tracker Winters paths, and bus bridge terminal routes.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -193,6 +194,10 @@ that romhackers need to edit confidently:
 - `notes/c3-bus-transition-route-paths-source-pilot.md`
 - `notes/c3-twoson-bus-route-paths-source-pilot.md`
 - `notes/c3-bus-tunnel-desert-route-paths-source-pilot.md`
+- `notes/c3-space-tunnel-crash-paths-source-pilot.md`
+- `notes/c3-skyrunner-crash-winter-paths-source-pilot.md`
+- `notes/c3-party-member-tracker-winter-paths-source-pilot.md`
+- `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/data-contracts-c0-c4.md`
