@@ -10,7 +10,7 @@
   "summary": {
     "preserved_groups": 3,
     "preserved_bytes": 1930,
-    "segments": 39,
+    "segments": 40,
     "status": "closed-by-contract"
   },
   "groups": [
@@ -526,18 +526,34 @@
         },
         {
           "start": "C3:E1D8",
-          "end": "C3:E200",
+          "end": "C3:E1E0",
           "name": "MapEntityPlacementDirectionParamTable",
-          "classification": "contract-backed-data-prefix",
-          "source_expectation": "rom-table contract plus adjacent raw page C3:E1E0",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE",
           "evidence": [
             "notes/c3-map-movement-parameter-table-e1d8-e240.md:37"
           ],
           "note": "C0 entity placement/update path reads direction-like parameter words from this prefix.",
-          "range": "C3:E1D8..C3:E200",
-          "size": 40,
-          "sha1": "30dd8dc375518e4ffc0e923fa50f6a8e9771998d",
-          "first_bytes": "04 00 00 00 02 00 06 00 00 00 00 00 04 00 00 00",
+          "range": "C3:E1D8..C3:E1E0",
+          "size": 8,
+          "sha1": "cb8509fab72283ba550cdd5208c3a152a7ac8dcc",
+          "first_bytes": "04 00 00 00 02 00 06 00",
+          "last_bytes": "04 00 00 00 02 00 06 00"
+        },
+        {
+          "start": "C3:E1E0",
+          "end": "C3:E200",
+          "name": "MapEntityPlacementDirectionParamTable_Page1",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE_PAGE1",
+          "evidence": [
+            "notes/c3-map-movement-parameter-table-e1d8-e240.md:45"
+          ],
+          "note": "Second page of C0 entity placement/update direction-like parameter words.",
+          "range": "C3:E1E0..C3:E200",
+          "size": 32,
+          "sha1": "70d872cb20d02b3e62be1d6643f195869980ef6b",
+          "first_bytes": "00 00 00 00 04 00 00 00 00 00 00 00 FC FF 00 00",
           "last_bytes": "FC FF 00 00 00 00 00 00 04 00 00 00 00 00 00 00"
         },
         {
@@ -689,8 +705,8 @@
           "start": "C3:E44C",
           "end": "C3:E450",
           "name": "WindowTickTransferPreludeData",
-          "classification": "raw-or-named-data",
-          "source_expectation": "four-byte data island before C3:E450 source helper",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract WINDOW_TICK_TRANSFER_PRELUDE_WORDS",
           "evidence": [
             "notes/c3-menu-cursor-tile-data-e3f8-e450.md:51"
           ],

@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `102`
-- fields: `483`
+- contracts: `104`
+- fields: `485`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -78,7 +78,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | INTERACTION_PROBE_DIRECTION_X_OFFSETS | rom-table | `C3:E148` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
 | INTERACTION_PROBE_DIRECTION_Y_OFFSETS | rom-table | `C3:E158` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
 | INTERACTION_RESULT_FACING_REMAP_TABLE | rom-table | `C3:E168` | `0x2` | 8 | `interaction_result_facing_remap` | 1 | corroborated |
-| MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE | rom-table | `C3:E1D8` | `0x2` | 20 | `map_entity_placement_direction_param` | 1 | proposed |
+| MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE | rom-table | `C3:E1D8` | `0x2` | 4 | `map_entity_placement_direction_param` | 1 | proposed |
+| MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE_PAGE1 | rom-table | `C3:E1E0` | `0x2` | 16 | `map_entity_placement_direction_param` | 1 | proposed |
 | STAGED_MOVEMENT_PRIMARY_DIRECTION_PARAM_TABLE | rom-table | `C3:E200` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
 | STAGED_MOVEMENT_ALTERNATE_DIRECTION_PARAM_TABLE | rom-table | `C3:E208` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
 | STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_X | rom-table | `C3:E210` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
@@ -93,6 +94,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | BLINKING_TRIANGLE_BASE_TILES | rom-table | `C3:E416` | `0x6` | 1 | `three_tile_word_run` | 3 | corroborated |
 | BLINKING_TRIANGLE_WAIT_FRAME_TILES | rom-table | `C3:E41C` | `0x8` | 4 | `four_tile_word_frame` | 4 | corroborated |
 | BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE | rom-table | `C3:E43C` | `0x4` | 4 | `far_pointer` | 1 | corroborated |
+| WINDOW_TICK_TRANSFER_PRELUDE_WORDS | rom-table | `C3:E44C` | `0x2` | 2 | `window_tick_transfer_prelude_word` | 1 | proposed |
 | BATTLE_PSI_MENU_SELECTOR_GROUP_TABLE | rom-table | `C3:EF26` | `0x1` | 240 | `battle_psi_menu_selector_group` | 1 | corroborated |
 | BATTLE_PSI_MENU_GROUP_SLICE_COUNT_TABLE | rom-table | `C3:F016` | `0x1` | 62 | `battle_psi_menu_group_slice_count` | 1 | corroborated |
 | BATTLE_PSI_GROUP_RENDER_METADATA_AND_LABELS | rom-block | `C3:F054` | `0x5C` | 1 | `battle_psi_group_render_metadata_and_labels` | 1 | proposed |
@@ -1467,11 +1469,26 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - domain: `rom-table`
 - address: `C3:E1D8`
 - stride: `0x2`
-- count: `20`
+- count: `4`
 - struct: `map_entity_placement_direction_param`
 - confidence: `proposed`
-- note: Word table consumed by the C0 entity placement path around C0:6D27/C0:6D91.
+- note: First word page consumed by the C0 entity placement path around C0:6D27/C0:6D91.
 - evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`, `notes/staged-movement-wrapper-70cb.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
+
+### MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE_PAGE1
+
+- domain: `rom-table`
+- address: `C3:E1E0`
+- stride: `0x2`
+- count: `16`
+- struct: `map_entity_placement_direction_param`
+- confidence: `proposed`
+- note: Second word page in the C0 entity placement direction parameter family.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -1697,6 +1714,21 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `pointer` | 4 | 1 |  |
+
+### WINDOW_TICK_TRANSFER_PRELUDE_WORDS
+
+- domain: `rom-table`
+- address: `C3:E44C`
+- stride: `0x2`
+- count: `2`
+- struct: `window_tick_transfer_prelude_word`
+- confidence: `proposed`
+- note: Two-word data island immediately before the C3:E450 window tick transfer helper.
+- evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md`, `notes/active-text-entry-chain-layout-c451fa.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 2 | 1 |  |
 
 ### BATTLE_PSI_MENU_SELECTOR_GROUP_TABLE
 

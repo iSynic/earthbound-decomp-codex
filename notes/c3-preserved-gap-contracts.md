@@ -8,7 +8,7 @@ This report explains the three raw regions preserved by the C3 event/actionscrip
 
 - preserved groups: `3`
 - preserved bytes: `1930`
-- subsegments: `39`
+- subsegments: `40`
 - status: `closed-by-contract`
 
 | Range | Bytes | Name | Status | SHA1 |
@@ -104,7 +104,8 @@ Evidence:
 | `C3:E158..C3:E168` | 16 | `contract-backed-data` | `InteractionProbeDirectionYOffsetTable` | rom-table contract INTERACTION_PROBE_DIRECTION_Y_OFFSETS |
 | `C3:E168..C3:E178` | 16 | `contract-backed-data` | `InteractionResultFacingRemapTable` | rom-table contract INTERACTION_RESULT_FACING_REMAP_TABLE |
 | `C3:E178..C3:E1D8` | 96 | `raw-or-named-data` | `InteractionFacingRemapAndResultTables` | table data; consumer notes exist, but final field names remain cautious |
-| `C3:E1D8..C3:E200` | 40 | `contract-backed-data-prefix` | `MapEntityPlacementDirectionParamTable` | rom-table contract plus adjacent raw page C3:E1E0 |
+| `C3:E1D8..C3:E1E0` | 8 | `contract-backed-data` | `MapEntityPlacementDirectionParamTable` | rom-table contract MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE |
+| `C3:E1E0..C3:E200` | 32 | `contract-backed-data` | `MapEntityPlacementDirectionParamTable_Page1` | rom-table contract MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE_PAGE1 |
 | `C3:E200..C3:E230` | 48 | `contract-backed-data` | `StagedMovementDirectionAndSubtileOffsetTables` | rom-table contracts for staged movement direction/subtile offsets |
 | `C3:E230..C3:E250` | 32 | `contract-backed-data` | `DoorCandidateDirectionOffsetTables` | rom-table contracts DOOR_CANDIDATE_DIRECTION_OFFSET_X/Y |
 | `C3:E250..C3:E3F8` | 424 | `raw-or-named-data` | `FileSelectOrNameEntryCharacterSpriteData` | sprite/OAM-like data; preserve until exact UI consumer is pinned |
@@ -114,7 +115,7 @@ Evidence:
 | `C3:E416..C3:E41C` | 6 | `contract-backed-data` | `BlinkingTriangleBaseTiles` | rom-table contract BLINKING_TRIANGLE_BASE_TILES |
 | `C3:E41C..C3:E43C` | 32 | `contract-backed-data` | `BlinkingTriangleWaitFrameTiles` | rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_TILES |
 | `C3:E43C..C3:E44C` | 16 | `contract-backed-data` | `BlinkingTriangleWaitFramePointerTable` | rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE |
-| `C3:E44C..C3:E450` | 4 | `raw-or-named-data` | `WindowTickTransferPreludeData` | four-byte data island before C3:E450 source helper |
+| `C3:E44C..C3:E450` | 4 | `contract-backed-data` | `WindowTickTransferPreludeData` | rom-table contract WINDOW_TICK_TRANSFER_PRELUDE_WORDS |
 
 Segment notes:
 - `C3:DFE8..C3:DFF0` `PathfindingTileContextGateTable`: C0:C0B4 and C0:C19B mask the current tile context to 0..7, index these gate bytes, and abort the path consumer if the selected byte is zero. Evidence: `notes/c3-late-interaction-table-contracts.md`.
@@ -128,7 +129,8 @@ Segment notes:
 - `C3:E158..C3:E168` `InteractionProbeDirectionYOffsetTable`: Signed Y offsets for one facing-direction interaction probe. Evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md:27`.
 - `C3:E168..C3:E178` `InteractionResultFacingRemapTable`: C0:42C2 maps the player-facing value through these eight words and stores the result to $2AF6[target]. Evidence: `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E178..C3:E1D8` `InteractionFacingRemapAndResultTables`: The first eight class-1 remap words are promoted; this adjacent table tail remains cautious. Evidence: `notes/interaction-result-classes.md:18`, `notes/interaction-result-consumers.md:106`, `notes/c3-late-interaction-table-contracts.md`.
-- `C3:E1D8..C3:E200` `MapEntityPlacementDirectionParamTable`: C0 entity placement/update path reads direction-like parameter words from this prefix. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:37`.
+- `C3:E1D8..C3:E1E0` `MapEntityPlacementDirectionParamTable`: C0 entity placement/update path reads direction-like parameter words from this prefix. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:37`.
+- `C3:E1E0..C3:E200` `MapEntityPlacementDirectionParamTable_Page1`: Second page of C0 entity placement/update direction-like parameter words. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:45`.
 - `C3:E200..C3:E230` `StagedMovementDirectionAndSubtileOffsetTables`: Primary/alternate direction parameter and 8-pixel subtile offset sets. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:49`.
 - `C3:E230..C3:E250` `DoorCandidateDirectionOffsetTables`: Coarse-cell X/Y direction offset tables for C4:334A door candidate probing. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:52`, `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E250..C3:E3F8` `FileSelectOrNameEntryCharacterSpriteData`: Legacy comment says this block is related to file select; later comments connect nearby data to name-entry character sprites. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45136`.

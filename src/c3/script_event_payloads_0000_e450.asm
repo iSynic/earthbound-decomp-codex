@@ -198,7 +198,7 @@
 ; - C3:E158..C3:E168 InteractionProbeDirectionYOffsetTable [contract-backed-data]
 ; - C3:E168..C3:E1D8 C3E168RawData [raw-or-named-data]
 ; - C3:E1D8..C3:E1E0 MapEntityPlacementDirectionParamTable [contract-backed-data]
-; - C3:E1E0..C3:E200 MapEntityPlacementDirectionParamTable_Page1 [raw-or-named-data]
+; - C3:E1E0..C3:E200 MapEntityPlacementDirectionParamTable_Page1 [contract-backed-data]
 ; - C3:E200..C3:E208 StagedMovementPrimaryDirectionParamTable [contract-backed-data]
 ; - C3:E208..C3:E210 StagedMovementAlternateDirectionParamTable [contract-backed-data]
 ; - C3:E210..C3:E218 StagedMovementSubtileOffsetSetA_X [contract-backed-data]
@@ -216,7 +216,7 @@
 ; - C3:E42C..C3:E434 BlinkingTriangleWaitFrame0TilesPartE42C [contract-backed-data]
 ; - C3:E434..C3:E43C BlinkingTriangleWaitFrame0TilesPartE434 [contract-backed-data]
 ; - C3:E43C..C3:E44C BlinkingTriangleWaitFrame0TilesPartE43C [contract-backed-data]
-; - C3:E44C..C3:E450 WindowTickTransferPreludeData [raw-or-named-data]
+; - C3:E44C..C3:E450 WindowTickTransferPreludeData [contract-backed-data]
 
 ; ---------------------------------------------------------------------------
 ; C3:0000..C3:0188
@@ -5739,7 +5739,7 @@ C3E1E0_MapEntityPlacementDirectionParamTableEnd:
 
 ; ---------------------------------------------------------------------------
 ; C3:E1E0..C3:E200
-; class: raw-or-named-data
+; class: contract-backed-data
 ; source: data/unknown/C3E1E0.asm
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:71
 
@@ -5964,7 +5964,7 @@ C3E44C_BlinkingTriangleWaitFrame0TilesPartE43CEnd:
 
 ; ---------------------------------------------------------------------------
 ; C3:E44C..C3:E450
-; class: raw-or-named-data
+; class: contract-backed-data
 ; source: data/unknown/C3E44C.asm
 ; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:76
 

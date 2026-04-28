@@ -8,11 +8,11 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 - addressed include rows: `193`
 - working labels: `168` (`85` internal or named-include labels)
 - script payload labels: `80` (`43` internal labels)
-- data-contract labels: `34` (`12` internal labels)
+- data-contract labels: `36` (`12` internal labels)
 - working-named addressed rows: `83`
 - script payload include-start rows: `37`
-- contract-backed include-start rows: `22`
-- by extraction class: `{'contract-backed-data': 18, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 2, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 3, 'source-helper': 24}`
+- contract-backed include-start rows: `24`
+- by extraction class: `{'contract-backed-data': 20, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 2, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 1, 'source-helper': 24}`
 - supplemental by extraction class: `{'contract-backed-data': 12, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 14, 'working-label': 1}`
 - script decode status: `{'complete': 30, 'not-applicable': 7}`
 
@@ -180,7 +180,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:E158` | 0x10 | `data/unknown/C3E158.asm` | `contract-backed-data` | `InteractionProbeDirectionYOffsetTable / INTERACTION_PROBE_DIRECTION_Y_OFFSETS` |  |
 | `C3:E168` | 0x70 | `data/unknown/C3E168.asm` | `contract-backed-data-prefix` | `INTERACTION_RESULT_FACING_REMAP_TABLE` |  |
 | `C3:E1D8` | 0x8 | `data/unknown/C3E1D8.asm` | `contract-backed-data` | `MapEntityPlacementDirectionParamTable / MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE` |  |
-| `C3:E1E0` | 0x20 | `data/unknown/C3E1E0.asm` | `raw-or-named-data` | `MapEntityPlacementDirectionParamTable_Page1` |  |
+| `C3:E1E0` | 0x20 | `data/unknown/C3E1E0.asm` | `contract-backed-data` | `MapEntityPlacementDirectionParamTable_Page1 / MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE_PAGE1` |  |
 | `C3:E200` | 0x8 | `data/unknown/C3E200.asm` | `contract-backed-data` | `StagedMovementPrimaryDirectionParamTable / STAGED_MOVEMENT_PRIMARY_DIRECTION_PARAM_TABLE` |  |
 | `C3:E208` | 0x8 | `data/unknown/C3E208.asm` | `contract-backed-data` | `StagedMovementAlternateDirectionParamTable / STAGED_MOVEMENT_ALTERNATE_DIRECTION_PARAM_TABLE` |  |
 | `C3:E210` | 0x8 | `data/unknown/C3E210.asm` | `contract-backed-data` | `StagedMovementSubtileOffsetSetA_X / STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_X` |  |
@@ -192,7 +192,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:E3F8` | 0x16 | `data/unknown/C3E3F8.asm` | `contract-backed-data` | `MenuCursorTilePrefixTable / MENU_CURSOR_TILE_PREFIX_TABLE` |  |
 | `C3:E40E` | 0xE | `data/unknown/C3E40E.asm` | `contract-backed-data` | `TitleNameBufferCursorTileRun / TITLE_NAME_BUFFER_CURSOR_TILE_RUN` |  |
 | `C3:E41C` | 0x30 | `data/unknown/C3E41C.asm` | `contract-backed-data` | `BlinkingTriangleWaitFrame0Tiles / BLINKING_TRIANGLE_WAIT_FRAME_TILES` |  |
-| `C3:E44C` | 0x4 | `data/unknown/C3E44C.asm` | `raw-or-named-data` | `WindowTickTransferPreludeData` |  |
+| `C3:E44C` | 0x4 | `data/unknown/C3E44C.asm` | `contract-backed-data` | `WindowTickTransferPreludeData / WINDOW_TICK_TRANSFER_PRELUDE_WORDS` |  |
 | `C3:E450` | 0x9F | `unknown/C3/C3E450.asm` | `source-helper` | `WindowTickTransferDynamicTileBlock` |  |
 | `C3:E4EF` | 0x209 | `unknown/C3/C3E4EF.asm` | `source-helper` | `FindFirstFreeWindowSlot` |  |
 | `C3:E6F8` | 0x65 | `unknown/C3/C3E6F8.asm` | `source-helper` | `ClearFocusedPartyHpPpActorAndBlankRow` |  |
@@ -366,5 +366,3 @@ Rows below are documented enough to split, but are intentionally not promoted to
 | Address | Include | Class | Reason |
 | --- | --- | --- | --- |
 | `C3:0188` | `data/unknown/C30188.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:E1E0` | `data/unknown/C3E1E0.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:E44C` | `data/unknown/C3E44C.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
