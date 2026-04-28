@@ -38,6 +38,13 @@ the old opaque event/actionscript corridor with
 byte-equivalent over all `11` protected C3 ranges with `0` mismatches in
 `notes/c3-byte-equivalence-validation.md`.
 
+The text-command VM now has a generated semantic manifest at
+`notes/text-command-semantics-manifest.md`. It joins the live C1 top-level and
+family dispatchers, decoded `C5..C9` text-bank command usage, checked-in
+text-command notes, and recovered localization `.MSG` control-command counts.
+The current manifest reports `29 / 32` top-level commands covered; the remaining
+three are the expected parser-only compressed-bank pseudo-opcodes `0x15..0x17`.
+
 ## Terminology
 
 Use these terms carefully:
@@ -109,7 +116,10 @@ that romhackers need to edit confidently:
    operands, callback argument contracts, source include integration, and
    stable script-family documentation.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
-   text payloads.
+   text payloads. The new `notes/text-command-semantics-manifest.md` makes the
+   remaining subcommand frontiers visible: runtime-only leaves, unknown names,
+   and parsed-only candidates that need to be checked against compressed-bank
+   pseudo-opcode artifacts.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning
@@ -125,6 +135,7 @@ that romhackers need to edit confidently:
 - `notes/c3-event-script-source-scaffold.md`
 - `notes/c3-event-script-source-scaffold-validation.md`
 - `notes/c3-byte-equivalence-validation.md`
+- `notes/text-command-semantics-manifest.md`
 - `notes/c3-event-script-source-pilot.md`
 - `notes/c3-timed-delivery-source-pilot.md`
 - `notes/c3-service-event-movement-source-pilot.md`

@@ -89,6 +89,13 @@
   including its compressed-text dictionary island, and C9 uses `16`. Their
   source residual maps report `0` residual bytes and `0` residual ranges, and
   byte-equivalence reports `OK`.
+- `tools/build_text_command_semantics_manifest.py` now generates
+  `notes/text-command-semantics-manifest.md` and
+  `build/text-command-semantics-manifest.json`. The manifest joins C1 runtime
+  dispatch ladders, decoded text-bank command usage, text-command notes, and
+  recovered localization `.MSG` control-command counts. The current top-level
+  status is `29 / 32` covered commands, with `0x15..0x17` correctly isolated as
+  parser-only compressed-bank pseudo-opcodes.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -245,6 +252,12 @@ Completed splitter patterns:
 ### 3. Script And Text Assets
 
 Keep these as bytecode/text assets until their VM contracts are stronger.
+
+The text-command VM now has a generated baseline:
+`notes/text-command-semantics-manifest.md`. Use it before opening a new
+text-command seam; it separates covered commands from runtime-only leaves,
+parsed-only candidates, and unknown subcommand names, and it cross-references
+the recovered localization authoring syntax without storing dialogue text.
 
 Best candidates after the C3 milestone is underway:
 
