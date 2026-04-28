@@ -301,6 +301,129 @@ CALL_ARG_COUNTS: dict[str, int] = {
     "EF:0FF6": 0,
 }
 
+CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
+    "C0:A4A8": {
+        "name": "RefreshCurrentSlotVisualProfile_Mode0IfAligned",
+        "group": "visual-profile",
+        "contract": "refresh current slot visual profile when alignment allows",
+    },
+    "C0:A4B2": {
+        "name": "RefreshCurrentSlotVisualProfile_Mode1IfAligned",
+        "group": "visual-profile",
+        "contract": "refresh current slot alternate visual profile when alignment allows",
+    },
+    "C0:A4BF": {
+        "name": "RefreshCurrentSlotVisualProfile_Mode0",
+        "group": "visual-profile",
+        "contract": "force current slot visual profile refresh",
+    },
+    "C0:A685": {
+        "name": "Script_SetCurrentSlotField2B32",
+        "group": "current-slot-state",
+        "contract": "read one script word and store it to current slot field $2B32",
+    },
+    "C0:A6DA": {
+        "name": "ClearCurrentSlotNeighborCache",
+        "group": "neighbor-cache",
+        "contract": "write #$FFFF to current slot neighbor cache $289E",
+    },
+    "C0:A82F": {
+        "name": "DisableCurrentSlotNeighborCache",
+        "group": "neighbor-cache",
+        "contract": "write #$8000 sentinel to current slot neighbor cache $289E",
+    },
+    "C0:9451": {
+        "name": "RestoreSavedCoordinateState",
+        "group": "world-state-restore",
+        "contract": "restore saved coordinate/world state after transitions or script presentation",
+    },
+    "C0:AA6E": {
+        "name": "Script_ApplyCurrentSlotVisualCountdownState",
+        "group": "visual-profile",
+        "contract": "read countdown/state bytes and apply current slot visual countdown state",
+    },
+    "C1:FFD3": {
+        "name": "ComputeBankC1ChecksumTail",
+        "group": "intro-integrity",
+        "contract": "bank-local checksum/integrity tail used by intro control flow",
+    },
+    "C2:0000": {
+        "name": "RunEnemySunstrokeCheck",
+        "group": "battle-runtime",
+        "contract": "battle-runtime sunstroke/special controller helper; C3 intro use remains unusual",
+    },
+    "C4:0015": {
+        "name": "ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea",
+        "group": "visual-profile",
+        "contract": "clear current slot $10F2, refresh visual state, and test live-area status",
+    },
+    "C4:6E46": {
+        "name": "SetYieldToTextLatch9641",
+        "group": "text-presentation",
+        "contract": "set the yield-to-text latch used by event presentation handoff",
+    },
+    "C4:6E74": {
+        "name": "CheckStagedPositionWithinPlayerProximityThreshold",
+        "group": "proximity-gate",
+        "contract": "test staged position against the player proximity threshold",
+    },
+    "C4:800B": {
+        "name": "UndrawFlyoverTextAndRestoreWorldDisplay",
+        "group": "world-state-restore",
+        "contract": "restore world display state after flyover/text presentation",
+    },
+    "C4:8B3B": {
+        "name": "MakePartyLookAtActiveEntityCallback",
+        "group": "party-facing",
+        "contract": "make party members face or track the active entity",
+    },
+    "EF:0CA7": {
+        "name": "CheckCurrentDeliveryRetryThreshold",
+        "group": "timed-delivery",
+        "contract": "increment current row retry counter and compare against delivery record word 2",
+    },
+    "EF:0D23": {
+        "name": "GetCurrentDeliveryRetryWait",
+        "group": "timed-delivery",
+        "contract": "return current delivery row retry-wait word 3",
+    },
+    "EF:0D8D": {
+        "name": "QueueCurrentDeliveryPointer1",
+        "group": "timed-delivery",
+        "contract": "queue current delivery row pointer 1 as immediate queue type #$0008",
+    },
+    "EF:0DFA": {
+        "name": "QueueCurrentDeliveryPointer2",
+        "group": "timed-delivery",
+        "contract": "queue current delivery row pointer 2 as deferred queue type #$000A",
+    },
+    "EF:0E67": {
+        "name": "GetCurrentDeliveryEnterSpeed",
+        "group": "timed-delivery",
+        "contract": "return current delivery row enter-speed word 8",
+    },
+    "EF:0E8A": {
+        "name": "GetCurrentDeliveryExitSpeed",
+        "group": "timed-delivery",
+        "contract": "return current delivery row exit-speed word 9",
+    },
+    "EF:0F60": {
+        "name": "CheckDeliveryServiceReadyForArrival",
+        "group": "timed-delivery",
+        "contract": "test delivery/service readiness against busy state and controller latches",
+    },
+    "EF:0FDB": {
+        "name": "BeginDeliverySuccessArrivalState",
+        "group": "timed-delivery",
+        "contract": "arm success-side delivery arrival state and presentation side effects",
+    },
+    "EF:0FF6": {
+        "name": "ResetDeliveryArrivalState",
+        "group": "timed-delivery",
+        "contract": "clear transient arrival state and restore/reset delivery controller latch",
+    },
+}
+
 
 TERMINAL_NAMES = {
     "EVENT_END",
@@ -354,6 +477,11 @@ def load_names(path: Path) -> dict[str, list[str]]:
             if name not in ordered:
                 ordered.append(name)
         names[address] = ordered[:4]
+    for address, semantics in CALL_TARGET_SEMANTICS.items():
+        name = semantics["name"]
+        labels = names.setdefault(address, [])
+        if name not in labels:
+            labels.insert(0, name)
     return names
 
 

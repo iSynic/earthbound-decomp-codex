@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from decode_event_script import (
     Address,
     CALL_ARG_COUNTS,
+    CALL_TARGET_SEMANTICS,
     OPCODES,
     decode_script,
     load_names,
@@ -245,6 +246,43 @@ def unknown_callback_target(lines: list[str]) -> str | None:
     return None
 
 
+def inferred_callback_group(target: str, preferred_name: str | None) -> str:
+    semantics = CALL_TARGET_SEMANTICS.get(target)
+    if semantics:
+        return semantics["group"]
+    name = preferred_name or ""
+    if target.startswith("EF:"):
+        return "ef-helper"
+    if "Text" in name or "Window" in name or "Presentation" in name:
+        return "text-presentation"
+    if "Visual" in name or "Animation" in name or "Frame" in name:
+        return "visual-profile"
+    if "Collision" in name or "Footprint" in name:
+        return "collision"
+    if "Direction" in name or "Vector" in name or "Movement" in name:
+        return "movement"
+    if "CurrentSlot" in name or "Slot" in name:
+        return "current-slot-state"
+    if target.startswith("C2:"):
+        return "battle-runtime"
+    if target.startswith("C4:"):
+        return "presentation-render"
+    if target.startswith("C0:"):
+        return "overworld-runtime"
+    return "other"
+
+
+def inferred_callback_contract(target: str, arg_bytes: int | None) -> str:
+    semantics = CALL_TARGET_SEMANTICS.get(target)
+    if semantics:
+        return semantics["contract"]
+    if arg_bytes is None:
+        return "argument byte count is not known"
+    if arg_bytes == 0:
+        return "no inline argument bytes"
+    return f"{arg_bytes} inline argument byte(s); semantic fields not named yet"
+
+
 def audit_entry(
     entry: dict[str, Any],
     rom: bytes,
@@ -321,16 +359,22 @@ def build_audit(
         if row.get("unknown_callback_target")
     )
     c3_targets = Counter(target for row in rows for target in row["c3_targets"])
-    callback_contracts = [
-        {
-            "target": target,
-            "preferred_name": names.get(target, [None])[0],
-            "calls": count,
-            "arg_bytes": CALL_ARG_COUNTS.get(target),
-            "status": "byte-count-known" if target in CALL_ARG_COUNTS else "missing-byte-count",
-        }
-        for target, count in callbacks.most_common()
-    ]
+    callback_contracts = []
+    for target, count in callbacks.most_common():
+        preferred_name = names.get(target, [None])[0]
+        arg_bytes = CALL_ARG_COUNTS.get(target)
+        callback_contracts.append(
+            {
+                "target": target,
+                "preferred_name": preferred_name,
+                "calls": count,
+                "arg_bytes": arg_bytes,
+                "semantic_group": inferred_callback_group(target, preferred_name),
+                "argument_contract": inferred_callback_contract(target, arg_bytes),
+                "status": "byte-count-known" if target in CALL_ARG_COUNTS else "missing-byte-count",
+            }
+        )
+    callback_groups = Counter(str(contract["semantic_group"]) for contract in callback_contracts)
 
     return {
         "schema": SCHEMA,
@@ -352,6 +396,7 @@ def build_audit(
             "unknown_callback_targets": dict(unknown_callbacks.most_common()),
             "top_c3_targets": dict(c3_targets.most_common(16)),
             "callback_contracts": len(callback_contracts),
+            "callback_groups": dict(callback_groups.most_common()),
         },
         "callback_contracts": callback_contracts,
         "rows": rows,
@@ -393,6 +438,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
         "",
         f"- top first opcodes: `{summary['top_first_opcodes']}`",
         f"- top native callback targets: `{summary['top_callback_targets']}`",
+        f"- callback semantic groups: `{summary['callback_groups']}`",
         f"- unknown callback targets: `{summary['unknown_callback_targets']}`",
         f"- top C3 script targets: `{summary['top_c3_targets']}`",
         "",
@@ -428,18 +474,20 @@ def render_markdown(audit: dict[str, Any]) -> str:
             "",
             "## Native callback contract seed",
             "",
-            "| Target | Preferred name | Calls | Arg bytes | Status |",
-            "| --- | --- | ---: | ---: | --- |",
+            "| Target | Preferred name | Group | Calls | Arg bytes | Contract | Status |",
+            "| --- | --- | --- | ---: | ---: | --- | --- |",
         ]
     )
     for contract in audit["callback_contracts"]:
         arg_bytes = contract["arg_bytes"]
         lines.append(
-            "| `{target}` | `{name}` | {calls} | {arg_bytes} | `{status}` |".format(
+            "| `{target}` | `{name}` | `{group}` | {calls} | {arg_bytes} | {argument_contract} | `{status}` |".format(
                 target=contract["target"],
                 name=markdown_escape(contract.get("preferred_name") or ""),
+                group=contract["semantic_group"],
                 calls=contract["calls"],
                 arg_bytes="-" if arg_bytes is None else arg_bytes,
+                argument_contract=markdown_escape(contract["argument_contract"]),
                 status=contract["status"],
             )
         )

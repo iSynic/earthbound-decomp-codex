@@ -45,6 +45,10 @@ Current audit result:
 - native callback byte-count contract seeds: `85`
 - rows blocked by unknown native callback argument contracts: `0`
 - unknown event opcodes found: `0`
+- callback semantic groups are now emitted in the audit, with local names and
+  first-pass contracts for high-value timed-delivery, visual-profile,
+  current-slot-state, movement, collision, text/presentation, and restore
+  callbacks
 
 This shifts the next pass away from opcode discovery and toward semantic
 operand names, stable script labels, and script-family source forms.
@@ -165,8 +169,11 @@ This turns the current named-payload manifest into a full C3 script frontier.
 
 `EVENT_CALLROUTINE` is the main semantic bridge from event bytecode into native
 C0/C4/EF helpers. `tools/decode_event_script.py` already has a
-`CALL_ARG_COUNTS` seed table; the next pass should turn those counts into named
-argument contracts where evidence is strong.
+`CALL_ARG_COUNTS` seed table; the audit now layers semantic groups and contract
+text over those counts. See
+[c3-actionscript-callback-contracts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-actionscript-callback-contracts.md)
+for the current callback-contract front door. The next pass should turn generic
+inline-byte descriptions into named argument fields where evidence is strong.
 
 High-value callback families:
 

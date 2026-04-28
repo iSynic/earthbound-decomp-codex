@@ -15,6 +15,7 @@ Generated from `notes/c3-source-data-map.md` via `tools/build_c3_actionscript_se
 
 - top first opcodes: `{'$42 EVENT_CALLROUTINE': 49, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2, '$39 EVENT_SET_VELOCITIES_ZERO': 2}`
 - top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 26, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 15, 'C0:A65F': 10, 'C4:6E46': 8, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A88D': 5, 'C0:A68B': 4, 'C0:D98F': 4}`
+- callback semantic groups: `{'overworld-runtime': 19, 'current-slot-state': 16, 'visual-profile': 10, 'timed-delivery': 9, 'movement': 7, 'text-presentation': 5, 'presentation-render': 5, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'world-state-restore': 2, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
 - unknown callback targets: `{}`
 - top C3 script targets: `{'C3:A204': 19, 'C3:AB59': 17, 'C3:A111': 7, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AA38': 4, 'C3:A1F3': 4, 'C3:A262': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:43DB': 3, 'C3:443E': 3, 'C3:44FF': 3, 'C3:AB26': 3, 'C3:5F8B': 3, 'C3:A052': 3}`
 
@@ -24,93 +25,93 @@ No syntactic decode frontiers at the current bounds.
 
 ## Native callback contract seed
 
-| Target | Preferred name | Calls | Arg bytes | Status |
-| --- | --- | ---: | ---: | --- |
-| `C0:A4BF` | `RefreshCurrentSlotVisualProfile_Mode0` | 29 | 0 | `byte-count-known` |
-| `C0:A685` | `Script_SetCurrentSlotField2B32` | 26 | 2 | `byte-count-known` |
-| `C0:A4B2` | `RefreshCurrentSlotVisualProfile_Mode1IfAligned` | 26 | 0 | `byte-count-known` |
-| `C0:A4A8` | `RefreshCurrentSlotVisualProfile_Mode0IfAligned` | 23 | 0 | `byte-count-known` |
-| `C0:AA6E` | `Script_ApplyCurrentSlotVisualCountdownState` | 15 | 2 | `byte-count-known` |
-| `C0:A65F` | `SetCurrentSlotDirectionClassIfActive` | 10 | 0 | `byte-count-known` |
-| `C4:6E46` | `SetYieldToTextLatch9641` | 8 | 0 | `byte-count-known` |
-| `C4:0015` | `ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea` | 8 | 0 | `byte-count-known` |
-| `C0:9F82` | `ChooseRandomScriptWord` | 7 | 0 | `byte-count-known` |
-| `C0:20F1` | `ScriptRelease_CurrentEntityVisualState` | 7 | 0 | `byte-count-known` |
-| `C0:C6B6` | `CheckCurrentSlotInsideLiveAreaWindow` | 6 | 0 | `byte-count-known` |
-| `C0:A864` | `Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte` | 5 | 1 | `byte-count-known` |
-| `EF:0FF6` | `UNKNOWN_EF0FF6` | 5 | 0 | `byte-count-known` |
-| `C0:A88D` | `ActionScript_QueueTextPointer` | 5 | 4 | `byte-count-known` |
-| `C0:A68B` | `StoreAInCurrentSlotField2B32` | 4 | 0 | `byte-count-known` |
-| `C0:D98F` | `Export_CurrentSlotAttentionTarget` | 4 | 0 | `byte-count-known` |
-| `C4:6C87` | `RestoreCurrentSlotAnchorFromCachedTarget` | 4 | 0 | `byte-count-known` |
-| `C0:A943` | `ActionScript_GetPositionOfPartyMember` | 3 | 1 | `byte-count-known` |
-| `C0:A841` | `Script_PlaySoundEffectParameter` | 3 | 2 | `byte-count-known` |
-| `C0:C7DB` | `UpdateCurrentSlotFootprintMask` | 3 | 0 | `byte-count-known` |
-| `C2:0000` | `label_C20000` | 3 | 0 | `byte-count-known` |
-| `C0:A6DA` | `label_C0A6DA` | 3 | 0 | `byte-count-known` |
-| `C0:C83B` | `InstallScriptMovementVectorFromDirection` | 3 | 0 | `byte-count-known` |
-| `C0:CA4E` | `SetMovementTaskTimerFromActiveVector` | 3 | 0 | `byte-count-known` |
-| `C4:6ADB` | `ComputeCurrentSlotTargetDirectionOctant` | 3 | 0 | `byte-count-known` |
-| `C4:7044` | `ProjectAngleIntoCurrentSlotVectorWords` | 3 | 0 | `byte-count-known` |
-| `C4:6B0A` | `RoundAngleToOctantAndCacheCurrentSlot` | 3 | 0 | `byte-count-known` |
-| `C0:A82F` | `` | 3 | 0 | `byte-count-known` |
-| `C4:7B77` | `LoadIndexedWindowGfxAndReadVariantByte` | 2 | 0 | `byte-count-known` |
-| `C0:A691` | `GetCurrentSlotField2B32` | 2 | 0 | `byte-count-known` |
-| `EF:0F60` | `UNKNOWN_EF0F60` | 2 | 0 | `byte-count-known` |
-| `EF:0DFA` | `UNKNOWN_EF0DFA` | 2 | 0 | `byte-count-known` |
-| `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | 2 | 0 | `byte-count-known` |
-| `C0:A959` | `ScriptWrapper_C469F1_ReadWord` | 2 | 2 | `byte-count-known` |
-| `C0:A98B` | `ScriptWrapper_C46534_ReadThreeWords` | 2 | 4 | `byte-count-known` |
-| `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | 2 | 1 | `byte-count-known` |
-| `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | 2 | 0 | `byte-count-known` |
-| `C0:A84C` | `ScriptWrapper_C21628_ReadWord` | 2 | 2 | `byte-count-known` |
-| `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | 2 | 0 | `byte-count-known` |
-| `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | 2 | 0 | `byte-count-known` |
-| `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | 2 | 0 | `byte-count-known` |
-| `C0:D5B0` | `Gate_NpcAttentionCoordinatorFromScript` | 2 | 0 | `byte-count-known` |
-| `C0:A8DC` | `ScriptWrapper_C47143_Mode01` | 2 | 0 | `byte-count-known` |
-| `C4:6E74` | `label_C46E74` | 2 | 0 | `byte-count-known` |
-| `C4:8B3B` | `` | 2 | 0 | `byte-count-known` |
-| `C0:A8C6` | `ScriptWrapper_C47143_Mode00` | 2 | 0 | `byte-count-known` |
-| `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | 2 | 1 | `byte-count-known` |
-| `C0:9FBB` | `ActionScript_FadeOutWrapper` | 2 | 2 | `byte-count-known` |
-| `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | 1 | 0 | `byte-count-known` |
-| `C4:800B` | `label_C4800B` | 1 | 0 | `byte-count-known` |
-| `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | 1 | 0 | `byte-count-known` |
-| `C4:68DC` | `TestValueAboveCurrentAnchorY` | 1 | 0 | `byte-count-known` |
-| `EF:0CA7` | `UNKNOWN_EF0CA7` | 1 | 0 | `byte-count-known` |
-| `EF:0D23` | `UNKNOWN_EF0D23` | 1 | 0 | `byte-count-known` |
-| `C2:FF9A` | `CheckOverworldPositionHashThreshold3Of8` | 1 | 0 | `byte-count-known` |
-| `C0:C19B` | `CopyPathToLane_FromPartyMemberRequest` | 1 | 0 | `byte-count-known` |
-| `EF:0FDB` | `UNKNOWN_EF0FDB` | 1 | 0 | `byte-count-known` |
-| `EF:0D8D` | `UNKNOWN_EF0D8D` | 1 | 0 | `byte-count-known` |
-| `C0:C251` | `CopyPathToLane_FromCurrentEntityRequestReverse` | 1 | 0 | `byte-count-known` |
-| `EF:0E8A` | `UNKNOWN_EF0E8A` | 1 | 0 | `byte-count-known` |
-| `EF:0E67` | `UNKNOWN_EF0E67` | 1 | 0 | `byte-count-known` |
-| `C4:ECE7` | `IsEntityStillOnCastScreen` | 1 | 0 | `byte-count-known` |
-| `C0:D15C` | `HasUsableOverlapNeighborContext` | 1 | 0 | `byte-count-known` |
-| `C4:681A` | `QueueCurrentVisualTypeMovementScript` | 1 | 0 | `byte-count-known` |
-| `C4:6914` | `GetCurrentVisualTypeRecordByte03` | 1 | 0 | `byte-count-known` |
-| `C4:6957` | `UpdateCurrentSlotFrameSelector` | 1 | 0 | `byte-count-known` |
-| `C1:FFD3` | `label_C1FFD3` | 1 | 0 | `byte-count-known` |
-| `C3:0100` | `DisplayAntiPiracyScreen` | 1 | 0 | `byte-count-known` |
-| `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | 1 | 0 | `byte-count-known` |
-| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | 1 | 0 | `byte-count-known` |
-| `C0:5E76` | `Update_CurrentSlotCollisionCache` | 1 | 4 | `byte-count-known` |
-| `C0:A964` | `ScriptWrapper_C47225_ReadTwoWords` | 1 | 4 | `byte-count-known` |
-| `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | 1 | 0 | `byte-count-known` |
-| `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | 1 | 0 | `byte-count-known` |
-| `C0:5ECE` | `Update_CurrentSlotCollisionCache_FromHorizontalEdges` | 1 | 0 | `byte-count-known` |
-| `C0:D59B` | `Check_NpcAttentionCoordinatorActive` | 1 | 0 | `byte-count-known` |
-| `C4:6B37` | `RotateDirectionOctantHalfTurn` | 1 | 0 | `byte-count-known` |
-| `C0:A8D1` | `ScriptWrapper_C47143_Mode10` | 1 | 0 | `byte-count-known` |
-| `C0:A857` | `ScriptWrapper_C2165E_ReadWordPreserveMode` | 1 | 2 | `byte-count-known` |
-| `C4:7333` | `ReadActiveOverworldRegistryCount` | 1 | 0 | `byte-count-known` |
-| `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | 1 | 0 | `byte-count-known` |
-| `C0:A94E` | `ScriptWrapper_C46984_ReadWord` | 1 | 2 | `byte-count-known` |
-| `C0:A86F` | `Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord` | 1 | 2 | `byte-count-known` |
-| `C0:A651` | `Script_SetDirectionClassAndField1A86` | 1 | 1 | `byte-count-known` |
-| `C0:9451` | `UNKNOWN_C09451` | 1 | 0 | `byte-count-known` |
+| Target | Preferred name | Group | Calls | Arg bytes | Contract | Status |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| `C0:A4BF` | `RefreshCurrentSlotVisualProfile_Mode0` | `visual-profile` | 29 | 0 | force current slot visual profile refresh | `byte-count-known` |
+| `C0:A685` | `Script_SetCurrentSlotField2B32` | `current-slot-state` | 26 | 2 | read one script word and store it to current slot field $2B32 | `byte-count-known` |
+| `C0:A4B2` | `RefreshCurrentSlotVisualProfile_Mode1IfAligned` | `visual-profile` | 26 | 0 | refresh current slot alternate visual profile when alignment allows | `byte-count-known` |
+| `C0:A4A8` | `RefreshCurrentSlotVisualProfile_Mode0IfAligned` | `visual-profile` | 23 | 0 | refresh current slot visual profile when alignment allows | `byte-count-known` |
+| `C0:AA6E` | `Script_ApplyCurrentSlotVisualCountdownState` | `visual-profile` | 15 | 2 | read countdown/state bytes and apply current slot visual countdown state | `byte-count-known` |
+| `C0:A65F` | `SetCurrentSlotDirectionClassIfActive` | `movement` | 10 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6E46` | `SetYieldToTextLatch9641` | `text-presentation` | 8 | 0 | set the yield-to-text latch used by event presentation handoff | `byte-count-known` |
+| `C4:0015` | `ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea` | `visual-profile` | 8 | 0 | clear current slot $10F2, refresh visual state, and test live-area status | `byte-count-known` |
+| `C0:9F82` | `ChooseRandomScriptWord` | `overworld-runtime` | 7 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:20F1` | `ScriptRelease_CurrentEntityVisualState` | `visual-profile` | 7 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:C6B6` | `CheckCurrentSlotInsideLiveAreaWindow` | `text-presentation` | 6 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A864` | `Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte` | `current-slot-state` | 5 | 1 | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `EF:0FF6` | `ResetDeliveryArrivalState` | `timed-delivery` | 5 | 0 | clear transient arrival state and restore/reset delivery controller latch | `byte-count-known` |
+| `C0:A88D` | `ActionScript_QueueTextPointer` | `text-presentation` | 5 | 4 | 4 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A68B` | `StoreAInCurrentSlotField2B32` | `current-slot-state` | 4 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:D98F` | `Export_CurrentSlotAttentionTarget` | `current-slot-state` | 4 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6C87` | `RestoreCurrentSlotAnchorFromCachedTarget` | `current-slot-state` | 4 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A943` | `ActionScript_GetPositionOfPartyMember` | `overworld-runtime` | 3 | 1 | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A841` | `Script_PlaySoundEffectParameter` | `overworld-runtime` | 3 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:C7DB` | `UpdateCurrentSlotFootprintMask` | `collision` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C2:0000` | `RunEnemySunstrokeCheck` | `battle-runtime` | 3 | 0 | battle-runtime sunstroke/special controller helper; C3 intro use remains unusual | `byte-count-known` |
+| `C0:A6DA` | `ClearCurrentSlotNeighborCache` | `neighbor-cache` | 3 | 0 | write #$FFFF to current slot neighbor cache $289E | `byte-count-known` |
+| `C0:C83B` | `InstallScriptMovementVectorFromDirection` | `movement` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:CA4E` | `SetMovementTaskTimerFromActiveVector` | `movement` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6ADB` | `ComputeCurrentSlotTargetDirectionOctant` | `movement` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:7044` | `ProjectAngleIntoCurrentSlotVectorWords` | `movement` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6B0A` | `RoundAngleToOctantAndCacheCurrentSlot` | `current-slot-state` | 3 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A82F` | `DisableCurrentSlotNeighborCache` | `neighbor-cache` | 3 | 0 | write #$8000 sentinel to current slot neighbor cache $289E | `byte-count-known` |
+| `C4:7B77` | `LoadIndexedWindowGfxAndReadVariantByte` | `text-presentation` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A691` | `GetCurrentSlotField2B32` | `current-slot-state` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `EF:0F60` | `CheckDeliveryServiceReadyForArrival` | `timed-delivery` | 2 | 0 | test delivery/service readiness against busy state and controller latches | `byte-count-known` |
+| `EF:0DFA` | `QueueCurrentDeliveryPointer2` | `timed-delivery` | 2 | 0 | queue current delivery row pointer 2 as deferred queue type #$000A | `byte-count-known` |
+| `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `current-slot-state` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A959` | `ScriptWrapper_C469F1_ReadWord` | `overworld-runtime` | 2 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A98B` | `ScriptWrapper_C46534_ReadThreeWords` | `overworld-runtime` | 2 | 4 | 4 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A84C` | `ScriptWrapper_C21628_ReadWord` | `overworld-runtime` | 2 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | `current-slot-state` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:D5B0` | `Gate_NpcAttentionCoordinatorFromScript` | `overworld-runtime` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A8DC` | `ScriptWrapper_C47143_Mode01` | `overworld-runtime` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6E74` | `CheckStagedPositionWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | test staged position against the player proximity threshold | `byte-count-known` |
+| `C4:8B3B` | `MakePartyLookAtActiveEntityCallback` | `party-facing` | 2 | 0 | make party members face or track the active entity | `byte-count-known` |
+| `C0:A8C6` | `ScriptWrapper_C47143_Mode00` | `overworld-runtime` | 2 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:9FBB` | `ActionScript_FadeOutWrapper` | `overworld-runtime` | 2 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:800B` | `UndrawFlyoverTextAndRestoreWorldDisplay` | `world-state-restore` | 1 | 0 | restore world display state after flyover/text presentation | `byte-count-known` |
+| `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | `presentation-render` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:68DC` | `TestValueAboveCurrentAnchorY` | `presentation-render` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `EF:0CA7` | `CheckCurrentDeliveryRetryThreshold` | `timed-delivery` | 1 | 0 | increment current row retry counter and compare against delivery record word 2 | `byte-count-known` |
+| `EF:0D23` | `GetCurrentDeliveryRetryWait` | `timed-delivery` | 1 | 0 | return current delivery row retry-wait word 3 | `byte-count-known` |
+| `C2:FF9A` | `CheckOverworldPositionHashThreshold3Of8` | `battle-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:C19B` | `CopyPathToLane_FromPartyMemberRequest` | `overworld-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `EF:0FDB` | `BeginDeliverySuccessArrivalState` | `timed-delivery` | 1 | 0 | arm success-side delivery arrival state and presentation side effects | `byte-count-known` |
+| `EF:0D8D` | `QueueCurrentDeliveryPointer1` | `timed-delivery` | 1 | 0 | queue current delivery row pointer 1 as immediate queue type #$0008 | `byte-count-known` |
+| `C0:C251` | `CopyPathToLane_FromCurrentEntityRequestReverse` | `overworld-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `EF:0E8A` | `GetCurrentDeliveryExitSpeed` | `timed-delivery` | 1 | 0 | return current delivery row exit-speed word 9 | `byte-count-known` |
+| `EF:0E67` | `GetCurrentDeliveryEnterSpeed` | `timed-delivery` | 1 | 0 | return current delivery row enter-speed word 8 | `byte-count-known` |
+| `C4:ECE7` | `IsEntityStillOnCastScreen` | `presentation-render` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:D15C` | `HasUsableOverlapNeighborContext` | `overworld-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:681A` | `QueueCurrentVisualTypeMovementScript` | `visual-profile` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6914` | `GetCurrentVisualTypeRecordByte03` | `visual-profile` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6957` | `UpdateCurrentSlotFrameSelector` | `visual-profile` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C1:FFD3` | `ComputeBankC1ChecksumTail` | `intro-integrity` | 1 | 0 | bank-local checksum/integrity tail used by intro control flow | `byte-count-known` |
+| `C3:0100` | `DisplayAntiPiracyScreen` | `other` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | `current-slot-state` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `current-slot-state` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:5E76` | `Update_CurrentSlotCollisionCache` | `collision` | 1 | 4 | 4 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A964` | `ScriptWrapper_C47225_ReadTwoWords` | `overworld-runtime` | 1 | 4 | 4 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | `current-slot-state` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | `collision` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:5ECE` | `Update_CurrentSlotCollisionCache_FromHorizontalEdges` | `collision` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:D59B` | `Check_NpcAttentionCoordinatorActive` | `overworld-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6B37` | `RotateDirectionOctantHalfTurn` | `movement` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A8D1` | `ScriptWrapper_C47143_Mode10` | `overworld-runtime` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A857` | `ScriptWrapper_C2165E_ReadWordPreserveMode` | `overworld-runtime` | 1 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C4:7333` | `ReadActiveOverworldRegistryCount` | `presentation-render` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | `current-slot-state` | 1 | 0 | no inline argument bytes | `byte-count-known` |
+| `C0:A94E` | `ScriptWrapper_C46984_ReadWord` | `overworld-runtime` | 1 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A86F` | `Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord` | `current-slot-state` | 1 | 2 | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:9451` | `RestoreSavedCoordinateState` | `world-state-restore` | 1 | 0 | restore saved coordinate/world state after transitions or script presentation | `byte-count-known` |
 
 ## Full script inventory
 
@@ -330,7 +331,7 @@ C3:43EA  3B 00                EVENT_SET_ANIMATION $00
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
-C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:43FB  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -348,7 +349,7 @@ C3:43EA  3B 00                EVENT_SET_ANIMATION $00
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
-C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:43FB  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -361,13 +362,13 @@ C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 A7 0C EF 0A 7D 44 42 23 0D EF 24 06 3C 02 42`
 
 ```text
-C3:443E  42 A7 0C EF          EVENT_CALLROUTINE $EF:0CA7 <UNKNOWN_EF0CA7>
+C3:443E  42 A7 0C EF          EVENT_CALLROUTINE $EF:0CA7 <CheckCurrentDeliveryRetryThreshold>
 C3:4442  0A 7D 44             EVENT_SHORTCALL_CONDITIONAL $C3:447D <TimedDeliveryFailureTeardown>
-C3:4445  42 23 0D EF          EVENT_CALLROUTINE $EF:0D23 <UNKNOWN_EF0D23>
+C3:4445  42 23 0D EF          EVENT_CALLROUTINE $EF:0D23 <GetCurrentDeliveryRetryWait>
 C3:4449  24                   EVENT_LOOP_TEMPVAR
 C3:444A  06 3C                EVENT_PAUSE $3C
 C3:444C  02                   EVENT_LOOP_END
-C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <UNKNOWN_EF0F60>
+C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <CheckDeliveryServiceReadyForArrival>
 C3:4451  0A 57 44             EVENT_SHORTCALL_CONDITIONAL $C3:4457 <TimedDeliverySuccessGateAndPresentationSetup>
 C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLoop>
 ```
@@ -380,7 +381,7 @@ C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLo
 - raw preview: `42 60 0F EF 0A 57 44 19 3E 44 42 9A FF C2 0B 7D`
 
 ```text
-C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <UNKNOWN_EF0F60>
+C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <CheckDeliveryServiceReadyForArrival>
 C3:4451  0A 57 44             EVENT_SHORTCALL_CONDITIONAL $C3:4457 <TimedDeliverySuccessGateAndPresentationSetup>
 C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLoop>
 ```
@@ -400,9 +401,9 @@ C3:4460  42 9B C1 C0          EVENT_CALLROUTINE $C0:C19B <CopyPathToLane_FromPar
 C3:4464  0B 3E 44             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:443E <TimedDeliveryRetryWaitLoop>
 C3:4467  07 7A 44             EVENT_START_TASK $C3:447A <StartTimedDeliveryArrivalMovementTask>
 C3:446A  06 01                EVENT_PAUSE $01
-C3:446C  42 DB 0F EF          EVENT_CALLROUTINE $EF:0FDB <UNKNOWN_EF0FDB>
+C3:446C  42 DB 0F EF          EVENT_CALLROUTINE $EF:0FDB <BeginDeliverySuccessArrivalState>
 C3:4470  1A 88 44             EVENT_SHORTCALL $C3:4488 <PrepareTimedDeliveryActorForPresentation>
-C3:4473  42 8D 0D EF          EVENT_CALLROUTINE $EF:0D8D <UNKNOWN_EF0D8D>
+C3:4473  42 8D 0D EF          EVENT_CALLROUTINE $EF:0D8D <QueueCurrentDeliveryPointer1>
 C3:4477  19 A8 44             EVENT_SHORTJUMP $C3:44A8 <RunTimedDeliveryDepartureMovement>
 ```
 
@@ -415,8 +416,8 @@ C3:4477  19 A8 44             EVENT_SHORTJUMP $C3:44A8 <RunTimedDeliveryDepartur
 
 ```text
 C3:447A  1A DE 44             EVENT_SHORTCALL $C3:44DE <RunTimedDeliveryArrivalMovement>
-C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
-C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <UNKNOWN_EF0DFA>
+C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
+C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <QueueCurrentDeliveryPointer2>
 C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
 
@@ -428,8 +429,8 @@ C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 F6 0F EF 42 FA 0D EF 19 04 A2 3B 00 07 9F A0`
 
 ```text
-C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
-C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <UNKNOWN_EF0DFA>
+C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
+C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <QueueCurrentDeliveryPointer2>
 C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
 
@@ -497,7 +498,7 @@ C3:44AD  07 DB 43             EVENT_START_TASK $C3:43DB <LoopTimedDeliveryDepart
 C3:44B0  20 00                EVENT_WRITE_VAR_TO_TEMPVAR $00
 C3:44B2  42 51 C2 C0          EVENT_CALLROUTINE $C0:C251 <CopyPathToLane_FromCurrentEntityRequestReverse>
 C3:44B6  0B D2 44             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:44D2 <FinishTimedDeliveryDepartureAndYieldText>
-C3:44B9  42 8A 0E EF          EVENT_CALLROUTINE $EF:0E8A <UNKNOWN_EF0E8A>
+C3:44B9  42 8A 0E EF          EVENT_CALLROUTINE $EF:0E8A <GetCurrentDeliveryExitSpeed>
 C3:44BD  42 8B A6 C0          EVENT_CALLROUTINE $C0:A68B <StoreAInCurrentSlotField2B32>
 C3:44C1  42 8F D9 C0          EVENT_CALLROUTINE $C0:D98F <Export_CurrentSlotAttentionTarget>
 C3:44C5  0A D2 44             EVENT_SHORTCALL_CONDITIONAL $C3:44D2 <FinishTimedDeliveryDepartureAndYieldText>
@@ -530,7 +531,7 @@ C3:44CF  19 C1 44             EVENT_SHORTJUMP $C3:44C1 <LoopTimedDeliveryDepartu
 
 ```text
 C3:44D2  39                   EVENT_SET_VELOCITIES_ZERO
-C3:44D3  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:44D3  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:44D7  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:44DB  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -543,7 +544,7 @@ C3:44DB  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 67 0E EF 42 8B A6 C0 0E 05 03 00 0E 04 00 00`
 
 ```text
-C3:44DE  42 67 0E EF          EVENT_CALLROUTINE $EF:0E67 <UNKNOWN_EF0E67>
+C3:44DE  42 67 0E EF          EVENT_CALLROUTINE $EF:0E67 <GetCurrentDeliveryEnterSpeed>
 C3:44E2  42 8B A6 C0          EVENT_CALLROUTINE $C0:A68B <StoreAInCurrentSlotField2B32>
 C3:44E6  0E 05 03 00          EVENT_SET_VAR $05, $0003
 C3:44EA  0E 04 00 00          EVENT_SET_VAR $04, $0000
@@ -590,14 +591,14 @@ C3:4505  19 FF 44             EVENT_SHORTJUMP $C3:44FF <HoldTimedDeliveryArrival
 - raw preview: `42 D3 FF C1 0A 4E A0 42 00 01 C3 08 00 52 C0 01`
 
 ```text
-C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <label_C1FFD3>
+C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <ComputeBankC1ChecksumTail>
 C3:A047  0A 4E A0             EVENT_SHORTCALL_CONDITIONAL $C3:A04E <StartIntroCameraPanTickLoop>
 C3:A04A  42 00 01 C3          EVENT_CALLROUTINE $C3:0100 <DisplayAntiPiracyScreen>
 C3:A04E  08 00 52 C0          EVENT_SET_TICK_CALLBACK $C0:5200 <Tick_OverworldPlayerPositionAndCallbacks>
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -613,7 +614,7 @@ C3:A04E  08 00 52 C0          EVENT_SET_TICK_CALLBACK $C0:5200 <Tick_OverworldPl
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -628,7 +629,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAn
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -645,7 +646,7 @@ C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallba
 C3:A064  3B 00                EVENT_SET_ANIMATION $00
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>
-C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A072  08 78 4D C0          EVENT_SET_TICK_CALLBACK $C0:4D78 <Tick_Event2SnapshotObjectReconcile>
 C3:A076  42 E3 A6 C0          EVENT_CALLROUTINE $C0:A6E3 <WatchAndRefreshCompanionVisualPhase>
 C3:A07A  06 01                EVENT_PAUSE $01
@@ -1071,7 +1072,7 @@ C3:A261  1B                   EVENT_SHORT_RETURN
 - raw preview: `42 DA A6 C0 42 76 5E C0 F1 A6 64 C0 19 66 A2 0C`
 
 ```text
-C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A266  42 76 5E C0 F1 A6 64 C0 EVENT_CALLROUTINE $C0:5E76 <Update_CurrentSlotCollisionCache>, $F1, $A6, $64, $C0
 C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
 ```
@@ -1210,7 +1211,7 @@ C3:A3FE  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovem
 
 ```text
 C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
-C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A408  06 01                EVENT_PAUSE $01
 C3:A40A  42 B8 A6 C0          EVENT_CALLROUTINE $C0:A6B8 <GetCurrentSlotHasNoCachedNeighborFlag>
 C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <UNKNOWN_C3A425>
@@ -1511,7 +1512,7 @@ C3:AB66  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AB8A  06 01                EVENT_PAUSE $01
-C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <label_C46E74>
+C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <CheckStagedPositionWithinPlayerProximityThreshold>
 C3:AB90  0A 8A AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB8A <WaitUntilPlayerLeavesActiveArea>
 C3:AB93  1B                   EVENT_SHORT_RETURN
 ```
@@ -1524,7 +1525,7 @@ C3:AB93  1B                   EVENT_SHORT_RETURN
 - raw preview: `42 3B 8B C4 06 03 19 A3 AF 25 7A A3 3B 00 07 7B`
 
 ```text
-C3:AFA3  42 3B 8B C4          EVENT_CALLROUTINE $C4:8B3B
+C3:AFA3  42 3B 8B C4          EVENT_CALLROUTINE $C4:8B3B <MakePartyLookAtActiveEntityCallback>
 C3:AFA7  06 03                EVENT_PAUSE $03
 C3:AFA9  19 A3 AF             EVENT_SHORTJUMP $C3:AFA3 <LoopPartyLooksAtActiveEntity>
 ```
