@@ -38,16 +38,43 @@ def command_bucket(command: str, has_runtime_hint: bool) -> str:
         return "runtime_mapped"
     if command in {"@A", "@C", "@F", "@G", "@H", "@M", "@P", "@WI"}:
         return "authoring_format_candidate"
-    if "GOTO" in command or "GOSUB" in command or command in {"@CMP", "@LOAD_REG", "@SET_LOOPREG"}:
+    if (
+        "GOTO" in command
+        or "GOSUB" in command
+        or command in {"@CMP", "@EQ", "@LOAD_REG", "@SET_REG", "@SAVE_REG", "@LOAD_GLOBAL_REG", "@SAVE_GLOBAL_REG", "@SET_LOOPREG", "@INC", "@SUB", "@NOT"}
+    ):
         return "branch_macro_candidate"
     if command.startswith("@DSP_"):
         return "display_macro_candidate"
-    if command in {"@MOVE_GOM_CHAR", "@REMOVE_CHAR"}:
+    if (
+        command.startswith("@MOVE_")
+        or command.startswith("@REMOVE_")
+        or command.startswith("@HIDE_")
+        or command.startswith("@SHOW_")
+        or command.startswith("@GET_") and "_DIR" in command
+        or command.startswith("@SET_") and ("_DIR" in command or "CAMERA" in command or "HIT_RECT" in command)
+        or command in {"@ANIM", "@RES_HIT_RECT", "@MUL_ACTIVE_PLAYER", "@SET_COMEBACK_POS", "@WARP_MOUSE_POS", "@TELEPORT"}
+    ):
         return "movement_macro_candidate"
-    if command in {"@GOODSIN_PLAYER", "@GET_ORDER_PLAYER"}:
+    if (
+        "GOODS" in command
+        or "ITEM" in command
+        or "TRACY" in command
+        or command in {"@GET_ORDER_PLAYER", "@SEL_SHOP_TAKE", "@DELIVERY", "@REPAIR", "@SEARCH_TRUFFLE", "@GET_SPICE", "@GOODS_TYPE_P", "@RESITEM"}
+    ):
         return "inventory_macro_candidate"
     if command.startswith("@Q_"):
         return "query_macro_candidate"
+    if command in {"@FRESH_PLAYER", "@FRESH_CHAR", "@FRESH_GOM_CHAR", "@COLD_PLAYER", "@COLD_CHAR", "@COLD_GOM_CHAR", "@DIS_HPDEC"}:
+        return "status_macro_candidate"
+    if command in {"@MUSISTART", "@MUSI_START"}:
+        return "audio_macro_candidate"
+    if command in {"@WINR_MONEY", "@GET_OBJECT", "@GET_ACTOR", "@GET_PLAYER_NAME"}:
+        return "display_macro_candidate"
+    if command in {"@FUNC", "@LOC", "@SET_SPECIAL", "@GET_SPECIAL", "@SELQ", "@SEL_PQ", "@SEL_GOODS", "@WKEY", "@KMOJI", "@INPUT", "@FKEY", "@I", "@SAVE_STORY", "@LOAD_STORY", "@CHKF_MSG", "@SETF_MSG", "@RESF_MSG"}:
+        return "authoring_macro_candidate"
+    if command in {"@BTLFX", "@SET_BTL_MSG", "@SET_BTL_MES"}:
+        return "battle_macro_candidate"
     return "needs_classification"
 
 
@@ -131,6 +158,10 @@ def collect(source_dir: Path, text_manifest: Path) -> dict[str, Any]:
             "movement_macro_candidates": bucket_counts.get("movement_macro_candidate", 0),
             "inventory_macro_candidates": bucket_counts.get("inventory_macro_candidate", 0),
             "query_macro_candidates": bucket_counts.get("query_macro_candidate", 0),
+            "status_macro_candidates": bucket_counts.get("status_macro_candidate", 0),
+            "audio_macro_candidates": bucket_counts.get("audio_macro_candidate", 0),
+            "authoring_macro_candidates": bucket_counts.get("authoring_macro_candidate", 0),
+            "battle_macro_candidates": bucket_counts.get("battle_macro_candidate", 0),
             "needs_classification": bucket_counts.get("needs_classification", 0),
         },
         "commands": rows,
@@ -175,7 +206,32 @@ def write_markdown(frontier: dict[str, Any], output_path: Path) -> None:
         f"- Movement macro candidates: `{s['movement_macro_candidates']}`",
         f"- Inventory macro candidates: `{s['inventory_macro_candidates']}`",
         f"- Query macro candidates: `{s['query_macro_candidates']}`",
+        f"- Status macro candidates: `{s['status_macro_candidates']}`",
+        f"- Audio macro candidates: `{s['audio_macro_candidates']}`",
+        f"- Authoring macro candidates: `{s['authoring_macro_candidates']}`",
+        f"- Battle macro candidates: `{s['battle_macro_candidates']}`",
         f"- Still needs classification: `{s['needs_classification']}`",
+        "",
+        "## Bucket Meaning",
+        "",
+        "- `runtime_mapped`: conservative direct hint to a known text VM opcode or",
+        "  family subcommand.",
+        "- `authoring_format_candidate`: layout/source-format markers that may not",
+        "  emit a standalone runtime command.",
+        "- `branch_macro_candidate`: source-level control-flow or register helpers",
+        "  that probably expand into branch/call/memory VM commands.",
+        "- `display_macro_candidate`: printable data or display aliases that need",
+        "  family-specific expansion checks.",
+        "- `movement_macro_candidate`: actor, camera, position, hit-rectangle, or",
+        "  visibility macros that likely bridge into event/actionscript helpers.",
+        "- `inventory_macro_candidate`: goods, Tracy/Escargo, shop, repair, or item",
+        "  transfer macros.",
+        "- `query_macro_candidate`: source-side predicates that may expand into",
+        "  checks, branches, or staged-memory tests.",
+        "- `status_macro_candidate`: party/member condition toggles.",
+        "- `battle_macro_candidate`: battle-message or battle-effect helpers.",
+        "- `authoring_macro_candidate`: source-tooling helpers whose direct ROM",
+        "  emission still needs an expansion model.",
         "",
         "## High-Count Runtime Mapped Commands",
         "",
@@ -214,12 +270,16 @@ def write_markdown(frontier: dict[str, Any], output_path: Path) -> None:
             "",
             "## Next Manual Seams",
             "",
-            "1. Confirm whether the authoring/format candidates expand to printable",
-            "   layout bytes or remain source-only markup.",
-            "2. Tie branch/control macro candidates to the known `0x06`, `0x08`,",
-            "   `0x09`, and `0x0A` text VM branch/call commands.",
-            "3. Split display macro candidates into direct `0x1C` leaves versus",
-            "   higher-level authoring aliases.",
+            "1. Confirm whether the authoring/format candidates expand to",
+            "   printable/layout bytes or remain source-only markup.",
+            "2. Build expansion models for branch/control macros, especially",
+            "   `@ONGOSUB`, `@SELGOTO`, `@ONGOTO`, register helpers, and compare",
+            "   helpers.",
+            "3. Split display and inventory macro candidates into direct text VM",
+            "   leaves versus higher-level authoring aliases.",
+            "4. Join movement/camera/visibility macros back to map-object and C3",
+            "   event/actionscript semantics instead of forcing them into the text",
+            "   VM alone.",
             "",
         ]
     )

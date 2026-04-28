@@ -13,14 +13,39 @@ records.
 - `.MSG` files scanned: `57`
 - Unique authoring commands: `202`
 - Total command occurrences: `45921`
-- Runtime-mapped commands: `68`
+- Runtime-mapped commands: `80`
 - Authoring/format candidates: `8`
-- Branch/control macro candidates: `7`
-- Display macro candidates: `7`
-- Movement macro candidates: `2`
-- Inventory macro candidates: `1`
-- Query macro candidates: `8`
-- Still needs classification: `101`
+- Branch/control macro candidates: `15`
+- Display macro candidates: `10`
+- Movement macro candidates: `30`
+- Inventory macro candidates: `28`
+- Query macro candidates: `5`
+- Status macro candidates: `7`
+- Audio macro candidates: `0`
+- Authoring macro candidates: `16`
+- Battle macro candidates: `3`
+- Still needs classification: `0`
+
+## Bucket Meaning
+
+- `runtime_mapped`: conservative direct hint to a known text VM opcode or
+  family subcommand.
+- `authoring_format_candidate`: layout/source-format markers that may not
+  emit a standalone runtime command.
+- `branch_macro_candidate`: source-level control-flow or register helpers
+  that probably expand into branch/call/memory VM commands.
+- `display_macro_candidate`: printable data or display aliases that need
+  family-specific expansion checks.
+- `movement_macro_candidate`: actor, camera, position, hit-rectangle, or
+  visibility macros that likely bridge into event/actionscript helpers.
+- `inventory_macro_candidate`: goods, Tracy/Escargo, shop, repair, or item
+  transfer macros.
+- `query_macro_candidate`: source-side predicates that may expand into
+  checks, branches, or staged-memory tests.
+- `status_macro_candidate`: party/member condition toggles.
+- `battle_macro_candidate`: battle-message or battle-effect helpers.
+- `authoring_macro_candidate`: source-tooling helpers whose direct ROM
+  emission still needs an expansion model.
 
 ## High-Count Runtime Mapped Commands
 
@@ -48,12 +73,16 @@ records.
 | `@BGMSTART` | 202 | 27 | 43 | `0x1F 0x00` `PLAY_MUSIC` (high) | 2_arg:202 |
 | `@GOODSIN_PLAYER` | 183 | 32 | 64 | `0x1D 0x00` `GIVE_ITEM_TO_CHARACTER` (medium) | 2_arg:183 |
 | `@DSP_NUM` | 169 | 11 | 8 | `0x1C 0x0A` `PRINT_NUMBER` (medium) | 1_arg:169 |
+| `@MUSISTART` | 134 | 17 | 16 | `0x1F 0x00` `PLAY_MUSIC` (medium) | empty:134 |
 | `@ADD_PARTY` | 111 | 9 | 6 | `0x1F 0x11` `ADD_PARTY_MEMBER` (high) | 1_arg:111 |
 | `@Q_GOODSFULL` | 101 | 33 | 65 | `0x1D 0x03` `GET_PLAYER_HAS_INVENTORY_ROOM` (medium) | 1_arg:101 |
 | `@MESSAGE_SOUND` | 98 | 8 | 8 | `0x1F 0x04` `SET_TEXT_PRINTING_SOUND` (high) | 1_arg:98 |
 | `@BATTLE` | 95 | 2 | 0 | `0x1F 0x23` `TRIGGER_BATTLE` (high) | 1_arg:95 |
 | `@FONTSTD` | 83 | 9 | 53 | `0x1F 0x30` `USE_NORMAL_FONT` (high) | empty:83 |
+| `@DSP_CNUM` | 80 | 5 | 0 | `0x1C 0x0A` `PRINT_NUMBER` (low) | empty:80 |
+| `@RESF` | 79 | 11 | 5 | `0x05` `CLEAR_EVENT_FLAG` (medium) | 1_arg:79 |
 | `@CLOSE` | 75 | 13 | 9 | `0x18 0x00` `CLOSE_WINDOW` (high) | empty:75 |
+| `@CHKF` | 72 | 21 | 26 | `0x07` `CHECK_EVENT_FLAG` (high) | 1_arg:72 |
 | `@BGM_EFFECT` | 63 | 14 | 11 | `0x1F 0x07` `APPLY_MUSIC_EFFECT` (medium) | 1_arg:63 |
 | `@Q_MONEY` | 58 | 18 | 19 | `0x1D 0x14` `HAVE_ENOUGH_MONEY` (medium) | 1_arg:58 |
 | `@FONTBAKA` | 57 | 9 | 28 | `0x1F 0x31` `USE_MR_SATURN_FONT` (high) | empty:57 |
@@ -70,6 +99,7 @@ records.
 | `@Q_MEMBER` | 18 | 8 | 2 | `0x1D 0x19` `HAVE_X_PARTY_MEMBERS` (medium) | 1_arg:18 |
 | `@MONEYIN` | 18 | 8 | 1 | `0x1D 0x08` `ADD_TO_WALLET` (medium) | 1_arg:18 |
 | `@RAND` | 17 | 8 | 1 | `0x1D 0x21` `GENERATE_RANDOM_NUMBER` (medium) | 1_arg:17 |
+| `@CLRLINE` | 15 | 4 | 1 | `0x12` `CLEAR_TEXT_LINE` (high) | empty:15 |
 | `@DSP_PSI` | 15 | 5 | 0 | `0x1C 0x12` `PRINT_PSI_NAME` (medium) | 1_arg:15 |
 | `@CLS` | 15 | 5 | 0 | `0x18 0x06` `CLEAR_WINDOW` (medium) | empty:15 |
 | `@DSP_CHAR` | 13 | 3 | 4 | `0x1C 0x03` `PRINT_CHAR` (medium) | 1_arg:13 |
@@ -79,14 +109,18 @@ records.
 | `@SET_LEVEL` | 9 | 1 | 0 | `0x1E 0x08` `SET_CHARACTER_LEVEL` (medium) | 2_arg:9 |
 | `@PP_UP` | 8 | 3 | 1 | `0x1E 0x06` `RECOVER_PP_AMOUNT` (medium) | 2_arg:8 |
 | `@DIS_BGMCHG` | 8 | 5 | 1 | `0x1F 0x05` `DISABLE_SECTOR_MUSIC_CHANGE` (high) | empty:8 |
+| `@ADD_PSI` | 7 | 5 | 4 | `0x1F 0x71` `REALIZE_PSI` (medium) | 2_arg:7 |
 | `@SAVE_GAME` | 5 | 4 | 1 | `0x1F 0xB0` `SAVE_GAME` (high) | empty:5 |
 | `@DRAW_MONEY_BANK` | 5 | 1 | 0 | `0x1D 0x07` `TAKE_FROM_ATM` (medium) | 1_arg:5 |
 | `@SET_PARTY_DIR` | 4 | 3 | 1 | `0x1F 0x14` `CHANGE_PARTY_DIRECTION` (medium) | 1_arg:4 |
+| `@DISKEY` | 4 | 3 | 1 | `0x1F 0x50` `DISABLE_CONTROLLER_INPUT` (medium) | empty:4 |
+| `@GET_STS_CHAR` | 4 | 1 | 0 | `0x19 0x16` `GET_CHARACTER_STATUS` (medium) | 1_arg:4 |
 | `@HP_DOWN` | 4 | 2 | 0 | `0x1E 0x03` `DEPLETE_HP_AMOUNT` (medium) | 2_arg:4 |
 | `@ENA_BGMCHG` | 4 | 2 | 0 | `0x1F 0x06` `ENABLE_SECTOR_MUSIC_CHANGE` (high) | empty:4 |
 | `@SPEED_UP_POINT` | 4 | 1 | 0 | `0x1E 0x0C` `BOOST_SPEED` (medium) | 2_arg:4 |
 | `@LUCK_UP_POINT` | 4 | 1 | 0 | `0x1E 0x0E` `BOOST_LUCK` (medium) | 2_arg:4 |
 | `@GOODSIN` | 3 | 2 | 3 | `0x1D 0x00` `GIVE_ITEM_TO_CHARACTER` (medium) | 2_arg:3 |
+| `@GET_CNUM` | 3 | 1 | 0 | `0x19 0x10` `GET_CHARACTER_NUMBER` (medium) | empty:3 |
 | `@GUTS_UP_POINT` | 3 | 1 | 0 | `0x1E 0x0B` `BOOST_GUTS` (medium) | 2_arg:3 |
 | `@IQ_UP_POINT` | 3 | 1 | 0 | `0x1E 0x0A` `BOOST_IQ` (medium) | 2_arg:3 |
 | `@EXP_UP_POINT` | 2 | 2 | 1 | `0x1E 0x09` `GIVE_EXPERIENCE` (medium) | 2_arg:2 |
@@ -94,6 +128,9 @@ records.
 | `@RIDE_CYCLE` | 2 | 2 | 0 | `0x1F 0xF0` `RIDE_BICYCLE` (high) | empty:2 |
 | `@VITAL_UP_POINT` | 2 | 1 | 0 | `0x1E 0x0D` `BOOST_VITALITY` (medium) | 2_arg:2 |
 | `@Q_EQUIP` | 1 | 1 | 1 | `0x1D 0x10` `CHECK_ITEM_EQUIPPED` (medium) | 2_arg:1 |
+| `@MUSI_START` | 1 | 1 | 0 | `0x1F 0x00` `PLAY_MUSIC` (medium) | empty:1 |
+| `@GET_MEMBERS` | 1 | 1 | 0 | `0x1D 0x19` `HAVE_X_PARTY_MEMBERS` (low) | empty:1 |
+| `@GET_NEXTLEVEL` | 1 | 1 | 0 | `0x19 0x18` `GET_EXPERIENCE_NEEDED_TO_LEVEL_UP` (medium) | 1_arg:1 |
 
 ## High-Count Unmapped Commands
 
@@ -117,128 +154,120 @@ records.
 | `@LOAD_REG` | 195 | 29 | 46 | `branch_macro_candidate` | empty:194, bare:1 |
 | `@DSP_OBJECT` | 193 | 6 | 0 | `display_macro_candidate` | empty:193 |
 | `@GET_ORDER_PLAYER` | 165 | 37 | 58 | `inventory_macro_candidate` | 1_arg:165 |
-| `@FKEY` | 160 | 6 | 1 | `needs_classification` | empty:160 |
-| `@EQ` | 151 | 34 | 68 | `needs_classification` | 1_arg:151 |
-| `@SET_CAMERA_GOM_CHAR` | 149 | 7 | 10 | `needs_classification` | 1_arg:149 |
-| `@HIDE_CHAR` | 148 | 26 | 53 | `needs_classification` | 2_arg:148 |
-| `@FRESH_PLAYER` | 141 | 15 | 20 | `needs_classification` | 1_arg:141 |
-| `@MUSISTART` | 134 | 17 | 16 | `needs_classification` | empty:134 |
-| `@SET_CAMERA_PARTY` | 133 | 7 | 12 | `needs_classification` | empty:133 |
-| `@HIDE_GOM_CHAR` | 130 | 11 | 16 | `needs_classification` | 2_arg:130 |
-| `@SET_REG` | 127 | 31 | 41 | `needs_classification` | 1_arg:127 |
-| `@COLD_PLAYER` | 122 | 17 | 18 | `needs_classification` | 1_arg:122 |
-| `@SAVE_REG` | 111 | 28 | 34 | `needs_classification` | empty:111 |
-| `@WINR_MONEY` | 100 | 19 | 30 | `needs_classification` | empty:100 |
-| `@FUNC` | 92 | 25 | 19 | `needs_classification` | 1_arg:92 |
-| `@REMOVE_GOM_CHAR` | 91 | 9 | 5 | `needs_classification` | 2_arg:91 |
-| `@FRESH_CHAR` | 87 | 15 | 24 | `needs_classification` | 1_arg:87 |
-| `@HIDE_PLAYER` | 84 | 12 | 10 | `needs_classification` | 2_arg:84 |
-| `@SHOW_PLAYER` | 84 | 8 | 7 | `needs_classification` | 2_arg:84 |
-| `@COLD_CHAR` | 84 | 14 | 16 | `needs_classification` | 1_arg:84 |
-| `@GET_PLAYER_GOODS` | 82 | 21 | 35 | `needs_classification` | 2_arg:82 |
-| `@FRESH_GOM_CHAR` | 82 | 10 | 6 | `needs_classification` | 1_arg:82 |
-| `@COLD_GOM_CHAR` | 82 | 10 | 9 | `needs_classification` | 1_arg:82 |
-| `@BTLFX` | 80 | 3 | 0 | `needs_classification` | 2_arg:80 |
-| `@DSP_CNUM` | 80 | 5 | 0 | `display_macro_candidate` | empty:80 |
-| `@RESF` | 79 | 11 | 5 | `needs_classification` | 1_arg:79 |
-| `@CHKF` | 72 | 21 | 26 | `needs_classification` | 1_arg:72 |
-| `@SET_PLAYER_DIR` | 66 | 13 | 16 | `needs_classification` | 2_arg:66 |
-| `@MOVE_CHAR` | 65 | 11 | 19 | `needs_classification` | 3_arg:65 |
-| `@SET_CHAR_DIR` | 63 | 17 | 32 | `needs_classification` | 2_arg:63 |
-| `@GET_PLAYER_DIR` | 63 | 16 | 23 | `needs_classification` | 3_arg:63 |
-| `@SEL_SHOP_TAKE` | 60 | 2 | 0 | `needs_classification` | 1_arg:60 |
-| `@GET_CITEM` | 54 | 11 | 0 | `needs_classification` | empty:54 |
+| `@FKEY` | 160 | 6 | 1 | `authoring_macro_candidate` | empty:160 |
+| `@EQ` | 151 | 34 | 68 | `branch_macro_candidate` | 1_arg:151 |
+| `@SET_CAMERA_GOM_CHAR` | 149 | 7 | 10 | `movement_macro_candidate` | 1_arg:149 |
+| `@HIDE_CHAR` | 148 | 26 | 53 | `movement_macro_candidate` | 2_arg:148 |
+| `@FRESH_PLAYER` | 141 | 15 | 20 | `status_macro_candidate` | 1_arg:141 |
+| `@SET_CAMERA_PARTY` | 133 | 7 | 12 | `movement_macro_candidate` | empty:133 |
+| `@HIDE_GOM_CHAR` | 130 | 11 | 16 | `movement_macro_candidate` | 2_arg:130 |
+| `@SET_REG` | 127 | 31 | 41 | `branch_macro_candidate` | 1_arg:127 |
+| `@COLD_PLAYER` | 122 | 17 | 18 | `status_macro_candidate` | 1_arg:122 |
+| `@SAVE_REG` | 111 | 28 | 34 | `branch_macro_candidate` | empty:111 |
+| `@WINR_MONEY` | 100 | 19 | 30 | `display_macro_candidate` | empty:100 |
+| `@FUNC` | 92 | 25 | 19 | `authoring_macro_candidate` | 1_arg:92 |
+| `@REMOVE_GOM_CHAR` | 91 | 9 | 5 | `movement_macro_candidate` | 2_arg:91 |
+| `@FRESH_CHAR` | 87 | 15 | 24 | `status_macro_candidate` | 1_arg:87 |
+| `@HIDE_PLAYER` | 84 | 12 | 10 | `movement_macro_candidate` | 2_arg:84 |
+| `@SHOW_PLAYER` | 84 | 8 | 7 | `movement_macro_candidate` | 2_arg:84 |
+| `@COLD_CHAR` | 84 | 14 | 16 | `status_macro_candidate` | 1_arg:84 |
+| `@GET_PLAYER_GOODS` | 82 | 21 | 35 | `inventory_macro_candidate` | 2_arg:82 |
+| `@FRESH_GOM_CHAR` | 82 | 10 | 6 | `status_macro_candidate` | 1_arg:82 |
+| `@COLD_GOM_CHAR` | 82 | 10 | 9 | `status_macro_candidate` | 1_arg:82 |
+| `@BTLFX` | 80 | 3 | 0 | `battle_macro_candidate` | 2_arg:80 |
+| `@SET_PLAYER_DIR` | 66 | 13 | 16 | `movement_macro_candidate` | 2_arg:66 |
+| `@MOVE_CHAR` | 65 | 11 | 19 | `movement_macro_candidate` | 3_arg:65 |
+| `@SET_CHAR_DIR` | 63 | 17 | 32 | `movement_macro_candidate` | 2_arg:63 |
+| `@GET_PLAYER_DIR` | 63 | 16 | 23 | `movement_macro_candidate` | 3_arg:63 |
+| `@SEL_SHOP_TAKE` | 60 | 2 | 0 | `inventory_macro_candidate` | 1_arg:60 |
+| `@GET_CITEM` | 54 | 11 | 0 | `inventory_macro_candidate` | empty:54 |
 | `@ONGOTO` | 52 | 14 | 1 | `branch_macro_candidate` | 2_arg:18, 3_arg:13, 4_arg:7, 13_arg:3, 5_arg:2, 8_arg:2, 7_arg:2, 20_arg:1, 6_arg:1, 70_arg:1, 80_arg:1, empty:1 |
-| `@SAVE_GLOBAL_REG` | 47 | 10 | 4 | `needs_classification` | empty:47 |
-| `@SET_HIT_RECT` | 47 | 12 | 12 | `needs_classification` | 3_arg:47 |
-| `@SET_SPECIAL` | 44 | 8 | 6 | `needs_classification` | 3_arg:44 |
-| `@LOAD_GLOBAL_REG` | 43 | 7 | 2 | `needs_classification` | empty:43 |
-| `@SHOW_MANPU_CHAR` | 38 | 8 | 5 | `needs_classification` | 2_arg:38 |
-| `@HIDE_MANPU_CHAR` | 37 | 8 | 5 | `needs_classification` | 1_arg:37 |
+| `@SAVE_GLOBAL_REG` | 47 | 10 | 4 | `branch_macro_candidate` | empty:47 |
+| `@SET_HIT_RECT` | 47 | 12 | 12 | `movement_macro_candidate` | 3_arg:47 |
+| `@SET_SPECIAL` | 44 | 8 | 6 | `authoring_macro_candidate` | 3_arg:44 |
+| `@LOAD_GLOBAL_REG` | 43 | 7 | 2 | `branch_macro_candidate` | empty:43 |
+| `@SHOW_MANPU_CHAR` | 38 | 8 | 5 | `movement_macro_candidate` | 2_arg:38 |
+| `@HIDE_MANPU_CHAR` | 37 | 8 | 5 | `movement_macro_candidate` | 1_arg:37 |
 | `@DSP_PL` | 36 | 9 | 4 | `display_macro_candidate` | empty:36 |
 | `@Q_SPECIAL` | 36 | 8 | 4 | `query_macro_candidate` | 3_arg:36 |
 | `@DSP_LCNAME` | 35 | 14 | 6 | `display_macro_candidate` | empty:35 |
-| `@MUL_ACTIVE_PLAYER` | 33 | 6 | 6 | `needs_classification` | 1_arg:33 |
-| `@GET_TRANS_GOODS` | 31 | 1 | 0 | `needs_classification` | 2_arg:31 |
-| `@SET_GOM_CHAR_DIR` | 29 | 7 | 13 | `needs_classification` | 2_arg:29 |
-| `@SET_COMEBACK_POS` | 27 | 10 | 5 | `needs_classification` | 1_arg:27 |
-| `@GET_CHAR_DIR` | 27 | 12 | 18 | `needs_classification` | 3_arg:27 |
+| `@MUL_ACTIVE_PLAYER` | 33 | 6 | 6 | `movement_macro_candidate` | 1_arg:33 |
+| `@GET_TRANS_GOODS` | 31 | 1 | 0 | `inventory_macro_candidate` | 2_arg:31 |
+| `@SET_GOM_CHAR_DIR` | 29 | 7 | 13 | `movement_macro_candidate` | 2_arg:29 |
+| `@SET_COMEBACK_POS` | 27 | 10 | 5 | `movement_macro_candidate` | 1_arg:27 |
+| `@GET_CHAR_DIR` | 27 | 12 | 18 | `movement_macro_candidate` | 3_arg:27 |
 | `@DSP_ITEML` | 24 | 3 | 0 | `display_macro_candidate` | 1_arg:24 |
-| `@SELQ` | 20 | 4 | 0 | `needs_classification` | empty:20 |
-| `@RES_HIT_RECT` | 19 | 8 | 6 | `needs_classification` | 1_arg:19 |
-| `@INC` | 18 | 7 | 1 | `needs_classification` | empty:18 |
-| `@EQUIP_PLAYER_GOODS` | 16 | 2 | 0 | `needs_classification` | 2_arg:16 |
-| `@CLRLINE` | 15 | 4 | 1 | `needs_classification` | empty:15 |
-| `@INPUT` | 14 | 3 | 1 | `needs_classification` | 1_arg:14 |
-| `@SHOW_MANPU_GOM_CHAR` | 14 | 7 | 1 | `needs_classification` | 2_arg:14 |
-| `@HIDE_MANPU_GOM_CHAR` | 14 | 7 | 1 | `needs_classification` | 1_arg:14 |
-| `@Q_TRACY` | 12 | 2 | 0 | `query_macro_candidate` | 2_arg:12 |
-| `@DELIVERY` | 11 | 3 | 0 | `needs_classification` | 1_arg:11 |
-| `@ANIM` | 10 | 7 | 8 | `needs_classification` | 1_arg:10 |
+| `@SELQ` | 20 | 4 | 0 | `authoring_macro_candidate` | empty:20 |
+| `@RES_HIT_RECT` | 19 | 8 | 6 | `movement_macro_candidate` | 1_arg:19 |
+| `@INC` | 18 | 7 | 1 | `branch_macro_candidate` | empty:18 |
+| `@EQUIP_PLAYER_GOODS` | 16 | 2 | 0 | `inventory_macro_candidate` | 2_arg:16 |
+| `@INPUT` | 14 | 3 | 1 | `authoring_macro_candidate` | 1_arg:14 |
+| `@SHOW_MANPU_GOM_CHAR` | 14 | 7 | 1 | `movement_macro_candidate` | 2_arg:14 |
+| `@HIDE_MANPU_GOM_CHAR` | 14 | 7 | 1 | `movement_macro_candidate` | 1_arg:14 |
+| `@Q_TRACY` | 12 | 2 | 0 | `inventory_macro_candidate` | 2_arg:12 |
+| `@DELIVERY` | 11 | 3 | 0 | `inventory_macro_candidate` | 1_arg:11 |
+| `@ANIM` | 10 | 7 | 8 | `movement_macro_candidate` | 1_arg:10 |
 | `@DSP_PLAYER_GOODS` | 10 | 1 | 0 | `display_macro_candidate` | 2_arg:10 |
-| `@SHOW_MANPU_PLAYER` | 9 | 6 | 2 | `needs_classification` | 2_arg:9 |
-| `@HIDE_MANPU_PLAYER` | 9 | 6 | 2 | `needs_classification` | 1_arg:9 |
-| `@GOODS_SELL_MONEY` | 9 | 7 | 1 | `needs_classification` | 1_arg:9 |
-| `@SEL_PQ` | 9 | 3 | 0 | `needs_classification` | 5_arg:9 |
-| `@TRACY_IN` | 8 | 3 | 1 | `needs_classification` | 1_arg:8 |
-| `@ADD_PSI` | 7 | 5 | 4 | `needs_classification` | 2_arg:7 |
-| `@GET_OBJECT` | 7 | 2 | 0 | `needs_classification` | 1_arg:5, bare:2 |
-| `@SET_TRANS_GOODS` | 7 | 2 | 0 | `needs_classification` | 2_arg:7 |
-| `@SET_BTL_MSG` | 6 | 2 | 0 | `needs_classification` | 1_arg:6 |
-| `@LOC` | 6 | 2 | 0 | `needs_classification` | 2_arg:6 |
-| `@GOODS_TAKE_MONEY` | 5 | 3 | 2 | `needs_classification` | 1_arg:5 |
-| `@KMOJI` | 5 | 2 | 0 | `needs_classification` | 1_arg:5 |
-| `@GET_ACTOR` | 5 | 2 | 0 | `needs_classification` | 1_arg:3, bare:2 |
-| `@TELEPORT` | 5 | 2 | 0 | `needs_classification` | 2_arg:5 |
-| `@GET_GOM_CHAR_DIR` | 5 | 3 | 0 | `needs_classification` | 3_arg:5 |
-| `@NOT` | 5 | 2 | 0 | `needs_classification` | 1_arg:5 |
+| `@SHOW_MANPU_PLAYER` | 9 | 6 | 2 | `movement_macro_candidate` | 2_arg:9 |
+| `@HIDE_MANPU_PLAYER` | 9 | 6 | 2 | `movement_macro_candidate` | 1_arg:9 |
+| `@GOODS_SELL_MONEY` | 9 | 7 | 1 | `inventory_macro_candidate` | 1_arg:9 |
+| `@SEL_PQ` | 9 | 3 | 0 | `authoring_macro_candidate` | 5_arg:9 |
+| `@TRACY_IN` | 8 | 3 | 1 | `inventory_macro_candidate` | 1_arg:8 |
+| `@GET_OBJECT` | 7 | 2 | 0 | `display_macro_candidate` | 1_arg:5, bare:2 |
+| `@SET_TRANS_GOODS` | 7 | 2 | 0 | `inventory_macro_candidate` | 2_arg:7 |
+| `@SET_BTL_MSG` | 6 | 2 | 0 | `battle_macro_candidate` | 1_arg:6 |
+| `@LOC` | 6 | 2 | 0 | `authoring_macro_candidate` | 2_arg:6 |
+| `@GOODS_TAKE_MONEY` | 5 | 3 | 2 | `inventory_macro_candidate` | 1_arg:5 |
+| `@KMOJI` | 5 | 2 | 0 | `authoring_macro_candidate` | 1_arg:5 |
+| `@GET_ACTOR` | 5 | 2 | 0 | `display_macro_candidate` | 1_arg:3, bare:2 |
+| `@TELEPORT` | 5 | 2 | 0 | `movement_macro_candidate` | 2_arg:5 |
+| `@GET_GOM_CHAR_DIR` | 5 | 3 | 0 | `movement_macro_candidate` | 3_arg:5 |
+| `@NOT` | 5 | 2 | 0 | `branch_macro_candidate` | 1_arg:5 |
 | `@Q_SELF` | 5 | 1 | 0 | `query_macro_candidate` | empty:5 |
-| `@WIN_SEL_ITEMQ` | 5 | 2 | 0 | `needs_classification` | 1_arg:5 |
-| `@SEL_TRACY_OUT` | 5 | 1 | 0 | `needs_classification` | empty:5 |
-| `@DISKEY` | 4 | 3 | 1 | `needs_classification` | empty:4 |
-| `@SET_BTL_MES` | 4 | 1 | 0 | `needs_classification` | 1_arg:4 |
-| `@GET_STS_CHAR` | 4 | 1 | 0 | `needs_classification` | 1_arg:4 |
-| `@GET_TRACY_GOODS` | 4 | 2 | 0 | `needs_classification` | 1_arg:4 |
-| `@GET_TRACY` | 4 | 1 | 0 | `needs_classification` | empty:4 |
-| `@GOODS_TYPE_P` | 3 | 3 | 2 | `needs_classification` | 1_arg:3 |
-| `@GET_CNUM` | 3 | 1 | 0 | `needs_classification` | empty:3 |
-| `@RESITEM` | 3 | 1 | 0 | `needs_classification` | empty:3 |
-| `@SET_CAMERA_CHAR` | 3 | 3 | 0 | `needs_classification` | 1_arg:3 |
-| `@SUB` | 2 | 2 | 2 | `needs_classification` | 1_arg:2 |
-| `@GET_PLAYER_NAME` | 2 | 2 | 1 | `needs_classification` | 1_arg:2 |
-| `@I` | 2 | 2 | 0 | `needs_classification` | bare:2 |
-| `@SAVE_STORY` | 2 | 2 | 1 | `needs_classification` | empty:2 |
-| `@LOAD_STORY` | 2 | 2 | 0 | `needs_classification` | empty:2 |
-| `@REPAIR` | 2 | 1 | 0 | `needs_classification` | 1_arg:2 |
-| `@WIN_CHK_ITEM` | 2 | 1 | 0 | `needs_classification` | 1_arg:2 |
-| `@GET_SPECIAL` | 2 | 1 | 0 | `needs_classification` | 2_arg:2 |
+| `@WIN_SEL_ITEMQ` | 5 | 2 | 0 | `inventory_macro_candidate` | 1_arg:5 |
+| `@SEL_TRACY_OUT` | 5 | 1 | 0 | `inventory_macro_candidate` | empty:5 |
+| `@SET_BTL_MES` | 4 | 1 | 0 | `battle_macro_candidate` | 1_arg:4 |
+| `@GET_TRACY_GOODS` | 4 | 2 | 0 | `inventory_macro_candidate` | 1_arg:4 |
+| `@GET_TRACY` | 4 | 1 | 0 | `inventory_macro_candidate` | empty:4 |
+| `@GOODS_TYPE_P` | 3 | 3 | 2 | `inventory_macro_candidate` | 1_arg:3 |
+| `@RESITEM` | 3 | 1 | 0 | `inventory_macro_candidate` | empty:3 |
+| `@SET_CAMERA_CHAR` | 3 | 3 | 0 | `movement_macro_candidate` | 1_arg:3 |
+| `@SUB` | 2 | 2 | 2 | `branch_macro_candidate` | 1_arg:2 |
+| `@GET_PLAYER_NAME` | 2 | 2 | 1 | `display_macro_candidate` | 1_arg:2 |
+| `@I` | 2 | 2 | 0 | `authoring_macro_candidate` | bare:2 |
+| `@SAVE_STORY` | 2 | 2 | 1 | `authoring_macro_candidate` | empty:2 |
+| `@LOAD_STORY` | 2 | 2 | 0 | `authoring_macro_candidate` | empty:2 |
+| `@REPAIR` | 2 | 1 | 0 | `inventory_macro_candidate` | 1_arg:2 |
+| `@WIN_CHK_ITEM` | 2 | 1 | 0 | `inventory_macro_candidate` | 1_arg:2 |
+| `@GET_SPECIAL` | 2 | 1 | 0 | `authoring_macro_candidate` | 2_arg:2 |
 | `@SEL_TEL_GOSUB` | 2 | 1 | 0 | `branch_macro_candidate` | empty:2 |
 | `@Q_FIGHT_MONEY` | 2 | 1 | 0 | `query_macro_candidate` | 1_arg:2 |
-| `@Q_TRACYFULL` | 1 | 1 | 1 | `query_macro_candidate` | empty:1 |
-| `@SEL_GOODS` | 1 | 1 | 1 | `needs_classification` | empty:1 |
-| `@WKEY` | 1 | 1 | 1 | `needs_classification` | 1_arg:1 |
-| `@MUSI_START` | 1 | 1 | 0 | `needs_classification` | empty:1 |
-| `@DIS_HPDEC` | 1 | 1 | 0 | `needs_classification` | empty:1 |
-| `@GET_GOODS_EAT` | 1 | 1 | 0 | `needs_classification` | 1_arg:1 |
-| `@GET_SPICE` | 1 | 1 | 0 | `needs_classification` | 1_arg:1 |
-| `@SEARCH_TRUFFLE` | 1 | 1 | 0 | `needs_classification` | empty:1 |
+| `@Q_TRACYFULL` | 1 | 1 | 1 | `inventory_macro_candidate` | empty:1 |
+| `@SEL_GOODS` | 1 | 1 | 1 | `inventory_macro_candidate` | empty:1 |
+| `@WKEY` | 1 | 1 | 1 | `authoring_macro_candidate` | 1_arg:1 |
+| `@DIS_HPDEC` | 1 | 1 | 0 | `status_macro_candidate` | empty:1 |
+| `@GET_GOODS_EAT` | 1 | 1 | 0 | `inventory_macro_candidate` | 1_arg:1 |
+| `@GET_SPICE` | 1 | 1 | 0 | `inventory_macro_candidate` | 1_arg:1 |
+| `@SEARCH_TRUFFLE` | 1 | 1 | 0 | `inventory_macro_candidate` | empty:1 |
 | `@Q_DUNGEON` | 1 | 1 | 0 | `query_macro_candidate` | empty:1 |
-| `@WARP_MOUSE_POS` | 1 | 1 | 0 | `needs_classification` | empty:1 |
+| `@WARP_MOUSE_POS` | 1 | 1 | 0 | `movement_macro_candidate` | empty:1 |
 | `@Q_EQUIP_ATTR` | 1 | 1 | 0 | `query_macro_candidate` | 1_arg:1 |
-| `@Q_EQUIP_PLAYER_GOODS` | 1 | 1 | 0 | `query_macro_candidate` | 2_arg:1 |
-| `@GET_MEMBERS` | 1 | 1 | 0 | `needs_classification` | empty:1 |
-| `@GET_NEXTLEVEL` | 1 | 1 | 0 | `needs_classification` | 1_arg:1 |
-| `@TRACY_IN_GOODS` | 1 | 1 | 0 | `needs_classification` | 2_arg:1 |
-| `@TRACY_OUT_GOODS` | 1 | 1 | 0 | `needs_classification` | 2_arg:1 |
-| `@CHKF_MSG` | 1 | 1 | 0 | `needs_classification` | empty:1 |
-| `@SETF_MSG` | 1 | 1 | 0 | `needs_classification` | empty:1 |
-| `@RESF_MSG` | 1 | 1 | 0 | `needs_classification` | empty:1 |
+| `@Q_EQUIP_PLAYER_GOODS` | 1 | 1 | 0 | `inventory_macro_candidate` | 2_arg:1 |
+| `@TRACY_IN_GOODS` | 1 | 1 | 0 | `inventory_macro_candidate` | 2_arg:1 |
+| `@TRACY_OUT_GOODS` | 1 | 1 | 0 | `inventory_macro_candidate` | 2_arg:1 |
+| `@CHKF_MSG` | 1 | 1 | 0 | `authoring_macro_candidate` | empty:1 |
+| `@SETF_MSG` | 1 | 1 | 0 | `authoring_macro_candidate` | empty:1 |
+| `@RESF_MSG` | 1 | 1 | 0 | `authoring_macro_candidate` | empty:1 |
 
 ## Next Manual Seams
 
-1. Confirm whether the authoring/format candidates expand to printable
-   layout bytes or remain source-only markup.
-2. Tie branch/control macro candidates to the known `0x06`, `0x08`,
-   `0x09`, and `0x0A` text VM branch/call commands.
-3. Split display macro candidates into direct `0x1C` leaves versus
-   higher-level authoring aliases.
+1. Confirm whether the authoring/format candidates expand to
+   printable/layout bytes or remain source-only markup.
+2. Build expansion models for branch/control macros, especially
+   `@ONGOSUB`, `@SELGOTO`, `@ONGOTO`, register helpers, and compare
+   helpers.
+3. Split display and inventory macro candidates into direct text VM
+   leaves versus higher-level authoring aliases.
+4. Join movement/camera/visibility macros back to map-object and C3
+   event/actionscript semantics instead of forcing them into the text
+   VM alone.

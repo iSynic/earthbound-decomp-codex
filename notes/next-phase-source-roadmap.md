@@ -106,9 +106,10 @@
   `notes/localization-authoring-command-frontier.md` and
   `build/localization-authoring-command-frontier.json` from the ignored
   recovered `.MSG` source. It profiles `202` unique authoring commands without
-  checking in dialogue: `68` already have runtime hints, while the rest are
+  checking in dialogue: `80` now have conservative runtime hints, while the rest are
   bucketed as formatting, branch/control macros, display macros, movement,
-  inventory, query, or `101` still-needs-classification candidates.
+  inventory, query, status, battle, or authoring macro candidates. The
+  still-needs-classification bucket is now `0`.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.

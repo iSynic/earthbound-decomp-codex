@@ -50,8 +50,8 @@ The active text/script asset frontier is now generated at
 recovered localization authoring commands without direct runtime hints.
 The fuller recovered-source syntax profile at
 `notes/localization-authoring-command-frontier.md` now tracks `202` unique
-authoring commands, with `68` conservative runtime hints and `101` commands
-still in the needs-classification bucket.
+authoring commands, with `80` conservative runtime hints and every remaining
+command assigned to a macro-family bucket; `0` commands remain unclassified.
 
 ## Public Good-Enough Definition
 
