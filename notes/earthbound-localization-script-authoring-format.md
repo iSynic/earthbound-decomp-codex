@@ -1,13 +1,35 @@
 # EarthBound localization script authoring-format clue
 
-This note captures a user-supplied screenshot/transcription of one documented
-EarthBound localization script in what appears to be its original authoring
-format. Treat it as a format clue, not ROM-byte evidence.
+This note started as a user-supplied screenshot/transcription of one documented
+EarthBound localization script in what appeared to be its original authoring
+format. We now also have a local copy of recovered localization script source,
+extracted from `EarthBound_Script_Source_1995-03-25.zip`, under the ignored
+`refs/earthbound-script-source-1995-03-25/` directory.
 
-The raw dialogue text from the example is intentionally not checked in here.
-The useful part for this project is the surrounding record shape: how text,
-NPC metadata, and actionscript labels were described together by the original
-tools or localization workflow.
+The recovered source files are intentionally not checked in. The useful public
+artifact for this project is the surrounding record shape and structural index:
+how text, NPC metadata, and actionscript labels were described together by the
+original tools or localization workflow.
+
+Run `python tools/index_localization_script_source.py` to regenerate
+`notes/localization-script-source-index.md` and the ignored
+`build/localization-script-source-index.json` metadata index.
+
+Current local reference summary:
+
+- Archive SHA-256:
+  `61798a4d78fc5b7d6fc9788391639489ff81ad18ded399913ccde1cc16e94f13`.
+- Extracted `.MSG` files: `57`.
+- Text encoding: `cp932` / Shift-JIS.
+- Labels: `6049`, including `3257` `MSG_*` labels.
+- Metadata records: `653` `;@Message:` records and `653` `;@ActionScript:`
+  behavior descriptors.
+- The archive includes `EDEBUG.MSG`, which is the strongest reference found so
+  far for the debug text/menu script source, even though retail ROM reachability
+  is still a separate code-path question.
+- Unlike the Starmen symbolized/raw text dumps in
+  `refs/starmen-earthbound-script/`, this recovered source preserves the
+  original-style `;@...` NPC metadata records.
 
 ## Observed Record Shape
 
@@ -64,9 +86,9 @@ When working on C5-C9/EF text-command semantics or map-object contracts:
 - Preserve message labels and text commands exactly when building manifests.
 - Keep `;@ActionScript:` style descriptions as candidate behavior names only
   until they are tied back to local map-object records or C3 bytecode.
-- If more original-format scripts are found, build a small parser for `;@...`
-  metadata blocks and emit a manifest that can join map objects, sprite
-  identities, action scripts, and message labels.
+- Use `tools/index_localization_script_source.py` for `;@...` metadata and
+  command inventory. Extend it into a crosswalk only when joining to
+  ROM-backed map-object, sprite, action-script, and message-pointer records.
 
 This clue does not change the C3 event/actionscript VM decoder directly, but it
 does strengthen the naming model for NPC behavior contracts and eventual
