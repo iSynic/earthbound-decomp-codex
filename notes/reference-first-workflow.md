@@ -63,6 +63,15 @@ bytecode. They should accelerate C5-C9/EF text-command work and help explain C3
 `ActionScript_QueueTextPointer` targets, but they should not be treated as opcode
 evidence for the C3 action VM.
 
+Single-format clue:
+
+- `notes/earthbound-localization-script-authoring-format.md`: user-supplied
+  screenshot/transcription of one original-format localization script record.
+  It shows `;@...` metadata tying habitat, person, figure, appearance key,
+  actionscript description, goods/check/message hooks, and a `MSG_*` text label
+  together in one authoring record. Use it as a schema clue for future
+  map-object/text-script crosswalks, not as byte-level proof.
+
 ## Lookup loop
 
 Before starting a new chunk, run:
