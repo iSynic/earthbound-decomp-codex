@@ -129,6 +129,16 @@
   dialogue/source payloads ignored while extracting command-window, pair,
   triple, and motif evidence from `685` source records; the current report has
   `180` records with control macros and `1246` focus-motif hits.
+- `tools/build_localization_control_macro_lowering_profiles.py` now generates
+  `notes/localization-control-macro-lowering-profiles.md` and
+  `build/localization-control-macro-lowering-profiles.json`. It adds sanitized
+  argument-category evidence for the highest-value control macro motifs:
+  `3315` target command hits and `686` focus-pair hits, including the fully
+  consistent `@CMP(decimal,decimal) > @ONGOSUB(message_label)` profile.
+- `notes/localization-cmp-ongosub-lowering.md` is the first focused source
+  macro lowering hypothesis. It treats the dominant compare/call motif as
+  source-level conditional-call syntax over existing bank-`01` Text VM
+  primitives, while leaving multi-argument `@ONGOSUB` forms open.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -345,6 +355,8 @@ The first pass should target text-command semantics and authoring syntax:
 - use `notes/localization-control-macro-patterns.md` when choosing the next
   lowering proof; the strongest motifs are `@CMP > @ONGOSUB`,
   `@SET_LOOPREG > @GOSUB`, and `@DSP_ITEM > @SELGOTO`
+- use `notes/localization-cmp-ongosub-lowering.md` as the template for the next
+  focused macro-lowering note; `@SET_LOOPREG > @GOSUB` is the best next target
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.

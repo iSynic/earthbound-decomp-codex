@@ -62,7 +62,12 @@ hits, and an initial expansion model in
 `notes/localization-control-macro-expansion-model.md`. The follow-up pattern
 report at `notes/localization-control-macro-patterns.md` scans `685` recovered
 source records, finds `180` records with control macros, and isolates `1246`
-focus-motif hits without checking in dialogue or full source records.
+focus-motif hits without checking in dialogue or full source records. The
+sanitized argument-category profile at
+`notes/localization-control-macro-lowering-profiles.md` adds `3315` target
+command hits and confirms the strongest compare/call motif as
+`@CMP(decimal,decimal) > @ONGOSUB(message_label)`. The first focused lowering
+hypothesis is now `notes/localization-cmp-ongosub-lowering.md`.
 
 ## Public Good-Enough Definition
 
@@ -178,7 +183,9 @@ that romhackers need to edit confidently:
    first concrete lane for control/register/branch macro lowering, with
    `notes/localization-control-macro-patterns.md` now providing local motif
    evidence for `@CMP > @ONGOSUB`, `@SET_LOOPREG > @GOSUB`, and selection
-   branch macros.
+   branch macros. `notes/localization-cmp-ongosub-lowering.md` treats the
+   dominant compare/call motif as source-level conditional-call syntax over
+   existing bank-`01` Text VM primitives rather than a new runtime opcode.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

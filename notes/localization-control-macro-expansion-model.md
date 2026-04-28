@@ -24,6 +24,8 @@ The generated context report is
 `notes/localization-control-macro-context.md`.
 The generated pattern report is
 `notes/localization-control-macro-patterns.md`.
+The first focused lowering hypothesis is
+`notes/localization-cmp-ongosub-lowering.md`.
 
 ## Local VM Anchors
 
@@ -68,6 +70,10 @@ The generated pattern report sharpens that into command-sequence evidence:
 - `@DSP_ITEM > @SELGOTO`: `188` adjacent hits across `35` files, followed by
   prompt/jump-style continuations such as `@KEY`, `@GOTO`, and `@KEYNP`.
   This supports treating `@SELGOTO` as selection-result branch syntax.
+- The sanitized lowering profile shows the dominant `@CMP > @ONGOSUB` form is
+  always `@CMP(decimal,decimal) > @ONGOSUB(message_label)`. That makes it a
+  repeated compare plus one-label conditional-call motif, not the common shape
+  of a many-label source table.
 
 This strongly suggests a compiler-like authoring layer: the source macros stage
 or compare small values, then expand into existing text VM branch/call helpers.
@@ -87,7 +93,8 @@ templates.
 | `@SET_REG(x)` | Set local source register to an immediate or symbolic value. | medium |
 | `@INC()` | Increment the current staged working-memory/register value. | medium |
 | `@NOT(x)` | Invert or negate a staged predicate before branch use. | low |
-| `@ONGOSUB(...)` | Source-level multi-way call table, probably over current comparison/selector state. | medium |
+| `@ONGOSUB(label)` after `@CMP` | Source-level conditional call controlled by the immediately preceding compare. | high |
+| `@ONGOSUB(...)` multi-arg forms | Source-level multi-way call table or call-chain syntax; still separate from the dominant one-label motif. | medium |
 | `@ONGOTO(...)` | Source-level multi-way jump table, probably over current comparison/selector state. | medium |
 | `@SELGOTO(...)` | Selection-result jump table over the most recent menu/selection value. | medium |
 | `@SEL_TEL_GOSUB()` | Teleport-selection call helper; likely a narrow wrapper over selection and call semantics. | low |
@@ -108,13 +115,13 @@ text VM primitives.
 
 ## Next Manual Proof
 
-The command-sequence-only proof is now generated. The next best proof is to
-choose one high-frequency motif and write its lowering hypothesis against the
-documented bank-`01` text VM commands:
+The `@CMP > @ONGOSUB` lowering hypothesis is now documented. The next best
+proof is to choose the highest-frequency cross-file motif and write its
+lowering hypothesis against the documented bank-`01` text VM commands:
 
 1. `@SET_LOOPREG` followed by repeated `@GOSUB`
-2. `@CMP` paired with `@ONGOSUB`
-3. `@SELGOTO` after selection/display setup
+2. `@SELGOTO` after selection/display setup
+3. multi-argument `@ONGOSUB` / `@ONGOTO` forms
 
 The goal is not to recover dialogue. The goal is to prove the source macro's
 lowering shape against already-documented text VM commands.
