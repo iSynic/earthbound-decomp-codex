@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Seventy-five source-form pilots are also
+byte-count seeds captured for semantic naming. Eighty-three source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -83,8 +83,11 @@ party-look coordinate paths, party-look meteorite paths, winter target release
 paths, Onett door-close gate/coordinate paths, bus bridge obscured routes,
 Sky Runner electric-effect release paths, window-gfx sequence releases, intro
 cast follow-up paths, Threed escaper-appear paths, and bus bridge terminal routes
-are also promoted. Together they represent
-`30025` ROM bytes as labeled
+are also promoted. The latest frontier pass adds battle-swirl interaction and
+visual-countdown paths, NPC attention-path helpers, party-member hop/text paths,
+visual-countdown anchor followers, flyover intro text release, direction-follower
+display reset, and stage brightness terminal helpers. Together they represent
+`30828` ROM bytes as labeled
 event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -184,6 +187,14 @@ Good starting points:
 - `notes/c3-intro-cast-followup-paths-source-pilot.md`
 - `notes/c3-threed-escaper-appear-paths-source-pilot.md`
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
+- `notes/c3-battle-swirl-interaction-paths-source-pilot.md`
+- `notes/c3-battle-swirl-visual-countdown-paths-source-pilot.md`
+- `notes/c3-npc-attention-path-helpers-source-pilot.md`
+- `notes/c3-party-member-hop-text-paths-source-pilot.md`
+- `notes/c3-visual-countdown-anchor-followers-source-pilot.md`
+- `notes/c3-flyover-intro-text-release-paths-source-pilot.md`
+- `notes/c3-direction-follower-display-reset-paths-source-pilot.md`
+- `notes/c3-stage-brightness-terminal-helpers-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`

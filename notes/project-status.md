@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Seventy-five source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `30025` validated bytes across the
+   callback byte-count seeds captured. Eighty-three source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `30828` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -122,7 +122,10 @@ that romhackers need to edit confidently:
    meteorite paths, winter target release paths, Onett door-close
    gate/coordinate paths, bus bridge obscured routes, Sky Runner electric-effect
    release paths, window-gfx sequence releases, intro cast follow-up paths,
-   Threed escaper-appear paths, and bus bridge terminal routes.
+   Threed escaper-appear paths, bus bridge terminal routes, battle-swirl
+   interaction/visual-countdown paths, NPC attention helpers, party-member
+   hop/text paths, visual-countdown anchor followers, flyover intro text release,
+   direction-follower display reset, and stage brightness terminal helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -215,6 +218,14 @@ that romhackers need to edit confidently:
 - `notes/c3-intro-cast-followup-paths-source-pilot.md`
 - `notes/c3-threed-escaper-appear-paths-source-pilot.md`
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
+- `notes/c3-battle-swirl-interaction-paths-source-pilot.md`
+- `notes/c3-battle-swirl-visual-countdown-paths-source-pilot.md`
+- `notes/c3-npc-attention-path-helpers-source-pilot.md`
+- `notes/c3-party-member-hop-text-paths-source-pilot.md`
+- `notes/c3-visual-countdown-anchor-followers-source-pilot.md`
+- `notes/c3-flyover-intro-text-release-paths-source-pilot.md`
+- `notes/c3-direction-follower-display-reset-paths-source-pilot.md`
+- `notes/c3-stage-brightness-terminal-helpers-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/data-contracts-c0-c4.md`

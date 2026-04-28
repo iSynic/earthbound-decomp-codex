@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `75` families, `30025` validated
+- Current source-form event/actionscript pilots: `83` families, `30828` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: seventy-five pilots complete.
+Status: eighty-three pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -473,6 +473,33 @@ Status: seventy-five pilots complete.
   frontier seam covering ebsrc scripts 455-462: compact bus/bridge coordinate
   moves, recurring driver dialog loops, simple route text halts, and one
   transition snapshot release, `C3:DBF2..C3:DD4F`, `349` validated bytes.
+- `notes/c3-battle-swirl-interaction-paths-source-pilot.md`: high-ranked
+  frontier seam covering the battle-swirl/enemy-touch wait helper and ebsrc
+  scripts 773-778, `C3:9E01..C3:9E8B`, `138` validated bytes.
+- `notes/c3-battle-swirl-visual-countdown-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc script 776 plus scripts 779-781 visual countdown
+  halt variants, `C3:9E8B..C3:9EF2`, `103` validated bytes.
+- `notes/c3-npc-attention-path-helpers-source-pilot.md`: high-ranked frontier
+  seam covering cached-neighbor setup, NPC attention coordinator gates, and
+  terrain/horizontal collision monitor tasks, `C3:A401..C3:A48A`, `137`
+  validated bytes.
+- `notes/c3-party-member-hop-text-paths-source-pilot.md`: high-ranked frontier
+  seam covering the field2B32 vertical oscillation helper and ebsrc script 50
+  party-member hop/text release, `C3:B0B6..C3:B13E`, `136` validated bytes.
+- `notes/c3-visual-countdown-anchor-followers-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 440-441 plus their shared
+  visual-countdown random-wait task, `C3:3549..C3:35B5`, `108` validated bytes.
+- `notes/c3-flyover-intro-text-release-paths-source-pilot.md`: high-ranked
+  frontier seam covering the battle-swirl footprint visual reset helper and
+  ebsrc script 765 flyover intro text release, `C3:9AC7..C3:9AFA`, `51`
+  validated bytes.
+- `notes/c3-direction-follower-display-reset-paths-source-pilot.md`:
+  high-ranked frontier seam covering the compact ebsrc script 4/7 direction
+  follower and display reset paths, `C3:A272..C3:A299`, `39` validated bytes.
+- `notes/c3-stage-brightness-terminal-helpers-source-pilot.md`: high-ranked
+  frontier seam covering three small theater-stage brightness/movement terminal
+  helpers, `C3:1D4F..C3:1D6A`, `C3:1DF4..C3:1E14`, and `C3:1E2D..C3:1E4D`,
+  `91` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -561,6 +588,14 @@ Candidate/follow-up families for this milestone:
 - `C3:62C0..C3:6356` intro cast follow-up paths scripts 826-829 - pilot complete
 - `C3:7A7C..C3:7B0B` Threed escaper appear paths scripts 665-666 - pilot complete
 - `C3:DBF2..C3:DD4F` bus bridge terminal paths scripts 455-462 - pilot complete
+- `C3:9E01..C3:9E8B` battle-swirl interaction paths scripts 773-778 - pilot complete
+- `C3:9E8B..C3:9EF2` battle-swirl visual countdown paths scripts 776 and 779-781 - pilot complete
+- `C3:A401..C3:A48A` NPC attention path helpers - pilot complete
+- `C3:B0B6..C3:B13E` party-member hop/text path script 50 - pilot complete
+- `C3:3549..C3:35B5` visual-countdown anchor followers scripts 440-441 - pilot complete
+- `C3:9AC7..C3:9AFA` flyover intro text release script 765 - pilot complete
+- `C3:A272..C3:A299` direction follower/display reset scripts 4 and 7 - pilot complete
+- `C3:1D4F..C3:1D6A`, `C3:1DF4..C3:1E14`, and `C3:1E2D..C3:1E4D` stage brightness terminal helpers - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -609,12 +644,13 @@ paths, bus bridge obscured routes, Sky Runner electric-effect release paths,
 window-gfx sequence releases, intro cast follow-up paths, Threed
 escaper-appear paths, and var0 animation/collision-probe,
 area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
-position door-close helpers, and position/text-yield paths now have source-form
-pilots. The refreshed frontier currently points at `C3:9E01..C3:9E8B` as the
-best ready seam;
-adjacent follow-ups include
-`C3:3DD4..C3:4392` once the
-`C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`
-callback contract is pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback
-contract is pinned, and the blocked `C3:5231` script 801
+position door-close helpers, position/text-yield paths, battle-swirl
+interaction/visual-countdown paths, NPC attention helpers, party-member hop/text
+paths, visual-countdown anchor followers, flyover intro text release,
+direction-follower display reset, and stage brightness terminal helpers now have
+source-form pilots. The refreshed frontier currently points at the tiny
+`C3:BAD7..C3:BAEA`, `C3:C167..C3:C17A`, `C3:2138..C3:2149`, and
+`C3:6D18..C3:6D29` terminal batches as the remaining cheap ready seams; after
+those, the higher-value path is pinning callback contracts such as `C4:74A8`,
+`C4:6B51`, `C4:67E6`, `C0:C682`, and the blocked `C3:5231` script 801
 cast-scroll/cast-spawn payload.
