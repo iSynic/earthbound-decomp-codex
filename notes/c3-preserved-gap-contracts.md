@@ -8,7 +8,7 @@ This report explains the three raw regions preserved by the C3 event/actionscrip
 
 - preserved groups: `3`
 - preserved bytes: `1930`
-- subsegments: `34`
+- subsegments: `36`
 - status: `closed-by-contract`
 
 | Range | Bytes | Name | Status | SHA1 |
@@ -93,7 +93,8 @@ Evidence:
 
 | Range | Bytes | Class | Name | Source expectation |
 | --- | ---: | --- | --- | --- |
-| `C3:DFE8..C3:E012` | 42 | `raw-or-named-data` | `PathfindingContextGatePrefixTable` | table data; keep raw until the exact C0:C0B4/C0:C19B/C0:C251 gate indexing is named |
+| `C3:DFE8..C3:DFF0` | 8 | `contract-backed-data` | `PathfindingTileContextGateTable` | rom-table contract PATHFINDING_TILE_CONTEXT_GATE_TABLE |
+| `C3:DFF0..C3:E012` | 34 | `raw-or-named-data` | `PathfindingContextGatePrefixTail` | table data; keep raw until the exact downstream pathfinding-context indexing is named |
 | `C3:E012..C3:E09A` | 136 | `raw-or-named-data` | `PathfindingContextGateTable` | table data; preserve legacy sublabel until record semantics are exact |
 | `C3:E09A..C3:E0BC` | 34 | `raw-or-named-data` | `PathfindingContextGatePaddingOrTail` | table tail/padding; preserve until consumer indexing distinguishes it |
 | `C3:E0BC..C3:E0F4` | 56 | `raw-or-named-data` | `PathfindingContextGateWordTableA` | word table; preserve until the C0 consumer field names are promoted |
@@ -101,10 +102,11 @@ Evidence:
 | `C3:E12C..C3:E148` | 28 | `contract-backed-data` | `InputDirectionPermissionMaskTable` | rom-table contract INPUT_DIRECTION_PERMISSION_MASK_TABLE |
 | `C3:E148..C3:E158` | 16 | `contract-backed-data` | `InteractionProbeDirectionXOffsetTable` | rom-table contract INTERACTION_PROBE_DIRECTION_X_OFFSETS |
 | `C3:E158..C3:E168` | 16 | `contract-backed-data` | `InteractionProbeDirectionYOffsetTable` | rom-table contract INTERACTION_PROBE_DIRECTION_Y_OFFSETS |
-| `C3:E168..C3:E1D8` | 112 | `raw-or-named-data` | `InteractionFacingRemapAndResultTables` | table data; consumer notes exist, but final field names remain cautious |
+| `C3:E168..C3:E178` | 16 | `contract-backed-data` | `InteractionResultFacingRemapTable` | rom-table contract INTERACTION_RESULT_FACING_REMAP_TABLE |
+| `C3:E178..C3:E1D8` | 96 | `raw-or-named-data` | `InteractionFacingRemapAndResultTables` | table data; consumer notes exist, but final field names remain cautious |
 | `C3:E1D8..C3:E200` | 40 | `contract-backed-data-prefix` | `MapEntityPlacementDirectionParamTable` | rom-table contract plus adjacent raw page C3:E1E0 |
 | `C3:E200..C3:E230` | 48 | `contract-backed-data` | `StagedMovementDirectionAndSubtileOffsetTables` | rom-table contracts for staged movement direction/subtile offsets |
-| `C3:E230..C3:E250` | 32 | `data-or-helper-frontier` | `DoorCandidateDirectionOffsetTables` | direction-dependent door candidate offset data |
+| `C3:E230..C3:E250` | 32 | `contract-backed-data` | `DoorCandidateDirectionOffsetTables` | rom-table contracts DOOR_CANDIDATE_DIRECTION_OFFSET_X/Y |
 | `C3:E250..C3:E3F8` | 424 | `raw-or-named-data` | `FileSelectOrNameEntryCharacterSpriteData` | sprite/OAM-like data; preserve until exact UI consumer is pinned |
 | `C3:E3F8..C3:E40E` | 22 | `raw-or-named-data` | `MenuCursorTilePrefixTable` | tile-word data; keep cautious until direct consumer is pinned |
 | `C3:E40E..C3:E41C` | 14 | `contract-backed-data` | `TitleNameBufferCursorTileRun` | rom-table contract TITLE_NAME_BUFFER_CURSOR_TILE_RUN |
@@ -112,7 +114,8 @@ Evidence:
 | `C3:E44C..C3:E450` | 4 | `raw-or-named-data` | `WindowTickTransferPreludeData` | four-byte data island before C3:E450 source helper |
 
 Segment notes:
-- `C3:DFE8..C3:E012` `PathfindingContextGatePrefixTable`: The C0 path-consumer wrappers consult the C3:DFE8 table family before running path searches. Evidence: `notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md:68`.
+- `C3:DFE8..C3:DFF0` `PathfindingTileContextGateTable`: C0:C0B4 and C0:C19B mask the current tile context to 0..7, index these gate bytes, and abort the path consumer if the selected byte is zero. Evidence: `notes/c3-late-interaction-table-contracts.md`.
+- `C3:DFF0..C3:E012` `PathfindingContextGatePrefixTail`: The first eight gate bytes are promoted; this tail remains part of the larger pathfinding-context table family. Evidence: `notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md:68`, `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E012..C3:E09A` `PathfindingContextGateTable`: Legacy disassembly sublabels this word-pair corridor as DATA_C3E012. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45055`.
 - `C3:E09A..C3:E0BC` `PathfindingContextGatePaddingOrTail`: Legacy marks C3:E09A as a distinct data anchor without payload comments. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45076`.
 - `C3:E0BC..C3:E0F4` `PathfindingContextGateWordTableA`: Legacy sublabel DATA_C3E0BC; values are repeated 32-bit-looking word pairs. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45082`.
@@ -120,10 +123,11 @@ Segment notes:
 - `C3:E12C..C3:E148` `InputDirectionPermissionMaskTable`: C0:404F maps active input nibbles through this permission-mask table. Evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md:25`.
 - `C3:E148..C3:E158` `InteractionProbeDirectionXOffsetTable`: Signed X offsets for one facing-direction interaction probe. Evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md:26`.
 - `C3:E158..C3:E168` `InteractionProbeDirectionYOffsetTable`: Signed Y offsets for one facing-direction interaction probe. Evidence: `notes/input-direction-and-interaction-probes-c0402b-c04116.md:27`.
-- `C3:E168..C3:E1D8` `InteractionFacingRemapAndResultTables`: C0:42C2 maps player-facing direction through this table family for interaction-result class 1. Evidence: `notes/interaction-result-classes.md:18`, `notes/interaction-result-consumers.md:106`.
+- `C3:E168..C3:E178` `InteractionResultFacingRemapTable`: C0:42C2 maps the player-facing value through these eight words and stores the result to $2AF6[target]. Evidence: `notes/c3-late-interaction-table-contracts.md`.
+- `C3:E178..C3:E1D8` `InteractionFacingRemapAndResultTables`: The first eight class-1 remap words are promoted; this adjacent table tail remains cautious. Evidence: `notes/interaction-result-classes.md:18`, `notes/interaction-result-consumers.md:106`, `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E1D8..C3:E200` `MapEntityPlacementDirectionParamTable`: C0 entity placement/update path reads direction-like parameter words from this prefix. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:37`.
 - `C3:E200..C3:E230` `StagedMovementDirectionAndSubtileOffsetTables`: Primary/alternate direction parameter and 8-pixel subtile offset sets. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:49`.
-- `C3:E230..C3:E250` `DoorCandidateDirectionOffsetTables`: Coarse-cell direction offset tables for type-6 door candidate probing. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:52`.
+- `C3:E230..C3:E250` `DoorCandidateDirectionOffsetTables`: Coarse-cell X/Y direction offset tables for C4:334A door candidate probing. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:52`, `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E250..C3:E3F8` `FileSelectOrNameEntryCharacterSpriteData`: Legacy comment says this block is related to file select; later comments connect nearby data to name-entry character sprites. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45136`.
 - `C3:E3F8..C3:E40E` `MenuCursorTilePrefixTable`: Tile/attribute words adjacent to the animated menu cursor tables. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:25`.
 - `C3:E40E..C3:E41C` `TitleNameBufferCursorTileRun`: Four title/name buffer cursor tile words plus adjacent base cursor tile data. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:38`.

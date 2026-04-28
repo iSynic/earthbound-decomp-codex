@@ -10,7 +10,7 @@
   "summary": {
     "preserved_groups": 3,
     "preserved_bytes": 1930,
-    "segments": 34,
+    "segments": 36,
     "status": "closed-by-contract"
   },
   "groups": [
@@ -347,18 +347,35 @@
       "segments": [
         {
           "start": "C3:DFE8",
-          "end": "C3:E012",
-          "name": "PathfindingContextGatePrefixTable",
-          "classification": "raw-or-named-data",
-          "source_expectation": "table data; keep raw until the exact C0:C0B4/C0:C19B/C0:C251 gate indexing is named",
+          "end": "C3:DFF0",
+          "name": "PathfindingTileContextGateTable",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract PATHFINDING_TILE_CONTEXT_GATE_TABLE",
           "evidence": [
-            "notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md:68"
+            "notes/c3-late-interaction-table-contracts.md"
           ],
-          "note": "The C0 path-consumer wrappers consult the C3:DFE8 table family before running path searches.",
-          "range": "C3:DFE8..C3:E012",
-          "size": 42,
-          "sha1": "6068b50318aac8a6b9572a59a248e2664e8924ff",
-          "first_bytes": "01 01 01 00 01 01 00 00 01 00 02 00 03 00 04 00",
+          "note": "C0:C0B4 and C0:C19B mask the current tile context to 0..7, index these gate bytes, and abort the path consumer if the selected byte is zero.",
+          "range": "C3:DFE8..C3:DFF0",
+          "size": 8,
+          "sha1": "f71dfd56b84fd7994f67d60122445bbf67c33f7a",
+          "first_bytes": "01 01 01 00 01 01 00 00",
+          "last_bytes": "01 01 01 00 01 01 00 00"
+        },
+        {
+          "start": "C3:DFF0",
+          "end": "C3:E012",
+          "name": "PathfindingContextGatePrefixTail",
+          "classification": "raw-or-named-data",
+          "source_expectation": "table data; keep raw until the exact downstream pathfinding-context indexing is named",
+          "evidence": [
+            "notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md:68",
+            "notes/c3-late-interaction-table-contracts.md"
+          ],
+          "note": "The first eight gate bytes are promoted; this tail remains part of the larger pathfinding-context table family.",
+          "range": "C3:DFF0..C3:E012",
+          "size": 34,
+          "sha1": "2e2a68b3149580e18d4c313b132c13ec88ae4031",
+          "first_bytes": "01 00 02 00 03 00 04 00 05 00 06 00 07 00 08 00",
           "last_bytes": "0A 00 0B 00 0C 00 0D 00 0E 00 0F 00 10 00 11 00"
         },
         {
@@ -475,19 +492,36 @@
         },
         {
           "start": "C3:E168",
+          "end": "C3:E178",
+          "name": "InteractionResultFacingRemapTable",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract INTERACTION_RESULT_FACING_REMAP_TABLE",
+          "evidence": [
+            "notes/c3-late-interaction-table-contracts.md"
+          ],
+          "note": "C0:42C2 maps the player-facing value through these eight words and stores the result to $2AF6[target].",
+          "range": "C3:E168..C3:E178",
+          "size": 16,
+          "sha1": "1c11ce3e6f1c6f7ee23deebcaae71de4375b9f66",
+          "first_bytes": "04 00 04 00 06 00 00 00 00 00 00 00 02 00 04 00",
+          "last_bytes": "04 00 04 00 06 00 00 00 00 00 00 00 02 00 04 00"
+        },
+        {
+          "start": "C3:E178",
           "end": "C3:E1D8",
           "name": "InteractionFacingRemapAndResultTables",
           "classification": "raw-or-named-data",
           "source_expectation": "table data; consumer notes exist, but final field names remain cautious",
           "evidence": [
             "notes/interaction-result-classes.md:18",
-            "notes/interaction-result-consumers.md:106"
+            "notes/interaction-result-consumers.md:106",
+            "notes/c3-late-interaction-table-contracts.md"
           ],
-          "note": "C0:42C2 maps player-facing direction through this table family for interaction-result class 1.",
-          "range": "C3:E168..C3:E1D8",
-          "size": 112,
-          "sha1": "ebdc9849ee78ceed554b4f3d1c51d7ddfaf2da14",
-          "first_bytes": "04 00 04 00 06 00 00 00 00 00 00 00 02 00 04 00",
+          "note": "The first eight class-1 remap words are promoted; this adjacent table tail remains cautious.",
+          "range": "C3:E178..C3:E1D8",
+          "size": 96,
+          "sha1": "77e81379cc8376f96689b25cd885a24e4a249879",
+          "first_bytes": "00 00 00 04 00 08 00 0C 00 02 00 06 00 0A 00 0E",
           "last_bytes": "00 02 00 0A 00 06 00 0E 00 03 00 0B 00 07 00 0F"
         },
         {
@@ -526,12 +560,13 @@
           "start": "C3:E230",
           "end": "C3:E250",
           "name": "DoorCandidateDirectionOffsetTables",
-          "classification": "data-or-helper-frontier",
-          "source_expectation": "direction-dependent door candidate offset data",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contracts DOOR_CANDIDATE_DIRECTION_OFFSET_X/Y",
           "evidence": [
-            "notes/c3-map-movement-parameter-table-e1d8-e240.md:52"
+            "notes/c3-map-movement-parameter-table-e1d8-e240.md:52",
+            "notes/c3-late-interaction-table-contracts.md"
           ],
-          "note": "Coarse-cell direction offset tables for type-6 door candidate probing.",
+          "note": "Coarse-cell X/Y direction offset tables for C4:334A door candidate probing.",
           "range": "C3:E230..C3:E250",
           "size": 32,
           "sha1": "f7051eb36c33656cf03bd523d76e72e72e632b57",

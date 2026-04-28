@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `85`
-- fields: `448`
+- contracts: `89`
+- fields: `452`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -73,9 +73,11 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | BATTLE_SELECTION_SNAPSHOT | wram-overlay | `7E:9FFA` | `0x4E` | 1 | `battle_menu_selection_header_plus_snapshot` | 17 | corroborated-overlay |
 | LOADED_BG_DATA_LAYER1 | wram-root | `7E:ADD4` | `0x77` | 1 | `loaded_bg_data` | 36 | corroborated |
 | LOADED_BG_DATA_LAYER2 | wram-root | `7E:AE4B` | `0x77` | 1 | `loaded_bg_data` | 36 | corroborated |
+| PATHFINDING_TILE_CONTEXT_GATE_TABLE | rom-table | `C3:DFE8` | `0x1` | 8 | `pathfinding_tile_context_gate` | 1 | corroborated |
 | INPUT_DIRECTION_PERMISSION_MASK_TABLE | rom-table | `C3:E12C` | `0x2` | 14 | `input_direction_permission_mask` | 1 | corroborated |
 | INTERACTION_PROBE_DIRECTION_X_OFFSETS | rom-table | `C3:E148` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
 | INTERACTION_PROBE_DIRECTION_Y_OFFSETS | rom-table | `C3:E158` | `0x2` | 8 | `signed_direction_offset_word` | 1 | corroborated |
+| INTERACTION_RESULT_FACING_REMAP_TABLE | rom-table | `C3:E168` | `0x2` | 8 | `interaction_result_facing_remap` | 1 | corroborated |
 | MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE | rom-table | `C3:E1D8` | `0x2` | 20 | `map_entity_placement_direction_param` | 1 | proposed |
 | STAGED_MOVEMENT_PRIMARY_DIRECTION_PARAM_TABLE | rom-table | `C3:E200` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
 | STAGED_MOVEMENT_ALTERNATE_DIRECTION_PARAM_TABLE | rom-table | `C3:E208` | `0x2` | 4 | `staged_movement_direction_param` | 1 | corroborated |
@@ -83,6 +85,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | STAGED_MOVEMENT_SUBTILE_OFFSET_SET_A_Y | rom-table | `C3:E218` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
 | STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_X | rom-table | `C3:E220` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
 | STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_Y | rom-table | `C3:E228` | `0x2` | 4 | `signed_subtile_offset_word` | 1 | corroborated |
+| DOOR_CANDIDATE_DIRECTION_OFFSET_X | rom-table | `C3:E230` | `0x2` | 8 | `door_candidate_direction_offset_word` | 1 | corroborated |
+| DOOR_CANDIDATE_DIRECTION_OFFSET_Y | rom-table | `C3:E240` | `0x2` | 8 | `door_candidate_direction_offset_word` | 1 | corroborated |
 | TITLE_NAME_BUFFER_CURSOR_TILE_RUN | rom-table | `C3:E40E` | `0x8` | 1 | `four_tile_word_run` | 4 | corroborated |
 | BLINKING_TRIANGLE_WAIT_FRAME_TILES | rom-table | `C3:E41C` | `0x8` | 4 | `four_tile_word_frame` | 4 | corroborated |
 | BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS | rom-table | `C3:F871` | `0x8` | 8 | `battle_visual_strip_offset_page` | 4 | corroborated |
@@ -1370,6 +1374,21 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | `0x74` | `distortion_speed_acceleration` | 1 | 1 |  |
 | `0x75` | `distortion_compression_acceleration` | 2 | 1 |  |
 
+### PATHFINDING_TILE_CONTEXT_GATE_TABLE
+
+- domain: `rom-table`
+- address: `C3:DFE8`
+- stride: `0x1`
+- count: `8`
+- struct: `pathfinding_tile_context_gate`
+- confidence: `corroborated`
+- note: Low-byte tile-context gate table consumed by C0:C0B4 and C0:C19B after C0:0AA1; zero aborts the path lane copy before pathfinding.
+- evidence: `notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md`, `notes/c3-late-interaction-table-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `gate_enabled` | 1 | 1 | nonzero allows the C0:C0B4/C0:C19B path consumer to continue after C0:0AA1 |
+
 ### INPUT_DIRECTION_PERMISSION_MASK_TABLE
 
 - domain: `rom-table`
@@ -1414,6 +1433,21 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `offset_pixels` | 2 | 1 | signed probe offset in pixels for one direction index |
+
+### INTERACTION_RESULT_FACING_REMAP_TABLE
+
+- domain: `rom-table`
+- address: `C3:E168`
+- stride: `0x2`
+- count: `8`
+- struct: `interaction_result_facing_remap`
+- confidence: `corroborated`
+- note: Facing/result-state remap consumed by C0:42C2; the selected word is stored to $2AF6[target] for class-1 interaction results.
+- evidence: `notes/interaction-result-classes.md`, `notes/interaction-result-consumers.md`, `notes/c3-late-interaction-table-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `target_facing_state` | 2 | 1 | stored into $2AF6[target] by C0:42C2 |
 
 ### MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE
 
@@ -1519,6 +1553,36 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `value` | 2 | 1 |  |
+
+### DOOR_CANDIDATE_DIRECTION_OFFSET_X
+
+- domain: `rom-table`
+- address: `C3:E230`
+- stride: `0x2`
+- count: `8`
+- struct: `door_candidate_direction_offset_word`
+- confidence: `corroborated`
+- note: X coarse-cell direction offsets consumed by C4:334A while probing cached door fallback candidates.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`, `notes/c3-late-interaction-table-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `cell_delta` | 2 | 1 | signed coarse-cell offset added by C4:334A |
+
+### DOOR_CANDIDATE_DIRECTION_OFFSET_Y
+
+- domain: `rom-table`
+- address: `C3:E240`
+- stride: `0x2`
+- count: `8`
+- struct: `door_candidate_direction_offset_word`
+- confidence: `corroborated`
+- note: Y coarse-cell direction offsets consumed by C4:334A while probing cached door fallback candidates.
+- evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md`, `notes/c3-late-interaction-table-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `cell_delta` | 2 | 1 | signed coarse-cell offset added by C4:334A |
 
 ### TITLE_NAME_BUFFER_CURSOR_TILE_RUN
 

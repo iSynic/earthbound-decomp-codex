@@ -14,7 +14,7 @@ SCHEMA = "earthbound-decomp.c3-source-data-map.v1"
 DEFAULT_BANKCONFIG = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "bankconfig" / "US" / "bank03.asm"
 DEFAULT_WORKING_NAMES = ROOT / "build" / "working-names-c3.json"
 DEFAULT_SCRIPT_PAYLOADS = ROOT / "build" / "script-payloads-c3.json"
-DEFAULT_CONTRACTS = ROOT / "build" / "data-contracts-c0-c3.json"
+DEFAULT_CONTRACTS = ROOT / "build" / "data-contracts-c0-c4.json"
 
 INCLUDE_RE = re.compile(r'(?:\.INCLUDE|LOCALEINCLUDE)\s+"([^"]+)"', re.IGNORECASE)
 FLAT_ADDR_RE = re.compile(r"\b(?:UNKNOWN_|REDIRECT_|DATA_|CODE_|NULL_)?(C3[0-9A-F]{4})\b")
@@ -146,6 +146,14 @@ def load_contracts(path: Path) -> dict[str, dict[str, Any]]:
     }
 
 
+def contract_byte_length(contract: dict[str, Any]) -> int | None:
+    stride = contract.get("stride")
+    count = contract.get("count")
+    if not isinstance(stride, int) or not isinstance(count, int):
+        return None
+    return stride * count
+
+
 def parse_bankconfig(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
@@ -215,6 +223,13 @@ def classify_row(
         return "movement-pattern-data", "export as compact movement-pattern data"
 
     if contract:
+        contract_size = contract_byte_length(contract)
+        row_size = row.get("size")
+        if isinstance(row_size, int) and isinstance(contract_size, int) and contract_size < row_size:
+            return (
+                "contract-backed-data-prefix",
+                "emit leading bytes from data-contract manifest; split or preserve the remaining include tail",
+            )
         return "contract-backed-data", "emit as structured ROM table from data-contract manifest"
 
     if source_kind == "event-script-include":
@@ -469,6 +484,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
         "| `event-script-asset`, `event-bytecode-asset`, `event-bytecode-label` | Event/actionscript bytecode; export as script assets first. |",
         "| `movement-pattern-data`, `effect-script-asset` | VM-adjacent payloads, but not event bytecode. |",
         "| `contract-backed-data` | Structured ROM table with a data-contract entry. |",
+        "| `contract-backed-data-prefix` | Include starts with a structured leading contract and a remaining tail that still needs splitting or preservation. |",
         "| `mixed-data-source-row` | Addressed data include that contains embedded ordinary source-helper labels and should be split before source emission. |",
         "| `raw-or-named-data`, `source-adjacent-data`, `data-or-helper-frontier` | Data/include starts that are documented but may need later consumer polishing. |",
         "| `null-stub` | Explicit null/padding stub; preserve, but keep out of source-helper worklists. |",

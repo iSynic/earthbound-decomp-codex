@@ -285,12 +285,29 @@ RAW_D8_COLLISION_DATA_FIELDS = (
 
 C3_WORD_TABLE_VALUE_FIELD = (field("value", 0x00, 2),)
 
+PATHFINDING_TILE_CONTEXT_GATE_FIELDS = (
+    field(
+        "gate_enabled",
+        0x00,
+        1,
+        note="nonzero allows the C0:C0B4/C0:C19B path consumer to continue after C0:0AA1",
+    ),
+)
+
 INPUT_DIRECTION_PERMISSION_MASK_FIELDS = (
     field("permission_mask", 0x00, 2, note="bitmask consumed by C0:404F MapInputToDirection"),
 )
 
 INTERACTION_PROBE_DIRECTION_OFFSET_FIELDS = (
     field("offset_pixels", 0x00, 2, note="signed probe offset in pixels for one direction index"),
+)
+
+INTERACTION_RESULT_FACING_REMAP_FIELDS = (
+    field("target_facing_state", 0x00, 2, note="stored into $2AF6[target] by C0:42C2"),
+)
+
+DOOR_CANDIDATE_DIRECTION_OFFSET_FIELDS = (
+    field("cell_delta", 0x00, 2, note="signed coarse-cell offset added by C4:334A"),
 )
 
 MENU_CURSOR_TILE_RUN_FIELDS = (
@@ -1098,6 +1115,21 @@ def extra_contracts() -> list[Contract]:
             fields=LOADED_BG_DATA_FIELDS,
         ),
         Contract(
+            id="PATHFINDING_TILE_CONTEXT_GATE_TABLE",
+            domain="rom-table",
+            address="C3:DFE8",
+            stride=0x01,
+            count=8,
+            struct_name="pathfinding_tile_context_gate",
+            confidence="corroborated",
+            note="Low-byte tile-context gate table consumed by C0:C0B4 and C0:C19B after C0:0AA1; zero aborts the path lane copy before pathfinding.",
+            evidence=(
+                "notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md",
+                "notes/c3-late-interaction-table-contracts.md",
+            ),
+            fields=PATHFINDING_TILE_CONTEXT_GATE_FIELDS,
+        ),
+        Contract(
             id="INPUT_DIRECTION_PERMISSION_MASK_TABLE",
             domain="rom-table",
             address="C3:E12C",
@@ -1141,6 +1173,22 @@ def extra_contracts() -> list[Contract]:
                 "notes/front-interaction-flow.md",
             ),
             fields=INTERACTION_PROBE_DIRECTION_OFFSET_FIELDS,
+        ),
+        Contract(
+            id="INTERACTION_RESULT_FACING_REMAP_TABLE",
+            domain="rom-table",
+            address="C3:E168",
+            stride=0x02,
+            count=8,
+            struct_name="interaction_result_facing_remap",
+            confidence="corroborated",
+            note="Facing/result-state remap consumed by C0:42C2; the selected word is stored to $2AF6[target] for class-1 interaction results.",
+            evidence=(
+                "notes/interaction-result-classes.md",
+                "notes/interaction-result-consumers.md",
+                "notes/c3-late-interaction-table-contracts.md",
+            ),
+            fields=INTERACTION_RESULT_FACING_REMAP_FIELDS,
         ),
         Contract(
             id="MAP_ENTITY_PLACEMENT_DIRECTION_PARAM_TABLE",
@@ -1228,6 +1276,36 @@ def extra_contracts() -> list[Contract]:
             note="Y offsets for staged movement subtile offset set B.",
             evidence=("notes/c3-map-movement-parameter-table-e1d8-e240.md",),
             fields=C3_WORD_TABLE_VALUE_FIELD,
+        ),
+        Contract(
+            id="DOOR_CANDIDATE_DIRECTION_OFFSET_X",
+            domain="rom-table",
+            address="C3:E230",
+            stride=0x02,
+            count=8,
+            struct_name="door_candidate_direction_offset_word",
+            confidence="corroborated",
+            note="X coarse-cell direction offsets consumed by C4:334A while probing cached door fallback candidates.",
+            evidence=(
+                "notes/c3-map-movement-parameter-table-e1d8-e240.md",
+                "notes/c3-late-interaction-table-contracts.md",
+            ),
+            fields=DOOR_CANDIDATE_DIRECTION_OFFSET_FIELDS,
+        ),
+        Contract(
+            id="DOOR_CANDIDATE_DIRECTION_OFFSET_Y",
+            domain="rom-table",
+            address="C3:E240",
+            stride=0x02,
+            count=8,
+            struct_name="door_candidate_direction_offset_word",
+            confidence="corroborated",
+            note="Y coarse-cell direction offsets consumed by C4:334A while probing cached door fallback candidates.",
+            evidence=(
+                "notes/c3-map-movement-parameter-table-e1d8-e240.md",
+                "notes/c3-late-interaction-table-contracts.md",
+            ),
+            fields=DOOR_CANDIDATE_DIRECTION_OFFSET_FIELDS,
         ),
         Contract(
             id="TITLE_NAME_BUFFER_CURSOR_TILE_RUN",
