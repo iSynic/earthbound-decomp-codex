@@ -4,7 +4,7 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 
 - status: `OK`
 - mode: `durable-scaffold`
-- modules: `52`
+- modules: `53`
 - non-OK modules: `0`
 - mismatches: `0`
 
@@ -53,7 +53,8 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 | `OK` | `src/e1/asset_unknown_e1cfaf.asm` | `E1:CFAF..E1:D4F4` | 1349 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `OK` | `src/e1/asset_unknown_e1d4f4.asm` | `E1:D4F4..E1:D5E8` | 244 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `OK` | `src/e1/asset_unknown_e1d5e8.asm` | `E1:D5E8..E1:D6E1` | 249 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
-| `OK` | `src/e1/asset_unknown_e1d6e1.asm` | `E1:D6E1..E1:D835` | 340 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
+| `OK` | `src/e1/asset_cast_scene_prelude_gfx.asm` | `E1:D6E1..E1:D815` | 308 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
+| `OK` | `src/e1/table_042_data_unknown_e1d815_asm.asm` | `E1:D815..E1:D835` | 32 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `OK` | `src/e1/asset_cast_names_gfx.asm` | `E1:D835..E1:E4E6` | 3249 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `OK` | `src/e1/asset_unknown_e1e4e6.asm` | `E1:E4E6..E1:E528` | 66 | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `OK` | `src/e1/asset_staff_credits_font_graphics.asm` | `E1:E528..E1:E914` | 1004 | 0 | `src/e1/bank_e1_helpers_asar.asm` |

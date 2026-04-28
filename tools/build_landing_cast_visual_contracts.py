@@ -60,14 +60,15 @@ BUNDLES: list[dict[str, Any]] = [
     {
         "id": "ending.cast_name_visuals",
         "label": "Ending cast-name visual support",
-        "status": "runtime-loader-backed-with-manifest-split-followup",
+        "status": "runtime-loader-backed",
         "runtime_owner": "C4:E369 LoadCastScene",
         "assets": [
             "asset.e1.unknown_e1d6e1",
+            "table.e1.046_data_unknown_e1d815_asm",
             "asset.e1.cast_names_gfx",
             "asset.e1.unknown_e1e4e6",
         ],
-        "portable_contract": "Expose as an ending cast-name bundle with prelude graphics/support-table bytes, cast-name glyph graphics, and cast-name palette data.",
+        "portable_contract": "Expose as an ending cast-name bundle with prelude graphics, support-table bytes, cast-name glyph graphics, and cast-name palette data.",
         "evidence": [
             {
                 "source": "notes/cast-scene-scroll-helpers-c4e4da-c4e583.md",
@@ -89,15 +90,13 @@ BUNDLES: list[dict[str, Any]] = [
         "subranges": [
             {
                 "range": "E1:D6E1..E1:D815",
-                "role": "compressed cast-scene prelude graphics; ebsrc's missing metadata implies this should be split from the following table",
+                "role": "compressed cast-scene prelude graphics",
                 "asset": "asset.e1.unknown_e1d6e1",
-                "status": "inferred-subrange",
             },
             {
                 "range": "E1:D815..E1:D835",
                 "role": "small cast-scene support table included by ebsrc as data/unknown/E1D815.asm",
-                "asset": "asset.e1.unknown_e1d6e1",
-                "status": "manifest-split-followup",
+                "asset": "table.e1.046_data_unknown_e1d815_asm",
             },
             {
                 "range": "E1:D835..E1:E4E6",
@@ -226,11 +225,10 @@ def build_contract() -> dict[str, Any]:
         "validation": {
             "all_manifest_components_found": True,
             "all_declared_evidence_refs_exist": all(item["exists"] for item in evidence),
-            "d6e1_manifest_split_target_declared": True,
+            "d6e1_manifest_split_completed": True,
         },
         "bundles": bundles,
         "open_questions": [
-            "Split asset.e1.unknown_e1d6e1 into E1:D6E1..D815 compressed graphics and E1:D815..D835 table bytes when the manifest generator gains conditional include metadata.",
             "Decide final public-facing names for the saved-coordinate landing display visual after comparing the in-game presentation against the Sound Stone reference image.",
         ],
     }

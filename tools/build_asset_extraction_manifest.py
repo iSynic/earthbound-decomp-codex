@@ -662,6 +662,8 @@ def convert_binary_asset(
         notes.append("Payload is marked compressed in earthbound.yml or inferred from its extension.")
     if entry.get("inferred_from_next_asset"):
         notes.append("Span was inferred from the next known asset because yml metadata was missing.")
+    if entry.get("inference_note"):
+        notes.append(str(entry["inference_note"]))
 
     return {
         "id": f"asset.{bank.lower()}.{stable_name}",

@@ -7,7 +7,7 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 ## Snapshot
 
 - bundles: `2`
-- manifest components covered: `6`
+- manifest components covered: `7`
 - subranges described: `7`
 - source bytes covered: `5497`
 - generated local output bytes observed: `143814`
@@ -17,14 +17,14 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 
 - `all_manifest_components_found`: `true`
 - `all_declared_evidence_refs_exist`: `true`
-- `d6e1_manifest_split_target_declared`: `true`
+- `d6e1_manifest_split_completed`: `true`
 
 ## Bundles
 
 | Bundle | Status | Runtime owner | Components | Source bytes | Portable contract |
 | --- | --- | --- | ---: | ---: | --- |
 | Saved-coordinate landing display visual | `runtime-loader-backed` | `C4:C2DE InitializeSavedLandingDisplayState` | 3 | 1842 | Expose as a landing display scene with compressed 4bpp graphics, BG tile arrangement, and palette blocks. |
-| Ending cast-name visual support | `runtime-loader-backed-with-manifest-split-followup` | `C4:E369 LoadCastScene` | 3 | 3655 | Expose as an ending cast-name bundle with prelude graphics/support-table bytes, cast-name glyph graphics, and cast-name palette data. |
+| Ending cast-name visual support | `runtime-loader-backed` | `C4:E369 LoadCastScene` | 4 | 3655 | Expose as an ending cast-name bundle with prelude graphics, support-table bytes, cast-name glyph graphics, and cast-name palette data. |
 
 ## Subrange Roles
 
@@ -33,10 +33,10 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 | Saved-coordinate landing display visual | `E1:CFAF..E1:D4F4` | `asset.e1.unknown_e1cfaf` | compressed 4bpp landing-display graphics | `runtime-loader-backed` |
 | Saved-coordinate landing display visual | `E1:D5E8..E1:D6E1` | `asset.e1.unknown_e1d5e8` | compressed landing-display BG arrangement | `runtime-loader-backed` |
 | Saved-coordinate landing display visual | `E1:D4F4..E1:D5E8` | `asset.e1.unknown_e1d4f4` | compressed landing-display palette data | `runtime-loader-backed` |
-| Ending cast-name visual support | `E1:D6E1..E1:D815` | `asset.e1.unknown_e1d6e1` | compressed cast-scene prelude graphics; ebsrc's missing metadata implies this should be split from the following table | `inferred-subrange` |
-| Ending cast-name visual support | `E1:D815..E1:D835` | `asset.e1.unknown_e1d6e1` | small cast-scene support table included by ebsrc as data/unknown/E1D815.asm | `manifest-split-followup` |
-| Ending cast-name visual support | `E1:D835..E1:E4E6` | `asset.e1.cast_names_gfx` | compressed cast-name graphics | `runtime-loader-backed-with-manifest-split-followup` |
-| Ending cast-name visual support | `E1:E4E6..E1:E528` | `asset.e1.unknown_e1e4e6` | compressed cast-name palette data | `runtime-loader-backed-with-manifest-split-followup` |
+| Ending cast-name visual support | `E1:D6E1..E1:D815` | `asset.e1.unknown_e1d6e1` | compressed cast-scene prelude graphics | `runtime-loader-backed` |
+| Ending cast-name visual support | `E1:D815..E1:D835` | `table.e1.046_data_unknown_e1d815_asm` | small cast-scene support table included by ebsrc as data/unknown/E1D815.asm | `runtime-loader-backed` |
+| Ending cast-name visual support | `E1:D835..E1:E4E6` | `asset.e1.cast_names_gfx` | compressed cast-name graphics | `runtime-loader-backed` |
+| Ending cast-name visual support | `E1:E4E6..E1:E528` | `asset.e1.unknown_e1e4e6` | compressed cast-name palette data | `runtime-loader-backed` |
 
 ## Component Details
 
@@ -57,7 +57,8 @@ Evidence:
 
 | Component | Range | Source bytes | Output kinds | Generated outputs observed |
 | --- | --- | ---: | --- | --- |
-| `asset.e1.unknown_e1d6e1` | `E1:D6E1..E1:D835` | 340 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/E1D6E1.gfx.lzhal` (340), `build/assets/e1/E1D6E1.gfx` (1024), `build/assets/e1/E1D6E1_4bpp_preview.png` (350) |
+| `asset.e1.unknown_e1d6e1` | `E1:D6E1..E1:D815` | 308 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/E1D6E1.gfx.lzhal` (308), `build/assets/e1/E1D6E1.gfx` (1024), `build/assets/e1/E1D6E1_4bpp_preview.png` (350) |
+| `table.e1.046_data_unknown_e1d815_asm` | `E1:D815..E1:D835` | 32 | `raw` | `build/assets/e1/tables/046_data_unknown_e1d815_asm.bin` (32) |
 | `asset.e1.cast_names_gfx` | `E1:D835..E1:E4E6` | 3249 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/ending/cast_names.gfx.lzhal` (3249), `build/assets/e1/ending/cast_names.gfx` (10752), `build/assets/e1/ending/cast_names_4bpp_preview.png` (3010) |
 | `asset.e1.unknown_e1e4e6` | `E1:E4E6..E1:E528` | 66 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_palette_json`, `earthbound_lzhal_snes_palette_swatch_png` | `build/assets/e1/ending/cast_names.pal.lzhal` (66), `build/assets/e1/ending/cast_names.pal` (256), `build/assets/e1/ending/cast_names_palette.json` (25542), `build/assets/e1/ending/cast_names_palette.png` (402) |
 
@@ -69,5 +70,4 @@ Evidence:
 
 ## Open Questions
 
-- Split asset.e1.unknown_e1d6e1 into E1:D6E1..D815 compressed graphics and E1:D815..D835 table bytes when the manifest generator gains conditional include metadata.
 - Decide final public-facing names for the saved-coordinate landing display visual after comparing the in-game presentation against the Sound Stone reference image.

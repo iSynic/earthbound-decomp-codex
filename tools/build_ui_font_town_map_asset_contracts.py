@@ -76,8 +76,8 @@ FAMILIES: dict[str, dict[str, Any]] = {
     },
     "ending_cast_visuals": {
         "label": "Ending cast-name visuals",
-        "runtime_contract": "C4:E369 loads E1:D6E1, E1:D835, E1:D815, and E1:E4E6 into the ending cast-name display path.",
-        "portable_contract": "Expose as an ending cast-name bundle with prelude graphics/table split metadata, cast-name glyph graphics, and palette data.",
+        "runtime_contract": "C4:E369 loads E1:D6E1, E1:D815, E1:D835, and E1:E4E6 into the ending cast-name display path.",
+        "portable_contract": "Expose as an ending cast-name bundle with prelude graphics, support-table bytes, cast-name glyph graphics, and palette data.",
         "docs": [
             "notes/landing-cast-visual-contracts.md",
             "notes/cast-scene-scroll-helpers-c4e4da-c4e583.md",
@@ -181,7 +181,10 @@ def classify(asset: dict[str, Any]) -> str:
         return "text_window_skin"
     if any(token in asset_id for token in ["unknown_e1cfaf", "unknown_e1d4f4", "unknown_e1d5e8"]):
         return "landing_display_visuals"
-    if any(token in asset_id for token in ["unknown_e1d6e1", "cast_names_gfx", "unknown_e1e4e6"]):
+    if any(
+        token in asset_id
+        for token in ["unknown_e1d6e1", "data_unknown_e1d815", "cast_names_gfx", "unknown_e1e4e6"]
+    ):
         return "ending_cast_visuals"
     if any(
         token in asset_id
@@ -306,7 +309,7 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "landing_cast_visual_bundles",
                 "source": "notes/landing-cast-visual-contracts.md",
-                "shape": "E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..E4E6 belongs to the C4:E369 ending cast-name visual path with a pending E1:D6E1..D815 and E1:D815..D835 manifest split.",
+                "shape": "E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..D815, E1:D815..D835, E1:D835..E4E6, and E1:E4E6..E528 belong to the C4:E369 ending cast-name visual path.",
             },
             {
                 "id": "sram_save_template",
@@ -393,7 +396,6 @@ def build_contract() -> dict[str, Any]:
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
             "Pin the visible identity of text-window palette block 6.",
             "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
-            "Split the inferred E1:D6E1..D835 manifest unit into E1:D6E1..D815 compressed graphics plus E1:D815..D835 cast-scene support table.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],
     }

@@ -4,7 +4,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 ## Summary
 
-- ranges: `52`
+- ranges: `53`
 - total bytes: `65536`
 - source bytes: `0`
 - data gap bytes: `65536`
@@ -54,7 +54,8 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/e1/asset_unknown_e1cfaf.asm` | `E1:CFAF..E1:D4F4` | 1349 | 0 | 1349 | `4985df0c2b2d3462111730abde466bba87e3fbf4` |
 | `build-candidate` | `src/e1/asset_unknown_e1d4f4.asm` | `E1:D4F4..E1:D5E8` | 244 | 0 | 244 | `af7771128db3588c3831d9aabdbbd3663ce582fe` |
 | `build-candidate` | `src/e1/asset_unknown_e1d5e8.asm` | `E1:D5E8..E1:D6E1` | 249 | 0 | 249 | `6ea0a2f4a7d9bc5c3c165067ca5b8c63edd871e0` |
-| `build-candidate` | `src/e1/asset_unknown_e1d6e1.asm` | `E1:D6E1..E1:D835` | 340 | 0 | 340 | `00f7186d988433d4812189acb1078ff68747ca7e` |
+| `build-candidate` | `src/e1/asset_cast_scene_prelude_gfx.asm` | `E1:D6E1..E1:D815` | 308 | 0 | 308 | `1a45da5eefdbcae3fdb6950fc3fedd0ecc7ef124` |
+| `build-candidate` | `src/e1/table_042_data_unknown_e1d815_asm.asm` | `E1:D815..E1:D835` | 32 | 0 | 32 | `3760146325ee74c48d52a59af14ca0e28929cdc2` |
 | `build-candidate` | `src/e1/asset_cast_names_gfx.asm` | `E1:D835..E1:E4E6` | 3249 | 0 | 3249 | `d0982bf671e71f07fe78cdee228f3188a70028ab` |
 | `build-candidate` | `src/e1/asset_unknown_e1e4e6.asm` | `E1:E4E6..E1:E528` | 66 | 0 | 66 | `1c3bed96942785d8478dadead0435e4a72a4da65` |
 | `build-candidate` | `src/e1/asset_staff_credits_font_graphics.asm` | `E1:E528..E1:E914` | 1004 | 0 | 1004 | `1a3c5e6c305518f3329ff8339d65e6dfffdb0088` |
@@ -929,7 +930,7 @@ Evidence:
 - `build/asset-bank-e1.json`
 - `notes/bank-e1-asset-data-map.md`
 
-### `src/e1/asset_unknown_e1d6e1.asm`
+### `src/e1/asset_cast_scene_prelude_gfx.asm`
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
@@ -937,18 +938,37 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `E1:D6E1..E1:D835` (`340` bytes, SHA-1 `00f7186d988433d4812189acb1078ff68747ca7e`) `AssetUnknownE1d6e1`
+- `E1:D6E1..E1:D815` (`308` bytes, SHA-1 `1a45da5eefdbcae3fdb6950fc3fedd0ecc7ef124`) `CastScenePreludeGfx`
 
 Labels:
 
-- `E1:D6E1 AssetUnknownE1d6e1`
+- `E1:D6E1 CastScenePreludeGfx`
 
 Evidence:
 
-- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank21.asm`
-- `refs/ebsrc-main/ebsrc-main/earthbound.yml`
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank21.asm`
 - `build/asset-bank-e1.json`
-- `notes/bank-e1-asset-data-map.md`
+- `notes/landing-cast-visual-contracts.md`
+
+### `src/e1/table_042_data_unknown_e1d815_asm.asm`
+
+| Range | Size | Name | SHA-1 |
+| --- | ---: | --- | --- |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `E1:D815..E1:D835` (`32` bytes, SHA-1 `3760146325ee74c48d52a59af14ca0e28929cdc2`) `CastSceneSupportTableE1D815`
+
+Labels:
+
+- `E1:D815 CastSceneSupportTableE1D815`
+
+Evidence:
+
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank21.asm`
+- `build/asset-bank-e1.json`
+- `notes/landing-cast-visual-contracts.md`
 
 ### `src/e1/asset_cast_names_gfx.asm`
 

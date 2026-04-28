@@ -25,9 +25,9 @@
       "arr": 8,
       "ebm": 1
     },
-    "binary_asset_bytes": 55125,
+    "binary_asset_bytes": 55093,
     "table_includes": 16,
-    "table_bytes": 10397,
+    "table_bytes": 10429,
     "coverage_gaps": 1,
     "coverage_gap_bytes": 14,
     "missing_payload_metadata": 4
@@ -1060,9 +1060,9 @@
       "category": "graphics",
       "source": {
         "type": "rom-range",
-        "range": "E1:D6E1..E1:D835",
-        "bytes": 340,
-        "sha1": "00f7186d988433d4812189acb1078ff68747ca7e"
+        "range": "E1:D6E1..E1:D815",
+        "bytes": 308,
+        "sha1": "1a45da5eefdbcae3fdb6950fc3fedd0ecc7ef124"
       },
       "outputs": [
         {
@@ -1083,7 +1083,8 @@
         "Source payload path from ebsrc: E1D6E1.gfx.lzhal",
         "Original file offset: 0x21D6E1",
         "Payload is marked compressed in earthbound.yml or inferred from its extension.",
-        "Span was inferred from the next known asset because yml metadata was missing."
+        "Span was inferred from the next known asset because yml metadata was missing.",
+        "lzhal stream consumed 308 byte(s) before next known asset"
       ]
     },
     {
@@ -1425,6 +1426,28 @@
       "notes": [
         "Source include from ebsrc: data/unknown/E1CE08.asm",
         "Original file offset: 0x21CE08",
+        "Size was inferred from the next known binary asset boundary."
+      ]
+    },
+    {
+      "id": "table.e1.046_data_unknown_e1d815_asm",
+      "title": "data/unknown/E1D815.asm",
+      "category": "raw-table",
+      "source": {
+        "type": "rom-range",
+        "range": "E1:D815..E1:D835",
+        "bytes": 32,
+        "sha1": "3760146325ee74c48d52a59af14ca0e28929cdc2"
+      },
+      "outputs": [
+        {
+          "kind": "raw",
+          "path": "e1/tables/046_data_unknown_e1d815_asm.bin"
+        }
+      ],
+      "notes": [
+        "Source include from ebsrc: data/unknown/E1D815.asm",
+        "Original file offset: 0x21D815",
         "Size was inferred from the next known binary asset boundary."
       ]
     },

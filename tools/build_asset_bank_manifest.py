@@ -12,6 +12,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import rom_tools
+import decompress_c41a9e
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -478,6 +479,33 @@ def build_manifest(bank: str, yml_path: Path, rom_path: Path) -> dict[str, objec
                 offsets.append(asset.offset)
         return min(offsets) if offsets else None
 
+    def has_include_before_next_known_binary(after_order: int) -> bool:
+        for candidate in source_items:
+            if candidate.order <= after_order:
+                continue
+            if candidate.kind == "binary" and lookup_asset_for_item(candidate, yml_assets) is not None:
+                return False
+            if candidate.kind == "include":
+                return True
+        return False
+
+    def inferred_binary_size(item: SourceItem, start: int, end: int) -> tuple[int, str | None]:
+        size = end - start
+        if (
+            size <= 0
+            or item.payload_path is None
+            or not item.payload_path.lower().endswith(".lzhal")
+            or not has_include_before_next_known_binary(item.order)
+        ):
+            return size, None
+        try:
+            _, consumed = decompress_c41a9e.decompress_blob(rom[start:end], dest_base=0xC000)
+        except (IndexError, ValueError):
+            return size, None
+        if consumed <= 0 or consumed >= size:
+            return size, None
+        return consumed, f"lzhal stream consumed {consumed} byte(s) before next known asset"
+
     for item in source_items:
         if item.kind == "binary" and item.payload_path is not None:
             asset = lookup_asset_for_item(item, yml_assets)
@@ -487,7 +515,7 @@ def build_manifest(bank: str, yml_path: Path, rom_path: Path) -> dict[str, objec
                 if next_offset is not None and next_offset > cursor:
                     key = payload_key(item.payload_path)
                     subdir, name, extension = key if key else ("", item.payload_path, "")
-                    size = next_offset - cursor
+                    size, inference_note = inferred_binary_size(item, cursor, next_offset)
                     entry = {
                         "order": item.order,
                         "label": item.label,
@@ -504,8 +532,10 @@ def build_manifest(bank: str, yml_path: Path, rom_path: Path) -> dict[str, objec
                         "inferred_from_next_asset": True,
                         "missing_yml_metadata": True,
                     }
+                    if inference_note is not None:
+                        entry["inference_note"] = inference_note
                     binary_entries.append(entry)
-                    cursor = next_offset
+                    cursor += size
                 continue
             layout_blocked_by_missing_include = None
             entry = {
