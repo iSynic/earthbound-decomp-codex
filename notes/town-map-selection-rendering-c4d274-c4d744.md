@@ -65,7 +65,19 @@ Input:
 
 It clears `$2400`, temporarily swaps display flag `$000B` through `C0:88A5`, indexes a pointer table at `E1:F491`, then walks five-byte records until an `FF` sentinel.
 
-Record shape:
+The `E1:F203..E1:F581` support span now has a generated structural split in
+`notes/ui-font-town-map-asset-contracts.md`:
+
+- `E1:F203..E1:F44C` = `117` five-byte icon graphics descriptor records
+  across `22` unique descriptor lists
+- `E1:F44C..E1:F47A` = `23` 16-bit local pointers mapping icon ids to those
+  descriptor lists
+- `E1:F47A..E1:F491` = `23` one-byte blink/suppress flags
+- `E1:F491..E1:F4A9` = six 4-byte placement-list pointers
+- `E1:F4A9..E1:F581` = six town-map icon placement lists with `42` total
+  five-byte records
+
+Placement record shape:
 
 - byte `+0` = X coordinate passed to `C0:8C54`
 - byte `+1` = Y coordinate passed to `C0:8C54`

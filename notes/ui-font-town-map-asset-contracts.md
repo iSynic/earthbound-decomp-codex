@@ -36,10 +36,26 @@ No ROM-derived payloads are checked in by this report.
 | Subrange | Range | Status | Contract | Evidence |
 | --- | --- | --- | --- | --- |
 | `town_map_gfx_pointer_table` | `E0:2190..E0:21A8` | `runtime-corroborated` | Six-entry town-map graphics pointer table consumed by C4:D553 before decompressing the selected E0 town-map payload. | C4:D553 indexes E0:2190 from the zero-based town-map id in notes/town-map-selection-rendering-c4d274-c4d744.md. |
-| `town_map_icon_id_map` | `E1:F44C..E1:F47A` | `runtime-corroborated` | Icon-id remap table used by C4:D2F0 and C4:D43F before submitting town-map icons through C0:8C54. | C4 town-map overlay/static renderers map icon ids through E1:F44C. |
-| `town_map_blink_suppress_table` | `E1:F47A..E1:F491` | `runtime-corroborated` | Blink/suppression table checked before static icon drawing; nonzero entries suppress icons while $B4AE is in the hidden phase. | C4:D43F checks E1:F47A before the event-flag test. |
-| `town_map_icon_placement_pointer_table` | `E1:F491..E1:F49D` | `runtime-inferred` | Six 16-bit list pointers, one per town map, used by C4:D43F to find placement records. | C4:D43F indexes a pointer table at E1:F491 for the selected zero-based town-map id; six town maps implies six word entries before placement data. |
-| `town_map_icon_placement_records` | `E1:F49D..E1:F581` | `runtime-corroborated-shape` | Variable icon lists made of five-byte records terminated by FF: x, y, icon id, and event flag word with high-bit draw polarity. | C4:D43F walks records until FF and interprets the five-byte record shape documented in notes/town-map-selection-rendering-c4d274-c4d744.md. |
+| `town_map_icon_graphic_descriptor_lists` | `E1:F203..E1:F44C` | `structural-runtime-corroborated` | Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records, selected by the E1:F44C icon-id pointer table. | The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table. |
+| `town_map_icon_graphic_pointer_table` | `E1:F44C..E1:F47A` | `runtime-corroborated` | Twenty-three 16-bit local pointers mapping town-map icon ids to E1:F203 five-byte graphics descriptor lists. | C4 town-map overlay/static renderers map icon ids through E1:F44C. |
+| `town_map_blink_suppress_table` | `E1:F47A..E1:F491` | `runtime-corroborated` | Twenty-three one-byte blink/suppression flags checked before static icon drawing; nonzero entries suppress icons while $B4AE is in the hidden phase. | C4:D43F checks E1:F47A before the event-flag test. |
+| `town_map_icon_placement_pointer_table` | `E1:F491..E1:F4A9` | `runtime-corroborated` | Six four-byte long-pointer entries, one per town map, pointing to placement lists in E1:F4A9..E1:F581. | C4:D43F indexes a pointer table at E1:F491 for the selected zero-based town-map id; checked-in bytes resolve to E1:F4A9, E1:F4CD, E1:F4F6, E1:F524, E1:F548, and E1:F562. |
+| `town_map_icon_placement_records` | `E1:F4A9..E1:F581` | `runtime-corroborated-shape` | Six variable icon lists with 42 total five-byte records, terminated by FF: x, y, icon id, and event flag word with high-bit draw polarity. | C4:D43F walks records until FF and interprets the five-byte record shape documented in notes/town-map-selection-rendering-c4d274-c4d744.md. |
+
+## Derived Town-Map Table Counts
+
+- icon graphics descriptor lists: `22` unique lists, `23` icon slots, `117` five-byte records
+- blink/suppress table: `23` entries, `16` nonzero, `7` zero
+- placement lists: `6` town maps, `42` five-byte placement records
+
+| Town map index | Placement target | Records | Terminator |
+| ---: | --- | ---: | --- |
+| `0` | `E1:F4A9` | 7 | `E1:F4CC` |
+| `1` | `E1:F4CD` | 8 | `E1:F4F5` |
+| `2` | `E1:F4F6` | 9 | `E1:F523` |
+| `3` | `E1:F524` | 7 | `E1:F547` |
+| `4` | `E1:F548` | 5 | `E1:F561` |
+| `5` | `E1:F562` | 6 | `E1:F580` |
 
 ## Per-Family Assets
 
@@ -179,4 +195,4 @@ No ROM-derived payloads are checked in by this report.
 - Split E0 text_window_properties into row-level window skin fields.
 - Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.
 - Resolve the E1 intro/title UNKNOWN_* compressed payloads into scene-specific graphics, palette, or arrangement roles.
-- Name the leading E1:F203..F44C town-map-adjacent records before the icon remap/blink/pointer/placement subranges.
+- Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.

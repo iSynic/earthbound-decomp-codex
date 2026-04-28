@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -10,6 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_JSON_OUT = ROOT / "build" / "ui-font-town-map-asset-contracts.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "ui-font-town-map-asset-contracts.md"
+E1_SCAFFOLD = ROOT / "src" / "e1" / "bank_e1_helpers_asar.asm"
 
 
 MANIFEST_PATHS = [
@@ -193,6 +195,7 @@ def asset_summary(asset: dict[str, Any]) -> dict[str, Any]:
 
 def build_contract() -> dict[str, Any]:
     assets = load_assets()
+    town_map_tables = build_town_map_table_contracts()
     grouped: dict[str, list[dict[str, Any]]] = {family_id: [] for family_id in FAMILIES}
     for asset in assets:
         grouped[classify(asset)].append(asset_summary(asset))
@@ -268,11 +271,19 @@ def build_contract() -> dict[str, Any]:
                 "evidence": "C4:D553 indexes E0:2190 from the zero-based town-map id in notes/town-map-selection-rendering-c4d274-c4d744.md.",
             },
             {
-                "id": "town_map_icon_id_map",
+                "id": "town_map_icon_graphic_descriptor_lists",
+                "family": "town_maps",
+                "range": "E1:F203..E1:F44C",
+                "status": "structural-runtime-corroborated",
+                "contract": "Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records, selected by the E1:F44C icon-id pointer table.",
+                "evidence": "The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table.",
+            },
+            {
+                "id": "town_map_icon_graphic_pointer_table",
                 "family": "town_maps",
                 "range": "E1:F44C..E1:F47A",
                 "status": "runtime-corroborated",
-                "contract": "Icon-id remap table used by C4:D2F0 and C4:D43F before submitting town-map icons through C0:8C54.",
+                "contract": "Twenty-three 16-bit local pointers mapping town-map icon ids to E1:F203 five-byte graphics descriptor lists.",
                 "evidence": "C4 town-map overlay/static renderers map icon ids through E1:F44C.",
             },
             {
@@ -280,32 +291,146 @@ def build_contract() -> dict[str, Any]:
                 "family": "town_maps",
                 "range": "E1:F47A..E1:F491",
                 "status": "runtime-corroborated",
-                "contract": "Blink/suppression table checked before static icon drawing; nonzero entries suppress icons while $B4AE is in the hidden phase.",
+                "contract": "Twenty-three one-byte blink/suppression flags checked before static icon drawing; nonzero entries suppress icons while $B4AE is in the hidden phase.",
                 "evidence": "C4:D43F checks E1:F47A before the event-flag test.",
             },
             {
                 "id": "town_map_icon_placement_pointer_table",
                 "family": "town_maps",
-                "range": "E1:F491..E1:F49D",
-                "status": "runtime-inferred",
-                "contract": "Six 16-bit list pointers, one per town map, used by C4:D43F to find placement records.",
-                "evidence": "C4:D43F indexes a pointer table at E1:F491 for the selected zero-based town-map id; six town maps implies six word entries before placement data.",
+                "range": "E1:F491..E1:F4A9",
+                "status": "runtime-corroborated",
+                "contract": "Six four-byte long-pointer entries, one per town map, pointing to placement lists in E1:F4A9..E1:F581.",
+                "evidence": "C4:D43F indexes a pointer table at E1:F491 for the selected zero-based town-map id; checked-in bytes resolve to E1:F4A9, E1:F4CD, E1:F4F6, E1:F524, E1:F548, and E1:F562.",
             },
             {
                 "id": "town_map_icon_placement_records",
                 "family": "town_maps",
-                "range": "E1:F49D..E1:F581",
+                "range": "E1:F4A9..E1:F581",
                 "status": "runtime-corroborated-shape",
-                "contract": "Variable icon lists made of five-byte records terminated by FF: x, y, icon id, and event flag word with high-bit draw polarity.",
+                "contract": "Six variable icon lists with 42 total five-byte records, terminated by FF: x, y, icon id, and event flag word with high-bit draw polarity.",
                 "evidence": "C4:D43F walks records until FF and interprets the five-byte record shape documented in notes/town-map-selection-rendering-c4d274-c4d744.md.",
             },
         ],
+        "derived_town_map_tables": town_map_tables,
         "next_open_questions": [
             "Split E0 text_window_properties into row-level window skin fields.",
             "Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.",
             "Resolve the E1 intro/title UNKNOWN_* compressed payloads into scene-specific graphics, palette, or arrangement roles.",
-            "Name the leading E1:F203..F44C town-map-adjacent records before the icon remap/blink/pointer/placement subranges.",
+            "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],
+    }
+
+
+def extract_scaffold_range(org: str, end_label: str) -> list[int]:
+    text = E1_SCAFFOLD.read_text(encoding="utf-8")
+    start = text.index(f"org ${org}")
+    end = text.index(f"\n{end_label}:", start)
+    values: list[int] = []
+    for line in text[start:end].splitlines():
+        line = line.strip()
+        if line.startswith("db "):
+            values.extend(int(token[1:], 16) for token in re.findall(r"\$[0-9A-Fa-f]{2}", line))
+    return values
+
+
+def build_town_map_table_contracts() -> dict[str, Any]:
+    values = extract_scaffold_range("E1F203", "E1F581_TableE1f203End")
+    base = 0xF203
+
+    icon_pointer_offset = 0xF44C - base
+    icon_pointers = []
+    for index in range((0xF47A - 0xF44C) // 2):
+        lo, hi = values[icon_pointer_offset + index * 2 : icon_pointer_offset + index * 2 + 2]
+        icon_pointers.append(hi << 8 | lo)
+
+    icon_list_ranges = []
+    unique_starts = sorted(set(icon_pointers))
+    for start, end in zip(unique_starts, unique_starts[1:] + [0xF44C]):
+        icon_list_ranges.append(
+            {
+                "range": f"E1:{start:04X}..E1:{end:04X}",
+                "record_count": (end - start) // 5,
+                "record_size": 5,
+            }
+        )
+
+    blink_flags = values[0xF47A - base : 0xF491 - base]
+
+    placement_pointer_offset = 0xF491 - base
+    placement_pointers = []
+    for index in range(6):
+        lo, hi, bank, zero = values[placement_pointer_offset + index * 4 : placement_pointer_offset + index * 4 + 4]
+        placement_pointers.append({"index": index, "target": f"{bank:02X}:{(hi << 8 | lo):04X}", "zero": zero})
+
+    placement_lists = []
+    for pointer in placement_pointers:
+        target_bank, target_address = str(pointer["target"]).split(":")
+        if target_bank != "E1":
+            raise ValueError(f"Unexpected town-map placement pointer bank: {pointer['target']}")
+        offset = int(target_address, 16) - base
+        records = []
+        cursor = offset
+        while cursor < len(values):
+            if values[cursor] == 0xFF:
+                break
+            x, y, icon_id, flag_lo, flag_hi = values[cursor : cursor + 5]
+            flag = flag_hi << 8 | flag_lo
+            records.append(
+                {
+                    "range": f"E1:{base + cursor:04X}..E1:{base + cursor + 5:04X}",
+                    "x": x,
+                    "y": y,
+                    "icon_id": icon_id,
+                    "event_flag": flag & 0x7FFF,
+                    "draw_when_flag_set": bool(flag & 0x8000),
+                }
+            )
+            cursor += 5
+        placement_lists.append(
+            {
+                "index": int(pointer["index"]),
+                "target": pointer["target"],
+                "record_count": len(records),
+                "terminator": f"E1:{base + cursor:04X}",
+                "records": records,
+            }
+        )
+
+    return {
+        "source": rel(E1_SCAFFOLD),
+        "icon_graphic_descriptor_lists": {
+            "range": "E1:F203..E1:F44C",
+            "record_size": 5,
+            "record_count": (0xF44C - 0xF203) // 5,
+            "unique_list_count": len(unique_starts),
+            "icon_slot_count": len(icon_pointers),
+            "pointers": [f"E1:{pointer:04X}" for pointer in icon_pointers],
+            "lists": icon_list_ranges,
+        },
+        "icon_graphic_pointer_table": {
+            "range": "E1:F44C..E1:F47A",
+            "entry_count": len(icon_pointers),
+            "entry_size": 2,
+        },
+        "blink_suppress_table": {
+            "range": "E1:F47A..E1:F491",
+            "entry_count": len(blink_flags),
+            "nonzero_entries": sum(1 for value in blink_flags if value != 0),
+            "zero_entries": sum(1 for value in blink_flags if value == 0),
+        },
+        "placement_pointer_table": {
+            "range": "E1:F491..E1:F4A9",
+            "entry_count": len(placement_pointers),
+            "entry_size": 4,
+            "pointers": placement_pointers,
+        },
+        "placement_lists": {
+            "range": "E1:F4A9..E1:F581",
+            "list_count": len(placement_lists),
+            "record_count": sum(int(item["record_count"]) for item in placement_lists),
+            "record_size": 5,
+            "lists": placement_lists,
+        },
     }
 
 
@@ -365,6 +490,28 @@ def render_markdown(contract: dict[str, Any]) -> str:
                 contract_text=subrange["contract"],
                 evidence=subrange["evidence"],
             )
+        )
+
+    tables = contract["derived_town_map_tables"]
+    icon_lists = tables["icon_graphic_descriptor_lists"]
+    blink = tables["blink_suppress_table"]
+    placement = tables["placement_lists"]
+    lines.extend(
+        [
+            "",
+            "## Derived Town-Map Table Counts",
+            "",
+            f"- icon graphics descriptor lists: `{icon_lists['unique_list_count']}` unique lists, `{icon_lists['icon_slot_count']}` icon slots, `{icon_lists['record_count']}` five-byte records",
+            f"- blink/suppress table: `{blink['entry_count']}` entries, `{blink['nonzero_entries']}` nonzero, `{blink['zero_entries']}` zero",
+            f"- placement lists: `{placement['list_count']}` town maps, `{placement['record_count']}` five-byte placement records",
+            "",
+            "| Town map index | Placement target | Records | Terminator |",
+            "| ---: | --- | ---: | --- |",
+        ]
+    )
+    for item in placement["lists"]:
+        lines.append(
+            f"| `{item['index']}` | `{item['target']}` | {item['record_count']} | `{item['terminator']}` |"
         )
 
     lines.extend(["", "## Per-Family Assets", ""])

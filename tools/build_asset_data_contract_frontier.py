@@ -18,9 +18,10 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "id": "battle_visual_assets",
         "label": "Battle visual assets",
         "banks": ["CA", "CB", "CC", "CD", "CE"],
-        "maturity": "manifest-plus-preview",
-        "proof": "extraction manifests, decompression recipes, preview recipes, and per-bank asset maps",
+        "maturity": "contract-seeded",
+        "proof": "extraction manifests, decompression recipes, preview recipes, per-bank asset maps, and the generated battle visual contract group assets by runtime-facing family",
         "docs": [
+            "notes/battle-visual-asset-contracts.md",
             "notes/bank-ca-cf-asset-closure.md",
             "notes/bank-ca-asset-data-map.md",
             "notes/bank-cb-asset-data-map.md",
@@ -28,7 +29,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/bank-cd-asset-data-map.md",
             "notes/bank-ce-asset-data-map.md",
         ],
-        "next_contract": "Split battle backgrounds, battle sprites, PSI/effect graphics, palettes, arrangements, and runtime selector tables into family-level semantic contracts.",
+        "next_contract": "Join battle backgrounds, PSI animations, battle sprites, and swirl payloads into scene/animation/sequence bundles.",
     },
     {
         "id": "mixed_asset_tables",
@@ -284,12 +285,12 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 1,
                 "family": "ui_font_town_map_assets",
-                "why": "Small, user-facing, strongly connected to already decoded C4 UI/town-map source, and likely to produce reusable asset record patterns.",
+                "why": "Contract-seeded; the next useful step is field-level refinement for E1 town-map descriptor records, E0 text-window properties, and unresolved intro/title payloads.",
             },
             {
                 "rank": 2,
                 "family": "battle_visual_assets",
-                "why": "Preview/decompression coverage is good, but battle backgrounds, battle sprites, PSI/effects, palettes, and arrangements still need runtime-facing contracts.",
+                "why": "Contract-seeded; the next useful step is joining background, PSI, battle-sprite, and swirl families into scene/animation/sequence bundles.",
             },
             {
                 "rank": 3,

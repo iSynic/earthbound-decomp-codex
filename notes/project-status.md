@@ -88,10 +88,11 @@ manifests, `2218` represented assets/tables/gaps, `6174` output recipes,
 `1718` assets with preview/swatch recipes, and `1834` assets with decoder
 recipes beyond raw extraction. It also separates contract-backed families
 from manifest-only families: overworld sprites and map assets are already
-contract-backed for this phase, and UI/font/town-map assets now have the first
-generated phase-4 contract seed at `notes/ui-font-town-map-asset-contracts.md`.
-Battle visual assets, audio packs, EF's coarse mixed corridor, and the
-remaining E0/E1 unresolved payload/table splits are the next contract
+contract-backed for this phase, while UI/font/town-map assets and battle
+visual assets now have generated phase-4 contract seeds at
+`notes/ui-font-town-map-asset-contracts.md` and
+`notes/battle-visual-asset-contracts.md`. Audio packs, EF's coarse mixed
+corridor, and the remaining E0/E1 and CA-CE bundle joins are the next contract
 frontiers.
 
 ## Public Good-Enough Definition
@@ -224,9 +225,12 @@ that romhackers need to edit confidently:
 4. Asset/data banks: `notes/asset-data-contract-frontier.md` is now the
    phase-4 queue. `notes/ui-font-town-map-asset-contracts.md` starts the
    `E0..E1` contract lane by grouping `68` represented assets/tables/gaps into
-   `8` runtime-facing families. The next highest-value seam is to split the
-   E1 town-map placement table bundle and unresolved intro/title payloads, then
-   move to `CA..CE` battle visual family contracts.
+   `8` runtime-facing families. `notes/battle-visual-asset-contracts.md`
+   groups `689` CA-CE assets/tables/gaps into `17` runtime-facing families.
+   The next highest-value seam is now bundle-level joining: E1 town-map/table
+   payload fields, CA/CB battle-background scene bundles, CC PSI animation
+   bundles, CE battle-sprite palette/pointer joins, and CE swirl sequence
+   bundles.
 
 ## Key References
 
@@ -241,6 +245,7 @@ that romhackers need to edit confidently:
 - `notes/text-command-semantics-manifest.md`
 - `notes/asset-data-contract-frontier.md`
 - `notes/ui-font-town-map-asset-contracts.md`
+- `notes/battle-visual-asset-contracts.md`
 - `notes/c3-event-script-source-pilot.md`
 - `notes/c3-timed-delivery-source-pilot.md`
 - `notes/c3-service-event-movement-source-pilot.md`

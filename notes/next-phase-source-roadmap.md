@@ -171,6 +171,14 @@
   into `68` represented assets/tables/gaps across `8` families: text window
   skins, font sets, town maps, intro/title visuals, flyover/credits/photo
   tables, embedded audio tails, unresolved UI-adjacent payloads, and padding.
+- `tools/build_battle_visual_asset_contracts.py` now generates
+  `notes/battle-visual-asset-contracts.md` and
+  `build/battle-visual-asset-contracts.json`. It groups `689` CA-CE
+  assets/tables/gaps into `17` families across battle backgrounds, PSI
+  animations, battle sprites, swirls, Sound Stone visuals, embedded audio
+  tails, and padding. The generated note also records ignored reference counts
+  for EBDecomp BattleBG PNGs and six swirl frame groups without checking in
+  those payloads.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -374,8 +382,9 @@ Highest-value seams:
   `notes/ui-font-town-map-asset-contracts.md`; remaining work is table/payload
   refinement rather than family discovery.
 - `CA..CE`: battle backgrounds, battle sprites, PSI/effect graphics, palettes,
-  arrangements, and runtime selector tables have good extraction/preview
-  coverage but still need family-level runtime-facing contracts.
+  arrangements, and runtime selector tables now have a family-level contract
+  seed in `notes/battle-visual-asset-contracts.md`; remaining work is joining
+  those families into scene/animation/sequence bundles.
 - `D6..DF`: map contracts are mature; the remaining work is targeted polish on
   collision low-modifier caller names and DA palette metadata/event-selector
   roles.
@@ -392,7 +401,9 @@ an asset field:
 
 - `E0..E1`: split the E1 town-map placement bundle and unresolved intro/title
   payloads now that the family-level contract seed exists.
-- `CA..CE`: follow after that for battle visual family contracts.
+- `CA..CE`: build battle-background scene bundles, PSI animation bundles,
+  battle-sprite pointer/palette joins, and swirl sequence bundles from the
+  generated family contract.
 - `D6..DF`: close the known map-polish followups if public-facing map status
   needs to be tightened.
 - Text VM follow-up only when a concrete source-editing, reinsertion, or
