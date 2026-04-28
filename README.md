@@ -3,269 +3,107 @@
 This repository is a work-in-progress reverse-engineering scaffold for the US
 headerless EarthBound ROM.
 
-The goal is to turn the ROM into durable, byte-equivalent, human-readable source
-modules with enough documentation to support romhacking, research, and eventual
-higher-level source reconstruction.
+It does not contain a ROM, copyrighted game assets, or a finished source port.
+Bring your own legally obtained ROM.
 
-It is not a ROM distribution. It is not yet a finished source port. Bring your
-own legally obtained ROM.
+## Status Snapshot
+
+The project has reached ROM-wide structural closure:
+
+- `48 / 48` configured banks from `C0` through `EF` have checked-in
+  byte-equivalent source scaffolds.
+- Every bank scaffold validates against the expected ROM with `0` residual
+  bytes and `0` byte-equivalence mismatches.
+- The source-heavy native-code banks audited so far, `C0`, `C1`, `C2`, `C4`,
+  and `EF`, report `0` preserved source corridors in
+  `notes/readable-source-bank-closure.md`.
+- C3's event/actionscript bank now has no unexplained raw follow-up frontier in
+  `notes/c3-source-data-map.md`; remaining C3 work is semantic polish and
+  source/script emission quality.
+- The text-command VM has a generated semantics manifest at
+  `notes/text-command-semantics-manifest.md`, with `29 / 32` top-level commands
+  covered and the remaining `0x15..0x17` isolated as compressed-bank
+  parser-only pseudo-opcodes.
+
+In plain English: the ROM bytes are accounted for, and the known native-source
+frontiers are closed. The remaining work is mostly semantics, editing workflow,
+and asset/script polish.
 
 ## What This Is
 
-This project currently focuses on three things:
+The repo is an evidence-backed scaffold for understanding and modifying
+EarthBound:
 
-- `src/`: source-bank scaffold modules that reproduce original ROM bytes
-- `notes/`: research notes, subsystem maps, source handoffs, and validation docs
-- `tools/`: Python helpers for ROM verification, decoding, cross-references,
-  table inspection, source promotion, and byte-equivalence checks
+- `src/` contains source-bank scaffold modules that reproduce original ROM bytes.
+- `notes/` contains research notes, subsystem maps, status dashboards, and
+  generated human-readable reports.
+- `tools/` contains Python helpers for ROM verification, disassembly, bytecode
+  decoding, cross-reference search, table inspection, source promotion, and
+  validation.
 
-The source scaffold is meant to preserve exact behavior while replacing opaque
-byte ranges with named assembly/data modules. That gives future work a stable
-base: romhackers can reason about routines and tables, and decompilation work can
-promote known assembly into clearer abstractions over time.
+The source scaffold is intentionally conservative. It preserves exact behavior
+while replacing opaque byte ranges with named assembly, tables, scripts, and
+asset/data corridors.
 
-## Current Status
+## What Complete Means Here
 
-The repo contains a closed byte-equivalent scaffold for all ROM banks currently
-covered by the project. In practical terms, every bank has a scaffold that can be
-validated against the original ROM bytes.
+Use these terms carefully:
 
-The stricter readable-source closure milestone is also complete for the audited
-source-heavy banks: `C0`, `C1`, `C2`, `C4`, and `EF` now report `0` preserved
-source corridors in `notes/readable-source-bank-closure.md`. Those banks are no
-longer hiding native 65816 source behind coarse byte blobs.
+- **Scaffold-backed** means a bank or range is represented by checked-in source
+  artifacts and passes byte-equivalence validation.
+- **Readable-source closed** means audited native 65816 source corridors have
+  been promoted out of coarse byte blobs.
+- **Semantically understood** means a routine, table, bytecode command, or asset
+  has reliable names, evidence, consumers, and editing constraints.
 
-That does not mean every routine is fully understood. The work is in layers:
+This project is scaffold-backed across all configured banks. It is
+readable-source closed for the audited source-heavy banks. It is not yet a full
+semantic decompilation or C port.
 
-1. Preserve every byte in a reproducible source scaffold.
-2. Split code, data, tables, scripts, and assets into named source files.
-3. Attach local evidence: callers, data contracts, reference corroboration, and
-   notes.
-4. Promote working names and structures into clearer source.
-5. Eventually translate well-understood subsystems into higher-level code.
+## Current Good-Enough Boundary
 
-The next major work is semantic: turning byte-accurate source/data into
-romhacker-grade contracts. The highest-priority gap is not hidden native source,
-but game-specific bytecode and payload semantics: C3 event/actionscript assets,
-text-command payloads, map/table contracts, graphics/audio asset metadata, and
-the tooling needed to reassemble or safely modify those structures.
+For public romhacking/research use, a bank is considered good enough when:
 
-The C3 event/actionscript audit is now a concrete baseline: `177` script rows
-decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. There are now `140`
-source-form pilots checked in under `src/c3/event_scripts/`, covering `56518`
-validated ROM bytes as labeled event/actionscript macro assembly.
+1. It has byte-equivalent scaffold coverage.
+2. It has no unexplained raw frontier, or any remaining prefix/padding is small,
+   bounded, and documented.
+3. Code, data, scripts, text, tables, and assets are classified separately.
+4. Important names and contracts are machine-readable where possible.
+5. A contributor can find the relevant validation command before editing.
 
-Recent C3 promotions leaned hard on the C0/C4/EF callback docs and ebsrc script
-refs: Winters battle-BG/Sanctuary display continuations, tunnel-ghost teleport
-routes, photo-scene/window-gfx release paths, early turn-bias/visual-countdown
-halts, traffic-light random-wander paths, party-look jump/route terminal paths,
-cast-scroll event 801, Threed escaper late-route tails, and NPC-attention arc
-tails are now source-backed. The checked-in C3 source-pilot frontier currently
-has `0` remaining candidate bytes and `0` frontier gaps, so the next C3 work is
-semantic polish rather than raw source-pilot coverage.
+By that definition, the ROM-wide scaffold phase is complete. C3 is understood
+well enough for this phase; its remaining work is source/script polish, not
+unknown-bank archaeology.
 
-C3's canonical bank scaffold, `src/c3/bank_c3_helpers_asar.asm`, now assembles
-the validated event/actionscript scaffold for `C3:0000..E450` plus the existing
-C3 native/data tail modules. It validates byte-equivalent across all `11`
-protected C3 ranges with `0` mismatches.
+## What Is Still Not Complete
 
-The text-command VM now has a queryable semantics manifest at
-`notes/text-command-semantics-manifest.md`, generated by
-`tools/build_text_command_semantics_manifest.py`. It joins the C1 runtime
-dispatchers, decoded `C5..C9` text-bank command usage, existing text-command
-notes, and recovered localization `.MSG` source command counts without checking
-in dialogue bodies.
+The next work is about confidence and usability:
 
-## For Romhackers
+- C3 event/actionscript opcode semantics, operand names, callback argument
+  contracts, and reassembly-friendly script assets.
+- C1 plus `C5..C9`/`EF` text-command and localization-script semantics.
+- Stronger table, WRAM, map, graphics, font, UI, and audio payload contracts.
+- Render/decode fixtures for major asset classes.
+- A practical editing and validation guide for romhackers.
+- Eventually, higher-level C or native-engine reconstruction one subsystem at a
+  time.
 
-This repo should be useful if you want to answer questions like:
+Romhacks are not the limit, but a faithful port needs stronger semantic models
+for battle, menus, overworld scripts, rendering, audio, text, and save/state
+systems.
 
-- Where is this battle action, menu routine, table, or visual effect handled?
-- What WRAM fields or ROM tables does a routine touch?
-- Which banks contain code versus script/data/assets?
-- How can a byte range be changed without losing track of exact ROM behavior?
-- Which scripts, text commands, tables, or assets still need stronger semantic
-  docs before they are comfortable to edit?
-- What references already exist in `ebsrc`, legacy disassemblies, or local notes?
+## Good Starting Points
 
-Good starting points:
-
-- `notes/project-status.md`
-- `notes/how-to-validate.md`
-- `notes/python-tool-syntax-guide.md`
-- `notes/readable-source-bank-closure.md`
-- `notes/c3-actionscript-semantics-roadmap.md`
-- `notes/c3-actionscript-semantics-audit.md`
-- `notes/c3-event-script-source-pilot.md`
-- `notes/text-command-semantics-manifest.md`
-- `notes/c3-timed-delivery-source-pilot.md`
-- `notes/c3-service-event-movement-source-pilot.md`
-- `notes/c3-service-animation-source-pilot.md`
-- `notes/c3-service-presentation-effects-source-pilot.md`
-- `notes/c3-itoi-production-intro-source-pilot.md`
-- `notes/c3-intro-presentation-paths-source-pilot.md`
-- `notes/c3-intro-cast-scroll-setup-source-pilot.md`
-- `notes/c3-intro-cast-member-paths-source-pilot.md`
-- `notes/c3-party-look-window-gfx-paths-source-pilot.md`
-- `notes/c3-temp-flag-door-close-paths-source-pilot.md`
-- `notes/c3-teleport-destination-paths-source-pilot.md`
-- `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
-- `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
-- `notes/c3-tunnel-ghost-entity-setup-paths-source-pilot.md`
-- `notes/c3-vehicle-coordinate-paths-source-pilot.md`
-- `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
-- `notes/c3-palette-fade-coordinate-paths-source-pilot.md`
-- `notes/c3-falling-bounce-yield-paths-source-pilot.md`
-- `notes/c3-teleport-destination-prelude-paths-source-pilot.md`
-- `notes/c3-bus-tunnel-bridge-paths-source-pilot.md`
-- `notes/c3-anim-port-flag-switch-source-pilot.md`
-- `notes/c3-leftward-bounds-release-paths-source-pilot.md`
-- `notes/c3-anim-port-direction-tasks-source-pilot.md`
-- `notes/c3-rightward-live-area-bounce-yield-source-pilot.md`
-- `notes/c3-var4-animation-side-step-helpers-source-pilot.md`
-- `notes/c3-window-gfx-loader-prologue-source-pilot.md`
-- `notes/c3-tunnel-ghost-warp-text-helpers-source-pilot.md`
-- `notes/c3-movement-vector-core-helpers-source-pilot.md`
-- `notes/c3-facing-pulse-helpers-source-pilot.md`
-- `notes/c3-teleport-flyover-pulse-helpers-source-pilot.md`
-- `notes/c3-sky-runner-electric-effect-helpers-source-pilot.md`
-- `notes/c3-small-terminal-helper-cleanup-source-pilot.md`
-- `notes/c3-cast-screen-tenda-king-paths-source-pilot.md`
-- `notes/c3-live-area-facing-movement-paths-source-pilot.md`
-- `notes/c3-onett-townhall-movement-paths-source-pilot.md`
-- `notes/c3-onett-townhall-door-paths-source-pilot.md`
-- `notes/c3-position-text-door-sound-paths-source-pilot.md`
-- `notes/c3-bubble-monkey-route-paths-source-pilot.md`
-- `notes/c3-pokey-bubble-monkey-paths-source-pilot.md`
-- `notes/c3-direction-tracker-townhall-paths-source-pilot.md`
-- `notes/c3-tstage-performance-movement-paths-source-pilot.md`
-- `notes/c3-stage-visual-pulse-paths-source-pilot.md`
-- `notes/c3-var0-animation-collision-probe-source-pilot.md`
-- `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
-- `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
-- `notes/c3-threed-fight-matent-paths-source-pilot.md`
-- `notes/c3-position-door-close-helpers-source-pilot.md`
-- `notes/c3-position-text-yield-paths-source-pilot.md`
-- `notes/c3-monotoly-coordinate-text-paths-source-pilot.md`
-- `notes/c3-tstage-dance-sequence-paths-source-pilot.md`
-- `notes/c3-gum-machine-flyover-paths-source-pilot.md`
-- `notes/c3-flyover-scene-wait-paths-source-pilot.md`
-- `notes/c3-position-watch-new-entity-paths-source-pilot.md`
-- `notes/c3-townhall-direction-common-paths-source-pilot.md`
-- `notes/c3-townhall-coffee-tea-gatekeeper-paths-source-pilot.md`
-- `notes/c3-bus-transition-route-paths-source-pilot.md`
-- `notes/c3-twoson-bus-route-paths-source-pilot.md`
-- `notes/c3-bus-tunnel-desert-route-paths-source-pilot.md`
-- `notes/c3-space-tunnel-crash-paths-source-pilot.md`
-- `notes/c3-skyrunner-crash-winter-paths-source-pilot.md`
-- `notes/c3-party-member-tracker-winter-paths-source-pilot.md`
-- `notes/c3-winters-ride-launch-paths-source-pilot.md`
-- `notes/c3-early-pose-coordinate-pair-paths-source-pilot.md`
-- `notes/c3-early-party-look-coordinate-paths-source-pilot.md`
-- `notes/c3-party-look-meteorite-paths-source-pilot.md`
-- `notes/c3-winter-target-release-paths-source-pilot.md`
-- `notes/c3-onett-door-close-gate-paths-source-pilot.md`
-- `notes/c3-onett-door-close-coordinate-paths-source-pilot.md`
-- `notes/c3-bus-bridge-obscured-route-paths-source-pilot.md`
-- `notes/c3-sky-runner-electric-effect-release-paths-source-pilot.md`
-- `notes/c3-window-gfx-sequence-release-paths-source-pilot.md`
-- `notes/c3-intro-cast-followup-paths-source-pilot.md`
-- `notes/c3-threed-escaper-appear-paths-source-pilot.md`
-- `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
-- `notes/c3-battle-swirl-interaction-paths-source-pilot.md`
-- `notes/c3-battle-swirl-visual-countdown-paths-source-pilot.md`
-- `notes/c3-npc-attention-path-helpers-source-pilot.md`
-- `notes/c3-party-member-hop-text-paths-source-pilot.md`
-- `notes/c3-visual-countdown-anchor-followers-source-pilot.md`
-- `notes/c3-flyover-intro-text-release-paths-source-pilot.md`
-- `notes/c3-direction-follower-display-reset-paths-source-pilot.md`
-- `notes/c3-stage-brightness-terminal-helpers-source-pilot.md`
-- `notes/c3-party-member-orbit-damping-paths-source-pilot.md`
-- `notes/c3-cast-screen-orbit-continuation-source-pilot.md`
-- `notes/c3-cast-screen-step-spawn-continuation-source-pilot.md`
-- `notes/c3-threed-escaper-arc-continuation-source-pilot.md`
-- `notes/c3-threed-escaper-landing-continuation-source-pilot.md`
-- `notes/c3-tstage-dance-followup-paths-source-pilot.md`
-- `notes/c3-tstage-dual-window-position-paths-source-pilot.md`
-- `notes/c3-tstage-performance-upper-corridor-source-pilot.md`
-- `notes/c3-tstage3-performance-routes-source-pilot.md`
-- `notes/c3-tstage-long-choreography-release-source-pilot.md`
-- `notes/c3-tstage-vstage-route-release-paths-source-pilot.md`
-- `notes/c3-photo-scene-jump-release-source-pilot.md`
-- `notes/c3-bus-driver-attention-coordinator-source-pilot.md`
-- `notes/c3-npc-attention-wide-distance-gate-source-pilot.md`
-- `notes/c3-meteorite-window-party-approach-paths-source-pilot.md`
-- `notes/c3-bus-driver-attention-release-source-pilot.md`
-- `notes/c3-magic-butterfly-pp-restore-release-source-pilot.md`
-- `notes/c3-boogy-city-bus-movement-dispatch-source-pilot.md`
-- `notes/c3-winters-ride-input-and-route-release-source-pilot.md`
-- `notes/c3-winter-input-bubble-monkey-routes-source-pilot.md`
-- `notes/c3-winter-coordinate-facing-routes-source-pilot.md`
-- `notes/c3-winter-coordinate-transition-routes-source-pilot.md`
-- `notes/c3-winter-input-battle-bg-transition-source-pilot.md`
-- `notes/c3-winter-battle-bg-reload-and-route-release-source-pilot.md`
-- `notes/c3-winter-sanctuary-display-and-pulse-release-source-pilot.md`
-- `notes/c3-event353-message-tile-reveal-source-pilot.md`
-- `notes/c3-early-turn-bias-and-coordinate-routes-source-pilot.md`
-- `notes/c3-early-visual-countdown-halts-source-pilot.md`
-- `notes/c3-overworld-snapshot-seed-loop-source-pilot.md`
-- `notes/c3-traffic-light-profile-and-random-wander-source-pilot.md`
-- `notes/c3-party-look-jump-and-route-terminal-source-pilot.md`
-- `notes/c3-tunnel-ghost-teleport-routes-source-pilot.md`
-- `notes/c3-photo-scene-spin-and-window-gfx-release-source-pilot.md`
-- `notes/c3-position-door-close-rotation-and-target-paths-source-pilot.md`
-- `notes/c3-flyover-palette-random-movement-paths-source-pilot.md`
-- `notes/c3-source-pilot-frontier.md`
-- `notes/map-sprite-usage-contract.md`
-- `notes/map-movement-usage-contract.md`
-- `notes/map-object-bundles.md`
-- `notes/map-object-layer-closure.md`
-- `notes/map-milestone-closure.md`
-- `notes/earthbound-localization-script-authoring-format.md`
-- `notes/localization-script-source-index.md`
-- `notes/localization-map-object-crosswalk.md`
-- `notes/localization-movement-evidence.md`
-- `notes/map-sector-bundles.md`
-- `notes/map-tileset-bundles.md`
-- `notes/map-fts-format-audit.md`
-- `notes/map-fts-arrangement-contract.md`
-- `notes/map-fts-animation-settings-contract.md`
-- `notes/map-scene-composition-contract.md`
-- `notes/map-collision-attribute-context.md`
-- `notes/map-collision-pointer-contract.md`
-- `notes/map-collision-runtime-bit-contract.md`
-- `notes/map-palette-descriptor-context.md`
-- `notes/map-palette-pointer-table-contract.md`
-- `notes/map-palette-command-usage-contract.md`
-- `notes/overworld-sprite-animation-roles.md`
-- `notes/bank-c0-c2-closure.md`
-- `notes/bank-c2-source-scaffold-handoff.md`
-- `notes/source-scaffold-status.md`
-- `notes/reference-first-workflow.md`
-- `tools/inspect_battle_action.py`
-- `tools/inspect_item.py`
-- `tools/find_xrefs.py`
-- `tools/decode_snippet.py`
-
-## For Curious Readers
-
-If you are not here to patch the ROM directly, the short version is this: the
-project is turning a commercial SNES game ROM from a large stream of bytes into
-named, testable parts.
-
-That makes it easier to ask human questions about the game:
-
-- Which code controls battles, menus, maps, text, audio, and save data?
-- Which parts are executable program logic, and which parts are tables, scripts,
-  graphics, or compressed assets?
-- Where do fan tools and older disassemblies agree with the ROM, and where do we
-  still need stronger evidence?
-- What would need to be understood before a native port or reimplementation could
-  be faithful?
-
-The notes are written as working research, not polished articles, but they aim to
-leave enough breadcrumbs that someone else can check the same evidence.
+- `notes/project-status.md` - durable project orientation
+- `notes/source-scaffold-status.md` - all-bank byte-equivalent scaffold dashboard
+- `notes/readable-source-bank-closure.md` - source-heavy bank closure dashboard
+- `notes/c3-source-data-map.md` - C3 code/data/script split map
+- `notes/c3-actionscript-semantics-audit.md` - C3 script decoder baseline
+- `notes/text-command-semantics-manifest.md` - text-command VM coverage
+- `notes/how-to-validate.md` - validation commands
+- `notes/python-tool-syntax-guide.md` - common tool syntax
+- `notes/reference-first-workflow.md` - how local refs are used without treating
+  them as unquestioned truth
 
 ## Repository Layout
 
@@ -287,7 +125,7 @@ Ignored/local-only:
 - `tmp_*.asm`
 
 The `refs/` directory is intentionally local-only. Reference projects are useful
-accelerators, but this repository should only publish conclusions that have been
+accelerators, but this repository should publish only conclusions that have been
 locally checked or clearly labeled in notes.
 
 ## ROM Requirements
@@ -316,205 +154,38 @@ python tools/verify_rom.py
 Validate one source bank:
 
 ```powershell
-python tools/build_source_bank_scaffold.py --bank C2 --output src/c2/bank_c2_helpers_asar.asm
-python tools/validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src/c2/bank_c2_helpers_asar.asm --strict
+python tools/validate_source_bank_byte_equivalence.py --bank C3
 ```
 
-Regenerate source-bank docs:
+Regenerate core status dashboards:
 
 ```powershell
-python tools/build_source_bank_candidate_ranges_doc.py --bank C2
-python tools/build_source_bank_residual_map.py --bank C2
 python tools/build_readable_source_bank_closure.py
+python tools/build_c3_source_data_map.py
+python tools/build_text_command_semantics_manifest.py
 ```
 
-Inspect a ROM table or gameplay record:
-
-```powershell
-python tools/inspect_item.py 0x11 --count 2
-python tools/inspect_battle_action.py 78
-python tools/inspect_table.py --contract ENEMY_CONFIGURATION_TABLE --index 0 --count 1 --field actions:w:0x46
-```
-
-Follow code and data references:
+Inspect code, references, or data:
 
 ```powershell
 python tools/find_xrefs.py C20ABC --limit 12
 python tools/find_direct_callers.py C2:D121
-python tools/decode_snippet.py C1:244C --count 20 --show-state --force-m8
-python tools/trace_dp_window.py C2:7550 --count 16 --show-state --force-m16 --force-x16 --d 0x99CE
+python tools/decode_snippet.py C1:244C --count 20 --show-state
+python tools/inspect_table.py --contract ENEMY_CONFIGURATION_TABLE --index 0 --count 1
 ```
 
-Work with EarthBound text/script payloads:
+Work with text and event/actionscript payloads:
 
 ```powershell
-python tools/extract_ebtext.py C2:0998 --length 4 --count 2 --stride 4
 python tools/find_ebtext_command.py 1C 05 --limit 12
-python tools/inspect_ebtext_hits.py 1D 24 --limit 2 --before 24 --after 56
 python tools/build_text_command_semantics_manifest.py
-python tools/decode_event_script.py C3:0295 C3:AB59
+python tools/decode_event_script.py C3:0195 C3:0295 C3:AB59
 python tools/build_c3_actionscript_semantics_audit.py
-python tools/build_c3_event_script_source_pilot.py
-python tools/build_c3_event_script_source_pilot.py --family timed-delivery-controller
-python tools/build_c3_event_script_source_pilot.py --family service-event-movement
-python tools/build_c3_event_script_source_pilot.py --family service-animation-helpers
-python tools/build_c3_event_script_source_pilot.py --family service-presentation-effects
-python tools/build_c3_event_script_source_pilot.py --family itoi-production-intro
-python tools/build_c3_event_script_source_pilot.py --family intro-presentation-paths
-python tools/build_c3_event_script_source_pilot.py --family intro-cast-scroll-setup
-python tools/build_c3_event_script_source_pilot.py --family intro-cast-member-paths
-python tools/build_c3_event_script_source_pilot.py --family party-look-window-gfx-paths
-python tools/build_c3_event_script_source_pilot.py --family temp-flag-door-close-paths
-python tools/build_c3_event_script_source_pilot.py --family teleport-destination-paths
-python tools/build_c3_event_script_source_pilot.py --family tunnel-ghost-zombie-paths
-python tools/build_c3_event_script_source_pilot.py --family tunnel-ghost-follower-paths
-python tools/build_c3_event_script_source_pilot.py --family vehicle-coordinate-paths
-python tools/build_c3_event_script_source_pilot.py --family boogy-tent-city-bus-paths
-python tools/build_c3_event_script_source_pilot.py --family palette-fade-coordinate-paths
-python tools/build_c3_event_script_source_pilot.py --family falling-bounce-yield-paths
-python tools/build_c3_event_script_source_pilot.py --family teleport-destination-prelude-paths
-python tools/build_c3_event_script_source_pilot.py --family bus-tunnel-bridge-paths
-python tools/build_c3_event_script_source_pilot.py --family anim-port-flag-switch
-python tools/build_c3_event_script_source_pilot.py --family var0-animation-collision-probe
-python tools/build_c3_event_script_source_pilot.py --family area-wait-random-wander-helpers
-python tools/build_c3_event_script_source_pilot.py --family teleport-flyover-coordinate-helpers
-python tools/build_c3_event_script_source_pilot.py --family threed-fight-matent-paths
-python tools/build_c3_event_script_source_pilot.py --family position-door-close-helpers
-python tools/build_c3_event_script_source_pilot.py --family position-text-yield-paths
-python tools/build_c3_event_script_source_pilot.py --family monotoly-coordinate-text-paths
-python tools/build_c3_event_script_source_pilot.py --family tstage-dance-sequence-paths
-python tools/build_c3_event_script_source_pilot.py --family gum-machine-flyover-paths
-python tools/build_c3_event_script_source_pilot.py --family flyover-scene-wait-paths
-python tools/build_c3_event_script_source_pilot.py --family position-watch-new-entity-paths
-python tools/build_c3_event_script_source_pilot.py --family townhall-direction-common-paths
-python tools/build_c3_event_script_source_pilot.py --family townhall-coffee-tea-gatekeeper-paths
-python tools/build_c3_event_script_source_pilot.py --family bus-transition-route-paths
-python tools/build_c3_event_script_source_pilot.py --family twoson-bus-route-paths
-python tools/build_c3_event_script_source_pilot.py --family bus-tunnel-desert-route-paths
-python tools/build_c3_event_script_source_pilot.py --family space-tunnel-crash-paths
-python tools/build_c3_event_script_source_pilot.py --family skyrunner-crash-winter-paths
-python tools/build_c3_event_script_source_pilot.py --family party-member-tracker-winter-paths
-python tools/build_c3_event_script_source_pilot.py --family winters-ride-launch-paths
-python tools/build_c3_event_script_source_pilot.py --family early-pose-coordinate-pair-paths
-python tools/build_c3_event_script_source_pilot.py --family early-party-look-coordinate-paths
-python tools/build_c3_event_script_source_pilot.py --family party-look-meteorite-paths
-python tools/build_c3_event_script_source_pilot.py --family winter-target-release-paths
-python tools/build_c3_event_script_source_pilot.py --family onett-door-close-gate-paths
-python tools/build_c3_event_script_source_pilot.py --family onett-door-close-coordinate-paths
-python tools/build_c3_event_script_source_pilot.py --family bus-bridge-obscured-route-paths
-python tools/build_c3_event_script_source_pilot.py --family sky-runner-electric-effect-release-paths
-python tools/build_c3_event_script_source_pilot.py --family window-gfx-sequence-release-paths
-python tools/build_c3_event_script_source_pilot.py --family intro-cast-followup-paths
-python tools/build_c3_event_script_source_pilot.py --family threed-escaper-appear-paths
-python tools/build_c3_event_script_source_pilot.py --family bus-bridge-route-terminal-paths
-python tools/build_c3_source_pilot_frontier.py
 ```
-
-Join map object visuals and behavior:
-
-```powershell
-python tools/build_map_sprite_usage_contract.py
-python tools/build_map_movement_usage_contract.py
-python tools/build_map_object_bundle_contract.py
-python tools/build_map_sector_bundle_contract.py
-python tools/build_map_tileset_bundle_contract.py
-```
-
-Regenerate the full checked-in map contract milestone:
-
-```powershell
-python tools/run_map_contracts.py
-```
-
-Build cross-bank naming or data-contract reports:
-
-```powershell
-python tools/build_working_name_manifest.py --banks C0 C1 C2 --output build/working-names-c0-c2.json
-python tools/build_data_contract_manifest.py --json-out build/data-contracts-c0-c2.json --markdown-out notes/data-contracts-c0-c2.md
-python tools/validate_data_contracts.py
-```
-
-## Tool Guide
-
-High-use tools:
-
-- `verify_rom.py`: confirm the local ROM is the expected input
-- `split_rom.py`: split the ROM into per-bank build artifacts
-- `find_xrefs.py`: scan for direct calls, likely memory accesses, and pointer hits
-- `decode_snippet.py`: inspect 65816 code at a CPU address with optional width
-  overrides
-- `trace_dp_window.py`: track direct-page-heavy code paths
-- `inspect_table.py`: inspect fixed-stride ROM tables
-- `inspect_item.py`: decode item records
-- `inspect_battle_action.py`: decode battle action records
-- `lookup_wram_field.py`: map WRAM addresses to known reference structures
-- `lookup_data_contract.py`: query curated ROM/WRAM data contracts
-- `build_map_sprite_usage_contract.py`: join map placements to overworld
-  sprite roles
-- `build_map_movement_usage_contract.py`: join NPC movement IDs to ebsrc
-  event/actionscript pointer targets
-- `build_map_object_bundle_contract.py`: combine placed-object visuals,
-  behavior entrypoints, event flags, text pointers, and map positions
-- `build_map_sector_bundle_contract.py`: join sectors to objects, triggers,
-  metadata, enemy groups, music options, hotspots, and map tile hashes
-- `build_map_tileset_bundle_contract.py`: catalog map tileset IDs, `.fts`
-  exports, palette settings, and sector dependencies
-- `run_map_contracts.py`: regenerate the checked-in map contract milestone in
-  dependency order
-- `build_readable_source_bank_closure.py`: audit source-heavy banks for decoded
-  asm versus preserved corridors after byte-equivalent scaffold closure
-- `decode_event_script.py`: decode C3 event/actionscript payloads while the VM
-  semantics are being promoted into durable docs
-- `build_c3_actionscript_semantics_audit.py`: regenerate the C3
-  event/actionscript frontier report from the source/data map and local ROM
-- `emit_linear_source_module.py`: produce source-candidate assembly from a ROM
-  range
-- `promote_linear_range_to_decoded_source.py`: replace one byte corridor with
-  decoded linear source and update the local range manifest
-- `add_source_bank_range.py`: register a source range in a bank manifest
-- `build_source_bank_scaffold.py`: regenerate a durable bank scaffold
-- `validate_source_bank_byte_equivalence.py`: prove generated source bytes match
-  the original ROM
-
-See `notes/python-tool-syntax-guide.md` for common command forms, address
-formats, and copy/paste examples.
 
 Most generated output goes under `build/` and is intentionally ignored. Commit
 durable conclusions in `notes/`, source modules in `src/`, and reusable tooling
 in `tools/`.
-
-## Source Scaffold Philosophy
-
-The scaffold is intentionally conservative.
-
-- Keep exact byte-equivalence first.
-- Prefer small named source modules over huge anonymous byte corridors.
-- Record evidence in notes before treating a name as settled.
-- Distinguish code, tables, assets, text payloads, and event/action scripts.
-- Use reference projects as accelerators, not unquestioned authority.
-- Keep generated scratch out of Git unless it has become a durable report.
-
-This lets the project support two tracks at once: practical romhacking today and
-eventual decompilation or porting work later.
-
-Terminology note: "scaffold-backed" means the bytes are accounted for in a
-checked-in, byte-equivalent assembler artifact. It does not necessarily mean the
-range has been converted into human-readable mnemonic assembly yet.
-
-## Porting Outlook
-
-Documenting every bank this way does not automatically produce C code, but it
-does remove several hard blockers:
-
-- control flow becomes findable and nameable
-- tables and WRAM contracts become explicit
-- asset/script banks can be separated from executable code
-- byte-equivalent assembly can be refactored with validation
-- higher-level systems can be lifted one subsystem at a time
-
-Romhacks are not the limit. A future native engine or port is plausible, but it
-depends on turning this source scaffold into stronger semantic models for battle,
-menus, overworld scripts, rendering, audio, and save/state systems.
 
 ## Legal And Attribution Notes
 

@@ -58,8 +58,8 @@ def build_triage() -> list[BankTriage]:
             "overworld/runtime source",
             "source-integration-ready",
             1,
-            "Promote the C0 working-name set into source labels, then extract stable runtime slices around entity/task, movement, interaction, collision, teleport, and PPU helper contracts.",
-            ["large bank; source extraction should happen by subsystem, not as one monolith"],
+            "Readable-source closure is complete; next C0 work is semantic naming/comment polish around entity/task, movement, interaction, collision, teleport, and PPU helper contracts.",
+            ["large bank; semantic polish should happen by subsystem, not as one monolith"],
             ["entity/task runtime", "movement and interaction helpers", "teleport and transition helpers", "PPU/window utility helpers"],
         ),
         entry(
@@ -76,7 +76,7 @@ def build_triage() -> list[BankTriage]:
             "battle runtime source",
             "source-integration-ready",
             1,
-            "Extract table-backed battle runtime slices first: target selection, action dispatch, status/affliction families, PSI common handlers, Final Prayer, and battle visual tails.",
+            "Readable-source closure is complete; next C2 work is semantic naming/comment polish for target selection, action dispatch, status/affliction families, PSI common handlers, Final Prayer, and battle visual tails.",
             ["many class-2 action leaves still need final naming polish"],
             ["battle action dispatch", "status/resource effects", "PSI and item action families", "battle background/sprite/palette tails"],
         ),
@@ -85,8 +85,8 @@ def build_triage() -> list[BankTriage]:
             "script/data/helper bank",
             "script-and-data-ready",
             2,
-            "Use `notes/c3-source-data-map.md` to extract ordinary 65816 helper rows separately from event/actionscript payload assets; improve the event VM decoder before treating scripts as portable source.",
-            ["script payloads are bytecode assets until the event/actionscript VM contract is richer"],
+            "C3 has no unexplained raw follow-up frontier; next C3 work is event/actionscript opcode semantics, operand names, callback argument contracts, and source/script emission polish.",
+            ["script payloads remain bytecode assets until the event/actionscript VM contract is richer"],
             ["movement and interaction tables", "title/cursor tile data", "battle visual tables", "window/text helper tail"],
         ),
         entry(
@@ -381,10 +381,10 @@ def build_triage() -> list[BankTriage]:
         entry(
             "EF",
             "mixed save/map/text/debug source/data",
-            "source-and-data-splitter-needed",
+            "source-integration-ready",
             1,
-            "Use `notes/ef-readable-source-split-queue.md` to split `EF:0000..EF:EB5F` out of its coarse unknown/data corridor into save/SRAM source, debug/menu routines, map tileset/sprite grouping tables, text/help script runs, glyph mask tables, and named late tail data.",
-            ["many early/middle EF source includes are absent from refs", "large text run needs exact segment boundaries"],
+            "Readable-source closure is complete; next EF work is semantic polish for save/SRAM, debug/menu routines, map tileset/sprite grouping tables, text/help script runs, glyph mask tables, and named late tail data.",
+            ["large text run still needs stronger text/script semantics"],
             ["debug font/cursor graphics", "Sound Stone data", "PSI help text anchors", "glyph mask tables", "save helper family"],
         )
     )
@@ -447,9 +447,9 @@ def render_markdown(payload: dict[str, object]) -> str:
         "",
         f"- coverage: `{coverage['banks']} / 48` banks from `C0` through `EF`",
         f"- missing first-pass notes: `{len(coverage['missing_first_pass_notes'])}`",
-        "- first implementation priorities: `C0`, `C1`, `C2`, `C4`, and `EF`",
-        "- first source-code priorities: `C0`, `C1`, `C2`, `C4`, and source-bearing slices of `EF`",
-        "- first non-code implementation priorities: C3 event VM/source-helper follow-through and C5-C9 text-script export",
+        "- first semantic priorities: `C0`, `C1`, `C2`, `C4`, and `EF`",
+        "- first bytecode/text priorities: C3 event/actionscript semantics and C5-C9 text-script export",
+        "- readable source-bank closure status: `0` preserved source corridors in audited source-heavy banks",
         "- readable source-bank closure dashboard: `notes/readable-source-bank-closure.md`",
         "",
         "## Readiness Counts",
@@ -475,8 +475,8 @@ def render_markdown(payload: dict[str, object]) -> str:
     for row in rows:
         rows_by_priority[row.priority].append(row)
     meanings = {
-        1: "Highest leverage for source/data extraction planning.",
-        2: "Needed splitters or VM/data-contract work before clean source.",
+        1: "Highest leverage for runtime semantic polish.",
+        2: "Highest leverage for VM/data-contract polish.",
         3: "Structurally mapped data/text/asset work with useful table polish.",
         4: "Mostly asset emission or one policy decision.",
         5: "Closed audio-pack payload emission.",
@@ -490,13 +490,13 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "## Immediate Workstreams",
             "",
-            "### Source and runtime extraction",
+            "### Source and runtime semantics",
             "",
-            "- `C0`: overworld/entity/task/movement/runtime slices.",
+            "- `C0`: overworld/entity/task/movement/runtime contracts.",
             "- `C1`: text engine, CCS leaves, menus, battle front ends, file select.",
             "- `C2`: battle runtime, action dispatch, status/effect families, battle visuals.",
             "- `C4`: renderer, text tiles, HDMA/color/window helpers, movement presentation.",
-            "- `EF`: save/SRAM, debug/menu routines, and reusable late helpers after split.",
+            "- `EF`: save/SRAM, debug/menu routines, reusable late helpers, and text/data tails.",
             "",
             "### Data-contract splitters",
             "",
@@ -505,7 +505,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Script, text, and VM assets",
             "",
-            "- `C3`: source/data split is mapped; extract true helper rows separately from event/actionscript payloads and improve VM decoding.",
+            "- `C3`: source/data split is mapped; improve event/actionscript opcode semantics, operand names, and callback contracts.",
             "- `C5..C9`: text-script export and text command decoder regression corpus.",
             "- `EF`: split large help/battle/menu text run using D5/C1 consumers.",
             "",
@@ -533,7 +533,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "## How to use this",
             "",
-            "Use this as the implementation queue, not as proof that a bank is done. A bank marked `asset-ready` can be emitted as assets with little code archaeology. A bank marked `source-integration-ready` is ready for subsystem source extraction, but still needs careful labels, comments, and tests/verification around side effects. A bank marked `splitter-needed` needs a format-specific tool or table-reader pass before pretending it has exact source boundaries.",
+            "Use this as the implementation queue, not as proof that a bank is semantically done. A bank marked `asset-ready` can be emitted as assets with little code archaeology. A bank marked `source-integration-ready` has readable source closure for the current phase, but still needs careful labels, comments, and tests/verification around side effects. A bank marked `data-contract-ready` needs format-specific table-reader or emitter polish before pretending it has row-level semantics.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

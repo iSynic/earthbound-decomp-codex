@@ -45,6 +45,32 @@ text-command notes, and recovered localization `.MSG` control-command counts.
 The current manifest reports `29 / 32` top-level commands covered; the remaining
 three are the expected parser-only compressed-bank pseudo-opcodes `0x15..0x17`.
 
+## Public Good-Enough Definition
+
+For public romhacking and research use, this project should be judged by a
+clear boundary rather than by endless polish. A bank or subsystem is
+phase-good-enough when:
+
+- its bytes are protected by a checked-in byte-equivalent scaffold
+- native source is decoded or explicitly classified as data, text, script, or
+  asset payload
+- there is no unexplained raw frontier, or the remaining prefix/padding is
+  small, bounded, and documented
+- important names, table shapes, WRAM fields, and script/text payload roles are
+  reflected in generated manifests where possible
+- a contributor can find the validation command and the relevant status note
+  before editing
+
+The project currently satisfies the first two requirements ROM-wide and for the
+audited source-heavy banks. C3 now satisfies the raw-frontier requirement for
+this phase: its remaining rows are mixed script/source/data emission work, not
+unidentified bank content.
+
+This is enough to call the repository structurally ready for careful community
+review once the public README, validation workflow, known-limits page, and
+semantic frontiers are presented honestly. It is not enough to call the project
+a finished decompilation or a C port.
+
 ## Terminology
 
 Use these terms carefully:
