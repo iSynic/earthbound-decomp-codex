@@ -321,6 +321,7 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "Script_SetCurrentSlotField2B32",
         "group": "current-slot-state",
         "contract": "read one script word and store it to current slot field $2B32",
+        "args": "field2b32_word",
     },
     "C0:A6DA": {
         "name": "ClearCurrentSlotNeighborCache",
@@ -341,6 +342,7 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "Script_ApplyCurrentSlotVisualCountdownState",
         "group": "visual-profile",
         "contract": "read countdown/state bytes and apply current slot visual countdown state",
+        "args": "visual_state_byte, countdown_byte",
     },
     "C1:FFD3": {
         "name": "ComputeBankC1ChecksumTail",
@@ -376,6 +378,72 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "MakePartyLookAtActiveEntityCallback",
         "group": "party-facing",
         "contract": "make party members face or track the active entity",
+    },
+    "C0:A841": {
+        "name": "Script_PlaySoundEffectParameter",
+        "group": "text-presentation",
+        "contract": "read one script word as a sound/effect id and play it through C0:ABE0",
+        "args": "sound_effect_id_word",
+    },
+    "C0:A84C": {
+        "name": "ScriptWrapper_C21628_ReadWord",
+        "group": "event-flag",
+        "contract": "read one script word and test it through C2:1628",
+        "args": "event_flag_word",
+    },
+    "C0:A857": {
+        "name": "ScriptWrapper_C2165E_ReadWordPreserveMode",
+        "group": "event-flag",
+        "contract": "preserve incoming mode in X, read one script word, and call C2:165E",
+        "args": "event_flag_word",
+    },
+    "C0:A864": {
+        "name": "Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte",
+        "group": "current-slot-state",
+        "contract": "read one script byte and copy that registry slot anchor to current slot state",
+        "args": "registry_slot_byte",
+    },
+    "C0:A86F": {
+        "name": "Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord",
+        "group": "current-slot-state",
+        "contract": "read one script word and copy that pose-descriptor slot anchor to current slot state",
+        "args": "pose_descriptor_slot_word",
+    },
+    "C0:A88D": {
+        "name": "ActionScript_QueueTextPointer",
+        "group": "text-presentation",
+        "contract": "read two script words as text pointer pieces and queue text record type #$0008",
+        "args": "text_pointer_low_word, text_pointer_bank_word",
+    },
+    "C0:A943": {
+        "name": "ActionScript_GetPositionOfPartyMember",
+        "group": "current-slot-state",
+        "contract": "read one party-member selector byte and copy that member position into script state",
+        "args": "party_member_selector_byte",
+    },
+    "C0:A94E": {
+        "name": "ScriptWrapper_C46984_ReadWord",
+        "group": "presentation-render",
+        "contract": "read one script word and forward it to C4:6984",
+        "args": "c46984_selector_word",
+    },
+    "C0:A959": {
+        "name": "ScriptWrapper_C469F1_ReadWord",
+        "group": "presentation-render",
+        "contract": "read one script word and forward it to C4:69F1",
+        "args": "c469f1_selector_word",
+    },
+    "C0:A964": {
+        "name": "ScriptWrapper_C47225_ReadTwoWords",
+        "group": "presentation-render",
+        "contract": "read two script words and forward them to C4:7225",
+        "args": "c47225_arg0_word, c47225_arg1_word",
+    },
+    "C0:A98B": {
+        "name": "ScriptWrapper_C46534_ReadThreeWords",
+        "group": "presentation-render",
+        "contract": "read two script words and forward them to C4:6534; callee consumes the staged third value",
+        "args": "c46534_arg0_word, c46534_arg1_word",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",

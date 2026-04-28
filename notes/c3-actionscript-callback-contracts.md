@@ -13,6 +13,7 @@ now tracks each native target with:
 - semantic group
 - call count
 - inline argument byte count
+- named argument schema, where known
 - current argument/behavior contract
 
 That makes the next C3 phase a contract-polish pass instead of a blind callback
@@ -62,18 +63,16 @@ re-introducing older `UNKNOWN_*` labels.
 
 ## Next Contract Work
 
-The remaining high-value work is to replace generic contracts such as
-`2 inline argument byte(s); semantic fields not named yet` with named argument
-fields.
+The remaining high-value work is to replace generic argument schemas such as
+`arg0_byte, arg1_byte` with named fields.
 
 Good first targets:
 
-- `C0:A88D` queued text pointer argument bytes
-- `C0:A943` party-member selector byte
-- `C0:A841` sound-effect argument word
-- `C0:A864`, `C0:A86F`, `C0:A94E`, `C0:A959`, `C0:A964`, and `C0:A98B` wrapper
-  argument fields
 - `C0:5E76` collision-cache argument words
+- `C0:A912`, `C0:A9B3`, `C0:A9CF`, `C0:A9EB`, `C0:AA07`, `C0:AA23`, and
+  `C0:AAB5` multi-word wrapper fields
+- the generic `presentation-render` wrapper names that still mirror callee
+  addresses instead of final gameplay roles
 
 Those are the contracts that will make C3 scripts genuinely source-like rather
 than only byte-equivalent macro streams.

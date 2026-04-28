@@ -283,6 +283,17 @@ def inferred_callback_contract(target: str, arg_bytes: int | None) -> str:
     return f"{arg_bytes} inline argument byte(s); semantic fields not named yet"
 
 
+def inferred_argument_schema(target: str, arg_bytes: int | None) -> str:
+    semantics = CALL_TARGET_SEMANTICS.get(target)
+    if semantics and semantics.get("args"):
+        return semantics["args"]
+    if arg_bytes is None:
+        return "unknown"
+    if arg_bytes == 0:
+        return "-"
+    return ", ".join(f"arg{i}_byte" for i in range(arg_bytes))
+
+
 def audit_entry(
     entry: dict[str, Any],
     rom: bytes,
@@ -371,6 +382,7 @@ def build_audit(
                 "arg_bytes": arg_bytes,
                 "semantic_group": inferred_callback_group(target, preferred_name),
                 "argument_contract": inferred_callback_contract(target, arg_bytes),
+                "argument_schema": inferred_argument_schema(target, arg_bytes),
                 "status": "byte-count-known" if target in CALL_ARG_COUNTS else "missing-byte-count",
             }
         )
@@ -474,19 +486,20 @@ def render_markdown(audit: dict[str, Any]) -> str:
             "",
             "## Native callback contract seed",
             "",
-            "| Target | Preferred name | Group | Calls | Arg bytes | Contract | Status |",
-            "| --- | --- | --- | ---: | ---: | --- | --- |",
+            "| Target | Preferred name | Group | Calls | Arg bytes | Args | Contract | Status |",
+            "| --- | --- | --- | ---: | ---: | --- | --- | --- |",
         ]
     )
     for contract in audit["callback_contracts"]:
         arg_bytes = contract["arg_bytes"]
         lines.append(
-            "| `{target}` | `{name}` | `{group}` | {calls} | {arg_bytes} | {argument_contract} | `{status}` |".format(
+            "| `{target}` | `{name}` | `{group}` | {calls} | {arg_bytes} | `{argument_schema}` | {argument_contract} | `{status}` |".format(
                 target=contract["target"],
                 name=markdown_escape(contract.get("preferred_name") or ""),
                 group=contract["semantic_group"],
                 calls=contract["calls"],
                 arg_bytes="-" if arg_bytes is None else arg_bytes,
+                argument_schema=markdown_escape(contract["argument_schema"]),
                 argument_contract=markdown_escape(contract["argument_contract"]),
                 status=contract["status"],
             )
