@@ -132,7 +132,10 @@ that romhackers need to edit confidently:
    `181` syntactically complete with the current decoder, and `181` carrying
    stable non-`UNKNOWN_C3...` names from checked-in source-pilot labels, with
    `86` native `EVENT_CALLROUTINE` byte-count seeds and `17` installed callback
-   target seeds captured. `140` source-form pilots are checked in under
+   target seeds captured. The decoder now prints first-pass semantic operand
+   fields for common VM operands and inline callback arguments, so generated
+   excerpts show `script_var=var4`, `frames=$08`, and named callback fields
+   instead of bare byte lists. `140` source-form pilots are checked in under
    `src/c3/event_scripts/` and cover `56518` validated bytes. Recent
    additions include Winters battle-BG/Sanctuary display continuations,
    tunnel-ghost teleport routes, photo-scene/window-gfx release paths, early

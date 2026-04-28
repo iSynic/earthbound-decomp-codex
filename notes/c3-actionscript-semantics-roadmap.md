@@ -51,14 +51,21 @@ Current audit result:
 - `tools/build_ref_index.py` now harvests checked-in source-pilot labels from
   `src/c3/event_scripts/*.asm`, so decoded targets and audit row names reuse the
   validated source labels instead of drifting into hand-maintained duplicates
+- `tools/decode_event_script.py` now prints first-pass semantic operand fields
+  for common VM operands (`script_var=var4`, `frames=$08`,
+  `animation_id=$01`, `x_velocity_word=$0200`) and named inline callback
+  arguments (`event_flag_word=$000C`,
+  `neighbor_cache_callback_long=$C0:64A6 <...>`)
 - callback semantic groups are now emitted in the audit for both
   `EVENT_CALLROUTINE` bridges and installed callback targets, with local names
   and first-pass contracts for high-value timed-delivery, visual-profile,
   current-slot-state, movement, collision, text/presentation, render, tick, and
   restore callbacks
 
-This shifts the next pass away from opcode discovery and toward semantic
-operand names, stable script labels, and script-family source forms.
+This shifts the next pass away from opcode discovery and basic operand labeling
+toward tighter value semantics: which variable slots mean target coordinates,
+which animation ids/facing values are symbolic constants, and which WRAM fields
+should become named contracts.
 
 ## Milestone Definition
 
@@ -71,6 +78,10 @@ This milestone is complete when C3 event/actionscript payloads have:
 5. at least one script family emitted in a reassembly-friendly source form
 6. a clear frontier list for unknown opcodes, unknown operands, and VM-adjacent
    payloads that are not event bytecode
+
+Items 1-5 are now satisfied at first-pass quality for the audited C3 rows. The
+remaining polish is item 6 at semantic depth rather than byte depth: replacing
+literal values with symbolic constants only where the evidence is strong.
 
 ## Terminology
 

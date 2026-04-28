@@ -82,6 +82,18 @@ The important point is not just nicer names. These names now appear directly in
 decode excerpts, so script-family notes can quote the generated audit without
 re-introducing older `UNKNOWN_*` labels.
 
+## Operand Labels In Decodes
+
+`tools/decode_event_script.py` now also prints first-pass operand field labels
+for the most common event/actionscript VM operands. For example, generated
+decode excerpts use `script_var=var4`, `frames=$08`, `animation_id=$01`, and
+named callback arguments such as `event_flag_word=$000C` or
+`neighbor_cache_callback_long=$C0:64A6 <...>`.
+
+This is intentionally a readability layer, not a new byte format. The raw bytes
+remain printed on every decoded line, and the source-pilot emitters still
+revalidate against the ROM byte-for-byte.
+
 ## Next Contract Work
 
 The current audit has no remaining generic `argN_byte` schemas among the C3

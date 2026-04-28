@@ -627,6 +627,41 @@ EVENT_TARGET_SEMANTICS: dict[str, str] = {
     "C3:A425": "ReturnFromNpcAttentionNeighborCacheCheck",
 }
 
+SCRIPT_VAR_NAMES = {index: f"var{index}" for index in range(8)}
+
+OPCODE_ARG_FIELDS: dict[str, tuple[str, ...]] = {
+    "EVENT_LOOP": ("count",),
+    "EVENT_PAUSE": ("frames",),
+    "EVENT_SET_VAR": ("script_var", "value_word"),
+    "EVENT_WRITE_BYTE_WRAM": ("wram_addr", "value_byte"),
+    "EVENT_BINOP": ("script_var", "operation_byte", "value_word"),
+    "EVENT_WRITE_WORD_WRAM": ("wram_addr", "value_word"),
+    "EVENT_BINOP_WRAM": ("wram_addr", "operation_byte", "script_var"),
+    "EVENT_SET_ANIMATION_POINTER": ("animation_pointer",),
+    "EVENT_WRITE_WORD_TEMPVAR": ("value_word",),
+    "EVENT_WRITE_WRAM_TEMPVAR": ("wram_addr",),
+    "EVENT_WRITE_TEMPVAR_TO_VAR": ("script_var",),
+    "EVENT_WRITE_VAR_TO_TEMPVAR": ("script_var",),
+    "EVENT_WRITE_VAR_TO_WAIT_TIMER": ("script_var",),
+    "EVENT_SET_ANIMATION_FRAME_VAR": ("script_var",),
+    "EVENT_BINOP_TEMPVAR": ("operation_byte", "value_word"),
+    "EVENT_SET_X": ("x_word",),
+    "EVENT_SET_Y": ("y_word",),
+    "EVENT_SET_Z": ("z_word",),
+    "EVENT_SET_X_RELATIVE": ("x_delta_word",),
+    "EVENT_SET_Y_RELATIVE": ("y_delta_word",),
+    "EVENT_SET_Z_RELATIVE": ("z_delta_word",),
+    "EVENT_SET_X_VELOCITY_RELATIVE": ("x_velocity_delta_word",),
+    "EVENT_SET_Y_VELOCITY_RELATIVE": ("y_velocity_delta_word",),
+    "EVENT_SET_Z_VELOCITY_RELATIVE": ("z_velocity_delta_word",),
+    "EVENT_SET_ANIMATION": ("animation_id",),
+    "EVENT_SKIP_N_ANIMATION_FRAMES": ("frame_count",),
+    "EVENT_SET_X_VELOCITY": ("x_velocity_word",),
+    "EVENT_SET_Y_VELOCITY": ("y_velocity_word",),
+    "EVENT_SET_Z_VELOCITY": ("z_velocity_word",),
+    "EVENT_SET_PRIORITY": ("priority",),
+}
+
 
 TERMINAL_NAMES = {
     "EVENT_END",
@@ -709,25 +744,99 @@ def format_byte(value: int) -> str:
     return f"${value:02X}"
 
 
+def format_script_var(value: int) -> str:
+    return SCRIPT_VAR_NAMES.get(value, format_byte(value))
+
+
+def semantic_field(opcode_name: str, index: int) -> str | None:
+    fields = OPCODE_ARG_FIELDS.get(opcode_name)
+    if not fields or index >= len(fields):
+        return None
+    return fields[index]
+
+
+def format_semantic_value(field: str | None, spec: str, value: int) -> str:
+    if field is None:
+        return format_byte(value) if spec == "byte" else format_word(value)
+    if field == "script_var":
+        return f"{field}={format_script_var(value)}"
+    if spec == "byte":
+        return f"{field}={format_byte(value)}"
+    return f"{field}={format_word(value)}"
+
+
+def call_arg_fields(target_key: str) -> list[str]:
+    schema = CALL_TARGET_SEMANTICS.get(target_key, {}).get("args", "")
+    return [field.strip() for field in schema.split(",") if field.strip()]
+
+
+def call_arg_width(field: str) -> int | None:
+    if field.endswith("_byte"):
+        return 1
+    if field.endswith("_word"):
+        return 2
+    if field.endswith("_long"):
+        return 3
+    return None
+
+
+def format_call_arg_value(
+    field: str,
+    raw_args: list[int],
+    cursor: int,
+    names: dict[str, list[str]],
+) -> tuple[str, int] | None:
+    width = call_arg_width(field)
+    if width is None or cursor + width > len(raw_args):
+        return None
+    if width == 1:
+        return f"{field}={format_byte(raw_args[cursor])}", cursor + 1
+    if width == 2:
+        value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
+        return f"{field}={format_word(value)}", cursor + 2
+    target = Address(raw_args[cursor + 2], raw_args[cursor] | (raw_args[cursor + 1] << 8))
+    return f"{field}={format_target(target, names)}", cursor + 3
+
+
+def format_callroutine_args(target: Address, raw_args: list[int], names: dict[str, list[str]]) -> list[str]:
+    fields = call_arg_fields(target.key)
+    if not fields:
+        return [format_byte(value) for value in raw_args]
+
+    cursor = 0
+    rendered: list[str] = []
+    for field in fields:
+        formatted = format_call_arg_value(field, raw_args, cursor, names)
+        if formatted is None:
+            return [format_byte(value) for value in raw_args]
+        value, cursor = formatted
+        rendered.append(value)
+    if cursor != len(raw_args):
+        return [format_byte(value) for value in raw_args]
+    return rendered
+
+
 def decode_args(
     rom: bytes,
     pos: int,
     bank: int,
+    opcode_name: str,
     specs: tuple[str, ...],
     names: dict[str, list[str]],
 ) -> tuple[list[str], int, bool]:
     args: list[str] = []
     complete = True
-    for spec in specs:
+    for index, spec in enumerate(specs):
+        field = semantic_field(opcode_name, index)
         if spec == "byte":
             if pos >= len(rom):
                 return args, pos, False
-            args.append(format_byte(rom[pos]))
+            args.append(format_semantic_value(field, spec, rom[pos]))
             pos += 1
         elif spec == "word":
             if pos + 1 >= len(rom):
                 return args, pos, False
-            args.append(format_word(read_u16(rom, pos)))
+            args.append(format_semantic_value(field, spec, read_u16(rom, pos)))
             pos += 2
         elif spec == "shortptr":
             if pos + 1 >= len(rom):
@@ -795,10 +904,11 @@ def decode_args(
                 if pos >= len(rom):
                     complete = False
                     break
-                raw_args.append(format_byte(rom[pos]))
+                raw_args.append(rom[pos])
                 pos += 1
             if raw_args:
-                args.append(f"{format_target(target, names)}, " + ", ".join(raw_args))
+                rendered_args = format_callroutine_args(target, raw_args, names)
+                args.append(f"{format_target(target, names)}, " + ", ".join(rendered_args))
             else:
                 args.append(format_target(target, names))
         else:
@@ -833,7 +943,7 @@ def decode_script(
         if opcode is None:
             lines.append(f"{address.key}  {opcode_byte:02X}          .byte ${opcode_byte:02X} ; unknown event opcode")
             break
-        args, pos, complete = decode_args(rom, pos, start.bank, opcode.args, names)
+        args, pos, complete = decode_args(rom, pos, start.bank, opcode.name, opcode.args, names)
         raw = " ".join(f"{byte:02X}" for byte in rom[raw_start:pos])
         arg_text = " " + ", ".join(args) if args else ""
         lines.append(f"{address.key}  {raw:<20} {opcode.name}{arg_text}")
