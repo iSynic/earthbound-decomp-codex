@@ -40,7 +40,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 ## Known Runtime Shapes
 
-- `battle_background_scene_bundle`: graphics pointer + arrangement pointer + palette pointer + config/scroll/distortion rows feed the C2 battle-background loader. Source: `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`.
+- `battle_background_scene_bundle`: battle-entry layer table + BG_DATA_TABLE rows + graphics/arrangement/palette pointers + scroll/distortion rows feed the C2 battle-background loader. Source: `notes/battle-background-scene-bundles.md`.
 - `battle_sprite_bundle`: CE battle-sprite pointer table selects compressed sprite graphics; CE palette assets supply renderer palettes; C2 renders with palette-tail helpers. Source: `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`.
 - `swirl_sequence_bundle`: CE swirl payloads plus swirl pointer/primary tables form transition frame sequences; ignored EBDecomp refs already contain six rendered swirl groups. Source: `refs/eb-decompile-4ef92/Swirls/swirls.yml and notes/c2-psi-swirl-overlay-tail-c2e6b3-c2ea74.md`.
 
@@ -392,8 +392,8 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 ### Battle background runtime tables
 
-- portable contract: Expose as structured tables before engine-ready scene bundles; field names should come from C2/C0 callers.
-- checked docs: `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`
+- portable contract: Expose as structured scene-layer bundles that join battle entries to graphics, arrangement, palette, scrolling, and distortion rows.
+- checked docs: `notes/battle-background-scene-bundles.md`, `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
@@ -872,7 +872,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 ## Next Open Questions
 
-- Join battle-background graphics, arrangement, palette, config, scrolling, and distortion rows into scene-level bundles.
+- Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.
 - Name PSI animation config fields and join arrangement/gfx/palette payloads into animation bundles.
 - Join CE battle sprite pointer rows to graphics and palette ids.
 - Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.

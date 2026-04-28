@@ -19,7 +19,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 | Family | Banks | Maturity | Assets | Bytes | Gap bytes | Missing metadata | Next contract |
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | Join battle backgrounds, PSI animations, battle sprites, and swirl payloads into scene/animation/sequence bundles. |
+| Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | Battle-background scene bundles are joined; next join PSI animations, battle sprites, and swirl payloads into animation/sequence bundles. |
 | Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
 | Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | Close the small known semantic followups: collision low modifier caller names and DA palette metadata/event-selector roles. |
@@ -32,8 +32,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### Battle visual assets
 
 - maturity: `contract-seeded`
-- proof: extraction manifests, decompression recipes, preview recipes, per-bank asset maps, and the generated battle visual contract group assets by runtime-facing family
-- checked docs: `notes/battle-visual-asset-contracts.md`, `notes/bank-ca-cf-asset-closure.md`, `notes/bank-ca-asset-data-map.md`, `notes/bank-cb-asset-data-map.md`, `notes/bank-cc-asset-data-map.md`, `notes/bank-cd-asset-data-map.md`, `notes/bank-ce-asset-data-map.md`
+- proof: extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, and battle-background scene-layer joins
+- checked docs: `notes/battle-background-scene-bundles.md`, `notes/battle-visual-asset-contracts.md`, `notes/bank-ca-cf-asset-closure.md`, `notes/bank-ca-asset-data-map.md`, `notes/bank-cb-asset-data-map.md`, `notes/bank-cc-asset-data-map.md`, `notes/bank-cd-asset-data-map.md`, `notes/bank-ce-asset-data-map.md`
 - category mix: `graphics` 536, `binary-asset` 132, `raw-table` 13, `audio` 4, +1 more
 - output recipe mix: `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, +4 more
 
@@ -131,6 +131,6 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ## Recommended Next Manual Seams
 
 1. `ui_font_town_map_assets`: Contract-seeded; the next useful step is field-level refinement for E1 town-map descriptor records, E0 text-window properties, and unresolved intro/title payloads.
-2. `battle_visual_assets`: Contract-seeded; the next useful step is joining background, PSI, battle-sprite, and swirl families into scene/animation/sequence bundles.
+2. `battle_visual_assets`: Contract-seeded; battle backgrounds now have scene-layer joins, so the next useful step is PSI animation, battle-sprite, and swirl sequence bundling.
 3. `map_tilesets_and_runtime_tables`: The map milestone is mature; closing the named low-bit/palette followups would make it easier to call phase-good-enough publicly.
 4. `audio_packs`: Large byte volume remains raw-pack level; defer until we choose an audio-pack contract boundary.

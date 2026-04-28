@@ -38,8 +38,11 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "battle_background_runtime_tables": {
         "label": "Battle background runtime tables",
         "runtime_contract": "Pointer, config, scrolling, distortion, and battle-entry background tables that bind battle backgrounds to runtime effects.",
-        "portable_contract": "Expose as structured tables before engine-ready scene bundles; field names should come from C2/C0 callers.",
-        "docs": ["notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md"],
+        "portable_contract": "Expose as structured scene-layer bundles that join battle entries to graphics, arrangement, palette, scrolling, and distortion rows.",
+        "docs": [
+            "notes/battle-background-scene-bundles.md",
+            "notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md",
+        ],
     },
     "psi_animation_sequences": {
         "label": "Scripted animation data",
@@ -287,8 +290,8 @@ def build_contract() -> dict[str, Any]:
         "known_runtime_shapes": [
             {
                 "id": "battle_background_scene_bundle",
-                "shape": "graphics pointer + arrangement pointer + palette pointer + config/scroll/distortion rows feed the C2 battle-background loader.",
-                "source": "notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md",
+                "shape": "battle-entry layer table + BG_DATA_TABLE rows + graphics/arrangement/palette pointers + scroll/distortion rows feed the C2 battle-background loader.",
+                "source": "notes/battle-background-scene-bundles.md",
             },
             {
                 "id": "battle_sprite_bundle",
@@ -302,7 +305,7 @@ def build_contract() -> dict[str, Any]:
             },
         ],
         "next_open_questions": [
-            "Join battle-background graphics, arrangement, palette, config, scrolling, and distortion rows into scene-level bundles.",
+            "Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.",
             "Name PSI animation config fields and join arrangement/gfx/palette payloads into animation bundles.",
             "Join CE battle sprite pointer rows to graphics and palette ids.",
             "Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.",
