@@ -12,15 +12,15 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
+!FaceVisualTypeSlotTowardCurrentSlot_ReadWord = $C0A94E
 !InitActionScriptMovementState = $AA38
 !InitLeftFacingTempFlagMovementTo15F0_16E8 = $C35D
 !InitMovementPresetVar4Countdown = $AAAA
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C46984_ReadWord = $C0A94E
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -102,8 +102,8 @@ endmacro
 
 org $C3C227
 LoopMakePartyLookAtActiveEntity:
-    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntity) ; C3:C227  42 3B 8B C4
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C46984_ReadWord, $47, $03) ; C3:C22B  42 4E A9 C0 47 03
+    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntityCallback) ; C3:C227  42 3B 8B C4
+    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $47, $03) ; C3:C22B  42 4E A9 C0 47 03
     %EVENT_PAUSE($03) ; C3:C231  06 03
     %EVENT_SHORTJUMP(LoopMakePartyLookAtActiveEntity) ; C3:C233  19 27 C2
 Event120_RightStepTextYieldHandoff:
@@ -183,7 +183,7 @@ InitLeftFacingTempFlagMovementTo17C8_1768:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:C2FD  0E 04 01 00
 LoopWaitForTempFlag1ClearToMove17C8_1768:
     %EVENT_PAUSE($01) ; C3:C301  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:C303  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:C303  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForTempFlag1ClearToMove17C8_1768) ; C3:C309  0A 01 C3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:C30C  0E 04 00 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:C310  42 85 A6 C0 80 01

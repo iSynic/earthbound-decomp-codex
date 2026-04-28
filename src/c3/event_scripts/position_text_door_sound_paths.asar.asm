@@ -14,6 +14,7 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ChooseRandomScriptWord = $C09F82
 !InitActionScriptMovementState = $AA38
 !InitMovementPresetC40015Pulse16Frame = $AAB8
@@ -25,13 +26,12 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
 !WaitForActiveEntityMovementToFinish = $AB59
 !WaitUntilNoBattleSwirlOrEnemyTouch = $9E01
@@ -171,7 +171,7 @@ InitLeftFacingTempFlagMovementTo15F0_16E8:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:C36B  0E 04 01 00
 LoopWaitForTempFlagMovementReadiness:
     %EVENT_PAUSE($01) ; C3:C36F  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:C371  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:C371  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForTempFlagMovementReadiness) ; C3:C377  0A 6F C3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:C37A  0E 04 00 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:C37E  42 85 A6 C0 80 01
@@ -240,7 +240,7 @@ LoopEvent135_RandomWalkTowardParty:
     %EVENT_LOOP($3C) ; C3:C45D  01 3C
     %EVENT_PAUSE($01) ; C3:C45F  06 01
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:C461  42 43 A9 C0 FF
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:C466  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:C466  42 C6 A8 C0
     %EVENT_LOOP_END() ; C3:C46A  02
     %EVENT_SHORTJUMP(LoopEvent135_RandomWalkTowardParty) ; C3:C46B  19 3C C4
 Event136_PositionTextDoorSoundMovementHalt:

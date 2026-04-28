@@ -12,15 +12,15 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
-!Event120_121CompanionMovementTask = $C227
+!FaceVisualTypeSlotTowardCurrentSlot_ReadWord = $C0A94E
 !InitActionScriptMovementState = $AA38
-!MakePartyLookAtActiveEntity = $C48B3B
+!LoopMakePartyLookAtActiveEntity = $C227
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
-!ScriptWrapper_C46984_ReadWord = $C0A94E
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -153,16 +153,16 @@ Event115_TempFlag1DoorCloseSequence:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:BF22  42 BF A4 C0
 LoopEvent115_WaitTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:BF26  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:BF28  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:BF28  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent115_WaitTempFlag1Clear) ; C3:BF2E  0A 26 BF
     %EVENT_SHORTCALL(RunDoorCloseTempFlagTextHandoff) ; C3:BF31  1A A4 BE
 LoopEvent115_WaitTempFlag1Set:
     %EVENT_PAUSE($01) ; C3:BF34  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:BF36  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:BF36  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent115_WaitTempFlag1Set) ; C3:BF3C  0B 34 BF
     %EVENT_SHORTCALL(RunDoorCloseTempFlagMovementReset) ; C3:BF3F  1A D4 BE
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:BF42  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $03, $00) ; C3:BF45  42 57 A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $03, $00) ; C3:BF45  42 57 A8 C0 03 00
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:BF4B  19 04 A2
 Event116_TempFlag2DoorCloseSequence:
     %EVENT_SET_X($1DE8) ; C3:BF4E  28 E8 1D
@@ -185,17 +185,17 @@ Event116_TempFlag2DoorCloseSequence:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:BF83  42 BF A4 C0
 LoopEvent116_WaitTempFlag2Clear:
     %EVENT_PAUSE($01) ; C3:BF87  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $03, $00) ; C3:BF89  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:BF89  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent116_WaitTempFlag2Clear) ; C3:BF8F  0A 87 BF
     %EVENT_START_TASK(LoopEvent115_119PartyLookTask) ; C3:BF92  07 E4 C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagTextHandoff) ; C3:BF95  1A A4 BE
 LoopEvent116_WaitTempFlag2Set:
     %EVENT_PAUSE($01) ; C3:BF98  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $03, $00) ; C3:BF9A  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:BF9A  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent116_WaitTempFlag2Set) ; C3:BFA0  0B 98 BF
     %EVENT_SHORTCALL(RunDoorCloseTempFlagMovementReset) ; C3:BFA3  1A D4 BE
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:BFA6  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $04, $00) ; C3:BFA9  42 57 A8 C0 04 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $04, $00) ; C3:BFA9  42 57 A8 C0 04 00
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:BFAF  19 04 A2
 Event117_TempFlag3DoorCloseSequence:
     %EVENT_SET_X($1DE8) ; C3:BFB2  28 E8 1D
@@ -218,17 +218,17 @@ Event117_TempFlag3DoorCloseSequence:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:BFE7  42 BF A4 C0
 LoopEvent117_WaitTempFlag3Clear:
     %EVENT_PAUSE($01) ; C3:BFEB  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $04, $00) ; C3:BFED  42 4C A8 C0 04 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $04, $00) ; C3:BFED  42 4C A8 C0 04 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent117_WaitTempFlag3Clear) ; C3:BFF3  0A EB BF
     %EVENT_START_TASK(LoopEvent115_119PartyLookTask) ; C3:BFF6  07 E4 C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagTextHandoff) ; C3:BFF9  1A A4 BE
 LoopEvent117_WaitTempFlag3Set:
     %EVENT_PAUSE($01) ; C3:BFFC  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $04, $00) ; C3:BFFE  42 4C A8 C0 04 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $04, $00) ; C3:BFFE  42 4C A8 C0 04 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent117_WaitTempFlag3Set) ; C3:C004  0B FC BF
     %EVENT_SHORTCALL(RunDoorCloseTempFlagMovementReset) ; C3:C007  1A D4 BE
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:C00A  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $05, $00) ; C3:C00D  42 57 A8 C0 05 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $05, $00) ; C3:C00D  42 57 A8 C0 05 00
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C013  19 04 A2
 Event118_TempFlag4DoorCloseSequence:
     %EVENT_SET_X($1DE8) ; C3:C016  28 E8 1D
@@ -252,17 +252,17 @@ Event118_TempFlag4DoorCloseSequence:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C04D  42 BF A4 C0
 LoopEvent118_WaitTempFlag4Clear:
     %EVENT_PAUSE($01) ; C3:C051  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $05, $00) ; C3:C053  42 4C A8 C0 05 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $05, $00) ; C3:C053  42 4C A8 C0 05 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent118_WaitTempFlag4Clear) ; C3:C059  0A 51 C0
     %EVENT_START_TASK(LoopEvent115_119PartyLookTask) ; C3:C05C  07 E4 C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagTextHandoff) ; C3:C05F  1A A4 BE
 LoopEvent118_WaitTempFlag4Set:
     %EVENT_PAUSE($01) ; C3:C062  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $05, $00) ; C3:C064  42 4C A8 C0 05 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $05, $00) ; C3:C064  42 4C A8 C0 05 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent118_WaitTempFlag4Set) ; C3:C06A  0B 62 C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagMovementReset) ; C3:C06D  1A D4 BE
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:C070  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $06, $00) ; C3:C073  42 57 A8 C0 06 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $06, $00) ; C3:C073  42 57 A8 C0 06 00
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C079  19 04 A2
 Event119_TempFlag5DoorCloseSequence:
     %EVENT_SET_X($1DE8) ; C3:C07C  28 E8 1D
@@ -284,27 +284,27 @@ Event119_TempFlag5DoorCloseSequence:
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:C0AD  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C0B1  42 BF A4 C0
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:C0B5  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $02, $00) ; C3:C0B8  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:C0B8  42 57 A8 C0 02 00
 LoopEvent119_WaitTempFlag5Clear:
     %EVENT_PAUSE($01) ; C3:C0BE  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $06, $00) ; C3:C0C0  42 4C A8 C0 06 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $06, $00) ; C3:C0C0  42 4C A8 C0 06 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent119_WaitTempFlag5Clear) ; C3:C0C6  0A BE C0
     %EVENT_START_TASK(LoopEvent115_119PartyLookTask) ; C3:C0C9  07 E4 C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagTextHandoff) ; C3:C0CC  1A A4 BE
 LoopEvent119_WaitTempFlag5Set:
     %EVENT_PAUSE($01) ; C3:C0CF  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $06, $00) ; C3:C0D1  42 4C A8 C0 06 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $06, $00) ; C3:C0D1  42 4C A8 C0 06 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent119_WaitTempFlag5Set) ; C3:C0D7  0B CF C0
     %EVENT_SHORTCALL(RunDoorCloseTempFlagMovementReset) ; C3:C0DA  1A D4 BE
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C0DD  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C0E1  19 04 A2
 LoopEvent115_119PartyLookTask:
-    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntity) ; C3:C0E4  42 3B 8B C4
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C46984_ReadWord, $FD, $00) ; C3:C0E8  42 4E A9 C0 FD 00
+    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntityCallback) ; C3:C0E4  42 3B 8B C4
+    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $FD, $00) ; C3:C0E8  42 4E A9 C0 FD 00
     %EVENT_PAUSE($03) ; C3:C0EE  06 03
     %EVENT_SHORTJUMP(LoopEvent115_119PartyLookTask) ; C3:C0F0  19 E4 C0
 Event468_StaggeredDoorCloseHalt:
-    %EVENT_START_TASK(!Event120_121CompanionMovementTask) ; C3:C0F3  07 27 C2
+    %EVENT_START_TASK(!LoopMakePartyLookAtActiveEntity) ; C3:C0F3  07 27 C2
     %EVENT_SHORTCALL(RunStaggeredDoorCloseMovement) ; C3:C0F6  1A 43 C1
     %EVENT_PAUSE($98) ; C3:C0F9  06 98
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C0FB  39

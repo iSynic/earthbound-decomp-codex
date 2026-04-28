@@ -5,7 +5,7 @@ This report walks address-prefixed labels in `src/c3` prototypes and compares th
 - status: `OK`
 - modules: `6`
 - instruction lines checked: `1720`
-- labels checked: `150`
+- labels checked: `151`
 - errors: `0`
 - warnings: `0`
 
@@ -18,4 +18,4 @@ This report walks address-prefixed labels in `src/c3` prototypes and compares th
 | `OK` | `src/c3/hp_pp_adjustment_helpers.asm` | 238 | 14 | 0 | 0 |
 | `OK` | `src/c3/equipment_battle_selector_helpers.asm` | 138 | 11 | 0 | 0 |
 | `OK` | `src/c3/jeff_repair_psi_helpers.asm` | 94 | 8 | 0 | 0 |
-| `OK` | `src/c3/battle_visual_effect_helpers.asm` | 445 | 33 | 0 | 0 |
+| `OK` | `src/c3/battle_visual_effect_helpers.asm` | 445 | 34 | 0 | 0 |

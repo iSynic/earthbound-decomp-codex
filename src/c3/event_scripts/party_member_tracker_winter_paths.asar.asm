@@ -13,20 +13,20 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !PositionChangeCallback_C0A039 = $A039
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
 !WaitForActiveEntityMovementToFinish = $AB59
 
@@ -123,7 +123,7 @@ Event303_TempFlagPartyMemberTracker:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1288  1A 59 AB
 LoopEvent303_WaitForTempFlag2Clear:
     %EVENT_PAUSE($01) ; C3:128B  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $03, $00) ; C3:128D  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:128D  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent303_WaitForTempFlag2Clear) ; C3:1293  0A 8B 12
 TrackPartyMemberFEAndVisualProfile:
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FE) ; C3:1296  42 43 A9 C0 FE
@@ -132,7 +132,7 @@ LoopEvent303_TrackPartyMemberFEUntilArrival:
     %EVENT_PAUSE($01) ; C3:129E  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:12A0  39
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FE) ; C3:12A1  42 43 A9 C0 FE
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:12A6  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:12A6  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent303_TrackPartyMemberFEUntilArrival) ; C3:12AA  19 9E 12
 Event304_PartyMemberFETrackerEntry:
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:12AD  42 64 A8 C0 FF
@@ -164,7 +164,7 @@ LoopEvent306_TargetVisualTypeUntilArrival:
     %EVENT_PAUSE($01) ; C3:130B  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:130D  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $62, $03) ; C3:130E  42 2D A9 C0 62 03
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:1314  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:1314  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent306_TargetVisualTypeUntilArrival) ; C3:1318  19 0B 13
 Event307_DownCoordinateRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:131B  1A 38 AA

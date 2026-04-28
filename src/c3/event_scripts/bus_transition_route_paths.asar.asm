@@ -17,13 +17,14 @@ hirom
 !ActionScript_PrepareNewEntityAtSelf = $C0A8F7
 !ActionScript_PrepareNewEntityAtTeleportDestination = $C0A907
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !LoopWaitInsideLiveAreaThenRelease = $B431
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !MoveCurrentSlotAwayFromTargetVector = $AB67
 !PhysicsCallback_C09FF0 = $9FF0
 !PositionChangeCallback_C0A039 = $A039
@@ -34,8 +35,6 @@ hirom
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RunBusTunnelDesertRightTextHalt = $D913
 !RunFaceTargetShakeByRegistryCount = $B70C
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -44,6 +43,7 @@ hirom
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !UpdateCurrentSlotFootprintMask = $C0C7DB
 !UpdatePosition_WhenNoNeighbor = $A384
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot = $A37A
@@ -183,7 +183,7 @@ LoopEvent180_FollowPartyVisualSlot:
     %EVENT_PAUSE($01) ; C3:D1E8  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:D1EA  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $40, $01) ; C3:D1EB  42 2D A9 C0 40 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:D1F1  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:D1F1  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent180_FollowPartyVisualSlot) ; C3:D1F5  19 E8 D1
 Event181_RideBusChaosTextNewEntity:
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:D1F8  25 F0 9F
@@ -286,7 +286,7 @@ Event186_TonzuraBusTouchThreed:
     %EVENT_CALLROUTINE_0(!Apply_TransitionSnapshotToRegistryEntities) ; C3:D360  42 1E 3F C0
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtSelf) ; C3:D364  42 F7 A8 C0
     %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $46, $9C) ; C3:D368  42 8D A8 C0 C7 00 46 9C
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:D370  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:D370  08 3B 8B C4
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31) ; C3:D374  23 23 A0
     %EVENT_PAUSE($01) ; C3:D377  06 01
     %EVENT_LOOP($0A) ; C3:D379  01 0A
@@ -329,7 +329,7 @@ LoopEvent188_FollowPartyVisualSlot:
     %EVENT_PAUSE($01) ; C3:D3ED  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:D3EF  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $C0, $03) ; C3:D3F0  42 2D A9 C0 C0 03
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:D3F6  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:D3F6  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent188_FollowPartyVisualSlot) ; C3:D3FA  19 ED D3
 Event189_TargetPositionRelease:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:D3FD  23 39 A0
@@ -484,7 +484,7 @@ Event200_TonzuraBusTouchPath:
     %EVENT_CALLROUTINE_0(!Apply_TransitionSnapshotToRegistryEntities) ; C3:D627  42 1E 3F C0
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtSelf) ; C3:D62B  42 F7 A8 C0
     %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $A5, $9C) ; C3:D62F  42 8D A8 C0 C8 00 A5 9C
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:D637  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:D637  08 3B 8B C4
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31) ; C3:D63B  23 23 A0
     %EVENT_PAUSE($01) ; C3:D63E  06 01
     %EVENT_LOOP($0A) ; C3:D640  01 0A
@@ -683,7 +683,7 @@ Event211_BusStopRouteD:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0060) ; C3:D8F5  0E 07 60 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D8F9  1A 59 AB
     %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $48) ; C3:D8FC  42 07 A9 C0 48
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $88, $00) ; C3:D901  42 4C A8 C0 88 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $88, $00) ; C3:D901  42 4C A8 C0 88 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!RunBusTunnelDesertRightTextHalt) ; C3:D907  0B 13 D9
     %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $AF, $88) ; C3:D90A  42 8D A8 C0 C8 00 AF 88
     %EVENT_HALT() ; C3:D912  09

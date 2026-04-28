@@ -14,20 +14,20 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
+!FaceVisualTypeSlotTowardCurrentSlot_ReadWord = $C0A94E
 !GetDirectionFromPlayerToEntity = $C0C4F7
 !InitMovementPresetVar4Countdown = $AAAA
 !MoveCurrentSlotAwayFromTargetVector = $AB67
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
-!ScriptWrapper_C46984_ReadWord = $C0A94E
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot = $A37A
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -153,7 +153,7 @@ LoopEvent699_PartyFollowerLeftFacingHalt:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8530  39
 RefreshEvent699FollowerTargetPosition:
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:8531  42 43 A9 C0 FF
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:8536  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:8536  42 C6 A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent699_PartyFollowerLeftFacingHalt) ; C3:853A  0A 2E 85
     %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:853D  42 6E AA C0 06 00
     %EVENT_HALT() ; C3:8543  09
@@ -198,7 +198,7 @@ LoopEvent700_FinalShakeVisual:
     %EVENT_SET_X_RELATIVE($FFFF) ; C3:85D1  2B FF FF
     %EVENT_SHORTJUMP(LoopEvent700_FinalShakeVisual) ; C3:85D4  19 CA 85
 LoopEvent700_FinalShake:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C46984_ReadWord, $69, $03) ; C3:85D7  42 4E A9 C0 69 03
+    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $69, $03) ; C3:85D7  42 4E A9 C0 69 03
     %EVENT_PAUSE($03) ; C3:85DD  06 03
     %EVENT_SHORTJUMP(LoopEvent700_FinalShake) ; C3:85DF  19 D7 85
 Event701_MonotolyMovementDialogueSequence:
@@ -266,6 +266,6 @@ Event703_BounceTextYieldHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:86A4  42 46 6E C4
     %EVENT_HALT() ; C3:86A8  09
 Event704_CollisionOffWaitRelease:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:86A9  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:86A9  42 2F A8 C0
     %EVENT_SET_PRIORITY($03) ; C3:86AD  43 03
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:86AF  19 AA A2

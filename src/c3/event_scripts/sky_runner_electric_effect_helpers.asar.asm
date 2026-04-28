@@ -12,8 +12,8 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!ScriptWrapper_C46534_ReadThreeWords = $C0A98B
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
+!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_CALLROUTINE_2(target, arg0, arg1)
@@ -48,7 +48,7 @@ LoopSpawnSkyRunnerElectricEffect:
     %EVENT_PAUSE($78) ; C3:CEA2  06 78
     %EVENT_PAUSE($78) ; C3:CEA4  06 78
     %EVENT_PAUSE($78) ; C3:CEA6  06 78
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $A5, $01, $A3, $00) ; C3:CEA8  42 8B A9 C0 A5 01 A3 00
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $A5, $01, $A3, $00) ; C3:CEA8  42 8B A9 C0 A5 01 A3 00
     %EVENT_PAUSE($78) ; C3:CEB0  06 78
     %EVENT_PAUSE($78) ; C3:CEB2  06 78
     %EVENT_PAUSE($78) ; C3:CEB4  06 78

@@ -16,6 +16,8 @@ hirom
 !ActionScript_PrepareNewEntityAtSelf = $C0A8F7
 !ActionScript_PrepareNewEntityAtTeleportDestination = $C0A907
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !CheckCurrentSlotInsideLiveAreaWindow = $C0C6B6
@@ -30,8 +32,6 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ScriptRelease_CurrentEntityVisualState = $C020F1
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -154,7 +154,7 @@ LoopWaitInsideLiveAreaThenRelease:
     %EVENT_PAUSE($08) ; C3:B431  06 08
     %EVENT_CALLROUTINE_0(!CheckCurrentSlotInsideLiveAreaWindow) ; C3:B433  42 B6 C6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopWaitInsideLiveAreaThenRelease) ; C3:B437  0B 31 B4
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0A, $00) ; C3:B43A  42 57 A8 C0 0A 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0A, $00) ; C3:B43A  42 57 A8 C0 0A 00
     %EVENT_CALLROUTINE_0(!ScriptRelease_CurrentEntityVisualState) ; C3:B440  42 F1 20 C0
     %EVENT_END() ; C3:B444  00
 Event64_TwosonBusDriverMovementPath:
@@ -215,7 +215,7 @@ Event67_BusReturnBranchRoute:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1EC8) ; C3:B508  0E 06 C8 1E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $27E0) ; C3:B50C  0E 07 E0 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B510  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $47, $00) ; C3:B513  42 4C A8 C0 47 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $47, $00) ; C3:B513  42 4C A8 C0 47 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event67_BusIntoThreedBranch) ; C3:B519  0B 2A B5
     %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $3D) ; C3:B51C  42 07 A9 C0 3D
     %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $90, $82) ; C3:B521  42 8D A8 C0 C7 00 90 82

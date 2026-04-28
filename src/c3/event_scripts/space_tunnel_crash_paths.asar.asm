@@ -14,6 +14,7 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyCurrentSlot0e5eBrightnessToPaletteRows = $C47499
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !Event335_SpaceTunnel2StartTextHalt = $1831
@@ -26,7 +27,6 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RunFaceTargetShakeByRegistryCount = $B70C
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
@@ -164,7 +164,7 @@ endmacro
 
 org $C30DCD
 Event287_SpaceTunnelFlagTextShakePath:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $86, $00) ; C3:0DCD  42 4C A8 C0 86 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $86, $00) ; C3:0DCD  42 4C A8 C0 86 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event335_SpaceTunnel2StartTextHalt) ; C3:0DD3  0B 31 18
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:0DD6  25 7A A3
     %EVENT_SET_ANIMATION($00) ; C3:0DD9  3B 00
@@ -329,7 +329,7 @@ Event294_SkyrunnerCrashCoordinatePath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $00A0) ; C3:0FF2  0E 06 A0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2550) ; C3:0FF6  0E 07 50 25
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:0FFA  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $D9, $00) ; C3:0FFD  42 4C A8 C0 D9 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $D9, $00) ; C3:0FFD  42 4C A8 C0 D9 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event294_SkyrunnerCrashContinue) ; C3:1003  0B 09 10
     %EVENT_START_TASK(LoopEvent294_SkyrunnerCrashBrightnessTask) ; C3:1006  07 55 10
 Event294_SkyrunnerCrashContinue:

@@ -14,6 +14,7 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_FadeInWrapper = $C09FAE
 !ActionScript_FadeOutWithMosaic = $C0AA07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 !AnimatedBackgroundCallback = $C48BDA
 !ContinueEvent340_BattleBgTransition = $199E
 !Event340_BattleBgTransitionCancelReload = $1A17
@@ -24,7 +25,6 @@ hirom
 !ReadInputState006d = $C468A9
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -165,7 +165,7 @@ Event340_InputGatedBattleBgTransition:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:191C  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent340_WaitForInputA) ; C3:1920  0A 31 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:1923  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $02, $00) ; C3:1926  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:1926  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:192C  42 46 6E C4
     %EVENT_HALT() ; C3:1930  09
 LoopEvent340_WaitForInputA:
@@ -179,7 +179,7 @@ LoopEvent340_WaitForInputA:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:1942  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent340_WaitForInputB) ; C3:1946  0A 57 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:1949  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $02, $00) ; C3:194C  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:194C  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1952  42 46 6E C4
     %EVENT_HALT() ; C3:1956  09
 LoopEvent340_WaitForInputB:
@@ -198,6 +198,6 @@ LoopEvent340_WaitForInputB:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:1987  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(!ContinueEvent340_BattleBgTransition) ; C3:198B  0A 9E 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:198E  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $02, $00) ; C3:1991  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:1991  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1997  42 46 6E C4
     %EVENT_SHORTJUMP(!Event340_BattleBgTransitionCancelReload) ; C3:199B  19 17 1A

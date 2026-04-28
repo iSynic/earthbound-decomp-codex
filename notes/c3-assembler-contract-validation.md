@@ -21,4 +21,4 @@ This report checks the assembler-facing contract for C3 source prototypes. It do
 | `OK` | `pilot-ready` | `src/c3/hp_pp_adjustment_helpers.asm` | 10 | 14 | 62 | 0 | 0 | 0 | 0 |
 | `OK` | `pilot-ready` | `src/c3/equipment_battle_selector_helpers.asm` | 19 | 11 | 29 | 0 | 0 | 0 | 0 |
 | `OK` | `pilot-ready` | `src/c3/jeff_repair_psi_helpers.asm` | 20 | 8 | 39 | 0 | 0 | 0 | 0 |
-| `OK` | `pilot-ready` | `src/c3/battle_visual_effect_helpers.asm` | 24 | 33 | 114 | 0 | 0 | 0 | 0 |
+| `OK` | `pilot-ready` | `src/c3/battle_visual_effect_helpers.asm` | 24 | 34 | 114 | 0 | 0 | 0 | 0 |

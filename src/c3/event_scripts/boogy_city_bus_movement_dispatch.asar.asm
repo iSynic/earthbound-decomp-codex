@@ -12,12 +12,16 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !InitActionScriptMovementState = $AA38
 !InitMovementWithDefaultPhysicsPulseAndCollisionProbe = $AA2B
 !InitializeArcMovementTargetState = $C0CCCC
 !LoopActiveEntityCollisionProbeRefresh = $A262
 !LoopC40015FastPulseUntilRelease = $A18F
+!LoopNpcAttentionArcPhaseGate = $A815
+!LoopNpcAttentionArcPlayerDistanceGate = $A8E6
+!LoopNpcAttentionFinalWideDistanceGate = $A9F3
 !LoopVar0SelectedAnimationUntilOffscreen = $A20E
 !LoopVisualTypeFrameSelectorTask = $6E41
 !LoopWaitForUsableOverlapNeighborContext = $6D18
@@ -25,15 +29,11 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RunBusDriverAttentionReleaseLoop = $A553
 !RunNpcAttentionRoundWalkReleaseLoop = $A4D9
-!ScriptWrapper_C21628_ReadWord = $C0A84C
+!RunNpcAttentionTightArcDistanceRoute = $A884
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetDirectionClassAndField1A86 = $C0A651
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
-!Target_C3A815 = $A815
-!Target_C3A884 = $A884
-!Target_C3A8E6 = $A8E6
-!Target_C3A9F3 = $A9F3
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
 !UpdateCurrentSlotFootprintMask = $C0C7DB
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
@@ -112,7 +112,7 @@ Event597_ArcMovementTargetRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D2F  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:6D33  42 85 A6 C0 00 01
     %EVENT_CALLROUTINE_0(!InitializeArcMovementTargetState) ; C3:6D39  42 CC CC C0
-    %EVENT_SHORTJUMP(!Target_C3A815) ; C3:6D3D  19 15 A8
+    %EVENT_SHORTJUMP(!LoopNpcAttentionArcPhaseGate) ; C3:6D3D  19 15 A8
 Event598_CityBusMovementDispatch:
     %EVENT_SHORTCALL(!InitMovementWithDefaultPhysicsPulseAndCollisionProbe) ; C3:6D40  1A 2B AA
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6D43  07 18 6D
@@ -142,7 +142,7 @@ Event601_LeftFacingMovementDispatch:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:6D92  07 62 A2
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6D95  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D98  42 BF A4 C0
-    %EVENT_SHORTJUMP(!Target_C3A9F3) ; C3:6D9C  19 F3 A9
+    %EVENT_SHORTJUMP(!LoopNpcAttentionFinalWideDistanceGate) ; C3:6D9C  19 F3 A9
 Event602_MovementDispatch:
     %EVENT_SET_ANIMATION($00) ; C3:6D9F  3B 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:6DA1  42 85 A6 C0 80 00
@@ -152,7 +152,7 @@ Event602_MovementDispatch:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:6DB1  07 62 A2
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6DB4  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6DB7  42 BF A4 C0
-    %EVENT_SHORTJUMP(!Target_C3A8E6) ; C3:6DBB  19 E6 A8
+    %EVENT_SHORTJUMP(!LoopNpcAttentionArcPlayerDistanceGate) ; C3:6DBB  19 E6 A8
 Event603_MovementDispatch:
     %EVENT_SET_ANIMATION($00) ; C3:6DBE  3B 00
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:6DC0  25 60 A3
@@ -161,11 +161,11 @@ Event603_MovementDispatch:
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6DC9  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6DCC  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $02) ; C3:6DD0  42 85 A6 C0 C0 02
-    %EVENT_SHORTJUMP(!Target_C3A884) ; C3:6DD6  19 84 A8
+    %EVENT_SHORTJUMP(!RunNpcAttentionTightArcDistanceRoute) ; C3:6DD6  19 84 A8
 Event604_CoordinateChoiceTextRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:6DD9  1A 38 AA
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:6DDC  42 85 A6 C0 00 02
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $0A, $02) ; C3:6DE2  42 4C A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $0A, $02) ; C3:6DE2  42 4C A8 C0 0A 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event604_AlternateCoordinateChoice) ; C3:6DE8  0B F6 6D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1ED8) ; C3:6DEB  0E 06 D8 1E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EF8) ; C3:6DEF  0E 07 F8 1E

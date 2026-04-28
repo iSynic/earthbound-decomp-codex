@@ -14,6 +14,7 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !InitActionScriptMovementState = $AA38
 !InitMovementPreset00_01Pulse12Frame = $AA5A
@@ -27,17 +28,16 @@ hirom
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
-!ScriptWrapper_C47225_ReadTwoWords = $C0A964
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToPoseDescriptorSlotPosition_ReadWord = $C0A938
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
+!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords = $C0A964
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !UpdateCurrentSlotFootprintMask = $C0C7DB
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -152,7 +152,7 @@ Event102_TunnelGhostRandomWanderPath:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:BD16  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:BD19  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:BD1D  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $18, $00, $18, $00) ; C3:BD23  42 64 A9 C0 18 00 18 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $18, $00) ; C3:BD23  42 64 A9 C0 18 00 18 00
     %EVENT_SHORTJUMP(!LoopRandomWanderInsideActiveArea) ; C3:BD2B  19 9E AB
 Event101_TunnelGhostMovementTextHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:BD2E  1A 38 AA
@@ -178,7 +178,7 @@ Event107_TunnelGhostDiscoverFlagGate:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0088) ; C3:BD6F  0E 03 88 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:BD73  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:BD76  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $6F, $00) ; C3:BD79  42 57 A8 C0 6F 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $6F, $00) ; C3:BD79  42 57 A8 C0 6F 00
     %EVENT_HALT() ; C3:BD7F  09
 Event108_TunnelGhostSmallWanderPath:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:BD80  25 60 A3
@@ -187,7 +187,7 @@ Event108_TunnelGhostSmallWanderPath:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:BD88  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:BD8B  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:BD8F  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $08, $00, $08, $00) ; C3:BD95  42 64 A9 C0 08 00 08 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $08, $00, $08, $00) ; C3:BD95  42 64 A9 C0 08 00 08 00
     %EVENT_SHORTJUMP(!LoopRandomWanderInsideActiveArea) ; C3:BD9D  19 9E AB
 Event109_TunnelGhostPendingInteractionPath:
     %EVENT_SHORTCALL(!InitMovementPreset00_01Pulse12Frame) ; C3:BDA0  1A 5A AA
@@ -229,7 +229,7 @@ LoopEvent111_VisualTypeTargetTracker:
     %EVENT_PAUSE($01) ; C3:BE1C  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BE1E  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $E7, $00) ; C3:BE1F  42 2D A9 C0 E7 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:BE25  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BE25  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent111_VisualTypeTargetTracker) ; C3:BE29  19 1C BE
 Event112_PoseDescriptorTargetTracker:
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:BE2C  42 64 A8 C0 FF
@@ -242,7 +242,7 @@ LoopEvent112_PoseDescriptorTargetTracker:
     %EVENT_PAUSE($01) ; C3:BE47  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BE49  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $78, $00) ; C3:BE4A  42 38 A9 C0 78 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:BE50  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BE50  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent112_PoseDescriptorTargetTracker) ; C3:BE54  19 47 BE
 Event113_TonyWakeupTextPath:
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:BE57  25 F0 9F

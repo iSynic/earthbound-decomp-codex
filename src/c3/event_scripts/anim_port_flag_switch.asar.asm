@@ -12,7 +12,7 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_CALLROUTINE_2(target, arg0, arg1)
@@ -49,25 +49,25 @@ SwitchAnimPortFlagsFromTempvar:
     %EVENT_SHORT_RETURN() ; C3:836F  1B
 SetAnimPortFlags00:
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:8370  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0A, $02) ; C3:8373  42 57 A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0A, $02) ; C3:8373  42 57 A8 C0 0A 02
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:8379  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0B, $02) ; C3:837C  42 57 A8 C0 0B 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0B, $02) ; C3:837C  42 57 A8 C0 0B 02
     %EVENT_SHORT_RETURN() ; C3:8382  1B
 SetAnimPortFlags01:
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:8383  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0A, $02) ; C3:8386  42 57 A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0A, $02) ; C3:8386  42 57 A8 C0 0A 02
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:838C  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0B, $02) ; C3:838F  42 57 A8 C0 0B 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0B, $02) ; C3:838F  42 57 A8 C0 0B 02
     %EVENT_SHORT_RETURN() ; C3:8395  1B
 SetAnimPortFlags10:
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:8396  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0A, $02) ; C3:8399  42 57 A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0A, $02) ; C3:8399  42 57 A8 C0 0A 02
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:839F  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0B, $02) ; C3:83A2  42 57 A8 C0 0B 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0B, $02) ; C3:83A2  42 57 A8 C0 0B 02
     %EVENT_SHORT_RETURN() ; C3:83A8  1B
 SetAnimPortFlags11:
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:83A9  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0A, $02) ; C3:83AC  42 57 A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0A, $02) ; C3:83AC  42 57 A8 C0 0A 02
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:83B2  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $0B, $02) ; C3:83B5  42 57 A8 C0 0B 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0B, $02) ; C3:83B5  42 57 A8 C0 0B 02
     %EVENT_SHORT_RETURN() ; C3:83BB  1B

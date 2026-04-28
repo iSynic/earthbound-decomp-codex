@@ -13,23 +13,23 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !ClearFlagsForPose016fEntities = $C467E6
 !ComputeCurrentSlotTargetDirectionOctant = $C46ADB
 !InitAlternatePhysicsVar4WalkPulse = $AB26
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !PositionChangeCallback_C0A039 = $A039
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode01 = $C0A8DC
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
+!StepCurrentSlotTowardCachedTarget_NoFacingRefresh = $C0A8DC
 !UpdateCurrentSlotFrameSelector = $C46957
 !WaitForActiveEntityMovementToFinish = $AB59
 
@@ -166,7 +166,7 @@ Event479_ClearPoseFlagsAndPartyLookHalt:
     %EVENT_CALLROUTINE_0(!ClearFlagsForPose016fEntities) ; C3:3DD4  42 E6 67 C4
     %EVENT_SET_X_RELATIVE($0007) ; C3:3DD8  2B 07 00
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:3DDB  1A 26 AB
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:3DDE  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:3DDE  08 3B 8B C4
     %EVENT_SET_Z($0000) ; C3:3DE2  2A 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:3DE5  0E 04 01 00
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3DE9  1D 04 00
@@ -183,7 +183,7 @@ Event479_ClearPoseFlagsAndPartyLookHalt:
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:3E12  1A 44 AB
 LoopEvent479_WaitForMovementAndTempGate:
     %EVENT_PAUSE($01) ; C3:3E15  06 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode01) ; C3:3E17  42 DC A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_NoFacingRefresh) ; C3:3E17  42 DC A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent479_WaitForMovementAndTempGate) ; C3:3E1B  0A 15 3E
     %EVENT_SET_X_VELOCITY($0000) ; C3:3E1E  3F 00 00
     %EVENT_SET_Y_VELOCITY($0000) ; C3:3E21  40 00 00
@@ -222,7 +222,7 @@ LoopEvent481_FacePartyMemberUntilGate:
     %EVENT_CALLROUTINE_0(!RoundAngleToOctantAndCacheCurrentSlot) ; C3:3E76  42 0A 6B C4
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFrameSelector) ; C3:3E7A  42 57 69 C4
     %EVENT_PAUSE($03) ; C3:3E7E  06 03
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:3E80  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:3E80  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent481_FacePartyMemberUntilGate) ; C3:3E86  0A 72 3E
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3E89  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3E8C  42 5F A6 C0
@@ -230,7 +230,7 @@ LoopEvent481_FacePartyMemberUntilGate:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:3E94  23 39 A0
 LoopEvent481_WaitForPoseGate:
     %EVENT_PAUSE($01) ; C3:3E97  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:3E99  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:3E99  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent481_WaitForPoseGate) ; C3:3E9F  0B 97 3E
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:3EA2  23 3A A0
 LoopEvent481_FacePartyMember:
@@ -255,7 +255,7 @@ Event482_PartyMemberRouteAndFacingHalt:
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:3EE1  1A 44 AB
 Local_C33EE4:
     %EVENT_PAUSE($01) ; C3:3EE4  06 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode01) ; C3:3EE6  42 DC A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_NoFacingRefresh) ; C3:3EE6  42 DC A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(Local_C33EE4) ; C3:3EEA  0A E4 3E
     %EVENT_SET_X_VELOCITY($0000) ; C3:3EED  3F 00 00
     %EVENT_SET_Y_VELOCITY($0000) ; C3:3EF0  40 00 00
@@ -287,7 +287,7 @@ TaskEvent482_CoordinateRouteMarkComplete:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:3F32  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:3F33  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:3F37  06 01
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:3F39  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:3F39  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $4C, $00) ; C3:3F3D  42 85 A6 C0 4C 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:3F43  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0278) ; C3:3F47  0E 06 78 02
@@ -333,9 +333,9 @@ TaskEvent482_CopyPartyAnchorYOffset:
     %EVENT_CALLROUTINE_0(!Apply_TransitionSnapshotToRegistryEntities) ; C3:3FD3  42 1E 3F C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:3FD7  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:3FDB  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $81, $00) ; C3:3FDD  42 4C A8 C0 81 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $81, $00) ; C3:3FDD  42 4C A8 C0 81 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event486_AlternatePartyLookJumpRelease) ; C3:3FE3  0B 14 40
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:3FE6  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:3FE6  08 3B 8B C4
     %EVENT_SET_X_VELOCITY($0035) ; C3:3FEA  3F 35 00
     %EVENT_SET_Y_VELOCITY($0020) ; C3:3FED  40 20 00
     %EVENT_PAUSE($FF) ; C3:3FF0  06 FF
@@ -353,7 +353,7 @@ TaskEvent482_CopyPartyAnchorYOffset:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4012  39
     %EVENT_HALT() ; C3:4013  09
 Event486_AlternatePartyLookJumpRelease:
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:4014  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:4014  08 3B 8B C4
     %EVENT_SET_X_VELOCITY($0035) ; C3:4018  3F 35 00
     %EVENT_SET_Y_VELOCITY($0020) ; C3:401B  40 20 00
     %EVENT_PAUSE($FF) ; C3:401E  06 FF

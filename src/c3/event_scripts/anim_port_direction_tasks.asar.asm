@@ -12,9 +12,9 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -61,7 +61,7 @@ org $C38978
 LoopAnimPortDirectionFromVar4:
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V4) ; C3:8978  20 04
     %EVENT_SHORTCALL_CONDITIONAL_NOT(UseDirectionDownWhenVar4Clear) ; C3:897A  0B 92 89
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $0A, $02) ; C3:897D  42 4C A8 C0 0A 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $0A, $02) ; C3:897D  42 4C A8 C0 0A 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(UseDirectionRightWhenAnimPort0Clear) ; C3:8983  0B 8C 89
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:8986  1D 06 00
     %EVENT_SHORTJUMP(ApplyAnimPortDirectionAndLoop) ; C3:8989  19 95 89

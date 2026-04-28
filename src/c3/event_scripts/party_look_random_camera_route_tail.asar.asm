@@ -12,14 +12,14 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !InitMovementPresetVar4Countdown = $AAAA
 !PlaceCurrentSlotAtRandomCameraXPlus70Y = $C46D23
 !RandomDelay0cTo2b = $C467B4
 !RandomDelayBiasedByCurrentDrawY = $C467C2
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !TestValueBelowPlayerY = $C46903
@@ -195,7 +195,7 @@ RunRandomCameraArcMovement:
     %EVENT_SET_Y_VELOCITY($0400) ; C3:4221  40 00 04
     %EVENT_CALLROUTINE_0(!RandomDelayBiasedByCurrentDrawY) ; C3:4224  42 C2 67 C4
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:4228  44
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $58, $01) ; C3:4229  42 4C A8 C0 58 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $58, $01) ; C3:4229  42 4C A8 C0 58 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(RunRandomCameraArcMovement) ; C3:422F  0B E9 41
     %EVENT_SHORT_RETURN() ; C3:4232  1B
 TaskWaitUntilPlayerAboveYThreshold:
@@ -204,5 +204,5 @@ TaskWaitUntilPlayerAboveYThreshold:
     %EVENT_CALLROUTINE_0(!TestValueBelowPlayerY) ; C3:4238  42 03 69 C4
     %EVENT_SHORTCALL_CONDITIONAL(TaskWaitUntilPlayerAboveYThreshold) ; C3:423C  0A 33 42
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:423F  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $58, $01) ; C3:4242  42 57 A8 C0 58 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $58, $01) ; C3:4242  42 57 A8 C0 58 01
     %EVENT_HALT() ; C3:4248  09

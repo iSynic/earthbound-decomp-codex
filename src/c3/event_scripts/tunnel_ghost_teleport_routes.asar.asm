@@ -13,8 +13,8 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_PrepareNewEntityAtTeleportDestination = $C0A907
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !InitActionScriptMovementState = $AA38
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_SetCameraRelativeAnchor_ReadTwoWords = $C0A87A
 !SetYieldToTextLatch9641 = $C46E46
 !TrackPartyMemberForTunnelGhost = $BB73
@@ -75,7 +75,7 @@ endmacro
 org $C3BAEA
 Event91_TunnelGhostTeleportLeftRoute:
     %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $50, $00) ; C3:BAEA  42 7A A8 C0 00 00 50 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:BAF2  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BAF2  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event91_AlternateTeleportDestination) ; C3:BAF8  0B 06 BB
     %EVENT_SET_X_RELATIVE($0100) ; C3:BAFB  2B 00 01
     %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $0F) ; C3:BAFE  42 07 A9 C0 0F
@@ -90,7 +90,7 @@ RunTunnelGhostTeleportRoute:
     %EVENT_HALT() ; C3:BB16  09
 Event92_TunnelGhostTeleportWideRoute:
     %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $90, $00) ; C3:BB17  42 7A A8 C0 00 00 90 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:BB1F  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BB1F  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event92_TunnelGhostTeleportCommon) ; C3:BB25  0B 2B BB
     %EVENT_SET_X_RELATIVE($0100) ; C3:BB28  2B 00 01
 Event92_TunnelGhostTeleportCommon:

@@ -11,7 +11,15 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from decode_event_script import CALL_ARG_COUNTS, OPCODES, Address, Opcode, load_names, read_u16
+from decode_event_script import (
+    CALL_ARG_COUNTS,
+    CALL_TARGET_SEMANTICS,
+    OPCODES,
+    Address,
+    Opcode,
+    load_names,
+    read_u16,
+)
 from rom_tools import find_rom, hirom_to_file_offset, load_rom
 
 
@@ -1463,6 +1471,10 @@ LABEL_OVERRIDES = {
     "EF:0FDB": "BeginDeliverySuccessArrivalState",
     "EF:0FF6": "ResetDeliveryArrivalState",
 }
+
+# Keep generated source-pilot callback labels in sync with the semantic audit.
+for address, semantics in CALL_TARGET_SEMANTICS.items():
+    LABEL_OVERRIDES[address] = semantics["name"]
 
 VAR_NAMES = {
     0x00: "!ACTIONSCRIPT_VARS_V0",

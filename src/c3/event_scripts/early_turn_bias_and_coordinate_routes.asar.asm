@@ -14,8 +14,10 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !InitActionScriptMovementState = $AA38
 !InitAlternatePhysicsVar4WalkPulse = $AB26
 !InitMovementPresetVar4Countdown = $AAAA
@@ -24,8 +26,6 @@ hirom
 !MapPlayerDirection987fToTurnBias = $C46A6E
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -185,7 +185,7 @@ Event246_MultiStepRouteRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:059A  42 BF A4 C0
 LoopEvent246_WaitForMovementGate:
     %EVENT_PAUSE($01) ; C3:059E  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:05A0  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:05A0  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent246_WaitForMovementGate) ; C3:05A6  0A 9E 05
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:05A9  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:05AF  0E 05 01 00
@@ -207,7 +207,7 @@ LoopEvent246_WaitForMovementGate:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:05E8  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:05EC  19 04 A2
 Event247_CollisionDisabledPresetMovement:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:05EF  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:05EF  42 2F A8 C0
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:05F3  1A AA AA
     %EVENT_SET_ANIMATION($FF) ; C3:05F6  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:05F8  0E 04 00 00
@@ -239,7 +239,7 @@ Event247_CollisionDisabledPresetMovement:
     %EVENT_PAUSE($0A) ; C3:0659  06 0A
     %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $09, $00) ; C3:065B  42 41 A8 C0 09 00
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:0661  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $67, $00) ; C3:0664  42 57 A8 C0 67 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $67, $00) ; C3:0664  42 57 A8 C0 67 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:066A  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:066E  19 04 A2
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $09) ; C3:0671  42 64 A8 C0 09

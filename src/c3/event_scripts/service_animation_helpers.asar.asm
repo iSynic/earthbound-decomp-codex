@@ -14,20 +14,20 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !CheckCurrentSlotInsideLiveAreaWindow = $C0C6B6
+!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord = $C0A959
 !GetDirectionFromPlayerToEntity = $C0C4F7
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !LoopActiveEntityCollisionProbeRefresh = $A262
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C469F1_ReadWord = $C0A959
+!RunFourDirectionVisualCountdownReturn = $D0A4
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
-!UNKNOWN_C3D0A4 = $D0A4
 !WaitForActiveEntityMovementToFinish = $AB59
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -202,8 +202,8 @@ Event563_FacingCountdownSequence:
     %EVENT_SHORTCALL(PlayDirectionCountdownCompassCycle) ; C3:495E  1A 62 4B
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4961  19 04 A2
 LoopReadScriptWords0201Task:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C469F1_ReadWord, $02, $00) ; C3:4964  42 59 A9 C0 02 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C469F1_ReadWord, $01, $00) ; C3:496A  42 59 A9 C0 01 00
+    %EVENT_CALLROUTINE_2(!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord, $02, $00) ; C3:4964  42 59 A9 C0 02 00
+    %EVENT_CALLROUTINE_2(!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord, $01, $00) ; C3:496A  42 59 A9 C0 01 00
     %EVENT_PAUSE($01) ; C3:4970  06 01
     %EVENT_SHORTJUMP(LoopReadScriptWords0201Task) ; C3:4972  19 64 49
 Event562_ServiceAnimationWithReadTask:
@@ -278,7 +278,7 @@ WaitUntilCurrentSlotInsideLiveAreaWindow:
     %EVENT_SHORTCALL_CONDITIONAL_NOT(WaitUntilCurrentSlotInsideLiveAreaWindow) ; C3:4A5B  0B 55 4A
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4A5E  19 04 A2
 LoopReadScriptWord01Task:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C469F1_ReadWord, $01, $00) ; C3:4A61  42 59 A9 C0 01 00
+    %EVENT_CALLROUTINE_2(!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord, $01, $00) ; C3:4A61  42 59 A9 C0 01 00
     %EVENT_PAUSE($01) ; C3:4A67  06 01
     %EVENT_SHORTJUMP(LoopReadScriptWord01Task) ; C3:4A69  19 61 4A
 Event561_ServiceAnimationWithReadTask:
@@ -394,8 +394,8 @@ Event564_StaticFacingPresentationRelease:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4BBB  39
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4BBC  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:4BC0  42 BF A4 C0
-    %EVENT_SHORTCALL(!UNKNOWN_C3D0A4) ; C3:4BC4  1A A4 D0
-    %EVENT_SHORTCALL(!UNKNOWN_C3D0A4) ; C3:4BC7  1A A4 D0
+    %EVENT_SHORTCALL(!RunFourDirectionVisualCountdownReturn) ; C3:4BC4  1A A4 D0
+    %EVENT_SHORTCALL(!RunFourDirectionVisualCountdownReturn) ; C3:4BC7  1A A4 D0
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4BCA  19 04 A2
 Event565_RightThenUpFacingHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:4BCD  1A 38 AA
@@ -434,7 +434,7 @@ Event566_MoveThenFaceUpHalt:
 Event567_MoveToFixedAnchorPartyLookAt:
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $02) ; C3:4C3A  42 64 A8 C0 02
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:4C3F  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:4C42  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:4C42  08 3B 8B C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:4C46  0E 04 00 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:4C4A  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:4C50  0E 05 01 00
@@ -455,7 +455,7 @@ Event567_MoveToFixedAnchorPartyLookAt:
 Event568_MoveFromPartyMemberLeftToAnchor:
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $02) ; C3:4C86  42 64 A8 C0 02
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:4C8B  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:4C8E  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:4C8E  08 3B 8B C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:4C92  0E 04 00 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:4C96  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:4C9C  0E 05 01 00
@@ -479,7 +479,7 @@ Event568_MoveFromPartyMemberLeftToAnchor:
 Event569_MoveFromPartyMemberRightToAnchor:
     %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $02) ; C3:4CE0  42 64 A8 C0 02
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:4CE5  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:4CE8  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:4CE8  08 3B 8B C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:4CEC  0E 04 00 00
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:4CF0  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:4CF6  0E 05 01 00

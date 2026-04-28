@@ -14,10 +14,10 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ChooseRandomScriptWord = $C09F82
 !CopyCgramShadow0200To4476 = $C4978E
-!DisableCurrentEntityCollision2 = $C0A82F
-!Event10_11_ReleaseCurrentVisualEntity = $A2D3
+!DisableCurrentSlotNeighborCache = $C0A82F
 !InitMovementPresetC40015Pulse16Frame = $AAB8
 !InitMovementPresetVar4Countdown = $AAAA
 !InstallScriptMovementVectorFromDirection = $C0C83B
@@ -30,7 +30,6 @@ hirom
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !ScriptWrapper_C497C0_ReadWordByteByte = $C0AAB5
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -39,6 +38,7 @@ hirom
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetMovementTaskTimerFromActiveVector = $C0CA4E
 !SetYieldToTextLatch9641 = $C46E46
+!TrafficLightFootprintPulse16FrameRelease = $A2D3
 !UpdateCurrentSlotFootprintMask = $C0C7DB
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -297,7 +297,7 @@ Event769_BounceVisualCountdownHalt:
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity_WithSpriteRefresh) ; C3:9CF4  25 F1 9F
     %EVENT_START_TASK(!LoopActiveEntityWalkPulseVar4Countdown) ; C3:9CF7  07 2E A1
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9CFA  39
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:9CFB  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:9CFB  42 2F A8 C0
 Local_C39CFF:
     %EVENT_SET_ANIMATION($FF) ; C3:9CFF  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:9D01  0E 04 00 00
@@ -338,8 +338,8 @@ Event770_PartyLookCoordinateHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9D80  42 46 6E C4
     %EVENT_HALT() ; C3:9D84  09
 Event771_AreaTextMovementHalt:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $8B, $02) ; C3:9D85  42 4C A8 C0 8B 02
-    %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event10_11_ReleaseCurrentVisualEntity) ; C3:9D8B  0B D3 A2
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $8B, $02) ; C3:9D85  42 4C A8 C0 8B 02
+    %EVENT_SHORTCALL_CONDITIONAL_NOT(!TrafficLightFootprintPulse16FrameRelease) ; C3:9D8B  0B D3 A2
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:9D8E  1A B8 AA
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9D91  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0920) ; C3:9D95  0E 00 20 09

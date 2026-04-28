@@ -13,13 +13,13 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
+!DisableCurrentSlotNeighborCache = $C0A82F
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopPartyLooksAtActiveEntity = $AFA3
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetYieldToTextLatch9641 = $C46E46
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
@@ -190,9 +190,9 @@ RunBubbleMonkeyLongCoordinateRoute:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:0DB2  1A 59 AB
     %EVENT_SHORT_RETURN() ; C3:0DB5  1B
 Event286_GiygasWinFlagWaitRelease:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $49, $00) ; C3:0DB6  42 4C A8 C0 49 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $49, $00) ; C3:0DB6  42 4C A8 C0 49 00
     %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:0DBC  0A AA A2
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:0DBF  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:0DBF  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:0DC3  25 F0 9F
     %EVENT_SET_ANIMATION($FF) ; C3:0DC6  3B FF
     %EVENT_PAUSE($0A) ; C3:0DC8  06 0A

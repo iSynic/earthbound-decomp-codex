@@ -14,7 +14,9 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !GetDirectionFromPlayerToEntity = $C0C4F7
 !InitActionScriptMovementState = $AA38
@@ -26,8 +28,6 @@ hirom
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_PlaySoundEffectParameter = $C0A841
@@ -159,9 +159,9 @@ endmacro
 
 org $C30716
 EarlyEvent255PoseAndTextRoutes:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $90, $00) ; C3:0716  42 4C A8 C0 90 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $90, $00) ; C3:0716  42 4C A8 C0 90 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:071C  0B AA A2
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:071F  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:071F  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:0723  25 F0 9F
     %EVENT_START_TASK(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:0726  07 B8 A2
     %EVENT_SET_ANIMATION($FF) ; C3:0729  3B FF
@@ -196,9 +196,9 @@ EarlyEvent255PoseAndTextRoutes:
     %EVENT_SHORTCALL(!MoveCurrentSlotAwayFromTargetVector) ; C3:078C  1A 67 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:078F  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:0793  19 04 A2
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $90, $00) ; C3:0796  42 4C A8 C0 90 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $90, $00) ; C3:0796  42 4C A8 C0 90 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:079C  0B AA A2
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:079F  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:079F  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:07A3  25 F0 9F
     %EVENT_SET_ANIMATION($FF) ; C3:07A6  3B FF
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:07A8  19 B8 A2
@@ -246,10 +246,10 @@ EarlyEvent255PoseAndTextRoutes:
 LoopEarlyEvent255VisualCountdown:
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:084E  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:0851  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $52, $01) ; C3:0854  42 57 A8 C0 52 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $52, $01) ; C3:0854  42 57 A8 C0 52 01
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:085A  1A 94 AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:085D  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $52, $01) ; C3:0860  42 57 A8 C0 52 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $52, $01) ; C3:0860  42 57 A8 C0 52 01
     %EVENT_SHORTJUMP(LoopEarlyEvent255VisualCountdown) ; C3:0866  19 4E 08
     %EVENT_SET_X_RELATIVE($0007) ; C3:0869  2B 07 00
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:086C  1A 26 AB

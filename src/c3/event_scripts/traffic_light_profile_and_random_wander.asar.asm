@@ -24,8 +24,8 @@ hirom
 !RefreshCurrentSlotProfileFromField2C9A_Current = $C0C353
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ScriptRelease_CurrentEntityVisualState = $C020F1
-!ScriptWrapper_C47225_ReadTwoWords = $C0A964
 !Script_SetCurrentSlotField2B32 = $C0A685
+!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords = $C0A964
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetMovementTaskTimerFromActiveVector = $C0CA4E
 !UpdateCurrentSlotFootprintMask = $C0C7DB
@@ -196,23 +196,23 @@ LoopRandomDirectionMovementTimer:
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementTimer) ; C3:A338  19 FD A2
 TrafficLightRandomWander8x8:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A33B  1A A1 A3
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $08, $00, $08, $00) ; C3:A33E  42 64 A9 C0 08 00 08 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $08, $00, $08, $00) ; C3:A33E  42 64 A9 C0 08 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A346  19 B7 A3
 TrafficLightRandomWander16x16:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A349  1A A1 A3
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $10, $00, $10, $00) ; C3:A34C  42 64 A9 C0 10 00 10 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $10, $00, $10, $00) ; C3:A34C  42 64 A9 C0 10 00 10 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A354  19 B7 A3
 TrafficLightRandomWander32x32:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A357  1A A1 A3
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $20, $00, $20, $00) ; C3:A35A  42 64 A9 C0 20 00 20 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $20, $00, $20, $00) ; C3:A35A  42 64 A9 C0 20 00 20 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A362  19 B7 A3
 TrafficLightRandomWander24x8:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A365  1A A1 A3
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $18, $00, $08, $00) ; C3:A368  42 64 A9 C0 18 00 08 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $08, $00) ; C3:A368  42 64 A9 C0 18 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A370  19 B7 A3
 TrafficLightRandomWander24x8Alt:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A373  1A A1 A3
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $18, $00, $08, $00) ; C3:A376  42 64 A9 C0 18 00 08 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $08, $00) ; C3:A376  42 64 A9 C0 18 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A37E  19 B7 A3
 TrafficLightRandomWanderPresetLoop:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A381  25 60 A3
@@ -221,7 +221,7 @@ TrafficLightRandomWanderPresetLoop:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:A389  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A38C  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A390  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $08, $00, $08, $00) ; C3:A396  42 64 A9 C0 08 00 08 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $08, $00, $08, $00) ; C3:A396  42 64 A9 C0 08 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A39E  19 B7 A3
 InitC40015PulseWithCollisionProbe:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A3A1  25 60 A3

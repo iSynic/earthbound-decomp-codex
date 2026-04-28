@@ -17,13 +17,13 @@ hirom
 !ActionScript_PrepareNewEntity = $C0A912
 !ActionScript_PrepareNewEntityAtPartyLeader = $C0A8FF
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !CentreScreenOnEntityCallback = $C48C2B
 !ComputeCurrentSlotTargetDirectionOctant = $C46ADB
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !InitMovementPresetC40015Pulse16Frame = $AAB8
 !InitMovementPresetVar4Countdown = $AAAA
-!InitRandomWanderMovementWithCollisionProbe = $A381
 !Integrate_XYVelocityOnly = $9FC8
 !LoopActiveEntityCollisionProbeRefresh = $A262
 !LoopActiveEntityWalkAnimationPulse = $A09F
@@ -38,8 +38,6 @@ hirom
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
 !RunFlyoverIntroTextSceneByIndex = $C49EC4
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
@@ -48,7 +46,9 @@ hirom
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !TestValueLeftOfCurrentAnchorX = $C468B5
+!TrafficLightRandomWanderPresetLoop = $A381
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
 !UpdateCurrentSlotFootprintMask = $C0C7DB
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
@@ -354,8 +354,8 @@ Event478_FlyoverScene2TextPath:
     %EVENT_LOOP_END() ; C3:AD74  02
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:AD75  42 46 6E C4
     %EVENT_HALT() ; C3:AD79  09
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $27, $01) ; C3:AD7A  42 4C A8 C0 27 01
-    %EVENT_SHORTCALL_CONDITIONAL(!InitRandomWanderMovementWithCollisionProbe) ; C3:AD80  0A 81 A3
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $27, $01) ; C3:AD7A  42 4C A8 C0 27 01
+    %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightRandomWanderPresetLoop) ; C3:AD80  0A 81 A3
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:AD83  25 60 A3
     %EVENT_START_TASK(!LoopActiveEntityWalkAnimationPulse) ; C3:AD86  07 9F A0
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:AD89  07 62 A2
@@ -375,7 +375,7 @@ LoopFlyoverPartyLeaderAnchorGate:
     %EVENT_SHORTCALL_CONDITIONAL_NOT(RefreshFlyoverPartyLeaderOctantDirection) ; C3:ADB7  0B C6 AD
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $01) ; C3:ADBA  42 43 A9 C0 01
 ApplyFlyoverPartyLeaderFacingMode:
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:ADBF  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:ADBF  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopFlyoverPartyLeaderAnchorGate) ; C3:ADC3  19 AD AD
 RefreshFlyoverPartyLeaderOctantDirection:
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $01) ; C3:ADC6  42 43 A9 C0 01
@@ -407,7 +407,7 @@ RefreshFlyoverPartyLeaderOctantDirection:
     %EVENT_HALT() ; C3:AE1D  09
     %EVENT_SET_X($1E70) ; C3:AE1E  28 70 1E
     %EVENT_SET_Y($0158) ; C3:AE21  29 58 01
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:AE24  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:AE24  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:AE28  25 F0 9F
     %EVENT_SET_ANIMATION($00) ; C3:AE2B  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:AE2D  39
@@ -447,7 +447,7 @@ LoopFlyoverBlinkTask:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:AE90  42 46 6E C4
     %EVENT_CALLROUTINE_5(!ActionScript_PrepareNewEntity, $70, $1E, $58, $01, $06) ; C3:AE94  42 12 A9 C0 70 1E 58 01 06
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:AE9D  19 04 A2
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $F1, $02) ; C3:AEA0  42 4C A8 C0 F1 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $F1, $02) ; C3:AEA0  42 4C A8 C0 F1 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(ContinueAfterTrafficLightWaitGate) ; C3:AEA6  0B AC AE
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:AEA9  19 AA A2
 ContinueAfterTrafficLightWaitGate:

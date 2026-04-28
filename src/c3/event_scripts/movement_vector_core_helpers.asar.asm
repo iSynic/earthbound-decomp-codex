@@ -20,9 +20,9 @@ hirom
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
-!ScriptWrapper_C47143_Mode01 = $C0A8DC
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SimpleScreenPositionCallback = $C48BE1
+!StepCurrentSlotTowardCachedTarget_NoFacingRefresh = $C0A8DC
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot = $A37A
 
@@ -111,7 +111,7 @@ WaitForActiveEntityMovementToFinish:
     %EVENT_SHORTCALL(RefreshActiveEntityDirectionAndVisualProfile) ; C3:AB59  1A 44 AB
 LoopWaitForActiveEntityMovementToFinish:
     %EVENT_PAUSE($01) ; C3:AB5C  06 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode01) ; C3:AB5E  42 DC A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_NoFacingRefresh) ; C3:AB5E  42 DC A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForActiveEntityMovementToFinish) ; C3:AB62  0A 5C AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:AB65  39
     %EVENT_SHORT_RETURN() ; C3:AB66  1B

@@ -12,13 +12,13 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!DisableCurrentEntityCollision2 = $C0A82F
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !LoopActiveEntityCollisionProbeRefresh = $A262
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
 !PhysicsCallback_C09FF0 = $9FF0
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
 !UpdatePosition_WhenNoNeighbor = $A384
@@ -108,7 +108,7 @@ PrepareObscuredVehiclePathActor:
     %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:6A4D  42 79 A6 C0 03
     %EVENT_SHORT_RETURN() ; C3:6A52  1B
 Event584_OnettTaxiLoopUntilDoorClose:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6A53  42 4C A8 C0 78 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6A53  42 4C A8 C0 78 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityAndEnd) ; C3:6A59  0B 04 A2
     %EVENT_SHORTCALL(PrepareObscuredVehiclePathActor) ; C3:6A5C  1A 41 6A
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:6A5F  42 85 A6 C0 00 02
@@ -128,7 +128,7 @@ LoopEvent584_OnettTaxiPatrol:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:6A92  1A 59 AB
     %EVENT_SHORTJUMP(LoopEvent584_OnettTaxiPatrol) ; C3:6A95  19 69 6A
 Event585_OnettTruck2ParkAfterDoorClose:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6A98  42 4C A8 C0 78 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6A98  42 4C A8 C0 78 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityAndEnd) ; C3:6A9E  0B 04 A2
     %EVENT_SHORTCALL(PrepareObscuredVehiclePathActor) ; C3:6AA1  1A 41 6A
     %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:6AA4  42 79 A6 C0 01
@@ -139,7 +139,7 @@ Event585_OnettTruck2ParkAfterDoorClose:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:6ABB  1A 59 AB
     %EVENT_HALT() ; C3:6ABE  09
 Event586_OnettTruck1ParkAfterDoorClose:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6ABF  42 4C A8 C0 78 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6ABF  42 4C A8 C0 78 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityAndEnd) ; C3:6AC5  0B 04 A2
     %EVENT_SHORTCALL(PrepareObscuredVehiclePathActor) ; C3:6AC8  1A 41 6A
     %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:6ACB  42 79 A6 C0 01
@@ -180,9 +180,9 @@ Event589_TwosonTruck2TwoStopPath:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:6B47  1A 59 AB
     %EVENT_HALT() ; C3:6B4A  09
 Event590_TwosonTaxiBusAppearGate:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $35, $01) ; C3:6B4B  42 4C A8 C0 35 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $35, $01) ; C3:6B4B  42 4C A8 C0 35 01
     %EVENT_SHORTCALL_CONDITIONAL(RunTwosonTaxiBusAppearPath) ; C3:6B51  0A 60 6B
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:6B54  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:6B54  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:6B58  25 F0 9F
     %EVENT_SET_ANIMATION($FF) ; C3:6B5B  3B FF
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:6B5D  19 B8 A2

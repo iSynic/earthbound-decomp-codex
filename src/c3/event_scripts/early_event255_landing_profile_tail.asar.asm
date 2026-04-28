@@ -13,12 +13,12 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !DispatchCurrentLandingProfileAction = $C4733C
 !InitActionScriptMovementState = $AA38
 !RefreshMapStripForIndexPreserveA = $C4734C
 !RefreshMapStripsAroundCameraFarWrapper = $C47369
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetYieldToTextLatch9641 = $C46E46
@@ -105,7 +105,7 @@ EarlyEvent255LandingProfileTail:
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:0918  1A 1E AA
     %EVENT_PAUSE($1E) ; C3:091B  06 1E
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:091D  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $37, $01) ; C3:0920  42 57 A8 C0 37 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $37, $01) ; C3:0920  42 57 A8 C0 37 01
     %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $11, $00) ; C3:0926  42 41 A8 C0 11 00
     %EVENT_CALLROUTINE_0(!DispatchCurrentLandingProfileAction) ; C3:092C  42 3C 73 C4
     %EVENT_WRITE_WORD_TEMPVAR($0029) ; C3:0930  1D 29 00

@@ -12,14 +12,14 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !DecompressItoiProductionIntroAssets = $C4DD28
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !PositionChangeCallback_C0A039 = $A039
 !ReturnX0002 = $C0AACD
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !ScriptWrapper_C466F0_ReadWordByte = $C0A8A0
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -208,7 +208,7 @@ Event537_ItoiProductionRafflesiaPath:
     %EVENT_CALLROUTINE_4(!ScriptWrapper_C466F0_ReadWordByte, $C5, $00, $2C, $E6) ; C3:4F76  42 A0 A8 C0 C5 00 2C E6
 WaitUntilTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:4F7E  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:4F80  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:4F80  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(WaitUntilTempFlag1Clear) ; C3:4F86  0A 7E 4F
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:4F89  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4F8C  42 5F A6 C0
@@ -228,5 +228,5 @@ Event538_SetTempFlag1AfterShortMove:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4FB6  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:4FB9  0E 04 01 00
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:4FBD  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $02, $00) ; C3:4FC0  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:4FC0  42 57 A8 C0 02 00
     %EVENT_HALT() ; C3:4FC6  09

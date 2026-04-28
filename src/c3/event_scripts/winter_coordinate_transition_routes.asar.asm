@@ -13,6 +13,7 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
@@ -22,7 +23,6 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RunFaceTargetShakeByRegistryCount = $B70C
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
@@ -204,7 +204,7 @@ Event335_SpaceTunnel2StartTextHalt:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:183E  42 BF A4 C0
 Local_C31842:
     %EVENT_PAUSE($01) ; C3:1842  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $85, $00) ; C3:1844  42 4C A8 C0 85 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $85, $00) ; C3:1844  42 4C A8 C0 85 00
     %EVENT_SHORTCALL_CONDITIONAL(Local_C31842) ; C3:184A  0A 42 18
     %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:184D  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:1855  0E 02 18 00

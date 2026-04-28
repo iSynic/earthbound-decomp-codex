@@ -14,17 +14,17 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_FadeOutWrapper = $C09FBB
 !ActionScript_PrepareNewEntityAtTeleportDestination = $C0A907
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !InitActionScriptMovementState = $AA38
 !Integrate_XYAndZVelocity = $A00C
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !MoveCurrentSlotAwayFromTargetVector = $AB67
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !ReadInputState006d = $C468A9
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RunFaceTargetShakeByRegistryCount = $B70C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
@@ -163,7 +163,7 @@ Event140_WintersRideInputWaitHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C5E0  42 46 6E C4
     %EVENT_HALT() ; C3:C5E4  09
 Event140_WintersRideInputTriggeredHalt:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $09, $00) ; C3:C5E5  42 57 A8 C0 09 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $09, $00) ; C3:C5E5  42 57 A8 C0 09 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C5EB  42 46 6E C4
     %EVENT_HALT() ; C3:C5EF  09
 Event141_WintersRideCoordinateHalt:
@@ -177,7 +177,7 @@ Event141_WintersRideCoordinateHalt:
     %EVENT_HALT() ; C3:C60C  09
 Event142_WintersRidePartyLookCoordinateHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C60D  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:C610  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:C610  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C614  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:C61A  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1EA0) ; C3:C61E  0E 06 A0 1E
@@ -188,7 +188,7 @@ Event142_WintersRidePartyLookCoordinateHalt:
     %EVENT_HALT() ; C3:C633  09
 Event143_WintersRideLongMovementRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C634  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:C637  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:C637  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C63B  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:C641  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1EC0) ; C3:C645  0E 06 C0 1E
@@ -210,7 +210,7 @@ Event143_WintersRideLongMovementRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C684  19 04 A2
 Event144_WintersRideMovementRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C687  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:C68A  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:C68A  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C68E  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:C694  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1EC0) ; C3:C698  0E 06 C0 1E

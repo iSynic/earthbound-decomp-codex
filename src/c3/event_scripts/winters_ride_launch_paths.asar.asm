@@ -19,9 +19,9 @@ hirom
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
 !LoopRandomWanderInsideActiveArea = $AB9E
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
-!ScriptWrapper_C47225_ReadTwoWords = $C0A964
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
+!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords = $C0A964
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !UpdateCurrentSlotFootprintMask = $C0C7DB
@@ -180,7 +180,7 @@ Event138B_RandomWanderLaunchHelper:
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:C582  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C585  42 BF A4 C0
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C589  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C47225_ReadTwoWords, $18, $00, $18, $00) ; C3:C58F  42 64 A9 C0 18 00 18 00
+    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $18, $00) ; C3:C58F  42 64 A9 C0 18 00 18 00
     %EVENT_SHORTJUMP(!LoopRandomWanderInsideActiveArea) ; C3:C597  19 9E AB
 Event139_WintersCoordinateTextHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C59A  1A 38 AA

@@ -13,6 +13,7 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !InitActionScriptMovementState = $AA38
@@ -23,14 +24,13 @@ hirom
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !WaitForActiveEntityMovementToFinish = $AB59
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -135,7 +135,7 @@ Event295_SkyrunnerCrashPartyMemberTracker:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:106E  1A AA AA
     %EVENT_SET_ANIMATION($00) ; C3:1071  3B 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0009) ; C3:1073  0E 04 09 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $D9, $00) ; C3:1077  42 4C A8 C0 D9 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $D9, $00) ; C3:1077  42 4C A8 C0 D9 00
     %EVENT_SHORTCALL_CONDITIONAL(Event295_UsePartyTrackerVisualProfile) ; C3:107D  0A 86 10
     %EVENT_SET_ANIMATION($FF) ; C3:1080  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:1082  0E 04 00 00
@@ -149,7 +149,7 @@ LoopEvent295_WaitForPartyMemberArrival:
     %EVENT_PAUSE($01) ; C3:109C  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:109E  39
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:109F  42 43 A9 C0 FF
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:10A4  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:10A4  42 C6 A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent295_WaitForPartyMemberArrival) ; C3:10A8  0A 9C 10
     %EVENT_END_LAST_TASK() ; C3:10AB  13
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:10AC  42 46 6E C4
@@ -255,7 +255,7 @@ Event301_TempFlagDoorOpenPath:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:11F9  1A 59 AB
 LoopEvent301_WaitForTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:11FC  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:11FE  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:11FE  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent301_WaitForTempFlag1Clear) ; C3:1204  0A FC 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:1207  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1648) ; C3:120B  0E 06 48 16

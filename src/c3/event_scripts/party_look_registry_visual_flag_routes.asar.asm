@@ -12,6 +12,8 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ClearLeadAndCompanionRegistryVisualFlags = $C4675C
 !Integrate_XYVelocityOnly = $9FC8
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
@@ -20,8 +22,6 @@ hirom
 !ReadActiveOverworldRegistryCount = $C47333
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -166,7 +166,7 @@ RegistryAnchorPartyLookFlagRoute:
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V6, $02, $FFF8) ; C3:404A  14 06 02 F8 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFEA) ; C3:404F  14 07 02 EA FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4054  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $81, $00) ; C3:4057  42 4C A8 C0 81 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $81, $00) ; C3:4057  42 4C A8 C0 81 00
     %EVENT_SHORTCALL_CONDITIONAL(SetYieldAndRegistryVisualFlags) ; C3:405D  0A 75 40
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4060  39
     %EVENT_CALLROUTINE_0(!ReadActiveOverworldRegistryCount) ; C3:4061  42 33 73 C4
@@ -219,10 +219,10 @@ LoopRegistryAnchorPoseOffset:
 LoopTrafficLightAreaFlagToggle:
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:40F0  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:40F3  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $59, $01) ; C3:40F6  42 57 A8 C0 59 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $59, $01) ; C3:40F6  42 57 A8 C0 59 01
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:40FC  1A 94 AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:40FF  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $59, $01) ; C3:4102  42 57 A8 C0 59 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $59, $01) ; C3:4102  42 57 A8 C0 59 01
     %EVENT_SHORTJUMP(LoopTrafficLightAreaFlagToggle) ; C3:4108  19 F0 40
 TrafficLightFootprintAnchorA:
     %EVENT_SET_X($0258) ; C3:410B  28 58 02

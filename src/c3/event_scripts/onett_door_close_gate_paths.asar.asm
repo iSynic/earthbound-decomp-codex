@@ -13,24 +13,24 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
-!Event13_ShortRandomWander = $A33B
-!Event16_WideRandomWander = $A365
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !Event605_FrameSelectorTaskAndRelease = $6E19
-!Event6_12_RandomDirectionWalk = $A2E4
 !GetCurrentVisualTypeRecordByte03 = $C46914
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !PositionChangeCallback_C0A039 = $A039
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !StoreLowNibble1a42ToCurrentScriptField1372 = $C40023
+!TrafficLightRandomDirectionLoop = $A2E4
+!TrafficLightRandomWander24x8 = $A365
+!TrafficLightRandomWander8x8 = $A33B
 !UpdateCurrentSlotFrameSelector = $C46957
 !WaitForActiveEntityMovementToFinish = $AB59
 
@@ -118,19 +118,19 @@ LoopUpdateVisualTypeFrameSelector:
     %EVENT_PAUSE($50) ; C3:6E4D  06 50
     %EVENT_SHORTJUMP(LoopUpdateVisualTypeFrameSelector) ; C3:6E4F  19 45 6E
 Event607_OnettDoorCloseGateRandomWalk:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6E52  42 4C A8 C0 78 02
-    %EVENT_SHORTCALL_CONDITIONAL(!Event6_12_RandomDirectionWalk) ; C3:6E58  0A E4 A2
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6E52  42 4C A8 C0 78 02
+    %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightRandomDirectionLoop) ; C3:6E58  0A E4 A2
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6E5B  19 04 A2
 Event608_OnettDoorCloseGateShortWander:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6E5E  42 4C A8 C0 78 02
-    %EVENT_SHORTCALL_CONDITIONAL(!Event13_ShortRandomWander) ; C3:6E64  0A 3B A3
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6E5E  42 4C A8 C0 78 02
+    %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightRandomWander8x8) ; C3:6E64  0A 3B A3
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6E67  19 04 A2
 Event609_OnettDoorCloseGateWideWander:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6E6A  42 4C A8 C0 78 02
-    %EVENT_SHORTCALL_CONDITIONAL(!Event16_WideRandomWander) ; C3:6E70  0A 65 A3
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6E6A  42 4C A8 C0 78 02
+    %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightRandomWander24x8) ; C3:6E70  0A 65 A3
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6E73  19 04 A2
 Event610_OnettDoorCloseGateFrameSelector:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $78, $02) ; C3:6E76  42 4C A8 C0 78 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $78, $02) ; C3:6E76  42 4C A8 C0 78 02
     %EVENT_SHORTCALL_CONDITIONAL(!Event605_FrameSelectorTaskAndRelease) ; C3:6E7C  0A 19 6E
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6E7F  19 04 A2
 Event611_PartyMemberCoordinateTextHalt:
@@ -171,5 +171,5 @@ LoopEvent613_TrackVisualTypePosition:
     %EVENT_PAUSE($01) ; C3:6EF8  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6EFA  39
     %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $8A, $03) ; C3:6EFB  42 2D A9 C0 8A 03
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:6F01  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:6F01  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent613_TrackVisualTypePosition) ; C3:6F05  19 F8 6E

@@ -13,7 +13,8 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
-!DisableCurrentEntityCollision2 = $C0A82F
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Event606_DoseiBoxAppearFallback = $6E2D
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !GetCurrentSlotDirectionClass = $C0A673
@@ -26,7 +27,6 @@ hirom
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -226,9 +226,9 @@ Event580_TrafficLightWaitPositionD:
     %EVENT_SET_Y($1DB8) ; C3:4DC5  29 B8 1D
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:4DC8  19 AA A2
 Event581_DoseiBoxAppearFlagGate:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $74, $02) ; C3:4DCB  42 4C A8 C0 74 02
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $74, $02) ; C3:4DCB  42 4C A8 C0 74 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event606_DoseiBoxAppearFallback) ; C3:4DD1  0B 2D 6E
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:4DD4  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:4DD4  42 2F A8 C0
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:4DD8  25 F0 9F
     %EVENT_SET_ANIMATION($FF) ; C3:4DDB  3B FF
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:4DDD  19 B8 A2

@@ -12,6 +12,7 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !InitMovementPresetVar4Countdown = $AAAA
@@ -20,7 +21,6 @@ hirom
 !LoopC40015Var4GatedPulseUntilRelease = $A15E
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
@@ -138,7 +138,7 @@ Event666_EscaperAppearMovementRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0040) ; C3:7ACD  0E 03 40 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:7AD1  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7AD4  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $72, $02) ; C3:7AD7  42 57 A8 C0 72 02
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $72, $02) ; C3:7AD7  42 57 A8 C0 72 02
     %EVENT_END_LAST_TASK() ; C3:7ADD  13
     %EVENT_START_TASK(!LoopActiveEntityWalkPulseVar4Countdown) ; C3:7ADE  07 2E A1
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:7AE1  25 7A A3

@@ -15,6 +15,8 @@ hirom
 !ActionScript_FadeInWrapper = $C09FAE
 !ActionScript_FadeOutWrapper = $C09FBB
 !ActionScript_GetPositionOfPartyMember = $C0A943
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !CopyCgramShadow0200To4476 = $C4978E
 !InitActionScriptMovementState = $AA38
@@ -23,8 +25,6 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ReloadMapAndResetPresentationState = $C018F3
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !ScriptWrapper_C497C0_ReadWordByteByte = $C0AAB5
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -137,7 +137,7 @@ endmacro
 org $C3199E
 ContinueEvent340_BattleBgTransition:
     %EVENT_PAUSE($01) ; C3:199E  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $03, $00) ; C3:19A0  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:19A0  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(!Target_C31983) ; C3:19A6  0A 83 19
     %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:19A9  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:19AF  1A E0 AB
@@ -147,9 +147,9 @@ ContinueEvent340_BattleBgTransition:
     %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:19BA  42 AE 9F C0 01 01
 Local_C319C0:
     %EVENT_PAUSE($01) ; C3:19C0  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:19C2  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:19C2  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event340_BattleBgTransitionCancelReload) ; C3:19C8  0B 17 1A
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $05, $00) ; C3:19CB  42 4C A8 C0 05 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $05, $00) ; C3:19CB  42 4C A8 C0 05 00
     %EVENT_SHORTCALL_CONDITIONAL(Local_C319C0) ; C3:19D1  0A C0 19
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:19D4  0F
     %EVENT_CALLROUTINE_0(!CopyCgramShadow0200To4476) ; C3:19D5  42 8E 97 C4
@@ -158,9 +158,9 @@ Local_C319C0:
     %EVENT_PAUSE($01) ; C3:19E5  06 01
 Local_C319E7:
     %EVENT_PAUSE($01) ; C3:19E7  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $03, $00) ; C3:19E9  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:19E9  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(Local_C319E7) ; C3:19EF  0A E7 19
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:19F2  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:19F2  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event340_BattleBgTransitionCancelReload) ; C3:19F8  0B 17 1A
     %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:19FB  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:1A01  1A E0 AB
@@ -175,10 +175,10 @@ Event340_BattleBgTransitionCancelReload:
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:1A20  0F
     %EVENT_CALLROUTINE_0(!ReloadMapAndResetPresentationState) ; C3:1A21  42 F3 18 C0
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:1A25  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $04, $00) ; C3:1A28  42 57 A8 C0 04 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $04, $00) ; C3:1A28  42 57 A8 C0 04 00
 LoopEvent340_WaitForTempFlag1AfterReload:
     %EVENT_PAUSE($01) ; C3:1A2E  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:1A30  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1A30  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent340_WaitForTempFlag1AfterReload) ; C3:1A36  0B 2E 1A
     %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:1A39  42 AE 9F C0 01 01
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1A3F  19 04 A2
@@ -209,7 +209,7 @@ Event342_CameraRelativeCenterMoveHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0080) ; C3:1A98  0E 06 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0080) ; C3:1A9C  0E 07 80 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1AA0  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:1AA3  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1AA3  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event342_Halt) ; C3:1AA9  0B B0 1A
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1AAC  42 46 6E C4
 Event342_Halt:

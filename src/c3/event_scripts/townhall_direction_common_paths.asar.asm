@@ -12,12 +12,12 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!FaceVisualTypeSlotTowardCurrentSlot_ReadWord = $C0A94E
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopReadText456And459Task = $8FCE
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RunRightLeftFacingPulsePair = $7545
-!ScriptWrapper_C46984_ReadWord = $C0A94E
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -153,7 +153,7 @@ Event742_TownHallMovementTextPath:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8F81  42 46 6E C4
     %EVENT_HALT() ; C3:8F85  09
 LoopEvent742_ReadText456Task:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C46984_ReadWord, $56, $04) ; C3:8F86  42 4E A9 C0 56 04
+    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $56, $04) ; C3:8F86  42 4E A9 C0 56 04
     %EVENT_PAUSE($03) ; C3:8F8C  06 03
     %EVENT_SHORTJUMP(LoopEvent742_ReadText456Task) ; C3:8F8E  19 86 8F
 Event743_TownHallMovementSoundPath:

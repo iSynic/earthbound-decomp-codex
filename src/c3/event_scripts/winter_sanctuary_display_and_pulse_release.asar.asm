@@ -12,6 +12,7 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyCurrentSlot0e5eBrightnessToPaletteRows = $C47499
 !DisplayYourSanctuaryLocation = $C4E2D7
 !EnableYourSanctuaryDisplayBg2State = $C4DED0
@@ -23,7 +24,6 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RotateDirectionByCurrentSlotClass = $C0C682
-!ScriptWrapper_C21628_ReadWord = $C0A84C
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_RefreshCurrentSlotVisualProfile = $C0AAAC
@@ -316,7 +316,7 @@ LoopEvent352_PalettePulseForward:
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:1CBF  42 99 74 C4
     %EVENT_PAUSE($0C) ; C3:1CC3  06 0C
     %EVENT_LOOP_END() ; C3:1CC5  02
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:1CC6  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1CC6  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event352_YieldRelease) ; C3:1CCC  0B F4 1C
     %EVENT_LOOP($09) ; C3:1CCF  01 09
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $FFFF) ; C3:1CD1  14 00 02 FF FF
@@ -328,7 +328,7 @@ LoopEvent352_PalettePulseForward:
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:1CE4  42 99 74 C4
     %EVENT_PAUSE($0C) ; C3:1CE8  06 0C
     %EVENT_LOOP_END() ; C3:1CEA  02
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:1CEB  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1CEB  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent352_PalettePulseForward) ; C3:1CF1  0A AA 1C
 Event352_YieldRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1CF4  42 46 6E C4

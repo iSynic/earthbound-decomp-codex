@@ -13,7 +13,7 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !HalveCurrentSlot0d32PreserveSign = $C4730E
 !InitFlatCastScreenActorWithRefreshTask = $5FB6
 !Integrate_XYVelocityOnly = $9FC8
@@ -26,11 +26,11 @@ hirom
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RestoreCurrentSlotAnchorFromCachedTarget = $C46C87
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C46534_ReadThreeWords = $C0A98B
 !ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_BINOP(var, op, value)
@@ -165,7 +165,7 @@ LoopCastScreenOrbitDamping:
     %EVENT_CALLROUTINE_0(!RestoreCurrentSlotAnchorFromCachedTarget) ; C3:638B  42 87 6C C4
     %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:638F  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:6393  42 0E 73 C4
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:6397  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:6397  42 2F A8 C0
     %EVENT_SHORTJUMP(LoopCastScreenOrbitDamping) ; C3:639B  19 84 63
 CastScreenFallRelease:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera39) ; C3:639E  23 55 A0
@@ -179,7 +179,7 @@ CastScreenFallRelease:
     %EVENT_LOOP_END() ; C3:63B5  02
     %EVENT_SET_Y_VELOCITY($0055) ; C3:63B6  40 55 00
     %EVENT_PAUSE($A8) ; C3:63B9  06 A8
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $2E, $00, $26, $03) ; C3:63BB  42 8B A9 C0 2E 00 26 03
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $2E, $00, $26, $03) ; C3:63BB  42 8B A9 C0 2E 00 26 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:63C3  19 04 A2
 CastScreenFacingPulseUntilGone:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera39) ; C3:63C6  23 55 A0

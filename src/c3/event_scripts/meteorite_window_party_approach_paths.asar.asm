@@ -15,6 +15,8 @@ hirom
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_PrepareNewEntityAtPartyLeader = $C0A8FF
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !GetCurrentSlotDirectionClass = $C0A673
 !InitActionScriptMovementState = $AA38
 !InitAlternatePhysicsVar4WalkPulse = $AB26
@@ -26,8 +28,6 @@ hirom
 !PositionChangeCallback_C0A039 = $A039
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -218,7 +218,7 @@ Event52_MeteoritePokeyHopTextHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B1C4  42 46 6E C4
 LoopEvent52_WaitForTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:B1C8  06 01
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $02, $00) ; C3:B1CA  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:B1CA  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent52_WaitForTempFlag1Clear) ; C3:B1D0  0A C8 B1
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1BC8) ; C3:B1D3  0E 06 C8 1B
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0368) ; C3:B1D7  0E 07 68 03
@@ -246,9 +246,9 @@ RunMeteoritePartyApproachPrelude:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0050) ; C3:B21B  0E 03 50 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B21F  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B222  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $21, $00) ; C3:B225  42 57 A8 C0 21 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $21, $00) ; C3:B225  42 57 A8 C0 21 00
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B22B  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $20, $00) ; C3:B22E  42 57 A8 C0 20 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $20, $00) ; C3:B22E  42 57 A8 C0 20 00
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:B234  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B237  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B23B  42 BF A4 C0
@@ -269,9 +269,9 @@ StartMeteoritePartyApproachRun:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0050) ; C3:B270  0E 03 50 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B274  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B277  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $32, $01) ; C3:B27A  42 57 A8 C0 32 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $32, $01) ; C3:B27A  42 57 A8 C0 32 01
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B280  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $21, $00) ; C3:B283  42 57 A8 C0 21 00
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $21, $00) ; C3:B283  42 57 A8 C0 21 00
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:B289  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B28C  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B290  42 BF A4 C0

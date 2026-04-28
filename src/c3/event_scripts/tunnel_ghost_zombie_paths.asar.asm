@@ -14,9 +14,11 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
+!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
+!ActionScript_TestEventFlag_ReadWord = $C0A84C
 !ApplyTempDirectionAndRefreshMovementVector = $AA1E
 !ComputeCurrentSlotTargetDirectionOctant = $C46ADB
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Event103_TunnelGhostFollowerLeftOffset = $BBB7
 !Event104_TunnelGhostFollowerRightOffset = $BC0A
 !Event105_TunnelGhostFollowerFarLeftOffset = $BC5D
@@ -27,7 +29,7 @@ hirom
 !InstallScriptMovementVectorFromDirection = $C0C83B
 !Integrate_XYVelocityOnly = $9FC8
 !LoopPartyLooksAtActiveEntity = $AFA3
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !PositionChangeCallback_C0A039 = $A039
 !PrepareTunnelGhostActiveAreaWindow = $BB5C
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
@@ -38,9 +40,6 @@ hirom
 !RunTunnelGhostOneTextLoop = $BAA3
 !RunTunnelGhostThreedWarpTextHalt = $BAD7
 !RunTunnelGhostWarpTextHalt = $BAC4
-!ScriptWrapper_C21628_ReadWord = $C0A84C
-!ScriptWrapper_C2165E_ReadWordPreserveMode = $C0A857
-!ScriptWrapper_C47143_Mode01 = $C0A8DC
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -51,6 +50,7 @@ hirom
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!StepCurrentSlotTowardCachedTarget_NoFacingRefresh = $C0A8DC
 !TestValueLeftOfCurrentAnchorX = $C468B5
 !TrackPartyMemberForTunnelGhost = $BB73
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -194,7 +194,7 @@ RunFaceTargetShakeByRegistryCount:
 LoopWaitForFaceTargetShakeGate:
     %EVENT_PAUSE($01) ; C3:B737  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:B739  39
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode01) ; C3:B73A  42 DC A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_NoFacingRefresh) ; C3:B73A  42 DC A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForFaceTargetShakeGate) ; C3:B73E  0A 37 B7
     %EVENT_SET_VELOCITIES_ZERO() ; C3:B741  39
     %EVENT_CALLROUTINE_0(!ReadActiveOverworldRegistryCount) ; C3:B742  42 33 73 C4
@@ -239,7 +239,7 @@ Event74_DownRightWalkAndYield:
 Event75_PartyLookAtMemberOffsetAndYield:
     %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $F3, $00) ; C3:B7BC  42 6F A8 C0 F3 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:B7C2  1A 38 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:B7C5  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:B7C5  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:B7C9  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B7CF  0E 05 01 00
     %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:B7D3  42 43 A9 C0 FF
@@ -251,7 +251,7 @@ Event75_PartyLookAtMemberOffsetAndYield:
     %EVENT_HALT() ; C3:B7EE  09
 Event76_C40015PresetMoveToPoseAndYield:
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:B7EF  1A B8 AA
-    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntity) ; C3:B7F2  08 3B 8B C4
+    %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:B7F2  08 3B 8B C4
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:B7F6  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B7FC  0E 05 01 00
     %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $F3, $00) ; C3:B800  42 38 A9 C0 F3 00
@@ -291,9 +291,9 @@ Event78_BikiniZombieFlaggedLeftMove:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0028) ; C3:B87B  0E 03 28 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B87F  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B882  1D 00 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $28, $01) ; C3:B885  42 57 A8 C0 28 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $28, $01) ; C3:B885  42 57 A8 C0 28 01
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B88B  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $29, $01) ; C3:B88E  42 57 A8 C0 29 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $29, $01) ; C3:B88E  42 57 A8 C0 29 01
     %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:B894  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:B89A  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:B89D  1A 1E AA
@@ -306,9 +306,9 @@ Event79_BikiniZombieHotelDoorPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0038) ; C3:B8B0  0E 02 38 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0038) ; C3:B8B4  0E 03 38 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B8B8  1A 8A AB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $29, $01) ; C3:B8BB  42 57 A8 C0 29 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $29, $01) ; C3:B8BB  42 57 A8 C0 29 01
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B8C1  1D 01 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C2165E_ReadWordPreserveMode, $2A, $01) ; C3:B8C4  42 57 A8 C0 2A 01
+    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $2A, $01) ; C3:B8C4  42 57 A8 C0 2A 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B8CA  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1E70) ; C3:B8CE  0E 06 70 1E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2438) ; C3:B8D2  0E 07 38 24
@@ -384,43 +384,43 @@ Event84_PartyMemberOneYieldAndHold:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:B9CF  0E 04 01 00
     %EVENT_HALT() ; C3:B9D3  09
 Event85_TwosonThreedTunnelFlagGateA:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:B9D4  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:B9D4  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event94_95_98_TunnelGhostCommon) ; C3:B9DA  0B 73 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $39, $01) ; C3:B9DD  42 4C A8 C0 39 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $39, $01) ; C3:B9DD  42 4C A8 C0 39 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event103_TunnelGhostFollowerLeftOffset) ; C3:B9E3  0B B7 BB
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3A, $01) ; C3:B9E6  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:B9E6  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event103_TunnelGhostFollowerLeftOffset) ; C3:B9EC  0B B7 BB
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B9EF  19 04 A2
 Event86_TwosonThreedTunnelFlagGateB:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:B9F2  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:B9F2  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event94_95_98_TunnelGhostCommon) ; C3:B9F8  0B 73 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3C, $01) ; C3:B9FB  42 4C A8 C0 3C 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3C, $01) ; C3:B9FB  42 4C A8 C0 3C 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event106_TunnelGhostFollowerFarRightOffset) ; C3:BA01  0B B0 BC
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:BA04  19 04 A2
 Event88_TwosonThreedTunnelFlagGateC:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:BA07  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BA07  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!RunTunnelGhostOneTextLoop) ; C3:BA0D  0B A3 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3B, $01) ; C3:BA10  42 4C A8 C0 3B 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3B, $01) ; C3:BA10  42 4C A8 C0 3B 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!RunTunnelGhostWarpTextHalt) ; C3:BA16  0B C4 BA
     %EVENT_SHORTJUMP(!Event104_TunnelGhostFollowerRightOffset) ; C3:BA19  19 0A BC
 Event87_TwosonThreedTunnelFlagGateD:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $38, $01) ; C3:BA1C  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BA1C  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!RunTunnelGhostWarpTextHalt) ; C3:BA22  0B C4 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3B, $01) ; C3:BA25  42 4C A8 C0 3B 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3B, $01) ; C3:BA25  42 4C A8 C0 3B 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!RunTunnelGhostOneTextLoop) ; C3:BA2B  0B A3 BA
     %EVENT_SHORTJUMP(!Event105_TunnelGhostFollowerFarLeftOffset) ; C3:BA2E  19 5D BC
 Event89_TwosonThreedTunnelFlagGateE:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3B, $01) ; C3:BA31  42 4C A8 C0 3B 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3B, $01) ; C3:BA31  42 4C A8 C0 3B 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event94_95_98_TunnelGhostCommon) ; C3:BA37  0B 73 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $39, $01) ; C3:BA3A  42 4C A8 C0 39 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $39, $01) ; C3:BA3A  42 4C A8 C0 39 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event106_TunnelGhostFollowerFarRightOffset) ; C3:BA40  0B B0 BC
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3A, $01) ; C3:BA43  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:BA43  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event106_TunnelGhostFollowerFarRightOffset) ; C3:BA49  0B B0 BC
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:BA4C  19 04 A2
 Event90_TwosonThreedTunnelFlagGateF:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3B, $01) ; C3:BA4F  42 4C A8 C0 3B 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3B, $01) ; C3:BA4F  42 4C A8 C0 3B 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event94_95_98_TunnelGhostCommon) ; C3:BA55  0B 73 BA
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C21628_ReadWord, $3C, $01) ; C3:BA58  42 4C A8 C0 3C 01
+    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3C, $01) ; C3:BA58  42 4C A8 C0 3C 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!Event103_TunnelGhostFollowerLeftOffset) ; C3:BA5E  0B B7 BB
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:BA61  19 04 A2
     %EVENT_SHORTJUMP(Event94_95_98_TunnelGhostCommon) ; C3:BA64  19 73 BA
@@ -429,7 +429,7 @@ Event90_TwosonThreedTunnelFlagGateF:
     %EVENT_SHORTJUMP(!RunTunnelGhostThreedWarpTextHalt) ; C3:BA6D  19 D7 BA
     %EVENT_SHORTJUMP(Event94_95_98_TunnelGhostCommon) ; C3:BA70  19 73 BA
 Event94_95_98_TunnelGhostCommon:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:BA73  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:BA73  42 2F A8 C0
     %EVENT_SHORTCALL(!PrepareTunnelGhostActiveAreaWindow) ; C3:BA77  1A 5C BB
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BA7A  1A 73 BB
     %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $12, $8F) ; C3:BA7D  42 8D A8 C0 C7 00 12 8F

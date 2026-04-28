@@ -16,15 +16,15 @@ hirom
 !ActionScript_QueueTextPointer = $C0A88D
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopC40015SlowPulseUntilRelease = $A17B
-!MakePartyLookAtActiveEntity = $C48B3B
+!MakePartyLookAtActiveEntityCallback = $C48B3B
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C47143_Mode01 = $C0A8DC
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetYieldToTextLatch9641 = $C46E46
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
+!StepCurrentSlotTowardCachedTarget_NoFacingRefresh = $C0A8DC
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot = $A37A
 !WaitForActiveEntityMovementToFinish = $AB59
 !WaitUntilNoBattleSwirlOrEnemyTouch = $9E01
@@ -107,7 +107,7 @@ endmacro
 
 org $C3AFA3
 LoopPartyLooksAtActiveEntity:
-    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntity) ; C3:AFA3  42 3B 8B C4
+    %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntityCallback) ; C3:AFA3  42 3B 8B C4
     %EVENT_PAUSE($03) ; C3:AFA7  06 03
     %EVENT_SHORTJUMP(LoopPartyLooksAtActiveEntity) ; C3:AFA9  19 A3 AF
 Event55_DogByeActiveAreaTextHalt:
@@ -155,7 +155,7 @@ Event49_PartyMember09TrackerTextHalt:
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:B037  1A 44 AB
 LoopEvent49_WaitForPartyMember09Arrival:
     %EVENT_PAUSE($01) ; C3:B03A  06 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode01) ; C3:B03C  42 DC A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_NoFacingRefresh) ; C3:B03C  42 DC A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent49_WaitForPartyMember09Arrival) ; C3:B040  0A 3A B0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:B043  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:B044  0E 04 00 00

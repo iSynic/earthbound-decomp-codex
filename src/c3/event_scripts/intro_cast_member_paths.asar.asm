@@ -22,10 +22,10 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C46534_ReadThreeWords = $C0A98B
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
+!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_CALLROUTINE_0(target)
@@ -421,5 +421,5 @@ Event825_CastBrokenPhaseDistorterSpawn:
     %EVENT_PAUSE($8C) ; C3:62AF  06 8C
     %EVENT_PAUSE($14) ; C3:62B1  06 14
     %EVENT_PAUSE($40) ; C3:62B3  06 40
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $F0, $00, $3B, $03) ; C3:62B5  42 8B A9 C0 F0 00 3B 03
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $F0, $00, $3B, $03) ; C3:62B5  42 8B A9 C0 F0 00 3B 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:62BD  19 04 A2

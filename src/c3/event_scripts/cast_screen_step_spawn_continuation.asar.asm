@@ -23,12 +23,12 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C46534_ReadThreeWords = $C0A98B
 !ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
+!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_BINOP(var, op, value)
@@ -219,7 +219,7 @@ CastScreenSpawnPooRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:66C9  42 BF A4 C0
     %EVENT_PAUSE($8C) ; C3:66CD  06 8C
     %EVENT_PAUSE($8C) ; C3:66CF  06 8C
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $04, $00, $22, $03) ; C3:66D1  42 8B A9 C0 04 00 22 03
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $04, $00, $22, $03) ; C3:66D1  42 8B A9 C0 04 00 22 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:66D9  19 04 A2
 CastScreenStarMasterSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:66DC  1A B6 5F
@@ -242,7 +242,7 @@ LoopCastScreenStarMasterArc:
     %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $A9, $00) ; C3:6710  42 6F A8 C0 A9 00
     %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:6716  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:671A  02
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $62, $00, $43, $03) ; C3:671B  42 8B A9 C0 62 00 43 03
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $62, $00, $43, $03) ; C3:671B  42 8B A9 C0 62 00 43 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6723  19 04 A2
 CastScreenVisualCountdownHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6726  1A B6 5F
@@ -307,7 +307,7 @@ CastScreenTendaSpawnRelease:
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:67D3  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:67D6  1A 1E AA
     %EVENT_PAUSE($30) ; C3:67D9  06 30
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C46534_ReadThreeWords, $61, $00, $4C, $03) ; C3:67DB  42 8B A9 C0 61 00 4C 03
+    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $61, $00, $4C, $03) ; C3:67DB  42 8B A9 C0 61 00 4C 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:67E3  19 04 A2
 CastScreenTendaFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:67E6  1A B6 5F

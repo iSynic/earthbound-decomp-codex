@@ -12,13 +12,13 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
+!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord = $C0A959
 !InitMovementPresetVar4Countdown = $AAAA
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RunLeftRightFacingPulsePair = $7559
-!ScriptWrapper_C469F1_ReadWord = $C0A959
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_PlaySoundEffectParameter = $C0A841
@@ -125,7 +125,7 @@ endmacro
 
 org $C389BD
 Event715_BlinkThenRelease:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:89BD  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:89BD  42 2F A8 C0
     %EVENT_SET_PRIORITY($03) ; C3:89C1  43 03
     %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:89C3  25 F0 9F
     %EVENT_SET_ANIMATION($00) ; C3:89C6  3B 00
@@ -238,8 +238,8 @@ Event719_OnettTownHallDoorMovementPath:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8B24  42 46 6E C4
     %EVENT_HALT() ; C3:8B28  09
 LoopEvent719_DoorSoundTask:
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C469F1_ReadWord, $91, $00) ; C3:8B29  42 59 A9 C0 91 00
-    %EVENT_CALLROUTINE_2(!ScriptWrapper_C469F1_ReadWord, $92, $00) ; C3:8B2F  42 59 A9 C0 92 00
+    %EVENT_CALLROUTINE_2(!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord, $91, $00) ; C3:8B29  42 59 A9 C0 91 00
+    %EVENT_CALLROUTINE_2(!FacePoseDescriptorSlotTowardCurrentSlot_ReadWord, $92, $00) ; C3:8B2F  42 59 A9 C0 92 00
     %EVENT_PAUSE($03) ; C3:8B35  06 03
     %EVENT_SHORTJUMP(LoopEvent719_DoorSoundTask) ; C3:8B37  19 29 8B
 Event720_MovementPathRelease:
