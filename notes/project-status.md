@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Twenty-nine source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `10833` validated bytes across the
+   callback byte-count seeds captured. Thirty-three source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `11087` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -104,7 +104,8 @@ that romhackers need to edit confidently:
    position/text-yield path, leftward bounds release, and animation-port
    direction task families plus var0 animation/collision-probe,
    area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
-   and position door-close helpers.
+   position door-close, rightward live-area bounce/yield, V4 animation/side-step,
+   window-gfx loader prologue, and tunnel-ghost warp text helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -145,6 +146,10 @@ that romhackers need to edit confidently:
 - `notes/c3-anim-port-flag-switch-source-pilot.md`
 - `notes/c3-leftward-bounds-release-paths-source-pilot.md`
 - `notes/c3-anim-port-direction-tasks-source-pilot.md`
+- `notes/c3-rightward-live-area-bounce-yield-source-pilot.md`
+- `notes/c3-var4-animation-side-step-helpers-source-pilot.md`
+- `notes/c3-window-gfx-loader-prologue-source-pilot.md`
+- `notes/c3-tunnel-ghost-warp-text-helpers-source-pilot.md`
 - `notes/c3-var0-animation-collision-probe-source-pilot.md`
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`

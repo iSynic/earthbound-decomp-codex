@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `29` families, `10833` validated
+- Current source-form event/actionscript pilots: `33` families, `11087` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: twenty-nine pilots complete.
+Status: thirty-three pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -285,6 +285,21 @@ Status: twenty-nine pilots complete.
   seam covering paired tasks used by ebsrc scripts 713-714: a V4/animation-port
   driven direction loop and the adjacent blink animation loop,
   `C3:8978..C3:89BD`, `69` validated bytes.
+- `notes/c3-rightward-live-area-bounce-yield-source-pilot.md`: high-ranked
+  frontier seam covering the right-facing movement/yield path at `C3:DF90` plus
+  its concurrent randomized bounce/downward wait task, `C3:DF90..C3:DFE8`,
+  `88` validated bytes.
+- `notes/c3-var4-animation-side-step-helpers-source-pilot.md`: high-ranked
+  frontier seam covering the V4-controlled animation pulse task used by the
+  common `C3:1D4F` setup helper plus paired right/left side-step pulse helpers,
+  `C3:1D2D..C3:1D4F` and `C3:1EC1..C3:1EEF`, `80` validated bytes.
+- `notes/c3-window-gfx-loader-prologue-source-pilot.md`: high-ranked frontier
+  seam closing the compact indexed window-gfx loader prologue immediately before
+  the existing party-look/window-gfx pilot, `C3:3BFB..C3:3C1D`, `34` validated
+  bytes.
+- `notes/c3-tunnel-ghost-warp-text-helpers-source-pilot.md`: high-ranked
+  frontier seam covering the compact tunnel-ghost text helpers used by ebsrc
+  scripts 87, 88, and 96, `C3:BAA3..C3:BAD7`, `52` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -319,6 +334,10 @@ Candidate/follow-up families for this milestone:
 - `C3:835D..C3:83BC` animation-port flag switch helper - pilot complete
 - `C3:4392..C3:43DB` leftward bounds release paths scripts 532-533 - pilot complete
 - `C3:8978..C3:89BD` animation-port direction tasks scripts 713-714 - pilot complete
+- `C3:DF90..C3:DFE8` rightward live-area bounce/yield helper - pilot complete
+- `C3:1D2D..C3:1D4F` and `C3:1EC1..C3:1EEF` V4 animation/side-step helpers - pilot complete
+- `C3:3BFB..C3:3C1D` window-gfx loader prologue - pilot complete
+- `C3:BAA3..C3:BAD7` tunnel ghost warp/text helpers - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
 - `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
@@ -354,11 +373,13 @@ teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
 paths, vehicle coordinate paths, Boogy Tent/city bus paths, palette
 fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
 paths, bus-tunnel bridge paths, animation-port flag switch, leftward bounds
-release paths, animation-port direction tasks, and var0 animation/collision-probe,
-area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
-position door-close helpers, and position/text-yield paths now have
+release paths, animation-port direction tasks, rightward live-area bounce/yield,
+V4 animation/side-step helpers, window-gfx loader prologue, tunnel-ghost warp
+text helpers, and var0 animation/collision-probe, area-wait/random-wander,
+teleport/flyover coordinate, Threed fight Matent, position door-close helpers,
+and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:DF90..C3:DFB5` as the best ready seam;
+`C3:CEA2..C3:CEB9` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the

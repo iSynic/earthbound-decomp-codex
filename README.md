@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Twenty-nine source-form pilots are also
+byte-count seeds captured for semantic naming. Thirty-three source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -64,7 +64,9 @@ falling/bounce-yield path, teleport-destination prelude path, and
 bus-tunnel bridge path, animation-port flag switch, position/text-yield path,
 leftward bounds release, and animation-port direction task clusters plus var0
 animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
-Threed fight Matent, and position door-close helpers. Together they represent `10833`
+Threed fight Matent, position door-close, rightward live-area bounce/yield,
+V4 animation/side-step, window-gfx loader prologue, and tunnel-ghost warp text
+helpers. Together they represent `11087`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -112,6 +114,10 @@ Good starting points:
 - `notes/c3-anim-port-flag-switch-source-pilot.md`
 - `notes/c3-leftward-bounds-release-paths-source-pilot.md`
 - `notes/c3-anim-port-direction-tasks-source-pilot.md`
+- `notes/c3-rightward-live-area-bounce-yield-source-pilot.md`
+- `notes/c3-var4-animation-side-step-helpers-source-pilot.md`
+- `notes/c3-window-gfx-loader-prologue-source-pilot.md`
+- `notes/c3-tunnel-ghost-warp-text-helpers-source-pilot.md`
 - `notes/c3-var0-animation-collision-probe-source-pilot.md`
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
