@@ -28,6 +28,8 @@ The first focused lowering hypothesis is
 `notes/localization-cmp-ongosub-lowering.md`.
 The second focused lowering hypothesis is
 `notes/localization-set-loopreg-gosub-lowering.md`.
+The third focused lowering hypothesis is
+`notes/localization-selgoto-lowering.md`.
 
 ## Local VM Anchors
 
@@ -76,6 +78,10 @@ The generated pattern report sharpens that into command-sequence evidence:
   always `@CMP(decimal,decimal) > @ONGOSUB(message_label)`. That makes it a
   repeated compare plus one-label conditional-call motif, not the common shape
   of a many-label source table.
+- The expanded lowering profile shows `@SELGOTO` is overwhelmingly a
+  two-argument source branch form: `@SELGOTO(symbol,symbol)` accounts for
+  `235` profiled hits, and the strongest setup motifs are
+  `@DSP_ITEM > @SELGOTO` and `@GOSUB > @SELGOTO`.
 
 This strongly suggests a compiler-like authoring layer: the source macros stage
 or compare small values, then expand into existing text VM branch/call helpers.
@@ -99,7 +105,8 @@ templates.
 | `@ONGOSUB(label)` after `@CMP` | Source-level conditional call controlled by the immediately preceding compare. | high |
 | `@ONGOSUB(...)` multi-arg forms | Source-level multi-way call table or call-chain syntax; still separate from the dominant one-label motif. | medium |
 | `@ONGOTO(...)` | Source-level multi-way jump table, probably over current comparison/selector state. | medium |
-| `@SELGOTO(...)` | Selection-result jump table over the most recent menu/selection value. | medium |
+| `@SELGOTO(a,b)` | Two-way selection-result branch over the most recent menu/selection value. | high |
+| `@SELGOTO(...)` rare forms | Selection-result branch syntax with less common arity/label shapes. | medium |
 | `@SEL_TEL_GOSUB()` | Teleport-selection call helper; likely a narrow wrapper over selection and call semantics. | low |
 
 ## What This Gets Us
@@ -118,13 +125,14 @@ text VM primitives.
 
 ## Next Manual Proof
 
-The `@CMP > @ONGOSUB` and `@SET_LOOPREG > @GOSUB` lowering hypotheses are now
-documented. The next best proof is the selection branch cluster:
+The `@CMP > @ONGOSUB`, `@SET_LOOPREG > @GOSUB`, and `@SELGOTO` lowering
+hypotheses are now documented. The next best proof should move from
+control-flow macros to display/inventory aliases:
 
-1. `@DSP_ITEM` followed by `@SELGOTO`
-2. `@GOSUB` followed by `@SELGOTO`
-3. `@SELGOTO` followed by `@GOTO`, `@KEY`, or `@KEYNP`
-4. multi-argument `@ONGOSUB` / `@ONGOTO` forms
+1. `@DSP_ITEM`, `@DSP_NAME`, `@DSP_STS`, and `@DSP_GOODS`
+2. inventory/shop aliases such as `@GOODSIN_PLAYER` and `@GOODSOUT_PLAYER`
+3. remaining multi-argument `@ONGOSUB` / `@ONGOTO` forms if they block source
+   readability
 
 The goal is not to recover dialogue. The goal is to prove the source macro's
 lowering shape against already-documented text VM commands.

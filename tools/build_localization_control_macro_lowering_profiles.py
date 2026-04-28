@@ -24,12 +24,26 @@ DEFAULT_MARKDOWN = ROOT / "notes" / "localization-control-macro-lowering-profile
 
 COMMAND_RE = re.compile(r"@!?[A-Z0-9_]+(?:\s*\(([^)]*)\))?")
 RECORD_START_RE = re.compile(r"(?m)^;@Habitat:")
-TARGETS = {"@CMP", "@ONGOSUB", "@ONGOTO", "@SELGOTO", "@SET_LOOPREG", "@GOSUB"}
+TARGETS = {
+    "@CMP",
+    "@DSP_ITEM",
+    "@GOSUB",
+    "@GOTO",
+    "@KEY",
+    "@KEYNP",
+    "@ONGOSUB",
+    "@ONGOTO",
+    "@SELGOTO",
+    "@SET_LOOPREG",
+}
 FOCUS_PAIRS = [
     ("@CMP", "@ONGOSUB"),
     ("@SET_LOOPREG", "@GOSUB"),
     ("@DSP_ITEM", "@SELGOTO"),
+    ("@GOSUB", "@SELGOTO"),
     ("@SELGOTO", "@GOTO"),
+    ("@SELGOTO", "@KEY"),
+    ("@SELGOTO", "@KEYNP"),
 ]
 
 
@@ -258,8 +272,9 @@ def write_markdown(profiles: dict[str, Any], output_path: Path) -> None:
             "  compare/table runs.",
             "- `@SET_LOOPREG > @GOSUB` is also a one-argument staging macro followed",
             "  by one-argument call syntax, matching a source loop/list convenience.",
-            "- `@DSP_ITEM > @SELGOTO` and `@SELGOTO > @GOTO` are two-argument",
-            "  selection/branch forms over item display and branch destinations.",
+            "- `@DSP_ITEM > @SELGOTO`, `@GOSUB > @SELGOTO`, and the",
+            "  `@SELGOTO` continuations are two-argument selection/branch forms",
+            "  over item display or helper-call setup and branch destinations.",
             "",
         ]
     )

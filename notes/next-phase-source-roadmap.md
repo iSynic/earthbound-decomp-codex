@@ -133,8 +133,9 @@
   `notes/localization-control-macro-lowering-profiles.md` and
   `build/localization-control-macro-lowering-profiles.json`. It adds sanitized
   argument-category evidence for the highest-value control macro motifs:
-  `3315` target command hits and `686` focus-pair hits, including the fully
-  consistent `@CMP(decimal,decimal) > @ONGOSUB(message_label)` profile.
+  `17694` target command hits and `857` focus-pair hits, including the fully
+  consistent `@CMP(decimal,decimal) > @ONGOSUB(message_label)` profile and
+  the `@SELGOTO(symbol,symbol)` selection branch profile.
 - `notes/localization-cmp-ongosub-lowering.md` is the first focused source
   macro lowering hypothesis. It treats the dominant compare/call motif as
   source-level conditional-call syntax over existing bank-`01` Text VM
@@ -144,6 +145,9 @@
   `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
   syntax and identifies selection branching around `@SELGOTO` as the next
   focused proof.
+- `notes/localization-selgoto-lowering.md` is the third focused source macro
+  lowering hypothesis. It treats `@SELGOTO` as source-level selection-result
+  branch syntax over existing menu/display/branch Text VM primitives.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -361,9 +365,11 @@ The first pass should target text-command semantics and authoring syntax:
   lowering proof; the strongest motifs are `@CMP > @ONGOSUB`,
   `@SET_LOOPREG > @GOSUB`, and `@DSP_ITEM > @SELGOTO`
 - use `notes/localization-cmp-ongosub-lowering.md` and
-  `notes/localization-set-loopreg-gosub-lowering.md` as templates for the next
-  focused macro-lowering note; selection branching around `@SELGOTO` is the
-  best next target
+  `notes/localization-set-loopreg-gosub-lowering.md` plus
+  `notes/localization-selgoto-lowering.md` as templates for future focused
+  macro-lowering notes
+- move next to display/inventory alias consolidation against the `0x1C` and
+  `0x1D` Text VM families
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.

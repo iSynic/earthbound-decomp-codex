@@ -64,12 +64,16 @@ report at `notes/localization-control-macro-patterns.md` scans `685` recovered
 source records, finds `180` records with control macros, and isolates `1246`
 focus-motif hits without checking in dialogue or full source records. The
 sanitized argument-category profile at
-`notes/localization-control-macro-lowering-profiles.md` adds `3315` target
-command hits and confirms the strongest compare/call motif as
+`notes/localization-control-macro-lowering-profiles.md` now covers `10` target
+commands, `17694` target command hits, and `857` focus-pair hits; it confirms
+the strongest compare/call motif as
 `@CMP(decimal,decimal) > @ONGOSUB(message_label)`. The first focused lowering
 hypothesis is now `notes/localization-cmp-ongosub-lowering.md`; the second is
 `notes/localization-set-loopreg-gosub-lowering.md`, covering the broad
 `@SET_LOOPREG > @GOSUB` stage-then-call motif across `31` files.
+`notes/localization-selgoto-lowering.md` documents the `@SELGOTO` selection
+branch macro as a two-target source branch over existing menu/display/branch
+VM primitives.
 
 ## Public Good-Enough Definition
 
@@ -190,7 +194,10 @@ that romhackers need to edit confidently:
    existing bank-`01` Text VM primitives rather than a new runtime opcode.
    `notes/localization-set-loopreg-gosub-lowering.md` treats the broad
    `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
-   syntax. The next best target is selection branching around `@SELGOTO`.
+   syntax. `notes/localization-selgoto-lowering.md` treats `@SELGOTO` as
+   source-level selection branch syntax. The next best target is
+   display/inventory alias consolidation against the `0x1C` and `0x1D` Text VM
+   families.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning
