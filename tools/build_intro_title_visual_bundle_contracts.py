@@ -113,13 +113,14 @@ SCENES: list[dict[str, Any]] = [
         "refs": [
             "refs/eb-decompile-4ef92/TitleScreen/Background",
             "refs/eb-decompile-4ef92/TitleScreen/Chars",
+            "notes/title-screen-letter-oam-contracts.md",
         ],
         "legacy_refs": [
             "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin",
             "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin",
         ],
         "status": "named-by-ebsrc-and-ref-family",
-        "open": "E1:CE08 is still a raw table in the manifest; its adjacency and EBDecomp position refs make it title-screen-character-adjacent, but field-level decoding remains a followup.",
+        "open": "E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData: nine 0x2D-byte letter records plus the E1:CF9D pointer table.",
     },
     {
         "id": "intro.death_screen_visual_tail",
@@ -303,10 +304,13 @@ def build_contract() -> dict[str, Any]:
                 "source": "refs/eb-decompile-4ef92/TitleScreen",
                 "role": "EBDecomp title-screen image refs establish the title background frame count, character sprite count, and position-row count without committing ROM payloads.",
             },
+            {
+                "source": "notes/title-screen-letter-oam-contracts.md",
+                "role": "Promotes the raw E1:CE08 table to TitleScreenLetterOAMData with nine letter records and the E1:CF9D pointer table.",
+            },
         ],
         "open_questions": [
             "Promote E1:AE7C from attract-adjacent small payload to a field-level role after caller proof.",
-            "Decode E1:CE08 title-screen-adjacent table fields against the EBDecomp title character positions.",
             "Follow callers for E1:CFAF, E1:D4F4, E1:D5E8, and E1:D6E1 to split the death-screen tail into exact background/text/palette/arrangement roles.",
         ],
     }

@@ -35,7 +35,7 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 | Nintendo logo | `named-by-ebsrc-and-legacy` | 3 | 382 | 57166 | `refs/eb-decompile-4ef92/Logos/Nintendo.png (454 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/NintendoLogoTilemap.bin (73 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/NintendoLogoPalette.bin (68 bytes)` |
 | War on Giygas / gas-station intro visual | `runtime-loader-backed` | 4 | 21772 | 181915 | `refs/eb-decompile-4ef92/Logos/GasStation1.png (12257 bytes)`, `refs/eb-decompile-4ef92/Logos/GasStation2.png (12257 bytes)`, `refs/eb-decompile-4ef92/Logos/GasStation3.png (12257 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/WarOnGiygasScreenTilemap.bin (1376 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/WarOnGiygasScreenPalette.bin (166 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/WarOnGiygasScreenFlashPalette.bin (130 bytes)` |
 | Presented/produced-by attract cards | `mostly-named-by-ebsrc-with-one-adjacent-small-payload` | 6 | 1182 | 11654 | `refs/eb-decompile-4ef92/Logos/ProducedBy.png (420 bytes)`, `refs/eb-decompile-4ef92/Logos/PresentedBy.png (346 bytes)` | - |
-| Title-screen background, logo, and letter sprites | `named-by-ebsrc-and-ref-family` | 5 | 8242 | 91367 | `refs/eb-decompile-4ef92/TitleScreen/Background`, `refs/eb-decompile-4ef92/TitleScreen/Chars` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin (660 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin (39 bytes)` |
+| Title-screen background, logo, and letter sprites | `named-by-ebsrc-and-ref-family` | 5 | 8242 | 91367 | `refs/eb-decompile-4ef92/TitleScreen/Background`, `refs/eb-decompile-4ef92/TitleScreen/Chars`, `notes/title-screen-letter-oam-contracts.md (11067 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin (660 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin (39 bytes)` |
 | Death-screen visual tail | `preview-and-ref-corroborated-family` | 4 | 2182 | 100537 | `refs/eb-decompile-4ef92/Logos/DeathScreen_Ness.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_Jeff.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_palettes.yml (10636 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenGlowPalettes.bin (128 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenLetterPalettes.bin (122 bytes)` |
 
 ## Component Details
@@ -104,7 +104,7 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 
 - bundle id: `intro.title_screen`
 - role: Main title-screen visual bundle: background/tilemap, 4bpp graphics, logo-letter graphics, palette, and the adjacent unknown table that aligns with EBDecomp title-character position refs.
-- followup: E1:CE08 is still a raw table in the manifest; its adjacency and EBDecomp position refs make it title-screen-character-adjacent, but field-level decoding remains a followup.
+- followup: E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData: nine 0x2D-byte letter records plus the E1:CF9D pointer table.
 
 | Component | Range | Source bytes | Output kinds | Generated outputs observed |
 | --- | --- | ---: | --- | --- |
@@ -133,9 +133,9 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 - `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`: C0 intro/logo wait helpers are the bank-C0 side of the same intro visual path.
 - `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps`: Legacy compressed tilemaps corroborate APE, HAL, Nintendo, War-on-Giygas, and title-logo compressed arrangement byte counts.
 - `refs/eb-decompile-4ef92/TitleScreen`: EBDecomp title-screen image refs establish the title background frame count, character sprite count, and position-row count without committing ROM payloads.
+- `notes/title-screen-letter-oam-contracts.md`: Promotes the raw E1:CE08 table to TitleScreenLetterOAMData with nine letter records and the E1:CF9D pointer table.
 
 ## Open Questions
 
 - Promote E1:AE7C from attract-adjacent small payload to a field-level role after caller proof.
-- Decode E1:CE08 title-screen-adjacent table fields against the EBDecomp title character positions.
 - Follow callers for E1:CFAF, E1:D4F4, E1:D5E8, and E1:D6E1 to split the death-screen tail into exact background/text/palette/arrangement roles.

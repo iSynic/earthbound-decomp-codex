@@ -23,7 +23,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
 | Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | Close the small known semantic followups: collision low modifier caller names and DA palette metadata/event-selector roles. |
-| UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 68 | 131072 | 91 | 5 | Text-window skin, font, town-map, intro/title scene, and SRAM template shapes are split; next polish exact field roles for E1:AE7C/E1:CE08/death-screen tail and SRAM block ownership. |
+| UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 68 | 131072 | 91 | 5 | Text-window skin, font, town-map, intro/title scene, title-letter OAM, and SRAM template shapes are split; next polish exact field roles for E1:AE7C/death-screen tail and SRAM block ownership. |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
 | EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
 
@@ -64,8 +64,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### UI, fonts, and town-map assets
 
 - maturity: `contract-seeded`
-- proof: raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title/death visual bundle splits, and an E0 SRAM save-block template contract
-- checked docs: `notes/ui-font-town-map-asset-contracts.md`, `notes/text-window-skin-bundle-contracts.md`, `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`, `notes/bank-e1-asset-data-map.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`, `notes/your-sanctuary-location-coordinate-table-c4de78.md`
+- proof: raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title/death visual bundle splits, E1 title-letter OAM table decoding, and an E0 SRAM save-block template contract
+- checked docs: `notes/ui-font-town-map-asset-contracts.md`, `notes/text-window-skin-bundle-contracts.md`, `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/title-screen-letter-oam-contracts.md`, `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`, `notes/bank-e1-asset-data-map.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`, `notes/your-sanctuary-location-coordinate-table-c4de78.md`
 - category mix: `graphics` 41, `binary-asset` 13, `raw-table` 9, `audio` 3, +1 more
 - output recipe mix: `raw` 68, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, +4 more
 
@@ -130,7 +130,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ## Recommended Next Manual Seams
 
-1. `ui_font_town_map_assets`: Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.
+1. `ui_font_town_map_assets`: Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title-letter OAM, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.
 2. `battle_visual_assets`: Contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins, so the next useful step is narrow polish rather than another broad bundle pass.
 3. `map_tilesets_and_runtime_tables`: The map milestone is mature; closing the named low-bit/palette followups would make it easier to call phase-good-enough publicly.
 4. `audio_packs`: Large byte volume remains raw-pack level; defer until we choose an audio-pack contract boundary.

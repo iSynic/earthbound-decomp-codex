@@ -58,6 +58,7 @@ FAMILIES: dict[str, dict[str, Any]] = {
         "portable_contract": "Expose each visual scene as arrangement/graphics/palette components plus any unresolved adjacent compressed payloads until their exact scene role is pinned.",
         "docs": [
             "notes/intro-title-visual-bundle-contracts.md",
+            "notes/title-screen-letter-oam-contracts.md",
             "notes/gas-station-intro-asset-loader-c4a377.md",
             "notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md",
             "notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md",
@@ -281,7 +282,7 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "intro_title_visual_bundles",
                 "source": "notes/intro-title-visual-bundle-contracts.md",
-                "shape": "E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail.",
+                "shape": "E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail; E1:CE08 is further promoted to TitleScreenLetterOAMData.",
             },
             {
                 "id": "sram_save_template",
@@ -368,7 +369,7 @@ def build_contract() -> dict[str, Any]:
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
             "Pin the visible identity of text-window palette block 6.",
             "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
-            "Promote E1:AE7C, E1:CE08, and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.",
+            "Promote E1:AE7C and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],
     }
