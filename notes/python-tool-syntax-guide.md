@@ -229,6 +229,13 @@ text labels and map-object text pointers:
 python tools/build_localization_map_object_crosswalk.py
 ```
 
+Summarize the localization/map-object crosswalk into public-safe movement-ID
+evidence for C3 naming and promotion:
+
+```powershell
+python tools/build_localization_movement_evidence.py
+```
+
 Decode C3-style event/actionscript payloads:
 
 ```powershell

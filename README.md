@@ -107,6 +107,7 @@ Good starting points:
 - `notes/earthbound-localization-script-authoring-format.md`
 - `notes/localization-script-source-index.md`
 - `notes/localization-map-object-crosswalk.md`
+- `notes/localization-movement-evidence.md`
 - `notes/map-sector-bundles.md`
 - `notes/map-tileset-bundles.md`
 - `notes/map-fts-format-audit.md`

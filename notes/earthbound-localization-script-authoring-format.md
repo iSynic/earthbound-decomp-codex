@@ -30,6 +30,10 @@ source records to ROM-backed placed map objects by text label and pointer. The
 tracked summary is `notes/localization-map-object-crosswalk.md`; the detailed
 ignored output is `build/localization-map-object-crosswalk.json`.
 
+Run `python tools/build_localization_movement_evidence.py` to summarize that
+crosswalk into `notes/localization-movement-evidence.md`, a public-safe movement
+ID prioritization report for C3 naming and promotion work.
+
 Current local manifest summary:
 
 - Parsed NPC-style metadata records: `653`.
@@ -119,6 +123,8 @@ When working on C5-C9/EF text-command semantics or map-object contracts:
 - Use `tools/build_localization_map_object_crosswalk.py` when you need to join
   recovered source records back to placed map objects, movement IDs, and
   behavior buckets.
+- Use `tools/build_localization_movement_evidence.py` for a quick public-safe
+  view of which movement IDs have the most localization-derived naming evidence.
 
 This clue does not change the C3 event/actionscript VM decoder directly, but it
 does strengthen the naming model for NPC behavior contracts and eventual
