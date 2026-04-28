@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `19` families, `9721` validated
+- Current source-form event/actionscript pilots: `20` families, `10019` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: nineteen pilots complete.
+Status: twenty pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -235,6 +235,12 @@ Status: nineteen pilots complete.
   seam covering the shared wait/yield halt at `C3:098B`, ebsrc script 266's
   fixed coordinate move/yield halt, and ebsrc script 267's falling/bounce
   movement release sequence, `C3:098B..C3:0A1F`, `148` validated bytes.
+- `notes/c3-teleport-destination-prelude-paths-source-pilot.md`: high-ranked
+  frontier seam covering teleport-destination prelude helpers before the
+  existing `C3:C94E..C3:CC24` pilot: a looping offset jitter task, a pause
+  pulse task, ebsrc scripts 147-152, one additional destination-prepare
+  variant, and the left-side rise/fade helper at `C3:C90C`,
+  `C3:C824..C3:C94E`, `298` validated bytes.
 - `notes/c3-position-text-yield-paths-source-pilot.md`: high-ranked frontier
   seam covering the party-look-at-active-entity loop plus ebsrc scripts
   120-132, including text-yield handoffs, fixed coordinate placement helpers,
@@ -269,6 +275,7 @@ Candidate/follow-up families for this milestone:
 - `C3:6BEA..C3:6D18` Boogy Tent/city bus paths scripts 592-596 - pilot complete
 - `C3:7439..C3:7545` palette fade/coordinate paths scripts 633-637 - pilot complete
 - `C3:098B..C3:0A1F` falling/bounce-yield paths scripts 266-267 - pilot complete
+- `C3:C824..C3:C94E` teleport-destination prelude paths scripts 147-152 - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
 - `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
   on the `C0:A92D` callback contract before promotion
@@ -297,9 +304,10 @@ intro/presentation movement paths, cast-scroll setup scripts, intro
 cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
 teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
 paths, vehicle coordinate paths, Boogy Tent/city bus paths, palette
-fade/coordinate paths, falling/bounce-yield paths, and position/text-yield paths now have
+fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
+paths, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:C871..C3:C8FD` as the best ready seam;
+`C3:DB7A..C3:DBDB` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the

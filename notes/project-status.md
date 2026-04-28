@@ -91,16 +91,16 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Nineteen source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `9721` validated bytes across the
+   callback byte-count seeds captured. Twenty source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `10019` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
    party-look/window-gfx path, temp-flag door-close path,
    teleport-destination path, tunnel ghost/zombie path, and tunnel ghost
    follower path, vehicle coordinate path, Boogy Tent/city bus path, palette
-   fade/coordinate path, falling/bounce-yield path, and position/text-yield
-   path families.
+   fade/coordinate path, falling/bounce-yield path, teleport-destination prelude
+   path, and position/text-yield path families.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -136,6 +136,7 @@ that romhackers need to edit confidently:
 - `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
 - `notes/c3-palette-fade-coordinate-paths-source-pilot.md`
 - `notes/c3-falling-bounce-yield-paths-source-pilot.md`
+- `notes/c3-teleport-destination-prelude-paths-source-pilot.md`
 - `notes/c3-position-text-yield-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`

@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Nineteen source-form pilots are also
+byte-count seeds captured for semantic naming. Twenty source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -60,7 +60,8 @@ intro/presentation movement path, cast-scroll setup, intro cast-member path,
 party-look/window-gfx path, temp-flag door-close path, teleport-destination
 path, tunnel ghost/zombie path, tunnel ghost follower path, vehicle coordinate
 path, Boogy Tent/city bus path, palette fade/coordinate path,
-falling/bounce-yield path, and position/text-yield path clusters. Together they represent `9721`
+falling/bounce-yield path, teleport-destination prelude path, and
+position/text-yield path clusters. Together they represent `10019`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -103,6 +104,7 @@ Good starting points:
 - `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
 - `notes/c3-palette-fade-coordinate-paths-source-pilot.md`
 - `notes/c3-falling-bounce-yield-paths-source-pilot.md`
+- `notes/c3-teleport-destination-prelude-paths-source-pilot.md`
 - `notes/c3-position-text-yield-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
@@ -259,6 +261,7 @@ python tools/build_c3_event_script_source_pilot.py --family vehicle-coordinate-p
 python tools/build_c3_event_script_source_pilot.py --family boogy-tent-city-bus-paths
 python tools/build_c3_event_script_source_pilot.py --family palette-fade-coordinate-paths
 python tools/build_c3_event_script_source_pilot.py --family falling-bounce-yield-paths
+python tools/build_c3_event_script_source_pilot.py --family teleport-destination-prelude-paths
 python tools/build_c3_event_script_source_pilot.py --family position-text-yield-paths
 python tools/build_c3_source_pilot_frontier.py
 ```
