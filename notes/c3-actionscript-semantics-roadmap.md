@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `27` families, `10691` validated
+- Current source-form event/actionscript pilots: `29` families, `10833` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: twenty-seven pilots complete.
+Status: twenty-nine pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -277,6 +277,14 @@ Status: twenty-seven pilots complete.
   120-132, including text-yield handoffs, fixed coordinate placement helpers,
   temporary-flag wait loops, and short movement releases, `C3:C227..C3:C35D`,
   `310` validated bytes.
+- `notes/c3-leftward-bounds-release-paths-source-pilot.md`: high-ranked
+  frontier seam covering the shared leftward movement path used by ebsrc scripts
+  532-533 plus its concurrent bounds-watch task, `C3:4392..C3:43DB`, `73`
+  validated bytes.
+- `notes/c3-anim-port-direction-tasks-source-pilot.md`: high-ranked frontier
+  seam covering paired tasks used by ebsrc scripts 713-714: a V4/animation-port
+  driven direction loop and the adjacent blink animation loop,
+  `C3:8978..C3:89BD`, `69` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -309,6 +317,8 @@ Candidate/follow-up families for this milestone:
 - `C3:C824..C3:C94E` teleport-destination prelude paths scripts 147-152 - pilot complete
 - `C3:DB7A..C3:DBF2` bus-tunnel bridge paths scripts 453-454 - pilot complete
 - `C3:835D..C3:83BC` animation-port flag switch helper - pilot complete
+- `C3:4392..C3:43DB` leftward bounds release paths scripts 532-533 - pilot complete
+- `C3:8978..C3:89BD` animation-port direction tasks scripts 713-714 - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
 - `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
@@ -343,12 +353,12 @@ cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
 teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
 paths, vehicle coordinate paths, Boogy Tent/city bus paths, palette
 fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
-paths, bus-tunnel bridge paths, animation-port flag switch, and
-var0 animation/collision-probe, area-wait/random-wander, teleport/flyover
-coordinate, Threed fight Matent, position door-close helpers, and
-position/text-yield paths now have
+paths, bus-tunnel bridge paths, animation-port flag switch, leftward bounds
+release paths, animation-port direction tasks, and var0 animation/collision-probe,
+area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
+position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:43AE..C3:43DB` as the best ready seam;
+`C3:DF90..C3:DFB5` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
