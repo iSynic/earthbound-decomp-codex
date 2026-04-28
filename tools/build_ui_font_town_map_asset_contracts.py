@@ -35,8 +35,9 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "font_sets": {
         "label": "Font data and glyph graphics",
         "runtime_contract": "Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers.",
-        "portable_contract": "Expose each font as a typed pair: metrics bytes plus glyph graphics, with palette ownership kept separate.",
+        "portable_contract": "Expose each metric-backed font as `font.N` bundles with metric bytes, glyph graphics, preview refs, and support-font status for graphics-only scene fonts.",
         "docs": [
+            "notes/font-bundle-contracts.md",
             "notes/text-window-rendering-primitives-c1078d-c10d7c.md",
             "notes/text-token-glyph-run-stager-c44b3a-c44e61.md",
             "notes/c4-text-tile-staging-and-vector-helpers-1db6-213f.md",
@@ -258,8 +259,8 @@ def build_contract() -> dict[str, Any]:
             },
             {
                 "id": "font_metric_pairs",
-                "source": "asset-manifests/bank-e0-assets.json and asset-manifests/bank-e1-assets.json",
-                "shape": "Main, battle, tiny, large, and Mr. Saturn font data are 96-byte metric tables paired with glyph graphics; romaji and credits fonts are graphics-only until caller-specific metrics are proven.",
+                "source": "notes/font-bundle-contracts.md",
+                "shape": "Main, Mr. Saturn, large, battle, and tiny fonts each have a 96-byte metric table matched to EBDecomp width refs and paired with raw 4bpp glyph graphics; battle and tiny share the same first-96 metrics but use different graphics sizes.",
             },
             {
                 "id": "text_window_skin_bundle",

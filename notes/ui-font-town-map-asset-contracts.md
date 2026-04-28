@@ -29,7 +29,7 @@ No ROM-derived payloads are checked in by this report.
 - `town_map_pointer_table`: E0:2190 pointer table selects one of six E0 town-map graphics payloads for C4:D553. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `town_map_icon_records`: E1:F491 points to five-byte icon records: x, y, icon id, and event flag word with high-bit polarity. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `town_map_icon_animation`: E1:F44C maps town-map icon ids, E1:F47A suppresses blink-phase icons, and C4:D2A8 cycles CGRAM entries 0x81..0x86. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
-- `font_metric_pairs`: Main, battle, tiny, large, and Mr. Saturn font data are 96-byte metric tables paired with glyph graphics; romaji and credits fonts are graphics-only until caller-specific metrics are proven. Source: `asset-manifests/bank-e0-assets.json and asset-manifests/bank-e1-assets.json`.
+- `font_metric_pairs`: Main, Mr. Saturn, large, battle, and tiny fonts each have a 96-byte metric table matched to EBDecomp width refs and paired with raw 4bpp glyph graphics; battle and tiny share the same first-96 metrics but use different graphics sizes. Source: `notes/font-bundle-contracts.md`.
 - `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows. Source: `notes/text-window-skin-bundle-contracts.md`.
 
 ## Runtime Subrange Contracts
@@ -76,8 +76,8 @@ No ROM-derived payloads are checked in by this report.
 
 ### Font data and glyph graphics
 
-- portable contract: Expose each font as a typed pair: metrics bytes plus glyph graphics, with palette ownership kept separate.
-- checked docs: `notes/text-window-rendering-primitives-c1078d-c10d7c.md`, `notes/text-token-glyph-run-stager-c44b3a-c44e61.md`, `notes/c4-text-tile-staging-and-vector-helpers-1db6-213f.md`
+- portable contract: Expose each metric-backed font as `font.N` bundles with metric bytes, glyph graphics, preview refs, and support-font status for graphics-only scene fonts.
+- checked docs: `notes/font-bundle-contracts.md`, `notes/text-window-rendering-primitives-c1078d-c10d7c.md`, `notes/text-token-glyph-run-stager-c44b3a-c44e61.md`, `notes/c4-text-tile-staging-and-vector-helpers-1db6-213f.md`
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
