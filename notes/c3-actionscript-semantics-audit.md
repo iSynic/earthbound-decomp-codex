@@ -15,7 +15,7 @@ Generated from `notes/c3-source-data-map.md` via `tools/build_c3_actionscript_se
 
 - top first opcodes: `{'$42 EVENT_CALLROUTINE': 49, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2, '$39 EVENT_SET_VELOCITIES_ZERO': 2}`
 - top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 26, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 15, 'C0:A65F': 10, 'C4:6E46': 8, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A88D': 5, 'C0:A68B': 4, 'C0:D98F': 4}`
-- callback semantic groups: `{'current-slot-state': 17, 'overworld-runtime': 11, 'visual-profile': 10, 'timed-delivery': 9, 'presentation-render': 9, 'movement': 7, 'text-presentation': 6, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'event-flag': 2, 'world-state-restore': 2, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
+- callback semantic groups: `{'current-slot-state': 17, 'visual-profile': 10, 'overworld-runtime': 10, 'presentation-render': 10, 'timed-delivery': 9, 'movement': 7, 'text-presentation': 6, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'event-flag': 2, 'world-state-restore': 2, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
 - unknown callback targets: `{}`
 - top C3 script targets: `{'C3:A204': 19, 'C3:AB59': 17, 'C3:A111': 7, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AA38': 4, 'C3:A1F3': 4, 'C3:A262': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:43DB': 3, 'C3:443E': 3, 'C3:44FF': 3, 'C3:AB26': 3, 'C3:5F8B': 3, 'C3:A052': 3}`
 
@@ -62,7 +62,7 @@ No syntactic decode frontiers at the current bounds.
 | `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:A959` | `ScriptWrapper_C469F1_ReadWord` | `presentation-render` | 2 | 2 | `c469f1_selector_word` | read one script word and forward it to C4:69F1 | `byte-count-known` |
 | `C0:A98B` | `ScriptWrapper_C46534_ReadThreeWords` | `presentation-render` | 2 | 4 | `c46534_arg0_word, c46534_arg1_word` | read two script words and forward them to C4:6534; callee consumes the staged third value | `byte-count-known` |
-| `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `arg0_byte` | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `display_control_bits_byte` | read one display-control byte and store it to current slot field $2BAA | `byte-count-known` |
 | `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:A84C` | `ScriptWrapper_C21628_ReadWord` | `event-flag` | 2 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
 | `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -73,8 +73,8 @@ No syntactic decode frontiers at the current bounds.
 | `C4:6E74` | `CheckStagedPositionWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test staged position against the player proximity threshold | `byte-count-known` |
 | `C4:8B3B` | `MakePartyLookAtActiveEntityCallback` | `party-facing` | 2 | 0 | `-` | make party members face or track the active entity | `byte-count-known` |
 | `C0:A8C6` | `ScriptWrapper_C47143_Mode00` | `overworld-runtime` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | `arg0_byte` | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
-| `C0:9FBB` | `ActionScript_FadeOutWrapper` | `overworld-runtime` | 2 | 2 | `arg0_byte, arg1_byte` | 2 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | `teleport_destination_selector_byte` | read one teleport-destination selector byte and prepare a new entity at that destination | `byte-count-known` |
+| `C0:9FBB` | `ActionScript_FadeOutWrapper` | `presentation-render` | 2 | 2 | `fadeout_effect_word` | read one fade-out effect word and pass it to C0:887A | `byte-count-known` |
 | `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:800B` | `UndrawFlyoverTextAndRestoreWorldDisplay` | `world-state-restore` | 1 | 0 | `-` | restore world display state after flyover/text presentation | `byte-count-known` |
 | `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -97,7 +97,7 @@ No syntactic decode frontiers at the current bounds.
 | `C3:0100` | `DisplayAntiPiracyScreen` | `other` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:5E76` | `Update_CurrentSlotCollisionCache` | `collision` | 1 | 4 | `arg0_byte, arg1_byte, arg2_byte, arg3_byte` | 4 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:5E76` | `Update_CurrentSlotCollisionCache` | `collision` | 1 | 4 | `collision_probe_mode_byte, neighbor_cache_callback_long` | refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer | `byte-count-known` |
 | `C0:A964` | `ScriptWrapper_C47225_ReadTwoWords` | `presentation-render` | 1 | 4 | `c47225_arg0_word, c47225_arg1_word` | read two script words and forward them to C4:7225 | `byte-count-known` |
 | `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | `collision` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -110,7 +110,7 @@ No syntactic decode frontiers at the current bounds.
 | `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:A94E` | `ScriptWrapper_C46984_ReadWord` | `presentation-render` | 1 | 2 | `c46984_selector_word` | read one script word and forward it to C4:6984 | `byte-count-known` |
 | `C0:A86F` | `Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord` | `current-slot-state` | 1 | 2 | `pose_descriptor_slot_word` | read one script word and copy that pose-descriptor slot anchor to current slot state | `byte-count-known` |
-| `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | `arg0_byte` | 1 inline argument byte(s); semantic fields not named yet | `byte-count-known` |
+| `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | `direction_class_byte` | read one direction/visual class byte, apply it when active, and store it to current slot field $1A86 | `byte-count-known` |
 | `C0:9451` | `RestoreSavedCoordinateState` | `world-state-restore` | 1 | 0 | `-` | restore saved coordinate/world state after transitions or script presentation | `byte-count-known` |
 
 ## Full script inventory

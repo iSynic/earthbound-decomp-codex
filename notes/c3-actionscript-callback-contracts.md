@@ -63,16 +63,24 @@ re-introducing older `UNKNOWN_*` labels.
 
 ## Next Contract Work
 
-The remaining high-value work is to replace generic argument schemas such as
-`arg0_byte, arg1_byte` with named fields.
+The current audit has no remaining generic `argN_byte` schemas among the C3
+callback seeds. The last awkward case, `C0:5E76`, is now named using the ebsrc
+macro shape:
 
-Good first targets:
+```asm
+EVENT_UNKNOWN_C05E76 $F1, UNKNOWN_C064A6
+```
 
-- `C0:5E76` collision-cache argument words
-- `C0:A912`, `C0:A9B3`, `C0:A9CF`, `C0:A9EB`, `C0:AA07`, `C0:AA23`, and
-  `C0:AAB5` multi-word wrapper fields
-- the generic `presentation-render` wrapper names that still mirror callee
-  addresses instead of final gameplay roles
+That means the remaining C3 callback work is semantic polish rather than byte
+shape discovery. Good next targets:
 
-Those are the contracts that will make C3 scripts genuinely source-like rather
-than only byte-equivalent macro streams.
+- promote `C0:A912`, `C0:A9B3`, `C0:A9CF`, `C0:A9EB`, `C0:AA07`,
+  `C0:AA23`, and `C0:AAB5` from structural wrapper fields to final gameplay
+  role names
+- rename generic `presentation-render` wrappers that still mirror callee
+  addresses instead of final script intent
+- keep cross-linking script-family notes to recovered localization script
+  source where the symbolic labels give us object/person/actionscript context
+
+Those refinements will make C3 scripts more readable to ROM hackers without
+changing the already byte-equivalent source scaffold.

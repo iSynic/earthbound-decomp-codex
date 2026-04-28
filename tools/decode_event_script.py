@@ -317,6 +317,24 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "visual-profile",
         "contract": "force current slot visual profile refresh",
     },
+    "C0:5E76": {
+        "name": "Update_CurrentSlotCollisionCache",
+        "group": "collision",
+        "contract": "refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer",
+        "args": "collision_probe_mode_byte, neighbor_cache_callback_long",
+    },
+    "C0:A651": {
+        "name": "Script_SetDirectionClassAndField1A86",
+        "group": "movement",
+        "contract": "read one direction/visual class byte, apply it when active, and store it to current slot field $1A86",
+        "args": "direction_class_byte",
+    },
+    "C0:A679": {
+        "name": "Script_SetCurrentSlotDisplayControlBits",
+        "group": "current-slot-state",
+        "contract": "read one display-control byte and store it to current slot field $2BAA",
+        "args": "display_control_bits_byte",
+    },
     "C0:A685": {
         "name": "Script_SetCurrentSlotField2B32",
         "group": "current-slot-state",
@@ -415,6 +433,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read two script words as text pointer pieces and queue text record type #$0008",
         "args": "text_pointer_low_word, text_pointer_bank_word",
     },
+    "C0:A907": {
+        "name": "ActionScript_PrepareNewEntityAtTeleportDestination",
+        "group": "overworld-runtime",
+        "contract": "read one teleport-destination selector byte and prepare a new entity at that destination",
+        "args": "teleport_destination_selector_byte",
+    },
     "C0:A943": {
         "name": "ActionScript_GetPositionOfPartyMember",
         "group": "current-slot-state",
@@ -444,6 +468,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "presentation-render",
         "contract": "read two script words and forward them to C4:6534; callee consumes the staged third value",
         "args": "c46534_arg0_word, c46534_arg1_word",
+    },
+    "C0:9FBB": {
+        "name": "ActionScript_FadeOutWrapper",
+        "group": "presentation-render",
+        "contract": "read one fade-out effect word and pass it to C0:887A",
+        "args": "fadeout_effect_word",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",
