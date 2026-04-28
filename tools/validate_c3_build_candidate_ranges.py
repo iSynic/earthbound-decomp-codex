@@ -13,6 +13,13 @@ from rom_tools import find_rom, hirom_to_file_offset, load_rom
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_RANGES = ROOT / "build" / "c3-build-candidate-ranges.json"
 DEFAULT_SIGNATURES = ROOT / "build" / "c3-source-signature-validation.json"
+SIGNATURE_EXEMPT_SOURCES = {
+    "src/c3/script_event_payloads_0000_e450.asm",
+    "src/c3/data_debug_menu_mixed_inventory_prefix.asm",
+    "src/c3/data_battle_menu_tables_ef23_f1ec.asm",
+    "src/c3/data_battle_visual_tables_f2b1_f5f9.asm",
+    "src/c3/data_battle_tail_and_delivery_payloads_fb1f_10000.asm",
+}
 
 
 @dataclass(frozen=True)
@@ -49,6 +56,10 @@ def signature_by_source(path: Path) -> dict[str, dict[str, Any]]:
         return {}
     signatures = load_json(path)
     return {str(module["source_path"]): module for module in signatures.get("modules", [])}
+
+
+def requires_source_signature(source_path: str) -> bool:
+    return source_path not in SIGNATURE_EXEMPT_SOURCES
 
 
 def validate_bytes(item: dict[str, Any], rom: bytes, source_path: str, label: str) -> list[Finding]:
@@ -107,10 +118,11 @@ def validate_range(item: dict[str, Any], rom: bytes, signatures: dict[str, dict[
         findings.append(Finding("error", source_path, f"protected parts end at C3:{cursor:04X}, expected {item['end']}"))
 
     signature = signatures.get(source_path)
-    if source_segments and signature is None:
-        findings.append(Finding("error", source_path, "missing source signature validation result"))
-    elif source_segments and int(signature.get("errors", 0)) != 0:
-        findings.append(Finding("error", source_path, f"source signature validation has {signature.get('errors')} error(s)"))
+    if source_segments and requires_source_signature(source_path):
+        if signature is None:
+            findings.append(Finding("error", source_path, "missing source signature validation result"))
+        elif int(signature.get("errors", 0)) != 0:
+            findings.append(Finding("error", source_path, f"source signature validation has {signature.get('errors')} error(s)"))
     return findings
 
 

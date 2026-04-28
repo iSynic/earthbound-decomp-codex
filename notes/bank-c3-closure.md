@@ -20,6 +20,7 @@ Supporting reports:
 - `notes/c3-build-candidate-ranges.md`
 - `notes/c3-byte-equivalence-validation.md`
 - `notes/c3-source-residual-map.md`
+- `notes/c3-preserved-gap-contracts.md`
 
 Source scaffold status:
 
@@ -34,6 +35,12 @@ This means every C3 byte is now represented by checked-in scaffold source.
 Most of `C3:0000..E450` is still event/actionscript or raw data source, not
 ordinary 65816 code; the remaining semantic work is VM/script decoding and
 table typing rather than byte-corridor closure.
+
+The remaining raw-looking regions in the C3 event/actionscript source-pilot
+scaffold are explicitly contracted in `notes/c3-preserved-gap-contracts.md`.
+They total `1930` bytes across `3` groups and split into `34` subsegments:
+the bank prefix palette/system-screen/data corridor, the intro movement-pattern
+and anti-piracy gate corridor, and the late map/interaction/menu table corridor.
 
 Working-name outputs:
 
@@ -56,6 +63,8 @@ Source/data split outputs:
 - `build/c3-source-data-map.json`
 - `notes/c3-source-extraction-candidates.md`
 - `build/c3-source-extraction-candidates.json`
+- `notes/c3-preserved-gap-contracts.md`
+- `notes/c3-preserved-gap-contracts.json`
 
 Data-contract outputs:
 
@@ -100,6 +109,12 @@ Build the C3 source/data extraction map with:
 
 ```powershell
 python tools\build_c3_source_data_map.py
+```
+
+Build the C3 preserved-gap contract report with:
+
+```powershell
+python tools\build_c3_preserved_gap_contracts.py
 ```
 
 Build the C3 ordinary-source extraction queue with:
