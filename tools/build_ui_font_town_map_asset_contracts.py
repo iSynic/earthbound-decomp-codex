@@ -55,7 +55,7 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "intro_and_title_visuals": {
         "label": "Intro, logo, title, and attract visuals",
         "runtime_contract": "C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads.",
-        "portable_contract": "Expose each visual scene as arrangement/graphics/palette components plus any unresolved adjacent compressed payloads until their exact scene role is pinned.",
+        "portable_contract": "Expose each visual scene as arrangement/graphics/palette components with title palette-animation and OAM subcontracts.",
         "docs": [
             "notes/intro-title-visual-bundle-contracts.md",
             "notes/title-screen-palette-animation-contracts.md",
@@ -63,6 +63,24 @@ FAMILIES: dict[str, dict[str, Any]] = {
             "notes/gas-station-intro-asset-loader-c4a377.md",
             "notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md",
             "notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md",
+        ],
+    },
+    "landing_display_visuals": {
+        "label": "Saved-coordinate landing display visuals",
+        "runtime_contract": "C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle.",
+        "portable_contract": "Expose as a landing display scene bundle with graphics, BG tile arrangement, and palette components.",
+        "docs": [
+            "notes/landing-cast-visual-contracts.md",
+            "notes/saved-landing-display-stage-c4c2de-c4c64d.md",
+        ],
+    },
+    "ending_cast_visuals": {
+        "label": "Ending cast-name visuals",
+        "runtime_contract": "C4:E369 loads E1:D6E1, E1:D835, E1:D815, and E1:E4E6 into the ending cast-name display path.",
+        "portable_contract": "Expose as an ending cast-name bundle with prelude graphics/table split metadata, cast-name glyph graphics, and palette data.",
+        "docs": [
+            "notes/landing-cast-visual-contracts.md",
+            "notes/cast-scene-scroll-helpers-c4e4da-c4e583.md",
         ],
     },
     "flyover_credits_photo_tables": {
@@ -161,6 +179,10 @@ def classify(asset: dict[str, Any]) -> str:
         return "font_sets"
     if "text_window" in asset_id or "flavoured_text" in asset_id or "movement_text_string_palette" in notes_text(asset).lower():
         return "text_window_skin"
+    if any(token in asset_id for token in ["unknown_e1cfaf", "unknown_e1d4f4", "unknown_e1d5e8"]):
+        return "landing_display_visuals"
+    if any(token in asset_id for token in ["unknown_e1d6e1", "cast_names_gfx", "unknown_e1e4e6"]):
+        return "ending_cast_visuals"
     if any(
         token in asset_id
         for token in [
@@ -172,10 +194,6 @@ def classify(asset: dict[str, Any]) -> str:
             "title_screen",
             "unknown_e1ae7c",
             "unknown_e1c6e5",
-            "unknown_e1cfaf",
-            "unknown_e1d4f4",
-            "unknown_e1d5e8",
-            "unknown_e1d6e1",
             "compressed_palette_unknown",
         ]
     ):
@@ -283,7 +301,12 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "intro_title_visual_bundles",
                 "source": "notes/intro-title-visual-bundle-contracts.md",
-                "shape": "E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts.",
+                "shape": "E1 intro/title payloads now split into six scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, and title screen; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts.",
+            },
+            {
+                "id": "landing_cast_visual_bundles",
+                "source": "notes/landing-cast-visual-contracts.md",
+                "shape": "E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..E4E6 belongs to the C4:E369 ending cast-name visual path with a pending E1:D6E1..D815 and E1:D815..D835 manifest split.",
             },
             {
                 "id": "sram_save_template",
@@ -370,7 +393,7 @@ def build_contract() -> dict[str, Any]:
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
             "Pin the visible identity of text-window palette block 6.",
             "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
-            "Promote E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.",
+            "Split the inferred E1:D6E1..D835 manifest unit into E1:D6E1..D815 compressed graphics plus E1:D815..D835 cast-scene support table.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],
     }
