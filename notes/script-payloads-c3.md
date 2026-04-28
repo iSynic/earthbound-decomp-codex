@@ -571,7 +571,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAn
 - raw preview: `23 39 A0 25 6B A2 3B 00 42 AA 3D C0 42 F0 4E C0`
 
 ```text
-C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK $C0:A039 <UNKNOWN_C0A039>
+C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK $C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
 C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
 C3:A064  3B 00                EVENT_SET_ANIMATION $00
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
@@ -774,20 +774,20 @@ C3:A12B  19 11 A1             EVENT_SHORTJUMP $C3:A111 <LoopActiveEntityWalkPuls
 
 ```text
 C3:A12E  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A130  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <UNKNOWN_C3A159>
+C3:A130  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A133  24                   EVENT_LOOP_TEMPVAR
 C3:A134  06 01                EVENT_PAUSE $01
 C3:A136  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A138  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <UNKNOWN_C3A159>
+C3:A138  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A13B  02                   EVENT_LOOP_END
 C3:A13C  3B 01                EVENT_SET_ANIMATION $01
 C3:A13E  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A142  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A144  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <UNKNOWN_C3A159>
+C3:A144  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A147  24                   EVENT_LOOP_TEMPVAR
 C3:A148  06 01                EVENT_PAUSE $01
 C3:A14A  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A14C  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <UNKNOWN_C3A159>
+C3:A14C  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A14F  02                   EVENT_LOOP_END
 C3:A150  3B 00                EVENT_SET_ANIMATION $00
 C3:A152  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
@@ -1022,7 +1022,7 @@ C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
 - raw preview: `25 F0 9F 3B 00 39 42 DB C7 C0 42 BF A4 C0 06 08`
 
 ```text
-C3:A2AA  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A2AA  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A2AD  3B 00                EVENT_SET_ANIMATION $00
 C3:A2AF  39                   EVENT_SET_VELOCITIES_ZERO
 C3:A2B0  42 DB C7 C0          EVENT_CALLROUTINE $C0:C7DB <UpdateCurrentSlotFootprintMask>
@@ -1147,11 +1147,11 @@ C3:A3FE  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovem
 - raw preview: `25 F0 9F 42 DA A6 C0 06 01 42 B8 A6 C0 0B 25 A4`
 
 ```text
-C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A408  06 01                EVENT_PAUSE $01
 C3:A40A  42 B8 A6 C0          EVENT_CALLROUTINE $C0:A6B8 <GetCurrentSlotHasNoCachedNeighborFlag>
-C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <UNKNOWN_C3A425>
+C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <ReturnFromNpcAttentionNeighborCacheCheck>
 C3:A411  08 F7 D7 C0          EVENT_SET_TICK_CALLBACK $C0:D7F7 <Consume_CurrentSlotAttentionPath>
 C3:A415  25 60 A3             EVENT_SET_PHYSICS_CALLBACK $C0:A360 <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh>
 C3:A418  3B 00                EVENT_SET_ANIMATION $00
@@ -1232,7 +1232,7 @@ C3:A45E  42 9B D5 C0          EVENT_CALLROUTINE $C0:D59B <Check_NpcAttentionCoor
 C3:A462  0B 5C A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A45C <FinishNpcAttentionAndReleaseActor>
 C3:A465  3B 00                EVENT_SET_ANIMATION $00
 C3:A467  39                   EVENT_SET_VELOCITIES_ZERO
-C3:A468  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A468  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A46B  0E 00 01 00          EVENT_SET_VAR $00, $0001
 C3:A46F  06 01                EVENT_PAUSE $01
 C3:A471  01 03                EVENT_LOOP $03

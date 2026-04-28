@@ -302,6 +302,71 @@ CALL_ARG_COUNTS: dict[str, int] = {
 }
 
 CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
+    "C0:9FF0": {
+        "name": "ReturnFromPhysicsCallback_NoMovement",
+        "group": "movement",
+        "contract": "passive physics callback entry that returns without integrating movement",
+    },
+    "C0:9FF1": {
+        "name": "Integrate_XYAndZVelocity_WithSpriteRefresh",
+        "group": "movement",
+        "contract": "integrate XY and Z velocity, then refresh the current-slot footprint/sprite mask",
+    },
+    "C0:9FC8": {
+        "name": "Integrate_XYVelocityOnly",
+        "group": "movement",
+        "contract": "integrate fractional/current-slot XY velocity into world X/Y position",
+    },
+    "C0:A039": {
+        "name": "ReturnFromPositionChangeCallback_NoProjection",
+        "group": "presentation-render",
+        "contract": "passive position-change callback entry that returns without screen projection",
+    },
+    "C0:A03A": {
+        "name": "ProjectWorldToScreen_FromCamera31AndHeight",
+        "group": "presentation-render",
+        "contract": "project current slot world coordinates through camera $31 and height state into screen coordinates",
+    },
+    "C0:A26B": {
+        "name": "PhysicsCallback_TargetComparisonAndProjection",
+        "group": "movement",
+        "contract": "physics callback that compares current slot against active target context and falls back to camera projection",
+    },
+    "C0:5200": {
+        "name": "Tick_OverworldPlayerPositionAndCallbacks",
+        "group": "overworld-runtime",
+        "contract": "normal overworld tick callback for player/object position and registered callbacks",
+    },
+    "C0:4D78": {
+        "name": "Tick_Event2SnapshotObjectReconcile",
+        "group": "overworld-runtime",
+        "contract": "intro/event snapshot tick callback that reconciles object state against saved coordinates",
+    },
+    "C0:A055": {
+        "name": "ProjectWorldToScreen_FromCamera39",
+        "group": "presentation-render",
+        "contract": "project current slot world X/Y through camera $39/$3B",
+    },
+    "C0:A0A0": {
+        "name": "ProjectWorldToScreen_FromCamera39AndHeight",
+        "group": "presentation-render",
+        "contract": "project current slot world X/Y through camera $39/$3B and subtract height from screen Y",
+    },
+    "C0:A360": {
+        "name": "UpdatePosition_WhenNoNeighbor_WithSpriteRefresh",
+        "group": "movement",
+        "contract": "per-frame no-neighbor position updater that integrates movement and refreshes footprint state",
+    },
+    "C0:A37A": {
+        "name": "UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot",
+        "group": "movement",
+        "contract": "current-slot entry that reloads the active slot and joins the no-neighbor sprite-refresh updater",
+    },
+    "C0:A384": {
+        "name": "UpdatePosition_WhenNoNeighbor",
+        "group": "movement",
+        "contract": "per-frame no-neighbor position updater that integrates movement without the footprint refresh tail",
+    },
     "C0:A4A8": {
         "name": "RefreshCurrentSlotVisualProfile_Mode0IfAligned",
         "group": "visual-profile",
@@ -396,6 +461,26 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "MakePartyLookAtActiveEntityCallback",
         "group": "party-facing",
         "contract": "make party members face or track the active entity",
+    },
+    "C4:8BE1": {
+        "name": "SimpleScreenPositionCallback",
+        "group": "presentation-render",
+        "contract": "tick callback that keeps the active entity at a simple screen-projected position",
+    },
+    "C4:8C02": {
+        "name": "SimpleScreenPositionCallbackOffset",
+        "group": "presentation-render",
+        "contract": "tick callback that keeps the active entity at a simple screen-projected position with offset handling",
+    },
+    "C4:8C2B": {
+        "name": "CentreScreenOnEntityCallback",
+        "group": "presentation-render",
+        "contract": "tick callback that centers the screen around the active entity",
+    },
+    "C4:8C3E": {
+        "name": "CentreScreenOnEntityCallbackOffset",
+        "group": "presentation-render",
+        "contract": "tick callback that centers the screen around the active entity with offset handling",
     },
     "C0:A841": {
         "name": "Script_PlaySoundEffectParameter",
@@ -537,6 +622,11 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     },
 }
 
+EVENT_TARGET_SEMANTICS: dict[str, str] = {
+    "C3:A159": "LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart",
+    "C3:A425": "ReturnFromNpcAttentionNeighborCacheCheck",
+}
+
 
 TERMINAL_NAMES = {
     "EVENT_END",
@@ -592,6 +682,10 @@ def load_names(path: Path) -> dict[str, list[str]]:
         names[address] = ordered[:4]
     for address, semantics in CALL_TARGET_SEMANTICS.items():
         name = semantics["name"]
+        labels = names.setdefault(address, [])
+        if name not in labels:
+            labels.insert(0, name)
+    for address, name in EVENT_TARGET_SEMANTICS.items():
         labels = names.setdefault(address, [])
         if name not in labels:
             labels.insert(0, name)

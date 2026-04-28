@@ -228,8 +228,9 @@ roles into durable docs and reassembly-friendly assets.
 First targets:
 
 - use `notes/c3-actionscript-semantics-audit.md` as the decoder coverage
-  baseline: `177` rows, all syntactically complete with the current decoder,
-  plus `85` native callback byte-count seeds
+  baseline: `181` rows, all syntactically complete with the current decoder,
+  plus `86` native `EVENT_CALLROUTINE` byte-count seeds and `17` installed
+  callback target seeds
 - define opcode/operand confidence levels
 - identify script families with strong caller/table evidence
 - choose a small script family and make it round-trip or reassembly-friendly

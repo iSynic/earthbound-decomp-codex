@@ -36,6 +36,9 @@ SCRIPT_CLASSES = {
 }
 
 CALLROUTINE_RE = re.compile(r"EVENT_CALLROUTINE\s+\$([0-9A-F]{2}:[0-9A-F]{4})")
+INSTALLED_CALLBACK_RE = re.compile(
+    r"EVENT_SET_(?:TICK|DRAW|POSITION_CHANGE|PHYSICS)_CALLBACK\s+\$([0-9A-F]{2}:[0-9A-F]{4})"
+)
 TARGET_RE = re.compile(r"\$([0-9A-F]{2}:[0-9A-F]{4})")
 UNKNOWN_OPCODE_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4}).*unknown event opcode")
 UNKNOWN_CALL_TARGET_RE = re.compile(
@@ -224,18 +227,23 @@ def stop_reason(lines: list[str]) -> str:
     return "terminal/control-flow stop"
 
 
-def extract_targets(lines: list[str]) -> tuple[list[str], list[str]]:
+def extract_targets(lines: list[str]) -> tuple[list[str], list[str], list[str]]:
     callbacks: list[str] = []
+    installed_callbacks: list[str] = []
     c3_targets: list[str] = []
     for line in lines:
         if "EVENT_CALLROUTINE" in line:
             match = CALLROUTINE_RE.search(line)
             if match and match.group(1) not in callbacks:
                 callbacks.append(match.group(1))
+        if "CALLBACK" in line and "EVENT_CALLROUTINE" not in line:
+            match = INSTALLED_CALLBACK_RE.search(line)
+            if match and match.group(1) not in installed_callbacks:
+                installed_callbacks.append(match.group(1))
         for target in TARGET_RE.findall(line):
             if target.startswith("C3:") and target not in c3_targets:
                 c3_targets.append(target)
-    return callbacks, c3_targets
+    return callbacks, installed_callbacks, c3_targets
 
 
 def unknown_callback_target(lines: list[str]) -> str | None:
@@ -316,10 +324,11 @@ def audit_entry(
         stop_at_terminal=True,
         names=names,
     )
-    callbacks, c3_targets = extract_targets(lines)
+    callbacks, installed_callbacks, c3_targets = extract_targets(lines)
     unknown_callback = unknown_callback_target(lines)
     return {
         **entry,
+        "name": entry.get("name") or (names.get(address.key, [None])[0]),
         "raw_preview": raw_preview(rom, address),
         "first_opcode": first_opcode(rom, address),
         "decode_status": decode_status(lines),
@@ -331,6 +340,7 @@ def audit_entry(
         },
         "decoded_instruction_count": decoded_instruction_count(lines),
         "callback_targets": callbacks,
+        "installed_callback_targets": installed_callbacks,
         "c3_targets": c3_targets,
         "decoded": lines,
     }
@@ -364,6 +374,9 @@ def build_audit(
         f"{row['first_opcode']['byte']} {row['first_opcode']['name']}" for row in rows
     )
     callbacks = Counter(target for row in rows for target in row["callback_targets"])
+    installed_callbacks = Counter(
+        target for row in rows for target in row["installed_callback_targets"]
+    )
     unknown_callbacks = Counter(
         str(row["unknown_callback_target"])
         for row in rows
@@ -387,6 +400,21 @@ def build_audit(
             }
         )
     callback_groups = Counter(str(contract["semantic_group"]) for contract in callback_contracts)
+    installed_callback_contracts = []
+    for target, count in installed_callbacks.most_common():
+        preferred_name = names.get(target, [None])[0]
+        installed_callback_contracts.append(
+            {
+                "target": target,
+                "preferred_name": preferred_name,
+                "calls": count,
+                "semantic_group": inferred_callback_group(target, preferred_name),
+                "contract": inferred_callback_contract(target, CALL_ARG_COUNTS.get(target)),
+            }
+        )
+    installed_callback_groups = Counter(
+        str(contract["semantic_group"]) for contract in installed_callback_contracts
+    )
 
     return {
         "schema": SCHEMA,
@@ -405,12 +433,16 @@ def build_audit(
             "by_decode_status": dict(sorted(by_status.items())),
             "top_first_opcodes": dict(first_opcodes.most_common(12)),
             "top_callback_targets": dict(callbacks.most_common(16)),
+            "top_installed_callback_targets": dict(installed_callbacks.most_common(16)),
             "unknown_callback_targets": dict(unknown_callbacks.most_common()),
             "top_c3_targets": dict(c3_targets.most_common(16)),
             "callback_contracts": len(callback_contracts),
             "callback_groups": dict(callback_groups.most_common()),
+            "installed_callback_contracts": len(installed_callback_contracts),
+            "installed_callback_groups": dict(installed_callback_groups.most_common()),
         },
         "callback_contracts": callback_contracts,
+        "installed_callback_contracts": installed_callback_contracts,
         "rows": rows,
     }
 
@@ -444,13 +476,16 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- by extraction class: `{summary['by_extraction_class']}`",
         f"- by decode status: `{summary['by_decode_status']}`",
         f"- native callback contract seeds: `{summary['callback_contracts']}`",
+        f"- installed callback target seeds: `{summary['installed_callback_contracts']}`",
         f"- decode bounds: `{audit['decode_bounds']['max_instructions']}` instructions, `{audit['decode_bounds']['max_bytes']:#x}` bytes per row unless the source-map row is shorter",
         "",
         "## Top opcode and target signals",
         "",
         f"- top first opcodes: `{summary['top_first_opcodes']}`",
         f"- top native callback targets: `{summary['top_callback_targets']}`",
+        f"- top installed callback targets: `{summary['top_installed_callback_targets']}`",
         f"- callback semantic groups: `{summary['callback_groups']}`",
+        f"- installed callback semantic groups: `{summary['installed_callback_groups']}`",
         f"- unknown callback targets: `{summary['unknown_callback_targets']}`",
         f"- top C3 script targets: `{summary['top_c3_targets']}`",
         "",
@@ -508,16 +543,36 @@ def render_markdown(audit: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Installed callback target signal",
+            "",
+            "| Target | Preferred name | Group | Installs | Contract |",
+            "| --- | --- | --- | ---: | --- |",
+        ]
+    )
+    for contract in audit["installed_callback_contracts"]:
+        lines.append(
+            "| `{target}` | `{name}` | `{group}` | {calls} | {contract} |".format(
+                target=contract["target"],
+                name=markdown_escape(contract.get("preferred_name") or ""),
+                group=contract["semantic_group"],
+                calls=contract["calls"],
+                contract=markdown_escape(contract["contract"]),
+            )
+        )
+
+    lines.extend(
+        [
+            "",
             "## Full script inventory",
             "",
-            "| Address | Name | Class | Decode | Instr. | First opcode | Callbacks | C3 targets |",
-            "| --- | --- | --- | --- | ---: | --- | --- | --- |",
+            "| Address | Name | Class | Decode | Instr. | First opcode | Callroutines | Installed callbacks | C3 targets |",
+            "| --- | --- | --- | --- | ---: | --- | --- | --- | --- |",
         ]
     )
     for row in rows:
         first = row["first_opcode"]
         lines.append(
-            "| `{address}` | `{name}` | `{kind}` | `{decode}` | {count} | `{opcode}` | {callbacks} | {targets} |".format(
+            "| `{address}` | `{name}` | `{kind}` | `{decode}` | {count} | `{opcode}` | {callbacks} | {installed} | {targets} |".format(
                 address=row["address"],
                 name=markdown_escape(row.get("name") or ""),
                 kind=row["primary_class"],
@@ -525,6 +580,7 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 count=row["decoded_instruction_count"],
                 opcode=f"{first['byte']} {first['name']}",
                 callbacks=format_list(row["callback_targets"]),
+                installed=format_list(row["installed_callback_targets"]),
                 targets=format_list(row["c3_targets"]),
             )
         )

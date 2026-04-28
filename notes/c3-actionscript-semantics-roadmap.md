@@ -40,15 +40,17 @@ and the local ROM. The checked-in report is
 
 Current audit result:
 
-- script/actionscript rows audited: `177`
-- rows syntactically complete with the current decoder: `177`
-- native callback byte-count contract seeds: `85`
+- script/actionscript rows audited: `181`
+- rows syntactically complete with the current decoder: `181`
+- native `EVENT_CALLROUTINE` byte-count contract seeds: `86`
+- installed tick/physics/position callback target seeds: `17`
 - rows blocked by unknown native callback argument contracts: `0`
 - unknown event opcodes found: `0`
-- callback semantic groups are now emitted in the audit, with local names and
-  first-pass contracts for high-value timed-delivery, visual-profile,
-  current-slot-state, movement, collision, text/presentation, and restore
-  callbacks
+- callback semantic groups are now emitted in the audit for both
+  `EVENT_CALLROUTINE` bridges and installed callback targets, with local names
+  and first-pass contracts for high-value timed-delivery, visual-profile,
+  current-slot-state, movement, collision, text/presentation, render, tick, and
+  restore callbacks
 
 This shifts the next pass away from opcode discovery and toward semantic
 operand names, stable script labels, and script-family source forms.
@@ -167,18 +169,21 @@ This turns the current named-payload manifest into a full C3 script frontier.
 
 ### 2. Callback Argument Contracts
 
-`EVENT_CALLROUTINE` is the main semantic bridge from event bytecode into native
-C0/C4/EF helpers. `tools/decode_event_script.py` already has a
+`EVENT_CALLROUTINE` is the inline-argument semantic bridge from event bytecode
+into native C0/C4/EF helpers. `tools/decode_event_script.py` already has a
 `CALL_ARG_COUNTS` seed table; the audit now layers semantic groups and contract
-text over those counts. See
+text over those counts. The same audit now also reports installed callback
+targets for tick, position-change, draw, and physics callback opcodes. See
 [c3-actionscript-callback-contracts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-actionscript-callback-contracts.md)
 for the current callback-contract front door. The next pass should turn generic
-inline-byte descriptions into named argument fields where evidence is strong.
+inline-byte descriptions into named argument fields where evidence is strong,
+and keep promoting callback installer targets out of `UNKNOWN_*`/legacy labels.
 
 High-value callback families:
 
 - C0 current-slot movement and visual profile helpers
 - C0 collision/cache wrappers
+- C0/C4 installed tick, position, and physics callbacks
 - C4 vector, display, and text-yield helpers
 - EF timed-delivery row/state helpers
 

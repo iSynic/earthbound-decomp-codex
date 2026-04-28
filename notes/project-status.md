@@ -128,10 +128,11 @@ The highest leverage work is now semantic, starting with bytecode and payloads
 that romhackers need to edit confidently:
 
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
-   now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
-   `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. `140` source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `56518` validated bytes. Recent
+   now in `notes/c3-actionscript-semantics-audit.md`: `181` rows audited and
+   `181` syntactically complete with the current decoder, with `86` native
+   `EVENT_CALLROUTINE` byte-count seeds and `17` installed callback target
+   seeds captured. `140` source-form pilots are checked in under
+   `src/c3/event_scripts/` and cover `56518` validated bytes. Recent
    additions include Winters battle-BG/Sanctuary display continuations,
    tunnel-ghost teleport routes, photo-scene/window-gfx release paths, early
    turn-bias/visual-countdown halts, traffic-light random-wander paths,

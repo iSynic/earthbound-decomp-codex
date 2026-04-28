@@ -5,19 +5,22 @@ Generated from `notes/c3-source-data-map.md` via `tools/build_c3_actionscript_se
 ## Summary
 
 - schema: `earthbound-decomp.c3-actionscript-semantics-audit.v1`
-- script rows audited: `177`
-- by extraction class: `{'event-bytecode-asset': 37, 'event-bytecode-label': 35, 'event-script-asset': 105}`
-- by decode status: `{'complete': 177}`
-- native callback contract seeds: `85`
+- script rows audited: `181`
+- by extraction class: `{'event-bytecode-asset': 41, 'event-bytecode-label': 35, 'event-script-asset': 105}`
+- by decode status: `{'complete': 181}`
+- native callback contract seeds: `86`
+- installed callback target seeds: `17`
 - decode bounds: `120` instructions, `0x400` bytes per row unless the source-map row is shorter
 
 ## Top opcode and target signals
 
-- top first opcodes: `{'$42 EVENT_CALLROUTINE': 49, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2, '$39 EVENT_SET_VELOCITIES_ZERO': 2}`
-- top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 26, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 15, 'C0:A65F': 10, 'C4:6E46': 8, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A88D': 5, 'C0:A68B': 4, 'C0:D98F': 4}`
-- callback semantic groups: `{'current-slot-state': 17, 'movement': 11, 'visual-profile': 10, 'timed-delivery': 9, 'presentation-render': 8, 'overworld-runtime': 7, 'text-presentation': 6, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'event-flag': 2, 'world-state-restore': 2, 'entity-spawn': 1, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
+- top first opcodes: `{'$42 EVENT_CALLROUTINE': 50, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$28 EVENT_SET_X': 3, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2}`
+- top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 27, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 17, 'C4:6E46': 12, 'C0:A65F': 10, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:A88D': 6, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A82F': 4, 'C0:A841': 4}`
+- top installed callback targets: `{'C0:A37A': 17, 'C0:9FC8': 7, 'C0:A360': 5, 'C0:A039': 5, 'C4:8BE1': 4, 'C0:9FF0': 4, 'C4:8C2B': 2, 'C0:9FF1': 2, 'C0:5200': 2, 'C4:8C02': 2, 'C0:A055': 1, 'C0:A0A0': 1, 'C0:A384': 1, 'C0:A26B': 1, 'C0:4D78': 1, 'C0:D7F7': 1}`
+- callback semantic groups: `{'current-slot-state': 17, 'movement': 11, 'visual-profile': 10, 'timed-delivery': 9, 'overworld-runtime': 8, 'presentation-render': 8, 'text-presentation': 6, 'collision': 4, 'neighbor-cache': 2, 'event-flag': 2, 'battle-runtime': 2, 'world-state-restore': 2, 'entity-spawn': 1, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
+- installed callback semantic groups: `{'movement': 7, 'presentation-render': 7, 'overworld-runtime': 2, 'current-slot-state': 1}`
 - unknown callback targets: `{}`
-- top C3 script targets: `{'C3:A204': 19, 'C3:AB59': 17, 'C3:A111': 7, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AA38': 4, 'C3:A1F3': 4, 'C3:A262': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:43DB': 3, 'C3:443E': 3, 'C3:44FF': 3, 'C3:AB26': 3, 'C3:5F8B': 3, 'C3:A052': 3}`
+- top C3 script targets: `{'C3:AB59': 19, 'C3:A204': 19, 'C3:A111': 7, 'C3:AA38': 5, 'C3:A262': 5, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AB8A': 4, 'C3:A1F3': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:A09F': 3, 'C3:AB44': 3, 'C3:0295': 3, 'C3:43DB': 3, 'C3:443E': 3}`
 
 ## Frontier rows
 
@@ -28,24 +31,27 @@ No syntactic decode frontiers at the current bounds.
 | Target | Preferred name | Group | Calls | Arg bytes | Args | Contract | Status |
 | --- | --- | --- | ---: | ---: | --- | --- | --- |
 | `C0:A4BF` | `RefreshCurrentSlotVisualProfile_Mode0` | `visual-profile` | 29 | 0 | `-` | force current slot visual profile refresh | `byte-count-known` |
-| `C0:A685` | `Script_SetCurrentSlotField2B32` | `current-slot-state` | 26 | 2 | `field2b32_word` | read one script word and store it to current slot field $2B32 | `byte-count-known` |
+| `C0:A685` | `Script_SetCurrentSlotField2B32` | `current-slot-state` | 27 | 2 | `field2b32_word` | read one script word and store it to current slot field $2B32 | `byte-count-known` |
 | `C0:A4B2` | `RefreshCurrentSlotVisualProfile_Mode1IfAligned` | `visual-profile` | 26 | 0 | `-` | refresh current slot alternate visual profile when alignment allows | `byte-count-known` |
 | `C0:A4A8` | `RefreshCurrentSlotVisualProfile_Mode0IfAligned` | `visual-profile` | 23 | 0 | `-` | refresh current slot visual profile when alignment allows | `byte-count-known` |
-| `C0:AA6E` | `Script_ApplyCurrentSlotVisualCountdownState` | `visual-profile` | 15 | 2 | `visual_state_byte, countdown_byte` | read countdown/state bytes and apply current slot visual countdown state | `byte-count-known` |
+| `C0:AA6E` | `Script_ApplyCurrentSlotVisualCountdownState` | `visual-profile` | 17 | 2 | `visual_state_byte, countdown_byte` | read countdown/state bytes and apply current slot visual countdown state | `byte-count-known` |
+| `C4:6E46` | `SetYieldToTextLatch9641` | `text-presentation` | 12 | 0 | `-` | set the yield-to-text latch used by event presentation handoff | `byte-count-known` |
 | `C0:A65F` | `SetCurrentSlotDirectionClassIfActive` | `movement` | 10 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6E46` | `SetYieldToTextLatch9641` | `text-presentation` | 8 | 0 | `-` | set the yield-to-text latch used by event presentation handoff | `byte-count-known` |
 | `C4:0015` | `ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea` | `visual-profile` | 8 | 0 | `-` | clear current slot $10F2, refresh visual state, and test live-area status | `byte-count-known` |
 | `C0:9F82` | `ChooseRandomScriptWord` | `overworld-runtime` | 7 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:20F1` | `ScriptRelease_CurrentEntityVisualState` | `visual-profile` | 7 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A88D` | `ActionScript_QueueTextPointer` | `text-presentation` | 6 | 4 | `text_pointer_low_word, text_pointer_bank_word` | read two script words as text pointer pieces and queue text record type #$0008 | `byte-count-known` |
 | `C0:C6B6` | `CheckCurrentSlotInsideLiveAreaWindow` | `text-presentation` | 6 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:A864` | `Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte` | `current-slot-state` | 5 | 1 | `registry_slot_byte` | read one script byte and copy that registry slot anchor to current slot state | `byte-count-known` |
 | `EF:0FF6` | `ResetDeliveryArrivalState` | `timed-delivery` | 5 | 0 | `-` | clear transient arrival state and restore/reset delivery controller latch | `byte-count-known` |
-| `C0:A88D` | `ActionScript_QueueTextPointer` | `text-presentation` | 5 | 4 | `text_pointer_low_word, text_pointer_bank_word` | read two script words as text pointer pieces and queue text record type #$0008 | `byte-count-known` |
+| `C0:A82F` | `DisableCurrentSlotNeighborCache` | `neighbor-cache` | 4 | 0 | `-` | write #$8000 sentinel to current slot neighbor cache $289E | `byte-count-known` |
+| `C0:A841` | `Script_PlaySoundEffectParameter` | `text-presentation` | 4 | 2 | `sound_effect_id_word` | read one script word as a sound/effect id and play it through C0:ABE0 | `byte-count-known` |
+| `C0:A943` | `ActionScript_GetPositionOfPartyMember` | `current-slot-state` | 4 | 1 | `party_member_selector_byte` | read one party-member selector byte and copy that member position into script state | `byte-count-known` |
 | `C0:A68B` | `StoreAInCurrentSlotField2B32` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:D98F` | `Export_CurrentSlotAttentionTarget` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:6C87` | `RestoreCurrentSlotAnchorFromCachedTarget` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A943` | `ActionScript_GetPositionOfPartyMember` | `current-slot-state` | 3 | 1 | `party_member_selector_byte` | read one party-member selector byte and copy that member position into script state | `byte-count-known` |
-| `C0:A841` | `Script_PlaySoundEffectParameter` | `text-presentation` | 3 | 2 | `sound_effect_id_word` | read one script word as a sound/effect id and play it through C0:ABE0 | `byte-count-known` |
+| `C0:A84C` | `ActionScript_TestEventFlag_ReadWord` | `event-flag` | 3 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
+| `C0:A8C6` | `StepCurrentSlotTowardCachedTarget` | `movement` | 3 | 0 | `-` | step current slot toward cached target through C4:7143 and report arrival | `byte-count-known` |
 | `C0:C7DB` | `UpdateCurrentSlotFootprintMask` | `collision` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C2:0000` | `RunEnemySunstrokeCheck` | `battle-runtime` | 3 | 0 | `-` | battle-runtime sunstroke/special controller helper; C3 intro use remains unusual | `byte-count-known` |
 | `C0:A6DA` | `ClearCurrentSlotNeighborCache` | `neighbor-cache` | 3 | 0 | `-` | write #$FFFF to current slot neighbor cache $289E | `byte-count-known` |
@@ -54,7 +60,6 @@ No syntactic decode frontiers at the current bounds.
 | `C4:6ADB` | `ComputeCurrentSlotTargetDirectionOctant` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:7044` | `ProjectAngleIntoCurrentSlotVectorWords` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:6B0A` | `RoundAngleToOctantAndCacheCurrentSlot` | `current-slot-state` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A82F` | `DisableCurrentSlotNeighborCache` | `neighbor-cache` | 3 | 0 | `-` | write #$8000 sentinel to current slot neighbor cache $289E | `byte-count-known` |
 | `C4:7B77` | `LoadIndexedWindowGfxAndReadVariantByte` | `text-presentation` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:A691` | `GetCurrentSlotField2B32` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `EF:0F60` | `CheckDeliveryServiceReadyForArrival` | `timed-delivery` | 2 | 0 | `-` | test delivery/service readiness against busy state and controller latches | `byte-count-known` |
@@ -64,7 +69,6 @@ No syntactic decode frontiers at the current bounds.
 | `C0:A98B` | `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords` | `entity-spawn` | 2 | 4 | `entity_visual_type_word, entity_initializer_word` | read two entity initializer words and spawn or initialize an entity at the current slot anchor | `byte-count-known` |
 | `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `display_control_bits_byte` | read one display-control byte and store it to current slot field $2BAA | `byte-count-known` |
 | `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A84C` | `ActionScript_TestEventFlag_ReadWord` | `event-flag` | 2 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
 | `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -72,9 +76,9 @@ No syntactic decode frontiers at the current bounds.
 | `C0:A8DC` | `StepCurrentSlotTowardCachedTarget_NoFacingRefresh` | `movement` | 2 | 0 | `-` | step current slot toward cached target without refreshing the current slot facing selector, and report arrival | `byte-count-known` |
 | `C4:6E74` | `CheckStagedPositionWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test staged position against the player proximity threshold | `byte-count-known` |
 | `C4:8B3B` | `MakePartyLookAtActiveEntityCallback` | `party-facing` | 2 | 0 | `-` | make party members face or track the active entity | `byte-count-known` |
-| `C0:A8C6` | `StepCurrentSlotTowardCachedTarget` | `movement` | 2 | 0 | `-` | step current slot toward cached target through C4:7143 and report arrival | `byte-count-known` |
 | `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | `teleport_destination_selector_byte` | read one teleport-destination selector byte and prepare a new entity at that destination | `byte-count-known` |
 | `C0:9FBB` | `ActionScript_FadeOutWrapper` | `presentation-render` | 2 | 2 | `fadeout_effect_word` | read one fade-out effect word and pass it to C0:887A | `byte-count-known` |
+| `C0:A838` | `` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:800B` | `UndrawFlyoverTextAndRestoreWorldDisplay` | `world-state-restore` | 1 | 0 | `-` | restore world display state after flyover/text presentation | `byte-count-known` |
 | `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -113,189 +117,300 @@ No syntactic decode frontiers at the current bounds.
 | `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | `direction_class_byte` | read one direction/visual class byte, apply it when active, and store it to current slot field $1A86 | `byte-count-known` |
 | `C0:9451` | `RestoreSavedCoordinateState` | `world-state-restore` | 1 | 0 | `-` | restore saved coordinate/world state after transitions or script presentation | `byte-count-known` |
 
+## Installed callback target signal
+
+| Target | Preferred name | Group | Installs | Contract |
+| --- | --- | --- | ---: | --- |
+| `C0:A37A` | `UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot` | `movement` | 17 | current-slot entry that reloads the active slot and joins the no-neighbor sprite-refresh updater |
+| `C0:9FC8` | `Integrate_XYVelocityOnly` | `movement` | 7 | integrate fractional/current-slot XY velocity into world X/Y position |
+| `C0:A360` | `UpdatePosition_WhenNoNeighbor_WithSpriteRefresh` | `movement` | 5 | per-frame no-neighbor position updater that integrates movement and refreshes footprint state |
+| `C0:A039` | `ReturnFromPositionChangeCallback_NoProjection` | `presentation-render` | 5 | passive position-change callback entry that returns without screen projection |
+| `C4:8BE1` | `SimpleScreenPositionCallback` | `presentation-render` | 4 | tick callback that keeps the active entity at a simple screen-projected position |
+| `C0:9FF0` | `ReturnFromPhysicsCallback_NoMovement` | `movement` | 4 | passive physics callback entry that returns without integrating movement |
+| `C4:8C2B` | `CentreScreenOnEntityCallback` | `presentation-render` | 2 | tick callback that centers the screen around the active entity |
+| `C0:9FF1` | `Integrate_XYAndZVelocity_WithSpriteRefresh` | `movement` | 2 | integrate XY and Z velocity, then refresh the current-slot footprint/sprite mask |
+| `C0:5200` | `Tick_OverworldPlayerPositionAndCallbacks` | `overworld-runtime` | 2 | normal overworld tick callback for player/object position and registered callbacks |
+| `C4:8C02` | `SimpleScreenPositionCallbackOffset` | `presentation-render` | 2 | tick callback that keeps the active entity at a simple screen-projected position with offset handling |
+| `C0:A055` | `ProjectWorldToScreen_FromCamera39` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B |
+| `C0:A0A0` | `ProjectWorldToScreen_FromCamera39AndHeight` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B and subtract height from screen Y |
+| `C0:A384` | `UpdatePosition_WhenNoNeighbor` | `movement` | 1 | per-frame no-neighbor position updater that integrates movement without the footprint refresh tail |
+| `C0:A26B` | `PhysicsCallback_TargetComparisonAndProjection` | `movement` | 1 | physics callback that compares current slot against active target context and falls back to camera projection |
+| `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `overworld-runtime` | 1 | intro/event snapshot tick callback that reconciles object state against saved coordinates |
+| `C0:D7F7` | `Consume_CurrentSlotAttentionPath` | `current-slot-state` | 1 | no inline argument bytes |
+| `C0:A03A` | `ProjectWorldToScreen_FromCamera31AndHeight` | `presentation-render` | 1 | project current slot world coordinates through camera $31 and height state into screen coordinates |
+
 ## Full script inventory
 
-| Address | Name | Class | Decode | Instr. | First opcode | Callbacks | C3 targets |
-| --- | --- | --- | --- | ---: | --- | --- | --- |
-| `C3:0295` | `MoveActiveEntityLeftToScriptVarsAndWait` | `event-bytecode-asset` | `complete` | 6 | `$1A EVENT_SHORTCALL` | `C0:AA6E`, `C0:A685` | `C3:AA38`, `C3:AB59` |
-| `C3:098B` | `` | `event-script-asset` | `complete` | 3 | `$1A EVENT_SHORTCALL` | `C4:6E46` | `C3:AB59` |
-| `C3:0A1F` | `` | `event-script-asset` | `complete` | 8 | `$41 EVENT_SET_Z_VELOCITY` | - | - |
-| `C3:0C55` | `` | `event-script-asset` | `complete` | 5 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A4BF` | `C3:AA2B` |
-| `C3:0C67` | `` | `event-script-asset` | `complete` | 36 | `$06 EVENT_PAUSE` | - | `C3:AB59`, `C3:0C67` |
-| `C3:1D2D` | `` | `event-script-asset` | `complete` | 11 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A4B2`, `C0:A4A8` | `C3:1D4A`, `C3:1D2D` |
-| `C3:1D4F` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF` | `C3:1D2D` |
-| `C3:1DF4` | `` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C0:A864` | `C3:1E14`, `C3:AB59`, `C3:1E0C` |
-| `C3:1E2D` | `` | `event-script-asset` | `complete` | 11 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A943` | `C3:1E4D`, `C3:AB59`, `C3:1E45` |
-| `C3:1EC1` | `` | `event-script-asset` | `complete` | 10 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - |
-| `C3:1ED8` | `` | `event-script-asset` | `complete` | 10 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - |
-| `C3:1EEF` | `` | `event-script-asset` | `complete` | 73 | `$3F EVENT_SET_X_VELOCITY` | `C0:AA6E`, `C0:A65F`, `C0:A4A8` | `C3:2138` |
-| `C3:2138` | `` | `event-script-asset` | `complete` | 7 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:A4B2` | - |
-| `C3:2CD2` | `` | `event-script-asset` | `complete` | 14 | `$40 EVENT_SET_Y_VELOCITY` | - | `C3:2CD2` |
-| `C3:3399` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:33AA` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:33BB` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:33CC` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:33DD` | `` | `event-script-asset` | `complete` | 19 | `$1A EVENT_SHORTCALL` | `C0:AA6E` | `C3:3399` |
-| `C3:3549` | `` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C0:AA6E`, `C0:9F82` | `C3:3549` |
-| `C3:3BFB` | `` | `event-script-asset` | `complete` | 9 | `$3B EVENT_SET_ANIMATION` | `C4:7A9E`, `C4:7B77` | `C3:3C18`, `C3:3C08` |
-| `C3:3C18` | `` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C4:800B` | - |
-| `C3:3C1D` | `` | `event-script-asset` | `complete` | 8 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C4:7B77` | `C3:3C2F` |
-| `C3:3DBE` | `` | `event-script-asset` | `complete` | 8 | `$01 EVENT_LOOP` | `C0:A691`, `C0:A68B` | - |
-| `C3:4392` | `` | `event-script-asset` | `complete` | 9 | `$07 EVENT_START_TASK` | `C0:AA6E` | `C3:43AE`, `C3:A204` |
-| `C3:43AE` | `` | `event-script-asset` | `complete` | 14 | `$06 EVENT_PAUSE` | `C4:68B5`, `C4:68DC` | `C3:43C4`, `C3:43D8`, `C3:43AE`, `C3:A204` |
-| `C3:43DB` | `LoopTimedDeliveryDeparturePulseUntilOffscreen` | `event-bytecode-label` | `complete` | 13 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8`, `C0:C6B6`, `EF:0FF6`, +1 | `C3:43E8`, `C3:43DB`, `C3:A204` |
-| `C3:43E8` | `TimedDeliveryDeparturePulseAnimation0Half` | `event-bytecode-asset` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A4A8`, `C0:C6B6`, `EF:0FF6`, `C4:6E46` | `C3:43DB`, `C3:A204` |
-| `C3:443E` | `TimedDeliveryRetryWaitLoop` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `EF:0CA7`, `EF:0D23`, `EF:0F60` | `C3:447D`, `C3:4457`, `C3:443E` |
-| `C3:444D` | `TimedDeliveryReadinessGate` | `event-bytecode-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `EF:0F60` | `C3:4457`, `C3:443E` |
-| `C3:4457` | `TimedDeliverySuccessGateAndPresentationSetup` | `event-bytecode-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C2:FF9A`, `C0:C19B`, `EF:0FDB`, `EF:0D8D` | `C3:447D`, `C3:443E`, `C3:447A`, `C3:4488`, +1 |
-| `C3:447A` | `StartTimedDeliveryArrivalMovementTask` | `event-bytecode-label` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `EF:0FF6`, `EF:0DFA` | `C3:44DE`, `C3:A204` |
-| `C3:447D` | `TimedDeliveryFailureTeardown` | `event-bytecode-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `EF:0FF6`, `EF:0DFA` | `C3:A204` |
-| `C3:4488` | `PrepareTimedDeliveryActorForPresentation` | `event-bytecode-asset` | `complete` | 11 | `$3B EVENT_SET_ANIMATION` | `C0:A4BF`, `C4:6EF8` | `C3:A09F`, `C3:44A7`, `C3:4499` |
-| `C3:4499` | `WaitTimedDeliveryActorPresentationPrep` | `event-bytecode-label` | `complete` | 6 | `$06 EVENT_PAUSE` | `C4:6EF8` | `C3:44A7`, `C3:4499` |
-| `C3:44A7` | `ReturnFromTimedDeliveryActorPrep` | `event-bytecode-label` | `complete` | 1 | `$1B EVENT_SHORT_RETURN` | - | - |
-| `C3:44A8` | `RunTimedDeliveryDepartureMovement` | `event-bytecode-asset` | `complete` | 15 | `$39 EVENT_SET_VELOCITIES_ZERO` | `C0:C251`, `EF:0E8A`, `C0:A68B`, `C0:D98F`, +1 | `C3:43DB`, `C3:44D2`, `C3:AB59`, `C3:44C1` |
-| `C3:44C1` | `LoopTimedDeliveryDepartureMovement` | `event-bytecode-label` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:D98F`, `C4:6C87` | `C3:44D2`, `C3:AB59`, `C3:44C1` |
-| `C3:44D2` | `FinishTimedDeliveryDepartureAndYieldText` | `event-bytecode-label` | `complete` | 4 | `$39 EVENT_SET_VELOCITIES_ZERO` | `EF:0FF6`, `C4:6E46` | `C3:A204` |
-| `C3:44DE` | `RunTimedDeliveryArrivalMovement` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `EF:0E67`, `C0:A68B`, `C0:D98F`, `C4:6C87` | `C3:44FF`, `C3:AB59`, `C3:44EE` |
-| `C3:44EE` | `LoopTimedDeliveryArrivalMovement` | `event-bytecode-label` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:D98F`, `C4:6C87` | `C3:44FF`, `C3:AB59`, `C3:44EE` |
-| `C3:44FF` | `HoldTimedDeliveryArrivalCompletion` | `event-bytecode-label` | `complete` | 3 | `$0E EVENT_SET_VAR` | - | `C3:44FF` |
-| `C3:48C4` | `` | `event-script-asset` | `complete` | 19 | `$1D EVENT_WRITE_WORD_TEMPVAR` | `C0:A65F`, `C0:A4BF` | - |
-| `C3:4964` | `` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A959` | `C3:4964` |
-| `C3:4A61` | `` | `event-script-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A959` | `C3:4A61` |
-| `C3:4B62` | `` | `event-script-asset` | `complete` | 25 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:4D39` | `` | `event-script-asset` | `complete` | 13 | `$2A EVENT_SET_Z` | `C0:A841`, `C4:6E46` | `C3:AB26` |
-| `C3:4E73` | `` | `event-script-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:A864` | - |
-| `C3:5F8B` | `` | `event-script-asset` | `complete` | 15 | `$21 EVENT_WRITE_VAR_TO_WAIT_TIMER` | `C0:A4B2`, `C4:ECE7`, `C0:A4A8` | `C3:5F98`, `C3:5FB3`, `C3:5FAC`, `C3:5F8B`, +1 |
-| `C3:5FB6` | `` | `event-script-asset` | `complete` | 9 | `$21 EVENT_WRITE_VAR_TO_WAIT_TIMER` | - | `C3:5F8B` |
-| `C3:5FCD` | `` | `event-script-asset` | `complete` | 8 | `$0E EVENT_SET_VAR` | - | `C3:5F8B` |
-| `C3:62C0` | `` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:6834` | `` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:A98B` | `C3:A204` |
-| `C3:6A3E` | `` | `event-script-asset` | `complete` | 1 | `$19 EVENT_SHORTJUMP` | - | `C3:A204` |
-| `C3:6A41` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A679` | `C3:A1F3`, `C3:A262` |
-| `C3:6BB4` | `` | `event-script-asset` | `complete` | 7 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | - | `C3:6BC1`, `C3:6BB4` |
-| `C3:6BEA` | `` | `event-script-asset` | `complete` | 1 | `$00 EVENT_END` | - | - |
-| `C3:6D18` | `` | `event-script-asset` | `complete` | 6 | `$06 EVENT_PAUSE` | `C0:D15C`, `C4:681A` | `C3:6D18`, `C3:9E01` |
-| `C3:6E41` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C4:0023`, `C4:6914`, `C4:6957` | `C3:6E45` |
-| `C3:7439` | `` | `event-script-asset` | `complete` | 9 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4A8`, `C0:A685` | - |
-| `C3:7545` | `` | `event-script-asset` | `complete` | 7 | `$01 EVENT_LOOP` | `C0:AA6E` | - |
-| `C3:7559` | `` | `event-script-asset` | `complete` | 7 | `$01 EVENT_LOOP` | `C0:AA6E` | - |
-| `C3:7A7C` | `` | `event-script-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C3:A15E` |
-| `C3:835D` | `` | `event-script-asset` | `complete` | 2 | `$10 EVENT_SWITCH_JUMP_TEMPVAR` | - | `C3:8370`, `C3:8383`, `C3:8396`, `C3:83A9` |
-| `C3:83BC` | `` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:9F82` | - |
-| `C3:8978` | `` | `event-script-asset` | `complete` | 6 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A84C` | `C3:8992`, `C3:898C`, `C3:8995` |
-| `C3:899E` | `` | `event-script-asset` | `complete` | 11 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:A4B2` | `C3:899E` |
-| `C3:9AC7` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4BF` | `C3:9ABB` |
-| `C3:9E01` | `` | `event-script-asset` | `complete` | 5 | `$1E EVENT_WRITE_WRAM_TEMPVAR` | - | `C3:9E0E` |
-| `C3:A043` | `IntroCutsceneCameraPanGate` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C1:FFD3`, `C3:0100`, `C2:0000` | `C3:A04E`, `C3:0100`, `C3:A052` |
-| `C3:A04E` | `StartIntroCameraPanTickLoop` | `event-bytecode-label` | `complete` | 6 | `$08 EVENT_SET_TICK_CALLBACK` | `C2:0000` | `C3:A052` |
-| `C3:A052` | `LoopIntroCameraPanWaitAndC2Step` | `event-bytecode-label` | `complete` | 5 | `$01 EVENT_LOOP` | `C2:0000` | `C3:A052` |
-| `C3:A05E` | `IntroCutsceneSpriteObjectSetup` | `event-bytecode-asset` | `complete` | 10 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | `C0:3DAA`, `C0:4EF0`, `C0:A6DA`, `C0:A6E3` | `C3:A076` |
-| `C3:A076` | `LoopIntroCompanionVisualRefresh` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A6E3` | `C3:A076` |
-| `C3:A07F` | `HaltEventScript` | `event-bytecode-asset` | `complete` | 1 | `$09 EVENT_HALT` | - | - |
-| `C3:A09F` | `LoopActiveEntityWalkAnimationPulse` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A09F` |
-| `C3:A0B2` | `LoopActiveEntityWalkPulse24Frame` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A0B2` |
-| `C3:A0C5` | `LoopActiveEntityWalkPulse12Frame` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A0C5` |
-| `C3:A0D8` | `LoopActiveEntityWalkPulse9FrameConditional` | `event-bytecode-label` | `complete` | 32 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A0D8`, `C3:A0EB`, `C3:A0FE`, `C3:A11E`, +1 |
-| `C3:A0EB` | `LoopActiveEntityWalkPulse6FrameConditional` | `event-bytecode-label` | `complete` | 25 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A0EB`, `C3:A0FE`, `C3:A11E`, `C3:A111` |
-| `C3:A0FE` | `LoopActiveEntityWalkPulse2FrameConditional` | `event-bytecode-label` | `complete` | 18 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A0FE`, `C3:A11E`, `C3:A111` |
-| `C3:A111` | `LoopActiveEntityWalkPulseVar4Gate` | `event-bytecode-label` | `complete` | 11 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | `C3:A11E`, `C3:A111` |
-| `C3:A12E` | `LoopActiveEntityWalkPulseVar4Countdown` | `event-bytecode-label` | `complete` | 19 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A4B2`, `C0:A4A8` | `C3:A159`, `C3:A12E` |
-| `C3:A15E` | `LoopC40015Var4GatedPulseUntilRelease` | `event-bytecode-label` | `complete` | 10 | `$42 EVENT_CALLROUTINE` | `C4:0023`, `C0:A4B2`, `C4:0015` | `C3:A16F`, `C3:A162`, `C3:A204` |
-| `C3:A17B` | `LoopC40015SlowPulseUntilRelease` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A17B`, `C3:A204` |
-| `C3:A18F` | `LoopC40015FastPulseUntilRelease` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A18F`, `C3:A204` |
-| `C3:A1A3` | `` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A1A3`, `C3:A204` |
-| `C3:A1B7` | `` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A1B7`, `C3:A204` |
-| `C3:A1CB` | `` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A1CB`, `C3:A204` |
-| `C3:A1DF` | `LoopActiveEntityWalkPulse2FrameC40015Branch` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | `C3:A0FE`, `C3:A204` |
-| `C3:A1F3` | `LoopC40015Pulse16FrameUntilRelease` | `event-bytecode-label` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015`, `C0:20F1` | `C3:A1F3` |
-| `C3:A204` | `ReleaseCurrentVisualEntityAndEnd` | `event-bytecode-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:20F1` | - |
-| `C3:A209` | `DelayThenReleaseCurrentVisualEntity` | `event-bytecode-asset` | `complete` | 2 | `$06 EVENT_PAUSE` | - | `C3:A204` |
-| `C3:A20E` | `LoopVar0SelectedAnimationUntilOffscreen` | `event-bytecode-label` | `complete` | 7 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:C6B6` | `C3:A22C`, `C3:A234`, `C3:A23D`, `C3:A24E`, +3 |
-| `C3:A22C` | `Var0AnimationCase0Pulse8FrameOn` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - |
-| `C3:A234` | `Var0AnimationCase1Pulse8FrameOff` | `event-bytecode-asset` | `complete` | 4 | `$06 EVENT_PAUSE` | `C0:A4A8` | - |
-| `C3:A23D` | `Var0AnimationCase2Pulse4Frame` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - |
-| `C3:A24E` | `Var0AnimationCase3Pulse32Frame` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - |
-| `C3:A25F` | `Var0AnimationCase4Wait16Frame` | `event-bytecode-asset` | `complete` | 2 | `$06 EVENT_PAUSE` | - | - |
-| `C3:A262` | `LoopActiveEntityCollisionProbeRefresh` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A6DA`, `C0:5E76` | `C3:A266` |
-| `C3:A271` | `` | `event-script-asset` | `complete` | 1 | `$0C EVENT_END_TASK` | - | - |
-| `C3:A272` | `` | `event-script-asset` | `complete` | 1 | `$0C EVENT_END_TASK` | - | - |
-| `C3:A2AA` | `TrafficLightWaitUntilOffscreenAndRelease` | `event-bytecode-asset` | `complete` | 10 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4BF`, `C0:C6B6`, `C0:20F1` | `C3:A2B8` |
-| `C3:A381` | `InitRandomWanderMovementWithCollisionProbe` | `event-bytecode-asset` | `complete` | 8 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685`, `C0:A964` | `C3:A111`, `C3:A262`, `C3:A3B7` |
-| `C3:A3A1` | `InitC40015PulseWithCollisionProbe` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A15E`, `C3:A262` |
-| `C3:A3B7` | `LoopRandomDirectionMovementWithRandomWait` | `event-bytecode-label` | `complete` | 5 | `$0E EVENT_SET_VAR` | `C4:7269` | `C3:A3C9`, `C3:A3D6` |
-| `C3:A3C9` | `ChooseRandomCardinalDirection` | `event-bytecode-asset` | `complete` | 10 | `$42 EVENT_CALLROUTINE` | `C0:9F82`, `C0:A65F`, `C0:C83B`, `C0:CA4E` | `C3:A3B7` |
-| `C3:A3D6` | `ApplyRandomDirectionAndMovementTimer` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:A65F`, `C0:C83B`, `C0:9F82`, `C0:CA4E` | `C3:A3B7` |
-| `C3:A3E7` | `SetMovementTimerThenRandomWait` | `event-bytecode-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:CA4E`, `C0:9F82` | `C3:A3B7` |
-| `C3:A401` | `InitNpcAttentionPathIfNoCachedNeighbor` | `event-bytecode-asset` | `complete` | 12 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A6DA`, `C0:A6B8`, `C0:A4BF` | `C3:A425`, `C3:A20E` |
-| `C3:A426` | `StartNpcAttentionTerrainCollisionLoop` | `event-bytecode-label` | `complete` | 3 | `$1A EVENT_SHORTCALL` | - | `C3:A401`, `C3:A434` |
-| `C3:A42D` | `StartNpcAttentionHorizontalCollisionLoop` | `event-bytecode-label` | `complete` | 3 | `$1A EVENT_SHORTCALL` | - | `C3:A401`, `C3:A448` |
-| `C3:A434` | `LoopNpcAttentionTerrainCollision` | `event-bytecode-label` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:6478`, `C0:5E82`, `C0:D5B0` | `C3:A45C`, `C3:A434` |
-| `C3:A448` | `LoopNpcAttentionHorizontalCollision` | `event-bytecode-label` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:6478`, `C0:5ECE`, `C0:D5B0` | `C3:A45C`, `C3:A448` |
-| `C3:A45C` | `FinishNpcAttentionAndReleaseActor` | `event-bytecode-label` | `complete` | 16 | `$06 EVENT_PAUSE` | `C0:D59B`, `C0:20F1` | `C3:A45C` |
-| `C3:A47C` | `ReleaseCurrentVisualEntityTail` | `event-bytecode-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:20F1` | - |
-| `C3:AA1E` | `` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A65F`, `C0:C83B`, `C0:A4BF` | - |
-| `C3:AA2B` | `` | `event-script-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C3:A1F3`, `C3:A262` |
-| `C3:AA38` | `InitActionScriptMovementState` | `event-bytecode-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C3:A111` |
-| `C3:AA46` | `InitMovementPreset40_00Pulse24Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A0B2` |
-| `C3:AA5A` | `InitMovementPreset00_01Pulse12Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A0C5` |
-| `C3:AA6E` | `InitMovementPreset60_01Pulse9Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A0D8` |
-| `C3:AA82` | `InitMovementPreset00_02Pulse6Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A0EB` |
-| `C3:AA96` | `InitMovementPreset00_06Pulse2Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A0FE` |
-| `C3:AAAA` | `InitMovementPresetVar4Countdown` | `event-bytecode-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C3:A12E` |
-| `C3:AAB8` | `` | `event-script-asset` | `complete` | 5 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C3:A1F3` |
-| `C3:AAC2` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A18F` |
-| `C3:AAD6` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A1A3` |
-| `C3:AAEA` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A1B7` |
-| `C3:AAFE` | `` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A1CB` |
-| `C3:AB12` | `InitMovementPreset00_06C40015Branch` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C3:A1DF` |
-| `C3:AB26` | `InitAlternatePhysicsVar4WalkPulse` | `event-bytecode-asset` | `complete` | 7 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | - | `C3:A111` |
-| `C3:AB37` | `` | `event-script-asset` | `complete` | 5 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | - | - |
-| `C3:AB44` | `RefreshActiveEntityDirectionAndVisualProfile` | `event-bytecode-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C4:6ADB`, `C4:7044`, `C4:6B0A`, `C0:A65F`, +1 | - |
-| `C3:AB59` | `WaitForActiveEntityMovementToFinish` | `event-bytecode-label` | `complete` | 6 | `$1A EVENT_SHORTCALL` | `C0:A8DC` | `C3:AB44`, `C3:AB5C` |
-| `C3:AB67` | `` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C4:6ADB`, `C4:7044`, `C4:6B0A`, `C4:6B37`, +3 | `C3:AB7F` |
-| `C3:AB8A` | `WaitUntilPlayerLeavesActiveArea` | `event-bytecode-label` | `complete` | 4 | `$06 EVENT_PAUSE` | `C4:6E74` | `C3:AB8A` |
-| `C3:AB94` | `` | `event-script-asset` | `complete` | 4 | `$06 EVENT_PAUSE` | `C4:6E74` | `C3:AB94` |
-| `C3:AB9E` | `` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C4:7269` | `C3:ABAC`, `C3:ABB9` |
-| `C3:ABE0` | `` | `event-script-asset` | `complete` | 5 | `$06 EVENT_PAUSE` | - | `C3:ABE0` |
-| `C3:AFA3` | `LoopPartyLooksAtActiveEntity` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C4:8B3B` | `C3:AFA3` |
-| `C3:B0B6` | `` | `event-script-asset` | `complete` | 19 | `$01 EVENT_LOOP` | `C0:A691`, `C0:A68B` | `C3:B0C7` |
-| `C3:B431` | `` | `event-script-asset` | `complete` | 6 | `$06 EVENT_PAUSE` | `C0:C6B6`, `C0:A857`, `C0:20F1` | `C3:B431` |
-| `C3:B70C` | `` | `event-script-asset` | `complete` | 27 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | `C0:A685`, `C4:6ADB`, `C4:7044`, `C4:6B0A`, +3 | `C3:B737` |
-| `C3:BAA3` | `` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D`, `C0:A943`, `C0:A8C6` | `C3:BB5C`, `C3:BB73`, `C3:BAB5` |
-| `C3:BAC4` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D` | `C3:BB5C`, `C3:BB73` |
-| `C3:BAD7` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D` | `C3:BB5C`, `C3:BB73` |
-| `C3:BB5C` | `` | `event-script-asset` | `complete` | 7 | `$1A EVENT_SHORTCALL` | `C0:A4BF`, `C4:6C45` | `C3:AAB8`, `C3:AB8A` |
-| `C3:BB73` | `` | `event-script-asset` | `complete` | 9 | `$0E EVENT_SET_VAR` | `C0:A943`, `C0:A685`, `C0:A8C6` | `C3:AB44`, `C3:BB85` |
-| `C3:BD03` | `` | `event-script-asset` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `C0:A4BF` | `C3:AAB8`, `C3:AB8A` |
-| `C3:BEA4` | `` | `event-script-asset` | `complete` | 13 | `$0E EVENT_SET_VAR` | `C0:A685`, `C0:AA6E`, `C4:6E46` | `C3:AA1E`, `C3:AB59` |
-| `C3:BED4` | `` | `event-script-asset` | `complete` | 7 | `$0E EVENT_SET_VAR` | `C0:A685` | `C3:AB59` |
-| `C3:C143` | `` | `event-script-asset` | `complete` | 11 | `$28 EVENT_SET_X` | `C0:A685`, `C0:A841` | `C3:AA38`, `C3:AA1E` |
-| `C3:C1E0` | `` | `event-script-asset` | `complete` | 14 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A65F`, `C0:A4BF` | `C3:AA38`, `C3:C227`, `C3:AA1E`, `C3:AB59` |
-| `C3:C20F` | `` | `event-script-asset` | `complete` | 6 | `$0E EVENT_SET_VAR` | `C0:A685`, `C0:A841` | `C3:AB59` |
-| `C3:C227` | `` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C4:8B3B`, `C0:A94E` | `C3:C227` |
-| `C3:C35D` | `` | `event-script-asset` | `complete` | 15 | `$1A EVENT_SHORTCALL` | `C0:A65F`, `C0:A4BF`, `C0:A84C`, `C0:A685` | `C3:AA38`, `C3:C36F`, `C3:AB59` |
-| `C3:C810` | `` | `event-script-asset` | `complete` | 3 | `$14 EVENT_BINOP` | - | `C3:C810` |
-| `C3:C81A` | `` | `event-script-asset` | `complete` | 3 | `$14 EVENT_BINOP` | - | `C3:C81A` |
-| `C3:C824` | `` | `event-script-asset` | `complete` | 35 | `$06 EVENT_PAUSE` | - | `C3:C824` |
-| `C3:C871` | `` | `event-script-asset` | `complete` | 26 | `$06 EVENT_PAUSE` | - | `C3:C871` |
-| `C3:C8FD` | `` | `event-script-asset` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `C0:A907`, `C4:6E46` | `C3:C94E`, `C3:A204` |
-| `C3:C90C` | `` | `event-script-asset` | `complete` | 21 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A4BF`, `C0:A685`, `C0:9FBB` | `C3:AB26`, `C3:AA1E`, `C3:ABE0` |
-| `C3:C94E` | `` | `event-script-asset` | `complete` | 21 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A4BF`, `C0:A685`, `C0:9FBB` | `C3:AB26`, `C3:AA1E`, `C3:ABE0` |
-| `C3:CC24` | `` | `event-script-asset` | `complete` | 16 | `$0E EVENT_SET_VAR` | - | `C3:AB59` |
-| `C3:CC5C` | `` | `event-script-asset` | `complete` | 16 | `$0E EVENT_SET_VAR` | - | `C3:AB59` |
-| `C3:CC94` | `` | `event-script-asset` | `complete` | 10 | `$07 EVENT_START_TASK` | - | `C3:C824` |
-| `C3:CCA8` | `` | `event-script-asset` | `complete` | 5 | `$2C EVENT_SET_Y_RELATIVE` | - | `C3:CCA8` |
-| `C3:CEA2` | `` | `event-script-asset` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A98B` | `C3:CEA2` |
-| `C3:CEB9` | `` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A86F` | `C3:CEB9` |
-| `C3:D0A4` | `` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - |
-| `C3:D913` | `` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:A88D` | - |
-| `C3:DB7A` | `` | `event-script-asset` | `complete` | 9 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A907`, `C0:A88D` | `C3:DBE0`, `C3:AB59` |
-| `C3:DBDB` | `` | `event-script-asset` | `complete` | 7 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A679` | - |
-| `C3:DF90` | `` | `event-script-asset` | `complete` | 11 | `$07 EVENT_START_TASK` | `C0:A651`, `C0:A4BF`, `C0:C6B6`, `C0:20F1`, +2 | `C3:DFB5`, `C3:DF9F` |
-| `C3:DFB5` | `` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:9F82` | `C3:DFD4`, `C3:DFE4` |
-| `C3:DFD4` | `` | `event-script-asset` | `complete` | 4 | `$40 EVENT_SET_Y_VELOCITY` | `C0:9F82` | `C3:DFB5` |
+| Address | Name | Class | Decode | Instr. | First opcode | Callroutines | Installed callbacks | C3 targets |
+| --- | --- | --- | --- | ---: | --- | --- | --- | --- |
+| `C3:0195` | `Event221PaulaFatherFarewellSequence` | `event-bytecode-asset` | `complete` | 44 | `$42 EVENT_CALLROUTINE` | `C0:A84C`, `C0:A82F`, `C0:A838`, `C0:AA6E`, +6 | `C0:A360` | `C3:A2AA`, `C3:AA38`, `C3:AB8A`, `C3:AFA3`, +5 |
+| `C3:0235` | `Event222PaulaDoorExitMovementScript` | `event-bytecode-asset` | `complete` | 6 | `$15 EVENT_WRITE_WORD_WRAM` | `C4:6E46` | - | `C3:0295` |
+| `C3:024A` | `Event223PaulaPorchExitMovementScript` | `event-bytecode-asset` | `complete` | 7 | `$28 EVENT_SET_X` | `C4:6E46` | - | `C3:0295` |
+| `C3:0260` | `Event224PaulaReturnMovementScript` | `event-bytecode-asset` | `complete` | 15 | `$28 EVENT_SET_X` | `C0:AA6E`, `C4:6E46` | - | `C3:0295`, `C3:AB59` |
+| `C3:0295` | `MoveActiveEntityLeftToScriptVarsAndWait` | `event-bytecode-asset` | `complete` | 6 | `$1A EVENT_SHORTCALL` | `C0:AA6E`, `C0:A685` | - | `C3:AA38`, `C3:AB59` |
+| `C3:098B` | `UNKNOWN_C3098B` | `event-script-asset` | `complete` | 3 | `$1A EVENT_SHORTCALL` | `C4:6E46` | - | `C3:AB59` |
+| `C3:0A1F` | `UNKNOWN_C30A1F` | `event-script-asset` | `complete` | 8 | `$41 EVENT_SET_Z_VELOCITY` | - | - | - |
+| `C3:0C55` | `UNKNOWN_C30C55` | `event-script-asset` | `complete` | 5 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A4BF` | - | `C3:AA2B` |
+| `C3:0C67` | `UNKNOWN_C30C67` | `event-script-asset` | `complete` | 36 | `$06 EVENT_PAUSE` | - | - | `C3:AB59`, `C3:0C67` |
+| `C3:1D2D` | `UNKNOWN_C31D2D` | `event-script-asset` | `complete` | 11 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A4B2`, `C0:A4A8` | - | `C3:1D4A`, `C3:1D2D` |
+| `C3:1D4F` | `UNKNOWN_C31D4F` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF` | `C0:A37A` | `C3:1D2D` |
+| `C3:1DF4` | `UNKNOWN_C31DF4` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C0:A864` | `C0:9FC8`, `C4:8C2B` | `C3:1E14`, `C3:AB59`, `C3:1E0C` |
+| `C3:1E2D` | `UNKNOWN_C31E2D` | `event-script-asset` | `complete` | 11 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A943` | `C0:9FC8`, `C4:8C2B` | `C3:1E4D`, `C3:AB59`, `C3:1E45` |
+| `C3:1EC1` | `UNKNOWN_C31EC1` | `event-script-asset` | `complete` | 10 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | - |
+| `C3:1ED8` | `UNKNOWN_C31ED8` | `event-script-asset` | `complete` | 10 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | - |
+| `C3:1EEF` | `UNKNOWN_C31EEF` | `event-script-asset` | `complete` | 73 | `$3F EVENT_SET_X_VELOCITY` | `C0:AA6E`, `C0:A65F`, `C0:A4A8` | - | `C3:2138` |
+| `C3:2138` | `UNKNOWN_C32138` | `event-script-asset` | `complete` | 7 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:A4B2` | - | - |
+| `C3:2CD2` | `UNKNOWN_C32CD2` | `event-script-asset` | `complete` | 14 | `$40 EVENT_SET_Y_VELOCITY` | - | - | `C3:2CD2` |
+| `C3:3399` | `UNKNOWN_C33399` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:33AA` | `UNKNOWN_C333AA` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:33BB` | `UNKNOWN_C333BB` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:33CC` | `UNKNOWN_C333CC` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:33DD` | `UNKNOWN_C333DD` | `event-script-asset` | `complete` | 19 | `$1A EVENT_SHORTCALL` | `C0:AA6E` | - | `C3:3399` |
+| `C3:3549` | `UNKNOWN_C33549` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C0:AA6E`, `C0:9F82` | - | `C3:3549` |
+| `C3:3BFB` | `UNKNOWN_C33BFB` | `event-script-asset` | `complete` | 9 | `$3B EVENT_SET_ANIMATION` | `C4:7A9E`, `C4:7B77` | `C0:9FC8` | `C3:3C18`, `C3:3C08` |
+| `C3:3C18` | `UNKNOWN_C33C18` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C4:800B` | - | - |
+| `C3:3C1D` | `UNKNOWN_C33C1D` | `event-script-asset` | `complete` | 8 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C4:7B77` | - | `C3:3C2F` |
+| `C3:3DBE` | `UNKNOWN_C33DBE` | `event-script-asset` | `complete` | 8 | `$01 EVENT_LOOP` | `C0:A691`, `C0:A68B` | - | - |
+| `C3:4392` | `UNKNOWN_C34392` | `event-script-asset` | `complete` | 9 | `$07 EVENT_START_TASK` | `C0:AA6E` | - | `C3:43AE`, `C3:A204` |
+| `C3:43AE` | `UNKNOWN_C343AE` | `event-script-asset` | `complete` | 14 | `$06 EVENT_PAUSE` | `C4:68B5`, `C4:68DC` | - | `C3:43C4`, `C3:43D8`, `C3:43AE`, `C3:A204` |
+| `C3:43DB` | `LoopTimedDeliveryDeparturePulseUntilOffscreen` | `event-bytecode-label` | `complete` | 13 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8`, `C0:C6B6`, `EF:0FF6`, +1 | - | `C3:43E8`, `C3:43DB`, `C3:A204` |
+| `C3:43E8` | `TimedDeliveryDeparturePulseAnimation0Half` | `event-bytecode-asset` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A4A8`, `C0:C6B6`, `EF:0FF6`, `C4:6E46` | - | `C3:43DB`, `C3:A204` |
+| `C3:443E` | `TimedDeliveryRetryWaitLoop` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `EF:0CA7`, `EF:0D23`, `EF:0F60` | - | `C3:447D`, `C3:4457`, `C3:443E` |
+| `C3:444D` | `TimedDeliveryReadinessGate` | `event-bytecode-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `EF:0F60` | - | `C3:4457`, `C3:443E` |
+| `C3:4457` | `TimedDeliverySuccessGateAndPresentationSetup` | `event-bytecode-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C2:FF9A`, `C0:C19B`, `EF:0FDB`, `EF:0D8D` | - | `C3:447D`, `C3:443E`, `C3:447A`, `C3:4488`, +1 |
+| `C3:447A` | `StartTimedDeliveryArrivalMovementTask` | `event-bytecode-label` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `EF:0FF6`, `EF:0DFA` | - | `C3:44DE`, `C3:A204` |
+| `C3:447D` | `TimedDeliveryFailureTeardown` | `event-bytecode-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `EF:0FF6`, `EF:0DFA` | - | `C3:A204` |
+| `C3:4488` | `PrepareTimedDeliveryActorForPresentation` | `event-bytecode-asset` | `complete` | 11 | `$3B EVENT_SET_ANIMATION` | `C0:A4BF`, `C4:6EF8` | - | `C3:A09F`, `C3:44A7`, `C3:4499` |
+| `C3:4499` | `WaitTimedDeliveryActorPresentationPrep` | `event-bytecode-label` | `complete` | 6 | `$06 EVENT_PAUSE` | `C4:6EF8` | - | `C3:44A7`, `C3:4499` |
+| `C3:44A7` | `ReturnFromTimedDeliveryActorPrep` | `event-bytecode-label` | `complete` | 1 | `$1B EVENT_SHORT_RETURN` | - | - | - |
+| `C3:44A8` | `RunTimedDeliveryDepartureMovement` | `event-bytecode-asset` | `complete` | 15 | `$39 EVENT_SET_VELOCITIES_ZERO` | `C0:C251`, `EF:0E8A`, `C0:A68B`, `C0:D98F`, +1 | - | `C3:43DB`, `C3:44D2`, `C3:AB59`, `C3:44C1` |
+| `C3:44C1` | `LoopTimedDeliveryDepartureMovement` | `event-bytecode-label` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:D98F`, `C4:6C87` | - | `C3:44D2`, `C3:AB59`, `C3:44C1` |
+| `C3:44D2` | `FinishTimedDeliveryDepartureAndYieldText` | `event-bytecode-label` | `complete` | 4 | `$39 EVENT_SET_VELOCITIES_ZERO` | `EF:0FF6`, `C4:6E46` | - | `C3:A204` |
+| `C3:44DE` | `RunTimedDeliveryArrivalMovement` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `EF:0E67`, `C0:A68B`, `C0:D98F`, `C4:6C87` | - | `C3:44FF`, `C3:AB59`, `C3:44EE` |
+| `C3:44EE` | `LoopTimedDeliveryArrivalMovement` | `event-bytecode-label` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:D98F`, `C4:6C87` | - | `C3:44FF`, `C3:AB59`, `C3:44EE` |
+| `C3:44FF` | `HoldTimedDeliveryArrivalCompletion` | `event-bytecode-label` | `complete` | 3 | `$0E EVENT_SET_VAR` | - | - | `C3:44FF` |
+| `C3:48C4` | `UNKNOWN_C348C4` | `event-script-asset` | `complete` | 19 | `$1D EVENT_WRITE_WORD_TEMPVAR` | `C0:A65F`, `C0:A4BF` | - | - |
+| `C3:4964` | `UNKNOWN_C34964` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A959` | - | `C3:4964` |
+| `C3:4A61` | `UNKNOWN_C34A61` | `event-script-asset` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A959` | - | `C3:4A61` |
+| `C3:4B62` | `UNKNOWN_C34B62` | `event-script-asset` | `complete` | 25 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:4D39` | `UNKNOWN_C34D39` | `event-script-asset` | `complete` | 13 | `$2A EVENT_SET_Z` | `C0:A841`, `C4:6E46` | - | `C3:AB26` |
+| `C3:4E73` | `UNKNOWN_C34E73` | `event-script-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:A864` | `C0:A039`, `C0:9FC8`, `C4:8BE1` | - |
+| `C3:5F8B` | `UNKNOWN_C35F8B` | `event-script-asset` | `complete` | 15 | `$21 EVENT_WRITE_VAR_TO_WAIT_TIMER` | `C0:A4B2`, `C4:ECE7`, `C0:A4A8` | - | `C3:5F98`, `C3:5FB3`, `C3:5FAC`, `C3:5F8B`, +1 |
+| `C3:5FB6` | `UNKNOWN_C35FB6` | `event-script-asset` | `complete` | 9 | `$21 EVENT_WRITE_VAR_TO_WAIT_TIMER` | - | `C0:A055`, `C0:9FC8` | `C3:5F8B` |
+| `C3:5FCD` | `UNKNOWN_C35FCD` | `event-script-asset` | `complete` | 8 | `$0E EVENT_SET_VAR` | - | `C0:A0A0`, `C0:9FF1` | `C3:5F8B` |
+| `C3:62C0` | `UNKNOWN_C362C0` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:6834` | `UNKNOWN_C36834` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:A98B` | - | `C3:A204` |
+| `C3:6A3E` | `UNKNOWN_C36A3E` | `event-script-asset` | `complete` | 1 | `$19 EVENT_SHORTJUMP` | - | - | `C3:A204` |
+| `C3:6A41` | `UNKNOWN_C36A41` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A679` | `C0:A384` | `C3:A1F3`, `C3:A262` |
+| `C3:6BB4` | `UNKNOWN_C36BB4` | `event-script-asset` | `complete` | 7 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | - | - | `C3:6BC1`, `C3:6BB4` |
+| `C3:6BEA` | `UNKNOWN_C36BEA` | `event-script-asset` | `complete` | 1 | `$00 EVENT_END` | - | - | - |
+| `C3:6D18` | `UNKNOWN_C36D18` | `event-script-asset` | `complete` | 6 | `$06 EVENT_PAUSE` | `C0:D15C`, `C4:681A` | - | `C3:6D18`, `C3:9E01` |
+| `C3:6E41` | `UNKNOWN_C36E41` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C4:0023`, `C4:6914`, `C4:6957` | - | `C3:6E45` |
+| `C3:7439` | `UNKNOWN_C37439` | `event-script-asset` | `complete` | 9 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4A8`, `C0:A685` | `C0:A37A` | - |
+| `C3:7545` | `UNKNOWN_C37545` | `event-script-asset` | `complete` | 7 | `$01 EVENT_LOOP` | `C0:AA6E` | - | - |
+| `C3:7559` | `UNKNOWN_C37559` | `event-script-asset` | `complete` | 7 | `$01 EVENT_LOOP` | `C0:AA6E` | - | - |
+| `C3:7A7C` | `UNKNOWN_C37A7C` | `event-script-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C0:A37A` | `C3:A15E` |
+| `C3:835D` | `UNKNOWN_C3835D` | `event-script-asset` | `complete` | 2 | `$10 EVENT_SWITCH_JUMP_TEMPVAR` | - | - | `C3:8370`, `C3:8383`, `C3:8396`, `C3:83A9` |
+| `C3:83BC` | `UNKNOWN_C383BC` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:9F82` | - | - |
+| `C3:8978` | `UNKNOWN_C38978` | `event-script-asset` | `complete` | 6 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A84C` | - | `C3:8992`, `C3:898C`, `C3:8995` |
+| `C3:899E` | `UNKNOWN_C3899E` | `event-script-asset` | `complete` | 11 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:A4B2` | - | `C3:899E` |
+| `C3:9AC7` | `UNKNOWN_C39AC7` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4BF` | `C0:9FF0` | `C3:9ABB` |
+| `C3:9E01` | `UNKNOWN_C39E01` | `event-script-asset` | `complete` | 5 | `$1E EVENT_WRITE_WRAM_TEMPVAR` | - | - | `C3:9E0E` |
+| `C3:A043` | `IntroCutsceneCameraPanGate` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C1:FFD3`, `C3:0100`, `C2:0000` | `C0:5200` | `C3:A04E`, `C3:0100`, `C3:A052` |
+| `C3:A04E` | `StartIntroCameraPanTickLoop` | `event-bytecode-label` | `complete` | 6 | `$08 EVENT_SET_TICK_CALLBACK` | `C2:0000` | `C0:5200` | `C3:A052` |
+| `C3:A052` | `LoopIntroCameraPanWaitAndC2Step` | `event-bytecode-label` | `complete` | 5 | `$01 EVENT_LOOP` | `C2:0000` | - | `C3:A052` |
+| `C3:A05E` | `IntroCutsceneSpriteObjectSetup` | `event-bytecode-asset` | `complete` | 10 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | `C0:3DAA`, `C0:4EF0`, `C0:A6DA`, `C0:A6E3` | `C0:A039`, `C0:A26B`, `C0:4D78` | `C3:A076` |
+| `C3:A076` | `LoopIntroCompanionVisualRefresh` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A6E3` | - | `C3:A076` |
+| `C3:A07F` | `HaltEventScript` | `event-bytecode-asset` | `complete` | 1 | `$09 EVENT_HALT` | - | - | - |
+| `C3:A09F` | `LoopActiveEntityWalkAnimationPulse` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A09F` |
+| `C3:A0B2` | `LoopActiveEntityWalkPulse24Frame` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A0B2` |
+| `C3:A0C5` | `LoopActiveEntityWalkPulse12Frame` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A0C5` |
+| `C3:A0D8` | `LoopActiveEntityWalkPulse9FrameConditional` | `event-bytecode-label` | `complete` | 32 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A0D8`, `C3:A0EB`, `C3:A0FE`, `C3:A11E`, +1 |
+| `C3:A0EB` | `LoopActiveEntityWalkPulse6FrameConditional` | `event-bytecode-label` | `complete` | 25 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A0EB`, `C3:A0FE`, `C3:A11E`, `C3:A111` |
+| `C3:A0FE` | `LoopActiveEntityWalkPulse2FrameConditional` | `event-bytecode-label` | `complete` | 18 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A0FE`, `C3:A11E`, `C3:A111` |
+| `C3:A111` | `LoopActiveEntityWalkPulseVar4Gate` | `event-bytecode-label` | `complete` | 11 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | `C3:A11E`, `C3:A111` |
+| `C3:A12E` | `LoopActiveEntityWalkPulseVar4Countdown` | `event-bytecode-label` | `complete` | 19 | `$20 EVENT_WRITE_VAR_TO_TEMPVAR` | `C0:A4B2`, `C0:A4A8` | - | `C3:A159`, `C3:A12E` |
+| `C3:A15E` | `LoopC40015Var4GatedPulseUntilRelease` | `event-bytecode-label` | `complete` | 10 | `$42 EVENT_CALLROUTINE` | `C4:0023`, `C0:A4B2`, `C4:0015` | - | `C3:A16F`, `C3:A162`, `C3:A204` |
+| `C3:A17B` | `LoopC40015SlowPulseUntilRelease` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A17B`, `C3:A204` |
+| `C3:A18F` | `LoopC40015FastPulseUntilRelease` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A18F`, `C3:A204` |
+| `C3:A1A3` | `UNKNOWN_C3A1A3` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A1A3`, `C3:A204` |
+| `C3:A1B7` | `UNKNOWN_C3A1B7` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A1B7`, `C3:A204` |
+| `C3:A1CB` | `UNKNOWN_C3A1CB` | `event-script-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A1CB`, `C3:A204` |
+| `C3:A1DF` | `LoopActiveEntityWalkPulse2FrameC40015Branch` | `event-bytecode-label` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015` | - | `C3:A0FE`, `C3:A204` |
+| `C3:A1F3` | `LoopC40015Pulse16FrameUntilRelease` | `event-bytecode-label` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C4:0015`, `C0:20F1` | - | `C3:A1F3` |
+| `C3:A204` | `ReleaseCurrentVisualEntityAndEnd` | `event-bytecode-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:20F1` | - | - |
+| `C3:A209` | `DelayThenReleaseCurrentVisualEntity` | `event-bytecode-asset` | `complete` | 2 | `$06 EVENT_PAUSE` | - | - | `C3:A204` |
+| `C3:A20E` | `LoopVar0SelectedAnimationUntilOffscreen` | `event-bytecode-label` | `complete` | 7 | `$3B EVENT_SET_ANIMATION` | `C0:A4A8`, `C0:C6B6` | - | `C3:A22C`, `C3:A234`, `C3:A23D`, `C3:A24E`, +3 |
+| `C3:A22C` | `Var0AnimationCase0Pulse8FrameOn` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | - |
+| `C3:A234` | `Var0AnimationCase1Pulse8FrameOff` | `event-bytecode-asset` | `complete` | 4 | `$06 EVENT_PAUSE` | `C0:A4A8` | - | - |
+| `C3:A23D` | `Var0AnimationCase2Pulse4Frame` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | - |
+| `C3:A24E` | `Var0AnimationCase3Pulse32Frame` | `event-bytecode-asset` | `complete` | 7 | `$06 EVENT_PAUSE` | `C0:A4B2`, `C0:A4A8` | - | - |
+| `C3:A25F` | `Var0AnimationCase4Wait16Frame` | `event-bytecode-asset` | `complete` | 2 | `$06 EVENT_PAUSE` | - | - | - |
+| `C3:A262` | `LoopActiveEntityCollisionProbeRefresh` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C0:A6DA`, `C0:5E76` | - | `C3:A266` |
+| `C3:A271` | `UNKNOWN_C3A271` | `event-script-asset` | `complete` | 1 | `$0C EVENT_END_TASK` | - | - | - |
+| `C3:A272` | `UNKNOWN_C3A272` | `event-script-asset` | `complete` | 1 | `$0C EVENT_END_TASK` | - | - | - |
+| `C3:A2AA` | `TrafficLightWaitUntilOffscreenAndRelease` | `event-bytecode-asset` | `complete` | 10 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:C7DB`, `C0:A4BF`, `C0:C6B6`, `C0:20F1` | `C0:9FF0` | `C3:A2B8` |
+| `C3:A381` | `InitRandomWanderMovementWithCollisionProbe` | `event-bytecode-asset` | `complete` | 8 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685`, `C0:A964` | `C0:A360` | `C3:A111`, `C3:A262`, `C3:A3B7` |
+| `C3:A3A1` | `InitC40015PulseWithCollisionProbe` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A360` | `C3:A15E`, `C3:A262` |
+| `C3:A3B7` | `LoopRandomDirectionMovementWithRandomWait` | `event-bytecode-label` | `complete` | 5 | `$0E EVENT_SET_VAR` | `C4:7269` | - | `C3:A3C9`, `C3:A3D6` |
+| `C3:A3C9` | `ChooseRandomCardinalDirection` | `event-bytecode-asset` | `complete` | 10 | `$42 EVENT_CALLROUTINE` | `C0:9F82`, `C0:A65F`, `C0:C83B`, `C0:CA4E` | - | `C3:A3B7` |
+| `C3:A3D6` | `ApplyRandomDirectionAndMovementTimer` | `event-bytecode-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:A65F`, `C0:C83B`, `C0:9F82`, `C0:CA4E` | - | `C3:A3B7` |
+| `C3:A3E7` | `SetMovementTimerThenRandomWait` | `event-bytecode-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:CA4E`, `C0:9F82` | - | `C3:A3B7` |
+| `C3:A401` | `InitNpcAttentionPathIfNoCachedNeighbor` | `event-bytecode-asset` | `complete` | 12 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A6DA`, `C0:A6B8`, `C0:A4BF` | `C0:9FF0`, `C0:D7F7`, `C0:A360` | `C3:A425`, `C3:A20E` |
+| `C3:A426` | `StartNpcAttentionTerrainCollisionLoop` | `event-bytecode-label` | `complete` | 3 | `$1A EVENT_SHORTCALL` | - | - | `C3:A401`, `C3:A434` |
+| `C3:A42D` | `StartNpcAttentionHorizontalCollisionLoop` | `event-bytecode-label` | `complete` | 3 | `$1A EVENT_SHORTCALL` | - | - | `C3:A401`, `C3:A448` |
+| `C3:A434` | `LoopNpcAttentionTerrainCollision` | `event-bytecode-label` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:6478`, `C0:5E82`, `C0:D5B0` | - | `C3:A45C`, `C3:A434` |
+| `C3:A448` | `LoopNpcAttentionHorizontalCollision` | `event-bytecode-label` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C0:6478`, `C0:5ECE`, `C0:D5B0` | - | `C3:A45C`, `C3:A448` |
+| `C3:A45C` | `FinishNpcAttentionAndReleaseActor` | `event-bytecode-label` | `complete` | 16 | `$06 EVENT_PAUSE` | `C0:D59B`, `C0:20F1` | `C0:9FF0` | `C3:A45C` |
+| `C3:A47C` | `ReleaseCurrentVisualEntityTail` | `event-bytecode-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:20F1` | - | - |
+| `C3:AA1E` | `UNKNOWN_C3AA1E` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A65F`, `C0:C83B`, `C0:A4BF` | - | - |
+| `C3:AA2B` | `UNKNOWN_C3AA2B` | `event-script-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C0:A360` | `C3:A1F3`, `C3:A262` |
+| `C3:AA38` | `InitActionScriptMovementState` | `event-bytecode-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C0:A37A` | `C3:A111` |
+| `C3:AA46` | `InitMovementPreset40_00Pulse24Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A0B2` |
+| `C3:AA5A` | `InitMovementPreset00_01Pulse12Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A0C5` |
+| `C3:AA6E` | `InitMovementPreset60_01Pulse9Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A0D8` |
+| `C3:AA82` | `InitMovementPreset00_02Pulse6Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A0EB` |
+| `C3:AA96` | `InitMovementPreset00_06Pulse2Frame` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A0FE` |
+| `C3:AAAA` | `InitMovementPresetVar4Countdown` | `event-bytecode-asset` | `complete` | 6 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C0:A37A` | `C3:A12E` |
+| `C3:AAB8` | `UNKNOWN_C3AAB8` | `event-script-asset` | `complete` | 5 | `$25 EVENT_SET_PHYSICS_CALLBACK` | - | `C0:A37A` | `C3:A1F3` |
+| `C3:AAC2` | `UNKNOWN_C3AAC2` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A18F` |
+| `C3:AAD6` | `UNKNOWN_C3AAD6` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A1A3` |
+| `C3:AAEA` | `UNKNOWN_C3AAEA` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A1B7` |
+| `C3:AAFE` | `UNKNOWN_C3AAFE` | `event-script-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A1CB` |
+| `C3:AB12` | `InitMovementPreset00_06C40015Branch` | `event-bytecode-asset` | `complete` | 7 | `$25 EVENT_SET_PHYSICS_CALLBACK` | `C0:A4BF`, `C0:A685` | `C0:A37A` | `C3:A1DF` |
+| `C3:AB26` | `InitAlternatePhysicsVar4WalkPulse` | `event-bytecode-asset` | `complete` | 7 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | - | `C0:A03A`, `C0:9FF1` | `C3:A111` |
+| `C3:AB37` | `UNKNOWN_C3AB37` | `event-script-asset` | `complete` | 5 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | - | `C0:A039`, `C0:A37A`, `C4:8BE1` | - |
+| `C3:AB44` | `RefreshActiveEntityDirectionAndVisualProfile` | `event-bytecode-asset` | `complete` | 6 | `$42 EVENT_CALLROUTINE` | `C4:6ADB`, `C4:7044`, `C4:6B0A`, `C0:A65F`, +1 | - | - |
+| `C3:AB59` | `WaitForActiveEntityMovementToFinish` | `event-bytecode-label` | `complete` | 6 | `$1A EVENT_SHORTCALL` | `C0:A8DC` | - | `C3:AB44`, `C3:AB5C` |
+| `C3:AB67` | `UNKNOWN_C3AB67` | `event-script-asset` | `complete` | 11 | `$42 EVENT_CALLROUTINE` | `C4:6ADB`, `C4:7044`, `C4:6B0A`, `C4:6B37`, +3 | - | `C3:AB7F` |
+| `C3:AB8A` | `WaitUntilPlayerLeavesActiveArea` | `event-bytecode-label` | `complete` | 4 | `$06 EVENT_PAUSE` | `C4:6E74` | - | `C3:AB8A` |
+| `C3:AB94` | `UNKNOWN_C3AB94` | `event-script-asset` | `complete` | 4 | `$06 EVENT_PAUSE` | `C4:6E74` | - | `C3:AB94` |
+| `C3:AB9E` | `UNKNOWN_C3AB9E` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C4:7269` | - | `C3:ABAC`, `C3:ABB9` |
+| `C3:ABE0` | `UNKNOWN_C3ABE0` | `event-script-asset` | `complete` | 5 | `$06 EVENT_PAUSE` | - | - | `C3:ABE0` |
+| `C3:AFA3` | `LoopPartyLooksAtActiveEntity` | `event-bytecode-label` | `complete` | 3 | `$42 EVENT_CALLROUTINE` | `C4:8B3B` | - | `C3:AFA3` |
+| `C3:B0B6` | `UNKNOWN_C3B0B6` | `event-script-asset` | `complete` | 19 | `$01 EVENT_LOOP` | `C0:A691`, `C0:A68B` | - | `C3:B0C7` |
+| `C3:B431` | `UNKNOWN_C3B431` | `event-script-asset` | `complete` | 6 | `$06 EVENT_PAUSE` | `C0:C6B6`, `C0:A857`, `C0:20F1` | - | `C3:B431` |
+| `C3:B70C` | `UNKNOWN_C3B70C` | `event-script-asset` | `complete` | 27 | `$23 EVENT_SET_POSITION_CHANGE_CALLBACK` | `C0:A685`, `C4:6ADB`, `C4:7044`, `C4:6B0A`, +3 | `C0:A039`, `C0:9FC8`, `C4:8BE1` | `C3:B737` |
+| `C3:BAA3` | `UNKNOWN_C3BAA3` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D`, `C0:A943`, `C0:A8C6` | - | `C3:BB5C`, `C3:BB73`, `C3:BAB5` |
+| `C3:BAC4` | `UNKNOWN_C3BAC4` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D` | - | `C3:BB5C`, `C3:BB73` |
+| `C3:BAD7` | `UNKNOWN_C3BAD7` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:A82F`, `C0:A88D` | - | `C3:BB5C`, `C3:BB73` |
+| `C3:BB5C` | `UNKNOWN_C3BB5C` | `event-script-asset` | `complete` | 7 | `$1A EVENT_SHORTCALL` | `C0:A4BF`, `C4:6C45` | - | `C3:AAB8`, `C3:AB8A` |
+| `C3:BB73` | `UNKNOWN_C3BB73` | `event-script-asset` | `complete` | 9 | `$0E EVENT_SET_VAR` | `C0:A943`, `C0:A685`, `C0:A8C6` | - | `C3:AB44`, `C3:BB85` |
+| `C3:BD03` | `UNKNOWN_C3BD03` | `event-script-asset` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `C0:A4BF` | - | `C3:AAB8`, `C3:AB8A` |
+| `C3:BEA4` | `UNKNOWN_C3BEA4` | `event-script-asset` | `complete` | 13 | `$0E EVENT_SET_VAR` | `C0:A685`, `C0:AA6E`, `C4:6E46` | - | `C3:AA1E`, `C3:AB59` |
+| `C3:BED4` | `UNKNOWN_C3BED4` | `event-script-asset` | `complete` | 7 | `$0E EVENT_SET_VAR` | `C0:A685` | - | `C3:AB59` |
+| `C3:C143` | `UNKNOWN_C3C143` | `event-script-asset` | `complete` | 11 | `$28 EVENT_SET_X` | `C0:A685`, `C0:A841` | - | `C3:AA38`, `C3:AA1E` |
+| `C3:C1E0` | `UNKNOWN_C3C1E0` | `event-script-asset` | `complete` | 14 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A65F`, `C0:A4BF` | - | `C3:AA38`, `C3:C227`, `C3:AA1E`, `C3:AB59` |
+| `C3:C20F` | `UNKNOWN_C3C20F` | `event-script-asset` | `complete` | 6 | `$0E EVENT_SET_VAR` | `C0:A685`, `C0:A841` | - | `C3:AB59` |
+| `C3:C227` | `UNKNOWN_C3C227` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C4:8B3B`, `C0:A94E` | - | `C3:C227` |
+| `C3:C35D` | `UNKNOWN_C3C35D` | `event-script-asset` | `complete` | 15 | `$1A EVENT_SHORTCALL` | `C0:A65F`, `C0:A4BF`, `C0:A84C`, `C0:A685` | - | `C3:AA38`, `C3:C36F`, `C3:AB59` |
+| `C3:C810` | `UNKNOWN_C3C810` | `event-script-asset` | `complete` | 3 | `$14 EVENT_BINOP` | - | - | `C3:C810` |
+| `C3:C81A` | `UNKNOWN_C3C81A` | `event-script-asset` | `complete` | 3 | `$14 EVENT_BINOP` | - | - | `C3:C81A` |
+| `C3:C824` | `UNKNOWN_C3C824` | `event-script-asset` | `complete` | 35 | `$06 EVENT_PAUSE` | - | - | `C3:C824` |
+| `C3:C871` | `UNKNOWN_C3C871` | `event-script-asset` | `complete` | 26 | `$06 EVENT_PAUSE` | - | - | `C3:C871` |
+| `C3:C8FD` | `UNKNOWN_C3C8FD` | `event-script-asset` | `complete` | 4 | `$1A EVENT_SHORTCALL` | `C0:A907`, `C4:6E46` | - | `C3:C94E`, `C3:A204` |
+| `C3:C90C` | `UNKNOWN_C3C90C` | `event-script-asset` | `complete` | 21 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A4BF`, `C0:A685`, `C0:9FBB` | `C4:8C02` | `C3:AB26`, `C3:AA1E`, `C3:ABE0` |
+| `C3:C94E` | `UNKNOWN_C3C94E` | `event-script-asset` | `complete` | 21 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A4BF`, `C0:A685`, `C0:9FBB` | `C4:8C02` | `C3:AB26`, `C3:AA1E`, `C3:ABE0` |
+| `C3:CC24` | `UNKNOWN_C3CC24` | `event-script-asset` | `complete` | 16 | `$0E EVENT_SET_VAR` | - | - | `C3:AB59` |
+| `C3:CC5C` | `UNKNOWN_C3CC5C` | `event-script-asset` | `complete` | 16 | `$0E EVENT_SET_VAR` | - | - | `C3:AB59` |
+| `C3:CC94` | `UNKNOWN_C3CC94` | `event-script-asset` | `complete` | 10 | `$07 EVENT_START_TASK` | - | - | `C3:C824` |
+| `C3:CCA8` | `UNKNOWN_C3CCA8` | `event-script-asset` | `complete` | 5 | `$2C EVENT_SET_Y_RELATIVE` | - | - | `C3:CCA8` |
+| `C3:CEA2` | `UNKNOWN_C3CEA2` | `event-script-asset` | `complete` | 8 | `$06 EVENT_PAUSE` | `C0:A98B` | - | `C3:CEA2` |
+| `C3:CEB9` | `UNKNOWN_C3CEB9` | `event-script-asset` | `complete` | 4 | `$42 EVENT_CALLROUTINE` | `C0:A86F` | - | `C3:CEB9` |
+| `C3:D0A4` | `UNKNOWN_C3D0A4` | `event-script-asset` | `complete` | 9 | `$42 EVENT_CALLROUTINE` | `C0:AA6E` | - | - |
+| `C3:D913` | `UNKNOWN_C3D913` | `event-script-asset` | `complete` | 2 | `$42 EVENT_CALLROUTINE` | `C0:A88D` | - | - |
+| `C3:DB7A` | `UNKNOWN_C3DB7A` | `event-script-asset` | `complete` | 9 | `$1A EVENT_SHORTCALL` | `C0:A685`, `C0:A907`, `C0:A88D` | - | `C3:DBE0`, `C3:AB59` |
+| `C3:DBDB` | `UNKNOWN_C3DBDB` | `event-script-asset` | `complete` | 7 | `$42 EVENT_CALLROUTINE` | `C0:A864`, `C0:A679` | `C0:A039`, `C0:9FC8`, `C4:8BE1` | - |
+| `C3:DF90` | `UNKNOWN_C3DF90` | `event-script-asset` | `complete` | 11 | `$07 EVENT_START_TASK` | `C0:A651`, `C0:A4BF`, `C0:C6B6`, `C0:20F1`, +2 | - | `C3:DFB5`, `C3:DF9F` |
+| `C3:DFB5` | `UNKNOWN_C3DFB5` | `event-script-asset` | `complete` | 5 | `$42 EVENT_CALLROUTINE` | `C0:9F82` | - | `C3:DFD4`, `C3:DFE4` |
+| `C3:DFD4` | `UNKNOWN_C3DFD4` | `event-script-asset` | `complete` | 4 | `$40 EVENT_SET_Y_VELOCITY` | `C0:9F82` | - | `C3:DFB5` |
 
 ## Decode excerpts
+
+### C3:0195 Event221PaulaFatherFarewellSequence
+
+- class: `event-bytecode-asset`
+- decode status: `complete`
+- stop reason: terminal/control-flow stop
+- raw preview: `42 4C A8 C0 0C 00 0B AA A2 42 4C A8 C0 0D 00 0A`
+
+```text
+C3:0195  42 4C A8 C0 0C 00    EVENT_CALLROUTINE $C0:A84C <ActionScript_TestEventFlag_ReadWord>, $0C, $00
+C3:019B  0B AA A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A2AA <TrafficLightWaitUntilOffscreenAndRelease>
+C3:019E  42 4C A8 C0 0D 00    EVENT_CALLROUTINE $C0:A84C <ActionScript_TestEventFlag_ReadWord>, $0D, $00
+C3:01A4  0A AA A2             EVENT_SHORTCALL_CONDITIONAL $C3:A2AA <TrafficLightWaitUntilOffscreenAndRelease>
+C3:01A7  1A 38 AA             EVENT_SHORTCALL $C3:AA38 <InitActionScriptMovementState>
+C3:01AA  3B FF                EVENT_SET_ANIMATION $FF
+C3:01AC  42 2F A8 C0          EVENT_CALLROUTINE $C0:A82F <DisableCurrentSlotNeighborCache>
+C3:01B0  0E 04 01 00          EVENT_SET_VAR $04, $0001
+C3:01B4  0E 00 90 1A          EVENT_SET_VAR $00, $1A90
+C3:01B8  0E 01 60 1E          EVENT_SET_VAR $01, $1E60
+C3:01BC  0E 02 08 00          EVENT_SET_VAR $02, $0008
+C3:01C0  0E 03 C0 00          EVENT_SET_VAR $03, $00C0
+C3:01C4  1A 8A AB             EVENT_SHORTCALL $C3:AB8A <WaitUntilPlayerLeavesActiveArea>
+C3:01C7  28 E8 1A             EVENT_SET_X $1AE8
+C3:01CA  29 68 1E             EVENT_SET_Y $1E68
+C3:01CD  3B 00                EVENT_SET_ANIMATION $00
+; ... 28 more decoded lines in JSON output
+```
+
+### C3:0235 Event222PaulaDoorExitMovementScript
+
+- class: `event-bytecode-asset`
+- decode status: `complete`
+- stop reason: terminal/control-flow stop
+- raw preview: `15 9A 5D 01 00 0E 06 10 1B 0E 07 88 01 1A 95 02`
+
+```text
+C3:0235  15 9A 5D 01 00       EVENT_WRITE_WORD_WRAM $5D9A, $0001
+C3:023A  0E 06 10 1B          EVENT_SET_VAR $06, $1B10
+C3:023E  0E 07 88 01          EVENT_SET_VAR $07, $0188
+C3:0242  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:0245  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:0249  09                   EVENT_HALT
+```
+
+### C3:024A Event223PaulaPorchExitMovementScript
+
+- class: `event-bytecode-asset`
+- decode status: `complete`
+- stop reason: terminal/control-flow stop
+- raw preview: `28 E8 1F 29 68 00 0E 06 18 1F 0E 07 68 00 1A 95`
+
+```text
+C3:024A  28 E8 1F             EVENT_SET_X $1FE8
+C3:024D  29 68 00             EVENT_SET_Y $0068
+C3:0250  0E 06 18 1F          EVENT_SET_VAR $06, $1F18
+C3:0254  0E 07 68 00          EVENT_SET_VAR $07, $0068
+C3:0258  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:025B  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:025F  09                   EVENT_HALT
+```
+
+### C3:0260 Event224PaulaReturnMovementScript
+
+- class: `event-bytecode-asset`
+- decode status: `complete`
+- stop reason: terminal/control-flow stop
+- raw preview: `28 D0 1D 29 D8 00 0E 06 80 1D 0E 07 D8 00 1A 95`
+
+```text
+C3:0260  28 D0 1D             EVENT_SET_X $1DD0
+C3:0263  29 D8 00             EVENT_SET_Y $00D8
+C3:0266  0E 06 80 1D          EVENT_SET_VAR $06, $1D80
+C3:026A  0E 07 D8 00          EVENT_SET_VAR $07, $00D8
+C3:026E  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, $02, $00
+C3:0277  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:027B  06 01                EVENT_PAUSE $01
+C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM $5D9A, $0000
+C3:0282  0E 06 D0 1D          EVENT_SET_VAR $06, $1DD0
+C3:0286  1A 59 AB             EVENT_SHORTCALL $C3:AB59 <WaitForActiveEntityMovementToFinish>
+C3:0289  13                   EVENT_END_LAST_TASK
+C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, $06, $00
+C3:0290  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:0294  09                   EVENT_HALT
+```
 
 ### C3:0295 MoveActiveEntityLeftToScriptVarsAndWait
 
@@ -641,7 +756,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAn
 - raw preview: `23 39 A0 25 6B A2 3B 00 42 AA 3D C0 42 F0 4E C0`
 
 ```text
-C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK $C0:A039 <UNKNOWN_C0A039>
+C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK $C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
 C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
 C3:A064  3B 00                EVENT_SET_ANIMATION $00
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
@@ -839,20 +954,20 @@ C3:A12B  19 11 A1             EVENT_SHORTJUMP $C3:A111 <LoopActiveEntityWalkPuls
 
 ```text
 C3:A12E  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A130  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <UNKNOWN_C3A159>
+C3:A130  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A133  24                   EVENT_LOOP_TEMPVAR
 C3:A134  06 01                EVENT_PAUSE $01
 C3:A136  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A138  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <UNKNOWN_C3A159>
+C3:A138  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A13B  02                   EVENT_LOOP_END
 C3:A13C  3B 01                EVENT_SET_ANIMATION $01
 C3:A13E  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A142  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A144  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <UNKNOWN_C3A159>
+C3:A144  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A147  24                   EVENT_LOOP_TEMPVAR
 C3:A148  06 01                EVENT_PAUSE $01
 C3:A14A  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A14C  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <UNKNOWN_C3A159>
+C3:A14C  16 59 A1             EVENT_BREAK_IF_FALSE $C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A14F  02                   EVENT_LOOP_END
 ; ... 3 more decoded lines in JSON output
 ```
@@ -1085,7 +1200,7 @@ C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
 - raw preview: `25 F0 9F 3B 00 39 42 DB C7 C0 42 BF A4 C0 06 08`
 
 ```text
-C3:A2AA  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A2AA  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A2AD  3B 00                EVENT_SET_ANIMATION $00
 C3:A2AF  39                   EVENT_SET_VELOCITIES_ZERO
 C3:A2B0  42 DB C7 C0          EVENT_CALLROUTINE $C0:C7DB <UpdateCurrentSlotFootprintMask>
@@ -1210,11 +1325,11 @@ C3:A3FE  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovem
 - raw preview: `25 F0 9F 42 DA A6 C0 06 01 42 B8 A6 C0 0B 25 A4`
 
 ```text
-C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A408  06 01                EVENT_PAUSE $01
 C3:A40A  42 B8 A6 C0          EVENT_CALLROUTINE $C0:A6B8 <GetCurrentSlotHasNoCachedNeighborFlag>
-C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <UNKNOWN_C3A425>
+C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <ReturnFromNpcAttentionNeighborCacheCheck>
 C3:A411  08 F7 D7 C0          EVENT_SET_TICK_CALLBACK $C0:D7F7 <Consume_CurrentSlotAttentionPath>
 C3:A415  25 60 A3             EVENT_SET_PHYSICS_CALLBACK $C0:A360 <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh>
 C3:A418  3B 00                EVENT_SET_ANIMATION $00
@@ -1295,7 +1410,7 @@ C3:A45E  42 9B D5 C0          EVENT_CALLROUTINE $C0:D59B <Check_NpcAttentionCoor
 C3:A462  0B 5C A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A45C <FinishNpcAttentionAndReleaseActor>
 C3:A465  3B 00                EVENT_SET_ANIMATION $00
 C3:A467  39                   EVENT_SET_VELOCITIES_ZERO
-C3:A468  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
+C3:A468  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A46B  0E 00 01 00          EVENT_SET_VAR $00, $0001
 C3:A46F  06 01                EVENT_PAUSE $01
 C3:A471  01 03                EVENT_LOOP $03
