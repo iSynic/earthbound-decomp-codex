@@ -91,14 +91,14 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Fourteen source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `8322` validated bytes across the
+   callback byte-count seeds captured. Fifteen source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `8693` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
    party-look/window-gfx path, temp-flag door-close path,
    teleport-destination path, tunnel ghost/zombie path, and tunnel ghost
-   follower path families.
+   follower path, and vehicle coordinate path families.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -130,6 +130,7 @@ that romhackers need to edit confidently:
 - `notes/c3-teleport-destination-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
+- `notes/c3-vehicle-coordinate-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/data-contracts-c0-c4.md`
