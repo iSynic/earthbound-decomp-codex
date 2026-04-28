@@ -19,10 +19,11 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Battle visual assets",
         "banks": ["CA", "CB", "CC", "CD", "CE"],
         "maturity": "contract-seeded",
-        "proof": "extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, battle-background scene-layer joins, and PSI animation bundle joins",
+        "proof": "extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, battle-background scene-layer joins, PSI animation bundle joins, and battle sprite graphics/palette usage joins",
         "docs": [
             "notes/battle-background-scene-bundles.md",
             "notes/psi-animation-bundle-contracts.md",
+            "notes/battle-sprite-bundle-contracts.md",
             "notes/battle-visual-asset-contracts.md",
             "notes/bank-ca-cf-asset-closure.md",
             "notes/bank-ca-asset-data-map.md",
@@ -31,7 +32,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/bank-cd-asset-data-map.md",
             "notes/bank-ce-asset-data-map.md",
         ],
-        "next_contract": "Battle-background and PSI animation bundles are joined; next join battle sprites and swirl payloads into sprite/sequence bundles.",
+        "next_contract": "Battle-background, PSI animation, and battle sprite bundles are joined; next group swirl payloads into sequence bundles.",
     },
     {
         "id": "mixed_asset_tables",
@@ -292,7 +293,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 2,
                 "family": "battle_visual_assets",
-                "why": "Contract-seeded; battle backgrounds and PSI animations now have joins, so the next useful step is battle-sprite and swirl sequence bundling.",
+                "why": "Contract-seeded; battle backgrounds, PSI animations, and battle sprites now have joins, so the next useful step is swirl sequence bundling.",
             },
             {
                 "rank": 3,

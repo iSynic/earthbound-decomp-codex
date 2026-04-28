@@ -95,8 +95,11 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "battle_sprite_runtime_tables": {
         "label": "Battle sprite runtime tables",
         "runtime_contract": "Battle sprite pointer tables that bind sprite ids to compressed graphics payloads.",
-        "portable_contract": "Expose as structured pointer tables and join them to sprite graphics/palette ids.",
-        "docs": ["notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md"],
+        "portable_contract": "Expose as sprite-id bundles joining graphics pointers, size enums, enemy config palette usage, and palette assets.",
+        "docs": [
+            "notes/battle-sprite-bundle-contracts.md",
+            "notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md",
+        ],
     },
     "swirl_payloads": {
         "label": "Swirl frame payloads",
@@ -303,8 +306,8 @@ def build_contract() -> dict[str, Any]:
             },
             {
                 "id": "battle_sprite_bundle",
-                "shape": "CE battle-sprite pointer table selects compressed sprite graphics; CE palette assets supply renderer palettes; C2 renders with palette-tail helpers.",
-                "source": "notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md",
+                "shape": "BATTLE_SPRITES_POINTERS row + enemy config palette usage + CE palette assets join each battle sprite id to graphics, size, observed palettes, and renderer context.",
+                "source": "notes/battle-sprite-bundle-contracts.md",
             },
             {
                 "id": "swirl_sequence_bundle",
@@ -315,7 +318,7 @@ def build_contract() -> dict[str, Any]:
         "next_open_questions": [
             "Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.",
             "Promote PSI animation target-mode aliases once caller-side effect names are exhaustively tied to battle actions.",
-            "Join CE battle sprite pointer rows to graphics and palette ids.",
+            "Resolve or document the Evil Eye enemy row's sprite-id-110 reference beyond the checked 0..109 pointer table.",
             "Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.",
         ],
     }

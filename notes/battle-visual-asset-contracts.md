@@ -42,7 +42,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 - `battle_background_scene_bundle`: battle-entry layer table + BG_DATA_TABLE rows + graphics/arrangement/palette pointers + scroll/distortion rows feed the C2 battle-background loader. Source: `notes/battle-background-scene-bundles.md`.
 - `psi_animation_bundle`: PSI_ANIM_CFG row + PSI_ANIM_POINTERS arrangement pointer + animation-id palette slot join each PSI visual effect to graphics, arrangement, palette, timing, target mode, and enemy-color metadata. Source: `notes/psi-animation-bundle-contracts.md`.
-- `battle_sprite_bundle`: CE battle-sprite pointer table selects compressed sprite graphics; CE palette assets supply renderer palettes; C2 renders with palette-tail helpers. Source: `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`.
+- `battle_sprite_bundle`: BATTLE_SPRITES_POINTERS row + enemy config palette usage + CE palette assets join each battle sprite id to graphics, size, observed palettes, and renderer context. Source: `notes/battle-sprite-bundle-contracts.md`.
 - `swirl_sequence_bundle`: CE swirl payloads plus swirl pointer/primary tables form transition frame sequences; ignored EBDecomp refs already contain six rendered swirl groups. Source: `refs/eb-decompile-4ef92/Swirls/swirls.yml and notes/c2-psi-swirl-overlay-tail-c2e6b3-c2ea74.md`.
 
 ## Per-Family Assets
@@ -687,8 +687,8 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 ### Battle sprite runtime tables
 
-- portable contract: Expose as structured pointer tables and join them to sprite graphics/palette ids.
-- checked docs: `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`
+- portable contract: Expose as sprite-id bundles joining graphics pointers, size enums, enemy config palette usage, and palette assets.
+- checked docs: `notes/battle-sprite-bundle-contracts.md`, `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
@@ -875,5 +875,5 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 - Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.
 - Promote PSI animation target-mode aliases once caller-side effect names are exhaustively tied to battle actions.
-- Join CE battle sprite pointer rows to graphics and palette ids.
+- Resolve or document the Evil Eye enemy row's sprite-id-110 reference beyond the checked 0..109 pointer table.
 - Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.
