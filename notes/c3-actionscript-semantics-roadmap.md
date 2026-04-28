@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `22` families, `10234` validated
+- Current source-form event/actionscript pilots: `23` families, `10333` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: twenty-two pilots complete.
+Status: twenty-three pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -250,6 +250,11 @@ Status: twenty-two pilots complete.
   covering the tempvar-indexed helper used by ebsrc scripts 688-691 to write
   the two animation-port event flags in all four binary combinations,
   `C3:835D..C3:83BC`, `95` validated bytes.
+- `notes/c3-var0-animation-collision-probe-source-pilot.md`: high-ranked
+  frontier seam covering the var0-selected animation loop that runs until the
+  active entity leaves the live-area window plus the adjacent collision-probe
+  refresh task commonly started by movement scripts, `C3:A20E..C3:A271`, `99`
+  validated bytes.
 - `notes/c3-position-text-yield-paths-source-pilot.md`: high-ranked frontier
   seam covering the party-look-at-active-entity loop plus ebsrc scripts
   120-132, including text-yield handoffs, fixed coordinate placement helpers,
@@ -287,6 +292,7 @@ Candidate/follow-up families for this milestone:
 - `C3:C824..C3:C94E` teleport-destination prelude paths scripts 147-152 - pilot complete
 - `C3:DB7A..C3:DBF2` bus-tunnel bridge paths scripts 453-454 - pilot complete
 - `C3:835D..C3:83BC` animation-port flag switch helper - pilot complete
+- `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
 - `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
   on the `C0:A92D` callback contract before promotion
@@ -317,9 +323,9 @@ teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
 paths, vehicle coordinate paths, Boogy Tent/city bus paths, palette
 fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
 paths, bus-tunnel bridge paths, animation-port flag switch, and
-position/text-yield paths now have
+var0 animation/collision-probe helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:A20E..C3:A262` as the best ready seam;
+`C3:AB9E..C3:ABE0` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
