@@ -57,7 +57,9 @@ FAMILIES: dict[str, dict[str, Any]] = {
         "runtime_contract": "C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads.",
         "portable_contract": "Expose each visual scene as arrangement/graphics/palette components plus any unresolved adjacent compressed payloads until their exact scene role is pinned.",
         "docs": [
+            "notes/intro-title-visual-bundle-contracts.md",
             "notes/gas-station-intro-asset-loader-c4a377.md",
+            "notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md",
             "notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md",
         ],
     },
@@ -267,6 +269,11 @@ def build_contract() -> dict[str, Any]:
                 "source": "notes/text-window-skin-bundle-contracts.md",
                 "shape": "E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows.",
             },
+            {
+                "id": "intro_title_visual_bundles",
+                "source": "notes/intro-title-visual-bundle-contracts.md",
+                "shape": "E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail.",
+            },
         ],
         "subrange_contracts": [
             {
@@ -347,7 +354,7 @@ def build_contract() -> dict[str, Any]:
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
             "Pin the visible identity of text-window palette block 6.",
             "Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.",
-            "Resolve the E1 intro/title UNKNOWN_* compressed payloads into scene-specific graphics, palette, or arrangement roles.",
+            "Promote E1:AE7C, E1:CE08, and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],
     }

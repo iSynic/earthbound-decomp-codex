@@ -85,17 +85,18 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "UI, fonts, and town-map assets",
         "banks": ["E0", "E1"],
         "maturity": "contract-seeded",
-        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, and metric-backed font bundle joins",
+        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, and E1 intro/title/death visual bundle splits",
         "docs": [
             "notes/ui-font-town-map-asset-contracts.md",
             "notes/text-window-skin-bundle-contracts.md",
             "notes/font-bundle-contracts.md",
+            "notes/intro-title-visual-bundle-contracts.md",
             "notes/bank-e0-asset-data-map.md",
             "notes/bank-e1-asset-data-map.md",
             "notes/town-map-selection-rendering-c4d274-c4d744.md",
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
-        "next_contract": "Text-window skin, font, and town-map table shapes are split; next resolve intro/title unknown payload roles and the compressed SRAM mystery payload.",
+        "next_contract": "Text-window skin, font, town-map, and intro/title scene shapes are split; next resolve the compressed SRAM mystery payload and field-level polish for E1:AE7C/E1:CE08/death-screen tail.",
     },
     {
         "id": "audio_packs",
@@ -291,7 +292,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 1,
                 "family": "ui_font_town_map_assets",
-                "why": "Contract-seeded; text-window skins, font bundles, and town-map tables now have splits, so the next useful step is unresolved intro/title payload roles or the compressed SRAM mystery payload.",
+                "why": "Contract-seeded; text-window skins, font bundles, town-map tables, and intro/title visuals now have splits, so the next useful step is the compressed SRAM mystery payload or narrow E1 field-role polish.",
             },
             {
                 "rank": 2,
