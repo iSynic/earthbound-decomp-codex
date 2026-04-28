@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `116` families, `46146` validated
+- Current source-form event/actionscript pilots: `127` families, `48933` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -578,6 +578,8 @@ Candidate/follow-up families for this milestone:
 - `C3:C4CF..C3:C5C6` Winters ride launch paths scripts 137-139 - pilot complete
 - `C3:0295..C3:036F` early pose/coordinate-pair paths scripts 225-232 - pilot complete
 - `C3:036F..C3:04FA` early party-look coordinate paths scripts 233-241 - pilot complete
+- `C3:04FA..C3:069F` early turn-bias/coordinate routes scripts 242-250 - pilot complete
+- `C3:069F..C3:0716` early visual-countdown halt scripts 251-254 - pilot complete
 - `C3:AFA3..C3:B06D` party-look meteorite paths scripts 47-49, 53, and 55 - pilot complete
 - `C3:1389..C3:1452` winter target release paths scripts 311-316 - pilot complete
 - `C3:6E41..C3:6F08` Onett door-close gate paths scripts 607-613 - pilot complete
@@ -611,6 +613,15 @@ Candidate/follow-up families for this milestone:
 - `C3:15F8..C3:176F` winter coordinate/facing routes - pilot complete
 - `C3:176F..C3:18D0` winter coordinate transition routes - pilot complete
 - `C3:18D0..C3:199E` winter input battle-BG transition paths - pilot complete
+- `C3:199E..C3:1B4B` winter battle-BG reload and route release - pilot complete
+- `C3:1B4B..C3:1CFB` winter Sanctuary display and pulse release - pilot complete
+- `C3:1CFB..C3:1D2D` event 353 message tile reveal - pilot complete
+- `C3:A080..C3:A09F` overworld snapshot seed loop - pilot complete
+- `C3:A299..C3:A401` traffic-light profile/random-wander paths - pilot complete
+- `C3:3DD4..C3:4029` party-look jump and route terminal paths - pilot complete
+- `C3:BAEA..C3:BB5C` tunnel-ghost teleport routes - pilot complete
+- `C3:3B77..C3:3BFB` photo-scene spin/window-gfx release paths - pilot complete
+- `C3:C17A..C3:C1E0` position door-close rotation and target paths - pilot complete
 - `C3:A55D..C3:A868` flyover palette/random movement paths - pilot complete
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -670,9 +681,11 @@ orbit/step-spawn continuations, party-member orbit damping, Threed escaper
 arc/landing continuations, T-Stage/T-Stage 3 performance corridors, T-Stage
 long choreography releases, photo-scene release jumps, meteorite/window party
 approach paths, bus-driver attention/Magic Butterfly releases, Winters route
-transitions, and flyover palette/random movement paths now have source-form
-pilots. The refreshed frontier now has `11` remaining gaps and `0`
-ready-ranked gaps. The next best C3 source seam is `C3:199E..C3:1A04`, blocked
-on the unpinned `C0:18F3` callback contract; after that, the higher-value path
-is pinning callback contracts such as `C0:C682`, `C0:C353`, `C4:6A6E`,
-`EF:027D`, `C0:A838`, `C4:67E6`, `C4:E4DA`, `C4:6B65`, and `C0:A87A`.
+transitions, flyover palette/random movement paths, Winters/Sanctuary
+continuations, early turn-bias/visual-countdown halts, traffic-light
+random-wander paths, tunnel-ghost teleport routes, and party-look jump/route
+terminal paths now have source-form pilots. The refreshed frontier now has `5`
+remaining gaps and `0` ready-ranked gaps. The next best C3 source seam is
+`C3:4029..C3:4082`, blocked on the unpinned `C4:6712` callback contract; after
+that, the higher-value path is pinning callback contracts such as `C0:A838`,
+`C0:C62B`, and `C4:E4DA`.

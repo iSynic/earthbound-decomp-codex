@@ -91,16 +91,15 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. `116` source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `46146` validated bytes. Recent
-   additions include cast-screen orbit/step-spawn continuations, party-member
-   orbit damping, Threed escaper arc/landing continuations, T-Stage/T-Stage 3
-   performance routes, meteorite/window paths, bus-driver attention/Magic
-   Butterfly releases, Winters route transitions, and flyover palette/random
-   movement paths.
+   callback byte-count seeds captured. `127` source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `48933` validated bytes. Recent
+   additions include Winters battle-BG/Sanctuary display continuations,
+   tunnel-ghost teleport routes, photo-scene/window-gfx release paths, early
+   turn-bias/visual-countdown halts, traffic-light random-wander paths, and
+   party-look jump/route terminal paths.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
-   the current frontier has `11` gaps and `0` ready-ranked gaps. The next best
-   manual seam is `C3:199E..C3:1A04`, blocked on the unpinned `C0:18F3`
+   the current frontier has `5` gaps and `0` ready-ranked gaps. The next best
+   manual seam is `C3:4029..C3:4082`, blocked on the unpinned `C4:6712`
    callback contract.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
    text payloads.
@@ -222,6 +221,17 @@ that romhackers need to edit confidently:
 - `notes/c3-winter-coordinate-facing-routes-source-pilot.md`
 - `notes/c3-winter-coordinate-transition-routes-source-pilot.md`
 - `notes/c3-winter-input-battle-bg-transition-source-pilot.md`
+- `notes/c3-winter-battle-bg-reload-and-route-release-source-pilot.md`
+- `notes/c3-winter-sanctuary-display-and-pulse-release-source-pilot.md`
+- `notes/c3-event353-message-tile-reveal-source-pilot.md`
+- `notes/c3-early-turn-bias-and-coordinate-routes-source-pilot.md`
+- `notes/c3-early-visual-countdown-halts-source-pilot.md`
+- `notes/c3-overworld-snapshot-seed-loop-source-pilot.md`
+- `notes/c3-traffic-light-profile-and-random-wander-source-pilot.md`
+- `notes/c3-party-look-jump-and-route-terminal-source-pilot.md`
+- `notes/c3-tunnel-ghost-teleport-routes-source-pilot.md`
+- `notes/c3-photo-scene-spin-and-window-gfx-release-source-pilot.md`
+- `notes/c3-position-door-close-rotation-and-target-paths-source-pilot.md`
 - `notes/c3-flyover-palette-random-movement-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`

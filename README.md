@@ -52,19 +52,18 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. There are now `116`
-source-form pilots checked in under `src/c3/event_scripts/`, covering `46146`
+byte-count seeds captured for semantic naming. There are now `127`
+source-form pilots checked in under `src/c3/event_scripts/`, covering `48933`
 validated ROM bytes as labeled event/actionscript macro assembly.
 
-Recent C3 promotions leaned hard on the C4 callback docs and ebsrc script refs:
-cast-screen orbit/step-spawn continuations, party-member orbit damping, Threed
-escaper arc/landing continuations, T-Stage/T-Stage 3 performance routes,
-meteorite/window paths, bus-driver attention/Magic Butterfly releases, Winters
-route transitions, and flyover palette/random movement paths are now
-source-backed. The checked-in C3 source-pilot frontier ranks the remaining
-script spans; it currently has `11` gaps and `0` ready-ranked gaps, with the
-next best seam being `C3:199E..C3:1A04`, blocked on the unpinned `C0:18F3`
-callback contract.
+Recent C3 promotions leaned hard on the C0/C4/EF callback docs and ebsrc script
+refs: Winters battle-BG/Sanctuary display continuations, tunnel-ghost teleport
+routes, photo-scene/window-gfx release paths, early turn-bias/visual-countdown
+halts, traffic-light random-wander paths, and party-look jump/route terminal
+paths are now source-backed. The checked-in C3 source-pilot frontier ranks the
+remaining script spans; it currently has `5` gaps and `0` ready-ranked gaps,
+with the next best seam being `C3:4029..C3:4082`, blocked on the unpinned
+`C4:6712` callback contract.
 
 ## For Romhackers
 
@@ -192,6 +191,17 @@ Good starting points:
 - `notes/c3-winter-coordinate-facing-routes-source-pilot.md`
 - `notes/c3-winter-coordinate-transition-routes-source-pilot.md`
 - `notes/c3-winter-input-battle-bg-transition-source-pilot.md`
+- `notes/c3-winter-battle-bg-reload-and-route-release-source-pilot.md`
+- `notes/c3-winter-sanctuary-display-and-pulse-release-source-pilot.md`
+- `notes/c3-event353-message-tile-reveal-source-pilot.md`
+- `notes/c3-early-turn-bias-and-coordinate-routes-source-pilot.md`
+- `notes/c3-early-visual-countdown-halts-source-pilot.md`
+- `notes/c3-overworld-snapshot-seed-loop-source-pilot.md`
+- `notes/c3-traffic-light-profile-and-random-wander-source-pilot.md`
+- `notes/c3-party-look-jump-and-route-terminal-source-pilot.md`
+- `notes/c3-tunnel-ghost-teleport-routes-source-pilot.md`
+- `notes/c3-photo-scene-spin-and-window-gfx-release-source-pilot.md`
+- `notes/c3-position-door-close-rotation-and-target-paths-source-pilot.md`
 - `notes/c3-flyover-palette-random-movement-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
