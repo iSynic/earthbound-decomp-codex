@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:ABE0` wait helper is still part of the larger fade/teleport handoff row and should be split with that context.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:ABE0..C3:AFA3` flyover scene/wait corridor is now promoted.

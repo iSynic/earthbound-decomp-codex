@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Fifty-two source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `18179` validated bytes across the
+   callback byte-count seeds captured. Fifty-five source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `19656` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -113,7 +113,8 @@ that romhackers need to edit confidently:
    Bubble Monkey route, Pokey/Bubble Monkey, direction-tracker town hall,
    theater-stage performance movement, stage visual pulse helpers, Monotoly
    coordinate/text paths, T-Stage dance sequence paths, and gum-machine/flyover
-   paths.
+   paths, flyover scene/wait paths, position-watch/new-entity paths, and town
+   hall direction common paths.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -183,6 +184,9 @@ that romhackers need to edit confidently:
 - `notes/c3-monotoly-coordinate-text-paths-source-pilot.md`
 - `notes/c3-tstage-dance-sequence-paths-source-pilot.md`
 - `notes/c3-gum-machine-flyover-paths-source-pilot.md`
+- `notes/c3-flyover-scene-wait-paths-source-pilot.md`
+- `notes/c3-position-watch-new-entity-paths-source-pilot.md`
+- `notes/c3-townhall-direction-common-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/data-contracts-c0-c4.md`

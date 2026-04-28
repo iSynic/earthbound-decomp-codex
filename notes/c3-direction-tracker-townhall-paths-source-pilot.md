@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:8F06` continuation should be promoted with scripts 737-744 after its shared local labels are reviewed.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:8EF1..C3:8FCE` town hall direction common continuation is now promoted.

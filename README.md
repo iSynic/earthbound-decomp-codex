@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Fifty-two source-form pilots are also
+byte-count seeds captured for semantic naming. Fifty-five source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -73,7 +73,9 @@ live-area facing movement, Onett town hall movement, and Onett town hall door
 path helpers, plus position/text door-sound, Bubble Monkey route,
 direction-tracker town hall, theater-stage performance movement, stage visual
 pulse paths, Pokey/Bubble Monkey paths, Monotoly coordinate/text paths,
-T-Stage dance sequence paths, and gum-machine/flyover paths. Together they represent `18179`
+T-Stage dance sequence paths, gum-machine/flyover paths, flyover scene/wait
+paths, position-watch/new-entity paths, and town hall direction common paths.
+Together they represent `19656`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -150,6 +152,9 @@ Good starting points:
 - `notes/c3-monotoly-coordinate-text-paths-source-pilot.md`
 - `notes/c3-tstage-dance-sequence-paths-source-pilot.md`
 - `notes/c3-gum-machine-flyover-paths-source-pilot.md`
+- `notes/c3-flyover-scene-wait-paths-source-pilot.md`
+- `notes/c3-position-watch-new-entity-paths-source-pilot.md`
+- `notes/c3-townhall-direction-common-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
@@ -317,6 +322,9 @@ python tools/build_c3_event_script_source_pilot.py --family position-text-yield-
 python tools/build_c3_event_script_source_pilot.py --family monotoly-coordinate-text-paths
 python tools/build_c3_event_script_source_pilot.py --family tstage-dance-sequence-paths
 python tools/build_c3_event_script_source_pilot.py --family gum-machine-flyover-paths
+python tools/build_c3_event_script_source_pilot.py --family flyover-scene-wait-paths
+python tools/build_c3_event_script_source_pilot.py --family position-watch-new-entity-paths
+python tools/build_c3_event_script_source_pilot.py --family townhall-direction-common-paths
 python tools/build_c3_source_pilot_frontier.py
 ```
 
