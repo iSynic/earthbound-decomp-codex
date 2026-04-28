@@ -124,6 +124,7 @@ SUBCOMMAND_NAMES: dict[int, dict[int, str]] = {
         0x06: 'PRINT_TELEPORT_DESTINATION_NAME',
         0x07: 'PRINT_HORIZONTAL_TEXT_STRING',
         0x08: 'PRINT_SPECIAL_GFX',
+        0x09: 'SET_ACTIVE_WINDOW_TEXT_MODE',
         0x0A: 'PRINT_NUMBER',
         0x0B: 'PRINT_MONEY_AMOUNT',
         0x0C: 'PRINT_VERTICAL_TEXT_STRING',
@@ -359,7 +360,7 @@ def parse_command(data: bytes, i: int) -> tuple[str, int]:
     if op == 0x1C:
         if sub in (0x04, 0x0D, 0x0E):
             return prefix, 2
-        if sub in (0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0x07, 0x08, 0x11, 0x12, 0x14, 0x15):
+        if sub in (0x00, 0x01, 0x02, 0x03, 0x05, 0x06, 0x07, 0x08, 0x09, 0x11, 0x12, 0x14, 0x15):
             return f'{prefix} 0x{data[i+2]:02X}', 3
         if sub == 0x13:
             return f'{prefix} 0x{data[i+2]:02X}, 0x{data[i+3]:02X}', 4

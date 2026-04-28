@@ -32,7 +32,8 @@ The currently strongest pinned `0x1C` leaves are:
 
 Some edge leaves remain narrower or more cautious:
 
-- `0x1C 00`, `0x1C 09`, and `0x1C 0B` are real live-context setters or printers, but their exact player-facing names are still weaker than the central print paths
+- `0x1C 09` is now named `SET_ACTIVE_WINDOW_TEXT_MODE`; it is runtime-only in the exposed `text_data` corpus, but its live write to `$8662` is pinned
+- `0x1C 00` and `0x1C 0B` are real live-context setters or printers, but their exact player-facing names are still weaker than the central print paths
 - `0x1C 11` is still a narrow special-selector loader without a clean final name
 
 ## Why this family matters

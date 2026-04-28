@@ -50,6 +50,27 @@ FAMILY_DISPATCHERS = {
     0x1F: "C1:81BB",
 }
 
+PARSED_ARTIFACT_CANDIDATES = {
+    (0x18, 0xA3): "EDEBUG pointer/table run near C5:997C",
+    (0x19, 0x4F): "ENEWS pointer/table run near C8:4A49",
+    (0x1A, 0x48): "ENEWS pointer/table run near C8:4345",
+    (0x1D, 0x1C): "EBATTLE8 compressed/overlap artifact near EF:79DF",
+    (0x1D, 0x85): "EDEBUG pointer/table/compressed overlap near C5:849F",
+    (0x1D, 0xC7): "EHINT pointer/table cluster near C7:00EF",
+    (0x1E, 0xC7): "EHINT pointer/table cluster near C7:00F7",
+    (0x1F, 0x4E): "ENEWS pointer/table run near C8:4A59",
+    (0x1F, 0xC7): "EHINT pointer/table cluster near C7:00FF",
+}
+
+FRONTIER_STATUSES = {
+    "runtime_only",
+    "parsed_only",
+    "parsed_artifact_candidate",
+    "needs_name",
+    "unknown_parsed",
+    "needs_note",
+}
+
 
 AUTHORING_HINTS = {
     "@SETF": {"opcode": "0x04", "name": "SET_EVENT_FLAG", "confidence": "high"},
@@ -86,7 +107,16 @@ def fmt_cpu(bank: int, addr: int | None) -> str | None:
     return f"{bank:02X}:{addr:04X}"
 
 
-def command_status(*, has_runtime: bool, parsed_hits: int, has_name: bool, has_note: bool) -> str:
+def command_status(
+    *,
+    has_runtime: bool,
+    parsed_hits: int,
+    has_name: bool,
+    has_note: bool,
+    artifact_reason: str | None = None,
+) -> str:
+    if artifact_reason and not has_runtime and parsed_hits:
+        return "parsed_artifact_candidate"
     if has_runtime and parsed_hits and has_name and has_note:
         return "covered"
     if has_runtime and parsed_hits and has_name:
@@ -268,6 +298,7 @@ def build_manifest(args: argparse.Namespace) -> dict[str, Any]:
             runtime = family_runtime.get(subop)
             parsed_hits = usage["sub_counts"].get((opcode, subop), 0)
             has_name = not name.startswith("UNKNOWN_")
+            artifact_reason = PARSED_ARTIFACT_CANDIDATES.get((opcode, subop))
             subcommands.append(
                 {
                     "subopcode": f"0x{subop:02X}",
@@ -277,11 +308,13 @@ def build_manifest(args: argparse.Namespace) -> dict[str, Any]:
                         parsed_hits=parsed_hits,
                         has_name=has_name,
                         has_note=True,
+                        artifact_reason=artifact_reason,
                     ),
                     "parsed_hits": parsed_hits,
                     "runtime_target": fmt_cpu(dispatcher_bank, runtime.target) if runtime is not None else None,
                     "runtime_kind": runtime.target_kind if runtime is not None else None,
                     "runtime_value": f"0x{runtime.target_value:04X}" if runtime and runtime.target_value is not None else None,
+                    "artifact_reason": artifact_reason,
                     "top_segments": top_segment_summary(usage["sub_segments"].get((opcode, subop), Counter()), 3),
                 }
             )
@@ -323,6 +356,9 @@ def build_manifest(args: argparse.Namespace) -> dict[str, Any]:
             "parsed_only_top_level": sum(1 for row in top_level if row["status"] == "parsed_only"),
             "families": len(families),
             "subcommands": sum(family["subcommand_count"] for family in families),
+            "parsed_artifact_candidates": sum(
+                family["status_counts"].get("parsed_artifact_candidate", 0) for family in families
+            ),
             "unknown_decoded_samples": len(usage["unknown_samples"]),
             "truncated_commands": usage["truncated_commands"],
             "localization_records": authoring_records,
@@ -351,6 +387,7 @@ def write_markdown(manifest: dict[str, Any], output_path: Path) -> None:
         f"- Parser-only top-level pseudo-opcodes: `{summary['parsed_only_top_level']}`",
         f"- Structured families audited: `{summary['families']}`",
         f"- Family subcommands tracked: `{summary['subcommands']}`",
+        f"- Parsed artifact candidates tracked: `{summary['parsed_artifact_candidates']}`",
         f"- Recovered localization records available: `{summary['localization_records']}`",
         f"- Recovered localization top commands tracked: `{summary['localization_top_commands_tracked']}`",
         "",
@@ -379,8 +416,8 @@ def write_markdown(manifest: dict[str, Any], output_path: Path) -> None:
             "",
             "## Structured Families",
             "",
-            "| Family | Name | Dispatcher | Subcommands | Covered | Runtime only | Parsed only | Needs name |",
-            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
+            "| Family | Name | Dispatcher | Subcommands | Covered | Runtime only | Parsed only | Artifact candidates | Needs name |",
+            "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |",
         ]
     )
     for family in manifest["families"]:
@@ -389,7 +426,8 @@ def write_markdown(manifest: dict[str, Any], output_path: Path) -> None:
             f"| `{family['opcode']}` | `{family['name']}` | "
             f"`{family['dispatcher']['address']}` | {family['subcommand_count']} | "
             f"{counts.get('covered', 0)} | {counts.get('runtime_only', 0)} | "
-            f"{counts.get('parsed_only', 0)} | {counts.get('needs_name', 0) + counts.get('unknown_parsed', 0)} |"
+            f"{counts.get('parsed_only', 0)} | {counts.get('parsed_artifact_candidate', 0)} | "
+            f"{counts.get('needs_name', 0) + counts.get('unknown_parsed', 0)} |"
         )
 
     lines.extend(
@@ -407,23 +445,24 @@ def write_markdown(manifest: dict[str, Any], output_path: Path) -> None:
         frontier = [
             row
             for row in family["subcommands"]
-            if row["status"] in {"runtime_only", "parsed_only", "needs_name", "unknown_parsed", "needs_note"}
+            if row["status"] in FRONTIER_STATUSES
         ]
         if not frontier:
             continue
         lines.append(f"### `{family['opcode']}` `{family['name']}`")
         lines.append("")
-        lines.append("| Sub | Name | Status | Parsed hits | Runtime | Top segments |")
-        lines.append("| --- | --- | --- | ---: | --- | --- |")
+        lines.append("| Sub | Name | Status | Parsed hits | Runtime | Top segments | Evidence note |")
+        lines.append("| --- | --- | --- | ---: | --- | --- | --- |")
         for row in frontier[:32]:
             runtime = row["runtime_target"] or "-"
             segments = ", ".join(f"{seg['segment']}:{seg['count']}" for seg in row["top_segments"]) or "-"
+            evidence = row.get("artifact_reason") or "-"
             lines.append(
                 f"| `{row['subopcode']}` | `{row['name']}` | `{row['status']}` | "
-                f"{row['parsed_hits']} | `{runtime}` | {segments} |"
+                f"{row['parsed_hits']} | `{runtime}` | {segments} | {evidence} |"
             )
         if len(frontier) > 32:
-            lines.append(f"| ... | ... | ... | ... | ... | `{len(frontier) - 32}` more |")
+            lines.append(f"| ... | ... | ... | ... | ... | `{len(frontier) - 32}` more | ... |")
         lines.append("")
 
     lines.extend(

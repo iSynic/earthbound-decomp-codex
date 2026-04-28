@@ -82,7 +82,7 @@ The first chunk of the `C1:7D94` case map is now local too:
 - `0x1C 06` -> leaf `C1:46DE`
 - `0x1C 07` -> leaf `C1:45CA`
 - `0x1C 08` -> leaf `C1:43B8`
-- `0x1C 09` -> leaf `C1:40EF`
+- `0x1C 09` -> leaf `C1:40EF` (`SET_ACTIVE_WINDOW_TEXT_MODE`)
 - `0x1C 0A` -> leaf `C1:53AF`
 - `0x1C 0B` -> leaf `C1:5573`
 - `0x1C 0C` -> leaf `C1:5BA7`
@@ -127,12 +127,12 @@ Case `0x1C 07 -> C1:45CA` is still narrower, but it also got cleaner. It resolve
 
 Case `0x1C 08 -> C1:43B8` also sharpened a bit. It is still just a tiny wrapper over `C1:0EE3`, but the command-aware search makes the usage split very clean: there are only four exact parsed hits, all in `EBATTLE4` and `EBATTLE8`. So even without fully naming `C1:0EE3` yet, the practical read is much better than before: `0x1C 08` is a battle-only special-graphics print branch, not just an anonymous neighbor.
 
-The exact-command pass also helped clean up the awkward edge cases. `0x1C 09 -> C1:40EF` is now pinned as a real but extremely narrow branch: there is exactly one currently exposed parsed hit, at `C8:82C7` in `EEVENT2`, where it appears as a zero-argument local oddball immediately before prompt/timing control. By contrast, `0x1C 00 -> C1:40F9` and `0x1C 0B -> C1:5573` currently have zero exact parsed hits in the exposed `text_data` segments.
+The exact-command pass also helped clean up the awkward edge cases. `0x1C 09 -> C1:40EF` is now pinned as `SET_ACTIVE_WINDOW_TEXT_MODE`. There are currently zero exact parsed hits in the exposed `text_data` segments, but the runtime body is real: it forwards the command argument to `C1:0EB4`, which writes active window text mode byte `$8662`. By contrast, `0x1C 00 -> C1:40F9` and `0x1C 0B -> C1:5573` currently have zero exact parsed hits in the exposed `text_data` segments.
 
 The deeper code-side pass is still useful here, though, because it shows these are not dead parser stubs. `C1:40EF -> C1:0EB4` stores the command's low byte into live context field `8662`, while `C1:40F9 -> C1:0FEA` maps the command argument through `C09032` with `Y = #$0400` and stores the result into live context field `8663`. Bank `02` later copies `8662`, `8663`, and neighboring `8665` into a working record at `C2:0A68+`, so both branches are feeding real per-context state even if only one currently shows up in exposed scripts. That means the safest current wording is:
 
 - `0x1C 00` still keeps the reference macro name `TEXT_COLOUR_EFFECTS`, but now with local support as a real live-context setter even though no exposed `text_data` script currently uses it.
-- `0x1C 09` is a one-off exposed event-side command whose semantics still need a better local name, but it also clearly writes live context state rather than acting like dead code.
+- `0x1C 09` is `SET_ACTIVE_WINDOW_TEXT_MODE`, a runtime-only live-context setter that writes `$8662`.
 - `0x1C 0B` still keeps the reference macro name `PRINT_MONEY_AMOUNT`, but only as a cautious code-side label until a live local script use or stronger consumer-side proof turns up.
 
 Even with that remaining caution on the deepest helper names, the local structure now says the same thing consistently: `0x1C` is a broad print/data-display family, and Jeff's item-name branch is one well-behaved member inside it.
