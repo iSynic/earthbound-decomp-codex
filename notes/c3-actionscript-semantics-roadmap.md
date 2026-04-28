@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `15` families, `8693` validated
+- Current source-form event/actionscript pilots: `16` families, `9003` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: fifteen pilots complete.
+Status: sixteen pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -221,6 +221,11 @@ Status: fifteen pilots complete.
   584-590 taxi/truck/red-car coordinate paths, including the Onett door-close
   gate and Twoson bus-appearance gate, `C3:6A41..C3:6BB4`, `371` validated
   bytes.
+- `notes/c3-position-text-yield-paths-source-pilot.md`: high-ranked frontier
+  seam covering the party-look-at-active-entity loop plus ebsrc scripts
+  120-132, including text-yield handoffs, fixed coordinate placement helpers,
+  temporary-flag wait loops, and short movement releases, `C3:C227..C3:C35D`,
+  `310` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -247,6 +252,7 @@ Candidate/follow-up families for this milestone:
 - `C3:B70C..C3:BAA3` tunnel ghost/zombie paths - pilot complete
 - `C3:BB5C..C3:BD03` tunnel ghost follower paths - pilot complete
 - `C3:6A41..C3:6BB4` vehicle coordinate paths scripts 584-590 - pilot complete
+- `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
 - `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
   on the `C0:A92D` callback contract before promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
@@ -273,8 +279,9 @@ cluster, presentation/effect corridor, first Itoi production intro split,
 intro/presentation movement paths, cast-scroll setup scripts, intro
 cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
 teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
-paths, and vehicle coordinate paths now have source-form pilots. The refreshed
-frontier currently points at `C3:C227..C3:C35D` as the best ready seam;
+paths, vehicle coordinate paths, and position/text-yield paths now have
+source-form pilots. The refreshed frontier currently points at
+`C3:6BEA..C3:6D18` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
