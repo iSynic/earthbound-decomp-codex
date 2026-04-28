@@ -89,21 +89,20 @@ SCENES: list[dict[str, Any]] = [
             "asset.e1.nintendo_presentation_arrangement",
             "asset.e1.nintendo_presentation_graphics",
             "asset.e1.nintendo_itoi_palette",
-            "asset.e1.unknown_e1ae7c",
         ],
         "refs": [
             "refs/eb-decompile-4ef92/Logos/ProducedBy.png",
             "refs/eb-decompile-4ef92/Logos/PresentedBy.png",
         ],
         "legacy_refs": [],
-        "status": "mostly-named-by-ebsrc-with-one-adjacent-small-payload",
-        "open": "E1:AE7C decompresses to 32 bytes and sits between the shared Nintendo/Itoi palette and title-screen assets; keep it attached to this attract bundle until a caller proves the exact field role.",
+        "status": "named-by-ebsrc-and-logo-refs",
     },
     {
         "id": "intro.title_screen",
         "label": "Title-screen background, logo, and letter sprites",
-        "role": "Main title-screen visual bundle: background/tilemap, 4bpp graphics, logo-letter graphics, palette, and the adjacent unknown table that aligns with EBDecomp title-character position refs.",
+        "role": "Main title-screen visual bundle: background/tilemap, 4bpp graphics, logo-letter graphics, palette animation payloads, and OAM records.",
         "assets": [
+            "asset.e1.unknown_e1ae7c",
             "asset.e1.title_screen_arrangement",
             "asset.e1.title_screen_graphics",
             "asset.e1.unknown_e1c6e5",
@@ -113,14 +112,17 @@ SCENES: list[dict[str, Any]] = [
         "refs": [
             "refs/eb-decompile-4ef92/TitleScreen/Background",
             "refs/eb-decompile-4ef92/TitleScreen/Chars",
+            "notes/title-screen-palette-animation-contracts.md",
             "notes/title-screen-letter-oam-contracts.md",
         ],
         "legacy_refs": [
             "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin",
             "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin",
+            "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenLetterPalettes.bin",
+            "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenGlowPalettes.bin",
         ],
         "status": "named-by-ebsrc-and-ref-family",
-        "open": "E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData: nine 0x2D-byte letter records plus the E1:CF9D pointer table.",
+        "open": "E1:AE7C..AF7D is promoted by notes/title-screen-palette-animation-contracts.md into initial, letter, and glow palette animation subpayloads; E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData.",
     },
     {
         "id": "intro.death_screen_visual_tail",
@@ -137,10 +139,7 @@ SCENES: list[dict[str, Any]] = [
             "refs/eb-decompile-4ef92/Logos/DeathScreen_Jeff.png",
             "refs/eb-decompile-4ef92/Logos/DeathScreen_palettes.yml",
         ],
-        "legacy_refs": [
-            "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenGlowPalettes.bin",
-            "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenLetterPalettes.bin",
-        ],
+        "legacy_refs": [],
         "status": "preview-and-ref-corroborated-family",
         "open": "Exact split between death-screen background, text/letter, palette animation, and arrangement fields still needs caller-side proof.",
     },
@@ -308,9 +307,12 @@ def build_contract() -> dict[str, Any]:
                 "source": "notes/title-screen-letter-oam-contracts.md",
                 "role": "Promotes the raw E1:CE08 table to TitleScreenLetterOAMData with nine letter records and the E1:CF9D pointer table.",
             },
+            {
+                "source": "notes/title-screen-palette-animation-contracts.md",
+                "role": "Promotes the E1:AE7C manifest blob to initial title palette, 14-frame letter palette animation, and 20-frame glow palette animation subpayloads.",
+            },
         ],
         "open_questions": [
-            "Promote E1:AE7C from attract-adjacent small payload to a field-level role after caller proof.",
             "Follow callers for E1:CFAF, E1:D4F4, E1:D5E8, and E1:D6E1 to split the death-screen tail into exact background/text/palette/arrangement roles.",
         ],
     }

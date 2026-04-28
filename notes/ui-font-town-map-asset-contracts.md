@@ -32,7 +32,7 @@ No ROM-derived payloads are checked in by this report.
 - `town_map_icon_animation`: E1:F44C maps town-map icon ids, E1:F47A suppresses blink-phase icons, and C4:D2A8 cycles CGRAM entries 0x81..0x86. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `font_metric_pairs`: Main, Mr. Saturn, large, battle, and tiny fonts each have a 96-byte metric table matched to EBDecomp width refs and paired with raw 4bpp glyph graphics; battle and tiny share the same first-96 metrics but use different graphics sizes. Source: `notes/font-bundle-contracts.md`.
 - `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows. Source: `notes/text-window-skin-bundle-contracts.md`.
-- `intro_title_visual_bundles`: E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail; E1:CE08 is further promoted to TitleScreenLetterOAMData. Source: `notes/intro-title-visual-bundle-contracts.md`.
+- `intro_title_visual_bundles`: E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts. Source: `notes/intro-title-visual-bundle-contracts.md`.
 - `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding. Source: `notes/sram-template-contracts.md`.
 
 ## Runtime Subrange Contracts
@@ -116,7 +116,7 @@ No ROM-derived payloads are checked in by this report.
 ### Intro, logo, title, and attract visuals
 
 - portable contract: Expose each visual scene as arrangement/graphics/palette components plus any unresolved adjacent compressed payloads until their exact scene role is pinned.
-- checked docs: `notes/intro-title-visual-bundle-contracts.md`, `notes/title-screen-letter-oam-contracts.md`, `notes/gas-station-intro-asset-loader-c4a377.md`, `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`, `notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md`
+- checked docs: `notes/intro-title-visual-bundle-contracts.md`, `notes/title-screen-palette-animation-contracts.md`, `notes/title-screen-letter-oam-contracts.md`, `notes/gas-station-intro-asset-loader-c4a377.md`, `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`, `notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md`
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
@@ -210,5 +210,5 @@ No ROM-derived payloads are checked in by this report.
 - Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
 - Pin the visible identity of text-window palette block 6.
 - Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.
-- Promote E1:AE7C and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.
+- Promote E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.
 - Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.

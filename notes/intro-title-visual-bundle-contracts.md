@@ -34,9 +34,9 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 | HALKEN logo | `named-by-ebsrc-and-legacy` | 3 | 737 | 57523 | `refs/eb-decompile-4ef92/Logos/HALKEN.png (667 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/HalLogoTilemap.bin (116 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/HalLogoPalette.bin (157 bytes)` |
 | Nintendo logo | `named-by-ebsrc-and-legacy` | 3 | 382 | 57166 | `refs/eb-decompile-4ef92/Logos/Nintendo.png (454 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/NintendoLogoTilemap.bin (73 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/NintendoLogoPalette.bin (68 bytes)` |
 | War on Giygas / gas-station intro visual | `runtime-loader-backed` | 4 | 21772 | 181915 | `refs/eb-decompile-4ef92/Logos/GasStation1.png (12257 bytes)`, `refs/eb-decompile-4ef92/Logos/GasStation2.png (12257 bytes)`, `refs/eb-decompile-4ef92/Logos/GasStation3.png (12257 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/WarOnGiygasScreenTilemap.bin (1376 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/WarOnGiygasScreenPalette.bin (166 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/WarOnGiygasScreenFlashPalette.bin (130 bytes)` |
-| Presented/produced-by attract cards | `mostly-named-by-ebsrc-with-one-adjacent-small-payload` | 6 | 1182 | 11654 | `refs/eb-decompile-4ef92/Logos/ProducedBy.png (420 bytes)`, `refs/eb-decompile-4ef92/Logos/PresentedBy.png (346 bytes)` | - |
-| Title-screen background, logo, and letter sprites | `named-by-ebsrc-and-ref-family` | 5 | 8242 | 91367 | `refs/eb-decompile-4ef92/TitleScreen/Background`, `refs/eb-decompile-4ef92/TitleScreen/Chars`, `notes/title-screen-letter-oam-contracts.md (11067 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin (660 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin (39 bytes)` |
-| Death-screen visual tail | `preview-and-ref-corroborated-family` | 4 | 2182 | 100537 | `refs/eb-decompile-4ef92/Logos/DeathScreen_Ness.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_Jeff.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_palettes.yml (10636 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenGlowPalettes.bin (128 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenLetterPalettes.bin (122 bytes)` |
+| Presented/produced-by attract cards | `named-by-ebsrc-and-logo-refs` | 5 | 925 | 11365 | `refs/eb-decompile-4ef92/Logos/ProducedBy.png (420 bytes)`, `refs/eb-decompile-4ef92/Logos/PresentedBy.png (346 bytes)` | - |
+| Title-screen background, logo, and letter sprites | `named-by-ebsrc-and-ref-family` | 6 | 8499 | 91656 | `refs/eb-decompile-4ef92/TitleScreen/Background`, `refs/eb-decompile-4ef92/TitleScreen/Chars`, `notes/title-screen-palette-animation-contracts.md (3551 bytes)`, `notes/title-screen-letter-oam-contracts.md (11067 bytes)` | `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps/TitleLogoTilemap.bin (660 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenBGPalettes.bin (39 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenLetterPalettes.bin (122 bytes)`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Palettes/Compressed/TitleScreenGlowPalettes.bin (128 bytes)` |
+| Death-screen visual tail | `preview-and-ref-corroborated-family` | 4 | 2182 | 100537 | `refs/eb-decompile-4ef92/Logos/DeathScreen_Ness.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_Jeff.png (1749 bytes)`, `refs/eb-decompile-4ef92/Logos/DeathScreen_palettes.yml (10636 bytes)` | - |
 
 ## Component Details
 
@@ -89,7 +89,6 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 
 - bundle id: `intro.attract.presented_produced_by`
 - role: Small attract presentation cards around the Nintendo/Itoi credits before the title screen.
-- followup: E1:AE7C decompresses to 32 bytes and sits between the shared Nintendo/Itoi palette and title-screen assets; keep it attached to this attract bundle until a caller proves the exact field role.
 
 | Component | Range | Source bytes | Output kinds | Generated outputs observed |
 | --- | --- | ---: | --- | --- |
@@ -98,16 +97,16 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 | `asset.e1.nintendo_presentation_arrangement` | `E1:AD01..E1:AD4E` | 77 | `raw`, `earthbound_lzhal` | `build/assets/e1/intro/attract/nintendo_presentation.arr.lzhal` (77), `build/assets/e1/intro/attract/nintendo_presentation.arr` (2048) |
 | `asset.e1.nintendo_presentation_graphics` | `E1:AD4E..E1:AE6F` | 289 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/intro/attract/nintendo_presentation.gfx.lzhal` (289), `build/assets/e1/intro/attract/nintendo_presentation.gfx` (1024), `build/assets/e1/intro/attract/nintendo_presentation_4bpp_preview.png` (347) |
 | `asset.e1.nintendo_itoi_palette` | `E1:AE6F..E1:AE7C` | 13 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_palette_json`, `earthbound_lzhal_snes_palette_swatch_png` | `build/assets/e1/intro/attract/nintendo_itoi.pal.lzhal` (13), `build/assets/e1/intro/attract/nintendo_itoi.pal` (32), `build/assets/e1/intro/attract/nintendo_itoi_palette.json` (3323), `build/assets/e1/intro/attract/nintendo_itoi_palette.png` (145) |
-| `asset.e1.unknown_e1ae7c` | `E1:AE7C..E1:AF7D` | 257 | `raw`, `earthbound_lzhal` | `build/assets/e1/E1AE7C.bin.lzhal` (257), `build/assets/e1/E1AE7C.bin` (32) |
 
 ### Title-screen background, logo, and letter sprites
 
 - bundle id: `intro.title_screen`
-- role: Main title-screen visual bundle: background/tilemap, 4bpp graphics, logo-letter graphics, palette, and the adjacent unknown table that aligns with EBDecomp title-character position refs.
-- followup: E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData: nine 0x2D-byte letter records plus the E1:CF9D pointer table.
+- role: Main title-screen visual bundle: background/tilemap, 4bpp graphics, logo-letter graphics, palette animation payloads, and OAM records.
+- followup: E1:AE7C..AF7D is promoted by notes/title-screen-palette-animation-contracts.md into initial, letter, and glow palette animation subpayloads; E1:CE08 is promoted by notes/title-screen-letter-oam-contracts.md into TitleScreenLetterOAMData.
 
 | Component | Range | Source bytes | Output kinds | Generated outputs observed |
 | --- | --- | ---: | --- | --- |
+| `asset.e1.unknown_e1ae7c` | `E1:AE7C..E1:AF7D` | 257 | `raw`, `earthbound_lzhal` | `build/assets/e1/E1AE7C.bin.lzhal` (257), `build/assets/e1/E1AE7C.bin` (32) |
 | `asset.e1.title_screen_arrangement` | `E1:AF7D..E1:B211` | 660 | `raw`, `earthbound_lzhal` | `build/assets/e1/intro/title_screen.arr.lzhal` (660), `build/assets/e1/intro/title_screen.arr` (2048) |
 | `asset.e1.title_screen_graphics` | `E1:B211..E1:C6E5` | 5332 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/intro/title_screen.gfx.lzhal` (5332), `build/assets/e1/intro/title_screen.gfx` (16384), `build/assets/e1/intro/title_screen_4bpp_preview.png` (4516) |
 | `asset.e1.unknown_e1c6e5` | `E1:C6E5..E1:CDE1` | 1788 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | `build/assets/e1/intro/title_screen_letters.gfx.lzhal` (1788), `build/assets/e1/intro/title_screen_letters.gfx` (32768), `build/assets/e1/intro/title_screen_letters_4bpp_preview.png` (1304) |
@@ -134,8 +133,8 @@ No ROM-derived graphics, palettes, tilemaps, or decoded image payloads are check
 - `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tilemaps`: Legacy compressed tilemaps corroborate APE, HAL, Nintendo, War-on-Giygas, and title-logo compressed arrangement byte counts.
 - `refs/eb-decompile-4ef92/TitleScreen`: EBDecomp title-screen image refs establish the title background frame count, character sprite count, and position-row count without committing ROM payloads.
 - `notes/title-screen-letter-oam-contracts.md`: Promotes the raw E1:CE08 table to TitleScreenLetterOAMData with nine letter records and the E1:CF9D pointer table.
+- `notes/title-screen-palette-animation-contracts.md`: Promotes the E1:AE7C manifest blob to initial title palette, 14-frame letter palette animation, and 20-frame glow palette animation subpayloads.
 
 ## Open Questions
 
-- Promote E1:AE7C from attract-adjacent small payload to a field-level role after caller proof.
 - Follow callers for E1:CFAF, E1:D4F4, E1:D5E8, and E1:D6E1 to split the death-screen tail into exact background/text/palette/arrangement roles.

@@ -85,12 +85,13 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "UI, fonts, and town-map assets",
         "banks": ["E0", "E1"],
         "maturity": "contract-seeded",
-        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title/death visual bundle splits, E1 title-letter OAM table decoding, and an E0 SRAM save-block template contract",
+        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title/death visual bundle splits, E1 title palette animation and title-letter OAM table decoding, and an E0 SRAM save-block template contract",
         "docs": [
             "notes/ui-font-town-map-asset-contracts.md",
             "notes/text-window-skin-bundle-contracts.md",
             "notes/font-bundle-contracts.md",
             "notes/intro-title-visual-bundle-contracts.md",
+            "notes/title-screen-palette-animation-contracts.md",
             "notes/title-screen-letter-oam-contracts.md",
             "notes/sram-template-contracts.md",
             "notes/bank-e0-asset-data-map.md",
@@ -98,7 +99,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/town-map-selection-rendering-c4d274-c4d744.md",
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
-        "next_contract": "Text-window skin, font, town-map, intro/title scene, title-letter OAM, and SRAM template shapes are split; next polish exact field roles for E1:AE7C/death-screen tail and SRAM block ownership.",
+        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, and SRAM template shapes are split; next polish exact field roles for the death-screen tail and SRAM block ownership.",
     },
     {
         "id": "audio_packs",
@@ -294,7 +295,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 1,
                 "family": "ui_font_town_map_assets",
-                "why": "Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title-letter OAM, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.",
+                "why": "Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.",
             },
             {
                 "rank": 2,
