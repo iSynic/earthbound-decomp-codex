@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `42` families, `13267` validated
+- Current source-form event/actionscript pilots: `47` families, `14903` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: forty-two pilots complete.
+Status: forty-seven pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -335,6 +335,27 @@ Status: forty-two pilots complete.
   door open/close sound timing, facing-pulse waits, text-yield handoffs, and the
   longer town hall door-sound movement path, `C3:8B7F..C3:8DB3`, `564`
   validated bytes.
+- `notes/c3-position-text-door-sound-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 133-136: the left-facing temp-flag
+  movement helper, Kifuya active-area text handoff, random party-following
+  movement loop, and door-sound movement/text-yield path, `C3:C35D..C3:C4CF`,
+  `370` validated bytes.
+- `notes/c3-bubble-monkey-route-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 284-286 and nearby Bubble Monkey route helpers,
+  including the shared multi-point coordinate route at `C3:0D3C`,
+  `C3:0C67..C3:0DCD`, `358` validated bytes.
+- `notes/c3-direction-tracker-townhall-paths-source-pilot.md`: high-ranked
+  frontier seam covering the ebsrc script 730-737 prefix, including the
+  perpetual direction-tracker task and movement paths that return into it,
+  `C3:8DB3..C3:8EF1`, `318` validated bytes.
+- `notes/c3-tstage-performance-movement-paths-source-pilot.md`: high-ranked
+  frontier seam covering the looping stage-actor vertical bounce helper plus
+  ebsrc script 399's long theater-stage performance movement release,
+  `C3:2CD2..C3:2DFE`, `300` validated bytes.
+- `notes/c3-stage-visual-pulse-paths-source-pilot.md`: high-ranked frontier
+  seam covering the stage-facing visual pulse helper, ebsrc script 435's long
+  pulse-and-velocity release sequence, and ebsrc script 436's obscured stage
+  slide release, `C3:33DD..C3:34FF`, `290` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -383,6 +404,11 @@ Candidate/follow-up families for this milestone:
 - `C3:83BC..C3:8515` live-area facing/movement paths scripts 693-695 - pilot complete
 - `C3:89BD..C3:8B7F` Onett town hall movement paths scripts 715-721 - pilot complete
 - `C3:8B7F..C3:8DB3` Onett town hall door paths scripts 722-729 - pilot complete
+- `C3:C35D..C3:C4CF` position/text door-sound paths scripts 133-136 - pilot complete
+- `C3:0C67..C3:0DCD` Bubble Monkey route paths scripts 284-286 - pilot complete
+- `C3:8DB3..C3:8EF1` direction-tracker/town hall paths scripts 730-737 prefix - pilot complete
+- `C3:2CD2..C3:2DFE` theater-stage performance movement path script 399 - pilot complete
+- `C3:33DD..C3:34FF` stage visual pulse paths scripts 435-436 - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
 - `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
@@ -423,11 +449,14 @@ V4 animation/side-step helpers, window-gfx loader prologue, tunnel-ghost warp
 text helpers, movement-vector core helpers, facing pulse helpers,
 teleport/flyover pulse helpers, Sky Runner electric-effect helpers, small
 terminal cleanup helpers, cast-screen Tenda/King paths, live-area facing
-movement paths, Onett town hall movement paths, Onett town hall door paths, and var0
+movement paths, Onett town hall movement paths, Onett town hall door paths,
+position/text door-sound paths, Bubble Monkey route paths, direction-tracker
+town hall paths, theater-stage performance movement paths, stage visual pulse
+paths, and var0
 animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
 Threed fight Matent, position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:C35D..C3:C4CF` as the best ready seam;
+`C3:BD03..C3:BE01` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the

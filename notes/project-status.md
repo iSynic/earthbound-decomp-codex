@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Forty-two source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `13267` validated bytes across the
+   callback byte-count seeds captured. Forty-seven source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `14903` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -108,7 +108,9 @@ that romhackers need to edit confidently:
    window-gfx loader prologue, tunnel-ghost warp text, movement-vector core,
    facing pulse, teleport/flyover pulse, Sky Runner electric-effect, small
    terminal cleanup, cast-screen Tenda/King, live-area facing movement, Onett
-   town hall movement, and Onett town hall door path helpers.
+   town hall movement, Onett town hall door path, position/text door-sound,
+   Bubble Monkey route, direction-tracker town hall, theater-stage performance
+   movement, and stage visual pulse helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -162,6 +164,11 @@ that romhackers need to edit confidently:
 - `notes/c3-live-area-facing-movement-paths-source-pilot.md`
 - `notes/c3-onett-townhall-movement-paths-source-pilot.md`
 - `notes/c3-onett-townhall-door-paths-source-pilot.md`
+- `notes/c3-position-text-door-sound-paths-source-pilot.md`
+- `notes/c3-bubble-monkey-route-paths-source-pilot.md`
+- `notes/c3-direction-tracker-townhall-paths-source-pilot.md`
+- `notes/c3-tstage-performance-movement-paths-source-pilot.md`
+- `notes/c3-stage-visual-pulse-paths-source-pilot.md`
 - `notes/c3-var0-animation-collision-probe-source-pilot.md`
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
