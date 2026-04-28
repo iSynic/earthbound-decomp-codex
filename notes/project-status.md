@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Sixty-three source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `27494` validated bytes across the
+   callback byte-count seeds captured. Sixty-eight source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `28757` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -117,7 +117,9 @@ that romhackers need to edit confidently:
    direction common paths, the town hall/coffee-tea/gatekeeper continuation,
    a bus-transition route cluster, Twoson bus route paths, bus tunnel/desert
    route paths, Space Tunnel crash paths, Skyrunner crash/Winters paths,
-   party-member tracker Winters paths, and bus bridge terminal routes.
+   party-member tracker Winters paths, Winters ride launch paths, early
+   pose/coordinate-pair paths, early party-look coordinate paths, party-look
+   meteorite paths, winter target release paths, and bus bridge terminal routes.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -197,6 +199,11 @@ that romhackers need to edit confidently:
 - `notes/c3-space-tunnel-crash-paths-source-pilot.md`
 - `notes/c3-skyrunner-crash-winter-paths-source-pilot.md`
 - `notes/c3-party-member-tracker-winter-paths-source-pilot.md`
+- `notes/c3-winters-ride-launch-paths-source-pilot.md`
+- `notes/c3-early-pose-coordinate-pair-paths-source-pilot.md`
+- `notes/c3-early-party-look-coordinate-paths-source-pilot.md`
+- `notes/c3-party-look-meteorite-paths-source-pilot.md`
+- `notes/c3-winter-target-release-paths-source-pilot.md`
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`

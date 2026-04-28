@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `63` families, `27494` validated
+- Current source-form event/actionscript pilots: `68` families, `28757` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: sixty-three pilots complete.
+Status: sixty-eight pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -418,6 +418,27 @@ Status: sixty-three pilots complete.
   tracking, shared party-member/visual-type arrival loops, door-close movement
   release, compact Winters coordinate releases, and the traffic-light wait
   shortcut, `C3:126E..C3:1389`, `283` validated bytes.
+- `notes/c3-winters-ride-launch-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 137-139: Winters ride-launch text handoffs,
+  launch shake/wander helpers, and coordinate text halt paths,
+  `C3:C4CF..C3:C5C6`, `247` validated bytes.
+- `notes/c3-early-pose-coordinate-pair-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 225-232: early pose target tracking,
+  coordinate-pair movement, and text/yield halt tails, `C3:0295..C3:036F`,
+  `218` validated bytes.
+- `notes/c3-early-party-look-coordinate-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 233-241: party-member position text
+  paths, door-close coordinate release, area-aware follower bounds checks, and
+  facing-sequence coordinate movement, `C3:036F..C3:04FA`, `395` validated
+  bytes.
+- `notes/c3-party-look-meteorite-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 47-49, 53, and 55: party-member tracking/text
+  handoffs, a dog-bye active-area text path, and a meteorite/Pokey snapshot
+  anchor text release, `C3:AFA3..C3:B06D`, `202` validated bytes.
+- `notes/c3-winter-target-release-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 311-316: target visual-type and party-member
+  release paths, compact Winters coordinate releases, a direction-common jump,
+  and downward transition release, `C3:1389..C3:1452`, `201` validated bytes.
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`: high-ranked
   frontier seam covering ebsrc scripts 455-462: compact bus/bridge coordinate
   moves, recurring driver dialog loops, simple route text halts, and one
@@ -497,6 +518,11 @@ Candidate/follow-up families for this milestone:
 - `C3:0DCD..C3:1068` Space Tunnel crash paths scripts 287-294 - pilot complete
 - `C3:1068..C3:126E` Skyrunner crash/Winters paths scripts 295-302 - pilot complete
 - `C3:126E..C3:1389` party-member tracker Winters paths scripts 303-310 - pilot complete
+- `C3:C4CF..C3:C5C6` Winters ride launch paths scripts 137-139 - pilot complete
+- `C3:0295..C3:036F` early pose/coordinate-pair paths scripts 225-232 - pilot complete
+- `C3:036F..C3:04FA` early party-look coordinate paths scripts 233-241 - pilot complete
+- `C3:AFA3..C3:B06D` party-look meteorite paths scripts 47-49, 53, and 55 - pilot complete
+- `C3:1389..C3:1452` winter target release paths scripts 311-316 - pilot complete
 - `C3:DBF2..C3:DD4F` bus bridge terminal paths scripts 455-462 - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
@@ -539,10 +565,13 @@ flyover scene/wait paths, position-watch/new-entity paths, town hall direction
 common paths, town hall/coffee-tea/gatekeeper continuation paths, bus-transition
 route paths, Twoson bus route paths, bus tunnel/desert route paths, Space
 Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
-paths, bus bridge terminal routes, and var0 animation/collision-probe, area-wait/random-wander,
-teleport/flyover coordinate, Threed fight Matent, position door-close helpers,
-and position/text-yield paths now have source-form pilots. The refreshed frontier
-currently points at `C3:C4CF..C3:C5C6` as the best ready seam;
+paths, bus bridge terminal routes, Winters ride launch paths, early
+pose/coordinate-pair paths, early party-look coordinate paths, party-look
+meteorite paths, winter target release paths, and var0 animation/collision-probe,
+area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
+position door-close helpers, and position/text-yield paths now have source-form
+pilots. The refreshed frontier currently points at `C3:6E41..C3:6F08` as the
+best ready seam;
 adjacent follow-ups include
 `C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`
