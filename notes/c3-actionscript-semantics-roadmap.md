@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `13` families, `7899` validated
+- Current source-form event/actionscript pilots: `14` families, `8322` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: thirteen pilots complete.
+Status: fourteen pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -212,6 +212,10 @@ Status: thirteen pilots complete.
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`: high-ranked frontier
   seam covering the `C3:B70C` face-target/shake helper plus ebsrc scripts
   73-90, `C3:B70C..C3:BAA3`, `919` validated bytes.
+- `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`: high-ranked frontier
+  seam covering the tunnel ghost active-area setup helper, party-member tracker,
+  event 93, and ebsrc scripts 103-106 follower offset variants,
+  `C3:BB5C..C3:BD03`, `423` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -236,8 +240,9 @@ Candidate/follow-up families for this milestone:
   pilot complete
 - `C3:C94E..C3:CC24` teleport-destination paths scripts 153-160 - pilot complete
 - `C3:B70C..C3:BAA3` tunnel ghost/zombie paths - pilot complete
-- `C3:BAA3..C3:BD03` adjacent tunnel ghost common/warp helpers - natural
-  follow-up seam
+- `C3:BB5C..C3:BD03` tunnel ghost follower paths - pilot complete
+- `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
+  on the `C0:A92D` callback contract before promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -261,9 +266,11 @@ service-event movement scripts, neighboring service-animation helper/event
 cluster, presentation/effect corridor, first Itoi production intro split,
 intro/presentation movement paths, cast-scroll setup scripts, intro
 cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
-teleport-destination paths, and tunnel ghost/zombie paths now have source-form
-pilots. The refreshed frontier currently points at `C3:BB73..C3:BD03` as the
-best ready seam; adjacent follow-ups include `C3:3DD4..C3:4392` once the
+teleport-destination paths, tunnel ghost/zombie paths, and tunnel ghost follower
+paths now have source-form pilots. The refreshed frontier currently points at
+`C3:6A41..C3:6BB4` as the best ready seam; adjacent follow-ups include
+`C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
+`C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C1E0` once the `C0:C682`
 callback contract is pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback
 contract is pinned, and the blocked `C3:5231` script 801

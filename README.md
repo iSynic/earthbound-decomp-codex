@@ -52,13 +52,14 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Thirteen source-form pilots are also
+byte-count seeds captured for semantic naming. Fourteen source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
 intro/presentation movement path, cast-scroll setup, intro cast-member path,
 party-look/window-gfx path, temp-flag door-close path, teleport-destination
-path, and tunnel ghost/zombie path clusters. Together they represent `7899`
+path, tunnel ghost/zombie path, and tunnel ghost follower path clusters. Together
+they represent `8322`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -96,6 +97,7 @@ Good starting points:
 - `notes/c3-temp-flag-door-close-paths-source-pilot.md`
 - `notes/c3-teleport-destination-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
+- `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
