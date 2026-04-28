@@ -18,9 +18,10 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `127` families, `48933` validated
+- Current source-form event/actionscript pilots: `140` families, `56518` validated
   bytes
-- Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
+- Source-pilot frontier: `notes/c3-source-pilot-frontier.md` (`0` remaining
+  candidate bytes)
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source
@@ -172,7 +173,8 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: eighty-three pilots complete.
+Status: 140 pilots complete. The current source-pilot frontier reports `0`
+remaining candidate bytes.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -623,11 +625,18 @@ Candidate/follow-up families for this milestone:
 - `C3:3B77..C3:3BFB` photo-scene spin/window-gfx release paths - pilot complete
 - `C3:C17A..C3:C1E0` position door-close rotation and target paths - pilot complete
 - `C3:A55D..C3:A868` flyover palette/random movement paths - pilot complete
+- `C3:4029..C3:4392` party-look registry/random-camera routes - pilot complete
+- `C3:0716..C3:098B` early event 255 pose/landing-profile routes - pilot complete
+- `C3:5231..C3:5F8B` cast-scroll event 801 spawn sequence - pilot complete
+- `C3:7E66..C3:835D` Threed escaper random-text/late-route tails - pilot complete
+- `C3:A4AC..C3:AA1E` NPC attention roundwalk/collision/arc-distance tails - pilot complete
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
 operands while preserving byte-equivalence against the ROM-backed scaffold.
 Use `tools/build_c3_source_pilot_frontier.py` to rank ready seams before picking
-the next family.
+the next family. At the current checkpoint there are no remaining source-pilot
+candidate gaps, so the next work should be semantic polish rather than raw pilot
+promotion.
 
 ### 4. Non-Event Payload Split
 
@@ -683,9 +692,10 @@ long choreography releases, photo-scene release jumps, meteorite/window party
 approach paths, bus-driver attention/Magic Butterfly releases, Winters route
 transitions, flyover palette/random movement paths, Winters/Sanctuary
 continuations, early turn-bias/visual-countdown halts, traffic-light
-random-wander paths, tunnel-ghost teleport routes, and party-look jump/route
-terminal paths now have source-form pilots. The refreshed frontier now has `5`
-remaining gaps and `0` ready-ranked gaps. The next best C3 source seam is
-`C3:4029..C3:4082`, blocked on the unpinned `C4:6712` callback contract; after
-that, the higher-value path is pinning callback contracts such as `C0:A838`,
-`C0:C62B`, and `C4:E4DA`.
+random-wander paths, tunnel-ghost teleport routes, party-look jump/route
+terminal paths, party-look registry/random-camera routes, cast-scroll event 801,
+Threed escaper late-route tails, and NPC-attention roundwalk/collision/arc tails
+now have source-form pilots. The refreshed frontier now has `0` remaining gaps
+and `0` ready-ranked gaps. The next best C3 work is no longer raw source-pilot
+coverage; it is semantic polish: named operand contracts, tighter callback
+argument descriptions, source include integration, and stable script-family docs.

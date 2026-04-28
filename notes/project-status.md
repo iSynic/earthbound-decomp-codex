@@ -91,16 +91,17 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. `127` source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `48933` validated bytes. Recent
+   callback byte-count seeds captured. `140` source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `56518` validated bytes. Recent
    additions include Winters battle-BG/Sanctuary display continuations,
    tunnel-ghost teleport routes, photo-scene/window-gfx release paths, early
-   turn-bias/visual-countdown halts, traffic-light random-wander paths, and
-   party-look jump/route terminal paths.
-   `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
-   the current frontier has `5` gaps and `0` ready-ranked gaps. The next best
-   manual seam is `C3:4029..C3:4082`, blocked on the unpinned `C4:6712`
-   callback contract.
+   turn-bias/visual-countdown halts, traffic-light random-wander paths,
+   party-look jump/route terminal paths, cast-scroll event 801, Threed escaper
+   late-route tails, and NPC-attention arc tails.
+   `notes/c3-source-pilot-frontier.md` now reports `0` remaining candidate
+   bytes and `0` frontier gaps. The next C3 work is semantic polish: named
+   operands, callback argument contracts, source include integration, and
+   stable script-family documentation.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
    text payloads.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and

@@ -52,18 +52,18 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. There are now `127`
-source-form pilots checked in under `src/c3/event_scripts/`, covering `48933`
+byte-count seeds captured for semantic naming. There are now `140`
+source-form pilots checked in under `src/c3/event_scripts/`, covering `56518`
 validated ROM bytes as labeled event/actionscript macro assembly.
 
 Recent C3 promotions leaned hard on the C0/C4/EF callback docs and ebsrc script
 refs: Winters battle-BG/Sanctuary display continuations, tunnel-ghost teleport
 routes, photo-scene/window-gfx release paths, early turn-bias/visual-countdown
-halts, traffic-light random-wander paths, and party-look jump/route terminal
-paths are now source-backed. The checked-in C3 source-pilot frontier ranks the
-remaining script spans; it currently has `5` gaps and `0` ready-ranked gaps,
-with the next best seam being `C3:4029..C3:4082`, blocked on the unpinned
-`C4:6712` callback contract.
+halts, traffic-light random-wander paths, party-look jump/route terminal paths,
+cast-scroll event 801, Threed escaper late-route tails, and NPC-attention arc
+tails are now source-backed. The checked-in C3 source-pilot frontier currently
+has `0` remaining candidate bytes and `0` frontier gaps, so the next C3 work is
+semantic polish rather than raw source-pilot coverage.
 
 ## For Romhackers
 
