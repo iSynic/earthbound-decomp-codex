@@ -22,6 +22,11 @@ eventually reassemblable without guessing.
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md` (`0` remaining
   candidate bytes)
+- Event/actionscript integration scaffold:
+  `src/c3/bank_c3_event_scripts_source_pilot.asar.asm`
+- Whole-bank C3 source-pilot scaffold:
+  `src/c3/bank_c3_helpers_source_pilot.asar.asm` (`11` protected ranges,
+  `0` mismatches)
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source
@@ -175,6 +180,16 @@ High-value callback families:
 
 Status: 140 pilots complete. The current source-pilot frontier reports `0`
 remaining candidate bytes.
+
+The integration scaffold is also proven:
+
+- `notes/c3-event-script-source-scaffold.md`: all validated C3 event/actionscript
+  source pilots assembled with `3` preserved raw gaps covering non-event or
+  source-adjacent data in `C3:0000..E450`.
+- `notes/c3-event-script-source-scaffold-validation.md`: the event/script
+  scaffold validates `C3:0000..E450` with `0` mismatches.
+- `notes/c3-source-pilot-bank-validation.md`: the whole-bank scaffold variant
+  validates all `11` C3 protected ranges with `0` mismatches.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.

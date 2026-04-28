@@ -65,6 +65,12 @@ tails are now source-backed. The checked-in C3 source-pilot frontier currently
 has `0` remaining candidate bytes and `0` frontier gaps, so the next C3 work is
 semantic polish rather than raw source-pilot coverage.
 
+C3 also has a whole-bank source-pilot scaffold variant:
+`src/c3/bank_c3_helpers_source_pilot.asar.asm`. It assembles the validated
+event/actionscript scaffold for `C3:0000..E450` plus the existing C3 native/data
+tail modules, and currently validates byte-equivalent across all `11` protected
+C3 ranges with `0` mismatches.
+
 ## For Romhackers
 
 This repo should be useful if you want to answer questions like:
