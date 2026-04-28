@@ -44,6 +44,25 @@ Current first-pass index scope:
 - local `build/data-contracts-c0-c3.json`
 - local `build/script-payloads-c3.json`
 
+Additional ignored refs that are useful but not currently part of the generated
+index:
+
+- `refs/starmen-earthbound-script/EarthBound_Script_Symbolized.txt`: Starmen's
+  symbolized text-script dump. Prefer this version for evidence: it preserves
+  control codes that explain where and how text appears, and it includes some
+  unused lines that are missing from Tomato's older text dumps. Use it to
+  correlate queued text pointers, `MSG_EVT_*` names, event flags, and
+  higher-level text control flow.
+- `refs/starmen-earthbound-script/script.txt`: raw companion text-script dump.
+- `refs/starmen-earthbound-script/script.htm`: text script without control
+  nodes, useful for quickly checking dialogue wording but not sufficient as the
+  sole source of context.
+
+These Starmen files describe EarthBound text scripts, not C3 event/actionscript
+bytecode. They should accelerate C5-C9/EF text-command work and help explain C3
+`ActionScript_QueueTextPointer` targets, but they should not be treated as opcode
+evidence for the C3 action VM.
+
 ## Lookup loop
 
 Before starting a new chunk, run:
