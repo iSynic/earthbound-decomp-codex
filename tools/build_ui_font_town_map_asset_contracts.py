@@ -72,6 +72,15 @@ FAMILIES: dict[str, dict[str, Any]] = {
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
     },
+    "sram_save_template": {
+        "label": "Compressed SRAM save-block template",
+        "runtime_contract": "E0:09B4 decompresses to eight 0x500-byte save_block records with the HAL Laboratory signature and the ebsrc save_header/game_state/party/event-flag section shape.",
+        "portable_contract": "Expose as a save-template bundle with compressed ROM provenance plus decoded block inventory; split into individual save-block records only if a future installer/editor wants structured seed slots.",
+        "docs": [
+            "notes/sram-template-contracts.md",
+            "notes/bank-e0-asset-data-map.md",
+        ],
+    },
     "audio_pack_tails": {
         "label": "Embedded audio pack tails",
         "runtime_contract": "E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family.",
@@ -145,7 +154,7 @@ def classify(asset: dict[str, Any]) -> str:
     if asset_id.startswith("table.e1.000") or "credits" in asset_id or "photographer" in asset_id or "cast_sequence" in asset_id:
         return "flyover_credits_photo_tables"
     if "compressed_sram" in asset_id:
-        return "unresolved_ui_binary_payloads"
+        return "sram_save_template"
     if "font" in asset_id or "font" in title or "romaji" in asset_id or "mrsaturn" in asset_id:
         return "font_sets"
     if "text_window" in asset_id or "flavoured_text" in asset_id or "movement_text_string_palette" in notes_text(asset).lower():
@@ -274,6 +283,11 @@ def build_contract() -> dict[str, Any]:
                 "source": "notes/intro-title-visual-bundle-contracts.md",
                 "shape": "E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail.",
             },
+            {
+                "id": "sram_save_template",
+                "source": "notes/sram-template-contracts.md",
+                "shape": "E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding.",
+            },
         ],
         "subrange_contracts": [
             {
@@ -353,7 +367,7 @@ def build_contract() -> dict[str, Any]:
         "next_open_questions": [
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
             "Pin the visible identity of text-window palette block 6.",
-            "Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.",
+            "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
             "Promote E1:AE7C, E1:CE08, and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
         ],

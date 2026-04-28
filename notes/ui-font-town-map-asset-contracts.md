@@ -8,7 +8,7 @@ No ROM-derived payloads are checked in by this report.
 
 - assets/tables/gaps represented: `68`
 - source bytes represented: `131072`
-- contract families: `8`
+- contract families: `9`
 - missing payload metadata units: `5`
 
 ## Family Contracts
@@ -20,8 +20,9 @@ No ROM-derived payloads are checked in by this report.
 | Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
 | Intro, logo, title, and attract visuals | 28 | 37314 | 4 | `graphics` 27, `binary-asset` 1 | `earthbound_lzhal` 28, `raw` 28, `earthbound_lzhal_snes_4bpp_tiles_png` 9, `earthbound_lzhal_snes_palette_json` 9, `earthbound_lzhal_snes_palette_swatch_png` 9 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
 | Flyover, credits, cast, and photographer tables | 11 | 13838 | 0 | `raw-table` 7, `graphics` 4 | `raw` 11, `earthbound_lzhal` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 2, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
+| Compressed SRAM save-block template | 1 | 2469 | 1 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records with the HAL Laboratory signature and the ebsrc save_header/game_state/party/event-flag section shape. |
 | Embedded audio pack tails | 3 | 7457 | 0 | `audio` 3 | `raw` 3 | E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family. |
-| Unresolved UI-adjacent binary payloads | 1 | 2469 | 1 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
+| Unresolved UI-adjacent binary payloads | 0 | 0 | 0 | - | - | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
 | Bank-end padding and raw gaps | 2 | 91 | 0 | `raw-gap` 2 | `raw` 2 | Bank-end raw gaps are byte-protected scaffold/padding ranges, not active UI contracts. |
 
 ## Known Runtime Shapes
@@ -32,6 +33,7 @@ No ROM-derived payloads are checked in by this report.
 - `font_metric_pairs`: Main, Mr. Saturn, large, battle, and tiny fonts each have a 96-byte metric table matched to EBDecomp width refs and paired with raw 4bpp glyph graphics; battle and tiny share the same first-96 metrics but use different graphics sizes. Source: `notes/font-bundle-contracts.md`.
 - `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows. Source: `notes/text-window-skin-bundle-contracts.md`.
 - `intro_title_visual_bundles`: E1 intro/title payloads now split into seven scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, title screen, and the death-screen visual tail. Source: `notes/intro-title-visual-bundle-contracts.md`.
+- `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding. Source: `notes/sram-template-contracts.md`.
 
 ## Runtime Subrange Contracts
 
@@ -166,6 +168,15 @@ No ROM-derived payloads are checked in by this report.
 | `table.e1.041_data_unknown_e1ce08_asm` | `E1:CE08..E1:CFAF` | 423 | `raw` | raw-table |
 | `table.e1.051_data_unknown_e1e924_asm` | `E1:E924..E1:EA50` | 300 | `raw` | raw-table |
 
+### Compressed SRAM save-block template
+
+- portable contract: Expose as a save-template bundle with compressed ROM provenance plus decoded block inventory; split into individual save-block records only if a future installer/editor wants structured seed slots.
+- checked docs: `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`
+
+| Asset | Range | Bytes | Outputs | Notes |
+| --- | --- | ---: | --- | --- |
+| `asset.e0.compressed_sram` | `E0:09B4..E0:1359` | 2469 | `raw`, `earthbound_lzhal` | 1 missing yml metadata unit(s) |
+
 ### Embedded audio pack tails
 
 - portable contract: Keep as raw audio packs until the audio-pack/sample/sequence boundary is chosen.
@@ -184,7 +195,6 @@ No ROM-derived payloads are checked in by this report.
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
-| `asset.e0.compressed_sram` | `E0:09B4..E0:1359` | 2469 | `raw`, `earthbound_lzhal` | 1 missing yml metadata unit(s) |
 
 ### Bank-end padding and raw gaps
 
@@ -199,6 +209,6 @@ No ROM-derived payloads are checked in by this report.
 
 - Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
 - Pin the visible identity of text-window palette block 6.
-- Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.
+- Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.
 - Promote E1:AE7C, E1:CE08, and E1:CFAF..D6E1 from scene-bundle ownership to exact field-level roles.
 - Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.
