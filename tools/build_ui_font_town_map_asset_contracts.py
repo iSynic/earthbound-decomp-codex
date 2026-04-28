@@ -26,6 +26,7 @@ FAMILIES: dict[str, dict[str, Any]] = {
         "runtime_contract": "C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data.",
         "portable_contract": "Expose as a window skin bundle: graphics, property rows, flavour palettes, and movement-text palette rows.",
         "docs": [
+            "notes/text-window-skin-bundle-contracts.md",
             "notes/text-window-rendering-primitives-c1078d-c10d7c.md",
             "notes/active-window-text-tile-pair-placement-c44c8c.md",
             "notes/text-token-glyph-run-stager-c44b3a-c44e61.md",
@@ -260,8 +261,37 @@ def build_contract() -> dict[str, Any]:
                 "source": "asset-manifests/bank-e0-assets.json and asset-manifests/bank-e1-assets.json",
                 "shape": "Main, battle, tiny, large, and Mr. Saturn font data are 96-byte metric tables paired with glyph graphics; romaji and credits fonts are graphics-only until caller-specific metrics are proven.",
             },
+            {
+                "id": "text_window_skin_bundle",
+                "source": "notes/text-window-skin-bundle-contracts.md",
+                "shape": "E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows.",
+            },
         ],
         "subrange_contracts": [
+            {
+                "id": "text_window_flavor_selector_table",
+                "family": "text_window_skin",
+                "range": "E0:1FB9..E0:1FC8",
+                "status": "runtime-corroborated",
+                "contract": "Five 3-byte selector records; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8 for the current text-window flavour.",
+                "evidence": "notes/text-window-skin-bundle-contracts.md validates the offsets against EBDecomp flavour names and the local C1/C4 callers.",
+            },
+            {
+                "id": "text_window_palette_blocks",
+                "family": "text_window_skin",
+                "range": "E0:1FC8..E0:2188",
+                "status": "runtime-corroborated",
+                "contract": "Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours and block 5 is the documented lead-entity override.",
+                "evidence": "C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218.",
+            },
+            {
+                "id": "movement_text_string_palette",
+                "family": "text_window_skin",
+                "range": "E0:2188..E0:2190",
+                "status": "structural-split",
+                "contract": "Standalone eight-byte movement-text palette row after the seven window palette blocks.",
+                "evidence": "notes/bank-e0-asset-data-map.md identifies this source include as covered by the combined generated E0 table span.",
+            },
             {
                 "id": "town_map_gfx_pointer_table",
                 "family": "town_maps",
@@ -313,7 +343,8 @@ def build_contract() -> dict[str, Any]:
         ],
         "derived_town_map_tables": town_map_tables,
         "next_open_questions": [
-            "Split E0 text_window_properties into row-level window skin fields.",
+            "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
+            "Pin the visible identity of text-window palette block 6.",
             "Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.",
             "Resolve the E1 intro/title UNKNOWN_* compressed payloads into scene-specific graphics, palette, or arrangement roles.",
             "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",

@@ -30,11 +30,15 @@ No ROM-derived payloads are checked in by this report.
 - `town_map_icon_records`: E1:F491 points to five-byte icon records: x, y, icon id, and event flag word with high-bit polarity. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `town_map_icon_animation`: E1:F44C maps town-map icon ids, E1:F47A suppresses blink-phase icons, and C4:D2A8 cycles CGRAM entries 0x81..0x86. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `font_metric_pairs`: Main, battle, tiny, large, and Mr. Saturn font data are 96-byte metric tables paired with glyph graphics; romaji and credits fonts are graphics-only until caller-specific metrics are proven. Source: `asset-manifests/bank-e0-assets.json and asset-manifests/bank-e1-assets.json`.
+- `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows. Source: `notes/text-window-skin-bundle-contracts.md`.
 
 ## Runtime Subrange Contracts
 
 | Subrange | Range | Status | Contract | Evidence |
 | --- | --- | --- | --- | --- |
+| `text_window_flavor_selector_table` | `E0:1FB9..E0:1FC8` | `runtime-corroborated` | Five 3-byte selector records; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8 for the current text-window flavour. | notes/text-window-skin-bundle-contracts.md validates the offsets against EBDecomp flavour names and the local C1/C4 callers. |
+| `text_window_palette_blocks` | `E0:1FC8..E0:2188` | `runtime-corroborated` | Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours and block 5 is the documented lead-entity override. | C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218. |
+| `movement_text_string_palette` | `E0:2188..E0:2190` | `structural-split` | Standalone eight-byte movement-text palette row after the seven window palette blocks. | notes/bank-e0-asset-data-map.md identifies this source include as covered by the combined generated E0 table span. |
 | `town_map_gfx_pointer_table` | `E0:2190..E0:21A8` | `runtime-corroborated` | Six-entry town-map graphics pointer table consumed by C4:D553 before decompressing the selected E0 town-map payload. | C4:D553 indexes E0:2190 from the zero-based town-map id in notes/town-map-selection-rendering-c4d274-c4d744.md. |
 | `town_map_icon_graphic_descriptor_lists` | `E1:F203..E1:F44C` | `structural-runtime-corroborated` | Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records, selected by the E1:F44C icon-id pointer table. | The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table. |
 | `town_map_icon_graphic_pointer_table` | `E1:F44C..E1:F47A` | `runtime-corroborated` | Twenty-three 16-bit local pointers mapping town-map icon ids to E1:F203 five-byte graphics descriptor lists. | C4 town-map overlay/static renderers map icon ids through E1:F44C. |
@@ -62,7 +66,7 @@ No ROM-derived payloads are checked in by this report.
 ### Text window skins and text palettes
 
 - portable contract: Expose as a window skin bundle: graphics, property rows, flavour palettes, and movement-text palette rows.
-- checked docs: `notes/text-window-rendering-primitives-c1078d-c10d7c.md`, `notes/active-window-text-tile-pair-placement-c44c8c.md`, `notes/text-token-glyph-run-stager-c44b3a-c44e61.md`
+- checked docs: `notes/text-window-skin-bundle-contracts.md`, `notes/text-window-rendering-primitives-c1078d-c10d7c.md`, `notes/active-window-text-tile-pair-placement-c44c8c.md`, `notes/text-token-glyph-run-stager-c44b3a-c44e61.md`
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
@@ -192,7 +196,8 @@ No ROM-derived payloads are checked in by this report.
 
 ## Next Open Questions
 
-- Split E0 text_window_properties into row-level window skin fields.
+- Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
+- Pin the visible identity of text-window palette block 6.
 - Name the exact role of COMPRESSED_SRAM/E0:09B4 after caller corroboration.
 - Resolve the E1 intro/title UNKNOWN_* compressed payloads into scene-specific graphics, palette, or arrangement roles.
 - Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.
