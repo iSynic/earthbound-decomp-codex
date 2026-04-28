@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `33` families, `11087` validated
+- Current source-form event/actionscript pilots: `37` families, `11291` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: thirty-three pilots complete.
+Status: thirty-seven pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -300,6 +300,21 @@ Status: thirty-three pilots complete.
 - `notes/c3-tunnel-ghost-warp-text-helpers-source-pilot.md`: high-ranked
   frontier seam covering the compact tunnel-ghost text helpers used by ebsrc
   scripts 87, 88, and 96, `C3:BAA3..C3:BAD7`, `52` validated bytes.
+- `notes/c3-movement-vector-core-helpers-source-pilot.md`: high-ranked
+  frontier seam covering common movement-vector helpers, including direction
+  vector installation, default movement physics/pulse/collision setup, simple
+  screen-position callbacks, active-target direction refresh, and movement wait
+  completion, `C3:AA1E..C3:AA38` and `C3:AB37..C3:AB67`, `74` validated bytes.
+- `notes/c3-facing-pulse-helpers-source-pilot.md`: high-ranked frontier seam
+  covering paired two-cycle facing pulse helpers used by nearby scripts 717,
+  724, 729, 741, 742, 744, and 755, `C3:7545..C3:756D`, `40` validated bytes.
+- `notes/c3-teleport-flyover-pulse-helpers-source-pilot.md`: high-ranked
+  frontier seam covering compact teleport/flyover pulse helpers around the
+  already-promoted teleport families, `C3:C810..C3:C824` and `C3:CC94..C3:CCB5`,
+  `53` validated bytes.
+- `notes/c3-sky-runner-electric-effect-helpers-source-pilot.md`: high-ranked
+  frontier seam covering the Sky Runner electric-effect spawn/rise helper pair,
+  `C3:CEA2..C3:CEC7`, `37` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -338,6 +353,10 @@ Candidate/follow-up families for this milestone:
 - `C3:1D2D..C3:1D4F` and `C3:1EC1..C3:1EEF` V4 animation/side-step helpers - pilot complete
 - `C3:3BFB..C3:3C1D` window-gfx loader prologue - pilot complete
 - `C3:BAA3..C3:BAD7` tunnel ghost warp/text helpers - pilot complete
+- `C3:AA1E..C3:AA38` and `C3:AB37..C3:AB67` movement-vector core helpers - pilot complete
+- `C3:7545..C3:756D` facing pulse helpers - pilot complete
+- `C3:C810..C3:C824` and `C3:CC94..C3:CCB5` teleport/flyover pulse helpers - pilot complete
+- `C3:CEA2..C3:CEC7` Sky Runner electric-effect helpers - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
 - `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
@@ -375,11 +394,12 @@ fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
 paths, bus-tunnel bridge paths, animation-port flag switch, leftward bounds
 release paths, animation-port direction tasks, rightward live-area bounce/yield,
 V4 animation/side-step helpers, window-gfx loader prologue, tunnel-ghost warp
-text helpers, and var0 animation/collision-probe, area-wait/random-wander,
-teleport/flyover coordinate, Threed fight Matent, position door-close helpers,
-and position/text-yield paths now have
+text helpers, movement-vector core helpers, facing pulse helpers,
+teleport/flyover pulse helpers, Sky Runner electric-effect helpers, and var0
+animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
+Threed fight Matent, position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:CEA2..C3:CEB9` as the best ready seam;
+`C3:0C55..C3:0C67` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
