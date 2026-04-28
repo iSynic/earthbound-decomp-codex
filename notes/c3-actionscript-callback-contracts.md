@@ -30,6 +30,7 @@ The regenerated audit currently buckets `85` native callback contract seeds:
 | `current-slot-state` | helpers that read/write current-slot script fields, anchors, or staged values |
 | `movement` | direction, angle, vector, and movement-timer helpers |
 | `collision` | footprint, terrain, and neighbor-cache collision refresh helpers |
+| `entity-spawn` | script helpers that spawn or initialize entities from current-slot context |
 | `text-presentation` | text handoff, queued text pointer, and yield-to-text helpers |
 | `presentation-render` | C4 render/presentation callbacks that support visual script effects |
 | `neighbor-cache` | explicit `$289E[current_slot]` cache sentinel helpers |
@@ -72,15 +73,19 @@ EVENT_UNKNOWN_C05E76 $F1, UNKNOWN_C064A6
 ```
 
 That means the remaining C3 callback work is semantic polish rather than byte
-shape discovery. Good next targets:
+shape discovery. The live C3 wrapper seeds have already absorbed the C4 names
+for current-slot stepping, facing other resolved slots toward the current slot,
+area-bounds setup, and current-anchor entity spawning.
 
-- promote `C0:A912`, `C0:A9B3`, `C0:A9CF`, `C0:A9EB`, `C0:AA07`,
-  `C0:AA23`, and `C0:AAB5` from structural wrapper fields to final gameplay
-  role names
-- rename generic `presentation-render` wrappers that still mirror callee
-  addresses instead of final script intent
-- keep cross-linking script-family notes to recovered localization script
-  source where the symbolic labels give us object/person/actionscript context
+Good next targets:
+
+- promote callback-free script families with localization source context, so
+  the event rows are described by object/person/actionscript role rather than
+  only bytecode shape
+- carry these promoted names back into any source scaffolds or macro aliases
+  that still show legacy `UNKNOWN_*` labels
+- continue naming unused C0 wrapper entries, but treat them as broader C0
+  polish unless they appear in the C3 callback audit
 
 Those refinements will make C3 scripts more readable to ROM hackers without
 changing the already byte-equivalent source scaffold.

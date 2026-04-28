@@ -15,7 +15,7 @@ Generated from `notes/c3-source-data-map.md` via `tools/build_c3_actionscript_se
 
 - top first opcodes: `{'$42 EVENT_CALLROUTINE': 49, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2, '$39 EVENT_SET_VELOCITIES_ZERO': 2}`
 - top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 26, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 15, 'C0:A65F': 10, 'C4:6E46': 8, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A88D': 5, 'C0:A68B': 4, 'C0:D98F': 4}`
-- callback semantic groups: `{'current-slot-state': 17, 'visual-profile': 10, 'overworld-runtime': 10, 'presentation-render': 10, 'timed-delivery': 9, 'movement': 7, 'text-presentation': 6, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'event-flag': 2, 'world-state-restore': 2, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
+- callback semantic groups: `{'current-slot-state': 17, 'movement': 11, 'visual-profile': 10, 'timed-delivery': 9, 'presentation-render': 8, 'overworld-runtime': 7, 'text-presentation': 6, 'collision': 4, 'battle-runtime': 2, 'neighbor-cache': 2, 'event-flag': 2, 'world-state-restore': 2, 'entity-spawn': 1, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
 - unknown callback targets: `{}`
 - top C3 script targets: `{'C3:A204': 19, 'C3:AB59': 17, 'C3:A111': 7, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AA38': 4, 'C3:A1F3': 4, 'C3:A262': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:43DB': 3, 'C3:443E': 3, 'C3:44FF': 3, 'C3:AB26': 3, 'C3:5F8B': 3, 'C3:A052': 3}`
 
@@ -60,19 +60,19 @@ No syntactic decode frontiers at the current bounds.
 | `EF:0F60` | `CheckDeliveryServiceReadyForArrival` | `timed-delivery` | 2 | 0 | `-` | test delivery/service readiness against busy state and controller latches | `byte-count-known` |
 | `EF:0DFA` | `QueueCurrentDeliveryPointer2` | `timed-delivery` | 2 | 0 | `-` | queue current delivery row pointer 2 as deferred queue type #$000A | `byte-count-known` |
 | `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A959` | `ScriptWrapper_C469F1_ReadWord` | `presentation-render` | 2 | 2 | `c469f1_selector_word` | read one script word and forward it to C4:69F1 | `byte-count-known` |
-| `C0:A98B` | `ScriptWrapper_C46534_ReadThreeWords` | `presentation-render` | 2 | 4 | `c46534_arg0_word, c46534_arg1_word` | read two script words and forward them to C4:6534; callee consumes the staged third value | `byte-count-known` |
+| `C0:A959` | `FacePoseDescriptorSlotTowardCurrentSlot_ReadWord` | `presentation-render` | 2 | 2 | `pose_descriptor_id_word` | read one pose-descriptor id word, resolve that slot, and face it toward the current slot | `byte-count-known` |
+| `C0:A98B` | `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords` | `entity-spawn` | 2 | 4 | `entity_visual_type_word, entity_initializer_word` | read two entity initializer words and spawn or initialize an entity at the current slot anchor | `byte-count-known` |
 | `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `display_control_bits_byte` | read one display-control byte and store it to current slot field $2BAA | `byte-count-known` |
 | `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A84C` | `ScriptWrapper_C21628_ReadWord` | `event-flag` | 2 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
+| `C0:A84C` | `ActionScript_TestEventFlag_ReadWord` | `event-flag` | 2 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
 | `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:D5B0` | `Gate_NpcAttentionCoordinatorFromScript` | `overworld-runtime` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A8DC` | `ScriptWrapper_C47143_Mode01` | `overworld-runtime` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A8DC` | `StepCurrentSlotTowardCachedTarget_NoFacingRefresh` | `movement` | 2 | 0 | `-` | step current slot toward cached target without refreshing the current slot facing selector, and report arrival | `byte-count-known` |
 | `C4:6E74` | `CheckStagedPositionWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test staged position against the player proximity threshold | `byte-count-known` |
 | `C4:8B3B` | `MakePartyLookAtActiveEntityCallback` | `party-facing` | 2 | 0 | `-` | make party members face or track the active entity | `byte-count-known` |
-| `C0:A8C6` | `ScriptWrapper_C47143_Mode00` | `overworld-runtime` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A8C6` | `StepCurrentSlotTowardCachedTarget` | `movement` | 2 | 0 | `-` | step current slot toward cached target through C4:7143 and report arrival | `byte-count-known` |
 | `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | `teleport_destination_selector_byte` | read one teleport-destination selector byte and prepare a new entity at that destination | `byte-count-known` |
 | `C0:9FBB` | `ActionScript_FadeOutWrapper` | `presentation-render` | 2 | 2 | `fadeout_effect_word` | read one fade-out effect word and pass it to C0:887A | `byte-count-known` |
 | `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
@@ -98,17 +98,17 @@ No syntactic decode frontiers at the current bounds.
 | `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:5E76` | `Update_CurrentSlotCollisionCache` | `collision` | 1 | 4 | `collision_probe_mode_byte, neighbor_cache_callback_long` | refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer | `byte-count-known` |
-| `C0:A964` | `ScriptWrapper_C47225_ReadTwoWords` | `presentation-render` | 1 | 4 | `c47225_arg0_word, c47225_arg1_word` | read two script words and forward them to C4:7225 | `byte-count-known` |
+| `C0:A964` | `SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords` | `movement` | 1 | 4 | `radius_x_word, radius_y_word` | read X/Y radius words and build an area-bounds rectangle around the current slot | `byte-count-known` |
 | `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | `collision` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:5ECE` | `Update_CurrentSlotCollisionCache_FromHorizontalEdges` | `collision` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C0:D59B` | `Check_NpcAttentionCoordinatorActive` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:6B37` | `RotateDirectionOctantHalfTurn` | `movement` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A8D1` | `ScriptWrapper_C47143_Mode10` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A857` | `ScriptWrapper_C2165E_ReadWordPreserveMode` | `event-flag` | 1 | 2 | `event_flag_word` | preserve incoming mode in X, read one script word, and call C2:165E | `byte-count-known` |
+| `C0:A8D1` | `StepCurrentSlotTowardCachedTarget_WithHalfTurnFacing` | `movement` | 1 | 0 | `-` | step current slot toward cached target, applying the C4:7143 half-turn facing postprocess | `byte-count-known` |
+| `C0:A857` | `ActionScript_SetOrClearEventFlag_ReadWordPreserveMode` | `event-flag` | 1 | 2 | `event_flag_word` | preserve incoming mode in X, read one script word, and call C2:165E | `byte-count-known` |
 | `C4:7333` | `ReadActiveOverworldRegistryCount` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
 | `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A94E` | `ScriptWrapper_C46984_ReadWord` | `presentation-render` | 1 | 2 | `c46984_selector_word` | read one script word and forward it to C4:6984 | `byte-count-known` |
+| `C0:A94E` | `FaceVisualTypeSlotTowardCurrentSlot_ReadWord` | `presentation-render` | 1 | 2 | `visual_type_id_word` | read one visual-type id word, resolve that slot, and face it toward the current slot | `byte-count-known` |
 | `C0:A86F` | `Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord` | `current-slot-state` | 1 | 2 | `pose_descriptor_slot_word` | read one script word and copy that pose-descriptor slot anchor to current slot state | `byte-count-known` |
 | `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | `direction_class_byte` | read one direction/visual class byte, apply it when active, and store it to current slot field $1A86 | `byte-count-known` |
 | `C0:9451` | `RestoreSavedCoordinateState` | `world-state-restore` | 1 | 0 | `-` | restore saved coordinate/world state after transitions or script presentation | `byte-count-known` |
@@ -1111,7 +1111,7 @@ C3:A386  07 11 A1             EVENT_START_TASK $C3:A111 <LoopActiveEntityWalkPul
 C3:A389  07 62 A2             EVENT_START_TASK $C3:A262 <LoopActiveEntityCollisionProbeRefresh>
 C3:A38C  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:A390  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, $00, $01
-C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <ScriptWrapper_C47225_ReadTwoWords>, $08, $00, $08, $00
+C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords>, $08, $00, $08, $00
 C3:A39E  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovementWithRandomWait>
 ```
 
@@ -1497,7 +1497,7 @@ C3:AB58  1B                   EVENT_SHORT_RETURN
 ```text
 C3:AB59  1A 44 AB             EVENT_SHORTCALL $C3:AB44 <RefreshActiveEntityDirectionAndVisualProfile>
 C3:AB5C  06 01                EVENT_PAUSE $01
-C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <ScriptWrapper_C47143_Mode01>
+C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <StepCurrentSlotTowardCachedTarget_NoFacingRefresh>
 C3:AB62  0A 5C AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB5C <DATA_C3AB5C>
 C3:AB65  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB66  1B                   EVENT_SHORT_RETURN
