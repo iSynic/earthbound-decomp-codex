@@ -52,6 +52,14 @@ The fuller recovered-source syntax profile at
 `notes/localization-authoring-command-frontier.md` now tracks `202` unique
 authoring commands, with `80` conservative runtime hints and every remaining
 command assigned to a macro-family bucket; `0` commands remain unclassified.
+The expansion-model queue at `notes/localization-macro-expansion-frontier.md`
+splits those commands into `80` direct runtime hints and `122` macro/markup
+commands that need expansion models before text scripts become truly
+reassembly-friendly.
+The first source-macro lane now has command-only context in
+`notes/localization-control-macro-context.md`: `15` control macros, `1904`
+hits, and an initial expansion model in
+`notes/localization-control-macro-expansion-model.md`.
 
 ## Public Good-Enough Definition
 
@@ -161,7 +169,10 @@ that romhackers need to edit confidently:
    `notes/text-script-assets-frontier.md` is the active work queue for this
    lane. It separates real runtime-only C1 leaves from parser-only
    compressed-bank pseudo-opcodes, likely parser artifacts, and recovered
-   localization authoring commands that still need classification.
+   localization authoring commands that still need classification. Use
+   `notes/localization-macro-expansion-frontier.md` for the follow-up source
+   macro expansion queue; `notes/localization-control-macro-context.md` is the
+   first concrete lane for control/register/branch macro lowering.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

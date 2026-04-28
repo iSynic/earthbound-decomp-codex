@@ -110,6 +110,19 @@
   bucketed as formatting, branch/control macros, display macros, movement,
   inventory, query, status, battle, or authoring macro candidates. The
   still-needs-classification bucket is now `0`.
+- `tools/build_localization_macro_expansion_frontier.py` now generates
+  `notes/localization-macro-expansion-frontier.md` and
+  `build/localization-macro-expansion-frontier.json`. This is the active
+  expansion-model queue for recovered `.MSG` source syntax: `80` direct
+  runtime hints and `122` macro/markup commands across `10` expansion lanes,
+  led by authoring-format markup, event/actionscript joins, and text-VM
+  control macros.
+- `tools/build_localization_control_macro_context.py` now generates
+  `notes/localization-control-macro-context.md` and
+  `build/localization-control-macro-context.json`. This starts the first macro
+  expansion lane with command-name-only context for `15` text-VM control
+  macros and `1904` hits. The initial hand-written expansion model is
+  `notes/localization-control-macro-expansion-model.md`.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -280,6 +293,8 @@ The active milestone view is generated at
 separate buckets: real runtime leaves, parser-only compressed-bank
 pseudo-opcodes, likely parser artifacts, and recovered authoring syntax that
 may be metadata or macro expansion rather than a direct VM opcode.
+The authoring syntax expansion queue is generated at
+`notes/localization-macro-expansion-frontier.md`.
 
 Best candidates after C3's good-enough semantics milestone:
 
@@ -317,6 +332,10 @@ The first pass should target text-command semantics and authoring syntax:
   `EDEBUG`, `ENEWS`, `EHINT`, and `EBATTLE8`
 - classify high-count recovered `.MSG` commands into direct VM mappings,
   authoring-only metadata, and macro expansions
+- use `notes/localization-macro-expansion-frontier.md` to prioritize macro
+  expansion models, starting with text-VM control macros
+- use `notes/localization-control-macro-context.md` to prove one source macro
+  lowering pattern at a time
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.
