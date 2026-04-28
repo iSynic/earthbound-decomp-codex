@@ -22,6 +22,8 @@ The current strongest split is:
 
 The generated context report is
 `notes/localization-control-macro-context.md`.
+The generated pattern report is
+`notes/localization-control-macro-patterns.md`.
 
 ## Local VM Anchors
 
@@ -55,6 +57,17 @@ The generated context shows the center of gravity:
 - `@LOAD_REG` / `@SAVE_REG` / `@SET_REG`: frequent context-staging helpers
   adjacent to `@EQ`, `@XCHG`, display commands, inventory commands, and
   branches
+
+The generated pattern report sharpens that into command-sequence evidence:
+
+- `@CMP > @ONGOSUB` and `@ONGOSUB > @CMP`: `254` adjacent hits each, all in
+  `EDEBUG.MSG`, making this the clearest compare/table-call proof case.
+- `@SET_LOOPREG > @GOSUB`: `191` adjacent hits across `31` files, with a
+  second `@SET_LOOPREG > @SET_LOOPREG` motif at `77` hits. This supports a
+  source-level staging/loop initializer read rather than a new runtime opcode.
+- `@DSP_ITEM > @SELGOTO`: `188` adjacent hits across `35` files, followed by
+  prompt/jump-style continuations such as `@KEY`, `@GOTO`, and `@KEYNP`.
+  This supports treating `@SELGOTO` as selection-result branch syntax.
 
 This strongly suggests a compiler-like authoring layer: the source macros stage
 or compare small values, then expand into existing text VM branch/call helpers.
@@ -95,8 +108,9 @@ text VM primitives.
 
 ## Next Manual Proof
 
-The next best proof is to pick one high-frequency source pattern and build a
-command-sequence-only expansion note for it:
+The command-sequence-only proof is now generated. The next best proof is to
+choose one high-frequency motif and write its lowering hypothesis against the
+documented bank-`01` text VM commands:
 
 1. `@SET_LOOPREG` followed by repeated `@GOSUB`
 2. `@CMP` paired with `@ONGOSUB`

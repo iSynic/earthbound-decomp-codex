@@ -59,7 +59,10 @@ reassembly-friendly.
 The first source-macro lane now has command-only context in
 `notes/localization-control-macro-context.md`: `15` control macros, `1904`
 hits, and an initial expansion model in
-`notes/localization-control-macro-expansion-model.md`.
+`notes/localization-control-macro-expansion-model.md`. The follow-up pattern
+report at `notes/localization-control-macro-patterns.md` scans `685` recovered
+source records, finds `180` records with control macros, and isolates `1246`
+focus-motif hits without checking in dialogue or full source records.
 
 ## Public Good-Enough Definition
 
@@ -172,7 +175,10 @@ that romhackers need to edit confidently:
    localization authoring commands that still need classification. Use
    `notes/localization-macro-expansion-frontier.md` for the follow-up source
    macro expansion queue; `notes/localization-control-macro-context.md` is the
-   first concrete lane for control/register/branch macro lowering.
+   first concrete lane for control/register/branch macro lowering, with
+   `notes/localization-control-macro-patterns.md` now providing local motif
+   evidence for `@CMP > @ONGOSUB`, `@SET_LOOPREG > @GOSUB`, and selection
+   branch macros.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

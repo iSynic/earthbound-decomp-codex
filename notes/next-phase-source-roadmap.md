@@ -123,6 +123,12 @@
   expansion lane with command-name-only context for `15` text-VM control
   macros and `1904` hits. The initial hand-written expansion model is
   `notes/localization-control-macro-expansion-model.md`.
+- `tools/build_localization_control_macro_patterns.py` now generates
+  `notes/localization-control-macro-patterns.md` and
+  `build/localization-control-macro-patterns.json`. This keeps recovered
+  dialogue/source payloads ignored while extracting command-window, pair,
+  triple, and motif evidence from `685` source records; the current report has
+  `180` records with control macros and `1246` focus-motif hits.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -336,6 +342,9 @@ The first pass should target text-command semantics and authoring syntax:
   expansion models, starting with text-VM control macros
 - use `notes/localization-control-macro-context.md` to prove one source macro
   lowering pattern at a time
+- use `notes/localization-control-macro-patterns.md` when choosing the next
+  lowering proof; the strongest motifs are `@CMP > @ONGOSUB`,
+  `@SET_LOOPREG > @GOSUB`, and `@DSP_ITEM > @SELGOTO`
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.
