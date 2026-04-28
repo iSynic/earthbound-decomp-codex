@@ -15,6 +15,25 @@ Run `python tools/index_localization_script_source.py` to regenerate
 `notes/localization-script-source-index.md` and the ignored
 `build/localization-script-source-index.json` metadata index.
 
+Run `python tools/build_localization_script_metadata_manifest.py` for the local
+analysis manifest:
+
+- `build/localization-script-metadata-records.json`
+- `build/localization-actionscript-descriptors.tsv`
+
+Those generated files intentionally stay ignored because they preserve recovered
+source metadata values. The tracked note/index files keep only structural
+counts and workflow guidance.
+
+Current local manifest summary:
+
+- Parsed NPC-style metadata records: `653`.
+- Unique `;@ActionScript:` descriptors: `94`.
+- Unique `;@Figure:` values: `189`.
+- Unique top-level habitat prefixes: `22`.
+- Referenced symbol prefixes seen in metadata-record bodies: `ANIM`, `BGM`,
+  `FLG`, `GOODS`, `MSG`, `OBJFX`, and `PRSN`.
+
 Current local reference summary:
 
 - Archive SHA-256:
@@ -89,6 +108,9 @@ When working on C5-C9/EF text-command semantics or map-object contracts:
 - Use `tools/index_localization_script_source.py` for `;@...` metadata and
   command inventory. Extend it into a crosswalk only when joining to
   ROM-backed map-object, sprite, action-script, and message-pointer records.
+- Use `tools/build_localization_script_metadata_manifest.py` when you need a
+  local queryable manifest of records, labels, commands, symbols, and
+  `;@ActionScript:` descriptors.
 
 This clue does not change the C3 event/actionscript VM decoder directly, but it
 does strengthen the naming model for NPC behavior contracts and eventual

@@ -208,6 +208,20 @@ Summarize a command family:
 python tools/summarize_ebtext_family.py 1C --max-subcommands 22 --limit 2
 ```
 
+Index the ignored recovered localization script source without checking in
+script text:
+
+```powershell
+python tools/index_localization_script_source.py
+```
+
+Build local-only recovered-source metadata manifests for joins against map
+objects, message labels, and action-script behavior names:
+
+```powershell
+python tools/build_localization_script_metadata_manifest.py
+```
+
 Decode C3-style event/actionscript payloads:
 
 ```powershell
