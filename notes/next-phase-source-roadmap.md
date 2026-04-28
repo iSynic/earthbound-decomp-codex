@@ -148,6 +148,10 @@
 - `notes/localization-selgoto-lowering.md` is the third focused source macro
   lowering hypothesis. It treats `@SELGOTO` as source-level selection-result
   branch syntax over existing menu/display/branch Text VM primitives.
+- `notes/localization-display-inventory-aliases.md` consolidates recovered
+  display and inventory authoring commands against the existing `0x1C`,
+  `0x1D`, `0x1A`, and `0x19` Text VM families. It separates direct source
+  aliases from higher-level shop/Escargo/display source macros.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -368,8 +372,9 @@ The first pass should target text-command semantics and authoring syntax:
   `notes/localization-set-loopreg-gosub-lowering.md` plus
   `notes/localization-selgoto-lowering.md` as templates for future focused
   macro-lowering notes
-- move next to display/inventory alias consolidation against the `0x1C` and
-  `0x1D` Text VM families
+- move next to milestone closeout: confirm remaining runtime-only leaves and
+  parser artifacts are non-blocking, then mark Text VM / Localization Script
+  Semantics good enough for this phase
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.

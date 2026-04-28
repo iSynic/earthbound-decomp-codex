@@ -126,13 +126,15 @@ text VM primitives.
 ## Next Manual Proof
 
 The `@CMP > @ONGOSUB`, `@SET_LOOPREG > @GOSUB`, and `@SELGOTO` lowering
-hypotheses are now documented. The next best proof should move from
-control-flow macros to display/inventory aliases:
+hypotheses are now documented. Display/inventory aliases are split in
+`notes/localization-display-inventory-aliases.md`.
 
-1. `@DSP_ITEM`, `@DSP_NAME`, `@DSP_STS`, and `@DSP_GOODS`
-2. inventory/shop aliases such as `@GOODSIN_PLAYER` and `@GOODSOUT_PLAYER`
-3. remaining multi-argument `@ONGOSUB` / `@ONGOTO` forms if they block source
-   readability
+The next best proof should be a cleanup/closeout pass:
+
+1. mark the control-flow macro lane as phase-good-enough
+2. mark display/inventory aliases as direct VM aliases versus source macros
+3. decide whether remaining runtime-only leaves and parser artifacts need any
+   new notes before milestone 3 closes
 
 The goal is not to recover dialogue. The goal is to prove the source macro's
 lowering shape against already-documented text VM commands.

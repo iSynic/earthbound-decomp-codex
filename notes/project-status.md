@@ -73,7 +73,9 @@ hypothesis is now `notes/localization-cmp-ongosub-lowering.md`; the second is
 `@SET_LOOPREG > @GOSUB` stage-then-call motif across `31` files.
 `notes/localization-selgoto-lowering.md` documents the `@SELGOTO` selection
 branch macro as a two-target source branch over existing menu/display/branch
-VM primitives.
+VM primitives. `notes/localization-display-inventory-aliases.md` splits the
+display and inventory authoring vocabulary into direct `0x1C` / `0x1D` VM
+aliases versus higher-level shop/Escargo/display source macros.
 
 ## Public Good-Enough Definition
 
@@ -196,8 +198,9 @@ that romhackers need to edit confidently:
    `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
    syntax. `notes/localization-selgoto-lowering.md` treats `@SELGOTO` as
    source-level selection branch syntax. The next best target is
-   display/inventory alias consolidation against the `0x1C` and `0x1D` Text VM
-   families.
+   milestone closeout: confirm remaining runtime-only leaves and parser
+   artifacts are non-blocking, then mark Text VM / Localization Script
+   Semantics good enough for this phase.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning
