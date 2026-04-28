@@ -154,6 +154,51 @@ def contract_byte_length(contract: dict[str, Any]) -> int | None:
     return stride * count
 
 
+def address_offset(address: str) -> int:
+    return int(address.split(":", 1)[1], 16)
+
+
+def contract_range(contract: dict[str, Any]) -> tuple[int, int] | None:
+    size = contract_byte_length(contract)
+    address = contract.get("address")
+    if not isinstance(address, str) or size is None:
+        return None
+    start = address_offset(address)
+    return start, start + size
+
+
+def row_contract_coverage(
+    row: dict[str, Any],
+    contracts: dict[str, dict[str, Any]],
+) -> tuple[bool, bool]:
+    row_start = row.get("start")
+    row_size = row.get("size")
+    if not isinstance(row_start, int) or not isinstance(row_size, int):
+        return False, False
+    row_end = row_start + row_size
+    spans: list[tuple[int, int]] = []
+    for contract in contracts.values():
+        contract_span = contract_range(contract)
+        if contract_span is None:
+            continue
+        start, end = contract_span
+        if row_start <= start < row_end:
+            spans.append((start, min(end, row_end)))
+    spans.sort()
+    cursor = row_start
+    saw_prefix = False
+    for start, end in spans:
+        if start > cursor:
+            break
+        if start == row_start:
+            saw_prefix = True
+        if end > cursor:
+            cursor = end
+        if cursor >= row_end:
+            return True, saw_prefix
+    return False, saw_prefix
+
+
 def parse_bankconfig(path: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
@@ -223,9 +268,10 @@ def classify_row(
         return "movement-pattern-data", "export as compact movement-pattern data"
 
     if contract:
-        contract_size = contract_byte_length(contract)
-        row_size = row.get("size")
-        if isinstance(row_size, int) and isinstance(contract_size, int) and contract_size < row_size:
+        covered, saw_prefix = row_contract_coverage(row, contracts)
+        if covered:
+            return "contract-backed-data", "emit as structured ROM table spans from data-contract manifest"
+        if saw_prefix:
             return (
                 "contract-backed-data-prefix",
                 "emit leading bytes from data-contract manifest; split or preserve the remaining include tail",

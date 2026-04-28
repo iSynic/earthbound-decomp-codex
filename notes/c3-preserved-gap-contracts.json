@@ -10,7 +10,7 @@
   "summary": {
     "preserved_groups": 3,
     "preserved_bytes": 1930,
-    "segments": 36,
+    "segments": 39,
     "status": "closed-by-contract"
   },
   "groups": [
@@ -591,50 +591,98 @@
         },
         {
           "start": "C3:E3F8",
-          "end": "C3:E40E",
+          "end": "C3:E406",
           "name": "MenuCursorTilePrefixTable",
-          "classification": "raw-or-named-data",
-          "source_expectation": "tile-word data; keep cautious until direct consumer is pinned",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract MENU_CURSOR_TILE_PREFIX_TABLE",
           "evidence": [
             "notes/c3-menu-cursor-tile-data-e3f8-e450.md:25"
           ],
-          "note": "Tile/attribute words adjacent to the animated menu cursor tables.",
-          "range": "C3:E3F8..C3:E40E",
-          "size": 22,
-          "sha1": "9d274a1386c9b9860b8c381b0b7447a78e87ca3c",
-          "first_bytes": "08 09 18 19 0A 09 1A 19 15 24 16 24 15 64 41 24",
-          "last_bytes": "1A 19 15 24 16 24 15 64 41 24 8D 26 51 24 9D 26"
+          "note": "Seven tile/attribute words adjacent to the animated menu cursor tables.",
+          "range": "C3:E3F8..C3:E406",
+          "size": 14,
+          "sha1": "5ac9997a716d3f5217d44ae4df8420f97e38f7c5",
+          "first_bytes": "08 09 18 19 0A 09 1A 19 15 24 16 24 15 64",
+          "last_bytes": "08 09 18 19 0A 09 1A 19 15 24 16 24 15 64"
+        },
+        {
+          "start": "C3:E406",
+          "end": "C3:E40E",
+          "name": "AnimatedMenuCursorPointRightTiles",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract ANIMATED_MENU_CURSOR_POINT_RIGHT_TILES",
+          "evidence": [
+            "notes/c3-menu-cursor-tile-data-e3f8-e450.md:35"
+          ],
+          "note": "Legacy right-pointing animated menu cursor tile run.",
+          "range": "C3:E406..C3:E40E",
+          "size": 8,
+          "sha1": "d19b7847ce32212f525598ba1e641bcb97c2a685",
+          "first_bytes": "41 24 8D 26 51 24 9D 26",
+          "last_bytes": "41 24 8D 26 51 24 9D 26"
         },
         {
           "start": "C3:E40E",
-          "end": "C3:E41C",
+          "end": "C3:E416",
           "name": "TitleNameBufferCursorTileRun",
           "classification": "contract-backed-data",
           "source_expectation": "rom-table contract TITLE_NAME_BUFFER_CURSOR_TILE_RUN",
           "evidence": [
             "notes/c3-menu-cursor-tile-data-e3f8-e450.md:38"
           ],
-          "note": "Four title/name buffer cursor tile words plus adjacent base cursor tile data.",
-          "range": "C3:E40E..C3:E41C",
-          "size": 14,
-          "sha1": "0bfedcc69cca292a2858551b5a4e77aba6f7b303",
-          "first_bytes": "69 3A 6A 3A 6B 3A 6C 3A 14 3C 15 3C 11 BC",
-          "last_bytes": "69 3A 6A 3A 6B 3A 6C 3A 14 3C 15 3C 11 BC"
+          "note": "Four title/name buffer cursor tile words copied by the C2 title/name buffer helper.",
+          "range": "C3:E40E..C3:E416",
+          "size": 8,
+          "sha1": "144fe62789ed263b06f6d0b416fd0a97c1e45366",
+          "first_bytes": "69 3A 6A 3A 6B 3A 6C 3A",
+          "last_bytes": "69 3A 6A 3A 6B 3A 6C 3A"
         },
         {
-          "start": "C3:E41C",
-          "end": "C3:E44C",
-          "name": "BlinkingTriangleWaitFrameTiles",
+          "start": "C3:E416",
+          "end": "C3:E41C",
+          "name": "BlinkingTriangleBaseTiles",
           "classification": "contract-backed-data",
-          "source_expectation": "rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_TILES plus pointer table",
+          "source_expectation": "rom-table contract BLINKING_TRIANGLE_BASE_TILES",
           "evidence": [
             "notes/c3-menu-cursor-tile-data-e3f8-e450.md:42"
           ],
-          "note": "Four blinking/down-cursor tile frames and the pointer table selecting them.",
-          "range": "C3:E41C..C3:E44C",
-          "size": 48,
-          "sha1": "ff15e743849f77e77a4f8c642b49d331cfc00a4f",
+          "note": "Three base/down-cursor tile words before the blinking triangle wait frames.",
+          "range": "C3:E416..C3:E41C",
+          "size": 6,
+          "sha1": "10f8b632096a7bf07d91487dd0e4e9d4847e3a55",
+          "first_bytes": "14 3C 15 3C 11 BC",
+          "last_bytes": "14 3C 15 3C 11 BC"
+        },
+        {
+          "start": "C3:E41C",
+          "end": "C3:E43C",
+          "name": "BlinkingTriangleWaitFrameTiles",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_TILES",
+          "evidence": [
+            "notes/c3-menu-cursor-tile-data-e3f8-e450.md:42"
+          ],
+          "note": "Four blinking/down-cursor tile frames.",
+          "range": "C3:E41C..C3:E43C",
+          "size": 32,
+          "sha1": "590d62706d7351569e5da09694cf4e16623d8fdd",
           "first_bytes": "16 3C 6D 2E 6E 2E 16 7C 16 3C 7D 2E 7E 2E 16 7C",
+          "last_bytes": "16 3C 6D 2E 40 2C 16 7C 16 3C 40 2C 6E 2E 16 7C"
+        },
+        {
+          "start": "C3:E43C",
+          "end": "C3:E44C",
+          "name": "BlinkingTriangleWaitFramePointerTable",
+          "classification": "contract-backed-data",
+          "source_expectation": "rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE",
+          "evidence": [
+            "notes/c3-menu-cursor-tile-data-e3f8-e450.md:42"
+          ],
+          "note": "Long pointer table selecting the four blinking triangle wait frames.",
+          "range": "C3:E43C..C3:E44C",
+          "size": 16,
+          "sha1": "dd96e6babe9fe08239399b5b3e5c610853d4f42f",
+          "first_bytes": "1C E4 C3 00 24 E4 C3 00 2C E4 C3 00 34 E4 C3 00",
           "last_bytes": "1C E4 C3 00 24 E4 C3 00 2C E4 C3 00 34 E4 C3 00"
         },
         {

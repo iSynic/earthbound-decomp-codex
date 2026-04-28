@@ -38,6 +38,15 @@ C3:E434: 3C16 2C40 2E6E 7C16
 C3:E43C: C3:E41C C3:E424 C3:E42C C3:E434
 ```
 
+The whole `C3:E3F8-E44B` cursor/triangle tile corridor is now split into small ROM-table contracts:
+
+- `C3:E3F8-E405` = `MENU_CURSOR_TILE_PREFIX_TABLE`
+- `C3:E406-E40D` = `ANIMATED_MENU_CURSOR_POINT_RIGHT_TILES`
+- `C3:E40E-E415` = `TITLE_NAME_BUFFER_CURSOR_TILE_RUN`
+- `C3:E416-E41B` = `BLINKING_TRIANGLE_BASE_TILES`
+- `C3:E41C-E43B` = `BLINKING_TRIANGLE_WAIT_FRAME_TILES`
+- `C3:E43C-E44B` = `BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE`
+
 `C3:E406-E40D` matches the legacy right-pointing cursor tiles:
 
 ```text
@@ -45,7 +54,7 @@ PointRight.Top:    2441 268D
 PointRight.Bottom: 2451 269D
 ```
 
-`C3:E416-E43B` is the blinking/down cursor family. `C3:E41C`, `C3:E424`, `C3:E42C`, and `C3:E434` are four 4-word frames selected by the long pointer table at `C3:E43C`; the latter two replace one interior tile with `$2C40`, so they are partial-blank blink frames rather than separate structures.
+`C3:E416-E43B` is the blinking/down cursor family. `C3:E416-E41B` is the three-word base tile run; `C3:E41C`, `C3:E424`, `C3:E42C`, and `C3:E434` are four 4-word frames selected by the long pointer table at `C3:E43C`; the latter two replace one interior tile with `$2C40`, so they are partial-blank blink frames rather than separate structures.
 
 `C3:E40E` is already tied to the C2 title/name buffer helper: `C2:0266` copies the four words `$3A69,$3A6A,$3A6B,$3A6C` into `$8272`.
 
@@ -78,5 +87,5 @@ Decoding `C3:E44C` as code gives only two implausible direct-page operations bef
 
 ## Remaining questions
 
-- `C3:E3F8-E405` still needs a consumer-side proof. The bytes look like tile/attribute words and sit between the window configuration table and animated cursor tiles, but no exact 24-bit pointer hit has been found yet.
+- `C3:E3F8-E405` is structurally contracted as tile/attribute words, but still needs a consumer-side proof before upgrading beyond `proposed`.
 - The `C3:E44C` two-word payload needs its actual consumer before the name can be promoted beyond boundary documentation.

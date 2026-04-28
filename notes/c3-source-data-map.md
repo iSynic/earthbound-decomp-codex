@@ -8,12 +8,12 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 - addressed include rows: `193`
 - working labels: `164` (`82` internal or named-include labels)
 - script payload labels: `80` (`43` internal labels)
-- data-contract labels: `21` (`3` internal labels)
+- data-contract labels: `32` (`11` internal labels)
 - working-named addressed rows: `82`
 - script payload include-start rows: `37`
-- contract-backed include-start rows: `18`
-- by extraction class: `{'contract-backed-data': 12, 'contract-backed-data-prefix': 6, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 1, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 7, 'source-helper': 24}`
-- supplemental by extraction class: `{'contract-backed-data': 3, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 23, 'source-helper': 13}`
+- contract-backed include-start rows: `21`
+- by extraction class: `{'contract-backed-data': 18, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 1, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 4, 'source-helper': 24}`
+- supplemental by extraction class: `{'contract-backed-data': 11, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 13}`
 - script decode status: `{'complete': 30, 'not-applicable': 7}`
 
 ## Extraction Classes
@@ -189,9 +189,9 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:E228` | 0x8 | `data/unknown/C3E228.asm` | `contract-backed-data` | `StagedMovementSubtileOffsetSetB_Y / STAGED_MOVEMENT_SUBTILE_OFFSET_SET_B_Y` |  |
 | `C3:E230` | 0x10 | `data/unknown/C3E230.asm` | `contract-backed-data` | `DoorCandidateDirectionOffsetX / DOOR_CANDIDATE_DIRECTION_OFFSET_X` |  |
 | `C3:E240` | 0x1B8 | `data/unknown/C3E240.asm` | `contract-backed-data-prefix` | `DoorCandidateDirectionOffsetY / DOOR_CANDIDATE_DIRECTION_OFFSET_Y` |  |
-| `C3:E3F8` | 0x16 | `data/unknown/C3E3F8.asm` | `raw-or-named-data` | `MenuCursorTilePrefixTable` |  |
-| `C3:E40E` | 0xE | `data/unknown/C3E40E.asm` | `contract-backed-data-prefix` | `TitleNameBufferCursorTileRun / TITLE_NAME_BUFFER_CURSOR_TILE_RUN` |  |
-| `C3:E41C` | 0x30 | `data/unknown/C3E41C.asm` | `contract-backed-data-prefix` | `BlinkingTriangleWaitFrame0Tiles / BLINKING_TRIANGLE_WAIT_FRAME_TILES` |  |
+| `C3:E3F8` | 0x16 | `data/unknown/C3E3F8.asm` | `contract-backed-data` | `MenuCursorTilePrefixTable / MENU_CURSOR_TILE_PREFIX_TABLE` |  |
+| `C3:E40E` | 0xE | `data/unknown/C3E40E.asm` | `contract-backed-data` | `TitleNameBufferCursorTileRun / TITLE_NAME_BUFFER_CURSOR_TILE_RUN` |  |
+| `C3:E41C` | 0x30 | `data/unknown/C3E41C.asm` | `contract-backed-data` | `BlinkingTriangleWaitFrame0Tiles / BLINKING_TRIANGLE_WAIT_FRAME_TILES` |  |
 | `C3:E44C` | 0x4 | `data/unknown/C3E44C.asm` | `raw-or-named-data` | `WindowTickTransferPreludeData` |  |
 | `C3:E450` | 0x9F | `unknown/C3/C3E450.asm` | `source-helper` | `WindowTickTransferDynamicTileBlock` |  |
 | `C3:E4EF` | 0x209 | `unknown/C3/C3E4EF.asm` | `source-helper` | `FindFirstFreeWindowSlot` |  |
@@ -211,8 +211,8 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:EE4D` | 0x2D | `unknown/C3/C3EE4D.asm` | `source-helper` | `RefreshWorldAndReleaseActiveVisualHandle` |  |
 | `C3:EE7A` | 0xA9 | `unknown/C3/C3EE7A.asm` | `source-helper` | `ResolveStatisticSelectorValue` |  |
 | `C3:EF23` | 0x3 | `misc/null/C3EF23.asm` | `null-stub` |  |  |
-| `C3:EF26` | 0x18A | `data/unknown/C3EF26.asm` | `raw-or-named-data` | `BattlePsiMenuSelectorGroupTable` |  |
-| `C3:F0B0` | 0x13C | `data/unknown/C3F0B0.asm` | `raw-or-named-data` | `BattlePsiKnownStateGateTable` |  |
+| `C3:EF26` | 0x18A | `data/unknown/C3EF26.asm` | `contract-backed-data` | `BattlePsiMenuSelectorGroupTable / BATTLE_PSI_MENU_SELECTOR_GROUP_TABLE` |  |
+| `C3:F0B0` | 0x13C | `data/unknown/C3F0B0.asm` | `contract-backed-data` | `BattlePsiKnownStateGateTable / BATTLE_PSI_KNOWN_STATE_GATE_TABLE` |  |
 | `C3:F1EC` | 0xC5 | `unknown/C3/C3F1EC.asm` | `source-helper` | `TryRepairJeffBrokenInventoryItem` |  |
 | `C3:F2B1` | 0x348 | `data/unknown/C3F2B1.asm` | `raw-or-named-data` |  |  |
 | `C3:F5F9` | 0x84 | `unknown/C3/C3F5F9.asm` | `source-helper` | `QueueVisualTileRowsLinear` |  |
@@ -222,7 +222,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:F819` | 0x58 | `data/unknown/C3F819.asm` | `effect-script-asset` | `BattleSwirlOverlayMode2Script` | `not-applicable` |
 | `C3:F871` | 0x40 | `data/unknown/C3F871.asm` | `contract-backed-data` | `BattleVisualGraphicsSourceStripOffsets / BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS` |  |
 | `C3:F8B1` | 0x40 | `data/unknown/C3F8B1.asm` | `contract-backed-data` | `BattleVisualOamTileIndexGrid / BATTLE_VISUAL_OAM_TILE_INDEX_GRID` |  |
-| `C3:F8F1` | 0x90 | `data/unknown/C3F8F1.asm` | `contract-backed-data-prefix` | `BattlePaletteSetRows / BATTLE_PALETTE_SET_ROWS` |  |
+| `C3:F8F1` | 0x90 | `data/unknown/C3F8F1.asm` | `contract-backed-data` | `BattlePaletteSetRows / BATTLE_PALETTE_SET_ROWS` |  |
 | `C3:F981` | 0x148 | `unknown/C3/C3F981.asm` | `source-helper` | `DispatchBattleVisualEffectToken` |  |
 | `C3:FAC9` | 0x40 | `unknown/C3/C3FAC9.asm` | `source-helper` | `DispatchBattleActorVisualEffectToken` |  |
 | `C3:FB09` | 0x16 | `unknown/C3/C3FB09.asm` | `source-helper` | `CheckCurrentBattleActorVisualFlag` |  |
@@ -278,12 +278,12 @@ These labels are not address-bearing include starts in the reference bankconfig.
 | `C3:A45C` | `event-bytecode-label` | `script-payload` | `FinishNpcAttentionAndReleaseActor` | `complete` |
 | `C3:A47C` | `event-bytecode-asset` | `script-payload` | `ReleaseCurrentVisualEntityTail` | `complete` |
 | `C3:E12C` | `contract-backed-data` | `data-contract` | `InputDirectionPermissionMaskTable` |  |
-| `C3:E406` | `source-adjacent-data` | `working-name` | `AnimatedMenuCursorPointRightTiles` |  |
-| `C3:E416` | `source-adjacent-data` | `working-name` | `BlinkingTriangleBaseTiles` |  |
+| `C3:E406` | `contract-backed-data` | `data-contract` | `AnimatedMenuCursorPointRightTiles` |  |
+| `C3:E416` | `contract-backed-data` | `data-contract` | `BlinkingTriangleBaseTiles` |  |
 | `C3:E424` | `source-adjacent-data` | `working-name` | `BlinkingTriangleWaitFrame1Tiles` |  |
 | `C3:E42C` | `source-adjacent-data` | `working-name` | `BlinkingTriangleWaitFrame2Tiles` |  |
 | `C3:E434` | `source-adjacent-data` | `working-name` | `BlinkingTriangleWaitFrame3Tiles` |  |
-| `C3:E43C` | `source-adjacent-data` | `working-name` | `BlinkingTriangleWaitFramePointerTable` |  |
+| `C3:E43C` | `contract-backed-data` | `data-contract` | `BlinkingTriangleWaitFramePointerTable` |  |
 | `C3:E4CA` | `source-helper` | `working-name` | `ClearInstantPrinting` |  |
 | `C3:E4D4` | `source-helper` | `working-name` | `SetInstantPrinting` |  |
 | `C3:E4E0` | `source-helper` | `working-name` | `TickWindowWithoutInstantPrinting` |  |
@@ -292,11 +292,11 @@ These labels are not address-bearing include starts in the reference bankconfig.
 | `C3:E78F` | `source-helper` | `working-name` | `ClearSecondReflectedHitSideArticleTokenFlag` |  |
 | `C3:E977` | `source-helper` | `working-name` | `ReadCharacterInventorySlotByte` |  |
 | `C3:E9A0` | `source-helper` | `working-name` | `CheckEquippedInventorySlotReference` |  |
-| `C3:F016` | `source-adjacent-data` | `working-name` | `BattlePsiMenuGroupSliceCountTable` |  |
-| `C3:F054` | `source-adjacent-data` | `working-name` | `BattleTextControlToken50To7fMetadataTable` |  |
-| `C3:F112` | `source-adjacent-data` | `working-name` | `BattlePsiRankSuffixTable` |  |
-| `C3:F11C` | `source-adjacent-data` | `working-name` | `BattlePsiMenuEntryFixedTail` |  |
-| `C3:F124` | `source-adjacent-data` | `working-name` | `BattlePsiMenuEntryRowTable` |  |
+| `C3:F016` | `contract-backed-data` | `data-contract` | `BattlePsiMenuGroupSliceCountTable` |  |
+| `C3:F054` | `contract-backed-data` | `data-contract` | `BattleTextControlToken50To7fMetadataTable` |  |
+| `C3:F112` | `contract-backed-data` | `data-contract` | `BattlePsiRankSuffixTable` |  |
+| `C3:F11C` | `contract-backed-data` | `data-contract` | `BattlePsiMenuEntryFixedTail` |  |
+| `C3:F124` | `contract-backed-data` | `data-contract` | `BattlePsiMenuEntryRowTable` |  |
 | `C3:F879` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage1` |  |
 | `C3:F881` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage2` |  |
 | `C3:F889` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage3` |  |
@@ -363,8 +363,5 @@ Rows below are documented enough to split, but are intentionally not promoted to
 | --- | --- | --- | --- |
 | `C3:0188` | `data/unknown/C30188.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
 | `C3:E1E0` | `data/unknown/C3E1E0.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:E3F8` | `data/unknown/C3E3F8.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
 | `C3:E44C` | `data/unknown/C3E44C.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:EF26` | `data/unknown/C3EF26.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:F0B0` | `data/unknown/C3F0B0.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
 | `C3:F2B1` | `data/unknown/C3F2B1.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |

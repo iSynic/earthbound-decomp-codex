@@ -8,7 +8,7 @@ This report explains the three raw regions preserved by the C3 event/actionscrip
 
 - preserved groups: `3`
 - preserved bytes: `1930`
-- subsegments: `36`
+- subsegments: `39`
 - status: `closed-by-contract`
 
 | Range | Bytes | Name | Status | SHA1 |
@@ -108,9 +108,12 @@ Evidence:
 | `C3:E200..C3:E230` | 48 | `contract-backed-data` | `StagedMovementDirectionAndSubtileOffsetTables` | rom-table contracts for staged movement direction/subtile offsets |
 | `C3:E230..C3:E250` | 32 | `contract-backed-data` | `DoorCandidateDirectionOffsetTables` | rom-table contracts DOOR_CANDIDATE_DIRECTION_OFFSET_X/Y |
 | `C3:E250..C3:E3F8` | 424 | `raw-or-named-data` | `FileSelectOrNameEntryCharacterSpriteData` | sprite/OAM-like data; preserve until exact UI consumer is pinned |
-| `C3:E3F8..C3:E40E` | 22 | `raw-or-named-data` | `MenuCursorTilePrefixTable` | tile-word data; keep cautious until direct consumer is pinned |
-| `C3:E40E..C3:E41C` | 14 | `contract-backed-data` | `TitleNameBufferCursorTileRun` | rom-table contract TITLE_NAME_BUFFER_CURSOR_TILE_RUN |
-| `C3:E41C..C3:E44C` | 48 | `contract-backed-data` | `BlinkingTriangleWaitFrameTiles` | rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_TILES plus pointer table |
+| `C3:E3F8..C3:E406` | 14 | `contract-backed-data` | `MenuCursorTilePrefixTable` | rom-table contract MENU_CURSOR_TILE_PREFIX_TABLE |
+| `C3:E406..C3:E40E` | 8 | `contract-backed-data` | `AnimatedMenuCursorPointRightTiles` | rom-table contract ANIMATED_MENU_CURSOR_POINT_RIGHT_TILES |
+| `C3:E40E..C3:E416` | 8 | `contract-backed-data` | `TitleNameBufferCursorTileRun` | rom-table contract TITLE_NAME_BUFFER_CURSOR_TILE_RUN |
+| `C3:E416..C3:E41C` | 6 | `contract-backed-data` | `BlinkingTriangleBaseTiles` | rom-table contract BLINKING_TRIANGLE_BASE_TILES |
+| `C3:E41C..C3:E43C` | 32 | `contract-backed-data` | `BlinkingTriangleWaitFrameTiles` | rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_TILES |
+| `C3:E43C..C3:E44C` | 16 | `contract-backed-data` | `BlinkingTriangleWaitFramePointerTable` | rom-table contract BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE |
 | `C3:E44C..C3:E450` | 4 | `raw-or-named-data` | `WindowTickTransferPreludeData` | four-byte data island before C3:E450 source helper |
 
 Segment notes:
@@ -129,7 +132,10 @@ Segment notes:
 - `C3:E200..C3:E230` `StagedMovementDirectionAndSubtileOffsetTables`: Primary/alternate direction parameter and 8-pixel subtile offset sets. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:49`.
 - `C3:E230..C3:E250` `DoorCandidateDirectionOffsetTables`: Coarse-cell X/Y direction offset tables for C4:334A door candidate probing. Evidence: `notes/c3-map-movement-parameter-table-e1d8-e240.md:52`, `notes/c3-late-interaction-table-contracts.md`.
 - `C3:E250..C3:E3F8` `FileSelectOrNameEntryCharacterSpriteData`: Legacy comment says this block is related to file select; later comments connect nearby data to name-entry character sprites. Evidence: `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:45136`.
-- `C3:E3F8..C3:E40E` `MenuCursorTilePrefixTable`: Tile/attribute words adjacent to the animated menu cursor tables. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:25`.
-- `C3:E40E..C3:E41C` `TitleNameBufferCursorTileRun`: Four title/name buffer cursor tile words plus adjacent base cursor tile data. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:38`.
-- `C3:E41C..C3:E44C` `BlinkingTriangleWaitFrameTiles`: Four blinking/down-cursor tile frames and the pointer table selecting them. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:42`.
+- `C3:E3F8..C3:E406` `MenuCursorTilePrefixTable`: Seven tile/attribute words adjacent to the animated menu cursor tables. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:25`.
+- `C3:E406..C3:E40E` `AnimatedMenuCursorPointRightTiles`: Legacy right-pointing animated menu cursor tile run. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:35`.
+- `C3:E40E..C3:E416` `TitleNameBufferCursorTileRun`: Four title/name buffer cursor tile words copied by the C2 title/name buffer helper. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:38`.
+- `C3:E416..C3:E41C` `BlinkingTriangleBaseTiles`: Three base/down-cursor tile words before the blinking triangle wait frames. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:42`.
+- `C3:E41C..C3:E43C` `BlinkingTriangleWaitFrameTiles`: Four blinking/down-cursor tile frames. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:42`.
+- `C3:E43C..C3:E44C` `BlinkingTriangleWaitFramePointerTable`: Long pointer table selecting the four blinking triangle wait frames. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:42`.
 - `C3:E44C..C3:E450` `WindowTickTransferPreludeData`: Decoding as code is implausible; the true routine starts at C3:E450. Evidence: `notes/c3-menu-cursor-tile-data-e3f8-e450.md:51`.

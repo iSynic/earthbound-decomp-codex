@@ -317,6 +317,29 @@ MENU_CURSOR_TILE_RUN_FIELDS = (
     field("tile_3", 0x06, 2),
 )
 
+MENU_CURSOR_THREE_TILE_RUN_FIELDS = (
+    field("tile_0", 0x00, 2),
+    field("tile_1", 0x02, 2),
+    field("tile_2", 0x04, 2),
+)
+
+BATTLE_PSI_KNOWN_STATE_GATE_ROW_FIELDS = tuple(
+    field(f"psi_slot_{index}_gate", index * 2, 2)
+    for index in range(7)
+)
+
+BATTLE_PSI_GROUP_RENDER_METADATA_FIELDS = (
+    field("raw_group_render_metadata_and_labels", 0x00, 1, 0x5C),
+)
+
+BATTLE_PSI_MENU_ENTRY_FIXED_TAIL_FIELDS = (
+    field("encoded_tail", 0x00, 1, 8),
+)
+
+BATTLE_PSI_MENU_ENTRY_ROW_FIELDS = (
+    field("encoded_text", 0x00, 1, 20),
+)
+
 BATTLE_VISUAL_STRIP_OFFSET_FIELDS = (
     field("strip_0_offset", 0x00, 2),
     field("strip_1_offset", 0x02, 2),
@@ -1308,6 +1331,33 @@ def extra_contracts() -> list[Contract]:
             fields=DOOR_CANDIDATE_DIRECTION_OFFSET_FIELDS,
         ),
         Contract(
+            id="MENU_CURSOR_TILE_PREFIX_TABLE",
+            domain="rom-table",
+            address="C3:E3F8",
+            stride=0x02,
+            count=7,
+            struct_name="menu_cursor_tile_prefix_word",
+            confidence="proposed",
+            note="Seven tile/attribute words before the legacy animated menu cursor right-pointing tile run.",
+            evidence=("notes/c3-menu-cursor-tile-data-e3f8-e450.md",),
+            fields=C3_WORD_TABLE_VALUE_FIELD,
+        ),
+        Contract(
+            id="ANIMATED_MENU_CURSOR_POINT_RIGHT_TILES",
+            domain="rom-table",
+            address="C3:E406",
+            stride=0x08,
+            count=1,
+            struct_name="four_tile_word_run",
+            confidence="corroborated",
+            note="Legacy AnimatedMenuCursorTiles.PointRight four-tile run.",
+            evidence=(
+                "notes/c3-menu-cursor-tile-data-e3f8-e450.md",
+                "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm",
+            ),
+            fields=MENU_CURSOR_TILE_RUN_FIELDS,
+        ),
+        Contract(
             id="TITLE_NAME_BUFFER_CURSOR_TILE_RUN",
             domain="rom-table",
             address="C3:E40E",
@@ -1323,6 +1373,18 @@ def extra_contracts() -> list[Contract]:
             fields=MENU_CURSOR_TILE_RUN_FIELDS,
         ),
         Contract(
+            id="BLINKING_TRIANGLE_BASE_TILES",
+            domain="rom-table",
+            address="C3:E416",
+            stride=0x06,
+            count=1,
+            struct_name="three_tile_word_run",
+            confidence="corroborated",
+            note="Three base/down-cursor tile words immediately before the four blinking triangle wait frames.",
+            evidence=("notes/c3-menu-cursor-tile-data-e3f8-e450.md",),
+            fields=MENU_CURSOR_THREE_TILE_RUN_FIELDS,
+        ),
+        Contract(
             id="BLINKING_TRIANGLE_WAIT_FRAME_TILES",
             domain="rom-table",
             address="C3:E41C",
@@ -1333,6 +1395,127 @@ def extra_contracts() -> list[Contract]:
             note="Four 4-word blinking/down cursor frames selected by the long pointer table at C3:E43C.",
             evidence=("notes/c3-menu-cursor-tile-data-e3f8-e450.md",),
             fields=MENU_CURSOR_TILE_RUN_FIELDS,
+        ),
+        Contract(
+            id="BLINKING_TRIANGLE_WAIT_FRAME_POINTER_TABLE",
+            domain="rom-table",
+            address="C3:E43C",
+            stride=0x04,
+            count=4,
+            struct_name="far_pointer",
+            confidence="corroborated",
+            note="Long pointers selecting the four blinking triangle wait frames at C3:E41C/C3:E424/C3:E42C/C3:E434.",
+            evidence=("notes/c3-menu-cursor-tile-data-e3f8-e450.md",),
+            fields=FAR_POINTER_FIELDS,
+        ),
+        Contract(
+            id="BATTLE_PSI_MENU_SELECTOR_GROUP_TABLE",
+            domain="rom-table",
+            address="C3:EF26",
+            stride=0x01,
+            count=0xF0,
+            struct_name="battle_psi_menu_selector_group",
+            confidence="corroborated",
+            note="Selector-minus-0x10 byte table consumed by C1:C046; zero means print the raw selector, nonzero selects a grouped PSI-list row.",
+            evidence=(
+                "notes/battle-psi-menu-table-helpers-c1c046-c1c165.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BYTE_VALUE_FIELD,
+        ),
+        Contract(
+            id="BATTLE_PSI_MENU_GROUP_SLICE_COUNT_TABLE",
+            domain="rom-table",
+            address="C3:F016",
+            stride=0x01,
+            count=0x3E,
+            struct_name="battle_psi_menu_group_slice_count",
+            confidence="corroborated",
+            note="Grouped PSI-list slice count/width byte indexed after the C3:EF26 selector-group remap.",
+            evidence=(
+                "notes/battle-psi-menu-table-helpers-c1c046-c1c165.md",
+                "notes/c3-shared-helper-working-name-promotion.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BYTE_VALUE_FIELD,
+        ),
+        Contract(
+            id="BATTLE_PSI_GROUP_RENDER_METADATA_AND_LABELS",
+            domain="rom-block",
+            address="C3:F054",
+            stride=0x5C,
+            count=1,
+            struct_name="battle_psi_group_render_metadata_and_labels",
+            confidence="proposed",
+            note="Raw render metadata and encoded labels between the PSI selector-group slice table and the known-state gate table.",
+            evidence=(
+                "notes/c3-shared-helper-working-name-promotion.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BATTLE_PSI_GROUP_RENDER_METADATA_FIELDS,
+        ),
+        Contract(
+            id="BATTLE_PSI_KNOWN_STATE_GATE_TABLE",
+            domain="rom-table",
+            address="C3:F0B0",
+            stride=0x0E,
+            count=7,
+            struct_name="battle_psi_known_state_gate_row",
+            confidence="corroborated",
+            note="Seven 7-word live PSI-state gate rows consumed by C1:C165 while scanning a character's live PSI bytes.",
+            evidence=(
+                "notes/battle-psi-menu-table-helpers-c1c046-c1c165.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BATTLE_PSI_KNOWN_STATE_GATE_ROW_FIELDS,
+        ),
+        Contract(
+            id="BATTLE_PSI_RANK_SUFFIX_TABLE",
+            domain="rom-table",
+            address="C3:F112",
+            stride=0x02,
+            count=5,
+            struct_name="battle_psi_rank_suffix_token",
+            confidence="corroborated",
+            note="Five PSI rank/suffix token words used by the PSI name/menu row formatting family.",
+            evidence=(
+                "notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md",
+                "notes/c3-shared-helper-working-name-promotion.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=C3_WORD_TABLE_VALUE_FIELD,
+        ),
+        Contract(
+            id="BATTLE_PSI_MENU_ENTRY_FIXED_TAIL",
+            domain="rom-block",
+            address="C3:F11C",
+            stride=0x08,
+            count=1,
+            struct_name="battle_psi_menu_entry_fixed_tail",
+            confidence="corroborated",
+            note="Eight encoded bytes appended after a formatted PSI menu-entry row.",
+            evidence=(
+                "notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md",
+                "notes/c3-shared-helper-working-name-promotion.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BATTLE_PSI_MENU_ENTRY_FIXED_TAIL_FIELDS,
+        ),
+        Contract(
+            id="BATTLE_PSI_MENU_ENTRY_ROW_TABLE",
+            domain="rom-table",
+            address="C3:F124",
+            stride=0x14,
+            count=10,
+            struct_name="battle_psi_menu_entry_row",
+            confidence="corroborated",
+            note="Ten fixed-width encoded PSI menu-entry text rows.",
+            evidence=(
+                "notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md",
+                "notes/c3-shared-helper-working-name-promotion.md",
+                "notes/c3-battle-psi-menu-data-contracts.md",
+            ),
+            fields=BATTLE_PSI_MENU_ENTRY_ROW_FIELDS,
         ),
         Contract(
             id="BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS",
