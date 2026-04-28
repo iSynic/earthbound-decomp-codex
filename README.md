@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Twenty-six source-form pilots are also
+byte-count seeds captured for semantic naming. Twenty-seven source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -63,8 +63,8 @@ path, Boogy Tent/city bus path, palette fade/coordinate path,
 falling/bounce-yield path, teleport-destination prelude path, and
 bus-tunnel bridge path, animation-port flag switch, and position/text-yield path
 clusters plus var0 animation/collision-probe, area-wait/random-wander,
-teleport/flyover coordinate, and Threed fight Matent helpers. Together they
-represent `10620`
+teleport/flyover coordinate, Threed fight Matent, and position door-close
+helpers. Together they represent `10691`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -114,6 +114,7 @@ Good starting points:
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
 - `notes/c3-threed-fight-matent-paths-source-pilot.md`
+- `notes/c3-position-door-close-helpers-source-pilot.md`
 - `notes/c3-position-text-yield-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
@@ -277,6 +278,7 @@ python tools/build_c3_event_script_source_pilot.py --family var0-animation-colli
 python tools/build_c3_event_script_source_pilot.py --family area-wait-random-wander-helpers
 python tools/build_c3_event_script_source_pilot.py --family teleport-flyover-coordinate-helpers
 python tools/build_c3_event_script_source_pilot.py --family threed-fight-matent-paths
+python tools/build_c3_event_script_source_pilot.py --family position-door-close-helpers
 python tools/build_c3_event_script_source_pilot.py --family position-text-yield-paths
 python tools/build_c3_source_pilot_frontier.py
 ```

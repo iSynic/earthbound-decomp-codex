@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Twenty-six source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `10620` validated bytes across the
+   callback byte-count seeds captured. Twenty-seven source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `10691` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -102,8 +102,8 @@ that romhackers need to edit confidently:
    fade/coordinate path, falling/bounce-yield path, teleport-destination prelude
    path, bus-tunnel bridge path, animation-port flag switch, and
    position/text-yield path families plus var0 animation/collision-probe,
-   area-wait/random-wander, teleport/flyover coordinate, and Threed fight Matent
-   helpers.
+   area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
+   and position door-close helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -146,6 +146,7 @@ that romhackers need to edit confidently:
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
 - `notes/c3-threed-fight-matent-paths-source-pilot.md`
+- `notes/c3-position-door-close-helpers-source-pilot.md`
 - `notes/c3-position-text-yield-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`

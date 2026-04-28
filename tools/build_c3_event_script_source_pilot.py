@@ -343,6 +343,8 @@ LABEL_OVERRIDES = {
     "C3:C11F": "Event471_StaggeredDoorCloseHalt",
     "C3:C12E": "Event472_StaggeredDoorCloseYieldHalt",
     "C3:C143": "RunStaggeredDoorCloseMovement",
+    "C3:C1E0": "RunPositionDoorCloseOpeningPath",
+    "C3:C20F": "RunPositionDoorCloseSoundPath",
     "C3:C227": "LoopMakePartyLookAtActiveEntity",
     "C3:C236": "Event120_RightStepTextYieldHandoff",
     "C3:C258": "Event121_DownLeftStepTextYieldHandoff",
@@ -726,6 +728,17 @@ FAMILY_DEFAULTS = {
         ],
         "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the small V3-gated vertical bounce loop at `C3:6BB4` and ebsrc script 591, which snapshots the current anchor, waits for the player to leave the active area, waits for battle/enemy-touch state to clear, queues `MSG_EVT_THRK_FIGHT_MATENT`, and halts.",
         "next": "Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; this closes the compact gap between the vehicle coordinate paths and Boogy Tent/city bus pilots.",
+    },
+    "position-door-close-helpers": {
+        "output": ROOT / "src" / "c3" / "event_scripts" / "position_door_close_helpers.asar.asm",
+        "report": ROOT / "notes" / "c3-position-door-close-helpers-source-pilot.md",
+        "manifest": ROOT / "build" / "c3-position-door-close-helpers-source-pilot.json",
+        "rows": [],
+        "spans": [
+            ("C3:C1E0", "C3:C227", "PositionDoorCloseHelpers"),
+        ],
+        "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the paired helper paths used by ebsrc scripts 473-475: an opening positioning path that starts the party-look task at `C3:C227`, and a follow-up coordinate move that plays the door-close sound.",
+        "next": "Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; this closes the compact gap immediately before the existing position/text-yield path pilot.",
     },
     "position-text-yield-paths": {
         "output": ROOT / "src" / "c3" / "event_scripts" / "position_text_yield_paths.asar.asm",
