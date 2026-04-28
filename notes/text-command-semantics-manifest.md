@@ -172,12 +172,12 @@ check, not as a replacement for ROM-backed proof.
 | `@CLRF` | 621 | `0x05` `CLEAR_EVENT_FLAG` | high |
 | `@WAITSYS` | 571 | `0x1F 0x60` `WAIT_FOR_TEXT_PROMPT_OR_INPUT_GATE` | high |
 | `@MOVE_GOM_CHAR` | 531 | - | - |
-| `@TRUE_GOTO` | 475 | - | - |
-| `@FALSE_GOTO` | 472 | - | - |
+| `@TRUE_GOTO` | 475 | `0x1B 0x03` `JUMP_IF_TRUE` | medium |
+| `@FALSE_GOTO` | 472 | `0x1B 0x02` `JUMP_IF_FALSE` | medium |
 | `@DSP_GOODS` | 469 | `0x1C 0x05` `PRINT_ITEM_NAME` | medium |
 | `@XCHG` | 461 | `0x1B 0x04` `SWAP_WORKING_AND_ARG_MEMORY` | medium |
 | `@DSP_ACTOR` | 447 | - | - |
-| `@GOTO` | 426 | - | - |
+| `@GOTO` | 426 | `0x0A` `JUMP` | high |
 | `@OPEN` | 404 | `0x18 0x01` `OPEN_WINDOW` | high |
 | `@REMOVE_CHAR` | 344 | - | - |
 | `@SET_LOOPREG` | 330 | - | - |
@@ -185,12 +185,12 @@ check, not as a replacement for ROM-backed proof.
 | `@ONGOSUB` | 280 | - | - |
 | `@WARP` | 272 | `0x1F 0x21` `TELEPORT_TO` | high |
 | `@SELGOTO` | 264 | - | - |
-| `@DSP_ITEM` | 203 | - | - |
+| `@DSP_ITEM` | 203 | `0x1C 0x05` `PRINT_ITEM_NAME` | medium |
 | `@BGMSTART` | 202 | `0x1F 0x00` `PLAY_MUSIC` | high |
 | `@LOAD_REG` | 195 | - | - |
 | `@DSP_OBJECT` | 193 | - | - |
-| `@GOODSIN_PLAYER` | 183 | - | - |
-| `@DSP_NUM` | 169 | - | - |
+| `@GOODSIN_PLAYER` | 183 | `0x1D 0x00` `GIVE_ITEM_TO_CHARACTER` | medium |
+| `@DSP_NUM` | 169 | `0x1C 0x0A` `PRINT_NUMBER` | medium |
 | `@GET_ORDER_PLAYER` | 165 | - | - |
 
 ## Next Manual Seams

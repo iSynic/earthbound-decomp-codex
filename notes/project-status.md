@@ -44,6 +44,14 @@ family dispatchers, decoded `C5..C9` text-bank command usage, checked-in
 text-command notes, and recovered localization `.MSG` control-command counts.
 The current manifest reports `29 / 32` top-level commands covered; the remaining
 three are the expected parser-only compressed-bank pseudo-opcodes `0x15..0x17`.
+The active text/script asset frontier is now generated at
+`notes/text-script-assets-frontier.md`: `168 / 203` family subcommands covered,
+`25` live runtime-only family leaves, `9` parsed artifact candidates, and `24`
+recovered localization authoring commands without direct runtime hints.
+The fuller recovered-source syntax profile at
+`notes/localization-authoring-command-frontier.md` now tracks `202` unique
+authoring commands, with `68` conservative runtime hints and `101` commands
+still in the needs-classification bucket.
 
 ## Public Good-Enough Definition
 
@@ -148,11 +156,12 @@ that romhackers need to edit confidently:
    `notes/c3-source-pilot-frontier.md` now reports `0` remaining candidate
    bytes and `0` frontier gaps. C3 is good enough for this semantics milestone;
    later C3 work should be targeted polish rather than the next blocking lane.
-2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
-   text payloads. The new `notes/text-command-semantics-manifest.md` makes the
-   remaining subcommand frontiers visible: runtime-only leaves, unknown names,
-   and parsed-only candidates that need to be checked against compressed-bank
-   pseudo-opcode artifacts.
+2. `C1` plus `C5..C9`/`EF`: Text VM / Localization Script Semantics and
+   reassembly-friendly text payloads. The new
+   `notes/text-script-assets-frontier.md` is the active work queue for this
+   lane. It separates real runtime-only C1 leaves from parser-only
+   compressed-bank pseudo-opcodes, likely parser artifacts, and recovered
+   localization authoring commands that still need classification.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

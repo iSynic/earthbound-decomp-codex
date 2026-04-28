@@ -96,6 +96,19 @@
   recovered localization `.MSG` control-command counts. The current top-level
   status is `29 / 32` covered commands, with `0x15..0x17` correctly isolated as
   parser-only compressed-bank pseudo-opcodes.
+- `tools/build_text_script_asset_frontier.py` now generates
+  `notes/text-script-assets-frontier.md` and
+  `build/text-script-assets-frontier.json`. This is the active workstream-3
+  scoreboard: `168 / 203` family subcommands covered, `25` live runtime-only
+  leaves, `9` parsed artifact candidates, and `24` recovered localization
+  authoring commands that still lack direct runtime hints.
+- `tools/build_localization_authoring_command_frontier.py` now generates
+  `notes/localization-authoring-command-frontier.md` and
+  `build/localization-authoring-command-frontier.json` from the ignored
+  recovered `.MSG` source. It profiles `202` unique authoring commands without
+  checking in dialogue: `68` already have runtime hints, while the rest are
+  bucketed as formatting, branch/control macros, display macros, movement,
+  inventory, query, or `101` still-needs-classification candidates.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -250,9 +263,10 @@ Completed splitter patterns:
   entry pointers, and battle groups.
 - `D8`: tile collision data and 20 collision pointer tables.
 
-### 3. Script And Text Assets
+### 3. Text VM / Localization Script Semantics
 
-Keep these as bytecode/text assets until their VM contracts are stronger.
+Keep these as bytecode/text assets until their VM and localization authoring
+contracts are stronger.
 
 The text-command VM now has a generated baseline:
 `notes/text-command-semantics-manifest.md`. Use it before opening a new
@@ -260,14 +274,23 @@ text-command seam; it separates covered commands from runtime-only leaves,
 parsed-only candidates, and unknown subcommand names, and it cross-references
 the recovered localization authoring syntax without storing dialogue text.
 
-Best candidates after the C3 milestone is underway:
+The active milestone view is generated at
+`notes/text-script-assets-frontier.md`. It keeps the remaining work in four
+separate buckets: real runtime leaves, parser-only compressed-bank
+pseudo-opcodes, likely parser artifacts, and recovered authoring syntax that
+may be metadata or macro expansion rather than a direct VM opcode.
 
-- `C3`: separate event/actionscript bytecode payloads from helper source.
-- `C5..C9`: structurally closed and byte-protected; revisit only for text VM
-  semantics or richer text-script asset emission.
+Best candidates after C3's good-enough semantics milestone:
+
+- `C1` runtime-only text-command leaves: document semantics even when the
+  current decoded text-bank corpus has no hit.
+- `C5..C9`: structurally closed and byte-protected; revisit for text VM
+  semantics, parser-boundary cleanup, or richer text-script asset emission.
 - `C8`: split the compressed-text dictionary island when the generated include
   boundary is pinned.
 - `EF`: refine the coarse help/battle/menu text runs using C1/D5 consumers.
+- recovered localization `.MSG` commands: classify high-count authoring
+  commands as direct VM mappings, authoring-only metadata, or macro expansions.
 
 ### 4. Raw Asset Emission
 
@@ -282,14 +305,17 @@ These banks are closer to packaging work than archaeology:
 
 ## Recommended Immediate Move
 
-Continue the C3/actionscript semantics milestone from the complete syntactic
-audit. C3's remaining work should stay on the script/asset track: promote
-opcode/operand meanings beyond byte shape, assign stable labels to unnamed
-include-start scripts, and treat scripts as portable assets that can eventually
-be extracted, edited, and reassembled from source-level script forms.
+Move to workstream `3`, Text VM / Localization Script Semantics. Use
+`notes/text-script-assets-frontier.md` as the live queue rather than reopening
+the completed C3 milestone by default.
 
-For text banks, use C5 as the template rather than starting over: regenerate
-the text-bank manifest, promote it with
-`tools/promote_text_bank_to_source_scaffold.py`, build the durable scaffold,
-validate byte-equivalence, and only then decide whether text VM semantics are
-worth polishing for that bank.
+The first pass should target text-command semantics and authoring syntax:
+
+- pick one runtime-only family leaf cluster and add source-backed notes
+- use the parser artifact bucket to improve text-bank boundary rules around
+  `EDEBUG`, `ENEWS`, `EHINT`, and `EBATTLE8`
+- classify high-count recovered `.MSG` commands into direct VM mappings,
+  authoring-only metadata, and macro expansions
+
+C3 can still receive targeted polish, but it is no longer the blocking next
+lane.
