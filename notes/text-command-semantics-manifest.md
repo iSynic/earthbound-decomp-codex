@@ -60,13 +60,13 @@ names and counts only, not dialogue bodies.
 | Family | Name | Dispatcher | Subcommands | Covered | Runtime only | Parsed only | Needs name |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | `0x18` | `WINDOW_MANAGEMENT` | `C1:790B` | 13 | 10 | 2 | 0 | 1 |
-| `0x19` | `DATA_AND_SUBSTITUTION` | `C1:79AA` | 25 | 22 | 1 | 0 | 2 |
-| `0x1A` | `MENU_AND_SELECTION` | `C1:7B56` | 12 | 5 | 4 | 0 | 2 |
+| `0x19` | `DATA_AND_SUBSTITUTION` | `C1:79AA` | 25 | 23 | 1 | 0 | 1 |
+| `0x1A` | `MENU_AND_SELECTION` | `C1:7B56` | 12 | 5 | 5 | 0 | 1 |
 | `0x1B` | `MEMORY_CONTEXT` | `C1:7C36` | 7 | 7 | 0 | 0 | 0 |
 | `0x1C` | `PRINT_DISPLAY` | `C1:7D94` | 21 | 17 | 3 | 0 | 1 |
 | `0x1D` | `INVENTORY_MONEY_CHECKS` | `C1:7F11` | 33 | 29 | 1 | 0 | 3 |
 | `0x1E` | `STAT_RECOVERY` | `C1:811F` | 16 | 11 | 4 | 0 | 1 |
-| `0x1F` | `DEFERRED_CALLBACKS_AND_EVENTS` | `C1:81BB` | 76 | 66 | 4 | 0 | 6 |
+| `0x1F` | `DEFERRED_CALLBACKS_AND_EVENTS` | `C1:81BB` | 76 | 66 | 8 | 0 | 2 |
 
 ## Family Frontiers
 
@@ -86,7 +86,6 @@ dispatcher, or unknown names.
 
 | Sub | Name | Status | Parsed hits | Runtime | Top segments |
 | --- | --- | --- | ---: | --- | --- |
-| `0x20` | `UNKNOWN_CC_19_20` | `needs_name` | 1 | `C1:7B0D` | ESHOP2:1 |
 | `0x27` | `GET_STATISTIC_VALUE` | `runtime_only` | 0 | `C1:7B47` | - |
 | `0x4F` | `UNKNOWN_19_4F` | `unknown_parsed` | 1 | `-` | ENEWS:1 |
 
@@ -98,7 +97,7 @@ dispatcher, or unknown names.
 | `0x04` | `PARTY_MEMBER_SELECTION_MENU` | `runtime_only` | 0 | `C1:7BA5` | - |
 | `0x08` | `SELECTION_MENU_UNCANCELLABLE` | `runtime_only` | 0 | `C1:7BDD` | - |
 | `0x09` | `SELECTION_MENU` | `runtime_only` | 0 | `C1:7BF4` | - |
-| `0x0B` | `UNKNOWN_1A_0B` | `needs_name` | 0 | `C1:7C1F` | - |
+| `0x0B` | `OPEN_TELEPORT_DESTINATION_MENU` | `runtime_only` | 0 | `C1:7C1F` | - |
 | `0x48` | `UNKNOWN_1A_48` | `unknown_parsed` | 1 | `-` | ENEWS:1 |
 
 ### `0x1C` `PRINT_DISPLAY`
@@ -136,12 +135,12 @@ dispatcher, or unknown names.
 | `0x06` | `ENABLE_SECTOR_MUSIC_CHANGE` | `runtime_only` | 0 | `C1:8446` | - |
 | `0x18` | `NO_OP_7_ARG_BYTES` | `runtime_only` | 0 | `C1:8480` | - |
 | `0x19` | `NO_OP_7_ARG_BYTES_ALT` | `runtime_only` | 0 | `C1:8486` | - |
-| `0x40` | `UNKNOWN_1F_40` | `needs_name` | 0 | `C1:84C8` | - |
+| `0x40` | `STAGE_SPECIAL_EVENT_ARGUMENT` | `runtime_only` | 0 | `C1:84C8` | - |
 | `0x4E` | `UNKNOWN_1F_4E` | `unknown_parsed` | 1 | `-` | ENEWS:1 |
 | `0x51` | `ENABLE_CONTROLLER_INPUT` | `runtime_only` | 0 | `C1:84DA` | - |
-| `0x60` | `UNKNOWN_1F_60` | `needs_name` | 0 | `C1:84E6` | - |
-| `0x81` | `UNKNOWN_1F_81` | `needs_name` | 0 | `C1:8588` | - |
-| `0x90` | `UNKNOWN_1F_90` | `needs_name` | 0 | `C1:8594` | - |
+| `0x60` | `WAIT_FOR_TEXT_PROMPT_OR_INPUT_GATE` | `runtime_only` | 0 | `C1:84E6` | - |
+| `0x81` | `CHECK_DIRECT_ITEM_USE_COMPATIBILITY` | `runtime_only` | 0 | `C1:8588` | - |
+| `0x90` | `BUILD_PHONE_CONTACT_SELECTION_MENU` | `runtime_only` | 0 | `C1:8594` | - |
 | `0xC7` | `UNKNOWN_1F_C7` | `unknown_parsed` | 3 | `-` | EHINT:3 |
 
 ## Recovered Authoring Syntax Signals
@@ -170,7 +169,7 @@ check, not as a replacement for ROM-backed proof.
 | `@G` | 651 | - | - |
 | `@C` | 651 | - | - |
 | `@CLRF` | 621 | `0x05` `CLEAR_EVENT_FLAG` | high |
-| `@WAITSYS` | 571 | - | - |
+| `@WAITSYS` | 571 | `0x1F 0x60` `WAIT_FOR_TEXT_PROMPT_OR_INPUT_GATE` | high |
 | `@MOVE_GOM_CHAR` | 531 | - | - |
 | `@TRUE_GOTO` | 475 | - | - |
 | `@FALSE_GOTO` | 472 | - | - |
@@ -178,15 +177,15 @@ check, not as a replacement for ROM-backed proof.
 | `@XCHG` | 461 | `0x1B 0x04` `SWAP_WORKING_AND_ARG_MEMORY` | medium |
 | `@DSP_ACTOR` | 447 | - | - |
 | `@GOTO` | 426 | - | - |
-| `@OPEN` | 404 | - | - |
+| `@OPEN` | 404 | `0x18 0x01` `OPEN_WINDOW` | high |
 | `@REMOVE_CHAR` | 344 | - | - |
 | `@SET_LOOPREG` | 330 | - | - |
 | `@CMP` | 312 | - | - |
 | `@ONGOSUB` | 280 | - | - |
-| `@WARP` | 272 | - | - |
+| `@WARP` | 272 | `0x1F 0x21` `TELEPORT_TO` | high |
 | `@SELGOTO` | 264 | - | - |
 | `@DSP_ITEM` | 203 | - | - |
-| `@BGMSTART` | 202 | - | - |
+| `@BGMSTART` | 202 | `0x1F 0x00` `PLAY_MUSIC` | high |
 | `@LOAD_REG` | 195 | - | - |
 | `@DSP_OBJECT` | 193 | - | - |
 | `@GOODSIN_PLAYER` | 183 | - | - |

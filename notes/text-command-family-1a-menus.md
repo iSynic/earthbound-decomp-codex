@@ -62,7 +62,7 @@ The live local `C1:7B56` case map is:
 
 ## Source scaffold promotion
 
-Several local menu leaves in this family are now decoded source: `0x1A 06 -> C1:4EB5` for the shop-menu path, `0x1A 05 -> C1:549E` for the inventory-menu path, `0x1A 0A -> C1:AC00` for the phone-contact path, and `0x1A 0B -> C1:AAFA` for the teleport-destination path. The combined C1 scaffold validates byte-for-byte after these promotions: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+Several local menu leaves in this family are now decoded source: `0x1A 06 -> C1:4EB5` for the shop-menu path, `0x1A 05 -> C1:549E` for the inventory-menu path, `0x1A 0A -> C1:AC00` for the phone-contact path, and `0x1A 0B -> C1:AAFA` for the teleport-destination path. The decoder now names `0x1A 0B` as `OPEN_TELEPORT_DESTINATION_MENU`. The combined C1 scaffold validates byte-for-byte after these promotions: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 

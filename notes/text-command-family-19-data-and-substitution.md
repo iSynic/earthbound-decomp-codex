@@ -62,7 +62,7 @@ The live local case map at `C1:79AA` is:
 - `0x1D -> C1:7ADE -> C1:6080`
 - `0x1E -> C1:7AE3`
 - `0x1F -> C1:7AF3`
-- `0x20 -> C1:7B0D`
+- `0x20 -> C1:7B0D` (`LOAD_MUSHROOMIZED_SELECTOR_BYTE`)
 - `0x21 -> C1:7B29 -> C1:6143`
 - `0x22 -> C1:7B2E -> C1:68A0`
 - `0x23 -> C1:7B33 -> C1:6947`

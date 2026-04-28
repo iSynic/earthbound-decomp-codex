@@ -16,6 +16,13 @@ In the live parser path, top-level command byte `0x1F` dispatches through the ba
 
 The strongest currently pinned members are:
 
+- `0x1F 40` -> stage the one-byte special-event argument used by the adjacent
+  special-event dispatcher path
+- `0x1F 41` -> special-event dispatcher, with local wrapper at `C1:72DA` and
+  main dispatcher at `C1:BEFC`
+- `0x1F 60` -> wait for the text prompt / system input gate through `C1:00FE`
+- `0x1F 81` -> direct item-use compatibility check through `C1:4F6F`
+- `0x1F 90` -> phone-contact selection menu builder through `C1:9441`
 - `0x1F D0` -> Jeff repair / broken-item callback family
 - `0x1F D1` -> immediate nearby magic-truffle direction helper
 - `0x1F D2` -> strongest current fit wandering-photographer summon branch
