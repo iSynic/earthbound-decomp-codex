@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `16` families, `9003` validated
+- Current source-form event/actionscript pilots: `17` families, `9305` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: sixteen pilots complete.
+Status: seventeen pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -221,6 +221,11 @@ Status: sixteen pilots complete.
   584-590 taxi/truck/red-car coordinate paths, including the Onett door-close
   gate and Twoson bus-appearance gate, `C3:6A41..C3:6BB4`, `371` validated
   bytes.
+- `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`: high-ranked frontier
+  seam covering ebsrc scripts 592-596: the Boogy Tent Eye live-area gate, two
+  fixed coordinate releases, the city-bus coordinate path, and a
+  z-bounce/text-yield visual release, `C3:6BEA..C3:6D18`, `302` validated
+  bytes.
 - `notes/c3-position-text-yield-paths-source-pilot.md`: high-ranked frontier
   seam covering the party-look-at-active-entity loop plus ebsrc scripts
   120-132, including text-yield handoffs, fixed coordinate placement helpers,
@@ -252,6 +257,7 @@ Candidate/follow-up families for this milestone:
 - `C3:B70C..C3:BAA3` tunnel ghost/zombie paths - pilot complete
 - `C3:BB5C..C3:BD03` tunnel ghost follower paths - pilot complete
 - `C3:6A41..C3:6BB4` vehicle coordinate paths scripts 584-590 - pilot complete
+- `C3:6BEA..C3:6D18` Boogy Tent/city bus paths scripts 592-596 - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
 - `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
   on the `C0:A92D` callback contract before promotion
@@ -279,13 +285,14 @@ cluster, presentation/effect corridor, first Itoi production intro split,
 intro/presentation movement paths, cast-scroll setup scripts, intro
 cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
 teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
-paths, vehicle coordinate paths, and position/text-yield paths now have
+paths, vehicle coordinate paths, Boogy Tent/city bus paths, and
+position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:6BEA..C3:6D18` as the best ready seam;
+`C3:7439..C3:7545` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
-`C4:67E6` callback contract is pinned, `C3:C167..C1E0` once the `C0:C682`
+`C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`
 callback contract is pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback
 contract is pinned, and the blocked `C3:5231` script 801
 cast-scroll/cast-spawn payload.

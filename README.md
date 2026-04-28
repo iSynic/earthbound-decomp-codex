@@ -52,14 +52,14 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Sixteen source-form pilots are also
+byte-count seeds captured for semantic naming. Seventeen source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
 intro/presentation movement path, cast-scroll setup, intro cast-member path,
 party-look/window-gfx path, temp-flag door-close path, teleport-destination
-path, tunnel ghost/zombie path, tunnel ghost follower path, and vehicle coordinate
-path and position/text-yield path clusters. Together they represent `9003`
+path, tunnel ghost/zombie path, tunnel ghost follower path, vehicle coordinate
+path, Boogy Tent/city bus path, and position/text-yield path clusters. Together they represent `9305`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -99,6 +99,7 @@ Good starting points:
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
 - `notes/c3-vehicle-coordinate-paths-source-pilot.md`
+- `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
 - `notes/c3-position-text-yield-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
@@ -250,6 +251,10 @@ python tools/build_c3_event_script_source_pilot.py --family party-look-window-gf
 python tools/build_c3_event_script_source_pilot.py --family temp-flag-door-close-paths
 python tools/build_c3_event_script_source_pilot.py --family teleport-destination-paths
 python tools/build_c3_event_script_source_pilot.py --family tunnel-ghost-zombie-paths
+python tools/build_c3_event_script_source_pilot.py --family tunnel-ghost-follower-paths
+python tools/build_c3_event_script_source_pilot.py --family vehicle-coordinate-paths
+python tools/build_c3_event_script_source_pilot.py --family boogy-tent-city-bus-paths
+python tools/build_c3_event_script_source_pilot.py --family position-text-yield-paths
 python tools/build_c3_source_pilot_frontier.py
 ```
 
