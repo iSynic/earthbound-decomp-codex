@@ -5,29 +5,33 @@ Generated from promoted C3 working names in script-oriented notes. This is a mac
 ## Summary
 
 - schema: `earthbound-decomp.script-payloads.v1`
-- payloads: `80`
-- by kind: `{'effect-script-payload': 1, 'event-branch-label': 35, 'event-bytecode': 37, 'movement-pattern-record': 7}`
-- by decode status: `{'complete': 72, 'not-applicable': 8}`
+- payloads: `84`
+- by kind: `{'effect-script-payload': 1, 'event-branch-label': 35, 'event-bytecode': 41, 'movement-pattern-record': 7}`
+- by decode status: `{'complete': 75, 'limit': 1, 'not-applicable': 8}`
 
 | Address | Name | Kind | Decode | Note |
 | --- | --- | --- | --- | --- |
-| `C3:0295` | `MoveActiveEntityLeftToScriptVarsAndWait` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:138 |
+| `C3:0195` | `Event221PaulaFatherFarewellSequence` | `event-bytecode` | `limit` | notes/c3-event-222-224-movement-helper-cluster.md:156 |
+| `C3:0235` | `Event222PaulaDoorExitMovementScript` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:157 |
+| `C3:024A` | `Event223PaulaPorchExitMovementScript` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:158 |
+| `C3:0260` | `Event224PaulaReturnMovementScript` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:159 |
+| `C3:0295` | `MoveActiveEntityLeftToScriptVarsAndWait` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:155 |
 | `C3:43DB` | `LoopTimedDeliveryDeparturePulseUntilOffscreen` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:103 |
 | `C3:43E8` | `TimedDeliveryDeparturePulseAnimation0Half` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:104 |
-| `C3:443E` | `TimedDeliveryRetryWaitLoop` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:47 |
-| `C3:444D` | `TimedDeliveryReadinessGate` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:48 |
-| `C3:4457` | `TimedDeliverySuccessGateAndPresentationSetup` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:49 |
-| `C3:447A` | `StartTimedDeliveryArrivalMovementTask` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:50 |
-| `C3:447D` | `TimedDeliveryFailureTeardown` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:51 |
-| `C3:4488` | `PrepareTimedDeliveryActorForPresentation` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:52 |
-| `C3:4499` | `WaitTimedDeliveryActorPresentationPrep` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:53 |
-| `C3:44A7` | `ReturnFromTimedDeliveryActorPrep` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:54 |
-| `C3:44A8` | `RunTimedDeliveryDepartureMovement` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:55 |
-| `C3:44C1` | `LoopTimedDeliveryDepartureMovement` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:56 |
-| `C3:44D2` | `FinishTimedDeliveryDepartureAndYieldText` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:57 |
-| `C3:44DE` | `RunTimedDeliveryArrivalMovement` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:58 |
-| `C3:44EE` | `LoopTimedDeliveryArrivalMovement` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:59 |
-| `C3:44FF` | `HoldTimedDeliveryArrivalCompletion` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:60 |
+| `C3:443E` | `TimedDeliveryRetryWaitLoop` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:62 |
+| `C3:444D` | `TimedDeliveryReadinessGate` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:63 |
+| `C3:4457` | `TimedDeliverySuccessGateAndPresentationSetup` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:64 |
+| `C3:447A` | `StartTimedDeliveryArrivalMovementTask` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:65 |
+| `C3:447D` | `TimedDeliveryFailureTeardown` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:66 |
+| `C3:4488` | `PrepareTimedDeliveryActorForPresentation` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:67 |
+| `C3:4499` | `WaitTimedDeliveryActorPresentationPrep` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:68 |
+| `C3:44A7` | `ReturnFromTimedDeliveryActorPrep` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:69 |
+| `C3:44A8` | `RunTimedDeliveryDepartureMovement` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:70 |
+| `C3:44C1` | `LoopTimedDeliveryDepartureMovement` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:71 |
+| `C3:44D2` | `FinishTimedDeliveryDepartureAndYieldText` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:72 |
+| `C3:44DE` | `RunTimedDeliveryArrivalMovement` | `event-bytecode` | `complete` | notes/c3-timed-delivery-controller-working-names.md:73 |
+| `C3:44EE` | `LoopTimedDeliveryArrivalMovement` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:74 |
+| `C3:44FF` | `HoldTimedDeliveryArrivalCompletion` | `event-branch-label` | `complete` | notes/c3-timed-delivery-controller-working-names.md:75 |
 | `C3:9FF2` | `IntroMovementPatternPointerTable` | `movement-pattern-record` | `not-applicable` | notes/c3-intro-script-frontier-9ff2-a07f.md:90 |
 | `C3:A010` | `IntroMovementPattern09Loop` | `movement-pattern-record` | `not-applicable` | notes/c3-intro-script-frontier-9ff2-a07f.md:91 |
 | `C3:A01B` | `IntroMovementPattern08Loop` | `movement-pattern-record` | `not-applicable` | notes/c3-intro-script-frontier-9ff2-a07f.md:92 |
@@ -40,18 +44,18 @@ Generated from promoted C3 working names in script-oriented notes. This is a mac
 | `C3:A05E` | `IntroCutsceneSpriteObjectSetup` | `event-bytecode` | `complete` | notes/c3-intro-script-frontier-9ff2-a07f.md:99 |
 | `C3:A076` | `LoopIntroCompanionVisualRefresh` | `event-branch-label` | `complete` | notes/c3-intro-script-frontier-9ff2-a07f.md:100 |
 | `C3:A07F` | `HaltEventScript` | `event-bytecode` | `complete` | notes/c3-intro-script-frontier-9ff2-a07f.md:101 |
-| `C3:A09F` | `LoopActiveEntityWalkAnimationPulse` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:143 |
-| `C3:A0B2` | `LoopActiveEntityWalkPulse24Frame` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:84 |
-| `C3:A0C5` | `LoopActiveEntityWalkPulse12Frame` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:85 |
-| `C3:A0D8` | `LoopActiveEntityWalkPulse9FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86 |
-| `C3:A0EB` | `LoopActiveEntityWalkPulse6FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:87 |
-| `C3:A0FE` | `LoopActiveEntityWalkPulse2FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:88 |
-| `C3:A111` | `LoopActiveEntityWalkPulseVar4Gate` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:89 |
-| `C3:A12E` | `LoopActiveEntityWalkPulseVar4Countdown` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:90 |
+| `C3:A09F` | `LoopActiveEntityWalkAnimationPulse` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:164 |
+| `C3:A0B2` | `LoopActiveEntityWalkPulse24Frame` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:94 |
+| `C3:A0C5` | `LoopActiveEntityWalkPulse12Frame` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:95 |
+| `C3:A0D8` | `LoopActiveEntityWalkPulse9FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:96 |
+| `C3:A0EB` | `LoopActiveEntityWalkPulse6FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:97 |
+| `C3:A0FE` | `LoopActiveEntityWalkPulse2FrameConditional` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:98 |
+| `C3:A111` | `LoopActiveEntityWalkPulseVar4Gate` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:99 |
+| `C3:A12E` | `LoopActiveEntityWalkPulseVar4Countdown` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:100 |
 | `C3:A15E` | `LoopC40015Var4GatedPulseUntilRelease` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:105 |
 | `C3:A17B` | `LoopC40015SlowPulseUntilRelease` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:106 |
 | `C3:A18F` | `LoopC40015FastPulseUntilRelease` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:107 |
-| `C3:A1DF` | `LoopActiveEntityWalkPulse2FrameC40015Branch` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:91 |
+| `C3:A1DF` | `LoopActiveEntityWalkPulse2FrameC40015Branch` | `event-branch-label` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:101 |
 | `C3:A1F3` | `LoopC40015Pulse16FrameUntilRelease` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:108 |
 | `C3:A204` | `ReleaseCurrentVisualEntityAndEnd` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:109 |
 | `C3:A209` | `DelayThenReleaseCurrentVisualEntity` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:110 |
@@ -61,7 +65,7 @@ Generated from promoted C3 working names in script-oriented notes. This is a mac
 | `C3:A23D` | `Var0AnimationCase2Pulse4Frame` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:114 |
 | `C3:A24E` | `Var0AnimationCase3Pulse32Frame` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:115 |
 | `C3:A25F` | `Var0AnimationCase4Wait16Frame` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:116 |
-| `C3:A262` | `LoopActiveEntityCollisionProbeRefresh` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:144 |
+| `C3:A262` | `LoopActiveEntityCollisionProbeRefresh` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:165 |
 | `C3:A2AA` | `TrafficLightWaitUntilOffscreenAndRelease` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:130 |
 | `C3:A381` | `InitRandomWanderMovementWithCollisionProbe` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:117 |
 | `C3:A3A1` | `InitC40015PulseWithCollisionProbe` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:118 |
@@ -76,23 +80,110 @@ Generated from promoted C3 working names in script-oriented notes. This is a mac
 | `C3:A448` | `LoopNpcAttentionHorizontalCollision` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:127 |
 | `C3:A45C` | `FinishNpcAttentionAndReleaseActor` | `event-branch-label` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:128 |
 | `C3:A47C` | `ReleaseCurrentVisualEntityTail` | `event-bytecode` | `complete` | notes/c3-temporary-actor-movement-and-release-scripts.md:129 |
-| `C3:AA38` | `InitActionScriptMovementState` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:139 |
-| `C3:AA46` | `InitMovementPreset40_00Pulse24Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:92 |
-| `C3:AA5A` | `InitMovementPreset00_01Pulse12Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:93 |
-| `C3:AA6E` | `InitMovementPreset60_01Pulse9Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:94 |
-| `C3:AA82` | `InitMovementPreset00_02Pulse6Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:95 |
-| `C3:AA96` | `InitMovementPreset00_06Pulse2Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:96 |
-| `C3:AAAA` | `InitMovementPresetVar4Countdown` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:97 |
-| `C3:AB12` | `InitMovementPreset00_06C40015Branch` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:98 |
-| `C3:AB26` | `InitAlternatePhysicsVar4WalkPulse` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:99 |
-| `C3:AB44` | `RefreshActiveEntityDirectionAndVisualProfile` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:140 |
-| `C3:AB59` | `WaitForActiveEntityMovementToFinish` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:141 |
-| `C3:AB8A` | `WaitUntilPlayerLeavesActiveArea` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:142 |
-| `C3:AFA3` | `LoopPartyLooksAtActiveEntity` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:145 |
+| `C3:AA38` | `InitActionScriptMovementState` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:160 |
+| `C3:AA46` | `InitMovementPreset40_00Pulse24Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:102 |
+| `C3:AA5A` | `InitMovementPreset00_01Pulse12Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:103 |
+| `C3:AA6E` | `InitMovementPreset60_01Pulse9Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:104 |
+| `C3:AA82` | `InitMovementPreset00_02Pulse6Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:105 |
+| `C3:AA96` | `InitMovementPreset00_06Pulse2Frame` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:106 |
+| `C3:AAAA` | `InitMovementPresetVar4Countdown` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:107 |
+| `C3:AB12` | `InitMovementPreset00_06C40015Branch` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:108 |
+| `C3:AB26` | `InitAlternatePhysicsVar4WalkPulse` | `event-bytecode` | `complete` | notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:109 |
+| `C3:AB44` | `RefreshActiveEntityDirectionAndVisualProfile` | `event-bytecode` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:161 |
+| `C3:AB59` | `WaitForActiveEntityMovementToFinish` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:162 |
+| `C3:AB8A` | `WaitUntilPlayerLeavesActiveArea` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:163 |
+| `C3:AFA3` | `LoopPartyLooksAtActiveEntity` | `event-branch-label` | `complete` | notes/c3-event-222-224-movement-helper-cluster.md:166 |
 | `C3:F819` | `BattleSwirlOverlayMode2Script` | `effect-script-payload` | `not-applicable` | notes/c3-battle-visual-table-and-token-sublabels.md:81 |
-| `C3:FDBD` | `DeliveryPlaceholderSpriteTable` | `movement-pattern-record` | `not-applicable` | notes/c3-timed-delivery-controller-working-names.md:61 |
+| `C3:FDBD` | `DeliveryPlaceholderSpriteTable` | `movement-pattern-record` | `not-applicable` | notes/c3-timed-delivery-controller-working-names.md:76 |
 
 ## Payloads
+
+### C3:0195 Event221PaulaFatherFarewellSequence
+
+- kind: `event-bytecode`
+- decode status: `limit`
+- classification: decoded with tools/decode_event_script.py
+- raw preview: `42 4C A8 C0 0C 00 0B AA A2 42 4C A8 C0 0D 00 0A`
+
+```text
+C3:0195  42 4C A8 C0 0C 00    EVENT_CALLROUTINE $C0:A84C <ActionScript_TestEventFlag_ReadWord>, $0C, $00
+C3:019B  0B AA A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A2AA <TrafficLightWaitUntilOffscreenAndRelease>
+C3:019E  42 4C A8 C0 0D 00    EVENT_CALLROUTINE $C0:A84C <ActionScript_TestEventFlag_ReadWord>, $0D, $00
+C3:01A4  0A AA A2             EVENT_SHORTCALL_CONDITIONAL $C3:A2AA <TrafficLightWaitUntilOffscreenAndRelease>
+C3:01A7  1A 38 AA             EVENT_SHORTCALL $C3:AA38 <InitActionScriptMovementState>
+C3:01AA  3B FF                EVENT_SET_ANIMATION $FF
+C3:01AC  42 2F A8 C0          EVENT_CALLROUTINE $C0:A82F <DisableCurrentSlotNeighborCache>
+C3:01B0  0E 04 01 00          EVENT_SET_VAR $04, $0001
+C3:01B4  0E 00 90 1A          EVENT_SET_VAR $00, $1A90
+C3:01B8  0E 01 60 1E          EVENT_SET_VAR $01, $1E60
+C3:01BC  0E 02 08 00          EVENT_SET_VAR $02, $0008
+C3:01C0  0E 03 C0 00          EVENT_SET_VAR $03, $00C0
+C3:01C4  1A 8A AB             EVENT_SHORTCALL $C3:AB8A <WaitUntilPlayerLeavesActiveArea>
+C3:01C7  28 E8 1A             EVENT_SET_X $1AE8
+C3:01CA  29 68 1E             EVENT_SET_Y $1E68
+C3:01CD  3B 00                EVENT_SET_ANIMATION $00
+C3:01CF  42 38 A8 C0          EVENT_CALLROUTINE $C0:A838
+C3:01D3  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, $06, $00
+; ... 23 more decoded lines in JSON manifest
+```
+
+### C3:0235 Event222PaulaDoorExitMovementScript
+
+- kind: `event-bytecode`
+- decode status: `complete`
+- classification: decoded with tools/decode_event_script.py
+- raw preview: `15 9A 5D 01 00 0E 06 10 1B 0E 07 88 01 1A 95 02`
+
+```text
+C3:0235  15 9A 5D 01 00       EVENT_WRITE_WORD_WRAM $5D9A, $0001
+C3:023A  0E 06 10 1B          EVENT_SET_VAR $06, $1B10
+C3:023E  0E 07 88 01          EVENT_SET_VAR $07, $0188
+C3:0242  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:0245  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:0249  09                   EVENT_HALT
+```
+
+### C3:024A Event223PaulaPorchExitMovementScript
+
+- kind: `event-bytecode`
+- decode status: `complete`
+- classification: decoded with tools/decode_event_script.py
+- raw preview: `28 E8 1F 29 68 00 0E 06 18 1F 0E 07 68 00 1A 95`
+
+```text
+C3:024A  28 E8 1F             EVENT_SET_X $1FE8
+C3:024D  29 68 00             EVENT_SET_Y $0068
+C3:0250  0E 06 18 1F          EVENT_SET_VAR $06, $1F18
+C3:0254  0E 07 68 00          EVENT_SET_VAR $07, $0068
+C3:0258  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:025B  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:025F  09                   EVENT_HALT
+```
+
+### C3:0260 Event224PaulaReturnMovementScript
+
+- kind: `event-bytecode`
+- decode status: `complete`
+- classification: decoded with tools/decode_event_script.py
+- raw preview: `28 D0 1D 29 D8 00 0E 06 80 1D 0E 07 D8 00 1A 95`
+
+```text
+C3:0260  28 D0 1D             EVENT_SET_X $1DD0
+C3:0263  29 D8 00             EVENT_SET_Y $00D8
+C3:0266  0E 06 80 1D          EVENT_SET_VAR $06, $1D80
+C3:026A  0E 07 D8 00          EVENT_SET_VAR $07, $00D8
+C3:026E  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
+C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, $02, $00
+C3:0277  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:027B  06 01                EVENT_PAUSE $01
+C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM $5D9A, $0000
+C3:0282  0E 06 D0 1D          EVENT_SET_VAR $06, $1DD0
+C3:0286  1A 59 AB             EVENT_SHORTCALL $C3:AB59 <WaitForActiveEntityMovementToFinish>
+C3:0289  13                   EVENT_END_LAST_TASK
+C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, $06, $00
+C3:0290  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
+C3:0294  09                   EVENT_HALT
+```
 
 ### C3:0295 MoveActiveEntityLeftToScriptVarsAndWait
 
@@ -128,7 +219,7 @@ C3:43EA  3B 00                EVENT_SET_ANIMATION $00
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
-C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:43FB  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -146,7 +237,7 @@ C3:43EA  3B 00                EVENT_SET_ANIMATION $00
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
-C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:43F7  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:43FB  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -159,13 +250,13 @@ C3:43FF  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 A7 0C EF 0A 7D 44 42 23 0D EF 24 06 3C 02 42`
 
 ```text
-C3:443E  42 A7 0C EF          EVENT_CALLROUTINE $EF:0CA7 <UNKNOWN_EF0CA7>
+C3:443E  42 A7 0C EF          EVENT_CALLROUTINE $EF:0CA7 <CheckCurrentDeliveryRetryThreshold>
 C3:4442  0A 7D 44             EVENT_SHORTCALL_CONDITIONAL $C3:447D <TimedDeliveryFailureTeardown>
-C3:4445  42 23 0D EF          EVENT_CALLROUTINE $EF:0D23 <UNKNOWN_EF0D23>
+C3:4445  42 23 0D EF          EVENT_CALLROUTINE $EF:0D23 <GetCurrentDeliveryRetryWait>
 C3:4449  24                   EVENT_LOOP_TEMPVAR
 C3:444A  06 3C                EVENT_PAUSE $3C
 C3:444C  02                   EVENT_LOOP_END
-C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <UNKNOWN_EF0F60>
+C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <CheckDeliveryServiceReadyForArrival>
 C3:4451  0A 57 44             EVENT_SHORTCALL_CONDITIONAL $C3:4457 <TimedDeliverySuccessGateAndPresentationSetup>
 C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLoop>
 ```
@@ -178,7 +269,7 @@ C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLo
 - raw preview: `42 60 0F EF 0A 57 44 19 3E 44 42 9A FF C2 0B 7D`
 
 ```text
-C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <UNKNOWN_EF0F60>
+C3:444D  42 60 0F EF          EVENT_CALLROUTINE $EF:0F60 <CheckDeliveryServiceReadyForArrival>
 C3:4451  0A 57 44             EVENT_SHORTCALL_CONDITIONAL $C3:4457 <TimedDeliverySuccessGateAndPresentationSetup>
 C3:4454  19 3E 44             EVENT_SHORTJUMP $C3:443E <TimedDeliveryRetryWaitLoop>
 ```
@@ -198,9 +289,9 @@ C3:4460  42 9B C1 C0          EVENT_CALLROUTINE $C0:C19B <CopyPathToLane_FromPar
 C3:4464  0B 3E 44             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:443E <TimedDeliveryRetryWaitLoop>
 C3:4467  07 7A 44             EVENT_START_TASK $C3:447A <StartTimedDeliveryArrivalMovementTask>
 C3:446A  06 01                EVENT_PAUSE $01
-C3:446C  42 DB 0F EF          EVENT_CALLROUTINE $EF:0FDB <UNKNOWN_EF0FDB>
+C3:446C  42 DB 0F EF          EVENT_CALLROUTINE $EF:0FDB <BeginDeliverySuccessArrivalState>
 C3:4470  1A 88 44             EVENT_SHORTCALL $C3:4488 <PrepareTimedDeliveryActorForPresentation>
-C3:4473  42 8D 0D EF          EVENT_CALLROUTINE $EF:0D8D <UNKNOWN_EF0D8D>
+C3:4473  42 8D 0D EF          EVENT_CALLROUTINE $EF:0D8D <QueueCurrentDeliveryPointer1>
 C3:4477  19 A8 44             EVENT_SHORTJUMP $C3:44A8 <RunTimedDeliveryDepartureMovement>
 ```
 
@@ -213,8 +304,8 @@ C3:4477  19 A8 44             EVENT_SHORTJUMP $C3:44A8 <RunTimedDeliveryDepartur
 
 ```text
 C3:447A  1A DE 44             EVENT_SHORTCALL $C3:44DE <RunTimedDeliveryArrivalMovement>
-C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
-C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <UNKNOWN_EF0DFA>
+C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
+C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <QueueCurrentDeliveryPointer2>
 C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
 
@@ -226,8 +317,8 @@ C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 F6 0F EF 42 FA 0D EF 19 04 A2 3B 00 07 9F A0`
 
 ```text
-C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
-C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <UNKNOWN_EF0DFA>
+C3:447D  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
+C3:4481  42 FA 0D EF          EVENT_CALLROUTINE $EF:0DFA <QueueCurrentDeliveryPointer2>
 C3:4485  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
 
@@ -295,7 +386,7 @@ C3:44AD  07 DB 43             EVENT_START_TASK $C3:43DB <LoopTimedDeliveryDepart
 C3:44B0  20 00                EVENT_WRITE_VAR_TO_TEMPVAR $00
 C3:44B2  42 51 C2 C0          EVENT_CALLROUTINE $C0:C251 <CopyPathToLane_FromCurrentEntityRequestReverse>
 C3:44B6  0B D2 44             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:44D2 <FinishTimedDeliveryDepartureAndYieldText>
-C3:44B9  42 8A 0E EF          EVENT_CALLROUTINE $EF:0E8A <UNKNOWN_EF0E8A>
+C3:44B9  42 8A 0E EF          EVENT_CALLROUTINE $EF:0E8A <GetCurrentDeliveryExitSpeed>
 C3:44BD  42 8B A6 C0          EVENT_CALLROUTINE $C0:A68B <StoreAInCurrentSlotField2B32>
 C3:44C1  42 8F D9 C0          EVENT_CALLROUTINE $C0:D98F <Export_CurrentSlotAttentionTarget>
 C3:44C5  0A D2 44             EVENT_SHORTCALL_CONDITIONAL $C3:44D2 <FinishTimedDeliveryDepartureAndYieldText>
@@ -328,7 +419,7 @@ C3:44CF  19 C1 44             EVENT_SHORTJUMP $C3:44C1 <LoopTimedDeliveryDepartu
 
 ```text
 C3:44D2  39                   EVENT_SET_VELOCITIES_ZERO
-C3:44D3  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <UNKNOWN_EF0FF6>
+C3:44D3  42 F6 0F EF          EVENT_CALLROUTINE $EF:0FF6 <ResetDeliveryArrivalState>
 C3:44D7  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:44DB  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
@@ -341,7 +432,7 @@ C3:44DB  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEnti
 - raw preview: `42 67 0E EF 42 8B A6 C0 0E 05 03 00 0E 04 00 00`
 
 ```text
-C3:44DE  42 67 0E EF          EVENT_CALLROUTINE $EF:0E67 <UNKNOWN_EF0E67>
+C3:44DE  42 67 0E EF          EVENT_CALLROUTINE $EF:0E67 <GetCurrentDeliveryEnterSpeed>
 C3:44E2  42 8B A6 C0          EVENT_CALLROUTINE $C0:A68B <StoreAInCurrentSlotField2B32>
 C3:44E6  0E 05 03 00          EVENT_SET_VAR $05, $0003
 C3:44EA  0E 04 00 00          EVENT_SET_VAR $04, $0000
@@ -430,14 +521,14 @@ C3:4505  19 FF 44             EVENT_SHORTJUMP $C3:44FF <HoldTimedDeliveryArrival
 - raw preview: `42 D3 FF C1 0A 4E A0 42 00 01 C3 08 00 52 C0 01`
 
 ```text
-C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <label_C1FFD3>
+C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <ComputeBankC1ChecksumTail>
 C3:A047  0A 4E A0             EVENT_SHORTCALL_CONDITIONAL $C3:A04E <StartIntroCameraPanTickLoop>
 C3:A04A  42 00 01 C3          EVENT_CALLROUTINE $C3:0100 <DisplayAntiPiracyScreen>
 C3:A04E  08 00 52 C0          EVENT_SET_TICK_CALLBACK $C0:5200 <Tick_OverworldPlayerPositionAndCallbacks>
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -453,7 +544,7 @@ C3:A04E  08 00 52 C0          EVENT_SET_TICK_CALLBACK $C0:5200 <Tick_OverworldPl
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -468,7 +559,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAn
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <LoopIntroCameraPanWaitAndC2Step>
 ```
 
@@ -485,7 +576,7 @@ C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallba
 C3:A064  3B 00                EVENT_SET_ANIMATION $00
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>
-C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A072  08 78 4D C0          EVENT_SET_TICK_CALLBACK $C0:4D78 <Tick_Event2SnapshotObjectReconcile>
 C3:A076  42 E3 A6 C0          EVENT_CALLROUTINE $C0:A6E3 <WatchAndRefreshCompanionVisualPhase>
 C3:A07A  06 01                EVENT_PAUSE $01
@@ -918,7 +1009,7 @@ C3:A261  1B                   EVENT_SHORT_RETURN
 - raw preview: `42 DA A6 C0 42 76 5E C0 F1 A6 64 C0 19 66 A2 0C`
 
 ```text
-C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A266  42 76 5E C0 F1 A6 64 C0 EVENT_CALLROUTINE $C0:5E76 <Update_CurrentSlotCollisionCache>, $F1, $A6, $64, $C0
 C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
 ```
@@ -957,7 +1048,7 @@ C3:A386  07 11 A1             EVENT_START_TASK $C3:A111 <LoopActiveEntityWalkPul
 C3:A389  07 62 A2             EVENT_START_TASK $C3:A262 <LoopActiveEntityCollisionProbeRefresh>
 C3:A38C  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:A390  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, $00, $01
-C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <ScriptWrapper_C47225_ReadTwoWords>, $08, $00, $08, $00
+C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords>, $08, $00, $08, $00
 C3:A39E  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovementWithRandomWait>
 ```
 
@@ -1057,7 +1148,7 @@ C3:A3FE  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovem
 
 ```text
 C3:A401  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK $C0:9FF0 <label_C09FF0>
-C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A404  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A408  06 01                EVENT_PAUSE $01
 C3:A40A  42 B8 A6 C0          EVENT_CALLROUTINE $C0:A6B8 <GetCurrentSlotHasNoCachedNeighborFlag>
 C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A425 <UNKNOWN_C3A425>
@@ -1343,7 +1434,7 @@ C3:AB58  1B                   EVENT_SHORT_RETURN
 ```text
 C3:AB59  1A 44 AB             EVENT_SHORTCALL $C3:AB44 <RefreshActiveEntityDirectionAndVisualProfile>
 C3:AB5C  06 01                EVENT_PAUSE $01
-C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <ScriptWrapper_C47143_Mode01>
+C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <StepCurrentSlotTowardCachedTarget_NoFacingRefresh>
 C3:AB62  0A 5C AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB5C <DATA_C3AB5C>
 C3:AB65  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB66  1B                   EVENT_SHORT_RETURN
@@ -1358,7 +1449,7 @@ C3:AB66  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AB8A  06 01                EVENT_PAUSE $01
-C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <label_C46E74>
+C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <CheckStagedPositionWithinPlayerProximityThreshold>
 C3:AB90  0A 8A AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB8A <WaitUntilPlayerLeavesActiveArea>
 C3:AB93  1B                   EVENT_SHORT_RETURN
 ```
@@ -1371,7 +1462,7 @@ C3:AB93  1B                   EVENT_SHORT_RETURN
 - raw preview: `42 3B 8B C4 06 03 19 A3 AF 25 7A A3 3B 00 07 7B`
 
 ```text
-C3:AFA3  42 3B 8B C4          EVENT_CALLROUTINE $C4:8B3B
+C3:AFA3  42 3B 8B C4          EVENT_CALLROUTINE $C4:8B3B <MakePartyLookAtActiveEntityCallback>
 C3:AFA7  06 03                EVENT_PAUSE $03
 C3:AFA9  19 A3 AF             EVENT_SHORTJUMP $C3:AFA3 <LoopPartyLooksAtActiveEntity>
 ```

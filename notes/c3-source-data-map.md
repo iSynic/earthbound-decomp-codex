@@ -6,14 +6,14 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 
 - schema: `earthbound-decomp.c3-source-data-map.v1`
 - addressed include rows: `193`
-- working labels: `168` (`85` internal or named-include labels)
-- script payload labels: `80` (`43` internal labels)
+- working labels: `172` (`89` internal or named-include labels)
+- script payload labels: `84` (`47` internal labels)
 - data-contract labels: `36` (`12` internal labels)
 - working-named addressed rows: `83`
 - script payload include-start rows: `37`
 - contract-backed include-start rows: `24`
-- by extraction class: `{'contract-backed-data': 20, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 2, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 1, 'source-helper': 24}`
-- supplemental by extraction class: `{'contract-backed-data': 12, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 14, 'working-label': 1}`
+- by extraction class: `{'contract-backed-data': 20, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-script-row': 1, 'mixed-data-source-row': 2, 'movement-pattern-data': 6, 'null-stub': 1, 'source-helper': 24}`
+- supplemental by extraction class: `{'contract-backed-data': 12, 'event-bytecode-asset': 27, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 14, 'working-label': 1}`
 - script decode status: `{'complete': 30, 'not-applicable': 7}`
 
 ## Extraction Classes
@@ -26,6 +26,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `contract-backed-data` | Structured ROM table with a data-contract entry. |
 | `contract-backed-data-prefix` | Include starts with a structured leading contract and a remaining tail that still needs splitting or preservation. |
 | `mixed-data-source-row` | Addressed data include that contains embedded ordinary source-helper labels and should be split before source emission. |
+| `mixed-data-script-row` | Addressed data include that contains embedded event/actionscript labels and should be split before script emission. |
 | `raw-or-named-data`, `source-adjacent-data`, `data-or-helper-frontier` | Data/include starts that are documented but may need later consumer polishing. |
 | `null-stub` | Explicit null/padding stub; preserve, but keep out of source-helper worklists. |
 
@@ -33,7 +34,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 
 | Address | Size | Include | Class | Name / Contract | Decode |
 | --- | ---: | --- | --- | --- | --- |
-| `C3:0188` | 0x10D | `data/unknown/C30188.asm` | `raw-or-named-data` |  |  |
+| `C3:0188` | 0x10D | `data/unknown/C30188.asm` | `mixed-data-script-row` |  |  |
 | `C3:0295` | 0x6F6 | `data/events/C30295.asm` | `event-bytecode-asset` | `MoveActiveEntityLeftToScriptVarsAndWait` | `complete` |
 | `C3:098B` | 0x94 | `data/events/C3098B.asm` | `event-script-asset` |  |  |
 | `C3:0A1F` | 0x236 | `data/events/C30A1F.asm` | `event-script-asset` |  |  |
@@ -235,6 +236,10 @@ These labels are not address-bearing include starts in the reference bankconfig.
 | --- | --- | --- | --- | --- |
 | `C3:0100` | `source-helper` | `working-name` | `DisplayAntiPiracyScreen` |  |
 | `C3:0142` | `source-helper` | `working-name` | `DisplayFaultyGamePakScreen` |  |
+| `C3:0195` | `event-bytecode-asset` | `script-payload` | `Event221PaulaFatherFarewellSequence` | `limit` |
+| `C3:0235` | `event-bytecode-asset` | `script-payload` | `Event222PaulaDoorExitMovementScript` | `complete` |
+| `C3:024A` | `event-bytecode-asset` | `script-payload` | `Event223PaulaPorchExitMovementScript` | `complete` |
+| `C3:0260` | `event-bytecode-asset` | `script-payload` | `Event224PaulaReturnMovementScript` | `complete` |
 | `C3:43E8` | `event-bytecode-asset` | `script-payload` | `TimedDeliveryDeparturePulseAnimation0Half` | `complete` |
 | `C3:443E` | `event-bytecode-asset` | `script-payload` | `TimedDeliveryRetryWaitLoop` | `complete` |
 | `C3:444D` | `event-bytecode-asset` | `script-payload` | `TimedDeliveryReadinessGate` | `complete` |
@@ -350,12 +355,13 @@ These are the addressed rows currently classified as `source-helper`. They are t
 | `C3:FAC9` | `unknown/C3/C3FAC9.asm` | `DispatchBattleActorVisualEffectToken` | ordinary 65816 helper candidate for source extraction |
 | `C3:FB09` | `unknown/C3/C3FB09.asm` | `CheckCurrentBattleActorVisualFlag` | ordinary 65816 helper candidate for source extraction |
 
-## Mixed Data/Source Rows
+## Mixed Data Rows
 
-These addressed data includes contain embedded source-helper labels. Split them before emitting ordinary source.
+These addressed data includes contain embedded source-helper or event/actionscript labels. Split their leading data/prefix bytes before emitting ordinary source or script assets.
 
-| Address | Include | Embedded Source Labels | Split Expectation |
+| Address | Include | Embedded Labels | Split Expectation |
 | --- | --- | --- | --- |
+| `C3:0188` | `data/unknown/C30188.asm` | C3:0195 Event221PaulaFatherFarewellSequence<br>C3:0235 Event222PaulaDoorExitMovementScript<br>C3:024A Event223PaulaPorchExitMovementScript<br>C3:0260 Event224PaulaReturnMovementScript | mixed row: split leading data/prefix bytes from embedded event/actionscript labels C3:0195 Event221PaulaFatherFarewellSequence, C3:0235 Event222PaulaDoorExitMovementScript, C3:024A Event223PaulaPorchExitMovementScript, C3:0260 Event224PaulaReturnMovementScript |
 | `C3:E84E` | `data/unknown/C3E84E.asm` | C3:E977 ReadCharacterInventorySlotByte<br>C3:E9A0 CheckEquippedInventorySlotReference | mixed row: split leading data from embedded source-helper labels C3:E977 ReadCharacterInventorySlotByte, C3:E9A0 CheckEquippedInventorySlotReference |
 | `C3:F2B1` | `data/unknown/C3F2B1.asm` | C3:F3C5 RunFileSelectVisualTransition | mixed row: split leading data from embedded source-helper labels C3:F3C5 RunFileSelectVisualTransition |
 
@@ -365,4 +371,4 @@ Rows below are documented enough to split, but are intentionally not promoted to
 
 | Address | Include | Class | Reason |
 | --- | --- | --- | --- |
-| `C3:0188` | `data/unknown/C30188.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
+| _none_ |  |  |  |

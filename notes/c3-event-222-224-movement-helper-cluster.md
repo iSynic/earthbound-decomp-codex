@@ -113,6 +113,23 @@ C3:AFA9  19 A3 AF             EVENT_SHORTJUMP $C3:AFA3 <LoopPartyLooksAtActiveEn
 
 ## Script family
 
+`EVENT_221`, `EVENT_222`, `EVENT_223`, and `EVENT_224` are the hidden entries inside the old raw `C3:0188..0295` include:
+
+- `C3:0188..0195`: 13-byte prefix/data island before the first known event entry.
+- `C3:0195`: `EVENT_221`, matching `refs/ebsrc-main/ebsrc-main/src/data/events/scripts/221.asm`.
+- `C3:0235`: `EVENT_222`, matching `refs/ebsrc-main/ebsrc-main/src/data/events/scripts/222.asm`.
+- `C3:024A`: `EVENT_223`, matching `refs/ebsrc-main/ebsrc-main/src/data/events/scripts/223.asm`.
+- `C3:0260`: `EVENT_224`, matching `refs/ebsrc-main/ebsrc-main/src/data/events/scripts/224.asm`.
+
+The anchor for `EVENT_221` is the byte-exact `EVENT_TEST_EVENT_FLAG EVENT_FLAG::FLG_POLA` expansion at `C3:0195`:
+
+```text
+C3:0195  42 4C A8 C0 0C 00    EVENT_CALLROUTINE $C0:A84C, $0C, $00
+C3:019B  0B AA A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A2AA
+C3:019E  42 4C A8 C0 0D 00    EVENT_CALLROUTINE $C0:A84C, $0D, $00
+C3:01A4  0A AA A2             EVENT_SHORTCALL_CONDITIONAL $C3:A2AA
+```
+
 `EVENT_222`, `EVENT_223`, and `EVENT_224` are the immediate callers of `C3:0295` in `ebsrc-main`.
 
 - `EVENT_222` writes `PENDING_INTERACTIONS = 1`, sets `ACTIONSCRIPT_VARS::V6 = $1B10`, sets `V7 = $0188`, calls `C3:0295`, yields to text, then halts.
@@ -136,6 +153,10 @@ That caller shape makes `C3:0295` a reusable "active entity moves left toward th
 ## Working Names
 
 - `C3:0295` = `MoveActiveEntityLeftToScriptVarsAndWait`
+- `C3:0195` = `Event221PaulaFatherFarewellSequence`
+- `C3:0235` = `Event222PaulaDoorExitMovementScript`
+- `C3:024A` = `Event223PaulaPorchExitMovementScript`
+- `C3:0260` = `Event224PaulaReturnMovementScript`
 - `C3:AA38` = `InitActionScriptMovementState`
 - `C3:AB44` = `RefreshActiveEntityDirectionAndVisualProfile`
 - `C3:AB59` = `WaitForActiveEntityMovementToFinish`
@@ -146,6 +167,6 @@ That caller shape makes `C3:0295` a reusable "active entity moves left toward th
 
 ## Remaining questions
 
-- The event ids `222-224` still need exact local ROM addresses if we want labels for script table entries rather than only the shared helpers.
+- The 13-byte prefix at `C3:0188..0195` still needs a direct consumer or source annotation. It is now bounded by the `EVENT_221` byte signature, but it should remain a small preserved prefix until its exact role is known.
 - `C4:6E74` and `C4:8B3B` are currently named through `ebsrc-main` macros but still need local C4 documentation before their names become more than ref-corroborated behavior. The adjacent `C4:7044`, `C4:7143`, and `C4:72A8` movement-vector helpers are now covered in `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`.
 - `C3:A111` is the local target for the setup task started by `C3:AA38`; the broader `C3:A0D8`/`C3:A111` movement-task family should be the next neighboring C3 seam.

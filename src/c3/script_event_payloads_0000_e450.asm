@@ -8,7 +8,8 @@
 ;
 ; Source units covered:
 ; - C3:0000..C3:0188 C30000Unmapped [unmapped-frontier]
-; - C3:0188..C3:0295 C30188RawData [raw-or-named-data]
+; - C3:0188..C3:0195 Event221PreludeData [raw-or-named-data]
+; - C3:0195..C3:0295 Event221To224PaulaMovementScripts [event-bytecode-asset]
 ; - C3:0295..C3:098B MoveActiveEntityLeftToScriptVarsAndWait [event-bytecode-asset]
 ; - C3:098B..C3:0A1F C3098BEventScript [event-script-asset]
 ; - C3:0A1F..C3:0C55 C30A1FEventScript [event-script-asset]
@@ -279,8 +280,13 @@ C30188_C30000UnmappedEnd:
 
 ; ---------------------------------------------------------------------------
 ; C3:0188..C3:0295
-; class: raw-or-named-data
+; class: mixed-data-script-row
 ; source: data/unknown/C30188.asm
+; embedded labels:
+; - C3:0195 Event221PaulaFatherFarewellSequence
+; - C3:0235 Event222PaulaDoorExitMovementScript
+; - C3:024A Event223PaulaPorchExitMovementScript
+; - C3:0260 Event224PaulaReturnMovementScript
 
 C30295_C30188RawDataEnd:
     ; data bytes: C3:0295..C3:098B

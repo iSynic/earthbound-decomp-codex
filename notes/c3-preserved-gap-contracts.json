@@ -10,7 +10,7 @@
   "summary": {
     "preserved_groups": 3,
     "preserved_bytes": 1930,
-    "segments": 40,
+    "segments": 41,
     "status": "closed-by-contract"
   },
   "groups": [
@@ -19,7 +19,7 @@
       "end": "C3:0295",
       "name": "C3BankPrefixPalettesSystemScreensAndEarlyScriptData",
       "status": "closed-preserved-data-and-source-adjacent-prefix",
-      "summary": "C3's bank prefix is not an event/actionscript source-pilot gap. It is a mixed prefix containing file-select sprite palettes, two 65816 system-screen helpers, two event-flag words, and a raw reference include immediately before the first decoded event/actionscript payload.",
+      "summary": "C3's bank prefix is not an event/actionscript source-pilot gap. It is a mixed prefix containing file-select sprite palettes, two 65816 system-screen helpers, two event-flag words, a small event-221 prefix island, and the decoded EVENT_221 through EVENT_224 bytecode bundle.",
       "evidence": [
         "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:16",
         "refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:44452",
@@ -114,19 +114,36 @@
         },
         {
           "start": "C3:0188",
-          "end": "C3:0295",
-          "name": "C30188RawData",
+          "end": "C3:0195",
+          "name": "Event221PreludeData",
           "classification": "raw-or-named-data",
-          "source_expectation": "source-adjacent data; keep raw until the exact event/actionscript consumer split is pinned",
+          "source_expectation": "13-byte prefix before the EVENT_221 bytecode entry; preserve until exact consumer semantics are pinned",
           "evidence": [
             "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:35",
-            "build/c3-source-data-map.json"
+            "notes/c3-event-222-224-movement-helper-cluster.md"
           ],
-          "note": "The source-data map keeps the ebsrc unknown include boundary intact before C3:0295.",
-          "range": "C3:0188..C3:0295",
-          "size": 269,
-          "sha1": "52dfb0af8822ce042fbaa0af080417ba18e4cd26",
-          "first_bytes": "3C 00 44 80 00 41 3C 00 49 3C 00 42 00 42 4C A8",
+          "note": "The byte-exact EVENT_221 signature starts at C3:0195, leaving this leading prefix bounded but still semantically cautious.",
+          "range": "C3:0188..C3:0195",
+          "size": 13,
+          "sha1": "6eeb959f1ac54cf3bfbd7b083edee2502dc0b1d8",
+          "first_bytes": "3C 00 44 80 00 41 3C 00 49 3C 00 42 00",
+          "last_bytes": "3C 00 44 80 00 41 3C 00 49 3C 00 42 00"
+        },
+        {
+          "start": "C3:0195",
+          "end": "C3:0295",
+          "name": "Event221To224PaulaMovementScripts",
+          "classification": "event-bytecode-asset",
+          "source_expectation": "event/actionscript bytecode bundle containing EVENT_221 through EVENT_224",
+          "evidence": [
+            "notes/c3-event-222-224-movement-helper-cluster.md",
+            "notes/script-payloads-c3.md"
+          ],
+          "note": "Reference scripts 221-224 byte-match at C3:0195, C3:0235, C3:024A, and C3:0260.",
+          "range": "C3:0195..C3:0295",
+          "size": 256,
+          "sha1": "d81b6b1cd2b5204f23d8eaceecd80c4f133bbda6",
+          "first_bytes": "42 4C A8 C0 0C 00 0B AA A2 42 4C A8 C0 0D 00 0A",
           "last_bytes": "1D 1A 59 AB 13 42 6E AA C0 06 00 42 46 6E C4 09"
         }
       ],

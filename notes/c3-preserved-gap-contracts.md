@@ -8,7 +8,7 @@ This report explains the three raw regions preserved by the C3 event/actionscrip
 
 - preserved groups: `3`
 - preserved bytes: `1930`
-- subsegments: `40`
+- subsegments: `41`
 - status: `closed-by-contract`
 
 | Range | Bytes | Name | Status | SHA1 |
@@ -19,7 +19,7 @@ This report explains the three raw regions preserved by the C3 event/actionscrip
 
 ## C3:0000..C3:0295 C3BankPrefixPalettesSystemScreensAndEarlyScriptData
 
-C3's bank prefix is not an event/actionscript source-pilot gap. It is a mixed prefix containing file-select sprite palettes, two 65816 system-screen helpers, two event-flag words, and a raw reference include immediately before the first decoded event/actionscript payload.
+C3's bank prefix is not an event/actionscript source-pilot gap. It is a mixed prefix containing file-select sprite palettes, two 65816 system-screen helpers, two event-flag words, a small event-221 prefix island, and the decoded EVENT_221 through EVENT_224 bytecode bundle.
 
 Evidence:
 - `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:16`
@@ -34,7 +34,8 @@ Evidence:
 | `C3:0142..C3:0184` | 66 | `source-helper` | `DisplayFaultyGamePakScreen` | ordinary 65816 helper; already named, but outside the event/actionscript source-pilot corpus |
 | `C3:0184..C3:0186` | 2 | `event-flag-word` | `EventFlagNoContinueSelected` | two-byte data constant; preserve or emit as a named word |
 | `C3:0186..C3:0188` | 2 | `event-flag-word` | `NessPajamaFlag` | two-byte data constant; preserve or emit as a named word |
-| `C3:0188..C3:0295` | 269 | `raw-or-named-data` | `C30188RawData` | source-adjacent data; keep raw until the exact event/actionscript consumer split is pinned |
+| `C3:0188..C3:0195` | 13 | `raw-or-named-data` | `Event221PreludeData` | 13-byte prefix before the EVENT_221 bytecode entry; preserve until exact consumer semantics are pinned |
+| `C3:0195..C3:0295` | 256 | `event-bytecode-asset` | `Event221To224PaulaMovementScripts` | event/actionscript bytecode bundle containing EVENT_221 through EVENT_224 |
 
 Segment notes:
 - `C3:0000..C3:0100` `FileSelectScreenSpritePalettes`: Eight 0x20-byte file-select sprite palettes at the front of bank C3. Evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:16`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:44452`.
@@ -42,7 +43,8 @@ Segment notes:
 - `C3:0142..C3:0184` `DisplayFaultyGamePakScreen`: Loads/decompresses the incorrect-region/faulty Game Pak screen graphics and tilemap. Evidence: `notes/c4-system-error-screen-render-0b51-0b75.md:56`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:44492`.
 - `C3:0184..C3:0186` `EventFlagNoContinueSelected`: Reference include is named data/event_flag_nocontinue_selected.asm. Evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:31`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:44524`.
 - `C3:0186..C3:0188` `NessPajamaFlag`: Reference include is named data/ness_pajama_flag.asm; legacy C0 callers read DATA_C30186. Evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:33`, `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:44527`.
-- `C3:0188..C3:0295` `C30188RawData`: The source-data map keeps the ebsrc unknown include boundary intact before C3:0295. Evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:35`, `build/c3-source-data-map.json`.
+- `C3:0188..C3:0195` `Event221PreludeData`: The byte-exact EVENT_221 signature starts at C3:0195, leaving this leading prefix bounded but still semantically cautious. Evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:35`, `notes/c3-event-222-224-movement-helper-cluster.md`.
+- `C3:0195..C3:0295` `Event221To224PaulaMovementScripts`: Reference scripts 221-224 byte-match at C3:0195, C3:0235, C3:024A, and C3:0260. Evidence: `notes/c3-event-222-224-movement-helper-cluster.md`, `notes/script-payloads-c3.md`.
 
 ## C3:9FF2..C3:A07F IntroMovementPatternAndAntiPiracyGate
 

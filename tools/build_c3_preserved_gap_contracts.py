@@ -60,7 +60,7 @@ GROUPS: list[dict[str, Any]] = [
         "summary": (
             "C3's bank prefix is not an event/actionscript source-pilot gap. It is a mixed prefix "
             "containing file-select sprite palettes, two 65816 system-screen helpers, two event-flag "
-            "words, and a raw reference include immediately before the first decoded event/actionscript payload."
+            "words, a small event-221 prefix island, and the decoded EVENT_221 through EVENT_224 bytecode bundle."
         ),
         "evidence": [
             "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:16",
@@ -131,15 +131,27 @@ GROUPS: list[dict[str, Any]] = [
             },
             {
                 "start": "C3:0188",
-                "end": "C3:0295",
-                "name": "C30188RawData",
+                "end": "C3:0195",
+                "name": "Event221PreludeData",
                 "classification": "raw-or-named-data",
-                "source_expectation": "source-adjacent data; keep raw until the exact event/actionscript consumer split is pinned",
+                "source_expectation": "13-byte prefix before the EVENT_221 bytecode entry; preserve until exact consumer semantics are pinned",
                 "evidence": [
                     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank03.asm:35",
-                    "build/c3-source-data-map.json",
+                    "notes/c3-event-222-224-movement-helper-cluster.md",
                 ],
-                "note": "The source-data map keeps the ebsrc unknown include boundary intact before C3:0295.",
+                "note": "The byte-exact EVENT_221 signature starts at C3:0195, leaving this leading prefix bounded but still semantically cautious.",
+            },
+            {
+                "start": "C3:0195",
+                "end": "C3:0295",
+                "name": "Event221To224PaulaMovementScripts",
+                "classification": "event-bytecode-asset",
+                "source_expectation": "event/actionscript bytecode bundle containing EVENT_221 through EVENT_224",
+                "evidence": [
+                    "notes/c3-event-222-224-movement-helper-cluster.md",
+                    "notes/script-payloads-c3.md",
+                ],
+                "note": "Reference scripts 221-224 byte-match at C3:0195, C3:0235, C3:024A, and C3:0260.",
             },
         ],
     },

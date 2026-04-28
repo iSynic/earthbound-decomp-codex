@@ -70,6 +70,7 @@ class IncludeRow:
     contract_confidence: str | None
     evidence: tuple[str, ...]
     embedded_source_labels: tuple[str, ...] = ()
+    embedded_script_labels: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -413,40 +414,68 @@ def build_manifest(
         for label in supplemental_labels
         if label.extraction_class == "source-helper"
     ]
-    mixed_row_notes: dict[str, tuple[str, ...]] = {}
+    script_labels = [
+        label
+        for label in supplemental_labels
+        if label.extraction_class in {"event-bytecode-asset", "event-bytecode-label", "event-script-asset"}
+    ]
+    mixed_source_row_notes: dict[str, tuple[str, ...]] = {}
+    mixed_script_row_notes: dict[str, tuple[str, ...]] = {}
     for row in addressed_rows:
         if row.extraction_class not in {"raw-or-named-data", "data-or-helper-frontier", "contract-backed-data-prefix"}:
             continue
         if row.size is None:
             continue
         row_end = row.start + row.size
-        embedded = [
+        embedded_source = [
             label
             for label in source_labels
             if row.start < int(label.address.split(":", 1)[1], 16) < row_end
         ]
-        if embedded:
-            mixed_row_notes[row.address or ""] = tuple(
-                f"{label.address} {label.name}" for label in embedded
+        embedded_script = [
+            label
+            for label in script_labels
+            if row.start < int(label.address.split(":", 1)[1], 16) < row_end
+        ]
+        if embedded_source:
+            mixed_source_row_notes[row.address or ""] = tuple(
+                f"{label.address} {label.name}" for label in embedded_source
+            )
+        if embedded_script:
+            mixed_script_row_notes[row.address or ""] = tuple(
+                f"{label.address} {label.name}" for label in embedded_script
             )
 
-    if mixed_row_notes:
+    if mixed_source_row_notes or mixed_script_row_notes:
         updated_rows: list[IncludeRow] = []
         for row in include_rows:
-            embedded = mixed_row_notes.get(row.address or "")
-            if not embedded:
+            embedded_source = mixed_source_row_notes.get(row.address or "")
+            embedded_script = mixed_script_row_notes.get(row.address or "")
+            if not embedded_source and not embedded_script:
                 updated_rows.append(row)
                 continue
+            if embedded_source:
+                extraction_class = "mixed-data-source-row"
+                labels = embedded_source
+                expectation = (
+                    "mixed row: split leading data from embedded source-helper labels "
+                    + ", ".join(labels)
+                )
+            else:
+                extraction_class = "mixed-data-script-row"
+                labels = embedded_script
+                expectation = (
+                    "mixed row: split leading data/prefix bytes from embedded event/actionscript labels "
+                    + ", ".join(labels)
+                )
             updated_rows.append(
                 replace(
                     row,
-                    extraction_class="mixed-data-source-row",
-                    source_expectation=(
-                        "mixed row: split leading data from embedded source-helper labels "
-                        + ", ".join(embedded)
-                    ),
-                    evidence=row.evidence + embedded,
-                    embedded_source_labels=embedded,
+                    extraction_class=extraction_class,
+                    source_expectation=expectation,
+                    evidence=row.evidence + labels,
+                    embedded_source_labels=embedded_source,
+                    embedded_script_labels=embedded_script,
                 )
             )
         include_rows = updated_rows
@@ -534,6 +563,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
         "| `contract-backed-data` | Structured ROM table with a data-contract entry. |",
         "| `contract-backed-data-prefix` | Include starts with a structured leading contract and a remaining tail that still needs splitting or preservation. |",
         "| `mixed-data-source-row` | Addressed data include that contains embedded ordinary source-helper labels and should be split before source emission. |",
+        "| `mixed-data-script-row` | Addressed data include that contains embedded event/actionscript labels and should be split before script emission. |",
         "| `raw-or-named-data`, `source-adjacent-data`, `data-or-helper-frontier` | Data/include starts that are documented but may need later consumer polishing. |",
         "| `null-stub` | Explicit null/padding stub; preserve, but keep out of source-helper worklists. |",
         "",
@@ -607,21 +637,25 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             )
         )
 
-    mixed_rows = [row for row in rows if row["extraction_class"] == "mixed-data-source-row"]
+    mixed_rows = [
+        row for row in rows
+        if row["extraction_class"] in {"mixed-data-source-row", "mixed-data-script-row"}
+    ]
     if mixed_rows:
         lines.extend(
             [
                 "",
-                "## Mixed Data/Source Rows",
+                "## Mixed Data Rows",
                 "",
-                "These addressed data includes contain embedded source-helper labels. Split them before emitting ordinary source.",
+                "These addressed data includes contain embedded source-helper or event/actionscript labels. Split their leading data/prefix bytes before emitting ordinary source or script assets.",
                 "",
-                "| Address | Include | Embedded Source Labels | Split Expectation |",
+                "| Address | Include | Embedded Labels | Split Expectation |",
                 "| --- | --- | --- | --- |",
             ]
         )
         for row in mixed_rows:
-            embedded = "<br>".join(markdown_escape(str(item)) for item in row.get("embedded_source_labels", ()))
+            embedded_items = tuple(row.get("embedded_source_labels") or ()) + tuple(row.get("embedded_script_labels") or ())
+            embedded = "<br>".join(markdown_escape(str(item)) for item in embedded_items)
             lines.append(
                 "| `{address}` | `{path}` | {embedded} | {expectation} |".format(
                     address=row["address"],
@@ -642,9 +676,13 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             "| --- | --- | --- | --- |",
         ]
     )
-    for row in rows:
-        if row["extraction_class"] not in {"raw-or-named-data", "source-adjacent-data", "data-or-helper-frontier"}:
-            continue
+    frontier_rows = [
+        row for row in rows
+        if row["extraction_class"] in {"raw-or-named-data", "source-adjacent-data", "data-or-helper-frontier"}
+    ]
+    if not frontier_rows:
+        lines.append("| _none_ |  |  |  |")
+    for row in frontier_rows:
         lines.append(
             "| `{address}` | `{path}` | `{klass}` | {reason} |".format(
                 address=row["address"],
