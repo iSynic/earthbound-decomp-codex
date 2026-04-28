@@ -212,6 +212,11 @@ LABEL_OVERRIDES = {
     "C3:74E4": "Event637_CoordinateTextYieldRelease",
     "C3:7511": "Event637_StartFastPulseFinalMove",
     "C3:7530": "Event637_StartTwoFramePulseFinalMove",
+    "C3:835D": "SwitchAnimPortFlagsFromTempvar",
+    "C3:8370": "SetAnimPortFlags00",
+    "C3:8383": "SetAnimPortFlags01",
+    "C3:8396": "SetAnimPortFlags10",
+    "C3:83A9": "SetAnimPortFlags11",
     "C3:9E01": "WaitUntilNoBattleSwirlOrEnemyTouch",
     "C3:A2B8": "Event8_Entry2WaitUntilOffscreenRelease",
     "C3:A09F": "LoopActiveEntityWalkAnimationPulse",
@@ -642,6 +647,17 @@ FAMILY_DEFAULTS = {
         ],
         "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the bus-tunnel bridge right-side text handoff, ebsrc scripts 453-454's copied-pose offset party-look halt variants, their shared common tail, and the adjacent obscured simple-position actor helper at `C3:DBDB..C3:DBF2`.",
         "next": "Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the larger adjacent `C3:DBF2..C3:DF90` corridor should be split only after its callback-heavy movement/text handoffs are reviewed.",
+    },
+    "anim-port-flag-switch": {
+        "output": ROOT / "src" / "c3" / "event_scripts" / "anim_port_flag_switch.asar.asm",
+        "report": ROOT / "notes" / "c3-anim-port-flag-switch-source-pilot.md",
+        "manifest": ROOT / "build" / "c3-anim-port-flag-switch-source-pilot.json",
+        "rows": [],
+        "spans": [
+            ("C3:835D", "C3:83BC", "AnimPortFlagSwitch"),
+        ],
+        "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the tempvar-indexed helper used by ebsrc scripts 688-691 to write the two animation-port event flags in all four binary combinations.",
+        "next": "Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; scripts 688-691 in the adjacent `C3:83BC..C3:8978` region are the natural semantic consumer of this helper.",
     },
     "position-text-yield-paths": {
         "output": ROOT / "src" / "c3" / "event_scripts" / "position_text_yield_paths.asar.asm",
@@ -1118,6 +1134,18 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
             *[f"    dw <choice{i}>" for i in range(count)],
         ]
         args[name] = ", ".join(["target", "count", *choice_args])
+    for name in sorted(used_macros):
+        match = re.fullmatch(r"EVENT_SWITCH_(JUMP|CALL)_TEMPVAR_(\d+)", name)
+        if not match:
+            continue
+        opcode = "$10" if match.group(1) == "JUMP" else "$11"
+        count = int(match.group(2))
+        target_args = [f"target{i}" for i in range(count)]
+        bodies[name] = [
+            f"    db {opcode}, <count>",
+            *[f"    dw <target{i}>" for i in range(count)],
+        ]
+        args[name] = ", ".join(["count", *target_args])
     missing = sorted(used_macros - bodies.keys())
     if missing:
         raise ValueError(f"missing macro definitions for: {', '.join(missing)}")
