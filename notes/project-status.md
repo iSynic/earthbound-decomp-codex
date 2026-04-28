@@ -80,6 +80,19 @@ aliases versus higher-level shop/Escargo/display source macros.
 phase-good-enough: remaining runtime-only leaves, parser artifacts, authoring
 format markers, and higher-level macro lanes are bounded and explicitly
 deferred rather than unknown.
+The asset/data contract phase now has a generated frontier at
+`notes/asset-data-contract-frontier.md`, built by
+`tools/build_asset_data_contract_frontier.py` from checked-in
+`asset-manifests/*.json` and contract notes. It currently inventories `38`
+manifests, `2218` represented assets/tables/gaps, `6174` output recipes,
+`1718` assets with preview/swatch recipes, and `1834` assets with decoder
+recipes beyond raw extraction. It also separates contract-backed families
+from manifest-only families: overworld sprites and map assets are already
+contract-backed for this phase, and UI/font/town-map assets now have the first
+generated phase-4 contract seed at `notes/ui-font-town-map-asset-contracts.md`.
+Battle visual assets, audio packs, EF's coarse mixed corridor, and the
+remaining E0/E1 unresolved payload/table splits are the next contract
+frontiers.
 
 ## Public Good-Enough Definition
 
@@ -138,7 +151,8 @@ Remaining work is mostly:
 - turning table and WRAM contracts into typed source/data definitions
 - documenting event, action, and text bytecode VM semantics
 - making script/text assets reassembly-friendly
-- adding render/decode fixtures for graphics, audio, text, and map assets
+- turning manifest-backed graphics, audio, UI/font, and EF mixed payloads into
+  semantic asset/data contracts
 - building enough semantic models to support higher-level C or engine work
 
 ## Bank Groups
@@ -207,8 +221,12 @@ that romhackers need to edit confidently:
    or porting tasks.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
-4. Asset/data banks: render/decode fixtures and public-safe extraction planning
-   after the semantics work is stronger.
+4. Asset/data banks: `notes/asset-data-contract-frontier.md` is now the
+   phase-4 queue. `notes/ui-font-town-map-asset-contracts.md` starts the
+   `E0..E1` contract lane by grouping `68` represented assets/tables/gaps into
+   `8` runtime-facing families. The next highest-value seam is to split the
+   E1 town-map placement table bundle and unresolved intro/title payloads, then
+   move to `CA..CE` battle visual family contracts.
 
 ## Key References
 
@@ -221,6 +239,8 @@ that romhackers need to edit confidently:
 - `notes/c3-event-script-source-scaffold-validation.md`
 - `notes/c3-byte-equivalence-validation.md`
 - `notes/text-command-semantics-manifest.md`
+- `notes/asset-data-contract-frontier.md`
+- `notes/ui-font-town-map-asset-contracts.md`
 - `notes/c3-event-script-source-pilot.md`
 - `notes/c3-timed-delivery-source-pilot.md`
 - `notes/c3-service-event-movement-source-pilot.md`

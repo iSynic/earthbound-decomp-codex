@@ -156,6 +156,21 @@
   Localization Script Semantics milestone as phase-good-enough. Remaining
   runtime-only leaves, parser artifacts, authoring-format markers, and
   higher-level macro lanes are bounded follow-up work, not blockers.
+- `tools/build_asset_data_contract_frontier.py` now generates
+  `notes/asset-data-contract-frontier.md` and
+  `build/asset-data-contract-frontier.json`. This is the active workstream-4
+  scoreboard: `38` manifests, `2218` represented assets/tables/gaps, `6174`
+  output recipes, `1718` assets with preview/swatch recipes, and `1834` assets
+  with decoder recipes beyond raw extraction. It marks D1-D5 overworld sprites
+  and D6-DF map assets as contract-backed for this phase, promotes E0/E1
+  UI/font/town-map assets to contract-seeded, and keeps battle visual,
+  audio-pack, and EF mixed-tail contracts as explicit follow-up lanes.
+- `tools/build_ui_font_town_map_asset_contracts.py` now generates
+  `notes/ui-font-town-map-asset-contracts.md` and
+  `build/ui-font-town-map-asset-contracts.json`. It groups the E0/E1 frontier
+  into `68` represented assets/tables/gaps across `8` families: text window
+  skins, font sets, town maps, intro/title visuals, flyover/credits/photo
+  tables, embedded audio tails, unresolved UI-adjacent payloads, and padding.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -342,26 +357,44 @@ Future targeted candidates:
 - recovered localization `.MSG` commands: classify high-count authoring
   commands as direct VM mappings, authoring-only metadata, or macro expansions.
 
-### 4. Raw Asset Emission
+### 4. Asset/Data Contracts
 
-These banks are closer to packaging work than archaeology:
+This workstream is no longer just raw asset emission. The byte and extraction
+layers are present; the next job is deciding which asset families are
+semantically contract-backed enough for editors, romhacks, installers, and
+eventual ports.
 
-- `E0` and `E1`: byte-closed asset/table banks where richer UI/font/town-map
-  semantics are still useful after byte closure, because their asset manifests
-  still report missing payload metadata.
-- `C3`: event/actionscript bytecode separation from helper source.
-- audio-pack payload banks are byte-protected through `EE`; revisit only if
-  audio-pack decoding becomes a separate target.
+The active generated view is `notes/asset-data-contract-frontier.md`.
+
+Highest-value seams:
+
+- `E0` and `E1`: small UI/font/town-map banks with preview/decode recipes,
+  strong C4 caller evidence, and the only missing payload metadata currently
+  reported by the asset manifests. The first generated contract seed is
+  `notes/ui-font-town-map-asset-contracts.md`; remaining work is table/payload
+  refinement rather than family discovery.
+- `CA..CE`: battle backgrounds, battle sprites, PSI/effect graphics, palettes,
+  arrangements, and runtime selector tables have good extraction/preview
+  coverage but still need family-level runtime-facing contracts.
+- `D6..DF`: map contracts are mature; the remaining work is targeted polish on
+  collision low-modifier caller names and DA palette metadata/event-selector
+  roles.
+- `E2..EE`: audio packs are byte-protected and extractable, but still raw-pack
+  level until an audio-pack/sample/sequence contract boundary is chosen.
+- `EF`: debug graphics are seeded, but the large front mixed corridor needs
+  finer save/debug/map/tile/sprite/text contracts when EF becomes the target.
 
 ## Recommended Immediate Move
 
-Move out of workstream `3` by default. The best next manual work is subsystem
-semantics or asset/decode planning:
+Move out of workstream `3` by default. The best next manual work is phase-4
+asset/data contracts, with subsystem semantics pulled in only when they prove
+an asset field:
 
-- `C0` / `C2` / `C4`: side-effect contracts for overworld, battle, and
-  rendering workflows.
-- Asset banks: render/decode fixtures and public-safe extraction planning for
-  map, graphics, UI/font, and audio payloads.
+- `E0..E1`: split the E1 town-map placement bundle and unresolved intro/title
+  payloads now that the family-level contract seed exists.
+- `CA..CE`: follow after that for battle visual family contracts.
+- `D6..DF`: close the known map-polish followups if public-facing map status
+  needs to be tightened.
 - Text VM follow-up only when a concrete source-editing, reinsertion, or
   porting task needs it.
 

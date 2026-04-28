@@ -77,6 +77,8 @@ The first seed manifest is `asset-manifests/ef-debug-assets.json`, because bank 
 - `tools/build_secondary_visual_descriptor_contract.py` consumes the user-supplied ROM to decode the C4 secondary visual descriptor pointer table, per-pass piece records, priority-band counts, and adjacent support table ranges.
 - `tools/build_overworld_sprite_composed_previews.py` consumes the frame contract, secondary visual descriptor contract, raw D1-D5 graphics, and ROM-backed overworld sprite palettes to write ignored prototype composed overworld sheets under `build/overworld-sprite-composed-previews/`.
 - `tools/validate_asset_manifests.py` validates all checked-in manifests, checks duplicate asset IDs, and can run a full local extraction pass.
+- `tools/build_asset_data_contract_frontier.py` consumes checked-in asset manifests and contract docs to write `notes/asset-data-contract-frontier.md` plus ignored `build/asset-data-contract-frontier.json`, separating contract-backed asset families from manifest-only frontiers.
+- `tools/build_ui_font_town_map_asset_contracts.py` consumes the E0/E1 manifests to write `notes/ui-font-town-map-asset-contracts.md` plus ignored `build/ui-font-town-map-asset-contracts.json`, grouping UI, font, town-map, intro/title, flyover/credits, audio-tail, unresolved, and padding payloads by runtime-facing contract family.
 - Seed generated manifests should land in small, representative batches until the schema is settled, then the remaining asset banks can be generated mechanically.
 
 Existing refs are useful for this phase:
