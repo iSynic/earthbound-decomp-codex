@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `23` families, `10333` validated
+- Current source-form event/actionscript pilots: `26` families, `10620` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: twenty-three pilots complete.
+Status: twenty-six pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -255,6 +255,18 @@ Status: twenty-three pilots complete.
   active entity leaves the live-area window plus the adjacent collision-probe
   refresh task commonly started by movement scripts, `C3:A20E..C3:A271`, `99`
   validated bytes.
+- `notes/c3-area-wait-random-wander-helpers-source-pilot.md`: high-ranked
+  frontier seam covering common area-aware movement helpers: target-vector
+  movement, player active-area leave/enter waits, and a random wander loop,
+  `C3:AB67..C3:ABE0`, `121` validated bytes.
+- `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`: high-ranked
+  frontier seam covering two paired coordinate path helpers used by nearby
+  teleport/flyover scripts 161 and 164, `C3:CC24..C3:CC94`, `112` validated
+  bytes.
+- `notes/c3-threed-fight-matent-paths-source-pilot.md`: high-ranked frontier
+  seam covering the V3-gated vertical bounce loop at `C3:6BB4` and ebsrc script
+  591's `MSG_EVT_THRK_FIGHT_MATENT` text halt, `C3:6BB4..C3:6BEA`, `54`
+  validated bytes.
 - `notes/c3-position-text-yield-paths-source-pilot.md`: high-ranked frontier
   seam covering the party-look-at-active-entity loop plus ebsrc scripts
   120-132, including text-yield handoffs, fixed coordinate placement helpers,
@@ -293,6 +305,9 @@ Candidate/follow-up families for this milestone:
 - `C3:DB7A..C3:DBF2` bus-tunnel bridge paths scripts 453-454 - pilot complete
 - `C3:835D..C3:83BC` animation-port flag switch helper - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
+- `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
+- `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
+- `C3:6BB4..C3:6BEA` Threed fight Matent paths - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
 - `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
   on the `C0:A92D` callback contract before promotion
@@ -323,9 +338,10 @@ teleport-destination paths, tunnel ghost/zombie paths, tunnel ghost follower
 paths, vehicle coordinate paths, Boogy Tent/city bus paths, palette
 fade/coordinate paths, falling/bounce-yield paths, teleport-destination prelude
 paths, bus-tunnel bridge paths, animation-port flag switch, and
-var0 animation/collision-probe helpers, and position/text-yield paths now have
+var0 animation/collision-probe, area-wait/random-wander, teleport/flyover
+coordinate, and Threed fight Matent helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:AB9E..C3:ABE0` as the best ready seam;
+`C3:C1E0..C3:C20F` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
