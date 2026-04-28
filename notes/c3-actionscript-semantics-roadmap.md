@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `12` families, `7460` validated
+- Current source-form event/actionscript pilots: `13` families, `7899` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: twelve pilots complete.
+Status: thirteen pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -204,6 +204,11 @@ Status: twelve pilots complete.
   seam covering the door-close/temp-flag handoff helpers, ebsrc scripts
   115-119, the shared party-look task, scripts 468-472, and the helper at
   `C3:C143`, `C3:BEA4..C3:C167`, `707` validated bytes.
+- `notes/c3-party-look-window-gfx-paths-source-pilot.md`: high-ranked frontier
+  seam covering the window-gfx variant loop, ebsrc script 467's random-facing
+  idle loop, scripts 465-466 party-look movement paths, and the small
+  `$2B32` pulse task at `C3:3DBE`, `C3:3C1D..C3:3DD4`, `439` validated
+  bytes.
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`: high-ranked frontier
   seam covering the `C3:B70C` face-target/shake helper plus ebsrc scripts
   73-90, `C3:B70C..C3:BAA3`, `919` validated bytes.
@@ -224,6 +229,8 @@ Candidate/follow-up families for this milestone:
 - `C3:5231..C3:5F8B` script 801 cast-scroll/cast-spawn payload - blocked on
   additional native callback contracts and macro coverage before promotion
 - `C3:5F8B..C3:62C0` intro cast-member path scripts 802-803 and 809-825 -
+  pilot complete
+- `C3:3C1D..C3:3DD4` party-look/window-gfx paths scripts 465-467 -
   pilot complete
 - `C3:BEA4..C3:C167` temp-flag door-close path scripts 115-119 and 468-472 -
   pilot complete
@@ -253,10 +260,11 @@ The movement pulse preset family, timed-delivery controller, adjacent
 service-event movement scripts, neighboring service-animation helper/event
 cluster, presentation/effect corridor, first Itoi production intro split,
 intro/presentation movement paths, cast-scroll setup scripts, intro
-cast-member paths, temp-flag door-close paths, teleport-destination paths, and
-tunnel ghost/zombie paths now have source-form pilots. The refreshed frontier
-currently points at `C3:3C1D..C3:3DBE` as the best ready seam; adjacent
-follow-ups include `C3:C167..C1E0` once the `C0:C682` callback contract is
-pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback contract is pinned,
-`C3:BAA3..C3:BD03`, and the blocked `C3:5231` script 801
+cast-member paths, party-look/window-gfx paths, temp-flag door-close paths,
+teleport-destination paths, and tunnel ghost/zombie paths now have source-form
+pilots. The refreshed frontier currently points at `C3:BB73..C3:BD03` as the
+best ready seam; adjacent follow-ups include `C3:3DD4..C3:4392` once the
+`C4:67E6` callback contract is pinned, `C3:C167..C1E0` once the `C0:C682`
+callback contract is pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback
+contract is pinned, and the blocked `C3:5231` script 801
 cast-scroll/cast-spawn payload.

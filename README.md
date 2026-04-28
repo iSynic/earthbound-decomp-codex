@@ -52,14 +52,14 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Twelve source-form pilots are also
+byte-count seeds captured for semantic naming. Thirteen source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
 intro/presentation movement path, cast-scroll setup, intro cast-member path,
-temp-flag door-close path, teleport-destination path, and tunnel ghost/zombie
-path clusters. Together they represent `7460` ROM bytes as labeled
-event/actionscript macro assembly. The
+party-look/window-gfx path, temp-flag door-close path, teleport-destination
+path, and tunnel ghost/zombie path clusters. Together they represent `7899`
+ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
 
@@ -92,6 +92,7 @@ Good starting points:
 - `notes/c3-intro-presentation-paths-source-pilot.md`
 - `notes/c3-intro-cast-scroll-setup-source-pilot.md`
 - `notes/c3-intro-cast-member-paths-source-pilot.md`
+- `notes/c3-party-look-window-gfx-paths-source-pilot.md`
 - `notes/c3-temp-flag-door-close-paths-source-pilot.md`
 - `notes/c3-teleport-destination-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
@@ -238,6 +239,7 @@ python tools/build_c3_event_script_source_pilot.py --family itoi-production-intr
 python tools/build_c3_event_script_source_pilot.py --family intro-presentation-paths
 python tools/build_c3_event_script_source_pilot.py --family intro-cast-scroll-setup
 python tools/build_c3_event_script_source_pilot.py --family intro-cast-member-paths
+python tools/build_c3_event_script_source_pilot.py --family party-look-window-gfx-paths
 python tools/build_c3_event_script_source_pilot.py --family temp-flag-door-close-paths
 python tools/build_c3_event_script_source_pilot.py --family teleport-destination-paths
 python tools/build_c3_event_script_source_pilot.py --family tunnel-ghost-zombie-paths

@@ -142,6 +142,14 @@ LABEL_OVERRIDES = {
     "C3:51FD": "Event799_ObscuredDownFacingCastActorHalt",
     "C3:5214": "Event800_ObscuredDownFacingCastActorRefreshGate",
     "C3:5226": "LoopWaitForCastActorRefreshFlag",
+    "C3:3C1D": "RunWindowGfxVariantLoop",
+    "C3:3C2F": "ReturnFromWindowGfxVariantLoop",
+    "C3:3C30": "Event467_RandomFacingIdleLoop",
+    "C3:3C3E": "LoopEvent467_RandomFacingIdle",
+    "C3:3C6C": "Event465_PartyLookMovementPath",
+    "C3:3CDA": "Event466_PartyLookLoopingMovementPath",
+    "C3:3D30": "LoopEvent466_RectanglePath",
+    "C3:3DBE": "LoopEvent465_466Field2B32PulseTask",
     "C3:5F8B": "LoopCastScreenActorRefreshGateTask",
     "C3:5F98": "CheckCastScreenActorStillVisible",
     "C3:5FAC": "CheckCastScreenActorLoopContinuation",
@@ -293,6 +301,7 @@ LABEL_OVERRIDES = {
     "C4:7499": "ApplyCurrentSlot0e5eBrightnessToPaletteRows",
     "C4:7A27": "StageBaseSlotRelativeWh0BoxMask",
     "C4:7A6B": "MirrorCurrentEntityYAroundTarget1002",
+    "C4:7B77": "LoadIndexedWindowGfxAndReadVariantByte",
     "C4:8B3B": "MakePartyLookAtActiveEntity",
     "C4:8BE1": "SimpleScreenPositionCallback",
     "C4:8C02": "SimpleScreenPositionCallbackOffset",
@@ -456,6 +465,17 @@ FAMILY_DEFAULTS = {
         "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the door-close/temp-flag handoff helpers, ebsrc scripts 115-119, the shared party-look task, scripts 468-472, and the movement helper at `C3:C143` used by the staggered variants.",
         "next": "Continue with `C3:C167..C1E0` only after the `C0:C682` callback contract is pinned, or take the next high-ranked ready seam from `notes/c3-source-pilot-frontier.md`.",
     },
+    "party-look-window-gfx-paths": {
+        "output": ROOT / "src" / "c3" / "event_scripts" / "party_look_window_gfx_paths.asar.asm",
+        "report": ROOT / "notes" / "c3-party-look-window-gfx-paths-source-pilot.md",
+        "manifest": ROOT / "build" / "c3-party-look-window-gfx-paths-source-pilot.json",
+        "rows": [],
+        "spans": [
+            ("C3:3C1D", "C3:3DD4", "PartyLookWindowGfxPaths"),
+        ],
+        "description": "High-ranked source-pilot frontier seam emitted as labeled event/actionscript macro assembly. This covers the window-gfx variant loop, ebsrc script 467's random-facing idle loop, scripts 465-466 party-look movement paths, and the small field `$2B32` pulse task prefix at `C3:3DBE` used by those paths.",
+        "next": "Continue with `C3:3DD4..C3:4392` only after the `C4:67E6` and later callback contracts are pinned, or take the next high-ranked ready seam from `notes/c3-source-pilot-frontier.md`.",
+    },
 }
 
 
@@ -577,6 +597,14 @@ def decode_exact_row(raw: bytes, start: Address) -> tuple[Instruction, ...]:
                 target = Address(raw[pos + 2], read_u16(raw, pos))
                 pos += 3
                 operands.append(Operand(spec, target))
+                if target.key == "C0:9F82":
+                    count = raw[pos]
+                    pos += 1
+                    operands.append(Operand("call_wordlist_count", count))
+                    for _ in range(count):
+                        operands.append(Operand("call_wordlist_word", read_u16(raw, pos)))
+                        pos += 2
+                    continue
                 count = CALL_ARG_COUNTS.get(target.key)
                 if count is None:
                     raise ValueError(f"unknown callroutine arg count for {target.key} at {address.key}")
@@ -747,8 +775,10 @@ def operand_expr(
     if operand.kind in {"word", "call_arg_byte"}:
         value = int(operand.value)
         return fmt_byte(value) if operand.kind == "call_arg_byte" else fmt_word(value)
-    if operand.kind == "wordlist_count":
+    if operand.kind in {"wordlist_count", "call_wordlist_count"}:
         return str(int(operand.value))
+    if operand.kind == "call_wordlist_word":
+        return fmt_word(int(operand.value))
 
     if not isinstance(operand.value, Address):
         raise TypeError(f"expected address operand, got {operand.value!r}")
@@ -768,6 +798,17 @@ def operand_expr(
 
 def macro_name(instruction: Instruction) -> str:
     if instruction.opcode.name == "EVENT_CALLROUTINE":
+        if (
+            instruction.operands
+            and isinstance(instruction.operands[0].value, Address)
+            and instruction.operands[0].value.key == "C0:9F82"
+        ):
+            count = next(
+                int(operand.value)
+                for operand in instruction.operands
+                if operand.kind == "call_wordlist_count"
+            )
+            return f"EVENT_CHOOSE_RANDOM_SCRIPT_WORD_{count}"
         return f"EVENT_CALLROUTINE_{instruction.call_arg_count or 0}"
     if instruction.opcode.name in {"EVENT_SWITCH_JUMP_TEMPVAR", "EVENT_SWITCH_CALL_TEMPVAR"}:
         return f"{instruction.opcode.name}_{instruction.operands[0].value}"
@@ -882,6 +923,19 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_WRITE_WORD_TEMPVAR": "value",
         "EVENT_WRITE_WRAM_TEMPVAR": "addr",
     }
+    for name in sorted(used_macros):
+        match = re.fullmatch(r"EVENT_CHOOSE_RANDOM_SCRIPT_WORD_(\d+)", name)
+        if not match:
+            continue
+        count = int(match.group(1))
+        choice_args = [f"choice{i}" for i in range(count)]
+        bodies[name] = [
+            "    db $42",
+            "    dl <target>",
+            "    db <count>",
+            *[f"    dw <choice{i}>" for i in range(count)],
+        ]
+        args[name] = ", ".join(["target", "count", *choice_args])
     missing = sorted(used_macros - bodies.keys())
     if missing:
         raise ValueError(f"missing macro definitions for: {', '.join(missing)}")
