@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `37` families, `11291` validated
+- Current source-form event/actionscript pilots: `42` families, `13267` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: thirty-seven pilots complete.
+Status: forty-two pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -315,6 +315,26 @@ Status: thirty-seven pilots complete.
 - `notes/c3-sky-runner-electric-effect-helpers-source-pilot.md`: high-ranked
   frontier seam covering the Sky Runner electric-effect spawn/rise helper pair,
   `C3:CEA2..C3:CEC7`, `37` validated bytes.
+- `notes/c3-small-terminal-helper-cleanup-source-pilot.md`: high-ranked
+  frontier cleanup covering compact terminal helpers: a movement preset/field
+  refresh helper, four facing visual countdown pulses, the cast-path release
+  tail, the delay-then-release helper, and a single-byte end-task helper,
+  `95` emitted bytes, `92` net new frontier bytes after overlap.
+- `notes/c3-cast-screen-tenda-king-paths-source-pilot.md`: high-ranked
+  frontier seam covering the cast-screen Tenda/King/Ness-posing path cluster
+  around ebsrc scripts 845-858, `C3:6834..C3:6A41`, `525` validated bytes.
+- `notes/c3-live-area-facing-movement-paths-source-pilot.md`: high-ranked
+  frontier seam covering the random facing-cycle helper and ebsrc scripts
+  693-695, `C3:83BC..C3:8515`, `345` validated bytes.
+- `notes/c3-onett-townhall-movement-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 715-721, including blink/release,
+  offset-pose, long Onett town hall movement/dialog, door-sound task, and short
+  coordinate movement variants, `C3:89BD..C3:8B7F`, `450` validated bytes.
+- `notes/c3-onett-townhall-door-paths-source-pilot.md`: high-ranked frontier
+  seam covering the ebsrc script 722-729 continuation: doorway movement paths,
+  door open/close sound timing, facing-pulse waits, text-yield handoffs, and the
+  longer town hall door-sound movement path, `C3:8B7F..C3:8DB3`, `564`
+  validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -357,6 +377,12 @@ Candidate/follow-up families for this milestone:
 - `C3:7545..C3:756D` facing pulse helpers - pilot complete
 - `C3:C810..C3:C824` and `C3:CC94..C3:CCB5` teleport/flyover pulse helpers - pilot complete
 - `C3:CEA2..C3:CEC7` Sky Runner electric-effect helpers - pilot complete
+- `C3:0C55..C3:0C67`, `C3:3399..C3:33DD`, `C3:6A3E..C3:6A41`,
+  `C3:A209..C3:A20E`, and `C3:A271..C3:A272` small terminal helpers - pilot complete
+- `C3:6834..C3:6A41` cast-screen Tenda/King paths scripts 845-858 - pilot complete
+- `C3:83BC..C3:8515` live-area facing/movement paths scripts 693-695 - pilot complete
+- `C3:89BD..C3:8B7F` Onett town hall movement paths scripts 715-721 - pilot complete
+- `C3:8B7F..C3:8DB3` Onett town hall door paths scripts 722-729 - pilot complete
 - `C3:A20E..C3:A271` var0 animation/collision-probe helper - pilot complete
 - `C3:AB67..C3:ABE0` area-wait/random-wander helpers - pilot complete
 - `C3:CC24..C3:CC94` teleport/flyover coordinate helpers - pilot complete
@@ -395,11 +421,13 @@ paths, bus-tunnel bridge paths, animation-port flag switch, leftward bounds
 release paths, animation-port direction tasks, rightward live-area bounce/yield,
 V4 animation/side-step helpers, window-gfx loader prologue, tunnel-ghost warp
 text helpers, movement-vector core helpers, facing pulse helpers,
-teleport/flyover pulse helpers, Sky Runner electric-effect helpers, and var0
+teleport/flyover pulse helpers, Sky Runner electric-effect helpers, small
+terminal cleanup helpers, cast-screen Tenda/King paths, live-area facing
+movement paths, Onett town hall movement paths, Onett town hall door paths, and var0
 animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
 Threed fight Matent, position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:0C55..C3:0C67` as the best ready seam;
+`C3:C35D..C3:C4CF` as the best ready seam;
 adjacent follow-ups include
 `C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the

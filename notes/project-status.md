@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Thirty-seven source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `11291` validated bytes across the
+   callback byte-count seeds captured. Forty-two source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `13267` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -106,7 +106,9 @@ that romhackers need to edit confidently:
    area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
    position door-close, rightward live-area bounce/yield, V4 animation/side-step,
    window-gfx loader prologue, tunnel-ghost warp text, movement-vector core,
-   facing pulse, teleport/flyover pulse, and Sky Runner electric-effect helpers.
+   facing pulse, teleport/flyover pulse, Sky Runner electric-effect, small
+   terminal cleanup, cast-screen Tenda/King, live-area facing movement, Onett
+   town hall movement, and Onett town hall door path helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -155,6 +157,11 @@ that romhackers need to edit confidently:
 - `notes/c3-facing-pulse-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-pulse-helpers-source-pilot.md`
 - `notes/c3-sky-runner-electric-effect-helpers-source-pilot.md`
+- `notes/c3-small-terminal-helper-cleanup-source-pilot.md`
+- `notes/c3-cast-screen-tenda-king-paths-source-pilot.md`
+- `notes/c3-live-area-facing-movement-paths-source-pilot.md`
+- `notes/c3-onett-townhall-movement-paths-source-pilot.md`
+- `notes/c3-onett-townhall-door-paths-source-pilot.md`
 - `notes/c3-var0-animation-collision-probe-source-pilot.md`
 - `notes/c3-area-wait-random-wander-helpers-source-pilot.md`
 - `notes/c3-teleport-flyover-coordinate-helpers-source-pilot.md`
