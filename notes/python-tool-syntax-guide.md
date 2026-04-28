@@ -222,6 +222,13 @@ objects, message labels, and action-script behavior names:
 python tools/build_localization_script_metadata_manifest.py
 ```
 
+Join the recovered-source metadata records to ROM-backed placed map objects via
+text labels and map-object text pointers:
+
+```powershell
+python tools/build_localization_map_object_crosswalk.py
+```
+
 Decode C3-style event/actionscript payloads:
 
 ```powershell

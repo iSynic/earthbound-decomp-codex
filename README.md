@@ -106,6 +106,7 @@ Good starting points:
 - `notes/map-milestone-closure.md`
 - `notes/earthbound-localization-script-authoring-format.md`
 - `notes/localization-script-source-index.md`
+- `notes/localization-map-object-crosswalk.md`
 - `notes/map-sector-bundles.md`
 - `notes/map-tileset-bundles.md`
 - `notes/map-fts-format-audit.md`

@@ -25,6 +25,11 @@ Those generated files intentionally stay ignored because they preserve recovered
 source metadata values. The tracked note/index files keep only structural
 counts and workflow guidance.
 
+Run `python tools/build_localization_map_object_crosswalk.py` to join recovered
+source records to ROM-backed placed map objects by text label and pointer. The
+tracked summary is `notes/localization-map-object-crosswalk.md`; the detailed
+ignored output is `build/localization-map-object-crosswalk.json`.
+
 Current local manifest summary:
 
 - Parsed NPC-style metadata records: `653`.
@@ -111,6 +116,9 @@ When working on C5-C9/EF text-command semantics or map-object contracts:
 - Use `tools/build_localization_script_metadata_manifest.py` when you need a
   local queryable manifest of records, labels, commands, symbols, and
   `;@ActionScript:` descriptors.
+- Use `tools/build_localization_map_object_crosswalk.py` when you need to join
+  recovered source records back to placed map objects, movement IDs, and
+  behavior buckets.
 
 This clue does not change the C3 event/actionscript VM decoder directly, but it
 does strengthen the naming model for NPC behavior contracts and eventual

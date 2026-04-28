@@ -136,3 +136,4 @@ that romhackers need to edit confidently:
 - `notes/reference-first-workflow.md`
 - `notes/earthbound-localization-script-authoring-format.md`
 - `notes/localization-script-source-index.md`
+- `notes/localization-map-object-crosswalk.md`
