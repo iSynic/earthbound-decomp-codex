@@ -19,11 +19,12 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Battle visual assets",
         "banks": ["CA", "CB", "CC", "CD", "CE"],
         "maturity": "contract-seeded",
-        "proof": "extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, battle-background scene-layer joins, PSI animation bundle joins, and battle sprite graphics/palette usage joins",
+        "proof": "extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, battle-background scene-layer joins, PSI animation bundle joins, battle sprite graphics/palette usage joins, and swirl sequence joins",
         "docs": [
             "notes/battle-background-scene-bundles.md",
             "notes/psi-animation-bundle-contracts.md",
             "notes/battle-sprite-bundle-contracts.md",
+            "notes/swirl-sequence-bundle-contracts.md",
             "notes/battle-visual-asset-contracts.md",
             "notes/bank-ca-cf-asset-closure.md",
             "notes/bank-ca-asset-data-map.md",
@@ -32,7 +33,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/bank-cd-asset-data-map.md",
             "notes/bank-ce-asset-data-map.md",
         ],
-        "next_contract": "Battle-background, PSI animation, and battle sprite bundles are joined; next group swirl payloads into sequence bundles.",
+        "next_contract": "Major battle visual joins are now covered; remaining work is alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding.",
     },
     {
         "id": "mixed_asset_tables",
@@ -293,7 +294,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 2,
                 "family": "battle_visual_assets",
-                "why": "Contract-seeded; battle backgrounds, PSI animations, and battle sprites now have joins, so the next useful step is swirl sequence bundling.",
+                "why": "Contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins, so the next useful step is narrow polish rather than another broad bundle pass.",
             },
             {
                 "rank": 3,

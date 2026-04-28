@@ -104,8 +104,9 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "swirl_payloads": {
         "label": "Swirl frame payloads",
         "runtime_contract": "Swirl data payloads selected by battle/overworld swirl transition code.",
-        "portable_contract": "Expose as grouped swirl frame sequences using pointer-table and reference-frame counts.",
+        "portable_contract": "Expose as `swirl_sequence.N` frame bundles that preserve sequence speed, first payload index, frame count, and ordered raw payload ids.",
         "docs": [
+            "notes/swirl-sequence-bundle-contracts.md",
             "notes/c2-psi-swirl-overlay-tail-c2e6b3-c2ea74.md",
             "notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md",
         ],
@@ -113,8 +114,9 @@ FAMILIES: dict[str, dict[str, Any]] = {
     "swirl_runtime_tables": {
         "label": "Swirl runtime tables",
         "runtime_contract": "Swirl pointer and primary tables that sequence the CE swirl payloads.",
-        "portable_contract": "Expose as structured sequence tables before generating engine-ready swirl animation bundles.",
+        "portable_contract": "Expose as the structured row source for `swirl_sequence.N`: speed, first payload index, frame count, and reserved-zero byte.",
         "docs": [
+            "notes/swirl-sequence-bundle-contracts.md",
             "notes/c2-psi-swirl-overlay-tail-c2e6b3-c2ea74.md",
             "notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md",
         ],
@@ -311,15 +313,16 @@ def build_contract() -> dict[str, Any]:
             },
             {
                 "id": "swirl_sequence_bundle",
-                "shape": "CE swirl payloads plus swirl pointer/primary tables form transition frame sequences; ignored EBDecomp refs already contain six rendered swirl groups.",
-                "source": "refs/eb-decompile-4ef92/Swirls/swirls.yml and notes/c2-psi-swirl-overlay-tail-c2e6b3-c2ea74.md",
+                "shape": "CE primary table rows provide speed, first payload index, and frame count; the pointer table maps the resulting 126 frame ids to SWIRL_DATA payload starts, matching six ignored EBDecomp rendered groups.",
+                "source": "notes/swirl-sequence-bundle-contracts.md",
             },
         ],
         "next_open_questions": [
             "Promote battle-background layer enum labels beyond UNKNOWN### where visible scene names can be corroborated.",
             "Promote PSI animation target-mode aliases once caller-side effect names are exhaustively tied to battle actions.",
             "Resolve or document the Evil Eye enemy row's sprite-id-110 reference beyond the checked 0..109 pointer table.",
-            "Use the EBDecomp swirl PNG/frame counts to group CE swirl_data payloads into six sequence bundles without checking in images.",
+            "Promote swirl sequence ids 1..6 to player-facing names only when caller-side mode names are corroborated.",
+            "Decode internal SWIRL_DATA payload bytecode only if a future renderer/editor needs native geometry instead of raw-preserved payloads.",
         ],
     }
 
