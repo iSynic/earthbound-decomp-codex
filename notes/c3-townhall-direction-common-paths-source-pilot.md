@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:8FCE..C3:9AC7` continuation should wait until the `C4:9841` callroutine contract is pinned.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:8FCE..C3:9AC7` continuation is now promoted in `townhall-coffee-tea-gatekeeper-paths`.

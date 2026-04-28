@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Fifty-five source-form pilots are also
+byte-count seeds captured for semantic naming. Fifty-nine source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -75,8 +75,10 @@ direction-tracker town hall, theater-stage performance movement, stage visual
 pulse paths, Pokey/Bubble Monkey paths, Monotoly coordinate/text paths,
 T-Stage dance sequence paths, gum-machine/flyover paths, flyover scene/wait
 paths, position-watch/new-entity paths, and town hall direction common paths.
-Together they represent `19656`
-ROM bytes as labeled event/actionscript macro assembly. The
+The remaining town hall/coffee-tea/gatekeeper continuation, bus-transition
+route cluster, Twoson bus route paths, and bus tunnel/desert route paths are
+also promoted. Together they represent `25677` ROM bytes as labeled
+event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
 
@@ -155,6 +157,10 @@ Good starting points:
 - `notes/c3-flyover-scene-wait-paths-source-pilot.md`
 - `notes/c3-position-watch-new-entity-paths-source-pilot.md`
 - `notes/c3-townhall-direction-common-paths-source-pilot.md`
+- `notes/c3-townhall-coffee-tea-gatekeeper-paths-source-pilot.md`
+- `notes/c3-bus-transition-route-paths-source-pilot.md`
+- `notes/c3-twoson-bus-route-paths-source-pilot.md`
+- `notes/c3-bus-tunnel-desert-route-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`
@@ -325,6 +331,10 @@ python tools/build_c3_event_script_source_pilot.py --family gum-machine-flyover-
 python tools/build_c3_event_script_source_pilot.py --family flyover-scene-wait-paths
 python tools/build_c3_event_script_source_pilot.py --family position-watch-new-entity-paths
 python tools/build_c3_event_script_source_pilot.py --family townhall-direction-common-paths
+python tools/build_c3_event_script_source_pilot.py --family townhall-coffee-tea-gatekeeper-paths
+python tools/build_c3_event_script_source_pilot.py --family bus-transition-route-paths
+python tools/build_c3_event_script_source_pilot.py --family twoson-bus-route-paths
+python tools/build_c3_event_script_source_pilot.py --family bus-tunnel-desert-route-paths
 python tools/build_c3_source_pilot_frontier.py
 ```
 

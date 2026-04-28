@@ -12,8 +12,8 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!Event744_TownHallMovementTextPath = $8FCE
 !InitMovementPresetVar4Countdown = $AAAA
+!LoopReadText456And459Task = $8FCE
 !PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RunRightLeftFacingPulsePair = $7545
@@ -165,7 +165,7 @@ Event743_TownHallMovementSoundPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1158) ; C3:8FA6  0E 06 58 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0DF0) ; C3:8FAA  0E 07 F0 0D
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:8FAE  1A 59 AB
-    %EVENT_START_TASK(!Event744_TownHallMovementTextPath) ; C3:8FB1  07 CE 8F
+    %EVENT_START_TASK(!LoopReadText456And459Task) ; C3:8FB1  07 CE 8F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1130) ; C3:8FB4  0E 06 30 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0DA0) ; C3:8FB8  0E 07 A0 0D
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:8FBC  1A 59 AB

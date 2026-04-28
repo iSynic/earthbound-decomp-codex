@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:D1C9..C3:D913` continuation should wait until the `C0:A8B3` callroutine contract is pinned.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:D1C9..C3:D913` bus-transition continuation is now promoted.

@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `55` families, `19656` validated
+- Current source-form event/actionscript pilots: `59` families, `25677` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: fifty-five pilots complete.
+Status: fifty-nine pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -386,6 +386,23 @@ Status: fifty-five pilots complete.
 - `notes/c3-townhall-direction-common-paths-source-pilot.md`: high-ranked
   frontier seam covering the town hall direction common-tail continuation after
   ebsrc script 737, `C3:8EF1..C3:8FCE`, `221` validated bytes.
+- `notes/c3-townhall-coffee-tea-gatekeeper-paths-source-pilot.md`: high-ranked
+  frontier seam covering the remaining `C3:899E` town hall continuation,
+  coffee/tea battle-overlay transition, and gatekeeper/magic-cake text paths,
+  `C3:8FCE..C3:9AC7`, `2809` validated bytes.
+- `notes/c3-bus-transition-route-paths-source-pilot.md`: high-ranked frontier
+  seam covering the bus/tunnel transition route cluster after the position-watch
+  paths, `C3:D1C9..C3:D913`, `1866` validated bytes.
+- `notes/c3-twoson-bus-route-paths-source-pilot.md`: high-ranked full-gap
+  frontier seam covering ebsrc scripts 64-72: the Twoson bus driver live-area
+  dialog loop, bus-to-Threed tunnel routes, return branches, transition snapshot
+  handoffs, and short movement/text-yield paths, `C3:B431..C3:B70C`, `731`
+  validated bytes.
+- `notes/c3-bus-tunnel-desert-route-paths-source-pilot.md`: high-ranked
+  full-gap frontier seam covering the bus tunnel/desert/bridge continuation
+  around ebsrc scripts 211-220, including route movement, transition snapshot
+  handoffs, queued bus text, and recurring driver dialog loops,
+  `C3:D913..C3:DB7A`, `615` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -454,6 +471,10 @@ Candidate/follow-up families for this milestone:
 - `C3:ABE0..C3:AFA3` flyover scene/wait paths scripts 476-481 - pilot complete
 - `C3:D0A4..C3:D1C9` position-watch/new-entity paths scripts 172-178 - pilot complete
 - `C3:8EF1..C3:8FCE` town hall direction common paths scripts 738-743 - pilot complete
+- `C3:8FCE..C3:9AC7` town hall/coffee-tea/gatekeeper continuation scripts 744-757 - pilot complete
+- `C3:D1C9..C3:D913` bus-transition route paths - pilot complete
+- `C3:B431..C3:B70C` Twoson bus route paths scripts 64-72 - pilot complete
+- `C3:D913..C3:DB7A` bus tunnel/desert route paths scripts 211-220 - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -492,10 +513,11 @@ paths, direction-tracker town hall paths, theater-stage performance movement
 paths, stage visual pulse paths, tunnel ghost entity setup paths, Monotoly
 coordinate/text paths, T-Stage dance sequence paths, gum-machine/flyover paths,
 flyover scene/wait paths, position-watch/new-entity paths, town hall direction
-common paths, and var0 animation/collision-probe, area-wait/random-wander,
+common paths, town hall/coffee-tea/gatekeeper continuation paths, bus-transition
+route paths, Twoson bus route paths, bus tunnel/desert route paths, and var0 animation/collision-probe, area-wait/random-wander,
 teleport/flyover coordinate, Threed fight Matent, position door-close helpers,
 and position/text-yield paths now have source-form pilots. The refreshed frontier
-currently points at `C3:8FCE..C3:90B3` as the best ready seam;
+currently points at `C3:0DCD..C3:1055` as the best ready seam;
 adjacent follow-ups include
 `C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`
