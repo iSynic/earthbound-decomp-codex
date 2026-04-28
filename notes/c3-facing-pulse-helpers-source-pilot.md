@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; adjacent `C3:756D..C3:7A7C` still contains larger movement/text scripts that should be split by local script boundaries.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:756D..C3:7A7C` gum-machine/flyover corridor is now promoted.

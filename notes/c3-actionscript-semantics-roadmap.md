@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `49` families, `15886` validated
+- Current source-form event/actionscript pilots: `52` families, `18179` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: forty-nine pilots complete.
+Status: fifty-two pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -364,6 +364,18 @@ Status: forty-nine pilots complete.
   seam covering the stage-facing visual pulse helper, ebsrc script 435's long
   pulse-and-velocity release sequence, and ebsrc script 436's obscured stage
   slide release, `C3:33DD..C3:34FF`, `290` validated bytes.
+- `notes/c3-monotoly-coordinate-text-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 699-704, including Monotoly
+  movement/dialogue paths and nearby text-yield or wait/release tails,
+  `C3:8515..C3:86B2`, `413` validated bytes.
+- `notes/c3-tstage-dance-sequence-paths-source-pilot.md`: high-ranked
+  frontier seam covering the T-Stage dance helper, ebsrc script 368's staged
+  performance sequence, and the paired animation-step helper,
+  `C3:1EEF..C3:2138`, `585` validated bytes.
+- `notes/c3-gum-machine-flyover-paths-source-pilot.md`: high-ranked frontier
+  seam covering the `C3:7559` continuation around ebsrc scripts 638-654,
+  including coordinate/text-yield paths and flyover intro text scene dispatches,
+  `C3:756D..C3:7A7C`, `1295` validated bytes.
 
 `tools/build_c3_event_script_source_pilot.py` emits these as labeled
 macro-source representations while validating against the local ROM bytes.
@@ -426,6 +438,9 @@ Candidate/follow-up families for this milestone:
 - `C3:6BB4..C3:6BEA` Threed fight Matent paths - pilot complete
 - `C3:C1E0..C3:C227` position door-close helpers - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
+- `C3:8515..C3:86B2` Monotoly coordinate/text paths scripts 699-704 - pilot complete
+- `C3:1EEF..C3:2138` T-Stage dance sequence paths script 368 - pilot complete
+- `C3:756D..C3:7A7C` gum-machine/flyover paths scripts 638-654 - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -461,11 +476,12 @@ terminal cleanup helpers, cast-screen Tenda/King paths, live-area facing
 movement paths, Onett town hall movement paths, Onett town hall door paths,
 position/text door-sound paths, Bubble Monkey route paths, Pokey/Bubble Monkey
 paths, direction-tracker town hall paths, theater-stage performance movement
-paths, stage visual pulse paths, tunnel ghost entity setup paths, and var0
+paths, stage visual pulse paths, tunnel ghost entity setup paths, Monotoly
+coordinate/text paths, T-Stage dance sequence paths, gum-machine/flyover paths, and var0
 animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
 Threed fight Matent, position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:8515..C3:86B2` as the best ready seam;
+`C3:ABE0..C3:ADC6` as the best ready seam;
 adjacent follow-ups include
 `C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`

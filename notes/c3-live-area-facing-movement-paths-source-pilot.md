@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue at the adjacent `C3:8515..C3:8978` portion only after the `C0:A92D` callroutine contract is pinned, or take another ready terminal batch from `notes/c3-source-pilot-frontier.md`.
+Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:8515..C3:86B2` Monotoly corridor is now promoted, while `C3:86B2..C3:8978` remains a separate follow-up.

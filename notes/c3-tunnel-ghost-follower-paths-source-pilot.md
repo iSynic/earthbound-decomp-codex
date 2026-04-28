@@ -26,4 +26,4 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Next Promotion Step
 
-Continue with the adjacent `C3:BD03..C3:BEA4` corridor only after the `C0:A92D` callback contract is pinned, or take the next high-ranked ready seam from `notes/c3-source-pilot-frontier.md`.
+Continue with the next high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:BD03..C3:BEA4` tunnel ghost entity setup corridor is now promoted.
