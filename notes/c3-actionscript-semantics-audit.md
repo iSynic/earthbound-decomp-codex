@@ -362,7 +362,7 @@ C3:01CD  3B 00                EVENT_SET_ANIMATION animation_id=$00
 - raw preview: `15 9A 5D 01 00 0E 06 10 1B 0E 07 88 01 1A 95 02`
 
 ```text
-C3:0235  15 9A 5D 01 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A, value_word=$0001
+C3:0235  15 9A 5D 01 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A <queue_pending_or_special_state_flag>, value_word=$0001
 C3:023A  0E 06 10 1B          EVENT_SET_VAR script_var=var6, value_word=$1B10
 C3:023E  0E 07 88 01          EVENT_SET_VAR script_var=var7, value_word=$0188
 C3:0242  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
@@ -403,7 +403,7 @@ C3:026E  1A 95 02             EVENT_SHORTCALL $C3:0295 <MoveActiveEntityLeftToSc
 C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$02, countdown_byte=$00
 C3:0277  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:027B  06 01                EVENT_PAUSE frames=$01
-C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A, value_word=$0000
+C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A <queue_pending_or_special_state_flag>, value_word=$0000
 C3:0282  0E 06 D0 1D          EVENT_SET_VAR script_var=var6, value_word=$1DD0
 C3:0286  1A 59 AB             EVENT_SHORTCALL $C3:AB59 <WaitForActiveEntityMovementToFinish>
 C3:0289  13                   EVENT_END_LAST_TASK
@@ -1258,7 +1258,7 @@ C3:A3B6  1B                   EVENT_SHORT_RETURN
 C3:A3B7  0E 04 00 00          EVENT_SET_VAR script_var=var4, value_word=$0000
 C3:A3BB  42 69 72 C4          EVENT_CALLROUTINE $C4:7269 <ClassifyCurrentSlotAgainstAreaBounds>
 C3:A3BF  0A C9 A3             EVENT_SHORTCALL_CONDITIONAL $C3:A3C9 <ChooseRandomCardinalDirection>
-C3:A3C2  27 02 FF FF          EVENT_BINOP_TEMPVAR operation_byte=$02, value_word=$FFFF
+C3:A3C2  27 02 FF FF          EVENT_BINOP_TEMPVAR operation_byte=$02 <ADD>, value_word=$FFFF
 C3:A3C6  19 D6 A3             EVENT_SHORTJUMP $C3:A3D6 <ApplyRandomDirectionAndMovementTimer>
 ```
 

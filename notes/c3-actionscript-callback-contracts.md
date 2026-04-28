@@ -90,9 +90,27 @@ decode excerpts use `script_var=var4`, `frames=$08`, `animation_id=$01`, and
 named callback arguments such as `event_flag_word=$000C` or
 `neighbor_cache_callback_long=$C0:64A6 <...>`.
 
+The decoder also applies a deliberately small value-symbol layer where the
+evidence is already bank-local or cross-referenced:
+
+- mutation operation bytes use the C0 interpreter table names:
+  `$00 <AND>`, `$01 <OR>`, `$02 <ADD>`, `$03 <EOR>`
+- `$5D9A` is shown as `queue_pending_or_special_state_flag`, matching the C0/EF
+  queue and transient special-state notes
+- velocity and relative-position words show signed decimal meaning beside the
+  raw hex value
+
 This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still
 revalidate against the ROM byte-for-byte.
+
+## Good-Enough Boundary
+
+C3 is good enough for this milestone when generated reports are truthful and
+useful, not when every literal has a perfect story. Animation ids, direction
+classes, and per-family variable meanings should stay literal unless a local
+script family or native callback proves the symbolic meaning. That keeps the
+decoder from laundering guesses into source.
 
 ## Next Contract Work
 
@@ -112,13 +130,11 @@ and passive no-op callback returns.
 
 Good next targets:
 
-- promote callback-free script families with localization source context, so
-  the event rows are described by object/person/actionscript role rather than
-  only bytecode shape
-- carry these promoted names back into any source scaffolds or macro aliases
-  that still show legacy `UNKNOWN_*` labels
-- continue naming unused C0 wrapper entries, but treat them as broader C0
-  polish unless they appear in the C3 callback audit
+- move to the next milestone with the current C3 semantics as the baseline
+- return later only for targeted, evidence-backed constants or localization
+  crosswalk improvements
+- continue naming unused C0 wrapper entries as broader C0 polish unless they
+  appear in the C3 callback audit
 
 Those refinements will make C3 scripts more readable to ROM hackers without
 changing the already byte-equivalent source scaffold.

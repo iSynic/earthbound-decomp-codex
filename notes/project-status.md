@@ -135,17 +135,19 @@ that romhackers need to edit confidently:
    target seeds captured. The decoder now prints first-pass semantic operand
    fields for common VM operands and inline callback arguments, so generated
    excerpts show `script_var=var4`, `frames=$08`, and named callback fields
-   instead of bare byte lists. `140` source-form pilots are checked in under
-   `src/c3/event_scripts/` and cover `56518` validated bytes. Recent
+   instead of bare byte lists; high-confidence values such as C0 mutation
+   operations, `$5D9A`, and signed velocity/delta words are labeled while
+   context-dependent animation/facing literals stay raw. `140` source-form
+   pilots are checked in under `src/c3/event_scripts/` and cover `56518`
+   validated bytes. Recent
    additions include Winters battle-BG/Sanctuary display continuations,
    tunnel-ghost teleport routes, photo-scene/window-gfx release paths, early
    turn-bias/visual-countdown halts, traffic-light random-wander paths,
    party-look jump/route terminal paths, cast-scroll event 801, Threed escaper
    late-route tails, and NPC-attention arc tails.
    `notes/c3-source-pilot-frontier.md` now reports `0` remaining candidate
-   bytes and `0` frontier gaps. The next C3 work is semantic polish: named
-   operands, callback argument contracts, source include integration, and
-   stable script-family documentation.
+   bytes and `0` frontier gaps. C3 is good enough for this semantics milestone;
+   later C3 work should be targeted polish rather than the next blocking lane.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
    text payloads. The new `notes/text-command-semantics-manifest.md` makes the
    remaining subcommand frontiers visible: runtime-only leaves, unknown names,

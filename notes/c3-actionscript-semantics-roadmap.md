@@ -56,14 +56,18 @@ Current audit result:
   `animation_id=$01`, `x_velocity_word=$0200`) and named inline callback
   arguments (`event_flag_word=$000C`,
   `neighbor_cache_callback_long=$C0:64A6 <...>`)
+- The decoder now applies high-confidence value labels for the C0 mutation
+  operation table (`AND`, `OR`, `ADD`, `EOR`), `$5D9A` queue/special-state
+  writes, and signed velocity/delta words while preserving raw hex bytes
 - callback semantic groups are now emitted in the audit for both
   `EVENT_CALLROUTINE` bridges and installed callback targets, with local names
   and first-pass contracts for high-value timed-delivery, visual-profile,
   current-slot-state, movement, collision, text/presentation, render, tick, and
   restore callbacks
 
-This shifts the next pass away from opcode discovery and basic operand labeling
-toward tighter value semantics: which variable slots mean target coordinates,
+This shifts the next pass away from opcode discovery and basic operand labeling.
+Remaining value semantics should be promoted only when the evidence is local and
+strong: which variable slots mean target coordinates in a specific family,
 which animation ids/facing values are symbolic constants, and which WRAM fields
 should become named contracts.
 
@@ -79,9 +83,10 @@ This milestone is complete when C3 event/actionscript payloads have:
 6. a clear frontier list for unknown opcodes, unknown operands, and VM-adjacent
    payloads that are not event bytecode
 
-Items 1-5 are now satisfied at first-pass quality for the audited C3 rows. The
-remaining polish is item 6 at semantic depth rather than byte depth: replacing
-literal values with symbolic constants only where the evidence is strong.
+Items 1-5 are now satisfied at first-pass quality for the audited C3 rows. Item
+6 is also satisfied for milestone purposes: the report has no unknown opcode,
+unknown callback, or unknown-name frontier, and the remaining literals are
+explicitly a known-limits/value-semantics problem rather than byte discovery.
 
 ## Terminology
 

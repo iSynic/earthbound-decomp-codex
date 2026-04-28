@@ -629,6 +629,17 @@ EVENT_TARGET_SEMANTICS: dict[str, str] = {
 
 SCRIPT_VAR_NAMES = {index: f"var{index}" for index in range(8)}
 
+BINOP_OPERATION_NAMES = {
+    0x00: "AND",
+    0x01: "OR",
+    0x02: "ADD",
+    0x03: "EOR",
+}
+
+WRAM_FIELD_NAMES = {
+    0x5D9A: "queue_pending_or_special_state_flag",
+}
+
 OPCODE_ARG_FIELDS: dict[str, tuple[str, ...]] = {
     "EVENT_LOOP": ("count",),
     "EVENT_PAUSE": ("frames",),
@@ -748,6 +759,28 @@ def format_script_var(value: int) -> str:
     return SCRIPT_VAR_NAMES.get(value, format_byte(value))
 
 
+def format_signed_word(value: int) -> str:
+    signed = value - 0x10000 if value & 0x8000 else value
+    if signed == 0:
+        return format_word(value)
+    prefix = "+" if signed >= 0 else ""
+    return f"{format_word(value)} ({prefix}{signed})"
+
+
+def format_wram_addr(value: int) -> str:
+    name = WRAM_FIELD_NAMES.get(value)
+    if name:
+        return f"{format_word(value)} <{name}>"
+    return format_word(value)
+
+
+def format_operation_byte(value: int) -> str:
+    name = BINOP_OPERATION_NAMES.get(value)
+    if name:
+        return f"{format_byte(value)} <{name}>"
+    return format_byte(value)
+
+
 def semantic_field(opcode_name: str, index: int) -> str | None:
     fields = OPCODE_ARG_FIELDS.get(opcode_name)
     if not fields or index >= len(fields):
@@ -760,6 +793,12 @@ def format_semantic_value(field: str | None, spec: str, value: int) -> str:
         return format_byte(value) if spec == "byte" else format_word(value)
     if field == "script_var":
         return f"{field}={format_script_var(value)}"
+    if field == "operation_byte":
+        return f"{field}={format_operation_byte(value)}"
+    if field == "wram_addr":
+        return f"{field}={format_wram_addr(value)}"
+    if field.endswith("_velocity_word") or field.endswith("_delta_word"):
+        return f"{field}={format_signed_word(value)}"
     if spec == "byte":
         return f"{field}={format_byte(value)}"
     return f"{field}={format_word(value)}"
