@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Sixty-eight source-form pilots are also
+byte-count seeds captured for semantic naming. Seventy-five source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -80,8 +80,11 @@ route cluster, Twoson bus route paths, bus tunnel/desert route paths, Space
 Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
 paths, Winters ride launch paths, early pose/coordinate-pair paths, early
 party-look coordinate paths, party-look meteorite paths, winter target release
-paths, and bus bridge terminal routes are also promoted. Together they represent
-`28757` ROM bytes as labeled
+paths, Onett door-close gate/coordinate paths, bus bridge obscured routes,
+Sky Runner electric-effect release paths, window-gfx sequence releases, intro
+cast follow-up paths, Threed escaper-appear paths, and bus bridge terminal routes
+are also promoted. Together they represent
+`30025` ROM bytes as labeled
 event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -173,6 +176,13 @@ Good starting points:
 - `notes/c3-early-party-look-coordinate-paths-source-pilot.md`
 - `notes/c3-party-look-meteorite-paths-source-pilot.md`
 - `notes/c3-winter-target-release-paths-source-pilot.md`
+- `notes/c3-onett-door-close-gate-paths-source-pilot.md`
+- `notes/c3-onett-door-close-coordinate-paths-source-pilot.md`
+- `notes/c3-bus-bridge-obscured-route-paths-source-pilot.md`
+- `notes/c3-sky-runner-electric-effect-release-paths-source-pilot.md`
+- `notes/c3-window-gfx-sequence-release-paths-source-pilot.md`
+- `notes/c3-intro-cast-followup-paths-source-pilot.md`
+- `notes/c3-threed-escaper-appear-paths-source-pilot.md`
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
@@ -356,6 +366,13 @@ python tools/build_c3_event_script_source_pilot.py --family early-pose-coordinat
 python tools/build_c3_event_script_source_pilot.py --family early-party-look-coordinate-paths
 python tools/build_c3_event_script_source_pilot.py --family party-look-meteorite-paths
 python tools/build_c3_event_script_source_pilot.py --family winter-target-release-paths
+python tools/build_c3_event_script_source_pilot.py --family onett-door-close-gate-paths
+python tools/build_c3_event_script_source_pilot.py --family onett-door-close-coordinate-paths
+python tools/build_c3_event_script_source_pilot.py --family bus-bridge-obscured-route-paths
+python tools/build_c3_event_script_source_pilot.py --family sky-runner-electric-effect-release-paths
+python tools/build_c3_event_script_source_pilot.py --family window-gfx-sequence-release-paths
+python tools/build_c3_event_script_source_pilot.py --family intro-cast-followup-paths
+python tools/build_c3_event_script_source_pilot.py --family threed-escaper-appear-paths
 python tools/build_c3_event_script_source_pilot.py --family bus-bridge-route-terminal-paths
 python tools/build_c3_source_pilot_frontier.py
 ```

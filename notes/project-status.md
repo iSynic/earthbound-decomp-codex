@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Sixty-eight source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `28757` validated bytes across the
+   callback byte-count seeds captured. Seventy-five source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `30025` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -119,7 +119,10 @@ that romhackers need to edit confidently:
    route paths, Space Tunnel crash paths, Skyrunner crash/Winters paths,
    party-member tracker Winters paths, Winters ride launch paths, early
    pose/coordinate-pair paths, early party-look coordinate paths, party-look
-   meteorite paths, winter target release paths, and bus bridge terminal routes.
+   meteorite paths, winter target release paths, Onett door-close
+   gate/coordinate paths, bus bridge obscured routes, Sky Runner electric-effect
+   release paths, window-gfx sequence releases, intro cast follow-up paths,
+   Threed escaper-appear paths, and bus bridge terminal routes.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -204,6 +207,13 @@ that romhackers need to edit confidently:
 - `notes/c3-early-party-look-coordinate-paths-source-pilot.md`
 - `notes/c3-party-look-meteorite-paths-source-pilot.md`
 - `notes/c3-winter-target-release-paths-source-pilot.md`
+- `notes/c3-onett-door-close-gate-paths-source-pilot.md`
+- `notes/c3-onett-door-close-coordinate-paths-source-pilot.md`
+- `notes/c3-bus-bridge-obscured-route-paths-source-pilot.md`
+- `notes/c3-sky-runner-electric-effect-release-paths-source-pilot.md`
+- `notes/c3-window-gfx-sequence-release-paths-source-pilot.md`
+- `notes/c3-intro-cast-followup-paths-source-pilot.md`
+- `notes/c3-threed-escaper-appear-paths-source-pilot.md`
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`

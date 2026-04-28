@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `68` families, `28757` validated
+- Current source-form event/actionscript pilots: `75` families, `30025` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: sixty-eight pilots complete.
+Status: seventy-five pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -439,6 +439,36 @@ Status: sixty-eight pilots complete.
   seam covering ebsrc scripts 311-316: target visual-type and party-member
   release paths, compact Winters coordinate releases, a direction-common jump,
   and downward transition release, `C3:1389..C3:1452`, `201` validated bytes.
+- `notes/c3-onett-door-close-gate-paths-source-pilot.md`: high-ranked frontier
+  seam covering the visual-type frame-selector task plus ebsrc scripts 607-613:
+  Onett door-close conditional gates, coordinate/text halt paths, and a
+  visual-type tracking loop, `C3:6E41..C3:6F08`, `199` validated bytes.
+- `notes/c3-onett-door-close-coordinate-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 614-619: chained coordinate/text halt
+  paths, a second visual-type tracking loop, and a party-look door-sound
+  release path, `C3:6F08..C3:7010`, `264` validated bytes.
+- `notes/c3-bus-bridge-obscured-route-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 463-464: a coordinate/text halt and an
+  obscured route transition sequence with display-control bit flips,
+  `C3:DD4F..C3:DE01`, `178` validated bytes.
+- `notes/c3-sky-runner-electric-effect-release-paths-source-pilot.md`:
+  high-ranked frontier seam covering ebsrc scripts 163 and 166-169:
+  Sky Runner electric-effect reflect/release, rising/fade-out handoffs,
+  visual-countdown halt, and downward movement/text release,
+  `C3:CEC7..C3:CF76`, `175` validated bytes.
+- `notes/c3-window-gfx-sequence-release-paths-source-pilot.md`: high-ranked
+  frontier seam covering ebsrc scripts 705-706: window-gfx variant loading
+  sequences, a color-math flash task start, sound/text handoffs, and
+  flyover-text undraw/restore release paths, `C3:86B2..C3:8751`, `159`
+  validated bytes.
+- `notes/c3-intro-cast-followup-paths-source-pilot.md`: high-ranked frontier
+  seam covering the cast-screen facing pulse helper plus ebsrc scripts 826-829:
+  step loops, direction setup halt/release paths, and a leftward movement path
+  that waits for cast-screen exit, `C3:62C0..C3:6356`, `150` validated bytes.
+- `notes/c3-threed-escaper-appear-paths-source-pilot.md`: high-ranked frontier
+  seam covering the stationary var4 pulse helper plus ebsrc scripts 665-666:
+  offset-left movement release and the Threed escaper-appear gate,
+  `C3:7A7C..C3:7B0B`, `143` validated bytes.
 - `notes/c3-bus-bridge-route-terminal-paths-source-pilot.md`: high-ranked
   frontier seam covering ebsrc scripts 455-462: compact bus/bridge coordinate
   moves, recurring driver dialog loops, simple route text halts, and one
@@ -523,6 +553,13 @@ Candidate/follow-up families for this milestone:
 - `C3:036F..C3:04FA` early party-look coordinate paths scripts 233-241 - pilot complete
 - `C3:AFA3..C3:B06D` party-look meteorite paths scripts 47-49, 53, and 55 - pilot complete
 - `C3:1389..C3:1452` winter target release paths scripts 311-316 - pilot complete
+- `C3:6E41..C3:6F08` Onett door-close gate paths scripts 607-613 - pilot complete
+- `C3:6F08..C3:7010` Onett door-close coordinate paths scripts 614-619 - pilot complete
+- `C3:DD4F..C3:DE01` bus bridge obscured route paths scripts 463-464 - pilot complete
+- `C3:CEC7..C3:CF76` Sky Runner electric-effect release paths scripts 163 and 166-169 - pilot complete
+- `C3:86B2..C3:8751` window-gfx sequence release paths scripts 705-706 - pilot complete
+- `C3:62C0..C3:6356` intro cast follow-up paths scripts 826-829 - pilot complete
+- `C3:7A7C..C3:7B0B` Threed escaper appear paths scripts 665-666 - pilot complete
 - `C3:DBF2..C3:DD4F` bus bridge terminal paths scripts 455-462 - pilot complete
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
@@ -567,10 +604,13 @@ route paths, Twoson bus route paths, bus tunnel/desert route paths, Space
 Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
 paths, bus bridge terminal routes, Winters ride launch paths, early
 pose/coordinate-pair paths, early party-look coordinate paths, party-look
-meteorite paths, winter target release paths, and var0 animation/collision-probe,
+meteorite paths, winter target release paths, Onett door-close gate/coordinate
+paths, bus bridge obscured routes, Sky Runner electric-effect release paths,
+window-gfx sequence releases, intro cast follow-up paths, Threed
+escaper-appear paths, and var0 animation/collision-probe,
 area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
 position door-close helpers, and position/text-yield paths now have source-form
-pilots. The refreshed frontier currently points at `C3:6E41..C3:6F08` as the
+pilots. The refreshed frontier currently points at `C3:9E01..C3:9E8B` as the
 best ready seam;
 adjacent follow-ups include
 `C3:3DD4..C3:4392` once the
