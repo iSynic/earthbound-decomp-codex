@@ -67,7 +67,9 @@ sanitized argument-category profile at
 `notes/localization-control-macro-lowering-profiles.md` adds `3315` target
 command hits and confirms the strongest compare/call motif as
 `@CMP(decimal,decimal) > @ONGOSUB(message_label)`. The first focused lowering
-hypothesis is now `notes/localization-cmp-ongosub-lowering.md`.
+hypothesis is now `notes/localization-cmp-ongosub-lowering.md`; the second is
+`notes/localization-set-loopreg-gosub-lowering.md`, covering the broad
+`@SET_LOOPREG > @GOSUB` stage-then-call motif across `31` files.
 
 ## Public Good-Enough Definition
 
@@ -186,6 +188,9 @@ that romhackers need to edit confidently:
    branch macros. `notes/localization-cmp-ongosub-lowering.md` treats the
    dominant compare/call motif as source-level conditional-call syntax over
    existing bank-`01` Text VM primitives rather than a new runtime opcode.
+   `notes/localization-set-loopreg-gosub-lowering.md` treats the broad
+   `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
+   syntax. The next best target is selection branching around `@SELGOTO`.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: render/decode fixtures and public-safe extraction planning

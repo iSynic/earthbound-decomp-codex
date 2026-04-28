@@ -26,6 +26,8 @@ The generated pattern report is
 `notes/localization-control-macro-patterns.md`.
 The first focused lowering hypothesis is
 `notes/localization-cmp-ongosub-lowering.md`.
+The second focused lowering hypothesis is
+`notes/localization-set-loopreg-gosub-lowering.md`.
 
 ## Local VM Anchors
 
@@ -85,7 +87,8 @@ templates.
 
 | Source macro | Current expansion read | Confidence |
 | --- | --- | --- |
-| `@SET_LOOPREG(x)` | Stage loop/register value used by nearby repeated calls or comparisons. | medium |
+| `@SET_LOOPREG(x)` before `@GOSUB` | Stage source-local loop/register value before a text subroutine call. | high |
+| `@SET_LOOPREG(x)` elsewhere | Stage loop/register value used by nearby repeated calls or comparisons. | medium |
 | `@CMP(a,b)` | Compare staged values before a branch/multi-way call macro. | medium |
 | `@EQ(x)` | Test equality against the current staged/register value. | medium |
 | `@LOAD_REG()` | Restore local source register into the active text context. | medium |
@@ -115,13 +118,13 @@ text VM primitives.
 
 ## Next Manual Proof
 
-The `@CMP > @ONGOSUB` lowering hypothesis is now documented. The next best
-proof is to choose the highest-frequency cross-file motif and write its
-lowering hypothesis against the documented bank-`01` text VM commands:
+The `@CMP > @ONGOSUB` and `@SET_LOOPREG > @GOSUB` lowering hypotheses are now
+documented. The next best proof is the selection branch cluster:
 
-1. `@SET_LOOPREG` followed by repeated `@GOSUB`
-2. `@SELGOTO` after selection/display setup
-3. multi-argument `@ONGOSUB` / `@ONGOTO` forms
+1. `@DSP_ITEM` followed by `@SELGOTO`
+2. `@GOSUB` followed by `@SELGOTO`
+3. `@SELGOTO` followed by `@GOTO`, `@KEY`, or `@KEYNP`
+4. multi-argument `@ONGOSUB` / `@ONGOTO` forms
 
 The goal is not to recover dialogue. The goal is to prove the source macro's
 lowering shape against already-documented text VM commands.

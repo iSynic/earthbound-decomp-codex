@@ -139,6 +139,11 @@
   macro lowering hypothesis. It treats the dominant compare/call motif as
   source-level conditional-call syntax over existing bank-`01` Text VM
   primitives, while leaving multi-argument `@ONGOSUB` forms open.
+- `notes/localization-set-loopreg-gosub-lowering.md` is the second focused
+  source macro lowering hypothesis. It treats the broad
+  `@SET_LOOPREG > @GOSUB` motif as source-level call-with-staged-argument
+  syntax and identifies selection branching around `@SELGOTO` as the next
+  focused proof.
 - `tools/promote_text_bank_to_source_scaffold.py` now converts generated
   `build/text-bank-<bank>.json` manifests into the standard source-bank range
   manifest and checked-in stubs.
@@ -355,8 +360,10 @@ The first pass should target text-command semantics and authoring syntax:
 - use `notes/localization-control-macro-patterns.md` when choosing the next
   lowering proof; the strongest motifs are `@CMP > @ONGOSUB`,
   `@SET_LOOPREG > @GOSUB`, and `@DSP_ITEM > @SELGOTO`
-- use `notes/localization-cmp-ongosub-lowering.md` as the template for the next
-  focused macro-lowering note; `@SET_LOOPREG > @GOSUB` is the best next target
+- use `notes/localization-cmp-ongosub-lowering.md` and
+  `notes/localization-set-loopreg-gosub-lowering.md` as templates for the next
+  focused macro-lowering note; selection branching around `@SELGOTO` is the
+  best next target
 
 C3 can still receive targeted polish, but it is no longer the blocking next
 lane.
