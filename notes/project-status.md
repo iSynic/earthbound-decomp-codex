@@ -32,11 +32,11 @@ Readable source-bank closure is also complete for the audited source-heavy
 banks: `C0`, `C1`, `C2`, `C4`, and `EF` all report `0` preserved source
 corridors in `notes/readable-source-bank-closure.md`.
 
-C3 now has a source-pilot bank scaffold variant at
-`src/c3/bank_c3_helpers_source_pilot.asar.asm`. It replaces the old opaque
-event/actionscript corridor with `src/c3/bank_c3_event_scripts_source_pilot.asar.asm`
-and validates byte-equivalent over all `11` protected C3 ranges with `0`
-mismatches in `notes/c3-source-pilot-bank-validation.md`.
+C3's canonical bank scaffold, `src/c3/bank_c3_helpers_asar.asm`, now replaces
+the old opaque event/actionscript corridor with
+`src/c3/bank_c3_event_scripts_source_pilot.asar.asm` and validates
+byte-equivalent over all `11` protected C3 ranges with `0` mismatches in
+`notes/c3-byte-equivalence-validation.md`.
 
 ## Terminology
 
@@ -124,7 +124,7 @@ that romhackers need to edit confidently:
 - `notes/c3-actionscript-semantics-audit.md`
 - `notes/c3-event-script-source-scaffold.md`
 - `notes/c3-event-script-source-scaffold-validation.md`
-- `notes/c3-source-pilot-bank-validation.md`
+- `notes/c3-byte-equivalence-validation.md`
 - `notes/c3-event-script-source-pilot.md`
 - `notes/c3-timed-delivery-source-pilot.md`
 - `notes/c3-service-event-movement-source-pilot.md`

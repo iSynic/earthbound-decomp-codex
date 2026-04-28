@@ -24,9 +24,8 @@ eventually reassemblable without guessing.
   candidate bytes)
 - Event/actionscript integration scaffold:
   `src/c3/bank_c3_event_scripts_source_pilot.asar.asm`
-- Whole-bank C3 source-pilot scaffold:
-  `src/c3/bank_c3_helpers_source_pilot.asar.asm` (`11` protected ranges,
-  `0` mismatches)
+- Whole-bank C3 scaffold:
+  `src/c3/bank_c3_helpers_asar.asm` (`11` protected ranges, `0` mismatches)
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source
@@ -188,7 +187,7 @@ The integration scaffold is also proven:
   source-adjacent data in `C3:0000..E450`.
 - `notes/c3-event-script-source-scaffold-validation.md`: the event/script
   scaffold validates `C3:0000..E450` with `0` mismatches.
-- `notes/c3-source-pilot-bank-validation.md`: the whole-bank scaffold variant
+- `notes/c3-byte-equivalence-validation.md`: the canonical whole-bank scaffold
   validates all `11` C3 protected ranges with `0` mismatches.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
