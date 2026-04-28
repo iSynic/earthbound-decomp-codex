@@ -12,11 +12,23 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!ActionScript_QueueTextPointer = $C0A88D
+!DisableCurrentEntityCollision2 = $C0A82F
+!HasUsableOverlapNeighborContext = $C0D15C
 !InitMovementWithDefaultPhysicsPulseAndCollisionProbe = $AA2B
+!PrepareTunnelGhostActiveAreaWindow = $BB5C
+!QueueCurrentVisualTypeMovementScript = $C4681A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
+!RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!RunPositionDoorCloseOpeningPath = $C1E0
+!RunPositionDoorCloseSoundPath = $C20F
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
+!SetYieldToTextLatch9641 = $C46E46
+!TrackPartyMemberForTunnelGhost = $BB73
+!WaitUntilNoBattleSwirlOrEnemyTouch = $9E01
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_CALLROUTINE_0(target)
@@ -30,12 +42,26 @@ macro EVENT_CALLROUTINE_2(target, arg0, arg1)
     db <arg0>, <arg1>
 endmacro
 
+macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+    db $42
+    dl <target>
+    db <arg0>, <arg1>, <arg2>, <arg3>
+endmacro
+
 macro EVENT_END_TASK()
     db $0C
 endmacro
 
+macro EVENT_HALT()
+    db $09
+endmacro
+
 macro EVENT_PAUSE(frames)
     db $06, <frames>
+endmacro
+
+macro EVENT_SET_ANIMATION(animation)
+    db $3B, <animation>
 endmacro
 
 macro EVENT_SET_VAR(var, value)
@@ -45,6 +71,11 @@ endmacro
 
 macro EVENT_SHORTCALL(target)
     db $1A
+    dw <target>
+endmacro
+
+macro EVENT_SHORTCALL_CONDITIONAL(target)
+    db $0A
     dw <target>
 endmacro
 
@@ -65,6 +96,16 @@ InitMovementPresetField2B32AndRefreshVisual:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:0C5E  0E 05 01 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:0C62  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:0C66  1B
+
+org $C32138
+RunTStageAnimationStepPair:
+    %EVENT_SET_ANIMATION($00) ; C3:2138  3B 00
+    %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:213A  42 A8 A4 C0
+    %EVENT_PAUSE($16) ; C3:213E  06 16
+    %EVENT_SET_ANIMATION($01) ; C3:2140  3B 01
+    %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:2142  42 B2 A4 C0
+    %EVENT_PAUSE($17) ; C3:2146  06 17
+    %EVENT_SHORT_RETURN() ; C3:2148  1B
 
 org $C33399
 PulseDownFacingVisualCountdown:
@@ -92,6 +133,20 @@ PulseRightFacingVisualCountdown:
     %EVENT_PAUSE($17) ; C3:33DA  06 17
     %EVENT_SHORT_RETURN() ; C3:33DC  1B
 
+org $C36D18
+LoopWaitForUsableOverlapNeighborContext:
+    %EVENT_PAUSE($04) ; C3:6D18  06 04
+    %EVENT_CALLROUTINE_0(!HasUsableOverlapNeighborContext) ; C3:6D1A  42 5C D1 C0
+    %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForUsableOverlapNeighborContext) ; C3:6D1E  0A 18 6D
+WaitBattleSwirlThenQueueVisualTypeMovement:
+    %EVENT_SHORTCALL(!WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:6D21  1A 01 9E
+    %EVENT_CALLROUTINE_0(!QueueCurrentVisualTypeMovementScript) ; C3:6D24  42 1A 68 C4
+    %EVENT_END_TASK() ; C3:6D28  0C
+
+org $C3A07F
+HaltBeforeEvent3CallbackPath:
+    %EVENT_HALT() ; C3:A07F  09
+
 org $C36A3E
 ReleaseCurrentVisualEntityFromCastPath:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6A3E  19 04 A2
@@ -104,3 +159,20 @@ DelayThenReleaseCurrentVisualEntity:
 org $C3A271
 EndCurrentEventTask:
     %EVENT_END_TASK() ; C3:A271  0C
+
+org $C3BAD7
+RunTunnelGhostThreedWarpTextHalt:
+    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:BAD7  42 2F A8 C0
+    %EVENT_SHORTCALL(!PrepareTunnelGhostActiveAreaWindow) ; C3:BADB  1A 5C BB
+    %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BADE  1A 73 BB
+    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $CA, $8F) ; C3:BAE1  42 8D A8 C0 C7 00 CA 8F
+    %EVENT_HALT() ; C3:BAE9  09
+
+org $C3C167
+Event473_PositionDoorCloseYieldSequence:
+    %EVENT_SHORTCALL(!RunPositionDoorCloseOpeningPath) ; C3:C167  1A E0 C1
+    %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C16A  42 46 6E C4
+    %EVENT_PAUSE($01) ; C3:C16E  06 01
+    %EVENT_SHORTCALL(!RunPositionDoorCloseSoundPath) ; C3:C170  1A 0F C2
+    %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C173  42 46 6E C4
+    %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C177  19 04 A2

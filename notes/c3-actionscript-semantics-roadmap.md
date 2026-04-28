@@ -647,10 +647,11 @@ area-wait/random-wander, teleport/flyover coordinate, Threed fight Matent,
 position door-close helpers, position/text-yield paths, battle-swirl
 interaction/visual-countdown paths, NPC attention helpers, party-member hop/text
 paths, visual-countdown anchor followers, flyover intro text release,
-direction-follower display reset, and stage brightness terminal helpers now have
-source-form pilots. The refreshed frontier currently points at the tiny
-`C3:BAD7..C3:BAEA`, `C3:C167..C3:C17A`, `C3:2138..C3:2149`, and
-`C3:6D18..C3:6D29` terminal batches as the remaining cheap ready seams; after
-those, the higher-value path is pinning callback contracts such as `C4:74A8`,
-`C4:6B51`, `C4:67E6`, `C0:C682`, and the blocked `C3:5231` script 801
-cast-scroll/cast-spawn payload.
+direction-follower display reset, stage brightness terminal helpers,
+animation-port/Pokey paths, battle-swirl recovery paths, Sky Runner
+landing/fall handoffs, stage brightness/visual continuations, T-Stage text
+continuations, and Onett door-close arc/display continuations now have
+source-form pilots. The refreshed frontier now has `20` remaining gaps and
+`0` ready-ranked gaps. The higher-value path is pinning callback contracts such
+as `C4:2624`, `C4:730E`, `C4:67E6`, `C0:C682`, `C4:68A9`, and the blocked
+`C3:5231` script 801 cast-scroll/cast-spawn payload.

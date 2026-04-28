@@ -91,8 +91,8 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Eighty-three source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `30828` validated bytes across the
+   callback byte-count seeds captured. Ninety-two source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `34040` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
@@ -125,10 +125,13 @@ that romhackers need to edit confidently:
    Threed escaper-appear paths, bus bridge terminal routes, battle-swirl
    interaction/visual-countdown paths, NPC attention helpers, party-member
    hop/text paths, visual-countdown anchor followers, flyover intro text release,
-   direction-follower display reset, and stage brightness terminal helpers.
+   direction-follower display reset, stage brightness terminal helpers,
+   animation-port/Pokey paths, battle-swirl recovery paths, Sky Runner
+   landing/fall handoffs, stage brightness/visual continuations, T-Stage text
+   continuations, and Onett door-close arc/display continuations.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
-   the next C3 work is promoting more script families through that pattern, not
-   unknown opcode recovery.
+   the current frontier has `20` gaps and `0` ready-ranked gaps, so the next C3
+   work is pinning callback contracts before promoting more script families.
 2. `C1` plus `C5..C9`/`EF`: text-command VM semantics and reassembly-friendly
    text payloads.
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and

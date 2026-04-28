@@ -52,7 +52,7 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Eighty-three source-form pilots are also
+byte-count seeds captured for semantic naming. Ninety-two source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
@@ -86,11 +86,15 @@ cast follow-up paths, Threed escaper-appear paths, and bus bridge terminal route
 are also promoted. The latest frontier pass adds battle-swirl interaction and
 visual-countdown paths, NPC attention-path helpers, party-member hop/text paths,
 visual-countdown anchor followers, flyover intro text release, direction-follower
-display reset, and stage brightness terminal helpers. Together they represent
-`30828` ROM bytes as labeled
+display reset, stage brightness terminal helpers, callback-unlocked Sky Runner
+landing/fall handoffs, animation-port/Pokey paths, battle-swirl recovery paths,
+stage brightness/visual continuations, T-Stage text continuations, and Onett
+door-close arc/display continuations. Together they represent
+`34040` ROM bytes as labeled
 event/actionscript macro assembly. The
-checked-in C3 source-pilot frontier ranks the remaining script spans so future
-promotion passes can start from the highest-value ready seams.
+checked-in C3 source-pilot frontier ranks the remaining script spans; the
+current frontier has `20` gaps and `0` ready-ranked gaps, so the next C3 work is
+pinning callback contracts before more source emission.
 
 ## For Romhackers
 
