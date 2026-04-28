@@ -52,49 +52,16 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Ninety-two source-form pilots are also
-checked in under `src/c3/event_scripts/`: the movement pulse preset family,
-the timed-delivery/service-event movement families, and the neighboring
-service-animation helper/event, presentation/effect, Itoi production intro, and
-intro/presentation movement path, cast-scroll setup, intro cast-member path,
-party-look/window-gfx path, temp-flag door-close path, teleport-destination
-path, tunnel ghost/zombie path, tunnel ghost follower path, tunnel ghost entity
-setup path, vehicle coordinate path, Boogy Tent/city bus path, palette
-fade/coordinate path,
-falling/bounce-yield path, teleport-destination prelude path, and
-bus-tunnel bridge path, animation-port flag switch, position/text-yield path,
-leftward bounds release, and animation-port direction task clusters plus var0
-animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
-Threed fight Matent, position door-close, rightward live-area bounce/yield,
-V4 animation/side-step, window-gfx loader prologue, and tunnel-ghost warp text
-helpers, plus movement-vector core, facing pulse, teleport/flyover pulse,
-Sky Runner electric-effect, small terminal cleanup, cast-screen Tenda/King,
-live-area facing movement, Onett town hall movement, and Onett town hall door
-path helpers, plus position/text door-sound, Bubble Monkey route,
-direction-tracker town hall, theater-stage performance movement, stage visual
-pulse paths, Pokey/Bubble Monkey paths, Monotoly coordinate/text paths,
-T-Stage dance sequence paths, gum-machine/flyover paths, flyover scene/wait
-paths, position-watch/new-entity paths, and town hall direction common paths.
-The remaining town hall/coffee-tea/gatekeeper continuation, bus-transition
-route cluster, Twoson bus route paths, bus tunnel/desert route paths, Space
-Tunnel crash paths, Skyrunner crash/Winters paths, party-member tracker Winters
-paths, Winters ride launch paths, early pose/coordinate-pair paths, early
-party-look coordinate paths, party-look meteorite paths, winter target release
-paths, Onett door-close gate/coordinate paths, bus bridge obscured routes,
-Sky Runner electric-effect release paths, window-gfx sequence releases, intro
-cast follow-up paths, Threed escaper-appear paths, and bus bridge terminal routes
-are also promoted. The latest frontier pass adds battle-swirl interaction and
-visual-countdown paths, NPC attention-path helpers, party-member hop/text paths,
-visual-countdown anchor followers, flyover intro text release, direction-follower
-display reset, stage brightness terminal helpers, callback-unlocked Sky Runner
-landing/fall handoffs, animation-port/Pokey paths, battle-swirl recovery paths,
-stage brightness/visual continuations, T-Stage text continuations, and Onett
-door-close arc/display continuations. Together they represent
-`34040` ROM bytes as labeled
-event/actionscript macro assembly. The
-checked-in C3 source-pilot frontier ranks the remaining script spans; the
-current frontier has `20` gaps and `0` ready-ranked gaps, so the next C3 work is
-pinning callback contracts before more source emission.
+byte-count seeds captured for semantic naming. There are now `101`
+source-form pilots checked in under `src/c3/event_scripts/`, covering `40487`
+validated ROM bytes as labeled event/actionscript macro assembly.
+
+Recent C3 promotions leaned hard on the C4 callback docs and ebsrc script refs:
+cast-screen orbit/step-spawn continuations, party-member orbit damping, Threed
+escaper arc/landing continuations, and a large T-Stage/T-Stage 3 performance
+push are now source-backed. The checked-in C3 source-pilot frontier ranks the
+remaining script spans; it currently has `16` gaps and `0` ready-ranked gaps,
+with the next best seam being the split terminal batch at `C3:35B5..C3:3980`.
 
 ## For Romhackers
 
@@ -199,6 +166,15 @@ Good starting points:
 - `notes/c3-flyover-intro-text-release-paths-source-pilot.md`
 - `notes/c3-direction-follower-display-reset-paths-source-pilot.md`
 - `notes/c3-stage-brightness-terminal-helpers-source-pilot.md`
+- `notes/c3-party-member-orbit-damping-paths-source-pilot.md`
+- `notes/c3-cast-screen-orbit-continuation-source-pilot.md`
+- `notes/c3-cast-screen-step-spawn-continuation-source-pilot.md`
+- `notes/c3-threed-escaper-arc-continuation-source-pilot.md`
+- `notes/c3-threed-escaper-landing-continuation-source-pilot.md`
+- `notes/c3-tstage-dance-followup-paths-source-pilot.md`
+- `notes/c3-tstage-dual-window-position-paths-source-pilot.md`
+- `notes/c3-tstage-performance-upper-corridor-source-pilot.md`
+- `notes/c3-tstage3-performance-routes-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/map-sprite-usage-contract.md`
 - `notes/map-movement-usage-contract.md`

@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `83` families, `30828` validated
+- Current source-form event/actionscript pilots: `101` families, `40487` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -650,8 +650,11 @@ paths, visual-countdown anchor followers, flyover intro text release,
 direction-follower display reset, stage brightness terminal helpers,
 animation-port/Pokey paths, battle-swirl recovery paths, Sky Runner
 landing/fall handoffs, stage brightness/visual continuations, T-Stage text
-continuations, and Onett door-close arc/display continuations now have
-source-form pilots. The refreshed frontier now has `20` remaining gaps and
-`0` ready-ranked gaps. The higher-value path is pinning callback contracts such
-as `C4:2624`, `C4:730E`, `C4:67E6`, `C0:C682`, `C4:68A9`, and the blocked
+continuations, Onett door-close arc/display continuations, cast-screen
+orbit/step-spawn continuations, party-member orbit damping, Threed escaper
+arc/landing continuations, and T-Stage/T-Stage 3 performance corridors now have
+source-form pilots. The refreshed frontier now has `16` remaining gaps and
+`0` ready-ranked gaps. The next best C3 source seam is the split terminal batch
+at `C3:35B5..C3:3980`; after that, the higher-value path is pinning callback
+contracts such as `C4:67E6`, `C0:C682`, `C4:68A9`, `C0:A838`, and the blocked
 `C3:5231` script 801 cast-scroll/cast-spawn payload.
