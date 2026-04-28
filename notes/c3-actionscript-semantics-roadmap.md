@@ -15,11 +15,12 @@ eventually reassemblable without guessing.
 - C3 byte-equivalence: `OK`, `0` mismatches
 - Script manifest: `notes/script-payloads-c3.md`
 - Source/data map: `notes/c3-source-data-map.md`
-- Current promoted script payload labels: `80`
-- Current promoted complete event-bytecode decodes: `72`
+- Current promoted script payload labels: `84`
+- Current promoted complete event-bytecode decodes: `75`
 - Current non-event script-adjacent payloads: `8`
 - Current source-form event/actionscript pilots: `140` families, `56518` validated
   bytes
+- Current source-pilot labels harvested into the reference index: `1262`
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md` (`0` remaining
   candidate bytes)
 - Event/actionscript integration scaffold:
@@ -42,10 +43,14 @@ Current audit result:
 
 - script/actionscript rows audited: `181`
 - rows syntactically complete with the current decoder: `181`
+- rows with stable non-`UNKNOWN_C3...` names in the audit: `181`
 - native `EVENT_CALLROUTINE` byte-count contract seeds: `86`
 - installed tick/physics/position callback target seeds: `17`
 - rows blocked by unknown native callback argument contracts: `0`
 - unknown event opcodes found: `0`
+- `tools/build_ref_index.py` now harvests checked-in source-pilot labels from
+  `src/c3/event_scripts/*.asm`, so decoded targets and audit row names reuse the
+  validated source labels instead of drifting into hand-maintained duplicates
 - callback semantic groups are now emitted in the audit for both
   `EVENT_CALLROUTINE` bridges and installed callback targets, with local names
   and first-pass contracts for high-value timed-delivery, visual-profile,

@@ -660,9 +660,11 @@ def load_names(path: Path) -> dict[str, list[str]]:
     names: dict[str, list[str]] = {}
     preferred_sources = {
         "local-working-names": 0,
-        "local-notes": 1,
-        "ebsrc-main": 2,
-        "earthbound-disasm-legacy": 3,
+        "local-script-payloads": 1,
+        "local-c3-source-pilot": 2,
+        "local-notes": 3,
+        "ebsrc-main": 4,
+        "earthbound-disasm-legacy": 5,
     }
     candidates: dict[str, list[tuple[int, str]]] = {}
     for entry in index.get("entries", []):

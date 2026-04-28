@@ -18,6 +18,7 @@ EBSRC_SYMBOLS = EBSRC_ROOT / "include" / "symbols"
 LEGACY_ROOT = ROOT / "refs" / "earthbound-disasm-legacy" / "Earthbound Decomp"
 LEGACY_ROUTINES = LEGACY_ROOT / "EB" / "Routine_Macros_EB.asm"
 EB_DECOMPILE_ROOT = ROOT / "refs" / "eb-decompile-4ef92"
+C3_SOURCE_PILOT_ROOT = ROOT / "src" / "c3" / "event_scripts"
 WORKING_NAMES_DEFAULT = ROOT / "build" / "working-names-c0-c4.json"
 DATA_CONTRACTS_DEFAULT = ROOT / "build" / "data-contracts-c0-c4.json"
 SCRIPT_PAYLOADS_DEFAULT = ROOT / "build" / "script-payloads-c3.json"
@@ -37,6 +38,8 @@ TEXT_SUFFIXES = {".asm", ".inc", ".txt", ".md", ".yml", ".yaml", ".json", ".cfg"
 INCLUDE_RE = re.compile(r'(?:\.INCLUDE|LOCALEINCLUDE)\s+"([^"]+)"', re.IGNORECASE)
 GLOBAL_RE = re.compile(r"^\s*\.GLOBAL\s+([A-Za-z0-9_]+)(?::\s*([A-Za-z0-9_]+))?", re.IGNORECASE)
 LABEL_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*):")
+ORG_RE = re.compile(r"^\s*org\s+\$([C-F][0-9A-F])([0-9A-F]{4})\b", re.IGNORECASE)
+COMMENT_ADDR_RE = re.compile(r";\s*([C-F][0-9A-F]):([0-9A-F]{4})\b", re.IGNORECASE)
 LEGACY_ADDR_LABEL_RE = re.compile(r"^(?:label|DATA)_([C-F][0-9A-F])([0-9A-F]{4})$", re.IGNORECASE)
 ADDR_TOKEN_RE = re.compile(r"\b([C-F][0-9A-F])[:_]?([0-9A-F]{4})\b", re.IGNORECASE)
 FLAT_ADDR_RE = re.compile(r"\b(?:UNKNOWN_|REDIRECT_|DATA_|CODE_|NULL_)?([C-F][0-9A-F][0-9A-F]{4})\b", re.IGNORECASE)
@@ -362,6 +365,47 @@ def parse_script_payloads(path: Path) -> list[dict[str, Any]]:
     return entries
 
 
+def parse_c3_source_pilot_labels(base: Path = C3_SOURCE_PILOT_ROOT) -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    if not base.exists():
+        return entries
+
+    seen: set[tuple[str, str, str]] = set()
+    for path in sorted(base.glob("*.asm")):
+        pending_labels: list[tuple[str, int]] = []
+        for lineno, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), start=1):
+            if ORG_RE.match(line):
+                pending_labels = []
+                continue
+
+            label_match = LABEL_RE.match(line)
+            if label_match:
+                pending_labels.append((label_match.group(1), lineno))
+                continue
+
+            address_match = COMMENT_ADDR_RE.search(line)
+            if not address_match or not pending_labels:
+                continue
+
+            address = normalize_address(address_match.group(1), address_match.group(2))
+            for name, label_line in pending_labels:
+                key = (address, name, rel(path))
+                if key in seen:
+                    continue
+                seen.add(key)
+                append_address_entry(
+                    entries,
+                    address=address,
+                    name=name,
+                    kind="c3-source-pilot-label",
+                    source="local-c3-source-pilot",
+                    path=path,
+                    line=label_line,
+                )
+            pending_labels = []
+    return entries
+
+
 def build_index(working_names: Path, data_contracts: Path, script_payloads: Path) -> dict[str, Any]:
     bank_includes = parse_ebsrc_bank_includes()
     ebsrc_symbols = parse_ebsrc_symbols()
@@ -372,6 +416,7 @@ def build_index(working_names: Path, data_contracts: Path, script_payloads: Path
     working_name_entries = parse_working_names(working_names)
     data_contract_entries = parse_data_contracts(data_contracts)
     script_payload_entries = parse_script_payloads(script_payloads)
+    c3_source_pilot_labels = parse_c3_source_pilot_labels()
 
     entries: list[dict[str, Any]] = []
     entries.extend(ebsrc_symbols)
@@ -382,6 +427,7 @@ def build_index(working_names: Path, data_contracts: Path, script_payloads: Path
     entries.extend(working_name_entries)
     entries.extend(data_contract_entries)
     entries.extend(script_payload_entries)
+    entries.extend(c3_source_pilot_labels)
 
     for item in bank_includes:
         entries.append(
@@ -421,6 +467,7 @@ def build_index(working_names: Path, data_contracts: Path, script_payloads: Path
             "working-names": rel(working_names),
             "data-contracts": rel(data_contracts),
             "script-payloads": rel(script_payloads),
+            "c3-source-pilot-labels": rel(C3_SOURCE_PILOT_ROOT),
         },
         "entries": entries,
     }

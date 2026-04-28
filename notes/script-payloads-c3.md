@@ -711,7 +711,7 @@ C3:A10A  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisu
 C3:A10E  0B FE A0             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A0FE <LoopActiveEntityWalkPulse2FrameConditional>
 C3:A111  06 08                EVENT_PAUSE $08
 C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <DATA_C3A11E>
+C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <LoopActiveEntityWalkPulseVar4Gate_OffHalf>
 C3:A118  3B 01                EVENT_SET_ANIMATION $01
 ; ... 7 more decoded lines in JSON manifest
 ```
@@ -733,7 +733,7 @@ C3:A10A  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisu
 C3:A10E  0B FE A0             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A0FE <LoopActiveEntityWalkPulse2FrameConditional>
 C3:A111  06 08                EVENT_PAUSE $08
 C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <DATA_C3A11E>
+C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <LoopActiveEntityWalkPulseVar4Gate_OffHalf>
 C3:A118  3B 01                EVENT_SET_ANIMATION $01
 C3:A11A  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A11E  06 08                EVENT_PAUSE $08
@@ -754,7 +754,7 @@ C3:A12B  19 11 A1             EVENT_SHORTJUMP $C3:A111 <LoopActiveEntityWalkPuls
 ```text
 C3:A111  06 08                EVENT_PAUSE $08
 C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <DATA_C3A11E>
+C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A11E <LoopActiveEntityWalkPulseVar4Gate_OffHalf>
 C3:A118  3B 01                EVENT_SET_ANIMATION $01
 C3:A11A  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A11E  06 08                EVENT_PAUSE $08
@@ -805,12 +805,12 @@ C3:A152  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisu
 C3:A15E  42 23 00 C4          EVENT_CALLROUTINE $C4:0023 <StoreLowNibble1a42ToCurrentScriptField1372>
 C3:A162  06 08                EVENT_PAUSE $08
 C3:A164  20 04                EVENT_WRITE_VAR_TO_TEMPVAR $04
-C3:A166  0B 6F A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A16F
+C3:A166  0B 6F A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A16F <LoopC40015Var4GatedPulseUntilRelease_CheckRelease>
 C3:A169  3B 01                EVENT_SET_ANIMATION $01
 C3:A16B  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A16F  06 08                EVENT_PAUSE $08
 C3:A171  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
-C3:A175  0B 62 A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A162
+C3:A175  0B 62 A1             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A162 <LoopC40015Var4GatedPulseUntilRelease_Loop>
 C3:A178  19 04 A2             EVENT_SHORTJUMP $C3:A204 <ReleaseCurrentVisualEntityAndEnd>
 ```
 
@@ -920,7 +920,7 @@ C3:A210  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisu
 C3:A214  20 00                EVENT_WRITE_VAR_TO_TEMPVAR $00
 C3:A216  11 05 2C A2 34 A2 3D A2 4E A2 5F A2 EVENT_SWITCH_CALL_TEMPVAR count=5 [$C3:A22C <Var0AnimationCase0Pulse8FrameOn>, $C3:A234 <Var0AnimationCase1Pulse8FrameOff>, $C3:A23D <Var0AnimationCase2Pulse4Frame>, $C3:A24E <Var0AnimationCase3Pulse32Frame>, $C3:A25F <Var0AnimationCase4Wait16Frame>]
 C3:A222  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
-C3:A226  0B 14 A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A214
+C3:A226  0B 14 A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A214 <LoopVar0SelectedAnimationBody>
 C3:A229  19 7C A4             EVENT_SHORTJUMP $C3:A47C <ReleaseCurrentVisualEntityTail>
 ```
 
@@ -1011,7 +1011,7 @@ C3:A261  1B                   EVENT_SHORT_RETURN
 ```text
 C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A266  42 76 5E C0 F1 A6 64 C0 EVENT_CALLROUTINE $C0:5E76 <Update_CurrentSlotCollisionCache>, $F1, $A6, $64, $C0
-C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
+C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <LoopCollisionProbeRefresh>
 ```
 
 ### C3:A2AA TrafficLightWaitUntilOffscreenAndRelease
@@ -1029,7 +1029,7 @@ C3:A2B0  42 DB C7 C0          EVENT_CALLROUTINE $C0:C7DB <UpdateCurrentSlotFootp
 C3:A2B4  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:A2B8  06 08                EVENT_PAUSE $08
 C3:A2BA  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
-C3:A2BE  0B B8 A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A2B8 <DATA_C3A2B8>
+C3:A2BE  0B B8 A2             EVENT_SHORTCALL_CONDITIONAL_NOT $C3:A2B8 <Event8_Entry2WaitUntilOffscreenRelease>
 C3:A2C1  42 F1 20 C0          EVENT_CALLROUTINE $C0:20F1 <ScriptRelease_CurrentEntityVisualState>
 C3:A2C5  00                   EVENT_END
 ```
@@ -1435,7 +1435,7 @@ C3:AB58  1B                   EVENT_SHORT_RETURN
 C3:AB59  1A 44 AB             EVENT_SHORTCALL $C3:AB44 <RefreshActiveEntityDirectionAndVisualProfile>
 C3:AB5C  06 01                EVENT_PAUSE $01
 C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <StepCurrentSlotTowardCachedTarget_NoFacingRefresh>
-C3:AB62  0A 5C AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB5C <DATA_C3AB5C>
+C3:AB62  0A 5C AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB5C <LoopWaitForActiveEntityMovementToFinish>
 C3:AB65  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB66  1B                   EVENT_SHORT_RETURN
 ```
