@@ -91,15 +91,16 @@ that romhackers need to edit confidently:
 1. `C3`: event/actionscript opcode and operand semantics. The first audit is
    now in `notes/c3-actionscript-semantics-audit.md`: `177` rows audited and
    `177` syntactically complete with the current decoder, with `85` native
-   callback byte-count seeds captured. Forty-seven source-form pilots are checked in
-   under `src/c3/event_scripts/` and cover `14903` validated bytes across the
+   callback byte-count seeds captured. Forty-nine source-form pilots are checked in
+   under `src/c3/event_scripts/` and cover `15886` validated bytes across the
    movement pulse preset, timed-delivery, service-event movement, and
    service-animation helper/event, presentation/effect, Itoi production intro,
    intro/presentation movement path, cast-scroll setup, intro cast-member path,
    party-look/window-gfx path, temp-flag door-close path,
-   teleport-destination path, tunnel ghost/zombie path, and tunnel ghost
-   follower path, vehicle coordinate path, Boogy Tent/city bus path, palette
-   fade/coordinate path, falling/bounce-yield path, teleport-destination prelude
+   teleport-destination path, tunnel ghost/zombie path, tunnel ghost
+   follower path, tunnel ghost entity setup path, vehicle coordinate path,
+   Boogy Tent/city bus path, palette fade/coordinate path,
+   falling/bounce-yield path, teleport-destination prelude
    path, bus-tunnel bridge path, animation-port flag switch, and
    position/text-yield path, leftward bounds release, and animation-port
    direction task families plus var0 animation/collision-probe,
@@ -109,8 +110,8 @@ that romhackers need to edit confidently:
    facing pulse, teleport/flyover pulse, Sky Runner electric-effect, small
    terminal cleanup, cast-screen Tenda/King, live-area facing movement, Onett
    town hall movement, Onett town hall door path, position/text door-sound,
-   Bubble Monkey route, direction-tracker town hall, theater-stage performance
-   movement, and stage visual pulse helpers.
+   Bubble Monkey route, Pokey/Bubble Monkey, direction-tracker town hall,
+   theater-stage performance movement, and stage visual pulse helpers.
    `notes/c3-source-pilot-frontier.md` now ranks remaining source-pilot seams;
    the next C3 work is promoting more script families through that pattern, not
    unknown opcode recovery.
@@ -142,6 +143,7 @@ that romhackers need to edit confidently:
 - `notes/c3-teleport-destination-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
+- `notes/c3-tunnel-ghost-entity-setup-paths-source-pilot.md`
 - `notes/c3-vehicle-coordinate-paths-source-pilot.md`
 - `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
 - `notes/c3-palette-fade-coordinate-paths-source-pilot.md`
@@ -166,6 +168,7 @@ that romhackers need to edit confidently:
 - `notes/c3-onett-townhall-door-paths-source-pilot.md`
 - `notes/c3-position-text-door-sound-paths-source-pilot.md`
 - `notes/c3-bubble-monkey-route-paths-source-pilot.md`
+- `notes/c3-pokey-bubble-monkey-paths-source-pilot.md`
 - `notes/c3-direction-tracker-townhall-paths-source-pilot.md`
 - `notes/c3-tstage-performance-movement-paths-source-pilot.md`
 - `notes/c3-stage-visual-pulse-paths-source-pilot.md`

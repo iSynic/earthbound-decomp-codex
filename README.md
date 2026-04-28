@@ -52,14 +52,15 @@ the tooling needed to reassemble or safely modify those structures.
 
 The C3 event/actionscript audit is now a concrete baseline: `177` script rows
 decode syntactically with the current VM decoder, with `85` native callback
-byte-count seeds captured for semantic naming. Forty-seven source-form pilots are also
+byte-count seeds captured for semantic naming. Forty-nine source-form pilots are also
 checked in under `src/c3/event_scripts/`: the movement pulse preset family,
 the timed-delivery/service-event movement families, and the neighboring
 service-animation helper/event, presentation/effect, Itoi production intro, and
 intro/presentation movement path, cast-scroll setup, intro cast-member path,
 party-look/window-gfx path, temp-flag door-close path, teleport-destination
-path, tunnel ghost/zombie path, tunnel ghost follower path, vehicle coordinate
-path, Boogy Tent/city bus path, palette fade/coordinate path,
+path, tunnel ghost/zombie path, tunnel ghost follower path, tunnel ghost entity
+setup path, vehicle coordinate path, Boogy Tent/city bus path, palette
+fade/coordinate path,
 falling/bounce-yield path, teleport-destination prelude path, and
 bus-tunnel bridge path, animation-port flag switch, position/text-yield path,
 leftward bounds release, and animation-port direction task clusters plus var0
@@ -70,8 +71,8 @@ helpers, plus movement-vector core, facing pulse, teleport/flyover pulse,
 Sky Runner electric-effect, small terminal cleanup, cast-screen Tenda/King,
 live-area facing movement, Onett town hall movement, and Onett town hall door
 path helpers, plus position/text door-sound, Bubble Monkey route,
-direction-tracker town hall, theater-stage performance movement, and stage
-visual pulse paths. Together they represent `14903`
+direction-tracker town hall, theater-stage performance movement, stage visual
+pulse paths, and Pokey/Bubble Monkey paths. Together they represent `15886`
 ROM bytes as labeled event/actionscript macro assembly. The
 checked-in C3 source-pilot frontier ranks the remaining script spans so future
 promotion passes can start from the highest-value ready seams.
@@ -110,6 +111,7 @@ Good starting points:
 - `notes/c3-teleport-destination-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-zombie-paths-source-pilot.md`
 - `notes/c3-tunnel-ghost-follower-paths-source-pilot.md`
+- `notes/c3-tunnel-ghost-entity-setup-paths-source-pilot.md`
 - `notes/c3-vehicle-coordinate-paths-source-pilot.md`
 - `notes/c3-boogy-tent-city-bus-paths-source-pilot.md`
 - `notes/c3-palette-fade-coordinate-paths-source-pilot.md`
@@ -134,6 +136,7 @@ Good starting points:
 - `notes/c3-onett-townhall-door-paths-source-pilot.md`
 - `notes/c3-position-text-door-sound-paths-source-pilot.md`
 - `notes/c3-bubble-monkey-route-paths-source-pilot.md`
+- `notes/c3-pokey-bubble-monkey-paths-source-pilot.md`
 - `notes/c3-direction-tracker-townhall-paths-source-pilot.md`
 - `notes/c3-tstage-performance-movement-paths-source-pilot.md`
 - `notes/c3-stage-visual-pulse-paths-source-pilot.md`

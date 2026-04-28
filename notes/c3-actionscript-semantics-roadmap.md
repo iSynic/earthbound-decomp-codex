@@ -18,7 +18,7 @@ eventually reassemblable without guessing.
 - Current promoted script payload labels: `80`
 - Current promoted complete event-bytecode decodes: `72`
 - Current non-event script-adjacent payloads: `8`
-- Current source-form event/actionscript pilots: `47` families, `14903` validated
+- Current source-form event/actionscript pilots: `49` families, `15886` validated
   bytes
 - Source-pilot frontier: `notes/c3-source-pilot-frontier.md`
 
@@ -172,7 +172,7 @@ High-value callback families:
 
 ### 3. Reassembly-Friendly Script Family
 
-Status: forty-seven pilots complete.
+Status: forty-nine pilots complete.
 
 - `notes/c3-event-script-source-pilot.md`: movement pulse presets,
   `27` source/data-map rows, `617` validated bytes.
@@ -216,6 +216,10 @@ Status: forty-seven pilots complete.
   seam covering the tunnel ghost active-area setup helper, party-member tracker,
   event 93, and ebsrc scripts 103-106 follower offset variants,
   `C3:BB5C..C3:BD03`, `423` validated bytes.
+- `notes/c3-tunnel-ghost-entity-setup-paths-source-pilot.md`: high-ranked
+  frontier seam covering the final tunnel ghost setup corridor after the
+  follower variants, including ebsrc scripts 101-102 and 107-114,
+  `C3:BD03..C3:BEA4`, `417` validated bytes.
 - `notes/c3-vehicle-coordinate-paths-source-pilot.md`: high-ranked frontier
   seam covering the shared obscured vehicle actor initializer and ebsrc scripts
   584-590 taxi/truck/red-car coordinate paths, including the Onett door-close
@@ -235,6 +239,10 @@ Status: forty-seven pilots complete.
   seam covering the shared wait/yield halt at `C3:098B`, ebsrc script 266's
   fixed coordinate move/yield halt, and ebsrc script 267's falling/bounce
   movement release sequence, `C3:098B..C3:0A1F`, `148` validated bytes.
+- `notes/c3-pokey-bubble-monkey-paths-source-pilot.md`: high-ranked full-gap
+  frontier seam covering the short Z-bounce task and ebsrc scripts 268-283,
+  including Pokey staging paths and the first Bubble Monkey route dispatchers,
+  `C3:0A1F..C3:0C55`, `566` validated bytes.
 - `notes/c3-teleport-destination-prelude-paths-source-pilot.md`: high-ranked
   frontier seam covering teleport-destination prelude helpers before the
   existing `C3:C94E..C3:CC24` pilot: a looping offset jitter task, a pause
@@ -381,10 +389,13 @@ Candidate/follow-up families for this milestone:
 - `C3:C94E..C3:CC24` teleport-destination paths scripts 153-160 - pilot complete
 - `C3:B70C..C3:BAA3` tunnel ghost/zombie paths - pilot complete
 - `C3:BB5C..C3:BD03` tunnel ghost follower paths - pilot complete
+- `C3:BD03..C3:BEA4` tunnel ghost entity setup paths scripts 101-102 and
+  107-114 - pilot complete
 - `C3:6A41..C3:6BB4` vehicle coordinate paths scripts 584-590 - pilot complete
 - `C3:6BEA..C3:6D18` Boogy Tent/city bus paths scripts 592-596 - pilot complete
 - `C3:7439..C3:7545` palette fade/coordinate paths scripts 633-637 - pilot complete
 - `C3:098B..C3:0A1F` falling/bounce-yield paths scripts 266-267 - pilot complete
+- `C3:0A1F..C3:0C55` Pokey/Bubble Monkey paths scripts 268-283 - pilot complete
 - `C3:C824..C3:C94E` teleport-destination prelude paths scripts 147-152 - pilot complete
 - `C3:DB7A..C3:DBF2` bus-tunnel bridge paths scripts 453-454 - pilot complete
 - `C3:835D..C3:83BC` animation-port flag switch helper - pilot complete
@@ -415,8 +426,6 @@ Candidate/follow-up families for this milestone:
 - `C3:6BB4..C3:6BEA` Threed fight Matent paths - pilot complete
 - `C3:C1E0..C3:C227` position door-close helpers - pilot complete
 - `C3:C227..C3:C35D` position/text-yield paths scripts 120-132 - pilot complete
-- `C3:BD03..C3:BEA4` adjacent tunnel ghost area wait/movement helper - blocked
-  on the `C0:A92D` callback contract before promotion
 - `C3:0295..C3:AB8A` event 222-224 movement helper family
 
 The next pilots should emit symbolic event bytecode with labels, opcodes, and
@@ -450,15 +459,14 @@ text helpers, movement-vector core helpers, facing pulse helpers,
 teleport/flyover pulse helpers, Sky Runner electric-effect helpers, small
 terminal cleanup helpers, cast-screen Tenda/King paths, live-area facing
 movement paths, Onett town hall movement paths, Onett town hall door paths,
-position/text door-sound paths, Bubble Monkey route paths, direction-tracker
-town hall paths, theater-stage performance movement paths, stage visual pulse
-paths, and var0
+position/text door-sound paths, Bubble Monkey route paths, Pokey/Bubble Monkey
+paths, direction-tracker town hall paths, theater-stage performance movement
+paths, stage visual pulse paths, tunnel ghost entity setup paths, and var0
 animation/collision-probe, area-wait/random-wander, teleport/flyover coordinate,
 Threed fight Matent, position door-close helpers, and position/text-yield paths now have
 source-form pilots. The refreshed frontier currently points at
-`C3:BD03..C3:BE01` as the best ready seam;
+`C3:8515..C3:86B2` as the best ready seam;
 adjacent follow-ups include
-`C3:BD03..C3:BEA4` once the `C0:A92D` callback contract is pinned,
 `C3:3DD4..C3:4392` once the
 `C4:67E6` callback contract is pinned, `C3:C167..C3:C1E0` once the `C0:C682`
 callback contract is pinned, `C3:62C0..C3:6834` once the `C4:6B51` callback
