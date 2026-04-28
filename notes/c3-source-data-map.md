@@ -6,14 +6,14 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 
 - schema: `earthbound-decomp.c3-source-data-map.v1`
 - addressed include rows: `193`
-- working labels: `164` (`82` internal or named-include labels)
+- working labels: `168` (`85` internal or named-include labels)
 - script payload labels: `80` (`43` internal labels)
-- data-contract labels: `32` (`11` internal labels)
-- working-named addressed rows: `82`
+- data-contract labels: `34` (`12` internal labels)
+- working-named addressed rows: `83`
 - script payload include-start rows: `37`
-- contract-backed include-start rows: `21`
-- by extraction class: `{'contract-backed-data': 18, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 1, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 4, 'source-helper': 24}`
-- supplemental by extraction class: `{'contract-backed-data': 11, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 13}`
+- contract-backed include-start rows: `22`
+- by extraction class: `{'contract-backed-data': 18, 'contract-backed-data-prefix': 3, 'effect-script-asset': 1, 'event-bytecode-asset': 14, 'event-bytecode-label': 16, 'event-script-asset': 105, 'mixed-data-source-row': 2, 'movement-pattern-data': 6, 'null-stub': 1, 'raw-or-named-data': 3, 'source-helper': 24}`
+- supplemental by extraction class: `{'contract-backed-data': 12, 'event-bytecode-asset': 23, 'event-bytecode-label': 19, 'movement-pattern-data': 1, 'source-adjacent-data': 15, 'source-helper': 14, 'working-label': 1}`
 - script decode status: `{'complete': 30, 'not-applicable': 7}`
 
 ## Extraction Classes
@@ -214,7 +214,7 @@ Generated from the ebsrc bankconfig include order plus local working-name, scrip
 | `C3:EF26` | 0x18A | `data/unknown/C3EF26.asm` | `contract-backed-data` | `BattlePsiMenuSelectorGroupTable / BATTLE_PSI_MENU_SELECTOR_GROUP_TABLE` |  |
 | `C3:F0B0` | 0x13C | `data/unknown/C3F0B0.asm` | `contract-backed-data` | `BattlePsiKnownStateGateTable / BATTLE_PSI_KNOWN_STATE_GATE_TABLE` |  |
 | `C3:F1EC` | 0xC5 | `unknown/C3/C3F1EC.asm` | `source-helper` | `TryRepairJeffBrokenInventoryItem` |  |
-| `C3:F2B1` | 0x348 | `data/unknown/C3F2B1.asm` | `raw-or-named-data` |  |  |
+| `C3:F2B1` | 0x348 | `data/unknown/C3F2B1.asm` | `mixed-data-source-row` | `LevelUpStatGrowthVarianceTable / LEVEL_UP_STAT_GROWTH_VARIANCE_TABLE` |  |
 | `C3:F5F9` | 0x84 | `unknown/C3/C3F5F9.asm` | `source-helper` | `QueueVisualTileRowsLinear` |  |
 | `C3:F67D` | 0x88 | `unknown/C3/C3F67D.asm` | `source-helper` | `QueueVisualTileRowsWrapped` |  |
 | `C3:F705` | 0xF6 | `unknown/C3/C3F705.asm` | `source-helper` | `QueueVisualTileBlockFromStream` |  |
@@ -297,6 +297,8 @@ These labels are not address-bearing include starts in the reference bankconfig.
 | `C3:F112` | `contract-backed-data` | `data-contract` | `BattlePsiRankSuffixTable` |  |
 | `C3:F11C` | `contract-backed-data` | `data-contract` | `BattlePsiMenuEntryFixedTail` |  |
 | `C3:F124` | `contract-backed-data` | `data-contract` | `BattlePsiMenuEntryRowTable` |  |
+| `C3:F2B5` | `contract-backed-data` | `data-contract` | `VisualSelectorPoseRowTable` |  |
+| `C3:F3C5` | `source-helper` | `working-name` | `RunFileSelectVisualTransition` |  |
 | `C3:F879` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage1` |  |
 | `C3:F881` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage2` |  |
 | `C3:F889` | `source-adjacent-data` | `working-name` | `BattleVisualGraphicsSourceStripOffsetsPage3` |  |
@@ -314,6 +316,7 @@ These labels are not address-bearing include starts in the reference bankconfig.
 | `C3:F9A2` | `source-helper` | `working-name` | `ApplyBattleVisualToken23To2dColourEffect` |  |
 | `C3:FA4A` | `source-helper` | `working-name` | `ApplyBattleVisualToken31To35ColourEffect` |  |
 | `C3:FAC7` | `source-helper` | `working-name` | `ReturnFromBattleVisualEffectTokenDispatch` |  |
+| `C3:FB1F` | `working-label` | `working-name` | `DATA_C3FB1F` |  |
 | `C3:FDBD` | `movement-pattern-data` | `script-payload` | `DeliveryPlaceholderSpriteTable` | `not-applicable` |
 
 ## Source Extraction Slices
@@ -354,6 +357,7 @@ These addressed data includes contain embedded source-helper labels. Split them 
 | Address | Include | Embedded Source Labels | Split Expectation |
 | --- | --- | --- | --- |
 | `C3:E84E` | `data/unknown/C3E84E.asm` | C3:E977 ReadCharacterInventorySlotByte<br>C3:E9A0 CheckEquippedInventorySlotReference | mixed row: split leading data from embedded source-helper labels C3:E977 ReadCharacterInventorySlotByte, C3:E9A0 CheckEquippedInventorySlotReference |
+| `C3:F2B1` | `data/unknown/C3F2B1.asm` | C3:F3C5 RunFileSelectVisualTransition | mixed row: split leading data from embedded source-helper labels C3:F3C5 RunFileSelectVisualTransition |
 
 ## Follow-up Frontier
 
@@ -364,4 +368,3 @@ Rows below are documented enough to split, but are intentionally not promoted to
 | `C3:0188` | `data/unknown/C30188.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
 | `C3:E1E0` | `data/unknown/C3E1E0.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
 | `C3:E44C` | `data/unknown/C3E44C.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |
-| `C3:F2B1` | `data/unknown/C3F2B1.asm` | `raw-or-named-data` | export as data asset or promote to contract when consumer shape is exact |

@@ -340,6 +340,15 @@ BATTLE_PSI_MENU_ENTRY_ROW_FIELDS = (
     field("encoded_text", 0x00, 1, 20),
 )
 
+LEVEL_UP_STAT_GROWTH_VARIANCE_FIELDS = (
+    field("variance", 0x00, 1, note="byte added to the C4:5F7B random result by C1:D08B"),
+)
+
+VISUAL_SELECTOR_POSE_ROW_FIELDS = tuple(
+    field(f"bucket_{index}_pose", index * 2, 2)
+    for index in range(8)
+)
+
 BATTLE_VISUAL_STRIP_OFFSET_FIELDS = (
     field("strip_0_offset", 0x00, 2),
     field("strip_1_offset", 0x02, 2),
@@ -1516,6 +1525,37 @@ def extra_contracts() -> list[Contract]:
                 "notes/c3-battle-psi-menu-data-contracts.md",
             ),
             fields=BATTLE_PSI_MENU_ENTRY_ROW_FIELDS,
+        ),
+        Contract(
+            id="LEVEL_UP_STAT_GROWTH_VARIANCE_TABLE",
+            domain="rom-table",
+            address="C3:F2B1",
+            stride=0x01,
+            count=4,
+            struct_name="level_up_stat_growth_variance",
+            confidence="corroborated",
+            note="Four-byte variance table consumed by C1:D08B while computing level-up stat growth deltas.",
+            evidence=(
+                "notes/level-up-stat-growth-helper-c1d08b.md",
+                "notes/c3-battle-visual-data-and-file-select-transition-split.md",
+            ),
+            fields=LEVEL_UP_STAT_GROWTH_VARIANCE_FIELDS,
+        ),
+        Contract(
+            id="VISUAL_SELECTOR_POSE_ROW_TABLE",
+            domain="rom-table",
+            address="C3:F2B5",
+            stride=0x10,
+            count=17,
+            struct_name="visual_selector_pose_row",
+            confidence="corroborated",
+            note="Seventeen 8-word pose-resolution rows consumed by C0:780F/C0:79EC to map higher-level visual selectors to concrete pose indices.",
+            evidence=(
+                "notes/visual-selector-family-c0780f-c3f2b5.md",
+                "notes/position-derived-visual-context-class-9887.md",
+                "notes/c3-battle-visual-data-and-file-select-transition-split.md",
+            ),
+            fields=VISUAL_SELECTOR_POSE_ROW_FIELDS,
         ),
         Contract(
             id="BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS",

@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `100`
-- fields: `474`
+- contracts: `102`
+- fields: `483`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -100,6 +100,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | BATTLE_PSI_RANK_SUFFIX_TABLE | rom-table | `C3:F112` | `0x2` | 5 | `battle_psi_rank_suffix_token` | 1 | corroborated |
 | BATTLE_PSI_MENU_ENTRY_FIXED_TAIL | rom-block | `C3:F11C` | `0x8` | 1 | `battle_psi_menu_entry_fixed_tail` | 1 | corroborated |
 | BATTLE_PSI_MENU_ENTRY_ROW_TABLE | rom-table | `C3:F124` | `0x14` | 10 | `battle_psi_menu_entry_row` | 1 | corroborated |
+| LEVEL_UP_STAT_GROWTH_VARIANCE_TABLE | rom-table | `C3:F2B1` | `0x1` | 4 | `level_up_stat_growth_variance` | 1 | corroborated |
+| VISUAL_SELECTOR_POSE_ROW_TABLE | rom-table | `C3:F2B5` | `0x10` | 17 | `visual_selector_pose_row` | 8 | corroborated |
 | BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS | rom-table | `C3:F871` | `0x8` | 8 | `battle_visual_strip_offset_page` | 4 | corroborated |
 | BATTLE_VISUAL_OAM_TILE_INDEX_GRID | rom-table | `C3:F8B1` | `0x10` | 4 | `battle_visual_oam_tile_index_row` | 8 | corroborated |
 | BATTLE_PALETTE_SET_ROWS | rom-table | `C3:F8F1` | `0x20` | 3 | `rgb555_palette_row` | 16 | corroborated |
@@ -1806,6 +1808,43 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `encoded_text` | 1 | 20 |  |
+
+### LEVEL_UP_STAT_GROWTH_VARIANCE_TABLE
+
+- domain: `rom-table`
+- address: `C3:F2B1`
+- stride: `0x1`
+- count: `4`
+- struct: `level_up_stat_growth_variance`
+- confidence: `corroborated`
+- note: Four-byte variance table consumed by C1:D08B while computing level-up stat growth deltas.
+- evidence: `notes/level-up-stat-growth-helper-c1d08b.md`, `notes/c3-battle-visual-data-and-file-select-transition-split.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `variance` | 1 | 1 | byte added to the C4:5F7B random result by C1:D08B |
+
+### VISUAL_SELECTOR_POSE_ROW_TABLE
+
+- domain: `rom-table`
+- address: `C3:F2B5`
+- stride: `0x10`
+- count: `17`
+- struct: `visual_selector_pose_row`
+- confidence: `corroborated`
+- note: Seventeen 8-word pose-resolution rows consumed by C0:780F/C0:79EC to map higher-level visual selectors to concrete pose indices.
+- evidence: `notes/visual-selector-family-c0780f-c3f2b5.md`, `notes/position-derived-visual-context-class-9887.md`, `notes/c3-battle-visual-data-and-file-select-transition-split.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `bucket_0_pose` | 2 | 1 |  |
+| `0x2` | `bucket_1_pose` | 2 | 1 |  |
+| `0x4` | `bucket_2_pose` | 2 | 1 |  |
+| `0x6` | `bucket_3_pose` | 2 | 1 |  |
+| `0x8` | `bucket_4_pose` | 2 | 1 |  |
+| `0xA` | `bucket_5_pose` | 2 | 1 |  |
+| `0xC` | `bucket_6_pose` | 2 | 1 |  |
+| `0xE` | `bucket_7_pose` | 2 | 1 |  |
 
 ### BATTLE_VISUAL_GRAPHICS_SOURCE_STRIP_OFFSETS
 

@@ -27,7 +27,7 @@ DATA_NAME_RE = re.compile(
 )
 SOURCE_NAME_RE = re.compile(
     r"^(Apply|Check|Choose|Clear|Close|Deplete|Dispatch|Display|Finalize|Find|Queue|Read|Recover|"
-    r"Refresh|Release|Resolve|Return|Set|Sync|Tick)"
+    r"Refresh|Release|Resolve|Return|Run|Set|Sync|Tick)"
 )
 
 SOURCE_PATH_PREFIXES = (
@@ -69,6 +69,7 @@ class IncludeRow:
     contract_id: str | None
     contract_confidence: str | None
     evidence: tuple[str, ...]
+    embedded_source_labels: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -414,7 +415,7 @@ def build_manifest(
     ]
     mixed_row_notes: dict[str, tuple[str, ...]] = {}
     for row in addressed_rows:
-        if row.extraction_class not in {"raw-or-named-data", "data-or-helper-frontier"}:
+        if row.extraction_class not in {"raw-or-named-data", "data-or-helper-frontier", "contract-backed-data-prefix"}:
             continue
         if row.size is None:
             continue
@@ -445,6 +446,7 @@ def build_manifest(
                         + ", ".join(embedded)
                     ),
                     evidence=row.evidence + embedded,
+                    embedded_source_labels=embedded,
                 )
             )
         include_rows = updated_rows
@@ -619,7 +621,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             ]
         )
         for row in mixed_rows:
-            embedded = "<br>".join(markdown_escape(str(item)) for item in row.get("evidence", ()))
+            embedded = "<br>".join(markdown_escape(str(item)) for item in row.get("embedded_source_labels", ()))
             lines.append(
                 "| `{address}` | `{path}` | {embedded} | {expectation} |".format(
                     address=row["address"],
