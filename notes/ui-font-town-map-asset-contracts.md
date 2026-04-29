@@ -22,7 +22,7 @@ No ROM-derived payloads are checked in by this report.
 | Saved-coordinate landing display visuals | 3 | 1842 | 0 | `graphics` 3 | `earthbound_lzhal` 3, `raw` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle. |
 | Ending cast-name visuals | 4 | 3655 | 1 | `graphics` 3, `raw-table` 1 | `raw` 4, `earthbound_lzhal` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 2, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:E369 loads E1:D6E1, E1:D815, E1:D835, and E1:E4E6 into the ending cast-name display path. |
 | Flyover, credits, cast, and photographer tables | 9 | 10523 | 0 | `raw-table` 7, `graphics` 2 | `raw` 9, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
-| Compressed SRAM save-block template | 1 | 2469 | 1 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records with the HAL Laboratory signature and the ebsrc save_header/game_state/party/event-flag section shape. |
+| Compressed SRAM save-block template | 1 | 2469 | 1 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records; EF save helpers use blocks 0/1, 2/3, and 4/5 as three primary/backup user save-slot pairs, while blocks 6/7 are preserved reserve template records outside the retail slot loops. |
 | Embedded audio pack tails | 3 | 7457 | 0 | `audio` 3 | `raw` 3 | E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family. |
 | Unresolved UI-adjacent binary payloads | 0 | 0 | 0 | - | - | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
 | Bank-end padding and raw gaps | 2 | 91 | 0 | `raw-gap` 2 | `raw` 2 | Bank-end raw gaps are byte-protected scaffold/padding ranges, not active UI contracts. |
@@ -36,7 +36,7 @@ No ROM-derived payloads are checked in by this report.
 - `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; block 5 is the lead-entity override at E0:2108, block 6 is an EBDecomp-rendered extra block with no known source-backed selector, and the movement-text palette row remains a separate system row. Source: `notes/text-window-skin-bundle-contracts.md`.
 - `intro_title_visual_bundles`: E1 intro/title payloads now split into six scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, and title screen; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts. Source: `notes/intro-title-visual-bundle-contracts.md`.
 - `landing_cast_visual_bundles`: E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..D815, E1:D815..D835, E1:D835..E4E6, and E1:E4E6..E528 belong to the C4:E369 ending cast-name visual path. Source: `notes/landing-cast-visual-contracts.md`.
-- `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding. Source: `notes/sram-template-contracts.md`.
+- `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, with three runtime user save-slot primary/backup pairs, checksum/complement fields verified against EF:0734/077B, and two preserved reserve records outside the retail slot loops. Source: `notes/sram-template-contracts.md`.
 
 ## Runtime Subrange Contracts
 
@@ -200,7 +200,7 @@ No ROM-derived payloads are checked in by this report.
 
 ### Compressed SRAM save-block template
 
-- portable contract: Expose as a save-template bundle with compressed ROM provenance plus decoded block inventory; split into individual save-block records only if a future installer/editor wants structured seed slots.
+- portable contract: Expose as a save-template bundle with compressed ROM provenance, decoded block inventory, three slot-pair records, checksum algorithms, and preserved reserve blocks.
 - checked docs: `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`
 
 | Asset | Range | Bytes | Outputs | Notes |
@@ -238,5 +238,5 @@ No ROM-derived payloads are checked in by this report.
 ## Next Open Questions
 
 - Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
-- Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.
+- Confirm whether SRAM template blocks 6 and 7 have any non-retail, prototype, or tool-facing use before treating them as generated reserve records.
 - Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.

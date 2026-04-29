@@ -20,6 +20,9 @@ EBSRC_SRAM = ROOT / "refs" / "ebsrc-main" / "ebsrc-main" / "src" / "bankconfig" 
 
 SIGNATURE = b"HAL Laboratory, inc."
 BLOCK_SIZE = 0x500
+USER_SAVE_SLOT_COUNT = 3
+USER_SAVE_BLOCK_COUNT = USER_SAVE_SLOT_COUNT * 2
+SAVE_SLOT_MISSING_MASKS = [0x01, 0x02, 0x04]
 SECTIONS = [
     {"id": "header", "start": 0x000, "end": 0x020, "role": "save_header: signature plus checksum fields"},
     {"id": "game_state", "start": 0x020, "end": 0x1F8, "role": "game_state struct"},
@@ -76,9 +79,54 @@ def build_section(block: bytes, section: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def calc_checksum(block: bytes) -> int:
+    return sum(block[0x20:BLOCK_SIZE]) & 0xFFFF
+
+
+def calc_checksum_complement(block: bytes) -> int:
+    value = 0
+    for offset in range(0x20, BLOCK_SIZE, 2):
+        value ^= struct.unpack_from("<H", block, offset)[0]
+    return value
+
+
+def block_runtime_role(index: int) -> dict[str, Any]:
+    if index < USER_SAVE_BLOCK_COUNT:
+        slot_index = index // 2
+        copy_role = "primary" if index % 2 == 0 else "backup"
+        partner_index = index + 1 if copy_role == "primary" else index - 1
+        return {
+            "runtime_owner": f"save_slot_{slot_index}_{copy_role}",
+            "user_save_slot": slot_index,
+            "copy_role": copy_role,
+            "partner_block": partner_index,
+            "checked_by_integrity_loop": True,
+            "missing_slot_mask": f"0x{SAVE_SLOT_MISSING_MASKS[slot_index]:02X}",
+            "role_note": (
+                f"Retail save slot {slot_index} {copy_role} copy. EF:0825 validates block {slot_index * 2} "
+                f"then block {slot_index * 2 + 1}; if one copy is valid, EF:06A2 repairs the other."
+            ),
+        }
+    return {
+        "runtime_owner": f"reserved_template_block_{index}",
+        "user_save_slot": None,
+        "copy_role": "reserved",
+        "partner_block": None,
+        "checked_by_integrity_loop": False,
+        "missing_slot_mask": None,
+        "role_note": (
+            "Present in the decompressed E0 template and inside the 0x2000 SRAM clear range, "
+            "but outside the three retail save-slot pairs checked by EF:0683/EF:0825 and outside "
+            "the save/load/copy/erase slot wrappers."
+        ),
+    }
+
+
 def build_block(index: int, block: bytes) -> dict[str, Any]:
     checksum = struct.unpack_from("<H", block, 0x1C)[0]
     checksum_complement = struct.unpack_from("<H", block, 0x1E)[0]
+    computed_checksum = calc_checksum(block)
+    computed_complement = calc_checksum_complement(block)
     signature = block[:0x1C].rstrip(b"\0")
     return {
         "index": index,
@@ -90,6 +138,11 @@ def build_block(index: int, block: bytes) -> dict[str, Any]:
         "signature_matches": signature == SIGNATURE,
         "checksum": f"0x{checksum:04X}",
         "checksum_complement": f"0x{checksum_complement:04X}",
+        "computed_checksum": f"0x{computed_checksum:04X}",
+        "computed_checksum_complement": f"0x{computed_complement:04X}",
+        "checksum_matches_computed": checksum == computed_checksum,
+        "checksum_complement_matches_computed": checksum_complement == computed_complement,
+        "runtime_role": block_runtime_role(index),
         "sections": [build_section(block, section) for section in SECTIONS],
     }
 
@@ -165,6 +218,9 @@ def build_contract() -> dict[str, Any]:
         "structure": {
             "block_size": BLOCK_SIZE,
             "block_count": len(blocks),
+            "user_save_slot_count": USER_SAVE_SLOT_COUNT,
+            "user_save_block_count": USER_SAVE_BLOCK_COUNT,
+            "reserved_template_block_count": max(0, len(blocks) - USER_SAVE_BLOCK_COUNT),
             "total_template_bytes": len(decompressed),
             "signature": SIGNATURE.decode("ascii"),
             "ebsrc_struct_evidence": ebsrc_struct_evidence(),
@@ -178,7 +234,37 @@ def build_contract() -> dict[str, Any]:
                 next(section for section in block["sections"] if section["id"] == "padding")["all_zero"]
                 for block in blocks
             ),
+            "all_checksum_fields_match_ef0734_sum": all(block["checksum_matches_computed"] for block in blocks),
+            "all_complement_fields_match_ef077b_xor": all(
+                block["checksum_complement_matches_computed"] for block in blocks
+            ),
+            "first_six_blocks_map_to_three_redundant_save_slots": all(
+                blocks[index]["runtime_role"]["user_save_slot"] == index // 2
+                for index in range(min(USER_SAVE_BLOCK_COUNT, len(blocks)))
+            ),
+            "blocks_6_7_are_outside_retail_save_slot_loops": len(blocks) == 8
+            and all(not blocks[index]["runtime_role"]["checked_by_integrity_loop"] for index in [6, 7]),
             "ebsrc_save_block_fragments_found": ebsrc_struct_evidence()["required_fragments_found"],
+        },
+        "slot_pairs": [
+            {
+                "slot": slot,
+                "primary_block": slot * 2,
+                "backup_block": slot * 2 + 1,
+                "missing_slot_mask": f"0x{SAVE_SLOT_MISSING_MASKS[slot]:02X}",
+                "runtime_contract": (
+                    f"EF:0A4D saves slot {slot} to blocks {slot * 2}/{slot * 2 + 1}; "
+                    f"EF:0A68 loads from primary block {slot * 2}; EF:0825 validates/repairs "
+                    f"the pair and sets missing-slot mask 0x{SAVE_SLOT_MISSING_MASKS[slot]:02X} if both copies fail."
+                ),
+            }
+            for slot in range(USER_SAVE_SLOT_COUNT)
+        ],
+        "checksum_algorithms": {
+            "checksum_field": "Header word +0x1C stores EF:0734, the 16-bit sum of bytes 0x020..0x4FF.",
+            "checksum_complement_field": "Header word +0x1E stores EF:077B, the 16-bit XOR of little-endian words 0x020..0x4FF.",
+            "recalculated_by": "EF:088F writes game_state/party/event_flags into a save block, writes EF:0734 at +0x1C, verifies it, then writes EF:077B at +0x1E and verifies it. EF:0A4D calls EF:088F for both copies in a slot.",
+            "validated_by": "EF:07C0 recomputes both fields; EF:0825 uses it to repair primary/backup pairs and mark missing slots.",
         },
         "blocks": blocks,
         "runtime_context": [
@@ -194,10 +280,13 @@ def build_contract() -> dict[str, Any]:
                 "source": "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/sram.asm",
                 "role": "The SRAM segment defines SAVE_BASE and the live game-state/character/event-flag SRAM regions used by save logic.",
             },
+            {
+                "source": "src/ef/ef_05a9_0c3d_save_sram_helpers.asm",
+                "role": "EF save helpers map three user save slots to primary/backup block pairs 0/1, 2/3, and 4/5; blocks 6/7 are outside the normal slot loops.",
+            },
         ],
         "open_questions": [
-            "Name the eight template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
-            "Document the checksum algorithm and when the checksum/complement fields are recalculated.",
+            "Confirm whether reserved template blocks 6 and 7 have any non-retail, prototype, or tool-facing use before treating them as generated reserve records.",
             "Decide whether future installers should emit this as one compressed template blob or split it into eight save-block records.",
         ],
     }
@@ -223,6 +312,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- compression ratio: `{asset['compression_ratio']}`",
         f"- save-block size: `0x{structure['block_size']:X}`",
         f"- save-block count: `{structure['block_count']}`",
+        f"- user save slots: `{structure['user_save_slot_count']}`",
+        f"- reserved template blocks: `{structure['reserved_template_block_count']}`",
         f"- repeated signature: `{structure['signature']}`",
         "",
         "## Validation",
@@ -253,15 +344,16 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "",
             "## Block Inventory",
             "",
-            "| Block | Payload range | Nonzero bytes | SHA-1 | Signature | Checksum | Complement | Padding zero |",
-            "| ---: | --- | ---: | --- | --- | --- | --- | --- |",
+            "| Block | Runtime role | Payload range | Nonzero bytes | SHA-1 | Signature | Checksum | Complement | Padding zero |",
+            "| ---: | --- | --- | ---: | --- | --- | --- | --- | --- |",
         ]
     )
     for block in contract["blocks"]:
         padding = next(section for section in block["sections"] if section["id"] == "padding")
         lines.append(
-            "| {index} | `{range}` | {nonzero} | `{sha1}` | `{signature}` | `{checksum}` | `{complement}` | `{padding}` |".format(
+            "| {index} | `{role}` | `{range}` | {nonzero} | `{sha1}` | `{signature}` | `{checksum}` | `{complement}` | `{padding}` |".format(
                 index=block["index"],
+                role=block["runtime_role"]["runtime_owner"],
                 range=block["range_in_payload"],
                 nonzero=block["nonzero_bytes"],
                 sha1=block["sha1"],
@@ -269,6 +361,58 @@ def render_markdown(contract: dict[str, Any]) -> str:
                 checksum=block["checksum"],
                 complement=block["checksum_complement"],
                 padding=str(padding["all_zero"]).lower(),
+            )
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Runtime Slot Ownership",
+            "",
+            "| Save slot | Primary block | Backup block | Missing-slot mask | Runtime contract |",
+            "| ---: | ---: | ---: | --- | --- |",
+        ]
+    )
+    for pair in contract["slot_pairs"]:
+        lines.append(
+            "| {slot} | {primary} | {backup} | `{mask}` | {contract_text} |".format(
+                slot=pair["slot"],
+                primary=pair["primary_block"],
+                backup=pair["backup_block"],
+                mask=pair["missing_slot_mask"],
+                contract_text=pair["runtime_contract"],
+            )
+        )
+
+    reserved = [block for block in contract["blocks"] if block["runtime_role"]["copy_role"] == "reserved"]
+    if reserved:
+        lines.extend(["", "Reserved template blocks:"])
+        for block in reserved:
+            lines.append(f"- block `{block['index']}`: {block['runtime_role']['role_note']}")
+
+    algorithms = contract["checksum_algorithms"]
+    lines.extend(
+        [
+            "",
+            "## Checksum Algorithms",
+            "",
+            f"- checksum: {algorithms['checksum_field']}",
+            f"- complement: {algorithms['checksum_complement_field']}",
+            f"- recalculation: {algorithms['recalculated_by']}",
+            f"- validation/repair: {algorithms['validated_by']}",
+            "",
+            "| Block | Stored checksum | Computed checksum | Stored complement | Computed complement |",
+            "| ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for block in contract["blocks"]:
+        lines.append(
+            "| {index} | `{checksum}` | `{computed_checksum}` | `{complement}` | `{computed_complement}` |".format(
+                index=block["index"],
+                checksum=block["checksum"],
+                computed_checksum=block["computed_checksum"],
+                complement=block["checksum_complement"],
+                computed_complement=block["computed_checksum_complement"],
             )
         )
 

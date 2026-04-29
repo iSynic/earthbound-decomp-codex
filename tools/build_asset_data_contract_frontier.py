@@ -100,7 +100,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/town-map-selection-rendering-c4d274-c4d744.md",
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
-        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; next polish SRAM block ownership and any remaining narrow renderer-control flag names.",
+        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; next polish only reserved SRAM block 6/7 provenance and any remaining narrow renderer-control flag names.",
     },
     {
         "id": "audio_packs",

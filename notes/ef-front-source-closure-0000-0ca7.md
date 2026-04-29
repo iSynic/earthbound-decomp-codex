@@ -61,6 +61,15 @@ The save/SRAM source family uses these entry anchors:
 - `EF:0BFA` erase save slot
 - `EF:0C15` copy save slot
 
+The slot/block ownership is now pinned in `notes/sram-template-contracts.md`.
+The retail helpers treat SRAM blocks `0/1`, `2/3`, and `4/5` as the
+primary/backup pairs for user save slots `0`, `1`, and `2`. `EF:0A4D` saves
+both copies, `EF:0A68` loads from the primary block, `EF:0825` validates and
+repairs a pair from the surviving copy, and `EF:0BFA`/`EF:0C15` erase/copy both
+blocks in a pair. The decompressed E0 template also contains blocks `6/7`, but
+those are outside the normal `EF:0683`/`EF:0825` slot loops and are preserved as
+reserve template records until a caller proves a narrower role.
+
 These names mirror the include order, with local labels promoted from the ROM
 entry points.
 

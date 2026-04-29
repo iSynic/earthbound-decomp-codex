@@ -94,8 +94,8 @@ FAMILIES: dict[str, dict[str, Any]] = {
     },
     "sram_save_template": {
         "label": "Compressed SRAM save-block template",
-        "runtime_contract": "E0:09B4 decompresses to eight 0x500-byte save_block records with the HAL Laboratory signature and the ebsrc save_header/game_state/party/event-flag section shape.",
-        "portable_contract": "Expose as a save-template bundle with compressed ROM provenance plus decoded block inventory; split into individual save-block records only if a future installer/editor wants structured seed slots.",
+        "runtime_contract": "E0:09B4 decompresses to eight 0x500-byte save_block records; EF save helpers use blocks 0/1, 2/3, and 4/5 as three primary/backup user save-slot pairs, while blocks 6/7 are preserved reserve template records outside the retail slot loops.",
+        "portable_contract": "Expose as a save-template bundle with compressed ROM provenance, decoded block inventory, three slot-pair records, checksum algorithms, and preserved reserve blocks.",
         "docs": [
             "notes/sram-template-contracts.md",
             "notes/bank-e0-asset-data-map.md",
@@ -314,7 +314,7 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "sram_save_template",
                 "source": "notes/sram-template-contracts.md",
-                "shape": "E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding.",
+                "shape": "E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, with three runtime user save-slot primary/backup pairs, checksum/complement fields verified against EF:0734/077B, and two preserved reserve records outside the retail slot loops.",
             },
         ],
         "subrange_contracts": [
@@ -394,7 +394,7 @@ def build_contract() -> dict[str, Any]:
         "derived_town_map_tables": town_map_tables,
         "next_open_questions": [
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
-            "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
+            "Confirm whether SRAM template blocks 6 and 7 have any non-retail, prototype, or tool-facing use before treating them as generated reserve records.",
             "Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.",
         ],
     }
