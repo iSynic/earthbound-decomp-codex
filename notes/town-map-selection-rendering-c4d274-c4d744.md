@@ -77,6 +77,13 @@ The `E1:F203..E1:F581` support span now has a generated structural split in
 - `E1:F4A9..E1:F581` = six town-map icon placement lists with `42` total
   five-byte records
 
+Icon graphics descriptor record shape:
+
+- byte `+0` = signed Y offset added to the base Y submitted through `C0:8C54`; the generic renderer has a special control branch for `$80`, but that control value does not appear in the E1 town-map icon descriptor range
+- word `+1` = tile/attribute word copied into the renderer staging record
+- byte `+3` = signed X offset added to the base X submitted through `C0:8C54`
+- byte `+4` = control flags; bit `7` marks the final record in a descriptor list, bit `0` feeds `C0:8CD5`'s packed renderer mask/attribute bit, and bits `1..6` are zero in the checked E1 town-map descriptors
+
 Placement record shape:
 
 - byte `+0` = X coordinate passed to `C0:8C54`

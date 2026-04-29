@@ -30,10 +30,10 @@ No ROM-derived payloads are checked in by this report.
 ## Known Runtime Shapes
 
 - `town_map_pointer_table`: E0:2190 pointer table selects one of six E0 town-map graphics payloads for C4:D553. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
-- `town_map_icon_records`: E1:F491 points to five-byte icon records: x, y, icon id, and event flag word with high-bit polarity. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
+- `town_map_icon_records`: E1:F491 points to placement records (x, y, icon id, event flag word), while icon ids map through E1:F44C to E1:F203 five-byte graphics descriptor lists: signed y offset, tile/attribute word, signed x offset, and control flags. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `town_map_icon_animation`: E1:F44C maps town-map icon ids, E1:F47A suppresses blink-phase icons, and C4:D2A8 cycles CGRAM entries 0x81..0x86. Source: `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 - `font_metric_pairs`: Main, Mr. Saturn, large, battle, and tiny fonts each have a 96-byte metric table matched to EBDecomp width refs and paired with raw 4bpp glyph graphics; battle and tiny share the same first-96 metrics but use different graphics sizes. Source: `notes/font-bundle-contracts.md`.
-- `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows. Source: `notes/text-window-skin-bundle-contracts.md`.
+- `text_window_skin_bundle`: E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; block 5 is the lead-entity override at E0:2108, block 6 is an EBDecomp-rendered extra block with no known source-backed selector, and the movement-text palette row remains a separate system row. Source: `notes/text-window-skin-bundle-contracts.md`.
 - `intro_title_visual_bundles`: E1 intro/title payloads now split into six scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, and title screen; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts. Source: `notes/intro-title-visual-bundle-contracts.md`.
 - `landing_cast_visual_bundles`: E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..D815, E1:D815..D835, E1:D835..E4E6, and E1:E4E6..E528 belong to the C4:E369 ending cast-name visual path. Source: `notes/landing-cast-visual-contracts.md`.
 - `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, each with a 32-byte save header, 472-byte game_state, six char_struct records, 128 event-flag bytes, and zero padding. Source: `notes/sram-template-contracts.md`.
@@ -43,10 +43,10 @@ No ROM-derived payloads are checked in by this report.
 | Subrange | Range | Status | Contract | Evidence |
 | --- | --- | --- | --- | --- |
 | `text_window_flavor_selector_table` | `E0:1FB9..E0:1FC8` | `runtime-corroborated` | Five 3-byte selector records; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8 for the current text-window flavour. | notes/text-window-skin-bundle-contracts.md validates the offsets against EBDecomp flavour names and the local C1/C4 callers. |
-| `text_window_palette_blocks` | `E0:1FC8..E0:2188` | `runtime-corroborated` | Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours and block 5 is the documented lead-entity override. | C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218. |
+| `text_window_palette_blocks` | `E0:1FC8..E0:2188` | `runtime-corroborated` | Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours, block 5 is the documented lead-entity override, and block 6 is preserved as an unused/nonselectable extra system block. | C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218; EBDecomp renders block 6 as Windows1_6/Windows2_6, but the source-backed C0/C1/C4/EF palette refresh paths do not select E0:2148. |
 | `movement_text_string_palette` | `E0:2188..E0:2190` | `structural-split` | Standalone eight-byte movement-text palette row after the seven window palette blocks. | notes/bank-e0-asset-data-map.md identifies this source include as covered by the combined generated E0 table span. |
 | `town_map_gfx_pointer_table` | `E0:2190..E0:21A8` | `runtime-corroborated` | Six-entry town-map graphics pointer table consumed by C4:D553 before decompressing the selected E0 town-map payload. | C4:D553 indexes E0:2190 from the zero-based town-map id in notes/town-map-selection-rendering-c4d274-c4d744.md. |
-| `town_map_icon_graphic_descriptor_lists` | `E1:F203..E1:F44C` | `structural-runtime-corroborated` | Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records, selected by the E1:F44C icon-id pointer table. | The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table. |
+| `town_map_icon_graphic_descriptor_lists` | `E1:F203..E1:F44C` | `structural-runtime-corroborated` | Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records. Each record is y offset, tile/attribute word, x offset, and a control byte; bit 7 marks the final descriptor in a list and bit 0 feeds C0:8CD5's packed mask/attribute bit. | The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table, and C0:8CD5 consumes the five-byte row shape while drawing relative to the submitted base X/Y. |
 | `town_map_icon_graphic_pointer_table` | `E1:F44C..E1:F47A` | `runtime-corroborated` | Twenty-three 16-bit local pointers mapping town-map icon ids to E1:F203 five-byte graphics descriptor lists. | C4 town-map overlay/static renderers map icon ids through E1:F44C. |
 | `town_map_blink_suppress_table` | `E1:F47A..E1:F491` | `runtime-corroborated` | Twenty-three one-byte blink/suppression flags checked before static icon drawing; nonzero entries suppress icons while $B4AE is in the hidden phase. | C4:D43F checks E1:F47A before the event-flag test. |
 | `town_map_icon_placement_pointer_table` | `E1:F491..E1:F4A9` | `runtime-corroborated` | Six four-byte long-pointer entries, one per town map, pointing to placement lists in E1:F4A9..E1:F581. | C4:D43F indexes a pointer table at E1:F491 for the selected zero-based town-map id; checked-in bytes resolve to E1:F4A9, E1:F4CD, E1:F4F6, E1:F524, E1:F548, and E1:F562. |
@@ -55,8 +55,18 @@ No ROM-derived payloads are checked in by this report.
 ## Derived Town-Map Table Counts
 
 - icon graphics descriptor lists: `22` unique lists, `23` icon slots, `117` five-byte records
+- icon descriptor control bytes: `$00` 65, `$01` 30, `$80` 15, `$81` 7; `22` terminal records, `37` with bit 0 set, `0` with bits 1..6 set
 - blink/suppress table: `23` entries, `16` nonzero, `7` zero
 - placement lists: `6` town maps, `42` five-byte placement records
+
+## Town-Map Icon Descriptor Record Shape
+
+| Offset | Field | Size | Role |
+| ---: | --- | ---: | --- |
+| `+0` | `relative_y_offset` | 1 | Signed Y offset added to the base Y submitted to C0:8C54/C0:8CD5, then decremented for renderer staging. Generic value $80 enters a renderer control branch, but it is not present in the E1 town-map icon descriptors. |
+| `+1` | `tile_attribute_word` | 2 | Tile/attribute word copied by C0:8CD5 into the renderer staging record. |
+| `+3` | `relative_x_offset` | 1 | Signed X offset added to the base X submitted to C0:8C54/C0:8CD5. |
+| `+4` | `control_flags` | 1 | Bit 7 terminates the descriptor list after this record; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit. Bits 1..6 are zero in the checked-in E1 town-map descriptors. |
 
 | Town map index | Placement target | Records | Terminator |
 | ---: | --- | ---: | --- |
@@ -228,6 +238,5 @@ No ROM-derived payloads are checked in by this report.
 ## Next Open Questions
 
 - Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
-- Pin the visible identity of text-window palette block 6.
 - Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.
-- Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.
+- Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.

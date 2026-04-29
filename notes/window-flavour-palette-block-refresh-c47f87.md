@@ -43,6 +43,12 @@ If that object-record byte is `1` or `2` and `$B4B6 == 0`, it copies the fixed 0
 
 This lines up with `C1:FF2C`, which watches the same object-record byte and stores a latched changed/not-changed state in `$B4A2`; its caller refreshes through `C4:7F87` when that state changes. The special source block is therefore an overworld lead-entity palette/window override, while `$B4B6` suppresses it during file-select/session handling.
 
+## Extra block status
+
+The seven-block E0 palette span also contains `E0:2148`, the block rendered by EBDecomp's `WindowGraphics/Windows1_6.png` and `Windows2_6.png` references. No checked-in source-backed path currently selects that address directly: the known retail refresh helper selects only blocks 0..4 through `$99CD`/`E0:1FB9`, or the fixed block 5 override at `E0:2108`.
+
+Until a caller proves a narrower role, block 6 should be treated as a preserved unused/nonselectable extra system window block rather than one of the five user-selectable flavors.
+
 ## Caller shape
 
 Direct callers found locally:
@@ -67,6 +73,5 @@ The callers are broad, but they agree on one contract: after text/window VRAM st
 
 ## Still open
 
-- exact visible identity of the fixed `E0:2108` override block
 - exact palette subfields inside the 0x40-byte `$0200` work block
 - whether object-record byte `+0x0E` should be globally named as a lead sprite class, body type, or a narrower overworld render class

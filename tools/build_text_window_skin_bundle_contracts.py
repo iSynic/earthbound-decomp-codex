@@ -115,7 +115,11 @@ def parse_palette_blocks(data: bytes, flavor_names: list[str]) -> list[dict[str,
     blocks = []
     names_by_block = {index: name for index, name in enumerate(flavor_names)}
     names_by_block[5] = "lead-entity override / nonselectable system block"
-    names_by_block[6] = "extra system window block"
+    names_by_block[6] = "unused extra system window block"
+    block_notes = {
+        5: "C4:7F87 selects this fixed E0:2108 block when the current lead entity class is 1 or 2 and the suppress latch at $B4B6 is clear.",
+        6: "EBDecomp renders Windows1_6/Windows2_6, but the checked-in C0/C1/C4/EF source paths have no known direct selector for E0:2148; preserve it as an unused/nonselectable extra block until caller proof appears.",
+    }
     for block_index in range(PALETTE_BLOCK_COUNT):
         offset = PALETTE_BLOCK_OFFSET + block_index * PALETTE_BLOCK_SIZE
         rows = []
@@ -143,6 +147,10 @@ def parse_palette_blocks(data: bytes, flavor_names: list[str]) -> list[dict[str,
                 "selectable": block_index < len(flavor_names),
                 "flavor_value": block_index + 1 if block_index < len(flavor_names) else None,
                 "source_offset_from_palette_base": f"${block_index * PALETTE_BLOCK_SIZE:04X}",
+                "selection_evidence": block_notes.get(
+                    block_index,
+                    "Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD.",
+                ),
                 "rows": rows,
                 **ref_counts,
             }
@@ -216,7 +224,7 @@ def build_contract() -> dict[str, Any]:
                 "bytes": PALETTE_BLOCK_SIZE * PALETTE_BLOCK_COUNT,
                 "record_count": PALETTE_BLOCK_COUNT,
                 "record_size": PALETTE_BLOCK_SIZE,
-                "runtime_use": "C4:7F87 copies one 0x40-byte block to $0200; block 5 at E0:2108 is the lead-entity override block documented in notes/window-flavour-palette-block-refresh-c47f87.md.",
+                "runtime_use": "C4:7F87 copies one 0x40-byte block to $0200; blocks 0..4 are selectable through E0:1FB9, block 5 at E0:2108 is the lead-entity override block, and block 6 at E0:2148 has EBDecomp visual refs but no known source-backed selector.",
             },
             {
                 "id": "movement_text_string_palette",
@@ -251,6 +259,7 @@ def build_contract() -> dict[str, Any]:
         "validation": {
             "selector_offsets_point_to_first_five_palette_blocks": True,
             "seven_palette_blocks_have_windowgraphics_png_refs": True,
+            "no_known_source_backed_selector_for_palette_block_6": True,
             "town_map_pointer_tail_matches_e0_town_map_assets": True,
             "section_lengths_sum_to_table_length": True,
         },
@@ -274,7 +283,7 @@ def build_contract() -> dict[str, Any]:
         ],
         "open_questions": [
             "Name the seven per-block palette row roles beyond the known +$18 equipment/status row.",
-            "Pin the visible identity of palette block 6; block 5 is already the documented lead-entity override block.",
+            "Rename block 6 only if a future caller or source reference proves a narrower retail runtime role.",
             "Name the unused/adjacent third byte in each three-byte flavor selector record if caller proof appears.",
         ],
     }
@@ -333,21 +342,22 @@ def render_markdown(contract: dict[str, Any]) -> str:
         )
 
     lines.extend(["", "## Palette Blocks", ""])
-    lines.append("| Block | Name | Selectable | Range | Source offset | EBDecomp refs | Known row roles |")
-    lines.append("| ---: | --- | --- | --- | --- | --- | --- |")
+    lines.append("| Block | Name | Selectable | Range | Source offset | EBDecomp refs | Selection evidence | Known row roles |")
+    lines.append("| ---: | --- | --- | --- | --- | --- | --- | --- |")
     for block in contract["palette_blocks"]:
         roles = []
         for row in block["rows"]:
             roles.extend(f"row {row['row_index']}: {role}" for role in row["roles"])
         refs = f"`{block['windows1_png']}`, `{block['windows2_png']}`"
         lines.append(
-            "| {block_index} | {name} | `{selectable}` | `{range}` | `{offset}` | {refs} | {roles} |".format(
+            "| {block_index} | {name} | `{selectable}` | `{range}` | `{offset}` | {refs} | {evidence} | {roles} |".format(
                 block_index=block["block_index"],
                 name=block["name"],
                 selectable=str(block["selectable"]).lower(),
                 range=block["range"],
                 offset=block["source_offset_from_palette_base"],
                 refs=refs,
+                evidence=block["selection_evidence"],
                 roles="; ".join(roles) or "-",
             )
         )

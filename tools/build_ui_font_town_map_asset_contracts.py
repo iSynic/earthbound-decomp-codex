@@ -284,7 +284,7 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "town_map_icon_records",
                 "source": "notes/town-map-selection-rendering-c4d274-c4d744.md",
-                "shape": "E1:F491 points to five-byte icon records: x, y, icon id, and event flag word with high-bit polarity.",
+                "shape": "E1:F491 points to placement records (x, y, icon id, event flag word), while icon ids map through E1:F44C to E1:F203 five-byte graphics descriptor lists: signed y offset, tile/attribute word, signed x offset, and control flags.",
             },
             {
                 "id": "town_map_icon_animation",
@@ -299,7 +299,7 @@ def build_contract() -> dict[str, Any]:
             {
                 "id": "text_window_skin_bundle",
                 "source": "notes/text-window-skin-bundle-contracts.md",
-                "shape": "E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; two extra palette blocks and the movement-text palette row remain preserved as system rows.",
+                "shape": "E0:1FB9 selector rows map five selectable window flavours to 0x40-byte palette blocks at E0:1FC8; block 5 is the lead-entity override at E0:2108, block 6 is an EBDecomp-rendered extra block with no known source-backed selector, and the movement-text palette row remains a separate system row.",
             },
             {
                 "id": "intro_title_visual_bundles",
@@ -331,8 +331,8 @@ def build_contract() -> dict[str, Any]:
                 "family": "text_window_skin",
                 "range": "E0:1FC8..E0:2188",
                 "status": "runtime-corroborated",
-                "contract": "Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours and block 5 is the documented lead-entity override.",
-                "evidence": "C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218.",
+                "contract": "Seven 0x40-byte palette blocks, each split into eight four-colour rows; the first five are selectable flavours, block 5 is the documented lead-entity override, and block 6 is preserved as an unused/nonselectable extra system block.",
+                "evidence": "C4:7F87 copies whole 0x40-byte blocks to $0200; C1:9D49 copies selected block row +$18 to $0218; EBDecomp renders block 6 as Windows1_6/Windows2_6, but the source-backed C0/C1/C4/EF palette refresh paths do not select E0:2148.",
             },
             {
                 "id": "movement_text_string_palette",
@@ -355,8 +355,8 @@ def build_contract() -> dict[str, Any]:
                 "family": "town_maps",
                 "range": "E1:F203..E1:F44C",
                 "status": "structural-runtime-corroborated",
-                "contract": "Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records, selected by the E1:F44C icon-id pointer table.",
-                "evidence": "The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table.",
+                "contract": "Twenty-two unique five-byte icon graphics descriptor lists, totaling 117 records. Each record is y offset, tile/attribute word, x offset, and a control byte; bit 7 marks the final descriptor in a list and bit 0 feeds C0:8CD5's packed mask/attribute bit.",
+                "evidence": "The span splits exactly on every pointer target from E1:F44C; C4:D2F0 and C4:D43F select icon ids before remapping them through the pointer table, and C0:8CD5 consumes the five-byte row shape while drawing relative to the submitted base X/Y.",
             },
             {
                 "id": "town_map_icon_graphic_pointer_table",
@@ -394,9 +394,8 @@ def build_contract() -> dict[str, Any]:
         "derived_town_map_tables": town_map_tables,
         "next_open_questions": [
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
-            "Pin the visible identity of text-window palette block 6.",
             "Name the eight SRAM template blocks as primary, backup, or scenario seed slots after following the save initialization/copy routine.",
-            "Name the individual fields inside the five-byte town-map icon graphics descriptor records at E1:F203..F44C.",
+            "Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.",
         ],
     }
 
@@ -416,6 +415,11 @@ def extract_scaffold_range(org: str, end_label: str) -> list[int]:
 def build_town_map_table_contracts() -> dict[str, Any]:
     values = extract_scaffold_range("E1F203", "E1F581_TableE1f203End")
     base = 0xF203
+
+    descriptor_values = values[: 0xF44C - base]
+    descriptor_records = [
+        descriptor_values[index : index + 5] for index in range(0, len(descriptor_values), 5)
+    ]
 
     icon_pointer_offset = 0xF44C - base
     icon_pointers = []
@@ -484,6 +488,45 @@ def build_town_map_table_contracts() -> dict[str, Any]:
             "record_count": (0xF44C - 0xF203) // 5,
             "unique_list_count": len(unique_starts),
             "icon_slot_count": len(icon_pointers),
+            "record_shape": [
+                {
+                    "offset": 0,
+                    "name": "relative_y_offset",
+                    "size": 1,
+                    "signed": True,
+                    "role": "Signed Y offset added to the base Y submitted to C0:8C54/C0:8CD5, then decremented for renderer staging. Generic value $80 enters a renderer control branch, but it is not present in the E1 town-map icon descriptors.",
+                },
+                {
+                    "offset": 1,
+                    "name": "tile_attribute_word",
+                    "size": 2,
+                    "signed": False,
+                    "role": "Tile/attribute word copied by C0:8CD5 into the renderer staging record.",
+                },
+                {
+                    "offset": 3,
+                    "name": "relative_x_offset",
+                    "size": 1,
+                    "signed": True,
+                    "role": "Signed X offset added to the base X submitted to C0:8C54/C0:8CD5.",
+                },
+                {
+                    "offset": 4,
+                    "name": "control_flags",
+                    "size": 1,
+                    "signed": False,
+                    "role": "Bit 7 terminates the descriptor list after this record; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit. Bits 1..6 are zero in the checked-in E1 town-map descriptors.",
+                },
+            ],
+            "control_byte_values": dict(
+                sorted(
+                    Counter(f"${record[4]:02X}" for record in descriptor_records).items(),
+                    key=lambda item: int(item[0][1:], 16),
+                )
+            ),
+            "terminal_records": sum(1 for record in descriptor_records if record[4] & 0x80),
+            "records_with_mask_bit0_set": sum(1 for record in descriptor_records if record[4] & 0x01),
+            "records_with_nonzero_bits_1_to_6": sum(1 for record in descriptor_records if record[4] & 0x7E),
             "pointers": [f"E1:{pointer:04X}" for pointer in icon_pointers],
             "lists": icon_list_ranges,
         },
@@ -582,8 +625,21 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "## Derived Town-Map Table Counts",
             "",
             f"- icon graphics descriptor lists: `{icon_lists['unique_list_count']}` unique lists, `{icon_lists['icon_slot_count']}` icon slots, `{icon_lists['record_count']}` five-byte records",
+            f"- icon descriptor control bytes: {compact_counts(icon_lists['control_byte_values'])}; `{icon_lists['terminal_records']}` terminal records, `{icon_lists['records_with_mask_bit0_set']}` with bit 0 set, `{icon_lists['records_with_nonzero_bits_1_to_6']}` with bits 1..6 set",
             f"- blink/suppress table: `{blink['entry_count']}` entries, `{blink['nonzero_entries']}` nonzero, `{blink['zero_entries']}` zero",
             f"- placement lists: `{placement['list_count']}` town maps, `{placement['record_count']}` five-byte placement records",
+            "",
+            "## Town-Map Icon Descriptor Record Shape",
+            "",
+            "| Offset | Field | Size | Role |",
+            "| ---: | --- | ---: | --- |",
+        ]
+    )
+    for field in icon_lists["record_shape"]:
+        lines.append(f"| `+{field['offset']}` | `{field['name']}` | {field['size']} | {field['role']} |")
+
+    lines.extend(
+        [
             "",
             "| Town map index | Placement target | Records | Terminator |",
             "| ---: | --- | ---: | --- |",

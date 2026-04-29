@@ -17,6 +17,7 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 
 - `selector_offsets_point_to_first_five_palette_blocks`: `true`
 - `seven_palette_blocks_have_windowgraphics_png_refs`: `true`
+- `no_known_source_backed_selector_for_palette_block_6`: `true`
 - `town_map_pointer_tail_matches_e0_town_map_assets`: `true`
 - `section_lengths_sum_to_table_length`: `true`
 
@@ -25,7 +26,7 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 | Section | Range | Bytes | Records | Runtime use |
 | --- | --- | ---: | ---: | --- |
 | `flavor_selector_table` | `E0:1FB9..E0:1FC8` | 15 | 5 | C4:7F87 and C1:9D49 index this table as `(text_flavour - 1) * 3` and use the low word as an offset from E0:1FC8. |
-| `window_palette_blocks` | `E0:1FC8..E0:2188` | 448 | 7 | C4:7F87 copies one 0x40-byte block to $0200; block 5 at E0:2108 is the lead-entity override block documented in notes/window-flavour-palette-block-refresh-c47f87.md. |
+| `window_palette_blocks` | `E0:1FC8..E0:2188` | 448 | 7 | C4:7F87 copies one 0x40-byte block to $0200; blocks 0..4 are selectable through E0:1FB9, block 5 at E0:2108 is the lead-entity override block, and block 6 at E0:2148 has EBDecomp visual refs but no known source-backed selector. |
 | `movement_text_string_palette` | `E0:2188..E0:2190` | 8 | 1 | Standalone movement-text palette row kept separate from the seven 0x40-byte window palette blocks. |
 | `town_map_graphics_pointer_table` | `E0:2190..E0:21A8` | 24 | 6 | C4:D553 indexes these six E0 long pointers before decompressing the selected town-map graphics payload. |
 
@@ -41,15 +42,15 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 
 ## Palette Blocks
 
-| Block | Name | Selectable | Range | Source offset | EBDecomp refs | Known row roles |
-| ---: | --- | --- | --- | --- | --- | --- |
-| 0 | Plain flavor | `true` | `E0:1FC8..E0:2008` | `$0000` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_0.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_0.png` | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
-| 1 | Mint flavor | `true` | `E0:2008..E0:2048` | `$0040` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_1.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_1.png` | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
-| 2 | Strawberry flavor | `true` | `E0:2048..E0:2088` | `$0080` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_2.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_2.png` | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
-| 3 | Banana flavor | `true` | `E0:2088..E0:20C8` | `$00C0` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_3.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_3.png` | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
-| 4 | Peanut flavor | `true` | `E0:20C8..E0:2108` | `$0100` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_4.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_4.png` | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
-| 5 | lead-entity override / nonselectable system block | `false` | `E0:2108..E0:2148` | `$0140` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_5.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_5.png` | - |
-| 6 | extra system window block | `false` | `E0:2148..E0:2188` | `$0180` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_6.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_6.png` | - |
+| Block | Name | Selectable | Range | Source offset | EBDecomp refs | Selection evidence | Known row roles |
+| ---: | --- | --- | --- | --- | --- | --- | --- |
+| 0 | Plain flavor | `true` | `E0:1FC8..E0:2008` | `$0000` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_0.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_0.png` | Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD. | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
+| 1 | Mint flavor | `true` | `E0:2008..E0:2048` | `$0040` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_1.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_1.png` | Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD. | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
+| 2 | Strawberry flavor | `true` | `E0:2048..E0:2088` | `$0080` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_2.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_2.png` | Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD. | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
+| 3 | Banana flavor | `true` | `E0:2088..E0:20C8` | `$00C0` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_3.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_3.png` | Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD. | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
+| 4 | Peanut flavor | `true` | `E0:20C8..E0:2108` | `$0100` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_4.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_4.png` | Selectable by the five-row E0:1FB9 flavor selector table and the current window-flavour byte at $99CD. | row 3: C1:9D49 copies this eight-byte row to $0218 for equipment/status display prep |
+| 5 | lead-entity override / nonselectable system block | `false` | `E0:2108..E0:2148` | `$0140` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_5.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_5.png` | C4:7F87 selects this fixed E0:2108 block when the current lead entity class is 1 or 2 and the suppress latch at $B4B6 is clear. | - |
+| 6 | unused extra system window block | `false` | `E0:2148..E0:2188` | `$0180` | `refs/eb-decompile-4ef92/WindowGraphics/Windows1_6.png`, `refs/eb-decompile-4ef92/WindowGraphics/Windows2_6.png` | EBDecomp renders Windows1_6/Windows2_6, but the checked-in C0/C1/C4/EF source paths have no known direct selector for E0:2148; preserve it as an unused/nonselectable extra block until caller proof appears. | - |
 
 ## Palette Row Values
 
@@ -131,7 +132,7 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 | 6 | `E0:2138..E0:2140` | `$3B80` #00E773, `$4F5F` #FFD69C, `$7952` #9452F7, `$7952` #9452F7 |
 | 7 | `E0:2140..E0:2148` | `$3B80` #00E773, `$4B5F` #FFD694, `$2518` #C6424A, `$24AE` #73294A |
 
-### Block 6 - extra system window block
+### Block 6 - unused extra system window block
 
 | Row | Range | Colors |
 | ---: | --- | --- |
@@ -170,5 +171,5 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 ## Open Questions
 
 - Name the seven per-block palette row roles beyond the known +$18 equipment/status row.
-- Pin the visible identity of palette block 6; block 5 is already the documented lead-entity override block.
+- Rename block 6 only if a future caller or source reference proves a narrower retail runtime role.
 - Name the unused/adjacent third byte in each three-byte flavor selector record if caller proof appears.
