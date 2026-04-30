@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - C0:5CD7 probes the slot footprint against the active collision page.
+; - $28DA[slot] caches the collision/terrain status bits used by neighboring
+;   movement and overlap helpers.
 
 ; ---------------------------------------------------------------------------
 ; C0:5E3B
@@ -42,6 +45,7 @@ C05E53_Update_SlotCollisionCache_L5E53:
     ldx $284A
     lda $2848
     jsl $C05CD7
+    ; Keep only high collision/trigger bits for the per-slot cache.
     and.w #$00D0
     ldx $02
     sta $28DA,X

@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - Starts with the ordinary per-slot collision cache refresh at C0:5E3B.
+; - If no collision bits were found, C0:5DE7 can OR in an entity terrain
+;   compatibility failure bit for the current slot.
 
 ; ---------------------------------------------------------------------------
 ; C0:5E82
@@ -47,6 +50,7 @@ C05EA9_Update_CurrentSlotCollisionCache_WithTerrainCompatibility_L5EA9:
     lda $2D12,Y
     tay
     lda $0E
+    ; Add the terrain-compatibility bit only when the tile collision probe was clear.
     jsl $C05DE7
     sta $04
     ldx $02

@@ -11,7 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - $E000 is the active 64x64 collision byte page for this movement layer.
+; - Inputs are already tile-space or caller-shifted coordinates; this helper
+;   masks both axes to 6 bits and returns the selected collision byte.
+; - Collision bit #$10 latches the raw probe coordinate pair into $5DA8/$5DAA
+;   for later movement-trigger handling.
 
 ; ---------------------------------------------------------------------------
 ; C0:54C9
@@ -39,6 +44,7 @@ C054C9_Read_CollisionByteAndLatchBit10Coord:
     clc
     adc $02
     tax
+    ; index = (masked_y * 64) + masked_x
     lda $E000,X
     and.w #$00FF
     tay

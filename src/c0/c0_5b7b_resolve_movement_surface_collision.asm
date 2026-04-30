@@ -11,7 +11,13 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - $5DA4 accumulates ORed collision bytes from the active collision page.
+; - $5DA6 receives the selected/resolved surface mode when the probe changes
+;   the input movement mode.
+; - $5DB8 is set when the resolved surface mode differs from the input mode.
+; - $5DA8/$5DAA may carry the collision-bit-#$10 trigger coordinate latched by
+;   C0:54C9, unless staged movement state suppresses it through $5D9A.
 
 ; ---------------------------------------------------------------------------
 ; C0:5B7B
@@ -31,6 +37,8 @@ C05B7B_Resolve_MovementSurfaceCollision:
     stz $5DB8
     stz $5DB4
     stz $5DA4
+    ; Seed the surface resolver with the caller's requested movement mode and
+    ; candidate coordinate pair.
     lda $14
     sta $5DA6
     lda $14
@@ -154,6 +162,7 @@ C05C85_Resolve_MovementSurfaceCollision_L5C85:
 C05C9B_Resolve_MovementSurfaceCollision_L5C9B:
     lda $5D9A
     beq C05CA6_Resolve_MovementSurfaceCollision_L5CA6
+    ; While staged movement is pending, discard a latched trigger coordinate.
     lda.w #$FFFF
     sta $5DA8
 C05CA6_Resolve_MovementSurfaceCollision_L5CA6:
@@ -174,6 +183,7 @@ C05CBB_Resolve_MovementSurfaceCollision_L5CBB:
     beq C05CC7_Resolve_MovementSurfaceCollision_L5CC7
     ldx.w #$0001
 C05CC7_Resolve_MovementSurfaceCollision_L5CC7:
+    ; Mark that the surface probe selected a different movement mode.
     stx $5DB8
     lda $02
     sta $5DA6

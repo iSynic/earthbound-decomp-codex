@@ -54,6 +54,13 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
 - Future source edits that convert byte corridors only after the slice has local
   note evidence, stable naming, and a byte-equivalence validation path.
 
+## Implementation Notes
+
+- 2026-04-30 first slice: added byte-neutral source comments for the movement
+  plus collision path centered on `C0:4C45`, `C0:449B`, `C0:54C9`, `C0:5B7B`,
+  `C0:5DE7`, and the `$28DA[slot]` collision/terrain cache wrappers. The
+  rollup lives in `notes/c0-movement-collision-runtime-polish.md`.
+
 ## Validation
 
 Future implementation passes should use:

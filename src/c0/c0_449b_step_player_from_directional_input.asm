@@ -11,7 +11,13 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - C0:404F maps the current traversal mode plus live input to a direction or
+;   #$FFFF when no direction is accepted.
+; - C0:5B7B resolves movement surface/collision state for a candidate step.
+; - C0:5FD1 reads the centered collision tile for the candidate position.
+; - C0:5FF6 refreshes entity overlap state for accepted or stationary probes.
+; - C0:7526 dispatches movement-trigger helpers when C0:5B7B latched a trigger.
 
 ; ---------------------------------------------------------------------------
 ; C0:449B
@@ -30,6 +36,7 @@ C044AE_Step_PlayerFromDirectionalInput_L44AE:
     ldx.w #$9883
     stx $24
     lda $0000,X
+    ; Resolve live input against the current traversal/movement mode.
     jsl $C0404F
     sta $02
     lda $5D60
@@ -51,6 +58,7 @@ C044E3_Step_PlayerFromDirectionalInput_L44E3:
     lda $02
     cmp.w #$FFFF
     bne C044FA_Step_PlayerFromDirectionalInput_L44FA
+    ; Stationary frame: keep overlap/neighbor state fresh at the current tile.
     ldy $9889
     ldx $987B
     lda $9877
@@ -109,6 +117,7 @@ C0455B_Step_PlayerFromDirectionalInput_L455B:
     lda $5D56
     and.w #$0001
     bne C04568_Step_PlayerFromDirectionalInput_L4568
+    ; Accepted input normally becomes the player-facing direction.
     lda $02
     sta $987F
 C04568_Step_PlayerFromDirectionalInput_L4568:

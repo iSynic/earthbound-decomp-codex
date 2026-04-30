@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+; D5:9589 row metadata byte +$20 carries terrain-compatibility bits.
+; Return #$0000 when compatible, #$0080 when the entity type cannot traverse
+; the low collision-bit class in A.
 
 ; ---------------------------------------------------------------------------
 ; C0:5DE7
@@ -25,6 +28,7 @@ C05DE7_Classify_EntityTerrainCompatibility:
     tcd
     pla
     ldx.w #$0000
+    ; Map collision bits #$000C into the metadata mask used by D5:9589 +$20.
     and.w #$000C
     beq C05E0A_Classify_EntityTerrainCompatibility_L5E0A
     cmp.w #$0004

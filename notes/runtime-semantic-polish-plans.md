@@ -39,3 +39,8 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   and validation gates.
 - This index remains a planning document only; source and manifest changes
   belong to later implementation passes.
+
+## Implementation Status
+
+- 2026-04-30: C0 movement/collision first slice landed as byte-neutral source
+  comments plus `notes/c0-movement-collision-runtime-polish.md`.

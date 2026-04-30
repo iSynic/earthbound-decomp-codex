@@ -11,7 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Runtime contract anchors:
+; - $987D indexes the 12-byte party trail/snapshot ring rooted at $5156.
+; - $9877/$987B are the committed world-position words written to snapshot
+;   offsets +0/+2 when movement dirties $9885.
+; - $9881/$9883/$987F are stored to snapshot offsets +4/+6/+8 every tick.
+; - $98A5 diverts the normal input step into temporary movement modes.
 
 ; ---------------------------------------------------------------------------
 ; C0:4C45
@@ -55,6 +60,7 @@ C04C82_Commit_PlayerPositionSnapshotTick_L4C82:
     sta $003D,X
     lda $98A5
     beq C04CA0_Commit_PlayerPositionSnapshotTick_L4CA0
+    ; Temporary movement mode owns this frame instead of the normal player step.
     jsr $4B53
     bra C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE
 C04CA0_Commit_PlayerPositionSnapshotTick_L4CA0:
@@ -72,6 +78,7 @@ C04CB4_Commit_PlayerPositionSnapshotTick_L4CB4:
     jsr $48D3
     bra C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE
 C04CBB_Commit_PlayerPositionSnapshotTick_L4CBB:
+    ; Normal overworld movement body: input -> collision -> accepted position.
     jsr $449B
 C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE:
     lda.w #$987D
@@ -86,6 +93,7 @@ C04CBE_Commit_PlayerPositionSnapshotTick_L4CBE:
     clc
     adc.w #$5156
     sta $10
+    ; $10 now points at the active 12-byte snapshot record.
     lda.w #$9877
     sta $04
     lda.w #$987B
