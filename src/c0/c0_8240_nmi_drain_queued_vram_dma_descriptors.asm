@@ -11,13 +11,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; NMI-side drain for 8-byte VRAM DMA descriptors queued at `$0400+` by C0:865F.
+; Descriptor fields map to DMA mode/VMAIN, size, source, bank, and VMADD.
 
 ; ---------------------------------------------------------------------------
 ; C0:8240
 
 C08240_NmiDrainQueuedVramDmaDescriptors:
     ldy $0400,X
+    ; Descriptor type indexes C0:8FB0/C0:8FB2 DMA/VMAIN templates.
     lda $8FB0,Y
     sta $4300
     lda $8FB2,Y
@@ -29,10 +31,12 @@ C08240_NmiDrainQueuedVramDmaDescriptors:
     ldy $0405,X
     sty $4304
     lda $0406,X
+    ; Destination VRAM address.
     sta $2116
     txa
     clc
     adc.w #$0008
+    ; Advance to the next queued descriptor.
     tax
     ldy.w #$8C01
     phd

@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; NMI entry: acknowledges `$4210`, disables HDMA while updating PPU state,
+; increments the NMI heartbeat `$2B`, drains queued DMA/display work, and
+; eventually commits scroll/hardware shadow registers.
 
 ; ---------------------------------------------------------------------------
 ; C0:8180
@@ -19,16 +21,19 @@
 C08180_NmiHandler_UpdatePpuAndQueues:
     plb
     sep #$20
+    ; Acknowledge NMI and blank/disable HDMA during the update window.
     lda $4210
     stz $420C
     lda.b #$80
     sta $2100
     inc $2B
+    ; `$02` is an NMI-side frame/heartbeat counter.
     inc $02
     rep #$20
     sep #$10
     ldx $2C
     beq C081C8_NmiHandler_UpdatePpuAndQueues_L81C8
+    ; Sprite/OAM DMA path selected by the active scroll-buffer index `$2C`.
     ldy.b #$00
     stz $2102
     sty $4300
@@ -52,6 +57,7 @@ C081B5_NmiHandler_UpdatePpuAndQueues_L81B5:
 C081C8_NmiHandler_UpdatePpuAndQueues_L81C8:
     ldx $0030
     beq C081F7_NmiHandler_UpdatePpuAndQueues_L81F7
+    ; Palette/record transfer selected by `$0030` and table C0:8F92/C0:8F94.
     lda $8F94,X
     sta $4302
     ldy $8F96,X
@@ -72,6 +78,7 @@ C081F7_NmiHandler_UpdatePpuAndQueues_L81F7:
     sep #$20
     lda $28
     beq C0821F_NmiHandler_UpdatePpuAndQueues_L821F
+    ; Display brightness/window countdown feeds `$0D` before writing INIDISP.
     dec $2A
     bpl C0821F_NmiHandler_UpdatePpuAndQueues_L821F
     lda $29

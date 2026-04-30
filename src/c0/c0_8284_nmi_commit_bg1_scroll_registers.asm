@@ -11,12 +11,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Commits alternating NMI scroll buffers to BG scroll registers. Runtime code
+; publishes `$31/$33/...` into `$41/$45/...` or `$43/$47/...` via C0:8B20.
 
 ; ---------------------------------------------------------------------------
 ; C0:8284
 
 C08284_NmiCommitBg1ScrollRegisters:
+    ; Primary buffered scroll set: `$41/$45/...` -> `$210D..$2114`.
     lda $41
     sta $210D
     lda $42
@@ -50,6 +52,7 @@ C08284_NmiCommitBg1ScrollRegisters:
     lda $5E
     sta $2114
     bra C08334_NmiCommitBg1ScrollRegisters_L8334
+    ; Alternate buffered scroll set: `$43/$47/...` -> `$210D..$2114`.
     lda $43
     sta $210D
     lda $44
@@ -84,6 +87,7 @@ C08284_NmiCommitBg1ScrollRegisters:
     sta $2114
     rep #$20
     lda $0031
+    ; Preserve last runtime BG1 scroll pair after alternate commit path.
     sta $0061
     lda $0033
     sta $0063
@@ -91,6 +95,7 @@ C08334_NmiCommitBg1ScrollRegisters_L8334:
     ldy.w #$8400
     bit $0DA6
     bmi C0834B_NmiCommitBg1ScrollRegisters_L834B
+    ; Commit main/sub screen masks and re-enable HDMA from `$1F`.
     ldx $1A
     stx $212C
     ldx $1B

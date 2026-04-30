@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Core transfer submitter. If `$0D` is nonnegative, append an 8-byte descriptor
+; to the `$0400` NMI queue; if `$0D` is negative, perform immediate DMA through
+; channel 1 registers `$4310+`.
 
 ; ---------------------------------------------------------------------------
 ; C0:865F
@@ -23,6 +25,7 @@ C0865F_Submit_TransferDescriptorOrImmediateDma = COPY_TO_VRAM
     sep #$10
     ldy $0D
     bmi C086A5_Submit_TransferDescriptorOrImmediateDma_L86A5
+    ; Queued path: throttle by queued-byte counter `$99`.
     lda $92
     clc
     adc $99
@@ -37,6 +40,7 @@ C08677_Submit_TransferDescriptorOrImmediateDma_L8677:
     ldy $01
     sty $A5
     ldy $00
+    ; Append descriptor type/source/size/destination into `$0400`.
     lda $91
     sta $0400,Y
     lda $93
@@ -52,6 +56,7 @@ C08677_Submit_TransferDescriptorOrImmediateDma_L8677:
     cpy $A5
     bne C086A1_Submit_TransferDescriptorOrImmediateDma_L86A1
 C0869D_Submit_TransferDescriptorOrImmediateDma_L869D:
+    ; Wait when the queue write cursor catches the NMI read cursor.
     cpy $01
     beq C0869D_Submit_TransferDescriptorOrImmediateDma_L869D
 C086A1_Submit_TransferDescriptorOrImmediateDma_L86A1:
@@ -59,6 +64,7 @@ C086A1_Submit_TransferDescriptorOrImmediateDma_L86A1:
     bra C086D9_Submit_TransferDescriptorOrImmediateDma_L86D9
 C086A5_Submit_TransferDescriptorOrImmediateDma_L86A5:
     ldy $91
+    ; Immediate DMA path using descriptor type templates at C0:8FB0/C0:8FB2.
     lda $8FB0,Y
     sta $4310
     ldx $8FB2,Y

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Iterates a descriptor list at `$0E/$10`. Each non-`#$FF` record fills
+; `$91/$93/$95/$97` and submits it through C0:865F.
 
 ; ---------------------------------------------------------------------------
 ; C0:8573
@@ -37,6 +38,7 @@ C08590_Submit_TransferDescriptorList_L8590:
     iny
     iny
     lda [$8D],Y
+    ; Record body becomes the staged transfer descriptor fields.
     sta $93
     iny
     iny
@@ -54,6 +56,7 @@ C085A7_Submit_TransferDescriptorList_L85A7:
     sta $91
     and.w #$00FF
     cmp.w #$00FF
+    ; Low byte `#$FF` terminates the list.
     bne C08590_Submit_TransferDescriptorList_L8590
     plb
     pld
@@ -62,6 +65,7 @@ C085A7_Submit_TransferDescriptorList_L85A7:
     rep #$30
     sta $0091
 C085BC_Submit_TransferDescriptorList_L85BC:
+    ; Large transfer splitter waits for queued bytes `$99` to drain.
     lda $0099
     bne C085BC_Submit_TransferDescriptorList_L85BC
     lda $0E

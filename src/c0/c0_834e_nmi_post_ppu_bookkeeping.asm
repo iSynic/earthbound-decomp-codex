@@ -11,13 +11,16 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; NMI tail bookkeeping. Resets queued-byte counter `$99`, runs the frame
+; callback dispatcher once when `$0022` is clear, toggles staging base `$A1/$A3`,
+; and increments the long frame counter `$A7/$A9`.
 
 ; ---------------------------------------------------------------------------
 ; C0:834E
 
 C0834E_NmiPostPpuBookkeeping:
     rep #$30
+    ; Queue byte counter consumed by C0:865F throttling.
     stz $99
     lda $0022
     bne C0836D_NmiPostPpuBookkeeping_L836D
@@ -29,6 +32,7 @@ C0834E_NmiPostPpuBookkeeping:
     phd
     pea $0200
     pld
+    ; Run frame callbacks on DP `$0200` while guarding reentry with `$0022`.
     jsr $8518
     pld
     plb
@@ -44,6 +48,7 @@ C08377_NmiPostPpuBookkeeping_L8377:
     lda.w #$0000
     sta $7E9E2B
     stz $AB
+    ; Long NMI/frame counter.
     inc $A7
     bne C0838A_NmiPostPpuBookkeeping_L838A
     inc $A9

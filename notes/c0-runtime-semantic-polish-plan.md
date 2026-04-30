@@ -79,6 +79,11 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   movement/restore callbacks centered on C0:E28F, C0:E516, C0:E674, C0:E776,
   C0:E3C1/C0:E6FE snapshot-ring restores, and success/failure setup paths.
   The rollup lives in `notes/c0-teleport-callback-runtime-polish.md`.
+- 2026-04-30 sixth slice: added byte-neutral source comments for the C0
+  presentation queue/NMI handoff centered on the `$91/$92/$94/$96/$97` transfer
+  ABI, `$0400` queued DMA descriptors, `$99` queue byte throttling, `$2C/$2E`
+  scroll-buffer flipping, and NMI scroll commits. The rollup lives in
+  `notes/c0-presentation-queue-runtime-polish.md`.
 
 ## Validation
 

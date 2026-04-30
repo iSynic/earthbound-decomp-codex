@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Common wrapper for the staged transfer ABI at `$91/$92/$94/$96/$97`.
+; C0:865F chooses queued NMI DMA or immediate DMA based on `$0D`.
 
 ; ---------------------------------------------------------------------------
 ; C0:8643
@@ -29,6 +30,7 @@ C08643_SubmitQueuedOrImmediateVramTransfer = PREPARE_VRAM_COPY_COMMON
     phy
     plb
     rep #$10
+    ; Submit the staged transfer descriptor.
     jsr $865F
     plb
     pld

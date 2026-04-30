@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C088B1_ResetRendererFrameState = $C088B1
+; Runtime-to-NMI handoff for scroll shadows. Copies `$31/$33/...` into the
+; active buffered commit slots `$41/$45/...` or `$43/$47/...`, then flips
+; `$2C/$2E` so NMI consumes the newly published set.
 
 ; ---------------------------------------------------------------------------
 ; C0:8B20
@@ -44,6 +47,7 @@ C08B40_PublishRuntimeScrollShadowsToNmiBuffers_L8B40:
     dec A
     asl A
     tax
+    ; Publish runtime scroll shadows into the selected NMI commit buffer.
     lda $0031
     sta $0041,X
     lda $0033
@@ -62,6 +66,7 @@ C08B40_PublishRuntimeScrollShadowsToNmiBuffers_L8B40:
     sta $005D,X
     sep #$20
     lda $002E
+    ; `$2C` selects the NMI-visible buffer; `$2E` flips to the other set.
     sta $002C
     eor.b #$03
     sta $002E

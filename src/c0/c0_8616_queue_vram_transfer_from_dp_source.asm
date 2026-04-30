@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Front-end for the common VRAM transfer ABI: `$91` descriptor type, `$92`
+; size, `$94/$96` source pointer, `$97` destination VRAM address.
 
 ; ---------------------------------------------------------------------------
 ; C0:8616
@@ -19,6 +20,7 @@
 PREPARE_VRAM_COPY:
 C08616_QueueVramTransfer_FromDpSource = PREPARE_VRAM_COPY
     rep #$30
+    ; Stage caller registers and DP source pointer for C0:8643/C0:865F.
     sta $0091
     stx $0092
     lda $0E

@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Copies a table-described record block and ORs a transfer/display flag into
+; `$0030`. Record fields: count/flags at +0, flag source at +1, source pointer
+; at +2/+4, and destination at +6.
 
 ; ---------------------------------------------------------------------------
 ; C0:8529
@@ -27,6 +29,7 @@ C08529_Copy_RecordBlockAndSetTransferFlag:
     pla
     ldy.w #$0002
     lda [$0E],Y
+    ; Source pointer from record +2/+4.
     sta $00
     iny
     iny
@@ -38,6 +41,7 @@ C08529_Copy_RecordBlockAndSetTransferFlag:
     tax
     lda [$0E]
     and.w #$01FF
+    ; Low 9 bits are the copy byte/word count used by this reverse loop.
     tay
     bra C08555_Copy_RecordBlockAndSetTransferFlag_L8555
 C0854E_Copy_RecordBlockAndSetTransferFlag_L854E:
@@ -53,6 +57,7 @@ C08555_Copy_RecordBlockAndSetTransferFlag_L8555:
     ldy.w #$0001
     lda [$0E],Y
     lsr A
+    ; Flag source contributes to `$0030`, which NMI consumes for palette/record DMA.
     ora $0030
     sta $0030
     rep #$20
