@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Opens a temporary target-selection label window around ally-target prompts.
+; - Input A selects a 10-byte label row at C4:5963. Window/context selector
+;   0x28 is created, printed, refreshed, and the $9C8A managed text state is
+;   restored before return.
 
 C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 C10EFC_PrintFixedString                       = $0EFC
@@ -36,6 +40,7 @@ C193E7_OpenTargetSelectionPromptLabel:
     jsl C3E4D4_SetInstantPrinting
     lda.w #$0028
     jsr CREATE_WINDOW
+    ; C4:5963 is a fixed 10-byte label row table for target prompts.
     lda.w #$5963
     sta $06
     lda.w #$00C4

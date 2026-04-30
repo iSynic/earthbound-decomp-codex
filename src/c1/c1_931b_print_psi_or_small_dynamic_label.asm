@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A selects one of three small label sources.
+; - Selectors 1..4 print fixed five-byte character-name buffers at $99CE with
+;   party stride 0x5F; selector 7 prints six bytes from $9819; all other
+;   selectors print 0x19-byte names via D5:8F23 -> D5:9589 PSI name data.
+; - $7E:B49D selects direct fixed-string printing versus wrap-preflight.
 
 C10EFC_PrintFixedString                  = $0EFC
 C08FF7_ResolveIndexedPointerOffset       = $C08FF7
@@ -32,6 +37,7 @@ C1931B_PrintPsiOrSmallDynamicLabel:
     beq C193A2_print_psi_or_small_dynamic_label_L93A2
     cmp.w #$0007
     bne C19370_print_psi_or_small_dynamic_label_L9370
+    ; Selector 7: six-byte dynamic naming buffer at $9819.
     lda.w #$9819
     sta $06
     phb
@@ -61,6 +67,7 @@ C19360_print_psi_or_small_dynamic_label_L9360:
     jsl C447FB_PrintFixedStringWithWrapPreflight
     bra C193E5_print_psi_or_small_dynamic_label_L93E5
 C19370_print_psi_or_small_dynamic_label_L9370:
+    ; PSI-name-table path: D5:8F23 indexes padded names at D5:9589.
     lda.w #$9589
     sta $06
     lda.w #$00D5
@@ -84,6 +91,7 @@ C19370_print_psi_or_small_dynamic_label_L9370:
     jsl C447FB_PrintFixedStringWithWrapPreflight
     bra C193E5_print_psi_or_small_dynamic_label_L93E5
 C193A2_print_psi_or_small_dynamic_label_L93A2:
+    ; Selectors 1..4: party character name buffers rooted at $99CE.
     dec A
     ldy.w #$005F
     jsl C08FF7_ResolveIndexedPointerOffset

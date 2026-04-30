@@ -93,3 +93,7 @@ This planning pass is documentation-only.
   contracts cover `$AD56/$AD58` candidate counts, `$AD5A/$AD6A` candidate
   bytes, scan/eligibility helpers, two-list prompt control, simple side prompt
   control, and the conservative C1:242E dispatcher boundary.
+- 2026-04-30: C1 display-helper slice landed as byte-neutral source comments
+  plus `notes/c1-display-helper-runtime-polish.md`. The promoted contracts
+  cover item-name, statistic-selector, PSI/small-label, and target-prompt
+  display adapters.

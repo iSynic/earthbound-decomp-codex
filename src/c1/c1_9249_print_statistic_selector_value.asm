@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A selects one 3-byte statistic descriptor row at C4:550F.
+; - Descriptor high bit selects numeric value printing; otherwise the low bits
+;   are a fixed string length and the trailing word is a WRAM/string base.
+; - Numeric forms read byte, word, or pointer-sized values before routing
+;   through the decimal printer.
 
 C10DF6_PrintDecimalValueFromCallerPointer = $0DF6
 C447FB_PrintFixedStringWithWrapPreflight  = $C447FB
@@ -47,6 +52,7 @@ C19249_PrintStatisticSelectorValue:
     sta $12
     and.w #$0080
     beq C192F6_print_statistic_selector_value_L92F6
+    ; High-bit descriptors print numeric values through C1:0DF6.
     lda $12
     and.w #$007F
     cmp.w #$0001
@@ -111,6 +117,7 @@ C192D5_print_statistic_selector_value_L92D5:
     jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192F6_print_statistic_selector_value_L92F6:
+    ; Low-bit descriptors are fixed-width strings backed by the table word.
     txa
     inc A
     clc

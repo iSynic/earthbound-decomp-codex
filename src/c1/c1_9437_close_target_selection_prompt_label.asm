@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:9437 is the tiny cleanup pair for C1:93E7: close/release temporary
+;   window/context selector 0x28 after the target prompt completes.
+; - Later entries in this file are adjacent menu/status helpers and are not
+;   part of the target-prompt close contract.
 
 C10084_CloseFocusWindow                       = $0084
 C104EE_CreateOrBindWindowDescriptorAndContext = $04EE

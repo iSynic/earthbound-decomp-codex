@@ -8,6 +8,9 @@
 ; Source unit covered:
 ; - C1:9216..C1:9249 PrintItemNameFromConfigurationTable
 
+; Input A is an item id. The helper indexes D5:5000 item configuration rows
+; with stride 0x27 and prints the fixed 0x19-byte item-name field.
+
 C08FF7_ResolveIndexedPointerOffset          = $C08FF7
 C4487C_PrintSegmentedStringBufferWithWrapPreflight = $C4487C
 
