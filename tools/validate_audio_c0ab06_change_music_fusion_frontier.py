@@ -14,8 +14,8 @@ DEFAULT_FRONTIER = (
     ROOT
     / "build"
     / "audio"
-    / "c0ab06-change-music-fusion-frontier"
-    / "c0ab06-change-music-fusion-frontier.json"
+    / "c0ab06-change-music-fusion-frontier-gate2-representative"
+    / "c0ab06-change-music-fusion-frontier-gate2-representative.json"
 )
 
 
