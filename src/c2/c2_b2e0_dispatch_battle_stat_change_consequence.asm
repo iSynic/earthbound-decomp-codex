@@ -10,6 +10,15 @@
 ;
 ; Evidence:
 ; - notes/battle-action-stat-change-family-c2b2e0-b5d7.md
+;
+; Runtime contract:
+; - A/Y = amount or selector payload from the caller.
+; - Caller direct-page `$06/$08` points at a small consequence record; byte `+0`
+;   selects the case below.
+; - Selectors 0..2 reuse the bounded HP/PP feedback helpers, selector 3 chooses
+;   a random late-stat increase, selectors 4..8 are direct
+;   IQ/guts/speed/vitality/luck increases, and selectors 9/0x0A tail into the
+;   affliction-recovery helpers.
 
 ; ---------------------------------------------------------------------------
 ; C2:B2E0
@@ -23,6 +32,7 @@ C2B2E0_DispatchBattleStatChangeConsequence:
     sta $0C
     lda [$0A]
     and.w #$00FF
+    ; Consequence selector byte.
     db $F0, $50
     cmp.w #$0001
     db $F0, $69

@@ -78,6 +78,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover `D5:7B68` descriptor metadata use, candidate row
   `+0x09/+0x0A` derived action bytes, `$A96C/$A96E` as the current 32-bit target
   mask, and `C2:40A4` as the second-pointer payload applicator.
+- 2026-04-30 fifth slice: promoted C2 stat-consequence contracts into
+  byte-neutral source comments plus `notes/c2-stat-consequence-runtime-polish.md`.
+  The promoted contracts cover the `C2:B2E0` selector map, HP/PP feedback helper
+  reuse, IQ/guts/speed/vitality/luck row and live-stat mirrors, derived-stat
+  refresh calls, amount-bearing battle text, and affliction-recovery tails.
 
 ## Validation
 

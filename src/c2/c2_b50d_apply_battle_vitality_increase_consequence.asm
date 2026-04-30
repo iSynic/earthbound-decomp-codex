@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:B50D..C2:B573 ApplyBattleVitalityIncreaseConsequence
+;
+; Runtime contract:
+; - Selector 7 from `C2:B2E0`.
+; - Adds amount `$16` to active row byte `+0x30`, mirrors it into live character
+;   byte `$9A27`, refreshes derived vitality through `C2:1D65`, and emits the
+;   amount-bearing C8:F84C battle text through `C1:DC66`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

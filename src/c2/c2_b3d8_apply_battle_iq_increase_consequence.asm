@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:B3D8..C2:B43F ApplyBattleIqIncreaseConsequence
+;
+; Runtime contract:
+; - Selector 4 from `C2:B2E0`.
+; - Adds amount `$16` to active row byte `+0x31`, mirrors it into live character
+;   byte `$9A28`, refreshes derived IQ through `C2:1D7D`, and emits the
+;   amount-bearing C8:F7B8 battle text through `C1:DC66`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

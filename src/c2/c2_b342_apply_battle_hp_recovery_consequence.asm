@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:B342..C2:B360 ApplyBattleHpRecoveryConsequence
+;
+; Runtime contract:
+; - Selector 0 from `C2:B2E0`.
+; - Maps the incoming amount in Y into the X payload expected by `C2:7294`;
+;   Y == 0 uses fixed fallback payload `0x7530`.
+; - Applies the bounded HP-side feedback helper to active selected row `$A972`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:B4A6..C2:B50D ApplyBattleSpeedIncreaseConsequence
+;
+; Runtime contract:
+; - Selector 6 from `C2:B2E0`.
+; - Adds amount `$16` to active row byte `+0x2A`, mirrors it into live character
+;   byte `$9A25`, refreshes derived speed through `C2:1AEB`, and emits the
+;   amount-bearing C8:F82F battle text through `C1:DC66`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

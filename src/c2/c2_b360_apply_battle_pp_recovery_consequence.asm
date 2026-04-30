@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:B360..C2:B3D8 ApplyBattlePpRecoveryConsequence
+;
+; Runtime contract:
+; - Selector 1 maps the incoming amount in Y into the X payload expected by
+;   `C2:7318`, then applies the PP-side feedback helper to `$A972`.
+; - The unlabeled continuation immediately after that is selector 2: apply the
+;   HP-side helper `C2:7294`, then the PP-side helper `C2:7318`.
+; - The final unlabeled continuation is selector 3: choose one of the five
+;   direct late-stat increase leaves at random.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -29,6 +37,7 @@ C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     lda $A972
     jsr $7318
     jmp $B5E3
+    ; Selector 2: chained HP-side then PP-side bounded feedback.
     cpy.w #$0000
     beq C2B38A_ApplyBattlePpRecoveryConsequence_LB38A
     tya
@@ -56,6 +65,7 @@ C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     lda $A972
     jsr $7318
     jmp $B5E3
+    ; Selector 3: random IQ/guts/speed/vitality/luck increase.
     lda.w #$0004
     jsr $6A2D
     cmp.w #$0000

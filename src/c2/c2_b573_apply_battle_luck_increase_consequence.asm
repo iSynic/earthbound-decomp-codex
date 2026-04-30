@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:B573..C2:B6EB ApplyBattleLuckIncreaseConsequence
+;
+; Runtime contract:
+; - Selector 8 from `C2:B2E0`.
+; - Adds amount `$16` to active row byte `+0x2E`, mirrors it into live character
+;   byte `$9A29`, refreshes derived luck through `C2:1C5D`, and emits the
+;   amount-bearing C8:F86B battle text through `C1:DC66`.
+; - The adjacent branch tails are selectors 9 and 0x0A: narrow affliction
+;   recovery via `C2:9AEA`, and poison-only item-side recovery via `C2:A39D`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -68,8 +76,10 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     sta $14
     jsl $C1DC66
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    ; Selector 9: narrow affliction-recovery tail.
     jsl $C29AEA
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    ; Selector 0x0A: poison-only item-side recovery tail.
     jsl $C2A39D
 C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
     lda $18

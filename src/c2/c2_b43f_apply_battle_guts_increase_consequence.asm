@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:B43F..C2:B4A6 ApplyBattleGutsIncreaseConsequence
+;
+; Runtime contract:
+; - Selector 5 from `C2:B2E0`.
+; - Adds amount `$16` to active row byte `+0x2C`, mirrors it into live character
+;   byte `$9A26`, refreshes derived guts through `C2:1BA4`, and emits the
+;   amount-bearing C8:F7D2 battle text through `C1:DC66`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
