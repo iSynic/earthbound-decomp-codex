@@ -11,6 +11,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "manifests" / "audio-spc700-dispatch-trace-frontier.json"
+REQUIRED_CONTROL_COMMANDS = {"0x00", "0xEF", "0xFD", "0xFE", "0xFF"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,15 +44,39 @@ def validate(data: dict[str, Any]) -> None:
     total_sequence_reads = sum(int(record.get("sequence_read_count", 0)) for record in records)
     total_high_reads = sum(int(record.get("sequence_high_byte_read_count", 0)) for record in records)
     total_control_reads = sum(int(record.get("sequence_control_candidate_read_count", 0)) for record in records)
+    total_fetch_reads = sum(int(record.get("sequence_execution_fetch_read_count", 0)) for record in records)
+    total_fetch_high_reads = sum(int(record.get("sequence_execution_fetch_high_byte_read_count", 0)) for record in records)
+    total_fetch_control_reads = sum(
+        int(record.get("sequence_execution_fetch_control_candidate_read_count", 0)) for record in records
+    )
     require(summary.get("total_hits") == total_hits, "total hit count mismatch")
     require(summary.get("total_sequence_reads") == total_sequence_reads, "total sequence read count mismatch")
     require(summary.get("total_sequence_high_byte_reads") == total_high_reads, "total high-byte read count mismatch")
     require(summary.get("total_sequence_control_candidate_reads") == total_control_reads, "total control read count mismatch")
+    require(summary.get("total_sequence_execution_fetch_reads", 0) == total_fetch_reads, "fetch-like read count mismatch")
+    require(
+        summary.get("total_sequence_execution_fetch_high_byte_reads", 0) == total_fetch_high_reads,
+        "fetch-like high-byte read count mismatch",
+    )
+    require(
+        summary.get("total_sequence_execution_fetch_control_candidate_reads", 0) == total_fetch_control_reads,
+        "fetch-like control read count mismatch",
+    )
     require(total_sequence_reads > 0, "expected sequence-region reads")
     require(total_high_reads > 0, "expected high-byte sequence reads")
     require(total_control_reads > 0, "expected control-candidate sequence reads")
     require(summary.get("records_with_sequence_ff_reads", 0) >= 1, "expected at least one sampled FF sequence read")
+    require("0x00" in summary.get("sequence_control_candidate_counts", {}), "expected sampled 0x00 sequence reads")
     require("0xEF" in summary.get("sequence_control_candidate_counts", {}), "expected sampled EF sequence reads")
+    command_semantics = data.get("control_command_semantics", {})
+    require(set(command_semantics) == REQUIRED_CONTROL_COMMANDS, "control command semantic set mismatch")
+    require(summary.get("control_command_semantic_status_counts"), "missing command semantic status counts")
+    for command, record in command_semantics.items():
+        require(record.get("command") == command, f"{command}: command field mismatch")
+        require(record.get("semantic_status"), f"{command}: missing semantic status")
+        require("sequence_control_read_count" in record, f"{command}: missing sequence read count")
+        require("mapped_dispatch_hit_count" in record, f"{command}: missing dispatch hit count")
+        require(record.get("exact_duration_promotion_allowed") is False, f"{command}: trace frontier cannot directly promote exact duration")
     for record in records:
         require(record.get("capture_path"), "record missing capture path")
         require(record.get("instruction_limit", 0) >= 200000, "record instruction limit too low")
@@ -60,8 +85,13 @@ def validate(data: dict[str, Any]) -> None:
         require(record.get("hit_count", 0) == len(record.get("hit_samples", [])) or record.get("hit_count", 0) > len(record.get("hit_samples", [])), "hit sample count invalid")
         require(record.get("sequence_read_count", 0) > 0, "record missing sequence reads")
         require(record.get("sequence_high_byte_read_count", 0) > 0, "record missing high-byte sequence reads")
+        require("sequence_execution_fetch_read_count" in record, "record missing fetch-like read count")
+        require("sequence_execution_fetch_control_candidate_read_count" in record, "record missing fetch-like control read count")
+        require(record.get("control_candidate_read_samples") is not None, "record missing control candidate read samples")
+        require(record.get("control_reader_pc_counts") is not None, "record missing control reader PC counts")
         require(record.get("sequence_first_read_samples") is not None, "record missing first sequence read samples")
         require(record.get("sequence_tail_read_samples") is not None, "record missing tail sequence read samples")
+        require(record.get("command_fetch_context_samples") is not None, "record missing command fetch context samples")
     require(data.get("findings"), "missing findings")
     require(data.get("next_work"), "missing next work")
 

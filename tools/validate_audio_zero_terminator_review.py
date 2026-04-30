@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the FF terminator candidate review."""
+"""Validate the 0x00 terminator candidate review."""
 
 from __future__ import annotations
 
@@ -11,21 +11,19 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_REVIEW = ROOT / "manifests" / "audio-ff-terminator-review.json"
+DEFAULT_REVIEW = ROOT / "manifests" / "audio-zero-terminator-review.json"
 
 ALLOWED_PROMOTION_CLASSES = {
-    "ff_can_confirm_existing_pcm_trim_candidate",
-    "ff_can_promote_after_dispatch",
-    "ff_can_promote_after_dispatch_and_track_review",
-    "ff_present_but_loop_metadata_still_needed",
-    "ff_present_with_fallthrough_roots",
-    "ff_runtime_effect_pending",
-    "ff_variant_effect_pending",
+    "zero_can_confirm_existing_pcm_trim_candidate",
+    "zero_can_promote_after_effect_proof",
+    "zero_can_promote_after_track_review",
+    "zero_present_but_loop_metadata_still_needed",
+    "zero_runtime_effect_pending",
 }
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Validate FF terminator candidate review.")
+    parser = argparse.ArgumentParser(description="Validate 0x00 terminator candidate review.")
     parser.add_argument("review", nargs="?", default=str(DEFAULT_REVIEW))
     return parser.parse_args()
 
@@ -36,7 +34,7 @@ def load_json(path: Path) -> dict[str, Any]:
 
 def validate(data: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    if data.get("schema") != "earthbound-decomp.audio-ff-terminator-review.v1":
+    if data.get("schema") != "earthbound-decomp.audio-zero-terminator-review.v1":
         errors.append(f"unexpected schema: {data.get('schema')}")
     candidates = data.get("candidates", [])
     summary = data.get("summary", {})
@@ -53,30 +51,22 @@ def validate(data: dict[str, Any]) -> list[str]:
             errors.append(f"duplicate pack id {pack_id}")
         seen.add(pack_id)
         if record.get("blocker_counts"):
-            errors.append(f"pack {pack_id}: FF review candidates must not have FD/FE blockers")
-        if int(record.get("ff_terminator_candidates", 0)) <= 0:
-            errors.append(f"pack {pack_id}: expected at least one FF terminator candidate")
+            errors.append(f"pack {pack_id}: 0x00 review candidates must not have unpromoted blockers")
+        if int(record.get("zero_terminator_candidates", 0)) <= 0:
+            errors.append(f"pack {pack_id}: expected at least one 0x00 terminator candidate")
         if int(record.get("track_count", -1)) != len(record.get("track_ids", [])):
             errors.append(f"pack {pack_id}: track_count does not match track_ids")
         promotion_class = str(record.get("promotion_class", ""))
         if promotion_class not in ALLOWED_PROMOTION_CLASSES:
             errors.append(f"pack {pack_id}: unexpected promotion class {promotion_class}")
-        if not record.get("ff_exact_duration_promotion_allowed") and promotion_class not in {
-            "ff_runtime_effect_pending",
-            "ff_variant_effect_pending",
-        }:
-            errors.append(f"pack {pack_id}: pending FF semantics must not use promotable class {promotion_class}")
-        if record.get("ff_exact_duration_promotion_allowed") and promotion_class in {
-            "ff_runtime_effect_pending",
-            "ff_variant_effect_pending",
-        }:
-            errors.append(f"pack {pack_id}: confirmed FF semantics should not remain pending")
+        if not record.get("zero_exact_duration_promotion_allowed") and promotion_class != "zero_runtime_effect_pending":
+            errors.append(f"pack {pack_id}: pending 0x00 semantics must not use promotable class {promotion_class}")
+        if record.get("zero_exact_duration_promotion_allowed") and promotion_class == "zero_runtime_effect_pending":
+            errors.append(f"pack {pack_id}: confirmed 0x00 semantics should not remain pending")
         if not record.get("eligible_next_export_action"):
             errors.append(f"pack {pack_id}: missing eligible next export action")
         detail = record.get("review_detail", {})
-        if int(detail.get("sampled_terminating_roots", 0)) < 0:
-            errors.append(f"pack {pack_id}: invalid sampled terminating roots")
-        if "terminator_tail_byte_counts" not in detail:
+        if "zero_terminator_tail_byte_counts" not in detail:
             errors.append(f"pack {pack_id}: missing terminator tail-byte counts")
         pack_counts[promotion_class] += 1
         track_count = int(record.get("track_count", 0))
@@ -94,6 +84,8 @@ def validate(data: dict[str, Any]) -> list[str]:
     command_semantics = data.get("command_semantics", {})
     if command_semantics.get("schema") != "earthbound-decomp.audio-sequence-command-semantics.v1":
         errors.append("missing command semantics reference")
+    if not data.get("references") or "https://sneslab.net/wiki/N-SPC_Engine" not in data["references"]:
+        errors.append("missing N-SPC reference")
     return errors
 
 
@@ -102,12 +94,12 @@ def main() -> int:
     data = load_json(Path(args.review))
     errors = validate(data)
     if errors:
-        print("Audio FF terminator review validation failed:")
+        print("Audio 0x00 terminator review validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
     print(
-        "Audio FF terminator review validation OK: "
+        "Audio 0x00 terminator review validation OK: "
         f"{data['summary']['candidate_pack_count']} packs, "
         f"{data['summary']['candidate_track_count']} tracks"
     )

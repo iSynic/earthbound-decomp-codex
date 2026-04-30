@@ -12,8 +12,9 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST = ROOT / "manifests" / "audio-exact-duration-triage.json"
 EXPECTED_CATEGORIES = {
-    "candidate_for_ff_terminator_review",
-    "blocked_by_unpromoted_fd_fe_control",
+    "candidate_for_zero_terminator_review",
+    "candidate_for_ff_variant_review",
+    "blocked_by_unpromoted_control",
     "needs_loop_or_fallthrough_semantics",
     "no_sequence_semantics_needed",
 }
@@ -34,17 +35,24 @@ def validate(data: dict[str, Any]) -> None:
     require(data.get("schema") == "earthbound-decomp.audio-exact-duration-triage.v1", "unexpected schema")
     summary = data.get("summary", {})
     categories = data.get("categories", {})
+    command_semantics = data.get("command_semantics", {})
     require(summary.get("sequence_packs_triaged", 0) > 0, "expected triaged sequence packs")
+    require(
+        command_semantics.get("schema") == "earthbound-decomp.audio-sequence-command-semantics.v1",
+        "missing command semantics reference",
+    )
+    require("sequence_promotion_allowed" in summary, "summary missing sequence promotion flag")
     require(set(categories).issubset(EXPECTED_CATEGORIES), "unexpected triage category")
     counted = sum(len(records) for records in categories.values())
     require(counted == summary.get("sequence_packs_triaged"), "triage category count mismatch")
-    require("blocked_by_unpromoted_fd_fe_control" in categories, "expected FD/FE blocked lane")
-    require("candidate_for_ff_terminator_review" in categories, "expected FF terminator review lane")
+    require("candidate_for_zero_terminator_review" in categories, "expected 0x00 terminator review lane")
     for records in categories.values():
         for pack in records:
             require("pack_id" in pack, "pack missing id")
             require("tracks" in pack, f"pack {pack.get('pack_id')} missing tracks")
+            require("command_semantic_status" in pack, f"pack {pack.get('pack_id')} missing command semantic status")
             require("recommended_next_step" in pack, f"pack {pack.get('pack_id')} missing next step")
+            require("terminator_counts_by_command" in pack, f"pack {pack.get('pack_id')} missing terminator command counts")
 
 
 def main() -> int:

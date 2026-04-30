@@ -55,6 +55,8 @@ def validate(plan: dict[str, Any]) -> list[str]:
     mode_counts: Counter[str] = Counter()
     semantics_count = 0
     seen: set[int] = set()
+    summary = plan.get("summary", {})
+    sequence_promotion_allowed = bool(summary.get("sequence_command_promotion_allowed"))
 
     for record in records:
         track_id = int(record.get("track_id", -1))
@@ -103,8 +105,19 @@ def validate(plan: dict[str, Any]) -> list[str]:
                     errors.append(f"track {track_id}: loop_metadata fade_seconds mismatch")
         if export_class == "skip_no_audio" and mode != "skip":
             errors.append(f"track {track_id}: no-audio class must use skip mode")
+        duration_semantics = record.get("duration_semantics")
+        if not isinstance(duration_semantics, dict):
+            errors.append(f"track {track_id}: missing duration_semantics")
+        else:
+            if "public_exact_export_allowed" not in duration_semantics:
+                errors.append(f"track {track_id}: duration_semantics missing public exact flag")
+            if duration_semantics.get("sequence_command_promotion_allowed") and not sequence_promotion_allowed:
+                errors.append(f"track {track_id}: sequence promotion allowed despite global command semantics block")
+            if export_class == "loop_or_held_candidate" and duration_semantics.get("public_exact_export_allowed"):
+                errors.append(f"track {track_id}: loop/held candidates must not be public exact exports without loop metadata promotion")
+            if export_class == "finite_or_transition_review_candidate" and duration_semantics.get("public_exact_export_allowed"):
+                errors.append(f"track {track_id}: review candidates must not be public exact exports")
 
-    summary = plan.get("summary", {})
     if dict(class_counts) != summary.get("export_class_counts"):
         errors.append("export_class_counts does not match tracks")
     if dict(status_counts) != summary.get("export_status_counts"):
@@ -113,6 +126,13 @@ def validate(plan: dict[str, Any]) -> list[str]:
         errors.append("recommended_mode_counts does not match tracks")
     if int(summary.get("needs_sequence_semantics_count", -1)) != semantics_count:
         errors.append("needs_sequence_semantics_count does not match tracks")
+    if "sequence_command_promotion_allowed" not in summary:
+        errors.append("summary missing sequence_command_promotion_allowed")
+    command_semantics = plan.get("command_semantics", {})
+    if command_semantics.get("schema") != "earthbound-decomp.audio-sequence-command-semantics.v1":
+        errors.append("missing command semantics reference")
+    if sequence_promotion_allowed != bool(command_semantics.get("summary", {}).get("release_sequence_promotion_allowed")):
+        errors.append("sequence command promotion flag mismatch")
 
     defaults = plan.get("defaults", {})
     if int(defaults.get("sample_rate", 0)) != 32000:

@@ -43,6 +43,7 @@ FOCUSED_REPORTS = [
 
 
 COMMAND_HYPOTHESES: dict[int, dict[str, str]] = {
+    0x00: {"name": "phrase_termination_or_end_of_subroutine_candidate", "confidence": "medium"},
     0xE0: {"name": "set_instrument_candidate", "confidence": "medium"},
     0xE1: {"name": "set_pan_candidate", "confidence": "medium"},
     0xE2: {"name": "pan_fade_candidate", "confidence": "low"},

@@ -37,6 +37,11 @@ def parse_args() -> argparse.Namespace:
         default=str(run_audio_backend_job.DEFAULT_ARES_HARNESS),
         help="Path to the local native ares audio harness executable.",
     )
+    parser.add_argument(
+        "--instruction-limit",
+        type=int,
+        help="Optional native ares SPC700 probe instruction limit.",
+    )
     parser.add_argument("--job-id", action="append", help="Specific job id to run. May be repeated.")
     parser.add_argument("--limit", type=int, help="Maximum number of selected jobs to run.")
     parser.add_argument("--force", action="store_true", help="Re-run jobs that already have result.json.")
@@ -75,13 +80,19 @@ def run_one(
     mode: str,
     external: list[str] | None,
     ares_harness: Path,
+    instruction_limit: int | None,
 ) -> dict[str, Any]:
     job_path = run_audio_backend_job.ensure_job_manifest(job)
     try:
         if mode == "dry-run-stub":
             result_path = run_audio_backend_job.write_dry_run_result(job)
         elif mode == "native-ares":
-            result_path = run_audio_backend_job.run_native_ares_backend(job, job_path, ares_harness)
+            result_path = run_audio_backend_job.run_native_ares_backend(
+                job,
+                job_path,
+                ares_harness,
+                instruction_limit,
+            )
         else:
             result_path = run_audio_backend_job.run_external_backend(job, job_path, external)
         run_audio_backend_job.validate_result(result_path, jobs_path)
@@ -119,7 +130,14 @@ def main() -> int:
     runs: list[dict[str, Any]] = []
     print(f"Selected {len(selected)} {index.get('backend_id')} jobs for {args.mode} mode")
     for job in selected:
-        record = run_one(job, jobs_path, args.mode, args.external, Path(args.ares_harness))
+        record = run_one(
+            job,
+            jobs_path,
+            args.mode,
+            args.external,
+            Path(args.ares_harness),
+            args.instruction_limit,
+        )
         runs.append(record)
         print(f"- {record['job_id']}: {record['status']}")
         if record["error"]:
@@ -130,6 +148,7 @@ def main() -> int:
     batch = {
         "schema": "earthbound-decomp.audio-backend-batch-run.v1",
         "mode": args.mode,
+        "instruction_limit": args.instruction_limit,
         "selected_count": len(selected),
         "completed_count": sum(1 for run in runs if run["status"] == "completed"),
         "failed_count": sum(1 for run in runs if run["status"] == "failed"),

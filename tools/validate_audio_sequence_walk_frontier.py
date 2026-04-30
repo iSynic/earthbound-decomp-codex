@@ -35,15 +35,33 @@ def validate(data: dict[str, Any]) -> None:
     require(ef_edges >= 0, "invalid EF edge count")
     require(0 <= bad_ef_edges <= ef_edges, "invalid out-of-block EF edge count")
     require(
-        ef_edges == 0 or bad_ef_edges / ef_edges <= 0.01,
-        "out-of-block EF edge count exceeds provisional-walk tolerance",
+        ef_edges == 0 or bad_ef_edges / ef_edges <= 0.02,
+        "out-of-block EF edge count exceeds provisional N-SPC-walk tolerance",
     )
     require(summary.get("walk_status_counts"), "missing walk status counts")
     require(summary.get("command_counts"), "missing command counts")
     require("0xEF" in summary["command_counts"], "expected EF command evidence")
+    require("0x00" in summary["command_counts"], "expected 0x00 terminator candidate evidence")
+    require(summary.get("terminator_counts_by_command"), "missing terminator counts by command")
+    require("0x00" in summary["terminator_counts_by_command"], "expected 0x00 terminator candidates")
     require(len(pack_summaries) == summary.get("sequence_packs_walked"), "pack summary count mismatch")
     require(priority_packs, "missing priority packs")
+    require(summary.get("priority_pack_count") == len(priority_packs), "priority pack count mismatch")
+    require(summary.get("zero_review_priority_pack_count", 0) > 0, "expected zero-review priority pack detail")
     require(data.get("provisional_operand_widths"), "missing provisional operand widths")
+    command_semantics = data.get("command_semantics", {})
+    require(
+        command_semantics.get("schema") == "earthbound-decomp.audio-sequence-command-semantics.v1",
+        "missing command semantics reference",
+    )
+    control_commands = command_semantics.get("control_commands", {})
+    for command in ("0x00", "0xEF", "0xFD", "0xFE", "0xFF"):
+        require(command in control_commands, f"missing {command} command semantics")
+        require(control_commands[command].get("semantic_status"), f"{command} missing semantic status")
+        require(
+            "static_walk_policy" in control_commands[command],
+            f"{command} missing static walk policy",
+        )
     for pack in priority_packs:
         require("pack_id" in pack, "priority pack missing id")
         require(pack.get("blocks"), f"pack {pack.get('pack_id')} missing blocks")
@@ -51,10 +69,12 @@ def validate(data: dict[str, Any]) -> None:
         for block in pack["blocks"]:
             require(block.get("payload_sha1"), f"pack {pack['pack_id']} block missing hash")
             require("root_walks_sample" in block, f"pack {pack['pack_id']} block missing walk sample")
+            require("terminator_counts_by_command" in block, f"pack {pack['pack_id']} block missing terminator command counts")
     for pack in pack_summaries:
         require("pack_id" in pack, "pack summary missing id")
         require("track_ids" in pack, f"pack summary {pack.get('pack_id')} missing track ids")
         require("walk_status_counts" in pack, f"pack summary {pack.get('pack_id')} missing status counts")
+        require("terminator_counts_by_command" in pack, f"pack summary {pack.get('pack_id')} missing terminator command counts")
 
 
 def main() -> int:

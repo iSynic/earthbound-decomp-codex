@@ -52,6 +52,11 @@ def parse_args() -> argparse.Namespace:
         help="Path to the local native ares audio harness executable.",
     )
     parser.add_argument(
+        "--instruction-limit",
+        type=int,
+        help="Optional native ares SPC700 probe instruction limit.",
+    )
+    parser.add_argument(
         "--external",
         nargs=argparse.REMAINDER,
         help="External command vector. Use placeholders like {job} and {result}.",
@@ -116,17 +121,21 @@ def run_external_backend(job: dict[str, Any], job_path: Path, command: list[str]
     return Path(job["result_path"])
 
 
-def run_native_ares_backend(job: dict[str, Any], job_path: Path, harness_path: Path) -> Path:
+def run_native_ares_backend(
+    job: dict[str, Any],
+    job_path: Path,
+    harness_path: Path,
+    instruction_limit: int | None = None,
+) -> Path:
     if not harness_path.exists():
         raise FileNotFoundError(
             f"native ares harness not found: {harness_path}. "
             "Build it with CMake from tools/ares_audio_harness first."
         )
-    return run_external_backend(
-        job,
-        job_path,
-        [str(harness_path), "--job", "{job}", "--result", "{result}"],
-    )
+    command = [str(harness_path), "--job", "{job}", "--result", "{result}"]
+    if instruction_limit is not None:
+        command += ["--instruction-limit", str(instruction_limit)]
+    return run_external_backend(job, job_path, command)
 
 
 def validate_result(result_path: Path, jobs_path: Path) -> None:
@@ -149,7 +158,12 @@ def main() -> int:
     if args.mode == "dry-run-stub":
         result_path = write_dry_run_result(job)
     elif args.mode == "native-ares":
-        result_path = run_native_ares_backend(job, job_path, Path(args.ares_harness))
+        result_path = run_native_ares_backend(
+            job,
+            job_path,
+            Path(args.ares_harness),
+            args.instruction_limit,
+        )
     else:
         result_path = run_external_backend(job, job_path, args.external)
 

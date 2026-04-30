@@ -1,0 +1,223 @@
+{
+  "schema": "earthbound-decomp.audio-sequence-command-semantics.v1",
+  "status": "runtime_command_semantics_promotion_blocked",
+  "references": [
+    "https://sneslab.net/wiki/N-SPC_Engine",
+    "manifests/audio-spc700-dispatch-trace-frontier.json",
+    "manifests/audio-spc700-control-reader-frontier.json",
+    "manifests/audio-spc700-driver-dispatch-frontier.json",
+    "manifests/audio-spc700-ff-target-review.json",
+    "tools/ares_audio_harness/main.cpp"
+  ],
+  "summary": {
+    "command_count": 5,
+    "confirmed_for_exact_duration_count": 0,
+    "pending_count": 1,
+    "blocked_or_contradicted_count": 4,
+    "release_sequence_promotion_allowed": false,
+    "semantic_status": "promotions_require_runtime_dispatch_and_effect_evidence",
+    "control_reader_pc_count": 10,
+    "external_semantic_family": "n_spc",
+    "external_semantic_family_promotes_exact_duration": false
+  },
+  "external_semantic_hypothesis": {
+    "source": "SnesLab N-SPC Engine",
+    "url": "https://sneslab.net/wiki/N-SPC_Engine",
+    "applicability": "PK Hack community reports EarthBound uses this N-SPC-family engine; local EarthBound runtime/disassembly proof is still required for promotion.",
+    "voice_commands": {
+      "0x00": "phrase_termination_or_end_of_subroutine",
+      "0xEF": "subroutine",
+      "0xFD": "fast_forward_on",
+      "0xFE": "fast_forward_off",
+      "0xFF": "invalid_stock_n_spc_vcmd"
+    },
+    "phrase_commands": {
+      "0x00_0x00": "end_of_song",
+      "0x00_0x01_to_0x7F": "jump_x_times",
+      "0x00_0x80": "fast_forward_on",
+      "0x00_0x81": "fast_forward_off",
+      "0x00_0x82_to_0xFF": "always_jump"
+    }
+  },
+  "control_reader_frontier": {
+    "schema": "earthbound-decomp.audio-spc700-control-reader-frontier.v1",
+    "status": "control_reader_pcs_identified_effect_decode_pending",
+    "summary": {
+      "reader_pc_count": 10,
+      "control_read_count": 4242,
+      "command_counts": {
+        "0x00": 4107,
+        "0xEF": 119,
+        "0xFD": 1,
+        "0xFE": 5,
+        "0xFF": 10
+      },
+      "exact_duration_promotion_allowed": false,
+      "semantic_status": "reader_paths_known_effects_unpromoted"
+    }
+  },
+  "promotion_policy": [
+    "Static dispatch-table targets are evidence, not promotion authority.",
+    "N-SPC family semantics are hypotheses for EarthBound, not promotion authority.",
+    "0x00 is the primary terminator/end-of-subroutine candidate under N-SPC semantics, but needs local EarthBound effect proof before sequence exact-duration promotion.",
+    "FF cannot promote finite exact-duration semantics from static 0x1A81 table shape; stock N-SPC marks VCMD 0xFF invalid.",
+    "FD and FE are treated as fast-forward timing toggles under the N-SPC hypothesis, but public exact exports still require local timing/effect proof.",
+    "Loop/held tracks require loop metadata even if a local terminator is later confirmed."
+  ],
+  "commands": {
+    "0x00": {
+      "command": "0x00",
+      "hypothesis": "phrase_termination_or_end_of_subroutine",
+      "n_spc_reference_semantics": "phrase_termination_or_end_of_subroutine",
+      "static_dispatch_target": null,
+      "static_dispatch_target_source": null,
+      "semantic_status": "pending_earthbound_zero_control_effect_proof",
+      "exact_duration_promotion_allowed": false,
+      "eligible_next_export_action": "keep_public_exact_promotion_blocked",
+      "status_reason": "Stock N-SPC treats VCMD 0x00 as phrase termination/end-of-subroutine and phrase $00 $00 as end-of-song, but EarthBound exact-duration promotion still needs local effect proof.",
+      "trace_evidence": {
+        "sequence_control_read_count": 5931,
+        "execution_fetch_control_read_count": 5520,
+        "control_reader_pc_counts": {
+          "0x0782": 8,
+          "0x07A6": 8,
+          "0x0847": 73,
+          "0x0957": 114,
+          "0x0B8A": 84,
+          "0x0D12": 1,
+          "0x2DB0": 957,
+          "0x2DDA": 955,
+          "0x2DF8": 955,
+          "0x2E3D": 952
+        },
+        "mapped_dispatch_hit_count": 0,
+        "post_dispatch_pc_counts": {}
+      },
+      "static_walk_policy": {
+        "candidate_terminator": true,
+        "blocks_static_walk": false,
+        "terminator_promoted": false,
+        "reason": "N-SPC-family 0x00 is the primary phrase termination/end-of-subroutine candidate; promotion waits for EarthBound-local effect proof."
+      }
+    },
+    "0xEF": {
+      "command": "0xEF",
+      "hypothesis": "subroutine",
+      "n_spc_reference_semantics": "subroutine",
+      "static_dispatch_target": "0x18BF",
+      "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
+      "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
+      "exact_duration_promotion_allowed": false,
+      "eligible_next_export_action": "keep_public_exact_promotion_blocked",
+      "status_reason": "Runtime reader PCs consumed this command byte, but the reader path effect is not decoded.",
+      "trace_evidence": {
+        "sequence_control_read_count": 475,
+        "execution_fetch_control_read_count": 0,
+        "control_reader_pc_counts": {
+          "0x0957": 23,
+          "0x0B8A": 95,
+          "0x0D12": 1
+        },
+        "mapped_dispatch_hit_count": 0,
+        "post_dispatch_pc_counts": {}
+      },
+      "static_walk_policy": {
+        "candidate_terminator": false,
+        "blocks_static_walk": false,
+        "terminator_promoted": false,
+        "reason": "EF call edges may be recorded statically, but return/stack behavior is not exact-duration promoted."
+      }
+    },
+    "0xFD": {
+      "command": "0xFD",
+      "hypothesis": "fast_forward_on",
+      "n_spc_reference_semantics": "fast_forward_on",
+      "static_dispatch_target": "0x19FB",
+      "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
+      "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
+      "exact_duration_promotion_allowed": false,
+      "eligible_next_export_action": "keep_public_exact_promotion_blocked",
+      "status_reason": "Runtime reader PCs consumed this command byte, but the reader path effect is not decoded.",
+      "trace_evidence": {
+        "sequence_control_read_count": 1,
+        "execution_fetch_control_read_count": 0,
+        "control_reader_pc_counts": {
+          "0x0847": 1
+        },
+        "mapped_dispatch_hit_count": 0,
+        "post_dispatch_pc_counts": {}
+      },
+      "static_walk_policy": {
+        "candidate_terminator": false,
+        "blocks_static_walk": false,
+        "terminator_promoted": false,
+        "reason": "Stock N-SPC treats FD/FE as fast-forward toggles; timing/export promotion still waits for EarthBound-local effect proof."
+      }
+    },
+    "0xFE": {
+      "command": "0xFE",
+      "hypothesis": "fast_forward_off",
+      "n_spc_reference_semantics": "fast_forward_off",
+      "static_dispatch_target": "0x1A32",
+      "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
+      "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
+      "exact_duration_promotion_allowed": false,
+      "eligible_next_export_action": "keep_public_exact_promotion_blocked",
+      "status_reason": "Runtime reader PCs consumed this command byte, but the reader path effect is not decoded.",
+      "trace_evidence": {
+        "sequence_control_read_count": 5,
+        "execution_fetch_control_read_count": 0,
+        "control_reader_pc_counts": {
+          "0x0847": 1,
+          "0x0957": 4
+        },
+        "mapped_dispatch_hit_count": 0,
+        "post_dispatch_pc_counts": {}
+      },
+      "static_walk_policy": {
+        "candidate_terminator": false,
+        "blocks_static_walk": false,
+        "terminator_promoted": false,
+        "reason": "Stock N-SPC treats FD/FE as fast-forward toggles; timing/export promotion still waits for EarthBound-local effect proof."
+      }
+    },
+    "0xFF": {
+      "command": "0xFF",
+      "hypothesis": "invalid_stock_n_spc_vcmd",
+      "n_spc_reference_semantics": "invalid_stock_n_spc_vcmd",
+      "static_dispatch_target": "0x1A81",
+      "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
+      "semantic_status": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof",
+      "exact_duration_promotion_allowed": false,
+      "eligible_next_export_action": "keep_public_exact_promotion_blocked",
+      "status_reason": "Runtime reader PCs consumed 0xFF, but stock N-SPC marks VCMD 0xFF invalid; keep as variant/unreachable evidence until EarthBound's reader effect is decoded.",
+      "trace_evidence": {
+        "sequence_control_read_count": 12,
+        "execution_fetch_control_read_count": 0,
+        "control_reader_pc_counts": {
+          "0x0957": 10
+        },
+        "mapped_dispatch_hit_count": 0,
+        "post_dispatch_pc_counts": {}
+      },
+      "static_walk_policy": {
+        "candidate_terminator": false,
+        "blocks_static_walk": true,
+        "terminator_promoted": false,
+        "reason": "Stock N-SPC marks VCMD 0xFF invalid, so FF is a variant/unreachable blocker until EarthBound runtime effect is proven."
+      }
+    }
+  },
+  "findings": [
+    "The current checked-in evidence does not yet permit sequence-command exact-duration promotion.",
+    "Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.",
+    "The N-SPC hypothesis shifts exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.",
+    "Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics."
+  ],
+  "next_work": [
+    "trace or disassemble EarthBound handling of 0x00 phrase/VCMD termination and EF return behavior",
+    "decode the control reader frontier PCs, starting with 0x0957 for FF/FE/EF behavior",
+    "treat FF observations as variant/unreachable evidence unless the reader path proves an EarthBound-specific effect",
+    "decode FD/FE timing behavior before using fast-forward regions for exact loop or finite export decisions"
+  ]
+}

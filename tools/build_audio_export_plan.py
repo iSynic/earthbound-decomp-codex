@@ -22,6 +22,7 @@ DEFAULT_EXTENDED_MEASUREMENTS = (
     ROOT / "build" / "audio" / "finite-candidate-extended-duration-measurements" / "export-duration-measurements.json"
 )
 DEFAULT_ORACLE_REPORT = ROOT / "manifests" / "audio-oracle-verification-report-all-tracks.json"
+DEFAULT_COMMAND_SEMANTICS = ROOT / "manifests" / "audio-sequence-command-semantics.json"
 DEFAULT_JSON = ROOT / "manifests" / "audio-export-plan.json"
 DEFAULT_MARKDOWN = ROOT / "notes" / "audio-export-plan.md"
 
@@ -36,6 +37,7 @@ def parse_args() -> argparse.Namespace:
         help="Optional longer targeted measurements.",
     )
     parser.add_argument("--oracle-report", default=str(DEFAULT_ORACLE_REPORT), help="All-track oracle report.")
+    parser.add_argument("--command-semantics", default=str(DEFAULT_COMMAND_SEMANTICS), help="Promoted command semantics JSON.")
     parser.add_argument("--json", default=str(DEFAULT_JSON), help="JSON output path.")
     parser.add_argument("--markdown", default=str(DEFAULT_MARKDOWN), help="Markdown output path.")
     return parser.parse_args()
@@ -66,7 +68,92 @@ def best_measurement(track_id: int, base: dict[int, dict[str, Any]], extended: d
     return base_record or extended_record
 
 
-def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, Any] | None) -> dict[str, Any]:
+def duration_semantics_for_decision(
+    export_class: str,
+    recommended_mode: str,
+    finite_metadata: dict[str, Any] | None,
+    loop_metadata: dict[str, Any] | None,
+    command_semantics: dict[str, Any],
+) -> dict[str, Any]:
+    zero = command_semantics.get("commands", {}).get("0x00", {})
+    ff = command_semantics.get("commands", {}).get("0xFF", {})
+    fd = command_semantics.get("commands", {}).get("0xFD", {})
+    fe = command_semantics.get("commands", {}).get("0xFE", {})
+    sequence_allowed = bool(command_semantics.get("summary", {}).get("release_sequence_promotion_allowed"))
+    if export_class == "finite_trim_candidate":
+        return {
+            "classification": "finite",
+            "exactness_basis": "pcm_silence" if finite_metadata else "unavailable",
+            "sequence_command_promotion_allowed": bool(zero.get("exact_duration_promotion_allowed")),
+            "sequence_command_status": {
+                "0x00": zero.get("semantic_status", "missing_command_semantics"),
+                "0xFF": ff.get("semantic_status", "missing_command_semantics"),
+            },
+            "public_exact_export_allowed": finite_metadata is not None,
+            "evidence": {
+                "finite_metadata": finite_metadata,
+                "pcm_corroboration": finite_metadata is not None,
+                "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending",
+            },
+        }
+    if export_class == "loop_or_held_candidate":
+        return {
+            "classification": "loop_or_held",
+            "exactness_basis": "preview_policy",
+            "sequence_command_promotion_allowed": sequence_allowed,
+            "sequence_command_status": {
+                "0x00": zero.get("semantic_status", "missing_command_semantics"),
+                "0xFD": fd.get("semantic_status", "missing_command_semantics"),
+                "0xFE": fe.get("semantic_status", "missing_command_semantics"),
+                "0xFF": ff.get("semantic_status", "missing_command_semantics"),
+            },
+            "public_exact_export_allowed": False,
+            "evidence": {
+                "loop_metadata": loop_metadata,
+                "preview_policy": loop_metadata.get("preview_policy") if isinstance(loop_metadata, dict) else None,
+            },
+        }
+    if export_class == "finite_or_transition_review_candidate":
+        return {
+            "classification": "finite_or_transition_review",
+            "exactness_basis": "review_required",
+            "sequence_command_promotion_allowed": sequence_allowed,
+            "sequence_command_status": {
+                "0x00": zero.get("semantic_status", "missing_command_semantics"),
+                "0xFF": ff.get("semantic_status", "missing_command_semantics"),
+            },
+            "public_exact_export_allowed": False,
+            "evidence": {"finite_metadata": finite_metadata},
+        }
+    return {
+        "classification": "skip" if recommended_mode == "skip" else "unknown_or_preview",
+        "exactness_basis": "not_applicable" if recommended_mode == "skip" else "not_promoted",
+        "sequence_command_promotion_allowed": sequence_allowed,
+        "sequence_command_status": {
+            command: command_semantics.get("commands", {}).get(command, {}).get("semantic_status", "missing_command_semantics")
+            for command in ("0x00", "0xEF", "0xFD", "0xFE", "0xFF")
+        },
+        "public_exact_export_allowed": recommended_mode == "skip",
+        "evidence": {},
+    }
+
+
+def with_duration_semantics(decision: dict[str, Any], command_semantics: dict[str, Any]) -> dict[str, Any]:
+    decision["duration_semantics"] = duration_semantics_for_decision(
+        str(decision["export_class"]),
+        str(decision["recommended_mode"]),
+        decision.get("finite_metadata"),
+        decision.get("loop_metadata"),
+        command_semantics,
+    )
+    return decision
+
+
+def export_decision(
+    policy_track: dict[str, Any],
+    measurement_record: dict[str, Any] | None,
+    command_semantics: dict[str, Any],
+) -> dict[str, Any]:
     track_id = int(policy_track["track_id"])
     duration_class = str(policy_track["duration_class"])
     status = str(measurement_record.get("measurement_status")) if measurement_record else "missing_preview"
@@ -75,7 +162,7 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
     target = policy_track.get("target_metadata", {})
 
     if duration_class == "no_audio_no_key_on":
-        return {
+        return with_duration_semantics({
             "export_class": "skip_no_audio",
             "export_status": "ready",
             "recommended_mode": "skip",
@@ -86,10 +173,10 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
             "loop_metadata": None,
             "finite_metadata": None,
             "needs_sequence_semantics": False,
-        }
+        }, command_semantics)
 
     if status == "finite_end_observed_in_preview" and candidate:
-        return {
+        return with_duration_semantics({
             "export_class": "finite_trim_candidate",
             "export_status": "usable_with_pcm_silence_evidence",
             "recommended_mode": "trim_to_observed_end",
@@ -110,10 +197,10 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
                 "tail_silence_seconds": candidate["tail_silence_seconds"],
                 "silence_threshold_abs_sample": candidate["silence_threshold_abs_sample"],
             },
-        }
+        }, command_semantics)
 
     if status in ("looping_candidate_preview_still_active", "finite_candidate_no_end_seen_in_preview"):
-        return {
+        return with_duration_semantics({
             "export_class": "loop_or_held_candidate",
             "export_status": "preview_policy_ready_exact_loop_pending",
             "recommended_mode": "loop_count_plus_fade_preview",
@@ -135,11 +222,11 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
             },
             "finite_metadata": None,
             "needs_sequence_semantics": True,
-        }
+        }, command_semantics)
 
     if status in ("looping_candidate_silence_seen_review_needed", "unknown_silence_seen_needs_classification"):
         end_seconds = candidate.get("end_seconds") if candidate else measurement.get("candidate_end_seconds") if measurement else None
-        return {
+        return with_duration_semantics({
             "export_class": "finite_or_transition_review_candidate",
             "export_status": "review_needed_before_public_exact_export",
             "recommended_mode": "trim_candidate_after_manual_or_sequence_review",
@@ -155,10 +242,10 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
                 "measured_by": "audio_export_duration_measurement",
             },
             "needs_sequence_semantics": True,
-        }
+        }, command_semantics)
 
     if status == "unknown_preview_still_active":
-        return {
+        return with_duration_semantics({
             "export_class": "unknown_active_preview",
             "export_status": "preview_only",
             "recommended_mode": "diagnostic_preview",
@@ -169,9 +256,9 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
             "loop_metadata": None,
             "finite_metadata": None,
             "needs_sequence_semantics": True,
-        }
+        }, command_semantics)
 
-    return {
+    return with_duration_semantics({
         "export_class": "unmeasured_or_missing",
         "export_status": "blocked_or_skip_until_measured",
         "recommended_mode": "do_not_public_export",
@@ -182,7 +269,7 @@ def export_decision(policy_track: dict[str, Any], measurement_record: dict[str, 
         "loop_metadata": None,
         "finite_metadata": None,
         "needs_sequence_semantics": track_id != 0,
-    }
+    }, command_semantics)
 
 
 def build_plan(
@@ -190,11 +277,18 @@ def build_plan(
     measurements_path: Path,
     extended_measurements_path: Path,
     oracle_report_path: Path,
+    command_semantics_path: Path,
 ) -> dict[str, Any]:
     policy = load_json(policy_path)
     measurements = load_json(measurements_path)
     extended_measurements = load_json(extended_measurements_path) if extended_measurements_path.exists() else {"records": []}
     oracle_report = load_json(oracle_report_path) if oracle_report_path.exists() else {}
+    command_semantics = load_json(command_semantics_path) if command_semantics_path.exists() else {
+        "schema": "earthbound-decomp.audio-sequence-command-semantics.v1",
+        "status": "missing",
+        "summary": {"release_sequence_promotion_allowed": False},
+        "commands": {},
+    }
     base_by_track = records_by_track(measurements)
     extended_by_track = records_by_track(extended_measurements)
 
@@ -206,7 +300,7 @@ def build_plan(
 
     for track in policy.get("tracks", []):
         measurement_record = best_measurement(int(track["track_id"]), base_by_track, extended_by_track)
-        decision = export_decision(track, measurement_record)
+        decision = export_decision(track, measurement_record, command_semantics)
         record = {
             "track_id": int(track["track_id"]),
             "track_name": track["track_name"],
@@ -229,6 +323,7 @@ def build_plan(
             "duration_measurements": repo_path(measurements_path),
             "extended_duration_measurements": repo_path(extended_measurements_path) if extended_measurements_path.exists() else None,
             "oracle_report": repo_path(oracle_report_path) if oracle_report_path.exists() else None,
+            "command_semantics": repo_path(command_semantics_path) if command_semantics_path.exists() else None,
         },
         "playback_confidence": {
             "all_track_near_oracle_passed": bool(
@@ -255,6 +350,14 @@ def build_plan(
             "export_status_counts": dict(status_counts),
             "recommended_mode_counts": dict(mode_counts),
             "needs_sequence_semantics_count": semantics_count,
+            "sequence_command_promotion_allowed": bool(
+                command_semantics.get("summary", {}).get("release_sequence_promotion_allowed")
+            ),
+        },
+        "command_semantics": {
+            "schema": command_semantics.get("schema"),
+            "status": command_semantics.get("status"),
+            "summary": command_semantics.get("summary", {}),
         },
         "release_gates": [
             "Finite trim candidates are usable where sustained trailing silence is observed, but sequence semantics can still refine exact musical intent.",
@@ -294,6 +397,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
             f"- export statuses: `{plan['summary']['export_status_counts']}`",
             f"- recommended modes: `{plan['summary']['recommended_mode_counts']}`",
             f"- tracks needing sequence semantics: `{plan['summary']['needs_sequence_semantics_count']}`",
+            f"- sequence command promotion allowed: `{plan['summary']['sequence_command_promotion_allowed']}`",
             f"- tracks with loop metadata placeholders: `{loop_metadata_count}`",
             "",
             "## Playback Confidence",
@@ -329,6 +433,7 @@ def main() -> int:
         Path(args.measurements),
         Path(args.extended_measurements),
         Path(args.oracle_report),
+        Path(args.command_semantics),
     )
     json_path = Path(args.json)
     markdown_path = Path(args.markdown)

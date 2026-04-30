@@ -147,6 +147,8 @@ struct Spc700SnapshotState {
 struct Spc700PcTraceRecord {
   std::string kind;
   std::uint16_t pc = 0;
+  std::uint16_t postPc = 0;
+  bool postPcRecorded = false;
   std::uint16_t ya = 0;
   std::uint8_t x = 0;
   std::uint8_t s = 0;
@@ -161,6 +163,8 @@ struct Spc700SequenceReadRecord {
   std::uint16_t pc = 0;
   std::uint16_t address = 0;
   std::uint8_t data = 0;
+  std::int16_t pcAddressDelta = 0;
+  bool executionFetchCandidate = false;
   std::uint16_t ya = 0;
   std::uint8_t x = 0;
   std::uint8_t s = 0;
@@ -170,6 +174,10 @@ struct Spc700SequenceReadRecord {
   std::uint64_t instruction = 0;
   std::uint64_t shimTicks = 0;
 };
+
+static bool isSequenceControlCandidate(std::uint8_t data) {
+  return data == 0x00 || data == 0xef || data == 0xfd || data == 0xfe || data == 0xff;
+}
 
 enum class HostCommandMode {
   Disabled,
@@ -203,8 +211,10 @@ struct Spc700EntryProbe : ares::SPC700 {
   std::vector<Spc700IoWrite> dspWriteTail;
   std::vector<Spc700SequenceReadRecord> sequenceReads;
   std::vector<Spc700SequenceReadRecord> sequenceReadTail;
+  std::vector<Spc700SequenceReadRecord> sequenceControlCandidateReads;
   std::array<std::uint64_t, 128> dspWriteRegisterCounts{};
   std::array<std::uint64_t, 256> sequenceByteReadCounts{};
+  std::array<std::uint64_t, 256> sequenceExecutionFetchByteReadCounts{};
   std::uint8_t dspAddress = 0;
   std::uint8_t timer0Target = 0;
   std::uint8_t timer0Counter = 0;
@@ -226,6 +236,9 @@ struct Spc700EntryProbe : ares::SPC700 {
   std::uint64_t sequenceReadCount = 0;
   std::uint64_t sequenceHighByteReadCount = 0;
   std::uint64_t sequenceControlCandidateReadCount = 0;
+  std::uint64_t sequenceExecutionFetchReadCount = 0;
+  std::uint64_t sequenceExecutionFetchHighByteReadCount = 0;
+  std::uint64_t sequenceExecutionFetchControlCandidateReadCount = 0;
   std::uint8_t lastKeyOnData = 0;
   std::uint8_t lastKeyOffData = 0;
   bool hostCommandInjectionRecorded = false;
@@ -249,16 +262,29 @@ struct Spc700EntryProbe : ares::SPC700 {
 
   void rememberSequenceRead(std::uint16_t address, std::uint8_t data) {
     if (address < 0x2000 || address >= 0x6c00) return;
+    const std::uint16_t pc = static_cast<std::uint16_t>(r.pc.w);
+    const std::int16_t pcAddressDelta = static_cast<std::int16_t>(pc - address);
+    const bool executionFetchCandidate = pcAddressDelta >= 0 && pcAddressDelta <= 2;
     ++sequenceReadCount;
     ++sequenceByteReadCounts[data];
     if (data >= 0xe0) ++sequenceHighByteReadCount;
-    if (data == 0xef || data == 0xfd || data == 0xfe || data == 0xff) {
+    if (isSequenceControlCandidate(data)) {
       ++sequenceControlCandidateReadCount;
     }
+    if (executionFetchCandidate) {
+      ++sequenceExecutionFetchReadCount;
+      ++sequenceExecutionFetchByteReadCounts[data];
+      if (data >= 0xe0) ++sequenceExecutionFetchHighByteReadCount;
+      if (isSequenceControlCandidate(data)) {
+        ++sequenceExecutionFetchControlCandidateReadCount;
+      }
+    }
     const Spc700SequenceReadRecord record{
-      static_cast<std::uint16_t>(r.pc.w),
+      pc,
       address,
       data,
+      pcAddressDelta,
+      executionFetchCandidate,
       static_cast<std::uint16_t>(r.ya.w),
       static_cast<std::uint8_t>(r.x),
       static_cast<std::uint8_t>(r.s),
@@ -270,6 +296,9 @@ struct Spc700EntryProbe : ares::SPC700 {
     };
     if (sequenceReads.size() < 256) {
       sequenceReads.push_back(record);
+    }
+    if (isSequenceControlCandidate(data) && sequenceControlCandidateReads.size() < 256) {
+      sequenceControlCandidateReads.push_back(record);
     }
     sequenceReadTail.push_back(record);
     if (sequenceReadTail.size() > 128) sequenceReadTail.erase(sequenceReadTail.begin());
@@ -702,9 +731,14 @@ std::vector<std::string> runSpc700EntryProbe(
   std::uint64_t& sequenceReadCount,
   std::uint64_t& sequenceHighByteReadCount,
   std::uint64_t& sequenceControlCandidateReadCount,
+  std::uint64_t& sequenceExecutionFetchReadCount,
+  std::uint64_t& sequenceExecutionFetchHighByteReadCount,
+  std::uint64_t& sequenceExecutionFetchControlCandidateReadCount,
   std::array<std::uint64_t, 256>& sequenceByteReadCounts,
+  std::array<std::uint64_t, 256>& sequenceExecutionFetchByteReadCounts,
   std::vector<Spc700SequenceReadRecord>& sequenceReads,
   std::vector<Spc700SequenceReadRecord>& sequenceReadTail,
+  std::vector<Spc700SequenceReadRecord>& sequenceControlCandidateReads,
   std::uint64_t instructionLimit
 ) {
   Spc700EntryProbe probe;
@@ -723,6 +757,7 @@ std::vector<std::string> runSpc700EntryProbe(
   for (std::uint64_t step = 0; step < instructionLimit; ++step) {
     const std::uint16_t pc = static_cast<std::uint16_t>(probe.r.pc.w);
     const std::string line = hexWord(pc) + "  " + std::string(probe.disassembleInstruction(pc, probe.r.p.p));
+    std::size_t dispatchTraceIndex = static_cast<std::size_t>(-1);
     if (highCommandDispatchTrace.size() < HIGH_COMMAND_DISPATCH_TRACE_LIMIT) {
       std::string traceKind;
       if (pc == HIGH_COMMAND_DISPATCH_PC) {
@@ -737,6 +772,8 @@ std::vector<std::string> runSpc700EntryProbe(
           Spc700PcTraceRecord{
             traceKind,
             pc,
+            0,
+            false,
             static_cast<std::uint16_t>(probe.r.ya.w),
             static_cast<std::uint8_t>(probe.r.x),
             static_cast<std::uint8_t>(probe.r.s),
@@ -751,6 +788,7 @@ std::vector<std::string> runSpc700EntryProbe(
             line,
           }
         );
+        dispatchTraceIndex = highCommandDispatchTrace.size() - 1;
       }
     }
     if (trace.size() < 32) {
@@ -760,6 +798,10 @@ std::vector<std::string> runSpc700EntryProbe(
     if (tailTrace.size() > 32) tailTrace.erase(tailTrace.begin());
     probe.currentInstruction = executedInstructions;
     probe.instruction();
+    if (dispatchTraceIndex != static_cast<std::size_t>(-1)) {
+      highCommandDispatchTrace[dispatchTraceIndex].postPc = static_cast<std::uint16_t>(probe.r.pc.w);
+      highCommandDispatchTrace[dispatchTraceIndex].postPcRecorded = true;
+    }
     ++executedInstructions;
     if (probe.ioWrites.size() >= 4 && probe.r.pc.w == pc) break;
   }
@@ -795,9 +837,14 @@ std::vector<std::string> runSpc700EntryProbe(
   sequenceReadCount = probe.sequenceReadCount;
   sequenceHighByteReadCount = probe.sequenceHighByteReadCount;
   sequenceControlCandidateReadCount = probe.sequenceControlCandidateReadCount;
+  sequenceExecutionFetchReadCount = probe.sequenceExecutionFetchReadCount;
+  sequenceExecutionFetchHighByteReadCount = probe.sequenceExecutionFetchHighByteReadCount;
+  sequenceExecutionFetchControlCandidateReadCount = probe.sequenceExecutionFetchControlCandidateReadCount;
   sequenceByteReadCounts = probe.sequenceByteReadCounts;
+  sequenceExecutionFetchByteReadCounts = probe.sequenceExecutionFetchByteReadCounts;
   sequenceReads = probe.sequenceReads;
   sequenceReadTail = probe.sequenceReadTail;
+  sequenceControlCandidateReads = probe.sequenceControlCandidateReads;
   return trace;
 }
 
@@ -897,9 +944,14 @@ int main(int argc, char** argv) {
     std::uint64_t probeSequenceReadCount = 0;
     std::uint64_t probeSequenceHighByteReadCount = 0;
     std::uint64_t probeSequenceControlCandidateReadCount = 0;
+    std::uint64_t probeSequenceExecutionFetchReadCount = 0;
+    std::uint64_t probeSequenceExecutionFetchHighByteReadCount = 0;
+    std::uint64_t probeSequenceExecutionFetchControlCandidateReadCount = 0;
     std::array<std::uint64_t, 256> probeSequenceByteReadCounts{};
+    std::array<std::uint64_t, 256> probeSequenceExecutionFetchByteReadCounts{};
     std::vector<Spc700SequenceReadRecord> probeSequenceReads;
     std::vector<Spc700SequenceReadRecord> probeSequenceReadTail;
+    std::vector<Spc700SequenceReadRecord> probeSequenceControlCandidateReads;
     const std::uint8_t diagnosticHostCommand = static_cast<std::uint8_t>(trackId & 0xff);
     const std::vector<std::string> entryExecutionTrace = runSpc700EntryProbe(
       apuRam,
@@ -940,9 +992,14 @@ int main(int argc, char** argv) {
       probeSequenceReadCount,
       probeSequenceHighByteReadCount,
       probeSequenceControlCandidateReadCount,
+      probeSequenceExecutionFetchReadCount,
+      probeSequenceExecutionFetchHighByteReadCount,
+      probeSequenceExecutionFetchControlCandidateReadCount,
       probeSequenceByteReadCounts,
+      probeSequenceExecutionFetchByteReadCounts,
       probeSequenceReads,
       probeSequenceReadTail,
+      probeSequenceControlCandidateReads,
       instructionLimit
     );
 
@@ -1072,7 +1129,13 @@ int main(int argc, char** argv) {
     capture << "      \"hits\": [\n";
     for (std::size_t i = 0; i < probeHighCommandDispatchTrace.size(); ++i) {
       const auto& hit = probeHighCommandDispatchTrace[i];
-      capture << "        {\"kind\": \"" << jsonEscape(hit.kind) << "\", \"pc\": \"" << hexWord(hit.pc) << "\", \"instruction\": " << hit.instruction << ", \"shim_ticks\": " << hit.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(hit.ya) << "\", \"x\": \"" << hexByte(hit.x) << "\", \"s\": \"" << hexByte(hit.s) << "\", \"p\": \"" << hexByte(hit.p) << "\"}, \"bytes\": [\"" << hexByte(hit.bytes[0]) << "\", \"" << hexByte(hit.bytes[1]) << "\", \"" << hexByte(hit.bytes[2]) << "\"], \"disassembly\": \"" << jsonEscape(hit.disassembly) << "\"";
+      capture << "        {\"kind\": \"" << jsonEscape(hit.kind) << "\", \"pc\": \"" << hexWord(hit.pc) << "\", \"post_instruction_pc\": ";
+      if (hit.postPcRecorded) {
+        capture << "\"" << hexWord(hit.postPc) << "\"";
+      } else {
+        capture << "null";
+      }
+      capture << ", \"instruction\": " << hit.instruction << ", \"shim_ticks\": " << hit.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(hit.ya) << "\", \"x\": \"" << hexByte(hit.x) << "\", \"s\": \"" << hexByte(hit.s) << "\", \"p\": \"" << hexByte(hit.p) << "\"}, \"bytes\": [\"" << hexByte(hit.bytes[0]) << "\", \"" << hexByte(hit.bytes[1]) << "\", \"" << hexByte(hit.bytes[2]) << "\"], \"disassembly\": \"" << jsonEscape(hit.disassembly) << "\"";
       if (hit.kind == "high_command_dispatch_source") {
         capture << ", \"table_byte_offset_from_x\": \"" << hexByte(hit.x) << "\"";
         if ((hit.x % 2) == 0 && hit.x < 0x40) {
@@ -1093,6 +1156,28 @@ int main(int argc, char** argv) {
     capture << "      \"read_count\": " << probeSequenceReadCount << ",\n";
     capture << "      \"high_byte_read_count\": " << probeSequenceHighByteReadCount << ",\n";
     capture << "      \"control_candidate_read_count\": " << probeSequenceControlCandidateReadCount << ",\n";
+    capture << "      \"execution_fetch_heuristic\": \"pc_minus_address_between_0_and_2\",\n";
+    capture << "      \"execution_fetch_read_count\": " << probeSequenceExecutionFetchReadCount << ",\n";
+    capture << "      \"execution_fetch_high_byte_read_count\": " << probeSequenceExecutionFetchHighByteReadCount << ",\n";
+    capture << "      \"execution_fetch_control_candidate_read_count\": " << probeSequenceExecutionFetchControlCandidateReadCount << ",\n";
+    capture << "      \"execution_fetch_high_byte_counts\": {";
+    bool wroteExecutionFetchHighByteCount = false;
+    for (std::size_t value = 0xe0; value < probeSequenceExecutionFetchByteReadCounts.size(); ++value) {
+      if (!probeSequenceExecutionFetchByteReadCounts[value]) continue;
+      if (wroteExecutionFetchHighByteCount) capture << ", ";
+      capture << "\"" << hexByte(static_cast<std::uint8_t>(value)) << "\": " << probeSequenceExecutionFetchByteReadCounts[value];
+      wroteExecutionFetchHighByteCount = true;
+    }
+    capture << "},\n";
+    capture << "      \"execution_fetch_control_candidate_counts\": {";
+    bool wroteExecutionFetchControlCount = false;
+    for (std::uint8_t value : {static_cast<std::uint8_t>(0x00), static_cast<std::uint8_t>(0xef), static_cast<std::uint8_t>(0xfd), static_cast<std::uint8_t>(0xfe), static_cast<std::uint8_t>(0xff)}) {
+      if (!probeSequenceExecutionFetchByteReadCounts[value]) continue;
+      if (wroteExecutionFetchControlCount) capture << ", ";
+      capture << "\"" << hexByte(value) << "\": " << probeSequenceExecutionFetchByteReadCounts[value];
+      wroteExecutionFetchControlCount = true;
+    }
+    capture << "},\n";
     capture << "      \"high_byte_counts\": {";
     bool wroteHighByteCount = false;
     for (std::size_t value = 0xe0; value < probeSequenceByteReadCounts.size(); ++value) {
@@ -1104,24 +1189,31 @@ int main(int argc, char** argv) {
     capture << "},\n";
     capture << "      \"control_candidate_counts\": {";
     bool wroteControlCount = false;
-    for (std::uint8_t value : {static_cast<std::uint8_t>(0xef), static_cast<std::uint8_t>(0xfd), static_cast<std::uint8_t>(0xfe), static_cast<std::uint8_t>(0xff)}) {
+    for (std::uint8_t value : {static_cast<std::uint8_t>(0x00), static_cast<std::uint8_t>(0xef), static_cast<std::uint8_t>(0xfd), static_cast<std::uint8_t>(0xfe), static_cast<std::uint8_t>(0xff)}) {
       if (!probeSequenceByteReadCounts[value]) continue;
       if (wroteControlCount) capture << ", ";
       capture << "\"" << hexByte(value) << "\": " << probeSequenceByteReadCounts[value];
       wroteControlCount = true;
     }
     capture << "},\n";
+    capture << "      \"control_candidate_reads\": [\n";
+    for (std::size_t i = 0; i < probeSequenceControlCandidateReads.size(); ++i) {
+      const auto& read = probeSequenceControlCandidateReads[i];
+      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"command_candidate\": " << (read.data >= 0xe0 ? "true" : "false") << ", \"zero_terminator_candidate\": " << (read.data == 0x00 ? "true" : "false") << ", \"control_candidate\": true, \"execution_fetch_candidate\": " << (read.executionFetchCandidate ? "true" : "false") << ", \"pc_address_delta\": " << read.pcAddressDelta << ", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\", \"command_pointer_registers\": {\"dp_10_11\": \"" << hexWord(read.pointer010) << "\", \"dp_12_13\": \"" << hexWord(read.pointer012) << "\"}}";
+      capture << (i + 1 == probeSequenceControlCandidateReads.size() ? "\n" : ",\n");
+    }
+    capture << "      ],\n";
     capture << "      \"first_reads\": [\n";
     for (std::size_t i = 0; i < probeSequenceReads.size(); ++i) {
       const auto& read = probeSequenceReads[i];
-      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\"}";
+      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"command_candidate\": " << (read.data >= 0xe0 ? "true" : "false") << ", \"zero_terminator_candidate\": " << (read.data == 0x00 ? "true" : "false") << ", \"control_candidate\": " << (isSequenceControlCandidate(read.data) ? "true" : "false") << ", \"execution_fetch_candidate\": " << (read.executionFetchCandidate ? "true" : "false") << ", \"pc_address_delta\": " << read.pcAddressDelta << ", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\", \"command_pointer_registers\": {\"dp_10_11\": \"" << hexWord(read.pointer010) << "\", \"dp_12_13\": \"" << hexWord(read.pointer012) << "\"}}";
       capture << (i + 1 == probeSequenceReads.size() ? "\n" : ",\n");
     }
     capture << "      ],\n";
     capture << "      \"tail_reads\": [\n";
     for (std::size_t i = 0; i < probeSequenceReadTail.size(); ++i) {
       const auto& read = probeSequenceReadTail[i];
-      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\"}";
+      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"command_candidate\": " << (read.data >= 0xe0 ? "true" : "false") << ", \"zero_terminator_candidate\": " << (read.data == 0x00 ? "true" : "false") << ", \"control_candidate\": " << (isSequenceControlCandidate(read.data) ? "true" : "false") << ", \"execution_fetch_candidate\": " << (read.executionFetchCandidate ? "true" : "false") << ", \"pc_address_delta\": " << read.pcAddressDelta << ", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\", \"command_pointer_registers\": {\"dp_10_11\": \"" << hexWord(read.pointer010) << "\", \"dp_12_13\": \"" << hexWord(read.pointer012) << "\"}}";
       capture << (i + 1 == probeSequenceReadTail.size() ? "\n" : ",\n");
     }
     capture << "      ]\n";
