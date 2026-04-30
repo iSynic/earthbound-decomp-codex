@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:8EAE..C2:8F21 RunGutsReductionAction
+;
+; Runtime contract:
+; - Selected row `$A972` supplies the target battler.
+; - Row `+0x2C` is the live guts byte.
+; - The action reduces current guts to roughly three quarters of its prior
+;   value, then clamps against a floor derived from base guts row `+0x35`.
+; - C8:F7EE reports the positive guts-loss delta through the C1 amount-bearing
+;   battle-text path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,6 +42,7 @@ C28EAE_RunGutsReductionAction = BTLACT_CUTGUTS
     lda $0000,X
     tay
     sta $04
+    ; New guts = floor(old guts * 3 / 4).
     asl A
     adc $04
     lsr A
@@ -47,6 +56,7 @@ C28EAE_RunGutsReductionAction = BTLACT_CUTGUTS
     ldx $A972
     lda $0035,X
     and.w #$00FF
+    ; Lower clamp is derived from base guts at row `+0x35`.
     pha
     asl A
     pla
@@ -67,6 +77,7 @@ C28EFD_RunGutsReductionAction_L8EFD:
     ldx $A972
     tya
     sec
+    ; Report old guts minus final clamped guts.
     sbc $002C,X
     sta $06
     stz $08

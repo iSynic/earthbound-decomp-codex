@@ -186,6 +186,11 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-offense-defense-stat-actions-runtime-polish.md`. The promoted
   contracts cover `9E38/9E7F` as offense-up body/wrapper and `9E86/9EFF` as
   defense-down body/wrapper.
+- 2026-04-30 twenty-sixth slice: promoted late stat/resource action contracts
+  into byte-neutral source comments plus
+  `notes/c2-late-stat-resource-runtime-polish.md`. The promoted contracts cover
+  `8E42` PP reduction, `8EAE` guts reduction, and `8F21` paired offense/defense
+  reduction over selected-row fields and amount-bearing battle text.
 
 ## Validation
 

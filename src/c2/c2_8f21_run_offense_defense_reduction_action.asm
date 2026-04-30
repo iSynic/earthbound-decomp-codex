@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:8F21..C2:8F97 RunOffenseDefenseReductionAction
+;
+; Runtime contract:
+; - Selected row `$A972` supplies the target battler.
+; - First pass snapshots row `+0x26` offense, applies `C2:7DDC`, and reports
+;   the positive offense-loss delta through C8:F885.
+; - Second pass snapshots row `+0x28` defense, applies `C2:7E33`, and reports
+;   the positive defense-loss delta through C8:F8A2.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -33,6 +40,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     ldy $0026,X
     sty $16
     lda $A972
+    ; Row `+0x26` offense is lowered by the bounded offense helper.
     jsr HEXADECIMATE_OFFENSE
     lda.w #$F885
     sta $0E
@@ -42,6 +50,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     ldy $16
     tya
     sec
+    ; Report old offense minus final offense.
     sbc $0026,X
     sta $06
     stz $08
@@ -54,6 +63,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     ldy $0028,X
     sty $16
     lda $A972
+    ; Row `+0x28` defense is lowered by the bounded defense helper.
     jsr HEXADECIMATE_DEFENSE
     lda.w #$F8A2
     sta $0E
@@ -63,6 +73,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     ldy $16
     tya
     sec
+    ; Report old defense minus final defense.
     sbc $0028,X
     sta $06
     stz $08

@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:8E42..C2:8EAE RunPpReductionAction
+;
+; Runtime contract:
+; - Selected row `$A972` supplies the target battler.
+; - Row word `+0x19` is the current PP-side target; zero emits C8:FB05.
+; - Row word `+0x1B` supplies the maximum PP-side value; its high nibble feeds
+;   `C2:6A44` to roll the reduction amount.
+; - `C2:721D` applies the capped PP reduction, and EF:7755 reports the amount
+;   through the C1 amount-bearing battle-text path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,6 +36,7 @@ C28E42_RunPpReductionAction = BTLACT_REDUCEPP
     tcd
     ldx $A972
     lda $0019,X
+    ; No PP-side target left to reduce.
     bne C28E62_RunPpReductionAction_L8E62
     lda.w #$FB05
     sta $0E
@@ -38,6 +47,7 @@ C28E42_RunPpReductionAction = BTLACT_REDUCEPP
 C28E62_RunPpReductionAction_L8E62:
     ldx $A972
     lda $001B,X
+    ; Use the PP max high nibble as the random amount range.
     lsr A
     lsr A
     lsr A
@@ -48,6 +58,7 @@ C28E62_RunPpReductionAction_L8E62:
     sty $16
     tyx
     lda $A972
+    ; A = selected row, X = rolled PP reduction amount.
     jsr C2721D_ReduceBattlerPpTarget
     lda.w #$7755
     sta $0E
@@ -67,6 +78,7 @@ C28E90_RunPpReductionAction_L8E90:
     jsl C1DC66_DisplayBattleTextWithNumber
     bra C28EAC_RunPpReductionAction_L8EAC
 C28E9E_RunPpReductionAction_L8E9E:
+    ; Zero high-nibble range has no visible effect.
     lda.w #$766E
     sta $0E
     lda.w #$00EF
