@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:FCA6..C2:FD99 InitEnemySpriteColorWaveEntryFromPalette
+;
+; Runtime contract:
+; - Initializes one enemy sprite color-wave palette entry from the current
+;   battle sprite palette buffer at `$0380`.
+; - Input A selects the palette entry. The high bits select one of four
+;   color-wave groups, which receives timer `$B37C` in `$AEF4[group]`.
+; - Extracts RGB555 components from `$0380 + entry*2`, installs per-component
+;   deltas/targets in `$AEFC/$AEFE/$AF00` and `$B1FC/$B1FE/$B200`, then clears
+;   accumulators `$B07C/$B07E/$B080`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -33,6 +42,7 @@ C2FCA6_InitEnemySpriteColorWaveEntryFromPalette:
     lsr A
     asl A
     tax
+    ; Palette entry high bits choose the color-wave group timer slot.
     lda $B37C
     sta $AEF4,X
     lda $02
@@ -40,6 +50,7 @@ C2FCA6_InitEnemySpriteColorWaveEntryFromPalette:
     tax
     lda $0380,X
     sta $14
+    ; Extract red component.
     and.w #$001F
     tay
     sty $12
@@ -50,6 +61,7 @@ C2FCA6_InitEnemySpriteColorWaveEntryFromPalette:
     lsr A
     lsr A
     and.w #$001F
+    ; Extract green component.
     sta $04
     sta $10
     sep #$10
@@ -57,6 +69,7 @@ C2FCA6_InitEnemySpriteColorWaveEntryFromPalette:
     lda $14
     jsl C09251_SignedDivide16By8
     and.w #$001F
+    ; Extract blue component.
     sta $0E
     rep #$10
     ldy $12
@@ -155,6 +168,7 @@ C2FD85_InitEnemySpriteColorWaveEntryFromPalette_LFD85:
     adc $04
     asl A
     tax
+    ; Clear per-component fractional accumulators.
     stz $B080,X
     stz $B07E,X
     stz $B07C,X

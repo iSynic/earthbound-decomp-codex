@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:F121..C2:F8F9 AssignEnemyBattleSpriteRowsAndXPositions
+;
+; Runtime contract:
+; - Assigns active enemy battlers to battle-sprite rows and screen positions,
+;   then commits the sorted enemy row table used by rendering.
+; - Scans battler slots `8..31`, skips absent/inactive rows, stores each row's
+;   loaded sprite slot at row `+0x43`, and balances front/back row widths in
+;   `$AEF0/$AEF2` against a practical width limit of `0x1E`.
+; - Writes x/y render positions into row `+0x44/+0x45`, row flag at `+0x1F`
+;   (`$9FBC`), and finally sorts the staged enemy rows before render order is
+;   built.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -25,6 +35,7 @@ C2F121_AssignEnemyBattleSpriteRowsAndXPositions:
     tdc
     adc.w #$FFD9
     tcd
+    ; Row-width accumulators for the two enemy sprite rows.
     stz $AEF2
     stz $AEF0
     ldx.w #$0008
@@ -51,6 +62,7 @@ C2F15B_AssignEnemyBattleSpriteRowsAndXPositions_LF15B:
     jsr $F09F
     sep #$20
     ldy $23
+    ; Battler row +0x43 stores the loaded sprite slot.
     sta $9FEF,Y
     rep #$20
     lda $9FBC,Y
@@ -81,6 +93,7 @@ C2F19A_AssignEnemyBattleSpriteRowsAndXPositions_LF19A:
     sta $0000,Y
     bra C2F203_AssignEnemyBattleSpriteRowsAndXPositions_LF203
 C2F19F_AssignEnemyBattleSpriteRowsAndXPositions_LF19F:
+    ; If the preferred row overflows, try the opposite row before failing.
     lda.w #$0001
     sec
     sbc $21
@@ -144,6 +157,7 @@ C2F212_AssignEnemyBattleSpriteRowsAndXPositions_LF212:
     lda $A22C
     and.w #$00FF
     sta $23
+    ; Center the row around screen center 0x20 while assigning x positions.
     lda.w #$0020
     sta $1D
     sta $1B
@@ -505,6 +519,7 @@ C2F4CC_AssignEnemyBattleSpriteRowsAndXPositions_LF4CC:
     sbc $02
     sec
     sbc.w #$0010
+    ; Convert tentative x positions into final tile-space screen coordinates.
     tay
     sty $1B
     lda.w #$0008
@@ -679,6 +694,7 @@ C2F63A_AssignEnemyBattleSpriteRowsAndXPositions_LF63A:
     rep #$20
     lda.w #$0001
     sta $21
+    ; Swap two 0x4E-byte battler rows to keep render/source ordering stable.
     ldy $19
     tya
     clc
@@ -788,6 +804,7 @@ C2F70D_AssignEnemyBattleSpriteRowsAndXPositions_LF70D:
     ldx.w #$004E
     rep #$20
     lda.w #$A91E
+    ; Commit the sorted battler rows back into the staging area.
     jsl C08EFC_CommitTileBufferToStaging
     lda.w #$0000
 C2F722_AssignEnemyBattleSpriteRowsAndXPositions_LF722:
@@ -840,6 +857,7 @@ C2F77B_AssignEnemyBattleSpriteRowsAndXPositions_LF77B:
     bne C2F785_AssignEnemyBattleSpriteRowsAndXPositions_LF785
     jmp.w C2F8D9_AssignEnemyBattleSpriteRowsAndXPositions_LF8D9
 C2F785_AssignEnemyBattleSpriteRowsAndXPositions_LF785:
+    ; Row +0x48/+0x49 are transient blink/visibility timers for sprite drawing.
     lda $02
     clc
     adc.w #$0048
@@ -899,6 +917,7 @@ C2F7AE_AssignEnemyBattleSpriteRowsAndXPositions_LF7AE:
     clc
     adc.w #$AC16
     ldx $12
+    ; Draw with alternate row tile base when transient effect state requests it.
     jsl C08CD5_DrawTileStagingBlock
     jmp.w C2F8D9_AssignEnemyBattleSpriteRowsAndXPositions_LF8D9
 C2F808_AssignEnemyBattleSpriteRowsAndXPositions_LF808:
@@ -1004,6 +1023,7 @@ C2F8A1_AssignEnemyBattleSpriteRowsAndXPositions_LF8A1:
     clc
     adc.w #$AAD6
     ldx $0E
+    ; Normal battle sprite draw from the row's loaded sprite slot.
     jsl C08CD5_DrawTileStagingBlock
 C2F8D9_AssignEnemyBattleSpriteRowsAndXPositions_LF8D9:
     lda $02

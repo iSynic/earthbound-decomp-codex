@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:F917..C2:FADE BuildBattleSpriteRowRenderOrder
+;
+; Runtime contract:
+; - Builds compact render-order arrays for the two enemy battle sprite rows.
+; - Counts live enemy battlers by row into `$AD56/$AD58`, then repeatedly
+;   selects the next enemy by increasing x-position from row `+0x44`.
+; - Writes row-0 order/offset/vertical-adjust arrays at `$AD7A/$AD5A/$AD62`
+;   and row-1 arrays at `$AD82/$AD6A/$AD72`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -22,6 +29,7 @@ C2F917_BuildBattleSpriteRowRenderOrder:
     tdc
     adc.w #$FFEC
     tcd
+    ; Row render counts for row 1 and row 0 respectively.
     stz $AD58
     stz $AD56
     lda.w #$0008
@@ -61,6 +69,7 @@ C2F967_BuildBattleSpriteRowRenderOrder_LF967:
     sta $02
     jmp.w C2FA12_BuildBattleSpriteRowRenderOrder_LFA12
 C2F976_BuildBattleSpriteRowRenderOrder_LF976:
+    ; Row 0: select the next live enemy by increasing x coordinate.
     lda.w #$FFFF
     sta $04
     ldy.w #$0008
@@ -129,6 +138,7 @@ C2F9CE_BuildBattleSpriteRowRenderOrder_LF9CE:
     sec
     sbc $00
     ldx $02
+    ; Vertical offset is based on battle sprite height.
     sta $AD62,X
     rep #$20
     lda $04
@@ -146,6 +156,7 @@ C2FA1E_BuildBattleSpriteRowRenderOrder_LFA1E:
     sta $02
     jmp.w C2FAC4_BuildBattleSpriteRowRenderOrder_LFAC4
 C2FA28_BuildBattleSpriteRowRenderOrder_LFA28:
+    ; Row 1: same order build, with the back-row vertical base.
     lda.w #$FFFF
     sta $04
     ldy.w #$0008

@@ -139,6 +139,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover action-table rows `291..299`, shared helpers
   `C2:C37A/C3E2/C41F`, `$A97A` phase progression, staged damage amounts, and
   finale joins to battle-background distortion and overlay helpers.
+- 2026-04-30 seventeenth slice: promoted battle sprite contracts into
+  byte-neutral source comments plus `notes/c2-battle-sprite-runtime-polish.md`.
+  The promoted contracts cover current battle-group sprite loading, loaded slot
+  lookup, width-budget trimming, enemy row layout, render-order arrays, row
+  render commits, and enemy sprite palette-wave state.
 
 ## Validation
 

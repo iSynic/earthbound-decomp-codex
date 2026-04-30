@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:F8F9..C2:F917 RenderAndCommitBattleSpriteRows
+;
+; Runtime contract:
+; - Wrapper that renders both battle sprite rows and commits the prepared
+;   renderer work.
+; - Selects WRAM bank `$7E`, resets the renderer frame state, renders row `0`
+;   and row `1` through the local row renderer at `C2:F724`, then flushes the
+;   queued sprite/tile work.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,8 +31,10 @@ C2F8F9_RenderAndCommitBattleSpriteRows:
     jsl C088A5_SetRendererWorkBank
     jsl C088B1_ResetRendererFrameState
     lda.w #$0000
+    ; Render front row.
     jsr $F724
     lda.w #$0001
+    ; Render back row.
     jsr $F724
     jsl C08B26_FlushQueuedSpriteOrTileWork
     rtl

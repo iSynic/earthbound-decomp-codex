@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:EEE7..C2:F09F LoadBattleGroupEnemySprites
+;
+; Runtime contract:
+; - Loads the battle sprite assets needed by the current battle group.
+; - Uses `CURRENT_BATTLE_GROUP` at `$4A8C` to resolve the D0 battle-group row,
+;   then maps each enemy id through the D5 enemy configuration table.
+; - Copies the selected CE battle sprite palette row into the `$0300` staging
+;   buffer, records loaded sprite ids in `$AABE`, and calls the local
+;   `LOAD_BATTLE_SPRITE` family helper to allocate sprite graphics/map rows.
+; - After the group pass, transfers staged sprite data to VRAM `$2000` or
+;   `$3000` depending on the loaded sprite allocation count in `$AAB2`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,6 +34,7 @@ C2EEE7_LoadBattleGroupEnemySprites:
     tdc
     adc.w #$FFE2
     tcd
+    ; Reset loaded spritemap and sprite allocation counters.
     stz $AAB4
     stz $AAB2
     lda.w #$C60D
@@ -35,6 +46,7 @@ C2EEE7_LoadBattleGroupEnemySprites:
     asl A
     asl A
     clc
+    ; `D0:C60D + CURRENT_BATTLE_GROUP * 8` gives the enemy-list pointer.
     adc $0A
     sta $0A
     ldy.w #$0002
@@ -66,6 +78,7 @@ C2EF21_LoadBattleGroupEnemySprites_LEF21:
     ldy.w #$005E
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $14
+    ; Enemy config offset +0x1C -> battle sprite id.
     clc
     adc.w #$001C
     clc
@@ -112,14 +125,17 @@ C2EF21_LoadBattleGroupEnemySprites_LEF21:
     asl A
     clc
     adc.w #$0300
+    ; Enemy config offset +0x35 selects a 0x20-byte battle sprite palette row.
     jsl C08ED2_CopyMemoryBlock
     lda $AAB4
     asl A
     tax
+    ; Record the source enemy/sprite id in the loaded-sprite slot table.
     lda [$0A]
     sta $AABE,X
     ldy $12
     tya
+    ; Initialize/allocate the selected battle sprite graphics/map data.
     jsr $EAEA
     lda $1A
     sta $06
@@ -150,6 +166,7 @@ C2EFD4_LoadBattleGroupEnemySprites_LEFD4:
 C2EFE3_LoadBattleGroupEnemySprites_LEFE3:
     ldx.w #$2000
 C2EFE6_LoadBattleGroupEnemySprites_LEFE6:
+    ; Commit the staged sprite graphics/map block to the selected VRAM base.
     lda.w #$0000
     sta $0E
     lda.w #$007F
@@ -177,6 +194,7 @@ C2EFE6_LoadBattleGroupEnemySprites_LEFE6:
     inx
     inx
     inx
+    ; Width helper over BATTLE_SPRITES_POINTERS size byte.
     lda $CE62EE,X
     and.w #$00FF
     cmp.w #$0001
@@ -223,6 +241,7 @@ C2F04C_LoadBattleGroupEnemySprites_LF04C:
     inx
     inx
     inx
+    ; Height helper over BATTLE_SPRITES_POINTERS size byte.
     lda $CE62EE,X
     and.w #$00FF
     cmp.w #$0001

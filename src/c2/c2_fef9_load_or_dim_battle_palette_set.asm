@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:FEF9..C2:FF9A LoadOrDimBattlePaletteSet
+;
+; Runtime contract:
+; - Loads one of the C3 battle palette sets, or builds a dimmed copy of the
+;   active palette buffer.
+; - If input A is nonzero, `(A - 1)` selects a 0x20-byte row at `C3:F8F1`; the
+;   row is copied to `$0380/$03A0/$03C0/$03E0` and committed.
+; - If input A is zero, palette words `$0200 + 0x80*2 .. 0xBF*2` are darkened
+;   with two `LSR` operations and `AND #$1CE7`, then written to `$0280`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +40,7 @@ C2FEF9_LoadOrDimBattlePaletteSet:
     sta $12
     cpy.w #$0000
     beq C2FF73_LoadOrDimBattlePaletteSet_LFF73
+    ; Nonzero mode: copy a C3 battle palette row into all four sprite palettes.
     lda.w #$F8F1
     sta $06
     lda.w #$00C3
@@ -76,6 +85,7 @@ C2FEF9_LoadOrDimBattlePaletteSet:
     jsl C0856B_WaitFramesOrTransitionDelay
     bra C2FF98_LoadOrDimBattlePaletteSet_LFF98
 C2FF73_LoadOrDimBattlePaletteSet_LFF73:
+    ; Zero mode: build a dimmed copy from `$0200` into `$0280`.
     lda.w #$0080
     sta $12
     bra C2FF8C_LoadOrDimBattlePaletteSet_LFF8C

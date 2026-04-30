@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:F0D1..C2:F121 TrimLoadedEnemySpriteListToWidthLimit
+;
+; Runtime contract:
+; - Keeps the staged enemy sprite list within the total row-width budget.
+; - Iterates `$9F8C[0..$9F8A)`, maps each entry through the D5 enemy config
+;   battle sprite id, calls the local width helper, and truncates `$9F8A` when
+;   accumulated width would exceed `0x20`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +37,7 @@ C2F0E3_TrimLoadedEnemySpriteListToWidthLimit_LF0E3:
     txa
     asl A
     tax
+    ; Staged enemy list entry -> enemy config -> battle sprite id.
     lda $9F8C,X
     ldy.w #$005E
     jsl C08FF7_ResolveIndexedPointerOffset
@@ -38,6 +45,7 @@ C2F0E3_TrimLoadedEnemySpriteListToWidthLimit_LF0E3:
     adc.w #$001C
     tax
     lda $D59589,X
+    ; Width helper returns the sprite's layout width in 8x8-tile units.
     jsr $EFFD
     sta $02
     ldy $10
@@ -49,6 +57,7 @@ C2F0E3_TrimLoadedEnemySpriteListToWidthLimit_LF0E3:
     cpy.w #$0020
     bcc C2F115_TrimLoadedEnemySpriteListToWidthLimit_LF115
     beq C2F115_TrimLoadedEnemySpriteListToWidthLimit_LF115
+    ; Over budget: keep only entries before the first overflowing sprite.
     ldx $0E
     stx $9F8A
     bra C2F11F_TrimLoadedEnemySpriteListToWidthLimit_LF11F

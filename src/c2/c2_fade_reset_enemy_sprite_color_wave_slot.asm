@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:FADE..C2:FB35 ResetEnemySpriteColorWaveSlot
+;
+; Runtime contract:
+; - Resets one enemy sprite color-wave group.
+; - Input A is the duration/timer value and X selects one of four color-wave
+;   groups. The duration is stored in `$B37C` and `$AEF4[group]`.
+; - Negates the group's 0x30 words of component deltas rooted at `$AEFC` and
+;   clears the matching accumulator words rooted at `$B07C`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +37,7 @@ C2FADE_ResetEnemySpriteColorWaveSlot:
     tya
     asl A
     tax
+    ; Per-group active timer.
     lda $B37C
     sta $AEF4,X
     ldx.w #$0000
@@ -53,6 +61,7 @@ C2FAFD_ResetEnemySpriteColorWaveSlot_LFAFD:
     adc.w #$AEFC
     sta $02
     ldx $02
+    ; Reverse the current component delta for the selected wave group.
     lda $0000,X
     eor.w #$FFFF
     inc A
@@ -60,6 +69,7 @@ C2FAFD_ResetEnemySpriteColorWaveSlot_LFAFD:
     sta $0000,X
     lda $0E
     tax
+    ; Clear the matching accumulator.
     stz $B07C,X
     ldx $10
     inx

@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:FD99..C2:FEF9 AdvanceEnemySpriteColorWavePalettes
+;
+; Runtime contract:
+; - Advances the four enemy sprite color-wave palette groups.
+; - Each active `$AEF4[group]` timer is decremented. Active groups iterate
+;   palette entries `1..15`, apply per-component deltas and accumulators from
+;   `$AEFC/$B07C/$B1FC`, and write updated RGB555 words back into the battle
+;   sprite palette buffer around `$0382`.
+; - Finishes each active group with `C0:856B(0x10)` to commit palette changes.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +40,7 @@ C2FDAB_AdvanceEnemySpriteColorWavePalettes_LFDAB:
     clc
     adc.w #$AEF4
     tax
+    ; Skip inactive color-wave groups.
     lda $0000,X
     bne C2FDBB_AdvanceEnemySpriteColorWavePalettes_LFDBB
     jmp.w C2FEE5_AdvanceEnemySpriteColorWavePalettes_LFEE5
@@ -74,6 +83,7 @@ C2FDBB_AdvanceEnemySpriteColorWavePalettes_LFDBB:
     sta $10
     jmp.w C2FED2_AdvanceEnemySpriteColorWavePalettes_LFED2
 C2FDFA_AdvanceEnemySpriteColorWavePalettes_LFDFA:
+    ; Red component lane.
     lda $0000,Y
     beq C2FE34_AdvanceEnemySpriteColorWavePalettes_LFE34
     stx $16
@@ -105,6 +115,7 @@ C2FE24_AdvanceEnemySpriteColorWavePalettes_LFE24:
     bcc C2FE0E_AdvanceEnemySpriteColorWavePalettes_LFE0E
     beq C2FE0E_AdvanceEnemySpriteColorWavePalettes_LFE0E
 C2FE34_AdvanceEnemySpriteColorWavePalettes_LFE34:
+    ; Green component lane.
     iny
     iny
     inx
@@ -145,6 +156,7 @@ C2FE6A_AdvanceEnemySpriteColorWavePalettes_LFE6A:
     bcc C2FE54_AdvanceEnemySpriteColorWavePalettes_LFE54
     beq C2FE54_AdvanceEnemySpriteColorWavePalettes_LFE54
 C2FE7A_AdvanceEnemySpriteColorWavePalettes_LFE7A:
+    ; Blue component lane.
     iny
     iny
     inx
@@ -205,6 +217,7 @@ C2FED2_AdvanceEnemySpriteColorWavePalettes_LFED2:
     jmp.w C2FDFA_AdvanceEnemySpriteColorWavePalettes_LFDFA
 C2FEDE_AdvanceEnemySpriteColorWavePalettes_LFEDE:
     lda.w #$0010
+    ; Commit the updated sprite palette buffer.
     jsl C0856B_WaitFramesOrTransitionDelay
 C2FEE5_AdvanceEnemySpriteColorWavePalettes_LFEE5:
     inc $04

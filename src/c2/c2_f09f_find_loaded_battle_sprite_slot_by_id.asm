@@ -7,6 +7,11 @@
 ;
 ; Source units covered:
 ; - C2:F09F..C2:F0D1 FindLoadedBattleSpriteSlotById
+;
+; Runtime contract:
+; - Finds the loaded battle sprite slot for input sprite id A.
+; - Scans the four-entry loaded sprite id table at `$AABE`; returns the matching
+;   slot index, or `0` when no entry matches.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +40,7 @@ C2F0B3_FindLoadedBattleSpriteSlotById_LF0B3:
     ldx $10
     txa
     plx
+    ; `$AABE + slot*2` holds the sprite id loaded for that slot.
     cmp $AABE,X
     bne C2F0C2_FindLoadedBattleSpriteSlotById_LF0C2
     lda $0E
