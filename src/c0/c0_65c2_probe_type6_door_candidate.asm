@@ -31,6 +31,9 @@ C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
 C4A7B0_StepBattleOverlayScriptState           = $C4A7B0
 C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+; Entry at C0:65C2 is the front-interaction fallback for movement-trigger type
+; `#$06`: probe nearby trigger cells through C0:7477, cache the CF destination
+; pointer in `$5DDE/$5DE0`, copy side byte to `$5DDC`, and set `$5D62=#$FFFE`.
 
 ; ---------------------------------------------------------------------------
 ; C0:65C2
@@ -69,6 +72,7 @@ C065C2_Probe_Type6DoorCandidate:
 C065F5_Probe_Type6DoorCandidate_L65F5:
     ldx $02
     tya
+    ; Probe the trigger cell in front of the party.
     jsl $C07477
     rep #$20
     and.w #$00FF
@@ -88,6 +92,7 @@ C06617_Probe_Type6DoorCandidate_L6617:
     beq C06660_Probe_Type6DoorCandidate_L6660
     cpx.w #$0006
     bne C06660_Probe_Type6DoorCandidate_L6660
+    ; Type 6 means cache a door/destination pointer for the interaction result.
     lda.w #$0000
     sta $06
     lda.w #$00CF
@@ -114,6 +119,7 @@ C06617_Probe_Type6DoorCandidate_L6617:
     lda $08
     sta $5DE0
     lda.w #$FFFE
+    ; Signal the resolver to use the cached type-6 fallback destination state.
     sta $5D62
 C06660_Probe_Type6DoorCandidate_L6660:
     pld

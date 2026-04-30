@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C0A48F_RefreshVisualProfileForSlot = $C0A48F
+; Public resolver for the `41E3 -> 4116` interaction-probe path. Initializes
+; `$5D62/$5D64`, updates facing cache `$2AF6[active slot]` when the accepted
+; facing changes, and refreshes the current slot visual profile.
 
 ; ---------------------------------------------------------------------------
 ; C0:4279
@@ -24,6 +27,7 @@ C04279_Resolve_InteractableAlongFacingTarget = FIND_NEARBY_CHECKABLE_TPT_ENTRY
     adc.w #$FFEE
     tcd
     lda.w #$FFFF
+    ; Interaction result sentinels before probing.
     sta $5D62
     sta $5D64
     jsr $41E3
@@ -38,6 +42,7 @@ C04279_Resolve_InteractableAlongFacingTarget = FIND_NEARBY_CHECKABLE_TPT_ENTRY
     lda $10
     cmp $2AF6,X
     beq C042BD_Resolve_InteractableAlongFacingTarget_L42BD
+    ; Accepted facing changed: commit it and refresh the slot's visual profile.
     sta $987F
     ldx $0E
     lda $0000,X

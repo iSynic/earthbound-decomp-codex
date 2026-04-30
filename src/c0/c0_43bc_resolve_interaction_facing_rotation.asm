@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Facing-rotation policy for the C0:42EF front-interaction probe. Tests current
+; facing, then rotated alternatives; restores `$987F` and returns `#$FFFF`
+; when no usable `$5D62` result is found.
 
 ; ---------------------------------------------------------------------------
 ; C0:43BC
@@ -29,6 +31,7 @@ C043BC_Resolve_InteractionFacingRotation:
     tyx
     stx $0E
     txa
+    ; Try current facing first.
     jsr $42EF
     cmp.w #$FFFF
     beq C043E3_Resolve_InteractionFacingRotation_L43E3
@@ -47,6 +50,7 @@ C043E3_Resolve_InteractionFacingRotation_L43E3:
     stx $0E
     stx $987F
     txa
+    ; Then rotate by +2.
     jsr $42EF
     cmp.w #$FFFF
     beq C04404_Resolve_InteractionFacingRotation_L4404
@@ -67,6 +71,7 @@ C04404_Resolve_InteractionFacingRotation_L4404:
     stx $0E
     stx $987F
     txa
+    ; Then rotate by +4.
     jsr $42EF
     cmp.w #$FFFF
     beq C04427_Resolve_InteractionFacingRotation_L4427
@@ -85,6 +90,7 @@ C04427_Resolve_InteractionFacingRotation_L4427:
     stx $0E
     stx $987F
     txa
+    ; Last try is the opposite side of the original rotation sequence.
     jsr $42EF
     cmp.w #$FFFF
     beq C04448_Resolve_InteractionFacingRotation_L4448

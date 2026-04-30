@@ -11,12 +11,13 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; `$0081` is the active countdown set by the C0:83E3 stream installer.
 
 ; ---------------------------------------------------------------------------
 ; C0:4049
 
 C04049_Clear_AnimationScriptCountdown:
     rep #$31
+    ; Clear the active animation/script stream countdown without touching pointer state.
     stz $0081
     rtl

@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Input A indexes the `C3:E12C` direction-permission mask table. `$0065`
+; supplies the active input nibble, and `$5D9A != 0` suppresses movement input.
+; Return A is direction `0..7`, or `#$FFFF` when no enabled direction matches.
 
 ; ---------------------------------------------------------------------------
 ; C0:404F
@@ -30,14 +32,17 @@ C0404F_MapInputToDirection = MAP_INPUT_TO_DIRECTION
     stx $0E
     lda $5D9A
     beq C04069_MapInputToDirection_L4069
+    ; Movement/input suppression forces the no-direction sentinel.
     txa
     jmp.w C04114_MapInputToDirection_L4114
 C04069_MapInputToDirection_L4069:
     lda $10
     asl A
     tax
+    ; Per-mode mask controls which direction bits the current input can emit.
     lda $C3E12C,X
     sta $10
+    ; Directional pad nibble from the frame input state.
     lda $0065
     and.w #$0F00
     cmp.w #$0800

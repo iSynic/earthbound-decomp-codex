@@ -65,6 +65,11 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   visual-memory reservations, `EF:133F` sprite-pose descriptors, C0:1E49 slot
   creation, spawn candidate commits, and release paths. The rollup lives in
   `notes/c0-entity-visual-runtime-polish.md`.
+- 2026-04-30 third slice: added byte-neutral source comments for interaction
+  runtime centered on C0:404F input mapping, C0:4116/C0:42EF single-facing
+  probes, C0:41E3/C0:43BC facing-rotation policy, C0:4279/C0:4452 public
+  resolvers, and the type-6/C4 door fallback split. The rollup lives in
+  `notes/c0-interaction-runtime-polish.md`.
 
 ## Validation
 

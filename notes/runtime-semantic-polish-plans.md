@@ -46,3 +46,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c0-movement-collision-runtime-polish.md`.
 - 2026-04-30: C0 entity/visual lifecycle second slice landed as byte-neutral
   source comments plus `notes/c0-entity-visual-runtime-polish.md`.
+- 2026-04-30: C0 interaction runtime third slice landed as byte-neutral source
+  comments plus `notes/c0-interaction-runtime-polish.md`.

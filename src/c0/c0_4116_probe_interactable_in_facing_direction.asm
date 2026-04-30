@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Single-facing interaction probe used by C0:41E3. `$5D62` receives the mapped
+; target/result code, `$5D64` receives the raw slot when an entity overlaps,
+; and C4:334A is the door-destination fallback when no ordinary result lands.
 
 ; ---------------------------------------------------------------------------
 ; C0:4116
@@ -27,6 +29,7 @@ C04116_Probe_InteractableInFacingDirection:
     sta $16
     asl A
     tax
+    ; C3:E148/E158 are signed pixel offsets from the player position.
     lda $C3E148,X
     clc
     adc $9877
@@ -38,6 +41,7 @@ C04116_Probe_InteractableInFacingDirection:
     lda $5D58
     sta $12
     lda.w #$0001
+    ; Force overlap/collision probe mode while looking ahead of the player.
     sta $5D58
 C04143_Probe_InteractableInFacingDirection_L4143:
     lda.w #$9889
@@ -47,12 +51,14 @@ C04143_Probe_InteractableInFacingDirection_L4143:
     tay
     ldx $04
     lda $14
+    ; First try a live entity/slot overlap at the probed point.
     jsl $C05FF6
     sta $10
     cmp.w #$8000
     bcs C0416C_Probe_InteractableInFacingDirection_L416C
     asl A
     tax
+    ; Map raw slot id through `$2C9A`; keep raw slot in `$5D64`.
     lda $2C9A,X
     sta $5D62
     lda $10
@@ -66,6 +72,7 @@ C0416C_Probe_InteractableInFacingDirection_L416C:
     tay
     ldx $04
     lda $14
+    ; Passable tile pattern `#$0082` allows another 8-pixel step forward.
     jsl $C05CD7
     and.w #$0082
     cmp.w #$0082
@@ -115,6 +122,7 @@ C041C6_Probe_InteractableInFacingDirection_L41C6:
     bne C041DE_Probe_InteractableInFacingDirection_L41DE
 C041D8_Probe_InteractableInFacingDirection_L41D8:
     lda $16
+    ; Ordinary probe failed; try C4's door-destination-ahead fallback.
     jsl $C4334A
 C041DE_Probe_InteractableInFacingDirection_L41DE:
     lda $5D62

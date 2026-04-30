@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Public front-interaction resolver used by bank C1. Initializes `$5D62/$5D64`,
+; runs the `43BC -> 42EF` front-facing probe path, and updates facing/visual
+; state when a rotated facing produced the target.
 
 ; ---------------------------------------------------------------------------
 ; C0:4452
@@ -24,6 +26,7 @@ C04452_Resolve_FrontInteractionTarget = FIND_NEARBY_TALKABLE_TPT_ENTRY
     adc.w #$FFEE
     tcd
     lda.w #$FFFF
+    ; Interaction result sentinels before probing.
     sta $5D62
     sta $5D64
     jsr $43BC
@@ -38,6 +41,7 @@ C04452_Resolve_FrontInteractionTarget = FIND_NEARBY_TALKABLE_TPT_ENTRY
     lda $10
     cmp $2AF6,X
     beq C04496_Resolve_FrontInteractionTarget_L4496
+    ; Accepted facing changed: commit it and refresh the slot's visual profile.
     sta $987F
     ldx $0E
     lda $0000,X

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Copies a caller-frame long pointer from `$20/$22` into the stream installer
+; contract consumed by C0:83E3 (`$007B/$007D/$007F/$0081/$0083` family).
 
 ; ---------------------------------------------------------------------------
 ; C0:402B
@@ -30,6 +31,7 @@ C0402B_Install_AnimationScriptFromCallerPointer:
     sta $0E
     lda $08
     sta $10
+    ; C0:83E3 installs the record-driven animation/script stream and countdown.
     jsl $C083E3
     pld
     rtl

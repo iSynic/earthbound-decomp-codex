@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Core front-facing interaction probe. `$5D62` is the result code: normal
+; mapped target, `0`/`#$FFFF` for no usable ordinary target, or `#$FFFE` after
+; the type-6 door fallback caches a destination pointer.
 
 ; ---------------------------------------------------------------------------
 ; C0:42EF
@@ -27,6 +29,7 @@ C042EF_Probe_FrontInteractionFacing:
     sta $1A
     asl A
     tax
+    ; C3:E148/E158 are signed pixel offsets from the player position.
     lda $C3E148,X
     sta $18
     lda $C3E158,X
@@ -42,6 +45,7 @@ C042EF_Probe_FrontInteractionFacing:
     lda $5D58
     sta $12
     lda.w #$0001
+    ; Force overlap/collision probe mode for the forward interaction scan.
     sta $5D58
 C04324_Probe_FrontInteractionFacing_L4324:
     lda.w #$9889
@@ -51,12 +55,14 @@ C04324_Probe_FrontInteractionFacing_L4324:
     tay
     ldx $04
     lda $14
+    ; First try a live entity/slot overlap at the probed point.
     jsl $C05FF6
     sta $10
     cmp.w #$8000
     bcs C0434D_Probe_FrontInteractionFacing_L434D
     asl A
     tax
+    ; Map raw slot id through `$2C9A`; keep raw slot in `$5D64`.
     lda $2C9A,X
     sta $5D62
     lda $10
@@ -70,6 +76,7 @@ C0434D_Probe_FrontInteractionFacing_L434D:
     tay
     ldx $04
     lda $14
+    ; Passable tile pattern `#$0082` allows another 8-pixel step forward.
     jsl $C05CD7
     and.w #$0082
     cmp.w #$0082
@@ -115,6 +122,7 @@ C0439F_Probe_FrontInteractionFacing_L439F:
     bne C043B7_Probe_FrontInteractionFacing_L43B7
 C043B1_Probe_FrontInteractionFacing_L43B1:
     lda $1A
+    ; Ordinary probe failed; try the type-6 movement-trigger fallback.
     jsl $C065C2
 C043B7_Probe_FrontInteractionFacing_L43B7:
     lda $5D62

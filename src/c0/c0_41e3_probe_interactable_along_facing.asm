@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Facing-rotation policy for the C0:4116 single-facing probe. Tests current
+; facing, then rotated alternatives; restores `$987F` and returns `#$FFFF`
+; when no usable `$5D62` result is found.
 
 ; ---------------------------------------------------------------------------
 ; C0:41E3
@@ -29,6 +31,7 @@ C041E3_Probe_InteractableAlongFacing:
     tyx
     stx $0E
     txa
+    ; Try current facing first.
     jsr $4116
     cmp.w #$FFFF
     beq C0420A_Probe_InteractableAlongFacing_L420A
@@ -47,6 +50,7 @@ C0420A_Probe_InteractableAlongFacing_L420A:
     stx $0E
     stx $987F
     txa
+    ; Then rotate by +2.
     jsr $4116
     cmp.w #$FFFF
     beq C0422B_Probe_InteractableAlongFacing_L422B
@@ -67,6 +71,7 @@ C0422B_Probe_InteractableAlongFacing_L422B:
     stx $0E
     stx $987F
     txa
+    ; Then rotate by +4.
     jsr $4116
     cmp.w #$FFFF
     beq C0424E_Probe_InteractableAlongFacing_L424E
@@ -85,6 +90,7 @@ C0424E_Probe_InteractableAlongFacing_L424E:
     stx $0E
     stx $987F
     txa
+    ; Last try is the opposite side of the original rotation sequence.
     jsr $4116
     cmp.w #$FFFF
     beq C0426F_Probe_InteractableAlongFacing_L426F
