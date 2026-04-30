@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:F2A8..C1:F497 OpenDeleteFileConfirmationMenu
+;
+; Runtime contract:
+; - `C1:F2A8` opens confirmation window `0x17`, prints the selected 1-based
+;   save slot `$B4A1`, selected-file character summary, and `$99D3` level byte.
+; - Nonzero confirmation calls `EF:0BFA(current_slot - 1)`.
+; - `C1:F3C2` builds the text-speed menu window `0x18` and selects `$98B6`
+;   (`1 = Fast`, `2 = Medium`, `3 = Slow`; default row when zero).
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

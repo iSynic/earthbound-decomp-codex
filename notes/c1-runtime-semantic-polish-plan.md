@@ -103,3 +103,9 @@ This planning pass is documentation-only.
   comparison use, live slots `$99FF/$9A00/$9A01/$9A02`, shadow slots
   `$9CD0..$9CD3`, comparison markers `$9A1D..$9A20`, shop item selection joins,
   and the top-level party equipment controller.
+- 2026-04-30: C1 file-select slice landed as byte-neutral source comments plus
+  `notes/c1-file-select-runtime-polish.md`. The promoted contracts cover
+  save-slot status bytes `$B49E..$B4A0`, selected slot `$B4A1`, action/copy/delete
+  menu results, EF save-copy/delete/setup helper calls, setup bytes
+  `$98B6/$98B7/$99CD`, the file-select session wrapper, and the lead-entity
+  redraw predicate.

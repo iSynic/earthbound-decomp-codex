@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:F07E..C1:F14F OpenFileSelectActionMenu
+;
+; Runtime contract:
+; - Opens file-select action window `0x14`.
+; - Always adds Continue, Delete, and Set Up; adds Copy only when a non-current
+;   slot in `$B49E..$B4A0` is empty/available.
+; - Returns the menu selection from `C1:196A`: 0 cancel, 1 continue, 2 copy,
+;   3 delete, 4 setup.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C1:F497..C1:F616 OpenOrRefreshTextSpeedSelection
+;
+; Runtime contract:
+; - A == 0 runs the text-speed selection loop; a nonzero A redraws/previews the
+;   current setting without prompting.
+; - Committed nonzero selections write `$98B6` and call
+;   `EF:0A4D(current_slot - 1)`.
+; - The redraw path resolves the active text-entry record for `$98B6` and prints
+;   the selected row text in window `0x18`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:EC8F..C1:ECD1 PreviewWindowFlavourAndRedraw
+;
+; Runtime contract:
+; - A low byte = candidate window flavour.
+; - Temporarily writes `$99CD`, runs the C4 window/redraw refresh sequence, marks
+;   `$0030 = 0x18`, then restores the previous `$99CD` value.
+; - This is a preview helper for file-select/setup UI, not the permanent setting
+;   commit path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

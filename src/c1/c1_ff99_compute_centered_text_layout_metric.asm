@@ -9,6 +9,13 @@
 ; - C1:FF99..C1:FFD3 ComputeCenteredTextLayoutMetric
 ; - C1:FFD3..C1:FFEF ComputeBankC1ChecksumTail
 ; - C1:FFEF..C1:10000 BankC1ChecksumConstantAndPadding
+;
+; Runtime contract:
+; - `C1:FF99` is a C4 text-layout callback. It measures the current text/control
+;   value through `C4:3E31`, centers it against incoming X multiplied by 8, and
+;   stores fine/coarse offsets in `$9E23/$9E25`.
+; - `C1:FFD3` computes the bank-C1 checksum tail value into `$B539`; the final
+;   bytes are checksum constant plus bank-end padding, not executable logic.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

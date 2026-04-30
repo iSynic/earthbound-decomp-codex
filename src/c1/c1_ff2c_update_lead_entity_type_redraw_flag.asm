@@ -7,6 +7,12 @@
 ;
 ; Source unit covered:
 ; - C1:FF2C..C1:FF6B UpdateLeadEntityTypeRedrawFlag
+;
+; Runtime contract:
+; - Reads the current lead party entity object's byte `+0x0E`.
+; - Maps object values 1 and 2 to file-select transient state 1, all other
+;   values to 0.
+; - Stores the state in `$B4A2` and returns 1 only when the state changed.
 
 ActivePartyMemberCountOrIndex = $98A4
 PartyMemberSlotOrder          = $9891

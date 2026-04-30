@@ -7,6 +7,12 @@
 ;
 ; Source unit covered:
 ; - C1:FF6B..C1:FF99 RunFileSelectSession
+;
+; Runtime contract:
+; - Bank-C1 entry wrapper for the file-select session.
+; - Clears `$5E6E`, sets `$B49D`, runs `C1:F805`, pumps the post-loop display
+;   update calls, clears transient file-select latches `$B4B6/$B4A2`, restores
+;   `$5E6E = 0x00FF`, clears `$B49D`, and returns zero.
 
 C1F805_RunFileSelectLoop       = $F805
 C3E4CA_ClearInstantPrinting    = $C3E4CA

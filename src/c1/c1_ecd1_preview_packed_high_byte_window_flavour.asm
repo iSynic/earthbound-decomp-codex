@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C1:ECD1..C1:F07E PreviewPackedHighByteWindowFlavour
+;
+; Runtime contract:
+; - `C1:ECD1` adapts a packed menu row word by previewing its high byte as a
+;   window flavour through `C1:EC8F`.
+; - `C1:ECDC` prints the corrupt-save notice for bits set in `$9F79`, then
+;   clears the notice bitmask.
+; - `C1:ED5B` builds the three save-slot rows, setting `$B49E..$B4A0` to
+;   nonzero for valid saves and zero for empty/invalid slots.
+; - `C1:F03E` runs the slot-choice menu, stores the selected 1-based slot in
+;   `$B4A1`, and returns it after an EF checksum probe.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -129,6 +139,7 @@ C1ED75_PreviewPackedHighByteWindowFlavour_LED75:
     lda $9826
     and.w #$00FF
     beq C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1
+    ; Valid save slot: build the visible slot row and mark `$B49E + slot`.
     sep #$20
     stz $0E
     ldx.w #$0020
@@ -175,6 +186,7 @@ C1EDC7_PreviewPackedHighByteWindowFlavour_LEDC7:
     sta $1C
     bra C1EE28_PreviewPackedHighByteWindowFlavour_LEE28
 C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1:
+    ; Empty/invalid save slot: build the empty-row label and clear `$B49E + slot`.
     ldy $1E
     tya
     sep #$20

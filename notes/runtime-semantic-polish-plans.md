@@ -70,3 +70,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source
   comments plus `notes/c1-equipment-runtime-polish.md`.
+- 2026-04-30: C1 file-select eighth slice landed as byte-neutral source
+  comments plus `notes/c1-file-select-runtime-polish.md`.

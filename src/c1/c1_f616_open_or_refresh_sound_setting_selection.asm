@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C1:F616..C1:FF2C OpenOrRefreshSoundSettingSelection
+;
+; Runtime contract:
+; - `C1:F616` mirrors the text-speed wrapper for sound setting `$98B7`
+;   (`1 = Stereo`, `2 = Mono`) and persists through `EF:0A4D`.
+; - `C1:F6E3` builds the window-flavour setup menu, previews rows through
+;   `C1:EC8F`, commits `$99CD` on nonzero selection, and persists setup state.
+; - `C1:F805` is the file-select menu loop. It dispatches existing saves through
+;   continue/copy/delete/setup actions and sends empty slots through the new-file
+;   setup/naming/start flow.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -278,6 +287,7 @@ C1F80D_OpenOrRefreshSoundSettingSelection_LF80D:
     jmp.w C1F8B9_RunNewFileSetupFlow
 C1F824_DispatchFileSelectActionMenuChoice:
     jsr $F07E
+    ; Action menu result: 0 cancel, 1 continue, 2 copy, 3 delete, 4 setup.
     cmp.w #$0000
     beq C1F842_OpenOrRefreshSoundSettingSelection_LF842
     cmp.w #$0001

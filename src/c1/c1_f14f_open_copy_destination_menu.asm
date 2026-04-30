@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:F14F..C1:F2A8 OpenCopyDestinationMenu
+;
+; Runtime contract:
+; - Builds the "copy to where" destination menu from empty save-slot bytes in
+;   `$B49E..$B4A0`.
+; - Uses compact window `0x16` when there is one destination, otherwise window
+;   `0x15`.
+; - On nonzero selection, calls `EF:0C15(current_slot - 1, destination - 1)`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
