@@ -1,37 +1,16 @@
 # EB-M2 Listing Integration Plan
 
-The EB-M2 Listing v1 archive changes the project posture. It appears to be a
-large address-annotated US/JP source listing with established labels, include
-paths, macros, and emitted bytes for banks `C0` through `EF`.
+The EB-M2 Listing v1 archive is a major reference input for the project. It
+appears to be a large address-annotated US/JP source listing with established
+labels, include paths, macros, and emitted bytes for banks `C0` through `EF`.
 
-This does not make the current repository useless. It does mean the project
-should stop presenting itself as if it is independently discovering every source
-label from scratch. The strongest role for this repo is now:
+The repository should integrate this listing as a source-label and
+module-boundary authority where applicable, while preserving its existing role
+as:
 
 > a validated integration, documentation, and tooling layer that cross-checks
 > ROM bytes, EB-M2 source listings, EBSRC/CoilSnake resource semantics, and
 > romhacker/porter-facing notes.
-
-## Public Framing
-
-Suggested short public update:
-
-```text
-After sharing the project publicly, the community pointed me toward a much
-larger EB/Mother 2 source-listing reference than I had previously found. That is
-good news, even if it means some of my wording needs to get more careful.
-
-The repo is still useful, but its best role is clearer now: it is not trying to
-replace CoilSnake, EBSRC, or existing source-listing work. It is becoming a
-validated crosswalk and documentation/tooling layer around them: byte-equivalent
-bank scaffolds, source/data ownership maps, ROM validation tools, asset/script
-audio notes, and a romhacker/porter-oriented index of how the pieces fit
-together.
-
-Next step is to integrate the new EB-M2 listing cautiously: use it to improve
-names, module boundaries, and public claims, while preserving attribution and
-not bulk-copying material unless licensing/provenance allows it.
-```
 
 ## Integration Principles
 
@@ -194,7 +173,7 @@ Good enough:
 1. Generate the EB-M2 listing index.
 2. Generate a C0/C1/C2/C3/C4/EF name crosswalk report.
 3. Update README/project status to remove any overclaiming.
-4. Post a short public correction/update using the framing above.
+4. Update public-facing status language after the first crosswalk reports.
 5. Only then start promoting names into source/docs.
 
 ## What Remains Useful
