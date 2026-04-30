@@ -11,13 +11,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Pushes slot X onto the free task-slot list rooted at `$0A52`.
 
 ; ---------------------------------------------------------------------------
 ; C0:9C8F
 
 C09C8F_Push_TaskSlotToFreeList:
     lda $0A52
+    ; New free-list head.
     sta $0A9E,X
     stx $0A52
     rts

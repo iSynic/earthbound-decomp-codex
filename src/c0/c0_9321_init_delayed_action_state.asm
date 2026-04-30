@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Allocates and seeds one active task slot plus one task record. Inputs are
+; staged in `$0A38..$0A4E`; allocation uses `$0A52/$0A54`, active linkage uses
+; `$0A50/$0A9E`, and the first record is stored in `$0ADA[slot]`.
 
 ; ---------------------------------------------------------------------------
 ; C0:9321
@@ -27,6 +29,7 @@ C09321_Init_DelayedActionState = INIT_ENTITY
     lda $0A4E
     asl A
     sta $0A4E
+    ; Allocate one slot in the requested doubled slot range.
     jsr $9C02
     bcc C0933E_Init_DelayedActionState_L933E
     pla
@@ -35,18 +38,21 @@ C09321_Init_DelayedActionState = INIT_ENTITY
     lda.w #$0000
     rtl
 C0933E_Init_DelayedActionState_L933E:
+    ; Allocate the first task record owned by this slot.
     jsr $9D03
     tya
     sta $0ADA,X
     lda.w #$FFFF
     sta $125A,Y
     lda.w #$9FC8
+    ; Default per-slot callbacks: integrate, project, and draw.
     sta $121E,X
     lda.w #$A023
     sta $11A6,X
     lda.w #$A3A4
     sta $11E2,X
     lda $0A38
+    ; Copy staged constructor parameters into the slot's task fields.
     sta $0E5E,X
     lda $0A3A
     sta $0E9A,X
@@ -76,6 +82,7 @@ C0933E_Init_DelayedActionState_L933E:
     sta $0B52,X
     lda $0A48
     sta $0C06,X
+    ; Link the allocated slot into the active task list.
     jsr $9C57
     pla
     bra C093CB_Init_DelayedActionState_L93CB
@@ -98,6 +105,7 @@ C093CB_Init_DelayedActionState_L93CB:
     tay
     lda $C400D4,X
     plx
+    ; Reset motion/scratch fields before initializing script state.
     stz $10F2,X
     dec $10F2,X
     stz $0DAA,X

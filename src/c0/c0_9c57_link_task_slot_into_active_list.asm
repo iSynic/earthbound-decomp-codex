@@ -11,13 +11,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Appends slot X to the active task-slot list rooted at `$0A50`; `$0A9E[slot]`
+; is the next pointer and `#$FFFF` terminates the chain.
 
 ; ---------------------------------------------------------------------------
 ; C0:9C57
 
 C09C57_Link_TaskSlotIntoActiveList:
     lda.w #$FFFF
+    ; New active-list tail.
     sta $0A9E,X
     txa
     ldx $0A50

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Rebuilds the free task-slot list rooted at `$0A52`. Existing free slots are
+; first marked with `#$8000`, then scanned downward to produce a compact chain.
 
 ; ---------------------------------------------------------------------------
 ; C0:9CD7
@@ -22,6 +23,7 @@ C09CD7_Compact_TaskSlotFreeList:
     bra C09CE6_Compact_TaskSlotFreeList_L9CE6
 C09CDF_Compact_TaskSlotFreeList_L9CDF:
     ldy $0A9E,X
+    ; Mark every currently-free slot before rebuilding the chain.
     sta $0A9E,X
     tyx
 C09CE6_Compact_TaskSlotFreeList_L9CE6:
@@ -33,6 +35,7 @@ C09CEE_Compact_TaskSlotFreeList_L9CEE:
     cmp.w #$8000
     bne C09CFB_Compact_TaskSlotFreeList_L9CFB
     tya
+    ; Rechain marked free slots in descending slot order.
     sta $0A9E,X
     txy
 C09CFB_Compact_TaskSlotFreeList_L9CFB:

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Finds the predecessor of target record Y in slot X's `$0ADA -> $125A` chain.
+; Returns predecessor in X, or `#$FFFF` when Y is the chain head.
 
 ; ---------------------------------------------------------------------------
 ; C0:9D3E
@@ -29,6 +30,7 @@ C09D3E_Find_TaskRecordPredecessor:
     ldy $0ADA,X
     ldx.w #$FFFF
 C09D51_Find_TaskRecordPredecessor_L9D51:
+    ; Walk record links until the target record is reached.
     cpy $00
     beq C09D5C_Find_TaskRecordPredecessor_L9D5C
     tyx

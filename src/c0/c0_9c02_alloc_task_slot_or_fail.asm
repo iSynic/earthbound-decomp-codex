@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Allocates a task slot from `$0A52` within the caller range `$0A4C..$0A4E`.
+; Requires at least one free task record in `$0A54`; carry set reports failure.
+; The local C0:9C3B entry releases a slot and returns its record/slot chains.
 
 ; ---------------------------------------------------------------------------
 ; C0:9C02
@@ -24,6 +26,7 @@ C09C02_Alloc_TaskSlotOrFail:
     bmi C09C20_Alloc_TaskSlotOrFail_L9C20
 C09C0F_Alloc_TaskSlotOrFail_L9C0F:
     tax
+    ; Scan free-slot chain until a slot falls within the requested range.
     cpx $0A4C
     bcc C09C1A_Alloc_TaskSlotOrFail_L9C1A
     cpx $0A4E
@@ -38,6 +41,7 @@ C09C20_Alloc_TaskSlotOrFail_L9C20:
 C09C22_Alloc_TaskSlotOrFail_L9C22:
     tya
     bpl C09C2D_Alloc_TaskSlotOrFail_L9C2D
+    ; Allocated head of free-slot list.
     lda $0A9E,X
     sta $0A52
     clc
@@ -57,6 +61,7 @@ C09C3B_Alloc_TaskSlotOrFail_L9C3B:
     bmi C09C55_Alloc_TaskSlotOrFail_L9C55
     phy
     lda.w #$FFFF
+    ; Mark inactive, restore records, detach active link, then push slot free.
     sta $0A62,X
     jsr $9DA1
     jsr $9C99

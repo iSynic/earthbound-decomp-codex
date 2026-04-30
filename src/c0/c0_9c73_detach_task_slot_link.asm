@@ -11,12 +11,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Removes slot X from the active task-slot list. Helper C0:9CB5 returns the
+; predecessor in Y (`#$FFFF` when X is the head), then `$0A50/$0A56` are fixed.
 
 ; ---------------------------------------------------------------------------
 ; C0:9C73
 
 C09C73_Detach_TaskSlotLink:
+    ; Find predecessor of X in the `$0A50 -> $0A9E` active chain.
     jsr $9CB5
     lda $0A9E,X
     cpy.w #$FFFF

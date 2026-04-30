@@ -11,13 +11,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Removes record Y from the record chain owned by slot X. `$0ADA[slot]` is the
+; chain head and `$125A[record]` is the next pointer.
 
 ; ---------------------------------------------------------------------------
 ; C0:9D1F
 
 C09D1F_Unlink_TaskRecordFromSlotChain:
     phx
+    ; Find predecessor record in X, or `#$FFFF` when Y is the chain head.
     jsr $9D3E
     lda $125A,Y
     cpx.w #$FFFF
@@ -31,6 +33,7 @@ C09D31_Unlink_TaskRecordFromSlotChain_L9D31:
 C09D35_Unlink_TaskRecordFromSlotChain_L9D35:
     cpy $0A58
     bne C09D3D_Unlink_TaskRecordFromSlotChain_L9D3D
+    ; Keep the active script-record cursor from pointing at an unlinked record.
     sta $0A58
 C09D3D_Unlink_TaskRecordFromSlotChain_L9D3D:
     rts

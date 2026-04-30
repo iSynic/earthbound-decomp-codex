@@ -84,6 +84,10 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   ABI, `$0400` queued DMA descriptors, `$99` queue byte throttling, `$2C/$2E`
   scroll-buffer flipping, and NMI scroll commits. The rollup lives in
   `notes/c0-presentation-queue-runtime-polish.md`.
+- 2026-04-30 seventh slice: added byte-neutral source comments for the task
+  allocator/runtime core centered on `$0A50/$0A52/$0A54`, `$0A9E`, `$0ADA`,
+  `$125A`, task-slot callbacks, and the C0:DB0F default dispatcher. The rollup
+  lives in `notes/c0-task-pool-runtime-polish.md`.
 
 ## Validation
 

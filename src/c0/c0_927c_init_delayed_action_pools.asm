@@ -11,13 +11,16 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Bootstraps the task-slot/task-record pools. `$0A50` is the active slot list,
+; `$0A52` the free task-slot list, `$0A54` the free task-record list, `$0A9E`
+; slot next pointers, `$0ADA` slot-owned record heads, and `$125A` record links.
 
 ; ---------------------------------------------------------------------------
 ; C0:927C
 
 C0927C_Init_DelayedActionPools:
     lda.w #$DB0F
+    ; Default tail dispatcher for active task-slot processing.
     sta $0A5E
     ldx.w #$FFFF
     stx $0A50
@@ -29,6 +32,7 @@ C0927C_Init_DelayedActionPools:
     clc
     ldx.w #$0038
 C09299_Init_DelayedActionPools_L9299:
+    ; Seed the task-slot free list in `$0A9E`.
     txa
     adc.w #$0002
     sta $0A9E,X
@@ -37,6 +41,7 @@ C09299_Init_DelayedActionPools_L9299:
     bpl C09299_Init_DelayedActionPools_L9299
     ldx.w #$0088
 C092A7_Init_DelayedActionPools_L92A7:
+    ; Seed the task-record free list in `$125A`.
     txa
     adc.w #$0002
     sta $125A,X
@@ -46,6 +51,7 @@ C092A7_Init_DelayedActionPools_L92A7:
     ldx.w #$003A
     lda.w #$FFFF
 C092B8_Init_DelayedActionPools_L92B8:
+    ; Mark all task slots inactive.
     sta $0A62,X
     dex
     dex

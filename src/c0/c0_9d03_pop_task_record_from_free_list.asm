@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Pops one task-record index from the free-record list rooted at `$0A54`.
+; Returns the record in Y with carry clear, or carry set when no record exists.
 
 ; ---------------------------------------------------------------------------
 ; C0:9D03
@@ -23,6 +24,7 @@ C09D03_Pop_TaskRecordFromFreeList:
     rts
 C09D0A_Pop_TaskRecordFromFreeList_L9D0A:
     lda $125A,Y
+    ; Advance free-record head to next link.
     sta $0A54
     clc
     rts

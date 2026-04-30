@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Active task-slot runner. Walks `$0A50 -> $0A9E`, runs per-slot callbacks at
+; `$121E/$11A6`, then tail-dispatches through `$0A5E` (normally C0:DB0F).
+; The alternate entry processes task records through `$0ADA/$125A` and the
+; action-script frame runner at C0:9506.
 
 ; ---------------------------------------------------------------------------
 ; C0:94AA
@@ -22,14 +25,17 @@ C094AA_Process_ActiveTaskSlots:
     stx $88
     bit $10B6,X
     bvs C094BA_Process_ActiveTaskSlots_L94BA
+    ; Primary per-slot motion/update callback.
     jsr ($121E,X)
 C094BA_Process_ActiveTaskSlots_L94BA:
+    ; Projection/display-position callback runs even when the primary is gated.
     jsr ($11A6,X)
     ldx $88
     lda $0A9E,X
     tax
     bpl C094AA_Process_ActiveTaskSlots
     ldx.w #$0000
+    ; Tail dispatcher for visible/task-data work.
     jsr ($0A5E,X)
     pld
     stz $0A60
@@ -38,12 +44,14 @@ C094BA_Process_ActiveTaskSlots_L94BA:
     bvs C094F3_Process_ActiveTaskSlots_L94F3
     ldy $0ADA,X
 C094D8_Process_ActiveTaskSlots_L94D8:
+    ; Walk the task-record chain for this slot.
     sty $8A
     sty $1A48
     sty $1A46
     lsr $1A46
     lda $125A,Y
     sta $0A58
+    ; Run one action-script frame for the selected record.
     jsr $9506
     ldy $0A58
     bpl C094D8_Process_ActiveTaskSlots_L94D8
@@ -54,6 +62,7 @@ C094F3_Process_ActiveTaskSlots_L94F3:
     sta $0A5C
     lda $107A,X
     sta $0A5A
+    ; Optional per-slot indirect callback when high flag is clear.
     jsl $C09D9E
 C09505_Process_ActiveTaskSlots_L9505:
     rts

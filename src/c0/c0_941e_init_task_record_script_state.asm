@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Initializes the script state for the first task record owned by the current
+; task slot. `$13FE/$148A` hold script offset/bank-ish state, `$1372` the wait
+; counter, and `$12E6` the return-stack depth.
 
 ; ---------------------------------------------------------------------------
 ; C0:941E
@@ -23,9 +25,11 @@ C0941E_Init_TaskRecordScriptState:
     txy
     ldx $0ADA,Y
     pla
+    ; Script offset.
     sta $13FE,X
     pla
     and.w #$00FF
+    ; Script bank/page-ish byte.
     sta $148A,X
     stz $1372,X
     stz $12E6,X

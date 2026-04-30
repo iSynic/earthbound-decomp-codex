@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Default task-record callback/state pair used when clearing a record.
 
 ; ---------------------------------------------------------------------------
 ; C0:9DA1
@@ -19,6 +19,7 @@
 CLEAR_SPRITE_TICK_CALLBACK:
 C09DA1_Init_TaskRecordDefaults = CLEAR_SPRITE_TICK_CALLBACK
     lda.w #$943B
+    ; Default callback target plus bank/flags word.
     sta $107A,X
     lda.w #$00C0
     sta $10B6,X

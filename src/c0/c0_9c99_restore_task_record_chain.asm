@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Restores the task-record chain owned by slot X to the free-record list rooted
+; at `$0A54`. The local C0:9CB5 helper below finds a slot predecessor in the
+; active chain.
 
 ; ---------------------------------------------------------------------------
 ; C0:9C99
@@ -23,12 +25,14 @@ C09C99_Restore_TaskRecordChain:
     lda $0A54
     pha
     lda $0ADA,X
+    ; Slot-owned record chain becomes the new free-record head.
     sta $0A54
 C09CA9_Restore_TaskRecordChain_L9CA9:
     tax
     lda $125A,X
     bpl C09CA9_Restore_TaskRecordChain_L9CA9
     pla
+    ; Link old free-record head to the tail of the restored chain.
     sta $125A,X
     plx
 C09CB4_Restore_TaskRecordChain_L9CB4:

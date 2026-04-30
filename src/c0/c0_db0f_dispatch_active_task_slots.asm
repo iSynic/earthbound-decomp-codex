@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Default task tail dispatcher installed in `$0A5E`. Walks active slots from
+; `$0A50`, dispatches visible/in-range task data through C0:A0CA, and orders
+; `$103E == 1` entries through the `$280C` chain by projected Y `$0BCA`.
 
 ; ---------------------------------------------------------------------------
 ; C0:DB0F
@@ -34,6 +36,7 @@ C0DB25_Dispatch_ActiveTaskSlots_LDB25:
     sty $14
     bra C0DB7C_Dispatch_ActiveTaskSlots_LDB7C
 C0DB31_Dispatch_ActiveTaskSlots_LDB31:
+    ; Reject slots outside the broad projected-screen bounds.
     tya
     lsr A
     asl A
@@ -62,6 +65,7 @@ C0DB53_Dispatch_ActiveTaskSlots_LDB53:
     lda $103E,X
     cmp.w #$0001
     bne C0DB6C_Dispatch_ActiveTaskSlots_LDB6C
+    ; `$103E == 1` entries are deferred into `$280C` for sorted dispatch.
     lda $16
     sta $280C,X
     lda $12
@@ -69,6 +73,7 @@ C0DB53_Dispatch_ActiveTaskSlots_LDB53:
     bra C0DB71_Dispatch_ActiveTaskSlots_LDB71
 C0DB6C_Dispatch_ActiveTaskSlots_LDB6C:
     lda $12
+    ; Immediate task-data callback for ordinary visible entries.
     jsr $A0CA
 C0DB71_Dispatch_ActiveTaskSlots_LDB71:
     ldy $14
@@ -84,6 +89,7 @@ C0DB7C_Dispatch_ActiveTaskSlots_LDB7C:
     bne C0DB31_Dispatch_ActiveTaskSlots_LDB31
     bra C0DBDF_Dispatch_ActiveTaskSlots_LDBDF
 C0DB82_Dispatch_ActiveTaskSlots_LDB82:
+    ; Select the remaining deferred entry with the greatest projected Y.
     lda $16
     sta $10
     lda $16
@@ -119,6 +125,7 @@ C0DBB7_Dispatch_ActiveTaskSlots_LDBB7:
     inc A
     bne C0DB9D_Dispatch_ActiveTaskSlots_LDB9D
     lda $10
+    ; Dispatch one sorted `$103E == 1` entry.
     jsr $A0CA
     lda $04
     inc A

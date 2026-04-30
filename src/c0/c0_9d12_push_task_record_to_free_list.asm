@@ -11,12 +11,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Unlinks record Y from its owning slot chain and pushes it onto the free-record
+; list rooted at `$0A54`.
 
 ; ---------------------------------------------------------------------------
 ; C0:9D12
 
 C09D12_Push_TaskRecordToFreeList:
+    ; Remove Y from `$0ADA[slot] -> $125A` before returning it to free list.
     jsr $9D1F
     lda $0A54
     sta $125A,Y
