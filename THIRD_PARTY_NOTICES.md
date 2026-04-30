@@ -3,6 +3,12 @@
 This repository is an independent research scaffold. It does not vendor a ROM,
 game assets, local reference checkouts, generated audio, or emulator source.
 
+Original project code and documentation are licensed under the Mozilla Public
+License 2.0. That license does not apply to EarthBound, Mother 2, local
+reference dumps, generated ROM-derived assets, or third-party projects unless
+those materials are separately offered under compatible terms by their
+respective rights holders.
+
 ## EarthBound / Mother 2
 
 EarthBound and Mother 2 are copyrighted works owned by their respective rights
@@ -18,9 +24,14 @@ copying private/local dumps wholesale.
 
 Known reference families used during research include:
 
+- Starmen.net
+- EarthBound Wiki
+- Herringway / EBSRC
 - Yoshifanatic1's EarthBound disassembly work
 - eb-decompile / EB source-style references
 - Starmen / Tomato script dumps and recovered localization script material
+- ares emulator documentation/source for SNES/APU behavior and audio backend
+  experiments
 
 These references are accelerators and corroboration sources, not vendored
 dependencies.
