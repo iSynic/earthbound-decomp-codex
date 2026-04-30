@@ -92,3 +92,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   plus `notes/c2-psi-flash-runtime-polish.md`.
 - 2026-04-30: C2 late status ninth slice landed as byte-neutral source comments
   plus `notes/c2-late-status-runtime-polish.md`.
+- 2026-04-30: C2 PSI animation tenth slice landed as byte-neutral source
+  comments plus `notes/c2-psi-animation-runtime-polish.md`.

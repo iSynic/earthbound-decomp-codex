@@ -112,6 +112,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover persistent subgroup `+0x1E`, temporary subgroup
   `+0x1F`, strange subgroup `+0x20`, and the adjacent PP-drain/primary-affliction
   bodies that share the late status source corridor.
+- 2026-04-30 twelfth slice: promoted PSI animation tick contracts into
+  byte-neutral source comments plus `notes/c2-psi-animation-runtime-polish.md`.
+  The promoted contracts cover the `C2:E6B3` source prefix, `C2:E6B6` frame
+  timer/source pointer, palette cycling state, VRAM `$5800` uploads, and
+  enemy-color/alternate-palette timers.
 
 ## Validation
 

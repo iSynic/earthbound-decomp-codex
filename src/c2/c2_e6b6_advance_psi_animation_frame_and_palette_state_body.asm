@@ -7,6 +7,20 @@
 ;
 ; Source units covered:
 ; - C2:E6B6..C2:E8C4 C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody
+;
+; Runtime contract:
+; - Per-frame PSI visual animator consumed after `SHOW_PSI_ANIMATION` seeds the
+;   state block.
+; - `$1B9E` is the frame timer, `$1B9F` is the frame hold reload, `$1BA0` is
+;   frames remaining, and `$1BA1` is the current frame source pointer.
+; - Active frames upload `0x0400` bytes to VRAM `$5800`, advance the source
+;   pointer by `0x0400`, and decrement `$1BA0`; exhausted animations clear the
+;   larger `$5800` range and call the local visual cleanup helper.
+; - `$1BA5..$1BA9` drive PSI palette cycling, copying words from `$1BAA` into
+;   the displayed palette buffer rooted at `$1BCA`, then uploading palette
+;   changes through `C0:856B(0x18)`.
+; - `$1BCC/$1BCE` are enemy-color or alternate-palette timers that fan out to
+;   the nearby `FAD8/FB35/FADE` palette helper family.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,6 +42,7 @@ C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody:
     bne C2E6C9_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE6C9
     jmp.w C2E83D_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE83D
 C2E6C9_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE6C9:
+    ; Tick the PSI frame timer; zero means advance or clear the frame stream.
     ldx.w #$1B9E
     sep #$20
     lda $0000,X
@@ -48,6 +63,7 @@ C2E6DF_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE6DF:
     lda $1B9F
     sta $1B9E
     rep #$20
+    ; Upload the current 0x0400-byte frame source to VRAM $5800.
     lda.w #$1BA1
     sta $02
     ldy $02
@@ -88,6 +104,7 @@ C2E6DF_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE6DF:
     lda $08
     sta $0002,Y
     ldx $04
+    ; Advance the frame pointer and decrement frames remaining.
     sep #$20
     lda $0000,X
     dec A
@@ -95,6 +112,7 @@ C2E6DF_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE6DF:
     sta $0000,X
     bra C2E782_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE782
 C2E766_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE766:
+    ; No frames left: clear the PSI tile area and run visual cleanup.
     lda.w #$E6B4
     sta $0E
     lda.w #$00C2
@@ -106,6 +124,7 @@ C2E766_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE766:
     jsl C08616_QueueVramTransfer_FromDpSource
     jsl $C2DE96
 C2E782_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE782:
+    ; Palette animation timer/range handler.
     ldx.w #$1BA9
     sep #$20
     lda $0000,X
@@ -134,6 +153,7 @@ C2E7A8_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE7A8:
     and.w #$00FF
     sta $02
     inc $02
+    ; `$02` is the inclusive palette range length.
     ldx.w #$0000
     stx $18
     bra C2E813_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE813
@@ -178,6 +198,7 @@ C2E7E9_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE7E9:
     tax
     lda $1BAA,X
     plx
+    ; Copy a rotated source palette word into the displayed palette buffer.
     sta $0000,X
     ldx $18
     inx
@@ -203,6 +224,7 @@ C2E834_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE834:
     lda.w #$0018
     jsl C0856B_WaitFramesOrTransitionDelay
 C2E83D_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE83D:
+    ; Enemy-color timer: when it expires, push target colors through FB35.
     ldx.w #$1BCC
     lda $0000,X
     beq C2E893_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE893
@@ -248,6 +270,7 @@ C2E88C_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE88C:
     cmp.w #$0004
     bcc C2E859_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE859
 C2E893_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE893:
+    ; Alternate-palette timer: when it expires, restore active palette lanes.
     ldx.w #$1BCE
     lda $0000,X
     beq C2E8C2_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE8C2
