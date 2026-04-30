@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:9950..C2:9987 TryApplyCryingStatusToSelectedBattler
+;
+; Runtime contract:
+; - Flash-family crying branch.
+; - Calls the generic affliction writer with `Y = 2`, `X = 2`, which targets
+;   selected-row byte `+0x1F`.
+; - Emits `EF:6BBB` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +32,7 @@ C29950_TryApplyCryingStatusToSelectedBattler = FLASH_INFLICT_CRYING
     tcd
     ldy.w #$0002
     tyx
+    ; Write value 2 to selected-row subgroup byte `+0x1F`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

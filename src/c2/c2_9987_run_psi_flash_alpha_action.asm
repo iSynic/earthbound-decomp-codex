@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:9987..C2:99AE RunPsiFlashAlphaAction
+;
+; Runtime contract:
+; - Flash Alpha tier wrapper.
+; - Gates through `C2:7CFD`, then the shared Flash gate `C2:98A1`.
+; - Samples `C0:8E9A & 7`; value `0` attempts strange status and values
+;   `1..7` attempt crying.
+; - Finishes through shared PSI cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +39,7 @@ C29987_RunPsiFlashAlphaAction = BTLACT_PSI_FLASH_A
     beq C299AA_RunPsiFlashAlphaAction_L99AA
     jsl C08E9A_RandomWord
     and.w #$0007
+    ; Alpha: 0 -> strange, 1..7 -> crying.
     bne C299A7_RunPsiFlashAlphaAction_L99A7
     jsr FLASH_INFLICT_FEELING_STRANGE
     bra C299AA_RunPsiFlashAlphaAction_L99AA

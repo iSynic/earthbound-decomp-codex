@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:98A1..C2:98DE GateSelectedBattlerForRandomStatusAction
+;
+; Runtime contract:
+; - Shared Flash-family second-stage gate.
+; - First runs the shared PSI blocker `C2:941D`; a nonzero result returns `0`.
+; - Otherwise tests selected-row byte `+0x39` through `C2:6BB8`.
+; - Returns `1` on pass; on failure emits shared no-effect text `EF:766E` and
+;   returns `0`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,12 +35,14 @@ C298A1_GateSelectedBattlerForRandomStatusAction = FLASH_IMMUNITY_TEST
     jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     beq C298B6_GateSelectedBattlerForRandomStatusAction_L98B6
+    ; Shared PSI blocker consumed the action.
     lda.w #$0000
     bra C298DC_GateSelectedBattlerForRandomStatusAction_L98DC
 C298B6_GateSelectedBattlerForRandomStatusAction_L98B6:
     ldx $A972
     sep #$20
     lda $0039,X
+    ; Flash-family selected-row gate byte.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C298CB_GateSelectedBattlerForRandomStatusAction_L98CB

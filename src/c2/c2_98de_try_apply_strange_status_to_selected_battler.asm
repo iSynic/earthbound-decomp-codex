@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:98DE..C2:9917 TryApplyStrangeStatusToSelectedBattler
+;
+; Runtime contract:
+; - Flash-family strange-status branch.
+; - Calls the generic affliction writer with `Y = 1`, `X = 3`, which targets
+;   selected-row byte `+0x20`.
+; - Emits `EF:6C3A` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +32,7 @@ C298DE_TryApplyStrangeStatusToSelectedBattler = FLASH_INFLICT_FEELING_STRANGE
     tcd
     ldy.w #$0001
     ldx.w #$0003
+    ; Write value 1 to selected-row subgroup byte `+0x20`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

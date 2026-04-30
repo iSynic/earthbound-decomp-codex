@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:99AE..C2:99EF RunPsiFlashBetaAction
+;
+; Runtime contract:
+; - Flash Beta tier wrapper.
+; - Gates through `C2:7CFD`, then the shared Flash gate `C2:98A1`.
+; - Samples `C0:8E9A & 7`; `0` enters collapse startup, `1` attempts
+;   numb/paralysis, `2` attempts strange, and `3..7` attempt crying.
+; - Finishes through shared PSI cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,6 +41,7 @@ C299AE_RunPsiFlashBetaAction = BTLACT_PSI_FLASH_B
     beq C299EB_RunPsiFlashBetaAction_L99EB
     jsl C08E9A_RandomWord
     and.w #$0007
+    ; Beta: 0 -> collapse, 1 -> numb, 2 -> strange, 3..7 -> crying.
     beq C299D5_RunPsiFlashBetaAction_L99D5
     cmp.w #$0001
     beq C299DE_RunPsiFlashBetaAction_L99DE

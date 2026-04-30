@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:9917..C2:9950 TryApplyNumbStatusToSelectedBattler
+;
+; Runtime contract:
+; - Flash-family numb/paralysis branch.
+; - Calls the generic affliction writer with `Y = 3`, `X = 0`, which targets
+;   selected-row byte `+0x1D`.
+; - Emits `EF:6AE0` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +32,7 @@ C29917_TryApplyNumbStatusToSelectedBattler = FLASH_INFLICT_PARALYSIS
     tcd
     ldy.w #$0003
     ldx.w #$0000
+    ; Write value 3 to selected-row main affliction byte `+0x1D`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

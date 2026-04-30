@@ -103,6 +103,10 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:941D/94CE` shared blocker/cleanup pair,
   Rockin/Fire/Freeze/Starstorm one-parameter helpers, Thunder's two-parameter
   multi-hit target-mask loop, and Thunder's reflection tail at `C2:97A5`.
+- 2026-04-30 tenth slice: promoted PSI Flash contracts into byte-neutral source
+  comments plus `notes/c2-psi-flash-runtime-polish.md`. The promoted contracts
+  cover the `C2:724A` affliction writer ABI, Flash gate `C2:98A1`, strange/numb/
+  crying helper parameter pairs, and Alpha/Beta/Gamma/Omega random branch maps.
 
 ## Validation
 

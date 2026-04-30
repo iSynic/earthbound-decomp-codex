@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:724A..C2:7294 ApplyBattlerAfflictionSubgroupValue
+;
+; Runtime contract:
+; - Parameterized selected-row affliction writer used by Flash and Freeze side
+;   effects.
+; - A = selected-row base, X = row-field offset relative to `+0x1D`, Y = new
+;   affliction/subgroup value.
+; - Fails immediately when selected-row byte `+0x0F` is nonzero.
+; - Reads the target byte at `row + X + 0x1D`; writes Y only when the byte is
+;   clear or has a weaker/lower value than Y.
+; - Returns `1` on write and `0` on blocked/no-upgrade.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +40,7 @@ C2724A_ApplyBattlerAfflictionSubgroupValue = INFLICT_STATUS_BATTLE
     stx $0E
     lda $000F,X
     and.w #$00FF
+    ; Nonzero route/subtype byte blocks this generic status write.
     beq C27266_ApplyBattlerAfflictionSubgroupValue_L7266
     lda.w #$0000
     bra C27292_ApplyBattlerAfflictionSubgroupValue_L7292
@@ -42,6 +53,7 @@ C27266_ApplyBattlerAfflictionSubgroupValue_L7266:
     and.w #$00FF
     beq C2727B_ApplyBattlerAfflictionSubgroupValue_L727B
     sty $04
+    ; Existing equal-or-stronger value blocks the write.
     cmp $04
     bcc C2728F_ApplyBattlerAfflictionSubgroupValue_L728F
     beq C2728F_ApplyBattlerAfflictionSubgroupValue_L728F

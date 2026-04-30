@@ -88,3 +88,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   source comments plus `notes/c2-late-selected-row-runtime-polish.md`.
 - 2026-04-30: C2 PSI common-helper seventh slice landed as byte-neutral source
   comments plus `notes/c2-psi-common-runtime-polish.md`.
+- 2026-04-30: C2 PSI Flash eighth slice landed as byte-neutral source comments
+  plus `notes/c2-psi-flash-runtime-polish.md`.

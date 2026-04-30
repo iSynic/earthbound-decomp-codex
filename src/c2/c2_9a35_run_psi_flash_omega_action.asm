@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:9A35..C2:9A80 RunPsiFlashOmegaAction
+;
+; Runtime contract:
+; - Flash Omega tier wrapper.
+; - Gates through `C2:7CFD`, then the shared Flash gate `C2:98A1`.
+; - Samples `C0:8E9A & 7`; `0..2` enter collapse startup, `3` attempts
+;   numb/paralysis, `4` attempts strange, and `5..7` attempt crying.
+; - Finishes through shared PSI cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,6 +41,7 @@ C29A35_RunPsiFlashOmegaAction = BTLACT_PSI_FLASH_O
     beq C29A7C_RunPsiFlashOmegaAction_L9A7C
     jsl C08E9A_RandomWord
     and.w #$0007
+    ; Omega: 0..2 -> collapse, 3 -> numb, 4 -> strange, 5..7 -> crying.
     beq C29A66_RunPsiFlashOmegaAction_L9A66
     cmp.w #$0001
     beq C29A66_RunPsiFlashOmegaAction_L9A66

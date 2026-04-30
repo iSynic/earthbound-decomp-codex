@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:99EF..C2:9A35 RunPsiFlashGammaAction
+;
+; Runtime contract:
+; - Flash Gamma tier wrapper.
+; - Gates through `C2:7CFD`, then the shared Flash gate `C2:98A1`.
+; - Samples `C0:8E9A & 7`; `0..1` enter collapse startup, `2` attempts
+;   numb/paralysis, `3` attempts strange, and `4..7` attempt crying.
+; - Finishes through shared PSI cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,6 +41,7 @@ C299EF_RunPsiFlashGammaAction = BTLACT_PSI_FLASH_G
     beq C29A31_RunPsiFlashGammaAction_L9A31
     jsl C08E9A_RandomWord
     and.w #$0007
+    ; Gamma: 0..1 -> collapse, 2 -> numb, 3 -> strange, 4..7 -> crying.
     beq C29A1B_RunPsiFlashGammaAction_L9A1B
     cmp.w #$0001
     beq C29A1B_RunPsiFlashGammaAction_L9A1B
