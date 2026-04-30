@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; One-time teleport entry suppression: OR `#$C000` into `$10B6` for slots
+; `0..$16` so ordinary interaction/object behavior stays muted during teleport.
 
 ; ---------------------------------------------------------------------------
 ; C0:EA3E
@@ -33,6 +34,7 @@ C0EA4D_SuppressInteractionsForTeleportSlots_LEA4D:
     tax
     lda $0000,X
     ora.w #$C000
+    ; High interaction-suppression bits.
     sta $0000,X
     lda $0E
     inc A

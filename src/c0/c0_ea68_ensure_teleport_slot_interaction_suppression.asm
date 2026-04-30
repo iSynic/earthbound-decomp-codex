@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Per-frame teleport suppression maintenance: ensure `$10B6[slot]` has high
+; bits `#$C000` for slots `0..$16` while the mainloop is active.
 
 ; ---------------------------------------------------------------------------
 ; C0:EA68
@@ -38,6 +39,7 @@ C0EA75_EnsureTeleportSlotInteractionSuppression_LEA75:
     beq C0EA91_EnsureTeleportSlotInteractionSuppression_LEA91
     lda $0E
     ora.w #$C000
+    ; Repair suppression bits if a slot lost either high bit during the frame.
     sta $0000,X
 C0EA91_EnsureTeleportSlotInteractionSuppression_LEA91:
     iny

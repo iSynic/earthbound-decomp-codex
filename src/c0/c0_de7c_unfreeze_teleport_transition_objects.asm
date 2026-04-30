@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Clears teleport/flyover flags for transition object slots `$18..$1D`, resets
+; their party metadata byte/word at `$99CE + slot*$5F + $37`, then refreshes
+; the surrounding presentation state through C0:69ED.
 
 ; ---------------------------------------------------------------------------
 ; C0:DE7C
@@ -39,6 +41,7 @@ C0DE8F_UnfreezeTeleportTransitionObjects_LDE8F:
     tax
     lda $0000,X
     and.w #$F7FF
+    ; Clear teleport transition flag `#$0800`.
     sta $0000,X
     lda $0E
     clc
@@ -46,9 +49,11 @@ C0DE8F_UnfreezeTeleportTransitionObjects_LDE8F:
     tax
     lda $0000,X
     and.w #$7FFF
+    ; Clear the high transition marker in `$289E[slot]`.
     sta $0000,X
     lda.w #$FFFF
     ldx $4DC6
+    ; Reset object metadata offset +$37 for this transition slot.
     sta $0037,X
     lda $4DC6
     clc

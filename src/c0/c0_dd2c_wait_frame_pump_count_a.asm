@@ -15,6 +15,7 @@ C08756_WaitOneFrameAndPollInput       = $C08756
 C088B1_ResetRendererFrameState        = $C088B1
 C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
 C09466_RefreshActiveEntitySpriteState = $C09466
+; Counted sibling of C0:DD0F. Input A is the number of transition-pump frames.
 
 ; ---------------------------------------------------------------------------
 ; C0:DD2C
@@ -30,6 +31,7 @@ C0DD2C_WaitFramePumpCountA:
     sta $0E
     bra C0DD4F_WaitFramePumpCountA_LDD4F
 C0DD3A_WaitFramePumpCountA_LDD3A:
+    ; One frame of the standard transition pump.
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
     jsl C08B26_FlushQueuedSpriteOrTileWork

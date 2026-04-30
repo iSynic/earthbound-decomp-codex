@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Two-point collision helper for teleport movement callbacks. If `$9F43` is
+; already nonzero, returns clear; otherwise probes both candidate coordinates
+; with C0:5F33 and ORs the footprint masks.
 
 ; ---------------------------------------------------------------------------
 ; C0:DED9
@@ -31,6 +33,7 @@ C0DED9_ProbeTeleportTwoPointFootprintCollision:
     stx $0E
     lda $9F43
     beq C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7
+    ; Once teleport state is success/failure, collision no longer gates motion.
     lda.w #$0000
     bra C0DF20_ProbeTeleportTwoPointFootprintCollision_LDF20
 C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7:
@@ -41,6 +44,7 @@ C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7:
     tay
     ldx $04
     lda $10
+    ; First candidate point.
     jsl $C05F33
     sta $04
     ldx $02
@@ -48,6 +52,7 @@ C0DEF7_ProbeTeleportTwoPointFootprintCollision_LDEF7:
     tay
     ldx $0E
     lda $12
+    ; Second candidate point; return OR of both masks.
     jsl $C05F33
     sta $02
     lda $04

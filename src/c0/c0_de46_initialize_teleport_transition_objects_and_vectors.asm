@@ -12,6 +12,8 @@
 ; External contracts used by this module
 
 C08E9A_GetRandom16 = $C08E9A
+; Initializes teleport transition object flags plus beta/arc seed fields in
+; the `$9F61..$9F69` PSI teleport block.
 
 ; ---------------------------------------------------------------------------
 ; C0:DE46
@@ -22,6 +24,7 @@ C0DE46_InitializeTeleportTransitionObjectsAndVectors:
     jsl C08E9A_GetRandom16
     xba
     and.w #$FF00
+    ; Random beta arc seed.
     sta $9F61
     lda $9F41
     cmp.w #$0002
@@ -35,6 +38,7 @@ C0DE66_InitializeTeleportTransitionObjectsAndVectors_LDE66:
     stz $9F65
 C0DE6F_InitializeTeleportTransitionObjectsAndVectors_LDE6F:
     lda $9877
+    ; Snapshot player position as the beta/manual steering origin.
     sta $9F67
     lda $987B
     sta $9F69

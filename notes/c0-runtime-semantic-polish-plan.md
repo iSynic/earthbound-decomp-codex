@@ -70,6 +70,11 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   probes, C0:41E3/C0:43BC facing-rotation policy, C0:4279/C0:4452 public
   resolvers, and the type-6/C4 door fallback split. The rollup lives in
   `notes/c0-interaction-runtime-polish.md`.
+- 2026-04-30 fourth slice: added byte-neutral source comments for teleport
+  state/setup centered on `$9F3F..$9F69` PSI teleport state, transition object
+  slots `$18..$1D`, `$5156` snapshots, `$10B6` interaction suppression, and
+  the C0:EA99 mainloop shell. The rollup lives in
+  `notes/c0-teleport-state-runtime-polish.md`.
 
 ## Validation
 

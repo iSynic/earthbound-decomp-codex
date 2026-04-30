@@ -18,6 +18,10 @@ C09451_RestoreSavedCoordinateState    = $C09451
 C09466_RefreshActiveEntitySpriteState = $C09466
 C0ABC6_ClearPresentationQueues        = $C0ABC6
 C4FBBD_PlaySoundStoneMelody           = $C4FBBD
+; Top-level PSI teleport dispatcher. `$9F41` chooses style; `$9F43` is the
+; active state (`0` running, `1` success, `2` failure). The mainloop installs
+; movement/restore callbacks, pumps frames, then restores normal overworld
+; callbacks and clears teleport state.
 
 ; ---------------------------------------------------------------------------
 ; C0:EA99
@@ -31,6 +35,7 @@ C0EA99_TeleportMainloopStateMachine = TELEPORT_MAINLOOP
     tcd
     jsl C0ABC6_ClearPresentationQueues
     jsl C08756_WaitOneFrameAndPollInput
+    ; Initial global interaction suppression and teleport-state seed.
     jsr $EA3E
     lda.w #$0001
     sta $5DBA
@@ -42,6 +47,7 @@ C0EA99_TeleportMainloopStateMachine = TELEPORT_MAINLOOP
     jsl $C07C5B
     jsr $DE46
     lda $9F41
+    ; Dispatch by teleport style selector.
     cmp.w #$0001
     beq C0EAE6_TeleportMainloopStateMachine_LEAE6
     cmp.w #$0005
@@ -102,11 +108,13 @@ C0EB43_TeleportMainloopStateMachine_LEB43:
 C0EB54_TeleportMainloopStateMachine_LEB54:
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
+    ; Keep interaction suppression active while callbacks advance teleport state.
     jsr $EA68
     jsl C08B26_FlushQueuedSpriteOrTileWork
     jsl C08756_WaitOneFrameAndPollInput
 C0EB67_TeleportMainloopStateMachine_LEB67:
     lda $9F43
+    ; Wait until movement callback sets success/failure state.
     beq C0EB54_TeleportMainloopStateMachine_LEB54
     lda $9F43
     cmp.w #$0001
@@ -141,6 +149,7 @@ C0EBA7_TeleportMainloopStateMachine_LEBA7:
     lda.w #$00C0
     sta $14
     lda.w #$0017
+    ; Restore normal overworld position/callback pair after teleport.
     jsl $C42F45
     jsr $DE7C
     jsl C09451_RestoreSavedCoordinateState

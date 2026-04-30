@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Writes a 12-byte player snapshot into the `$5156` ring using cursor `$987D`.
+; Fields used here: X/Y at +0/+2, footprint mask at +4, zero at +6, facing at +8.
 
 ; ---------------------------------------------------------------------------
 ; C0:E196
@@ -34,17 +35,20 @@ C0E196_SnapshotTeleportPlayerStateToRing:
     asl A
     clc
     adc.w #$5156
+    ; `$987D * 12 + $5156` selects the snapshot record.
     sta $02
     lda.w #$9877
     sta $12
     tax
     lda $0000,X
     ldx $02
+    ; Snapshot live player X.
     sta $0000,X
     ldx.w #$987B
     stx $10
     lda $0000,X
     ldx $02
+    ; Snapshot live player Y.
     sta $0002,X
     ldy $9889
     ldx $10
@@ -55,6 +59,7 @@ C0E196_SnapshotTeleportPlayerStateToRing:
     tax
     lda $0000,X
     ldx $0E
+    ; Snapshot footprint/collision mask at the current position.
     jsl $C05F33
     ldx $02
     sta $0004,X
@@ -62,6 +67,7 @@ C0E196_SnapshotTeleportPlayerStateToRing:
     stz $0006,X
     lda $987F
     ldx $02
+    ; Snapshot facing.
     sta $0008,X
     lda $14
     sta $04
@@ -72,6 +78,7 @@ C0E196_SnapshotTeleportPlayerStateToRing:
     sta $0000,X
     and.w #$00FF
     ldx $04
+    ; Ring cursor is byte-sized.
     sta $0000,X
     pld
     rts

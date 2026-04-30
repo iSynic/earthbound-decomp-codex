@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Installs PSI teleport selector bytes. `$9F3F` is the destination/state
+; selector from A; `$9F41` is the style selector copied from the caller frame.
 
 ; ---------------------------------------------------------------------------
 ; C0:DD53
@@ -32,9 +33,11 @@ C0DD53_SetTeleportStateSelectors = SET_TELEPORT_STATE
     rep #$20
     lda $00
     and.w #$00FF
+    ; PSI_TELEPORT destination/state selector.
     sta $9F3F
     lda $0E
     and.w #$00FF
+    ; PSI_TELEPORT style selector used by the mainloop dispatcher.
     sta $9F41
     pld
     rtl

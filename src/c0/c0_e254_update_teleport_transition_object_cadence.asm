@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Updates `$0F12` cadence for transition object slots `$18..$1C` as
+; `max(1, #$000C - $9F47)`, tightening object cadence as teleport phase grows.
 
 ; ---------------------------------------------------------------------------
 ; C0:E254
@@ -44,6 +45,7 @@ C0E27A_UpdateTeleportTransitionObjectCadence_LE27A:
     asl A
     tax
     pla
+    ; Store the same derived cadence in each transition object slot.
     sta $0F12,X
     lda $0E
     inc A

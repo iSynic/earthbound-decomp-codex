@@ -15,6 +15,8 @@ C08756_WaitOneFrameAndPollInput       = $C08756
 C088B1_ResetRendererFrameState        = $C088B1
 C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
 C09466_RefreshActiveEntitySpriteState = $C09466
+; Transition wait helper: keep the renderer/entity/queue/input frame pump alive
+; until `$0028` clears.
 
 ; ---------------------------------------------------------------------------
 ; C0:DD0F
@@ -23,6 +25,7 @@ C0DD0F_WaitForFramePumpIdle:
     rep #$31
     bra C0DD23_WaitForFramePumpIdle_LDD23
 C0DD13_WaitForFramePumpIdle_LDD13:
+    ; One frame of the standard transition pump.
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
     jsl C08B26_FlushQueuedSpriteOrTileWork

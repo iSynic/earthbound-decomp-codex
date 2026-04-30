@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Advances `$9F45/$9F47` teleport speed/phase and derives signed X/Y vector
+; components in `$9F49/$9F4B` and `$9F4D/$9F4F` for direction `0..7`.
 
 ; ---------------------------------------------------------------------------
 ; C0:DF22
@@ -147,6 +148,7 @@ C0E016_UpdateTeleportDirectionVectorState_LE016:
     lda $10
     sta $08
     lda $06
+    ; Commit updated fixed-point speed/phase before deriving vector components.
     sta $9F45
     lda $08
     sta $9F47
@@ -171,6 +173,7 @@ C0E047_UpdateTeleportDirectionVectorState_LE047:
     sta $0A
     lda.w #$0000
     sta $0C
+    ; Diagonal direction scale matches the normal movement-vector family.
     jsl $C09086
     lda $07
     sta $06
@@ -183,6 +186,7 @@ C0E047_UpdateTeleportDirectionVectorState_LE047:
 C0E067_UpdateTeleportDirectionVectorState_LE067:
     rep #$20
     lda $06
+    ; Seed both axis components before direction-specific sign/zero adjustment.
     sta $9F49
     lda $08
     sta $9F4B

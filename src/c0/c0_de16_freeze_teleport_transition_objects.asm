@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Marks transition object slots `$18..$1D` for teleport/flyover handling.
+; `$0F12[slot]` gets cadence 8; `$1002[slot]` receives flag `#$0800`.
 
 ; ---------------------------------------------------------------------------
 ; C0:DE16
@@ -30,6 +31,7 @@ C0DE23_FreezeTeleportTransitionObjects_LDE23:
     sta $0E
     tax
     lda.w #$0008
+    ; Transition object cadence/reload.
     sta $0F12,X
     lda $0E
     clc
@@ -37,6 +39,7 @@ C0DE23_FreezeTeleportTransitionObjects_LDE23:
     tax
     lda $0000,X
     ora.w #$0800
+    ; Freeze/transition flag for the teleport object set.
     sta $0000,X
     iny
 C0DE3F_FreezeTeleportTransitionObjects_LDE3F:
