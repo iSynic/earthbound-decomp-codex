@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:8BC6..C1:8C27 c1_8bc6_insert_item_into_character_inventory
+;
+; Runtime contract:
+; - A = 1-based character id, or `0x00FF` wildcard for active-party scan.
+; - X = item id.
+; - Calls `C1:8B2C` for the explicit character, or scans `$986F` up to `$98A4`
+;   and returns the first active party member that accepts the item.
+; - Returns zero when no selected/active inventory has room.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

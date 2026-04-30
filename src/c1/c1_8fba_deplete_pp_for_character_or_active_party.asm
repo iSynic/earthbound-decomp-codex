@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C1:8FBA..C1:9010 c1_8fba_deplete_pp_for_character_or_active_party
+;
+; Runtime contract:
+; - A = 1-based character id, or `0x00FF` wildcard for active-party scan.
+; - X = amount/percent payload, Y = mode selector from the text-command leaf.
+; - Dispatches to `C3:ED2C`, the PP depletion worker, for the explicit target
+;   or each active party id in `$986F..$986F+$98A4`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

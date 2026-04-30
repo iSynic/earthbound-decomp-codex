@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:8E5B..C1:8EAD c1_8e5b_search_and_remove_item_from_character_inventory
+;
+; Runtime contract:
+; - A = 1-based character id, X = item id.
+; - Searches that character's 14-byte inventory list for the first matching item
+;   id, removes the matching 1-based slot through `C1:8C27`, and returns the
+;   source character id.
+; - Returns zero if the item is not present.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

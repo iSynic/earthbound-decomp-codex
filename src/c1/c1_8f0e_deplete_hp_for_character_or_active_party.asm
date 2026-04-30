@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C1:8F0E..C1:8F64 c1_8f0e_deplete_hp_for_character_or_active_party
+;
+; Runtime contract:
+; - A = 1-based character id, or `0x00FF` wildcard for active-party scan.
+; - X = amount/percent payload, Y = mode selector from the text-command leaf.
+; - Dispatches to `C3:EC1F`, the HP depletion worker, for the explicit target
+;   or each active party id in `$986F..$986F+$98A4`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

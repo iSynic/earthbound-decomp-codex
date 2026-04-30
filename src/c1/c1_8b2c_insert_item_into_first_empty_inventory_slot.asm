@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C1:8B2C..C1:8BC6 c1_8b2c_insert_item_into_first_empty_inventory_slot
+;
+; Runtime contract:
+; - A = 1-based character id, Y = item id.
+; - Scans the selected character inventory bytes `$99F1..$99FE` for the first
+;   empty slot, writes the item id, and returns the recipient character id.
+; - Returns zero if the 14-byte inventory list is full.
+; - Item byte `+0x19 == 4` triggers the Teddy Bear-family insertion hook; item
+;   byte `+0x1C & 0x10` triggers the Fresh Egg/Chick/Chicken-family hook.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

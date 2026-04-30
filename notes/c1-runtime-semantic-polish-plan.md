@@ -109,3 +109,9 @@ This planning pass is documentation-only.
   menu results, EF save-copy/delete/setup helper calls, setup bytes
   `$98B6/$98B7/$99CD`, the file-select session wrapper, and the lead-entity
   redraw predicate.
+- 2026-04-30: C1 inventory/recovery helper slice landed as byte-neutral source
+  comments plus `notes/c1-inventory-recovery-runtime-polish.md`. The promoted
+  contracts cover the 14-byte inventory list `$99F1..$99FE`, live equipment-slot
+  index maintenance during removal, active-party wildcard scans from `$986F`,
+  item-family insertion/removal side effects, and the HP/PP recovery/depletion
+  target-selection quartet.

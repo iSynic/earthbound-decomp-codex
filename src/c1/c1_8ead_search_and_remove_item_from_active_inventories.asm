@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:8EAD..C1:8F0E c1_8ead_search_and_remove_item_from_active_inventories
+;
+; Runtime contract:
+; - A = 1-based character id, or `0x00FF` wildcard for active-party scan.
+; - X = item id.
+; - For wildcard input, scans active party ids from `$986F` up to `$98A4`, calls
+;   `C1:8E5B`, and returns the first active party member that lost the item.
+; - Returns zero when no selected/active inventory contains the item.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

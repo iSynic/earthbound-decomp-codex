@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C1:8C27..C1:8E5B c1_8c27_remove_item_from_character_inventory_slot
+;
+; Runtime contract:
+; - A = 1-based character id, Y = 1-based inventory slot index.
+; - Removes one byte from the selected character inventory list `$99F1..$99FE`,
+;   compacts later nonzero entries left, and clears the final vacated byte.
+; - Maintains live equipment-slot index bytes `$99FF/$9A00/$9A01/$9A02` by
+;   clearing an exact match through C4 and decrementing any index above the
+;   removed slot.
+; - Runs removed-item cleanup for Teddy Bear-family and Fresh Egg/Chick/Chicken
+;   item-table flags before returning the source character id.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
