@@ -10,6 +10,12 @@
 ; Source unit covered:
 ; - C2:EA74..C2:EACF SwitchBattleSwirlOverlayToClosingScript
 ;
+; Runtime contract:
+; - Working-name corridor for the decoded `C2:EA74` body in
+;   `c2_e9ed_clear_battle_swirl_overlay_state.asm`.
+; - The promoted behavior resets `$AEC8 = 0x13` and selects the closing script
+;   pointer in `$AECC/$AECE` from the previously recorded `$AEEF` mode.
+;
 ; Aliases at the same address:
 ; - none
 

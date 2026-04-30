@@ -10,6 +10,12 @@
 ; Source unit covered:
 ; - C2:EA15..C2:EA74 BeginBattleSwirlOverlayScript
 ;
+; Runtime contract:
+; - Working-name corridor for the decoded `C2:EA15` body in
+;   `c2_e9ed_clear_battle_swirl_overlay_state.asm`.
+; - The promoted behavior records `$AEEF`, sets `$AEC8 = 0x13`, and selects the
+;   opening script pointer in `$AECC/$AECE`.
+;
 ; Aliases at the same address:
 ; - none
 

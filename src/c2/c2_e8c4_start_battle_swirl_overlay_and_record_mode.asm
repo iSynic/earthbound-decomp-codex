@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:E8C4..C2:E9ED StartBattleSwirlOverlayAndRecordMode
+;
+; Runtime contract:
+; - `C2:E8C4` is the small overlay latch: incoming A is forwarded to the C4
+;   visual helper at `C4:A67E`, and incoming Y is recorded as overlay mode/timer
+;   byte `$AECA`.
+; - The embedded `C2:E8E0` wrapper chooses sound/layer parameters from `$4DBC`
+;   and `$4A8C`, calls the latch with `Y = 0x1E`, writes duration byte `$AEC8`,
+;   and clears `$AECB`.
+; - The embedded `C2:E9C8` helper returns whether overlay state `$AEC2` is
+;   active and recorded `$AECA` is below the local threshold.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +36,7 @@ C2E8C4_StartBattleSwirlOverlayAndRecordMode:
     pla
     sty $02
     tay
+    ; Forward A to the C4 visual helper, then record caller Y in $AECA.
     jsl $C4A67E
     lda $02
     sep #$20
@@ -46,6 +57,7 @@ C2E8C4_StartBattleSwirlOverlayAndRecordMode:
     ldy.w #$0000
     sty $12
     lda $4DBC
+    ; Pick the overlay sound/layer profile from the battle visual mode.
     beq C2E90A_StartBattleSwirlOverlayAndRecordMode_LE90A
     cmp.w #$0001
     beq C2E918_StartBattleSwirlOverlayAndRecordMode_LE918
@@ -87,6 +99,7 @@ C2E94B_StartBattleSwirlOverlayAndRecordMode_LE94B:
     lda $4A8C
     cmp.w #$01C0
     bcc C2E964_StartBattleSwirlOverlayAndRecordMode_LE964
+    ; Large background value forces the alternate overlay profile.
     lda.w #$0003
     sta $16
     lda.w #$000E
@@ -123,6 +136,7 @@ C2E99F_StartBattleSwirlOverlayAndRecordMode_LE99F:
     ldx $02
     lda $16
     jsl C2E8C4_StartBattleSwirlOverlayAndRecordMode
+    ; Store overlay duration; layer profiles with bit 2 use the longer value.
     lda $02
     and.w #$0004
     beq C2E9BA_StartBattleSwirlOverlayAndRecordMode_LE9BA
@@ -143,6 +157,7 @@ C2E9C1_StartBattleSwirlOverlayAndRecordMode_LE9C1:
     lda $AEC2
     and.w #$00FF
     beq C2E9E9_StartBattleSwirlOverlayAndRecordMode_LE9E9
+    ; Busy predicate: active overlay and recorded mode below the threshold.
     lda $AECA
     and.w #$00FF
     clc

@@ -10,6 +10,12 @@
 ; Source unit covered:
 ; - C2:E9ED..C2:EA15 ClearBattleOverlayAndResetLayerEffects
 ;
+; Runtime contract:
+; - Working-name corridor for the decoded `C2:E9ED` body in
+;   `c2_e9ed_clear_battle_swirl_overlay_state.asm`.
+; - The promoted behavior clears `$AEC2`, resets the layer/effect helpers from
+;   `$AEC9 + 3`, and zeroes the C0 layer parameters.
+;
 ; Aliases at the same address:
 ; - none
 

@@ -117,6 +117,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:E6B3` source prefix, `C2:E6B6` frame
   timer/source pointer, palette cycling state, VRAM `$5800` uploads, and
   enemy-color/alternate-palette timers.
+- 2026-04-30 thirteenth slice: promoted battle overlay tail contracts into
+  byte-neutral source comments plus `notes/c2-battle-overlay-runtime-polish.md`.
+  The promoted contracts cover the `C2:E8C4` overlay latch, `C2:E8E0/E9C8`
+  wrapper/predicate, `C2:E9ED` clear/reset body, `C2:EA15/EA74` open/close
+  script selectors, and `C2:EAAA` final clear.
 
 ## Validation
 

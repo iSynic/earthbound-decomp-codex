@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:E9ED..C2:EACF ClearBattleSwirlOverlayState
+;
+; Runtime contract:
+; - `C2:E9ED` clears overlay state `$AEC2`, resets the layer/effect helpers
+;   through `$AEC9 + 3`, `C0:B01A(0,0,0)`, and `C0:B047(0)`.
+; - `C2:EA15` records opening mode byte `$AEEF`, resets the C4 visual helper,
+;   sets `$AEC8 = 0x13`, and chooses an opening script pointer in `$AECC/$AECE`.
+; - `C2:EA74` resets the visual helper again, keeps `$AEC8 = 0x13`, and chooses
+;   a closing script pointer in `$AECC/$AECE` based on the recorded `$AEEF`.
+; - `C2:EAAA` clears overlay state and pointer fields, then resets the layer
+;   helper with fixed mode `3`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -19,6 +29,7 @@
 C2E9ED_ClearBattleSwirlOverlayState:
     rep #$31
     sep #$20
+    ; Clear the active overlay latch.
     stz $AEC2
     rep #$20
     lda $AEC9
@@ -26,6 +37,7 @@ C2E9ED_ClearBattleSwirlOverlayState:
     inc A
     inc A
     inc A
+    ; Reset layer/effect state for the recorded overlay lane.
     jsl $C0AE34
     ldy.w #$0000
     tyx
@@ -46,6 +58,7 @@ C2E9ED_ClearBattleSwirlOverlayState:
     sty $0E
     tya
     sep #$20
+    ; Save opening overlay mode for the close-script selector.
     sta $AEEF
     ldx.w #$0000
     rep #$20
@@ -57,6 +70,7 @@ C2E9ED_ClearBattleSwirlOverlayState:
     ldy $0E
     rep #$20
     tya
+    ; Opening script pointer: mode 2 -> C3:F819, mode 1 -> C4:A5FA, else C4:A5CE.
     cmp.w #$0002
     beq C2EA4A_ClearBattleSwirlOverlayState_LEA4A
     cmp.w #$0001
@@ -92,6 +106,7 @@ C2EA72_ClearBattleSwirlOverlayState_LEA72:
     rep #$20
     lda $AEEF
     and.w #$00FF
+    ; Closing script pointer depends on the previously recorded opening mode.
     beq C2EA9D_ClearBattleSwirlOverlayState_LEA9D
     lda.w #$A652
     sta $AECC
@@ -107,6 +122,7 @@ C2EAA9_ClearBattleSwirlOverlayState_LEAA9:
     rtl
     rep #$31
     sep #$20
+    ; Final clear: drop active latch and clear the script pointer pair.
     stz $AEC2
     rep #$20
     lda.w #$0000
