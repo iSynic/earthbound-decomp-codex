@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Direct typed text-entry constructor plus the active text-entry chain
+;   renderer at C1:163C.
+; - The constructor calls C1:13D1 directly, writes the caller selector to record
+;   +0C, and marks record +00 as type 2.
+; - C1:163C renders the active $89D4 chain for the current $8650 descriptor,
+;   following record +02 and using record +06/+08/+0A/+13 during display.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
@@ -50,6 +56,7 @@ C115F4_C115F4_CreateTypedTextEntryRecordDirect:
     tax
     ldy $16
     tya
+    ; Direct constructor stores caller selector/value at record +0C.
     sta $000C,X
     lda.w #$0002
     sta $0000,X
@@ -78,6 +85,7 @@ C1164F_CreateTypedTextEntryRecordDirect_L164F:
     adc.w #$8650
     sta $04
     ldx $04
+    ; Descriptor +2B is the head $89D4 record index for the active chain.
     lda $002B,X
     cmp.w #$FFFF
     bne C11678_CreateTypedTextEntryRecordDirect_L1678
@@ -94,6 +102,8 @@ C11678_CreateTypedTextEntryRecordDirect_L1678:
     jsl $C3E4D4
 C11689_C11689_RenderNextActiveTextEntryRecord:
     ldx $02
+    ; record +06 is matched against descriptor +33; zero records render on the
+    ; always-visible/default lane.
     lda $0006,X
     ldx $04
     cmp $0033,X
@@ -222,6 +232,7 @@ C11799_CreateTypedTextEntryRecordDirect_L1799:
     jsr $0CB6
     bra C117C4_C117C4_AdvanceToNextTextEntryRecord
 C117A4_C117A4_PrintTextEntryRecordBodyDirectly:
+    ; record +13 is the copied NUL-terminated text body.
     lda $02
     clc
     adc.w #$0013
@@ -240,6 +251,7 @@ C117A4_C117A4_PrintTextEntryRecordBodyDirectly:
     jsr $0EFC
 C117C4_C117C4_AdvanceToNextTextEntryRecord:
     ldx $02
+    ; record +02 links to the next entry in the active text-entry chain.
     lda $0002,X
     cmp.w #$FFFF
     beq C117DE_CreateTypedTextEntryRecordDirect_L17DE

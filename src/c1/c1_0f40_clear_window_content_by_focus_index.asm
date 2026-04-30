@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:0F40 clears the tile/state buffer for one focused window descriptor.
+; - Input A is a focus index or FFFF. The descriptor is resolved through
+;   $88E4 -> $8650 with stride 0x52; descriptor +35 points at the tile/state
+;   buffer, +0A/+0C define the clear span, and +0E/+10 are reset afterwards.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_DivideUnsignedWordByIndex   = $C09032
@@ -36,6 +40,7 @@ C10F40_C10F40_ClearWindowContentByFocusIndex:
     adc.w #$8650
     tax
     stx $10
+    ; Walk descriptor +35, clearing nonzero tile/state words and filling $0040.
     ldy $0035,X
     sty $0E
     ldy $000C,X
@@ -63,6 +68,7 @@ C10F91_ClearWindowContentByFocusIndex_L0F91:
     bne C10F75_ClearWindowContentByFocusIndex_L0F75
     jsl $C45E96
     ldx $10
+    ; Reset descriptor cursor/scroll fields after the clear.
     stz $0010,X
     stz $000E,X
 C10FA1_ClearWindowContentByFocusIndex_L0FA1:

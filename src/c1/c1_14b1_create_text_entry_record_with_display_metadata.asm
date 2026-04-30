@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Wrapper around C1:13D1 that stages caller source/metadata pointers, then
+;   writes display metadata into the returned $89D4 record.
+; - Record +2C is an optional packed display subfield when $5E71 is set.
+; - Record +08/+0A receive row/column or display-position metadata consumed by
+;   active entry layout and selection rendering.
 
 ; No named external contracts were supplied or recognized.
 
@@ -67,6 +72,8 @@ C114B1_C114B1_CreateTextEntryRecordWithDisplayMetadata:
     lda $5E71
     and.w #$00FF
     beq C11526_CreateTextEntryRecordWithDisplayMetadata_L1526
+    ; Split low three bits into record +2C and keep the high bits as the
+    ; display metadata value stored at record +08.
     ldy $1C
     tya
     sep #$20

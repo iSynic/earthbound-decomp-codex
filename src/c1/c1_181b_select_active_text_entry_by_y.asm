@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Selects an entry from the active $89D4 chain by ordinal in Y after running
+;   the C4:51FA layout helper.
+; - FFFF skips selection update. Otherwise descriptor +2F receives the ordinal
+;   and descriptor +33 receives the selected record's +06 row/page field.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
@@ -31,6 +35,7 @@ C1181B_C1181B_SelectActiveTextEntryByY:
     lda $02
     cmp.w #$FFFF
     beq C11882_SelectActiveTextEntryByY_L1882
+    ; Resolve active descriptor and walk descriptor +2B through record +02.
     lda $8958
     asl A
     tax
@@ -65,6 +70,7 @@ C11876_SelectActiveTextEntryByY_L1876:
     bne C11862_SelectActiveTextEntryByY_L1862
     lda $0006,X
     ldy $0E
+    ; Copy selected record row/page/group field into descriptor +33.
     sta $0033,Y
 C11882_SelectActiveTextEntryByY_L1882:
     jsr $163C

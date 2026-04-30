@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Far-call redirects for the local $89D4 text-entry chain counter and
+;   bounded byte-string length helper.
+; - The chain counter follows record +02 next links; the length helper stops
+;   at NUL or caller-supplied maximum length.
 
 C1138D_CountTextEntryChainRecordsLocal = $138D
 C117E2_MeasureBoundedStringLength      = $17E2

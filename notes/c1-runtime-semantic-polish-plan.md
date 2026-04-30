@@ -83,3 +83,8 @@ This planning pass is documentation-only.
   contracts cover pointer staging, wait-frame pumping, focus/window drains,
   prompt gates, halt-control handling, text-state waits, and active descriptor
   lookup.
+- 2026-04-30: Second C1 text/menu-core slice landed as byte-neutral source
+  comments plus `notes/c1-text-entry-runtime-polish.md`. The promoted
+  contracts cover `$89D4` active text-entry records, constructors,
+  chain count/layout/render helpers, selection update helpers, and active-window
+  clear behavior.

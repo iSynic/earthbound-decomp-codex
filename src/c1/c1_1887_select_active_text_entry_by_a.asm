@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:1887 mirrors C1:181B but takes the requested active entry ordinal in A.
+; - C1:196A is the reusable active text-entry selection/menu loop. It resolves
+;   the current descriptor, renders current record text, blinks the selection
+;   cursor, navigates with C2:0B65, and returns the selected record value.
+; - $5E79/$9684..$968A preserve/restore menu row-position metadata around the
+;   active descriptor and selected $89D4 record.
 
 C08616_QueueVramTransfer_FromDpSource = $C08616
 C08FF7_ResolveIndexedPointerOffset    = $C08FF7
@@ -29,6 +35,7 @@ C11887_C11887_SelectActiveTextEntryByA:
     sta $10
     cmp.w #$FFFF
     beq C118E2_SelectActiveTextEntryByA_L18E2
+    ; Resolve active descriptor and walk descriptor +2B through record +02.
     lda $8958
     asl A
     tax
@@ -62,6 +69,7 @@ C118D6_SelectActiveTextEntryByA_L18D6:
     bne C118C4_SelectActiveTextEntryByA_L18C4
     lda $0006,X
     ldy $0E
+    ; Copy selected record row/page/group field into descriptor +33.
     sta $0033,Y
 C118E2_SelectActiveTextEntryByA_L18E2:
     jsr $163C
@@ -165,6 +173,7 @@ C11986_SelectActiveTextEntryByA_L1986:
     lda $5E79
     and.w #$00FF
     beq C119B3_SelectActiveTextEntryByA_L19B3
+    ; Restore cached active-chain head/selection metadata when requested.
     lda $9688
     ldy.w #$002B
     sta ($24),Y
@@ -243,6 +252,7 @@ C11A3F_C11A3F_PrepareCurrentSelectionEntryRenderState:
     adc.w #$000F
     tay
     sty $1E
+    ; record +0F optionally points at text to print before the selected entry.
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -346,6 +356,7 @@ C11B03_SelectActiveTextEntryByA_L1B03:
     lda.w #$0001
     sta $02
 C11B2F_C11B2F_BlinkSelectionCursorAndPollInput:
+    ; Blink the two-tile selection cursor at the active descriptor position.
     lda $02
     eor.w #$0001
     sta $02

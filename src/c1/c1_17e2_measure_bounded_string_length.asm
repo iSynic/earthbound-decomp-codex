@@ -10,6 +10,9 @@
 
 MeasuredLength = $0E
 
+; Input pointer is supplied in A/X form, with Y as the maximum byte count.
+; Returns bytes seen before NUL or before the caller limit expires.
+
 ; ---------------------------------------------------------------------------
 ; C1:17E2
 

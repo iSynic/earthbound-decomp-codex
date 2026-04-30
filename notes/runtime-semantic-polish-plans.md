@@ -62,3 +62,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c1-battle-psi-runtime-polish.md`.
 - 2026-04-30: C1 text gate third slice landed as byte-neutral source comments
   plus `notes/c1-text-gates-runtime-polish.md`.
+- 2026-04-30: C1 text entry fourth slice landed as byte-neutral source comments
+  plus `notes/c1-text-entry-runtime-polish.md`.

@@ -10,6 +10,8 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Typed record constructor with one extra caller byte. It delegates to
+;   C1:153B, then stores the extra byte at record +0E.
 
 ; No named external contracts were supplied or recognized.
 
@@ -60,6 +62,7 @@ C11596_C11596_CreateTypedTextEntryRecordWithExtraByte:
     lda $1A
     jsr $153B
     tax
+    ; record +0E is the one-byte extra metadata used by selected typed entries.
     sep #$20
     lda $00
     sta $000E,X

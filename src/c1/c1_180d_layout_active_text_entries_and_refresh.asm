@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Thin wrapper around C4:51FA active text-entry chain layout followed by the
+;   C1:163C active-chain render/refresh path.
+; - Used by broad menu/text-command paths that need to recompute $89D4 row/page
+;   metadata before displaying entries.
 
 C1163C_RefreshTextEntryChainState       = $163C
 C451FA_LayoutActiveTextEntryChain       = $C451FA

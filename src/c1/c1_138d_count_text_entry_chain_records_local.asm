@@ -10,6 +10,9 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is a $89D4 text-entry record index or FFFF for an empty chain.
+; - Records are 0x2D bytes. The helper maps each index to $89D4 + index*0x2D,
+;   follows record +02 as the next-link field, and returns the chain count.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
@@ -26,6 +29,7 @@ C1138D_C1138D_CountTextEntryChainRecordsLocal:
     pla
     cmp.w #$FFFF
     bne C113A1_CountTextEntryChainRecordsLocal_L13A1
+    ; Empty active text-entry chain.
     lda.w #$0000
     bra C113CF_CountTextEntryChainRecordsLocal_L13CF
 C113A1_CountTextEntryChainRecordsLocal_L13A1:
@@ -46,6 +50,7 @@ C113B3_CountTextEntryChainRecordsLocal_L13B3:
     stx $0E
 C113C3_CountTextEntryChainRecordsLocal_L13C3:
     tax
+    ; record +02 is the next text-entry index, FFFF terminates the chain.
     lda $0002,X
     cmp.w #$FFFF
     bne C113B3_CountTextEntryChainRecordsLocal_L13B3

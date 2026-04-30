@@ -10,6 +10,8 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Typed wrapper around C1:14B1. The incoming A value is stored at record +0C,
+;   then record +00 is changed to type/active marker 2.
 
 ; No named external contracts were supplied or recognized.
 
@@ -58,6 +60,7 @@ C1153B_C1153B_CreateTypedTextEntryRecord:
     lda $02
     jsr $14B1
     tax
+    ; record +0C is the caller selector/value returned by many menu loops.
     lda $04
     sta $000C,X
     lda.w #$0002

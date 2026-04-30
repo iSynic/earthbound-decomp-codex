@@ -10,6 +10,14 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Shared installer for live text-entry records in the $89D4 table.
+; - Caller pointer pairs are copied from caller-local $20/$22 (entry body
+;   source) and $24/$26 (companion pointer/metadata) into local $06/$08 and
+;   $0A/$0C.
+; - Active context is resolved through $8958 -> $88E4 -> $8650. Descriptor +2B
+;   is the head record index and +2D is the tail/current record index.
+; - Record +00 is the active/type marker, +02 next link, +04 previous/tail-side
+;   link, +0F companion pointer, and +13 copied NUL-terminated body text.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
@@ -49,6 +57,7 @@ C113F7_InstallTextEntryRecord_L13F7:
     sta $10
     cmp.w #$FFFF
     bne C1141C_InstallTextEntryRecord_L141C
+    ; No free $89D4 record: return the fallback/error text pointer.
     lda.w #$95F5
     jmp.w C114AF_InstallTextEntryRecord_L14AF
 C1141C_InstallTextEntryRecord_L141C:
@@ -65,12 +74,14 @@ C1141C_InstallTextEntryRecord_L141C:
     lda $0000,X
     cmp.w #$FFFF
     bne C11446_InstallTextEntryRecord_L1446
+    ; First entry in this context's chain.
     lda.w #$FFFF
     sta $0004,Y
     lda $10
     sta $0000,X
     bra C11463_InstallTextEntryRecord_L1463
 C11446_InstallTextEntryRecord_L1446:
+    ; Append to the existing chain and patch the previous tail's next link.
     lda $02
     clc
     adc.w #$002D
@@ -89,6 +100,7 @@ C11463_InstallTextEntryRecord_L1463:
     lda.w #$FFFF
     ldy $0E
     sta $0002,Y
+    ; Initialize record state before copying the body string into +13.
     lda.w #$0001
     sta $0000,Y
     tya
