@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:DE96..C2:DF2E RestoreLoadedBattleBgPalettesAndUpload
+;
+; Runtime contract:
+; - Restores loaded battle-background current palettes from their saved/original
+;   palette copies, then mirrors them through the displayed-palette pointers.
+; - Layer 1 copy: `$AE00..AE1F` back to `$ADE0..ADFF`, then to pointer `$AE20`.
+; - Layer 2 copy: `$AE77..AE96` back to `$AE57..AE76`, then to pointer `$AE97`
+;   only when the layer-2 loaded-bg struct is active.
+; - Used after visual effects that temporarily darken or replace the loaded
+;   battle-background palette state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -22,6 +31,7 @@ C2DE96_RestoreLoadedBattleBgPalettesAndUpload:
     tdc
     adc.w #$FFEA
     tcd
+    ; Layer 1 saved/original palette source.
     lda.w #$AE00
     sta $06
     phb
@@ -39,8 +49,10 @@ C2DE96_RestoreLoadedBattleBgPalettesAndUpload:
     lda $08
     sta $10
     ldx.w #$0020
+    ; Restore layer 1 current palette from the saved/original copy.
     lda.w #$ADE0
     jsl C08ED2_CopyMemoryBlock
+    ; Layer 2 saved/original palette source.
     lda.w #$AE77
     sta $0A
     phb
@@ -58,6 +70,7 @@ C2DE96_RestoreLoadedBattleBgPalettesAndUpload:
     lda $08
     sta $10
     ldx.w #$0020
+    ; Restore layer 2 current palette from the saved/original copy.
     lda.w #$AE57
     jsl C08ED2_CopyMemoryBlock
     lda $12
@@ -69,11 +82,13 @@ C2DE96_RestoreLoadedBattleBgPalettesAndUpload:
     lda $08
     sta $10
     ldx.w #$0020
+    ; Mirror restored layer 1 palette to its live/displayed palette pointer.
     lda $AE20
     jsl C08ED2_CopyMemoryBlock
     lda $AE4B
     and.w #$00FF
     beq C2DF2C_RestoreLoadedBattleBgPalettesAndUpload_LDF2C
+    ; Layer 2 mirror is conditional on the loaded layer-2 struct being active.
     lda $0A
     sta $06
     lda $0C

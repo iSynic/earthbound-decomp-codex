@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:DE0F..C2:DE96 DimLoadedBattleBgPalettesAndUpload
+;
+; Runtime contract:
+; - Dims the current palettes for both loaded battle-background layer structs.
+; - Each RGB555 color word is transformed with `LSR` then `AND #$3DEF`,
+;   halving channel intensity while preserving the channel bit layout.
+; - Mirrors layer 1 current palette `$ADE0..ADFF` through displayed-palette
+;   pointer `$AE20`; if layer 2 is active, mirrors `$AE57..AE76` through `$AE97`.
+; - Called from `SHOW_PSI_ANIMATION` and C3 screen-effect paths before overlay
+;   or PSI palettes are composed.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -33,6 +42,7 @@ C2DE1C_DimLoadedBattleBgPalettesAndUpload_LDE1C:
     clc
     adc.w #$000C
     tay
+    ; Layer 1 current palette slot: `$ADD4 + 0x0C + index*2`.
     lda $0000,Y
     lsr A
     and.w #$3DEF
@@ -41,6 +51,7 @@ C2DE1C_DimLoadedBattleBgPalettesAndUpload_LDE1C:
     clc
     adc.w #$0083
     tay
+    ; Layer 2 current palette slot: `$AE4B + 0x0C + index*2`.
     lda $0000,Y
     lsr A
     and.w #$3DEF
@@ -49,6 +60,7 @@ C2DE1C_DimLoadedBattleBgPalettesAndUpload_LDE1C:
 C2DE45_DimLoadedBattleBgPalettesAndUpload_LDE45:
     cpx.w #$0010
     bcc C2DE1C_DimLoadedBattleBgPalettesAndUpload_LDE1C
+    ; Copy layer 1 current palette to its live/displayed palette pointer.
     lda.w #$ADE0
     sta $06
     phb
@@ -67,6 +79,7 @@ C2DE45_DimLoadedBattleBgPalettesAndUpload_LDE45:
     lda $AE4B
     and.w #$00FF
     beq C2DE94_DimLoadedBattleBgPalettesAndUpload_LDE94
+    ; Layer 2 upload is skipped when the layer-2 loaded-bg struct is inactive.
     lda.w #$AE57
     sta $06
     phb

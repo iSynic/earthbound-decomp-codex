@@ -7,6 +7,18 @@
 ;
 ; Source units covered:
 ; - C2:DF2E..C2:E08E ApplyLoadedBattleBgPaletteStep
+;
+; Runtime contract:
+; - Applies one palette command/step to one slot in a loaded battle-background
+;   layer struct. A = struct base (`$ADD4` or `$AE4B`), X = command/step,
+;   Y = palette index.
+; - `X = 0` or `X = -1` writes that literal word into both the current palette
+;   slot and the displayed palette slot.
+; - `X = 0x0100` restores the current/displayed slot from the saved/original
+;   palette copy at struct offset `+0x2C`.
+; - Other values derive an RGB555 stepped color from the saved/original slot,
+;   update the current palette, and mirror to display unless the index sits in
+;   a protected palette-cycle range.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +47,7 @@ C2DF2E_ApplyLoadedBattleBgPaletteStep:
     lda $02
     bne C2DF68_ApplyLoadedBattleBgPaletteStep_LDF68
 C2DF49_ApplyLoadedBattleBgPaletteStep_LDF49:
+    ; Literal zero/FFFF command path: write through current and displayed slots.
     lda $1A
     asl A
     sta $1A
@@ -55,6 +68,7 @@ C2DF68_ApplyLoadedBattleBgPaletteStep_LDF68:
     lda $02
     cmp.w #$0100
     bne C2DF93_ApplyLoadedBattleBgPaletteStep_LDF93
+    ; Restore command path: copy the slot from the saved/original palette.
     lda $1A
     asl A
     sta $16
@@ -75,6 +89,7 @@ C2DF68_ApplyLoadedBattleBgPaletteStep_LDF68:
     sta $0000,X
     jmp.w C2E08C_ApplyLoadedBattleBgPaletteStep_LE08C
 C2DF93_ApplyLoadedBattleBgPaletteStep_LDF93:
+    ; Stepped command path: compute a dimmed/brightened RGB555 slot value.
     lda $1A
     asl A
     clc
@@ -159,6 +174,7 @@ C2DF93_ApplyLoadedBattleBgPaletteStep_LDF93:
     and.w #$00FF
     cmp.w #$0002
     bne C2E04F_ApplyLoadedBattleBgPaletteStep_LE04F
+    ; Palette-shift style 2 protects the second configured cycle range.
     ldy.w #$0006
     lda ($18),Y
     and.w #$00FF
@@ -176,6 +192,7 @@ C2E04F_ApplyLoadedBattleBgPaletteStep_LE04F:
     lda ($18),Y
     and.w #$00FF
     beq C2E073_ApplyLoadedBattleBgPaletteStep_LE073
+    ; Nonzero palette-shift style protects the primary configured cycle range.
     ldy.w #$0004
     lda ($18),Y
     and.w #$00FF
@@ -189,6 +206,7 @@ C2E067_ApplyLoadedBattleBgPaletteStep_LE067:
     cmp $1A
     bcs C2E08C_ApplyLoadedBattleBgPaletteStep_LE08C
 C2E073_ApplyLoadedBattleBgPaletteStep_LE073:
+    ; Mirror current palette slot to the displayed palette pointer when allowed.
     lda $1A
     asl A
     sta $1A

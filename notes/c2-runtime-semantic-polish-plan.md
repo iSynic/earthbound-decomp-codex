@@ -122,6 +122,12 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:E8C4` overlay latch, `C2:E8E0/E9C8`
   wrapper/predicate, `C2:E9ED` clear/reset body, `C2:EA15/EA74` open/close
   script selectors, and `C2:EAAA` final clear.
+- 2026-04-30 fourteenth slice: promoted battle-background palette contracts
+  into byte-neutral source comments plus
+  `notes/c2-battle-bg-palette-runtime-polish.md`. The promoted contracts cover
+  `C2:DE0F` dimming, `C2:DE96` restore, `C2:DF2E` literal/restore/stepped
+  palette commands, protected palette-cycle windows, and `C2:E08E` layer
+  fanout.
 
 ## Validation
 

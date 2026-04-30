@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:E08E..C2:E0E7 ApplyLoadedBattleBgPaletteStepAcrossLayers
+;
+; Runtime contract:
+; - Fans one palette command/step across the active loaded battle-background
+;   palette slots used by the per-frame background update body.
+; - Input A is forwarded as the palette command/step to `C2:DF2E`.
+; - 4bpp layer-1 backgrounds update layer 1 palette indices `1..15`.
+; - Otherwise the command is applied to palette indices `1..3` on both loaded
+;   background layer structs (`$ADD4` and `$AE4B`).
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -29,6 +37,7 @@ C2E08E_ApplyLoadedBattleBgPaletteStepAcrossLayers:
     and.w #$00FF
     cmp.w #$0004
     bne C2E0C1_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0C1
+    ; 4bpp battle background: update layer 1's nonzero subpalettes.
     lda.w #$0001
     sta $02
     bra C2E0B8_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0B8
@@ -44,6 +53,7 @@ C2E0B8_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0B8:
     bcc C2E0AC_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0AC
     bra C2E0E5_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0E5
 C2E0C1_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0C1:
+    ; Lower-bitdepth pair: update matching subpalette slots on both layers.
     lda.w #$0001
     sta $02
     bra C2E0DE_ApplyLoadedBattleBgPaletteStepAcrossLayers_LE0DE
