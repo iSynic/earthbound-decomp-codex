@@ -149,6 +149,12 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-show-psi-animation-runtime-polish.md`. The promoted contracts cover
   CC PSI config row joins, graphics/arrangement/palette setup, `$1B9E..$1BD4`
   state seeding, battle-background dimming, and affected enemy-row marking.
+- 2026-04-30 nineteenth slice: promoted loaded battle-background frame generator
+  contracts into byte-neutral source comments plus
+  `notes/c2-loaded-bg-frame-generator-runtime-polish.md`. The promoted
+  contracts cover `C2:C92D` as the loaded-bg struct interpreter, palette cycle
+  consumption, CA scrolling and distortion row joins, offset commits, and the
+  cautious display-setup role of `C2:C8C8`.
 
 ## Validation
 

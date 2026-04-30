@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:C8C8..C2:C92D LOAD_ENEMY_BATTLE_SPRITES
+;
+; Runtime contract:
+; - Presentation/tilemap setup helper used before the loaded battle-background
+;   frame generator corridor.
+; - Configures BG mode, BG1/BG2 screen bases, OBJ size/base, clears a scratch
+;   tilemap buffer at `$7F:8000`, and queues an 0x800-byte transfer to VRAM
+;   `$7C00`.
+; - Despite the inherited alias, this decoded body is a display/register setup
+;   routine rather than the enemy battle sprite asset loader.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -27,6 +36,7 @@ C2C8C8_LoadFinalPrayerFinaleTilemapState = LOAD_ENEMY_BATTLE_SPRITES
     tdc
     adc.w #$FFEE
     tcd
+    ; BG mode and screen-base setup for the presentation tilemap layout.
     lda.w #$0009
     jsl C08D79_UpdateBgModeRegisterFromQueue
     ldy.w #$0000
@@ -49,6 +59,7 @@ C2C8C8_LoadFinalPrayerFinaleTilemapState = LOAD_ENEMY_BATTLE_SPRITES
     sta $08
     sep #$20
     lda.b #$00
+    ; Clear the first byte before uploading the scratch tilemap block.
     sta [$06]
     rep #$20
     lda $06
@@ -59,6 +70,7 @@ C2C8C8_LoadFinalPrayerFinaleTilemapState = LOAD_ENEMY_BATTLE_SPRITES
     ldx.w #$0800
     sep #$20
     lda.b #$03
+    ; Queue the scratch tilemap transfer to VRAM `$7C00`.
     jsl C08616_QueueVramTransfer_FromDpSource
     pld
     rtl

@@ -7,6 +7,19 @@
 ;
 ; Source units covered:
 ; - C2:C92D..C2:CFE5 GENERATE_BATTLEBG_FRAME
+;
+; Runtime contract:
+; - Loaded battle-background frame generator/interpreter for one
+;   `loaded_bg_data` struct.
+; - Input A is the loaded-bg struct base (`$ADD4` or `$AE4B`); X is the layer
+;   index used by lower C0 effect helpers.
+; - Advances palette cycling, scrolling movement, and distortion state from the
+;   struct fields imported by `LOAD_BATTLE_BG`; commits BG offset registers
+;   according to struct byte `+0x00`, displayed palette pointer `+0x4C`, scroll
+;   fields around `+0x4E..0x60`, and distortion fields around `+0x61..0x76`.
+; - The historical `GENERATE_BATTLEBG_FRAME` name is useful, but this routine is
+;   also the runtime consumer for the loaded-bg config rows and CA scroll/
+;   distortion tables.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -27,6 +40,7 @@ C2C92D_RunFinalPrayerFinaleRecordPlayer = GENERATE_BATTLEBG_FRAME
     pla
     stx $1D
     sta $1B
+    ; Struct +0x00 selects the target BG layer/register family.
     lda ($1B)
     and.w #$00FF
     sta $19
@@ -36,6 +50,7 @@ C2C92D_RunFinalPrayerFinaleRecordPlayer = GENERATE_BATTLEBG_FRAME
     beq C2C94F_C2C92D_RunFinalPrayerFinaleRecordPlayer_LC94F
     jmp.w C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86
 C2C94F_C2C92D_RunFinalPrayerFinaleRecordPlayer_LC94F:
+    ; Struct +0x0B is the palette-change duration countdown.
     lda $1B
     clc
     adc.w #$000B
@@ -65,6 +80,7 @@ C2C979_C2C92D_RunFinalPrayerFinaleRecordPlayer_LC979:
     rep #$20
     lda ($1B),Y
     and.w #$00FF
+    ; Struct +0x03 selects the palette shifting style.
     cmp.w #$0002
     beq C2C9A5_C2C92D_RunFinalPrayerFinaleRecordPlayer_LC9A5
     cmp.w #$0001
@@ -371,6 +387,7 @@ C2CBAE_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCBAE:
     bne C2CBB9_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCBB9
     jmp.w C2CFE3_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCFE3
 C2CBB9_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCBB9:
+    ; Struct +0x53 is the scrolling movement duration countdown.
     lda $1B
     clc
     adc.w #$0053
@@ -428,6 +445,7 @@ C2CC15_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCC15:
     adc $04
     asl A
     sta $12
+    ; CA:F258 scrolling movement row -> duration/velocity/acceleration fields.
     ldx $06
     stx $0A
     ldx $08
@@ -540,6 +558,7 @@ C2CC9C_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCC9C:
     beq C2CD68_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD68
     jmp.w C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86
 C2CD08_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD08:
+    ; Target layer 1 commits offsets to BG1.
     ldx $02
     lda $0000,X
     xba
@@ -555,6 +574,7 @@ C2CD08_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD08:
     sta $0033
     bra C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86
 C2CD28_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD28:
+    ; Target layer 2 commits offsets to BG2.
     ldx $02
     lda $0000,X
     xba
@@ -570,6 +590,7 @@ C2CD28_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD28:
     sta $0037
     bra C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86
 C2CD48_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD48:
+    ; Target layer 3 commits offsets to BG3.
     ldx $02
     lda $0000,X
     xba
@@ -585,6 +606,7 @@ C2CD48_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD48:
     sta $003B
     bra C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86
 C2CD68_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD68:
+    ; Target layer 4 commits offsets to BG4.
     ldx $02
     lda $0000,X
     xba
@@ -599,6 +621,7 @@ C2CD68_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD68:
     adc $AD98
     sta $003F
 C2CD86_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCD86:
+    ; Struct +0x66 is the distortion duration countdown.
     lda $1B
     clc
     adc.w #$0066
@@ -657,6 +680,7 @@ C2CDE2_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCDE2:
     asl A
     adc $04
     sta $10
+    ; CA:F708 distortion row -> HDMA/effect parameters and increments.
     ldx $06
     stx $0A
     ldx $08
@@ -811,6 +835,7 @@ C2CF1B_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCF1B:
     lda $1D
     clc
     adc.w #$0005
+    ; Install/update the selected C0 layer effect lane.
     jsl $C0ADB2
 C2CF29_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCF29:
     lda $1B
@@ -897,6 +922,7 @@ C2CFC3_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCFC3:
     ldy.w #$0069
     lda ($1B),Y
     ldy $10
+    ; Commit distortion/HDMA parameters for the active layer effect.
     jsl $C0AE5A
 C2CFE3_C2C92D_RunFinalPrayerFinaleRecordPlayer_LCFE3:
     pld
