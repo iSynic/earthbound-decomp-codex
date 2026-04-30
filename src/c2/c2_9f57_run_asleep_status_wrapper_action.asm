@@ -11,7 +11,8 @@
 ; Runtime contract:
 ; - Contains the asleep wrapper, PP-drain actions, and a resist-checked
 ;   primary-affliction status body.
-; - `C2:9F57` redirects to the asleep body at `C2:9F06`.
+; - `C2:9F57` redirects to the asleep body at `C2:9F06`; this is the reusable
+;   second-pointer wrapper seen in multiple `D5:7B68` action-table rows.
 ; - `C2:9F5E` drains a bounded random PP amount, emits amount-bearing
 ;   `EF:773F`, subtracts from selected row `$A972`, and mirrors/clamps the
 ;   active row `$A970`.
@@ -41,6 +42,8 @@ EFMSG_StatusNoEffect                          = $766E
 REDIRECT_BTLACT_HYPNOSIS_A_COPY:
 C29F57_RunAsleepStatusWrapperAction = REDIRECT_BTLACT_HYPNOSIS_A_COPY
     rep #$31
+    ; Shared asleep-status body; wrapper exists for table rows that need a
+    ; distinct second-pointer target without duplicating the effect logic.
     jsl BTLACT_HYPNOSIS_A
     rtl
 BTLACT_MAGNET_A:

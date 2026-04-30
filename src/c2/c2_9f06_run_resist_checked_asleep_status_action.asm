@@ -12,10 +12,13 @@
 ; - Resist-checked/all-target asleep-status body for the `+0x1F` temporary
 ;   subgroup.
 ; - Gates through `C2:7CFD`, then tests selected-row byte `+0x3C` through
-;   `C2:6BB8`.
+;   `C2:6BB8`; local data contracts name that byte `hypnosis_resist`.
 ; - Calls the generic affliction writer with `Y = 1`, `X = 2`, targeting
 ;   selected-row byte `+0x1F`.
 ; - Emits `EF:6C55` on success and shared no-effect text `EF:766E` on failure.
+; - Action-table evidence currently ties the wrapper at `C2:9F57` to one
+;   PSI-side all-target asleep row and one `other` row, so this body is shared
+;   asleep infrastructure rather than a single player-command leaf.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -43,7 +46,7 @@ C29F06_RunResistCheckedAsleepStatusAction = BTLACT_HYPNOSIS_A
     ldx $A972
     sep #$20
     lda $003C,X
-    ; Asleep-family selected-row gate byte.
+    ; Asleep/Hypnosis-family selected-row resistance gate byte.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C29F47_RunResistCheckedAsleepStatusAction_L9F47

@@ -176,6 +176,11 @@ contract notes for C0/C1/C3/C4 consumers.
   `C2:9AB8` as the selected-row fixed HP recovery common helper, the four
   canonical PSI-side Lifeup literals, and the distinction between PSI naming and
   later item/other action-table reuses.
+- 2026-04-30 twenty-fourth slice: promoted asleep-status contracts into
+  byte-neutral source comments plus `notes/c2-asleep-status-runtime-polish.md`.
+  The promoted contracts cover the `C2:9F06` selected-row `+0x3C` resistance
+  gate, `C2:724A` temporary subgroup write `+0x1F = 1`, and the reusable
+  `C2:9F57` action-table wrapper.
 
 ## Validation
 
