@@ -8,6 +8,19 @@ Scope: scout battle text and EF text-script contracts that should drive **C2 sou
 
 This is a **workahead contract note** (no source/manifest edits). It consolidates local callers + `refs/ebsrc` text-bank maps + existing note conclusions so manual integration can promote the right C2 corridors with stable semantics.
 
+## Implementation status
+
+- 2026-04-30: first runtime semantic-polish pass landed byte-neutral source
+  comments/local aliases for the pinned `C1:DC1C`, `C1:DC66`, `C1:DD9F`,
+  `C1:AD0A`, and `C1:AD26` contracts plus the C2 HP/PP amount-message callers
+  and the `D5:7B68` action-table mode-1 message lane. The wider 39-call
+  `DC66` sweep and remaining status-result callers are still future work.
+- 2026-04-30: second pass named the local EF status-result scripts for
+  resist-checked crying, solidified, asleep, poison, strange, PP drain, and
+  timed shield/substate messages. These source aliases are intentionally local
+  to the C2 callers until a wider EF text payload naming pass promotes shared
+  script labels.
+
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
 Primary family writeup: `notes/battle-text-entry-family-c1dc1c-dd7c.md`, `notes/battle-text-entry-tail-dd82-dd9f.md`.
