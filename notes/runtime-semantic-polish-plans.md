@@ -56,3 +56,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   source comments plus `notes/c0-presentation-queue-runtime-polish.md`.
 - 2026-04-30: C0 task allocator/runtime seventh slice landed as byte-neutral
   source comments plus `notes/c0-task-pool-runtime-polish.md`.
+- 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
+  comments plus `notes/c1-battle-front-end-runtime-polish.md`.

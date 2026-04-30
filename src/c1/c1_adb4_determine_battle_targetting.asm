@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:ADB4 takes a D5:7B68 battle action id in A and the acting
+;   battler/character slot in X.
+; - D5:7B68 rows are 12 bytes. Byte +0 is the direction lane, byte +1 is the
+;   target subtype, and later pointer fields feed action-choice battle text.
+; - The return word packs the selected target byte with class flags produced by
+;   C0:923E.
 
 C1242E_RunCharacterSelectionPrompt      = $242E
 C193E7_OpenCharacterSelectTargetPrompt  = $93E7
@@ -46,6 +52,7 @@ C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     sta $06
     lda.w #$00D5
     sta $08
+    ; Index the 12-byte battle action row for the requested action id.
     txa
     sta $04
     asl A
@@ -62,6 +69,8 @@ C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     clc
     adc $0A
     sta $0A
+    ; Direction byte: 0 = enemy-facing lane, 1 = ally-facing lane. Other
+    ; values return through the common packed-result path.
     lda [$0A]
     and.w #$00FF
     beq C1ADFD_DetermineBattleTargetting_LADFD
@@ -80,6 +89,8 @@ C1ADFD_DetermineBattleTargetting_LADFD:
     clc
     adc $06
     sta $06
+    ; Target subtype byte selects single/default, prompted single, random
+    ; single, grouped/row, or all-target handling for the enemy lane.
     lda [$06]
     and.w #$00FF
     beq C1AE2A_DetermineBattleTargetting_LAE2A
@@ -157,6 +168,8 @@ C1AE99_DetermineBattleTargetting_LAE99:
     clc
     adc $06
     sta $06
+    ; Ally lane uses the same row byte, but routes single-target prompts
+    ; through party-side selection state.
     lda [$06]
     and.w #$00FF
     beq C1AECD_DetermineBattleTargetting_LAECD
@@ -251,6 +264,8 @@ C1AF50_ReturnBattleTargetAddress:
     lda $00
     and.w #$00FF
     jsl C0923E_ShiftTargettingClassToFlags
+    ; Low byte remains the selected target id; C0:923E contributes the
+    ; target-class flag bits.
     ora $02
     rep #$10
     pld

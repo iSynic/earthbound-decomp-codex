@@ -10,6 +10,13 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A points to a small battle item-selection record:
+;   +0 actor/character id, +1 selected inventory slot, +2 action word,
+;   +4 target/result byte, +5 actor byte.
+; - The selected item id is resolved through C3:E977, then indexed into the
+;   D5:5000 item configuration table with stride 0x27.
+; - Item config byte +0x19 gates target resolution/usability behavior; item
+;   config word +0x1D supplies the battle action id passed to C1:ADB4.
 
 C1ADB4_DetermineBattleTargetting       = $ADB4
 C08FF7_ResolveIndexedPointerOffset     = $C08FF7
@@ -43,6 +50,7 @@ C1CE85_ResolveSelectedBattleItemAction:
     sta $06
     lda.w #$00D5
     sta $08
+    ; D5:5000 item rows are 0x27 bytes; the resolved item id selects the row.
     lda $12
     ldy.w #$0027
     jsl C08FF7_ResolveIndexedPointerOffset
@@ -53,6 +61,7 @@ C1CE85_ResolveSelectedBattleItemAction:
     sty $04
     inc $04
     inc $04
+    ; Default record action class is 2 until a targetting path overrides it.
     lda.w #$0002
     ldx $04
     sta $0000,X
@@ -73,6 +82,8 @@ C1CE85_ResolveSelectedBattleItemAction:
     sep #$20
     lda $0000,Y
     sta ($0E)
+    ; Byte +0x19 is the battle-use/category mask used by CoilSnake's item
+    ; table and by this runtime resolver.
     ldy.w #$0019
     lda [$06],Y
     rep #$20
@@ -87,6 +98,8 @@ C1CE85_ResolveSelectedBattleItemAction:
     beq C1CF52_ResolveSelectedBattleItemAction_LCF52
     jmp.w C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CF10_ResolveSelectedBattleItemAction_LCF10:
+    ; Ordinary battle-use paths read the action word at item row +0x1D and
+    ; hand it to the shared D5:7B68 targetting resolver.
     lda.w #$001D
     clc
     adc $06
@@ -118,6 +131,8 @@ C1CF33_ResolveSelectedBattleItemAction_LCF33:
     sta ($0E)
     bra C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CF52_ResolveSelectedBattleItemAction_LCF52:
+    ; The 0x30 lane first checks the character usability mask in item row
+    ; +0x1C against C4:58AB[actor - 1].
     lda $12
     and.w #$000C
     beq C1CF5E_ResolveSelectedBattleItemAction_LCF5E
@@ -165,6 +180,7 @@ C1CF97_ResolveSelectedBattleItemAction_LCF97:
     sta ($0E)
     bra C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CFB6_ResolveSelectedBattleItemAction_LCFB6:
+    ; Failed usability leaves the selection record with action class 3.
     lda.w #$0003
     ldx $04
     sta $0000,X

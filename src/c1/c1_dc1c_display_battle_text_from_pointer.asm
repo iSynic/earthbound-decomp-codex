@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Caller stages an EF battle-text far pointer in caller-local $0E/$10; the
+;   DP shift exposes it here as $20/$22, then this wrapper restages it for
+;   C1:86B1.
+; - $98B1 plus $0065 bit 15 form the same battle-text gate used by nearby C1
+;   text entry wrappers.
 
 C1003C_WaitBattleTextDisplayTail = $003C
 C186B1_PrintTextFromPointer      = $C186B1

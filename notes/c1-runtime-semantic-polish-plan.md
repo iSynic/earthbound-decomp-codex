@@ -66,3 +66,10 @@ python tools\build_source_bank_residual_map.py --bank C1
 ```
 
 This planning pass is documentation-only.
+
+## Implementation Notes
+
+- 2026-04-30: First C1 battle front-end slice landed as byte-neutral source
+  comments plus `notes/c1-battle-front-end-runtime-polish.md`. The promoted
+  contracts cover the D5:7B68 target resolver, D5:5000 item action bridge,
+  battle item-selection loop, and C1:DC1C battle-text pointer wrapper.

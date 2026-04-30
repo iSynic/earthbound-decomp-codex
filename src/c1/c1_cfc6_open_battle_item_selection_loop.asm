@@ -10,6 +10,14 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A points to the same battle item-selection record consumed by
+;   C1:CE85: byte +0 is actor/character id and byte +1 receives the chosen
+;   inventory slot.
+; - The first inventory slot at $99F1 + actor party-record offset is the
+;   fast empty-inventory gate.
+; - Nonempty inventories render through C1:98DE, run the generic menu loop at
+;   C1:196A, then call C1:CE85 to turn the selected slot into action/target
+;   state.
 
 C10084_CloseFocusWindow                        = $0084
 C104EE_SetWindowFocus                          = $04EE
@@ -41,6 +49,8 @@ C1CFC6_OpenBattleItemSelectionLoop:
     ldy.w #$005F
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
+    ; Empty inventory: first item slot is zero, so the battle item command
+    ; returns 0 without opening the menu.
     lda $99F1,X
     and.w #$00FF
     beq C1D033_OpenBattleItemSelectionLoop_LD033
@@ -72,6 +82,8 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     lda.w #$0026
     jsl C3E521_CloseWindowAndReleaseTileState
     ldx $0E
+    ; A zero result from C1:CE85 means the chosen item was rejected after
+    ; target/usability resolution, so reopen the item list.
     beq C1CFEF_OpenBattleItemSelectionLoop_LCFEF
 C1D033_OpenBattleItemSelectionLoop_LD033:
     ldx $0E
