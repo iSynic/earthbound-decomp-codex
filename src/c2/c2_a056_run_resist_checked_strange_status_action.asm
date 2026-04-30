@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:A056..C2:A39D RunResistCheckedStrangeStatusAction
+;
+; Runtime contract:
+; - Opens with the resist-checked strange-status body used by Brainshock-style
+;   actions.
+; - Gates through `C2:7CFD`, then tests selected-row byte `+0x3B` through
+;   `C2:6BB8`.
+; - Calls the generic affliction writer with `Y = 1`, `X = 3`, targeting
+;   selected-row byte `+0x20`.
+; - Emits `EF:6C3A` on success and shared no-effect text `EF:766E` on failure.
+; - The later tails in this source unit are HP/PP/stat recovery wrappers already
+;   tied to the selected-row feedback and stat consequence families.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -39,11 +50,13 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     ldx $A972
     sep #$20
     lda $003B,X
+    ; Strange-family selected-row gate byte.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     ldy.w #$0001
     ldx.w #$0003
+    ; Write strange subgroup `+0x20 = 1`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

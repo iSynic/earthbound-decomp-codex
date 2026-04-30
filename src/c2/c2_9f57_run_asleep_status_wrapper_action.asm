@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:9F57..C2:A056 RunAsleepStatusWrapperAction
+;
+; Runtime contract:
+; - Contains the asleep wrapper, PP-drain actions, and a resist-checked
+;   primary-affliction status body.
+; - `C2:9F57` redirects to the asleep body at `C2:9F06`.
+; - `C2:9F5E` drains a bounded random PP amount, emits amount-bearing
+;   `EF:773F`, subtracts from selected row `$A972`, and mirrors/clamps the
+;   active row `$A970`.
+; - `C2:9FFE` gates through `C2:7CFD`, tests selected-row byte `+0x37`, then
+;   calls the generic affliction writer with `Y = 3`, `X = 0`, targeting
+;   selected-row byte `+0x1D`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -56,6 +67,7 @@ C29F7E_RunAsleepStatusWrapperAction_L9F7E:
     lda.w #$0004
     jsr C26A2D_RollRandomThreshold
     sta $02
+    ; Drain amount is two small rolls plus two, capped by target current PP.
     ldx $16
     txa
     clc
@@ -126,11 +138,13 @@ C29FFE_RunResistCheckedPoisonStatusAction = BTLACT_PARALYSIS_A
     ldx $A972
     sep #$20
     lda $0037,X
+    ; Primary-affliction status gate byte.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ldy.w #$0003
     ldx.w #$0000
+    ; Write primary affliction byte `+0x1D = 3`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

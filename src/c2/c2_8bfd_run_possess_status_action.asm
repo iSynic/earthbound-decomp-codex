@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:8BFD..C2:8C69 RunPossessStatusAction
+;
+; Runtime contract:
+; - Late action-table status body for the `+0x1E` persistent subgroup.
+; - Gates through `C2:7CFD`, then requires selected-row `+0x0E == 0`.
+; - Calls the generic affliction writer with `Y = 2`, `X = 1`, targeting
+;   selected-row byte `+0x1E`.
+; - Emits `EF:6B98` on success and shared no-effect text `EF:766E` on failure.
+; - A successful write may also seed the `A18C/A18D/A18F` companion route
+;   through `C2:B6EB`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +44,7 @@ C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     bne C28C57_RunPossessStatusAction_L8C57
     ldy.w #$0002
     ldx.w #$0001
+    ; Write persistent subgroup `+0x1E = 2`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
@@ -47,6 +57,7 @@ C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     lda $A18C
     and.w #$00FF
     bne C28C65_RunPossessStatusAction_L8C65
+    ; Possession-style success can seed the D5 companion route.
     ldx.w #$A180
     lda.w #$00D5
     jsl C2B6EB_ApplyCandidateRecordPayload

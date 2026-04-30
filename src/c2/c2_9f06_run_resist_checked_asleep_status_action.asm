@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:9F06..C2:9F57 RunResistCheckedAsleepStatusAction
+;
+; Runtime contract:
+; - Resist-checked/all-target asleep-status body for the `+0x1F` temporary
+;   subgroup.
+; - Gates through `C2:7CFD`, then tests selected-row byte `+0x3C` through
+;   `C2:6BB8`.
+; - Calls the generic affliction writer with `Y = 1`, `X = 2`, targeting
+;   selected-row byte `+0x1F`.
+; - Emits `EF:6C55` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,11 +43,13 @@ C29F06_RunResistCheckedAsleepStatusAction = BTLACT_HYPNOSIS_A
     ldx $A972
     sep #$20
     lda $003C,X
+    ; Asleep-family selected-row gate byte.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C29F47_RunResistCheckedAsleepStatusAction_L9F47
     ldy.w #$0001
     ldx.w #$0002
+    ; Write temporary subgroup `+0x1F = 1`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

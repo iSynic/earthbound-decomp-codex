@@ -107,6 +107,11 @@ contract notes for C0/C1/C3/C4 consumers.
   comments plus `notes/c2-psi-flash-runtime-polish.md`. The promoted contracts
   cover the `C2:724A` affliction writer ABI, Flash gate `C2:98A1`, strange/numb/
   crying helper parameter pairs, and Alpha/Beta/Gamma/Omega random branch maps.
+- 2026-04-30 eleventh slice: promoted late status-action contracts into
+  byte-neutral source comments plus `notes/c2-late-status-runtime-polish.md`.
+  The promoted contracts cover persistent subgroup `+0x1E`, temporary subgroup
+  `+0x1F`, strange subgroup `+0x20`, and the adjacent PP-drain/primary-affliction
+  bodies that share the late status source corridor.
 
 ## Validation
 

@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:8CB8..C2:8CF1 RunImmobilizedStatusAction
+;
+; Runtime contract:
+; - Late action-table status body for the `+0x1F` temporary subgroup.
+; - Calls the generic affliction writer with `Y = 3`, `X = 2`, targeting
+;   selected-row byte `+0x1F`.
+; - Emits `EF:6BD3` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +32,7 @@ C28CB8_RunImmobilizedStatusAction = BTLACT_IMMOBILIZE
     tcd
     ldy.w #$0003
     ldx.w #$0002
+    ; Write temporary subgroup `+0x1F = 3`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

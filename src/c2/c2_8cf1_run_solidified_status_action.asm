@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:8CF1..C2:8D3A RunSolidifiedStatusAction
+;
+; Runtime contract:
+; - Late action-table status body for the `+0x1F` temporary subgroup.
+; - Gates through `C2:7CFD`, then threshold helper `C2:7C96`.
+; - Calls the generic affliction writer with `Y = 4`, `X = 2`, targeting
+;   selected-row byte `+0x1F`.
+; - Emits `EF:6BEF` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -36,6 +43,7 @@ C28CF1_RunSolidifiedStatusAction = BTLACT_SOLIDIFY
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     ldy.w #$0004
     ldx.w #$0002
+    ; Write temporary subgroup `+0x1F = 4`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

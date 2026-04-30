@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:8BBE..C2:8BFD RunMushroomizeStatusAction
+;
+; Runtime contract:
+; - Late action-table status body for the `+0x1E` persistent subgroup.
+; - Gates through `C2:7CFD`, then calls the generic affliction writer with
+;   `Y = 1`, `X = 1`, targeting selected-row byte `+0x1E`.
+; - Emits `EF:6B81` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +36,7 @@ C28BBE_RunMushroomizeStatusAction = BTLACT_MUSHROOMIZE
     bne C28BFB_RunMushroomizeStatusAction_L8BFB
     ldy.w #$0001
     tyx
+    ; Write persistent subgroup `+0x1E = 1`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

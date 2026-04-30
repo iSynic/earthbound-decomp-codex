@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:8D3A..C2:8D5A RunStrangeStatusWrapperAction
+;
+; Runtime contract:
+; - Thin strange-status wrapper that redirects to the resist-checked body at
+;   `C2:A056`.
+; - Also contains `C2:8D41`, a threshold gate that rolls against selected-row
+;   byte `+0x2E`; callers use the return as a pass/fail flag.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,6 +34,7 @@ C28D41_CheckTargetField2eThresholdGate = SUCCESS_LUCK40
     lda.w #$0028
     jsr C26A2D_RollRandomThreshold
     ldx $A972
+    ; Compare the roll against selected-row `+0x2E`.
     cmp $002E,X
     bcs C28D56_RunStrangeStatusWrapperAction_L8D56
     lda.w #$0000

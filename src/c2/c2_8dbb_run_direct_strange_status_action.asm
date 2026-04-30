@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:8DBB..C2:8E42 RunDirectStrangeStatusAction
+;
+; Runtime contract:
+; - Direct strange-status sibling without the extra `+0x3B` gate used by
+;   `C2:A056`.
+; - Gates through `C2:7CFD`, then calls the generic affliction writer with
+;   `Y = 1`, `X = 3`, targeting selected-row byte `+0x20`.
+; - Emits `EF:6C3A` on success and shared no-effect text `EF:766E` on failure.
+; - The adjacent embedded tails reuse the same shape for crying (`+0x1F = 2`)
+;   and asleep via the resist-checked asleep body at `C2:9F06`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +39,7 @@ C28DBB_RunDirectStrangeStatusAction = BTLACT_FEELSTRANGE
     bne C28DFA_RunDirectStrangeStatusAction_L8DFA
     ldy.w #$0001
     ldx.w #$0003
+    ; Write strange subgroup `+0x20 = 1`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
@@ -59,6 +69,7 @@ C28DFA_RunDirectStrangeStatusAction_L8DFA:
     bne C28E39_RunDirectStrangeStatusAction_L8E39
     ldy.w #$0002
     tyx
+    ; Embedded sibling tail: write temporary subgroup `+0x1F = 2`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000

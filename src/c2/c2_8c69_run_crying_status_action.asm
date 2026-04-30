@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:8C69..C2:8CB8 RunCryingStatusAction
+;
+; Runtime contract:
+; - Late action-table status body for the `+0x1F` temporary subgroup.
+; - Gates through `C2:7CFD`, then tests selected-row byte `+0x39` through
+;   `C2:6BB8`.
+; - Calls the generic affliction writer with `Y = 2`, `X = 2`, targeting
+;   selected-row byte `+0x1F`.
+; - Emits `EF:6BBB` on success and shared no-effect text `EF:766E` on failure.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,11 +42,13 @@ C28C69_RunCryingStatusAction = BTLACT_CRYING
     ldx $A972
     sep #$20
     lda $0039,X
+    ; Extra selected-row gate before crying can be installed.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C28CA8_RunCryingStatusAction_L8CA8
     ldy.w #$0002
     tyx
+    ; Write temporary subgroup `+0x1F = 2`.
     lda $A972
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
