@@ -14,8 +14,8 @@
 ; - Gates through `C2:7CFD`, then calls the generic affliction writer with
 ;   `Y = 1`, `X = 3`, targeting selected-row byte `+0x20`.
 ; - Emits `EF:6C3A` on success and shared no-effect text `EF:766E` on failure.
-; - The adjacent embedded tails reuse the same shape for crying (`+0x1F = 2`)
-;   and asleep via the resist-checked asleep body at `C2:9F06`.
+; - The adjacent embedded tails reuse the same shape for all-target crying
+;   (`+0x1F = 2`) and asleep via the resist-checked asleep body at `C2:9F06`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -23,6 +23,10 @@
 C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+C29F06_RunResistCheckedAsleepStatusAction     = $C29F06
+EFMSG_CryingInflicted                         = $6BBB
+EFMSG_StrangeInflicted                        = $6C3A
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:8DBB
@@ -44,14 +48,14 @@ C28DBB_RunDirectStrangeStatusAction = BTLACT_FEELSTRANGE
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28DEC_RunDirectStrangeStatusAction_L8DEC
-    lda.w #$6C3A
+    lda.w #EFMSG_StrangeInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28DFA_RunDirectStrangeStatusAction_L8DFA
 C28DEC_RunDirectStrangeStatusAction_L8DEC:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10
@@ -59,6 +63,8 @@ C28DEC_RunDirectStrangeStatusAction_L8DEC:
 C28DFA_RunDirectStrangeStatusAction_L8DFA:
     pld
     rtl
+BTLACT_CRYING_ALL:
+C28DFC_RunAllTargetCryingStatusAction = BTLACT_CRYING_ALL
     rep #$31
     phd
     tdc
@@ -74,14 +80,14 @@ C28DFA_RunDirectStrangeStatusAction_L8DFA:
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28E2B_RunDirectStrangeStatusAction_L8E2B
-    lda.w #$6BBB
+    lda.w #EFMSG_CryingInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28E39_RunDirectStrangeStatusAction_L8E39
 C28E2B_RunDirectStrangeStatusAction_L8E2B:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10
@@ -89,6 +95,8 @@ C28E2B_RunDirectStrangeStatusAction_L8E2B:
 C28E39_RunDirectStrangeStatusAction_L8E39:
     pld
     rtl
+REDIRECT_BTLACT_HYPNOSIS_A:
+C28E3B_RunAsleepStatusFarWrapperAction = REDIRECT_BTLACT_HYPNOSIS_A
     rep #$31
-    jsl $C29F06
+    jsl C29F06_RunResistCheckedAsleepStatusAction
     rtl

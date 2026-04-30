@@ -191,6 +191,11 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-late-stat-resource-runtime-polish.md`. The promoted contracts cover
   `8E42` PP reduction, `8EAE` guts reduction, and `8F21` paired offense/defense
   reduction over selected-row fields and amount-bearing battle text.
+- 2026-04-30 twenty-seventh slice: promoted direct-strange embedded status tails
+  into byte-neutral source labels/comments plus
+  `notes/c2-direct-strange-embedded-status-runtime-polish.md`. The promoted
+  contracts cover `8DBB` direct strange, `8DFC` all-target crying, and `8E3B`
+  as the asleep wrapper into `C2:9F06`.
 
 ## Validation
 
