@@ -76,3 +76,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c1-inventory-recovery-runtime-polish.md`.
 - 2026-04-30: C2 target-selection first slice landed as byte-neutral source
   comments plus `notes/c2-target-selection-runtime-polish.md`.
+- 2026-04-30: C2 action-dispatch second slice landed as byte-neutral source
+  comments plus `notes/c2-action-dispatch-runtime-polish.md`.

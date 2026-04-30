@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:4703..C2:4958 DispatchClass2DerivedAction
+;
+; Runtime contract:
+; - A = candidate row base.
+; - Clears the current 32-bit target mask `$A96C/$A96E`.
+; - Dispatches on row byte `+0x09`, consuming row byte `+0x0A` as a
+;   per-action target parameter where needed.
+; - Builds/prunes the current target mask through the class-2 mask helper
+;   family, then returns to the caller that will apply the selected action or
+;   presentation payload.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -47,6 +56,7 @@ C24703_DispatchClass2DerivedAction:
     sta $A96E
     lda $0009,X
     and.w #$00FF
+    ; Derived action code from C2:4477 selects target-mask construction.
     cmp.w #$0001
     beq C24749_DispatchClass2DerivedAction_L4749
     cmp.w #$0002

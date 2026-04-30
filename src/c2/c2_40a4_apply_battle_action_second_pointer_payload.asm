@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:40A4..C2:41DC ApplyBattleActionSecondPointerPayload
+;
+; Runtime contract:
+; - Caller provides the second pointer from a `D5:7B68` action descriptor in
+;   direct-page fields `$1E/$20`; this routine copies it to local `$06/$08`.
+; - Waits until the current battle effect step is ready, then iterates two
+;   candidate domains using the current mask-set bit tests:
+;   `$A21C` entries first, then `$9FAC` candidate rows.
+; - For each targeted bit, rebuilds target text context and dispatches the same
+;   fixed second-pointer payload through `C0:9279`.
+; - The sibling `C2:416F` helper prunes the current target mask by row state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -39,6 +49,7 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     jsl C2EACF_WaitForBattleEffectStepReady
     cmp.w #$0000
     bne C240B6_ApplyBattleActionSecondPointerPayload_L40B6
+    ; First pass: selected entries in the `$A21C` domain.
     lda.w #$A21C
     sta $A972
     ldx.w #$0008
@@ -152,6 +163,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     jsl IS_CHAR_TARGETTED
     cmp.w #$0000
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
+    ; Remove targeted rows that are inactive or in blocked row states.
     ldy $0E
     tya
     ldy.w #$004E

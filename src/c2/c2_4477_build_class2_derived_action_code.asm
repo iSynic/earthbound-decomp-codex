@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:4477..C2:4703 BuildClass2DerivedActionCode
+;
+; Runtime contract:
+; - A = candidate row base, normally in the `$9FAC + 0x4E * n` domain.
+; - Consults ranked candidate lists `$AD7A/$AD82` and the `D5:7B68`
+;   battle-action descriptor table selected by row byte `+0x04`.
+; - Writes a compact derived action code to row byte `+0x09` and an action
+;   parameter/index to row byte `+0x0A`.
+; - `C2:4703` consumes those two bytes to build the current target mask
+;   `$A96C/$A96E`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -72,6 +81,7 @@ C244C7_BuildClass2DerivedActionCode_L44C7:
     tax
     lda $D57B68,X
     and.w #$00FF
+    ; D5:7B68 byte +0 is the action direction/class selector used here.
     bne C244FE_BuildClass2DerivedActionCode_L44FE
     ldx $02
     lda $000E,X
@@ -131,6 +141,7 @@ C2451D_BuildClass2DerivedActionCode_L451D:
     sta $0A
     lda [$0A]
     and.w #$00FF
+    ; D5:7B68 byte +1 is the target-shape selector driving +09/+0A.
     beq C2456D_BuildClass2DerivedActionCode_L456D
     cmp.w #$0001
     beq C245BC_BuildClass2DerivedActionCode_L45BC

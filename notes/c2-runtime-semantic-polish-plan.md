@@ -73,6 +73,11 @@ contract notes for C0/C1/C3/C4 consumers.
   filtered row counting over `$9FAC`, `C2:BB18` selected-row promotion into the
   collapse/affliction controller path, and `C2:BC5C` inactive transient-field
   cleanup.
+- 2026-04-30 fourth slice: promoted C2 action-dispatch contracts into
+  byte-neutral source comments plus `notes/c2-action-dispatch-runtime-polish.md`.
+  The promoted contracts cover `D5:7B68` descriptor metadata use, candidate row
+  `+0x09/+0x0A` derived action bytes, `$A96C/$A96E` as the current 32-bit target
+  mask, and `C2:40A4` as the second-pointer payload applicator.
 
 ## Validation
 
