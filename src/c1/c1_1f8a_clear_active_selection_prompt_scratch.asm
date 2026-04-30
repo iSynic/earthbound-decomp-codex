@@ -8,6 +8,9 @@
 ; Source unit covered:
 ; - C1:1F8A..C1:1FBC ClearActiveSelectionPromptScratch
 
+; Clears the active prompt descriptor scratch pointer at $8687 + descriptor.
+; The active descriptor is resolved through $8958 -> $88E4 with stride 0x52.
+
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
 ActiveWindowFocus          = $8958

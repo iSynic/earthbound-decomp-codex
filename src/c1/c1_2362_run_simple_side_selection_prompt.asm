@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Simple side-selection prompt used when the caller wants side choice rather
+;   than per-candidate scanning.
+; - $AD56/$AD58 decide which sides are available. C4:3657 marks the highlighted
+;   side, C4:35E4 clears it, and C1:20D6 renders the side label.
+; - Returns side + 1 on accept or 0 on cancel when the incoming mode permits it.
 
 ; No named external contracts were supplied or recognized.
 
@@ -27,6 +32,7 @@ C12362_C12362_RunSimpleSideSelectionPrompt:
     sta $02
     lda $AD56
     beq C12378_RunSimpleSideSelectionPrompt_L2378
+    ; Start on primary side if present, otherwise secondary side.
     ldx.w #$0000
     bra C1237B_RunSimpleSideSelectionPrompt_L237B
 C12378_RunSimpleSideSelectionPrompt_L2378:
@@ -37,6 +43,7 @@ C1237B_RunSimpleSideSelectionPrompt_L237B:
 C1237E_RunSimpleSideSelectionPrompt_L237E:
     ldy $12
     tya
+    ; Highlight the currently selected side before rendering its label.
     jsl $C43657
     jsl $C3E4CA
     ldx.w #$FFFF

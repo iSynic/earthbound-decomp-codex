@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Refreshes the visible text for one selection-prompt list/index pair.
+; - Input A is the active list side, X is candidate index or FFFF for fallback
+;   side text, and Y carries the current prompt mode/context.
+; - Candidate-specific text resolves through $AD7A/$AD82 to battler-sized
+;   $9FC9 records; fallback labels come from C4:54F5/C4:5502.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_DivideUnsignedWordByIndex   = $C09032
@@ -40,6 +45,7 @@ C120D6_C120D6_RefreshSelectionPromptCandidateText:
     ldx $16
     cpx.w #$FFFF
     bne C12109_RefreshSelectionPromptCandidateText_L2109
+    ; FFFF means render the list-side fallback label instead of a candidate.
     jmp.w C1218A_RefreshSelectionPromptCandidateText_L218A
 C12109_RefreshSelectionPromptCandidateText_L2109:
     stx $02
@@ -69,6 +75,7 @@ C12109_RefreshSelectionPromptCandidateText_L2109:
     jsr $0EFC
     ldy $14
     beq C1215A_RefreshSelectionPromptCandidateText_L215A
+    ; Secondary list candidates map through $AD82; primary list through $AD7A.
     ldx $16
     lda $AD82,X
     and.w #$00FF

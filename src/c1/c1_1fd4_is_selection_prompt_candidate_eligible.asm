@@ -8,6 +8,10 @@
 ; Source unit covered:
 ; - C1:1FD4..C1:2012 IsSelectionPromptCandidateEligible
 
+; Candidate validity predicate used by both forward and reverse scans.
+; Most candidates return eligible; list/mode 1 additionally checks the
+; D5:7B68-derived metadata byte and C2:FAD2 state before accepting.
+
 C2FAD2_CheckSelectionCandidateState = $C2FAD2
 
 SavedCandidateIndex = $02
@@ -30,6 +34,8 @@ C11FD4_IsSelectionPromptCandidateEligible:
     cpx.w #$0001
     bne C1200D_ReturnSelectionPromptCandidateEligible
 
+    ; Special eligibility lane: candidate row metadata must have type byte 1,
+    ; then C2:FAD2 must report clear state for the candidate index.
     tya
     sta SavedRowIndex
     asl A

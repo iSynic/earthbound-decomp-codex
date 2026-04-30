@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Full two-list selection prompt over candidate counts $AD56/$AD58 and
+;   candidate bytes $AD5A/$AD6A.
+; - $0800/$0400 switch sides, $0200/$0100 scan backward/forward through
+;   C1:2070/C1:2012, $00A0 accepts, and $A000 cancels when mode allows it.
+; - Returns a 1-based combined candidate index or 0 for cancel.
 
 C09032_DivideUnsignedWordByIndex = $C09032
 
@@ -30,6 +35,7 @@ C121B8_C121B8_RunTwoListCharacterSelectionPrompt:
     stz $16
     lda $AD56
     beq C121D4_RunTwoListCharacterSelectionPrompt_L21D4
+    ; Prefer primary list when it has candidates, unless $A97A forces side 1.
     ldx.w #$0000
     bra C121D7_RunTwoListCharacterSelectionPrompt_L21D7
 C121D4_RunTwoListCharacterSelectionPrompt_L21D4:
@@ -79,6 +85,7 @@ C1221D_RunTwoListCharacterSelectionPrompt_L221D:
 C12234_RunTwoListCharacterSelectionPrompt_L2234:
     lda.w #$0002
     sta $12
+    ; Up/backward movement: search current list first, then the opposite list.
     lda $006D
     and.w #$0200
     beq C12277_RunTwoListCharacterSelectionPrompt_L2277
@@ -112,6 +119,7 @@ C12277_RunTwoListCharacterSelectionPrompt_L2277:
     lda $006D
     and.w #$0100
     beq C122B5_RunTwoListCharacterSelectionPrompt_L22B5
+    ; Down/forward movement mirrors the backward scan order.
     lda $04
     sta $02
     ldy $1C
@@ -142,6 +150,7 @@ C122B5_RunTwoListCharacterSelectionPrompt_L22B5:
     lda $006D
     and.w #$00A0
     beq C122DB_RunTwoListCharacterSelectionPrompt_L22DB
+    ; Accept returns a 1-based index folded across the two list counts.
     jsl $EF0000
     ldy $AD56
     lda $04

@@ -88,3 +88,8 @@ This planning pass is documentation-only.
   contracts cover `$89D4` active text-entry records, constructors,
   chain count/layout/render helpers, selection update helpers, and active-window
   clear behavior.
+- 2026-04-30: Third C1 text/menu-core slice landed as byte-neutral source
+  comments plus `notes/c1-selection-prompt-runtime-polish.md`. The promoted
+  contracts cover `$AD56/$AD58` candidate counts, `$AD5A/$AD6A` candidate
+  bytes, scan/eligibility helpers, two-list prompt control, simple side prompt
+  control, and the conservative C1:242E dispatcher boundary.

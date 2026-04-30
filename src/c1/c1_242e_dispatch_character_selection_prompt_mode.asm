@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:242E dispatches to the simple side prompt when incoming X is nonzero,
+;   otherwise to the full two-list character/party candidate prompt.
+; - C1:244C continues the deeper character-select prompt core and should keep
+;   conservative wording until its internal mixed decode is split further.
 
 C08616_QueueVramTransfer_FromDpSource  = $C08616
 C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
@@ -31,11 +35,13 @@ C1242E_DispatchCharacterSelectionPromptMode:
     txy
     tax
     beq C12444_DispatchCharacterSelectionPromptMode_L2444
+    ; Nonzero mode: choose between the two highlighted sides only.
     tya
     jsr $2362
     bra C1244A_DispatchCharacterSelectionPromptMode_L244A
 C12444_DispatchCharacterSelectionPromptMode_L2444:
     ldx $02
+    ; Zero mode: run the full two-list candidate prompt.
     tya
     jsr $21B8
 C1244A_DispatchCharacterSelectionPromptMode_L244A:

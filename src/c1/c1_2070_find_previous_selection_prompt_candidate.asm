@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A selects candidate list 0/1, X is the current candidate byte
+;   threshold, and Y is passed through to C1:1FD4 eligibility.
+; - Scans $AD5A/$AD6A downward using counts $AD56/$AD58 and returns candidate
+;   index or FFFF when no earlier eligible candidate exists.
 
 ; No named external contracts were supplied or recognized.
 
@@ -28,6 +32,7 @@ C12070_C12070_FindPreviousSelectionPromptCandidate:
     stx $12
     sta $10
     bne C1208F_FindPreviousSelectionPromptCandidate_L208F
+    ; Primary candidate list: start at $AD5A + $AD56 - 1.
     ldx $AD56
     txa
     dec A
@@ -36,6 +41,7 @@ C12070_C12070_FindPreviousSelectionPromptCandidate:
     sta $04
     bra C1209A_FindPreviousSelectionPromptCandidate_L209A
 C1208F_FindPreviousSelectionPromptCandidate_L208F:
+    ; Secondary candidate list: start at $AD6A + $AD58 - 1.
     ldx $AD58
     txa
     dec A

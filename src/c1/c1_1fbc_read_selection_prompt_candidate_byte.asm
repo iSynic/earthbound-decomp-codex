@@ -10,6 +10,8 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A selects candidate list 0/1 and Y selects candidate index.
+; - Returns a zero-extended byte from $AD5A or $AD6A.
 
 PrimarySelectionPromptCandidateTable   = $AD5A
 SecondarySelectionPromptCandidateTable = $AD6A
