@@ -196,6 +196,11 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-direct-strange-embedded-status-runtime-polish.md`. The promoted
   contracts cover `8DBB` direct strange, `8DFC` all-target crying, and `8E3B`
   as the asleep wrapper into `C2:9F06`.
+- 2026-04-30 twenty-eighth slice: promoted enemy-side concentration/PSI-seal
+  contracts into byte-neutral source comments plus
+  `notes/c2-concentration-seal-runtime-polish.md`. The promoted contracts cover
+  `8D41` as the luck threshold helper and `8D5A` as the enemy-side `+0x21 = 4`
+  seal writer paired with item-side `A3D1`.
 
 ## Validation
 

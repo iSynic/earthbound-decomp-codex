@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:8D5A..C2:8DBB RunConcentrationSealAction
+;
+; Runtime contract:
+; - Enemy-side concentration/PSI-seal sibling of the item-side body at
+;   `C2:A3D1`.
+; - Gates through `C2:7CFD`, the luck threshold helper at `C2:8D41`, and
+;   selected-row byte `+0x37` through `C2:6BB8`.
+; - If row byte `+0x21` is clear, writes value `4`, emits `EF:6C0B`, and
+;   otherwise falls back to shared no-effect text `EF:766E`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -15,6 +23,8 @@ C26BB8_BuildCandidateMaskPhase                = $6BB8
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C28D41_CheckTargetField2eThresholdGate        = $8D41
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+EFMSG_ConcentrationSealInflicted              = $6C0B
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:8D5A
@@ -35,6 +45,7 @@ C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     ldx $A972
     sep #$20
     lda $0037,X
+    ; Secondary eligibility gate before writing the seal subgroup.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C28DAB_RunConcentrationSealAction_L8DAB
@@ -47,16 +58,17 @@ C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     bne C28DAB_RunConcentrationSealAction_L8DAB
     sep #$20
     lda.b #$04
+    ; Concentration/PSI-seal subgroup `+0x21 = 4`.
     sta $0000,X
     rep #$20
-    lda.w #$6C0B
+    lda.w #EFMSG_ConcentrationSealInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28DB9_RunConcentrationSealAction_L8DB9
 C28DAB_RunConcentrationSealAction_L8DAB:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

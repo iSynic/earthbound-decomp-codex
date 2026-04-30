@@ -128,3 +128,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
 - 2026-04-30: C2 direct-strange embedded-status twenty-fifth slice landed as
   byte-neutral source labels/comments plus
   `notes/c2-direct-strange-embedded-status-runtime-polish.md`.
+- 2026-04-30: C2 concentration/PSI-seal twenty-sixth slice landed as
+  byte-neutral source comments plus `notes/c2-concentration-seal-runtime-polish.md`.
