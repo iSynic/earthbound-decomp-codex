@@ -3,6 +3,15 @@
 ; Source units covered:
 ; - C1:9D49..C1:9DB5 PrepareEquipmentMenuStatusDisplay
 ; - C1:9DB5..C1:9EE6 RunShopItemSelectionMenu
+;
+; Runtime contract:
+; - `C1:9D49` is the shop/equipment status panel reset used after shop
+;   selection. It restores the four comparison lanes to 0x0400 and copies the
+;   selected-character E0 status tilemap row into `$0218`.
+; - `C1:9DB5` builds the shop item list from `D5:76B2`, stages item names from
+;   `D5:5000`, prints the item cost from item-row byte pair `+0x1A`, and
+;   installs `C1:9B4E` as the candidate comparison callback before the menu
+;   selection loop.
 
 C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 C10EB4_ClearOrPrepareWindowContent = $0EB4

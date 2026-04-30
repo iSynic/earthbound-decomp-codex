@@ -7,6 +7,13 @@
 ;
 ; Source unit covered:
 ; - C1:9B4E..C1:9B79 BuildEquipmentComparisonMarkersForItem
+;
+; Runtime contract:
+; - A = candidate item id from shop/equipment selection UI.
+; - Loops the four active-party comparison lanes and writes `$9A1D..$9A20`
+;   through the continuation in `C1:9B79..9CDD`.
+; - `C3:EE14` is the compatibility gate. A failed gate writes marker 0x0C00
+;   immediately; compatible items continue into the subtype/value comparison.
 
 C19CB6_ContinueEquipmentComparisonMarkerBuild = $9CB6
 C19CCB_RunEquipmentComparisonMarkerLoop       = $9CCB

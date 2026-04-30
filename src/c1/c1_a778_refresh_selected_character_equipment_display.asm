@@ -7,6 +7,13 @@
 ;
 ; Source unit covered:
 ; - C1:A778..C1:A795 RefreshSelectedCharacterEquipmentDisplay
+;
+; Runtime contract:
+; - A = 1-based selected character id.
+; - Clears the preview-ready latch `$9CD4`, renders the live equipment list,
+;   then renders the status/preview panel for the same character.
+; - This is the character-selection callback used by the top-level party
+;   equipment menu.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

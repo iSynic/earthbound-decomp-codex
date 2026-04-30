@@ -9,6 +9,15 @@
 ; - C1:AA5D..C1:AAFA RunPartyEquipmentMenuController
 ; - C1:AAFA..C1:AC00 RunTeleportDestinationSelectionMenu
 ; - C1:AC00..C1:AC4A OpenPhoneContactSelectionMenu
+;
+; Runtime contract for C1:AA5D:
+; - Snapshots `$9C8A`, chooses the target party member, calls `C1:A795` for the
+;   per-character equipment loop, and restores the menu context on exit.
+; - Single-member parties refresh the selected character directly; multi-member
+;   parties use the character-selection prompt with `C1:A778` as the display
+;   refresh callback.
+; - Closes the equipment preview/list windows (`0x2D` and `0x06`) before
+;   returning the selected party code or zero on cancel.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

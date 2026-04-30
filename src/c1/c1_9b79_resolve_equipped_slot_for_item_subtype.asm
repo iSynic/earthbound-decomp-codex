@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C1:9B79..C1:9CDD resolve_equipped_slot_for_item_subtype
+;
+; Runtime contract:
+; - Continues `C1:9B4E` after the candidate item passed compatibility.
+; - Rejects non-equipment item classes with marker 0x0400.
+; - Uses item byte `+0x19 & 0x0C` to choose the current live slot byte:
+;   `$99FF/$9A00/$9A01/$9A02`.
+; - Compares signed item parameter byte `+0x1F` against the currently equipped
+;   item in that slot. Character-index 3 reads the adjacent item-parameter lane,
+;   matching the local Poo-adjusted equipment behavior documented in notes.
+; - Writes 0x1400 for an improving candidate, 0x0400 for default/non-improving,
+;   and leaves the 0x0C00 cannot-equip case to the entry routine.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +46,7 @@ C19B89_resolve_equipped_slot_for_item_subtype_L9B89:
     lda $D55000,X
     and.w #$00FF
     and.w #$000C
+    ; Slot-subtype dispatch mirrors the live updater at C1:9066.
     beq C19BB4_resolve_equipped_slot_for_item_subtype_L9BB4
     cmp.w #$0004
     beq C19BCB_resolve_equipped_slot_for_item_subtype_L9BCB
@@ -98,6 +110,7 @@ C19C0E_resolve_equipped_slot_for_item_subtype_L9C0E:
     ldx.w #$0001
     stx $10
 C19C25_resolve_equipped_slot_for_item_subtype_L9C25:
+    ; Character-index 3 compares the alternate +0x1F/+0x20 item stat lane.
     lda $02
     dec A
     sta $02

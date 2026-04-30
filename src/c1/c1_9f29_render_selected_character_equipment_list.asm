@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C1:9F29..C1:A1D8 RenderSelectedCharacterEquipmentList
+;
+; Runtime contract:
+; - A = 1-based selected character id.
+; - Opens the equipment list context and renders four live equipment rows in
+;   weapon, charm/pendant/cloak, bracelet/band, cap/ribbon/coin order.
+; - The row bytes `$99FF/$9A00/$9A01/$9A02` are 1-based inventory slot indices;
+;   each nonzero slot is resolved through `$99F1 + character_stride + slot - 1`
+;   to fetch the item id, then the D5 item-name field is staged at `$9C9F`.
+; - A currently equipped prefix marker writes byte `$22` before the staged name;
+;   empty slots copy the C4:5C78 fallback row.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

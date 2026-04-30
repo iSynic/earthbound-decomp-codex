@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C1:9066..C1:90E6 c1_9066_dispatch_equipped_slot_subtype_update
+;
+; Runtime contract:
+; - A = 1-based character id, X = 1-based inventory slot.
+; - Reads the item id from the selected character inventory row at
+;   `$99F1 + character_stride + slot - 1`.
+; - Dispatches item byte `+0x19 & 0x0C` to the matching live equipment-slot
+;   helper:
+;   0x00 = weapon, 0x04 = charm/pendant/cloak,
+;   0x08 = bracelet/band, 0x0C = cap/ribbon/coin.
+; - The C4 helper returns the displaced previous slot value, or this routine
+;   returns zero if the subtype is outside the four known equipment families.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -49,6 +60,7 @@ C19066_DispatchEquippedSlotSubtypeUpdate = EQUIP_ITEM
     lda $D55000,X
     and.w #$00FF
     and.w #$000C
+    ; Item configuration byte +0x19 bits 2-3 choose the equipment family.
     beq C190B9_c1_9066_dispatch_equipped_slot_subtype_update_L90B9
     cmp.w #$0004
     beq C190C3_c1_9066_dispatch_equipped_slot_subtype_update_L90C3

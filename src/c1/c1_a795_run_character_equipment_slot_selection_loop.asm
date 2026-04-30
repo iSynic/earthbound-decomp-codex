@@ -8,6 +8,17 @@
 ; Source units covered:
 ; - C1:A795..C1:AA18 RunCharacterEquipmentSlotSelectionLoop
 ; - C1:AA18..C1:AA5D RefreshWalletOrStatusDisplay
+;
+; Runtime contract:
+; - `C1:A795` runs the per-character equipment category and item selection loop.
+;   It filters the selected character inventory for equipment-class items,
+;   requires the chosen slot family through `C2:24E1`, gates through `C3:EE14`,
+;   installs the matching C2 preview callback, then either clears a live slot
+;   through C4 or equips the selected inventory slot through `C1:9066`.
+; - `$9CD4` is set when the shadow preview slots are valid; `$9CD6` holds the
+;   selected character id for the preview callback path.
+; - `C1:AA18` snapshots the menu context and refreshes the wallet/status display
+;   from pointer pair `$9831/$9833`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -251,6 +262,7 @@ C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
     beq C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
+    ; Category 1 preview callback: weapon shadow slot `$9CD0`.
     lda.w #$2562
     sta $0E
     lda.w #$00C2
@@ -258,6 +270,7 @@ C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
+    ; Category 2 preview callback: charm/pendant/cloak shadow slot `$9CD1`.
     lda.w #$25AC
     sta $0E
     lda.w #$00C2
@@ -265,6 +278,7 @@ C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
+    ; Category 3 preview callback: bracelet/band shadow slot `$9CD2`.
     lda.w #$260D
     sta $0E
     lda.w #$00C2
@@ -272,6 +286,7 @@ C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986:
+    ; Category 4 preview callback: cap/ribbon/coin shadow slot `$9CD3`.
     lda.w #$2673
     sta $0E
     lda.w #$00C2

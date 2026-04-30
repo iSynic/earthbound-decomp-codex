@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C1:9CDD..C1:9D49 initialize_equipment_comparison_markers_default
+;
+; Runtime contract:
+; - Resets the four equipment comparison marker lanes `$9A1D..$9A20` to
+;   0x0400, the default/non-improving marker.
+; - Copies one status tilemap row block from E0 using the selected-character
+;   row offset table at `E0:1FB9`, then marks the equipment/status panel dirty
+;   with `$0030 = 0x18` and `$9623 = 1`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

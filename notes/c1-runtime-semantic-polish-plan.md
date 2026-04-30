@@ -97,3 +97,9 @@ This planning pass is documentation-only.
   plus `notes/c1-display-helper-runtime-polish.md`. The promoted contracts
   cover item-name, statistic-selector, PSI/small-label, and target-prompt
   display adapters.
+- 2026-04-30: C1 equipment-menu slice landed as byte-neutral source comments
+  plus `notes/c1-equipment-runtime-polish.md`. The promoted contracts cover
+  item byte `+0x19` slot-family dispatch, item parameter `+0x1F` preview and
+  comparison use, live slots `$99FF/$9A00/$9A01/$9A02`, shadow slots
+  `$9CD0..$9CD3`, comparison markers `$9A1D..$9A20`, shop item selection joins,
+  and the top-level party equipment controller.

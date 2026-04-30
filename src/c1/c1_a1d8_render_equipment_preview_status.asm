@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C1:A1D8..C1:A778 RenderEquipmentPreviewStatus
+;
+; Runtime contract:
+; - A = 1-based selected character id.
+; - Renders the equipment status/preview panel from live slot bytes
+;   `$99FF/$9A00/$9A01/$9A02`, base display stats `$99EA/$99EB`, and the
+;   signed item parameter byte at item row `+0x1F`.
+; - When `$9CD4` is set, also renders preview deltas from shadow slots
+;   `$9CD0..$9CD3` for the selected character `$9CD6`.
+; - Displayed values are clamped into the unsigned 0..255 range before printing.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
