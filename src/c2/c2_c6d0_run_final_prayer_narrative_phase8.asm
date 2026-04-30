@@ -7,6 +7,11 @@
 ;
 ; Source units covered:
 ; - C2:C6D0..C2:C6F0 BTLACT_GIYGAS_PRAYER_8
+;
+; Runtime contract:
+; - Final Prayer action row 298 / phase 8.
+; - Displays late narrative text `C9:F6DE` through `C2:C41F` with cue `0x004A`,
+;   then advances `$A97A` to phase `12` without calling the damage helper.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,6 +33,7 @@ C2C6D0_RunFinalPrayerNarrativePhase8 = BTLACT_GIYGAS_PRAYER_8
     lda.w #$00C9
     sta $10
     lda.w #$004A
+    ; Phase 8 is narrative-only; no `C2:C3E2` damage step follows.
     jsr $C41F
     lda.w #$000C
     sta $A97A

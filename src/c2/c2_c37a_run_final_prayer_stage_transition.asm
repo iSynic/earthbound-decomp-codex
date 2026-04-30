@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:C37A..C2:C3E2 RunFinalPrayerStageTransition
+;
+; Runtime contract:
+; - Shared transition helper for Final Prayer action rows 291..297.
+; - Preserves caller-selected visual parameters in A/X, displays the text
+;   pointer already staged in `$22/$24`, temporarily disables battle BG updates
+;   via `$9643`, then routes A/X through the battle visual selector at `C2:C21F`.
+; - Restores battle BG updates, runs C1 text/presentation cleanup, and waits
+;   `0x3C` frames before returning to the prayer phase body.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -28,6 +36,7 @@ C2C37A_RunFinalPrayerStageTransition:
     stx $02
     tay
     sty $12
+    ; Capture the caller-selected prayer text pointer.
     lda $22
     sta $06
     lda $24
@@ -36,6 +45,7 @@ C2C37A_RunFinalPrayerStageTransition:
     lda.w #$0001
     jsl C0887A_ClearDisplayTransitionState
     jsr $69DE
+    ; Pause battle-background frame updates while the prayer text displays.
     stz $9643
     stz $5DD4
     jsl C1DD5F_WaitForTextOrMenuAcknowledge
@@ -51,6 +61,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx $02
     ldy $12
     tya
+    ; Apply the caller-selected battle visual transition.
     jsr $C21F
     lda.w #$0001
     sta $9643

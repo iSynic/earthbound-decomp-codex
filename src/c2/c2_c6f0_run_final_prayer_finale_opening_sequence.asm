@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:C6F0..C2:C8C8 BTLACT_GIYGAS_PRAYER_9
+;
+; Runtime contract:
+; - Final Prayer action row 299 / phase 9 finale opening sequence.
+; - Interleaves four late narrative text blocks through `C2:C41F` with four
+;   doubled prayer damage calls through `C2:C3E2` (`0x0C80`, `0x1900`,
+;   `0x3200`, `0x6400`).
+; - Then drives the Sound Stone/noise sequence, layer distortion swaps, final
+;   overlay wait, and handoff into the terminal battle visual state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +39,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$004A
     jsr $C41F
     lda.w #$0C80
+    ; Finale damage tier: 3200.
     jsr $C3E2
     lda.w #$F7BB
     sta $0E
@@ -39,6 +48,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$004A
     jsr $C41F
     lda.w #$1900
+    ; Finale damage tier: 6400.
     jsr $C3E2
     lda.w #$F804
     sta $0E
@@ -47,6 +57,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$004A
     jsr $C41F
     lda.w #$3200
+    ; Finale damage tier: 12800.
     jsr $C3E2
     lda.w #$F84D
     sta $0E
@@ -55,6 +66,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$004A
     jsr $C41F
     lda.w #$6400
+    ; Finale damage tier: 25600.
     jsr $C3E2
     jsl $C1DD59
     stz $9643
@@ -69,6 +81,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     ldy.w #$0000
     sty $18
 C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
+    ; Iterate the C4 finale sound/delay table until a zero delay terminator.
     lda.w #$A35D
     sta $06
     lda.w #$00C4
@@ -169,6 +182,7 @@ C2C842_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC842:
     lda $18
     cmp $C4A331,X
     bcc C2C81E_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC81E
+    ; Periodically swap layer-1 battle-bg distortion endpoints during finale.
     jsl $C2DAE3
     ldy $14
     tya
@@ -202,6 +216,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     ldy.w #$0005
     ldx.w #$0000
     tya
+    ; Start the final overlay and spin until the busy predicate clears.
     jsl $C2E8C4
     bra C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4
 C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0:

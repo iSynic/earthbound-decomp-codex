@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:C572..C2:C5D1 BTLACT_GIYGAS_PRAYER_1
+;
+; Runtime contract:
+; - Final Prayer action row 291 / phase 1.
+; - Displays the opening prayer text through `C2:C37A`, starts the vertical
+;   shake timer, displays the follow-up `C9:F86A` text, advances `$A97A` to
+;   phase `5`, and selects the next battle visual state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -40,6 +46,7 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     sta $AD8C
     lda.w #$000C
     sta $AD8E
+    ; Follow-up text after the first prayer shake cue.
     lda.w #$F86A
     sta $0E
     lda.w #$00C9

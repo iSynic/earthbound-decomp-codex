@@ -8,6 +8,15 @@
 ; Source units covered:
 ; - C2:C41F..C2:C572 RunFinalPrayerNarrativeTransition
 ; - C2:C516..C2:C572 FinalPrayerNarrativeTransitionTail
+;
+; Runtime contract:
+; - Late Final Prayer narrative transition helper used by prayer phase 8 and
+;   the finale text blocks.
+; - Input A/Y carries the melody cue to replay after the text. The text pointer
+;   is already staged in `$22/$24`.
+; - Runs a display fade/mode sequence, pauses battle BG updates through `$9643`,
+;   plays the fixed `0x00BF` Sound Stone cue, displays the staged text, then
+;   restores the caller-selected cue and returns through the C1 cleanup path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +40,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     pla
     tay
     sty $12
+    ; Capture the staged late-prayer narrative text pointer.
     lda $22
     sta $06
     lda $24
@@ -41,6 +51,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     lda.w #$0002
     jsl C0AC0C_QueuePresentationSfxOrCounter
     jsr $69DE
+    ; Pause battle-background updates during the late narrative presentation.
     stz $9643
     jsl C1DD5F_WaitForTextOrMenuAcknowledge
     sep #$20
@@ -79,6 +90,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldy $12
     rep #$20
     tya
+    ; Replay the caller-selected Sound Stone melody cue.
     jsl C4FBBD_PlaySoundStoneMelody
     ldx.w #$0001
     txa

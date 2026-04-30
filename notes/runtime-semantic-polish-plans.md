@@ -101,3 +101,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
 - 2026-04-30: C2 battle-background load/update thirteenth slice landed as
   byte-neutral source comments plus
   `notes/c2-battle-bg-load-update-runtime-polish.md`.
+- 2026-04-30: C2 Final Prayer fourteenth slice landed as byte-neutral source
+  comments plus `notes/c2-final-prayer-runtime-polish.md`.

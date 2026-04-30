@@ -1,0 +1,98 @@
+# C2 Final Prayer Runtime Polish
+
+This note records the byte-neutral C2 Final Prayer polish slice. It promotes
+the shared transition helpers, repeated damage worker, phase ladder, and finale
+opening sequence that implement action-table rows `291..299`.
+
+Primary source modules:
+
+- `src/c2/c2_c37a_run_final_prayer_stage_transition.asm`
+- `src/c2/c2_c3e2_apply_final_prayer_damage_step.asm`
+- `src/c2/c2_c41f_run_final_prayer_narrative_transition.asm`
+- `src/c2/c2_c572_run_final_prayer_opening_transition.asm`
+- `src/c2/c2_c5d1_run_final_prayer_damage_phase2.asm`
+- `src/c2/c2_c5fa_run_final_prayer_damage_phase3.asm`
+- `src/c2/c2_c623_run_final_prayer_damage_phase4.asm`
+- `src/c2/c2_c64c_run_final_prayer_damage_phase5.asm`
+- `src/c2/c2_c675_run_final_prayer_damage_phase6.asm`
+- `src/c2/c2_c69e_run_final_prayer_damage_phase7.asm`
+- `src/c2/c2_c6d0_run_final_prayer_narrative_phase8.asm`
+- `src/c2/c2_c6f0_run_final_prayer_finale_opening_sequence.asm`
+
+Related evidence notes:
+
+- `notes/class2-final-prayer-family-c2c572-c2c6f0.md`
+- `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`
+- `notes/c2-battle-bg-load-update-runtime-polish.md`
+- `notes/c2-battle-overlay-runtime-polish.md`
+
+## Helper Layer
+
+`C2:C37A` is the shared stage transition helper for Final Prayer rows `291..297`.
+It captures the caller-staged text pointer, runs display mode transitions,
+temporarily disables battle-background frame updates through `$9643`, displays
+the prayer text, applies the caller's battle visual selector through `C2:C21F`,
+then restores updates and returns through C1 cleanup.
+
+`C2:C3E2` is the shared prayer damage worker. Input A is the amount. The helper
+points `$A972` at battler table root `$A21C`, starts red flash timer
+`$AD9E = 0x3C`, marks `$AA8E = 1`, prepares amount text through `C2:6AFD`, and
+forces amount application through `C2:8125` with X = `0x00FF`.
+
+`C2:C41F` is the late narrative transition helper used by phase 8 and the
+finale text blocks. It runs a different display and Sound Stone cue sequence,
+pauses battle-background updates, displays the staged text, then replays the
+caller-selected melody cue.
+
+## Phase Ladder
+
+The action-table rows form a stable Final Prayer ladder:
+
+| Row | Source | Role | Damage | Next `$A97A` |
+| ---: | --- | --- | ---: | ---: |
+| 291 | `C2:C572` | opening transition | none | `5` |
+| 292 | `C2:C5D1` | damage phase 2 | `0x0032` | `6` |
+| 293 | `C2:C5FA` | damage phase 3 | `0x0064` | `7` |
+| 294 | `C2:C623` | damage phase 4 | `0x00C8` | `8` |
+| 295 | `C2:C64C` | damage phase 5 | `0x0190` | `9` |
+| 296 | `C2:C675` | damage phase 6 | `0x0320` | `10` |
+| 297 | `C2:C69E` | damage phase 7 | `0x0640` | `11` |
+| 298 | `C2:C6D0` | late narrative phase | none | `12` |
+| 299 | `C2:C6F0` | finale | finale tiers | varies |
+
+The damage rows are regular wrappers around `C2:C37A` followed by `C2:C3E2`.
+Phase 8 intentionally skips damage and advances through the late narrative
+helper only.
+
+## Finale Opening
+
+`C2:C6F0` interleaves four late narrative text blocks with four larger damage
+tiers:
+
+- `0x0C80`
+- `0x1900`
+- `0x3200`
+- `0x6400`
+
+It then runs the Sound Stone/noise table rooted at `C4:A35D`, drives layer-1
+battle-background distortion swaps through `C2:DAE3`, starts the final overlay
+through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
+terminal battle visual state.
+
+## Decomp Value
+
+This slice turns the Final Prayer area from a set of thematically named action
+bodies into a runtime contract:
+
+- rows `291..299` have stable phase roles
+- `$A97A` is the phase-progress field for this ladder
+- `$9643` is explicitly paused around prayer text presentation
+- the shared damage helper is now tied to amount setup, flash timing, and forced
+  application
+- the finale is connected to battle-background distortion and overlay helpers
+
+## Remaining Soft Spots
+
+- exact final names for display helpers `C0:887A`, `C0:886C`, and `C2:69DE`
+- full decoded-source replacement for the remaining `C2:C6F0..CFE5` corridor
+- final names for the C4 finale sound and distortion timing tables

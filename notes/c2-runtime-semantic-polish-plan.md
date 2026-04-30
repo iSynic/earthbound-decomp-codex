@@ -134,6 +134,11 @@ contract notes for C0/C1/C3/C4 consumers.
   cover `C2:CFE5` config-to-struct import, `LOAD_BATTLE_BG` table joins,
   `C2:D0AC` letterbox HDMA construction, `C2:DAE3` distortion priming, and
   `C2:DB3F` per-frame visual updates.
+- 2026-04-30 sixteenth slice: promoted Final Prayer contracts into
+  byte-neutral source comments plus `notes/c2-final-prayer-runtime-polish.md`.
+  The promoted contracts cover action-table rows `291..299`, shared helpers
+  `C2:C37A/C3E2/C41F`, `$A97A` phase progression, staged damage amounts, and
+  finale joins to battle-background distortion and overlay helpers.
 
 ## Validation
 

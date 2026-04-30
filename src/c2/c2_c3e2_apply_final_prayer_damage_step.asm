@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:C3E2..C2:C41F ApplyFinalPrayerDamageStep
+;
+; Runtime contract:
+; - Shared Final Prayer damage worker, matching the `GIYGAS_HURT_PRAYER`
+;   ladder role used by prayer phases 2..7 and the finale.
+; - Input A is the damage amount. The helper waits, points `$A972` at battler
+;   table root `$A21C`, starts the red flash timer `$AD9E = 0x3C`, marks
+;   `$AA8E = 1`, prepares amount text through `C2:6AFD`, and applies the forced
+;   amount through `C2:8125` with X = `0x00FF`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -29,6 +37,7 @@ C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     stx $0E
     lda.w #$003C
     jsr $69BE
+    ; Target context for the scripted Giygas prayer damage application.
     lda.w #$A21C
     sta $A972
     jsl $C23D05
@@ -38,6 +47,7 @@ C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     sta $AA8E
     ldx $0E
     txa
+    ; Prepare and apply the caller's staged damage amount.
     jsr $6AFD
     ldx.w #$00FF
     jsr $8125

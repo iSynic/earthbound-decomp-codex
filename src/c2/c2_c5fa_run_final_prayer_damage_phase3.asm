@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:C5FA..C2:C623 BTLACT_GIYGAS_PRAYER_3
+;
+; Runtime contract:
+; - Final Prayer action row 293 / phase 3.
+; - Displays `C7:BAC7` through the shared stage transition helper, applies
+;   prayer damage amount `0x0064` through `C2:C3E2`, then advances `$A97A` to
+;   phase `7`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +37,7 @@ C2C5FA_RunFinalPrayerDamagePhase3 = BTLACT_GIYGAS_PRAYER_3
     lda.w #$01DF
     jsr $C37A
     lda.w #$0064
+    ; Second prayer damage tier: 100.
     jsr $C3E2
     lda.w #$0007
     sta $A97A
