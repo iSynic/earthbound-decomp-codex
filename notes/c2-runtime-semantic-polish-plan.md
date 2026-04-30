@@ -170,6 +170,12 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover item-side concentration seal, damage-plus-
   solidification, the `C2:724A` solidification text tail, bomb/super-bomb base
   damage constants, and splash targeting by sprite width/position.
+- 2026-04-30 twenty-third slice: promoted Lifeup/fixed-amount healing contracts
+  into byte-neutral source comments plus
+  `notes/c2-lifeup-healing-runtime-polish.md`. The promoted contracts cover
+  `C2:9AB8` as the selected-row fixed HP recovery common helper, the four
+  canonical PSI-side Lifeup literals, and the distinction between PSI naming and
+  later item/other action-table reuses.
 
 ## Validation
 

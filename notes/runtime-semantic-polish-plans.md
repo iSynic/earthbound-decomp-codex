@@ -116,3 +116,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c2-call-for-help-runtime-polish.md`.
 - 2026-04-30: C2 item/bomb twentieth slice landed as byte-neutral source
   comments plus `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-04-30: C2 Lifeup/fixed-amount healing twenty-first slice landed as
+  byte-neutral source comments plus `notes/c2-lifeup-healing-runtime-polish.md`.

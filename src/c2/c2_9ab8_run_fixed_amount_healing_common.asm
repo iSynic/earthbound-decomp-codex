@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:9AB8..C2:9AEA RunFixedAmountHealingCommon
+;
+; Runtime contract:
+; - A enters as a caller-selected base recovery literal.
+; - `C2:6AFD` rolls/scales that literal into the effective HP amount in X.
+; - `$A972` supplies the selected battler row base for the shared HP feedback
+;   helper at `C2:7294`.
+; - The early action-table entries `32..35` use these four wrappers as the
+;   canonical PSI-side Lifeup ladder, but later item/other rows also reuse the
+;   same fixed-amount healing core with different presentation scripts.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -21,14 +30,17 @@ LIFEUP_COMMON:
 C29AB8_RunFixedAmountHealingCommon = LIFEUP_COMMON
     rep #$31
     tax
+    ; Convert the fixed literal into the effective recovered HP amount.
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
+    ; A = selected row, X = effective recovered HP amount.
     jsr RECOVER_HP
     rts
 BTLACT_LIFEUP_A:
 C29AC6_RunLifeupAlphaHealingAction = BTLACT_LIFEUP_A
     rep #$31
+    ; Lifeup alpha: 100 HP-side recovery before C2:6AFD shaping.
     lda.w #$0064
     jsr.w LIFEUP_COMMON
     rtl
@@ -36,6 +48,7 @@ BTLACT_LIFEUP_B:
 C29ACF_RunLifeupAlphaHealingAction_End = BTLACT_LIFEUP_B
 C29ACF_RunLifeupBetaHealingAction = BTLACT_LIFEUP_B
     rep #$31
+    ; Lifeup beta: 300 HP-side recovery before C2:6AFD shaping.
     lda.w #$012C
     jsr.w LIFEUP_COMMON
     rtl
@@ -43,6 +56,7 @@ BTLACT_LIFEUP_G:
 C29AD8_RunLifeupBetaHealingAction_End = BTLACT_LIFEUP_G
 C29AD8_RunLifeupGammaHealingAction = BTLACT_LIFEUP_G
     rep #$31
+    ; Lifeup gamma/full-heal-style recovery: 10000 before C2:6AFD shaping.
     lda.w #$2710
     jsr.w LIFEUP_COMMON
     rtl
@@ -50,6 +64,7 @@ BTLACT_LIFEUP_O:
 C29AE1_RunLifeupGammaHealingAction_End = BTLACT_LIFEUP_O
 C29AE1_RunLifeupOmegaHealingAction = BTLACT_LIFEUP_O
     rep #$31
+    ; Lifeup omega: 400 HP-side recovery before C2:6AFD shaping.
     lda.w #$0190
     jsr.w LIFEUP_COMMON
     rtl
