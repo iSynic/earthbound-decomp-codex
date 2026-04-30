@@ -56,6 +56,19 @@ python tools/build_coilsnake_project_inventory.py --project-dir build/coilsnake/
 python tools/build_coilsnake_field_join_report.py
 ```
 
+Reusable experiment runner:
+
+```powershell
+python tools/run_coilsnake_edit_experiment.py --experiment-id <id> --source-file <project-file> --find <old-text> --replace <new-text> --edit-description <description>
+```
+
+The runner copies the ignored baseline project into
+`build/coilsnake/edit-experiments/<id>/project`, applies one exact text
+replacement, compiles against `build/coilsnake/base-expanded.sfc`, diffs against
+`build/coilsnake/baseline-rebuild.sfc`, and writes an ignored
+`experiment-report.json`. It has an internal compile timeout so a stuck
+CoilSnake run leaves a report instead of only timing out at the shell layer.
+
 Results:
 
 - CoilSnake decompiled the verified ROM into `2008` project files.
@@ -126,6 +139,9 @@ checked-in field join summary. Current joins:
 
 - Add focused contract enrichments for the three one-byte diff probes by joining
   their offsets to local table/routine contracts.
+- Run `battle-action-pp-cost-probe` with the reusable experiment runner once the
+  local CoilSnake executable can complete the compile in this shell. The dry-run
+  edit is entry `10` in `battle_action_table.yml`, changing `PP Cost` `10 -> 11`.
 - Run a true CCScript `scriptdump` and a minimal CCScript label/body experiment
   once we want command-lowering proof rather than text YAML proof.
 - Extend experiments to enemy stats, battle sprite metadata, and window/font
