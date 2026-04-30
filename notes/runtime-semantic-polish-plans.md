@@ -82,3 +82,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c2-stat-consequence-runtime-polish.md`.
 - 2026-04-30: C2 affliction-recovery fourth slice landed as byte-neutral source
   comments plus `notes/c2-affliction-recovery-runtime-polish.md`.
+- 2026-04-30: C2 selected-row controller fifth slice landed as byte-neutral
+  source comments plus `notes/c2-selected-row-controller-runtime-polish.md`.

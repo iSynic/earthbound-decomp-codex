@@ -88,6 +88,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:9AEA/9B7A/9C2C/9CB8` recovery ladder,
   selected-row `+0x1D` ailment values 1..7 within that family, subgroup bytes
   `+0x1F/+0x20`, timed-substate neighbor fields, and poison-only `C2:A39D`.
+- 2026-04-30 seventh slice: promoted selected-row controller contracts into
+  byte-neutral source comments plus `notes/c2-selected-row-controller-runtime-polish.md`.
+  The promoted contracts cover the `C2:7294/7318` HP/PP feedback pair,
+  `C2:7397` heavy recovery reset behavior, and the `C2:7550` startup boundary
+  into the late selected-row controller.
 
 ## Validation
 

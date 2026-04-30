@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:7318..C2:7397 ApplyBattlerPpRecoveryFeedback
+;
+; Runtime contract:
+; - A = selected-row base, X = requested PP-side recovery amount.
+; - Requires row `+0x0C == 1` and row `+0x1D != 1`; otherwise returns
+;   without emitting PP recovery text.
+; - Uses row words `+0x19/+0x1B` as the bounded PP-side current/cap pair and
+;   helper `C2:7191` as the target clamp.
+; - Emits amount-bearing `EF:69D2` through `C1:DC66` with the staged recovered
+;   PP delta.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -37,6 +46,7 @@ C27318_ApplyBattlerPpRecoveryFeedback = RECOVER_PP
     ldx $02
     lda $001D,X
     and.w #$00FF
+    ; Hard/collapsed rows skip PP recovery feedback.
     cmp.w #$0001
     beq C27395_ApplyBattlerPpRecoveryFeedback_L7395
     ldx $02
@@ -48,6 +58,7 @@ C27318_ApplyBattlerPpRecoveryFeedback = RECOVER_PP
     tya
     clc
     adc $04
+    ; Bound the displayed delta against the row-local PP cap.
     cmp $02
     bcc C27361_ApplyBattlerPpRecoveryFeedback_L7361
     sty $02

@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:7397..C2:7550 InstallBattlerHeavyRecoveryReset
+;
+; Runtime contract:
+; - A = selected-row base, X = recovery target amount or row-local target word.
+; - Emits revival-grade text `EF:6F7C`, clears the selected row's affliction
+;   bytes `+0x1D..+0x23` plus row word `+0x04`, and sets `+0x0D = 1`.
+; - Applies the HP-side clamp helper `C2:7126` to the selected row.
+; - When row `+0x0E/+0x0F` are both clear, updates linked `0x5F`-stride
+;   `9A15/9A13` markers through the id stored at row `+0x10`.
+; - When row `+0x0E == 1` and `+0x0F == 0`, resets `+0x4B` membership across
+;   candidate rows, marks the selected row, and refreshes the row's visual
+;   presentation tiles through the `FAD8/FB35/69BE` helper family.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -37,6 +48,7 @@ C27397_InstallBattlerHeavyRecoveryReset = REVIVE_TARGET
     jsl C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     lda.b #$00
+    ; Clear the selected row's affliction/substate bytes after revival.
     ldx $04
     sta $0023,X
     ldx $04
@@ -71,6 +83,7 @@ C27397_InstallBattlerHeavyRecoveryReset = REVIVE_TARGET
     lda $000F,X
     and.w #$00FF
     bne C2743C_InstallBattlerHeavyRecoveryReset_L743C
+    ; With no local phase/subtype route set, mark the linked 0x5F record.
     lda $04
     clc
     adc.w #$0010
@@ -111,6 +124,7 @@ C27459_InstallBattlerHeavyRecoveryReset_L7459:
     stx $18
     bra C27474_InstallBattlerHeavyRecoveryReset_L7474
 C27463_InstallBattlerHeavyRecoveryReset_L7463:
+    ; Reset row-membership marker `+0x4B` across all candidate rows.
     tax
     sep #$20
     stz $004B,X

@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:7294..C2:7318 ApplyBattlerHpRecoveryFeedback
+;
+; Runtime contract:
+; - A = selected-row base, X = requested HP-side recovery amount.
+; - Requires row `+0x0C == 1`; otherwise returns without text.
+; - Row `+0x1D == 1` is the hard/collapse state and emits no-visible-effect
+;   text `EF:7696` instead of applying recovery feedback.
+; - Uses row words `+0x13/+0x15` as the bounded HP-side current/cap pair and
+;   helper `C2:7126` as the target clamp before choosing the result text.
+; - Emits `EF:69A1` for cap/no-gain and amount-bearing `EF:69BA` through
+;   `C1:DC66` for a successful recovered-HP delta.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -37,6 +47,7 @@ C27294_ApplyBattlerHpRecoveryFeedback = RECOVER_HP
     ldx $02
     lda $001D,X
     and.w #$00FF
+    ; Do not run HP recovery feedback against hard/collapsed rows.
     cmp.w #$0001
     beq C27308_ApplyBattlerHpRecoveryFeedback_L7308
     ldx $16
@@ -53,6 +64,7 @@ C27294_ApplyBattlerHpRecoveryFeedback = RECOVER_HP
     ldx $02
     ldy $16
     tya
+    ; If the clamped target reaches the row cap, use the maxed-out text.
     cmp $0015,X
     bcc C272EA_ApplyBattlerHpRecoveryFeedback_L72EA
     lda.w #$69A1

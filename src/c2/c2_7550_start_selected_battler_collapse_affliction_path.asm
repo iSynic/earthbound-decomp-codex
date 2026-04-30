@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:7550..C2:7680 StartSelectedBattlerCollapseAfflictionPath
+;
+; Runtime contract:
+; - A = selected-row base for the collapse/affliction startup path.
+; - Clears controller flag `$AA92`, then routes nonzero row `+0x0E` into the
+;   late selected-row controller at `C2:77CA`.
+; - Startup rows with `+0x1E == 2` scan the six upstream source entries and
+;   require enabled `9FB8`, clear `9FBB`, and neighboring metadata `9FCA == 2`.
+; - Seeds selected-row `+0x1D = 1` and clears `+0x1E..+0x23`, aligning this
+;   entry with the hard/collapsed state consumed by recovery helpers.
+; - Row `+0x0F` selects between the hardcoded collapse text tail and the
+;   descriptor-backed `D5:9589 + 0x31` text pointer path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +43,7 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = KO_TARGET
     ldx $02
     lda $000E,X
     and.w #$00FF
+    ; Nonzero major phase resumes in the late selected-row controller.
     beq C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C
     jmp C277CA_RunClass2LateSelectedRowController
 C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C:
@@ -51,6 +63,7 @@ C27584_StartSelectedBattlerCollapseAfflictionPath_L7584:
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $20
     tax
+    ; Startup scan accepts enabled source entries with clear source markers.
     lda $9FB8,X
     and.w #$00FF
     bne C2759A_StartSelectedBattlerCollapseAfflictionPath_L759A
@@ -135,6 +148,7 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     sep #$20
     lda.b #$01
     ldx $02
+    ; Install hard/collapsed state and clear the sibling substate bytes.
     sta $001D,X
     ldx $02
     stz $0023,X
@@ -157,8 +171,10 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     lda $0000,X
     and.w #$00FF
     bne C27676_StartSelectedBattlerCollapseAfflictionPath_L7676
+    ; `+0x0F == 0` uses the hardcoded collapse text tail in the next module.
     jmp $7784
 C27676_StartSelectedBattlerCollapseAfflictionPath_L7676:
+    ; Nonzero `+0x0F` uses the descriptor-backed `+0x31` text pointer path.
     lda.w #$9589
     sta $0A
     lda.w #$00D5
