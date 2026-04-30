@@ -181,6 +181,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:9F06` selected-row `+0x3C` resistance
   gate, `C2:724A` temporary subgroup write `+0x1F = 1`, and the reusable
   `C2:9F57` action-table wrapper.
+- 2026-04-30 twenty-fifth slice: corrected and promoted the `C2:9E38..9F06`
+  offense/defense stat-action corridor into byte-neutral source comments plus
+  `notes/c2-offense-defense-stat-actions-runtime-polish.md`. The promoted
+  contracts cover `9E38/9E7F` as offense-up body/wrapper and `9E86/9EFF` as
+  defense-down body/wrapper.
 
 ## Validation
 

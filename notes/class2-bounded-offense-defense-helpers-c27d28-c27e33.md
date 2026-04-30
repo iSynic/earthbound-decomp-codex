@@ -104,7 +104,8 @@ So the healthiest local name is a bounded defense decrease helper.
 Current useful callers are:
 
 - `C2:9E53 -> 7D28` for offense-increase family behavior
-- `C2:9E53/9E38` neighborhood for defense-increase family behavior through `7D82`
+- `C2:7D82` remains the bounded defense-increase helper, but this pass does not
+  promote a concrete `9E38` caller for it
 - `C2:8F3C -> 7DDC` for offense decrease
 - `C2:926F -> 7DDC` for odor or stinky-gas offense reduction
 - `C2:8F6E -> 7E33` and `C2:9EA9 -> 7E33` for defense decrease

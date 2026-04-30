@@ -131,8 +131,8 @@ The late table now has a second non-status cluster with clean local bodies:
 - `C2:8E42` -> one-target PP-reduction or PP-sapping action over battler `pp_target`
 - `C2:8EAE` -> guts-cutting action over battler `guts`
 - `C2:8F21` -> paired offense-and-defense reduction action
-- `C2:9E38` -> one-target defense-up body, strongest current local fit for `DEFENSE_SPRAY`
-- `C2:9E7F` -> all-target wrapper, strongest current local fit for `DEFENSE_SHOWER`
+- `C2:9E38` -> one-target offense-up body over row `+0x26`
+- `C2:9E7F` -> all-target offense-up wrapper over `C2:9E38`
 
 That matters because these entries do not just look battle-action-like from table metadata. Their second-pointer bodies mutate concrete battler fields and then route amount-bearing text through `C1:DC66`, which is exactly the sort of gameplay-facing behavior we would expect from live battle action descriptors. See [class2-late-stat-and-resource-family-c28e42-c29e38.md](notes/class2-late-stat-and-resource-family-c28e42-c29e38.md).
 

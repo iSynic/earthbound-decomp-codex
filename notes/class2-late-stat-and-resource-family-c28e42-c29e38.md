@@ -12,8 +12,12 @@ See also [class2-battle-text-cluster-overview.md](notes/class2-battle-text-clust
 - `C2:8E42` = `RunPpReductionAction`
 - `C2:8EAE` = `RunGutsReductionAction`
 - `C2:8F21` = `RunOffenseDefenseReductionAction`
-- `C2:9E38` = `RunDefenseSprayAction`
-- `C2:9E7F` = `RunDefenseShowerAction`
+- `C2:9E38` = `RunOffenseUpAlphaAction` (behavior-correct alias; generated file
+  name still says `RunDefenseSprayAction`)
+- `C2:9E7F` = `RunOffenseUpOmegaWrapperAction` (behavior-correct alias; generated
+  file name still says `RunDefenseShowerAction`)
+- `C2:9E86` = `RunDefenseDownAlphaAction`
+- `C2:9EFF` = `RunDefenseDownOmegaWrapperAction`
 
 ## Main result
 
@@ -24,10 +28,14 @@ The current safest local split is:
 - `C2:8E42` = PP-reduction or PP-sapping action
 - `C2:8EAE` = guts-cutting action
 - `C2:8F21` = paired offense-and-defense reduction action
-- `C2:9E38` = strongest current local fit for `DEFENSE_SPRAY`
-- `C2:9E7F` = strongest current local fit for `DEFENSE_SHOWER`
+- `C2:9E38` = bounded offense-up body
+- `C2:9E7F` = wrapper over `C2:9E38`
+- `C2:9E86` = gated defense-down body
+- `C2:9EFF` = wrapper over `C2:9E86`
 
-All four bodies are real gameplay-side mutators, not presentation-only helpers. They gate targets through the same battle-side success checks, mutate live battler fields, and then print the resulting amount deltas through `C1:DC66`.
+These bodies are real gameplay-side mutators, not presentation-only helpers.
+They gate targets through the same battle-side success checks, mutate live
+battler fields, and then print the resulting amount deltas through `C1:DC66`.
 
 ## Why this family holds together
 
@@ -94,25 +102,31 @@ then:
 
 That makes the safest local name a paired offense-and-defense reduction action. The strongest current reference-backed candidate is `BTLACT_REDUCEOFFDEF`.
 
-## `C2:9E38` is the defense-increase side
+## `C2:9E38` is the offense-increase side
 
-`C2:9E38` is also in good shape now.
+`C2:9E38` is also in good shape now, but the earlier Defense Spray/Shower
+wording was too aggressive.
 
 Current strongest read:
 
 - gates through `C2:7CFD`
-- snapshots target battler `defense` at row `+0x28`
+- snapshots target battler `offense` at row `+0x26`
 - runs `C2:7D28`
 - prints the positive delta through `C1:DC66` with `C8:F77D`
 
-The nearby `C2:9E7F` is a trivial all-target wrapper that immediately `JSL`s `C2:9E38` and returns.
+The nearby `C2:9E7F` is a trivial wrapper that immediately `JSL`s `C2:9E38` and returns.
 
 That split now matches the action-table metadata unusually well:
 
-- entry `48` -> `C2:9E38` -> one-target PSI action
-- entry `49` -> `C2:9E7F` -> all-target PSI action
+- entry `48` -> `C2:9E38` -> one-target offense-up PSI action
+- entry `49` -> `C2:9E7F` -> all-target offense-up PSI action
 
-Together with the reference action files, that is strong enough to promote the current best fits to `BTLACT_DEFENSE_SPRAY` for `C2:9E38` and `BTLACT_DEFENSE_SHOWER` for `C2:9E7F`.
+The same source unit then continues with the defense-down side:
+
+- `C2:9E86` snapshots target battler `defense` at row `+0x28`
+- `C2:9E86` runs `C2:7E33`
+- `C2:9E86` prints the positive defense-loss delta through `C1:DC66` with `C8:F8A2`
+- `C2:9EFF` is the wrapper over that defense-down body
 
 ## Field-level bridge to battler state
 
@@ -132,16 +146,16 @@ That matters because this cluster is no longer resting just on message-text vibe
 The current useful anchors from `D5:7B68` are:
 
 - entry `95` -> `C2:8E42` -> one-target `other` PP-reduction family
-- entry `48` -> `C2:9E38` -> one-target defense-up family
-- entry `49` -> `C2:9E7F` -> all-target defense-up family
-- entry `96` -> `C2:9E38` -> defense-up family
+- entry `48` -> `C2:9E38` -> one-target offense-up family
+- entry `49` -> `C2:9E7F` -> all-target offense-up family
+- entry `96` -> `C2:9E38` -> offense-up family reuse
 - entry `97` -> `C2:8EAE` -> guts-cutting family
 - entry `98` -> `C2:8F21` -> paired offense-and-defense reduction family
 
 There are also later reuses:
 
 - entries `233` and `234` reuse `C2:8F21`
-- `C2:9E7F` is a wrapper reuse of the `9E38` defense-up body
+- `C2:9E7F` is a wrapper reuse of the `9E38` offense-up body
 
 ## Current safest interpretation
 
@@ -151,8 +165,9 @@ The safest current interpretation is:
 - `8E42` is a PP-reduction action over `pp_target`
 - `8EAE` is a guts-cutting action
 - `8F21` is a paired offense-and-defense reduction action
-- `9E38` is the one-target defense-up action and best current local fit for `DEFENSE_SPRAY`
-- `9E7F` is the all-target wrapper and best current local fit for `DEFENSE_SHOWER`
+- `9E38` is the one-target offense-up action
+- `9E7F` is the all-target offense-up wrapper
+- `9E86/9EFF` are the defense-down body and wrapper in the same source corridor
 
 This is materially stronger than the older â€œneighboring non-affliction clusterâ€ wording.
 
@@ -161,7 +176,8 @@ This is materially stronger than the older â€œneighboring non-affliction clu
 Still open:
 
 - whether `C2:8E42` should be promoted all the way to the final reference name `BTLACT_REDUCEPP`
-- whether `C8:F77D` versus its nearby sibling messages let us split `9E38` and `9E7F` more concretely into distinct spray or shower identities
+- whether final action-table names should be promoted for the `9E38/9E7F` and
+  `9E86/9EFF` pairs after the live row metadata is rechecked
 - whether the later `8F21` reuses at entries `233` and `234` are strict clones or only metadata-distinct table aliases
 
 ## Current takeaway

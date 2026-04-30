@@ -1,4 +1,4 @@
-; EarthBound C2 defense shower action family.
+; EarthBound C2 offense-up wrapper plus defense-down action family.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:9E7F..C2:9F06 RunDefenseShowerAction
+;
+; Runtime contract:
+; - Legacy/generated source name still says DefenseShower, but `C2:9E7F` is a
+;   wrapper over the offense-up body at `C2:9E38`.
+; - `C2:9E86` is the resist/threshold-gated defense-down body. It snapshots row
+;   `+0x28`, calls `C2:7E33`, and prints the positive defense-loss delta through
+;   C8:F8A2.
+; - The trailing body at `C2:9EFF` is a thin wrapper over `C2:9E86`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -23,11 +31,14 @@ C29E38_RunDefenseSprayAction                  = $C29E38
 
 REDIRECT_BTLACT_OFFENSE_UP_A:
 C29E7F_RunDefenseShowerAction = REDIRECT_BTLACT_OFFENSE_UP_A
+C29E7F_RunOffenseUpOmegaWrapperAction = REDIRECT_BTLACT_OFFENSE_UP_A
     rep #$31
+    ; All-target offense-up wrapper; the effect body is C2:9E38.
     jsl BTLACT_OFFENSE_UP_A
     rtl
 BTLACT_DEFENSE_DOWN_A:
 C29E86_RunDefenseReductionActionWithThresholdGate = BTLACT_DEFENSE_DOWN_A
+C29E86_RunDefenseDownAlphaAction = BTLACT_DEFENSE_DOWN_A
     rep #$31
     phd
     tdc
@@ -43,6 +54,7 @@ C29E86_RunDefenseReductionActionWithThresholdGate = BTLACT_DEFENSE_DOWN_A
     ldy $0028,X
     sty $16
     lda $A972
+    ; Row `+0x28` defense is lowered by the bounded defense helper.
     jsr HEXADECIMATE_DEFENSE
     ldx $A972
     ldy $16
@@ -88,6 +100,8 @@ C29EEF_RunDefenseShowerAction_L9EEF:
 C29EFD_RunDefenseShowerAction_L9EFD:
     pld
     rtl
+REDIRECT_BTLACT_DEFENSE_DOWN_A:
+C29EFF_RunDefenseDownOmegaWrapperAction = REDIRECT_BTLACT_DEFENSE_DOWN_A
     rep #$31
     jsl BTLACT_DEFENSE_DOWN_A
     rtl

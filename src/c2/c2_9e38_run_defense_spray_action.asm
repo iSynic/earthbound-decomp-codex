@@ -1,4 +1,4 @@
-; EarthBound C2 defense spray action.
+; EarthBound C2 offense-up action.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:9E38..C2:9E7F RunDefenseSprayAction
+;
+; Runtime contract:
+; - Legacy/generated source name still says DefenseSpray, but the local bytes
+;   show the offense-up body: row `+0x26`, `C2:7D28`, and C8:F77D text.
+; - Gates through the selected-battler default blocker, snapshots current
+;   offense, applies the bounded offense-increase helper, and prints the
+;   positive delta through the amount-bearing C1 battle-text path.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -20,6 +27,7 @@ C1DC66_DisplayBattleTextWithNumber            = $C1DC66
 
 BTLACT_OFFENSE_UP_A:
 C29E38_RunDefenseSprayAction = BTLACT_OFFENSE_UP_A
+C29E38_RunOffenseUpAlphaAction = BTLACT_OFFENSE_UP_A
     rep #$31
     phd
     tdc
@@ -32,6 +40,7 @@ C29E38_RunDefenseSprayAction = BTLACT_OFFENSE_UP_A
     ldy $0026,X
     sty $16
     lda $A972
+    ; Row `+0x26` offense is raised by the bounded offense helper.
     jsr INCREASE_OFFENSE_16TH
     lda.w #$F77D
     sta $0E

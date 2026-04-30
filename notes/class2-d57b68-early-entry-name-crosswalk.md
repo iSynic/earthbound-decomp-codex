@@ -186,9 +186,9 @@ The next late slice is no longer best treated as "non-status leftovers."
 Entries `95..98` now form a real numeric-effect cluster:
 
 - entry `0x005F` (`95`) -> `C2:8E42` -> strongest current local fit for a one-target PP-reduction or PP-sapping action
-- entry `0x0030` (`48`) -> `C2:9E38` -> strongest current local fit for `DEFENSE_SPRAY`
-- entry `0x0031` (`49`) -> `C2:9E7F` -> strongest current local fit for `DEFENSE_SHOWER`
-- entry `0x0060` (`96`) -> `C2:9E38` -> defense-up family
+- entry `0x0030` (`48`) -> `C2:9E38` -> offense-up family
+- entry `0x0031` (`49`) -> `C2:9E7F` -> offense-up wrapper family
+- entry `0x0060` (`96`) -> `C2:9E38` -> offense-up family reuse
 - entry `0x0061` (`97`) -> `C2:8EAE` -> guts-cutting family
 - entry `0x0062` (`98`) -> `C2:8F21` -> paired offense-and-defense reduction family
 
@@ -202,8 +202,8 @@ The focused local summary is now in [class2-late-stat-and-resource-family-c28e42
 - `C2:8E42` -> `BTLACT_REDUCEPP`
 - `C2:8EAE` -> `BTLACT_CUTGUTS`
 - `C2:8F21` -> `BTLACT_REDUCEOFFDEF`
-- `C2:9E38` -> `BTLACT_DEFENSE_SPRAY`
-- `C2:9E7F` -> `BTLACT_DEFENSE_SHOWER`
+- `C2:9E38` -> bounded offense-up body
+- `C2:9E7F` -> offense-up wrapper
 
 
 
