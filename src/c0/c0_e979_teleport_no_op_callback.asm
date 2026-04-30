@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Empty active callback paired with C0:E97C during the teleport failure hold.
 
 ; ---------------------------------------------------------------------------
 ; C0:E979

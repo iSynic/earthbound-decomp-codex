@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Straight/alpha teleport movement callback for styles 1 and 5. It refreshes
+; facing, derives `$9F49/$9F4B/$9F4D/$9F4F` through C0:DF22, computes next
+; fixed-point player coordinates, gates collision, snapshots, and sets `$9F43`
+; to success or failure.
 
 ; ---------------------------------------------------------------------------
 ; C0:E28F
@@ -25,6 +28,7 @@ C0E28F_TickTeleportStraightMovementCallback:
     lda.w #$0001
     sta $9885
     lda.w #$0000
+    ; Map live input to facing while avoiding an immediate reverse turn.
     jsl $C0404F
     sta $02
     lda $987F
@@ -48,11 +52,13 @@ C0E2C6_TickTeleportStraightMovementCallback_LE2C6:
     lda $5D60
     beq C0E2DC_TickTeleportStraightMovementCallback_LE2DC
     lda.w #$0002
+    ; External collision/abort latch forces teleport failure state.
     sta $9F43
     lda.w #$0001
     sta $4DC2
 C0E2DC_TickTeleportStraightMovementCallback_LE2DC:
     lda $02
+    ; Derive speed/phase and signed vector components for this facing.
     jsr $DF22
     lda $9875
     sta $0A
@@ -70,6 +76,7 @@ C0E2DC_TickTeleportStraightMovementCallback_LE2DC:
     adc $0C
     sta $08
     lda $06
+    ; Next fixed-point X pair.
     sta $9F51
     lda $08
     sta $9F53
@@ -89,12 +96,14 @@ C0E2DC_TickTeleportStraightMovementCallback_LE2DC:
     adc $0C
     sta $08
     lda $06
+    ; Next fixed-point Y pair.
     sta $9F55
     lda $08
     sta $9F57
     ldy $9889
     ldx $9F57
     lda $9F53
+    ; Entity overlap ahead marks failure.
     jsl $C05FF6
     cmp.w #$FFFF
     beq C0E34F_TickTeleportStraightMovementCallback_LE34F
@@ -108,6 +117,7 @@ C0E34F_TickTeleportStraightMovementCallback_LE34F:
     ldy $9F53
     ldx $987B
     lda $9877
+    ; Two-point footprint collision also marks failure.
     jsr $DED9
     and.w #$00C0
     beq C0E36F_TickTeleportStraightMovementCallback_LE36F
@@ -121,6 +131,7 @@ C0E36F_TickTeleportStraightMovementCallback_LE36F:
     sta $06
     lda $9F53
     sta $08
+    ; Commit next coordinates only if failure state was not set.
     lda $06
     sta $9875
     lda $08
@@ -144,6 +155,7 @@ C0E39F_TickTeleportStraightMovementCallback_LE39F:
     bcc C0E3BF_TickTeleportStraightMovementCallback_LE3BF
     beq C0E3BF_TickTeleportStraightMovementCallback_LE3BF
     lda.w #$0001
+    ; High phase threshold marks straight teleport success.
     sta $9F43
 C0E3BF_TickTeleportStraightMovementCallback_LE3BF:
     pld

@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+; Exit restore sibling of C0:E3C1. Reads the object metadata cursor at `+$3D`,
+; restores `$0B8E/$0BCA/$2AF6/$2BAA`, refreshes draw state, and advances the
+; `$5156` snapshot cursor.
 
 ; ---------------------------------------------------------------------------
 ; C0:E6FE
@@ -44,11 +47,13 @@ C0E6FE_RestoreTeleportExitObjectFromSnapshotRing:
     asl A
     clc
     adc.w #$5156
+    ; `$003D * 12 + $5156` selects the stored teleport snapshot.
     tax
     ldy $10
     lda $0E5E,Y
     sta $02
     lda $0000,X
+    ; Restore object X/Y, facing, and footprint from the snapshot record.
     sta $0B8E,Y
     lda $0002,X
     sta $0BCA,Y
@@ -60,11 +65,13 @@ C0E6FE_RestoreTeleportExitObjectFromSnapshotRing:
     lda $0006,X
     tax
     lda $02
+    ; Restore draw/sprite state from snapshot +6.
     jsl $C07A56
     lda $0E
     sta $04
     ldx $04
     lda $02
+    ; Advance and store the metadata ring cursor for the next restore.
     jsr $E214
     and.w #$00FF
     ldx $4DC6

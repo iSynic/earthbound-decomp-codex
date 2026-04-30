@@ -75,6 +75,10 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   slots `$18..$1D`, `$5156` snapshots, `$10B6` interaction suppression, and
   the C0:EA99 mainloop shell. The rollup lives in
   `notes/c0-teleport-state-runtime-polish.md`.
+- 2026-04-30 fifth slice: added byte-neutral source comments for teleport
+  movement/restore callbacks centered on C0:E28F, C0:E516, C0:E674, C0:E776,
+  C0:E3C1/C0:E6FE snapshot-ring restores, and success/failure setup paths.
+  The rollup lives in `notes/c0-teleport-callback-runtime-polish.md`.
 
 ## Validation
 

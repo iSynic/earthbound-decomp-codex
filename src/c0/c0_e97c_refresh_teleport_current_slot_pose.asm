@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Failure-hold restore callback. Recomputes current slot footprint `$2BAA`
+; from live `$0B8E/$0BCA`, then refreshes draw state via C0:7A56.
 
 ; ---------------------------------------------------------------------------
 ; C0:E97C
@@ -34,6 +35,7 @@ C0E97C_RefreshTeleportCurrentSlotPose:
     ldx $02
     lda $0B8E,X
     ldx $0E
+    ; Recompute footprint/collision mask from current live coordinates.
     jsl $C05F33
     ldx $02
     sta $2BAA,X
@@ -43,6 +45,7 @@ C0E97C_RefreshTeleportCurrentSlotPose:
     ldx $02
     lda $0E5E,X
     ldx $0E
+    ; Refresh draw/sprite state with X=`#$FFFF`.
     jsl $C07A56
     pld
     rtl

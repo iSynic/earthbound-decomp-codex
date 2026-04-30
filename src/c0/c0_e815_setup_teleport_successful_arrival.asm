@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C0887A_ClearDisplayTransitionState = $C0887A
+; Success setup after active teleport movement completes. Marks transition
+; slots, installs post-success drift/restore callbacks, copies live vector and
+; screen coordinates into `$9F59..$9F5F`, then waits for the frame pump.
 
 ; ---------------------------------------------------------------------------
 ; C0:E815
@@ -32,6 +35,7 @@ C0E82C_SetupTeleportSuccessfulArrival_LE82C:
     asl A
     tax
     lda.w #$8000
+    ; Mark transition slots `$18..$1D` for the success drift phase.
     sta $289E,X
     lda $18
     inc A
@@ -55,9 +59,11 @@ C0E839_SetupTeleportSuccessfulArrival_LE839:
     lda.w #$00C0
     sta $14
     lda.w #$0017
+    ; Install post-success drift callback with snapshot-ring restore callback.
     jsl $C42F45
     ldx $18
     lda $0000,X
+    ; Copy current drift vector and screen coordinates into success-screen state.
     sta $9F59
     lda $9877
     sta $9F5B

@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Advances the per-object `$5156` snapshot-ring cursor stored at object metadata
+; offset `+$3D` (`$99CE + object*$5F + $3D`). If `$9F47` is clear, the current
+; cursor is retained; otherwise C0:3EC3 computes the next party/object index.
 
 ; ---------------------------------------------------------------------------
 ; C0:E214
@@ -37,11 +39,13 @@ C0E214_AdvanceTeleportObjectSnapshotRingCursor:
     and.w #$00FF
     cmp $04
     bne C0E23C_AdvanceTeleportObjectSnapshotRingCursor_LE23C
+    ; Last party entry wraps to the next cursor byte.
     lda $10
     bra C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252
 C0E23C_AdvanceTeleportObjectSnapshotRingCursor_LE23C:
     lda $9F47
     bne C0E244_AdvanceTeleportObjectSnapshotRingCursor_LE244
+    ; No teleport phase yet: keep the incoming cursor.
     tya
     bra C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252
 C0E244_AdvanceTeleportObjectSnapshotRingCursor_LE244:
@@ -49,6 +53,7 @@ C0E244_AdvanceTeleportObjectSnapshotRingCursor_LE244:
     sta $0E
     ldx.w #$0006
     lda $02
+    ; Reuse the transition/registry order helper to advance the snapshot cursor.
     jsl $C03EC3
 C0E252_AdvanceTeleportObjectSnapshotRingCursor_LE252:
     pld

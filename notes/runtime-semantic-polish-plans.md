@@ -50,3 +50,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c0-interaction-runtime-polish.md`.
 - 2026-04-30: C0 teleport state/setup fourth slice landed as byte-neutral
   source comments plus `notes/c0-teleport-state-runtime-polish.md`.
+- 2026-04-30: C0 teleport callback fifth slice landed as byte-neutral source
+  comments plus `notes/c0-teleport-callback-runtime-polish.md`.

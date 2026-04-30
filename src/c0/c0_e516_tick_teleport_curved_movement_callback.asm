@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Curved/beta teleport movement callback for styles 2 and 4. It applies manual
+; steering, derives target coordinates with C4:1FFF from `$9F61/$9F63`, gates
+; collision, advances arc fields, snapshots, and sets `$9F43` on completion.
 
 ; ---------------------------------------------------------------------------
 ; C0:E516
@@ -24,9 +26,11 @@ C0E516_TickTeleportCurvedMovementCallback:
     tcd
     lda.w #$0001
     sta $9885
+    ; Optional beta/manual steering adjusts `$9F67/$9F69`.
     jsr $E44D
     ldx $9F63
     lda $9F61
+    ; C4 trig helper returns the curve offset used to derive target X/Y.
     jsl $C41FFF
     lda $06
     sta $12
@@ -40,6 +44,7 @@ C0E542_TickTeleportCurvedMovementCallback_LE542:
     clc
     adc $9F67
     tax
+    ; Sign-extended curve X added to beta origin.
     stx $9F53
     lda $12
     and.w #$FF00
@@ -50,6 +55,7 @@ C0E555_TickTeleportCurvedMovementCallback_LE555:
     clc
     adc $9F69
     sta $16
+    ; Sign-extended curve Y added to beta origin.
     sta $9F57
     lda $9F41
     cmp.w #$0004
@@ -61,6 +67,7 @@ C0E555_TickTeleportCurvedMovementCallback_LE555:
     txy
     ldx $987B
     lda $9877
+    ; Style 2 path still collision-gates against the two-point footprint probe.
     jsr $DED9
     and.w #$00C0
     beq C0E584_TickTeleportCurvedMovementCallback_LE584
@@ -77,6 +84,7 @@ C0E595_TickTeleportCurvedMovementCallback_LE595:
     ldy $9889
     ldx $9F57
     lda $9F53
+    ; Entity overlap marks failure.
     jsl $C05FF6
     cmp.w #$FFFF
     beq C0E5AD_TickTeleportCurvedMovementCallback_LE5AD
@@ -87,6 +95,7 @@ C0E5AD_TickTeleportCurvedMovementCallback_LE5AD:
     cmp.w #$0002
     beq C0E5C1_TickTeleportCurvedMovementCallback_LE5C1
     lda $9F53
+    ; Commit target map coordinates unless failure state was set.
     sta $9877
     lda $9F57
     sta $987B
@@ -98,6 +107,7 @@ C0E5C1_TickTeleportCurvedMovementCallback_LE5C1:
     inc A
     inc A
     and.w #$0007
+    ; Facing follows the current arc phase.
     sta $987F
     rep #$10
     ldy.w #$9F45
@@ -119,6 +129,7 @@ C0E5EF_TickTeleportCurvedMovementCallback_LE5EF:
     lda $9F41
     cmp.w #$0002
     bne C0E617_TickTeleportCurvedMovementCallback_LE617
+    ; Style 2 uses fixed increments for the beta arc fields.
     lda $9F61
     clc
     adc.w #$0A00
@@ -133,6 +144,7 @@ C0E617_TickTeleportCurvedMovementCallback_LE617:
     clc
     adc.w #$0020
     sta $9F65
+    ; Other curved style accelerates `$9F61` through `$9F65`.
     clc
     adc $9F61
     sta $9F61
@@ -155,6 +167,7 @@ C0E632_TickTeleportCurvedMovementCallback_LE632:
     beq C0E672_TickTeleportCurvedMovementCallback_LE672
     lda.w #$0001
     sta $9F43
+    ; Terminal arc progress seeds the post-success drift vector.
     jsr $E48A
     bra C0E672_TickTeleportCurvedMovementCallback_LE672
 C0E65F_TickTeleportCurvedMovementCallback_LE65F:
@@ -164,6 +177,7 @@ C0E65F_TickTeleportCurvedMovementCallback_LE65F:
     beq C0E672_TickTeleportCurvedMovementCallback_LE672
     lda.w #$0001
     sta $9F43
+    ; Terminal arc progress seeds the post-success drift vector.
     jsr $E48A
 C0E672_TickTeleportCurvedMovementCallback_LE672:
     pld

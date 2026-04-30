@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Seeds small signed post-success drift components in `$9F4B/$9F4F` from facing
+; `$987F`; values are `+5`, `-5`, or `0` per axis.
 
 ; ---------------------------------------------------------------------------
 ; C0:E48A
@@ -20,6 +21,7 @@ C0E48A_SeedTeleportPostSuccessDriftVector:
     rep #$31
     ldx.w #$9F4F
     lda.w #$0000
+    ; Clear both drift high-word components before facing-specific seeding.
     sta $0000,X
     ldy.w #$9F4B
     sta $0000,Y

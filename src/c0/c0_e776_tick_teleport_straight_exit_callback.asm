@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Straight exit callback used during post-arrival/failure finalization. It
+; applies direction-derived vectors to live coordinates, offsets screen Y by a
+; scaled `$9F45/$9F47`, snapshots, and updates transition-object cadence.
 
 ; ---------------------------------------------------------------------------
 ; C0:E776
@@ -23,6 +25,7 @@ C0E776_TickTeleportStraightExitCallback:
     adc.w #$FFEE
     tcd
     lda $987F
+    ; Refresh direction-derived exit vectors.
     jsr $DF22
     ldy.w #$9875
     lda $9F49
@@ -41,6 +44,7 @@ C0E776_TickTeleportStraightExitCallback:
     adc $0C
     sta $08
     lda $06
+    ; Apply X drift to `$9875/$9877`.
     sta $0000,Y
     lda $08
     sta $0002,Y
@@ -61,6 +65,7 @@ C0E776_TickTeleportStraightExitCallback:
     adc $0C
     sta $08
     lda $06
+    ; Apply Y drift to `$9879/$987B`.
     sta $0000,Y
     lda $08
     sta $0002,Y
@@ -72,6 +77,7 @@ C0E776_TickTeleportStraightExitCallback:
     sta $06
     lda $9F47
     sta $08
+    ; Scale phase by 2 and subtract it from screen Y for the exit recenter.
     jsl $C09086
     lda $06
     sta $0E

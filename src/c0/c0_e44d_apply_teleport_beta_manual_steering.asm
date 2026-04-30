@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Manual steering helper for beta/curved teleport. Styles other than 4 use the
+; live input mirror `$0065` to nudge beta origin fields `$9F67/$9F69`.
 
 ; ---------------------------------------------------------------------------
 ; C0:E44D
@@ -25,6 +26,7 @@ C0E44D_ApplyTeleportBetaManualSteering:
     lda $9F41
     cmp.w #$0004
     beq C0E488_ApplyTeleportBetaManualSteering_LE488
+    ; Directional input bits adjust beta/arc X/Y origin by one unit.
     lda $0065
     sta $0E
     and.w #$0800

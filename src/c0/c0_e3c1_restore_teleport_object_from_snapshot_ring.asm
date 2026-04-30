@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+; Restore callback paired with the teleport movement callbacks. It reads the
+; object's `$5156` ring cursor from metadata offset `+$3D`, restores position,
+; footprint, and facing fields, refreshes draw state, then advances the cursor.
 
 ; ---------------------------------------------------------------------------
 ; C0:E3C1
@@ -48,17 +51,20 @@ C0E3C1_RestoreTeleportObjectFromSnapshotRing:
     asl A
     clc
     adc.w #$5156
+    ; `$003D * 12 + $5156` selects the stored teleport snapshot.
     sta $02
     ldy $1A42
     ldx $02
     lda $0006,X
     tax
     lda $10
+    ; Restore draw/sprite state from snapshot +6.
     jsl $C07A56
     ldx $02
     lda $0000,X
     ldx $14
     stx $04
+    ; Restore object X/Y, facing, and footprint from the snapshot record.
     sta $0B8E,X
     ldx $02
     lda $0002,X
@@ -74,6 +80,7 @@ C0E3C1_RestoreTeleportObjectFromSnapshotRing:
     sta $2BAA,X
     ldx $0E
     lda $10
+    ; Advance and store the metadata ring cursor for the next restore.
     jsr $E214
     and.w #$00FF
     ldx $4DC6

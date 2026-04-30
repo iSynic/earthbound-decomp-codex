@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Post-success drift callback. Applies current direction-derived vectors to the
+; live player fixed-point coordinate pairs, applies `$9F59/$9F5D` to the
+; success-screen coordinate pair, recenters, and snapshots to the `$5156` ring.
 
 ; ---------------------------------------------------------------------------
 ; C0:E674
@@ -23,6 +25,7 @@ C0E674_TickTeleportPostSuccessDriftCallback:
     adc.w #$FFF2
     tcd
     lda $987F
+    ; Refresh direction-derived drift vectors.
     jsr $DF22
     ldy.w #$9875
     lda $9F49
@@ -41,6 +44,7 @@ C0E674_TickTeleportPostSuccessDriftCallback:
     adc $0C
     sta $08
     lda $06
+    ; Apply X drift to `$9875/$9877`.
     sta $0000,Y
     lda $08
     sta $0002,Y
@@ -61,6 +65,7 @@ C0E674_TickTeleportPostSuccessDriftCallback:
     adc $0C
     sta $08
     lda $06
+    ; Apply Y drift to `$9879/$987B`.
     sta $0000,Y
     lda $08
     sta $0002,Y
@@ -68,6 +73,7 @@ C0E674_TickTeleportPostSuccessDriftCallback:
     clc
     adc $9F59
     tay
+    ; Separate success-screen coordinate pair used for recentering.
     sty $9F5B
     lda $9F5F
     clc

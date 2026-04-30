@@ -16,6 +16,9 @@ C088B1_ResetRendererFrameState        = $C088B1
 C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
 C09466_RefreshActiveEntitySpriteState = $C09466
 C4FBBD_PlaySoundStoneMelody           = $C4FBBD
+; Failure hold path. Plays the failure cue, marks transition slots, installs
+; no-op/pose-refresh callbacks, sets hold flags, pumps 180 frames, then clears
+; the hold flags.
 
 ; ---------------------------------------------------------------------------
 ; C0:E9BA
@@ -40,6 +43,7 @@ C0E9D6_HoldTeleportFailureState_LE9D6:
     tax
     lda $0000,X
     ora.w #$8000
+    ; Mark transition slots `$18..$1D` during the failure pause.
     sta $0000,X
     lda $16
     inc A
@@ -56,6 +60,7 @@ C0E9EA_HoldTeleportFailureState_LE9EA:
     lda.w #$00C0
     sta $14
     lda.w #$0017
+    ; Hold with no active movement callback, but keep refreshing current pose.
     jsl $C42F45
     sep #$20
     lda.b #$01
@@ -64,6 +69,7 @@ C0E9EA_HoldTeleportFailureState_LE9EA:
     stx $16
     bra C0EA2D_HoldTeleportFailureState_LEA2D
 C0EA18_HoldTeleportFailureState_LEA18:
+    ; 180-frame failure hold pump.
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
     jsl C08B26_FlushQueuedSpriteOrTileWork

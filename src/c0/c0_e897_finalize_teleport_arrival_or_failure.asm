@@ -18,6 +18,9 @@ C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
 C08FF7_ResolveIndexedPointerOffset    = $C08FF7
 C09466_RefreshActiveEntitySpriteState = $C09466
 C4FBBD_PlaySoundStoneMelody           = $C4FBBD
+; Post-arrival/failure finalizer. Style 3 recenters immediately; other styles
+; clear transition object metadata, install straight exit callbacks, freeze the
+; transition object set, then pump frames until `$9F47` decays to zero.
 
 ; ---------------------------------------------------------------------------
 ; C0:E897
@@ -31,6 +34,7 @@ C0E897_FinalizeTeleportArrivalOrFailure:
     lda $9F41
     cmp.w #$0003
     bne C0E8BF_FinalizeTeleportArrivalOrFailure_LE8BF
+    ; Style 3 skips the exit-object sequence and just recenters/fades.
     ldx $987B
     lda $9877
     jsl $C0400E
@@ -49,6 +53,7 @@ C0E8C6_FinalizeTeleportArrivalOrFailure_LE8C6:
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda.w #$FFFF
+    ; Clear metadata word for each transition object block.
     sta $9A05,X
     lda $02
     clc
@@ -84,6 +89,7 @@ C0E8F3_FinalizeTeleportArrivalOrFailure_LE8F3:
     lda.w #$00C0
     sta $14
     lda.w #$0017
+    ; Install straight exit callback with snapshot-ring restore callback.
     jsl $C42F45
     jsr $DE16
     lda.w #$0087
@@ -104,6 +110,7 @@ C0E947_FinalizeTeleportArrivalOrFailure_LE947:
     jsl C0886C_SetDisplayTransitionState
     bra C0E968_FinalizeTeleportArrivalOrFailure_LE968
 C0E958_FinalizeTeleportArrivalOrFailure_LE958:
+    ; Pump frames while the exit callback reduces `$9F47`.
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
     jsl C08B26_FlushQueuedSpriteOrTileWork
