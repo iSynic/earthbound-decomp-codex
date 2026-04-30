@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:B930..C2:BAC5 ExportBattleSelectionSnapshot
+;
+; Runtime contract:
+; - A = 1-based battler or party slot id.
+; - X/Y = destination base for a 0x4E-byte battle selection snapshot row.
+; - Clears the destination row, writes a small selection header at `+0..+10`,
+;   then copies and derives live battler fields from
+;   `$99CE + (A - 1) * 0x5F`.
+; - When the destination is `$9FFA`, the first bytes overlap the formal battle
+;   menu-selection header, but this helper intentionally writes the wider
+;   adjacent snapshot block used by C1 target/choice prompts and C2 controllers.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -43,6 +53,7 @@ C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     rep #$20
     tya
     jsl C08EFC_ClearDestinationBlock
+    ; Header: selected id, active marker, filter bytes, and zero-based index.
     lda $04
     ldy $18
     sta $0000,Y
@@ -104,6 +115,7 @@ C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     sta $14
     lda.w #$0007
     jsl C08EED_CopyMemoryBlock
+    ; Copy/expand the live battler status and derived-stat bytes into the row.
     ldx $02
     sep #$20
     lda $0015,X

@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:BB18..C2:BC5C PromoteCandidateToCollapseAfflictionController
+;
+; Runtime contract:
+; - Scans the six source candidate entries seeded in the `$9FB8..9FCF` family.
+; - For enabled entries with no blocking state, mirrors live battler fields from
+;   `$99CE + slot * 0x5F` back into the candidate row.
+; - If the row is newly entering the collapse/affliction controller state, writes
+;   the selected row pointer into `$A972`, sets row `+0x1D = 1`, clears row
+;   `+0x1E..+0x23`, builds target text context, and emits the hardcoded
+;   `EF:6C6B` battle text.
+; - Finishes by copying seven candidate metadata bytes into live battler
+;   status/transient fields and refreshing battle/overworld presentation state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -76,6 +87,7 @@ C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55:
     ldx $12
     lda $0000,X
     bne C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5
+    ; Newly collapsed/unconscious row: select row and clear controller fields.
     lda $9FC9,Y
     and.w #$00FF
     cmp.w #$0001
@@ -119,6 +131,7 @@ C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5:
     stx $12
     bra C2BC29_PromoteCandidateToCollapseAfflictionController_LBC29
 C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC:
+    ; Copy candidate metadata bytes into the linked live battler row.
     rep #$20
     lda $14
     sta $02

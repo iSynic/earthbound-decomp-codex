@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:BC5C..C2:BCB9 ClearInactiveCandidateLiveSlotTransientFields
+;
+; Runtime contract:
+; - Scans the six source candidate entries in the `$9FB8..9FCF` family.
+; - For enabled candidates that are not blocked by `9FBA` or `9FBB`, resolves
+;   the linked live battler row from `9FBC` and clears row bytes `+0x10`,
+;   `+0x11`, `+0x12`, and `+0x14`.
+; - This is a transient-field cleanup pass for inactive or reset candidate rows,
+;   not a full candidate-pool reset.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

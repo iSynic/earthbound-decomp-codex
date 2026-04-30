@@ -67,6 +67,12 @@ contract notes for C0/C1/C3/C4 consumers.
   for crying, solidified, asleep, poison, strange, PP drain, and the timed
   shield/substate message pairs. This keeps the C2 source focused on the
   runtime choice being made rather than only the raw EF pointer value.
+- 2026-04-30 third slice: promoted C2 target-selection contracts into
+  byte-neutral source comments plus `notes/c2-target-selection-runtime-polish.md`.
+  The promoted contracts cover `C2:B930` 0x4E-byte snapshot export, `C2:BAC5`
+  filtered row counting over `$9FAC`, `C2:BB18` selected-row promotion into the
+  collapse/affliction controller path, and `C2:BC5C` inactive transient-field
+  cleanup.
 
 ## Validation
 

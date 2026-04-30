@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:BAC5..C2:BB18 CountFilteredSecondStageRows
+;
+; Runtime contract:
+; - A = requested row state/group value.
+; - Scans the 32 candidate rows at `$9FAC + 0x4E * n`.
+; - Counts only rows with `+0x0C != 0`, `+0x0E == A`, `+0x0F == 0`, and
+;   `+0x1D` not equal to 1 or 2.
+; - Returns the filtered row count in A. C1 target resolution uses this count
+;   before selecting a random second-stage row.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +43,7 @@ C2BADC_CountFilteredSecondStageRows_LBADC:
     lda $000C,X
     and.w #$00FF
     beq C2BB08_CountFilteredSecondStageRows_LBB08
+    ; Eligible row: active, requested group, no subtype gate, not collapsed.
     lda $000E,X
     and.w #$00FF
     cmp $04
