@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:BD5E..C2:BE6C CallForHelpEnemySelectionAndMessageBody
+;
+; Runtime contract:
+; - Call-for-help prefix used by the two wrapper tails at the end of
+;   `C2:BE6C`.
+; - Input A selects the success/failure text flavor. The helper finds the
+;   current action's enemy id in the current battle-group enemy list, counts how
+;   many matching conscious enemies are already present, and checks the D5
+;   enemy config `max_called` field before entering the selection body.
+; - Failure paths emit EF call-for-help failure text and return through the
+;   shared action tail at `C2:C13A`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +42,7 @@ C2BD5E_CallForHelpEnemySelectionAndMessageBody = CALL_FOR_HELP_COMMON
     and.w #$00FF
     beq C2BDC6_CallForHelpEnemySelectionAndMessageBody_LBDC6
     ldx $A970
+    ; Active action row +0x08 is the enemy id/type to call.
     lda $0008,X
     and.w #$00FF
     sta $26
@@ -44,6 +55,7 @@ C2BD5E_CallForHelpEnemySelectionAndMessageBody = CALL_FOR_HELP_COMMON
     asl A
     asl A
     clc
+    ; Current battle group row -> enemy list pointer.
     adc $0A
     sta $0A
     ldy.w #$0002
@@ -105,6 +117,7 @@ C2BDF9_CallForHelpEnemySelectionAndMessageBody_LBDF9:
     lda $004C,X
     cmp $26
     bne C2BE1B_CallForHelpEnemySelectionAndMessageBody_LBE1B
+    ; Count already-present conscious enemies of the same called type.
     lda $24
     inc A
     sta $24
@@ -140,6 +153,7 @@ C2BE22_CallForHelpEnemySelectionAndMessageBody_LBE22:
     and.w #$00FF
     tay
     sty $20
+    ; Enemy config +0x5C is max-called for this enemy type.
     lda $24
     sta $02
     tya

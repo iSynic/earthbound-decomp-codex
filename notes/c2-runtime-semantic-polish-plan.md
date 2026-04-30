@@ -160,6 +160,11 @@ contract notes for C0/C1/C3/C4 consumers.
   contracts cover `$A9D4` stealable-item candidates, random selection,
   stale-pending-item validation, row `+0x07/+0x08` slot/item fields, and the
   `C1:DDC6` pending slot application path.
+- 2026-04-30 twenty-first slice: promoted call-for-help contracts into
+  byte-neutral source comments plus `notes/c2-call-for-help-runtime-polish.md`.
+  The promoted contracts cover PP/HP target-loss siblings, active enemy sprite
+  width budgets, enemy config max-called limits, call-for-help probability,
+  placement fallback, and inserted enemy row fields.
 
 ## Validation
 

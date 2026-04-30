@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:BD13..C2:BE6C SumActiveEnemyBattleSpriteWidths
+;
+; Runtime contract:
+; - `C2:BD13` sums battle sprite width buckets for active enemy battlers.
+; - Starts at enemy battler slot 8 (`$A21C`) and scans through slot 31,
+;   counting only rows whose consciousness byte `+0x0C` is `1`.
+; - Calls the local battle-sprite width helper for each active enemy sprite id
+;   at row `+0x02` and returns the total in A.
+; - The following `BD5E` body is the call-for-help prefix that uses this width
+;   total while deciding whether another enemy can fit.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +44,7 @@ C2BD2C_SumActiveEnemyBattleSpriteWidths_LBD2C:
     and.w #$00FF
     cmp.w #$0001
     bne C2BD46_SumActiveEnemyBattleSpriteWidths_LBD46
+    ; Active enemy row: add its battle sprite width bucket.
     lda $0002,X
     jsr $EFFD
     sta $04
@@ -70,6 +80,7 @@ C2BD55_SumActiveEnemyBattleSpriteWidths_LBD55:
     lda $000E,X
     and.w #$00FF
     beq C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6
+    ; Active row +0x08 carries the enemy id/type being called for help.
     ldx $A970
     lda $0008,X
     and.w #$00FF
@@ -187,4 +198,5 @@ C2BE22_SumActiveEnemyBattleSpriteWidths_LBE22:
     ldy.w #$00CD
     jsl C08FF7_ResolveIndexedPointerOffset
     ldy $20
+    ; Probability scales with max-called minus already-present count.
     jsl C0915B_DivideUnsignedWordByY

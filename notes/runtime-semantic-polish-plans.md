@@ -112,3 +112,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `notes/c2-loaded-bg-frame-generator-runtime-polish.md`.
 - 2026-04-30: C2 STEAL helper eighteenth slice landed as byte-neutral source
   comments plus `notes/c2-steal-runtime-polish.md`.
+- 2026-04-30: C2 call-for-help nineteenth slice landed as byte-neutral source
+  comments plus `notes/c2-call-for-help-runtime-polish.md`.

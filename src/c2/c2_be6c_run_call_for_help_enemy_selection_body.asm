@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:BE6C..C2:C14E RunCallForHelpEnemySelectionBody
+;
+; Runtime contract:
+; - Selects and places a called-for-help enemy battler after the `BD5E` prefix
+;   has confirmed the enemy type and probability gate.
+; - Rechecks total enemy sprite width with `C2:BD13`, searches for a row/position
+;   where the candidate sprite fits, falls back by replacing a matching
+;   solidified/inactive row when possible, then initializes the new battler.
+; - Writes the new row at first free enemy battler slot, seeds position
+;   `+0x44/+0x45`, row side `+0x10`, loaded sprite slot `+0x43`, and active
+;   marker `+0x0D`, then emits the success message.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -21,6 +31,7 @@ C2BE6C_RunCallForHelpEnemySelectionBody:
     jsr $6BB8
     cmp.w #$0000
     bne C2BE79_RunCallForHelpEnemySelectionBody_LBE79
+    ; Probability failed: jump to the prefix failure text path.
     jmp $BDC6
 C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     ldx $22
@@ -42,6 +53,7 @@ C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     asl A
     clc
     adc.w #$0010
+    ; Candidate sprite width in screen coordinate space plus margin.
     sta $1E
     ldx $22
     txa
@@ -66,6 +78,7 @@ C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     cmp.w #$0020
     beq C2BECD_RunCallForHelpEnemySelectionBody_LBECD
     bcc C2BECD_RunCallForHelpEnemySelectionBody_LBECD
+    ; Reject if existing sprite widths plus candidate exceed the width budget.
     jmp.w C2BFF8_RunCallForHelpEnemySelectionBody_LBFF8
 C2BECD_RunCallForHelpEnemySelectionBody_LBECD:
     lda.w #$0080
@@ -80,6 +93,7 @@ C2BECD_RunCallForHelpEnemySelectionBody_LBECD:
     sta $22
     bra C2BF5D_RunCallForHelpEnemySelectionBody_LBF5D
 C2BEE6_ScanCallForHelpPlacementBoundsLoop:
+    ; Scan active enemy rows to find placement bounds for the candidate sprite.
     lda $000C,X
     and.w #$00FF
     beq C2BF53_RunCallForHelpEnemySelectionBody_LBF53
@@ -230,6 +244,7 @@ C2BFE2_RunCallForHelpEnemySelectionBody_LBFE2:
     sty $24
     jmp.w C2C071_EmitCallForHelpSpawnMessage
 C2BFF8_RunCallForHelpEnemySelectionBody_LBFF8:
+    ; Fallback: replace a matching solidified/inactive enemy row when possible.
     ldx.w #$A21C
     stx $12
     lda.w #$0008
@@ -304,6 +319,7 @@ C2C071_EmitCallForHelpSpawnMessage:
     bcc C2C08E_RunCallForHelpEnemySelectionBody_LC08E
     jmp $BDC6
 C2C08E_RunCallForHelpEnemySelectionBody_LC08E:
+    ; Find the first empty enemy battler slot.
     lda.w #$A21C
     sta $22
     ldx.w #$0008
@@ -329,6 +345,7 @@ C2C0B5_RunCallForHelpEnemySelectionBody_LC0B5:
     sta $A972
     ldx $A972
     lda $26
+    ; Initialize the new enemy battler row from the enemy id/type.
     jsl $C2B6EB
     ldy $24
     tya
@@ -361,13 +378,16 @@ C2C0FD_RunCallForHelpEnemySelectionBody_LC0FD:
     jsr $F09F
     sep #$20
     ldx $A972
+    ; Loaded sprite slot for the new enemy.
     sta $0043,X
     lda.b #$01
     ldx $A972
+    ; Mark row as newly/actively inserted.
     sta $000D,X
     jsl $C23D05
     lda $28
     beq C2C12C_RunCallForHelpEnemySelectionBody_LC12C
+    ; Success message flavor selected by the wrapper input.
     lda.w #$7810
     sta $0E
     lda.w #$00EF
