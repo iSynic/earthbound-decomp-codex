@@ -6,6 +6,19 @@ headerless EarthBound ROM.
 It does not contain a ROM, copyrighted game assets, or a finished source port.
 Bring your own legally obtained ROM.
 
+## Release Posture
+
+This public release is meant for review, romhacking research, validation, and
+future porting work. It is not a redistributable game package.
+
+- No ROM, generated audio, extracted graphics, local reference dumps, or build
+  outputs are included.
+- The repository currently has no open-source reuse license. See `LICENSE.md`.
+- Third-party emulator/audio projects are external references or optional local
+  build dependencies, not vendored runtime code. See `THIRD_PARTY_NOTICES.md`.
+- Generated outputs belong under ignored directories such as `build/` and
+  should be recreated from a user-supplied ROM.
+
 ## Status Snapshot
 
 The project has reached ROM-wide structural closure:
@@ -149,6 +162,19 @@ The `refs/` directory is intentionally local-only. Reference projects are useful
 accelerators, but this repository should publish only conclusions that have been
 locally checked or clearly labeled in notes.
 
+## Clean Clone Expectations
+
+A fresh clone should be useful without private local material:
+
+- status notes, manifests, source scaffolds, and static validators are present
+  immediately
+- ROM-validation and byte-equivalence commands need a user-supplied ROM
+- reference-assisted tools may ask for local `refs/` checkouts or recovered
+  source archives
+- audio renderer build/probe tools may ask for local ares or libgme checkouts
+- missing local-only inputs should be treated as setup requirements, not as
+  repository corruption
+
 ## ROM Requirements
 
 The tools expect the US headerless EarthBound ROM:
@@ -217,3 +243,7 @@ you are operating under.
 Where local notes cite or borrow ideas from reference projects, keep the source
 of that evidence visible. The goal is to make the work useful without hiding
 uncertainty or provenance.
+
+See `LICENSE.md`, `THIRD_PARTY_NOTICES.md`, and
+`notes/audio-dependency-policy.md` before redistributing tools, binaries, or
+renderer integrations.

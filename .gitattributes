@@ -9,3 +9,10 @@
 *.smc binary
 *.bin binary
 *.rom binary
+*.spc binary
+*.wav binary
+*.pcm binary
+*.brr binary
+*.zip binary
+*.7z binary
+*.rar binary

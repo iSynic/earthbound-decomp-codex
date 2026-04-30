@@ -6,6 +6,17 @@
 *.fig
 *.bin
 *.rom
+*.spc
+*.wav
+*.pcm
+*.brr
+*.brstm
+*.flac
+*.ogg
+*.mp3
+*.zip
+*.7z
+*.rar
 baserom/
 asm/
 dumps/
