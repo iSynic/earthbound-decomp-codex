@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:9CB8..C2:9E38 TryRecoverSelectedBattlerHardState
+;
+; Runtime contract:
+; - Top recovery wrapper above the broad affliction ladder.
+; - If active row `+0x1D == 1`, routes through `C2:7397` using row word
+;   `+0x15`; otherwise falls back to `C2:9C2C`.
+; - The adjacent timed-substate helpers use row `+0x23` as the active substate
+;   id and row `+0x25` as a bounded refresh counter, then choose paired EF
+;   installed/refreshed messages.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +40,7 @@ C29CB8_TryRecoverSelectedBattlerHardState = BTLACT_HEALING_O
     ldx $A972
     lda $001D,X
     and.w #$00FF
+    ; Main affliction byte value 1 enters the heavy recovery/reset path.
     cmp.w #$0001
     bne C29CD7_TryRecoverSelectedBattlerHardState_L9CD7
     ldx $A972

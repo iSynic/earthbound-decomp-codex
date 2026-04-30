@@ -7,6 +7,11 @@
 ;
 ; Source units covered:
 ; - C2:A39D..C2:A3D1 TryRecoverSelectedBattlerPoisonOnly
+;
+; Runtime contract:
+; - Narrow item-side recovery helper.
+; - If active row `+0x1D == 5`, clears poison and emits `EF:6E97`.
+; - Otherwise returns without visible text.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -29,6 +34,7 @@ C2A39D_TryRecoverSelectedBattlerPoisonOnly = HEAL_POISON
     tax
     lda $0000,X
     and.w #$00FF
+    ; Main affliction byte value 5 = poison in this recovery family.
     cmp.w #$0005
     bne C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF
     sep #$20

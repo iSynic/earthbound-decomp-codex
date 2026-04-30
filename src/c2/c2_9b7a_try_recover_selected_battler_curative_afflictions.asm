@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:9B7A..C2:9C2C TryRecoverSelectedBattlerCurativeAfflictions
+;
+; Runtime contract:
+; - Broader curative sibling above `C2:9AEA`.
+; - Handles row `+0x1D == 5` poison, `+0x1D == 4` nausea/sickness,
+;   row `+0x1F == 2` crying, and row `+0x20 == 1` strange/confused-style
+;   state. Falls back to the narrow helper when none are present.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +36,7 @@ C29B7A_TryRecoverSelectedBattlerCurativeAfflictions = BTLACT_HEALING_B
     tax
     lda $0000,X
     and.w #$00FF
+    ; Main affliction byte `+0x1D`: 5 = poison, 4 = nausea/sickness.
     cmp.w #$0005
     beq C29B9C_TryRecoverSelectedBattlerCurativeAfflictions_L9B9C
     cmp.w #$0004
@@ -96,6 +103,7 @@ C29BFA_TryRecoverSelectedBattlerCurativeAfflictions_L9BFA:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29C2A_TryRecoverSelectedBattlerCurativeAfflictions_L9C2A
 C29C26_TryRecoverSelectedBattlerCurativeAfflictions_L9C26:
+    ; Fall back to cold/sunstroke/asleep recovery.
     jsl BTLACT_HEALING_A
 C29C2A_TryRecoverSelectedBattlerCurativeAfflictions_L9C2A:
     pld

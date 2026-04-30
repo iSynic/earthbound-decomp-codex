@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:9AEA..C2:9B7A TryRecoverSelectedBattlerNarrowAffliction
+;
+; Runtime contract:
+; - Operates on active selected row `$A972`.
+; - Clears narrow affliction cases and emits the corresponding EF battle text:
+;   row `+0x1D == 7` -> cold/sniffling text `EF:6EBC`;
+;   row `+0x1D == 6` -> sunstroke text `EF:6F38`;
+;   row `+0x1F == 1` -> asleep/woke-up text `EF:6F54`.
+; - If no handled state is present, emits no-visible-effect text `EF:7696`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +38,7 @@ C29AEA_TryRecoverSelectedBattlerNarrowAffliction = BTLACT_HEALING_A
     tax
     lda $0000,X
     and.w #$00FF
+    ; Main affliction byte `+0x1D`: 7 = cold/sniffling, 6 = sunstroke.
     cmp.w #$0007
     beq C29B0C_TryRecoverSelectedBattlerNarrowAffliction_L9B0C
     cmp.w #$0006

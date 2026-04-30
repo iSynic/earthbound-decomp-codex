@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:9C2C..C2:9CB8 TryRecoverSelectedBattlerBroadAfflictions
+;
+; Runtime contract:
+; - Broader recovery helper above `C2:9B7A`.
+; - Handles row `+0x1D == 3` numb/paralysis recovery and `+0x1D == 2`
+;   diamondized/body-state recovery.
+; - Row `+0x1D == 1` is the hard recovery branch: it tests the candidate mask
+;   phase and either routes through the heavy recovery/reset helper or emits
+;   `EF:6F8E`.
+; - Falls back to the curative sibling when none of those states are present.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -32,6 +41,8 @@ C29C2C_TryRecoverSelectedBattlerBroadAfflictions = BTLACT_HEALING_G
     tax
     lda $0000,X
     and.w #$00FF
+    ; Main affliction byte `+0x1D`: 3 = numb/paralysis, 2 = diamondized,
+    ; 1 = hard/unconscious recovery path.
     cmp.w #$0003
     beq C29C53_TryRecoverSelectedBattlerBroadAfflictions_L9C53
     cmp.w #$0002
@@ -83,6 +94,7 @@ C29CA2_TryRecoverSelectedBattlerBroadAfflictions_L9CA2:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29CB6_TryRecoverSelectedBattlerBroadAfflictions_L9CB6
 C29CB2_TryRecoverSelectedBattlerBroadAfflictions_L9CB2:
+    ; Fall back to poison/sickness/crying/strange, then narrow states.
     jsl BTLACT_HEALING_B
 C29CB6_TryRecoverSelectedBattlerBroadAfflictions_L9CB6:
     pld
