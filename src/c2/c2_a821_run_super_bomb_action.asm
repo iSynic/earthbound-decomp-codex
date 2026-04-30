@@ -7,6 +7,10 @@
 ;
 ; Source units covered:
 ; - C2:A821..C2:A82A RunSuperBombAction
+;
+; Runtime contract:
+; - Thin `BTLACT_SUPER_BOMB` wrapper over `BOMB_COMMON`.
+; - Passes base damage `0x010E` (270) to `C2:A658`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -20,5 +24,6 @@ BTLACT_SUPER_BOMB:
 C2A821_RunSuperBombAction = BTLACT_SUPER_BOMB
     rep #$31
     lda.w #$010E
+    ; Super Bomb base damage: 270.
     jsr $A658
     rtl

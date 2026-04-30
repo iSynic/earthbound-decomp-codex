@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:A5EC..C2:A630 BTLACT_HANDBAG_STRAP
+;
+; Runtime contract:
+; - Item-side damage-plus-solidification action, strongest local fit for
+;   `BTLACT_HANDBAG_STRAP`.
+; - Gates through `C2:7CFD` and `C2:7CAF(0x00FA)`, computes damage as
+;   `0x0064 - target defense`, applies it through `C2:8125`, then attempts
+;   `C2:724A(target, X=2, Y=4)` for solidification.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -34,6 +41,7 @@ C2A5EC_RunDamagePlusSolidificationItemAction = BTLACT_HANDBAG_STRAP
     lda.w #$0064
     sec
     sbc $0028,X
+    ; Damage seed is 100 minus target defense.
     sta $12
     clc
     sbc.w #$0000
@@ -49,3 +57,4 @@ C2A61F_C2A5EC_RunDamagePlusSolidificationItemAction_LA61F:
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
+    ; X=2/Y=4 routes through battler affliction byte +0x1F solidification.

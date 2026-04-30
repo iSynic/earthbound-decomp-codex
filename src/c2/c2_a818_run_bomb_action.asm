@@ -7,6 +7,10 @@
 ;
 ; Source units covered:
 ; - C2:A818..C2:A821 RunBombAction
+;
+; Runtime contract:
+; - Thin `BTLACT_BOMB` wrapper over `BOMB_COMMON`.
+; - Passes base damage `0x005A` (90) to `C2:A658`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -20,5 +24,6 @@ BTLACT_BOMB:
 C2A818_RunBombAction = BTLACT_BOMB
     rep #$31
     lda.w #$005A
+    ; Bomb base damage: 90.
     jsr $A658
     rtl

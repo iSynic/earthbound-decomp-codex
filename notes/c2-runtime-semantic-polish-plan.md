@@ -165,6 +165,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover PP/HP target-loss siblings, active enemy sprite
   width budgets, enemy config max-called limits, call-for-help probability,
   placement fallback, and inserted enemy row fields.
+- 2026-04-30 twenty-second slice: promoted item/bomb action contracts into
+  byte-neutral source comments plus `notes/c2-item-bomb-runtime-polish.md`.
+  The promoted contracts cover item-side concentration seal, damage-plus-
+  solidification, the `C2:724A` solidification text tail, bomb/super-bomb base
+  damage constants, and splash targeting by sprite width/position.
 
 ## Validation
 

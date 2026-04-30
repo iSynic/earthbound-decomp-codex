@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:A3D1..C2:A5EC RunItemSideConcentrationSealAction
+;
+; Runtime contract:
+; - Item-side concentration/PSI-seal action at `C2:A3D1`, followed by adjacent
+;   item/status continuations in the same decoded source unit.
+; - The `A3D1` entry gates through `C2:7CFD` and `C2:8D41`, writes value `4`
+;   to target row `+0x21` when clear, displays `EF:6C0B` on success, and
+;   displays `EF:766E` on failure.
+; - Later bodies in this unit include the HP-sucker effect and the
+;   bottle-rocket common helper; those remain neighboring item-side actions but
+;   are not collapsed into the concentration-seal contract.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -33,11 +43,13 @@ C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     clc
     adc.w #$0021
     tax
+    ; Target row +0x21 is the concentration/PSI-seal subgroup byte.
     lda $0000,X
     and.w #$00FF
     bne C2A412_RunItemSideConcentrationSealAction_LA412
     sep #$20
     lda.b #$04
+    ; Value 4 is the locally observed concentration/PSI-seal state.
     sta $0000,X
     rep #$20
     lda.w #$6C0B
@@ -122,6 +134,7 @@ C2A49E_RunItemSideConcentrationSealAction_LA49E:
     lsr A
     tay
     sty $16
+    ; HP-sucker path transfers a fraction of target HP back to the user.
     tyx
     lda $A972
     jsr $71F0
@@ -226,6 +239,7 @@ C2A57A_RunItemSideConcentrationSealAction_LA57A = BOTTLE_ROCKET_COMMON
     tcd
     pla
     sta $02
+    ; Input A is the number of independent 100%-gate rocket hit attempts.
     ldy.w #$0000
     sty $14
     tyx
@@ -254,6 +268,7 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     jsl C08FF7_ResolveIndexedPointerOffset
     jsr $6AFD
     ldx.w #$00FF
+    ; Successful attempts scale the damage amount before applying it.
     jsr $8125
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:

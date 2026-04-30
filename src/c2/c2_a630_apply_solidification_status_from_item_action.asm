@@ -7,6 +7,11 @@
 ;
 ; Source units covered:
 ; - C2:A630..C2:A658 C2A630_ApplySolidificationStatusFromItemAction
+;
+; Runtime contract:
+; - Tail for item-side solidification attempts.
+; - Consumes the prepared `C2:724A` arguments from the caller; success displays
+;   `EF:6BEF` and failure displays `EF:766E`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -20,6 +25,7 @@ C2A630_ApplySolidificationStatusFromItemAction:
     jsr $724A
     cmp.w #$0000
     beq C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
+    ; Success: target's body solidified.
     lda.w #$6BEF
     sta $0E
     lda.w #$00EF
@@ -27,6 +33,7 @@ C2A630_ApplySolidificationStatusFromItemAction:
     jsl $C1DC1C
     bra C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
 C2A648_DisplaySolidificationFailureText:
+    ; Generic "did not work" fallback.
     lda.w #$766E
     sta $0E
     lda.w #$00EF

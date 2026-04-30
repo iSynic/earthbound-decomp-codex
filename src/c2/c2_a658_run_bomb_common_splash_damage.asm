@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:A658..C2:A818 RunBombCommonSplashDamage
+;
+; Runtime contract:
+; - Shared bomb/explosive splash-damage worker.
+; - Input A is the base damage parameter. The primary target receives the
+;   shaped amount through `C2:6A44` and `C2:8125`.
+; - If the target is in the battler domain, nearby same-side/same-row targets
+;   are selected by sprite width and x-position overlap checks; up to two
+;   secondary targets receive half of the base damage.
+; - Restores `$A972` to the original target before returning.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -30,6 +39,7 @@ C2A658_RunBombCommonSplashDamage = BOMB_COMMON
     lda.w #$0000
     sta $04
     lda $1A
+    ; Apply full shaped damage to the primary target first.
     jsr $6A44
     ldx.w #$00FF
     jsr $8125
@@ -37,6 +47,7 @@ C2A658_RunBombCommonSplashDamage = BOMB_COMMON
     lda $000E,X
     and.w #$00FF
     bne C2A6F7_RunBombCommonSplashDamage_LA6F7
+    ; Party-side target path maps the target back to a battler row candidate.
     ldx.w #$0000
     stx $16
     bra C2A69F_RunBombCommonSplashDamage_LA69F
@@ -116,6 +127,7 @@ C2A701_RunBombCommonSplashDamage_LA701:
     bne C2A71D_RunBombCommonSplashDamage_LA71D
     jmp.w C2A7BE_RunBombCommonSplashDamage_LA7BE
 C2A71D_RunBombCommonSplashDamage_LA71D:
+    ; Enemy-side splash candidates must be active and share the target row.
     lda $9FBA,X
     and.w #$00FF
     cmp.w #$0001
@@ -135,6 +147,7 @@ C2A73B_RunBombCommonSplashDamage_LA73B:
     ldx $A972
     lda $0044,X
     sta $00
+    ; Compare x-distance against combined sprite widths plus blast margin.
     lda $01
     cmp $00
     bcs C2A788_RunBombCommonSplashDamage_LA788
@@ -217,6 +230,7 @@ C2A7D6_RunBombCommonSplashDamage_LA7D6:
     jsl $C23D05
     lda $1A
     lsr A
+    ; Secondary target A receives half-damage.
     jsr $6A44
     ldx.w #$00FF
     jsr $8125
@@ -228,12 +242,14 @@ C2A7F4_RunBombCommonSplashDamage_LA7F4:
     jsl $C23D05
     lda $1A
     lsr A
+    ; Secondary target B receives half-damage.
     jsr $6A44
     ldx.w #$00FF
     jsr $8125
 C2A80D_RunBombCommonSplashDamage_LA80D:
     ldy $14
     sty $A972
+    ; Restore the original target context before returning.
     jsl $C23D05
     pld
     rts
