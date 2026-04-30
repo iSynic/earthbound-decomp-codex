@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Shared low-level prompt/input gate for halt-like text controls.
+; - Nonzero input A supplies the tick count; zero falls back to $964B.
+; - $006D & A0A0 is the accept mask. In debug/control mode, $006D & 8010 can
+;   clear the text input lock at $9645.
 
 C12E42_TickWindowInputState = $C12E42
 DebugControlModeFlag        = $436C

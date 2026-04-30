@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Shared wait-frame pump for text waits and prompt loops.
+; - When queued text/window work is pending, C3:E450 services it first.
+; - Battle text mode routes the frame through C4:3568; ordinary mode advances
+;   renderer/entity/sprite queues and polls input through C0:8756.
+; - C1:0078/007E/0084 are the active window focus getter/setter/close trio.
 
 C08756_WaitOneFrameAndPollInput       = $C08756
 C088B1_ResetRendererFrameState        = $C088B1

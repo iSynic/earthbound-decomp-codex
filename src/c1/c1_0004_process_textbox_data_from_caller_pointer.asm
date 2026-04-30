@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Far-call text entry wrapper: caller-local $20/$22 supplies the EF/text
+;   pointer, which is restaged into the generic C1:86B1 pointer ABI.
+; - C0:943C/C0:9451 bracket the text run with saved coordinate/state, while
+;   $B4A8 == FFFF is the completion sentinel drained by C1:2DD5.
+; - The tiny following entries are state latches for blinking prompt state and
+;   text sound/display mode.
 
 C0943C_SaveCurrentCoordinateState  = $C0943C
 C09451_RestoreSavedCoordinateState = $C09451

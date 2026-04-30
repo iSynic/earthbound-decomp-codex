@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Resolves the active text/interaction context descriptor from $8958 through
+;   the $88E4 index table and $8650 descriptor table, or returns fallback
+;   descriptor $85FE when $88E0 is FFFF.
+; - The neighbor helpers snapshot/restore primary pointer, secondary pointer,
+;   and workmem slots inside that descriptor.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 

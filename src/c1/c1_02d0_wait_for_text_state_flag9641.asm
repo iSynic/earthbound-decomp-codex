@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Wait-until-text-state gate around $9641. The flag is cleared before and
+;   after the normal wait, while each wait iteration pumps C1:004E.
+; - Debug/control mode can skip the wait when controller-held bits include both
+;   $1000 and $2000.
 
 C1004E_PumpTextWaitFrame       = $C1004E
 C3E4CA_RefreshWindowTextState  = $C3E4CA

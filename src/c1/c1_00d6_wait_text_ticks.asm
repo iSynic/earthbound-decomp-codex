@@ -10,6 +10,9 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Counted wait helper used by text/prompt command leaves.
+; - The incoming tick count is stored in local $0E after a window/text refresh,
+;   then C1:2E42 is pumped until the countdown reaches zero.
 
 C3E4CA_RefreshWindowTextState = $C3E4CA
 C12DD5_TickWindowTextSystem = $C12DD5

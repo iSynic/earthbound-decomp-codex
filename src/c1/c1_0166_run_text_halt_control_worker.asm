@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Shared worker for text commands 0x13/0x14 halt-control behavior.
+; - Waits for the text input lock to clear, services C3:E4CA/C1:2DD5, and in
+;   battle text mode can delegate to EF:0256 or C1:00FE.
+; - Prompt mode alternates C3:E416/C3:E418 prompt tiles, uploads the accepted
+;   pair from C3:E41A, then finalizes through EF:026E.
 
 C100FE_WaitForTextPromptOrInputGate  = $00FE
 C08616_QueueVramTransfer             = $C08616

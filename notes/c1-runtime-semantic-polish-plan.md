@@ -78,3 +78,8 @@ This planning pass is documentation-only.
   contracts cover the D5:8A50 PSI ability row fields, PSI user/category/entry
   selection helpers, PP guard, target handoff, and final menu-selection
   writeback.
+- 2026-04-30: First C1 text/menu-core slice landed as byte-neutral source
+  comments plus `notes/c1-text-gates-runtime-polish.md`. The promoted
+  contracts cover pointer staging, wait-frame pumping, focus/window drains,
+  prompt gates, halt-control handling, text-state waits, and active descriptor
+  lookup.

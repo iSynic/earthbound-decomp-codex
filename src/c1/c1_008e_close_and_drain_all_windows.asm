@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Drains every queued/current window from $88E2 rather than only closing the
+;   active focus slot.
+; - $5E70 marks the drain guard while each queued window descriptor is resolved
+;   through the $8650 table and closed via C3:E521.
+; - C1:00C7/C1:00D0 are the text input lock/unlock latches used by prompt
+;   gates.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C3E521_CloseWindowById             = $C3E521
