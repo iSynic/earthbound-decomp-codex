@@ -105,3 +105,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   comments plus `notes/c2-final-prayer-runtime-polish.md`.
 - 2026-04-30: C2 battle sprite fifteenth slice landed as byte-neutral source
   comments plus `notes/c2-battle-sprite-runtime-polish.md`.
+- 2026-04-30: C2 `SHOW_PSI_ANIMATION` sixteenth slice landed as byte-neutral
+  source comments plus `notes/c2-show-psi-animation-runtime-polish.md`.

@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:E116..C2:E6B3 RunBattleVisualFlashAndBgEffectBody
+;
+; Runtime contract:
+; - `SHOW_PSI_ANIMATION` setup body. Input A is the PSI animation id.
+; - Indexes 12-byte rows in `PSI_ANIM_CFG` at `CC:F04D`, loads the selected
+;   graphics set and arrangement payload, copies the 4-color PSI palette from
+;   `CC:F47F + id*8`, and seeds the `$1B9E..$1BD4` animation state consumed by
+;   the `C2:E6B6` per-frame tick helper.
+; - Dims loaded battle-background palettes through `C2:DE0F`, stages target
+;   offsets in `$AD9A/$AD9C`, and marks affected enemy sprite rows through
+;   row `+0x4B` plus color-wave slots at `$AEE7`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -29,6 +39,7 @@ C2E116_RunBattleVisualFlashAndBgEffectBody = SHOW_PSI_ANIMATION
     tcd
     pla
     sta $02
+    ; 2bpp battle background mode uses the direct 0x1000-byte upload path.
     lda $ADD5
     and.w #$00FF
     cmp.w #$0002
@@ -52,6 +63,7 @@ C2E116_RunBattleVisualFlashAndBgEffectBody = SHOW_PSI_ANIMATION
     asl A
     asl A
     tax
+    ; PSI_ANIM_CFG bytes 0-1: bank-CC graphics-set offset.
     lda $CCF04D,X
     clc
     adc $06
@@ -77,10 +89,12 @@ C2E116_RunBattleVisualFlashAndBgEffectBody = SHOW_PSI_ANIMATION
     sep #$20
     tya
     jsl C085B7_QueueChunkedVramDma
+    ; Displayed PSI palette buffer base for the 2bpp path.
     lda.w #$0260
     sta $1BCA
     jmp.w C2E2F0_QueueBattleVisualBgEffectUpload
 C2E194_LoadBattleVisualBgEffectAlternateBuffer:
+    ; Non-2bpp mode repacks the decompressed tile data before the larger upload.
     lda.w #$0000
     sta $06
     lda.w #$007F
@@ -248,6 +262,7 @@ C2E2D3_RunBattleVisualFlashAndBgEffectBody_LE2D3:
     sep #$20
     tya
     jsl C085B7_QueueChunkedVramDma
+    ; Displayed PSI palette buffer base for the alternate path.
     lda.w #$0280
     sta $1BCA
 C2E2F0_QueueBattleVisualBgEffectUpload:
@@ -261,6 +276,7 @@ C2E2F0_QueueBattleVisualBgEffectUpload:
     asl A
     asl A
     clc
+    ; PSI_ANIM_PALETTES: copy 4 source colors to `$1BAA` and display buffer.
     adc $06
     sta $06
     sta $0E
@@ -290,6 +306,7 @@ C2E2F0_QueueBattleVisualBgEffectUpload:
     sta $1BA3
     sep #$20
     lda.b #$01
+    ; Arm the animation tick state; `E6B6` consumes the frame stream.
     sta $1B9E
     rep #$20
 C2E34F_LoadBattleVisualEffectDescriptor:
@@ -314,6 +331,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     adc $06
     sta $06
     sep #$20
+    ; Config byte 2: frame hold reload.
     lda [$06]
     sta $1B9F
     rep #$20
@@ -328,6 +346,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     adc $06
     sta $06
     sep #$20
+    ; Config byte 6: frame count.
     lda [$06]
     sta $1BA0
     rep #$20
@@ -343,6 +362,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     adc $06
     sta $06
     sep #$20
+    ; Config byte 3: palette animation timer reload.
     lda [$06]
     sta $1BA8
     rep #$20
@@ -359,6 +379,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     adc $06
     sta $06
     sep #$20
+    ; Config bytes 4-5: palette animation range.
     lda [$06]
     sta $1BA5
     rep #$20
@@ -391,6 +412,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     sta $06
     lda [$06]
     and.w #$00FF
+    ; Config byte 8: enemy-color change timer.
     sta $1BCC
     lda $1A
     clc
@@ -404,6 +426,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     sta $06
     lda [$06]
     and.w #$00FF
+    ; Config byte 9: enemy-color restore/alternate timer.
     sta $1BCE
     lda $1A
     clc
@@ -417,6 +440,7 @@ C2E34F_LoadBattleVisualEffectDescriptor:
     sta $06
     lda [$06]
     and.w #$001F
+    ; Config bytes 10-11: BGR555 target color, split for helper state.
     sta $1BD0
     lda [$06]
     lsr A
@@ -450,6 +474,7 @@ C2E451_DecodeBattleVisualEffectPaletteFields:
     lda [$06]
     sta $06
     sty $08
+    ; PSI_ANIM_POINTERS selects the compressed arrangement payload.
     lda $06
     sta $0E
     lda $08
@@ -463,6 +488,7 @@ C2E451_DecodeBattleVisualEffectPaletteFields:
     lda $08
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
+    ; Darken loaded battle-background palettes before the PSI overlay appears.
     jsl $C2DE0F
     lda.w #$0300
     sta $06
@@ -485,6 +511,7 @@ C2E451_DecodeBattleVisualEffectPaletteFields:
 C2E4CA_ClearBattleVisualEffectSlotsLoop:
     asl A
     tax
+    ; Clear four enemy sprite color-wave group markers.
     stz $AEE7,X
     lda $1A
     inc A
@@ -517,6 +544,7 @@ C2E4F8_RunBattleVisualFlashAndBgEffectBody_LE4F8:
     tax
     lda $CCF04D,X
     and.w #$00FF
+    ; Config byte 7: target mode / affected enemy-row selection.
     beq C2E527_ConfigureBattleVisualEffectTargetOffset
     cmp.w #$0003
     beq C2E527_ConfigureBattleVisualEffectTargetOffset
@@ -535,6 +563,7 @@ C2E527_ConfigureBattleVisualEffectTargetOffset:
     lda.w #$0080
     sec
     sbc $02
+    ; Center the PSI effect on the current enemy row position.
     sta $AD9A
     ldx $A972
     lda $0045,X
@@ -557,6 +586,7 @@ C2E567_RunBattleVisualFlashAndBgEffectBody_LE567:
     sep #$20
     lda.b #$01
     ldx $A972
+    ; Mark current target row for alternate sprite/palette treatment.
     sta $004B,X
     ldx $A972
     rep #$20
@@ -568,6 +598,7 @@ C2E567_RunBattleVisualFlashAndBgEffectBody_LE567:
     sta $AEE7,X
     jmp.w C2E68C_CommitBattleVisualEffectOffset
 C2E587_ConfigureBattleVisualEffectMatchingRows:
+    ; Target mode 1: mark active enemies sharing the current target's row.
     ldx $A972
     lda $0045,X
     and.w #$00FF
@@ -648,6 +679,7 @@ C2E627_RunBattleVisualFlashAndBgEffectBody_LE627:
     sta $AD9C
     bra C2E68C_CommitBattleVisualEffectOffset
 C2E637_ConfigureBattleVisualEffectAllRows:
+    ; Target mode 2: mark all active enemy rows with fixed vertical offset.
     lda.w #$0010
     sta $AD9C
     ldy.w #$A21C
@@ -692,6 +724,7 @@ C2E68C_CommitBattleVisualEffectOffset:
     and.w #$00FF
     cmp.w #$0002
     bne C2E6A5_RunBattleVisualFlashAndBgEffectBody_LE6A5
+    ; Offset register pair depends on the loaded battle-background bitdepth.
     lda $AD9A
     sta $0035
     lda $AD9C

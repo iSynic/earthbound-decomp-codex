@@ -144,6 +144,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover current battle-group sprite loading, loaded slot
   lookup, width-budget trimming, enemy row layout, render-order arrays, row
   render commits, and enemy sprite palette-wave state.
+- 2026-04-30 eighteenth slice: promoted `SHOW_PSI_ANIMATION` setup contracts
+  into byte-neutral source comments plus
+  `notes/c2-show-psi-animation-runtime-polish.md`. The promoted contracts cover
+  CC PSI config row joins, graphics/arrangement/palette setup, `$1B9E..$1BD4`
+  state seeding, battle-background dimming, and affected enemy-row marking.
 
 ## Validation
 
