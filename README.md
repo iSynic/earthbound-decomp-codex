@@ -36,8 +36,8 @@ It does not give you:
 
 ## Encyclopedia App
 
-GitHub Releases may include an **EarthBound Decomp Encyclopedia** Electron app
-binary.
+GitHub link to **EarthBound Decomp Encyclopedia** Electron app
+binary: https://github.com/iSynic/Earthbound-Decomp-Encyclopedia
 
 The app is a companion browser/intelligence layer for this repository. It is
 intended to make the notes, manifests, source scaffolds, bank maps, and subsystem
