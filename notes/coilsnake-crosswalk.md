@@ -68,6 +68,20 @@ replacement, compiles against `build/coilsnake/base-expanded.sfc`, diffs against
 `build/coilsnake/baseline-rebuild.sfc`, and writes an ignored
 `experiment-report.json`. It has an internal compile timeout so a stuck
 CoilSnake run leaves a report instead of only timing out at the shell layer.
+`tools/build_coilsnake_project_inventory.py` can ingest those reports with
+`--experiment-report`; tracked manifest output keeps only sanitized status,
+metadata, and diff spans, and only promotes the evidence level to
+`diff-confirmed` when a report includes a successful changed diff.
+
+Local tool caveat as of this pass:
+
+- `coilsnake-cli` is not currently on `PATH`.
+- The local source checkout under `build/coilsnake/tools/source/CoilSnake-4.2`
+  has a CLI entry point, but the active Python runtimes are missing CoilSnake's
+  Python dependencies (`PyYAML`, `Pillow`, `CCScriptWriter`, and `ccscript`).
+- The local `build/coilsnake/tools/CoilSnake-4.2.exe` can be invoked, but the
+  first new compile probe exceeded a 10-minute shell timeout before producing a
+  rebuilt ROM. The runner now records such timeouts.
 
 Results:
 
@@ -107,6 +121,12 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `item-cost-probe` | `item_configuration_table.yml`: Teddy bear `Cost` `178 -> 179` | `1` | `0x155068..0x155069` |
 | `text-menu-probe` | `text_misc.yml`: Battle Menu `Auto Fight -> Auto Fighu` | `1` | `0x04A00A..0x04A00B` |
 | `map-palette-probe` | `map_palette_settings.yml`: first `Sprite Palette` `4 -> 5` | `1` | `0x1A0C40..0x1A0C41` |
+
+Queued/pending compile:
+
+| Experiment | Edit | Current status |
+| --- | --- | --- |
+| `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `10` `PP Cost` `10 -> 11` | dry-run match confirmed; local `CoilSnake-4.2.exe` compile exceeded a 10-minute shell timeout before producing `rebuilt.sfc` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.

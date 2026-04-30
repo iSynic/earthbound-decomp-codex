@@ -191,6 +191,13 @@ def parse_args() -> argparse.Namespace:
         metavar="LABEL=PATH",
         help="Optional controlled edit experiment ROM to diff against --experiment-base-rom.",
     )
+    parser.add_argument(
+        "--experiment-report",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Optional ignored report from tools/run_coilsnake_edit_experiment.py.",
+    )
     return parser.parse_args()
 
 
@@ -340,6 +347,65 @@ def parse_compare_roms(values: list[str]) -> list[tuple[str, Path]]:
     return comparisons
 
 
+def parse_experiment_reports(values: list[str]) -> list[Path]:
+    return [Path(value).expanduser().resolve() for value in values]
+
+
+def evidence_from_diff(diff: dict[str, Any] | None) -> str:
+    if diff and diff.get("status") == "different":
+        return "diff-confirmed"
+    return "coilsnake-observed"
+
+
+def experiment_status(report: dict[str, Any]) -> str:
+    if report.get("dry_run"):
+        return "dry-run"
+    compile_result = report.get("compile")
+    if isinstance(compile_result, dict):
+        if compile_result.get("timed_out"):
+            return "compile-timeout"
+        if compile_result.get("returncode") == 0:
+            diff = report.get("diff")
+            if isinstance(diff, dict):
+                return "diffed" if diff.get("status") == "different" else "compiled-no-diff"
+            return "compiled"
+        return "compile-failed"
+    return "reported"
+
+
+def sanitized_experiment_report(path: Path) -> tuple[str, dict[str, Any]]:
+    if not path.is_file():
+        raise FileNotFoundError(f"Experiment report not found: {path}")
+    report = json.loads(path.read_text(encoding="utf-8"))
+    experiment_id = report.get("experiment_id")
+    if not isinstance(experiment_id, str) or not experiment_id:
+        raise ValueError(f"Experiment report missing experiment_id: {path}")
+
+    diff = report.get("diff") if isinstance(report.get("diff"), dict) else None
+    compile_result = report.get("compile") if isinstance(report.get("compile"), dict) else {}
+    sanitized_compile = {
+        "returncode": compile_result.get("returncode"),
+        "timed_out": bool(compile_result.get("timed_out", False)),
+    }
+    if "timeout_seconds" in compile_result:
+        sanitized_compile["timeout_seconds"] = compile_result["timeout_seconds"]
+
+    return experiment_id, {
+        "report": rel(path),
+        "experiment_status": experiment_status(report),
+        "comparison_base": report.get("comparison_base"),
+        "resource_family": report.get("resource_family", "uncategorized"),
+        "source_file": report.get("source_file"),
+        "edit": report.get("edit", "Controlled edit metadata not registered."),
+        "evidence_level": evidence_from_diff(diff),
+        "project_copy": report.get("project_copy"),
+        "rebuilt_rom": report.get("rebuilt_rom"),
+        "dry_run": bool(report.get("dry_run", False)),
+        "compile": sanitized_compile,
+        "diff": diff,
+    }
+
+
 def diff_roms(base: bytes, other_path: Path) -> dict[str, Any]:
     if not other_path.is_file():
         return {
@@ -428,6 +494,7 @@ def build_crosswalk(
     compare_roms: list[tuple[str, Path]],
     experiment_base_rom: Path | None,
     experiment_roms: list[tuple[str, Path]],
+    experiment_report_paths: list[Path],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     info = rom_tools.read_rom_info(rom_path)
     problems = rom_tools.verify_earthbound_us(info)
@@ -447,19 +514,24 @@ def build_crosswalk(
             raise FileNotFoundError(f"Experiment base ROM not found: {experiment_base_rom}")
         experiment_base = experiment_base_rom.read_bytes()
         for label, path in experiment_roms:
+            diff = diff_roms(experiment_base, path)
+            metadata = EXPERIMENT_METADATA.get(
+                label,
+                {
+                    "resource_family": "uncategorized",
+                    "source_file": None,
+                    "edit": "Controlled edit metadata not registered.",
+                },
+            )
             experiment_reports[label] = {
                 "comparison_base": rel(experiment_base_rom),
-                **EXPERIMENT_METADATA.get(
-                    label,
-                    {
-                        "resource_family": "uncategorized",
-                        "source_file": None,
-                        "edit": "Controlled edit metadata not registered.",
-                        "evidence_level": "diff-confirmed",
-                    },
-                ),
-                "diff": diff_roms(experiment_base, path),
+                **metadata,
+                "evidence_level": evidence_from_diff(diff),
+                "diff": diff,
             }
+    for path in experiment_report_paths:
+        label, report = sanitized_experiment_report(path)
+        experiment_reports[label] = report
 
     project_summary = {
         "project_dir": rel(project_dir),
@@ -531,6 +603,7 @@ def main() -> int:
         rom_path = rom_tools.find_rom(args.rom)
         compare_roms = parse_compare_roms(args.compare_rom)
         experiment_roms = parse_compare_roms(args.experiment_rom)
+        experiment_report_paths = parse_experiment_reports(args.experiment_report)
         experiment_base_rom = (
             Path(args.experiment_base_rom).expanduser().resolve()
             if args.experiment_base_rom
@@ -543,6 +616,7 @@ def main() -> int:
             compare_roms=compare_roms,
             experiment_base_rom=experiment_base_rom,
             experiment_roms=experiment_roms,
+            experiment_report_paths=experiment_report_paths,
         )
     except (FileNotFoundError, ValueError) as exc:
         print(exc, file=sys.stderr)
