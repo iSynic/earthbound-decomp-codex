@@ -130,6 +130,9 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
   int changeMusicLoadCalls = 0;
   int commandWrites = 0;
   int commandWriteSmpBurst = 0;
+  std::string postCommandSchedulerMode = "smp_instruction";
+  int postCommandSchedulerTicks = 0;
+  int postCommandDspMainCalls = 0;
   int commandReadStep = -1;
   int zeroAckStep = -1;
   int keyOnStep = -1;
@@ -137,6 +140,8 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
   bool reachedCommandRead = false;
   bool reachedZeroAck = false;
   bool reachedKeyOn = false;
+  ares::Node::Object harnessNode;
+  bool smpNodeLoaded = false;
   std::uint16_t lastKeyOnPc = 0;
   std::uint16_t lastKeyOnYa = 0;
   std::uint8_t lastKeyOnX = 0;
@@ -186,6 +191,30 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
       ares::SuperFamicom::smp.instruction();
       ++smpInstructions;
     }
+    smpFinalPc = static_cast<std::uint16_t>(ares::SuperFamicom::smp.r.pc.w);
+  }
+
+  auto ensureSmpNodeLoaded() -> void {
+    if (smpNodeLoaded) return;
+    if (!harnessNode) harnessNode = std::make_shared<ares::Core::Object>("EarthBound audio gate2 harness");
+    ares::SuperFamicom::smp.load(harnessNode);
+    smpNodeLoaded = true;
+  }
+
+  auto stepPostCommandRuntime() -> void {
+    if (postCommandSchedulerMode == "smp_instruction") {
+      ares::SuperFamicom::smp.instruction();
+      ++smpInstructions;
+    } else if (postCommandSchedulerMode == "smp_main") {
+      ensureSmpNodeLoaded();
+      ares::SuperFamicom::smp.main();
+      ++smpInstructions;
+    } else if (postCommandSchedulerMode == "smp_dsp_cooperative") {
+      throw std::runtime_error("smp_dsp_cooperative post-command scheduling requires full ares DSP thread/node initialization; use a full-system harness rather than the isolated C0:AB06 harness");
+    } else {
+      throw std::runtime_error("unknown post-command scheduler mode: " + postCommandSchedulerMode);
+    }
+    ++postCommandSchedulerTicks;
     smpFinalPc = static_cast<std::uint16_t>(ares::SuperFamicom::smp.r.pc.w);
   }
 
@@ -556,9 +585,7 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
         reachedCommandRead = true;
         commandReadStep = index;
       }
-      ares::SuperFamicom::smp.instruction();
-      ++smpInstructions;
-      smpFinalPc = static_cast<std::uint16_t>(ares::SuperFamicom::smp.r.pc.w);
+      stepPostCommandRuntime();
       if (reachedCommandRead && !reachedZeroAck && static_cast<std::uint8_t>(ares::SuperFamicom::smp.portRead(0)) == 0x00) {
         reachedZeroAck = true;
         zeroAckStep = index;
@@ -587,12 +614,15 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
       && reachedKeyOn;
   }
 
-  auto runChangeMusicAfterDirectBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, int postCommandSmpInstructions, int commandWriteBurst) -> bool {
+  auto runChangeMusicAfterDirectBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, int postCommandSmpInstructions, int commandWriteBurst, std::string schedulerMode) -> bool {
     loaderBytes = std::move(loader);
     romBytes = std::move(rom);
     useRealSmpIplReceiver = false;
     runFullChangeMusic = false;
     commandWriteSmpBurst = commandWriteBurst;
+    postCommandSchedulerMode = std::move(schedulerMode);
+    postCommandSchedulerTicks = 0;
+    postCommandDspMainCalls = 0;
     apuRam.fill(0);
     smpInstructions = 0;
     smpPrebootInstructions = 0;
@@ -608,12 +638,15 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
     return runChangeMusicCommandAndCapture(command, maxInstructions, postCommandSmpInstructions);
   }
 
-  auto runChangeMusicAfterBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, std::vector<std::uint8_t> iplrom, int maxPrebootInstructions, int postCommandSmpInstructions, int commandWriteBurst) -> bool {
+  auto runChangeMusicAfterBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, std::vector<std::uint8_t> iplrom, int maxPrebootInstructions, int postCommandSmpInstructions, int commandWriteBurst, std::string schedulerMode) -> bool {
     loaderBytes = std::move(loader);
     romBytes = std::move(rom);
     useRealSmpIplReceiver = true;
     runFullChangeMusic = false;
     commandWriteSmpBurst = commandWriteBurst;
+    postCommandSchedulerMode = std::move(schedulerMode);
+    postCommandSchedulerTicks = 0;
+    postCommandDspMainCalls = 0;
     apuRam.fill(0);
     smpInstructions = 0;
     smpPrebootInstructions = 0;
@@ -664,6 +697,7 @@ int main(int argc, char** argv) {
     const int maxPrebootInstructions = argInt(argc, argv, "--max-preboot-instructions", 20000);
     const int postCommandSmpInstructions = argInt(argc, argv, "--post-command-smp-instructions", 300000);
     const int commandWriteSmpBurst = argInt(argc, argv, "--command-write-smp-burst", 0);
+    const std::string postCommandSchedulerMode = argString(argc, argv, "--post-command-scheduler-mode", "smp_main");
     const int changeMusicTrack = argInt(argc, argv, "--change-music-track", -1);
     const std::string receiver = argString(argc, argv, "--receiver", "modeled");
     const bool stopAfterTerminal = hasFlag(argc, argv, "--stop-after-terminal");
@@ -675,6 +709,7 @@ int main(int argc, char** argv) {
     const fs::path snapshotOut = argPath(argc, argv, "--snapshot-out");
     if (streamBank < 0 || streamAddress < 0) throw std::runtime_error("missing stream pointer");
     if (receiver != "modeled" && receiver != "ares_smp_ipl" && receiver != "ares_smp_builtin_ipl") throw std::runtime_error("--receiver must be modeled, ares_smp_ipl, or ares_smp_builtin_ipl");
+    if (postCommandSchedulerMode != "smp_instruction" && postCommandSchedulerMode != "smp_main" && postCommandSchedulerMode != "smp_dsp_cooperative") throw std::runtime_error("--post-command-scheduler-mode must be smp_instruction, smp_main, or smp_dsp_cooperative");
     if (receiver == "ares_smp_ipl" && iplFile.empty()) throw std::runtime_error("--receiver ares_smp_ipl requires --ipl-file");
     C0AB06LoaderProbe probe;
     const bool directChangeMusicAfterBootstrap = receiver == "ares_smp_builtin_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && changeMusicTrack >= 0;
@@ -691,7 +726,8 @@ int main(int argc, char** argv) {
           static_cast<std::uint8_t>(changeMusicTrack),
           maxInstructions,
           postCommandSmpInstructions,
-          commandWriteSmpBurst
+          commandWriteSmpBurst,
+          postCommandSchedulerMode
         )
       : (changeMusicAfterBootstrap
       ? probe.runChangeMusicAfterBootstrap(
@@ -704,7 +740,8 @@ int main(int argc, char** argv) {
           readBytes(iplFile),
           maxPrebootInstructions,
           postCommandSmpInstructions,
-          commandWriteSmpBurst
+          commandWriteSmpBurst,
+          postCommandSchedulerMode
         )
       : (sequenceAfterBootstrap
       ? probe.runSequenceAfterBootstrap(
@@ -787,6 +824,9 @@ int main(int argc, char** argv) {
       std::cout << ", \"load_calls\": " << probe.changeMusicLoadCalls;
       std::cout << ", \"command_writes\": " << probe.commandWrites;
       std::cout << ", \"command_write_smp_burst\": " << probe.commandWriteSmpBurst;
+      std::cout << ", \"post_command_scheduler_mode\": \"" << probe.postCommandSchedulerMode << "\"";
+      std::cout << ", \"post_command_scheduler_ticks\": " << probe.postCommandSchedulerTicks;
+      std::cout << ", \"post_command_dsp_main_calls\": " << probe.postCommandDspMainCalls;
       std::cout << ", \"final_pc\": \"" << hexLong(probe.changeMusicFinalPc) << "\"";
       std::cout << ", \"reached_command_read_pc_062a\": " << (probe.reachedCommandRead ? "true" : "false");
       std::cout << ", \"command_read_step\": " << probe.commandReadStep;

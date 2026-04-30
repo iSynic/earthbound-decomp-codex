@@ -56,6 +56,8 @@ def collect(frontier: dict[str, Any], frontier_path: Path) -> dict[str, Any]:
     key_on_steps: list[int] = []
     ack_after_read_deltas: list[int] = []
     key_on_after_ack_deltas: list[int] = []
+    scheduler_ticks: list[int] = []
+    dsp_main_calls: list[int] = []
     no_key_on: list[dict[str, Any]] = []
 
     for record in frontier.get("records", []):
@@ -69,6 +71,9 @@ def collect(frontier: dict[str, Any], frontier_path: Path) -> dict[str, Any]:
             "track_id": record.get("track_id"),
             "track_name": record.get("track_name"),
             "command_write_smp_burst": int(change_music.get("command_write_smp_burst", -1)),
+            "post_command_scheduler_mode": change_music.get("post_command_scheduler_mode", "unknown"),
+            "post_command_scheduler_ticks": int(change_music.get("post_command_scheduler_ticks", -1)),
+            "post_command_dsp_main_calls": int(change_music.get("post_command_dsp_main_calls", -1)),
             "command_read_step": command_read_step,
             "zero_ack_step": zero_ack_step,
             "key_on_step": key_on_step,
@@ -79,6 +84,10 @@ def collect(frontier: dict[str, Any], frontier_path: Path) -> dict[str, Any]:
         records.append(metric)
         if command_read_step >= 0:
             command_read_steps.append(command_read_step)
+        if metric["post_command_scheduler_ticks"] >= 0:
+            scheduler_ticks.append(metric["post_command_scheduler_ticks"])
+        if metric["post_command_dsp_main_calls"] >= 0:
+            dsp_main_calls.append(metric["post_command_dsp_main_calls"])
         if zero_ack_step >= 0:
             zero_ack_steps.append(zero_ack_step)
         if reached_key_on and key_on_step >= 0:
@@ -95,6 +104,7 @@ def collect(frontier: dict[str, Any], frontier_path: Path) -> dict[str, Any]:
             )
 
     burst_values = sorted({record["command_write_smp_burst"] for record in records})
+    scheduler_modes = sorted({str(record["post_command_scheduler_mode"]) for record in records})
     return {
         "schema": "earthbound-decomp.audio-fusion-timing-metrics.v1",
         "frontier": str(frontier_path),
@@ -104,6 +114,9 @@ def collect(frontier: dict[str, Any], frontier_path: Path) -> dict[str, Any]:
         "key_on_count": int(frontier.get("key_on_count", 0)),
         "no_key_on_count": len(no_key_on),
         "command_write_smp_burst_values": burst_values,
+        "post_command_scheduler_modes": scheduler_modes,
+        "post_command_scheduler_ticks": summarize(scheduler_ticks),
+        "post_command_dsp_main_calls": summarize(dsp_main_calls),
         "command_read_step": summarize(command_read_steps),
         "zero_ack_step": summarize(zero_ack_steps),
         "key_on_step": summarize(key_on_steps),
@@ -134,6 +147,9 @@ def render_markdown(metrics: dict[str, Any]) -> str:
             f"- load paths: `{metrics['load_path_success_count']}`",
             f"- key-on tracks: `{metrics['key_on_count']}`",
             f"- command-write SMP burst values: `{metrics['command_write_smp_burst_values']}`",
+            f"- post-command scheduler modes: `{metrics['post_command_scheduler_modes']}`",
+            f"- post-command scheduler ticks: `{metrics['post_command_scheduler_ticks']}`",
+            f"- post-command DSP main calls: `{metrics['post_command_dsp_main_calls']}`",
             f"- command-read step: `{metrics['command_read_step']}`",
             f"- zero-ack step: `{metrics['zero_ack_step']}`",
             f"- key-on step: `{metrics['key_on_step']}`",

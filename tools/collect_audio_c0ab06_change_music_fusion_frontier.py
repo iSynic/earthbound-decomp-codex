@@ -61,6 +61,12 @@ def parse_args() -> argparse.Namespace:
         default=0,
         help="Immediate SMP instructions to run after the final C0:ABBD APUIO0 write before the post-command observation loop.",
     )
+    parser.add_argument(
+        "--post-command-scheduler-mode",
+        choices=("smp_instruction", "smp_main", "smp_dsp_cooperative"),
+        default="smp_main",
+        help="Runtime stepping mode used after the final C0:ABBD APUIO0 write.",
+    )
     return parser.parse_args()
 
 
@@ -75,6 +81,7 @@ def run_fusion(
     apu_ram_out: Path,
     snapshot_out: Path,
     command_write_smp_burst: int,
+    post_command_scheduler_mode: str,
 ) -> dict[str, Any]:
     command = [
         str(exe),
@@ -102,6 +109,8 @@ def run_fusion(
         str(snapshot_out),
         "--command-write-smp-burst",
         str(command_write_smp_burst),
+        "--post-command-scheduler-mode",
+        post_command_scheduler_mode,
     ]
     completed = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=False)
     try:
@@ -242,6 +251,7 @@ def main() -> int:
             apu_ram_out,
             snapshot_out,
             args.command_write_smp_burst,
+            args.post_command_scheduler_mode,
         )
         run["expected_apu_ram"] = expected
         run["payload_regions"] = payload_regions(apu_ram_out, expected) if apu_ram_out.exists() else None
@@ -277,10 +287,15 @@ def main() -> int:
         "status": "full_change_music_invokes_real_c0ab06_against_live_driver",
         "source_policy": loader_contract.get("source_policy"),
         "corpus": "all_change_music_tracks" if args.all_tracks else "representative_backend_tracks",
-        "remaining_shortcut": "The fused CHANGE_MUSIC/C0:AB06 run still starts from a harness-booted audio subsystem and uses a bounded post-command SMP drain; the next gate is natural CPU/APU command timing in a fuller scheduled runtime.",
+        "remaining_shortcut": "The fused CHANGE_MUSIC/C0:AB06 run still starts from a harness-booted audio subsystem and uses bounded post-command SMP-main observation; the next gate is natural CPU/APU/DSP scheduling in a fuller runtime.",
         "post_command_timing": {
             "command_write_smp_burst": args.command_write_smp_burst,
-            "post_command_observation": "SMP instructions are observed one at a time after ChangeMusic returns; command-read, zero-ack, and key-on steps are recorded relative to that loop.",
+            "post_command_scheduler_mode": args.post_command_scheduler_mode,
+            "post_command_observation": (
+                "After ChangeMusic returns, the harness advances the selected post-command scheduler mode until command-read, zero-ack, "
+                "and key-on are observed. smp_main initializes the minimal ares node/debugger state needed to use the "
+                "SMP main entry instead of the raw instruction-only drain."
+            ),
         },
         "loader_contract": str(Path(args.loader_contract)),
         "pack_contract": str(Path(args.pack_contract)),

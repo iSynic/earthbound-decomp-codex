@@ -73,6 +73,12 @@ def validate(frontier: dict[str, Any]) -> list[str]:
             errors.append(f"{job_id}: ChangeMusic final PC is {change_music.get('final_pc')}")
         if int(change_music.get("command_writes", -1)) != 1:
             errors.append(f"{job_id}: command writes is {change_music.get('command_writes')}")
+        if change_music.get("post_command_scheduler_mode") != "smp_main":
+            errors.append(f"{job_id}: post-command scheduler mode is {change_music.get('post_command_scheduler_mode')}")
+        if int(change_music.get("post_command_scheduler_ticks", -1)) < 0:
+            errors.append(f"{job_id}: missing post-command scheduler ticks")
+        if int(change_music.get("post_command_dsp_main_calls", -1)) < 0:
+            errors.append(f"{job_id}: missing post-command DSP main calls")
         if int(change_music.get("load_calls", -1)) != len(expected_pack_ids):
             errors.append(f"{job_id}: load call count differs from expected sequence")
         if not change_music.get("reached_command_read_pc_062a"):

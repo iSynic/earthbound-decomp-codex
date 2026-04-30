@@ -41,10 +41,19 @@ def validate(metrics: dict[str, Any]) -> list[str]:
         errors.append("no_key_on_count does not match no_key_on_records")
     if metrics.get("command_write_smp_burst_values") != [0]:
         errors.append(f"expected zero-burst command timing, saw {metrics.get('command_write_smp_burst_values')}")
+    scheduler_modes = metrics.get("post_command_scheduler_modes")
+    if scheduler_modes != ["smp_main"]:
+        errors.append(f"expected SMP-main post-command scheduler mode, saw {scheduler_modes}")
     for record in records:
         job_id = record.get("job_id")
         if int(record.get("command_write_smp_burst", -1)) != 0:
             errors.append(f"{job_id}: command_write_smp_burst is not zero")
+        if record.get("post_command_scheduler_mode") != "smp_main":
+            errors.append(f"{job_id}: post_command_scheduler_mode is {record.get('post_command_scheduler_mode')}")
+        if int(record.get("post_command_scheduler_ticks", -1)) < 0:
+            errors.append(f"{job_id}: missing post_command_scheduler_ticks")
+        if int(record.get("post_command_dsp_main_calls", -1)) < 0:
+            errors.append(f"{job_id}: missing post_command_dsp_main_calls")
         if int(record.get("command_read_step", -1)) < 0:
             errors.append(f"{job_id}: missing command_read_step")
         if int(record.get("zero_ack_step", -1)) < int(record.get("command_read_step", -1)):

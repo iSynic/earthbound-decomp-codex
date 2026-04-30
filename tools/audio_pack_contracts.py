@@ -552,7 +552,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## What Is Not Final Yet",
             "",
-            "- The remaining fidelity gap is a bounded post-command observation loop rather than a full continuously scheduled SNES runtime.",
+            "- The remaining fidelity gap is bounded post-command SMP-main observation rather than full continuously scheduled CPU/APU/DSP runtime state.",
             "- Generated SPC/WAV outputs are ROM-derived local artifacts and must stay ignored/uncommitted.",
             "- External emulator comparison is still needed before claiming final audio-cycle equivalence.",
             "",
@@ -630,7 +630,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Next Implementation Step",
             "",
-            "Continue Gate 2 by replacing the remaining bounded post-command SMP observation loop with a fuller scheduled runtime, then use external emulator captures as accuracy oracles for selected tracks.",
+            "Continue Gate 2 by moving the current bounded post-command SMP-main observation into a fuller scheduled CPU/APU/DSP runtime, then use external emulator captures as accuracy oracles for selected tracks.",
             "",
         ]
     )
