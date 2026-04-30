@@ -1,6 +1,6 @@
-# Frame Callback Cross-References
+﻿# Frame Callback Cross-References
 
-- ROM: `F:\Earthbound Decomp - Codex\EarthBound (USA).sfc`
+- ROM: `EarthBound (USA).sfc`
 - Callback dispatcher: `C0:8518` (`JMP ($0020)`)
 - Callback setter: `C0:851C`
 - Default callback stub: `C0:851B`

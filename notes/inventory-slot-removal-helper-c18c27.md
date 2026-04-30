@@ -1,4 +1,4 @@
-# Inventory Slot Removal Helper `C1:8C27`
+﻿# Inventory Slot Removal Helper `C1:8C27`
 
 `C1:8C27` is best read as a character-inventory slot removal helper with equipment-slot index maintenance.
 
@@ -51,7 +51,7 @@ If one matches exactly, it calls one of four bank-`C4` helpers:
 - `C4:5815`
 - `C4:5860`
 
-Those helpers now have their own structural note at [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md). The important shared behavior here is that each one writes the current inventory-slot index back into the matched equipped-slot byte, runs a small bank-`C2` refresh family, and returns the previous byte value.
+Those helpers now have their own structural note at [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md). The important shared behavior here is that each one writes the current inventory-slot index back into the matched equipped-slot byte, runs a small bank-`C2` refresh family, and returns the previous byte value.
 
 After the exact-match checks, `C1:8C27` revisits those same four bytes and decrements any value that is strictly greater than the removed slot index. That is exactly what you would do if those bytes were 1-based indices into the inventory list and one entry was being removed.
 
@@ -75,7 +75,7 @@ The helper then resolves the removed byte as an item id through the `D5:5000` it
 - it also checks item byte `+0x1C` bit `0x10`
 - if that bit is set, it calls `C3:EB1C`, which now reads much more like a Fresh-Egg / Chick / Chicken family refresh
 
-See [teddy-bear-and-egg-item-cleanup-branches.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/teddy-bear-and-egg-item-cleanup-branches.md) for the stronger local breakdown. So the removed item can trigger additional side effects depending on its type/flags, and those side effects now look tied to real item families rather than generic post-delete housekeeping.
+See [teddy-bear-and-egg-item-cleanup-branches.md](notes/teddy-bear-and-egg-item-cleanup-branches.md) for the stronger local breakdown. So the removed item can trigger additional side effects depending on its type/flags, and those side effects now look tied to real item families rather than generic post-delete housekeeping.
 
 ## Best current read
 

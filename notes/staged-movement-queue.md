@@ -1,4 +1,4 @@
-# Staged Movement Queue in WRAM
+﻿# Staged Movement Queue in WRAM
 
 This note captures the queue machinery behind `Queue_StagedMovementFromGridCoords` and the later consumer at `C0:75DD`.
 
@@ -106,7 +106,7 @@ Why that is stronger now:
 
 So type `#$000A` still belongs to the same WRAM ring buffer, but it now looks much more like a deferred script class than a movement helper subtype.
 
-See also: [post-transition-deferred-script-queue-c06b21-c06bff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
+See also: [post-transition-deferred-script-queue-c06b21-c06bff.md](notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
 
 ## Narrower producer picture for type `#$000A`
 

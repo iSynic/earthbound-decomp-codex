@@ -1,10 +1,10 @@
-# Text Command Family 18 Windows And Selection
+﻿# Text Command Family 18 Windows And Selection
 
 This note captures the current best local map for bank-`01` text command family `0x18`.
 
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md).
-See also [timed-event-slot-block-7440-and-c20abc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-slot-block-7440-and-c20abc.md).
-See also [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md).
+See also [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md).
+See also [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md).
 
 ## Main result
 
@@ -107,7 +107,7 @@ Confidence:
 Why:
 
 - local body `C1:795E` snapshots `current_callback_slot + 6` through `C20A20` and then writes `1` to `slot + 4`
-- this is the same timed-event slot infrastructure already mapped in [timed-event-slot-block-7440-and-c20abc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-slot-block-7440-and-c20abc.md)
+- this is the same timed-event slot infrastructure already mapped in [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md)
 - exact parsed hits cluster in `ESHOP1/2/3` and `EDEBUG`, where later rendering/menu flows clearly rely on saved window context
 - community docs describe it as saving cursor position, font, color, and number-padding state for later restoration
 

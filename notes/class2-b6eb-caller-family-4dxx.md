@@ -1,10 +1,10 @@
-# Class2 B6EB Caller Family 4Dxx
+﻿# Class2 B6EB Caller Family 4Dxx
 
 This note captures the current best read on the `C2:4D01` / `C2:4D54` caller family for local `C2:B6EB`.
 
-See also [class2-local-enemy-id-to-battler-init-chain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-local-enemy-id-to-battler-init-chain.md).
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
 
 ## Working Names
 

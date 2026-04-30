@@ -1,8 +1,8 @@
-# Text Entry Builder `C1:13D1` / `89D4`
+﻿# Text Entry Builder `C1:13D1` / `89D4`
 
 This note captures the current best local model for the shared bank-`01` text-entry builder rooted at `C1:13D1`.
 
-See also [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md), [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md), and [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md).
+See also [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md), [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md), and [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md).
 
 ## Main result
 

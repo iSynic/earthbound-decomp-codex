@@ -1,10 +1,10 @@
-# Mushroomized Overlay Animation Scripts
+﻿# Mushroomized Overlay Animation Scripts
 
 This note captures the local role of `C0:AD56` and the bank-`C4` script tables used by the overlay callers.
 
-See also [mushroomized-overlay-gate-words.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-gate-words.md).
-See also [mushroomized-overlay-redirect-c08c58.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-redirect-c08c58.md).
-See also [mushroomized-walking-builders-34de-37d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-builders-34de-37d0.md).
+See also [mushroomized-overlay-gate-words.md](notes/mushroomized-overlay-gate-words.md).
+See also [mushroomized-overlay-redirect-c08c58.md](notes/mushroomized-overlay-redirect-c08c58.md).
+See also [mushroomized-walking-builders-34de-37d0.md](notes/mushroomized-walking-builders-34de-37d0.md).
 
 ## Main result
 
@@ -138,7 +138,7 @@ The caller family now reads coherently.
 - `C0:ACFF` uses `$2F6A/$2FA6/$2FE2` and therefore drives the sweating channel.
 - `C0:AD3F` uses `$2EB6/$2EF2/$2F2E` and therefore drives the mushroomized channel.
 
-The paired gate note [mushroomized-overlay-gate-words.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-gate-words.md) now narrows the conditions that enable those channels.
+The paired gate note [mushroomized-overlay-gate-words.md](notes/mushroomized-overlay-gate-words.md) now narrows the conditions that enable those channels.
 
 So the broader local path is better described as an entity-overlay update/display family, with mushroomized handling as one branch inside it.
 

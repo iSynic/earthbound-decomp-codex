@@ -1,10 +1,10 @@
-# Class2 Concentration Seal Family C28D5A C2A3D1
+﻿# Class2 Concentration Seal Family C28D5A C2A3D1
 
 This note captures the strongest current local model for the two live battle-action-table entries that write battler affliction byte `+0x21 = 4` and then display the shared concentration or PSI-seal text at `EF:6C0B`.
 
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-second-pointer-consumer-40a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-second-pointer-consumer-40a4.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-second-pointer-consumer-40a4.md](notes/class2-second-pointer-consumer-40a4.md).
 
 ## Working Names
 

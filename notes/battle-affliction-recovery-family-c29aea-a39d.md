@@ -1,10 +1,10 @@
-# Battle Affliction Recovery Family `C2:9AEA..A39D`
+﻿# Battle Affliction Recovery Family `C2:9AEA..A39D`
 
 This note captures the current best local model for the battle-side affliction recovery helper ladder centered on `C2:9AEA`.
 
-See also [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-post-selection-controller-phases.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-post-selection-controller-phases.md).
+See also [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-post-selection-controller-phases.md](notes/class2-post-selection-controller-phases.md).
 
 ## Working Names
 
@@ -145,7 +145,7 @@ So `A39D` is best treated as a poison-only item-side cure helper, not as another
 
 ## Relation to the battler affliction crosswalk
 
-This family lines up well with the already-mapped affliction region in [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
+This family lines up well with the already-mapped affliction region in [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
 
 The safest current split is:
 

@@ -1,9 +1,9 @@
-# Text Command `0x0B` as Parameterized Test-If-Workmem-True Opcode
+﻿# Text Command `0x0B` as Parameterized Test-If-Workmem-True Opcode
 
 This note captures the current best local read of script byte `0x0B`.
 
-See also [text-command-0c-parameterized-test-if-workmem-false.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0c-parameterized-test-if-workmem-false.md).
-See also [text-command-0d-parameterized-copy-to-argmem.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0d-parameterized-copy-to-argmem.md).
+See also [text-command-0c-parameterized-test-if-workmem-false.md](notes/text-command-0c-parameterized-test-if-workmem-false.md).
+See also [text-command-0d-parameterized-copy-to-argmem.md](notes/text-command-0d-parameterized-copy-to-argmem.md).
 
 ## Main result
 

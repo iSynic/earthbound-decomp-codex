@@ -1,4 +1,4 @@
-# Battle Overlay Script State `C4:A67E-C4:A7B0`
+﻿# Battle Overlay Script State `C4:A67E-C4:A7B0`
 
 ## Scope
 
@@ -7,7 +7,7 @@ effect script state rooted at `$AEC2..$AEE6`. It sits after the overlay script
 payload data at `C4:A5CE`, `C4:A5FA`, `C4:A626`, and `C4:A652`, and before the
 Sound Stone data family now started at `C4:AC57`.
 
-See also [sound-stone-presentation-data-c4ac57.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sound-stone-presentation-data-c4ac57.md).
+See also [sound-stone-presentation-data-c4ac57.md](notes/sound-stone-presentation-data-c4ac57.md).
 
 The surrounding references line up:
 

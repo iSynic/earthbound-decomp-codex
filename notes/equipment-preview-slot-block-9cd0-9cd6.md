@@ -1,8 +1,8 @@
-# Equipment Preview Slot Block `$9CD0..$9CD6`
+﻿# Equipment Preview Slot Block `$9CD0..$9CD6`
 
 This note captures the current local picture of the small WRAM block used by the bank-`01` equipment preview renderer around `C1:A1D8`.
 
-See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md).
+See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md).
 
 ## Main result
 
@@ -111,14 +111,14 @@ That is exactly the same item-param field and slot-family split we already trace
 
 ## Relationship to the live slot family
 
-The shadow preview block lines up directly with the live equipped-slot block. The neighboring comparison-marker note at [equipment-comparison-markers-9a1d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-comparison-markers-9a1d.md) captures the parallel per-character result block written by the menu-side comparator.
+The shadow preview block lines up directly with the live equipped-slot block. The neighboring comparison-marker note at [equipment-comparison-markers-9a1d.md](notes/equipment-comparison-markers-9a1d.md) captures the parallel per-character result block written by the menu-side comparator.
 
 The shadow preview block lines up directly with the live equipped-slot block:
 
 - live `$99FF/$9A00/$9A01/$9A02`
 - preview `$9CD0/$9CD1/$9CD2/$9CD3`
 
-And the slot-family order is the same one already pinned in [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md):
+And the slot-family order is the same one already pinned in [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md):
 
 - weapon
 - charm/pendant/cloak

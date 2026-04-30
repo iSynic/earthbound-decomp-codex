@@ -1,4 +1,4 @@
-# Source Prototype Policy
+﻿# Source Prototype Policy
 
 This policy defines the staged source artifacts used while moving from documentation to real source files.
 
@@ -53,7 +53,7 @@ Required:
 - byte-equivalence or relocation differences tracked by a dedicated checker
 
 For C3, the chosen build-candidate conventions are documented in
-[notes/c3-build-candidate-source-conventions.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-build-candidate-source-conventions.md).
+[notes/c3-build-candidate-source-conventions.md](notes/c3-build-candidate-source-conventions.md).
 `tools/validate_c3_source_signatures.py` checks source instruction alignment
 against ROM decode, while `tools/validate_c3_build_candidate_ranges.py` checks
 the recorded ROM byte range, size, SHA-1, label set, and signature-clean status.
@@ -71,6 +71,6 @@ Every source prototype file must:
 
 ## Current C3 Policy
 
-For C3, [notes/c3-source-emission-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-source-emission-plan.md) is the source of truth for planned modules and labels.
+For C3, [notes/c3-source-emission-plan.md](notes/c3-source-emission-plan.md) is the source of truth for planned modules and labels.
 
 The first accepted level for a new C3 source file is `contract-sketch`. Promotion to `annotated-asm` should happen one module at a time after the validator can prove the file still matches the emission plan. Promotion to `build-candidate` additionally requires a clean source-signature report and a passing build-candidate range validation report.

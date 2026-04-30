@@ -1,10 +1,10 @@
-# Window Title Glyph Upload (`C4:44FB`)
+﻿# Window Title Glyph Upload (`C4:44FB`)
 
 This note names the bank-`C4` helper called by the C2 window-title registration path.
 
-See also [c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md).
-See also [text-token-glyph-run-stager-c44b3a-c44e61.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-token-glyph-run-stager-c44b3a-c44e61.md).
-See also [text-window-rendering-primitives-c1078d-c10d7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-window-rendering-primitives-c1078d-c10d7c.md).
+See also [c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md](notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md).
+See also [text-token-glyph-run-stager-c44b3a-c44e61.md](notes/text-token-glyph-run-stager-c44b3a-c44e61.md).
+See also [text-window-rendering-primitives-c1078d-c10d7c.md](notes/text-window-rendering-primitives-c1078d-c10d7c.md).
 
 ## Working Names
 

@@ -1,4 +1,4 @@
-# Action-script/event wrapper strip (`C0:A841-C0:AAFD`)
+﻿# Action-script/event wrapper strip (`C0:A841-C0:AAFD`)
 
 ## Scope
 
@@ -28,7 +28,7 @@ the `ACTIONSCRIPT_PREPARE_NEW_ENTITY*` entries, `MOVEMENT_LOAD_BATTLEBG`,
   are byte/word or two-word wrappers around C4 helpers:
   `C4:6C9B`, `C4:6CC7`, `C4:6CF5`, `C4:6E4F`, `C4:66F0`, and `C4:6C5E`.
   The `C4:6B8D..6D4B` targets are now mapped in
-  [current-slot-position-staging-c46b8d-c46d4b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/current-slot-position-staging-c46b8d-c46d4b.md): they copy resolved entity positions into the current slot's cached target, staged words, or live anchor.
+  [current-slot-position-staging-c46b8d-c46d4b.md](notes/current-slot-position-staging-c46b8d-c46d4b.md): they copy resolved entity positions into the current slot's cached target, staged words, or live anchor.
 - `C0:A8C6`, `C0:A8D1`, and `C0:A8DC` call `C4:7143` with fixed A/X
   modes: `(0,0)`, `(1,0)`, and `(0,1)`.
 - `C0:A8E7` and `C0:A8EF` call `C4:72A8` with fixed A modes `0` and `1`.

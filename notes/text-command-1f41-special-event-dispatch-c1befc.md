@@ -1,10 +1,10 @@
-# Text Command `[1F 41]` Special Event Dispatch `C1:BEFC`
+﻿# Text Command `[1F 41]` Special Event Dispatch `C1:BEFC`
 
 This note covers the unknown include at `C1:BEFC`.
 
-See also [text-command-family-1f-deferred-callbacks.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1f-deferred-callbacks.md).
-See also [overworld-position-context-byte-c1ad7d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-position-context-byte-c1ad7d.md).
-See also [bicycle-transition-and-party-registry-c03c25-c03f1e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/bicycle-transition-and-party-registry-c03c25-c03f1e.md).
+See also [text-command-family-1f-deferred-callbacks.md](notes/text-command-family-1f-deferred-callbacks.md).
+See also [overworld-position-context-byte-c1ad7d.md](notes/overworld-position-context-byte-c1ad7d.md).
+See also [bicycle-transition-and-party-registry-c03c25-c03f1e.md](notes/bicycle-transition-and-party-registry-c03c25-c03f1e.md).
 
 ## Main Result
 

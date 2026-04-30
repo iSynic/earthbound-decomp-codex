@@ -1,10 +1,10 @@
-# Landing Profile Bundles `EF:121B` and Runtime Block `$43DC..4474`
+﻿# Landing Profile Bundles `EF:121B` and Runtime Block `$43DC..4474`
 
 This note captures the current best local model for the small profile bundles selected by `$4372` and expanded into runtime block `$43DC..4474`.
 
-See also [landing-profile-cache-436e-4474.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-cache-436e-4474.md).
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
+See also [landing-profile-cache-436e-4474.md](notes/landing-profile-cache-436e-4474.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
 
 ## Working Names
 

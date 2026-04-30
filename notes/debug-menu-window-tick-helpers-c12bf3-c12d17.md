@@ -1,8 +1,8 @@
-# Debug Menu Window Tick Helpers (`C1:2BF3-C1:3187`)
+﻿# Debug Menu Window Tick Helpers (`C1:2BF3-C1:3187`)
 
 This note covers the remaining unknown starts between the character-select prompt block and the named `WINDOW_TICK` include in reference bank `01`.
 
-See also [debug-menu-reachability-c0-c1-ef.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/debug-menu-reachability-c0-c1-ef.md).
+See also [debug-menu-reachability-c0-c1-ef.md](notes/debug-menu-reachability-c0-c1-ef.md).
 
 The reference split places these immediately after `text/character_select_prompt.asm`:
 

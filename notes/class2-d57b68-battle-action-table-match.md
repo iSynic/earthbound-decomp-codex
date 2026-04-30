@@ -122,7 +122,7 @@ Two stronger late anchors now exist:
 - `C2:8D5A` and `C2:A3D1` as a shared concentration or PSI-seal apply family over `battler::afflictions+4 = 4`
 - `C2:A5EC` as a live item-side damage-plus-solidification entry over `battler::afflictions+2 = 4`
 
-Those do not yet give the whole late table final names, but they materially strengthen the claim that `D5:7B68` remains a gameplay-facing battle action table well beyond the early PSI runs. See [class2-concentration-seal-family-c28d5a-c2a3d1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concentration-seal-family-c28d5a-c2a3d1.md) and [class2-solidification-item-action-c2a5ec-a630.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-solidification-item-action-c2a5ec-a630.md).
+Those do not yet give the whole late table final names, but they materially strengthen the claim that `D5:7B68` remains a gameplay-facing battle action table well beyond the early PSI runs. See [class2-concentration-seal-family-c28d5a-c2a3d1.md](notes/class2-concentration-seal-family-c28d5a-c2a3d1.md) and [class2-solidification-item-action-c2a5ec-a630.md](notes/class2-solidification-item-action-c2a5ec-a630.md).
 
 ## Later stat and resource anchors are improving too
 
@@ -134,7 +134,7 @@ The late table now has a second non-status cluster with clean local bodies:
 - `C2:9E38` -> one-target defense-up body, strongest current local fit for `DEFENSE_SPRAY`
 - `C2:9E7F` -> all-target wrapper, strongest current local fit for `DEFENSE_SHOWER`
 
-That matters because these entries do not just look battle-action-like from table metadata. Their second-pointer bodies mutate concrete battler fields and then route amount-bearing text through `C1:DC66`, which is exactly the sort of gameplay-facing behavior we would expect from live battle action descriptors. See [class2-late-stat-and-resource-family-c28e42-c29e38.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-stat-and-resource-family-c28e42-c29e38.md).
+That matters because these entries do not just look battle-action-like from table metadata. Their second-pointer bodies mutate concrete battler fields and then route amount-bearing text through `C1:DC66`, which is exactly the sort of gameplay-facing behavior we would expect from live battle action descriptors. See [class2-late-stat-and-resource-family-c28e42-c29e38.md](notes/class2-late-stat-and-resource-family-c28e42-c29e38.md).
 
 
 
@@ -146,7 +146,7 @@ The late table now has a clearer physical-and-special slice too:
 - `C2:8FF9` -> exact double-wrapper over `C2:859F`, promoted as `BTLACT_DOUBLE_BASH`, with live row `102` and attack-continuously text `EF:7F02`
 - `C2:900B` -> one-target fire-damage or flaming-fireball action, with live row `104` and flaming-fireball text `EF:7F32`
 
-That matters because this is another late-table slice where the local second-pointer bodies are no longer generic gameplay placeholders. One entry is a concrete poison-on-hit physical action, one is a concrete double-hit wrapper, and one is a concrete fire-damage special action. See [class2-late-physical-special-family-c28f97-c2900b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-physical-special-family-c28f97-c2900b.md).
+That matters because this is another late-table slice where the local second-pointer bodies are no longer generic gameplay placeholders. One entry is a concrete poison-on-hit physical action, one is a concrete double-hit wrapper, and one is a concrete fire-damage special action. See [class2-late-physical-special-family-c28f97-c2900b.md](notes/class2-late-physical-special-family-c28f97-c2900b.md).
 
 ## Late flavor-tail anchors
 
@@ -156,7 +156,7 @@ A small late tail is now clearer too:
 - `C2:9033` is a pure no-op flavor tail reused by a long run of taunt, gesture, mutter, smile, and similar message-driven rows
 - `C2:9039..904E` are mostly address-distinct no-op tails chosen by the table rather than by unique gameplay mechanics
 
-That matters because this strip should no longer be treated as one unresolved mechanics family. It is mostly a presentation-side parking lot plus one real all-target physical wrapper. See [class2-late-flavor-tail-c2902c-c2904e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-flavor-tail-c2902c-c2904e.md).
+That matters because this strip should no longer be treated as one unresolved mechanics family. It is mostly a presentation-side parking lot plus one real all-target physical wrapper. See [class2-late-flavor-tail-c2902c-c2904e.md](notes/class2-late-flavor-tail-c2902c-c2904e.md).
 
 ## Later special event result anchors
 
@@ -166,7 +166,7 @@ A neighboring late slice is now much cleaner too:
 - entry `0x00F4` (`244`) -> `C2:92EE` -> strongest current local fit for `MASTER_BARF_DEFEAT`
 - entry `0x0122` (`290`) -> `C2:C14E` -> rainbow-colors or Master Belch-side special event family
 
-The focused local writeup is now in [class2-special-event-results-c29298-c2c14e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-special-event-results-c29298-c2c14e.md).
+The focused local writeup is now in [class2-special-event-results-c29298-c2c14e.md](notes/class2-special-event-results-c29298-c2c14e.md).
 
 ## Later normalization, diamondize, and odor anchors
 
@@ -177,7 +177,7 @@ A neighboring late slice is now much cleaner too:
 - `C2:9254` -> live rows `232` and `273` -> odor or stinky-gas offense-reduction family
 - queued helper `C2:9051` -> stat-and-shield normalization callback installed by `90C6`
 
-That matters because this area should no longer be treated as one unresolved late controller seam. The local bodies now split into a queued battler-normalization path, a true diamondize action, and a true offense-cut stink family. See [class2-late-normalization-and-odor-family-c29051-c29254.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
+That matters because this area should no longer be treated as one unresolved late controller seam. The local bodies now split into a queued battler-normalization path, a true diamondize action, and a true offense-cut stink family. See [class2-late-normalization-and-odor-family-c29051-c29254.md](notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
 
 ## Later explosive or bomb-family anchors
 
@@ -187,7 +187,7 @@ The late table now has a stronger projectile-or-explosive common-worker bridge t
 - those wrappers pass `90` and `270`, exactly matching the reference `BOMB` and `SUPER_BOMB` base-damage literals
 - `C2:A658` itself now has a strong local fit for the shared splash-damage worker, because it scans battler rows by side, row, and spatial fields before applying secondary damage
 
-That gives the action table one more clean non-status, non-stat family beyond the PSI quartets and late healing or debuff clusters. See [class2-bomb-common-family-c2a658-c2a821.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-bomb-common-family-c2a658-c2a821.md).
+That gives the action table one more clean non-status, non-stat family beyond the PSI quartets and late healing or debuff clusters. See [class2-bomb-common-family-c2a658-c2a821.md](notes/class2-bomb-common-family-c2a658-c2a821.md).
 
 
 ## Final Prayer ladder
@@ -216,5 +216,5 @@ So the strongest current local-plus-reference-backed fit is:
 
 - `291..299` = `FINAL_PRAYER_1..9`
 
-The focused local writeup is now in [class2-final-prayer-family-c2c572-c2c6f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-final-prayer-family-c2c572-c2c6f0.md).
+The focused local writeup is now in [class2-final-prayer-family-c2c572-c2c6f0.md](notes/class2-final-prayer-family-c2c572-c2c6f0.md).
 

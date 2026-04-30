@@ -1,4 +1,4 @@
-# C3 window/text source helper corridor `E450-E7E3`
+﻿# C3 window/text source helper corridor `E450-E7E3`
 
 ## Purpose
 
@@ -50,7 +50,7 @@ The existing `FindFirstFreeWindowSlot` name is source-ready.
 
 ## `C3:E521` and `C3:E7E3` - close/free window and registered-copy cleanup
 
-`C3:E521` is the larger close/free path for one window id. Its local work is now clear enough for source extraction, and the source-unit shape is pinned in [c3-window-lifecycle-source-contract-e4ef-e6f7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-window-lifecycle-source-contract-e4ef-e6f7.md): keep `C3:E4EF` and `C3:E521` as two callable labels in the same source module.
+`C3:E521` is the larger close/free path for one window id. Its local work is now clear enough for source extraction, and the source-unit shape is pinned in [c3-window-lifecycle-source-contract-e4ef-e6f7.md](notes/c3-window-lifecycle-source-contract-e4ef-e6f7.md): keep `C3:E4EF` and `C3:E521` as two callable labels in the same source module.
 
 - reject `FFFF` input and unmapped `$88E4` entries
 - clear `$8958` if the closed window was focused

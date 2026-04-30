@@ -2,12 +2,12 @@
 
 This note captures the current best local model for the small bank-`01` battle-text entry and redirect family centered on `C1:DC1C`.
 
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
-See also [class2-enemy-text-pointer-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-enemy-text-pointer-consumers.md).
-See also [class2-dispatch-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-dispatch-family.md).
-See also [battle-text-entry-tail-dd82-dd9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-tail-dd82-dd9f.md).
-See also [battle-text-context-buffer-family-c1ac4a-ad42.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-enemy-text-pointer-consumers.md](notes/class2-enemy-text-pointer-consumers.md).
+See also [class2-dispatch-family.md](notes/class2-dispatch-family.md).
+See also [battle-text-entry-tail-dd82-dd9f.md](notes/battle-text-entry-tail-dd82-dd9f.md).
+See also [battle-text-context-buffer-family-c1ac4a-ad42.md](notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
 
 ## Main result
 
@@ -211,7 +211,7 @@ That makes the safest current local read stronger:
 - it begins by calling `C2:00D9`, which clears and seeds a broad battle-local display/state block
 - it then iterates party members `1..4`, refreshes character-side battle records through `C1:D8D0`, applies fixed HP and PP side workers, mirrors the paired HP/PP values into active marker fields, and exports an 8-byte block through `C08EFC`
 - downstream readers now make that exported block healthier: the leading byte at `$99DC + X` is treated as a small enumerated selector/state byte, with values `1` and `2` repeatedly grouped together and other values treated as the active/default side
-- that aligns better with the broader model in [class2-dispatch-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-dispatch-family.md), which already treats `$99DC` as a per-slot selector/state family rather than a battle-only field
+- that aligns better with the broader model in [class2-dispatch-family.md](notes/class2-dispatch-family.md), which already treats `$99DC` as a per-slot selector/state family rather than a battle-only field
 - the best current local symbolic identity is therefore `INITIALIZE_PARTY_BATTLE_START_STATE`
 
 So this helper now reads less like a generic priming routine and more like the dedicated party-side battle-start initializer that prepares live party combat/display state before the main per-party loop begins, including a reused `$99DC` selector/state byte even if the exact enum labels are still not pinned.

@@ -1,11 +1,11 @@
-# Class2 Late Stat And Resource Family C28E42 C29E38
+﻿# Class2 Late Stat And Resource Family C28E42 C29E38
 
 This note captures the strongest current local model for the late `D5:7B68` action-entry cluster around `C2:8E42`, `C2:8EAE`, `C2:8F21`, and `C2:9E38`.
 
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
-See also [class2-second-pointer-consumer-40a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-second-pointer-consumer-40a4.md).
-See also [class2-battle-text-cluster-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-cluster-overview.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-second-pointer-consumer-40a4.md](notes/class2-second-pointer-consumer-40a4.md).
+See also [class2-battle-text-cluster-overview.md](notes/class2-battle-text-cluster-overview.md).
 
 ## Working Names
 
@@ -154,7 +154,7 @@ The safest current interpretation is:
 - `9E38` is the one-target defense-up action and best current local fit for `DEFENSE_SPRAY`
 - `9E7F` is the all-target wrapper and best current local fit for `DEFENSE_SHOWER`
 
-This is materially stronger than the older “neighboring non-affliction cluster” wording.
+This is materially stronger than the older â€œneighboring non-affliction clusterâ€ wording.
 
 ## What is still open
 

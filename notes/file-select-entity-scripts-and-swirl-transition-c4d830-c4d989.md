@@ -1,4 +1,4 @@
-# File Select Entity Scripts And Swirl Transition (`C4:D830..C4:D989`)
+﻿# File Select Entity Scripts And Swirl Transition (`C4:D830..C4:D989`)
 
 This note documents the caller-dense C4 cluster rooted at `C4:D830`, `C4:D8FA`, and `C4:D989`. The C1 callers sit in the file-select / setup-option corridor, and the C4-side byte contracts line up with three jobs:
 
@@ -6,7 +6,7 @@ This note documents the caller-dense C4 cluster rooted at `C4:D830`, `C4:D8FA`, 
 2. spawn a small fixed set of file-select entities
 3. run the battle-swirl-style transition loop used by the file-select flow
 
-See also [file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md), [file-select-setup-option-menus-c1f497-c1f616.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-setup-option-menus-c1f497-c1f616.md), and [battle-overlay-script-state-c4a67e-c4a7b0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-overlay-script-state-c4a67e-c4a7b0.md).
+See also [file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md](notes/file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md), [file-select-setup-option-menus-c1f497-c1f616.md](notes/file-select-setup-option-menus-c1f497-c1f616.md), and [battle-overlay-script-state-c4a67e-c4a7b0.md](notes/battle-overlay-script-state-c4a67e-c4a7b0.md).
 
 ## Source status
 

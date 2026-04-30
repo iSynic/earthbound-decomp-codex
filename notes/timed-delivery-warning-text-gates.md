@@ -1,12 +1,12 @@
-# Timed Delivery Warning Text Gates
+﻿# Timed Delivery Warning Text Gates
 
 This note records the user-facing script gates that warn the player not to teleport or use the Exit Mouse while timed-delivery or customer-arrival services are pending.
 
-See also [timed-delivery-controller-499-500-common.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-controller-499-500-common.md).
-See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
-See also [selector-row-config-family-ef0ee8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-config-family-ef0ee8.md).
-See also [timed-delivery-system-flags-754-779.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-system-flags-754-779.md).
-See also [timed-delivery-special-row-02a3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-special-row-02a3.md).
+See also [timed-delivery-controller-499-500-common.md](notes/timed-delivery-controller-499-500-common.md).
+See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
+See also [selector-row-config-family-ef0ee8.md](notes/selector-row-config-family-ef0ee8.md).
+See also [timed-delivery-system-flags-754-779.md](notes/timed-delivery-system-flags-754-779.md).
+See also [timed-delivery-special-row-02a3.md](notes/timed-delivery-special-row-02a3.md).
 
 ## Main result
 
@@ -22,7 +22,7 @@ That is much stronger than a vague thematic match. The script-side flag groups l
 
 ## Teleport warning script
 
-In [data_32.ccs](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/ccscript/data_32.ccs), the script at `C7:C865` is the specialized branch behind the generic line:
+In [data_32.ccs](refs/eb-decompile-4ef92/ccscript/data_32.ccs), the script at `C7:C865` is the specialized branch behind the generic line:
 
 - `"You cannot teleport now."`
 
@@ -36,14 +36,14 @@ There is also a separate Dungeon Man case at `0x02F4`, which is clearly outside 
 
 ## Exit Mouse warning script
 
-In [data_60.ccs](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/ccscript/data_60.ccs), the Exit Mouse refusal script uses the same delivery-side split:
+In [data_60.ccs](refs/eb-decompile-4ef92/ccscript/data_60.ccs), the Exit Mouse refusal script uses the same delivery-side split:
 
 - `flag 0x00B4` -> `"You shouldn't let the mouse go until the pizza has arrived."`
 - `flags 0x01BE / 0x0286 / 0x0287 / 0x0288` -> `"If you release the mouse now, it might be stepped on by the approaching customer."`
 - `flags 0x00B5 / 0x0285 / 0x02B6 / 0x02B7` -> `"Please stick around until Escargo Express arrives."`
 - `flag 0x02A3` -> pizza-style wording again
 
-That last case is especially useful, because it matches the local row picture where `0x02A3` is a Mach-Pizza-Guy-family entry rather than a plain Escargo row. The row now has its own focused note in [timed-delivery-special-row-02a3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-special-row-02a3.md).
+That last case is especially useful, because it matches the local row picture where `0x02A3` is a Mach-Pizza-Guy-family entry rather than a plain Escargo row. The row now has its own focused note in [timed-delivery-special-row-02a3.md](notes/timed-delivery-special-row-02a3.md).
 
 ## Crosswalk to the local timed-delivery rows
 
@@ -63,6 +63,6 @@ So the local row-family split is now supported by both:
 
 This does not prove that `$5D98` is the one exact flag source tested by those scripts.
 
-But it does strengthen the broader interpretation from [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md): the game really does have a shared pending-service state family that blocks teleport-style escape systems while pizza, customer, or Escargo arrivals are active.
+But it does strengthen the broader interpretation from [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md): the game really does have a shared pending-service state family that blocks teleport-style escape systems while pizza, customer, or Escargo arrivals are active.
 
 That makes it much easier to believe that `$5D98` is a broader service-pending latch rather than a tiny one-off animation flag.

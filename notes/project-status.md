@@ -80,20 +80,30 @@ aliases versus higher-level shop/Escargo/display source macros.
 phase-good-enough: remaining runtime-only leaves, parser artifacts, authoring
 format markers, and higher-level macro lanes are bounded and explicitly
 deferred rather than unknown.
-The asset/data contract phase now has a generated frontier at
+The asset/data contract phase now has a closeout boundary at
+`notes/phase-4-asset-data-closeout.md` and a generated frontier at
 `notes/asset-data-contract-frontier.md`, built by
 `tools/build_asset_data_contract_frontier.py` from checked-in
 `asset-manifests/*.json` and contract notes. It currently inventories `38`
-manifests, `2218` represented assets/tables/gaps, `6174` output recipes,
+manifests, `2219` represented assets/tables/gaps, `6175` output recipes,
 `1718` assets with preview/swatch recipes, and `1834` assets with decoder
-recipes beyond raw extraction. It also separates contract-backed families
-from manifest-only families: overworld sprites and map assets are already
-contract-backed for this phase, while UI/font/town-map assets and battle
-visual assets now have generated phase-4 contract seeds at
-`notes/ui-font-town-map-asset-contracts.md` and
-`notes/battle-visual-asset-contracts.md`. Audio packs, EF's coarse mixed
-corridor, and the remaining E0/E1 and CA-CE bundle joins are the next contract
-frontiers.
+recipes beyond raw extraction. The old E0/E1 manifest-inferred payload
+metadata holes are now separated from live unknowns: `5 / 5` are
+contract-covered, leaving `0` unresolved missing payload metadata units.
+Overworld sprites, map assets, UI/font/town-map assets, battle visual assets,
+and audio pack playback/export contracts are good enough for this phase. Mixed
+CF/D0 table subrecords and audio exact-duration semantics remain targeted
+format/semantics work rather than broad asset discovery.
+
+The audio backend now has a local user-ROM-derived path from EarthBound pack
+contracts through fused CHANGE_MUSIC/C0:AB06 snapshots into libgme/snes_spc
+rendering. The all-track corpus renders `190 / 190` snapshot-backed tracks as
+audible, with track `4` (`NONE2`) correctly classified as load-ok/no-key-on.
+The current public boundary is playback/export plumbing plus diagnostic or
+policy-driven exports; exact loop points, some finite endings, and independent
+external-emulator oracle captures remain open in `notes/audio-export-plan.md`,
+`notes/audio-exact-duration-triage.md`, and
+`notes/audio-oracle-verification-report-all-tracks.md`.
 
 ## Public Good-Enough Definition
 
@@ -152,8 +162,8 @@ Remaining work is mostly:
 - turning table and WRAM contracts into typed source/data definitions
 - documenting event, action, and text bytecode VM semantics
 - making script/text assets reassembly-friendly
-- turning manifest-backed graphics, audio, UI/font, and EF mixed payloads into
-  semantic asset/data contracts
+- turning remaining manifest-backed graphics, UI/font, EF mixed payloads, and
+  audio exact-duration rules into deeper semantic contracts
 - building enough semantic models to support higher-level C or engine work
 
 ## Bank Groups
@@ -170,7 +180,7 @@ Remaining work is mostly:
 | `CF..D0`, `D5`, `D7`, `D8` | generated data/table banks | Expand table contracts and variable subrecord semantics. |
 | `D1..D4`, `D6`, `D9..DF` | map/sprite/asset banks | Add asset render/decode fixtures and stronger metadata names. |
 | `E0..E1` | UI/font/town-map/data banks | Refine UI/font/town-map payload contracts. |
-| `E2..EE` | audio/data banks | Inventory or decode audio-pack payloads when audio work becomes a priority. |
+| `E2..EE` | audio/data banks | Refine exact-duration sequence semantics, loop metadata, and independent oracle validation. |
 | `EF` | mixed save/debug/text/data bank | Refine save/debug/text/glyph/map-data contracts and text payload semantics. |
 
 ## Best Next Manual Work
@@ -223,14 +233,14 @@ that romhackers need to edit confidently:
 3. `C0`/`C2`/`C4`: subsystem side-effect docs for overworld, battle, and
    rendering workflows.
 4. Asset/data banks: `notes/asset-data-contract-frontier.md` is now the
-   phase-4 queue. `notes/ui-font-town-map-asset-contracts.md` starts the
-   `E0..E1` contract lane by grouping `68` represented assets/tables/gaps into
-   `8` runtime-facing families. `notes/battle-visual-asset-contracts.md`
+   phase-4 dashboard, and `notes/phase-4-asset-data-closeout.md` records the
+   good-enough boundary. `notes/ui-font-town-map-asset-contracts.md` groups
+   `69` E0/E1 assets/tables/gaps into `11` runtime-facing families with `0`
+   unresolved missing metadata units. `notes/battle-visual-asset-contracts.md`
    groups `689` CA-CE assets/tables/gaps into `17` runtime-facing families.
-   The next highest-value seam is now bundle-level joining: E1 town-map/table
-   payload fields, CA/CB battle-background scene bundles, CC PSI animation
-   bundles, CE battle-sprite palette/pointer joins, and CE swirl sequence
-   bundles.
+   Remaining asset/data work should be targeted: audio-pack format boundaries,
+   CF/D0 variable-list subrecords, or semantic polish needed by a concrete
+   editor/port task.
 
 ## Key References
 
@@ -243,6 +253,7 @@ that romhackers need to edit confidently:
 - `notes/c3-event-script-source-scaffold-validation.md`
 - `notes/c3-byte-equivalence-validation.md`
 - `notes/text-command-semantics-manifest.md`
+- `notes/phase-4-asset-data-closeout.md`
 - `notes/asset-data-contract-frontier.md`
 - `notes/ui-font-town-map-asset-contracts.md`
 - `notes/battle-visual-asset-contracts.md`

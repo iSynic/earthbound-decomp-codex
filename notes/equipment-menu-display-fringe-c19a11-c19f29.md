@@ -1,8 +1,8 @@
-# Equipment Menu Display Fringe (`C1:9A11-C1:9F29`)
+﻿# Equipment Menu Display Fringe (`C1:9A11-C1:9F29`)
 
 This note covers three remaining unknown starts around the already-mapped item, Escargo, and equipment menu cluster.
 
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md), [equipment-comparison-markers-9a1d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-comparison-markers-9a1d.md), [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md), and [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md), [equipment-comparison-markers-9a1d.md](notes/equipment-comparison-markers-9a1d.md), [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md), and [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md).
 
 ## Main Result
 
@@ -56,7 +56,7 @@ So `C1:9A11` is best read as a small "run selection helper under temporary focus
 
 `C1:9CDD` is now source-backed as the default comparison-marker initializer in `src/c1/c1_9cdd_initialize_equipment_comparison_markers_default.asm`.
 
-It first walks four character rows and writes `0x0400` into each row's `$9A1D` marker field. This is the same default comparison marker documented in [equipment-comparison-markers-9a1d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-comparison-markers-9a1d.md):
+It first walks four character rows and writes `0x0400` into each row's `$9A1D` marker field. This is the same default comparison marker documented in [equipment-comparison-markers-9a1d.md](notes/equipment-comparison-markers-9a1d.md):
 
 - `0x0400` = default / normal / non-improving equipment-window state
 

@@ -1,10 +1,10 @@
-# Text Command Family 1A Menus
+﻿# Text Command Family 1A Menus
 
 This note captures the current best local map for bank-`01` text command family `0x1A`.
 
-See also [text-command-family-1d-inventory-money.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1d-inventory-money.md).
-See also [text-command-family-1e-stat-recovery.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1e-stat-recovery.md).
-See also [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md).
+See also [text-command-family-1d-inventory-money.md](notes/text-command-family-1d-inventory-money.md).
+See also [text-command-family-1e-stat-recovery.md](notes/text-command-family-1e-stat-recovery.md).
+See also [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md).
 
 ## Main result
 

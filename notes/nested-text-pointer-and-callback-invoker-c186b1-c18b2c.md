@@ -1,4 +1,4 @@
-# Nested Text Pointer + Callback Invoker Source Promotion (`C1:86B1..8B2C`)
+﻿# Nested Text Pointer + Callback Invoker Source Promotion (`C1:86B1..8B2C`)
 
 This note records the promotion of two adjacent working-name byte corridors into decoded source modules:
 
@@ -12,8 +12,8 @@ Both routines are already described semantically in earlier working-name notes:
 
 See:
 
-- [text-command-08-call-text.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-08-call-text.md)
-- [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md)
+- [text-command-08-call-text.md](notes/text-command-08-call-text.md)
+- [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md)
 
 ## Source modules
 

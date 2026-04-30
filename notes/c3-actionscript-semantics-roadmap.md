@@ -1,4 +1,4 @@
-# C3 Event/Actionscript Semantics Roadmap
+﻿# C3 Event/Actionscript Semantics Roadmap
 
 This is the front door for the semantic phase after readable source-bank
 closure. C3 is byte-equivalent and scaffold-closed, but much of the bank is
@@ -195,7 +195,7 @@ into native C0/C4/EF helpers. `tools/decode_event_script.py` already has a
 `CALL_ARG_COUNTS` seed table; the audit now layers semantic groups and contract
 text over those counts. The same audit now also reports installed callback
 targets for tick, position-change, draw, and physics callback opcodes. See
-[c3-actionscript-callback-contracts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-actionscript-callback-contracts.md)
+[c3-actionscript-callback-contracts.md](notes/c3-actionscript-callback-contracts.md)
 for the current callback-contract front door. The next pass should turn generic
 inline-byte descriptions into named argument fields where evidence is strong,
 and keep promoting callback installer targets out of `UNKNOWN_*`/legacy labels.

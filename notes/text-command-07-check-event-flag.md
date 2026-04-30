@@ -1,9 +1,9 @@
-# Text Command `0x07` as Event-Flag Predicate Opcode
+﻿# Text Command `0x07` as Event-Flag Predicate Opcode
 
 This note captures the current best local read of script byte `0x07`.
 
-See also [text-command-08-call-text.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-08-call-text.md).
-See also [text-command-0b-parameterized-test-if-workmem-true.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0b-parameterized-test-if-workmem-true.md).
+See also [text-command-08-call-text.md](notes/text-command-08-call-text.md).
+See also [text-command-0b-parameterized-test-if-workmem-true.md](notes/text-command-0b-parameterized-test-if-workmem-true.md).
 
 ## Main result
 

@@ -1,11 +1,11 @@
-# Class2 Local Enemy Id To Battler Init Chain
+﻿# Class2 Local Enemy Id To Battler Init Chain
 
 This note captures the first explicit local chain tying `9F8C`, the `D5:9589` enemy-data table, and the `9FAC + 0x4E * n` battler region together.
 
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-9f8c-upstream-verification.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-9f8c-upstream-verification.md).
-See also [class2-d59589-enemy-data-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d59589-enemy-data-crosswalk.md).
-See also [class2-b6eb-caller-family-4dxx.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-b6eb-caller-family-4dxx.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-9f8c-upstream-verification.md](notes/class2-9f8c-upstream-verification.md).
+See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).
+See also [class2-b6eb-caller-family-4dxx.md](notes/class2-b6eb-caller-family-4dxx.md).
 
 ## Working Names
 
@@ -106,7 +106,7 @@ Current safest split:
 - the `4Dxx -> 4Fxx` family now looks best as a battle-start enemy-group initialization path that later displays encounter text and enemy start-of-battle status lines
 - the `760C` caller family still looks different and is probably a separate battler-reinit case
 
-See [class2-b6eb-caller-family-4dxx.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-b6eb-caller-family-4dxx.md) for the corrected `4Dxx` read.
+See [class2-b6eb-caller-family-4dxx.md](notes/class2-b6eb-caller-family-4dxx.md) for the corrected `4Dxx` read.
 
 ## Why this upgrades the earlier RAM-layout note
 

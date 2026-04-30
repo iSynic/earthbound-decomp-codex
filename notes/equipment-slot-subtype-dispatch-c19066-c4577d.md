@@ -1,8 +1,8 @@
-# Equipment Slot Subtype Dispatch `C1:9066 -> C4:577D/57CA/5815/5860`
+﻿# Equipment Slot Subtype Dispatch `C1:9066 -> C4:577D/57CA/5815/5860`
 
 This note captures the current local picture of the shared equipment-slot subtype dispatch rooted at `C1:9066`.
 
-See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md).
+See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md).
 
 ## Main result
 
@@ -46,7 +46,7 @@ The body at `C1:9066`:
    - `0x0C -> C4:5860`
    - anything else -> `0`
 
-That lines up exactly with the packed-slot reading from [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md): bits `2-3` of item byte `+0x19` are the four-way equipped-slot subtype selector.
+That lines up exactly with the packed-slot reading from [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md): bits `2-3` of item byte `+0x19` are the four-way equipped-slot subtype selector.
 
 The item-record cross-check is now strong enough to sketch the four subtype families locally:
 
@@ -89,7 +89,7 @@ It:
   - `C2:1E03`
 - returns the previous `$9A00` value
 
-The last call should now be read as the entry into the wider resistance refresh chain documented in [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md), not as a single-byte `$9A20` refresh only. In the current local split, this slot is the one that uniquely feeds `C2:1AEB` and also contributes to the packed `$9A20..$9A23` resistance quartet.
+The last call should now be read as the entry into the wider resistance refresh chain documented in [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md), not as a single-byte `$9A20` refresh only. In the current local split, this slot is the one that uniquely feeds `C2:1AEB` and also contributes to the packed `$9A20..$9A23` resistance quartet.
 
 ### `C4:5815`
 
@@ -133,13 +133,13 @@ The strongest current read is:
 - the downstream refresh calls also separate their roles: weapon uniquely feeds offense/guts/miss-rate; the charm/pendant/cloak slot uniquely feeds speed plus the packed resistance quartet; the bracelet/band and cap/ribbon/coin slots share the defense/luck side, with the bracelet/band slot also uniquely feeding the final hypnosis/brainshock-style resistance byte
 - the bank-`C4` leaves install the new inventory-slot index and run downstream bank-`C2` refresh logic
 
-That makes this family look like shared equipment-slot installation/update machinery rather than a removal-only cleanup path. The downstream cache side now has its own structural note at [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md).
+That makes this family look like shared equipment-slot installation/update machinery rather than a removal-only cleanup path. The downstream cache side now has its own structural note at [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md).
 
 The direct caller set reinforces that. `C1:9066` is reached both from inventory/text-family code and from larger menu/status-family code, which is exactly what we would expect if it is the central subtype bridge for equipped-slot index maintenance.
 
-One extra local anchor now comes from the bank-`01` menu family around `C1:9BA0..9D49`. That code iterates the four subtype families in the same `0x00/0x04/0x08/0x0C` order, resolves the currently equipped item in each slot, compares its signed item-param-`+0x1F` contribution against the comparison item, and writes a per-slot marker into `$9A1D`. The new focused note at [equipment-comparison-markers-9a1d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-comparison-markers-9a1d.md) captures that block in more detail. The exact UI semantics of the marker values are still a little soft, but the structural point is strong: the menu layer is using the same four subtype families directly, not some alternate slot model.
+One extra local anchor now comes from the bank-`01` menu family around `C1:9BA0..9D49`. That code iterates the four subtype families in the same `0x00/0x04/0x08/0x0C` order, resolves the currently equipped item in each slot, compares its signed item-param-`+0x1F` contribution against the comparison item, and writes a per-slot marker into `$9A1D`. The new focused note at [equipment-comparison-markers-9a1d.md](notes/equipment-comparison-markers-9a1d.md) captures that block in more detail. The exact UI semantics of the marker values are still a little soft, but the structural point is strong: the menu layer is using the same four subtype families directly, not some alternate slot model.
 
-The later bank-`01` preview readers reinforce the same split another way. Around `C1:A1F0..A772`, weapon is handled first as a one-slot `+0x1F` preview path rooted in `$99EA/$99FF`, while `$9A00/$9A01/$9A02` are then walked as a three-slot family rooted in `$99EB`, each contributing signed item-param-`+0x1F` values into one broader non-weapon preview total. The new shadow-slot note at [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md) shows that the menu layer mirrors the live slot families directly through `$9CD0..$9CD3` before calling the shared preview renderer. That is good local support for the current structural wording: weapon is a distinct slot family, while the other three are variations inside a shared defense-side equipment group even if their exact menu labels remain slightly soft.
+The later bank-`01` preview readers reinforce the same split another way. Around `C1:A1F0..A772`, weapon is handled first as a one-slot `+0x1F` preview path rooted in `$99EA/$99FF`, while `$9A00/$9A01/$9A02` are then walked as a three-slot family rooted in `$99EB`, each contributing signed item-param-`+0x1F` values into one broader non-weapon preview total. The new shadow-slot note at [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md) shows that the menu layer mirrors the live slot families directly through `$9CD0..$9CD3` before calling the shared preview renderer. That is good local support for the current structural wording: weapon is a distinct slot family, while the other three are variations inside a shared defense-side equipment group even if their exact menu labels remain slightly soft.
 
 ## Boundaries
 

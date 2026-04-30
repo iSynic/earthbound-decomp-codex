@@ -128,7 +128,7 @@ Those two bodies are not simple table-order guesses. Locally, both converge on t
 - display `EF:6C0B`
 - otherwise fail through `EF:766E`
 
-So while the exact reference export names for those two slots still stay one notch cautious, they are now strong anchors for the `battler::afflictions+4` concentration group documented in [class2-concentration-seal-family-c28d5a-c2a3d1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concentration-seal-family-c28d5a-c2a3d1.md).
+So while the exact reference export names for those two slots still stay one notch cautious, they are now strong anchors for the `battler::afflictions+4` concentration group documented in [class2-concentration-seal-family-c28d5a-c2a3d1.md](notes/class2-concentration-seal-family-c28d5a-c2a3d1.md).
 
 ## Later item-side solidification anchor
 
@@ -144,7 +144,7 @@ This is no longer just a loose neighboring item action. Locally, `C2:A5EC`:
 - then calls `C2:724A` with `X = 2`, `Y = 4`
 - displays `EF:6BEF` on success and `EF:766E` on failure
 
-That makes it the strongest current late-table anchor for an item-side solidification action, with [class2-solidification-item-action-c2a5ec-a630.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-solidification-item-action-c2a5ec-a630.md) documenting the focused local case. The best current reference-backed candidate is `BTLACT_HANDBAG_STRAP`.
+That makes it the strongest current late-table anchor for an item-side solidification action, with [class2-solidification-item-action-c2a5ec-a630.md](notes/class2-solidification-item-action-c2a5ec-a630.md) documenting the focused local case. The best current reference-backed candidate is `BTLACT_HANDBAG_STRAP`.
 
 ## Later persistent-status anchors
 
@@ -160,7 +160,7 @@ Locally, both are enemy one-target `other` actions that route through `C2:724A` 
 - `C2:8BBE` writes `Y = 1` and displays `EF:6B81`
 - `C2:8BFD` writes `Y = 2` and displays `EF:6B98`
 
-That makes them strong late-table anchors for the `STATUS_1` subgroup values now documented in [class2-persistent-status-action-pair-c28bbe-c28bfd.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-persistent-status-action-pair-c28bbe-c28bfd.md). The strongest current reference-backed candidates are `BTLACT_MUSHROOMIZE` and `BTLACT_POSSESS`.
+That makes them strong late-table anchors for the `STATUS_1` subgroup values now documented in [class2-persistent-status-action-pair-c28bbe-c28bfd.md](notes/class2-persistent-status-action-pair-c28bbe-c28bfd.md). The strongest current reference-backed candidates are `BTLACT_MUSHROOMIZE` and `BTLACT_POSSESS`.
 
 ## Later temporary-status cluster
 
@@ -177,7 +177,7 @@ Three neighboring enemy one-target `other` entries now read as a temporary-statu
 - entry `0x005A` (`90`) -> `C2:9F57` -> all-target asleep-status wrapper
 - entry `0x00CF` (`207`) -> `C2:8D3A` -> second strange-status wrapper reuse
 
-The strongest focused summaries are now in [class2-asleep-family-c29f06-c29f57.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-asleep-family-c29f06-c29f57.md), [class2-temporary-status-action-cluster-c28c69-c28cb8-c28cf1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-temporary-status-action-cluster-c28c69-c28cb8-c28cf1.md), and [class2-strange-status-family-c28d3a-c28dbb-c2a056.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-strange-status-family-c28d3a-c28dbb-c2a056.md).
+The strongest focused summaries are now in [class2-asleep-family-c29f06-c29f57.md](notes/class2-asleep-family-c29f06-c29f57.md), [class2-temporary-status-action-cluster-c28c69-c28cb8-c28cf1.md](notes/class2-temporary-status-action-cluster-c28c69-c28cb8-c28cf1.md), and [class2-strange-status-family-c28d3a-c28dbb-c2a056.md](notes/class2-strange-status-family-c28d3a-c28dbb-c2a056.md).
 
 ## Later stat and resource mutation cluster
 
@@ -197,7 +197,7 @@ There are also useful later reuses:
 - entries `0x00E9` and `0x00EA` (`233`, `234`) -> `C2:8F21`
 - `C2:9E7F` -> trivial wrapper over `C2:9E38`
 
-The focused local summary is now in [class2-late-stat-and-resource-family-c28e42-c29e38.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-stat-and-resource-family-c28e42-c29e38.md). The strongest current reference-backed fits are:
+The focused local summary is now in [class2-late-stat-and-resource-family-c28e42-c29e38.md](notes/class2-late-stat-and-resource-family-c28e42-c29e38.md). The strongest current reference-backed fits are:
 
 - `C2:8E42` -> `BTLACT_REDUCEPP`
 - `C2:8EAE` -> `BTLACT_CUTGUTS`
@@ -216,7 +216,7 @@ The early non-damaging PSI healing quartet is now in much better shape too.
 - `0x0022` (`34`) -> `C2:9AD8` -> strongest current local fit for `LIFEUP_GAMMA`
 - `0x0023` (`35`) -> `C2:9AE1` -> strongest current local fit for `LIFEUP_OMEGA`
 
-The shared local core is now documented in [class2-healing-amount-family-c29ab8-c29ae1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-healing-amount-family-c29ab8-c29ae1.md). The strongest current local model is a four-wrapper healing family over fixed amounts `100`, `300`, `10000`, and `400`, with the `Omega` wrapper as the all-target sibling.
+The shared local core is now documented in [class2-healing-amount-family-c29ab8-c29ae1.md](notes/class2-healing-amount-family-c29ab8-c29ae1.md). The strongest current local model is a four-wrapper healing family over fixed amounts `100`, `300`, `10000`, and `400`, with the `Omega` wrapper as the all-target sibling.
 
 ## Later physical or special-action anchors
 
@@ -226,7 +226,7 @@ A neighboring late slice is now in much better shape too.
 - entry `0x0066` (`102`) -> `C2:8FF9` -> `DOUBLE_BASH`
 - entry `0x0068` (`104`) -> `C2:900B` -> one-target fire-damage or flaming-fireball action
 
-The focused local writeup is now in [class2-late-physical-special-family-c28f97-c2900b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-physical-special-family-c28f97-c2900b.md). The strongest current takeaways are:
+The focused local writeup is now in [class2-late-physical-special-family-c28f97-c2900b.md](notes/class2-late-physical-special-family-c28f97-c2900b.md). The strongest current takeaways are:
 
 - `C2:8F97` = strongest current local-plus-reference-backed fit for `BTLACT_LEVEL_2_ATK_POISON`
 - `C2:8FF9` = `BTLACT_DOUBLE_BASH`
@@ -240,7 +240,7 @@ A small late tail is now much clearer too.
 - `C2:9033` -> the main flavor-only no-op tail, reused by a long run of enemy `none/other` and item `none/item` rows
 - `C2:9039..904E` -> small address-distinct no-op tails for rows whose visible behavior is message-driven
 
-The focused local writeup is now in [class2-late-flavor-tail-c2902c-c2904e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-flavor-tail-c2902c-c2904e.md).
+The focused local writeup is now in [class2-late-flavor-tail-c2902c-c2904e.md](notes/class2-late-flavor-tail-c2902c-c2904e.md).
 
 ## Later special event result anchors
 
@@ -250,7 +250,7 @@ A neighboring late slice is now much cleaner too:
 - entry `0x00F4` (`244`) -> `C2:92EE` -> strongest current local fit for `MASTER_BARF_DEFEAT`
 - entry `0x0122` (`290`) -> `C2:C14E` -> rainbow-colors or Master Belch-side special event family
 
-The focused local writeup is now in [class2-special-event-results-c29298-c2c14e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-special-event-results-c29298-c2c14e.md).
+The focused local writeup is now in [class2-special-event-results-c29298-c2c14e.md](notes/class2-special-event-results-c29298-c2c14e.md).
 
 ## Later normalization, diamondize, and odor anchors
 
@@ -261,7 +261,7 @@ A neighboring late slice is now much cleaner too.
 - entries `0x00F7` and `0x00F8` (`247`, `248`) -> `C2:90C6` -> battler-normalization or return-to-original-form family
 - entry `0x0111` (`273`) -> `C2:9254` -> stinky-gas offense-cut reuse
 
-The focused local writeup is now in [class2-late-normalization-and-odor-family-c29051-c29254.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-normalization-and-odor-family-c29051-c29254.md). The safest current local split is:
+The focused local writeup is now in [class2-late-normalization-and-odor-family-c29051-c29254.md](notes/class2-late-normalization-and-odor-family-c29051-c29254.md). The safest current local split is:
 
 - `C2:9051` = queued battler stat-and-shield normalization callback
 - `C2:90C6` = special normalization or return-to-original-form wrapper
@@ -276,7 +276,7 @@ The later table now has a stronger explosive common-worker bridge too.
 - `C2:A821` -> strongest current local fit for `BTLACT_SUPER_BOMB`
 - shared helper `C2:A658` -> strongest current local fit for `BOMB_COMMON`
 
-This is not resting only on text flavor. The two wrappers pass the exact reference base-damage literals `90` and `270`, and the common body matches the reference splash-damage shape unusually well. The focused local writeup is now in [class2-bomb-common-family-c2a658-c2a821.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-bomb-common-family-c2a658-c2a821.md).
+This is not resting only on text flavor. The two wrappers pass the exact reference base-damage literals `90` and `270`, and the common body matches the reference splash-damage shape unusually well. The focused local writeup is now in [class2-bomb-common-family-c2a658-c2a821.md](notes/class2-bomb-common-family-c2a658-c2a821.md).
 
 
 
@@ -294,5 +294,5 @@ The next late none-target slice is no longer a generic event bucket either.
 - entry `0x012A` (`298`) -> `C2:C6D0` -> strongest current local fit for `FINAL_PRAYER_8`
 - entry `0x012B` (`299`) -> `C2:C6F0` -> strongest current local fit for `FINAL_PRAYER_9`
 
-The focused local writeup is now in [class2-final-prayer-family-c2c572-c2c6f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-final-prayer-family-c2c572-c2c6f0.md).
+The focused local writeup is now in [class2-final-prayer-family-c2c572-c2c6f0.md](notes/class2-final-prayer-family-c2c572-c2c6f0.md).
 

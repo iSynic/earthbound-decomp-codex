@@ -1,9 +1,9 @@
-# Overworld A794 Watcher Gate Experiment (`safe-v4`)
+﻿# Overworld A794 Watcher Gate Experiment (`safe-v4`)
 
 This note records the next patch experiment after the timer-only `A794` gate proved safe but not impactful.
 
-See also [overworld-companion-family-priority-a794.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-companion-family-priority-a794.md).
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-companion-family-priority-a794.md](notes/overworld-companion-family-priority-a794.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
 
 ## Main idea
 
@@ -21,11 +21,11 @@ That makes it a safer next step after the emulator samples showed busy `8643` tr
 
 Patch file:
 
-- [overworld_stutter_a794_watcher_gate_overlay.asm](/F:/Earthbound%20Decomp%20-%20Codex/asm/overworld_stutter_a794_watcher_gate_overlay.asm)
+- [overworld_stutter_a794_watcher_gate_overlay.asm](asm/overworld_stutter_a794_watcher_gate_overlay.asm)
 
 Built ROM:
 
-- [EarthBound-overworld-stutter-safe-v4-a794-gate.sfc](/F:/Earthbound%20Decomp%20-%20Codex/build/EarthBound-overworld-stutter-safe-v4-a794-gate.sfc)
+- [EarthBound-overworld-stutter-safe-v4-a794-gate.sfc](build/EarthBound-overworld-stutter-safe-v4-a794-gate.sfc)
 
 Primary hook:
 
@@ -104,8 +104,8 @@ This does not prove gameplay correctness yet.
 
 Compare:
 
-- [EarthBound-overworld-stutter-safe-v2.sfc](/F:/Earthbound%20Decomp%20-%20Codex/build/EarthBound-overworld-stutter-safe-v2.sfc)
-- [EarthBound-overworld-stutter-safe-v4-a794-gate.sfc](/F:/Earthbound%20Decomp%20-%20Codex/build/EarthBound-overworld-stutter-safe-v4-a794-gate.sfc)
+- [EarthBound-overworld-stutter-safe-v2.sfc](build/EarthBound-overworld-stutter-safe-v2.sfc)
+- [EarthBound-overworld-stutter-safe-v4-a794-gate.sfc](build/EarthBound-overworld-stutter-safe-v4-a794-gate.sfc)
 
 Focus on:
 

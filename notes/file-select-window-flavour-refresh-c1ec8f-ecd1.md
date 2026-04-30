@@ -1,8 +1,8 @@
-# File Select Window Flavour Refresh `C1:EC8F` and `C1:ECD1`
+﻿# File Select Window Flavour Refresh `C1:EC8F` and `C1:ECD1`
 
 This note covers the two unknown includes immediately after `intro/name_a_character.asm` and before the save corruption/file-select cluster.
 
-See also [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md).
+See also [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md).
 
 ## Main Result
 

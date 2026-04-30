@@ -1,6 +1,6 @@
-# C3 HP / PP Source Contract Quartet `C3:EC1F` .. `C3:EE13`
+﻿# C3 HP / PP Source Contract Quartet `C3:EC1F` .. `C3:EE13`
 
-This note promotes the four bank-`03` HP/PP adjustment workers into source-contract form. It is the C3-local counterpart to [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md) and [text-command-family-1e-stat-recovery.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1e-stat-recovery.md).
+This note promotes the four bank-`03` HP/PP adjustment workers into source-contract form. It is the C3-local counterpart to [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md) and [text-command-family-1e-stat-recovery.md](notes/text-command-family-1e-stat-recovery.md).
 
 ## Working Names
 

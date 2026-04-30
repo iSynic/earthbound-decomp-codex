@@ -1,10 +1,10 @@
-# Class2 CC19 1F Display-Text Bridge
+﻿# Class2 CC19 1F Display-Text Bridge
 
 This note captures the now-pinned relationship between text control code `0x19 0x1F` and the one-byte substitution slot at `$9D11`.
 
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [class2-ufo-present-message-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-ufo-present-message-family.md).
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [class2-ufo-present-message-family.md](notes/class2-ufo-present-message-family.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
 
 ## Main result
 
@@ -87,4 +87,4 @@ So the safest semantic reading is now:
 
 The printer that follows decides whether that byte is treated like an item id, a PSI id, or some other one-byte text argument.
 
-See also [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).

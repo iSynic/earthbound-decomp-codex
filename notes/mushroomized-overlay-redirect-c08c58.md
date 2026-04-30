@@ -1,9 +1,9 @@
-# Mushroomized Overlay Redirect C08C58
+﻿# Mushroomized Overlay Redirect C08C58
 
 This note captures the local role of `C0:8C58` in the mushroomized-walking controller path.
 
-See also [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md).
-See also [mushroomized-walking-builders-34de-37d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-builders-34de-37d0.md).
+See also [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md).
+See also [mushroomized-walking-builders-34de-37d0.md](notes/mushroomized-walking-builders-34de-37d0.md).
 
 ## Main result
 
@@ -80,7 +80,7 @@ The important local pattern is:
 - optionally add a small offset
 - call `C0:8C58`
 
-The paired note [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md) now shows that those current-payload values come from small looping bank-`C4` animation scripts.
+The paired note [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md) now shows that those current-payload values come from small looping bank-`C4` animation scripts.
 
 That is strong local evidence that the mushroomized controller is contributing visual draw records, not merely remapping movement decisions.
 

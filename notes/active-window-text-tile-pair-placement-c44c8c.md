@@ -1,10 +1,10 @@
-# Active Window Text Tile Pair Placement (`C4:4C8C`)
+﻿# Active Window Text Tile Pair Placement (`C4:4C8C`)
 
 This note names the text/window tilemap placement helper between the scratch-row renderer and the tile-transfer catch-up path.
 
-See also [c4-early-ppu-and-text-tile-helpers-0000-0085.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c4-early-ppu-and-text-tile-helpers-0000-0085.md).
-See also [text-token-glyph-run-stager-c44b3a-c44e61.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-token-glyph-run-stager-c44b3a-c44e61.md).
-See also [text-window-rendering-primitives-c1078d-c10d7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-window-rendering-primitives-c1078d-c10d7c.md).
+See also [c4-early-ppu-and-text-tile-helpers-0000-0085.md](notes/c4-early-ppu-and-text-tile-helpers-0000-0085.md).
+See also [text-token-glyph-run-stager-c44b3a-c44e61.md](notes/text-token-glyph-run-stager-c44b3a-c44e61.md).
+See also [text-window-rendering-primitives-c1078d-c10d7c.md](notes/text-window-rendering-primitives-c1078d-c10d7c.md).
 
 ## Working Names
 

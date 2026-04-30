@@ -1,11 +1,11 @@
-# Class2 Battlers Table Layout 9F8A 9FAC
+﻿# Class2 Battlers Table Layout 9F8A 9FAC
 
 This note captures a major structural correction in the local battle-side model.
 
-See also [class2-candidate-table-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-candidate-table-9fac.md).
-See also [class2-source-families-986f-9f8a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-source-families-986f-9f8a.md).
-See also [class2-battler-core-field-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-core-field-crosswalk.md).
-See also [class2-local-enemy-id-to-battler-init-chain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-local-enemy-id-to-battler-init-chain.md).
+See also [class2-candidate-table-9fac.md](notes/class2-candidate-table-9fac.md).
+See also [class2-source-families-986f-9f8a.md](notes/class2-source-families-986f-9f8a.md).
+See also [class2-battler-core-field-crosswalk.md](notes/class2-battler-core-field-crosswalk.md).
+See also [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md).
 
 ## Main result
 
@@ -90,7 +90,7 @@ So several earlier "parallel array" reads were really per-field scans over battl
 
 The new init-chain note strengthens this from layout matching into explicit local control flow.
 
-See [class2-local-enemy-id-to-battler-init-chain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-local-enemy-id-to-battler-init-chain.md) for the direct bridge.
+See [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md) for the direct bridge.
 
 The short version is:
 

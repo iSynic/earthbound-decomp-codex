@@ -1,8 +1,8 @@
-# Staged Movement Pulse And Tracked Item Registry (`C4:8C59..C4:90ED`)
+﻿# Staged Movement Pulse And Tracked Item Registry (`C4:8C59..C4:90ED`)
 
 This note tightens the movement helper band used by the `C0:6E6E` and `C0:70CB` staged-movement paths, plus the adjacent tracked-item pulse registry used by the Fresh Egg / Chick / Chicken side system.
 
-See also [movement-trigger-helper-bodies.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/movement-trigger-helper-bodies.md), [staged-movement-wrapper-70cb.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/staged-movement-wrapper-70cb.md), and [teddy-bear-and-egg-item-cleanup-branches.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/teddy-bear-and-egg-item-cleanup-branches.md).
+See also [movement-trigger-helper-bodies.md](notes/movement-trigger-helper-bodies.md), [staged-movement-wrapper-70cb.md](notes/staged-movement-wrapper-70cb.md), and [teddy-bear-and-egg-item-cleanup-branches.md](notes/teddy-bear-and-egg-item-cleanup-branches.md).
 
 ## Main result
 

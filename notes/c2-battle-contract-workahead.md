@@ -36,13 +36,13 @@ Working name (stable for now):
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_adb4_determine_battle_targetting.asm`
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-targetting-resolver-c1adb4-af50.md`
-- `F:\\Earthbound Decomp - Codex\\notes\\class2-second-stage-selector-a970.md`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_b930_export_battle_selection_snapshot.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_bac5_count_filtered_second_stage_rows.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_4958_populate_candidate_pool_from_six_sources.asm` (names `C2:B930` as â€œInitializeCandidateRecordFromSourceâ€)
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_6c82_mask_set_build_phase1_candidates.asm` (consumes `7E:9FAC` `+0x0E`/`+0x10` invariants)
+- `src\\c1\\c1_adb4_determine_battle_targetting.asm`
+- `notes\\battle-targetting-resolver-c1adb4-af50.md`
+- `notes\\class2-second-stage-selector-a970.md`
+- `src\\c2\\c2_b930_export_battle_selection_snapshot.asm`
+- `src\\c2\\c2_bac5_count_filtered_second_stage_rows.asm`
+- `src\\c2\\c2_4958_populate_candidate_pool_from_six_sources.asm` (names `C2:B930` as â€œInitializeCandidateRecordFromSourceâ€)
+- `src\\c2\\c2_6c82_mask_set_build_phase1_candidates.asm` (consumes `7E:9FAC` `+0x0E`/`+0x10` invariants)
 - `python tools/find_direct_callers.py C2:BAC5` (C1 call sites: `C1:AE61`, `C1:AF33`)
 - `python tools/find_direct_callers.py C2:B930` (C1 call sites anchored in the `C1:ADB4..B5B6` cluster: `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, `C1:BA60`)
 
@@ -59,9 +59,9 @@ Pinned contract shape:
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_cfc6_open_battle_item_selection_loop.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-item-action-selection-c1ce85-c1cfc6.md`
+- `src\\c1\\c1_cfc6_open_battle_item_selection_loop.asm`
+- `src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
+- `notes\\battle-item-action-selection-c1ce85-c1cfc6.md`
 - `python tools/find_direct_callers.py C1:DE31` (C2 call site: `C2:3985`)
 - `python tools/decode_snippet.py C2:3970 --count 80` (shows `JSL C1:DE31` with `A = #$A97D`)
 - `python tools/decode_snippet.py C1:DE10 --count 80` (shows the C1 far-call wrapper table, including `DE31 -> JSR CFC6 -> RTL`)
@@ -80,11 +80,11 @@ Working name proposal (reconcile the alias):
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_dc1c_display_battle_text_from_pointer.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_dc66_display_battle_text_with_substitution_payload.asm`
-- `F:\\Earthbound Decomp - Codex\\notes\\c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_0266_load_default_title_upload_tiles.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_0293_clear_default_title_upload_tiles.asm`
+- `src\\c1\\c1_dc1c_display_battle_text_from_pointer.asm`
+- `src\\c1\\c1_dc66_display_battle_text_with_substitution_payload.asm`
+- `notes\\c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`
+- `src\\c2\\c2_0266_load_default_title_upload_tiles.asm`
+- `src\\c2\\c2_0293_clear_default_title_upload_tiles.asm`
 - `python tools/find_direct_callers.py C2:0293`
 
 ## Pinned cross-bank contracts (C2 -> C1)
@@ -109,8 +109,8 @@ Evidence:
 - `python tools/find_direct_callers.py C1:DE31`
 - `python tools/decode_snippet.py C2:3970 --count 80`
 - `python tools/decode_snippet.py C1:DE10 --count 80`
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_cfc6_open_battle_item_selection_loop.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
+- `src\\c1\\c1_cfc6_open_battle_item_selection_loop.asm`
+- `src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
 
 ### `C2 -> C1:DC1C` (battle text pointer dispatch)
 
@@ -126,8 +126,8 @@ Concrete status/text anchors already named in notes:
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\notes\\class2-concrete-battle-text-call-paths.md`
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-text-entry-family-c1dc1c-dd7c.md`
+- `notes\\class2-concrete-battle-text-call-paths.md`
+- `notes\\battle-text-entry-family-c1dc1c-dd7c.md`
 - `python tools/find_direct_callers.py C1:DC1C`
 
 ### `C2 -> C1:DC66` (battle text with substitution payload)
@@ -141,11 +141,11 @@ Pinned fact:
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-action-stat-change-family-c2b2e0-b5d7.md`
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-text-entry-family-c1dc1c-dd7c.md`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_7294_apply_battler_hp_recovery_feedback.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_7318_apply_battler_pp_recovery_feedback.asm`
-- `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_b43f_apply_battle_guts_increase_consequence.asm` (concrete `JSL C1:DC66` + immediate delta payload staging)
+- `notes\\battle-action-stat-change-family-c2b2e0-b5d7.md`
+- `notes\\battle-text-entry-family-c1dc1c-dd7c.md`
+- `src\\c2\\c2_7294_apply_battler_hp_recovery_feedback.asm`
+- `src\\c2\\c2_7318_apply_battler_pp_recovery_feedback.asm`
+- `src\\c2\\c2_b43f_apply_battle_guts_increase_consequence.asm` (concrete `JSL C1:DC66` + immediate delta payload staging)
 - `python tools/find_direct_callers.py C1:DC66`
 
 ## ABI snapshots (from checked-in C1 source scaffolds)
@@ -154,11 +154,11 @@ These are the most actionable contract-pin facts for promotion.
 
 - `C1:ADB4` expects battle action id in `A` and acting slot in `X`; returns a packed targetting result word in `A`.
   - Random-target lane calls `C2:BAC5` with `A = #$0001`, then chooses a random `1..count`.
-  - Evidence: `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_adb4_determine_battle_targetting.asm`
+  - Evidence: `src\\c1\\c1_adb4_determine_battle_targetting.asm`
 - `C1:CE85` consumes a caller record pointer (in `A`, then `TAY`) with at least:
   - byte `+0` = actor id, byte `+1` = chosen inventory slot
   - word `+2` = action word (written on success), bytes `+4/+5` = target selection bytes (written on success)
-  - Evidence: `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
+  - Evidence: `src\\c1\\c1_ce85_resolve_selected_battle_item_action.asm`
 - `C1:DE31` is the far-call wrapper used by C2 to invoke `C1:CFC6` for item selection; `C2:3985` passes `A = #$A97D` (WRAM record base) and tests the returned `A` for cancel/success.
   - Evidence: `python tools/find_direct_callers.py C1:DE31`, `python tools/decode_snippet.py C2:3970 --count 80`
 - `C1:DC1C` / `C1:DC66` pointer ABI (matches concrete C2 call sites like `C2:4F03`, `C2:4F52`, `C2:7294`, `C2:7318`):
@@ -166,7 +166,7 @@ These are the most actionable contract-pin facts for promotion.
   - `C1:DC66` callers stage a secondary payload pointer into direct-page `$12/$14`, then `JSL C1:DC66`
   - inside C1, these pointers appear as `$20/$22` (text) and `$24/$26` (payload) because the C1 stubs shift `DP` by `-0x12` in their prologues
   - `C1:DC66` additionally routes the payload through `C1:AD0A` (to `$9D12/$9D14`) before printing
-  - Evidence: `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_4f00_display_battle_encounter_text.asm`, `F:\\Earthbound Decomp - Codex\\src\\c2\\c2_4f52_display_battle_start_status_messages_prelude.asm`, `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_dc1c_display_battle_text_from_pointer.asm`, `F:\\Earthbound Decomp - Codex\\src\\c1\\c1_dc66_display_battle_text_with_substitution_payload.asm`
+  - Evidence: `src\\c2\\c2_4f00_display_battle_encounter_text.asm`, `src\\c2\\c2_4f52_display_battle_start_status_messages_prelude.asm`, `src\\c1\\c1_dc1c_display_battle_text_from_pointer.asm`, `src\\c1\\c1_dc66_display_battle_text_with_substitution_payload.asm`
 
 ## Contract-critical shared data shapes
 
@@ -178,9 +178,9 @@ These are the most actionable contract-pin facts for promotion.
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\notes\\data-contracts-c0-c2.md`
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-selection-snapshot-export-c2b930.md`
-- `F:\\Earthbound Decomp - Codex\\notes\\class2-second-stage-selector-a970.md`
+- `notes\\data-contracts-c0-c2.md`
+- `notes\\battle-selection-snapshot-export-c2b930.md`
+- `notes\\class2-second-stage-selector-a970.md`
 
 ## Selection snapshot seam (C1 callers into `C2:B930`)
 
@@ -195,7 +195,7 @@ Working name:
 
 Evidence:
 
-- `F:\\Earthbound Decomp - Codex\\notes\\battle-selection-snapshot-export-c2b930.md`
+- `notes\\battle-selection-snapshot-export-c2b930.md`
 - `python tools/find_direct_callers.py C2:B930`
 
 ## Best next manual source-promotion seams

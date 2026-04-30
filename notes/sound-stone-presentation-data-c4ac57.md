@@ -1,4 +1,4 @@
-# Sound Stone Presentation Data `C4:AC57`
+﻿# Sound Stone Presentation Data `C4:AC57`
 
 ## Scope
 
@@ -6,7 +6,7 @@ This note classifies the former large unknown-data include at `C4:AC57..B1B7`.
 It sits after the battle overlay script interpreter/data corridor and
 immediately before the landing-display asset stream helpers.
 
-See also [battle-overlay-script-state-c4a67e-c4a7b0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-overlay-script-state-c4a67e-c4a7b0.md).
+See also [battle-overlay-script-state-c4a67e-c4a7b0.md](notes/battle-overlay-script-state-c4a67e-c4a7b0.md).
 
 ## Main result
 

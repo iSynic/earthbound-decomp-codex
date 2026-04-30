@@ -1,8 +1,8 @@
-# File Select Action, Copy, And Delete Menus `C1:F07E`, `C1:F14F`, and `C1:F2A8`
+﻿# File Select Action, Copy, And Delete Menus `C1:F07E`, `C1:F14F`, and `C1:F2A8`
 
 This note covers the unknown includes between `intro/file_select_menu.asm` and `intro/file_select/open_text_speed_menu.asm`.
 
-See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md).
+See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md).
 
 ## Main Result
 

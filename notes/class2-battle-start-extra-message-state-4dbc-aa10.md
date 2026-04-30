@@ -1,12 +1,12 @@
-# Class2 Battle-Start Extra Message State 4DBC AA10
+﻿# Class2 Battle-Start Extra Message State 4DBC AA10
 
 This note captures the current best read on the small battle-start state pair around WRAM `$4DBC` and `$AA10`.
 
-See also [class2-b6eb-caller-family-4dxx.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-b6eb-caller-family-4dxx.md).
-See also [class2-005e-record-domain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-005e-record-domain.md).
-See also [class2-d59589-enemy-data-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d59589-enemy-data-crosswalk.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [class2-ufo-present-message-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-ufo-present-message-family.md).
+See also [class2-b6eb-caller-family-4dxx.md](notes/class2-b6eb-caller-family-4dxx.md).
+See also [class2-005e-record-domain.md](notes/class2-005e-record-domain.md).
+See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [class2-ufo-present-message-family.md](notes/class2-ufo-present-message-family.md).
 
 ## Working Names
 

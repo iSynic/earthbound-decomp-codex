@@ -1,10 +1,10 @@
-# Class2 Asleep Family C29F06 C29F57
+﻿# Class2 Asleep Family C29F06 C29F57
 
 This note captures the strongest current local model for the asleep-status late action family rooted at `C2:9F06` and wrapper `C2:9F57`.
 
-See also [class2-affliction-apply-helper-724a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-affliction-apply-helper-724a.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-affliction-apply-helper-724a.md](notes/class2-affliction-apply-helper-724a.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
 
 ## Working Names
 

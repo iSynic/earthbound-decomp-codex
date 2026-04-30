@@ -1,11 +1,11 @@
-# Class2 Affliction Apply Helper `C2:724A`
+﻿# Class2 Affliction Apply Helper `C2:724A`
 
 This note captures the current local model for `C2:724A`, the helper reused by the Flash-family status branches and several other battle-side callers.
 
 See also `notes/class2-battler-affliction-crosswalk.md`.
 See also `notes/class2-psi-flash-common-local-flow.md`.
 See also `notes/class2-state-machine-99xx.md`.
-See also [class2-solidification-item-action-c2a5ec-a630.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-solidification-item-action-c2a5ec-a630.md).
+See also [class2-solidification-item-action-c2a5ec-a630.md](notes/class2-solidification-item-action-c2a5ec-a630.md).
 
 ## Working Names
 
@@ -109,7 +109,7 @@ Several non-Flash callers now give more concrete value assignments too:
 - `C2:8D12`, `C2:962C`, `C2:A630`, and `C2:A843` all use `Y = 4`, `X = 2`
   - all succeed with `EF:6BEF` = `@{target}'s body solidified!`
   - that lines up exactly with the reference `STATUS_2::SOLIDIFIED`
-  - `C2:A630` is now especially useful because [class2-solidification-item-action-c2a5ec-a630.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-solidification-item-action-c2a5ec-a630.md) pins it as the concrete status-apply branch inside live item-side action entry `C2:A5EC`
+  - `C2:A630` is now especially useful because [class2-solidification-item-action-c2a5ec-a630.md](notes/class2-solidification-item-action-c2a5ec-a630.md) pins it as the concrete status-apply branch inside live item-side action entry `C2:A5EC`
 
 #### Subgroup byte `+0x20`
 

@@ -1,9 +1,9 @@
-# Text Command `0x08` as Far Text-Call Opcode
+﻿# Text Command `0x08` as Far Text-Call Opcode
 
 This note captures the current best local read of script byte `0x08`.
 
-See also [text-command-09-jump-multi.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-09-jump-multi.md).
-See also [text-command-0a-24bit-jump.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0a-24bit-jump.md).
+See also [text-command-09-jump-multi.md](notes/text-command-09-jump-multi.md).
+See also [text-command-0a-24bit-jump.md](notes/text-command-0a-24bit-jump.md).
 
 ## Main result
 

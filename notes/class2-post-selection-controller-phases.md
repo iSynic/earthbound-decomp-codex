@@ -1,12 +1,12 @@
-# Class2 Post-Selection Controller Phases
+﻿# Class2 Post-Selection Controller Phases
 
 This note captures the first ROM-first pass over the controller that runs after the heavy `C2:5540` path promotes a row into `$A970` and `$A972`.
 
 See also `notes/class2-second-stage-selector-a970.md`.
 See also `notes/class2-end-to-end-gate-path-5540.md`.
 See also `notes/class2-005e-record-domain.md`.
-See also [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
-See also [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md).
+See also [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
+See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 
 ## Working Names
 
@@ -53,8 +53,8 @@ Current safest reading:
 
 That makes `7318` look like the second axis or alternate-threshold sibling to `7294`, not a completely different subsystem.
 
-A later battle-side pass found that these same two helpers are reused directly by the battle consequence dispatcher at `C2:B2E0`, where selectors `0`, `1`, and `2` wrap `7294`, `7318`, and the chained `7294 + 7318` pair respectively. See also [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
-See also [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md).
+A later battle-side pass found that these same two helpers are reused directly by the battle consequence dispatcher at `C2:B2E0`, where selectors `0`, `1`, and `2` wrap `7294`, `7318`, and the chained `7294 + 7318` pair respectively. See also [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
+See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 
 ## `C2:7397` looks like a heavy recovery/reset installer
 
@@ -70,7 +70,7 @@ Current safest reading:
 - it clears row byte `+0x4B` across all 32 candidate rows, then marks the selected row's `+0x4B` byte
 - it runs two 16-step initialization loops through `C2:FAD8`, `C2:FB35`, and `C2:69BE`, keyed by selected-row byte `+0x43`
 
-That makes `7397` look broader than a simple controller-phase installer. The older controller note still holds structurally, but the now-pinned `EF:6F7C` text and the battle-side calls from `9CB8` show that this helper is also reused as a heavy recovery or revival-grade reset path over the selected row. See also [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md).
+That makes `7397` look broader than a simple controller-phase installer. The older controller note still holds structurally, but the now-pinned `EF:6F7C` text and the battle-side calls from `9CB8` show that this helper is also reused as a heavy recovery or revival-grade reset path over the selected row. See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 
 ## `C2:7550` looks like the main post-selection controller entry
 

@@ -1,11 +1,11 @@
-# Sprite Pose Descriptor Cache (`2A06..2CD6`)
+﻿# Sprite Pose Descriptor Cache (`2A06..2CD6`)
 
 This note captures the current best local correction for the visual-state write path that seeds `2A06`, `29CA`, `2A42`, `2A7E`, `2ABA`, and `2CD6`.
 
-See also [overlay-init-descriptor-fields.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overlay-init-descriptor-fields.md).
-See also [entity-overlay-ram-block-layout.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/entity-overlay-ram-block-layout.md).
-See also [mushroomized-overlay-gate-words.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-gate-words.md).
-See also [secondary-visual-descriptor-c42b0d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/secondary-visual-descriptor-c42b0d.md).
+See also [overlay-init-descriptor-fields.md](notes/overlay-init-descriptor-fields.md).
+See also [entity-overlay-ram-block-layout.md](notes/entity-overlay-ram-block-layout.md).
+See also [mushroomized-overlay-gate-words.md](notes/mushroomized-overlay-gate-words.md).
+See also [secondary-visual-descriptor-c42b0d.md](notes/secondary-visual-descriptor-c42b0d.md).
 
 ## Main result
 
@@ -154,6 +154,6 @@ The best next move is to decode what concrete variant family `2C22` is selecting
 
 ## Update: `2C22` is now a row selector, not a final pose id
 
-The current best follow-up is in [visual-selector-family-c0780f-c3f2b5.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-selector-family-c0780f-c3f2b5.md).
+The current best follow-up is in [visual-selector-family-c0780f-c3f2b5.md](notes/visual-selector-family-c0780f-c3f2b5.md).
 
 The useful correction is that `2C22` and the persistent per-entity field `0E5E` now look like the same higher-level visual selector family. `C0780F` resolves that selector through an 8-entry row in `C3:F2B5`, using a smaller local bucket state to choose the final pose-table index. That means `2C22` is best read as a visual-selector row id or pose-family selector, while `2AF6` remains the lower-level per-family pose/frame selector already feeding the `3456` cached fingerprint.

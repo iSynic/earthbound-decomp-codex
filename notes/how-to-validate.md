@@ -105,6 +105,44 @@ Source readiness triage:
 python tools/build_source_readiness_triage.py
 ```
 
+Asset/data contract frontier:
+
+```powershell
+python tools/build_ui_font_town_map_asset_contracts.py
+python tools/build_asset_data_contract_frontier.py
+```
+
+Audio playback/export backend handoff:
+
+```powershell
+python tools/validate_audio_backend_result_summary.py build/audio/ares-wdc65816-full-change-music-load-apply-mailbox-render-jobs/snes_spc-result-summary.json
+python tools/validate_audio_render_metrics.py build/audio/ares-wdc65816-full-change-music-load-apply-mailbox-render-jobs/libgme-render-metrics.json
+python tools/build_audio_playback_export_manifest.py
+python tools/validate_audio_playback_export_manifest.py
+```
+
+The playback/export manifest is local-only. It references ROM-derived SPC/WAV
+payloads under ignored `build/audio`, so it is a handoff contract for local app
+playback and user export, not a distributable artifact.
+
+Public audio contract manifests and docs:
+
+```powershell
+python tools/build_audio_backend_contract.py
+python tools/validate_audio_backend_contract.py
+python tools/build_audio_dependency_policy.py
+python tools/validate_audio_dependency_policy.py
+python tools/build_audio_export_duration_policy.py
+python tools/validate_audio_export_duration_policy.py
+python tools/build_audio_export_plan.py
+python tools/validate_audio_export_plan.py
+python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json
+```
+
+Those files are safe to commit because they contain contracts, counts, hashes,
+and policy decisions, not ROM-derived audio bytes. Generated SPC/WAV/PCM files
+remain under ignored `build/audio`.
+
 ## Promote Common Bank Shapes
 
 Text banks:

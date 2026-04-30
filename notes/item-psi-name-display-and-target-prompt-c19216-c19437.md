@@ -1,8 +1,8 @@
-# Item / PSI Name Display And Target Prompt Helpers (`C1:9216-C1:9437`)
+﻿# Item / PSI Name Display And Target Prompt Helpers (`C1:9216-C1:9437`)
 
 This note covers the remaining display-side unknown starts in the `C1:9216..9437` cluster.
 
-See also [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md), [character-selection-prompt-cluster-c11f8a-c1242e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/character-selection-prompt-cluster-c11f8a-c1242e.md), and [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md).
+See also [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md), [character-selection-prompt-cluster-c11f8a-c1242e.md](notes/character-selection-prompt-cluster-c11f8a-c1242e.md), and [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md).
 
 ## Main Result
 

@@ -1,9 +1,9 @@
-# Text Command `0x0A` as 24-bit Jump Opcode
+﻿# Text Command `0x0A` as 24-bit Jump Opcode
 
 This note captures the current best local read of script byte `0x0A`.
 
-See also [text-command-0b-parameterized-test-if-workmem-true.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0b-parameterized-test-if-workmem-true.md).
-See also [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md).
+See also [text-command-0b-parameterized-test-if-workmem-true.md](notes/text-command-0b-parameterized-test-if-workmem-true.md).
+See also [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md).
 
 ## Main result
 

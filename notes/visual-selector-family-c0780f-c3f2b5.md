@@ -1,9 +1,9 @@
-# Visual Selector Family (`0E5E` / `2C22` / `C0780F` / `C3:F2B5`)
+﻿# Visual Selector Family (`0E5E` / `2C22` / `C0780F` / `C3:F2B5`)
 
 This note captures the strongest current local read for the higher-level visual selector that feeds the sprite-pose cache path.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [secondary-visual-descriptor-c42b0d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/secondary-visual-descriptor-c42b0d.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [secondary-visual-descriptor-c42b0d.md](notes/secondary-visual-descriptor-c42b0d.md).
 
 ## Main result
 
@@ -171,7 +171,7 @@ The best next move is to pin what the bucket families mean in gameplay or animat
 
 ## Update: `$9887` now looks position-derived
 
-The current best follow-up is in [position-derived-visual-context-class-9887.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/position-derived-visual-context-class-9887.md).
+The current best follow-up is in [position-derived-visual-context-class-9887.md](notes/position-derived-visual-context-class-9887.md).
 
 The useful correction is that `$9887` no longer looks like a free-running animation mode. It now reads much more like a position-derived visual context class from `C00AA1`'s packed `D7:B200` lookup. That class then chooses whether `C0780F` stays in its ordinary bucket family or switches into alternate special-case columns, especially for class `3`.
 
@@ -192,7 +192,7 @@ That means the safest current statement is still just:
 - class `4` is gated by selector row `0`
 - selector row `0` itself is not yet semantically named
 
-The new focused note is [selector-row-zero-caveat.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-zero-caveat.md).
+The new focused note is [selector-row-zero-caveat.md](notes/selector-row-zero-caveat.md).
 
 ## Update: the selector rows are sourced from setup metadata in more than one way
 
@@ -214,8 +214,8 @@ That means the source picture is now:
 - local ordinal source: `TYA-1 -> 0A38`
 - far table source: matching `D5:F645` record index -> `0A38`
 
-So the selector rows still look like setup-chosen row ids, but the far path is now better described as an event-flag-gated selector table than as a generic “validated config value.”
+So the selector rows still look like setup-chosen row ids, but the far path is now better described as an event-flag-gated selector table than as a generic â€œvalidated config value.â€
 
-The focused note is [selector-row-config-family-ef0ee8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-config-family-ef0ee8.md).
+The focused note is [selector-row-config-family-ef0ee8.md](notes/selector-row-config-family-ef0ee8.md).
 
 

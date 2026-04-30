@@ -1,9 +1,9 @@
-# Battle Text Display Mode Latch `$964D`
+﻿# Battle Text Display Mode Latch `$964D`
 
 This note captures the current best local model for the tiny mode helpers at `C1:0036 / 003C / 0042` and their role in the battle-text-adjacent display wrappers.
 
-See also [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md).
-See also [battle-text-entry-tail-dd82-dd9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-tail-dd82-dd9f.md).
+See also [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md).
+See also [battle-text-entry-tail-dd82-dd9f.md](notes/battle-text-entry-tail-dd82-dd9f.md).
 
 ## Main result
 

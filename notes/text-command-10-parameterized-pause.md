@@ -1,9 +1,9 @@
-# Text Command `0x10` as Parameterized Pause Opcode
+﻿# Text Command `0x10` as Parameterized Pause Opcode
 
 This note captures the current best local read of script byte `0x10`.
 
-See also [text-commands-11-and-12-menu-and-line-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-11-and-12-menu-and-line-control.md).
-See also [text-commands-13-and-14-halt-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-13-and-14-halt-control.md).
+See also [text-commands-11-and-12-menu-and-line-control.md](notes/text-commands-11-and-12-menu-and-line-control.md).
+See also [text-commands-13-and-14-halt-control.md](notes/text-commands-13-and-14-halt-control.md).
 
 ## Main result
 

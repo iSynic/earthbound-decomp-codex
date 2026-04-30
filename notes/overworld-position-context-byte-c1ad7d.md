@@ -1,8 +1,8 @@
-# Overworld Position Context Byte (`C1:AD7D`)
+﻿# Overworld Position Context Byte (`C1:AD7D`)
 
 This note covers the small unknown start `C1:AD7D`.
 
-See also [text-command-family-1d-inventory-money.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1d-inventory-money.md) for another bank-`01` use of `C0:0AA1`, and [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md) for the neighboring resolver that follows this helper.
+See also [text-command-family-1d-inventory-money.md](notes/text-command-family-1d-inventory-money.md) for another bank-`01` use of `C0:0AA1`, and [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md) for the neighboring resolver that follows this helper.
 
 ## Main Result
 

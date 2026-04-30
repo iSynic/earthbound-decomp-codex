@@ -18,6 +18,6 @@
 
 C0ABBD_SendApuPort0CommandByte:
     sep #$20
-    sta $002140
+    sta.l $002140
     rep #$30
     rtl

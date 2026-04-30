@@ -1,8 +1,8 @@
-# Text Entry Record Builder Neighbors (`C1:0F40-C1:1887`)
+﻿# Text Entry Record Builder Neighbors (`C1:0F40-C1:1887`)
 
 This note documents the still-unaccounted starts around the bank-`01` text entry builder and active-window text display helpers.
 
-See also [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md) for the core `C1:13D1` allocator/installer over the `$89D4` record table.
+See also [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md) for the core `C1:13D1` allocator/installer over the `$89D4` record table.
 
 ## Main result
 

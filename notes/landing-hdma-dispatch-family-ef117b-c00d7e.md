@@ -1,8 +1,8 @@
-# Landing HDMA Dispatch Family `EF:117B` / `C0:062A` / `C0:0D7E`
+﻿# Landing HDMA Dispatch Family `EF:117B` / `C0:062A` / `C0:0D7E`
 
 This note captures the current best local model for the `EF:117B` landing-profile asset layer and its consumer path through `$7F:F800`.
 
-See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md), [landing-display-profile-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-profile-overview.md), and [landing-display-assembly-cluster-c007b6-c4b26b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
+See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md), [landing-display-profile-overview.md](notes/landing-display-profile-overview.md), and [landing-display-assembly-cluster-c007b6-c4b26b.md](notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
 
 ## Main result
 

@@ -2,9 +2,9 @@
 
 This note captures the current best local model for the battle PSI name-building lane under the bank `01` battle PSI menu.
 
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
-See also [battle-psi-ability-table-d58a50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-ability-table-d58a50.md).
-See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-ability-table-d58a50.md](notes/battle-psi-ability-table-d58a50.md).
+See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
 
 ## Main result
 

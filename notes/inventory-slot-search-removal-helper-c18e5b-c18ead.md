@@ -1,6 +1,6 @@
-# Inventory Slot Search/Removal Helper Family `C1:8E5B` and `C1:8EAD`
+﻿# Inventory Slot Search/Removal Helper Family `C1:8E5B` and `C1:8EAD`
 
-These helpers are the take-side counterparts to [inventory-slot-insertion-helper-c18bc6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-insertion-helper-c18bc6.md) and [inventory-slot-removal-helper-c18c27.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md).
+These helpers are the take-side counterparts to [inventory-slot-insertion-helper-c18bc6.md](notes/inventory-slot-insertion-helper-c18bc6.md) and [inventory-slot-removal-helper-c18c27.md](notes/inventory-slot-removal-helper-c18c27.md).
 
 ## Main result
 
@@ -36,7 +36,7 @@ The helper then:
 1. computes the selected character's `0x5F`-stride record rooted at `99F1`
 2. scans the 14-byte inventory region at `99F1..99FE`
 3. compares each byte against the requested item id
-4. on the first match, calls [inventory-slot-removal-helper-c18c27.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md) with the matching 1-based slot index
+4. on the first match, calls [inventory-slot-removal-helper-c18c27.md](notes/inventory-slot-removal-helper-c18c27.md) with the matching 1-based slot index
 5. returns the owning character id on success, or `0` if no matching item exists
 
 So the safest current read is: search one character inventory for an item and remove the first matching entry.
@@ -72,7 +72,7 @@ So `TAKE_ITEM_FROM_CHARACTER` is now locally supported as a real search/removal 
 
 ## Relationship to neighboring bank-`03` helpers
 
-The adjacent family at `C3:EC1F`, `C3:EC8B`, `C3:ED2C`, and `C3:ED98` is now mapped more concretely as the shared HP/PP adjust quartet behind the early `0x1E` commands; see [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md).
+The adjacent family at `C3:EC1F`, `C3:EC8B`, `C3:ED2C`, and `C3:ED98` is now mapped more concretely as the shared HP/PP adjust quartet behind the early `0x1E` commands; see [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md).
 
 That family is useful context, but it is separate from the core search/removal role of `C1:8E5B` and `C1:8EAD`.
 

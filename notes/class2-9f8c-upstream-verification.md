@@ -1,11 +1,11 @@
-# Class2 9F8C Upstream Verification
+﻿# Class2 9F8C Upstream Verification
 
 This note captures the current ROM-first verification status of the `9F8A` / `9F8C` list feeding the battle-side class-`2` family.
 
-See also [class2-source-families-986f-9f8a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-source-families-986f-9f8a.md).
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-local-enemy-id-to-battler-init-chain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-local-enemy-id-to-battler-init-chain.md).
-See also [class2-005e-record-domain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-005e-record-domain.md).
+See also [class2-source-families-986f-9f8a.md](notes/class2-source-families-986f-9f8a.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md).
+See also [class2-005e-record-domain.md](notes/class2-005e-record-domain.md).
 
 ## Working Names
 
@@ -63,7 +63,7 @@ That is a very good fit for `ENEMIES_IN_BATTLE_IDS`.
 
 ## New direct local bridge into battler init
 
-The new strongest result is the direct local bridge documented in [class2-local-enemy-id-to-battler-init-chain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-local-enemy-id-to-battler-init-chain.md).
+The new strongest result is the direct local bridge documented in [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md).
 
 The short version is:
 

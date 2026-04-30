@@ -1,6 +1,6 @@
-# EarthBound Header and Vectors
+﻿# EarthBound Header and Vectors
 
-- ROM: `F:\Earthbound Decomp - Codex\EarthBound (USA).sfc`
+- ROM: `EarthBound (USA).sfc`
 - Verified: `True`
 - SHA-1: `d67a8ef36ef616bc39306aa1b486e1bd3047815a`
 - Title: `EARTH BOUND`

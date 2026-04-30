@@ -1,12 +1,12 @@
-# Battle Action Stat-Change Family `C2:B2E0..B5E3`
+﻿# Battle Action Stat-Change Family `C2:B2E0..B5E3`
 
 This note captures the current best local model for the battle-action consequence family centered on `C2:B2E0`.
 
-See also [class2-battle-text-cluster-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-cluster-overview.md).
-See also [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md).
-See also [class2-post-selection-controller-phases.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-post-selection-controller-phases.md).
-See also [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md).
-See also [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md).
+See also [class2-battle-text-cluster-overview.md](notes/class2-battle-text-cluster-overview.md).
+See also [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md).
+See also [class2-post-selection-controller-phases.md](notes/class2-post-selection-controller-phases.md).
+See also [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md).
+See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 
 ## Working Names
 
@@ -66,7 +66,7 @@ The epilogue at `C2:B5E3` restores the caller pointer from `$18/$1A`, optionally
 
 ## Selectors `0` and `1`: reused bounded feedback helpers
 
-`C2:B342` and `C2:B360` are not unique one-off battle leaves. They are thin wrappers over the older helper pair already documented in [class2-post-selection-controller-phases.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-post-selection-controller-phases.md).
+`C2:B342` and `C2:B360` are not unique one-off battle leaves. They are thin wrappers over the older helper pair already documented in [class2-post-selection-controller-phases.md](notes/class2-post-selection-controller-phases.md).
 
 ### Selector `0 -> C2:B342`
 
@@ -261,7 +261,7 @@ So the battle consequence leaves are now one of the strongest local bridges betw
 The last two in-range selectors now read more clearly than before.
 
 - `9 -> C2:9AEA`
-  - enters the narrow end of the battle affliction-recovery ladder documented in [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md)
+  - enters the narrow end of the battle affliction-recovery ladder documented in [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md)
   - strongest current local fit: cold, sunstroke, and asleep-style recovery tail
 - `0x0A -> C2:A39D`
   - enters the narrow poison-only item-side cure helper in that same note

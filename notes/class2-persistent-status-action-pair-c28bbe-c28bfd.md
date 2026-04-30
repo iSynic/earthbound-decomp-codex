@@ -1,10 +1,10 @@
-# Class2 Persistent Status Action Pair C28BBE C28BFD
+﻿# Class2 Persistent Status Action Pair C28BBE C28BFD
 
 This note captures the strongest current local model for the two neighboring `D5:7B68` action entries at `C2:8BBE` and `C2:8BFD`.
 
-See also [class2-affliction-apply-helper-724a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-affliction-apply-helper-724a.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-affliction-apply-helper-724a.md](notes/class2-affliction-apply-helper-724a.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
 
 ## Working Names
 

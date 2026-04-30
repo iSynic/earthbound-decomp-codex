@@ -1,11 +1,11 @@
-# Mushroomized Walking Remap Family
+﻿# Mushroomized Walking Remap Family
 
 This note captures the current ROM-first model for the overworld mushroomized-walking data family around `$986F`, `$988B`, `$9891`, `$9897`, `$9A0B`, `$98A3`, and `$98A4`.
 
-See also [mushroomized-walking-builders-34de-37d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-builders-34de-37d0.md).
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [party-overlay-arbitration-c216db-c3ebca.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-overlay-arbitration-c216db-c3ebca.md).
+See also [mushroomized-walking-builders-34de-37d0.md](notes/mushroomized-walking-builders-34de-37d0.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [party-overlay-arbitration-c216db-c3ebca.md](notes/party-overlay-arbitration-c216db-c3ebca.md).
 
 ## Main result
 
@@ -133,7 +133,7 @@ The safest interpretation is:
 Two cautions still matter.
 
 - The exact player-facing meaning of the per-entry payload trio is not fully pinned yet. They still might be best described as overlay pointers, next-update frames, spritemap selectors, or a nearby equivalent.
-- The arbitration side is now better understood than before: [party-overlay-arbitration-c216db-c3ebca.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-overlay-arbitration-c216db-c3ebca.md) is the strongest current local fit for `C2:16DB` / `C3:EBCA`. But the specific identity of the overlay entity types `0x10/0x11` is still a little softer than the arbitration role itself, so the overlay-level "mushroomized" name should stay attached to the upper entity interpretation rather than forced onto every helper in the family.
+- The arbitration side is now better understood than before: [party-overlay-arbitration-c216db-c3ebca.md](notes/party-overlay-arbitration-c216db-c3ebca.md) is the strongest current local fit for `C2:16DB` / `C3:EBCA`. But the specific identity of the overlay entity types `0x10/0x11` is still a little softer than the arbitration role itself, so the overlay-level "mushroomized" name should stay attached to the upper entity interpretation rather than forced onto every helper in the family.
 
 ## Best next target
 

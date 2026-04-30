@@ -2,13 +2,13 @@
 
 This note captures the current best local model for the battle-side `C1:B2EC / B450 / B86E / B88C / B997` family that reuses the `AC4A .. AD26` context-buffer helpers.
 
-See also [battle-text-context-buffer-family-c1ac4a-ad42.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
-See also [class2-battle-text-cluster-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-cluster-overview.md).
-See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
-See also [battle-psi-ability-table-d58a50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-ability-table-d58a50.md).
-See also [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md).
-See also [battle-selection-snapshot-export-c2b930.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-selection-snapshot-export-c2b930.md).
+See also [battle-text-context-buffer-family-c1ac4a-ad42.md](notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
+See also [class2-battle-text-cluster-overview.md](notes/class2-battle-text-cluster-overview.md).
+See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-ability-table-d58a50.md](notes/battle-psi-ability-table-d58a50.md).
+See also [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md).
+See also [battle-selection-snapshot-export-c2b930.md](notes/battle-selection-snapshot-export-c2b930.md).
 
 ## Main result
 

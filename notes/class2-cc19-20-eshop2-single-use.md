@@ -1,10 +1,10 @@
-# Class2 CC19 20 ESHOP2 Single Use
+﻿# Class2 CC19 20 ESHOP2 Single Use
 
 This note captures the current best local model for text control code `0x19 0x20` after the broader `0x19 0x1F` reuse scan and the follow-up bank-`00` mushroomized-walking work.
 
-See also [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [mushroomized-walking-remap-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-remap-family.md).
+See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [mushroomized-walking-remap-family.md](notes/mushroomized-walking-remap-family.md).
 
 ## Main result
 

@@ -1,12 +1,12 @@
-# Transition Landing Mode Family `$9F3F / $9F41` (`C0:DD53` / `C0:EA99`)
+﻿# Transition Landing Mode Family `$9F3F / $9F41` (`C0:DD53` / `C0:EA99`)
 
 This note captures the current best local model for the small staged state family reached from the `0x19 26` snapshot path through `$98B8`.
 
-See also [respawn-warp-target-snapshot-helper-c230f3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/respawn-warp-target-snapshot-helper-c230f3.md).
-See also [saved-coordinate-reload-path-c4c718-c0b967.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/saved-coordinate-reload-path-c4c718-c0b967.md).
-See also [landing-destination-table-d57880.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-destination-table-d57880.md).
-See also [landing-profile-cache-436e-4474.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-cache-436e-4474.md).
-See also [landing-profile-bundles-ef121b-43dc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-bundles-ef121b-43dc.md).
+See also [respawn-warp-target-snapshot-helper-c230f3.md](notes/respawn-warp-target-snapshot-helper-c230f3.md).
+See also [saved-coordinate-reload-path-c4c718-c0b967.md](notes/saved-coordinate-reload-path-c4c718-c0b967.md).
+See also [landing-destination-table-d57880.md](notes/landing-destination-table-d57880.md).
+See also [landing-profile-cache-436e-4474.md](notes/landing-profile-cache-436e-4474.md).
+See also [landing-profile-bundles-ef121b-43dc.md](notes/landing-profile-bundles-ef121b-43dc.md).
 
 ## Main result
 

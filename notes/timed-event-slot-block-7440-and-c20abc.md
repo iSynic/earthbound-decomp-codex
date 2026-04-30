@@ -1,11 +1,11 @@
-# Timed-Event Slot Block `7E:7440` And `C20ABC`
+﻿# Timed-Event Slot Block `7E:7440` And `C20ABC`
 
 This note records the current local ROM-first picture around the managed text-event slot system that `0x1F D3` feeds, including the activation path and the bank-`02` snapshot/restore helpers.
 
-See also [timed-delivery-row-index-command-1f-d3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-row-index-command-1f-d3.md).
-See also [timed-delivery-controller-499-500-common.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-controller-499-500-common.md).
-See also [timed-event-callback-family-bank01.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-family-bank01.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
+See also [timed-delivery-row-index-command-1f-d3.md](notes/timed-delivery-row-index-command-1f-d3.md).
+See also [timed-delivery-controller-499-500-common.md](notes/timed-delivery-controller-499-500-common.md).
+See also [timed-event-callback-family-bank01.md](notes/timed-event-callback-family-bank01.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
 
 ## Main result
 

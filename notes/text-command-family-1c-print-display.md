@@ -1,8 +1,8 @@
-# Text Command Family `1C`: Print / Display
+﻿# Text Command Family `1C`: Print / Display
 
 This note is the top-level overview for bank-`01` text command family `0x1C`.
 
-See also [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md).
+See also [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md).
 
 ## Main result
 

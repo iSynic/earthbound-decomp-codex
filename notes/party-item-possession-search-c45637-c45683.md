@@ -1,4 +1,4 @@
-# Party Item Possession Search `C4:5637` / `C4:5683`
+﻿# Party Item Possession Search `C4:5637` / `C4:5683`
 
 This note captures the local role of the bank-`04` helper pair at `C4:5637` and `C4:5683`, and their bank-`01` `0x1D 05` wrapper.
 
@@ -33,7 +33,7 @@ The helper then:
 4. compares each byte directly against the requested item id
 5. returns the original character id on the first match, otherwise `0`
 
-The important point is that this is a general inventory scan, not the four-byte equipped-item predicate already mapped at [equipped-item-presence-predicate-c3e9a0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-presence-predicate-c3e9a0.md).
+The important point is that this is a general inventory scan, not the four-byte equipped-item predicate already mapped at [equipped-item-presence-predicate-c3e9a0.md](notes/equipped-item-presence-predicate-c3e9a0.md).
 
 ## `C4:5683`
 

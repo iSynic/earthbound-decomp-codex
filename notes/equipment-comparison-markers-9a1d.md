@@ -1,8 +1,8 @@
-# Equipment Comparison Markers `$9A1D`
+﻿# Equipment Comparison Markers `$9A1D`
 
 This note captures the current local picture of the four-byte marker block at `$9A1D` used by the bank-`01` equipment comparison family around `C1:9B4E..9D49`.
 
-See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md).
+See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md).
 
 ## Main result
 
@@ -146,14 +146,14 @@ That is why the strongest current wording is still "flashing / normal / black eq
 
 ## Relationship to the preview slot family
 
-This marker block sits right next to the newer shadow preview-slot block at [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md).
+This marker block sits right next to the newer shadow preview-slot block at [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md).
 
 The two families complement each other:
 
 - `$9CD0..$9CD3` = shadow equipped-slot indices used by the preview renderer
 - `$9A1D..$9A20` = per-character comparison markers used by the equipment-comparison menu family
 
-Both use the same four slot families pinned in [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md).
+Both use the same four slot families pinned in [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md).
 
 ## Boundaries
 

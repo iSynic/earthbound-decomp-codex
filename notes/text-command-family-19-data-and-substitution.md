@@ -1,19 +1,19 @@
-# Text Command Family `0x19` (Data Return / Substitution / Queue Helpers)
+﻿# Text Command Family `0x19` (Data Return / Substitution / Queue Helpers)
 
 This note captures the current best local map for bank-`01` text command family `0x19`.
 
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md).
-See also [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
-See also [text-command-family-1d-inventory-money.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1d-inventory-money.md).
-See also [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md).
-See also [respawn-warp-target-snapshot-helper-c230f3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/respawn-warp-target-snapshot-helper-c230f3.md).
-See also [saved-coordinate-reload-path-c4c718-c0b967.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/saved-coordinate-reload-path-c4c718-c0b967.md).
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [landing-destination-table-d57880.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-destination-table-d57880.md).
-See also [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md).
-See also [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md).
-See also [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).
+See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
+See also [text-command-family-1d-inventory-money.md](notes/text-command-family-1d-inventory-money.md).
+See also [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md).
+See also [respawn-warp-target-snapshot-helper-c230f3.md](notes/respawn-warp-target-snapshot-helper-c230f3.md).
+See also [saved-coordinate-reload-path-c4c718-c0b967.md](notes/saved-coordinate-reload-path-c4c718-c0b967.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [landing-destination-table-d57880.md](notes/landing-destination-table-d57880.md).
+See also [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md).
+See also [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md).
+See also [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md).
 
 ## Main result
 
@@ -96,10 +96,10 @@ Why:
 - abundant exact parsed hits
 - local callback root `C1:78F7`
 - `C1:78F7` and the small state machine at `C1:7889` now look like a queued loader over `$97D7/$97CA`
-- its flush-side branch at `C1:78B2` null-terminates the queue and hands it to [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md), which installs a live `89D4` text-entry record rather than a stable selector buffer
-- [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md) still should be treated as adjacent shared infrastructure rather than the defining source of selector-`2` semantics
+- its flush-side branch at `C1:78B2` null-terminates the queue and hands it to [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md), which installs a live `89D4` text-entry record rather than a stable selector buffer
+- [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md) still should be treated as adjacent shared infrastructure rather than the defining source of selector-`2` semantics
 - the first clean local write-side bridge into selector `2` is now naming-specific:
-  - [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md) pins `C1:EBA0..EBDD`
+  - [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md) pins `C1:EBA0..EBDD`
   - `C4:D065` remaps the live naming-entry work buffer at `$9C9F` into `$9801`
   - `C0:8ED2` copies `0x0C` bytes from the same work buffer into `$97F5`
 - raw immediate setup of `$9801` currently appears only in that naming path, while the strongest pinned non-naming item/equipment producers stop at `$9C9F` and shared builders; so the current prayer/system `0x19 28 0x02` hits no longer force a broader selector-`2` temp-buffer model by themselves
@@ -228,7 +228,7 @@ Confidence:
 Why:
 
 - the inherited parser label `ADD_ITEM_ID_TO_WORK_MEMORY` is too vague
-- local leaf `C1:597F` resolves one character id and one inventory slot index, calls [C3:E977](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-slot-helper-pair-c3e977-c3ee14.md), stages the found item through `C1:0489`, and stages the source character id through `C1:045D`
+- local leaf `C1:597F` resolves one character id and one inventory slot index, calls [C3:E977](notes/item-slot-helper-pair-c3e977-c3ee14.md), stages the found item through `C1:0489`, and stages the source character id through `C1:045D`
 - exact parsed hits cluster in inventory / service text neighborhoods
 
 So this now reads better as a real character-inventory item lookup than as a generic memory-add helper.
@@ -275,7 +275,7 @@ Confidence:
 
 Why:
 
-- local body `C1:5FF7` removes an item either from Escargo storage (`0xFF` path) or from a character inventory slot through [C1:8C27](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md), then hands the result to queue helper `C1:5FB1`
+- local body `C1:5FF7` removes an item either from Escargo storage (`0xFF` path) or from a character inventory slot through [C1:8C27](notes/inventory-slot-removal-helper-c18c27.md), then hands the result to queue helper `C1:5FB1`
 - exact parsed hits cluster entirely in `ESHOP3`
 
 ### `0x19 1D`
@@ -309,7 +309,7 @@ Why:
 - local body `C1:7AE3` reads through `C1:AD26` and stages the resulting pointer through the text pipeline
 - exact parsed hits occur only in `EBATTLE8`
 
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).
 
 ### `0x19 1F`
 
@@ -327,7 +327,7 @@ Why:
 - local body `C1:7AF3` reads the one-byte substitution slot at `$9D11`
 - exact parsed hits are broad across goods and battle text
 
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md) and [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md) and [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).
 
 ### `0x19 20`
 
@@ -345,7 +345,7 @@ Why:
 - only one exact parsed hit exists, in `ESHOP2`
 - the strongest WRAM-side evidence ties `$98A4` to the overworld entity / mushroomized-adjacent controller family
 
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
 
 ### `0x19 21`
 
@@ -494,7 +494,7 @@ Why:
 - `0x19 22 / 23 / 24` as the three direction helpers
 - `0x19 25` as condiment lookup
 - `0x19 26` as the transition-landing snapshot helper family
-- `0x19 27 / 28` as the shared statistic-selector tail; see [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md)
+- `0x19 27 / 28` as the shared statistic-selector tail; see [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md)
 
 ### Still open
 

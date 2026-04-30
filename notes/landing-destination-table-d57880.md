@@ -1,10 +1,10 @@
-# Landing Destination Table `D5:7880`
+﻿# Landing Destination Table `D5:7880`
 
 This note captures the current best local model for the destination-table family rooted at `D5:7880`.
 
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md).
-See also [landing-profile-cache-436e-4474.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-cache-436e-4474.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md).
+See also [landing-profile-cache-436e-4474.md](notes/landing-profile-cache-436e-4474.md).
 
 ## Main result
 

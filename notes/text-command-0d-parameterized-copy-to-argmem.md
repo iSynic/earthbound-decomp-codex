@@ -1,9 +1,9 @@
-# Text Command `0x0D` as Parameterized Copy-To-Argmem Opcode
+﻿# Text Command `0x0D` as Parameterized Copy-To-Argmem Opcode
 
 This note captures the current best local read of script byte `0x0D`.
 
-See also [text-command-0e-parameterized-store-to-argmem.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0e-parameterized-store-to-argmem.md).
-See also [text-command-0f-parameterized-workmem-increment.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0f-parameterized-workmem-increment.md).
+See also [text-command-0e-parameterized-store-to-argmem.md](notes/text-command-0e-parameterized-store-to-argmem.md).
+See also [text-command-0f-parameterized-workmem-increment.md](notes/text-command-0f-parameterized-workmem-increment.md).
 
 ## Main result
 

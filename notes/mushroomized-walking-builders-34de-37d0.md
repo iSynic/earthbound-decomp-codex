@@ -1,11 +1,11 @@
-# Mushroomized Walking Builders 34DE 369B 37D0
+﻿# Mushroomized Walking Builders 34DE 369B 37D0
 
 This note captures the stronger local model for the bank-`00` mushroomized-walking builder family centered on `C0:34D6`, `C0:369B`, `C0:39E5`, `C0:3A24`, and the downstream consumers `C0:A254`, `C0:8C58`, and `C0:AD56`.
 
-See also [mushroomized-walking-remap-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-remap-family.md).
-See also [mushroomized-overlay-redirect-c08c58.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-redirect-c08c58.md).
-See also [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md).
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
+See also [mushroomized-walking-remap-family.md](notes/mushroomized-walking-remap-family.md).
+See also [mushroomized-overlay-redirect-c08c58.md](notes/mushroomized-overlay-redirect-c08c58.md).
+See also [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
 
 ## Working Names
 

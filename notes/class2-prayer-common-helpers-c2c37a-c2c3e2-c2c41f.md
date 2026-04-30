@@ -2,7 +2,7 @@
 
 This note captures the strongest current local model for the shared helper layer under the late Final Prayer action family.
 
-See also [class2-final-prayer-family-c2c572-c2c6f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-final-prayer-family-c2c572-c2c6f0.md).
+See also [class2-final-prayer-family-c2c572-c2c6f0.md](notes/class2-final-prayer-family-c2c572-c2c6f0.md).
 
 ## Working Names
 

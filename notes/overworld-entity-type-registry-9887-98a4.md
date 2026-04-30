@@ -1,10 +1,10 @@
-# Overworld Entity Type Registry `$9887..$98A4`
+﻿# Overworld Entity Type Registry `$9887..$98A4`
 
 This note captures the current ROM-first model for the small registry RAM block used by the overworld visual/frame-selector and child-entity families.
 
-See also [visual-frame-selector-update-family-c4-62ff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-frame-selector-update-family-c4-62ff.md).
-See also [child-entity-spawn-c4b3d0-c40de8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/child-entity-spawn-c4b3d0-c40de8.md).
-See also [party-overlay-arbitration-c216db-c3ebca.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-overlay-arbitration-c216db-c3ebca.md).
+See also [visual-frame-selector-update-family-c4-62ff.md](notes/visual-frame-selector-update-family-c4-62ff.md).
+See also [child-entity-spawn-c4b3d0-c40de8.md](notes/child-entity-spawn-c4b3d0-c40de8.md).
+See also [party-overlay-arbitration-c216db-c3ebca.md](notes/party-overlay-arbitration-c216db-c3ebca.md).
 
 ## Main result
 

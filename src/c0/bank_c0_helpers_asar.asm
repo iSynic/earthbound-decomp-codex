@@ -26536,7 +26536,7 @@ org $C0ABBD
 
 C0ABBD_SendApuPort0CommandByte:
     sep #$20
-    sta $002140
+    sta.l $002140
     rep #$30
     rtl
 
@@ -26551,7 +26551,7 @@ org $C0ABC6
 C0ABC6_StopMusicAndLatchNoTrack:
     sep #$20
     lda.b #$00
-    sta $002140
+    sta.l $002140
     rep #$30
 C0ABD0_StopMusicAndLatchNoTrack_LABD0:
     jsl $C0AC20

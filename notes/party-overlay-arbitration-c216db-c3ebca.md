@@ -1,9 +1,9 @@
-# Party Overlay Arbitration `C2:16DB` / `C3:EBCA`
+﻿# Party Overlay Arbitration `C2:16DB` / `C3:EBCA`
 
 This note captures the current local read of the side-effect family around `C2:16DB`, the nearby presence check at `C2:239D`, and the companion updater `C3:EBCA`.
 
-See also [mushroomized-walking-remap-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-remap-family.md).
-See also [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md).
+See also [mushroomized-walking-remap-family.md](notes/mushroomized-walking-remap-family.md).
+See also [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md).
 
 ## Working Names
 

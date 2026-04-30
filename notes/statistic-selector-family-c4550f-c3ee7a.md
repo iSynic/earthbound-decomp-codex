@@ -2,7 +2,7 @@
 
 This note captures the current best local model for the small statistic-selector family shared by the `0x19 27` and `0x19 28` text commands.
 
-See also [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md), [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md), [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md), and [early-naming-buffers-9819-9829.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/early-naming-buffers-9819-9829.md).
+See also [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md), [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md), [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md), and [early-naming-buffers-9819-9829.md](notes/early-naming-buffers-9819-9829.md).
 
 ## Main result
 
@@ -124,14 +124,14 @@ Why this is healthy locally:
 - raw immediate setup of `$9801` currently appears only in the naming path at `C1:EAD6` and `C1:EBA0`, which makes the prayer/system uses compatible with ordinary player-name reads rather than forcing a broader selector-`2` temp-buffer identity
 - the selector `8` backing field at `$99CE` is also copied elsewhere as a 5-byte NUL-terminated string
 - `C1:EAD6..EBE4` treats `$9801` and `$97F5` as paired display buffers in the same naming-side UI flow
-- [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md) now tightens the adjacent `C1:13D1` helper family into a shared active text-entry allocator/installer rather than a selector-`2`-specific loader
+- [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md) now tightens the adjacent `C1:13D1` helper family into a shared active text-entry allocator/installer rather than a selector-`2`-specific loader
 - the nearby `C4:41B7 / C4:40B5` helpers then compile naming-side display rows through `1B56/1B6E/1B86`, which makes them downstream display builders over the buffers, not the buffer-materialization step itself
-- [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md) now pins the first clean write-side bridge:
+- [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md) now pins the first clean write-side bridge:
   - `C1:EBA0..EBDD` commits the live naming-entry work buffer at `$9C9F`
   - `C4:D065` remaps that buffer into `$9801`
   - `C0:8ED2` copies `0x0C` bytes from the same work buffer into `$97F5`
-- bank-`01` item/equipment-side writers at `C1:9963 / A103 / A86D` also reuse `$9C9F`; [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md) now captures the safer boundary: `$9C9F` is a broader short-text staging buffer, while the naming note pins one specific naming-side commit use of it
-- [early-naming-buffers-9819-9829.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/early-naming-buffers-9819-9829.md) now gives the stronger local split for selectors `3..5`: `$9819` and `$981F` are committed 6-byte naming-screen buffers, while selector `5` is a composite field rooted at `$9825`, with fixed `"PSI "` prefix bytes at `$9825..9828` and variable suffix writes beginning at `$9829`
+- bank-`01` item/equipment-side writers at `C1:9963 / A103 / A86D` also reuse `$9C9F`; [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md) now captures the safer boundary: `$9C9F` is a broader short-text staging buffer, while the naming note pins one specific naming-side commit use of it
+- [early-naming-buffers-9819-9829.md](notes/early-naming-buffers-9819-9829.md) now gives the stronger local split for selectors `3..5`: `$9819` and `$981F` are committed 6-byte naming-screen buffers, while selector `5` is a composite field rooted at `$9825`, with fixed `"PSI "` prefix bytes at `$9825..9828` and variable suffix writes beginning at `$9829`
 - the community RAM map independently names `$97F5/$9801/$9819/$981F/$9825` as a player-name transliteration buffer, player name, pet name, favorite food, and `"PSI "` respectively
 - but the exposed `0x19 28` prayer/system loops do not currently prove a distinct non-naming producer into `$9801`; at the moment they remain locally compatible with ordinary player-name iteration
 
@@ -267,7 +267,7 @@ The safest current upgrade for `0x19 28` is:
 
 - the exact semantic identity of each selector index in `C4:550F`
 - whether any loaded-string path besides the current `0x19 02 -> $97D7/$97CA -> C1:13D1 -> 89D4` live-entry route feeds or refreshes the stable fixed-width buffers like `$9801` in concrete caller families
-- the non-naming write-side bridges into `$9801`, if any, now that [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md) and [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md) make the currently pinned split much sharper
+- the non-naming write-side bridges into `$9801`, if any, now that [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md) and [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md) make the currently pinned split much sharper
 - whether the community names for `$97F5`, `$9801`, `$9819`, `$981F`, and the composite `$9825/$9829` field hold cleanly across every local caller
 - whether the displayed-stat and menu-stat families use every selector in the same way as the text-command leaves
 

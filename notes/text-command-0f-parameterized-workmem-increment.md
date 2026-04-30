@@ -1,9 +1,9 @@
-# Text Command `0x0F` as Parameterized Working-Memory Increment Opcode
+﻿# Text Command `0x0F` as Parameterized Working-Memory Increment Opcode
 
 This note captures the current best local read of script byte `0x0F`.
 
-See also [text-command-10-parameterized-pause.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-10-parameterized-pause.md).
-See also [text-commands-11-and-12-menu-and-line-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-11-and-12-menu-and-line-control.md).
+See also [text-command-10-parameterized-pause.md](notes/text-command-10-parameterized-pause.md).
+See also [text-commands-11-and-12-menu-and-line-control.md](notes/text-commands-11-and-12-menu-and-line-control.md).
 
 ## Main result
 

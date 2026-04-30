@@ -1,9 +1,9 @@
-# Level-Up Stat Growth Helper `C1:D08B`
+﻿# Level-Up Stat Growth Helper `C1:D08B`
 
 This note covers the unknown include at `C1:D08B`, immediately before the named `misc/level_up_char.asm` body.
 
-See also [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md).
-See also [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
+See also [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md).
+See also [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
 
 ## Main Result
 

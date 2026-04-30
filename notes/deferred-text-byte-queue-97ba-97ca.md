@@ -1,9 +1,9 @@
-# Deferred Text Byte Queue At `97BA` / `97CA`
+﻿# Deferred Text Byte Queue At `97BA` / `97CA`
 
 This note records the current local picture of the bank-`01` byte queue that sits next to the timed-event callback family.
 
-See also [timed-event-callback-family-bank01.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-family-bank01.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
+See also [timed-event-callback-family-bank01.md](notes/timed-event-callback-family-bank01.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
 
 ## Main result
 

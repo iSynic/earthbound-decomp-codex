@@ -1,10 +1,10 @@
-# Text Command `0x15` as Compressed-Bank-1 Pseudo-Opcode
+﻿# Text Command `0x15` as Compressed-Bank-1 Pseudo-Opcode
 
 This note captures the current best local read of script byte `0x15`.
 
-See also [text-command-16-compressed-bank-2-pseudo-opcode.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-16-compressed-bank-2-pseudo-opcode.md).
-See also [text-command-17-compressed-bank-3-pseudo-opcode.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-17-compressed-bank-3-pseudo-opcode.md).
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md).
+See also [text-command-16-compressed-bank-2-pseudo-opcode.md](notes/text-command-16-compressed-bank-2-pseudo-opcode.md).
+See also [text-command-17-compressed-bank-3-pseudo-opcode.md](notes/text-command-17-compressed-bank-3-pseudo-opcode.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md).
 
 ## Main result
 

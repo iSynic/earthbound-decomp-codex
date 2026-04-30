@@ -1,9 +1,9 @@
-# Gas Station Intro Asset Loader (`C4:A377`)
+﻿# Gas Station Intro Asset Loader (`C4:A377`)
 
 This note documents the previously unmentioned bank-`C4` code chunk called from the gas-station intro load path.
 
-See also [intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md).
-See also [landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md).
+See also [intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md](notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md).
+See also [landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md](notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md).
 
 ## Working Names
 

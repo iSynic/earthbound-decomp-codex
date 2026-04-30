@@ -1,10 +1,10 @@
-# Text Command `0x04` as Set-Event-Flag Opcode
+﻿# Text Command `0x04` as Set-Event-Flag Opcode
 
 This note captures the current best local read of script byte `0x04`.
 
-See also [text-command-05-clear-event-flag.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-05-clear-event-flag.md).
-See also [text-command-06-jump-if-flag-set.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-06-jump-if-flag-set.md).
-See also [text-command-07-check-event-flag.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-07-check-event-flag.md).
+See also [text-command-05-clear-event-flag.md](notes/text-command-05-clear-event-flag.md).
+See also [text-command-06-jump-if-flag-set.md](notes/text-command-06-jump-if-flag-set.md).
+See also [text-command-07-check-event-flag.md](notes/text-command-07-check-event-flag.md).
 
 ## Main result
 

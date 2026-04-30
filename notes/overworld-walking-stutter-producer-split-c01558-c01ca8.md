@@ -2,11 +2,11 @@
 
 This note is a focused decomp investigation for the remaining overworld walking microstutter, especially the still-visible diagonal-scrolling hitch after the safe strip-dedupe patch.
 
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
-See also [overworld-stutter-current-truth-state.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-stutter-current-truth-state.md).
-See also [bank-c0-entry-notes.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/bank-c0-entry-notes.md).
-See also [mushroomized-walking-builders-34de-37d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-builders-34de-37d0.md).
-See also [secondary-visual-descriptor-c42b0d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/secondary-visual-descriptor-c42b0d.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-stutter-current-truth-state.md](notes/overworld-stutter-current-truth-state.md).
+See also [bank-c0-entry-notes.md](notes/bank-c0-entry-notes.md).
+See also [mushroomized-walking-builders-34de-37d0.md](notes/mushroomized-walking-builders-34de-37d0.md).
+See also [secondary-visual-descriptor-c42b0d.md](notes/secondary-visual-descriptor-c42b0d.md).
 
 ## Main result
 
@@ -45,7 +45,7 @@ The current local read is still healthy:
 
 - `C0:0E16` allocates scratch, builds strip payloads, and calls `C0:8616` with `0x40`-byte transfers into paired tilemap bands including `0x3800/0x3C00/0x5800/0x5C00`
 - `C0:0FCB` is the sibling path for the other axis and does the same kind of `0x40`-byte queued strip copies
-- the helper [summarize_transfer_to_vram_callers.py](/F:/Earthbound%20Decomp%20-%20Codex/tools/summarize_transfer_to_vram_callers.py) cleanly clusters those callers around nearby `ADC #$3800/#$3C00/#$5800/#$5C00`
+- the helper [summarize_transfer_to_vram_callers.py](tools/summarize_transfer_to_vram_callers.py) cleanly clusters those callers around nearby `ADC #$3800/#$3C00/#$5800/#$5C00`
 
 So the observed `58xx/5Cxx` family still belongs to the known strip path.
 

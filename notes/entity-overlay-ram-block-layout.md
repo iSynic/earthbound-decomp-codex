@@ -1,10 +1,10 @@
-# Entity Overlay RAM Block Layout
+﻿# Entity Overlay RAM Block Layout
 
 This note captures the current best structural read for the contiguous `0x3C`-stride visual-state block around `2A06..2CD6`.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [overlay-init-descriptor-fields.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overlay-init-descriptor-fields.md).
-See also [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [overlay-init-descriptor-fields.md](notes/overlay-init-descriptor-fields.md).
+See also [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md).
 
 ## Main result
 
@@ -43,7 +43,7 @@ That structural observation still looks solid.
 
 ## What local writes now prove
 
-The write block documented in [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md) shows that at least the leading arrays in this block are seeded from sprite-pose descriptor data:
+The write block documented in [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md) shows that at least the leading arrays in this block are seeded from sprite-pose descriptor data:
 
 - `2ABA` gets pose descriptor byte `+0`
 - `2A7E` gets pose descriptor byte `+1`, shifted left once

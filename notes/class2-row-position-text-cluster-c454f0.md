@@ -1,9 +1,9 @@
-# Class2 Row Position Text Cluster at C4:54F0
+﻿# Class2 Row Position Text Cluster at C4:54F0
 
 This note captures the small battle-text cluster that begins immediately after `C4:51FA` / `LayoutActiveTextEntryChainForWindow` and helps anchor the late side-token path in player-visible row-position text.
 
-See also [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
+See also [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
 
 ## Why this cluster matters
 

@@ -1,8 +1,8 @@
-# Overworld Registry Accessor (`C1:90E6`)
+﻿# Overworld Registry Accessor (`C1:90E6`)
 
 This note covers the small remaining unknown start `C1:90E6`.
 
-See also [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md) and [mushroomized-walking-remap-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-walking-remap-family.md).
+See also [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md) and [mushroomized-walking-remap-family.md](notes/mushroomized-walking-remap-family.md).
 
 ## Main Result
 

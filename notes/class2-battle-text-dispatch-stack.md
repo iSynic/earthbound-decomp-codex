@@ -1,11 +1,11 @@
-# Class2 Battle Text Dispatch Stack
+﻿# Class2 Battle Text Dispatch Stack
 
 This note captures the current best model for the local battle-text dispatch path centered on `C1:DC1C`, and how it relates to the enemy text-pointer and name-formatting work.
 
-See also [class2-enemy-text-pointer-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-enemy-text-pointer-consumers.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
-See also [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md).
-See also [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
+See also [class2-enemy-text-pointer-consumers.md](notes/class2-enemy-text-pointer-consumers.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
+See also [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md).
+See also [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md).
 
 ## Main result
 
@@ -21,7 +21,7 @@ The safest current stack model is:
 - `C1:DD5F` is now best treated locally as `BATTLE_DISPLAY_CLOSE_AND_SYNC_WAIT`, a richer close/reset/sync-and-wait wrapper rather than a plain one-stage wait helper
 - `C1:DD70` and `C1:DD76` are nearby battle-text context refresh helpers, especially for attacker and target naming plus substitution state
 
-That is still slightly cautious wording, but it is tighter and more useful than treating `C1:DC1C` as an anonymous pointer sink. See also [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md). See also [battle-text-entry-tail-dd82-dd9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-tail-dd82-dd9f.md).
+That is still slightly cautious wording, but it is tighter and more useful than treating `C1:DC1C` as an anonymous pointer sink. See also [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md). See also [battle-text-entry-tail-dd82-dd9f.md](notes/battle-text-entry-tail-dd82-dd9f.md).
 
 ## Anchor 1: `C1:86B1` is the generic textbox processor
 
@@ -138,7 +138,7 @@ That gives us one real local chain from context refresh into display dispatch:
 
 A second concrete local path at `C2:7680+` now shows the same `$0E/$10 -> C1:DC1C` convention for `enemy_data::death_text_ptr` from record `+0x31`.
 
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
 
 ## Update: companion-side concrete bridge
 
@@ -158,7 +158,7 @@ So the local battle-text bridge story is now balanced on both sides:
 
 That is the strongest local evidence yet that the `DD70/DD76` pair really is adjacent battle-text context setup for the `DC1C` display wrapper.
 
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
 
 ## Update: target-side start-of-battle status messages
 
@@ -177,4 +177,4 @@ That makes `C2:4F62+` much more specific. It now looks like a target-side start-
 
 This is a strong local-plus-reference match for the `ebsrc` battle-start flow where target name is fixed and then those same three start-of-battle status messages are conditionally displayed.
 
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).

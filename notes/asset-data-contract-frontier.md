@@ -13,19 +13,21 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 - assets with preview/swatch recipes: `1718`
 - assets with decoder recipes beyond raw extraction: `1834`
 - coverage gap bytes still represented as raw gaps: `75549`
-- missing payload metadata count: `5`
+- manifest-inferred payload metadata count: `5`
+- contract-covered inferred payload metadata count: `5`
+- unresolved missing payload metadata count: `0`
 
 ## Family Frontier
 
-| Family | Banks | Maturity | Assets | Bytes | Gap bytes | Missing metadata | Next contract |
-| --- | --- | --- | ---: | ---: | ---: | ---: | --- |
-| Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | Major battle visual joins are now covered; remaining work is alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding. |
-| Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
-| Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
-| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | Close the small known semantic followups: collision low modifier caller names and DA palette metadata/event-selector roles. |
-| UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; next polish only reserved SRAM block 6/7 provenance and any remaining narrow renderer-control flag names. |
-| Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
-| EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
+| Family | Banks | Maturity | Assets | Bytes | Gap bytes | Inferred metadata | Contract-covered | Unresolved metadata | Next contract |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | 0 | 0 | Major battle visual joins are covered for phase 4; remaining work is optional alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding. |
+| Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | 0 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
+| Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
+| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: collision low modifier labels and DA palette metadata/event-selector runtime behavior are bounded deferred semantic polish. |
+| UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | 5 | 0 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish. |
+| Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | 0 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
+| EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
 
 ## Contract Proofs
 
@@ -87,7 +89,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ## Per-Bank Pressure Map
 
-| Bank | Family | Maturity | Assets | Bytes | Recipes | Categories | Output mix | Gaps | Missing metadata |
+| Bank | Family | Maturity | Assets | Bytes | Recipes | Categories | Output mix | Gaps | Unresolved metadata |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | ---: | ---: |
 | `CA` | `battle_visual_assets` | `contract-seeded` | 27 | 65536 | 66 | `graphics` 20, `raw-table` 6, `raw-gap` 1 | `raw` 27, `earthbound_lzhal` 20, `earthbound_lzhal_snes_4bpp_tiles_png` 10, +2 more | 1 | 0 |
 | `CB` | `battle_visual_assets` | `contract-seeded` | 304 | 65536 | 960 | `graphics` 300, `audio` 2, `raw-gap` 1, +1 more | `raw` 304, `earthbound_lzhal` 186, `snes_palette_json` 114, +4 more | 28 | 0 |
@@ -111,8 +113,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | `DD` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 8 | 65536 | 14 | `graphics` 6, `audio` 1, `raw-gap` 1 | `raw` 8, `earthbound_lzhal` 6 | 8 | 0 |
 | `DE` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 13 | 65536 | 29 | `graphics` 11, `audio` 1, `raw-gap` 1 | `raw` 13, `earthbound_lzhal` 11, `earthbound_lzhal_snes_4bpp_tiles_png` 5 | 44 | 0 |
 | `DF` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 24 | 65536 | 60 | `graphics` 21, `audio` 1, `raw-gap` 1, +1 more | `raw` 24, `earthbound_lzhal` 21, `earthbound_lzhal_snes_4bpp_tiles_png` 15 | 18 | 0 |
-| `E0` | `ui_font_town_map_assets` | `contract-seeded` | 16 | 65536 | 27 | `binary-asset` 8, `graphics` 4, `audio` 2, +2 more | `raw` 16, `earthbound_lzhal` 9, `earthbound_lzhal_snes_4bpp_tiles_png` 1, +1 more | 77 | 1 |
-| `E1` | `ui_font_town_map_assets` | `contract-seeded` | 53 | 65536 | 125 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +5 more | 14 | 4 |
+| `E0` | `ui_font_town_map_assets` | `contract-seeded` | 16 | 65536 | 27 | `binary-asset` 8, `graphics` 4, `audio` 2, +2 more | `raw` 16, `earthbound_lzhal` 9, `earthbound_lzhal_snes_4bpp_tiles_png` 1, +1 more | 77 | 0 |
+| `E1` | `ui_font_town_map_assets` | `contract-seeded` | 53 | 65536 | 125 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +5 more | 14 | 0 |
 | `E2` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 3 | 0 |
 | `E3` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 14 | 0 |
 | `E4` | `audio_packs` | `raw-pack-manifest` | 6 | 65536 | 6 | `audio` 5, `raw-gap` 1 | `raw` 6 | 7 | 0 |
@@ -130,7 +132,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ## Recommended Next Manual Seams
 
-1. `ui_font_town_map_assets`: Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.
-2. `battle_visual_assets`: Contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins, so the next useful step is narrow polish rather than another broad bundle pass.
-3. `map_tilesets_and_runtime_tables`: The map milestone is mature; closing the named low-bit/palette followups would make it easier to call phase-good-enough publicly.
+1. `ui_font_town_map_assets`: Phase-good-enough contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, landing/cast visuals, and SRAM template blocks now have splits. Remaining work is narrow semantic naming, not asset/data discovery.
+2. `battle_visual_assets`: Phase-good-enough contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins. Remaining work is optional alias/internal decode polish.
+3. `map_tilesets_and_runtime_tables`: The map milestone is phase-good-enough; low-bit/palette metadata followups are bounded runtime-semantics polish.
 4. `audio_packs`: Large byte volume remains raw-pack level; defer until we choose an audio-pack contract boundary.

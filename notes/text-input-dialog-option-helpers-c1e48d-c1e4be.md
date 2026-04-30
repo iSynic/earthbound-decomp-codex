@@ -1,8 +1,8 @@
-# Text Input Dialog Option Helpers `C1:E48D` and `C1:E4BE`
+﻿# Text Input Dialog Option Helpers `C1:E48D` and `C1:E4BE`
 
 This note covers the unknown includes immediately before `text/text_input_dialog.asm`.
 
-See also [early-naming-buffers-9819-9829.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/early-naming-buffers-9819-9829.md).
+See also [early-naming-buffers-9819-9829.md](notes/early-naming-buffers-9819-9829.md).
 
 ## Main Result
 

@@ -1,11 +1,11 @@
-# Class2 Reflected Hit Side Token Consumers
+﻿# Class2 Reflected Hit Side Token Consumers
 
 This note tightens the bank-`C3` consumers that read `$5E77` / `$5E78` after the reflected-hit rebuild path.
 
-See also [class2-reflected-hit-side-buffer-flags.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-buffer-flags.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
-See also [class2-reflected-hit-context-rebuild.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-context-rebuild.md).
-See also [class2-row-position-text-cluster-c454f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-row-position-text-cluster-c454f0.md).
+See also [class2-reflected-hit-side-buffer-flags.md](notes/class2-reflected-hit-side-buffer-flags.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
+See also [class2-reflected-hit-context-rebuild.md](notes/class2-reflected-hit-context-rebuild.md).
+See also [class2-row-position-text-cluster-c454f0.md](notes/class2-row-position-text-cluster-c454f0.md).
 
 ## Current strongest claim
 
@@ -194,4 +194,4 @@ That makes the local article-selection path sharper:
 
 Combined with the nearby row-position text cluster and the `enemy_data::row` field at record `+0x5B`, the current safest interpretation is that this late token path is doing enemy-name and row-aware battle text formatting rather than a generic side suffix pass.
 
-See also [class2-d59589-enemy-data-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d59589-enemy-data-crosswalk.md).
+See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).

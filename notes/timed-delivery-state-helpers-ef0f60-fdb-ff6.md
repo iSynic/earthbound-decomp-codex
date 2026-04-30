@@ -1,12 +1,12 @@
-# Timed Delivery State Helpers (`EF:0F60` / `EF:0FDB` / `EF:0FF6`)
+﻿# Timed Delivery State Helpers (`EF:0F60` / `EF:0FDB` / `EF:0FF6`)
 
 This note records the current local read for the remaining state-side helpers in the timed-delivery controller.
 
-See also [timed-delivery-controller-499-500-common.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-controller-499-500-common.md).
-See also [delivery-row-helpers-ef0e67-ef0ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/delivery-row-helpers-ef0e67-ef0ead.md).
-See also [post-transition-deferred-script-queue-c06b21-c06bff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
-See also [timed-delivery-system-flags-754-779.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-system-flags-754-779.md).
-See also [timed-delivery-warning-text-gates.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-warning-text-gates.md).
+See also [timed-delivery-controller-499-500-common.md](notes/timed-delivery-controller-499-500-common.md).
+See also [delivery-row-helpers-ef0e67-ef0ead.md](notes/delivery-row-helpers-ef0e67-ef0ead.md).
+See also [post-transition-deferred-script-queue-c06b21-c06bff.md](notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
+See also [timed-delivery-system-flags-754-779.md](notes/timed-delivery-system-flags-754-779.md).
+See also [timed-delivery-warning-text-gates.md](notes/timed-delivery-warning-text-gates.md).
 
 ## Main result
 
@@ -124,7 +124,7 @@ A gameplay-side cross-check from the extracted text data fits that broader readi
 
 Those lines do not name `$5D98` directly, but they are exactly the kind of shared service-pending rule that would explain why the preset-teleport path preserves `$5D98` instead of treating it like throwaway local state.
 
-That makes `$5D98` look less like a one-frame transient and more like a broader controller or availability latch that multiple systems preserve, test, and restore. The script-side flag note in [timed-delivery-system-flags-754-779.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-system-flags-754-779.md) now strengthens that same point from the other side: the timed-delivery scripts also participate in a broader `FLG_SYS_DISTLPT` restriction family rather than a delivery-only local toggle.
+That makes `$5D98` look less like a one-frame transient and more like a broader controller or availability latch that multiple systems preserve, test, and restore. The script-side flag note in [timed-delivery-system-flags-754-779.md](notes/timed-delivery-system-flags-754-779.md) now strengthens that same point from the other side: the timed-delivery scripts also participate in a broader `FLG_SYS_DISTLPT` restriction family rather than a delivery-only local toggle.
 
 ## Caution on flag `#$0049`
 

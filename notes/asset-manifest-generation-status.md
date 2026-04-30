@@ -1,15 +1,15 @@
 # Asset Manifest Generation Status
 
-Date: 2026-04-27
+Date: 2026-04-28
 
 ## Current Coverage
 
 The ROM-backed asset manifest pipeline now has checked-in manifests for every currently mapped asset/data bank from `CA` through `EE`, plus the hand-curated EF debug seed manifest.
 
 - manifests: `38`
-- assets: `2218`
-- output recipes: `6174`
-- raw ROM-backed outputs: `2218`
+- assets: `2219`
+- output recipes: `6175`
+- raw ROM-backed outputs: `2219`
 - LZHAL decompressed outputs: `466`
 - SNES palette JSON recipes: `216`
 - SNES palette swatch PNG recipes: `216`
@@ -32,12 +32,17 @@ The ROM-backed asset manifest pipeline now has checked-in manifests for every cu
 - LZHAL-decompressed SNES 4bpp preview PNG recipes: `237`
 - SNES 2bpp preview PNG recipes: `1`
 
+The phase-4 asset/data contract boundary is now tracked in
+`notes/phase-4-asset-data-closeout.md`. The current frontier reports `5`
+manifest-inferred E0/E1 payload metadata units, `5` contract-covered inferred
+units, and `0` unresolved missing payload metadata units.
+
 Category breakdown:
 
 - graphics: `1822`
 - audio: `168`
 - binary asset: `155`
-- raw table: `40`
+- raw table: `41`
 - raw gap: `31`
 - raw preserved corridor: `2`
 
@@ -93,8 +98,8 @@ python tools\validate_asset_manifests.py --extract
 Result:
 
 - validated `38` manifests
-- validated `2218` assets
-- validated `6174` output recipes
+- validated `2219` assets
+- validated `6175` output recipes
 - extracted every manifest against the local EarthBound US ROM
 - all manifest range SHA-1 checks passed
 - generated reports stayed under ignored `build/assets/`
@@ -140,6 +145,6 @@ Result:
 
 ## Next Useful Decoders
 
-1. Caller-side gameplay labels for the remaining `0x01/0x02` map collision low modifier bits.
-2. Runtime corroboration for the DA map palette metadata words and event-palette selector behavior now that the `.fts` 290-row visual payload is decoded.
-3. BRR/audio pack manifests split into sample/song/pack-level contracts.
+1. BRR/audio pack manifests split into sample/song/pack-level contracts.
+2. CF/D0 variable-list subrecord semantics once caller/runtime context needs row-level source definitions.
+3. Engine-ready bundle schemas that consume the existing map, UI/font, battle visual, and overworld sprite contracts.

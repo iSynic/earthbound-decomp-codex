@@ -1,10 +1,10 @@
-# Mushroomized Overlay Gate Words
+﻿# Mushroomized Overlay Gate Words
 
 This note captures the current best local model for the gate/state words around `2A7E`, `2ABA`, `2BAA`, and `2E7A`.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [overlay-init-descriptor-fields.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overlay-init-descriptor-fields.md).
-See also [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [overlay-init-descriptor-fields.md](notes/overlay-init-descriptor-fields.md).
+See also [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md).
 
 ## Main result
 

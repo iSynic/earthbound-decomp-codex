@@ -1,4 +1,4 @@
-# Text Window Rendering Primitives (`C1:078D-C1:0F40`)
+﻿# Text Window Rendering Primitives (`C1:078D-C1:0F40`)
 
 This note captures the current best local read of the early bank-`01` text/window rendering helper cluster after the active-window descriptor accessors.
 
@@ -125,7 +125,7 @@ Inputs are best read as:
 
 The routine resolves `$88E4[A]` into a `$8650` descriptor, reads and updates `$865E/$8660`, computes the target slot from the descriptor output base at `$8685`, and stores tile/position words back into that descriptor-backed buffer.
 
-The important latch behavior is already corroborated by [battle-text-display-mode-latch-964d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-display-mode-latch-964d.md):
+The important latch behavior is already corroborated by [battle-text-display-mode-latch-964d.md](notes/battle-text-display-mode-latch-964d.md):
 
 - when `$964D == 1`, `C1:0A85` jumps into the shortened write/update path at `C1:0B8A`
 - when `$964D == 2`, it normalizes the width-like value to `$20` and then continues

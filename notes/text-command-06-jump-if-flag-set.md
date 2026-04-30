@@ -1,9 +1,9 @@
-# Text Command `0x06` as Conditional Event-Flag Branch Opcode
+﻿# Text Command `0x06` as Conditional Event-Flag Branch Opcode
 
 This note captures the current best local read of script byte `0x06`.
 
-See also [text-command-07-check-event-flag.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-07-check-event-flag.md).
-See also [text-command-0a-24bit-jump.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0a-24bit-jump.md).
+See also [text-command-07-check-event-flag.md](notes/text-command-07-check-event-flag.md).
+See also [text-command-0a-24bit-jump.md](notes/text-command-0a-24bit-jump.md).
 
 ## Main result
 
@@ -46,7 +46,7 @@ The strongest local flow is:
   - ORs that shifted high byte with queued low byte `$97BA`
   - calls `C2:1628` with the resulting 16-bit event-flag id
 - if the flag test succeeds, the helper clears `$97CA` and returns callback root `#$4103`
-- `#$4103` is the already-mapped direct 24-bit jump-target builder from [text-command-0a-24bit-jump.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0a-24bit-jump.md)
+- `#$4103` is the already-mapped direct 24-bit jump-target builder from [text-command-0a-24bit-jump.md](notes/text-command-0a-24bit-jump.md)
 - if the flag test fails, the helper advances the live parser pointer forward past the embedded branch payload and returns `0`
 
 So the local structure is very clean: build flag id, test it, then either branch through `C1:4103` or skip the branch payload.
@@ -98,4 +98,4 @@ And the local neighborhoods read exactly like ordinary conditional branches: if 
 
 ## Practical conclusion
 
-Treat `0x06` as the lower-strip conditional event-flag branch opcode. Together with [text-command-07-check-event-flag.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-07-check-event-flag.md), it gives the lower bank-`01` range a clean flag-control pair: predicate and branch.
+Treat `0x06` as the lower-strip conditional event-flag branch opcode. Together with [text-command-07-check-event-flag.md](notes/text-command-07-check-event-flag.md), it gives the lower bank-`01` range a clean flag-control pair: predicate and branch.

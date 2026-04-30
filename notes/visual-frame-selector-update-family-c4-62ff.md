@@ -1,11 +1,11 @@
-# Visual Frame-Selector Update Family (`C4:62FF..C4:6507`)
+﻿# Visual Frame-Selector Update Family (`C4:62FF..C4:6507`)
 
 This note documents the family of routines at `C4:62FF` through `C4:6507` that update entity frame/pose selectors and trigger redraws.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [child-entity-spawn-c4b3d0-c40de8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/child-entity-spawn-c4b3d0-c40de8.md).
-See also [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md).
-See also [entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [child-entity-spawn-c4b3d0-c40de8.md](notes/child-entity-spawn-c4b3d0-c40de8.md).
+See also [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md).
+See also [entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md](notes/entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md).
 
 ## Main result
 
@@ -39,7 +39,7 @@ So the safest current read is: update the frame selector for the entity whose ca
 
 ### `C4:6363` - update by small registry match
 
-This path uses `C4:608C` with an 8-bit input instead of the broader entity-scan helpers above. `C4:608C` now reads more concretely as a lookup over the small parallel registry at `$988B/$9891/$9897/$98A3`; see [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md). The stronger current model is that `$988B` is the derived lookup layer while the broader source family lives at `$986F`.
+This path uses `C4:608C` with an 8-bit input instead of the broader entity-scan helpers above. `C4:608C` now reads more concretely as a lookup over the small parallel registry at `$988B/$9891/$9897/$98A3`; see [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md). The stronger current model is that `$988B` is the derived lookup layer while the broader source family lives at `$986F`.
 
 A useful new local constraint is that `C4:608C` handles the whole registry family uniformly: `A = #$00FF` returns the fixed base at `$9889`, while ordinary codes scan `$988B` and return the matching live slot from `$9897` whether the code is a leading party code or a later non-party code.
 
@@ -115,4 +115,4 @@ The best next move is to tighten the registry family around `C4:608C` and the as
 
 ## Follow-up
 
-The adjacent wrapper cluster is now mapped in [entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md). It confirms that the same three resolver styles also drive high-bit visual flag setters/clearers, movement-script queueing, and current-slot facing updates.
+The adjacent wrapper cluster is now mapped in [entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md](notes/entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md). It confirms that the same three resolver styles also drive high-bit visual flag setters/clearers, movement-script queueing, and current-slot facing updates.

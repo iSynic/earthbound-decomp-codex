@@ -12,6 +12,11 @@ DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_JSON_OUT = ROOT / "build" / "asset-data-contract-frontier.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-data-contract-frontier.md"
 
+CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
+    "E0": 1,
+    "E1": 4,
+}
+
 
 CONTRACT_FAMILIES: list[dict[str, Any]] = [
     {
@@ -33,7 +38,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/bank-cd-asset-data-map.md",
             "notes/bank-ce-asset-data-map.md",
         ],
-        "next_contract": "Major battle visual joins are now covered; remaining work is alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding.",
+        "next_contract": "Major battle visual joins are covered for phase 4; remaining work is optional alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding.",
     },
     {
         "id": "mixed_asset_tables",
@@ -78,7 +83,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/map-palette-descriptor-context.md",
             "notes/map-scene-composition-contract.md",
         ],
-        "next_contract": "Close the small known semantic followups: collision low modifier caller names and DA palette metadata/event-selector roles.",
+        "next_contract": "Map contracts are phase-good-enough: collision low modifier labels and DA palette metadata/event-selector runtime behavior are bounded deferred semantic polish.",
     },
     {
         "id": "ui_font_town_map_assets",
@@ -100,7 +105,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/town-map-selection-rendering-c4d274-c4d744.md",
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
-        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; next polish only reserved SRAM block 6/7 provenance and any remaining narrow renderer-control flag names.",
+        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish.",
     },
     {
         "id": "audio_packs",
@@ -195,6 +200,11 @@ def summarize_manifest(entry: dict[str, Any]) -> dict[str, Any]:
     bank_summary = data.get("bank_summary", {})
     if not isinstance(bank_summary, dict):
         bank_summary = {}
+    missing_payload_metadata = int(bank_summary.get("missing_payload_metadata", 0) or 0)
+    contract_covered_inferred_payload_metadata = min(
+        missing_payload_metadata,
+        CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK.get(entry["bank"], 0),
+    )
 
     return {
         "bank": entry["bank"],
@@ -212,7 +222,11 @@ def summarize_manifest(entry: dict[str, Any]) -> dict[str, Any]:
         "table_bytes": int(bank_summary.get("table_bytes", 0) or 0),
         "coverage_gaps": int(bank_summary.get("coverage_gaps", 0) or 0),
         "coverage_gap_bytes": int(bank_summary.get("coverage_gap_bytes", 0) or 0),
-        "missing_payload_metadata": int(bank_summary.get("missing_payload_metadata", 0) or 0),
+        "manifest_inferred_payload_metadata": missing_payload_metadata,
+        "contract_covered_inferred_payload_metadata": contract_covered_inferred_payload_metadata,
+        "unresolved_missing_payload_metadata": max(
+            0, missing_payload_metadata - contract_covered_inferred_payload_metadata
+        ),
     }
 
 
@@ -258,7 +272,15 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
                 "source_bytes": sum(int(bank["source_bytes"]) for bank in family_banks),
                 "output_recipe_count": sum(int(bank["output_recipe_count"]) for bank in family_banks),
                 "coverage_gap_bytes": sum(int(bank["coverage_gap_bytes"]) for bank in family_banks),
-                "missing_payload_metadata": sum(int(bank["missing_payload_metadata"]) for bank in family_banks),
+                "manifest_inferred_payload_metadata": sum(
+                    int(bank["manifest_inferred_payload_metadata"]) for bank in family_banks
+                ),
+                "contract_covered_inferred_payload_metadata": sum(
+                    int(bank["contract_covered_inferred_payload_metadata"]) for bank in family_banks
+                ),
+                "unresolved_missing_payload_metadata": sum(
+                    int(bank["unresolved_missing_payload_metadata"]) for bank in family_banks
+                ),
                 "category_counts": dict(sorted(category_counts.items())),
                 "output_kind_counts": dict(sorted(output_kind_counts.items())),
             }
@@ -272,7 +294,15 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
         "assets_with_previews": sum(int(bank["assets_with_previews"]) for bank in bank_summaries),
         "assets_with_decoders": sum(int(bank["assets_with_decoders"]) for bank in bank_summaries),
         "coverage_gap_bytes": sum(int(bank["coverage_gap_bytes"]) for bank in bank_summaries),
-        "missing_payload_metadata": sum(int(bank["missing_payload_metadata"]) for bank in bank_summaries),
+        "manifest_inferred_payload_metadata": sum(
+            int(bank["manifest_inferred_payload_metadata"]) for bank in bank_summaries
+        ),
+        "contract_covered_inferred_payload_metadata": sum(
+            int(bank["contract_covered_inferred_payload_metadata"]) for bank in bank_summaries
+        ),
+        "unresolved_missing_payload_metadata": sum(
+            int(bank["unresolved_missing_payload_metadata"]) for bank in bank_summaries
+        ),
     }
     totals["maturity_counts"] = dict(Counter(family["maturity"] for family in families))
 
@@ -296,17 +326,17 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 1,
                 "family": "ui_font_town_map_assets",
-                "why": "Contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, and SRAM template blocks now have splits, so the next useful step is narrow field-role polish rather than another broad E0/E1 bundle pass.",
+                "why": "Phase-good-enough contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, landing/cast visuals, and SRAM template blocks now have splits. Remaining work is narrow semantic naming, not asset/data discovery.",
             },
             {
                 "rank": 2,
                 "family": "battle_visual_assets",
-                "why": "Contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins, so the next useful step is narrow polish rather than another broad bundle pass.",
+                "why": "Phase-good-enough contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins. Remaining work is optional alias/internal decode polish.",
             },
             {
                 "rank": 3,
                 "family": "map_tilesets_and_runtime_tables",
-                "why": "The map milestone is mature; closing the named low-bit/palette followups would make it easier to call phase-good-enough publicly.",
+                "why": "The map milestone is phase-good-enough; low-bit/palette metadata followups are bounded runtime-semantics polish.",
             },
             {
                 "rank": 4,
@@ -347,23 +377,27 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         f"- assets with preview/swatch recipes: `{totals['assets_with_previews']}`",
         f"- assets with decoder recipes beyond raw extraction: `{totals['assets_with_decoders']}`",
         f"- coverage gap bytes still represented as raw gaps: `{totals['coverage_gap_bytes']}`",
-        f"- missing payload metadata count: `{totals['missing_payload_metadata']}`",
+        f"- manifest-inferred payload metadata count: `{totals['manifest_inferred_payload_metadata']}`",
+        f"- contract-covered inferred payload metadata count: `{totals['contract_covered_inferred_payload_metadata']}`",
+        f"- unresolved missing payload metadata count: `{totals['unresolved_missing_payload_metadata']}`",
         "",
         "## Family Frontier",
         "",
-        "| Family | Banks | Maturity | Assets | Bytes | Gap bytes | Missing metadata | Next contract |",
-        "| --- | --- | --- | ---: | ---: | ---: | ---: | --- |",
+        "| Family | Banks | Maturity | Assets | Bytes | Gap bytes | Inferred metadata | Contract-covered | Unresolved metadata | Next contract |",
+        "| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for family in frontier["families"]:
         lines.append(
-            "| {label} | `{banks}` | `{maturity}` | {assets} | {bytes} | {gap_bytes} | {missing} | {next_contract} |".format(
+            "| {label} | `{banks}` | `{maturity}` | {assets} | {bytes} | {gap_bytes} | {inferred} | {covered} | {unresolved} | {next_contract} |".format(
                 label=family["label"],
                 banks=", ".join(family["banks"]),
                 maturity=family["maturity"],
                 assets=family["asset_count"],
                 bytes=family["source_bytes"],
                 gap_bytes=family["coverage_gap_bytes"],
-                missing=family["missing_payload_metadata"],
+                inferred=family["manifest_inferred_payload_metadata"],
+                covered=family["contract_covered_inferred_payload_metadata"],
+                unresolved=family["unresolved_missing_payload_metadata"],
                 next_contract=family["next_contract"],
             )
         )
@@ -392,7 +426,7 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         [
             "## Per-Bank Pressure Map",
             "",
-            "| Bank | Family | Maturity | Assets | Bytes | Recipes | Categories | Output mix | Gaps | Missing metadata |",
+            "| Bank | Family | Maturity | Assets | Bytes | Recipes | Categories | Output mix | Gaps | Unresolved metadata |",
             "| --- | --- | --- | ---: | ---: | ---: | --- | --- | ---: | ---: |",
         ]
     )
@@ -408,7 +442,7 @@ def render_markdown(frontier: dict[str, Any]) -> str:
                 categories=compact_counts(bank["category_counts"], limit=3),
                 outputs=compact_counts(bank["output_kind_counts"], limit=3),
                 gaps=bank["coverage_gap_bytes"],
-                missing=bank["missing_payload_metadata"],
+                missing=bank["unresolved_missing_payload_metadata"],
             )
         )
 

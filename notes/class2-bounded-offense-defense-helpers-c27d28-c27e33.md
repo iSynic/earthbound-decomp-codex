@@ -1,9 +1,9 @@
-# Class2 Bounded Offense Defense Helpers C27D28 C27E33
+﻿# Class2 Bounded Offense Defense Helpers C27D28 C27E33
 
 This note captures the strongest current local model for the small helper quartet `C2:7D28`, `C2:7D82`, `C2:7DDC`, and `C2:7E33`.
 
-See also [class2-late-stat-and-resource-family-c28e42-c29e38.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-stat-and-resource-family-c28e42-c29e38.md).
-See also [class2-late-normalization-and-odor-family-c29051-c29254.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
+See also [class2-late-stat-and-resource-family-c28e42-c29e38.md](notes/class2-late-stat-and-resource-family-c28e42-c29e38.md).
+See also [class2-late-normalization-and-odor-family-c29051-c29254.md](notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
 
 ## Working Names
 

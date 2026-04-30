@@ -1,8 +1,8 @@
-# Debug Menu Reachability `C0:B8A7 / C1:2E63 / EF:E4EC`
+﻿# Debug Menu Reachability `C0:B8A7 / C1:2E63 / EF:E4EC`
 
 This note records the current reachability pass for the hidden/debug menu code.
 
-See also [debug-menu-window-tick-helpers-c12bf3-c12d17.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/debug-menu-window-tick-helpers-c12bf3-c12d17.md), [c3-e84e-debug-menu-and-embedded-item-helpers-split.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-e84e-debug-menu-and-embedded-item-helpers-split.md), and [bank-ef-first-pass.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/bank-ef-first-pass.md).
+See also [debug-menu-window-tick-helpers-c12bf3-c12d17.md](notes/debug-menu-window-tick-helpers-c12bf3-c12d17.md), [c3-e84e-debug-menu-and-embedded-item-helpers-split.md](notes/c3-e84e-debug-menu-and-embedded-item-helpers-split.md), and [bank-ef-first-pass.md](notes/bank-ef-first-pass.md).
 
 ## Main Result
 

@@ -1,9 +1,9 @@
-# Sprite Pose Descriptor Header Bytes (`+2..+7`)
+﻿# Sprite Pose Descriptor Header Bytes (`+2..+7`)
 
 This note captures the current best local read for the still-unresolved pose descriptor header bytes after the already-identified fields `+0`, `+1`, and `+8`.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [overlay-init-descriptor-fields.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overlay-init-descriptor-fields.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [overlay-init-descriptor-fields.md](notes/overlay-init-descriptor-fields.md).
 
 ## Main result
 

@@ -1,8 +1,8 @@
-# Equipped-Item Derived Cache Family `C2:1857..2351`
+﻿# Equipped-Item Derived Cache Family `C2:1857..2351`
 
 This note captures the current local picture of the bank-`C2` helper family that sits behind the equipped-slot updater paths.
 
-See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-and-derived-state-cluster.md).
+See also the consolidation overview at [equipment-preview-and-derived-state-cluster.md](notes/equipment-preview-and-derived-state-cluster.md).
 
 ## Working Names
 
@@ -142,7 +142,7 @@ Those last two are still a step softer than the `VITALITY/IQ` pair, but the loca
 - `C1:A1F0..A2FF` uses base byte `$99EA` together with equipped-slot index `$99FF` and item param `+0x1F` to build and display a preview value
 - `C1:A4D0..A63F` uses base byte `$99EB` together with the defensive equipment side and the same item param field to build the sibling preview value
 - the nearby menu family at `C1:9BA0..9D49` iterates the same four slot families directly and writes per-slot comparison markers into `$9A1D` after comparing signed item-param-`+0x1F` contributions
-- the shared preview renderer at `C1:A1D8` uses the shadow slot block `$9CD0..$9CD3` to mirror the same split: one weapon-side preview rooted in `$99EA`, then a grouped three-slot non-weapon preview rooted in `$99EB` as documented in [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md)
+- the shared preview renderer at `C1:A1D8` uses the shadow slot block `$9CD0..$9CD3` to mirror the same split: one weapon-side preview rooted in `$99EA`, then a grouped three-slot non-weapon preview rooted in `$99EB` as documented in [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md)
 
 So the safest current read is no longer just "reference order says offense/defense." It is: `$99EA/$99E3` behave like the offense base/derived pair, and `$99EB/$99E4` behave like the defense base/derived pair, with the exact human-facing label still kept a little cautious.
 
@@ -255,7 +255,7 @@ This family is clearly shared beyond one inventory code path.
 
 Direct reuse already shows up in at least three places:
 
-- the equipped-slot subtype installer family in [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md)
+- the equipped-slot subtype installer family in [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md)
 - larger bank-`01` equipment/menu families around `C1:D1xx..D9xx`
 - the `0x1E` stat-recovery leaf block, which updates bytes in `$9A25..$9A29` and then immediately calls some of these same `C2` helpers
 

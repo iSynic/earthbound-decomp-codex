@@ -1,8 +1,8 @@
-# C3 battle visual table and token sublabels
+﻿# C3 battle visual table and token sublabels
 
 ## Purpose
 
-This note promotes source-useful sublabels inside the C3 battle visual tail. The earlier notes named the public consumers; this pass names table rows and token branch bodies that are now structurally pinned well enough for source splitting. The source-emission contract for the dispatcher is now captured in [c3-battle-visual-effect-dispatch-source-contract-f981.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-battle-visual-effect-dispatch-source-contract-f981.md).
+This note promotes source-useful sublabels inside the C3 battle visual tail. The earlier notes named the public consumers; this pass names table rows and token branch bodies that are now structurally pinned well enough for source splitting. The source-emission contract for the dispatcher is now captured in [c3-battle-visual-effect-dispatch-source-contract-f981.md](notes/c3-battle-visual-effect-dispatch-source-contract-f981.md).
 
 References:
 

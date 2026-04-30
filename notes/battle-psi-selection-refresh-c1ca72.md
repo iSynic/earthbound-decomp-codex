@@ -1,10 +1,10 @@
-# Battle PSI Selection Refresh `C1:CA72`
+﻿# Battle PSI Selection Refresh `C1:CA72`
 
 This note covers the unknown include at `C1:CA72`.
 
-See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
-See also [battle-psi-ability-table-d58a50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-ability-table-d58a50.md).
+See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-ability-table-d58a50.md](notes/battle-psi-ability-table-d58a50.md).
 
 ## Main Result
 

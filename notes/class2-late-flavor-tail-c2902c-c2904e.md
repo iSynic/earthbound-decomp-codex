@@ -1,10 +1,10 @@
-# Class2 Late Flavor Tail C2902C C2904E
+﻿# Class2 Late Flavor Tail C2902C C2904E
 
 This note captures the strongest current local model for the small late `D5:7B68` tail around `C2:902C` and the neighboring `C2:9033..904E` stubs.
 
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
-See also [class2-late-physical-special-family-c28f97-c2900b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-physical-special-family-c28f97-c2900b.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-late-physical-special-family-c28f97-c2900b.md](notes/class2-late-physical-special-family-c28f97-c2900b.md).
 
 ## Working Names
 

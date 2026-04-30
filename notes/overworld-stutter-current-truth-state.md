@@ -1,210 +1,199 @@
 ﻿# Overworld Stutter Current Truth State
 
-This note reconciles the March 27 decomp-side investigation with the later March 30 patch-thread follow-up work, so the overworld walking microstutter lane has one current baseline again.
+This note is the current patch-thread baseline after the later `src/c0` promotion pass and the negative results from the strip-dedupe and `A794` patch experiments.
 
-See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](overworld-walking-stutter-producer-split-c01558-c01ca8.md).
-See also [overworld-a794-watcher-gate-safe-v4.md](overworld-a794-watcher-gate-safe-v4.md).
-See also [overworld-companion-family-priority-a794.md](overworld-companion-family-priority-a794.md).
-See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](overworld-timing-scroll-commit-slice-c08b20-c08284.md).
-See also [overworld-visible-entity-refresh-slice-c07b52-c07c5a.md](overworld-visible-entity-refresh-slice-c07b52-c07c5a.md).
-See also [overworld-live-walking-controller-c04c45-c04d33.md](overworld-live-walking-controller-c04c45-c04d33.md).
-See also [rom-patch-overworld-stutter-plan.md](rom-patch-overworld-stutter-plan.md).
+See also [position-snapshot-and-movement-tick-c0449b-c05200.md](notes/position-snapshot-and-movement-tick-c0449b-c05200.md).
+See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
+See also [overworld-live-walking-controller-c04c45-c04d33.md](notes/overworld-live-walking-controller-c04c45-c04d33.md).
+See also [overworld-native-cadence-hypothesis.md](notes/overworld-native-cadence-hypothesis.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
 
 ## Main result
 
-The March 27 and March 30 results fit together cleanly.
+The healthiest current read is no longer "one render producer is stalling the game."
+It is:
 
-The healthiest current model is:
+- ordinary overworld walking is driven by a discrete movement or snapshot tick pipeline
+- the downstream camera path is behaving cleanly when that pipeline advances
+- the residual diagonal judder seen in vanilla, `safe-v2`, and `safe-v4` is therefore more likely native movement or camera cadence than a loading hitch
 
-- the visible hitch is not mainly a stale-camera or stale-scroll-commit problem
-- the hitch is not fully explained by redundant strip uploads either
-- the strongest remaining render-side culprit is still the companion visual family around `C0:A794`
-- but the narrow timer-only `A6E3` gate was too small to matter visibly
-- so the best current companion-side patch seam is the broader watcher rerun site at `C0:A750`, not the timer-only sub-branch and not the shared queue core
+So the strongest current explanation is:
 
-So the current best reconciled read is:
+- we are mostly seeing the game's intended step cadence
+- diagonal scrolling makes that cadence more visible because both axes step together
+- pixel-art or tile-art aliasing likely amplifies the perception
 
-- camera motion path looks healthy
-- scroll publish and NMI commit path look healthy
-- strip dedupe helped somewhat but did not solve the issue
-- remaining hitch is most likely aggregate presentation workload, with the `A794` companion family still the sharpest patchable sub-family inside that workload
+This does **not** prove that render workload never contributes.
+It does mean the earlier strip-first and `A794`-first patch theories are no longer the leading explanation for the consistent baseline judder.
 
 ## Locally proved
 
-### Camera and scroll-state timing are no longer the leading failure model
+### The ordinary walking stack is now much better grounded
 
-The combined decomp and emulator work now supports this chain:
+The `src/c0` promotion pass plus the newer note work gives a healthier live chain for normal walking:
 
-1. `C0:17EA..18F2` advances live camera position in `$4380/$4382`
-2. `C0:1558` reacts after camera motion and writes runtime scroll shadows in `$31/$33/...`
-3. `C0:8B20..8B8D`, especially `C0:8B51 / C0:8B57`, publish those into alternating NMI shadow slots `$41/$45/...`
-4. `C0:8284..82CA` commits those shadow slots to the real PPU scroll registers during NMI
+1. `C05200_Tick_OverworldPlayerPositionAndCallbacks`
+2. `C04C45_Commit_PlayerPositionSnapshotTick`
+3. movement body dispatch:
+   - `C0449B_Step_PlayerFromDirectionalInput`
+   - `C047CF` scripted step mode
+   - `C048D3` bicycle or special step mode
+   - `C04B53` temporary movement modes
+4. `JSL C05F82`
+5. `JSL C0400E`
+6. `C04010 -> C01558`
+7. `C08B20..8B8D`
+8. NMI-side commit at `C08284..82CA`
 
-The later timing and camera notes make the following points materially stronger:
+That is a step or tick pipeline, not a simple "camera integrates every frame independently" model.
 
-- `C0:8012` is startup only, not a frame pacing seam
-- `C0:834E` is NMI bookkeeping, not a main-loop wait seam
-- diagonal-walk emulator traces showed smooth advancing values at the movement-time writers and normal publish into the NMI shadow pairs
-- `17EA..18F2` is the real camera-step accumulator ahead of `1558`
+### Movement-time camera inputs look orderly when they do advance
 
-So the older "stale scroll publish" theory is now weakened substantially.
+The emulator follow-up on `C04010` showed:
 
-### The two-producer-family model still holds
+- during single-axis movement, `A` changed smoothly while `X` stayed constant
+- during diagonal movement, both `A` and `X` changed smoothly in the sampled walking lane
 
-The March 27 decomp note remains structurally sound:
+This does not prove the routine fires every visible frame, but it does weaken the idea that the camera math itself is erratic.
 
-- strip family:
-  - `C0:0E16 / 0FCB / 1181`
-  - observed VRAM family `58xx / 5Axx / 5Bxx / 5Cxx / 5Exx`
-- companion family:
-  - seeded through `C0:2A50 -> 2957 -> 1E49`
-  - direct uploader `C0:1CA8..1D37`
-  - broader descriptor producers `C0:A4C4` and especially `C0:A794`
-  - observed VRAM family `4040 / 4120 / 42A0`
+### Runtime scroll shadow updates and publish look healthy
 
-This split still best explains why the safe strip-dedupe patch helped but did not eliminate the visible hitch.
+The timing slice still holds:
 
-### `A794` is still the strongest residual companion-side culprit
+- `C01558` writes runtime shadow words into `$31/$33/...`
+- `C08B51 / C08B57` publish those values into the alternating shadow pairs at `$41/$45/...`
+- `C08284..82CA` commit those shadow pairs to the real PPU scroll registers during NMI
 
-The combined notes now support a cleaner hierarchy:
+Recent diagonal-walk traces showed smooth advancement at:
 
-- `1CA8..1D37` proves the companion family really reaches the `0x4000+` VRAM band directly
-- `A4C4` is the simpler descriptor producer
-- `A794` is the more dynamic movement-time producer because it uses `$10F2` phase bias and is rerun by the watcher logic at `A6E3..A753`
+- `C0156B / C01575`
+- `C08B51 / C08B57`
+- `C08284`
 
-The main structural facts still holding up are:
+So the "missed movement update" and "missed publish to NMI shadow" theories are now much weaker.
 
-- `A794` consumes seeded descriptor state including `$298E`, `$2A7E`, `$2ABA`, `$2A42`, `$29CA`, `$2AF6`, and `$2BAA`
-- `A56E` can split a logical companion update into two queued descriptors on page crossing
-- `A794` writes the raw descriptor header to `$341A`
-- `A6E3..A753` can rerun `A794` both on composite-state changes and on cadence-driven phase refreshes
+### Strip dedupe and `A794` watcher gates did not materially change the visible result
 
-So `A794` still looks like the sharpest patchable sub-family inside the remaining presentation load.
+The practical patch result matters here:
 
-### The timer-only gate result is now a meaningful negative result, not a dead end
+- vanilla
+- `EarthBound-overworld-stutter-safe-v2.sfc`
+- `EarthBound-overworld-stutter-safe-v4-a794-gate.sfc`
 
-The timer-only patch around the `A723..A750` sub-branch was safe but did not visibly improve the hitch.
+all look broadly similar by eye, with the same small but consistent diagonal judder.
 
-That means:
+That makes these older theories much weaker as dominant explanations:
 
-- timer-only `A794` reruns are real
-- they are not, by themselves, the dominant visible problem
+- redundant strip uploads
+- timer-only `A794` reruns
+- broader watcher-side `A794` reruns
+- stale scroll publish
+- queue-overflow spin-wait at `C08671`
 
-This does not clear `A794` as a whole. It only clears the narrowest attempted gate.
+### The old producer-family work is still useful, but now mostly as a negative result
 
-### The broader watcher-side `A750` rerun site is now the best current companion-side patch seam
+The strip family and companion family notes still look structurally right:
 
-The `safe-v4` patch note materially improves the patch target ranking:
+- strip-family traffic in `58xx / 5Axx / 5Bxx / 5Cxx / 5Exx`
+- companion-family traffic in `4040 / 4120 / 42A0`
 
-- it broadened the gate from the timer-only leg to the common watcher-side rerun site at `C0:A750`
-- it intentionally left the immediate state-change rerun at `C0:A6F7` intact
-- it used a fuller compare tuple than the timer-only experiment:
-  - raw descriptor header
-  - VRAM base `$298E`
-  - transfer size `$2A7E`
-  - transfer count `$2ABA`
-  - packed source-bank plus auxiliary-prepass state from `$2A42 / $2BAA`
-  - effective selector pointer from `$29CA + 4*DATA_C0A623[$2AF6] + $10F2`
+But because the targeted patches did not materially improve the baseline feel, those families no longer look like the main explanation for the ordinary vanilla judder the player consistently notices.
 
-That is now the healthiest current patch-prep seam because it is:
+## Decomp-backed and locally consistent
 
-- broader than the failed timer-only experiment
-- narrower than a global `A794` hook
-- still safely above `A56E / 8643 / 8677`
+### The current best explanation is native cadence, not backlog
 
-### The best remaining render-side decomp seam is downstream of smooth camera motion
+The newer `src/c0` names make the higher-level behavior easier to read:
 
-The newer visible-entity note strengthens the visual interpretation:
+- `C05200` is an installed overworld tick callback
+- `C04C45` is a commit or snapshot front door, not a free-running camera loop
+- `C0449B` is the normal accepted-input movement-step body
+- `C0400E / C04010` feed the already-smooth camera path after that movement work
 
-- `C0:7B52..7C5A` refreshes a small high-priority visible-entry set
-- it computes screen-space coordinates by subtracting the smooth camera shadows `$31/$33`
-- then it immediately calls `C0:A780`, inside the same companion descriptor family that later reaches `A794`
+That matches the current practical observation:
 
-So the render-side story is now healthier too:
+- the engine appears to move and snapshot on a discrete cadence
+- the downstream camera and scroll path behaves correctly inside that cadence
+- the eye still catches the cadence, especially on diagonal movement
 
-- the camera can be smooth
-- the visible entity or companion visual layer can still look uneven downstream
+### Diagonal scrolling is where that cadence is easiest to see
 
-## Ref-backed and locally consistent
+The current model fits the user-visible behavior well:
 
-### Best current high-level interpretation
+- single-axis scrolling looks less objectionable
+- diagonal scrolling is where the constant small judder is easiest to notice
 
-The current healthiest blended explanation is:
+That is exactly what we would expect if:
 
-- diagonal walking increases total presentation work because both axis lanes and both visual families can be active in the same frame
-- the generic scroll-state timing path is functioning normally in the tested walking cases
-- the remaining hitch is therefore more likely presentation workload than stale state publication
-- inside that workload, `A794` remains the strongest targeted patch seam because it is narrower than the strip family as a whole and narrower than the generic queue helpers
+- the movement pipeline advances on discrete ticks
+- and diagonal motion changes both axes together, making the step pattern easier to see
 
-### Why the old March 27 patch-prep conclusion needed updating
+### Pixel-art presentation probably amplifies the effect
 
-The March 27 decomp pass correctly identified `A6E3..A753` as the right family, but its first "best next patch" conclusion was too narrow:
+This remains an inference, not a local proof, but it is a healthy one:
 
-- timer-only rerun gating was a good first experiment
-- the March 30 follow-up now shows it was not broad enough to matter visibly
-
-So the updated conclusion is not "the decomp note was wrong." It is:
-
-- the decomp note found the right family
-- the first patch experiment targeted too small a sub-branch of that family
+- even if the camera path is "working correctly"
+- high-contrast pixel edges and tile boundaries can make stepped diagonal motion look rougher than the underlying numbers suggest
 
 ## Still uncertain
 
-### Whether the broader `A750` watcher-side gate is enough on its own
+### Whether some smaller secondary workload hitch still sits on top of the native cadence
 
-`safe-v4` is a materially better experiment than the old timer-only gate, but the current notes still stop short of proving it is enough by itself to remove the visible hitch.
+The newer conclusion is that native cadence is the best baseline explanation.
+It is still possible that some scenes also have smaller additive workload jitter from:
 
-### Whether the eye is mainly catching descriptor emission cadence or visible-entry refresh cadence
+- strip-family uploads
+- companion-family updates
+- follower or visible-entry refresh
 
-The current render-side story has two adjacent open substeps:
+But those now look secondary, not primary.
 
-- screen-space recompute cadence in `7B52..7C5A`
-- downstream descriptor emission through `A780 / A794`
+### Which visual-smoothing patch would be safest
 
-Those are now adjacent enough that the next round of work can be much more targeted.
+If the goal becomes "make the game look smoother than vanilla," the healthiest next experiments are probably:
 
-### How much strip-family work still matters after the companion-side refinements
+- visual-only camera interpolation
+- or camera plus visible-entity interpolation
 
-The strip family is no longer the whole story, but it is also not cleared. The best current model remains aggregate load, not a single magical culprit.
+Those are different from the earlier workload-reduction patches and need their own design pass.
 
 ## Current best target ranking
 
-### Patch seams
+### Best explanations
 
-1. `C0:A750` watcher-side rerun gate over `A794`
-2. broader `C0:A6E3..A753` watcher-family analysis if the `A750` gate is still not enough
-3. only after that, revisit strip-family refinements around `0E16 / 0FCB / 1181`
+1. native movement or snapshot cadence in the normal overworld tick path
+2. diagonal motion making that cadence more visually obvious
+3. pixel-art or tile-art aliasing amplifying the perception
+4. smaller secondary presentation workload on top, if any
 
-### Decomp seams
+### Best future patch directions
 
-1. `C0:7B52..7C5A`
-2. `C0:A780 / A794`
-3. caller-family attribution around the hottest `A794` reruns during diagonal walking
+1. visual smoothing or interpolation experiments
+2. more direct cadence measurement against NMI frames if we want harder proof
+3. only after that, return to producer-family workload patches if a secondary hitch still looks worth chasing
 
-If the investigation returns to walking-state cadence before the visual
-descriptor family, the live stack note for `C0:4C45 -> C0:5F82 -> C0:400E/4010`
-is the cleaner upstream entry point.
+## Practical guidance
 
-## Practical guidance before moving on
+The old strip and `A794` notes should now be read as:
 
-If we return to patching first, the current best instruction is:
+- useful negative patch experiments
+- useful subsystem mapping
+- not the current leading cause model
 
-- do not go back to timer-only gating as the main experiment
-- do not jump down into `A56E / 8643 / 8677`
-- prefer the broader watcher-side `A750` gate with the fuller compare tuple
+If this lane stays patch-first, the healthiest next question is no longer:
 
-If we return to ROM-first decomp first, the current best instruction is:
+- "what else can we dedupe or skip?"
 
-- treat camera and scroll publish as mostly cleared
-- focus on the visible-entry refresh and companion descriptor seam at `7B52 -> A780 -> A794`
+It is:
+
+- "can we smooth the presentation of a discrete movement cadence without changing gameplay logic?"
 
 ## Bottom line
 
-The March 27 and March 30 work now reconcile into a cleaner current truth state:
+The strongest current truth state is:
 
-- the stutter is not primarily a stale-camera or stale-scroll-commit issue
-- the stutter is not fully solved by strip dedupe either
-- `A794` remains the strongest patchable residual producer family
-- the timer-only `A6E3` gate was safe but too narrow
-- the best current companion-side patch seam is the broader watcher rerun site at `A750`
-- the best current render-side decomp seam is `7B52..7C5A -> A780 -> A794`
+- ordinary overworld walking is driven by a discrete tick pipeline
+- the downstream camera and scroll commit path look healthy
+- the consistent remaining diagonal judder in vanilla and in the failed patch variants is most likely native cadence, not primarily loading or DMA backlog
+
+That makes future work look more like camera or entity interpolation than queue optimization.

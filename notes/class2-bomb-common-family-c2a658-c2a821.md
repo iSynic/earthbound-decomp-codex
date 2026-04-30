@@ -1,10 +1,10 @@
-# Class2 Bomb Common Family C2A658 C2A821
+﻿# Class2 Bomb Common Family C2A658 C2A821
 
 This note captures the strongest current local model for the projectile or explosive common helper at `C2:A658` and its two thin wrappers `C2:A818` and `C2:A821`.
 
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
-See also [class2-second-pointer-consumer-40a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-second-pointer-consumer-40a4.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-second-pointer-consumer-40a4.md](notes/class2-second-pointer-consumer-40a4.md).
 
 ## Working Names
 

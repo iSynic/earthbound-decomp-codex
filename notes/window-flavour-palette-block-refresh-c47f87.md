@@ -1,8 +1,8 @@
-# Window Flavour Palette Block Refresh (`C4:7F87`)
+﻿# Window Flavour Palette Block Refresh (`C4:7F87`)
 
 This note pins down the small high-fanout helper at `C4:7F87`.
 
-See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md), [file-select-tail-helpers-c1ff2c-ff6b-ff99.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-tail-helpers-c1ff2c-ff6b-ff99.md), [equipment-menu-display-fringe-c19a11-c19f29.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-menu-display-fringe-c19a11-c19f29.md), and [saved-landing-display-stage-c4c2de-c4c64d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/saved-landing-display-stage-c4c2de-c4c64d.md).
+See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md), [file-select-tail-helpers-c1ff2c-ff6b-ff99.md](notes/file-select-tail-helpers-c1ff2c-ff6b-ff99.md), [equipment-menu-display-fringe-c19a11-c19f29.md](notes/equipment-menu-display-fringe-c19a11-c19f29.md), and [saved-landing-display-stage-c4c2de-c4c64d.md](notes/saved-landing-display-stage-c4c2de-c4c64d.md).
 
 ## Main result
 

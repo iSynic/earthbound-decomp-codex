@@ -1,9 +1,9 @@
-# Jeff Repair Item-Name Bridge
+﻿# Jeff Repair Item-Name Bridge
 
 This note captures the current local picture of how the `1F D0` Jeff-repair callback family connects to the visible `[1C 05 00]` item-name placeholders in the repair script.
 
-See also [try-fix-item-callback-d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/try-fix-item-callback-d0.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [try-fix-item-callback-d0.md](notes/try-fix-item-callback-d0.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
 
 ## Main result
 

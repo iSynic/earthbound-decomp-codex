@@ -2,11 +2,11 @@
 
 This note captures the current best local model for the battle-side front end rooted at `C1:B5B6`.
 
-See also [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md).
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
-See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
-See also [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md).
-See also [battle-selection-snapshot-export-c2b930.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-selection-snapshot-export-c2b930.md).
+See also [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
+See also [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md).
+See also [battle-selection-snapshot-export-c2b930.md](notes/battle-selection-snapshot-export-c2b930.md).
 
 ## Main result
 

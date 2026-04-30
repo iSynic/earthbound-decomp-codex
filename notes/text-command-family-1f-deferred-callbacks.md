@@ -1,10 +1,10 @@
-# Text Command Family `1F`: Deferred Callbacks And Event Helpers
+﻿# Text Command Family `1F`: Deferred Callbacks And Event Helpers
 
 This note is the top-level overview for bank-`01` text command family `0x1F`.
 
-See also [timed-event-callback-family-bank01.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-family-bank01.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
-See also [try-fix-item-callback-d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/try-fix-item-callback-d0.md).
+See also [timed-event-callback-family-bank01.md](notes/timed-event-callback-family-bank01.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
+See also [try-fix-item-callback-d0.md](notes/try-fix-item-callback-d0.md).
 
 ## Main result
 

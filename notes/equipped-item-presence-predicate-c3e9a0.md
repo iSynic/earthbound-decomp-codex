@@ -1,4 +1,4 @@
-# Equipped Slot Reference Predicate `C3:E9A0`
+﻿# Equipped Slot Reference Predicate `C3:E9A0`
 
 This note captures the local role of the bank-`03` helper at `C3:E9A0` and its bank-`01` `0x1D 10` wrapper.
 
@@ -44,7 +44,7 @@ The important point is that this helper does not dereference the inventory list.
 The local evidence lines up unusually well:
 
 - the checked fields are exactly four bytes wide, which matches the equipment-side shape better than ordinary inventory
-- sibling helper [item-slot-helper-pair-c3e977-c3ee14.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-slot-helper-pair-c3e977-c3ee14.md) already established a four-slot equipment compatibility predicate through `C3:EE14`
+- sibling helper [item-slot-helper-pair-c3e977-c3ee14.md](notes/item-slot-helper-pair-c3e977-c3ee14.md) already established a four-slot equipment compatibility predicate through `C3:EE14`
 - non-`0x1D` callers at `C1:9956`, `C1:A0F6`, and `C1:A860` use `C3:E9A0` in item-table / text-display flows that make much more sense as equipment-slot/reference checks than as a generic category test
 - `C3:E9F7` reads each nonzero `$99FF..$9A02` byte, decrements it, and uses the result as an offset into `$99F1..`; that is the strongest local correction to the older direct-item-id interpretation
 

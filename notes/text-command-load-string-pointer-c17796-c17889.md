@@ -1,8 +1,8 @@
-# Text Command Loaded-String Pointer Finalizers (`C1:7796-C1:7AE3`)
+﻿# Text Command Loaded-String Pointer Finalizers (`C1:7796-C1:7AE3`)
 
 This note covers the loaded-string helper cluster at `C1:7796`, `C1:7889`, and `C1:78F7`.
 
-See also [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md) and [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md).
+See also [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md) and [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md).
 
 ## Main Result
 

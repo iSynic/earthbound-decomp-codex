@@ -2,9 +2,9 @@
 
 This note captures the current best local model for the recurring helper at `C2:B930`.
 
-See also [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md).
-See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
-See also [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md).
+See also [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md).
+See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
+See also [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md).
 
 ## Main result
 

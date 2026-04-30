@@ -1,11 +1,11 @@
-# Class2 Second Pointer Consumer 40A4
+﻿# Class2 Second Pointer Consumer 40A4
 
 This note captures the current ROM-first model for `C2:40A4`, the consumer reached by the second pointer fetched from `D5:7B68` through descriptor field `+0x4E`.
 
 See also `notes/class2-descriptor-field-4e-and-d57b68.md`.
 See also `notes/class2-late-controller-path-77ca.md`.
 See also `notes/class2-d57b68-battle-action-table-match.md`.
-See also [class2-concentration-seal-family-c28d5a-c2a3d1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concentration-seal-family-c28d5a-c2a3d1.md).
+See also [class2-concentration-seal-family-c28d5a-c2a3d1.md](notes/class2-concentration-seal-family-c28d5a-c2a3d1.md).
 
 ## Working Names
 

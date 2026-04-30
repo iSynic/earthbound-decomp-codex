@@ -1,8 +1,8 @@
-# Palette Brightness Row Adjusters (`C4:73B2..C4:74A8`)
+﻿# Palette Brightness Row Adjusters (`C4:73B2..C4:74A8`)
 
 This note covers the compact C4 palette-adjustment band immediately before the already documented `C4:7501..7B77` window-mask/indexed graphics helpers.
 
-See also [c4-window-color-math-and-palette-helpers-23dc-26ed.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md) and [landing-palette-interpolation-export-c4958e-c426ed.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-palette-interpolation-export-c4958e-c426ed.md).
+See also [c4-window-color-math-and-palette-helpers-23dc-26ed.md](notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md) and [landing-palette-interpolation-export-c4958e-c426ed.md](notes/landing-palette-interpolation-export-c4958e-c426ed.md).
 
 ## Main result
 

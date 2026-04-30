@@ -1,12 +1,12 @@
-# Class2 Battler Core Field Crosswalk
+﻿# Class2 Battler Core Field Crosswalk
 
 This note extends the earlier affliction-only battler comparison into the lower row fields that have been surfacing in the local battle-text and selected-row controller work.
 
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md).
-See also [class2-psi-thunder-reflection-branch.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-psi-thunder-reflection-branch.md).
-See also [class2-reflected-hit-side-buffer-flags.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-buffer-flags.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-psi-thunder-reflection-branch.md](notes/class2-psi-thunder-reflection-branch.md).
+See also [class2-reflected-hit-side-buffer-flags.md](notes/class2-reflected-hit-side-buffer-flags.md).
 
 ## Main result
 
@@ -61,7 +61,7 @@ Reference-side `PSI_THUNDER_COMMON` does this in its Franklin Badge branch:
 - increment it
 - use that row-plus-one value as part of the possession or inventory check before displaying the reflection text
 
-Local-side `C2:966B` does the same shape in the special branch documented in [class2-psi-thunder-reflection-branch.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-psi-thunder-reflection-branch.md):
+Local-side `C2:966B` does the same shape in the special branch documented in [class2-psi-thunder-reflection-branch.md](notes/class2-psi-thunder-reflection-branch.md):
 
 - load the selected row from `$A972`
 - read row byte `+0x10`

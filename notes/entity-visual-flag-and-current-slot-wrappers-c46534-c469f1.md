@@ -1,8 +1,8 @@
-# Entity Visual Flag And Current-Slot Wrappers (`C4:6534..C4:69F1`)
+﻿# Entity Visual Flag And Current-Slot Wrappers (`C4:6534..C4:69F1`)
 
 This note covers the high-density frontier cluster immediately after the visual frame-selector updater family.
 
-See also [visual-frame-selector-update-family-c4-62ff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-frame-selector-update-family-c4-62ff.md), [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md), and [direction-octant-normalizers-c46a5e-c46b51.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/direction-octant-normalizers-c46a5e-c46b51.md).
+See also [visual-frame-selector-update-family-c4-62ff.md](notes/visual-frame-selector-update-family-c4-62ff.md), [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md), and [direction-octant-normalizers-c46a5e-c46b51.md](notes/direction-octant-normalizers-c46a5e-c46b51.md).
 
 ## Main result
 

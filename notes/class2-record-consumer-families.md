@@ -1,4 +1,4 @@
-# Class2 Record Consumer Families
+﻿# Class2 Record Consumer Families
 
 This note groups the known `D5:9589` record consumers by behavior instead of by individual field offsets.
 
@@ -135,4 +135,4 @@ The `D5:9589` records are now much more likely to be entries in the enemy config
 
 That means the consumer families below are best read as battle-side enemy-data consumers rather than abstract record consumers.
 
-See also [class2-d59589-enemy-data-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d59589-enemy-data-crosswalk.md).
+See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).

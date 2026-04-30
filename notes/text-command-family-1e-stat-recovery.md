@@ -1,4 +1,4 @@
-# Text Command Family `0x1E` (Recovery / Experience / Stat Boosts)
+﻿# Text Command Family `0x1E` (Recovery / Experience / Stat Boosts)
 
 This note captures the current local picture of the bank-`01` `0x1E` text-command family.
 
@@ -112,7 +112,7 @@ The shared-worker split is now:
 - `C1:8FBA` -> `C3:ED2C` = PP depletion
 - `C1:9010` -> `C3:ED98` = PP recovery
 
-So this whole `0x00..0x07` block is now locally coherent rather than only parser-backed. HP versus PP is determined by the helper family, percent versus amount is determined by `Y`, and recover versus deplete is determined by the bank-`03` worker body; see [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md).
+So this whole `0x00..0x07` block is now locally coherent rather than only parser-backed. HP versus PP is determined by the helper family, percent versus amount is determined by `Y`, and recover versus deplete is determined by the bank-`03` worker body; see [hp-pp-adjust-helper-quartet-c18f0e-c19010.md](notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md).
 
 ### `0x1E 08 = SET_CHARACTER_LEVEL`
 
@@ -201,7 +201,7 @@ That mapping is still parser-order-backed more than field-named locally, but the
 - the early `0x00..0x07` block forms four consistent paired helper families
 - those early helpers support explicit target ids and wildcard `0x00FF` active-party loops
 - `C1:6A01`, `C1:744B`, and `C1:7523..76A7` belong to `0x1E`, not `0x1D`
-- the stat-boost block really does add one-byte values into the `9A25..9A29` character-record region before handing off to bank `C2`; see [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md) for the current structural map of that refresh layer
+- the stat-boost block really does add one-byte values into the `9A25..9A29` character-record region before handing off to bank `C2`; see [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md) for the current structural map of that refresh layer
 - the five late leaves are now cross-validated better than before:
   - `0x0A -> C1:7523` updates `$9A28` and calls `C2:1D7D`, consistent with `BOOST_IQ`
   - `0x0B -> C1:7584` updates `$9A26` and calls `C2:1BA4`, consistent with `BOOST_GUTS`

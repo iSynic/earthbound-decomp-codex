@@ -2,9 +2,9 @@
 
 This note captures the strongest current local model for the late `D5:7B68` prayer-result ladder at `C2:C572..C2:C6F0`.
 
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
-See also [class2-special-event-results-c29298-c2c14e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-special-event-results-c29298-c2c14e.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-special-event-results-c29298-c2c14e.md](notes/class2-special-event-results-c29298-c2c14e.md).
 
 ## Working Names
 

@@ -1,8 +1,8 @@
-# Short-Text Staging Buffer `$9C9F`
+﻿# Short-Text Staging Buffer `$9C9F`
 
 This note captures the current best local model for WRAM buffer `$9C9F` in the bank-`01` text and menu side.
 
-See also [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md), [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md), [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md), and [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md).
+See also [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md), [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md), [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md), and [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md).
 
 ## Main result
 
@@ -34,7 +34,7 @@ Common structure:
 
 The two common builder-side families visible from these paths are:
 
-- [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md), the broader live text-entry allocator/installer
+- [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md), the broader live text-entry allocator/installer
 - `C1:0EFC` plus nearby menu/display helpers, especially in the equipment preview side
 
 So the clean local model is that item/equipment paths reuse `$9C9F` as a short-text work area rather than materializing stable selector buffers directly.

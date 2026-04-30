@@ -2,8 +2,8 @@
 
 This note captures the current best local model for the bank-`01` level-up and stat-gain narration family that repeatedly uses `C1:ACA1` and `C1:AD0A` before dispatching fixed `EF:7A66..7B46` battle-text scripts.
 
-See also [battle-text-context-buffer-family-c1ac4a-ad42.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
-See also [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md).
+See also [battle-text-context-buffer-family-c1ac4a-ad42.md](notes/battle-text-context-buffer-family-c1ac4a-ad42.md).
+See also [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md).
 
 ## Main result
 

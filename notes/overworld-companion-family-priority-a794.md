@@ -1,10 +1,10 @@
-# Overworld Companion Family Priority (`C0:1CA8`, `C0:A4C4`, `C0:A794`, `C0:A6E3`)
+﻿# Overworld Companion Family Priority (`C0:1CA8`, `C0:A4C4`, `C0:A794`, `C0:A6E3`)
 
 This note is a focused follow-up on the companion visual/entity family behind the observed `40xx/41xx/42xx` VRAM destinations during overworld walking.
 
-See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
-See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
+See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
 
 ## Working Names
 
@@ -211,7 +211,7 @@ That would be a real `A794`-side identity check, not the weaker timer-only short
 
 ### Why not jump to that patch immediately
 
-The broader timing work in [overworld-timing-scroll-commit-slice-c08b20-c08284.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md) weakened both the missed-movement-update and missed-publish theories.
+The broader timing work in [overworld-timing-scroll-commit-slice-c08b20-c08284.md](notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md) weakened both the missed-movement-update and missed-publish theories.
 
 So the companion family still looks real, but the remaining hitch now looks more like aggregate presentation workload than one obviously redundant rerun.
 

@@ -2,10 +2,10 @@
 
 This note captures the strongest current local model for the special none-target result slice around `C2:9298`, `C2:92EE`, and `C2:C14E`.
 
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
-See also [class2-d57b68-early-entry-name-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-early-entry-name-crosswalk.md).
-See also [class2-late-normalization-and-odor-family-c29051-c29254.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
-See also [class2-final-prayer-family-c2c572-c2c6f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-final-prayer-family-c2c572-c2c6f0.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early-entry-name-crosswalk.md).
+See also [class2-late-normalization-and-odor-family-c29051-c29254.md](notes/class2-late-normalization-and-odor-family-c29051-c29254.md).
+See also [class2-final-prayer-family-c2c572-c2c6f0.md](notes/class2-final-prayer-family-c2c572-c2c6f0.md).
 
 ## Working Names
 

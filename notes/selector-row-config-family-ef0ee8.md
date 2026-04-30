@@ -1,10 +1,10 @@
-# Selector-Row Config Family (`EF:0EE8` / `D5:F645` / `C21628`)
+﻿# Selector-Row Config Family (`EF:0EE8` / `D5:F645` / `C21628`)
 
 This note records the corrected current read for the far setup family that feeds `0A38 -> 0E5E -> 2C22`.
 
-See also [selector-row-zero-caveat.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-zero-caveat.md).
-See also [visual-selector-family-c0780f-c3f2b5.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-selector-family-c0780f-c3f2b5.md).
-See also [delivery-row-helpers-ef0e67-ef0ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/delivery-row-helpers-ef0e67-ef0ead.md).
+See also [selector-row-zero-caveat.md](notes/selector-row-zero-caveat.md).
+See also [visual-selector-family-c0780f-c3f2b5.md](notes/visual-selector-family-c0780f-c3f2b5.md).
+See also [delivery-row-helpers-ef0e67-ef0ead.md](notes/delivery-row-helpers-ef0e67-ef0ead.md).
 
 ## Correction
 
@@ -110,7 +110,7 @@ The surrounding helpers make the table much less abstract:
 - `EF:0EAD` takes a 1-based row selector in `A`, stores `A-1` to `0A38`, loads record word `0`, and instantiates that sprite or a placeholder through `C01E49`
 - `EF:0EE8` scans all 10 rows by record word `1` and instantiates the first enabled row through `C01E49`
 
-See the focused helper note: [delivery-row-helpers-ef0e67-ef0ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/delivery-row-helpers-ef0e67-ef0ead.md).
+See the focused helper note: [delivery-row-helpers-ef0e67-ef0ead.md](notes/delivery-row-helpers-ef0e67-ef0ead.md).
 
 ## Service-family interpretation
 

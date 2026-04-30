@@ -1,10 +1,10 @@
-# `1F D0` Try-Fix-Item Callback Family
+﻿# `1F D0` Try-Fix-Item Callback Family
 
 This note captures the current local picture of the `0x1F D0` bank-`01` callback branch.
 
-See also [timed-event-callback-family-bank01.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-family-bank01.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
-See also [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md).
+See also [timed-event-callback-family-bank01.md](notes/timed-event-callback-family-bank01.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
+See also [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md).
 
 ## Main result
 

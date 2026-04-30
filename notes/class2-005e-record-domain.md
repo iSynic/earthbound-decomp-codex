@@ -1,10 +1,10 @@
-# Class2 005E Record Domain
+﻿# Class2 005E Record Domain
 
 This note captures the current ROM-first model for the structure family reached when bank `C2` maps `9F8C` entries through `C0:8FF7` with selector `#$005E`.
 
 See also `notes/class2-d59589-enemy-data-crosswalk.md`.
 See also `notes/class2-record-consumer-families.md`.
-See also [class2-battle-start-extra-message-state-4dbc-aa10.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
+See also [class2-battle-start-extra-message-state-4dbc-aa10.md](notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
 
 ## Current strongest claim
 

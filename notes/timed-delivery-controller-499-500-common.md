@@ -1,11 +1,11 @@
-# Timed Delivery Controller (`499+500_common`)
+﻿# Timed Delivery Controller (`499+500_common`)
 
-This note summarizes the current local read of the shared service-event script at [499+500_common.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm).
+This note summarizes the current local read of the shared service-event script at [499+500_common.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm).
 
-See also [delivery-row-helpers-ef0e67-ef0ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/delivery-row-helpers-ef0e67-ef0ead.md).
-See also [selector-row-config-family-ef0ee8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-config-family-ef0ee8.md).
-See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
-See also [timed-delivery-row-index-command-1f-d3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-row-index-command-1f-d3.md).
+See also [delivery-row-helpers-ef0e67-ef0ead.md](notes/delivery-row-helpers-ef0e67-ef0ead.md).
+See also [selector-row-config-family-ef0ee8.md](notes/selector-row-config-family-ef0ee8.md).
+See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
+See also [timed-delivery-row-index-command-1f-d3.md](notes/timed-delivery-row-index-command-1f-d3.md).
 
 ## Main result
 
@@ -24,7 +24,7 @@ The broad shape is:
 
 ## Entry-side setup
 
-The wrapper script [499.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499.asm) calls `EVENT_UNKNOWN_EF0D46` during setup.
+The wrapper script [499.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499.asm) calls `EVENT_UNKNOWN_EF0D46` during setup.
 
 That helper seeds the per-row countdown from `D5:F645` record word `4`, so the row-specific `delivery_time` is part of the controller from the start.
 
@@ -115,7 +115,7 @@ So the trailing table pair still reads best as:
 
 ## Data-side cross-check
 
-The third reference project at [timed_delivery_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/timed_delivery_table.yml) lines up well with the local controller picture.
+The third reference project at [timed_delivery_table.yml](refs/eb-decompile-4ef92/timed_delivery_table.yml) lines up well with the local controller picture.
 
 Its exposed fields already match:
 

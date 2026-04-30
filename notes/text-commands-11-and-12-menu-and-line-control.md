@@ -1,9 +1,9 @@
-# Text Commands `0x11` and `0x12` as Single Menu/Line Control Opcodes
+﻿# Text Commands `0x11` and `0x12` as Single Menu/Line Control Opcodes
 
 This note captures the current best local read of script bytes `0x11` and `0x12`.
 
-See also [text-commands-13-and-14-halt-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-13-and-14-halt-control.md).
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md).
+See also [text-commands-13-and-14-halt-control.md](notes/text-commands-13-and-14-halt-control.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md).
 
 ## Main result
 

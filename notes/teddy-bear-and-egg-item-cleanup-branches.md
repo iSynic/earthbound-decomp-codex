@@ -1,6 +1,6 @@
-# Teddy Bear and Egg Item Cleanup Branches
+﻿# Teddy Bear and Egg Item Cleanup Branches
 
-These are the two item-sensitive cleanup branches reached from [inventory-slot-removal-helper-c18c27.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md).
+These are the two item-sensitive cleanup branches reached from [inventory-slot-removal-helper-c18c27.md](notes/inventory-slot-removal-helper-c18c27.md).
 
 ## Working Names
 

@@ -1,4 +1,4 @@
-# Item Record Byte `+0x19` (Packed Class And Equip Slot)
+﻿# Item Record Byte `+0x19` (Packed Class And Equip Slot)
 
 This note captures the current local picture of item-table byte `+0x19` in the `D5:5000` item records.
 
@@ -51,7 +51,7 @@ That path:
    - `0x08 -> $9A01`
    - `0x0C -> $9A02`
 
-So bits `2-3` behave like a four-way equipped-slot selector when the broad class says the item is equippable. The selected fields are now best modeled as inventory-slot reference bytes rather than direct item-id bytes; see [c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md).
+So bits `2-3` behave like a four-way equipped-slot selector when the broad class says the item is equippable. The selected fields are now best modeled as inventory-slot reference bytes rather than direct item-id bytes; see [c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md](notes/c3-inventory-equipped-slot-and-egg-refresh-helpers-e977-ebca.md).
 
 `C1:A82C` reinforces that same split: it also requires broad class `2` before continuing into compatibility and equipped-item checks.
 

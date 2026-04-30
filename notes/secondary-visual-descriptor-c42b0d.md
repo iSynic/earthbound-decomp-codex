@@ -1,12 +1,12 @@
-# Secondary Visual Descriptor (`DATA_C42B0D`)
+﻿# Secondary Visual Descriptor (`DATA_C42B0D`)
 
 This note captures the secondary descriptor family selected after the sprite-pose descriptor in the `C01E49` setup path.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [sprite-pose-descriptor-header-bytes-2-7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-header-bytes-2-7.md).
-See also [visual-frame-selector-update-family-c4-62ff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-frame-selector-update-family-c4-62ff.md).
-See also [child-entity-spawn-c4b3d0-c40de8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/child-entity-spawn-c4b3d0-c40de8.md).
-See also [secondary-visual-descriptor-contracts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/secondary-visual-descriptor-contracts.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [sprite-pose-descriptor-header-bytes-2-7.md](notes/sprite-pose-descriptor-header-bytes-2-7.md).
+See also [visual-frame-selector-update-family-c4-62ff.md](notes/visual-frame-selector-update-family-c4-62ff.md).
+See also [child-entity-spawn-c4b3d0-c40de8.md](notes/child-entity-spawn-c4b3d0-c40de8.md).
+See also [secondary-visual-descriptor-contracts.md](notes/secondary-visual-descriptor-contracts.md).
 
 ## Main result
 
@@ -136,7 +136,7 @@ That means the raw second byte visible in samples like `00,02,04,06` is effectiv
 
 The best current read is that these 5-byte entries are generic sprite-piece records.
 
-A useful cross-check comes from [entity_overlays.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/entity_overlays.asm), where the frame data uses the same practical shape:
+A useful cross-check comes from [entity_overlays.asm](refs/ebsrc-main/ebsrc-main/src/data/events/entity_overlays.asm), where the frame data uses the same practical shape:
 
 - relative Y byte
 - tile/attribute word
@@ -176,7 +176,7 @@ The current best combined bit map is:
 - bit `0` = tile-number high bit, regenerated from `DATA_C4303C`
 - bits `1-3` = still look palette-like or OAM-subattribute-like, but are not fully split yet
 
-The bit `6` read stays strong because paired second-pass entries often carry `#$40` where first-pass entries carry `#$00`, which matches [entity_overlays.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/entity_overlays.asm)'s `ORIENTATION::HORIZONTAL = $4000` usage.
+The bit `6` read stays strong because paired second-pass entries often carry `#$40` where first-pass entries carry `#$00`, which matches [entity_overlays.asm](refs/ebsrc-main/ebsrc-main/src/data/events/entity_overlays.asm)'s `ORIENTATION::HORIZONTAL = $4000` usage.
 
 Bit `7` is now better than a vague high-bit guess. The same reference file uses `ORIENTATION::VERTICAL = $8000`, and the local copier/draw path supports that read cleanly:
 

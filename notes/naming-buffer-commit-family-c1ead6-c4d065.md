@@ -1,8 +1,8 @@
-# Naming Buffer Commit Family `C1:EAD6..EBDD` / `C4:D065`
+﻿# Naming Buffer Commit Family `C1:EAD6..EBDD` / `C4:D065`
 
 This note captures the first clean local write-side bridge into the fixed-width selector buffers behind `0x19 28`.
 
-See also [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md), [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md), and [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md).
+See also [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md), [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md), and [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md).
 
 ## Main result
 
@@ -92,7 +92,7 @@ That is why the nearby `C4:41B7 / C4:40B5` helpers now read better as downstream
 
 - the exact human-facing meaning of the `C4:D065` remap, beyond "naming-side normalization"
 - whether non-naming ordinary script flows also materialize `$9801` through some other upstream loader path
-- the exact global identity of `$9C9F` outside this naming/UI seam; [short-text-staging-buffer-9c9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/short-text-staging-buffer-9c9f.md) now captures the strongest current local read that it is reused as a broader short-text staging buffer, not a naming-only field
+- the exact global identity of `$9C9F` outside this naming/UI seam; [short-text-staging-buffer-9c9f.md](notes/short-text-staging-buffer-9c9f.md) now captures the strongest current local read that it is reused as a broader short-text staging buffer, not a naming-only field
 
 ## Best current interpretation
 

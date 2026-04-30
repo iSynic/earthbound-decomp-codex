@@ -1,10 +1,10 @@
-# Legacy Reference Findings
+﻿# Legacy Reference Findings
 
 This note records the useful, low-risk findings from the legacy EarthBound disassembly extracted under `refs/earthbound-disasm-legacy/`.
 
 ## Reference scope
 
-- Source archive: `C:/Users/Eric/Desktop/Earthbound Decomp.zip`
+- Source archive: `<local reference archive>`
 
 - Extracted copy: `refs/earthbound-disasm-legacy/Earthbound Decomp/`
 

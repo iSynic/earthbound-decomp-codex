@@ -1,10 +1,10 @@
-# Teleport Menu Wrapper `C1:BB71` and Teleport Executor `C1:BCAB`
+﻿# Teleport Menu Wrapper `C1:BB71` and Teleport Executor `C1:BCAB`
 
 This note covers the unknown include at `C1:BB71` and its immediate named neighbor at `C1:BCAB`.
 
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md).
-See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
-See also [teleport-mainloop-state-machines-c0e214-c0ebdf.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/teleport-mainloop-state-machines-c0e214-c0ebdf.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md).
+See also [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md).
+See also [teleport-mainloop-state-machines-c0e214-c0ebdf.md](notes/teleport-mainloop-state-machines-c0e214-c0ebdf.md).
 
 ## Main Result
 

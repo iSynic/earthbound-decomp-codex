@@ -1,10 +1,10 @@
-# Class2 Solidification Item Action C2A5EC A630
+﻿# Class2 Solidification Item Action C2A5EC A630
 
 This note captures the strongest current local model for the item-side action entry at `C2:A5EC`, which combines direct damage with a `STATUS_2::SOLIDIFIED` apply attempt through `C2:724A`.
 
-See also [class2-affliction-apply-helper-724a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-affliction-apply-helper-724a.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-d57b68-battle-action-table-match.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d57b68-battle-action-table-match.md).
+See also [class2-affliction-apply-helper-724a.md](notes/class2-affliction-apply-helper-724a.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-d57b68-battle-action-table-match.md](notes/class2-d57b68-battle-action-table-match.md).
 
 ## Working Names
 

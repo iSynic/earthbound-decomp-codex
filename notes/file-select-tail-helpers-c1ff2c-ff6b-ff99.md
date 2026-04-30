@@ -1,9 +1,9 @@
-# File Select Tail Helpers `C1:FF2C`, `C1:FF6B`, and `C1:FF99`
+﻿# File Select Tail Helpers `C1:FF2C`, `C1:FF6B`, and `C1:FF99`
 
 This note covers the remaining unknown includes after `intro/file_select_menu_loop.asm` and before the SRAM checksum/copy-protection routine.
 
-See also [overworld-entity-type-registry-9887-98a4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-entity-type-registry-9887-98a4.md).
-See also [file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md).
+See also [overworld-entity-type-registry-9887-98a4.md](notes/overworld-entity-type-registry-9887-98a4.md).
+See also [file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md](notes/file-select-action-copy-delete-menus-c1f07e-f14f-f2a8.md).
 
 ## Main Result
 

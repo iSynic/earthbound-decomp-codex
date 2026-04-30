@@ -1,9 +1,9 @@
-# Text Command `0x0E` as Parameterized Store-To-Argmem Opcode
+﻿# Text Command `0x0E` as Parameterized Store-To-Argmem Opcode
 
 This note captures the current best local read of script byte `0x0E`.
 
-See also [text-command-0f-parameterized-workmem-increment.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-0f-parameterized-workmem-increment.md).
-See also [text-commands-11-and-12-menu-and-line-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-11-and-12-menu-and-line-control.md).
+See also [text-command-0f-parameterized-workmem-increment.md](notes/text-command-0f-parameterized-workmem-increment.md).
+See also [text-commands-11-and-12-menu-and-line-control.md](notes/text-commands-11-and-12-menu-and-line-control.md).
 
 ## Main result
 

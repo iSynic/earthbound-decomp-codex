@@ -9,23 +9,25 @@ No ROM-derived payloads are checked in by this report.
 - assets/tables/gaps represented: `69`
 - source bytes represented: `131072`
 - contract families: `11`
-- missing payload metadata units: `5`
+- manifest-inferred payload units: `5`
+- contract-covered inferred payload units: `5`
+- unresolved missing payload metadata units: `0`
 
 ## Family Contracts
 
-| Family | Assets | Bytes | Missing metadata | Categories | Output recipes | Runtime contract |
-| --- | ---: | ---: | ---: | --- | --- | --- |
-| Text window skins and text palettes | 3 | 2447 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
-| Font data and glyph graphics | 11 | 12532 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `snes_4bpp_tiles_png` 5 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
-| Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
-| Intro, logo, title, and attract visuals | 24 | 35132 | 3 | `graphics` 23, `binary-asset` 1 | `earthbound_lzhal` 24, `raw` 24, `earthbound_lzhal_snes_palette_json` 8, `earthbound_lzhal_snes_palette_swatch_png` 8, `earthbound_lzhal_snes_4bpp_tiles_png` 7 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
-| Saved-coordinate landing display visuals | 3 | 1842 | 0 | `graphics` 3 | `earthbound_lzhal` 3, `raw` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle. |
-| Ending cast-name visuals | 4 | 3655 | 1 | `graphics` 3, `raw-table` 1 | `raw` 4, `earthbound_lzhal` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 2, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:E369 loads E1:D6E1, E1:D815, E1:D835, and E1:E4E6 into the ending cast-name display path. |
-| Flyover, credits, cast, and photographer tables | 9 | 10523 | 0 | `raw-table` 7, `graphics` 2 | `raw` 9, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
-| Compressed SRAM save-block template | 1 | 2469 | 1 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records; EF save helpers use blocks 0/1, 2/3, and 4/5 as three primary/backup user save-slot pairs, while blocks 6/7 are preserved reserve template records outside the retail slot loops. |
-| Embedded audio pack tails | 3 | 7457 | 0 | `audio` 3 | `raw` 3 | E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family. |
-| Unresolved UI-adjacent binary payloads | 0 | 0 | 0 | - | - | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
-| Bank-end padding and raw gaps | 2 | 91 | 0 | `raw-gap` 2 | `raw` 2 | Bank-end raw gaps are byte-protected scaffold/padding ranges, not active UI contracts. |
+| Family | Assets | Bytes | Inferred payloads | Contract-covered | Unresolved metadata | Categories | Output recipes | Runtime contract |
+| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
+| Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
+| Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `snes_4bpp_tiles_png` 5 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
+| Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | 0 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
+| Intro, logo, title, and attract visuals | 24 | 35132 | 3 | 3 | 0 | `graphics` 23, `binary-asset` 1 | `earthbound_lzhal` 24, `raw` 24, `earthbound_lzhal_snes_palette_json` 8, `earthbound_lzhal_snes_palette_swatch_png` 8, `earthbound_lzhal_snes_4bpp_tiles_png` 7 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
+| Saved-coordinate landing display visuals | 3 | 1842 | 0 | 0 | 0 | `graphics` 3 | `earthbound_lzhal` 3, `raw` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle. |
+| Ending cast-name visuals | 4 | 3655 | 1 | 1 | 0 | `graphics` 3, `raw-table` 1 | `raw` 4, `earthbound_lzhal` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 2, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:E369 loads E1:D6E1, E1:D815, E1:D835, and E1:E4E6 into the ending cast-name display path. |
+| Flyover, credits, cast, and photographer tables | 9 | 10523 | 0 | 0 | 0 | `raw-table` 7, `graphics` 2 | `raw` 9, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
+| Compressed SRAM save-block template | 1 | 2469 | 1 | 1 | 0 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records; EF save helpers use blocks 0/1, 2/3, and 4/5 as three primary/backup user save-slot pairs, while blocks 6/7 are preserved reserve template records outside the retail slot loops. |
+| Embedded audio pack tails | 3 | 7457 | 0 | 0 | 0 | `audio` 3 | `raw` 3 | E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family. |
+| Unresolved UI-adjacent binary payloads | 0 | 0 | 0 | 0 | 0 | - | - | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
+| Bank-end padding and raw gaps | 2 | 91 | 0 | 0 | 0 | `raw-gap` 2 | `raw` 2 | Bank-end raw gaps are byte-protected scaffold/padding ranges, not active UI contracts. |
 
 ## Known Runtime Shapes
 
@@ -152,7 +154,7 @@ No ROM-derived payloads are checked in by this report.
 | `asset.e1.nintendo_presentation_arrangement` | `E1:AD01..E1:AD4E` | 77 | `raw`, `earthbound_lzhal` | - |
 | `asset.e1.nintendo_presentation_graphics` | `E1:AD4E..E1:AE6F` | 289 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e1.nintendo_itoi_palette` | `E1:AE6F..E1:AE7C` | 13 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_palette_json`, `earthbound_lzhal_snes_palette_swatch_png` | - |
-| `asset.e1.unknown_e1ae7c` | `E1:AE7C..E1:AF7D` | 257 | `raw`, `earthbound_lzhal` | 3 missing yml metadata unit(s) |
+| `asset.e1.unknown_e1ae7c` | `E1:AE7C..E1:AF7D` | 257 | `raw`, `earthbound_lzhal` | 3 manifest-inferred payload unit(s), contract-covered |
 | `asset.e1.title_screen_arrangement` | `E1:AF7D..E1:B211` | 660 | `raw`, `earthbound_lzhal` | - |
 | `asset.e1.title_screen_graphics` | `E1:B211..E1:C6E5` | 5332 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e1.unknown_e1c6e5` | `E1:C6E5..E1:CDE1` | 1788 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
@@ -176,7 +178,7 @@ No ROM-derived payloads are checked in by this report.
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
-| `asset.e1.unknown_e1d6e1` | `E1:D6E1..E1:D815` | 308 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | 1 missing yml metadata unit(s) |
+| `asset.e1.unknown_e1d6e1` | `E1:D6E1..E1:D815` | 308 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | 1 manifest-inferred payload unit(s), contract-covered |
 | `asset.e1.cast_names_gfx` | `E1:D835..E1:E4E6` | 3249 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e1.unknown_e1e4e6` | `E1:E4E6..E1:E528` | 66 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_palette_json`, `earthbound_lzhal_snes_palette_swatch_png` | - |
 | `table.e1.046_data_unknown_e1d815_asm` | `E1:D815..E1:D835` | 32 | `raw` | raw-table |
@@ -205,7 +207,7 @@ No ROM-derived payloads are checked in by this report.
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
-| `asset.e0.compressed_sram` | `E0:09B4..E0:1359` | 2469 | `raw`, `earthbound_lzhal` | 1 missing yml metadata unit(s) |
+| `asset.e0.compressed_sram` | `E0:09B4..E0:1359` | 2469 | `raw`, `earthbound_lzhal` | 1 manifest-inferred payload unit(s), contract-covered |
 
 ### Embedded audio pack tails
 
@@ -238,5 +240,5 @@ No ROM-derived payloads are checked in by this report.
 ## Next Open Questions
 
 - Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.
-- Confirm whether SRAM template blocks 6 and 7 have any non-retail, prototype, or tool-facing use before treating them as generated reserve records.
+- Treat SRAM template blocks 6 and 7 as contract-covered reserve template records for this phase; only rename them if future prototype/tool evidence proves a narrower owner.
 - Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.

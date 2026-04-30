@@ -1,4 +1,4 @@
-# Equipment Preview And Derived-State Cluster
+﻿# Equipment Preview And Derived-State Cluster
 
 This note is a consolidation pass over the now-stable equipment slot / preview / comparison / derived-stat family.
 
@@ -6,11 +6,11 @@ It does not replace the focused notes. It gives a single top-level map of how th
 
 Focused notes:
 
-- [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md)
-- [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md)
-- [equipped-item-derived-cache-family-c21857-c21e03.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-derived-cache-family-c21857-c21e03.md)
-- [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md)
-- [equipment-comparison-markers-9a1d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-comparison-markers-9a1d.md)
+- [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md)
+- [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md)
+- [equipped-item-derived-cache-family-c21857-c21e03.md](notes/equipped-item-derived-cache-family-c21857-c21e03.md)
+- [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md)
+- [equipment-comparison-markers-9a1d.md](notes/equipment-comparison-markers-9a1d.md)
 
 ## At a glance
 

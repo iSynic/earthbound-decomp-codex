@@ -1,8 +1,8 @@
-# Text Command `0x02` as End-Block Opcode
+﻿# Text Command `0x02` as End-Block Opcode
 
 This note captures the current best local read of script byte `0x02`.
 
-See also [text-command-03-halt-with-prompt.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-03-halt-with-prompt.md).
+See also [text-command-03-halt-with-prompt.md](notes/text-command-03-halt-with-prompt.md).
 
 ## Main result
 

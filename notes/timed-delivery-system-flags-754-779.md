@@ -1,10 +1,10 @@
-# Timed Delivery System Flags `754` / `779`
+﻿# Timed Delivery System Flags `754` / `779`
 
 This note records the best current read for the shared system-side flags and scripts that sit next to the timed-delivery rows.
 
-See also [timed-delivery-warning-text-gates.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-warning-text-gates.md).
-See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
-See also [timed-delivery-row-index-command-1f-d3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-row-index-command-1f-d3.md).
+See also [timed-delivery-warning-text-gates.md](notes/timed-delivery-warning-text-gates.md).
+See also [timed-delivery-state-helpers-ef0f60-fdb-ff6.md](notes/timed-delivery-state-helpers-ef0f60-fdb-ff6.md).
+See also [timed-delivery-row-index-command-1f-d3.md](notes/timed-delivery-row-index-command-1f-d3.md).
 
 ## Main result
 
@@ -49,7 +49,7 @@ That wider reuse fits the reference name `FLG_SYS_DISTLPT` much better than a na
 
 ## `EVENT_754`
 
-The dedicated script [754.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/754.asm) is also revealing.
+The dedicated script [754.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/754.asm) is also revealing.
 
 It is not a text script. It is a small movement/staging controller that:
 
@@ -62,7 +62,7 @@ So `EVENT_754` looks like a live script-side controller attached to this broader
 
 ## `EVENT_779`
 
-The companion script [779.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/779.asm) is much smaller:
+The companion script [779.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/779.asm) is much smaller:
 
 - sets a physics callback
 - zeroes velocity

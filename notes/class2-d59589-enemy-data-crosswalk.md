@@ -1,9 +1,9 @@
-# Class2 D59589 Enemy Data Crosswalk
+﻿# Class2 D59589 Enemy Data Crosswalk
 
 This note captures the strongest current crosswalk between our local `D5:9589` record family and the `ebsrc` enemy configuration data.
 
-See also [class2-005e-record-domain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-005e-record-domain.md).
-See also [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md).
+See also [class2-005e-record-domain.md](notes/class2-005e-record-domain.md).
+See also [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md).
 
 ## Main result
 
@@ -19,7 +19,7 @@ That is much stronger than a loose naming similarity.
 
 ## Local name check
 
-Using [extract_ebtext.py](/F:/Earthbound%20Decomp%20-%20Codex/tools/extract_ebtext.py) on the local ROM:
+Using [extract_ebtext.py](tools/extract_ebtext.py) on the local ROM:
 
 - `D5:958A` -> `null`
 - `D5:95E8` -> `Insane Cultist`
@@ -100,4 +100,4 @@ That change is not just from field names in the reference. The `ebsrc` battle fl
 
 This strengthens the idea that the local `C1`/`C2`/`C3` name, article, and row-formatting work is part of the same enemy battle text pipeline rather than a separate formatting subsystem.
 
-See also [class2-enemy-text-pointer-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-enemy-text-pointer-consumers.md).
+See also [class2-enemy-text-pointer-consumers.md](notes/class2-enemy-text-pointer-consumers.md).

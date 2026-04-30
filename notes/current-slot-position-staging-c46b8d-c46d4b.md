@@ -1,14 +1,14 @@
-# Current-Slot Position Staging (`C4:6B8D..C4:6D4B`)
+﻿# Current-Slot Position Staging (`C4:6B8D..C4:6D4B`)
 
 This pass closes the dense position-helper strip between the direction octant helpers and the movement target/vector layer.
 It also names the two immediately adjacent text/deferred-record helpers at `C4:6E46` and `C4:6E4F`, because ebsrc's event macro file gives them useful corroborating context.
 
 See also:
 
-- [direction-octant-normalizers-c46a5e-c46b51.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/direction-octant-normalizers-c46a5e-c46b51.md)
-- [entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md)
-- [movement-target-bounds-and-vector-refresh-c46ef8-c47369.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md)
-- [actionscript-wrapper-strip-c0a841-c0aafd.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/actionscript-wrapper-strip-c0a841-c0aafd.md)
+- [direction-octant-normalizers-c46a5e-c46b51.md](notes/direction-octant-normalizers-c46a5e-c46b51.md)
+- [entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md](notes/entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md)
+- [movement-target-bounds-and-vector-refresh-c46ef8-c47369.md](notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md)
+- [actionscript-wrapper-strip-c0a841-c0aafd.md](notes/actionscript-wrapper-strip-c0a841-c0aafd.md)
 
 ## Main result
 

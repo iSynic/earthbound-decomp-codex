@@ -19,7 +19,7 @@
 C0ABC6_StopMusicAndLatchNoTrack:
     sep #$20
     lda.b #$00
-    sta $002140
+    sta.l $002140
     rep #$30
 C0ABD0_StopMusicAndLatchNoTrack_LABD0:
     jsl $C0AC20

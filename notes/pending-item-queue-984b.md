@@ -1,4 +1,4 @@
-# Pending Item Queue `$984B`
+﻿# Pending Item Queue `$984B`
 
 `$984B` is best read as a packed pending-item queue, not just a small anonymous shop-state block.
 
@@ -50,7 +50,7 @@ That is a straight packed-queue removal/compaction pattern.
 
 ### `C1:91F8`
 
-`C1:91F8` wraps `C1:91B0`, then forwards the removed byte into `C1:8BC6`. That now reads much more specifically as queue-to-inventory transfer: `C1:8BC6` is the insertion-side mirror of `C1:8C27`, placing the removed item id into the first empty slot of the selected character inventory; see [inventory-slot-insertion-helper-c18bc6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-insertion-helper-c18bc6.md).
+`C1:91F8` wraps `C1:91B0`, then forwards the removed byte into `C1:8BC6`. That now reads much more specifically as queue-to-inventory transfer: `C1:8BC6` is the insertion-side mirror of `C1:8C27`, placing the removed item id into the first empty slot of the selected character inventory; see [inventory-slot-insertion-helper-c18bc6.md](notes/inventory-slot-insertion-helper-c18bc6.md).
 
 ## Best current read
 

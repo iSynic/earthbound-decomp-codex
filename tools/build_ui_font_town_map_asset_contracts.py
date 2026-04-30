@@ -209,12 +209,13 @@ def asset_summary(asset: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(source, dict):
         source = {}
     notes = notes_text(asset)
-    missing_payload_metadata_units = 0
+    manifest_inferred_payload_units = 0
     asset_id = str(asset.get("id", "")).lower()
     if "yml metadata was missing" in notes.lower():
-        missing_payload_metadata_units = 1
+        manifest_inferred_payload_units = 1
     if asset_id == "asset.e1.unknown_e1ae7c":
-        missing_payload_metadata_units = 3
+        manifest_inferred_payload_units = 3
+    contract_covered_inferred_payload_units = manifest_inferred_payload_units
     return {
         "id": asset.get("id"),
         "title": asset.get("title"),
@@ -224,7 +225,11 @@ def asset_summary(asset: dict[str, Any]) -> dict[str, Any]:
         "bytes": int(source.get("bytes", 0) or 0),
         "output_kinds": output_kinds(asset),
         "manifest_path": asset.get("manifest_path"),
-        "missing_payload_metadata_units": missing_payload_metadata_units,
+        "manifest_inferred_payload_units": manifest_inferred_payload_units,
+        "contract_covered_inferred_payload_units": contract_covered_inferred_payload_units,
+        "unresolved_missing_payload_metadata_units": max(
+            0, manifest_inferred_payload_units - contract_covered_inferred_payload_units
+        ),
         "notes": asset.get("notes", []),
     }
 
@@ -253,8 +258,14 @@ def build_contract() -> dict[str, Any]:
                 "docs": [doc for doc in family["docs"] if (ROOT / doc).exists()],
                 "asset_count": len(family_assets),
                 "bytes": sum(int(asset["bytes"]) for asset in family_assets),
-                "missing_payload_metadata_units": sum(
-                    int(asset["missing_payload_metadata_units"]) for asset in family_assets
+                "manifest_inferred_payload_units": sum(
+                    int(asset["manifest_inferred_payload_units"]) for asset in family_assets
+                ),
+                "contract_covered_inferred_payload_units": sum(
+                    int(asset["contract_covered_inferred_payload_units"]) for asset in family_assets
+                ),
+                "unresolved_missing_payload_metadata_units": sum(
+                    int(asset["unresolved_missing_payload_metadata_units"]) for asset in family_assets
                 ),
                 "category_counts": dict(sorted(category_counts.items())),
                 "output_kind_counts": dict(sorted(output_counts.items())),
@@ -272,7 +283,15 @@ def build_contract() -> dict[str, Any]:
         "totals": {
             "assets": len(assets),
             "bytes": sum(sum(int(asset["bytes"]) for asset in family["assets"]) for family in families),
-            "missing_payload_metadata_units": sum(int(family["missing_payload_metadata_units"]) for family in families),
+            "manifest_inferred_payload_units": sum(
+                int(family["manifest_inferred_payload_units"]) for family in families
+            ),
+            "contract_covered_inferred_payload_units": sum(
+                int(family["contract_covered_inferred_payload_units"]) for family in families
+            ),
+            "unresolved_missing_payload_metadata_units": sum(
+                int(family["unresolved_missing_payload_metadata_units"]) for family in families
+            ),
             "families": len(families),
         },
         "known_runtime_shapes": [
@@ -394,7 +413,7 @@ def build_contract() -> dict[str, Any]:
         "derived_town_map_tables": town_map_tables,
         "next_open_questions": [
             "Name the seven per-block text-window palette row roles beyond the known +$18 equipment/status row.",
-            "Confirm whether SRAM template blocks 6 and 7 have any non-retail, prototype, or tool-facing use before treating them as generated reserve records.",
+            "Treat SRAM template blocks 6 and 7 as contract-covered reserve template records for this phase; only rename them if future prototype/tool evidence proves a narrower owner.",
             "Pin C0:8CD5 control-byte bit 0 as a renderer priority/mask/attribute bit after following the final staging buffer consumer.",
         ],
     }
@@ -577,20 +596,24 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- assets/tables/gaps represented: `{totals['assets']}`",
         f"- source bytes represented: `{totals['bytes']}`",
         f"- contract families: `{totals['families']}`",
-        f"- missing payload metadata units: `{totals['missing_payload_metadata_units']}`",
+        f"- manifest-inferred payload units: `{totals['manifest_inferred_payload_units']}`",
+        f"- contract-covered inferred payload units: `{totals['contract_covered_inferred_payload_units']}`",
+        f"- unresolved missing payload metadata units: `{totals['unresolved_missing_payload_metadata_units']}`",
         "",
         "## Family Contracts",
         "",
-        "| Family | Assets | Bytes | Missing metadata | Categories | Output recipes | Runtime contract |",
-        "| --- | ---: | ---: | ---: | --- | --- | --- |",
+        "| Family | Assets | Bytes | Inferred payloads | Contract-covered | Unresolved metadata | Categories | Output recipes | Runtime contract |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |",
     ]
     for family in contract["families"]:
         lines.append(
-            "| {label} | {assets} | {bytes} | {missing} | {categories} | {outputs} | {runtime} |".format(
+            "| {label} | {assets} | {bytes} | {inferred} | {covered} | {unresolved} | {categories} | {outputs} | {runtime} |".format(
                 label=family["label"],
                 assets=family["asset_count"],
                 bytes=family["bytes"],
-                missing=family["missing_payload_metadata_units"],
+                inferred=family["manifest_inferred_payload_units"],
+                covered=family["contract_covered_inferred_payload_units"],
+                unresolved=family["unresolved_missing_payload_metadata_units"],
                 categories=compact_counts(family["category_counts"]),
                 outputs=compact_counts(family["output_kind_counts"]),
                 runtime=family["runtime_contract"],
@@ -662,8 +685,10 @@ def render_markdown(contract: dict[str, Any]) -> str:
         lines.append("| --- | --- | ---: | --- | --- |")
         for asset in family["assets"]:
             notes = []
-            if asset["missing_payload_metadata_units"]:
-                notes.append(f"{asset['missing_payload_metadata_units']} missing yml metadata unit(s)")
+            if asset["manifest_inferred_payload_units"]:
+                notes.append(
+                    f"{asset['manifest_inferred_payload_units']} manifest-inferred payload unit(s), contract-covered"
+                )
             if asset["category"] in {"raw-gap", "raw-table"}:
                 notes.append(str(asset["category"]))
             lines.append(
@@ -705,7 +730,7 @@ def main() -> int:
         "ui/font/town-map contracts: "
         f"{totals['assets']} assets, "
         f"{totals['families']} families, "
-        f"{totals['missing_payload_metadata_units']} missing metadata units"
+        f"{totals['unresolved_missing_payload_metadata_units']} unresolved missing metadata units"
     )
     return 0
 

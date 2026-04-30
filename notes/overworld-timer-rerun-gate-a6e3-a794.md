@@ -1,9 +1,9 @@
-# Overworld Timer Rerun Gate (`C0:A6E3..A753`, `C0:A794`)
+﻿# Overworld Timer Rerun Gate (`C0:A6E3..A753`, `C0:A794`)
 
 This note captures the safest current patch experiment for the remaining overworld walking microstutter after the strip-dedupe patch.
 
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
-See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
 
 ## Main result
 

@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 from collections import Counter
 from pathlib import Path
@@ -18,7 +19,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE_DIR = ROOT / "refs" / "earthbound-script-source-1995-03-25"
-DEFAULT_ZIP = Path("C:/Users/Eric/Downloads/EarthBound_Script_Source_1995-03-25.zip")
+DEFAULT_ZIP = Path(os.environ.get("EARTHBOUND_SCRIPT_SOURCE_ZIP", ROOT / "refs" / "EarthBound_Script_Source_1995-03-25.zip"))
 DEFAULT_JSON = ROOT / "build" / "localization-script-source-index.json"
 DEFAULT_NOTE = ROOT / "notes" / "localization-script-source-index.md"
 

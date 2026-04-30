@@ -1,10 +1,10 @@
-# Overlay Init Descriptor Fields
+﻿# Overlay Init Descriptor Fields
 
 This note captures the current best local field map for the visual-state write path that seeds `2A06`, `2A42`, `2A7E`, `2ABA`, `29CA`, and `2CD6`.
 
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
-See also [mushroomized-overlay-gate-words.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-gate-words.md).
-See also [mushroomized-overlay-animation-scripts.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/mushroomized-overlay-animation-scripts.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [mushroomized-overlay-gate-words.md](notes/mushroomized-overlay-gate-words.md).
+See also [mushroomized-overlay-animation-scripts.md](notes/mushroomized-overlay-animation-scripts.md).
 
 ## Main correction
 

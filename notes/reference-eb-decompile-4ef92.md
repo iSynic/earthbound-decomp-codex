@@ -1,8 +1,8 @@
-# Reference: `eb-decompile_4ef92`
+﻿# Reference: `eb-decompile_4ef92`
 
 Extracted at:
 
-- [refs/eb-decompile-4ef92](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92)
+- [refs/eb-decompile-4ef92](refs/eb-decompile-4ef92)
 
 ## What it is
 
@@ -23,12 +23,12 @@ This project is immediately helpful for table and asset work.
 
 Representative examples:
 
-- [timed_delivery_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/timed_delivery_table.yml)
-- [battle_action_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/battle_action_table.yml)
-- [enemy_configuration_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/enemy_configuration_table.yml)
-- [npc_config_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/npc_config_table.yml)
-- [ccscript/main.ccs](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/ccscript/main.ccs)
-- [Project.snake](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/Project.snake)
+- [timed_delivery_table.yml](refs/eb-decompile-4ef92/timed_delivery_table.yml)
+- [battle_action_table.yml](refs/eb-decompile-4ef92/battle_action_table.yml)
+- [enemy_configuration_table.yml](refs/eb-decompile-4ef92/enemy_configuration_table.yml)
+- [npc_config_table.yml](refs/eb-decompile-4ef92/npc_config_table.yml)
+- [ccscript/main.ccs](refs/eb-decompile-4ef92/ccscript/main.ccs)
+- [Project.snake](refs/eb-decompile-4ef92/Project.snake)
 
 For the delivery-table work in particular, `timed_delivery_table.yml` already matches our corrected local read very well:
 

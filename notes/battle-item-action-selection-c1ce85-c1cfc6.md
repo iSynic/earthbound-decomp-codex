@@ -1,10 +1,10 @@
-# Battle Item Action Selection `C1:CE85` and `C1:CFC6`
+﻿# Battle Item Action Selection `C1:CE85` and `C1:CFC6`
 
 This note covers the unknown includes at `C1:CE85` and `C1:CFC6`.
 
-See also [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md).
-See also [item-slot-helper-pair-c3e977-c3ee14.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-slot-helper-pair-c3e977-c3ee14.md).
-See also [item-psi-name-display-and-target-prompt-c19216-c19437.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-psi-name-display-and-target-prompt-c19216-c19437.md).
+See also [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md).
+See also [item-slot-helper-pair-c3e977-c3ee14.md](notes/item-slot-helper-pair-c3e977-c3ee14.md).
+See also [item-psi-name-display-and-target-prompt-c19216-c19437.md](notes/item-psi-name-display-and-target-prompt-c19216-c19437.md).
 
 ## Main Result
 

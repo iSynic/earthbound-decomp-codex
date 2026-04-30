@@ -1,10 +1,10 @@
-# Respawn / Warp Target Snapshot Helper `C2:30F3`
+﻿# Respawn / Warp Target Snapshot Helper `C2:30F3`
 
 This note captures the current best local model for the small bank-`C2` helper reached by text command `0x19 26`.
 
-See also [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md).
-See also [saved-coordinate-reload-path-c4c718-c0b967.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/saved-coordinate-reload-path-c4c718-c0b967.md).
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md).
+See also [saved-coordinate-reload-path-c4c718-c0b967.md](notes/saved-coordinate-reload-path-c4c718-c0b967.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
 
 ## Working Names
 
@@ -64,7 +64,7 @@ The strongest new local bridge is:
 - `C0:DD53` stages low byte `A -> $9F3F`
 - and stages caller direct-page byte `$1D -> $9F41`
 
-That means the saved byte is no longer just vaguely transition-adjacent. It is the direct source of the later staged destination selector `$9F3F`; see [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
+That means the saved byte is no longer just vaguely transition-adjacent. It is the direct source of the later staged destination selector `$9F3F`; see [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
 
 So the safest current read is now:
 
@@ -106,7 +106,7 @@ So the safest current wording is:
 - `C2:30F3` writes `$98B8`, `$9D1F`, and `$9D21`
 - `$9D1F / $9D21` are copied directly from `$9877 / $987B`
 - sibling code also reuses the same coordinate snapshot pair
-- `C4:C718` consumes `$9D1F / $9D21` together as saved world coordinates; see [saved-coordinate-reload-path-c4c718-c0b967.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/saved-coordinate-reload-path-c4c718-c0b967.md)
+- `C4:C718` consumes `$9D1F / $9D21` together as saved world coordinates; see [saved-coordinate-reload-path-c4c718-c0b967.md](notes/saved-coordinate-reload-path-c4c718-c0b967.md)
 - `C2:ABFB -> C0:DD53` later stages `$98B8` into `$9F3F`
 
 ### Reference-backed and locally consistent

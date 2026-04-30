@@ -1,10 +1,10 @@
-# Class2 CC19 1F Cross-Segment Reuse
+﻿# Class2 CC19 1F Cross-Segment Reuse
 
 This note captures the broader local reuse of text control code `0x19 0x1F` after the original UFO/present path was pinned.
 
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md).
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
-See also [class2-ufo-present-message-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-ufo-present-message-family.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
+See also [class2-ufo-present-message-family.md](notes/class2-ufo-present-message-family.md).
 
 ## Main result
 
@@ -20,7 +20,7 @@ So the semantic center of this command is the source slot, not any one specific 
 
 ## Scanner result
 
-Using [find_ebtext_sequence.py](/F:/Earthbound%20Decomp%20-%20Codex/tools/find_ebtext_sequence.py), the local ROM currently shows 57 `19 1F` hits inside `US/text_data` segments.
+Using [find_ebtext_sequence.py](tools/find_ebtext_sequence.py), the local ROM currently shows 57 `19 1F` hits inside `US/text_data` segments.
 
 The heaviest buckets are:
 
@@ -106,4 +106,4 @@ A quick follow-up scan of `0x19 0x20` found only one `US/text_data` hit, at `C9:
 
 So at the moment the sibling does not look like another broad battle-text feeder. It looks like a separate specialized helper, which actually makes the broad reuse of `0x19 0x1F` stand out even more clearly.
 
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).

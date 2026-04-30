@@ -1,9 +1,9 @@
-# Landing Display Control Words `$2BAA` And `$2E7A`
+﻿# Landing Display Control Words `$2BAA` And `$2E7A`
 
 This note captures the current best local read on the producer-side control words that steer the landing-display stream dispatcher.
 
-See also [landing-display-assembly-cluster-c007b6-c4b26b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
-See also [landing-display-profile-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-profile-overview.md).
+See also [landing-display-assembly-cluster-c007b6-c4b26b.md](notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
+See also [landing-display-profile-overview.md](notes/landing-display-profile-overview.md).
 
 ## Main result
 

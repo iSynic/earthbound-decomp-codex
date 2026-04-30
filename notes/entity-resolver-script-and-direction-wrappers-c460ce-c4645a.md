@@ -1,6 +1,6 @@
-# Entity Resolver Script And Direction Wrappers (`C4:60CE..C4:645A`)
+﻿# Entity Resolver Script And Direction Wrappers (`C4:60CE..C4:645A`)
 
-This note closes the helper band that sits between the resolver routines documented in [visual-frame-selector-update-family-c4-62ff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-frame-selector-update-family-c4-62ff.md) and the later entity initializer paths. The important local result is that this range is not a loose set of one-off helpers: it is a small adapter layer over three entity-slot lookup keys.
+This note closes the helper band that sits between the resolver routines documented in [visual-frame-selector-update-family-c4-62ff.md](notes/visual-frame-selector-update-family-c4-62ff.md) and the later entity initializer paths. The important local result is that this range is not a loose set of one-off helpers: it is a small adapter layer over three entity-slot lookup keys.
 
 ## Main result
 

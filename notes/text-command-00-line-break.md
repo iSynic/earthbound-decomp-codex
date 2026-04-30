@@ -1,9 +1,9 @@
-# Text Command `0x00` as Line-Break Opcode
+﻿# Text Command `0x00` as Line-Break Opcode
 
 This note captures the current best local read of script byte `0x00`.
 
-See also [text-command-01-start-new-line.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-01-start-new-line.md).
-See also [text-command-02-end-block.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-02-end-block.md).
+See also [text-command-01-start-new-line.md](notes/text-command-01-start-new-line.md).
+See also [text-command-02-end-block.md](notes/text-command-02-end-block.md).
 
 ## Main result
 

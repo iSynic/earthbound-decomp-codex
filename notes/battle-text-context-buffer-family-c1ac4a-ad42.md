@@ -1,13 +1,13 @@
-# Battle Text Context Buffer Family `C1:AC4A .. AD42`
+﻿# Battle Text Context Buffer Family `C1:AC4A .. AD42`
 
 This note captures the current best local model for the small bank-`01` helper cluster around `C1:AC4A`, `C1:ACA1`, `C1:ACF8`, `C1:AD0A`, `C1:AD26`, and `C1:AD42`.
 
-See also [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
-See also [interaction-result-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/interaction-result-consumers.md).
-See also [level-up-stat-gain-text-family-c1d15b-d76d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/level-up-stat-gain-text-family-c1d15b-d76d.md).
-See also [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md).
+See also [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
+See also [interaction-result-consumers.md](notes/interaction-result-consumers.md).
+See also [level-up-stat-gain-text-family-c1d15b-d76d.md](notes/level-up-stat-gain-text-family-c1d15b-d76d.md).
+See also [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md).
 
 ## Main result
 
@@ -79,7 +79,7 @@ This part stays simple and strong:
 - `C1:AD02` reads that byte back from `$9D11`
 - `C1:DD7C` is the far wrapper for the setter
 
-That is the same generic one-byte battle-text substitution slot already described in [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
+That is the same generic one-byte battle-text substitution slot already described in [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
 
 ## `C1:AD0A` and `C1:AD26` are the companion pointer substitution slot
 
@@ -99,12 +99,12 @@ And it matches the display-text siblings already mapped around `C1:7AE3` and `C1
 
 The direct callers line up well with the current battle-text model:
 
-- `C1:B2EC`, `C1:B86E`, `C1:DBF9`, and `C1:DD72` call `AC4A`, with the new [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md) note now covering the strongest ordinary battle-side `B2xx/B8xx` caller cluster
+- `C1:B2EC`, `C1:B86E`, `C1:DBF9`, and `C1:DD72` call `AC4A`, with the new [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md) note now covering the strongest ordinary battle-side `B2xx/B8xx` caller cluster
 - `C1:B339`, `C1:B450`, `C1:B88C`, `C1:B997`, `C1:D15B`, and `C1:DD78` call `ACA1`, with `B450/B88C/B997` now locally tied to the same battle choice-text family
 - `C1:D177`, `D204`, `D28C`, `D31B`, `D3A5`, `D48D`, `D575`, `D606`, `D695`, `D76D`, `DCA4`, `DD9A`, and `ED22` call `AD0A`
 - `C1:7AE3` and `C1:7EED` call `AD26`
 
-The important local pattern is that battle-side display helpers first refresh one or both live name buffers, then seed one-byte or pointer substitution state, then dispatch through the ordinary text-display path. The new [level-up-stat-gain-text-family-c1d15b-d76d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/level-up-stat-gain-text-family-c1d15b-d76d.md) note is now the cleanest ordinary runtime example of that pattern.
+The important local pattern is that battle-side display helpers first refresh one or both live name buffers, then seed one-byte or pointer substitution state, then dispatch through the ordinary text-display path. The new [level-up-stat-gain-text-family-c1d15b-d76d.md](notes/level-up-stat-gain-text-family-c1d15b-d76d.md) note is now the cleanest ordinary runtime example of that pattern.
 
 ## `C1:AD42` is not part of the battle-text side
 

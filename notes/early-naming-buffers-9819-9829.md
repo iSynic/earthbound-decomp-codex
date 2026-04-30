@@ -1,8 +1,8 @@
-# Early Naming Buffers `$9819` / `$981F` / `$9825` / `$9829`
+﻿# Early Naming Buffers `$9819` / `$981F` / `$9825` / `$9829`
 
 This note captures the current best local model for the early fixed-width selector buffers behind `0x19 28` selectors `3..5`.
 
-See also [statistic-selector-family-c4550f-c3ee7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/statistic-selector-family-c4550f-c3ee7a.md) and [naming-buffer-commit-family-c1ead6-c4d065.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/naming-buffer-commit-family-c1ead6-c4d065.md).
+See also [statistic-selector-family-c4550f-c3ee7a.md](notes/statistic-selector-family-c4550f-c3ee7a.md) and [naming-buffer-commit-family-c1ead6-c4d065.md](notes/naming-buffer-commit-family-c1ead6-c4d065.md).
 
 ## Main result
 

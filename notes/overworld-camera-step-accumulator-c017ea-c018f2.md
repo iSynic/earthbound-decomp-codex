@@ -1,9 +1,9 @@
-# Overworld Camera Step Accumulator (`C0:17EA..18F2`)
+﻿# Overworld Camera Step Accumulator (`C0:17EA..18F2`)
 
 This note isolates the routine that updates the live camera position before `C0:1558` republishes it into the scroll shadow chain.
 
-See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
 
 ## Main result
 

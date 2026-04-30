@@ -1,11 +1,11 @@
-# Class2 Concrete Battle Text Call Paths
+﻿# Class2 Concrete Battle Text Call Paths
 
 This note captures the first concrete local bridges between the enemy text-pointer call sites and the nearby battle-text context refresh family.
 
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
-See also [class2-enemy-text-pointer-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-enemy-text-pointer-consumers.md).
-See also [class2-reflected-hit-context-rebuild.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-context-rebuild.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).
+See also [class2-enemy-text-pointer-consumers.md](notes/class2-enemy-text-pointer-consumers.md).
+See also [class2-reflected-hit-context-rebuild.md](notes/class2-reflected-hit-context-rebuild.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
 
 ## Working Names
 

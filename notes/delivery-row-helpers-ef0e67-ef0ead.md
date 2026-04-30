@@ -1,9 +1,9 @@
-# Delivery Row Helpers (`EF:0CA7` / `EF:0D23` / `EF:0D46` / `EF:0D73` / `EF:0D8D` / `EF:0DFA` / `EF:0E67` / `EF:0E8A` / `EF:0EAD` / `EF:0EE8`)
+﻿# Delivery Row Helpers (`EF:0CA7` / `EF:0D23` / `EF:0D46` / `EF:0D73` / `EF:0D8D` / `EF:0DFA` / `EF:0E67` / `EF:0E8A` / `EF:0EAD` / `EF:0EE8`)
 
 This note captures the bank-`EF` helper family that makes the `D5:F645` delivery table readable in local control flow.
 
-See also [selector-row-config-family-ef0ee8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-config-family-ef0ee8.md).
-See also [post-transition-deferred-script-queue-c06b21-c06bff.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
+See also [selector-row-config-family-ef0ee8.md](notes/selector-row-config-family-ef0ee8.md).
+See also [post-transition-deferred-script-queue-c06b21-c06bff.md](notes/post-transition-deferred-script-queue-c06b21-c06bff.md).
 
 ## Main result
 
@@ -49,7 +49,7 @@ By itself that only proves the field is real. The script-side usage below is wha
 
 ## Why words `2` and `3` now look like retry-count and retry-wait fields
 
-The strongest evidence is the shared event script [499+500_common.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm).
+The strongest evidence is the shared event script [499+500_common.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm).
 
 Inside `UNKNOWN_C3443E` it does:
 
@@ -156,7 +156,7 @@ So it is the paired getter for record word `9`.
 
 The strongest evidence is behavioral, not just structural.
 
-In the `ebsrc` event script [499+500_common.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm):
+In the `ebsrc` event script [499+500_common.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm):
 
 - `EVENT_UNKNOWN_EF0E67` is used in the earlier arrival-side branch `UNKNOWN_C344DE`
 - `EVENT_UNKNOWN_EF0E8A` is used in the later departure-side branch `UNKNOWN_C344A8`
@@ -214,7 +214,7 @@ That means the delivery row is one source for the broader selector-row path, but
 
 ## Script anchor
 
-The shared event script [499+500_common.asm](/F:/Earthbound%20Decomp%20-%20Codex/refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm) is the strongest current runtime anchor for this family.
+The shared event script [499+500_common.asm](refs/ebsrc-main/ebsrc-main/src/data/events/scripts/499+500_common.asm) is the strongest current runtime anchor for this family.
 
 It uses:
 

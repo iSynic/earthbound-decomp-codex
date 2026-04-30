@@ -1,11 +1,11 @@
-# Class2 C1 DisplayText Substitution Handler 7AF3
+﻿# Class2 C1 DisplayText Substitution Handler 7AF3
 
 This note captures the current best local model for the `C1:7AF3` display-text handler that consumes the one-byte substitution slot at `$9D11`.
 
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
-See also [class2-battle-start-extra-message-state-4dbc-aa10.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
+See also [class2-battle-start-extra-message-state-4dbc-aa10.md](notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).
 
 ## Main result
 
@@ -205,7 +205,7 @@ A later pass tightened the neighboring byte-source sibling.
 
 So the current best read is that `7B0D` is still a generic loader mechanically, but its exposed script use is a narrow clinic-script helper rather than a broad battle-text source like `7AF3`.
 
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
 
 ## Update: `0x19 0x20` now has a stronger overworld clue
 
@@ -217,7 +217,7 @@ A later pass tightened the only observed script use of `C1:7B0D`.
 
 So the current best read is that `7B0D` is still a generic loader mechanically, but the only exposed text use is very likely reading an overworld mushroomized-state byte rather than a battle-text source like `7AF3`.
 
-See also [class2-cc19-20-eshop2-single-use.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-20-eshop2-single-use.md).
+See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-single-use.md).
 
 
 ## Update: `$98A4` now looks index-like

@@ -1,4 +1,4 @@
-# Offensive / Defensive Item Check `C1:7708`
+﻿# Offensive / Defensive Item Check `C1:7708`
 
 This note captures the current local role of the bank-`01` helper at `C1:7708`, which is the live leaf for `0x1D 23`.
 
@@ -41,7 +41,7 @@ So the helper is not doing a broad class check itself. It assumes the item byte 
 
 ## Relationship to item byte `+0x19`
 
-The shared field map in [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md) already showed that bits `2-3` of `+0x19` act like a four-way equipped-slot selector when the item is equippable. `C1:7708` now gives that field a second, simpler view:
+The shared field map in [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md) already showed that bits `2-3` of `+0x19` act like a four-way equipped-slot selector when the item is equippable. `C1:7708` now gives that field a second, simpler view:
 
 - subtype `0x00` = offensive branch
 - subtypes `0x04`, `0x08`, `0x0C` = non-offensive branch

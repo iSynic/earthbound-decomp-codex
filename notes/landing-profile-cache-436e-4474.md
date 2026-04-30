@@ -1,11 +1,11 @@
-# Landing Profile Cache `$436E / $4370 / $4372` and Sequencer `$445C..4474`
+﻿# Landing Profile Cache `$436E / $4370 / $4372` and Sequencer `$445C..4474`
 
 This note captures the current best local model for the cached landing-profile state that sits downstream of the destination override words `$438A / $438C`.
 
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [landing-destination-table-d57880.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-destination-table-d57880.md).
-See also [landing-profile-bundles-ef121b-43dc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-bundles-ef121b-43dc.md).
-See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [landing-destination-table-d57880.md](notes/landing-destination-table-d57880.md).
+See also [landing-profile-bundles-ef121b-43dc.md](notes/landing-profile-bundles-ef121b-43dc.md).
+See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
 
 ## Main result
 

@@ -1,4 +1,4 @@
-# Text Command Family `0x1D` (Inventory / Money / Checks)
+﻿# Text Command Family `0x1D` (Inventory / Money / Checks)
 
 This note captures the current local picture of the bank-`01` `0x1D` text-command family.
 
@@ -121,9 +121,9 @@ Corrected front-half leaf:
 
 - `0x02 CHECK_ITEM_BROAD_CLASS`
 
-The important correction is that `0x02` is no longer just a local mismatch candidate. Its live leaf at `C1:48AC` resolves the current item through `C1:03DC`, passes that item id into [item-category-classifier-c19ee6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-category-classifier-c19ee6.md), and compares the returned compact class code against the command argument. The shared field work in [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md) now makes the intended behavior pretty clean: `0x1D 02` is testing the broad class encoded in item byte `+0x19`, not checking inventory capacity. The community control-code docs also agree with the ROM here by describing `[1D 02 XX]` as an item-type check over four broad classes, so the old parser label `GET_PLAYER_HAS_INVENTORY_FULL` should now be treated as incorrect rather than merely suspicious.
+The important correction is that `0x02` is no longer just a local mismatch candidate. Its live leaf at `C1:48AC` resolves the current item through `C1:03DC`, passes that item id into [item-category-classifier-c19ee6.md](notes/item-category-classifier-c19ee6.md), and compares the returned compact class code against the command argument. The shared field work in [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md) now makes the intended behavior pretty clean: `0x1D 02` is testing the broad class encoded in item byte `+0x19`, not checking inventory capacity. The community control-code docs also agree with the ROM here by describing `[1D 02 XX]` as an item-type check over four broad classes, so the old parser label `GET_PLAYER_HAS_INVENTORY_FULL` should now be treated as incorrect rather than merely suspicious.
 
-`0x03` no longer needs that level of caution. Its real leaf is `C1:4CEE`, and that body routes straight into [party-inventory-room-search-c456e4-c4572b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-inventory-room-search-c456e4-c4572b.md), which is the first-empty-slot mirror of the `0x05` possession search family. So the parser label `GET_PLAYER_HAS_INVENTORY_ROOM` is now locally supported instead of only script-backed.
+`0x03` no longer needs that level of caution. Its real leaf is `C1:4CEE`, and that body routes straight into [party-inventory-room-search-c456e4-c4572b.md](notes/party-inventory-room-search-c456e4-c4572b.md), which is the first-empty-slot mirror of the `0x05` possession search family. So the parser label `GET_PLAYER_HAS_INVENTORY_ROOM` is now locally supported instead of only script-backed.
 
 Two script anchors still make this cluster feel solid at the family level:
 
@@ -132,11 +132,11 @@ Two script anchors still make this cluster feel solid at the family level:
 
 The local leaves are stronger now too:
 
-- `0x00 -> C1:4C1E` is the simple insertion wrapper. It resolves the character and item arguments from the live text context, calls [inventory-slot-insertion-helper-c18bc6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-insertion-helper-c18bc6.md), and stages the resulting recipient character id through `C1:045D`.
-- `0x01 -> C1:4C86` is the take-side search/removal wrapper. It resolves the character and item arguments, calls [inventory-slot-search-removal-helper-c18e5b-c18ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-search-removal-helper-c18e5b-c18ead.md), and stages the resulting source character id through `C1:045D`.
-- `0x03 -> C1:4CEE` is the positive inventory-room search path. It resolves an explicit or wildcard holder selector, routes through [party-inventory-room-search-c456e4-c4572b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-inventory-room-search-c456e4-c4572b.md), and stages the resulting character id with room through `C1:045D`.
+- `0x00 -> C1:4C1E` is the simple insertion wrapper. It resolves the character and item arguments from the live text context, calls [inventory-slot-insertion-helper-c18bc6.md](notes/inventory-slot-insertion-helper-c18bc6.md), and stages the resulting recipient character id through `C1:045D`.
+- `0x01 -> C1:4C86` is the take-side search/removal wrapper. It resolves the character and item arguments, calls [inventory-slot-search-removal-helper-c18e5b-c18ead.md](notes/inventory-slot-search-removal-helper-c18e5b-c18ead.md), and stages the resulting source character id through `C1:045D`.
+- `0x03 -> C1:4CEE` is the positive inventory-room search path. It resolves an explicit or wildcard holder selector, routes through [party-inventory-room-search-c456e4-c4572b.md](notes/party-inventory-room-search-c456e4-c4572b.md), and stages the resulting character id with room through `C1:045D`.
 - `0x04 -> C1:4D24` now looks like the negative form of an item-possession/equipment predicate. It resolves a character/item pair and routes through `C3:E9F7`, then stages the resulting boolean through `C1:045D`.
-- `0x05 -> C1:4D93` is the positive item-possession search path. It resolves an explicit or wildcard holder selector, routes through [party-item-possession-search-c45637-c45683.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-item-possession-search-c45637-c45683.md), and stages the resulting holder character id through `C1:045D`. At script level `CHECK_IF_CHARACTER_HAS_ITEM` is still a good label, but the low-level return value is the first matching holder id rather than a pure boolean.
+- `0x05 -> C1:4D93` is the positive item-possession search path. It resolves an explicit or wildcard holder selector, routes through [party-item-possession-search-c45637-c45683.md](notes/party-item-possession-search-c45637-c45683.md), and stages the resulting holder character id through `C1:045D`. At script level `CHECK_IF_CHARACTER_HAS_ITEM` is still a good label, but the low-level return value is the first matching holder id rather than a pure boolean.
 - `0x0E -> C1:5659` is the richer award variant. It also inserts through `C1:8BC6`, but then immediately calls `C2:2351` to resolve the first empty slot in the recipient inventory and stages both the slot index and recipient id through the paired `C1:0489` / `C1:045D` text-context installers.
 
 So the parser names `GIVE_ITEM_TO_CHARACTER`, `TAKE_ITEM_FROM_CHARACTER`, `GET_PLAYER_HAS_INVENTORY_ROOM`, `CHECK_IF_CHARACTER_HAS_ITEM`, and `GIVE_ITEM_TO_CHARACTER_B` are now locally supported as real insertion/search-removal wrappers rather than just script-side labels, and `0x02` is best promoted under a corrected local name like `CHECK_ITEM_BROAD_CLASS`.
@@ -232,7 +232,7 @@ That body:
 - returns `2` for subtypes `0x04`, `0x08`, or `0x0C`
 - returns `0` otherwise
 
-So the safest current model is [offensive-defensive-item-check-c17708.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/offensive-defensive-item-check-c17708.md): this is a compact equipment-subtype collapse, not a generic item predicate. The only exposed script hit is in `ESHOP1`, and the community control-code description matches the local split unusually well by describing it as an offensive-versus-defensive equipment check. That wording should still stay reference-backed, but it is now much safer than the older `UNKNOWN_1D_23` placeholder.
+So the safest current model is [offensive-defensive-item-check-c17708.md](notes/offensive-defensive-item-check-c17708.md): this is a compact equipment-subtype collapse, not a generic item predicate. The only exposed script hit is in `ESHOP1`, and the community control-code description matches the local split unusually well by describing it as an offensive-versus-defensive equipment check. That wording should still stay reference-backed, but it is now much safer than the older `UNKNOWN_1D_23` placeholder.
 
 This leaf is now source-backed in `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` as `ClassifyEquippedItemOffensiveDefensive`.
 
@@ -257,7 +257,7 @@ So `0x1D 0F` is now best treated as the slot-based removal counterpart to `0x1D 
 
 ### `0x1D 10`
 
-`0x1D 10` now has a much better local role than before. Its real leaf is `C1:575D`, and that body resolves a character/reference pair, supports the same explicit-versus-wildcard target split as the other inventory helpers, and forwards the actual test to [equipped-item-presence-predicate-c3e9a0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipped-item-presence-predicate-c3e9a0.md).
+`0x1D 10` now has a much better local role than before. Its real leaf is `C1:575D`, and that body resolves a character/reference pair, supports the same explicit-versus-wildcard target split as the other inventory helpers, and forwards the actual test to [equipped-item-presence-predicate-c3e9a0.md](notes/equipped-item-presence-predicate-c3e9a0.md).
 
 That bank-`03` helper, `C3:E9A0`, is no longer vague, but its low-level value is now sharper than the older wording. It checks the selected character's four adjacent bytes at `$99FF..$9A02` and returns `1` if any one of them matches the requested reference value, otherwise `0`. The neighboring `C3:E9F7` helper dereferences those same nonzero bytes into the inventory list at `$99F1..`, so the safest current read is that `$99FF..$9A02` store equipped inventory-slot references, not direct item ids.
 
@@ -290,23 +290,23 @@ These now read like a real Escargo storage transfer pair rather than a vague ser
 - `0x12 -> C1:58A5`
 - `0x13 -> C1:58FE`
 
-The strongest shared local anchor is the packed pending-item queue rooted at `$984B`; see [pending-item-queue-984b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/pending-item-queue-984b.md). The community control-code docs also line up unusually well here: `[1D 12 XX YY]` is described as immediately storing character `XX`'s `YY`th item with Escargo Express, and `[1D 13 XX YY]` as immediately withdrawing stored item `YY` and giving it to character `XX`.
+The strongest shared local anchor is the packed pending-item queue rooted at `$984B`; see [pending-item-queue-984b.md](notes/pending-item-queue-984b.md). The community control-code docs also line up unusually well here: `[1D 12 XX YY]` is described as immediately storing character `XX`'s `YY`th item with Escargo Express, and `[1D 13 XX YY]` as immediately withdrawing stored item `YY` and giving it to character `XX`.
 
-`0x12 -> C1:58A5` is now strong. It resolves the same item pair, then calls `C1:9183`. That helper uses `C1:913D` to insert the resolved item id into the first free entry of the `0x24`-entry `$984B..$986E` queue, and on success routes through `C1:8C27`, which removes the corresponding entry from the source character inventory while maintaining the four live equipment-slot indices; see [inventory-slot-removal-helper-c18c27.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md). Combined with its lone `ESHOP3` hit right after `COPY_STORAGE_MEMORY_TO_ACTIVE`, the safest current read is: immediately store one source inventory item with Escargo Express.
+`0x12 -> C1:58A5` is now strong. It resolves the same item pair, then calls `C1:9183`. That helper uses `C1:913D` to insert the resolved item id into the first free entry of the `0x24`-entry `$984B..$986E` queue, and on success routes through `C1:8C27`, which removes the corresponding entry from the source character inventory while maintaining the four live equipment-slot indices; see [inventory-slot-removal-helper-c18c27.md](notes/inventory-slot-removal-helper-c18c27.md). Combined with its lone `ESHOP3` hit right after `COPY_STORAGE_MEMORY_TO_ACTIVE`, the safest current read is: immediately store one source inventory item with Escargo Express.
 
-`0x13 -> C1:58FE` now has the cleanest player-visible bridge. It resolves the selected pair, then calls `C1:91F8` and `C2:2351`. `C1:91F8` removes one 1-based entry from the same packed `$984B` item-id queue, compacts the remaining bytes left, then forwards the removed item id into `C1:8BC6`, the insertion-side mirror of `C1:8C27`; see [inventory-slot-insertion-helper-c18bc6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-insertion-helper-c18bc6.md). `C2:2351` scans the selected recipient's item area for the first empty slot. The leaf stages one result through `C1:0489` and the other through `C1:045D`, and its only exposed `ESHOP3` use is followed immediately by `ADD_ITEM_ID_TO_WORK_MEMORY 0x00, 0x00` and `PRINT_ITEM_NAME 0x00`. So the safest current read is: immediately withdraw one stored item and give it to the destination inventory.
+`0x13 -> C1:58FE` now has the cleanest player-visible bridge. It resolves the selected pair, then calls `C1:91F8` and `C2:2351`. `C1:91F8` removes one 1-based entry from the same packed `$984B` item-id queue, compacts the remaining bytes left, then forwards the removed item id into `C1:8BC6`, the insertion-side mirror of `C1:8C27`; see [inventory-slot-insertion-helper-c18bc6.md](notes/inventory-slot-insertion-helper-c18bc6.md). `C2:2351` scans the selected recipient's item area for the first empty slot. The leaf stages one result through `C1:0489` and the other through `C1:045D`, and its only exposed `ESHOP3` use is followed immediately by `ADD_ITEM_ID_TO_WORK_MEMORY 0x00, 0x00` and `PRINT_ITEM_NAME 0x00`. So the safest current read is: immediately withdraw one stored item and give it to the destination inventory.
 
 ### `0x1D 18`
 
 `0x18` now has a much cleaner local role than before. Its real leaf is `C1:6124`, and that body either takes the explicit command argument or falls back to arg memory, then passes that item id straight to `C1:913D`.
 
-`C1:913D` is now a firm queue-insertion helper over the packed `0x24`-entry `$984B..$986E` item-id block; see [pending-item-queue-984b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/pending-item-queue-984b.md). It stores the selected item id into the first free slot and returns success only when a free entry exists. That matches both the `ESHOP3` script neighborhoods and the community control-code wording unusually well: `[1D 18 XX]` is described as adding item `XX` to Escargo Express inventory.
+`C1:913D` is now a firm queue-insertion helper over the packed `0x24`-entry `$984B..$986E` item-id block; see [pending-item-queue-984b.md](notes/pending-item-queue-984b.md). It stores the selected item id into the first free slot and returns success only when a free entry exists. That matches both the `ESHOP3` script neighborhoods and the community control-code wording unusually well: `[1D 18 XX]` is described as adding item `XX` to Escargo Express inventory.
 
 So the safest current read is: `0x18` is the queue-add side of the same service-side pending-item family as `0x12/0x13`, not a generic customer predicate.
 
 ### `0x1D 24`
 
-`0x1D 24` is now in much better shape. Its live leaf is `C1:7274`, and the best current model is [bank-deposit-accumulator-98b9-98bb.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/bank-deposit-accumulator-98b9-98bb.md): it stages the cached 32-bit value at `$98B9/$98BB` through `C1:045D`, and command argument `2` clears that accumulator after staging it.
+`0x1D 24` is now in much better shape. Its live leaf is `C1:7274`, and the best current model is [bank-deposit-accumulator-98b9-98bb.md](notes/bank-deposit-accumulator-98b9-98bb.md): it stages the cached 32-bit value at `$98B9/$98BB` through `C1:045D`, and command argument `2` clears that accumulator after staging it.
 
 This leaf is now source-backed in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` as `StageBankDepositAccumulatorTextValue`.
 

@@ -1,10 +1,10 @@
-# Class2 Enemy Text Pointer Consumers
+﻿# Class2 Enemy Text Pointer Consumers
 
 This note tightens the `enemy_data::encounter_text_ptr` and `enemy_data::death_text_ptr` interpretation by comparing the local `D5:9589` field consumers against the `ebsrc` battle flow.
 
-See also [class2-d59589-enemy-data-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-d59589-enemy-data-crosswalk.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
-See also [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md).
+See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
+See also [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md).
 
 ## Main result
 
@@ -118,4 +118,4 @@ The key reason this got stronger is the `ebsrc` bank-`C1` symbol order. `DISPLAY
 
 That means the local `+0x2D` and `+0x31` enemy pointer consumers are now best read as battle-message dispatch through a battle-text wrapper, not as generic script dispatch.
 
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).

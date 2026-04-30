@@ -1,4 +1,4 @@
-# Class2 Reflected Hit Side Buffer Flags
+﻿# Class2 Reflected Hit Side Buffer Flags
 
 This note captures the current best interpretation of `$5E77` and `$5E78` inside the reflected-hit rebuild family.
 
@@ -102,8 +102,8 @@ That makes the rebuilt `A983` / `A99E` buffers look more like structured side-te
 
 ## Follow-up note
 
-See also [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md) for the tighter bank-`C3` interpretation.
-See also [class2-row-position-text-cluster-c454f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-row-position-text-cluster-c454f0.md) for the row-position text anchor right after `C4:51FA`.
+See also [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md) for the tighter bank-`C3` interpretation.
+See also [class2-row-position-text-cluster-c454f0.md](notes/class2-row-position-text-cluster-c454f0.md) for the row-position text anchor right after `C4:51FA`.
 
 ## Best next target
 

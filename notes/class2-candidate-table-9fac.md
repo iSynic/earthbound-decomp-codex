@@ -1,9 +1,9 @@
-# Class2 Candidate Table 9FAC
+﻿# Class2 Candidate Table 9FAC
 
 This note captures the corrected current model for the 32-entry WRAM domain rooted at `9FAC`.
 
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-mask-helper-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-mask-helper-family.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-mask-helper-family.md](notes/class2-mask-helper-family.md).
 
 ## Major correction
 

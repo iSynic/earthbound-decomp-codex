@@ -1,10 +1,10 @@
-# Class2 Temporary Status Action Cluster C28C69 C28CB8 C28CF1
+﻿# Class2 Temporary Status Action Cluster C28C69 C28CB8 C28CF1
 
 This note captures the strongest current local model for the neighboring late `D5:7B68` action entries rooted at `C2:8C69`, `C2:8CB8`, and `C2:8CF1`.
 
-See also [class2-affliction-apply-helper-724a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-affliction-apply-helper-724a.md).
-See also [class2-battler-affliction-crosswalk.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battler-affliction-crosswalk.md).
-See also [class2-persistent-status-action-pair-c28bbe-c28bfd.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-persistent-status-action-pair-c28bbe-c28bfd.md).
+See also [class2-affliction-apply-helper-724a.md](notes/class2-affliction-apply-helper-724a.md).
+See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
+See also [class2-persistent-status-action-pair-c28bbe-c28bfd.md](notes/class2-persistent-status-action-pair-c28bbe-c28bfd.md).
 
 ## Working Names
 

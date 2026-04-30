@@ -1,10 +1,10 @@
-# Battle Text Entry Tail `C1:DD82 .. DD9F`
+﻿# Battle Text Entry Tail `C1:DD82 .. DD9F`
 
 This note captures the current best local model for the small tail immediately after the better-understood `C1:DC1C .. DD7C` battle-text entry family.
 
-See also [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md).
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
-See also [battle-text-display-mode-latch-964d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-display-mode-latch-964d.md).
+See also [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).
+See also [battle-text-display-mode-latch-964d.md](notes/battle-text-display-mode-latch-964d.md).
 
 ## Main result
 
@@ -65,7 +65,7 @@ That makes the safest current local read:
 - it is structurally very close to `C1:DC1C`
 - the main local difference is that it always forces mode `1` through `JSR $0036` before dispatch
 
-I am intentionally not promoting that mode to a user-facing label like `no prompt` yet. The reader side now shows that mode `1` takes a shorter abbreviated write path, but the final user-facing meaning still needs cleaner proof. See also [battle-text-display-mode-latch-964d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-display-mode-latch-964d.md).
+I am intentionally not promoting that mode to a user-facing label like `no prompt` yet. The reader side now shows that mode `1` takes a shorter abbreviated write path, but the final user-facing meaning still needs cleaner proof. See also [battle-text-display-mode-latch-964d.md](notes/battle-text-display-mode-latch-964d.md).
 
 ## Concrete local caller for `C1:DD9F`
 

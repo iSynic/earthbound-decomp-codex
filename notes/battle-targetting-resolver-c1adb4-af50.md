@@ -2,9 +2,9 @@
 
 This note captures the current best local model for the battle-side helper rooted at `C1:ADB4`.
 
-See also [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md).
-See also [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md).
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md).
+See also [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
 
 ## Main result
 

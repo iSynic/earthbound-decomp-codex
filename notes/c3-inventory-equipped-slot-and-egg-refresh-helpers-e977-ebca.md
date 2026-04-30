@@ -1,4 +1,4 @@
-# C3 Inventory, Equipped Slot, and Egg-Refresh Helpers `E977..EBCA`
+﻿# C3 Inventory, Equipped Slot, and Egg-Refresh Helpers `E977..EBCA`
 
 This note consolidates the source-helper corridor from `C3:E977` through `C3:EBCA`. The main new result is a correction: the four bytes at `$99FF..$9A02` are now better modeled as equipped inventory-slot references than as direct equipped item ids.
 
@@ -22,7 +22,7 @@ The helpers in this corridor repeatedly use the same character-record shape:
 
 `C3:E977` is the clean generic accessor. It computes `(character - 1) * 0x5F + $99F1 + (slot - 1)` and returns the byte stored at that inventory slot. Its direct callers include `C1:3406`, `C1:355D`, `C1:35F0`, `C1:3634`, `C1:37A6`, `C1:387E`, `C1:572E`, `C1:581E`, `C1:59D0`, `C1:6066`, `C1:9195`, `C1:AFA1`, `C1:CEA4`, and `C2:3998`.
 
-Mechanically, `C3:E977` is embedded inside the addressed data include that starts at `C3:E84E`. The split plan in [c3-mixed-source-split-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-mixed-source-split-plan.md) carves that row into leading data, `ReadCharacterInventorySlotByte`, and `CheckEquippedInventorySlotReference`, so these two helpers can be emitted as standalone source units even though the reference include row is mixed.
+Mechanically, `C3:E977` is embedded inside the addressed data include that starts at `C3:E84E`. The split plan in [c3-mixed-source-split-plan.md](notes/c3-mixed-source-split-plan.md) carves that row into leading data, `ReadCharacterInventorySlotByte`, and `CheckEquippedInventorySlotReference`, so these two helpers can be emitted as standalone source units even though the reference include row is mixed.
 
 ## Equipped-slot reference correction
 
@@ -48,7 +48,7 @@ The pair therefore maintains a small tracked-item lifecycle registry rather than
 
 ## Party-overlay tracked-item sync
 
-`C3:EBCA` is the table-wide sync pass called from `C1:FEC5`, `C2:299B`, and `C2:2A10`. The earlier M-width caveat is now closed in [c3-tracked-item-sync-source-contract-ebca.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/c3-tracked-item-sync-source-contract-ebca.md): the loop rebuild at `C3:EC00` is reached in 16-bit accumulator mode, so the `D5:F4BB` pointer setup is ordinary source, not mixed data or a hidden byte-mode decode.
+`C3:EBCA` is the table-wide sync pass called from `C1:FEC5`, `C2:299B`, and `C2:2A10`. The earlier M-width caveat is now closed in [c3-tracked-item-sync-source-contract-ebca.md](notes/c3-tracked-item-sync-source-contract-ebca.md): the loop rebuild at `C3:EC00` is reached in 16-bit accumulator mode, so the `D5:F4BB` pointer setup is ordinary source, not mixed data or a hidden byte-mode decode.
 
 - point `$06/$08` at `D5:F4BB`
 - walk 5-byte rows

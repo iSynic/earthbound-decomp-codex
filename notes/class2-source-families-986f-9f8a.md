@@ -1,10 +1,10 @@
-# Class2 Source Families 986F And 9F8A
+﻿# Class2 Source Families 986F And 9F8A
 
 This note captures the current ROM-first model for the source-side families feeding the battler-side class-`2` setup work.
 
-See also [class2-candidate-table-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-candidate-table-9fac.md).
-See also [class2-battlers-table-layout-9f8a-9fac.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battlers-table-layout-9f8a-9fac.md).
-See also [class2-005e-record-domain.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-005e-record-domain.md).
+See also [class2-candidate-table-9fac.md](notes/class2-candidate-table-9fac.md).
+See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
+See also [class2-005e-record-domain.md](notes/class2-005e-record-domain.md).
 
 ## Main correction
 
@@ -59,7 +59,7 @@ Current best reading:
 
 ## Verified upstream note for `9F8A` and `9F8C`
 
-See [class2-9f8c-upstream-verification.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-9f8c-upstream-verification.md) for the direct verification writeup.
+See [class2-9f8c-upstream-verification.md](notes/class2-9f8c-upstream-verification.md) for the direct verification writeup.
 
 The short version is:
 

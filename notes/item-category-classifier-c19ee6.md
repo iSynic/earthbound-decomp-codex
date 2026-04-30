@@ -1,4 +1,4 @@
-# Compact Item Category Classifier `C1:9EE6`
+﻿# Compact Item Category Classifier `C1:9EE6`
 
 This note captures the local role of the bank-`01` helper at `C1:9EE6` and its current implications for `0x1D 02`.
 
@@ -38,7 +38,7 @@ The helper then:
    - `0x30 -> 4`
    - anything else -> `0`
 
-So the helper is not checking inventory fullness at all. It is reading a 2-bit category field already embedded in the item data. The broader packed-field model now lives in [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md).
+So the helper is not checking inventory fullness at all. It is reading a 2-bit category field already embedded in the item data. The broader packed-field model now lives in [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md).
 
 ## `0x1D 02 -> C1:48AC`
 
@@ -61,7 +61,7 @@ Three other local callers all reinforce the classifier reading.
 - `C1:9B79` does the same before decoding another item-table subfield at `+0x19 & 0x0C` and selecting one of the four equipped-reference bytes.
 - `C1:A82C` also requires `C1:9EE6 == 2` before continuing into compatibility and equipped-item checks.
 
-So class `2` is very likely the equippable-gear family, and the neighboring callers now make the packed layout much clearer: `C1:9B79` uses `+0x19 & 0x0C` as a four-way equipped-slot selector after the broad class check. The fuller shared-field writeup lives in [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md).
+So class `2` is very likely the equippable-gear family, and the neighboring callers now make the packed layout much clearer: `C1:9B79` uses `+0x19 & 0x0C` as a four-way equipped-slot selector after the broad class check. The fuller shared-field writeup lives in [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md).
 
 As a supporting cross-check, the community `Control_codes.txt` description for `0x1D 02` matches the local class split unusually well: class `1` as general non-equippable items, class `2` as equippable gear, class `3` as edible items, and class `4` as other usable items. That should still be treated as reference-backed rather than fully local semantic proof, but it is consistent with the ROM behavior.
 

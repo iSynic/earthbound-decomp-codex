@@ -1,11 +1,11 @@
-# Class2 UFO Present Message Family
+﻿# Class2 UFO Present Message Family
 
 This note captures the current best local model for the `$AA10`-driven UFO present message path in bank `C2`.
 
-See also [class2-battle-start-extra-message-state-4dbc-aa10.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
-See also [class2-cc19-1f-display-text-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-display-text-bridge.md).
+See also [class2-battle-start-extra-message-state-4dbc-aa10.md](notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
+See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).
 
 ## Main result
 
@@ -120,7 +120,7 @@ The best next move is to pin the exact display-text placeholder case that reads 
 
 ## Update: script control-flow map
 
-A later local pass added a script dumper in [disasm_ebtext_script.py](/F:/Earthbound%20Decomp%20-%20Codex/tools/disasm_ebtext_script.py), which makes the structure of these present messages much clearer.
+A later local pass added a script dumper in [disasm_ebtext_script.py](tools/disasm_ebtext_script.py), which makes the structure of these present messages much clearer.
 
 ### `MSG_BTL_PRESENT`
 
@@ -193,4 +193,4 @@ That matters because it sharpens the wording here:
 
 So the present family is now best described as a specific caller of a more general byte-substitution text pipeline.
 
-See also [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).

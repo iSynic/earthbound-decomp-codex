@@ -1,10 +1,10 @@
-# Text Commands `0x13` and `0x14` as Halt/Control Opcodes
+﻿# Text Commands `0x13` and `0x14` as Halt/Control Opcodes
 
 This note captures the current best local read of script bytes `0x13` and `0x14`.
 
-See also [text-command-15-compressed-bank-1-pseudo-opcode.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-15-compressed-bank-1-pseudo-opcode.md).
-See also [text-command-16-compressed-bank-2-pseudo-opcode.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-16-compressed-bank-2-pseudo-opcode.md).
-See also [text-command-17-compressed-bank-3-pseudo-opcode.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-17-compressed-bank-3-pseudo-opcode.md).
+See also [text-command-15-compressed-bank-1-pseudo-opcode.md](notes/text-command-15-compressed-bank-1-pseudo-opcode.md).
+See also [text-command-16-compressed-bank-2-pseudo-opcode.md](notes/text-command-16-compressed-bank-2-pseudo-opcode.md).
+See also [text-command-17-compressed-bank-3-pseudo-opcode.md](notes/text-command-17-compressed-bank-3-pseudo-opcode.md).
 
 ## Main result
 

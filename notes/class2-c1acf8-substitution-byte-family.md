@@ -1,12 +1,12 @@
-# Class2 C1ACF8 Substitution Byte Family
+﻿# Class2 C1ACF8 Substitution Byte Family
 
 This note captures the current best local model for `C1:ACF8`, `C1:AD02`, and the tiny wrapper `C1:DD7C`.
 
-See also [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md).
-See also [class2-reflected-hit-text-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-text-context.md).
-See also [class2-battle-start-extra-message-state-4dbc-aa10.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
-See also [class2-ufo-present-message-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-ufo-present-message-family.md).
+See also [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md).
+See also [class2-reflected-hit-text-context.md](notes/class2-reflected-hit-text-context.md).
+See also [class2-battle-start-extra-message-state-4dbc-aa10.md](notes/class2-battle-start-extra-message-state-4dbc-aa10.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [class2-ufo-present-message-family.md](notes/class2-ufo-present-message-family.md).
 
 ## Main result
 
@@ -100,7 +100,7 @@ That caller sits inside a larger `C1:7Axx..7Bxx` display-text branch family rath
 
 So the stored byte is not just being written and forgotten; it is consumed by a real placeholder-style handler in the text engine.
 
-See also [class2-c1-display-text-substitution-handler-7af3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1-display-text-substitution-handler-7af3.md).
+See also [class2-c1-display-text-substitution-handler-7af3.md](notes/class2-c1-display-text-substitution-handler-7af3.md).
 
 ## Reference-side support
 
@@ -182,4 +182,4 @@ So the strongest current read is not "item id slot" but:
 
 The caller decides what byte gets stored, and the later printer decides whether that byte is interpreted as an item id, PSI id, or some other small text argument.
 
-See also [class2-cc19-1f-cross-segment-reuse.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-cc19-1f-cross-segment-reuse.md).
+See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).

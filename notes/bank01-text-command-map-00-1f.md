@@ -1,16 +1,16 @@
-# Bank `01` Text Command Map `00..1F`
+﻿# Bank `01` Text Command Map `00..1F`
 
 This note is the current top-level map of the ordinary bank-`01` text command range `0x00..0x1F`.
 
-See also [lower-bank01-text-control-strip-00-17.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/lower-bank01-text-control-strip-00-17.md).
-See also [text-command-family-18-windows-and-selection.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-18-windows-and-selection.md).
-See also [text-command-family-19-data-and-substitution.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-19-data-and-substitution.md).
-See also [text-command-family-1a-menus.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1a-menus.md).
-See also [text-command-family-1b-memory-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1b-memory-context.md).
-See also [text-command-family-1c-print-display.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1c-print-display.md).
-See also [text-command-family-1d-inventory-money.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1d-inventory-money.md).
-See also [text-command-family-1e-stat-recovery.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1e-stat-recovery.md).
-See also [text-command-family-1f-deferred-callbacks.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-command-family-1f-deferred-callbacks.md).
+See also [lower-bank01-text-control-strip-00-17.md](notes/lower-bank01-text-control-strip-00-17.md).
+See also [text-command-family-18-windows-and-selection.md](notes/text-command-family-18-windows-and-selection.md).
+See also [text-command-family-19-data-and-substitution.md](notes/text-command-family-19-data-and-substitution.md).
+See also [text-command-family-1a-menus.md](notes/text-command-family-1a-menus.md).
+See also [text-command-family-1b-memory-context.md](notes/text-command-family-1b-memory-context.md).
+See also [text-command-family-1c-print-display.md](notes/text-command-family-1c-print-display.md).
+See also [text-command-family-1d-inventory-money.md](notes/text-command-family-1d-inventory-money.md).
+See also [text-command-family-1e-stat-recovery.md](notes/text-command-family-1e-stat-recovery.md).
+See also [text-command-family-1f-deferred-callbacks.md](notes/text-command-family-1f-deferred-callbacks.md).
 
 ## Main result
 

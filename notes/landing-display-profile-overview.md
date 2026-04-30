@@ -1,16 +1,16 @@
-# Landing Display Profile Overview
+﻿# Landing Display Profile Overview
 
 This note is a top-level summary of the current best local model for the landing or arrival display subsystem.
 
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [landing-destination-table-d57880.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-destination-table-d57880.md).
-See also [landing-profile-cache-436e-4474.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-cache-436e-4474.md).
-See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
-See also [landing-profile-bundles-ef121b-43dc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-bundles-ef121b-43dc.md).
-See also [landing-display-assembly-cluster-c007b6-c4b26b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
-See also [landing-palette-interpolation-export-c4958e-c426ed.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-palette-interpolation-export-c4958e-c426ed.md).
-See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
-See also [landing-display-control-words-2baa-2e7a.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-control-words-2baa-2e7a.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [landing-destination-table-d57880.md](notes/landing-destination-table-d57880.md).
+See also [landing-profile-cache-436e-4474.md](notes/landing-profile-cache-436e-4474.md).
+See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
+See also [landing-profile-bundles-ef121b-43dc.md](notes/landing-profile-bundles-ef121b-43dc.md).
+See also [landing-display-assembly-cluster-c007b6-c4b26b.md](notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
+See also [landing-palette-interpolation-export-c4958e-c426ed.md](notes/landing-palette-interpolation-export-c4958e-c426ed.md).
+See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
+See also [landing-display-control-words-2baa-2e7a.md](notes/landing-display-control-words-2baa-2e7a.md).
 
 ## Main result
 

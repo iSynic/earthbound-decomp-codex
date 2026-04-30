@@ -24,6 +24,16 @@ The project has reached ROM-wide structural closure:
   `notes/text-command-semantics-manifest.md`, with `29 / 32` top-level commands
   covered and the remaining `0x15..0x17` isolated as compressed-bank
   parser-only pseudo-opcodes.
+- The asset/data contract milestone is phase-good-enough in
+  `notes/phase-4-asset-data-closeout.md`: `38` manifests represent `2219`
+  assets/tables/gaps, all `5` manifest-inferred E0/E1 payload metadata units
+  are contract-covered, and the current unresolved missing payload metadata
+  count is `0`.
+- The audio backend has a local, user-ROM-derived playback/export path. The
+  current all-track fused CHANGE_MUSIC/C0:AB06 corpus renders `190 / 190`
+  snapshot-backed tracks as audible through the libgme/snes_spc harness; track
+  `4` (`NONE2`) is explicitly load-ok/no-key-on. Exact loop points and some
+  finite ending semantics remain open; see `notes/audio-export-plan.md`.
 
 In plain English: the ROM bytes are accounted for, and the known native-source
 frontiers are closed. The remaining work is mostly semantics, editing workflow,
@@ -82,7 +92,10 @@ The next work is about confidence and usability:
 - C3 event/actionscript opcode semantics, operand names, callback argument
   contracts, and reassembly-friendly script assets.
 - C1 plus `C5..C9`/`EF` text-command and localization-script semantics.
-- Stronger table, WRAM, map, graphics, font, UI, and audio payload contracts.
+- Stronger table, WRAM, map, graphics, font, UI, and mixed payload contracts.
+- Audio exact-duration semantics: loop points, finite endings, independent
+  external-emulator oracle validation, and public export UX around those
+  policies.
 - Render/decode fixtures for major asset classes.
 - A practical editing and validation guide for romhackers.
 - Eventually, higher-level C or native-engine reconstruction one subsystem at a
@@ -100,6 +113,14 @@ systems.
 - `notes/c3-source-data-map.md` - C3 code/data/script split map
 - `notes/c3-actionscript-semantics-audit.md` - C3 script decoder baseline
 - `notes/text-command-semantics-manifest.md` - text-command VM coverage
+- `notes/phase-4-asset-data-closeout.md` - asset/data contract closeout boundary
+- `notes/asset-data-contract-frontier.md` - asset/data family frontier
+- `notes/audio-backend-contract.md` - local audio playback/export backend shape
+- `notes/audio-export-plan.md` - current per-track export policy
+- `notes/audio-exact-duration-triage.md` - exact loop/end semantics queue
+- `notes/audio-dependency-policy.md` - renderer dependency and distribution policy
+- `notes/public-release-known-limits.md` - what a first public release does not claim
+- `notes/public-release-checklist.md` - pre-public sanity checklist
 - `notes/how-to-validate.md` - validation commands
 - `notes/python-tool-syntax-guide.md` - common tool syntax
 - `notes/reference-first-workflow.md` - how local refs are used without treating

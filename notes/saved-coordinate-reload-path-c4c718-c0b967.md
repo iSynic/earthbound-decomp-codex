@@ -1,4 +1,4 @@
-# Saved Coordinate Reload Path `C4:C718` / `C0:B967`
+﻿# Saved Coordinate Reload Path `C4:C718` / `C0:B967`
 
 This note captures the current best local model for the first strong downstream consumer of the saved snapshot triplet:
 
@@ -6,8 +6,8 @@ This note captures the current best local model for the first strong downstream 
 - `$9D1F`
 - `$9D21`
 
-See also [respawn-warp-target-snapshot-helper-c230f3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/respawn-warp-target-snapshot-helper-c230f3.md).
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [respawn-warp-target-snapshot-helper-c230f3.md](notes/respawn-warp-target-snapshot-helper-c230f3.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
 
 ## Working Names
 

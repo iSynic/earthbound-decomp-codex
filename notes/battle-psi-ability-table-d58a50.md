@@ -2,11 +2,11 @@
 
 This note captures the current best local model for the row family rooted at `D5:8A50`.
 
-See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
-See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
-See also [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md).
-See also [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md).
-See also [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md).
+See also [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md).
+See also [battle-psi-category-list-family-c1caf5-c1cb7f.md](notes/battle-psi-category-list-family-c1caf5-c1cb7f.md).
+See also [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md).
+See also [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md).
+See also [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md).
 
 ## Main result
 

@@ -1,8 +1,8 @@
-# Text Command `0x03` as Halt-With-Prompt Opcode
+﻿# Text Command `0x03` as Halt-With-Prompt Opcode
 
 This note captures the current best local read of script byte `0x03`.
 
-See also [text-commands-13-and-14-halt-control.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-commands-13-and-14-halt-control.md).
+See also [text-commands-13-and-14-halt-control.md](notes/text-commands-13-and-14-halt-control.md).
 
 ## Main result
 

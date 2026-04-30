@@ -1,4 +1,4 @@
-# Class `4` / Class `6` Surface Contexts
+Ôªø# Class `4` / Class `6` Surface Contexts
 
 This note captures the current best local read for the two remaining special `$9887` surface classes after class `3` was anchored to doorway transitions.
 
@@ -9,7 +9,7 @@ The safest current interpretation is:
 - `$9887 == 6` is the stronger candidate for a stairs-style surface class.
 - `$9887 == 4` is the stronger candidate for an escalator-entry-style surface class.
 
-That is still an inference, not a fully proved local label, but the evidence is now better than a loose ìsome other special terrain bucketî description.
+That is still an inference, not a fully proved local label, but the evidence is now better than a loose ‚Äúsome other special terrain bucket‚Äù description.
 
 ## Strongest local anchors
 
@@ -86,7 +86,7 @@ That said, this is now the strongest current read.
 
 ## Update: the stairs half of the `5Dxx` block is now better grounded locally
 
-The new note [stairs-escalator-state-block-5daa-5dd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/stairs-escalator-state-block-5daa-5dd6.md) tightens one of the weaker spots from the earlier pass.
+The new note [stairs-escalator-state-block-5daa-5dd6.md](notes/stairs-escalator-state-block-5daa-5dd6.md) tightens one of the weaker spots from the earlier pass.
 
 The most useful local gain is `$5DC6`: in the type-`3` movement helper at `C0:6E6E`, the low path stores the incoming selector into `$5DC6`, and the follow-up path reloads it to index the tiny tables at `C0:6E0A` and `C0:6E12` before writing a facing-like value to `$987F` and computing a staged destination. That makes `STAIRS_DIRECTION` a genuinely local fit, not just a borrowed RAM-map name.
 

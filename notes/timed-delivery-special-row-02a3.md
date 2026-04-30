@@ -1,9 +1,9 @@
-# Timed Delivery Special Row `0x02A3`
+﻿# Timed Delivery Special Row `0x02A3`
 
 This note records the current local read for the special timed-delivery row gated by flag `0x02A3`.
 
-See also [timed-delivery-controller-499-500-common.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-controller-499-500-common.md).
-See also [timed-delivery-warning-text-gates.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-warning-text-gates.md).
+See also [timed-delivery-controller-499-500-common.md](notes/timed-delivery-controller-499-500-common.md).
+See also [timed-delivery-warning-text-gates.md](notes/timed-delivery-warning-text-gates.md).
 
 ## Main result
 
@@ -22,7 +22,7 @@ The row data in `D5:F645` uses:
 - flag `0x02A3`
 - sprite/object descriptor id in the Mach-Pizza-Guy family
 
-In the extracted script dump at [data_31.ccs](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/ccscript/data_31.ccs):
+In the extracted script dump at [data_31.ccs](refs/eb-decompile-4ef92/ccscript/data_31.ccs):
 
 - a phone-side script sets `flag 675` (`0x02A3`) and `flag 754`
 - `C7:A542` is the delivery-success text and item handoff scene
@@ -33,7 +33,7 @@ In the extracted script dump at [data_31.ccs](/F:/Earthbound%20Decomp%20-%20Code
 
 ## Why this helps the warning-text asymmetry
 
-This special row was the main mismatch in [timed-delivery-warning-text-gates.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-warning-text-gates.md):
+This special row was the main mismatch in [timed-delivery-warning-text-gates.md](notes/timed-delivery-warning-text-gates.md):
 
 - the teleport warning groups `0x02A3` with Escargo-style wording
 - the Exit Mouse warning groups `0x02A3` with pizza-style wording
@@ -47,7 +47,7 @@ So the safest current wording is:
 
 ## Reference-side cross-check
 
-The third data dump still helps here too. In [timed_delivery_table.yml](/F:/Earthbound%20Decomp%20-%20Codex/refs/eb-decompile-4ef92/timed_delivery_table.yml), row `7` has:
+The third data dump still helps here too. In [timed_delivery_table.yml](refs/eb-decompile-4ef92/timed_delivery_table.yml), row `7` has:
 
 - event flag `0x2A3`
 - sprite group `151`

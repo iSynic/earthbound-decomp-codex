@@ -1,4 +1,4 @@
-# File Select Setup Option Menus `C1:F497` and `C1:F616`
+﻿# File Select Setup Option Menus `C1:F497` and `C1:F616`
 
 This note covers the unknown includes around the named text-speed and sound-menu builders:
 
@@ -8,7 +8,7 @@ This note covers the unknown includes around the named text-speed and sound-menu
 - `unknown/C1/C1F616.asm`
 - `intro/file_select/open_flavour_menu.asm`
 
-See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md).
+See also [file-select-window-flavour-refresh-c1ec8f-ecd1.md](notes/file-select-window-flavour-refresh-c1ec8f-ecd1.md).
 
 ## Main Result
 

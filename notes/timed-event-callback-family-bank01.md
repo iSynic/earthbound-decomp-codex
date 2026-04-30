@@ -1,12 +1,12 @@
-# Timed-Event Callback Family In Bank `01`
+﻿# Timed-Event Callback Family In Bank `01`
 
 This note captures the current local picture of the bank-`01` callback-style low-word family that the managed timed-event slot system appears to queue and later invoke.
 
-See also [timed-event-slot-block-7440-and-c20abc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-slot-block-7440-and-c20abc.md).
-See also [timed-delivery-row-index-command-1f-d3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-row-index-command-1f-d3.md).
-See also [delivery-row-helpers-ef0e67-ef0ead.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/delivery-row-helpers-ef0e67-ef0ead.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
-See also [try-fix-item-callback-d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/try-fix-item-callback-d0.md).
+See also [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md).
+See also [timed-delivery-row-index-command-1f-d3.md](notes/timed-delivery-row-index-command-1f-d3.md).
+See also [delivery-row-helpers-ef0e67-ef0ead.md](notes/delivery-row-helpers-ef0e67-ef0ead.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
+See also [try-fix-item-callback-d0.md](notes/try-fix-item-callback-d0.md).
 
 ## Main result
 

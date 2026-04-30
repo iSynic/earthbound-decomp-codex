@@ -1,9 +1,9 @@
-# Overworld Visible Entity Refresh Slice (`C0:7B52..7C5A`)
+﻿# Overworld Visible Entity Refresh Slice (`C0:7B52..7C5A`)
 
 This note captures the strongest current render-side candidate for the remaining overworld judder now that the camera path itself looks healthy.
 
-See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
-See also [overworld-companion-family-priority-a794.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-companion-family-priority-a794.md).
+See also [overworld-timing-scroll-commit-slice-c08b20-c08284.md](notes/overworld-timing-scroll-commit-slice-c08b20-c08284.md).
+See also [overworld-companion-family-priority-a794.md](notes/overworld-companion-family-priority-a794.md).
 
 ## Working Names
 

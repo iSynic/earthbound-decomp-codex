@@ -1,10 +1,10 @@
-# Active Text Entry Chain Layout (`C4:51FA`)
+﻿# Active Text Entry Chain Layout (`C4:51FA`)
 
 This note names and documents the bank-`C4` helper immediately before the row-position text data at `C4:54F0`.
 
-See also [text-entry-record-builder-neighbors-c10f40-c11887.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-record-builder-neighbors-c10f40-c11887.md).
-See also [text-entry-builder-c113d1-89d4.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-entry-builder-c113d1-89d4.md).
-See also [class2-row-position-text-cluster-c454f0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-row-position-text-cluster-c454f0.md).
+See also [text-entry-record-builder-neighbors-c10f40-c11887.md](notes/text-entry-record-builder-neighbors-c10f40-c11887.md).
+See also [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md).
+See also [class2-row-position-text-cluster-c454f0.md](notes/class2-row-position-text-cluster-c454f0.md).
 
 ## Working Names
 

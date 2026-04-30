@@ -1,4 +1,4 @@
-# Party Inventory Room Search `C4:56E4` / `C4:572B`
+﻿# Party Inventory Room Search `C4:56E4` / `C4:572B`
 
 This note captures the local role of the bank-`04` helper pair at `C4:56E4` and `C4:572B`, and their bank-`01` `0x1D 03` wrapper.
 
@@ -28,7 +28,7 @@ The helper then:
 
 1. decrements the character id and maps it through `C0:8FF7` with stride `#$005F`
 2. lands on the selected character record at `$99F1 + 0x5F * (character - 1)`
-3. scans the same 14-byte item area used by [party-item-possession-search-c45637-c45683.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/party-item-possession-search-c45637-c45683.md)
+3. scans the same 14-byte item area used by [party-item-possession-search-c45637-c45683.md](notes/party-item-possession-search-c45637-c45683.md)
 4. looks for the first byte equal to `0`
 5. returns the original character id on the first empty slot, otherwise `0`
 

@@ -1,9 +1,9 @@
-# Overworld Timing And Scroll Commit Slice (`C0:1558`, `C0:8B20`, `C0:8180..8390`, `C0:8240`, `C0:834E`)
+﻿# Overworld Timing And Scroll Commit Slice (`C0:1558`, `C0:8B20`, `C0:8180..8390`, `C0:8240`, `C0:834E`)
 
 This note narrows the timing-side hypotheses for the remaining overworld walking microstutter.
 
-See also [rom-patch-overworld-stutter-plan.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/rom-patch-overworld-stutter-plan.md).
-See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
+See also [rom-patch-overworld-stutter-plan.md](notes/rom-patch-overworld-stutter-plan.md).
+See also [overworld-walking-stutter-producer-split-c01558-c01ca8.md](notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md).
 
 ## Main result
 
@@ -22,11 +22,10 @@ The real scroll-state path now looks like this:
    - later pairs to `$210F/$2110/$2111/$2112/$2113/$2114`
 
 The current strongest timing question is no longer "does `C0:8012` or `C0:834E` stall?"
-It is:
+The newer walking-stack work now makes the healthier current question:
 
-- do the movement-time writers to `$31/$33` advance unevenly before the publish step?
-- does the publish step miss the NMI window?
-- or is the remaining hitch simply later presentation workload after movement and publish have already updated cleanly?
+- is the visible judder already native to the upstream movement or snapshot cadence before this timing slice even runs?
+- or is there still later presentation workload layered on top of an otherwise healthy cadence?
 
 ## Locally proved
 
@@ -182,7 +181,7 @@ The current healthier read is:
 
 - movement-time scroll state updates are healthy
 - publish into the NMI shadow slots is healthy
-- the remaining microstutter is more likely later presentation workload, not missing camera-state updates
+- the remaining microstutter is more likely upstream movement cadence or later presentation workload, not missing camera-state updates
 
 That fits the broader patch-thread evidence:
 
@@ -190,6 +189,7 @@ That fits the broader patch-thread evidence:
 - diagonal movement is still worst
 - two producer families still appear active
 - the timer-only `A794` gate was safe but did not materially help
+- the later `src/c0` pass now grounds ordinary walking in the discrete `C05200 -> C04C45 -> C0449B -> C0400E/4010` pipeline
 
 ## Still uncertain
 
@@ -241,11 +241,11 @@ The timing slice no longer looks like the main seam for a patch.
 
 If the recent emulator evidence holds, the next patch direction should probably be about:
 
-- reducing later presentation workload
-- reducing same-frame overlap between the strip family and the companion family
-- or otherwise smoothing render-side cost during diagonal movement
+- smoothing the presentation of the upstream discrete movement cadence
+- and only secondarily reducing later render workload if a smaller additive hitch still remains
 
-That is a workload or scheduling patch, not a movement-state or scroll-shadow timing patch.
+That is no longer a scroll-shadow timing patch.
+It is more likely a visual-smoothing patch, or secondarily a workload or scheduling patch.
 
 ## Bottom line
 
@@ -259,7 +259,12 @@ The timing slice is much narrower now:
 
 And the latest emulator evidence says that `1558 -> 8B51/8B57 -> 8284` is behaving normally during diagonal walking.
 
-So the next useful investigation should pivot away from scroll-shadow timing and back toward the render workload itself.
+So the next useful investigation should pivot away from scroll-shadow timing.
+The healthiest current next theories are:
+
+- native overworld cadence in the ordinary walking tick path
+- visible-layer smoothing opportunities downstream of that cadence
+- only after that, any smaller additive render workload
 
 ## Working Names
 

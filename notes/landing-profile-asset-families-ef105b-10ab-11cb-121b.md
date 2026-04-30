@@ -1,14 +1,14 @@
-# Landing Profile Asset Families `EF:105B / 10AB / 11CB / 121B`
+﻿# Landing Profile Asset Families `EF:105B / 10AB / 11CB / 121B`
 
 This note captures the current best layered model for the asset families selected in parallel by cached landing profile selector `$4372`.
 
-See also [landing-profile-cache-436e-4474.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-cache-436e-4474.md).
-See also [landing-display-profile-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-profile-overview.md).
-See also [landing-profile-bundles-ef121b-43dc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-bundles-ef121b-43dc.md).
-See also [transition-landing-mode-family-9f3f-9f41.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/transition-landing-mode-family-9f3f-9f41.md).
-See also [landing-display-assembly-cluster-c007b6-c4b26b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
-See also [landing-palette-interpolation-export-c4958e-c426ed.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-palette-interpolation-export-c4958e-c426ed.md).
-See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
+See also [landing-profile-cache-436e-4474.md](notes/landing-profile-cache-436e-4474.md).
+See also [landing-display-profile-overview.md](notes/landing-display-profile-overview.md).
+See also [landing-profile-bundles-ef121b-43dc.md](notes/landing-profile-bundles-ef121b-43dc.md).
+See also [transition-landing-mode-family-9f3f-9f41.md](notes/transition-landing-mode-family-9f3f-9f41.md).
+See also [landing-display-assembly-cluster-c007b6-c4b26b.md](notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
+See also [landing-palette-interpolation-export-c4958e-c426ed.md](notes/landing-palette-interpolation-export-c4958e-c426ed.md).
+See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
 
 ## Main result
 
@@ -115,7 +115,7 @@ Why this is healthier than the old overlay-map model:
 
 So the safest current interpretation is that `EF:117B` is part of a landing HDMA parameter-dispatch layer rather than a BG overlay tilemap layer.
 
-See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
+See also [landing-hdma-dispatch-family-ef117b-c00d7e.md](notes/landing-hdma-dispatch-family-ef117b-c00d7e.md).
 
 ## `EF:11CB / EF:121B` as animated graphics-strip family
 

@@ -1,9 +1,9 @@
-# Position-Derived Visual Context Class (`$9887`)
+﻿# Position-Derived Visual Context Class (`$9887`)
 
 This note captures the strongest current local read for `$9887`, which is the clearest remaining control value in the `C0780F` visual-selector resolver.
 
-See also [visual-selector-family-c0780f-c3f2b5.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-selector-family-c0780f-c3f2b5.md).
-See also [sprite-pose-descriptor-cache-2a06-2cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
+See also [visual-selector-family-c0780f-c3f2b5.md](notes/visual-selector-family-c0780f-c3f2b5.md).
+See also [sprite-pose-descriptor-cache-2a06-2cd6.md](notes/sprite-pose-descriptor-cache-2a06-2cd6.md).
 
 ## Main result
 
@@ -136,7 +136,7 @@ The best next move is to pin what class values `3`, `4`, and `6` correspond to i
 
 ## Update: class `3` now looks doorway-related
 
-The current best follow-up is in [class3-doorway-transition-context.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class3-doorway-transition-context.md).
+The current best follow-up is in [class3-doorway-transition-context.md](notes/class3-doorway-transition-context.md).
 
 The strongest new result is that class `3` is no longer just an abstract alternate bucket family. Its special branch seeds `$9883 = #$000A`, then runs through `C06A07 -> C068F4`, and `C068F4` explicitly consults `EB_DoorDestinationTable` before populating `$5DD6`. That makes class `3` look very likely to be a doorway or transition-cell context.
 
@@ -158,4 +158,4 @@ The safest current read is now:
 - `$9887 == 6` is the stronger candidate for a stairs-style surface class
 - `$9887 == 4` is the stronger candidate for an escalator-entry-style surface class
 
-I am still keeping that as an inference rather than a final label, but it is much stronger than the older “unidentified special terrain class” wording.
+I am still keeping that as an inference rather than a final label, but it is much stronger than the older â€œunidentified special terrain classâ€ wording.

@@ -1,12 +1,12 @@
-# Timed Delivery Row Index Command `1F D3`
+﻿# Timed Delivery Row Index Command `1F D3`
 
 This note records the script-side command pattern that selects individual timed-delivery rows, and the newly pinned local bank-`01` handler behind it.
 
-See also [timed-delivery-controller-499-500-common.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-controller-499-500-common.md).
-See also [timed-delivery-system-flags-754-779.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-system-flags-754-779.md).
-See also [timed-delivery-special-row-02a3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-special-row-02a3.md).
-See also [timed-event-slot-block-7440-and-c20abc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-slot-block-7440-and-c20abc.md).
-See also [timed-event-callback-invoker-c187cc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-invoker-c187cc.md).
+See also [timed-delivery-controller-499-500-common.md](notes/timed-delivery-controller-499-500-common.md).
+See also [timed-delivery-system-flags-754-779.md](notes/timed-delivery-system-flags-754-779.md).
+See also [timed-delivery-special-row-02a3.md](notes/timed-delivery-special-row-02a3.md).
+See also [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md).
+See also [timed-event-callback-invoker-c187cc.md](notes/timed-event-callback-invoker-c187cc.md).
 
 ## Main result
 

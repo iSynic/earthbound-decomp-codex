@@ -1,10 +1,10 @@
-# Landing Palette Interpolation And Export `C4:958E / C4:26ED`
+﻿# Landing Palette Interpolation And Export `C4:958E / C4:26ED`
 
 This note captures the current best local model for the color-work layer that sits beside the landing row-cache and timed control-stream families.
 
-See also [landing-display-assembly-cluster-c007b6-c4b26b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
-See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
-See also [landing-display-profile-overview.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/landing-display-profile-overview.md).
+See also [landing-display-assembly-cluster-c007b6-c4b26b.md](notes/landing-display-assembly-cluster-c007b6-c4b26b.md).
+See also [landing-profile-asset-families-ef105b-10ab-11cb-121b.md](notes/landing-profile-asset-families-ef105b-10ab-11cb-121b.md).
+See also [landing-display-profile-overview.md](notes/landing-display-profile-overview.md).
 
 ## Main result
 

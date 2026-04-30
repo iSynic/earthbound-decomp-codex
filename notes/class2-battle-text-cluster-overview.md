@@ -3,24 +3,24 @@
 This note gives a higher-level map of the currently best-understood `class2` battle-text cluster.
 
 See also:
-- [class2-battle-text-dispatch-stack.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-battle-text-dispatch-stack.md)
-- [battle-text-entry-family-c1dc1c-dd7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-family-c1dc1c-dd7c.md)
-- [battle-text-entry-tail-dd82-dd9f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-entry-tail-dd82-dd9f.md)
-- [class2-concrete-battle-text-call-paths.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-concrete-battle-text-call-paths.md)
-- [class2-enemy-text-pointer-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-enemy-text-pointer-consumers.md)
-- [class2-dispatch-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-dispatch-family.md)
-- [battle-action-stat-change-family-c2b2e0-b5d7.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-action-stat-change-family-c2b2e0-b5d7.md)
-- [battle-affliction-recovery-family-c29aea-a39d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-affliction-recovery-family-c29aea-a39d.md)
-- [battle-text-context-buffer-family-c1ac4a-ad42.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-text-context-buffer-family-c1ac4a-ad42.md)
-- [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md)
-- [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md)
-- [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md)
-- [battle-psi-ability-table-d58a50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-ability-table-d58a50.md)
-- [battle-psi-category-list-family-c1caf5-c1cb7f.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-category-list-family-c1caf5-c1cb7f.md)
-- [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md)
-- [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md)
-- [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md)
-- [battle-selection-snapshot-export-c2b930.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-selection-snapshot-export-c2b930.md)
+- [class2-battle-text-dispatch-stack.md](notes/class2-battle-text-dispatch-stack.md)
+- [battle-text-entry-family-c1dc1c-dd7c.md](notes/battle-text-entry-family-c1dc1c-dd7c.md)
+- [battle-text-entry-tail-dd82-dd9f.md](notes/battle-text-entry-tail-dd82-dd9f.md)
+- [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md)
+- [class2-enemy-text-pointer-consumers.md](notes/class2-enemy-text-pointer-consumers.md)
+- [class2-dispatch-family.md](notes/class2-dispatch-family.md)
+- [battle-action-stat-change-family-c2b2e0-b5d7.md](notes/battle-action-stat-change-family-c2b2e0-b5d7.md)
+- [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md)
+- [battle-text-context-buffer-family-c1ac4a-ad42.md](notes/battle-text-context-buffer-family-c1ac4a-ad42.md)
+- [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md)
+- [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md)
+- [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md)
+- [battle-psi-ability-table-d58a50.md](notes/battle-psi-ability-table-d58a50.md)
+- [battle-psi-category-list-family-c1caf5-c1cb7f.md](notes/battle-psi-category-list-family-c1caf5-c1cb7f.md)
+- [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md)
+- [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md)
+- [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md)
+- [battle-selection-snapshot-export-c2b930.md](notes/battle-selection-snapshot-export-c2b930.md)
 
 ## Main result
 
@@ -55,7 +55,7 @@ The strongest current split is:
 4. adjacent support helpers
 - `C1:DD82` = context-only pointer setter through `C1:AD0A`
 - `C1:DD5F` = `BATTLE_DISPLAY_CLOSE_AND_SYNC_WAIT`, a battle-display close/reset/sync wrapper around battle or display-state transitions
-- `C1:DCCB` = `INITIALIZE_PARTY_BATTLE_START_STATE`, the party-side battle-start initializer, including export of a reused `$99DC` selector/state byte rooted in the broader per-slot family already described in [class2-dispatch-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-dispatch-family.md)
+- `C1:DCCB` = `INITIALIZE_PARTY_BATTLE_START_STATE`, the party-side battle-start initializer, including export of a reused `$99DC` selector/state byte rooted in the broader per-slot family already described in [class2-dispatch-family.md](notes/class2-dispatch-family.md)
 
 ## Best concrete caller bridges
 
@@ -76,17 +76,17 @@ The clearest currently pinned local bridges are:
 
 These are the strongest reasons the current cluster note is now useful rather than speculative.
 
-There is also a now-separated ordinary battle-side caller family at [battle-choice-text-family-c1b2ec-b997.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-choice-text-family-c1b2ec-b997.md): it reuses `AC4A/ACA1/ACF8` outside the `DCxx/DDxx` wrappers, selects text from `D5:7B68` or from the `D5:8A50` battle PSI ability table, seeds the larger `$9FFA`-rooted battle selection snapshot block through `C2:B930`, and then exports row byte `+0x1D` back into the live `$99DC` slot-state family.
+There is also a now-separated ordinary battle-side caller family at [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md): it reuses `AC4A/ACA1/ACF8` outside the `DCxx/DDxx` wrappers, selects text from `D5:7B68` or from the `D5:8A50` battle PSI ability table, seeds the larger `$9FFA`-rooted battle selection snapshot block through `C2:B930`, and then exports row byte `+0x1D` back into the live `$99DC` slot-state family.
 
 The PSI-menu-side notes now give the strongest bridge for that second lane:
 
-- [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md) now covers the outer PSI-user-selection stage
-- [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md) places `C1:C8BC` directly on the battle PSI menu path
-- [battle-psi-ability-table-d58a50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-ability-table-d58a50.md) pins `D5:8A50` as the battle PSI ability table
-- [battle-psi-menu-controller-c1cc39-ce73.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-menu-controller-c1cc39-ce73.md) now gives the lower ordinary controller above the category and PSI-entry stages
-- [battle-targetting-resolver-c1adb4-af50.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-targetting-resolver-c1adb4-af50.md) now gives the shared targetting resolver underneath both the battle-choice and PSI-menu lanes
-- [battle-selection-snapshot-export-c2b930.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-selection-snapshot-export-c2b930.md) now gives the larger `$9FFA`-rooted battle selection snapshot block used by the outer PSI-user-selection and battle-choice lanes
-- [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md) now separates the two naming lanes under that same menu family
+- [battle-psi-user-selection-front-end-c1b5b6-b7c6.md](notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md) now covers the outer PSI-user-selection stage
+- [battle-psi-menu-metadata-family-c1c853-c1c8bc.md](notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md) places `C1:C8BC` directly on the battle PSI menu path
+- [battle-psi-ability-table-d58a50.md](notes/battle-psi-ability-table-d58a50.md) pins `D5:8A50` as the battle PSI ability table
+- [battle-psi-menu-controller-c1cc39-ce73.md](notes/battle-psi-menu-controller-c1cc39-ce73.md) now gives the lower ordinary controller above the category and PSI-entry stages
+- [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md) now gives the shared targetting resolver underneath both the battle-choice and PSI-menu lanes
+- [battle-selection-snapshot-export-c2b930.md](notes/battle-selection-snapshot-export-c2b930.md) now gives the larger `$9FFA`-rooted battle selection snapshot block used by the outer PSI-user-selection and battle-choice lanes
+- [battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md](notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md) now separates the two naming lanes under that same menu family
 
 ## Safest current interpretation
 

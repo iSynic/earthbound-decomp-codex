@@ -16,7 +16,7 @@ This report summarizes bank-level source-scaffold coverage and byte-equivalence 
 | --- | --- | ---: | ---: | ---: | --- | ---: | --- |
 | `C0` | `closed` | 504 | 65536 | 0 | `OK` | 0 | `src/c0/bank_c0_helpers_asar.asm` |
 | `C1` | `closed` | 172 | 65536 | 0 | `OK` | 0 | `src/c1/bank_c1_helpers_asar.asm` |
-| `C2` | `closed` | 217 | 65536 | 0 | `OK` | 0 | `src/c2/bank_c2_helpers_asar.asm` |
+| `C2` | `closed` | 233 | 65536 | 0 | `OK` | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `C3` | `closed` | 11 | 65536 | 0 | `OK` | 0 | `src/c3/bank_c3_helpers_asar.asm` |
 | `C4` | `closed` | 142 | 65536 | 0 | `OK` | 0 | `src/c4/bank_c4_helpers_asar.asm` |
 | `C5` | `closed` | 9 | 65536 | 0 | `OK` | 0 | `src/c5/bank_c5_helpers_asar.asm` |
@@ -47,7 +47,7 @@ This report summarizes bank-level source-scaffold coverage and byte-equivalence 
 | `DE` | `closed` | 13 | 65536 | 0 | `OK` | 0 | `src/de/bank_de_helpers_asar.asm` |
 | `DF` | `closed` | 24 | 65536 | 0 | `OK` | 0 | `src/df/bank_df_helpers_asar.asm` |
 | `E0` | `closed` | 16 | 65536 | 0 | `OK` | 0 | `src/e0/bank_e0_helpers_asar.asm` |
-| `E1` | `closed` | 52 | 65536 | 0 | `OK` | 0 | `src/e1/bank_e1_helpers_asar.asm` |
+| `E1` | `closed` | 53 | 65536 | 0 | `OK` | 0 | `src/e1/bank_e1_helpers_asar.asm` |
 | `E2` | `closed` | 5 | 65536 | 0 | `OK` | 0 | `src/e2/bank_e2_helpers_asar.asm` |
 | `E3` | `closed` | 5 | 65536 | 0 | `OK` | 0 | `src/e3/bank_e3_helpers_asar.asm` |
 | `E4` | `closed` | 6 | 65536 | 0 | `OK` | 0 | `src/e4/bank_e4_helpers_asar.asm` |
@@ -61,7 +61,7 @@ This report summarizes bank-level source-scaffold coverage and byte-equivalence 
 | `EC` | `closed` | 15 | 65536 | 0 | `OK` | 0 | `src/ec/bank_ec_helpers_asar.asm` |
 | `ED` | `closed` | 37 | 65536 | 0 | `OK` | 0 | `src/ed/bank_ed_helpers_asar.asm` |
 | `EE` | `closed` | 47 | 65536 | 0 | `OK` | 0 | `src/ee/bank_ee_helpers_asar.asm` |
-| `EF` | `closed` | 5 | 65536 | 0 | `OK` | 0 | `src/ef/bank_ef_helpers_asar.asm` |
+| `EF` | `closed` | 28 | 65536 | 0 | `OK` | 0 | `src/ef/bank_ef_helpers_asar.asm` |
 
 ## Next Frontier
 

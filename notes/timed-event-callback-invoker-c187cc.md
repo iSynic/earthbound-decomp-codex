@@ -1,10 +1,10 @@
-# Timed-Event Callback Invoker At `C1:87CC`
+﻿# Timed-Event Callback Invoker At `C1:87CC`
 
 This note captures the local bank-`01` execution step that actually invokes callback-style low-word handlers such as `C1:7440`.
 
-See also [timed-event-callback-family-bank01.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-callback-family-bank01.md).
-See also [timed-event-slot-block-7440-and-c20abc.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-event-slot-block-7440-and-c20abc.md).
-See also [timed-delivery-row-index-command-1f-d3.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/timed-delivery-row-index-command-1f-d3.md).
+See also [timed-event-callback-family-bank01.md](notes/timed-event-callback-family-bank01.md).
+See also [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md).
+See also [timed-delivery-row-index-command-1f-d3.md](notes/timed-delivery-row-index-command-1f-d3.md).
 
 ## Main result
 

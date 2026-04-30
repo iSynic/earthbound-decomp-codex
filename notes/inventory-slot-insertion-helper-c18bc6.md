@@ -1,6 +1,6 @@
-# Inventory Slot Insertion Helper `C1:8BC6`
+﻿# Inventory Slot Insertion Helper `C1:8BC6`
 
-`C1:8BC6` is best read as the insertion-side mirror of [inventory-slot-removal-helper-c18c27.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/inventory-slot-removal-helper-c18c27.md).
+`C1:8BC6` is best read as the insertion-side mirror of [inventory-slot-removal-helper-c18c27.md](notes/inventory-slot-removal-helper-c18c27.md).
 
 ## Main result
 
@@ -71,7 +71,7 @@ The only items with that bit set are:
 - `168 = Chick`
 - `169 = Chicken`
 
-So this now reads best as the insertion-side refresh for the same tracked Fresh-Egg / Chick / Chicken family whose removal-side helper is `C3:EB1C`; see [teddy-bear-and-egg-item-cleanup-branches.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/teddy-bear-and-egg-item-cleanup-branches.md).
+So this now reads best as the insertion-side refresh for the same tracked Fresh-Egg / Chick / Chicken family whose removal-side helper is `C3:EB1C`; see [teddy-bear-and-egg-item-cleanup-branches.md](notes/teddy-bear-and-egg-item-cleanup-branches.md).
 
 ## Best current interpretation
 

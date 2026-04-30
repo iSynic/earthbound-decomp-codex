@@ -1,9 +1,9 @@
-# Context Class `3` and Traversal Mode `#$000A`
+﻿# Context Class `3` and Traversal Mode `#$000A`
 
 This note captures the strongest current local read for the special `$9887 == 3` branch.
 
-See also [position-derived-visual-context-class-9887.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/position-derived-visual-context-class-9887.md).
-See also [visual-selector-family-c0780f-c3f2b5.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/visual-selector-family-c0780f-c3f2b5.md).
+See also [position-derived-visual-context-class-9887.md](notes/position-derived-visual-context-class-9887.md).
+See also [visual-selector-family-c0780f-c3f2b5.md](notes/visual-selector-family-c0780f-c3f2b5.md).
 
 ## Main result
 

@@ -1,4 +1,4 @@
-# Map Milestone Closure
+﻿# Map Milestone Closure
 
 Status: closed for the current contract/research phase.
 
@@ -23,7 +23,7 @@ python tools/run_map_contracts.py --list
 python tools/run_map_contracts.py --dry-run
 python tools/run_map_contracts.py --start-at map-collision-attribute
 python tools/run_map_contracts.py --only map-palette-pointer-table map-fts-palette-variant
-python tools/run_map_contracts.py --rom "F:\path\to\EarthBound (USA).sfc"
+python tools/run_map_contracts.py --rom "<path-to-user-rom>"
 ```
 
 Preview renderers remain separate and opt-in because they write ignored local

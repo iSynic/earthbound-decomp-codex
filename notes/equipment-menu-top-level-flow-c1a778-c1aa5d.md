@@ -1,8 +1,8 @@
-# Equipment Menu Top-Level Flow (`C1:A778-C1:AA5D`)
+﻿# Equipment Menu Top-Level Flow (`C1:A778-C1:AA5D`)
 
 This note covers the remaining top-level starts around the equipment menu flow.
 
-See also [equipment-menu-display-fringe-c19a11-c19f29.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-menu-display-fringe-c19a11-c19f29.md), [equipment-preview-slot-block-9cd0-9cd6.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-preview-slot-block-9cd0-9cd6.md), and [equipment-slot-subtype-dispatch-c19066-c4577d.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/equipment-slot-subtype-dispatch-c19066-c4577d.md).
+See also [equipment-menu-display-fringe-c19a11-c19f29.md](notes/equipment-menu-display-fringe-c19a11-c19f29.md), [equipment-preview-slot-block-9cd0-9cd6.md](notes/equipment-preview-slot-block-9cd0-9cd6.md), and [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md).
 
 ## Main Result
 

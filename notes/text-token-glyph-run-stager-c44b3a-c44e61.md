@@ -1,8 +1,8 @@
-# Text Token Glyph Run Stager (`C4:4B3A` and `C4:4E61`)
+﻿# Text Token Glyph Run Stager (`C4:4B3A` and `C4:4E61`)
 
 This note promotes the text-token glyph staging path that had already appeared in the text/window and reflected-hit notes but did not yet have a bank-`C4` working name.
 
-See also [text-window-rendering-primitives-c1078d-c10d7c.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-window-rendering-primitives-c1078d-c10d7c.md), [text-input-dialog-option-helpers-c1e48d-c1e4be.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/text-input-dialog-option-helpers-c1e48d-c1e4be.md), and [class2-reflected-hit-side-token-consumers.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-reflected-hit-side-token-consumers.md).
+See also [text-window-rendering-primitives-c1078d-c10d7c.md](notes/text-window-rendering-primitives-c1078d-c10d7c.md), [text-input-dialog-option-helpers-c1e48d-c1e4be.md](notes/text-input-dialog-option-helpers-c1e48d-c1e4be.md), and [class2-reflected-hit-side-token-consumers.md](notes/class2-reflected-hit-side-token-consumers.md).
 
 ## Main result
 

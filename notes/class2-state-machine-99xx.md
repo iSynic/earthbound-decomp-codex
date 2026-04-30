@@ -1,4 +1,4 @@
-# Class2 State Machine 99xx
+﻿# Class2 State Machine 99xx
 
 This note captures the current ROM-first model for the compact bank `C2` state machine around `99A7` through `9A79`.
 
@@ -134,7 +134,7 @@ Its four tiny wrappers are:
 - `C2:9AD8` passes `#$2710`
 - `C2:9AE1` passes `#$0190`
 
-See [class2-healing-amount-family-c29ab8-c29ae1.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-healing-amount-family-c29ab8-c29ae1.md) for the focused pass. The early action-table quartet at entries `32..35` is now the strongest current local fit for the PSI-side `Lifeup` ladder.
+See [class2-healing-amount-family-c29ab8-c29ae1.md](notes/class2-healing-amount-family-c29ab8-c29ae1.md) for the focused pass. The early action-table quartet at entries `32..35` is now the strongest current local fit for the PSI-side `Lifeup` ladder.
 
 ## Current best model
 

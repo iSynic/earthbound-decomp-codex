@@ -1,4 +1,4 @@
-# Selector Row `0` Caveat
+Ôªø# Selector Row `0` Caveat
 
 This note records an important caution about selector row `0` in the `0E5E / 2C22 / C0780F` family.
 
@@ -82,7 +82,7 @@ This makes the current negative conclusion stronger:
 
 The latest local pass tightened the second source family substantially.
 
-It is no longer best described as just ìa small metadata/config value after validation.î
+It is no longer best described as just ‚Äúa small metadata/config value after validation.‚Äù
 
 What the code now shows is:
 
@@ -98,6 +98,6 @@ So the strongest current statement is:
 - row ids can also come from the matching index of a 10-entry event-flag-gated selector table
 - row `0` still does **not** have good local proof as a player-only semantic id
 
-The focused note is [selector-row-config-family-ef0ee8.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/selector-row-config-family-ef0ee8.md).
+The focused note is [selector-row-config-family-ef0ee8.md](notes/selector-row-config-family-ef0ee8.md).
 
 

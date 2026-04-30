@@ -4,7 +4,7 @@ This note tightens the interpretation of the reflected-hit rebuild tail, especia
 
 See also `notes/class2-reflected-hit-context-rebuild.md`.
 See also `notes/class2-psi-thunder-reflection-branch.md`.
-See also [class2-c1acf8-substitution-byte-family.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/class2-c1acf8-substitution-byte-family.md).
+See also [class2-c1acf8-substitution-byte-family.md](notes/class2-c1acf8-substitution-byte-family.md).
 
 ## Current strongest claim
 

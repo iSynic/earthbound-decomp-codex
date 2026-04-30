@@ -1,8 +1,8 @@
-# C3 Jeff Repair Source Contract `C3:F1EC`
+﻿# C3 Jeff Repair Source Contract `C3:F1EC`
 
 This note promotes the Jeff repair helper at `C3:F1EC` into source-contract form and pairs it with the small C1 mapper at `C1:D038`.
 
-See also [try-fix-item-callback-d0.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/try-fix-item-callback-d0.md), [jeff-repair-item-name-bridge.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/jeff-repair-item-name-bridge.md), and [item-byte-19-packed-class-and-slot.md](/F:/Earthbound%20Decomp%20-%20Codex/notes/item-byte-19-packed-class-and-slot.md).
+See also [try-fix-item-callback-d0.md](notes/try-fix-item-callback-d0.md), [jeff-repair-item-name-bridge.md](notes/jeff-repair-item-name-bridge.md), and [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md).
 
 ## Working Names
 
