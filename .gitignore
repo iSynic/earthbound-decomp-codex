@@ -54,6 +54,7 @@ Thumbs.db
 # Encyclopedia app local dependencies and packaged build artifacts.
 encyclopedia/node_modules/
 encyclopedia/dist/
+encyclopedia/dist-*/
 encyclopedia/.electron/
 encyclopedia/.vite/
 encyclopedia/.cache/
