@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Shared battle PSI list builder over D5:8A50 15-byte ability rows.
+; - Caller-staged masks are copied from the shifted caller DP into $01
+;   (battle usability/target mask) and $23 (PSI category mask).
+; - Row bytes +6/+7/+8 are character learn levels, byte +9 is menu x, byte
+;   +10 is menu y, and bytes +0/+1 feed PSI family/rank text.
 
 C1153B_AddSelectionMenuItem        = $153B
 C1163C_FinalizeSelectionMenu       = $163C
@@ -31,6 +36,7 @@ C1C452_BuildSharedBattlePsiEntryList = GENERATE_PSI_LIST
     pla
     tax
     sep #$20
+    ; Preserve the category/use masks staged by CAF5/CB7F/C853 callers.
     lda $33
     sta $23
     lda $32
@@ -205,6 +211,7 @@ C1C5BD_BuildSharedBattlePsiEntryList_LC5BD:
     sta $1D
     lda $21
     sta $04
+    ; Character-specific learn-level byte: Ness +6, Paula +7, Poo +8.
     beq C1C5DF_BuildSharedBattlePsiEntryList_LC5DF
     cmp.w #$0001
     beq C1C5EC_BuildSharedBattlePsiEntryList_LC5EC
@@ -243,6 +250,7 @@ C1C604_BuildSharedBattlePsiEntryList_LC604:
 C1C616_BuildSharedBattlePsiEntryList_LC616:
     sep #$20
     ldy.w #$0003
+    ; D5:8A50 +3 is matched against the caller's battle usability/target mask.
     lda [$06],Y
     and $01
     rep #$20
@@ -262,6 +270,7 @@ C1C629_BuildSharedBattlePsiEntryList_LC629:
     jmp.w C1C6E0_BuildSharedBattlePsiEntryList_LC6E0
 C1C641_BuildSharedBattlePsiEntryList_LC641:
     ldy.w #$0002
+    ; D5:8A50 +2 is the PSI category mask tested by the current menu lane.
     lda [$06],Y
     and $23
     rep #$20
@@ -294,6 +303,7 @@ C1C652_BuildSharedBattlePsiEntryList_LC652:
 C1C686_BuildSharedBattlePsiEntryList_LC686:
     sep #$20
     ldy.w #$0001
+    ; Rank byte selects the C3:F112 suffix, while +9/+10 provide menu x/y.
     lda [$06],Y
     rep #$20
     and.w #$00FF
@@ -343,6 +353,7 @@ C1C6E4_BuildSharedBattlePsiEntryList_LC6E4:
     sta $06
     lda.w #$00D5
     sta $08
+    ; Walk D5:8A50 in 15-byte rows until the zero dummy terminator.
     lda $02
     sta $04
     asl A

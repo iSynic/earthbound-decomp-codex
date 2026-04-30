@@ -10,6 +10,9 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is the selected battle PSI category.
+; - Current acting character is resolved from $89CA -> $986F, then category
+;   dispatch stages C1:C452 masks: 1 offense, 2 recover, 3 assist, 4 other.
 
 C1C452_BuildSharedBattlePsiEntryList = $C452
 
@@ -46,6 +49,7 @@ C1CAF5_BuildBattlePsiCategoryEntryList:
     beq C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB31_BuildBattlePsiCategoryEntryList_LCB31:
+    ; Category 1: battle offense PSI, usability mask 2/category mask 1.
     sep #$20
     lda.b #$02
     sta $0E
@@ -57,6 +61,7 @@ C1CB31_BuildBattlePsiCategoryEntryList_LCB31:
     jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
+    ; Category 2: battle recover PSI, usability mask 2/category mask 2.
     sep #$20
     lda.b #$02
     sta $0E
@@ -67,6 +72,7 @@ C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
     jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
+    ; Category 3: battle assist PSI, usability mask 2/category mask 4.
     sep #$20
     lda.b #$02
     sta $0E
@@ -78,6 +84,7 @@ C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
     jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B:
+    ; Category 4: other PSI, usability mask 3/category mask 8.
     sep #$20
     lda.b #$03
     sta $0E

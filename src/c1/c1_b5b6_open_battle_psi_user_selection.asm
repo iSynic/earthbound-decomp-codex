@@ -10,6 +10,13 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Outer battle PSI front end: choose a PSI user, stage it in $9D16, then
+;   drive a direct PSI-entry picker using C1:C8BC row formatting.
+; - $9D18 is the single-eligible-user fast-path latch for this front end.
+; - D5:8A50 PSI ability rows are 15 bytes; byte +2 is category, word +4 is
+;   the associated D5:7B68 battle action id, and bytes +0B..+0D are help text.
+; - Ordinary success also seeds the $9FFA battle selection snapshot block
+;   through C2:B930 and mirrors exported row state back into live party slots.
 
 C10084_CloseFocusWindow                    = $0084
 C104EE_SetWindowFocus                      = $04EE
@@ -93,6 +100,7 @@ C1B628_OpenBattlePsiUserSelection_LB628:
     lda $26
     and.w #$00FF
     sta $9D16
+    ; $9D16 is the chosen PSI user id shared with the refresh/metadata helpers.
     lda $26
     and.w #$00FF
     bne C1B63C_OpenBattlePsiUserSelection_LB63C
@@ -140,6 +148,8 @@ C1B694_OpenBattlePsiUserSelection_LB694:
     sta $06
     lda.w #$00D5
     sta $08
+    ; Resolve selected D5:8A50 row, then use word +4 to reach the associated
+    ; D5:7B68 action row for PP cost and targetting behavior.
     lda $01
     and.w #$00FF
     sta $04
@@ -211,6 +221,8 @@ C1B713_OpenBattlePsiUserSelection_LB713:
     and.w #$00FF
     cmp.w #$0008
     bne C1B796_OpenBattlePsiUserSelection_LB796
+    ; Category 8 rows take the special OTHER/Teleport-style branch instead of
+    ; the ordinary shared target resolver.
     lda $983A
     and.w #$00FF
     cmp.w #$000A
@@ -355,6 +367,8 @@ C1B850_BuildPsiSelectionSnapshotAndText:
     lda.b #$AC
     sta $A9708D,X
     tax
+    ; Export the chosen user/target into the larger battle selection snapshot
+    ; rooted around $9FFA before displaying the action text.
     lda $04
     jsl C2B930_ExportBattleSelectionSnapshot
     ldx.w #$0005
@@ -739,6 +753,8 @@ C1BB20_OpenBattlePsiUserSelection_LBB20:
     sta $0A
     lda.w #$00D5
     sta $0C
+    ; Highlight refresh displays the selected PSI row's help-text pointer
+    ; from D5:8A50 +0x0B through the generic text pointer path.
     txa
     sta $04
     asl A

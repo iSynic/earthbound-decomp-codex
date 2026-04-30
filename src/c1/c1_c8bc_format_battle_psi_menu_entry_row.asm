@@ -10,6 +10,11 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is a selected D5:8A50 PSI ability row id.
+; - D5:8A50 rows are 15 bytes; byte +0 is PSI id and word +4 is the
+;   associated D5:7B68 battle action id.
+; - C3:F124 is copied as 0x14-byte encoded battle PSI menu-entry rows.
+; - C3:F11C is the fixed 8-byte companion tail appended before PP cost.
 
 C104EE_SetWindowFocus                   = $04EE
 C10CB6_PrintGlyphWithSoundAndDelay      = $0CB6
@@ -64,6 +69,8 @@ C1C8BC_FormatBattlePsiMenuEntryRow:
     and.w #$00FF
     cmp.w #$0004
     bne C1C913_FormatBattlePsiMenuEntryRow_LC913
+    ; PSI id 4 (Thunder) bypasses the coarse action-row-derived selector and
+    ; uses direct C3:F124 row selection.
     lda.w #$F124
     sta $06
     lda.w #$00C3
@@ -74,6 +81,8 @@ C1C913_FormatBattlePsiMenuEntryRow_LC913:
     sta $0A
     lda.w #$00D5
     sta $0C
+    ; Ordinary rows derive the encoded name-row selector from the associated
+    ; D5:7B68 action row's leading selector bytes.
     lda $12
     inc A
     inc A
@@ -145,6 +154,7 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     sta $0E
     lda.w #$00C3
     sta $10
+    ; Append the fixed encoded tail and then print the action-row PP cost.
     lda.w #$0008
     jsr C10EFC_PrintTextFromPointerLocal
     lda.w #$0050

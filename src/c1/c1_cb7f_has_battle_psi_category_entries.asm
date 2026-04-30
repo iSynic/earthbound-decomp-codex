@@ -10,6 +10,12 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - C1:CB7F input A is category and X is current actor/character id; it maps
+;   categories 1..3 into the same C1:C1BA masks used by C1:CAF5.
+; - C1:CC39 is the ordinary battle PSI controller: category picker, entry
+;   picker, PP guard, target resolver, and final 6-byte menu-selection writer.
+; - Final selection record fields: +1 PSI row id, +2 associated D5:7B68 action
+;   id, +4 mapped targetting class, +5 selected target.
 
 C10036_SetBattleTextDisplayMode            = $0036
 C1003C_ClearBattleTextDisplayMode          = $003C
@@ -47,6 +53,8 @@ C1CB7F_HasBattlePsiCategoryEntries:
     tcd
     pla
     stx $02
+    ; Category predicate uses the same battle usability/category masks as the
+    ; list builder, but only ordinary categories 1..3 are accepted here.
     cmp.w #$0001
     beq C1CB9C_HasBattlePsiCategoryEntries_LCB9C
     cmp.w #$0002
@@ -144,6 +152,8 @@ C1CC2A_HasBattlePsiCategoryEntries_LCC2A:
 C1CC37_HasBattlePsiCategoryEntries_LCC37:
     inc $1E
 C1CC39_OpenBattlePsiMenuController:
+    ; Stage 1: choose offense/recover/assist category and validate it through
+    ; C1:CB7F before opening the entry list.
     lda.w #C1CAF5_BuildBattlePsiCategoryEntryList
     sta $0E
     lda.w #$00C1
@@ -172,6 +182,8 @@ C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
     jsr C104EE_SetWindowFocus
     lda $02
     jsl C1CAF5_BuildBattlePsiCategoryEntryListLong
+    ; Stage 2: build the category-specific D5:8A50 entry list, then format
+    ; rows through C1:C8BC.
     lda.w #C1C8BC_FormatBattlePsiMenuEntryRow
     sta $0E
     lda.w #$00C1
@@ -190,6 +202,8 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     sta $06
     lda.w #$00D5
     sta $08
+    ; PP guard compares current PP against the associated D5:7B68 action row,
+    ; not against the D5:8A50 PSI metadata row itself.
     tya
     sta $04
     asl A
@@ -308,6 +322,8 @@ C1CD8F_HasBattlePsiCategoryEntries_LCD8F:
     sta $06
     lda.w #$00D5
     sta $08
+    ; Final target resolution uses D5:8A50 +4 as the action id passed to the
+    ; shared C1:ADB4 battle targetting resolver.
     ldy $1C
     tya
     sta $04
@@ -380,6 +396,7 @@ C1CE1E_HasBattlePsiCategoryEntries_LCE1E:
     sep #$20
     ldx $20
     stx $04
+    ; Write final battle_menu_selection fields for the chosen PSI entry.
     sta $0001,X
     rep #$20
     tya

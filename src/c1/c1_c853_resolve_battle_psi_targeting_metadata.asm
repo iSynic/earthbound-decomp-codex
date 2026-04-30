@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is the chosen PSI user/party member id from the outer battle PSI
+;   front end.
+; - The helper resolves the user's battle slot/party record, stages broad
+;   PSI-list masks, and delegates list construction to C1:C452.
 
 C104EE_SetWindowFocus                = $04EE
 C1C452_BuildSharedBattlePsiEntryList = $C452
@@ -65,6 +69,7 @@ C1C87B_ResolveBattlePsiTargetingMetadata_LC87B:
     sta $0E
     lda.b #$0F
     sta $0F
+    ; Build an all-category PSI metadata/list view for the selected user.
     ldy $12
     rep #$20
     tya

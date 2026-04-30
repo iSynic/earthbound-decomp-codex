@@ -73,3 +73,8 @@ This planning pass is documentation-only.
   comments plus `notes/c1-battle-front-end-runtime-polish.md`. The promoted
   contracts cover the D5:7B68 target resolver, D5:5000 item action bridge,
   battle item-selection loop, and C1:DC1C battle-text pointer wrapper.
+- 2026-04-30: Second C1 battle PSI slice landed as byte-neutral source
+  comments plus `notes/c1-battle-psi-runtime-polish.md`. The promoted
+  contracts cover the D5:8A50 PSI ability row fields, PSI user/category/entry
+  selection helpers, PP guard, target handoff, and final menu-selection
+  writeback.

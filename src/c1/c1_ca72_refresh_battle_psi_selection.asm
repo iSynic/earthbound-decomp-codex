@@ -10,6 +10,10 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is the selected D5:8A50 PSI row id; X is the display/control value
+;   printed while refreshing the selected row.
+; - Rebuilds the active user-side PSI metadata with C1:C853 using $9D16, then
+;   prints the selected row's PSI family id from D5:8A50 +0.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C3E4CA_ExitWindowUpdateScope       = $C3E4CA
@@ -48,6 +52,7 @@ C1CA72_RefreshBattlePsiSelection:
     jsl $EF0115
     jsl $C3E4E0
     lda $9D16
+    ; $9D16 is the chosen PSI user staged by the outer B5B6 front end.
     jsl $C1C853
     jsr $163C
     ldy $0E
@@ -69,6 +74,7 @@ C1CA72_RefreshBattlePsiSelection:
     asl A
     adc $04
     tax
+    ; Refresh the visible PSI family name for the selected ability row.
     lda $D58A50,X
     and.w #$00FF
     jsr $C403

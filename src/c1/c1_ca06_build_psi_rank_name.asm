@@ -10,6 +10,9 @@
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
+; - Input A is a D5:8A50 PSI ability row id.
+; - Row byte +0 selects the PSI family name through C1:C403; row byte +1
+;   selects the rank suffix through the 2-byte C3:F112 table.
 
 C1C403_PrintPsiFamilyName = $C403
 
@@ -47,6 +50,7 @@ C1CA06_BuildPsiRankName:
     clc
     adc $0A
     sta $0A
+    ; Print PSI family id from D5:8A50 +0.
     lda [$0A]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -61,6 +65,7 @@ C1CA06_BuildPsiRankName:
     dec A
     asl A
     pha
+    ; Print rank suffix from C3:F112[(rank - 1) * 2].
     lda.w #$F112
     sta $06
     lda.w #$00C3
