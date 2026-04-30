@@ -29,12 +29,17 @@ Known reference families used during research include:
 - Herringway / EBSRC
 - Yoshifanatic1's EarthBound disassembly work
 - eb-decompile / EB source-style references
+- EB-M2 Listing v1, reported as released under the Unlicense/public-domain
+  dedication
 - Starmen / Tomato script dumps and recovered localization script material
 - ares emulator documentation/source for SNES/APU behavior and audio backend
   experiments
 
 These references are accelerators and corroboration sources, not vendored
-dependencies.
+dependencies. License-compatible source-listing material may be used for
+reviewed labels, aliases, module-boundary crosswalks, and derived metadata; ROM
+assets and generated ROM-derived outputs remain excluded unless separately
+redistributable.
 
 ## Audio And Emulator Tooling
 

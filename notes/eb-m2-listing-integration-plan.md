@@ -16,8 +16,10 @@ as:
 
 - Treat EB-M2 Listing as a major reference oracle, not as uncredited source to
   copy wholesale.
-- Keep `refs/EB-M2-Listing-v1/` ignored unless provenance and redistribution
-  rights become explicit.
+- Record the reported Unlicense/public-domain dedication in reference notes and
+  third-party notices before importing listing-derived source structure.
+- Keep `refs/EB-M2-Listing-v1/` ignored by default because the archive is large,
+  even though listing-derived metadata may be committed.
 - Prefer crosswalks, evidence links, and derived metadata over bulk imported
   listing text.
 - Preserve our byte-equivalence validators as independent checks.
@@ -83,6 +85,7 @@ Outputs:
 
 - `manifests/eb-m2-name-crosswalk.json`
 - `notes/eb-m2-name-crosswalk.md`
+- `manifests/symbol-aliases.json`
 
 Good enough:
 
@@ -157,6 +160,8 @@ Tasks:
   - generate source from a user-provided ROM plus EB-M2-derived metadata;
   - or document a bridge to an existing EB-M2/EBSRC build flow.
 - Identify licensing/provenance constraints before importing any source text.
+- Keep ROM-derived game assets and generated outputs outside tracked source even
+  when listing source text is license-compatible.
 
 Outputs:
 
@@ -171,7 +176,7 @@ Good enough:
 ## Immediate Next Steps
 
 1. Generate the EB-M2 listing index.
-2. Generate a C0/C1/C2/C3/C4/EF name crosswalk report.
+2. Review the generated name crosswalk and alias manifest.
 3. Update README/project status to remove any overclaiming.
 4. Update public-facing status language after the first crosswalk reports.
 5. Only then start promoting names into source/docs.

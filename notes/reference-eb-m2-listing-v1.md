@@ -39,6 +39,19 @@ Examples seen during import:
 - `C30100` `DISPLAY_ANTI_PIRACY_SCREEN`
 - `EF0000` `ENEMY_FLASHING_OFF`
 
+## License
+
+The listing was reported as released under the Unlicense/public-domain
+dedication:
+
+- free and unencumbered software released into the public domain;
+- permission to copy, modify, publish, use, compile, sell, or distribute;
+- provided "as is" without warranty.
+
+This permits incorporating source-label and module-boundary information into
+the project. ROM-derived game assets and generated outputs remain governed by
+the repository's separate no-redistribution policy.
+
 ## Usage
 
 Look up an address:
@@ -57,10 +70,13 @@ python tools/lookup_eb_m2_listing.py ENEMY_FLASHING_OFF --symbol --bank 2F
 
 ## Cautions
 
-Treat this as a reference/cross-check source unless and until its license and
-provenance are explicit. Do not bulk-copy listing text into tracked source.
-Prefer using it to corroborate names, module boundaries, call contracts, and
-semantic notes.
+Treat this as a reference/cross-check source with explicit attribution. Prefer
+derived indexes, crosswalks, aliases, and reviewed source-name promotions over
+large unreviewed imports.
 
 The formal integration plan is tracked in
 `notes/eb-m2-listing-integration-plan.md`.
+
+The current exact-address naming crosswalk is tracked in
+`notes/eb-m2-name-crosswalk.md` and
+`manifests/eb-m2-name-crosswalk.json`.
