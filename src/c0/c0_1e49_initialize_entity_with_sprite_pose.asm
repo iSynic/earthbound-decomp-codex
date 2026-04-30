@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C01C11_InitializeEntityStateMask = $C01C11
+; Full entity visual setup path: read `EF:133F` pose descriptor, reserve `$4A00`
+; visual memory, allocate `$467E` record bytes, build records, then seed the
+; per-slot visual/runtime fields consumed by movement and render helpers.
 
 ; ---------------------------------------------------------------------------
 ; C0:1E49
@@ -65,11 +68,13 @@ C01E79_Initialize_EntityWithSpritePose_L1E79:
     lda $08
     sta $25
     lda $2B
+    ; Decode descriptor dimensions and the secondary visual descriptor selector.
     jsr $1DED
     sta $02
     ldy $04
     ldx $467C
     lda $467A
+    ; Reserve `$4A00` visual-memory span and upload C4 tile data if needed.
     jsl $C01C52
     sta $21
 C01EB5_Initialize_EntityWithSpritePose_L1EB5:
@@ -101,6 +106,7 @@ C01EBE_Initialize_EntityWithSpritePose_L1EBE:
     asl A
     adc $04
     asl A
+    ; Request `record_count * 10` bytes for two 5-byte-record passes.
     jsl $C01A9D
     sta $1F
 C01EEF_Initialize_EntityWithSpritePose_L1EEF:
@@ -131,6 +137,7 @@ C01EF8_Initialize_EntityWithSpritePose_L1EF8:
     tay
     ldx $21
     lda $1F
+    ; Populate the allocated `$467E` record run from the visual descriptor.
     jsr $1D38
     lda $2F
     sta $04
@@ -168,6 +175,7 @@ C01F6C_Initialize_EntityWithSpritePose_L1F6C:
     lda $1F
     clc
     adc.w #$467E
+    ; Store the slot's long pointer to the `$467E` visual-record run.
     sta $112E,Y
     lda.w #$007E
     sta $116A,Y
@@ -192,6 +200,7 @@ C01F6C_Initialize_EntityWithSpritePose_L1F6C:
     clc
     adc.w #$4000
     ldx $1B
+    ; Seed the per-slot VRAM base consumed by companion visual producers.
     sta $0000,X
     sep #$20
     ldy.w #$0001
@@ -322,6 +331,7 @@ C0202E_Initialize_EntityWithSpritePose_L202E:
     ora $04
     sta $2BE6,X
     lda.w #$FFFF
+    ; Initialize identity/placement fields as empty until spawn or script setup.
     sta $2D4E,X
     sta $2D12,X
     sta $2C9A,X

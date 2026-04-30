@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+; Spawn-list entry resolver. It reads D5:9589 row metadata for the candidate
+; id in list byte +1, then hands chance/count and descriptor fields to the
+; placement loop that eventually calls C0:1E49.
 
 ; ---------------------------------------------------------------------------
 ; C0:28E7
@@ -38,6 +41,7 @@ C028E7_TryPlaceSpawnCandidateFromListEntry:
     sta $06
     lda [$06]
     and.w #$00FF
+    ; Candidate chance/count byte exported for spawn-list consumers.
     sta $4A76
     lda $16
     clc
@@ -51,6 +55,7 @@ C028E7_TryPlaceSpawnCandidateFromListEntry:
     sta $06
     lda [$06]
     sta $26
+    ; Pose/entity descriptor id used by C0:2957 when creating the slot.
     sta $4A74
     lda $16
     clc

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; `$467E..49FD` is the byte-backed visual/entity record pool. `#$FF` marks
+; free bytes; allocator/release helpers treat it as runs of 5-byte records.
 
 ; ---------------------------------------------------------------------------
 ; C0:1A86
@@ -23,6 +24,7 @@ C01A86_Reset_EntityBytePool467E:
 C01A8D_Reset_EntityBytePool467E_L1A8D:
     sep #$20
     lda.b #$FF
+    ; Full-pool clear before entity visual records are allocated into `$467E`.
     sta $467E,X
     inx
 C01A95_Reset_EntityBytePool467E_L1A95:

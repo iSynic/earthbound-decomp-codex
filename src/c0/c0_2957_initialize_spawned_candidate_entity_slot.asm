@@ -14,6 +14,9 @@
 C01E49_CreateEntityFromDescriptor = $C01E49
 C08E9A_GetRandom16                = $C08E9A
 C09231_ModUnsignedWordByIndex     = $C09231
+; Spawn candidate commit path. Creates an entity slot through C0:1E49, probes
+; random placement offsets, rejects collision/terrain failures, and commits
+; final position plus candidate identity into the slot-state tables.
 
 ; ---------------------------------------------------------------------------
 ; C0:2957
@@ -38,6 +41,7 @@ C02974_InitializeSpawnedCandidateEntitySlot_L2974:
     ldy.w #$FFFF
     ldx $16
     lda $26
+    ; Create the visual/runtime slot before probing random placement attempts.
     jsl C01E49_CreateEntityFromDescriptor
     sta $14
     stz $1C
@@ -74,6 +78,7 @@ C0298C_InitializeSpawnedCandidateEntitySlot_L298C:
     ldy $14
     ldx $02
     lda $04
+    ; Footprint collision probe for the candidate's randomized world position.
     jsl $C05F33
     sta $12
     and.w #$00D0
@@ -81,6 +86,7 @@ C0298C_InitializeSpawnedCandidateEntitySlot_L298C:
     ldy $18
     ldx $14
     lda $12
+    ; Terrain compatibility uses D5:9589 +$20 metadata for this candidate id.
     jsl $C05DE7
     cmp.w #$0000
     beq C029F1_InitializeSpawnedCandidateEntitySlot_L29F1
@@ -91,6 +97,7 @@ C029E2_InitializeSpawnedCandidateEntitySlot_L29E2:
     cmp.w #$0014
     bne C0298C_InitializeSpawnedCandidateEntitySlot_L298C
     lda $14
+    ; Failed all attempts: release the freshly-created slot and abandon entry.
     jsl $C02140
     bra C02A3A_InitializeSpawnedCandidateEntitySlot_L2A3A
 C029F1_InitializeSpawnedCandidateEntitySlot_L29F1:
@@ -105,6 +112,7 @@ C029F1_InitializeSpawnedCandidateEntitySlot_L29F1:
     lda $2A
     clc
     adc.w #$8000
+    ; Candidate marker ties this slot back to the spawn-list entry.
     sta $2C9A,X
     lda $18
     sta $2D12,X
@@ -118,6 +126,7 @@ C029F1_InitializeSpawnedCandidateEntitySlot_L29F1:
     asl A
     clc
     adc $2C
+    ; Packed map-cell index used later to avoid duplicate spawn placements.
     sta $2D4E,X
     stz $2C5E,X
     jsl C08E9A_GetRandom16

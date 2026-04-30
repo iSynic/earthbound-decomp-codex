@@ -60,6 +60,11 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   plus collision path centered on `C0:4C45`, `C0:449B`, `C0:54C9`, `C0:5B7B`,
   `C0:5DE7`, and the `$28DA[slot]` collision/terrain cache wrappers. The
   rollup lives in `notes/c0-movement-collision-runtime-polish.md`.
+- 2026-04-30 second slice: added byte-neutral source comments for the early
+  entity visual lifecycle centered on `$467E` record allocation, `$4A00`
+  visual-memory reservations, `EF:133F` sprite-pose descriptors, C0:1E49 slot
+  creation, spawn candidate commits, and release paths. The rollup lives in
+  `notes/c0-entity-visual-runtime-polish.md`.
 
 ## Validation
 

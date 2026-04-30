@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Reads the `EF:133F` sprite-pose descriptor pointer table. The descriptor's
+; first byte seeds `$467C`; the high nibble of descriptor byte +1 seeds `$467A`;
+; descriptor byte +2 is returned to the caller.
 
 ; ---------------------------------------------------------------------------
 ; C0:1DED
@@ -50,6 +52,7 @@ C01DED_Read_SpritePoseVisualDescriptor:
     lsr A
     rep #$20
     and.w #$00FF
+    ; Width/span class consumed by C0:1C52.
     sta $467A
     lda $06
     sta $0A
@@ -57,6 +60,7 @@ C01DED_Read_SpritePoseVisualDescriptor:
     sta $0C
     lda [$0A]
     and.w #$00FF
+    ; First descriptor byte, later used as the paired dimension/selector.
     sta $467C
     sep #$20
     ldy.w #$0002

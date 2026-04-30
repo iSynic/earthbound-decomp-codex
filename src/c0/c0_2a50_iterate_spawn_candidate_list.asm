@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Candidate lists begin with a count byte in `[$0A]`; `#$FF` terminates with no
+; work. Nonterminal lists jump into C0:28E7 to resolve D5 metadata and spawn.
 
 ; ---------------------------------------------------------------------------
 ; C0:2A50
@@ -24,6 +25,7 @@ C02A50_Iterate_SpawnCandidateList:
     lda [$06]
     and.w #$00FF
     tax
+    ; `$4A6E` is the remaining-entry count consumed by C0:2957.
     stx $4A6E
     cpx.w #$00FF
     beq C02A69_Iterate_SpawnCandidateList_L2A69

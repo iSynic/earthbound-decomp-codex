@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C01C11_InitializeEntityStateMask = $C01C11
+; Script-facing partial release for the current entity slot. It frees the
+; `$467E` visual-record run and `$4A00` reservations, clears identity markers,
+; but does not run the broader task-slot cleanup used by C0:2140.
 
 ; ---------------------------------------------------------------------------
 ; C0:20F1
@@ -28,9 +31,11 @@ C020F1_ScriptRelease_CurrentEntityVisualState:
     tay
     sty $0E
     lda $112E,Y
+    ; Release the current slot's `$467E` visual-record run.
     jsl $C01B15
     ldx.w #$0000
     lda $02
+    ; Clear/retag this slot's `$4A00` visual-memory reservations.
     jsl C01C11_InitializeEntityStateMask
     ldy $0E
     lda $2C9A,Y
@@ -51,6 +56,7 @@ C02131_ScriptRelease_CurrentEntityVisualState_L2131:
     asl A
     tax
     lda.w #$FFFF
+    ; Drop script pose id and candidate marker; task cleanup is intentionally absent.
     sta $2CD6,X
     sta $2C9A,X
     pld

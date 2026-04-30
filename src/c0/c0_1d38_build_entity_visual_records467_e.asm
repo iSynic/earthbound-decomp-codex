@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Builds two passes of 5-byte visual records in the `$467E` byte pool. The
+; source stream comes from the secondary visual descriptor; `C4:303C` supplies
+; per-record tile/attribute words folded into record bytes +1/+2.
 
 ; ---------------------------------------------------------------------------
 ; C0:1D38
@@ -46,6 +48,7 @@ C01D64_Build_EntityVisualRecords467E_L1D64:
     bra C01DD4_Build_EntityVisualRecords467E_L1DD4
 C01D6B_Build_EntityVisualRecords467E_L1D6B:
     sep #$20
+    ; Record byte +0 comes directly from the secondary descriptor stream.
     lda [$06]
     sta $467E,X
     inx
@@ -62,6 +65,7 @@ C01D6B_Build_EntityVisualRecords467E_L1D6B:
     sta $0E
     sep #$20
     ldx $10
+    ; Record byte +1 is the low byte of the `C4:303C` visual word.
     sta $467E,X
     inx
     rep #$20
@@ -79,6 +83,7 @@ C01D6B_Build_EntityVisualRecords467E_L1D6B:
     and.b #$FE
     ora $01
     ora $00
+    ; Record byte +2 combines descriptor flags, caller bit, and word high byte.
     sta $467E,X
     inx
     ldy.w #$0003

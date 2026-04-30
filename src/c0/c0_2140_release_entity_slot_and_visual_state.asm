@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C01C11_InitializeEntityStateMask = $C01C11
+; Full slot release: frees `$467E` visual records, rewrites `$4A00`
+; reservations, clears identity markers, then calls the task/entity cleanup
+; helper at C0:9C35.
 
 ; ---------------------------------------------------------------------------
 ; C0:2140
@@ -29,9 +32,11 @@ C02140_Release_EntitySlotAndVisualState:
     tay
     sty $0E
     lda $112E,Y
+    ; Release the slot's `$467E` visual-record run.
     jsl $C01B15
     ldx.w #$0000
     lda $02
+    ; Clear/retag this slot's `$4A00` visual-memory reservations.
     jsl C01C11_InitializeEntityStateMask
     ldy $0E
     lda $2C9A,Y
@@ -55,6 +60,7 @@ C0217F_Release_EntitySlotAndVisualState_L217F:
     sta $2CD6,X
     sta $2C9A,X
     lda $02
+    ; Broader task-slot/entity cleanup, unlike the script-facing C0:20F1 path.
     jsl $C09C35
     pld
     rtl

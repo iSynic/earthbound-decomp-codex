@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Input A is the requested span length, X is the owner/slot byte.
+; `$4A00..4A57` is the compact visual-memory reservation map. Reserved bytes
+; are written as `owner | #$80`; return `#$FF03` when no span fits.
 
 ; ---------------------------------------------------------------------------
 ; C0:1B96
@@ -30,6 +32,7 @@ C01B96_Reserve_VisualMemorySpan4A00:
     ldy.w #$0000
     bra C01BF9_Reserve_VisualMemorySpan4A00_L1BF9
 C01BAB_Reserve_VisualMemorySpan4A00_L1BAB:
+    ; Test a contiguous zero span beginning at reservation-map index Y.
     lda.w #$0000
     sta $10
     bra C01BC6_Reserve_VisualMemorySpan4A00_L1BC6
@@ -62,6 +65,7 @@ C01BD5_Reserve_VisualMemorySpan4A00_L1BD5:
     lda $04
     sep #$20
     ora.b #$80
+    ; Mark each reserved `$4A00` byte with the high-bit owner token.
     sta $4A00,X
     rep #$20
     lda $0E
@@ -88,6 +92,7 @@ C01BF9_Reserve_VisualMemorySpan4A00_L1BF9:
     cmp $02
     bcc C01BAB_Reserve_VisualMemorySpan4A00_L1BAB
     beq C01BAB_Reserve_VisualMemorySpan4A00_L1BAB
+    ; No contiguous span of the requested length was available.
     lda.w #$FF03
 C01C0F_Reserve_VisualMemorySpan4A00_L1C0F:
     pld

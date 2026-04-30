@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Rewrites `$4A00..4A57` reservation-map entries. Input A selects an owner
+; token, or `#$8000` for wildcard-all entries; X/Y supplies the replacement
+; low byte. Reference name `ALLOC_SPRITE_MEM` is kept as an alias only.
 
 ; ---------------------------------------------------------------------------
 ; C0:1C11
@@ -36,6 +38,7 @@ C01C23_Rewrite_VisualMemoryReservations4A00_L1C23:
     and.w #$00FF
     ora.w #$0080
     sta $02
+    ; Match `owner | #$80`, unless A was the wildcard `#$8000`.
     lda $4A00,X
     and.w #$00FF
     cmp $02
@@ -46,6 +49,7 @@ C01C23_Rewrite_VisualMemoryReservations4A00_L1C23:
 C01C42_Rewrite_VisualMemoryReservations4A00_L1C42:
     tya
     sep #$20
+    ; Replacement 0 frees the entry; other low bytes retag reservations.
     sta $4A00,X
 C01C48_Rewrite_VisualMemoryReservations4A00_L1C48:
     inx

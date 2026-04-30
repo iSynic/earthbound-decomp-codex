@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Clears 30 overworld/entity slot words in the core slot-state tables.
+; `$2C9A` is later reused as the spawn/entity candidate marker; `$289E` and
+; `$2B32` are reset beside it during broad scene or object-state setup.
 
 ; ---------------------------------------------------------------------------
 ; C0:1A69
@@ -25,6 +27,7 @@ C01A70_Reset_EntitySlotStateTables_L1A70:
     tya
     asl A
     tax
+    ; Per-slot word index for the 30-slot overworld/entity state tables.
     stz $2B32,X
     lda.w #$FFFF
     sta $289E,X

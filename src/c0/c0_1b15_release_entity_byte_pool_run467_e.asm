@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Input A is normally the slot's `$112E` pointer into `$467E..49FE`.
+; Release clears 5-byte visual records to `#$FF`; record byte +4 bit 7 marks
+; the end of a run, and the helper processes at most two runs.
 
 ; ---------------------------------------------------------------------------
 ; C0:1B15
@@ -24,6 +26,7 @@ C01B15_Release_EntityBytePoolRun467E:
     adc.w #$FFEE
     tcd
     pla
+    ; Reject non-pool pointers before converting the address to a pool offset.
     cmp.w #$467E
     bcc C01B94_Release_EntityBytePoolRun467E_L1B94
     cmp.w #$49FE
@@ -42,6 +45,7 @@ C01B38_Release_EntityBytePoolRun467E_L1B38:
     adc.w #$4682
     tax
     stx $0E
+    ; Save byte +4 before clearing; bit 7 decides whether the run ended.
     lda $0000,X
     and.w #$00FF
     tay
@@ -49,6 +53,7 @@ C01B38_Release_EntityBytePoolRun467E_L1B38:
     tax
     sep #$20
     lda.b #$FF
+    ; Clear one 5-byte record in the `$467E` visual/entity pool.
     sta $467E,X
     rep #$20
     lda $10

@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+; Input A is the requested byte count. Return A is a `$467E` pool offset, or
+; `#$FF01` for no free record marker and `#$FF02` when the run would overflow.
+; The probe byte is `$4682 + offset`, the fifth byte of each 5-byte record.
 
 ; ---------------------------------------------------------------------------
 ; C0:1A9D
@@ -29,9 +31,11 @@ C01A9D_Find_FreeEntityBytePoolRun467E = FIND_FREE_7E4682
     ldx.w #$0000
     stx $10
     lda $02
+    ; Mirror the requested run length for later entity-init consumers/debuggers.
     sta $4A6A
     bra C01AC8_Find_FreeEntityBytePoolRun467E_L1AC8
 C01AB5_Find_FreeEntityBytePoolRun467E_L1AB5:
+    ; A free candidate starts at a 5-byte record whose byte +4 is `#$FF`.
     lda $4682,X
     and.w #$00FF
     cmp.w #$00FF
@@ -50,6 +54,7 @@ C01AD2_Find_FreeEntityBytePoolRun467E_L1AD2:
     txa
     clc
     adc $02
+    ; Requested byte run must stay inside the 0x380-byte `$467E` pool.
     cmp.w #$0380
     bcs C01B10_Find_FreeEntityBytePoolRun467E_L1B10
     txa
@@ -57,6 +62,7 @@ C01AD2_Find_FreeEntityBytePoolRun467E_L1AD2:
     bra C01AFF_Find_FreeEntityBytePoolRun467E_L1AFF
 C01AE0_Find_FreeEntityBytePoolRun467E_L1AE0:
     tax
+    ; Any occupied +4 marker inside the requested run rejects this candidate.
     lda $4682,X
     and.w #$00FF
     cmp.w #$00FF
