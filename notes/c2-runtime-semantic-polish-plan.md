@@ -128,6 +128,12 @@ contract notes for C0/C1/C3/C4 consumers.
   `C2:DE0F` dimming, `C2:DE96` restore, `C2:DF2E` literal/restore/stepped
   palette commands, protected palette-cycle windows, and `C2:E08E` layer
   fanout.
+- 2026-04-30 fifteenth slice: promoted battle-background load/update contracts
+  into byte-neutral source comments plus
+  `notes/c2-battle-bg-load-update-runtime-polish.md`. The promoted contracts
+  cover `C2:CFE5` config-to-struct import, `LOAD_BATTLE_BG` table joins,
+  `C2:D0AC` letterbox HDMA construction, `C2:DAE3` distortion priming, and
+  `C2:DB3F` per-frame visual updates.
 
 ## Validation
 

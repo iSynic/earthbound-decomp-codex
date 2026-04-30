@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:DAE3..C2:DB14 PrimeLayer1BattleBgDistortionSwap
+;
+; Runtime contract:
+; - Primes layer 1 battle-background distortion state by swapping the first and
+;   fourth distortion style bytes inside `$ADD4`'s loaded-bg struct.
+; - Clears the second distortion style byte and sets distortion duration left to
+;   `1`, forcing the per-frame updater to consume the changed distortion lane.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,14 +30,18 @@ C2DAE3_PrimeLayer1BattleBgDistortionSwap:
     tcd
     ldx.w #$AE35
     sep #$20
+    ; `$AE35` is layer 1 distortion_styles[0].
     lda $0000,X
     sta $0E
     ldy.w #$AE38
+    ; Swap in distortion_styles[3], then restore the old first value there.
     lda $0000,Y
     sta $0000,X
+    ; Clear distortion_styles[1].
     stz $AE36
     rep #$20
     lda.w #$0001
+    ; Force distortion_duration_left to reload on the next visual update.
     sta $AE3A
     sep #$20
     lda $0E

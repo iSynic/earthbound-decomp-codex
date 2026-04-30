@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:D121..C2:DAE3 LoadBattleBackgroundMainBody
+;
+; Runtime contract:
+; - Loads battle-background layer graphics, arrangements, palettes, runtime
+;   config structs, and letterbox/overlay state.
+; - Inputs: A = layer 1 battle-background enum/config id, X = optional layer 2
+;   enum/config id, Y = letterbox/layout flags.
+; - Joins `BG_DATA_TABLE` row byte 0 to graphics and arrangement pointer tables,
+;   row byte 1 to the palette pointer table, and row bytes 2-16 to the
+;   `loaded_bg_data` runtime struct via `C2:CFE5`.
+; - Builds layer 1 at `$ADD4` and, when enabled, layer 2 at `$AE4B`; the final
+;   tail rebuilds the letterbox HDMA table and clears overlay/layer effect state.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -43,6 +54,7 @@ C2D121_LoadBattleBackgroundMainBody = LOAD_BATTLE_BG
     stz $AD90
     stz $AD8E
     stz $AD8C
+    ; Decode Y's low two bits into battle letterbox top/bottom bounds.
     lda $2E
     and.w #$0003
     beq C2D160_LoadBattleBgNoLetterbox
@@ -95,6 +107,7 @@ C2D193_LoadBattleBgLetterboxSetupDone:
     sta $0A
     lda.w #$00CA
     sta $0C
+    ; BG_DATA_TABLE byte 0 selects the layer graphics pointer.
     lda $02
     sta $04
     asl A
@@ -216,6 +229,7 @@ C2D296_LoadBattleBgLayer1ArrangementData:
     asl A
     asl A
     pha
+    ; The same BG_DATA_TABLE byte 0 selects the arrangement pointer.
     lda.w #$D93D
     sta $06
     lda.w #$00CA
@@ -331,6 +345,7 @@ C2D377_LoadBattleBgLayer1RuntimeAndPaletteData:
     lda $08
     sta $10
     lda.w #$ADD4
+    ; Import layer 1 config bytes into the loaded-bg runtime struct.
     jsl $C2CFE5
     lda.w #$AE20
     sta $02
@@ -368,6 +383,7 @@ C2D377_LoadBattleBgLayer1RuntimeAndPaletteData:
     clc
     adc $06
     sta $06
+    ; BG_DATA_TABLE byte 1 selects the layer palette pointer.
     ldy.w #$0002
     lda [$06],Y
     tay
@@ -452,6 +468,7 @@ C2D377_LoadBattleBgLayer1RuntimeAndPaletteData:
     bne C2D4AB_LoadBattleBackgroundMainBody_LD4AB
     jmp.w C2DAB2_FinalizeBattleBackgroundLoad
 C2D4AB_LoadBattleBackgroundMainBody_LD4AB:
+    ; Y bit 2 chooses the alternate two-layer upload path.
     lda $2E
     and.w #$0004
     bne C2D4B5_LoadBattleBackgroundMainBody_LD4B5
@@ -752,6 +769,7 @@ C2D6DF_LoadBattleBackgroundMainBody_LD6DF:
     sta $0000,X
     jmp.w C2DAB2_FinalizeBattleBackgroundLoad
 C2D714_LoadBattleBgFourLayerLayoutPath:
+    ; Four-layer layout path uses split BG1/BG2 screen-base setup.
     lda.w #$0008
     jsl C08D79_UpdateBgModeRegisterFromQueue
     ldy.w #$6000
@@ -838,6 +856,7 @@ C2D7A4_LoadBattleBgFourLayerRuntimeAndPaletteData:
     lda $08
     sta $10
     lda.w #$ADD4
+    ; Four-layer path still imports layer 1 config into `$ADD4`.
     jsl $C2CFE5
     lda.w #$AE20
     sta $02
@@ -1208,6 +1227,7 @@ C2DAB2_FinalizeBattleBackgroundLoad:
     lda.w #$0001
     sta $ADAC
 C2DACD_CommitBattleLetterboxAndOverlayState:
+    ; Commit letterbox HDMA state, then clear any stale battle overlay state.
     jsl $C2D0AC
     lda $ADB2
     beq C2DADD_ClearBattleSwirlOverlayAfterBgLoad

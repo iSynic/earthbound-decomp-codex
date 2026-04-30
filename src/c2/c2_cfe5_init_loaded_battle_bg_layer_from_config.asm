@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:CFE5..C2:D0AC InitLoadedBattleBgLayerFromConfig
+;
+; Runtime contract:
+; - Initializes one `loaded_bg_data` struct from the selected
+;   `BG_DATA_TABLE` layer-config row used by `LOAD_BATTLE_BG`.
+; - Input A is the destination struct base (`$ADD4` or `$AE4B`); direct-page
+;   `$26/$28` holds the source config-row pointer.
+; - Clears the 0x77-byte runtime struct, copies bitdepth, palette-cycle style
+;   and ranges, palette-change speed, four scrolling movement ids, and four
+;   distortion style ids.
+; - Seeds palette, scrolling, and distortion duration counters to `1` so the
+;   per-frame background updater starts each lane immediately.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -40,9 +51,11 @@ C2CFE5_InitLoadedBattleBgLayerFromConfig:
     ldx.w #$0077
     rep #$20
     tya
+    ; Clear the destination loaded-bg struct before importing config fields.
     jsl C08EFC_ClearDestinationBlock
     sep #$20
     ldy.w #$0002
+    ; Config byte 2 -> loaded_bg_data::bitdepth.
     lda [$06],Y
     ldy $16
     sta $0001,Y
@@ -67,6 +80,7 @@ C2CFE5_InitLoadedBattleBgLayerFromConfig:
     ldy $16
     sta $0007,Y
     ldy.w #$0008
+    ; Config byte 8 -> palette-change speed.
     lda [$06],Y
     ldy $16
     sta $000A,Y
@@ -82,6 +96,7 @@ C2CFE5_InitLoadedBattleBgLayerFromConfig:
     tya
     clc
     adc.w #$004E
+    ; Config bytes 9-12 -> four scrolling movement row ids.
     jsl C08ED2_CopyMemoryBlock
     lda.w #$000D
     ldx $12
@@ -99,9 +114,11 @@ C2CFE5_InitLoadedBattleBgLayerFromConfig:
     tya
     clc
     adc.w #$0061
+    ; Config bytes 13-16 -> four distortion style row ids.
     jsl C08ED2_CopyMemoryBlock
     lda.w #$0001
     ldy $16
+    ; Duration counters start nonzero for palette, scroll, and distortion lanes.
     sta $0053,Y
     sta $0066,Y
     sep #$20

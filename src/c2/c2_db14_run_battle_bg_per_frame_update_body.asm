@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:DB14..C2:DE0F RunBattleBgPerFrameUpdateBody
+;
+; Runtime contract:
+; - Runs the battle-background visual update lane each frame: palette
+;   brightness/flash commands, shake/wobble offsets, loaded-bg script updates,
+;   PSI animation ticks, HP/PP box blinking, overlay scripts, and letterbox
+;   collapse animation.
+; - Calls `C2:E08E` for broad palette commands and `C2:C92D` for per-layer
+;   loaded-bg scroll/distortion/palette script state.
+; - Commits horizontal/vertical offsets to the active BG offset registers and
+;   rebuilds the letterbox HDMA table when `$ADB6` requests a transition.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -41,6 +51,7 @@ C2DB14_CopyBattleBgDistortionBufferToWorkingState:
     lda $08
     sta $10
     ldx.w #$0020
+    ; Copy the live/displayed layer-1 battle-bg palette back into `$ADE0`.
     lda.w #$ADE0
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     pld
@@ -53,6 +64,7 @@ C2DB3F_RunBattleBgPerFrameUpdateBody:
     tcd
     lda $ADD0
     beq C2DB8C_UpdateBattleBgFlashAndShakeTimers
+    ; Background darkening ramp: convert `$ADD2` into a palette-step command.
     lda $ADD2
     sec
     sbc.w #$0555
@@ -86,6 +98,7 @@ C2DB7E_RunBattleBgPerFrameUpdateBody_LDB7E:
 C2DB8C_UpdateBattleBgFlashAndShakeTimers:
     lda $ADA8
     beq C2DBAB_RunBattleBgPerFrameUpdateBody_LDBAB
+    ; `$ADA8` toggles all background slots between FFFF and restored palette.
     lda $ADA8
     dec A
     sta $ADA8
@@ -100,6 +113,7 @@ C2DBA5_RunBattleBgPerFrameUpdateBody_LDBA5:
 C2DBAB_RunBattleBgPerFrameUpdateBody_LDBAB:
     lda $ADAA
     beq C2DBE9_RunBattleBgPerFrameUpdateBody_LDBE9
+    ; `$ADAA` drives the zero/restore flash lane and optional wait/color setup.
     stz $0200
     lda $ADAA
     cmp.w #$0003
@@ -131,6 +145,7 @@ C2DBE9_RunBattleBgPerFrameUpdateBody_LDBE9:
     stz $AD98
     bra C2DC27_UpdateBattleBgLayerOffsets
 C2DBF3_RunBattleBgPerFrameUpdateBody_LDBF3:
+    ; Vertical shake uses the C4 waveform table and reloads while hold remains.
     lda.w #$003C
     sec
     sbc $AD8C
@@ -156,6 +171,7 @@ C2DC27_UpdateBattleBgLayerOffsets:
     stz $AD96
     lda $AD92
     beq C2DC6A_RunBattleBgPerFrameUpdateBody_LDC6A
+    ; Wobble derives horizontal offset from the C0 waveform table.
     ldy.w #$0048
     lda $AD92
     jsl C09231_ModUnsignedWordByIndex
@@ -211,6 +227,7 @@ C2DCA1_CommitBattleBgLayerOffsets:
     and.w #$00FF
     cmp.w #$0002
     bne C2DCBA_RunBattleBgPerFrameUpdateBody_LDCBA
+    ; 2bpp layer-1 backgrounds use the BG1 offset register pair.
     lda $AD96
     sta $0031
     lda $AD98
@@ -234,6 +251,7 @@ C2DCD3_RunBattleBgPerFrameUpdateBody_LDCD3:
 C2DCDC_UpdateBattleBgAnimationResourceSlots:
     ldx.w #$0000
     lda.w #$ADD4
+    ; Advance layer 1 loaded-bg script state.
     jsl C2C92D_QueueOrApplyBattleVisualScript
     ldy.w #$AE4B
     lda $0000,Y
@@ -241,8 +259,10 @@ C2DCDC_UpdateBattleBgAnimationResourceSlots:
     beq C2DCF9_RunBattleBgPerFrameUpdateBody_LDCF9
     ldx.w #$0001
     tya
+    ; Advance layer 2 loaded-bg script state when active.
     jsl C2C92D_QueueOrApplyBattleVisualScript
 C2DCF9_RunBattleBgPerFrameUpdateBody_LDCF9:
+    ; PSI animation ticks run inside the same visual frame lane.
     jsl $C2E6B6
     lda $ADA0
     beq C2DD3E_UpdateBattleBgBrightnessFlash
@@ -316,6 +336,7 @@ C2DDA7_RunBattleBgPerFrameTail:
     beq C2DE0D_ReturnBattleBgPerFrameUpdateBody
     lda $ADB2
     beq C2DE0D_ReturnBattleBgPerFrameUpdateBody
+    ; Letterbox collapse/expand animation updates bounds, then rebuilds HDMA.
     lda $ADCC
     cmp.w #$03BB
     bcs C2DDCF_RunBattleBgPerFrameUpdateBody_LDDCF

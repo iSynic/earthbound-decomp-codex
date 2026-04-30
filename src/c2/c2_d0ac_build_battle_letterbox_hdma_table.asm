@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:D0AC..C2:D121 BuildBattleLetterboxHdmaTable
+;
+; Runtime contract:
+; - Builds the battle letterbox HDMA table at `$ADB8` from top/end values in
+;   `$ADB2/$ADB4` and visible/nonvisible screen words in `$ADAE/$ADB0`.
+; - Emits nonvisible top segment, one or more visible segments capped at
+;   `0x7F` scanlines, a one-line nonvisible bottom segment, and a terminator.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,6 +30,7 @@ C2D0AC_BuildBattleLetterboxHdmaTable:
     tcd
     ldx.w #$ADB8
     sep #$20
+    ; Top nonvisible segment line count.
     lda $ADB2
     sta $0000,X
     inx
@@ -39,6 +46,7 @@ C2D0AC_BuildBattleLetterboxHdmaTable:
     bra C2D0EF_BuildBattleLetterboxHdmaTable_LD0EF
 C2D0D5_BuildBattleLetterboxHdmaTable_LD0D5:
     sep #$20
+    ; SNES HDMA line-count chunks are byte-sized, so large windows split here.
     lda.b #$7F
     sta $0000,X
     inx
