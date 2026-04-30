@@ -1,0 +1,1223 @@
+{
+  "schema": "earthbound-decomp.audio-spc700-dispatch-trace-frontier.v2",
+  "status": "runtime_sequence_reads_observed_dispatch_hits_pending",
+  "references": [
+    "tools/ares_audio_harness/main.cpp",
+    "manifests/audio-spc700-driver-dispatch-frontier.json",
+    "manifests/audio-spc700-ff-target-review.json",
+    "build/audio/backend-jobs/*/ares-state-capture.json"
+  ],
+  "summary": {
+    "trace_record_count": 5,
+    "records_with_hits": 0,
+    "total_hits": 0,
+    "hit_kind_counts": {},
+    "mapped_high_command_counts": {},
+    "total_sequence_reads": 29747,
+    "total_sequence_high_byte_reads": 5542,
+    "total_sequence_control_candidate_reads": 430,
+    "sequence_high_byte_counts": {
+      "0xE0": 39,
+      "0xE1": 79,
+      "0xE2": 568,
+      "0xE3": 21,
+      "0xE4": 577,
+      "0xE5": 2560,
+      "0xE6": 514,
+      "0xE7": 10,
+      "0xE8": 20,
+      "0xEA": 1,
+      "0xEB": 6,
+      "0xED": 43,
+      "0xEE": 8,
+      "0xEF": 426,
+      "0xF0": 516,
+      "0xF1": 101,
+      "0xF2": 3,
+      "0xF3": 8,
+      "0xF4": 13,
+      "0xF5": 5,
+      "0xF7": 6,
+      "0xF9": 2,
+      "0xFA": 12,
+      "0xFE": 1,
+      "0xFF": 3
+    },
+    "sequence_control_candidate_counts": {
+      "0xEF": 426,
+      "0xFE": 1,
+      "0xFF": 3
+    },
+    "records_with_sequence_ff_reads": 2,
+    "long_trace_record_count": 1,
+    "long_trace_instruction_limit_max": 1000000,
+    "semantic_status": "sequence_high_bytes_observed_but_dispatch_handler_pc_not_observed"
+  },
+  "trace_contract": {
+    "field": "spc700_entry_execution_probe.high_command_dispatch_trace",
+    "sequence_read_field": "spc700_entry_execution_probe.sequence_read_trace",
+    "sequence_read_address_window": {
+      "start": "0x2000",
+      "end_exclusive": "0x6C00"
+    },
+    "dispatch_pc": "0x12FD",
+    "table_base": "0x16C7",
+    "ff_target_window": {
+      "start": "0x1A81",
+      "end_exclusive": "0x1ACB"
+    },
+    "hit_kinds": [
+      "high_command_dispatch_source",
+      "indirect_jump_opcode",
+      "ff_target_window"
+    ],
+    "mapped_command_rule": "For high_command_dispatch_source hits, X is recorded as the table byte offset and even X values below 0x40 are mapped as 0xE0 + X/2."
+  },
+  "records": [
+    {
+      "job_id": "ares-track-001-gas_station",
+      "track_id": 1,
+      "track_name": "GAS_STATION",
+      "capture_path": "build/audio/backend-jobs/ares-track-001-gas_station/ares-state-capture.json",
+      "instruction_limit": 1000000,
+      "executed_instructions": 1000000,
+      "final_pc": "0x0DB9",
+      "key_on_events": 3,
+      "dispatch_pc": "0x12FD",
+      "records_any_live_0x1f_opcode": true,
+      "hit_count": 0,
+      "hit_kind_counts": {},
+      "mapped_high_command_counts": {},
+      "hit_samples": [],
+      "sequence_read_count": 13073,
+      "sequence_high_byte_read_count": 2787,
+      "sequence_control_candidate_read_count": 353,
+      "sequence_high_byte_counts": {
+        "0xE0": 8,
+        "0xE1": 10,
+        "0xE2": 513,
+        "0xE3": 6,
+        "0xE4": 283,
+        "0xE5": 1131,
+        "0xE6": 227,
+        "0xE7": 2,
+        "0xE8": 4,
+        "0xEB": 6,
+        "0xED": 8,
+        "0xEF": 351,
+        "0xF0": 226,
+        "0xF2": 2,
+        "0xF4": 1,
+        "0xF5": 1,
+        "0xF7": 2,
+        "0xF9": 1,
+        "0xFA": 3,
+        "0xFF": 2
+      },
+      "sequence_control_candidate_counts": {
+        "0xEF": 351,
+        "0xFF": 2
+      },
+      "sequence_first_read_samples": [
+        {
+          "pc": "0x2FC9",
+          "address": "0x2FC8",
+          "data": "0xE8",
+          "instruction": 25200,
+          "shim_ticks": 93979,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCA",
+          "address": "0x2FC9",
+          "data": "0x80",
+          "instruction": 25200,
+          "shim_ticks": 93980,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCB",
+          "address": "0x2FCA",
+          "data": "0xC5",
+          "instruction": 25201,
+          "shim_ticks": 93981,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCC",
+          "address": "0x2FCB",
+          "data": "0xD3",
+          "instruction": 25201,
+          "shim_ticks": 93982,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCD",
+          "address": "0x2FCC",
+          "data": "0x04",
+          "instruction": 25201,
+          "shim_ticks": 93983,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCE",
+          "address": "0x2FCD",
+          "data": "0xE8",
+          "instruction": 25202,
+          "shim_ticks": 93986,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        }
+      ],
+      "sequence_tail_read_samples": [
+        {
+          "pc": "0x2E28",
+          "address": "0x2E27",
+          "data": "0x68",
+          "instruction": 994312,
+          "shim_ticks": 4073484,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x43"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        },
+        {
+          "pc": "0x2E29",
+          "address": "0x2E28",
+          "data": "0x07",
+          "instruction": 994312,
+          "shim_ticks": 4073485,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x43"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        },
+        {
+          "pc": "0x2E2A",
+          "address": "0x2E29",
+          "data": "0xD0",
+          "instruction": 994313,
+          "shim_ticks": 4073486,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0xC0"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        },
+        {
+          "pc": "0x2E2B",
+          "address": "0x2E2A",
+          "data": "0x0C",
+          "instruction": 994313,
+          "shim_ticks": 4073487,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0xC0"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E37",
+          "data": "0x6F",
+          "instruction": 994314,
+          "shim_ticks": 4073490,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0xC0"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E38",
+          "data": "0xE5",
+          "instruction": 994314,
+          "shim_ticks": 4073491,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0xC0"
+          },
+          "pointer010": "0x0F00",
+          "pointer012": "0x8072"
+        }
+      ]
+    },
+    {
+      "job_id": "ares-track-002-naming_screen",
+      "track_id": 2,
+      "track_name": "NAMING_SCREEN",
+      "capture_path": "build/audio/backend-jobs/ares-track-002-naming_screen/ares-state-capture.json",
+      "instruction_limit": 200000,
+      "executed_instructions": 200000,
+      "final_pc": "0x0565",
+      "key_on_events": 5,
+      "dispatch_pc": "0x12FD",
+      "records_any_live_0x1f_opcode": true,
+      "hit_count": 0,
+      "hit_kind_counts": {},
+      "mapped_high_command_counts": {},
+      "hit_samples": [],
+      "sequence_read_count": 7509,
+      "sequence_high_byte_read_count": 1165,
+      "sequence_control_candidate_read_count": 34,
+      "sequence_high_byte_counts": {
+        "0xE0": 7,
+        "0xE1": 7,
+        "0xE3": 1,
+        "0xE4": 139,
+        "0xE5": 676,
+        "0xE6": 135,
+        "0xE7": 2,
+        "0xE8": 4,
+        "0xED": 7,
+        "0xEE": 3,
+        "0xEF": 34,
+        "0xF0": 136,
+        "0xF2": 1,
+        "0xF3": 4,
+        "0xF4": 2,
+        "0xF5": 1,
+        "0xF7": 1,
+        "0xFA": 5
+      },
+      "sequence_control_candidate_counts": {
+        "0xEF": 34
+      },
+      "sequence_first_read_samples": [
+        {
+          "pc": "0x2FC9",
+          "address": "0x2FC8",
+          "data": "0xE8",
+          "instruction": 25200,
+          "shim_ticks": 93979,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCA",
+          "address": "0x2FC9",
+          "data": "0x80",
+          "instruction": 25200,
+          "shim_ticks": 93980,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCB",
+          "address": "0x2FCA",
+          "data": "0xC5",
+          "instruction": 25201,
+          "shim_ticks": 93981,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCC",
+          "address": "0x2FCB",
+          "data": "0xD3",
+          "instruction": 25201,
+          "shim_ticks": 93982,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCD",
+          "address": "0x2FCC",
+          "data": "0x04",
+          "instruction": 25201,
+          "shim_ticks": 93983,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCE",
+          "address": "0x2FCD",
+          "data": "0xE8",
+          "instruction": 25202,
+          "shim_ticks": 93986,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        }
+      ],
+      "sequence_tail_read_samples": [
+        {
+          "pc": "0x0B8A",
+          "address": "0x5837",
+          "data": "0x08",
+          "instruction": 199252,
+          "shim_ticks": 811766,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x02",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x0700",
+          "pointer012": "0x0032"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5431",
+          "data": "0xA9",
+          "instruction": 199290,
+          "shim_ticks": 811925,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x04",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x3000",
+          "pointer012": "0x0032"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x545A",
+          "data": "0x18",
+          "instruction": 199328,
+          "shim_ticks": 812084,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x06",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x3000",
+          "pointer012": "0x0032"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5476",
+          "data": "0xC9",
+          "instruction": 199366,
+          "shim_ticks": 812243,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x08",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x1800",
+          "pointer012": "0x0032"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5492",
+          "data": "0xC8",
+          "instruction": 199404,
+          "shim_ticks": 812402,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x0A",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x1100",
+          "pointer012": "0x0032"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x54AA",
+          "data": "0xEF",
+          "instruction": 199442,
+          "shim_ticks": 812561,
+          "registers": {
+            "ya": "0x0200",
+            "x": "0x0C",
+            "s": "0xCB",
+            "p": "0x0A"
+          },
+          "pointer010": "0x1F00",
+          "pointer012": "0x0032"
+        }
+      ]
+    },
+    {
+      "job_id": "ares-track-046-onett",
+      "track_id": 46,
+      "track_name": "ONETT",
+      "capture_path": "build/audio/backend-jobs/ares-track-046-onett/ares-state-capture.json",
+      "instruction_limit": 200000,
+      "executed_instructions": 200000,
+      "final_pc": "0x0E28",
+      "key_on_events": 4,
+      "dispatch_pc": "0x12FD",
+      "records_any_live_0x1f_opcode": true,
+      "hit_count": 0,
+      "hit_kind_counts": {},
+      "mapped_high_command_counts": {},
+      "hit_samples": [],
+      "sequence_read_count": 3218,
+      "sequence_high_byte_read_count": 509,
+      "sequence_control_candidate_read_count": 1,
+      "sequence_high_byte_counts": {
+        "0xE0": 7,
+        "0xE1": 31,
+        "0xE3": 3,
+        "0xE4": 58,
+        "0xE5": 271,
+        "0xE6": 54,
+        "0xE7": 2,
+        "0xE8": 4,
+        "0xEA": 1,
+        "0xED": 7,
+        "0xEF": 1,
+        "0xF0": 55,
+        "0xF3": 4,
+        "0xF4": 7,
+        "0xF5": 1,
+        "0xF7": 1,
+        "0xF9": 1,
+        "0xFA": 1
+      },
+      "sequence_control_candidate_counts": {
+        "0xEF": 1
+      },
+      "sequence_first_read_samples": [
+        {
+          "pc": "0x2FC9",
+          "address": "0x2FC8",
+          "data": "0xE8",
+          "instruction": 25200,
+          "shim_ticks": 93979,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCA",
+          "address": "0x2FC9",
+          "data": "0x80",
+          "instruction": 25200,
+          "shim_ticks": 93980,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCB",
+          "address": "0x2FCA",
+          "data": "0xC5",
+          "instruction": 25201,
+          "shim_ticks": 93981,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCC",
+          "address": "0x2FCB",
+          "data": "0xD3",
+          "instruction": 25201,
+          "shim_ticks": 93982,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCD",
+          "address": "0x2FCC",
+          "data": "0x04",
+          "instruction": 25201,
+          "shim_ticks": 93983,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCE",
+          "address": "0x2FCD",
+          "data": "0xE8",
+          "instruction": 25202,
+          "shim_ticks": 93986,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        }
+      ],
+      "sequence_tail_read_samples": [
+        {
+          "pc": "0x2E28",
+          "address": "0x2E27",
+          "data": "0x68",
+          "instruction": 199824,
+          "shim_ticks": 743345,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        },
+        {
+          "pc": "0x2E29",
+          "address": "0x2E28",
+          "data": "0x07",
+          "instruction": 199824,
+          "shim_ticks": 743346,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        },
+        {
+          "pc": "0x2E2A",
+          "address": "0x2E29",
+          "data": "0xD0",
+          "instruction": 199825,
+          "shim_ticks": 743347,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        },
+        {
+          "pc": "0x2E2B",
+          "address": "0x2E2A",
+          "data": "0x0C",
+          "instruction": 199825,
+          "shim_ticks": 743348,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E37",
+          "data": "0x6F",
+          "instruction": 199826,
+          "shim_ticks": 743351,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E38",
+          "data": "0xE5",
+          "instruction": 199826,
+          "shim_ticks": 743352,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0080"
+        }
+      ]
+    },
+    {
+      "job_id": "ares-track-121-onett_intro",
+      "track_id": 121,
+      "track_name": "ONETT_INTRO",
+      "capture_path": "build/audio/backend-jobs/ares-track-121-onett_intro/ares-state-capture.json",
+      "instruction_limit": 200000,
+      "executed_instructions": 200000,
+      "final_pc": "0x0703",
+      "key_on_events": 9,
+      "dispatch_pc": "0x12FD",
+      "records_any_live_0x1f_opcode": true,
+      "hit_count": 0,
+      "hit_kind_counts": {},
+      "mapped_high_command_counts": {},
+      "hit_samples": [],
+      "sequence_read_count": 3367,
+      "sequence_high_byte_read_count": 655,
+      "sequence_control_candidate_read_count": 1,
+      "sequence_high_byte_counts": {
+        "0xE0": 9,
+        "0xE1": 23,
+        "0xE2": 54,
+        "0xE3": 4,
+        "0xE4": 55,
+        "0xE5": 271,
+        "0xE6": 56,
+        "0xE7": 2,
+        "0xE8": 4,
+        "0xED": 13,
+        "0xF0": 56,
+        "0xF1": 100,
+        "0xF4": 3,
+        "0xF5": 1,
+        "0xF7": 1,
+        "0xFA": 2,
+        "0xFF": 1
+      },
+      "sequence_control_candidate_counts": {
+        "0xFF": 1
+      },
+      "sequence_first_read_samples": [
+        {
+          "pc": "0x2FC9",
+          "address": "0x2FC8",
+          "data": "0xE8",
+          "instruction": 25200,
+          "shim_ticks": 93979,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCA",
+          "address": "0x2FC9",
+          "data": "0x80",
+          "instruction": 25200,
+          "shim_ticks": 93980,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCB",
+          "address": "0x2FCA",
+          "data": "0xC5",
+          "instruction": 25201,
+          "shim_ticks": 93981,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCC",
+          "address": "0x2FCB",
+          "data": "0xD3",
+          "instruction": 25201,
+          "shim_ticks": 93982,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCD",
+          "address": "0x2FCC",
+          "data": "0x04",
+          "instruction": 25201,
+          "shim_ticks": 93983,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCE",
+          "address": "0x2FCD",
+          "data": "0xE8",
+          "instruction": 25202,
+          "shim_ticks": 93986,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        }
+      ],
+      "sequence_tail_read_samples": [
+        {
+          "pc": "0x2E28",
+          "address": "0x2E27",
+          "data": "0x68",
+          "instruction": 198193,
+          "shim_ticks": 782729,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x03"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        },
+        {
+          "pc": "0x2E29",
+          "address": "0x2E28",
+          "data": "0x07",
+          "instruction": 198193,
+          "shim_ticks": 782730,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x03"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        },
+        {
+          "pc": "0x2E2A",
+          "address": "0x2E29",
+          "data": "0xD0",
+          "instruction": 198194,
+          "shim_ticks": 782731,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        },
+        {
+          "pc": "0x2E2B",
+          "address": "0x2E2A",
+          "data": "0x0C",
+          "instruction": 198194,
+          "shim_ticks": 782732,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E37",
+          "data": "0x6F",
+          "instruction": 198195,
+          "shim_ticks": 782735,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        },
+        {
+          "pc": "0x2E38",
+          "address": "0x2E38",
+          "data": "0xE5",
+          "instruction": 198195,
+          "shim_ticks": 782736,
+          "registers": {
+            "ya": "0x8000",
+            "x": "0x03",
+            "s": "0xCC",
+            "p": "0x80"
+          },
+          "pointer010": "0x0662",
+          "pointer012": "0x0042"
+        }
+      ]
+    },
+    {
+      "job_id": "ares-track-187-give_us_strength",
+      "track_id": 187,
+      "track_name": "GIVE_US_STRENGTH",
+      "capture_path": "build/audio/backend-jobs/ares-track-187-give_us_strength/ares-state-capture.json",
+      "instruction_limit": 200000,
+      "executed_instructions": 200000,
+      "final_pc": "0x0CF4",
+      "key_on_events": 1,
+      "dispatch_pc": "0x12FD",
+      "records_any_live_0x1f_opcode": true,
+      "hit_count": 0,
+      "hit_kind_counts": {},
+      "mapped_high_command_counts": {},
+      "hit_samples": [],
+      "sequence_read_count": 2580,
+      "sequence_high_byte_read_count": 426,
+      "sequence_control_candidate_read_count": 41,
+      "sequence_high_byte_counts": {
+        "0xE0": 8,
+        "0xE1": 8,
+        "0xE2": 1,
+        "0xE3": 7,
+        "0xE4": 42,
+        "0xE5": 211,
+        "0xE6": 42,
+        "0xE7": 2,
+        "0xE8": 4,
+        "0xED": 8,
+        "0xEE": 5,
+        "0xEF": 40,
+        "0xF0": 43,
+        "0xF1": 1,
+        "0xF5": 1,
+        "0xF7": 1,
+        "0xFA": 1,
+        "0xFE": 1
+      },
+      "sequence_control_candidate_counts": {
+        "0xEF": 40,
+        "0xFE": 1
+      },
+      "sequence_first_read_samples": [
+        {
+          "pc": "0x2FC9",
+          "address": "0x2FC8",
+          "data": "0xE8",
+          "instruction": 25200,
+          "shim_ticks": 93979,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCA",
+          "address": "0x2FC9",
+          "data": "0x80",
+          "instruction": 25200,
+          "shim_ticks": 93980,
+          "registers": {
+            "ya": "0x0000",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x03"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCB",
+          "address": "0x2FCA",
+          "data": "0xC5",
+          "instruction": 25201,
+          "shim_ticks": 93981,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCC",
+          "address": "0x2FCB",
+          "data": "0xD3",
+          "instruction": 25201,
+          "shim_ticks": 93982,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCD",
+          "address": "0x2FCC",
+          "data": "0x04",
+          "instruction": 25201,
+          "shim_ticks": 93983,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        },
+        {
+          "pc": "0x2FCE",
+          "address": "0x2FCD",
+          "data": "0xE8",
+          "instruction": 25202,
+          "shim_ticks": 93986,
+          "registers": {
+            "ya": "0x0080",
+            "x": "0x00",
+            "s": "0xCD",
+            "p": "0x81"
+          },
+          "pointer010": "0x0000",
+          "pointer012": "0x0000"
+        }
+      ],
+      "sequence_tail_read_samples": [
+        {
+          "pc": "0x0B8A",
+          "address": "0x5462",
+          "data": "0xC8",
+          "instruction": 198754,
+          "shim_ticks": 790171,
+          "registers": {
+            "ya": "0x1300",
+            "x": "0x02",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x260D",
+          "pointer012": "0x000C"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5489",
+          "data": "0xC8",
+          "instruction": 198923,
+          "shim_ticks": 790846,
+          "registers": {
+            "ya": "0x2300",
+            "x": "0x04",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x24FF",
+          "pointer012": "0x0081"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x54B0",
+          "data": "0xA8",
+          "instruction": 199097,
+          "shim_ticks": 791535,
+          "registers": {
+            "ya": "0x3300",
+            "x": "0x06",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x22D5",
+          "pointer012": "0x00A8"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x54EB",
+          "data": "0xC8",
+          "instruction": 199282,
+          "shim_ticks": 792251,
+          "registers": {
+            "ya": "0x4300",
+            "x": "0x08",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x0209",
+          "pointer012": "0x0038"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5521",
+          "data": "0xEF",
+          "instruction": 199468,
+          "shim_ticks": 792967,
+          "registers": {
+            "ya": "0x5300",
+            "x": "0x0A",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x0560",
+          "pointer012": "0x004E"
+        },
+        {
+          "pc": "0x0B8A",
+          "address": "0x5535",
+          "data": "0xC8",
+          "instruction": 199653,
+          "shim_ticks": 793683,
+          "registers": {
+            "ya": "0x6300",
+            "x": "0x0C",
+            "s": "0xCB",
+            "p": "0x02"
+          },
+          "pointer010": "0x03E9",
+          "pointer012": "0x000C"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    "The native ares audio harness now emits a bounded high-command dispatch trace block in each state capture.",
+    "The native ares audio harness now also emits bounded sequence-region read traces for 0x2000..0x6BFF reads.",
+    "Current sampled captures include live key-on events and thousands of sequence-region reads, including high-byte command-like values and control candidates.",
+    "GAS_STATION and ONETT_INTRO both read 0xFF bytes from sequence/runtime RAM in the sampled windows, while GIVE_US_STRENGTH reads a 0xFE byte.",
+    "Despite those sequence reads, current captures still record no hits at 0x12FD, no live 0x1F opcode hits, and no hits in the provisional FF target window, so the handler bridge is still missing."
+  ],
+  "next_work": [
+    "narrow sequence-read tracing to the actual bytecode fetch PC/state rather than broad 0x2000..0x6BFF reads",
+    "run a longer or later-bound trace for one finite FF candidate such as ELEVATOR_DOWN once the all-track native job path accepts per-job instruction limits",
+    "only promote FF semantics after a trace records the dispatch source, X-derived command, and post-dispatch PC/state mutation"
+  ]
+}

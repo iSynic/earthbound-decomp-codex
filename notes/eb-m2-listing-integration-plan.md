@@ -1,0 +1,209 @@
+# EB-M2 Listing Integration Plan
+
+The EB-M2 Listing v1 archive changes the project posture. It appears to be a
+large address-annotated US/JP source listing with established labels, include
+paths, macros, and emitted bytes for banks `C0` through `EF`.
+
+This does not make the current repository useless. It does mean the project
+should stop presenting itself as if it is independently discovering every source
+label from scratch. The strongest role for this repo is now:
+
+> a validated integration, documentation, and tooling layer that cross-checks
+> ROM bytes, EB-M2 source listings, EBSRC/CoilSnake resource semantics, and
+> romhacker/porter-facing notes.
+
+## Public Framing
+
+Suggested short public update:
+
+```text
+After sharing the project publicly, the community pointed me toward a much
+larger EB/Mother 2 source-listing reference than I had previously found. That is
+good news, even if it means some of my wording needs to get more careful.
+
+The repo is still useful, but its best role is clearer now: it is not trying to
+replace CoilSnake, EBSRC, or existing source-listing work. It is becoming a
+validated crosswalk and documentation/tooling layer around them: byte-equivalent
+bank scaffolds, source/data ownership maps, ROM validation tools, asset/script
+audio notes, and a romhacker/porter-oriented index of how the pieces fit
+together.
+
+Next step is to integrate the new EB-M2 listing cautiously: use it to improve
+names, module boundaries, and public claims, while preserving attribution and
+not bulk-copying material unless licensing/provenance allows it.
+```
+
+## Integration Principles
+
+- Treat EB-M2 Listing as a major reference oracle, not as uncredited source to
+  copy wholesale.
+- Keep `refs/EB-M2-Listing-v1/` ignored unless provenance and redistribution
+  rights become explicit.
+- Prefer crosswalks, evidence links, and derived metadata over bulk imported
+  listing text.
+- Preserve our byte-equivalence validators as independent checks.
+- Promote names only when the address match is exact and the semantic role is
+  compatible with our surrounding notes.
+- Mark conflicts explicitly instead of silently overwriting our older working
+  names.
+- Separate three grades of confidence:
+  - `exact-listing-match`: same address/range and compatible code/data role.
+  - `listing-name-adopted`: name promoted from EB-M2 Listing into our docs.
+  - `needs-review`: listing and local scaffold disagree, or role is ambiguous.
+
+## Phase 1: Reference Index
+
+Goal: make the listing searchable and measurable without committing the listing
+itself.
+
+Tasks:
+
+- Keep `refs/EB-M2-Listing-v1/` as the local ignored source.
+- Maintain `notes/reference-eb-m2-listing-v1.md` with archive hashes, shape, and
+  cautions.
+- Extend `tools/lookup_eb_m2_listing.py` only as needed for targeted lookup.
+- Build a generated manifest of listing modules:
+  - region
+  - bank
+  - address
+  - include/module path
+  - symbol labels
+  - byte-bearing line count
+  - first/last address
+
+Outputs:
+
+- `manifests/eb-m2-listing-index.json`
+- `notes/eb-m2-listing-index.md`
+
+Good enough:
+
+- every US `bank00` through `bank2F` file is indexed;
+- at least top-level include boundaries and public labels are extractable by
+  address;
+- the index contains no ROM-derived binary payloads.
+
+## Phase 2: Name Crosswalk
+
+Goal: compare EB-M2 Listing labels against our current source scaffold labels.
+
+Tasks:
+
+- Extract our current labels from `src/**/bank_*_helpers_asar.asm`.
+- Extract EB-M2 labels from US listing files.
+- Join by canonical address.
+- Classify:
+  - exact same name
+  - EB-M2 has stronger name
+  - our name is more descriptive but should cite EB-M2
+  - conflicting names
+  - local-only label
+  - listing-only label
+
+Outputs:
+
+- `manifests/eb-m2-name-crosswalk.json`
+- `notes/eb-m2-name-crosswalk.md`
+
+Good enough:
+
+- `C0`, `C1`, `C2`, `C3`, `C4`, and `EF` reviewed first;
+- no automatic source renames until the report is reviewed;
+- public docs stop implying that all routine names are original discoveries.
+
+## Phase 3: Module Boundary Crosswalk
+
+Goal: use listing include paths to improve our source organization and explain
+where our generated modules differ.
+
+Tasks:
+
+- Parse `>>> path.asm` boundaries from the listing.
+- Map listing module spans to our source module spans.
+- Identify modules that are:
+  - aligned
+  - split differently
+  - merged in our scaffold
+  - data/binary include in the listing
+  - absent from our semantic notes
+
+Outputs:
+
+- `manifests/eb-m2-module-crosswalk.json`
+- `notes/eb-m2-module-crosswalk.md`
+
+Good enough:
+
+- high-value source-heavy banks have module boundary reports;
+- our README can accurately explain why the repo uses generated range modules
+  while EB-M2 Listing uses more traditional source includes.
+
+## Phase 4: Semantic Reconciliation
+
+Goal: merge the best of both worlds: EB-M2's established labels and our local
+runtime/asset/script/audio contracts.
+
+Tasks:
+
+- Update notes where EB-M2 names make our working names obsolete.
+- Add "also known as" aliases where community terminology differs.
+- Prefer EBSRC/CoilSnake terminology for resource/project formats.
+- Prefer EB-M2 Listing terminology for source labels and module names.
+- Prefer our validators/manifests for byte coverage and reproducibility claims.
+
+Outputs:
+
+- revised subsystem notes;
+- updated `notes/project-status.md`;
+- updated README status wording;
+- optional `manifests/symbol-aliases.json`.
+
+Good enough:
+
+- public-facing docs clearly distinguish:
+  - byte-equivalent scaffold coverage;
+  - EB-M2 corroborated source naming;
+  - EBSRC/CoilSnake resource semantics;
+  - our own still-provisional research.
+
+## Phase 5: Buildability Roadmap Reset
+
+Goal: use EB-M2 Listing to make the rebuild milestone less speculative.
+
+Tasks:
+
+- Compare EB-M2 include layout against our Asar scaffolds.
+- Decide whether future buildability should:
+  - adapt our scaffold into a top-level assembler pipeline;
+  - generate source from a user-provided ROM plus EB-M2-derived metadata;
+  - or document a bridge to an existing EB-M2/EBSRC build flow.
+- Identify licensing/provenance constraints before importing any source text.
+
+Outputs:
+
+- `notes/rebuild-roadmap-after-eb-m2-listing.md`
+
+Good enough:
+
+- the project has an honest answer for "why use this repo if EB-M2 Listing
+  exists?";
+- the next build milestone has a concrete toolchain direction.
+
+## Immediate Next Steps
+
+1. Generate the EB-M2 listing index.
+2. Generate a C0/C1/C2/C3/C4/EF name crosswalk report.
+3. Update README/project status to remove any overclaiming.
+4. Post a short public correction/update using the framing above.
+5. Only then start promoting names into source/docs.
+
+## What Remains Useful
+
+- Independent ROM hash/header validation.
+- Bank-wide byte-equivalence reports across `C0` through `EF`.
+- Machine-readable asset/audio/script/text/data manifests.
+- Audio playback/export backend work.
+- EBSRC/CoilSnake crosswalk tooling.
+- Encyclopedia-facing organization and public explanation.
+- A place to combine source labels, resource semantics, runtime consumers, and
+  validation evidence in one coherent project.

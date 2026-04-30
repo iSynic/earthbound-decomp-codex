@@ -522,26 +522,19 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
     return allOk;
   }
 
-  auto runChangeMusicAfterBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, std::vector<std::uint8_t> iplrom, int maxPrebootInstructions, int postCommandSmpInstructions, int commandWriteBurst) -> bool {
-    loaderBytes = std::move(loader);
-    romBytes = std::move(rom);
+  auto startDirectSmpDriverFromModeledRam() -> void {
     useRealSmpIplReceiver = true;
-    runFullChangeMusic = false;
-    commandWriteSmpBurst = commandWriteBurst;
-    apuRam.fill(0);
-    smpInstructions = 0;
-    smpPrebootInstructions = 0;
-    smpBootSignatureObserved = false;
-    smpFinalPc = 0;
-    bootRealSmpIpl(iplrom, maxPrebootInstructions, true);
-    if (!smpBootSignatureObserved) return false;
-    resetCpuForLoader(bootstrapBank, bootstrapStream);
-    bootstrapOk = runLoaderLoop(maxInstructions, false);
-    bootstrapInstructionCount = instructionCount;
-    bootstrapSmpInstructions = smpInstructions;
-    bootstrapPayloadBytes = payloadBytes;
-    if (!bootstrapOk) return false;
+    smpBootSignatureObserved = true;
+    ares::SuperFamicom::smp.SPC700::power();
+    std::copy(apuRam.begin(), apuRam.end(), ares::SuperFamicom::dsp.apuram);
+    std::fill(ares::SuperFamicom::dsp.registers, ares::SuperFamicom::dsp.registers + 128, 0);
+    ares::SuperFamicom::smp.r.pc.byte.l = 0x00;
+    ares::SuperFamicom::smp.r.pc.byte.h = 0x05;
+    ares::SuperFamicom::smp.r.s = 0xef;
+    smpFinalPc = 0x0500;
+  }
 
+  auto runChangeMusicCommandAndCapture(std::uint8_t command, int maxInstructions, int postCommandSmpInstructions) -> bool {
     resetCpuForChangeMusic(command);
     for (int index = 0; index < maxInstructions; ++index) {
       instruction();
@@ -594,6 +587,49 @@ struct C0AB06LoaderProbe : ares::WDC65816 {
       && reachedKeyOn;
   }
 
+  auto runChangeMusicAfterDirectBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, int postCommandSmpInstructions, int commandWriteBurst) -> bool {
+    loaderBytes = std::move(loader);
+    romBytes = std::move(rom);
+    useRealSmpIplReceiver = false;
+    runFullChangeMusic = false;
+    commandWriteSmpBurst = commandWriteBurst;
+    apuRam.fill(0);
+    smpInstructions = 0;
+    smpPrebootInstructions = 0;
+    smpBootSignatureObserved = false;
+    smpFinalPc = 0;
+    resetCpuForLoader(bootstrapBank, bootstrapStream);
+    bootstrapOk = runLoaderLoop(maxInstructions, false);
+    bootstrapInstructionCount = instructionCount;
+    bootstrapSmpInstructions = smpInstructions;
+    bootstrapPayloadBytes = payloadBytes;
+    if (!bootstrapOk) return false;
+    startDirectSmpDriverFromModeledRam();
+    return runChangeMusicCommandAndCapture(command, maxInstructions, postCommandSmpInstructions);
+  }
+
+  auto runChangeMusicAfterBootstrap(std::vector<std::uint8_t> loader, std::vector<std::uint8_t> rom, std::uint8_t bootstrapBank, std::uint16_t bootstrapStream, std::uint8_t command, int maxInstructions, std::vector<std::uint8_t> iplrom, int maxPrebootInstructions, int postCommandSmpInstructions, int commandWriteBurst) -> bool {
+    loaderBytes = std::move(loader);
+    romBytes = std::move(rom);
+    useRealSmpIplReceiver = true;
+    runFullChangeMusic = false;
+    commandWriteSmpBurst = commandWriteBurst;
+    apuRam.fill(0);
+    smpInstructions = 0;
+    smpPrebootInstructions = 0;
+    smpBootSignatureObserved = false;
+    smpFinalPc = 0;
+    bootRealSmpIpl(iplrom, maxPrebootInstructions, true);
+    if (!smpBootSignatureObserved) return false;
+    resetCpuForLoader(bootstrapBank, bootstrapStream);
+    bootstrapOk = runLoaderLoop(maxInstructions, false);
+    bootstrapInstructionCount = instructionCount;
+    bootstrapSmpInstructions = smpInstructions;
+    bootstrapPayloadBytes = payloadBytes;
+    if (!bootstrapOk) return false;
+    return runChangeMusicCommandAndCapture(command, maxInstructions, postCommandSmpInstructions);
+  }
+
   auto buildSpcSnapshot(std::uint16_t pc, std::uint16_t ya, std::uint8_t x, std::uint8_t s, std::uint8_t p) -> std::vector<std::uint8_t> {
     std::vector<std::uint8_t> snapshot(0x10200, 0);
     const std::string signature = "SNES-SPC700 Sound File Data v0.30";
@@ -638,14 +674,26 @@ int main(int argc, char** argv) {
     const fs::path apuRamOut = argPath(argc, argv, "--apu-ram-out");
     const fs::path snapshotOut = argPath(argc, argv, "--snapshot-out");
     if (streamBank < 0 || streamAddress < 0) throw std::runtime_error("missing stream pointer");
-    if (receiver != "modeled" && receiver != "ares_smp_ipl") throw std::runtime_error("--receiver must be modeled or ares_smp_ipl");
+    if (receiver != "modeled" && receiver != "ares_smp_ipl" && receiver != "ares_smp_builtin_ipl") throw std::runtime_error("--receiver must be modeled, ares_smp_ipl, or ares_smp_builtin_ipl");
     if (receiver == "ares_smp_ipl" && iplFile.empty()) throw std::runtime_error("--receiver ares_smp_ipl requires --ipl-file");
     C0AB06LoaderProbe probe;
+    const bool directChangeMusicAfterBootstrap = receiver == "ares_smp_builtin_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && changeMusicTrack >= 0;
     const bool changeMusicAfterBootstrap = receiver == "ares_smp_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && changeMusicTrack >= 0;
-    const bool sequenceAfterBootstrap = receiver == "ares_smp_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && !sequenceText.empty() && !changeMusicAfterBootstrap;
-    const bool chainAfterBootstrap = receiver == "ares_smp_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && sequenceText.empty() && !changeMusicAfterBootstrap;
+    const bool sequenceAfterBootstrap = receiver == "ares_smp_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && !sequenceText.empty() && !changeMusicAfterBootstrap && !directChangeMusicAfterBootstrap;
+    const bool chainAfterBootstrap = receiver == "ares_smp_ipl" && bootstrapBank >= 0 && bootstrapAddress >= 0 && sequenceText.empty() && !changeMusicAfterBootstrap && !directChangeMusicAfterBootstrap;
     const auto sequence = sequenceAfterBootstrap ? parseSequence(sequenceText) : std::vector<std::pair<std::uint8_t, std::uint16_t>>{};
-    const bool ok = changeMusicAfterBootstrap
+    const bool ok = directChangeMusicAfterBootstrap
+      ? probe.runChangeMusicAfterDirectBootstrap(
+          readBytes(loaderFile),
+          readBytes(romFile),
+          static_cast<std::uint8_t>(bootstrapBank),
+          static_cast<std::uint16_t>(bootstrapAddress),
+          static_cast<std::uint8_t>(changeMusicTrack),
+          maxInstructions,
+          postCommandSmpInstructions,
+          commandWriteSmpBurst
+        )
+      : (changeMusicAfterBootstrap
       ? probe.runChangeMusicAfterBootstrap(
           readBytes(loaderFile),
           readBytes(romFile),
@@ -692,15 +740,14 @@ int main(int argc, char** argv) {
           receiver == "ares_smp_ipl" ? readBytes(iplFile) : std::vector<std::uint8_t>{},
           maxPrebootInstructions,
           stopAfterTerminal
-        )));
+        ))));
     if (!apuRamOut.empty()) {
-      if (receiver == "ares_smp_ipl") {
+      if (receiver == "ares_smp_ipl" || receiver == "ares_smp_builtin_ipl") {
         writeBytes(apuRamOut, reinterpret_cast<const std::uint8_t*>(ares::SuperFamicom::dsp.apuram), 65536);
       } else {
         writeBytes(apuRamOut, probe.apuRam.data(), probe.apuRam.size());
       }
-    }
-    if (!snapshotOut.empty() && !probe.lastKeyOnSnapshot.empty()) {
+    }    if (!snapshotOut.empty() && !probe.lastKeyOnSnapshot.empty()) {
       writeBytes(snapshotOut, probe.lastKeyOnSnapshot.data(), probe.lastKeyOnSnapshot.size());
     }
     std::cout << "{\n";
@@ -710,8 +757,8 @@ int main(int argc, char** argv) {
     std::cout << "  \"stop_after_terminal\": " << (stopAfterTerminal ? "true" : "false") << ",\n";
     std::cout << "  \"chain_after_bootstrap\": " << (chainAfterBootstrap ? "true" : "false") << ",\n";
     std::cout << "  \"sequence_after_bootstrap\": " << (sequenceAfterBootstrap ? "true" : "false") << ",\n";
-    std::cout << "  \"change_music_after_bootstrap\": " << (changeMusicAfterBootstrap ? "true" : "false") << ",\n";
-    if (chainAfterBootstrap || sequenceAfterBootstrap || changeMusicAfterBootstrap) {
+    std::cout << "  \"change_music_after_bootstrap\": " << ((changeMusicAfterBootstrap || directChangeMusicAfterBootstrap) ? "true" : "false") << ",\n";
+    if (chainAfterBootstrap || sequenceAfterBootstrap || changeMusicAfterBootstrap || directChangeMusicAfterBootstrap) {
       std::cout << "  \"bootstrap\": {\"bank\": \"" << hexByte(static_cast<std::uint8_t>(bootstrapBank)) << "\", \"address\": \"" << hexWord(static_cast<std::uint16_t>(bootstrapAddress)) << "\", \"ok\": " << (probe.bootstrapOk ? "true" : "false") << ", \"instruction_count\": " << probe.bootstrapInstructionCount << ", \"smp_instructions\": " << probe.bootstrapSmpInstructions << ", \"payload_bytes\": " << probe.bootstrapPayloadBytes << "},\n";
     }
     if (sequenceAfterBootstrap) {

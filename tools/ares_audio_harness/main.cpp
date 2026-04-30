@@ -144,6 +144,33 @@ struct Spc700SnapshotState {
   std::uint64_t shimTicks = 0;
 };
 
+struct Spc700PcTraceRecord {
+  std::string kind;
+  std::uint16_t pc = 0;
+  std::uint16_t ya = 0;
+  std::uint8_t x = 0;
+  std::uint8_t s = 0;
+  std::uint8_t p = 0;
+  std::array<std::uint8_t, 3> bytes{};
+  std::uint64_t instruction = 0;
+  std::uint64_t shimTicks = 0;
+  std::string disassembly;
+};
+
+struct Spc700SequenceReadRecord {
+  std::uint16_t pc = 0;
+  std::uint16_t address = 0;
+  std::uint8_t data = 0;
+  std::uint16_t ya = 0;
+  std::uint8_t x = 0;
+  std::uint8_t s = 0;
+  std::uint8_t p = 0;
+  std::uint16_t pointer010 = 0;
+  std::uint16_t pointer012 = 0;
+  std::uint64_t instruction = 0;
+  std::uint64_t shimTicks = 0;
+};
+
 enum class HostCommandMode {
   Disabled,
   Initial,
@@ -174,7 +201,10 @@ struct Spc700EntryProbe : ares::SPC700 {
   std::vector<Spc700IoEvent> hostCommandIoWindow;
   std::vector<Spc700IoWrite> dspWrites;
   std::vector<Spc700IoWrite> dspWriteTail;
+  std::vector<Spc700SequenceReadRecord> sequenceReads;
+  std::vector<Spc700SequenceReadRecord> sequenceReadTail;
   std::array<std::uint64_t, 128> dspWriteRegisterCounts{};
+  std::array<std::uint64_t, 256> sequenceByteReadCounts{};
   std::uint8_t dspAddress = 0;
   std::uint8_t timer0Target = 0;
   std::uint8_t timer0Counter = 0;
@@ -193,6 +223,9 @@ struct Spc700EntryProbe : ares::SPC700 {
   std::uint64_t keyOnEventCount = 0;
   std::uint64_t keyOffEventCount = 0;
   std::uint64_t timer0OutputReadCount = 0;
+  std::uint64_t sequenceReadCount = 0;
+  std::uint64_t sequenceHighByteReadCount = 0;
+  std::uint64_t sequenceControlCandidateReadCount = 0;
   std::uint8_t lastKeyOnData = 0;
   std::uint8_t lastKeyOffData = 0;
   bool hostCommandInjectionRecorded = false;
@@ -212,6 +245,34 @@ struct Spc700EntryProbe : ares::SPC700 {
       shimTicks,
       ++ioEventSequence,
     };
+  }
+
+  void rememberSequenceRead(std::uint16_t address, std::uint8_t data) {
+    if (address < 0x2000 || address >= 0x6c00) return;
+    ++sequenceReadCount;
+    ++sequenceByteReadCounts[data];
+    if (data >= 0xe0) ++sequenceHighByteReadCount;
+    if (data == 0xef || data == 0xfd || data == 0xfe || data == 0xff) {
+      ++sequenceControlCandidateReadCount;
+    }
+    const Spc700SequenceReadRecord record{
+      static_cast<std::uint16_t>(r.pc.w),
+      address,
+      data,
+      static_cast<std::uint16_t>(r.ya.w),
+      static_cast<std::uint8_t>(r.x),
+      static_cast<std::uint8_t>(r.s),
+      static_cast<std::uint8_t>(static_cast<unsigned>(r.p)),
+      static_cast<std::uint16_t>(ram[0x0010] | (ram[0x0011] << 8)),
+      static_cast<std::uint16_t>(ram[0x0012] | (ram[0x0013] << 8)),
+      currentInstruction,
+      shimTicks,
+    };
+    if (sequenceReads.size() < 256) {
+      sequenceReads.push_back(record);
+    }
+    sequenceReadTail.push_back(record);
+    if (sequenceReadTail.size() > 128) sequenceReadTail.erase(sequenceReadTail.begin());
   }
 
   void injectHostCommandPort0() {
@@ -309,6 +370,7 @@ struct Spc700EntryProbe : ares::SPC700 {
         startHostCommandIoWindow();
       }
     }
+    rememberSequenceRead(rawAddress, data);
     return data;
   }
 
@@ -500,6 +562,14 @@ fs::path argValue(int argc, char** argv, const std::string& name) {
   return {};
 }
 
+std::uint64_t argUnsignedValue(int argc, char** argv, const std::string& name, std::uint64_t fallback) {
+  for (int i = 1; i + 1 < argc; ++i) {
+    if (argv[i] != name) continue;
+    return static_cast<std::uint64_t>(std::stoull(argv[i + 1]));
+  }
+  return fallback;
+}
+
 bool hasFlag(int argc, char** argv, const std::string& name) {
   for (int i = 1; i < argc; ++i) {
     if (argv[i] == name) return true;
@@ -558,7 +628,12 @@ std::uint16_t spc700InstructionLength(std::uint8_t opcode) {
   }
 }
 
-constexpr std::size_t SPC700_PROBE_INSTRUCTION_LIMIT = 200000;
+constexpr std::uint64_t DEFAULT_SPC700_PROBE_INSTRUCTION_LIMIT = 200000;
+constexpr std::size_t HIGH_COMMAND_DISPATCH_TRACE_LIMIT = 128;
+constexpr std::uint16_t HIGH_COMMAND_DISPATCH_PC = 0x12fd;
+constexpr std::uint16_t HIGH_COMMAND_TABLE = 0x16c7;
+constexpr std::uint16_t FF_TARGET_START = 0x1a81;
+constexpr std::uint16_t FF_TARGET_END = 0x1acb;
 
 std::vector<std::uint8_t> buildDiagnosticSpcSnapshot(
   const std::vector<std::uint8_t>& apuRam,
@@ -622,7 +697,15 @@ std::vector<std::string> runSpc700EntryProbe(
   std::array<std::uint64_t, 128>& dspWriteRegisterCounts,
   std::vector<Spc700IoEvent>& hostCommandIoWindow,
   std::vector<Spc700IoWrite>& dspWriteTail,
-  Spc700SnapshotState& lastKeyOnSnapshot
+  Spc700SnapshotState& lastKeyOnSnapshot,
+  std::vector<Spc700PcTraceRecord>& highCommandDispatchTrace,
+  std::uint64_t& sequenceReadCount,
+  std::uint64_t& sequenceHighByteReadCount,
+  std::uint64_t& sequenceControlCandidateReadCount,
+  std::array<std::uint64_t, 256>& sequenceByteReadCounts,
+  std::vector<Spc700SequenceReadRecord>& sequenceReads,
+  std::vector<Spc700SequenceReadRecord>& sequenceReadTail,
+  std::uint64_t instructionLimit
 ) {
   Spc700EntryProbe probe;
   probe.hostCommandPort0 = hostCommandPort0;
@@ -637,9 +720,39 @@ std::vector<std::string> runSpc700EntryProbe(
 
   std::vector<std::string> trace;
   executedInstructions = 0;
-  for (std::size_t step = 0; step < SPC700_PROBE_INSTRUCTION_LIMIT; ++step) {
+  for (std::uint64_t step = 0; step < instructionLimit; ++step) {
     const std::uint16_t pc = static_cast<std::uint16_t>(probe.r.pc.w);
     const std::string line = hexWord(pc) + "  " + std::string(probe.disassembleInstruction(pc, probe.r.p.p));
+    if (highCommandDispatchTrace.size() < HIGH_COMMAND_DISPATCH_TRACE_LIMIT) {
+      std::string traceKind;
+      if (pc == HIGH_COMMAND_DISPATCH_PC) {
+        traceKind = "high_command_dispatch_source";
+      } else if (probe.ram[pc] == 0x1f) {
+        traceKind = "indirect_jump_opcode";
+      } else if (pc >= FF_TARGET_START && pc < FF_TARGET_END) {
+        traceKind = "ff_target_window";
+      }
+      if (!traceKind.empty()) {
+        highCommandDispatchTrace.push_back(
+          Spc700PcTraceRecord{
+            traceKind,
+            pc,
+            static_cast<std::uint16_t>(probe.r.ya.w),
+            static_cast<std::uint8_t>(probe.r.x),
+            static_cast<std::uint8_t>(probe.r.s),
+            static_cast<std::uint8_t>(static_cast<unsigned>(probe.r.p)),
+            {
+              probe.ram[pc],
+              probe.ram[static_cast<std::uint16_t>(pc + 1)],
+              probe.ram[static_cast<std::uint16_t>(pc + 2)],
+            },
+            executedInstructions,
+            probe.shimTicks,
+            line,
+          }
+        );
+      }
+    }
     if (trace.size() < 32) {
       trace.push_back(line);
     }
@@ -679,6 +792,12 @@ std::vector<std::string> runSpc700EntryProbe(
   dspWrites = probe.dspWrites;
   dspWriteTail = probe.dspWriteTail;
   lastKeyOnSnapshot = probe.lastKeyOnSnapshot;
+  sequenceReadCount = probe.sequenceReadCount;
+  sequenceHighByteReadCount = probe.sequenceHighByteReadCount;
+  sequenceControlCandidateReadCount = probe.sequenceControlCandidateReadCount;
+  sequenceByteReadCounts = probe.sequenceByteReadCounts;
+  sequenceReads = probe.sequenceReads;
+  sequenceReadTail = probe.sequenceReadTail;
   return trace;
 }
 
@@ -686,11 +805,17 @@ int main(int argc, char** argv) {
   try {
     const fs::path jobPath = argValue(argc, argv, "--job");
     if (jobPath.empty()) {
-      std::cerr << "usage: earthbound_ares_audio_harness --job <job.json> [--result <result.json>] [--disable-diagnostic-command-preseed|--diagnostic-command-preseed-initial|--diagnostic-command-preseed-on-first-read]\n";
+      std::cerr << "usage: earthbound_ares_audio_harness --job <job.json> [--result <result.json>] [--instruction-limit <count>] [--disable-diagnostic-command-preseed|--diagnostic-command-preseed-initial|--diagnostic-command-preseed-on-first-read]\n";
       return 2;
     }
     const HostCommandMode hostCommandMode = parseHostCommandMode(argc, argv);
     const bool diagnosticCommandPreseedEnabled = hostCommandMode != HostCommandMode::Disabled;
+    const std::uint64_t instructionLimit = argUnsignedValue(
+      argc,
+      argv,
+      "--instruction-limit",
+      DEFAULT_SPC700_PROBE_INSTRUCTION_LIMIT
+    );
 
     const std::string jobJson = readText(jobPath);
     const std::string fixturePathText = extractStringField(jobJson, "fixture_path");
@@ -768,6 +893,13 @@ int main(int argc, char** argv) {
     std::array<std::uint64_t, 128> probeDspWriteRegisterCounts{};
     std::vector<Spc700IoEvent> probeHostCommandIoWindow;
     Spc700SnapshotState probeLastKeyOnSnapshot;
+    std::vector<Spc700PcTraceRecord> probeHighCommandDispatchTrace;
+    std::uint64_t probeSequenceReadCount = 0;
+    std::uint64_t probeSequenceHighByteReadCount = 0;
+    std::uint64_t probeSequenceControlCandidateReadCount = 0;
+    std::array<std::uint64_t, 256> probeSequenceByteReadCounts{};
+    std::vector<Spc700SequenceReadRecord> probeSequenceReads;
+    std::vector<Spc700SequenceReadRecord> probeSequenceReadTail;
     const std::uint8_t diagnosticHostCommand = static_cast<std::uint8_t>(trackId & 0xff);
     const std::vector<std::string> entryExecutionTrace = runSpc700EntryProbe(
       apuRam,
@@ -803,7 +935,15 @@ int main(int argc, char** argv) {
       probeDspWriteRegisterCounts,
       probeHostCommandIoWindow,
       probeDspWriteTail,
-      probeLastKeyOnSnapshot
+      probeLastKeyOnSnapshot,
+      probeHighCommandDispatchTrace,
+      probeSequenceReadCount,
+      probeSequenceHighByteReadCount,
+      probeSequenceControlCandidateReadCount,
+      probeSequenceByteReadCounts,
+      probeSequenceReads,
+      probeSequenceReadTail,
+      instructionLimit
     );
 
     fs::path lastKeyOnSpcPath = resultPath.parent_path() / "diagnostic-last-keyon-state.spc";
@@ -892,7 +1032,7 @@ int main(int argc, char** argv) {
     capture << "  },\n";
     capture << "  \"spc700_entry_execution_probe\": {\n";
     capture << "    \"engine\": \"ares::SPC700 with harness RAM/IO shim\",\n";
-    capture << "    \"instruction_limit\": " << SPC700_PROBE_INSTRUCTION_LIMIT << ",\n";
+    capture << "    \"instruction_limit\": " << instructionLimit << ",\n";
     capture << "    \"executed_instructions\": " << probeExecutedInstructions << ",\n";
     capture << "    \"final_pc\": \"" << hexWord(probeFinalPc) << "\",\n";
     capture << "    \"final_registers\": {\"ya\": \"" << hexWord(probeFinalYa) << "\", \"x\": \"" << hexByte(probeFinalX) << "\", \"s\": \"" << hexByte(probeFinalS) << "\", \"p\": \"" << hexByte(probeFinalP) << "\"},\n";
@@ -922,6 +1062,70 @@ int main(int argc, char** argv) {
     } else {
       capture << "null,\n";
     }
+    capture << "    \"high_command_dispatch_trace\": {\n";
+    capture << "      \"trace_limit\": " << HIGH_COMMAND_DISPATCH_TRACE_LIMIT << ",\n";
+    capture << "      \"dispatch_pc\": \"" << hexWord(HIGH_COMMAND_DISPATCH_PC) << "\",\n";
+    capture << "      \"table_base\": \"" << hexWord(HIGH_COMMAND_TABLE) << "\",\n";
+    capture << "      \"records_any_live_0x1f_opcode\": true,\n";
+    capture << "      \"ff_target_window\": {\"start\": \"" << hexWord(FF_TARGET_START) << "\", \"end_exclusive\": \"" << hexWord(FF_TARGET_END) << "\"},\n";
+    capture << "      \"hit_count\": " << probeHighCommandDispatchTrace.size() << ",\n";
+    capture << "      \"hits\": [\n";
+    for (std::size_t i = 0; i < probeHighCommandDispatchTrace.size(); ++i) {
+      const auto& hit = probeHighCommandDispatchTrace[i];
+      capture << "        {\"kind\": \"" << jsonEscape(hit.kind) << "\", \"pc\": \"" << hexWord(hit.pc) << "\", \"instruction\": " << hit.instruction << ", \"shim_ticks\": " << hit.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(hit.ya) << "\", \"x\": \"" << hexByte(hit.x) << "\", \"s\": \"" << hexByte(hit.s) << "\", \"p\": \"" << hexByte(hit.p) << "\"}, \"bytes\": [\"" << hexByte(hit.bytes[0]) << "\", \"" << hexByte(hit.bytes[1]) << "\", \"" << hexByte(hit.bytes[2]) << "\"], \"disassembly\": \"" << jsonEscape(hit.disassembly) << "\"";
+      if (hit.kind == "high_command_dispatch_source") {
+        capture << ", \"table_byte_offset_from_x\": \"" << hexByte(hit.x) << "\"";
+        if ((hit.x % 2) == 0 && hit.x < 0x40) {
+          capture << ", \"mapped_high_command_if_e0_base\": \"" << hexByte(static_cast<std::uint8_t>(0xe0 + (hit.x / 2))) << "\"";
+        } else {
+          capture << ", \"mapped_high_command_if_e0_base\": null";
+        }
+      }
+      capture << "}";
+      capture << (i + 1 == probeHighCommandDispatchTrace.size() ? "\n" : ",\n");
+    }
+    capture << "      ]\n";
+    capture << "    },\n";
+    capture << "    \"sequence_read_trace\": {\n";
+    capture << "      \"address_window\": {\"start\": \"0x2000\", \"end_exclusive\": \"0x6C00\"},\n";
+    capture << "      \"first_read_limit\": 256,\n";
+    capture << "      \"tail_read_limit\": 128,\n";
+    capture << "      \"read_count\": " << probeSequenceReadCount << ",\n";
+    capture << "      \"high_byte_read_count\": " << probeSequenceHighByteReadCount << ",\n";
+    capture << "      \"control_candidate_read_count\": " << probeSequenceControlCandidateReadCount << ",\n";
+    capture << "      \"high_byte_counts\": {";
+    bool wroteHighByteCount = false;
+    for (std::size_t value = 0xe0; value < probeSequenceByteReadCounts.size(); ++value) {
+      if (!probeSequenceByteReadCounts[value]) continue;
+      if (wroteHighByteCount) capture << ", ";
+      capture << "\"" << hexByte(static_cast<std::uint8_t>(value)) << "\": " << probeSequenceByteReadCounts[value];
+      wroteHighByteCount = true;
+    }
+    capture << "},\n";
+    capture << "      \"control_candidate_counts\": {";
+    bool wroteControlCount = false;
+    for (std::uint8_t value : {static_cast<std::uint8_t>(0xef), static_cast<std::uint8_t>(0xfd), static_cast<std::uint8_t>(0xfe), static_cast<std::uint8_t>(0xff)}) {
+      if (!probeSequenceByteReadCounts[value]) continue;
+      if (wroteControlCount) capture << ", ";
+      capture << "\"" << hexByte(value) << "\": " << probeSequenceByteReadCounts[value];
+      wroteControlCount = true;
+    }
+    capture << "},\n";
+    capture << "      \"first_reads\": [\n";
+    for (std::size_t i = 0; i < probeSequenceReads.size(); ++i) {
+      const auto& read = probeSequenceReads[i];
+      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\"}";
+      capture << (i + 1 == probeSequenceReads.size() ? "\n" : ",\n");
+    }
+    capture << "      ],\n";
+    capture << "      \"tail_reads\": [\n";
+    for (std::size_t i = 0; i < probeSequenceReadTail.size(); ++i) {
+      const auto& read = probeSequenceReadTail[i];
+      capture << "        {\"pc\": \"" << hexWord(read.pc) << "\", \"address\": \"" << hexWord(read.address) << "\", \"data\": \"" << hexByte(read.data) << "\", \"instruction\": " << read.instruction << ", \"shim_ticks\": " << read.shimTicks << ", \"registers\": {\"ya\": \"" << hexWord(read.ya) << "\", \"x\": \"" << hexByte(read.x) << "\", \"s\": \"" << hexByte(read.s) << "\", \"p\": \"" << hexByte(read.p) << "\"}, \"pointer010\": \"" << hexWord(read.pointer010) << "\", \"pointer012\": \"" << hexWord(read.pointer012) << "\"}";
+      capture << (i + 1 == probeSequenceReadTail.size() ? "\n" : ",\n");
+    }
+    capture << "      ]\n";
+    capture << "    },\n";
     capture << "    \"diagnostic_host_port0_io_window\": [\n";
     for (std::size_t i = 0; i < probeHostCommandIoWindow.size(); ++i) {
       const auto& ioEvent = probeHostCommandIoWindow[i];
