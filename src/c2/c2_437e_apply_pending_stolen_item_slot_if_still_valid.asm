@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:437E..C2:4434 ApplyPendingStolenItemSlotIfStillValid
+;
+; Runtime contract:
+; - Battle-end/special fallout helper for a pending stolen item slot.
+; - Reads the active battler row at `$A970`; requires no blocking status bytes
+;   at row `+0x0E/+0x0F`, a nonzero source inventory slot at row `+0x07`, and
+;   a row `+0x08` item id that still matches the character inventory slot.
+; - Requires the item's D5 config use flag `#$80` and `C3:EE14` usability check,
+;   then calls `C1:DDC6` with the battler id and slot number.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -38,6 +46,7 @@ C24394_ApplyPendingStolenItemSlotIfStillValid_L4394:
 C243A2_ApplyPendingStolenItemSlotIfStillValid_L43A2:
     ldx $A970
     sep #$20
+    ; Row +0x07 is the source inventory slot recorded by the action.
     lda $0007,X
     sta $00
     rep #$20
@@ -51,6 +60,7 @@ C243B8_ApplyPendingStolenItemSlotIfStillValid_L43B8:
     tay
     sty $10
     ldx $A970
+    ; Row +0x08 is the pending stolen item id.
     lda $0008,X
     and.w #$00FF
     sta $0E
@@ -70,6 +80,7 @@ C243B8_ApplyPendingStolenItemSlotIfStillValid_L43B8:
     tax
     lda $0000,X
     and.w #$00FF
+    ; Inventory slot must still contain the pending item.
     cmp $02
     bne C24432_ApplyPendingStolenItemSlotIfStillValid_L4432
     lda $0E
@@ -82,6 +93,7 @@ C243B8_ApplyPendingStolenItemSlotIfStillValid_L43B8:
     and.w #$00FF
     and.w #$0080
     beq C24432_ApplyPendingStolenItemSlotIfStillValid_L4432
+    ; Item must still be usable by the source character.
     lda $0E
     tax
     ldy $10
@@ -97,6 +109,7 @@ C243B8_ApplyPendingStolenItemSlotIfStillValid_L43B8:
     ldx $A970
     lda $0000,X
     ldx $0E
+    ; Apply the pending slot to the battler/front-end item handling path.
     jsl C1DDC6_ApplyPendingItemSlotToBattler
 C24432_ApplyPendingStolenItemSlotIfStillValid_L4432:
     pld

@@ -155,6 +155,11 @@ contract notes for C0/C1/C3/C4 consumers.
   contracts cover `C2:C92D` as the loaded-bg struct interpreter, palette cycle
   consumption, CA scrolling and distortion row joins, offset commits, and the
   cautious display-setup role of `C2:C8C8`.
+- 2026-04-30 twentieth slice: promoted STEAL helper contracts into byte-neutral
+  source comments plus `notes/c2-steal-runtime-polish.md`. The promoted
+  contracts cover `$A9D4` stealable-item candidates, random selection,
+  stale-pending-item validation, row `+0x07/+0x08` slot/item fields, and the
+  `C1:DDC6` pending slot application path.
 
 ## Validation
 

@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:4316..C2:4348 SelectStealableItemCandidate
+;
+; Runtime contract:
+; - Selects one stealable item candidate for the STEAL action.
+; - Rebuilds `$A9D4` through `FIND_STEALABLE_ITEMS`; returns `0` when no
+;   candidates exist or when the 50 percent random failure gate trips.
+; - On success, chooses one candidate with `RAND_LIMIT(count)` and returns the
+;   selected item id from `$A9D4[index]`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -35,6 +42,7 @@ C2432B_SelectStealableItemCandidate_L432B:
     jsl C08E9A_GetRandom16
     and.w #$0080
     beq C24339_SelectStealableItemCandidate_L4339
+    ; Half the time, stealing fails even when a candidate exists.
     lda.w #$0000
     bra C24346_SelectStealableItemCandidate_L4346
 C24339_SelectStealableItemCandidate_L4339:
@@ -42,6 +50,7 @@ C24339_SelectStealableItemCandidate_L4339:
     txa
     jsr C26A2D_GetRandomBelow
     tax
+    ; Return one random candidate item id from `$A9D4`.
     lda $A9D4,X
     and.w #$00FF
 C24346_SelectStealableItemCandidate_L4346:

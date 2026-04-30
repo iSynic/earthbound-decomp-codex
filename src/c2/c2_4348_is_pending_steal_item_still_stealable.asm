@@ -7,6 +7,12 @@
 ;
 ; Source units covered:
 ; - C2:4348..C2:437E IsPendingStealItemStillStealable
+;
+; Runtime contract:
+; - Guard for stale STEAL action arguments.
+; - Input A is a pending stolen item id. The helper rebuilds `$A9D4`, scans the
+;   current stealable candidate list, returns `1` if the item is still present,
+;   and returns `0` otherwise.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,6 +30,7 @@ C24348_IsPendingStealItemStillStealable:
     adc.w #$FFF0
     tcd
     pla
+    ; Pending item id from the active STEAL action argument.
     sta $04
     jsr FIND_STEALABLE_ITEMS
     sta $02
@@ -34,6 +41,7 @@ C24360_IsPendingStealItemStillStealable_L4360:
     tax
     lda $A9D4,X
     and.w #$00FF
+    ; Match against the freshly rebuilt candidate buffer.
     cmp $04
     bne C24370_IsPendingStealItemStillStealable_L4370
     lda.w #$0001

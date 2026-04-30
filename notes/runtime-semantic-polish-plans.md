@@ -110,3 +110,5 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
 - 2026-04-30: C2 loaded battle-background frame generator seventeenth slice
   landed as byte-neutral source comments plus
   `notes/c2-loaded-bg-frame-generator-runtime-polish.md`.
+- 2026-04-30: C2 STEAL helper eighteenth slice landed as byte-neutral source
+  comments plus `notes/c2-steal-runtime-polish.md`.

@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:41DC..C2:4316 BuildStealableItemCandidateList
+;
+; Runtime contract:
+; - Builds the transient stealable-item candidate buffer at `$A9D4`.
+; - Scans active playable party members, finds each matching battler row, skips
+;   that battler's current action item slot, then walks the character's 14
+;   inventory slots.
+; - Accepts only nonempty unequipped item slots whose item price is nonzero and
+;   below `0x0122`, and whose item type bits `#$0030` equal `#$0020`.
+; - Writes accepted item ids to `$A9D4[count]` and returns the count in A.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -23,6 +32,7 @@ C241DC_BuildStealableItemCandidateList = FIND_STEALABLE_ITEMS
     tdc
     adc.w #$FFE6
     tcd
+    ; `$18` is the candidate count/output index, `$16` is party slot index.
     stz $18
     stz $16
     jmp.w C24306_BuildStealableItemCandidateList_L4306
@@ -31,6 +41,7 @@ C241EB_BuildStealableItemCandidateList_L41EB:
     lda ($16),Y
     and.w #$00FF
     sta $14
+    ; Only playable party character ids 1..4 participate in stealing.
     cmp.w #$0001
     bcs C241FF_BuildStealableItemCandidateList_L41FF
     beq C241FF_BuildStealableItemCandidateList_L41FF
@@ -58,6 +69,7 @@ C24212_BuildStealableItemCandidateList_L4212:
     lda $9FBB,X
     and.w #$00FF
     bne C24239_BuildStealableItemCandidateList_L4239
+    ; Row +0x07 is the current action item slot to exclude.
     lda $9FB3,X
     and.w #$00FF
     sta $10
@@ -77,6 +89,7 @@ C24248_BuildStealableItemCandidateList_L4248:
     lda $02
     cmp $10
     bne C24257_BuildStealableItemCandidateList_L4257
+    ; Do not include the item slot currently being acted with.
     jmp.w C242F6_BuildStealableItemCandidateList_L42F6
 C24257_BuildStealableItemCandidateList_L4257:
     lda $14
@@ -129,6 +142,7 @@ C2427A_BuildStealableItemCandidateList_L427A:
     and.w #$0030
     cmp.w #$0020
     bne C242F6_BuildStealableItemCandidateList_L42F6
+    ; Reject slots currently equipped in any equipment position.
     ldy $12
     lda $99FF,Y
     and.w #$00FF
@@ -149,6 +163,7 @@ C2427A_BuildStealableItemCandidateList_L427A:
     lda $04
     sep #$20
     ldy.w #$A9D4
+    ; Accepted item id goes into the transient candidate buffer.
     sta ($18),Y
     rep #$20
     inc $18
