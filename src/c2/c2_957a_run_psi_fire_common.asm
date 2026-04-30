@@ -7,6 +7,14 @@
 ;
 ; Source units covered:
 ; - C2:957A..C2:95CF RunPsiFireCommon
+;
+; Runtime contract:
+; - Shared Fire-family action helper; rank wrappers below pass one damage-like
+;   parameter in A.
+; - Runs the shared PSI pre-hit blocker `C2:941D`; nonzero return skips damage.
+; - Rolls damage through `C2:6AFD`, reads selected-row byte `+0x3A` as the
+;   damage typing/resistance selector, applies damage through `C2:8125`, then
+;   runs shared cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +39,7 @@ C2957A_RunPsiFireCommon = PSI_FIRE_COMMON
     tax
     stx $0E
     jsr PSI_SHIELD_NULLIFY
+    ; Nonzero pre-hit blocker means the timed substate consumed the action.
     cmp.w #$0000
     bne C295A9_RunPsiFireCommon_L95A9
     ldx $0E
@@ -40,6 +49,7 @@ C2957A_RunPsiFireCommon = PSI_FIRE_COMMON
     ldx $A972
     lda $003A,X
     and.w #$00FF
+    ; Fire uses selected-row byte `+0x3A` as the damage selector.
     tax
     lda $0E
     jsr C28125_ApplyTypedDamageToSelectedTarget

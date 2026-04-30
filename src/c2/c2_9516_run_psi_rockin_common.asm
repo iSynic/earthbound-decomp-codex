@@ -7,6 +7,15 @@
 ;
 ; Source units covered:
 ; - C2:9516..C2:957A RunPsiRockinCommon
+;
+; Runtime contract:
+; - Shared Rockin-family action helper; rank wrappers below pass one
+;   damage-like parameter in A.
+; - Runs the shared PSI pre-hit blocker `C2:941D`; nonzero return skips damage.
+; - On an unblocked path, rolls the amount through `C2:6A44`, runs the
+;   physical-avoidance gate `C2:84AD`, emits shared no-effect text `EF:766E`
+;   on avoidance, or applies type `0xFF` damage through `C2:8125`.
+; - Finishes successful or avoided attempts through shared cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -33,6 +42,7 @@ C29516_RunPsiRockinCommon = PSI_ROCKIN_COMMON
     tax
     stx $14
     jsr PSI_SHIELD_NULLIFY
+    ; Nonzero pre-hit blocker means the timed substate consumed the action.
     cmp.w #$0000
     bne C29554_RunPsiRockinCommon_L9554
     ldx $14
@@ -42,6 +52,7 @@ C29516_RunPsiRockinCommon = PSI_ROCKIN_COMMON
     jsr C284AD_RunPhysicalAvoidanceGate
     tax
     beq C29549_RunPsiRockinCommon_L9549
+    ; Physical avoidance/no-effect path.
     lda.w #$766E
     sta $0E
     lda.w #$00EF

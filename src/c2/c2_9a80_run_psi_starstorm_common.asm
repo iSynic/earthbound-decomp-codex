@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:9A80..C2:9AB8 RunPsiStarstormCommon
+;
+; Runtime contract:
+; - Shared Starstorm-family action helper; rank wrappers below pass one
+;   damage-like parameter in A.
+; - Runs the shared PSI pre-hit blocker `C2:941D`; nonzero return skips damage.
+; - Rolls damage through `C2:6AFD`, applies type `0xFF` damage through
+;   `C2:8125`, then runs shared cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -31,6 +38,7 @@ C29A80_RunPsiStarstormCommon = PSI_STARSTORM_COMMON
     tax
     stx $0E
     jsr PSI_SHIELD_NULLIFY
+    ; Nonzero pre-hit blocker means the timed substate consumed the action.
     cmp.w #$0000
     bne C29AA4_RunPsiStarstormCommon_L9AA4
     ldx $0E

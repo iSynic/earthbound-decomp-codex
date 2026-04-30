@@ -7,6 +7,13 @@
 ;
 ; Source units covered:
 ; - C2:94CE..C2:9516 TickSelectedBattlerTimedSubstateCleanup
+;
+; Runtime contract:
+; - Shared PSI/action post-hit cleanup paired with `C2:941D`.
+; - Clears `$AA94` on entry.
+; - If reflected-hit marker `$AA96` is set, swaps attacker/target text contexts
+;   back through `C2:7E8A`, decrements selected-row `+0x25`, clears `+0x23`
+;   when the counter expires, emits `EF:7099`, then clears `$AA96`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +33,7 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup = WEAKEN_SHIELD
     tcd
     stz $AA94
     lda $AA96
+    ; `$AA96` means the pre-hit path installed reflected-hit cleanup work.
     beq C29514_TickSelectedBattlerTimedSubstateCleanup_L9514
     jsr SWAP_ATTACKER_WITH_TARGET
     lda $A972
@@ -41,6 +49,7 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup = WEAKEN_SHIELD
     bne C29511_TickSelectedBattlerTimedSubstateCleanup_L9511
     ldx $A972
     sep #$20
+    ; Expired reflected substate clears `+0x23` and emits the end text.
     stz $0023,X
     rep #$20
     lda.w #$7099

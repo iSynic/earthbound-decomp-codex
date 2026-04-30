@@ -98,6 +98,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:7680` descriptor text continuation,
   `C2:77CA` source-entry claim scan, nested `D5:7B68` action pass, and selected
   row marker/state effects.
+- 2026-04-30 ninth slice: promoted early PSI common-helper contracts into
+  byte-neutral source comments plus `notes/c2-psi-common-runtime-polish.md`.
+  The promoted contracts cover the `C2:941D/94CE` shared blocker/cleanup pair,
+  Rockin/Fire/Freeze/Starstorm one-parameter helpers, Thunder's two-parameter
+  multi-hit target-mask loop, and Thunder's reflection tail at `C2:97A5`.
 
 ## Validation
 

@@ -7,6 +7,20 @@
 ;
 ; Source units covered:
 ; - C2:966B..C2:97A5 RunPsiThunderCommon
+;
+; Runtime contract:
+; - Shared Thunder-family action helper; rank wrappers in the next module pass
+;   X as requested hit count and A as the damage-like parameter.
+; - Counts active bits in the current 32-entry target mask, derives
+;   `min(active_count * 64, 255)`, and uses that value as the per-strike
+;   success threshold passed to `C2:6BB8`.
+; - Saves the working target mask, then each strike restores it, filters
+;   untargettable rows, chooses one surviving target, maps that bit into
+;   selected row `$A972`, and rebuilds target text context.
+; - Success emits small/large Thunder presentation text (`EF:8814` or
+;   `EF:8823`) and waits for the presentation busy helper to clear before
+;   continuing into the reflection/damage tail at `C2:97A5`.
+; - Failure jumps into the miss text path in the same tail module.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -41,6 +55,7 @@ C2966B_RunPsiThunderCommon = PSI_THUNDER_COMMON
     stx $16
     bra C29697_RunPsiThunderCommon_L9697
 C29683_RunPsiThunderCommon_L9683:
+    ; Count active target bits in the current 32-entry mask.
     txa
     jsl C27029_MaskSetTestBit
     cmp.w #$0000
@@ -64,6 +79,7 @@ C29697_RunPsiThunderCommon_L9697:
     asl A
     asl A
     sta $02
+    ; Clamp active_count * 64 at 255 for the strike success threshold.
     cmp.w #$0100
     bcc C296B1_RunPsiThunderCommon_L96B1
     lda.w #$00FF
@@ -77,6 +93,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     sta $12
     lda $08
     sta $14
+    ; Preserve the original mask for each attempted Thunder strike.
     ldy.w #$0000
     sty $18
     jmp $985A
@@ -88,6 +105,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     sta $A96C
     lda $08
     sta $A96E
+    ; Remove rows that are no longer targettable before choosing one strike.
     jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     lda.w #$0000
     sta $06
@@ -151,6 +169,7 @@ C2974D_RunPsiThunderCommon_L974D:
     jsl FIX_TARGET_NAME
     lda $02
     sep #$20
+    ; Use the clamped active-count threshold to decide whether this strike hits.
     jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     bne C29771_RunPsiThunderCommon_L9771
@@ -159,6 +178,7 @@ C29771_RunPsiThunderCommon_L9771:
     lda $04
     cmp.w #$0078
     bne C29788_RunPsiThunderCommon_L9788
+    ; Alpha/Beta strength uses the small Thunder presentation text.
     lda.w #$8814
     sta $0E
     lda.w #$00EF
@@ -166,6 +186,7 @@ C29771_RunPsiThunderCommon_L9771:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2979C_RunPsiThunderCommon_L979C
 C29788_RunPsiThunderCommon_L9788:
+    ; Gamma/Omega strength uses the large Thunder presentation text.
     lda.w #$8823
     sta $0E
     lda.w #$00EF

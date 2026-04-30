@@ -7,6 +7,16 @@
 ;
 ; Source units covered:
 ; - C2:941D..C2:94CE CheckSelectedBattlerTimedSubstateBlocker
+;
+; Runtime contract:
+; - Shared PSI/action pre-hit blocker used by the early PSI common helpers.
+; - Marks `$AA94 = 1`, emits the action presentation command from active row
+;   `+0x08`, then reads the active `D5:7B68` action descriptor type byte.
+; - Only descriptor type `3` enters the selected-row timed-substate handling.
+; - Selected-row `+0x23 == 1` emits `EF:70D2`, sets reflected-hit marker
+;   `$AA96 = 1`, and swaps attacker/target text contexts through `C2:7E8A`.
+; - Selected-row `+0x23 == 2` emits `EF:70FA`, decrements row `+0x25`, and
+;   when it expires clears `+0x23` and emits `EF:7099`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -43,6 +53,7 @@ C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     inx
     lda $D57B68,X
     and.w #$00FF
+    ; Only action descriptor type 3 participates in this substate blocker.
     cmp.w #$0003
     beq C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458
     lda.w #$0000
@@ -51,6 +62,7 @@ C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458:
     ldx $A972
     lda $0023,X
     and.w #$00FF
+    ; Timed substate 1 redirects/reflection-swaps the active text context.
     cmp.w #$0001
     beq C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D
     cmp.w #$0002
@@ -72,6 +84,7 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
+    ; Timed substate 2 consumes row `+0x25` before clearing `+0x23`.
     lda $A972
     clc
     adc.w #$0025

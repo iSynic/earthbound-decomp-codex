@@ -7,6 +7,18 @@
 ;
 ; Source units covered:
 ; - C2:95CF..C2:966B RunPsiFreezeCommon
+;
+; Runtime contract:
+; - Shared Freeze-family action helper; rank wrappers below pass one
+;   damage-like parameter in A.
+; - First runs the default-target/NPC blocker at `C2:7CFD`, then the shared
+;   PSI pre-hit blocker `C2:941D`; either nonzero return skips the action body.
+; - Rolls damage through `C2:6AFD`, reads selected-row byte `+0x38` as the
+;   damage typing/resistance selector, and applies damage through `C2:8125`.
+; - If damage landed and selected-row `+0x1D != 1`, rolls a 25% status chance
+;   and calls the affliction subgroup helper with `Y = 4`, `X = 2`; on success
+;   emits `EF:6BEF`.
+; - Finishes through shared cleanup `C2:94CE`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -47,6 +59,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldx $A972
     lda $0038,X
     and.w #$00FF
+    ; Freeze uses selected-row byte `+0x38` as the damage selector.
     tax
     lda $12
     jsr C28125_ApplyTypedDamageToSelectedTarget
@@ -55,6 +68,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldx $A972
     lda $001D,X
     and.w #$00FF
+    ; Hard/collapsed rows do not receive the Freeze substatus side effect.
     cmp.w #$0001
     beq C29642_RunPsiFreezeCommon_L9642
     ldx $14
@@ -66,6 +80,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
+    ; Apply Freeze's chance-based subgroup status side effect.
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29642_RunPsiFreezeCommon_L9642

@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:97A5..C2:98A1 HandlePsiThunderFranklinBadgeReflection
+;
+; Runtime contract:
+; - Thunder post-strike tail reached after the common helper selects one target.
+; - Clears selected-row membership marker `+0x4B`.
+; - If selected-row `+0x0E == 0`, checks possession/inventory helper `C4:5683`
+;   for row `+0x10 + 1` with search slot X = 1; on success emits `EF:7160`,
+;   marks reflected-hit state `$AA96 = 1`, and swaps attacker/target contexts.
+; - Timed substates `+0x23 == 1/2` refresh row `+0x25 = 1` before the shared
+;   PSI pre-hit blocker and damage path.
+; - Miss path emits `EF:8837` and `C8:FAF6`; loop tail continues until side
+;   counts are exhausted or the requested hit count has completed.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -26,6 +37,7 @@ C45683_CheckInventoryForSelectedItem            = $C45683
 C297A5_HandlePsiThunderFranklinBadgeReflection:
     ldx $A972
     sep #$20
+    ; Clear selected-row membership marker before resolving the strike.
     stz $004B,X
     ldx $A972
     rep #$20
@@ -39,6 +51,7 @@ C297A5_HandlePsiThunderFranklinBadgeReflection:
     and.w #$00FF
     inc A
     ldx $16
+    ; Search for the reflection item/keyed possession tied to row `+0x10`.
     jsl C45683_CheckInventoryForSelectedItem
     cmp.w #$0000
     beq C297EB_HandlePsiThunderFranklinBadgeReflection_L97EB
@@ -49,6 +62,7 @@ C297A5_HandlePsiThunderFranklinBadgeReflection:
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $AA96
+    ; Reflected hit: swap attacker/target context before damage handling.
     jsr SWAP_ATTACKER_WITH_TARGET
 C297EB_HandlePsiThunderFranklinBadgeReflection_L97EB:
     ldx $A972
@@ -63,6 +77,7 @@ C297FF_HandlePsiThunderFranklinBadgeReflection_L97FF:
     sep #$20
     lda.b #$01
     ldx $A972
+    ; Refresh the timed substate counter consumed by the shared PSI blocker.
     sta $0025,X
 C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
     jsr PSI_SHIELD_NULLIFY
@@ -75,6 +90,7 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
+    ; Thunder miss presentation path.
     lda.w #$8837
     sta $0E
     lda.w #$00EF
@@ -97,6 +113,7 @@ C2983D_HandlePsiThunderFranklinBadgeReflection_L983D:
     ldy $18
     iny
     sty $18
+    ; Continue until the requested hit count is reached or a side is exhausted.
     cpy $1A
     bcs C29863_HandlePsiThunderFranklinBadgeReflection_L9863
     beq C29863_HandlePsiThunderFranklinBadgeReflection_L9863
