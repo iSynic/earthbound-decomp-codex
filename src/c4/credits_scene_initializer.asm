@@ -30,7 +30,8 @@ ExpandC4AssetMaybe                  = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C4:F07D
 
-C4F07D_InitializeCreditsScene:
+INITIALIZE_CREDITS_SCENE:
+C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     rep #$31
     phd
     tdc

@@ -43,11 +43,11 @@ C1DCE5_InitializePartyBattleStartState_LDCE5:
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr C18F64_RecoverHpForCharacterOrActiveParty
+    jsr RECOVER_HP_AMTPERCENT
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr C19010_RecoverPpForCharacterOrActiveParty
+    jsr RECOVER_PP_AMTPERCENT
     lda $02
     dec A
     ldy.w #$005F

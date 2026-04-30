@@ -17,11 +17,13 @@ C117E2_MeasureBoundedStringLength      = $17E2
 ; ---------------------------------------------------------------------------
 ; C1:0C49
 
-C10C49_CountTextEntryChainRecords:
+REDIRECT_C1138D:
+C10C49_CountTextEntryChainRecords = REDIRECT_C1138D
     rep #$31
     jsr C1138D_CountTextEntryChainRecordsLocal
     rtl
-C10C4F_MeasureBoundedStringLengthRedirect:
+REDIRECT_C117E2:
+C10C4F_MeasureBoundedStringLengthRedirect = REDIRECT_C117E2
     rep #$31
     jsr C117E2_MeasureBoundedStringLength
     rtl

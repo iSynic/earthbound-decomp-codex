@@ -30,7 +30,8 @@ EF05A6_SaveBlockPresentBitMasks        = $EF05A6
 ; ---------------------------------------------------------------------------
 ; EF:05A9
 
-EF05A9_EraseSaveBlock:
+ERASE_SAVE_BLOCK:
+EF05A9_EraseSaveBlock = ERASE_SAVE_BLOCK
     rep #$31
     phd
     pha
@@ -95,7 +96,8 @@ EF05A9_EraseSaveBlock:
     jsl C08EED_CopyToVramOrRendererBuffer
     pld
     rts
-EF0630_CheckSaveBlockSignature:
+CHECK_BLOCK_SIGNATURE:
+EF0630_CheckSaveBlockSignature = CHECK_BLOCK_SIGNATURE
     rep #$31
     phd
     pha
@@ -130,7 +132,7 @@ EF0630_CheckSaveBlockSignature:
     beq EF067E_SaveSramHelperCluster_L067E
     ldx $16
     txa
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     lda.w #$0001
     bra EF0681_SaveSramHelperCluster_L0681
 EF067E_SaveSramHelperCluster_L067E:
@@ -138,7 +140,8 @@ EF067E_SaveSramHelperCluster_L067E:
 EF0681_SaveSramHelperCluster_L0681:
     pld
     rts
-EF0683_CheckAllSaveBlockSignatures:
+CHECK_ALL_BLOCKS_SIGNATURE:
+EF0683_CheckAllSaveBlockSignatures = CHECK_ALL_BLOCKS_SIGNATURE
     rep #$31
     phd
     tdc
@@ -149,7 +152,7 @@ EF0683_CheckAllSaveBlockSignatures:
     bra EF069B_SaveSramHelperCluster_L069B
 EF0692_SaveSramHelperCluster_L0692:
     txa
-    jsr.w EF0630_CheckSaveBlockSignature
+    jsr.w CHECK_BLOCK_SIGNATURE
     ldx $0E
     inx
     stx $0E
@@ -158,7 +161,8 @@ EF069B_SaveSramHelperCluster_L069B:
     bcc EF0692_SaveSramHelperCluster_L0692
     pld
     rts
-EF06A2_CopySaveBlock:
+COPY_SAVE_BLOCK:
+EF06A2_CopySaveBlock = COPY_SAVE_BLOCK
     rep #$31
     phd
     pha
@@ -231,7 +235,8 @@ EF06A2_CopySaveBlock:
     jsl C08EED_CopyToVramOrRendererBuffer
     pld
     rts
-EF0734_CalcSaveBlockChecksum:
+CALC_SAVE_BLOCK_ADD_CHECKSUM:
+EF0734_CalcSaveBlockChecksum = CALC_SAVE_BLOCK_ADD_CHECKSUM
     rep #$31
     phd
     pha
@@ -272,7 +277,8 @@ EF0773_SaveSramHelperCluster_L0773:
     txa
     pld
     rts
-EF077B_CalcSaveBlockChecksumComplement:
+CALC_SAVE_BLOCK_XOR_CHECKSUM:
+EF077B_CalcSaveBlockChecksumComplement = CALC_SAVE_BLOCK_XOR_CHECKSUM
     rep #$31
     phd
     pha
@@ -312,7 +318,8 @@ EF07B8_SaveSramHelperCluster_L07B8:
     txa
     pld
     rts
-EF07C0_ValidateSaveBlockChecksums:
+VALIDATE_SAVE_BLOCK_CHECKSUMS:
+EF07C0_ValidateSaveBlockChecksums = VALIDATE_SAVE_BLOCK_CHECKSUMS
     rep #$31
     phd
     pha
@@ -323,11 +330,11 @@ EF07C0_ValidateSaveBlockChecksums:
     tax
     stx $0E
     txa
-    jsr.w EF0734_CalcSaveBlockChecksum
+    jsr.w CALC_SAVE_BLOCK_ADD_CHECKSUM
     sta $04
     ldx $0E
     txa
-    jsr.w EF077B_CalcSaveBlockChecksumComplement
+    jsr.w CALC_SAVE_BLOCK_XOR_CHECKSUM
     sta $02
     ldy.w #$0500
     ldx $0E
@@ -367,7 +374,8 @@ EF0820_SaveSramHelperCluster_L0820:
 EF0823_SaveSramHelperCluster_L0823:
     pld
     rts
-EF0825_CheckSaveCorruption:
+CHECK_SAVE_CORRUPTION:
+EF0825_CheckSaveCorruption = CHECK_SAVE_CORRUPTION
     rep #$31
     phd
     pha
@@ -380,21 +388,21 @@ EF0825_CheckSaveCorruption:
     tya
     asl A
     sta $02
-    jsr.w EF07C0_ValidateSaveBlockChecksums
+    jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
     cmp.w #$0000
     beq EF086F_SaveSramHelperCluster_L086F
     lda $02
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     ldx $02
     inx
     stx $0E
     txa
-    jsr.w EF07C0_ValidateSaveBlockChecksums
+    jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
     cmp.w #$0000
     beq EF0868_SaveSramHelperCluster_L0868
     ldx $0E
     txa
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     ldy $10
     tyx
     sep #$20
@@ -405,27 +413,28 @@ EF0825_CheckSaveCorruption:
 EF0868_SaveSramHelperCluster_L0868:
     ldx $0E
     lda $02
-    jsr.w EF06A2_CopySaveBlock
+    jsr.w COPY_SAVE_BLOCK
 EF086F_SaveSramHelperCluster_L086F:
     ldy $02
     iny
     sty $10
     tya
-    jsr.w EF07C0_ValidateSaveBlockChecksums
+    jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
     cmp.w #$0000
     beq EF088B_SaveSramHelperCluster_L088B
     ldy $10
     tya
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     ldx $02
     ldy $10
     tya
-    jsr.w EF06A2_CopySaveBlock
+    jsr.w COPY_SAVE_BLOCK
 EF088B_SaveSramHelperCluster_L088B:
     rep #$20
     pld
     rts
-EF088F_SaveGameBlock:
+SAVE_GAME_BLOCK:
+EF088F_SaveGameBlock = SAVE_GAME_BLOCK
     rep #$31
     phd
     pha
@@ -603,14 +612,14 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $08
     ldy $20
     tya
-    jsr.w EF0734_CalcSaveBlockChecksum
+    jsr.w CALC_SAVE_BLOCK_ADD_CHECKSUM
     tax
     stx $1A
     txa
     sta [$06]
     ldy $20
     tya
-    jsr.w EF0734_CalcSaveBlockChecksum
+    jsr.w CALC_SAVE_BLOCK_ADD_CHECKSUM
     sta $02
     ldx $1A
     txa
@@ -631,14 +640,14 @@ EF0A16_SaveSramHelperCluster_L0A16:
     sta $08
     ldy $20
     tya
-    jsr.w EF077B_CalcSaveBlockChecksumComplement
+    jsr.w CALC_SAVE_BLOCK_XOR_CHECKSUM
     tax
     stx $1A
     txa
     sta [$06]
     ldy $20
     tya
-    jsr.w EF077B_CalcSaveBlockChecksumComplement
+    jsr.w CALC_SAVE_BLOCK_XOR_CHECKSUM
     sta $02
     ldx $1A
     txa
@@ -648,7 +657,8 @@ EF0A16_SaveSramHelperCluster_L0A16:
 EF0A4B_SaveSramHelperCluster_L0A4B:
     pld
     rts
-EF0A4D_SaveGameSlot:
+SAVE_GAME_SLOT:
+EF0A4D_SaveGameSlot = SAVE_GAME_SLOT
     rep #$31
     phd
     pha
@@ -660,14 +670,15 @@ EF0A4D_SaveGameSlot:
     tax
     stx $0E
     txa
-    jsr.w EF088F_SaveGameBlock
+    jsr.w SAVE_GAME_BLOCK
     ldx $0E
     txa
     inc A
-    jsr.w EF088F_SaveGameBlock
+    jsr.w SAVE_GAME_BLOCK
     pld
     rtl
-EF0A68_LoadGameSlot:
+LOAD_GAME_SLOT:
+EF0A68_LoadGameSlot = LOAD_GAME_SLOT
     rep #$31
     phd
     pha
@@ -817,7 +828,8 @@ EF0A68_LoadGameSlot:
     sta $00A9
     pld
     rtl
-EF0B9E_CheckSramIntegrity:
+CHECK_SRAM_INTEGRITY:
+EF0B9E_CheckSramIntegrity = CHECK_SRAM_INTEGRITY
     rep #$31
     phd
     tdc
@@ -841,7 +853,7 @@ EF0B9E_CheckSramIntegrity:
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
 EF0BD2_SaveSramHelperCluster_L0BD2:
-    jsr.w EF0683_CheckAllSaveBlockSignatures
+    jsr.w CHECK_ALL_BLOCKS_SIGNATURE
     sep #$20
     stz $9F79
     ldx.w #$0000
@@ -850,7 +862,7 @@ EF0BD2_SaveSramHelperCluster_L0BD2:
 EF0BE1_SaveSramHelperCluster_L0BE1:
     rep #$20
     txa
-    jsr.w EF0825_CheckSaveCorruption
+    jsr.w CHECK_SAVE_CORRUPTION
     ldx $12
     inx
     stx $12
@@ -862,7 +874,8 @@ EF0BEC_SaveSramHelperCluster_L0BEC:
     sta [$06]
     pld
     rtl
-EF0BFA_EraseSaveSlot:
+ERASE_SAVE:
+EF0BFA_EraseSaveSlot = ERASE_SAVE
     rep #$31
     phd
     pha
@@ -874,14 +887,15 @@ EF0BFA_EraseSaveSlot:
     tax
     stx $0E
     txa
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     ldx $0E
     txa
     inc A
-    jsr.w EF05A9_EraseSaveBlock
+    jsr.w ERASE_SAVE_BLOCK
     pld
     rtl
-EF0C15_CopySaveSlot:
+COPY_SAVE:
+EF0C15_CopySaveSlot = COPY_SAVE
     rep #$31
     phd
     pha
@@ -899,12 +913,12 @@ EF0C15_CopySaveSlot:
     sta $02
     tyx
     lda $02
-    jsr.w EF06A2_CopySaveBlock
+    jsr.w COPY_SAVE_BLOCK
     ldy $0E
     tyx
     inx
     lda $02
     inc A
-    jsr.w EF06A2_CopySaveBlock
+    jsr.w COPY_SAVE_BLOCK
     pld
     rtl

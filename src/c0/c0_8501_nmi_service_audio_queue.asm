@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8501
 
-C08501_Nmi_ServiceAudioQueue:
+PROCESS_SFX_QUEUE:
+C08501_Nmi_ServiceAudioQueue = PROCESS_SFX_QUEUE
     sep #$30
     ldx $CB
     cpx $CA

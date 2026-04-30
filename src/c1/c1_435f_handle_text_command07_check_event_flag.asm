@@ -16,7 +16,8 @@ C21628_CheckEventFlag = $C21628
 ; ---------------------------------------------------------------------------
 ; C1:435F
 
-C1435F_HandleTextCommand07CheckEventFlag:
+CC_07:
+C1435F_HandleTextCommand07CheckEventFlag = CC_07
     rep #$31
     phd
     pha

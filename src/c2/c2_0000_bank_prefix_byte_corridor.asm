@@ -16,7 +16,9 @@
 ; ---------------------------------------------------------------------------
 ; C2:0000
 
-C20000_BankPrefixByteCorridor:
+INFLICT_SUNSTROKE_CHECK:
+C20000_BankPrefixByteCorridor = INFLICT_SUNSTROKE_CHECK
+C20000_RunEnemySunstrokeCheck = INFLICT_SUNSTROKE_CHECK
 
 ; ---------------------------------------------------------------------------
 ; C2:00D1

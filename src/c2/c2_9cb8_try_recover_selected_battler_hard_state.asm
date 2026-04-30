@@ -14,11 +14,20 @@
 C27397_InstallBattlerHeavyRecoveryReset          = $7397
 C1DC1C_DisplayBattleTextFromPointer              = $C1DC1C
 C29C2C_TryRecoverSelectedBattlerBroadAfflictions = $C29C2C
+EFMSG_TimedSubstate4Refreshed                    = $6FBD
+EFMSG_TimedSubstate4Installed                    = $6F9A
+EFMSG_TimedSubstate3Refreshed                    = $6FF4
+EFMSG_TimedSubstate3Installed                    = $6FD3
+EFMSG_TimedSubstate2Refreshed                    = $7032
+EFMSG_TimedSubstate2Installed                    = $700C
+EFMSG_TimedSubstate1Refreshed                    = $707A
+EFMSG_TimedSubstate1Installed                    = $7050
 
 ; ---------------------------------------------------------------------------
 ; C2:9CB8
 
-C29CB8_TryRecoverSelectedBattlerHardState:
+BTLACT_HEALING_O:
+C29CB8_TryRecoverSelectedBattlerHardState = BTLACT_HEALING_O
     rep #$31
     ldx $A972
     lda $001D,X
@@ -29,13 +38,14 @@ C29CB8_TryRecoverSelectedBattlerHardState:
     lda $0015,X
     tax
     lda $A972
-    jsr C27397_InstallBattlerHeavyRecoveryReset
+    jsr REVIVE_TARGET
     bra C29CDB_TryRecoverSelectedBattlerHardState_L9CDB
 C29CD7_TryRecoverSelectedBattlerHardState_L9CD7:
-    jsl C29C2C_TryRecoverSelectedBattlerBroadAfflictions
+    jsl BTLACT_HEALING_G
 C29CDB_TryRecoverSelectedBattlerHardState_L9CDB:
     rtl
-C29CDC_ApplyTimedSubstateOrRefreshShieldCounter:
+SHIELDS_COMMON:
+C29CDC_ApplyTimedSubstateOrRefreshShieldCounter = SHIELDS_COMMON
     rep #$31
     phd
     pha
@@ -95,7 +105,8 @@ C29D2B_TryRecoverSelectedBattlerHardState_L9D2B:
 C29D42_TryRecoverSelectedBattlerHardState_L9D42:
     pld
     rts
-C29D44_RunTimedSubstateFourAction:
+BTLACT_SHIELD_A:
+C29D44_RunTimedSubstateFourAction = BTLACT_SHIELD_A
     rep #$31
     phd
     tdc
@@ -103,17 +114,19 @@ C29D44_RunTimedSubstateFourAction:
     tcd
     ldx.w #$0004
     lda $A972
-    jsr.w C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
+    jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29D6A_TryRecoverSelectedBattlerHardState_L9D6A
-    lda.w #$6FBD
+    ; SHIELDS_COMMON returns nonzero when an existing timed substate is
+    ; refreshed; zero means a new timed substate was installed.
+    lda.w #EFMSG_TimedSubstate4Refreshed
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29D78_TryRecoverSelectedBattlerHardState_L9D78
 C29D6A_TryRecoverSelectedBattlerHardState_L9D6A:
-    lda.w #$6F9A
+    lda.w #EFMSG_TimedSubstate4Installed
     sta $0E
     lda.w #$00EF
     sta $10
@@ -121,11 +134,13 @@ C29D6A_TryRecoverSelectedBattlerHardState_L9D6A:
 C29D78_TryRecoverSelectedBattlerHardState_L9D78:
     pld
     rtl
-C29D7A_RunTimedSubstateFourWrapper:
+REDIRECT_BTLACT_SHIELD_A:
+C29D7A_RunTimedSubstateFourWrapper = REDIRECT_BTLACT_SHIELD_A
     rep #$31
-    jsl C29D44_RunTimedSubstateFourAction
+    jsl BTLACT_SHIELD_A
     rtl
-C29D81_RunTimedSubstateThreeAction:
+BTLACT_SHIELD_B:
+C29D81_RunTimedSubstateThreeAction = BTLACT_SHIELD_B
     rep #$31
     phd
     tdc
@@ -133,17 +148,17 @@ C29D81_RunTimedSubstateThreeAction:
     tcd
     ldx.w #$0003
     lda $A972
-    jsr.w C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
+    jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DA7_TryRecoverSelectedBattlerHardState_L9DA7
-    lda.w #$6FF4
+    lda.w #EFMSG_TimedSubstate3Refreshed
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29DB5_TryRecoverSelectedBattlerHardState_L9DB5
 C29DA7_TryRecoverSelectedBattlerHardState_L9DA7:
-    lda.w #$6FD3
+    lda.w #EFMSG_TimedSubstate3Installed
     sta $0E
     lda.w #$00EF
     sta $10
@@ -151,11 +166,13 @@ C29DA7_TryRecoverSelectedBattlerHardState_L9DA7:
 C29DB5_TryRecoverSelectedBattlerHardState_L9DB5:
     pld
     rtl
-C29DB7_RunTimedSubstateThreeWrapper:
+REDIRECT_BTLACT_SHIELD_B:
+C29DB7_RunTimedSubstateThreeWrapper = REDIRECT_BTLACT_SHIELD_B
     rep #$31
-    jsl C29D81_RunTimedSubstateThreeAction
+    jsl BTLACT_SHIELD_B
     rtl
-C29DBE_RunTimedSubstateTwoAction:
+BTLACT_PSI_SHIELD_A:
+C29DBE_RunTimedSubstateTwoAction = BTLACT_PSI_SHIELD_A
     rep #$31
     phd
     tdc
@@ -163,17 +180,17 @@ C29DBE_RunTimedSubstateTwoAction:
     tcd
     ldx.w #$0002
     lda $A972
-    jsr.w C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
+    jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DE4_TryRecoverSelectedBattlerHardState_L9DE4
-    lda.w #$7032
+    lda.w #EFMSG_TimedSubstate2Refreshed
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29DF2_TryRecoverSelectedBattlerHardState_L9DF2
 C29DE4_TryRecoverSelectedBattlerHardState_L9DE4:
-    lda.w #$700C
+    lda.w #EFMSG_TimedSubstate2Installed
     sta $0E
     lda.w #$00EF
     sta $10
@@ -181,11 +198,13 @@ C29DE4_TryRecoverSelectedBattlerHardState_L9DE4:
 C29DF2_TryRecoverSelectedBattlerHardState_L9DF2:
     pld
     rtl
-C29DF4_RunTimedSubstateTwoWrapper:
+REDIRECT_BTLACT_PSI_SHIELD_A:
+C29DF4_RunTimedSubstateTwoWrapper = REDIRECT_BTLACT_PSI_SHIELD_A
     rep #$31
-    jsl C29DBE_RunTimedSubstateTwoAction
+    jsl BTLACT_PSI_SHIELD_A
     rtl
-C29DFB_RunTimedSubstateOneAction:
+BTLACT_PSI_SHIELD_B:
+C29DFB_RunTimedSubstateOneAction = BTLACT_PSI_SHIELD_B
     rep #$31
     phd
     tdc
@@ -193,17 +212,17 @@ C29DFB_RunTimedSubstateOneAction:
     tcd
     ldx.w #$0001
     lda $A972
-    jsr.w C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
+    jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29E21_TryRecoverSelectedBattlerHardState_L9E21
-    lda.w #$707A
+    lda.w #EFMSG_TimedSubstate1Refreshed
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29E2F_TryRecoverSelectedBattlerHardState_L9E2F
 C29E21_TryRecoverSelectedBattlerHardState_L9E21:
-    lda.w #$7050
+    lda.w #EFMSG_TimedSubstate1Installed
     sta $0E
     lda.w #$00EF
     sta $10
@@ -211,7 +230,8 @@ C29E21_TryRecoverSelectedBattlerHardState_L9E21:
 C29E2F_TryRecoverSelectedBattlerHardState_L9E2F:
     pld
     rtl
-C29E31_RunTimedSubstateOneWrapper:
+REDIRECT_BTLACT_PSI_SHIELD_B:
+C29E31_RunTimedSubstateOneWrapper = REDIRECT_BTLACT_PSI_SHIELD_B
     rep #$31
-    jsl C29DFB_RunTimedSubstateOneAction
+    jsl BTLACT_PSI_SHIELD_B
     rtl

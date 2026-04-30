@@ -78,7 +78,8 @@ C464A5_EntityVisualFlagCurrentSlotWrappers_L64A5:
 C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3:
     pld
     rtl
-C464B5_InitWorldPositionedEntityWithVisualTypeId:
+CREATE_PREPARED_ENTITY_NPC:
+C464B5_InitWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_NPC
     rep #$31
     phd
     pha
@@ -121,7 +122,8 @@ C464B5_InitWorldPositionedEntityWithVisualTypeId:
     lda $12
     pld
     rtl
-C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId:
+CREATE_PREPARED_ENTITY_SPRITE:
+C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_SPRITE
     rep #$31
     phd
     pha

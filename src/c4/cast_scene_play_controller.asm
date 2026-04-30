@@ -25,7 +25,8 @@ LoadCastScene                     = $C4E369
 ; ---------------------------------------------------------------------------
 ; C4:ED0E
 
-C4ED0E_PlayCastScene:
+PLAY_CAST_SCENE:
+C4ED0E_PlayCastScene = PLAY_CAST_SCENE
     rep #$31
     phd
     tdc

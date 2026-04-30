@@ -13,4 +13,4 @@
 ; CC:EEB4
 
 ; AssetPsiArrangement32End
-CCEEB4_AssetPsiArrangement32End:
+CCEEB4_AssetPsiArrangement32End = PSI_ARRANGEMENT_27

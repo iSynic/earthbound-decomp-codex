@@ -13,4 +13,4 @@
 ; E1:AE6F
 
 ; AssetNintendoPresentationGraphicsEnd
-E1AE6F_AssetNintendoPresentationGraphicsEnd:
+E1AE6F_AssetNintendoPresentationGraphicsEnd = NINTENDO_ITOI_PALETTE

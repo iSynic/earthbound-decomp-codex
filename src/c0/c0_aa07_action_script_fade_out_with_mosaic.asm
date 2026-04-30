@@ -16,7 +16,8 @@ C08814_SetDisplayTransitionMode = $C08814
 ; ---------------------------------------------------------------------------
 ; C0:AA07
 
-C0AA07_ActionScript_FadeOutWithMosaic:
+ACTIONSCRIPT_FADE_OUT_WITH_MOSAIC:
+C0AA07_ActionScript_FadeOutWithMosaic = ACTIONSCRIPT_FADE_OUT_WITH_MOSAIC
     jsl $C09D94
     pha
     sty $94

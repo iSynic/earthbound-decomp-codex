@@ -73,7 +73,7 @@ C19291_print_statistic_selector_value_L9291:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192B7_print_statistic_selector_value_L92B7:
     txa
@@ -90,7 +90,7 @@ C192B7_print_statistic_selector_value_L92B7:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192D5_print_statistic_selector_value_L92D5:
     txa
@@ -108,7 +108,7 @@ C192D5_print_statistic_selector_value_L92D5:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192F6_print_statistic_selector_value_L92F6:
     txa

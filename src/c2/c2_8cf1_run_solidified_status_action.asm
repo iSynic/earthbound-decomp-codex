@@ -15,36 +15,40 @@ C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27C96_RollSelectedRowThresholdGate           = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+EFMSG_SolidifiedInflicted                     = $6BEF
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:8CF1
 
-C28CF1_RunSolidifiedStatusAction:
+BTLACT_SOLIDIFY:
+C28CF1_RunSolidifiedStatusAction = BTLACT_SOLIDIFY
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28D38_RunSolidifiedStatusAction_L8D38
-    jsr C27C96_RollSelectedRowThresholdGate
+    jsr SUCCESS_LUCK80
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
-    lda.w #$6BEF
+    ; Success/failure EF scripts both read the target-name battle text context.
+    lda.w #EFMSG_SolidifiedInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28D38_RunSolidifiedStatusAction_L8D38
 C28D2A_RunSolidifiedStatusAction_L8D2A:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

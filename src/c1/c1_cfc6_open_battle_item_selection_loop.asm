@@ -51,13 +51,13 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     ldy $10
     lda $0000,Y
     and.w #$00FF
-    jsr C198DE_RenderCharacterInventoryOrEquipmentRows
+    jsr INVENTORY_GET_ITEM_NAME
     lda.w #$0001
     jsr C1196A_OpenMenuSelectionLoop
     tax
     stx $0E
     jsl C3E4D4_EnterWindowUpdateScope
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $0E
     beq C1D033_OpenBattleItemSelectionLoop_LD033
     txa

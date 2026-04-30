@@ -13,4 +13,4 @@
 ; E1:51E8
 
 ; AssetHalkenArrangementEnd
-E151E8_AssetHalkenArrangementEnd:
+E151E8_AssetHalkenArrangementEnd = HALKEN_GRAPHICS

@@ -13,4 +13,4 @@
 ; DD:3294
 
 ; AssetMapDataTileSetGraphics0End
-DD3294_AssetMapDataTileSetGraphics0End:
+DD3294_AssetMapDataTileSetGraphics0End = MAP_DATA_TILE_SET_GRAPHICS_1

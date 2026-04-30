@@ -21,7 +21,8 @@ StagedPointerHi      = $10
 ; ---------------------------------------------------------------------------
 ; C1:4558
 
-C14558_HandleTextCommand0BTestWorkmemTrue:
+CC_0B:
+C14558_HandleTextCommand0BTestWorkmemTrue = CC_0B
     rep #$31
     phd
     pha
@@ -32,7 +33,7 @@ C14558_HandleTextCommand0BTestWorkmemTrue:
     stx ExpectedWorkmemValue
     lda.w #$0000
     sta PredicateResult
-    jsr C1040A_LoadPrimaryInteractionContextPointer
+    jsr GET_WORKING_MEMORY
     lda PredicateResultLo
     cmp ExpectedWorkmemValue
     bne C14577_StageTextCommand0BPredicateResult
@@ -53,7 +54,7 @@ C14581_InstallTextCommand0BPredicateResult:
     sta StagedPointerLo
     lda PredicateResultHi
     sta StagedPointerHi
-    jsr C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     lda.w #$0000
     pld
     rts

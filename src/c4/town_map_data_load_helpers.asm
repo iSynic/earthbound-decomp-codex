@@ -25,7 +25,8 @@ C41A9E_GraphicsDecompressionRoutines_Main    = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C4:D553
 
-C4D553_LoadTownMapData:
+LOAD_TOWN_MAP_DATA:
+C4D553_LoadTownMapData = LOAD_TOWN_MAP_DATA
     rep #$31
     phd
     pha

@@ -28,7 +28,8 @@ MusicDatasetTable          = $C4F70A
 ; ---------------------------------------------------------------------------
 ; C4:FBBD
 
-C4FBBD_ChangeMusic:
+CHANGE_MUSIC:
+C4FBBD_ChangeMusic = CHANGE_MUSIC
     rep #$31
     phd
     pha

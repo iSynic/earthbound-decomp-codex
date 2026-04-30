@@ -13,4 +13,4 @@
 ; CC:BF2D
 
 ; AssetPsiArrangement3End
-CCBF2D_AssetPsiArrangement3End:
+CCBF2D_AssetPsiArrangement3End = PSI_ARRANGEMENT_7

@@ -12,13 +12,14 @@
 hirom
 org $C00000
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08D79_UpdateBgModeRegisterFromQueue = $C08D79
 !C08D92_UpdateObjSizeAndBaseRegister = $C08D92
 !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
 !C08DDE_UpdateBg2ScreenBaseRegistersFromQueue = $C08DDE
 !C08E1C_UpdateBg3ScreenBaseRegistersFromQueue = $C08E1C
-C00000_ClearEntityDrawSortingTable:
+CLEAR_ENTITY_DRAW_SORTING_TABLE:
+!C00000_ClearEntityDrawSortingTable = CLEAR_ENTITY_DRAW_SORTING_TABLE
     stz $280C
     ldx.w #$280C
     ldy.w #$280D
@@ -26,7 +27,8 @@ C00000_ClearEntityDrawSortingTable:
     mvn $7E,$7E
     lda.w #$280C
     rts
-C00013_SetupOverworldVramRegisters:
+OVERWORLD_SETUP_VRAM:
+!C00013_SetupOverworldVramRegisters = OVERWORLD_SETUP_VRAM
     rep #$31
     lda.w #$0009
     jsl !C08D79_UpdateBgModeRegisterFromQueue
@@ -45,7 +47,8 @@ C00013_SetupOverworldVramRegisters:
     lda.w #$0062
     jsl !C08D92_UpdateObjSizeAndBaseRegister
     rtl
-C0004B_InitializeOverworldVramState:
+OVERWORLD_INITIALIZE:
+!C0004B_InitializeOverworldVramState = OVERWORLD_INITIALIZE
     rep #$31
     phd
     tdc
@@ -55,7 +58,7 @@ C0004B_InitializeOverworldVramState:
     sta $06
     lda.w #$007F
     sta $08
-    jsl C00013_SetupOverworldVramRegisters
+    jsl OVERWORLD_SETUP_VRAM
     lda.w #$0000
     sta [$06]
     lda $06
@@ -66,7 +69,7 @@ C0004B_InitializeOverworldVramState:
     tyx
     sep #$20
     lda.b #$03
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.w #$FFFF
     sta $4370
     sta $436E
@@ -82,7 +85,8 @@ hirom
 org $C00085
 
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
-C00085_Install_LandingAnimatedGraphicsStrip:
+LOAD_TILESET_ANIM:
+!C00085_Install_LandingAnimatedGraphicsStrip = LOAD_TILESET_ANIM
     rep #$31
     phd
     tdc
@@ -208,8 +212,9 @@ C00170_Install_LandingAnimatedGraphicsStrip_L0170:
 hirom
 org $C00172
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
-C00172_Tick_LandingProfileAnimatedVramUploads:
+!PREPARE_VRAM_COPY = $C08616
+ANIMATE_TILESET:
+!C00172_Tick_LandingProfileAnimatedVramUploads = ANIMATE_TILESET
     rep #$31
     phd
     tdc
@@ -278,7 +283,7 @@ C001BD_Tick_LandingProfileAnimatedVramUploads_L01BD:
     tax
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     ldx $04
     lda $0000,X
     pha
@@ -323,7 +328,8 @@ hirom
 org $C0023F
 
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
-C0023F_Build_LandingProfileStepSequencer:
+LOAD_PALETTE_ANIM:
+!C0023F_Build_LandingProfileStepSequencer = LOAD_PALETTE_ANIM
     rep #$31
     phd
     tdc
@@ -439,7 +445,8 @@ C0030D_Build_LandingProfileStepSequencer_L030D:
 hirom
 org $C0030F
 
-C0030F_Advance_LandingProfileStepSequencer:
+ANIMATE_PALETTE:
+!C0030F_Advance_LandingProfileStepSequencer = ANIMATE_PALETTE
     rep #$31
     phd
     tdc
@@ -523,7 +530,8 @@ hirom
 org $C00391
 
 !C0915B_DivideUnsignedWordByY = $C0915B
-C00391_Sum_LandingTemplateComponents:
+GET_COLOUR_AVERAGE:
+!C00391_Sum_LandingTemplateComponents = GET_COLOUR_AVERAGE
     rep #$31
     phd
     pha
@@ -673,7 +681,8 @@ org $C00480
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C09032_DivideUnsignedWordByIndex = $C09032
 !C0915B_DivideUnsignedWordByY = $C0915B
-C00480_Build_LandingPackedRowTable0200:
+ADJUST_SPRITE_PALETTES_BY_AVERAGE:
+!C00480_Build_LandingPackedRowTable0200 = ADJUST_SPRITE_PALETTES_BY_AVERAGE
     rep #$31
     phd
     tdc
@@ -892,7 +901,8 @@ hirom
 org $C0062A
 
 !C21628_CheckEventFlag = $C21628
-C0062A_Load_LandingHdmaDispatchBlock:
+LOAD_TILE_COLLISION:
+!C0062A_Load_LandingHdmaDispatchBlock = LOAD_TILE_COLLISION
     rep #$31
     phd
     pha
@@ -939,7 +949,8 @@ C00677_Load_LandingHdmaDispatchBlock_L0677:
     bcc C00666_Load_LandingHdmaDispatchBlock_L0666
     pld
     rts
-C0067E_Load_LandingHdmaDispatchBlock_L067E:
+REPLACE_BLOCK:
+!C0067E_Load_LandingHdmaDispatchBlock_L067E = REPLACE_BLOCK
     rep #$31
     phd
     pha
@@ -1059,7 +1070,7 @@ C00749_Load_LandingHdmaDispatchBlock_L0749:
     lda [$06],Y
     tax
     lda [$06]
-    jsr.w C0067E_Load_LandingHdmaDispatchBlock_L067E
+    jsr.w REPLACE_BLOCK
     lda.w #$0004
     clc
     adc $06
@@ -1095,7 +1106,8 @@ C00776_Load_LandingHdmaDispatchBlock_L0776:
 hirom
 org $C00778
 
-C00778_Build_LandingActiveRowCache0300:
+LOAD_SPECIAL_SPRITE_PALETTE:
+!C00778_Build_LandingActiveRowCache0300 = LOAD_SPECIAL_SPRITE_PALETTE
     rep #$31
     phd
     tdc
@@ -1148,7 +1160,8 @@ org $C007B6
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C21628_CheckEventFlag = $C21628
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
-C007B6_Install_LandingProfileTemplateBlock0240:
+LOAD_MAP_PAL:
+!C007B6_Install_LandingProfileTemplateBlock0240 = LOAD_MAP_PAL
     rep #$31
     phd
     pha
@@ -1569,7 +1582,8 @@ C00A9A_Commit_LandingRegionVariant:
 hirom
 org $C00AA1
 
-C00AA1_LookupPositionCellContextWord:
+LOAD_SECTOR_ATTRS:
+!C00AA1_LookupPositionCellContextWord = LOAD_SECTOR_ATTRS
     rep #$31
     phd
     pha
@@ -1601,7 +1615,8 @@ C00AA1_LookupPositionCellContextWord:
 hirom
 org $C00AC5
 
-C00AC5_Load_VerticalMovementMapStripPayload:
+LOAD_MAP_ROW:
+!C00AC5_Load_VerticalMovementMapStripPayload = LOAD_MAP_ROW
     rep #$31
     phd
     pha
@@ -1779,7 +1794,8 @@ C00BDA_Load_VerticalMovementMapStripPayload_L0BDA:
 hirom
 org $C00BDC
 
-C00BDC_Load_HorizontalMovementMapStripPayload:
+LOAD_MAP_COLUMN:
+!C00BDC_Load_HorizontalMovementMapStripPayload = LOAD_MAP_COLUMN
     rep #$31
     phd
     pha
@@ -1960,7 +1976,8 @@ C00CF1_Load_HorizontalMovementMapStripPayload_L0CF1:
 hirom
 org $C00CF3
 
-C00CF3_Load_VerticalMovementCollisionStripPayload:
+LOAD_COLLISION_ROW:
+!C00CF3_Load_VerticalMovementCollisionStripPayload = LOAD_COLLISION_ROW
     rep #$31
     phd
     pha
@@ -2051,7 +2068,8 @@ C00D77_Load_VerticalMovementCollisionStripPayload_L0D77:
 hirom
 org $C00D7E
 
-C00D7E_Assemble_LandingHdmaParameterBlock:
+LOAD_COLLISION_COLUMN:
+!C00D7E_Assemble_LandingHdmaParameterBlock = LOAD_COLLISION_COLUMN
     rep #$31
     phd
     pha
@@ -2139,7 +2157,7 @@ C00E0F_Assemble_LandingHdmaParameterBlock_L0E0F:
 hirom
 org $C00E16
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 C00E16_Upload_VerticalMovementMapStrip:
     rep #$31
     phd
@@ -2317,7 +2335,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $1E
     clc
     adc.b #$40
@@ -2339,7 +2357,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $B4EF
     bne C00FC9_Upload_VerticalMovementMapStrip_L0FC9
     lda $1C
@@ -2361,7 +2379,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $1C
     clc
     adc.b #$40
@@ -2383,7 +2401,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
 C00FC9_Upload_VerticalMovementMapStrip_L0FC9:
     pld
     rts
@@ -2396,7 +2414,7 @@ C00FC9_Upload_VerticalMovementMapStrip_L0FC9:
 hirom
 org $C00FCB
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 C00FCB_Upload_HorizontalMovementMapStrip:
     rep #$31
     phd
@@ -2577,7 +2595,7 @@ C010D6_Upload_HorizontalMovementMapStrip_L10D6:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $1C
     sta $06
     phb
@@ -2597,7 +2615,7 @@ C010D6_Upload_HorizontalMovementMapStrip_L10D6:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     bra C0117F_Upload_HorizontalMovementMapStrip_L117F
 C01128_Upload_HorizontalMovementMapStrip_L1128:
     lda $02
@@ -2622,7 +2640,7 @@ C01128_Upload_HorizontalMovementMapStrip_L1128:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $1C
     sta $06
     phb
@@ -2642,7 +2660,7 @@ C01128_Upload_HorizontalMovementMapStrip_L1128:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
 C0117F_Upload_HorizontalMovementMapStrip_L117F:
     pld
     rts
@@ -2655,7 +2673,7 @@ C0117F_Upload_HorizontalMovementMapStrip_L117F:
 hirom
 org $C01181
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 C01181_Upload_AuxiliaryMovementMapStrip:
     rep #$31
@@ -2704,7 +2722,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -2716,7 +2734,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     rti
     brk #$E2
     jsr $00A9
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -2729,7 +2747,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -2740,7 +2758,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     jml $40A2A8
     brk #$E2
     jsr $00A9
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     pld
     rts
     rep #$31
@@ -2788,7 +2806,7 @@ C0125C_Upload_AuxiliaryMovementMapStrip_L125C:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -2801,7 +2819,7 @@ C0125C_Upload_AuxiliaryMovementMapStrip_L125C:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     bra C012EB_Upload_AuxiliaryMovementMapStrip_L12EB
 C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     lda $02
@@ -2827,7 +2845,7 @@ C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -2838,7 +2856,7 @@ C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     jml $40A2A8
     brk #$E2
     jsr $1BA9
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
 C012EB_Upload_AuxiliaryMovementMapStrip_L12EB:
     pld
     rts
@@ -3183,7 +3201,8 @@ C0154C_Upload_AuxiliaryMovementMapStrip_L154C:
 hirom
 org $C01558
 
-C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh:
+REFRESH_MAP_AT_POSITION:
+!C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh = REFRESH_MAP_AT_POSITION
     rep #$31
     phd
     pha
@@ -3884,7 +3903,8 @@ C01A63_Refresh_MapStripVia0E16_FarWrapper:
 hirom
 org $C01A69
 
-C01A69_Reset_EntitySlotStateTables:
+INITIALIZE_MISC_OBJECT_DATA:
+!C01A69_Reset_EntitySlotStateTables = INITIALIZE_MISC_OBJECT_DATA
     rep #$31
     ldy.w #$0000
     bra C01A80_Reset_EntitySlotStateTables_L1A80
@@ -3933,7 +3953,8 @@ C01A95_Reset_EntityBytePool467E_L1A95:
 hirom
 org $C01A9D
 
-C01A9D_Find_FreeEntityBytePoolRun467E:
+FIND_FREE_7E4682:
+!C01A9D_Find_FreeEntityBytePoolRun467E = FIND_FREE_7E4682
     rep #$31
     phd
     pha
@@ -4177,7 +4198,8 @@ C01C0F_Reserve_VisualMemorySpan4A00_L1C0F:
 hirom
 org $C01C11
 
-C01C11_Rewrite_VisualMemoryReservations4A00:
+ALLOC_SPRITE_MEM:
+!C01C11_Rewrite_VisualMemoryReservations4A00 = ALLOC_SPRITE_MEM
     rep #$31
     phd
     pha
@@ -4280,7 +4302,7 @@ C01CA2_ReserveAndUpload_EntityVisualTiles_L1CA2:
 hirom
 org $C01CA8
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 C01CA8_Upload_CompanionVisualTiles4000Band:
     lda $04
     clc
@@ -4328,7 +4350,7 @@ C01CC1_Upload_CompanionVisualTiles4000Band_L1CC1:
     ldx $02
     sep #$20
     lda.b #$03
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -4340,7 +4362,7 @@ C01CC1_Upload_CompanionVisualTiles4000Band_L1CC1:
     ldx $02
     sep #$20
     lda.b #$03
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda $04
     clc
     adc $18
@@ -4533,7 +4555,8 @@ hirom
 org $C01E49
 
 !C01C11_InitializeEntityStateMask = $C01C11
-C01E49_Initialize_EntityWithSpritePose:
+CREATE_ENTITY:
+!C01E49_Initialize_EntityWithSpritePose = CREATE_ENTITY
     rep #$31
     phd
     pha
@@ -6262,7 +6285,8 @@ hirom
 org $C02A6B
 
 !C21628_CheckEventFlag = $C21628
-C02A6B_Spawn_Horizontal:
+SPAWN_HORIZONTAL:
+!C02A6B_Spawn_Horizontal = SPAWN_HORIZONTAL
     rep #$31
     phd
     pha
@@ -6404,7 +6428,8 @@ org $C02B55
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C21628_CheckEventFlag = $C21628
-C02B55_Spawn_Vertical:
+SPAWN_VERTICAL:
+!C02B55_Spawn_Vertical = SPAWN_VERTICAL
     rep #$31
     phd
     pha
@@ -7699,7 +7724,8 @@ org $C034D6
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C47F87_RefreshWindowFlavorPalette = $C47F87
-C034D6_SortAndExport_MushroomizedWalkingEntries:
+UPDATE_PARTY:
+!C034D6_SortAndExport_MushroomizedWalkingEntries = UPDATE_PARTY
     rep #$31
     phd
     tdc
@@ -8757,7 +8783,8 @@ org $C03C5E
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C03C5E_Get_OnBicycle:
+GET_ON_BICYCLE:
+!C03C5E_Get_OnBicycle = GET_ON_BICYCLE
     rep #$31
     phd
     tdc
@@ -9345,7 +9372,8 @@ C04049_Clear_AnimationScriptCountdown:
 hirom
 org $C0404F
 
-C0404F_MapInputToDirection:
+MAP_INPUT_TO_DIRECTION:
+!C0404F_MapInputToDirection = MAP_INPUT_TO_DIRECTION
     rep #$31
     phd
     pha
@@ -9662,7 +9690,8 @@ hirom
 org $C04279
 
 !C0A48F_RefreshVisualProfileForSlot = $C0A48F
-C04279_Resolve_InteractableAlongFacingTarget:
+FIND_NEARBY_CHECKABLE_TPT_ENTRY:
+!C04279_Resolve_InteractableAlongFacingTarget = FIND_NEARBY_CHECKABLE_TPT_ENTRY
     rep #$31
     phd
     tdc
@@ -9938,7 +9967,8 @@ C04450_Resolve_InteractionFacingRotation_L4450:
 hirom
 org $C04452
 
-C04452_Resolve_FrontInteractionTarget:
+FIND_NEARBY_TALKABLE_TPT_ENTRY:
+!C04452_Resolve_FrontInteractionTarget = FIND_NEARBY_TALKABLE_TPT_ENTRY
     rep #$31
     phd
     tdc
@@ -13906,7 +13936,8 @@ C05FD1_Read_CenteredCollisionTile:
 hirom
 org $C05FF6
 
-C05FF6_Find_OverlappingEntitySlot:
+NPC_COLLISION_CHECK:
+!C05FF6_Find_OverlappingEntitySlot = NPC_COLLISION_CHECK
     rep #$31
     phd
     pha
@@ -15533,7 +15564,8 @@ hirom
 org $C06B21
 
 !C186B1_PrintTextFromPointer = $C186B1
-C06B21_RunPostTransitionScriptHookAndSelectorPass:
+SPAWN_BUZZ_BUZZ:
+!C06B21_RunPostTransitionScriptHookAndSelectorPass = SPAWN_BUZZ_BUZZ
     rep #$31
     phd
     tdc
@@ -15681,7 +15713,7 @@ org $C06BFF
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -15755,7 +15787,8 @@ org $C06BFF
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C06BFF_RunDeferredScriptPointerAndRefreshTransitionState:
+DOOR_TRANSITION:
+!C06BFF_RunDeferredScriptPointerAndRefreshTransitionState = DOOR_TRANSITION
     rep #$31
     phd
     tdc
@@ -17134,7 +17167,8 @@ hirom
 org $C075DD
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
-C075DD_Consume_MovementRecordQueue:
+PROCESS_QUEUED_INTERACTIONS:
+!C075DD_Consume_MovementRecordQueue = PROCESS_QUEUED_INTERACTIONS
     rep #$31
     phd
     tdc
@@ -19008,7 +19042,8 @@ C0841A_Install_InputPlaybackStream_L841A:
 hirom
 org $C0841B
 
-C0841B_Advance_InputPlaybackStream:
+READ_JOYPAD:
+!C0841B_Advance_InputPlaybackStream = READ_JOYPAD
     rep #$30
     lda $7B
     beq C0844B_Advance_InputPlaybackStream_L844B
@@ -19158,7 +19193,8 @@ C08500_Poll_FrameInputAndStreams_L8500:
 hirom
 org $C08501
 
-C08501_Nmi_ServiceAudioQueue:
+PROCESS_SFX_QUEUE:
+!C08501_Nmi_ServiceAudioQueue = PROCESS_SFX_QUEUE
     sep #$30
     ldx $CB
     cpx $CA
@@ -19181,7 +19217,8 @@ C08515_Nmi_ServiceAudioQueue_L8515:
 hirom
 org $C08518
 
-C08518_Frame_CallbackDispatcher:
+EXECUTE_IRQ_CALLBACK:
+!C08518_Frame_CallbackDispatcher = EXECUTE_IRQ_CALLBACK
     jmp ($0020)
 
 
@@ -19192,7 +19229,8 @@ C08518_Frame_CallbackDispatcher:
 hirom
 org $C0851B
 
-C0851B_Frame_CallbackReturn:
+DEFAULT_IRQ_CALLBACK:
+!C0851B_Frame_CallbackReturn = DEFAULT_IRQ_CALLBACK
     rts
 
 
@@ -19203,7 +19241,8 @@ C0851B_Frame_CallbackReturn:
 hirom
 org $C0851C
 
-C0851C_Set_FrameCallbackPtr:
+SET_IRQ_CALLBACK:
+!C0851C_Set_FrameCallbackPtr = SET_IRQ_CALLBACK
     rep #$30
     sta $0020
     rtl
@@ -19216,7 +19255,8 @@ C0851C_Set_FrameCallbackPtr:
 hirom
 org $C08522
 
-C08522_Reset_FrameCallbackToDefault:
+RESET_IRQ_CALLBACK:
+!C08522_Reset_FrameCallbackToDefault = RESET_IRQ_CALLBACK
     lda.w #$851B
     sta $0020
     rtl
@@ -19381,7 +19421,8 @@ C08610_Submit_TransferDescriptorList_L8610:
 hirom
 org $C08616
 
-C08616_QueueVramTransfer_FromDpSource:
+PREPARE_VRAM_COPY:
+!C08616_QueueVramTransfer_FromDpSource = PREPARE_VRAM_COPY
     rep #$30
     sta $0091
     stx $0092
@@ -19408,7 +19449,8 @@ C08616_QueueVramTransfer_FromDpSource:
 hirom
 org $C08643
 
-C08643_SubmitQueuedOrImmediateVramTransfer:
+PREPARE_VRAM_COPY_COMMON:
+!C08643_SubmitQueuedOrImmediateVramTransfer = PREPARE_VRAM_COPY_COMMON
     php
     rep #$20
     sep #$10
@@ -19436,7 +19478,8 @@ C08643_SubmitQueuedOrImmediateVramTransfer:
 hirom
 org $C0865F
 
-C0865F_Submit_TransferDescriptorOrImmediateDma:
+COPY_TO_VRAM:
+!C0865F_Submit_TransferDescriptorOrImmediateDma = COPY_TO_VRAM
     php
     phy
     sep #$10
@@ -19568,7 +19611,8 @@ C0874E_Submit_TransferDescriptorOrImmediateDma_L874E:
 hirom
 org $C08756
 
-C08756_Wait_OneFrameAndPollInput:
+WAIT_UNTIL_NEXT_FRAME:
+!C08756_Wait_OneFrameAndPollInput = WAIT_UNTIL_NEXT_FRAME
     sep #$20
     lda $001E
     and.b #$B0
@@ -19618,9 +19662,10 @@ C0878C_Wait_Frames_CountA_L878C:
     dex
     bne C0878C_Wait_Frames_CountA_L878C
     rtl
-    jsr.w C0879D_Wait_Frames_CountA_L879D
+    jsr.w SET_INIDISP
     rtl
-C0879D_Wait_Frames_CountA_L879D:
+SET_INIDISP:
+!C0879D_Wait_Frames_CountA_L879D = SET_INIDISP
     php
     sep #$20
     and.b #$8F
@@ -19755,7 +19800,8 @@ C0885C_Update_DisplayNibble10From0D_L885C:
 hirom
 org $C0886C
 
-C0886C_Set_DisplayWaitCounter:
+FADE_IN:
+!C0886C_Set_DisplayWaitCounter = FADE_IN
     php
     sep #$30
     sta $0028
@@ -19772,7 +19818,8 @@ C0886C_Set_DisplayWaitCounter:
 hirom
 org $C0887A
 
-C0887A_Set_NegatedDisplayWaitCounter:
+FADE_OUT:
+!C0887A_Set_NegatedDisplayWaitCounter = FADE_OUT
     php
     sep #$30
     eor.b #$FF
@@ -20324,7 +20371,8 @@ C08C53_DisplayQueue_NoOpHook:
 hirom
 org $C08C54
 
-C08C54_Enqueue_DisplayRecord_FarWrapper:
+REDIRECT_C08C58:
+!C08C54_Enqueue_DisplayRecord_FarWrapper = REDIRECT_C08C58
     jsr $8C58
     rtl
 
@@ -20538,7 +20586,8 @@ C08D79_Update_BgModeRegisterFromQueue:
 hirom
 org $C08D92
 
-C08D92_Update_ObselRegisterFromQueue:
+SET_OAM_SIZE:
+!C08D92_Update_ObselRegisterFromQueue = SET_OAM_SIZE
     php
     sep #$20
     sta $000E
@@ -20554,7 +20603,8 @@ C08D92_Update_ObselRegisterFromQueue:
 hirom
 org $C08D9E
 
-C08D9E_Update_Bg1ScreenBaseRegistersFromQueue:
+SET_BG1_VRAM_LOCATION:
+!C08D9E_Update_Bg1ScreenBaseRegistersFromQueue = SET_BG1_VRAM_LOCATION
     php
     sep #$20
     rep #$10
@@ -20595,7 +20645,8 @@ C08D9E_Update_Bg1ScreenBaseRegistersFromQueue:
 hirom
 org $C08DDE
 
-C08DDE_Update_Bg2ScreenBaseRegistersFromQueue:
+SET_BG2_VRAM_LOCATION:
+!C08DDE_Update_Bg2ScreenBaseRegistersFromQueue = SET_BG2_VRAM_LOCATION
     php
     sep #$20
     rep #$10
@@ -20633,7 +20684,8 @@ C08DDE_Update_Bg2ScreenBaseRegistersFromQueue:
 hirom
 org $C08E1C
 
-C08E1C_Update_Bg3ScreenBaseRegistersFromQueue:
+SET_BG3_VRAM_LOCATION:
+!C08E1C_Update_Bg3ScreenBaseRegistersFromQueue = SET_BG3_VRAM_LOCATION
     php
     sep #$20
     rep #$10
@@ -20674,7 +20726,8 @@ C08E1C_Update_Bg3ScreenBaseRegistersFromQueue:
 hirom
 org $C08E5C
 
-C08E5C_Update_Bg4ScreenBaseRegistersFromQueue:
+SET_BG4_VRAM_LOCATION:
+!C08E5C_Update_Bg4ScreenBaseRegistersFromQueue = SET_BG4_VRAM_LOCATION
     php
     sep #$20
     rep #$10
@@ -20752,7 +20805,7 @@ org $C08ED2
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -20826,7 +20879,8 @@ org $C08ED2
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C08ED2_CopyWordsAndSmallRuntimeHelpers:
+MEMCPY16:
+!C08ED2_CopyWordsAndSmallRuntimeHelpers = MEMCPY16
     stx $00A5
     lsr $00A5
     tax
@@ -20979,7 +21033,7 @@ org $C08FC2
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -21086,7 +21140,8 @@ C08FE6_Multiply8x8_ViaHardwareRegisters:
 hirom
 org $C08FF7
 
-C08FF7_Multiply16By8_ViaHardwareRegisters:
+MULT168:
+!C08FF7_Multiply16By8_ViaHardwareRegisters = MULT168
     rep #$10
     xba
     beq C09022_Multiply16By8_ViaHardwareRegisters_L9022
@@ -21129,7 +21184,8 @@ hirom
 org $C09032
 
 !C09032_DivideUnsignedWordByIndex = $C09032
-C09032_Multiply16By16_ViaHardwareRegisters:
+MULT16:
+!C09032_Multiply16By16_ViaHardwareRegisters = MULT16
     sty $00B4
     sta $00B6
     stz $00B2
@@ -21168,7 +21224,7 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     lda $06
     sta $00B8
     ldy $0A
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     sta $06
     lda $00B4
     sep #$20
@@ -21182,13 +21238,13 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     sta $08
     lda $00B8
     ldy $0C
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     clc
     adc $08
     sta $08
     lda $00BA
     ldy $0A
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     clc
     adc $08
     sta $08
@@ -21198,7 +21254,7 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     eor $00B4
     sta $00B4
     pla
-    jsl C0911E_Multiply16By16_ViaHardwareRegisters_L911E
+    jsl DIVISION8S
     rol $00B4
     bcc C090E5_Multiply16By16_ViaHardwareRegisters_L90E5
     eor.w #$1AFF
@@ -21209,7 +21265,7 @@ C090E5_Multiply16By16_ViaHardwareRegisters_L90E5:
     eor $00B4
     sta $00B4
     pla
-    jsl C0914B_Multiply16By16_ViaHardwareRegisters_L914B
+    jsl DIVISION16S
     rol $00B4
     bcc C090FE_Multiply16By16_ViaHardwareRegisters_L90FE
     eor.w #$FFFF
@@ -21230,7 +21286,8 @@ C090FE_Multiply16By16_ViaHardwareRegisters_L90FE:
     sta $08
 C0911D_Multiply16By16_ViaHardwareRegisters_L911D:
     rtl
-C0911E_Multiply16By16_ViaHardwareRegisters_L911E:
+DIVISION8S:
+!C0911E_Multiply16By16_ViaHardwareRegisters_L911E = DIVISION8S
     pha
     tya
     bpl C09126_Multiply16By16_ViaHardwareRegisters_L9126
@@ -21238,9 +21295,10 @@ C0911E_Multiply16By16_ViaHardwareRegisters_L911E:
     tay
 C09126_Multiply16By16_ViaHardwareRegisters_L9126:
     pla
-    bpl C0912C_Multiply16By16_ViaHardwareRegisters_L912C
+    bpl DIVISION8S_DIVISOR_POSITIVE
     eor.w #$1AFF
-C0912C_Multiply16By16_ViaHardwareRegisters_L912C:
+DIVISION8S_DIVISOR_POSITIVE:
+!C0912C_Multiply16By16_ViaHardwareRegisters_L912C = DIVISION8S_DIVISOR_POSITIVE
     sta $004204
     lda.w #$8F00
     ora $42
@@ -21256,7 +21314,8 @@ C0912C_Multiply16By16_ViaHardwareRegisters_L912C:
     tay
     lda $004214
     rtl
-C0914B_Multiply16By16_ViaHardwareRegisters_L914B:
+DIVISION16S:
+!C0914B_Multiply16By16_ViaHardwareRegisters_L914B = DIVISION16S
     pha
     tya
     bpl C09154_Multiply16By16_ViaHardwareRegisters_L9154
@@ -21278,7 +21337,8 @@ hirom
 org $C0915B
 
 !C0915B_DivideUnsignedWordByY = $C0915B
-C0915B_NormalizeFixedPointDivisionResult:
+DIVISION16S_DIVISOR_POSITIVE:
+!C0915B_NormalizeFixedPointDivisionResult = DIVISION16S_DIVISOR_POSITIVE
     sta $00B0
     sty $00B2
     lda.w #$0000
@@ -21296,7 +21356,8 @@ C09173_NormalizeFixedPointDivisionResult_L9173:
     lda $00B0
     rol A
     rtl
-C0917C_NormalizeFixedPointDivisionResult_L917C:
+DIVISION32S:
+!C0917C_NormalizeFixedPointDivisionResult_L917C = DIVISION32S
     lda $08
     bpl C09191_NormalizeFixedPointDivisionResult_L9191
     eor.w #$FFFF
@@ -21309,16 +21370,17 @@ C0917C_NormalizeFixedPointDivisionResult_L917C:
     inc $08
 C09191_NormalizeFixedPointDivisionResult_L9191:
     lda $0C
-    bpl C091A6_NormalizeFixedPointDivisionResult_L91A6
+    bpl DIVISION32S_DIVISOR_POSITIVE
     eor.w #$FFFF
     sta $0C
     lda $0A
     eor.w #$FFFF
     inc A
     sta $0A
-    bne C091A6_NormalizeFixedPointDivisionResult_L91A6
+    bne DIVISION32S_DIVISOR_POSITIVE
     inc $0C
-C091A6_NormalizeFixedPointDivisionResult_L91A6:
+DIVISION32S_DIVISOR_POSITIVE:
+!C091A6_NormalizeFixedPointDivisionResult_L91A6 = DIVISION32S_DIVISOR_POSITIVE
     lda $0A
     sta $00B0
     lda $0C
@@ -21369,75 +21431,86 @@ C09205_NormalizeFixedPointDivisionResult_L9205:
     rtl
     lda $08
     sta $00B4
-    jsl C0917C_NormalizeFixedPointDivisionResult_L917C
+    jsl DIVISION32S
     rol $00B4
-    bcc C09222_NormalizeFixedPointDivisionResult_L9222
+    bcc MODULUS32S_UNKNOWN0
     lda.w #$0000
     sbc $0A
     sta $06
     lda.w #$0000
     sbc $0C
-    bra C09228_NormalizeFixedPointDivisionResult_L9228
-C09222_NormalizeFixedPointDivisionResult_L9222:
+    bra MODULUS32S_UNKNOWN1
+MODULUS32S_UNKNOWN0:
+!C09222_NormalizeFixedPointDivisionResult_L9222 = MODULUS32S_UNKNOWN0
     lda $0A
     sta $06
     lda $0C
-C09228_NormalizeFixedPointDivisionResult_L9228:
+MODULUS32S_UNKNOWN1:
+!C09228_NormalizeFixedPointDivisionResult_L9228 = MODULUS32S_UNKNOWN1
     sta $08
     rtl
     jsl $C0912C
     tya
     rtl
-    jsl C0915B_NormalizeFixedPointDivisionResult
+    jsl DIVISION16S_DIVISOR_POSITIVE
     tya
     rtl
-    jsl C091A6_NormalizeFixedPointDivisionResult_L91A6
-    bra C09222_NormalizeFixedPointDivisionResult_L9222
-C0923D_NormalizeFixedPointDivisionResult_L923D:
+    jsl DIVISION32S_DIVISOR_POSITIVE
+    bra MODULUS32S_UNKNOWN0
+ASL16:
+!C0923D_NormalizeFixedPointDivisionResult_L923D = ASL16
     asl A
     dey
-    bpl C0923D_NormalizeFixedPointDivisionResult_L923D
+    bpl ASL16
     rtl
-C09242_NormalizeFixedPointDivisionResult_L9242:
+ASL32:
+!C09242_NormalizeFixedPointDivisionResult_L9242 = ASL32
     asl $06
     rol $08
     dey
-    bpl C09242_NormalizeFixedPointDivisionResult_L9242
+    bpl ASL32
     rtl
     cmp.w #$1000
     ora $30,S
     ora [$4A]
-C09251_NormalizeFixedPointDivisionResult_L9251:
+ASR8_UNKNOWN1:
+!C09251_NormalizeFixedPointDivisionResult_L9251 = ASR8_UNKNOWN1
     dey
     db $10, $FC
     rtl
-C09255_NormalizeFixedPointDivisionResult_L9255:
+ASR8_UNKNOWN2:
+!C09255_NormalizeFixedPointDivisionResult_L9255 = ASR8_UNKNOWN2
     sec
     ror A
-C09257_NormalizeFixedPointDivisionResult_L9257:
+ASR8_UNKNOWN3:
+!C09257_NormalizeFixedPointDivisionResult_L9257 = ASR8_UNKNOWN3
     dey
-    bpl C09255_NormalizeFixedPointDivisionResult_L9255
+    bpl ASR8_UNKNOWN2
     rtl
     cmp.w #$0000
-    bpl C09251_NormalizeFixedPointDivisionResult_L9251
-    bmi C09257_NormalizeFixedPointDivisionResult_L9257
+    bpl ASR8_UNKNOWN1
+    bmi ASR8_UNKNOWN3
     lda $08
-    bpl C0926C_NormalizeFixedPointDivisionResult_L926C
-    bmi C09275_NormalizeFixedPointDivisionResult_L9275
-C09268_NormalizeFixedPointDivisionResult_L9268:
+    bpl ASR32_UNKNOWN1
+    bmi ASR32_UNKNOWN3
+ASR32_UNKNOWN0:
+!C09268_NormalizeFixedPointDivisionResult_L9268 = ASR32_UNKNOWN0
     lsr $08
     ror $06
-C0926C_NormalizeFixedPointDivisionResult_L926C:
+ASR32_UNKNOWN1:
+!C0926C_NormalizeFixedPointDivisionResult_L926C = ASR32_UNKNOWN1
     dey
-    bpl C09268_NormalizeFixedPointDivisionResult_L9268
+    bpl ASR32_UNKNOWN0
     rtl
-C09270_NormalizeFixedPointDivisionResult_L9270:
+ASR32_UNKNOWN2:
+!C09270_NormalizeFixedPointDivisionResult_L9270 = ASR32_UNKNOWN2
     sec
     ror $08
     ror $06
-C09275_NormalizeFixedPointDivisionResult_L9275:
+ASR32_UNKNOWN3:
+!C09275_NormalizeFixedPointDivisionResult_L9275 = ASR32_UNKNOWN3
     dey
-    bpl C09270_NormalizeFixedPointDivisionResult_L9270
+    bpl ASR32_UNKNOWN2
     rtl
 
 
@@ -21542,7 +21615,8 @@ C092CF_Init_DelayedActionPools_L92CF:
 hirom
 org $C09321
 
-C09321_Init_DelayedActionState:
+INIT_ENTITY:
+!C09321_Init_DelayedActionState = INIT_ENTITY
     pha
     phy
     phx
@@ -21637,9 +21711,10 @@ C093CB_Init_DelayedActionState_L93CB:
     asl A
     tax
     pla
-    jsl C09403_Init_DelayedActionState_L9403
+    jsl INIT_ENTITY_UNKNOWN2
     rtl
-C09403_Init_DelayedActionState_L9403:
+INIT_ENTITY_UNKNOWN2:
+!C09403_Init_DelayedActionState_L9403 = INIT_ENTITY_UNKNOWN2
     phy
     pha
     lda $0A62,X
@@ -21869,7 +21944,7 @@ org $C09558
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -21943,7 +22018,8 @@ org $C09558
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C09558_ScriptOpcodePointerTable:
+MOVEMENT_CTRL_CODES_PTR_TABLE:
+!C09558_ScriptOpcodePointerTable = MOVEMENT_CTRL_CODES_PTR_TABLE
     db $F2,$95,$03,$96,$27,$96,$4D,$96,$85,$96,$AA,$96,$C3,$96,$DD,$99
     db $1A,$9A,$2E,$9A,$5D,$99,$6B,$99,$C3,$99,$9F,$9A,$E2,$9A,$09,$9B
     db $79,$99,$9E,$99,$0F,$9B,$0E,$9A,$87,$9A,$1F,$9B,$2C,$9B,$44,$9B
@@ -22052,7 +22128,7 @@ org $C09ABD
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -22219,7 +22295,7 @@ org $C09AF9
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -22293,9 +22369,11 @@ org $C09AF9
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C09AF9_EntityScriptVarTablePointers:
+ENTITY_SCRIPT_VAR_TABLES:
+!C09AF9_EntityScriptVarTablePointers = ENTITY_SCRIPT_VAR_TABLES
     db $5E,$0E,$9A,$0E,$D6,$0E,$12,$0F,$4E,$0F,$8A,$0F,$C6,$0F,$02,$10
-C09B09_EntityScriptVarTablePointers_End:
+!C09B09_EntityScriptVarTablePointers_End = MOVEMENT_CODE_0F
+!C09B09_ScriptOp_InitCurrentTaskRecordDefaults = MOVEMENT_CODE_0F
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -22305,7 +22383,9 @@ C09B09_EntityScriptVarTablePointers_End:
 hirom
 org $C09B09
 
-C09B09_ScriptOp_InitCurrentTaskRecordDefaults:
+MOVEMENT_CODE_0F:
+!C09B09_EntityScriptVarTablePointers_End = MOVEMENT_CODE_0F
+!C09B09_ScriptOp_InitCurrentTaskRecordDefaults = MOVEMENT_CODE_0F
     ldx $88
     jsr $9DA1
     rts
@@ -22318,7 +22398,8 @@ C09B09_ScriptOp_InitCurrentTaskRecordDefaults:
 hirom
 org $C09B0F
 
-C09B0F_ScriptOp_WriteImmediateByteToAddress:
+MOVEMENT_CODE_12:
+!C09B0F_ScriptOp_WriteImmediateByteToAddress = MOVEMENT_CODE_12
     lda [$80],Y
     tax
     iny
@@ -22338,7 +22419,8 @@ C09B0F_ScriptOp_WriteImmediateByteToAddress:
 hirom
 org $C09B1F
 
-C09B1F_ScriptOp_WriteImmediateWordToAddress:
+MOVEMENT_CODE_15:
+!C09B1F_ScriptOp_WriteImmediateWordToAddress = MOVEMENT_CODE_15
     lda [$80],Y
     tax
     iny
@@ -22357,10 +22439,11 @@ C09B1F_ScriptOp_WriteImmediateWordToAddress:
 hirom
 org $C09B2C
 
-C09B2C_ScriptOp_BranchIfScratchZeroAndReturn:
+MOVEMENT_CODE_16:
+!C09B2C_ScriptOp_BranchIfScratchZeroAndReturn = MOVEMENT_CODE_16
     ldx $8A
     lda $1516,X
-    bne C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41
+    bne MOVEMENT_CODE_16_UNKNOWN0
     lda [$80],Y
     tay
     lda $12E6,X
@@ -22368,7 +22451,8 @@ C09B2C_ScriptOp_BranchIfScratchZeroAndReturn:
     sbc.w #$0003
     sta $12E6,X
     rts
-C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41:
+MOVEMENT_CODE_16_UNKNOWN0:
+!C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41 = MOVEMENT_CODE_16_UNKNOWN0
     iny
     iny
     rts
@@ -22381,7 +22465,8 @@ C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41:
 hirom
 org $C09B44
 
-C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn:
+MOVEMENT_CODE_17:
+!C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn = MOVEMENT_CODE_17
     ldx $8A
     lda $1516,X
     db $F0, $F6
@@ -22395,7 +22480,8 @@ C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn:
 hirom
 org $C09B4D
 
-C09B4D_ScriptOp_InstallFarDataPointer:
+MOVEMENT_CODE_1C:
+!C09B4D_ScriptOp_InstallFarDataPointer = MOVEMENT_CODE_1C
     ldx $88
     lda [$80],Y
     sta $112E,X
@@ -22416,7 +22502,8 @@ C09B4D_ScriptOp_InstallFarDataPointer:
 hirom
 org $C09B61
 
-C09B61_ScriptOp_LoadScratchImmediateWord:
+MOVEMENT_CODE_1D:
+!C09B61_ScriptOp_LoadScratchImmediateWord = MOVEMENT_CODE_1D
     lda [$80],Y
     ldx $8A
     sta $1516,X
@@ -22432,7 +22519,8 @@ C09B61_ScriptOp_LoadScratchImmediateWord:
 hirom
 org $C09B6B
 
-C09B6B_ScriptOp_LoadScratchFromAddress:
+MOVEMENT_CODE_1E:
+!C09B6B_ScriptOp_LoadScratchFromAddress = MOVEMENT_CODE_1E
     lda [$80],Y
     tax
     lda $0000,X
@@ -22450,7 +22538,8 @@ C09B6B_ScriptOp_LoadScratchFromAddress:
 hirom
 org $C09B79
 
-C09B79_ScriptOp_StoreScratchToEntityVar:
+MOVEMENT_CODE_1F:
+!C09B79_ScriptOp_StoreScratchToEntityVar = MOVEMENT_CODE_1F
     lda [$80],Y
     and.w #$00FF
     asl A
@@ -22472,7 +22561,8 @@ C09B79_ScriptOp_StoreScratchToEntityVar:
 hirom
 org $C09B91
 
-C09B91_ScriptOp_LoadScratchFromEntityVar:
+MOVEMENT_CODE_20:
+!C09B91_ScriptOp_LoadScratchFromEntityVar = MOVEMENT_CODE_20
     lda [$80],Y
     and.w #$00FF
     asl A
@@ -22494,7 +22584,8 @@ C09B91_ScriptOp_LoadScratchFromEntityVar:
 hirom
 org $C09BA9
 
-C09BA9_ScriptOp_CopyScratchToWaitCounterIfNonzero:
+MOVEMENT_CODE_44:
+!C09BA9_ScriptOp_CopyScratchToWaitCounterIfNonzero = MOVEMENT_CODE_44
     ldx $8A
     lda $1516,X
     beq C09BB3_ScriptOp_CopyScratchToWaitCounterIfNonzero_L9BB3
@@ -22510,7 +22601,8 @@ C09BB3_ScriptOp_CopyScratchToWaitCounterIfNonzero_L9BB3:
 hirom
 org $C09BB4
 
-C09BB4_ScriptOp_LoadWaitCounterFromEntityVar:
+MOVEMENT_CODE_21:
+!C09BB4_ScriptOp_LoadWaitCounterFromEntityVar = MOVEMENT_CODE_21
     lda [$80],Y
     and.w #$00FF
     asl A
@@ -22532,7 +22624,8 @@ C09BB4_ScriptOp_LoadWaitCounterFromEntityVar:
 hirom
 org $C09BCC
 
-C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar:
+MOVEMENT_CODE_26:
+!C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar = MOVEMENT_CODE_26
     lda [$80],Y
     and.w #$00FF
     asl A
@@ -22554,7 +22647,8 @@ C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar:
 hirom
 org $C09BE4
 
-C09BE4_ScriptOp_InstallTaskCallback11E2:
+MOVEMENT_CODE_22:
+!C09BE4_ScriptOp_InstallTaskCallback11E2 = MOVEMENT_CODE_22
     lda [$80],Y
     ldx $88
     sta $11E2,X
@@ -22570,7 +22664,8 @@ C09BE4_ScriptOp_InstallTaskCallback11E2:
 hirom
 org $C09BEE
 
-C09BEE_ScriptOp_InstallTaskCallback11A6:
+MOVEMENT_CODE_23:
+!C09BEE_ScriptOp_InstallTaskCallback11A6 = MOVEMENT_CODE_23
     lda [$80],Y
     ldx $88
     sta $11A6,X
@@ -22586,7 +22681,8 @@ C09BEE_ScriptOp_InstallTaskCallback11A6:
 hirom
 org $C09BF8
 
-C09BF8_ScriptOp_InstallTaskCallback121E:
+MOVEMENT_CODE_25:
+!C09BF8_ScriptOp_InstallTaskCallback121E = MOVEMENT_CODE_25
     lda [$80],Y
     ldx $88
     sta $121E,X
@@ -22960,7 +23056,8 @@ C09D85_Select_NthTaskRecordInA_L9D85:
 hirom
 org $C09DA1
 
-C09DA1_Init_TaskRecordDefaults:
+CLEAR_SPRITE_TICK_CALLBACK:
+!C09DA1_Init_TaskRecordDefaults = CLEAR_SPRITE_TICK_CALLBACK
     lda.w #$943B
     sta $107A,X
     lda.w #$00C0
@@ -23353,7 +23450,8 @@ hirom
 org $C09F82
 
 !C08E9A_GetRandom16 = $C08E9A
-C09F82_ChooseRandomScriptWord:
+CHOOSE_RANDOM:
+!C09F82_ChooseRandomScriptWord = CHOOSE_RANDOM
     lda [$80],Y
     and.w #$00FF
     sta $90
@@ -23398,7 +23496,8 @@ hirom
 org $C09FAE
 
 !C0886C_SetDisplayTransitionState = $C0886C
-C09FAE_ActionScript_FadeInWrapper:
+ACTIONSCRIPT_FADE_IN:
+!C09FAE_ActionScript_FadeInWrapper = ACTIONSCRIPT_FADE_IN
     lda [$80],Y
     iny
     iny
@@ -23417,7 +23516,8 @@ hirom
 org $C09FBB
 
 !C0887A_ClearDisplayTransitionState = $C0887A
-C09FBB_ActionScript_FadeOutWrapper:
+ACTIONSCRIPT_FADE_OUT:
+!C09FBB_ActionScript_FadeOutWrapper = ACTIONSCRIPT_FADE_OUT
     lda [$80],Y
     iny
     iny
@@ -23740,7 +23840,8 @@ C0A13B_Draw_TaskDataRecordAtIndex_LA13B:
 hirom
 org $C0A152
 
-C0A152_Lookup_CachedMapPropertyNibble_Far:
+REDIRECT_C0A156:
+!C0A152_Lookup_CachedMapPropertyNibble_Far = REDIRECT_C0A156
     jsr $A156
     rtl
 
@@ -23823,7 +23924,7 @@ org $C0A1AE
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -24002,7 +24103,7 @@ org $C0A20C
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -24206,7 +24307,7 @@ org $C0A2AB
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -24369,7 +24470,7 @@ org $C0A30B
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -24508,7 +24609,7 @@ org $C0A350
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -25066,7 +25167,7 @@ org $C0A60B
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -25140,10 +25241,11 @@ org $C0A60B
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0A60B_VisualProfileDirectionOffsetTable:
+SPRITE_DIRECTION_MAPPING_4_DIRECTION:
+!C0A60B_VisualProfileDirectionOffsetTable = SPRITE_DIRECTION_MAPPING_4_DIRECTION
     db $00,$00,$00,$00,$01,$00,$02,$00,$02,$00,$02,$00,$03,$00,$00,$00
     db $04,$00,$05,$00,$06,$00,$07,$00
-C0A623_VisualProfileDirectionOffsetTable_End:
+!C0A623_VisualProfileDirectionOffsetTable_End = SPRITE_DIRECTION_MAPPING_8_DIRECTION
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -25164,7 +25266,7 @@ org $C0A623
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -25238,7 +25340,9 @@ org $C0A623
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0A623_VisualProfileSecondaryOffsetTable:
+SPRITE_DIRECTION_MAPPING_8_DIRECTION:
+!C0A623_VisualProfileDirectionOffsetTable_End = SPRITE_DIRECTION_MAPPING_8_DIRECTION
+!C0A623_VisualProfileSecondaryOffsetTable = SPRITE_DIRECTION_MAPPING_8_DIRECTION
     db $00,$00,$04,$00,$01,$00,$05,$00,$02,$00,$06,$00,$03,$00,$07,$00
     db $22,$9A,$8E,$C0,$29,$03,$00,$6B,$22,$9A,$8E,$C0,$29,$07,$00,$6B
 C0A643_VisualProfileSecondaryOffsetTable_End:
@@ -25266,7 +25370,8 @@ C0A643_Script_SetDirectionClassAndField2C9A:
 hirom
 org $C0A651
 
-C0A651_Script_SetDirectionClassAndField1A86:
+SET_DIRECTION8:
+!C0A651_Script_SetDirectionClassAndField1A86 = SET_DIRECTION8
     jsl $C09D86
     sty $94
     jsl $C0A65F
@@ -25281,7 +25386,8 @@ C0A651_Script_SetDirectionClassAndField1A86:
 hirom
 org $C0A65F
 
-C0A65F_SetCurrentSlotDirectionClassIfActive:
+SET_DIRECTION:
+!C0A65F_SetCurrentSlotDirectionClassIfActive = SET_DIRECTION
     ldx $88
     tay
     lda $2C5E,X
@@ -25326,7 +25432,8 @@ C0A673_GetCurrentSlotDirectionClass:
 hirom
 org $C0A679
 
-C0A679_Script_SetCurrentSlotDisplayControlBits:
+SET_SURFACE_FLAGS:
+!C0A679_Script_SetCurrentSlotDisplayControlBits = SET_SURFACE_FLAGS
     jsl $C09D86
     sty $94
     ldx $88
@@ -25903,7 +26010,8 @@ C0A8EF_ScriptWrapper_C472A8_Mode1:
 hirom
 org $C0A8F7
 
-C0A8F7_ActionScript_PrepareNewEntityAtSelf:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_SELF:
+!C0A8F7_ActionScript_PrepareNewEntityAtSelf = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_SELF
     lda.w #$0000
     jsl $C46DAD
     rtl
@@ -25916,7 +26024,8 @@ C0A8F7_ActionScript_PrepareNewEntityAtSelf:
 hirom
 org $C0A8FF
 
-C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_PARTY_LEADER:
+!C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_PARTY_LEADER
     lda.w #$0001
     jsl $C46DAD
     rtl
@@ -25929,7 +26038,8 @@ C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader:
 hirom
 org $C0A907
 
-C0A907_ActionScript_PrepareNewEntityAtTeleportDestination:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
+!C0A907_ActionScript_PrepareNewEntityAtTeleportDestination = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION
     jsl $C09D86
     sty $94
     jsl $C46DE5
@@ -25943,7 +26053,8 @@ C0A907_ActionScript_PrepareNewEntityAtTeleportDestination:
 hirom
 org $C0A912
 
-C0A912_ActionScript_PrepareNewEntity:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY:
+!C0A912_ActionScript_PrepareNewEntity = ACTIONSCRIPT_PREPARE_NEW_ENTITY
     jsl $C09D94
     sty $94
     pha
@@ -25993,7 +26104,8 @@ C0A938_ScriptWrapper_C46BBB_ReadWord:
 hirom
 org $C0A943
 
-C0A943_ActionScript_GetPositionOfPartyMember:
+ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER:
+!C0A943_ActionScript_GetPositionOfPartyMember = ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER
     jsl $C09D86
     sty $94
     jsl $C46BE9
@@ -26053,7 +26165,8 @@ C0A964_ScriptWrapper_C47225_ReadTwoWords:
 hirom
 org $C0A977
 
-C0A977_Movement_LoadBattleBg:
+MOVEMENT_LOAD_BATTLEBG:
+!C0A977_Movement_LoadBattleBg = MOVEMENT_LOAD_BATTLEBG
     jsl $C09D94
     pha
     sty $94
@@ -26180,7 +26293,8 @@ hirom
 org $C0AA07
 
 !C08814_SetDisplayTransitionMode = $C08814
-C0AA07_ActionScript_FadeOutWithMosaic:
+ACTIONSCRIPT_FADE_OUT_WITH_MOSAIC:
+!C0AA07_ActionScript_FadeOutWithMosaic = ACTIONSCRIPT_FADE_OUT_WITH_MOSAIC
     jsl $C09D94
     pha
     sty $94
@@ -26413,7 +26527,8 @@ C0AAFD_Script_ClearFrameCountdown:
 hirom
 org $C0AB06
 
-C0AB06_LoadSpc700DataStream:
+LOAD_SPC700_DATA:
+!C0AB06_LoadSpc700DataStream = LOAD_SPC700_DATA
     rep #$30
     sta $00C6
     stx $00C8
@@ -26515,7 +26630,8 @@ C0AB90_LoadSpc700DataStream_LAB90:
 hirom
 org $C0ABA8
 
-C0ABA8_WaitForSpcReadyAndResetApuPorts:
+WAIT_FOR_SPC700:
+!C0ABA8_WaitForSpcReadyAndResetApuPorts = WAIT_FOR_SPC700
     stz $2142
     stz $2140
 C0ABAE_WaitForSpcReadyAndResetApuPorts_LABAE:
@@ -26548,7 +26664,8 @@ C0ABBD_SendApuPort0CommandByte:
 hirom
 org $C0ABC6
 
-C0ABC6_StopMusicAndLatchNoTrack:
+STOP_MUSIC:
+!C0ABC6_StopMusicAndLatchNoTrack = STOP_MUSIC
     sep #$20
     lda.b #$00
     sta.l $002140
@@ -26569,10 +26686,11 @@ C0ABD0_StopMusicAndLatchNoTrack_LABD0:
 hirom
 org $C0ABE0
 
-C0ABE0_QueueSoundEffectOrPlayApuPort3Cue:
+PLAY_SOUND:
+!C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = PLAY_SOUND
     sep #$30
     cmp.b #$00
-    beq C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01
+    beq PLAY_SOUND_UNKNOWN0
     ldx $00CA
     ora $1ACA
     sta $1AC2,X
@@ -26585,7 +26703,8 @@ C0ABE0_QueueSoundEffectOrPlayApuPort3Cue:
     sta $1ACA
     rep #$30
     rtl
-C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01:
+PLAY_SOUND_UNKNOWN0:
+!C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01 = PLAY_SOUND_UNKNOWN0
     sep #$20
     lda.b #$57
     sta $002143
@@ -26858,7 +26977,8 @@ C0AD7D_ExpandBattleBgTransferDescriptorStream_LAD7D:
 hirom
 org $C0AD8A
 
-C0AD8A_Event786_CurrentSlotOrbitScript:
+EVENT_786:
+!C0AD8A_Event786_CurrentSlotOrbitScript = EVENT_786
     and $39,S
     ldy.w #$6B25
     ldx.w #$0806
@@ -26895,7 +27015,8 @@ C0AD9F_WriteVramAddressFrom3B3C:
 hirom
 org $C0ADB2
 
-C0ADB2_ConfigureBattleBgDmaChannel:
+DO_BATTLEBG_DMA:
+!C0ADB2_ConfigureBattleBgDmaChannel = DO_BATTLEBG_DMA
     phy
     tay
     lda $C0AE1D,X
@@ -26967,7 +27088,7 @@ org $C0AE16
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -27041,9 +27162,11 @@ org $C0AE16
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0AE16_DmaChannelFlagTable:
+DMA_FLAGS:
+!C0AE16_DmaChannelFlagTable = DMA_FLAGS
     db $01,$02,$04,$08,$10,$20,$40
-C0AE1D_DmaChannelFlagTable_End:
+!C0AE1D_BattleBgDmaBbusRegisterTable = DMA_TARGET_REGISTERS
+!C0AE1D_DmaChannelFlagTable_End = DMA_TARGET_REGISTERS
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -27064,7 +27187,7 @@ org $C0AE1D
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -27138,7 +27261,9 @@ org $C0AE1D
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0AE1D_BattleBgDmaBbusRegisterTable:
+DMA_TARGET_REGISTERS:
+!C0AE1D_BattleBgDmaBbusRegisterTable = DMA_TARGET_REGISTERS
+!C0AE1D_DmaChannelFlagTable_End = DMA_TARGET_REGISTERS
     db $80,$0D,$0F,$11,$13,$0E,$10,$12,$14
 C0AE26_BattleBgDmaBbusRegisterTable_End:
 
@@ -27161,7 +27286,7 @@ org $C0AE26
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -27275,7 +27400,7 @@ org $C0AE44
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -27429,7 +27554,8 @@ C0AFCD_ApplyBattleBgColourMathPreset:
 hirom
 org $C0B01A
 
-C0B01A_SetFixedColourRgbComponents:
+SET_COLDATA:
+!C0B01A_SetFixedColourRgbComponents = SET_COLDATA
     sep #$20
     and.b #$1F
     ora.b #$20
@@ -27453,7 +27579,8 @@ C0B01A_SetFixedColourRgbComponents:
 hirom
 org $C0B039
 
-C0B039_SetColourAddSubModeRegisters:
+SET_COLOUR_ADDSUB_MODE:
+!C0B039_SetColourAddSubModeRegisters = SET_COLOUR_ADDSUB_MODE
     sep #$20
     sta $002130
     txa
@@ -27469,7 +27596,8 @@ C0B039_SetColourAddSubModeRegisters:
 hirom
 org $C0B047
 
-C0B047_SetWindowMaskRegisters:
+SET_WINDOW_MASK:
+!C0B047_SetWindowMaskRegisters = SET_WINDOW_MASK
     txy
     sep #$20
     pha
@@ -27537,7 +27665,7 @@ org $C0B0A6
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -27999,7 +28127,7 @@ org $C0B2FF
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -28241,7 +28369,8 @@ C0B67F_InitializeIntroOverworldScene:
     jsl $C039E5
     pld
     rts
-C0B731_InitializeIntroOverworldScene_LB731:
+INIT_BATTLE_OVERWORLD:
+!C0B731_InitializeIntroOverworldScene_LB731 = INIT_BATTLE_OVERWORLD
     rep #$31
     phd
     tdc
@@ -28374,7 +28503,7 @@ C0B860_InitializeIntroOverworldScene_LB860:
 C0B868_InitializeIntroOverworldScene_LB868:
     lda $4DC2
     beq C0B876_InitializeIntroOverworldScene_LB876
-    jsl C0B731_InitializeIntroOverworldScene_LB731
+    jsl INIT_BATTLE_OVERWORLD
     inc $5D74
     bra C0B892_InitializeIntroOverworldScene_LB892
 C0B876_InitializeIntroOverworldScene_LB876:
@@ -28927,7 +29056,8 @@ C0BC72_BuildPathfindingOccupancyAndCandidateBuffers_LBC72:
 hirom
 org $C0BC74
 
-C0BC74_FindPathToParty:
+FIND_PATH_TO_PARTY:
+!C0BC74_FindPathToParty = FIND_PATH_TO_PARTY
     rep #$31
     phd
     pha
@@ -30239,7 +30369,7 @@ org $C0C4CF
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -30317,7 +30447,8 @@ C0C4CF_PlayerDirectionRemapTable:
     db $00,$00,$01,$00,$02,$00,$00,$00,$07,$00,$06,$00,$04,$00,$05,$00
     db $06,$00,$04,$00,$03,$00,$02,$00,$04,$00,$05,$00,$06,$00,$07,$00
     db $00,$00,$01,$00,$02,$00,$03,$00
-C0C4F7_PlayerDirectionRemapTable_End:
+!C0C4F7_GetDirectionFromPlayerToEntity = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
+!C0C4F7_PlayerDirectionRemapTable_End = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -30327,7 +30458,9 @@ C0C4F7_PlayerDirectionRemapTable_End:
 hirom
 org $C0C4F7
 
-C0C4F7_GetDirectionFromPlayerToEntity:
+GET_DIRECTION_FROM_PLAYER_TO_ENTITY:
+!C0C4F7_GetDirectionFromPlayerToEntity = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
+!C0C4F7_PlayerDirectionRemapTable_End = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
     rep #$31
     phd
     tdc
@@ -30494,7 +30627,8 @@ C0C606_CheckCurrentSlotDirectionEncounterGate_LC606:
 hirom
 org $C0C608
 
-C0C608_GetOppositeDirectionFromPlayerToEntity:
+GET_OPPOSITE_DIRECTION_FROM_PLAYER_TO_ENTITY:
+!C0C608_GetOppositeDirectionFromPlayerToEntity = GET_OPPOSITE_DIRECTION_FROM_PLAYER_TO_ENTITY
     rep #$31
     jsl $C0C4F7
     asl A
@@ -30585,7 +30719,8 @@ C0C658_GetGatedEntityPositionDirectionFlag_LC658:
 hirom
 org $C0C682
 
-C0C682_RotateDirectionByCurrentSlotClass:
+GET_DIRECTION_ROTATED_CLOCKWISE:
+!C0C682_RotateDirectionByCurrentSlotClass = GET_DIRECTION_ROTATED_CLOCKWISE
     rep #$31
     phd
     pha
@@ -30613,7 +30748,8 @@ hirom
 org $C0C69E
 
 !C08E9A_GetRandom16 = $C08E9A
-C0C69E_GetDirectionTurnedRandomlyLeftOrRight:
+GET_DIRECTION_TURNED_RANDOMLY_LEFT_OR_RIGHT:
+!C0C69E_GetDirectionTurnedRandomlyLeftOrRight = GET_DIRECTION_TURNED_RANDOMLY_LEFT_OR_RIGHT
     rep #$31
     jsl !C08E9A_GetRandom16
     and.w #$0001
@@ -31846,7 +31982,7 @@ org $C0CEBE
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -33894,7 +34030,8 @@ C0DBE4_Dispatch_ActiveTaskSlots_LDBE4:
 hirom
 org $C0DBE6
 
-C0DBE6_Queue_DelayedActionTimer:
+SCHEDULE_OVERWORLD_TASK:
+!C0DBE6_Queue_DelayedActionTimer = SCHEDULE_OVERWORLD_TASK
     rep #$31
     phd
     pha
@@ -33978,7 +34115,8 @@ hirom
 org $C0DC4E
 
 !C21628_CheckEventFlag = $C21628
-C0DC4E_FrameCallback_ProcessDelayedActions:
+PROCESS_OVERWORLD_TASKS:
+!C0DC4E_FrameCallback_ProcessDelayedActions = PROCESS_OVERWORLD_TASKS
     rep #$31
     phd
     tdc
@@ -34141,7 +34279,8 @@ C0DD4F_WaitFramePumpCountA_LDD4F:
 hirom
 org $C0DD53
 
-C0DD53_SetTeleportStateSelectors:
+SET_TELEPORT_STATE:
+!C0DD53_SetTeleportStateSelectors = SET_TELEPORT_STATE
     rep #$31
     phd
     pha
@@ -35916,7 +36055,8 @@ C0EA2D_HoldTeleportFailureState_LEA2D:
 hirom
 org $C0EA3E
 
-C0EA3E_SuppressInteractionsForTeleportSlots:
+TELEPORT_FREEZEOBJECTS:
+!C0EA3E_SuppressInteractionsForTeleportSlots = TELEPORT_FREEZEOBJECTS
     rep #$31
     phd
     tdc
@@ -35950,7 +36090,8 @@ C0EA61_SuppressInteractionsForTeleportSlots_LEA61:
 hirom
 org $C0EA68
 
-C0EA68_EnsureTeleportSlotInteractionSuppression:
+TELEPORT_FREEZEOBJECTS2:
+!C0EA68_EnsureTeleportSlotInteractionSuppression = TELEPORT_FREEZEOBJECTS2
     rep #$31
     phd
     tdc
@@ -35995,7 +36136,8 @@ org $C0EA99
 !C09466_RefreshActiveEntitySpriteState = $C09466
 !C0ABC6_ClearPresentationQueues = $C0ABC6
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0EA99_TeleportMainloopStateMachine:
+TELEPORT_MAINLOOP:
+!C0EA99_TeleportMainloopStateMachine = TELEPORT_MAINLOOP
     rep #$31
     phd
     tdc
@@ -36134,7 +36276,7 @@ C0EBA7_TeleportMainloopStateMachine_LEBA7:
 hirom
 org $C0EBE0
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     rep #$31
@@ -36163,7 +36305,7 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$B000
     sep #$20
     tya
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.b #$7D
     lda $A90E85
     sbc ($00,X)
@@ -36181,7 +36323,7 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$1000
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.b #$E5
     dec $85
     asl $E1A9
@@ -36200,7 +36342,7 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$4000
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     pld
     rtl
 
@@ -36527,7 +36669,7 @@ C0EE47_Set_DisplayMode13:
 hirom
 org $C0EE53
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08D79_UpdateBgModeRegisterFromQueue = $C08D79
 !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
@@ -36688,7 +36830,7 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
     ldx.w #$8000
     sep #$20
     tya
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.b #$00
     db $80, $85
     asl $7EA9
@@ -36698,7 +36840,7 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     sep #$20
     lda.b #$18
     sta $0030
@@ -36714,7 +36856,7 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
 hirom
 org $C0EFE1
 
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08756_WaitOneFrameAndPollInput = $C08756
 !C08814_SetDisplayTransitionMode = $C08814
 !C08EFC_CommitTileBufferToStaging = $C08EFC
@@ -36856,7 +36998,7 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$C000
     sep #$20
     tya
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.b #$D3
     eor $85,X
     asl $E1A9
@@ -36875,7 +37017,7 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl !C08616_QueueVramTransfer_FromDpSource
+    jsl !PREPARE_VRAM_COPY
     lda.b #$B7
     lda.b #$85
     asl $E1A9
@@ -37260,7 +37402,7 @@ org $C0F41E
 !C07B52_RebuildPartyRecordsOrEntityState = $C07B52
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C085B7_QueueChunkedVramDma = $C085B7
-!C08616_QueueVramTransfer_FromDpSource = $C08616
+!PREPARE_VRAM_COPY = $C08616
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C08756_WaitOneFrameAndPollInput = $C08756
@@ -37334,7 +37476,8 @@ org $C0F41E
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C0F41E_FrameCallbackProcessCommandStream:
+CREDITS_SCROLL_FRAME:
+!C0F41E_FrameCallbackProcessCommandStream = CREDITS_SCROLL_FRAME
     rep #$31
     phd
     tdc

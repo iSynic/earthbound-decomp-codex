@@ -13,4 +13,4 @@
 ; CD:BEFF
 
 ; AssetBattleSprite106End
-CDBEFF_AssetBattleSprite106End:
+CDBEFF_AssetBattleSprite106End = BATTLE_SPRITE_54

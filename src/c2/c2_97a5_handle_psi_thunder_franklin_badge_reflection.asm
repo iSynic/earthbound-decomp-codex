@@ -49,7 +49,7 @@ C297A5_HandlePsiThunderFranklinBadgeReflection:
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $AA96
-    jsr C27E8A_SwapReflectedHitBattleTextContexts
+    jsr SWAP_ATTACKER_WITH_TARGET
 C297EB_HandlePsiThunderFranklinBadgeReflection_L97EB:
     ldx $A972
     lda $0023,X
@@ -65,7 +65,7 @@ C297FF_HandlePsiThunderFranklinBadgeReflection_L97FF:
     ldx $A972
     sta $0025,X
 C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     bne C2981C_HandlePsiThunderFranklinBadgeReflection_L981C
     lda $04
@@ -73,7 +73,7 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
     ldx.w #$00FF
     jsr C28125_ApplyTypedDamageToSelectedTarget
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
     lda.w #$8837
     sta $0E

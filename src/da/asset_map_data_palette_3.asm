@@ -13,4 +13,4 @@
 ; DA:8667
 
 ; AssetMapDataPalette3End
-DA8667_AssetMapDataPalette3End:
+DA8667_AssetMapDataPalette3End = MAP_DATA_PALETTE_4

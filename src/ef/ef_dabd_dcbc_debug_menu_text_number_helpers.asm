@@ -76,7 +76,8 @@ EFDAF5_DebugMenuTextAndNumberHelpers_LDAF5:
     jsl C0862E_QueueDebugTileTransfer
     pld
     rts
-EFDB21_DrawDebugMenuOptionRows:
+DEBUG_DISPLAY_MENU_OPTIONS:
+EFDB21_DrawDebugMenuOptionRows = DEBUG_DISPLAY_MENU_OPTIONS
     rep #$31
     phd
     tdc
@@ -135,7 +136,8 @@ EFDB8E_DebugMenuTextAndNumberHelpers_LDB8E:
     bcc EFDB59_DebugMenuTextAndNumberHelpers_LDB59
     pld
     rts
-EFDB95_FormatDebugWordAsHexTileBuffer:
+INTEGER_TO_HEX_DEBUG_TILES:
+EFDB95_FormatDebugWordAsHexTileBuffer = INTEGER_TO_HEX_DEBUG_TILES
     rep #$31
     phd
     pha
@@ -191,7 +193,8 @@ EFDBE7_DebugMenuTextAndNumberHelpers_LDBE7:
     lda $02
     pld
     rts
-EFDBF0_FormatDebugWordAsDecimalTileBuffer:
+INTEGER_TO_DECIMAL_DEBUG_TILES:
+EFDBF0_FormatDebugWordAsDecimalTileBuffer = INTEGER_TO_DECIMAL_DEBUG_TILES
     rep #$31
     phd
     pha
@@ -259,7 +262,8 @@ EFDC5E_DebugMenuTextAndNumberHelpers_LDC5E:
     sta $02
     pld
     rts
-EFDC69_FormatDebugByteAsBinaryTileBuffer:
+INTEGER_TO_BINARY_DEBUG_TILES:
+EFDC69_FormatDebugByteAsBinaryTileBuffer = INTEGER_TO_BINARY_DEBUG_TILES
     rep #$31
     phd
     pha

@@ -16,13 +16,15 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:7440
 
-C17440_TimedDeliveryRowSelectorCallback:
+CC_1F_D3:
+C17440_TimedDeliveryRowSelectorCallback = CC_1F_D3
     rep #$31
     txa
     jsl $EF0EAD
     lda.w #$0000
     rts
-C1744B_GiveExperienceTextCommand:
+CC_1E_09:
+C1744B_GiveExperienceTextCommand = CC_1E_09
     rep #$31
     phd
     pha
@@ -132,7 +134,8 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
 C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
     pld
     rts
-C17523_BoostIqTextCommand:
+CC_1E_0A:
+C17523_BoostIqTextCommand = CC_1E_0A
     rep #$31
     phd
     pha
@@ -184,7 +187,8 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
 C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
     pld
     rts
-C17584_BoostGutsTextCommand:
+CC_1E_0B:
+C17584_BoostGutsTextCommand = CC_1E_0B
     rep #$31
     phd
     pha
@@ -236,7 +240,8 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
 C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
     pld
     rts
-C175E5_BoostSpeedTextCommand:
+CC_1E_0C:
+C175E5_BoostSpeedTextCommand = CC_1E_0C
     rep #$31
     phd
     pha
@@ -288,7 +293,8 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
 C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
     pld
     rts
-C17646_BoostVitalityTextCommand:
+CC_1E_0D:
+C17646_BoostVitalityTextCommand = CC_1E_0D
     rep #$31
     phd
     pha
@@ -340,7 +346,8 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
 C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
     pld
     rts
-C176A7_BoostLuckTextCommand:
+CC_1E_0E:
+C176A7_BoostLuckTextCommand = CC_1E_0E
     rep #$31
     phd
     pha

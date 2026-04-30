@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:EEE1
 
-C4EEE1_ConvertVwf2bppToThreeColor:
+CHANGE_VWF_2BPP_TO_3_COLOUR:
+C4EEE1_ConvertVwf2bppToThreeColor = CHANGE_VWF_2BPP_TO_3_COLOUR
     rep #$31
     phd
     pha

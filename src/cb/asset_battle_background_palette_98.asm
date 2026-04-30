@@ -13,4 +13,4 @@
 ; CB:CDB4
 
 ; AssetBattleBackgroundPalette98End
-CBCDB4_AssetBattleBackgroundPalette98End:
+CBCDB4_AssetBattleBackgroundPalette98End = BATTLE_BACKGROUND_PALETTE_97

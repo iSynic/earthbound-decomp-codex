@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:48AC
 
-C148AC_TestCurrentItemCompactCategory:
+CC_1D_02:
+C148AC_TestCurrentItemCompactCategory = CC_1D_02
     rep #$31
     phd
     pha
@@ -50,7 +51,8 @@ C148D9_TestCurrentItemCompactCategory_L48D9:
     lda.w #$0000
     pld
     rts
-C148E9_HandleTextCommand1D08:
+CC_1D_08:
+C148E9_HandleTextCommand1D08 = CC_1D_08
     rep #$31
     phd
     pha
@@ -100,7 +102,8 @@ C1492E_TestCurrentItemCompactCategory_L492E:
 C14948_TestCurrentItemCompactCategory_L4948:
     pld
     rts
-C1494A_HandleTextCommand1D09:
+CC_1D_09:
+C1494A_HandleTextCommand1D09 = CC_1D_09
     rep #$31
     phd
     pha
@@ -156,7 +159,8 @@ C149A6_TestCurrentItemCompactCategory_L49A6:
 C149B4_TestCurrentItemCompactCategory_L49B4:
     pld
     rts
-C149B6_RecoverHpPercentTextCommand:
+CC_1E_00:
+C149B6_RecoverHpPercentTextCommand = CC_1E_00
     rep #$31
     phd
     pha
@@ -200,7 +204,8 @@ C149F6_TestCurrentItemCompactCategory_L49F6:
 C14A01_TestCurrentItemCompactCategory_L4A01:
     pld
     rts
-C14A03_DepleteHpPercentTextCommand:
+CC_1E_01:
+C14A03_DepleteHpPercentTextCommand = CC_1E_01
     rep #$31
     phd
     pha
@@ -244,7 +249,8 @@ C14A43_TestCurrentItemCompactCategory_L4A43:
 C14A4E_TestCurrentItemCompactCategory_L4A4E:
     pld
     rts
-C14A50_RecoverHpAmountTextCommand:
+CC_1E_02:
+C14A50_RecoverHpAmountTextCommand = CC_1E_02
     rep #$31
     phd
     pha
@@ -288,7 +294,8 @@ C14A90_TestCurrentItemCompactCategory_L4A90:
 C14A9B_TestCurrentItemCompactCategory_L4A9B:
     pld
     rts
-C14A9D_DepleteHpAmountTextCommand:
+CC_1E_03:
+C14A9D_DepleteHpAmountTextCommand = CC_1E_03
     rep #$31
     phd
     pha
@@ -332,7 +339,8 @@ C14ADD_TestCurrentItemCompactCategory_L4ADD:
 C14AE8_TestCurrentItemCompactCategory_L4AE8:
     pld
     rts
-C14AEA_RecoverPpPercentTextCommand:
+CC_1E_04:
+C14AEA_RecoverPpPercentTextCommand = CC_1E_04
     rep #$31
     phd
     pha
@@ -376,7 +384,8 @@ C14B2A_TestCurrentItemCompactCategory_L4B2A:
 C14B35_TestCurrentItemCompactCategory_L4B35:
     pld
     rts
-C14B37_DepletePpPercentTextCommand:
+CC_1E_05:
+C14B37_DepletePpPercentTextCommand = CC_1E_05
     rep #$31
     phd
     pha
@@ -420,7 +429,8 @@ C14B77_TestCurrentItemCompactCategory_L4B77:
 C14B82_TestCurrentItemCompactCategory_L4B82:
     pld
     rts
-C14B84_RecoverPpAmountTextCommand:
+CC_1E_06:
+C14B84_RecoverPpAmountTextCommand = CC_1E_06
     rep #$31
     phd
     pha
@@ -463,7 +473,8 @@ C14BC4_TestCurrentItemCompactCategory_L4BC4:
 C14BCF_TestCurrentItemCompactCategory_L4BCF:
     pld
     rts
-C14BD1_DepletePpAmountTextCommand:
+CC_1E_07:
+C14BD1_DepletePpAmountTextCommand = CC_1E_07
     rep #$31
     phd
     pha
@@ -507,7 +518,8 @@ C14C11_TestCurrentItemCompactCategory_L4C11:
 C14C1C_TestCurrentItemCompactCategory_L4C1C:
     pld
     rts
-C14C1E_GiveItemToCharacterTextCommand:
+CC_1D_00:
+C14C1E_GiveItemToCharacterTextCommand = CC_1D_00
     rep #$31
     phd
     pha
@@ -564,7 +576,8 @@ C14C6C_TestCurrentItemCompactCategory_L4C6C:
 C14C84_TestCurrentItemCompactCategory_L4C84:
     pld
     rts
-C14C86_TakeItemFromCharacterTextCommand:
+CC_1D_01:
+C14C86_TakeItemFromCharacterTextCommand = CC_1D_01
     rep #$31
     phd
     pha

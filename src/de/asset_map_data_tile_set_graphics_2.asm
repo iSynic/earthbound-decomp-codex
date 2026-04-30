@@ -13,4 +13,4 @@
 ; DE:A101
 
 ; AssetMapDataTileSetGraphics2End
-DEA101_AssetMapDataTileSetGraphics2End:
+DEA101_AssetMapDataTileSetGraphics2End = MAP_DATA_TILE_SET_GRAPHICS_10

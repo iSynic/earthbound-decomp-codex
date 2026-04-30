@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:8F64
 
-C18F64_RecoverHpForCharacterOrActiveParty:
+RECOVER_HP_AMTPERCENT:
+C18F64_RecoverHpForCharacterOrActiveParty = RECOVER_HP_AMTPERCENT
     rep #$31
     phd
     pha

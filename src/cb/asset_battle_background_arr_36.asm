@@ -13,4 +13,4 @@
 ; CB:7E7B
 
 ; AssetBattleBackgroundArr36End
-CB7E7B_AssetBattleBackgroundArr36End:
+CB7E7B_AssetBattleBackgroundArr36End = BATTLE_BACKGROUND_GFX_16

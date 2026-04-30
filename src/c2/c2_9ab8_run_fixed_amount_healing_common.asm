@@ -17,31 +17,39 @@ C27294_ApplyBattlerHpRecoveryFeedback = $7294
 ; ---------------------------------------------------------------------------
 ; C2:9AB8
 
-C29AB8_RunFixedAmountHealingCommon:
+LIFEUP_COMMON:
+C29AB8_RunFixedAmountHealingCommon = LIFEUP_COMMON
     rep #$31
     tax
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rts
-C29AC6_RunLifeupAlphaHealingAction:
+BTLACT_LIFEUP_A:
+C29AC6_RunLifeupAlphaHealingAction = BTLACT_LIFEUP_A
     rep #$31
     lda.w #$0064
-    jsr.w C29AB8_RunFixedAmountHealingCommon
+    jsr.w LIFEUP_COMMON
     rtl
-C29ACF_RunLifeupBetaHealingAction:
+BTLACT_LIFEUP_B:
+C29ACF_RunLifeupAlphaHealingAction_End = BTLACT_LIFEUP_B
+C29ACF_RunLifeupBetaHealingAction = BTLACT_LIFEUP_B
     rep #$31
     lda.w #$012C
-    jsr.w C29AB8_RunFixedAmountHealingCommon
+    jsr.w LIFEUP_COMMON
     rtl
-C29AD8_RunLifeupGammaHealingAction:
+BTLACT_LIFEUP_G:
+C29AD8_RunLifeupBetaHealingAction_End = BTLACT_LIFEUP_G
+C29AD8_RunLifeupGammaHealingAction = BTLACT_LIFEUP_G
     rep #$31
     lda.w #$2710
-    jsr.w C29AB8_RunFixedAmountHealingCommon
+    jsr.w LIFEUP_COMMON
     rtl
-C29AE1_RunLifeupOmegaHealingAction:
+BTLACT_LIFEUP_O:
+C29AE1_RunLifeupGammaHealingAction_End = BTLACT_LIFEUP_O
+C29AE1_RunLifeupOmegaHealingAction = BTLACT_LIFEUP_O
     rep #$31
     lda.w #$0190
-    jsr.w C29AB8_RunFixedAmountHealingCommon
+    jsr.w LIFEUP_COMMON
     rtl

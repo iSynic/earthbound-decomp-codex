@@ -16,5 +16,6 @@
 ; ---------------------------------------------------------------------------
 ; C0:851B
 
-C0851B_Frame_CallbackReturn:
+DEFAULT_IRQ_CALLBACK:
+C0851B_Frame_CallbackReturn = DEFAULT_IRQ_CALLBACK
     rts

@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:BC5C
 
-C2BC5C_ClearInactiveCandidateLiveSlotTransientFields:
+RESET_POST_BATTLE_STATS:
+C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = RESET_POST_BATTLE_STATS
     rep #$31
     phd
     tdc

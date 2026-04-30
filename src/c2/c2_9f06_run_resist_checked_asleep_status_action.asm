@@ -15,17 +15,20 @@ C26BB8_BuildCandidateMaskPhase                = $6BB8
 C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+EFMSG_AsleepInflicted                         = $6C55
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:9F06
 
-C29F06_RunResistCheckedAsleepStatusAction:
+BTLACT_HYPNOSIS_A:
+C29F06_RunResistCheckedAsleepStatusAction = BTLACT_HYPNOSIS_A
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29F55_RunResistCheckedAsleepStatusAction_L9F55
     ldx $A972
@@ -37,17 +40,18 @@ C29F06_RunResistCheckedAsleepStatusAction:
     ldy.w #$0001
     ldx.w #$0002
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29F47_RunResistCheckedAsleepStatusAction_L9F47
-    lda.w #$6C55
+    ; Success/failure EF scripts both read the target-name battle text context.
+    lda.w #EFMSG_AsleepInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29F55_RunResistCheckedAsleepStatusAction_L9F55
 C29F47_RunResistCheckedAsleepStatusAction_L9F47:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

@@ -70,7 +70,8 @@ C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     stz $0C42,X
     pld
     rtl
-C46DAD_StageNewEntityFromCurrentOrPlayerSlot:
+PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION:
+C46DAD_StageNewEntityFromCurrentOrPlayerSlot = PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION
     rep #$31
     phd
     pha
@@ -102,7 +103,8 @@ C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC:
     sta $9E31
     pld
     rtl
-C46DE5_StageNewEntityFromTeleportDestinationRecord:
+PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
+C46DE5_StageNewEntityFromTeleportDestinationRecord = PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION
     rep #$31
     phd
     pha
@@ -148,7 +150,8 @@ C46DE5_StageNewEntityFromTeleportDestinationRecord:
     sta $9E31
     pld
     rtl
-C46E37_StageNewEntityFromExplicitPositionAndFacing:
+PREPARE_NEW_ENTITY:
+C46E37_StageNewEntityFromExplicitPositionAndFacing = PREPARE_NEW_ENTITY
     rep #$31
     stx $9E2D
     sty $9E2F
@@ -181,7 +184,8 @@ C46E4F_QueueEventTextPointerRecord8:
     jsl C064E3_QueueDeferredPointerRecord
     pld
     rtl
-C46E74_CheckStagedPositionWithinPlayerProximityThreshold:
+TEST_PLAYER_IN_AREA:
+C46E74_CheckStagedPositionWithinPlayerProximityThreshold = TEST_PLAYER_IN_AREA
     rep #$31
     phd
     tdc

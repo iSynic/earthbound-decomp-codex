@@ -13,4 +13,4 @@
 ; E0:07A0
 
 ; AssetFlavouredTextGfxEnd
-E007A0_AssetFlavouredTextGfxEnd:
+E007A0_AssetFlavouredTextGfxEnd = MOTHER2_ROMAJI_FONT

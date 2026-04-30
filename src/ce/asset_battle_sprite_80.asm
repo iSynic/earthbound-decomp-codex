@@ -13,4 +13,4 @@
 ; CE:3A60
 
 ; AssetBattleSprite80End
-CE3A60_AssetBattleSprite80End:
+CE3A60_AssetBattleSprite80End = BATTLE_SPRITE_3

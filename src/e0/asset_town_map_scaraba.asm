@@ -13,4 +13,4 @@
 ; E0:C7F1
 
 ; AssetTownMapScarabaEnd
-E0C7F1_AssetTownMapScarabaEnd:
+E0C7F1_AssetTownMapScarabaEnd = TOWN_MAP_SUMMERS

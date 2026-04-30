@@ -13,4 +13,4 @@
 ; CB:D830
 
 ; AssetBattleBackgroundGfx73End
-CBD830_AssetBattleBackgroundGfx73End:
+CBD830_AssetBattleBackgroundGfx73End = BATTLE_BACKGROUND_ARR_90

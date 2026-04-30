@@ -13,4 +13,4 @@
 ; CB:C0CA
 
 ; AssetBattleBackgroundGfx51End
-CBC0CA_AssetBattleBackgroundGfx51End:
+CBC0CA_AssetBattleBackgroundGfx51End = BATTLE_BACKGROUND_ARR_67

@@ -13,4 +13,4 @@
 ; E0:6721
 
 ; AssetTownMapTwosonEnd
-E06721_AssetTownMapTwosonEnd:
+E06721_AssetTownMapTwosonEnd = TOWN_MAP_THREED

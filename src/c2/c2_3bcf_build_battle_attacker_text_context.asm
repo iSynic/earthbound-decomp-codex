@@ -20,7 +20,8 @@ C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
 ; ---------------------------------------------------------------------------
 ; C2:3BCF
 
-C23BCF_BuildBattleAttackerTextContext:
+FIX_ATTACKER_NAME:
+C23BCF_BuildBattleAttackerTextContext = FIX_ATTACKER_NAME
     rep #$31
     phd
     pha
@@ -65,7 +66,7 @@ C23C0B_BuildBattleAttackerTextContext_L3C0B:
     sta $10
     ldx.w #$0019
     lda.w #$A983
-    jsr C23B66_ExpandBattleTextContextTemplate
+    jsr COPY_ENEMY_NAME
     tax
     stx $14
     ldx $A970

@@ -16,7 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; EF:0000
 
-EF0000_TableEf00bb:
+EF0000_TableEf00bb = ENEMY_FLASHING_OFF
     ; data bytes: EF:0000..EF:EB5F
     db $C2,$31,$AD,$D0,$89,$C9,$FF,$FF,$F0,$45,$AD,$D2,$89,$F0,$18,$AE
     db $D0,$89,$BD,$82,$AD,$29,$FF,$00,$A0,$4E,$00,$22,$F7,$8F,$C0,$AA
@@ -3785,4 +3785,4 @@ EF0000_TableEf00bb:
     db $14,$31,$14,$31,$54,$30,$54,$4D,$14,$4E,$14,$4E,$54,$4D,$54,$6D
     db $14,$6E,$14,$6E,$54,$6D,$54,$6D,$14,$4F,$14,$4F,$14,$6D,$54
 
-EFEB5F_TableEf00bbEnd:
+EFEB5F_TableEf00bbEnd = DEBUG_MENU_FONT

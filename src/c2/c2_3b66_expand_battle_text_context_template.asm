@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:3B66
 
-C23B66_ExpandBattleTextContextTemplate:
+COPY_ENEMY_NAME:
+C23B66_ExpandBattleTextContextTemplate = COPY_ENEMY_NAME
     rep #$31
     phd
     pha

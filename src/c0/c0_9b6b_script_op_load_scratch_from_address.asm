@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B6B
 
-C09B6B_ScriptOp_LoadScratchFromAddress:
+MOVEMENT_CODE_1E:
+C09B6B_ScriptOp_LoadScratchFromAddress = MOVEMENT_CODE_1E
     lda [$80],Y
     tax
     lda $0000,X

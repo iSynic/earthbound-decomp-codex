@@ -13,4 +13,4 @@
 ; CB:899D
 
 ; AssetBattleBackgroundArr85End
-CB899D_AssetBattleBackgroundArr85End:
+CB899D_AssetBattleBackgroundArr85End = BATTLE_BACKGROUND_ARR_1

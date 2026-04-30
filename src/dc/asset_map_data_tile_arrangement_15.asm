@@ -13,4 +13,4 @@
 ; DC:72C0
 
 ; AssetMapDataTileArrangement15End
-DC72C0_AssetMapDataTileArrangement15End:
+DC72C0_AssetMapDataTileArrangement15End = MAP_DATA_TILE_ARRANGEMENT_18

@@ -13,4 +13,4 @@
 ; DB:617F
 
 ; AssetMapDataTileArrangement9End
-DB617F_AssetMapDataTileArrangement9End:
+DB617F_AssetMapDataTileArrangement9End = MAP_DATA_TILE_ARRANGEMENT_16

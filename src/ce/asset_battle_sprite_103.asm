@@ -13,4 +13,4 @@
 ; CE:1461
 
 ; AssetBattleSprite103End
-CE1461_AssetBattleSprite103End:
+CE1461_AssetBattleSprite103End = BATTLE_SPRITE_98

@@ -16,7 +16,8 @@ C1AC4A_BuildBattleAttackerNameBuffer = $AC4A
 ; ---------------------------------------------------------------------------
 ; C1:DD70
 
-C1DD70_RedirectBuildBattleAttackerNameBuffer:
+REDIRECT_C1AC4A:
+C1DD70_RedirectBuildBattleAttackerNameBuffer = REDIRECT_C1AC4A
     rep #$31
     jsr C1AC4A_BuildBattleAttackerNameBuffer
     rtl

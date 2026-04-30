@@ -113,11 +113,11 @@ C1BF9B_DispatchTextCommand1F41SpecialEvent_LBF9B:
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFA5_DispatchTextCommand1F41SpecialEvent_LBFA5:
     lda.w #$0000
-    jsl C1EAA6_RunNameEntrySpecialEventPrelude
+    jsl ENTER_YOUR_NAME_PLEASE
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFAF_DispatchTextCommand1F41SpecialEvent_LBFAF:
     lda.w #$0001
-    jsl C1EAA6_RunNameEntrySpecialEventPrelude
+    jsl ENTER_YOUR_NAME_PLEASE
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFB9_DispatchTextCommand1F41SpecialEvent_LBFB9:
     lda.w #$0001
@@ -172,7 +172,7 @@ C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
     jsl C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr C1BE4D_AttemptHomesicknessResult
+    jsr ATTEMPT_HOMESICKNESS
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
     lda $9883

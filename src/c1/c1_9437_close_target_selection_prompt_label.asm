@@ -58,7 +58,7 @@ C19441_BuildPhoneContactSelectionMenu:
     lda.w #$9C8A
     jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0007
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5995
     sta $0E
     lda.w #$00C4
@@ -150,7 +150,7 @@ C19504_c1_9437_target_selection_bridge_L9504:
     jsr C1196A_RunActiveTextEntrySelectionMenu
     sta $02
 C19521_c1_9437_target_selection_bridge_L9521:
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState
     lda $02
@@ -169,7 +169,7 @@ C1952F_RenderCharacterStatusWindowBlock:
     sta $02
     jsl C3E4D4_SetInstantPrinting
     lda.w #$0008
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl C3E4E0_TickWindowWithoutInstantPrinting
     lda.w #$0001
     sta $5E71
@@ -226,7 +226,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     lda.w #$0002
     jsr C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0003
@@ -240,12 +240,12 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$0072
     jsl C43D75_StageGlyphVariantTileState
     lda.w #$005F
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx.w #$0003
     lda.w #$0079
     jsl C43D75_StageGlyphVariantTileState
@@ -257,7 +257,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$005E
     jsl C43D75_StageGlyphVariantTileState
@@ -269,12 +269,12 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$0072
     jsl C43D75_StageGlyphVariantTileState
     lda.w #$005F
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
 C19651_RenderCharacterStatusDerivedStats:
     ldx.w #$0004
     lda.w #$0079
@@ -287,7 +287,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0000
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -303,7 +303,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0001
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -319,7 +319,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0002
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -335,7 +335,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -351,7 +351,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -367,7 +367,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0005
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -383,7 +383,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$00C7
     jsl C43D75_StageGlyphVariantTileState
@@ -399,7 +399,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     lda.w #$0006
     jsr C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0005
@@ -438,7 +438,7 @@ C197BE_c1_9437_target_selection_bridge_L97BE:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$000A
     jsl C43D75_StageGlyphVariantTileState
@@ -449,7 +449,7 @@ C197BE_c1_9437_target_selection_bridge_L97BE:
     sta $0E
     lda $08
     sta $10
-    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     stz $5E71
     ldx.w #$0000
     stx $13
@@ -525,7 +525,7 @@ C19865_c1_9437_target_selection_bridge_L9865:
     lda $08
     sta $10
     lda.w #$0100
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     bra C1988C_c1_9437_target_selection_bridge_L988C
 C1987D_c1_9437_target_selection_bridge_L987D:
     ldx $13
@@ -561,13 +561,14 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$00C4
     sta $10
     lda.w #$0023
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     stz $5E71
 C198D8_c1_9437_target_selection_bridge_L98D8:
     jsl C3E4CA_ClearInstantPrinting
     pld
     rtl
-C198DE_RenderCharacterInventoryOrEquipmentRows:
+INVENTORY_GET_ITEM_NAME:
+C198DE_RenderCharacterInventoryOrEquipmentRows = INVENTORY_GET_ITEM_NAME
     rep #$31
     phd
     pha
@@ -581,7 +582,7 @@ C198DE_RenderCharacterInventoryOrEquipmentRows:
     dec A
     sta $04
     tya
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda $98A4
     and.w #$00FF
     cmp.w #$0001

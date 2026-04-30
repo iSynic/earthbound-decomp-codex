@@ -23,7 +23,8 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:95CF
 
-C295CF_RunPsiFreezeCommon:
+PSI_FREEZE_COMMON:
+C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     rep #$31
     phd
     pha
@@ -33,10 +34,10 @@ C295CF_RunPsiFreezeCommon:
     pla
     tax
     stx $14
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29645_RunPsiFreezeCommon_L9645
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     bne C29645_RunPsiFreezeCommon_L9645
     ldx $14
@@ -65,7 +66,7 @@ C295CF_RunPsiFreezeCommon:
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$6BEF
@@ -74,23 +75,23 @@ C295CF_RunPsiFreezeCommon:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29642_RunPsiFreezeCommon_L9642:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C29645_RunPsiFreezeCommon_L9645:
     pld
     rts
     rep #$31
     lda.w #$00B4
-    jsr.w C295CF_RunPsiFreezeCommon
+    jsr.w PSI_FREEZE_COMMON
     rtl
     rep #$31
     lda.w #$0168
-    jsr.w C295CF_RunPsiFreezeCommon
+    jsr.w PSI_FREEZE_COMMON
     rtl
     rep #$31
     lda.w #$021C
-    jsr.w C295CF_RunPsiFreezeCommon
+    jsr.w PSI_FREEZE_COMMON
     rtl
     rep #$31
     lda.w #$02D0
-    jsr.w C295CF_RunPsiFreezeCommon
+    jsr.w PSI_FREEZE_COMMON
     rtl

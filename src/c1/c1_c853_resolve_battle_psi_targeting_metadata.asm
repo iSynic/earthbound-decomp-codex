@@ -68,6 +68,6 @@ C1C87B_ResolveBattlePsiTargetingMetadata_LC87B:
     ldy $12
     rep #$20
     tya
-    jsr C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     pld
     rtl

@@ -13,4 +13,4 @@
 ; CB:C200
 
 ; AssetBattleBackgroundGfx34End
-CBC200_AssetBattleBackgroundGfx34End:
+CBC200_AssetBattleBackgroundGfx34End = BATTLE_BACKGROUND_ARR_25

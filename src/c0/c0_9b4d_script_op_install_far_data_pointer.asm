@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B4D
 
-C09B4D_ScriptOp_InstallFarDataPointer:
+MOVEMENT_CODE_1C:
+C09B4D_ScriptOp_InstallFarDataPointer = MOVEMENT_CODE_1C
     ldx $88
     lda [$80],Y
     sta $112E,X

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:865F
 
-C0865F_Submit_TransferDescriptorOrImmediateDma:
+COPY_TO_VRAM:
+C0865F_Submit_TransferDescriptorOrImmediateDma = COPY_TO_VRAM
     php
     phy
     sep #$10

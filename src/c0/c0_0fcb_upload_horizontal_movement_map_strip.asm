@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource = $C08616
+PREPARE_VRAM_COPY = $C08616
 
 ; ---------------------------------------------------------------------------
 ; C0:0FCB
@@ -196,7 +196,7 @@ C010D6_Upload_HorizontalMovementMapStrip_L10D6:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $1C
     sta $06
     phb
@@ -216,7 +216,7 @@ C010D6_Upload_HorizontalMovementMapStrip_L10D6:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     bra C0117F_Upload_HorizontalMovementMapStrip_L117F
 C01128_Upload_HorizontalMovementMapStrip_L1128:
     lda $02
@@ -241,7 +241,7 @@ C01128_Upload_HorizontalMovementMapStrip_L1128:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $1C
     sta $06
     phb
@@ -261,7 +261,7 @@ C01128_Upload_HorizontalMovementMapStrip_L1128:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
 C0117F_Upload_HorizontalMovementMapStrip_L117F:
     pld
     rts

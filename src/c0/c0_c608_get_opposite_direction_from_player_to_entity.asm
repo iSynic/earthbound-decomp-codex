@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:C608
 
-C0C608_GetOppositeDirectionFromPlayerToEntity:
+GET_OPPOSITE_DIRECTION_FROM_PLAYER_TO_ENTITY:
+C0C608_GetOppositeDirectionFromPlayerToEntity = GET_OPPOSITE_DIRECTION_FROM_PLAYER_TO_ENTITY
     rep #$31
     jsl $C0C4F7
     asl A

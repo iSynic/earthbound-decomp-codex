@@ -13,4 +13,4 @@
 ; CB:CFD4
 
 ; AssetBattleBackgroundPalette73End
-CBCFD4_AssetBattleBackgroundPalette73End:
+CBCFD4_AssetBattleBackgroundPalette73End = BATTLE_BACKGROUND_PALETTE_70

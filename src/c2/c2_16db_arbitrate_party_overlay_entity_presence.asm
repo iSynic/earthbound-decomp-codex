@@ -183,9 +183,9 @@ C217E2_ArbitratePartyOverlayEntityPresence_L17E2:
     cmp.w #$0000
     bne C21855_ArbitratePartyOverlayEntityPresence_L1855
     lda.w #$0010
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     lda.w #$0011
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     sep #$20
     lda [$06]
     rep #$20
@@ -193,13 +193,13 @@ C217E2_ArbitratePartyOverlayEntityPresence_L17E2:
     and.w #$00FF
     sbc.w #$0080
     eor.w #$FF80
-    jsl C228F8_InsertPartyOverlayTrackedItemId
+    jsl ADD_CHAR_TO_PARTY
     bra C21855_ArbitratePartyOverlayEntityPresence_L1855
 C21847_ArbitratePartyOverlayEntityPresence_L1847:
     lda.w #$0010
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     lda.w #$0011
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
 C21855_ArbitratePartyOverlayEntityPresence_L1855:
     pld
     rtl

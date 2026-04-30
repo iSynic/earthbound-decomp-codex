@@ -16,7 +16,8 @@ BattleAttackerNameBuffer = $9CD7
 ; ---------------------------------------------------------------------------
 ; C1:AC9B
 
-C1AC9B_GetBattleAttackerNameBufferBase:
+RETURN_BATTLE_ATTACKER_ADDRESS:
+C1AC9B_GetBattleAttackerNameBufferBase = RETURN_BATTLE_ATTACKER_ADDRESS
     rep #$31
     lda.w #BattleAttackerNameBuffer
     rts

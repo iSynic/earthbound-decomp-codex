@@ -18,20 +18,21 @@ C1DC66_DisplayBattleTextWithNumber            = $C1DC66
 ; ---------------------------------------------------------------------------
 ; C2:9E38
 
-C29E38_RunDefenseSprayAction:
+BTLACT_OFFENSE_UP_A:
+C29E38_RunDefenseSprayAction = BTLACT_OFFENSE_UP_A
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29E7D_RunDefenseSprayAction_L9E7D
     ldx $A972
     ldy $0026,X
     sty $16
     lda $A972
-    jsr C27D28_ApplyBoundedOffenseIncrease
+    jsr INCREASE_OFFENSE_16TH
     lda.w #$F77D
     sta $0E
     lda.w #$00C8

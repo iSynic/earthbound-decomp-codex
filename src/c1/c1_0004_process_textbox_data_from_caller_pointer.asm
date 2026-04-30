@@ -53,19 +53,23 @@ C10024_ProcessTextboxDataFromCallerPointer_L0024:
     jsl C09451_RestoreSavedCoordinateState
     pld
     rtl
-C10036_SetBlinkingTriangleState:
+ENABLE_BLINKING_TRIANGLE:
+C10036_SetBlinkingTriangleState = ENABLE_BLINKING_TRIANGLE
     rep #$31
     sta BlinkingTriangleState
     rts
-C1003C_ClearBlinkingTriangleState:
+CLEAR_BLINKING_PROMPT:
+C1003C_ClearBlinkingTriangleState = CLEAR_BLINKING_PROMPT
     rep #$31
     stz BlinkingTriangleState
     rts
-C10042_ReadBlinkingTriangleState:
+GET_BLINKING_PROMPT:
+C10042_ReadBlinkingTriangleState = GET_BLINKING_PROMPT
     rep #$31
     lda BlinkingTriangleState
     rts
-C10048_SetTextSoundMode:
+SET_TEXT_SOUND_MODE:
+C10048_SetTextSoundMode = SET_TEXT_SOUND_MODE
     rep #$31
     sta TextSoundMode
     rts

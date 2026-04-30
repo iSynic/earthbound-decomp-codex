@@ -13,4 +13,4 @@
 ; CD:0E26
 
 ; AssetBattleSprite107End
-CD0E26_AssetBattleSprite107End:
+CD0E26_AssetBattleSprite107End = BATTLE_SPRITE_64

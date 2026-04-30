@@ -13,4 +13,4 @@
 ; CA:D7A1
 
 ; AssetBattleBackgroundGfx90End
-CAD7A1_AssetBattleBackgroundGfx90End:
+CAD7A1_AssetBattleBackgroundGfx90End = BATTLEBG_GFX_POINTERS

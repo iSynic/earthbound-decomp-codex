@@ -13,4 +13,4 @@
 ; CA:D93D
 
 ; TableGraphicsPointersEnd
-CAD93D_TableGraphicsPointersEnd:
+CAD93D_TableGraphicsPointersEnd = BATTLEBG_ARR_POINTERS

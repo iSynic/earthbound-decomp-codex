@@ -13,4 +13,4 @@
 ; DD:DF3B
 
 ; AssetMapDataTileSetGraphics4End
-DDDF3B_AssetMapDataTileSetGraphics4End:
+DDDF3B_AssetMapDataTileSetGraphics4End = MAP_DATA_TILE_SET_GRAPHICS_5

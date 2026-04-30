@@ -13,4 +13,4 @@
 ; E1:5B33
 
 ; AssetGasStationArrangementEnd
-E15B33_AssetGasStationArrangementEnd:
+E15B33_AssetGasStationArrangementEnd = GAS_STATION_GRAPHICS

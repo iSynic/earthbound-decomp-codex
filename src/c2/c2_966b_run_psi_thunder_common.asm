@@ -24,7 +24,8 @@ C2EACF_WaitForBattlePresentationBusyClear     = $C2EACF
 ; ---------------------------------------------------------------------------
 ; C2:966B
 
-C2966B_RunPsiThunderCommon:
+PSI_THUNDER_COMMON:
+C2966B_RunPsiThunderCommon = PSI_THUNDER_COMMON
     rep #$31
     phd
     pha
@@ -87,7 +88,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     sta $A96C
     lda $08
     sta $A96E
-    jsl C2416F_FilterBattleActionTargetMaskByRowState
+    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -147,7 +148,7 @@ C2974D_RunPsiThunderCommon_L974D:
     clc
     adc.w #$9FAC
     sta $A972
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     lda $02
     sep #$20
     jsr C26BB8_BuildCandidateMaskPhase

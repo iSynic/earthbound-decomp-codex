@@ -39,11 +39,11 @@ C23008_SaveAndClearTemporaryPartySourceState:
     sta $9845
     lda $0000,Y
     and.w #$00FF
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     ldx $0E
     lda $0000,X
     and.w #$00FF
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     ldy.w #$9831
     lda $0000,Y
     sta $06

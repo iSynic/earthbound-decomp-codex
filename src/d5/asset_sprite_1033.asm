@@ -13,4 +13,4 @@
 ; D5:0380
 
 ; AssetSprite1033End
-D50380_AssetSprite1033End:
+D50380_AssetSprite1033End = SPRITE_1034

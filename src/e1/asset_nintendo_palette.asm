@@ -13,4 +13,4 @@
 ; E1:55D3
 
 ; AssetNintendoPaletteEnd
-E155D3_AssetNintendoPaletteEnd:
+E155D3_AssetNintendoPaletteEnd = GAS_STATION_ARRANGEMENT

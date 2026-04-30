@@ -34,7 +34,7 @@ C191F8_WithdrawPendingItemToInventory:
     tax
     ldy SavedCharacterIndex
     tya
-    jsl C18BC6_InsertItemIntoCharacterInventory
+    jsl GIVE_ITEM_TO_CHARACTER
     ldy SavedCharacterIndex
     tya
     pld

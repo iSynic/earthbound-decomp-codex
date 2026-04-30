@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:851C
 
-C0851C_Set_FrameCallbackPtr:
+SET_IRQ_CALLBACK:
+C0851C_Set_FrameCallbackPtr = SET_IRQ_CALLBACK
     rep #$30
     sta $0020
     rtl

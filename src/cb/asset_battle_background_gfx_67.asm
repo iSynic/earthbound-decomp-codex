@@ -13,4 +13,4 @@
 ; CB:D74A
 
 ; AssetBattleBackgroundGfx67End
-CBD74A_AssetBattleBackgroundGfx67End:
+CBD74A_AssetBattleBackgroundGfx67End = BATTLE_BACKGROUND_PALETTE_108

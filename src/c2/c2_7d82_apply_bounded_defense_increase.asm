@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7D82
 
-C27D82_ApplyBoundedDefenseIncrease:
+INCREASE_DEFENSE_16TH:
+C27D82_ApplyBoundedDefenseIncrease = INCREASE_DEFENSE_16TH
     rep #$31
     phd
     pha

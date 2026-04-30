@@ -57,7 +57,8 @@ C1FF99_ComputeCenteredTextLayoutMetric:
     sta $9E25
     pld
     rtl
-C1FFD3_ComputeBankC1ChecksumTail:
+SRAM_CHECK_ROUTINE_CHECKSUM:
+C1FFD3_ComputeBankC1ChecksumTail = SRAM_CHECK_ROUTINE_CHECKSUM
     ldx.w #$0033
     rep #$20
     lda.w #$0000
@@ -75,7 +76,8 @@ C1FFDE_ComputeBankC1ChecksumTail_LFFDE:
 ; ---------------------------------------------------------------------------
 ; C1:FFEF
 
-C1FFEF_BankC1ChecksumConstantAndPadding:
+SRAM_CHECK_ROUTINE_CHECKSUM_VALUE:
+C1FFEF_BankC1ChecksumConstantAndPadding = SRAM_CHECK_ROUTINE_CHECKSUM_VALUE
     ; checksum constant followed by bank-end padding
     db $D8,$2A,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00

@@ -13,4 +13,4 @@
 ; DF:9F57
 
 ; AssetMapDataTileSetGraphics19End
-DF9F57_AssetMapDataTileSetGraphics19End:
+DF9F57_AssetMapDataTileSetGraphics19End = MAP_DATA_TILE_SET_GRAPHICS_15

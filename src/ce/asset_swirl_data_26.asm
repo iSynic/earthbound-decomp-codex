@@ -13,4 +13,4 @@
 ; CE:86AE
 
 ; AssetSwirlData26End
-CE86AE_AssetSwirlData26End:
+CE86AE_AssetSwirlData26End = SWIRL_DATA_27

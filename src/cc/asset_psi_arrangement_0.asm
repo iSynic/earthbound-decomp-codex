@@ -13,4 +13,4 @@
 ; CC:C701
 
 ; AssetPsiArrangement0End
-CCC701_AssetPsiArrangement0End:
+CCC701_AssetPsiArrangement0End = PSI_ARRANGEMENT_6

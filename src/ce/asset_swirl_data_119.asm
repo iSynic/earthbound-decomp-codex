@@ -13,4 +13,4 @@
 ; CE:D77B
 
 ; AssetSwirlData119End
-CED77B_AssetSwirlData119End:
+CED77B_AssetSwirlData119End = SWIRL_DATA_120

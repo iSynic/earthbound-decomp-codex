@@ -13,4 +13,4 @@
 ; E1:AF7D
 
 ; AssetUnknownE1ae7cEnd
-E1AF7D_AssetUnknownE1ae7cEnd:
+E1AF7D_AssetUnknownE1ae7cEnd = TITLE_SCREEN_ARRANGEMENT

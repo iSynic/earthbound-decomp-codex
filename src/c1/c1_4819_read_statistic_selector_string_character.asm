@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:4819
 
-C14819_ReadStatisticSelectorStringCharacter:
+CC_19_28:
+C14819_ReadStatisticSelectorStringCharacter = CC_19_28
     rep #$31
     phd
     pha

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:1A9D
 
-C01A9D_Find_FreeEntityBytePoolRun467E:
+FIND_FREE_7E4682:
+C01A9D_Find_FreeEntityBytePoolRun467E = FIND_FREE_7E4682
     rep #$31
     phd
     pha

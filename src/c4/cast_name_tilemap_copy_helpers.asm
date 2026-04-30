@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:EA9C
 
-C4EA9C_CopyCastNameTilemap:
+PREPARE_CAST_NAME_TILEMAP:
+C4EA9C_CopyCastNameTilemap = PREPARE_CAST_NAME_TILEMAP
     rep #$31
     phd
     pha

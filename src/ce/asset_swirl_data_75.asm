@@ -13,4 +13,4 @@
 ; CE:C386
 
 ; AssetSwirlData75End
-CEC386_AssetSwirlData75End:
+CEC386_AssetSwirlData75End = SWIRL_DATA_76

@@ -68,7 +68,8 @@ C3F016_BattlePsiMenuSelectorGroupTableEnd:
 ; source: data/unknown/C3EF26.asm
 ; evidence: notes/c3-shared-helper-working-name-promotion.md:92
 
-C3F054_BattlePsiMenuSelectorGroupTablePartF016End:
+FONT_PTR_TABLE:
+C3F054_BattlePsiMenuSelectorGroupTablePartF016End = FONT_PTR_TABLE
     ; data bytes: C3:F054..C3:F0B0
     db $7A,$0C,$E1,$00,$DA,$0C,$E1,$00,$20,$00,$10,$00,$59,$13,$E0,$00
     db $B9,$13,$E0,$00,$20,$00,$10,$00,$DA,$18,$E1,$00,$3A,$19,$E1,$00

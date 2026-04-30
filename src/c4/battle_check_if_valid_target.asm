@@ -20,11 +20,13 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C4:A1F2
 
-C4A1F2_BattleTargetValidityPadding:
+BATTLE_WINDOW_SIZES:
+C4A1F2_BattleTargetValidityPadding = BATTLE_WINDOW_SIZES
     ; data bytes: C4:A1F2..C4:A1F5
     db $12,$0F,$30
 
-C4A1F5_CheckIfValidTarget:
+CHECK_IF_VALID_TARGET:
+C4A1F5_CheckIfValidTarget = CHECK_IF_VALID_TARGET
     rep #$31
     ldy.w #$004E
     jsl C08FF7_ResolveIndexedPointerOffset

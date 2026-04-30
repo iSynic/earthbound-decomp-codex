@@ -13,4 +13,4 @@
 ; D5:7880
 
 ; StoreTableEnd
-D57880_StoreTableEnd:
+D57880_StoreTableEnd = PSI_TELEPORT_DEST_TABLE

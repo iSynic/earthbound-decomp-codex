@@ -13,4 +13,4 @@
 ; CE:C54A
 
 ; AssetSwirlData76End
-CEC54A_AssetSwirlData76End:
+CEC54A_AssetSwirlData76End = SWIRL_DATA_77

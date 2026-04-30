@@ -13,4 +13,4 @@
 ; CE:53DB
 
 ; AssetBattleSprite4End
-CE53DB_AssetBattleSprite4End:
+CE53DB_AssetBattleSprite4End = BATTLE_SPRITE_77

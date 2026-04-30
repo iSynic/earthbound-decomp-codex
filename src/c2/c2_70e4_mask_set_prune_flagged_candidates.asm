@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:70E4
 
-C270E4_MaskSet_PruneFlaggedCandidates:
+REMOVE_DEAD_TARGETTING:
+C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
     rep #$31
     phd
     tdc
@@ -51,7 +52,8 @@ C2711F_MaskSet_PruneFlaggedCandidates_L711F:
     bcc C270F3_MaskSet_PruneFlaggedCandidates_L70F3
     pld
     rts
-C27126_MaskSet_PruneFlaggedCandidates_L7126:
+SET_HP:
+C27126_MaskSet_PruneFlaggedCandidates_L7126 = SET_HP
     rep #$31
     phd
     pha
@@ -110,7 +112,8 @@ C27187_MaskSet_PruneFlaggedCandidates_L7187:
 C2718F_MaskSet_PruneFlaggedCandidates_L718F:
     pld
     rts
-C27191_MaskSet_PruneFlaggedCandidates_L7191:
+SET_PP:
+C27191_MaskSet_PruneFlaggedCandidates_L7191 = SET_PP
     rep #$31
     phd
     pha
@@ -188,7 +191,7 @@ C27211_MaskSet_PruneFlaggedCandidates_L7211:
 C27216_MaskSet_PruneFlaggedCandidates_L7216:
     tax
     tya
-    jsr.w C27126_MaskSet_PruneFlaggedCandidates_L7126
+    jsr.w SET_HP
     pld
     rts
     rep #$31
@@ -216,6 +219,6 @@ C2723E_MaskSet_PruneFlaggedCandidates_L723E:
 C27243_MaskSet_PruneFlaggedCandidates_L7243:
     tax
     tya
-    jsr.w C27191_MaskSet_PruneFlaggedCandidates_L7191
+    jsr.w SET_PP
     pld
     rts

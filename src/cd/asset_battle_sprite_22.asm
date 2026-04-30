@@ -13,4 +13,4 @@
 ; CD:A8F4
 
 ; AssetBattleSprite22End
-CDA8F4_AssetBattleSprite22End:
+CDA8F4_AssetBattleSprite22End = BATTLE_SPRITE_102

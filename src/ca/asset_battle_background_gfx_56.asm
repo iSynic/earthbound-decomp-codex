@@ -13,4 +13,4 @@
 ; CA:D79E
 
 ; AssetBattleBackgroundGfx56End
-CAD79E_AssetBattleBackgroundGfx56End:
+CAD79E_AssetBattleBackgroundGfx56End = BATTLE_BACKGROUND_GFX_90

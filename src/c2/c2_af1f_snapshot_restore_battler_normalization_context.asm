@@ -18,7 +18,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:AF1F
 
-C2AF1F_SnapshotRestoreBattlerNormalizationContext:
+COPY_MIRROR_DATA:
+C2AF1F_SnapshotRestoreBattlerNormalizationContext = COPY_MIRROR_DATA
     rep #$31
     phd
     tdc
@@ -293,7 +294,7 @@ C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     sta $12
     lda $08
     sta $14
-    jsl C2AF1F_SnapshotRestoreBattlerNormalizationContext
+    jsl COPY_MIRROR_DATA
     lda.w #$6A99
     sta $0E
     lda.w #$00EF

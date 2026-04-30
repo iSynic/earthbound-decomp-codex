@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7E33
 
-C27E33_ApplyBoundedDefenseDecrease:
+HEXADECIMATE_DEFENSE:
+C27E33_ApplyBoundedDefenseDecrease = HEXADECIMATE_DEFENSE
     rep #$31
     phd
     pha

@@ -16,7 +16,9 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:A89D
 
-C2A89D_RunRandomDamageAndStatusItemActionCluster:
+BTLACT_SNAKE:
+C2A89D_RunRandomDamageAndStatusItemActionCluster = BTLACT_SNAKE
+C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     rep #$31
     phd
     tdc
@@ -60,7 +62,8 @@ C2A8F2_RunRandomDamageAndStatusItemActionCluster_LA8F2:
 C2A900_RunRandomDamageAndStatusItemActionCluster_LA900:
     pld
     rtl
-C2A902_RunStatusItemActionCondition4:
+BTLACT_INFLICT_SOLIDIFICATION:
+C2A902_RunStatusItemActionCondition4 = BTLACT_INFLICT_SOLIDIFICATION
     rep #$31
     phd
     tdc
@@ -96,7 +99,8 @@ C2A943_RunRandomDamageAndStatusItemActionCluster_LA943:
 C2A951_RunRandomDamageAndStatusItemActionCluster_LA951:
     pld
     rtl
-C2A953_RunStatusItemActionCondition5:
+BTLACT_INFLICT_POISON:
+C2A953_RunStatusItemActionCondition5 = BTLACT_INFLICT_POISON
     rep #$31
     phd
     tdc
@@ -129,7 +133,8 @@ C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C:
 C2A99A_RunRandomDamageAndStatusItemActionCluster_LA99A:
     pld
     rtl
-C2A99C_RunRandomDamageRollBySlot3A:
+BTLACT_BAG_OF_DRAGONITE:
+C2A99C_RunRandomDamageRollBySlot3A = BTLACT_BAG_OF_DRAGONITE
     rep #$31
     phd
     tdc
@@ -146,7 +151,8 @@ C2A99C_RunRandomDamageRollBySlot3A:
     jsr $8125
     pld
     rtl
-C2A9BD_RunTypedRandomDamageCommon:
+INSECT_SPRAY_COMMON:
+C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     rep #$31
     phd
     pha
@@ -184,17 +190,20 @@ C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC:
 C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A:
     pld
     rts
-C2AA0C_RunTypedRandomDamage100:
+BTLACT_INSECTICIDE_SPRAY:
+C2AA0C_RunTypedRandomDamage100 = BTLACT_INSECTICIDE_SPRAY
     rep #$31
     lda.w #$0064
-    jsr.w C2A9BD_RunTypedRandomDamageCommon
+    jsr.w INSECT_SPRAY_COMMON
     rtl
-C2AA15_RunTypedRandomDamage200:
+BTLACT_XTERMINATOR_SPRAY:
+C2AA15_RunTypedRandomDamage200 = BTLACT_XTERMINATOR_SPRAY
     rep #$31
     lda.w #$00C8
-    jsr.w C2A9BD_RunTypedRandomDamageCommon
+    jsr.w INSECT_SPRAY_COMMON
     rtl
-C2AA1E_RunTypedRandomDamageCommon2:
+RUST_SPRAY_COMMON:
+C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     rep #$31
     phd
     pha
@@ -232,17 +241,20 @@ C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D:
 C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B:
     pld
     rts
-C2AA6D_RunTypedRandomDamage200Type2:
+BTLACT_RUST_PROMOTER:
+C2AA6D_RunTypedRandomDamage200Type2 = BTLACT_RUST_PROMOTER
     rep #$31
     lda.w #$00C8
-    jsr.w C2AA1E_RunTypedRandomDamageCommon2
+    jsr.w RUST_SPRAY_COMMON
     rtl
-C2AA76_RunTypedRandomDamage400Type2:
+BTLACT_RUST_PROMOTER_DX:
+C2AA76_RunTypedRandomDamage400Type2 = BTLACT_RUST_PROMOTER_DX
     rep #$31
     lda.w #$0190
-    jsr.w C2AA1E_RunTypedRandomDamageCommon2
+    jsr.w RUST_SPRAY_COMMON
     rtl
-C2AA7F_RunDoubleHpHealStatusItemAction:
+BTLACT_SUDDEN_GUTS_PILL:
+C2AA7F_RunDoubleHpHealStatusItemAction = BTLACT_SUDDEN_GUTS_PILL
     rep #$31
     phd
     tdc
@@ -276,7 +288,8 @@ C2AA9E_RunRandomDamageAndStatusItemActionCluster_LAA9E:
 C2AAC4_RunRandomDamageAndStatusItemActionCluster_LAAC4:
     pld
     rtl
-C2AAC6_RunTargetHpHealFromCurrentHpAction:
+BTLACT_DEFENSE_SPRAY:
+C2AAC6_RunTargetHpHealFromCurrentHpAction = BTLACT_DEFENSE_SPRAY
     rep #$31
     phd
     tdc
@@ -311,9 +324,10 @@ C2AB0B_RunRandomDamageAndStatusItemActionCluster_LAB0B:
     pld
     rtl
     rep #$31
-    jsl C2AAC6_RunTargetHpHealFromCurrentHpAction
+    jsl BTLACT_DEFENSE_SPRAY
     rtl
-C2AB14_CheckAnyActiveEnemyWithBattleBgFlag:
+BOSS_BATTLE_CHECK:
+C2AB14_CheckAnyActiveEnemyWithBattleBgFlag = BOSS_BATTLE_CHECK
     rep #$31
     phd
     tdc
@@ -360,7 +374,8 @@ C2AB67_RunRandomDamageAndStatusItemActionCluster_LAB67:
 C2AB6F_RunRandomDamageAndStatusItemActionCluster_LAB6F:
     pld
     rts
-C2AB71_MaybeEmitTeleportLikeItemEffect:
+BTLACT_TELEPORT_BOX:
+C2AB71_MaybeEmitTeleportLikeItemEffect = BTLACT_TELEPORT_BOX
     rep #$31
     phd
     tdc
@@ -397,7 +412,7 @@ C2AB8B_RunRandomDamageAndStatusItemActionCluster_LAB8B:
     lda $14
     cmp $02
     bcs C2AC0A_RunRandomDamageAndStatusItemActionCluster_LAC0A
-    jsr.w C2AB14_CheckAnyActiveEnemyWithBattleBgFlag
+    jsr.w BOSS_BATTLE_CHECK
     cmp.w #$0000
     beq C2AC0A_RunRandomDamageAndStatusItemActionCluster_LAC0A
 C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF:
@@ -439,7 +454,8 @@ C2AC1A_RunRandomDamageAndStatusItemActionCluster_LAC1A:
 C2AC28_RunRandomDamageAndStatusItemActionCluster_LAC28:
     pld
     rtl
-C2AC2A_RestoreTargetContextAfterItemEffect:
+BTLACT_PRAY_SUBTLE:
+C2AC2A_RestoreTargetContextAfterItemEffect = BTLACT_PRAY_SUBTLE
     rep #$31
     ldx $A972
     lda $0015,X
@@ -451,7 +467,8 @@ C2AC2A_RestoreTargetContextAfterItemEffect:
     lda $A972
     jsr $7294
     rtl
-C2AC3E_RestoreShiftedTargetContextAfterItemEffect:
+BTLACT_PRAY_WARM:
+C2AC3E_RestoreShiftedTargetContextAfterItemEffect = BTLACT_PRAY_WARM
     rep #$31
     ldx $A972
     lda $0015,X
@@ -462,7 +479,8 @@ C2AC3E_RestoreShiftedTargetContextAfterItemEffect:
     lda $A972
     jsr $7294
     rtl
-C2AC51_RestoreTargetContextOffsetAfterItemEffect:
+BTLACT_PRAY_GOLDEN:
+C2AC51_RestoreTargetContextOffsetAfterItemEffect = BTLACT_PRAY_GOLDEN
     rep #$31
     ldx $A972
     lda $0015,X
@@ -473,7 +491,8 @@ C2AC51_RestoreTargetContextOffsetAfterItemEffect:
     lda $A972
     jsr $7294
     rtl
-C2AC68_ApplyRandomSmallKnockbackItemEffect:
+BTLACT_PRAY_MYSTERIOUS:
+C2AC68_ApplyRandomSmallKnockbackItemEffect = BTLACT_PRAY_MYSTERIOUS
     rep #$31
     lda.w #$0005
     jsr $6A44
@@ -484,7 +503,8 @@ C2AC74_RunRandomDamageAndStatusItemActionCluster_LAC74:
     lda $A972
     jsr $7318
     rtl
-C2AC7B_ApplyFeelingStrangeTargetContextItemEffect:
+BTLACT_PRAY_RAINBOW:
+C2AC7B_ApplyFeelingStrangeTargetContextItemEffect = BTLACT_PRAY_RAINBOW
     rep #$31
     ldx $A972
     lda $001D,X
@@ -498,7 +518,8 @@ C2AC7B_ApplyFeelingStrangeTargetContextItemEffect:
     jsr $7397
 C2AC98_RunRandomDamageAndStatusItemActionCluster_LAC98:
     rtl
-C2AC99_RunStatusItemActionStatus2:
+BTLACT_PRAY_AROMA:
+C2AC99_RunStatusItemActionStatus2 = BTLACT_PRAY_AROMA
     rep #$31
     phd
     tdc
@@ -528,7 +549,8 @@ C2ACCA_RunRandomDamageAndStatusItemActionCluster_LACCA:
 C2ACD8_RunRandomDamageAndStatusItemActionCluster_LACD8:
     pld
     rtl
-C2ACDA_RunStatusItemActionStatus3:
+BTLACT_PRAY_RENDING_SOUND:
+C2ACDA_RunStatusItemActionStatus3 = BTLACT_PRAY_RENDING_SOUND
     rep #$31
     phd
     tdc
@@ -558,7 +580,8 @@ C2AD0B_RunRandomDamageAndStatusItemActionCluster_LAD0B:
 C2AD19_RunRandomDamageAndStatusItemActionCluster_LAD19:
     pld
     rtl
-C2AD1B_RunRandomItemSideEffectDispatcher:
+BTLACT_PRAY:
+C2AD1B_RunRandomItemSideEffectDispatcher = BTLACT_PRAY
     rep #$31
     phd
     tdc

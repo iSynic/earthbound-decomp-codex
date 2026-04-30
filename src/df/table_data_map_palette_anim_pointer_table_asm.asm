@@ -13,4 +13,4 @@
 ; DF:EC46
 
 ; TablePaletteAnimPointerTableEnd
-DFEC46_TablePaletteAnimPointerTableEnd:
+DFEC46_TablePaletteAnimPointerTableEnd = MAP_DATA_PALETTE_ANIM_ENTRY_NONE

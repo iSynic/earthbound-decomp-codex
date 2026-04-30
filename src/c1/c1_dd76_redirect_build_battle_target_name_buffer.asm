@@ -16,7 +16,8 @@ C1ACA1_BuildBattleTargetNameBuffer = $ACA1
 ; ---------------------------------------------------------------------------
 ; C1:DD76
 
-C1DD76_RedirectBuildBattleTargetNameBuffer:
+REDIRECT_C1ACA1:
+C1DD76_RedirectBuildBattleTargetNameBuffer = REDIRECT_C1ACA1
     rep #$31
     jsr C1ACA1_BuildBattleTargetNameBuffer
     rtl

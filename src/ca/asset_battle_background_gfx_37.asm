@@ -13,4 +13,4 @@
 ; CA:7F6C
 
 ; AssetBattleBackgroundGfx37End
-CA7F6C_AssetBattleBackgroundGfx37End:
+CA7F6C_AssetBattleBackgroundGfx37End = BATTLE_BACKGROUND_GFX_43

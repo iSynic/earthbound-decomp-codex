@@ -13,4 +13,4 @@
 ; E1:CDE1
 
 ; AssetUnknownE1c6e5End
-E1CDE1_AssetUnknownE1c6e5End:
+E1CDE1_AssetUnknownE1c6e5End = TITLE_SCREEN_PALETTE

@@ -20,7 +20,8 @@ LoadYourSanctuaryLocation              = $C4E281
 ; ---------------------------------------------------------------------------
 ; C4:E2D7
 
-C4E2D7_DisplayYourSanctuaryLocation:
+DISPLAY_YOUR_SANCTUARY_LOCATION:
+C4E2D7_DisplayYourSanctuaryLocation = DISPLAY_YOUR_SANCTUARY_LOCATION
     rep #$31
     phd
     pha

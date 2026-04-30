@@ -13,4 +13,4 @@
 ; CE:6914
 
 ; AssetBattleSpritesPalettes31PalEnd
-CE6914_AssetBattleSpritesPalettes31PalEnd:
+CE6914_AssetBattleSpritesPalettes31PalEnd = SWIRL_DATA

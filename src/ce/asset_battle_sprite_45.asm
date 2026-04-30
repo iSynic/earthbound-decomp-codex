@@ -13,4 +13,4 @@
 ; CE:3DB9
 
 ; AssetBattleSprite45End
-CE3DB9_AssetBattleSprite45End:
+CE3DB9_AssetBattleSprite45End = BATTLE_SPRITE_20

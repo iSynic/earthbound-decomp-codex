@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource = $C08616
+PREPARE_VRAM_COPY = $C08616
 C08EFC_CommitTileBufferToStaging      = $C08EFC
 
 ; ---------------------------------------------------------------------------
@@ -64,7 +64,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -76,7 +76,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     rti
     brk #$E2
     jsr $00A9
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -89,7 +89,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -100,7 +100,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     jml $40A2A8
     brk #$E2
     jsr $00A9
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     pld
     rts
     rep #$31
@@ -148,7 +148,7 @@ C0125C_Upload_AuxiliaryMovementMapStrip_L125C:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -161,7 +161,7 @@ C0125C_Upload_AuxiliaryMovementMapStrip_L125C:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     bra C012EB_Upload_AuxiliaryMovementMapStrip_L12EB
 C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     lda $02
@@ -187,7 +187,7 @@ C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     ldx.w #$0040
     sep #$20
     lda.b #$1B
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -198,7 +198,7 @@ C012A1_Upload_AuxiliaryMovementMapStrip_L12A1:
     jml $40A2A8
     brk #$E2
     jsr $1BA9
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
 C012EB_Upload_AuxiliaryMovementMapStrip_L12EB:
     pld
     rts

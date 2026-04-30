@@ -13,4 +13,4 @@
 ; E1:5174
 
 ; AssetApePaletteEnd
-E15174_AssetApePaletteEnd:
+E15174_AssetApePaletteEnd = HALKEN_ARRANGEMENT

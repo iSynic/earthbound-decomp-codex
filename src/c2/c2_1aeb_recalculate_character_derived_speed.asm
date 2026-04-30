@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1AEB
 
-C21AEB_RecalculateCharacterDerivedSpeed:
+RECALC_CHARACTER_POSTMATH_SPEED:
+C21AEB_RecalculateCharacterDerivedSpeed = RECALC_CHARACTER_POSTMATH_SPEED
     rep #$31
     phd
     pha

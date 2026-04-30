@@ -13,4 +13,4 @@
 ; CE:CAB2
 
 ; AssetSwirlData109End
-CECAB2_AssetSwirlData109End:
+CECAB2_AssetSwirlData109End = SWIRL_DATA_110

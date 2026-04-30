@@ -16,7 +16,8 @@ C0886C_SetDisplayTransitionState = $C0886C
 ; ---------------------------------------------------------------------------
 ; C0:9FAE
 
-C09FAE_ActionScript_FadeInWrapper:
+ACTIONSCRIPT_FADE_IN:
+C09FAE_ActionScript_FadeInWrapper = ACTIONSCRIPT_FADE_IN
     lda [$80],Y
     iny
     iny

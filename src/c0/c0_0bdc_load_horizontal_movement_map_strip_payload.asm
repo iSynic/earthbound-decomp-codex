@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0BDC
 
-C00BDC_Load_HorizontalMovementMapStripPayload:
+LOAD_MAP_COLUMN:
+C00BDC_Load_HorizontalMovementMapStripPayload = LOAD_MAP_COLUMN
     rep #$31
     phd
     pha

@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:C6F0..C2:C8C8 C2C6F0_RunFinalPrayerFinaleOpeningSequence
+; - C2:C6F0..C2:C8C8 BTLACT_GIYGAS_PRAYER_9
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -17,7 +17,7 @@ C4FBBD_PlaySoundStoneMelody    = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C2:C6F0
 
-C2C6F0_RunFinalPrayerFinaleOpeningSequence:
+C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     rep #$31
     phd
     tdc

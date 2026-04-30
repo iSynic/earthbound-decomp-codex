@@ -16,7 +16,9 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B09
 
-C09B09_ScriptOp_InitCurrentTaskRecordDefaults:
+MOVEMENT_CODE_0F:
+C09B09_EntityScriptVarTablePointers_End = MOVEMENT_CODE_0F
+C09B09_ScriptOp_InitCurrentTaskRecordDefaults = MOVEMENT_CODE_0F
     ldx $88
     jsr $9DA1
     rts

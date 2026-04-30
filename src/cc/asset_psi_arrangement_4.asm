@@ -9,8 +9,11 @@
 ; Source units covered:
 ; - CC:F1E5..CC:F358 AssetPsiArrangement4
 
+PSI_ARRANGEMENT_4:
+CCF1E5_TablePsiAnimCfgEnd = PSI_ARRANGEMENT_4
+
 ; ---------------------------------------------------------------------------
 ; CC:F358
 
 ; AssetPsiArrangement4End
-CCF358_AssetPsiArrangement4End:
+CCF358_AssetPsiArrangement4End = PSI_ARRANGEMENT_10

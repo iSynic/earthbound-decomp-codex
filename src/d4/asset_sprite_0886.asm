@@ -13,4 +13,4 @@
 ; D4:A360
 
 ; AssetSprite0886End
-D4A360_AssetSprite0886End:
+D4A360_AssetSprite0886End = SPRITE_0887

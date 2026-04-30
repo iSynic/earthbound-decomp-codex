@@ -16,7 +16,11 @@
 ; ---------------------------------------------------------------------------
 ; EF:EB5F
 
-EFEB5F_AssetDebugMenuFont:
+DEBUG_MENU_FONT:
+EFEB5F_AssetDebugMenuFont = DEBUG_MENU_FONT
+EFEB5F_EfDebugCursorTilemapDataEnd = DEBUG_MENU_FONT
+EFEB5F_EfMapTextDebugPreservedCorridorEnd = DEBUG_MENU_FONT
+EFEB5F_TableEf00bbEnd = DEBUG_MENU_FONT
     ; data bytes: EF:EB5F..EF:EF70
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$30,$00,$30,$00,$00,$00,$00,$00,$00,$00,$30,$00,$30

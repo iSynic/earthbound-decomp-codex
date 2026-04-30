@@ -13,4 +13,4 @@
 ; CE:A8DC
 
 ; AssetSwirlData66End
-CEA8DC_AssetSwirlData66End:
+CEA8DC_AssetSwirlData66End = SWIRL_DATA_67

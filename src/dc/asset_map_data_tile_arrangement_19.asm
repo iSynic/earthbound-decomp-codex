@@ -13,4 +13,4 @@
 ; DC:B023
 
 ; AssetMapDataTileArrangement19End
-DCB023_AssetMapDataTileArrangement19End:
+DCB023_AssetMapDataTileArrangement19End = MAP_DATA_TILE_SET_GRAPHICS_14

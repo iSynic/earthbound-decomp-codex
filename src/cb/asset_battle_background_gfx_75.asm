@@ -13,4 +13,4 @@
 ; CB:D88E
 
 ; AssetBattleBackgroundGfx75End
-CBD88E_AssetBattleBackgroundGfx75End:
+CBD88E_AssetBattleBackgroundGfx75End = BATTLE_BACKGROUND_GFX_74

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8522
 
-C08522_Reset_FrameCallbackToDefault:
+RESET_IRQ_CALLBACK:
+C08522_Reset_FrameCallbackToDefault = RESET_IRQ_CALLBACK
     lda.w #$851B
     sta $0020
     rtl

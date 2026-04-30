@@ -44,7 +44,7 @@ C1F497_OpenOrRefreshTextSpeedSelection:
     bne C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5
     jmp.w C1F542_OpenOrRefreshTextSpeedSelection_LF542
 C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5:
-    jsl C1F3C2_OpenTextSpeedMenu
+    jsl OPEN_TEXT_SPEED_MENU
     lda $8958
     asl A
     tax
@@ -128,7 +128,8 @@ C1F563_OpenOrRefreshTextSpeedSelection_LF563:
     txa
     pld
     rtl
-C1F568_OpenSoundSettingMenu:
+OPEN_SOUND_MENU:
+C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     rep #$31
     phd
     tdc

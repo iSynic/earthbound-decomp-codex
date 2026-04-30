@@ -97,7 +97,7 @@ C46AAC_ComputeCurrentSlotSignDeltaTargetDirection:
     tax
     lda $0B8E,X
     ldx $10
-    jsl C45FA8_GetDirectionToCoordinateDelta
+    jsl GET_DIRECTION_TO
     pld
     rtl
 C46ADB_ComputeCurrentSlotTargetDirectionOctant:
@@ -255,7 +255,8 @@ C46BBB_SetCurrentSlotTargetToPoseDescriptorSlotPosition:
     sta $1002,Y
     pld
     rtl
-C46BE9_SetCurrentSlotTargetToRegistrySlotPosition:
+GET_POSITION_OF_PARTY_MEMBER:
+C46BE9_SetCurrentSlotTargetToRegistrySlotPosition = GET_POSITION_OF_PARTY_MEMBER
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; E0:1FB9
 
 ; AssetMrsaturnFontGfxEnd
-E01FB9_AssetMrsaturnFontGfxEnd:
+E01FB9_AssetMrsaturnFontGfxEnd = MOTHER2_ROMAJI_FONT

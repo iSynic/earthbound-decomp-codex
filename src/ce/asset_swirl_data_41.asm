@@ -13,4 +13,4 @@
 ; CE:9148
 
 ; AssetSwirlData41End
-CE9148_AssetSwirlData41End:
+CE9148_AssetSwirlData41End = SWIRL_DATA_42

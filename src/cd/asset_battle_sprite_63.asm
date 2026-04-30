@@ -13,4 +13,4 @@
 ; CD:B802
 
 ; AssetBattleSprite63End
-CDB802_AssetBattleSprite63End:
+CDB802_AssetBattleSprite63End = BATTLE_SPRITE_11

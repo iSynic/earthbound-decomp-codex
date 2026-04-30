@@ -13,4 +13,4 @@
 ; DA:9267
 
 ; AssetMapDataPalette8End
-DA9267_AssetMapDataPalette8End:
+DA9267_AssetMapDataPalette8End = MAP_DATA_PALETTE_9

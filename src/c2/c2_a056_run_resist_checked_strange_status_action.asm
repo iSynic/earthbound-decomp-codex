@@ -19,18 +19,21 @@ C27294_ApplyBattlerHpRecoveryFeedback         = $7294
 C27318_ApplyBattlerPpRecoveryFeedback         = $7318
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+EFMSG_StrangeInflicted                        = $6C3A
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:A056
 
-C2A056_RunResistCheckedStrangeStatusAction:
+BTLACT_BRAINSHOCK_A:
+C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
     ldx $A972
@@ -42,17 +45,18 @@ C2A056_RunResistCheckedStrangeStatusAction:
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
-    lda.w #$6C3A
+    ; Success/failure EF scripts both read the target-name battle text context.
+    lda.w #EFMSG_StrangeInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
 C2A097_RunResistCheckedStrangeStatusAction_LA097:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10
@@ -60,52 +64,59 @@ C2A097_RunResistCheckedStrangeStatusAction_LA097:
 C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5:
     pld
     rtl
-C2A0A7_RunStrangeStatusWrapperAction:
+REDIRECT_BTLACT_BRAINSHOCK_A_COPY:
+C2A0A7_RunStrangeStatusWrapperAction = REDIRECT_BTLACT_BRAINSHOCK_A_COPY
     rep #$31
-    jsl C2A056_RunResistCheckedStrangeStatusAction
+    jsl BTLACT_BRAINSHOCK_A
     rtl
-C2A0AE_RunHpRecovery1d4Action:
+BTLACT_HP_RECOVERY_1D4:
+C2A0AE_RunHpRecovery1d4Action = BTLACT_HP_RECOVERY_1D4
     rep #$31
     lda.w #$0004
     jsr C26A2D_RollRandomThreshold
     tax
     inx
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A0BF_RunHpRecovery50Action:
+BTLACT_HP_RECOVERY_50:
+C2A0BF_RunHpRecovery50Action = BTLACT_HP_RECOVERY_50
     rep #$31
     lda.w #$0032
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A0CF_RunHpRecovery200Action:
+BTLACT_HP_RECOVERY_200:
+C2A0CF_RunHpRecovery200Action = BTLACT_HP_RECOVERY_200
     rep #$31
     lda.w #$00C8
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A0DF_RunPpRecovery20Action:
+BTLACT_PP_RECOVERY_20:
+C2A0DF_RunPpRecovery20Action = BTLACT_PP_RECOVERY_20
     rep #$31
     lda.w #$0014
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27318_ApplyBattlerPpRecoveryFeedback
+    jsr RECOVER_PP
     rtl
-C2A0EF_RunPpRecovery80Action:
+BTLACT_PP_RECOVERY_80:
+C2A0EF_RunPpRecovery80Action = BTLACT_PP_RECOVERY_80
     rep #$31
     lda.w #$0050
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27318_ApplyBattlerPpRecoveryFeedback
+    jsr RECOVER_PP
     rtl
-C2A0FF_RunIqUp1d4Action:
+BTLACT_IQ_UP_1D4:
+C2A0FF_RunIqUp1d4Action = BTLACT_IQ_UP_1D4
     rep #$31
     phd
     tdc
@@ -141,10 +152,11 @@ C2A13D_RunResistCheckedStrangeStatusAction_LA13D:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     pld
     rtl
-C2A14B_RunGutsUp1d4Action:
+BTLACT_GUTS_UP_1D4:
+C2A14B_RunGutsUp1d4Action = BTLACT_GUTS_UP_1D4
     rep #$31
     phd
     tdc
@@ -178,10 +190,11 @@ C2A185_RunResistCheckedStrangeStatusAction_LA185:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     pld
     rtl
-C2A193_RunSpeedUp1d4Action:
+BTLACT_SPEED_UP_1D4:
+C2A193_RunSpeedUp1d4Action = BTLACT_SPEED_UP_1D4
     rep #$31
     phd
     tdc
@@ -215,10 +228,11 @@ C2A1CD_RunResistCheckedStrangeStatusAction_LA1CD:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     pld
     rtl
-C2A1DB_RunVitalityUp1d4Action:
+BTLACT_VITALITY_UP_1D4:
+C2A1DB_RunVitalityUp1d4Action = BTLACT_VITALITY_UP_1D4
     rep #$31
     phd
     tdc
@@ -254,10 +268,11 @@ C2A219_RunResistCheckedStrangeStatusAction_LA219:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     pld
     rtl
-C2A227_RunLuckUp1d4Action:
+BTLACT_LUCK_UP_1D4:
+C2A227_RunLuckUp1d4Action = BTLACT_LUCK_UP_1D4
     rep #$31
     phd
     tdc
@@ -291,18 +306,20 @@ C2A261_RunResistCheckedStrangeStatusAction_LA261:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     pld
     rtl
-C2A26F_RunHpRecovery300Action:
+BTLACT_HP_RECOVERY_300:
+C2A26F_RunHpRecovery300Action = BTLACT_HP_RECOVERY_300
     rep #$31
     lda.w #$012C
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A27F_RunRandomStatUp1d4Action:
+BTLACT_RANDOM_STAT_UP_1D4:
+C2A27F_RunRandomStatUp1d4Action = BTLACT_RANDOM_STAT_UP_1D4
     rep #$31
     phd
     tdc
@@ -364,7 +381,7 @@ C2A2F4_RunResistCheckedStrangeStatusAction_LA2F4:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A302_RunRandomStatUpOffenseBranch:
     lda.w #$0004
@@ -395,42 +412,45 @@ C2A334_RunResistCheckedStrangeStatusAction_LA334:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A342_RunRandomStatUpSpeedBranch:
-    jsl C2A193_RunSpeedUp1d4Action
+    jsl BTLACT_SPEED_UP_1D4
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A348_RunRandomStatUpGutsBranch:
-    jsl C2A14B_RunGutsUp1d4Action
+    jsl BTLACT_GUTS_UP_1D4
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A34E_RunRandomStatUpVitalityBranch:
-    jsl C2A1DB_RunVitalityUp1d4Action
+    jsl BTLACT_VITALITY_UP_1D4
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A354_RunRandomStatUpIqBranch:
-    jsl C2A0FF_RunIqUp1d4Action
+    jsl BTLACT_IQ_UP_1D4
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A35A_RunRandomStatUpLuckBranch:
-    jsl C2A227_RunLuckUp1d4Action
+    jsl BTLACT_LUCK_UP_1D4
 C2A35E_RunResistCheckedStrangeStatusAction_LA35E:
     pld
     rtl
-C2A360_RunHpRecovery10Action:
+BTLACT_HP_RECOVERY_10:
+C2A360_RunHpRecovery10Action = BTLACT_HP_RECOVERY_10
     rep #$31
     lda.w #$000A
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A370_RunHpRecovery100Action:
+BTLACT_HP_RECOVERY_100:
+C2A370_RunHpRecovery100Action = BTLACT_HP_RECOVERY_100
     rep #$31
     lda.w #$0064
     jsr C26AFD_RollDamageAmount
     tax
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     rtl
-C2A380_RunHpRecovery10000Or1d4FallbackAction:
+BTLACT_HP_RECOVERY_10000:
+C2A380_RunHpRecovery10000Or1d4FallbackAction = BTLACT_HP_RECOVERY_10000
     rep #$31
     ldx $A972
     lda $0000,X
@@ -438,9 +458,9 @@ C2A380_RunHpRecovery10000Or1d4FallbackAction:
     bne C2A398_RunResistCheckedStrangeStatusAction_LA398
     ldx.w #$2710
     lda $A972
-    jsr C27294_ApplyBattlerHpRecoveryFeedback
+    jsr RECOVER_HP
     bra C2A39C_RunResistCheckedStrangeStatusAction_LA39C
 C2A398_RunResistCheckedStrangeStatusAction_LA398:
-    jsl C2A0AE_RunHpRecovery1d4Action
+    jsl BTLACT_HP_RECOVERY_1D4
 C2A39C_RunResistCheckedStrangeStatusAction_LA39C:
     rtl

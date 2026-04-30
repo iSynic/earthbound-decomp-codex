@@ -13,4 +13,4 @@
 ; CA:D755
 
 ; AssetBattleBackgroundArr100End
-CAD755_AssetBattleBackgroundArr100End:
+CAD755_AssetBattleBackgroundArr100End = BATTLE_BACKGROUND_GFX_56

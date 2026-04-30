@@ -13,4 +13,4 @@
 ; CE:4FCC
 
 ; AssetBattleSprite1End
-CE4FCC_AssetBattleSprite1End:
+CE4FCC_AssetBattleSprite1End = BATTLE_SPRITE_47

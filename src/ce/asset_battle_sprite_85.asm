@@ -13,4 +13,4 @@
 ; CE:57BD
 
 ; AssetBattleSprite85End
-CE57BD_AssetBattleSprite85End:
+CE57BD_AssetBattleSprite85End = BATTLE_SPRITE_44

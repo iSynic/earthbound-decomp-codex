@@ -24,7 +24,8 @@ C46028_FindEntitySlotByCachedPoseDescriptorId    = $C46028
 ; ---------------------------------------------------------------------------
 ; C4:90EE
 
-C490EE_GetNearbyMagicTruffleDirection:
+GET_DISTANCE_TO_MAGIC_TRUFFLE:
+C490EE_GetNearbyMagicTruffleDirection = GET_DISTANCE_TO_MAGIC_TRUFFLE
     rep #$31
     phd
     tdc
@@ -167,7 +168,8 @@ C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9:
 C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC:
     pld
     rtl
-C491EE_ScaleColorComponentDeltaByStep:
+GET_COLOUR_FADE_SLOPE:
+C491EE_ScaleColorComponentDeltaByStep = GET_COLOUR_FADE_SLOPE
     rep #$31
     phd
     pha
@@ -184,7 +186,8 @@ C491EE_ScaleColorComponentDeltaByStep:
     jsl $C090E6
     pld
     rts
-C49208_BuildLandingInterpolationPlanesFrom7f7800:
+INITIALIZE_MAP_PALETTE_FADE:
+C49208_BuildLandingInterpolationPlanesFrom7f7800 = INITIALIZE_MAP_PALETTE_FADE
     rep #$31
     phd
     pha
@@ -216,7 +219,7 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     tax
     lda $10
     and.w #$001F
-    jsr.w C491EE_ScaleColorComponentDeltaByStep
+    jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
     sta $7F7900,X
     ldy $16
@@ -235,7 +238,7 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     lsr A
     lsr A
     lsr A
-    jsr.w C491EE_ScaleColorComponentDeltaByStep
+    jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
     sta $7F7A00,X
     ldy $16
@@ -250,7 +253,7 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     and.w #$7C00
     jsl C0915B_DivideUnsignedWordByY
     ldy $0E
-    jsr.w C491EE_ScaleColorComponentDeltaByStep
+    jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
     sta $7F7B00,X
     lda ($12)
@@ -458,7 +461,7 @@ C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C:
     jsl C08EED_CopyToVramOrRendererBuffer
     lda $01
     and.w #$00FF
-    jsl C49208_BuildLandingInterpolationPlanesFrom7f7800
+    jsl INITIALIZE_MAP_PALETTE_FADE
     lda.w #$0000
     sta $1A
     bra C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442

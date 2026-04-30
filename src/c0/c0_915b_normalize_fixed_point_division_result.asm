@@ -16,7 +16,8 @@ C0915B_DivideUnsignedWordByY = $C0915B
 ; ---------------------------------------------------------------------------
 ; C0:915B
 
-C0915B_NormalizeFixedPointDivisionResult:
+DIVISION16S_DIVISOR_POSITIVE:
+C0915B_NormalizeFixedPointDivisionResult = DIVISION16S_DIVISOR_POSITIVE
     sta $00B0
     sty $00B2
     lda.w #$0000
@@ -34,7 +35,8 @@ C09173_NormalizeFixedPointDivisionResult_L9173:
     lda $00B0
     rol A
     rtl
-C0917C_NormalizeFixedPointDivisionResult_L917C:
+DIVISION32S:
+C0917C_NormalizeFixedPointDivisionResult_L917C = DIVISION32S
     lda $08
     bpl C09191_NormalizeFixedPointDivisionResult_L9191
     eor.w #$FFFF
@@ -47,16 +49,17 @@ C0917C_NormalizeFixedPointDivisionResult_L917C:
     inc $08
 C09191_NormalizeFixedPointDivisionResult_L9191:
     lda $0C
-    bpl C091A6_NormalizeFixedPointDivisionResult_L91A6
+    bpl DIVISION32S_DIVISOR_POSITIVE
     eor.w #$FFFF
     sta $0C
     lda $0A
     eor.w #$FFFF
     inc A
     sta $0A
-    bne C091A6_NormalizeFixedPointDivisionResult_L91A6
+    bne DIVISION32S_DIVISOR_POSITIVE
     inc $0C
-C091A6_NormalizeFixedPointDivisionResult_L91A6:
+DIVISION32S_DIVISOR_POSITIVE:
+C091A6_NormalizeFixedPointDivisionResult_L91A6 = DIVISION32S_DIVISOR_POSITIVE
     lda $0A
     sta $00B0
     lda $0C
@@ -107,73 +110,84 @@ C09205_NormalizeFixedPointDivisionResult_L9205:
     rtl
     lda $08
     sta $00B4
-    jsl C0917C_NormalizeFixedPointDivisionResult_L917C
+    jsl DIVISION32S
     rol $00B4
-    bcc C09222_NormalizeFixedPointDivisionResult_L9222
+    bcc MODULUS32S_UNKNOWN0
     lda.w #$0000
     sbc $0A
     sta $06
     lda.w #$0000
     sbc $0C
-    bra C09228_NormalizeFixedPointDivisionResult_L9228
-C09222_NormalizeFixedPointDivisionResult_L9222:
+    bra MODULUS32S_UNKNOWN1
+MODULUS32S_UNKNOWN0:
+C09222_NormalizeFixedPointDivisionResult_L9222 = MODULUS32S_UNKNOWN0
     lda $0A
     sta $06
     lda $0C
-C09228_NormalizeFixedPointDivisionResult_L9228:
+MODULUS32S_UNKNOWN1:
+C09228_NormalizeFixedPointDivisionResult_L9228 = MODULUS32S_UNKNOWN1
     sta $08
     rtl
     jsl $C0912C
     tya
     rtl
-    jsl C0915B_NormalizeFixedPointDivisionResult
+    jsl DIVISION16S_DIVISOR_POSITIVE
     tya
     rtl
-    jsl C091A6_NormalizeFixedPointDivisionResult_L91A6
-    bra C09222_NormalizeFixedPointDivisionResult_L9222
-C0923D_NormalizeFixedPointDivisionResult_L923D:
+    jsl DIVISION32S_DIVISOR_POSITIVE
+    bra MODULUS32S_UNKNOWN0
+ASL16:
+C0923D_NormalizeFixedPointDivisionResult_L923D = ASL16
     asl A
     dey
-    bpl C0923D_NormalizeFixedPointDivisionResult_L923D
+    bpl ASL16
     rtl
-C09242_NormalizeFixedPointDivisionResult_L9242:
+ASL32:
+C09242_NormalizeFixedPointDivisionResult_L9242 = ASL32
     asl $06
     rol $08
     dey
-    bpl C09242_NormalizeFixedPointDivisionResult_L9242
+    bpl ASL32
     rtl
     cmp.w #$1000
     ora $30,S
     ora [$4A]
-C09251_NormalizeFixedPointDivisionResult_L9251:
+ASR8_UNKNOWN1:
+C09251_NormalizeFixedPointDivisionResult_L9251 = ASR8_UNKNOWN1
     dey
     db $10, $FC
     rtl
-C09255_NormalizeFixedPointDivisionResult_L9255:
+ASR8_UNKNOWN2:
+C09255_NormalizeFixedPointDivisionResult_L9255 = ASR8_UNKNOWN2
     sec
     ror A
-C09257_NormalizeFixedPointDivisionResult_L9257:
+ASR8_UNKNOWN3:
+C09257_NormalizeFixedPointDivisionResult_L9257 = ASR8_UNKNOWN3
     dey
-    bpl C09255_NormalizeFixedPointDivisionResult_L9255
+    bpl ASR8_UNKNOWN2
     rtl
     cmp.w #$0000
-    bpl C09251_NormalizeFixedPointDivisionResult_L9251
-    bmi C09257_NormalizeFixedPointDivisionResult_L9257
+    bpl ASR8_UNKNOWN1
+    bmi ASR8_UNKNOWN3
     lda $08
-    bpl C0926C_NormalizeFixedPointDivisionResult_L926C
-    bmi C09275_NormalizeFixedPointDivisionResult_L9275
-C09268_NormalizeFixedPointDivisionResult_L9268:
+    bpl ASR32_UNKNOWN1
+    bmi ASR32_UNKNOWN3
+ASR32_UNKNOWN0:
+C09268_NormalizeFixedPointDivisionResult_L9268 = ASR32_UNKNOWN0
     lsr $08
     ror $06
-C0926C_NormalizeFixedPointDivisionResult_L926C:
+ASR32_UNKNOWN1:
+C0926C_NormalizeFixedPointDivisionResult_L926C = ASR32_UNKNOWN1
     dey
-    bpl C09268_NormalizeFixedPointDivisionResult_L9268
+    bpl ASR32_UNKNOWN0
     rtl
-C09270_NormalizeFixedPointDivisionResult_L9270:
+ASR32_UNKNOWN2:
+C09270_NormalizeFixedPointDivisionResult_L9270 = ASR32_UNKNOWN2
     sec
     ror $08
     ror $06
-C09275_NormalizeFixedPointDivisionResult_L9275:
+ASR32_UNKNOWN3:
+C09275_NormalizeFixedPointDivisionResult_L9275 = ASR32_UNKNOWN3
     dey
-    bpl C09270_NormalizeFixedPointDivisionResult_L9270
+    bpl ASR32_UNKNOWN2
     rtl

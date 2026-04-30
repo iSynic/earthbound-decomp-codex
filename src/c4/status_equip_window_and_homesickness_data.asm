@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:5A27
 
-C45A27_StatusEquipWindowAndHomesicknessData:
+STATUS_EQUIP_WINDOW_TEXT:
+C45A27_StatusEquipWindowAndHomesicknessData = STATUS_EQUIP_WINDOW_TEXT
     ; data bytes: C4:5A27..C4:5C90
     db $07,$00,$60,$01,$61,$01,$62,$01,$63,$01,$64,$01,$65,$01,$66,$01
     db $67,$01,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$68,$01,$69,$01

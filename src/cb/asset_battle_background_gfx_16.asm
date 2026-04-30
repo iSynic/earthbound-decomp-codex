@@ -13,4 +13,4 @@
 ; CB:8028
 
 ; AssetBattleBackgroundGfx16End
-CB8028_AssetBattleBackgroundGfx16End:
+CB8028_AssetBattleBackgroundGfx16End = BATTLE_BACKGROUND_ARR_35

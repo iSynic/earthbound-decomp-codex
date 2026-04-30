@@ -18,13 +18,14 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:98A1
 
-C298A1_GateSelectedBattlerForRandomStatusAction:
+FLASH_IMMUNITY_TEST:
+C298A1_GateSelectedBattlerForRandomStatusAction = FLASH_IMMUNITY_TEST
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     beq C298B6_GateSelectedBattlerForRandomStatusAction_L98B6
     lda.w #$0000

@@ -22,7 +22,8 @@ C4249A_ApplyFixedColorMathFromMagnitude      = $C4249A
 ; ---------------------------------------------------------------------------
 ; C4:7370
 
-C47370_LoadBattleBgPresentationForMovementScript:
+LOAD_BACKGROUND_ANIMATION:
+C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
     rep #$31
     phd
     pha

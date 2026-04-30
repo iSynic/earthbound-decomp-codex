@@ -16,7 +16,8 @@ C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 ; ---------------------------------------------------------------------------
 ; C1:7274
 
-C17274_StageBankDepositAccumulatorTextValue:
+CC_1D_24:
+C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     rep #$31
     phd
     pha
@@ -52,7 +53,8 @@ C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7:
     lda.w #$0000
     pld
     rts
-C172BC_HandleTextCommand1F40:
+CC_1F_40:
+C172BC_HandleTextCommand1F40 = CC_1F_40
     rep #$31
     lda $97CA
     bne C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6
@@ -68,7 +70,8 @@ C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6:
     lda.w #$0000
 C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9:
     rts
-C172DA_HandleTextCommand1F41:
+CC_1F_41:
+C172DA_HandleTextCommand1F41 = CC_1F_41
     rep #$31
     phd
     pha
@@ -92,7 +95,8 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     lda.w #$0000
     pld
     rts
-C17304_HandleTextCommand1FD2:
+CC_1F_D2:
+C17304_HandleTextCommand1FD2 = CC_1F_D2
     rep #$31
     phd
     pha
@@ -113,7 +117,8 @@ C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda.w #$0000
     pld
     rts
-C17325_HandleTextCommand1FF3:
+CC_1F_F3:
+C17325_HandleTextCommand1FF3 = CC_1F_F3
     rep #$31
     phd
     pha
@@ -159,7 +164,8 @@ C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
     rts
-C1737D_HandleTextCommand1FF4:
+CC_1F_F4:
+C1737D_HandleTextCommand1FF4 = CC_1F_F4
     rep #$31
     phd
     pha
@@ -193,7 +199,8 @@ C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
     rts
-C173C0_StageBattleVisualEffectResultTextCommand:
+CC_1C_13:
+C173C0_StageBattleVisualEffectResultTextCommand = CC_1C_13
     rep #$31
     phd
     pha
@@ -245,7 +252,8 @@ C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
     pld
     rts
-C1741F_HandleTextCommand1F07:
+CC_1F_07:
+C1741F_HandleTextCommand1F07 = CC_1F_07
     rep #$31
     phd
     pha

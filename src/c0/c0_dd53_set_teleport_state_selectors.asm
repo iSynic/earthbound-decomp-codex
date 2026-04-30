@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:DD53
 
-C0DD53_SetTeleportStateSelectors:
+SET_TELEPORT_STATE:
+C0DD53_SetTeleportStateSelectors = SET_TELEPORT_STATE
     rep #$31
     phd
     pha

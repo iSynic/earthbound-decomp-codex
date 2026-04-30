@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A651
 
-C0A651_Script_SetDirectionClassAndField1A86:
+SET_DIRECTION8:
+C0A651_Script_SetDirectionClassAndField1A86 = SET_DIRECTION8
     jsl $C09D86
     sty $94
     jsl $C0A65F

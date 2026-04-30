@@ -13,4 +13,4 @@
 ; D0:C60D
 
 ; EnemyPlacementGroupsTableEnd
-D0C60D_EnemyPlacementGroupsTableEnd:
+D0C60D_EnemyPlacementGroupsTableEnd = BTL_ENTRY_PTR_TABLE

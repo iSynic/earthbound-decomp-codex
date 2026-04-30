@@ -131,7 +131,7 @@ C44D43_PlaceTextTilePairAtActiveCursor_WriteTopTile:
     sty $0E
     lda $0000,Y
     beq C44D6C_PlaceTextTilePairAtActiveCursor_SelectTopPalette
-    jsl C44E4D_ReleaseTextTileWordSafe
+    jsl FREE_TILE_SAFE
 C44D6C_PlaceTextTilePairAtActiveCursor_SelectTopPalette:
     lda $16
     cmp.w #$0022
@@ -159,7 +159,7 @@ C44D7A_PlaceTextTilePairAtActiveCursor_StoreTopTile:
     sty $16
     lda $0000,Y
     beq C44D9F_PlaceTextTilePairAtActiveCursor_WriteBottomTile
-    jsl C44E4D_ReleaseTextTileWordSafe
+    jsl FREE_TILE_SAFE
 C44D9F_PlaceTextTilePairAtActiveCursor_WriteBottomTile:
     lda $18
     cmp.w #$0022
@@ -257,13 +257,14 @@ C44E44_ClearGlyphVariantOffsetMirrors:
     stz $9654
     stz $9652
     rtl
-C44E4D_ReleaseTextTileWordSafe:
+FREE_TILE_SAFE:
+C44E4D_ReleaseTextTileWordSafe = FREE_TILE_SAFE
     rep #$31
     and.w #$03FF
     cmp.w #$0040
     beq C44E60_ReleaseTextTileWordSafe_Done
     cmp.w #$0000
     beq C44E60_ReleaseTextTileWordSafe_Done
-    jsl C44AF7_ReleaseTextTileBitsetSlotForTileWord
+    jsl FREE_TILE
 C44E60_ReleaseTextTileWordSafe_Done:
     rtl

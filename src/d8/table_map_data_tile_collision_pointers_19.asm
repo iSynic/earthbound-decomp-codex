@@ -13,4 +13,4 @@
 ; D8:F05E
 
 ; MapDataTileCollisionPointers19End
-D8F05E_MapDataTileCollisionPointers19End:
+D8F05E_MapDataTileCollisionPointers19End = ANTI_PIRACY_NOTICE_ARRANGEMENT

@@ -17,7 +17,8 @@ C4562F_EventFlagBitMaskTable = $C4562F
 ; ---------------------------------------------------------------------------
 ; C2:1628
 
-C21628_TestEventFlag:
+GET_EVENT_FLAG:
+C21628_TestEventFlag = GET_EVENT_FLAG
     rep #$31
     phd
     pha

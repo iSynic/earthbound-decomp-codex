@@ -13,4 +13,4 @@
 ; CC:760B
 
 ; AssetPsiArrangement23End
-CC760B_AssetPsiArrangement23End:
+CC760B_AssetPsiArrangement23End = PSI_ARRANGEMENT_18

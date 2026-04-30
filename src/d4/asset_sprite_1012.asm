@@ -13,4 +13,4 @@
 ; D4:F600
 
 ; AssetSprite1012End
-D4F600_AssetSprite1012End:
+D4F600_AssetSprite1012End = SPRITE_1013

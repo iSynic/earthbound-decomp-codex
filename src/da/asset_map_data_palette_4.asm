@@ -13,4 +13,4 @@
 ; DA:87E7
 
 ; AssetMapDataPalette4End
-DA87E7_AssetMapDataPalette4End:
+DA87E7_AssetMapDataPalette4End = MAP_DATA_PALETTE_5

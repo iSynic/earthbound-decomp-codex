@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0778
 
-C00778_Build_LandingActiveRowCache0300:
+LOAD_SPECIAL_SPRITE_PALETTE:
+C00778_Build_LandingActiveRowCache0300 = LOAD_SPECIAL_SPRITE_PALETTE
     rep #$31
     phd
     tdc

@@ -13,4 +13,4 @@
 ; CA:C4A1
 
 ; AssetBattleBackgroundArr38End
-CAC4A1_AssetBattleBackgroundArr38End:
+CAC4A1_AssetBattleBackgroundArr38End = BATTLE_BACKGROUND_ARR_39

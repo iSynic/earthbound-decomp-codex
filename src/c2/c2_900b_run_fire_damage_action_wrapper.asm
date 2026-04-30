@@ -17,7 +17,8 @@ C28125_ApplyTypedDamageToSelectedTarget = $8125
 ; ---------------------------------------------------------------------------
 ; C2:900B
 
-C2900B_RunFireDamageActionWrapper:
+BTLACT_350_FIRE_DAMAGE:
+C2900B_RunFireDamageActionWrapper = BTLACT_350_FIRE_DAMAGE
     rep #$31
     phd
     tdc

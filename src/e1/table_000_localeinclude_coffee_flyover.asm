@@ -13,4 +13,4 @@
 ; E1:0C7A
 
 ; TableLocaleincludeCoffeeEnd
-E10C7A_TableLocaleincludeCoffeeEnd:
+E10C7A_TableLocaleincludeCoffeeEnd = MAIN_FONT_DATA

@@ -13,4 +13,4 @@
 ; CD:6069
 
 ; AssetBattleSprite73End
-CD6069_AssetBattleSprite73End:
+CD6069_AssetBattleSprite73End = BATTLE_SPRITE_75

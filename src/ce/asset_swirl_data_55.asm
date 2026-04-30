@@ -13,4 +13,4 @@
 ; CE:9CFA
 
 ; AssetSwirlData55End
-CE9CFA_AssetSwirlData55End:
+CE9CFA_AssetSwirlData55End = SWIRL_DATA_56

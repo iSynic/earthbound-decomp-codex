@@ -17,7 +17,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:109F
 
-C2109F_RunHpPpRoller:
+HP_PP_ROLLER:
+C2109F_RunHpPpRoller = HP_PP_ROLLER
     rep #$31
     phd
     tdc

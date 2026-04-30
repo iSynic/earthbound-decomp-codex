@@ -75,7 +75,7 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldy.w #$97F5
     ldx.w #$000C
     lda.w #$0027
-    jsr C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     jmp.w C1EBE4_RunNamingBufferCommitFlow_LEBE4
@@ -116,7 +116,7 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldy $02
     ldx.w #$0018
     lda.w #$0027
-    jsr C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     ldx $02
@@ -151,7 +151,8 @@ C1EBE4_RunNamingBufferCommitFlow_LEBE4:
     tya
     pld
     rtl
-C1EC04_CommitNamingBufferFieldWithPreview:
+NAME_A_CHARACTER:
+C1EC04_CommitNamingBufferFieldWithPreview = NAME_A_CHARACTER
     rep #$31
     phd
     pha
@@ -199,14 +200,14 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     jsr C10EFC_PrintTextFromPointerLocal
     ldx.w #$0000
     lda.w #$0001
-    jsr C10166_RunTextHaltControlWorker
+    jsr CC_13_14
     stz $0E
     lda $14
     sta $10
     ldy $12
     ldx $02
     lda.w #$001A
-    jsr C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tax
     stx $14
     lda.w #$001C

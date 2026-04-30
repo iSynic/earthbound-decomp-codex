@@ -13,4 +13,4 @@
 ; CC:F58F
 
 ; AssetPsianimsPalettes33PalEnd
-CCF58F_AssetPsianimsPalettes33PalEnd:
+CCF58F_AssetPsianimsPalettes33PalEnd = PSI_ANIM_POINTERS

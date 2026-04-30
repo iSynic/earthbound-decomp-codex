@@ -16,5 +16,6 @@
 ; ---------------------------------------------------------------------------
 ; C0:8518
 
-C08518_Frame_CallbackDispatcher:
+EXECUTE_IRQ_CALLBACK:
+C08518_Frame_CallbackDispatcher = EXECUTE_IRQ_CALLBACK
     jmp ($0020)

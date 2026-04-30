@@ -13,4 +13,4 @@
 ; CD:883F
 
 ; AssetBattleSprite13End
-CD883F_AssetBattleSprite13End:
+CD883F_AssetBattleSprite13End = BATTLE_SPRITE_104

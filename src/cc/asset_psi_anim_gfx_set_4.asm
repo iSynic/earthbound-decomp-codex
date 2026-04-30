@@ -13,4 +13,4 @@
 ; CC:E56D
 
 ; AssetPsiAnimGfxSet4End
-CCE56D_AssetPsiAnimGfxSet4End:
+CCE56D_AssetPsiAnimGfxSet4End = PSI_ARRANGEMENT_16

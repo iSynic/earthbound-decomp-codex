@@ -15,17 +15,20 @@ C26BB8_BuildCandidateMaskPhase                = $6BB8
 C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+EFMSG_CryingInflicted                         = $6BBB
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:8C69
 
-C28C69_RunCryingStatusAction:
+BTLACT_CRYING:
+C28C69_RunCryingStatusAction = BTLACT_CRYING
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28CB6_RunCryingStatusAction_L8CB6
     ldx $A972
@@ -37,17 +40,18 @@ C28C69_RunCryingStatusAction:
     ldy.w #$0002
     tyx
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28CA8_RunCryingStatusAction_L8CA8
-    lda.w #$6BBB
+    ; Success/failure EF scripts both read the target-name battle text context.
+    lda.w #EFMSG_CryingInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28CB6_RunCryingStatusAction_L8CB6
 C28CA8_RunCryingStatusAction_L8CA8:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

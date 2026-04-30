@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1BA4
 
-C21BA4_RecalculateCharacterDerivedGuts:
+RECALC_CHARACTER_POSTMATH_GUTS:
+C21BA4_RecalculateCharacterDerivedGuts = RECALC_CHARACTER_POSTMATH_GUTS
     rep #$31
     phd
     pha

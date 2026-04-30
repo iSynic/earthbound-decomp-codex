@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0AA1
 
-C00AA1_LookupPositionCellContextWord:
+LOAD_SECTOR_ATTRS:
+C00AA1_LookupPositionCellContextWord = LOAD_SECTOR_ATTRS
     rep #$31
     phd
     pha

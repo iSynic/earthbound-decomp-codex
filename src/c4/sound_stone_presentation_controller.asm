@@ -54,7 +54,9 @@ SOUND_STONE_PRESENTATION_SANCTUARY_EVENT_TABLE = $C4ACC6
 ; ---------------------------------------------------------------------------
 ; C4:ACCE
 
-C4ACCE_RunSoundStonePresentationSequence:
+USE_SOUND_STONE:
+C4ACCE_RunSoundStonePresentationSequence = USE_SOUND_STONE
+C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     rep #$31
     phd
     pha

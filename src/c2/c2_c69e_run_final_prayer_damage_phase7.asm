@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:C69E..C2:C6D0 C2C69E_RunFinalPrayerDamagePhase7
+; - C2:C69E..C2:C6D0 BTLACT_GIYGAS_PRAYER_7
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:C69E
 
-C2C69E_RunFinalPrayerDamagePhase7:
+BTLACT_GIYGAS_PRAYER_7:
+C2C69E_RunFinalPrayerDamagePhase7 = BTLACT_GIYGAS_PRAYER_7
     rep #$31
     phd
     tdc

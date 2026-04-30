@@ -13,4 +13,4 @@
 ; CB:ABF5
 
 ; AssetBattleBackgroundGfx54End
-CBABF5_AssetBattleBackgroundGfx54End:
+CBABF5_AssetBattleBackgroundGfx54End = BATTLE_BACKGROUND_GFX_99

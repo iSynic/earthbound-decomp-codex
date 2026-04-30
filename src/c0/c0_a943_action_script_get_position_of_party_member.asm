@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A943
 
-C0A943_ActionScript_GetPositionOfPartyMember:
+ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER:
+C0A943_ActionScript_GetPositionOfPartyMember = ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER
     jsl $C09D86
     sty $94
     jsl $C46BE9

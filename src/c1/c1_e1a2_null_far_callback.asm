@@ -36,10 +36,12 @@ C438A5_SetTextPosition                     = $C438A5
 ; ---------------------------------------------------------------------------
 ; C1:E1A2
 
-C1E1A2_NullFarCallback:
+NULL_C1E1A2:
+C1E1A2_NullFarCallback = NULL_C1E1A2
     rep #$31
     rtl
-C1E1A5_RunEnemySelectMode:
+ENEMY_SELECT_MODE:
+C1E1A5_RunEnemySelectMode = ENEMY_SELECT_MODE
     rep #$31
     phd
     pha
@@ -100,7 +102,7 @@ C1E216_NullFarCallback_LE216:
 C1E21F_NullFarCallback_LE21F:
     lda.w #$0030
 C1E222_NullFarCallback_LE222:
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx $16
     dex
     stx $16
@@ -127,7 +129,7 @@ C1E23F_NullFarCallback_LE23F:
     adc $02
     iny
     sty $18
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx $16
     dex
     stx $16
@@ -402,7 +404,7 @@ C1E460_NullFarCallback_LE460:
 C1E47F_ExitEnemySelectMode:
     lda.w #$000E
     jsr C1007E_SetActiveWindowId
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $16
     txa
     pld

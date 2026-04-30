@@ -17,7 +17,8 @@ C08FF7_ResolveIndexedPointerOffset        = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:032B
 
-C2032B_WriteWindowTitleAndUpload:
+SET_WINDOW_TITLE:
+C2032B_WriteWindowTitleAndUpload = SET_WINDOW_TITLE
     rep #$31
     phd
     pha

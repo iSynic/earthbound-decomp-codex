@@ -13,4 +13,4 @@
 ; CC:ED0E
 
 ; AssetPsiArrangement14End
-CCED0E_AssetPsiArrangement14End:
+CCED0E_AssetPsiArrangement14End = PSI_ARRANGEMENT_32

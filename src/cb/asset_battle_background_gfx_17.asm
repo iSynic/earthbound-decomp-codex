@@ -13,4 +13,4 @@
 ; CB:A200
 
 ; AssetBattleBackgroundGfx17End
-CBA200_AssetBattleBackgroundGfx17End:
+CBA200_AssetBattleBackgroundGfx17End = BATTLE_BACKGROUND_ARR_15

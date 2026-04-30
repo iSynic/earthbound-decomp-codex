@@ -13,4 +13,4 @@
 ; DA:E127
 
 ; AssetMapDataPalette25End
-DAE127_AssetMapDataPalette25End:
+DAE127_AssetMapDataPalette25End = MAP_DATA_PALETTE_26

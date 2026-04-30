@@ -18,20 +18,21 @@ C1DC66_DisplayBattleTextWithNumber            = $C1DC66
 ; ---------------------------------------------------------------------------
 ; C2:9254
 
-C29254_RunOdorOffenseReductionAction:
+BTLACT_REDUCEOFF:
+C29254_RunOdorOffenseReductionAction = BTLACT_REDUCEOFF
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29296_RunOdorOffenseReductionAction_L9296
     ldx $A972
     ldy $0026,X
     sty $16
     lda $A972
-    jsr C27DDC_ApplyBoundedOffenseDecrease
+    jsr HEXADECIMATE_OFFENSE
     lda.w #$F885
     sta $0E
     lda.w #$00C8

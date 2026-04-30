@@ -209,10 +209,10 @@ EFE2DA_DebugMenuRuntimeAndMapViewHelpers_LE2DA:
     beq EFE2F2_DebugMenuRuntimeAndMapViewHelpers_LE2F2
     bra EFE2F5_DebugMenuRuntimeAndMapViewHelpers_LE2F5
 EFE2ED_DebugMenuRuntimeAndMapViewHelpers_LE2ED:
-    jsr EFDE1A_DrawDebugViewCharacterOverlay
+    jsr DISPLAY_VIEW_CHARACTER_DEBUG_OVERLAY
     bra EFE2F5_DebugMenuRuntimeAndMapViewHelpers_LE2F5
 EFE2F2_DebugMenuRuntimeAndMapViewHelpers_LE2F2:
-    jsr EFDCBC_DrawDebugCheckPositionOverlay
+    jsr DISPLAY_CHECK_POSITION_DEBUG_OVERLAY
 EFE2F5_DebugMenuRuntimeAndMapViewHelpers_LE2F5:
     lda $006D
     and.w #$0080
@@ -479,7 +479,8 @@ EFE545_DebugMenuRuntimeAndMapViewHelpers_LE545:
 EFE554_DebugMenuRuntimeAndMapViewHelpers_LE554:
     pld
     rts
-EFE556_LoadDebugCursorGraphics:
+LOAD_DEBUG_CURSOR_GRAPHICS:
+EFE556_LoadDebugCursorGraphics = LOAD_DEBUG_CURSOR_GRAPHICS
     rep #$31
     phd
     tdc
@@ -496,7 +497,8 @@ EFE556_LoadDebugCursorGraphics:
     jsl C08616_QueueVramTransfer_FromDpSource
     pld
     rtl
-EFE578_HandleDebugCursorMovement:
+DEBUG_HANDLE_CURSOR_MOVEMENT:
+EFE578_HandleDebugCursorMovement = DEBUG_HANDLE_CURSOR_MOVEMENT
     rep #$31
     phd
     tdc
@@ -543,7 +545,8 @@ EFE5B1_DebugMenuRuntimeAndMapViewHelpers_LE5B1:
     sta $B557
     pld
     rts
-EFE5D3_ProcessDebugCommandSelection:
+DEBUG_PROCESS_COMMAND_SELECTION:
+EFE5D3_ProcessDebugCommandSelection = DEBUG_PROCESS_COMMAND_SELECTION
     rep #$31
     lda $B557
     bne EFE5DD_DebugMenuRuntimeAndMapViewHelpers_LE5DD
@@ -613,13 +616,14 @@ EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C:
     stz $B559
     jsl C0927C_PollOrRefreshInputState
     jsr EFDA05_LoadDebugMenuGraphics
-    jsr EFDB21_DrawDebugMenuOptionRows
+    jsr DEBUG_DISPLAY_MENU_OPTIONS
     ldx.w #$0001
     txa
     jsl C0886C_SetDisplayTransitionState
 EFE688_DebugMenuRuntimeAndMapViewHelpers_LE688:
     rts
-EFE689_LoadDebugMenu:
+DEBUG_MENU_LOAD:
+EFE689_LoadDebugMenu = DEBUG_MENU_LOAD
     rep #$31
     lda.w #$0080
     sta $B561
@@ -631,14 +635,14 @@ EFE689_LoadDebugMenu:
     sta $9E54
     jsl C0927C_PollOrRefreshInputState
     jsr EFDA05_LoadDebugMenuGraphics
-    jsr EFDB21_DrawDebugMenuOptionRows
+    jsr DEBUG_DISPLAY_MENU_OPTIONS
     ldx.w #$0001
     lda.w #$0004
     jsl C0886C_SetDisplayTransitionState
 EFE6B7_DebugMenuRuntimeAndMapViewHelpers_LE6B7:
     jsl C088B1_ResetRendererFrameState
-    jsr.w EFE578_HandleDebugCursorMovement
-    jsr.w EFE5D3_ProcessDebugCommandSelection
+    jsr.w DEBUG_HANDLE_CURSOR_MOVEMENT
+    jsr.w DEBUG_PROCESS_COMMAND_SELECTION
     jsl C09466_RefreshActiveEntitySpriteState
     jsl C08B26_FlushQueuedSpriteOrTileWork
     jsl C08756_WaitOneFrameAndPollInput
@@ -708,7 +712,8 @@ EFE742_DebugMenuRuntimeAndMapViewHelpers_LE742:
     lda $0E
     pld
     rtl
-EFE746_CheckDebugViewCharacterMode:
+DEBUG_CHECK_VIEW_CHARACTER_MODE:
+EFE746_CheckDebugViewCharacterMode = DEBUG_CHECK_VIEW_CHARACTER_MODE
     rep #$31
     lda $B559
     cmp.w #$0002
@@ -732,7 +737,8 @@ EFE76D_DebugMenuRuntimeAndMapViewHelpers_LE76D:
     lda.w #$0000
 EFE770_DebugMenuRuntimeAndMapViewHelpers_LE770:
     rtl
-EFE771_LoadDebugInputPlaybackBuffers:
+SAVE_REPLAY_SAVE_SLOT:
+EFE771_LoadDebugInputPlaybackBuffers = SAVE_REPLAY_SAVE_SLOT
     rep #$31
     phd
     tdc
@@ -891,7 +897,8 @@ EFE895_SaveDebugCoordinateState:
 EFE8C5_DebugMenuRuntimeAndMapViewHelpers_LE8C5:
     pld
     rtl
-EFE8C7_RestoreDebugInputPlaybackAndCoordinates:
+LOAD_REPLAY_SAVE_SLOT:
+EFE8C7_RestoreDebugInputPlaybackAndCoordinates = LOAD_REPLAY_SAVE_SLOT
     rep #$31
     phd
     tdc
@@ -1058,14 +1065,14 @@ EFEA23_MaybeLoadDebugInputPlaybackView:
     beq EFEA49_DebugMenuRuntimeAndMapViewHelpers_LEA49
     lda $B567
     beq EFEA45_DebugMenuRuntimeAndMapViewHelpers_LEA45
-    jsl EFE8C7_RestoreDebugInputPlaybackAndCoordinates
+    jsl LOAD_REPLAY_SAVE_SLOT
     lda $9877
     sta $B569
     lda $987B
     sta $B56B
     bra EFEA49_DebugMenuRuntimeAndMapViewHelpers_LEA49
 EFEA45_DebugMenuRuntimeAndMapViewHelpers_LEA45:
-    jsl EFE771_LoadDebugInputPlaybackBuffers
+    jsl SAVE_REPLAY_SAVE_SLOT
 EFEA49_DebugMenuRuntimeAndMapViewHelpers_LEA49:
     rtl
 EFEA4A_EnterDebugInputPlaybackView:
@@ -1079,7 +1086,7 @@ EFEA4A_EnterDebugInputPlaybackView:
     beq EFEA9C_DebugMenuRuntimeAndMapViewHelpers_LEA9C
     lda.w #$0001
     sta $B567
-    jsl EFE8C7_RestoreDebugInputPlaybackAndCoordinates
+    jsl LOAD_REPLAY_SAVE_SLOT
     lda $9877
     sta $04
     lda $987B

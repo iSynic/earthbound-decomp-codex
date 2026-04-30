@@ -25,7 +25,8 @@ C4800B_RestoreWorldDisplayState      = $C4800B
 ; ---------------------------------------------------------------------------
 ; C4:D681
 
-C4D681_DisplayCurrentPositionTownMap:
+DISPLAY_TOWN_MAP:
+C4D681_DisplayCurrentPositionTownMap = DISPLAY_TOWN_MAP
     rep #$31
     phd
     tdc

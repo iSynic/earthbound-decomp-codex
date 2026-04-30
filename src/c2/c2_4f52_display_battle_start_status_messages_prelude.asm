@@ -28,7 +28,7 @@ C24F54_DisplayBattleStartStatusMessagesPrelude_L4F54:
     clc
     adc.w #$A21C
     sta $A972
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     ldx $A972
     lda $001F,X
     and.w #$00FF

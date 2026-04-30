@@ -120,7 +120,7 @@ C1AAFA_RunTeleportDestinationSelectionMenu:
     lda.w #$9C8A
     jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0005
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C87
     sta $0E
     lda.w #$00C4

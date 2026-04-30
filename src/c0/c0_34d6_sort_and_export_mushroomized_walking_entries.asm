@@ -17,7 +17,8 @@ C47F87_RefreshWindowFlavorPalette  = $C47F87
 ; ---------------------------------------------------------------------------
 ; C0:34D6
 
-C034D6_SortAndExport_MushroomizedWalkingEntries:
+UPDATE_PARTY:
+C034D6_SortAndExport_MushroomizedWalkingEntries = UPDATE_PARTY
     rep #$31
     phd
     tdc

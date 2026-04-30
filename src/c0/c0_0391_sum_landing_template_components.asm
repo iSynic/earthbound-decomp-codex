@@ -16,7 +16,8 @@ C0915B_DivideUnsignedWordByY = $C0915B
 ; ---------------------------------------------------------------------------
 ; C0:0391
 
-C00391_Sum_LandingTemplateComponents:
+GET_COLOUR_AVERAGE:
+C00391_Sum_LandingTemplateComponents = GET_COLOUR_AVERAGE
     rep #$31
     phd
     pha

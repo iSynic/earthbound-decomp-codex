@@ -17,7 +17,9 @@ C09032_DivideUnsignedWordByIndex   = $C09032
 ; ---------------------------------------------------------------------------
 ; C4:599A
 
-C4599A_StoreRequiredExperienceRemainingForCharacter:
+GET_REQUIRED_EXP:
+C4599A_StoreRequiredExperienceRemainingForCharacter = GET_REQUIRED_EXP
+C4599A_TargetAndPhoneTextFragmentsEnd = GET_REQUIRED_EXP
     rep #$31
     phd
     pha

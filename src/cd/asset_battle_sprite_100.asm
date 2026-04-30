@@ -13,4 +13,4 @@
 ; CD:509D
 
 ; AssetBattleSprite100End
-CD509D_AssetBattleSprite100End:
+CD509D_AssetBattleSprite100End = BATTLE_SPRITE_96

@@ -13,4 +13,4 @@
 ; D3:FC00
 
 ; AssetSprite0689End
-D3FC00_AssetSprite0689End:
+D3FC00_AssetSprite0689End = SPRITE_0690

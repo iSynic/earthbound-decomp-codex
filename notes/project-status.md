@@ -12,6 +12,10 @@ before this becomes true human-readable source.
 - Every current bank scaffold is byte-equivalent against the expected ROM:
   `65536` protected bytes, `0` residual bytes, and validation status `OK` for
   each bank.
+- EB-M2 Listing v1 is integrated as a credited naming and module-boundary
+  reference through generated crosswalk manifests. Meaningful EB-M2 labels are
+  preferred only when they are exact-address and role-compatible; `UNKNOWN_*`
+  placeholders remain aliases when local names are stronger.
 - `notes/source-scaffold-status.md` is the dashboard for the full bank table.
 - `notes/readable-source-bank-closure.md` is the stricter dashboard for the
   completed readable-source closure phase: decoded asm versus preserved
@@ -37,6 +41,16 @@ the old opaque event/actionscript corridor with
 `src/c3/bank_c3_event_scripts_source_pilot.asar.asm` and validates
 byte-equivalent over all `11` protected C3 ranges with `0` mismatches in
 `notes/c3-byte-equivalence-validation.md`.
+
+The reviewed EB-M2 source-symbol promotion pass has adopted every currently
+ready exact-address, non-`UNKNOWN_*`, role-compatible EB-M2 label. Promoted
+labels use EB-M2 community names as primary source symbols, preserve the older
+address-prefixed local names as assembler aliases/equates, and validate
+byte-equivalent in the corresponding bank validation reports.
+The remaining `83` EB-M2/local conflicts are now grouped in
+`notes/eb-m2-needs-review-triage.md`; the first `CA`/`CC`/`CE` terminal-boundary
+batch was resolved as alias-preserving start labels with `0` byte-equivalence
+mismatches.
 
 The text-command VM now has a generated semantic manifest at
 `notes/text-command-semantics-manifest.md`. It joins the live C1 top-level and
@@ -139,6 +153,9 @@ Use these terms carefully:
   and pass byte-equivalence validation.
 - **Decoded source**: bytes have been converted into instruction-by-instruction
   assembly, table definitions, or typed data emitters.
+- **EB-M2 canonical**: a meaningful EB-M2 Listing v1 label has been accepted as
+  the public/source-facing name after exact-address and role-compatibility
+  review.
 - **Semantically understood**: decoded source has reliable names, comments,
   call/data evidence, and subsystem contracts.
 
@@ -159,6 +176,8 @@ script opcode, text command, or asset payload is semantically understood.
 Remaining work is mostly:
 
 - promoting local working names and comments into stable source-facing contracts
+- reviewing EB-M2 `keep-local` and `needs-review` cases before any further
+  promotion, starting with `notes/eb-m2-needs-review-triage.md`
 - turning table and WRAM contracts into typed source/data definitions
 - documenting event, action, and text bytecode VM semantics
 - making script/text assets reassembly-friendly

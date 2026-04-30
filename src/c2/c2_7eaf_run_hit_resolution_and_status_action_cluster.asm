@@ -17,7 +17,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:7EAF
 
-C27EAF_RunHitResolutionAndStatusActionCluster:
+CALC_DAMAGE:
+C27EAF_RunHitResolutionAndStatusActionCluster = CALC_DAMAGE
     rep #$31
     phd
     pha
@@ -295,7 +296,8 @@ C28120_RunHitResolutionAndStatusActionCluster_L8120:
 C28123_HitResolutionStatusActionReturn:
     pld
     rts
-C28125_RunHitResolutionStatusActionGate:
+CALC_RESIST_DAMAGE:
+C28125_RunHitResolutionStatusActionGate = CALC_RESIST_DAMAGE
     rep #$31
     phd
     pha
@@ -383,7 +385,7 @@ C281D6_RunHitResolutionAndStatusActionCluster_L81D6:
     rep #$10
     ldx $02
     lda $A972
-    jsr.w C27EAF_RunHitResolutionAndStatusActionCluster
+    jsr.w CALC_DAMAGE
     cmp.w #$0000
     beq C281F4_RunHitResolutionAndStatusActionCluster_L81F4
     ldx $A972
@@ -430,7 +432,7 @@ C28235_RunHitResolutionAndStatusActionCluster_L8235:
     jsr $7E8A
     ldx $02
     lda $A972
-    jsr.w C27EAF_RunHitResolutionAndStatusActionCluster
+    jsr.w CALC_DAMAGE
     ldx $A972
     lda $0011,X
     bne C2825D_RunHitResolutionAndStatusActionCluster_L825D
@@ -502,7 +504,8 @@ C282F4_RunHitResolutionAndStatusActionCluster_L82F4:
     lda $02
     pld
     rts
-C282F8_ComputeStatusActionHitOdds:
+MISS_CALC:
+C282F8_ComputeStatusActionHitOdds = MISS_CALC
     rep #$31
     phd
     pha
@@ -625,7 +628,8 @@ C283F3_RunHitResolutionAndStatusActionCluster_L83F3:
 C283F6_RunHitResolutionAndStatusActionCluster_L83F6:
     pld
     rts
-C283F8_TryEmitStatusActionHitFeedback:
+SMAAAASH:
+C283F8_TryEmitStatusActionHitFeedback = SMAAAASH
     rep #$31
     phd
     tdc
@@ -699,7 +703,7 @@ C28482_RunHitResolutionAndStatusActionCluster_L8482:
     sec
     sbc $0028,X
     ldx $12
-    jsr.w C28125_RunHitResolutionStatusActionGate
+    jsr.w CALC_RESIST_DAMAGE
     lda.w #$0001
     bra C284AB_RunHitResolutionAndStatusActionCluster_L84AB
 C284A8_RunHitResolutionAndStatusActionCluster_L84A8:
@@ -707,7 +711,8 @@ C284A8_RunHitResolutionAndStatusActionCluster_L84A8:
 C284AB_RunHitResolutionAndStatusActionCluster_L84AB:
     pld
     rts
-C284AD_CheckStatusActionTargetEligibility:
+DETERMINE_DODGE:
+C284AD_CheckStatusActionTargetEligibility = DETERMINE_DODGE
     rep #$31
     phd
     tdc
@@ -768,7 +773,8 @@ C2851E_RunHitResolutionAndStatusActionCluster_L851E:
 C28521_RunHitResolutionAndStatusActionCluster_L8521:
     pld
     rts
-C28523_ResolveStatusActionHitRoll:
+BTLACT_LEVEL_2_ATK:
+C28523_ResolveStatusActionHitRoll = BTLACT_LEVEL_2_ATK
     rep #$31
     phd
     tdc
@@ -807,10 +813,11 @@ C2855C_RunHitResolutionAndStatusActionCluster_L855C:
 C28561_RunHitResolutionAndStatusActionCluster_L8561:
     ldx.w #$00FF
     lda $0E
-    jsr.w C28125_RunHitResolutionStatusActionGate
+    jsr.w CALC_RESIST_DAMAGE
     pld
     rts
-C2856B_MaybeEmitStatusActionRecoveryText:
+HEAL_STRANGENESS:
+C2856B_MaybeEmitStatusActionRecoveryText = HEAL_STRANGENESS
     rep #$31
     phd
     tdc
@@ -836,24 +843,25 @@ C2856B_MaybeEmitStatusActionRecoveryText:
 C2859D_RunHitResolutionAndStatusActionCluster_L859D:
     pld
     rts
-C2859F_RunStatusActionModeA:
+BTLACT_BASH:
+C2859F_RunStatusActionModeA = BTLACT_BASH
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
     lda.w #$0000
-    jsr.w C282F8_ComputeStatusActionHitOdds
+    jsr.w MISS_CALC
     cmp.w #$0000
     bne C285D8_RunHitResolutionAndStatusActionCluster_L85D8
-    jsr.w C283F8_TryEmitStatusActionHitFeedback
+    jsr.w SMAAAASH
     cmp.w #$0000
     bne C285D8_RunHitResolutionAndStatusActionCluster_L85D8
-    jsr.w C284AD_CheckStatusActionTargetEligibility
+    jsr.w DETERMINE_DODGE
     cmp.w #$0000
     bne C285CA_RunHitResolutionAndStatusActionCluster_L85CA
-    jsr.w C28523_ResolveStatusActionHitRoll
-    jsr.w C2856B_MaybeEmitStatusActionRecoveryText
+    jsr.w BTLACT_LEVEL_2_ATK
+    jsr.w HEAL_STRANGENESS
     bra C285D8_RunHitResolutionAndStatusActionCluster_L85D8
 C285CA_RunHitResolutionAndStatusActionCluster_L85CA:
     lda.w #$7655
@@ -864,20 +872,21 @@ C285CA_RunHitResolutionAndStatusActionCluster_L85CA:
 C285D8_RunHitResolutionAndStatusActionCluster_L85D8:
     pld
     rtl
-C285DA_RunStatusActionModeB:
+BTLACT_LEVEL_4_ATK:
+C285DA_RunStatusActionModeB = BTLACT_LEVEL_4_ATK
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
     lda.w #$0000
-    jsr.w C282F8_ComputeStatusActionHitOdds
+    jsr.w MISS_CALC
     cmp.w #$0000
     bne C2864F_RunHitResolutionAndStatusActionCluster_L864F
-    jsr.w C283F8_TryEmitStatusActionHitFeedback
+    jsr.w SMAAAASH
     cmp.w #$0000
     bne C2864F_RunHitResolutionAndStatusActionCluster_L864F
-    jsr.w C284AD_CheckStatusActionTargetEligibility
+    jsr.w DETERMINE_DODGE
     cmp.w #$0000
     bne C28641_RunHitResolutionAndStatusActionCluster_L8641
     ldx $A970
@@ -914,8 +923,8 @@ C2862F_RunHitResolutionAndStatusActionCluster_L862F:
 C28634_RunHitResolutionAndStatusActionCluster_L8634:
     ldx.w #$00FF
     lda $12
-    jsr.w C28125_RunHitResolutionStatusActionGate
-    jsr.w C2856B_MaybeEmitStatusActionRecoveryText
+    jsr.w CALC_RESIST_DAMAGE
+    jsr.w HEAL_STRANGENESS
     bra C2864F_RunHitResolutionAndStatusActionCluster_L864F
 C28641_RunHitResolutionAndStatusActionCluster_L8641:
     lda.w #$7655
@@ -926,20 +935,21 @@ C28641_RunHitResolutionAndStatusActionCluster_L8641:
 C2864F_RunHitResolutionAndStatusActionCluster_L864F:
     pld
     rtl
-C28651_RunStatusActionModeC:
+BTLACT_LEVEL_3_ATK:
+C28651_RunStatusActionModeC = BTLACT_LEVEL_3_ATK
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
     lda.w #$0000
-    jsr.w C282F8_ComputeStatusActionHitOdds
+    jsr.w MISS_CALC
     cmp.w #$0000
     bne C286C9_RunHitResolutionAndStatusActionCluster_L86C9
-    jsr.w C283F8_TryEmitStatusActionHitFeedback
+    jsr.w SMAAAASH
     cmp.w #$0000
     bne C286C9_RunHitResolutionAndStatusActionCluster_L86C9
-    jsr.w C284AD_CheckStatusActionTargetEligibility
+    jsr.w DETERMINE_DODGE
     cmp.w #$0000
     bne C286BB_RunHitResolutionAndStatusActionCluster_L86BB
     ldx $A970
@@ -977,8 +987,8 @@ C286A9_RunHitResolutionAndStatusActionCluster_L86A9:
 C286AE_RunHitResolutionAndStatusActionCluster_L86AE:
     ldx.w #$00FF
     lda $12
-    jsr.w C28125_RunHitResolutionStatusActionGate
-    jsr.w C2856B_MaybeEmitStatusActionRecoveryText
+    jsr.w CALC_RESIST_DAMAGE
+    jsr.w HEAL_STRANGENESS
     bra C286C9_RunHitResolutionAndStatusActionCluster_L86C9
 C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
     lda.w #$7655
@@ -989,20 +999,21 @@ C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
 C286C9_RunHitResolutionAndStatusActionCluster_L86C9:
     pld
     rtl
-C286CB_RunStatusActionModeD:
+BTLACT_LEVEL_1_ATK:
+C286CB_RunStatusActionModeD = BTLACT_LEVEL_1_ATK
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
     lda.w #$0000
-    jsr.w C282F8_ComputeStatusActionHitOdds
+    jsr.w MISS_CALC
     cmp.w #$0000
     bne C2873E_RunHitResolutionAndStatusActionCluster_L873E
-    jsr.w C283F8_TryEmitStatusActionHitFeedback
+    jsr.w SMAAAASH
     cmp.w #$0000
     bne C2873E_RunHitResolutionAndStatusActionCluster_L873E
-    jsr.w C284AD_CheckStatusActionTargetEligibility
+    jsr.w DETERMINE_DODGE
     cmp.w #$0000
     bne C28730_RunHitResolutionAndStatusActionCluster_L8730
     ldx $A970
@@ -1037,8 +1048,8 @@ C2871E_RunHitResolutionAndStatusActionCluster_L871E:
 C28723_RunHitResolutionAndStatusActionCluster_L8723:
     ldx.w #$00FF
     lda $12
-    jsr.w C28125_RunHitResolutionStatusActionGate
-    jsr.w C2856B_MaybeEmitStatusActionRecoveryText
+    jsr.w CALC_RESIST_DAMAGE
+    jsr.w HEAL_STRANGENESS
     bra C2873E_RunHitResolutionAndStatusActionCluster_L873E
 C28730_RunHitResolutionAndStatusActionCluster_L8730:
     lda.w #$7655
@@ -1049,20 +1060,21 @@ C28730_RunHitResolutionAndStatusActionCluster_L8730:
 C2873E_RunHitResolutionAndStatusActionCluster_L873E:
     pld
     rtl
-C28740_RunStatusActionModeE:
+BTLACT_SHOOT:
+C28740_RunStatusActionModeE = BTLACT_SHOOT
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
     lda.w #$0001
-    jsr.w C282F8_ComputeStatusActionHitOdds
+    jsr.w MISS_CALC
     cmp.w #$0000
     bne C2876E_RunHitResolutionAndStatusActionCluster_L876E
-    jsr.w C284AD_CheckStatusActionTargetEligibility
+    jsr.w DETERMINE_DODGE
     cmp.w #$0000
     bne C28760_RunHitResolutionAndStatusActionCluster_L8760
-    jsr.w C28523_ResolveStatusActionHitRoll
+    jsr.w BTLACT_LEVEL_2_ATK
     bra C2876E_RunHitResolutionAndStatusActionCluster_L876E
 C28760_RunHitResolutionAndStatusActionCluster_L8760:
     lda.w #$763C
@@ -1073,7 +1085,8 @@ C28760_RunHitResolutionAndStatusActionCluster_L8760:
 C2876E_RunHitResolutionAndStatusActionCluster_L876E:
     pld
     rtl
-C28770_EmitStatusActionStatReadout:
+BTLACT_SPY:
+C28770_EmitStatusActionStatReadout = BTLACT_SPY
     rep #$31
     phd
     tdc
@@ -1194,10 +1207,12 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
 C28899_RunHitResolutionAndStatusActionCluster_L8899:
     pld
     rtl
-C2889B_StatusActionEmptyReturn:
+BTLACT_NULL:
+C2889B_StatusActionEmptyReturn = BTLACT_NULL
     rep #$31
     rtl
-C2889E_CheckStatusActionConditionGate:
+BTLACT_STEAL:
+C2889E_CheckStatusActionConditionGate = BTLACT_STEAL
     rep #$31
     ldx $A972
     lda $000E,X
@@ -1310,7 +1325,7 @@ C28986_RunHitResolutionAndStatusActionCluster_L8986:
     adc.w #$9FAC
     sta $A972
     jsl $C23D05
-    jsl C2859F_RunStatusActionModeA
+    jsl BTLACT_BASH
     ldy $14
     iny
     sty $14
@@ -1333,7 +1348,8 @@ C289AE_RunHitResolutionAndStatusActionCluster_L89AE:
     sta $A96E
     pld
     rtl
-C289CE_RunPoisonStatusAction:
+BTLACT_DIAMONDIZE:
+C289CE_RunPoisonStatusAction = BTLACT_DIAMONDIZE
     rep #$31
     phd
     tdc
@@ -1418,7 +1434,8 @@ C28A82_RunHitResolutionAndStatusActionCluster_L8A82:
 C28A90_RunHitResolutionAndStatusActionCluster_L8A90:
     pld
     rtl
-C28A92_RunNauseaStatusAction:
+BTLACT_PARALYZE:
+C28A92_RunNauseaStatusAction = BTLACT_PARALYZE
     rep #$31
     phd
     tdc
@@ -1457,7 +1474,8 @@ C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB:
 C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9:
     pld
     rtl
-C28AEB_RunColdStatusAction:
+BTLACT_NAUSEATE:
+C28AEB_RunColdStatusAction = BTLACT_NAUSEATE
     rep #$31
     phd
     tdc
@@ -1487,7 +1505,8 @@ C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C:
 C28B2A_RunHitResolutionAndStatusActionCluster_L8B2A:
     pld
     rtl
-C28B2C_RunSunStrokeStatusAction:
+BTLACT_POISON:
+C28B2C_RunSunStrokeStatusAction = BTLACT_POISON
     rep #$31
     phd
     tdc
@@ -1517,7 +1536,8 @@ C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D:
 C28B6B_RunHitResolutionAndStatusActionCluster_L8B6B:
     pld
     rtl
-C28B6D_RunCryingStatusAction:
+BTLACT_COLD:
+C28B6D_RunCryingStatusAction = BTLACT_COLD
     rep #$31
     phd
     tdc

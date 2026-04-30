@@ -17,7 +17,8 @@ CreditsDmaQueueWriteIndex = $B4F5
 ; ---------------------------------------------------------------------------
 ; C4:EFC4
 
-C4EFC4_EnqueueCreditsDma:
+ENQUEUE_CREDITS_DMA:
+C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
     rep #$31
     phd
     pha

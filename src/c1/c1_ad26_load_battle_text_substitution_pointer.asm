@@ -24,6 +24,7 @@ BattleTextSubstitutionPointerHi = $9D14
 C1AD26_LoadBattleTextSubstitutionPointer:
     rep #$31
     phd
+    ; Getter side for EF battle-text commands such as PRINT_ACTION_AMOUNT.
     tdc
     adc.w #$FFF2
     tcd

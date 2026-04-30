@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource     = $C08616
+PREPARE_VRAM_COPY     = $C08616
 C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 
 ; ---------------------------------------------------------------------------
@@ -44,7 +44,7 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$B000
     sep #$20
     tya
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.b #$7D
     lda $A90E85
     sbc ($00,X)
@@ -62,7 +62,7 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$1000
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.b #$E5
     dec $85
     asl $E1A9
@@ -81,6 +81,6 @@ C0EBE0_Load_TitleLogoGraphicsAndTilemap:
     ldx.w #$4000
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     pld
     rtl

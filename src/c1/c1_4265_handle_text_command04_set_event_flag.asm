@@ -16,7 +16,8 @@ C2165E_SetEventFlagOrState = $C2165E
 ; ---------------------------------------------------------------------------
 ; C1:4265
 
-C14265_HandleTextCommand04SetEventFlag:
+CC_04:
+C14265_HandleTextCommand04SetEventFlag = CC_04
     rep #$31
     phd
     pha

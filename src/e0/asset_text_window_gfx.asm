@@ -13,4 +13,4 @@
 ; E0:0754
 
 ; AssetTextWindowGfxEnd
-E00754_AssetTextWindowGfxEnd:
+E00754_AssetTextWindowGfxEnd = FLAVOURED_TEXT_GFX

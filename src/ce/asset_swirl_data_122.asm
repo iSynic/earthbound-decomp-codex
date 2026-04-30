@@ -13,4 +13,4 @@
 ; CE:DB3A
 
 ; AssetSwirlData122End
-CEDB3A_AssetSwirlData122End:
+CEDB3A_AssetSwirlData122End = SWIRL_DATA_123

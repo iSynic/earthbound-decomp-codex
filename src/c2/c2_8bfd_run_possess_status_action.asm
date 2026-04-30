@@ -19,13 +19,14 @@ C2B6EB_ApplyCandidateRecordPayload            = $C2B6EB
 ; ---------------------------------------------------------------------------
 ; C2:8BFD
 
-C28BFD_RunPossessStatusAction:
+BTLACT_POSSESS:
+C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28C65_RunPossessStatusAction_L8C65
     ldx $A972
@@ -35,7 +36,7 @@ C28BFD_RunPossessStatusAction:
     ldy.w #$0002
     ldx.w #$0001
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28C57_RunPossessStatusAction_L8C57
     lda.w #$6B98

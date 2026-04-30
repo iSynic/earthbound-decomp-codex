@@ -13,4 +13,4 @@
 ; CC:A6B9
 
 ; AssetPsiArrangement26End
-CCA6B9_AssetPsiArrangement26End:
+CCA6B9_AssetPsiArrangement26End = PSI_ARRANGEMENT_9

@@ -13,4 +13,4 @@
 ; DE:32C9
 
 ; AssetMapDataTileSetGraphics6End
-DE32C9_AssetMapDataTileSetGraphics6End:
+DE32C9_AssetMapDataTileSetGraphics6End = MAP_DATA_TILE_SET_GRAPHICS_7

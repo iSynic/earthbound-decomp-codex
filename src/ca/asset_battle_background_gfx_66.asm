@@ -13,4 +13,4 @@
 ; CA:BE1E
 
 ; AssetBattleBackgroundGfx66End
-CABE1E_AssetBattleBackgroundGfx66End:
+CABE1E_AssetBattleBackgroundGfx66End = BATTLE_BACKGROUND_ARR_38

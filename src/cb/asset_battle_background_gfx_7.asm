@@ -13,4 +13,4 @@
 ; CB:B4ED
 
 ; AssetBattleBackgroundGfx7End
-CBB4ED_AssetBattleBackgroundGfx7End:
+CBB4ED_AssetBattleBackgroundGfx7End = BATTLE_BACKGROUND_ARR_69

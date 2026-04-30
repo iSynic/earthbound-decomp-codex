@@ -13,4 +13,4 @@
 ; DE:F5EB
 
 ; AssetMapDataTileAnimationGfx17End
-DEF5EB_AssetMapDataTileAnimationGfx17End:
+DEF5EB_AssetMapDataTileAnimationGfx17End = MAP_DATA_TILE_ANIMATION_GFX_18

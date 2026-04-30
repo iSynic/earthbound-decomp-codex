@@ -13,4 +13,4 @@
 ; D4:E980
 
 ; AssetSprite0993End
-D4E980_AssetSprite0993End:
+D4E980_AssetSprite0993End = SPRITE_0994

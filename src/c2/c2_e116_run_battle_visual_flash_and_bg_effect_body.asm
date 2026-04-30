@@ -19,7 +19,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C2:E116
 
-C2E116_RunBattleVisualFlashAndBgEffectBody:
+SHOW_PSI_ANIMATION:
+C2E116_RunBattleVisualFlashAndBgEffectBody = SHOW_PSI_ANIMATION
     rep #$31
     phd
     pha

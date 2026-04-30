@@ -44,17 +44,20 @@ C10067_PumpTextWaitFrame_L0067:
 C10077_PumpTextWaitFrame_L0077:
     rtl
 
-C10078_GetWindowFocus:
+GET_WINDOW_FOCUS:
+C10078_GetWindowFocus = GET_WINDOW_FOCUS
     rep #$31
     lda ActiveWindowFocus
     rts
 
-C1007E_SetWindowFocus:
+SET_WINDOW_FOCUS:
+C1007E_SetWindowFocus = SET_WINDOW_FOCUS
     rep #$31
     sta ActiveWindowFocus
     rts
 
-C10084_CloseFocusWindow:
+CLOSE_FOCUS_WINDOW:
+C10084_CloseFocusWindow = CLOSE_FOCUS_WINDOW
     rep #$31
     lda ActiveWindowFocus
     jsl C3E521_CloseWindowById

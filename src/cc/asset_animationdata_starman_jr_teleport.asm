@@ -13,4 +13,4 @@
 ; CC:22D8
 
 ; AssetAnimationdataStarmanJrTeleportEnd
-CC22D8_AssetAnimationdataStarmanJrTeleportEnd:
+CC22D8_AssetAnimationdataStarmanJrTeleportEnd = ANIMATIONDATA_BOOM

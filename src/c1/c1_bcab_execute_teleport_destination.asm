@@ -38,7 +38,8 @@ C45F7B_CheckHomesicknessCandidate         = $C45F7B
 ; ---------------------------------------------------------------------------
 ; C1:BCAB
 
-C1BCAB_ExecuteTeleportDestination:
+TELEPORT:
+C1BCAB_ExecuteTeleportDestination = TELEPORT
     rep #$31
     phd
     pha
@@ -231,7 +232,8 @@ C1BE3C_ExecuteTeleportDestination_LBE3C:
     sta $5D98
     pld
     rts
-C1BE4D_AttemptHomesicknessResult:
+ATTEMPT_HOMESICKNESS:
+C1BE4D_AttemptHomesicknessResult = ATTEMPT_HOMESICKNESS
     rep #$31
     phd
     tdc
@@ -294,7 +296,8 @@ C1BEC1_ExecuteTeleportDestination_LBEC1:
 C1BEC4_ExecuteTeleportDestination_LBEC4:
     pld
     rts
-C1BEC6_RunGetOffBicycleMessageAndExit:
+GET_OFF_BICYCLE:
+C1BEC6_RunGetOffBicycleMessageAndExit = GET_OFF_BICYCLE
     rep #$31
     phd
     tdc
@@ -312,7 +315,7 @@ C1BEC6_RunGetOffBicycleMessageAndExit:
     lda.w #$00C7
     sta $10
     jsl C186B1_PrintTextFromPointer
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     jsl C12DD5_PollInputAndUpdateWindows
     jsl C03CFD_RestoreLeaderEntityFromBicycleMode
     pld

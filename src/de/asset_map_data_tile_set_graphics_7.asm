@@ -13,4 +13,4 @@
 ; DE:543F
 
 ; AssetMapDataTileSetGraphics7End
-DE543F_AssetMapDataTileSetGraphics7End:
+DE543F_AssetMapDataTileSetGraphics7End = MAP_DATA_TILE_SET_GRAPHICS_8

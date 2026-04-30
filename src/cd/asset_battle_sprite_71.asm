@@ -13,4 +13,4 @@
 ; CD:E37C
 
 ; AssetBattleSprite71End
-CDE37C_AssetBattleSprite71End:
+CDE37C_AssetBattleSprite71End = BATTLE_SPRITE_10

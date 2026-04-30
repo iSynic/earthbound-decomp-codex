@@ -21,7 +21,8 @@ C4FBBD_PlaySoundStoneMelody           = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C4:DAD2
 
-C4DAD2_InitIntroFileSelectStateDispatcher:
+INIT_INTRO:
+C4DAD2_InitIntroFileSelectStateDispatcher = INIT_INTRO
     rep #$31
     phd
     tdc

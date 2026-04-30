@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A8FF
 
-C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_PARTY_LEADER:
+C0A8FF_ActionScript_PrepareNewEntityAtPartyLeader = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_PARTY_LEADER
     lda.w #$0001
     jsl $C46DAD
     rtl

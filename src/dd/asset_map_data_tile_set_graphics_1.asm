@@ -13,4 +13,4 @@
 ; DD:5F17
 
 ; AssetMapDataTileSetGraphics1End
-DD5F17_AssetMapDataTileSetGraphics1End:
+DD5F17_AssetMapDataTileSetGraphics1End = MAP_DATA_TILE_SET_GRAPHICS_9

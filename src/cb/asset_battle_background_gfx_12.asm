@@ -13,4 +13,4 @@
 ; CB:D72E
 
 ; AssetBattleBackgroundGfx12End
-CBD72E_AssetBattleBackgroundGfx12End:
+CBD72E_AssetBattleBackgroundGfx12End = BATTLE_BACKGROUND_GFX_49

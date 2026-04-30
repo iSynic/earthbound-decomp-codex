@@ -16,7 +16,8 @@ C21628_CheckEventFlag = $C21628
 ; ---------------------------------------------------------------------------
 ; C0:062A
 
-C0062A_Load_LandingHdmaDispatchBlock:
+LOAD_TILE_COLLISION:
+C0062A_Load_LandingHdmaDispatchBlock = LOAD_TILE_COLLISION
     rep #$31
     phd
     pha
@@ -63,7 +64,8 @@ C00677_Load_LandingHdmaDispatchBlock_L0677:
     bcc C00666_Load_LandingHdmaDispatchBlock_L0666
     pld
     rts
-C0067E_Load_LandingHdmaDispatchBlock_L067E:
+REPLACE_BLOCK:
+C0067E_Load_LandingHdmaDispatchBlock_L067E = REPLACE_BLOCK
     rep #$31
     phd
     pha
@@ -183,7 +185,7 @@ C00749_Load_LandingHdmaDispatchBlock_L0749:
     lda [$06],Y
     tax
     lda [$06]
-    jsr.w C0067E_Load_LandingHdmaDispatchBlock_L067E
+    jsr.w REPLACE_BLOCK
     lda.w #$0004
     clc
     adc $06

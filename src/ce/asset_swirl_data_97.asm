@@ -13,4 +13,4 @@
 ; CE:CA34
 
 ; AssetSwirlData97End
-CECA34_AssetSwirlData97End:
+CECA34_AssetSwirlData97End = SWIRL_DATA_98

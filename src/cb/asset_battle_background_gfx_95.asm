@@ -13,4 +13,4 @@
 ; CB:CA2D
 
 ; AssetBattleBackgroundGfx95End
-CBCA2D_AssetBattleBackgroundGfx95End:
+CBCA2D_AssetBattleBackgroundGfx95End = BATTLE_BACKGROUND_GFX_26

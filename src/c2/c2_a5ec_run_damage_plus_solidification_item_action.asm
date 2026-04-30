@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:A5EC..C2:A630 C2A5EC_RunDamagePlusSolidificationItemAction
+; - C2:A5EC..C2:A630 BTLACT_HANDBAG_STRAP
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:A5EC
 
-C2A5EC_RunDamagePlusSolidificationItemAction:
+BTLACT_HANDBAG_STRAP:
+C2A5EC_RunDamagePlusSolidificationItemAction = BTLACT_HANDBAG_STRAP
     rep #$31
     phd
     tdc

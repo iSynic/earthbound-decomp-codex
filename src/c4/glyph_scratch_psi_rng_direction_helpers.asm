@@ -56,7 +56,8 @@ C45EC6_ResetGlyphScratchAndAdvanceUploadCursor_FinishReset:
 ; ---------------------------------------------------------------------------
 ; C4:5ECE
 
-C45ECE_CheckPartyMemberPsiKnown:
+CHECK_IF_PSI_KNOWN:
+C45ECE_CheckPartyMemberPsiKnown = CHECK_IF_PSI_KNOWN
     rep #$31
     phd
     pha
@@ -159,7 +160,8 @@ C45F79_CheckPartyMemberPsiKnown_Done:
 ; ---------------------------------------------------------------------------
 ; C4:5F7B
 
-C45F7B_GetRandomModuloInclusive:
+RAND_MOD:
+C45F7B_GetRandomModuloInclusive = RAND_MOD
     rep #$31
     phd
     pha
@@ -184,12 +186,14 @@ C45F7B_GetRandomModuloInclusive:
 ; ---------------------------------------------------------------------------
 ; C4:5F96
 
-C45F96_DirectionMatrix:
+DIRECTION_MATRIX:
+C45F96_DirectionMatrix = DIRECTION_MATRIX
     ; data bytes: C4:5F96..C4:5FA8
     db $07,$00,$00,$00,$01,$00,$06,$00,$00,$00,$02,$00,$05,$00,$04,$00
     db $03,$00
 
-C45FA8_GetDirectionToCoordinateDelta:
+GET_DIRECTION_TO:
+C45FA8_GetDirectionToCoordinateDelta = GET_DIRECTION_TO
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; DB:26C1
 
 ; AssetMapDataTileArrangement8End
-DB26C1_AssetMapDataTileArrangement8End:
+DB26C1_AssetMapDataTileArrangement8End = MAP_DATA_TILE_ARRANGEMENT_9

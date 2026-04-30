@@ -13,4 +13,4 @@
 ; CB:D80A
 
 ; AssetBattleBackgroundPalette58End
-CBD80A_AssetBattleBackgroundPalette58End:
+CBD80A_AssetBattleBackgroundPalette58End = BATTLE_BACKGROUND_PALETTE_57

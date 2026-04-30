@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BE4
 
-C09BE4_ScriptOp_InstallTaskCallback11E2:
+MOVEMENT_CODE_22:
+C09BE4_ScriptOp_InstallTaskCallback11E2 = MOVEMENT_CODE_22
     lda [$80],Y
     ldx $88
     sta $11E2,X

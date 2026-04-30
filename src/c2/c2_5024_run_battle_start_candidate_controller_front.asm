@@ -14,6 +14,8 @@
 C08E9A_GetRandom16                 = $C08E9A
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+D57B68_BattleActionTable           = $D57B68
 
 ; ---------------------------------------------------------------------------
 ; C2:5024
@@ -840,7 +842,7 @@ C256D6_RunBattleStartCandidateControllerFront_L56D6:
     tax
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0003
     beq C25765_RunBattleStartCandidateControllerFront_L5765
@@ -950,7 +952,7 @@ C257BF_RunBattleStartCandidateControllerFront_L57BF:
     tax
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0003
     bne C257FC_RunBattleStartCandidateControllerFront_L57FC
@@ -1080,7 +1082,7 @@ C258F5_RunBattleStartCandidateControllerFront_L58F5:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C2591B_RunBattleStartCandidateControllerFront_L591B:
     lda.w #$0014
@@ -1098,7 +1100,7 @@ C2591B_RunBattleStartCandidateControllerFront_L591B:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25941_RunBattleStartCandidateControllerFront_L5941:
     lda.w #$0004
@@ -1116,7 +1118,7 @@ C25941_RunBattleStartCandidateControllerFront_L5941:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25967_RunBattleStartCandidateControllerFront_L5967:
     lda.w #$0004
@@ -1134,7 +1136,7 @@ C25967_RunBattleStartCandidateControllerFront_L5967:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C2598B_RunBattleStartCandidateControllerFront_L598B:
     ldx $2F
     lda $A970
@@ -1189,7 +1191,7 @@ C259F0_RunBattleStartCandidateControllerFront_L59F0:
     asl A
     asl A
     tax
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     bne C25A4F_RunBattleStartCandidateControllerFront_L5A4F
     jsl $C2416F
@@ -1240,7 +1242,7 @@ C25A7B_RunBattleStartCandidateControllerFront_L5A7B:
     asl A
     tax
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     beq C25ABD_RunBattleStartCandidateControllerFront_L5ABD
     ldy.w #$0001

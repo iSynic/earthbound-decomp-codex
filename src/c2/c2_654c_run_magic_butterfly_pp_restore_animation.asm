@@ -646,12 +646,14 @@ C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     and.w #$00FF
     bne C269E2_RunMagicButterflyPpRestoreAnimation_L69E2
     rts
-C269EF_RunMagicButterflyPpRestoreAnimation_L69EF:
+RAND_LONG:
+C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = RAND_LONG
     rep #$31
     jsl C08E9A_GetRandom16
     sep #$20
     rts
-C269F8_RunMagicButterflyPpRestoreAnimation_L69F8:
+TRUNCATE_16_TO_8:
+C269F8_RunMagicButterflyPpRestoreAnimation_L69F8 = TRUNCATE_16_TO_8
     rep #$31
     phd
     pha
@@ -680,7 +682,8 @@ C269F8_RunMagicButterflyPpRestoreAnimation_L69F8:
     rep #$10
     pld
     rts
-C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D:
+RAND_LIMIT:
+C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = RAND_LIMIT
     rep #$31
     phd
     pha
@@ -690,9 +693,9 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D:
     pla
     tax
     stx $0E
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     ldx $0E
-    jsr.w C269F8_RunMagicButterflyPpRestoreAnimation_L69F8
+    jsr.w TRUNCATE_16_TO_8
     pld
     rts
     rep #$31
@@ -703,12 +706,12 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D:
     tcd
     pla
     sta $04
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     rep #$20
     and.w #$00FF
     sta $10
@@ -777,7 +780,7 @@ C26AC8_RunMagicButterflyPpRestoreAnimation_L6AC8:
     ldx $04
     tya
     sep #$20
-    jsr.w C269F8_RunMagicButterflyPpRestoreAnimation_L69F8
+    jsr.w TRUNCATE_16_TO_8
     sta $02
     lda $04
     sec
@@ -797,7 +800,7 @@ C26AE8_RunMagicButterflyPpRestoreAnimation_L6AE8:
     ldx $04
     tya
     sep #$20
-    jsr.w C269F8_RunMagicButterflyPpRestoreAnimation_L69F8
+    jsr.w TRUNCATE_16_TO_8
     sta $02
     lda $04
     clc
@@ -815,12 +818,12 @@ C26AF9_RunMagicButterflyPpRestoreAnimation_L6AF9:
     tcd
     pla
     sta $04
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     rep #$20
     and.w #$00FF
     sta $10
@@ -889,7 +892,7 @@ C26B81_RunMagicButterflyPpRestoreAnimation_L6B81:
     ldx $04
     tya
     sep #$20
-    jsr.w C269F8_RunMagicButterflyPpRestoreAnimation_L69F8
+    jsr.w TRUNCATE_16_TO_8
     lsr A
     sta $02
     lda $04
@@ -910,7 +913,7 @@ C26BA2_RunMagicButterflyPpRestoreAnimation_L6BA2:
     ldx $04
     tya
     sep #$20
-    jsr.w C269F8_RunMagicButterflyPpRestoreAnimation_L69F8
+    jsr.w TRUNCATE_16_TO_8
     lsr A
     sta $02
     lda $04
@@ -930,7 +933,7 @@ C26BB4_RunMagicButterflyPpRestoreAnimation_L6BB4:
     pla
     sep #$20
     sta $00
-    jsr.w C269EF_RunMagicButterflyPpRestoreAnimation_L69EF
+    jsr.w RAND_LONG
     cmp $00
     bcs C26BD4_RunMagicButterflyPpRestoreAnimation_L6BD4
     rep #$20
@@ -951,7 +954,7 @@ C26BD9_RunMagicButterflyPpRestoreAnimation_L6BD9:
     pla
     sta $02
     lda.w #$01F4
-    jsr.w C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D
+    jsr.w RAND_LIMIT
     cmp $02
     bcs C26BF6_RunMagicButterflyPpRestoreAnimation_L6BF6
     lda.w #$0001

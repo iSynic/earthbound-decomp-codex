@@ -13,4 +13,4 @@
 ; CA:B75B
 
 ; AssetBattleBackgroundArr37End
-CAB75B_AssetBattleBackgroundArr37End:
+CAB75B_AssetBattleBackgroundArr37End = BATTLE_BACKGROUND_GFX_66

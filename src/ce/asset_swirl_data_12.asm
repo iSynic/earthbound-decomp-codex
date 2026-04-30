@@ -13,4 +13,4 @@
 ; CE:7307
 
 ; AssetSwirlData12End
-CE7307_AssetSwirlData12End:
+CE7307_AssetSwirlData12End = SWIRL_DATA_13

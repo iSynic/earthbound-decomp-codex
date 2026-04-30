@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8616
 
-C08616_QueueVramTransfer_FromDpSource:
+PREPARE_VRAM_COPY:
+C08616_QueueVramTransfer_FromDpSource = PREPARE_VRAM_COPY
     rep #$30
     sta $0091
     stx $0092

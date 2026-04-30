@@ -38,7 +38,8 @@ NoActiveWindow = $FFFF
 ; ---------------------------------------------------------------------------
 ; C1:04B5
 
-C104B5_GetCurrentTextContextLineState:
+GET_TEXT_X:
+C104B5_GetCurrentTextContextLineState = GET_TEXT_X
     rep #$31
     lda ActiveWindowFocus
     cmp.w #NoActiveWindow
@@ -63,7 +64,8 @@ C104D7_ReturnActiveWindowCursorColumn:
 ; ---------------------------------------------------------------------------
 ; C1:04D8
 
-C104D8_GetCurrentTextContextRowState:
+GET_TEXT_Y:
+C104D8_GetCurrentTextContextRowState = GET_TEXT_Y
     rep #$31
     lda ActiveWindowFocus
     asl A
@@ -78,7 +80,8 @@ C104D8_GetCurrentTextContextRowState:
 ; ---------------------------------------------------------------------------
 ; C1:04EE
 
-C104EE_CreateOrBindWindowDescriptorAndContext:
+CREATE_WINDOW:
+C104EE_CreateOrBindWindowDescriptorAndContext = CREATE_WINDOW
     rep #$31
     phd
     pha

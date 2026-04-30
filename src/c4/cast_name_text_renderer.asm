@@ -21,7 +21,8 @@ FinalizeCastNameGlyphBufferMaybe     = $C4EEE1
 ; ---------------------------------------------------------------------------
 ; C4:E583
 
-C4E583_RenderCastNameText:
+RENDER_CAST_NAME_TEXT:
+C4E583_RenderCastNameText = RENDER_CAST_NAME_TEXT
     rep #$31
     phd
     pha

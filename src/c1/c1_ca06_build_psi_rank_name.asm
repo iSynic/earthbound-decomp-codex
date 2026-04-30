@@ -49,7 +49,7 @@ C1CA06_BuildPsiRankName:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     ldx $12
     txa
     inc A

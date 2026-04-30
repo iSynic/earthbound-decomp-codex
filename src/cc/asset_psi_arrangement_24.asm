@@ -13,4 +13,4 @@
 ; CC:E31D
 
 ; AssetPsiArrangement24End
-CCE31D_AssetPsiArrangement24End:
+CCE31D_AssetPsiArrangement24End = PSI_ANIM_GFX_SET_4

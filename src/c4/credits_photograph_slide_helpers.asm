@@ -21,7 +21,8 @@ ProcessCreditsDmaQueue              = $C4F01D
 ; ---------------------------------------------------------------------------
 ; C4:F46F
 
-C4F46F_SlideCreditsPhotograph:
+SLIDE_CREDITS_PHOTOGRAPH:
+C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     rep #$31
     phd
     pha

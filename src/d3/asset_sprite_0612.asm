@@ -13,4 +13,4 @@
 ; D3:C240
 
 ; AssetSprite0612End
-D3C240_AssetSprite0612End:
+D3C240_AssetSprite0612End = SPRITE_0613

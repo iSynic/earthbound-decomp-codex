@@ -13,4 +13,4 @@
 ; E1:18DA
 
 ; AssetMainFontGfxEnd
-E118DA_AssetMainFontGfxEnd:
+E118DA_AssetMainFontGfxEnd = BATTLE_FONT_DATA

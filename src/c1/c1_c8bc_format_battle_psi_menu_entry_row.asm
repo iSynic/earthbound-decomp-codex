@@ -148,7 +148,7 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     lda.w #$0008
     jsr C10EFC_PrintTextFromPointerLocal
     lda.w #$0050
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     lda.w #$0081
     jsr C10EB4_ClearOrPrepareWindowContent
     ldx.w #$0001

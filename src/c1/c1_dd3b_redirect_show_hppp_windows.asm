@@ -16,7 +16,8 @@ C100A04_ShowHpppWindows_Internal = $0A04
 ; ---------------------------------------------------------------------------
 ; C1:DD3B
 
-C1DD3B_RedirectShowHpppWindows:
+REDIRECT_SHOW_HPPP_WINDOWS:
+C1DD3B_RedirectShowHpppWindows = REDIRECT_SHOW_HPPP_WINDOWS
     rep #$31
     jsr C100A04_ShowHpppWindows_Internal
     rtl

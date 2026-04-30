@@ -23,12 +23,13 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 ; ---------------------------------------------------------------------------
 ; C2:9A35
 
-C29A35_RunPsiFlashOmegaAction:
+BTLACT_PSI_FLASH_O:
+C29A35_RunPsiFlashOmegaAction = BTLACT_PSI_FLASH_O
     rep #$31
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29A7F_RunPsiFlashOmegaAction_L9A7F
-    jsr C298A1_GateSelectedBattlerForRandomStatusAction
+    jsr FLASH_IMMUNITY_TEST
     cmp.w #$0000
     beq C29A7C_RunPsiFlashOmegaAction_L9A7C
     jsl C08E9A_RandomWord
@@ -45,17 +46,17 @@ C29A35_RunPsiFlashOmegaAction:
     bra C29A79_RunPsiFlashOmegaAction_L9A79
 C29A66_RunPsiFlashOmegaAction_L9A66:
     lda $A972
-    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
+    jsl KO_TARGET
     bra C29A7C_RunPsiFlashOmegaAction_L9A7C
 C29A6F_RunPsiFlashOmegaAction_L9A6F:
-    jsr C29917_TryApplyNumbStatusToSelectedBattler
+    jsr FLASH_INFLICT_PARALYSIS
     bra C29A7C_RunPsiFlashOmegaAction_L9A7C
 C29A74_RunPsiFlashOmegaAction_L9A74:
-    jsr C298DE_TryApplyStrangeStatusToSelectedBattler
+    jsr FLASH_INFLICT_FEELING_STRANGE
     bra C29A7C_RunPsiFlashOmegaAction_L9A7C
 C29A79_RunPsiFlashOmegaAction_L9A79:
-    jsr C29950_TryApplyCryingStatusToSelectedBattler
+    jsr FLASH_INFLICT_CRYING
 C29A7C_RunPsiFlashOmegaAction_L9A7C:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C29A7F_RunPsiFlashOmegaAction_L9A7F:
     rtl

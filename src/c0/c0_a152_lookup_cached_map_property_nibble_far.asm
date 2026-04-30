@@ -16,6 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C0:A152
 
-C0A152_Lookup_CachedMapPropertyNibble_Far:
+REDIRECT_C0A156:
+C0A152_Lookup_CachedMapPropertyNibble_Far = REDIRECT_C0A156
     jsr $A156
     rtl

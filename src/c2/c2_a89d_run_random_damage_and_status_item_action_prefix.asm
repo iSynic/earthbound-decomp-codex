@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:A89D..C2:A8C5 C2A89D_RunRandomDamageAndStatusItemActionPrefix
+; - C2:A89D..C2:A8C5 BTLACT_SNAKE
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C2:A89D
 
-C2A89D_RunRandomDamageAndStatusItemActionPrefix:
+C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     rep #$31
     phd
     tdc

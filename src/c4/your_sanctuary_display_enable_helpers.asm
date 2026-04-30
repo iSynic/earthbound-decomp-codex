@@ -16,7 +16,8 @@ C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
 ; ---------------------------------------------------------------------------
 ; C4:DED0
 
-C4DED0_EnableYourSanctuaryDisplayBg2State:
+ENABLE_YOUR_SANCTUARY_DISPLAY:
+C4DED0_EnableYourSanctuaryDisplayBg2State = ENABLE_YOUR_SANCTUARY_DISPLAY
     rep #$31
     ldy.w #$6000
     ldx.w #$3800

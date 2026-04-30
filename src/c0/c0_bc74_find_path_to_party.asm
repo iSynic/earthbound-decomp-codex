@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:BC74
 
-C0BC74_FindPathToParty:
+FIND_PATH_TO_PARTY:
+C0BC74_FindPathToParty = FIND_PATH_TO_PARTY
     rep #$31
     phd
     pha

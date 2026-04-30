@@ -16,7 +16,8 @@ C04279_ResolveInteractableAlongFacingTarget = $C04279
 ; ---------------------------------------------------------------------------
 ; C1:323B
 
-C1323B_ResolveSecondaryFacingInteractionOutput:
+CHECK:
+C1323B_ResolveSecondaryFacingInteractionOutput = CHECK
     rep #$31
     phd
     tdc

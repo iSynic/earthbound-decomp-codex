@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BEE
 
-C09BEE_ScriptOp_InstallTaskCallback11A6:
+MOVEMENT_CODE_23:
+C09BEE_ScriptOp_InstallTaskCallback11A6 = MOVEMENT_CODE_23
     lda [$80],Y
     ldx $88
     sta $11A6,X

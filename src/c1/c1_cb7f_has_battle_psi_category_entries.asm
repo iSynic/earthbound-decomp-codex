@@ -83,7 +83,8 @@ C1CBCA_ReturnBattlePsiCategoryAvailabilityResult:
     tya
     pld
     rts
-C1CBCD_OpenBattlePsiCategorySelectionStage:
+BATTLE_PSI_MENU:
+C1CBCD_OpenBattlePsiCategorySelectionStage = BATTLE_PSI_MENU
     rep #$31
     phd
     pha
@@ -244,7 +245,7 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     sta $10
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_ClearBattleTextDisplayMode
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx.w #$0000
     stx $16
     jmp.w C1CE08_HasBattlePsiCategoryEntries_LCE08
@@ -330,7 +331,7 @@ C1CD8F_HasBattlePsiCategoryEntries_LCD8F:
     and.w #$00FF
     tax
     lda [$06]
-    jsr C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     tax
     stx $16
     lda [$06]

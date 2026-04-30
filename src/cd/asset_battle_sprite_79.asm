@@ -13,4 +13,4 @@
 ; CD:F337
 
 ; AssetBattleSprite79End
-CDF337_AssetBattleSprite79End:
+CDF337_AssetBattleSprite79End = BATTLE_SPRITE_27

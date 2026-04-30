@@ -13,4 +13,4 @@
 ; CD:3959
 
 ; AssetBattleSprite86End
-CD3959_AssetBattleSprite86End:
+CD3959_AssetBattleSprite86End = BATTLE_SPRITE_39

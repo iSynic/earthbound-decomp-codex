@@ -82,7 +82,8 @@ C10BD2_ClearActiveWindowRowAndResetCursor:
 ; ---------------------------------------------------------------------------
 ; C1:0BF8
 
-C10BF8_CloseAndDrainAllWindowsRedirect:
+REDIRECT_C1008E:
+C10BF8_CloseAndDrainAllWindowsRedirect = REDIRECT_C1008E
     rep #$31
     jsr C1008E_CloseAndDrainAllWindows
     rtl

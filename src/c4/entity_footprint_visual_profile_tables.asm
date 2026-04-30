@@ -128,4 +128,6 @@ C42A1F_EntityFootprintVisualProfileTables:
     db $01,$24,$01,$26,$01,$28,$01,$2A,$01,$2C,$01,$2E,$01,$40,$01,$42
     db $01,$44,$01,$46,$01,$48,$01,$4A,$01,$4C,$01,$4E,$01
 
-C430EC_EntityFootprintVisualProfileTablesEnd:
+VELOCITY_STORE:
+C430EC_EntityFootprintVisualProfileTablesEnd = VELOCITY_STORE
+C430EC_InitializePartyTickCallbackTables = VELOCITY_STORE

@@ -13,4 +13,4 @@
 ; CD:E6A8
 
 ; AssetBattleSprite10End
-CDE6A8_AssetBattleSprite10End:
+CDE6A8_AssetBattleSprite10End = BATTLE_SPRITE_9

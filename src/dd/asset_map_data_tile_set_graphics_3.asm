@@ -13,4 +13,4 @@
 ; DD:B7D1
 
 ; AssetMapDataTileSetGraphics3End
-DDB7D1_AssetMapDataTileSetGraphics3End:
+DDB7D1_AssetMapDataTileSetGraphics3End = MAP_DATA_TILE_SET_GRAPHICS_4

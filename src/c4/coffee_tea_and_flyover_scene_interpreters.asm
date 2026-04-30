@@ -71,7 +71,8 @@ INPUT_STATE_28                               = $0028
 ; C4:9D6A
 
 ; RunCoffeeTeaScene
-C49D6A_RunCoffeeTeaScene:
+COFFEETEA_SCENE:
+C49D6A_RunCoffeeTeaScene = COFFEETEA_SCENE
     rep #$31
     phd
     pha

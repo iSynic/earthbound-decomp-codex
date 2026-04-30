@@ -16,7 +16,8 @@ C18B2C_InsertItemIntoFirstEmptyInventorySlot = $8B2C
 ; ---------------------------------------------------------------------------
 ; C1:8BC6
 
-C18BC6_InsertItemIntoCharacterInventory:
+GIVE_ITEM_TO_CHARACTER:
+C18BC6_InsertItemIntoCharacterInventory = GIVE_ITEM_TO_CHARACTER
     rep #$31
     phd
     pha
@@ -41,7 +42,7 @@ C18BE0_c1_8bc6_insert_item_into_character_inventory_L8BE0:
     ldx $04
     lda $0000,Y
     and.w #$00FF
-    jsr C18B2C_InsertItemIntoFirstEmptyInventorySlot
+    jsr GIVE_ITEM_TO_SPECIFIC_CHARACTER
     cmp.w #$0000
     beq C18C05_c1_8bc6_insert_item_into_character_inventory_L8C05
     ldy $0E
@@ -65,7 +66,7 @@ C18C0B_c1_8bc6_insert_item_into_character_inventory_L8C0B:
     bra C18C25_c1_8bc6_insert_item_into_character_inventory_L8C25
 C18C20_c1_8bc6_insert_item_into_character_inventory_L8C20:
     ldx $04
-    jsr C18B2C_InsertItemIntoFirstEmptyInventorySlot
+    jsr GIVE_ITEM_TO_SPECIFIC_CHARACTER
 C18C25_c1_8bc6_insert_item_into_character_inventory_L8C25:
     pld
     rtl

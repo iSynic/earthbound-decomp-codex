@@ -13,4 +13,4 @@
 ; CB:B6CD
 
 ; AssetBattleBackgroundArr13End
-CBB6CD_AssetBattleBackgroundArr13End:
+CBB6CD_AssetBattleBackgroundArr13End = BATTLE_BACKGROUND_GFX_70

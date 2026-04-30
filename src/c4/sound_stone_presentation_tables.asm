@@ -28,4 +28,4 @@ C4AC57_SoundStonePresentationTableBlock:
     db $00,$D1,$00,$D2,$00,$D2,$00,$D1,$00,$D2,$00,$D2,$00,$D2,$00,$B6
     db $B7,$B9,$B8,$BA,$BB,$BC,$BD
 
-C4ACCE_SoundStonePresentationTablesEnd:
+C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE

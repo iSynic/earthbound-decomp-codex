@@ -13,4 +13,4 @@
 ; CD:CCCF
 
 ; AssetBattleSprite81End
-CDCCCF_AssetBattleSprite81End:
+CDCCCF_AssetBattleSprite81End = BATTLE_SPRITE_62

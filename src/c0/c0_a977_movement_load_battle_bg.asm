@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A977
 
-C0A977_Movement_LoadBattleBg:
+MOVEMENT_LOAD_BATTLEBG:
+C0A977_Movement_LoadBattleBg = MOVEMENT_LOAD_BATTLEBG
     jsl $C09D94
     pha
     sty $94

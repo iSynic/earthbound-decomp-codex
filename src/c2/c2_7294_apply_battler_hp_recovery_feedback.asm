@@ -13,12 +13,13 @@
 
 C27126_ClampBattlerHpTargetDelta    = $7126
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-C1DC66_DisplayBattleTextWithNumber  = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 ; ---------------------------------------------------------------------------
 ; C2:7294
 
-C27294_ApplyBattlerHpRecoveryFeedback:
+RECOVER_HP:
+C27294_ApplyBattlerHpRecoveryFeedback = RECOVER_HP
     rep #$31
     phd
     pha
@@ -61,6 +62,8 @@ C27294_ApplyBattlerHpRecoveryFeedback:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C27316_ApplyBattlerHpRecoveryFeedback_L7316
 C272EA_ApplyBattlerHpRecoveryFeedback_L72EA:
+    ; EF:69BA reads the staged payload with PRINT_ACTION_AMOUNT to print
+    ; the recovered HP delta.
     lda.w #$69BA
     sta $0E
     lda.w #$00EF
@@ -72,7 +75,7 @@ C272EA_ApplyBattlerHpRecoveryFeedback_L72EA:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C27316_ApplyBattlerHpRecoveryFeedback_L7316
 C27308_ApplyBattlerHpRecoveryFeedback_L7308:
     lda.w #$7696

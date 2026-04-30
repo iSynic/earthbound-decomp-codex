@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:27C8
 
-C227C8_MarkPartyCodeBitIn9839:
+LEARN_SPECIAL_PSI:
+C227C8_MarkPartyCodeBitIn9839 = LEARN_SPECIAL_PSI
     rep #$31
     cmp.w #$0001
     beq C227E0_MarkPartyCodeBitIn9839_L27E0

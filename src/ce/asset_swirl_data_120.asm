@@ -13,4 +13,4 @@
 ; CE:D8EA
 
 ; AssetSwirlData120End
-CED8EA_AssetSwirlData120End:
+CED8EA_AssetSwirlData120End = SWIRL_DATA_121

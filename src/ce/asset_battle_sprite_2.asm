@@ -13,4 +13,4 @@
 ; CE:4432
 
 ; AssetBattleSprite2End
-CE4432_AssetBattleSprite2End:
+CE4432_AssetBattleSprite2End = BATTLE_SPRITE_25

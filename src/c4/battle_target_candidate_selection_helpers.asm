@@ -38,7 +38,8 @@ C49FE1_BattleMenuAndTargetPrecheckData:
     db $91,$00,$92,$00,$93,$00,$94,$00,$95,$00,$96,$00,$97,$00,$98,$00
     db $99,$00,$9A,$00,$9B,$00,$9C,$00,$9D,$00,$9E,$00,$00,$00
 
-C4A0CF_SelectClosestRankedBattleTargetCandidate:
+AUTOHEALING:
+C4A0CF_SelectClosestRankedBattleTargetCandidate = AUTOHEALING
     rep #$31
     phd
     pha
@@ -113,7 +114,8 @@ C4A157_BattleTargetCandidateSelectionHelpers_LA157:
     lda $04
     pld
     rtl
-C4A15D_SelectLowestRangeRankedBattleTargetCandidate:
+AUTOLIFEUP:
+C4A15D_SelectLowestRangeRankedBattleTargetCandidate = AUTOLIFEUP
     rep #$31
     phd
     tdc

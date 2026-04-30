@@ -13,4 +13,4 @@
 ; CB:CBF4
 
 ; AssetBattleBackgroundGfx29End
-CBCBF4_AssetBattleBackgroundGfx29End:
+CBCBF4_AssetBattleBackgroundGfx29End = BATTLE_BACKGROUND_PALETTE_113

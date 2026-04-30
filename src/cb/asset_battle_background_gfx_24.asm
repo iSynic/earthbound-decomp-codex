@@ -13,4 +13,4 @@
 ; CB:AD9C
 
 ; AssetBattleBackgroundGfx24End
-CBAD9C_AssetBattleBackgroundGfx24End:
+CBAD9C_AssetBattleBackgroundGfx24End = BATTLE_BACKGROUND_ARR_65

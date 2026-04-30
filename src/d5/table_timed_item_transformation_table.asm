@@ -13,4 +13,4 @@
 ; D5:F4CF
 
 ; TimedItemTransformationTableEnd
-D5F4CF_TimedItemTransformationTableEnd:
+D5F4CF_TimedItemTransformationTableEnd = DONT_CARE_NAMES

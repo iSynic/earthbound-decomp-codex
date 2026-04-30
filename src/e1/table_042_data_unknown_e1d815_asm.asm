@@ -12,4 +12,4 @@
 ; E1:D835
 
 ; CastSceneSupportTableE1D815End
-E1D835_CastSceneSupportTableE1D815End:
+E1D835_CastSceneSupportTableE1D815End = CAST_NAMES_GFX

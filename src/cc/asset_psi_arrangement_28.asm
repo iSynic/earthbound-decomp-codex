@@ -13,4 +13,4 @@
 ; CC:9B45
 
 ; AssetPsiArrangement28End
-CC9B45_AssetPsiArrangement28End:
+CC9B45_AssetPsiArrangement28End = PSI_ARRANGEMENT_25

@@ -13,4 +13,4 @@
 ; D4:DF60
 
 ; AssetSprite0976End
-D4DF60_AssetSprite0976End:
+D4DF60_AssetSprite0976End = SPRITE_0977

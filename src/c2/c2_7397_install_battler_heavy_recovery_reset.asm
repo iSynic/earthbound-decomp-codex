@@ -18,7 +18,8 @@ C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:7397
 
-C27397_InstallBattlerHeavyRecoveryReset:
+REVIVE_TARGET:
+C27397_InstallBattlerHeavyRecoveryReset = REVIVE_TARGET
     rep #$31
     phd
     pha

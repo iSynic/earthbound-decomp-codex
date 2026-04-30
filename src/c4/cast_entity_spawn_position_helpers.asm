@@ -16,7 +16,8 @@ CreateEntityAtPositionMaybe = $C01E49
 ; ---------------------------------------------------------------------------
 ; C4:ECAD
 
-C4ECAD_CreateEntityAtV01PlusBg3Y:
+CREATE_ENTITY_AT_V01_PLUS_BG3Y:
+C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     rep #$31
     phd
     pha

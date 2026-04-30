@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0AC5
 
-C00AC5_Load_VerticalMovementMapStripPayload:
+LOAD_MAP_ROW:
+C00AC5_Load_VerticalMovementMapStripPayload = LOAD_MAP_ROW
     rep #$31
     phd
     pha

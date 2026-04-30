@@ -16,7 +16,8 @@ C08616_QueueVramTransfer_FromDpSource = $C08616
 ; ---------------------------------------------------------------------------
 ; C4:E51E
 
-C4E51E_HandleCastScrolling:
+HANDLE_CAST_SCROLLING:
+C4E51E_HandleCastScrolling = HANDLE_CAST_SCROLLING
     rep #$31
     phd
     tdc

@@ -20,8 +20,11 @@ It gives you:
   `EF`
 - readable-source closure for the audited source-heavy banks
 - source, table, script, text, asset, and audio notes with validation evidence
+- EB-M2 Listing v1 name/module crosswalks, with meaningful labels promoted only
+  through reviewed byte-equivalent batches
 - Python tools for ROM verification, disassembly support, table inspection,
-  script/text decoding, asset manifests, and audio backend research
+  script/text decoding, EB-M2 symbol lookup, asset manifests, and audio backend
+  research
 - machine-readable manifests for major subsystem and audio contracts
 - a separate Electron Encyclopedia release binary for browsing the work in a
   searchable, romhacker/porter-friendly interface
@@ -63,6 +66,13 @@ The project has reached ROM-wide structural closure:
 - The audited native-source-heavy banks, `C0`, `C1`, `C2`, `C4`, and `EF`, now
   report `0` preserved source corridors in
   `notes/readable-source-bank-closure.md`.
+- EB-M2 Listing v1 is now integrated as a credited naming reference through
+  `manifests/eb-m2-name-crosswalk.json`,
+  `manifests/symbol-aliases.json`, and
+  `notes/eb-m2-module-crosswalk.md`. The reviewed source-symbol promotion pass
+  has adopted every currently ready exact-address, non-`UNKNOWN_*`,
+  role-compatible EB-M2 label; it preserves old address-prefixed aliases and
+  validates byte-equivalent with `0` mismatches in each promoted bank.
 - C3's event/actionscript bank has no unexplained raw follow-up frontier in
   `notes/c3-source-data-map.md`; remaining C3 work is semantic and source/script
   emission polish.
@@ -157,6 +167,8 @@ python tools/find_xrefs.py C20ABC --limit 12
 python tools/find_direct_callers.py C2:D121
 python tools/decode_snippet.py C1:244C --count 20 --show-state
 python tools/inspect_table.py --contract ENEMY_CONFIGURATION_TABLE --index 0 --count 1
+python tools/lookup_eb_m2_symbol.py OVERWORLD_SETUP_VRAM --evidence
+python tools/lookup_eb_m2_symbol.py C00013
 ```
 
 Work with text and event/actionscript payloads:
@@ -208,6 +220,10 @@ locally checked or clearly labeled in notes.
 - `notes/how-to-validate.md` - validation commands
 - `notes/python-tool-syntax-guide.md` - common tool syntax
 - `notes/reference-first-workflow.md` - how local refs are used
+- `notes/eb-m2-name-crosswalk.md` - EB-M2 canonical-name and alias policy
+- `notes/eb-m2-module-crosswalk.md` - EB-M2 include/module boundary comparison
+- `notes/eb-m2-needs-review-triage.md` - review queue for EB-M2/local naming
+  conflicts
 - `notes/c3-source-data-map.md` - C3 code/data/script split map
 - `notes/c3-actionscript-semantics-audit.md` - C3 script decoder baseline
 - `notes/text-command-semantics-manifest.md` - text-command VM coverage
@@ -229,6 +245,8 @@ and credit go to:
   terminology references that help keep names and descriptions intelligible.
 - **Herringway / EBSRC** for source-style EarthBound documentation and
   disassembly work that helped corroborate engine and script details.
+- **EB-M2 Listing v1** for credited source-label and module-boundary reference
+  data used in reviewed crosswalks and cautious source-name promotion.
 - **Yoshifanatic1** for EarthBound disassembly work used as a reference and
   comparison point during this project.
 - **ares** for preservation-focused SNES/APU emulation research and as the

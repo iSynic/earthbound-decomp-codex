@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:ADB2
 
-C0ADB2_ConfigureBattleBgDmaChannel:
+DO_BATTLEBG_DMA:
+C0ADB2_ConfigureBattleBgDmaChannel = DO_BATTLEBG_DMA
     phy
     tay
     lda $C0AE1D,X

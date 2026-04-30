@@ -13,4 +13,4 @@
 ; CB:C19A
 
 ; AssetBattleBackgroundArr29End
-CBC19A_AssetBattleBackgroundArr29End:
+CBC19A_AssetBattleBackgroundArr29End = BATTLE_BACKGROUND_GFX_34

@@ -17,7 +17,8 @@ C44AD7_TextTileBitClearMaskTable = $C44AD7
 ; ---------------------------------------------------------------------------
 ; C4:4AF7
 
-C44AF7_ReleaseTextTileBitsetSlotForTileWord:
+FREE_TILE:
+C44AF7_ReleaseTextTileBitsetSlotForTileWord = FREE_TILE
     rep #$31
     phd
     pha
@@ -28,7 +29,7 @@ C44AF7_ReleaseTextTileBitsetSlotForTileWord:
     and.w #$03FF
     sta $10
     tax
-    lda C43915_LockedTextTilesData,X
+    lda.l LOCKED_TILES,X
     and.w #$00FF
     bne C44B38_ReleaseTextTileBitsetSlotForTileWord_Done
     lda $10

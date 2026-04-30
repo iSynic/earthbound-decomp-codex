@@ -383,7 +383,8 @@ C1C3EF_CurrentCharacterKnowsPsi_LC3EF:
     lda $04
     pld
     rts
-C1C403_PrintPsiFamilyName:
+GET_PSI_NAME:
+C1C403_PrintPsiFamilyName = GET_PSI_NAME
     rep #$31
     phd
     pha

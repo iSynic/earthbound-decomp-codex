@@ -13,4 +13,4 @@
 ; DF:D000
 
 ; AssetMapDataTileAnimationGfx5End
-DFD000_AssetMapDataTileAnimationGfx5End:
+DFD000_AssetMapDataTileAnimationGfx5End = MAP_DATA_TILE_ANIMATION_GFX_6

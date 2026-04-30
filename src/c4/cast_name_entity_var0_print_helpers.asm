@@ -17,7 +17,8 @@ PrintCastName       = $C4EB04
 ; ---------------------------------------------------------------------------
 ; C4:EC05
 
-C4EC05_PrintCastNameEntityVar0:
+PRINT_CAST_NAME_PARTY:
+C4EC05_PrintCastNameEntityVar0 = PRINT_CAST_NAME_PARTY
     rep #$31
     phd
     pha

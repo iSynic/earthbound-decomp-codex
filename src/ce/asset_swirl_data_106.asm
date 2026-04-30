@@ -13,4 +13,4 @@
 ; CE:CA97
 
 ; AssetSwirlData106End
-CECA97_AssetSwirlData106End:
+CECA97_AssetSwirlData106End = SWIRL_DATA_107

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:0912
 
-C20912_NameEntryGridCharacterOffsetTable:
+NAME_ENTRY_GRID_CHARACTER_OFFSET_TABLE:
+C20912_NameEntryGridCharacterOffsetTable = NAME_ENTRY_GRID_CHARACTER_OFFSET_TABLE
     db $05,$07,$09,$0B,$0D,$0F,$11,$13,$15,$FF,$FF,$1B,$1D,$FF
     db $23,$25,$27,$29,$2B,$2D,$2F,$31,$33,$FF,$FF,$39,$3B,$FF
     db $41,$43,$45,$47,$49,$4B,$4D,$4F,$51,$FF,$FF,$57,$59,$FF

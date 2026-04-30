@@ -35,5 +35,5 @@ C17AF3_LoadDisplayTextByteSubstitutionSlot:
     sta TextContextSourcePointerLo
     lda ScratchValueHi
     sta TextContextSourcePointerHi
-    jsr C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation

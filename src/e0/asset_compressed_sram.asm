@@ -13,4 +13,4 @@
 ; E0:1359
 
 ; AssetCompressedSramEnd
-E01359_AssetCompressedSramEnd:
+E01359_AssetCompressedSramEnd = MRSATURN_FONT_DATA

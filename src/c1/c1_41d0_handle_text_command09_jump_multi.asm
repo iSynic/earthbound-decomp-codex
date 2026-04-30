@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:41D0
 
-C141D0_HandleTextCommand09JumpMulti:
+CC_09:
+C141D0_HandleTextCommand09JumpMulti = CC_09
     rep #$31
     phd
     pha

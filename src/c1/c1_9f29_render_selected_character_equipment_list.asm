@@ -39,7 +39,7 @@ C19F29_RenderSelectedCharacterEquipmentList:
     dec A
     sta $1C
     lda.w #$0006
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl C3E4E0_PrepareOrShowHpppWindows
     lda $98A4
     and.w #$00FF

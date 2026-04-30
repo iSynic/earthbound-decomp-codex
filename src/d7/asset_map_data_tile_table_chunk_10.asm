@@ -13,4 +13,4 @@
 ; D7:A800
 
 ; AssetMapDataTileTableChunk10End
-D7A800_AssetMapDataTileTableChunk10End:
+D7A800_AssetMapDataTileTableChunk10End = GLOBAL_MAP_TILESETPALETTE_DATA

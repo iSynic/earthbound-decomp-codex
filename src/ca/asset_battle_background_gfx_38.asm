@@ -13,4 +13,4 @@
 ; CA:7314
 
 ; AssetBattleBackgroundGfx38End
-CA7314_AssetBattleBackgroundGfx38End:
+CA7314_AssetBattleBackgroundGfx38End = BATTLE_BACKGROUND_GFX_37

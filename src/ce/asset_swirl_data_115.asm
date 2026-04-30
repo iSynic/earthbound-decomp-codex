@@ -13,4 +13,4 @@
 ; CE:D0DD
 
 ; AssetSwirlData115End
-CED0DD_AssetSwirlData115End:
+CED0DD_AssetSwirlData115End = SWIRL_DATA_116

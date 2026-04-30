@@ -13,4 +13,4 @@
 ; DF:C243
 
 ; AssetMapDataTileSetGraphics15End
-DFC243_AssetMapDataTileSetGraphics15End:
+DFC243_AssetMapDataTileSetGraphics15End = MAP_DATA_TILE_ANIMATION_GFX_0

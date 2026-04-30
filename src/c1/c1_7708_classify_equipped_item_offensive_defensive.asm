@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:7708
 
-C17708_ClassifyEquippedItemOffensiveDefensive:
+CC_1D_23:
+C17708_ClassifyEquippedItemOffensiveDefensive = CC_1D_23
     rep #$31
     phd
     pha
@@ -68,7 +69,8 @@ C17756_c1_7708_classify_equipped_item_offensive_defensive_L7756:
     lda.w #$0000
     pld
     rts
-C1776A_StageStatisticSelectorValueTextCommand:
+CC_19_27:
+C1776A_StageStatisticSelectorValueTextCommand = CC_19_27
     rep #$31
     phd
     pha

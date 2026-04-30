@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:0F9A
 
-C20F9A_ClampHpPpRollTargetsToLiveValues:
+RESET_HPPP_ROLLING:
+C20F9A_ClampHpPpRollTargetsToLiveValues = RESET_HPPP_ROLLING
     rep #$31
     phd
     tdc

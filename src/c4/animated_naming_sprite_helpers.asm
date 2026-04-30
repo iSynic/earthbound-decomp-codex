@@ -16,7 +16,8 @@ C01E49_CreateEntityFromDescriptor = $C01E49
 ; ---------------------------------------------------------------------------
 ; C4:D7D9
 
-C4D7D9_DisplayAnimatedNamingSprite:
+DISPLAY_ANIMATED_NAMING_SPRITE:
+C4D7D9_DisplayAnimatedNamingSprite = DISPLAY_ANIMATED_NAMING_SPRITE
     rep #$31
     phd
     pha

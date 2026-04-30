@@ -13,4 +13,4 @@
 ; CB:1C10
 
 ; AssetBattleBackgroundGfx86End
-CB1C10_AssetBattleBackgroundGfx86End:
+CB1C10_AssetBattleBackgroundGfx86End = BATTLE_BACKGROUND_ARR_61

@@ -13,4 +13,4 @@
 ; CC:6D77
 
 ; AssetPsiArrangement13End
-CC6D77_AssetPsiArrangement13End:
+CC6D77_AssetPsiArrangement13End = PSI_ARRANGEMENT_23

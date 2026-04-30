@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BCC
 
-C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar:
+MOVEMENT_CODE_26:
+C09BCC_ScriptOp_LoadTaskField10F2FromEntityVar = MOVEMENT_CODE_26
     lda [$80],Y
     and.w #$00FF
     asl A

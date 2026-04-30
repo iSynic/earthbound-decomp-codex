@@ -13,4 +13,4 @@
 ; CE:CF51
 
 ; AssetSwirlData114End
-CECF51_AssetSwirlData114End:
+CECF51_AssetSwirlData114End = SWIRL_DATA_115

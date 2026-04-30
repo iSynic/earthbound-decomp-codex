@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:4D93
 
-C14D93_FindPartyMemberWithItemForTextCommand:
+CC_1D_05:
+C14D93_FindPartyMemberWithItemForTextCommand = CC_1D_05
     rep #$31
     phd
     pha
@@ -73,7 +74,8 @@ C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1:
 C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9:
     pld
     rts
-C14DFB_UseItemOnCharacterTextCommand:
+CC_1F_20:
+C14DFB_UseItemOnCharacterTextCommand = CC_1F_20
     rep #$31
     phd
     pha
@@ -152,7 +154,8 @@ C14E71_FindPartyMemberWithItemForTextCommand_L4E71:
 C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A:
     pld
     rts
-C14E8C_TeleportToPresetLocationTextCommand:
+CC_1F_21:
+C14E8C_TeleportToPresetLocationTextCommand = CC_1F_21
     rep #$31
     phd
     pha

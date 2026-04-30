@@ -20,7 +20,8 @@ C21628_CheckEventFlag              = $C21628
 ; ---------------------------------------------------------------------------
 ; C4:D274
 
-C4D274_GetTownMapIdForCurrentPosition:
+GET_TOWN_MAP_ID:
+C4D274_GetTownMapIdForCurrentPosition = GET_TOWN_MAP_ID
     rep #$31
     phd
     pha

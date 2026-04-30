@@ -13,4 +13,4 @@
 ; DA:9027
 
 ; AssetMapDataPalette6End
-DA9027_AssetMapDataPalette6End:
+DA9027_AssetMapDataPalette6End = MAP_DATA_PALETTE_7

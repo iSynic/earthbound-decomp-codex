@@ -56,7 +56,8 @@ C115F4_C115F4_CreateTypedTextEntryRecordDirect:
     txa
     pld
     rts
-C1163C_C1163C_RenderActiveTextEntryChain:
+PRINT_MENU_ITEMS:
+C1163C_C1163C_RenderActiveTextEntryChain = PRINT_MENU_ITEMS
     rep #$31
     phd
     tdc

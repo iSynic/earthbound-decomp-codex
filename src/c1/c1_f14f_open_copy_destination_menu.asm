@@ -193,7 +193,7 @@ C1F281_OpenCopyDestinationMenu_LF281:
     jsl EF0C15_CopySaveSlot
 C1F29D_OpenCopyDestinationMenu_LF29D:
     stz $5E6E
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldy $16
     tya
     pld

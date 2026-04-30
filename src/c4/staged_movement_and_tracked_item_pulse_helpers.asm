@@ -445,7 +445,8 @@ C48E95_InstallGeneratedMovementPulseScript:
 ; C4:8ECE
 
 ; CheckTrackedItemPulseSlotActive
-C48ECE_CheckTrackedItemPulseSlotActive:
+IS_VALID_ITEM_TRANSFORMATION:
+C48ECE_CheckTrackedItemPulseSlotActive = IS_VALID_ITEM_TRANSFORMATION
     rep #$31
     ldy #$0000
     asl
@@ -467,7 +468,8 @@ C48EE9_CheckTrackedItemPulseSlotActive_Return:
 ; C4:8EEB
 
 ; ArmTrackedItemPulseSlotFromD5f4bb
-C48EEB_ArmTrackedItemPulseSlotFromD5f4bb:
+INITIALIZE_ITEM_TRANSFORMATION:
+C48EEB_ArmTrackedItemPulseSlotFromD5f4bb = INITIALIZE_ITEM_TRANSFORMATION
     rep #$31
     phd
     pha
@@ -478,7 +480,7 @@ C48EEB_ArmTrackedItemPulseSlotFromD5f4bb:
     tax
     stx $10
     txa
-    jsl C48ECE_CheckTrackedItemPulseSlotActive
+    jsl IS_VALID_ITEM_TRANSFORMATION
     cmp #$0000
     bne C48F0E_ArmTrackedItemPulseSlotFromD5f4bb_AlreadyActive
     sep #$20
@@ -582,7 +584,7 @@ C48F98_ClearTrackedItemPulseSlot:
     tax
     stx $0E
     txa
-    jsl C48ECE_CheckTrackedItemPulseSlotActive
+    jsl IS_VALID_ITEM_TRANSFORMATION
     cmp #$0000
     beq C48FC0_ClearTrackedItemPulseSlot_Return
     dec TRACKED_ITEM_PULSE_ACTIVE_COUNT
@@ -603,7 +605,8 @@ C48FC0_ClearTrackedItemPulseSlot_Return:
 ; C4:8FC4
 
 ; StepTrackedItemPulseSlots
-C48FC4_StepTrackedItemPulseSlots:
+PROCESS_ITEM_TRANSFORMATIONS:
+C48FC4_StepTrackedItemPulseSlots = PROCESS_ITEM_TRANSFORMATIONS
     rep #$31
     phd
     tdc

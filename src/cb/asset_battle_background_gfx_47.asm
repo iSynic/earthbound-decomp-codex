@@ -13,4 +13,4 @@
 ; CB:955D
 
 ; AssetBattleBackgroundGfx47End
-CB955D_AssetBattleBackgroundGfx47End:
+CB955D_AssetBattleBackgroundGfx47End = BATTLE_BACKGROUND_ARR_34

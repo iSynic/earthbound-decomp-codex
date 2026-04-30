@@ -13,4 +13,4 @@
 ; DC:D637
 
 ; AssetMapDataTileSetGraphics14End
-DCD637_AssetMapDataTileSetGraphics14End:
+DCD637_AssetMapDataTileSetGraphics14End = MAP_DATA_PER_SECTOR_MUSIC

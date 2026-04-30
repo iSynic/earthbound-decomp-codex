@@ -13,4 +13,4 @@
 ; CB:C7E3
 
 ; AssetBattleBackgroundGfx22End
-CBC7E3_AssetBattleBackgroundGfx22End:
+CBC7E3_AssetBattleBackgroundGfx22End = BATTLE_BACKGROUND_GFX_97

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BA9
 
-C09BA9_ScriptOp_CopyScratchToWaitCounterIfNonzero:
+MOVEMENT_CODE_44:
+C09BA9_ScriptOp_CopyScratchToWaitCounterIfNonzero = MOVEMENT_CODE_44
     ldx $8A
     lda $1516,X
     beq C09BB3_ScriptOp_CopyScratchToWaitCounterIfNonzero_L9BB3

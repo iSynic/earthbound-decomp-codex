@@ -13,4 +13,4 @@
 ; CB:CF54
 
 ; AssetBattleBackgroundPalette83End
-CBCF54_AssetBattleBackgroundPalette83End:
+CBCF54_AssetBattleBackgroundPalette83End = BATTLE_BACKGROUND_PALETTE_82

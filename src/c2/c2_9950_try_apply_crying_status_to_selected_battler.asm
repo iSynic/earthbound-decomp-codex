@@ -17,7 +17,8 @@ C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:9950
 
-C29950_TryApplyCryingStatusToSelectedBattler:
+FLASH_INFLICT_CRYING:
+C29950_TryApplyCryingStatusToSelectedBattler = FLASH_INFLICT_CRYING
     rep #$31
     phd
     tdc
@@ -26,7 +27,7 @@ C29950_TryApplyCryingStatusToSelectedBattler:
     ldy.w #$0002
     tyx
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29977_TryApplyCryingStatusToSelectedBattler_L9977
     lda.w #$6BBB

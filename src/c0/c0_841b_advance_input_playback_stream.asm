@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:841B
 
-C0841B_Advance_InputPlaybackStream:
+READ_JOYPAD:
+C0841B_Advance_InputPlaybackStream = READ_JOYPAD
     rep #$30
     lda $7B
     beq C0844B_Advance_InputPlaybackStream_L844B

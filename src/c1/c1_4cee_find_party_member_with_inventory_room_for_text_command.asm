@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:4CEE
 
-C14CEE_FindPartyMemberWithInventoryRoomForTextCommand:
+CC_1D_03:
+C14CEE_FindPartyMemberWithInventoryRoomForTextCommand = CC_1D_03
     rep #$31
     phd
     pha
@@ -47,7 +48,8 @@ C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14:
     lda.w #$0000
     pld
     rts
-C14D24_FindPartyMemberWithoutItemForTextCommand:
+CC_1D_04:
+C14D24_FindPartyMemberWithoutItemForTextCommand = CC_1D_04
     rep #$31
     phd
     pha

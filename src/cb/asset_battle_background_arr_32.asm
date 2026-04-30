@@ -13,4 +13,4 @@
 ; CB:BC3D
 
 ; AssetBattleBackgroundArr32End
-CBBC3D_AssetBattleBackgroundArr32End:
+CBBC3D_AssetBattleBackgroundArr32End = BATTLE_BACKGROUND_ARR_24

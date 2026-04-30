@@ -63,19 +63,23 @@ C10024_ProcessTextboxDataFromCallerPointer_L0024:
     jsl !C09451_RestoreSavedCoordinateState
     pld
     rtl
-C10036_SetBlinkingTriangleState:
+ENABLE_BLINKING_TRIANGLE:
+!C10036_SetBlinkingTriangleState = ENABLE_BLINKING_TRIANGLE
     rep #$31
     sta !BlinkingTriangleState
     rts
-C1003C_ClearBlinkingTriangleState:
+CLEAR_BLINKING_PROMPT:
+!C1003C_ClearBlinkingTriangleState = CLEAR_BLINKING_PROMPT
     rep #$31
     stz !BlinkingTriangleState
     rts
-C10042_ReadBlinkingTriangleState:
+GET_BLINKING_PROMPT:
+!C10042_ReadBlinkingTriangleState = GET_BLINKING_PROMPT
     rep #$31
     lda !BlinkingTriangleState
     rts
-C10048_SetTextSoundMode:
+SET_TEXT_SOUND_MODE:
+!C10048_SetTextSoundMode = SET_TEXT_SOUND_MODE
     rep #$31
     sta !TextSoundMode
     rts
@@ -116,15 +120,18 @@ C10067_PumpTextWaitFrame_L0067:
     jsl !C08756_WaitOneFrameAndPollInput
 C10077_PumpTextWaitFrame_L0077:
     rtl
-C10078_GetWindowFocus:
+GET_WINDOW_FOCUS:
+!C10078_GetWindowFocus = GET_WINDOW_FOCUS
     rep #$31
     lda !ActiveWindowFocus
     rts
-C1007E_SetWindowFocus:
+SET_WINDOW_FOCUS:
+!C1007E_SetWindowFocus = SET_WINDOW_FOCUS
     rep #$31
     sta !ActiveWindowFocus
     rts
-C10084_CloseFocusWindow:
+CLOSE_FOCUS_WINDOW:
+!C10084_CloseFocusWindow = CLOSE_FOCUS_WINDOW
     rep #$31
     lda !ActiveWindowFocus
     jsl !C3E521_CloseWindowById
@@ -173,12 +180,14 @@ C100AB_CheckQueuedWindow:
     stz !WindowDrainGuard
     jsl !C43F53_ClearWindowDrainSideEffects
     rts
-C100C7_LockTextInput:
+LOCK_INPUT:
+!C100C7_LockTextInput = LOCK_INPUT
     rep #$31
     lda.w #$0001
     sta !InputLockFlag
     rts
-C100D0_UnlockTextInput:
+UNLOCK_INPUT:
+!C100D0_UnlockTextInput = UNLOCK_INPUT
     rep #$31
     stz !InputLockFlag
     rts
@@ -337,7 +346,8 @@ org $C10166
 !PromptRowOffset = $04
 !PromptTilePointerLo = $0E
 !PromptTilePointerBank = $10
-C10166_RunTextHaltControlWorker:
+CC_13_14:
+!C10166_RunTextHaltControlWorker = CC_13_14
     rep #$31
     phd
     pha
@@ -587,7 +597,8 @@ org $C10301
 !ContextRecordBase = $0E
 !CurrentTextPointerLo = $14
 !CurrentTextPointerHi = $16
-C10301_GetActiveInteractionContextRecord:
+GET_ACTIVE_WINDOW_ADDRESS:
+!C10301_GetActiveInteractionContextRecord = GET_ACTIVE_WINDOW_ADDRESS
     rep #$31
     lda !ActiveWindowDescriptorState
     cmp.w #$FFFF
@@ -605,13 +616,14 @@ C10310_ResolveFocusedInteractionContextRecord:
     adc.w #!InteractionContextRecordTable
 C10323_ReturnInteractionContextRecord:
     rts
-C10324_SnapshotActiveInteractionContextSlots:
+TRANSFER_ACTIVE_MEM_STORAGE:
+!C10324_SnapshotActiveInteractionContextSlots = TRANSFER_ACTIVE_MEM_STORAGE
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     sta !ContextRecordBase
     clc
     adc.w #!ContextPrimaryPointerOffset
@@ -652,13 +664,14 @@ C10324_SnapshotActiveInteractionContextSlots:
     sta !ContextSavedWorkmemOffset,X
     pld
     rts
-C10380_RestoreActiveInteractionContextSlots:
+TRANSFER_STORAGE_MEM_ACTIVE:
+!C10380_RestoreActiveInteractionContextSlots = TRANSFER_STORAGE_MEM_ACTIVE
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     sta !ContextRecordBase
     clc
     adc.w #!ContextSavedPrimaryPointerOffset
@@ -699,13 +712,14 @@ C10380_RestoreActiveInteractionContextSlots:
     sta !ContextWorkmemOffset,X
     pld
     rts
-C103DC_LoadSecondaryInteractionContextPointer:
+GET_ARGUMENT_MEMORY:
+!C103DC_LoadSecondaryInteractionContextPointer = GET_ARGUMENT_MEMORY
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #!ContextSecondaryPointerOffset
     tay
@@ -719,19 +733,21 @@ C103DC_LoadSecondaryInteractionContextPointer:
     sta !CurrentTextPointerHi
     pld
     rts
-C10400_GetCurrentTextContextWorkmem:
+GET_SECONDARY_MEMORY:
+!C10400_GetCurrentTextContextWorkmem = GET_SECONDARY_MEMORY
     rep #$31
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     tax
     lda !ContextWorkmemOffset,X
     rts
-C1040A_LoadPrimaryInteractionContextPointer:
+GET_WORKING_MEMORY:
+!C1040A_LoadPrimaryInteractionContextPointer = GET_WORKING_MEMORY
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #!ContextPrimaryPointerOffset
     tay
@@ -757,9 +773,10 @@ org $C1042E
 !C10301_GetActiveInteractionContextRecord = $0301
 !ContextWorkmemOffset = $001F
 !SavedWorkmemValue = $0E
-C1042E_IncrementCurrentTextContextWorkmem:
+INCREMENT_SECONDARY_MEMORY:
+!C1042E_IncrementCurrentTextContextWorkmem = INCREMENT_SECONDARY_MEMORY
     rep #$31
-    jsr !C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #!ContextWorkmemOffset
     tax
@@ -778,7 +795,7 @@ C10450_SetCurrentTextContextWorkmem:
     pla
     tay
     sty !SavedWorkmemValue
-    jsr !C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     tax
     ldy !SavedWorkmemValue
     tya
@@ -803,7 +820,8 @@ org $C1045D
 !CurrentTextPointerHi = $16
 !StagedTextPointerLo = $1C
 !StagedTextPointerHi = $1E
-C1045D_InstallPrimaryInteractionContextPointer:
+SET_WORKING_MEMORY:
+!C1045D_InstallPrimaryInteractionContextPointer = SET_WORKING_MEMORY
     rep #$31
     phd
     tdc
@@ -813,7 +831,7 @@ C1045D_InstallPrimaryInteractionContextPointer:
     sta !ScratchPointerLo
     lda !StagedTextPointerHi
     sta !ScratchPointerHi
-    jsr !C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #!ContextPrimaryPointerOffset
     tay
@@ -844,7 +862,8 @@ org $C10489
 !CurrentTextPointerHi = $16
 !StagedTextPointerLo = $1C
 !StagedTextPointerHi = $1E
-C10489_InstallSecondaryInteractionContextPointer:
+SET_ARGUMENT_MEMORY:
+!C10489_InstallSecondaryInteractionContextPointer = SET_ARGUMENT_MEMORY
     rep #$31
     phd
     tdc
@@ -854,7 +873,7 @@ C10489_InstallSecondaryInteractionContextPointer:
     sta !ScratchPointerLo
     lda !StagedTextPointerHi
     sta !ScratchPointerHi
-    jsr !C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #!ContextSecondaryPointerOffset
     tay
@@ -898,7 +917,8 @@ org $C104B5
 !WindowNeedsRedrawFlag = $9623
 !BlankTileWord = $0040
 !NoActiveWindow = $FFFF
-C104B5_GetCurrentTextContextLineState:
+GET_TEXT_X:
+!C104B5_GetCurrentTextContextLineState = GET_TEXT_X
     rep #$31
     lda !ActiveWindowFocus
     cmp.w #!NoActiveWindow
@@ -916,7 +936,8 @@ C104C4_ReadActiveWindowCursorColumn:
     lda !WindowCursorColumnField,X
 C104D7_ReturnActiveWindowCursorColumn:
     rts
-C104D8_GetCurrentTextContextRowState:
+GET_TEXT_Y:
+!C104D8_GetCurrentTextContextRowState = GET_TEXT_Y
     rep #$31
     lda !ActiveWindowFocus
     asl A
@@ -927,7 +948,8 @@ C104D8_GetCurrentTextContextRowState:
     tax
     lda !WindowCursorLineField,X
     rts
-C104EE_CreateOrBindWindowDescriptorAndContext:
+CREATE_WINDOW:
+!C104EE_CreateOrBindWindowDescriptorAndContext = CREATE_WINDOW
     rep #$31
     phd
     pha
@@ -1672,7 +1694,8 @@ C109FC_WriteJoinedBottomRightCorner:
 C10A02_ReturnBuildWindowTilemapFromDescriptor:
     pld
     rtl
-C10A04_ShowHpppWindows_Internal:
+SHOW_HPPP_WINDOWS:
+!C10A04_ShowHpppWindows_Internal = SHOW_HPPP_WINDOWS
     rep #$31
     jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     sep #$20
@@ -1683,7 +1706,8 @@ C10A04_ShowHpppWindows_Internal:
     lda.w #$FFFF
     sta !PartyWindowDirtyMask
     rts
-C10A1D_HideHpppWindows_Internal:
+HIDE_HPPP_WINDOWS:
+!C10A1D_HideHpppWindows_Internal = HIDE_HPPP_WINDOWS
     rep #$31
     phd
     tdc
@@ -1976,7 +2000,8 @@ C10BD2_ClearActiveWindowRowAndResetCursor:
     lda.w #$0000
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     rts
-C10BF8_CloseAndDrainAllWindowsRedirect:
+REDIRECT_C1008E:
+!C10BF8_CloseAndDrainAllWindowsRedirect = REDIRECT_C1008E
     rep #$31
     jsr !C1008E_CloseAndDrainAllWindows
     rtl
@@ -2057,11 +2082,13 @@ org $C10C49
 
 !C1138D_CountTextEntryChainRecordsLocal = $138D
 !C117E2_MeasureBoundedStringLength = $17E2
-C10C49_CountTextEntryChainRecords:
+REDIRECT_C1138D:
+!C10C49_CountTextEntryChainRecords = REDIRECT_C1138D
     rep #$31
     jsr !C1138D_CountTextEntryChainRecordsLocal
     rtl
-C10C4F_MeasureBoundedStringLengthRedirect:
+REDIRECT_C117E2:
+!C10C4F_MeasureBoundedStringLengthRedirect = REDIRECT_C117E2
     rep #$31
     jsr !C117E2_MeasureBoundedStringLength
     rtl
@@ -2126,23 +2153,28 @@ C10C55_FormatNumberFromCallerPointer:
     jsr !C10D7C_FormatDecimalDigitsTo8960
     pld
     rtl
-C10C72_SetActiveWindowDescriptorCursorFields:
+REDIRECT_C438A5:
+!C10C72_SetActiveWindowDescriptorCursorFields = REDIRECT_C438A5
     rep #$31
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     rtl
-C10C79_AdvanceActiveWindowLineOrScroll:
+REDIRECT_PRINT_NEWLINE:
+!C10C79_AdvanceActiveWindowLineOrScroll = REDIRECT_PRINT_NEWLINE
     rep #$31
     jsl !C438B1_AdvanceActiveWindowLineOrScroll
     rtl
-C10C80_PrintGlyphToActiveWindowRedirect:
+REDIRECT_C10BA1:
+!C10C80_PrintGlyphToActiveWindowRedirect = REDIRECT_C10BA1
     rep #$31
     jsr !C10BA1_PrintGlyphToActiveWindow
     rtl
-C10C86_PrintGlyphWithSoundAndDelayRedirect:
+REDIRECT_PRINT_LETTER:
+!C10C86_PrintGlyphWithSoundAndDelayRedirect = REDIRECT_PRINT_LETTER
     rep #$31
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     rtl
-C10C8C_PrintFixedStringFromCallerPointer:
+REDIRECT_PRINT_STRING:
+!C10C8C_PrintFixedStringFromCallerPointer = REDIRECT_PRINT_STRING
     rep #$31
     phd
     pha
@@ -2160,14 +2192,16 @@ C10C8C_PrintFixedStringFromCallerPointer:
     lda !StagedPointerBank
     sta !InstallPointerBank
     lda !InputLengthOrGlyph
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     pld
     rtl
-C10CAF_ScrollTextWindowBufferUpOneLineRedirect:
+REDIRECT_C437B8:
+!C10CAF_ScrollTextWindowBufferUpOneLineRedirect = REDIRECT_C437B8
     rep #$31
     jsl !C437B8_ScrollTextWindowBufferUpOneLine
     rtl
-C10CB6_PrintGlyphWithSoundAndDelay:
+PRINT_LETTER:
+!C10CB6_PrintGlyphWithSoundAndDelay = PRINT_LETTER
     rep #$31
     phd
     pha
@@ -2388,7 +2422,8 @@ C10DCD_TestDecimalDivideLoop:
     lda !DigitCount
     pld
     rts
-C10DF6_PrintDecimalValueFromCallerPointer:
+PRINT_NUMBER:
+!C10DF6_PrintDecimalValueFromCallerPointer = PRINT_NUMBER
     rep #$31
     phd
     tdc
@@ -2478,7 +2513,7 @@ C10E97_PrintNextDecimalDigit:
     adc.w #!GlyphDigitBase
     iny
     sty !DigitReadPointer
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx !WorkingValueLo
     dex
     stx !WorkingValueLo
@@ -2528,7 +2563,8 @@ C10EF7_PrintDebugMenuFixedWordGroups:
     jsl !C12C36_PrintDebugMenuFixedWordGroups
 C10EFB_ReturnDebugMenuPrintMode:
     rts
-C10EFC_PrintFixedString:
+PRINT_STRING:
+!C10EFC_PrintFixedString = PRINT_STRING
     rep #$31
     phd
     pha
@@ -2557,7 +2593,7 @@ C10F28_PrintNextFixedStringGlyph:
     stx !FixedStringLength
     and.w #$00FF
     inc !FixedStringPointerLo
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
 C10F33_TestFixedStringSourceByte:
     lda [!FixedStringPointerLo]
     and.w #$00FF
@@ -3542,7 +3578,8 @@ C115F4_C115F4_CreateTypedTextEntryRecordDirect:
     txa
     pld
     rts
-C1163C_C1163C_RenderActiveTextEntryChain:
+PRINT_MENU_ITEMS:
+!C1163C_C1163C_RenderActiveTextEntryChain = PRINT_MENU_ITEMS
     rep #$31
     phd
     tdc
@@ -3921,7 +3958,8 @@ C118E2_SelectActiveTextEntryByA_L18E2:
     jsr $163C
     pld
     rts
-C118E7_C118E7_FindSelectionCandidatePair:
+MOVE_CURSOR:
+!C118E7_C118E7_FindSelectionCandidatePair = MOVE_CURSOR
     rep #$31
     phd
     pha
@@ -3989,7 +4027,8 @@ C11965_SelectActiveTextEntryByA_L1965:
     txa
     pld
     rtl
-C1196A_C1196A_RunActiveTextEntrySelectionMenu:
+SELECTION_MENU:
+!C1196A_C1196A_RunActiveTextEntrySelectionMenu = SELECTION_MENU
     rep #$31
     phd
     pha
@@ -4288,7 +4327,7 @@ C11BBB_C11BBB_PollSelectionMenuInput:
     lda $000A,X
     tax
     lda $1E
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11BF5_SelectActiveTextEntryByA_L1BF5:
@@ -4313,7 +4352,7 @@ C11BF5_SelectActiveTextEntryByA_L1BF5:
     ldx $04
     lda $0008,X
     ldx $16
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C2F_SelectActiveTextEntryByA_L1C2F:
@@ -4335,7 +4374,7 @@ C11C2F_SelectActiveTextEntryByA_L1C2F:
     lda $000A,X
     tax
     lda $1E
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C62_SelectActiveTextEntryByA_L1C62:
@@ -4359,7 +4398,7 @@ C11C62_SelectActiveTextEntryByA_L1C62:
     ldx $04
     lda $0008,X
     ldx $1C
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C9A_SelectActiveTextEntryByA_L1C9A:
@@ -5684,7 +5723,8 @@ C12DCA_ToggleDebugMeterDisplayOverlay_L2DCA:
     jsl $EF026E
     pld
     rts
-C12DD5_WindowTick:
+WINDOW_TICK:
+!C12DD5_WindowTick = WINDOW_TICK
     rep #$31
     jsl !C08E9A_GetRandom16
     lda $968C
@@ -5743,7 +5783,8 @@ C12E5A_ToggleDebugMeterDisplayOverlay_L2E5A:
     jsl $C213AC
     jsl !C1004E_WaitWhileFileSelectEntityScriptBusy
     rtl
-C12E63_DebugMenuSelectionDispatcher:
+DEBUG_Y_BUTTON_MENU:
+!C12E63_DebugMenuSelectionDispatcher = DEBUG_Y_BUTTON_MENU
     rep #$31
     phd
     tdc
@@ -6104,7 +6145,7 @@ C1316F_ToggleDebugMeterDisplayOverlay_L316F:
     jsr $008E
     jsr $0A1D
 C13175_ToggleDebugMeterDisplayOverlay_L3175:
-    jsl C12DD5_WindowTick
+    jsl WINDOW_TICK
     lda $B4A8
     cmp.w #$FFFF
     bne C13175_ToggleDebugMeterDisplayOverlay_L3175
@@ -6122,7 +6163,8 @@ org $C13187
 
 !C042C2_PrepareClass1ActorInteraction = $C042C2
 !C04452_ResolveFrontInteractionTarget = $C04452
-C13187_ResolvePrimaryFrontInteractionOutput:
+TALK_TO:
+!C13187_ResolvePrimaryFrontInteractionOutput = TALK_TO
     rep #$31
     phd
     tdc
@@ -6222,7 +6264,8 @@ hirom
 org $C1323B
 
 !C04279_ResolveInteractableAlongFacingTarget = $C04279
-C1323B_ResolveSecondaryFacingInteractionOutput:
+CHECK:
+!C1323B_ResolveSecondaryFacingInteractionOutput = CHECK
     rep #$31
     phd
     tdc
@@ -6579,7 +6622,8 @@ C1349D_RebuildOpenMenuTextEntryRecords_L349D:
     jsr $163C
     pld
     rts
-C134A7_RunOpenMenuSelectionLoop:
+OPEN_MENU_BUTTON:
+!C134A7_RunOpenMenuSelectionLoop = OPEN_MENU_BUTTON
     rep #$31
     phd
     tdc
@@ -6626,7 +6670,7 @@ C13503_RebuildOpenMenuTextEntryRecords_L3503:
 C1350B_RebuildOpenMenuTextEntryRecords_L350B:
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C1350E_RebuildOpenMenuTextEntryRecords_L350E:
-    jsl !C13187_ResolvePrimaryFrontInteractionOutput
+    jsl TALK_TO
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -7397,7 +7441,7 @@ C13BC1_RebuildOpenMenuTextEntryRecords_L3BC1:
     jsl $C3E6F8
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13BCF_HandleOpenMenuCheckChoice:
-    jsl !C1323B_ResolveSecondaryFacingInteractionOutput
+    jsl CHECK
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -7441,7 +7485,8 @@ C13C20_RebuildOpenMenuTextEntryRecords_L3C20:
     jsl !C09451_RestoreSavedCoordinateState
     pld
     rtl
-C13C32_HandlePlayerCheckingObject:
+OPEN_MENU_BUTTON_CHECKTALK:
+!C13C32_HandlePlayerCheckingObject = OPEN_MENU_BUTTON_CHECKTALK
     rep #$31
     phd
     tdc
@@ -7450,7 +7495,7 @@ C13C32_HandlePlayerCheckingObject:
     jsl !C0943C_SaveCurrentCoordinateState
     lda.w #$0001
     jsl $C0ABE0
-    jsl !C13187_ResolvePrimaryFrontInteractionOutput
+    jsl TALK_TO
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -7462,7 +7507,7 @@ C13C32_HandlePlayerCheckingObject:
     cmp $0A
 C13C5D_RebuildOpenMenuTextEntryRecords_L3C5D:
     bne C13C79_RebuildOpenMenuTextEntryRecords_L3C79
-    jsl !C1323B_ResolveSecondaryFacingInteractionOutput
+    jsl CHECK
     lda $08
     cmp $0C
     bne C13C6D_RebuildOpenMenuTextEntryRecords_L3C6D
@@ -7501,7 +7546,7 @@ C13CB1_RebuildOpenMenuTextEntryRecords_L3CB1:
     lda $006D
     and.w #$00A0
     beq C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3
-    jsl C134A7_RunOpenMenuSelectionLoop
+    jsl OPEN_MENU_BUTTON
     bra C13CE4_RebuildOpenMenuTextEntryRecords_L3CE4
 C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3:
     lda $006D
@@ -8041,7 +8086,8 @@ C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
 hirom
 org $C14103
 
-C14103_BuildTextCommand24BitJumpTarget:
+CC_0A:
+!C14103_BuildTextCommand24BitJumpTarget = CC_0A
     rep #$31
     phd
     pha
@@ -8157,7 +8203,8 @@ C141CE_BuildTextCommand24BitJumpTarget_L41CE:
 hirom
 org $C141D0
 
-C141D0_HandleTextCommand09JumpMulti:
+CC_09:
+!C141D0_HandleTextCommand09JumpMulti = CC_09
     rep #$31
     phd
     pha
@@ -8249,7 +8296,8 @@ hirom
 org $C14265
 
 !C2165E_SetEventFlagOrState = $C2165E
-C14265_HandleTextCommand04SetEventFlag:
+CC_04:
+!C14265_HandleTextCommand04SetEventFlag = CC_04
     rep #$31
     phd
     pha
@@ -8295,7 +8343,8 @@ hirom
 org $C142AD
 
 !C2165E_SetEventFlagOrState = $C2165E
-C142AD_HandleTextCommand05ClearEventFlag:
+CC_05:
+!C142AD_HandleTextCommand05ClearEventFlag = CC_05
     rep #$31
     phd
     pha
@@ -8341,7 +8390,8 @@ hirom
 org $C142F5
 
 !C21628_CheckEventFlag = $C21628
-C142F5_HandleTextCommand06JumpIfFlagSet:
+CC_06:
+!C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
     rep #$31
     phd
     pha
@@ -8403,7 +8453,8 @@ hirom
 org $C1435F
 
 !C21628_CheckEventFlag = $C21628
-C1435F_HandleTextCommand07CheckEventFlag:
+CC_07:
+!C1435F_HandleTextCommand07CheckEventFlag = CC_07
     rep #$31
     phd
     pha
@@ -8473,7 +8524,8 @@ hirom
 org $C143D6
 
 !C186B1_PrintTextFromPointer = $C186B1
-C143D6_BuildCallTextFarPointerAndDispatch:
+CC_08:
+!C143D6_BuildCallTextFarPointerAndDispatch = CC_08
     rep #$31
     phd
     pha
@@ -8579,7 +8631,8 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
 C144A1_BuildCallTextFarPointerAndDispatch_L44A1:
     pld
     rts
-C144A3_CreateNumberSelectorFromTextCommand:
+CC_1F_52:
+!C144A3_CreateNumberSelectorFromTextCommand = CC_1F_52
     rep #$31
     phd
     pha
@@ -8633,7 +8686,8 @@ C14504_BuildCallTextFarPointerAndDispatch_L4504:
     lda.w #$0000
     pld
     rts
-C14509_HandleTextCommand18ForceTextAlignment:
+CC_18_05:
+!C14509_HandleTextCommand18ForceTextAlignment = CC_18_05
     rep #$31
     phd
     pha
@@ -8693,7 +8747,8 @@ org $C14558
 !PredicateResult = $12
 !StagedPointerLo = $0E
 !StagedPointerHi = $10
-C14558_HandleTextCommand0BTestWorkmemTrue:
+CC_0B:
+!C14558_HandleTextCommand0BTestWorkmemTrue = CC_0B
     rep #$31
     phd
     pha
@@ -8704,7 +8759,7 @@ C14558_HandleTextCommand0BTestWorkmemTrue:
     stx !ExpectedWorkmemValue
     lda.w #$0000
     sta !PredicateResult
-    jsr !C1040A_LoadPrimaryInteractionContextPointer
+    jsr GET_WORKING_MEMORY
     lda !PredicateResultLo
     cmp !ExpectedWorkmemValue
     bne C14577_StageTextCommand0BPredicateResult
@@ -8721,7 +8776,7 @@ C14581_InstallTextCommand0BPredicateResult:
     sta !StagedPointerLo
     lda !PredicateResultHi
     sta !StagedPointerHi
-    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     lda.w #$0000
     pld
     rts
@@ -8734,7 +8789,8 @@ C14581_InstallTextCommand0BPredicateResult:
 hirom
 org $C14591
 
-C14591_HandleTextCommand0CTestWorkmemFalse:
+CC_0C:
+!C14591_HandleTextCommand0CTestWorkmemFalse = CC_0C
     rep #$31
     phd
     pha
@@ -8803,7 +8859,8 @@ org $C145EF
 !StagedPointerHi = $08
 !InstallPointerLo = $0E
 !InstallPointerHi = $10
-C145EF_HandleTextCommand0DCopyToArgmem:
+CC_0D:
+!C145EF_HandleTextCommand0DCopyToArgmem = CC_0D
     rep #$31
     phd
     pha
@@ -8813,18 +8870,18 @@ C145EF_HandleTextCommand0DCopyToArgmem:
     pla
     cpx.w #$0000
     beq C14607_LoadPrimaryPointerForTextCommand0D
-    jsr !C10400_GetCurrentTextContextWorkmem
+    jsr GET_SECONDARY_MEMORY
     sta !StagedPointerLo
     stz !StagedPointerHi
     bra C1460A_InstallTextCommand0DSecondaryPointer
 C14607_LoadPrimaryPointerForTextCommand0D:
-    jsr !C1040A_LoadPrimaryInteractionContextPointer
+    jsr GET_WORKING_MEMORY
 C1460A_InstallTextCommand0DSecondaryPointer:
     lda !StagedPointerLo
     sta !InstallPointerLo
     lda !StagedPointerHi
     sta !InstallPointerHi
-    jsr !C10489_InstallSecondaryInteractionContextPointer
+    jsr SET_ARGUMENT_MEMORY
     lda.w #$0000
     pld
     rts
@@ -8838,7 +8895,8 @@ hirom
 org $C1461A
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C1461A_HandleTextCommand0EStoreToArgmem:
+CC_0E:
+!C1461A_HandleTextCommand0EStoreToArgmem = CC_0E
     rep #$31
     phd
     pha
@@ -8858,7 +8916,8 @@ C14632_HandleTextCommand0EStoreToArgmem_L4632:
     lda.w #$0000
     pld
     rts
-C1463B_BuildTextQueueSelector0:
+CC_1A_00:
+!C1463B_BuildTextQueueSelector0 = CC_1A_00
     rep #$31
     phd
     pha
@@ -8892,7 +8951,8 @@ C14660_HandleTextCommand0EStoreToArgmem_L4660:
 C1467B_HandleTextCommand0EStoreToArgmem_L467B:
     pld
     rts
-C1467D_BuildTextQueueSelector1:
+CC_1A_01:
+!C1467D_BuildTextQueueSelector1 = CC_1A_01
     rep #$31
     phd
     pha
@@ -8926,7 +8986,8 @@ C146A2_HandleTextCommand0EStoreToArgmem_L46A2:
 C146BD_HandleTextCommand0EStoreToArgmem_L46BD:
     pld
     rts
-C146BF_PrintItemNameTextCommandFamily:
+CC_1C_05:
+!C146BF_PrintItemNameTextCommandFamily = CC_1C_05
     rep #$31
     phd
     pha
@@ -9007,7 +9068,8 @@ C1473A_HandleTextCommand0EStoreToArgmem_L473A:
     lda.w #$0000
     pld
     rts
-C14751_HandleTextCommand4751:
+CC_1F_00:
+!C14751_HandleTextCommand4751 = CC_1F_00
     rep #$31
     phd
     pha
@@ -9052,13 +9114,15 @@ C1478E_HandleTextCommand0EStoreToArgmem_L478E:
 C1479E_HandleTextCommand0EStoreToArgmem_L479E:
     pld
     rts
-C147A0_SetEventFlagFromTextArgument:
+CC_1F_01:
+!C147A0_SetEventFlagFromTextArgument = CC_1F_01
     rep #$31
     txa
     jsl $C216C9
     lda.w #$0000
     rts
-C147AB_CheckEventFlagFromTextArgument:
+CC_1F_02:
+!C147AB_CheckEventFlagFromTextArgument = CC_1F_02
     rep #$31
     phd
     pha
@@ -9129,7 +9193,8 @@ C147E3_HandleTextCommand0EStoreToArgmem_L47E3:
 hirom
 org $C14819
 
-C14819_ReadStatisticSelectorStringCharacter:
+CC_19_28:
+!C14819_ReadStatisticSelectorStringCharacter = CC_19_28
     rep #$31
     phd
     pha
@@ -9221,7 +9286,8 @@ C148A4_ReadStatisticSelectorStringCharacter_L48A4:
 hirom
 org $C148AC
 
-C148AC_TestCurrentItemCompactCategory:
+CC_1D_02:
+!C148AC_TestCurrentItemCompactCategory = CC_1D_02
     rep #$31
     phd
     pha
@@ -9255,7 +9321,8 @@ C148D9_TestCurrentItemCompactCategory_L48D9:
     lda.w #$0000
     pld
     rts
-C148E9_HandleTextCommand1D08:
+CC_1D_08:
+!C148E9_HandleTextCommand1D08 = CC_1D_08
     rep #$31
     phd
     pha
@@ -9305,7 +9372,8 @@ C1492E_TestCurrentItemCompactCategory_L492E:
 C14948_TestCurrentItemCompactCategory_L4948:
     pld
     rts
-C1494A_HandleTextCommand1D09:
+CC_1D_09:
+!C1494A_HandleTextCommand1D09 = CC_1D_09
     rep #$31
     phd
     pha
@@ -9361,7 +9429,8 @@ C149A6_TestCurrentItemCompactCategory_L49A6:
 C149B4_TestCurrentItemCompactCategory_L49B4:
     pld
     rts
-C149B6_RecoverHpPercentTextCommand:
+CC_1E_00:
+!C149B6_RecoverHpPercentTextCommand = CC_1E_00
     rep #$31
     phd
     pha
@@ -9405,7 +9474,8 @@ C149F6_TestCurrentItemCompactCategory_L49F6:
 C14A01_TestCurrentItemCompactCategory_L4A01:
     pld
     rts
-C14A03_DepleteHpPercentTextCommand:
+CC_1E_01:
+!C14A03_DepleteHpPercentTextCommand = CC_1E_01
     rep #$31
     phd
     pha
@@ -9449,7 +9519,8 @@ C14A43_TestCurrentItemCompactCategory_L4A43:
 C14A4E_TestCurrentItemCompactCategory_L4A4E:
     pld
     rts
-C14A50_RecoverHpAmountTextCommand:
+CC_1E_02:
+!C14A50_RecoverHpAmountTextCommand = CC_1E_02
     rep #$31
     phd
     pha
@@ -9493,7 +9564,8 @@ C14A90_TestCurrentItemCompactCategory_L4A90:
 C14A9B_TestCurrentItemCompactCategory_L4A9B:
     pld
     rts
-C14A9D_DepleteHpAmountTextCommand:
+CC_1E_03:
+!C14A9D_DepleteHpAmountTextCommand = CC_1E_03
     rep #$31
     phd
     pha
@@ -9537,7 +9609,8 @@ C14ADD_TestCurrentItemCompactCategory_L4ADD:
 C14AE8_TestCurrentItemCompactCategory_L4AE8:
     pld
     rts
-C14AEA_RecoverPpPercentTextCommand:
+CC_1E_04:
+!C14AEA_RecoverPpPercentTextCommand = CC_1E_04
     rep #$31
     phd
     pha
@@ -9581,7 +9654,8 @@ C14B2A_TestCurrentItemCompactCategory_L4B2A:
 C14B35_TestCurrentItemCompactCategory_L4B35:
     pld
     rts
-C14B37_DepletePpPercentTextCommand:
+CC_1E_05:
+!C14B37_DepletePpPercentTextCommand = CC_1E_05
     rep #$31
     phd
     pha
@@ -9625,7 +9699,8 @@ C14B77_TestCurrentItemCompactCategory_L4B77:
 C14B82_TestCurrentItemCompactCategory_L4B82:
     pld
     rts
-C14B84_RecoverPpAmountTextCommand:
+CC_1E_06:
+!C14B84_RecoverPpAmountTextCommand = CC_1E_06
     rep #$31
     phd
     pha
@@ -9668,7 +9743,8 @@ C14BC4_TestCurrentItemCompactCategory_L4BC4:
 C14BCF_TestCurrentItemCompactCategory_L4BCF:
     pld
     rts
-C14BD1_DepletePpAmountTextCommand:
+CC_1E_07:
+!C14BD1_DepletePpAmountTextCommand = CC_1E_07
     rep #$31
     phd
     pha
@@ -9712,7 +9788,8 @@ C14C11_TestCurrentItemCompactCategory_L4C11:
 C14C1C_TestCurrentItemCompactCategory_L4C1C:
     pld
     rts
-C14C1E_GiveItemToCharacterTextCommand:
+CC_1D_00:
+!C14C1E_GiveItemToCharacterTextCommand = CC_1D_00
     rep #$31
     phd
     pha
@@ -9769,7 +9846,8 @@ C14C6C_TestCurrentItemCompactCategory_L4C6C:
 C14C84_TestCurrentItemCompactCategory_L4C84:
     pld
     rts
-C14C86_TakeItemFromCharacterTextCommand:
+CC_1D_01:
+!C14C86_TakeItemFromCharacterTextCommand = CC_1D_01
     rep #$31
     phd
     pha
@@ -9835,7 +9913,8 @@ C14CEC_TestCurrentItemCompactCategory_L4CEC:
 hirom
 org $C14CEE
 
-C14CEE_FindPartyMemberWithInventoryRoomForTextCommand:
+CC_1D_03:
+!C14CEE_FindPartyMemberWithInventoryRoomForTextCommand = CC_1D_03
     rep #$31
     phd
     pha
@@ -9866,7 +9945,8 @@ C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14:
     lda.w #$0000
     pld
     rts
-C14D24_FindPartyMemberWithoutItemForTextCommand:
+CC_1D_04:
+!C14D24_FindPartyMemberWithoutItemForTextCommand = CC_1D_04
     rep #$31
     phd
     pha
@@ -9936,7 +10016,8 @@ C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91:
 hirom
 org $C14D93
 
-C14D93_FindPartyMemberWithItemForTextCommand:
+CC_1D_05:
+!C14D93_FindPartyMemberWithItemForTextCommand = CC_1D_05
     rep #$31
     phd
     pha
@@ -9993,7 +10074,8 @@ C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1:
 C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9:
     pld
     rts
-C14DFB_UseItemOnCharacterTextCommand:
+CC_1F_20:
+!C14DFB_UseItemOnCharacterTextCommand = CC_1F_20
     rep #$31
     phd
     pha
@@ -10072,7 +10154,8 @@ C14E71_FindPartyMemberWithItemForTextCommand_L4E71:
 C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A:
     pld
     rts
-C14E8C_TeleportToPresetLocationTextCommand:
+CC_1F_21:
+!C14E8C_TeleportToPresetLocationTextCommand = CC_1F_21
     rep #$31
     phd
     pha
@@ -10102,13 +10185,15 @@ hirom
 org $C14EAB
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C14EAB_HandleTextCommand10ParameterizedPause:
+CC_10:
+!C14EAB_HandleTextCommand10ParameterizedPause = CC_10
     rep #$31
     txa
     jsr $00D6
     lda.w #$0000
     rts
-C14EB5_DisplayShopMenuTextCommand:
+CC_1A_06:
+!C14EB5_DisplayShopMenuTextCommand = CC_1A_06
     rep #$31
     phd
     pha
@@ -10142,7 +10227,8 @@ C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB:
     lda.w #$0000
     pld
     rts
-C14EF8_GetBuyPriceOfItemTextCommand:
+CC_1D_0A:
+!C14EF8_GetBuyPriceOfItemTextCommand = CC_1D_0A
     rep #$31
     phd
     pha
@@ -10174,7 +10260,8 @@ C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     lda.w #$0000
     pld
     rts
-C14F33_GetSellPriceOfItemTextCommand:
+CC_1D_0B:
+!C14F33_GetSellPriceOfItemTextCommand = CC_1D_0B
     rep #$31
     phd
     pha
@@ -10207,7 +10294,8 @@ C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     lda.w #$0000
     pld
     rts
-C14F6F_CheckDirectItemUseCompatibilityTextCommand:
+CC_1F_81:
+!C14F6F_CheckDirectItemUseCompatibilityTextCommand = CC_1F_81
     rep #$31
     phd
     pha
@@ -10264,7 +10352,8 @@ C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD:
 C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5:
     pld
     rts
-C14FD7_PrintCharacterNameTextCommand:
+CC_1C_02:
+!C14FD7_PrintCharacterNameTextCommand = CC_1C_02
     rep #$31
     phd
     pha
@@ -10293,7 +10382,8 @@ C15002_C14EAB_HandleTextCommand10ParameterizedPause_L5002:
     lda.w #$0000
     pld
     rts
-C15007_GetCharacterStatusByteTextCommand:
+CC_19_16:
+!C15007_GetCharacterStatusByteTextCommand = CC_19_16
     rep #$31
     phd
     pha
@@ -10350,7 +10440,8 @@ C15055_C14EAB_HandleTextCommand10ParameterizedPause_L5055:
 C1506D_C14EAB_HandleTextCommand10ParameterizedPause_L506D:
     pld
     rts
-C1506F_InflictStatusTextCommand:
+CC_19_05:
+!C1506F_InflictStatusTextCommand = CC_19_05
     rep #$31
     phd
     pha
@@ -10415,7 +10506,8 @@ C150C8_C14EAB_HandleTextCommand10ParameterizedPause_L50C8:
 C150E2_C14EAB_HandleTextCommand10ParameterizedPause_L50E2:
     pld
     rts
-C150E4_CharacterHasAilmentTextCommand:
+CC_1D_0D:
+!C150E4_CharacterHasAilmentTextCommand = CC_1D_0D
     rep #$31
     phd
     pha
@@ -10488,7 +10580,8 @@ C1515B_C14EAB_HandleTextCommand10ParameterizedPause_L515B:
 C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169:
     pld
     rts
-C1516B_LoadSpecialTextSelector:
+CC_1C_14:
+!C1516B_LoadSpecialTextSelector = CC_1C_14
     rep #$31
     phd
     pha
@@ -10560,7 +10653,8 @@ C151E8_C14EAB_HandleTextCommand10ParameterizedPause_L51E8:
     lda.w #$0000
     pld
     rts
-C151FC_LoadSpecialForJumpMultiTextSelector:
+CC_1C_15:
+!C151FC_LoadSpecialForJumpMultiTextSelector = CC_1C_15
     rep #$31
     phd
     pha
@@ -10632,7 +10726,8 @@ C15279_C14EAB_HandleTextCommand10ParameterizedPause_L5279:
     lda.w #$0000
     pld
     rts
-C1528D_CompareQueuedValueAgainstTextRegisterCommand:
+CC_18_07:
+!C1528D_CompareQueuedValueAgainstTextRegisterCommand = CC_18_07
     rep #$31
     phd
     pha
@@ -10760,7 +10855,8 @@ C15374_C14EAB_HandleTextCommand10ParameterizedPause_L5374:
 C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
     pld
     rts
-C15384_GetExperienceNeededToLevelTextCommand:
+CC_19_18:
+!C15384_GetExperienceNeededToLevelTextCommand = CC_19_18
     rep #$31
     phd
     pha
@@ -10785,7 +10881,8 @@ C1539B_C14EAB_HandleTextCommand10ParameterizedPause_L539B:
     lda.w #$0000
     pld
     rts
-C153AF_PrintNumberTextCommand:
+CC_1C_0A:
+!C153AF_PrintNumberTextCommand = CC_1C_0A
     rep #$31
     phd
     pha
@@ -10904,13 +11001,15 @@ C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484:
 C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492:
     pld
     rts
-C15494_WaitForTextPromptOrInputGateTextCommand:
+CC_1F_60:
+!C15494_WaitForTextPromptOrInputGateTextCommand = CC_1F_60
     rep #$31
     txa
     jsr $00FE
     lda.w #$0000
     rts
-C1549E_DisplayInventoryMenuTextCommand:
+CC_1A_05:
+!C1549E_DisplayInventoryMenuTextCommand = CC_1A_05
     rep #$31
     phd
     pha
@@ -10982,7 +11081,8 @@ C1551F_C14EAB_HandleTextCommand10ParameterizedPause_L551F:
 C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527:
     pld
     rts
-C15529_RunWindowRelativeSelectionNoCancelTextCommand:
+CC_18_08:
+!C15529_RunWindowRelativeSelectionNoCancelTextCommand = CC_18_08
     rep #$31
     phd
     pha
@@ -11003,7 +11103,8 @@ C15529_RunWindowRelativeSelectionNoCancelTextCommand:
     lda.w #$0000
     pld
     rts
-C1554E_RunWindowRelativeSelectionTextCommand:
+CC_18_09:
+!C1554E_RunWindowRelativeSelectionTextCommand = CC_18_09
     rep #$31
     phd
     pha
@@ -11024,7 +11125,8 @@ C1554E_RunWindowRelativeSelectionTextCommand:
     lda.w #$0000
     pld
     rts
-C15573_PrintMoneyAmountTextCommand:
+CC_1C_0B:
+!C15573_PrintMoneyAmountTextCommand = CC_1C_0B
     rep #$31
     phd
     pha
@@ -11143,7 +11245,8 @@ C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648:
 C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657:
     pld
     rts
-C15659_GiveItemToCharacterBTextCommand:
+CC_1D_0E:
+!C15659_GiveItemToCharacterBTextCommand = CC_1D_0E
     rep #$31
     phd
     pha
@@ -11213,7 +11316,8 @@ C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
 C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9:
     pld
     rts
-C156DB_RemoveInventoryItemBySlotTextCommand:
+CC_1D_0F:
+!C156DB_RemoveInventoryItemBySlotTextCommand = CC_1D_0F
     rep #$31
     phd
     pha
@@ -11295,7 +11399,8 @@ C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B:
 hirom
 org $C1575D
 
-C1575D_TestEquippedItemPresenceForTextCommand:
+CC_1D_10:
+!C1575D_TestEquippedItemPresenceForTextCommand = CC_1D_10
     rep #$31
     phd
     pha
@@ -11360,7 +11465,8 @@ C157BD_C1575D_TestEquippedItemPresenceForTextCommand_L57BD:
 C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
     pld
     rts
-C157CD_CheckInventoryItemUsabilityTextCommand:
+CC_1D_11:
+!C157CD_CheckInventoryItemUsabilityTextCommand = CC_1D_11
     rep #$31
     phd
     pha
@@ -11424,7 +11530,8 @@ C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B:
 C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
     pld
     rts
-C1583D_CheckDeferredItemUseCompatibilityTextCommand:
+CC_1F_83:
+!C1583D_CheckDeferredItemUseCompatibilityTextCommand = CC_1F_83
     rep #$31
     phd
     pha
@@ -11485,7 +11592,8 @@ C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B:
 C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
     pld
     rts
-C158A5_StoreInventoryItemWithEscargoTextCommand:
+CC_1D_12:
+!C158A5_StoreInventoryItemWithEscargoTextCommand = CC_1D_12
     rep #$31
     phd
     pha
@@ -11539,7 +11647,8 @@ C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3:
 C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC:
     pld
     rts
-C158FE_WithdrawEscargoItemToInventoryTextCommand:
+CC_1D_13:
+!C158FE_WithdrawEscargoItemToInventoryTextCommand = CC_1D_13
     rep #$31
     phd
     pha
@@ -11609,7 +11718,8 @@ C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
 C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
     pld
     rts
-C1597F_ReadCharacterInventorySlotItemTextCommand:
+CC_19_19:
+!C1597F_ReadCharacterInventorySlotItemTextCommand = CC_19_19
     rep #$31
     phd
     pha
@@ -11678,7 +11788,8 @@ C159CD_C1575D_TestEquippedItemPresenceForTextCommand_L59CD:
 C159F7_C1575D_TestEquippedItemPresenceForTextCommand_L59F7:
     pld
     rts
-C159F9_HaveEnoughMoneyTextCommand:
+CC_1D_14:
+!C159F9_HaveEnoughMoneyTextCommand = CC_1D_14
     rep #$31
     phd
     pha
@@ -11821,7 +11932,8 @@ C15AFE_C1575D_TestEquippedItemPresenceForTextCommand_L5AFE:
 C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
     pld
     rts
-C15B0E_ReadEscargoStorageItemTextCommand:
+CC_19_1A:
+!C15B0E_ReadEscargoStorageItemTextCommand = CC_19_1A
     rep #$31
     phd
     pha
@@ -11854,7 +11966,8 @@ C15B25_C1575D_TestEquippedItemPresenceForTextCommand_L5B25:
     lda.w #$0000
     pld
     rts
-C15B46_RunStatusWindowDisplayTextCommand:
+CC_18_0D:
+!C15B46_RunStatusWindowDisplayTextCommand = CC_18_0D
     rep #$31
     phd
     pha
@@ -11912,7 +12025,8 @@ C15BA2_C1575D_TestEquippedItemPresenceForTextCommand_L5BA2:
 C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5:
     pld
     rts
-C15BA7_PrintVerticalTextStringCommand:
+CC_1C_0C:
+!C15BA7_PrintVerticalTextStringCommand = CC_1C_0C
     rep #$31
     phd
     pha
@@ -11934,7 +12048,8 @@ C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE:
     lda.w #$0000
     pld
     rts
-C15BCA_PutValueInArgmemTextCommand:
+CC_1D_15:
+!C15BCA_PutValueInArgmemTextCommand = CC_1D_15
     rep #$31
     phd
     pha
@@ -11989,7 +12104,8 @@ C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13:
 C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
     pld
     rts
-C15C36_GetLoadedStringCountForWindowTextCommand:
+CC_19_1B:
+!C15C36_GetLoadedStringCountForWindowTextCommand = CC_19_1B
     rep #$31
     phd
     pha
@@ -12009,7 +12125,8 @@ C15C36_GetLoadedStringCountForWindowTextCommand:
     lda.w #$0000
     pld
     rts
-C15C58_RunTextCommand1F71PartyUtility:
+CC_1F_71:
+!C15C58_RunTextCommand1F71PartyUtility = CC_1F_71
     rep #$31
     lda.w #$0001
     clc
@@ -12034,7 +12151,8 @@ C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C:
     lda.w #$0000
 C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84:
     rts
-C15C85_AddToAtmTextCommand:
+CC_1D_06:
+!C15C85_AddToAtmTextCommand = CC_1D_06
     rep #$31
     phd
     pha
@@ -12153,7 +12271,8 @@ C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A:
 C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
     pld
     rts
-C15D6B_TakeFromAtmTextCommand:
+CC_1D_07:
+!C15D6B_TakeFromAtmTextCommand = CC_1D_07
     rep #$31
     phd
     pha
@@ -12277,7 +12396,8 @@ C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40:
 C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
     pld
     rts
-C15E5C_HaveEnoughMoneyInAtmTextCommand:
+CC_1D_17:
+!C15E5C_HaveEnoughMoneyInAtmTextCommand = CC_1D_17
     rep #$31
     phd
     pha
@@ -12420,7 +12540,8 @@ C15F61_C1575D_TestEquippedItemPresenceForTextCommand_L5F61:
 C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
     pld
     rts
-C15F71_AddToWalletTextCommand:
+CC_1F_11:
+!C15F71_AddToWalletTextCommand = CC_1F_11
     rep #$31
     phd
     pha
@@ -12440,7 +12561,8 @@ C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88:
     lda.w #$0000
     pld
     rts
-C15F91_TakeFromWalletTextCommand:
+CC_1F_12:
+!C15F91_TakeFromWalletTextCommand = CC_1F_12
     rep #$31
     phd
     pha
@@ -12502,7 +12624,8 @@ C15FF3_C1575D_TestEquippedItemPresenceForTextCommand_L5FF3:
     rep #$20
     pld
     rts
-C15FF7_QueueDeliveryOrPickupItemTextCommand:
+CC_19_1C:
+!C15FF7_QueueDeliveryOrPickupItemTextCommand = CC_19_1C
     rep #$31
     phd
     pha
@@ -12579,7 +12702,8 @@ C16074_C1575D_TestEquippedItemPresenceForTextCommand_L6074:
 C1607E_C1575D_TestEquippedItemPresenceForTextCommand_L607E:
     pld
     rts
-C16080_ReadDeliveryOrPickupItemInfoTextCommand:
+CC_19_1D:
+!C16080_ReadDeliveryOrPickupItemInfoTextCommand = CC_19_1D
     rep #$31
     phd
     pha
@@ -12667,7 +12791,8 @@ C1611D_C1575D_TestEquippedItemPresenceForTextCommand_L611D:
 C16122_C1575D_TestEquippedItemPresenceForTextCommand_L6122:
     pld
     rts
-C16124_AddItemToEscargoStorageTextCommand:
+CC_1D_18:
+!C16124_AddItemToEscargoStorageTextCommand = CC_1D_18
     rep #$31
     phd
     pha
@@ -12687,7 +12812,8 @@ C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B:
     lda.w #$0000
     pld
     rts
-C16143_ClassifyFoodItemTextCommand:
+CC_19_21:
+!C16143_ClassifyFoodItemTextCommand = CC_19_21
     rep #$31
     phd
     pha
@@ -12714,7 +12840,8 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     lda.w #$0000
     pld
     rts
-C16172_HaveXPartyMembersTextCommand:
+CC_1D_19:
+!C16172_HaveXPartyMembersTextCommand = CC_1D_19
     rep #$31
     phd
     pha
@@ -12767,7 +12894,8 @@ C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     lda.w #$0000
     pld
     rts
-C161D1_PrintPsiNameTextCommand:
+CC_1C_12:
+!C161D1_PrintPsiNameTextCommand = CC_1C_12
     rep #$31
     phd
     pha
@@ -12787,7 +12915,8 @@ C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8:
     lda.w #$0000
     pld
     rts
-C161F0_GenerateRandomNumberTextCommand:
+CC_1D_21:
+!C161F0_GenerateRandomNumberTextCommand = CC_1D_21
     rep #$31
     phd
     pha
@@ -12946,7 +13075,8 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
 C16306_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6306:
     pld
     rts
-C16308_HandleTextCommand1FC0JumpMulti2:
+CC_1F_C0:
+!C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
     rep #$31
     phd
     pha
@@ -13031,7 +13161,8 @@ C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
 C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5:
     pld
     rts
-C163A7_RunJeffRepairBrokenItemCallback:
+CC_1F_D0:
+!C163A7_RunJeffRepairBrokenItemCallback = CC_1F_D0
     rep #$31
     phd
     pha
@@ -13079,7 +13210,8 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda.w #$0000
     pld
     rts
-C163FD_HandleTextCommand1F13:
+CC_1F_13:
+!C163FD_HandleTextCommand1F13 = CC_1F_13
     rep #$31
     phd
     pha
@@ -13142,7 +13274,8 @@ C1645C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L645C:
 C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
-C1646E_HandleTextCommand1F14:
+CC_1F_14:
+!C1646E_HandleTextCommand1F14 = CC_1F_14
     rep #$31
     phd
     pha
@@ -13164,7 +13297,8 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     lda.w #$0000
     pld
     rts
-C16490_HandleTextCommand1F16:
+CC_1F_16:
+!C16490_HandleTextCommand1F16 = CC_1F_16
     rep #$31
     phd
     pha
@@ -13231,7 +13365,8 @@ C164FA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64FA:
 C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
-C16509_HandleTextCommand1F17:
+CC_1F_17:
+!C16509_HandleTextCommand1F17 = CC_1F_17
     rep #$31
     phd
     pha
@@ -13291,7 +13426,8 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
 C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
-C16582_HandleTextCommand1F18:
+CC_1F_18:
+!C16582_HandleTextCommand1F18 = CC_1F_18
     rep #$31
     lda.w #$0006
     clc
@@ -13314,7 +13450,8 @@ C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
     lda.w #$0000
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
-C165AA_HandleTextCommand1F19:
+CC_1F_19:
+!C165AA_HandleTextCommand1F19 = CC_1F_19
     rep #$31
     lda.w #$0006
     clc
@@ -13337,7 +13474,8 @@ C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
     lda.w #$0000
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
-C165D2_HandleTextCommand1F1A:
+CC_1F_1A:
+!C165D2_HandleTextCommand1F1A = CC_1F_1A
     rep #$31
     phd
     pha
@@ -13383,7 +13521,8 @@ C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
 C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
-C1662A_HandleTextCommand1F1B:
+CC_1F_1B:
+!C1662A_HandleTextCommand1F1B = CC_1F_1B
     rep #$31
     phd
     pha
@@ -13417,7 +13556,8 @@ C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
 C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
-C1666D_HandleTextCommand1F1C:
+CC_1F_1C:
+!C1666D_HandleTextCommand1F1C = CC_1F_1C
     rep #$31
     phd
     pha
@@ -13479,7 +13619,8 @@ C166CC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66CC:
 C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
-C166DD_HandleTextCommand1F1D:
+CC_1F_1D:
+!C166DD_HandleTextCommand1F1D = CC_1F_1D
     rep #$31
     phd
     pha
@@ -13500,7 +13641,8 @@ C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     lda.w #$0000
     pld
     rts
-C166FE_HandleTextCommand1FE1:
+CC_1F_E1:
+!C166FE_HandleTextCommand1FE1 = CC_1F_E1
     rep #$31
     phd
     pha
@@ -13539,7 +13681,8 @@ C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
 C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
-C16744_HandleTextCommand1F15:
+CC_1F_15:
+!C16744_HandleTextCommand1F15 = CC_1F_15
     rep #$31
     phd
     pha
@@ -13612,7 +13755,8 @@ C167D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D1:
 C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
-C167D6_HandleTextCommand1F1E:
+CC_1F_1E:
+!C167D6_HandleTextCommand1F1E = CC_1F_1E
     rep #$31
     phd
     pha
@@ -13663,7 +13807,8 @@ C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
 C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
-C1683B_HandleTextCommand1F1F:
+CC_1F_1F:
+!C1683B_HandleTextCommand1F1F = CC_1F_1F
     rep #$31
     phd
     pha
@@ -13714,7 +13859,8 @@ C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
 C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E:
     pld
     rts
-C168A0_ResolveFacingDirectionCommand22:
+CC_19_22:
+!C168A0_ResolveFacingDirectionCommand22 = CC_19_22
     rep #$31
     phd
     pha
@@ -13802,7 +13948,8 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
     pld
     rts
-C16947_ResolveFacingDirectionCommand23:
+CC_19_23:
+!C16947_ResolveFacingDirectionCommand23 = CC_19_23
     rep #$31
     phd
     pha
@@ -13894,13 +14041,15 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
-C169F7_HandleTextCommand1F62:
+CC_1F_62:
+!C169F7_HandleTextCommand1F62 = CC_1F_62
     rep #$31
     txa
     jsr $0036
     lda.w #$0000
     rts
-C16A01_SetCharacterLevelTextCommand:
+CC_1E_08:
+!C16A01_SetCharacterLevelTextCommand = CC_1E_08
     rep #$31
     phd
     pha
@@ -13969,7 +14118,8 @@ C16A69_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A69:
 C16A79_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A79:
     pld
     rts
-C16A7B_ResolveFacingDirectionCommand24:
+CC_19_24:
+!C16A7B_ResolveFacingDirectionCommand24 = CC_19_24
     rep #$31
     phd
     pha
@@ -14061,7 +14211,8 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
-C16B2B_HandleTextCommand1FE4:
+CC_1F_E4:
+!C16B2B_HandleTextCommand1FE4 = CC_1F_E4
     rep #$31
     phd
     pha
@@ -14128,13 +14279,15 @@ C16B95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B95:
 C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
-C16BA4_HandleTextCommand1FE5:
+CC_1F_E5:
+!C16BA4_HandleTextCommand1FE5 = CC_1F_E5
     rep #$31
     txa
     jsl $C46594
     lda.w #$0000
     rts
-C16BAF_HandleTextCommand1FE6:
+CC_1F_E6:
+!C16BAF_HandleTextCommand1FE6 = CC_1F_E6
     rep #$31
     phd
     pha
@@ -14168,7 +14321,8 @@ C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
 C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
-C16BF2_HandleTextCommand1FE7:
+CC_1F_E7:
+!C16BF2_HandleTextCommand1FE7 = CC_1F_E7
     rep #$31
     phd
     pha
@@ -14202,13 +14356,15 @@ C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
 C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
-C16C35_HandleTextCommand1FE8:
+CC_1F_E8:
+!C16C35_HandleTextCommand1FE8 = CC_1F_E8
     rep #$31
     txa
     jsl $C46631
     lda.w #$0000
     rts
-C16C40_HandleTextCommand1FE9:
+CC_1F_E9:
+!C16C40_HandleTextCommand1FE9 = CC_1F_E9
     rep #$31
     phd
     pha
@@ -14242,7 +14398,8 @@ C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
 C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
-C16C83_HandleTextCommand1FEA:
+CC_1F_EA:
+!C16C83_HandleTextCommand1FEA = CC_1F_EA
     rep #$31
     phd
     pha
@@ -14276,7 +14433,8 @@ C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
 C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
-C16CC6_HandleTextCommand1FEB:
+CC_1F_EB:
+!C16CC6_HandleTextCommand1FEB = CC_1F_EB
     rep #$31
     phd
     pha
@@ -14318,7 +14476,8 @@ C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
 C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
-C16D14_HandleTextCommand1FEC:
+CC_1F_EC:
+!C16D14_HandleTextCommand1FEC = CC_1F_EC
     rep #$31
     phd
     pha
@@ -14360,7 +14519,8 @@ C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
 C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
-C16D62_HandleTextCommand1FEE:
+CC_1F_EE:
+!C16D62_HandleTextCommand1FEE = CC_1F_EE
     rep #$31
     phd
     pha
@@ -14394,7 +14554,8 @@ C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
 C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
-C16DA5_HandleTextCommand1FEF:
+CC_1F_EF:
+!C16DA5_HandleTextCommand1FEF = CC_1F_EF
     rep #$31
     phd
     pha
@@ -14428,7 +14589,8 @@ C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
 C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
-C16DE8_HandleTextCommand1F63:
+CC_1F_63:
+!C16DE8_HandleTextCommand1F63 = CC_1F_63
     rep #$31
     phd
     pha
@@ -14537,7 +14699,8 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
 C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
     pld
     rts
-C16EBF_HandleTextCommand1FF1:
+CC_1F_F1:
+!C16EBF_HandleTextCommand1FF1 = CC_1F_F1
     rep #$31
     phd
     pha
@@ -14594,7 +14757,8 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
 C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
     pld
     rts
-C16F2F_HandleTextCommand1FF2:
+CC_1F_F2:
+!C16F2F_HandleTextCommand1FF2 = CC_1F_F2
     rep #$31
     phd
     pha
@@ -14651,7 +14815,8 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
 C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
     pld
     rts
-C16F9F_ClassifyCondimentItemTextCommand:
+CC_19_25:
+!C16F9F_ClassifyCondimentItemTextCommand = CC_19_25
     rep #$31
     phd
     pha
@@ -14680,7 +14845,8 @@ C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
     lda.w #$0000
     pld
     rts
-C16FD1_HandleTextCommand1F23:
+CC_1F_23:
+!C16FD1_HandleTextCommand1F23 = CC_1F_23
     rep #$31
     phd
     pha
@@ -14753,7 +14919,8 @@ C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
     lda.w #$0000
     pld
     rts
-C17058_CheckEscargoStorageStatusTextCommand:
+CC_1D_0C:
+!C17058_CheckEscargoStorageStatusTextCommand = CC_1D_0C
     rep #$31
     phd
     pha
@@ -14860,7 +15027,8 @@ C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
 C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
     pld
     rts
-C1711C_HandleTextCommand1F66:
+CC_1F_66:
+!C1711C_HandleTextCommand1F66 = CC_1F_66
     rep #$31
     phd
     pha
@@ -15004,7 +15172,8 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
 C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
     pld
     rts
-C17233_HandleTextCommand1F67:
+CC_1F_67:
+!C17233_HandleTextCommand1F67 = CC_1F_67
     rep #$31
     phd
     pha
@@ -15025,7 +15194,8 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     lda.w #$0000
     pld
     rts
-C17254_HandleTextCommand1F04:
+CC_1F_04:
+!C17254_HandleTextCommand1F04 = CC_1F_04
     rep #$31
     phd
     pha
@@ -15056,7 +15226,8 @@ hirom
 org $C17274
 
 !C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
-C17274_StageBankDepositAccumulatorTextValue:
+CC_1D_24:
+!C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     rep #$31
     phd
     pha
@@ -15092,7 +15263,8 @@ C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7:
     lda.w #$0000
     pld
     rts
-C172BC_HandleTextCommand1F40:
+CC_1F_40:
+!C172BC_HandleTextCommand1F40 = CC_1F_40
     rep #$31
     lda $97CA
     bne C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6
@@ -15108,7 +15280,8 @@ C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6:
     lda.w #$0000
 C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9:
     rts
-C172DA_HandleTextCommand1F41:
+CC_1F_41:
+!C172DA_HandleTextCommand1F41 = CC_1F_41
     rep #$31
     phd
     pha
@@ -15132,7 +15305,8 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     lda.w #$0000
     pld
     rts
-C17304_HandleTextCommand1FD2:
+CC_1F_D2:
+!C17304_HandleTextCommand1FD2 = CC_1F_D2
     rep #$31
     phd
     pha
@@ -15153,7 +15327,8 @@ C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda.w #$0000
     pld
     rts
-C17325_HandleTextCommand1FF3:
+CC_1F_F3:
+!C17325_HandleTextCommand1FF3 = CC_1F_F3
     rep #$31
     phd
     pha
@@ -15199,7 +15374,8 @@ C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
     rts
-C1737D_HandleTextCommand1FF4:
+CC_1F_F4:
+!C1737D_HandleTextCommand1FF4 = CC_1F_F4
     rep #$31
     phd
     pha
@@ -15233,7 +15409,8 @@ C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
     rts
-C173C0_StageBattleVisualEffectResultTextCommand:
+CC_1C_13:
+!C173C0_StageBattleVisualEffectResultTextCommand = CC_1C_13
     rep #$31
     phd
     pha
@@ -15285,7 +15462,8 @@ C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
     pld
     rts
-C1741F_HandleTextCommand1F07:
+CC_1F_07:
+!C1741F_HandleTextCommand1F07 = CC_1F_07
     rep #$31
     phd
     pha
@@ -15316,13 +15494,15 @@ hirom
 org $C17440
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C17440_TimedDeliveryRowSelectorCallback:
+CC_1F_D3:
+!C17440_TimedDeliveryRowSelectorCallback = CC_1F_D3
     rep #$31
     txa
     jsl $EF0EAD
     lda.w #$0000
     rts
-C1744B_GiveExperienceTextCommand:
+CC_1E_09:
+!C1744B_GiveExperienceTextCommand = CC_1E_09
     rep #$31
     phd
     pha
@@ -15432,7 +15612,8 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
 C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
     pld
     rts
-C17523_BoostIqTextCommand:
+CC_1E_0A:
+!C17523_BoostIqTextCommand = CC_1E_0A
     rep #$31
     phd
     pha
@@ -15484,7 +15665,8 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
 C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
     pld
     rts
-C17584_BoostGutsTextCommand:
+CC_1E_0B:
+!C17584_BoostGutsTextCommand = CC_1E_0B
     rep #$31
     phd
     pha
@@ -15536,7 +15718,8 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
 C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
     pld
     rts
-C175E5_BoostSpeedTextCommand:
+CC_1E_0C:
+!C175E5_BoostSpeedTextCommand = CC_1E_0C
     rep #$31
     phd
     pha
@@ -15588,7 +15771,8 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
 C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
     pld
     rts
-C17646_BoostVitalityTextCommand:
+CC_1E_0D:
+!C17646_BoostVitalityTextCommand = CC_1E_0D
     rep #$31
     phd
     pha
@@ -15640,7 +15824,8 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
 C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
     pld
     rts
-C176A7_BoostLuckTextCommand:
+CC_1E_0E:
+!C176A7_BoostLuckTextCommand = CC_1E_0E
     rep #$31
     phd
     pha
@@ -15702,7 +15887,8 @@ hirom
 org $C17708
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C17708_ClassifyEquippedItemOffensiveDefensive:
+CC_1D_23:
+!C17708_ClassifyEquippedItemOffensiveDefensive = CC_1D_23
     rep #$31
     phd
     pha
@@ -15754,7 +15940,8 @@ C17756_c1_7708_classify_equipped_item_offensive_defensive_L7756:
     lda.w #$0000
     pld
     rts
-C1776A_StageStatisticSelectorValueTextCommand:
+CC_19_27:
+!C1776A_StageStatisticSelectorValueTextCommand = CC_19_27
     rep #$31
     phd
     pha
@@ -15989,7 +16176,8 @@ C178F5_ContinueLoadedStringInlineCollector_L78F5:
 hirom
 org $C178F7
 
-C178F7_StartLoadedStringInlineCollector:
+CC_19_02:
+!C178F7_StartLoadedStringInlineCollector = CC_19_02
     rep #$31
     txa
     sep #$20
@@ -16262,7 +16450,7 @@ C17AE3_LoadDisplayTextPointerSubstitutionSlot:
     sta !TextContextSourcePointerLo
     lda !ScratchPointerHi
     sta !TextContextSourcePointerHi
-    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
 
 
@@ -16292,7 +16480,7 @@ C17AF3_LoadDisplayTextByteSubstitutionSlot:
     sta !TextContextSourcePointerLo
     lda !ScratchValueHi
     sta !TextContextSourcePointerHi
-    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
 
 
@@ -16323,7 +16511,7 @@ C17B0D_LoadDisplayTextMushroomizedSelectorByte:
     sta !TextContextSourcePointerLo
     lda !ScratchValueHi
     sta !TextContextSourcePointerHi
-    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
 C17B29_LoadDisplayTextStaticPointer6143:
     lda.w #$6143
@@ -16366,7 +16554,8 @@ org $C17B56
 !C0886C_SetDisplayTransitionState = $C0886C
 !C0887A_ClearDisplayTransitionState = $C0887A
 !C2165E_SetEventFlagOrState = $C2165E
-C17B56_DispatchDisplayTextDynamicSourceSelector:
+CC_1A_TREE:
+!C17B56_DispatchDisplayTextDynamicSourceSelector = CC_1A_TREE
     rep #$31
     phd
     pha
@@ -17882,7 +18071,7 @@ C191F8_WithdrawPendingItemToInventory:
     tax
     ldy !SavedCharacterIndex
     tya
-    jsl !C18BC6_InsertItemIntoCharacterInventory
+    jsl GIVE_ITEM_TO_CHARACTER
     ldy !SavedCharacterIndex
     tya
     pld
@@ -17949,7 +18138,8 @@ org $C19B4E
 !ComparisonMarkerAccumulator = $10
 !ComparisonLoopIndex = $12
 !ComparisonMarkerForCannotEquip = $0C00
-C19B4E_BuildEquipmentComparisonMarkersForItem:
+SET_HPPP_WINDOW_MODE_ITEM:
+!C19B4E_BuildEquipmentComparisonMarkersForItem = SET_HPPP_WINDOW_MODE_ITEM
     rep #$31
     phd
     pha
@@ -18079,7 +18269,8 @@ hirom
 org $C1AC9B
 
 !BattleAttackerNameBuffer = $9CD7
-C1AC9B_GetBattleAttackerNameBufferBase:
+RETURN_BATTLE_ATTACKER_ADDRESS:
+!C1AC9B_GetBattleAttackerNameBufferBase = RETURN_BATTLE_ATTACKER_ADDRESS
     rep #$31
     lda.w #!BattleAttackerNameBuffer
     rts
@@ -18158,7 +18349,8 @@ hirom
 org $C1ACF2
 
 !BattleTargetNameBuffer = $9CF5
-C1ACF2_GetBattleTargetNameBufferBase:
+RETURN_BATTLE_TARGET_ADDRESS:
+!C1ACF2_GetBattleTargetNameBufferBase = RETURN_BATTLE_TARGET_ADDRESS
     rep #$31
     lda.w #!BattleTargetNameBuffer
     rts
@@ -18356,7 +18548,8 @@ hirom
 org $C1DD3B
 
 !C100A04_ShowHpppWindows_Internal = $0A04
-C1DD3B_RedirectShowHpppWindows:
+REDIRECT_SHOW_HPPP_WINDOWS:
+!C1DD3B_RedirectShowHpppWindows = REDIRECT_SHOW_HPPP_WINDOWS
     rep #$31
     jsr !C100A04_ShowHpppWindows_Internal
     rtl
@@ -18370,7 +18563,8 @@ hirom
 org $C1DD41
 
 !C100A1D_HideHpppWindows_Internal = $0A1D
-C1DD41_RedirectHideHpppWindows:
+REDIRECT_HIDE_HPPP_WINDOWS:
+!C1DD41_RedirectHideHpppWindows = REDIRECT_HIDE_HPPP_WINDOWS
     rep #$31
     jsr !C100A1D_HideHpppWindows_Internal
     rtl
@@ -18384,7 +18578,8 @@ hirom
 org $C1DD47
 
 !C1004EE_CreateWindow_Internal = $04EE
-C1DD47_RedirectCreateWindow:
+REDIRECT_CREATE_WINDOW:
+!C1DD47_RedirectCreateWindow = REDIRECT_CREATE_WINDOW
     rep #$31
     jsr !C1004EE_CreateWindow_Internal
     rtl
@@ -18398,7 +18593,8 @@ hirom
 org $C1DD4D
 
 !C10007E_SetWindowFocus_Internal = $007E
-C1DD4D_RedirectSetWindowFocus:
+REDIRECT_SET_WINDOW_FOCUS:
+!C1DD4D_RedirectSetWindowFocus = REDIRECT_SET_WINDOW_FOCUS
     rep #$31
     jsr !C10007E_SetWindowFocus_Internal
     rtl
@@ -18412,7 +18608,8 @@ hirom
 org $C1DD53
 
 !C100FA3_TextEntryHelper_Internal = $0FA3
-C1DD53_RedirectTextEntryHelper0FA3:
+REDIRECT_C10FA3:
+!C1DD53_RedirectTextEntryHelper0FA3 = REDIRECT_C10FA3
     rep #$31
     jsr !C100FA3_TextEntryHelper_Internal
     rtl
@@ -18426,7 +18623,8 @@ hirom
 org $C1DD59
 
 !C100084_CloseFocusWindow_Internal = $0084
-C1DD59_RedirectCloseFocusWindow:
+REDIRECT_CLOSE_FOCUS_WINDOW:
+!C1DD59_RedirectCloseFocusWindow = REDIRECT_CLOSE_FOCUS_WINDOW
     rep #$31
     jsr !C100084_CloseFocusWindow_Internal
     rtl
@@ -18459,7 +18657,8 @@ hirom
 org $C1DD70
 
 !C1AC4A_BuildBattleAttackerNameBuffer = $AC4A
-C1DD70_RedirectBuildBattleAttackerNameBuffer:
+REDIRECT_C1AC4A:
+!C1DD70_RedirectBuildBattleAttackerNameBuffer = REDIRECT_C1AC4A
     rep #$31
     jsr !C1AC4A_BuildBattleAttackerNameBuffer
     rtl
@@ -18473,7 +18672,8 @@ hirom
 org $C1DD76
 
 !C1ACA1_BuildBattleTargetNameBuffer = $ACA1
-C1DD76_RedirectBuildBattleTargetNameBuffer:
+REDIRECT_C1ACA1:
+!C1DD76_RedirectBuildBattleTargetNameBuffer = REDIRECT_C1ACA1
     rep #$31
     jsr !C1ACA1_BuildBattleTargetNameBuffer
     rtl
@@ -18487,7 +18687,8 @@ hirom
 org $C1DD7C
 
 !C1ACF8_StageBattleTextSubstitutionByte = $ACF8
-C1DD7C_RedirectStageBattleTextSubstitutionByte:
+REDIRECT_C1ACF8:
+!C1DD7C_RedirectStageBattleTextSubstitutionByte = REDIRECT_C1ACF8
     rep #$31
     jsr !C1ACF8_StageBattleTextSubstitutionByte
     rtl
@@ -18553,7 +18754,7 @@ C1E48D_RenderSingleTextInputOptionRowScoped:
     sta !OptionIndex
     jsl !C3E4D4_SetInstantPrinting
     lda !OptionIndex
-    jsr !C1007E_SetWindowFocus
+    jsr SET_WINDOW_FOCUS
     ldy !SavedColumn
     ldx !SavedRowIndex
     lda !OptionIndex
@@ -18561,7 +18762,7 @@ C1E48D_RenderSingleTextInputOptionRowScoped:
     tax
     stx !SavedRowIndex
     lda.w #!TextInputOptionWindowFocus
-    jsr !C1007E_SetWindowFocus
+    jsr SET_WINDOW_FOCUS
     ldx !SavedRowIndex
     txa
     pld
@@ -19658,7 +19859,8 @@ C12BDF_DispatchCharacterSelectionPromptMode_L2BDF:
 hirom
 org $C186B1
 
-C186B1_ExecuteNestedTextPointer:
+DISPLAY_TEXT:
+!C186B1_ExecuteNestedTextPointer = DISPLAY_TEXT
     rep #$31
     phd
     tdc
@@ -20244,7 +20446,8 @@ hirom
 org $C18B2C
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C18B2C_InsertItemIntoFirstEmptyInventorySlot:
+GIVE_ITEM_TO_SPECIFIC_CHARACTER:
+!C18B2C_InsertItemIntoFirstEmptyInventorySlot = GIVE_ITEM_TO_SPECIFIC_CHARACTER
     rep #$31
     phd
     pha
@@ -20335,7 +20538,8 @@ hirom
 org $C18BC6
 
 !C18B2C_InsertItemIntoFirstEmptyInventorySlot = $8B2C
-C18BC6_InsertItemIntoCharacterInventory:
+GIVE_ITEM_TO_CHARACTER:
+!C18BC6_InsertItemIntoCharacterInventory = GIVE_ITEM_TO_CHARACTER
     rep #$31
     phd
     pha
@@ -20360,7 +20564,7 @@ C18BE0_c1_8bc6_insert_item_into_character_inventory_L8BE0:
     ldx $04
     lda $0000,Y
     and.w #$00FF
-    jsr !C18B2C_InsertItemIntoFirstEmptyInventorySlot
+    jsr GIVE_ITEM_TO_SPECIFIC_CHARACTER
     cmp.w #$0000
     beq C18C05_c1_8bc6_insert_item_into_character_inventory_L8C05
     ldy $0E
@@ -20384,7 +20588,7 @@ C18C0B_c1_8bc6_insert_item_into_character_inventory_L8C0B:
     bra C18C25_c1_8bc6_insert_item_into_character_inventory_L8C25
 C18C20_c1_8bc6_insert_item_into_character_inventory_L8C20:
     ldx $04
-    jsr !C18B2C_InsertItemIntoFirstEmptyInventorySlot
+    jsr GIVE_ITEM_TO_SPECIFIC_CHARACTER
 C18C25_c1_8bc6_insert_item_into_character_inventory_L8C25:
     pld
     rtl
@@ -20398,7 +20602,8 @@ hirom
 org $C18C27
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C18C27_RemoveItemFromCharacterInventorySlot:
+REMOVE_ITEM_FROM_INVENTORY:
+!C18C27_RemoveItemFromCharacterInventorySlot = REMOVE_ITEM_FROM_INVENTORY
     rep #$31
     phd
     pha
@@ -20688,7 +20893,8 @@ org $C18E5B
 
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C18E5B_SearchAndRemoveItemFromCharacterInventory:
+TAKE_ITEM_FROM_SPECIFIC_CHARACTER:
+!C18E5B_SearchAndRemoveItemFromCharacterInventory = TAKE_ITEM_FROM_SPECIFIC_CHARACTER
     rep #$31
     phd
     pha
@@ -20720,7 +20926,7 @@ C18E72_c1_8e5b_search_and_remove_item_from_character_inventory_L8E72:
     inx
     lda $0E
     inc A
-    jsr !C18C27_RemoveItemFromCharacterInventorySlot
+    jsr REMOVE_ITEM_FROM_INVENTORY
     bra C18EAB_c1_8e5b_search_and_remove_item_from_character_inventory_L8EAB
 C18E98_c1_8e5b_search_and_remove_item_from_character_inventory_L8E98:
     inc $02
@@ -20748,7 +20954,8 @@ hirom
 org $C18EAD
 
 !C18E5B_SearchAndRemoveItemFromCharacterInventory = $8E5B
-C18EAD_SearchAndRemoveItemFromActiveInventories:
+TAKE_ITEM_FROM_CHARACTER:
+!C18EAD_SearchAndRemoveItemFromActiveInventories = TAKE_ITEM_FROM_CHARACTER
     rep #$31
     phd
     pha
@@ -20773,7 +20980,7 @@ C18EC7_c1_8ead_search_and_remove_item_from_active_inventories_L8EC7:
     ldx $04
     lda $0000,Y
     and.w #$00FF
-    jsr !C18E5B_SearchAndRemoveItemFromCharacterInventory
+    jsr TAKE_ITEM_FROM_SPECIFIC_CHARACTER
     cmp.w #$0000
     beq C18EEC_c1_8ead_search_and_remove_item_from_active_inventories_L8EEC
     ldy $0E
@@ -20797,7 +21004,7 @@ C18EF2_c1_8ead_search_and_remove_item_from_active_inventories_L8EF2:
     bra C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C
 C18F07_c1_8ead_search_and_remove_item_from_active_inventories_L8F07:
     ldx $04
-    jsr !C18E5B_SearchAndRemoveItemFromCharacterInventory
+    jsr TAKE_ITEM_FROM_SPECIFIC_CHARACTER
 C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C:
     pld
     rtl
@@ -20810,7 +21017,8 @@ C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C:
 hirom
 org $C18F0E
 
-C18F0E_DepleteHpForCharacterOrActiveParty:
+REDUCE_HP_AMTPERCENT:
+!C18F0E_DepleteHpForCharacterOrActiveParty = REDUCE_HP_AMTPERCENT
     rep #$31
     phd
     pha
@@ -20866,7 +21074,8 @@ C18F62_c1_8f0e_deplete_hp_for_character_or_active_party_L8F62:
 hirom
 org $C18F64
 
-C18F64_RecoverHpForCharacterOrActiveParty:
+RECOVER_HP_AMTPERCENT:
+!C18F64_RecoverHpForCharacterOrActiveParty = RECOVER_HP_AMTPERCENT
     rep #$31
     phd
     pha
@@ -20922,7 +21131,8 @@ C18FB8_c1_8f64_recover_hp_for_character_or_active_party_L8FB8:
 hirom
 org $C18FBA
 
-C18FBA_DepletePpForCharacterOrActiveParty:
+REDUCE_PP_AMTPERCENT:
+!C18FBA_DepletePpForCharacterOrActiveParty = REDUCE_PP_AMTPERCENT
     rep #$31
     phd
     pha
@@ -20978,7 +21188,8 @@ C1900E_c1_8fba_deplete_pp_for_character_or_active_party_L900E:
 hirom
 org $C19010
 
-C19010_RecoverPpForCharacterOrActiveParty:
+RECOVER_PP_AMTPERCENT:
+!C19010_RecoverPpForCharacterOrActiveParty = RECOVER_PP_AMTPERCENT
     rep #$31
     phd
     pha
@@ -21035,7 +21246,8 @@ hirom
 org $C19066
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-C19066_DispatchEquippedSlotSubtypeUpdate:
+EQUIP_ITEM:
+!C19066_DispatchEquippedSlotSubtypeUpdate = EQUIP_ITEM
     rep #$31
     phd
     pha
@@ -21173,7 +21385,8 @@ hirom
 org $C1913D
 
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
-C1913D_EnqueuePendingItemId:
+ESCARGO_EXPRESS_STORE:
+!C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     rep #$31
     phd
     pha
@@ -21218,7 +21431,8 @@ C1917E_c1_913d_enqueue_pending_item_id_L917E:
 C19181_c1_913d_enqueue_pending_item_id_L9181:
     pld
     rts
-C19183_StoreInventorySlotItemInPendingQueue:
+ESCARGO_EXPRESS_MOVE:
+!C19183_StoreInventorySlotItemInPendingQueue = ESCARGO_EXPRESS_MOVE
     rep #$31
     phd
     pha
@@ -21232,13 +21446,13 @@ C19183_StoreInventorySlotItemInPendingQueue:
     ldx $02
     tya
     jsl $C3E977
-    jsr.w C1913D_EnqueuePendingItemId
+    jsr.w ESCARGO_EXPRESS_STORE
     cmp.w #$0000
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
     ldx $02
     ldy $0E
     tya
-    jsr !C18C27_RemoveItemFromCharacterInventorySlot
+    jsr REMOVE_ITEM_FROM_INVENTORY
     bra C191AE_c1_913d_enqueue_pending_item_id_L91AE
 C191AB_c1_913d_enqueue_pending_item_id_L91AB:
     lda.w #$0000
@@ -21363,7 +21577,7 @@ C19291_print_statistic_selector_value_L9291:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192B7_print_statistic_selector_value_L92B7:
     txa
@@ -21380,7 +21594,7 @@ C192B7_print_statistic_selector_value_L92B7:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192D5_print_statistic_selector_value_L92D5:
     txa
@@ -21398,7 +21612,7 @@ C192D5_print_statistic_selector_value_L92D5:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     bra C19319_print_statistic_selector_value_L9319
 C192F6_print_statistic_selector_value_L92F6:
     txa
@@ -21467,7 +21681,7 @@ C1931B_PrintPsiOrSmallDynamicLabel:
     lda $08
     sta $10
     lda $12
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     jmp.w C193E5_print_psi_or_small_dynamic_label_L93E5
 C19360_print_psi_or_small_dynamic_label_L9360:
     lda $06
@@ -21523,7 +21737,7 @@ C193A2_print_psi_or_small_dynamic_label_L93A2:
     lda $08
     sta $10
     lda $12
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     bra C193E5_print_psi_or_small_dynamic_label_L93E5
 C193D7_print_psi_or_small_dynamic_label_L93D7:
     lda $06
@@ -21564,7 +21778,7 @@ C193E7_OpenTargetSelectionPromptLabel:
     jsl !C20A20_SnapshotManagedTextEventSlotState
     jsl !C3E4D4_SetInstantPrinting
     lda.w #$0028
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5963
     sta $06
     lda.w #$00C4
@@ -21583,7 +21797,7 @@ C193E7_OpenTargetSelectionPromptLabel:
     lda $08
     sta $10
     lda.w #$000A
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     jsl !C3E4CA_ClearInstantPrinting
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
@@ -21641,7 +21855,7 @@ C19441_BuildPhoneContactSelectionMenu:
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0007
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5995
     sta $0E
     lda.w #$00C4
@@ -21733,7 +21947,7 @@ C19504_c1_9437_target_selection_bridge_L9504:
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $02
 C19521_c1_9437_target_selection_bridge_L9521:
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
     lda $02
@@ -21752,7 +21966,7 @@ C1952F_RenderCharacterStatusWindowBlock:
     sta $02
     jsl !C3E4D4_SetInstantPrinting
     lda.w #$0008
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda.w #$0001
     sta $5E71
@@ -21809,7 +22023,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     lda.w #$0002
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0003
@@ -21823,12 +22037,12 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$0072
     jsl !C43D75_StageGlyphVariantTileState
     lda.w #$005F
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx.w #$0003
     lda.w #$0079
     jsl !C43D75_StageGlyphVariantTileState
@@ -21840,7 +22054,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$005E
     jsl !C43D75_StageGlyphVariantTileState
@@ -21852,12 +22066,12 @@ C19573_c1_9437_target_selection_bridge_L9573:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$0072
     jsl !C43D75_StageGlyphVariantTileState
     lda.w #$005F
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
 C19651_RenderCharacterStatusDerivedStats:
     ldx.w #$0004
     lda.w #$0079
@@ -21870,7 +22084,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0000
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21886,7 +22100,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0001
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21902,7 +22116,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0002
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21918,7 +22132,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21934,7 +22148,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21950,7 +22164,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0005
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21966,7 +22180,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
@@ -21982,7 +22196,7 @@ C19651_RenderCharacterStatusDerivedStats:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     lda.w #$0006
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0005
@@ -22021,7 +22235,7 @@ C197BE_c1_9437_target_selection_bridge_L97BE:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$000A
     jsl !C43D75_StageGlyphVariantTileState
@@ -22032,7 +22246,7 @@ C197BE_c1_9437_target_selection_bridge_L97BE:
     sta $0E
     lda $08
     sta $10
-    jsr !C10DF6_PrintDecimalValueFromCallerPointer
+    jsr PRINT_NUMBER
     stz $5E71
     ldx.w #$0000
     stx $13
@@ -22108,7 +22322,7 @@ C19865_c1_9437_target_selection_bridge_L9865:
     lda $08
     sta $10
     lda.w #$0100
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     bra C1988C_c1_9437_target_selection_bridge_L988C
 C1987D_c1_9437_target_selection_bridge_L987D:
     ldx $13
@@ -22144,13 +22358,14 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$00C4
     sta $10
     lda.w #$0023
-    jsr !C10EFC_PrintFixedString
+    jsr PRINT_STRING
     stz $5E71
 C198D8_c1_9437_target_selection_bridge_L98D8:
     jsl !C3E4CA_ClearInstantPrinting
     pld
     rtl
-C198DE_RenderCharacterInventoryOrEquipmentRows:
+INVENTORY_GET_ITEM_NAME:
+!C198DE_RenderCharacterInventoryOrEquipmentRows = INVENTORY_GET_ITEM_NAME
     rep #$31
     phd
     pha
@@ -22164,7 +22379,7 @@ C198DE_RenderCharacterInventoryOrEquipmentRows:
     dec A
     sta $04
     tya
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
@@ -22358,7 +22573,7 @@ C19A43_BuildEscargoStorageSelectionMenu:
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000D
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C10
     sta $0E
     lda.w #$00C4
@@ -22480,7 +22695,7 @@ org $C19B79
 !C19EE6_ClassifyItemCompactCategory = $9EE6
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C19B79_ResolveEquippedSlotForItemSubtype:
-    jsr !C19EE6_ClassifyItemCompactCategory
+    jsr GET_ITEM_TYPE
     cmp.w #$0002
     beq C19B89_resolve_equipped_slot_for_item_subtype_L9B89
     lda.w #$0400
@@ -22817,7 +23032,7 @@ C19DB5_RunShopItemSelectionMenu:
     lda.w #!MenuContextSnapshotBuffer
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000C
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$0005
     jsr !C10EB4_ClearOrPrepareWindowContent
     lda.w #$0000
@@ -22957,7 +23172,8 @@ org $C19EE6
 !ItemConfigurationTable = $D55000
 !ItemRecordStride = $0027
 !ItemPackedClassAndSlotOffset = $0019
-C19EE6_ClassifyItemCompactCategory:
+GET_ITEM_TYPE:
+!C19EE6_ClassifyItemCompactCategory = GET_ITEM_TYPE
     rep #$31
     ldy.w #!ItemRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
@@ -23024,7 +23240,7 @@ C19F29_RenderSelectedCharacterEquipmentList:
     dec A
     sta $1C
     lda.w #$0006
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl !C3E4E0_PrepareOrShowHpppWindows
     lda $98A4
     and.w #$00FF
@@ -23365,7 +23581,7 @@ C1A1D8_RenderEquipmentPreviewStatus:
     sta $02
     sta $18
     lda.w #$002D
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl !C3E4E0_PrepareOrShowHpppWindows
     lda.w #$0002
     jsr !C10EB4_ClearOrPrepareWindowContent
@@ -24102,7 +24318,7 @@ C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     jmp.w C1AA16_RunCharacterEquipmentSlotSelectionLoop_LAA16
 C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     lda.w #$0007
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C58
     sta $06
     lda.w #$00C4
@@ -24152,7 +24368,7 @@ C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C:
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
     tya
-    jsr !C19EE6_ClassifyItemCompactCategory
+    jsr GET_ITEM_TYPE
     cmp.w #$0002
     beq C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
@@ -24389,7 +24605,7 @@ C1AA18_RefreshWalletOrStatusDisplay:
     lda.w #$9C8A
     jsl $C20A20
     lda.w #$000A
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$0005
     jsr $0EB4
     jsl $C3E4D4
@@ -24520,7 +24736,7 @@ C1AAFA_RunTeleportDestinationSelectionMenu:
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0005
-    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C87
     sta $0E
     lda.w #$00C4
@@ -24773,7 +24989,8 @@ org $C1D109
 !C21BA4_RefreshGutsDerivedStat = $C21BA4
 !C21D65_RefreshVitalityDerivedStat = $C21D65
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C1D109_LevelUpCharacterAndRefreshDerivedStats:
+LEVEL_UP_CHAR:
+!C1D109_LevelUpCharacterAndRefreshDerivedStats = LEVEL_UP_CHAR
     rep #$31
     phd
     pha
@@ -25904,7 +26121,7 @@ C1D97B_LevelUpCharacterAndRefreshDerivedStats_LD97B:
     ldx.w #$0000
     ldy $0E
     tya
-    jsr.w C1D109_LevelUpCharacterAndRefreshDerivedStats
+    jsr.w LEVEL_UP_CHAR
 C1D984_LevelUpCharacterAndRefreshDerivedStats_LD984:
     rep #$20
     lda $02
@@ -26066,7 +26283,7 @@ C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2:
     ldy $10
     tya
     inc A
-    jsr.w C1D109_LevelUpCharacterAndRefreshDerivedStats
+    jsr.w LEVEL_UP_CHAR
     ldy $10
     tya
     ldy.w #$005F
@@ -26365,7 +26582,8 @@ C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE:
     txa
     pld
     rts
-C1F6E3_OpenOrRefreshWindowFlavourSelection:
+OPEN_FLAVOUR_MENU:
+!C1F6E3_OpenOrRefreshWindowFlavourSelection = OPEN_FLAVOUR_MENU
     rep #$31
     phd
     tdc
@@ -26490,7 +26708,8 @@ C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     tya
     pld
     rts
-C1F805_RunFileSelectMenuLoop:
+FILE_MENU_LOOP:
+!C1F805_RunFileSelectMenuLoop = FILE_MENU_LOOP
     rep #$31
     phd
     tdc
@@ -26561,7 +26780,7 @@ C1F88E_OpenOrRefreshSoundSettingSelection_LF88E:
     jsl !C3E521_CloseWindow
     bra C1F876_OpenOrRefreshSoundSettingSelection_LF876
 C1F8A2_OpenOrRefreshSoundSettingSelection_LF8A2:
-    jsr.w C1F6E3_OpenOrRefreshWindowFlavourSelection
+    jsr.w OPEN_FLAVOUR_MENU
     cmp.w #$0000
     bne C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
     lda.w #$0032
@@ -26591,7 +26810,7 @@ C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6:
     jsl !C3E521_CloseWindow
     bra C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD
 C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
-    jsr.w C1F6E3_OpenOrRefreshWindowFlavourSelection
+    jsr.w OPEN_FLAVOUR_MENU
     cmp.w #$0000
     bne C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB
     lda.w #$0032
@@ -27374,7 +27593,8 @@ org $C1ADB4
 !C09279_DispatchTextPointer = $C09279
 !C186B1_PrintTextFromPointer = $C186B1
 !C2B930_ExportBattleSelectionSnapshot = $C2B930
-C1ADB4_DetermineBattleTargetting:
+DETERMINE_TARGETTING:
+!C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     rep #$31
     phd
     pha
@@ -28015,7 +28235,7 @@ C1B28C_DetermineBattleTargetting_LB28C:
     ldx $04
     ldy.w #$001D
     lda [$1E],Y
-    jsr.w !C1ADB4_DetermineBattleTargetting
+    jsr.w DETERMINE_TARGETTING
     sep #$20
     sta $00
     rep #$20
@@ -28526,7 +28746,8 @@ C1E545_BuildTextInputOptionStrip_LE545:
     sta $04
     pld
     rts
-C1E57F_RunTextInputDialog:
+TEXT_INPUT_DIALOG:
+!C1E57F_RunTextInputDialog = TEXT_INPUT_DIALOG
     rep #$31
     phd
     pha
@@ -29143,7 +29364,8 @@ C1EA9D_BuildTextInputOptionStrip_LEA9D:
 C1EAA4_BuildTextInputOptionStrip_LEAA4:
     pld
     rts
-C1EAA6_RunNameEntrySpecialEventPrelude:
+ENTER_YOUR_NAME_PLEASE:
+!C1EAA6_RunNameEntrySpecialEventPrelude = ENTER_YOUR_NAME_PLEASE
     rep #$31
     phd
     pha
@@ -29356,7 +29578,7 @@ C1B694_OpenBattlePsiUserSelection_LB694:
     lda.w #$00C8
     sta $10
     jsl !C186B1_PrintTextFromPointer
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     lda.b #$00
     sta $00
@@ -29410,7 +29632,7 @@ C1B777_OpenBattlePsiUserSelection_LB777:
     lda.w #$00C7
     sta $10
     jsl !C186B1_PrintTextFromPointer
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     lda.b #$00
     sta $00
@@ -29418,7 +29640,7 @@ C1B777_OpenBattlePsiUserSelection_LB777:
 C1B796_OpenBattlePsiUserSelection_LB796:
     ldx $22
     lda $02
-    jsr !C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sep #$20
     sta $00
     bra C1B7A9_OpenBattlePsiUserSelection_LB7A9
@@ -29962,19 +30184,23 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
     jsr !C1003C_ClearBattleTextDisplayMode
     pld
     rtl
-C1DDC6_RedirectRemoveItemFromInventory:
+REDIRECT_REMOVE_ITEM_FROM_INVENTORY:
+!C1DDC6_RedirectRemoveItemFromInventory = REDIRECT_REMOVE_ITEM_FROM_INVENTORY
     rep #$31
     jsr $8C27
     rtl
-C1DDCC_RedirectC43573Helper:
+REDIRECT_C43573:
+!C1DDCC_RedirectC43573Helper = REDIRECT_C43573
     rep #$31
     jsl $C43573
     rtl
-C1DDD3_RedirectC3E6F8Helper:
+REDIRECT_C3E6F8:
+!C1DDD3_RedirectC3E6F8Helper = REDIRECT_C3E6F8
     rep #$31
     jsl $C3E6F8
     rtl
-C1DDDA_BuildSelectionMenuSetupAndRedirects:
+SELECTION_MENU_ITEM_SETUP:
+!C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     rep #$31
     phd
     pha
@@ -30416,7 +30642,8 @@ org $C1C452
 !C1C403_PrintPsiFamilyName = $C403
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C3E4CA_ExitWindowUpdateScope = $C3E4CA
-C1C452_BuildSharedBattlePsiEntryList:
+GENERATE_PSI_LIST:
+!C1C452_BuildSharedBattlePsiEntryList = GENERATE_PSI_LIST
     rep #$31
     phd
     pha
@@ -30484,7 +30711,7 @@ C1C4AA_BuildSharedBattlePsiEntryList_LC4AA:
     jsl $C438A5
     lda [$06]
     and.w #$00FF
-    jsr !C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda $1B
     sta $06
     lda $1D
@@ -30682,7 +30909,7 @@ C1C652_BuildSharedBattlePsiEntryList_LC652:
     jsl $C438A5
     lda [$0A]
     and.w #$00FF
-    jsr !C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda [$0A]
     and.w #$00FF
     sta $1F
@@ -30803,7 +31030,7 @@ C1C743_BuildSharedBattlePsiEntryList_LC743:
     jsl $C438A5
     lda [$06]
     and.w #$00FF
-    jsr !C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda $1B
     sta $06
     lda $1D
@@ -30986,7 +31213,8 @@ C1CBCA_ReturnBattlePsiCategoryAvailabilityResult:
     tya
     pld
     rts
-C1CBCD_OpenBattlePsiCategorySelectionStage:
+BATTLE_PSI_MENU:
+!C1CBCD_OpenBattlePsiCategorySelectionStage = BATTLE_PSI_MENU
     rep #$31
     phd
     pha
@@ -31147,7 +31375,7 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     sta $10
     jsl !C186B1_PrintTextFromPointer
     jsr !C1003C_ClearBattleTextDisplayMode
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx.w #$0000
     stx $16
     jmp.w C1CE08_HasBattlePsiCategoryEntries_LCE08
@@ -31233,7 +31461,7 @@ C1CD8F_HasBattlePsiCategoryEntries_LCD8F:
     and.w #$00FF
     tax
     lda [$06]
-    jsr !C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     tax
     stx $16
     lda [$06]
@@ -31708,7 +31936,8 @@ C1C3EF_CurrentCharacterKnowsPsi_LC3EF:
     lda $04
     pld
     rts
-C1C403_PrintPsiFamilyName:
+GET_PSI_NAME:
+!C1C403_PrintPsiFamilyName = GET_PSI_NAME
     rep #$31
     phd
     pha
@@ -31791,7 +32020,8 @@ C1ECD1_PreviewPackedHighByteWindowFlavour:
     and.w #$00FF
     jsl $C1EC8F
     rtl
-C1ECDC_ShowCorruptSaveFilesNotice:
+CORRUPTION_CHECK:
+!C1ECDC_ShowCorruptSaveFilesNotice = CORRUPTION_CHECK
     rep #$31
     phd
     tdc
@@ -31846,7 +32076,7 @@ C1ED38_PreviewPackedHighByteWindowFlavour_LED38:
 C1ED46_PreviewPackedHighByteWindowFlavour_LED46:
     bmi C1ED00_PreviewPackedHighByteWindowFlavour_LED00
 C1ED48_PreviewPackedHighByteWindowFlavour_LED48:
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     stz $9F79
     rep #$20
@@ -31855,7 +32085,8 @@ C1ED48_PreviewPackedHighByteWindowFlavour_LED48:
 C1ED59_PreviewPackedHighByteWindowFlavour_LED59:
     pld
     rts
-C1ED5B_OpenFileSelectSlotChoiceMenu:
+FILE_SELECT_MENU:
+!C1ED5B_OpenFileSelectSlotChoiceMenu = FILE_SELECT_MENU
     rep #$31
     phd
     pha
@@ -32204,7 +32435,7 @@ C1F019_PreviewPackedHighByteWindowFlavour_LF019:
     jsr !C10FEA_PrintSignedOrStatusValue
     bra C1F06B_ReturnSelectedSaveSlotAfterChecksum
 C1F03E_RunFileSelectSlotChoiceAndPreview:
-    jsr.w C1ECDC_ShowCorruptSaveFilesNotice
+    jsr.w CORRUPTION_CHECK
 C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     lda $0028
     and.w #$00FF
@@ -32260,10 +32491,12 @@ org $C1E1A2
 !C3E4CA_ExitWindowUpdateScope = $C3E4CA
 !C3E4D4_WindowScopedUpdate = $C3E4D4
 !C438A5_SetTextPosition = $C438A5
-C1E1A2_NullFarCallback:
+NULL_C1E1A2:
+!C1E1A2_NullFarCallback = NULL_C1E1A2
     rep #$31
     rtl
-C1E1A5_RunEnemySelectMode:
+ENEMY_SELECT_MODE:
+!C1E1A5_RunEnemySelectMode = ENEMY_SELECT_MODE
     rep #$31
     phd
     pha
@@ -32324,7 +32557,7 @@ C1E216_NullFarCallback_LE216:
 C1E21F_NullFarCallback_LE21F:
     lda.w #$0030
 C1E222_NullFarCallback_LE222:
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx $16
     dex
     stx $16
@@ -32351,7 +32584,7 @@ C1E23F_NullFarCallback_LE23F:
     adc $02
     iny
     sty $18
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx $16
     dex
     stx $16
@@ -32626,7 +32859,7 @@ C1E460_NullFarCallback_LE460:
 C1E47F_ExitEnemySelectMode:
     lda.w #$000E
     jsr !C1007E_SetActiveWindowId
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $16
     txa
     pld
@@ -32663,7 +32896,8 @@ org $C1BCAB
 !C2165E_ClearEventFlag = $C2165E
 !C458FE_ApplyHomesicknessResult = $C458FE
 !C45F7B_CheckHomesicknessCandidate = $C45F7B
-C1BCAB_ExecuteTeleportDestination:
+TELEPORT:
+!C1BCAB_ExecuteTeleportDestination = TELEPORT
     rep #$31
     phd
     pha
@@ -32856,7 +33090,8 @@ C1BE3C_ExecuteTeleportDestination_LBE3C:
     sta $5D98
     pld
     rts
-C1BE4D_AttemptHomesicknessResult:
+ATTEMPT_HOMESICKNESS:
+!C1BE4D_AttemptHomesicknessResult = ATTEMPT_HOMESICKNESS
     rep #$31
     phd
     tdc
@@ -32919,7 +33154,8 @@ C1BEC1_ExecuteTeleportDestination_LBEC1:
 C1BEC4_ExecuteTeleportDestination_LBEC4:
     pld
     rts
-C1BEC6_RunGetOffBicycleMessageAndExit:
+GET_OFF_BICYCLE:
+!C1BEC6_RunGetOffBicycleMessageAndExit = GET_OFF_BICYCLE
     rep #$31
     phd
     tdc
@@ -32937,7 +33173,7 @@ C1BEC6_RunGetOffBicycleMessageAndExit:
     lda.w #$00C7
     sta $10
     jsl !C186B1_PrintTextFromPointer
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     jsl !C12DD5_PollInputAndUpdateWindows
     jsl !C03CFD_RestoreLeaderEntityFromBicycleMode
     pld
@@ -33011,7 +33247,7 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldy.w #$97F5
     ldx.w #$000C
     lda.w #$0027
-    jsr !C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     jmp.w C1EBE4_RunNamingBufferCommitFlow_LEBE4
@@ -33052,7 +33288,7 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldy $02
     ldx.w #$0018
     lda.w #$0027
-    jsr !C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     ldx $02
@@ -33087,7 +33323,8 @@ C1EBE4_RunNamingBufferCommitFlow_LEBE4:
     tya
     pld
     rtl
-C1EC04_CommitNamingBufferFieldWithPreview:
+NAME_A_CHARACTER:
+!C1EC04_CommitNamingBufferFieldWithPreview = NAME_A_CHARACTER
     rep #$31
     phd
     pha
@@ -33135,14 +33372,14 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     jsr !C10EFC_PrintTextFromPointerLocal
     ldx.w #$0000
     lda.w #$0001
-    jsr !C10166_RunTextHaltControlWorker
+    jsr CC_13_14
     stz $0E
     lda $14
     sta $10
     ldy $12
     ldx $02
     lda.w #$001A
-    jsr !C1E57F_RunTextInputDialog
+    jsr TEXT_INPUT_DIALOG
     tax
     stx $14
     lda.w #$001C
@@ -33189,7 +33426,7 @@ C1F497_OpenOrRefreshTextSpeedSelection:
     bne C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5
     jmp.w C1F542_OpenOrRefreshTextSpeedSelection_LF542
 C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5:
-    jsl !C1F3C2_OpenTextSpeedMenu
+    jsl OPEN_TEXT_SPEED_MENU
     lda $8958
     asl A
     tax
@@ -33273,7 +33510,8 @@ C1F563_OpenOrRefreshTextSpeedSelection_LF563:
     txa
     pld
     rtl
-C1F568_OpenSoundSettingMenu:
+OPEN_SOUND_MENU:
+!C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     rep #$31
     phd
     tdc
@@ -33542,7 +33780,7 @@ C1F281_OpenCopyDestinationMenu_LF281:
     jsl !EF0C15_CopySaveSlot
 C1F29D_OpenCopyDestinationMenu_LF29D:
     stz $5E6E
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldy $16
     tya
     pld
@@ -33761,7 +33999,7 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     sta $10
     jsr !C10DF6_PrintNumberFromPointer
     lda.w #$006A
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx.w #$0001
     lda.w #$0002
     jsl !C438A5_SetTextPosition
@@ -33831,12 +34069,13 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     jsl !EF0BFA_DeleteSaveSlot
 C1F3B7_OpenDeleteFileConfirmationMenu_LF3B7:
     stz $5E6E
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $16
     txa
     pld
     rts
-C1F3C2_OpenTextSpeedMenu:
+OPEN_TEXT_SPEED_MENU:
+!C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     rep #$31
     phd
     tdc
@@ -34078,7 +34317,7 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     lda.w #$0008
     jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$0050
-    jsr !C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     lda.w #$0081
     jsr !C10EB4_ClearOrPrepareWindowContent
     ldx.w #$0001
@@ -34230,11 +34469,11 @@ C1BF9B_DispatchTextCommand1F41SpecialEvent_LBF9B:
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFA5_DispatchTextCommand1F41SpecialEvent_LBFA5:
     lda.w #$0000
-    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
+    jsl ENTER_YOUR_NAME_PLEASE
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFAF_DispatchTextCommand1F41SpecialEvent_LBFAF:
     lda.w #$0001
-    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
+    jsl ENTER_YOUR_NAME_PLEASE
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFB9_DispatchTextCommand1F41SpecialEvent_LBFB9:
     lda.w #$0001
@@ -34289,7 +34528,7 @@ C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr !C1BE4D_AttemptHomesicknessResult
+    jsr ATTEMPT_HOMESICKNESS
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
     lda $9883
@@ -34333,7 +34572,7 @@ C1C046_RefreshPsiMenuCursorCategory:
     pla
     tay
     sty $16
-    jsr !C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     cmp.w #$000E
     bcc C1C07C_RefreshPsiMenuCursorCategory_LC07C
     beq C1C07C_RefreshPsiMenuCursorCategory_LC07C
@@ -34342,7 +34581,7 @@ C1C046_RefreshPsiMenuCursorCategory:
     bcc C1C07C_RefreshPsiMenuCursorCategory_LC07C
     jsl !C438B1_ClearTextCursorLineState
     jsl !C45E96_ClearActivePsiMenuRow
-    jsr !C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     sta $02
     jsr !C104D8_GetCurrentTextContextColumnOrCursor
     tax
@@ -34362,7 +34601,7 @@ C1C07C_RefreshPsiMenuCursorCategory_LC07C:
     lda $9E29
     beq C1C0A7_RefreshPsiMenuCursorCategory_LC0A7
     jsl !C45E96_ClearActivePsiMenuRow
-    jsr !C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     sta $02
     jsr !C104D8_GetCurrentTextContextColumnOrCursor
     tax
@@ -34459,7 +34698,7 @@ C1C142_RefreshPsiMenuCursorCategory_LC142:
     ldx $12
     cpx $9E27
     bne C1C133_RefreshPsiMenuCursorCategory_LC133
-    jsr !C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     tay
     sty $12
     jsr !C104D8_GetCurrentTextContextColumnOrCursor
@@ -34722,7 +34961,7 @@ C1CF10_ResolveSelectedBattleItemAction_LCF10:
     and.w #$00FF
     tax
     lda [$06]
-    jsr !C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sta $02
     and.w #$00FF
     bne C1CF33_ResolveSelectedBattleItemAction_LCF33
@@ -34769,7 +35008,7 @@ C1CF5E_ResolveSelectedBattleItemAction_LCF5E:
     sta $06
     ldx $12
     lda [$06]
-    jsr !C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sta $02
     and.w #$00FF
     bne C1CF97_ResolveSelectedBattleItemAction_LCF97
@@ -34863,7 +35102,7 @@ C1C87B_ResolveBattlePsiTargetingMetadata_LC87B:
     ldy $12
     rep #$20
     tya
-    jsr !C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     pld
     rtl
 
@@ -34909,7 +35148,7 @@ C1CA06_BuildPsiRankName:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr !C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     ldx $12
     txa
     inc A
@@ -35055,7 +35294,7 @@ C1CB31_BuildBattlePsiCategoryEntryList_LCB31:
     ldy $10
     rep #$20
     tya
-    jsr !C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
     sep #$20
@@ -35065,7 +35304,7 @@ C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
     ldy $10
     rep #$20
     tya
-    jsr !C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
     sep #$20
@@ -35076,7 +35315,7 @@ C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
     ldy $10
     rep #$20
     tya
-    jsr !C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B:
     sep #$20
@@ -35087,7 +35326,7 @@ C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B:
     ldy $10
     rep #$20
     tya
-    jsr !C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
 C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D:
     pld
     rtl
@@ -35136,13 +35375,13 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     ldy $10
     lda $0000,Y
     and.w #$00FF
-    jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
+    jsr INVENTORY_GET_ITEM_NAME
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
     tax
     stx $0E
     jsl !C3E4D4_EnterWindowUpdateScope
-    jsr !C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $0E
     beq C1D033_OpenBattleItemSelectionLoop_LD033
     txa
@@ -35229,7 +35468,8 @@ org $C1DC1C
 !C1003C_WaitBattleTextDisplayTail = $003C
 !C186B1_PrintTextFromPointer = $C186B1
 !C20293_ClearBattleTextGateState = $C20293
-C1DC1C_DisplayBattleTextFromPointer:
+DISPLAY_IN_BATTLE_TEXT:
+!C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
     rep #$31
     phd
     tdc
@@ -35277,7 +35517,8 @@ org $C1DC66
 !C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
 !C186B1_PrintTextFromPointer = $C186B1
 !C20293_ClearBattleTextGateState = $C20293
-C1DC66_DisplayBattleTextWithSubstitutionPayload:
+DISPLAY_TEXT_WAIT:
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
     rep #$31
     phd
     tdc
@@ -35362,11 +35603,11 @@ C1DCE5_InitializePartyBattleStartState_LDCE5:
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr !C18F64_RecoverHpForCharacterOrActiveParty
+    jsr RECOVER_HP_AMTPERCENT
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr !C19010_RecoverPpForCharacterOrActiveParty
+    jsr RECOVER_PP_AMTPERCENT
     lda $02
     dec A
     ldy.w #$005F
@@ -35441,7 +35682,8 @@ C1FF99_ComputeCenteredTextLayoutMetric:
     sta $9E25
     pld
     rtl
-C1FFD3_ComputeBankC1ChecksumTail:
+SRAM_CHECK_ROUTINE_CHECKSUM:
+!C1FFD3_ComputeBankC1ChecksumTail = SRAM_CHECK_ROUTINE_CHECKSUM
     ldx.w #$0033
     rep #$20
     lda.w #$0000
@@ -35455,6 +35697,7 @@ C1FFDE_ComputeBankC1ChecksumTail_LFFDE:
     sbc !C1FFEF_BankC1ChecksumConstant
     sta $B539
     rtl
-C1FFEF_BankC1ChecksumConstantAndPadding:
+SRAM_CHECK_ROUTINE_CHECKSUM_VALUE:
+!C1FFEF_BankC1ChecksumConstantAndPadding = SRAM_CHECK_ROUTINE_CHECKSUM_VALUE
     db $D8,$2A,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00

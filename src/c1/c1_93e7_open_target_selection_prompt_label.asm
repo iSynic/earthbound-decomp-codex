@@ -35,7 +35,7 @@ C193E7_OpenTargetSelectionPromptLabel:
     jsl C20A20_SnapshotManagedTextEventSlotState
     jsl C3E4D4_SetInstantPrinting
     lda.w #$0028
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5963
     sta $06
     lda.w #$00C4
@@ -54,7 +54,7 @@ C193E7_OpenTargetSelectionPromptLabel:
     lda $08
     sta $10
     lda.w #$000A
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     jsl C3E4CA_ClearInstantPrinting
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState

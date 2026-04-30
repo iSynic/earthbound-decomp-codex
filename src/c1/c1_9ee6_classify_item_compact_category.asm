@@ -12,7 +12,8 @@ ItemPackedClassAndSlotOffset = $0019
 ; ---------------------------------------------------------------------------
 ; C1:9EE6
 
-C19EE6_ClassifyItemCompactCategory:
+GET_ITEM_TYPE:
+C19EE6_ClassifyItemCompactCategory = GET_ITEM_TYPE
     rep #$31
     ldy.w #ItemRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset

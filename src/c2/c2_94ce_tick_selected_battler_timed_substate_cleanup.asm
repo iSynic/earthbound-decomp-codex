@@ -17,7 +17,8 @@ C1DC1C_DisplayBattleTextFromPointer       = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:94CE
 
-C294CE_TickSelectedBattlerTimedSubstateCleanup:
+WEAKEN_SHIELD:
+C294CE_TickSelectedBattlerTimedSubstateCleanup = WEAKEN_SHIELD
     rep #$31
     phd
     tdc
@@ -26,7 +27,7 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup:
     stz $AA94
     lda $AA96
     beq C29514_TickSelectedBattlerTimedSubstateCleanup_L9514
-    jsr C27E8A_SwapReflectedHitBattleTextContexts
+    jsr SWAP_ATTACKER_WITH_TARGET
     lda $A972
     clc
     adc.w #$0025

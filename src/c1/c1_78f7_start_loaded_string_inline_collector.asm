@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:78F7
 
-C178F7_StartLoadedStringInlineCollector:
+CC_19_02:
+C178F7_StartLoadedStringInlineCollector = CC_19_02
     rep #$31
     txa
     sep #$20

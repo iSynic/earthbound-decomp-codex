@@ -16,7 +16,8 @@ C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 ; ---------------------------------------------------------------------------
 ; C1:913D
 
-C1913D_EnqueuePendingItemId:
+ESCARGO_EXPRESS_STORE:
+C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     rep #$31
     phd
     pha
@@ -61,7 +62,8 @@ C1917E_c1_913d_enqueue_pending_item_id_L917E:
 C19181_c1_913d_enqueue_pending_item_id_L9181:
     pld
     rts
-C19183_StoreInventorySlotItemInPendingQueue:
+ESCARGO_EXPRESS_MOVE:
+C19183_StoreInventorySlotItemInPendingQueue = ESCARGO_EXPRESS_MOVE
     rep #$31
     phd
     pha
@@ -75,13 +77,13 @@ C19183_StoreInventorySlotItemInPendingQueue:
     ldx $02
     tya
     jsl $C3E977
-    jsr.w C1913D_EnqueuePendingItemId
+    jsr.w ESCARGO_EXPRESS_STORE
     cmp.w #$0000
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
     ldx $02
     ldy $0E
     tya
-    jsr C18C27_RemoveItemFromCharacterInventorySlot
+    jsr REMOVE_ITEM_FROM_INVENTORY
     bra C191AE_c1_913d_enqueue_pending_item_id_L91AE
 C191AB_c1_913d_enqueue_pending_item_id_L91AB:
     lda.w #$0000

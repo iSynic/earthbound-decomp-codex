@@ -19,7 +19,7 @@ C2165E_SetOrClearEventFlag   = $C2165E
 
 C226D0_SetCurrentInteractionEventFlagAndRefreshTarget:
     lda $9C88
-    jsl C2165E_SetOrClearEventFlag
+    jsl SET_EVENT_FLAG
     tax
     stx $0E
     lda $5D64

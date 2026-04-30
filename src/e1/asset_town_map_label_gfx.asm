@@ -13,4 +13,4 @@
 ; E1:F1C3
 
 ; AssetTownMapLabelGfxEnd
-E1F1C3_AssetTownMapLabelGfxEnd:
+E1F1C3_AssetTownMapLabelGfxEnd = TOWN_MAP_ICON_PALETTE

@@ -13,4 +13,4 @@
 ; DA:EDE7
 
 ; AssetMapDataPalette28End
-DAEDE7_AssetMapDataPalette28End:
+DAEDE7_AssetMapDataPalette28End = MAP_DATA_PALETTE_29

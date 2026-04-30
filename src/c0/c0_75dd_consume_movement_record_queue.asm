@@ -16,7 +16,8 @@ C01E49_CreateEntityFromDescriptor = $C01E49
 ; ---------------------------------------------------------------------------
 ; C0:75DD
 
-C075DD_Consume_MovementRecordQueue:
+PROCESS_QUEUED_INTERACTIONS:
+C075DD_Consume_MovementRecordQueue = PROCESS_QUEUED_INTERACTIONS
     rep #$31
     phd
     tdc

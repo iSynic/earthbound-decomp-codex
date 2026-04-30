@@ -19,7 +19,8 @@ C2DB3F_UpdateBattleBgAnimatedBackground = $C2DB3F
 ; ---------------------------------------------------------------------------
 ; C4:8B3B
 
-C48B3B_MakePartyLookAtActiveEntityCallback:
+MAKE_PARTY_LOOK_AT_ACTIVE_ENTITY:
+C48B3B_MakePartyLookAtActiveEntityCallback = MAKE_PARTY_LOOK_AT_ACTIVE_ENTITY
     rep #$31
     phd
     tdc
@@ -100,11 +101,13 @@ C48BC9_ActionScriptCameraAndScreenPositionCallbacks_L8BC9:
 C48BD8_ActionScriptCameraAndScreenPositionCallbacks_L8BD8:
     pld
     rtl
-C48BDA_AnimatedBackgroundCallback:
+ACTIONSCRIPT_ANIMATED_BACKGROUND_CALLBACK:
+C48BDA_AnimatedBackgroundCallback = ACTIONSCRIPT_ANIMATED_BACKGROUND_CALLBACK
     rep #$31
     jsl C2DB3F_UpdateBattleBgAnimatedBackground
     rtl
-C48BE1_SimpleScreenPositionCallback:
+ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK:
+C48BE1_SimpleScreenPositionCallback = ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK
     rep #$31
     lda $1A42
     asl A
@@ -121,7 +124,8 @@ C48BE1_SimpleScreenPositionCallback:
     sbc $0033
     sta $0B52,X
     rtl
-C48C02_SimpleScreenPositionCallbackOffset:
+ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK_OFFSET:
+C48C02_SimpleScreenPositionCallbackOffset = ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK_OFFSET
     rep #$31
     lda $1A42
     asl A
@@ -142,7 +146,8 @@ C48C02_SimpleScreenPositionCallbackOffset:
     adc $0E9A,X
     sta $0B52,X
     rtl
-C48C2B_CentreScreenOnEntityCallback:
+ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK:
+C48C2B_CentreScreenOnEntityCallback = ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK
     rep #$31
     lda $1A42
     asl A
@@ -152,7 +157,8 @@ C48C2B_CentreScreenOnEntityCallback:
     lda $0B8E,Y
     jsl C0400E_SetScreenPositionFromWorldPoint
     rtl
-C48C3E_CentreScreenOnEntityCallbackOffset:
+ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK_OFFSET:
+C48C3E_CentreScreenOnEntityCallbackOffset = ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK_OFFSET
     rep #$31
     lda $1A42
     asl A

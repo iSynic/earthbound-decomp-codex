@@ -28,7 +28,8 @@ C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C2:C14E
 
-C2C14E_RunRainbowColorsSpecialEvent:
+BTLACT_RAINBOW_OF_COLOURS:
+C2C14E_RunRainbowColorsSpecialEvent = BTLACT_RAINBOW_OF_COLOURS
     rep #$31
     phd
     tdc
@@ -49,7 +50,7 @@ C2C14E_RunRainbowColorsSpecialEvent:
     lda $0008,X
     and.w #$00FF
     ldx $0E
-    jsl C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
+    jsl BATTLE_INIT_ENEMY_STATS
     lda $02
     sep #$20
     ldx $A970
@@ -264,7 +265,7 @@ C2C32A_RunRainbowColorsSpecialEvent_LC32A:
     sta $04
     ldx.w #$A21C
     lda $12
-    jsl C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
+    jsl BATTLE_INIT_ENEMY_STATS
     lda $10
     sep #$20
     ldx $02

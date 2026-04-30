@@ -9,8 +9,11 @@
 ; Source units covered:
 ; - CE:DD41..CE:DD5D TableInlineSwirlPrimaryTable
 
+SWIRL_PRIMARY_TABLE:
+CEDD41_TableSwirlPointersEnd = SWIRL_PRIMARY_TABLE
+
 ; ---------------------------------------------------------------------------
 ; CE:DD5D
 
 ; TableInlineSwirlPrimaryTableEnd
-CEDD5D_TableInlineSwirlPrimaryTableEnd:
+CEDD5D_TableInlineSwirlPrimaryTableEnd = SOUND_STONE_GFX

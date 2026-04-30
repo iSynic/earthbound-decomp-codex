@@ -13,4 +13,4 @@
 ; DF:E204
 
 ; AssetMapDataTileAnimationGfx9End
-DFE204_AssetMapDataTileAnimationGfx9End:
+DFE204_AssetMapDataTileAnimationGfx9End = MAP_DATA_TILE_ANIMATION_GFX_10

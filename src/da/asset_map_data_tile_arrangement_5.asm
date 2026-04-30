@@ -13,4 +13,4 @@
 ; DA:1342
 
 ; AssetMapDataTileArrangement5End
-DA1342_AssetMapDataTileArrangement5End:
+DA1342_AssetMapDataTileArrangement5End = MAP_DATA_TILE_ARRANGEMENT_6

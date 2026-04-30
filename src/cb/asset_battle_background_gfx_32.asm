@@ -13,4 +13,4 @@
 ; CB:BFEE
 
 ; AssetBattleBackgroundGfx32End
-CBBFEE_AssetBattleBackgroundGfx32End:
+CBBFEE_AssetBattleBackgroundGfx32End = BATTLE_BACKGROUND_ARR_91

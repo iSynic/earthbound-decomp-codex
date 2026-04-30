@@ -46,10 +46,10 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     bra C24113_ApplyBattleActionSecondPointerPayload_L4113
 C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
     txa
-    jsl C27029_MaskSet_TestBit
+    jsl IS_CHAR_TARGETTED
     cmp.w #$0000
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -86,10 +86,10 @@ C24113_ApplyBattleActionSecondPointerPayload_L4113:
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
     txa
-    jsl C27029_MaskSet_TestBit
+    jsl IS_CHAR_TARGETTED
     cmp.w #$0000
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -121,7 +121,8 @@ C24168_ApplyBattleActionSecondPointerPayload_L4168:
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
-C2416F_FilterBattleActionTargetMaskByRowState:
+REMOVE_STATUS_UNTARGETTABLE_TARGETS:
+C2416F_FilterBattleActionTargetMaskByRowState = REMOVE_STATUS_UNTARGETTABLE_TARGETS
     rep #$31
     phd
     tdc
@@ -148,7 +149,7 @@ C2418B_ApplyBattleActionSecondPointerPayload_L418B:
     bra C241D5_ApplyBattleActionSecondPointerPayload_L41D5
 C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     tya
-    jsl C27029_MaskSet_TestBit
+    jsl IS_CHAR_TARGETTED
     cmp.w #$0000
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
     ldy $0E
@@ -169,7 +170,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
 C241C9_ApplyBattleActionSecondPointerPayload_L41C9:
     ldy $0E
     tya
-    jsl C27089_MaskSet_ClearBit
+    jsl REMOVE_TARGET
 C241D0_ApplyBattleActionSecondPointerPayload_L41D0:
     ldy $0E
     iny

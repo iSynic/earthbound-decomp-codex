@@ -13,4 +13,4 @@
 ; CE:118D
 
 ; AssetBattleSprite53End
-CE118D_AssetBattleSprite53End:
+CE118D_AssetBattleSprite53End = BATTLE_SPRITE_103

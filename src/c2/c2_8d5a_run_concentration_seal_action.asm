@@ -19,16 +19,17 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:8D5A
 
-C28D5A_RunConcentrationSealAction:
+BTLACT_DISTRACT:
+C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28DB9_RunConcentrationSealAction_L8DB9
-    jsr C28D41_CheckTargetField2eThresholdGate
+    jsr SUCCESS_LUCK40
     cmp.w #$0000
     beq C28DAB_RunConcentrationSealAction_L8DAB
     ldx $A972

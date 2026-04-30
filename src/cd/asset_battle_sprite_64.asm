@@ -13,4 +13,4 @@
 ; CD:185C
 
 ; AssetBattleSprite64End
-CD185C_AssetBattleSprite64End:
+CD185C_AssetBattleSprite64End = BATTLE_SPRITE_40

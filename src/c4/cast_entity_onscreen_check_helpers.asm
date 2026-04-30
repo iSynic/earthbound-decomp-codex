@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:ECE7
 
-C4ECE7_IsEntityStillOnCastScreen:
+IS_ENTITY_STILL_ON_CAST_SCREEN:
+C4ECE7_IsEntityStillOnCastScreen = IS_ENTITY_STILL_ON_CAST_SCREEN
     rep #$31
     phd
     tdc

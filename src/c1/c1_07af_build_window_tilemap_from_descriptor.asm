@@ -433,7 +433,8 @@ C10A02_ReturnBuildWindowTilemapFromDescriptor:
 ; ---------------------------------------------------------------------------
 ; C1:0A04
 
-C10A04_ShowHpppWindows_Internal:
+SHOW_HPPP_WINDOWS:
+C10A04_ShowHpppWindows_Internal = SHOW_HPPP_WINDOWS
     rep #$31
     jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     sep #$20
@@ -448,7 +449,8 @@ C10A04_ShowHpppWindows_Internal:
 ; ---------------------------------------------------------------------------
 ; C1:0A1D
 
-C10A1D_HideHpppWindows_Internal:
+HIDE_HPPP_WINDOWS:
+C10A1D_HideHpppWindows_Internal = HIDE_HPPP_WINDOWS
     rep #$31
     phd
     tdc

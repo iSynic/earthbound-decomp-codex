@@ -16,7 +16,9 @@
 ; ---------------------------------------------------------------------------
 ; EF:EFB7
 
-EFEFB7_AssetDebugCursorGraphics:
+DEBUG_CURSOR_GRAPHICS:
+EFEFB7_AssetDebugCursorGraphics = DEBUG_CURSOR_GRAPHICS
+EFEFB7_TableEfef70End = DEBUG_CURSOR_GRAPHICS
     ; data bytes: EF:EFB7..EF:F0D7
     db $00,$00,$00,$00,$00,$00,$01,$00,$02,$01,$03,$00,$05,$00,$0B,$04
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$01,$00,$03,$00,$03,$00

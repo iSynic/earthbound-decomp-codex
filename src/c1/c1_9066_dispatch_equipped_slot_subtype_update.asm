@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:9066
 
-C19066_DispatchEquippedSlotSubtypeUpdate:
+EQUIP_ITEM:
+C19066_DispatchEquippedSlotSubtypeUpdate = EQUIP_ITEM
     rep #$31
     phd
     pha

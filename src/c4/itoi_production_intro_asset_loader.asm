@@ -19,7 +19,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C4:DD28
 
-C4DD28_DecompressItoiProductionIntroAssets:
+DECOMP_ITOI_PRODUCTION:
+C4DD28_DecompressItoiProductionIntroAssets = DECOMP_ITOI_PRODUCTION
     rep #$31
     phd
     tdc

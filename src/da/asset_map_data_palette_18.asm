@@ -13,4 +13,4 @@
 ; DA:C1A7
 
 ; AssetMapDataPalette18End
-DAC1A7_AssetMapDataPalette18End:
+DAC1A7_AssetMapDataPalette18End = MAP_DATA_PALETTE_19

@@ -16,7 +16,8 @@ C21628_CheckEventFlag = $C21628
 ; ---------------------------------------------------------------------------
 ; C1:42F5
 
-C142F5_HandleTextCommand06JumpIfFlagSet:
+CC_06:
+C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
     rep #$31
     phd
     pha

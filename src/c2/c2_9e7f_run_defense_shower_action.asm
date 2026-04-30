@@ -21,27 +21,29 @@ C29E38_RunDefenseSprayAction                  = $C29E38
 ; ---------------------------------------------------------------------------
 ; C2:9E7F
 
-C29E7F_RunDefenseShowerAction:
+REDIRECT_BTLACT_OFFENSE_UP_A:
+C29E7F_RunDefenseShowerAction = REDIRECT_BTLACT_OFFENSE_UP_A
     rep #$31
-    jsl C29E38_RunDefenseSprayAction
+    jsl BTLACT_OFFENSE_UP_A
     rtl
-C29E86_RunDefenseReductionActionWithThresholdGate:
+BTLACT_DEFENSE_DOWN_A:
+C29E86_RunDefenseReductionActionWithThresholdGate = BTLACT_DEFENSE_DOWN_A
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C29EFD_RunDefenseShowerAction_L9EFD
-    jsr C27C96_RollSelectedRowThresholdGate
+    jsr SUCCESS_LUCK80
     cmp.w #$0000
     beq C29EEF_RunDefenseShowerAction_L9EEF
     ldx $A972
     ldy $0028,X
     sty $16
     lda $A972
-    jsr C27E33_ApplyBoundedDefenseDecrease
+    jsr HEXADECIMATE_DEFENSE
     ldx $A972
     ldy $16
     tya
@@ -87,5 +89,5 @@ C29EFD_RunDefenseShowerAction_L9EFD:
     pld
     rtl
     rep #$31
-    jsl C29E86_RunDefenseReductionActionWithThresholdGate
+    jsl BTLACT_DEFENSE_DOWN_A
     rtl

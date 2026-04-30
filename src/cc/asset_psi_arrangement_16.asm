@@ -13,4 +13,4 @@
 ; CC:E78B
 
 ; AssetPsiArrangement16End
-CCE78B_AssetPsiArrangement16End:
+CCE78B_AssetPsiArrangement16End = PSI_ARRANGEMENT_15

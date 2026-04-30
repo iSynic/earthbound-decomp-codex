@@ -10,11 +10,12 @@
 ; ---------------------------------------------------------------------------
 ; C2:3109
 
-C23109_BattleStartUfoPresentFallbackTable:
+CONSOLATION_ITEM_TABLE:
+C23109_BattleStartUfoPresentFallbackTable = CONSOLATION_ITEM_TABLE
     db $84,$58,$59,$5A,$5B,$5C,$5D,$5F,$00
     db $85,$6A,$6B,$6C,$6D,$6E,$6F,$70,$00
 
 ; ---------------------------------------------------------------------------
 ; C2:311B
 
-C2311B_BattleStartUfoPresentFallbackTable_End:
+C2311B_BattleStartUfoPresentFallbackTable_End = BATTLE_SELECTION_MENU

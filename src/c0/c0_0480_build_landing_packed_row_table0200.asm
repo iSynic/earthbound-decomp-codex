@@ -18,7 +18,8 @@ C0915B_DivideUnsignedWordByY           = $C0915B
 ; ---------------------------------------------------------------------------
 ; C0:0480
 
-C00480_Build_LandingPackedRowTable0200:
+ADJUST_SPRITE_PALETTES_BY_AVERAGE:
+C00480_Build_LandingPackedRowTable0200 = ADJUST_SPRITE_PALETTES_BY_AVERAGE
     rep #$31
     phd
     tdc

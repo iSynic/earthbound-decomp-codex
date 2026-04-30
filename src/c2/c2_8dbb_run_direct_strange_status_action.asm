@@ -18,19 +18,20 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:8DBB
 
-C28DBB_RunDirectStrangeStatusAction:
+BTLACT_FEELSTRANGE:
+C28DBB_RunDirectStrangeStatusAction = BTLACT_FEELSTRANGE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28DFA_RunDirectStrangeStatusAction_L8DFA
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28DEC_RunDirectStrangeStatusAction_L8DEC
     lda.w #$6C3A
@@ -53,13 +54,13 @@ C28DFA_RunDirectStrangeStatusAction_L8DFA:
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28E39_RunDirectStrangeStatusAction_L8E39
     ldy.w #$0002
     tyx
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28E2B_RunDirectStrangeStatusAction_L8E2B
     lda.w #$6BBB

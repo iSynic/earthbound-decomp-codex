@@ -16,7 +16,8 @@ C10007E_SetWindowFocus_Internal = $007E
 ; ---------------------------------------------------------------------------
 ; C1:DD4D
 
-C1DD4D_RedirectSetWindowFocus:
+REDIRECT_SET_WINDOW_FOCUS:
+C1DD4D_RedirectSetWindowFocus = REDIRECT_SET_WINDOW_FOCUS
     rep #$31
     jsr C10007E_SetWindowFocus_Internal
     rtl

@@ -13,4 +13,4 @@
 ; D4:B360
 
 ; AssetSprite0909End
-D4B360_AssetSprite0909End:
+D4B360_AssetSprite0909End = SPRITE_0910

@@ -13,4 +13,4 @@
 ; DF:CB98
 
 ; AssetMapDataTileAnimationGfx2End
-DFCB98_AssetMapDataTileAnimationGfx2End:
+DFCB98_AssetMapDataTileAnimationGfx2End = MAP_DATA_TILE_ANIMATION_GFX_3

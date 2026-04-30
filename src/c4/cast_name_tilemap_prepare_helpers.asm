@@ -20,7 +20,8 @@ Multiply16By8_ViaHardwareRegisters = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C4:E7AE
 
-C4E7AE_PrepareCastNameTilemap:
+PREPARE_DYNAMIC_CAST_NAME_TEXT:
+C4E7AE_PrepareCastNameTilemap = PREPARE_DYNAMIC_CAST_NAME_TEXT
     rep #$31
     phd
     tdc

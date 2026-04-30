@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C1:575D..C1:621F C1575D_TestEquippedItemPresenceForTextCommand
+; - C1:575D..C1:621F CC_1D_10
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:575D
 
-C1575D_TestEquippedItemPresenceForTextCommand:
+CC_1D_10:
+C1575D_TestEquippedItemPresenceForTextCommand = CC_1D_10
     rep #$31
     phd
     pha
@@ -81,7 +82,8 @@ C157BD_C1575D_TestEquippedItemPresenceForTextCommand_L57BD:
 C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
     pld
     rts
-C157CD_CheckInventoryItemUsabilityTextCommand:
+CC_1D_11:
+C157CD_CheckInventoryItemUsabilityTextCommand = CC_1D_11
     rep #$31
     phd
     pha
@@ -145,7 +147,8 @@ C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B:
 C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
     pld
     rts
-C1583D_CheckDeferredItemUseCompatibilityTextCommand:
+CC_1F_83:
+C1583D_CheckDeferredItemUseCompatibilityTextCommand = CC_1F_83
     rep #$31
     phd
     pha
@@ -206,7 +209,8 @@ C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B:
 C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
     pld
     rts
-C158A5_StoreInventoryItemWithEscargoTextCommand:
+CC_1D_12:
+C158A5_StoreInventoryItemWithEscargoTextCommand = CC_1D_12
     rep #$31
     phd
     pha
@@ -260,7 +264,8 @@ C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3:
 C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC:
     pld
     rts
-C158FE_WithdrawEscargoItemToInventoryTextCommand:
+CC_1D_13:
+C158FE_WithdrawEscargoItemToInventoryTextCommand = CC_1D_13
     rep #$31
     phd
     pha
@@ -330,7 +335,8 @@ C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
 C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
     pld
     rts
-C1597F_ReadCharacterInventorySlotItemTextCommand:
+CC_19_19:
+C1597F_ReadCharacterInventorySlotItemTextCommand = CC_19_19
     rep #$31
     phd
     pha
@@ -399,7 +405,8 @@ C159CD_C1575D_TestEquippedItemPresenceForTextCommand_L59CD:
 C159F7_C1575D_TestEquippedItemPresenceForTextCommand_L59F7:
     pld
     rts
-C159F9_HaveEnoughMoneyTextCommand:
+CC_1D_14:
+C159F9_HaveEnoughMoneyTextCommand = CC_1D_14
     rep #$31
     phd
     pha
@@ -542,7 +549,8 @@ C15AFE_C1575D_TestEquippedItemPresenceForTextCommand_L5AFE:
 C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
     pld
     rts
-C15B0E_ReadEscargoStorageItemTextCommand:
+CC_19_1A:
+C15B0E_ReadEscargoStorageItemTextCommand = CC_19_1A
     rep #$31
     phd
     pha
@@ -575,7 +583,8 @@ C15B25_C1575D_TestEquippedItemPresenceForTextCommand_L5B25:
     lda.w #$0000
     pld
     rts
-C15B46_RunStatusWindowDisplayTextCommand:
+CC_18_0D:
+C15B46_RunStatusWindowDisplayTextCommand = CC_18_0D
     rep #$31
     phd
     pha
@@ -633,7 +642,8 @@ C15BA2_C1575D_TestEquippedItemPresenceForTextCommand_L5BA2:
 C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5:
     pld
     rts
-C15BA7_PrintVerticalTextStringCommand:
+CC_1C_0C:
+C15BA7_PrintVerticalTextStringCommand = CC_1C_0C
     rep #$31
     phd
     pha
@@ -655,7 +665,8 @@ C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE:
     lda.w #$0000
     pld
     rts
-C15BCA_PutValueInArgmemTextCommand:
+CC_1D_15:
+C15BCA_PutValueInArgmemTextCommand = CC_1D_15
     rep #$31
     phd
     pha
@@ -710,7 +721,8 @@ C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13:
 C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
     pld
     rts
-C15C36_GetLoadedStringCountForWindowTextCommand:
+CC_19_1B:
+C15C36_GetLoadedStringCountForWindowTextCommand = CC_19_1B
     rep #$31
     phd
     pha
@@ -730,7 +742,8 @@ C15C36_GetLoadedStringCountForWindowTextCommand:
     lda.w #$0000
     pld
     rts
-C15C58_RunTextCommand1F71PartyUtility:
+CC_1F_71:
+C15C58_RunTextCommand1F71PartyUtility = CC_1F_71
     rep #$31
     lda.w #$0001
     clc
@@ -755,7 +768,8 @@ C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C:
     lda.w #$0000
 C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84:
     rts
-C15C85_AddToAtmTextCommand:
+CC_1D_06:
+C15C85_AddToAtmTextCommand = CC_1D_06
     rep #$31
     phd
     pha
@@ -874,7 +888,8 @@ C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A:
 C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
     pld
     rts
-C15D6B_TakeFromAtmTextCommand:
+CC_1D_07:
+C15D6B_TakeFromAtmTextCommand = CC_1D_07
     rep #$31
     phd
     pha
@@ -998,7 +1013,8 @@ C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40:
 C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
     pld
     rts
-C15E5C_HaveEnoughMoneyInAtmTextCommand:
+CC_1D_17:
+C15E5C_HaveEnoughMoneyInAtmTextCommand = CC_1D_17
     rep #$31
     phd
     pha
@@ -1141,7 +1157,8 @@ C15F61_C1575D_TestEquippedItemPresenceForTextCommand_L5F61:
 C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
     pld
     rts
-C15F71_AddToWalletTextCommand:
+CC_1F_11:
+C15F71_AddToWalletTextCommand = CC_1F_11
     rep #$31
     phd
     pha
@@ -1161,7 +1178,8 @@ C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88:
     lda.w #$0000
     pld
     rts
-C15F91_TakeFromWalletTextCommand:
+CC_1F_12:
+C15F91_TakeFromWalletTextCommand = CC_1F_12
     rep #$31
     phd
     pha
@@ -1223,7 +1241,8 @@ C15FF3_C1575D_TestEquippedItemPresenceForTextCommand_L5FF3:
     rep #$20
     pld
     rts
-C15FF7_QueueDeliveryOrPickupItemTextCommand:
+CC_19_1C:
+C15FF7_QueueDeliveryOrPickupItemTextCommand = CC_19_1C
     rep #$31
     phd
     pha
@@ -1300,7 +1319,8 @@ C16074_C1575D_TestEquippedItemPresenceForTextCommand_L6074:
 C1607E_C1575D_TestEquippedItemPresenceForTextCommand_L607E:
     pld
     rts
-C16080_ReadDeliveryOrPickupItemInfoTextCommand:
+CC_19_1D:
+C16080_ReadDeliveryOrPickupItemInfoTextCommand = CC_19_1D
     rep #$31
     phd
     pha
@@ -1388,7 +1408,8 @@ C1611D_C1575D_TestEquippedItemPresenceForTextCommand_L611D:
 C16122_C1575D_TestEquippedItemPresenceForTextCommand_L6122:
     pld
     rts
-C16124_AddItemToEscargoStorageTextCommand:
+CC_1D_18:
+C16124_AddItemToEscargoStorageTextCommand = CC_1D_18
     rep #$31
     phd
     pha
@@ -1408,7 +1429,8 @@ C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B:
     lda.w #$0000
     pld
     rts
-C16143_ClassifyFoodItemTextCommand:
+CC_19_21:
+C16143_ClassifyFoodItemTextCommand = CC_19_21
     rep #$31
     phd
     pha
@@ -1435,7 +1457,8 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     lda.w #$0000
     pld
     rts
-C16172_HaveXPartyMembersTextCommand:
+CC_1D_19:
+C16172_HaveXPartyMembersTextCommand = CC_1D_19
     rep #$31
     phd
     pha
@@ -1488,7 +1511,8 @@ C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     lda.w #$0000
     pld
     rts
-C161D1_PrintPsiNameTextCommand:
+CC_1C_12:
+C161D1_PrintPsiNameTextCommand = CC_1C_12
     rep #$31
     phd
     pha
@@ -1508,7 +1532,8 @@ C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8:
     lda.w #$0000
     pld
     rts
-C161F0_GenerateRandomNumberTextCommand:
+CC_1D_21:
+C161F0_GenerateRandomNumberTextCommand = CC_1D_21
     rep #$31
     phd
     pha

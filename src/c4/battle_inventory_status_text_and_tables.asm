@@ -37,4 +37,6 @@ C4550E_BattleInventoryStatusTextAndSelectorTables:
     db $0D,$9B,$81,$07,$9B,$81,$08,$9B,$81,$09,$9B,$81,$0A,$9B,$81,$0B
     db $9B,$01,$02,$04,$08,$10,$20,$40,$80
 
-C45637_BattleInventoryStatusTextAndTablesEnd:
+FIND_ITEM_IN_INVENTORY:
+C45637_BattleInventoryStatusTextAndTablesEnd = FIND_ITEM_IN_INVENTORY
+C45637_FindPartyMemberWithItem = FIND_ITEM_IN_INVENTORY

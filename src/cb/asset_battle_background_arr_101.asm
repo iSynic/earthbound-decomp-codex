@@ -13,4 +13,4 @@
 ; CB:7CC9
 
 ; AssetBattleBackgroundArr101End
-CB7CC9_AssetBattleBackgroundArr101End:
+CB7CC9_AssetBattleBackgroundArr101End = BATTLE_BACKGROUND_ARR_36

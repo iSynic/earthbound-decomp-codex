@@ -74,7 +74,8 @@ C10C55_FormatNumberFromCallerPointer:
 ; ---------------------------------------------------------------------------
 ; C1:0C72
 
-C10C72_SetActiveWindowDescriptorCursorFields:
+REDIRECT_C438A5:
+C10C72_SetActiveWindowDescriptorCursorFields = REDIRECT_C438A5
     rep #$31
     jsl C438A5_SetActiveWindowDescriptorCursorFields
     rtl
@@ -82,7 +83,8 @@ C10C72_SetActiveWindowDescriptorCursorFields:
 ; ---------------------------------------------------------------------------
 ; C1:0C79
 
-C10C79_AdvanceActiveWindowLineOrScroll:
+REDIRECT_PRINT_NEWLINE:
+C10C79_AdvanceActiveWindowLineOrScroll = REDIRECT_PRINT_NEWLINE
     rep #$31
     jsl C438B1_AdvanceActiveWindowLineOrScroll
     rtl
@@ -90,7 +92,8 @@ C10C79_AdvanceActiveWindowLineOrScroll:
 ; ---------------------------------------------------------------------------
 ; C1:0C80
 
-C10C80_PrintGlyphToActiveWindowRedirect:
+REDIRECT_C10BA1:
+C10C80_PrintGlyphToActiveWindowRedirect = REDIRECT_C10BA1
     rep #$31
     jsr C10BA1_PrintGlyphToActiveWindow
     rtl
@@ -98,15 +101,17 @@ C10C80_PrintGlyphToActiveWindowRedirect:
 ; ---------------------------------------------------------------------------
 ; C1:0C86
 
-C10C86_PrintGlyphWithSoundAndDelayRedirect:
+REDIRECT_PRINT_LETTER:
+C10C86_PrintGlyphWithSoundAndDelayRedirect = REDIRECT_PRINT_LETTER
     rep #$31
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     rtl
 
 ; ---------------------------------------------------------------------------
 ; C1:0C8C
 
-C10C8C_PrintFixedStringFromCallerPointer:
+REDIRECT_PRINT_STRING:
+C10C8C_PrintFixedStringFromCallerPointer = REDIRECT_PRINT_STRING
     rep #$31
     phd
     pha
@@ -124,14 +129,15 @@ C10C8C_PrintFixedStringFromCallerPointer:
     lda StagedPointerBank
     sta InstallPointerBank
     lda InputLengthOrGlyph
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     pld
     rtl
 
 ; ---------------------------------------------------------------------------
 ; C1:0CAF
 
-C10CAF_ScrollTextWindowBufferUpOneLineRedirect:
+REDIRECT_C437B8:
+C10CAF_ScrollTextWindowBufferUpOneLineRedirect = REDIRECT_C437B8
     rep #$31
     jsl C437B8_ScrollTextWindowBufferUpOneLine
     rtl
@@ -139,7 +145,8 @@ C10CAF_ScrollTextWindowBufferUpOneLineRedirect:
 ; ---------------------------------------------------------------------------
 ; C1:0CB6
 
-C10CB6_PrintGlyphWithSoundAndDelay:
+PRINT_LETTER:
+C10CB6_PrintGlyphWithSoundAndDelay = PRINT_LETTER
     rep #$31
     phd
     pha

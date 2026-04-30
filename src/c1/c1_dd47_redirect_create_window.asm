@@ -16,7 +16,8 @@ C1004EE_CreateWindow_Internal = $04EE
 ; ---------------------------------------------------------------------------
 ; C1:DD47
 
-C1DD47_RedirectCreateWindow:
+REDIRECT_CREATE_WINDOW:
+C1DD47_RedirectCreateWindow = REDIRECT_CREATE_WINDOW
     rep #$31
     jsr C1004EE_CreateWindow_Internal
     rtl

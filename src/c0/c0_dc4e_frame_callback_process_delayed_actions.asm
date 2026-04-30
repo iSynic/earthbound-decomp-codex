@@ -16,7 +16,8 @@ C21628_CheckEventFlag = $C21628
 ; ---------------------------------------------------------------------------
 ; C0:DC4E
 
-C0DC4E_FrameCallback_ProcessDelayedActions:
+PROCESS_OVERWORLD_TASKS:
+C0DC4E_FrameCallback_ProcessDelayedActions = PROCESS_OVERWORLD_TASKS
     rep #$31
     phd
     tdc

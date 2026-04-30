@@ -16,9 +16,11 @@
 ; ---------------------------------------------------------------------------
 ; C2:9AD8
 
-C29AD8_RunLifeupGammaHealingAction:
+BTLACT_LIFEUP_G:
+C29AD8_RunLifeupBetaHealingAction_End = BTLACT_LIFEUP_G
+C29AD8_RunLifeupGammaHealingAction = BTLACT_LIFEUP_G
 
 ; ---------------------------------------------------------------------------
 ; C2:9AE1
 
-C29AE1_RunLifeupGammaHealingAction_End:
+C29AE1_RunLifeupGammaHealingAction_End = BTLACT_LIFEUP_O

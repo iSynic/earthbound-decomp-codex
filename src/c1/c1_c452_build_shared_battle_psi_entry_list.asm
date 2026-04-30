@@ -20,7 +20,8 @@ C3E4CA_ExitWindowUpdateScope       = $C3E4CA
 ; ---------------------------------------------------------------------------
 ; C1:C452
 
-C1C452_BuildSharedBattlePsiEntryList:
+GENERATE_PSI_LIST:
+C1C452_BuildSharedBattlePsiEntryList = GENERATE_PSI_LIST
     rep #$31
     phd
     pha
@@ -88,7 +89,7 @@ C1C4AA_BuildSharedBattlePsiEntryList_LC4AA:
     jsl $C438A5
     lda [$06]
     and.w #$00FF
-    jsr C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda $1B
     sta $06
     lda $1D
@@ -286,7 +287,7 @@ C1C652_BuildSharedBattlePsiEntryList_LC652:
     jsl $C438A5
     lda [$0A]
     and.w #$00FF
-    jsr C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda [$0A]
     and.w #$00FF
     sta $1F
@@ -407,7 +408,7 @@ C1C743_BuildSharedBattlePsiEntryList_LC743:
     jsl $C438A5
     lda [$06]
     and.w #$00FF
-    jsr C1C403_PrintPsiFamilyName
+    jsr GET_PSI_NAME
     lda $1B
     sta $06
     lda $1D

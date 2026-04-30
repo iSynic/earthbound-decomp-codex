@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7029
 
-C27029_MaskSet_TestBit:
+IS_CHAR_TARGETTED:
+C27029_MaskSet_TestBit = IS_CHAR_TARGETTED
     rep #$31
     phd
     pha

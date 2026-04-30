@@ -9,6 +9,9 @@
 ; Source units covered:
 ; - CA:F708..CA:FFFF TableDistortionTable
 
+BG_DISTORTION_TABLE:
+CAF708_TableScrollingTableEnd = BG_DISTORTION_TABLE
+
 ; ---------------------------------------------------------------------------
 ; CA:FFFF
 

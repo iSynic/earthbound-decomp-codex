@@ -13,4 +13,4 @@
 ; D0:B880
 
 ; MapEnemyPlacementEnd
-D0B880_MapEnemyPlacementEnd:
+D0B880_MapEnemyPlacementEnd = ENEMY_PLACEMENT_GROUPS_PTR_TABLE

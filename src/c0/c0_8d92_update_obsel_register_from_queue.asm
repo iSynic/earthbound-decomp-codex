@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8D92
 
-C08D92_Update_ObselRegisterFromQueue:
+SET_OAM_SIZE:
+C08D92_Update_ObselRegisterFromQueue = SET_OAM_SIZE
     php
     sep #$20
     sta $000E

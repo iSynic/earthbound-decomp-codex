@@ -17,7 +17,8 @@ C0925B_ShiftMaskedResistanceBits   = $C0925B
 ; ---------------------------------------------------------------------------
 ; C2:1E03
 
-C21E03_RecalculateCharacterDerivedResistanceFields:
+CALC_RESISTANCES:
+C21E03_RecalculateCharacterDerivedResistanceFields = CALC_RESISTANCES
     rep #$31
     phd
     pha

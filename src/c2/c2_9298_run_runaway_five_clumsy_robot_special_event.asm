@@ -18,7 +18,8 @@ C21628_CheckEventFlagOrState        = $C21628
 ; ---------------------------------------------------------------------------
 ; C2:9298
 
-C29298_RunRunawayFiveClumsyRobotSpecialEvent:
+BTLACT_CLUMSYDEATH:
+C29298_RunRunawayFiveClumsyRobotSpecialEvent = BTLACT_CLUMSYDEATH
     rep #$31
     phd
     tdc

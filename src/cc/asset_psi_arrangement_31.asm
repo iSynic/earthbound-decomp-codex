@@ -13,4 +13,4 @@
 ; CC:4D53
 
 ; AssetPsiArrangement31End
-CC4D53_AssetPsiArrangement31End:
+CC4D53_AssetPsiArrangement31End = PSI_ARRANGEMENT_19

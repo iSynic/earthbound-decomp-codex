@@ -17,7 +17,8 @@ C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:9917
 
-C29917_TryApplyNumbStatusToSelectedBattler:
+FLASH_INFLICT_PARALYSIS:
+C29917_TryApplyNumbStatusToSelectedBattler = FLASH_INFLICT_PARALYSIS
     rep #$31
     phd
     tdc
@@ -26,7 +27,7 @@ C29917_TryApplyNumbStatusToSelectedBattler:
     ldy.w #$0003
     ldx.w #$0000
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29940_TryApplyNumbStatusToSelectedBattler_L9940
     lda.w #$6AE0

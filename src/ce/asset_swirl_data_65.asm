@@ -13,4 +13,4 @@
 ; CE:A7BB
 
 ; AssetSwirlData65End
-CEA7BB_AssetSwirlData65End:
+CEA7BB_AssetSwirlData65End = SWIRL_DATA_66

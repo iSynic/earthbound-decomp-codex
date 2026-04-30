@@ -16,7 +16,8 @@ BattleTargetNameBuffer = $9CF5
 ; ---------------------------------------------------------------------------
 ; C1:ACF2
 
-C1ACF2_GetBattleTargetNameBufferBase:
+RETURN_BATTLE_TARGET_ADDRESS:
+C1ACF2_GetBattleTargetNameBufferBase = RETURN_BATTLE_TARGET_ADDRESS
     rep #$31
     lda.w #BattleTargetNameBuffer
     rts

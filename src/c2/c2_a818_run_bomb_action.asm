@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:A818
 
-C2A818_RunBombAction:
+BTLACT_BOMB:
+C2A818_RunBombAction = BTLACT_BOMB
     rep #$31
     lda.w #$005A
     jsr $A658

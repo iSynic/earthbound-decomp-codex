@@ -16,7 +16,8 @@ Multiply16By8_ViaHardwareRegisters = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C4:EE9D
 
-C4EE9D_RenderUnusedCastNameScratchSet:
+UNUSED_C4EE9D:
+C4EE9D_RenderUnusedCastNameScratchSet = UNUSED_C4EE9D
     rep #$31
     phd
     tdc

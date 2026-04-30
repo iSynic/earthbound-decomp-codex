@@ -13,4 +13,4 @@
 ; CA:D149
 
 ; AssetBattleBackgroundArr42End
-CAD149_AssetBattleBackgroundArr42End:
+CAD149_AssetBattleBackgroundArr42End = BATTLE_BACKGROUND_ARR_100

@@ -13,4 +13,4 @@
 ; CE:45BF
 
 ; AssetBattleSprite25End
-CE45BF_AssetBattleSprite25End:
+CE45BF_AssetBattleSprite25End = BATTLE_SPRITE_17

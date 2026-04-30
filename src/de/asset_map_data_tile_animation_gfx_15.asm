@@ -13,4 +13,4 @@
 ; DE:F100
 
 ; AssetMapDataTileAnimationGfx15End
-DEF100_AssetMapDataTileAnimationGfx15End:
+DEF100_AssetMapDataTileAnimationGfx15End = MAP_DATA_TILE_ANIMATION_GFX_16

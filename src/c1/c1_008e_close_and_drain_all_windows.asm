@@ -53,13 +53,15 @@ C100AB_CheckQueuedWindow:
     jsl C43F53_ClearWindowDrainSideEffects
     rts
 
-C100C7_LockTextInput:
+LOCK_INPUT:
+C100C7_LockTextInput = LOCK_INPUT
     rep #$31
     lda.w #$0001
     sta InputLockFlag
     rts
 
-C100D0_UnlockTextInput:
+UNLOCK_INPUT:
+C100D0_UnlockTextInput = UNLOCK_INPUT
     rep #$31
     stz InputLockFlag
     rts

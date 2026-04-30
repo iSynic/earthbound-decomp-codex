@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:9010
 
-C19010_RecoverPpForCharacterOrActiveParty:
+RECOVER_PP_AMTPERCENT:
+C19010_RecoverPpForCharacterOrActiveParty = RECOVER_PP_AMTPERCENT
     rep #$31
     phd
     pha

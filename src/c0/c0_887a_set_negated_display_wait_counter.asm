@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:887A
 
-C0887A_Set_NegatedDisplayWaitCounter:
+FADE_OUT:
+C0887A_Set_NegatedDisplayWaitCounter = FADE_OUT
     php
     sep #$30
     eor.b #$FF

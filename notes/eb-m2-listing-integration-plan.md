@@ -86,6 +86,8 @@ Outputs:
 - `manifests/eb-m2-name-crosswalk.json`
 - `notes/eb-m2-name-crosswalk.md`
 - `manifests/symbol-aliases.json`
+- `manifests/eb-m2-needs-review-triage.json`
+- `notes/eb-m2-needs-review-triage.md`
 
 Good enough:
 
@@ -175,11 +177,37 @@ Good enough:
 
 ## Immediate Next Steps
 
-1. Generate the EB-M2 listing index.
-2. Review the generated name crosswalk and alias manifest.
-3. Update README/project status to remove any overclaiming.
-4. Update public-facing status language after the first crosswalk reports.
-5. Only then start promoting names into source/docs.
+1. Review the generated whole-repo reports:
+   `notes/eb-m2-promote-ready.md`, `notes/eb-m2-keep-local.md`, and
+   `notes/eb-m2-needs-review.md`. Use
+   `notes/eb-m2-needs-review-triage.md` as the active conflict queue.
+2. Use `notes/eb-m2-module-crosswalk.md` to decide future source file
+   organization; do not reorganize files in the same batch as name promotion.
+3. Keep README/project status wording aligned with the generated crosswalk
+   reports after each promoted bank/subsystem batch.
+
+## First Implemented Wave
+
+- `tools/build_eb_m2_name_crosswalk.py` emits the v2 name schema with
+  confidence, role compatibility, review status, recommended action, old/new
+  symbols, and conflict reasons.
+- `tools/build_eb_m2_module_crosswalk.py` emits the module-boundary crosswalk
+  before any physical source reorganization.
+- `tools/lookup_eb_m2_symbol.py` resolves addresses, EB-M2 symbols, old local
+  symbols, and `UNKNOWN_*` aliases through the crosswalk.
+- `tools/promote_eb_m2_source_symbols.py` performs reviewed source-symbol
+  promotion while preserving old address-prefixed names as aliases/equates.
+- `tools/build_eb_m2_needs_review_triage.py` groups the remaining conflicts
+  into boundary, script, table, and true role-review buckets without changing
+  source.
+- `tools/inspect_eb_m2_boundary_review.py` emits previous/current local range
+  evidence for boundary cases before any alias/start-label fix is applied.
+- Every currently ready exact-address, non-`UNKNOWN_*`, role-compatible EB-M2
+  name is promoted into source and each affected bank validates byte-equivalent
+  with `0` mismatches.
+- The first conflict-resolution batch handled `CA`/`CC`/`CE` terminal-boundary
+  data labels, preserved old end labels as aliases, and validated each affected
+  bank with `0` mismatches.
 
 ## What Remains Useful
 

@@ -13,4 +13,4 @@
 ; D2:A880
 
 ; AssetSprite0242End
-D2A880_AssetSprite0242End:
+D2A880_AssetSprite0242End = SPRITE_0243

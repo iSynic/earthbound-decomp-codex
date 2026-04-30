@@ -13,4 +13,4 @@
 ; CB:B22A
 
 ; AssetBattleBackgroundGfx2End
-CBB22A_AssetBattleBackgroundGfx2End:
+CBB22A_AssetBattleBackgroundGfx2End = BATTLE_BACKGROUND_ARR_3

@@ -13,4 +13,4 @@
 ; CB:CBD2
 
 ; AssetBattleBackgroundGfx57End
-CBCBD2_AssetBattleBackgroundGfx57End:
+CBCBD2_AssetBattleBackgroundGfx57End = BATTLE_BACKGROUND_GFX_29

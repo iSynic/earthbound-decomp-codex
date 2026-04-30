@@ -96,7 +96,7 @@ C1CF10_ResolveSelectedBattleItemAction_LCF10:
     and.w #$00FF
     tax
     lda [$06]
-    jsr C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sta $02
     and.w #$00FF
     bne C1CF33_ResolveSelectedBattleItemAction_LCF33
@@ -143,7 +143,7 @@ C1CF5E_ResolveSelectedBattleItemAction_LCF5E:
     sta $06
     ldx $12
     lda [$06]
-    jsr C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sta $02
     and.w #$00FF
     bne C1CF97_ResolveSelectedBattleItemAction_LCF97

@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:B172
 
-C2B172_ResolveLateNormalizationAndOdorContinuation:
+APPLY_CONDIMENT:
+C2B172_ResolveLateNormalizationAndOdorContinuation = APPLY_CONDIMENT
     rep #$31
     phd
     tdc
@@ -181,7 +182,7 @@ C2B27B_ReturnLateNormalizationOdorContinuation:
     jsl $C1DC1C
     jmp $B606
 C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4:
-    jsr.w C2B172_ResolveLateNormalizationAndOdorContinuation
+    jsr.w APPLY_CONDIMENT
     lda $06
     sta $18
     lda $08

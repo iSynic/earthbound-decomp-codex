@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:8C27
 
-C18C27_RemoveItemFromCharacterInventorySlot:
+REMOVE_ITEM_FROM_INVENTORY:
+C18C27_RemoveItemFromCharacterInventorySlot = REMOVE_ITEM_FROM_INVENTORY
     rep #$31
     phd
     pha

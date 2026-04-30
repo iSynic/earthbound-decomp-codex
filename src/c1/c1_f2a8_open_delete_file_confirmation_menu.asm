@@ -70,7 +70,7 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     sta $10
     jsr C10DF6_PrintNumberFromPointer
     lda.w #$006A
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx.w #$0001
     lda.w #$0002
     jsl C438A5_SetTextPosition
@@ -140,12 +140,13 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     jsl EF0BFA_DeleteSaveSlot
 C1F3B7_OpenDeleteFileConfirmationMenu_LF3B7:
     stz $5E6E
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     ldx $16
     txa
     pld
     rts
-C1F3C2_OpenTextSpeedMenu:
+OPEN_TEXT_SPEED_MENU:
+C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     rep #$31
     phd
     tdc

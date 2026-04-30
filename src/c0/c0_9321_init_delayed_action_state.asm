@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9321
 
-C09321_Init_DelayedActionState:
+INIT_ENTITY:
+C09321_Init_DelayedActionState = INIT_ENTITY
     pha
     phy
     phx
@@ -111,9 +112,10 @@ C093CB_Init_DelayedActionState_L93CB:
     asl A
     tax
     pla
-    jsl C09403_Init_DelayedActionState_L9403
+    jsl INIT_ENTITY_UNKNOWN2
     rtl
-C09403_Init_DelayedActionState_L9403:
+INIT_ENTITY_UNKNOWN2:
+C09403_Init_DelayedActionState_L9403 = INIT_ENTITY_UNKNOWN2
     phy
     pha
     lda $0A62,X

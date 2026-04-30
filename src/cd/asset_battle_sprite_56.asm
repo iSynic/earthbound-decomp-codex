@@ -13,4 +13,4 @@
 ; CD:4B4B
 
 ; AssetBattleSprite56End
-CD4B4B_AssetBattleSprite56End:
+CD4B4B_AssetBattleSprite56End = BATTLE_SPRITE_100

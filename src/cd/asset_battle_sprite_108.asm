@@ -13,4 +13,4 @@
 ; CD:F018
 
 ; AssetBattleSprite108End
-CDF018_AssetBattleSprite108End:
+CDF018_AssetBattleSprite108End = BATTLE_SPRITE_79

@@ -15,8 +15,11 @@
 ; ---------------------------------------------------------------------------
 ; C4:58AB
 
-C458AB_EquipmentItemUsableFlags:
+ITEM_USABLE_FLAGS:
+C458AB_EquipmentItemUsableFlags = ITEM_USABLE_FLAGS
     ; data bytes: C4:58AB..C4:58AF
     db $01,$02,$04,$08
 
-C458AF_EquipmentItemUsableFlagsEnd:
+CHECK_STATUS_GROUP:
+C458AF_EquipmentItemUsableFlagsEnd = CHECK_STATUS_GROUP
+C458AF_ReadPartyMemberStatusGroupValue = CHECK_STATUS_GROUP

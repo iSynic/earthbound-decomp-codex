@@ -13,4 +13,4 @@
 ; D7:5000
 
 ; AssetMapDataTileTableChunk8End
-D75000_AssetMapDataTileTableChunk8End:
+D75000_AssetMapDataTileTableChunk8End = MAP_DATA_TILE_TABLE_CHUNK_9

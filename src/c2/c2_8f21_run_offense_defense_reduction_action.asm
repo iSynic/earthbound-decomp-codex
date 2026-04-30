@@ -19,20 +19,21 @@ C1DC66_DisplayBattleTextWithNumber            = $C1DC66
 ; ---------------------------------------------------------------------------
 ; C2:8F21
 
-C28F21_RunOffenseDefenseReductionAction:
+BTLACT_REDUCEOFFDEF:
+C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28F95_RunOffenseDefenseReductionAction_L8F95
     ldx $A972
     ldy $0026,X
     sty $16
     lda $A972
-    jsr C27DDC_ApplyBoundedOffenseDecrease
+    jsr HEXADECIMATE_OFFENSE
     lda.w #$F885
     sta $0E
     lda.w #$00C8
@@ -53,7 +54,7 @@ C28F21_RunOffenseDefenseReductionAction:
     ldy $0028,X
     sty $16
     lda $A972
-    jsr C27E33_ApplyBoundedDefenseDecrease
+    jsr HEXADECIMATE_DEFENSE
     lda.w #$F8A2
     sta $0E
     lda.w #$00C8

@@ -62,7 +62,7 @@ C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     jmp.w C1AA16_RunCharacterEquipmentSlotSelectionLoop_LAA16
 C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     lda.w #$0007
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C58
     sta $06
     lda.w #$00C4
@@ -112,7 +112,7 @@ C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C:
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
     tya
-    jsr C19EE6_ClassifyItemCompactCategory
+    jsr GET_ITEM_TYPE
     cmp.w #$0002
     beq C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
@@ -353,7 +353,7 @@ C1AA18_RefreshWalletOrStatusDisplay:
     lda.w #$9C8A
     jsl $C20A20
     lda.w #$000A
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$0005
     jsr $0EB4
     jsl $C3E4D4

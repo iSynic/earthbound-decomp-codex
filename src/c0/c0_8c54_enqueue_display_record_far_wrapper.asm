@@ -16,6 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C0:8C54
 
-C08C54_Enqueue_DisplayRecord_FarWrapper:
+REDIRECT_C08C58:
+C08C54_Enqueue_DisplayRecord_FarWrapper = REDIRECT_C08C58
     jsr $8C58
     rtl

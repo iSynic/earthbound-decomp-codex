@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:C8C8..C2:C92D C2C8C8_LoadFinalPrayerFinaleTilemapState
+; - C2:C8C8..C2:C92D LOAD_ENEMY_BATTLE_SPRITES
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -20,7 +20,8 @@ C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
 ; ---------------------------------------------------------------------------
 ; C2:C8C8
 
-C2C8C8_LoadFinalPrayerFinaleTilemapState:
+LOAD_ENEMY_BATTLE_SPRITES:
+C2C8C8_LoadFinalPrayerFinaleTilemapState = LOAD_ENEMY_BATTLE_SPRITES
     rep #$31
     phd
     tdc

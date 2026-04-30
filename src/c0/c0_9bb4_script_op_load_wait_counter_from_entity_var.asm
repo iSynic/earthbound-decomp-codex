@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BB4
 
-C09BB4_ScriptOp_LoadWaitCounterFromEntityVar:
+MOVEMENT_CODE_21:
+C09BB4_ScriptOp_LoadWaitCounterFromEntityVar = MOVEMENT_CODE_21
     lda [$80],Y
     and.w #$00FF
     asl A

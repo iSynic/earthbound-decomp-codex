@@ -16,7 +16,8 @@ C08E9A_GetRandom16 = $C08E9A
 ; ---------------------------------------------------------------------------
 ; C0:C69E
 
-C0C69E_GetDirectionTurnedRandomlyLeftOrRight:
+GET_DIRECTION_TURNED_RANDOMLY_LEFT_OR_RIGHT:
+C0C69E_GetDirectionTurnedRandomlyLeftOrRight = GET_DIRECTION_TURNED_RANDOMLY_LEFT_OR_RIGHT
     rep #$31
     jsl C08E9A_GetRandom16
     and.w #$0001

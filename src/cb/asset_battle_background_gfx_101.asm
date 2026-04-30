@@ -13,4 +13,4 @@
 ; CB:B16C
 
 ; AssetBattleBackgroundGfx101End
-CBB16C_AssetBattleBackgroundGfx101End:
+CBB16C_AssetBattleBackgroundGfx101End = BATTLE_BACKGROUND_GFX_2

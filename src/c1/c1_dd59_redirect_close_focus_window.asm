@@ -16,7 +16,8 @@ C100084_CloseFocusWindow_Internal = $0084
 ; ---------------------------------------------------------------------------
 ; C1:DD59
 
-C1DD59_RedirectCloseFocusWindow:
+REDIRECT_CLOSE_FOCUS_WINDOW:
+C1DD59_RedirectCloseFocusWindow = REDIRECT_CLOSE_FOCUS_WINDOW
     rep #$31
     jsr C100084_CloseFocusWindow_Internal
     rtl

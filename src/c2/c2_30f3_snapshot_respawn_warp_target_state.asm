@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:30F3..C2:3109 C230F3_SnapshotRespawnWarpTargetState
+; - C2:30F3..C2:3109 SET_TELEPORT_BOX_DESTINATION
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:30F3
 
-C230F3_SnapshotRespawnWarpTargetState:
+SET_TELEPORT_BOX_DESTINATION:
+C230F3_SnapshotRespawnWarpTargetState = SET_TELEPORT_BOX_DESTINATION
     rep #$31
     sep #$20
     sta $98B8

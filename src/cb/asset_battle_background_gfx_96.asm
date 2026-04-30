@@ -13,4 +13,4 @@
 ; CB:C93A
 
 ; AssetBattleBackgroundGfx96End
-CBC93A_AssetBattleBackgroundGfx96End:
+CBC93A_AssetBattleBackgroundGfx96End = BATTLE_BACKGROUND_GFX_69

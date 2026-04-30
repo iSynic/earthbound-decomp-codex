@@ -39,7 +39,7 @@ C1A1D8_RenderEquipmentPreviewStatus:
     sta $02
     sta $18
     lda.w #$002D
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     jsl C3E4E0_PrepareOrShowHpppWindows
     lda.w #$0002
     jsr C10EB4_ClearOrPrepareWindowContent

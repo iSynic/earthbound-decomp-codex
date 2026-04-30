@@ -13,4 +13,4 @@
 ; CB:BA2F
 
 ; AssetBattleBackgroundArr23End
-CBBA2F_AssetBattleBackgroundArr23End:
+CBBA2F_AssetBattleBackgroundArr23End = BATTLE_BACKGROUND_GFX_20

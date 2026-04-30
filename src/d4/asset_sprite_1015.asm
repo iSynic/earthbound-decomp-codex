@@ -13,4 +13,4 @@
 ; D4:F780
 
 ; AssetSprite1015End
-D4F780_AssetSprite1015End:
+D4F780_AssetSprite1015End = SPRITE_1016

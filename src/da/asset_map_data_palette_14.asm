@@ -13,4 +13,4 @@
 ; DA:B1E7
 
 ; AssetMapDataPalette14End
-DAB1E7_AssetMapDataPalette14End:
+DAB1E7_AssetMapDataPalette14End = MAP_DATA_PALETTE_15

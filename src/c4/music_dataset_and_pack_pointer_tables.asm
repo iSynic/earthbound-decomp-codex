@@ -17,7 +17,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:F70A
 
-C4F70A_MusicDatasetTable:
+MUSIC_DATASET_TABLE:
+C4F70A_MusicDatasetTable = MUSIC_DATASET_TABLE
     ; data bytes: C4:F70A..C4:F947
     db $00,$FF,$01,$02,$03,$04,$02,$03,$04,$05,$FF,$FF,$05,$FF,$FF,$05
     db $FF,$FF,$05,$FF,$06,$05,$FF,$FF,$05,$FF,$FF,$05,$FF,$FF,$05,$FF
@@ -56,10 +57,11 @@ C4F70A_MusicDatasetTable:
     db $52,$53,$05,$FF,$FF,$05,$FF,$FF,$05,$4E,$4F,$05,$4C,$A7,$05,$4E
     db $4F,$05,$2F,$A8,$05,$9C,$9D,$05,$52,$53,$05,$50,$51
 
-C4F947_MusicPackPointerTable:
+MUSIC_PACK_POINTER_TABLE:
+C4F947_MusicPackPointerTable = MUSIC_PACK_POINTER_TABLE
 
 ; ---------------------------------------------------------------------------
 ; C4:FB42
 
 ; MusicDatasetAndPackPointerTablesEnd
-C4FB42_MusicDatasetAndPackPointerTablesEnd:
+C4FB42_MusicDatasetAndPackPointerTablesEnd = GET_AUDIO_BANK

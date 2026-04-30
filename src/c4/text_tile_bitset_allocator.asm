@@ -48,7 +48,7 @@ C400B6_FindFirstClearTextTileBit:
 C400B9_ClaimTextTileBit:
     bmi C400B6_FindFirstClearTextTileBit
     lda $1AD6,Y
-    ora C44C6C_TextTileBitMaskTable,X
+    ora.l POWERS_OF_TWO_16BIT,X
     sta $1AD6,Y
     stx $288E
     lsr $288E

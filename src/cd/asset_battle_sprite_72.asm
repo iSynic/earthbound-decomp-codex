@@ -13,4 +13,4 @@
 ; CD:A144
 
 ; AssetBattleSprite72End
-CDA144_AssetBattleSprite72End:
+CDA144_AssetBattleSprite72End = BATTLE_SPRITE_51

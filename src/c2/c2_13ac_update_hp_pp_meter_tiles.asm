@@ -20,7 +20,8 @@ C09251_ShiftWordRightByY           = $C09251
 ; ---------------------------------------------------------------------------
 ; C2:13AC
 
-C213AC_UpdateHpPpMeterTiles:
+UPDATE_HPPP_METER_TILES:
+C213AC_UpdateHpPpMeterTiles = UPDATE_HPPP_METER_TILES
     rep #$31
     phd
     tdc

@@ -13,4 +13,4 @@
 ; CC:1F5C
 
 ; AssetAnimationdataCarpainterLightningStrikeEnd
-CC1F5C_AssetAnimationdataCarpainterLightningStrikeEnd:
+CC1F5C_AssetAnimationdataCarpainterLightningStrikeEnd = ANIMATIONDATA_STARMAN_JR_TELEPORT

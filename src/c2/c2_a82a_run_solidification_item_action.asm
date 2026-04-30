@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:A82A..C2:A86B C2A82A_RunSolidificationItemAction
+; - C2:A82A..C2:A86B BTLACT_SOLIDIFY_2
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:A82A
 
-C2A82A_RunSolidificationItemAction:
+BTLACT_SOLIDIFY_2:
+C2A82A_RunSolidificationItemAction = BTLACT_SOLIDIFY_2
     rep #$31
     phd
     tdc

@@ -13,4 +13,4 @@
 ; CE:969F
 
 ; AssetSwirlData51End
-CE969F_AssetSwirlData51End:
+CE969F_AssetSwirlData51End = SWIRL_DATA_52

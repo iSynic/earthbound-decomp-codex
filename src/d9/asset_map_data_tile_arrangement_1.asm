@@ -13,4 +13,4 @@
 ; D9:34E9
 
 ; AssetMapDataTileArrangement1End
-D934E9_AssetMapDataTileArrangement1End:
+D934E9_AssetMapDataTileArrangement1End = MAP_DATA_TILE_ARRANGEMENT_2

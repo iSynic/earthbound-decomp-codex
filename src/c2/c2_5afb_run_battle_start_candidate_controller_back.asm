@@ -17,8 +17,11 @@ C0887A_ClearDisplayTransitionState  = $C0887A
 C08E9A_GetRandom16                  = $C08E9A
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C090FF_AddLongPointerOffset         = $C090FF
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
+D57B68_BattleActionTable            = $D57B68
 
 ; ---------------------------------------------------------------------------
 ; C2:5AFB
@@ -67,7 +70,7 @@ C25B3D_RunBattleStartCandidateControllerBack_L5B3D:
     inx
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     beq C25B7D_RunBattleStartCandidateControllerBack_L5B7D
     and.w #$00FF
@@ -102,7 +105,7 @@ C25B7D_RunBattleStartCandidateControllerBack_L5B7D:
     tax
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0001
     beq C25BBA_RunBattleStartCandidateControllerBack_L5BBA
@@ -153,7 +156,7 @@ C25BF2_RunBattleStartCandidateControllerBack_L5BF2:
     sta $0E
     lda.w #$00EF
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C25C14_RunBattleStartCandidateControllerBack_L5C14:
     ldx $A970
     lda $001E,X
@@ -164,7 +167,7 @@ C25C14_RunBattleStartCandidateControllerBack_L5C14:
     sta $0E
     lda.w #$00EF
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C25C30_RunBattleStartCandidateControllerBack_L5C30:
     rep #$20
     lda.w #$7B68
@@ -182,6 +185,8 @@ C25C30_RunBattleStartCandidateControllerBack_L5C30:
     inc A
     inc A
     inc A
+    ; D5:7B68 uses 0x0C-byte action rows; the script pointer is the
+    ; far pointer field at row offset +4.
     clc
     adc $0A
     sta $0A
@@ -195,7 +200,7 @@ C25C30_RunBattleStartCandidateControllerBack_L5C30:
     sta $0E
     lda $08
     sta $10
-    jsl $C1DD9F
+    jsl C1DD9F_DisplayCurrentActionTableTextMode1
     ldx $A970
     lda $0004,X
     bne C25C75_RunBattleStartCandidateControllerBack_L5C75

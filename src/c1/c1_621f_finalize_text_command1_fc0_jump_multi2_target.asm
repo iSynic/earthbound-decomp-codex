@@ -138,7 +138,8 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
 C16306_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6306:
     pld
     rts
-C16308_HandleTextCommand1FC0JumpMulti2:
+CC_1F_C0:
+C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
     rep #$31
     phd
     pha
@@ -223,7 +224,8 @@ C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
 C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5:
     pld
     rts
-C163A7_RunJeffRepairBrokenItemCallback:
+CC_1F_D0:
+C163A7_RunJeffRepairBrokenItemCallback = CC_1F_D0
     rep #$31
     phd
     pha
@@ -271,7 +273,8 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda.w #$0000
     pld
     rts
-C163FD_HandleTextCommand1F13:
+CC_1F_13:
+C163FD_HandleTextCommand1F13 = CC_1F_13
     rep #$31
     phd
     pha
@@ -334,7 +337,8 @@ C1645C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L645C:
 C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
-C1646E_HandleTextCommand1F14:
+CC_1F_14:
+C1646E_HandleTextCommand1F14 = CC_1F_14
     rep #$31
     phd
     pha
@@ -356,7 +360,8 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     lda.w #$0000
     pld
     rts
-C16490_HandleTextCommand1F16:
+CC_1F_16:
+C16490_HandleTextCommand1F16 = CC_1F_16
     rep #$31
     phd
     pha
@@ -423,7 +428,8 @@ C164FA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64FA:
 C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
-C16509_HandleTextCommand1F17:
+CC_1F_17:
+C16509_HandleTextCommand1F17 = CC_1F_17
     rep #$31
     phd
     pha
@@ -483,7 +489,8 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
 C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
-C16582_HandleTextCommand1F18:
+CC_1F_18:
+C16582_HandleTextCommand1F18 = CC_1F_18
     rep #$31
     lda.w #$0006
     clc
@@ -506,7 +513,8 @@ C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
     lda.w #$0000
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
-C165AA_HandleTextCommand1F19:
+CC_1F_19:
+C165AA_HandleTextCommand1F19 = CC_1F_19
     rep #$31
     lda.w #$0006
     clc
@@ -529,7 +537,8 @@ C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
     lda.w #$0000
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
-C165D2_HandleTextCommand1F1A:
+CC_1F_1A:
+C165D2_HandleTextCommand1F1A = CC_1F_1A
     rep #$31
     phd
     pha
@@ -575,7 +584,8 @@ C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
 C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
-C1662A_HandleTextCommand1F1B:
+CC_1F_1B:
+C1662A_HandleTextCommand1F1B = CC_1F_1B
     rep #$31
     phd
     pha
@@ -609,7 +619,8 @@ C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
 C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
-C1666D_HandleTextCommand1F1C:
+CC_1F_1C:
+C1666D_HandleTextCommand1F1C = CC_1F_1C
     rep #$31
     phd
     pha
@@ -671,7 +682,8 @@ C166CC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66CC:
 C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
-C166DD_HandleTextCommand1F1D:
+CC_1F_1D:
+C166DD_HandleTextCommand1F1D = CC_1F_1D
     rep #$31
     phd
     pha
@@ -692,7 +704,8 @@ C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     lda.w #$0000
     pld
     rts
-C166FE_HandleTextCommand1FE1:
+CC_1F_E1:
+C166FE_HandleTextCommand1FE1 = CC_1F_E1
     rep #$31
     phd
     pha
@@ -731,7 +744,8 @@ C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
 C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
-C16744_HandleTextCommand1F15:
+CC_1F_15:
+C16744_HandleTextCommand1F15 = CC_1F_15
     rep #$31
     phd
     pha
@@ -804,7 +818,8 @@ C167D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D1:
 C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
-C167D6_HandleTextCommand1F1E:
+CC_1F_1E:
+C167D6_HandleTextCommand1F1E = CC_1F_1E
     rep #$31
     phd
     pha
@@ -855,7 +870,8 @@ C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
 C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
-C1683B_HandleTextCommand1F1F:
+CC_1F_1F:
+C1683B_HandleTextCommand1F1F = CC_1F_1F
     rep #$31
     phd
     pha
@@ -906,7 +922,8 @@ C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
 C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E:
     pld
     rts
-C168A0_ResolveFacingDirectionCommand22:
+CC_19_22:
+C168A0_ResolveFacingDirectionCommand22 = CC_19_22
     rep #$31
     phd
     pha
@@ -994,7 +1011,8 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
     pld
     rts
-C16947_ResolveFacingDirectionCommand23:
+CC_19_23:
+C16947_ResolveFacingDirectionCommand23 = CC_19_23
     rep #$31
     phd
     pha
@@ -1086,13 +1104,15 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
-C169F7_HandleTextCommand1F62:
+CC_1F_62:
+C169F7_HandleTextCommand1F62 = CC_1F_62
     rep #$31
     txa
     jsr $0036
     lda.w #$0000
     rts
-C16A01_SetCharacterLevelTextCommand:
+CC_1E_08:
+C16A01_SetCharacterLevelTextCommand = CC_1E_08
     rep #$31
     phd
     pha
@@ -1161,7 +1181,8 @@ C16A69_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A69:
 C16A79_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A79:
     pld
     rts
-C16A7B_ResolveFacingDirectionCommand24:
+CC_19_24:
+C16A7B_ResolveFacingDirectionCommand24 = CC_19_24
     rep #$31
     phd
     pha
@@ -1253,7 +1274,8 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
-C16B2B_HandleTextCommand1FE4:
+CC_1F_E4:
+C16B2B_HandleTextCommand1FE4 = CC_1F_E4
     rep #$31
     phd
     pha
@@ -1320,13 +1342,15 @@ C16B95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B95:
 C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
-C16BA4_HandleTextCommand1FE5:
+CC_1F_E5:
+C16BA4_HandleTextCommand1FE5 = CC_1F_E5
     rep #$31
     txa
     jsl $C46594
     lda.w #$0000
     rts
-C16BAF_HandleTextCommand1FE6:
+CC_1F_E6:
+C16BAF_HandleTextCommand1FE6 = CC_1F_E6
     rep #$31
     phd
     pha
@@ -1360,7 +1384,8 @@ C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
 C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
-C16BF2_HandleTextCommand1FE7:
+CC_1F_E7:
+C16BF2_HandleTextCommand1FE7 = CC_1F_E7
     rep #$31
     phd
     pha
@@ -1394,13 +1419,15 @@ C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
 C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
-C16C35_HandleTextCommand1FE8:
+CC_1F_E8:
+C16C35_HandleTextCommand1FE8 = CC_1F_E8
     rep #$31
     txa
     jsl $C46631
     lda.w #$0000
     rts
-C16C40_HandleTextCommand1FE9:
+CC_1F_E9:
+C16C40_HandleTextCommand1FE9 = CC_1F_E9
     rep #$31
     phd
     pha
@@ -1434,7 +1461,8 @@ C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
 C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
-C16C83_HandleTextCommand1FEA:
+CC_1F_EA:
+C16C83_HandleTextCommand1FEA = CC_1F_EA
     rep #$31
     phd
     pha
@@ -1468,7 +1496,8 @@ C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
 C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
-C16CC6_HandleTextCommand1FEB:
+CC_1F_EB:
+C16CC6_HandleTextCommand1FEB = CC_1F_EB
     rep #$31
     phd
     pha
@@ -1510,7 +1539,8 @@ C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
 C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
-C16D14_HandleTextCommand1FEC:
+CC_1F_EC:
+C16D14_HandleTextCommand1FEC = CC_1F_EC
     rep #$31
     phd
     pha
@@ -1552,7 +1582,8 @@ C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
 C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
-C16D62_HandleTextCommand1FEE:
+CC_1F_EE:
+C16D62_HandleTextCommand1FEE = CC_1F_EE
     rep #$31
     phd
     pha
@@ -1586,7 +1617,8 @@ C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
 C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
-C16DA5_HandleTextCommand1FEF:
+CC_1F_EF:
+C16DA5_HandleTextCommand1FEF = CC_1F_EF
     rep #$31
     phd
     pha
@@ -1620,7 +1652,8 @@ C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
 C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
-C16DE8_HandleTextCommand1F63:
+CC_1F_63:
+C16DE8_HandleTextCommand1F63 = CC_1F_63
     rep #$31
     phd
     pha
@@ -1729,7 +1762,8 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
 C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
     pld
     rts
-C16EBF_HandleTextCommand1FF1:
+CC_1F_F1:
+C16EBF_HandleTextCommand1FF1 = CC_1F_F1
     rep #$31
     phd
     pha
@@ -1786,7 +1820,8 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
 C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
     pld
     rts
-C16F2F_HandleTextCommand1FF2:
+CC_1F_F2:
+C16F2F_HandleTextCommand1FF2 = CC_1F_F2
     rep #$31
     phd
     pha
@@ -1843,7 +1878,8 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
 C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
     pld
     rts
-C16F9F_ClassifyCondimentItemTextCommand:
+CC_19_25:
+C16F9F_ClassifyCondimentItemTextCommand = CC_19_25
     rep #$31
     phd
     pha
@@ -1872,7 +1908,8 @@ C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
     lda.w #$0000
     pld
     rts
-C16FD1_HandleTextCommand1F23:
+CC_1F_23:
+C16FD1_HandleTextCommand1F23 = CC_1F_23
     rep #$31
     phd
     pha
@@ -1945,7 +1982,8 @@ C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
     lda.w #$0000
     pld
     rts
-C17058_CheckEscargoStorageStatusTextCommand:
+CC_1D_0C:
+C17058_CheckEscargoStorageStatusTextCommand = CC_1D_0C
     rep #$31
     phd
     pha
@@ -2052,7 +2090,8 @@ C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
 C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
     pld
     rts
-C1711C_HandleTextCommand1F66:
+CC_1F_66:
+C1711C_HandleTextCommand1F66 = CC_1F_66
     rep #$31
     phd
     pha
@@ -2196,7 +2235,8 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
 C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
     pld
     rts
-C17233_HandleTextCommand1F67:
+CC_1F_67:
+C17233_HandleTextCommand1F67 = CC_1F_67
     rep #$31
     phd
     pha
@@ -2217,7 +2257,8 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     lda.w #$0000
     pld
     rts
-C17254_HandleTextCommand1F04:
+CC_1F_04:
+C17254_HandleTextCommand1F04 = CC_1F_04
     rep #$31
     phd
     pha

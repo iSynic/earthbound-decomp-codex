@@ -13,4 +13,4 @@
 ; CB:A3FA
 
 ; AssetBattleBackgroundArr68End
-CBA3FA_AssetBattleBackgroundArr68End:
+CBA3FA_AssetBattleBackgroundArr68End = BATTLE_BACKGROUND_ARR_28

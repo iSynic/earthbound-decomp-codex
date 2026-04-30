@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:B047
 
-C0B047_SetWindowMaskRegisters:
+SET_WINDOW_MASK:
+C0B047_SetWindowMaskRegisters = SET_WINDOW_MASK
     txy
     sep #$20
     pha

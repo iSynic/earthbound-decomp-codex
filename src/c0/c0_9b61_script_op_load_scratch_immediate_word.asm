@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B61
 
-C09B61_ScriptOp_LoadScratchImmediateWord:
+MOVEMENT_CODE_1D:
+C09B61_ScriptOp_LoadScratchImmediateWord = MOVEMENT_CODE_1D
     lda [$80],Y
     ldx $8A
     sta $1516,X

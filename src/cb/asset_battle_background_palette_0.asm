@@ -13,4 +13,4 @@
 ; CB:D82A
 
 ; AssetBattleBackgroundPalette0End
-CBD82A_AssetBattleBackgroundPalette0End:
+CBD82A_AssetBattleBackgroundPalette0End = BATTLE_BACKGROUND_GFX_73

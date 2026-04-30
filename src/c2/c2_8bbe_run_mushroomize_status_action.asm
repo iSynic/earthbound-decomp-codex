@@ -18,19 +18,20 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:8BBE
 
-C28BBE_RunMushroomizeStatusAction:
+BTLACT_MUSHROOMIZE:
+C28BBE_RunMushroomizeStatusAction = BTLACT_MUSHROOMIZE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28BFB_RunMushroomizeStatusAction_L8BFB
     ldy.w #$0001
     tyx
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28BED_RunMushroomizeStatusAction_L8BED
     lda.w #$6B81

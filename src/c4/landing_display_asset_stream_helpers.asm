@@ -129,7 +129,8 @@ C4B269_TransferLandingDisplayAssetSubpiecePair_Return:
 ; C4:B26B
 
 ; InitializeLandingDisplayStreamsAndChildAnchors
-C4B26B_InitializeLandingDisplayStreamsAndChildAnchors:
+LOAD_OVERLAY_SPRITES:
+C4B26B_InitializeLandingDisplayStreamsAndChildAnchors = LOAD_OVERLAY_SPRITES
 	REP.b #$31
 	PHD
 	TDC

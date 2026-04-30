@@ -13,4 +13,4 @@
 ; CC:BAC7
 
 ; AssetPsiAnimGfxSet2End
-CCBAC7_AssetPsiAnimGfxSet2End:
+CCBAC7_AssetPsiAnimGfxSet2End = PSI_ARRANGEMENT_3

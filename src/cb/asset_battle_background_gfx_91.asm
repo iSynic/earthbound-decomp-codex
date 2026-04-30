@@ -13,4 +13,4 @@
 ; CB:B800
 
 ; AssetBattleBackgroundGfx91End
-CBB800_AssetBattleBackgroundGfx91End:
+CBB800_AssetBattleBackgroundGfx91End = BATTLE_BACKGROUND_GFX_14

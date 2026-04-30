@@ -13,4 +13,4 @@
 ; CA:382D
 
 ; AssetBattleBackgroundGfx64End
-CA382D_AssetBattleBackgroundGfx64End:
+CA382D_AssetBattleBackgroundGfx64End = BATTLE_BACKGROUND_GFX_61

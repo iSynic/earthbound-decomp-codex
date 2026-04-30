@@ -16,7 +16,8 @@ EF0A4D_RunB4A1IndexedHelper = $EF0A4D
 ; ---------------------------------------------------------------------------
 ; C2:2A2C
 
-C22A2C_RunB4A1IndexedEf0A4d:
+SAVE_CURRENT_GAME:
+C22A2C_RunB4A1IndexedEf0A4d = SAVE_CURRENT_GAME
     rep #$31
     lda $B4A1
     and.w #$00FF

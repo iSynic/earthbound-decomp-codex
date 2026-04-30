@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:A3D1
 
-C2A3D1_RunItemSideConcentrationSealAction:
+BTLACT_COUNTER_PSI:
+C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     rep #$31
     phd
     tdc
@@ -88,7 +89,8 @@ C2A45B_RunItemSideConcentrationSealAction_LA45B:
 C2A469_RunItemSideConcentrationSealAction_LA469:
     pld
     rtl
-C2A46B_RunItemSideConcentrationSealAction_LA46B:
+BTLACT_HP_SUCKER:
+C2A46B_RunItemSideConcentrationSealAction_LA46B = BTLACT_HP_SUCKER
     rep #$31
     phd
     tdc
@@ -163,7 +165,7 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     pld
     rtl
     rep #$31
-    jsl C2A46B_RunItemSideConcentrationSealAction_LA46B
+    jsl BTLACT_HP_SUCKER
     rtl
     rep #$31
     phd
@@ -214,7 +216,8 @@ C2A56A_RunItemSideConcentrationSealAction_LA56A:
 C2A578_RunItemSideConcentrationSealAction_LA578:
     pld
     rtl
-C2A57A_RunItemSideConcentrationSealAction_LA57A:
+BOTTLE_ROCKET_COMMON:
+C2A57A_RunItemSideConcentrationSealAction_LA57A = BOTTLE_ROCKET_COMMON
     rep #$31
     phd
     pha
@@ -264,13 +267,13 @@ C2A5CF_RunItemSideConcentrationSealAction_LA5CF:
     rts
     rep #$31
     lda.w #$0001
-    jsr.w C2A57A_RunItemSideConcentrationSealAction_LA57A
+    jsr.w BOTTLE_ROCKET_COMMON
     rtl
     rep #$31
     lda.w #$0005
-    jsr.w C2A57A_RunItemSideConcentrationSealAction_LA57A
+    jsr.w BOTTLE_ROCKET_COMMON
     rtl
     rep #$31
     lda.w #$0014
-    jsr.w C2A57A_RunItemSideConcentrationSealAction_LA57A
+    jsr.w BOTTLE_ROCKET_COMMON
     rtl

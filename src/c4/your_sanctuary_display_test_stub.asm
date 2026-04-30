@@ -16,6 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C4:E366
 
-C4E366_TestYourSanctuaryDisplayStub:
+TEST_YOUR_SANCTUARY_DISPLAY:
+C4E366_TestYourSanctuaryDisplayStub = TEST_YOUR_SANCTUARY_DISPLAY
     rep #$31
     rtl

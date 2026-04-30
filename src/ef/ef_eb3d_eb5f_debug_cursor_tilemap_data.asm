@@ -13,4 +13,4 @@
 ; EF:EB5F
 
 ; EfDebugCursorTilemapDataEnd
-EFEB5F_EfDebugCursorTilemapDataEnd:
+EFEB5F_EfDebugCursorTilemapDataEnd = DEBUG_MENU_FONT

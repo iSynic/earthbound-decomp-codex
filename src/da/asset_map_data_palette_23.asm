@@ -13,4 +13,4 @@
 ; DA:D767
 
 ; AssetMapDataPalette23End
-DAD767_AssetMapDataPalette23End:
+DAD767_AssetMapDataPalette23End = MAP_DATA_PALETTE_24

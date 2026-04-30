@@ -13,4 +13,4 @@
 ; CC:17CB
 
 ; AssetAnimationdataCarpainterLightningReflectEnd
-CC17CB_AssetAnimationdataCarpainterLightningReflectEnd:
+CC17CB_AssetAnimationdataCarpainterLightningReflectEnd = ANIMATIONDATA_CARPAINTER_LIGHTNING_STRIKE

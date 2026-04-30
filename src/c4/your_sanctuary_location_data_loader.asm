@@ -19,7 +19,8 @@ C41A9E_GraphicsDecompressionRoutines_Main       = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C4:E13E
 
-C4E13E_LoadYourSanctuaryLocationData:
+LOAD_YOUR_SANCTUARY_LOCATION_DATA:
+C4E13E_LoadYourSanctuaryLocationData = LOAD_YOUR_SANCTUARY_LOCATION_DATA
     rep #$31
     phd
     pha

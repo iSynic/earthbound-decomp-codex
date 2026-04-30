@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:461A
 
-C1461A_HandleTextCommand0EStoreToArgmem:
+CC_0E:
+C1461A_HandleTextCommand0EStoreToArgmem = CC_0E
     rep #$31
     phd
     pha
@@ -36,7 +37,8 @@ C14632_HandleTextCommand0EStoreToArgmem_L4632:
     lda.w #$0000
     pld
     rts
-C1463B_BuildTextQueueSelector0:
+CC_1A_00:
+C1463B_BuildTextQueueSelector0 = CC_1A_00
     rep #$31
     phd
     pha
@@ -70,7 +72,8 @@ C14660_HandleTextCommand0EStoreToArgmem_L4660:
 C1467B_HandleTextCommand0EStoreToArgmem_L467B:
     pld
     rts
-C1467D_BuildTextQueueSelector1:
+CC_1A_01:
+C1467D_BuildTextQueueSelector1 = CC_1A_01
     rep #$31
     phd
     pha
@@ -104,7 +107,8 @@ C146A2_HandleTextCommand0EStoreToArgmem_L46A2:
 C146BD_HandleTextCommand0EStoreToArgmem_L46BD:
     pld
     rts
-C146BF_PrintItemNameTextCommandFamily:
+CC_1C_05:
+C146BF_PrintItemNameTextCommandFamily = CC_1C_05
     rep #$31
     phd
     pha
@@ -185,7 +189,8 @@ C1473A_HandleTextCommand0EStoreToArgmem_L473A:
     lda.w #$0000
     pld
     rts
-C14751_HandleTextCommand4751:
+CC_1F_00:
+C14751_HandleTextCommand4751 = CC_1F_00
     rep #$31
     phd
     pha
@@ -230,13 +235,15 @@ C1478E_HandleTextCommand0EStoreToArgmem_L478E:
 C1479E_HandleTextCommand0EStoreToArgmem_L479E:
     pld
     rts
-C147A0_SetEventFlagFromTextArgument:
+CC_1F_01:
+C147A0_SetEventFlagFromTextArgument = CC_1F_01
     rep #$31
     txa
     jsl $C216C9
     lda.w #$0000
     rts
-C147AB_CheckEventFlagFromTextArgument:
+CC_1F_02:
+C147AB_CheckEventFlagFromTextArgument = CC_1F_02
     rep #$31
     phd
     pha

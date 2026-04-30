@@ -13,4 +13,4 @@
 ; CB:C6BD
 
 ; AssetBattleBackgroundGfx19End
-CBC6BD_AssetBattleBackgroundGfx19End:
+CBC6BD_AssetBattleBackgroundGfx19End = BATTLE_BACKGROUND_GFX_21

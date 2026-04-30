@@ -13,4 +13,4 @@
 ; DF:E4C8
 
 ; AssetMapDataTileAnimationGfx13End
-DFE4C8_AssetMapDataTileAnimationGfx13End:
+DFE4C8_AssetMapDataTileAnimationGfx13End = MAP_DATA_TILE_ANIMATION_GFX_14

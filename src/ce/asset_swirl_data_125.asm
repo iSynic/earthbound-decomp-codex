@@ -13,4 +13,4 @@
 ; CE:DC45
 
 ; AssetSwirlData125End
-CEDC45_AssetSwirlData125End:
+CEDC45_AssetSwirlData125End = SWIRL_POINTER_TABLE

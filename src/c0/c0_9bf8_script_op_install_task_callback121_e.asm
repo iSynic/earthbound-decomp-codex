@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9BF8
 
-C09BF8_ScriptOp_InstallTaskCallback121E:
+MOVEMENT_CODE_25:
+C09BF8_ScriptOp_InstallTaskCallback121E = MOVEMENT_CODE_25
     lda [$80],Y
     ldx $88
     sta $121E,X

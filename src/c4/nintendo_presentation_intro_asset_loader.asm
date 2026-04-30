@@ -19,7 +19,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C4:DDD0
 
-C4DDD0_DecompressNintendoPresentationIntroAssets:
+DECOMP_NINTENDO_PRESENTATION:
+C4DDD0_DecompressNintendoPresentationIntroAssets = DECOMP_NINTENDO_PRESENTATION
     rep #$31
     phd
     tdc

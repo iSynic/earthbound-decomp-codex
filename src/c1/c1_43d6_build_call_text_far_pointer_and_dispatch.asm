@@ -16,7 +16,8 @@ C186B1_PrintTextFromPointer = $C186B1
 ; ---------------------------------------------------------------------------
 ; C1:43D6
 
-C143D6_BuildCallTextFarPointerAndDispatch:
+CC_08:
+C143D6_BuildCallTextFarPointerAndDispatch = CC_08
     rep #$31
     phd
     pha
@@ -122,7 +123,8 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
 C144A1_BuildCallTextFarPointerAndDispatch_L44A1:
     pld
     rts
-C144A3_CreateNumberSelectorFromTextCommand:
+CC_1F_52:
+C144A3_CreateNumberSelectorFromTextCommand = CC_1F_52
     rep #$31
     phd
     pha
@@ -176,7 +178,8 @@ C14504_BuildCallTextFarPointerAndDispatch_L4504:
     lda.w #$0000
     pld
     rts
-C14509_HandleTextCommand18ForceTextAlignment:
+CC_18_05:
+C14509_HandleTextCommand18ForceTextAlignment = CC_18_05
     rep #$31
     phd
     pha

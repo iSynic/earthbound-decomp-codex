@@ -13,4 +13,4 @@
 ; CC:8629
 
 ; AssetPsiArrangement8End
-CC8629_AssetPsiArrangement8End:
+CC8629_AssetPsiArrangement8End = PSI_ARRANGEMENT_30

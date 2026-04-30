@@ -13,4 +13,4 @@
 ; CB:C38F
 
 ; AssetBattleBackgroundGfx23End
-CBC38F_AssetBattleBackgroundGfx23End:
+CBC38F_AssetBattleBackgroundGfx23End = BATTLE_BACKGROUND_ARR_19

@@ -13,4 +13,4 @@
 ; E1:1F9A
 
 ; AssetTinyFontDataEnd
-E11F9A_AssetTinyFontDataEnd:
+E11F9A_AssetTinyFontDataEnd = TINY_FONT_GFX

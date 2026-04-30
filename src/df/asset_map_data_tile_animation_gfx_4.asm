@@ -13,4 +13,4 @@
 ; DF:CBCA
 
 ; AssetMapDataTileAnimationGfx4End
-DFCBCA_AssetMapDataTileAnimationGfx4End:
+DFCBCA_AssetMapDataTileAnimationGfx4End = MAP_DATA_TILE_ANIMATION_GFX_5

@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:192B
 
-C2192B_RecalculateCharacterDerivedDefense:
+RECALC_CHARACTER_POSTMATH_DEFENSE:
+C2192B_RecalculateCharacterDerivedDefense = RECALC_CHARACTER_POSTMATH_DEFENSE
     rep #$31
     phd
     pha

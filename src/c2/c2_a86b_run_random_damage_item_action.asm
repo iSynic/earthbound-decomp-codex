@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:A86B..C2:A89D C2A86B_RunRandomDamageItemAction
+; - C2:A86B..C2:A89D BTLACT_YOGURT_DISPENSER
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:A86B
 
-C2A86B_RunRandomDamageItemAction:
+BTLACT_YOGURT_DISPENSER:
+C2A86B_RunRandomDamageItemAction = BTLACT_YOGURT_DISPENSER
     rep #$31
     phd
     tdc

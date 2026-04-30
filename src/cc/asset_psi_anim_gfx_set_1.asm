@@ -13,4 +13,4 @@
 ; CC:B12F
 
 ; AssetPsiAnimGfxSet1End
-CCB12F_AssetPsiAnimGfxSet1End:
+CCB12F_AssetPsiAnimGfxSet1End = PSI_ARRANGEMENT_5

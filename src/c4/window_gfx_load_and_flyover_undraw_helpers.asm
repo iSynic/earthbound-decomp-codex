@@ -26,7 +26,8 @@ C44B3A_MergeGlyphSpanIntoTileBuffer          = $C44B3A
 ; ---------------------------------------------------------------------------
 ; C4:7C3F
 
-C47C3F_LoadWindowGfxAndResetWindowTileState:
+LOAD_WINDOW_GFX:
+C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     rep #$31
     phd
     tdc
@@ -500,14 +501,15 @@ C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF:
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
-C4800B_UndrawFlyoverTextAndRestoreWorldDisplay:
+UNDRAW_FLYOVER_TEXT:
+C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     rep #$31
     ldy.w #$6000
     ldx.w #$7C00
     lda.w #$0000
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
     jsl $C2038B
-    jsl C47C3F_LoadWindowGfxAndResetWindowTileState
+    jsl LOAD_WINDOW_GFX
     lda.w #$0002
     jsl C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavourPaletteBlock

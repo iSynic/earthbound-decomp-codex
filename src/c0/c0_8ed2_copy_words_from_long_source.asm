@@ -22,7 +22,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-C08616_QueueVramTransfer_FromDpSource            = $C08616
+PREPARE_VRAM_COPY            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -100,7 +100,8 @@ C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:8ED2
 
-C08ED2_CopyWordsAndSmallRuntimeHelpers:
+MEMCPY16:
+C08ED2_CopyWordsAndSmallRuntimeHelpers = MEMCPY16
     stx $00A5
     lsr $00A5
     tax

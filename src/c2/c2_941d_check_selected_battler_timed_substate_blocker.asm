@@ -18,7 +18,8 @@ C1DD7C_RunBattlePresentationCommand       = $C1DD7C
 ; ---------------------------------------------------------------------------
 ; C2:941D
 
-C2941D_CheckSelectedBattlerTimedSubstateBlocker:
+PSI_SHIELD_NULLIFY:
+C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     rep #$31
     phd
     tdc
@@ -63,7 +64,7 @@ C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $AA96
-    jsr C27E8A_SwapReflectedHitBattleTextContexts
+    jsr SWAP_ATTACKER_WITH_TARGET
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     lda.w #$70FA

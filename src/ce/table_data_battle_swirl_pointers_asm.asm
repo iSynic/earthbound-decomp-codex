@@ -13,4 +13,4 @@
 ; CE:DD41
 
 ; TableSwirlPointersEnd
-CEDD41_TableSwirlPointersEnd:
+; CEDD41_TableSwirlPointersEnd is preserved as an alias in the next source unit.

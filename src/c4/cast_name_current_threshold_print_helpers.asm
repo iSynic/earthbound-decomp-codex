@@ -16,7 +16,8 @@ PrintCastNameParty = $C4EBAD
 ; ---------------------------------------------------------------------------
 ; C4:EC52
 
-C4EC52_PrintCastNameCurrentThreshold:
+PRINT_CAST_NAME_ENTITY_VAR0:
+C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; CB:CEF4
 
 ; AssetBattleBackgroundPalette86End
-CBCEF4_AssetBattleBackgroundPalette86End:
+CBCEF4_AssetBattleBackgroundPalette86End = BATTLE_BACKGROUND_PALETTE_85

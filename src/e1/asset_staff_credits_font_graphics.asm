@@ -13,4 +13,4 @@
 ; E1:E914
 
 ; AssetStaffCreditsFontGraphicsEnd
-E1E914_AssetStaffCreditsFontGraphicsEnd:
+E1E914_AssetStaffCreditsFontGraphicsEnd = STAFF_CREDITS_FONT_PALETTE

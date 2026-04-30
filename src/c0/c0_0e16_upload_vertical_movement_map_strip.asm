@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource = $C08616
+PREPARE_VRAM_COPY = $C08616
 
 ; ---------------------------------------------------------------------------
 ; C0:0E16
@@ -193,7 +193,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $1E
     clc
     adc.b #$40
@@ -215,7 +215,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $B4EF
     bne C00FC9_Upload_VerticalMovementMapStrip_L0FC9
     lda $1C
@@ -237,7 +237,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $1C
     clc
     adc.b #$40
@@ -259,7 +259,7 @@ C00F10_Upload_VerticalMovementMapStrip_L0F10:
     ldx.w #$0040
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
 C00FC9_Upload_VerticalMovementMapStrip_L0FC9:
     pld
     rts

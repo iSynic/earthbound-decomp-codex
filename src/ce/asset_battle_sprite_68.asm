@@ -13,4 +13,4 @@
 ; CE:19A9
 
 ; AssetBattleSprite68End
-CE19A9_AssetBattleSprite68End:
+CE19A9_AssetBattleSprite68End = BATTLE_SPRITE_52

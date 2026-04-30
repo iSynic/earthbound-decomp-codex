@@ -13,4 +13,4 @@
 ; CB:BD32
 
 ; AssetBattleBackgroundArr20End
-CBBD32_AssetBattleBackgroundArr20End:
+CBBD32_AssetBattleBackgroundArr20End = BATTLE_BACKGROUND_ARR_30

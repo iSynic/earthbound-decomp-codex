@@ -13,4 +13,4 @@
 ; CD:9984
 
 ; AssetBattleSprite95End
-CD9984_AssetBattleSprite95End:
+CD9984_AssetBattleSprite95End = BATTLE_SPRITE_105

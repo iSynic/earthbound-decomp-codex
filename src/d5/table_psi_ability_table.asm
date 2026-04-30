@@ -13,4 +13,4 @@
 ; D5:8D7A
 
 ; PsiAbilityTableEnd
-D58D7A_PsiAbilityTableEnd:
+D58D7A_PsiAbilityTableEnd = PSI_NAME_TABLE

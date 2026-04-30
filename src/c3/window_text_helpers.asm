@@ -201,7 +201,8 @@ C3E4AD_WindowDynamicTile_Transfer:
     rtl
 
 ; ClearInstantPrinting
-C3E4CA_ClearInstantPrinting:
+CLEAR_INSTANT_PRINTING:
+C3E4CA_ClearInstantPrinting = CLEAR_INSTANT_PRINTING
     rep #$31
     sep #$20
     stz INSTANT_PRINTING_FLAG
@@ -209,7 +210,8 @@ C3E4CA_ClearInstantPrinting:
     rtl
 
 ; SetInstantPrinting
-C3E4D4_SetInstantPrinting:
+SET_INSTANT_PRINTING:
+C3E4D4_SetInstantPrinting = SET_INSTANT_PRINTING
     rep #$31
     sep #$20
     lda #$01
@@ -218,11 +220,12 @@ C3E4D4_SetInstantPrinting:
     rtl
 
 ; TickWindowWithoutInstantPrinting
-C3E4E0_TickWindowWithoutInstantPrinting:
+WINDOW_TICK_WITHOUT_INSTANT_PRINTING:
+C3E4E0_TickWindowWithoutInstantPrinting = WINDOW_TICK_WITHOUT_INSTANT_PRINTING
     rep #$31
-    jsl C3E4CA_ClearInstantPrinting
+    jsl CLEAR_INSTANT_PRINTING
     jsl C12DD5_TickWindowTextSystem
-    jsl C3E4D4_SetInstantPrinting
+    jsl SET_INSTANT_PRINTING
     rtl
 
 ; ---------------------------------------------------------------------------
@@ -278,7 +281,8 @@ C3E51F_FindFirstFreeWindowSlot_Return:
 ; Behavior:
 ;   Unmaps and unlinks one open window, releases registered copy/text state,
 ;   clears its visible/backing tile state, and marks presentation dirty.
-C3E521_CloseWindowAndReleaseTileState:
+CLOSE_WINDOW:
+C3E521_CloseWindowAndReleaseTileState = CLOSE_WINDOW
     rep #$31
     phd
     pha
@@ -527,8 +531,8 @@ C3E6DF_CloseWindow_MaybeTickText:
     lda WINDOW_CLOSE_DRAIN_LATCH
     and #$00FF
     bne C3E6EF_CloseWindow_ClearBusyFlag
-    jsl C3E4E0_TickWindowWithoutInstantPrinting
-    jsl C3E4CA_ClearInstantPrinting
+    jsl WINDOW_TICK_WITHOUT_INSTANT_PRINTING
+    jsl CLEAR_INSTANT_PRINTING
 
 C3E6EF_CloseWindow_ClearBusyFlag:
     sep #$20

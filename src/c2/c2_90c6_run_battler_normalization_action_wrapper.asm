@@ -67,7 +67,7 @@ C290DD_RunBattlerNormalizationActionWrapper_L90DD:
     sta $12
     lda $08
     sta $14
-    jsl C2AF1F_SnapshotRestoreBattlerNormalizationContext
+    jsl COPY_MIRROR_DATA
     ldx $16
     stz $0004,X
     lda.w #$7142

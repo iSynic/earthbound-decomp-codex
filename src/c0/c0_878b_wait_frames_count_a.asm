@@ -26,9 +26,10 @@ C0878C_Wait_Frames_CountA_L878C:
     dex
     bne C0878C_Wait_Frames_CountA_L878C
     rtl
-    jsr.w C0879D_Wait_Frames_CountA_L879D
+    jsr.w SET_INIDISP
     rtl
-C0879D_Wait_Frames_CountA_L879D:
+SET_INIDISP:
+C0879D_Wait_Frames_CountA_L879D = SET_INIDISP
     php
     sep #$20
     and.b #$8F

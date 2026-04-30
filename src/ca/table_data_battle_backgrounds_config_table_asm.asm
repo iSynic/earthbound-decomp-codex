@@ -9,8 +9,11 @@
 ; Source units covered:
 ; - CA:DCA1..CA:F258 TableConfigTable
 
+BG_DATA_TABLE:
+CADCA1_TablePalettePointersEnd = BG_DATA_TABLE
+
 ; ---------------------------------------------------------------------------
 ; CA:F258
 
 ; TableConfigTableEnd
-CAF258_TableConfigTableEnd:
+; CAF258_TableConfigTableEnd is preserved as an alias in the next source unit.

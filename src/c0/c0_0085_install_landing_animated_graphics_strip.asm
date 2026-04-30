@@ -16,7 +16,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C0:0085
 
-C00085_Install_LandingAnimatedGraphicsStrip:
+LOAD_TILESET_ANIM:
+C00085_Install_LandingAnimatedGraphicsStrip = LOAD_TILESET_ANIM
     rep #$31
     phd
     tdc

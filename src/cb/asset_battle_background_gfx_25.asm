@@ -13,4 +13,4 @@
 ; CB:75AF
 
 ; AssetBattleBackgroundGfx25End
-CB75AF_AssetBattleBackgroundGfx25End:
+CB75AF_AssetBattleBackgroundGfx25End = BATTLE_BACKGROUND_GFX_8

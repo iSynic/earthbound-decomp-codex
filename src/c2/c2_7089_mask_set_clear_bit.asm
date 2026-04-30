@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7089
 
-C27089_MaskSet_ClearBit:
+REMOVE_TARGET:
+C27089_MaskSet_ClearBit = REMOVE_TARGET
     rep #$31
     phd
     pha

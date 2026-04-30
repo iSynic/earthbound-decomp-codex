@@ -13,4 +13,4 @@
 ; DA:7CA7
 
 ; AssetMapDataTileArrangement7End
-DA7CA7_AssetMapDataTileArrangement7End:
+DA7CA7_AssetMapDataTileArrangement7End = MAP_DATA_PALETTE_0

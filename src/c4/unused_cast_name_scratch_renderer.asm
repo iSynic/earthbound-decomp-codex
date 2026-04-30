@@ -19,7 +19,8 @@ RenderTextTokenGlyphRunToScratchRows = $C44B3A
 ; ---------------------------------------------------------------------------
 ; C4:EDA3
 
-C4EDA3_UnusedCastNameScratchRenderer:
+UNUSED_C4EDA3:
+C4EDA3_UnusedCastNameScratchRenderer = UNUSED_C4EDA3
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; DE:F2CF
 
 ; AssetMapDataTileAnimationGfx16End
-DEF2CF_AssetMapDataTileAnimationGfx16End:
+DEF2CF_AssetMapDataTileAnimationGfx16End = MAP_DATA_TILE_ANIMATION_GFX_17

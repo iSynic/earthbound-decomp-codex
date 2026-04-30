@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B91
 
-C09B91_ScriptOp_LoadScratchFromEntityVar:
+MOVEMENT_CODE_20:
+C09B91_ScriptOp_LoadScratchFromEntityVar = MOVEMENT_CODE_20
     lda [$80],Y
     and.w #$00FF
     asl A

@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1C5D
 
-C21C5D_RecalculateCharacterDerivedLuck:
+RECALC_CHARACTER_POSTMATH_LUCK:
+C21C5D_RecalculateCharacterDerivedLuck = RECALC_CHARACTER_POSTMATH_LUCK
     rep #$31
     phd
     pha

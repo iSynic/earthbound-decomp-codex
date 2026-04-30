@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:1C11
 
-C01C11_Rewrite_VisualMemoryReservations4A00:
+ALLOC_SPRITE_MEM:
+C01C11_Rewrite_VisualMemoryReservations4A00 = ALLOC_SPRITE_MEM
     rep #$31
     phd
     pha

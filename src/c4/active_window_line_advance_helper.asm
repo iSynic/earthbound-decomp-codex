@@ -18,7 +18,8 @@ C45E96_FlushMenuGlyphScratchRowsToVram = $C45E96
 ; ---------------------------------------------------------------------------
 ; C4:38B1
 
-C438B1_AdvanceActiveWindowLineOrScroll:
+PRINT_NEWLINE:
+C438B1_AdvanceActiveWindowLineOrScroll = PRINT_NEWLINE
     rep #$31
     phd
     tdc

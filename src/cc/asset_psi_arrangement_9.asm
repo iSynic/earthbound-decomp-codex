@@ -13,4 +13,4 @@
 ; CC:AC25
 
 ; AssetPsiArrangement9End
-CCAC25_AssetPsiArrangement9End:
+CCAC25_AssetPsiArrangement9End = PSI_ANIM_GFX_SET_1

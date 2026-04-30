@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:41DC
 
-C241DC_BuildStealableItemCandidateList:
+FIND_STEALABLE_ITEMS:
+C241DC_BuildStealableItemCandidateList = FIND_STEALABLE_ITEMS
     rep #$31
     phd
     tdc

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8DDE
 
-C08DDE_Update_Bg2ScreenBaseRegistersFromQueue:
+SET_BG2_VRAM_LOCATION:
+C08DDE_Update_Bg2ScreenBaseRegistersFromQueue = SET_BG2_VRAM_LOCATION
     php
     sep #$20
     rep #$10

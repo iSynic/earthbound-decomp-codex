@@ -65,7 +65,7 @@ PARTY_CHARACTER_RECORD_STRIDE        = $005F
 ; C4:30EC
 
 ; InitializePartyTickCallbackTables
-C430EC_InitializePartyTickCallbackTables:
+C430EC_InitializePartyTickCallbackTables = VELOCITY_STORE
     rep #$31
     phd
     tdc

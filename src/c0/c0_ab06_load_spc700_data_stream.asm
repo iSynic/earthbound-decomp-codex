@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:AB06
 
-C0AB06_LoadSpc700DataStream:
+LOAD_SPC700_DATA:
+C0AB06_LoadSpc700DataStream = LOAD_SPC700_DATA
     rep #$30
     sta $00C6
     stx $00C8

@@ -17,7 +17,8 @@ C08FF7_ResolveIndexedPointerOffset          = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:8E5B
 
-C18E5B_SearchAndRemoveItemFromCharacterInventory:
+TAKE_ITEM_FROM_SPECIFIC_CHARACTER:
+C18E5B_SearchAndRemoveItemFromCharacterInventory = TAKE_ITEM_FROM_SPECIFIC_CHARACTER
     rep #$31
     phd
     pha
@@ -49,7 +50,7 @@ C18E72_c1_8e5b_search_and_remove_item_from_character_inventory_L8E72:
     inx
     lda $0E
     inc A
-    jsr C18C27_RemoveItemFromCharacterInventorySlot
+    jsr REMOVE_ITEM_FROM_INVENTORY
     bra C18EAB_c1_8e5b_search_and_remove_item_from_character_inventory_L8EAB
 C18E98_c1_8e5b_search_and_remove_item_from_character_inventory_L8E98:
     inc $02

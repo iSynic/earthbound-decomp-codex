@@ -19,7 +19,8 @@ C1DC66_DisplayBattleTextWithNumber  = $C1DC66
 ; ---------------------------------------------------------------------------
 ; C2:8E42
 
-C28E42_RunPpReductionAction:
+BTLACT_REDUCEPP:
+C28E42_RunPpReductionAction = BTLACT_REDUCEPP
     rep #$31
     phd
     tdc

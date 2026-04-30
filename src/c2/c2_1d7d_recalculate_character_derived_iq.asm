@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1D7D
 
-C21D7D_RecalculateCharacterDerivedIq:
+RECALC_CHARACTER_POSTMATH_IQ:
+C21D7D_RecalculateCharacterDerivedIq = RECALC_CHARACTER_POSTMATH_IQ
     rep #$31
     dec A
     ldy.w #$005F

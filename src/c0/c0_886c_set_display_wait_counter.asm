@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:886C
 
-C0886C_Set_DisplayWaitCounter:
+FADE_IN:
+C0886C_Set_DisplayWaitCounter = FADE_IN
     php
     sep #$30
     sta $0028

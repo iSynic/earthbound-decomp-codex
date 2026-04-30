@@ -17,7 +17,8 @@ C12E42_RefreshHpPpRollersAfterSound      = $C12E42
 ; ---------------------------------------------------------------------------
 ; C2:16D0
 
-C216D0_PlaySoundAndRefreshHpPpRollers:
+PLAY_SOUND_AND_UNKNOWN:
+C216D0_PlaySoundAndRefreshHpPpRollers = PLAY_SOUND_AND_UNKNOWN
     rep #$31
     jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     jsl C12E42_RefreshHpPpRollersAfterSound

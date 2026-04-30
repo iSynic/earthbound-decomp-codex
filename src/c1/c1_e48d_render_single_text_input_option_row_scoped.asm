@@ -33,7 +33,7 @@ C1E48D_RenderSingleTextInputOptionRowScoped:
     sta OptionIndex
     jsl C3E4D4_SetInstantPrinting
     lda OptionIndex
-    jsr C1007E_SetWindowFocus
+    jsr SET_WINDOW_FOCUS
     ldy SavedColumn
     ldx SavedRowIndex
     lda OptionIndex
@@ -41,7 +41,7 @@ C1E48D_RenderSingleTextInputOptionRowScoped:
     tax
     stx SavedRowIndex
     lda.w #TextInputOptionWindowFocus
-    jsr C1007E_SetWindowFocus
+    jsr SET_WINDOW_FOCUS
     ldx SavedRowIndex
     txa
     pld

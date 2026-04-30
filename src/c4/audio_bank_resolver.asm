@@ -16,7 +16,9 @@ SequencePackMask = $B547
 ; ---------------------------------------------------------------------------
 ; C4:FB42
 
-C4FB42_GetAudioBank:
+GET_AUDIO_BANK:
+C4FB42_GetAudioBank = GET_AUDIO_BANK
+C4FB42_MusicDatasetAndPackPointerTablesEnd = GET_AUDIO_BANK
     rep #$31
     phd
     pha

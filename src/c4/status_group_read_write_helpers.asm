@@ -18,7 +18,7 @@ C3EE4D_RefreshStatusAfterNonbattleChange = $C3EE4D
 ; ---------------------------------------------------------------------------
 ; C4:58AF
 
-C458AF_ReadPartyMemberStatusGroupValue:
+C458AF_ReadPartyMemberStatusGroupValue = CHECK_STATUS_GROUP
     rep #$31
     phd
     pha
@@ -64,7 +64,8 @@ C458F9_StatusGroupReadWriteHelpers_L58F9:
 C458FC_StatusGroupReadWriteHelpers_L58FC:
     pld
     rtl
-C458FE_SetPartyMemberStatusGroupValue:
+INFLICT_STATUS_NONBATTLE:
+C458FE_SetPartyMemberStatusGroupValue = INFLICT_STATUS_NONBATTLE
     rep #$31
     phd
     pha

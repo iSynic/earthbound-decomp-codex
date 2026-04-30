@@ -25,7 +25,7 @@ C24348_IsPendingStealItemStillStealable:
     tcd
     pla
     sta $04
-    jsr C241DC_BuildStealableItemCandidateList
+    jsr FIND_STEALABLE_ITEMS
     sta $02
     lda.w #$0000
     sta $0E

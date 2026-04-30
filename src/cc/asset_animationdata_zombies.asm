@@ -13,4 +13,4 @@
 ; CC:2CE1
 
 ; AssetAnimationdataZombiesEnd
-CC2CE1_AssetAnimationdataZombiesEnd:
+CC2CE1_AssetAnimationdataZombiesEnd = ANIMATIONDATA_THE_END

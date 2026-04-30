@@ -20,7 +20,8 @@ InstallPointerHi = $10
 ; ---------------------------------------------------------------------------
 ; C1:45EF
 
-C145EF_HandleTextCommand0DCopyToArgmem:
+CC_0D:
+C145EF_HandleTextCommand0DCopyToArgmem = CC_0D
     rep #$31
     phd
     pha
@@ -31,20 +32,20 @@ C145EF_HandleTextCommand0DCopyToArgmem:
     cpx.w #$0000
     beq C14607_LoadPrimaryPointerForTextCommand0D
 
-    jsr C10400_GetCurrentTextContextWorkmem
+    jsr GET_SECONDARY_MEMORY
     sta StagedPointerLo
     stz StagedPointerHi
     bra C1460A_InstallTextCommand0DSecondaryPointer
 
 C14607_LoadPrimaryPointerForTextCommand0D:
-    jsr C1040A_LoadPrimaryInteractionContextPointer
+    jsr GET_WORKING_MEMORY
 
 C1460A_InstallTextCommand0DSecondaryPointer:
     lda StagedPointerLo
     sta InstallPointerLo
     lda StagedPointerHi
     sta InstallPointerHi
-    jsr C10489_InstallSecondaryInteractionContextPointer
+    jsr SET_ARGUMENT_MEMORY
     lda.w #$0000
     pld
     rts

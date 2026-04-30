@@ -13,4 +13,4 @@
 ; CC:D820
 
 ; AssetPsiArrangement12End
-CCD820_AssetPsiArrangement12End:
+CCD820_AssetPsiArrangement12End = PSI_ARRANGEMENT_2

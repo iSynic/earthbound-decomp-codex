@@ -16,30 +16,39 @@
 ; ---------------------------------------------------------------------------
 ; C2:9033
 
-C29033_RunFlavorOnlyNoOpTail:
+BTLACT_NULL2:
+C29033_RunFlavorOnlyNoOpTail = BTLACT_NULL2
     rep #$31
     rtl
-C29036_RunFlavorOnlyNoOpTail_9036:
+BTLACT_NULL3:
+C29036_RunFlavorOnlyNoOpTail_9036 = BTLACT_NULL3
     rep #$31
     rtl
-C29039_RunFlavorOnlyNoOpTail_9039:
+BTLACT_NULL4:
+C29039_RunFlavorOnlyNoOpTail_9039 = BTLACT_NULL4
     rep #$31
     rtl
-C2903C_RunFlavorOnlyNoOpTail_903C:
+BTLACT_NULL5:
+C2903C_RunFlavorOnlyNoOpTail_903C = BTLACT_NULL5
     rep #$31
     rtl
-C2903F_RunFlavorOnlyNoOpTail_903F:
+BTLACT_NULL6:
+C2903F_RunFlavorOnlyNoOpTail_903F = BTLACT_NULL6
     rep #$31
     rtl
-C29042_RunFlavorOnlyNoOpTail_9042:
+BTLACT_NULL7:
+C29042_RunFlavorOnlyNoOpTail_9042 = BTLACT_NULL7
     rep #$31
     rtl
-C29045_RunFlavorOnlyNoOpTail_9045:
+BTLACT_NULL8:
+C29045_RunFlavorOnlyNoOpTail_9045 = BTLACT_NULL8
     rep #$31
     rtl
-C29048_RunFlavorOnlyNoOpTail_9048:
+BTLACT_NULL9:
+C29048_RunFlavorOnlyNoOpTail_9048 = BTLACT_NULL9
     rep #$31
     rtl
-C2904B_RunFlavorOnlyNoOpTail_904B:
+BTLACT_NULL10:
+C2904B_RunFlavorOnlyNoOpTail_904B = BTLACT_NULL10
     rep #$31
     rtl

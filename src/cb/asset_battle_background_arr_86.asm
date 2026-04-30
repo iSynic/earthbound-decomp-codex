@@ -13,4 +13,4 @@
 ; CB:5D27
 
 ; AssetBattleBackgroundArr86End
-CB5D27_AssetBattleBackgroundArr86End:
+CB5D27_AssetBattleBackgroundArr86End = BATTLE_BACKGROUND_ARR_51

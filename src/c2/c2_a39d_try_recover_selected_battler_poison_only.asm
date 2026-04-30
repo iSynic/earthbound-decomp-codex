@@ -16,7 +16,8 @@ C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:A39D
 
-C2A39D_TryRecoverSelectedBattlerPoisonOnly:
+HEAL_POISON:
+C2A39D_TryRecoverSelectedBattlerPoisonOnly = HEAL_POISON
     rep #$31
     phd
     tdc

@@ -13,4 +13,4 @@
 ; E1:1F3A
 
 ; AssetBattleFontGfxEnd
-E11F3A_AssetBattleFontGfxEnd:
+E11F3A_AssetBattleFontGfxEnd = TINY_FONT_DATA

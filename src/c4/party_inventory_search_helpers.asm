@@ -16,7 +16,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C4:5637
 
-C45637_FindPartyMemberWithItem:
+C45637_FindPartyMemberWithItem = FIND_ITEM_IN_INVENTORY
     rep #$31
     phd
     pha
@@ -63,7 +63,8 @@ C4567E_PartyInventorySearchHelpers_L567E:
 C45681_PartyInventorySearchHelpers_L5681:
     pld
     rts
-C45683_FindPartyMemberWithItemWildcard:
+FIND_ITEM_IN_INVENTORY2:
+C45683_FindPartyMemberWithItemWildcard = FIND_ITEM_IN_INVENTORY2
     rep #$31
     phd
     pha
@@ -88,7 +89,7 @@ C4569D_PartyInventorySearchHelpers_L569D:
     ldx $04
     lda $0000,Y
     and.w #$00FF
-    jsr.w C45637_FindPartyMemberWithItem
+    jsr.w FIND_ITEM_IN_INVENTORY
     cmp.w #$0000
     beq C456C2_PartyInventorySearchHelpers_L56C2
     ldy $0E
@@ -112,11 +113,12 @@ C456C8_PartyInventorySearchHelpers_L56C8:
     bra C456E2_PartyInventorySearchHelpers_L56E2
 C456DD_PartyInventorySearchHelpers_L56DD:
     ldx $04
-    jsr.w C45637_FindPartyMemberWithItem
+    jsr.w FIND_ITEM_IN_INVENTORY
 C456E2_PartyInventorySearchHelpers_L56E2:
     pld
     rtl
-C456E4_FindPartyMemberWithInventoryRoom:
+FIND_INVENTORY_SPACE:
+C456E4_FindPartyMemberWithInventoryRoom = FIND_INVENTORY_SPACE
     rep #$31
     phd
     pha
@@ -160,7 +162,8 @@ C45726_PartyInventorySearchHelpers_L5726:
 C45729_PartyInventorySearchHelpers_L5729:
     pld
     rts
-C4572B_FindPartyMemberWithInventoryRoomWildcard:
+FIND_INVENTORY_SPACE2:
+C4572B_FindPartyMemberWithInventoryRoomWildcard = FIND_INVENTORY_SPACE2
     rep #$31
     phd
     pha
@@ -181,7 +184,7 @@ C45741_PartyInventorySearchHelpers_L5741:
     stx $0E
     lda $0000,X
     and.w #$00FF
-    jsr.w C456E4_FindPartyMemberWithInventoryRoom
+    jsr.w FIND_INVENTORY_SPACE
     cmp.w #$0000
     beq C45761_PartyInventorySearchHelpers_L5761
     ldx $0E
@@ -202,7 +205,7 @@ C45766_PartyInventorySearchHelpers_L5766:
     lda.w #$0000
     bra C4577B_PartyInventorySearchHelpers_L577B
 C45778_PartyInventorySearchHelpers_L5778:
-    jsr.w C456E4_FindPartyMemberWithInventoryRoom
+    jsr.w FIND_INVENTORY_SPACE
 C4577B_PartyInventorySearchHelpers_L577B:
     pld
     rtl

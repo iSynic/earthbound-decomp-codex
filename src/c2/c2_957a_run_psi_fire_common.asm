@@ -19,7 +19,8 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 ; ---------------------------------------------------------------------------
 ; C2:957A
 
-C2957A_RunPsiFireCommon:
+PSI_FIRE_COMMON:
+C2957A_RunPsiFireCommon = PSI_FIRE_COMMON
     rep #$31
     phd
     pha
@@ -29,7 +30,7 @@ C2957A_RunPsiFireCommon:
     pla
     tax
     stx $0E
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     bne C295A9_RunPsiFireCommon_L95A9
     ldx $0E
@@ -42,23 +43,23 @@ C2957A_RunPsiFireCommon:
     tax
     lda $0E
     jsr C28125_ApplyTypedDamageToSelectedTarget
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C295A9_RunPsiFireCommon_L95A9:
     pld
     rts
     rep #$31
     lda.w #$0050
-    jsr.w C2957A_RunPsiFireCommon
+    jsr.w PSI_FIRE_COMMON
     rtl
     rep #$31
     lda.w #$00A0
-    jsr.w C2957A_RunPsiFireCommon
+    jsr.w PSI_FIRE_COMMON
     rtl
     rep #$31
     lda.w #$00F0
-    jsr.w C2957A_RunPsiFireCommon
+    jsr.w PSI_FIRE_COMMON
     rtl
     rep #$31
     lda.w #$0140
-    jsr.w C2957A_RunPsiFireCommon
+    jsr.w PSI_FIRE_COMMON
     rtl

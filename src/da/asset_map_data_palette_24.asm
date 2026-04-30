@@ -13,4 +13,4 @@
 ; DA:DB27
 
 ; AssetMapDataPalette24End
-DADB27_AssetMapDataPalette24End:
+DADB27_AssetMapDataPalette24End = MAP_DATA_PALETTE_25

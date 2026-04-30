@@ -16,7 +16,8 @@ C08E9A_GetRandom16 = $C08E9A
 ; ---------------------------------------------------------------------------
 ; C0:9F82
 
-C09F82_ChooseRandomScriptWord:
+CHOOSE_RANDOM:
+C09F82_ChooseRandomScriptWord = CHOOSE_RANDOM
     lda [$80],Y
     and.w #$00FF
     sta $90

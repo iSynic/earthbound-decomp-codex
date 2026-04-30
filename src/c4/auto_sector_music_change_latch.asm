@@ -16,7 +16,8 @@ EnableAutoSectorMusicChanges = $B549
 ; ---------------------------------------------------------------------------
 ; C4:FD45
 
-C4FD45_SetAutoSectorMusicChanges:
+SET_AUTO_SECTOR_MUSIC_CHANGES:
+C4FD45_SetAutoSectorMusicChanges = SET_AUTO_SECTOR_MUSIC_CHANGES
     rep #$31
     sta EnableAutoSectorMusicChanges
     rtl

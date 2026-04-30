@@ -16,9 +16,10 @@
 ; ---------------------------------------------------------------------------
 ; C2:9AC6
 
-C29AC6_RunLifeupAlphaHealingAction:
+BTLACT_LIFEUP_A:
+C29AC6_RunLifeupAlphaHealingAction = BTLACT_LIFEUP_A
 
 ; ---------------------------------------------------------------------------
 ; C2:9ACF
 
-C29ACF_RunLifeupAlphaHealingAction_End:
+C29ACF_RunLifeupAlphaHealingAction_End = BTLACT_LIFEUP_B

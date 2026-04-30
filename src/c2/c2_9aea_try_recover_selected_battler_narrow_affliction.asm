@@ -16,7 +16,9 @@ C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:9AEA
 
-C29AEA_TryRecoverSelectedBattlerNarrowAffliction:
+BTLACT_HEALING_A:
+C29AEA_RunLifeupOmegaHealingAction_End = BTLACT_HEALING_A
+C29AEA_TryRecoverSelectedBattlerNarrowAffliction = BTLACT_HEALING_A
     rep #$31
     phd
     tdc

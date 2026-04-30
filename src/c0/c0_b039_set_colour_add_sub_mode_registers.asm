@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:B039
 
-C0B039_SetColourAddSubModeRegisters:
+SET_COLOUR_ADDSUB_MODE:
+C0B039_SetColourAddSubModeRegisters = SET_COLOUR_ADDSUB_MODE
     sep #$20
     sta $002130
     txa

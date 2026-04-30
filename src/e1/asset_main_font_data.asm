@@ -13,4 +13,4 @@
 ; E1:0CDA
 
 ; AssetMainFontDataEnd
-E10CDA_AssetMainFontDataEnd:
+E10CDA_AssetMainFontDataEnd = MAIN_FONT_GFX

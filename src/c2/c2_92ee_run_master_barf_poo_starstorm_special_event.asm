@@ -26,7 +26,8 @@ C2B930_PrepareSpecialEventBattler              = $C2B930
 ; ---------------------------------------------------------------------------
 ; C2:92EE
 
-C292EE_RunMasterBarfPooStarstormSpecialEvent:
+BTLACT_MASTERBARFDEATH:
+C292EE_RunMasterBarfPooStarstormSpecialEvent = BTLACT_MASTERBARFDEATH
     rep #$31
     phd
     tdc
@@ -107,7 +108,7 @@ C2937E_RunMasterBarfPooStarstormSpecialEvent_L937E:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0000
-    jsl C23BCF_BuildBattleAttackerTextContext
+    jsl FIX_ATTACKER_NAME
     sep #$20
     lda.b #$15
     jsl C1DD7C_RunBattlePresentationCommand
@@ -139,7 +140,7 @@ C293BA_RunMasterBarfPooStarstormSpecialEvent_L93BA:
     clc
     adc.w #$9FAC
     sta $A972
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     lda.w #$0168
     jsr C26AFD_RollDamageAmount
     tax
@@ -166,7 +167,7 @@ C29404_RunMasterBarfPooStarstormSpecialEvent_L9404:
     sta $02
     sta $A972
     lda.w #$0000
-    jsl C23BCF_BuildBattleAttackerTextContext
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_ATTACKER_NAME
+    jsl FIX_TARGET_NAME
     pld
     rtl

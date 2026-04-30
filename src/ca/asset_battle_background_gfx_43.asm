@@ -13,4 +13,4 @@
 ; CA:8B4F
 
 ; AssetBattleBackgroundGfx43End
-CA8B4F_AssetBattleBackgroundGfx43End:
+CA8B4F_AssetBattleBackgroundGfx43End = BATTLE_BACKGROUND_GFX_39

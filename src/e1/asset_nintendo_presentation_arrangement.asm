@@ -13,4 +13,4 @@
 ; E1:AD4E
 
 ; AssetNintendoPresentationArrangementEnd
-E1AD4E_AssetNintendoPresentationArrangementEnd:
+E1AD4E_AssetNintendoPresentationArrangementEnd = NINTENDO_PRESENTATION_GRAPHICS

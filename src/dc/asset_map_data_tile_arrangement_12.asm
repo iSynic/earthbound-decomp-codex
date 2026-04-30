@@ -13,4 +13,4 @@
 ; DC:1FCA
 
 ; AssetMapDataTileArrangement12End
-DC1FCA_AssetMapDataTileArrangement12End:
+DC1FCA_AssetMapDataTileArrangement12End = MAP_DATA_TILE_ARRANGEMENT_13

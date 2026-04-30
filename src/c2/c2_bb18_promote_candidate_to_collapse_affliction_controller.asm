@@ -21,7 +21,8 @@ C23D05_BuildBattleTargetTextContext         = $C23D05
 ; ---------------------------------------------------------------------------
 ; C2:BB18
 
-C2BB18_PromoteCandidateToCollapseAfflictionController:
+CHECK_DEAD_PLAYERS:
+C2BB18_PromoteCandidateToCollapseAfflictionController = CHECK_DEAD_PLAYERS
     rep #$31
     phd
     tdc
@@ -99,7 +100,7 @@ C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55:
     stz $001F,X
     ldx $A972
     stz $001E,X
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
     ldx $8900
     stx $16
     lda.w #$000E

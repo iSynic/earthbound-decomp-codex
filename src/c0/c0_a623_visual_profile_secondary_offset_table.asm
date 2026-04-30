@@ -22,7 +22,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-C08616_QueueVramTransfer_FromDpSource            = $C08616
+PREPARE_VRAM_COPY            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -100,7 +100,9 @@ C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:A623
 
-C0A623_VisualProfileSecondaryOffsetTable:
+SPRITE_DIRECTION_MAPPING_8_DIRECTION:
+C0A623_VisualProfileDirectionOffsetTable_End = SPRITE_DIRECTION_MAPPING_8_DIRECTION
+C0A623_VisualProfileSecondaryOffsetTable = SPRITE_DIRECTION_MAPPING_8_DIRECTION
     ; data bytes: C0:A623..C0:A643
     db $00,$00,$04,$00,$01,$00,$05,$00,$02,$00,$06,$00,$03,$00,$07,$00
     db $22,$9A,$8E,$C0,$29,$03,$00,$6B,$22,$9A,$8E,$C0,$29,$07,$00,$6B

@@ -13,4 +13,4 @@
 ; CC:E96C
 
 ; AssetPsiArrangement15End
-CCE96C_AssetPsiArrangement15End:
+CCE96C_AssetPsiArrangement15End = PSI_ARRANGEMENT_11

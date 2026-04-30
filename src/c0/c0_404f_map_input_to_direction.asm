@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:404F
 
-C0404F_MapInputToDirection:
+MAP_INPUT_TO_DIRECTION:
+C0404F_MapInputToDirection = MAP_INPUT_TO_DIRECTION
     rep #$31
     phd
     pha

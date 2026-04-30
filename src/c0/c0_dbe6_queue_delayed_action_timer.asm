@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:DBE6
 
-C0DBE6_Queue_DelayedActionTimer:
+SCHEDULE_OVERWORLD_TASK:
+C0DBE6_Queue_DelayedActionTimer = SCHEDULE_OVERWORLD_TASK
     rep #$31
     phd
     pha

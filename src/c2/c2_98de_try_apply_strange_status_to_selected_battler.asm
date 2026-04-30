@@ -17,7 +17,8 @@ C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:98DE
 
-C298DE_TryApplyStrangeStatusToSelectedBattler:
+FLASH_INFLICT_FEELING_STRANGE:
+C298DE_TryApplyStrangeStatusToSelectedBattler = FLASH_INFLICT_FEELING_STRANGE
     rep #$31
     phd
     tdc
@@ -26,7 +27,7 @@ C298DE_TryApplyStrangeStatusToSelectedBattler:
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C29907_TryApplyStrangeStatusToSelectedBattler_L9907
     lda.w #$6C3A

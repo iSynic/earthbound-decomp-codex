@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource     = $C08616
+PREPARE_VRAM_COPY     = $C08616
 C08756_WaitOneFrameAndPollInput           = $C08756
 C08814_SetDisplayTransitionMode           = $C08814
 C08EFC_CommitTileBufferToStaging          = $C08EFC
@@ -157,7 +157,7 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$C000
     sep #$20
     tya
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.b #$D3
     eor $85,X
     asl $E1A9
@@ -176,7 +176,7 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.b #$B7
     lda.b #$85
     asl $E1A9

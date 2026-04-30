@@ -13,4 +13,4 @@
 ; DE:F869
 
 ; AssetMapDataTileAnimationGfx18End
-DEF869_AssetMapDataTileAnimationGfx18End:
+DEF869_AssetMapDataTileAnimationGfx18End = MAP_DATA_TILE_ANIMATION_GFX_19

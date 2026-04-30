@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8756
 
-C08756_Wait_OneFrameAndPollInput:
+WAIT_UNTIL_NEXT_FRAME:
+C08756_Wait_OneFrameAndPollInput = WAIT_UNTIL_NEXT_FRAME
     sep #$20
     lda $001E
     and.b #$B0

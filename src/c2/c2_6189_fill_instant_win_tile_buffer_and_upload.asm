@@ -60,7 +60,8 @@ C261AB_FillInstantWinTileBufferAndUpload_L61AB:
     jsl C08756_AdvanceFrameOrFlushUpload
     pld
     rts
-C261BD_InstantWinHandler:
+INSTANT_WIN_HANDLER:
+C261BD_InstantWinHandler = INSTANT_WIN_HANDLER
     rep #$31
     phd
     tdc

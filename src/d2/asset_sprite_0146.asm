@@ -13,4 +13,4 @@
 ; D2:1200
 
 ; AssetSprite0146End
-D21200_AssetSprite0146End:
+D21200_AssetSprite0146End = SPRITE_0147

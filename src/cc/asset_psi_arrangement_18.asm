@@ -13,4 +13,4 @@
 ; CC:7E9E
 
 ; AssetPsiArrangement18End
-CC7E9E_AssetPsiArrangement18End:
+CC7E9E_AssetPsiArrangement18End = PSI_ARRANGEMENT_8

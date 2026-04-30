@@ -13,4 +13,4 @@
 ; CB:AFED
 
 ; AssetBattleBackgroundArr55End
-CBAFED_AssetBattleBackgroundArr55End:
+CBAFED_AssetBattleBackgroundArr55End = BATTLE_BACKGROUND_ARR_27

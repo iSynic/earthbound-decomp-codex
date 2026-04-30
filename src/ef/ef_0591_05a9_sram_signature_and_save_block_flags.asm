@@ -13,4 +13,5 @@
 ; EF:05A9
 
 ; EfSramSignatureAndSaveBlockFlagsEnd
-EF05A9_EfSramSignatureAndSaveBlockFlagsEnd:
+EF05A9_EfSramSignatureAndSaveBlockFlagsEnd = ERASE_SAVE_BLOCK
+EF05A9_EraseSaveBlock = ERASE_SAVE_BLOCK

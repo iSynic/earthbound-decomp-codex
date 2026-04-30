@@ -13,4 +13,4 @@
 ; DB:9218
 
 ; AssetMapDataTileArrangement17End
-DB9218_AssetMapDataTileArrangement17End:
+DB9218_AssetMapDataTileArrangement17End = MAP_DATA_TILE_ARRANGEMENT_10

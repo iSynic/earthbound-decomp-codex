@@ -13,4 +13,4 @@
 ; DF:E1EB
 
 ; AssetMapDataTileAnimationGfx8End
-DFE1EB_AssetMapDataTileAnimationGfx8End:
+DFE1EB_AssetMapDataTileAnimationGfx8End = MAP_DATA_TILE_ANIMATION_GFX_9

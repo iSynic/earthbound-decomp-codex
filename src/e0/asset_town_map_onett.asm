@@ -13,4 +13,4 @@
 ; E0:4920
 
 ; AssetTownMapOnettEnd
-E04920_AssetTownMapOnettEnd:
+E04920_AssetTownMapOnettEnd = TOWN_MAP_TWOSON

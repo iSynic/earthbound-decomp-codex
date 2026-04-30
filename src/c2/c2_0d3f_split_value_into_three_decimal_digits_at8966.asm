@@ -18,7 +18,8 @@ C09231_ModUnsignedWordByIndex = $C09231
 ; ---------------------------------------------------------------------------
 ; C2:0D3F
 
-C20D3F_SplitValueIntoThreeDecimalDigitsAt8966:
+SEPARATE_DECIMAL_DIGITS:
+C20D3F_SplitValueIntoThreeDecimalDigitsAt8966 = SEPARATE_DECIMAL_DIGITS
     rep #$31
     phd
     pha
@@ -52,7 +53,8 @@ C20D3F_SplitValueIntoThreeDecimalDigitsAt8966:
     rep #$20
     pld
     rts
-C20D89_SplitValueIntoThreeDecimalDigitsAt8966_L0D89:
+FILL_HP_PP_TILE_BUFFER_X:
+C20D89_SplitValueIntoThreeDecimalDigitsAt8966_L0D89 = FILL_HP_PP_TILE_BUFFER_X
     rep #$31
     phd
     pha
@@ -90,7 +92,8 @@ C20DBE_SplitValueIntoThreeDecimalDigitsAt8966_L0DBE:
     bcc C20DA7_SplitValueIntoThreeDecimalDigitsAt8966_L0DA7
     pld
     rts
-C20DC5_SplitValueIntoThreeDecimalDigitsAt8966_L0DC5:
+FILL_HP_PP_TILE_BUFFER:
+C20DC5_SplitValueIntoThreeDecimalDigitsAt8966_L0DC5 = FILL_HP_PP_TILE_BUFFER
     rep #$31
     phd
     pha
@@ -290,11 +293,11 @@ C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     sty $0E
     sta $02
     txa
-    jsr.w C20D3F_SplitValueIntoThreeDecimalDigitsAt8966
+    jsr.w SEPARATE_DECIMAL_DIGITS
     ldy $0E
     ldx.w #$0000
     lda $02
-    jsr.w C20DC5_SplitValueIntoThreeDecimalDigitsAt8966_L0DC5
+    jsr.w FILL_HP_PP_TILE_BUFFER
     pld
     rts
     rep #$31
@@ -312,15 +315,15 @@ C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     and.w #$00FF
     beq C20F47_SplitValueIntoThreeDecimalDigitsAt8966_L0F47
     lda $02
-    jsr.w C20D89_SplitValueIntoThreeDecimalDigitsAt8966_L0D89
+    jsr.w FILL_HP_PP_TILE_BUFFER_X
     bra C20F56_SplitValueIntoThreeDecimalDigitsAt8966_L0F56
 C20F47_SplitValueIntoThreeDecimalDigitsAt8966_L0F47:
     lda $04
-    jsr.w C20D3F_SplitValueIntoThreeDecimalDigitsAt8966
+    jsr.w SEPARATE_DECIMAL_DIGITS
     ldy $0E
     ldx.w #$0001
     lda $02
-    jsr.w C20DC5_SplitValueIntoThreeDecimalDigitsAt8966_L0DC5
+    jsr.w FILL_HP_PP_TILE_BUFFER
 C20F56_SplitValueIntoThreeDecimalDigitsAt8966_L0F56:
     pld
     rts

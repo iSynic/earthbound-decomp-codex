@@ -13,4 +13,4 @@
 ; CB:C265
 
 ; AssetBattleBackgroundArr25End
-CBC265_AssetBattleBackgroundArr25End:
+CBC265_AssetBattleBackgroundArr25End = BATTLE_BACKGROUND_ARR_17

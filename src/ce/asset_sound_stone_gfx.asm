@@ -13,4 +13,4 @@
 ; CE:F806
 
 ; AssetSoundStoneGfxEnd
-CEF806_AssetSoundStoneGfxEnd:
+CEF806_AssetSoundStoneGfxEnd = SOUND_STONE_PALETTE

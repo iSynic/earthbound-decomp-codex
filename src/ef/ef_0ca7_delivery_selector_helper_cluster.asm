@@ -328,7 +328,8 @@ EF0E8A_GetCurrentDeliveryExitSpeed:
     lda D5F645_TimedDeliveryTable,X
     pld
     rtl
-EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder:
+GET_DELIVERY_SPRITE_AND_PLACEHOLDER:
+EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder = GET_DELIVERY_SPRITE_AND_PLACEHOLDER
     rep #$31
     phd
     pha

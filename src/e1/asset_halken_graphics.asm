@@ -13,4 +13,4 @@
 ; E1:53B8
 
 ; AssetHalkenGraphicsEnd
-E153B8_AssetHalkenGraphicsEnd:
+E153B8_AssetHalkenGraphicsEnd = HALKEN_PALETTE

@@ -13,4 +13,4 @@
 ; CC:DDF9
 
 ; AssetPsiAnimGfxSet3End
-CCDDF9_AssetPsiAnimGfxSet3End:
+CCDDF9_AssetPsiAnimGfxSet3End = PSI_ARRANGEMENT_1

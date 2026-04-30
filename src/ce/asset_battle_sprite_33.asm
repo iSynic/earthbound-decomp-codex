@@ -13,4 +13,4 @@
 ; CE:32C9
 
 ; AssetBattleSprite33End
-CE32C9_AssetBattleSprite33End:
+CE32C9_AssetBattleSprite33End = BATTLE_SPRITE_29

@@ -13,4 +13,4 @@
 ; CE:876A
 
 ; AssetSwirlData28End
-CE876A_AssetSwirlData28End:
+CE876A_AssetSwirlData28End = SWIRL_DATA_29

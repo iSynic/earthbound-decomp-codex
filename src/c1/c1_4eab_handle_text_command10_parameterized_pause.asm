@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C1:4EAB..C1:575D C14EAB_HandleTextCommand10ParameterizedPause
+; - C1:4EAB..C1:575D CC_10
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,13 +16,15 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:4EAB
 
-C14EAB_HandleTextCommand10ParameterizedPause:
+CC_10:
+C14EAB_HandleTextCommand10ParameterizedPause = CC_10
     rep #$31
     txa
     jsr $00D6
     lda.w #$0000
     rts
-C14EB5_DisplayShopMenuTextCommand:
+CC_1A_06:
+C14EB5_DisplayShopMenuTextCommand = CC_1A_06
     rep #$31
     phd
     pha
@@ -56,7 +58,8 @@ C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB:
     lda.w #$0000
     pld
     rts
-C14EF8_GetBuyPriceOfItemTextCommand:
+CC_1D_0A:
+C14EF8_GetBuyPriceOfItemTextCommand = CC_1D_0A
     rep #$31
     phd
     pha
@@ -88,7 +91,8 @@ C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     lda.w #$0000
     pld
     rts
-C14F33_GetSellPriceOfItemTextCommand:
+CC_1D_0B:
+C14F33_GetSellPriceOfItemTextCommand = CC_1D_0B
     rep #$31
     phd
     pha
@@ -121,7 +125,8 @@ C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     lda.w #$0000
     pld
     rts
-C14F6F_CheckDirectItemUseCompatibilityTextCommand:
+CC_1F_81:
+C14F6F_CheckDirectItemUseCompatibilityTextCommand = CC_1F_81
     rep #$31
     phd
     pha
@@ -178,7 +183,8 @@ C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD:
 C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5:
     pld
     rts
-C14FD7_PrintCharacterNameTextCommand:
+CC_1C_02:
+C14FD7_PrintCharacterNameTextCommand = CC_1C_02
     rep #$31
     phd
     pha
@@ -207,7 +213,8 @@ C15002_C14EAB_HandleTextCommand10ParameterizedPause_L5002:
     lda.w #$0000
     pld
     rts
-C15007_GetCharacterStatusByteTextCommand:
+CC_19_16:
+C15007_GetCharacterStatusByteTextCommand = CC_19_16
     rep #$31
     phd
     pha
@@ -264,7 +271,8 @@ C15055_C14EAB_HandleTextCommand10ParameterizedPause_L5055:
 C1506D_C14EAB_HandleTextCommand10ParameterizedPause_L506D:
     pld
     rts
-C1506F_InflictStatusTextCommand:
+CC_19_05:
+C1506F_InflictStatusTextCommand = CC_19_05
     rep #$31
     phd
     pha
@@ -329,7 +337,8 @@ C150C8_C14EAB_HandleTextCommand10ParameterizedPause_L50C8:
 C150E2_C14EAB_HandleTextCommand10ParameterizedPause_L50E2:
     pld
     rts
-C150E4_CharacterHasAilmentTextCommand:
+CC_1D_0D:
+C150E4_CharacterHasAilmentTextCommand = CC_1D_0D
     rep #$31
     phd
     pha
@@ -402,7 +411,8 @@ C1515B_C14EAB_HandleTextCommand10ParameterizedPause_L515B:
 C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169:
     pld
     rts
-C1516B_LoadSpecialTextSelector:
+CC_1C_14:
+C1516B_LoadSpecialTextSelector = CC_1C_14
     rep #$31
     phd
     pha
@@ -474,7 +484,8 @@ C151E8_C14EAB_HandleTextCommand10ParameterizedPause_L51E8:
     lda.w #$0000
     pld
     rts
-C151FC_LoadSpecialForJumpMultiTextSelector:
+CC_1C_15:
+C151FC_LoadSpecialForJumpMultiTextSelector = CC_1C_15
     rep #$31
     phd
     pha
@@ -546,7 +557,8 @@ C15279_C14EAB_HandleTextCommand10ParameterizedPause_L5279:
     lda.w #$0000
     pld
     rts
-C1528D_CompareQueuedValueAgainstTextRegisterCommand:
+CC_18_07:
+C1528D_CompareQueuedValueAgainstTextRegisterCommand = CC_18_07
     rep #$31
     phd
     pha
@@ -674,7 +686,8 @@ C15374_C14EAB_HandleTextCommand10ParameterizedPause_L5374:
 C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
     pld
     rts
-C15384_GetExperienceNeededToLevelTextCommand:
+CC_19_18:
+C15384_GetExperienceNeededToLevelTextCommand = CC_19_18
     rep #$31
     phd
     pha
@@ -699,7 +712,8 @@ C1539B_C14EAB_HandleTextCommand10ParameterizedPause_L539B:
     lda.w #$0000
     pld
     rts
-C153AF_PrintNumberTextCommand:
+CC_1C_0A:
+C153AF_PrintNumberTextCommand = CC_1C_0A
     rep #$31
     phd
     pha
@@ -818,13 +832,15 @@ C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484:
 C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492:
     pld
     rts
-C15494_WaitForTextPromptOrInputGateTextCommand:
+CC_1F_60:
+C15494_WaitForTextPromptOrInputGateTextCommand = CC_1F_60
     rep #$31
     txa
     jsr $00FE
     lda.w #$0000
     rts
-C1549E_DisplayInventoryMenuTextCommand:
+CC_1A_05:
+C1549E_DisplayInventoryMenuTextCommand = CC_1A_05
     rep #$31
     phd
     pha
@@ -896,7 +912,8 @@ C1551F_C14EAB_HandleTextCommand10ParameterizedPause_L551F:
 C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527:
     pld
     rts
-C15529_RunWindowRelativeSelectionNoCancelTextCommand:
+CC_18_08:
+C15529_RunWindowRelativeSelectionNoCancelTextCommand = CC_18_08
     rep #$31
     phd
     pha
@@ -917,7 +934,8 @@ C15529_RunWindowRelativeSelectionNoCancelTextCommand:
     lda.w #$0000
     pld
     rts
-C1554E_RunWindowRelativeSelectionTextCommand:
+CC_18_09:
+C1554E_RunWindowRelativeSelectionTextCommand = CC_18_09
     rep #$31
     phd
     pha
@@ -938,7 +956,8 @@ C1554E_RunWindowRelativeSelectionTextCommand:
     lda.w #$0000
     pld
     rts
-C15573_PrintMoneyAmountTextCommand:
+CC_1C_0B:
+C15573_PrintMoneyAmountTextCommand = CC_1C_0B
     rep #$31
     phd
     pha
@@ -1057,7 +1076,8 @@ C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648:
 C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657:
     pld
     rts
-C15659_GiveItemToCharacterBTextCommand:
+CC_1D_0E:
+C15659_GiveItemToCharacterBTextCommand = CC_1D_0E
     rep #$31
     phd
     pha
@@ -1127,7 +1147,8 @@ C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
 C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9:
     pld
     rts
-C156DB_RemoveInventoryItemBySlotTextCommand:
+CC_1D_0F:
+C156DB_RemoveInventoryItemBySlotTextCommand = CC_1D_0F
     rep #$31
     phd
     pha

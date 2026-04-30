@@ -13,4 +13,4 @@
 ; CE:DC3A
 
 ; AssetSwirlData124End
-CEDC3A_AssetSwirlData124End:
+CEDC3A_AssetSwirlData124End = SWIRL_DATA_125

@@ -133,7 +133,8 @@ C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE:
     txa
     pld
     rts
-C1F6E3_OpenOrRefreshWindowFlavourSelection:
+OPEN_FLAVOUR_MENU:
+C1F6E3_OpenOrRefreshWindowFlavourSelection = OPEN_FLAVOUR_MENU
     rep #$31
     phd
     tdc
@@ -258,7 +259,8 @@ C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     tya
     pld
     rts
-C1F805_RunFileSelectMenuLoop:
+FILE_MENU_LOOP:
+C1F805_RunFileSelectMenuLoop = FILE_MENU_LOOP
     rep #$31
     phd
     tdc
@@ -329,7 +331,7 @@ C1F88E_OpenOrRefreshSoundSettingSelection_LF88E:
     jsl C3E521_CloseWindow
     bra C1F876_OpenOrRefreshSoundSettingSelection_LF876
 C1F8A2_OpenOrRefreshSoundSettingSelection_LF8A2:
-    jsr.w C1F6E3_OpenOrRefreshWindowFlavourSelection
+    jsr.w OPEN_FLAVOUR_MENU
     cmp.w #$0000
     bne C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
     lda.w #$0032
@@ -359,7 +361,7 @@ C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6:
     jsl C3E521_CloseWindow
     bra C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD
 C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
-    jsr.w C1F6E3_OpenOrRefreshWindowFlavourSelection
+    jsr.w OPEN_FLAVOUR_MENU
     cmp.w #$0000
     bne C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB
     lda.w #$0032

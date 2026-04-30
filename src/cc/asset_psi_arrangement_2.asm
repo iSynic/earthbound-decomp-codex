@@ -13,4 +13,4 @@
 ; CC:DB27
 
 ; AssetPsiArrangement2End
-CCDB27_AssetPsiArrangement2End:
+CCDB27_AssetPsiArrangement2End = PSI_ANIM_GFX_SET_3

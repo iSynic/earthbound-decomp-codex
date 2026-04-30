@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:4591
 
-C14591_HandleTextCommand0CTestWorkmemFalse:
+CC_0C:
+C14591_HandleTextCommand0CTestWorkmemFalse = CC_0C
     rep #$31
     phd
     pha

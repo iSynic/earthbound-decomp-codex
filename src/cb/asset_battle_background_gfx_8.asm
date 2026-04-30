@@ -13,4 +13,4 @@
 ; CB:7781
 
 ; AssetBattleBackgroundGfx8End
-CB7781_AssetBattleBackgroundGfx8End:
+CB7781_AssetBattleBackgroundGfx8End = BATTLE_BACKGROUND_ARR_95

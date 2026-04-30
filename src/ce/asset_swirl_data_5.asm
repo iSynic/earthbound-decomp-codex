@@ -13,4 +13,4 @@
 ; CE:6B48
 
 ; AssetSwirlData5End
-CE6B48_AssetSwirlData5End:
+CE6B48_AssetSwirlData5End = SWIRL_DATA_6

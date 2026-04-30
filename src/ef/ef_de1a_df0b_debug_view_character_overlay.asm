@@ -19,7 +19,8 @@ C0915B_DivideUnsignedWordByY              = $C0915B
 ; ---------------------------------------------------------------------------
 ; EF:DE1A
 
-EFDE1A_DrawDebugViewCharacterOverlay:
+DISPLAY_VIEW_CHARACTER_DEBUG_OVERLAY:
+EFDE1A_DrawDebugViewCharacterOverlay = DISPLAY_VIEW_CHARACTER_DEBUG_OVERLAY
     rep #$31
     phd
     tdc
@@ -29,7 +30,7 @@ EFDE1A_DrawDebugViewCharacterOverlay:
     lda $9877
     jsl C0915B_DivideUnsignedWordByY
     sta $04
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -44,7 +45,7 @@ EFDE1A_DrawDebugViewCharacterOverlay:
     lda $987B
     jsl C0915B_DivideUnsignedWordByY
     sta $02
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -58,7 +59,7 @@ EFDE1A_DrawDebugViewCharacterOverlay:
     ldx $02
     lda $04
     jsl $C0263D
-    jsr EFDBF0_FormatDebugWordAsDecimalTileBuffer
+    jsr INTEGER_TO_DECIMAL_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -70,7 +71,7 @@ EFDE1A_DrawDebugViewCharacterOverlay:
     lda.b #$00
     jsl C0862E_QueueDebugTileTransfer
     lda $4A68
-    jsr EFDBF0_FormatDebugWordAsDecimalTileBuffer
+    jsr INTEGER_TO_DECIMAL_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -91,7 +92,7 @@ EFDEB9_DebugViewCharacterOverlayWriter_LDEB9:
     asl A
     tax
     lda $9F8C,X
-    jsr EFDBF0_FormatDebugWordAsDecimalTileBuffer
+    jsr INTEGER_TO_DECIMAL_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -114,7 +115,7 @@ EFDEE5_DebugViewCharacterOverlayWriter_LDEE5:
     cmp.w #$0005
     bne EFDEB9_DebugViewCharacterOverlayWriter_LDEB9
     lda $4A8C
-    jsr EFDBF0_FormatDebugWordAsDecimalTileBuffer
+    jsr INTEGER_TO_DECIMAL_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E

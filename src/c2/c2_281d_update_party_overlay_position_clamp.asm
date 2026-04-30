@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:281D
 
-C2281D_UpdatePartyOverlayPositionClamp:
+DEPOSIT_INTO_ATM:
+C2281D_UpdatePartyOverlayPositionClamp = DEPOSIT_INTO_ATM
     rep #$31
     phd
     tdc

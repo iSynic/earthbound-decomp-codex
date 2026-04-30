@@ -13,4 +13,4 @@
 ; CC:2E19
 
 ; TableAnimationSequencePointersEnd
-CC2E19_TableAnimationSequencePointersEnd:
+; CC2E19_TableAnimationSequencePointersEnd is preserved as an alias in the next source unit.

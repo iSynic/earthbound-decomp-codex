@@ -16,7 +16,8 @@ QueueOrTransferDynamicTileBlock = $C08ED2
 ; ---------------------------------------------------------------------------
 ; C4:EC6E
 
-C4EC6E_UploadSpecialCastPalette:
+UPLOAD_SPECIAL_CAST_PALETTE:
+C4EC6E_UploadSpecialCastPalette = UPLOAD_SPECIAL_CAST_PALETTE
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; CE:AEE0
 
 ; AssetSwirlData69End
-CEAEE0_AssetSwirlData69End:
+CEAEE0_AssetSwirlData69End = SWIRL_DATA_70

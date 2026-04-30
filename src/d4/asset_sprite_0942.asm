@@ -13,4 +13,4 @@
 ; D4:C760
 
 ; AssetSprite0942End
-D4C760_AssetSprite0942End:
+D4C760_AssetSprite0942End = SPRITE_0943

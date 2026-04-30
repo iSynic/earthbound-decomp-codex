@@ -13,4 +13,4 @@
 ; E1:B211
 
 ; AssetTitleScreenArrangementEnd
-E1B211_AssetTitleScreenArrangementEnd:
+E1B211_AssetTitleScreenArrangementEnd = TITLE_SCREEN_GRAPHICS

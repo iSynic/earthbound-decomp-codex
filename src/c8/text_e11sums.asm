@@ -13,4 +13,4 @@
 ; C8:BC2D
 
 ; TextSegmentE11sumsEnd
-C8BC2D_TextSegmentE11sumsEnd:
+C8BC2D_TextSegmentE11sumsEnd = COMPRESSED_TEXT_CHUNK_0

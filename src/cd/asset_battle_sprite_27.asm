@@ -13,4 +13,4 @@
 ; CD:F652
 
 ; AssetBattleSprite27End
-CDF652_AssetBattleSprite27End:
+CDF652_AssetBattleSprite27End = BATTLE_SPRITE_78

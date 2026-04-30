@@ -22,7 +22,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-C08616_QueueVramTransfer_FromDpSource            = $C08616
+PREPARE_VRAM_COPY            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -100,7 +100,8 @@ C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:9558
 
-C09558_ScriptOpcodePointerTable:
+MOVEMENT_CTRL_CODES_PTR_TABLE:
+C09558_ScriptOpcodePointerTable = MOVEMENT_CTRL_CODES_PTR_TABLE
     ; data bytes: C0:9558..C0:9ABD
     db $F2,$95,$03,$96,$27,$96,$4D,$96,$85,$96,$AA,$96,$C3,$96,$DD,$99
     db $1A,$9A,$2E,$9A,$5D,$99,$6B,$99,$C3,$99,$9F,$9A,$E2,$9A,$09,$9B

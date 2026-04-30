@@ -22,7 +22,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-C08616_QueueVramTransfer_FromDpSource            = $C08616
+PREPARE_VRAM_COPY            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -107,4 +107,5 @@ C0C4CF_PlayerDirectionRemapTable:
     db $00,$00,$01,$00,$02,$00,$03,$00
 
 ; C0:C4F7
-C0C4F7_PlayerDirectionRemapTable_End:
+C0C4F7_GetDirectionFromPlayerToEntity = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
+C0C4F7_PlayerDirectionRemapTable_End = GET_DIRECTION_FROM_PLAYER_TO_ENTITY

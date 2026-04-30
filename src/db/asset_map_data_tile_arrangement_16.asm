@@ -13,4 +13,4 @@
 ; DB:7C22
 
 ; AssetMapDataTileArrangement16End
-DB7C22_AssetMapDataTileArrangement16End:
+DB7C22_AssetMapDataTileArrangement16End = MAP_DATA_TILE_ARRANGEMENT_17

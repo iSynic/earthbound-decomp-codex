@@ -13,4 +13,4 @@
 ; CD:79D7
 
 ; AssetBattleSprite94End
-CD79D7_AssetBattleSprite94End:
+CD79D7_AssetBattleSprite94End = BATTLE_SPRITE_37

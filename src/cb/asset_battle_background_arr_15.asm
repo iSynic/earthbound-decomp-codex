@@ -13,4 +13,4 @@
 ; CB:A2FF
 
 ; AssetBattleBackgroundArr15End
-CBA2FF_AssetBattleBackgroundArr15End:
+CBA2FF_AssetBattleBackgroundArr15End = BATTLE_BACKGROUND_ARR_68

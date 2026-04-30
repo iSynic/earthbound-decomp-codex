@@ -13,4 +13,4 @@
 ; E1:22FA
 
 ; AssetLargeFontDataEnd
-E122FA_AssetLargeFontDataEnd:
+E122FA_AssetLargeFontDataEnd = LARGE_FONT_GFX

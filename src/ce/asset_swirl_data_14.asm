@@ -13,4 +13,4 @@
 ; CE:76B1
 
 ; AssetSwirlData14End
-CE76B1_AssetSwirlData14End:
+CE76B1_AssetSwirlData14End = SWIRL_DATA_15

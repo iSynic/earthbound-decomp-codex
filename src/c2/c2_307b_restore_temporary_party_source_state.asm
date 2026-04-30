@@ -27,12 +27,12 @@ C2307B_RestoreTemporaryPartySourceState:
     stx $10
     lda $0000,X
     and.w #$00FF
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     ldy.w #$983B
     sty $0E
     lda $0000,Y
     and.w #$00FF
-    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl REMOVE_CHAR_FROM_PARTY
     lda $9841
     and.w #$00FF
     beq C230DD_RestoreTemporaryPartySourceState_L30DD
@@ -41,7 +41,7 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,X
     rep #$20
     and.w #$00FF
-    jsl C228F8_InsertPartyOverlayTrackedItemId
+    jsl ADD_CHAR_TO_PARTY
     lda $9843
     sta $983C
     lda $9842
@@ -52,7 +52,7 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,Y
     rep #$20
     and.w #$00FF
-    jsl C228F8_InsertPartyOverlayTrackedItemId
+    jsl ADD_CHAR_TO_PARTY
     lda $9845
     sta $983E
 C230DD_RestoreTemporaryPartySourceState_L30DD:

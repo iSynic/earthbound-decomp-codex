@@ -13,4 +13,4 @@
 ; CC:F47F
 
 ; AssetPsiArrangement10End
-CCF47F_AssetPsiArrangement10End:
+CCF47F_AssetPsiArrangement10End = PSI_ANIM_PALETTES

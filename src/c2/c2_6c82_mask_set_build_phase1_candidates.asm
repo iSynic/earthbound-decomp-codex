@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:6C82
 
-C26C82_MaskSet_BuildPhase1Candidates:
+TARGET_ALL_ENEMIES:
+C26C82_MaskSet_BuildPhase1Candidates = TARGET_ALL_ENEMIES
     rep #$31
     phd
     tdc
@@ -81,7 +82,8 @@ C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
     bcc C26CA0_MaskSet_BuildPhase1Candidates_L6CA0
     pld
     rtl
-C26D04_MaskSet_BuildMetadataMatchedCandidates:
+TARGET_ROW:
+C26D04_MaskSet_BuildMetadataMatchedCandidates = TARGET_ROW
     rep #$31
     phd
     pha

@@ -32,7 +32,8 @@ C4FBBD_PlaySoundStoneMelody               = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C1:D109
 
-C1D109_LevelUpCharacterAndRefreshDerivedStats:
+LEVEL_UP_CHAR:
+C1D109_LevelUpCharacterAndRefreshDerivedStats = LEVEL_UP_CHAR
     rep #$31
     phd
     pha
@@ -1163,7 +1164,7 @@ C1D97B_LevelUpCharacterAndRefreshDerivedStats_LD97B:
     ldx.w #$0000
     ldy $0E
     tya
-    jsr.w C1D109_LevelUpCharacterAndRefreshDerivedStats
+    jsr.w LEVEL_UP_CHAR
 C1D984_LevelUpCharacterAndRefreshDerivedStats_LD984:
     rep #$20
     lda $02
@@ -1325,7 +1326,7 @@ C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2:
     ldy $10
     tya
     inc A
-    jsr.w C1D109_LevelUpCharacterAndRefreshDerivedStats
+    jsr.w LEVEL_UP_CHAR
     ldy $10
     tya
     ldy.w #$005F

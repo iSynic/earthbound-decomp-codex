@@ -13,4 +13,4 @@
 ; CC:6390
 
 ; AssetPsiArrangement21End
-CC6390_AssetPsiArrangement21End:
+CC6390_AssetPsiArrangement21End = PSI_ARRANGEMENT_13

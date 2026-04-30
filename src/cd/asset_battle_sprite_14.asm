@@ -13,4 +13,4 @@
 ; CD:C5F0
 
 ; AssetBattleSprite14End
-CDC5F0_AssetBattleSprite14End:
+CDC5F0_AssetBattleSprite14End = BATTLE_SPRITE_32

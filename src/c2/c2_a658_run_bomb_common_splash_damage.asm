@@ -16,7 +16,8 @@ C08FF7_Multiply16 = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:A658
 
-C2A658_RunBombCommonSplashDamage:
+BOMB_COMMON:
+C2A658_RunBombCommonSplashDamage = BOMB_COMMON
     rep #$31
     phd
     pha

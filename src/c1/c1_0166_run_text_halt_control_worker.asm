@@ -52,7 +52,8 @@ PromptTilePointerBank     = $10
 ; ---------------------------------------------------------------------------
 ; C1:0166
 
-C10166_RunTextHaltControlWorker:
+CC_13_14:
+C10166_RunTextHaltControlWorker = CC_13_14
     rep #$31
     phd
     pha

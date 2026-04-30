@@ -16,7 +16,8 @@ C21628_CheckEventFlag = $C21628
 ; ---------------------------------------------------------------------------
 ; C0:2A6B
 
-C02A6B_Spawn_Horizontal:
+SPAWN_HORIZONTAL:
+C02A6B_Spawn_Horizontal = SPAWN_HORIZONTAL
     rep #$31
     phd
     pha

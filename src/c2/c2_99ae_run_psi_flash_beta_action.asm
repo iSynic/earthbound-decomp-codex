@@ -23,12 +23,13 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 ; ---------------------------------------------------------------------------
 ; C2:99AE
 
-C299AE_RunPsiFlashBetaAction:
+BTLACT_PSI_FLASH_B:
+C299AE_RunPsiFlashBetaAction = BTLACT_PSI_FLASH_B
     rep #$31
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C299EE_RunPsiFlashBetaAction_L99EE
-    jsr C298A1_GateSelectedBattlerForRandomStatusAction
+    jsr FLASH_IMMUNITY_TEST
     cmp.w #$0000
     beq C299EB_RunPsiFlashBetaAction_L99EB
     jsl C08E9A_RandomWord
@@ -41,17 +42,17 @@ C299AE_RunPsiFlashBetaAction:
     bra C299E8_RunPsiFlashBetaAction_L99E8
 C299D5_RunPsiFlashBetaAction_L99D5:
     lda $A972
-    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
+    jsl KO_TARGET
     bra C299EB_RunPsiFlashBetaAction_L99EB
 C299DE_RunPsiFlashBetaAction_L99DE:
-    jsr C29917_TryApplyNumbStatusToSelectedBattler
+    jsr FLASH_INFLICT_PARALYSIS
     bra C299EB_RunPsiFlashBetaAction_L99EB
 C299E3_RunPsiFlashBetaAction_L99E3:
-    jsr C298DE_TryApplyStrangeStatusToSelectedBattler
+    jsr FLASH_INFLICT_FEELING_STRANGE
     bra C299EB_RunPsiFlashBetaAction_L99EB
 C299E8_RunPsiFlashBetaAction_L99E8:
-    jsr C29950_TryApplyCryingStatusToSelectedBattler
+    jsr FLASH_INFLICT_CRYING
 C299EB_RunPsiFlashBetaAction_L99EB:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C299EE_RunPsiFlashBetaAction_L99EE:
     rtl

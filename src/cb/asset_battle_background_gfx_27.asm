@@ -13,4 +13,4 @@
 ; CB:9CC8
 
 ; AssetBattleBackgroundGfx27End
-CB9CC8_AssetBattleBackgroundGfx27End:
+CB9CC8_AssetBattleBackgroundGfx27End = BATTLE_BACKGROUND_GFX_98

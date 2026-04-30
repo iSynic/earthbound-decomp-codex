@@ -13,4 +13,4 @@
 ; CB:D876
 
 ; AssetBattleBackgroundArr0End
-CBD876_AssetBattleBackgroundArr0End:
+CBD876_AssetBattleBackgroundArr0End = BATTLE_BACKGROUND_GFX_87

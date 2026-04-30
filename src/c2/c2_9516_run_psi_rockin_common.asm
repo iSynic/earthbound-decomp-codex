@@ -21,7 +21,8 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:9516
 
-C29516_RunPsiRockinCommon:
+PSI_ROCKIN_COMMON:
+C29516_RunPsiRockinCommon = PSI_ROCKIN_COMMON
     rep #$31
     phd
     pha
@@ -31,7 +32,7 @@ C29516_RunPsiRockinCommon:
     pla
     tax
     stx $14
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     bne C29554_RunPsiRockinCommon_L9554
     ldx $14
@@ -52,23 +53,23 @@ C29549_RunPsiRockinCommon_L9549:
     lda $12
     jsr C28125_ApplyTypedDamageToSelectedTarget
 C29551_RunPsiRockinCommon_L9551:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C29554_RunPsiRockinCommon_L9554:
     pld
     rts
     rep #$31
     lda.w #$0050
-    jsr.w C29516_RunPsiRockinCommon
+    jsr.w PSI_ROCKIN_COMMON
     rtl
     rep #$31
     lda.w #$00B4
-    jsr.w C29516_RunPsiRockinCommon
+    jsr.w PSI_ROCKIN_COMMON
     rtl
     rep #$31
     lda.w #$0140
-    jsr.w C29516_RunPsiRockinCommon
+    jsr.w PSI_ROCKIN_COMMON
     rtl
     rep #$31
     lda.w #$0280
-    jsr.w C29516_RunPsiRockinCommon
+    jsr.w PSI_ROCKIN_COMMON
     rtl

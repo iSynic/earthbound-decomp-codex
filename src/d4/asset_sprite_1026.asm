@@ -13,4 +13,4 @@
 ; D4:FF80
 
 ; AssetSprite1026End
-D4FF80_AssetSprite1026End:
+D4FF80_AssetSprite1026End = SPRITE_1027

@@ -123,7 +123,8 @@ C12DCA_ToggleDebugMeterDisplayOverlay_L2DCA:
     jsl $EF026E
     pld
     rts
-C12DD5_WindowTick:
+WINDOW_TICK:
+C12DD5_WindowTick = WINDOW_TICK
     rep #$31
     jsl C08E9A_GetRandom16
     lda $968C
@@ -182,7 +183,8 @@ C12E5A_ToggleDebugMeterDisplayOverlay_L2E5A:
     jsl $C213AC
     jsl C1004E_WaitWhileFileSelectEntityScriptBusy
     rtl
-C12E63_DebugMenuSelectionDispatcher:
+DEBUG_Y_BUTTON_MENU:
+C12E63_DebugMenuSelectionDispatcher = DEBUG_Y_BUTTON_MENU
     rep #$31
     phd
     tdc
@@ -543,7 +545,7 @@ C1316F_ToggleDebugMeterDisplayOverlay_L316F:
     jsr $008E
     jsr $0A1D
 C13175_ToggleDebugMeterDisplayOverlay_L3175:
-    jsl C12DD5_WindowTick
+    jsl WINDOW_TICK
     lda $B4A8
     cmp.w #$FFFF
     bne C13175_ToggleDebugMeterDisplayOverlay_L3175

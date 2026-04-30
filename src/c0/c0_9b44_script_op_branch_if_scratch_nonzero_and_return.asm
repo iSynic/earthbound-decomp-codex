@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B44
 
-C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn:
+MOVEMENT_CODE_17:
+C09B44_ScriptOp_BranchIfScratchNonzeroAndReturn = MOVEMENT_CODE_17
     ldx $8A
     lda $1516,X
     db $F0, $F6

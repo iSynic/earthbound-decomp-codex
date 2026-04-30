@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:1A69
 
-C01A69_Reset_EntitySlotStateTables:
+INITIALIZE_MISC_OBJECT_DATA:
+C01A69_Reset_EntitySlotStateTables = INITIALIZE_MISC_OBJECT_DATA
     rep #$31
     ldy.w #$0000
     bra C01A80_Reset_EntitySlotStateTables_L1A80

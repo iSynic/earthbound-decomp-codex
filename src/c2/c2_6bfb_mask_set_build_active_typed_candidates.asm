@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:6BFB
 
-C26BFB_MaskSet_BuildActiveTypedCandidates:
+TARGET_ALLIES:
+C26BFB_MaskSet_BuildActiveTypedCandidates = TARGET_ALLIES
     rep #$31
     phd
     tdc

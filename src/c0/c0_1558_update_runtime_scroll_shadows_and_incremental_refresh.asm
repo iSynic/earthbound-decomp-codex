@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:1558
 
-C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh:
+REFRESH_MAP_AT_POSITION:
+C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh = REFRESH_MAP_AT_POSITION
     rep #$31
     phd
     pha

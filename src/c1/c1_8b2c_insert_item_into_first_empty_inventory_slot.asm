@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C1:8B2C
 
-C18B2C_InsertItemIntoFirstEmptyInventorySlot:
+GIVE_ITEM_TO_SPECIFIC_CHARACTER:
+C18B2C_InsertItemIntoFirstEmptyInventorySlot = GIVE_ITEM_TO_SPECIFIC_CHARACTER
     rep #$31
     phd
     pha

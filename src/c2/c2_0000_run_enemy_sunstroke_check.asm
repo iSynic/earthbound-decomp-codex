@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:0000..C2:00B9 C20000_RunEnemySunstrokeCheck
+; - C2:0000..C2:00B9 INFLICT_SUNSTROKE_CHECK
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -17,7 +17,7 @@ C0915B_DivideUnsignedWordByY = $C0915B
 ; ---------------------------------------------------------------------------
 ; C2:0000
 
-C20000_RunEnemySunstrokeCheck:
+C20000_RunEnemySunstrokeCheck = INFLICT_SUNSTROKE_CHECK
     rep #$31
     phd
     tdc

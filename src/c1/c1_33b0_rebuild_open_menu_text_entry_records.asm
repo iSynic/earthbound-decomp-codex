@@ -149,7 +149,8 @@ C1349D_RebuildOpenMenuTextEntryRecords_L349D:
     jsr $163C
     pld
     rts
-C134A7_RunOpenMenuSelectionLoop:
+OPEN_MENU_BUTTON:
+C134A7_RunOpenMenuSelectionLoop = OPEN_MENU_BUTTON
     rep #$31
     phd
     tdc
@@ -196,7 +197,7 @@ C13503_RebuildOpenMenuTextEntryRecords_L3503:
 C1350B_RebuildOpenMenuTextEntryRecords_L350B:
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C1350E_RebuildOpenMenuTextEntryRecords_L350E:
-    jsl C13187_ResolvePrimaryFrontInteractionOutput
+    jsl TALK_TO
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -967,7 +968,7 @@ C13BC1_RebuildOpenMenuTextEntryRecords_L3BC1:
     jsl $C3E6F8
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13BCF_HandleOpenMenuCheckChoice:
-    jsl C1323B_ResolveSecondaryFacingInteractionOutput
+    jsl CHECK
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -1011,7 +1012,8 @@ C13C20_RebuildOpenMenuTextEntryRecords_L3C20:
     jsl C09451_RestoreSavedCoordinateState
     pld
     rtl
-C13C32_HandlePlayerCheckingObject:
+OPEN_MENU_BUTTON_CHECKTALK:
+C13C32_HandlePlayerCheckingObject = OPEN_MENU_BUTTON_CHECKTALK
     rep #$31
     phd
     tdc
@@ -1020,7 +1022,7 @@ C13C32_HandlePlayerCheckingObject:
     jsl C0943C_SaveCurrentCoordinateState
     lda.w #$0001
     jsl $C0ABE0
-    jsl C13187_ResolvePrimaryFrontInteractionOutput
+    jsl TALK_TO
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -1032,7 +1034,7 @@ C13C32_HandlePlayerCheckingObject:
     cmp $0A
 C13C5D_RebuildOpenMenuTextEntryRecords_L3C5D:
     bne C13C79_RebuildOpenMenuTextEntryRecords_L3C79
-    jsl C1323B_ResolveSecondaryFacingInteractionOutput
+    jsl CHECK
     lda $08
     cmp $0C
     bne C13C6D_RebuildOpenMenuTextEntryRecords_L3C6D
@@ -1071,7 +1073,7 @@ C13CB1_RebuildOpenMenuTextEntryRecords_L3CB1:
     lda $006D
     and.w #$00A0
     beq C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3
-    jsl C134A7_RunOpenMenuSelectionLoop
+    jsl OPEN_MENU_BUTTON
     bra C13CE4_RebuildOpenMenuTextEntryRecords_L3CE4
 C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3:
     lda $006D

@@ -17,11 +17,13 @@ C2A056_RunResistCheckedStrangeStatusAction = $C2A056
 ; ---------------------------------------------------------------------------
 ; C2:8D3A
 
-C28D3A_RunStrangeStatusWrapperAction:
+REDIRECT_BTLACT_BRAINSHOCK_A:
+C28D3A_RunStrangeStatusWrapperAction = REDIRECT_BTLACT_BRAINSHOCK_A
     rep #$31
-    jsl C2A056_RunResistCheckedStrangeStatusAction
+    jsl BTLACT_BRAINSHOCK_A
     rtl
-C28D41_CheckTargetField2eThresholdGate:
+SUCCESS_LUCK40:
+C28D41_CheckTargetField2eThresholdGate = SUCCESS_LUCK40
     rep #$31
     lda.w #$0028
     jsr C26A2D_RollRandomThreshold

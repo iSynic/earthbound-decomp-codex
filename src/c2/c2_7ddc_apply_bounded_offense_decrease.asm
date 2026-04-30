@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7DDC
 
-C27DDC_ApplyBoundedOffenseDecrease:
+HEXADECIMATE_OFFENSE:
+C27DDC_ApplyBoundedOffenseDecrease = HEXADECIMATE_OFFENSE
     rep #$31
     phd
     pha

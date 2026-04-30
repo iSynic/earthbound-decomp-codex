@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:ABA8
 
-C0ABA8_WaitForSpcReadyAndResetApuPorts:
+WAIT_FOR_SPC700:
+C0ABA8_WaitForSpcReadyAndResetApuPorts = WAIT_FOR_SPC700
     stz $2142
     stz $2140
 C0ABAE_WaitForSpcReadyAndResetApuPorts_LABAE:

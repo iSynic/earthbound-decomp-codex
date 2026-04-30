@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:7D28
 
-C27D28_ApplyBoundedOffenseIncrease:
+INCREASE_OFFENSE_16TH:
+C27D28_ApplyBoundedOffenseIncrease = INCREASE_OFFENSE_16TH
     rep #$31
     phd
     pha

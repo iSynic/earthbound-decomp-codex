@@ -16,7 +16,9 @@
 ; ---------------------------------------------------------------------------
 ; C0:C4F7
 
-C0C4F7_GetDirectionFromPlayerToEntity:
+GET_DIRECTION_FROM_PLAYER_TO_ENTITY:
+C0C4F7_GetDirectionFromPlayerToEntity = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
+C0C4F7_PlayerDirectionRemapTable_End = GET_DIRECTION_FROM_PLAYER_TO_ENTITY
     rep #$31
     phd
     tdc

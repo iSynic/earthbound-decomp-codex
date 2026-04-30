@@ -16,7 +16,8 @@ C186B1_PrintTextFromPointer = $C186B1
 ; ---------------------------------------------------------------------------
 ; C0:6B21
 
-C06B21_RunPostTransitionScriptHookAndSelectorPass:
+SPAWN_BUZZ_BUZZ:
+C06B21_RunPostTransitionScriptHookAndSelectorPass = SPAWN_BUZZ_BUZZ
     rep #$31
     phd
     tdc

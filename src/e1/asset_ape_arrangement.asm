@@ -13,4 +13,4 @@
 ; E1:4F2A
 
 ; AssetApeArrangementEnd
-E14F2A_AssetApeArrangementEnd:
+E14F2A_AssetApeArrangementEnd = APE_GRAPHICS

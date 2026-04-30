@@ -29,7 +29,8 @@ PrepareCastNameTilemap                       = $C4E7AE
 ; ---------------------------------------------------------------------------
 ; C4:E369
 
-C4E369_LoadCastScene:
+LOAD_CAST_SCENE:
+C4E369_LoadCastScene = LOAD_CAST_SCENE
     rep #$31
     phd
     tdc

@@ -18,9 +18,12 @@ C20293_ClearBattleTextGateState  = $C20293
 ; ---------------------------------------------------------------------------
 ; C1:DC1C
 
-C1DC1C_DisplayBattleTextFromPointer:
+DISPLAY_IN_BATTLE_TEXT:
+C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
     rep #$31
     phd
+    ; Shift DP so caller $0E/$10 appear here as $20/$22.
+    ; C2 callers use those slots as the battle-text script far pointer.
     tdc
     adc.w #$FFEE
     tcd
@@ -49,6 +52,7 @@ C1DC55_DisplayBattleTextFromPointer_LDC55:
     sta $0E
     lda $08
     sta $10
+    ; Dispatch the staged EF battle script through the generic text engine.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_WaitBattleTextDisplayTail
     pld

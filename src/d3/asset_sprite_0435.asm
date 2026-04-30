@@ -13,4 +13,4 @@
 ; D3:3D80
 
 ; AssetSprite0435End
-D33D80_AssetSprite0435End:
+D33D80_AssetSprite0435End = SPRITE_0436

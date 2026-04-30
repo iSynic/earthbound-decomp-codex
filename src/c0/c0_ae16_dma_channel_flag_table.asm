@@ -22,7 +22,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-C08616_QueueVramTransfer_FromDpSource            = $C08616
+PREPARE_VRAM_COPY            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -100,9 +100,11 @@ C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:AE16
 
-C0AE16_DmaChannelFlagTable:
+DMA_FLAGS:
+C0AE16_DmaChannelFlagTable = DMA_FLAGS
     ; data bytes: C0:AE16..C0:AE1D
     db $01,$02,$04,$08,$10,$20,$40
 
 ; C0:AE1D
-C0AE1D_DmaChannelFlagTable_End:
+C0AE1D_BattleBgDmaBbusRegisterTable = DMA_TARGET_REGISTERS
+C0AE1D_DmaChannelFlagTable_End = DMA_TARGET_REGISTERS

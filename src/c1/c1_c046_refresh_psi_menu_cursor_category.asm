@@ -33,7 +33,7 @@ C1C046_RefreshPsiMenuCursorCategory:
     pla
     tay
     sty $16
-    jsr C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     cmp.w #$000E
     bcc C1C07C_RefreshPsiMenuCursorCategory_LC07C
     beq C1C07C_RefreshPsiMenuCursorCategory_LC07C
@@ -42,7 +42,7 @@ C1C046_RefreshPsiMenuCursorCategory:
     bcc C1C07C_RefreshPsiMenuCursorCategory_LC07C
     jsl C438B1_ClearTextCursorLineState
     jsl C45E96_ClearActivePsiMenuRow
-    jsr C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     sta $02
     jsr C104D8_GetCurrentTextContextColumnOrCursor
     tax
@@ -62,7 +62,7 @@ C1C07C_RefreshPsiMenuCursorCategory_LC07C:
     lda $9E29
     beq C1C0A7_RefreshPsiMenuCursorCategory_LC0A7
     jsl C45E96_ClearActivePsiMenuRow
-    jsr C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     sta $02
     jsr C104D8_GetCurrentTextContextColumnOrCursor
     tax
@@ -159,7 +159,7 @@ C1C142_RefreshPsiMenuCursorCategory_LC142:
     ldx $12
     cpx $9E27
     bne C1C133_RefreshPsiMenuCursorCategory_LC133
-    jsr C104B5_GetCurrentTextContextLineState
+    jsr GET_TEXT_X
     tay
     sty $12
     jsr C104D8_GetCurrentTextContextColumnOrCursor

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:0BD4
 
-C40BD4_EarlyEventOverlayDataPayloads:
+FOOTSTEP_SOUND_TABLE:
+C40BD4_EarlyEventOverlayDataPayloads = FOOTSTEP_SOUND_TABLE
     ; data bytes: C4:0BD4..C4:1DB6
     db $00,$00,$00,$00,$00,$00,$00,$00,$15,$00,$0F,$00,$00,$00,$00,$00
     db $14,$00,$13,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00

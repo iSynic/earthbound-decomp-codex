@@ -17,7 +17,8 @@ C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:8CB8
 
-C28CB8_RunImmobilizedStatusAction:
+BTLACT_IMMOBILIZE:
+C28CB8_RunImmobilizedStatusAction = BTLACT_IMMOBILIZE
     rep #$31
     phd
     tdc
@@ -26,7 +27,7 @@ C28CB8_RunImmobilizedStatusAction:
     ldy.w #$0003
     ldx.w #$0002
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28CE1_RunImmobilizedStatusAction_L8CE1
     lda.w #$6BD3

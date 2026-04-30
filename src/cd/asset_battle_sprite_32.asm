@@ -13,4 +13,4 @@
 ; CD:C960
 
 ; AssetBattleSprite32End
-CDC960_AssetBattleSprite32End:
+CDC960_AssetBattleSprite32End = BATTLE_SPRITE_81

@@ -13,4 +13,4 @@
 ; DF:E4E1
 
 ; AssetMapDataTileAnimationGfx14End
-DFE4E1_AssetMapDataTileAnimationGfx14End:
+DFE4E1_AssetMapDataTileAnimationGfx14End = MAP_DATA_PALETTE_ANIM_POINTER_TABLE

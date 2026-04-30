@@ -558,4 +558,4 @@ C24EEC_C24A8A_PopulateCandidatePoolFromVariableSources_L4EEC:
     lda.w #$A21C
     sta $A970
     lda.w #$0001
-    jsl C23BCF_BuildBattleAttackerTextContext
+    jsl FIX_ATTACKER_NAME

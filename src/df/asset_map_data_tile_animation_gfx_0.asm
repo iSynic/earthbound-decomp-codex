@@ -13,4 +13,4 @@
 ; DF:C93B
 
 ; AssetMapDataTileAnimationGfx0End
-DFC93B_AssetMapDataTileAnimationGfx0End:
+DFC93B_AssetMapDataTileAnimationGfx0End = MAP_DATA_TILE_ANIMATION_GFX_1

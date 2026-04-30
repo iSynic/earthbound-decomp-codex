@@ -43,7 +43,8 @@ C1ECD1_PreviewPackedHighByteWindowFlavour:
     and.w #$00FF
     jsl $C1EC8F
     rtl
-C1ECDC_ShowCorruptSaveFilesNotice:
+CORRUPTION_CHECK:
+C1ECDC_ShowCorruptSaveFilesNotice = CORRUPTION_CHECK
     rep #$31
     phd
     tdc
@@ -98,7 +99,7 @@ C1ED38_PreviewPackedHighByteWindowFlavour_LED38:
 C1ED46_PreviewPackedHighByteWindowFlavour_LED46:
     bmi C1ED00_PreviewPackedHighByteWindowFlavour_LED00
 C1ED48_PreviewPackedHighByteWindowFlavour_LED48:
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     stz $9F79
     rep #$20
@@ -107,7 +108,8 @@ C1ED48_PreviewPackedHighByteWindowFlavour_LED48:
 C1ED59_PreviewPackedHighByteWindowFlavour_LED59:
     pld
     rts
-C1ED5B_OpenFileSelectSlotChoiceMenu:
+FILE_SELECT_MENU:
+C1ED5B_OpenFileSelectSlotChoiceMenu = FILE_SELECT_MENU
     rep #$31
     phd
     pha
@@ -456,7 +458,7 @@ C1F019_PreviewPackedHighByteWindowFlavour_LF019:
     jsr C10FEA_PrintSignedOrStatusValue
     bra C1F06B_ReturnSelectedSaveSlotAfterChecksum
 C1F03E_RunFileSelectSlotChoiceAndPreview:
-    jsr.w C1ECDC_ShowCorruptSaveFilesNotice
+    jsr.w CORRUPTION_CHECK
 C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     lda $0028
     and.w #$00FF

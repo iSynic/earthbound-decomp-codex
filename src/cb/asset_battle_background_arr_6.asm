@@ -13,4 +13,4 @@
 ; CB:431F
 
 ; AssetBattleBackgroundArr6End
-CB431F_AssetBattleBackgroundArr6End:
+CB431F_AssetBattleBackgroundArr6End = BATTLE_BACKGROUND_GFX_84

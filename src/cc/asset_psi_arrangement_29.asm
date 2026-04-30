@@ -13,4 +13,4 @@
 ; CC:94DF
 
 ; AssetPsiArrangement29End
-CC94DF_AssetPsiArrangement29End:
+CC94DF_AssetPsiArrangement29End = PSI_ARRANGEMENT_28

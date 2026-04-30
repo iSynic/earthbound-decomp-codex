@@ -18,7 +18,8 @@ C2165E_SetEventFlagOrState         = $C2165E
 ; ---------------------------------------------------------------------------
 ; C1:7B56
 
-C17B56_DispatchDisplayTextDynamicSourceSelector:
+CC_1A_TREE:
+C17B56_DispatchDisplayTextDynamicSourceSelector = CC_1A_TREE
     rep #$31
     phd
     pha

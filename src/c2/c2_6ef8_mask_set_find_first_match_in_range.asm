@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:6EF8
 
-C26EF8_MaskSet_FindFirstMatchInRange:
+RANDOM_TARGETTING:
+C26EF8_MaskSet_FindFirstMatchInRange = RANDOM_TARGETTING
     rep #$31
     phd
     tdc

@@ -19,7 +19,7 @@ C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 ; C1:9B79
 
 C19B79_ResolveEquippedSlotForItemSubtype:
-    jsr C19EE6_ClassifyItemCompactCategory
+    jsr GET_ITEM_TYPE
     cmp.w #$0002
     beq C19B89_resolve_equipped_slot_for_item_subtype_L9B89
     lda.w #$0400

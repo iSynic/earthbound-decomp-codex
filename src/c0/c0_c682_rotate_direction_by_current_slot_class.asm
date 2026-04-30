@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:C682
 
-C0C682_RotateDirectionByCurrentSlotClass:
+GET_DIRECTION_ROTATED_CLOCKWISE:
+C0C682_RotateDirectionByCurrentSlotClass = GET_DIRECTION_ROTATED_CLOCKWISE
     rep #$31
     phd
     pha

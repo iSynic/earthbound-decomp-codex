@@ -18,13 +18,14 @@ C08E9A_GetRandom16                     = $C08E9A
 ; ---------------------------------------------------------------------------
 ; C2:4316
 
-C24316_SelectStealableItemCandidate:
+SELECT_STEALABLE_ITEM:
+C24316_SelectStealableItemCandidate = SELECT_STEALABLE_ITEM
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    jsr C241DC_BuildStealableItemCandidateList
+    jsr FIND_STEALABLE_ITEMS
     tax
     stx $0E
     bne C2432B_SelectStealableItemCandidate_L432B

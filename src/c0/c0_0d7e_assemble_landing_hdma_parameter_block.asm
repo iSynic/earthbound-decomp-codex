@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0D7E
 
-C00D7E_Assemble_LandingHdmaParameterBlock:
+LOAD_COLLISION_COLUMN:
+C00D7E_Assemble_LandingHdmaParameterBlock = LOAD_COLLISION_COLUMN
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; CD:B447
 
 ; AssetBattleSprite67End
-CDB447_AssetBattleSprite67End:
+CDB447_AssetBattleSprite67End = BATTLE_SPRITE_63

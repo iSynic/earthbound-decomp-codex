@@ -184,11 +184,11 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     sta $0008,X
     rep #$20
     lda $A970
-    jsl C24477_BuildClass2DerivedActionCode
+    jsl CHOOSE_TARGET
     lda $A970
     jsl C24703_DispatchClass2DerivedAction
     lda.w #$0000
-    jsl C23BCF_BuildBattleAttackerTextContext
+    jsl FIX_ATTACKER_NAME
     jsl $C23E32
     lda.w #$7B68
     sta $0A
@@ -272,8 +272,8 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda $08
     sta $A96E
     lda.w #$0000
-    jsl C23BCF_BuildBattleAttackerTextContext
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_ATTACKER_NAME
+    jsl FIX_TARGET_NAME
     lda $AA0E
     beq C27A07_RunClass2LateSelectedRowController_L7A07
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
@@ -589,7 +589,8 @@ C27C92_RunClass2LateSelectedRowController_L7C92:
     rep #$20
     pld
     rtl
-C27C96_RollSelectedRowThresholdGate:
+SUCCESS_LUCK80:
+C27C96_RollSelectedRowThresholdGate = SUCCESS_LUCK80
     rep #$31
     lda.w #$0050
     jsr $6A2D
@@ -602,7 +603,8 @@ C27CAB_RunClass2LateSelectedRowController_L7CAB:
     lda.w #$0001
 C27CAE_RunClass2LateSelectedRowController_L7CAE:
     rts
-C27CAF_RollSelectedVsActiveRowOffsetGate:
+SUCCESS_SPEED:
+C27CAF_RollSelectedVsActiveRowOffsetGate = SUCCESS_SPEED
     rep #$31
     phd
     pha

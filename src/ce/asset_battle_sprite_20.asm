@@ -13,4 +13,4 @@
 ; CE:3F63
 
 ; AssetBattleSprite20End
-CE3F63_AssetBattleSprite20End:
+CE3F63_AssetBattleSprite20End = BATTLE_SPRITE_91

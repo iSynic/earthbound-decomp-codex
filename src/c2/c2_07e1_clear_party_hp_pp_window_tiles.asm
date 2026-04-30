@@ -16,7 +16,8 @@ C0923E_BuildSingleBitMask8 = $C0923E
 ; ---------------------------------------------------------------------------
 ; C2:07E1
 
-C207E1_ClearPartyHpPpWindowTiles:
+UNDRAW_HP_PP_WINDOW:
+C207E1_ClearPartyHpPpWindowTiles = UNDRAW_HP_PP_WINDOW
     rep #$31
     phd
     pha

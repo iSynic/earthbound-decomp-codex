@@ -16,7 +16,8 @@ C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:7CFD
 
-C27CFD_CheckSelectedBattlerDefaultTextBlocker:
+FAIL_ATTACK_ON_NPCS:
+C27CFD_CheckSelectedBattlerDefaultTextBlocker = FAIL_ATTACK_ON_NPCS
     rep #$31
     phd
     tdc

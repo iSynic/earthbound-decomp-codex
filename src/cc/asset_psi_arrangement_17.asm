@@ -13,4 +13,4 @@
 ; CC:CE57
 
 ; AssetPsiArrangement17End
-CCCE57_AssetPsiArrangement17End:
+CCCE57_AssetPsiArrangement17End = PSI_ARRANGEMENT_33

@@ -11,12 +11,13 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource = $C08616
+PREPARE_VRAM_COPY = $C08616
 
 ; ---------------------------------------------------------------------------
 ; C0:0172
 
-C00172_Tick_LandingProfileAnimatedVramUploads:
+ANIMATE_TILESET:
+C00172_Tick_LandingProfileAnimatedVramUploads = ANIMATE_TILESET
     rep #$31
     phd
     tdc
@@ -85,7 +86,7 @@ C001BD_Tick_LandingProfileAnimatedVramUploads_L01BD:
     tax
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     ldx $04
     lda $0000,X
     pha

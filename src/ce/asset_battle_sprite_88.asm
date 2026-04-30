@@ -13,4 +13,4 @@
 ; CE:606D
 
 ; AssetBattleSprite88End
-CE606D_AssetBattleSprite88End:
+CE606D_AssetBattleSprite88End = BATTLE_SPRITE_0

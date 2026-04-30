@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource = $C08616
+PREPARE_VRAM_COPY = $C08616
 
 ; ---------------------------------------------------------------------------
 ; C0:1CA8
@@ -63,7 +63,7 @@ C01CC1_Upload_CompanionVisualTiles4000Band_L1CC1:
     ldx $02
     sep #$20
     lda.b #$03
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $06
     sta $0E
     lda $08
@@ -75,7 +75,7 @@ C01CC1_Upload_CompanionVisualTiles4000Band_L1CC1:
     ldx $02
     sep #$20
     lda.b #$03
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda $04
     clc
     adc $18

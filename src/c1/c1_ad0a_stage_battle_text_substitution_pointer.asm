@@ -24,6 +24,8 @@ BattleTextSubstitutionPointerHi = $9D14
 C1AD0A_StageBattleTextSubstitutionPointer:
     rep #$31
     phd
+    ; C1:DC66 calls this after shifting DP; its $1C/$1E slots alias the
+    ; original caller's $12/$14 payload pointer.
     tdc
     adc.w #$FFF2
     tcd

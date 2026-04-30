@@ -24,7 +24,8 @@ StagedTextPointerHi         = $1E
 ; ---------------------------------------------------------------------------
 ; C1:045D
 
-C1045D_InstallPrimaryInteractionContextPointer:
+SET_WORKING_MEMORY:
+C1045D_InstallPrimaryInteractionContextPointer = SET_WORKING_MEMORY
     rep #$31
     phd
     tdc
@@ -34,7 +35,7 @@ C1045D_InstallPrimaryInteractionContextPointer:
     sta ScratchPointerLo
     lda StagedTextPointerHi
     sta ScratchPointerHi
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #ContextPrimaryPointerOffset
     tay

@@ -13,4 +13,4 @@
 ; E1:AD01
 
 ; AssetProducedItoiGraphicsEnd
-E1AD01_AssetProducedItoiGraphicsEnd:
+E1AD01_AssetProducedItoiGraphicsEnd = NINTENDO_PRESENTATION_ARRANGEMENT

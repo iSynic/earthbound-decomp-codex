@@ -17,7 +17,8 @@ C04452_ResolveFrontInteractionTarget = $C04452
 ; ---------------------------------------------------------------------------
 ; C1:3187
 
-C13187_ResolvePrimaryFrontInteractionOutput:
+TALK_TO:
+C13187_ResolvePrimaryFrontInteractionOutput = TALK_TO
     rep #$31
     phd
     tdc

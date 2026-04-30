@@ -22,7 +22,8 @@ C1DD76_RedirectBuildBattleTargetNameBuffer = $C1DD76
 ; ---------------------------------------------------------------------------
 ; C2:3D05
 
-C23D05_BuildBattleTargetTextContext:
+FIX_TARGET_NAME:
+C23D05_BuildBattleTargetTextContext = FIX_TARGET_NAME
     rep #$31
     phd
     tdc
@@ -63,7 +64,7 @@ C23D3C_BuildBattleTargetTextContext_L3D3C:
     sta $10
     ldx.w #$0019
     lda.w #$A99E
-    jsr C23B66_ExpandBattleTextContextTemplate
+    jsr COPY_ENEMY_NAME
     tax
     stx $14
     ldx $A972
@@ -192,7 +193,7 @@ C23E73_BuildBattleTargetTextContext_L3E73:
     clc
     adc.w #$9FAC
     sta $A972
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_TARGET_NAME
 C23E88_BuildBattleTargetTextContext_L3E88:
     pld
     rtl
@@ -253,7 +254,7 @@ C23ECE_BuildBattleTargetTextContext_L3ECE:
     sta $10
     ldx.w #$0019
     lda.w #$A9B9
-    jsr C23B66_ExpandBattleTextContextTemplate
+    jsr COPY_ENEMY_NAME
     tax
     stx $12
     ldy $14
@@ -366,7 +367,8 @@ C23FE0_BuildBattleTargetTextContext_L3FE0:
 C23FE8_BuildBattleTargetTextContext_L3FE8:
     pld
     rtl
-C23FEA_BuildBattleTargetTextContext_L3FEA:
+GET_SHIELD_TARGETTING:
+C23FEA_BuildBattleTargetTextContext_L3FEA = GET_SHIELD_TARGETTING
     rep #$31
     cmp.w #$002A
     beq C24000_BuildBattleTargetTextContext_L4000
@@ -436,7 +438,7 @@ C24080_BuildBattleTargetTextContext_L4080:
 C24084_BuildBattleTargetTextContext_L4084:
     ldx $A970
     lda $0004,X
-    jsl C23FEA_BuildBattleTargetTextContext_L3FEA
+    jsl GET_SHIELD_TARGETTING
     cmp.w #$0000
     bne C240A2_BuildBattleTargetTextContext_L40A2
     ldx $A970

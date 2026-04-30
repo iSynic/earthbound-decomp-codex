@@ -13,4 +13,4 @@
 ; CE:C9DC
 
 ; AssetSwirlData89End
-CEC9DC_AssetSwirlData89End:
+CEC9DC_AssetSwirlData89End = SWIRL_DATA_90

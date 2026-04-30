@@ -13,4 +13,4 @@
 ; E1:5455
 
 ; AssetHalkenPaletteEnd
-E15455_AssetHalkenPaletteEnd:
+E15455_AssetHalkenPaletteEnd = NINTENDO_ARRANGEMENT

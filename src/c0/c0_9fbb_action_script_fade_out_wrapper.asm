@@ -16,7 +16,8 @@ C0887A_ClearDisplayTransitionState = $C0887A
 ; ---------------------------------------------------------------------------
 ; C0:9FBB
 
-C09FBB_ActionScript_FadeOutWrapper:
+ACTIONSCRIPT_FADE_OUT:
+C09FBB_ActionScript_FadeOutWrapper = ACTIONSCRIPT_FADE_OUT
     lda [$80],Y
     iny
     iny

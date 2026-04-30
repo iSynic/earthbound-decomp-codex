@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:6E77
 
-C26E77_MaskSet_RemoveActiveTypedCandidates:
+REMOVE_NPC_TARGETTING:
+C26E77_MaskSet_RemoveActiveTypedCandidates = REMOVE_NPC_TARGETTING
     rep #$31
     phd
     tdc

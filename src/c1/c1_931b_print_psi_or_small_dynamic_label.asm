@@ -50,7 +50,7 @@ C1931B_PrintPsiOrSmallDynamicLabel:
     lda $08
     sta $10
     lda $12
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     jmp.w C193E5_print_psi_or_small_dynamic_label_L93E5
 C19360_print_psi_or_small_dynamic_label_L9360:
     lda $06
@@ -106,7 +106,7 @@ C193A2_print_psi_or_small_dynamic_label_L93A2:
     lda $08
     sta $10
     lda $12
-    jsr C10EFC_PrintFixedString
+    jsr PRINT_STRING
     bra C193E5_print_psi_or_small_dynamic_label_L93E5
 C193D7_print_psi_or_small_dynamic_label_L93D7:
     lda $06

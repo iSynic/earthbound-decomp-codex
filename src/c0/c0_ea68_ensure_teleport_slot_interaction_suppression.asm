@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:EA68
 
-C0EA68_EnsureTeleportSlotInteractionSuppression:
+TELEPORT_FREEZEOBJECTS2:
+C0EA68_EnsureTeleportSlotInteractionSuppression = TELEPORT_FREEZEOBJECTS2
     rep #$31
     phd
     tdc

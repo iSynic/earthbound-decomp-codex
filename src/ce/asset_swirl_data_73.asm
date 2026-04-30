@@ -13,4 +13,4 @@
 ; CE:BC7E
 
 ; AssetSwirlData73End
-CEBC7E_AssetSwirlData73End:
+CEBC7E_AssetSwirlData73End = SWIRL_DATA_74

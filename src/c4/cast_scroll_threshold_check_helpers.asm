@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:E4F9
 
-C4E4F9_CheckCastScrollThreshold:
+CHECK_CAST_SCROLL_THRESHOLD:
+C4E4F9_CheckCastScrollThreshold = CHECK_CAST_SCROLL_THRESHOLD
     rep #$31
     phd
     tdc

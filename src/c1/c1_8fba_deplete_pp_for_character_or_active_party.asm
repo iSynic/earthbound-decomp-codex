@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:8FBA
 
-C18FBA_DepletePpForCharacterOrActiveParty:
+REDUCE_PP_AMTPERCENT:
+C18FBA_DepletePpForCharacterOrActiveParty = REDUCE_PP_AMTPERCENT
     rep #$31
     phd
     pha

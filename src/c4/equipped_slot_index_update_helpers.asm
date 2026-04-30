@@ -23,7 +23,8 @@ C21E03_RefreshEquipmentResistanceDerivedStats = $C21E03
 ; ---------------------------------------------------------------------------
 ; C4:577D
 
-C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats:
+CHANGE_EQUIPPED_WEAPON:
+C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats = CHANGE_EQUIPPED_WEAPON
     rep #$31
     phd
     pha
@@ -63,7 +64,8 @@ C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats:
     lda $04
     pld
     rtl
-C457CA_InstallBodySlotIndexAndRefreshDerivedStats:
+CHANGE_EQUIPPED_BODY:
+C457CA_InstallBodySlotIndexAndRefreshDerivedStats = CHANGE_EQUIPPED_BODY
     rep #$31
     phd
     pha
@@ -102,7 +104,8 @@ C457CA_InstallBodySlotIndexAndRefreshDerivedStats:
     lda $04
     pld
     rtl
-C45815_InstallArmsSlotIndexAndRefreshDerivedStats:
+CHANGE_EQUIPPED_ARMS:
+C45815_InstallArmsSlotIndexAndRefreshDerivedStats = CHANGE_EQUIPPED_ARMS
     rep #$31
     phd
     pha
@@ -141,7 +144,8 @@ C45815_InstallArmsSlotIndexAndRefreshDerivedStats:
     lda $04
     pld
     rtl
-C45860_InstallOtherSlotIndexAndRefreshDerivedStats:
+CHANGE_EQUIPPED_OTHER:
+C45860_InstallOtherSlotIndexAndRefreshDerivedStats = CHANGE_EQUIPPED_OTHER
     rep #$31
     phd
     pha

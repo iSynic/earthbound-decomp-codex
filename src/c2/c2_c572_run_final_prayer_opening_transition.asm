@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:C572..C2:C5D1 C2C572_RunFinalPrayerOpeningTransition
+; - C2:C572..C2:C5D1 BTLACT_GIYGAS_PRAYER_1
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:C572
 
-C2C572_RunFinalPrayerOpeningTransition:
+BTLACT_GIYGAS_PRAYER_1:
+C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     rep #$31
     phd
     tdc

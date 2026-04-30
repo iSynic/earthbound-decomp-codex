@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource        = $C08616
+PREPARE_VRAM_COPY        = $C08616
 C08D79_UpdateBgModeRegisterFromQueue         = $C08D79
 C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
 C41A9E_GraphicsDecompressionRoutines_Main    = $C41A9E
@@ -176,7 +176,7 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
     ldx.w #$8000
     sep #$20
     tya
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.b #$00
     db $80, $85
     asl $7EA9
@@ -186,7 +186,7 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     sep #$20
     lda.b #$18
     sta $0030

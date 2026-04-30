@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1D95
 
-C21D95_RecalculateCharacterDerivedMissRate:
+RECALC_CHARACTER_MISS_RATE:
+C21D95_RecalculateCharacterDerivedMissRate = RECALC_CHARACTER_MISS_RATE
     rep #$31
     phd
     pha

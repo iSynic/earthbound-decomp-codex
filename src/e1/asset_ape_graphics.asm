@@ -13,4 +13,4 @@
 ; E1:5130
 
 ; AssetApeGraphicsEnd
-E15130_AssetApeGraphicsEnd:
+E15130_AssetApeGraphicsEnd = APE_PALETTE

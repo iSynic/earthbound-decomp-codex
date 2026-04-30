@@ -13,4 +13,4 @@
 ; CA:A049
 
 ; AssetBattleBackgroundGfx41End
-CAA049_AssetBattleBackgroundGfx41End:
+CAA049_AssetBattleBackgroundGfx41End = BATTLE_BACKGROUND_GFX_62

@@ -13,4 +13,4 @@
 ; CE:B8FA
 
 ; AssetSwirlData72End
-CEB8FA_AssetSwirlData72End:
+CEB8FA_AssetSwirlData72End = SWIRL_DATA_73

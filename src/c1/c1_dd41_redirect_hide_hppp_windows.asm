@@ -16,7 +16,8 @@ C100A1D_HideHpppWindows_Internal = $0A1D
 ; ---------------------------------------------------------------------------
 ; C1:DD41
 
-C1DD41_RedirectHideHpppWindows:
+REDIRECT_HIDE_HPPP_WINDOWS:
+C1DD41_RedirectHideHpppWindows = REDIRECT_HIDE_HPPP_WINDOWS
     rep #$31
     jsr C100A1D_HideHpppWindows_Internal
     rtl

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:0CF3
 
-C00CF3_Load_VerticalMovementCollisionStripPayload:
+LOAD_COLLISION_ROW:
+C00CF3_Load_VerticalMovementCollisionStripPayload = LOAD_COLLISION_ROW
     rep #$31
     phd
     pha

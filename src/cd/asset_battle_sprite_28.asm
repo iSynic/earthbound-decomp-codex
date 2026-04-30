@@ -13,4 +13,4 @@
 ; CD:ECF7
 
 ; AssetBattleSprite28End
-CDECF7_AssetBattleSprite28End:
+CDECF7_AssetBattleSprite28End = BATTLE_SPRITE_108

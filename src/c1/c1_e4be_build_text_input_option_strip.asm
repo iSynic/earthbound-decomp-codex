@@ -130,7 +130,8 @@ C1E545_BuildTextInputOptionStrip_LE545:
     sta $04
     pld
     rts
-C1E57F_RunTextInputDialog:
+TEXT_INPUT_DIALOG:
+C1E57F_RunTextInputDialog = TEXT_INPUT_DIALOG
     rep #$31
     phd
     pha
@@ -747,7 +748,8 @@ C1EA9D_BuildTextInputOptionStrip_LEA9D:
 C1EAA4_BuildTextInputOptionStrip_LEAA4:
     pld
     rts
-C1EAA6_RunNameEntrySpecialEventPrelude:
+ENTER_YOUR_NAME_PLEASE:
+C1EAA6_RunNameEntrySpecialEventPrelude = ENTER_YOUR_NAME_PLEASE
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; CB:C32C
 
 ; AssetBattleBackgroundGfx100End
-CBC32C_AssetBattleBackgroundGfx100End:
+CBC32C_AssetBattleBackgroundGfx100End = BATTLE_BACKGROUND_GFX_23

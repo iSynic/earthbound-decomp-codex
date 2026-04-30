@@ -13,4 +13,4 @@
 ; D9:CE52
 
 ; AssetMapDataTileArrangement4End
-D9CE52_AssetMapDataTileArrangement4End:
+D9CE52_AssetMapDataTileArrangement4End = MAP_DATA_TILE_SET_GRAPHICS_13

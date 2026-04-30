@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:030F
 
-C0030F_Advance_LandingProfileStepSequencer:
+ANIMATE_PALETTE:
+C0030F_Advance_LandingProfileStepSequencer = ANIMATE_PALETTE
     rep #$31
     phd
     tdc

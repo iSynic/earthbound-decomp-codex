@@ -13,4 +13,4 @@
 ; CD:55EE
 
 ; AssetBattleSprite96End
-CD55EE_AssetBattleSprite96End:
+CD55EE_AssetBattleSprite96End = BATTLE_SPRITE_36

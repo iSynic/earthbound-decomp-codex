@@ -13,4 +13,4 @@
 ; CB:C50F
 
 ; AssetBattleBackgroundArr22End
-CBC50F_AssetBattleBackgroundArr22End:
+CBC50F_AssetBattleBackgroundArr22End = BATTLE_BACKGROUND_ARR_21

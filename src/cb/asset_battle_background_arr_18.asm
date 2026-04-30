@@ -13,4 +13,4 @@
 ; CB:BB3C
 
 ; AssetBattleBackgroundArr18End
-CBBB3C_AssetBattleBackgroundArr18End:
+CBBB3C_AssetBattleBackgroundArr18End = BATTLE_BACKGROUND_GFX_65

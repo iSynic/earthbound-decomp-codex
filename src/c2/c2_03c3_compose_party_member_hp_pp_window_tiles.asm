@@ -19,7 +19,8 @@ C22474_LookupStatusTileWidthOrOffsetForHpPpWindow = $C22474
 ; ---------------------------------------------------------------------------
 ; C2:03C3
 
-C203C3_ComposePartyMemberHpPpWindowTiles:
+DRAW_HP_PP_WINDOW:
+C203C3_ComposePartyMemberHpPpWindowTiles = DRAW_HP_PP_WINDOW
     rep #$31
     phd
     pha

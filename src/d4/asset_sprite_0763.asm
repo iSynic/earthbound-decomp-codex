@@ -13,4 +13,4 @@
 ; D4:3540
 
 ; AssetSprite0763End
-D43540_AssetSprite0763End:
+D43540_AssetSprite0763End = SPRITE_0764

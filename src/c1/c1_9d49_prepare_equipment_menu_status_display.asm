@@ -108,7 +108,7 @@ C19DB5_RunShopItemSelectionMenu:
     lda.w #MenuContextSnapshotBuffer
     jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000C
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$0005
     jsr C10EB4_ClearOrPrepareWindowContent
     lda.w #$0000

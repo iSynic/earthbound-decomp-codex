@@ -16,7 +16,8 @@ C0ABC6_StopMusicAndLatchNoTrack = $C0ABC6
 ; ---------------------------------------------------------------------------
 ; C2:16C9
 
-C216C9_StopMusicRedirect:
+REDIRECT_STOP_MUSIC:
+C216C9_StopMusicRedirect = REDIRECT_STOP_MUSIC
     rep #$31
     jsl C0ABC6_StopMusicAndLatchNoTrack
     rtl

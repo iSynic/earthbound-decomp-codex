@@ -19,7 +19,8 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 ; ---------------------------------------------------------------------------
 ; C2:9A80
 
-C29A80_RunPsiStarstormCommon:
+PSI_STARSTORM_COMMON:
+C29A80_RunPsiStarstormCommon = PSI_STARSTORM_COMMON
     rep #$31
     phd
     pha
@@ -29,7 +30,7 @@ C29A80_RunPsiStarstormCommon:
     pla
     tax
     stx $0E
-    jsr C2941D_CheckSelectedBattlerTimedSubstateBlocker
+    jsr PSI_SHIELD_NULLIFY
     cmp.w #$0000
     bne C29AA4_RunPsiStarstormCommon_L9AA4
     ldx $0E
@@ -37,17 +38,19 @@ C29A80_RunPsiStarstormCommon:
     jsr C26AFD_RollDamageAmount
     ldx.w #$00FF
     jsr C28125_ApplyTypedDamageToSelectedTarget
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C29AA4_RunPsiStarstormCommon_L9AA4:
     pld
     rts
-C29AA6_RunPsiStarstormAlphaWrapper:
+BTLACT_PSI_STARSTORM_A:
+C29AA6_RunPsiStarstormAlphaWrapper = BTLACT_PSI_STARSTORM_A
     rep #$31
     lda.w #$0168
-    jsr.w C29A80_RunPsiStarstormCommon
+    jsr.w PSI_STARSTORM_COMMON
     rtl
-C29AAF_RunPsiStarstormOmegaWrapper:
+BTLACT_PSI_STARSTORM_O:
+C29AAF_RunPsiStarstormOmegaWrapper = BTLACT_PSI_STARSTORM_O
     rep #$31
     lda.w #$02D0
-    jsr.w C29A80_RunPsiStarstormCommon
+    jsr.w PSI_STARSTORM_COMMON
     rtl

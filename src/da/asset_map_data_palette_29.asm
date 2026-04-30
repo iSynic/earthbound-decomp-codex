@@ -13,4 +13,4 @@
 ; DA:F267
 
 ; AssetMapDataPalette29End
-DAF267_AssetMapDataPalette29End:
+DAF267_AssetMapDataPalette29End = MAP_DATA_PALETTE_30

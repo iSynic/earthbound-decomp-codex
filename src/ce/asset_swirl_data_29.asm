@@ -13,4 +13,4 @@
 ; CE:87CF
 
 ; AssetSwirlData29End
-CE87CF_AssetSwirlData29End:
+CE87CF_AssetSwirlData29End = SWIRL_DATA_30

@@ -16,7 +16,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C0:023F
 
-C0023F_Build_LandingProfileStepSequencer:
+LOAD_PALETTE_ANIM:
+C0023F_Build_LandingProfileStepSequencer = LOAD_PALETTE_ANIM
     rep #$31
     phd
     tdc

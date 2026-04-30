@@ -40,7 +40,8 @@ PALETTE_EXPORT_BYTE_SIZE             = $0200
 ; Steps the three component delta/current plane pairs, saturates each channel
 ; to the 5-bit range, repacks the result into the low WRAM CGRAM shadow, and
 ; requests a full CGRAM upload through display selector $18.
-C426ED_StepPaletteComponentInterpolationToCgramShadow:
+UPDATE_MAP_PALETTE_ANIMATION:
+C426ED_StepPaletteComponentInterpolationToCgramShadow = UPDATE_MAP_PALETTE_ANIMATION
     rep #$20
     phd
     pha

@@ -16,7 +16,8 @@ C18E5B_SearchAndRemoveItemFromCharacterInventory = $8E5B
 ; ---------------------------------------------------------------------------
 ; C1:8EAD
 
-C18EAD_SearchAndRemoveItemFromActiveInventories:
+TAKE_ITEM_FROM_CHARACTER:
+C18EAD_SearchAndRemoveItemFromActiveInventories = TAKE_ITEM_FROM_CHARACTER
     rep #$31
     phd
     pha
@@ -41,7 +42,7 @@ C18EC7_c1_8ead_search_and_remove_item_from_active_inventories_L8EC7:
     ldx $04
     lda $0000,Y
     and.w #$00FF
-    jsr C18E5B_SearchAndRemoveItemFromCharacterInventory
+    jsr TAKE_ITEM_FROM_SPECIFIC_CHARACTER
     cmp.w #$0000
     beq C18EEC_c1_8ead_search_and_remove_item_from_active_inventories_L8EEC
     ldy $0E
@@ -65,7 +66,7 @@ C18EF2_c1_8ead_search_and_remove_item_from_active_inventories_L8EF2:
     bra C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C
 C18F07_c1_8ead_search_and_remove_item_from_active_inventories_L8F07:
     ldx $04
-    jsr C18E5B_SearchAndRemoveItemFromCharacterInventory
+    jsr TAKE_ITEM_FROM_SPECIFIC_CHARACTER
 C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C:
     pld
     rtl

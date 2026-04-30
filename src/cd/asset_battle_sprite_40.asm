@@ -13,4 +13,4 @@
 ; CD:2255
 
 ; AssetBattleSprite40End
-CD2255_AssetBattleSprite40End:
+CD2255_AssetBattleSprite40End = BATTLE_SPRITE_97

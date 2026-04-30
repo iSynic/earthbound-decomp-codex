@@ -13,4 +13,4 @@
 ; CB:9124
 
 ; AssetBattleBackgroundGfx15End
-CB9124_AssetBattleBackgroundGfx15End:
+CB9124_AssetBattleBackgroundGfx15End = BATTLE_BACKGROUND_GFX_10

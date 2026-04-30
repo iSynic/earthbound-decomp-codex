@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:EA3E
 
-C0EA3E_SuppressInteractionsForTeleportSlots:
+TELEPORT_FREEZEOBJECTS:
+C0EA3E_SuppressInteractionsForTeleportSlots = TELEPORT_FREEZEOBJECTS
     rep #$31
     phd
     tdc

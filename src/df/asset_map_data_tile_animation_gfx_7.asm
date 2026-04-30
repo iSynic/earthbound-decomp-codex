@@ -13,4 +13,4 @@
 ; DF:DD57
 
 ; AssetMapDataTileAnimationGfx7End
-DFDD57_AssetMapDataTileAnimationGfx7End:
+DFDD57_AssetMapDataTileAnimationGfx7End = MAP_DATA_TILE_ANIMATION_GFX_8

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; EF:0256
 
-EF0256_PauseMusic:
+PAUSE_MUSIC:
+EF0256_PauseMusic = PAUSE_MUSIC
     rep #$31
     sep #$20
     lda.b #$01
@@ -30,7 +31,8 @@ EF0262_SetHalfHpPpMeterSpeed:
     sta $9695
     rep #$20
     rtl
-EF026E_ResumeMusic:
+RESUME_MUSIC:
+EF026E_ResumeMusic = RESUME_MUSIC
     rep #$31
     sep #$20
     lda.b #$00

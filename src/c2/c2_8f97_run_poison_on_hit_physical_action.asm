@@ -23,13 +23,14 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:8F97
 
-C28F97_RunPoisonOnHitPhysicalAction:
+BTLACT_LEVEL_2_ATK_POISON:
+C28F97_RunPoisonOnHitPhysicalAction = BTLACT_LEVEL_2_ATK_POISON
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$0000
@@ -47,7 +48,7 @@ C28F97_RunPoisonOnHitPhysicalAction:
     ldy.w #$0005
     ldx.w #$0000
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$6B18

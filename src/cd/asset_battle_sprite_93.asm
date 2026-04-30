@@ -13,4 +13,4 @@
 ; CD:D36A
 
 ; AssetBattleSprite93End
-CDD36A_AssetBattleSprite93End:
+CDD36A_AssetBattleSprite93End = BATTLE_SPRITE_83

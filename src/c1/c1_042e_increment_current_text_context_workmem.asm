@@ -19,9 +19,10 @@ SavedWorkmemValue    = $0E
 ; ---------------------------------------------------------------------------
 ; C1:042E
 
-C1042E_IncrementCurrentTextContextWorkmem:
+INCREMENT_SECONDARY_MEMORY:
+C1042E_IncrementCurrentTextContextWorkmem = INCREMENT_SECONDARY_MEMORY
     rep #$31
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #ContextWorkmemOffset
     tax
@@ -44,7 +45,7 @@ C10450_SetCurrentTextContextWorkmem:
     pla
     tay
     sty SavedWorkmemValue
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     tax
     ldy SavedWorkmemValue
     tya

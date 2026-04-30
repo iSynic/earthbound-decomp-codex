@@ -17,7 +17,8 @@ C4562F_EventFlagBitMaskTable = $C4562F
 ; ---------------------------------------------------------------------------
 ; C2:165E
 
-C2165E_SetOrClearEventFlag:
+SET_EVENT_FLAG:
+C2165E_SetOrClearEventFlag = SET_EVENT_FLAG
     rep #$31
     phd
     pha

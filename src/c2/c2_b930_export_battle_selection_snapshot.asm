@@ -18,7 +18,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:B930
 
-C2B930_ExportBattleSelectionSnapshot:
+BATTLE_INIT_PLAYER_STATS:
+C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     rep #$31
     phd
     pha

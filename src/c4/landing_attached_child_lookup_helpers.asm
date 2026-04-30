@@ -84,7 +84,7 @@ C4B4FE_SpawnAttachedChildForRegistryTypeCode:
 	JSL.l C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
 	LDY.b $0E
 	TYX
-	JSL.l C4B3D0_SpawnAttachedChildEntityFromParentSlot
+	JSL.l SPAWN_FLOATING_SPRITE
 	PLD
 	RTL
 
@@ -110,7 +110,7 @@ C4B524_SpawnAttachedChildForVisualTypeId:
 	JSL.l C4605A_FindEntitySlotByVisualTypeId
 	LDY.b $0E
 	TYX
-	JSL.l C4B3D0_SpawnAttachedChildEntityFromParentSlot
+	JSL.l SPAWN_FLOATING_SPRITE
 	PLD
 	RTL
 
@@ -136,7 +136,7 @@ C4B54A_SpawnAttachedChildForPoseDescriptorId:
 	JSL.l C46028_FindEntitySlotByCachedPoseDescriptorId
 	LDY.b $0E
 	TYX
-	JSL.l C4B3D0_SpawnAttachedChildEntityFromParentSlot
+	JSL.l SPAWN_FLOATING_SPRITE
 	PLD
 	RTL
 
@@ -152,7 +152,7 @@ C4B570_SpawnDefaultAttachedChildForBaseSlot18:
 	REP.b #$31
 	LDX.w #$0001
 	LDA.w #$0018
-	JSL.l C4B3D0_SpawnAttachedChildEntityFromParentSlot
+	JSL.l SPAWN_FLOATING_SPRITE
 	RTL
 
 ; ClearDefaultAttachedChildForBaseSlot18

@@ -13,4 +13,4 @@
 ; CB:529E
 
 ; AssetBattleBackgroundGfx9End
-CB529E_AssetBattleBackgroundGfx9End:
+CB529E_AssetBattleBackgroundGfx9End = BATTLE_BACKGROUND_ARR_8

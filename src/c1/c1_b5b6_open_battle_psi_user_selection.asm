@@ -195,7 +195,7 @@ C1B694_OpenBattlePsiUserSelection_LB694:
     lda.w #$00C8
     sta $10
     jsl C186B1_PrintTextFromPointer
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     lda.b #$00
     sta $00
@@ -249,7 +249,7 @@ C1B777_OpenBattlePsiUserSelection_LB777:
     lda.w #$00C7
     sta $10
     jsl C186B1_PrintTextFromPointer
-    jsr C10084_CloseFocusWindow
+    jsr CLOSE_FOCUS_WINDOW
     sep #$20
     lda.b #$00
     sta $00
@@ -257,7 +257,7 @@ C1B777_OpenBattlePsiUserSelection_LB777:
 C1B796_OpenBattlePsiUserSelection_LB796:
     ldx $22
     lda $02
-    jsr C1ADB4_DetermineBattleTargetting
+    jsr DETERMINE_TARGETTING
     sep #$20
     sta $00
     bra C1B7A9_OpenBattlePsiUserSelection_LB7A9

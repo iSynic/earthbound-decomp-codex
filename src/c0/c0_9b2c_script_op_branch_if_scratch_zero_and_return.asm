@@ -16,10 +16,11 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B2C
 
-C09B2C_ScriptOp_BranchIfScratchZeroAndReturn:
+MOVEMENT_CODE_16:
+C09B2C_ScriptOp_BranchIfScratchZeroAndReturn = MOVEMENT_CODE_16
     ldx $8A
     lda $1516,X
-    bne C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41
+    bne MOVEMENT_CODE_16_UNKNOWN0
     lda [$80],Y
     tay
     lda $12E6,X
@@ -27,7 +28,8 @@ C09B2C_ScriptOp_BranchIfScratchZeroAndReturn:
     sbc.w #$0003
     sta $12E6,X
     rts
-C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41:
+MOVEMENT_CODE_16_UNKNOWN0:
+C09B41_ScriptOp_BranchIfScratchZeroAndReturn_L9B41 = MOVEMENT_CODE_16_UNKNOWN0
     iny
     iny
     rts

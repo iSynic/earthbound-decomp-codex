@@ -16,7 +16,8 @@ LoadSpc700Data = $C0AB06
 ; ---------------------------------------------------------------------------
 ; C4:FD18
 
-C4FD18_SetAudioChannels:
+SET_AUDIO_CHANNELS:
+C4FD18_SetAudioChannels = SET_AUDIO_CHANNELS
     rep #$31
     phd
     pha

@@ -13,4 +13,4 @@
 ; CD:D01D
 
 ; AssetBattleSprite62End
-CDD01D_AssetBattleSprite62End:
+CDD01D_AssetBattleSprite62End = BATTLE_SPRITE_93

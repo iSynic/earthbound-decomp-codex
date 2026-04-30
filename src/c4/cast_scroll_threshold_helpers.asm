@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:E4DA
 
-C4E4DA_SetCastScrollThreshold:
+SET_CAST_SCROLL_THRESHOLD:
+C4E4DA_SetCastScrollThreshold = SET_CAST_SCROLL_THRESHOLD
     rep #$31
     phd
     pha

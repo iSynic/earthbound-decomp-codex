@@ -17,5 +17,5 @@ C21628_TestEventFlag = $C21628
 ; C2:26EB
 
 C226EB_TestCurrentInteractionEventFlag:
-    jsl C21628_TestEventFlag
+    jsl GET_EVENT_FLAG
     rtl

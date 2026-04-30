@@ -20,7 +20,8 @@ ComparisonMarkerForCannotEquip = $0C00
 ; ---------------------------------------------------------------------------
 ; C1:9B4E
 
-C19B4E_BuildEquipmentComparisonMarkersForItem:
+SET_HPPP_WINDOW_MODE_ITEM:
+C19B4E_BuildEquipmentComparisonMarkersForItem = SET_HPPP_WINDOW_MODE_ITEM
     rep #$31
     phd
     pha

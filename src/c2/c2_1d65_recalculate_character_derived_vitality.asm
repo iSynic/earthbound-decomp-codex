@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1D65
 
-C21D65_RecalculateCharacterDerivedVitality:
+RECALC_CHARACTER_POSTMATH_VITALITY:
+C21D65_RecalculateCharacterDerivedVitality = RECALC_CHARACTER_POSTMATH_VITALITY
     rep #$31
     dec A
     ldy.w #$005F

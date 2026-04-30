@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:6FDC
 
-C26FDC_MaskSet_AddBit:
+TARGET_BATTLER:
+C26FDC_MaskSet_AddBit = TARGET_BATTLER
     rep #$31
     phd
     pha

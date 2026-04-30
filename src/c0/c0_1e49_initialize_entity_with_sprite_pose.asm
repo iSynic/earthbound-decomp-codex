@@ -16,7 +16,8 @@ C01C11_InitializeEntityStateMask = $C01C11
 ; ---------------------------------------------------------------------------
 ; C0:1E49
 
-C01E49_Initialize_EntityWithSpritePose:
+CREATE_ENTITY:
+C01E49_Initialize_EntityWithSpritePose = CREATE_ENTITY
     rep #$31
     phd
     pha

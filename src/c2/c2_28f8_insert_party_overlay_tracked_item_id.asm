@@ -18,7 +18,8 @@ C3EBCA_RefreshPartyOverlayAfterRegistryMutation = $C3EBCA
 ; ---------------------------------------------------------------------------
 ; C2:28F8
 
-C228F8_InsertPartyOverlayTrackedItemId:
+ADD_CHAR_TO_PARTY:
+C228F8_InsertPartyOverlayTrackedItemId = ADD_CHAR_TO_PARTY
     rep #$31
     phd
     pha

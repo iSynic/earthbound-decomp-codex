@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8643
 
-C08643_SubmitQueuedOrImmediateVramTransfer:
+PREPARE_VRAM_COPY_COMMON:
+C08643_SubmitQueuedOrImmediateVramTransfer = PREPARE_VRAM_COPY_COMMON
     php
     rep #$20
     sep #$10

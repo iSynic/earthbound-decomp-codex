@@ -9,6 +9,9 @@
 ; Source units covered:
 ; - CE:6514..CE:6534 AssetBattleSpritePalettes
 
+BATTLE_SPRITE_PALETTES:
+CE6514_TableBattleSpritesPointersEnd = BATTLE_SPRITE_PALETTES
+
 ; ---------------------------------------------------------------------------
 ; CE:6534
 

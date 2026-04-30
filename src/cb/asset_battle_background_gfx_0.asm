@@ -13,4 +13,4 @@
 ; CB:D89A
 
 ; AssetBattleBackgroundGfx0End
-CBD89A_AssetBattleBackgroundGfx0End:
+CBD89A_AssetBattleBackgroundGfx0End = BTL_ENTRY_BG_TABLE

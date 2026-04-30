@@ -13,4 +13,4 @@
 ; CA:B092
 
 ; AssetBattleBackgroundGfx40End
-CAB092_AssetBattleBackgroundGfx40End:
+CAB092_AssetBattleBackgroundGfx40End = BATTLE_BACKGROUND_ARR_37

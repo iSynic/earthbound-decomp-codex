@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9DA1
 
-C09DA1_Init_TaskRecordDefaults:
+CLEAR_SPRITE_TICK_CALLBACK:
+C09DA1_Init_TaskRecordDefaults = CLEAR_SPRITE_TICK_CALLBACK
     lda.w #$943B
     sta $107A,X
     lda.w #$00C0

@@ -13,4 +13,4 @@
 ; CE:170A
 
 ; AssetBattleSprite98End
-CE170A_AssetBattleSprite98End:
+CE170A_AssetBattleSprite98End = BATTLE_SPRITE_68

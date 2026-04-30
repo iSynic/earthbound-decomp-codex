@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:86B1
 
-C186B1_ExecuteNestedTextPointer:
+DISPLAY_TEXT:
+C186B1_ExecuteNestedTextPointer = DISPLAY_TEXT
     rep #$31
     phd
     tdc

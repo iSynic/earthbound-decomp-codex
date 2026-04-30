@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:311B..C2:3B66 C2311B_RunBattleStartPresentAndMessageController
+; - C2:311B..C2:3B66 BATTLE_SELECTION_MENU
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,9 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:311B
 
-C2311B_RunBattleStartPresentAndMessageController:
+BATTLE_SELECTION_MENU:
+C2311B_BattleStartUfoPresentFallbackTable_End = BATTLE_SELECTION_MENU
+C2311B_RunBattleStartPresentAndMessageController = BATTLE_SELECTION_MENU
     rep #$31
     phd
     pha

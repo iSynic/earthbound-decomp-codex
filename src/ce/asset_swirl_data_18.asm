@@ -13,4 +13,4 @@
 ; CE:80F2
 
 ; AssetSwirlData18End
-CE80F2_AssetSwirlData18End:
+CE80F2_AssetSwirlData18End = SWIRL_DATA_19

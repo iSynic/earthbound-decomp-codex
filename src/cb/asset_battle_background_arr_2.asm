@@ -13,4 +13,4 @@
 ; CB:5828
 
 ; AssetBattleBackgroundArr2End
-CB5828_AssetBattleBackgroundArr2End:
+CB5828_AssetBattleBackgroundArr2End = BATTLE_BACKGROUND_ARR_84

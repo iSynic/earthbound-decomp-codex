@@ -13,4 +13,4 @@
 ; CC:2C89
 
 ; AssetAnimationdataBoomEnd
-CC2C89_AssetAnimationdataBoomEnd:
+CC2C89_AssetAnimationdataBoomEnd = ANIMATIONDATA_ZOMBIES

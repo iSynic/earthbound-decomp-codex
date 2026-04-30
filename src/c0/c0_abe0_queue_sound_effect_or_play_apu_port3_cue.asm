@@ -16,10 +16,11 @@
 ; ---------------------------------------------------------------------------
 ; C0:ABE0
 
-C0ABE0_QueueSoundEffectOrPlayApuPort3Cue:
+PLAY_SOUND:
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = PLAY_SOUND
     sep #$30
     cmp.b #$00
-    beq C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01
+    beq PLAY_SOUND_UNKNOWN0
     ldx $00CA
     ora $1ACA
     sta $1AC2,X
@@ -32,7 +33,8 @@ C0ABE0_QueueSoundEffectOrPlayApuPort3Cue:
     sta $1ACA
     rep #$30
     rtl
-C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01:
+PLAY_SOUND_UNKNOWN0:
+C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01 = PLAY_SOUND_UNKNOWN0
     sep #$20
     lda.b #$57
     sta $002143

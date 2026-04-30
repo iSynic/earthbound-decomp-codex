@@ -13,4 +13,4 @@
 ; DA:F4A7
 
 ; AssetMapDataPalette30End
-DAF4A7_AssetMapDataPalette30End:
+DAF4A7_AssetMapDataPalette30End = MAP_DATA_PALETTE_31

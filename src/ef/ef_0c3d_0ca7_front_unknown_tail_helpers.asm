@@ -29,7 +29,7 @@ EF0C3D_LoadSlotAndRefreshOverworldState:
     adc.w #$FFF2
     tcd
     lda.w #$0003
-    jsl EF0A68_LoadGameSlot
+    jsl LOAD_GAME_SLOT
     lda $9877
     sta $04
     lda $987B

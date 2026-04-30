@@ -13,4 +13,4 @@
 ; E1:AB4B
 
 ; AssetProducedItoiArrangementEnd
-E1AB4B_AssetProducedItoiArrangementEnd:
+E1AB4B_AssetProducedItoiArrangementEnd = PRODUCED_ITOI_GRAPHICS

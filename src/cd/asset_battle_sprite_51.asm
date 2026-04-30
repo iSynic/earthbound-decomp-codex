@@ -13,4 +13,4 @@
 ; CD:A51D
 
 ; AssetBattleSprite51End
-CDA51D_AssetBattleSprite51End:
+CDA51D_AssetBattleSprite51End = BATTLE_SPRITE_22

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A65F
 
-C0A65F_SetCurrentSlotDirectionClassIfActive:
+SET_DIRECTION:
+C0A65F_SetCurrentSlotDirectionClassIfActive = SET_DIRECTION
     ldx $88
     tay
     lda $2C5E,X

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:8F0E
 
-C18F0E_DepleteHpForCharacterOrActiveParty:
+REDUCE_HP_AMTPERCENT:
+C18F0E_DepleteHpForCharacterOrActiveParty = REDUCE_HP_AMTPERCENT
     rep #$31
     phd
     pha

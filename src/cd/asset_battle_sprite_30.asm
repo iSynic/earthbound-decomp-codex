@@ -13,4 +13,4 @@
 ; CD:FC6C
 
 ; AssetBattleSprite30End
-CDFC6C_AssetBattleSprite30End:
+CDFC6C_AssetBattleSprite30End = BATTLE_SPRITE_23

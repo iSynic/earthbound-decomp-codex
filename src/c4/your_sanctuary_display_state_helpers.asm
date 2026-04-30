@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C4:DE98
 
-C4DE98_InitializeYourSanctuaryDisplayState:
+INITIALIZE_YOUR_SANCTUARY_DISPLAY:
+C4DE98_InitializeYourSanctuaryDisplayState = INITIALIZE_YOUR_SANCTUARY_DISPLAY
     rep #$31
     phd
     tdc

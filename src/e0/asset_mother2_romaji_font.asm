@@ -13,4 +13,4 @@
 ; E0:09B4
 
 ; AssetMother2RomajiFontEnd
-E009B4_AssetMother2RomajiFontEnd:
+E009B4_AssetMother2RomajiFontEnd = COMPRESSED_SRAM

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B79
 
-C09B79_ScriptOp_StoreScratchToEntityVar:
+MOVEMENT_CODE_1F:
+C09B79_ScriptOp_StoreScratchToEntityVar = MOVEMENT_CODE_1F
     lda [$80],Y
     and.w #$00FF
     asl A

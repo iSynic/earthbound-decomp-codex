@@ -37,7 +37,8 @@ CurrentTextPointerHi    = $16
 ; ---------------------------------------------------------------------------
 ; C1:0301
 
-C10301_GetActiveInteractionContextRecord:
+GET_ACTIVE_WINDOW_ADDRESS:
+C10301_GetActiveInteractionContextRecord = GET_ACTIVE_WINDOW_ADDRESS
     rep #$31
     lda ActiveWindowDescriptorState
     cmp.w #$FFFF
@@ -62,13 +63,14 @@ C10323_ReturnInteractionContextRecord:
 ; ---------------------------------------------------------------------------
 ; C1:0324
 
-C10324_SnapshotActiveInteractionContextSlots:
+TRANSFER_ACTIVE_MEM_STORAGE:
+C10324_SnapshotActiveInteractionContextSlots = TRANSFER_ACTIVE_MEM_STORAGE
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     sta ContextRecordBase
 
     clc
@@ -118,13 +120,14 @@ C10324_SnapshotActiveInteractionContextSlots:
 ; ---------------------------------------------------------------------------
 ; C1:0380
 
-C10380_RestoreActiveInteractionContextSlots:
+TRANSFER_STORAGE_MEM_ACTIVE:
+C10380_RestoreActiveInteractionContextSlots = TRANSFER_STORAGE_MEM_ACTIVE
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     sta ContextRecordBase
 
     clc
@@ -174,13 +177,14 @@ C10380_RestoreActiveInteractionContextSlots:
 ; ---------------------------------------------------------------------------
 ; C1:03DC
 
-C103DC_LoadSecondaryInteractionContextPointer:
+GET_ARGUMENT_MEMORY:
+C103DC_LoadSecondaryInteractionContextPointer = GET_ARGUMENT_MEMORY
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #ContextSecondaryPointerOffset
     tay
@@ -198,9 +202,10 @@ C103DC_LoadSecondaryInteractionContextPointer:
 ; ---------------------------------------------------------------------------
 ; C1:0400
 
-C10400_GetCurrentTextContextWorkmem:
+GET_SECONDARY_MEMORY:
+C10400_GetCurrentTextContextWorkmem = GET_SECONDARY_MEMORY
     rep #$31
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     tax
     lda ContextWorkmemOffset,X
     rts
@@ -208,13 +213,14 @@ C10400_GetCurrentTextContextWorkmem:
 ; ---------------------------------------------------------------------------
 ; C1:040A
 
-C1040A_LoadPrimaryInteractionContextPointer:
+GET_WORKING_MEMORY:
+C1040A_LoadPrimaryInteractionContextPointer = GET_WORKING_MEMORY
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #ContextPrimaryPointerOffset
     tay

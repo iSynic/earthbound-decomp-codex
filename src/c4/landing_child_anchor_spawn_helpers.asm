@@ -124,7 +124,8 @@ C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return:
 ; C4:B3D0
 
 ; SpawnAttachedChildEntityFromParentSlot
-C4B3D0_SpawnAttachedChildEntityFromParentSlot:
+SPAWN_FLOATING_SPRITE:
+C4B3D0_SpawnAttachedChildEntityFromParentSlot = SPAWN_FLOATING_SPRITE
 	REP.b #$31
 	PHD
 	PHA

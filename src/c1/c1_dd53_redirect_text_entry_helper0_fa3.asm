@@ -16,7 +16,8 @@ C100FA3_TextEntryHelper_Internal = $0FA3
 ; ---------------------------------------------------------------------------
 ; C1:DD53
 
-C1DD53_RedirectTextEntryHelper0FA3:
+REDIRECT_C10FA3:
+C1DD53_RedirectTextEntryHelper0FA3 = REDIRECT_C10FA3
     rep #$31
     jsr C100FA3_TextEntryHelper_Internal
     rtl

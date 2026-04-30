@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:C3E2
 
-C2C3E2_ApplyFinalPrayerDamageStep:
+GIYGAS_HURT_PRAYER:
+C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     rep #$31
     phd
     pha

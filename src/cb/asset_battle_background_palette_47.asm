@@ -13,4 +13,4 @@
 ; CB:D114
 
 ; AssetBattleBackgroundPalette47End
-CBD114_AssetBattleBackgroundPalette47End:
+CBD114_AssetBattleBackgroundPalette47End = BATTLE_BACKGROUND_PALETTE_46

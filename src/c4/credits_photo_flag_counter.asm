@@ -18,7 +18,8 @@ CreditsPhotographTable             = $E12F8A
 ; ---------------------------------------------------------------------------
 ; C4:F433
 
-C4F433_CountPhotoFlags:
+COUNT_PHOTO_FLAGS:
+C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
     rep #$31
     phd
     tdc

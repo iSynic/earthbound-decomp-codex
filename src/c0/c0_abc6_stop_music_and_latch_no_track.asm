@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:ABC6
 
-C0ABC6_StopMusicAndLatchNoTrack:
+STOP_MUSIC:
+C0ABC6_StopMusicAndLatchNoTrack = STOP_MUSIC
     sep #$20
     lda.b #$00
     sta.l $002140

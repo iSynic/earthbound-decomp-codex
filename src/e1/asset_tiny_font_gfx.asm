@@ -13,4 +13,4 @@
 ; E1:229A
 
 ; AssetTinyFontGfxEnd
-E1229A_AssetTinyFontGfxEnd:
+E1229A_AssetTinyFontGfxEnd = LARGE_FONT_DATA

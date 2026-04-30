@@ -13,4 +13,4 @@
 ; CC:D4FB
 
 ; AssetPsiArrangement22End
-CCD4FB_AssetPsiArrangement22End:
+CCD4FB_AssetPsiArrangement22End = PSI_ARRANGEMENT_12

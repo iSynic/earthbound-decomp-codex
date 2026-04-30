@@ -17,7 +17,8 @@ C0915B_DivideUnsignedWordByY       = $C0915B
 ; ---------------------------------------------------------------------------
 ; C2:BD5E
 
-C2BD5E_CallForHelpEnemySelectionAndMessageBody:
+CALL_FOR_HELP_COMMON:
+C2BD5E_CallForHelpEnemySelectionAndMessageBody = CALL_FOR_HELP_COMMON
     rep #$31
     phd
     pha

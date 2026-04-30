@@ -13,4 +13,4 @@
 ; CB:CAD4
 
 ; AssetBattleBackgroundGfx33End
-CBCAD4_AssetBattleBackgroundGfx33End:
+CBCAD4_AssetBattleBackgroundGfx33End = BATTLE_BACKGROUND_GFX_78

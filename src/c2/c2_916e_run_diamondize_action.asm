@@ -24,13 +24,14 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:916E
 
-C2916E_RunDiamondizeAction:
+BTLACT_LVL_2_ATK_DIAMONDIZE:
+C2916E_RunDiamondizeAction = BTLACT_LVL_2_ATK_DIAMONDIZE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     beq C29181_RunDiamondizeAction_L9181
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -53,7 +54,7 @@ C2919A_RunDiamondizeAction_L919A:
 C291A5_RunDiamondizeAction_L91A5:
     jsr C28523_RunPhysicalHitSetup
     jsr C2856B_ApplyPhysicalHitDamage
-    jsr C27C96_RollSelectedRowThresholdGate
+    jsr SUCCESS_LUCK80
     cmp.w #$0000
     bne C291B6_RunDiamondizeAction_L91B6
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -61,7 +62,7 @@ C291B6_RunDiamondizeAction_L91B6:
     ldy.w #$0002
     ldx.w #$0000
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     bne C291CA_RunDiamondizeAction_L91CA
     jmp.w C29252_RunDiamondizeAction_L9252

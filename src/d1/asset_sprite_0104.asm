@@ -13,4 +13,4 @@
 ; D1:D800
 
 ; AssetSprite0104End
-D1D800_AssetSprite0104End:
+D1D800_AssetSprite0104End = SPRITE_0105

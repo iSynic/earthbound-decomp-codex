@@ -13,4 +13,4 @@
 ; DE:F0E7
 
 ; AssetMapDataTileSetGraphics11End
-DEF0E7_AssetMapDataTileSetGraphics11End:
+DEF0E7_AssetMapDataTileSetGraphics11End = MAP_DATA_TILE_ANIMATION_GFX_15

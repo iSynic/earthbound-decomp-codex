@@ -13,4 +13,4 @@
 ; CE:CC8D
 
 ; AssetSwirlData112End
-CECC8D_AssetSwirlData112End:
+CECC8D_AssetSwirlData112End = SWIRL_DATA_113

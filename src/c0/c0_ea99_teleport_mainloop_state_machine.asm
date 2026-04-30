@@ -22,7 +22,8 @@ C4FBBD_PlaySoundStoneMelody           = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:EA99
 
-C0EA99_TeleportMainloopStateMachine:
+TELEPORT_MAINLOOP:
+C0EA99_TeleportMainloopStateMachine = TELEPORT_MAINLOOP
     rep #$31
     phd
     tdc

@@ -13,4 +13,4 @@
 ; CB:D782
 
 ; AssetBattleBackgroundPalette78End
-CBD782_AssetBattleBackgroundPalette78End:
+CBD782_AssetBattleBackgroundPalette78End = BATTLE_BACKGROUND_PALETTE_76

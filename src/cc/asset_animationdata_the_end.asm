@@ -13,4 +13,4 @@
 ; CC:2DE1
 
 ; AssetAnimationdataTheEndEnd
-CC2DE1_AssetAnimationdataTheEndEnd:
+CC2DE1_AssetAnimationdataTheEndEnd = ANIMATION_SEQUENCE_POINTERS

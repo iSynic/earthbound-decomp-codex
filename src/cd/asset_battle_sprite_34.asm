@@ -13,4 +13,4 @@
 ; CD:D9E1
 
 ; AssetBattleSprite34End
-CDD9E1_AssetBattleSprite34End:
+CDD9E1_AssetBattleSprite34End = BATTLE_SPRITE_12

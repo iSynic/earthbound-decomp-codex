@@ -13,4 +13,4 @@
 ; CD:8CCB
 
 ; AssetBattleSprite104End
-CD8CCB_AssetBattleSprite104End:
+CD8CCB_AssetBattleSprite104End = BATTLE_SPRITE_99

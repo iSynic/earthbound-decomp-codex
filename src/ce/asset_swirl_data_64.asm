@@ -13,4 +13,4 @@
 ; CE:A6EA
 
 ; AssetSwirlData64End
-CEA6EA_AssetSwirlData64End:
+CEA6EA_AssetSwirlData64End = SWIRL_DATA_65

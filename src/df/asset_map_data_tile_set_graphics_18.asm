@@ -13,4 +13,4 @@
 ; DF:818B
 
 ; AssetMapDataTileSetGraphics18End
-DF818B_AssetMapDataTileSetGraphics18End:
+DF818B_AssetMapDataTileSetGraphics18End = MAP_DATA_TILE_SET_GRAPHICS_19

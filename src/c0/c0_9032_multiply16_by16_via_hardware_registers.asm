@@ -16,7 +16,8 @@ C09032_DivideUnsignedWordByIndex = $C09032
 ; ---------------------------------------------------------------------------
 ; C0:9032
 
-C09032_Multiply16By16_ViaHardwareRegisters:
+MULT16:
+C09032_Multiply16By16_ViaHardwareRegisters = MULT16
     sty $00B4
     sta $00B6
     stz $00B2
@@ -55,7 +56,7 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     lda $06
     sta $00B8
     ldy $0A
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     sta $06
     lda $00B4
     sep #$20
@@ -69,13 +70,13 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     sta $08
     lda $00B8
     ldy $0C
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     clc
     adc $08
     sta $08
     lda $00BA
     ldy $0A
-    jsl C09032_Multiply16By16_ViaHardwareRegisters
+    jsl MULT16
     clc
     adc $08
     sta $08
@@ -85,7 +86,7 @@ C09032_Multiply16By16_ViaHardwareRegisters:
     eor $00B4
     sta $00B4
     pla
-    jsl C0911E_Multiply16By16_ViaHardwareRegisters_L911E
+    jsl DIVISION8S
     rol $00B4
     bcc C090E5_Multiply16By16_ViaHardwareRegisters_L90E5
     eor.w #$1AFF
@@ -96,7 +97,7 @@ C090E5_Multiply16By16_ViaHardwareRegisters_L90E5:
     eor $00B4
     sta $00B4
     pla
-    jsl C0914B_Multiply16By16_ViaHardwareRegisters_L914B
+    jsl DIVISION16S
     rol $00B4
     bcc C090FE_Multiply16By16_ViaHardwareRegisters_L90FE
     eor.w #$FFFF
@@ -117,7 +118,8 @@ C090FE_Multiply16By16_ViaHardwareRegisters_L90FE:
     sta $08
 C0911D_Multiply16By16_ViaHardwareRegisters_L911D:
     rtl
-C0911E_Multiply16By16_ViaHardwareRegisters_L911E:
+DIVISION8S:
+C0911E_Multiply16By16_ViaHardwareRegisters_L911E = DIVISION8S
     pha
     tya
     bpl C09126_Multiply16By16_ViaHardwareRegisters_L9126
@@ -125,9 +127,10 @@ C0911E_Multiply16By16_ViaHardwareRegisters_L911E:
     tay
 C09126_Multiply16By16_ViaHardwareRegisters_L9126:
     pla
-    bpl C0912C_Multiply16By16_ViaHardwareRegisters_L912C
+    bpl DIVISION8S_DIVISOR_POSITIVE
     eor.w #$1AFF
-C0912C_Multiply16By16_ViaHardwareRegisters_L912C:
+DIVISION8S_DIVISOR_POSITIVE:
+C0912C_Multiply16By16_ViaHardwareRegisters_L912C = DIVISION8S_DIVISOR_POSITIVE
     sta $004204
     lda.w #$8F00
     ora $42
@@ -143,7 +146,8 @@ C0912C_Multiply16By16_ViaHardwareRegisters_L912C:
     tay
     lda $004214
     rtl
-C0914B_Multiply16By16_ViaHardwareRegisters_L914B:
+DIVISION16S:
+C0914B_Multiply16By16_ViaHardwareRegisters_L914B = DIVISION16S
     pha
     tya
     bpl C09154_Multiply16By16_ViaHardwareRegisters_L9154

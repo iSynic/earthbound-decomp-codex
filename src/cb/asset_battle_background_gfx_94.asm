@@ -13,4 +13,4 @@
 ; CB:C870
 
 ; AssetBattleBackgroundGfx94End
-CBC870_AssetBattleBackgroundGfx94End:
+CBC870_AssetBattleBackgroundGfx94End = BATTLE_BACKGROUND_GFX_55

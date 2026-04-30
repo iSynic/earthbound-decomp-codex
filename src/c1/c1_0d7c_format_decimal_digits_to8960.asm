@@ -124,7 +124,8 @@ C10DCD_TestDecimalDivideLoop:
 ; ---------------------------------------------------------------------------
 ; C1:0DF6
 
-C10DF6_PrintDecimalValueFromCallerPointer:
+PRINT_NUMBER:
+C10DF6_PrintDecimalValueFromCallerPointer = PRINT_NUMBER
     rep #$31
     phd
     tdc
@@ -222,7 +223,7 @@ C10E97_PrintNextDecimalDigit:
     adc.w #GlyphDigitBase
     iny
     sty DigitReadPointer
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
     ldx WorkingValueLo
     dex
     stx WorkingValueLo
@@ -293,7 +294,8 @@ C10EFB_ReturnDebugMenuPrintMode:
 ; ---------------------------------------------------------------------------
 ; C1:0EFC
 
-C10EFC_PrintFixedString:
+PRINT_STRING:
+C10EFC_PrintFixedString = PRINT_STRING
     rep #$31
     phd
     pha
@@ -324,7 +326,7 @@ C10F28_PrintNextFixedStringGlyph:
     stx FixedStringLength
     and.w #$00FF
     inc FixedStringPointerLo
-    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jsr PRINT_LETTER
 
 C10F33_TestFixedStringSourceByte:
     lda [FixedStringPointerLo]

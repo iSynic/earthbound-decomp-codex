@@ -17,12 +17,14 @@ C2889B_RunSingleBashAction = $C2889B
 ; ---------------------------------------------------------------------------
 ; C2:8FF9
 
-C28FF9_RunDoubleBashAction:
+BTLACT_DOUBLE_BASH:
+C28FF9_RunDoubleBashAction = BTLACT_DOUBLE_BASH
     rep #$31
     jsl C2859F_RunBashAction
     jsl C2859F_RunBashAction
     rtl
-C29004_RunSingleBashWrapperAction:
+REDIRECT_BTLACT_NULL:
+C29004_RunSingleBashWrapperAction = REDIRECT_BTLACT_NULL
     rep #$31
     jsl C2889B_RunSingleBashAction
     rtl

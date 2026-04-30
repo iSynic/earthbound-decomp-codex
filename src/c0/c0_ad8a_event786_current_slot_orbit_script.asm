@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:AD8A
 
-C0AD8A_Event786_CurrentSlotOrbitScript:
+EVENT_786:
+C0AD8A_Event786_CurrentSlotOrbitScript = EVENT_786
     and $39,S
     ldy.w #$6B25
     ldx.w #$0806

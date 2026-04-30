@@ -13,4 +13,4 @@
 ; CB:D6ED
 
 ; AssetBattleBackgroundGfx50End
-CBD6ED_AssetBattleBackgroundGfx50End:
+CBD6ED_AssetBattleBackgroundGfx50End = BATTLE_BACKGROUND_GFX_44

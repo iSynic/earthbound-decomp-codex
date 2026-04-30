@@ -19,7 +19,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C0:07B6
 
-C007B6_Install_LandingProfileTemplateBlock0240:
+LOAD_MAP_PAL:
+C007B6_Install_LandingProfileTemplateBlock0240 = LOAD_MAP_PAL
     rep #$31
     phd
     pha

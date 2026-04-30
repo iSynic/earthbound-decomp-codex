@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C1:4103
 
-C14103_BuildTextCommand24BitJumpTarget:
+CC_0A:
+C14103_BuildTextCommand24BitJumpTarget = CC_0A
     rep #$31
     phd
     pha

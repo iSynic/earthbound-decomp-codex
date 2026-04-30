@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:EAEA..C2:EEE7 C2EAEA_BuildBattleSpriteAllocationRecord
+; - C2:EAEA..C2:EEE7 LOAD_BATTLE_SPRITE
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -18,7 +18,8 @@ C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 ; ---------------------------------------------------------------------------
 ; C2:EAEA
 
-C2EAEA_BuildBattleSpriteAllocationRecord:
+LOAD_BATTLE_SPRITE:
+C2EAEA_BuildBattleSpriteAllocationRecord = LOAD_BATTLE_SPRITE
     rep #$31
     phd
     pha

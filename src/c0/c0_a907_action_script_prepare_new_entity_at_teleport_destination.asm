@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A907
 
-C0A907_ActionScript_PrepareNewEntityAtTeleportDestination:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
+C0A907_ActionScript_PrepareNewEntityAtTeleportDestination = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION
     jsl $C09D86
     sty $94
     jsl $C46DE5

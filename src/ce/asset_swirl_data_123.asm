@@ -13,4 +13,4 @@
 ; CE:DBE4
 
 ; AssetSwirlData123End
-CEDBE4_AssetSwirlData123End:
+CEDBE4_AssetSwirlData123End = SWIRL_DATA_124

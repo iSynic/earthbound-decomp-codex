@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:B6EB..C2:B930 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
+; - C2:B6EB..C2:B930 BATTLE_INIT_ENEMY_STATS
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -17,7 +17,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:B6EB
 
-C2B6EB_InitializeEnemyBattlerStatsFromEnemyId:
+BATTLE_INIT_ENEMY_STATS:
+C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = BATTLE_INIT_ENEMY_STATS
     rep #$31
     phd
     pha

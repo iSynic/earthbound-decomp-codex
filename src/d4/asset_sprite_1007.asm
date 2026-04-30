@@ -13,4 +13,4 @@
 ; D4:F300
 
 ; AssetSprite1007End
-D4F300_AssetSprite1007End:
+D4F300_AssetSprite1007End = SPRITE_1008

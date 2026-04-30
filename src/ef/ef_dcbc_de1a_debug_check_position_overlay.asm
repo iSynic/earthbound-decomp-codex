@@ -19,7 +19,8 @@ C0915B_DivideUnsignedWordByY             = $C0915B
 ; ---------------------------------------------------------------------------
 ; EF:DCBC
 
-EFDCBC_DrawDebugCheckPositionOverlay:
+DISPLAY_CHECK_POSITION_DEBUG_OVERLAY:
+EFDCBC_DrawDebugCheckPositionOverlay = DISPLAY_CHECK_POSITION_DEBUG_OVERLAY
     rep #$31
     phd
     tdc
@@ -31,7 +32,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lda $0000,X
     xba
     and.w #$00FF
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -48,7 +49,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lda $0000,X
     xba
     and.w #$00FF
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -64,7 +65,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lsr A
     lsr A
     lsr A
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -80,7 +81,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lsr A
     lsr A
     lsr A
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -93,7 +94,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     jsl C0862E_QueueDebugTileTransfer
     ldx $04
     lda $0000,X
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -106,7 +107,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     jsl C0862E_QueueDebugTileTransfer
     ldx $02
     lda $0000,X
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -139,7 +140,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lda $DCD637,X
     and.w #$00FF
     tax
-    jsr EFDB95_FormatDebugWordAsHexTileBuffer
+    jsr INTEGER_TO_HEX_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -155,7 +156,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lda.b #$00
     jsl C0862E_QueueDebugTileTransfer
     lda $438E
-    jsr EFDC69_FormatDebugByteAsBinaryTileBuffer
+    jsr INTEGER_TO_BINARY_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E
@@ -167,7 +168,7 @@ EFDCBC_DrawDebugCheckPositionOverlay:
     lda.b #$00
     jsl C0862E_QueueDebugTileTransfer
     lda $9881
-    jsr EFDC69_FormatDebugByteAsBinaryTileBuffer
+    jsr INTEGER_TO_BINARY_DEBUG_TILES
     tax
     lda.w #$007E
     sta $0E

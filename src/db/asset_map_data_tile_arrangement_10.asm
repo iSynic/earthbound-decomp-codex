@@ -13,4 +13,4 @@
 ; DB:C6CC
 
 ; AssetMapDataTileArrangement10End
-DBC6CC_AssetMapDataTileArrangement10End:
+DBC6CC_AssetMapDataTileArrangement10End = MAP_DATA_TILE_ARRANGEMENT_11

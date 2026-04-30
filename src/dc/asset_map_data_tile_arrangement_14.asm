@@ -13,4 +13,4 @@
 ; DC:687B
 
 ; AssetMapDataTileArrangement14End
-DC687B_AssetMapDataTileArrangement14End:
+DC687B_AssetMapDataTileArrangement14End = MAP_DATA_TILE_ARRANGEMENT_15

@@ -65,7 +65,7 @@ C43F8E_PrintGlyphWithTileCleanupSoundDelay_HasActiveWindow:
     tax
     stx $0E
     lda $0000,X
-    jsl C44E4D_ReleaseTextTileWordSafe
+    jsl FREE_TILE_SAFE
     ldy $10
     lda $0000,Y
     asl A
@@ -76,7 +76,7 @@ C43F8E_PrintGlyphWithTileCleanupSoundDelay_HasActiveWindow:
     adc $04
     tax
     lda $0000,X
-    jsl C44E4D_ReleaseTextTileWordSafe
+    jsl FREE_TILE_SAFE
     lda $02
     cmp.w #$002F
     bne C43FEF_PrintGlyphWithTileCleanupSoundDelay_PrintGlyph
@@ -142,7 +142,8 @@ C44066_PrintGlyphWithTileCleanupSoundDelay_DelayLoop:
 C44068_PrintGlyphWithTileCleanupSoundDelay_Done:
     pld
     rtl
-C4406A_ReadNameEntryGridCharacter:
+GET_CHARACTER_AT_CURSOR_POSITION:
+C4406A_ReadNameEntryGridCharacter = GET_CHARACTER_AT_CURSOR_POSITION
     rep #$31
     phd
     pha

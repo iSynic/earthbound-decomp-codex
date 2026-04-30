@@ -13,4 +13,4 @@
 ; D2:AC40
 
 ; AssetSprite0244End
-D2AC40_AssetSprite0244End:
+D2AC40_AssetSprite0244End = SPRITE_0245

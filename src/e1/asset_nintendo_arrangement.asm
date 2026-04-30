@@ -13,4 +13,4 @@
 ; E1:549E
 
 ; AssetNintendoArrangementEnd
-E1549E_AssetNintendoArrangementEnd:
+E1549E_AssetNintendoArrangementEnd = NINTENDO_GRAPHICS

@@ -13,4 +13,4 @@
 ; D3:2DC0
 
 ; AssetSprite0414End
-D32DC0_AssetSprite0414End:
+D32DC0_AssetSprite0414End = SPRITE_0415

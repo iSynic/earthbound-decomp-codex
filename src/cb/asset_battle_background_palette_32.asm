@@ -13,4 +13,4 @@
 ; CB:D2F4
 
 ; AssetBattleBackgroundPalette32End
-CBD2F4_AssetBattleBackgroundPalette32End:
+CBD2F4_AssetBattleBackgroundPalette32End = BATTLE_BACKGROUND_PALETTE_31

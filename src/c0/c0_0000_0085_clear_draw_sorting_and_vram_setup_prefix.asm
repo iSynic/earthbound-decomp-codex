@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08616_QueueVramTransfer_FromDpSource        = $C08616
+PREPARE_VRAM_COPY        = $C08616
 C08D79_UpdateBgModeRegisterFromQueue         = $C08D79
 C08D92_UpdateObjSizeAndBaseRegister          = $C08D92
 C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
@@ -21,7 +21,8 @@ C08E1C_UpdateBg3ScreenBaseRegistersFromQueue = $C08E1C
 ; ---------------------------------------------------------------------------
 ; C0:0000
 
-C00000_ClearEntityDrawSortingTable:
+CLEAR_ENTITY_DRAW_SORTING_TABLE:
+C00000_ClearEntityDrawSortingTable = CLEAR_ENTITY_DRAW_SORTING_TABLE
     stz $280C
     ldx.w #$280C
     ldy.w #$280D
@@ -29,7 +30,8 @@ C00000_ClearEntityDrawSortingTable:
     mvn $7E,$7E
     lda.w #$280C
     rts
-C00013_SetupOverworldVramRegisters:
+OVERWORLD_SETUP_VRAM:
+C00013_SetupOverworldVramRegisters = OVERWORLD_SETUP_VRAM
     rep #$31
     lda.w #$0009
     jsl C08D79_UpdateBgModeRegisterFromQueue
@@ -48,7 +50,8 @@ C00013_SetupOverworldVramRegisters:
     lda.w #$0062
     jsl C08D92_UpdateObjSizeAndBaseRegister
     rtl
-C0004B_InitializeOverworldVramState:
+OVERWORLD_INITIALIZE:
+C0004B_InitializeOverworldVramState = OVERWORLD_INITIALIZE
     rep #$31
     phd
     tdc
@@ -58,7 +61,7 @@ C0004B_InitializeOverworldVramState:
     sta $06
     lda.w #$007F
     sta $08
-    jsl C00013_SetupOverworldVramRegisters
+    jsl OVERWORLD_SETUP_VRAM
     lda.w #$0000
     sta [$06]
     lda $06
@@ -69,7 +72,7 @@ C0004B_InitializeOverworldVramState:
     tyx
     sep #$20
     lda.b #$03
-    jsl C08616_QueueVramTransfer_FromDpSource
+    jsl PREPARE_VRAM_COPY
     lda.w #$FFFF
     sta $4370
     sta $436E

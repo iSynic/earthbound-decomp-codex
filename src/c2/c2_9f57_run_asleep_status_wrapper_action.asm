@@ -18,17 +18,22 @@ C2721D_ReduceBattlerPpTarget                  = $721D
 C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C29F06_RunResistCheckedAsleepStatusAction     = $C29F06
+EFMSG_PpDrainAmount                           = $773F
+EFMSG_PoisonInflicted                         = $6AE0
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:9F57
 
-C29F57_RunAsleepStatusWrapperAction:
+REDIRECT_BTLACT_HYPNOSIS_A_COPY:
+C29F57_RunAsleepStatusWrapperAction = REDIRECT_BTLACT_HYPNOSIS_A_COPY
     rep #$31
-    jsl C29F06_RunResistCheckedAsleepStatusAction
+    jsl BTLACT_HYPNOSIS_A
     rtl
-C29F5E_RunHpSuckerStylePpDrainAction:
+BTLACT_MAGNET_A:
+C29F5E_RunHpSuckerStylePpDrainAction = BTLACT_MAGNET_A
     rep #$31
     phd
     tdc
@@ -64,7 +69,8 @@ C29F7E_RunAsleepStatusWrapperAction_L9F7E:
     bcs C29FA7_RunAsleepStatusWrapperAction_L9FA7
     sta $02
 C29FA7_RunAsleepStatusWrapperAction_L9FA7:
-    lda.w #$773F
+    ; EF:773F consumes $12/$14 through PRINT_ACTION_AMOUNT for the PP drain.
+    lda.w #EFMSG_PpDrainAmount
     sta $0E
     lda.w #$00EF
     sta $10
@@ -78,7 +84,7 @@ C29FBB_RunAsleepStatusWrapperAction_L9FBB:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldx $02
     lda $A972
     jsr C2721D_ReduceBattlerPpTarget
@@ -92,7 +98,8 @@ C29FBB_RunAsleepStatusWrapperAction_L9FBB:
 C29FDF_RunAsleepStatusWrapperAction_L9FDF:
     pld
     rtl
-C29FE1_RunPpDrainIfTargetCanActWrapper:
+BTLACT_MAGNET_O:
+C29FE1_RunPpDrainIfTargetCanActWrapper = BTLACT_MAGNET_O
     rep #$31
     ldx $A972
     lda $000E,X
@@ -103,16 +110,17 @@ C29FE1_RunPpDrainIfTargetCanActWrapper:
     cmp.w #$0003
     beq C29FFD_RunAsleepStatusWrapperAction_L9FFD
 C29FF9_RunAsleepStatusWrapperAction_L9FF9:
-    jsl C29F5E_RunHpSuckerStylePpDrainAction
+    jsl BTLACT_MAGNET_A
 C29FFD_RunAsleepStatusWrapperAction_L9FFD:
     rtl
-C29FFE_RunResistCheckedPoisonStatusAction:
+BTLACT_PARALYSIS_A:
+C29FFE_RunResistCheckedPoisonStatusAction = BTLACT_PARALYSIS_A
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C2A04D_RunAsleepStatusWrapperAction_LA04D
     ldx $A972
@@ -124,17 +132,18 @@ C29FFE_RunResistCheckedPoisonStatusAction:
     ldy.w #$0003
     ldx.w #$0000
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
-    lda.w #$6AE0
+    ; Success/failure EF scripts both read the target-name battle text context.
+    lda.w #EFMSG_PoisonInflicted
     sta $0E
     lda.w #$00EF
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A04D_RunAsleepStatusWrapperAction_LA04D
 C2A03F_RunAsleepStatusWrapperAction_LA03F:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10
@@ -142,7 +151,8 @@ C2A03F_RunAsleepStatusWrapperAction_LA03F:
 C2A04D_RunAsleepStatusWrapperAction_LA04D:
     pld
     rtl
-C2A04F_RunPoisonStatusWrapperAction:
+REDIRECT_BTLACT_PARALYSIS_A:
+C2A04F_RunPoisonStatusWrapperAction = REDIRECT_BTLACT_PARALYSIS_A
     rep #$31
-    jsl C29FFE_RunResistCheckedPoisonStatusAction
+    jsl BTLACT_PARALYSIS_A
     rtl

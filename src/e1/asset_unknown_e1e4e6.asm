@@ -13,4 +13,4 @@
 ; E1:E528
 
 ; AssetUnknownE1e4e6End
-E1E528_AssetUnknownE1e4e6End:
+E1E528_AssetUnknownE1e4e6End = STAFF_CREDITS_FONT_GRAPHICS

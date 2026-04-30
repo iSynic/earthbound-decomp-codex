@@ -13,4 +13,4 @@
 ; CB:9A71
 
 ; AssetBattleBackgroundGfx52End
-CB9A71_AssetBattleBackgroundGfx52End:
+CB9A71_AssetBattleBackgroundGfx52End = BATTLE_BACKGROUND_ARR_50

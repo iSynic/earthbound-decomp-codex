@@ -13,4 +13,4 @@
 ; E0:13B9
 
 ; AssetMrsaturnFontDataEnd
-E013B9_AssetMrsaturnFontDataEnd:
+E013B9_AssetMrsaturnFontDataEnd = MRSATURN_FONT_GFX

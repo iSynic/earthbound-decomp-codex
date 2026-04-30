@@ -13,4 +13,4 @@
 ; E0:ADB4
 
 ; AssetTownMapFoursideEnd
-E0ADB4_AssetTownMapFoursideEnd:
+E0ADB4_AssetTownMapFoursideEnd = TOWN_MAP_SCARABA

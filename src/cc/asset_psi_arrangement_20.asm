@@ -9,8 +9,11 @@
 ; Source units covered:
 ; - CC:2E19..CC:4057 AssetPsiArrangement20
 
+PSI_ARRANGEMENT_20:
+CC2E19_TableAnimationSequencePointersEnd = PSI_ARRANGEMENT_20
+
 ; ---------------------------------------------------------------------------
 ; CC:4057
 
 ; AssetPsiArrangement20End
-CC4057_AssetPsiArrangement20End:
+CC4057_AssetPsiArrangement20End = PSI_ARRANGEMENT_31

@@ -13,4 +13,4 @@
 ; DC:8E4A
 
 ; AssetMapDataTileArrangement18End
-DC8E4A_AssetMapDataTileArrangement18End:
+DC8E4A_AssetMapDataTileArrangement18End = MAP_DATA_TILE_ARRANGEMENT_19

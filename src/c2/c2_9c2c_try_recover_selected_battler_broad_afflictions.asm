@@ -19,7 +19,8 @@ C29B7A_TryRecoverSelectedBattlerCurativeAfflictions = $C29B7A
 ; ---------------------------------------------------------------------------
 ; C2:9C2C
 
-C29C2C_TryRecoverSelectedBattlerBroadAfflictions:
+BTLACT_HEALING_G:
+C29C2C_TryRecoverSelectedBattlerBroadAfflictions = BTLACT_HEALING_G
     rep #$31
     phd
     tdc
@@ -72,7 +73,7 @@ C29C85_TryRecoverSelectedBattlerBroadAfflictions_L9C85:
     lsr A
     tax
     lda $A972
-    jsr C27397_InstallBattlerHeavyRecoveryReset
+    jsr REVIVE_TARGET
     bra C29CB6_TryRecoverSelectedBattlerBroadAfflictions_L9CB6
 C29CA2_TryRecoverSelectedBattlerBroadAfflictions_L9CA2:
     lda.w #$6F8E
@@ -82,7 +83,7 @@ C29CA2_TryRecoverSelectedBattlerBroadAfflictions_L9CA2:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29CB6_TryRecoverSelectedBattlerBroadAfflictions_L9CB6
 C29CB2_TryRecoverSelectedBattlerBroadAfflictions_L9CB2:
-    jsl C29B7A_TryRecoverSelectedBattlerCurativeAfflictions
+    jsl BTLACT_HEALING_B
 C29CB6_TryRecoverSelectedBattlerBroadAfflictions_L9CB6:
     pld
     rtl

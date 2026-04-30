@@ -13,4 +13,4 @@
 ; DA:D467
 
 ; AssetMapDataPalette22End
-DAD467_AssetMapDataPalette22End:
+DAD467_AssetMapDataPalette22End = MAP_DATA_PALETTE_23

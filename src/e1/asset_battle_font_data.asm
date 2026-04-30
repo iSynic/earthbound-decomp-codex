@@ -13,4 +13,4 @@
 ; E1:193A
 
 ; AssetBattleFontDataEnd
-E1193A_AssetBattleFontDataEnd:
+E1193A_AssetBattleFontDataEnd = BATTLE_FONT_GFX

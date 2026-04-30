@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A912
 
-C0A912_ActionScript_PrepareNewEntity:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY:
+C0A912_ActionScript_PrepareNewEntity = ACTIONSCRIPT_PREPARE_NEW_ENTITY
     jsl $C09D94
     sty $94
     pha

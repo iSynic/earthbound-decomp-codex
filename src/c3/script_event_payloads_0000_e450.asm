@@ -229,7 +229,9 @@
 ; ---------------------------------------------------------------------------
 ; C3:0000
 
-C30000_C30000Unmapped:
+SPRITE_GROUP_PALETTES:
+C30000_C30000Unmapped = SPRITE_GROUP_PALETTES
+C30000_PreservedEventScriptScaffoldGap = SPRITE_GROUP_PALETTES
     ; data bytes: C3:0000..C3:0188
     db $CE,$39,$DF,$7B,$37,$67,$33,$4E,$C0,$42,$40,$3A,$CA,$31,$55,$7B
     db $69,$52,$4B,$6F,$19,$50,$CF,$28,$DA,$2E,$37,$02,$D1,$51,$86,$10
@@ -5677,7 +5679,8 @@ C3DFE8_C3DFD4EventScriptEnd:
 ; class: raw-or-named-data
 ; source: data/unknown/C3DFE8.asm
 
-C3E12C_C3DFE8RawDataEnd:
+ALLOWED_INPUT_DIRECTIONS:
+C3E12C_C3DFE8RawDataEnd = ALLOWED_INPUT_DIRECTIONS
     ; data bytes: C3:E12C..C3:E148
     db $FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$11,$00
     db $11,$00,$FF,$00,$FF,$00,$FF,$00,$00,$00,$FF,$00
@@ -5897,7 +5900,8 @@ C3E40E_MenuCursorTilePrefixTablePartE406End:
 ; source: data/unknown/C3E40E.asm
 ; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:69
 
-C3E416_TitleNameBufferCursorTileRunEnd:
+BLINKING_TRIANGLE_TILES:
+C3E416_TitleNameBufferCursorTileRunEnd = BLINKING_TRIANGLE_TILES
     ; data bytes: C3:E416..C3:E41C
     db $14,$3C,$15,$3C,$11,$BC
 

@@ -65,7 +65,7 @@ C19A43_BuildEscargoStorageSelectionMenu:
     lda.w #$9C8A
     jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000D
-    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr CREATE_WINDOW
     lda.w #$5C10
     sta $0E
     lda.w #$00C4

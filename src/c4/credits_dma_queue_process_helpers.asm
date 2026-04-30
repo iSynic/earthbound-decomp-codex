@@ -19,7 +19,8 @@ QueueVramTransfer_FromDpSource = $C08616
 ; ---------------------------------------------------------------------------
 ; C4:F01D
 
-C4F01D_ProcessCreditsDmaQueue:
+PROCESS_CREDITS_DMA_QUEUE:
+C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     rep #$31
     phd
     tdc

@@ -94,7 +94,8 @@ C0B67F_InitializeIntroOverworldScene:
     jsl $C039E5
     pld
     rts
-C0B731_InitializeIntroOverworldScene_LB731:
+INIT_BATTLE_OVERWORLD:
+C0B731_InitializeIntroOverworldScene_LB731 = INIT_BATTLE_OVERWORLD
     rep #$31
     phd
     tdc
@@ -227,7 +228,7 @@ C0B860_InitializeIntroOverworldScene_LB860:
 C0B868_InitializeIntroOverworldScene_LB868:
     lda $4DC2
     beq C0B876_InitializeIntroOverworldScene_LB876
-    jsl C0B731_InitializeIntroOverworldScene_LB731
+    jsl INIT_BATTLE_OVERWORLD
     inc $5D74
     bra C0B892_InitializeIntroOverworldScene_LB892
 C0B876_InitializeIntroOverworldScene_LB876:

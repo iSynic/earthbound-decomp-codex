@@ -13,4 +13,4 @@
 ; CD:F95F
 
 ; AssetBattleSprite78End
-CDF95F_AssetBattleSprite78End:
+CDF95F_AssetBattleSprite78End = BATTLE_SPRITE_30

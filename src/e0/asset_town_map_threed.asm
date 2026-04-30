@@ -13,4 +13,4 @@
 ; E0:8379
 
 ; AssetTownMapThreedEnd
-E08379_AssetTownMapThreedEnd:
+E08379_AssetTownMapThreedEnd = TOWN_MAP_FOURSIDE

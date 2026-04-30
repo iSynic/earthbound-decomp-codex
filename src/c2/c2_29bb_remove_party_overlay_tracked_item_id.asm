@@ -18,7 +18,8 @@ C3EBCA_RefreshPartyOverlayAfterRegistryMutation = $C3EBCA
 ; ---------------------------------------------------------------------------
 ; C2:29BB
 
-C229BB_RemovePartyOverlayTrackedItemId:
+REMOVE_CHAR_FROM_PARTY:
+C229BB_RemovePartyOverlayTrackedItemId = REMOVE_CHAR_FROM_PARTY
     rep #$31
     phd
     pha

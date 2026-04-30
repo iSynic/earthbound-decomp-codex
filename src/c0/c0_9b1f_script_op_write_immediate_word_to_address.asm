@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:9B1F
 
-C09B1F_ScriptOp_WriteImmediateWordToAddress:
+MOVEMENT_CODE_15:
+C09B1F_ScriptOp_WriteImmediateWordToAddress = MOVEMENT_CODE_15
     lda [$80],Y
     tax
     iny

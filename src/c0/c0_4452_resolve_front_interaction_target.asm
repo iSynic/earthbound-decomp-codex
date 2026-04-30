@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:4452
 
-C04452_Resolve_FrontInteractionTarget:
+FIND_NEARBY_TALKABLE_TPT_ENTRY:
+C04452_Resolve_FrontInteractionTarget = FIND_NEARBY_TALKABLE_TPT_ENTRY
     rep #$31
     phd
     tdc

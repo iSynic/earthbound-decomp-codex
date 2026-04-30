@@ -17,7 +17,8 @@ C23D05_BuildBattleTargetTextContext   = $C23D05
 ; ---------------------------------------------------------------------------
 ; C2:7E8A
 
-C27E8A_SwapReflectedHitBattleTextContexts:
+SWAP_ATTACKER_WITH_TARGET:
+C27E8A_SwapReflectedHitBattleTextContexts = SWAP_ATTACKER_WITH_TARGET
     rep #$31
     phd
     tdc
@@ -30,7 +31,7 @@ C27E8A_SwapReflectedHitBattleTextContexts:
     lda $0E
     sta $A972
     lda.w #$0000
-    jsl C23BCF_BuildBattleAttackerTextContext
-    jsl C23D05_BuildBattleTargetTextContext
+    jsl FIX_ATTACKER_NAME
+    jsl FIX_TARGET_NAME
     pld
     rts

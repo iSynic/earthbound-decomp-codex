@@ -16,7 +16,9 @@
 ; ---------------------------------------------------------------------------
 ; C2:C6F0
 
-C2C6F0_RunFinalPrayerFinale:
+BTLACT_GIYGAS_PRAYER_9:
+C2C6F0_RunFinalPrayerFinale = BTLACT_GIYGAS_PRAYER_9
+C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
 
 ; ---------------------------------------------------------------------------
 ; C2:CFE5

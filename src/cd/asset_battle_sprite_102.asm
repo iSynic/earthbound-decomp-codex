@@ -13,4 +13,4 @@
 ; CD:ACBF
 
 ; AssetBattleSprite102End
-CDACBF_AssetBattleSprite102End:
+CDACBF_AssetBattleSprite102End = BATTLE_SPRITE_84

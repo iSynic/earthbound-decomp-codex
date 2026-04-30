@@ -13,4 +13,4 @@
 ; CC:F1E5
 
 ; TablePsiAnimCfgEnd
-CCF1E5_TablePsiAnimCfgEnd:
+; CCF1E5_TablePsiAnimCfgEnd is preserved as an alias in the next source unit.

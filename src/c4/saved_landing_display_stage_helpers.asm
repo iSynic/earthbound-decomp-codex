@@ -328,7 +328,7 @@ C4C519_RunLandingPalettePhaseFadeFrames:
     jsr.w C4C45F_StageLandingPalettePhaseBlock
     ldy $12
     tya
-    jsl C49208_BuildLandingInterpolationPlanesFrom7f7800
+    jsl INITIALIZE_MAP_PALETTE_FADE
     bra C4C54A_InitializeSavedLandingDisplayState_LC54A
 C4C533_InitializeSavedLandingDisplayState_LC533:
     lda $006D
@@ -355,7 +355,8 @@ C4C54A_InitializeSavedLandingDisplayState_LC54A:
 C4C565_InitializeSavedLandingDisplayState_LC565:
     pld
     rts
-C4C567_WaitFramesAbortOnInput006d:
+SKIPPABLE_PAUSE:
+C4C567_WaitFramesAbortOnInput006d = SKIPPABLE_PAUSE
     rep #$31
     phd
     pha
@@ -478,7 +479,7 @@ C4C64D_RunSavedLandingFadeSequence:
     adc.w #$FFEE
     tcd
     lda.w #$003C
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     lda.w #$DE7D
     sta $0E
     lda.w #$00C7
@@ -490,12 +491,12 @@ C4C64D_RunSavedLandingFadeSequence:
     cmp.w #$0000
     bne C4C686_InitializeSavedLandingDisplayState_LC686
     lda.w #$003C
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     lda.w #$FFFF
     jmp.w C4C716_InitializeSavedLandingDisplayState_LC716
 C4C686_InitializeSavedLandingDisplayState_LC686:
     lda.w #$003C
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     cmp.w #$0000
     beq C4C697_InitializeSavedLandingDisplayState_LC697
     lda.w #$0000
@@ -510,7 +511,7 @@ C4C697_InitializeSavedLandingDisplayState_LC697:
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6AA_InitializeSavedLandingDisplayState_LC6AA:
     lda.w #$0001
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     cmp.w #$0000
     beq C4C6BA_InitializeSavedLandingDisplayState_LC6BA
     lda.w #$0000
@@ -525,7 +526,7 @@ C4C6BA_InitializeSavedLandingDisplayState_LC6BA:
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6CD_InitializeSavedLandingDisplayState_LC6CD:
     lda.w #$0001
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     cmp.w #$0000
     beq C4C6DD_InitializeSavedLandingDisplayState_LC6DD
     lda.w #$0000
@@ -540,7 +541,7 @@ C4C6DD_InitializeSavedLandingDisplayState_LC6DD:
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6F0_InitializeSavedLandingDisplayState_LC6F0:
     lda.w #$0001
-    jsr.w C4C567_WaitFramesAbortOnInput006d
+    jsr.w SKIPPABLE_PAUSE
     cmp.w #$0000
     beq C4C700_InitializeSavedLandingDisplayState_LC700
     lda.w #$0000
@@ -558,7 +559,8 @@ C4C713_InitializeSavedLandingDisplayState_LC713:
 C4C716_InitializeSavedLandingDisplayState_LC716:
     pld
     rts
-C4C718_RunSavedCoordinateLandingReload:
+SPAWN:
+C4C718_RunSavedCoordinateLandingReload = SPAWN
     rep #$31
     phd
     tdc

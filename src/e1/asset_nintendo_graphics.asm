@@ -13,4 +13,4 @@
 ; E1:558F
 
 ; AssetNintendoGraphicsEnd
-E1558F_AssetNintendoGraphicsEnd:
+E1558F_AssetNintendoGraphicsEnd = NINTENDO_PALETTE

@@ -16,7 +16,8 @@ C28651_RunAllTargetPhysicalAction = $C28651
 ; ---------------------------------------------------------------------------
 ; C2:902C
 
-C2902C_RunAllTargetPhysicalFlavorWrapper:
+REDIRECT_BTLACT_LEVEL_3_ATK:
+C2902C_RunAllTargetPhysicalFlavorWrapper = REDIRECT_BTLACT_LEVEL_3_ATK
     rep #$31
     jsl C28651_RunAllTargetPhysicalAction
     rtl

@@ -13,4 +13,4 @@
 ; D1:DB00
 
 ; AssetSprite0105End
-D1DB00_AssetSprite0105End:
+D1DB00_AssetSprite0105End = SPRITE_0106

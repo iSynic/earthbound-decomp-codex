@@ -22,4 +22,4 @@ C45963_TargetAndPhoneTextFragments:
     db $9F,$9D,$6F,$00,$00,$00,$00,$00,$87,$98,$95,$A2,$95,$6F,$00,$00
     db $00,$00,$73,$91,$9C,$9C,$6A
 
-C4599A_TargetAndPhoneTextFragmentsEnd:
+C4599A_TargetAndPhoneTextFragmentsEnd = GET_REQUIRED_EXP

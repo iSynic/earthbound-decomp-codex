@@ -13,4 +13,4 @@
 ; CA:DCA1
 
 ; TablePalettePointersEnd
-CADCA1_TablePalettePointersEnd:
+; CADCA1_TablePalettePointersEnd is preserved as an alias in the next source unit.

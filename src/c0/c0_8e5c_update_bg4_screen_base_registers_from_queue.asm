@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8E5C
 
-C08E5C_Update_Bg4ScreenBaseRegistersFromQueue:
+SET_BG4_VRAM_LOCATION:
+C08E5C_Update_Bg4ScreenBaseRegistersFromQueue = SET_BG4_VRAM_LOCATION
     php
     sep #$20
     rep #$10

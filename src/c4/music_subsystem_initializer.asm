@@ -22,7 +22,8 @@ LoadSpc700Data               = $C0AB06
 ; ---------------------------------------------------------------------------
 ; C4:FB58
 
-C4FB58_InitializeMusicSubsystem:
+INITIALIZE_MUSIC_SUBSYSTEM:
+C4FB58_InitializeMusicSubsystem = INITIALIZE_MUSIC_SUBSYSTEM
     rep #$31
     phd
     tdc

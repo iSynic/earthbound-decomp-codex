@@ -17,7 +17,9 @@ EF0000_EnemyFlashingOff            = $EF0000
 ; ---------------------------------------------------------------------------
 ; EF:0000
 
-EF0000_EnemyFlashingOff:
+ENEMY_FLASHING_OFF:
+EF0000_EnemyFlashingOff = ENEMY_FLASHING_OFF
+EF0000_TableEf00bb = ENEMY_FLASHING_OFF
     rep #$31
     lda $89D0
     cmp.w #$FFFF
@@ -53,7 +55,8 @@ EF003D_EnemyFlashingHelpers_L003D:
 EF004F_EnemyFlashingHelpers_L004F:
     rep #$20
     rtl
-EF0052_EnemyFlashingOn:
+ENEMY_FLASHING_ON:
+EF0052_EnemyFlashingOn = ENEMY_FLASHING_ON
     rep #$31
     phd
     pha
@@ -66,7 +69,7 @@ EF0052_EnemyFlashingOn:
     lda $89D0
     cmp.w #$FFFF
     beq EF006C_EnemyFlashingHelpers_L006C
-    jsl EF0000_EnemyFlashingOff
+    jsl ENEMY_FLASHING_OFF
 EF006C_EnemyFlashingHelpers_L006C:
     ldx $10
     stx $89D0

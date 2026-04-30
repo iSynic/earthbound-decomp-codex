@@ -13,4 +13,4 @@
 ; DF:6BE8
 
 ; AssetMapDataTileSetGraphics17End
-DF6BE8_AssetMapDataTileSetGraphics17End:
+DF6BE8_AssetMapDataTileSetGraphics17End = MAP_DATA_TILE_SET_GRAPHICS_18

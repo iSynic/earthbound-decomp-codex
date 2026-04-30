@@ -13,4 +13,4 @@
 ; CA:480F
 
 ; AssetBattleBackgroundGfx61End
-CA480F_AssetBattleBackgroundGfx61End:
+CA480F_AssetBattleBackgroundGfx61End = BATTLE_BACKGROUND_GFX_60

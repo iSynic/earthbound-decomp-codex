@@ -16,7 +16,8 @@ C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 ; ---------------------------------------------------------------------------
 ; C2:9051
 
-C29051_QueuedBattlerStatShieldNormalizationCallback:
+BTLACT_NEUTRALIZE:
+C29051_QueuedBattlerStatShieldNormalizationCallback = BTLACT_NEUTRALIZE
     rep #$31
     phd
     tdc

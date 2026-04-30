@@ -13,4 +13,4 @@
 ; CA:DAD9
 
 ; TableArrangementPointersEnd
-CADAD9_TableArrangementPointersEnd:
+CADAD9_TableArrangementPointersEnd = BATTLEBG_PALETTE_POINTERS

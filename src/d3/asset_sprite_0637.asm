@@ -13,4 +13,4 @@
 ; D3:D500
 
 ; AssetSprite0637End
-D3D500_AssetSprite0637End:
+D3D500_AssetSprite0637End = SPRITE_0638

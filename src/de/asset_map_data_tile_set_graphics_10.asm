@@ -13,4 +13,4 @@
 ; DE:CE3A
 
 ; AssetMapDataTileSetGraphics10End
-DECE3A_AssetMapDataTileSetGraphics10End:
+DECE3A_AssetMapDataTileSetGraphics10End = MAP_DATA_TILE_SET_GRAPHICS_11

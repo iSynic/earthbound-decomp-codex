@@ -13,4 +13,4 @@
 ; CC:EB3F
 
 ; AssetPsiArrangement11End
-CCEB3F_AssetPsiArrangement11End:
+CCEB3F_AssetPsiArrangement11End = PSI_ARRANGEMENT_14

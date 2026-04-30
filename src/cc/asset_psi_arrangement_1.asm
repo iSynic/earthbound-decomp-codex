@@ -13,4 +13,4 @@
 ; CC:E0A1
 
 ; AssetPsiArrangement1End
-CCE0A1_AssetPsiArrangement1End:
+CCE0A1_AssetPsiArrangement1End = PSI_ARRANGEMENT_24

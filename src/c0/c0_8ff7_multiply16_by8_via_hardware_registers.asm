@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:8FF7
 
-C08FF7_Multiply16By8_ViaHardwareRegisters:
+MULT168:
+C08FF7_Multiply16By8_ViaHardwareRegisters = MULT168
     rep #$10
     xba
     beq C09022_Multiply16By8_ViaHardwareRegisters_L9022

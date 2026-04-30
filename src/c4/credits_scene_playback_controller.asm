@@ -41,7 +41,8 @@ SlideCreditsPhotograph                  = $C4F46F
 ; ---------------------------------------------------------------------------
 ; C4:F554
 
-C4F554_PlayCredits:
+PLAY_CREDITS:
+C4F554_PlayCredits = PLAY_CREDITS
     rep #$31
     phd
     tdc

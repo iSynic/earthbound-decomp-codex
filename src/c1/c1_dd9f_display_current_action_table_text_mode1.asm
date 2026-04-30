@@ -23,6 +23,8 @@ C186B1_PrintTextFromPointer        = $C186B1
 C1DD9F_DisplayCurrentActionTableTextMode1:
     rep #$31
     phd
+    ; Shift DP so caller $0E/$10 appear here as $20/$22. The only known
+    ; C2 caller stages an action-table row script pointer in those slots.
     tdc
     adc.w #$FFEE
     tcd
@@ -36,23 +38,28 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
     sta $0E
     lda $08
     sta $10
+    ; Mode 1 text lane for D5:7B68 action-table row messages.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_ClearBattleTextDisplayMode
     pld
     rtl
-C1DDC6_RedirectRemoveItemFromInventory:
+REDIRECT_REMOVE_ITEM_FROM_INVENTORY:
+C1DDC6_RedirectRemoveItemFromInventory = REDIRECT_REMOVE_ITEM_FROM_INVENTORY
     rep #$31
     jsr $8C27
     rtl
-C1DDCC_RedirectC43573Helper:
+REDIRECT_C43573:
+C1DDCC_RedirectC43573Helper = REDIRECT_C43573
     rep #$31
     jsl $C43573
     rtl
-C1DDD3_RedirectC3E6F8Helper:
+REDIRECT_C3E6F8:
+C1DDD3_RedirectC3E6F8Helper = REDIRECT_C3E6F8
     rep #$31
     jsl $C3E6F8
     rtl
-C1DDDA_BuildSelectionMenuSetupAndRedirects:
+SELECTION_MENU_ITEM_SETUP:
+C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     rep #$31
     phd
     pha

@@ -16,6 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C2:904E
 
-C2904E_RunLateMessageOnlyNoOpTail:
+BTLACT_NULL11:
+C2904E_RunLateMessageOnlyNoOpTail = BTLACT_NULL11
     rep #$31
     rtl

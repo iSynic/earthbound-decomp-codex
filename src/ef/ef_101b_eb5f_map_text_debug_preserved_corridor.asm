@@ -13,4 +13,4 @@
 ; EF:EB5F
 
 ; EfMapTextDebugPreservedCorridorEnd
-EFEB5F_EfMapTextDebugPreservedCorridorEnd:
+EFEB5F_EfMapTextDebugPreservedCorridorEnd = DEBUG_MENU_FONT

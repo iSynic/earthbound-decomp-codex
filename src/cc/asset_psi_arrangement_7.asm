@@ -13,4 +13,4 @@
 ; CC:C32F
 
 ; AssetPsiArrangement7End
-CCC32F_AssetPsiArrangement7End:
+CCC32F_AssetPsiArrangement7End = PSI_ARRANGEMENT_0

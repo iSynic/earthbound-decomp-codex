@@ -16,7 +16,8 @@ C0A48F_RefreshVisualProfileForSlot = $C0A48F
 ; ---------------------------------------------------------------------------
 ; C0:4279
 
-C04279_Resolve_InteractableAlongFacingTarget:
+FIND_NEARBY_CHECKABLE_TPT_ENTRY:
+C04279_Resolve_InteractableAlongFacingTarget = FIND_NEARBY_CHECKABLE_TPT_ENTRY
     rep #$31
     phd
     tdc

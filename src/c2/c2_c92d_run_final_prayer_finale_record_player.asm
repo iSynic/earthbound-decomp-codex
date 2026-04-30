@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:C92D..C2:CFE5 C2C92D_RunFinalPrayerFinaleRecordPlayer
+; - C2:C92D..C2:CFE5 GENERATE_BATTLEBG_FRAME
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -16,7 +16,8 @@ C0856B_WaitFramesOrTransitionDelay = $C0856B
 ; ---------------------------------------------------------------------------
 ; C2:C92D
 
-C2C92D_RunFinalPrayerFinaleRecordPlayer:
+GENERATE_BATTLEBG_FRAME:
+C2C92D_RunFinalPrayerFinaleRecordPlayer = GENERATE_BATTLEBG_FRAME
     rep #$31
     phd
     pha

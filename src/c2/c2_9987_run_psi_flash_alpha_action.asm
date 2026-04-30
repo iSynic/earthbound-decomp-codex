@@ -21,22 +21,23 @@ C08E9A_RandomWord                               = $C08E9A
 ; ---------------------------------------------------------------------------
 ; C2:9987
 
-C29987_RunPsiFlashAlphaAction:
+BTLACT_PSI_FLASH_A:
+C29987_RunPsiFlashAlphaAction = BTLACT_PSI_FLASH_A
     rep #$31
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C299AD_RunPsiFlashAlphaAction_L99AD
-    jsr C298A1_GateSelectedBattlerForRandomStatusAction
+    jsr FLASH_IMMUNITY_TEST
     cmp.w #$0000
     beq C299AA_RunPsiFlashAlphaAction_L99AA
     jsl C08E9A_RandomWord
     and.w #$0007
     bne C299A7_RunPsiFlashAlphaAction_L99A7
-    jsr C298DE_TryApplyStrangeStatusToSelectedBattler
+    jsr FLASH_INFLICT_FEELING_STRANGE
     bra C299AA_RunPsiFlashAlphaAction_L99AA
 C299A7_RunPsiFlashAlphaAction_L99A7:
-    jsr C29950_TryApplyCryingStatusToSelectedBattler
+    jsr FLASH_INFLICT_CRYING
 C299AA_RunPsiFlashAlphaAction_L99AA:
-    jsr C294CE_TickSelectedBattlerTimedSubstateCleanup
+    jsr WEAKEN_SHIELD
 C299AD_RunPsiFlashAlphaAction_L99AD:
     rtl

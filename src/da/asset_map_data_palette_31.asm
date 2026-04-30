@@ -13,4 +13,4 @@
 ; DA:FAA7
 
 ; AssetMapDataPalette31End
-DAFAA7_AssetMapDataPalette31End:
+DAFAA7_AssetMapDataPalette31End = MAP_DATA_UNKNOWN_PALETTE_PTR_TABLE

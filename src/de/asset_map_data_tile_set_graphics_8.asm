@@ -13,4 +13,4 @@
 ; DE:747E
 
 ; AssetMapDataTileSetGraphics8End
-DE747E_AssetMapDataTileSetGraphics8End:
+DE747E_AssetMapDataTileSetGraphics8End = MAP_DATA_TILE_SET_GRAPHICS_2

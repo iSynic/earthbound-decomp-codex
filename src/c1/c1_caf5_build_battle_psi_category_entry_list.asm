@@ -54,7 +54,7 @@ C1CB31_BuildBattlePsiCategoryEntryList_LCB31:
     ldy $10
     rep #$20
     tya
-    jsr C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
     sep #$20
@@ -64,7 +64,7 @@ C1CB45_BuildBattlePsiCategoryEntryList_LCB45:
     ldy $10
     rep #$20
     tya
-    jsr C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
     sep #$20
@@ -75,7 +75,7 @@ C1CB57_BuildBattlePsiCategoryEntryList_LCB57:
     ldy $10
     rep #$20
     tya
-    jsr C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
     bra C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D
 C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B:
     sep #$20
@@ -86,7 +86,7 @@ C1CB6B_BuildBattlePsiCategoryEntryList_LCB6B:
     ldy $10
     rep #$20
     tya
-    jsr C1C452_BuildSharedBattlePsiEntryList
+    jsr GENERATE_PSI_LIST
 C1CB7D_BuildBattlePsiCategoryEntryList_LCB7D:
     pld
     rtl

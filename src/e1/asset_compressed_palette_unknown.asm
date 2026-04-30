@@ -13,4 +13,4 @@
 ; E1:413F
 
 ; AssetCompressedPaletteUnknownEnd
-E1413F_AssetCompressedPaletteUnknownEnd:
+E1413F_AssetCompressedPaletteUnknownEnd = STAFF_TEXT

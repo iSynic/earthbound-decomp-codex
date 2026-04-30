@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:A821
 
-C2A821_RunSuperBombAction:
+BTLACT_SUPER_BOMB:
+C2A821_RunSuperBombAction = BTLACT_SUPER_BOMB
     rep #$31
     lda.w #$010E
     jsr $A658

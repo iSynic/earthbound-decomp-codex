@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:724A
 
-C2724A_ApplyBattlerAfflictionSubgroupValue:
+INFLICT_STATUS_BATTLE:
+C2724A_ApplyBattlerAfflictionSubgroupValue = INFLICT_STATUS_BATTLE
     rep #$31
     phd
     pha

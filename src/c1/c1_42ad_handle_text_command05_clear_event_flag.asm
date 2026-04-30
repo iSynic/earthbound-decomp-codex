@@ -16,7 +16,8 @@ C2165E_SetEventFlagOrState = $C2165E
 ; ---------------------------------------------------------------------------
 ; C1:42AD
 
-C142AD_HandleTextCommand05ClearEventFlag:
+CC_05:
+C142AD_HandleTextCommand05ClearEventFlag = CC_05
     rep #$31
     phd
     pha

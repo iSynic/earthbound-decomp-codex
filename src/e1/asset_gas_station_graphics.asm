@@ -13,4 +13,4 @@
 ; E1:A9B7
 
 ; AssetGasStationGraphicsEnd
-E1A9B7_AssetGasStationGraphicsEnd:
+E1A9B7_AssetGasStationGraphicsEnd = GAS_STATION_PALETTE

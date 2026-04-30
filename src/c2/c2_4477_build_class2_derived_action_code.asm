@@ -20,7 +20,8 @@ C4A228_StoreRankedBattlerTargetOrdinal = $C4A228
 ; ---------------------------------------------------------------------------
 ; C2:4477
 
-C24477_BuildClass2DerivedActionCode:
+CHOOSE_TARGET:
+C24477_BuildClass2DerivedActionCode = CHOOSE_TARGET
     rep #$31
     phd
     pha

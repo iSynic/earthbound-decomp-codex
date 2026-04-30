@@ -13,4 +13,4 @@
 ; CC:CAAD
 
 ; AssetPsiArrangement6End
-CCCAAD_AssetPsiArrangement6End:
+CCCAAD_AssetPsiArrangement6End = PSI_ARRANGEMENT_17

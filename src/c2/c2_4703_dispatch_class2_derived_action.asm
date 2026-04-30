@@ -68,10 +68,10 @@ C24749_DispatchClass2DerivedAction_L4749:
     lda $000A,X
     and.w #$00FF
     dec A
-    jsl C26FDC_MaskSet_AddBit
+    jsl TARGET_BATTLER
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24757_DispatchClass2DerivedAction_L4757:
-    jsl C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl TARGET_ALLIES
     ldx $0E
     lda $0004,X
     jsl C23FEA_CheckBattleActionSpecialCase
@@ -81,9 +81,9 @@ C24757_DispatchClass2DerivedAction_L4757:
     lda $000E,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
-    jsl C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl REMOVE_NPC_TARGETTING
 C24777_DispatchClass2DerivedAction_L4777:
-    jsl C2416F_FilterBattleActionTargetMaskByRowState
+    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
     lda $000A,X
@@ -97,14 +97,14 @@ C2477E_DispatchClass2DerivedAction_L477E:
     dex
     lda $AD82,X
     and.w #$00FF
-    jsl C26FDC_MaskSet_AddBit
+    jsl TARGET_BATTLER
     bra C247A9_DispatchClass2DerivedAction_L47A9
 C2479D_DispatchClass2DerivedAction_L479D:
     tax
     dex
     lda $AD7A,X
     and.w #$00FF
-    jsl C26FDC_MaskSet_AddBit
+    jsl TARGET_BATTLER
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
     lda $0004,X
@@ -129,7 +129,7 @@ C247BA_DispatchClass2DerivedAction_L47BA:
     lda.w #$0000
     sta $A96E
     lda $0E
-    jsl C26FDC_MaskSet_AddBit
+    jsl TARGET_BATTLER
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247E9_DispatchClass2DerivedAction_L47E9:
     lda $0E
@@ -142,23 +142,24 @@ C247EE_DispatchClass2DerivedAction_L47EE:
 C247F5_DispatchClass2DerivedAction_L47F5:
     lda $000A,X
     and.w #$00FF
-    jsl C26D04_MaskSet_BuildMetadataMatchedCandidates
-    jsl C26E77_MaskSet_RemoveActiveTypedCandidates
-    jsl C2416F_FilterBattleActionTargetMaskByRowState
+    jsl TARGET_ROW
+    jsl REMOVE_NPC_TARGETTING
+    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     bra C2481F_DispatchClass2DerivedAction_L481F
 C24809_DispatchClass2DerivedAction_L4809:
-    jsl C26C82_MaskSet_BuildPhase1Candidates
+    jsl TARGET_ALL_ENEMIES
     ldx $0E
     lda $000E,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
-    jsl C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl REMOVE_NPC_TARGETTING
 C2481B_DispatchClass2DerivedAction_L481B:
-    jsl C2416F_FilterBattleActionTargetMaskByRowState
+    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
 C2481F_DispatchClass2DerivedAction_L481F:
     pld
     rtl
-C24821_InitializeClass2CandidateVisualState:
+BATTLE_ROUTINE:
+C24821_InitializeClass2CandidateVisualState = BATTLE_ROUTINE
     rep #$31
     phd
     tdc

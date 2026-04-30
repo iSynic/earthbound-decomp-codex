@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:5FF6
 
-C05FF6_Find_OverlappingEntitySlot:
+NPC_COLLISION_CHECK:
+C05FF6_Find_OverlappingEntitySlot = NPC_COLLISION_CHECK
     rep #$31
     phd
     pha

@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:B01A
 
-C0B01A_SetFixedColourRgbComponents:
+SET_COLDATA:
+C0B01A_SetFixedColourRgbComponents = SET_COLDATA
     sep #$20
     and.b #$1F
     ora.b #$20

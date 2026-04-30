@@ -22698,7 +22698,7 @@ ApplyRandomBounceWaitTimer:
 ; Preserved non-event/source-adjacent gaps
 
 org $C30000
-C30000_PreservedEventScriptScaffoldGap:
+C30000_PreservedEventScriptScaffoldGap = SPRITE_GROUP_PALETTES
     db $CE,$39,$DF,$7B,$37,$67,$33,$4E,$C0,$42,$40,$3A,$CA,$31,$55,$7B
     db $69,$52,$4B,$6F,$19,$50,$CF,$28,$DA,$2E,$37,$02,$D1,$51,$86,$10
     db $35,$43,$DE,$7B,$5A,$6B,$92,$42,$C0,$42,$40,$3A,$0C,$36,$D8,$42

@@ -13,4 +13,4 @@
 ; E1:AADF
 
 ; AssetGasStationPalette2End
-E1AADF_AssetGasStationPalette2End:
+E1AADF_AssetGasStationPalette2End = PRODUCED_ITOI_ARRANGEMENT

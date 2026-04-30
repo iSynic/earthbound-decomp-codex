@@ -17,7 +17,8 @@ C4FBBD_PlaySoundStoneMelody       = $C4FBBD
 ; ---------------------------------------------------------------------------
 ; C0:3C5E
 
-C03C5E_Get_OnBicycle:
+GET_ON_BICYCLE:
+C03C5E_Get_OnBicycle = GET_ON_BICYCLE
     rep #$31
     phd
     tdc

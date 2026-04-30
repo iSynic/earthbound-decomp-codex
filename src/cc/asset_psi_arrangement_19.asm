@@ -13,4 +13,4 @@
 ; CC:597B
 
 ; AssetPsiArrangement19End
-CC597B_AssetPsiArrangement19End:
+CC597B_AssetPsiArrangement19End = PSI_ARRANGEMENT_21

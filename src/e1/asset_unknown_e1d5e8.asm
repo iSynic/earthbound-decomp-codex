@@ -13,4 +13,4 @@
 ; E1:D6E1
 
 ; AssetUnknownE1d5e8End
-E1D6E1_AssetUnknownE1d5e8End:
+E1D6E1_AssetUnknownE1d5e8End = CAST_NAMES_GFX

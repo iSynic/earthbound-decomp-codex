@@ -13,4 +13,4 @@
 ; CB:C2C9
 
 ; AssetBattleBackgroundArr17End
-CBC2C9_AssetBattleBackgroundArr17End:
+CBC2C9_AssetBattleBackgroundArr17End = BATTLE_BACKGROUND_GFX_100

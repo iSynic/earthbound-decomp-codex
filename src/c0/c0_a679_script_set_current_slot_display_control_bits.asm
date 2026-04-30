@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A679
 
-C0A679_Script_SetCurrentSlotDisplayControlBits:
+SET_SURFACE_FLAGS:
+C0A679_Script_SetCurrentSlotDisplayControlBits = SET_SURFACE_FLAGS
     jsl $C09D86
     sty $94
     ldx $88

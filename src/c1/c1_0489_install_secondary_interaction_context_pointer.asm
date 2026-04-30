@@ -24,7 +24,8 @@ StagedTextPointerHi           = $1E
 ; ---------------------------------------------------------------------------
 ; C1:0489
 
-C10489_InstallSecondaryInteractionContextPointer:
+SET_ARGUMENT_MEMORY:
+C10489_InstallSecondaryInteractionContextPointer = SET_ARGUMENT_MEMORY
     rep #$31
     phd
     tdc
@@ -34,7 +35,7 @@ C10489_InstallSecondaryInteractionContextPointer:
     sta ScratchPointerLo
     lda StagedTextPointerHi
     sta ScratchPointerHi
-    jsr C10301_GetActiveInteractionContextRecord
+    jsr GET_ACTIVE_WINDOW_ADDRESS
     clc
     adc.w #ContextSecondaryPointerOffset
     tay

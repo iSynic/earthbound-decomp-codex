@@ -9,8 +9,11 @@
 ; Source units covered:
 ; - CA:F258..CA:F708 TableScrollingTable
 
+BG_SCROLLING_TABLE:
+CAF258_TableConfigTableEnd = BG_SCROLLING_TABLE
+
 ; ---------------------------------------------------------------------------
 ; CA:F708
 
 ; TableScrollingTableEnd
-CAF708_TableScrollingTableEnd:
+; CAF708_TableScrollingTableEnd is preserved as an alias in the next source unit.

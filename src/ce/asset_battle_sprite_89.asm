@@ -13,4 +13,4 @@
 ; CE:62EE
 
 ; AssetBattleSprite89End
-CE62EE_AssetBattleSprite89End:
+CE62EE_AssetBattleSprite89End = BATTLE_SPRITES_POINTERS

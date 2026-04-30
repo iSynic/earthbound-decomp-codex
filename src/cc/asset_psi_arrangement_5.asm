@@ -13,4 +13,4 @@
 ; CC:B613
 
 ; AssetPsiArrangement5End
-CCB613_AssetPsiArrangement5End:
+CCB613_AssetPsiArrangement5End = PSI_ANIM_GFX_SET_2

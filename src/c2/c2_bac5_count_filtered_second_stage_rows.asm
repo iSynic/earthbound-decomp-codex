@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:BAC5
 
-C2BAC5_CountFilteredSecondStageRows:
+COUNT_CHARS:
+C2BAC5_CountFilteredSecondStageRows = COUNT_CHARS
     rep #$31
     phd
     pha

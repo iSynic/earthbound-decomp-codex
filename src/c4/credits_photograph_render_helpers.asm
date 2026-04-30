@@ -21,7 +21,8 @@ CheckEventFlagMaybe                = $C21628
 ; ---------------------------------------------------------------------------
 ; C4:F264
 
-C4F264_TryRenderingPhotograph:
+TRY_RENDERING_PHOTOGRAPH:
+C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
     rep #$31
     phd
     pha

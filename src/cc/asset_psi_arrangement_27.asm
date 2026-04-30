@@ -13,4 +13,4 @@
 ; CC:F04D
 
 ; AssetPsiArrangement27End
-CCF04D_AssetPsiArrangement27End:
+CCF04D_AssetPsiArrangement27End = PSI_ANIM_CFG

@@ -17,13 +17,14 @@ C1DC66_DisplayBattleTextWithNumber            = $C1DC66
 ; ---------------------------------------------------------------------------
 ; C2:8EAE
 
-C28EAE_RunGutsReductionAction:
+BTLACT_CUTGUTS:
+C28EAE_RunGutsReductionAction = BTLACT_CUTGUTS
     rep #$31
     phd
     tdc
     adc.w #$FFE6
     tcd
-    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
+    jsr FAIL_ATTACK_ON_NPCS
     cmp.w #$0000
     bne C28F1F_RunGutsReductionAction_L8F1F
     lda $A972

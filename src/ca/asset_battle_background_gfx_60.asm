@@ -13,4 +13,4 @@
 ; CA:5723
 
 ; AssetBattleBackgroundGfx60End
-CA5723_AssetBattleBackgroundGfx60End:
+CA5723_AssetBattleBackgroundGfx60End = BATTLE_BACKGROUND_GFX_42

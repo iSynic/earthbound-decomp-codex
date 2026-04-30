@@ -13,4 +13,4 @@
 ; CB:BBC0
 
 ; AssetBattleBackgroundGfx65End
-CBBBC0_AssetBattleBackgroundGfx65End:
+CBBBC0_AssetBattleBackgroundGfx65End = BATTLE_BACKGROUND_ARR_32

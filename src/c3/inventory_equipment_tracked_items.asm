@@ -98,7 +98,7 @@ ACTIVE_INVENTORY_SLOT_COUNT    = $000E
 ; Source note:
 ;   This routine is embedded in the original C3:E84E mixed data/source row.
 ;   The split plan carves it as C3:E977..E9A0.
-C3E977_ReadCharacterInventorySlotByte:
+C3E977_ReadCharacterInventorySlotByte = GET_CHARACTER_ITEM
     rep #$31
     phd
     pha
@@ -136,7 +136,8 @@ C3E977_ReadCharacterInventorySlotByte:
 ;
 ; Return:
 ;   A = 1 if any of $99FF..$9A02 in the character record equals X, else 0
-C3E9A0_CheckEquippedInventorySlotReference:
+CHECK_ITEM_EQUIPPED:
+C3E9A0_CheckEquippedInventorySlotReference = CHECK_ITEM_EQUIPPED
     rep #$31
     phd
     pha

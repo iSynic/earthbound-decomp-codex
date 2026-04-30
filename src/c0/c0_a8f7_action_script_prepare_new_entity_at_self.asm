@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C0:A8F7
 
-C0A8F7_ActionScript_PrepareNewEntityAtSelf:
+ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_SELF:
+C0A8F7_ActionScript_PrepareNewEntityAtSelf = ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_SELF
     lda.w #$0000
     jsl $C46DAD
     rtl

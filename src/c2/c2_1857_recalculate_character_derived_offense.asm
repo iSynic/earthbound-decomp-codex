@@ -16,7 +16,8 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 ; ---------------------------------------------------------------------------
 ; C2:1857
 
-C21857_RecalculateCharacterDerivedOffense:
+RECALC_CHARACTER_POSTMATH_OFFENSE:
+C21857_RecalculateCharacterDerivedOffense = RECALC_CHARACTER_POSTMATH_OFFENSE
     rep #$31
     phd
     pha

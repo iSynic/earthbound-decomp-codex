@@ -16,7 +16,8 @@
 ; ---------------------------------------------------------------------------
 ; C2:28B7
 
-C228B7_ClampPartyOverlayPositionDelta:
+WITHDRAW_FROM_ATM:
+C228B7_ClampPartyOverlayPositionDelta = WITHDRAW_FROM_ATM
     rep #$31
     phd
     tdc
@@ -36,7 +37,7 @@ C228B7_ClampPartyOverlayPositionDelta:
     sbc $06
     lda $0C
     sbc $08
-    bcs C228F6_ClampPartyOverlayPositionDelta_L28F6
+    bcs WITHDRAW_FROM_ATM_INSUFFICIENT_FUNDS
     sec
     lda $06
     sbc $0A
@@ -48,6 +49,7 @@ C228B7_ClampPartyOverlayPositionDelta:
     sta $0000,Y
     lda $08
     sta $0002,Y
-C228F6_ClampPartyOverlayPositionDelta_L28F6:
+WITHDRAW_FROM_ATM_INSUFFICIENT_FUNDS:
+C228F6_ClampPartyOverlayPositionDelta_L28F6 = WITHDRAW_FROM_ATM_INSUFFICIENT_FUNDS
     pld
     rtl

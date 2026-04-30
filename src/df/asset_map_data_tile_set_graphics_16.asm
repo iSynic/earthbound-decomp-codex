@@ -13,4 +13,4 @@
 ; DF:512A
 
 ; AssetMapDataTileSetGraphics16End
-DF512A_AssetMapDataTileSetGraphics16End:
+DF512A_AssetMapDataTileSetGraphics16End = MAP_DATA_TILE_SET_GRAPHICS_17

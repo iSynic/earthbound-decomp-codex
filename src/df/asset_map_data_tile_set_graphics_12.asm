@@ -13,4 +13,4 @@
 ; DF:2938
 
 ; AssetMapDataTileSetGraphics12End
-DF2938_AssetMapDataTileSetGraphics12End:
+DF2938_AssetMapDataTileSetGraphics12End = MAP_DATA_TILE_SET_GRAPHICS_16

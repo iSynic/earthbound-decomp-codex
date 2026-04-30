@@ -13,4 +13,4 @@
 ; CE:6514
 
 ; TableBattleSpritesPointersEnd
-CE6514_TableBattleSpritesPointersEnd:
+; CE6514_TableBattleSpritesPointersEnd is preserved as an alias in the next source unit.

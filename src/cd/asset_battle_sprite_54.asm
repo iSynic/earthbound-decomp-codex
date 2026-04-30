@@ -13,4 +13,4 @@
 ; CD:C27B
 
 ; AssetBattleSprite54End
-CDC27B_AssetBattleSprite54End:
+CDC27B_AssetBattleSprite54End = BATTLE_SPRITE_14

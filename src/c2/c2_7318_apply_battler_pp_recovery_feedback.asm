@@ -12,12 +12,13 @@
 ; External contracts used by this module
 
 C27191_ClampBattlerPpTargetDelta   = $7191
-C1DC66_DisplayBattleTextWithNumber = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 ; ---------------------------------------------------------------------------
 ; C2:7318
 
-C27318_ApplyBattlerPpRecoveryFeedback:
+RECOVER_PP:
+C27318_ApplyBattlerPpRecoveryFeedback = RECOVER_PP
     rep #$31
     phd
     pha
@@ -72,6 +73,8 @@ C27363_ApplyBattlerPpRecoveryFeedback_L7363:
     sta $0E
     lda.w #$00EF
     sta $10
+    ; EF:69D2 reads the staged payload with PRINT_ACTION_AMOUNT to print
+    ; the recovered PP delta.
     ldy $16
     tya
     sta $06
@@ -80,7 +83,7 @@ C27363_ApplyBattlerPpRecoveryFeedback_L7363:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C27395_ApplyBattlerPpRecoveryFeedback_L7395:
     pld
     rts

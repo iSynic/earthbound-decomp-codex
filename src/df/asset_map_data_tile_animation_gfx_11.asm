@@ -13,4 +13,4 @@
 ; DF:E236
 
 ; AssetMapDataTileAnimationGfx11End
-DFE236_AssetMapDataTileAnimationGfx11End:
+DFE236_AssetMapDataTileAnimationGfx11End = MAP_DATA_TILE_ANIMATION_GFX_12

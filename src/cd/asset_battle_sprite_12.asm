@@ -13,4 +13,4 @@
 ; CD:DD18
 
 ; AssetBattleSprite12End
-CDDD18_AssetBattleSprite12End:
+CDDD18_AssetBattleSprite12End = BATTLE_SPRITE_60

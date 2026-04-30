@@ -27,7 +27,8 @@ C2B930_ExportBattleSelectionSnapshot    = $C2B930
 ; ---------------------------------------------------------------------------
 ; C1:ADB4
 
-C1ADB4_DetermineBattleTargetting:
+DETERMINE_TARGETTING:
+C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     rep #$31
     phd
     pha
@@ -668,7 +669,7 @@ C1B28C_DetermineBattleTargetting_LB28C:
     ldx $04
     ldy.w #$001D
     lda [$1E],Y
-    jsr.w C1ADB4_DetermineBattleTargetting
+    jsr.w DETERMINE_TARGETTING
     sep #$20
     sta $00
     rep #$20

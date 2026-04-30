@@ -13,4 +13,4 @@
 ; D8:F20D
 
 ; AntiPiracyNoticeArrangementEnd
-D8F20D_AntiPiracyNoticeArrangementEnd:
+D8F20D_AntiPiracyNoticeArrangementEnd = ANTI_PIRACY_NOTICE_GRAPHICS

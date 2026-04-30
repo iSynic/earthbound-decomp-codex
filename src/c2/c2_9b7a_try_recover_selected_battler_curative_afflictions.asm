@@ -17,7 +17,8 @@ C29AEA_TryRecoverSelectedBattlerNarrowAffliction = $C29AEA
 ; ---------------------------------------------------------------------------
 ; C2:9B7A
 
-C29B7A_TryRecoverSelectedBattlerCurativeAfflictions:
+BTLACT_HEALING_B:
+C29B7A_TryRecoverSelectedBattlerCurativeAfflictions = BTLACT_HEALING_B
     rep #$31
     phd
     tdc
@@ -95,7 +96,7 @@ C29BFA_TryRecoverSelectedBattlerCurativeAfflictions_L9BFA:
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29C2A_TryRecoverSelectedBattlerCurativeAfflictions_L9C2A
 C29C26_TryRecoverSelectedBattlerCurativeAfflictions_L9C26:
-    jsl C29AEA_TryRecoverSelectedBattlerNarrowAffliction
+    jsl BTLACT_HEALING_A
 C29C2A_TryRecoverSelectedBattlerCurativeAfflictions_L9C2A:
     pld
     rtl

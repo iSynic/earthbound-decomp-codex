@@ -16,7 +16,8 @@ QueueVramTransfer_FromDpSource = $C08616
 ; ---------------------------------------------------------------------------
 ; C4:EB04
 
-C4EB04_PrintCastName:
+COPY_CAST_NAME_TILEMAP:
+C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     rep #$31
     phd
     pha

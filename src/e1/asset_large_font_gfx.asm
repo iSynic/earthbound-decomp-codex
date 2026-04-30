@@ -13,4 +13,4 @@
 ; E1:2EFA
 
 ; AssetLargeFontGfxEnd
-E12EFA_AssetLargeFontGfxEnd:
+E12EFA_AssetLargeFontGfxEnd = CAST_SEQUENCE_FORMATTING

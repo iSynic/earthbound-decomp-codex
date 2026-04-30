@@ -13,4 +13,4 @@
 ; CD:5B3D
 
 ; AssetBattleSprite36End
-CD5B3D_AssetBattleSprite36End:
+CD5B3D_AssetBattleSprite36End = BATTLE_SPRITE_73

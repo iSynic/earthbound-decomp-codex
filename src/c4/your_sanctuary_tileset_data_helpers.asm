@@ -17,7 +17,8 @@ C09032_DivideUnsignedWordByIndex      = $C09032
 ; ---------------------------------------------------------------------------
 ; C4:E08C
 
-C4E08C_PrepareYourSanctuaryLocationTilesetData:
+PREPARE_YOUR_SANCTUARY_LOCATION_TILESET_DATA:
+C4E08C_PrepareYourSanctuaryLocationTilesetData = PREPARE_YOUR_SANCTUARY_LOCATION_TILESET_DATA
     rep #$31
     phd
     pha

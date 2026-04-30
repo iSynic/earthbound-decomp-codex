@@ -13,4 +13,4 @@
 ; CE:B576
 
 ; AssetSwirlData71End
-CEB576_AssetSwirlData71End:
+CEB576_AssetSwirlData71End = SWIRL_DATA_72

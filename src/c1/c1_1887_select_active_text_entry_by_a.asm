@@ -67,7 +67,8 @@ C118E2_SelectActiveTextEntryByA_L18E2:
     jsr $163C
     pld
     rts
-C118E7_C118E7_FindSelectionCandidatePair:
+MOVE_CURSOR:
+C118E7_C118E7_FindSelectionCandidatePair = MOVE_CURSOR
     rep #$31
     phd
     pha
@@ -135,7 +136,8 @@ C11965_SelectActiveTextEntryByA_L1965:
     txa
     pld
     rtl
-C1196A_C1196A_RunActiveTextEntrySelectionMenu:
+SELECTION_MENU:
+C1196A_C1196A_RunActiveTextEntrySelectionMenu = SELECTION_MENU
     rep #$31
     phd
     pha
@@ -434,7 +436,7 @@ C11BBB_C11BBB_PollSelectionMenuInput:
     lda $000A,X
     tax
     lda $1E
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11BF5_SelectActiveTextEntryByA_L1BF5:
@@ -459,7 +461,7 @@ C11BF5_SelectActiveTextEntryByA_L1BF5:
     ldx $04
     lda $0008,X
     ldx $16
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C2F_SelectActiveTextEntryByA_L1C2F:
@@ -481,7 +483,7 @@ C11C2F_SelectActiveTextEntryByA_L1C2F:
     lda $000A,X
     tax
     lda $1E
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C62_SelectActiveTextEntryByA_L1C62:
@@ -505,7 +507,7 @@ C11C62_SelectActiveTextEntryByA_L1C62:
     ldx $04
     lda $0008,X
     ldx $1C
-    jsl C118E7_C118E7_FindSelectionCandidatePair
+    jsl MOVE_CURSOR
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11C9A_SelectActiveTextEntryByA_L1C9A:

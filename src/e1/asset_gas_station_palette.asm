@@ -13,4 +13,4 @@
 ; E1:AA5D
 
 ; AssetGasStationPaletteEnd
-E1AA5D_AssetGasStationPaletteEnd:
+E1AA5D_AssetGasStationPaletteEnd = GAS_STATION_PALETTE_2

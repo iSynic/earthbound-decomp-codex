@@ -13,4 +13,4 @@
 ; CB:8FAB
 
 ; AssetBattleBackgroundArr78End
-CB8FAB_AssetBattleBackgroundArr78End:
+CB8FAB_AssetBattleBackgroundArr78End = BATTLE_BACKGROUND_GFX_15

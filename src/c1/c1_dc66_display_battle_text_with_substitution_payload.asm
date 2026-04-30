@@ -19,9 +19,13 @@ C20293_ClearBattleTextGateState           = $C20293
 ; ---------------------------------------------------------------------------
 ; C1:DC66
 
-C1DC66_DisplayBattleTextWithSubstitutionPayload:
+DISPLAY_TEXT_WAIT:
+C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
     rep #$31
     phd
+    ; Shift DP so caller $0E/$10 and $12/$14 appear here as $20/$22
+    ; and $24/$26. C2 uses the first pair for the EF script pointer and
+    ; the second pair for the script-read payload.
     tdc
     adc.w #$FFEE
     tcd
@@ -49,6 +53,8 @@ C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C:
     sta $0E
     lda $08
     sta $10
+    ; Commit the secondary payload to $9D12/$9D14 before the script runs.
+    ; EF scripts then consume it as PRINT_ACTION_AMOUNT or pointer substitution.
     jsr C1AD0A_StageBattleTextSubstitutionPointer
     lda $9643
     beq C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2
@@ -63,6 +69,7 @@ C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2:
     sta $0E
     lda $08
     sta $10
+    ; Dispatch the primary EF battle script after payload staging.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_WaitBattleTextDisplayTail
     pld

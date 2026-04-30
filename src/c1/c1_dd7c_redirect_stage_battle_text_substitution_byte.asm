@@ -16,7 +16,8 @@ C1ACF8_StageBattleTextSubstitutionByte = $ACF8
 ; ---------------------------------------------------------------------------
 ; C1:DD7C
 
-C1DD7C_RedirectStageBattleTextSubstitutionByte:
+REDIRECT_C1ACF8:
+C1DD7C_RedirectStageBattleTextSubstitutionByte = REDIRECT_C1ACF8
     rep #$31
     jsr C1ACF8_StageBattleTextSubstitutionByte
     rtl

@@ -18,7 +18,8 @@ C2B6EB_ApplyCandidateRecordPayload        = $C2B6EB
 ; ---------------------------------------------------------------------------
 ; C2:7550
 
-C27550_StartSelectedBattlerCollapseAfflictionPath:
+KO_TARGET:
+C27550_StartSelectedBattlerCollapseAfflictionPath = KO_TARGET
     rep #$31
     phd
     pha

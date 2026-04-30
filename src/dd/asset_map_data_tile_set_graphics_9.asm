@@ -13,4 +13,4 @@
 ; DD:89A2
 
 ; AssetMapDataTileSetGraphics9End
-DD89A2_AssetMapDataTileSetGraphics9End:
+DD89A2_AssetMapDataTileSetGraphics9End = MAP_DATA_TILE_SET_GRAPHICS_3
