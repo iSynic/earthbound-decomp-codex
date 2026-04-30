@@ -7,6 +7,17 @@
 ;
 ; Source units covered:
 ; - C2:7680..C2:77CA DisplayEnemyDeathText
+;
+; Runtime contract:
+; - Continues the `C2:7550` startup path with `$02` as selected-row base.
+; - Uses the selected row id and the `D5:9589` record field `+0x31` to load a
+;   descriptor-backed battle text pointer, then dispatches it through `C1:DC1C`.
+; - Clears selected-row byte `+0x0C` after the text emission.
+; - Row `+0x0F` values `0x10/0x11` seed a follow-up active row from the
+;   `983A/983C` helper tables; other routes scan candidate rows and may clear
+;   matching row `+0x10` links.
+; - The embedded `C2:7784` tail is the hardcoded collapse text route reached
+;   from `C2:7550` when row `+0x0F == 0`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -22,6 +33,7 @@ C27680_DisplayEnemyDeathText:
     lda $0000,X
     ldy.w #$005E
     jsl C08FF7_ResolveIndexedPointerOffset
+    ; Fetch row descriptor field `+0x31` as a battle text pointer.
     clc
     adc.w #$0031
     clc
@@ -40,6 +52,7 @@ C27680_DisplayEnemyDeathText:
     jsl C1DC1C_DisplayBattleTextFromPointer
     ldx $02
     sep #$20
+    ; Clear row occupancy/active gate after descriptor text emission.
     stz $000C,X
     ldx $22
     rep #$20
@@ -51,6 +64,7 @@ C27680_DisplayEnemyDeathText:
     cpx.w #$0011
     bne C27735_DisplayEnemyDeathText_L7735
 C276C9_DisplayEnemyDeathText_L76C9:
+    ; Subtypes 0x10/0x11 can seed a new active row from 983A/983C tables.
     lda $02
     clc
     adc.w #$0010
@@ -109,6 +123,7 @@ C27740_DisplayEnemyDeathText_L7740:
     ldy.w #$0000
     bra C27771_DisplayEnemyDeathText_L7771
 C27748_DisplayEnemyDeathText_L7748:
+    ; Otherwise scan candidate rows and clear matching `+0x10` links.
     lda $000C,X
     and.w #$00FF
     beq C27768_DisplayEnemyDeathText_L7768
@@ -140,6 +155,7 @@ C2777F_DisplayEnemyDeathText_L777F:
     bmi C27748_DisplayEnemyDeathText_L7748
 C27781_DisplayEnemyDeathText_L7781:
     jmp $7C92
+    ; C2:7784 external tail: hardcoded collapse text path from C2:7550.
     ldx $02
     stz $0013,X
     lda $02

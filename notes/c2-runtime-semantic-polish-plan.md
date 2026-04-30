@@ -93,6 +93,11 @@ contract notes for C0/C1/C3/C4 consumers.
   The promoted contracts cover the `C2:7294/7318` HP/PP feedback pair,
   `C2:7397` heavy recovery reset behavior, and the `C2:7550` startup boundary
   into the late selected-row controller.
+- 2026-04-30 eighth slice: promoted late selected-row controller contracts into
+  byte-neutral source comments plus `notes/c2-late-selected-row-runtime-polish.md`.
+  The promoted contracts cover the `C2:7680` descriptor text continuation,
+  `C2:77CA` source-entry claim scan, nested `D5:7B68` action pass, and selected
+  row marker/state effects.
 
 ## Validation
 

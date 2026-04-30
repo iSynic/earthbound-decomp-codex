@@ -7,6 +7,20 @@
 ;
 ; Source units covered:
 ; - C2:77CA..C2:7CFD RunClass2LateSelectedRowController
+;
+; Runtime contract:
+; - Late selected-row controller reached when `C2:7550` sees selected-row
+;   `+0x0E != 0`.
+; - Bypasses row ids `0xDA`, `0xDB`, `0xDD`, and `0xE5`.
+; - If exactly one row has phase value `1`, performs a six-entry source claim
+;   scan using `9FB8/9FBA/9FC9/9FBB` and linked `9A13/9A15` markers.
+; - Accumulates selected-row `+0x3F/+0x41/+0x3D` contributions into
+;   `$A974/$A976/$A978`.
+; - Nonzero `D5:9589 + 0x4E` triggers a nested action-controller pass: save
+;   `$A970/$A972/$A96C/$A96E`, make the current row active, run target/action
+;   dispatch, emit both `D5:7B68` pointers, then restore the outer state.
+; - Later phases reuse descriptor field `+0x31`, row marker `+0x4B`, row state
+;   `+0x1D`, and source-entry metadata updates before returning at `C2:7C92`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -27,6 +41,7 @@ C2BAC5_CountRowsWithPhaseValue               = $C2BAC5
 C277CA_RunClass2LateSelectedRowController:
     ldx $02
     lda $0000,X
+    ; These row ids skip the late controller body.
     cmp.w #$00DA
     bne C277D7_RunClass2LateSelectedRowController_L77D7
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
@@ -44,6 +59,7 @@ C277E7_RunClass2LateSelectedRowController_L77E7:
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
 C277EF_RunClass2LateSelectedRowController_L77EF:
     lda.w #$0001
+    ; Only the single-active phase-1 case runs the source-entry claim scan.
     jsl C2BAC5_CountRowsWithPhaseValue
     cmp.w #$0001
     beq C277FE_RunClass2LateSelectedRowController_L77FE
@@ -58,6 +74,7 @@ C27809_RunClass2LateSelectedRowController_L7809:
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     stx $1E
+    ; Claim enabled, unmarked source rows outside candidate class 1.
     lda $9FB8,X
     and.w #$00FF
     beq C2786F_RunClass2LateSelectedRowController_L786F
@@ -102,6 +119,7 @@ C27874_RunClass2LateSelectedRowController_L7874:
     cmp.w #$0006
     bcc C27809_RunClass2LateSelectedRowController_L7809
 C27879_RunClass2LateSelectedRowController_L7879:
+    ; Accumulate row-local contributions into the selected-row totals.
     lda $02
     clc
     adc.w #$003F
@@ -141,12 +159,14 @@ C27879_RunClass2LateSelectedRowController_L7879:
     clc
     adc.w #$004E
     tay
+    ; Descriptor field `+0x4E` selects an optional D5:7B68 action entry.
     lda [$18],Y
     bne C278D9_RunClass2LateSelectedRowController_L78D9
     jmp.w C27A07_RunClass2LateSelectedRowController_L7A07
 C278D9_RunClass2LateSelectedRowController_L78D9:
     lda.w #$0001
     sta $AA90
+    ; Save outer active-row anchors and target mask before nested dispatch.
     ldx $A970
     stx $1E
     ldy $A972
@@ -194,6 +214,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     sta $0A
     lda.w #$00D5
     sta $0C
+    ; Emit the first pointer from the selected D5:7B68 action entry.
     ldx $02
     lda $0000,X
     ldy.w #$005E
@@ -229,6 +250,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda $08
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
+    ; Emit/apply the companion action payload pointer from the same entry.
     ldx $02
     lda $0000,X
     ldy.w #$005E
@@ -259,6 +281,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     sta $10
     jsl C240A4_ApplyBattleActionSecondPointerPayload
     stz $AA90
+    ; Restore the outer active-row anchors and target mask.
     ldx $1E
     stx $A970
     ldy $16
@@ -286,6 +309,7 @@ C27A0F_RunClass2LateSelectedRowController_L7A0F:
     sta $0A
     lda.w #$00D5
     sta $0C
+    ; Fall back to the selected row's descriptor-backed `+0x31` text pointer.
     ldx $02
     lda $0000,X
     ldy.w #$005E
@@ -311,6 +335,7 @@ C27A0F_RunClass2LateSelectedRowController_L7A0F:
     stx $22
     bra C27A61_RunClass2LateSelectedRowController_L7A61
 C27A50_RunClass2LateSelectedRowController_L7A50:
+    ; Reset row-membership marker `+0x4B` across candidate rows.
     tax
     sep #$20
     stz $004B,X
@@ -389,6 +414,7 @@ C27AD9_RunClass2LateSelectedRowController_L7AD9:
     lda.b #$01
     ldx $02
     sta $001D,X
+    ; Reinstall hard/collapsed state and clear sibling substate bytes.
     ldx $02
     stz $0023,X
     ldx $02
@@ -420,6 +446,7 @@ C27B31_RunClass2LateSelectedRowController_L7B31:
     ldy.w #$0008
     bra C27B51_RunClass2LateSelectedRowController_L7B51
 C27B39_RunClass2LateSelectedRowController_L7B39:
+    ; Optional descriptor field `+0x5A` marks active rows in the A21C domain.
     lda $000C,X
     and.w #$00FF
     beq C27B48_RunClass2LateSelectedRowController_L7B48
@@ -491,6 +518,7 @@ C27BC6_RunClass2LateSelectedRowController_L7BC6:
     and.w #$00FF
     beq C27BD5_RunClass2LateSelectedRowController_L7BD5
     sep #$20
+    ; Mirror hard/collapsed state into active rows after the visual pass.
     lda.b #$01
     sta $001D,X
 C27BD5_RunClass2LateSelectedRowController_L7BD5:
@@ -510,6 +538,7 @@ C27BED_RunClass2LateSelectedRowController_L7BED:
     ldx $02
     lda $000F,X
     and.w #$00FF
+    ; D5-tagged route performs source-entry metadata cleanup/rebuild.
     cmp.w #$00D5
     beq C27BFD_RunClass2LateSelectedRowController_L7BFD
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92

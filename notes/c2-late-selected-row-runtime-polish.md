@@ -1,0 +1,107 @@
+# C2 Late Selected-Row Runtime Polish
+
+This note records the byte-neutral polish slice for the selected-row continuation
+at `C2:7680` and the late controller at `C2:77CA`.
+
+Primary source modules:
+
+- `src/c2/c2_7680_display_enemy_death_text.asm`
+- `src/c2/c2_77ca_run_class2_late_selected_row_controller.asm`
+
+Related evidence notes:
+
+- `notes/class2-post-selection-controller-phases.md`
+- `notes/class2-late-controller-path-77ca.md`
+- `notes/class2-descriptor-field-4e-and-d57b68.md`
+- `notes/class2-concrete-battle-text-call-paths.md`
+- `notes/c2-selected-row-controller-runtime-polish.md`
+
+## Descriptor Text Continuation
+
+`C2:7680` continues the `C2:7550` startup path with `$02` as the selected-row
+base.
+
+Promoted runtime contract:
+
+- selected row id maps through the `0x5E` descriptor domain
+- `D5:9589 + 0x31` is read as a battle text pointer
+- the pointer is dispatched through `C1:DC1C`
+- selected-row byte `+0x0C` is cleared after the text emission
+- row `+0x0F` values `0x10/0x11` seed a follow-up active row from the
+  `983A/983C` helper tables
+- other routes scan candidate rows and may clear matching row `+0x10` links
+- the embedded `C2:7784` tail is the hardcoded collapse text route reached from
+  `C2:7550` when row `+0x0F == 0`
+
+This keeps the death/collapse text path tied to the enemy/battler descriptor
+field instead of only to the raw EF or D5 pointer bytes.
+
+## Late Controller Entry
+
+`C2:77CA` is the late selected-row controller reached from `C2:7550` when
+selected-row `+0x0E` is nonzero.
+
+Promoted runtime contract:
+
+- row ids `0xDA`, `0xDB`, `0xDD`, and `0xE5` bypass the late body
+- `C2:BAC5(1)` gates the six-entry source claim scan to the single phase-1 row
+  case
+- the claim scan requires enabled `9FB8`, clear `9FBA`, candidate class
+  `9FC9 != 1`, clear `9FBB`, and clear linked `9A13`
+- surviving entries set source byte `9FBF` and linked marker `9A15`
+- row-local `+0x3F/+0x41/+0x3D` contributions accumulate into
+  `$A974/$A976/$A978`
+
+This documents the late path as a real controller phase, not a failure return.
+
+## Nested Action Pass
+
+When descriptor field `D5:9589 + 0x4E` is nonzero, the late controller runs a
+nested action pass:
+
+- set `$AA90 = 1`
+- save outer `$A970/$A972` active-row anchors
+- save outer `$A96C/$A96E` target mask
+- make the current row the active row
+- copy descriptor-backed fields into row words `+0x04` and `+0x08`
+- run target selection and derived action dispatch
+- emit the first pointer from the selected `D5:7B68` action entry through
+  `C1:DC1C`
+- apply the companion pointer through `C2:40A4`
+- clear `$AA90`
+- restore the outer active-row anchors and target mask
+
+That gives the decomp a source-commented bridge from selected-row phase state to
+the battle-action descriptor table and second-pointer payload path.
+
+## State And Marker Effects
+
+The later part of `C2:77CA` repeats several selected-row controller motifs:
+
+- fallback text uses `D5:9589 + 0x31`
+- row marker `+0x4B` is reset across candidate rows and then set on the selected
+  row
+- row `+0x1D = 1` is reinstalled with sibling state bytes `+0x1E..+0x23`
+  cleared
+- optional descriptor field `+0x5A` can mark active rows in the `A21C` domain
+- `D5` subtype routes clean up or rebuild six-entry source metadata through
+  `C2:B6EB`
+
+## Decomp Value
+
+This slice closes the immediate loop around `C2:7550`:
+
+- startup text and late text now share a documented descriptor-pointer shape
+- the late phase is tied to concrete source-entry markers and active-row state
+- `D5:7B68` no longer appears only in action dispatch notes; its late-controller
+  nested action use is now source-commented too
+- the `+0x0E` major phase byte has a direct source boundary between startup and
+  late behavior
+
+## Remaining Soft Spots
+
+- final gameplay names for row ids `0xDA`, `0xDB`, `0xDD`, and `0xE5`
+- exact names for `$A974/$A976/$A978`
+- precise gameplay meaning of descriptor field `D5:9589 + 0x5A`
+- whether the hardcoded `C2:7784` tail should be split into its own named source
+  unit in a later scaffold pass
