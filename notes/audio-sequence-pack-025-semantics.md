@@ -1,6 +1,6 @@
 # Audio Sequence Pack 25 Semantics Report
 
-Status: focused structure known; opcode meanings still need SPC700 driver-dispatch corroboration.
+Status: focused structure known; source-backed VCMD labels are available, but exact sequence effects still need runtime corroboration.
 
 ## Summary
 
@@ -40,22 +40,22 @@ Status: focused structure known; opcode meanings still need SPC700 driver-dispat
 
 ## Command Candidates
 
-| Byte | Count | Current hypothesis |
+| Byte | Count | Current label |
 | --- | ---: | --- |
-| `0xE0` | 64 | set_instrument_candidate |
-| `0xE1` | 78 | set_pan_candidate |
-| `0xE3` | 56 | vibrato_on_candidate |
-| `0xE5` | 8 | master_volume_or_channel_state_candidate |
-| `0xE7` | 8 | tempo_or_tuning_candidate |
-| `0xED` | 64 | set_channel_volume_candidate |
-| `0xEF` | 43 | subroutine_call_candidate |
-| `0xF0` | 8 | modulation_fade_candidate |
-| `0xF2` | 16 | pitch_envelope_off_candidate |
-| `0xF4` | 80 | driver_toggle_or_extended_control_candidate |
-| `0xF5` | 16 | echo_or_voice_param_candidate |
-| `0xFA` | 8 | earthbound_extended_command_candidate |
-| `0xFD` | 1 | loop_or_jump_control_candidate |
-| `0xFE` | 16 | jump_or_long_control_candidate |
+| `0xE0` | 64 | instrument |
+| `0xE1` | 78 | pan |
+| `0xE3` | 56 | vibrato |
+| `0xE5` | 8 | volume |
+| `0xE7` | 8 | tempo |
+| `0xED` | 64 | voice_volume |
+| `0xEF` | 43 | subroutine |
+| `0xF0` | 8 | vibrato_fade |
+| `0xF2` | 16 | portamento_from |
+| `0xF4` | 80 | detune |
+| `0xF5` | 16 | echo_volume |
+| `0xFA` | 8 | percussion_instrument |
+| `0xFD` | 1 | fast_forward |
+| `0xFE` | 16 | fast_forward_off |
 | `0xFF` | 8 | end_or_sentinel_candidate |
 
 ## Findings

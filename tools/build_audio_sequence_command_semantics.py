@@ -262,7 +262,7 @@ def build_semantics(
             "Static dispatch-table targets are evidence, not promotion authority.",
             "N-SPC family semantics are hypotheses for EarthBound, not promotion authority.",
             "0x00 is the primary terminator/end-of-subroutine candidate under N-SPC semantics, but needs local EarthBound effect proof before sequence exact-duration promotion.",
-            "FF cannot promote finite exact-duration semantics from static 0x1A81 table shape; stock N-SPC marks VCMD 0xFF invalid.",
+            "FF cannot promote finite exact-duration semantics from the source-backed VCMD table because that table ends at FE; stock N-SPC also marks VCMD 0xFF invalid.",
             "FD and FE are treated as fast-forward timing toggles under the N-SPC hypothesis, but public exact exports still require local timing/effect proof.",
             "Loop/held tracks require loop metadata even if a local terminator is later confirmed.",
         ],
@@ -270,7 +270,7 @@ def build_semantics(
         "findings": [
             "The current checked-in evidence does not yet permit sequence-command exact-duration promotion.",
             "Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.",
-            "The N-SPC hypothesis shifts exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.",
+            "The source-backed VCMD table and N-SPC hypothesis both shift exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.",
             "Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics.",
         ],
         "next_work": [

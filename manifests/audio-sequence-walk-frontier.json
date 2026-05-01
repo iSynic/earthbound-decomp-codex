@@ -144,127 +144,127 @@
     },
     "0xE0": {
       "operand_width": 1,
-      "hypothesis": "set_instrument_candidate"
+      "hypothesis": "instrument"
     },
     "0xE1": {
       "operand_width": 1,
-      "hypothesis": "set_pan_candidate"
+      "hypothesis": "pan"
     },
     "0xE2": {
       "operand_width": 2,
-      "hypothesis": "pan_fade_candidate"
+      "hypothesis": "pan_fade"
     },
     "0xE3": {
       "operand_width": 3,
-      "hypothesis": "vibrato_on_candidate"
+      "hypothesis": "vibrato"
     },
     "0xE4": {
       "operand_width": 0,
-      "hypothesis": "vibrato_off_candidate"
+      "hypothesis": "vibrato_off"
     },
     "0xE5": {
       "operand_width": 1,
-      "hypothesis": "master_volume_or_channel_state_candidate"
+      "hypothesis": "volume"
     },
     "0xE6": {
       "operand_width": 2,
-      "hypothesis": "volume_or_master_fade_candidate"
+      "hypothesis": "volume_fade"
     },
     "0xE7": {
       "operand_width": 1,
-      "hypothesis": "tempo_or_tuning_candidate"
+      "hypothesis": "tempo"
     },
     "0xE8": {
       "operand_width": 2,
-      "hypothesis": "tempo_fade_candidate"
+      "hypothesis": "tempo_fade"
     },
     "0xE9": {
       "operand_width": 1,
-      "hypothesis": "global_transpose_candidate"
+      "hypothesis": "transpose"
     },
     "0xEA": {
       "operand_width": 1,
-      "hypothesis": "channel_transpose_candidate"
+      "hypothesis": "voice_transpose"
     },
     "0xEB": {
       "operand_width": 3,
-      "hypothesis": "tremolo_or_modulation_on_candidate"
+      "hypothesis": "tremolo"
     },
     "0xEC": {
       "operand_width": 0,
-      "hypothesis": "tremolo_or_modulation_off_candidate"
+      "hypothesis": "tremolo_off"
     },
     "0xED": {
       "operand_width": 1,
-      "hypothesis": "set_channel_volume_candidate"
+      "hypothesis": "voice_volume"
     },
     "0xEE": {
       "operand_width": 2,
-      "hypothesis": "channel_volume_fade_candidate"
+      "hypothesis": "voice_volume_fade"
     },
     "0xEF": {
       "operand_width": 3,
-      "hypothesis": "subroutine_call_candidate"
+      "hypothesis": "subroutine"
     },
     "0xF0": {
       "operand_width": 1,
-      "hypothesis": "modulation_fade_candidate"
+      "hypothesis": "vibrato_fade"
     },
     "0xF1": {
       "operand_width": 3,
-      "hypothesis": "pitch_envelope_or_portamento_candidate"
+      "hypothesis": "portamento_to"
     },
     "0xF2": {
       "operand_width": 3,
-      "hypothesis": "pitch_envelope_off_candidate"
+      "hypothesis": "portamento_from"
     },
     "0xF3": {
       "operand_width": 0,
-      "hypothesis": "tuning_or_detune_candidate"
+      "hypothesis": "portamento_off"
     },
     "0xF4": {
       "operand_width": 1,
-      "hypothesis": "driver_toggle_or_extended_control_candidate"
+      "hypothesis": "detune"
     },
     "0xF5": {
       "operand_width": 3,
-      "hypothesis": "echo_or_voice_param_candidate"
+      "hypothesis": "echo_volume"
     },
     "0xF6": {
       "operand_width": 0,
-      "hypothesis": "echo_off_or_effect_disable_candidate"
+      "hypothesis": "echo_off"
     },
     "0xF7": {
       "operand_width": 3,
-      "hypothesis": "echo_or_effect_setup_candidate"
+      "hypothesis": "echo_parameters"
     },
     "0xF8": {
       "operand_width": 3,
-      "hypothesis": "echo_or_effect_fade_candidate"
+      "hypothesis": "echo_volume_fade"
     },
     "0xF9": {
       "operand_width": 3,
-      "hypothesis": "pitch_slide_candidate"
+      "hypothesis": "note_slide"
     },
     "0xFA": {
       "operand_width": 1,
-      "hypothesis": "earthbound_extended_command_candidate"
+      "hypothesis": "percussion_instrument"
     },
     "0xFB": {
       "operand_width": 2,
-      "hypothesis": "loop_start_or_control_candidate"
+      "hypothesis": "nop"
     },
     "0xFC": {
       "operand_width": 0,
-      "hypothesis": "loop_end_or_control_candidate"
+      "hypothesis": "mute_voice"
     },
     "0xFD": {
       "operand_width": 0,
-      "hypothesis": "loop_or_jump_control_candidate"
+      "hypothesis": "fast_forward"
     },
     "0xFE": {
       "operand_width": 0,
-      "hypothesis": "jump_or_long_control_candidate"
+      "hypothesis": "fast_forward_off"
     },
     "0xFF": {
       "operand_width": 0,

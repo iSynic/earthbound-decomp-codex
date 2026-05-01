@@ -1,6 +1,6 @@
 # Audio Sequence Control-Flow Frontier
 
-Status: static control-flow operand shapes known; SPC700 driver dispatch still needs naming.
+Status: static control-flow operand shapes known; source-backed SPC700 command labels are ingested, but exact effects still need proof.
 
 ## Summary
 
@@ -11,11 +11,11 @@ Status: static control-flow operand shapes known; SPC700 driver dispatch still n
 
 ## Command Summaries
 
-| Command | Count | Current hypothesis | Next-word pointers | Tail occurrences | Remaining-byte shapes |
+| Command | Count | Current label | Next-word pointers | Tail occurrences | Remaining-byte shapes |
 | --- | ---: | --- | ---: | ---: | --- |
-| `0xEF` | 2057 | subroutine_call_candidate | 2045 (0.9942) | 0 (0.0) | `[{'remaining': '3', 'count': 219}, {'remaining': '4', 'count': 82}, {'remaining': '5', 'count': 58}, {'remaining': '7', 'count': 56}, {'remaining': '11', 'count': 50}]` |
-| `0xFD` | 19 | loop_or_jump_control_candidate | 1 (0.0526) | 0 (0.0) | `[{'remaining': '33', 'count': 1}, {'remaining': '7', 'count': 1}, {'remaining': '2', 'count': 1}, {'remaining': '19', 'count': 1}, {'remaining': '107', 'count': 1}]` |
-| `0xFE` | 49 | jump_or_long_control_candidate | 0 (0.0) | 0 (0.0) | `[{'remaining': '29', 'count': 2}, {'remaining': '35', 'count': 2}, {'remaining': '656', 'count': 1}, {'remaining': '16', 'count': 1}, {'remaining': '34', 'count': 1}]` |
+| `0xEF` | 2057 | subroutine | 2045 (0.9942) | 0 (0.0) | `[{'remaining': '3', 'count': 219}, {'remaining': '4', 'count': 82}, {'remaining': '5', 'count': 58}, {'remaining': '7', 'count': 56}, {'remaining': '11', 'count': 50}]` |
+| `0xFD` | 19 | fast_forward | 1 (0.0526) | 0 (0.0) | `[{'remaining': '33', 'count': 1}, {'remaining': '7', 'count': 1}, {'remaining': '2', 'count': 1}, {'remaining': '19', 'count': 1}, {'remaining': '107', 'count': 1}]` |
+| `0xFE` | 49 | fast_forward_off | 0 (0.0) | 0 (0.0) | `[{'remaining': '29', 'count': 2}, {'remaining': '35', 'count': 2}, {'remaining': '656', 'count': 1}, {'remaining': '16', 'count': 1}, {'remaining': '34', 'count': 1}]` |
 | `0xFF` | 156 | end_or_sentinel_candidate | 2 (0.0128) | 0 (0.0) | `[{'remaining': '11', 'count': 8}, {'remaining': '10', 'count': 5}, {'remaining': '35', 'count': 5}, {'remaining': '12', 'count': 5}, {'remaining': '3', 'count': 3}]` |
 
 ## Priority Packs

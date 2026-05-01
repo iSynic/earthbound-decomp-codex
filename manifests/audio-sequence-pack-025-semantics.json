@@ -482,8 +482,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x29",
@@ -539,8 +539,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -557,8 +557,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -583,8 +583,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -601,8 +601,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -619,8 +619,8 @@
             {
               "byte": "0xEF",
               "count": 2,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -641,8 +641,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -659,8 +659,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -677,8 +677,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -714,8 +714,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -732,8 +732,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -758,8 +758,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -776,8 +776,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -794,8 +794,8 @@
             {
               "byte": "0xEF",
               "count": 2,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -816,8 +816,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -861,8 +861,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -879,8 +879,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -897,8 +897,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -915,8 +915,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -933,8 +933,8 @@
             {
               "byte": "0xEF",
               "count": 2,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -955,8 +955,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -996,8 +996,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -1014,8 +1014,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -1032,8 +1032,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -1050,8 +1050,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -1068,8 +1068,8 @@
             {
               "byte": "0xEF",
               "count": 2,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -1090,8 +1090,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -1108,8 +1108,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -1126,8 +1126,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xEF",
@@ -1167,8 +1167,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -1185,8 +1185,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -1203,8 +1203,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -1221,8 +1221,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -1239,8 +1239,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -1257,8 +1257,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -1275,8 +1275,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -1293,8 +1293,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -1319,8 +1319,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -1370,8 +1370,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -1388,8 +1388,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -1406,8 +1406,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -1424,8 +1424,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -1442,8 +1442,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -1475,8 +1475,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -1493,8 +1493,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -1511,8 +1511,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -1529,8 +1529,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -1547,8 +1547,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -1580,8 +1580,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -1598,8 +1598,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -1616,8 +1616,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -1634,8 +1634,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -1652,8 +1652,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -1802,8 +1802,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -1840,8 +1840,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -1886,8 +1886,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -1940,8 +1940,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -1958,8 +1958,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -1976,8 +1976,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -2014,8 +2014,8 @@
           {
             "byte": "0xEF",
             "count": 9,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x29",
@@ -2036,8 +2036,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -2054,8 +2054,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -2072,8 +2072,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -2114,8 +2114,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -2140,8 +2140,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -2158,8 +2158,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -2611,8 +2611,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -2668,8 +2668,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -2686,8 +2686,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -2712,8 +2712,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -2730,8 +2730,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -2748,8 +2748,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -2766,8 +2766,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -2784,8 +2784,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -2802,8 +2802,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -2847,8 +2847,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -2865,8 +2865,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -2891,8 +2891,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -2909,8 +2909,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -2927,8 +2927,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -2945,8 +2945,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -2998,8 +2998,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -3016,8 +3016,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3034,8 +3034,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3052,8 +3052,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -3070,8 +3070,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -3088,8 +3088,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3141,8 +3141,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3159,8 +3159,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3177,8 +3177,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -3195,8 +3195,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -3213,8 +3213,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -3231,8 +3231,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -3249,8 +3249,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3267,8 +3267,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -3320,8 +3320,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -3338,8 +3338,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3356,8 +3356,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -3374,8 +3374,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -3392,8 +3392,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -3410,8 +3410,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -3428,8 +3428,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3446,8 +3446,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -3472,8 +3472,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -3523,8 +3523,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -3541,8 +3541,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -3559,8 +3559,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -3577,8 +3577,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -3595,8 +3595,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3628,8 +3628,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -3646,8 +3646,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -3664,8 +3664,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -3682,8 +3682,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -3700,8 +3700,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3733,8 +3733,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -3751,8 +3751,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -3769,8 +3769,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -3787,8 +3787,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -3805,8 +3805,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -3935,8 +3935,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -3973,8 +3973,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -4019,8 +4019,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -4073,8 +4073,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -4091,8 +4091,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -4109,8 +4109,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -4147,8 +4147,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x3D",
@@ -4165,8 +4165,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -4183,8 +4183,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -4201,8 +4201,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -4243,8 +4243,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -4269,8 +4269,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -4287,8 +4287,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -4732,8 +4732,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x4D",
@@ -4789,8 +4789,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -4807,8 +4807,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -4833,8 +4833,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -4851,8 +4851,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -4869,8 +4869,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x4D",
@@ -4887,8 +4887,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -4905,8 +4905,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -4923,8 +4923,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -4972,8 +4972,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -4990,8 +4990,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -5016,8 +5016,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -5034,8 +5034,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -5052,8 +5052,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x4D",
@@ -5070,8 +5070,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -5127,8 +5127,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -5145,8 +5145,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -5163,8 +5163,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -5181,8 +5181,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -5199,8 +5199,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x4D",
@@ -5217,8 +5217,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5274,8 +5274,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -5292,8 +5292,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -5310,8 +5310,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -5328,8 +5328,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -5346,8 +5346,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x4D",
@@ -5364,8 +5364,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -5382,8 +5382,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5400,8 +5400,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -5457,8 +5457,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -5475,8 +5475,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -5493,8 +5493,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -5511,8 +5511,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -5529,8 +5529,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -5547,8 +5547,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -5565,8 +5565,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5583,8 +5583,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -5609,8 +5609,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -5660,8 +5660,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -5678,8 +5678,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -5696,8 +5696,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -5714,8 +5714,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -5732,8 +5732,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5765,8 +5765,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -5783,8 +5783,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -5801,8 +5801,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -5819,8 +5819,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -5837,8 +5837,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5870,8 +5870,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -5888,8 +5888,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -5906,8 +5906,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -5924,8 +5924,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -5942,8 +5942,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -6072,8 +6072,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -6110,8 +6110,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -6156,8 +6156,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -6210,8 +6210,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -6228,8 +6228,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -6246,8 +6246,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -6284,8 +6284,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x4D",
@@ -6302,8 +6302,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -6320,8 +6320,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -6338,8 +6338,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -6380,8 +6380,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -6406,8 +6406,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -6424,8 +6424,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -6873,8 +6873,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x45",
@@ -6930,8 +6930,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -6948,8 +6948,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -6974,8 +6974,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -6992,8 +6992,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -7010,8 +7010,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x45",
@@ -7028,8 +7028,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -7046,8 +7046,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -7064,8 +7064,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7105,8 +7105,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -7123,8 +7123,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -7149,8 +7149,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -7167,8 +7167,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -7185,8 +7185,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x45",
@@ -7203,8 +7203,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -7252,8 +7252,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -7270,8 +7270,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7288,8 +7288,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7306,8 +7306,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -7324,8 +7324,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x45",
@@ -7342,8 +7342,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7391,8 +7391,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7409,8 +7409,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7427,8 +7427,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -7445,8 +7445,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -7463,8 +7463,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x45",
@@ -7481,8 +7481,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -7499,8 +7499,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7517,8 +7517,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -7566,8 +7566,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -7584,8 +7584,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -7602,8 +7602,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -7620,8 +7620,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -7638,8 +7638,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -7656,8 +7656,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -7674,8 +7674,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7692,8 +7692,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -7718,8 +7718,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -7769,8 +7769,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -7787,8 +7787,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -7805,8 +7805,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -7823,8 +7823,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -7841,8 +7841,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7874,8 +7874,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -7892,8 +7892,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -7910,8 +7910,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -7928,8 +7928,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -7946,8 +7946,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7979,8 +7979,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -7997,8 +7997,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -8015,8 +8015,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -8033,8 +8033,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -8051,8 +8051,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -8181,8 +8181,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -8219,8 +8219,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -8265,8 +8265,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -8319,8 +8319,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -8337,8 +8337,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -8355,8 +8355,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -8393,8 +8393,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x45",
@@ -8411,8 +8411,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -8429,8 +8429,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -8447,8 +8447,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -8489,8 +8489,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -8515,8 +8515,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -8533,8 +8533,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -8974,8 +8974,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x31",
@@ -9031,8 +9031,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9049,8 +9049,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -9075,8 +9075,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -9093,8 +9093,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -9111,8 +9111,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x31",
@@ -9129,8 +9129,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -9147,8 +9147,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -9165,8 +9165,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9214,8 +9214,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -9232,8 +9232,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -9258,8 +9258,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -9276,8 +9276,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -9294,8 +9294,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x31",
@@ -9312,8 +9312,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -9369,8 +9369,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -9387,8 +9387,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9405,8 +9405,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9423,8 +9423,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -9441,8 +9441,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3B",
@@ -9459,8 +9459,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -9516,8 +9516,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9534,8 +9534,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9552,8 +9552,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -9570,8 +9570,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -9588,8 +9588,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3B",
@@ -9606,8 +9606,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -9624,8 +9624,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -9642,8 +9642,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -9699,8 +9699,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -9717,8 +9717,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -9735,8 +9735,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -9753,8 +9753,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -9771,8 +9771,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -9789,8 +9789,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -9807,8 +9807,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -9825,8 +9825,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -9851,8 +9851,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -9902,8 +9902,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -9920,8 +9920,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -9938,8 +9938,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -9956,8 +9956,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -9974,8 +9974,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -10007,8 +10007,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -10025,8 +10025,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -10043,8 +10043,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -10061,8 +10061,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -10079,8 +10079,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -10112,8 +10112,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -10130,8 +10130,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -10148,8 +10148,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -10166,8 +10166,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -10184,8 +10184,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -10314,8 +10314,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -10352,8 +10352,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -10398,8 +10398,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -10452,8 +10452,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -10470,8 +10470,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -10488,8 +10488,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -10526,8 +10526,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x31",
@@ -10548,8 +10548,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -10566,8 +10566,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -10584,8 +10584,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -10626,8 +10626,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -10652,8 +10652,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -10670,8 +10670,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -11119,8 +11119,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x49",
@@ -11176,8 +11176,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11194,8 +11194,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -11220,8 +11220,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -11238,8 +11238,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -11256,8 +11256,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x49",
@@ -11274,8 +11274,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -11292,8 +11292,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -11310,8 +11310,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11363,8 +11363,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -11381,8 +11381,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -11407,8 +11407,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -11425,8 +11425,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -11443,8 +11443,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x49",
@@ -11461,8 +11461,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -11522,8 +11522,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -11540,8 +11540,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11558,8 +11558,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11576,8 +11576,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -11594,8 +11594,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x49",
@@ -11612,8 +11612,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -11673,8 +11673,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11691,8 +11691,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11709,8 +11709,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -11727,8 +11727,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -11745,8 +11745,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x49",
@@ -11763,8 +11763,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -11781,8 +11781,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -11799,8 +11799,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -11860,8 +11860,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -11878,8 +11878,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -11896,8 +11896,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -11914,8 +11914,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -11932,8 +11932,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -11950,8 +11950,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -11968,8 +11968,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -11986,8 +11986,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -12012,8 +12012,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -12063,8 +12063,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -12081,8 +12081,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -12099,8 +12099,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -12117,8 +12117,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -12135,8 +12135,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -12168,8 +12168,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -12186,8 +12186,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -12204,8 +12204,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -12222,8 +12222,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -12240,8 +12240,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -12273,8 +12273,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -12291,8 +12291,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -12309,8 +12309,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -12327,8 +12327,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -12345,8 +12345,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -12475,8 +12475,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -12513,8 +12513,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -12559,8 +12559,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -12613,8 +12613,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -12631,8 +12631,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -12649,8 +12649,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -12687,8 +12687,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x49",
@@ -12705,8 +12705,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -12723,8 +12723,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -12741,8 +12741,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -12783,8 +12783,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -12809,8 +12809,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -12827,8 +12827,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -13318,8 +13318,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13336,8 +13336,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -13362,8 +13362,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -13380,8 +13380,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -13398,8 +13398,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -13416,8 +13416,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -13434,8 +13434,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -13452,8 +13452,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13501,8 +13501,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -13519,8 +13519,8 @@
             {
               "byte": "0xE1",
               "count": 2,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -13545,8 +13545,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -13563,8 +13563,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -13581,8 +13581,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x33",
@@ -13599,8 +13599,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -13656,8 +13656,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -13674,8 +13674,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13692,8 +13692,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13710,8 +13710,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -13728,8 +13728,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -13746,8 +13746,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -13787,8 +13787,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13805,8 +13805,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13823,8 +13823,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -13841,8 +13841,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -13859,8 +13859,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3D",
@@ -13877,8 +13877,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -13895,8 +13895,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -13913,8 +13913,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -13954,8 +13954,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -13972,8 +13972,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -13990,8 +13990,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -14008,8 +14008,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -14026,8 +14026,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -14044,8 +14044,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -14062,8 +14062,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -14080,8 +14080,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -14106,8 +14106,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -14157,8 +14157,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -14175,8 +14175,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -14193,8 +14193,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -14211,8 +14211,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -14229,8 +14229,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -14262,8 +14262,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -14280,8 +14280,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -14298,8 +14298,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -14316,8 +14316,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -14334,8 +14334,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -14367,8 +14367,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -14385,8 +14385,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -14403,8 +14403,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -14421,8 +14421,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -14439,8 +14439,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -14585,8 +14585,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -14623,8 +14623,8 @@
           {
             "byte": "0xE1",
             "count": 10,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -14669,8 +14669,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -14723,8 +14723,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -14741,8 +14741,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -14759,8 +14759,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -14797,8 +14797,8 @@
           {
             "byte": "0xEF",
             "count": 4,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x33",
@@ -14819,8 +14819,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -14837,8 +14837,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -14855,8 +14855,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -14897,8 +14897,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -14923,8 +14923,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -14941,8 +14941,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -15390,8 +15390,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFD",
@@ -15408,8 +15408,8 @@
             {
               "byte": "0xFD",
               "count": 1,
-              "hypothesis": "loop_or_jump_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x56",
@@ -15465,8 +15465,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15483,8 +15483,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x12",
@@ -15501,8 +15501,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -15519,8 +15519,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x64",
@@ -15537,8 +15537,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x07",
@@ -15555,8 +15555,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -15573,8 +15573,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -15591,8 +15591,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15624,8 +15624,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -15642,8 +15642,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0F",
@@ -15660,8 +15660,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -15678,8 +15678,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -15696,8 +15696,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x07",
@@ -15714,8 +15714,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -15755,8 +15755,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xCE",
@@ -15773,8 +15773,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15791,8 +15791,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15809,8 +15809,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x78",
@@ -15827,8 +15827,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x07",
@@ -15845,8 +15845,8 @@
             {
               "byte": "0xF4",
               "count": 2,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -15886,8 +15886,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15904,8 +15904,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -15922,8 +15922,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x04",
@@ -15940,8 +15940,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x96",
@@ -15958,8 +15958,8 @@
             {
               "byte": "0xEF",
               "count": 1,
-              "hypothesis": "subroutine_call_candidate",
-              "confidence": "medium",
+              "hypothesis": "subroutine",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x07",
@@ -15976,8 +15976,8 @@
             {
               "byte": "0xF2",
               "count": 1,
-              "hypothesis": "pitch_envelope_off_candidate",
-              "confidence": "low",
+              "hypothesis": "portamento_from",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x00",
@@ -15994,8 +15994,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -16012,8 +16012,8 @@
             {
               "byte": "0xFE",
               "count": 1,
-              "hypothesis": "jump_or_long_control_candidate",
-              "confidence": "low",
+              "hypothesis": "fast_forward_off",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x60",
@@ -16053,8 +16053,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -16071,8 +16071,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -16089,8 +16089,8 @@
             {
               "byte": "0xE5",
               "count": 1,
-              "hypothesis": "master_volume_or_channel_state_candidate",
-              "confidence": "low",
+              "hypothesis": "volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xF0",
@@ -16107,8 +16107,8 @@
             {
               "byte": "0xE7",
               "count": 1,
-              "hypothesis": "tempo_or_tuning_candidate",
-              "confidence": "low",
+              "hypothesis": "tempo",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0E",
@@ -16125,8 +16125,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -16143,8 +16143,8 @@
             {
               "byte": "0xF0",
               "count": 1,
-              "hypothesis": "modulation_fade_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato_fade",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xED",
@@ -16161,8 +16161,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -16179,8 +16179,8 @@
             {
               "byte": "0xF5",
               "count": 2,
-              "hypothesis": "echo_or_voice_param_candidate",
-              "confidence": "low",
+              "hypothesis": "echo_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0xFF",
@@ -16205,8 +16205,8 @@
             {
               "byte": "0xFA",
               "count": 1,
-              "hypothesis": "earthbound_extended_command_candidate",
-              "confidence": "medium",
+              "hypothesis": "percussion_instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x1A",
@@ -16256,8 +16256,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -16274,8 +16274,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0B",
@@ -16292,8 +16292,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -16310,8 +16310,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -16328,8 +16328,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -16361,8 +16361,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x09",
@@ -16379,8 +16379,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -16397,8 +16397,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x02",
@@ -16415,8 +16415,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x32",
@@ -16433,8 +16433,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -16466,8 +16466,8 @@
             {
               "byte": "0xE0",
               "count": 1,
-              "hypothesis": "set_instrument_candidate",
-              "confidence": "medium",
+              "hypothesis": "instrument",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0A",
@@ -16484,8 +16484,8 @@
             {
               "byte": "0xE1",
               "count": 1,
-              "hypothesis": "set_pan_candidate",
-              "confidence": "medium",
+              "hypothesis": "pan",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x0D",
@@ -16502,8 +16502,8 @@
             {
               "byte": "0xE3",
               "count": 1,
-              "hypothesis": "vibrato_on_candidate",
-              "confidence": "low",
+              "hypothesis": "vibrato",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x01",
@@ -16520,8 +16520,8 @@
             {
               "byte": "0xED",
               "count": 1,
-              "hypothesis": "set_channel_volume_candidate",
-              "confidence": "medium",
+              "hypothesis": "voice_volume",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x3C",
@@ -16538,8 +16538,8 @@
             {
               "byte": "0xF4",
               "count": 1,
-              "hypothesis": "driver_toggle_or_extended_control_candidate",
-              "confidence": "low",
+              "hypothesis": "detune",
+              "confidence": "source_backed",
               "next_byte_top": [
                 {
                   "byte": "0x08",
@@ -16672,8 +16672,8 @@
           {
             "byte": "0xE0",
             "count": 8,
-            "hypothesis": "set_instrument_candidate",
-            "confidence": "medium",
+            "hypothesis": "instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x09",
@@ -16710,8 +16710,8 @@
           {
             "byte": "0xE1",
             "count": 8,
-            "hypothesis": "set_pan_candidate",
-            "confidence": "medium",
+            "hypothesis": "pan",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",
@@ -16748,8 +16748,8 @@
           {
             "byte": "0xE3",
             "count": 7,
-            "hypothesis": "vibrato_on_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x02",
@@ -16802,8 +16802,8 @@
           {
             "byte": "0xE5",
             "count": 1,
-            "hypothesis": "master_volume_or_channel_state_candidate",
-            "confidence": "low",
+            "hypothesis": "volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xF0",
@@ -16820,8 +16820,8 @@
           {
             "byte": "0xE7",
             "count": 1,
-            "hypothesis": "tempo_or_tuning_candidate",
-            "confidence": "low",
+            "hypothesis": "tempo",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0E",
@@ -16838,8 +16838,8 @@
           {
             "byte": "0xED",
             "count": 8,
-            "hypothesis": "set_channel_volume_candidate",
-            "confidence": "medium",
+            "hypothesis": "voice_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x32",
@@ -16876,8 +16876,8 @@
           {
             "byte": "0xEF",
             "count": 5,
-            "hypothesis": "subroutine_call_candidate",
-            "confidence": "medium",
+            "hypothesis": "subroutine",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x07",
@@ -16902,8 +16902,8 @@
           {
             "byte": "0xF0",
             "count": 1,
-            "hypothesis": "modulation_fade_candidate",
-            "confidence": "low",
+            "hypothesis": "vibrato_fade",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xED",
@@ -16920,8 +16920,8 @@
           {
             "byte": "0xF2",
             "count": 2,
-            "hypothesis": "pitch_envelope_off_candidate",
-            "confidence": "low",
+            "hypothesis": "portamento_from",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x00",
@@ -16938,8 +16938,8 @@
           {
             "byte": "0xF4",
             "count": 10,
-            "hypothesis": "driver_toggle_or_extended_control_candidate",
-            "confidence": "low",
+            "hypothesis": "detune",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x0A",
@@ -16980,8 +16980,8 @@
           {
             "byte": "0xF5",
             "count": 2,
-            "hypothesis": "echo_or_voice_param_candidate",
-            "confidence": "low",
+            "hypothesis": "echo_volume",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0xFF",
@@ -17006,8 +17006,8 @@
           {
             "byte": "0xFA",
             "count": 1,
-            "hypothesis": "earthbound_extended_command_candidate",
-            "confidence": "medium",
+            "hypothesis": "percussion_instrument",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x1A",
@@ -17024,8 +17024,8 @@
           {
             "byte": "0xFD",
             "count": 1,
-            "hypothesis": "loop_or_jump_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x56",
@@ -17042,8 +17042,8 @@
           {
             "byte": "0xFE",
             "count": 2,
-            "hypothesis": "jump_or_long_control_candidate",
-            "confidence": "low",
+            "hypothesis": "fast_forward_off",
+            "confidence": "source_backed",
             "next_byte_top": [
               {
                 "byte": "0x08",

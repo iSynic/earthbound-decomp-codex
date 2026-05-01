@@ -312,7 +312,7 @@ def render_markdown(data: dict[str, Any]) -> str:
         [
             "# Audio Sequence Control-Flow Frontier",
             "",
-            "Status: static control-flow operand shapes known; SPC700 driver dispatch still needs naming.",
+            "Status: static control-flow operand shapes known; source-backed SPC700 command labels are ingested, but exact effects still need proof.",
             "",
             "## Summary",
             "",
@@ -323,7 +323,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Command Summaries",
             "",
-            "| Command | Count | Current hypothesis | Next-word pointers | Tail occurrences | Remaining-byte shapes |",
+            "| Command | Count | Current label | Next-word pointers | Tail occurrences | Remaining-byte shapes |",
             "| --- | ---: | --- | ---: | ---: | --- |",
             *command_rows,
             "",

@@ -379,7 +379,7 @@ def render_markdown(data: dict[str, Any]) -> str:
         [
             f"# Audio Sequence Pack {data['pack_id']} Semantics Report",
             "",
-            "Status: focused structure known; opcode meanings still need SPC700 driver-dispatch corroboration.",
+            "Status: focused structure known; source-backed VCMD labels are available, but exact sequence effects still need runtime corroboration.",
             "",
             "## Summary",
             "",
@@ -405,7 +405,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Command Candidates",
             "",
-            "| Byte | Count | Current hypothesis |",
+            "| Byte | Count | Current label |",
             "| --- | ---: | --- |",
             *command_rows,
             "",

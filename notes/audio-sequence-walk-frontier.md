@@ -17,40 +17,40 @@ Status: provisional N-SPC-family static walk built; 0x00 terminator candidates a
 
 ## Commands Seen By Walker
 
-| Command | Count | Current hypothesis |
+| Command | Count | Current label |
 | --- | ---: | --- |
 | `0x00` | 922 | phrase_termination_or_end_of_subroutine_candidate |
-| `0xE0` | 1466 | set_instrument_candidate |
-| `0xE1` | 3206 | set_pan_candidate |
-| `0xE2` | 542 | pan_fade_candidate |
-| `0xE3` | 664 | vibrato_on_candidate |
-| `0xE4` | 142 | vibrato_off_candidate |
-| `0xE5` | 166 | master_volume_or_channel_state_candidate |
-| `0xE6` | 52 | volume_or_master_fade_candidate |
-| `0xE7` | 249 | tempo_or_tuning_candidate |
-| `0xE8` | 15 | tempo_fade_candidate |
-| `0xE9` | 16 | global_transpose_candidate |
-| `0xEA` | 42 | channel_transpose_candidate |
-| `0xEB` | 70 | tremolo_or_modulation_on_candidate |
-| `0xEC` | 18 | tremolo_or_modulation_off_candidate |
-| `0xED` | 1640 | set_channel_volume_candidate |
-| `0xEE` | 359 | channel_volume_fade_candidate |
-| `0xEF` | 1092 | subroutine_call_candidate |
-| `0xF0` | 17 | modulation_fade_candidate |
-| `0xF1` | 356 | pitch_envelope_or_portamento_candidate |
-| `0xF2` | 270 | pitch_envelope_off_candidate |
-| `0xF3` | 212 | tuning_or_detune_candidate |
-| `0xF4` | 797 | driver_toggle_or_extended_control_candidate |
-| `0xF5` | 191 | echo_or_voice_param_candidate |
-| `0xF6` | 12 | echo_off_or_effect_disable_candidate |
-| `0xF7` | 161 | echo_or_effect_setup_candidate |
-| `0xF8` | 10 | echo_or_effect_fade_candidate |
-| `0xF9` | 271 | pitch_slide_candidate |
-| `0xFA` | 156 | earthbound_extended_command_candidate |
-| `0xFB` | 9 | loop_start_or_control_candidate |
-| `0xFC` | 16 | loop_end_or_control_candidate |
-| `0xFD` | 7 | loop_or_jump_control_candidate |
-| `0xFE` | 15 | jump_or_long_control_candidate |
+| `0xE0` | 1466 | instrument |
+| `0xE1` | 3206 | pan |
+| `0xE2` | 542 | pan_fade |
+| `0xE3` | 664 | vibrato |
+| `0xE4` | 142 | vibrato_off |
+| `0xE5` | 166 | volume |
+| `0xE6` | 52 | volume_fade |
+| `0xE7` | 249 | tempo |
+| `0xE8` | 15 | tempo_fade |
+| `0xE9` | 16 | transpose |
+| `0xEA` | 42 | voice_transpose |
+| `0xEB` | 70 | tremolo |
+| `0xEC` | 18 | tremolo_off |
+| `0xED` | 1640 | voice_volume |
+| `0xEE` | 359 | voice_volume_fade |
+| `0xEF` | 1092 | subroutine |
+| `0xF0` | 17 | vibrato_fade |
+| `0xF1` | 356 | portamento_to |
+| `0xF2` | 270 | portamento_from |
+| `0xF3` | 212 | portamento_off |
+| `0xF4` | 797 | detune |
+| `0xF5` | 191 | echo_volume |
+| `0xF6` | 12 | echo_off |
+| `0xF7` | 161 | echo_parameters |
+| `0xF8` | 10 | echo_volume_fade |
+| `0xF9` | 271 | note_slide |
+| `0xFA` | 156 | percussion_instrument |
+| `0xFB` | 9 | nop |
+| `0xFC` | 16 | mute_voice |
+| `0xFD` | 7 | fast_forward |
+| `0xFE` | 15 | fast_forward_off |
 | `0xFF` | 150 | end_or_sentinel_candidate |
 
 ## Priority Packs

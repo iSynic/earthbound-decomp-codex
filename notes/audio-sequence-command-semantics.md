@@ -16,7 +16,7 @@ Status: promoted command semantics are evidence-gated; current checked-in traces
 - Static dispatch-table targets are evidence, not promotion authority.
 - N-SPC family semantics are hypotheses for EarthBound, not promotion authority.
 - 0x00 is the primary terminator/end-of-subroutine candidate under N-SPC semantics, but needs local EarthBound effect proof before sequence exact-duration promotion.
-- FF cannot promote finite exact-duration semantics from static 0x1A81 table shape; stock N-SPC marks VCMD 0xFF invalid.
+- FF cannot promote finite exact-duration semantics from the source-backed VCMD table because that table ends at FE; stock N-SPC also marks VCMD 0xFF invalid.
 - FD and FE are treated as fast-forward timing toggles under the N-SPC hypothesis, but public exact exports still require local timing/effect proof.
 - Loop/held tracks require loop metadata even if a local terminator is later confirmed.
 
@@ -25,16 +25,16 @@ Status: promoted command semantics are evidence-gated; current checked-in traces
 | Command | Hypothesis | Static target | Semantic status | Seq reads | Dispatch hits | Promotion allowed | Next export action |
 | --- | --- | ---: | --- | ---: | ---: | --- | --- |
 | `0x00` | `phrase_termination_or_end_of_subroutine` | `None` | `pending_earthbound_zero_control_effect_proof` | `5931` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xEF` | `subroutine` | `0x18BF` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `475` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFD` | `fast_forward_on` | `0x19FB` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `1` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFE` | `fast_forward_off` | `0x1A32` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `5` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFF` | `invalid_stock_n_spc_vcmd` | `0x1A81` | `contradicted_by_stock_n_spc_pending_earthbound_variant_proof` | `12` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xEF` | `subroutine` | `0x0AAC` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `475` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFD` | `fast_forward_on` | `0x0B7E` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `1` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFE` | `fast_forward_off` | `0x0B7F` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `5` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFF` | `invalid_stock_n_spc_vcmd` | `None` | `contradicted_by_stock_n_spc_pending_earthbound_variant_proof` | `12` | `0` | `False` | `keep_public_exact_promotion_blocked` |
 
 ## Findings
 
 - The current checked-in evidence does not yet permit sequence-command exact-duration promotion.
 - Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.
-- The N-SPC hypothesis shifts exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.
+- The source-backed VCMD table and N-SPC hypothesis both shift exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.
 - Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics.
 
 ## Next Work

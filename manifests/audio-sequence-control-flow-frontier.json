@@ -24,8 +24,8 @@
   },
   "command_summaries": {
     "0xEF": {
-      "hypothesis": "subroutine_call_candidate",
-      "confidence": "medium",
+      "hypothesis": "subroutine",
+      "confidence": "source_backed",
       "count": 2057,
       "tail_count": 0,
       "next_word_pointer_count": 2045,
@@ -341,8 +341,8 @@
       ]
     },
     "0xFD": {
-      "hypothesis": "loop_or_jump_control_candidate",
-      "confidence": "low",
+      "hypothesis": "fast_forward",
+      "confidence": "source_backed",
       "count": 19,
       "tail_count": 0,
       "next_word_pointer_count": 1,
@@ -622,8 +622,8 @@
       ]
     },
     "0xFE": {
-      "hypothesis": "jump_or_long_control_candidate",
-      "confidence": "low",
+      "hypothesis": "fast_forward_off",
+      "confidence": "source_backed",
       "count": 49,
       "tail_count": 0,
       "next_word_pointer_count": 0,

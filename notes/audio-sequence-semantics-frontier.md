@@ -1,6 +1,6 @@
 # Audio Sequence Semantics Frontier
 
-Status: first-pass sequence-pack frontier inventory; payload-level opcode decoding is the next active work.
+Status: first-pass sequence-pack frontier inventory with source-backed VCMD labels for 0xE0..0xFE; exact-duration effects still need runtime proof.
 
 EarthBound's music sequence data is loaded by `CHANGE_MUSIC` as the third pack role, after primary and secondary sample packs. The current audio renderer can play/export all snapshot-backed tracks, but exact endings and loop points still need sequence bytecode semantics.
 
@@ -20,82 +20,83 @@ EarthBound's music sequence data is loaded by `CHANGE_MUSIC` as the third pack r
 - It does not embed ROM-derived sequence payload bytes; it stores structural statistics, pointer candidates, hashes, and command histograms.
 - It separates track/export pressure from opcode semantics so exact-duration work can focus on the tracks that still need it.
 
-## First-Pass Command Hypotheses
+## Command Labels
 
-These names are hypotheses to guide driver work, not final source names. They are intentionally marked as candidates until tied to SPC700 dispatch evidence.
+Commands 0xE0..0xFE now use source-backed labels from the ingested byte-perfect SPC700 disassembly. 0x00 and 0xFF remain working semantics rather than source-backed VCMD labels.
 
-| Byte | Candidate meaning | Confidence |
+| Byte | Current label | Confidence |
 | --- | --- | --- |
-| `0xE0` | set_instrument_candidate | medium |
-| `0xE1` | set_pan_candidate | medium |
-| `0xE2` | pan_fade_candidate | low |
-| `0xE3` | vibrato_on_candidate | low |
-| `0xE4` | vibrato_off_candidate | low |
-| `0xE5` | master_volume_or_channel_state_candidate | low |
-| `0xE6` | volume_or_master_fade_candidate | low |
-| `0xE7` | tempo_or_tuning_candidate | low |
-| `0xE8` | tempo_fade_candidate | low |
-| `0xE9` | global_transpose_candidate | low |
-| `0xEA` | channel_transpose_candidate | low |
-| `0xEB` | tremolo_or_modulation_on_candidate | low |
-| `0xEC` | tremolo_or_modulation_off_candidate | low |
-| `0xED` | set_channel_volume_candidate | medium |
-| `0xEE` | channel_volume_fade_candidate | low |
-| `0xEF` | subroutine_call_candidate | medium |
-| `0xF0` | modulation_fade_candidate | low |
-| `0xF1` | pitch_envelope_or_portamento_candidate | low |
-| `0xF2` | pitch_envelope_off_candidate | low |
-| `0xF3` | tuning_or_detune_candidate | low |
-| `0xF4` | driver_toggle_or_extended_control_candidate | low |
-| `0xF5` | echo_or_voice_param_candidate | low |
-| `0xF6` | echo_off_or_effect_disable_candidate | low |
-| `0xF7` | echo_or_effect_setup_candidate | low |
-| `0xF8` | echo_or_effect_fade_candidate | low |
-| `0xF9` | pitch_slide_candidate | low |
-| `0xFA` | earthbound_extended_command_candidate | medium |
-| `0xFB` | loop_start_or_control_candidate | low |
-| `0xFC` | loop_end_or_control_candidate | low |
-| `0xFD` | loop_or_jump_control_candidate | low |
-| `0xFE` | jump_or_long_control_candidate | low |
+| `0x00` | phrase_termination_or_end_of_subroutine_candidate | medium |
+| `0xE0` | instrument | source_backed |
+| `0xE1` | pan | source_backed |
+| `0xE2` | pan_fade | source_backed |
+| `0xE3` | vibrato | source_backed |
+| `0xE4` | vibrato_off | source_backed |
+| `0xE5` | volume | source_backed |
+| `0xE6` | volume_fade | source_backed |
+| `0xE7` | tempo | source_backed |
+| `0xE8` | tempo_fade | source_backed |
+| `0xE9` | transpose | source_backed |
+| `0xEA` | voice_transpose | source_backed |
+| `0xEB` | tremolo | source_backed |
+| `0xEC` | tremolo_off | source_backed |
+| `0xED` | voice_volume | source_backed |
+| `0xEE` | voice_volume_fade | source_backed |
+| `0xEF` | subroutine | source_backed |
+| `0xF0` | vibrato_fade | source_backed |
+| `0xF1` | portamento_to | source_backed |
+| `0xF2` | portamento_from | source_backed |
+| `0xF3` | portamento_off | source_backed |
+| `0xF4` | detune | source_backed |
+| `0xF5` | echo_volume | source_backed |
+| `0xF6` | echo_off | source_backed |
+| `0xF7` | echo_parameters | source_backed |
+| `0xF8` | echo_volume_fade | source_backed |
+| `0xF9` | note_slide | source_backed |
+| `0xFA` | percussion_instrument | source_backed |
+| `0xFB` | nop | source_backed |
+| `0xFC` | mute_voice | source_backed |
+| `0xFD` | fast_forward | source_backed |
+| `0xFE` | fast_forward_off | source_backed |
 | `0xFF` | end_or_sentinel_candidate | medium |
 
 ## Command Contexts
 
-Top next-byte profiles are statistical evidence for operand widths and control-flow commands. They still need SPC700 driver-dispatch corroboration before promotion to final names.
+Top next-byte profiles are still useful statistical evidence for operand widths and control-flow behavior, even though the base labels now come from source for 0xE0..0xFE.
 
-| Byte | Count | Candidate meaning | Top following bytes |
+| Byte | Count | Current label | Top following bytes |
 | --- | ---: | --- | --- |
-| `0xE0` | 2354 | set_instrument_candidate | `[{'byte': '0xCB', 'count': 254}, {'byte': '0x08', 'count': 245}, {'byte': '0xCE', 'count': 172}, {'byte': '0xCD', 'count': 167}, {'byte': '0xD0', 'count': 128}, {'byte': '0x09', 'count': 126}]` |
-| `0xE1` | 5925 | set_pan_candidate | `[{'byte': '0x0A', 'count': 929}, {'byte': '0x05', 'count': 641}, {'byte': '0x12', 'count': 578}, {'byte': '0x0F', 'count': 562}, {'byte': '0x08', 'count': 463}, {'byte': '0x02', 'count': 431}]` |
-| `0xE2` | 925 | pan_fade_candidate | `[{'byte': '0x60', 'count': 483}, {'byte': '0x5A', 'count': 163}, {'byte': '0xB4', 'count': 73}, {'byte': '0x28', 'count': 72}, {'byte': '0x30', 'count': 60}, {'byte': '0x48', 'count': 15}]` |
-| `0xE3` | 998 | vibrato_on_candidate | `[{'byte': '0x00', 'count': 269}, {'byte': '0x01', 'count': 119}, {'byte': '0x02', 'count': 108}, {'byte': '0x03', 'count': 58}, {'byte': '0x0C', 'count': 51}, {'byte': '0x14', 'count': 45}]` |
-| `0xE4` | 242 | vibrato_off_candidate | `[{'byte': '0xF3', 'count': 38}, {'byte': '0x18', 'count': 32}, {'byte': '0xEF', 'count': 30}, {'byte': '0xE1', 'count': 26}, {'byte': '0xF4', 'count': 19}, {'byte': '0x0C', 'count': 12}]` |
-| `0xE5` | 208 | master_volume_or_channel_state_candidate | `[{'byte': '0xF0', 'count': 176}, {'byte': '0x96', 'count': 4}, {'byte': '0xB4', 'count': 3}, {'byte': '0x78', 'count': 3}, {'byte': '0xE6', 'count': 2}, {'byte': '0x5D', 'count': 2}]` |
-| `0xE6` | 121 | volume_or_master_fade_candidate | `[{'byte': '0xB4', 'count': 14}, {'byte': '0x5A', 'count': 12}, {'byte': '0xE1', 'count': 10}, {'byte': '0xF4', 'count': 8}, {'byte': '0x01', 'count': 8}, {'byte': '0x0C', 'count': 8}]` |
-| `0xE7` | 322 | tempo_or_tuning_candidate | `[{'byte': '0x0E', 'count': 38}, {'byte': '0x10', 'count': 29}, {'byte': '0x15', 'count': 28}, {'byte': '0x19', 'count': 20}, {'byte': '0x14', 'count': 17}, {'byte': '0x1B', 'count': 16}]` |
-| `0xE8` | 57 | tempo_fade_candidate | `[{'byte': '0x60', 'count': 8}, {'byte': '0x0C', 'count': 7}, {'byte': '0x18', 'count': 6}, {'byte': '0xE2', 'count': 5}, {'byte': '0x5B', 'count': 4}, {'byte': '0xE1', 'count': 3}]` |
-| `0xE9` | 8 | global_transpose_candidate | `[{'byte': '0x60', 'count': 2}, {'byte': '0x49', 'count': 2}, {'byte': '0x4C', 'count': 2}, {'byte': '0x5B', 'count': 2}]` |
-| `0xEA` | 133 | channel_transpose_candidate | `[{'byte': '0xFF', 'count': 43}, {'byte': '0x00', 'count': 36}, {'byte': '0xFC', 'count': 21}, {'byte': '0xFA', 'count': 8}, {'byte': '0x50', 'count': 4}, {'byte': '0x0E', 'count': 3}]` |
-| `0xEB` | 108 | tremolo_or_modulation_on_candidate | `[{'byte': '0x00', 'count': 71}, {'byte': '0x06', 'count': 8}, {'byte': '0x0A', 'count': 5}, {'byte': '0x01', 'count': 4}, {'byte': '0x4A', 'count': 3}, {'byte': '0x49', 'count': 2}]` |
-| `0xEC` | 54 | tremolo_or_modulation_off_candidate | `[{'byte': '0xF4', 'count': 17}, {'byte': '0x08', 'count': 8}, {'byte': '0x02', 'count': 4}, {'byte': '0x03', 'count': 4}, {'byte': '0x04', 'count': 4}, {'byte': '0x60', 'count': 3}]` |
-| `0xED` | 2769 | set_channel_volume_candidate | `[{'byte': '0x64', 'count': 202}, {'byte': '0x78', 'count': 196}, {'byte': '0x5A', 'count': 190}, {'byte': '0x50', 'count': 182}, {'byte': '0x3C', 'count': 178}, {'byte': '0x82', 'count': 176}]` |
-| `0xEE` | 755 | channel_volume_fade_candidate | `[{'byte': '0x5A', 'count': 122}, {'byte': '0xB4', 'count': 83}, {'byte': '0x60', 'count': 68}, {'byte': '0xC8', 'count': 55}, {'byte': '0xFA', 'count': 52}, {'byte': '0x50', 'count': 32}]` |
-| `0xEF` | 2058 | subroutine_call_candidate | `[{'byte': '0x4F', 'count': 22}, {'byte': '0x52', 'count': 20}, {'byte': '0x00', 'count': 19}, {'byte': '0x66', 'count': 19}, {'byte': '0x20', 'count': 18}, {'byte': '0x2A', 'count': 17}]` |
-| `0xF0` | 284 | modulation_fade_candidate | `[{'byte': '0xE7', 'count': 82}, {'byte': '0xED', 'count': 68}, {'byte': '0xE1', 'count': 16}, {'byte': '0xF5', 'count': 13}, {'byte': '0xE0', 'count': 13}, {'byte': '0x01', 'count': 9}]` |
-| `0xF1` | 711 | pitch_envelope_or_portamento_candidate | `[{'byte': '0x00', 'count': 348}, {'byte': '0x01', 'count': 216}, {'byte': '0x0C', 'count': 31}, {'byte': '0x06', 'count': 17}, {'byte': '0x03', 'count': 14}, {'byte': '0x02', 'count': 12}]` |
-| `0xF2` | 450 | pitch_envelope_off_candidate | `[{'byte': '0x00', 'count': 224}, {'byte': '0x01', 'count': 218}, {'byte': '0x0C', 'count': 2}, {'byte': '0x4E', 'count': 2}, {'byte': '0x68', 'count': 2}, {'byte': '0x4A', 'count': 1}]` |
-| `0xF3` | 496 | tuning_or_detune_candidate | `[{'byte': '0x0C', 'count': 99}, {'byte': '0xE4', 'count': 55}, {'byte': '0xE1', 'count': 36}, {'byte': '0x18', 'count': 32}, {'byte': '0x06', 'count': 31}, {'byte': '0xEF', 'count': 31}]` |
-| `0xF4` | 1379 | driver_toggle_or_extended_control_candidate | `[{'byte': '0x0A', 'count': 411}, {'byte': '0x00', 'count': 285}, {'byte': '0x05', 'count': 101}, {'byte': '0x23', 'count': 74}, {'byte': '0x24', 'count': 65}, {'byte': '0x14', 'count': 62}]` |
-| `0xF5` | 243 | echo_or_voice_param_candidate | `[{'byte': '0x7F', 'count': 97}, {'byte': '0xFF', 'count': 27}, {'byte': '0x7E', 'count': 14}, {'byte': '0x03', 'count': 13}, {'byte': '0x70', 'count': 10}, {'byte': '0x78', 'count': 6}]` |
-| `0xF6` | 20 | echo_off_or_effect_disable_candidate | `[{'byte': '0x4C', 'count': 4}, {'byte': '0x5A', 'count': 3}, {'byte': '0xE3', 'count': 2}, {'byte': '0x87', 'count': 2}, {'byte': '0x8C', 'count': 2}, {'byte': '0x51', 'count': 2}]` |
-| `0xF7` | 281 | echo_or_effect_setup_candidate | `[{'byte': '0x03', 'count': 171}, {'byte': '0x18', 'count': 51}, {'byte': '0x02', 'count': 17}, {'byte': '0x01', 'count': 15}, {'byte': '0x60', 'count': 10}, {'byte': '0x24', 'count': 5}]` |
-| `0xF8` | 35 | echo_or_effect_fade_candidate | `[{'byte': '0x24', 'count': 7}, {'byte': '0xE1', 'count': 7}, {'byte': '0x57', 'count': 4}, {'byte': '0x60', 'count': 4}, {'byte': '0x55', 'count': 2}, {'byte': '0x4C', 'count': 2}]` |
-| `0xF9` | 344 | pitch_slide_candidate | `[{'byte': '0x00', 'count': 314}, {'byte': '0x30', 'count': 8}, {'byte': '0x0C', 'count': 7}, {'byte': '0x18', 'count': 3}, {'byte': '0x10', 'count': 2}, {'byte': '0xC8', 'count': 2}]` |
-| `0xFA` | 328 | earthbound_extended_command_candidate | `[{'byte': '0x1A', 'count': 163}, {'byte': '0xF4', 'count': 13}, {'byte': '0x60', 'count': 12}, {'byte': '0x5A', 'count': 11}, {'byte': '0x46', 'count': 11}, {'byte': '0xF1', 'count': 9}]` |
-| `0xFB` | 34 | loop_start_or_control_candidate | `[{'byte': '0x0C', 'count': 9}, {'byte': '0x01', 'count': 4}, {'byte': '0x60', 'count': 3}, {'byte': '0x51', 'count': 3}, {'byte': '0x58', 'count': 2}, {'byte': '0x8E', 'count': 2}]` |
-| `0xFC` | 45 | loop_end_or_control_candidate | `[{'byte': '0xF3', 'count': 12}, {'byte': '0x0C', 'count': 5}, {'byte': '0x18', 'count': 4}, {'byte': '0xEF', 'count': 4}, {'byte': '0x30', 'count': 4}, {'byte': '0x60', 'count': 2}]` |
-| `0xFD` | 19 | loop_or_jump_control_candidate | `[{'byte': '0x18', 'count': 4}, {'byte': '0x0C', 'count': 3}, {'byte': '0x60', 'count': 2}, {'byte': '0x32', 'count': 2}, {'byte': '0x30', 'count': 1}, {'byte': '0x56', 'count': 1}]` |
-| `0xFE` | 49 | jump_or_long_control_candidate | `[{'byte': '0x60', 'count': 11}, {'byte': '0x08', 'count': 9}, {'byte': '0x18', 'count': 5}, {'byte': '0x59', 'count': 4}, {'byte': '0xC8', 'count': 3}, {'byte': '0x5A', 'count': 2}]` |
+| `0xE0` | 2354 | instrument | `[{'byte': '0xCB', 'count': 254}, {'byte': '0x08', 'count': 245}, {'byte': '0xCE', 'count': 172}, {'byte': '0xCD', 'count': 167}, {'byte': '0xD0', 'count': 128}, {'byte': '0x09', 'count': 126}]` |
+| `0xE1` | 5925 | pan | `[{'byte': '0x0A', 'count': 929}, {'byte': '0x05', 'count': 641}, {'byte': '0x12', 'count': 578}, {'byte': '0x0F', 'count': 562}, {'byte': '0x08', 'count': 463}, {'byte': '0x02', 'count': 431}]` |
+| `0xE2` | 925 | pan_fade | `[{'byte': '0x60', 'count': 483}, {'byte': '0x5A', 'count': 163}, {'byte': '0xB4', 'count': 73}, {'byte': '0x28', 'count': 72}, {'byte': '0x30', 'count': 60}, {'byte': '0x48', 'count': 15}]` |
+| `0xE3` | 998 | vibrato | `[{'byte': '0x00', 'count': 269}, {'byte': '0x01', 'count': 119}, {'byte': '0x02', 'count': 108}, {'byte': '0x03', 'count': 58}, {'byte': '0x0C', 'count': 51}, {'byte': '0x14', 'count': 45}]` |
+| `0xE4` | 242 | vibrato_off | `[{'byte': '0xF3', 'count': 38}, {'byte': '0x18', 'count': 32}, {'byte': '0xEF', 'count': 30}, {'byte': '0xE1', 'count': 26}, {'byte': '0xF4', 'count': 19}, {'byte': '0x0C', 'count': 12}]` |
+| `0xE5` | 208 | volume | `[{'byte': '0xF0', 'count': 176}, {'byte': '0x96', 'count': 4}, {'byte': '0xB4', 'count': 3}, {'byte': '0x78', 'count': 3}, {'byte': '0xE6', 'count': 2}, {'byte': '0x5D', 'count': 2}]` |
+| `0xE6` | 121 | volume_fade | `[{'byte': '0xB4', 'count': 14}, {'byte': '0x5A', 'count': 12}, {'byte': '0xE1', 'count': 10}, {'byte': '0xF4', 'count': 8}, {'byte': '0x01', 'count': 8}, {'byte': '0x0C', 'count': 8}]` |
+| `0xE7` | 322 | tempo | `[{'byte': '0x0E', 'count': 38}, {'byte': '0x10', 'count': 29}, {'byte': '0x15', 'count': 28}, {'byte': '0x19', 'count': 20}, {'byte': '0x14', 'count': 17}, {'byte': '0x1B', 'count': 16}]` |
+| `0xE8` | 57 | tempo_fade | `[{'byte': '0x60', 'count': 8}, {'byte': '0x0C', 'count': 7}, {'byte': '0x18', 'count': 6}, {'byte': '0xE2', 'count': 5}, {'byte': '0x5B', 'count': 4}, {'byte': '0xE1', 'count': 3}]` |
+| `0xE9` | 8 | transpose | `[{'byte': '0x60', 'count': 2}, {'byte': '0x49', 'count': 2}, {'byte': '0x4C', 'count': 2}, {'byte': '0x5B', 'count': 2}]` |
+| `0xEA` | 133 | voice_transpose | `[{'byte': '0xFF', 'count': 43}, {'byte': '0x00', 'count': 36}, {'byte': '0xFC', 'count': 21}, {'byte': '0xFA', 'count': 8}, {'byte': '0x50', 'count': 4}, {'byte': '0x0E', 'count': 3}]` |
+| `0xEB` | 108 | tremolo | `[{'byte': '0x00', 'count': 71}, {'byte': '0x06', 'count': 8}, {'byte': '0x0A', 'count': 5}, {'byte': '0x01', 'count': 4}, {'byte': '0x4A', 'count': 3}, {'byte': '0x49', 'count': 2}]` |
+| `0xEC` | 54 | tremolo_off | `[{'byte': '0xF4', 'count': 17}, {'byte': '0x08', 'count': 8}, {'byte': '0x02', 'count': 4}, {'byte': '0x03', 'count': 4}, {'byte': '0x04', 'count': 4}, {'byte': '0x60', 'count': 3}]` |
+| `0xED` | 2769 | voice_volume | `[{'byte': '0x64', 'count': 202}, {'byte': '0x78', 'count': 196}, {'byte': '0x5A', 'count': 190}, {'byte': '0x50', 'count': 182}, {'byte': '0x3C', 'count': 178}, {'byte': '0x82', 'count': 176}]` |
+| `0xEE` | 755 | voice_volume_fade | `[{'byte': '0x5A', 'count': 122}, {'byte': '0xB4', 'count': 83}, {'byte': '0x60', 'count': 68}, {'byte': '0xC8', 'count': 55}, {'byte': '0xFA', 'count': 52}, {'byte': '0x50', 'count': 32}]` |
+| `0xEF` | 2058 | subroutine | `[{'byte': '0x4F', 'count': 22}, {'byte': '0x52', 'count': 20}, {'byte': '0x00', 'count': 19}, {'byte': '0x66', 'count': 19}, {'byte': '0x20', 'count': 18}, {'byte': '0x2A', 'count': 17}]` |
+| `0xF0` | 284 | vibrato_fade | `[{'byte': '0xE7', 'count': 82}, {'byte': '0xED', 'count': 68}, {'byte': '0xE1', 'count': 16}, {'byte': '0xF5', 'count': 13}, {'byte': '0xE0', 'count': 13}, {'byte': '0x01', 'count': 9}]` |
+| `0xF1` | 711 | portamento_to | `[{'byte': '0x00', 'count': 348}, {'byte': '0x01', 'count': 216}, {'byte': '0x0C', 'count': 31}, {'byte': '0x06', 'count': 17}, {'byte': '0x03', 'count': 14}, {'byte': '0x02', 'count': 12}]` |
+| `0xF2` | 450 | portamento_from | `[{'byte': '0x00', 'count': 224}, {'byte': '0x01', 'count': 218}, {'byte': '0x0C', 'count': 2}, {'byte': '0x4E', 'count': 2}, {'byte': '0x68', 'count': 2}, {'byte': '0x4A', 'count': 1}]` |
+| `0xF3` | 496 | portamento_off | `[{'byte': '0x0C', 'count': 99}, {'byte': '0xE4', 'count': 55}, {'byte': '0xE1', 'count': 36}, {'byte': '0x18', 'count': 32}, {'byte': '0x06', 'count': 31}, {'byte': '0xEF', 'count': 31}]` |
+| `0xF4` | 1379 | detune | `[{'byte': '0x0A', 'count': 411}, {'byte': '0x00', 'count': 285}, {'byte': '0x05', 'count': 101}, {'byte': '0x23', 'count': 74}, {'byte': '0x24', 'count': 65}, {'byte': '0x14', 'count': 62}]` |
+| `0xF5` | 243 | echo_volume | `[{'byte': '0x7F', 'count': 97}, {'byte': '0xFF', 'count': 27}, {'byte': '0x7E', 'count': 14}, {'byte': '0x03', 'count': 13}, {'byte': '0x70', 'count': 10}, {'byte': '0x78', 'count': 6}]` |
+| `0xF6` | 20 | echo_off | `[{'byte': '0x4C', 'count': 4}, {'byte': '0x5A', 'count': 3}, {'byte': '0xE3', 'count': 2}, {'byte': '0x87', 'count': 2}, {'byte': '0x8C', 'count': 2}, {'byte': '0x51', 'count': 2}]` |
+| `0xF7` | 281 | echo_parameters | `[{'byte': '0x03', 'count': 171}, {'byte': '0x18', 'count': 51}, {'byte': '0x02', 'count': 17}, {'byte': '0x01', 'count': 15}, {'byte': '0x60', 'count': 10}, {'byte': '0x24', 'count': 5}]` |
+| `0xF8` | 35 | echo_volume_fade | `[{'byte': '0x24', 'count': 7}, {'byte': '0xE1', 'count': 7}, {'byte': '0x57', 'count': 4}, {'byte': '0x60', 'count': 4}, {'byte': '0x55', 'count': 2}, {'byte': '0x4C', 'count': 2}]` |
+| `0xF9` | 344 | note_slide | `[{'byte': '0x00', 'count': 314}, {'byte': '0x30', 'count': 8}, {'byte': '0x0C', 'count': 7}, {'byte': '0x18', 'count': 3}, {'byte': '0x10', 'count': 2}, {'byte': '0xC8', 'count': 2}]` |
+| `0xFA` | 328 | percussion_instrument | `[{'byte': '0x1A', 'count': 163}, {'byte': '0xF4', 'count': 13}, {'byte': '0x60', 'count': 12}, {'byte': '0x5A', 'count': 11}, {'byte': '0x46', 'count': 11}, {'byte': '0xF1', 'count': 9}]` |
+| `0xFB` | 34 | nop | `[{'byte': '0x0C', 'count': 9}, {'byte': '0x01', 'count': 4}, {'byte': '0x60', 'count': 3}, {'byte': '0x51', 'count': 3}, {'byte': '0x58', 'count': 2}, {'byte': '0x8E', 'count': 2}]` |
+| `0xFC` | 45 | mute_voice | `[{'byte': '0xF3', 'count': 12}, {'byte': '0x0C', 'count': 5}, {'byte': '0x18', 'count': 4}, {'byte': '0xEF', 'count': 4}, {'byte': '0x30', 'count': 4}, {'byte': '0x60', 'count': 2}]` |
+| `0xFD` | 19 | fast_forward | `[{'byte': '0x18', 'count': 4}, {'byte': '0x0C', 'count': 3}, {'byte': '0x60', 'count': 2}, {'byte': '0x32', 'count': 2}, {'byte': '0x30', 'count': 1}, {'byte': '0x56', 'count': 1}]` |
+| `0xFE` | 49 | fast_forward_off | `[{'byte': '0x60', 'count': 11}, {'byte': '0x08', 'count': 9}, {'byte': '0x18', 'count': 5}, {'byte': '0x59', 'count': 4}, {'byte': '0xC8', 'count': 3}, {'byte': '0x5A', 'count': 2}]` |
 | `0xFF` | 156 | end_or_sentinel_candidate | `[{'byte': '0xF4', 'count': 43}, {'byte': '0xEE', 'count': 21}, {'byte': '0x32', 'count': 9}, {'byte': '0x60', 'count': 9}, {'byte': '0x18', 'count': 9}, {'byte': '0x0C', 'count': 7}]` |
 
 ## Exact-Duration Priority Packs

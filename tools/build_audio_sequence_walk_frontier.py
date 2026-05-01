@@ -526,7 +526,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Commands Seen By Walker",
             "",
-            "| Command | Count | Current hypothesis |",
+            "| Command | Count | Current label |",
             "| --- | ---: | --- |",
             *command_rows,
             "",
