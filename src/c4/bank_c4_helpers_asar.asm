@@ -10821,6 +10821,16 @@ org $C4D830
 !C093F9_RunEntityScriptRecordForSlot = $C093F9
 !C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
 !C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!FileSelectPoseScriptListPointerTableLow = $FD49
+!FileSelectPoseScriptListPointerBank = $00C3
+!FileSelectEntityScriptRecordTableLow = $00D4
+!FileSelectEntityScriptRecordTableBank = $00C4
+!FileSelectPoseRecordScriptIndexOffset = $0002
+!FileSelectScriptRecordBytes = $0003
+!FileSelectMissingEntitySlot = $FFFF
+!LiveEntityStatusTable = $0A62
+!LiveEntitySlotWordCount = $0017
+!LiveEntityAllInactiveWord = $FFFF
 C4D830_RunFileSelectPoseEntityScriptList:
     rep #$31
     phd
@@ -10836,9 +10846,9 @@ C4D83E_RunFileSelectPoseEntityScriptList_LD83E:
 C4D842_RunFileSelectPoseEntityScriptList_LD842:
     lda $B4B4
     bne C4D83E_RunFileSelectPoseEntityScriptList_LD83E
-    lda.w #$FD49
+    lda.w #!FileSelectPoseScriptListPointerTableLow
     sta $0A
-    lda.w #$00C3
+    lda.w #!FileSelectPoseScriptListPointerBank
     sta $0C
     lda $14
     asl A
@@ -10862,11 +10872,11 @@ C4D868_RunFileSelectPoseEntityScriptList_LD868:
     inc $0A
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     tax
-    cpx.w #$FFFF
+    cpx.w #!FileSelectMissingEntitySlot
     beq C4D8BD_RunFileSelectPoseEntityScriptList_LD8BD
-    lda.w #$00D4
+    lda.w #!FileSelectEntityScriptRecordTableLow
     sta $06
-    lda.w #$00C4
+    lda.w #!FileSelectEntityScriptRecordTableBank
     sta $08
     lda $06
     sta $10
@@ -10908,8 +10918,8 @@ C4D8C9_RunFileSelectPoseEntityScriptList_LD8C9:
     lda [$06]
     bne C4D868_RunFileSelectPoseEntityScriptList_LD868
 C4D8CD_RunFileSelectPoseEntityScriptList_LD8CD:
-    ldy.w #$0A62
-    lda.w #$FFFF
+    ldy.w #!LiveEntityStatusTable
+    lda.w #!LiveEntityAllInactiveWord
     sta $0E
     ldx.w #$0000
     bra C4D8E8_RunFileSelectPoseEntityScriptList_LD8E8
@@ -10923,11 +10933,11 @@ C4D8DA_RunFileSelectPoseEntityScriptList_LD8DA:
     iny
     inx
 C4D8E8_RunFileSelectPoseEntityScriptList_LD8E8:
-    cpx.w #$0017
+    cpx.w #!LiveEntitySlotWordCount
     bcc C4D8DA_RunFileSelectPoseEntityScriptList_LD8DA
     jsl !C1004E_WaitWhileFileSelectEntityScriptBusy
     lda $0E
-    cmp.w #$FFFF
+    cmp.w #!LiveEntityAllInactiveWord
     bne C4D8CD_RunFileSelectPoseEntityScriptList_LD8CD
     pld
     rtl
@@ -10941,19 +10951,28 @@ hirom
 org $C4D8FA
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
+!FileSelectFixedEntityTableLow = $FD65
+!FileSelectFixedEntityTableBank = $00C3
+!FileSelectFixedEntityRecordBytes = $0008
+!FileSelectFixedEntityYArgOffset = $0006
+!CreateEntityNoParentSlot = $FFFF
+!FileSelectInitialFrameSelector = $0004
+!LiveEntityFrameSelectorTable = $2AF6
+!FileSelectFixedEntityCount = $0005
+!FirstFileSelectFixedEntityIndex = $0000
 C4D8FA_SpawnFileSelectFixedEntityBatch:
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$0000
+    lda.w #!FirstFileSelectFixedEntityIndex
     sta $04
     bra C4D97B_SpawnFileSelectFixedEntityBatch_LD97B
 C4D909_SpawnFileSelectFixedEntityBatch_LD909:
-    lda.w #$FD65
+    lda.w #!FileSelectFixedEntityTableLow
     sta $06
-    lda.w #$00C3
+    lda.w #!FileSelectFixedEntityTableBank
     sta $08
     lda $04
     asl A
@@ -10975,7 +10994,7 @@ C4D909_SpawnFileSelectFixedEntityBatch_LD909:
     tax
     lda $12
     clc
-    adc.w #$0006
+    adc.w #!FileSelectFixedEntityYArgOffset
     ldy $06
     sty $0A
     ldy $08
@@ -11006,17 +11025,17 @@ C4D909_SpawnFileSelectFixedEntityBatch_LD909:
     lda [$06]
     stx $0E
     sty $10
-    ldy.w #$FFFF
+    ldy.w #!CreateEntityNoParentSlot
     ldx $02
     jsl !C01E49_CreateEntityFromDescriptor
     asl A
     tax
-    lda.w #$0004
-    sta $2AF6,X
+    lda.w #!FileSelectInitialFrameSelector
+    sta !LiveEntityFrameSelectorTable,X
     inc $04
 C4D97B_SpawnFileSelectFixedEntityBatch_LD97B:
     lda $04
-    cmp.w #$0005
+    cmp.w #!FileSelectFixedEntityCount
     bcs C4D987_SpawnFileSelectFixedEntityBatch_LD987
     beq C4D987_SpawnFileSelectFixedEntityBatch_LD987
     jmp.w C4D909_SpawnFileSelectFixedEntityBatch_LD909
@@ -11444,17 +11463,22 @@ C4DCDB_InitIntroFileSelectStateDispatcher_LDCDB:
 hirom
 org $C4DCF6
 
+!FileSelectIntroTilemapBufferLow = $0000
+!FileSelectIntroTilemapBufferBank = $007F
+!TilemapPriorityAttributeBit = $2000
+!FileSelectIntroTilemapWordCount = $0400
+!TilemapFirstWordIndex = $0000
 C4DCF6_SetPriorityBitOnFileSelectTilemap7f0000:
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    lda.w #$0000
+    lda.w #!FileSelectIntroTilemapBufferLow
     sta $0A
-    lda.w #$007F
+    lda.w #!FileSelectIntroTilemapBufferBank
     sta $0C
-    ldx.w #$0000
+    ldx.w #!TilemapFirstWordIndex
     bra C4DD21_SetPriorityBitOnFileSelectTilemap7f0000_LDD21
 C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D:
     lda $0A
@@ -11462,13 +11486,13 @@ C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D:
     lda $0C
     sta $08
     lda [$06]
-    ora.w #$2000
+    ora.w #!TilemapPriorityAttributeBit
     sta [$06]
     inc $0A
     inc $0A
     inx
 C4DD21_SetPriorityBitOnFileSelectTilemap7f0000_LDD21:
-    cpx.w #$0400
+    cpx.w #!FileSelectIntroTilemapWordCount
     bcc C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D
     pld
     rts

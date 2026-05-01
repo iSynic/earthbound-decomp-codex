@@ -14,6 +14,19 @@
 C01E49_CreateEntityFromDescriptor = $C01E49
 
 ; ---------------------------------------------------------------------------
+; File-select fixed entity spawn table contracts
+
+FileSelectFixedEntityTableLow       = $FD65
+FileSelectFixedEntityTableBank      = $00C3
+FileSelectFixedEntityRecordBytes    = $0008
+FileSelectFixedEntityYArgOffset     = $0006
+CreateEntityNoParentSlot            = $FFFF
+FileSelectInitialFrameSelector      = $0004
+LiveEntityFrameSelectorTable        = $2AF6
+FileSelectFixedEntityCount          = $0005
+FirstFileSelectFixedEntityIndex     = $0000
+
+; ---------------------------------------------------------------------------
 ; C4:D8FA
 
 C4D8FA_SpawnFileSelectFixedEntityBatch:
@@ -22,13 +35,13 @@ C4D8FA_SpawnFileSelectFixedEntityBatch:
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$0000
+    lda.w #FirstFileSelectFixedEntityIndex
     sta $04
     bra C4D97B_SpawnFileSelectFixedEntityBatch_LD97B
 C4D909_SpawnFileSelectFixedEntityBatch_LD909:
-    lda.w #$FD65
+    lda.w #FileSelectFixedEntityTableLow
     sta $06
-    lda.w #$00C3
+    lda.w #FileSelectFixedEntityTableBank
     sta $08
     lda $04
     asl A
@@ -50,7 +63,7 @@ C4D909_SpawnFileSelectFixedEntityBatch_LD909:
     tax
     lda $12
     clc
-    adc.w #$0006
+    adc.w #FileSelectFixedEntityYArgOffset
     ldy $06
     sty $0A
     ldy $08
@@ -81,17 +94,17 @@ C4D909_SpawnFileSelectFixedEntityBatch_LD909:
     lda [$06]
     stx $0E
     sty $10
-    ldy.w #$FFFF
+    ldy.w #CreateEntityNoParentSlot
     ldx $02
     jsl C01E49_CreateEntityFromDescriptor
     asl A
     tax
-    lda.w #$0004
-    sta $2AF6,X
+    lda.w #FileSelectInitialFrameSelector
+    sta LiveEntityFrameSelectorTable,X
     inc $04
 C4D97B_SpawnFileSelectFixedEntityBatch_LD97B:
     lda $04
-    cmp.w #$0005
+    cmp.w #FileSelectFixedEntityCount
     bcs C4D987_SpawnFileSelectFixedEntityBatch_LD987
     beq C4D987_SpawnFileSelectFixedEntityBatch_LD987
     jmp.w C4D909_SpawnFileSelectFixedEntityBatch_LD909

@@ -86,6 +86,10 @@ closure.
   constants for the `EF:A70F` sector lookup, E0/E1 asset tables, blink and
   palette timers, input masks, decompressor latch, display latches, and VRAM
   transfer destinations. See `notes/town-map-selection-rendering-c4d274-c4d744.md`.
+- 2026-05-01 file-select continuation: promoted table, sentinel, live-entity
+  wait-scan, fixed spawn, frame-selector, and tilemap priority-pass constants
+  in the file-select entity/script helpers. See
+  `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
 
 ## Validation
 

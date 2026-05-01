@@ -14,6 +14,15 @@
 ; No named external contracts were supplied or recognized.
 
 ; ---------------------------------------------------------------------------
+; File-select intro tilemap priority pass
+
+FileSelectIntroTilemapBufferLow  = $0000
+FileSelectIntroTilemapBufferBank = $007F
+TilemapPriorityAttributeBit      = $2000
+FileSelectIntroTilemapWordCount  = $0400
+TilemapFirstWordIndex            = $0000
+
+; ---------------------------------------------------------------------------
 ; C4:DCF6
 
 C4DCF6_SetPriorityBitOnFileSelectTilemap7f0000:
@@ -22,11 +31,11 @@ C4DCF6_SetPriorityBitOnFileSelectTilemap7f0000:
     tdc
     adc.w #$FFF2
     tcd
-    lda.w #$0000
+    lda.w #FileSelectIntroTilemapBufferLow
     sta $0A
-    lda.w #$007F
+    lda.w #FileSelectIntroTilemapBufferBank
     sta $0C
-    ldx.w #$0000
+    ldx.w #TilemapFirstWordIndex
     bra C4DD21_SetPriorityBitOnFileSelectTilemap7f0000_LDD21
 C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D:
     lda $0A
@@ -34,13 +43,13 @@ C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D:
     lda $0C
     sta $08
     lda [$06]
-    ora.w #$2000
+    ora.w #TilemapPriorityAttributeBit
     sta [$06]
     inc $0A
     inc $0A
     inx
 C4DD21_SetPriorityBitOnFileSelectTilemap7f0000_LDD21:
-    cpx.w #$0400
+    cpx.w #FileSelectIntroTilemapWordCount
     bcc C4DD0D_SetPriorityBitOnFileSelectTilemap7f0000_LDD0D
     pld
     rts

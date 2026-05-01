@@ -49,6 +49,11 @@ For each record, the helper:
 
 After the list is processed, it repeatedly ticks `C1:004E` until all 23 words in `$0A62..` AND together to `#$FFFF`, which makes this a synchronous "run these entity scripts and wait until the involved live entity state clears" helper.
 
+Source polish: `src/c4/file_select_pose_entity_script_helpers.asm` now names
+the `C3:FD49` pose-script pointer table, `C4:00D4` script-record table, missing
+entity sentinel, live entity status table, 23-word wait scan, and all-inactive
+word used by the synchronous completion loop.
+
 ## `C4:D8FA` - fixed file-select entity spawn batch
 
 Direct caller:
@@ -56,6 +61,10 @@ Direct caller:
 - `C1:FCC0`
 
 `C4:D8FA` walks five eight-byte records at `C3:FD65`. For each record it prepares the parameter block expected by `C0:1E49`, creates an entity with `Y = #$FFFF`, and then forces the new entity's `$2AF6` frame selector to `4`.
+
+Source polish: `src/c4/file_select_fixed_entity_spawn_helpers.asm` now names
+the `C3:FD65` fixed entity table, five-record count, `+6` Y argument offset,
+no-parent sentinel, `$2AF6` frame selector table, and initial selector `4`.
 
 The caller context at `C1:FCC0` is in the file-select/options tail after two small C4 text records are installed and before `$5E6E` is set to `#$00FF`, so the safest current read is that this routine spawns the fixed file-select/menu entity batch used by that screen.
 
@@ -135,6 +144,10 @@ The two callers are now source-promoted as the Itoi production and Nintendo
 presentation intro asset loaders. Mechanically `C4:DCF6` is not a renderer by
 itself; it is the tilemap attribute/prioritization pass used by those visual
 asset loaders before upload.
+
+Source polish: `src/c4/file_select_tilemap_priority_helpers.asm` now names the
+`7F:0000` tilemap buffer, `#$2000` priority attribute bit, and 0x400-word pass
+count.
 
 ## Working Names
 

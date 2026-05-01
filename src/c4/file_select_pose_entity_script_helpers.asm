@@ -16,6 +16,20 @@ C1004E_WaitWhileFileSelectEntityScriptBusy    = $C1004E
 C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
 
 ; ---------------------------------------------------------------------------
+; File-select pose script table contracts
+
+FileSelectPoseScriptListPointerTableLow = $FD49
+FileSelectPoseScriptListPointerBank     = $00C3
+FileSelectEntityScriptRecordTableLow    = $00D4
+FileSelectEntityScriptRecordTableBank   = $00C4
+FileSelectPoseRecordScriptIndexOffset   = $0002
+FileSelectScriptRecordBytes             = $0003
+FileSelectMissingEntitySlot             = $FFFF
+LiveEntityStatusTable                   = $0A62
+LiveEntitySlotWordCount                 = $0017
+LiveEntityAllInactiveWord               = $FFFF
+
+; ---------------------------------------------------------------------------
 ; C4:D830
 
 C4D830_RunFileSelectPoseEntityScriptList:
@@ -33,9 +47,9 @@ C4D83E_RunFileSelectPoseEntityScriptList_LD83E:
 C4D842_RunFileSelectPoseEntityScriptList_LD842:
     lda $B4B4
     bne C4D83E_RunFileSelectPoseEntityScriptList_LD83E
-    lda.w #$FD49
+    lda.w #FileSelectPoseScriptListPointerTableLow
     sta $0A
-    lda.w #$00C3
+    lda.w #FileSelectPoseScriptListPointerBank
     sta $0C
     lda $14
     asl A
@@ -59,11 +73,11 @@ C4D868_RunFileSelectPoseEntityScriptList_LD868:
     inc $0A
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     tax
-    cpx.w #$FFFF
+    cpx.w #FileSelectMissingEntitySlot
     beq C4D8BD_RunFileSelectPoseEntityScriptList_LD8BD
-    lda.w #$00D4
+    lda.w #FileSelectEntityScriptRecordTableLow
     sta $06
-    lda.w #$00C4
+    lda.w #FileSelectEntityScriptRecordTableBank
     sta $08
     lda $06
     sta $10
@@ -105,8 +119,8 @@ C4D8C9_RunFileSelectPoseEntityScriptList_LD8C9:
     lda [$06]
     bne C4D868_RunFileSelectPoseEntityScriptList_LD868
 C4D8CD_RunFileSelectPoseEntityScriptList_LD8CD:
-    ldy.w #$0A62
-    lda.w #$FFFF
+    ldy.w #LiveEntityStatusTable
+    lda.w #LiveEntityAllInactiveWord
     sta $0E
     ldx.w #$0000
     bra C4D8E8_RunFileSelectPoseEntityScriptList_LD8E8
@@ -120,11 +134,11 @@ C4D8DA_RunFileSelectPoseEntityScriptList_LD8DA:
     iny
     inx
 C4D8E8_RunFileSelectPoseEntityScriptList_LD8E8:
-    cpx.w #$0017
+    cpx.w #LiveEntitySlotWordCount
     bcc C4D8DA_RunFileSelectPoseEntityScriptList_LD8DA
     jsl C1004E_WaitWhileFileSelectEntityScriptBusy
     lda $0E
-    cmp.w #$FFFF
+    cmp.w #LiveEntityAllInactiveWord
     bne C4D8CD_RunFileSelectPoseEntityScriptList_LD8CD
     pld
     rtl
