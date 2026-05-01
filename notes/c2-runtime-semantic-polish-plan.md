@@ -227,6 +227,11 @@ contract notes for C0/C1/C3/C4 consumers.
   promoted contracts cover the selected-row stat offsets, live character mirror
   bytes, derived-stat refresh helper calls, C8 amount-bearing message scripts,
   and the `C1:DC66` substitution-payload ABI used to print the staged amount.
+- 2026-04-30 thirty-third slice: promoted the `A3D1..A5EC` item-side text
+  contracts with byte-neutral aliases for concentration/PSI-seal text,
+  shield-clear text, solidification text, shared no-effect text, and HP-sucker
+  self/amount messages. The HP-sucker amount path now names the `C1:DC66`
+  substitution-payload call and the `EF:7729` `PRINT_ACTION_AMOUNT` script.
 
 ## Validation
 

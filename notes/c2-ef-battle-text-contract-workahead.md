@@ -30,6 +30,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   substitution-payload calls are named at the source sites. The `B3D8..B573`
   direct leaves also name the live character mirror bytes and derived-stat
   refresh helpers used before printing the amount.
+- 2026-04-30: fifth pass promoted the `C2:A3D1..A5EC` item-side text surface.
+  The source now names direct `DC1C` messages for concentration/PSI-seal,
+  shield-clear, solidification, no-effect, and HP-sucker self-drain, and names
+  the `DC66` amount-bearing HP-sucker script at `EF:7729`.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

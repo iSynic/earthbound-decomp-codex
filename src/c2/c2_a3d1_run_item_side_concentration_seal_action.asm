@@ -21,7 +21,24 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset              = $C08FF7
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+
+EFMSG_ConcentrationSealInflicted                = $6C0B
+EFMSG_SolidificationInflicted                   = $6BEF
+EFMSG_ShieldCleared                             = $7099
+EFMSG_StatusNoEffect                            = $766E
+EFMSG_HpSuckerDrainedOwnHp                      = $7710
+EFMSG_HpSuckerDrainedTargetHpAmount             = $7729
+EF_BattleTextScriptBank                         = $00EF
+
+SelectedRowConcentrationSealByte                = $0021
+SelectedRowShieldCounterByte                    = $0023
+BattlerCurrentHpWord                            = $0013
+BattlerMaxHpWord                                = $0015
+BattlerDefenseWord                              = $0028
+ConcentrationSealStateValue                     = $04
 
 ; ---------------------------------------------------------------------------
 ; C2:A3D1
@@ -41,29 +58,29 @@ C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     beq C2A412_RunItemSideConcentrationSealAction_LA412
     lda $A972
     clc
-    adc.w #$0021
+    adc.w #SelectedRowConcentrationSealByte
     tax
     ; Target row +0x21 is the concentration/PSI-seal subgroup byte.
     lda $0000,X
     and.w #$00FF
     bne C2A412_RunItemSideConcentrationSealAction_LA412
     sep #$20
-    lda.b #$04
+    lda.b #ConcentrationSealStateValue
     ; Value 4 is the locally observed concentration/PSI-seal state.
     sta $0000,X
     rep #$20
-    lda.w #$6C0B
+    lda.w #EFMSG_ConcentrationSealInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A420_RunItemSideConcentrationSealAction_LA420
 C2A412_RunItemSideConcentrationSealAction_LA412:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A420_RunItemSideConcentrationSealAction_LA420:
     pld
     rtl
@@ -77,7 +94,7 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     beq C2A45B_RunItemSideConcentrationSealAction_LA45B
     lda $A972
     clc
-    adc.w #$0023
+    adc.w #SelectedRowShieldCounterByte
     tax
     lda $0000,X
     and.w #$00FF
@@ -86,18 +103,18 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     lda.b #$00
     sta $0000,X
     rep #$20
-    lda.w #$7099
+    lda.w #EFMSG_ShieldCleared
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A469_RunItemSideConcentrationSealAction_LA469
 C2A45B_RunItemSideConcentrationSealAction_LA45B:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A469_RunItemSideConcentrationSealAction_LA469:
     pld
     rtl
@@ -114,20 +131,20 @@ C2A46B_RunItemSideConcentrationSealAction_LA46B = BTLACT_HP_SUCKER
     jmp.w C2A4F7_RunItemSideConcentrationSealAction_LA4F7
 C2A47E_RunItemSideConcentrationSealAction_LA47E:
     ldx $A970
-    lda $0013,X
+    lda BattlerCurrentHpWord,X
     beq C2A4F7_RunItemSideConcentrationSealAction_LA4F7
     lda $A972
     cmp $A970
     bne C2A49E_RunItemSideConcentrationSealAction_LA49E
-    lda.w #$7710
+    lda.w #EFMSG_HpSuckerDrainedOwnHp
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A505_RunItemSideConcentrationSealAction_LA505
 C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ldx $A972
-    lda $0015,X
+    lda BattlerMaxHpWord,X
     jsr $6A44
     lsr A
     lsr A
@@ -138,9 +155,9 @@ C2A49E_RunItemSideConcentrationSealAction_LA49E:
     tyx
     lda $A972
     jsr $71F0
-    lda.w #$7729
+    lda.w #EFMSG_HpSuckerDrainedTargetHpAmount
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -153,7 +170,7 @@ C2A4C9_RunItemSideConcentrationSealAction_LA4C9:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldx $A970
     ldy $16
     tya
@@ -169,11 +186,11 @@ C2A4C9_RunItemSideConcentrationSealAction_LA4C9:
     jsl $C27550
     bra C2A505_RunItemSideConcentrationSealAction_LA505
 C2A4F7_RunItemSideConcentrationSealAction_LA4F7:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A505_RunItemSideConcentrationSealAction_LA505:
     pld
     rtl
@@ -195,7 +212,7 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     ldx $A972
     lda.w #$0190
     sec
-    sbc $0028,X
+    sbc BattlerDefenseWord,X
     sta $12
     clc
     sbc.w #$0000
@@ -214,18 +231,18 @@ C2A541_RunItemSideConcentrationSealAction_LA541:
     jsr $724A
     cmp.w #$0000
     beq C2A578_RunItemSideConcentrationSealAction_LA578
-    lda.w #$6BEF
+    lda.w #EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A578_RunItemSideConcentrationSealAction_LA578
 C2A56A_RunItemSideConcentrationSealAction_LA56A:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A578_RunItemSideConcentrationSealAction_LA578:
     pld
     rtl
@@ -272,11 +289,11 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     jsr $8125
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A5CF_RunItemSideConcentrationSealAction_LA5CF:
     pld
     rts

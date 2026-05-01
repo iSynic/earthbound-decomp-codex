@@ -32,8 +32,11 @@ If the target is ineligible or the byte is already occupied, it displays
 `EF:766E`.
 
 The same source unit also contains neighboring item-side helpers such as
-HP-sucker and bottle-rocket common paths. Those are documented only as adjacent
-context in this slice.
+HP-sucker and bottle-rocket common paths. HP-sucker is now source-promoted far
+enough to name the `EF:7710` self-drain direct text, the `EF:7729`
+amount-bearing drain text, and the `C1:DC66` substitution-payload call that
+prints the drained HP amount. Bottle-rocket remains adjacent context for a later
+dedicated pass.
 
 ## Solidification Item
 
@@ -79,8 +82,8 @@ This slice tightens several item-side runtime contracts:
 
 ## Remaining Soft Spots
 
-- full runtime polish for the HP-sucker and bottle-rocket bodies in the
-  `A3D1..A5EC` source unit
+- full runtime polish for the bottle-rocket bodies in the `A3D1..A5EC` source
+  unit
 - whether all `A821` reuses should be named strictly as Super Bomb or broader
   explosive/projectile clones
 - final player-facing names for nearby item entries around `A5D1..A5E3`
