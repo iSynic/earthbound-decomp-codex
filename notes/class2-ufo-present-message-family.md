@@ -194,3 +194,19 @@ That matters because it sharpens the wording here:
 So the present family is now best described as a specific caller of a more general byte-substitution text pipeline.
 
 See also [class2-cc19-1f-cross-segment-reuse.md](notes/class2-cc19-1f-cross-segment-reuse.md).
+
+## Update: source now names the byte slot
+
+A later C2 source-polish pass named `$AA10` locally as
+`BattlePresentItemByte` in the producer and consumer corridors:
+
+- `C2:4A8A` preserves the D5 enemy dropped-item byte at offset `+0x58`,
+  applies the D5 drop-rate byte at `+0x57`, and falls back to the `C2:3109`
+  UFO present table when the ordinary byte is empty.
+- `C2:6003` and the instant-win path stage `BattlePresentItemByte` through
+  `C1:DD7C` before displaying `MSG_BTL_PRESENT` (`EF:7BDF`).
+- `C2:8881` stages the same byte before `MSG_BTL_CHECK_PRESENT_GET`
+  (`EF:7DD5`) and clears it after the preview text.
+
+The source name does not make `$9D11` present-specific; it documents the C2
+runtime role of this particular caller family.

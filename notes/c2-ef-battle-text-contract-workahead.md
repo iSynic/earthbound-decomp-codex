@@ -82,6 +82,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-01: EF status-infliction payload follow-up split the neighboring
   EBATTLE5 status text around `EF:6B18` poison and `EF:6BEF` solidification,
   matching the item/status cluster aliases already used by C2.
+- 2026-05-01: Present/Check Present source follow-up named `$AA10` as the
+  local `BattlePresentItemByte` in the C2 producer and consumer corridors.
+  The source now ties D5 enemy dropped-item offset `+0x58`, drop-rate offset
+  `+0x57`, the `C2:3109` UFO fallback table, `EF:7BDF`, and `EF:7DD5` to the
+  same `$AA10 -> C1:DD7C -> $9D11 -> 19 1F` byte-substitution bridge.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -339,8 +344,11 @@ Source-scaffold status:
 
 From `notes/class2-ufo-present-message-family.md`:
 
+- `C2:4A8A` and `C2:6189` populate `$AA10` from either the D5 enemy dropped
+  item byte (`+0x58`) after the D5 drop-rate gate (`+0x57`), or the
+  UFO-specific fallback records at `C2:3109`.
 - `C2:6003` and `C2:8881`:
-  - `$AA10` → `JSL C1:DD7C` (sets `$9D11`)
+  - `$AA10` / local `BattlePresentItemByte` → `JSL C1:DD7C` (sets `$9D11`)
   - then `JSL C1:DC1C` on `EF:7BDF` / `EF:7DD5`
   - those scripts execute `LOAD_BYTE_SUBSTITUTION` (`19 1F`) before `PRINT_ITEM_NAME 0`
 
@@ -435,6 +443,14 @@ And for the most actionable C2 call-site families:
   Rainbow Colors / Final Prayer `DC1C` text exits and their C8/C9 script
   constants. See `notes/class2-special-event-results-c29298-c2c14e.md` and
   `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-01: `src/c2/c2_4a80_populate_candidate_pool_from_variable_sources.asm`
+  now names the dropped-item/drop-rate offsets and UFO fallback table that
+  populate `BattlePresentItemByte`; `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`,
+  `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm`, and
+  `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm` now share
+  that local byte-slot name at the `EF:7BDF` and `EF:7DD5` consumers. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Integration checklist (manual)
 

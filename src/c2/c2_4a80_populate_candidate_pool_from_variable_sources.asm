@@ -21,6 +21,12 @@ C2B930_InitializeCandidateRecordFromSource   = $C2B930
 C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
 C4FBBD_PlaySoundStoneMelody                  = $C4FBBD
 
+BattlePresentItemByte           = $AA10
+D5EnemyRecordItemDropRateOffset = $0057
+D5EnemyRecordDroppedItemOffset  = $0058
+UfoPresentFallbackTable         = $3109
+UfoPresentFallbackTableBank     = $00C2
+
 ; ---------------------------------------------------------------------------
 ; C2:4A8A
 
@@ -384,7 +390,7 @@ C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $2F
     clc
-    adc.w #$0058
+    adc.w #D5EnemyRecordDroppedItemOffset
     ldx $06
     stx $0A
     ldx $08
@@ -394,10 +400,11 @@ C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    sta $AA10
+    ; Preserve the enemy record's dropped-item byte for present text.
+    sta BattlePresentItemByte
     lda $2F
     clc
-    adc.w #$0057
+    adc.w #D5EnemyRecordItemDropRateOffset
     clc
     adc $06
     sta $06
@@ -421,45 +428,45 @@ C24DDC_C24A8A_PopulateCandidatePoolFromVariableSources_L4DDC:
     jsl C08E9A_GetRandom16
     and.w #$007F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24DEA_C24A8A_PopulateCandidatePoolFromVariableSources_L4DEA:
     jsl C08E9A_GetRandom16
     and.w #$003F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24DF8_C24A8A_PopulateCandidatePoolFromVariableSources_L4DF8:
     jsl C08E9A_GetRandom16
     and.w #$001F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E06_C24A8A_PopulateCandidatePoolFromVariableSources_L4E06:
     jsl C08E9A_GetRandom16
     and.w #$000F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E14_C24A8A_PopulateCandidatePoolFromVariableSources_L4E14:
     jsl C08E9A_GetRandom16
     and.w #$0007
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E22_C24A8A_PopulateCandidatePoolFromVariableSources_L4E22:
     jsl C08E9A_GetRandom16
     and.w #$0003
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E30_C24A8A_PopulateCandidatePoolFromVariableSources_L4E30:
     jsl C08E9A_GetRandom16
     and.w #$0001
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz BattlePresentItemByte
 C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C:
-    lda $AA10
+    lda BattlePresentItemByte
     beq C24E44_C24A8A_PopulateCandidatePoolFromVariableSources_L4E44
     jmp.w C24ECD_C24A8A_PopulateCandidatePoolFromVariableSources_L4ECD
 C24E44_C24A8A_PopulateCandidatePoolFromVariableSources_L4E44:
@@ -479,9 +486,9 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     lda $9FB8,X
     and.w #$00FF
     beq C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4
-    lda.w #$3109
+    lda.w #UfoPresentFallbackTable
     sta $06
-    lda.w #$00C2
+    lda.w #UfoPresentFallbackTableBank
     sta $08
     ldx $31
     txa
@@ -519,7 +526,8 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     sta $06
     lda [$06]
     and.w #$00FF
-    sta $AA10
+    ; UFO fallback records store candidate present item bytes after the key.
+    sta BattlePresentItemByte
 C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4:
     ldy $2F
     iny

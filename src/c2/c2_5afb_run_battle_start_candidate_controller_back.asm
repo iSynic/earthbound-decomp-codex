@@ -28,6 +28,7 @@ D57B68_BattleActionTable            = $D57B68
 C8_BattleTextScriptBank = $00C8
 C8MSG_PsiCannot         = $FAB8
 EF_BattleTextScriptBank = $00EF
+BattlePresentItemByte   = $AA10
 EFMSG_AsleepRecovered   = $6F54
 EFMSG_BodyStatusOff     = $6EED
 EFMSG_FrozenStatus      = $6F0B
@@ -619,11 +620,11 @@ C25FE6_RunBattleStartCandidateControllerBack_L5FE6:
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C25FFC_RunBattleStartCandidateControllerBack_L5FFC:
-    lda $AA10
+    lda BattlePresentItemByte
     beq C26018_RunBattleStartCandidateControllerBack_L6018
     sep #$20
-    ; $AA10 is the UFO-present item byte consumed by MSG_BTL_PRESENT.
-    lda $AA10
+    ; Stage the UFO-present item byte consumed by MSG_BTL_PRESENT's 19 1F.
+    lda BattlePresentItemByte
     jsl C1DD7C_SetBattleTextByteSubstitution
     lda.w #EFMSG_Present
     sta $0E

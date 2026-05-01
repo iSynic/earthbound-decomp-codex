@@ -327,6 +327,14 @@ contract notes for C0/C1/C3/C4 consumers.
   scripts staged by `C2:C37A`, `C2:C41F`, `C2:C572`, and `C2:C6F0`. See
   `notes/class2-special-event-results-c29298-c2c14e.md` and
   `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-01 forty-ninth slice: returned to the Present/Check Present
+  byte-substitution bridge and named the source-side item byte explicitly as
+  `BattlePresentItemByte`. The promoted contracts cover D5 dropped-item and
+  drop-rate offsets, the `C2:3109` UFO fallback records, the battle-start and
+  instant-win `EF:7BDF` consumers, and the `C2:8881` Check Present companion
+  at `EF:7DD5`. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/class2-ufo-present-message-family.md`.
 
 ## Validation
 

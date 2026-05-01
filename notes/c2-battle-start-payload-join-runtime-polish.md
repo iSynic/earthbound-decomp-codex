@@ -30,13 +30,20 @@ and comments while preserving byte-equivalence.
 
 ## Payload Joins
 
-The newly commented `$AA10` paths are the concrete C2 side of the byte
-substitution bridge:
+The newly named `BattlePresentItemByte` paths are the concrete C2 side of the
+byte-substitution bridge:
 
-- `$AA10` is loaded as an 8-bit value.
+- `C2:4A8A` preserves the enemy record dropped-item byte from D5 record
+  offset `+0x58`, applies the D5 drop-rate byte at `+0x57`, and falls back to
+  the UFO-specific present table at `C2:3109` when the ordinary drop byte is
+  empty.
+- `BattlePresentItemByte` (`$AA10`) is loaded as an 8-bit value by the
+  battle-start and instant-win present paths.
 - `C1:DD7C` stages it into `$9D11`.
 - `EF:7BDF` (`MSG_BTL_PRESENT`) later consumes it through the `0x19 0x1F`
   byte-substitution command before printing the item name.
+- `C2:8881` uses the same byte slot for the Check Present / Spy companion
+  script at `EF:7DD5`, then clears the slot after display.
 
 The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
 accumulated result pointer/value pair, keeping them separate from direct

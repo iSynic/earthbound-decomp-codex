@@ -30,6 +30,7 @@ C49740_FinishPaletteFadeWorkBuffer            = $C49740
 C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
 
 EF_BattleTextScriptBank   = $00EF
+BattlePresentItemByte     = $AA10
 EFMSG_InstantWinForce     = $7A28
 EFMSG_Present             = $7BDF
 
@@ -383,7 +384,7 @@ C2643D_FillInstantWinTileBufferAndUpload_L643D:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    sta $AA10
+    sta BattlePresentItemByte
     lda $18
     clc
     adc.w #$0057
@@ -410,49 +411,49 @@ C264B1_FillInstantWinTileBufferAndUpload_L64B1:
     jsl C08E9A_GetRandom16
     and.w #$007F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264BF_FillInstantWinTileBufferAndUpload_L64BF:
     jsl C08E9A_GetRandom16
     and.w #$003F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264CD_FillInstantWinTileBufferAndUpload_L64CD:
     jsl C08E9A_GetRandom16
     and.w #$001F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264DB_FillInstantWinTileBufferAndUpload_L64DB:
     jsl C08E9A_GetRandom16
     and.w #$000F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264E9_FillInstantWinTileBufferAndUpload_L64E9:
     jsl C08E9A_GetRandom16
     and.w #$0007
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264F7_FillInstantWinTileBufferAndUpload_L64F7:
     jsl C08E9A_GetRandom16
     and.w #$0003
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C26505_FillInstantWinTileBufferAndUpload_L6505:
     jsl C08E9A_GetRandom16
     and.w #$0001
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz BattlePresentItemByte
 C26511_FillInstantWinTileBufferAndUpload_L6511:
-    lda $AA10
+    lda BattlePresentItemByte
     beq C2652D_FillInstantWinTileBufferAndUpload_L652D
     sep #$20
-    ; Instant-win still reuses the UFO-present byte-substitution contract.
-    lda $AA10
+    ; Instant-win still reuses the UFO-present byte consumed by 19 1F.
+    lda BattlePresentItemByte
     jsl C1DD7C_SetBattleTextByteSubstitution
     lda.w #EFMSG_Present
     sta $0E

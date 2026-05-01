@@ -56,6 +56,20 @@ The late action labels now match the action bodies and EF evidence:
 These bodies all feed `C2:724A` with primary status-group constants and then
 emit the corresponding EF success script or `EF:766E` no-effect fallback.
 
+## Check Present Byte Slot
+
+The `C2:8881` Check Present / Spy tail now names the same
+`BattlePresentItemByte` (`$AA10`) slot used by the battle-start present path:
+
+- if the selected target exposes a present byte, C2 stages it through
+  `C1:DD7C` into `$9D11`;
+- `EF:7DD5` (`MSG_BTL_CHECK_PRESENT_GET`) consumes it through `0x19 0x1F`
+  before printing the item name;
+- C2 clears `BattlePresentItemByte` after the preview text displays.
+
+This keeps the Check Present branch tied to the C1/EF byte-substitution
+contract rather than treating `$AA10` as a generic battle-start scratch byte.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as

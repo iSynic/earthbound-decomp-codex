@@ -44,6 +44,7 @@ SelectedRowTimedSubstateByte  = $0023
 SelectedRowShieldCounterByte  = $0025
 TimedSubstatePowerShield      = $0003
 TimedSubstateShield           = $0004
+BattlePresentItemByte         = $AA10
 
 EF_BattleTextScriptBank          = $00EF
 EFMSG_CheckOffense               = $69EA
@@ -1258,17 +1259,18 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
     jsl $C4572B
     cmp.w #$0000
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
-    lda $AA10
+    lda BattlePresentItemByte
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
     sep #$20
-    lda $AA10
+    ; Stage the present item byte for MSG_BTL_CHECK_PRESENT_GET's 19 1F.
+    lda BattlePresentItemByte
     jsl C1DD7C_SetBattleTextByteSubstitution
     lda.w #EFMSG_CheckPresentGet
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    stz $AA10
+    stz BattlePresentItemByte
 C28899_RunHitResolutionAndStatusActionCluster_L8899:
     pld
     rtl

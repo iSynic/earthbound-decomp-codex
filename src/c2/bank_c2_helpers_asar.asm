@@ -14033,6 +14033,7 @@ org $C26189
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
 !EF_BattleTextScriptBank = $00EF
+!BattlePresentItemByte = $AA10
 !EFMSG_InstantWinForce = $7A28
 !EFMSG_Present = $7BDF
 C26189_FillInstantWinTileBufferAndUpload:
@@ -14382,7 +14383,7 @@ C2643D_FillInstantWinTileBufferAndUpload_L643D:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    sta $AA10
+    sta !BattlePresentItemByte
     lda $18
     clc
     adc.w #$0057
@@ -14409,48 +14410,48 @@ C264B1_FillInstantWinTileBufferAndUpload_L64B1:
     jsl !C08E9A_GetRandom16
     and.w #$007F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264BF_FillInstantWinTileBufferAndUpload_L64BF:
     jsl !C08E9A_GetRandom16
     and.w #$003F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264CD_FillInstantWinTileBufferAndUpload_L64CD:
     jsl !C08E9A_GetRandom16
     and.w #$001F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264DB_FillInstantWinTileBufferAndUpload_L64DB:
     jsl !C08E9A_GetRandom16
     and.w #$000F
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264E9_FillInstantWinTileBufferAndUpload_L64E9:
     jsl !C08E9A_GetRandom16
     and.w #$0007
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C264F7_FillInstantWinTileBufferAndUpload_L64F7:
     jsl !C08E9A_GetRandom16
     and.w #$0003
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C26511_FillInstantWinTileBufferAndUpload_L6511
 C26505_FillInstantWinTileBufferAndUpload_L6505:
     jsl !C08E9A_GetRandom16
     and.w #$0001
     beq C26511_FillInstantWinTileBufferAndUpload_L6511
-    stz $AA10
+    stz !BattlePresentItemByte
 C26511_FillInstantWinTileBufferAndUpload_L6511:
-    lda $AA10
+    lda !BattlePresentItemByte
     beq C2652D_FillInstantWinTileBufferAndUpload_L652D
     sep #$20
-    lda $AA10
+    lda !BattlePresentItemByte
     jsl !C1DD7C_SetBattleTextByteSubstitution
     lda.w #!EFMSG_Present
     sta $0E
@@ -25274,6 +25275,11 @@ org $C24A8A
 !C2B930_InitializeCandidateRecordFromSource = $C2B930
 !C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!BattlePresentItemByte = $AA10
+!D5EnemyRecordItemDropRateOffset = $0057
+!D5EnemyRecordDroppedItemOffset = $0058
+!UfoPresentFallbackTable = $3109
+!UfoPresentFallbackTableBank = $00C2
 C24A8A_PopulateCandidatePoolFromVariableSources:
     rep #$20
     lda $986F,Y
@@ -25634,7 +25640,7 @@ C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     jsl !C08FF7_ResolveIndexedPointerOffset
     sta $2F
     clc
-    adc.w #$0058
+    adc.w #!D5EnemyRecordDroppedItemOffset
     ldx $06
     stx $0A
     ldx $08
@@ -25644,10 +25650,10 @@ C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    sta $AA10
+    sta !BattlePresentItemByte
     lda $2F
     clc
-    adc.w #$0057
+    adc.w #!D5EnemyRecordItemDropRateOffset
     clc
     adc $06
     sta $06
@@ -25671,45 +25677,45 @@ C24DDC_C24A8A_PopulateCandidatePoolFromVariableSources_L4DDC:
     jsl !C08E9A_GetRandom16
     and.w #$007F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24DEA_C24A8A_PopulateCandidatePoolFromVariableSources_L4DEA:
     jsl !C08E9A_GetRandom16
     and.w #$003F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24DF8_C24A8A_PopulateCandidatePoolFromVariableSources_L4DF8:
     jsl !C08E9A_GetRandom16
     and.w #$001F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E06_C24A8A_PopulateCandidatePoolFromVariableSources_L4E06:
     jsl !C08E9A_GetRandom16
     and.w #$000F
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E14_C24A8A_PopulateCandidatePoolFromVariableSources_L4E14:
     jsl !C08E9A_GetRandom16
     and.w #$0007
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E22_C24A8A_PopulateCandidatePoolFromVariableSources_L4E22:
     jsl !C08E9A_GetRandom16
     and.w #$0003
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
     bra C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
 C24E30_C24A8A_PopulateCandidatePoolFromVariableSources_L4E30:
     jsl !C08E9A_GetRandom16
     and.w #$0001
     beq C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C
-    stz $AA10
+    stz !BattlePresentItemByte
 C24E3C_C24A8A_PopulateCandidatePoolFromVariableSources_L4E3C:
-    lda $AA10
+    lda !BattlePresentItemByte
     beq C24E44_C24A8A_PopulateCandidatePoolFromVariableSources_L4E44
     jmp.w C24ECD_C24A8A_PopulateCandidatePoolFromVariableSources_L4ECD
 C24E44_C24A8A_PopulateCandidatePoolFromVariableSources_L4E44:
@@ -25729,9 +25735,9 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     lda $9FB8,X
     and.w #$00FF
     beq C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4
-    lda.w #$3109
+    lda.w #!UfoPresentFallbackTable
     sta $06
-    lda.w #$00C2
+    lda.w #!UfoPresentFallbackTableBank
     sta $08
     ldx $31
     txa
@@ -25769,7 +25775,7 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     sta $06
     lda [$06]
     and.w #$00FF
-    sta $AA10
+    sta !BattlePresentItemByte
 C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4:
     ldy $2F
     iny
@@ -28578,6 +28584,7 @@ org $C25AFB
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_PsiCannot = $FAB8
 !EF_BattleTextScriptBank = $00EF
+!BattlePresentItemByte = $AA10
 !EFMSG_AsleepRecovered = $6F54
 !EFMSG_BodyStatusOff = $6EED
 !EFMSG_FrozenStatus = $6F0B
@@ -29163,10 +29170,10 @@ C25FE6_RunBattleStartCandidateControllerBack_L5FE6:
     sta $14
     jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
 C25FFC_RunBattleStartCandidateControllerBack_L5FFC:
-    lda $AA10
+    lda !BattlePresentItemByte
     beq C26018_RunBattleStartCandidateControllerBack_L6018
     sep #$20
-    lda $AA10
+    lda !BattlePresentItemByte
     jsl !C1DD7C_SetBattleTextByteSubstitution
     lda.w #!EFMSG_Present
     sta $0E
@@ -29385,6 +29392,7 @@ org $C27EAF
 !SelectedRowShieldCounterByte = $0025
 !TimedSubstatePowerShield = $0003
 !TimedSubstateShield = $0004
+!BattlePresentItemByte = $AA10
 !EF_BattleTextScriptBank = $00EF
 !EFMSG_CheckOffense = $69EA
 !EFMSG_CheckDefense = $69FF
@@ -30593,17 +30601,17 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
     jsl $C4572B
     cmp.w #$0000
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
-    lda $AA10
+    lda !BattlePresentItemByte
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
     sep #$20
-    lda $AA10
+    lda !BattlePresentItemByte
     jsl !C1DD7C_SetBattleTextByteSubstitution
     lda.w #!EFMSG_CheckPresentGet
     sta $0E
     lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    stz $AA10
+    stz !BattlePresentItemByte
 C28899_RunHitResolutionAndStatusActionCluster_L8899:
     pld
     rtl
