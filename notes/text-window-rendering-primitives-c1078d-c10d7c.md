@@ -342,6 +342,11 @@ now preserves `C4:5C90..C4:5DDD`, and
 check, inclusive RNG modulo helper, direction matrix, and coordinate direction
 resolver.
 
+Source polish: the menu glyph scratch renderer/flush pair now names the
+`$9D23` scratch row base, `$9E23/$9E25/$9E27` bit/current/upload cursors,
+`$9E2B` transfer latch, `$7900` VRAM base, `+0x80` companion plane
+destination, and `C0:8616` transfer-queue tag byte at `$0685`.
+
 `C4:5C90` renders a short masked glyph run into the menu/text glyph scratch rows rooted at `$9D23`.
 
 It waits for `$9E2B` to clear, derives a bit offset from `$9E23`, and writes into the current scratch row selected by `$9E25`. For each of 16 source bytes, it reads both the base plane and the companion byte at source `+$0100`, shifts/masks those bytes through `C0:9251` / `C0:923E`, and merges them into the two 16-byte halves of the `$9D23 + row * #$20` scratch record. After advancing `$9E23` by the caller's width, it updates `$9E25` when the bit position crosses an 8-pixel row boundary and carries the remaining mask work into the next scratch row.

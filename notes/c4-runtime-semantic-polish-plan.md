@@ -62,6 +62,11 @@ closure.
   `$3492` text tile scratch rows, the C0 VRAM transfer parameter block,
   `$9E2B` transfer latch, `$1AD6` text tile bitset, and recovery script id
   `$0A2A`. See `notes/c4-early-ppu-and-text-tile-helpers-0000-0085.md`.
+- 2026-05-01 text staging continuation: promoted the menu glyph scratch
+  renderer/flush pair with byte-neutral names for the `$9D23` scratch rows,
+  `$9E23/$9E25/$9E27` cursors, `$9E2B` transfer latch, `$7900` VRAM base,
+  and `C0:8616` transfer-queue tag byte. See
+  `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
 
 ## Validation
 

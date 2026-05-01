@@ -14,6 +14,27 @@
 C08616_SubmitQueuedVramTransfer = $C08616
 
 ; ---------------------------------------------------------------------------
+; Menu glyph scratch-row upload state
+
+MenuGlyphScratchRowsBase             = $9D23
+MenuGlyphScratchRowCursor            = $9E25
+MenuGlyphUploadRowCursor             = $9E27
+MenuGlyphTransferBusyLatch           = $9E2B
+
+MenuGlyphVramBase                    = $7900
+MenuGlyphScratchRowMax               = $0007
+MenuGlyphUploadRowCount              = $0030
+MenuGlyphScratchTransferSize         = $0010
+MenuGlyphSecondPlaneVramOffset       = $0080
+MenuGlyphQueueTagBase                = $33
+MenuGlyphQueueTagByte                = $0685
+
+MenuGlyphVramLowNibbleMask           = $000F
+MenuGlyphVramHighNibbleMask          = $00F0
+VramTransferFlagsNone                = $00
+MenuGlyphTransferQueuedFlag          = $0001
+
+; ---------------------------------------------------------------------------
 ; C4:5DDD
 
 C45DDD_FlushMenuGlyphScratchRowsToVram:
@@ -27,31 +48,31 @@ C45DDD_FlushMenuGlyphScratchRowsToVram:
     tax
     dec A
     sta $14
-    lda $9E27
+    lda MenuGlyphUploadRowCursor
     dec A
     sta $12
 C45DF1_FlushMenuGlyphScratchRowsToVram_AdvanceNextUploadRow:
     inc $14
     lda $14
-    cmp.w #$0007
+    cmp.w #MenuGlyphScratchRowMax
     bcc C45DFE_FlushMenuGlyphScratchRowsToVram_WrapVramCursor
     beq C45DFE_FlushMenuGlyphScratchRowsToVram_WrapVramCursor
     stz $14
 C45DFE_FlushMenuGlyphScratchRowsToVram_WrapVramCursor:
     inc $12
     lda $12
-    cmp.w #$0030
+    cmp.w #MenuGlyphUploadRowCount
     bcc C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination
     stz $12
 C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination:
     lda $12
-    and.w #$000F
+    and.w #MenuGlyphVramLowNibbleMask
     asl A
     asl A
     asl A
     sta $02
     lda $12
-    and.w #$00F0
+    and.w #MenuGlyphVramHighNibbleMask
     asl A
     asl A
     asl A
@@ -59,7 +80,7 @@ C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination:
     clc
     adc $02
     clc
-    adc.w #$7900
+    adc.w #MenuGlyphVramBase
     sta $04
     lda $14
     asl A
@@ -69,7 +90,7 @@ C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination:
     asl A
     sta $02
     clc
-    adc.w #$9D23
+    adc.w #MenuGlyphScratchRowsBase
     sta $06
     phb
     sep #$20
@@ -82,14 +103,14 @@ C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination:
     lda $08
     sta $10
     ldy $04
-    ldx.w #$0010
+    ldx.w #MenuGlyphScratchTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #VramTransferFlagsNone
     jsl C08616_SubmitQueuedVramTransfer
     lda $02
     clc
-    adc.b #$33
-    sta $0685,X
+    adc.b #MenuGlyphQueueTagBase
+    sta MenuGlyphQueueTagByte,X
     phb
     sep #$20
     pla
@@ -102,20 +123,20 @@ C45E09_FlushMenuGlyphScratchRowsToVram_ComputeVramDestination:
     sta $10
     lda $04
     clc
-    adc.w #$0080
+    adc.w #MenuGlyphSecondPlaneVramOffset
     tay
-    ldx.w #$0010
+    ldx.w #MenuGlyphScratchTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #VramTransferFlagsNone
     jsl C08616_SubmitQueuedVramTransfer
-    lda $9E25
+    lda MenuGlyphScratchRowCursor
     cmp $14
     beq C45E89_FlushMenuGlyphScratchRowsToVram_Finish
     jmp.w C45DF1_FlushMenuGlyphScratchRowsToVram_AdvanceNextUploadRow
 C45E89_FlushMenuGlyphScratchRowsToVram_Finish:
     lda $12
-    sta $9E27
-    lda.w #$0001
-    sta $9E2B
+    sta MenuGlyphUploadRowCursor
+    lda.w #MenuGlyphTransferQueuedFlag
+    sta MenuGlyphTransferBusyLatch
     pld
     rtl

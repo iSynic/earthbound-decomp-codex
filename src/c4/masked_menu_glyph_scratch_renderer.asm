@@ -16,6 +16,21 @@ C0923E_ShiftRightByY          = $C0923E
 C09251_ShiftLeftByY           = $C09251
 
 ; ---------------------------------------------------------------------------
+; Menu glyph scratch-row state
+
+MenuGlyphScratchRowsBase             = $9D23
+MenuGlyphScratchBitCursor            = $9E23
+MenuGlyphScratchRowCursor            = $9E25
+MenuGlyphTransferBusyLatch           = $9E2B
+
+BitsPerScratchByte                   = $0008
+MenuGlyphScratchRowByteCount         = $0010
+MenuGlyphScratchRowSecondPlaneOffset = $0010
+MenuGlyphScratchBitCursorWrap        = $0040
+GlyphPlaneSecondRowOffset            = $0100
+ScratchLoopZero                      = $0000
+
+; ---------------------------------------------------------------------------
 ; C4:5C90
 
 C45C90_RenderMaskedGlyphRunToMenuScratchRows:
@@ -32,26 +47,26 @@ C45C90_RenderMaskedGlyphRunToMenuScratchRows:
     lda $26
     sta $0C
 C45CA4_RenderMaskedGlyphRunToMenuScratchRows_WaitForTransferIdle:
-    lda $9E2B
+    lda MenuGlyphTransferBusyLatch
     bne C45CA4_RenderMaskedGlyphRunToMenuScratchRows_WaitForTransferIdle
-    ldy.w #$0008
-    lda $9E23
+    ldy.w #BitsPerScratchByte
+    lda MenuGlyphScratchBitCursor
     jsl C09231_DivideModuloPowerOfTwo
     sta $02
-    lda $9E25
+    lda MenuGlyphScratchRowCursor
     asl A
     asl A
     asl A
     asl A
     asl A
     clc
-    adc.w #$9D23
+    adc.w #MenuGlyphScratchRowsBase
     sta $14
     lda $0A
     sta $06
     lda $0C
     sta $08
-    ldy.w #$0000
+    ldy.w #ScratchLoopZero
     sty $12
     bra C45D3D_RenderMaskedGlyphRunToMenuScratchRows_CheckBasePlaneLoop
 C45CD2_RenderMaskedGlyphRunToMenuScratchRows_MergeBasePlaneBytes:
@@ -79,7 +94,7 @@ C45CD2_RenderMaskedGlyphRunToMenuScratchRows_MergeBasePlaneBytes:
     and $00
     plx
     sta $0000,X
-    ldy.w #$0100
+    ldy.w #GlyphPlaneSecondRowOffset
     lda [$06],Y
     eor.b #$FF
     sta $00
@@ -92,7 +107,7 @@ C45CD2_RenderMaskedGlyphRunToMenuScratchRows_MergeBasePlaneBytes:
     rep #$20
     lda $14
     clc
-    adc.w #$0010
+    adc.w #MenuGlyphScratchRowSecondPlaneOffset
     rep #$10
     tax
     sep #$20
@@ -108,27 +123,27 @@ C45CD2_RenderMaskedGlyphRunToMenuScratchRows_MergeBasePlaneBytes:
     inc A
     sta $14
 C45D3D_RenderMaskedGlyphRunToMenuScratchRows_CheckBasePlaneLoop:
-    cpy.w #$0010
+    cpy.w #MenuGlyphScratchRowByteCount
     bcc C45CD2_RenderMaskedGlyphRunToMenuScratchRows_MergeBasePlaneBytes
     lda $04
     clc
-    adc $9E23
-    sta $9E23
-    cmp.w #$0040
+    adc MenuGlyphScratchBitCursor
+    sta MenuGlyphScratchBitCursor
+    cmp.w #MenuGlyphScratchBitCursorWrap
     bcc C45D57_RenderMaskedGlyphRunToMenuScratchRows_CheckScratchRowAdvance
     sec
-    sbc.w #$0040
-    sta $9E23
+    sbc.w #MenuGlyphScratchBitCursorWrap
+    sta MenuGlyphScratchBitCursor
 C45D57_RenderMaskedGlyphRunToMenuScratchRows_CheckScratchRowAdvance:
-    lda $9E23
+    lda MenuGlyphScratchBitCursor
     lsr A
     lsr A
     lsr A
     sta $10
-    cmp $9E25
+    cmp MenuGlyphScratchRowCursor
     beq C45DDB_RenderMaskedGlyphRunToMenuScratchRows_Done
-    sta $9E25
-    lda.w #$0008
+    sta MenuGlyphScratchRowCursor
+    lda.w #BitsPerScratchByte
     sec
     sbc $02
     tay
@@ -140,14 +155,14 @@ C45D57_RenderMaskedGlyphRunToMenuScratchRows_CheckScratchRowAdvance:
     asl A
     asl A
     clc
-    adc.w #$9D23
+    adc.w #MenuGlyphScratchRowsBase
     tax
     stx $14
     lda $0A
     sta $06
     lda $0C
     sta $08
-    lda.w #$0000
+    lda.w #ScratchLoopZero
     sta $0E
     bra C45DD6_RenderMaskedGlyphRunToMenuScratchRows_CheckCarryPlaneLoop
 C45D8D_RenderMaskedGlyphRunToMenuScratchRows_MergeCarryPlaneBytes:
@@ -165,7 +180,7 @@ C45D8D_RenderMaskedGlyphRunToMenuScratchRows_MergeCarryPlaneBytes:
     rep #$10
     ldx $14
     sta $0000,X
-    ldy.w #$0100
+    ldy.w #GlyphPlaneSecondRowOffset
     lda [$06],Y
     eor.b #$FF
     sta $00
@@ -177,7 +192,7 @@ C45D8D_RenderMaskedGlyphRunToMenuScratchRows_MergeCarryPlaneBytes:
     sta $00
     rep #$10
     ldx $14
-    sta $0010,X
+    sta.w MenuGlyphScratchRowSecondPlaneOffset,X
     rep #$20
     lda $0E
     inc A
@@ -186,7 +201,7 @@ C45D8D_RenderMaskedGlyphRunToMenuScratchRows_MergeCarryPlaneBytes:
     inx
     stx $14
 C45DD6_RenderMaskedGlyphRunToMenuScratchRows_CheckCarryPlaneLoop:
-    cmp.w #$0010
+    cmp.w #MenuGlyphScratchRowByteCount
     bcc C45D8D_RenderMaskedGlyphRunToMenuScratchRows_MergeCarryPlaneBytes
 C45DDB_RenderMaskedGlyphRunToMenuScratchRows_Done:
     pld
