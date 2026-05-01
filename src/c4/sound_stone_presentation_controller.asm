@@ -51,6 +51,55 @@ SOUND_STONE_PRESENTATION_MELODY_ID_TABLE       = $C4ACAB
 SOUND_STONE_PRESENTATION_PHRASE_LENGTH_TABLE   = $C4ACB4
 SOUND_STONE_PRESENTATION_SANCTUARY_EVENT_TABLE = $C4ACC6
 
+SOUND_STONE_GFX_SOURCE_LOW                     = $DD5D
+SOUND_STONE_GFX_SOURCE_BANK                    = $00CE
+SOUND_STONE_PALETTE_SOURCE_LOW                 = $F806
+SOUND_STONE_PALETTE_SOURCE_BANK                = $00CE
+SOUND_STONE_WORK_BUFFER_LOW                    = $0000
+SOUND_STONE_WORK_BUFFER_BANK                   = $007F
+SOUND_STONE_GFX_VRAM_DESTINATION               = $2000
+SOUND_STONE_GFX_VRAM_TRANSFER_SIZE             = $2C00
+SOUND_STONE_PALETTE_SOURCE_OFFSET              = $0300
+SOUND_STONE_PALETTE_TRANSFER_SIZE              = $00C0
+SOUND_STONE_SPRITE_RESOURCE_ARG_A              = $00E4
+SOUND_STONE_SPRITE_RESOURCE_ARG_X              = $00E5
+SOUND_STONE_SPRITE_RESOURCE_ARG_Y              = $0004
+SOUND_STONE_TILE_STAGING_SIZE                  = $0005
+SOUND_STONE_TILE_BLOCK_A                       = $B3EE
+SOUND_STONE_TILE_BLOCK_B                       = $B3F3
+SOUND_STONE_TILE_BLOCK_A_X                     = $B3EF
+SOUND_STONE_TILE_BLOCK_A_Y                     = $B3F0
+SOUND_STONE_TILE_BLOCK_A_ATTR                  = $B3F2
+SOUND_STONE_TILE_BLOCK_B_X                     = $B3F4
+SOUND_STONE_TILE_BLOCK_B_Y                     = $B3F5
+SOUND_STONE_TILE_BLOCK_B_ATTR                  = $B3F7
+SOUND_STONE_TILE_A_INITIAL_X                   = $F0
+SOUND_STONE_TILE_A_INITIAL_Y                   = $30
+SOUND_STONE_TILE_B_INITIAL_X                   = $F8
+SOUND_STONE_TILE_B_BASE_Y                      = $31
+SOUND_STONE_TILE_B_SPIN_Y_BASE                 = $3B
+SOUND_STONE_TILE_ATTR_A                        = $81
+SOUND_STONE_TILE_ATTR_B                        = $80
+SOUND_STONE_SANCTUARY_COUNT                    = $0008
+SOUND_STONE_SANCTUARY_STATE_BASE               = $B37E
+SOUND_STONE_SANCTUARY_FRAME_DELAY_BASE         = $B380
+SOUND_STONE_SANCTUARY_PHASE_BASE               = $B382
+SOUND_STONE_SANCTUARY_PAYLOAD_OFFSET_BASE      = $B384
+SOUND_STONE_SANCTUARY_GLYPH_ID_BASE            = $B386
+SOUND_STONE_SANCTUARY_ANGLE_BASE               = $B388
+SOUND_STONE_SANCTUARY_STATE_STRIDE             = $0008
+SOUND_STONE_STATE_INACTIVE                     = $0000
+SOUND_STONE_STATE_IDLE                         = $0001
+SOUND_STONE_STATE_ANIMATING                    = $0002
+SOUND_STONE_INITIAL_ORBIT_DELAY                = $003C
+SOUND_STONE_FRAME_GROUP_PERIOD                 = $000F
+SOUND_STONE_END_HOLD_FRAMES                    = $0096
+SOUND_STONE_MUSIC_STINGER_OFFSET               = $0008
+SOUND_STONE_STINGER_LEAD_FRAMES                = $0009
+SOUND_STONE_PRESENTATION_ACTIVE_FLAG           = $0001
+SOUND_STONE_PRESENTATION_INACTIVE_FLAG         = $0000
+LOW_BYTE_MASK                                  = $00FF
+
 ; ---------------------------------------------------------------------------
 ; C4:ACCE
 
@@ -68,13 +117,13 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     jsl C08726_BlankWaitAndDisableHdma
     jsl C0ABC6_ClearPresentationQueues
     jsl C2C8C8_ResetBattleVisualPresentationState
-    lda.w #$0000
+    lda.w #SOUND_STONE_WORK_BUFFER_LOW
     sta $06
-    lda.w #$007F
+    lda.w #SOUND_STONE_WORK_BUFFER_BANK
     sta $08
-    lda.w #$DD5D
+    lda.w #SOUND_STONE_GFX_SOURCE_LOW
     sta $0E
-    lda.w #$00CE
+    lda.w #SOUND_STONE_GFX_SOURCE_BANK
     sta $10
     lda $06
     sta $12
@@ -85,46 +134,46 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     sta $0E
     lda $08
     sta $10
-    ldy.w #$2000
-    ldx.w #$2C00
+    ldy.w #SOUND_STONE_GFX_VRAM_DESTINATION
+    ldx.w #SOUND_STONE_GFX_VRAM_TRANSFER_SIZE
     sep #$20
     lda.b #$00
     jsl C08616_QueueVramTransfer_FromDpSource
-    lda.w #$F806
+    lda.w #SOUND_STONE_PALETTE_SOURCE_LOW
     sta $0E
-    lda.w #$00CE
+    lda.w #SOUND_STONE_PALETTE_SOURCE_BANK
     sta $10
-    ldx.w #$00C0
-    lda.w #$0300
+    ldx.w #SOUND_STONE_PALETTE_TRANSFER_SIZE
+    lda.w #SOUND_STONE_PALETTE_SOURCE_OFFSET
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     jsl C47F87_RefreshWindowFlavorPalette
-    ldy.w #$0004
-    ldx.w #$00E5
-    lda.w #$00E4
+    ldy.w #SOUND_STONE_SPRITE_RESOURCE_ARG_Y
+    ldx.w #SOUND_STONE_SPRITE_RESOURCE_ARG_X
+    lda.w #SOUND_STONE_SPRITE_RESOURCE_ARG_A
     jsl C2D121_LoadPresentationSpriteResource
     sep #$20
     stz $0E
-    ldx.w #$0005
+    ldx.w #SOUND_STONE_TILE_STAGING_SIZE
     rep #$20
-    lda.w #$B3EE
+    lda.w #SOUND_STONE_TILE_BLOCK_A
     jsl C08EFC_CommitTileBufferToStaging
     sep #$20
     stz $0E
-    ldx.w #$0005
+    ldx.w #SOUND_STONE_TILE_STAGING_SIZE
     rep #$20
-    lda.w #$B3F3
+    lda.w #SOUND_STONE_TILE_BLOCK_B
     jsl C08EFC_CommitTileBufferToStaging
     sep #$20
-    lda.b #$F0
-    sta $B3F1
-    sta $B3EE
-    lda.b #$F8
-    sta $B3F6
-    sta $B3F3
-    lda.b #$81
-    sta $B3F2
-    lda.b #$80
-    sta $B3F7
+    lda.b #SOUND_STONE_TILE_A_INITIAL_X
+    sta SOUND_STONE_TILE_BLOCK_A+3
+    sta SOUND_STONE_TILE_BLOCK_A
+    lda.b #SOUND_STONE_TILE_B_INITIAL_X
+    sta SOUND_STONE_TILE_BLOCK_B+3
+    sta SOUND_STONE_TILE_BLOCK_B
+    lda.b #SOUND_STONE_TILE_ATTR_A
+    sta SOUND_STONE_TILE_BLOCK_A_ATTR
+    lda.b #SOUND_STONE_TILE_ATTR_B
+    sta SOUND_STONE_TILE_BLOCK_B_ATTR
     rep #$20
     stz $32
     ldy.w #$0000
@@ -133,9 +182,9 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
 C4AD88_RunSoundStonePresentationSequence_LAD88:
     tyx
     lda SOUND_STONE_PRESENTATION_SANCTUARY_EVENT_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     jsl C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #SOUND_STONE_PRESENTATION_INACTIVE_FLAG
     beq C4ADB0_RunSoundStonePresentationSequence_LADB0
     ldy $30
     tya
@@ -146,8 +195,8 @@ C4AD88_RunSoundStonePresentationSequence_LAD88:
     adc $04
     asl A
     tax
-    lda.w #$0001
-    sta $B37E,X
+    lda.w #SOUND_STONE_STATE_IDLE
+    sta SOUND_STONE_SANCTUARY_STATE_BASE,X
     inc $32
     bra C4ADC0_RunSoundStonePresentationSequence_LADC0
 C4ADB0_RunSoundStonePresentationSequence_LADB0:
@@ -160,7 +209,7 @@ C4ADB0_RunSoundStonePresentationSequence_LADB0:
     adc $04
     asl A
     tax
-    stz $B37E,X
+    stz SOUND_STONE_SANCTUARY_STATE_BASE,X
 C4ADC0_RunSoundStonePresentationSequence_LADC0:
     tya
     sta $04
@@ -170,26 +219,26 @@ C4ADC0_RunSoundStonePresentationSequence_LADC0:
     adc $04
     asl A
     tax
-    lda.w #$0001
-    sta $B380,X
-    stz $B384,X
+    lda.w #SOUND_STONE_PRESENTATION_ACTIVE_FLAG
+    sta SOUND_STONE_SANCTUARY_FRAME_DELAY_BASE,X
+    stz SOUND_STONE_SANCTUARY_PAYLOAD_OFFSET_BASE,X
     iny
     sty $30
 C4ADD7_RunSoundStonePresentationSequence_LADD7:
-    cpy.w #$0008
+    cpy.w #SOUND_STONE_SANCTUARY_COUNT
     bcc C4AD88_RunSoundStonePresentationSequence_LAD88
     jsl C08744_OpenDisplayTransitionBracket
-    ldx.w #$0001
+    ldx.w #SOUND_STONE_PRESENTATION_ACTIVE_FLAG
     txa
     jsl C0886C_SetDisplayTransitionState
-    lda.w #$000F
+    lda.w #SOUND_STONE_FRAME_GROUP_PERIOD
     sta $2E
     stz $30
-    lda.w #$003C
+    lda.w #SOUND_STONE_INITIAL_ORBIT_DELAY
     sta $2C
     stz $2A
     stz $28
-    lda.w #$0000
+    lda.w #SOUND_STONE_PRESENTATION_INACTIVE_FLAG
     sta $04
     sta $26
     sta $02

@@ -49,6 +49,12 @@ Current build-candidate boundary:
 - `C4:B1B8..B329`: promoted landing-display asset transfer and stream init
   helper source in `src/c4/landing_display_asset_stream_helpers.asm`
 
+Source polish: `src/c4/sound_stone_presentation_controller.asm` now names the
+CE Sound Stone graphics/palette payload addresses, 7F work buffer, VRAM
+transfer sizes, sprite resource load arguments, staging tile blocks at
+`$B3EE/$B3F3`, the eight-Sanctuary state record bases rooted at `$B37E`,
+state values, initial orbit delay, frame-group period, and end-hold timer.
+
 ## Working Names
 
 - `C4:AC57` = `SoundStonePresentationDataBlock`

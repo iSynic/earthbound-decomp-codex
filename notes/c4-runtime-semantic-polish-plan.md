@@ -100,6 +100,11 @@ closure.
   Sound Stone melody ids, title still-image arguments, and file-select swirl
   mode values. See
   `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
+- 2026-05-01 Sound Stone start: promoted the presentation controller's CE
+  graphics/palette payloads, 7F work buffer, VRAM transfer sizes, sprite
+  resource args, staging tile blocks, eight-Sanctuary state record bases,
+  state values, and primary timers. See
+  `notes/sound-stone-presentation-data-c4ac57.md`.
 
 ## Validation
 
