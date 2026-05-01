@@ -138,6 +138,11 @@ closure.
   values, long/short phase frame counts, phase stage ids, text/event gate
   pointers, and no-source fade counters. See
   `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
+- 2026-05-01 saved landing reload: promoted the saved-coordinate reload
+  wrapper's snapshot pair, abort transition args, restore fade and sound/counter
+  ids, return-to-world display state, map-record cleanup fields, event-loop
+  bounds, `$289E` reset table, and final world-refresh fade count. See
+  `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
 
 ## Validation
 

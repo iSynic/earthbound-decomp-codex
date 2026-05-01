@@ -137,6 +137,13 @@ latches, rebuilds party/entity state around the saved coordinate record, clears
 30 entries at `$289E`, runs post-transition cleanup (`C0:64D4`, `C0:6B21`,
 `C0:88B1`, `C0:9451`), and finishes with the world-refresh fade at `C4:C60E`.
 
+Source polish: `src/c4/saved_landing_display_stage_helpers.asm` now names the
+saved coordinate snapshot pair, abort transition arguments, success-side restore
+fade and sound/counter ids, return-to-world display state, invalid latch values,
+map-selector record stride/base and cleanup fields, object-chain pointer update,
+event-flag loop bounds, `$289E` live-slot reset table, and final world-refresh
+fade frame count.
+
 ## Working Names
 
 - `C4:9208` = `BuildLandingInterpolationPlanesFrom7f7800`

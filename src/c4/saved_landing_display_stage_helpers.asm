@@ -119,6 +119,42 @@ SavedLandingPhaseStage1                          = $0001
 SavedLandingPhaseStage2                          = $0002
 SavedLandingPhaseStage3                          = $0003
 SavedLandingPhaseStage4                          = $0004
+SavedCoordinateXSnapshot                         = $9D1F
+SavedCoordinateYSnapshot                         = $9D21
+SavedLandingAbortTransitionArg                   = $0000
+SavedLandingAbortTransitionMode                  = $0001
+SavedLandingAbortTransitionState                 = $0002
+SavedLandingRestoreFadeFrames                    = $0020
+SavedLandingSuccessSfxOrCounterId                = $0002
+SavedLandingDisplayStateReturnToWorld            = $17
+SavedLandingInvalidWorldLatchValue               = $FFFF
+SavedLandingTransitionReadyFlag                  = $0001
+SavedLandingPartyRestoreCount                    = $0006
+SavedLandingMapSelectorRecordStride              = $005F
+SavedLandingMapSelectorRecordBase                = $99CE
+SavedLandingMapSelectorClearCount                = $0006
+SavedLandingMapSelectorClearOffset               = $000E
+SavedLandingRecordCacheOffsetA                   = $000A
+SavedLandingRecordCacheOffsetB                   = $0047
+SavedLandingRecordCacheOffsetC                   = $0045
+SavedLandingRecordClearOffsetA                   = $004D
+SavedLandingRecordClearOffsetB                   = $004B
+SavedLandingObjectChainPointer                   = $9831
+SavedLandingObjectChainLowBitMask                = $0001
+SavedLandingObjectChainOffset                    = $0002
+SavedLandingEventFlagFirst                       = $0001
+SavedLandingEventFlagPastLast                    = $000A
+SavedLandingEventFlagStateClear                  = $0000
+SavedLandingEntitySlotResetTable                 = $289E
+SavedLandingEntitySlotCount                      = $001E
+SavedLandingEntitySlotEmptySentinel              = $FFFF
+SavedLandingPostTransitionLatchA                 = $436E
+SavedLandingPostTransitionLatchB                 = $5DD4
+SavedLandingPostTransitionLatchC                 = $B53B
+SavedLandingPostTransitionReadyFlag              = $4676
+SavedLandingPostTransitionScratchA               = $9E56
+SavedLandingPostTransitionScratchB               = $5D58
+SavedLandingWorldRefreshFadeFrames               = $0020
 LowByteMask                                      = $00FF
 ZeroWord                                         = $0000
 ZeroByte                                         = $00
@@ -637,51 +673,51 @@ C4C718_RunSavedCoordinateLandingReload = SPAWN
     tdc
     adc.w #$FFE8
     tcd
-    lda $9D1F
+    lda SavedCoordinateXSnapshot
     sta $02
-    ldx $9D21
+    ldx SavedCoordinateYSnapshot
     stx $16
     jsl C0943C_SaveCurrentCoordinateState
     jsr.w C4C2DE_InitializeSavedLandingDisplayState
     jsr.w C4C64D_RunSavedLandingFadeSequence
     sta $04
-    cmp.w #$0000
+    cmp.w #SavedLandingPhaseSuccessReturn
     beq C4C74F_InitializeSavedLandingDisplayState_LC74F
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0002
+    ldy.w #SavedLandingAbortTransitionArg
+    ldx.w #SavedLandingAbortTransitionMode
+    lda.w #SavedLandingAbortTransitionState
     jsl C08814_SetDisplayTransitionMode
     jsl C09451_RestoreSavedCoordinateState
     jmp.w C4C8A0_InitializeSavedLandingDisplayState_LC8A0
 C4C74F_InitializeSavedLandingDisplayState_LC74F:
-    lda.w #$0020
+    lda.w #SavedLandingRestoreFadeFrames
     jsl C4C58F_RunSavedLandingPaletteRestoreFadeFrames
-    lda.w #$0002
+    lda.w #SavedLandingSuccessSfxOrCounterId
     jsl C0AC0C_QueuePresentationSfxOrCounter
     sep #$20
-    lda.b #$17
-    sta $001A
+    lda.b #SavedLandingDisplayStateReturnToWorld
+    sta SavedLandingDisplayStateByte
     rep #$20
-    lda.w #$FFFF
-    sta $436E
-    sta $5DD4
-    sta $B53B
-    lda.w #$0001
-    sta $4676
+    lda.w #SavedLandingInvalidWorldLatchValue
+    sta SavedLandingPostTransitionLatchA
+    sta SavedLandingPostTransitionLatchB
+    sta SavedLandingPostTransitionLatchC
+    lda.w #SavedLandingTransitionReadyFlag
+    sta SavedLandingPostTransitionReadyFlag
     jsl C08756_WaitOneFrameAndPollInput
-    ldy.w #$0006
+    ldy.w #SavedLandingPartyRestoreCount
     ldx $16
     lda $02
     jsl C019B2_RestorePartyStateAfterTransition
-    lda $986F
-    and.w #$00FF
+    lda SavedLandingMapSelectorByte
+    and.w #LowByteMask
     dec A
-    ldy.w #$005F
+    ldy.w #SavedLandingMapSelectorRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #SavedLandingMapSelectorRecordBase
     sta $4DC6
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $14
     bra C4C7B4_InitializeSavedLandingDisplayState_LC7B4
 C4C7A3_InitializeSavedLandingDisplayState_LC7A3:
@@ -689,25 +725,25 @@ C4C7A3_InitializeSavedLandingDisplayState_LC7A3:
     adc $4DC6
     tax
     sep #$20
-    stz $000E,X
+    stz SavedLandingMapSelectorClearOffset,X
     rep #$20
     lda $14
     inc A
     sta $14
 C4C7B4_InitializeSavedLandingDisplayState_LC7B4:
-    cmp.w #$0006
+    cmp.w #SavedLandingMapSelectorClearCount
     bcc C4C7A3_InitializeSavedLandingDisplayState_LC7A3
     ldx $4DC6
-    lda $000A,X
+    lda SavedLandingRecordCacheOffsetA,X
     ldx $4DC6
-    sta $0047,X
+    sta SavedLandingRecordCacheOffsetB,X
     ldx $4DC6
-    sta $0045,X
+    sta SavedLandingRecordCacheOffsetC,X
     ldx $4DC6
-    stz $004D,X
+    stz SavedLandingRecordClearOffsetA,X
     ldx $4DC6
-    stz $004B,X
-    ldy.w #$9831
+    stz SavedLandingRecordClearOffsetB,X
+    ldy.w #SavedLandingObjectChainPointer
     sty $12
     lda $0000,Y
     sta $06
@@ -721,9 +757,9 @@ C4C7B4_InitializeSavedLandingDisplayState_LC7B4:
     sta $0A
     lda $08
     sta $0C
-    lda.w #$0001
+    lda.w #SavedLandingObjectChainLowBitMask
     sta $06
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $08
     lda $0A
     and $06
@@ -734,9 +770,9 @@ C4C7B4_InitializeSavedLandingDisplayState_LC7B4:
     pha
     lda $0A
     pha
-    lda.w #$0002
+    lda.w #SavedLandingObjectChainOffset
     sta $0A
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $0C
     lda $0E
     sta $06
@@ -760,11 +796,11 @@ C4C7B4_InitializeSavedLandingDisplayState_LC7B4:
     lda $08
     sta $0002,Y
     jsl C07B52_RebuildPartyRecordsOrEntityState
-    ldy.w #$0001
+    ldy.w #SavedLandingEventFlagFirst
     sty $16
     bra C4C85D_InitializeSavedLandingDisplayState_LC85D
 C4C850_InitializeSavedLandingDisplayState_LC850:
-    ldx.w #$0000
+    ldx.w #SavedLandingEventFlagStateClear
     tya
     jsl C2165E_SetEventFlagOrState
     ldy $16
@@ -773,34 +809,34 @@ C4C850_InitializeSavedLandingDisplayState_LC850:
 C4C85D_InitializeSavedLandingDisplayState_LC85D:
     tya
     clc
-    sbc.w #$000A
+    sbc.w #SavedLandingEventFlagPastLast
     bvc C4C868_InitializeSavedLandingDisplayState_LC868
     bpl C4C850_InitializeSavedLandingDisplayState_LC850
     bra C4C86A_InitializeSavedLandingDisplayState_LC86A
 C4C868_InitializeSavedLandingDisplayState_LC868:
     bmi C4C850_InitializeSavedLandingDisplayState_LC850
 C4C86A_InitializeSavedLandingDisplayState_LC86A:
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $14
     bra C4C87E_InitializeSavedLandingDisplayState_LC87E
 C4C871_InitializeSavedLandingDisplayState_LC871:
     asl A
     tax
-    lda.w #$FFFF
-    sta $289E,X
+    lda.w #SavedLandingEntitySlotEmptySentinel
+    sta SavedLandingEntitySlotResetTable,X
     lda $14
     inc A
     sta $14
 C4C87E_InitializeSavedLandingDisplayState_LC87E:
-    cmp.w #$001E
+    cmp.w #SavedLandingEntitySlotCount
     bcc C4C871_InitializeSavedLandingDisplayState_LC871
     jsl C064D4_ResetEntityOverlapAndCollisionState
-    stz $9E56
-    stz $5D58
+    stz SavedLandingPostTransitionScratchA
+    stz SavedLandingPostTransitionScratchB
     jsl C06B21_RunPostTransitionDeferredScriptQueue
     jsl C088B1_ResetRendererFrameState
     jsl C09451_RestoreSavedCoordinateState
-    lda.w #$0020
+    lda.w #SavedLandingWorldRefreshFadeFrames
     jsl C4C60E_RunSavedLandingPaletteWorldRefreshFadeFrames
 C4C8A0_InitializeSavedLandingDisplayState_LC8A0:
     lda $04
