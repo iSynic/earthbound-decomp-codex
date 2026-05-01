@@ -87,6 +87,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   The source now ties D5 enemy dropped-item offset `+0x58`, drop-rate offset
   `+0x57`, the `C2:3109` UFO fallback table, `EF:7BDF`, and `EF:7DD5` to the
   same `$AA10 -> C1:DD7C -> $9D11 -> 19 1F` byte-substitution bridge.
+- 2026-05-01: Spy readout source follow-up named the `BTLACT_SPY` target
+  battler stat/resistance fields. `EF:69EA` and `EF:69FF` remain `DC66`
+  amount-payload consumers for offense/defense, while the resistance messages
+  are direct `DC1C` scripts gated by `0xFF` vulnerability bytes.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -450,6 +454,11 @@ And for the most actionable C2 call-site families:
   `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm` now share
   that local byte-slot name at the `EF:7BDF` and `EF:7DD5` consumers. See
   `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
+  now names the Spy readout target battler offsets for offense, defense, fire/
+  freeze/flash/paralysis resistance, hypnosis resistance, brainshock
+  resistance, and the `0xFF` fully-vulnerable sentinel. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Integration checklist (manual)

@@ -335,6 +335,12 @@ contract notes for C0/C1/C3/C4 consumers.
   at `EF:7DD5`. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
   `notes/c2-hit-resolution-status-runtime-polish.md`, and
   `notes/class2-ufo-present-message-family.md`.
+- 2026-05-01 fiftieth slice: tightened the `BTLACT_SPY` readout inside the
+  hit-resolution/status-action cluster. The promoted contracts cover current
+  target pointer use, offense/defense `DC66` amount payloads, the fire/freeze/
+  flash/paralysis/hypnosis/brainshock resistance bytes, and the `0xFF`
+  vulnerability sentinel that gates the direct readout text scripts. See
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

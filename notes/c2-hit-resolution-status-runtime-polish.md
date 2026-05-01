@@ -30,6 +30,21 @@ message constants without changing runtime bytes.
   `EF:7099..70B1` split: `EF:70B1` is the power-shield physical reflection
   text and `EF:7099` is the shared shield-expired text.
 
+## Spy Readout Payloads
+
+The `BTLACT_SPY` readout now names the target battler fields it samples:
+
+- `+0x26/+0x28` are offense and defense words. Spy stages each current value
+  through `C1:DC66`, so the EF scripts at `EF:69EA` and `EF:69FF` consume the
+  value as a `1C 0F` amount payload.
+- `+0x3A/+0x38/+0x39/+0x37` are fire, freeze, flash, and paralysis
+  resistance bytes. The readout emits the matching vulnerability text only
+  when the byte is `0xFF`.
+- `+0x3C/+0x3B` are hypnosis and brainshock resistance bytes. These drive the
+  two Brainshock/Sleep-friendly readout scripts at `EF:6A6C` and `EF:6A7F`.
+- The final Check Present branch then reuses `BattlePresentItemByte` as
+  described below.
+
 ## Shield Reflection Tail
 
 The physical-hit shield branch reads selected row `+0x23` as the active timed

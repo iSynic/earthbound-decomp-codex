@@ -34,6 +34,17 @@ C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
 
 BattlerRecordSize             = $004E
+CurrentTargetBattlerPtr       = $A972
+BattlerConsciousnessByte      = $000E
+BattlerOffenseWord            = $0026
+BattlerDefenseWord            = $0028
+BattlerParalysisResistByte    = $0037
+BattlerFreezeResistByte       = $0038
+BattlerFlashResistByte        = $0039
+BattlerFireResistByte         = $003A
+BattlerBrainshockResistByte   = $003B
+BattlerHypnosisResistByte     = $003C
+BattlerFullyVulnerableResist  = $00FF
 BattleStatusGroupPrimary      = $0000
 BattleStatusDiamondized       = $0002
 BattleStatusParalyzed         = $0003
@@ -1162,10 +1173,11 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
-    ldx $A972
-    lda $0026,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerOffenseWord,X
     sta $06
     stz $08
+    ; Spy stages the current stat value as a 1C 0F amount payload.
     lda $06
     sta $12
     lda $08
@@ -1175,19 +1187,20 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
-    ldx $A972
-    lda $0028,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerDefenseWord,X
     sta $06
     stz $08
+    ; Defense uses the same DC66 amount payload path as offense.
     lda $06
     sta $12
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    ldx $A972
-    lda $003A,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerFireResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C287D4_RunHitResolutionAndStatusActionCluster_L87D4
     lda.w #EFMSG_CheckAntiFire
     sta $0E
@@ -1195,10 +1208,10 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C287D4_RunHitResolutionAndStatusActionCluster_L87D4:
-    ldx $A972
-    lda $0038,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerFreezeResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C287F0_RunHitResolutionAndStatusActionCluster_L87F0
     lda.w #EFMSG_CheckAntiFreeze
     sta $0E
@@ -1206,10 +1219,10 @@ C287D4_RunHitResolutionAndStatusActionCluster_L87D4:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C287F0_RunHitResolutionAndStatusActionCluster_L87F0:
-    ldx $A972
-    lda $0039,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerFlashResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C2880C_RunHitResolutionAndStatusActionCluster_L880C
     lda.w #EFMSG_CheckAntiFlash
     sta $0E
@@ -1217,10 +1230,10 @@ C287F0_RunHitResolutionAndStatusActionCluster_L87F0:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C2880C_RunHitResolutionAndStatusActionCluster_L880C:
-    ldx $A972
-    lda $0037,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerParalysisResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C28828_RunHitResolutionAndStatusActionCluster_L8828
     lda.w #EFMSG_CheckAntiParalysis
     sta $0E
@@ -1228,10 +1241,10 @@ C2880C_RunHitResolutionAndStatusActionCluster_L880C:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C28828_RunHitResolutionAndStatusActionCluster_L8828:
-    ldx $A972
-    lda $003C,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerHypnosisResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C28844_RunHitResolutionAndStatusActionCluster_L8844
     lda.w #EFMSG_CheckBrainLevel0
     sta $0E
@@ -1239,10 +1252,10 @@ C28828_RunHitResolutionAndStatusActionCluster_L8828:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C28844_RunHitResolutionAndStatusActionCluster_L8844:
-    ldx $A972
-    lda $003B,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerBrainshockResistByte,X
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #BattlerFullyVulnerableResist
     bne C28860_RunHitResolutionAndStatusActionCluster_L8860
     lda.w #EFMSG_CheckBrainLevel3
     sta $0E
@@ -1250,8 +1263,8 @@ C28844_RunHitResolutionAndStatusActionCluster_L8844:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C28860_RunHitResolutionAndStatusActionCluster_L8860:
-    ldx $A972
-    lda $000E,X
+    ldx CurrentTargetBattlerPtr
+    lda BattlerConsciousnessByte,X
     and.w #$00FF
     cmp.w #$0001
     bne C28899_RunHitResolutionAndStatusActionCluster_L8899
