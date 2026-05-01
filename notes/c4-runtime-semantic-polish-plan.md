@@ -110,6 +110,11 @@ closure.
   angle/phase/glyph fields, spinner frame, battle-visual script ids, input exit
   mask, and closeout fade/busy gates. See
   `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-01 landing display streams: promoted the landing asset stream
+  helper's subpiece pointer-table, descriptor-count/table, no-subpiece
+  sentinel, source-bank/list offsets, paired-plane VRAM transfer, and the four
+  stream pointer families seeded by `C4:B26B`. See
+  `notes/landing-display-assembly-cluster-c007b6-c4b26b.md`.
 
 ## Validation
 

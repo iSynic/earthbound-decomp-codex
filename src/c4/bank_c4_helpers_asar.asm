@@ -5805,6 +5805,32 @@ org $C4B1B8
 !DATA_C40EF0 = $C40EF0
 !DATA_C40F04 = $C40F04
 !C08616_TransferBlockToVramOrBuffer = $C08616
+!LandingSubpieceDescriptorPointerTable = $EF133F
+!LandingStreamDescriptorCountByte = $C40E31
+!LandingStreamDescriptorTable = $C40E32
+!LandingStreamGroup2f6aSource = $C40EB0
+!LandingStreamGroup2eb6Source = $C40EE4
+!LandingStreamGroup301eSource = $C40EF0
+!LandingStreamGroup30d2Source = $C40F04
+!LandingNoSubpieceSentinel = $00FF
+!LandingDescriptorBankOffset = $0002
+!LandingSubpieceLengthOffset = $0001
+!LandingSubpieceSourceBankOffset = $0008
+!LandingSubpieceEntryListOffset = $0009
+!LandingSubpiecePointerAlignmentMask = $FFFE
+!LandingSubpieceSecondPlaneVramOffset = $0100
+!LandingVramTransferFlagsNone = $00
+!LandingStreamInitialVramDestination = $5600
+!LandingStreamDescriptorFirstIndex = $0000
+!LandingStreamDescriptorBytes = $0004
+!LandingStreamFirstSubpieceOffset = $0002
+!LandingStreamSecondSubpieceOffset = $0003
+!LandingStreamPointerSlotCount = $001E
+!LandingStreamGroup2eb6Table = $2EB6
+!LandingStreamGroup2f6aTable = $2F6A
+!LandingStreamGroup301eTable = $301E
+!LandingStreamGroup30d2Table = $30D2
+!LowByteMask = $00FF
 C4B1B8_TransferLandingDisplayAssetSubpiecePair:
 	REP.b #$31
 	PHD
@@ -5815,14 +5841,14 @@ C4B1B8_TransferLandingDisplayAssetSubpiecePair:
 	PLA
 	STY.b $16
 	STA.b $04
-	CPY.w #$00FF
+	CPY.w #!LandingNoSubpieceSentinel
 	BNE.b C4B1D0_TransferLandingDisplayAssetSubpiecePair_LoadDescriptor
 	LDA.b $04
 	JMP.w C4B269_TransferLandingDisplayAssetSubpiecePair_Return
 C4B1D0_TransferLandingDisplayAssetSubpiecePair_LoadDescriptor:
-	LDA.w #!DATA_EF133F
+	LDA.w #!LandingSubpieceDescriptorPointerTable
 	STA.b $0A
-	LDA.w #!DATA_EF133F>>16
+	LDA.w #!LandingSubpieceDescriptorPointerTable>>16
 	STA.b $0C
 	TXA
 	ASL
@@ -5830,35 +5856,35 @@ C4B1D0_TransferLandingDisplayAssetSubpiecePair_LoadDescriptor:
 	CLC
 	ADC.b $0A
 	STA.b $0A
-	LDY.w #$0002
+	LDY.w #!LandingDescriptorBankOffset
 	LDA.b [$0A],Y
 	TAY
 	LDA.b [$0A]
 	STA.b $06
 	STY.b $08
 	SEP.b #$20
-	LDY.w #$0001
+	LDY.w #!LandingSubpieceLengthOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #!LowByteMask
 	ASL
 	STA.b $02
 	SEP.b #$20
-	LDY.w #$0008
+	LDY.w #!LandingSubpieceSourceBankOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #!LowByteMask
 	STA.b $14
 	LDY.b $16
 	TYA
 	ASL
 	CLC
-	ADC.w #$0009
+	ADC.w #!LandingSubpieceEntryListOffset
 	CLC
 	ADC.b $06
 	STA.b $06
 	LDA.b [$06]
-	AND.w #$FFFE
+	AND.w #!LandingSubpiecePointerAlignmentMask
 	STA.b $12
 	STA.b $06
 	LDA.b $14
@@ -5870,7 +5896,7 @@ C4B1D0_TransferLandingDisplayAssetSubpiecePair_LoadDescriptor:
 	LDY.b $04
 	LDX.b $02
 	SEP.b #$20
-	LDA.b #$00
+	LDA.b #!LandingVramTransferFlagsNone
 	JSL.l !C08616_TransferBlockToVramOrBuffer
 	LDA.b $02
 	CLC
@@ -5885,11 +5911,11 @@ C4B1D0_TransferLandingDisplayAssetSubpiecePair_LoadDescriptor:
 	STA.b $10
 	LDA.b $04
 	CLC
-	ADC.w #$0100
+	ADC.w #!LandingSubpieceSecondPlaneVramOffset
 	TAY
 	LDX.b $02
 	SEP.b #$20
-	LDA.b #$00
+	LDA.b #!LandingVramTransferFlagsNone
 	JSL.l !C08616_TransferBlockToVramOrBuffer
 	LDA.b $02
 	LSR
@@ -5907,13 +5933,13 @@ LOAD_OVERLAY_SPRITES:
 	TDC
 	ADC.w #$FFEC
 	TCD
-	LDA.w #$5600
+	LDA.w #!LandingStreamInitialVramDestination
 	STA.b $12
-	LDA.w #!DATA_C40E32
+	LDA.w #!LandingStreamDescriptorTable
 	STA.b $0A
-	LDA.w #!DATA_C40E32>>16
+	LDA.w #!LandingStreamDescriptorTable>>16
 	STA.b $0C
-	LDA.w #$0000
+	LDA.w #!LandingStreamDescriptorFirstIndex
 	STA.b $02
 	BRA.b C4B2C9_InitializeLandingDisplayStreamsAndChildAnchors_CheckDescriptorLoop
 C4B289_InitializeLandingDisplayStreamsAndChildAnchors_DescriptorLoop:
@@ -5922,10 +5948,10 @@ C4B289_InitializeLandingDisplayStreamsAndChildAnchors_DescriptorLoop:
 	LDA.b $0C
 	STA.b $08
 	SEP.b #$20
-	LDY.w #$0002
+	LDY.w #!LandingStreamFirstSubpieceOffset
 	LDA.b [$0A],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #!LowByteMask
 	TAY
 	LDA.b [$06]
 	TAX
@@ -5933,63 +5959,63 @@ C4B289_InitializeLandingDisplayStreamsAndChildAnchors_DescriptorLoop:
 	JSR.w C4B1B8_TransferLandingDisplayAssetSubpiecePair
 	STA.b $10
 	SEP.b #$20
-	LDY.w #$0003
+	LDY.w #!LandingStreamSecondSubpieceOffset
 	LDA.b [$0A],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #!LowByteMask
 	TAY
 	LDA.b [$06]
 	TAX
 	LDA.b $10
 	JSR.w C4B1B8_TransferLandingDisplayAssetSubpiecePair
 	STA.b $12
-	LDA.w #$0004
+	LDA.w #!LandingStreamDescriptorBytes
 	CLC
 	ADC.b $0A
 	STA.b $0A
 	INC.b $02
 C4B2C9_InitializeLandingDisplayStreamsAndChildAnchors_CheckDescriptorLoop:
-	LDA.l !DATA_C40E31
-	AND.w #$00FF
+	LDA.l !LandingStreamDescriptorCountByte
+	AND.w #!LowByteMask
 	STA.b $04
 	LDA.b $02
 	CMP.b $04
 	BCC.b C4B289_InitializeLandingDisplayStreamsAndChildAnchors_DescriptorLoop
-	LDA.w #$0000
+	LDA.w #!LandingStreamDescriptorFirstIndex
 	STA.b $0E
 	BRA.b C4B322_InitializeLandingDisplayStreamsAndChildAnchors_CheckStreamLoop
 C4B2DF_InitializeLandingDisplayStreamsAndChildAnchors_StreamLoop:
 	ASL
 	TAX
-	LDA.w #!DATA_C40EE4
+	LDA.w #!LandingStreamGroup2eb6Source
 	STA.b $06
-	LDA.w #!DATA_C40EE4>>16
+	LDA.w #!LandingStreamGroup2eb6Source>>16
 	STA.b $08
 	LDA.b $06
-	STA.w $2EB6,X
-	LDA.w #!DATA_C40EB0
+	STA.w !LandingStreamGroup2eb6Table,X
+	LDA.w #!LandingStreamGroup2f6aSource
 	STA.b $06
-	LDA.w #!DATA_C40EB0>>16
+	LDA.w #!LandingStreamGroup2f6aSource>>16
 	STA.b $08
 	LDA.b $06
-	STA.w $2F6A,X
-	LDA.w #!DATA_C40EF0
+	STA.w !LandingStreamGroup2f6aTable,X
+	LDA.w #!LandingStreamGroup301eSource
 	STA.b $06
-	LDA.w #!DATA_C40EF0>>16
+	LDA.w #!LandingStreamGroup301eSource>>16
 	STA.b $08
 	LDA.b $06
-	STA.w $301E,X
-	LDA.w #!DATA_C40F04
+	STA.w !LandingStreamGroup301eTable,X
+	LDA.w #!LandingStreamGroup30d2Source
 	STA.b $06
-	LDA.w #!DATA_C40F04>>16
+	LDA.w #!LandingStreamGroup30d2Source>>16
 	STA.b $08
 	LDA.b $06
-	STA.w $30D2,X
+	STA.w !LandingStreamGroup30d2Table,X
 	LDA.b $0E
 	INC
 	STA.b $0E
 C4B322_InitializeLandingDisplayStreamsAndChildAnchors_CheckStreamLoop:
-	CMP.w #$001E
+	CMP.w #!LandingStreamPointerSlotCount
 	BCC.b C4B2DF_InitializeLandingDisplayStreamsAndChildAnchors_StreamLoop
 	PLD
 	RTL

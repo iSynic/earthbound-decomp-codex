@@ -221,6 +221,12 @@ If `Y == 0x00FF`, the helper returns the incoming destination offset unchanged. 
 
 The two direct callers are the paired calls inside `C4:B26B`: first with descriptor byte `+2`, then with byte `+3`. This makes `C4:B1B8` the landing-display graphics/subpiece transfer helper that packs variable selected assets into the VRAM destination sequence before the control-stream and child-anchor setup continues.
 
+Source polish: `src/c4/landing_display_asset_stream_helpers.asm` now names
+the `EF:133F` subpiece pointer table, `C4:0E32` stream descriptor table,
+no-subpiece sentinel, subpiece length/source-bank/list offsets, `0x5600`
+VRAM cursor, paired `+0x100` plane transfer, and stream pointer families
+`$2EB6/$2F6A/$301E/$30D2`.
+
 The placement side is tighter than before now that the nearby child-entity subsystem is better mapped. Local readers and writers around `C4:B37D..B48F` show that `$B3F8/$B3FA` are not just abstract bounds words. They are the live anchor coordinates later fed into `C4:B3D0`, which in turn calls `C01E49` through the already-mapped child-entity spawn family. In this landing path, `C4:B3D0` seeds `$B3F8/$B3FA` from the active record's `0B8E/0BCA` pair, applies placement-adjusted signed offsets from the compact `C4:0DE8` child-definition table, and then spawns the child object.
 
 The byte-clean source scaffold now promotes this corridor through `C4:B587`.
