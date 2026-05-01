@@ -34,7 +34,9 @@ build/
 inbox/
 
 # Vendored/reference checkouts are useful locally but should be curated before publishing.
-refs/
+refs/*
+!refs/earthbound-sounddriver-byte-perfect/
+!refs/earthbound-sounddriver-byte-perfect/**
 
 # Python/editor/system noise.
 __pycache__/

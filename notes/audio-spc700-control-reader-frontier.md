@@ -1,12 +1,14 @@
 # Audio SPC700 Control Reader Frontier
 
-Status: runtime control-byte reader PCs identified; command effects remain unpromoted.
+Status: runtime control-byte reader PCs identified; key reader labels are now
+source-backed, but command effects remain unpromoted.
 
 ## Summary
 
 - reader PCs: `10`
 - control reads: `4242`
 - command counts: `{'0x00': 4107, '0xEF': 119, '0xFD': 1, '0xFE': 5, '0xFF': 10}`
+- source-backed reader labels: `0x0955=GetNextByte`, `0x0957=SkipByte`
 - exact-duration promotion allowed: `False`
 - semantic status: `reader_paths_known_effects_unpromoted`
 
@@ -28,12 +30,16 @@ Status: runtime control-byte reader PCs identified; command effects remain unpro
 ## Findings
 
 - Runtime traces now identify concrete SPC700 PCs that read sequence control bytes.
+- The ingested byte-perfect source labels `0x0955` as `GetNextByte` and
+  `0x0957` as `SkipByte`, so the strongest mixed FF/FE/EF reader is no longer
+  anonymous.
 - The control reader PCs are stronger next targets than the provisional high-command dispatch table for current exact-duration work.
 - This frontier records offsets, counts, hashes, and sampled register context only; it does not embed ROM-derived driver byte windows.
 
 ## Next Work
 
 - decode reader PCs that observe 0x00 because they are now the primary end-vs-return proof target
-- decode reader PC 0x0957 because it observes FF, FE, and EF control bytes
+- decode `GetNextByte`/`SkipByte` call paths around reader PC `0x0957` because
+  they observe `FF`, `FE`, and `EF`
 - decode reader PC 0x0847 because it observes FD and FE control bytes
 - decode reader PC 0x0B8A because it is the dominant EF reader in the sampled corpus
