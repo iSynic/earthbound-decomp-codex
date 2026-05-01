@@ -172,9 +172,11 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 
 - `windowgraphics-windows1-copy-probe`: replacing
   `WindowGraphics/Windows1_0.png` with a neighboring valid PNG changes `27`
-  rebuilt-ROM bytes across `E0:1FCB..E0:2000`. Treat this as
-  `diff-confirmed` CoilSnake insertion evidence for the window-graphics/palette
-  area; row-level runtime names still come from the C4/C1 selector callers.
+  rebuilt-ROM bytes across `E0:1FCB..E0:2000`, fully inside the original
+  `window_palette_blocks` range `E0:1FC8..E0:2188`. Treat this as
+  `diff-confirmed` bounded-insertion evidence for CoilSnake's
+  `WindowGraphics` project resource and the local window-graphics/palette area;
+  row-level runtime names still come from the C4/C1 selector callers.
 
 ## Open Questions
 

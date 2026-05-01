@@ -46,6 +46,16 @@ No ROM-derived payloads or rendered reference images are checked in by this repo
 | 9-12 | `scrolling_movements` | Four `BG_SCROLLING_TABLE` row references. |
 | 13-16 | `distortion_styles` | Four `BG_DISTORTION_TABLE` row references. |
 
+## CoilSnake Probe Evidence
+
+- `bg-data-distortion1-probe` edits CoilSnake `bg_data_table.yml` `Distortion 1`
+  from `61` to `62` and changes one rebuilt-ROM byte at `CA:DCD0`.
+  `CA:DCD0` is inside `BG_DATA_TABLE` (`CA:DCA1..CA:F258`): it is overall
+  offset `+$2F`, which is row 2 offset `+$0D` with a 17-byte row stride. This
+  directly corroborates that CoilSnake's `Distortion 1` field lowers to
+  BG_DATA_TABLE row byte 13, the first distortion-style reference consumed by
+  `LOAD_BATTLE_BG`.
+
 ## Usage Summary
 
 - unused layer config rows: `72`

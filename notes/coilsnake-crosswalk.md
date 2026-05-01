@@ -1,7 +1,7 @@
 # CoilSnake Crosswalk
 
 Status: baseline generated, first planned diff batch complete; Phase 2A and
-Phase 2B coverage batches complete; Phase 2C scriptdump baseline captured.
+Phase 2B coverage batches complete; Phase 2C promotion assessment complete.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -24,6 +24,10 @@ Tracked format experiments: `manifests/coilsnake-format-experiments.json` and
 `notes/coilsnake-format-experiments.md`.
 Tracked Phase 2C status: `manifests/coilsnake-phase2c-status.json` and
 `notes/coilsnake-phase2c-status.md`.
+Tracked Phase 2C promotion assessment:
+`manifests/coilsnake-phase2c-promotion-assessment.json` and
+`notes/coilsnake-phase2c-promotion-assessment.md`.
+Tracked milestone closeout: `notes/coilsnake-milestone-closeout.md`.
 
 Ignored local outputs:
 
@@ -120,6 +124,10 @@ stay in ignored project directories.
 `tools/build_coilsnake_phase2c_status.py` classifies the scriptdump, CCScript,
 and format probe results as authoring/lowering evidence, fixed-byte locality,
 bounded insertion, or broad repack behavior.
+`tools/build_coilsnake_phase2c_promotion_assessment.py` then narrows those
+format results to local contract actions: promote only when the changed rebuilt
+bytes also line up with original-ROM ownership and runtime contracts, otherwise
+record the probe as rebuilt-layout or compiler-behavior evidence.
 
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text
@@ -592,6 +600,11 @@ two CCScript probes are authoring/lowering-only, three metadata probes are
 fixed-byte locality evidence, one window-graphics replacement is bounded
 insertion evidence, and the battle-sprite and tileset probes are broad repack
 evidence that should remain deferred from runtime promotion.
+`notes/coilsnake-phase2c-promotion-assessment.md` applies the stricter
+original-ROM test: only `bg-data-distortion1-probe` and
+`windowgraphics-windows1-copy-probe` are ready for local contract promotion.
+The font-width and town-map one-byte probes stay deferred because their
+CoilSnake-rebuild bytes land in original-ROM ranges with different owners.
 
 Exit criteria:
 
@@ -605,4 +618,5 @@ Exit criteria:
 - The experiment queue is empty only after the next coverage batch has either
   been ingested or intentionally retired.
 - Validators pass: ROM verification, CoilSnake field semantics, experiment
-  plan, promotion stubs, Phase 2C status, JSON syntax, and asset manifests.
+  plan, promotion stubs, Phase 2C status, Phase 2C promotion assessment, JSON
+  syntax, and asset manifests.

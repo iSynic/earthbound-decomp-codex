@@ -40,6 +40,20 @@ No ROM-derived payloads are checked in by this report.
 - `landing_cast_visual_bundles`: E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..D815, E1:D815..D835, E1:D835..E4E6, and E1:E4E6..E528 belong to the C4:E369 ending cast-name visual path. Source: `notes/landing-cast-visual-contracts.md`.
 - `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, with three runtime user save-slot primary/backup pairs, checksum/complement fields verified against EF:0734/077B, and two preserved reserve records outside the retail slot loops. Source: `notes/sram-template-contracts.md`.
 
+## CoilSnake Probe Context
+
+- `font0-width5-probe` is valid CoilSnake rebuilt-layout evidence, but its
+  changed byte lands at `CF:60DC` in the baseline rebuild rather than any
+  original E0/E1 font metric range listed below.
+- `town-map-first-icon-x-probe` changes one byte at `E0:11A4` in the
+  CoilSnake baseline rebuild. In the original ROM, that address falls inside
+  the compressed SRAM template range `E0:09B4..E0:1359`, while town-map icon
+  placement records live at `E1:F4A9..E1:F581`; keep it deferred until a
+  rebuilt-to-original town-map layout map exists.
+- `windowgraphics-windows1-copy-probe` changes a bounded span inside
+  `E0:1FC8..E0:2188`, so it is safe evidence that CoilSnake's WindowGraphics
+  resource feeds the local text-window palette block contract.
+
 ## Runtime Subrange Contracts
 
 | Subrange | Range | Status | Contract | Evidence |

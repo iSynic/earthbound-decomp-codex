@@ -91,6 +91,15 @@ No ROM-derived font graphics or palette payload files are checked in by this rep
 - `notes/localization-authoring-command-frontier.md`: Recovered localization commands include standard-font and Mr. Saturn font commands, matching the need to keep font bundles semantically named.
 - `refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Tables/Fonts/MainFont.txt`: Legacy character-code map gives a public-facing character/code bridge for the main font.
 
+## CoilSnake Probe Context
+
+- `font0-width5-probe` changes one byte in the CoilSnake baseline rebuild at
+  `CF:60DC`, but that original-ROM address belongs to the CF
+  event-music/table corridor, not the checked font metric ranges such as
+  `E1:0C7A..E1:0CDA`, `E0:1359..E0:13B9`, or the other E1 font metric tables
+  above. Keep this as rebuilt-layout evidence until a rebuilt-to-original
+  mapping explains where CoilSnake placed font width data.
+
 ## Open Questions
 
 - Tie each runtime font selector value to these bundle ids from caller-side descriptor fields.
