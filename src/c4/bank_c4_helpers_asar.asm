@@ -15563,30 +15563,50 @@ org $C40000
 !C08643_SubmitQueuedOrImmediateVramTransfer = $C08643
 !C0A4A8_RefreshCurrentEntityVisualProfile = $C0A4A8
 !C0C6B6_CheckCurrentSlotInsideLiveAreaWindow = $C0C6B6
+!InidispRegister = $002100
+!DisplayControlShadow = $000D
+!CurrentEntitySlotOffset = $88
+!CurrentScriptSlotOffset = $8A
+!CurrentSlotVisualStateWord = $10F2
+!CurrentScriptField1372 = $1372
+!ScriptLowNibbleSource = $1A42
+!ScriptLowNibbleMask = $000F
+!GlyphScratchTileRowsBase = $3492
+!GlyphScratchSecondHalfOffset = $0010
+!TextTileVramDestinationBase = $6000
+!TextTileTransferSourceOffset = $0091
+!TextTileTransferSize = $0092
+!TextTileTransferSourceLo = $0094
+!TextTileTransferSourceBank = $0096
+!TextTileTransferVramDest = $0097
+!Wram7eBankByte = $007E
+!TextTileStripTransferByteCount = $0010
+!TextTileTransferBusyLatch = $9E2B
+!ForcedBlankDisplayBit = $0080
 C40000_WriteAtoInidisp:
     php
     sep #$20
-    sta $002100
+    sta.l !InidispRegister
     plp
     rtl
 C40009_RestoreInidispFromDisplayShadow:
     php
     sep #$20
-    lda $000D
-    sta $002100
+    lda.w !DisplayControlShadow
+    sta.l !InidispRegister
     plp
     rtl
 C40015_ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea:
-    ldx $88
-    stz $10F2,X
+    ldx !CurrentEntitySlotOffset
+    stz !CurrentSlotVisualStateWord,X
     jsl !C0A4A8_RefreshCurrentEntityVisualProfile
     jsl !C0C6B6_CheckCurrentSlotInsideLiveAreaWindow
     rtl
 C40023_StoreLowNibble1a42ToCurrentScriptField1372:
-    ldx $8A
-    lda $1A42
-    and.w #$000F
-    sta $1372,X
+    ldx !CurrentScriptSlotOffset
+    lda !ScriptLowNibbleSource
+    and.w #!ScriptLowNibbleMask
+    sta !CurrentScriptField1372,X
     rtl
 C4002F_SubmitTwoTextTileStripTransfers:
     rep #$30
@@ -15596,39 +15616,39 @@ C4002F_SubmitTwoTextTileStripTransfers:
     asl A
     asl A
     clc
-    adc.w #$3492
-    sta $0094
+    adc.w #!GlyphScratchTileRowsBase
+    sta.w !TextTileTransferSourceLo
     lda.w #$0000
-    sta $0091
-    lda.w #$0010
-    sta $0092
-    lda.w #$007E
-    sta $0096
+    sta.w !TextTileTransferSourceOffset
+    lda.w #!TextTileStripTransferByteCount
+    sta.w !TextTileTransferSize
+    lda.w #!Wram7eBankByte
+    sta.w !TextTileTransferSourceBank
     txa
     asl A
     asl A
     asl A
     clc
-    adc.w #$6000
-    sta $0097
+    adc.w #!TextTileVramDestinationBase
+    sta.w !TextTileTransferVramDest
     phy
     jsl !C08643_SubmitQueuedOrImmediateVramTransfer
-    lda $0094
+    lda.w !TextTileTransferSourceLo
     clc
-    adc.w #$0010
-    sta $0094
+    adc.w #!GlyphScratchSecondHalfOffset
+    sta.w !TextTileTransferSourceLo
     pla
     asl A
     asl A
     asl A
     clc
-    adc.w #$6000
-    sta $0097
+    adc.w #!TextTileVramDestinationBase
+    sta.w !TextTileTransferVramDest
     jsl !C08643_SubmitQueuedOrImmediateVramTransfer
-    lda $000D
-    and.w #$0080
-    eor.w #$0080
-    sta $9E2B
+    lda.w !DisplayControlShadow
+    and.w #!ForcedBlankDisplayBit
+    eor.w #!ForcedBlankDisplayBit
+    sta !TextTileTransferBusyLatch
     rts
 
 
@@ -15644,26 +15664,33 @@ org $C40085
 !C10000_RunTextDisplaySetupWrapper = $C10000
 !C10BF8_ResetTextWindowState = $C10BF8
 !C44C6C_TextTileBitMaskTable = $C44C6C
+!TextTileBitsetBase = $1AD6
+!TextTileBitsetFirstWordOffset = $0008
+!TextTileBitsetEndOffset = $0040
+!FullTextTileBitsetWord = $FFFF
+!TextTileBitSearchStartMaskOffset = $001E
+!TextWindowRecoveryScriptId = $0A2A
+!TextTileBitIndexScratch = $288E
 C40085_ClaimTextTileBitsetSlot:
     rep #$30
-    ldy.w #$0008
-    lda.w #$FFFF
+    ldy.w #!TextTileBitsetFirstWordOffset
+    lda.w #!FullTextTileBitsetWord
     bra C400A9_TestTextTileBitsetWordFull
 C4008F_ScanNextTextTileBitsetWord:
     iny
     iny
-    cpy.w #$0040
+    cpy.w #!TextTileBitsetEndOffset
     bne C400A9_TestTextTileBitsetWordFull
     jsl !C10000_RunTextDisplaySetupWrapper
     jsl !C10BF8_ResetTextWindowState
     jsl !C09451_RestoreSavedCoordinateState
-    lda.w #$0A2A
+    lda.w #!TextWindowRecoveryScriptId
     jsl !C08F68_DispatchTextWindowRecoveryScript
 C400A9_TestTextTileBitsetWordFull:
-    cmp $1AD6,Y
+    cmp !TextTileBitsetBase,Y
     beq C4008F_ScanNextTextTileBitsetWord
-    ldx.w #$001E
-    lda $1AD6,Y
+    ldx.w #!TextTileBitSearchStartMaskOffset
+    lda !TextTileBitsetBase,Y
     bra C400B9_ClaimTextTileBit
 C400B6_FindFirstClearTextTileBit:
     dex
@@ -15671,17 +15698,17 @@ C400B6_FindFirstClearTextTileBit:
     asl A
 C400B9_ClaimTextTileBit:
     bmi C400B6_FindFirstClearTextTileBit
-    lda $1AD6,Y
+    lda !TextTileBitsetBase,Y
     ora.l POWERS_OF_TWO_16BIT,X
-    sta $1AD6,Y
-    stx $288E
-    lsr $288E
+    sta !TextTileBitsetBase,Y
+    stx !TextTileBitIndexScratch
+    lsr !TextTileBitIndexScratch
     tya
     asl A
     asl A
     asl A
     clc
-    adc $288E
+    adc !TextTileBitIndexScratch
     rts
 
 

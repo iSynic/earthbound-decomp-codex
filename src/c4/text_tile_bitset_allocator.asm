@@ -17,29 +17,37 @@ C10000_RunTextDisplaySetupWrapper       = $C10000
 C10BF8_ResetTextWindowState             = $C10BF8
 C44C6C_TextTileBitMaskTable             = $C44C6C
 
+TextTileBitsetBase                = $1AD6
+TextTileBitsetFirstWordOffset     = $0008
+TextTileBitsetEndOffset           = $0040
+FullTextTileBitsetWord            = $FFFF
+TextTileBitSearchStartMaskOffset  = $001E
+TextWindowRecoveryScriptId        = $0A2A
+TextTileBitIndexScratch           = $288E
+
 ; ---------------------------------------------------------------------------
 ; C4:0085
 
 C40085_ClaimTextTileBitsetSlot:
     rep #$30
-    ldy.w #$0008
-    lda.w #$FFFF
+    ldy.w #TextTileBitsetFirstWordOffset
+    lda.w #FullTextTileBitsetWord
     bra C400A9_TestTextTileBitsetWordFull
 C4008F_ScanNextTextTileBitsetWord:
     iny
     iny
-    cpy.w #$0040
+    cpy.w #TextTileBitsetEndOffset
     bne C400A9_TestTextTileBitsetWordFull
     jsl C10000_RunTextDisplaySetupWrapper
     jsl C10BF8_ResetTextWindowState
     jsl C09451_RestoreSavedCoordinateState
-    lda.w #$0A2A
+    lda.w #TextWindowRecoveryScriptId
     jsl C08F68_DispatchTextWindowRecoveryScript
 C400A9_TestTextTileBitsetWordFull:
-    cmp $1AD6,Y
+    cmp TextTileBitsetBase,Y
     beq C4008F_ScanNextTextTileBitsetWord
-    ldx.w #$001E
-    lda $1AD6,Y
+    ldx.w #TextTileBitSearchStartMaskOffset
+    lda TextTileBitsetBase,Y
     bra C400B9_ClaimTextTileBit
 C400B6_FindFirstClearTextTileBit:
     dex
@@ -47,15 +55,15 @@ C400B6_FindFirstClearTextTileBit:
     asl A
 C400B9_ClaimTextTileBit:
     bmi C400B6_FindFirstClearTextTileBit
-    lda $1AD6,Y
+    lda TextTileBitsetBase,Y
     ora.l POWERS_OF_TWO_16BIT,X
-    sta $1AD6,Y
-    stx $288E
-    lsr $288E
+    sta TextTileBitsetBase,Y
+    stx TextTileBitIndexScratch
+    lsr TextTileBitIndexScratch
     tya
     asl A
     asl A
     asl A
     clc
-    adc $288E
+    adc TextTileBitIndexScratch
     rts

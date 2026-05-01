@@ -18,6 +18,14 @@ Source scaffold status: `src/c4/early_ppu_and_text_tile_helpers.asm` preserves
 allocator body at `C4:0085..C4:00D4`. The next byte, `C4:00D4`, is the legacy
 `ScriptPtrs` table, not part of the allocator routine.
 
+Source polish:
+
+- 2026-05-01: the `C4:0000..00D4` source now names the `INIDISP` write target,
+  display-control shadow, current entity/script slot offsets, `$3492` text tile
+  scratch rows, C0 VRAM transfer parameter block `$0091..$0097`, `$9E2B`
+  transfer latch, `$1AD6` text tile bitset, recovery script id `$0A2A`, and
+  bit-index scratch word `$288E`.
+
 ## Display brightness wrappers
 
 `C4:0000` is a tiny `INIDISP` write wrapper. It saves flags, switches the accumulator to 8-bit, writes the low byte of `A` to `$00:2100`, restores flags, and returns long. Direct same-bank callers are `C4:2B07`, `C4:5AE7`, `C4:A28D`, `C4:A2AE`, `C4:A2CF`, and `C4:A2F0`.

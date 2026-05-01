@@ -55,6 +55,14 @@ closure.
 - Deferred notes for event payload islands that still need C3 script semantics
   before source-quality naming.
 
+## Implementation Notes
+
+- 2026-05-01 first slice: promoted the early PPU/text tile allocator and
+  transfer helpers with byte-neutral aliases for `INIDISP`, the display shadow,
+  `$3492` text tile scratch rows, the C0 VRAM transfer parameter block,
+  `$9E2B` transfer latch, `$1AD6` text tile bitset, and recovery script id
+  `$0A2A`. See `notes/c4-early-ppu-and-text-tile-helpers-0000-0085.md`.
+
 ## Validation
 
 Future implementation passes should use:
