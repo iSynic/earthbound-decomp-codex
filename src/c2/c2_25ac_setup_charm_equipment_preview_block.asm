@@ -15,6 +15,21 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+
+PartyCharacterRecordStride = $005F
+NoPreviewSlotIndex         = $FFFF
+EmptyPreviewSlotIndex      = $0000
+
+EquipmentPreviewSelectedCharacter = $9CD6
+EquipmentPreviewWeaponSlot        = $9CD0
+EquipmentPreviewCharmSlot         = $9CD1
+EquipmentPreviewBraceletSlot      = $9CD2
+EquipmentPreviewHeadgearSlot      = $9CD3
+
+LiveEquippedWeaponSlot            = $99FF
+LiveEquippedBraceletSlot          = $9A01
+LiveEquippedHeadgearSlot          = $9A02
 
 ; ---------------------------------------------------------------------------
 ; C2:25AC
@@ -29,40 +44,40 @@ C225AC_SetupCharmEquipmentPreviewBlock:
     pla
     tax
     stx $0E
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
+    lda LiveEquippedWeaponSlot,X
+    sta EquipmentPreviewWeaponSlot
     ldx $0E
-    cpx.w #$FFFF
+    cpx.w #NoPreviewSlotIndex
     bne C225DA_C225AC_SetupCharmEquipmentPreviewBlock_L25DA
-    ldx.w #$0000
+    ldx.w #EmptyPreviewSlotIndex
 C225DA_C225AC_SetupCharmEquipmentPreviewBlock_L25DA:
     rep #$20
     txa
     sep #$20
-    sta $9CD1
+    sta EquipmentPreviewCharmSlot
     rep #$20
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
     sta $0E
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9A01,X
-    sta $9CD2
-    lda $9A02,X
-    sta $9CD3
+    lda LiveEquippedBraceletSlot,X
+    sta EquipmentPreviewBraceletSlot
+    lda LiveEquippedHeadgearSlot,X
+    sta EquipmentPreviewHeadgearSlot
     rep #$20
     lda $0E
-    jsl $C1A1D8
+    jsl C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 

@@ -181,6 +181,10 @@ Source polish:
 - 2026-05-01: `C2:26F0`, `C2:272F`, and `C2:277C` now name the `$988B`
   party status registry, player-count bound, character record stride,
   `$99DC` state byte, and state-1/state-2 filter constants.
+- 2026-05-01: `C2:3008` and `C2:307B` now name the temporary party source
+  save/restore block at `$983A/$983B/$983C/$983E`, its saved mirror at
+  `$9841..$9849`, the cleared pair at `$9831/$9833`, and the `C2:28F8` /
+  `C2:29BB` active-party overlay insert/remove calls.
 
 ## Source Scaffold Promotion
 

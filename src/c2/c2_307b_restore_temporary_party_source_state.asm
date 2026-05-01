@@ -14,6 +14,19 @@
 C228F8_InsertPartyOverlayTrackedItemId = $C228F8
 C229BB_RemovePartyOverlayTrackedItemId = $C229BB
 
+ActiveTemporaryPartySourceSlotA    = $983A
+ActiveTemporaryPartySourceSlotB    = $983B
+ActiveTemporaryPartySourceWordA    = $983C
+ActiveTemporaryPartySourceWordB    = $983E
+SavedTemporaryPartySourceSlotA     = $9841
+SavedTemporaryPartySourceSlotB     = $9842
+SavedTemporaryPartySourceWordA     = $9843
+SavedTemporaryPartySourceWordB     = $9845
+TemporaryPartySourcePairLo         = $9831
+TemporaryPartySourcePairHi         = $9833
+SavedTemporaryPartySourcePairLo    = $9847
+SavedTemporaryPartySourcePairHi    = $9849
+
 ; ---------------------------------------------------------------------------
 ; C2:307B
 
@@ -23,17 +36,17 @@ C2307B_RestoreTemporaryPartySourceState:
     tdc
     adc.w #$FFEE
     tcd
-    ldx.w #$983A
+    ldx.w #ActiveTemporaryPartySourceSlotA
     stx $10
     lda $0000,X
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    ldy.w #$983B
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    ldy.w #ActiveTemporaryPartySourceSlotB
     sty $0E
     lda $0000,Y
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    lda $9841
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    lda SavedTemporaryPartySourceSlotA
     and.w #$00FF
     beq C230DD_RestoreTemporaryPartySourceState_L30DD
     ldx $10
@@ -41,10 +54,10 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,X
     rep #$20
     and.w #$00FF
-    jsl ADD_CHAR_TO_PARTY
-    lda $9843
-    sta $983C
-    lda $9842
+    jsl C228F8_InsertPartyOverlayTrackedItemId
+    lda SavedTemporaryPartySourceWordA
+    sta ActiveTemporaryPartySourceWordA
+    lda SavedTemporaryPartySourceSlotB
     and.w #$00FF
     beq C230DD_RestoreTemporaryPartySourceState_L30DD
     ldy $0E
@@ -52,17 +65,17 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,Y
     rep #$20
     and.w #$00FF
-    jsl ADD_CHAR_TO_PARTY
-    lda $9845
-    sta $983E
+    jsl C228F8_InsertPartyOverlayTrackedItemId
+    lda SavedTemporaryPartySourceWordB
+    sta ActiveTemporaryPartySourceWordB
 C230DD_RestoreTemporaryPartySourceState_L30DD:
-    lda $9847
+    lda SavedTemporaryPartySourcePairLo
     sta $06
-    lda $9849
+    lda SavedTemporaryPartySourcePairHi
     sta $08
     lda $06
-    sta $9831
+    sta TemporaryPartySourcePairLo
     lda $08
-    sta $9833
+    sta TemporaryPartySourcePairHi
     pld
     rtl

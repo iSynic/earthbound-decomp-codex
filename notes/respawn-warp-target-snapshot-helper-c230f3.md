@@ -39,6 +39,14 @@ So the safest current local read is now:
 
 So the helper has exactly three observable side effects.
 
+Source polish:
+
+- 2026-05-01: `src/c2/c2_30f3_snapshot_respawn_warp_target_state.asm`
+  now names the one-byte `$98B8` write, live coordinate sources
+  `$9877/$987B`, and saved destination coordinate pair `$9D1F/$9D21`.
+  The helper keeps the narrow `SEP #$20` store for `$98B8` before returning to
+  16-bit coordinate copies.
+
 ## What the written state looks like
 
 ### `$9D1F / $9D21`

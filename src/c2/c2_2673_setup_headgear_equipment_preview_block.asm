@@ -15,6 +15,21 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+
+PartyCharacterRecordStride = $005F
+NoPreviewSlotIndex         = $FFFF
+EmptyPreviewSlotIndex      = $0000
+
+EquipmentPreviewSelectedCharacter = $9CD6
+EquipmentPreviewWeaponSlot        = $9CD0
+EquipmentPreviewCharmSlot         = $9CD1
+EquipmentPreviewBraceletSlot      = $9CD2
+EquipmentPreviewHeadgearSlot      = $9CD3
+
+LiveEquippedWeaponSlot            = $99FF
+LiveEquippedCharmSlot             = $9A00
+LiveEquippedBraceletSlot          = $9A01
 
 ; ---------------------------------------------------------------------------
 ; C2:2673
@@ -28,35 +43,35 @@ C22673_SetupHeadgearEquipmentPreviewBlock:
     tcd
     pla
     sta $0E
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
-    lda $9A00,X
-    sta $9CD1
-    lda $9A01,X
-    sta $9CD2
+    lda LiveEquippedWeaponSlot,X
+    sta EquipmentPreviewWeaponSlot
+    lda LiveEquippedCharmSlot,X
+    sta EquipmentPreviewCharmSlot
+    lda LiveEquippedBraceletSlot,X
+    sta EquipmentPreviewBraceletSlot
     rep #$20
     lda $0E
-    cmp.w #$FFFF
+    cmp.w #NoPreviewSlotIndex
     bne C226B0_C22673_SetupHeadgearEquipmentPreviewBlock_L26B0
-    ldx.w #$0000
+    ldx.w #EmptyPreviewSlotIndex
     bra C226B1_C22673_SetupHeadgearEquipmentPreviewBlock_L26B1
 C226B0_C22673_SetupHeadgearEquipmentPreviewBlock_L26B0:
     tax
 C226B1_C22673_SetupHeadgearEquipmentPreviewBlock_L26B1:
     txa
     sep #$20
-    sta $9CD3
+    sta EquipmentPreviewHeadgearSlot
     rep #$20
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
-    jsl $C1A1D8
+    jsl C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 

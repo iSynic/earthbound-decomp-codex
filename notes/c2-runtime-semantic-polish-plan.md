@@ -271,6 +271,15 @@ contract notes for C0/C1/C3/C4 consumers.
   refresh target, `$988B` party status registry, `$99DC` state byte, and
   state-1/state-2 filters. See
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-01 forty-first slice: promoted the C2 equipment-preview and
+  temporary party-source utility helpers with byte-neutral aliases for the
+  `$9CD0..$9CD6` preview slot block, live equipped-slot bytes
+  `$99FF/$9A00/$9A01/$9A02`, `C1:A1D8` preview renderer, temporary source
+  save/restore block `$983A..$9849`, and the small respawn/warp target
+  snapshot helper at `C2:30F3`. See
+  `notes/equipment-preview-slot-block-9cd0-9cd6.md`,
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`, and
+  `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
 
 ## Validation
 

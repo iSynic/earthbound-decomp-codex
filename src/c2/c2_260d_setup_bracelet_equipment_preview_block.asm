@@ -15,6 +15,21 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+
+PartyCharacterRecordStride = $005F
+NoPreviewSlotIndex         = $FFFF
+EmptyPreviewSlotIndex      = $0000
+
+EquipmentPreviewSelectedCharacter = $9CD6
+EquipmentPreviewWeaponSlot        = $9CD0
+EquipmentPreviewCharmSlot         = $9CD1
+EquipmentPreviewBraceletSlot      = $9CD2
+EquipmentPreviewHeadgearSlot      = $9CD3
+
+LiveEquippedWeaponSlot            = $99FF
+LiveEquippedCharmSlot             = $9A00
+LiveEquippedHeadgearSlot          = $9A02
 
 ; ---------------------------------------------------------------------------
 ; C2:260D
@@ -28,46 +43,46 @@ C2260D_SetupBraceletEquipmentPreviewBlock:
     tcd
     pla
     sta $10
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
-    lda $9A00,X
-    sta $9CD1
+    lda LiveEquippedWeaponSlot,X
+    sta EquipmentPreviewWeaponSlot
+    lda LiveEquippedCharmSlot,X
+    sta EquipmentPreviewCharmSlot
     rep #$20
     lda $10
-    cmp.w #$FFFF
+    cmp.w #NoPreviewSlotIndex
     bne C22644_C2260D_SetupBraceletEquipmentPreviewBlock_L2644
-    ldx.w #$0000
+    ldx.w #EmptyPreviewSlotIndex
     bra C22645_C2260D_SetupBraceletEquipmentPreviewBlock_L2645
 C22644_C2260D_SetupBraceletEquipmentPreviewBlock_L2644:
     tax
 C22645_C2260D_SetupBraceletEquipmentPreviewBlock_L2645:
     txa
     sep #$20
-    sta $9CD2
+    sta EquipmentPreviewBraceletSlot
     rep #$20
-    lda $9CD6
+    lda EquipmentPreviewSelectedCharacter
     and.w #$00FF
     tax
     stx $0E
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9A02,X
-    sta $9CD3
+    lda LiveEquippedHeadgearSlot,X
+    sta EquipmentPreviewHeadgearSlot
     ldx $0E
     rep #$20
     txa
-    jsl $C1A1D8
+    jsl C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 

@@ -13,6 +13,12 @@
 
 ; No named external contracts were supplied or recognized.
 
+RespawnWarpTargetAreaByte = $98B8
+RespawnWarpTargetX        = $9877
+RespawnWarpTargetY        = $987B
+TeleportBoxDestinationX   = $9D1F
+TeleportBoxDestinationY   = $9D21
+
 ; ---------------------------------------------------------------------------
 ; C2:30F3
 
@@ -20,10 +26,10 @@ SET_TELEPORT_BOX_DESTINATION:
 C230F3_SnapshotRespawnWarpTargetState = SET_TELEPORT_BOX_DESTINATION
     rep #$31
     sep #$20
-    sta $98B8
+    sta RespawnWarpTargetAreaByte
     rep #$20
-    lda $9877
-    sta $9D1F
-    lda $987B
-    sta $9D21
+    lda RespawnWarpTargetX
+    sta TeleportBoxDestinationX
+    lda RespawnWarpTargetY
+    sta TeleportBoxDestinationY
     rtl

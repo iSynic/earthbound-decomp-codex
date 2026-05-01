@@ -11410,46 +11410,59 @@ hirom
 org $C23008
 
 !C229BB_RemovePartyOverlayTrackedItemId = $C229BB
+!ActiveTemporaryPartySourceSlotA = $983A
+!ActiveTemporaryPartySourceSlotB = $983B
+!ActiveTemporaryPartySourceWordA = $983C
+!ActiveTemporaryPartySourceWordB = $983E
+!SavedTemporaryPartySourceSlotA = $9841
+!SavedTemporaryPartySourceSlotB = $9842
+!SavedTemporaryPartySourceWordA = $9843
+!SavedTemporaryPartySourceWordB = $9845
+!TemporaryPartySourcePairLo = $9831
+!TemporaryPartySourcePairHi = $9833
+!SavedTemporaryPartySourcePairLo = $9847
+!SavedTemporaryPartySourcePairHi = $9849
+!ClearedTemporaryPartySourceWord = $0000
 C23008_SaveAndClearTemporaryPartySourceState:
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #$983A
+    ldx.w #!ActiveTemporaryPartySourceSlotA
     stx $0E
     sep #$20
     lda $0000,X
-    sta $9841
+    sta !SavedTemporaryPartySourceSlotA
     rep #$20
-    lda $983C
-    sta $9843
-    ldy.w #$983B
+    lda !ActiveTemporaryPartySourceWordA
+    sta !SavedTemporaryPartySourceWordA
+    ldy.w #!ActiveTemporaryPartySourceSlotB
     sep #$20
     lda $0000,Y
-    sta $9842
+    sta !SavedTemporaryPartySourceSlotB
     rep #$20
-    lda $983E
-    sta $9845
+    lda !ActiveTemporaryPartySourceWordB
+    sta !SavedTemporaryPartySourceWordB
     lda $0000,Y
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
+    jsl !C229BB_RemovePartyOverlayTrackedItemId
     ldx $0E
     lda $0000,X
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    ldy.w #$9831
+    jsl !C229BB_RemovePartyOverlayTrackedItemId
+    ldy.w #!TemporaryPartySourcePairLo
     lda $0000,Y
     sta $06
     lda $0002,Y
     sta $08
     lda $06
-    sta $9847
+    sta !SavedTemporaryPartySourcePairLo
     lda $08
-    sta $9849
-    lda.w #$0000
+    sta !SavedTemporaryPartySourcePairHi
+    lda.w #!ClearedTemporaryPartySourceWord
     sta $06
-    lda.w #$0000
+    lda.w #!ClearedTemporaryPartySourceWord
     sta $08
     lda $06
     sta $0000,Y
@@ -11468,23 +11481,35 @@ org $C2307B
 
 !C228F8_InsertPartyOverlayTrackedItemId = $C228F8
 !C229BB_RemovePartyOverlayTrackedItemId = $C229BB
+!ActiveTemporaryPartySourceSlotA = $983A
+!ActiveTemporaryPartySourceSlotB = $983B
+!ActiveTemporaryPartySourceWordA = $983C
+!ActiveTemporaryPartySourceWordB = $983E
+!SavedTemporaryPartySourceSlotA = $9841
+!SavedTemporaryPartySourceSlotB = $9842
+!SavedTemporaryPartySourceWordA = $9843
+!SavedTemporaryPartySourceWordB = $9845
+!TemporaryPartySourcePairLo = $9831
+!TemporaryPartySourcePairHi = $9833
+!SavedTemporaryPartySourcePairLo = $9847
+!SavedTemporaryPartySourcePairHi = $9849
 C2307B_RestoreTemporaryPartySourceState:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    ldx.w #$983A
+    ldx.w #!ActiveTemporaryPartySourceSlotA
     stx $10
     lda $0000,X
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    ldy.w #$983B
+    jsl !C229BB_RemovePartyOverlayTrackedItemId
+    ldy.w #!ActiveTemporaryPartySourceSlotB
     sty $0E
     lda $0000,Y
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    lda $9841
+    jsl !C229BB_RemovePartyOverlayTrackedItemId
+    lda !SavedTemporaryPartySourceSlotA
     and.w #$00FF
     beq C230DD_RestoreTemporaryPartySourceState_L30DD
     ldx $10
@@ -11492,10 +11517,10 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,X
     rep #$20
     and.w #$00FF
-    jsl ADD_CHAR_TO_PARTY
-    lda $9843
-    sta $983C
-    lda $9842
+    jsl !C228F8_InsertPartyOverlayTrackedItemId
+    lda !SavedTemporaryPartySourceWordA
+    sta !ActiveTemporaryPartySourceWordA
+    lda !SavedTemporaryPartySourceSlotB
     and.w #$00FF
     beq C230DD_RestoreTemporaryPartySourceState_L30DD
     ldy $0E
@@ -11503,18 +11528,18 @@ C2307B_RestoreTemporaryPartySourceState:
     sta $0000,Y
     rep #$20
     and.w #$00FF
-    jsl ADD_CHAR_TO_PARTY
-    lda $9845
-    sta $983E
+    jsl !C228F8_InsertPartyOverlayTrackedItemId
+    lda !SavedTemporaryPartySourceWordB
+    sta !ActiveTemporaryPartySourceWordB
 C230DD_RestoreTemporaryPartySourceState_L30DD:
-    lda $9847
+    lda !SavedTemporaryPartySourcePairLo
     sta $06
-    lda $9849
+    lda !SavedTemporaryPartySourcePairHi
     sta $08
     lda $06
-    sta $9831
+    sta !TemporaryPartySourcePairLo
     lda $08
-    sta $9833
+    sta !TemporaryPartySourcePairHi
     pld
     rtl
 
@@ -21337,6 +21362,18 @@ hirom
 org $C2260D
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+!PartyCharacterRecordStride = $005F
+!NoPreviewSlotIndex = $FFFF
+!EmptyPreviewSlotIndex = $0000
+!EquipmentPreviewSelectedCharacter = $9CD6
+!EquipmentPreviewWeaponSlot = $9CD0
+!EquipmentPreviewCharmSlot = $9CD1
+!EquipmentPreviewBraceletSlot = $9CD2
+!EquipmentPreviewHeadgearSlot = $9CD3
+!LiveEquippedWeaponSlot = $99FF
+!LiveEquippedCharmSlot = $9A00
+!LiveEquippedHeadgearSlot = $9A02
 C2260D_SetupBraceletEquipmentPreviewBlock:
     rep #$31
     phd
@@ -21346,46 +21383,46 @@ C2260D_SetupBraceletEquipmentPreviewBlock:
     tcd
     pla
     sta $10
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
-    lda $9A00,X
-    sta $9CD1
+    lda !LiveEquippedWeaponSlot,X
+    sta !EquipmentPreviewWeaponSlot
+    lda !LiveEquippedCharmSlot,X
+    sta !EquipmentPreviewCharmSlot
     rep #$20
     lda $10
-    cmp.w #$FFFF
+    cmp.w #!NoPreviewSlotIndex
     bne C22644_C2260D_SetupBraceletEquipmentPreviewBlock_L2644
-    ldx.w #$0000
+    ldx.w #!EmptyPreviewSlotIndex
     bra C22645_C2260D_SetupBraceletEquipmentPreviewBlock_L2645
 C22644_C2260D_SetupBraceletEquipmentPreviewBlock_L2644:
     tax
 C22645_C2260D_SetupBraceletEquipmentPreviewBlock_L2645:
     txa
     sep #$20
-    sta $9CD2
+    sta !EquipmentPreviewBraceletSlot
     rep #$20
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     tax
     stx $0E
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9A02,X
-    sta $9CD3
+    lda !LiveEquippedHeadgearSlot,X
+    sta !EquipmentPreviewHeadgearSlot
     ldx $0E
     rep #$20
     txa
-    jsl $C1A1D8
+    jsl !C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 C22673_SetupBraceletEquipmentPreviewBlock_End:
@@ -21458,6 +21495,18 @@ hirom
 org $C22562
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+!PartyCharacterRecordStride = $005F
+!NoPreviewSlotIndex = $FFFF
+!EmptyPreviewSlotIndex = $0000
+!EquipmentPreviewSelectedCharacter = $9CD6
+!EquipmentPreviewWeaponSlot = $9CD0
+!EquipmentPreviewCharmSlot = $9CD1
+!EquipmentPreviewBraceletSlot = $9CD2
+!EquipmentPreviewHeadgearSlot = $9CD3
+!LiveEquippedCharmSlot = $9A00
+!LiveEquippedBraceletSlot = $9A01
+!LiveEquippedHeadgearSlot = $9A02
 C22562_SetupWeaponEquipmentPreviewBlock:
     rep #$31
     phd
@@ -21467,31 +21516,31 @@ C22562_SetupWeaponEquipmentPreviewBlock:
     tcd
     pla
     tax
-    cpx.w #$FFFF
+    cpx.w #!NoPreviewSlotIndex
     bne C22575_C22562_SetupWeaponEquipmentPreviewBlock_L2575
-    ldx.w #$0000
+    ldx.w #!EmptyPreviewSlotIndex
 C22575_C22562_SetupWeaponEquipmentPreviewBlock_L2575:
     txa
     sep #$20
-    sta $9CD0
+    sta !EquipmentPreviewWeaponSlot
     rep #$20
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     sta $0E
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9A00,X
-    sta $9CD1
-    lda $9A01,X
-    sta $9CD2
-    lda $9A02,X
-    sta $9CD3
+    lda !LiveEquippedCharmSlot,X
+    sta !EquipmentPreviewCharmSlot
+    lda !LiveEquippedBraceletSlot,X
+    sta !EquipmentPreviewBraceletSlot
+    lda !LiveEquippedHeadgearSlot,X
+    sta !EquipmentPreviewHeadgearSlot
     rep #$20
     lda $0E
-    jsl $C1A1D8
+    jsl !C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 C225AC_SetupWeaponEquipmentPreviewBlock_End:
@@ -21505,6 +21554,18 @@ hirom
 org $C225AC
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+!PartyCharacterRecordStride = $005F
+!NoPreviewSlotIndex = $FFFF
+!EmptyPreviewSlotIndex = $0000
+!EquipmentPreviewSelectedCharacter = $9CD6
+!EquipmentPreviewWeaponSlot = $9CD0
+!EquipmentPreviewCharmSlot = $9CD1
+!EquipmentPreviewBraceletSlot = $9CD2
+!EquipmentPreviewHeadgearSlot = $9CD3
+!LiveEquippedWeaponSlot = $99FF
+!LiveEquippedBraceletSlot = $9A01
+!LiveEquippedHeadgearSlot = $9A02
 C225AC_SetupCharmEquipmentPreviewBlock:
     rep #$31
     phd
@@ -21515,40 +21576,40 @@ C225AC_SetupCharmEquipmentPreviewBlock:
     pla
     tax
     stx $0E
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
+    lda !LiveEquippedWeaponSlot,X
+    sta !EquipmentPreviewWeaponSlot
     ldx $0E
-    cpx.w #$FFFF
+    cpx.w #!NoPreviewSlotIndex
     bne C225DA_C225AC_SetupCharmEquipmentPreviewBlock_L25DA
-    ldx.w #$0000
+    ldx.w #!EmptyPreviewSlotIndex
 C225DA_C225AC_SetupCharmEquipmentPreviewBlock_L25DA:
     rep #$20
     txa
     sep #$20
-    sta $9CD1
+    sta !EquipmentPreviewCharmSlot
     rep #$20
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     sta $0E
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9A01,X
-    sta $9CD2
-    lda $9A02,X
-    sta $9CD3
+    lda !LiveEquippedBraceletSlot,X
+    sta !EquipmentPreviewBraceletSlot
+    lda !LiveEquippedHeadgearSlot,X
+    sta !EquipmentPreviewHeadgearSlot
     rep #$20
     lda $0E
-    jsl $C1A1D8
+    jsl !C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 C2260D_SetupCharmEquipmentPreviewBlock_End:
@@ -21562,6 +21623,18 @@ hirom
 org $C22673
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1A1D8_RenderEquipmentPreviewStatus = $C1A1D8
+!PartyCharacterRecordStride = $005F
+!NoPreviewSlotIndex = $FFFF
+!EmptyPreviewSlotIndex = $0000
+!EquipmentPreviewSelectedCharacter = $9CD6
+!EquipmentPreviewWeaponSlot = $9CD0
+!EquipmentPreviewCharmSlot = $9CD1
+!EquipmentPreviewBraceletSlot = $9CD2
+!EquipmentPreviewHeadgearSlot = $9CD3
+!LiveEquippedWeaponSlot = $99FF
+!LiveEquippedCharmSlot = $9A00
+!LiveEquippedBraceletSlot = $9A01
 C22673_SetupHeadgearEquipmentPreviewBlock:
     rep #$31
     phd
@@ -21571,35 +21644,35 @@ C22673_SetupHeadgearEquipmentPreviewBlock:
     tcd
     pla
     sta $0E
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $99FF,X
-    sta $9CD0
-    lda $9A00,X
-    sta $9CD1
-    lda $9A01,X
-    sta $9CD2
+    lda !LiveEquippedWeaponSlot,X
+    sta !EquipmentPreviewWeaponSlot
+    lda !LiveEquippedCharmSlot,X
+    sta !EquipmentPreviewCharmSlot
+    lda !LiveEquippedBraceletSlot,X
+    sta !EquipmentPreviewBraceletSlot
     rep #$20
     lda $0E
-    cmp.w #$FFFF
+    cmp.w #!NoPreviewSlotIndex
     bne C226B0_C22673_SetupHeadgearEquipmentPreviewBlock_L26B0
-    ldx.w #$0000
+    ldx.w #!EmptyPreviewSlotIndex
     bra C226B1_C22673_SetupHeadgearEquipmentPreviewBlock_L26B1
 C226B0_C22673_SetupHeadgearEquipmentPreviewBlock_L26B0:
     tax
 C226B1_C22673_SetupHeadgearEquipmentPreviewBlock_L26B1:
     txa
     sep #$20
-    sta $9CD3
+    sta !EquipmentPreviewHeadgearSlot
     rep #$20
-    lda $9CD6
+    lda !EquipmentPreviewSelectedCharacter
     and.w #$00FF
-    jsl $C1A1D8
+    jsl !C1A1D8_RenderEquipmentPreviewStatus
     pld
     rtl
 C226C5_SetupHeadgearEquipmentPreviewBlock_End:
@@ -22729,16 +22802,21 @@ C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656:
 hirom
 org $C230F3
 
+!RespawnWarpTargetAreaByte = $98B8
+!RespawnWarpTargetX = $9877
+!RespawnWarpTargetY = $987B
+!TeleportBoxDestinationX = $9D1F
+!TeleportBoxDestinationY = $9D21
 SET_TELEPORT_BOX_DESTINATION:
 !C230F3_SnapshotRespawnWarpTargetState = SET_TELEPORT_BOX_DESTINATION
     rep #$31
     sep #$20
-    sta $98B8
+    sta !RespawnWarpTargetAreaByte
     rep #$20
-    lda $9877
-    sta $9D1F
-    lda $987B
-    sta $9D21
+    lda !RespawnWarpTargetX
+    sta !TeleportBoxDestinationX
+    lda !RespawnWarpTargetY
+    sta !TeleportBoxDestinationY
     rtl
 
 

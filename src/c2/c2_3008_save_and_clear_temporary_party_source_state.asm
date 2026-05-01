@@ -13,6 +13,20 @@
 
 C229BB_RemovePartyOverlayTrackedItemId = $C229BB
 
+ActiveTemporaryPartySourceSlotA    = $983A
+ActiveTemporaryPartySourceSlotB    = $983B
+ActiveTemporaryPartySourceWordA    = $983C
+ActiveTemporaryPartySourceWordB    = $983E
+SavedTemporaryPartySourceSlotA     = $9841
+SavedTemporaryPartySourceSlotB     = $9842
+SavedTemporaryPartySourceWordA     = $9843
+SavedTemporaryPartySourceWordB     = $9845
+TemporaryPartySourcePairLo         = $9831
+TemporaryPartySourcePairHi         = $9833
+SavedTemporaryPartySourcePairLo    = $9847
+SavedTemporaryPartySourcePairHi    = $9849
+ClearedTemporaryPartySourceWord    = $0000
+
 ; ---------------------------------------------------------------------------
 ; C2:3008
 
@@ -22,40 +36,40 @@ C23008_SaveAndClearTemporaryPartySourceState:
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #$983A
+    ldx.w #ActiveTemporaryPartySourceSlotA
     stx $0E
     sep #$20
     lda $0000,X
-    sta $9841
+    sta SavedTemporaryPartySourceSlotA
     rep #$20
-    lda $983C
-    sta $9843
-    ldy.w #$983B
+    lda ActiveTemporaryPartySourceWordA
+    sta SavedTemporaryPartySourceWordA
+    ldy.w #ActiveTemporaryPartySourceSlotB
     sep #$20
     lda $0000,Y
-    sta $9842
+    sta SavedTemporaryPartySourceSlotB
     rep #$20
-    lda $983E
-    sta $9845
+    lda ActiveTemporaryPartySourceWordB
+    sta SavedTemporaryPartySourceWordB
     lda $0000,Y
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
+    jsl C229BB_RemovePartyOverlayTrackedItemId
     ldx $0E
     lda $0000,X
     and.w #$00FF
-    jsl REMOVE_CHAR_FROM_PARTY
-    ldy.w #$9831
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    ldy.w #TemporaryPartySourcePairLo
     lda $0000,Y
     sta $06
     lda $0002,Y
     sta $08
     lda $06
-    sta $9847
+    sta SavedTemporaryPartySourcePairLo
     lda $08
-    sta $9849
-    lda.w #$0000
+    sta SavedTemporaryPartySourcePairHi
+    lda.w #ClearedTemporaryPartySourceWord
     sta $06
-    lda.w #$0000
+    lda.w #ClearedTemporaryPartySourceWord
     sta $08
     lda $06
     sta $0000,Y

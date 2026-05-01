@@ -51,6 +51,13 @@ Semantic humanization update:
   roller prelude (`C2:0F58..109F`) received byte-neutral local aliases and
   contract constants. See
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-01: the equipment-preview slot setup helpers
+  (`C2:2562..26C5`), temporary party source save/restore pair
+  (`C2:3008..30F3`), and respawn/warp target snapshot helper (`C2:30F3`)
+  received byte-neutral local aliases and contract constants. See
+  `notes/equipment-preview-slot-block-9cd0-9cd6.md`,
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`, and
+  `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
 
 ## Completed True Byte-Corridor Promotions
 

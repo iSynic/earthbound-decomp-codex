@@ -145,6 +145,15 @@ One smaller local piece is strong enough to note even though it is not the main 
 
 So the right current label is structural: equipment preview slot block.
 
+## Source polish
+
+- 2026-05-01: the four C2 setup helpers now name the selected-character byte
+  `$9CD6`, the preview slot bytes `$9CD0..$9CD3`, the live equipped-slot bytes
+  `$99FF/$9A00/$9A01/$9A02`, the no-preview-slot sentinel `#$FFFF`, the empty
+  preview slot `0`, the party character stride `$005F`, and the shared
+  `C1:A1D8` preview renderer call. The source still preserves the original
+  `REP/SEP` byte-store windows for the preview block writes.
+
 ## Confidence
 
 - `$9CD6` as selected character id: high confidence
