@@ -1286,16 +1286,16 @@
         "status": "different"
       }
     },
-    "psi-ness-omega-level-probe": {
-      "report": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
+    "condiment-first-good-recover-probe": {
+      "report": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
       "resource_family": "gameplay_yaml_tables",
-      "source_file": "psi_ability_table.yml",
-      "edit": "Changed PSI ability 4 Ness learned level from 75 to 76.",
+      "source_file": "condiment_table.yml",
+      "edit": "Changed condiment row 0 good recover from 2 to 3.",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1306,15 +1306,49 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x158A92",
-        "last_changed_offset_exclusive": "0x158A93",
+        "first_changed_offset": "0x15EA7B",
+        "last_changed_offset_exclusive": "0x15EA7C",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x158A93",
+            "end_exclusive": "0x15EA7C",
             "length": 1,
-            "start": "0x158A92"
+            "start": "0x15EA7B"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "enemy-group-first-background-probe": {
+      "report": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "battle_visual_assets",
+      "source_file": "enemy_groups.yml",
+      "edit": "Changed enemy group 1 Background 1 from 262 to 263.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0BD89E",
+        "last_changed_offset_exclusive": "0x0BD89F",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0BD89F",
+            "length": 1,
+            "start": "0x0BD89E"
           }
         ],
         "status": "different"
@@ -1354,16 +1388,16 @@
         "status": "different"
       }
     },
-    "npc-config-first-text-pointer-probe": {
-      "report": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json",
+    "enemy-insane-cultist-hp-probe": {
+      "report": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "map_tilesets_and_runtime_tables",
-      "source_file": "npc_config_table.yml",
-      "edit": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "edit": "Changed enemy 1 Insane Cultist HP from 94 to 95.",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1374,15 +1408,49 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x0F899F",
-        "last_changed_offset_exclusive": "0x0F89A0",
+        "first_changed_offset": "0x159608",
+        "last_changed_offset_exclusive": "0x159609",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x0F89A0",
+            "end_exclusive": "0x159609",
             "length": 1,
-            "start": "0x0F899F"
+            "start": "0x159608"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "initial-stats-ness-money-probe": {
+      "report": "build/coilsnake/edit-experiments/initial-stats-ness-money-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "initial_stats.yml",
+      "edit": "Initial stats row 0 Ness Money 20 -> 21",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/initial-stats-ness-money-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/initial-stats-ness-money-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15F5F9",
+        "last_changed_offset_exclusive": "0x15F5FA",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/initial-stats-ness-money-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15F5FA",
+            "length": 1,
+            "start": "0x15F5F9"
           }
         ],
         "status": "different"
@@ -1417,40 +1485,6 @@
             "end_exclusive": "0x0F000D",
             "length": 1,
             "start": "0x0F000C"
-          }
-        ],
-        "status": "different"
-      }
-    },
-    "window-config-width-probe": {
-      "report": "build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json",
-      "experiment_status": "diffed",
-      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "ui_font_town_map_assets",
-      "source_file": "window_configuration_table.yml",
-      "edit": "Changed window configuration 8 Width from 30 to 31.",
-      "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/window-config-width-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
-      "dry_run": false,
-      "compile": {
-        "returncode": 0,
-        "timed_out": false
-      },
-      "diff": {
-        "base_size": 4194304,
-        "changed_bytes": 1,
-        "contiguous_changed_runs": 1,
-        "exists": true,
-        "first_changed_offset": "0x03E294",
-        "last_changed_offset_exclusive": "0x03E295",
-        "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
-        "sample_runs": [
-          {
-            "end_exclusive": "0x03E295",
-            "length": 1,
-            "start": "0x03E294"
           }
         ],
         "status": "different"
@@ -1558,6 +1592,108 @@
         "status": "different"
       }
     },
+    "map-enemy-groups-first-rate-probe": {
+      "report": "build/coilsnake/edit-experiments/map-enemy-groups-first-rate-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_enemy_groups.yml",
+      "edit": "Map enemy group row 1 Sub-Group 1 Rate 5 -> 6",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-enemy-groups-first-rate-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-enemy-groups-first-rate-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x20133B",
+        "last_changed_offset_exclusive": "0x20133C",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-enemy-groups-first-rate-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x20133C",
+            "length": 1,
+            "start": "0x20133B"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-hotspot-first-x1-probe": {
+      "report": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_hotspots.yml",
+      "edit": "Changed map hotspot 1 X1 coordinate from 620 to 621.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15F303",
+        "last_changed_offset_exclusive": "0x15F304",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15F304",
+            "length": 1,
+            "start": "0x15F303"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-music-sector1-music-probe": {
+      "report": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_music.yml",
+      "edit": "Changed map music sector 1 fallback Music from 4 to 5.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F590D",
+        "last_changed_offset_exclusive": "0x0F590E",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F590E",
+            "length": 1,
+            "start": "0x0F590D"
+          }
+        ],
+        "status": "different"
+      }
+    },
     "map-sprite-first-npc-id-probe": {
       "report": "build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/experiment-report.json",
       "experiment_status": "diffed",
@@ -1587,74 +1723,6 @@
             "end_exclusive": "0x0F61EA",
             "length": 1,
             "start": "0x0F61E9"
-          }
-        ],
-        "status": "different"
-      }
-    },
-    "window-config-height-probe": {
-      "report": "build/coilsnake/edit-experiments/window-config-height-probe/experiment-report.json",
-      "experiment_status": "diffed",
-      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "ui_font_town_map_assets",
-      "source_file": "window_configuration_table.yml",
-      "edit": "Changed window configuration 8 Height from 18 to 19.",
-      "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/window-config-height-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
-      "dry_run": false,
-      "compile": {
-        "returncode": 0,
-        "timed_out": false
-      },
-      "diff": {
-        "base_size": 4194304,
-        "changed_bytes": 1,
-        "contiguous_changed_runs": 1,
-        "exists": true,
-        "first_changed_offset": "0x03E296",
-        "last_changed_offset_exclusive": "0x03E297",
-        "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
-        "sample_runs": [
-          {
-            "end_exclusive": "0x03E297",
-            "length": 1,
-            "start": "0x03E296"
-          }
-        ],
-        "status": "different"
-      }
-    },
-    "enemy-insane-cultist-hp-probe": {
-      "report": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/experiment-report.json",
-      "experiment_status": "diffed",
-      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "enemy_configuration_table.yml",
-      "edit": "Changed enemy 1 Insane Cultist HP from 94 to 95.",
-      "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
-      "dry_run": false,
-      "compile": {
-        "returncode": 0,
-        "timed_out": false
-      },
-      "diff": {
-        "base_size": 4194304,
-        "changed_bytes": 1,
-        "contiguous_changed_runs": 1,
-        "exists": true,
-        "first_changed_offset": "0x159608",
-        "last_changed_offset_exclusive": "0x159609",
-        "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
-        "sample_runs": [
-          {
-            "end_exclusive": "0x159609",
-            "length": 1,
-            "start": "0x159608"
           }
         ],
         "status": "different"
@@ -1728,6 +1796,108 @@
         "status": "different"
       }
     },
+    "npc-config-first-text-pointer-probe": {
+      "report": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "npc_config_table.yml",
+      "edit": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F899F",
+        "last_changed_offset_exclusive": "0x0F89A0",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F89A0",
+            "length": 1,
+            "start": "0x0F899F"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "psi-ness-omega-level-probe": {
+      "report": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "psi_ability_table.yml",
+      "edit": "Changed PSI ability 4 Ness learned level from 75 to 76.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x158A92",
+        "last_changed_offset_exclusive": "0x158A93",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x158A93",
+            "length": 1,
+            "start": "0x158A92"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "stats-growth-ness-offense-probe": {
+      "report": "build/coilsnake/edit-experiments/stats-growth-ness-offense-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "stats_growth_vars.yml",
+      "edit": "Stats growth row 0 Ness Offense 18 -> 19",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/stats-growth-ness-offense-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/stats-growth-ness-offense-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15EA5B",
+        "last_changed_offset_exclusive": "0x15EA5C",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/stats-growth-ness-offense-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15EA5C",
+            "length": 1,
+            "start": "0x15EA5B"
+          }
+        ],
+        "status": "different"
+      }
+    },
     "store-first-shop-item1-probe": {
       "report": "build/coilsnake/edit-experiments/store-first-shop-item1-probe/experiment-report.json",
       "experiment_status": "diffed",
@@ -1762,16 +1932,16 @@
         "status": "different"
       }
     },
-    "condiment-first-good-recover-probe": {
-      "report": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/experiment-report.json",
+    "telephone-dad-text-pointer-probe": {
+      "report": "build/coilsnake/edit-experiments/telephone-dad-text-pointer-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
       "resource_family": "gameplay_yaml_tables",
-      "source_file": "condiment_table.yml",
-      "edit": "Changed condiment row 0 good recover from 2 to 3.",
+      "source_file": "telephone_contacts_table.yml",
+      "edit": "Telephone contact row 0 Dad Text Pointer $c63229 -> $c6322a",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/telephone-dad-text-pointer-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/telephone-dad-text-pointer-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1782,15 +1952,15 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x15EA7B",
-        "last_changed_offset_exclusive": "0x15EA7C",
+        "first_changed_offset": "0x157AC9",
+        "last_changed_offset_exclusive": "0x157ACA",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/telephone-dad-text-pointer-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x15EA7C",
+            "end_exclusive": "0x157ACA",
             "length": 1,
-            "start": "0x15EA7B"
+            "start": "0x157AC9"
           }
         ],
         "status": "different"
@@ -1830,16 +2000,16 @@
         "status": "different"
       }
     },
-    "enemy-group-first-background-probe": {
-      "report": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/experiment-report.json",
+    "timed-delivery-first-timer-probe": {
+      "report": "build/coilsnake/edit-experiments/timed-delivery-first-timer-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "battle_visual_assets",
-      "source_file": "enemy_groups.yml",
-      "edit": "Changed enemy group 1 Background 1 from 262 to 263.",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "timed_delivery_table.yml",
+      "edit": "Timed delivery row 0 Timer 180 -> 181",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/timed-delivery-first-timer-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/timed-delivery-first-timer-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1850,30 +2020,30 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x0BD89E",
-        "last_changed_offset_exclusive": "0x0BD89F",
+        "first_changed_offset": "0x15F64D",
+        "last_changed_offset_exclusive": "0x15F64E",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/timed-delivery-first-timer-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x0BD89F",
+            "end_exclusive": "0x15F64E",
             "length": 1,
-            "start": "0x0BD89E"
+            "start": "0x15F64D"
           }
         ],
         "status": "different"
       }
     },
-    "map-music-sector1-music-probe": {
-      "report": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/experiment-report.json",
+    "timed-item-transform-delay-probe": {
+      "report": "build/coilsnake/edit-experiments/timed-item-transform-delay-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "map_tilesets_and_runtime_tables",
-      "source_file": "map_music.yml",
-      "edit": "Changed map music sector 1 fallback Music from 4 to 5.",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "timed_item_transformation_table.yml",
+      "edit": "Timed item transformation row 0 Delay 50 -> 51",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/timed-item-transform-delay-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/timed-item-transform-delay-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1884,30 +2054,30 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x0F590D",
-        "last_changed_offset_exclusive": "0x0F590E",
+        "first_changed_offset": "0x15F4BF",
+        "last_changed_offset_exclusive": "0x15F4C0",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/timed-item-transform-delay-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x0F590E",
+            "end_exclusive": "0x15F4C0",
             "length": 1,
-            "start": "0x0F590D"
+            "start": "0x15F4BF"
           }
         ],
         "status": "different"
       }
     },
-    "map-hotspot-first-x1-probe": {
-      "report": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/experiment-report.json",
+    "window-config-height-probe": {
+      "report": "build/coilsnake/edit-experiments/window-config-height-probe/experiment-report.json",
       "experiment_status": "diffed",
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
-      "resource_family": "map_tilesets_and_runtime_tables",
-      "source_file": "map_hotspots.yml",
-      "edit": "Changed map hotspot 1 X1 coordinate from 620 to 621.",
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "edit": "Changed window configuration 8 Height from 18 to 19.",
       "evidence_level": "diff-confirmed",
-      "project_copy": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/project",
-      "rebuilt_rom": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+      "project_copy": "build/coilsnake/edit-experiments/window-config-height-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
       "dry_run": false,
       "compile": {
         "returncode": 0,
@@ -1918,15 +2088,49 @@
         "changed_bytes": 1,
         "contiguous_changed_runs": 1,
         "exists": true,
-        "first_changed_offset": "0x15F303",
-        "last_changed_offset_exclusive": "0x15F304",
+        "first_changed_offset": "0x03E296",
+        "last_changed_offset_exclusive": "0x03E297",
         "other_size": 4194304,
-        "path": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+        "path": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
         "sample_runs": [
           {
-            "end_exclusive": "0x15F304",
+            "end_exclusive": "0x03E297",
             "length": 1,
-            "start": "0x15F303"
+            "start": "0x03E296"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "window-config-width-probe": {
+      "report": "build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "edit": "Changed window configuration 8 Width from 30 to 31.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/window-config-width-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x03E294",
+        "last_changed_offset_exclusive": "0x03E295",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x03E295",
+            "length": 1,
+            "start": "0x03E294"
           }
         ],
         "status": "different"
@@ -2004,6 +2208,19 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
+        "experiment_id": "initial-stats-ness-money-probe",
+        "coilsnake_file": "initial_stats.yml",
+        "changed_file_offset": "0x15F5F9",
+        "hirom": "D5:F5F9",
+        "local_contract": "INITIAL_STATS",
+        "source_scaffold": "src/d5/table_initial_stats.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
         "experiment_id": "item-cost-probe",
         "coilsnake_file": "item_configuration_table.yml",
         "changed_file_offset": "0x155068",
@@ -2065,6 +2282,19 @@
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
         "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-enemy-groups-first-rate-probe",
+        "coilsnake_file": "map_enemy_groups.yml",
+        "changed_file_offset": "0x20133B",
+        "hirom": "E0:133B",
+        "local_contract": "COMPRESSED_SRAM",
+        "source_scaffold": "src/e0/asset_compressed_sram.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "expanded-rebuild-or-compiler-normalization-candidate",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -2173,12 +2403,38 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
+        "experiment_id": "stats-growth-ness-offense-probe",
+        "coilsnake_file": "stats_growth_vars.yml",
+        "changed_file_offset": "0x15EA5B",
+        "hirom": "D5:EA5B",
+        "local_contract": "STATS_GROWTH_VARS",
+        "source_scaffold": "src/d5/table_enemy_configuration_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
         "experiment_id": "store-first-shop-item1-probe",
         "coilsnake_file": "store_table.yml",
         "changed_file_offset": "0x1576B9",
         "hirom": "D5:76B9",
         "local_contract": "STORE_TABLE",
         "source_scaffold": "src/d5/table_store_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "telephone-dad-text-pointer-probe",
+        "coilsnake_file": "telephone_contacts_table.yml",
+        "changed_file_offset": "0x157AC9",
+        "hirom": "D5:7AC9",
+        "local_contract": "TELEPHONE_CONTACTS_TABLE",
+        "source_scaffold": "src/d5/table_telephone_contacts_table.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
         "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
@@ -2205,6 +2461,32 @@
         "hirom": "C4:A00A",
         "local_contract": "C4:9FE1..C4:A0CF",
         "source_scaffold": "src/c4/battle_target_candidate_selection_helpers.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "timed-delivery-first-timer-probe",
+        "coilsnake_file": "timed_delivery_table.yml",
+        "changed_file_offset": "0x15F64D",
+        "hirom": "D5:F64D",
+        "local_contract": "TIMED_DELIVERY_TABLE",
+        "source_scaffold": "src/d5/table_timed_delivery_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated-boundary-note",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "timed-item-transform-delay-probe",
+        "coilsnake_file": "timed_item_transformation_table.yml",
+        "changed_file_offset": "0x15F4BF",
+        "hirom": "D5:F4BF",
+        "local_contract": "TIMED_ITEM_TRANSFORMATION_TABLE",
+        "source_scaffold": "src/d5/table_timed_item_transformation_table.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "runtime-correlated",
         "promotion_status": "field-runtime-correlated",
@@ -2246,8 +2528,8 @@
     "summary": {
       "ambiguous_cluster_count": 2,
       "cluster_count": 4,
-      "direct_same_offset_count": 14,
-      "experiment_count": 23,
+      "direct_same_offset_count": 19,
+      "experiment_count": 29,
       "unique_original_cluster_candidate_count": 2
     }
   },

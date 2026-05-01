@@ -53,6 +53,12 @@ The table is 28 bytes:
 - the stat lane chooses one byte within that group
 - the current base stat byte and that growth-table byte are passed into `C1:D08B`
 
+CoilSnake cross-check: `stats-growth-ness-offense-probe` changed
+`stats_growth_vars.yml` row 0 `Offense` from `18` to `19` and produced a single
+rebuilt-ROM byte change at `D5:EA5B`. That lands exactly on row 0 offset
+`+0x00`, so the editor-facing `Offense` field now joins directly to the local
+level-up stat-growth lane reader.
+
 ## `C1:D08B` Shape
 
 `C1:D08B` combines:

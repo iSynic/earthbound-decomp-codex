@@ -1,7 +1,7 @@
 # CoilSnake Crosswalk
 
-Status: baseline generated, first planned diff batch complete; Phase 2A coverage
-batch complete.
+Status: baseline generated, first planned diff batch complete; Phase 2A and
+Phase 2B coverage batches complete.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -190,6 +190,12 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `enemy-group-first-background-probe` | `enemy_groups.yml`: group 1 `Background 1` `262 -> 263` | `1` | `0x0BD89E..0x0BD89F` |
 | `map-music-sector1-music-probe` | `map_music.yml`: sector 1 fallback `Music` `4 -> 5` | `1` | `0x0F590D..0x0F590E` |
 | `map-hotspot-first-x1-probe` | `map_hotspots.yml`: hotspot 1 `X1` `620 -> 621` | `1` | `0x15F303..0x15F304` |
+| `stats-growth-ness-offense-probe` | `stats_growth_vars.yml`: row 0 Ness `Offense` `18 -> 19` | `1` | `0x15EA5B..0x15EA5C` |
+| `initial-stats-ness-money-probe` | `initial_stats.yml`: row 0 Ness `Money` `20 -> 21` | `1` | `0x15F5F9..0x15F5FA` |
+| `telephone-dad-text-pointer-probe` | `telephone_contacts_table.yml`: row 0 Dad `Text Pointer` `$c63229 -> $c6322a` | `1` | `0x157AC9..0x157ACA` |
+| `timed-item-transform-delay-probe` | `timed_item_transformation_table.yml`: row 0 `Delay` `50 -> 51` | `1` | `0x15F4BF..0x15F4C0` |
+| `timed-delivery-first-timer-probe` | `timed_delivery_table.yml`: row 0 `Timer` `180 -> 181` | `1` | `0x15F64D..0x15F64E` |
+| `map-enemy-groups-first-rate-probe` | `map_enemy_groups.yml`: row 1 `Sub-Group 1 Rate` `5 -> 6` | `1` | `0x20133B..0x20133C` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.
@@ -230,6 +236,27 @@ checked-in field join summary. Current joins:
   source scaffold. The edited byte lands at row 4 `+0x06`, which matches the
   Ness learn-level field consumed by `C1:C1BA` when the battle PSI category
   predicate filters entries against the party member's current level.
+- `stats-growth-ness-offense-probe`: `0x15EA5B` -> `D5:EA5B`, matching
+  `STATS_GROWTH_VARS` row 0 offset `+0x00`. This is runtime-correlated to the
+  C1 level-up routine, which indexes `D5:EA5B` by character/stat lane and feeds
+  the resulting byte into the stat-growth delta helper.
+- `initial-stats-ness-money-probe`: `0x15F5F9` -> `D5:F5F9`, matching
+  `INITIAL_STATS` row 0 offset `+0x04`, the starting money word low byte. The
+  C1 initial party setup path reads that same offset from `D5:F5F5` and stores
+  the word into the starting money/cash WRAM pair.
+- `telephone-dad-text-pointer-probe`: `0x157AC9` -> `D5:7AC9`, matching
+  `TELEPHONE_CONTACTS_TABLE` row 0 offset `+0x1B`, the low byte of the Dad text
+  pointer. This is a direct original-ROM field byte, but the local phone menu
+  consumer remains unnamed.
+- `timed-item-transform-delay-probe`: `0x15F4BF` -> `D5:F4BF`, matching
+  `TIMED_ITEM_TRANSFORMATION_TABLE` row 0 offset `+0x04`, the delay byte. The
+  C4 tracked-item pulse arm path reads the same row byte and stores it into the
+  tracked item slot payload.
+- `timed-delivery-first-timer-probe`: `0x15F64D` -> `D5:F64D`, matching the
+  `D5:F645` timed-delivery row 0 `delivery_time` word low byte at row `+0x08`.
+  This is runtime-correlated to `EF:0D46`, which seeds the row-local countdown
+  from that field. Older front-door split notes start `TIMED_DELIVERY_TABLE` at
+  `D5:F649`; keep that boundary tension visible until the split is reconciled.
 - `npc-config-first-text-pointer-probe`: `0x0F899F` -> `CF:899F`, matching the
   local `NPC_CONFIG_TABLE` split (`CF:8985..CF:F2B4`) and the CF NPC config
   table source scaffold. The edited byte lands at row 1 `+0x09`, which is the
@@ -291,6 +318,11 @@ checked-in field join summary. Current joins:
   verified original ROM does not match at that same offset, so this remains a
   rebuild-layout candidate until a cluster or pointer-path join maps the edited
   sector music row back to original CF event-music rows.
+- `map-enemy-groups-first-rate-probe`: `0x20133B` -> `E0:133B`, landing in an
+  expanded CoilSnake baseline-rebuild region that local manifests currently
+  identify as `COMPRESSED_SRAM`. The original ROM does not match at the same
+  offset, so treat this as proof of CoilSnake compiler output only until a D0
+  enemy-placement group cluster maps the edited rate back to original data.
 
 ## Promoted Local Contracts
 
@@ -316,6 +348,18 @@ front doors and source scaffolds:
 - `npc-config-first-text-pointer-probe`: `NPC_CONFIG_TABLE` row `+0x09` is the
   primary text/actionscript pointer payload, with runtime evidence from the C1
   TALK_TO/CHECK interaction result selectors.
+- `stats-growth-ness-offense-probe`: `STATS_GROWTH_VARS` row 0 `+0x00` is the
+  Ness offense growth parameter, with runtime evidence from the C1 level-up
+  stat-growth lane reader.
+- `initial-stats-ness-money-probe`: `INITIAL_STATS` row 0 `+0x04` is the
+  starting money word low byte, with runtime evidence from the C1 initial party
+  setup path.
+- `timed-item-transform-delay-probe`: `TIMED_ITEM_TRANSFORMATION_TABLE` row 0
+  `+0x04` is the delay byte, with runtime evidence from the C4 tracked-item
+  pulse arm path.
+- `timed-delivery-first-timer-probe`: `D5:F645` timed-delivery row 0 `+0x08`
+  is the delivery countdown/timer low byte, with runtime evidence from the
+  EF delivery countdown seeding helper.
 
 The Phase 2A coverage probes also add these `diff-confirmed` local field
 contracts, with runtime consumer naming still open:
@@ -330,6 +374,8 @@ contracts, with runtime consumer naming still open:
   changes the local battle background layer table byte at `CB:D89E`.
 - `map-hotspot-first-x1-probe`: `MAP_HOTSPOTS` row 1 `+0x00` is the low byte of
   `x1`.
+- `telephone-dad-text-pointer-probe`: `TELEPHONE_CONTACTS_TABLE` row 0 `+0x1B`
+  is the low byte of Dad's text pointer.
 
 ## Rebuild-Normalized Findings
 
@@ -360,6 +406,11 @@ runtime field.
   not match at that same offset. Treat this like the other normalized map
   families until a multi-probe cluster or pointer walk identifies the original
   event-music row.
+- `map-enemy-groups-first-rate-probe`: CoilSnake emits the edited row 1
+  `Sub-Group 1 Rate` byte at `E0:133B` in the expanded baseline rebuild. The
+  verified original ROM does not match that same offset, and local contracts map
+  `map_enemy_groups.yml` to the D0 enemy placement group pointer/list family.
+  This needs a grouped D0 pointer/list probe before local runtime promotion.
 
 ## Rebuilt-to-Original Layout Joins
 
@@ -415,15 +466,22 @@ Phase 2A has been run and ingested. It added one-byte probes for:
 - `map_music.yml`: sector music row field.
 - `map_hotspots.yml`: hotspot coordinate field.
 
+Phase 2B has also been run and ingested. It added direct field/runtime joins
+for `stats_growth_vars.yml`, `initial_stats.yml`,
+`timed_item_transformation_table.yml`, and `timed_delivery_table.yml`, plus a
+direct field byte for `telephone_contacts_table.yml` and an expanded-rebuild
+normalization finding for `map_enemy_groups.yml`.
+
 The queue is now empty because those probes were compiled, diffed, ingested, and
 classified. Keep ROMs, project copies, image/audio/text payloads, and rebuilt
 ROMs under ignored `build/coilsnake/`.
 
-Phase 2B is runtime promotion. Keep door-data, map-sprite, map-palette, and
-window probes below `runtime-correlated` until local routines, pointer tables,
-or bit/packing contracts explain the candidate original addresses. Door and
-sprite probes already have unique rebuilt-to-original candidates; their next
-step is pointer-path and consumer naming, not more first-row byte probes.
+The remaining Phase 2B-style work is runtime promotion of the open normalized
+families. Keep door-data, map-sprite, map-palette, map enemy groups, and window
+probes below `runtime-correlated` until local routines, pointer tables, or
+bit/packing contracts explain the candidate original addresses. Door and sprite
+probes already have unique rebuilt-to-original candidates; their next step is
+pointer-path and consumer naming, not more first-row byte probes.
 
 Phase 2C is format behavior. Run a true CCScript `scriptdump` and one minimal
 CCScript label/body compile experiment for command-lowering proof. Then add

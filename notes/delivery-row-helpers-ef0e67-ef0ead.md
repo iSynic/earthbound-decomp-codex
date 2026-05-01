@@ -92,6 +92,13 @@ Combined with the reference `timed_delivery` struct and the concrete values in `
 
 - word `4` = `delivery_time`
 
+CoilSnake cross-check: `timed-delivery-first-timer-probe` changed
+`timed_delivery_table.yml` row 0 `Timer` from `180` to `181` and produced a
+single rebuilt-ROM byte change at `D5:F64D`. That is exactly `D5:F645 + 0x08`,
+the low byte read by `EF:0D46`. The older D5 split front door still starts
+`TIMED_DELIVERY_TABLE` at `D5:F649`, so the field is runtime-proven while the
+source split boundary remains a focused follow-up.
+
 ## `EF:0D8D`: queue current row pointer `1`
 
 `EF:0D8D` builds a far pointer from the current row:

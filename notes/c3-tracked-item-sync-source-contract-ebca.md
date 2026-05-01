@@ -72,6 +72,12 @@ The rows currently corroborate the egg-family lifecycle:
 - item `169` has terminal cleanup/effect metadata
 - item `0` terminates the table scan
 
+CoilSnake cross-check: `timed-item-transform-delay-probe` changed row 0
+`Delay` from `50` to `51` and produced a single rebuilt-ROM byte change at
+`D5:F4BF`, which is `D5:F4BB + 0x04`. That proves CoilSnake's editor-facing
+`Delay` field is the same row byte consumed by the tracked-item lifecycle
+helpers.
+
 ## Callers
 
 Direct callers:

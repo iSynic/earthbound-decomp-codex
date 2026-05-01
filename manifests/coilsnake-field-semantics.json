@@ -420,6 +420,126 @@
         }
       ]
     },
+    "stats-growth-ness-offense-probe": {
+      "coilsnake_field": "stats_growth_vars.yml / row 0 Ness / Offense",
+      "edited_value": "18 -> 19",
+      "local_field": "STATS_GROWTH_VARS row 0 offense byte at row +0x00",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:D109 LevelUpCharacterAndRefreshDerivedStats",
+          "source": "src/c1/c1_d109_level_up_character_and_refresh_derived_stats.asm",
+          "detail": "The level-up routine computes character * 7 + stat-lane offsets, reads D5:EA5B,X, and feeds that byte into C1:D08B as the growth parameter before applying the resulting stat delta."
+        },
+        {
+          "kind": "same-table-runtime-context",
+          "routine": "C1:D08B ComputeLevelUpStatGrowthDelta note",
+          "source": "notes/level-up-stat-growth-helper-c1d08b.md",
+          "detail": "The local note identifies D5:EA5B as the 28-byte stat-growth table and lists the seven per-character stat lanes consumed by the level-up path."
+        }
+      ]
+    },
+    "initial-stats-ness-money-probe": {
+      "coilsnake_field": "initial_stats.yml / row 0 Ness / Money",
+      "edited_value": "20 -> 21",
+      "local_field": "INITIAL_STATS row 0 money word low byte at row +0x04",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:FDF6 initial party setup path",
+          "source": "src/c1/c1_f616_open_or_refresh_sound_setting_selection.asm",
+          "detail": "The setup path rebuilds a D5:F5F5 initial-stats pointer, reads row +0x04 through the long pointer, and stores the resulting word into the starting money/cash WRAM pair at $9831/$9833."
+        },
+        {
+          "kind": "source-range-context",
+          "routine": "INITIAL_STATS contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The local contract maps INITIAL_STATS row +0x04 as the money word. The CoilSnake Money edit changes D5:F5F9, which is row 0 +0x04."
+        }
+      ]
+    },
+    "telephone-dad-text-pointer-probe": {
+      "coilsnake_field": "telephone_contacts_table.yml / row 0 Dad / Text Pointer",
+      "edited_value": "$c63229 -> $c6322a",
+      "local_field": "TELEPHONE_CONTACTS_TABLE row 0 text_pointer low byte at row +0x1B",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "D5:7AAE TelephoneContactsTable contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The diff proves CoilSnake row 0 Text Pointer lands at D5:7AC9, which is TELEPHONE_CONTACTS_TABLE row 0 offset +0x1B in the local telephone_contact contract. A local phone-menu consumer still needs to be named."
+        }
+      ]
+    },
+    "timed-item-transform-delay-probe": {
+      "coilsnake_field": "timed_item_transformation_table.yml / row 0 / Delay",
+      "edited_value": "50 -> 51",
+      "local_field": "TIMED_ITEM_TRANSFORMATION_TABLE row 0 delay byte at row +0x04",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C4:8EEB ArmTrackedItemPulseSlotFromD5f4bb",
+          "source": "src/c4/staged_movement_and_tracked_item_pulse_helpers.asm",
+          "detail": "The tracked-item pulse arm path builds a D5:F4BB row pointer, reads row +0x04, and stores that byte into the tracked item slot's delay/timer payload."
+        },
+        {
+          "kind": "same-table-runtime-context",
+          "routine": "C3:EBCA SyncPartyOverlayTrackedItemFamilyState",
+          "source": "src/c3/inventory_equipment_tracked_items.asm",
+          "detail": "The C3 sync loop scans TIMED_ITEM_TRANSFORMATION_TABLE rows with stride 5 and dispatches nonzero item rows to the C4 arm/clear helpers that consume the row metadata."
+        }
+      ]
+    },
+    "timed-delivery-first-timer-probe": {
+      "coilsnake_field": "timed_delivery_table.yml / row 0 / Timer",
+      "edited_value": "180 -> 181",
+      "local_field": "D5:F645 timed-delivery row 0 delivery_time word low byte at row +0x08",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated-boundary-note",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "EF:0D46 SeedCurrentDeliveryCountdown",
+          "source": "src/ef/ef_0ca7_delivery_selector_helper_cluster.asm",
+          "detail": "The helper resolves the current delivery row, scales by 20, reads D5:F645 + row*20 +0x08, and stores that word into the row-local countdown at $B525. The CoilSnake Timer edit changes D5:F64D, matching row 0 +0x08."
+        },
+        {
+          "kind": "same-table-runtime-context",
+          "routine": "Timed delivery controller notes",
+          "source": "notes/delivery-row-helpers-ef0e67-ef0ead.md",
+          "detail": "The delivery helper note names record word 4 as delivery_time. Older split/front-door notes still start TIMED_DELIVERY_TABLE at D5:F649, so this promotion records the proven field byte and leaves the boundary reconciliation visible."
+        }
+      ]
+    },
+    "map-enemy-groups-first-rate-probe": {
+      "coilsnake_field": "map_enemy_groups.yml / row 1 / Sub-Group 1 Rate",
+      "edited_value": "5 -> 6",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild expanded E0:133B compressed-SRAM range; verified original ROM has no same-offset match",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "expanded-rebuild-or-compiler-normalization-candidate",
+      "runtime_consumers": [
+        {
+          "kind": "compiler-normalization-context",
+          "routine": "CoilSnake baseline rebuild map_enemy_groups payload",
+          "source": "notes/coilsnake-rebuild-original-layout-report.md",
+          "detail": "The controlled diff proves changing map_enemy_groups row 1 Sub-Group 1 Rate mutates baseline-rebuild E0:133B, but the original-ROM same-offset check fails and the local range vocabulary is COMPRESSED_SRAM. Treat this as expanded rebuild-layout evidence until a D0 enemy-placement pointer/list cluster maps it back to original ROM data."
+        },
+        {
+          "kind": "same-family-runtime-context",
+          "routine": "D0 enemy placement group contracts",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "Local contracts map map_enemy_groups.yml to D0:B880 ENEMY_PLACEMENT_GROUPS_PTR_TABLE and D0:BBAC ENEMY_PLACEMENT_GROUPS_TABLE. This probe shows CoilSnake recompiles at least this edited field elsewhere in the expanded rebuild, so more cluster/pointer work is needed before runtime promotion."
+        }
+      ]
+    },
     "window-config-height-probe": {
       "coilsnake_field": "window_configuration_table.yml / window 8 / Height",
       "edited_value": "18 -> 19",
