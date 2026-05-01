@@ -253,6 +253,12 @@ contract notes for C0/C1/C3/C4 consumers.
   hit loop, per-hit damage scaling, 25-percent variance helper, resist-adjusted
   damage helper, no-effect text fallback, and wrapper attempt counts `1`, `5`,
   and `20`.
+- 2026-05-01 thirty-eighth slice: promoted the `7EAF..8BBE`
+  hit-resolution/status-action cluster with byte-neutral aliases for C1
+  battle-text dispatch, EF damage/miss/dodge/Spy/status scripts, C2 probability
+  and HP/status helpers, reflected-hit context swaps, Time Stop return text,
+  and the diamondize/paralyze/nausea/poison/cold primary-status tails. See
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

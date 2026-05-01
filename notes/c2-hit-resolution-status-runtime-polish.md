@@ -1,0 +1,64 @@
+# C2 Hit-Resolution And Status-Action Runtime Polish
+
+Primary queue context: `notes/c2-runtime-semantic-polish-plan.md`,
+`notes/c2-ef-battle-text-contract-workahead.md`,
+`notes/source-readiness-triage.md`, and `notes/project-status.md`.
+
+## Scope
+
+This pass covers the large `C2:7EAF..8BBE` hit-resolution and late
+status-action cluster in
+`src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`.
+The edit is semantic source polish only: it promotes local aliases and
+message constants without changing runtime bytes.
+
+## Promoted Contracts
+
+- C1 battle-text ABIs:
+  - `C1:DC1C` as direct `$0E/$10` battle-text pointer display.
+  - `C1:DC66` as substitution-payload display for damage/stat amount text.
+  - `C1:DD7C` as the byte-substitution bridge used by the Spy present script.
+- C2 helper ABIs:
+  - `C2:3D05` target text-context rebuild.
+  - `C2:69F8`, `C2:698B`, `C2:69BE`, `C2:6AFD`, `C2:6BB8`, and
+    `C2:6BDB` as shared math/probability helper joins.
+  - `C2:7126`, `C2:71F0`, `C2:724A`, `C2:7550`, `C2:7C96`,
+    `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
+- EF battle-text scripts for damage, miss/dodge, SMAAAASH, Spy readouts,
+  Time Stop return, no-effect fallback, and late primary-status success text.
+
+## Status Tails
+
+The late action labels now match the action bodies and EF evidence:
+
+- `BTLACT_DIAMONDIZE` / `C289CE_RunDiamondizeStatusAction`
+- `BTLACT_PARALYZE` / `C28A92_RunParalyzeStatusAction`
+- `BTLACT_NAUSEATE` / `C28AEB_RunNauseateStatusAction`
+- `BTLACT_POISON` / `C28B2C_RunPoisonStatusAction`
+- `BTLACT_COLD` / `C28B6D_RunColdStatusAction`
+
+These bodies all feed `C2:724A` with primary status-group constants and then
+emit the corresponding EF success script or `EF:766E` no-effect fallback.
+
+## Evidence Inputs
+
+- `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as
+  `SUCCESS_500`, `SUCCESS_255`, `SUCCESS_LUCK80`,
+  `FAIL_ATTACK_ON_NPCS`, `INFLICT_STATUS_BATTLE`, and
+  `SWAP_ATTACKER_WITH_TARGET`.
+- `refs/EB-M2-Listing-v1/US/bank2F.txt` for EF scripts such as
+  `MSG_BTL_DAMAGE`, `MSG_BTL_SMASH_PLAYER`, `MSG_BTL_KIKANAI`,
+  `MSG_BTL_DAIYA_ON`, `MSG_BTL_SHIBIRE_ON`, `MSG_BTL_KIMOCHI_ON`,
+  `MSG_BTL_MODOKU_ON`, `MSG_BTL_KAZE_ON`, and `MSG_BTL_TIMESTOP_RET`.
+- `notes/c2-ef-battle-text-contract-workahead.md` for the C1/C2/EF battle
+  text contract vocabulary.
+
+## Validation
+
+Future implementation gates remain the normal C2 scaffold and byte-equivalence
+checks:
+
+```powershell
+python tools\build_source_bank_scaffold.py --bank C2
+python tools\validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src\c2\bank_c2_helpers_asar.asm --strict
+```

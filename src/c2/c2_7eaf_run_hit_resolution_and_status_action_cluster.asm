@@ -13,6 +13,66 @@
 
 C08E9A_GetRandom16                 = $C08E9A
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
+C23D05_BuildBattleTargetTextContext             = $C23D05
+C2698B_GetBattleActionType                      = $698B
+C269BE_WaitFrames                               = $69BE
+C269F8_Truncate16To8                            = $69F8
+C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
+C26BB8_BuildCandidateMaskPhase                  = $6BB8
+C26BDB_Success500                               = $6BDB
+C27126_SetBattlerHp                             = $7126
+C271F0_ReduceBattlerHp                          = $71F0
+C2724A_InflictStatusBattle                      = $724A
+C27550_KnockOutBattler                          = $C27550
+C27C96_SuccessLuck80                            = $7C96
+C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
+C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
+C2BAC5_CountFilteredSelectedRows                = $C2BAC5
+
+BattlerRecordSize = $004E
+BattleStatusGroupPrimary = $0000
+BattleStatusDiamondized  = $0002
+BattleStatusParalyzed    = $0003
+BattleStatusNauseous     = $0004
+BattleStatusPoisoned     = $0005
+BattleStatusCold         = $0007
+
+EF_BattleTextScriptBank       = $00EF
+EFMSG_CheckOffense            = $69EA
+EFMSG_CheckDefense            = $69FF
+EFMSG_CheckAntiFire           = $6A0D
+EFMSG_CheckAntiFreeze         = $6A24
+EFMSG_CheckAntiFlash          = $6A3C
+EFMSG_CheckAntiParalysis      = $6A54
+EFMSG_CheckBrainLevel0        = $6A6C
+EFMSG_CheckBrainLevel3        = $6A7F
+EFMSG_Diamondized             = $6AC7
+EFMSG_Paralyzed               = $6AE0
+EFMSG_Nauseous                = $6AFB
+EFMSG_Poisoned                = $6B18
+EFMSG_CaughtCold              = $6B2F
+EFMSG_StrangeRecovered        = $6F1E
+EFMSG_AsleepRecovered         = $6F54
+EFMSG_ShieldRemoved           = $7099
+EFMSG_PowerShieldTurnedAttack = $70B1
+EFMSG_Damage                  = $75AB
+EFMSG_DamageMortal            = $75C2
+EFMSG_DamageSmash             = $75D9
+EFMSG_DamageSmashMortal       = $75F0
+EFMSG_DamageToDeath           = $7607
+EFMSG_SmashPlayer             = $7624
+EFMSG_SmashMonster            = $7630
+EFMSG_ShootDodged             = $763C
+EFMSG_BashDodged              = $7655
+EFMSG_NoEffect                = $766E
+EFMSG_MissPhysical            = $76C7
+EFMSG_MissShoot               = $76D8
+EFMSG_TimeStopReturn          = $7843
+EFMSG_CheckPresentGet         = $7DD5
 
 ; ---------------------------------------------------------------------------
 ; C2:7EAF
@@ -32,11 +92,11 @@ C27EAF_RunHitResolutionAndStatusActionCluster = CALC_DAMAGE
     stz $18
     lda $04
     bne C27ED8_RunHitResolutionAndStatusActionCluster_L7ED8
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0000
     jmp.w C28123_HitResolutionStatusActionReturn
 C27ED8_RunHitResolutionAndStatusActionCluster_L7ED8:
@@ -54,7 +114,7 @@ C27ED8_RunHitResolutionAndStatusActionCluster_L7ED8:
 C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5:
     jsl C08E9A_GetRandom16
     and.w #$0003
-    ldy.w #$004E
+    ldy.w #BattlerRecordSize
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$9FAC
@@ -73,7 +133,7 @@ C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5:
     beq C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5
     cpx.w #$0002
     beq C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     ldy $A972
     sty $1A
     lda.w #$0010
@@ -81,7 +141,7 @@ C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5:
     lda.w #$0049
     jsl $C0ABE0
     lda.w #$001E
-    jsr $69BE
+    jsr C269BE_WaitFrames
 C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
     ldy $1A
     lda $0013,Y
@@ -105,7 +165,7 @@ C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
 C27F78_RunHitResolutionAndStatusActionCluster_L7F78:
     ldx $04
     tya
-    jsr $71F0
+    jsr C271F0_ReduceBattlerHp
 C27F7E_RunHitResolutionAndStatusActionCluster_L7F7E:
     ldy $1A
     lda $000E,Y
@@ -127,28 +187,28 @@ C27FA6_RunHitResolutionAndStatusActionCluster_L7FA6:
     tax
 C27FA7_RunHitResolutionAndStatusActionCluster_L7FA7:
     txa
-    jsr $6BDB
+    jsr C26BDB_Success500
     cmp.w #$0000
     beq C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9
     ldx.w #$0001
     ldy $1A
     tya
-    jsr $7126
+    jsr C27126_SetBattlerHp
 C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     lda $AA90
     beq C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
     lda.w #$0001
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSelectedRows
     cmp.w #$0001
     bne C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
     lda.w #$0000
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSelectedRows
     cmp.w #$0001
     bne C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
     ldx.w #$0001
     ldy $1A
     tya
-    jsr $7126
+    jsr C27126_SetBattlerHp
 C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF:
     ldy $1A
     lda $000E,Y
@@ -174,9 +234,9 @@ C28009_RunHitResolutionAndStatusActionCluster_L8009:
     rep #$20
     lda $AA8E
     beq C28039_RunHitResolutionAndStatusActionCluster_L8039
-    lda.w #$75F0
+    lda.w #EFMSG_DamageSmashMortal
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $04
     sta $06
@@ -185,13 +245,13 @@ C28009_RunHitResolutionAndStatusActionCluster_L8009:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     stz $AA8E
     jmp.w C28113_RunHitResolutionAndStatusActionCluster_L8113
 C28039_RunHitResolutionAndStatusActionCluster_L8039:
-    lda.w #$75C2
+    lda.w #EFMSG_DamageMortal
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $04
     sta $06
@@ -200,7 +260,7 @@ C28039_RunHitResolutionAndStatusActionCluster_L8039:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp.w C28113_RunHitResolutionAndStatusActionCluster_L8113
 C28058_RunHitResolutionAndStatusActionCluster_L8058:
     lda $000F,Y
@@ -233,9 +293,9 @@ C2808A_RunHitResolutionAndStatusActionCluster_L808A:
     sta $AD8C
     lda.w #$000C
     sta $AD8E
-    lda.w #$7607
+    lda.w #EFMSG_DamageToDeath
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $04
     sta $06
@@ -244,16 +304,16 @@ C2808A_RunHitResolutionAndStatusActionCluster_L808A:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2810D_RunHitResolutionAndStatusActionCluster_L810D
 C280B9_RunHitResolutionAndStatusActionCluster_L80B9:
     lda $AA8E
     beq C280E8_RunHitResolutionAndStatusActionCluster_L80E8
     lda.w #$003C
     sta $AD8C
-    lda.w #$75D9
+    lda.w #EFMSG_DamageSmash
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $04
     sta $06
@@ -262,16 +322,16 @@ C280B9_RunHitResolutionAndStatusActionCluster_L80B9:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     stz $AD8E
     stz $AA8E
     bra C2810D_RunHitResolutionAndStatusActionCluster_L810D
 C280E8_RunHitResolutionAndStatusActionCluster_L80E8:
     lda.w #$002A
     sta $AD8C
-    lda.w #$75AB
+    lda.w #EFMSG_Damage
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $04
     sta $06
@@ -280,7 +340,7 @@ C280E8_RunHitResolutionAndStatusActionCluster_L80E8:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     stz $AD8E
 C2810D_RunHitResolutionAndStatusActionCluster_L810D:
     lda.w #$0028
@@ -290,7 +350,7 @@ C28113_RunHitResolutionAndStatusActionCluster_L8113:
     beq C28120_RunHitResolutionAndStatusActionCluster_L8120
     lda $16
     sta $A972
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
 C28120_RunHitResolutionAndStatusActionCluster_L8120:
     lda.w #$0001
 C28123_HitResolutionStatusActionReturn:
@@ -324,7 +384,7 @@ C28145_RunHitResolutionAndStatusActionCluster_L8145:
     ldx $02
     tya
     sep #$20
-    jsr $69F8
+    jsr C269F8_Truncate16To8
     sta $02
 C28154_RunHitResolutionAndStatusActionCluster_L8154:
     ldx $A972
@@ -348,7 +408,7 @@ C28176_RunHitResolutionAndStatusActionCluster_L8176:
     bne C2819E_RunHitResolutionAndStatusActionCluster_L819E
     ldx $A970
     lda $0004,X
-    jsr $698B
+    jsr C2698B_GetBattleActionType
     cmp.w #$0001
     bne C2819E_RunHitResolutionAndStatusActionCluster_L819E
     sep #$10
@@ -360,7 +420,7 @@ C2819E_RunHitResolutionAndStatusActionCluster_L819E:
     rep #$10
     ldx $A970
     lda $0004,X
-    jsr $698B
+    jsr C2698B_GetBattleActionType
     cmp.w #$0001
     bne C281CD_RunHitResolutionAndStatusActionCluster_L81CD
     ldx $A972
@@ -392,7 +452,7 @@ C281D6_RunHitResolutionAndStatusActionCluster_L81D6:
     lda $0011,X
     bne C281F4_RunHitResolutionAndStatusActionCluster_L81F4
     lda $A972
-    jsl $C27550
+    jsl C27550_KnockOutBattler
 C281F4_RunHitResolutionAndStatusActionCluster_L81F4:
     lda $02
     bne C281FD_RunHitResolutionAndStatusActionCluster_L81FD
@@ -424,12 +484,12 @@ C2821A_RunHitResolutionAndStatusActionCluster_L821A:
     lda.w #$0001
     sta $02
 C28235_RunHitResolutionAndStatusActionCluster_L8235:
-    lda.w #$70B1
+    lda.w #EFMSG_PowerShieldTurnedAttack
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
-    jsr $7E8A
+    jsl C1DC1C_DisplayBattleTextFromPointer
+    jsr C27E8A_SwapReflectedHitBattleTextContexts
     ldx $02
     lda $A972
     jsr.w CALC_DAMAGE
@@ -437,9 +497,9 @@ C28235_RunHitResolutionAndStatusActionCluster_L8235:
     lda $0011,X
     bne C2825D_RunHitResolutionAndStatusActionCluster_L825D
     lda $A972
-    jsl $C27550
+    jsl C27550_KnockOutBattler
 C2825D_RunHitResolutionAndStatusActionCluster_L825D:
-    jsr $7E8A
+    jsr C27E8A_SwapReflectedHitBattleTextContexts
 C28260_RunHitResolutionAndStatusActionCluster_L8260:
     lda $A972
     clc
@@ -456,11 +516,11 @@ C28260_RunHitResolutionAndStatusActionCluster_L8260:
     sep #$20
     stz $0023,X
     rep #$20
-    lda.w #$7099
+    lda.w #EFMSG_ShieldRemoved
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28290_RunHitResolutionAndStatusActionCluster_L8290:
     ldx $A972
     lda $000E,X
@@ -486,7 +546,7 @@ C282BC_RunHitResolutionAndStatusActionCluster_L82BC:
     bne C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     sep #$20
     lda.b #$80
-    jsr $6BB8
+    jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     ldx $A972
@@ -495,11 +555,11 @@ C282BC_RunHitResolutionAndStatusActionCluster_L82BC:
     sep #$20
     stz $001F,X
     rep #$20
-    lda.w #$6F54
+    lda.w #EFMSG_AsleepRecovered
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C282F4_RunHitResolutionAndStatusActionCluster_L82F4:
     lda $02
     pld
@@ -608,18 +668,18 @@ C283B8_RunHitResolutionAndStatusActionCluster_L83B8:
     bcc C283F3_RunHitResolutionAndStatusActionCluster_L83F3
     ldy $14
     beq C283E0_RunHitResolutionAndStatusActionCluster_L83E0
-    lda.w #$76D8
+    lda.w #EFMSG_MissShoot
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C283EE_RunHitResolutionAndStatusActionCluster_L83EE
 C283E0_RunHitResolutionAndStatusActionCluster_L83E0:
-    lda.w #$76C7
+    lda.w #EFMSG_MissPhysical
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C283EE_RunHitResolutionAndStatusActionCluster_L83EE:
     lda.w #$0001
     bra C283F6_RunHitResolutionAndStatusActionCluster_L83F6
@@ -650,7 +710,7 @@ C283F8_TryEmitStatusActionHitFeedback = SMAAAASH
     sta $12
 C28422_RunHitResolutionAndStatusActionCluster_L8422:
     lda $12
-    jsr $6BDB
+    jsr C26BDB_Success500
     cmp.w #$0000
     bne C2842F_RunHitResolutionAndStatusActionCluster_L842F
     jmp.w C284A8_RunHitResolutionAndStatusActionCluster_L84A8
@@ -661,20 +721,20 @@ C2842F_RunHitResolutionAndStatusActionCluster_L842F:
     bne C28450_RunHitResolutionAndStatusActionCluster_L8450
     lda.w #$003C
     sta $AD9E
-    lda.w #$7624
+    lda.w #EFMSG_SmashPlayer
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28464_RunHitResolutionAndStatusActionCluster_L8464
 C28450_RunHitResolutionAndStatusActionCluster_L8450:
     lda.w #$003C
     sta $ADA0
-    lda.w #$7630
+    lda.w #EFMSG_SmashMonster
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28464_RunHitResolutionAndStatusActionCluster_L8464:
     ldx $A972
     lda $0023,X
@@ -762,7 +822,7 @@ C2850D_RunHitResolutionAndStatusActionCluster_L850D:
     bmi C28519_RunHitResolutionAndStatusActionCluster_L8519
 C2850F_RunHitResolutionAndStatusActionCluster_L850F:
     lda $0E
-    jsr $6BDB
+    jsr C26BDB_Success500
     cmp.w #$0000
     bne C2851E_RunHitResolutionAndStatusActionCluster_L851E
 C28519_RunHitResolutionAndStatusActionCluster_L8519:
@@ -796,7 +856,7 @@ C28545_RunHitResolutionAndStatusActionCluster_L8545:
     bmi C2854E_RunHitResolutionAndStatusActionCluster_L854E
 C28547_RunHitResolutionAndStatusActionCluster_L8547:
     lda $0E
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
 C2854E_RunHitResolutionAndStatusActionCluster_L854E:
     lda $0E
@@ -835,11 +895,11 @@ C2856B_MaybeEmitStatusActionRecoveryText = HEAL_STRANGENESS
     lda.b #$00
     sta $0000,X
     rep #$20
-    lda.w #$6F1E
+    lda.w #EFMSG_StrangeRecovered
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2859D_RunHitResolutionAndStatusActionCluster_L859D:
     pld
     rts
@@ -864,11 +924,11 @@ C2859F_RunStatusActionModeA = BTLACT_BASH
     jsr.w HEAL_STRANGENESS
     bra C285D8_RunHitResolutionAndStatusActionCluster_L85D8
 C285CA_RunHitResolutionAndStatusActionCluster_L85CA:
-    lda.w #$7655
+    lda.w #EFMSG_BashDodged
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C285D8_RunHitResolutionAndStatusActionCluster_L85D8:
     pld
     rtl
@@ -906,7 +966,7 @@ C28618_RunHitResolutionAndStatusActionCluster_L8618:
     bmi C28621_RunHitResolutionAndStatusActionCluster_L8621
 C2861A_RunHitResolutionAndStatusActionCluster_L861A:
     lda $12
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $12
 C28621_RunHitResolutionAndStatusActionCluster_L8621:
     lda $12
@@ -927,11 +987,11 @@ C28634_RunHitResolutionAndStatusActionCluster_L8634:
     jsr.w HEAL_STRANGENESS
     bra C2864F_RunHitResolutionAndStatusActionCluster_L864F
 C28641_RunHitResolutionAndStatusActionCluster_L8641:
-    lda.w #$7655
+    lda.w #EFMSG_BashDodged
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2864F_RunHitResolutionAndStatusActionCluster_L864F:
     pld
     rtl
@@ -970,7 +1030,7 @@ C28692_RunHitResolutionAndStatusActionCluster_L8692:
     bmi C2869B_RunHitResolutionAndStatusActionCluster_L869B
 C28694_RunHitResolutionAndStatusActionCluster_L8694:
     lda $12
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $12
 C2869B_RunHitResolutionAndStatusActionCluster_L869B:
     lda $12
@@ -991,11 +1051,11 @@ C286AE_RunHitResolutionAndStatusActionCluster_L86AE:
     jsr.w HEAL_STRANGENESS
     bra C286C9_RunHitResolutionAndStatusActionCluster_L86C9
 C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
-    lda.w #$7655
+    lda.w #EFMSG_BashDodged
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C286C9_RunHitResolutionAndStatusActionCluster_L86C9:
     pld
     rtl
@@ -1031,7 +1091,7 @@ C28707_RunHitResolutionAndStatusActionCluster_L8707:
     bmi C28710_RunHitResolutionAndStatusActionCluster_L8710
 C28709_RunHitResolutionAndStatusActionCluster_L8709:
     lda $12
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $12
 C28710_RunHitResolutionAndStatusActionCluster_L8710:
     lda $12
@@ -1052,11 +1112,11 @@ C28723_RunHitResolutionAndStatusActionCluster_L8723:
     jsr.w HEAL_STRANGENESS
     bra C2873E_RunHitResolutionAndStatusActionCluster_L873E
 C28730_RunHitResolutionAndStatusActionCluster_L8730:
-    lda.w #$7655
+    lda.w #EFMSG_BashDodged
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2873E_RunHitResolutionAndStatusActionCluster_L873E:
     pld
     rtl
@@ -1077,11 +1137,11 @@ C28740_RunStatusActionModeE = BTLACT_SHOOT
     jsr.w BTLACT_LEVEL_2_ATK
     bra C2876E_RunHitResolutionAndStatusActionCluster_L876E
 C28760_RunHitResolutionAndStatusActionCluster_L8760:
-    lda.w #$763C
+    lda.w #EFMSG_ShootDodged
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2876E_RunHitResolutionAndStatusActionCluster_L876E:
     pld
     rtl
@@ -1092,9 +1152,9 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$69EA
+    lda.w #EFMSG_CheckOffense
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     ldx $A972
     lda $0026,X
@@ -1104,10 +1164,10 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
-    lda.w #$69FF
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
+    lda.w #EFMSG_CheckDefense
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     ldx $A972
     lda $0028,X
@@ -1117,72 +1177,72 @@ C28770_EmitStatusActionStatReadout = BTLACT_SPY
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldx $A972
     lda $003A,X
     and.w #$00FF
     cmp.w #$00FF
     bne C287D4_RunHitResolutionAndStatusActionCluster_L87D4
-    lda.w #$6A0D
+    lda.w #EFMSG_CheckAntiFire
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C287D4_RunHitResolutionAndStatusActionCluster_L87D4:
     ldx $A972
     lda $0038,X
     and.w #$00FF
     cmp.w #$00FF
     bne C287F0_RunHitResolutionAndStatusActionCluster_L87F0
-    lda.w #$6A24
+    lda.w #EFMSG_CheckAntiFreeze
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C287F0_RunHitResolutionAndStatusActionCluster_L87F0:
     ldx $A972
     lda $0039,X
     and.w #$00FF
     cmp.w #$00FF
     bne C2880C_RunHitResolutionAndStatusActionCluster_L880C
-    lda.w #$6A3C
+    lda.w #EFMSG_CheckAntiFlash
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2880C_RunHitResolutionAndStatusActionCluster_L880C:
     ldx $A972
     lda $0037,X
     and.w #$00FF
     cmp.w #$00FF
     bne C28828_RunHitResolutionAndStatusActionCluster_L8828
-    lda.w #$6A54
+    lda.w #EFMSG_CheckAntiParalysis
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28828_RunHitResolutionAndStatusActionCluster_L8828:
     ldx $A972
     lda $003C,X
     and.w #$00FF
     cmp.w #$00FF
     bne C28844_RunHitResolutionAndStatusActionCluster_L8844
-    lda.w #$6A6C
+    lda.w #EFMSG_CheckBrainLevel0
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28844_RunHitResolutionAndStatusActionCluster_L8844:
     ldx $A972
     lda $003B,X
     and.w #$00FF
     cmp.w #$00FF
     bne C28860_RunHitResolutionAndStatusActionCluster_L8860
-    lda.w #$6A7F
+    lda.w #EFMSG_CheckBrainLevel3
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28860_RunHitResolutionAndStatusActionCluster_L8860:
     ldx $A972
     lda $000E,X
@@ -1197,12 +1257,12 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
     sep #$20
     lda $AA10
-    jsl $C1DD7C
-    lda.w #$7DD5
+    jsl C1DD7C_SetBattleTextByteSubstitution
+    lda.w #EFMSG_CheckPresentGet
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     stz $AA10
 C28899_RunHitResolutionAndStatusActionCluster_L8899:
     pld
@@ -1241,7 +1301,7 @@ C288D4_RunHitResolutionAndStatusActionCluster_L88D4:
     and.w #$00FF
     tax
     lda.w #$00FF
-    jsl $C18EAD
+    jsl C18EAD_SearchAndRemoveItemFromActiveInventories
 C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     rtl
     rep #$31
@@ -1324,7 +1384,7 @@ C28986_RunHitResolutionAndStatusActionCluster_L8986:
     clc
     adc.w #$9FAC
     sta $A972
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     jsl BTLACT_BASH
     ldy $14
     iny
@@ -1337,11 +1397,11 @@ C289A4_RunHitResolutionAndStatusActionCluster_L89A4:
     jmp.w C2891B_RunHitResolutionAndStatusActionCluster_L891B
 C289AE_RunHitResolutionAndStatusActionCluster_L89AE:
     jsl $EF026E
-    lda.w #$7843
+    lda.w #EFMSG_TimeStopReturn
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0000
     sta $A96C
     lda.w #$0000
@@ -1349,13 +1409,13 @@ C289AE_RunHitResolutionAndStatusActionCluster_L89AE:
     pld
     rtl
 BTLACT_DIAMONDIZE:
-C289CE_RunPoisonStatusAction = BTLACT_DIAMONDIZE
+C289CE_RunDiamondizeStatusAction = BTLACT_DIAMONDIZE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     beq C289E1_RunHitResolutionAndStatusActionCluster_L89E1
     jmp.w C28A90_RunHitResolutionAndStatusActionCluster_L8A90
@@ -1363,15 +1423,15 @@ C289E1_RunHitResolutionAndStatusActionCluster_L89E1:
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr $6BB8
+    jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     bne C289F4_RunHitResolutionAndStatusActionCluster_L89F4
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
 C289F4_RunHitResolutionAndStatusActionCluster_L89F4:
-    ldy.w #$0002
-    ldx.w #$0000
+    ldy.w #BattleStatusDiamondized
+    ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr $724A
+    jsr C2724A_InflictStatusBattle
     cmp.w #$0000
     bne C28A08_RunHitResolutionAndStatusActionCluster_L8A08
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -1419,157 +1479,157 @@ C28A08_RunHitResolutionAndStatusActionCluster_L8A08:
     clc
     adc $A978
     sta $A978
-    lda.w #$6AC7
+    lda.w #EFMSG_Diamondized
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28A90_RunHitResolutionAndStatusActionCluster_L8A90
 C28A82_RunHitResolutionAndStatusActionCluster_L8A82:
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28A90_RunHitResolutionAndStatusActionCluster_L8A90:
     pld
     rtl
 BTLACT_PARALYZE:
-C28A92_RunNauseaStatusAction = BTLACT_PARALYZE
+C28A92_RunParalyzeStatusAction = BTLACT_PARALYZE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9
-    jsr $7C96
+    jsr C27C96_SuccessLuck80
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr $6BB8
+    jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
-    ldy.w #$0003
-    ldx.w #$0000
+    ldy.w #BattleStatusParalyzed
+    ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr $724A
+    jsr C2724A_InflictStatusBattle
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
-    lda.w #$6AE0
+    lda.w #EFMSG_Paralyzed
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9
 C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB:
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9:
     pld
     rtl
 BTLACT_NAUSEATE:
-C28AEB_RunColdStatusAction = BTLACT_NAUSEATE
+C28AEB_RunNauseateStatusAction = BTLACT_NAUSEATE
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28B2A_RunHitResolutionAndStatusActionCluster_L8B2A
-    ldy.w #$0004
-    ldx.w #$0000
+    ldy.w #BattleStatusNauseous
+    ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr $724A
+    jsr C2724A_InflictStatusBattle
     cmp.w #$0000
     beq C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C
-    lda.w #$6AFB
+    lda.w #EFMSG_Nauseous
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28B2A_RunHitResolutionAndStatusActionCluster_L8B2A
 C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C:
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28B2A_RunHitResolutionAndStatusActionCluster_L8B2A:
     pld
     rtl
 BTLACT_POISON:
-C28B2C_RunSunStrokeStatusAction = BTLACT_POISON
+C28B2C_RunPoisonStatusAction = BTLACT_POISON
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28B6B_RunHitResolutionAndStatusActionCluster_L8B6B
-    ldy.w #$0005
-    ldx.w #$0000
+    ldy.w #BattleStatusPoisoned
+    ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr $724A
+    jsr C2724A_InflictStatusBattle
     cmp.w #$0000
     beq C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D
-    lda.w #$6B18
+    lda.w #EFMSG_Poisoned
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28B6B_RunHitResolutionAndStatusActionCluster_L8B6B
 C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D:
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28B6B_RunHitResolutionAndStatusActionCluster_L8B6B:
     pld
     rtl
 BTLACT_COLD:
-C28B6D_RunCryingStatusAction = BTLACT_COLD
+C28B6D_RunColdStatusAction = BTLACT_COLD
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28BBC_RunHitResolutionAndStatusActionCluster_L8BBC
     ldx $A972
     sep #$20
     lda $0038,X
-    jsr $6BB8
+    jsr C26BB8_BuildCandidateMaskPhase
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
-    ldy.w #$0007
-    ldx.w #$0000
+    ldy.w #BattleStatusCold
+    ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr $724A
+    jsr C2724A_InflictStatusBattle
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
-    lda.w #$6B2F
+    lda.w #EFMSG_CaughtCold
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C28BBC_RunHitResolutionAndStatusActionCluster_L8BBC
 C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE:
-    lda.w #$766E
+    lda.w #EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C28BBC_RunHitResolutionAndStatusActionCluster_L8BBC:
     pld
     rtl

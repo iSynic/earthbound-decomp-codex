@@ -353,6 +353,15 @@ And for the most actionable C2 call-site families:
 - `C2:7294` → `ApplyBattlerHpRecoveryFeedback` (chooses maxed/amount/no-effect scripts, uses `DC66` iff `1C 0F`)
 - `C2:7318` → `ApplyBattlerPpRecoveryFeedback` (amount-bearing `DC66` path)
 
+## Implemented Promotion Notes
+
+- 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
+  now names the `DC1C`/`DC66`/`DD7C` dispatch contracts used by the
+  hit-resolution cluster, the EF damage/miss/dodge/SMAAAASH/Spy scripts, the
+  `EF:7843` Time Stop return script, and the late
+  diamondize/paralyze/nausea/poison/cold status-result scripts. See
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
+
 ## Integration checklist (manual)
 
 When promoting additional C2 corridors that call into the battle-text cluster:
