@@ -61,6 +61,11 @@ When the current bit offset is byte-aligned, it first clears the destination spa
 
 After advancing `$9E23` by the run width, it updates `$9E25` from `$9E23 >> 3`. If the run crosses into a new scratch row, it clears that next row and writes the carry portion using the companion mask table at `EF:CD1B`.
 
+Source polish: `src/c4/text_token_glyph_scratch_renderer.asm` now names the
+`$3492` active text glyph scratch row base, `$9E23/$9E25` bit/row cursors,
+the `#$01A0` cursor wrap, byte-alignment mask, clear-fill byte, and the
+`EF:C51B` / `EF:CD1B` merge-mask roles.
+
 This is the `$3492` sibling of the already-documented `$9D23` menu scratch renderer `C4:5C90`. The shared theme is bit-aligned glyph-plane composition, but `C4:4B3A` is the active text-token path.
 
 ## Direct callers

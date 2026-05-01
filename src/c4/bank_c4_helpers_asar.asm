@@ -18632,6 +18632,16 @@ org $C44B3A
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !EFC51B_GlyphBitMaskTableA = $EFC51B
 !EFCD1B_GlyphBitMaskTableB = $EFCD1B
+!TextGlyphScratchRowsBase = $3492
+!TextGlyphScratchBitCursor = $9E23
+!TextGlyphScratchRowCursor = $9E25
+!TextGlyphScratchBitOffsetMask = $0007
+!TextGlyphScratchBitCursorWrap = $01A0
+!TextGlyphScratchBitsPerByte = $0008
+!TextGlyphSourceByteMask = $00FF
+!TextGlyphSourceByteHighMask = $FF00
+!TextGlyphClearFillByte = $FF
+!ScratchLoopZero = $0000
 C44B3A_RenderTextTokenGlyphRunToScratchRows:
     rep #$31
     phd
@@ -18646,18 +18656,18 @@ C44B3A_RenderTextTokenGlyphRunToScratchRows:
     sta $0A
     lda $27
     sta $0C
-    lda $9E23
-    and.w #$0007
+    lda !TextGlyphScratchBitCursor
+    and.w #!TextGlyphScratchBitOffsetMask
     sta $02
     sta $13
-    lda $9E25
+    lda !TextGlyphScratchRowCursor
     asl A
     asl A
     asl A
     asl A
     asl A
     clc
-    adc.w #$3492
+    adc.w #!TextGlyphScratchRowsBase
     tay
     sty $11
     lda $0A
@@ -18667,7 +18677,7 @@ C44B3A_RenderTextTokenGlyphRunToScratchRows:
     lda $02
     bne C44B86_RenderTextTokenGlyphRunToScratchRows_RenderIntoCurrentRow
     sep #$20
-    lda.b #$FF
+    lda.b #!TextGlyphClearFillByte
     sta $0E
     rep #$20
     lda $04
@@ -18680,17 +18690,17 @@ C44B86_RenderTextTokenGlyphRunToScratchRows_RenderIntoCurrentRow:
     tyx
     inx
     stx $0F
-    lda.w #$0000
+    lda.w #!ScratchLoopZero
     sta $11
     bra C44BC4_RenderTextTokenGlyphRunToScratchRows_CheckFirstLoop
 C44B93_RenderTextTokenGlyphRunToScratchRows_MergeNextByte:
     lda [$06]
-    and.w #$00FF
+    and.w #!TextGlyphSourceByteMask
     pha
     lda $13
     sta $02
     xba
-    and.w #$FF00
+    and.w #!TextGlyphSourceByteHighMask
     ply
     sty $02
     clc
@@ -18713,29 +18723,29 @@ C44B93_RenderTextTokenGlyphRunToScratchRows_MergeNextByte:
 C44BC4_RenderTextTokenGlyphRunToScratchRows_CheckFirstLoop:
     cmp $04
     bcc C44B93_RenderTextTokenGlyphRunToScratchRows_MergeNextByte
-    lda $9E23
+    lda !TextGlyphScratchBitCursor
     clc
     adc $15
-    sta $9E23
-    cmp.w #$01A0
+    sta !TextGlyphScratchBitCursor
+    cmp.w #!TextGlyphScratchBitCursorWrap
     bcc C44BDD_RenderTextTokenGlyphRunToScratchRows_CheckFrameBoundary
     sec
-    sbc.w #$01A0
-    sta $9E23
+    sbc.w #!TextGlyphScratchBitCursorWrap
+    sta !TextGlyphScratchBitCursor
 C44BDD_RenderTextTokenGlyphRunToScratchRows_CheckFrameBoundary:
-    lda $9E23
+    lda !TextGlyphScratchBitCursor
     lsr A
     lsr A
     lsr A
     sta $15
-    cmp $9E25
+    cmp !TextGlyphScratchRowCursor
     bne C44BED_RenderTextTokenGlyphRunToScratchRows_AdvanceScratchRow
     jmp.w C44C6A_RenderTextTokenGlyphRunToScratchRows_Done
 C44BED_RenderTextTokenGlyphRunToScratchRows_AdvanceScratchRow:
-    sta $9E25
+    sta !TextGlyphScratchRowCursor
     lda $13
     sta $02
-    lda.w #$0008
+    lda.w #!TextGlyphScratchBitsPerByte
     sec
     sbc $02
     sta $02
@@ -18747,7 +18757,7 @@ C44BED_RenderTextTokenGlyphRunToScratchRows_AdvanceScratchRow:
     asl A
     asl A
     clc
-    adc.w #$3492
+    adc.w #!TextGlyphScratchRowsBase
     tay
     sty $11
     lda $0A
@@ -18755,7 +18765,7 @@ C44BED_RenderTextTokenGlyphRunToScratchRows_AdvanceScratchRow:
     lda $0C
     sta $08
     sep #$20
-    lda.b #$FF
+    lda.b #!TextGlyphClearFillByte
     sta $0E
     rep #$20
     lda $04
@@ -18765,23 +18775,23 @@ C44BED_RenderTextTokenGlyphRunToScratchRows_AdvanceScratchRow:
     jsl !C08EFC_CommitTileBufferToStaging
 C44C25_RenderTextTokenGlyphRunToScratchRows_CheckTailCount:
     lda $02
-    cmp.w #$0008
+    cmp.w #!TextGlyphScratchBitsPerByte
     beq C44C6A_RenderTextTokenGlyphRunToScratchRows_Done
     ldy $11
     tyx
     inx
     stx $0F
-    lda.w #$0000
+    lda.w #!ScratchLoopZero
     sta $11
     bra C44C66_RenderTextTokenGlyphRunToScratchRows_CheckTailLoop
 C44C39_RenderTextTokenGlyphRunToScratchRows_CopyTailByte:
     lda [$06]
-    and.w #$00FF
+    and.w #!TextGlyphSourceByteMask
     pha
     lda $13
     sta $02
     xba
-    and.w #$FF00
+    and.w #!TextGlyphSourceByteHighMask
     ply
     sty $02
     clc
@@ -20348,32 +20358,44 @@ org $C45E96
 !C09231_ModUnsignedWordByIndex = $C09231
 !C44E44_ResetActiveTextGlyphRun = $C44E44
 !PsiLearnTableD58A50 = $D58A50
+!MenuGlyphScratchRowsBase = $9D23
+!MenuGlyphScratchBitCursor = $9E23
+!MenuGlyphScratchRowCursor = $9E25
+!MenuGlyphUploadRowCursor = $9E27
+!PsiMenuGlyphContinuationFlag = $9E29
+!MenuGlyphTransferBusyLatch = $9E2B
+!MenuGlyphScratchResetByteCount = $0020
+!MenuGlyphUploadRowCount = $0030
+!MenuGlyphScratchClearByte = $FF
+!ScratchLoopZero = $0000
+!NotKnownResult = $0000
+!KnownResult = $0001
 C45E96_ResetGlyphScratchAndAdvanceUploadCursor:
     rep #$31
 C45E98_ResetGlyphScratchAndAdvanceUploadCursor_WaitForGlyphUploadIdle:
-    lda $9E2B
+    lda !MenuGlyphTransferBusyLatch
     bne C45E98_ResetGlyphScratchAndAdvanceUploadCursor_WaitForGlyphUploadIdle
-    ldx.w #$0000
+    ldx.w #!ScratchLoopZero
     bra C45EAA_ResetGlyphScratchAndAdvanceUploadCursor_CheckClearLoop
 C45EA2_ResetGlyphScratchAndAdvanceUploadCursor_ClearScratchByte:
     sep #$20
-    lda.b #$FF
-    sta $9D23,X
+    lda.b #!MenuGlyphScratchClearByte
+    sta !MenuGlyphScratchRowsBase,X
     inx
 C45EAA_ResetGlyphScratchAndAdvanceUploadCursor_CheckClearLoop:
-    cpx.w #$0020
+    cpx.w #!MenuGlyphScratchResetByteCount
     bcc C45EA2_ResetGlyphScratchAndAdvanceUploadCursor_ClearScratchByte
     rep #$20
-    stz $9E25
-    stz $9E23
-    ldx $9E27
+    stz !MenuGlyphScratchRowCursor
+    stz !MenuGlyphScratchBitCursor
+    ldx !MenuGlyphUploadRowCursor
     inx
-    stx $9E27
-    cpx.w #$0030
+    stx !MenuGlyphUploadRowCursor
+    cpx.w #!MenuGlyphUploadRowCount
     bcc C45EC6_ResetGlyphScratchAndAdvanceUploadCursor_FinishReset
-    stz $9E27
+    stz !MenuGlyphUploadRowCursor
 C45EC6_ResetGlyphScratchAndAdvanceUploadCursor_FinishReset:
-    stz $9E29
+    stz !PsiMenuGlyphContinuationFlag
     jsl !C44E44_ResetActiveTextGlyphRun
     rtl
 CHECK_IF_PSI_KNOWN:
@@ -20451,7 +20473,7 @@ C45F40_CheckPartyMemberPsiKnown_CompareKnownPsiThreshold:
     lda $00
     and.w #$00FF
     beq C45F76_CheckPartyMemberPsiKnown_ReturnNotKnown
-    ldx.w #$0000
+    ldx.w #!NotKnownResult
     stx $0E
     lda $11
     dec A
@@ -20464,7 +20486,7 @@ C45F40_CheckPartyMemberPsiKnown_CompareKnownPsiThreshold:
     beq C45F6A_CheckPartyMemberPsiKnown_MarkKnown
     bcs C45F6F_CheckPartyMemberPsiKnown_ReturnFlag
 C45F6A_CheckPartyMemberPsiKnown_MarkKnown:
-    ldx.w #$0001
+    ldx.w #!KnownResult
     stx $0E
 C45F6F_CheckPartyMemberPsiKnown_ReturnFlag:
     ldx $0E
@@ -20472,7 +20494,7 @@ C45F6F_CheckPartyMemberPsiKnown_ReturnFlag:
     txa
     bra C45F79_CheckPartyMemberPsiKnown_Done
 C45F76_CheckPartyMemberPsiKnown_ReturnNotKnown:
-    lda.w #$0000
+    lda.w #!NotKnownResult
 C45F79_CheckPartyMemberPsiKnown_Done:
     pld
     rtl

@@ -22,34 +22,51 @@ C44E44_ResetActiveTextGlyphRun     = $C44E44
 PsiLearnTableD58A50                = $D58A50
 
 ; ---------------------------------------------------------------------------
+; Menu glyph scratch-row state
+
+MenuGlyphScratchRowsBase       = $9D23
+MenuGlyphScratchBitCursor      = $9E23
+MenuGlyphScratchRowCursor      = $9E25
+MenuGlyphUploadRowCursor       = $9E27
+PsiMenuGlyphContinuationFlag   = $9E29
+MenuGlyphTransferBusyLatch     = $9E2B
+
+MenuGlyphScratchResetByteCount = $0020
+MenuGlyphUploadRowCount        = $0030
+MenuGlyphScratchClearByte      = $FF
+ScratchLoopZero                = $0000
+NotKnownResult                 = $0000
+KnownResult                    = $0001
+
+; ---------------------------------------------------------------------------
 ; C4:5E96
 
 C45E96_ResetGlyphScratchAndAdvanceUploadCursor:
     rep #$31
 C45E98_ResetGlyphScratchAndAdvanceUploadCursor_WaitForGlyphUploadIdle:
-    lda $9E2B
+    lda MenuGlyphTransferBusyLatch
     bne C45E98_ResetGlyphScratchAndAdvanceUploadCursor_WaitForGlyphUploadIdle
-    ldx.w #$0000
+    ldx.w #ScratchLoopZero
     bra C45EAA_ResetGlyphScratchAndAdvanceUploadCursor_CheckClearLoop
 C45EA2_ResetGlyphScratchAndAdvanceUploadCursor_ClearScratchByte:
     sep #$20
-    lda.b #$FF
-    sta $9D23,X
+    lda.b #MenuGlyphScratchClearByte
+    sta MenuGlyphScratchRowsBase,X
     inx
 C45EAA_ResetGlyphScratchAndAdvanceUploadCursor_CheckClearLoop:
-    cpx.w #$0020
+    cpx.w #MenuGlyphScratchResetByteCount
     bcc C45EA2_ResetGlyphScratchAndAdvanceUploadCursor_ClearScratchByte
     rep #$20
-    stz $9E25
-    stz $9E23
-    ldx $9E27
+    stz MenuGlyphScratchRowCursor
+    stz MenuGlyphScratchBitCursor
+    ldx MenuGlyphUploadRowCursor
     inx
-    stx $9E27
-    cpx.w #$0030
+    stx MenuGlyphUploadRowCursor
+    cpx.w #MenuGlyphUploadRowCount
     bcc C45EC6_ResetGlyphScratchAndAdvanceUploadCursor_FinishReset
-    stz $9E27
+    stz MenuGlyphUploadRowCursor
 C45EC6_ResetGlyphScratchAndAdvanceUploadCursor_FinishReset:
-    stz $9E29
+    stz PsiMenuGlyphContinuationFlag
     jsl C44E44_ResetActiveTextGlyphRun
     rtl
 
@@ -131,7 +148,7 @@ C45F40_CheckPartyMemberPsiKnown_CompareKnownPsiThreshold:
     lda $00
     and.w #$00FF
     beq C45F76_CheckPartyMemberPsiKnown_ReturnNotKnown
-    ldx.w #$0000
+    ldx.w #NotKnownResult
     stx $0E
     lda $11
     dec A
@@ -144,7 +161,7 @@ C45F40_CheckPartyMemberPsiKnown_CompareKnownPsiThreshold:
     beq C45F6A_CheckPartyMemberPsiKnown_MarkKnown
     bcs C45F6F_CheckPartyMemberPsiKnown_ReturnFlag
 C45F6A_CheckPartyMemberPsiKnown_MarkKnown:
-    ldx.w #$0001
+    ldx.w #KnownResult
     stx $0E
 C45F6F_CheckPartyMemberPsiKnown_ReturnFlag:
     ldx $0E
@@ -152,7 +169,7 @@ C45F6F_CheckPartyMemberPsiKnown_ReturnFlag:
     txa
     bra C45F79_CheckPartyMemberPsiKnown_Done
 C45F76_CheckPartyMemberPsiKnown_ReturnNotKnown:
-    lda.w #$0000
+    lda.w #NotKnownResult
 C45F79_CheckPartyMemberPsiKnown_Done:
     pld
     rtl

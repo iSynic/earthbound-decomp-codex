@@ -355,6 +355,11 @@ It waits for `$9E2B` to clear, derives a bit offset from `$9E23`, and writes int
 
 `C4:5E96` is the reset side of that contract. It waits for `$9E2B` to clear, fills the first 32-byte scratch row at `$9D23` with `#$FF`, clears `$9E25/$9E23`, advances and wraps `$9E27` modulo `#$30`, clears `$9E29`, and calls `C4:4E44` to clear the `$9652/$9654` glyph-variant mirrors. This is why line-advance and row-clear paths call it before mutating active text-window state.
 
+Source polish: `src/c4/glyph_scratch_psi_rng_direction_helpers.asm` now names
+the reset side's `$9D23` scratch row base, `$9E23/$9E25/$9E27` cursors,
+`$9E29` PSI-menu continuation flag, `$9E2B` transfer latch, scratch clear
+byte, and modulo-`#$30` upload cursor wrap.
+
 The same checked-in bridge also corroborates the nearby ebsrc include order:
 after the glyph reset helper, the bank enters `CHECK_IF_PSI_KNOWN`,
 `RAND_MOD`, the `C4:5F96` direction matrix, and `GET_DIRECTION_TO` before

@@ -67,6 +67,12 @@ closure.
   `$9E23/$9E25/$9E27` cursors, `$9E2B` transfer latch, `$7900` VRAM base,
   and `C0:8616` transfer-queue tag byte. See
   `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
+- 2026-05-01 active text-token staging: promoted the `$3492` glyph scratch
+  renderer and the adjacent `$9D23` reset helper with byte-neutral names for
+  scratch-row bases, bit/row/upload cursors, cursor wraps, clear-fill bytes,
+  merge masks, and the PSI-menu continuation flag. See
+  `notes/text-token-glyph-run-stager-c44b3a-c44e61.md` and
+  `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
 
 ## Validation
 
