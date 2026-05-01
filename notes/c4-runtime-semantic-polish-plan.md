@@ -105,6 +105,11 @@ closure.
   resource args, staging tile blocks, eight-Sanctuary state record bases,
   state values, and primary timers. See
   `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-01 Sound Stone continuation: promoted the animation loop's
+  phrase/stinger timing, EF payload pointer walk, per-Sanctuary orbit
+  angle/phase/glyph fields, spinner frame, battle-visual script ids, input exit
+  mask, and closeout fade/busy gates. See
+  `notes/sound-stone-presentation-data-c4ac57.md`.
 
 ## Validation
 

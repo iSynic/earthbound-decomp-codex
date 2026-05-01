@@ -54,6 +54,10 @@ CE Sound Stone graphics/palette payload addresses, 7F work buffer, VRAM
 transfer sizes, sprite resource load arguments, staging tile blocks at
 `$B3EE/$B3F3`, the eight-Sanctuary state record bases rooted at `$B37E`,
 state values, initial orbit delay, frame-group period, and end-hold timer.
+The animation loop also names the phrase-length stinger lead, EF payload
+pointer-table walk, per-Sanctuary orbit angle/phase/glyph fields, opposite
+orbit projection, spinner frame, battle-visual script ids, input exit mask,
+and presentation closeout fade/busy gates.
 
 ## Working Names
 

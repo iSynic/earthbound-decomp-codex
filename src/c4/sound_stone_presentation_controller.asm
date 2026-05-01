@@ -98,6 +98,32 @@ SOUND_STONE_MUSIC_STINGER_OFFSET               = $0008
 SOUND_STONE_STINGER_LEAD_FRAMES                = $0009
 SOUND_STONE_PRESENTATION_ACTIVE_FLAG           = $0001
 SOUND_STONE_PRESENTATION_INACTIVE_FLAG         = $0000
+SOUND_STONE_VRAM_TRANSFER_FLAGS_NONE           = $00
+SOUND_STONE_FIRST_SANCTUARY_INDEX              = $0000
+SOUND_STONE_NEXT_SANCTUARY_SENTINEL            = $FFFF
+SOUND_STONE_RENDERER_WORK_BANK                 = $007E
+SOUND_STONE_ORBIT_ANGLE_STEP                   = $0CCD
+SOUND_STONE_ORBIT_PHASE_COUNT                  = $0002
+SOUND_STONE_EF_POINTER_TABLE_LOW               = $AC57
+SOUND_STONE_EF_POINTER_TABLE_BANK              = $00C4
+SOUND_STONE_EF_POINTER_BANK_OFFSET             = $0002
+SOUND_STONE_TILE_X_TABLE_LOW                   = $AC7B
+SOUND_STONE_TILE_Y_TABLE_LOW                   = $AC83
+SOUND_STONE_LOCAL_TABLE_BANK                   = $00C4
+SOUND_STONE_ORBIT_OPPOSITE_ANGLE_OFFSET        = $0080
+SOUND_STONE_SPINNER_FRAME_MASK                 = $0003
+SOUND_STONE_SPINNER_X_BASE                     = $40
+SOUND_STONE_SPINNER_Y                          = $3B
+SOUND_STONE_SPINNER_DRAW_Y                     = $0070
+SOUND_STONE_SPINNER_DRAW_X                     = $0080
+SOUND_STONE_BATTLE_VISUAL_SCRIPT_0             = $ADD4
+SOUND_STONE_BATTLE_VISUAL_SCRIPT_1             = $AE4B
+SOUND_STONE_SCRIPT_SLOT_0                      = $0000
+SOUND_STONE_SCRIPT_SLOT_1                      = $0001
+SOUND_STONE_INPUT_HELD_OR_PRESSED              = $006D
+SOUND_STONE_EXIT_INPUT_MASK                    = $80C0
+SOUND_STONE_DECOMPRESS_BUSY_BYTE               = $0028
+SOUND_STONE_PRESENTATION_FADE_MODE             = $0001
 LOW_BYTE_MASK                                  = $00FF
 
 ; ---------------------------------------------------------------------------
@@ -137,7 +163,7 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     ldy.w #SOUND_STONE_GFX_VRAM_DESTINATION
     ldx.w #SOUND_STONE_GFX_VRAM_TRANSFER_SIZE
     sep #$20
-    lda.b #$00
+    lda.b #SOUND_STONE_VRAM_TRANSFER_FLAGS_NONE
     jsl C08616_QueueVramTransfer_FromDpSource
     lda.w #SOUND_STONE_PALETTE_SOURCE_LOW
     sta $0E
@@ -176,7 +202,7 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     sta SOUND_STONE_TILE_BLOCK_B_ATTR
     rep #$20
     stz $32
-    ldy.w #$0000
+    ldy.w #SOUND_STONE_FIRST_SANCTUARY_INDEX
     sty $30
     bra C4ADD7_RunSoundStonePresentationSequence_LADD7
 C4AD88_RunSoundStonePresentationSequence_LAD88:
@@ -245,7 +271,7 @@ C4ADD7_RunSoundStonePresentationSequence_LADD7:
     sta $24
 C4AE03_RunSoundStonePresentationSequence_LAE03:
     jsl C08756_WaitOneFrameAndPollInput
-    lda $006D
+    lda SOUND_STONE_INPUT_HELD_OR_PRESSED
     sta $22
     lda $26
     sta $04
@@ -253,12 +279,12 @@ C4AE03_RunSoundStonePresentationSequence_LAE03:
     dec $2C
     lda $2C
     bne C4AE2A_RunSoundStonePresentationSequence_LAE2A
-    lda.w #$FFFF
+    lda.w #SOUND_STONE_NEXT_SANCTUARY_SENTINEL
     sta $02
     sta $24
     lda $02
     sta $28
-    lda.w #$0001
+    lda.w #SOUND_STONE_STATE_IDLE
     sta $04
     sta $26
 C4AE2A_RunSoundStonePresentationSequence_LAE2A:
@@ -285,7 +311,7 @@ C4AE41_RunSoundStonePresentationSequence_LAE41:
 C4AE4F_RunSoundStonePresentationSequence_LAE4F:
     lda $24
     sta $02
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bcs C4AE76_RunSoundStonePresentationSequence_LAE76
     lda $02
     sta $04
@@ -295,16 +321,16 @@ C4AE4F_RunSoundStonePresentationSequence_LAE4F:
     adc $04
     asl A
     clc
-    adc.w #$B37E
+    adc.w #SOUND_STONE_SANCTUARY_STATE_BASE
     tax
     lda $0000,X
-    cmp.w #$0002
+    cmp.w #SOUND_STONE_STATE_ANIMATING
     bne C4AE76_RunSoundStonePresentationSequence_LAE76
-    lda.w #$0001
+    lda.w #SOUND_STONE_STATE_IDLE
     sta $0000,X
 C4AE76_RunSoundStonePresentationSequence_LAE76:
     lda $02
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bne C4AEA9_RunSoundStonePresentationSequence_LAEA9
     lda $28
     inc A
@@ -318,24 +344,24 @@ C4AE84_RunSoundStonePresentationSequence_LAE84:
     adc $04
     asl A
     tax
-    lda $B37E,X
+    lda SOUND_STONE_SANCTUARY_STATE_BASE,X
     bne C4AE9D_RunSoundStonePresentationSequence_LAE9D
     lda $20
     inc A
     sta $20
 C4AE98_RunSoundStonePresentationSequence_LAE98:
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bcc C4AE84_RunSoundStonePresentationSequence_LAE84
 C4AE9D_RunSoundStonePresentationSequence_LAE9D:
     lda $20
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bne C4AEA9_RunSoundStonePresentationSequence_LAEA9
-    lda.w #$0096
+    lda.w #SOUND_STONE_END_HOLD_FRAMES
     sta $2A
 C4AEA9_RunSoundStonePresentationSequence_LAEA9:
     inc $28
     lda $28
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bcs C4AEF7_RunSoundStonePresentationSequence_LAEF7
     lda $28
     sta $02
@@ -348,15 +374,15 @@ C4AEA9_RunSoundStonePresentationSequence_LAEA9:
     adc $04
     asl A
     clc
-    adc.w #$B37E
+    adc.w #SOUND_STONE_SANCTUARY_STATE_BASE
     tax
     lda $0000,X
     beq C4AED5_RunSoundStonePresentationSequence_LAED5
-    lda.w #$0002
+    lda.w #SOUND_STONE_STATE_ANIMATING
     sta $0000,X
     bra C4AEDC_RunSoundStonePresentationSequence_LAEDC
 C4AED5_RunSoundStonePresentationSequence_LAED5:
-    lda.w #$0008
+    lda.w #SOUND_STONE_SANCTUARY_COUNT
     sta $02
     sta $24
 C4AEDC_RunSoundStonePresentationSequence_LAEDC:
@@ -368,23 +394,23 @@ C4AEDC_RunSoundStonePresentationSequence_LAEDC:
     sta $26
     ldx $02
     lda SOUND_STONE_PRESENTATION_MELODY_ID_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     jsl C4FBBD_PlaySoundStoneMelody
     bra C4AEFC_RunSoundStonePresentationSequence_LAEFC
 C4AEF7_RunSoundStonePresentationSequence_LAEF7:
-    lda.w #$0096
+    lda.w #SOUND_STONE_END_HOLD_FRAMES
     sta $2A
 C4AEFC_RunSoundStonePresentationSequence_LAEFC:
     lda $24
     sta $02
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bcs C4AF25_RunSoundStonePresentationSequence_LAF25
     lda $02
     asl A
     tax
     lda SOUND_STONE_PRESENTATION_PHRASE_LENGTH_TABLE,X
     sec
-    sbc.w #$0009
+    sbc.w #SOUND_STONE_STINGER_LEAD_FRAMES
     sta $02
     lda $26
     sta $04
@@ -392,11 +418,11 @@ C4AEFC_RunSoundStonePresentationSequence_LAEFC:
     bne C4AF25_RunSoundStonePresentationSequence_LAF25
     lda $32
     clc
-    adc.w #$0008
+    adc.w #SOUND_STONE_MUSIC_STINGER_OFFSET
     jsl C0AC0C_QueuePresentationSfxOrCounter
 C4AF25_RunSoundStonePresentationSequence_LAF25:
     jsl C088B1_ResetRendererFrameState
-    lda.w #$007E
+    lda.w #SOUND_STONE_RENDERER_WORK_BANK
     jsl C088A5_SetRendererWorkBank
     stz $1E
     jmp.w C4B122_RunSoundStonePresentationSequence_LB122
@@ -410,43 +436,43 @@ C4AF35_RunSoundStonePresentationSequence_LAF35:
     asl A
     sta $1C
     tax
-    lda $B37E,X
-    cmp.w #$0001
+    lda SOUND_STONE_SANCTUARY_STATE_BASE,X
+    cmp.w #SOUND_STONE_STATE_IDLE
     beq C4AF53_RunSoundStonePresentationSequence_LAF53
-    cmp.w #$0002
+    cmp.w #SOUND_STONE_STATE_ANIMATING
     beq C4AF83_RunSoundStonePresentationSequence_LAF83
     jmp.w C4B120_RunSoundStonePresentationSequence_LB120
 C4AF53_RunSoundStonePresentationSequence_LAF53:
     ldx $1E
     sep #$20
     lda SOUND_STONE_PRESENTATION_SPRITE_X_TABLE,X
-    sta $B3EF
-    lda.b #$30
-    sta $B3F0
+    sta SOUND_STONE_TILE_BLOCK_A_X
+    lda.b #SOUND_STONE_TILE_A_INITIAL_Y
+    sta SOUND_STONE_TILE_BLOCK_A_Y
     ldx $1E
     rep #$20
     lda SOUND_STONE_PRESENTATION_TILE_Y_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tay
     ldx $1E
     lda SOUND_STONE_PRESENTATION_TILE_X_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tax
-    lda.w #$B3EE
+    lda.w #SOUND_STONE_TILE_BLOCK_A
     jsl C08CD5_DrawTileStagingBlock
     jmp.w C4B120_RunSoundStonePresentationSequence_LB120
 C4AF83_RunSoundStonePresentationSequence_LAF83:
     lda $1C
     clc
-    adc.w #$B388
+    adc.w #SOUND_STONE_SANCTUARY_ANGLE_BASE
     tax
     lda $0000,X
     clc
-    adc.w #$0CCD
+    adc.w #SOUND_STONE_ORBIT_ANGLE_STEP
     sta $0000,X
     lda $1C
     clc
-    adc.w #$B380
+    adc.w #SOUND_STONE_SANCTUARY_FRAME_DELAY_BASE
     tax
     lda $0000,X
     tay
@@ -454,18 +480,18 @@ C4AF83_RunSoundStonePresentationSequence_LAF83:
     tya
     sta $0000,X
     bne C4B006_RunSoundStonePresentationSequence_LB006
-    lda.w #$0002
+    lda.w #SOUND_STONE_STATE_ANIMATING
     sta $0000,X
     lda $1C
     clc
-    adc.w #$B384
+    adc.w #SOUND_STONE_SANCTUARY_PAYLOAD_OFFSET_BASE
     tax
     stx $20
     lda $1C
     pha
-    lda.w #$AC57
+    lda.w #SOUND_STONE_EF_POINTER_TABLE_LOW
     sta $06
-    lda.w #$00C4
+    lda.w #SOUND_STONE_EF_POINTER_TABLE_BANK
     sta $08
     lda $1E
     asl A
@@ -473,7 +499,7 @@ C4AF83_RunSoundStonePresentationSequence_LAF83:
     clc
     adc $06
     sta $06
-    ldy.w #$0002
+    ldy.w #SOUND_STONE_EF_POINTER_BANK_OFFSET
     lda [$06],Y
     tay
     lda [$06]
@@ -484,20 +510,20 @@ C4AF83_RunSoundStonePresentationSequence_LAF83:
     adc $06
     sta $06
     lda [$06]
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     plx
-    sta $B386,X
+    sta SOUND_STONE_SANCTUARY_GLYPH_ID_BASE,X
     ldx $20
     lda $0000,X
     inc A
     sta $0000,X
     lda $1C
     clc
-    adc.w #$B382
+    adc.w #SOUND_STONE_SANCTUARY_PHASE_BASE
     tax
     lda $0000,X
     sta $02
-    lda.w #$0002
+    lda.w #SOUND_STONE_ORBIT_PHASE_COUNT
     sec
     sbc $02
     sta $0000,X
@@ -516,27 +542,27 @@ C4B006_RunSoundStonePresentationSequence_LB006:
     lda SOUND_STONE_PRESENTATION_SPRITE_OFFSET_X_TABLE,X
     plx
     clc
-    adc $B382,X
-    sta $B3F4
+    adc SOUND_STONE_SANCTUARY_PHASE_BASE,X
+    sta SOUND_STONE_TILE_BLOCK_B_X
     ldx $1E
     lda SOUND_STONE_PRESENTATION_SPRITE_OFFSET_Y_TABLE,X
     asl A
     clc
-    adc.b #$31
-    sta $B3F5
+    adc.b #SOUND_STONE_TILE_B_BASE_Y
+    sta SOUND_STONE_TILE_BLOCK_B_Y
     rep #$20
     lda $20
     clc
-    adc.w #$B386
+    adc.w #SOUND_STONE_SANCTUARY_GLYPH_ID_BASE
     sta $1A
     lda ($1A)
     tay
     bne C4B043_RunSoundStonePresentationSequence_LB043
     jmp.w C4B0E8_RunSoundStonePresentationSequence_LB0E8
 C4B043_RunSoundStonePresentationSequence_LB043:
-    lda.w #$AC7B
+    lda.w #SOUND_STONE_TILE_X_TABLE_LOW
     sta $0A
-    lda.w #$00C4
+    lda.w #SOUND_STONE_LOCAL_TABLE_BANK
     sta $0C
     lda $1E
     clc
@@ -544,11 +570,11 @@ C4B043_RunSoundStonePresentationSequence_LB043:
     sta $0A
     lda $20
     clc
-    adc.w #$B388
+    adc.w #SOUND_STONE_SANCTUARY_ANGLE_BASE
     sta $18
-    lda.w #$AC83
+    lda.w #SOUND_STONE_TILE_Y_TABLE_LOW
     sta $06
-    lda.w #$00C4
+    lda.w #SOUND_STONE_LOCAL_TABLE_BANK
     sta $08
     lda $1E
     clc
@@ -556,91 +582,91 @@ C4B043_RunSoundStonePresentationSequence_LB043:
     sta $06
     lda ($18)
     xba
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tax
     tya
     jsl C0B40B_ProjectPresentationYOffset
     sta $16
     lda ($18)
     xba
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tax
     lda ($1A)
     jsl C0B400_ProjectPresentationXOffset
     sta $02
     lda [$06]
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
     adc $02
     tay
     lda [$0A]
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
     adc $16
     tax
-    lda.w #$B3F3
+    lda.w #SOUND_STONE_TILE_BLOCK_B
     jsl C08CD5_DrawTileStagingBlock
     lda ($18)
     xba
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
-    adc.w #$0080
-    and.w #$00FF
+    adc.w #SOUND_STONE_ORBIT_OPPOSITE_ANGLE_OFFSET
+    and.w #LOW_BYTE_MASK
     tax
     lda ($1A)
     jsl C0B40B_ProjectPresentationYOffset
     sta $16
     lda ($18)
     xba
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
-    adc.w #$0080
-    and.w #$00FF
+    adc.w #SOUND_STONE_ORBIT_OPPOSITE_ANGLE_OFFSET
+    and.w #LOW_BYTE_MASK
     tax
     lda ($1A)
     jsl C0B400_ProjectPresentationXOffset
     sta $02
     lda [$06]
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
     adc $02
     tay
     lda [$0A]
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     clc
     adc $16
     tax
-    lda.w #$B3F3
+    lda.w #SOUND_STONE_TILE_BLOCK_B
     jsl C08CD5_DrawTileStagingBlock
 C4B0E8_RunSoundStonePresentationSequence_LB0E8:
     ldx $1E
     sep #$20
     lda SOUND_STONE_PRESENTATION_SPRITE_X_TABLE,X
     clc
-    adc.b #$80
-    sta $B3EF
+    adc.b #SOUND_STONE_ORBIT_OPPOSITE_ANGLE_OFFSET
+    sta SOUND_STONE_TILE_BLOCK_A_X
     ldx $1E
     lda SOUND_STONE_PRESENTATION_SPRITE_Y_TABLE,X
     asl A
     clc
-    adc.b #$30
-    sta $B3F0
+    adc.b #SOUND_STONE_TILE_A_INITIAL_Y
+    sta SOUND_STONE_TILE_BLOCK_A_Y
     ldx $1E
     rep #$20
     lda SOUND_STONE_PRESENTATION_TILE_Y_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tay
     ldx $1E
     lda SOUND_STONE_PRESENTATION_TILE_X_TABLE,X
-    and.w #$00FF
+    and.w #LOW_BYTE_MASK
     tax
-    lda.w #$B3EE
+    lda.w #SOUND_STONE_TILE_BLOCK_A
     jsl C08CD5_DrawTileStagingBlock
 C4B120_RunSoundStonePresentationSequence_LB120:
     inc $1E
 C4B122_RunSoundStonePresentationSequence_LB122:
     lda $1E
-    cmp.w #$0008
+    cmp.w #SOUND_STONE_SANCTUARY_COUNT
     bcs C4B12E_RunSoundStonePresentationSequence_LB12E
     beq C4B12E_RunSoundStonePresentationSequence_LB12E
     jmp.w C4AF35_RunSoundStonePresentationSequence_LAF35
@@ -648,57 +674,57 @@ C4B12E_RunSoundStonePresentationSequence_LB12E:
     dec $2E
     lda $2E
     bne C4B141_RunSoundStonePresentationSequence_LB141
-    lda.w #$000F
+    lda.w #SOUND_STONE_FRAME_GROUP_PERIOD
     sta $2E
     lda $30
     inc A
-    and.w #$0003
+    and.w #SOUND_STONE_SPINNER_FRAME_MASK
     sta $30
 C4B141_RunSoundStonePresentationSequence_LB141:
     lda $30
     sep #$20
     asl A
     clc
-    adc.b #$40
-    sta $B3F4
-    lda.b #$3B
-    sta $B3F5
-    ldy.w #$0070
-    ldx.w #$0080
+    adc.b #SOUND_STONE_SPINNER_X_BASE
+    sta SOUND_STONE_TILE_BLOCK_B_X
+    lda.b #SOUND_STONE_SPINNER_Y
+    sta SOUND_STONE_TILE_BLOCK_B_Y
+    ldy.w #SOUND_STONE_SPINNER_DRAW_Y
+    ldx.w #SOUND_STONE_SPINNER_DRAW_X
     rep #$20
-    lda.w #$B3F3
+    lda.w #SOUND_STONE_TILE_BLOCK_B
     jsl C08CD5_DrawTileStagingBlock
     jsl C08B26_FlushQueuedSpriteOrTileWork
-    ldx.w #$0000
-    lda.w #$ADD4
+    ldx.w #SOUND_STONE_SCRIPT_SLOT_0
+    lda.w #SOUND_STONE_BATTLE_VISUAL_SCRIPT_0
     jsl C2C92D_QueueOrApplyBattleVisualScript
-    ldx.w #$0001
-    lda.w #$AE4B
+    ldx.w #SOUND_STONE_SCRIPT_SLOT_1
+    lda.w #SOUND_STONE_BATTLE_VISUAL_SCRIPT_1
     jsl C2C92D_QueueOrApplyBattleVisualScript
     lda $34
     bne C4B17F_RunSoundStonePresentationSequence_LB17F
     jmp.w C4AE03_RunSoundStonePresentationSequence_LAE03
 C4B17F_RunSoundStonePresentationSequence_LB17F:
     lda $22
-    and.w #$80C0
+    and.w #SOUND_STONE_EXIT_INPUT_MASK
     bne C4B189_RunSoundStonePresentationSequence_LB189
     jmp.w C4AE03_RunSoundStonePresentationSequence_LAE03
 C4B189_RunSoundStonePresentationSequence_LB189:
-    ldx.w #$0001
+    ldx.w #SOUND_STONE_PRESENTATION_ACTIVE_FLAG
     txa
     jsl C0887A_ClearDisplayTransitionState
     bra C4B197_RunSoundStonePresentationSequence_LB197
 C4B193_RunSoundStonePresentationSequence_LB193:
     jsl C08756_WaitOneFrameAndPollInput
 C4B197_RunSoundStonePresentationSequence_LB197:
-    lda $0028
-    and.w #$00FF
+    lda SOUND_STONE_DECOMPRESS_BUSY_BYTE
+    and.w #LOW_BYTE_MASK
     bne C4B193_RunSoundStonePresentationSequence_LB193
     jsl C08726_BlankWaitAndDisableHdma
-    lda.w #$0001
+    lda.w #SOUND_STONE_PRESENTATION_FADE_MODE
     jsl C0AFCD_SetPresentationFadeOrMode
     jsl C018F3_CloseOrResetPresentationState
-    ldx.w #$0001
+    ldx.w #SOUND_STONE_PRESENTATION_ACTIVE_FLAG
     txa
     jsl C0886C_SetDisplayTransitionState
     pld
