@@ -242,6 +242,12 @@ contract notes for C0/C1/C3/C4 consumers.
   poison-only cure row byte/value, solidification subgroup writes, random
   damage gates, typed damage helper, EF status-result scripts, and `C1:DC1C`
   direct-text dispatch ABI.
+- 2026-05-01 thirty-sixth slice: promoted the late normalization/odor
+  continuation seam (`AF1F`, `B172`) with byte-neutral aliases for the
+  metamorphosis snapshot staging block, enemy mirror-success byte, EF
+  metamorphose success/failure scripts, condiment lookup/removal helpers, C9
+  spice hit/miss scripts, D5 item/condiment table anchors, and the shared
+  `C1:DC1C` direct-text dispatch ABI.
 
 ## Validation
 

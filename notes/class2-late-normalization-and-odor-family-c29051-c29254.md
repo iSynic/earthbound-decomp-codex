@@ -7,6 +7,7 @@ See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early
 See also [class2-affliction-apply-helper-724a.md](notes/class2-affliction-apply-helper-724a.md).
 See also [class2-battler-affliction-crosswalk.md](notes/class2-battler-affliction-crosswalk.md).
 See also [class2-battle-text-cluster-overview.md](notes/class2-battle-text-cluster-overview.md).
+See also [c2-late-normalization-odor-runtime-polish.md](notes/c2-late-normalization-odor-runtime-polish.md).
 
 ## Working Names
 
@@ -91,6 +92,21 @@ Used from `C2:90C6`, the best current read is:
 
 That is still body-described rather than fully named, but it is no longer just an opaque pointer helper.
 
+The source body now names the stable tail contracts without trying to over-name
+the pointer merge:
+
+- enemy row `+0x5D` as the mirror/metamorphosis success byte
+- `$AA12/$AA14/$AA62` as the selected battler id, staging block, and staging
+  mode used by the normalization/metamorphosis bridge
+- `EF:6A99` / `EF:6AB3` as the metamorphose success/failure scripts
+- `C1:DC1C` as the direct battle-text pointer dispatch
+
+Neighbor `C2:B172` now carries the condiment continuation contracts: it uses
+`C1:DB33` to find the matching condiment, removes it through the active
+inventory helper at `C1:8EAD`, scans the 7-byte `D5:EA77` condiment table, and
+emits the C9 spice hit/miss text scripts before returning either the matched
+condiment recovery payload or the item-table params fallback.
+
 ## `C2:916E` is the one-target diamondize side
 
 `C2:916E` is a separate live `D5:7B68` action row.
@@ -164,6 +180,8 @@ Still open:
 - the exact identity of battler id `4` in the `90C6` front-end scan
 - a stronger local name for `AF1F` beyond snapshot-restore helper
 - the exact human-facing phrasing of `EF:7123`, even though `9051`'s mechanical role is now clear
+- a broader symbolic name for the `B172` continuation once the tail after the
+  current source-module boundary is promoted
 
 ## Current takeaway
 

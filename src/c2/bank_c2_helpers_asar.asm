@@ -32672,6 +32672,20 @@ org $C2AF1F
 !C08ED2_CopyMemoryBlock = $C08ED2
 !C08EED_CopyMemoryBlockLong = $C08EED
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C26A2D_RollRandomThreshold = $6A2D
+!EnemyConfigurationTableBase = $D59589
+!EnemyRecordStride = $005E
+!EnemyMirrorSuccessByte = $005D
+!BattlerRecordSize = $004E
+!PercentRollLimit = $0064
+!MetamorphosisStagingBlock = $AA14
+!MetamorphosisSelectedBattlerId = $AA12
+!MetamorphosisStagingMode = $AA62
+!MetamorphosisStagingModeMirror = $0010
+!EFMSG_MetamorphoseOk = $6A99
+!EFMSG_MetamorphoseFailed = $6AB3
+!EF_BattleTextScriptBank = $00EF
 COPY_MIRROR_DATA:
 !C2AF1F_SnapshotRestoreBattlerNormalizationContext = COPY_MIRROR_DATA
     rep #$31
@@ -32836,7 +32850,7 @@ COPY_MIRROR_DATA:
     sta $12
     lda $08
     sta $14
-    lda.w #$004E
+    lda.w #!BattlerRecordSize
     jsl !C08EED_CopyMemoryBlockLong
     lda $44
     sta [$46]
@@ -32889,26 +32903,26 @@ C2B0C0_SnapshotRestoreBattlerNormalizationContext_LB0C0:
     beq C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE
     jmp.w C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
 C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
-    lda.w #$0064
-    jsr $6A2D
+    lda.w #!PercentRollLimit
+    jsr !C26A2D_RollRandomThreshold
     sta $16
     ldx $18
     txa
-    ldy.w #$005E
+    ldy.w #!EnemyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$005D
+    adc.w #!EnemyMirrorSuccessByte
     tax
-    lda $D59589,X
+    lda !EnemyConfigurationTableBase,X
     and.w #$00FF
     sta $02
     lda $16
     cmp $02
     bcs C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
     ldx $18
-    stx $AA12
-    lda.w #$0010
-    sta $AA62
+    stx !MetamorphosisSelectedBattlerId
+    lda.w #!MetamorphosisStagingModeMirror
+    sta !MetamorphosisStagingMode
     lda $A970
     sta $06
     phb
@@ -32921,8 +32935,8 @@ C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$004E
-    lda.w #$AA14
+    ldx.w #!BattlerRecordSize
+    lda.w #!MetamorphosisStagingBlock
     jsl !C08ED2_CopyMemoryBlock
     lda $A970
     sta $06
@@ -32949,18 +32963,18 @@ C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     lda $08
     sta $14
     jsl COPY_MIRROR_DATA
-    lda.w #$6A99
+    lda.w #!EFMSG_MetamorphoseOk
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2B170_SnapshotRestoreBattlerNormalizationContext_LB170
 C2B162_SnapshotRestoreBattlerNormalizationContext_LB162:
-    lda.w #$6AB3
+    lda.w #!EFMSG_MetamorphoseFailed
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2B170_SnapshotRestoreBattlerNormalizationContext_LB170:
     pld
     rtl
@@ -32974,6 +32988,25 @@ hirom
 org $C2B172
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DB33_FindCondimentForFoodItem = $C1DB33
+!C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!ItemConfigurationTableBase = $5000
+!ItemTableBank = $00D5
+!ItemRecordStride = $0027
+!ItemParamsOffset = $001F
+!CondimentTableBase = $EA77
+!CondimentTableBank = $00D5
+!PartyMemberRecordStride = $005F
+!StatusNoEffectSentinel = $0001
+!KingPartyMemberId = $0004
+!KingCondimentResultOffset = $0002
+!DefaultCondimentResultOffset = $0001
+!C9MSG_EatSpiceHit = $7C9D
+!C9MSG_EatSpiceMiss = $7CB1
+!C9_BattleTextScriptBank = $00C9
+!EFMSG_NoEffect = $766E
+!EF_BattleTextScriptBank = $00EF
 APPLY_CONDIMENT:
 !C2B172_ResolveLateNormalizationAndOdorContinuation = APPLY_CONDIMENT
     rep #$31
@@ -32988,7 +33021,7 @@ APPLY_CONDIMENT:
     sta $16
     lda $04
     sep #$20
-    jsl $C1DB33
+    jsl !C1DB33_FindCondimentForFoodItem
     sta $02
     cmp.w #$0000
     bne C2B199_ResolveLateNormalizationAndOdorContinuation_LB199
@@ -32999,7 +33032,7 @@ C2B199_ResolveLateNormalizationAndOdorContinuation_LB199:
     ldx $A970
     lda $0000,X
     ldx $14
-    jsl $C18EAD
+    jsl !C18EAD_SearchAndRemoveItemFromActiveInventories
     ldy.w #$0000
     sty $12
     bra C2B21C_AdvanceLateNormalizationOdorScan
@@ -33035,14 +33068,14 @@ C2B1B0_ScanLateNormalizationOdorEntry:
     cmp $02
     bne C2B249_ResolveLateNormalizationAndOdorContinuation_LB249
 C2B1E6_ResolveLateNormalizationAndOdorContinuation_LB1E6:
-    lda.w #$7C9D
+    lda.w #!C9MSG_EatSpiceHit
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
-    lda.w #$EA77
+    jsl !C1DC1C_DisplayBattleTextFromPointer
+    lda.w #!CondimentTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!CondimentTableBank
     sta $08
     ldy $12
     tya
@@ -33065,9 +33098,9 @@ C2B219_ResolveLateNormalizationAndOdorContinuation_LB219:
     iny
     sty $12
 C2B21C_AdvanceLateNormalizationOdorScan:
-    lda.w #$EA77
+    lda.w #!CondimentTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!CondimentTableBank
     sta $08
     tya
     sta $04
@@ -33090,22 +33123,22 @@ C2B21C_AdvanceLateNormalizationOdorScan:
     beq C2B249_ResolveLateNormalizationAndOdorContinuation_LB249
     jmp.w C2B1B0_ScanLateNormalizationOdorEntry
 C2B249_ResolveLateNormalizationAndOdorContinuation_LB249:
-    lda.w #$7CB1
+    lda.w #!C9MSG_EatSpiceMiss
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2B257_ResolveLateNormalizationAndOdorContinuation_LB257:
-    lda.w #$5000
+    lda.w #!ItemConfigurationTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!ItemTableBank
     sta $08
     lda $16
     sta $04
-    ldy.w #$0027
+    ldy.w #!ItemRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$001F
+    adc.w #!ItemParamsOffset
     clc
     adc $06
     sta $06
@@ -33126,18 +33159,18 @@ C2B27B_ReturnLateNormalizationOdorContinuation:
     stx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyMemberRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     lda $99DC,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!StatusNoEffectSentinel
     bne C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4
-    lda.w #$766E
+    lda.w #!EFMSG_NoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp $B606
 C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4:
     jsr.w APPLY_CONDIMENT
@@ -33146,12 +33179,12 @@ C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4:
     lda $08
     sta $1A
     ldx $1C
-    cpx.w #$0004
+    cpx.w #!KingPartyMemberId
     bne C2B2CB_ResolveLateNormalizationAndOdorContinuation_LB2CB
-    lda.w #$0002
+    lda.w #!KingCondimentResultOffset
     bra C2B2CE_ResolveLateNormalizationAndOdorContinuation_LB2CE
 C2B2CB_ResolveLateNormalizationAndOdorContinuation_LB2CB:
-    lda.w #$0001
+    lda.w #!DefaultCondimentResultOffset
 C2B2CE_ResolveLateNormalizationAndOdorContinuation_LB2CE:
     ldx $06
     stx $0A

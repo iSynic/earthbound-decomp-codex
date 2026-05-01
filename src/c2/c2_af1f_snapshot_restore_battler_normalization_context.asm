@@ -14,6 +14,24 @@
 C08ED2_CopyMemoryBlock             = $C08ED2
 C08EED_CopyMemoryBlockLong         = $C08EED
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+
+C26A2D_RollRandomThreshold = $6A2D
+
+EnemyConfigurationTableBase = $D59589
+EnemyRecordStride = $005E
+EnemyMirrorSuccessByte = $005D
+
+BattlerRecordSize = $004E
+PercentRollLimit = $0064
+MetamorphosisStagingBlock = $AA14
+MetamorphosisSelectedBattlerId = $AA12
+MetamorphosisStagingMode = $AA62
+MetamorphosisStagingModeMirror = $0010
+
+EFMSG_MetamorphoseOk = $6A99
+EFMSG_MetamorphoseFailed = $6AB3
+EF_BattleTextScriptBank = $00EF
 
 ; ---------------------------------------------------------------------------
 ; C2:AF1F
@@ -182,7 +200,7 @@ C2AF1F_SnapshotRestoreBattlerNormalizationContext = COPY_MIRROR_DATA
     sta $12
     lda $08
     sta $14
-    lda.w #$004E
+    lda.w #BattlerRecordSize
     jsl C08EED_CopyMemoryBlockLong
     lda $44
     sta [$46]
@@ -235,26 +253,26 @@ C2B0C0_SnapshotRestoreBattlerNormalizationContext_LB0C0:
     beq C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE
     jmp.w C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
 C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
-    lda.w #$0064
-    jsr $6A2D
+    lda.w #PercentRollLimit
+    jsr C26A2D_RollRandomThreshold
     sta $16
     ldx $18
     txa
-    ldy.w #$005E
+    ldy.w #EnemyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$005D
+    adc.w #EnemyMirrorSuccessByte
     tax
-    lda $D59589,X
+    lda EnemyConfigurationTableBase,X
     and.w #$00FF
     sta $02
     lda $16
     cmp $02
     bcs C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
     ldx $18
-    stx $AA12
-    lda.w #$0010
-    sta $AA62
+    stx MetamorphosisSelectedBattlerId
+    lda.w #MetamorphosisStagingModeMirror
+    sta MetamorphosisStagingMode
     lda $A970
     sta $06
     phb
@@ -267,8 +285,8 @@ C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$004E
-    lda.w #$AA14
+    ldx.w #BattlerRecordSize
+    lda.w #MetamorphosisStagingBlock
     jsl C08ED2_CopyMemoryBlock
     lda $A970
     sta $06
@@ -295,18 +313,18 @@ C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     lda $08
     sta $14
     jsl COPY_MIRROR_DATA
-    lda.w #$6A99
+    lda.w #EFMSG_MetamorphoseOk
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2B170_SnapshotRestoreBattlerNormalizationContext_LB170
 C2B162_SnapshotRestoreBattlerNormalizationContext_LB162:
-    lda.w #$6AB3
+    lda.w #EFMSG_MetamorphoseFailed
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2B170_SnapshotRestoreBattlerNormalizationContext_LB170:
     pld
     rtl

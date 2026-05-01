@@ -43,6 +43,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `C2:A39D`, `C2:A630`, `C2:A82A`, and `C2:A86B`. These now name poison-removed
   `EF:6E97`, solidification `EF:6BEF`, no-effect `EF:766E`, the EF text bank,
   and their `DC1C` direct-text calls.
+- 2026-05-01: eighth pass promoted the late normalization/odor continuation
+  seam. `C2:AF1F` now names the metamorphose success/failure scripts
+  (`EF:6A99` / `EF:6AB3`) and `C2:B172` names the condiment spice hit/miss
+  scripts (`C9:7C9D` / `C9:7CB1`) plus the shared no-effect fallback
+  (`EF:766E`) and their `DC1C` direct-text dispatches.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
