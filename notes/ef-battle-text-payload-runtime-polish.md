@@ -19,9 +19,14 @@ callers.
 - `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
   and PP recovered amount text. The two amount scripts are consumed through
   `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
-- `EF:6AE0`, `EF:6C3A`, and `EF:6C55` now mark paralysis, strange, and asleep
-  inflicted text. The EF decode shows `EF:6AE0` as the body-numb/paralysis
-  message used by `BTLACT_PARALYSIS_A`.
+- `EF:6AE0`, `EF:6B18`, `EF:6BEF`, `EF:6C3A`, and `EF:6C55` now mark
+  paralysis, poison, solidification, strange, and asleep inflicted text. The EF
+  decode shows `EF:6AE0` as the body-numb/paralysis message used by
+  `BTLACT_PARALYSIS_A`, while actual poison remains the separate `EF:6B18`
+  script used by the item/status cluster.
+- `EF:6AFB..6C0B` is now split around the adjacent sick/cold/mushroomized,
+  possessed, crying, immobilized, solidification, and PSI-seal status payloads
+  instead of one broad affliction corridor.
 - `EF:6F9A..707A` now marks the shield and timed substate result text pairs
   used by the hard-state recovery/status-result C2 corridor.
 - `EF:766E`, `EF:7696`, and `EF:773F` now mark shared no-effect, no-visible

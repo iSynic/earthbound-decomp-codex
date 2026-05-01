@@ -79,6 +79,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   C2-proven battle scripts and corrected the local `C2:9FFE` naming drift:
   `EF:6AE0` is the body-numb/paralysis result used by `BTLACT_PARALYSIS_A`,
   while poison-inflicted text remains the separate `EF:6B18` script.
+- 2026-05-01: EF status-infliction payload follow-up split the neighboring
+  EBATTLE5 status text around `EF:6B18` poison and `EF:6BEF` solidification,
+  matching the item/status cluster aliases already used by C2.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

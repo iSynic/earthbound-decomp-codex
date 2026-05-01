@@ -50,8 +50,62 @@ EF6AE0_EBattle5MsgBtlParalysisInflicted:
 ; ---------------------------------------------------------------------------
 ; EF:6AFB
 
-; EBATTLE5: adjacent affliction text before poison/strange/asleep scripts.
-EF6AFB_EBattle5AfflictionTextBeforeStrange:
+; EBATTLE5: nausea/sick-feeling inflicted text.
+EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6B18
+
+; EBATTLE5: poison inflicted text.
+EF6B18_EBattle5MsgBtlPoisonInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6B2F
+
+; EBATTLE5: cold afflicted text.
+EF6B2F_EBattle5MsgBtlColdInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6B43
+
+; EBATTLE5: gender/object pronoun helper subtext before mushroom possession.
+EF6B43_EBattle5ObjectPronounSubtext:
+
+; ---------------------------------------------------------------------------
+; EF:6B81
+
+; EBATTLE5: mushroomized/feeling strange mushroom text.
+EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6B98
+
+; EBATTLE5: possessed/haunted-by-ghost text.
+EF6B98_EBattle5MsgBtlPossessedInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6BBB
+
+; EBATTLE5: crying/tears inflicted text.
+EF6BBB_EBattle5MsgBtlCryingInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6BD3
+
+; EBATTLE5: immobilized/tied-down inflicted text.
+EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6BEF
+
+; EBATTLE5: solidified body text used by C2 item/status actions.
+EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6C0B
+
+; EBATTLE5: PSI-seal inflicted text.
+EF6C0B_EBattle5MsgBtlPsiSealInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C3A

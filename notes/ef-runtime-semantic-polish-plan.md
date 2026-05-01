@@ -106,3 +106,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   text, shield/timed-substate result pairs, present byte substitution,
   pointer-substitution branches, PP-drain amount text, and battle-start status
   announcements.
+- 2026-05-01: EF status-infliction payload follow-up split the adjacent
+  `EF:6AFB..6C3A` EBATTLE5 corridor around actual poison `EF:6B18`,
+  solidification `EF:6BEF`, and neighboring sick/cold/mushroomized/possessed/
+  crying/immobilized/PSI-seal status text anchors.

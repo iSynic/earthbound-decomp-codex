@@ -245,7 +245,16 @@ Data gaps inside protected span:
 - `EF:69D2..EF:69EA` (`24` bytes, SHA-1 `178a8e52dbf9278e6a66f1bfc8b5e4d7dbc5065c`) `EBattle5MsgBtlPpRecoveredAmount`
 - `EF:69EA..EF:6AE0` (`246` bytes, SHA-1 `0d5c241896ccb7b02bfeb32ad4d86f31eba5f42d`) `EBattle5AmountAndStatusPreludeText`
 - `EF:6AE0..EF:6AFB` (`27` bytes, SHA-1 `77937f95269e6421b86b3d4693c44fd3843f5b7b`) `EBattle5MsgBtlParalysisInflicted`
-- `EF:6AFB..EF:6C3A` (`319` bytes, SHA-1 `ff740354a816475627f460adfd8d1472320cb6eb`) `EBattle5AfflictionTextBeforeStrange`
+- `EF:6AFB..EF:6B18` (`29` bytes, SHA-1 `3b3d3f415dce645e7699370021264b3c224e9266`) `EBattle5MsgBtlFeelingSickInflicted`
+- `EF:6B18..EF:6B2F` (`23` bytes, SHA-1 `7812336a84bc28904a7bf104c7ec344f21c5819e`) `EBattle5MsgBtlPoisonInflicted`
+- `EF:6B2F..EF:6B43` (`20` bytes, SHA-1 `07f8d05a02270dac2f4a6eaea27be633c7798cb8`) `EBattle5MsgBtlColdInflicted`
+- `EF:6B43..EF:6B81` (`62` bytes, SHA-1 `df0b94b393a88f6993dcd766cc4571838b2a3e3e`) `EBattle5ObjectPronounSubtext`
+- `EF:6B81..EF:6B98` (`23` bytes, SHA-1 `4fcd80b96a9421b4bc45dc0779d89f3291b6067c`) `EBattle5MsgBtlMushroomizedInflicted`
+- `EF:6B98..EF:6BBB` (`35` bytes, SHA-1 `7ee966d54e30ac40a94c86441c2bec3492b67809`) `EBattle5MsgBtlPossessedInflicted`
+- `EF:6BBB..EF:6BD3` (`24` bytes, SHA-1 `23f88af6a7604cc91dc3d3fa158a34a220fe16b7`) `EBattle5MsgBtlCryingInflicted`
+- `EF:6BD3..EF:6BEF` (`28` bytes, SHA-1 `55c4d2930e8e056ca4cab10bbec98f0ab236360f`) `EBattle5MsgBtlImmobilizedInflicted`
+- `EF:6BEF..EF:6C0B` (`28` bytes, SHA-1 `766017a093540d57429f454b420db0739f65a303`) `EBattle5MsgBtlSolidificationInflicted`
+- `EF:6C0B..EF:6C3A` (`47` bytes, SHA-1 `30a911438fa0c874b4da136accd54ef893390ac5`) `EBattle5MsgBtlPsiSealInflicted`
 - `EF:6C3A..EF:6C55` (`27` bytes, SHA-1 `af8d51b31d83087c92c0d9710c2f57976aa45e70`) `EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55..EF:6C6B` (`22` bytes, SHA-1 `4d5790f342b2e74a3d9baf1f2c69c44a5cf6e2a9`) `EBattle5MsgBtlAsleepInflicted`
 - `EF:6C6B..EF:6F9A` (`815` bytes, SHA-1 `2fe86c65a91f609f7d72fe250b1deede5cda18c3`) `EBattle5StatusAndNpcDeathText`
@@ -292,7 +301,16 @@ Labels:
 - `EF:69D2 EBattle5MsgBtlPpRecoveredAmount`
 - `EF:69EA EBattle5AmountAndStatusPreludeText`
 - `EF:6AE0 EBattle5MsgBtlParalysisInflicted`
-- `EF:6AFB EBattle5AfflictionTextBeforeStrange`
+- `EF:6AFB EBattle5MsgBtlFeelingSickInflicted`
+- `EF:6B18 EBattle5MsgBtlPoisonInflicted`
+- `EF:6B2F EBattle5MsgBtlColdInflicted`
+- `EF:6B43 EBattle5ObjectPronounSubtext`
+- `EF:6B81 EBattle5MsgBtlMushroomizedInflicted`
+- `EF:6B98 EBattle5MsgBtlPossessedInflicted`
+- `EF:6BBB EBattle5MsgBtlCryingInflicted`
+- `EF:6BD3 EBattle5MsgBtlImmobilizedInflicted`
+- `EF:6BEF EBattle5MsgBtlSolidificationInflicted`
+- `EF:6C0B EBattle5MsgBtlPsiSealInflicted`
 - `EF:6C3A EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55 EBattle5MsgBtlAsleepInflicted`
 - `EF:6C6B EBattle5StatusAndNpcDeathText`
@@ -336,6 +354,7 @@ Evidence:
 - `notes/bank-ef-first-pass.md`
 - `notes/ef-runtime-semantic-polish-plan.md`
 - `notes/c2-ef-battle-text-contract-workahead.md`
+- `notes/ef-battle-text-payload-runtime-polish.md`
 
 ### `src/ef/ef_c51b_d56f_text_glyph_mask_tables.asm`
 
