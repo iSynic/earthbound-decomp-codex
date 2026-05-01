@@ -13,62 +13,9 @@ import rom_tools
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CROSSWALK = ROOT / "manifests" / "coilsnake-crosswalk.json"
+DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
 DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
-
-
-FIELD_SEMANTICS: dict[str, dict[str, Any]] = {
-    "item-cost-probe": {
-        "coilsnake_field": "item_configuration_table.yml / Teddy bear / Cost",
-        "edited_value": "178 -> 179",
-        "local_field": "ITEM_CONFIGURATION_TABLE row cost word at item row +0x1A",
-        "field_evidence_level": "runtime-correlated",
-        "promotion_status": "field-runtime-correlated",
-        "runtime_consumers": [
-            {
-                "kind": "exact-field-consumer",
-                "routine": "C1:9DB5 BuildShopItemSelectionMenu",
-                "source": "src/c1/c1_9d49_prepare_equipment_menu_status_display.asm",
-                "detail": "BuildShopItemTextEntry resolves an item row, adds +0x1A, reads the cost word, then calls C4:507A to print the active-window right-aligned decimal.",
-            },
-            {
-                "kind": "same-table-consumer",
-                "routine": "C1:9216 PrintItemNameFromConfigurationTable",
-                "source": "src/c1/c1_9216_print_item_name_from_configuration_table.asm",
-                "detail": "Indexes D5:5000 item rows with stride 0x27 and prints the fixed 0x19-byte item-name field.",
-            },
-            {
-                "kind": "same-table-consumer",
-                "routine": "C1:CE85 ResolveSelectedBattleItemAction",
-                "source": "src/c1/c1_ce85_resolve_selected_battle_item_action.asm",
-                "detail": "Indexes the same item rows for battle-use/category byte +0x19 and action word +0x1D.",
-            },
-        ],
-    },
-    "text-menu-probe": {
-        "coilsnake_field": "text_misc.yml / Battle Menu / Auto Fight",
-        "edited_value": "Auto Fight -> Auto Fighu",
-        "local_field": "C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row",
-        "field_evidence_level": "local-range-confirmed",
-        "promotion_status": "field-range-confirmed-runtime-consumer-open",
-        "runtime_consumers": [
-            {
-                "kind": "source-table-anchor",
-                "routine": "C4:9FE1 BattleMenuAndTargetPrecheckData",
-                "source": "src/c4/battle_target_candidate_selection_helpers.asm",
-                "detail": "The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed.",
-            }
-        ],
-    },
-    "map-palette-probe": {
-        "coilsnake_field": "map_palette_settings.yml / first Sprite Palette",
-        "edited_value": "4 -> 5",
-        "local_field": "lands inside MAP_DATA_TILE_ARRANGEMENT_5 after CoilSnake rebuild",
-        "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
-        "runtime_consumers": [],
-    },
-}
 
 
 @dataclass(frozen=True)
@@ -155,6 +102,18 @@ def address_in_note_range(address: Address, range_text: str) -> bool:
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_field_semantics(path: Path) -> dict[str, dict[str, Any]]:
+    data = load_json(path)
+    field_semantics = data.get("field_semantics", {})
+    if not isinstance(field_semantics, dict):
+        raise ValueError(f"field_semantics must be an object in {path}")
+    return {
+        str(experiment_id): value
+        for experiment_id, value in field_semantics.items()
+        if isinstance(value, dict)
+    }
 
 
 def load_asset_entries(asset_manifest_dir: Path) -> list[dict[str, Any]]:
@@ -467,6 +426,7 @@ def build_join(
     experiment: dict[str, Any],
     asset_entries: list[dict[str, Any]],
     families: dict[str, dict[str, Any]],
+    field_semantics: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     diff = experiment.get("diff", {})
     offset_text = diff.get("first_changed_offset")
@@ -480,7 +440,7 @@ def build_join(
     note_matches = find_note_matches(ROOT / "notes", address, experiment)
     family = families.get(str(experiment.get("resource_family", "")), {})
     warning = relocation_warning(experiment, assets, contract_matches)
-    field_semantics = FIELD_SEMANTICS.get(experiment_id, {})
+    field_semantic = field_semantics.get(experiment_id, {})
 
     join: dict[str, Any] = {
         "experiment_id": experiment_id,
@@ -518,8 +478,8 @@ def build_join(
             else "address-hit-in-source-scaffold"
         ),
     }
-    if field_semantics:
-        join["field_semantics"] = field_semantics
+    if field_semantic:
+        join["field_semantics"] = field_semantic
     if warning:
         join["warning"] = warning
     return join
@@ -653,6 +613,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             "# CoilSnake Field Join Report",
             "",
             f"Generated by `tools/build_coilsnake_field_join_report.py` from `{report['source_manifest']}`.",
+            f"Field semantics loaded from `{report['field_semantics_manifest']}`.",
             "This note records offsets, ranges, and local anchors only; it does not contain ROM-derived payload bytes.",
             "",
             "## Summary",
@@ -674,10 +635,15 @@ def render_markdown(report: dict[str, Any]) -> str:
     ).rstrip() + "\n"
 
 
-def build_report(crosswalk_path: Path, asset_manifest_dir: Path) -> dict[str, Any]:
+def build_report(
+    crosswalk_path: Path,
+    asset_manifest_dir: Path,
+    field_semantics_path: Path,
+) -> dict[str, Any]:
     crosswalk = load_json(crosswalk_path)
     asset_entries = load_asset_entries(asset_manifest_dir)
     families = family_lookup(crosswalk)
+    field_semantics = load_field_semantics(field_semantics_path)
 
     joins: list[dict[str, Any]] = []
     pending_experiments: list[dict[str, Any]] = []
@@ -692,7 +658,7 @@ def build_report(crosswalk_path: Path, asset_manifest_dir: Path) -> dict[str, An
             )
             continue
         if joinable_experiment(experiment):
-            joins.append(build_join(experiment_id, experiment, asset_entries, families))
+            joins.append(build_join(experiment_id, experiment, asset_entries, families, field_semantics))
         else:
             pending_experiments.append(pending_experiment(experiment_id, experiment))
 
@@ -700,23 +666,24 @@ def build_report(crosswalk_path: Path, asset_manifest_dir: Path) -> dict[str, An
         "schema": "earthbound-decomp.coilsnake-field-join-report.v1",
         "generated_by": "tools/build_coilsnake_field_join_report.py",
         "source_manifest": rel(crosswalk_path),
+        "field_semantics_manifest": rel(field_semantics_path),
         "asset_manifest_dir": rel(asset_manifest_dir),
-            "summary": {
-                "controlled_experiment_count": len(joins) + len(pending_experiments),
-                "experiment_count": len(joins),
-                "joined_experiment_count": len(joins),
-                "pending_experiment_count": len(pending_experiments),
-                "diff_confirmed_count": sum(1 for join in joins if join.get("evidence_level") == "diff-confirmed"),
-                "runtime_correlated_field_count": sum(
-                    1
-                    for join in joins
-                    if join.get("field_semantics", {}).get("field_evidence_level") == "runtime-correlated"
-                ),
-                "range_matched_count": sum(1 for join in joins if join.get("local_asset_matches")),
-                "contract_range_matched_count": sum(1 for join in joins if join.get("local_contract_matches")),
-                "source_candidate_count": sum(1 for join in joins if join.get("source_scaffold_matches")),
-                "warning_count": sum(1 for join in joins if join.get("warning")),
-            },
+        "summary": {
+            "controlled_experiment_count": len(joins) + len(pending_experiments),
+            "experiment_count": len(joins),
+            "joined_experiment_count": len(joins),
+            "pending_experiment_count": len(pending_experiments),
+            "diff_confirmed_count": sum(1 for join in joins if join.get("evidence_level") == "diff-confirmed"),
+            "runtime_correlated_field_count": sum(
+                1
+                for join in joins
+                if join.get("field_semantics", {}).get("field_evidence_level") == "runtime-correlated"
+            ),
+            "range_matched_count": sum(1 for join in joins if join.get("local_asset_matches")),
+            "contract_range_matched_count": sum(1 for join in joins if join.get("local_contract_matches")),
+            "source_candidate_count": sum(1 for join in joins if join.get("source_scaffold_matches")),
+            "warning_count": sum(1 for join in joins if join.get("warning")),
+        },
         "joins": joins,
         "pending_experiments": pending_experiments,
     }
@@ -727,21 +694,30 @@ def main() -> int:
         description="Join CoilSnake edit/rebuild diff offsets to local ranges, source scaffolds, and notes."
     )
     parser.add_argument("--crosswalk", type=Path, default=DEFAULT_CROSSWALK)
+    parser.add_argument("--field-semantics", type=Path, default=DEFAULT_FIELD_SEMANTICS)
     parser.add_argument("--asset-manifest-dir", type=Path, default=ROOT / "asset-manifests")
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     args = parser.parse_args()
 
     crosswalk = args.crosswalk.resolve()
+    field_semantics = args.field_semantics.resolve()
     asset_manifest_dir = args.asset_manifest_dir.resolve()
     if not crosswalk.is_file():
         print(f"Crosswalk manifest not found: {crosswalk}", file=sys.stderr)
+        return 2
+    if not field_semantics.is_file():
+        print(f"Field semantics manifest not found: {field_semantics}", file=sys.stderr)
         return 2
     if not asset_manifest_dir.is_dir():
         print(f"Asset manifest directory not found: {asset_manifest_dir}", file=sys.stderr)
         return 2
 
-    report = build_report(crosswalk, asset_manifest_dir)
+    try:
+        report = build_report(crosswalk, asset_manifest_dir, field_semantics)
+    except ValueError as exc:
+        print(exc, file=sys.stderr)
+        return 2
 
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
     args.json_out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

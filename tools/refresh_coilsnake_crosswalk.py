@@ -15,6 +15,7 @@ DEFAULT_PROJECT_DIR = ROOT / "build" / "coilsnake" / "baseline-project"
 DEFAULT_BASELINE_REBUILD_ROM = ROOT / "build" / "coilsnake" / "baseline-rebuild.sfc"
 DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-project-inventory.json"
 DEFAULT_MANIFEST_OUT = ROOT / "manifests" / "coilsnake-crosswalk.json"
+DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
 DEFAULT_FIELD_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_FIELD_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
 
@@ -40,6 +41,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--baseline-rebuild-rom", type=Path, default=DEFAULT_BASELINE_REBUILD_ROM)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--manifest-out", type=Path, default=DEFAULT_MANIFEST_OUT)
+    parser.add_argument("--field-semantics", type=Path, default=DEFAULT_FIELD_SEMANTICS)
     parser.add_argument("--field-json-out", type=Path, default=DEFAULT_FIELD_JSON_OUT)
     parser.add_argument("--field-markdown-out", type=Path, default=DEFAULT_FIELD_MARKDOWN_OUT)
     parser.add_argument(
@@ -151,12 +153,14 @@ def main() -> int:
     baseline_rebuild = args.baseline_rebuild_rom.resolve()
     json_out = args.json_out.resolve()
     manifest_out = args.manifest_out.resolve()
+    field_semantics = args.field_semantics.resolve()
     field_json_out = args.field_json_out.resolve()
     field_markdown_out = args.field_markdown_out.resolve()
 
     try:
         require_dir(project_dir, "CoilSnake baseline project")
         require_file(baseline_rebuild, "CoilSnake baseline rebuild ROM")
+        require_file(field_semantics, "CoilSnake field semantics manifest")
 
         inventory_command = [
             sys.executable,
@@ -190,6 +194,8 @@ def main() -> int:
                 str(TOOLS / "build_coilsnake_field_join_report.py"),
                 "--crosswalk",
                 str(manifest_out),
+                "--field-semantics",
+                str(field_semantics),
                 "--json-out",
                 str(field_json_out),
                 "--markdown-out",

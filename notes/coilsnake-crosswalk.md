@@ -8,6 +8,7 @@ EarthBound projects, but it is not authority for runtime ownership, source
 labels, WRAM fields, or byte-equivalent decomp claims.
 
 Tracked machine-readable summary: `manifests/coilsnake-crosswalk.json`.
+Tracked field semantics: `manifests/coilsnake-field-semantics.json`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
 
 Ignored local outputs:
@@ -58,8 +59,12 @@ python tools/refresh_coilsnake_crosswalk.py
 `tools/refresh_coilsnake_crosswalk.py` regenerates the tracked crosswalk
 manifest, the ignored detailed inventory report, the ignored field-join JSON,
 and the tracked field-join note from the baseline project, baseline rebuild, and
-the three known one-byte probe rebuilds. Pass `--experiment-report` to ingest a
-new runner report without hand-editing the manifest.
+the three known one-byte probe rebuilds. Field-level runtime claims are loaded
+from `manifests/coilsnake-field-semantics.json`. Pass `--experiment-report` to
+ingest a new runner report without hand-editing the crosswalk manifest.
+`tools/validate_coilsnake_field_semantics.py` checks that promoted field entries
+match controlled experiment ids, use valid evidence levels, and point at
+existing local source files.
 
 Reusable experiment runner:
 

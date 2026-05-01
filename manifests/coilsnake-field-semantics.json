@@ -1,0 +1,57 @@
+{
+  "schema": "earthbound-decomp.coilsnake-field-semantics.v1",
+  "generated_by": "manual CoilSnake field-to-runtime promotion",
+  "safety_note": "This manifest stores field names, offsets, local source anchors, and evidence status only; it does not contain ROM-derived payload bytes.",
+  "field_semantics": {
+    "item-cost-probe": {
+      "coilsnake_field": "item_configuration_table.yml / Teddy bear / Cost",
+      "edited_value": "178 -> 179",
+      "local_field": "ITEM_CONFIGURATION_TABLE row cost word at item row +0x1A",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:9DB5 BuildShopItemSelectionMenu",
+          "source": "src/c1/c1_9d49_prepare_equipment_menu_status_display.asm",
+          "detail": "BuildShopItemTextEntry resolves an item row, adds +0x1A, reads the cost word, then calls C4:507A to print the active-window right-aligned decimal."
+        },
+        {
+          "kind": "same-table-consumer",
+          "routine": "C1:9216 PrintItemNameFromConfigurationTable",
+          "source": "src/c1/c1_9216_print_item_name_from_configuration_table.asm",
+          "detail": "Indexes D5:5000 item rows with stride 0x27 and prints the fixed 0x19-byte item-name field."
+        },
+        {
+          "kind": "same-table-consumer",
+          "routine": "C1:CE85 ResolveSelectedBattleItemAction",
+          "source": "src/c1/c1_ce85_resolve_selected_battle_item_action.asm",
+          "detail": "Indexes the same item rows for battle-use/category byte +0x19 and action word +0x1D."
+        }
+      ]
+    },
+    "text-menu-probe": {
+      "coilsnake_field": "text_misc.yml / Battle Menu / Auto Fight",
+      "edited_value": "Auto Fight -> Auto Fighu",
+      "local_field": "C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row",
+      "field_evidence_level": "local-range-confirmed",
+      "promotion_status": "field-range-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-table-anchor",
+          "routine": "C4:9FE1 BattleMenuAndTargetPrecheckData",
+          "source": "src/c4/battle_target_candidate_selection_helpers.asm",
+          "detail": "The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed."
+        }
+      ]
+    },
+    "map-palette-probe": {
+      "coilsnake_field": "map_palette_settings.yml / first Sprite Palette",
+      "edited_value": "4 -> 5",
+      "local_field": "lands inside MAP_DATA_TILE_ARRANGEMENT_5 after CoilSnake rebuild",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "runtime_consumers": []
+    }
+  }
+}

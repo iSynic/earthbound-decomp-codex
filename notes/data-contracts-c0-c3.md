@@ -13,7 +13,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | GAME_STATE | wram-root | `7E:9801` | `0x1D9` | 1 | `game_state` | 26 | corroborated |
 | PARTY_CHARACTERS | wram-root | `7E:99CE` | `0x5F` | 6 | `char_struct` | 41 | corroborated |
 | BATTLERS_TABLE | wram-root | `7E:9FAC` | `0x4E` | 32 | `battler` | 49 | corroborated |
-| ITEM_CONFIGURATION_TABLE | rom-table | `D5:5000` | `0x27` | 256 | `item` | 7 | corroborated |
+| ITEM_CONFIGURATION_TABLE | rom-table | `D5:5000` | `0x27` | 254 | `item` | 7 | corroborated |
 | BATTLE_ACTION_TABLE | rom-table | `D5:7B68` | `0xC` | 318 | `battle_action` | 6 | corroborated |
 | PSI_ABILITY_TABLE | rom-table | `D5:8A50` | `0xF` | 54 | `psi_ability` | 11 | corroborated |
 | ENEMY_CONFIGURATION_TABLE | rom-table | `D5:9589` | `0x5E` | 231 | `enemy_data` | 42 | corroborated |
@@ -203,17 +203,17 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - domain: `rom-table`
 - address: `D5:5000`
 - stride: `0x27`
-- count: `256`
+- count: `254`
 - struct: `item`
 - confidence: `corroborated`
 - note: Fixed-stride item table used by C1/C2 inventory, equipment, and item-effect helpers.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/item-byte-19-packed-class-and-slot.md`
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/item-byte-19-packed-class-and-slot.md`, `notes/d5-table-splits.md`, `manifests/coilsnake-field-semantics.json`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `name` | 1 | 25 | USA item-name buffer |
 | `0x19` | `packed_class_and_slot` | 1 | 1 | item type byte; local notes decode class/equipment slot packing |
-| `0x1A` | `cost` | 2 | 1 | store cost |
+| `0x1A` | `cost` | 2 | 1 | store cost; CoilSnake `item-cost-probe` is runtime-correlated to the shop item row builder |
 | `0x1C` | `flags` | 1 | 1 | item flags |
 | `0x1D` | `effect` | 2 | 1 | item effect id |
 | `0x1F` | `params` | 4 | 1 | item parameter dword |
