@@ -13,6 +13,7 @@ Tracked planned experiments: `manifests/coilsnake-experiment-plan.json`.
 Tracked planned experiment prejoin: `notes/coilsnake-experiment-prejoin-report.md`.
 Tracked promotion stubs: `manifests/coilsnake-promotion-stubs.json` and
 `notes/coilsnake-promotion-stubs.md`.
+Tracked runtime anchor hints: `manifests/coilsnake-runtime-anchor-hints.json`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
 
 Ignored local outputs:
@@ -95,6 +96,9 @@ families/docs before any CoilSnake executable is launched.
 `tools/build_coilsnake_promotion_stubs.py` turns that prejoin report into a
 payload-free promotion checklist for each planned probe, including required
 diff evidence, ingest command, and candidate local notes/contracts to update.
+It also folds in candidate runtime/source anchors from
+`manifests/coilsnake-runtime-anchor-hints.json`; those anchors remain
+candidate-only until a diff-confirmed changed span lands.
 `tools/validate_coilsnake_promotion_stubs.py` keeps those stubs aligned with the
 current prejoin report.
 

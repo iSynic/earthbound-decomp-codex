@@ -1357,6 +1357,7 @@
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
     "validator": "tools/validate_coilsnake_promotion_stubs.py",
+    "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
     "stub_count": 6,

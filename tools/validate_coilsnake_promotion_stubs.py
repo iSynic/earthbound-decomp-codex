@@ -23,6 +23,7 @@ REQUIRED_STUB_FIELDS = {
     "evidence_gate",
     "required_join_fields",
     "tracked_update_targets",
+    "candidate_runtime_anchors",
     "field_semantics_action",
     "payload_policy",
 }
@@ -104,6 +105,56 @@ def validate(stubs_path: Path, prejoin_path: Path) -> list[str]:
         for target in stub.get("tracked_update_targets", []):
             if isinstance(target, str) and target.startswith("notes/") and not (ROOT / target).is_file():
                 problems.append(f"{label}: tracked update target does not exist: {target}")
+
+        anchors = stub.get("candidate_runtime_anchors")
+        if not isinstance(anchors, dict):
+            problems.append(f"{label}: candidate_runtime_anchors must be an object")
+            continue
+
+        if anchors:
+            if anchors.get("status") != "candidate-until-diff-confirmed":
+                problems.append(f"{label}: candidate_runtime_anchors.status must be candidate-until-diff-confirmed")
+            for key in (
+                "candidate_local_ranges",
+                "field_hints",
+                "source_anchor_paths",
+                "note_anchor_paths",
+                "runtime_consumer_hints",
+            ):
+                if key in anchors and not isinstance(anchors[key], list):
+                    problems.append(f"{label}: candidate_runtime_anchors.{key} must be a list")
+
+            for range_index, range_hint in enumerate(anchors.get("candidate_local_ranges", [])):
+                if not isinstance(range_hint, dict):
+                    problems.append(f"{label}: candidate_local_ranges[{range_index}] must be an object")
+                    continue
+                for key in ("label", "range", "basis"):
+                    if not isinstance(range_hint.get(key), str) or not range_hint.get(key):
+                        problems.append(f"{label}: candidate_local_ranges[{range_index}].{key} must be nonempty")
+
+            for field_index, field_hint in enumerate(anchors.get("field_hints", [])):
+                if not isinstance(field_hint, dict):
+                    problems.append(f"{label}: field_hints[{field_index}] must be an object")
+                    continue
+                for key in ("coilsnake_field", "candidate_local_field", "basis"):
+                    if not isinstance(field_hint.get(key), str) or not field_hint.get(key):
+                        problems.append(f"{label}: field_hints[{field_index}].{key} must be nonempty")
+
+            for path_key in ("source_anchor_paths", "note_anchor_paths"):
+                for path_text in anchors.get(path_key, []):
+                    if not isinstance(path_text, str) or not path_text:
+                        problems.append(f"{label}: {path_key} entries must be nonempty strings")
+                        continue
+                    if not (ROOT / path_text).is_file():
+                        problems.append(f"{label}: {path_key} target does not exist: {path_text}")
+
+            for consumer_index, consumer in enumerate(anchors.get("runtime_consumer_hints", [])):
+                if not isinstance(consumer, dict):
+                    problems.append(f"{label}: runtime_consumer_hints[{consumer_index}] must be an object")
+                    continue
+                for key in ("status", "consumer", "basis"):
+                    if not isinstance(consumer.get(key), str) or not consumer.get(key):
+                        problems.append(f"{label}: runtime_consumer_hints[{consumer_index}].{key} must be nonempty")
 
     return problems
 

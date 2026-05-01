@@ -17,6 +17,7 @@ DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-project
 DEFAULT_MANIFEST_OUT = ROOT / "manifests" / "coilsnake-crosswalk.json"
 DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
 DEFAULT_EXPERIMENT_PLAN = ROOT / "manifests" / "coilsnake-experiment-plan.json"
+DEFAULT_ANCHOR_HINTS = ROOT / "manifests" / "coilsnake-runtime-anchor-hints.json"
 DEFAULT_PREJOIN_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-experiment-prejoin-report.json"
 DEFAULT_PREJOIN_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-experiment-prejoin-report.md"
 DEFAULT_PROMOTION_STUBS_JSON_OUT = ROOT / "manifests" / "coilsnake-promotion-stubs.json"
@@ -48,6 +49,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-out", type=Path, default=DEFAULT_MANIFEST_OUT)
     parser.add_argument("--field-semantics", type=Path, default=DEFAULT_FIELD_SEMANTICS)
     parser.add_argument("--experiment-plan", type=Path, default=DEFAULT_EXPERIMENT_PLAN)
+    parser.add_argument("--anchor-hints", type=Path, default=DEFAULT_ANCHOR_HINTS)
     parser.add_argument("--prejoin-json-out", type=Path, default=DEFAULT_PREJOIN_JSON_OUT)
     parser.add_argument("--prejoin-markdown-out", type=Path, default=DEFAULT_PREJOIN_MARKDOWN_OUT)
     parser.add_argument("--promotion-stubs-json-out", type=Path, default=DEFAULT_PROMOTION_STUBS_JSON_OUT)
@@ -212,6 +214,7 @@ def inject_experiment_plan_workflow(
 
 def inject_promotion_stubs_workflow(
     manifest_path: Path,
+    anchor_hints_path: Path,
     promotion_stubs_json_path: Path,
     promotion_stubs_markdown_path: Path,
 ) -> None:
@@ -221,6 +224,7 @@ def inject_promotion_stubs_workflow(
     workflow = {
         "tool": "tools/build_coilsnake_promotion_stubs.py",
         "validator": "tools/validate_coilsnake_promotion_stubs.py",
+        "tracked_anchor_hints": rel(anchor_hints_path),
         "tracked_manifest": rel(promotion_stubs_json_path),
         "tracked_summary": rel(promotion_stubs_markdown_path),
         "stub_count": stubs_doc.get("summary", {}).get("stub_count"),
@@ -250,6 +254,7 @@ def main() -> int:
     manifest_out = args.manifest_out.resolve()
     field_semantics = args.field_semantics.resolve()
     experiment_plan = args.experiment_plan.resolve()
+    anchor_hints = args.anchor_hints.resolve()
     prejoin_json_out = args.prejoin_json_out.resolve()
     prejoin_markdown_out = args.prejoin_markdown_out.resolve()
     promotion_stubs_json_out = args.promotion_stubs_json_out.resolve()
@@ -262,6 +267,7 @@ def main() -> int:
         require_file(baseline_rebuild, "CoilSnake baseline rebuild ROM")
         require_file(field_semantics, "CoilSnake field semantics manifest")
         require_file(experiment_plan, "CoilSnake experiment plan manifest")
+        require_file(anchor_hints, "CoilSnake runtime anchor hints manifest")
 
         inventory_command = [
             sys.executable,
@@ -337,6 +343,8 @@ def main() -> int:
                 str(TOOLS / "build_coilsnake_promotion_stubs.py"),
                 "--prejoin",
                 str(prejoin_json_out),
+                "--anchor-hints",
+                str(anchor_hints),
                 "--json-out",
                 str(promotion_stubs_json_out),
                 "--markdown-out",
@@ -355,7 +363,7 @@ def main() -> int:
         )
         inject_field_join_workflow(manifest_out, field_json_out, field_markdown_out)
         inject_experiment_plan_workflow(manifest_out, experiment_plan, prejoin_json_out, prejoin_markdown_out)
-        inject_promotion_stubs_workflow(manifest_out, promotion_stubs_json_out, promotion_stubs_markdown_out)
+        inject_promotion_stubs_workflow(manifest_out, anchor_hints, promotion_stubs_json_out, promotion_stubs_markdown_out)
         print(f"Refreshed {rel(manifest_out)}")
         print(f"Refreshed {rel(field_markdown_out)}")
         print(f"Refreshed {rel(promotion_stubs_markdown_out)}")
