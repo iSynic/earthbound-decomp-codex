@@ -29,6 +29,19 @@ every unmatched byte as a new text VM feature.
 For the fuller recovered-source authoring syntax view, see
 `notes/localization-authoring-command-frontier.md`.
 
+## CoilSnake Scriptdump Oracle
+
+CoilSnake `scriptdump` is now available as an authoring/compiler oracle under
+ignored `build/coilsnake/scriptdump-project/`. Its tracked payload-free summary
+is `notes/coilsnake-scriptdump-report.md`; the generated project compiles but is
+compiler-normalized relative to the baseline rebuild.
+
+Two tiny CCScript probes are `diff-confirmed` in
+`notes/coilsnake-ccscript-experiments.md`: a generated ROM hook label-reference
+edit and a body control-code argument edit. Treat those as lowering evidence
+only. Runtime text-command meanings still come from the local C1 parser/handler
+notes and decoded text-bank evidence below.
+
 ## Runtime-Only Family Leaves
 
 These have live C1 dispatcher cases but no observed hits in the current

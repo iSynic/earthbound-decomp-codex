@@ -1,6 +1,29 @@
 {
-  "experiment_count": 1,
+  "experiment_count": 2,
   "experiments": [
+    {
+      "comparison_base": "build/coilsnake/scriptdump-rebuild.sfc",
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "first_changed_hirom": "F8:96F6",
+        "first_changed_offset": "0x3896F6",
+        "last_changed_hirom_exclusive": "F8:96F7",
+        "last_changed_offset_exclusive": "0x3896F7",
+        "status": "different"
+      },
+      "edit": "ccscript body control-code argument 19 to 1A",
+      "evidence_level": "diff-confirmed",
+      "experiment_id": "ccscript-body-command-byte-probe",
+      "report": "build/coilsnake/edit-experiments/ccscript-body-command-byte-probe/experiment-report.json",
+      "resource_family": "text-script",
+      "source_file": "ccscript/data_07.ccs",
+      "status": "diffed"
+    },
     {
       "comparison_base": "build/coilsnake/scriptdump-rebuild.sfc",
       "compile": {

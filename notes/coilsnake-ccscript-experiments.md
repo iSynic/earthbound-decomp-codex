@@ -5,11 +5,12 @@ Generated CCScript projects and rebuilt ROMs remain under ignored `build/coilsna
 
 ## Summary
 
-- Experiments: `1`
+- Experiments: `2`
 - Experiment root: `build/coilsnake/edit-experiments`
 
 | Experiment | Source | Comparison base | Changed bytes | Changed span | Evidence |
 | --- | --- | --- | ---: | --- | --- |
+| `ccscript-body-command-byte-probe` | `ccscript/data_07.ccs` | `build/coilsnake/scriptdump-rebuild.sfc` | `1` | `0x3896F6` (`F8:96F6`)..`0x3896F7` (`F8:96F7`) | `diff-confirmed` |
 | `ccscript-rom-goto-label-probe` | `ccscript/main.ccs` | `build/coilsnake/scriptdump-rebuild.sfc` | `2` | `0x050001` (`C5:0001`)..`0x050003` (`C5:0003`) | `diff-confirmed` |
 
 ## Interpretation

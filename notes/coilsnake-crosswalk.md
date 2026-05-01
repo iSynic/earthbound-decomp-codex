@@ -20,6 +20,8 @@ Tracked scriptdump summary: `manifests/coilsnake-scriptdump-summary.json` and
 `notes/coilsnake-scriptdump-report.md`.
 Tracked CCScript edit experiments: `manifests/coilsnake-ccscript-experiments.json`
 and `notes/coilsnake-ccscript-experiments.md`.
+Tracked format experiments: `manifests/coilsnake-format-experiments.json` and
+`notes/coilsnake-format-experiments.md`.
 
 Ignored local outputs:
 
@@ -476,7 +478,7 @@ Interpretation:
   against the unedited scriptdump rebuild when the broad roundtrip is
   compiler-normalized.
 
-One minimal CCScript label-reference probe is now `diff-confirmed`:
+Two minimal CCScript probes are now `diff-confirmed`:
 
 - `ccscript-rom-goto-label-probe` edits one generated `ccscript/main.ccs` ROM
   hook label target in an ignored copy of the scriptdump project. Compared
@@ -484,6 +486,30 @@ One minimal CCScript label-reference probe is now `diff-confirmed`:
   `2` bytes in one run at `0x050001..0x050003` (`C5:0001..C5:0003`). This
   proves CCScript can lower that label target into the C5 text/script bank, but
   it should not be promoted as a text VM command semantic by itself.
+- `ccscript-body-command-byte-probe` edits one generated CCScript body
+  control-code argument in an ignored copy of the scriptdump project. Compared
+  against `build/coilsnake/scriptdump-rebuild.sfc`, the edited rebuild changes
+  `1` byte at `0x3896F6..0x3896F7` (`F8:96F6..F8:96F7`). This proves a body
+  command argument can be isolated after scriptdump normalization; runtime
+  command meaning still belongs to the local text VM notes.
+
+## Format Behavior Probes
+
+Three non-script Phase 2C probes now show fixed-byte lowering in the CoilSnake
+baseline rebuild:
+
+- `font0-width5-probe` edits `Fonts/0_widths.yml` and changes `1` byte at
+  `0x0F60DC..0x0F60DD` (`CF:60DC..CF:60DD`) when compared with
+  `build/coilsnake/baseline-rebuild.sfc`. This is `diff-confirmed` evidence for
+  font-width metadata locality, not yet a runtime consumer name.
+- `bg-data-distortion1-probe` edits `bg_data_table.yml` and changes `1` byte at
+  `0x0ADCD0..0x0ADCD1` (`CA:DCD0..CA:DCD1`) when compared with
+  `build/coilsnake/baseline-rebuild.sfc`. This is `diff-confirmed` evidence for
+  battle-background metadata locality, not yet a routine-level semantic claim.
+- `town-map-first-icon-x-probe` edits `TownMaps/icon_positions.yml` and changes
+  `1` byte at `0x2011A4..0x2011A5` (`E0:11A4..E0:11A5`) when compared with
+  `build/coilsnake/baseline-rebuild.sfc`. This is `diff-confirmed` evidence for
+  town-map icon-position locality, not yet a town-map renderer claim.
 
 ## Promotion Rules
 
@@ -530,13 +556,12 @@ probes already have unique rebuilt-to-original candidates; their next step is
 pointer-path and consumer naming, not more first-row byte probes.
 
 Phase 2C is format behavior. The true CCScript `scriptdump` baseline,
-compile roundtrip, and one minimal CCScript label-reference probe are complete,
-and the results are tracked as payload-free summaries. The next text/script step
-is a tiny body-command or body-text probe that edits generated CCScript without
-including payload in tracked files. After that, add representative visual/editor
-probes for `BattleSprites`, `BattleBGs`, `Fonts`,
-`WindowGraphics`, and one tileset/town-map style resource to document fixed-size
-versus repointed insert behavior.
+compile roundtrip, one minimal CCScript label-reference probe, one body-command
+argument probe, one font metric probe, and one battle-background metadata probe
+plus one town-map icon-position probe are complete, and the results are tracked
+as payload-free summaries. The next format step is representative
+`WindowGraphics`, `BattleSprites`, and one tileset-style resource probe to
+document fixed-size versus repointed insert behavior.
 
 Exit criteria:
 
