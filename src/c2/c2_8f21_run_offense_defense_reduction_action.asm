@@ -21,7 +21,9 @@
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C27DDC_ApplyBoundedOffenseDecrease            = $7DDC
 C27E33_ApplyBoundedDefenseDecrease            = $7E33
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C8MSG_OffenseDecreaseAmount                   = $F885
+C8MSG_DefenseDecreaseAmount                   = $F8A2
 
 ; ---------------------------------------------------------------------------
 ; C2:8F21
@@ -42,7 +44,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     lda $A972
     ; Row `+0x26` offense is lowered by the bounded offense helper.
     jsr HEXADECIMATE_OFFENSE
-    lda.w #$F885
+    lda.w #C8MSG_OffenseDecreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -58,14 +60,14 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldx $A972
     ldy $0028,X
     sty $16
     lda $A972
     ; Row `+0x28` defense is lowered by the bounded defense helper.
     jsr HEXADECIMATE_DEFENSE
-    lda.w #$F8A2
+    lda.w #C8MSG_DefenseDecreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -81,7 +83,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C28F95_RunOffenseDefenseReductionAction_L8F95:
     pld
     rtl

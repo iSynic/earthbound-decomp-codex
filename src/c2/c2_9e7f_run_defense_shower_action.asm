@@ -23,8 +23,10 @@ C27C96_RollSelectedRowThresholdGate           = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C27E33_ApplyBoundedDefenseDecrease            = $7E33
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C29E38_RunDefenseSprayAction                  = $C29E38
+C8MSG_DefenseDecreaseAmount                   = $F8A2
+EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:9E7F
@@ -75,7 +77,7 @@ C29EC8_RunDefenseShowerAction_L9EC8:
     lda.w #$0000
     sta $16
 C29ECD_RunDefenseShowerAction_L9ECD:
-    lda.w #$F8A2
+    lda.w #C8MSG_DefenseDecreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -89,10 +91,10 @@ C29EE1_RunDefenseShowerAction_L9EE1:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C29EFD_RunDefenseShowerAction_L9EFD
 C29EEF_RunDefenseShowerAction_L9EEF:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

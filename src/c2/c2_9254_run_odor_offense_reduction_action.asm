@@ -13,7 +13,8 @@
 
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C27DDC_ApplyBoundedOffenseDecrease            = $7DDC
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C8MSG_OffenseDecreaseAmount                   = $F885
 
 ; ---------------------------------------------------------------------------
 ; C2:9254
@@ -33,7 +34,7 @@ C29254_RunOdorOffenseReductionAction = BTLACT_REDUCEOFF
     sty $16
     lda $A972
     jsr HEXADECIMATE_OFFENSE
-    lda.w #$F885
+    lda.w #C8MSG_OffenseDecreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -48,7 +49,7 @@ C29254_RunOdorOffenseReductionAction = BTLACT_REDUCEOFF
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C29296_RunOdorOffenseReductionAction_L9296:
     pld
     rtl

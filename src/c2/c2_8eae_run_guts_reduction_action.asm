@@ -20,7 +20,8 @@
 ; External contracts used by this module
 
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C8MSG_GutsDecreaseAmount                      = $F7EE
 
 ; ---------------------------------------------------------------------------
 ; C2:8EAE
@@ -70,7 +71,7 @@ C28EAE_RunGutsReductionAction = BTLACT_CUTGUTS
     lda $16
     sta $0000,X
 C28EFD_RunGutsReductionAction_L8EFD:
-    lda.w #$F7EE
+    lda.w #C8MSG_GutsDecreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -85,7 +86,7 @@ C28EFD_RunGutsReductionAction_L8EFD:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C28F1F_RunGutsReductionAction_L8F1F:
     pld
     rtl

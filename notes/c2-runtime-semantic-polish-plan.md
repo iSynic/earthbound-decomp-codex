@@ -67,6 +67,12 @@ contract notes for C0/C1/C3/C4 consumers.
   for crying, solidified, asleep, poison, strange, PP drain, and the timed
   shield/substate message pairs. This keeps the C2 source focused on the
   runtime choice being made rather than only the raw EF pointer value.
+- 2026-04-30 third slice: cleaned up the remaining local
+  `C1DC66_DisplayBattleTextWithNumber` aliases in C2 stat/resource modules.
+  PP reduction, guts reduction, offense/defense reduction, odor offense,
+  offense-up, defense-down, and battle IQ-increase callers now use local C8/EF
+  message constants plus the shared
+  `DisplayBattleTextWithSubstitutionPayload` contract.
 - 2026-04-30 third slice: promoted C2 target-selection contracts into
   byte-neutral source comments plus `notes/c2-target-selection-runtime-polish.md`.
   The promoted contracts cover `C2:B930` 0x4E-byte snapshot export, `C2:BAC5`
@@ -201,6 +207,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-concentration-seal-runtime-polish.md`. The promoted contracts cover
   `8D41` as the luck threshold helper and `8D5A` as the enemy-side `+0x21 = 4`
   seal writer paired with item-side `A3D1`.
+- 2026-04-30 twenty-ninth slice: promoted the C1/C2 battle
+  action-selection record join into byte-neutral source aliases/comments. The
+  promoted contracts cover `$A97D..$A982` as the battle action-selection record,
+  `$A97C` as the resolved selected-item scratch byte, and the `C1:DE31/DE37/DE3D`
+  far-call wrapper joins used by the battle-start present/message controller.
+- 2026-04-30 thirtieth slice: continued `C2:311B` battle-start
+  present/message controller polish with byte-neutral local aliases for the C1
+  menu far wrappers, C2 selection snapshot/count helpers, C4 PSI/target
+  candidate helpers, party/snapshot stride constants, and the Final Prayer
+  phase-to-action row map (`$A97A` phases `4..12` -> action rows
+  `0x123..0x12B`).
 
 ## Validation
 

@@ -115,3 +115,8 @@ This planning pass is documentation-only.
   index maintenance during removal, active-party wildcard scans from `$986F`,
   item-family insertion/removal side effects, and the HP/PP recovery/depletion
   target-selection quartet.
+- 2026-04-30: C1/C2 battle action-selection join polish landed as byte-neutral
+  source aliases/comments. The promoted contracts name the C1 far-call wrapper
+  table entries for menu, character prompt, item selection, and PSI category
+  selection, plus the `C1:CFC6/CE85` battle item-selection record and
+  `D5:5000` item-row fields consumed by the target/action resolver.

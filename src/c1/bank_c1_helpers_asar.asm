@@ -30161,9 +30161,14 @@ org $C1DD9F
 
 !C10036_SetBattleTextDisplayMode = $0036
 !C1003C_ClearBattleTextDisplayMode = $003C
+!C1163C_FinalizeSelectionMenu = $163C
+!C1196A_OpenMenuSelectionLoop = $196A
+!C1242E_RunCharacterSelectionPrompt = $242E
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09279_DispatchTextPointer = $C09279
 !C186B1_PrintTextFromPointer = $C186B1
+!C1CBCD_OpenBattlePsiCategorySelectionStage = $CBCD
+!C1CFC6_OpenBattleItemSelectionLoop = $CFC6
 C1DD9F_DisplayCurrentActionTableTextMode1:
     rep #$31
     phd
@@ -30242,19 +30247,19 @@ SELECTION_MENU_ITEM_SETUP:
     pld
     rtl
     rep #$31
-    jsr $163C
+    jsr !C1163C_FinalizeSelectionMenu
     rtl
     rep #$31
-    jsr $196A
+    jsr !C1196A_OpenMenuSelectionLoop
     rtl
     rep #$31
-    jsr $CFC6
+    jsr !C1CFC6_OpenBattleItemSelectionLoop
     rtl
     rep #$31
-    jsr $242E
+    jsr !C1242E_RunCharacterSelectionPrompt
     rtl
     rep #$31
-    jsr $CBCD
+    jsr !C1CBCD_OpenBattlePsiCategorySelectionStage
     rtl
     rep #$31
     phd
@@ -34885,6 +34890,19 @@ org $C1CE85
 !C09251_MapTargetSelectionResult = $C09251
 !C3E977_GetItemInCharacterInventorySlot = $C3E977
 !C458AB_GetCharacterItemUsabilityMask = $C458AB
+!BattleItemSelectionActorId = $0000
+!BattleItemSelectionSelectedSlot = $0001
+!BattleItemSelectionActionWord = $0002
+!BattleItemSelectionTargetByte = $0004
+!BattleItemSelectionActorEcho = $0005
+!ItemConfigTableBaseLo = $5000
+!ItemConfigTableBank = $00D5
+!ItemConfigTableStride = $0027
+!ItemConfigBattleUseMask = $0019
+!ItemConfigUsabilityMask = $001C
+!ItemConfigBattleActionWord = $001D
+!DefaultBattleItemActionClass = $0002
+!FailedBattleItemActionClass = $0003
 C1CE85_ResolveSelectedBattleItemAction:
     rep #$31
     phd
@@ -34897,19 +34915,19 @@ C1CE85_ResolveSelectedBattleItemAction:
     sty $14
     lda.w #$00FF
     sta $02
-    lda $0001,Y
+    lda !BattleItemSelectionSelectedSlot,Y
     and.w #$00FF
     tax
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     and.w #$00FF
     jsl !C3E977_GetItemInCharacterInventorySlot
     sta $12
-    lda.w #$5000
+    lda.w #!ItemConfigTableBaseLo
     sta $06
-    lda.w #$00D5
+    lda.w #!ItemConfigTableBank
     sta $08
     lda $12
-    ldy.w #$0027
+    ldy.w #!ItemConfigTableStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
@@ -34918,7 +34936,7 @@ C1CE85_ResolveSelectedBattleItemAction:
     sty $04
     inc $04
     inc $04
-    lda.w #$0002
+    lda.w #!DefaultBattleItemActionClass
     ldx $04
     sta $0000,X
     tya
@@ -34936,9 +34954,9 @@ C1CE85_ResolveSelectedBattleItemAction:
     adc.w #$0005
     sta $0E
     sep #$20
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     sta ($0E)
-    ldy.w #$0019
+    ldy.w #!ItemConfigBattleUseMask
     lda [$06],Y
     rep #$20
     and.w #$00FF
@@ -34952,12 +34970,12 @@ C1CE85_ResolveSelectedBattleItemAction:
     beq C1CF52_ResolveSelectedBattleItemAction_LCF52
     jmp.w C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CF10_ResolveSelectedBattleItemAction_LCF10:
-    lda.w #$001D
+    lda.w #!ItemConfigBattleActionWord
     clc
     adc $06
     sta $06
     ldy $14
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     and.w #$00FF
     tax
     lda [$06]
@@ -34990,19 +35008,19 @@ C1CF52_ResolveSelectedBattleItemAction_LCF52:
     bne C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CF5E_ResolveSelectedBattleItemAction_LCF5E:
     ldy $14
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     and.w #$00FF
     tax
     stx $12
     dex
     sep #$20
-    ldy.w #$001C
+    ldy.w #!ItemConfigUsabilityMask
     lda [$06],Y
     and !C458AB_GetCharacterItemUsabilityMask,X
     rep #$20
     and.w #$00FF
     beq C1CFB6_ResolveSelectedBattleItemAction_LCFB6
-    lda.w #$001D
+    lda.w #!ItemConfigBattleActionWord
     clc
     adc $06
     sta $06
@@ -35030,7 +35048,7 @@ C1CF97_ResolveSelectedBattleItemAction_LCF97:
     sta ($0E)
     bra C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CFB6_ResolveSelectedBattleItemAction_LCFB6:
-    lda.w #$0003
+    lda.w #!FailedBattleItemActionClass
     ldx $04
     sta $0000,X
 C1CFBE_ResolveSelectedBattleItemAction_LCFBE:
@@ -35347,6 +35365,10 @@ org $C1CFC6
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C3E4D4_EnterWindowUpdateScope = $C3E4D4
 !C3E521_CloseWindowAndReleaseTileState = $C3E521
+!BattleItemSelectionActorId = $0000
+!BattleItemSelectionSelectedSlot = $0001
+!PartyRecordStride = $005F
+!PartyRecordFirstInventoryItem = $99F1
 C1CFC6_OpenBattleItemSelectionLoop:
     rep #$31
     phd
@@ -35359,13 +35381,13 @@ C1CFC6_OpenBattleItemSelectionLoop:
     sty $10
     ldx.w #$0000
     stx $0E
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $99F1,X
+    lda !PartyRecordFirstInventoryItem,X
     and.w #$00FF
     beq C1D033_OpenBattleItemSelectionLoop_LD033
 C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
@@ -35373,7 +35395,7 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     jsr !C104EE_SetWindowFocus
     ldx.w #$0002
     ldy $10
-    lda $0000,Y
+    lda !BattleItemSelectionActorId,Y
     and.w #$00FF
     jsr INVENTORY_GET_ITEM_NAME
     lda.w #$0001
@@ -35387,7 +35409,7 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     txa
     sep #$20
     ldy $10
-    sta $0001,Y
+    sta !BattleItemSelectionSelectedSlot,Y
     rep #$20
     tya
     jsr !C1CE85_ResolveSelectedBattleItemAction

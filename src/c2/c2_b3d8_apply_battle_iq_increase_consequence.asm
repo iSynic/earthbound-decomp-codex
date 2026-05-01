@@ -17,7 +17,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset                = $C08FF7
+C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
+C21D7D_RecalculateCharacterDerivedIq              = $C21D7D
+
+SelectedRowIqByte                                 = $0031
+PartyRecordStride                                 = $005F
+LiveCharacterIqByteBase                           = $9A28
+C8MSG_IqIncreaseAmount                            = $F7B8
 
 ; ---------------------------------------------------------------------------
 ; C2:B3D8
@@ -25,7 +32,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C2B3D8_ApplyBattleIqIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$0031
+    adc.w #SelectedRowIqByte
     ldy $16
     sep #$10
     sty $00
@@ -42,10 +49,10 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     rep #$20
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A28
+    adc.w #LiveCharacterIqByteBase
     pha
     tax
     sep #$20
@@ -57,9 +64,9 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21D7D
+    jsl C21D7D_RecalculateCharacterDerivedIq
     rep #$20
-    lda.w #$F7B8
+    lda.w #C8MSG_IqIncreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -71,5 +78,5 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp $B5E3

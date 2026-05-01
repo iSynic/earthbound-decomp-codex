@@ -11,7 +11,64 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset                  = $C08FF7
+C1DD47_RedirectCreateWindow                         = $C1DD47
+C1DD4D_RedirectSetWindowFocus                       = $C1DD4D
+C1DDDA_BuildSelectionMenuSetupAndRedirects          = $C1DDDA
+C1DE25_FinalizeSelectionMenuFar                     = $C1DE25
+C1DE2B_OpenMenuSelectionLoopFar                     = $C1DE2B
+C1DE31_OpenBattleItemSelectionLoopFar               = $C1DE31
+C1DE37_RunCharacterSelectionPromptFar               = $C1DE37
+C1DE3D_OpenBattlePsiCategorySelectionStageFar       = $C1DE3D
+C2032B_WriteWindowTitleAndUpload                    = $C2032B
+C2B930_ExportBattleSelectionSnapshot                = $C2B930
+C2BAC5_CountFilteredSecondStageRows                 = $C2BAC5
+C3E977_GetItemInCharacterInventorySlot              = $C3E977
+C45ECE_CheckPartyMemberPsiKnown                     = $C45ECE
+C4A0CF_SelectClosestRankedBattleTargetCandidate     = $C4A0CF
+C4A15D_SelectLowestRangeRankedBattleTargetCandidate = $C4A15D
+
+BattleActionSelectionResolvedItemId                 = $A97C
+BattleActionSelectionRecord                         = $A97D
+BattleActionSelectionActorId                        = $A97D
+BattleActionSelectionSelectedSlot                   = $A97E
+BattleActionSelectionActionWord                     = $A97F
+BattleActionSelectionTargetByte                     = $A981
+BattleActionSelectionTargetActorByte                = $A982
+BattleFinalPrayerPhase                              = $A97A
+
+PartyRecordBase                                     = $99CE
+PartyRecordStride                                   = $005F
+ActivePartyMemberIdList                             = $986F
+PartySlotCount                                      = $0006
+CandidateSnapshotBase                               = $9FAC
+CandidateSnapshotStride                             = $004E
+FilteredCandidatePhase0                             = $0000
+
+BattleTargettingNone                                = $00
+BattleTargettingSelfOrUser                          = $11
+BattleTargettingPartyWide                           = $04
+
+FinalPrayerPhase4                                   = $0004
+FinalPrayerPhase5                                   = $0005
+FinalPrayerPhase6                                   = $0006
+FinalPrayerPhase7                                   = $0007
+FinalPrayerPhase8                                   = $0008
+FinalPrayerPhase9                                   = $0009
+FinalPrayerPhase10                                  = $000A
+FinalPrayerPhase11                                  = $000B
+FinalPrayerPhase12                                  = $000C
+FinalPrayerActionPhase4                             = $0123
+FinalPrayerActionPhase5                             = $0124
+FinalPrayerActionPhase6                             = $0125
+FinalPrayerActionPhase7                             = $0126
+FinalPrayerActionPhase8                             = $0127
+FinalPrayerActionPhase9                             = $0128
+FinalPrayerActionPhase10                            = $0129
+FinalPrayerActionPhase11                            = $012A
+FinalPrayerActionPhase12                            = $012B
+PrayMenuActionWord                                  = $0117
+MirrorMenuActionWord                                = $0118
 
 ; ---------------------------------------------------------------------------
 ; C2:311B
@@ -33,10 +90,10 @@ C2311B_RunBattleStartPresentAndMessageController = BATTLE_SELECTION_MENU
     jsl $C2FEF9
     lda $26
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyRecordBase
     sta $22
     ldy.w #$000E
     lda ($22),Y
@@ -117,15 +174,15 @@ C231D9_C2311B_RunBattleStartPresentAndMessageController_L31D9:
 C231EA_C2311B_RunBattleStartPresentAndMessageController_L31EA:
     sep #$20
     lda.b #$01
-    sta $A981
+    sta BattleActionSelectionTargetByte
     lda.b #$1A
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0023
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$001A
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C2326C_C2311B_RunBattleStartPresentAndMessageController_L326C
     ldy.w #$004D
@@ -135,15 +192,15 @@ C231EA_C2311B_RunBattleStartPresentAndMessageController_L31EA:
     beq C2321C_C2311B_RunBattleStartPresentAndMessageController_L321C
     bcs C2326C_C2311B_RunBattleStartPresentAndMessageController_L326C
 C2321C_C2311B_RunBattleStartPresentAndMessageController_L321C:
-    lda.w #$0000
-    jsl $C2BAC5
+    lda.w #FilteredCandidatePhase0
+    jsl C2BAC5_CountFilteredSecondStageRows
     cmp.w #$0002
     bcc C2326C_C2311B_RunBattleStartPresentAndMessageController_L326C
     ldy.w #$0000
     sty $1E
     bra C2325D_C2311B_RunBattleStartPresentAndMessageController_L325D
 C2322F_C2311B_RunBattleStartPresentAndMessageController_L322F:
-    lda $986F,Y
+    lda ActivePartyMemberIdList,Y
     and.w #$00FF
     tax
     cpx.w #$0001
@@ -154,7 +211,7 @@ C2322F_C2311B_RunBattleStartPresentAndMessageController_L322F:
 C23242_C2311B_RunBattleStartPresentAndMessageController_L3242:
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda $99D8,X
@@ -168,22 +225,22 @@ C23258_C2311B_RunBattleStartPresentAndMessageController_L3258:
     iny
     sty $1E
 C2325D_C2311B_RunBattleStartPresentAndMessageController_L325D:
-    cpy.w #$0006
+    cpy.w #PartySlotCount
     bcc C2322F_C2311B_RunBattleStartPresentAndMessageController_L322F
     sep #$20
-    lda.b #$04
-    sta $A981
+    lda.b #BattleTargettingPartyWide
+    sta BattleActionSelectionTargetByte
     jmp.w C23326_C2311B_RunBattleStartPresentAndMessageController_L3326
 C2326C_C2311B_RunBattleStartPresentAndMessageController_L326C:
     sep #$20
     lda.b #$19
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0022
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$0019
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C232AC_C2311B_RunBattleStartPresentAndMessageController_L32AC
     ldy.w #$004D
@@ -193,9 +250,9 @@ C2326C_C2311B_RunBattleStartPresentAndMessageController_L326C:
     beq C23299_C2311B_RunBattleStartPresentAndMessageController_L3299
     bcs C232AC_C2311B_RunBattleStartPresentAndMessageController_L32AC
 C23299_C2311B_RunBattleStartPresentAndMessageController_L3299:
-    jsl $C4A15D
+    jsl C4A15D_SelectLowestRangeRankedBattleTargetCandidate
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     beq C232AC_C2311B_RunBattleStartPresentAndMessageController_L32AC
@@ -203,13 +260,13 @@ C23299_C2311B_RunBattleStartPresentAndMessageController_L3299:
 C232AC_C2311B_RunBattleStartPresentAndMessageController_L32AC:
     sep #$20
     lda.b #$18
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0021
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$0018
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C232E9_C2311B_RunBattleStartPresentAndMessageController_L32E9
     ldy.w #$004D
@@ -219,22 +276,22 @@ C232AC_C2311B_RunBattleStartPresentAndMessageController_L32AC:
     beq C232D9_C2311B_RunBattleStartPresentAndMessageController_L32D9
     bcs C232E9_C2311B_RunBattleStartPresentAndMessageController_L32E9
 C232D9_C2311B_RunBattleStartPresentAndMessageController_L32D9:
-    jsl $C4A15D
+    jsl C4A15D_SelectLowestRangeRankedBattleTargetCandidate
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     bne C23326_C2311B_RunBattleStartPresentAndMessageController_L3326
 C232E9_C2311B_RunBattleStartPresentAndMessageController_L32E9:
     sep #$20
     lda.b #$17
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0020
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$0017
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C23337_C2311B_RunBattleStartPresentAndMessageController_L3337
     ldy.w #$004D
@@ -244,9 +301,9 @@ C232E9_C2311B_RunBattleStartPresentAndMessageController_L32E9:
     beq C23316_C2311B_RunBattleStartPresentAndMessageController_L3316
     bcs C23337_C2311B_RunBattleStartPresentAndMessageController_L3337
 C23316_C2311B_RunBattleStartPresentAndMessageController_L3316:
-    jsl $C4A15D
+    jsl C4A15D_SelectLowestRangeRankedBattleTargetCandidate
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     beq C23337_C2311B_RunBattleStartPresentAndMessageController_L3337
@@ -254,20 +311,20 @@ C23326_C2311B_RunBattleStartPresentAndMessageController_L3326:
     rep #$20
     lda $26
     sep #$20
-    sta $A97D
+    sta BattleActionSelectionActorId
     rep #$20
-    lda $A97F
+    lda BattleActionSelectionActionWord
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
 C23337_C2311B_RunBattleStartPresentAndMessageController_L3337:
     sep #$20
     lda.b #$1E
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0027
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$001E
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C2337A_C2311B_RunBattleStartPresentAndMessageController_L337A
     ldy.w #$004D
@@ -279,22 +336,22 @@ C23337_C2311B_RunBattleStartPresentAndMessageController_L3337:
 C23364_C2311B_RunBattleStartPresentAndMessageController_L3364:
     ldx.w #$0001
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     bne C23326_C2311B_RunBattleStartPresentAndMessageController_L3326
 C2337A_C2311B_RunBattleStartPresentAndMessageController_L337A:
     sep #$20
     lda.b #$1D
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0026
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$001D
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C233FB_C2311B_RunBattleStartPresentAndMessageController_L33FB
     ldy.w #$004D
@@ -306,9 +363,9 @@ C2337A_C2311B_RunBattleStartPresentAndMessageController_L337A:
 C233A7_C2311B_RunBattleStartPresentAndMessageController_L33A7:
     ldx.w #$0003
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
-    ldy.w #$A982
+    ldy.w #BattleActionSelectionTargetActorByte
     sty $1E
     sta $0000,Y
     rep #$20
@@ -318,7 +375,7 @@ C233A7_C2311B_RunBattleStartPresentAndMessageController_L33A7:
 C233C5_C2311B_RunBattleStartPresentAndMessageController_L33C5:
     ldx.w #$0002
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1E
     sta $0000,Y
@@ -329,7 +386,7 @@ C233C5_C2311B_RunBattleStartPresentAndMessageController_L33C5:
 C233E0_C2311B_RunBattleStartPresentAndMessageController_L33E0:
     ldx.w #$0001
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1E
     sta $0000,Y
@@ -340,13 +397,13 @@ C233E0_C2311B_RunBattleStartPresentAndMessageController_L33E0:
 C233FB_C2311B_RunBattleStartPresentAndMessageController_L33FB:
     sep #$20
     lda.b #$1C
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0025
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$001C
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     bne C2341B_C2311B_RunBattleStartPresentAndMessageController_L341B
     jmp.w C23498_C2311B_RunBattleStartPresentAndMessageController_L3498
@@ -360,9 +417,9 @@ C2341B_C2311B_RunBattleStartPresentAndMessageController_L341B:
 C2342B_C2311B_RunBattleStartPresentAndMessageController_L342B:
     ldx.w #$0005
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
-    ldy.w #$A982
+    ldy.w #BattleActionSelectionTargetActorByte
     sty $1C
     sta $0000,Y
     rep #$20
@@ -372,7 +429,7 @@ C2342B_C2311B_RunBattleStartPresentAndMessageController_L342B:
 C23449_C2311B_RunBattleStartPresentAndMessageController_L3449:
     ldx.w #$0004
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1C
     sta $0000,Y
@@ -383,7 +440,7 @@ C23449_C2311B_RunBattleStartPresentAndMessageController_L3449:
 C23464_C2311B_RunBattleStartPresentAndMessageController_L3464:
     ldx.w #$0002
     txa
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1C
     sta $0000,Y
@@ -394,7 +451,7 @@ C23464_C2311B_RunBattleStartPresentAndMessageController_L3464:
 C2347D_C2311B_RunBattleStartPresentAndMessageController_L347D:
     ldx.w #$0001
     lda.w #$0003
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1C
     sta $0000,Y
@@ -405,13 +462,13 @@ C2347D_C2311B_RunBattleStartPresentAndMessageController_L347D:
 C23498_C2311B_RunBattleStartPresentAndMessageController_L3498:
     sep #$20
     lda.b #$1B
-    sta $A97E
+    sta BattleActionSelectionSelectedSlot
     rep #$20
     lda.w #$0024
-    sta $A97F
+    sta BattleActionSelectionActionWord
     ldx.w #$001B
     lda $26
-    jsl $C45ECE
+    jsl C45ECE_CheckPartyMemberPsiKnown
     cmp.w #$0000
     beq C23519_C2311B_RunBattleStartPresentAndMessageController_L3519
     ldy.w #$004D
@@ -423,9 +480,9 @@ C23498_C2311B_RunBattleStartPresentAndMessageController_L3498:
 C234C5_C2311B_RunBattleStartPresentAndMessageController_L34C5:
     ldx.w #$0007
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
-    ldy.w #$A982
+    ldy.w #BattleActionSelectionTargetActorByte
     sty $1E
     sta $0000,Y
     rep #$20
@@ -435,7 +492,7 @@ C234C5_C2311B_RunBattleStartPresentAndMessageController_L34C5:
 C234E3_C2311B_RunBattleStartPresentAndMessageController_L34E3:
     ldx.w #$0006
     lda.w #$0000
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1E
     sta $0000,Y
@@ -446,7 +503,7 @@ C234E3_C2311B_RunBattleStartPresentAndMessageController_L34E3:
 C234FE_C2311B_RunBattleStartPresentAndMessageController_L34FE:
     ldx.w #$0001
     lda.w #$0002
-    jsl $C4A0CF
+    jsl C4A0CF_SelectClosestRankedBattleTargetCandidate
     sep #$20
     ldy $1E
     sta $0000,Y
@@ -476,14 +533,14 @@ C23537_C2311B_RunBattleStartPresentAndMessageController_L3537:
 C2353D_C2311B_RunBattleStartPresentAndMessageController_L353D:
     lda $26
     sep #$20
-    sta $A97D
-    stz $A97E
+    sta BattleActionSelectionActorId
+    stz BattleActionSelectionSelectedSlot
     rep #$20
     lda $1A
-    sta $A97F
+    sta BattleActionSelectionActionWord
     sep #$20
-    lda.b #$11
-    sta $A981
+    lda.b #BattleTargettingSelfOrUser
+    sta BattleActionSelectionTargetByte
     rep #$20
     lda $AD56
     clc
@@ -491,7 +548,7 @@ C2353D_C2311B_RunBattleStartPresentAndMessageController_L353D:
     jsr $6A2D
     sep #$20
     inc A
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     lda $1A
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
@@ -527,13 +584,13 @@ C2358F_C2311B_RunBattleStartPresentAndMessageController_L358F:
     sta $18
     lda [$06]
     and.w #$00FF
-    jsl $C1DD47
+    jsl C1DD47_RedirectCreateWindow
     lda $26
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyRecordBase
     sta $06
     phb
     sep #$20
@@ -552,7 +609,7 @@ C2358F_C2311B_RunBattleStartPresentAndMessageController_L358F:
     sta $08
     lda [$06]
     and.w #$00FF
-    jsl $C2032B
+    jsl C2032B_WriteWindowTitleAndUpload
     lda $20
     beq C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5
     cmp.w #$0001
@@ -572,7 +629,7 @@ C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
     lda.w #$A041
@@ -586,7 +643,7 @@ C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23637_C2311B_RunBattleStartPresentAndMessageController_L3637:
     lda.w #$A081
@@ -600,7 +657,7 @@ C23637_C2311B_RunBattleStartPresentAndMessageController_L3637:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C23656_C2311B_RunBattleStartPresentAndMessageController_L3656:
     lda $20
     cmp.w #$0002
@@ -641,7 +698,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     ldy.w #$0000
     ldx.w #$0006
     lda.w #$0002
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     lda.w #$0040
     ldx $0A
     stx $06
@@ -664,7 +721,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     ldy.w #$0001
     ldx.w #$0006
     lda.w #$0005
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C236E2_C2311B_RunBattleStartPresentAndMessageController_L36E2:
     lda $04
     beq C236E9_C2311B_RunBattleStartPresentAndMessageController_L36E9
@@ -719,7 +776,7 @@ C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
     ldy.w #$0000
     ldx $04
     lda.w #$0003
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     lda.w #$0080
     ldx $16
     stx $06
@@ -742,7 +799,7 @@ C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
     ldy.w #$0001
     ldx $04
     lda.w #$0006
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C23784_C2311B_RunBattleStartPresentAndMessageController_L3784:
     lda $26
     cmp.w #$0003
@@ -758,7 +815,7 @@ C23784_C2311B_RunBattleStartPresentAndMessageController_L3784:
     ldy.w #$0001
     ldx.w #$0000
     lda.w #$0004
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C237D9_C2311B_RunBattleStartPresentAndMessageController_L37D9
 C237AE_C2311B_RunBattleStartPresentAndMessageController_L37AE:
     ldy.w #$0012
@@ -776,7 +833,7 @@ C237AE_C2311B_RunBattleStartPresentAndMessageController_L37AE:
     ldy.w #$0001
     ldx.w #$0000
     lda.w #$0004
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C237D9_C2311B_RunBattleStartPresentAndMessageController_L37D9:
     lda $26
     cmp.w #$0002
@@ -792,7 +849,7 @@ C237D9_C2311B_RunBattleStartPresentAndMessageController_L37D9:
     ldy.w #$0000
     ldx.w #$000B
     lda.w #$0007
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C23801_C2311B_RunBattleStartPresentAndMessageController_L3801:
     lda $26
     cmp.w #$0004
@@ -808,19 +865,19 @@ C23801_C2311B_RunBattleStartPresentAndMessageController_L3801:
     ldy.w #$0000
     ldx.w #$000D
     lda.w #$0007
-    jsl $C1DDDA
+    jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
 C23829_C2311B_RunBattleStartPresentAndMessageController_L3829:
     ldx $1A
     lda $C4A1F2,X
     and.w #$00FF
-    jsl $C1DD4D
+    jsl C1DD4D_RedirectSetWindowFocus
     lda $24
     bne C2383E_C2311B_RunBattleStartPresentAndMessageController_L383E
-    jsl $C1DE25
+    jsl C1DE25_FinalizeSelectionMenuFar
 C2383E_C2311B_RunBattleStartPresentAndMessageController_L383E:
     inc $24
     lda.w #$0001
-    jsl $C1DE2B
+    jsl C1DE2B_OpenMenuSelectionLoopFar
     cmp.w #$0000
     beq C2384F_C2311B_RunBattleStartPresentAndMessageController_L384F
     jmp.w C238D9_C2311B_RunBattleStartPresentAndMessageController_L38D9
@@ -851,7 +908,7 @@ C23877_C2311B_RunBattleStartPresentAndMessageController_L3877:
     sty $22
     bra C238B8_C2311B_RunBattleStartPresentAndMessageController_L38B8
 C2388F_C2311B_RunBattleStartPresentAndMessageController_L388F:
-    lda $986F,Y
+    lda ActivePartyMemberIdList,Y
     and.w #$00FF
     sta $1C
     beq C238B3_C2311B_RunBattleStartPresentAndMessageController_L38B3
@@ -860,19 +917,19 @@ C2388F_C2311B_RunBattleStartPresentAndMessageController_L388F:
     bcs C238B3_C2311B_RunBattleStartPresentAndMessageController_L38B3
 C238A0_C2311B_RunBattleStartPresentAndMessageController_L38A0:
     tya
-    ldy.w #$004E
+    ldy.w #CandidateSnapshotStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FAC
+    adc.w #CandidateSnapshotBase
     tax
     lda $1C
-    jsl $C2B930
+    jsl C2B930_ExportBattleSelectionSnapshot
 C238B3_C2311B_RunBattleStartPresentAndMessageController_L38B3:
     ldy $22
     iny
     sty $22
 C238B8_C2311B_RunBattleStartPresentAndMessageController_L38B8:
-    cpy.w #$0006
+    cpy.w #PartySlotCount
     bcc C2388F_C2311B_RunBattleStartPresentAndMessageController_L388F
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0:
@@ -887,7 +944,7 @@ C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF:
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
 C238D9_C2311B_RunBattleStartPresentAndMessageController_L38D9:
     sep #$20
-    stz $A97C
+    stz BattleActionSelectionResolvedItemId
     rep #$20
     cmp.w #$0001
     beq C23918_C2311B_RunBattleStartPresentAndMessageController_L3918
@@ -941,10 +998,10 @@ C2393A_C2311B_RunBattleStartPresentAndMessageController_L393A:
 C23941_C2311B_RunBattleStartPresentAndMessageController_L3941:
     lda $1E
     sta $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     sep #$20
-    lda.b #$11
-    sta $A981
+    lda.b #BattleTargettingSelfOrUser
+    sta BattleActionSelectionTargetByte
     rep #$20
     lda $20
     cmp.w #$0002
@@ -954,9 +1011,9 @@ C2395B_C2311B_RunBattleStartPresentAndMessageController_L395B:
     ldy $02
     ldx.w #$0001
     lda.w #$0000
-    jsl $C1DE37
+    jsl C1DE37_RunCharacterSelectionPromptFar
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     bne C23976_C2311B_RunBattleStartPresentAndMessageController_L3976
@@ -966,23 +1023,25 @@ C23976_C2311B_RunBattleStartPresentAndMessageController_L3976:
 C23979_C2311B_RunBattleStartPresentAndMessageController_L3979:
     lda $26
     sep #$20
-    sta $A97D
+    sta BattleActionSelectionActorId
     rep #$20
-    lda.w #$A97D
-    jsl $C1DE31
+    ; C1:CFC6/C1:CE85 fill the shared action-selection record with the
+    ; chosen item slot, resolved action word, and target bytes.
+    lda.w #BattleActionSelectionRecord
+    jsl C1DE31_OpenBattleItemSelectionLoopFar
     tax
     bne C2398F_C2311B_RunBattleStartPresentAndMessageController_L398F
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C2398F_C2311B_RunBattleStartPresentAndMessageController_L398F:
-    lda $A97E
+    lda BattleActionSelectionSelectedSlot
     and.w #$00FF
     tax
     lda $26
-    jsl $C3E977
+    jsl C3E977_GetItemInCharacterInventorySlot
     sep #$20
-    sta $A97C
+    sta BattleActionSelectionResolvedItemId
     rep #$20
-    lda $A97F
+    lda BattleActionSelectionActionWord
     sta $02
     sta $1E
     jmp.w C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
@@ -1003,17 +1062,17 @@ C239C2_C2311B_RunBattleStartPresentAndMessageController_L39C2:
     sta $02
     sta $1E
     lda $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     sep #$20
-    lda.b #$11
-    sta $A981
+    lda.b #BattleTargettingSelfOrUser
+    sta BattleActionSelectionTargetByte
     ldy $02
     ldx.w #$0001
     rep #$20
     lda.w #$0000
-    jsl $C1DE37
+    jsl C1DE37_RunCharacterSelectionPromptFar
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
     and.w #$00FF
     bne C239F9_C2311B_RunBattleStartPresentAndMessageController_L39F9
@@ -1023,18 +1082,18 @@ C239F9_C2311B_RunBattleStartPresentAndMessageController_L39F9:
 C239FC_C2311B_RunBattleStartPresentAndMessageController_L39FC:
     lda $26
     sep #$20
-    sta $A97D
+    sta BattleActionSelectionActorId
     rep #$20
-    lda.w #$A97D
-    jsl $C1DE3D
+    lda.w #BattleActionSelectionRecord
+    jsl C1DE3D_OpenBattlePsiCategorySelectionStageFar
     tax
     bne C23A12_C2311B_RunBattleStartPresentAndMessageController_L3A12
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C23A12_C2311B_RunBattleStartPresentAndMessageController_L3A12:
     sep #$20
-    stz $A97C
+    stz BattleActionSelectionResolvedItemId
     rep #$20
-    lda $A97F
+    lda BattleActionSelectionActionWord
     sta $02
     sta $1E
     jmp.w C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
@@ -1043,33 +1102,33 @@ C23A23_C2311B_RunBattleStartPresentAndMessageController_L3A23:
     sta $02
     sta $1E
     lda $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     sep #$20
-    stz $A981
+    stz BattleActionSelectionTargetByte
     jmp.w C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
 C23A37_C2311B_RunBattleStartPresentAndMessageController_L3A37:
     sep #$20
     lda.b #$01
-    sta $A981
+    sta BattleActionSelectionTargetByte
     rep #$20
     lda $26
     sep #$20
-    sta $A982
+    sta BattleActionSelectionTargetActorByte
     rep #$20
-    lda.w #$0117
+    lda.w #PrayMenuActionWord
     sta $02
     sta $1E
     lda $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     jmp.w C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
 C23A58_C2311B_RunBattleStartPresentAndMessageController_L3A58:
-    ldx.w #$A981
+    ldx.w #BattleActionSelectionTargetByte
     stx $1C
     sep #$20
     lda.b #$01
     sta $0000,X
     rep #$20
-    lda.w #$A982
+    lda.w #BattleActionSelectionTargetActorByte
     sta $04
     lda $26
     sep #$20
@@ -1085,68 +1144,69 @@ C23A58_C2311B_RunBattleStartPresentAndMessageController_L3A58:
 C23A85_C2311B_RunBattleStartPresentAndMessageController_L3A85:
     jmp.w C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
 C23A88_C2311B_RunBattleStartPresentAndMessageController_L3A88:
-    lda $A97A
-    cmp.w #$0004
+    ; Final Prayer phases 4..12 map directly to action-table rows 0x123..0x12B.
+    lda BattleFinalPrayerPhase
+    cmp.w #FinalPrayerPhase4
     beq C23ABA_C2311B_RunBattleStartPresentAndMessageController_L3ABA
-    cmp.w #$0005
+    cmp.w #FinalPrayerPhase5
     beq C23AC3_C2311B_RunBattleStartPresentAndMessageController_L3AC3
-    cmp.w #$0006
+    cmp.w #FinalPrayerPhase6
     beq C23ACC_C2311B_RunBattleStartPresentAndMessageController_L3ACC
-    cmp.w #$0007
+    cmp.w #FinalPrayerPhase7
     beq C23AD5_C2311B_RunBattleStartPresentAndMessageController_L3AD5
-    cmp.w #$0008
+    cmp.w #FinalPrayerPhase8
     beq C23ADE_C2311B_RunBattleStartPresentAndMessageController_L3ADE
-    cmp.w #$0009
+    cmp.w #FinalPrayerPhase9
     beq C23AE7_C2311B_RunBattleStartPresentAndMessageController_L3AE7
-    cmp.w #$000A
+    cmp.w #FinalPrayerPhase10
     beq C23AF0_C2311B_RunBattleStartPresentAndMessageController_L3AF0
-    cmp.w #$000B
+    cmp.w #FinalPrayerPhase11
     beq C23AF9_C2311B_RunBattleStartPresentAndMessageController_L3AF9
-    cmp.w #$000C
+    cmp.w #FinalPrayerPhase12
     beq C23B02_C2311B_RunBattleStartPresentAndMessageController_L3B02
     bra C23B0B_C2311B_RunBattleStartPresentAndMessageController_L3B0B
 C23ABA_C2311B_RunBattleStartPresentAndMessageController_L3ABA:
-    lda.w #$0123
+    lda.w #FinalPrayerActionPhase4
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23AC3_C2311B_RunBattleStartPresentAndMessageController_L3AC3:
-    lda.w #$0124
+    lda.w #FinalPrayerActionPhase5
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23ACC_C2311B_RunBattleStartPresentAndMessageController_L3ACC:
-    lda.w #$0125
+    lda.w #FinalPrayerActionPhase6
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23AD5_C2311B_RunBattleStartPresentAndMessageController_L3AD5:
-    lda.w #$0126
+    lda.w #FinalPrayerActionPhase7
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23ADE_C2311B_RunBattleStartPresentAndMessageController_L3ADE:
-    lda.w #$0127
+    lda.w #FinalPrayerActionPhase8
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23AE7_C2311B_RunBattleStartPresentAndMessageController_L3AE7:
-    lda.w #$0128
+    lda.w #FinalPrayerActionPhase9
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23AF0_C2311B_RunBattleStartPresentAndMessageController_L3AF0:
-    lda.w #$0129
+    lda.w #FinalPrayerActionPhase10
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23AF9_C2311B_RunBattleStartPresentAndMessageController_L3AF9:
-    lda.w #$012A
+    lda.w #FinalPrayerActionPhase11
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
 C23B02_C2311B_RunBattleStartPresentAndMessageController_L3B02:
-    lda.w #$012B
+    lda.w #FinalPrayerActionPhase12
     sta $02
     sta $1E
     bra C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12
@@ -1156,23 +1216,23 @@ C23B0B_C2311B_RunBattleStartPresentAndMessageController_L3B0B:
     sta $1E
 C23B12_C2311B_RunBattleStartPresentAndMessageController_L3B12:
     lda $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     bra C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D
 C23B19_C2311B_RunBattleStartPresentAndMessageController_L3B19:
-    lda.w #$0118
+    lda.w #MirrorMenuActionWord
     sta $02
     sta $1E
     lda $02
-    sta $A97F
+    sta BattleActionSelectionActionWord
     sep #$20
-    lda.b #$11
+    lda.b #BattleTargettingSelfOrUser
     ldx $1C
     sta $0000,X
     ldy $02
     ldx.w #$0001
     rep #$20
     lda.w #$0000
-    jsl $C1DE37
+    jsl C1DE37_RunCharacterSelectionPromptFar
     sep #$20
     ldx $04
     sta $0000,X
@@ -1185,7 +1245,7 @@ C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D:
     rep #$20
     lda $C4A1F2,X
     and.w #$00FF
-    jsl $C1DD4D
+    jsl C1DD4D_RedirectSetWindowFocus
     jsl $EF026E
     lda $1E
     sta $02

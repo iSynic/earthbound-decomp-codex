@@ -13,9 +13,14 @@
 
 C10036_SetBattleTextDisplayMode    = $0036
 C1003C_ClearBattleTextDisplayMode  = $003C
+C1163C_FinalizeSelectionMenu       = $163C
+C1196A_OpenMenuSelectionLoop       = $196A
+C1242E_RunCharacterSelectionPrompt = $242E
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09279_DispatchTextPointer         = $C09279
 C186B1_PrintTextFromPointer        = $C186B1
+C1CBCD_OpenBattlePsiCategorySelectionStage = $CBCD
+C1CFC6_OpenBattleItemSelectionLoop         = $CFC6
 
 ; ---------------------------------------------------------------------------
 ; C1:DD9F
@@ -100,20 +105,21 @@ C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     jsr $153B
     pld
     rtl
+    ; Far-call wrapper table used by C2 battle-start menu controller.
     rep #$31
-    jsr $163C
+    jsr C1163C_FinalizeSelectionMenu
     rtl
     rep #$31
-    jsr $196A
+    jsr C1196A_OpenMenuSelectionLoop
     rtl
     rep #$31
-    jsr $CFC6
+    jsr C1CFC6_OpenBattleItemSelectionLoop
     rtl
     rep #$31
-    jsr $242E
+    jsr C1242E_RunCharacterSelectionPrompt
     rtl
     rep #$31
-    jsr $CBCD
+    jsr C1CBCD_OpenBattlePsiCategorySelectionStage
     rtl
     rep #$31
     phd

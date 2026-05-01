@@ -24,6 +24,22 @@ C09251_MapTargetSelectionResult        = $C09251
 C3E977_GetItemInCharacterInventorySlot = $C3E977
 C458AB_GetCharacterItemUsabilityMask   = $C458AB
 
+BattleItemSelectionActorId      = $0000
+BattleItemSelectionSelectedSlot = $0001
+BattleItemSelectionActionWord   = $0002
+BattleItemSelectionTargetByte   = $0004
+BattleItemSelectionActorEcho    = $0005
+
+ItemConfigTableBaseLo       = $5000
+ItemConfigTableBank         = $00D5
+ItemConfigTableStride       = $0027
+ItemConfigBattleUseMask     = $0019
+ItemConfigUsabilityMask     = $001C
+ItemConfigBattleActionWord  = $001D
+
+DefaultBattleItemActionClass = $0002
+FailedBattleItemActionClass  = $0003
+
 ; ---------------------------------------------------------------------------
 ; C1:CE85
 
@@ -39,20 +55,20 @@ C1CE85_ResolveSelectedBattleItemAction:
     sty $14
     lda.w #$00FF
     sta $02
-    lda $0001,Y
+    lda BattleItemSelectionSelectedSlot,Y
     and.w #$00FF
     tax
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     and.w #$00FF
     jsl C3E977_GetItemInCharacterInventorySlot
     sta $12
-    lda.w #$5000
+    lda.w #ItemConfigTableBaseLo
     sta $06
-    lda.w #$00D5
+    lda.w #ItemConfigTableBank
     sta $08
     ; D5:5000 item rows are 0x27 bytes; the resolved item id selects the row.
     lda $12
-    ldy.w #$0027
+    ldy.w #ItemConfigTableStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
@@ -62,7 +78,7 @@ C1CE85_ResolveSelectedBattleItemAction:
     inc $04
     inc $04
     ; Default record action class is 2 until a targetting path overrides it.
-    lda.w #$0002
+    lda.w #DefaultBattleItemActionClass
     ldx $04
     sta $0000,X
     tya
@@ -80,11 +96,11 @@ C1CE85_ResolveSelectedBattleItemAction:
     adc.w #$0005
     sta $0E
     sep #$20
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     sta ($0E)
     ; Byte +0x19 is the battle-use/category mask used by CoilSnake's item
     ; table and by this runtime resolver.
-    ldy.w #$0019
+    ldy.w #ItemConfigBattleUseMask
     lda [$06],Y
     rep #$20
     and.w #$00FF
@@ -100,12 +116,12 @@ C1CE85_ResolveSelectedBattleItemAction:
 C1CF10_ResolveSelectedBattleItemAction_LCF10:
     ; Ordinary battle-use paths read the action word at item row +0x1D and
     ; hand it to the shared D5:7B68 targetting resolver.
-    lda.w #$001D
+    lda.w #ItemConfigBattleActionWord
     clc
     adc $06
     sta $06
     ldy $14
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     and.w #$00FF
     tax
     lda [$06]
@@ -140,19 +156,19 @@ C1CF52_ResolveSelectedBattleItemAction_LCF52:
     bne C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CF5E_ResolveSelectedBattleItemAction_LCF5E:
     ldy $14
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     and.w #$00FF
     tax
     stx $12
     dex
     sep #$20
-    ldy.w #$001C
+    ldy.w #ItemConfigUsabilityMask
     lda [$06],Y
     and C458AB_GetCharacterItemUsabilityMask,X
     rep #$20
     and.w #$00FF
     beq C1CFB6_ResolveSelectedBattleItemAction_LCFB6
-    lda.w #$001D
+    lda.w #ItemConfigBattleActionWord
     clc
     adc $06
     sta $06
@@ -181,7 +197,7 @@ C1CF97_ResolveSelectedBattleItemAction_LCF97:
     bra C1CFBE_ResolveSelectedBattleItemAction_LCFBE
 C1CFB6_ResolveSelectedBattleItemAction_LCFB6:
     ; Failed usability leaves the selection record with action class 3.
-    lda.w #$0003
+    lda.w #FailedBattleItemActionClass
     ldx $04
     sta $0000,X
 C1CFBE_ResolveSelectedBattleItemAction_LCFBE:

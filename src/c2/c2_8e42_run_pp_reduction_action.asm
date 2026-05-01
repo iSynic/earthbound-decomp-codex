@@ -22,7 +22,10 @@
 C26A44_RollRandomAmount             = $6A44
 C2721D_ReduceBattlerPpTarget        = $721D
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-C1DC66_DisplayBattleTextWithNumber  = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C8MSG_NoPpLeftToReduce              = $FB05
+EFMSG_PpReductionAmount             = $7755
+EFMSG_StatusNoEffect                = $766E
 
 ; ---------------------------------------------------------------------------
 ; C2:8E42
@@ -38,7 +41,7 @@ C28E42_RunPpReductionAction = BTLACT_REDUCEPP
     lda $0019,X
     ; No PP-side target left to reduce.
     bne C28E62_RunPpReductionAction_L8E62
-    lda.w #$FB05
+    lda.w #C8MSG_NoPpLeftToReduce
     sta $0E
     lda.w #$00C8
     sta $10
@@ -60,7 +63,7 @@ C28E62_RunPpReductionAction_L8E62:
     lda $A972
     ; A = selected row, X = rolled PP reduction amount.
     jsr C2721D_ReduceBattlerPpTarget
-    lda.w #$7755
+    lda.w #EFMSG_PpReductionAmount
     sta $0E
     lda.w #$00EF
     sta $10
@@ -75,11 +78,11 @@ C28E90_RunPpReductionAction_L8E90:
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C28EAC_RunPpReductionAction_L8EAC
 C28E9E_RunPpReductionAction_L8E9E:
     ; Zero high-nibble range has no visible effect.
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
     lda.w #$00EF
     sta $10

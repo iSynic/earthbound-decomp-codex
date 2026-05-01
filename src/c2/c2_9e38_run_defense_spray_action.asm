@@ -20,7 +20,8 @@
 
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C27D28_ApplyBoundedOffenseIncrease            = $7D28
-C1DC66_DisplayBattleTextWithNumber            = $C1DC66
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C8MSG_OffenseIncreaseAmount                   = $F77D
 
 ; ---------------------------------------------------------------------------
 ; C2:9E38
@@ -42,7 +43,7 @@ C29E38_RunOffenseUpAlphaAction = BTLACT_OFFENSE_UP_A
     lda $A972
     ; Row `+0x26` offense is raised by the bounded offense helper.
     jsr INCREASE_OFFENSE_16TH
-    lda.w #$F77D
+    lda.w #C8MSG_OffenseIncreaseAmount
     sta $0E
     lda.w #$00C8
     sta $10
@@ -58,7 +59,7 @@ C29E38_RunOffenseUpAlphaAction = BTLACT_OFFENSE_UP_A
     sta $12
     lda $08
     sta $14
-    jsl C1DC66_DisplayBattleTextWithNumber
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C29E7D_RunDefenseSprayAction_L9E7D:
     pld
     rtl

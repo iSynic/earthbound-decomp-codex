@@ -204,14 +204,17 @@ Evidence:
 2. Use already-source-backed C2 callers to pin the `C1:DC66` payload ABI precisely:
    - `C2:7294` + `C2:7318` are the best "number substitution" exemplars.
    - Once the delta/number payload struct is named, back-propagate that naming to the remaining `DC66` call sites (39 total).
-3. Struct-promote the now source-backed `C2:311B..3B66` battle-start present/message controller:
-   - the source now contains the `C2:3985 -> C1:DE31 -> C1:CFC6/CE85` item-selection RPC glue
-   - the remaining work is to turn `$A97D..` into a named shared battle action-selection record and propagate those field names into C1/C2 callers
+3. Continue from the now named `C2:311B..3B66` battle-start present/message controller:
+   - `$A97D..$A982` is now locally named as the shared battle action-selection record in the C2 controller
+   - local source now also names the C1 menu wrappers, C2 snapshot/count helpers, C4 target candidate helpers, party/snapshot strides, and Final Prayer phase/action rows
+   - good next work is to split any reusable target-result vocabulary back into smaller action-family source modules and decide which remaining menu branch literals deserve global enums
 
 Completed source-promotion seams:
 
 - `C2:3109..311B` (`BattleStartUfoPresentFallbackTable`) is now literal source data in `src/c2/c2_3109_battle_start_ufo_present_fallback_table.asm`.
 - `C2:311B..3B66` (`RunBattleStartPresentAndMessageController`) is now decoded source in `src/c2/c2_311b_run_battle_start_present_and_message_controller.asm`; this includes the `C1:DE31`, `C1:DE37`, and `C1:DE3D` wrapper-table RPC glue.
+- `C2:3985 -> C1:DE31 -> C1:CFC6/CE85` is now locally source-named on both sides of the contract: C2 names the `$A97D..$A982` battle action-selection record and C1 names the record offsets plus the `D5:5000` item-row fields used to resolve selected item actions.
+- `C2:311B..3B66` now has local source aliases for the surrounding C1 menu wrapper calls, C2 `B930/BAC5` selection snapshot/count joins, C4 PSI/target candidate helpers, and the Final Prayer `$A97A` phase-to-action map.
 - `C2:B930..BAC5` (`ExportBattleSelectionSnapshot`) is now decoded source in `src/c2/c2_b930_export_battle_selection_snapshot.asm`.
 - `C2:BAC5..BB18` (`CountFilteredSecondStageRows`) is now decoded source in `src/c2/c2_bac5_count_filtered_second_stage_rows.asm`.
 - `C2:BB18..BC5C` (`PromoteCandidateToCollapseAfflictionController`) is now decoded source in `src/c2/c2_bb18_promote_candidate_to_collapse_affliction_controller.asm`.
@@ -221,6 +224,6 @@ Completed source-promotion seams:
 
 - `C2:B930` overlay usage: destination base is now pinned as `X`, but confirm which callers rely on the `$9FFA` overlay specifically (vs. `$9FAC` and friends) and which bytes of the `$9FFA` overlay are assumed valid past the 6-byte header.
 - `C2:BAC5` filter semantics: map the tested row bytes (`+0x0C`, `+0x0E`, subset gate by `+0x1D`) into stable named predicates/enums.
-- `$A97D..` record naming: decide whether to promote as a real shared â€œbattle action selection recordâ€ struct, and confirm the full field layout from the `C2:3985` controller (current evidence pins `+0/+1/+2/+4/+5` only).
+- `$A97D..` record follow-through: local source naming now treats it as a shared battle action-selection record; remaining value is to confirm any branch-specific scratch meaning beyond `+0/+1/+2/+4/+5` before promoting a global struct/macro.
 - `C1:DC66` payload ABI: tighten the "number substitution" case using `C2:7294`/`C2:7318`, then confirm how that relates to the more general far-pointer substitution staging through `C1:AD0A` (`$9D12/$9D14`) and which text commands consume it.
 - `C2:0293` naming: decide whether battle text keeps a documented alias or converges on the global "title upload tiles" meaning.

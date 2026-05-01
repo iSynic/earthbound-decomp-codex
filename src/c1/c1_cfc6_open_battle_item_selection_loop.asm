@@ -28,6 +28,11 @@ C08FF7_ResolveIndexedPointerOffset             = $C08FF7
 C3E4D4_EnterWindowUpdateScope                  = $C3E4D4
 C3E521_CloseWindowAndReleaseTileState          = $C3E521
 
+BattleItemSelectionActorId      = $0000
+BattleItemSelectionSelectedSlot = $0001
+PartyRecordStride               = $005F
+PartyRecordFirstInventoryItem   = $99F1
+
 ; ---------------------------------------------------------------------------
 ; C1:CFC6
 
@@ -43,15 +48,15 @@ C1CFC6_OpenBattleItemSelectionLoop:
     sty $10
     ldx.w #$0000
     stx $0E
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     ; Empty inventory: first item slot is zero, so the battle item command
     ; returns 0 without opening the menu.
-    lda $99F1,X
+    lda PartyRecordFirstInventoryItem,X
     and.w #$00FF
     beq C1D033_OpenBattleItemSelectionLoop_LD033
 C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
@@ -59,7 +64,7 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     jsr C104EE_SetWindowFocus
     ldx.w #$0002
     ldy $10
-    lda $0000,Y
+    lda BattleItemSelectionActorId,Y
     and.w #$00FF
     jsr INVENTORY_GET_ITEM_NAME
     lda.w #$0001
@@ -73,7 +78,7 @@ C1CFEF_OpenBattleItemSelectionLoop_LCFEF:
     txa
     sep #$20
     ldy $10
-    sta $0001,Y
+    sta BattleItemSelectionSelectedSlot,Y
     rep #$20
     tya
     jsr C1CE85_ResolveSelectedBattleItemAction

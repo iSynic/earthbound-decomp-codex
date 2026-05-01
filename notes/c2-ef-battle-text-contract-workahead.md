@@ -20,6 +20,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   timed shield/substate messages. These source aliases are intentionally local
   to the C2 callers until a wider EF text payload naming pass promotes shared
   script labels.
+- 2026-04-30: third pass removed the remaining local
+  `C1DC66_DisplayBattleTextWithNumber` aliases from C2 source modules and
+  named the C8/EF amount-result scripts for PP, guts, offense, and defense
+  stat/resource deltas, plus the C8 IQ-increase amount script.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
