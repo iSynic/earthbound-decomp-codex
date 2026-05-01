@@ -90,6 +90,11 @@ closure.
   wait-scan, fixed spawn, frame-selector, and tilemap priority-pass constants
   in the file-select entity/script helpers. See
   `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
+- 2026-05-01 file-select swirl: promoted the transition runner's reset
+  callees, auto-sector music latch, camera/display seeds, party scratch clear,
+  `C3:FD8D` text pointer table, overlay completion latch, input abort masks,
+  busy byte, and return-value sentinels. See
+  `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
 
 ## Validation
 

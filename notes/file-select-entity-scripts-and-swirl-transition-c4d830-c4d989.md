@@ -100,6 +100,13 @@ At a high level, `C4:D989`:
 
 The input mode selects a pointer from the table at `C3:FD8D`, and that pointer is handed to `C1:86B1` before the loop. So this is not just a generic battle-swirl helper; it is a file-select transition runner with a mode-selected C1 text/menu payload and a battle-swirl overlay open/close sequence.
 
+Source polish: `src/c4/file_select_swirl_transition_helpers.asm` now names the
+delayed-action/entity reset callees, auto-sector music latch, `$4A58/$4A5A`
+presentation flags, `$0A4C/$0A4E` camera seeds, `$986F..$9874` scratch clear,
+file-select swirl text pointer table at `C3:FD8D`, `$9641` overlay completion
+latch, `$006D` abort masks, `$001A` display mode, `$0028` busy byte, and the
+small abort/completed return values.
+
 ## `C4:DAD2` - init-intro file-select state dispatcher
 
 Direct caller:

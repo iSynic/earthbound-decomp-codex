@@ -14,8 +14,14 @@
 C01A69_ResetEntitySlotStateTables              = $C01A69
 C01A86_ResetEntityBytePool467E                 = $C01A86
 C01C11_InitializeEntityStateMask               = $C01C11
+C0004B_InitializeOverworldVramState            = $C0004B
+C021E6_ResetActiveEntitySlots                  = $C021E6
+C02D29_ResetPresentationTilemapState           = $C02D29
+C03A24_RebuildMushroomizedWalkingController    = $C03A24
 C0887A_ClearDisplayTransitionState             = $C0887A
 C08EFC_CommitTileBufferToStaging               = $C08EFC
+C0927C_InitDelayedActionPools                  = $C0927C
+C09321_InitDelayedActionState                  = $C09321
 C0B65F_SeedPlayerOverworldStartPosition        = $C0B65F
 C1004E_WaitWhileFileSelectEntityScriptBusy     = $C1004E
 C186B1_PrintTextFromPointer                    = $C186B1
@@ -24,6 +30,47 @@ C2EA74_SwitchBattleSwirlOverlayToClosingScript = $C2EA74
 C2EAAA_FinishBattleSwirlOverlay                = $C2EAAA
 C2EACF_PollBattleSwirlOverlayBusy              = $C2EACF
 C4A7B0_StepBattleOverlayScriptState            = $C4A7B0
+C4FD45_SetAutoSectorMusicChanges               = $C4FD45
+
+; ---------------------------------------------------------------------------
+; File-select swirl transition state
+
+FileSelectSwirlTextPointerTableLow     = $FD8D
+FileSelectSwirlTextPointerTableBank    = $00C3
+FileSelectSwirlTextPointerBankOffset   = $0002
+FileSelectTransitionModeScratch        = $02
+FileSelectTransitionResultScratch      = $12
+FileSelectTransitionFrameCounter       = $14
+
+EntityStateMaskAllSlots                = $8000
+DelayedActionInitSlotZero              = $0000
+DelayedActionInitArgOne                = $0001
+AutoSectorMusicChangesDisabled         = $0000
+PresentationFlag4A58                   = $4A58
+PresentationCounter4A5A                = $4A5A
+CameraXSeed                            = $0A4C
+CameraYSeed                            = $0A4E
+CameraXSeedForFileSelectSwirl          = $0017
+CameraYSeedForFileSelectSwirl          = $0018
+PartyRegistryScratchStart              = $986F
+PartyRegistryScratchByteCount          = $0006
+PlayerStartXForFileSelectSwirl         = $1D60
+PlayerStartYForFileSelectSwirl         = $0B08
+PaletteClearSourceLow                  = $0200
+PaletteClearByteCount                  = $0200
+VramInitDisplayMode                    = $001A
+FileSelectSwirlDisplayMode             = $13
+OverlayScriptDefaultId                 = $0000
+BattleSwirlOverlayDoneFlag             = $9641
+InputHeldOrPressed                     = $006D
+InputCancelLowMask                     = $0080
+InputCancelHighMask                    = $8000
+InputAbortMask                         = $1000
+TransitionAbortedResult                = $0001
+TransitionCompletedResult              = $0000
+TransitionStateActiveSlot              = $0001
+DecompressBusyByte                     = $0028
+LowByteMask                            = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C4:D989
@@ -36,70 +83,70 @@ C4D989_RunFileSelectSwirlTransitionMode:
     adc.w #$FFEA
     tcd
     pla
-    sta $02
-    jsl $C0927C
+    sta FileSelectTransitionModeScratch
+    jsl C0927C_InitDelayedActionPools
     jsl C01A86_ResetEntityBytePool467E
-    ldx.w #$0000
-    lda.w #$8000
+    ldx.w #DelayedActionInitSlotZero
+    lda.w #EntityStateMaskAllSlots
     jsl C01C11_InitializeEntityStateMask
     jsl C01A69_ResetEntitySlotStateTables
-    lda.w #$0001
-    sta $4A58
-    stz $4A5A
-    lda.w #$0000
-    jsl $C4FD45
-    lda.w #$0017
-    sta $0A4C
-    lda.w #$0018
-    sta $0A4E
-    ldy.w #$0000
+    lda.w #DelayedActionInitArgOne
+    sta PresentationFlag4A58
+    stz PresentationCounter4A5A
+    lda.w #AutoSectorMusicChangesDisabled
+    jsl C4FD45_SetAutoSectorMusicChanges
+    lda.w #CameraXSeedForFileSelectSwirl
+    sta CameraXSeed
+    lda.w #CameraYSeedForFileSelectSwirl
+    sta CameraYSeed
+    ldy.w #DelayedActionInitSlotZero
     tyx
-    lda.w #$0001
-    jsl $C09321
-    jsl $C02D29
-    ldx.w #$0000
+    lda.w #DelayedActionInitArgOne
+    jsl C09321_InitDelayedActionState
+    jsl C02D29_ResetPresentationTilemapState
+    ldx.w #DelayedActionInitSlotZero
     bra C4D9E1_RunFileSelectSwirlTransitionMode_LD9E1
 C4D9DB_RunFileSelectSwirlTransitionMode_LD9DB:
     sep #$20
-    stz $986F,X
+    stz PartyRegistryScratchStart,X
     inx
 C4D9E1_RunFileSelectSwirlTransitionMode_LD9E1:
-    cpx.w #$0006
+    cpx.w #PartyRegistryScratchByteCount
     bcc C4D9DB_RunFileSelectSwirlTransitionMode_LD9DB
-    ldx.w #$0B08
+    ldx.w #PlayerStartYForFileSelectSwirl
     rep #$20
-    lda.w #$1D60
+    lda.w #PlayerStartXForFileSelectSwirl
     jsl C0B65F_SeedPlayerOverworldStartPosition
-    jsl $C03A24
+    jsl C03A24_RebuildMushroomizedWalkingController
     sep #$20
     stz $0E
-    ldx.w #$0200
+    ldx.w #PaletteClearByteCount
     rep #$20
-    lda.w #$0200
+    lda.w #PaletteClearSourceLow
     jsl C08EFC_CommitTileBufferToStaging
-    jsl $C0004B
+    jsl C0004B_InitializeOverworldVramState
     sep #$20
-    stz $001A
+    stz VramInitDisplayMode
     rep #$20
-    lda.w #$0000
+    lda.w #OverlayScriptDefaultId
     jsl C2EA15_BeginBattleSwirlOverlayScript
     jsl C4A7B0_StepBattleOverlayScriptState
-    stz $9641
-    ldx.w #$0000
-    stx $14
+    stz BattleSwirlOverlayDoneFlag
+    ldx.w #TransitionCompletedResult
+    stx FileSelectTransitionFrameCounter
     txy
-    sty $12
-    lda.w #$FD8D
+    sty FileSelectTransitionResultScratch
+    lda.w #FileSelectSwirlTextPointerTableLow
     sta $0A
-    lda.w #$00C3
+    lda.w #FileSelectSwirlTextPointerTableBank
     sta $0C
-    lda $02
+    lda FileSelectTransitionModeScratch
     asl A
     asl A
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #FileSelectSwirlTextPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -113,35 +160,35 @@ C4D9E1_RunFileSelectSwirlTransitionMode_LD9E1:
     bra C4DA8E_RunFileSelectSwirlTransitionMode_LDA8E
 C4DA54_RunFileSelectSwirlTransitionMode_LDA54:
     jsl C4A7B0_StepBattleOverlayScriptState
-    lda $006D
-    and.w #$0080
+    lda InputHeldOrPressed
+    and.w #InputCancelLowMask
     bne C4DA70_RunFileSelectSwirlTransitionMode_LDA70
-    lda $006D
-    and.w #$8000
+    lda InputHeldOrPressed
+    and.w #InputCancelHighMask
     bne C4DA70_RunFileSelectSwirlTransitionMode_LDA70
-    lda $006D
-    and.w #$1000
+    lda InputHeldOrPressed
+    and.w #InputAbortMask
     beq C4DA77_RunFileSelectSwirlTransitionMode_LDA77
 C4DA70_RunFileSelectSwirlTransitionMode_LDA70:
-    ldy.w #$0001
-    sty $12
+    ldy.w #TransitionAbortedResult
+    sty FileSelectTransitionResultScratch
     bra C4DA95_RunFileSelectSwirlTransitionMode_LDA95
 C4DA77_RunFileSelectSwirlTransitionMode_LDA77:
     jsl C1004E_WaitWhileFileSelectEntityScriptBusy
-    ldx $14
+    ldx FileSelectTransitionFrameCounter
     beq C4DA84_RunFileSelectSwirlTransitionMode_LDA84
-    cpx.w #$0001
+    cpx.w #DelayedActionInitArgOne
     bne C4DA8B_RunFileSelectSwirlTransitionMode_LDA8B
 C4DA84_RunFileSelectSwirlTransitionMode_LDA84:
     sep #$20
-    lda.b #$13
-    sta $001A
+    lda.b #FileSelectSwirlDisplayMode
+    sta VramInitDisplayMode
 C4DA8B_RunFileSelectSwirlTransitionMode_LDA8B:
     inx
-    stx $14
+    stx FileSelectTransitionFrameCounter
 C4DA8E_RunFileSelectSwirlTransitionMode_LDA8E:
     rep #$20
-    lda $9641
+    lda BattleSwirlOverlayDoneFlag
     beq C4DA54_RunFileSelectSwirlTransitionMode_LDA54
 C4DA95_RunFileSelectSwirlTransitionMode_LDA95:
     jsl C2EA74_SwitchBattleSwirlOverlayToClosingScript
@@ -151,22 +198,22 @@ C4DA9B_RunFileSelectSwirlTransitionMode_LDA9B:
     jsl C4A7B0_StepBattleOverlayScriptState
 C4DAA3_RunFileSelectSwirlTransitionMode_LDAA3:
     jsl C2EACF_PollBattleSwirlOverlayBusy
-    cmp.w #$0000
+    cmp.w #TransitionCompletedResult
     bne C4DA9B_RunFileSelectSwirlTransitionMode_LDA9B
-    ldx.w #$0001
+    ldx.w #TransitionStateActiveSlot
     txa
     jsl C0887A_ClearDisplayTransitionState
     bra C4DABA_RunFileSelectSwirlTransitionMode_LDABA
 C4DAB6_RunFileSelectSwirlTransitionMode_LDAB6:
     jsl C1004E_WaitWhileFileSelectEntityScriptBusy
 C4DABA_RunFileSelectSwirlTransitionMode_LDABA:
-    lda $0028
-    and.w #$00FF
+    lda DecompressBusyByte
+    and.w #LowByteMask
     bne C4DAB6_RunFileSelectSwirlTransitionMode_LDAB6
     jsl C2EAAA_FinishBattleSwirlOverlay
-    stz $9641
-    jsl $C021E6
-    ldy $12
+    stz BattleSwirlOverlayDoneFlag
+    jsl C021E6_ResetActiveEntitySlots
+    ldy FileSelectTransitionResultScratch
     tya
     pld
     rtl
