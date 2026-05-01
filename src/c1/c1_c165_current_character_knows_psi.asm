@@ -107,6 +107,7 @@ C1C1E6_CurrentCharacterKnowsPsi_LC1E6:
     beq C1C221_CurrentCharacterKnowsPsi_LC221
     bra C1C234_CurrentCharacterKnowsPsi_LC234
 C1C1F7_CurrentCharacterKnowsPsi_LC1F7:
+    ; Character id 1/Ness uses D5:8A50 row +6 as the learn-level byte.
     lda $0E
     clc
     adc.w #$0006
@@ -119,6 +120,7 @@ C1C1F7_CurrentCharacterKnowsPsi_LC1F7:
     sta $10
     bra C1C234_CurrentCharacterKnowsPsi_LC234
 C1C20C_CurrentCharacterKnowsPsi_LC20C:
+    ; Character id 2/Paula uses D5:8A50 row +7 as the learn-level byte.
     lda $0E
     clc
     adc.w #$0007
@@ -131,6 +133,7 @@ C1C20C_CurrentCharacterKnowsPsi_LC20C:
     sta $10
     bra C1C234_CurrentCharacterKnowsPsi_LC234
 C1C221_CurrentCharacterKnowsPsi_LC221:
+    ; Character id 4/Poo uses D5:8A50 row +8 as the learn-level byte.
     lda $0E
     clc
     adc.w #$0008

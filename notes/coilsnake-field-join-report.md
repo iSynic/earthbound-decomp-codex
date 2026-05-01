@@ -120,7 +120,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 217
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 219
   - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
   - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
 - Source scaffold candidates:
@@ -174,7 +174,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:8985..CF:F2B4` `CF:8985..CF:F2B4` in `notes/bank-cf-first-pass.md` line 71
   - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/cf-table-splits.md` line 28
-  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/coilsnake-crosswalk.md` line 212
+  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/coilsnake-crosswalk.md` line 214
   - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/bank-cf-source-scaffold-handoff.md` line 49
   - `build-candidate` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 23
 - Source scaffold candidates:
@@ -193,14 +193,15 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x158A92` -> `D5:8A92` / `0xD58A92`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `psi_ability_table.yml / ability 4 / Level learned by Ness` (75 -> 76); local read `PSI_ABILITY_TABLE row 4 learn-level byte at row +0x06`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Field semantic: `psi_ability_table.yml / ability 4 / Level learned by Ness` (75 -> 76); local read `PSI_ABILITY_TABLE row 4 learn-level byte at row +0x06`; promotion `field-runtime-correlated`.
 - Runtime consumer evidence:
-  - `C1:BB21..C1:CE73 Battle PSI menu family` (same-table-runtime-context) in `notes/battle-psi-ability-table-d58a50.md`: The local PSI ability table note maps bytes +6..+8 as Ness, Paula, and Poo learn levels; this diff proves CoilSnake's Ness learn-level field lands on row byte +0x06, while a direct local learn-check routine remains open.
+  - `C1:C1BA HasPsiEntryForCategoryMask` (exact-field-consumer) in `src/c1/c1_c165_current_character_knows_psi.asm`: The category predicate walks D5:8A50 PSI rows, selects the character-specific learn-level byte (+0x06 Ness, +0x07 Paula, or +0x08 Poo), compares it against the party member's current level, and only accepts the entry when the level requirement is met.
+  - `C1:CAF5/C1:CB7F battle PSI entry-list family` (same-table-runtime-context) in `notes/battle-psi-ability-table-d58a50.md`: The table note maps D5:8A50 as 15-byte PSI ability rows; the CoilSnake Ness learn-level diff at D5:8A92 lands on row 4 +0x06, matching the runtime learn-level branch used by the battle PSI category predicate.
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 207
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 209
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
@@ -235,6 +236,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24,26)
 - Existing note anchors:
+  - `notes/c2-runtime-semantic-polish-plan.md` line 221
   - `notes/coilsnake-crosswalk.md` line 153
 
 ## window-config-width-probe
@@ -250,7 +252,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 222
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 224
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:

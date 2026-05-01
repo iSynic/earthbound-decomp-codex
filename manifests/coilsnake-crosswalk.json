@@ -1548,8 +1548,8 @@
         "local_contract": "PSI_ABILITY_TABLE",
         "source_scaffold": "src/d5/table_psi_ability_table.asm",
         "evidence_level": "diff-confirmed",
-        "field_evidence_level": "diff-confirmed",
-        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },

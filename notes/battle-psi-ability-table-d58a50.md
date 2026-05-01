@@ -58,6 +58,9 @@ The currently strongest row map is:
 - bytes `+6..+8` = Ness, Paula, and Poo learn levels
   - the raw values line up exactly with the reference battle PSI ability rows
   - this is also reinforced by the parallel field usage in `refs/ebsrc-main/.../src/battle/generate_psi_list.asm`
+  - the CoilSnake `psi-ness-omega-level-probe` changed ability row 4 byte `+6`
+    at `D5:8A92`, and `C1:C1BA` reads the character-specific learn-level byte
+    before comparing it against the party member's current level
 - byte `+9` = menu `x` position
   - consumed by `C1:C452`
   - passed into `C1:153B` while building the printed PSI menu entries

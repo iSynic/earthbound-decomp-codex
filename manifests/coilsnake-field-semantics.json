@@ -128,14 +128,20 @@
       "coilsnake_field": "psi_ability_table.yml / ability 4 / Level learned by Ness",
       "edited_value": "75 -> 76",
       "local_field": "PSI_ABILITY_TABLE row 4 learn-level byte at row +0x06",
-      "field_evidence_level": "diff-confirmed",
-      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
       "runtime_consumers": [
         {
+          "kind": "exact-field-consumer",
+          "routine": "C1:C1BA HasPsiEntryForCategoryMask",
+          "source": "src/c1/c1_c165_current_character_knows_psi.asm",
+          "detail": "The category predicate walks D5:8A50 PSI rows, selects the character-specific learn-level byte (+0x06 Ness, +0x07 Paula, or +0x08 Poo), compares it against the party member's current level, and only accepts the entry when the level requirement is met."
+        },
+        {
           "kind": "same-table-runtime-context",
-          "routine": "C1:BB21..C1:CE73 Battle PSI menu family",
+          "routine": "C1:CAF5/C1:CB7F battle PSI entry-list family",
           "source": "notes/battle-psi-ability-table-d58a50.md",
-          "detail": "The local PSI ability table note maps bytes +6..+8 as Ness, Paula, and Poo learn levels; this diff proves CoilSnake's Ness learn-level field lands on row byte +0x06, while a direct local learn-check routine remains open."
+          "detail": "The table note maps D5:8A50 as 15-byte PSI ability rows; the CoilSnake Ness learn-level diff at D5:8A92 lands on row 4 +0x06, matching the runtime learn-level branch used by the battle PSI category predicate."
         }
       ]
     },

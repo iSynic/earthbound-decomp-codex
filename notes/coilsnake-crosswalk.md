@@ -208,8 +208,8 @@ checked-in field join summary. Current joins:
 - `psi-ness-omega-level-probe`: `0x158A92` -> `D5:8A92`, matching the local
   `PSI_ABILITY_TABLE` split (`D5:8A50..D5:8D7A`) and the D5 PSI ability table
   source scaffold. The edited byte lands at row 4 `+0x06`, which matches the
-  current local table note's Ness learn-level field; a direct local learn-check
-  routine is still open.
+  Ness learn-level field consumed by `C1:C1BA` when the battle PSI category
+  predicate filters entries against the party member's current level.
 - `npc-config-first-text-pointer-probe`: `0x0F899F` -> `CF:899F`, matching the
   local `NPC_CONFIG_TABLE` split (`CF:8985..CF:F2B4`) and the CF NPC config
   table source scaffold. The edited byte lands at row 1 `+0x09`, which is the
@@ -241,6 +241,9 @@ front doors and source scaffolds:
 - `text-menu-probe`: `C4:9FE1 + 0x20` is the fixed-width Auto Fight battle-menu
   label row, with runtime evidence from the C2 battle-start present/message
   controller's C1 menu-builder calls.
+- `psi-ness-omega-level-probe`: `PSI_ABILITY_TABLE` row `+0x06` is the Ness
+  learn-level byte, with runtime evidence from the C1 battle PSI category
+  predicate's character-specific learn-level comparison.
 
 ## Promotion Rules
 
@@ -255,9 +258,9 @@ front doors and source scaffolds:
 
 ## Next Work
 
-- Keep the NPC text-pointer, PSI learn-level, door-data, map-palette, and
-  window-width probes at their current evidence levels until direct consumers
-  or pointer packing joins are found.
+- Keep the NPC text-pointer, door-data, map-palette, and window-width probes at
+  their current evidence levels until direct consumers or pointer packing joins
+  are found.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.
