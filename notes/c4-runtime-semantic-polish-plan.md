@@ -143,6 +143,11 @@ closure.
   ids, return-to-world display state, map-record cleanup fields, event-loop
   bounds, `$289E` reset table, and final world-refresh fade count. See
   `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
+- 2026-05-01 actionscript camera callbacks: promoted the callback strip's
+  current-slot index, callback flag bit, active entity registry scan tables,
+  live world/screen/offset coordinate tables, camera origin pair, facing table,
+  and half-octant direction rounding constants. See
+  `notes/c3-actionscript-callback-contracts.md`.
 
 ## Validation
 

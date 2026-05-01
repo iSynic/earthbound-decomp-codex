@@ -15,6 +15,30 @@ C0400E_SetScreenPositionFromWorldPoint  = $C0400E
 C0915B_DivideUnsignedWordByY            = $C0915B
 C0A780_ApplyPartyLookAtEntityDirection  = $C0A780
 C2DB3F_UpdateBattleBgAnimatedBackground = $C2DB3F
+C41EFF_CalculateAngleBetweenPoints      = $C41EFF
+
+; ---------------------------------------------------------------------------
+; Actionscript camera / screen-position contracts
+
+CurrentEntitySlotIndex                   = $1A42
+ActionScriptCallbackFlagWord             = $0002
+ActionScriptSkipPartyLookBit             = $0001
+ActiveEntityRegistryTypeTable            = $988B
+ActiveEntityRegistrySlotTable            = $9897
+ActiveEntityRegistryCount                = $98A3
+ActiveEntityRegistryTypeLimit            = $0010
+LiveEntityWorldXTable                    = $0B8E
+LiveEntityWorldYTable                    = $0BCA
+LiveEntityScreenXTable                   = $0B16
+LiveEntityScreenYTable                   = $0B52
+LiveEntityOffsetXTable                   = $0E5E
+LiveEntityOffsetYTable                   = $0E9A
+LiveEntityFacingDirectionTable           = $2AF6
+CameraScreenOriginX                      = $0031
+CameraScreenOriginY                      = $0033
+DirectionAngleHalfOctant                 = $1000
+DirectionAngleOctantSpan                 = $2000
+LowByteMask                              = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C4:8B3B
@@ -26,22 +50,22 @@ C48B3B_MakePartyLookAtActiveEntityCallback = MAKE_PARTY_LOOK_AT_ACTIVE_ENTITY
     tdc
     adc.w #$FFE8
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     sta $16
-    lda $0002
-    and.w #$00FF
-    and.w #$0001
+    lda ActionScriptCallbackFlagWord
+    and.w #LowByteMask
+    and.w #ActionScriptSkipPartyLookBit
     beq C48B56_ActionScriptCameraAndScreenPositionCallbacks_L8B56
     jmp.w C48BD8_ActionScriptCameraAndScreenPositionCallbacks_L8BD8
 C48B56_ActionScriptCameraAndScreenPositionCallbacks_L8B56:
     stz $14
     bra C48BC9_ActionScriptCameraAndScreenPositionCallbacks_L8BC9
 C48B5A_ActionScriptCameraAndScreenPositionCallbacks_L8B5A:
-    ldy.w #$988B
+    ldy.w #ActiveEntityRegistryTypeTable
     lda ($14),Y
-    and.w #$00FF
+    and.w #LowByteMask
     sta $02
-    lda.w #$0010
+    lda.w #ActiveEntityRegistryTypeLimit
     clc
     sbc $02
     bvc C48B70_ActionScriptCameraAndScreenPositionCallbacks_L8B70
@@ -53,32 +77,32 @@ C48B72_ActionScriptCameraAndScreenPositionCallbacks_L8B72:
     lda $14
     asl A
     tax
-    lda $9897,X
+    lda ActiveEntityRegistrySlotTable,X
     sta $04
     asl A
     sta $02
     lda $16
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy LiveEntityWorldXTable,X
     ldx $02
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     tax
     stx $12
     ldx $02
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     ldx $12
-    jsl $C41EFF
-    ldy.w #$2000
+    jsl C41EFF_CalculateAngleBetweenPoints
+    ldy.w #DirectionAngleOctantSpan
     clc
-    adc.w #$1000
+    adc.w #DirectionAngleHalfOctant
     jsl C0915B_DivideUnsignedWordByY
     sta $10
     lda $02
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFacingDirectionTable
     tax
     lda $10
     sta $02
@@ -92,8 +116,8 @@ C48B72_ActionScriptCameraAndScreenPositionCallbacks_L8B72:
 C48BC7_ActionScriptCameraAndScreenPositionCallbacks_L8BC7:
     inc $14
 C48BC9_ActionScriptCameraAndScreenPositionCallbacks_L8BC9:
-    lda $98A3
-    and.w #$00FF
+    lda ActiveEntityRegistryCount
+    and.w #LowByteMask
     cmp $14
     beq C48BD8_ActionScriptCameraAndScreenPositionCallbacks_L8BD8
     bcc C48BD8_ActionScriptCameraAndScreenPositionCallbacks_L8BD8
@@ -109,66 +133,66 @@ C48BDA_AnimatedBackgroundCallback = ACTIONSCRIPT_ANIMATED_BACKGROUND_CALLBACK
 ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK:
 C48BE1_SimpleScreenPositionCallback = ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $0031
-    sta $0B16,X
-    lda $1A42
+    sbc CameraScreenOriginX
+    sta LiveEntityScreenXTable,X
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc $0033
-    sta $0B52,X
+    sbc CameraScreenOriginY
+    sta LiveEntityScreenYTable,X
     rtl
 ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK_OFFSET:
 C48C02_SimpleScreenPositionCallbackOffset = ACTIONSCRIPT_SIMPLE_SCREEN_POSITION_CALLBACK_OFFSET
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     clc
-    adc $0E5E,X
-    sta $0B16,X
-    lda $1A42
+    adc LiveEntityOffsetXTable,X
+    sta LiveEntityScreenXTable,X
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc $0033
+    sbc CameraScreenOriginY
     clc
-    adc $0E9A,X
-    sta $0B52,X
+    adc LiveEntityOffsetYTable,X
+    sta LiveEntityScreenYTable,X
     rtl
 ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK:
 C48C2B_CentreScreenOnEntityCallback = ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tay
-    lda $0BCA,Y
+    lda LiveEntityWorldYTable,Y
     tax
-    lda $0B8E,Y
+    lda LiveEntityWorldXTable,Y
     jsl C0400E_SetScreenPositionFromWorldPoint
     rtl
 ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK_OFFSET:
 C48C3E_CentreScreenOnEntityCallbackOffset = ACTIONSCRIPT_CENTRE_SCREEN_ON_ENTITY_CALLBACK_OFFSET
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tay
-    lda $0BCA,Y
+    lda LiveEntityWorldYTable,Y
     clc
-    adc $0E9A,Y
+    adc LiveEntityOffsetYTable,Y
     tax
-    lda $0B8E,Y
+    lda LiveEntityWorldXTable,Y
     clc
-    adc $0E5E,Y
+    adc LiveEntityOffsetXTable,Y
     jsl C0400E_SetScreenPositionFromWorldPoint
     rtl

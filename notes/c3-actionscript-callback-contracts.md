@@ -82,6 +82,12 @@ The important point is not just nicer names. These names now appear directly in
 decode excerpts, so script-family notes can quote the generated audit without
 re-introducing older `UNKNOWN_*` labels.
 
+Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
+now names the current-slot index, action-script callback flag bit, active
+entity registry scan tables/count, live world/screen/offset coordinate tables,
+camera origin pair, facing-direction table, and half-octant rounding constants
+used by the party-look and screen-position callbacks.
+
 ## Operand Labels In Decodes
 
 `tools/decode_event_script.py` now also prints first-pass operand field labels
