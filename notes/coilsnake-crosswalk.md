@@ -22,6 +22,8 @@ Tracked CCScript edit experiments: `manifests/coilsnake-ccscript-experiments.jso
 and `notes/coilsnake-ccscript-experiments.md`.
 Tracked format experiments: `manifests/coilsnake-format-experiments.json` and
 `notes/coilsnake-format-experiments.md`.
+Tracked Phase 2C status: `manifests/coilsnake-phase2c-status.json` and
+`notes/coilsnake-phase2c-status.md`.
 
 Ignored local outputs:
 
@@ -115,6 +117,9 @@ current prejoin report.
 CoilSnake `scriptdump` project and compile roundtrip. The tracked summary keeps
 file counts, line counts, sizes, and diff spans only; generated CCScript payloads
 stay in ignored project directories.
+`tools/build_coilsnake_phase2c_status.py` classifies the scriptdump, CCScript,
+and format probe results as authoring/lowering evidence, fixed-byte locality,
+bounded insertion, or broad repack behavior.
 
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text
@@ -582,6 +587,12 @@ promote these into local runtime/asset contracts where existing callers already
 support the address, or intentionally defer families whose broad diffs show
 compression/repacking rather than stable runtime fields.
 
+`notes/coilsnake-phase2c-status.md` classifies the current Phase 2C outcomes:
+two CCScript probes are authoring/lowering-only, three metadata probes are
+fixed-byte locality evidence, one window-graphics replacement is bounded
+insertion evidence, and the battle-sprite and tileset probes are broad repack
+evidence that should remain deferred from runtime promotion.
+
 Exit criteria:
 
 - Every first-class CoilSnake YAML table is classified as `runtime-correlated`,
@@ -594,4 +605,4 @@ Exit criteria:
 - The experiment queue is empty only after the next coverage batch has either
   been ingested or intentionally retired.
 - Validators pass: ROM verification, CoilSnake field semantics, experiment
-  plan, promotion stubs, JSON syntax, and asset manifests.
+  plan, promotion stubs, Phase 2C status, JSON syntax, and asset manifests.
