@@ -136,10 +136,23 @@ Direct callers:
 - `C2:23D9` is called by `C2:03C3` twice while composing HP/PP window tilemaps, plus C1 callers at `C1:2180` and `C1:98A6`.
 - `C2:2474` is called by `C2:03C3` while building the same HP/PP tilemap family.
 
+The tail of the `C2:2474..2562` source unit also carries two tiny item
+subtype classifiers over `D5:5000` item byte `+0x19 & 0x0C`:
+
+- `C2:24E1` returns the four-way equipment slot ordinal
+  `weapon/charm/bracelet/headgear -> 1/2/3/4`, or `0` for an unexpected value.
+- `C2:2524` returns the grouped non-weapon display ordinal
+  `weapon-or-headgear/charm/bracelet -> 1/2/3`, or `0` for an unexpected value.
+
+Those helpers align with the item-byte `+0x19` packed-class and slot-subtype
+notes without forcing stronger menu-facing names for the non-weapon families.
+
 Working names:
 
 - `C2:23D9` = `LookupStatusTileValueForHpPpWindow`
 - `C2:2474` = `LookupStatusTileWidthOrOffsetForHpPpWindow`
+- `C2:24E1` = `ClassifyItemEquipSlotSubtypeOrdinal`
+- `C2:2524` = `ClassifyGroupedEquipmentSlotOrdinal`
 
 The "tile value" vs "width/offset" wording is still a little cautious because the final consumer writes both values into layout math before tilemap generation.
 
@@ -188,6 +201,11 @@ Source polish:
 - 2026-05-01: `C2:16DB` now names the active entity source array, active
   party-count bound, party-character inventory slots, D5 item-config fields,
   and overlay entity type insert/remove calls used by the arbitration pass.
+- 2026-05-01: `C2:23D9` and `C2:2474` now name the seven-byte status-slice
+  scan order, C4 status tile tables, no-status fallback values, and table
+  index inputs; the `C2:24E1/2524` item-subtype classifier tails now name the
+  `D5:5000` item config row, packed class byte `+0x19`, `0x0C` equipment-slot
+  subtype mask, and returned slot ordinals.
 
 ## Source Scaffold Promotion
 
@@ -230,6 +248,8 @@ The exact C1 command labels for the six direct callers remain a separate parser-
 - `C2:16AD` = `ApplyMusicStateAndMirrorTo5DD4`
 - `C2:23D9` = `LookupStatusTileValueForHpPpWindow`
 - `C2:2474` = `LookupStatusTileWidthOrOffsetForHpPpWindow`
+- `C2:24E1` = `ClassifyItemEquipSlotSubtypeOrdinal`
+- `C2:2524` = `ClassifyGroupedEquipmentSlotOrdinal`
 - `C2:26C5` = `SetCurrent9C88FlagAndRefresh5D64`
 - `C2:26E6` = `GetCurrent9C88Flag`
 - `C2:26F0` = `FindFirstPartySlotWithStateOne`

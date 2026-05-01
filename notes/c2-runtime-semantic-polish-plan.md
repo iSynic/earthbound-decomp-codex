@@ -291,6 +291,12 @@ contract notes for C0/C1/C3/C4 consumers.
   active party count, `$99CE` party-character inventory slots, `D5:5000` item
   config row fields, overlay entity types `0x10/0x11`, and the C2 registry
   insert/remove calls. See `notes/party-overlay-arbitration-c216db-c3ebca.md`.
+- 2026-05-01 forty-fourth slice: promoted the HP/PP status-tile lookup and
+  item-subtype classifier tails with byte-neutral aliases for the seven-byte
+  status slice scan, C4 status tile tables, no-status fallback values, `D5:5000`
+  item config rows, packed item byte `+0x19`, equipment-slot subtype mask
+  `0x0C`, and slot ordinal returns. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
 
 ## Validation
 

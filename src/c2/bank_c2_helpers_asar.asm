@@ -15861,6 +15861,24 @@ org $C22474
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C45AEB_StatusTileWidthOrOffsetTable = $C45AEB
+!StatusSliceFirstByteOffset = $0000
+!StatusSlicePriorityByteOffset = $0003
+!StatusSliceLinearScanStartOffset = $0001
+!StatusSliceByteCount = $0007
+!NoStatusWidthOrOffsetValue = $0004
+!ItemConfigTableBase = $D55000
+!ItemConfigRecordStride = $0027
+!ItemConfigPackedClassOffset = $0019
+!EquipmentSlotSubtypeMask = $000C
+!EquipmentSlotSubtypeWeapon = $0000
+!EquipmentSlotSubtypeCharm = $0004
+!EquipmentSlotSubtypeBracelet = $0008
+!EquipmentSlotSubtypeHeadgear = $000C
+!NoEquipmentSlotSubtype = $0000
+!EquipmentSlotOrdinalWeapon = $0001
+!EquipmentSlotOrdinalCharm = $0002
+!EquipmentSlotOrdinalBracelet = $0003
+!EquipmentSlotOrdinalHeadgear = $0004
 C22474_LookupStatusTileWidthOrOffsetForHpPpWindow:
     rep #$31
     phd
@@ -15870,10 +15888,10 @@ C22474_LookupStatusTileWidthOrOffsetForHpPpWindow:
     tcd
     pla
     tay
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     beq C2248E_LookupStatusTileWidthOrOffsetForHpPpWindow_L248E
-    lda.w #$0000
+    lda.w #!StatusSliceFirstByteOffset
     sta $0E
     bra C224C2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24C2
 C2248E_LookupStatusTileWidthOrOffsetForHpPpWindow_L248E:
@@ -15881,20 +15899,20 @@ C2248E_LookupStatusTileWidthOrOffsetForHpPpWindow_L248E:
     inx
     inx
     inx
-    lda $0000,X
+    lda !StatusSliceFirstByteOffset,X
     and.w #$00FF
     beq C224A2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24A2
     txy
-    lda.w #$0003
+    lda.w #!StatusSlicePriorityByteOffset
     sta $0E
     bra C224C2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24C2
 C224A2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24A2:
     iny
-    lda.w #$0001
+    lda.w #!StatusSliceLinearScanStartOffset
     sta $0E
     bra C224B8_LookupStatusTileWidthOrOffsetForHpPpWindow_L24B8
 C224AA_LookupStatusTileWidthOrOffsetForHpPpWindow_L24AA:
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     bne C224C2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24C2
     lda $0E
@@ -15902,12 +15920,12 @@ C224AA_LookupStatusTileWidthOrOffsetForHpPpWindow_L24AA:
     sta $0E
     iny
 C224B8_LookupStatusTileWidthOrOffsetForHpPpWindow_L24B8:
-    cmp.w #$0007
+    cmp.w #!StatusSliceByteCount
     bcc C224AA_LookupStatusTileWidthOrOffsetForHpPpWindow_L24AA
-    lda.w #$0004
+    lda.w #!NoStatusWidthOrOffsetValue
     bra C224DF_LookupStatusTileWidthOrOffsetForHpPpWindow_L24DF
 C224C2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24C2:
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     dec A
     asl A
@@ -15926,67 +15944,69 @@ C224C2_LookupStatusTileWidthOrOffsetForHpPpWindow_L24C2:
 C224DF_LookupStatusTileWidthOrOffsetForHpPpWindow_L24DF:
     pld
     rtl
+C224E1_ClassifyItemEquipSlotSubtypeOrdinal:
     rep #$31
-    ldy.w #$0027
+    ldy.w #!ItemConfigRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0019
+    adc.w #!ItemConfigPackedClassOffset
     tax
-    lda $D55000,X
+    lda !ItemConfigTableBase,X
     and.w #$00FF
-    and.w #$000C
+    and.w #!EquipmentSlotSubtypeMask
     beq C2250C_LookupStatusTileWidthOrOffsetForHpPpWindow_L250C
-    cmp.w #$0004
+    cmp.w #!EquipmentSlotSubtypeCharm
     beq C22511_LookupStatusTileWidthOrOffsetForHpPpWindow_L2511
-    cmp.w #$0008
+    cmp.w #!EquipmentSlotSubtypeBracelet
     beq C22516_LookupStatusTileWidthOrOffsetForHpPpWindow_L2516
-    cmp.w #$000C
+    cmp.w #!EquipmentSlotSubtypeHeadgear
     beq C2251B_LookupStatusTileWidthOrOffsetForHpPpWindow_L251B
     bra C22520_LookupStatusTileWidthOrOffsetForHpPpWindow_L2520
 C2250C_LookupStatusTileWidthOrOffsetForHpPpWindow_L250C:
-    lda.w #$0001
+    lda.w #!EquipmentSlotOrdinalWeapon
     bra C22523_LookupStatusTileWidthOrOffsetForHpPpWindow_L2523
 C22511_LookupStatusTileWidthOrOffsetForHpPpWindow_L2511:
-    lda.w #$0002
+    lda.w #!EquipmentSlotOrdinalCharm
     bra C22523_LookupStatusTileWidthOrOffsetForHpPpWindow_L2523
 C22516_LookupStatusTileWidthOrOffsetForHpPpWindow_L2516:
-    lda.w #$0003
+    lda.w #!EquipmentSlotOrdinalBracelet
     bra C22523_LookupStatusTileWidthOrOffsetForHpPpWindow_L2523
 C2251B_LookupStatusTileWidthOrOffsetForHpPpWindow_L251B:
-    lda.w #$0004
+    lda.w #!EquipmentSlotOrdinalHeadgear
     bra C22523_LookupStatusTileWidthOrOffsetForHpPpWindow_L2523
 C22520_LookupStatusTileWidthOrOffsetForHpPpWindow_L2520:
-    lda.w #$0000
+    lda.w #!NoEquipmentSlotSubtype
 C22523_LookupStatusTileWidthOrOffsetForHpPpWindow_L2523:
     rtl
+C22524_ClassifyGroupedEquipmentSlotOrdinal:
     rep #$31
-    ldy.w #$0027
+    ldy.w #!ItemConfigRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0019
+    adc.w #!ItemConfigPackedClassOffset
     tax
-    lda $D55000,X
+    lda !ItemConfigTableBase,X
     and.w #$00FF
-    and.w #$000C
+    and.w #!EquipmentSlotSubtypeMask
     beq C2254F_LookupStatusTileWidthOrOffsetForHpPpWindow_L254F
-    cmp.w #$000C
+    cmp.w #!EquipmentSlotSubtypeHeadgear
     beq C2254F_LookupStatusTileWidthOrOffsetForHpPpWindow_L254F
-    cmp.w #$0004
+    cmp.w #!EquipmentSlotSubtypeCharm
     beq C22554_LookupStatusTileWidthOrOffsetForHpPpWindow_L2554
-    cmp.w #$0008
+    cmp.w #!EquipmentSlotSubtypeBracelet
     beq C22559_LookupStatusTileWidthOrOffsetForHpPpWindow_L2559
     bra C2255E_LookupStatusTileWidthOrOffsetForHpPpWindow_L255E
 C2254F_LookupStatusTileWidthOrOffsetForHpPpWindow_L254F:
-    lda.w #$0001
+    lda.w #!EquipmentSlotOrdinalWeapon
     bra C22561_LookupStatusTileWidthOrOffsetForHpPpWindow_L2561
 C22554_LookupStatusTileWidthOrOffsetForHpPpWindow_L2554:
-    lda.w #$0002
+    lda.w #!EquipmentSlotOrdinalCharm
     bra C22561_LookupStatusTileWidthOrOffsetForHpPpWindow_L2561
 C22559_LookupStatusTileWidthOrOffsetForHpPpWindow_L2559:
-    lda.w #$0003
+    lda.w #!EquipmentSlotOrdinalBracelet
     bra C22561_LookupStatusTileWidthOrOffsetForHpPpWindow_L2561
 C2255E_LookupStatusTileWidthOrOffsetForHpPpWindow_L255E:
-    lda.w #$0000
+    lda.w #!NoEquipmentSlotSubtype
 C22561_LookupStatusTileWidthOrOffsetForHpPpWindow_L2561:
     rtl
 
@@ -16000,6 +16020,12 @@ org $C223D9
 
 !C45A27_StatusTileValueTableNonzeroMode = $C45A27
 !C45A89_StatusTileValueTableZeroMode = $C45A89
+!StatusSliceFirstByteOffset = $0000
+!StatusSlicePriorityByteOffset = $0003
+!StatusSliceLinearScanStartOffset = $0001
+!StatusSliceByteCount = $0007
+!NoStatusValueNonzeroMode = $0007
+!NoStatusValueZeroMode = $0020
 C223D9_LookupStatusTileValueForHpPpWindow:
     rep #$31
     phd
@@ -16010,10 +16036,10 @@ C223D9_LookupStatusTileValueForHpPpWindow:
     pla
     stx $02
     tay
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     beq C223F5_LookupStatusTileValueForHpPpWindow_L23F5
-    lda.w #$0000
+    lda.w #!StatusSliceFirstByteOffset
     sta $0E
     bra C22432_LookupStatusTileValueForHpPpWindow_L2432
 C223F5_LookupStatusTileValueForHpPpWindow_L23F5:
@@ -16021,20 +16047,20 @@ C223F5_LookupStatusTileValueForHpPpWindow_L23F5:
     inx
     inx
     inx
-    lda $0000,X
+    lda !StatusSliceFirstByteOffset,X
     and.w #$00FF
     beq C22409_LookupStatusTileValueForHpPpWindow_L2409
     txy
-    lda.w #$0003
+    lda.w #!StatusSlicePriorityByteOffset
     sta $0E
     bra C22432_LookupStatusTileValueForHpPpWindow_L2432
 C22409_LookupStatusTileValueForHpPpWindow_L2409:
     iny
-    lda.w #$0001
+    lda.w #!StatusSliceLinearScanStartOffset
     sta $0E
     bra C2241F_LookupStatusTileValueForHpPpWindow_L241F
 C22411_LookupStatusTileValueForHpPpWindow_L2411:
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     bne C22432_LookupStatusTileValueForHpPpWindow_L2432
     lda $0E
@@ -16042,19 +16068,19 @@ C22411_LookupStatusTileValueForHpPpWindow_L2411:
     sta $0E
     iny
 C2241F_LookupStatusTileValueForHpPpWindow_L241F:
-    cmp.w #$0007
+    cmp.w #!StatusSliceByteCount
     bcc C22411_LookupStatusTileValueForHpPpWindow_L2411
     lda $02
     beq C2242D_LookupStatusTileValueForHpPpWindow_L242D
-    lda.w #$0007
+    lda.w #!NoStatusValueNonzeroMode
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C2242D_LookupStatusTileValueForHpPpWindow_L242D:
-    lda.w #$0020
+    lda.w #!NoStatusValueZeroMode
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C22432_LookupStatusTileValueForHpPpWindow_L2432:
     lda $02
     beq C22455_LookupStatusTileValueForHpPpWindow_L2455
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     dec A
     asl A
@@ -16072,7 +16098,7 @@ C22432_LookupStatusTileValueForHpPpWindow_L2432:
     lda !C45A27_StatusTileValueTableNonzeroMode,X
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C22455_LookupStatusTileValueForHpPpWindow_L2455:
-    lda $0000,Y
+    lda !StatusSliceFirstByteOffset,Y
     and.w #$00FF
     dec A
     asl A

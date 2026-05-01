@@ -63,6 +63,10 @@ Semantic humanization update:
   title tile buffer, window-record title upload fields, registered upload-slot
   table, C4 upload helper join, and HP/PP clear ranges. See
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-01: the status-tile lookup helpers (`C2:23D9..2562`) received
+  byte-neutral local aliases for the status-slice scan order, C4 lookup tables,
+  no-status fallback values, and item-byte `+0x19` equipment subtype classifier
+  tails. See `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
 
 ## Completed True Byte-Corridor Promotions
 

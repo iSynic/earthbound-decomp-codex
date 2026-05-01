@@ -14,6 +14,13 @@
 C45A27_StatusTileValueTableNonzeroMode = $C45A27
 C45A89_StatusTileValueTableZeroMode    = $C45A89
 
+StatusSliceFirstByteOffset       = $0000
+StatusSlicePriorityByteOffset    = $0003
+StatusSliceLinearScanStartOffset = $0001
+StatusSliceByteCount             = $0007
+NoStatusValueNonzeroMode         = $0007
+NoStatusValueZeroMode            = $0020
+
 ; ---------------------------------------------------------------------------
 ; C2:23D9
 
@@ -27,10 +34,10 @@ C223D9_LookupStatusTileValueForHpPpWindow:
     pla
     stx $02
     tay
-    lda $0000,Y
+    lda StatusSliceFirstByteOffset,Y
     and.w #$00FF
     beq C223F5_LookupStatusTileValueForHpPpWindow_L23F5
-    lda.w #$0000
+    lda.w #StatusSliceFirstByteOffset
     sta $0E
     bra C22432_LookupStatusTileValueForHpPpWindow_L2432
 C223F5_LookupStatusTileValueForHpPpWindow_L23F5:
@@ -38,20 +45,20 @@ C223F5_LookupStatusTileValueForHpPpWindow_L23F5:
     inx
     inx
     inx
-    lda $0000,X
+    lda StatusSliceFirstByteOffset,X
     and.w #$00FF
     beq C22409_LookupStatusTileValueForHpPpWindow_L2409
     txy
-    lda.w #$0003
+    lda.w #StatusSlicePriorityByteOffset
     sta $0E
     bra C22432_LookupStatusTileValueForHpPpWindow_L2432
 C22409_LookupStatusTileValueForHpPpWindow_L2409:
     iny
-    lda.w #$0001
+    lda.w #StatusSliceLinearScanStartOffset
     sta $0E
     bra C2241F_LookupStatusTileValueForHpPpWindow_L241F
 C22411_LookupStatusTileValueForHpPpWindow_L2411:
-    lda $0000,Y
+    lda StatusSliceFirstByteOffset,Y
     and.w #$00FF
     bne C22432_LookupStatusTileValueForHpPpWindow_L2432
     lda $0E
@@ -59,19 +66,19 @@ C22411_LookupStatusTileValueForHpPpWindow_L2411:
     sta $0E
     iny
 C2241F_LookupStatusTileValueForHpPpWindow_L241F:
-    cmp.w #$0007
+    cmp.w #StatusSliceByteCount
     bcc C22411_LookupStatusTileValueForHpPpWindow_L2411
     lda $02
     beq C2242D_LookupStatusTileValueForHpPpWindow_L242D
-    lda.w #$0007
+    lda.w #NoStatusValueNonzeroMode
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C2242D_LookupStatusTileValueForHpPpWindow_L242D:
-    lda.w #$0020
+    lda.w #NoStatusValueZeroMode
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C22432_LookupStatusTileValueForHpPpWindow_L2432:
     lda $02
     beq C22455_LookupStatusTileValueForHpPpWindow_L2455
-    lda $0000,Y
+    lda StatusSliceFirstByteOffset,Y
     and.w #$00FF
     dec A
     asl A
@@ -89,7 +96,7 @@ C22432_LookupStatusTileValueForHpPpWindow_L2432:
     lda C45A27_StatusTileValueTableNonzeroMode,X
     bra C22472_LookupStatusTileValueForHpPpWindow_L2472
 C22455_LookupStatusTileValueForHpPpWindow_L2455:
-    lda $0000,Y
+    lda StatusSliceFirstByteOffset,Y
     and.w #$00FF
     dec A
     asl A
