@@ -1590,8 +1590,51 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 0,
-    "next_experiments": []
+    "planned_count": 6,
+    "next_experiments": [
+      {
+        "experiment_id": "map-door-first-destination-y-probe",
+        "batch": "map-door-normalization",
+        "source_file": "map_doors.yml",
+        "status": "planned",
+        "promotion_target": "Determine whether neighboring map_doors.yml destination fields are contiguous in CoilSnake's rebuilt CF door payload and map the rebuilt layout back to local D0/CF door runtime records."
+      },
+      {
+        "experiment_id": "map-door-first-direction-probe",
+        "batch": "map-door-normalization",
+        "source_file": "map_doors.yml",
+        "status": "planned",
+        "promotion_target": "Identify the rebuilt CF field that stores the first unique door direction and distinguish destination payload bytes from transition style/direction bytes."
+      },
+      {
+        "experiment_id": "map-door-first-style-probe",
+        "batch": "map-door-normalization",
+        "source_file": "map_doors.yml",
+        "status": "planned",
+        "promotion_target": "Identify the rebuilt CF field that stores the first unique door transition style and connect it to C0 transition presentation helpers if the original layout map becomes clear."
+      },
+      {
+        "experiment_id": "map-sprite-first-npc-id-probe",
+        "batch": "map-object",
+        "source_file": "map_sprites.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake map_sprites.yml placement vocabulary to local sprite placement pointer/table ranges and NPC config references."
+      },
+      {
+        "experiment_id": "window-config-height-probe",
+        "batch": "visual-editor",
+        "source_file": "window_configuration_table.yml",
+        "status": "planned",
+        "promotion_target": "Pair with the existing window width probe to identify adjacent window configuration fields and decide whether C3:E250..E3F8 needs a finer local window/config split."
+      },
+      {
+        "experiment_id": "enemy-insane-cultist-hp-probe",
+        "batch": "battle-data",
+        "source_file": "enemy_configuration_table.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake enemy stat vocabulary to ENEMY_CONFIGURATION_TABLE stat field offsets and battle runtime HP initialization consumers."
+      }
+    ]
   },
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
@@ -1599,8 +1642,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 0,
-    "ready_to_run_count": 0,
+    "stub_count": 6,
+    "ready_to_run_count": 6,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [

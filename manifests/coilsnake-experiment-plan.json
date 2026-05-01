@@ -2,5 +2,84 @@
   "schema": "earthbound-decomp.coilsnake-experiment-plan.v1",
   "default_compile_timeout_seconds": 600,
   "safety_note": "This manifest stores planned tiny CoilSnake project edits, expected text-match counts, and promotion targets only; generated projects and rebuilt ROMs stay under ignored build/coilsnake.",
-  "planned_experiments": []
+  "planned_experiments": [
+    {
+      "experiment_id": "map-door-first-destination-y-probe",
+      "batch": "map-door-normalization",
+      "priority": 10,
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "find": "  1:\n  - Destination X: 784\n    Destination Y: 1210",
+      "replace": "  1:\n  - Destination X: 784\n    Destination Y: 1211",
+      "expected_count": 1,
+      "edit_description": "Changed the first unique map door Destination Y field from 1210 to 1211.",
+      "promotion_target": "Determine whether neighboring map_doors.yml destination fields are contiguous in CoilSnake's rebuilt CF door payload and map the rebuilt layout back to local D0/CF door runtime records.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "map-door-first-direction-probe",
+      "batch": "map-door-normalization",
+      "priority": 20,
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "find": "    Direction: left\n    Event Flag: 0x0\n    Style: 1\n    Text Pointer: $0\n    Type: door\n    X: 21\n    Y: 14",
+      "replace": "    Direction: right\n    Event Flag: 0x0\n    Style: 1\n    Text Pointer: $0\n    Type: door\n    X: 21\n    Y: 14",
+      "expected_count": 1,
+      "edit_description": "Changed the first unique map door Direction field from left to right.",
+      "promotion_target": "Identify the rebuilt CF field that stores the first unique door direction and distinguish destination payload bytes from transition style/direction bytes.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "map-door-first-style-probe",
+      "batch": "map-door-normalization",
+      "priority": 30,
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "find": "    Event Flag: 0x0\n    Style: 1\n    Text Pointer: $0\n    Type: door\n    X: 21\n    Y: 14",
+      "replace": "    Event Flag: 0x0\n    Style: 2\n    Text Pointer: $0\n    Type: door\n    X: 21\n    Y: 14",
+      "expected_count": 1,
+      "edit_description": "Changed the first unique map door Style field from 1 to 2.",
+      "promotion_target": "Identify the rebuilt CF field that stores the first unique door transition style and connect it to C0 transition presentation helpers if the original layout map becomes clear.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "map-sprite-first-npc-id-probe",
+      "batch": "map-object",
+      "priority": 40,
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_sprites.yml",
+      "find": "  - {NPC ID: 1254, X: 152, Y: 112}",
+      "replace": "  - {NPC ID: 1255, X: 152, Y: 112}",
+      "expected_count": 1,
+      "edit_description": "Changed the first placed map sprite NPC ID from 1254 to 1255.",
+      "promotion_target": "Join CoilSnake map_sprites.yml placement vocabulary to local sprite placement pointer/table ranges and NPC config references.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "window-config-height-probe",
+      "batch": "visual-editor",
+      "priority": 50,
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "find": "8:\n  Height: 18\n  Width: 30",
+      "replace": "8:\n  Height: 19\n  Width: 30",
+      "expected_count": 1,
+      "edit_description": "Changed window configuration 8 Height from 18 to 19.",
+      "promotion_target": "Pair with the existing window width probe to identify adjacent window configuration fields and decide whether C3:E250..E3F8 needs a finer local window/config split.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "enemy-insane-cultist-hp-probe",
+      "batch": "battle-data",
+      "priority": 60,
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "find": "1:\n  '\"The\" Flag': 'true'\n  Action 1: 215\n  Action 1 Argument: 0\n  Action 2: 62\n  Action 2 Argument: 1\n  Action 3: 215\n  Action 3 Argument: 0\n  Action 4: 215\n  Action 4 Argument: 0\n  Action Order: 0\n  Boss Flag: 'true'\n  Death Sound: normal\n  Death Text Pointer: $ef6e19\n  Defense: 25\n  Encounter Text Pointer: $ef788b\n  Experience points: 353\n  Final Action: 0\n  Final Action Argument: 0\n  Fire vulnerability: 70%\n  Flash vulnerability: 70%\n  Freeze vulnerability: 70%\n  Gender: male\n  Guts: 20\n  HP: 94\n  Hypnosis/Brainshock vulnerability: 50%",
+      "replace": "1:\n  '\"The\" Flag': 'true'\n  Action 1: 215\n  Action 1 Argument: 0\n  Action 2: 62\n  Action 2 Argument: 1\n  Action 3: 215\n  Action 3 Argument: 0\n  Action 4: 215\n  Action 4 Argument: 0\n  Action Order: 0\n  Boss Flag: 'true'\n  Death Sound: normal\n  Death Text Pointer: $ef6e19\n  Defense: 25\n  Encounter Text Pointer: $ef788b\n  Experience points: 353\n  Final Action: 0\n  Final Action Argument: 0\n  Fire vulnerability: 70%\n  Flash vulnerability: 70%\n  Freeze vulnerability: 70%\n  Gender: male\n  Guts: 20\n  HP: 95\n  Hypnosis/Brainshock vulnerability: 50%",
+      "expected_count": 1,
+      "edit_description": "Changed enemy 1 Insane Cultist HP from 94 to 95.",
+      "promotion_target": "Join CoilSnake enemy stat vocabulary to ENEMY_CONFIGURATION_TABLE stat field offsets and battle runtime HP initialization consumers.",
+      "status": "planned"
+    }
+  ]
 }

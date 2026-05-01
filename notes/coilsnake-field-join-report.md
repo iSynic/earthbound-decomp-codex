@@ -114,7 +114,10 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F000C` -> `CF:000C` / `0xCF000C`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `map_doors.yml / first unique door / Destination X` (784 -> 785); local read `changed byte lands in CF DOOR_DATA at CF:000C after CoilSnake rebuild`; promotion `relocation-or-compiler-normalization-candidate`.
+- Field semantic: `map_doors.yml / first unique door / Destination X` (784 -> 785); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; original verified ROM has different bytes at the same address`; promotion `relocation-or-compiler-normalization-candidate`.
+- Runtime consumer evidence:
+  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The verified original ROM byte at CF:000C is not the same payload, so this is rebuild-layout evidence rather than a direct original-ROM runtime field promotion.
+  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The exact original-ROM subrecord mapping for CoilSnake's rebuilt CF:000C field remains open.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
@@ -254,7 +257,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 225
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 228
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:

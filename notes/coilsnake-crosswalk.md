@@ -217,10 +217,13 @@ checked-in field join summary. Current joins:
   and CHECK selectors both consume this `+0x09` payload as the returned
   interaction pointer for relevant classes.
 - `map-door-first-destination-probe`: `0x0F000C` -> `CF:000C`, landing in the
-  local `DOOR_DATA` range (`CF:0000..CF:264E`). Because the changed byte is
-  from CoilSnake `map_doors.yml` but the local split is door-data vocabulary,
-  treat this as a door-data packing, relocation, or compiler-normalization
-  candidate until a pointer/runtime join explains the mapping.
+  `DOOR_DATA` range (`CF:0000..CF:264E`) in the CoilSnake baseline rebuild.
+  This is not a direct original-ROM address promotion: the verified original ROM
+  has different bytes at `CF:000C`, while the unedited CoilSnake rebuild has
+  `0x10 0x03` there for Destination X `784` and the edited rebuild changes only
+  the low byte to `0x11`. Treat this as CoilSnake rebuild-layout evidence and a
+  door-data packing/normalization candidate until a pointer/runtime join maps
+  rebuilt CF subrecords back to the original local table layout.
 - `window-config-width-probe`: `0x03E294` -> `C3:E294`, landing in the local
   `C3:E250..C3:E3F8` preserved/window-config payload corridor. The edit proves
   CoilSnake's window width field reaches this local range; the exact local
@@ -249,6 +252,20 @@ front doors and source scaffolds:
   primary text/actionscript pointer payload, with runtime evidence from the C1
   TALK_TO/CHECK interaction result selectors.
 
+## Rebuild-Normalized Findings
+
+Some CoilSnake edits prove an editor schema field and a rebuilt-ROM byte without
+yet proving that the same HiROM address is the verified original ROM's local
+runtime field.
+
+- `map-door-first-destination-probe`: `map_doors.yml` first unique door
+  Destination X changes `CF:000C` in CoilSnake's baseline rebuild. Local C0/C4
+  door helpers do consume bank-CF door destination records, but CoilSnake's
+  rebuilt CF door payload is normalized/repacked relative to the original ROM at
+  that address. The next door experiments should isolate neighboring
+  destination/style/direction fields and then map the rebuilt records back to the
+  original D0/CF trigger and destination layout.
+
 ## Promotion Rules
 
 - Use CoilSnake output to choose good questions and vocabulary, not to rename
@@ -262,8 +279,10 @@ front doors and source scaffolds:
 
 ## Next Work
 
-- Keep the door-data, map-palette, and window-width probes at their current
-  evidence levels until direct consumers or pointer packing joins are found.
+- Keep the door-data, map-palette, and window-width probes below
+  `runtime-correlated` until direct consumers or pointer packing joins are
+  found. For door data specifically, require an original-ROM-to-CoilSnake-rebuild
+  layout map before promoting rebuilt `CF:000C` as a local runtime field.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.

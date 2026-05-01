@@ -104,10 +104,23 @@
     "map-door-first-destination-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Destination X",
       "edited_value": "784 -> 785",
-      "local_field": "changed byte lands in CF DOOR_DATA at CF:000C after CoilSnake rebuild",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; original verified ROM has different bytes at the same address",
       "field_evidence_level": "diff-confirmed",
       "promotion_status": "relocation-or-compiler-normalization-candidate",
-      "runtime_consumers": []
+      "runtime_consumers": [
+        {
+          "kind": "compiler-normalization-context",
+          "routine": "CoilSnake baseline rebuild CF door-data payload",
+          "source": "notes/coilsnake-crosswalk.md",
+          "detail": "The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The verified original ROM byte at CF:000C is not the same payload, so this is rebuild-layout evidence rather than a direct original-ROM runtime field promotion."
+        },
+        {
+          "kind": "same-family-runtime-context",
+          "routine": "C0/C4 door destination trigger helpers",
+          "source": "notes/front-interaction-flow.md",
+          "detail": "Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The exact original-ROM subrecord mapping for CoilSnake's rebuilt CF:000C field remains open."
+        }
+      ]
     },
     "npc-config-first-text-pointer-probe": {
       "coilsnake_field": "npc_config_table.yml / NPC config 1 / Text Pointer 1",

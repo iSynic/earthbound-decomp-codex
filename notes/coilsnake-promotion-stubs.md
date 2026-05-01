@@ -6,13 +6,163 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `0`
-- Ready to run: `0`
+- Promotion stubs: `6`
+- Ready to run: `6`
 - Tooling-blocked: `0`
 
 ## Stubs
 
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
+| `map-door-first-destination-y-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
+| `map-door-first-direction-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
+| `map-door-first-style-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
+| `map-sprite-first-npc-id-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
+| `window-config-height-probe` | `diff-confirmed` | `ui_font_town_map_assets` | `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/landing-cast-visual-contracts.md` |
+| `enemy-insane-cultist-hp-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
 
 ## Promotion Checklist
+
+### `map-door-first-destination-y-probe`
+
+- Planned edit: Changed the first unique map door Destination Y field from 1210 to 1211.
+- Source file: `map_doors.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-door-first-destination-y-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`
+
+### `map-door-first-direction-probe`
+
+- Planned edit: Changed the first unique map door Direction field from left to right.
+- Source file: `map_doors.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-door-first-direction-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`
+
+### `map-door-first-style-probe`
+
+- Planned edit: Changed the first unique map door Style field from 1 to 2.
+- Source file: `map_doors.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-door-first-style-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`
+
+### `map-sprite-first-npc-id-probe`
+
+- Planned edit: Changed the first placed map sprite NPC ID from 1254 to 1255.
+- Source file: `map_sprites.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`
+
+### `window-config-height-probe`
+
+- Planned edit: Changed window configuration 8 Height from 18 to 19.
+- Source file: `window_configuration_table.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/window-config-height-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/font-bundle-contracts.md`
+  - `notes/intro-title-visual-bundle-contracts.md`
+  - `notes/landing-cast-visual-contracts.md`
+  - `notes/sram-template-contracts.md`
+  - `notes/text-window-skin-bundle-contracts.md`
+  - `notes/title-screen-letter-oam-contracts.md`
+  - `notes/title-screen-palette-animation-contracts.md`
+  - `notes/ui-font-town-map-asset-contracts.md`
+
+### `enemy-insane-cultist-hp-probe`
+
+- Planned edit: Changed enemy 1 Insane Cultist HP from 94 to 95.
+- Source file: `enemy_configuration_table.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/asset-data-contract-frontier.md`
+  - `notes/battle-background-scene-bundles.md`
+  - `notes/battle-psi-ability-table-d58a50.md`
+  - `notes/battle-sprite-bundle-contracts.md`
+  - `notes/battle-visual-asset-contracts.md`
+  - `notes/c2-battle-contract-workahead.md`
+  - `notes/c3-battle-psi-menu-data-contracts.md`
+  - `notes/class2-d57b68-battle-action-table-match.md`
