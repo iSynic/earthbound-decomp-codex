@@ -229,7 +229,7 @@ contract notes for C0/C1/C3/C4 consumers.
   and the `C1:DC66` substitution-payload ABI used to print the staged amount.
 - 2026-04-30 thirty-third slice: promoted the `A3D1..A5EC` item-side text
   contracts with byte-neutral aliases for concentration/PSI-seal text,
-  shield-clear text, solidification text, shared no-effect text, and HP-sucker
+  shield-expired/clear text, solidification text, shared no-effect text, and HP-sucker
   self/amount messages. The HP-sucker amount path now names the `C1:DC66`
   substitution-payload call and the `EF:7729` `PRINT_ACTION_AMOUNT` script.
 - 2026-05-01 thirty-fourth slice: promoted the `A89D..AF1F`
@@ -259,6 +259,12 @@ contract notes for C0/C1/C3/C4 consumers.
   and HP/status helpers, reflected-hit context swaps, Time Stop return text,
   and the diamondize/paralyze/nausea/poison/cold primary-status tails. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-01 thirty-eighth slice follow-up: aligned the physical shield tail
+  with the EF payload split by naming row `+0x23` substates `3/4`, row `+0x25`
+  shield countdown, `EF:70B1` power-shield physical reflection text, and
+  `EF:7099` shared shield-expired cleanup text. The same pass corrected
+  remaining `C1:DD7C` local aliases in `C2:92EE` and `C2:941D` to the
+  byte-substitution staging contract.
 - 2026-05-01 thirty-ninth slice: promoted the early
   window/HPPP/menu-selection corridor with byte-neutral aliases for HP/PP dirty
   party-window redraw state, open-window ticking, menu-cell classifier/scanner

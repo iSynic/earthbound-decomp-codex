@@ -33,46 +33,50 @@ C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
 
-BattlerRecordSize = $004E
-BattleStatusGroupPrimary = $0000
-BattleStatusDiamondized  = $0002
-BattleStatusParalyzed    = $0003
-BattleStatusNauseous     = $0004
-BattleStatusPoisoned     = $0005
-BattleStatusCold         = $0007
+BattlerRecordSize             = $004E
+BattleStatusGroupPrimary      = $0000
+BattleStatusDiamondized       = $0002
+BattleStatusParalyzed         = $0003
+BattleStatusNauseous          = $0004
+BattleStatusPoisoned          = $0005
+BattleStatusCold              = $0007
+SelectedRowTimedSubstateByte  = $0023
+SelectedRowShieldCounterByte  = $0025
+TimedSubstatePowerShield      = $0003
+TimedSubstateShield           = $0004
 
-EF_BattleTextScriptBank       = $00EF
-EFMSG_CheckOffense            = $69EA
-EFMSG_CheckDefense            = $69FF
-EFMSG_CheckAntiFire           = $6A0D
-EFMSG_CheckAntiFreeze         = $6A24
-EFMSG_CheckAntiFlash          = $6A3C
-EFMSG_CheckAntiParalysis      = $6A54
-EFMSG_CheckBrainLevel0        = $6A6C
-EFMSG_CheckBrainLevel3        = $6A7F
-EFMSG_Diamondized             = $6AC7
-EFMSG_Paralyzed               = $6AE0
-EFMSG_Nauseous                = $6AFB
-EFMSG_Poisoned                = $6B18
-EFMSG_CaughtCold              = $6B2F
-EFMSG_StrangeRecovered        = $6F1E
-EFMSG_AsleepRecovered         = $6F54
-EFMSG_ShieldRemoved           = $7099
-EFMSG_PowerShieldTurnedAttack = $70B1
-EFMSG_Damage                  = $75AB
-EFMSG_DamageMortal            = $75C2
-EFMSG_DamageSmash             = $75D9
-EFMSG_DamageSmashMortal       = $75F0
-EFMSG_DamageToDeath           = $7607
-EFMSG_SmashPlayer             = $7624
-EFMSG_SmashMonster            = $7630
-EFMSG_ShootDodged             = $763C
-EFMSG_BashDodged              = $7655
-EFMSG_NoEffect                = $766E
-EFMSG_MissPhysical            = $76C7
-EFMSG_MissShoot               = $76D8
-EFMSG_TimeStopReturn          = $7843
-EFMSG_CheckPresentGet         = $7DD5
+EF_BattleTextScriptBank          = $00EF
+EFMSG_CheckOffense               = $69EA
+EFMSG_CheckDefense               = $69FF
+EFMSG_CheckAntiFire              = $6A0D
+EFMSG_CheckAntiFreeze            = $6A24
+EFMSG_CheckAntiFlash             = $6A3C
+EFMSG_CheckAntiParalysis         = $6A54
+EFMSG_CheckBrainLevel0           = $6A6C
+EFMSG_CheckBrainLevel3           = $6A7F
+EFMSG_Diamondized                = $6AC7
+EFMSG_Paralyzed                  = $6AE0
+EFMSG_Nauseous                   = $6AFB
+EFMSG_Poisoned                   = $6B18
+EFMSG_CaughtCold                 = $6B2F
+EFMSG_StrangeRecovered           = $6F1E
+EFMSG_AsleepRecovered            = $6F54
+EFMSG_ShieldExpired              = $7099
+EFMSG_PowerShieldReflectsAttack = $70B1
+EFMSG_Damage                     = $75AB
+EFMSG_DamageMortal               = $75C2
+EFMSG_DamageSmash                = $75D9
+EFMSG_DamageSmashMortal          = $75F0
+EFMSG_DamageToDeath              = $7607
+EFMSG_SmashPlayer                = $7624
+EFMSG_SmashMonster               = $7630
+EFMSG_ShootDodged                = $763C
+EFMSG_BashDodged                 = $7655
+EFMSG_NoEffect                   = $766E
+EFMSG_MissPhysical               = $76C7
+EFMSG_MissShoot                  = $76D8
+EFMSG_TimeStopReturn             = $7843
+EFMSG_CheckPresentGet            = $7DD5
 
 ; ---------------------------------------------------------------------------
 ; C2:7EAF
@@ -424,11 +428,11 @@ C2819E_RunHitResolutionAndStatusActionCluster_L819E:
     cmp.w #$0001
     bne C281CD_RunHitResolutionAndStatusActionCluster_L81CD
     ldx $A972
-    lda $0023,X
+    lda SelectedRowTimedSubstateByte,X
     and.w #$00FF
-    cmp.w #$0003
+    cmp.w #TimedSubstatePowerShield
     beq C281C1_RunHitResolutionAndStatusActionCluster_L81C1
-    cmp.w #$0004
+    cmp.w #TimedSubstateShield
     bne C281CD_RunHitResolutionAndStatusActionCluster_L81CD
 C281C1_RunHitResolutionAndStatusActionCluster_L81C1:
     sep #$10
@@ -464,11 +468,11 @@ C281FD_RunHitResolutionAndStatusActionCluster_L81FD:
     jmp.w C28290_RunHitResolutionAndStatusActionCluster_L8290
 C28205_RunHitResolutionAndStatusActionCluster_L8205:
     ldx $A972
-    lda $0023,X
+    lda SelectedRowTimedSubstateByte,X
     and.w #$00FF
-    cmp.w #$0003
+    cmp.w #TimedSubstatePowerShield
     beq C2821A_RunHitResolutionAndStatusActionCluster_L821A
-    cmp.w #$0004
+    cmp.w #TimedSubstateShield
     beq C28260_RunHitResolutionAndStatusActionCluster_L8260
     bra C28290_RunHitResolutionAndStatusActionCluster_L8290
 C2821A_RunHitResolutionAndStatusActionCluster_L821A:
@@ -484,7 +488,8 @@ C2821A_RunHitResolutionAndStatusActionCluster_L821A:
     lda.w #$0001
     sta $02
 C28235_RunHitResolutionAndStatusActionCluster_L8235:
-    lda.w #EFMSG_PowerShieldTurnedAttack
+    ; Power-shield substate reflects the physical hit back to the attacker.
+    lda.w #EFMSG_PowerShieldReflectsAttack
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
@@ -503,7 +508,7 @@ C2825D_RunHitResolutionAndStatusActionCluster_L825D:
 C28260_RunHitResolutionAndStatusActionCluster_L8260:
     lda $A972
     clc
-    adc.w #$0025
+    adc.w #SelectedRowShieldCounterByte
     tax
     sep #$20
     lda $0000,X
@@ -514,9 +519,9 @@ C28260_RunHitResolutionAndStatusActionCluster_L8260:
     bne C28290_RunHitResolutionAndStatusActionCluster_L8290
     ldx $A972
     sep #$20
-    stz $0023,X
+    stz SelectedRowTimedSubstateByte,X
     rep #$20
-    lda.w #EFMSG_ShieldRemoved
+    lda.w #EFMSG_ShieldExpired
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
@@ -737,18 +742,18 @@ C28450_RunHitResolutionAndStatusActionCluster_L8450:
     jsl C1DC1C_DisplayBattleTextFromPointer
 C28464_RunHitResolutionAndStatusActionCluster_L8464:
     ldx $A972
-    lda $0023,X
+    lda SelectedRowTimedSubstateByte,X
     and.w #$00FF
     tax
-    cpx.w #$0003
+    cpx.w #TimedSubstatePowerShield
     beq C28478_RunHitResolutionAndStatusActionCluster_L8478
-    cpx.w #$0004
+    cpx.w #TimedSubstateShield
     bne C28482_RunHitResolutionAndStatusActionCluster_L8482
 C28478_RunHitResolutionAndStatusActionCluster_L8478:
     sep #$20
     lda.b #$01
     ldx $A972
-    sta $0025,X
+    sta SelectedRowShieldCounterByte,X
 C28482_RunHitResolutionAndStatusActionCluster_L8482:
     rep #$20
     lda.w #$0001
@@ -1439,7 +1444,7 @@ C28A08_RunHitResolutionAndStatusActionCluster_L8A08:
     sep #$20
     lda.b #$00
     ldx $A972
-    sta $0023,X
+    sta SelectedRowTimedSubstateByte,X
     ldx $A972
     sta $0022,X
     ldx $A972

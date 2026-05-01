@@ -10,8 +10,9 @@
 ;
 ; Runtime contract:
 ; - Shared PSI/action pre-hit blocker used by the early PSI common helpers.
-; - Marks `$AA94 = 1`, emits the action presentation command from active row
-;   `+0x08`, then reads the active `D5:7B68` action descriptor type byte.
+; - Marks `$AA94 = 1`, stages active row `+0x08` through the C1 byte-
+;   substitution slot, then reads the active `D5:7B68` action descriptor type
+;   byte.
 ; - Only descriptor type `3` enters the selected-row timed-substate handling.
 ; - Selected-row `+0x23 == 1` emits the psychic power shield PSI-name
 ;   reflection text, sets reflected-hit marker `$AA96 = 1`, and swaps
@@ -25,7 +26,7 @@
 
 C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 C1DC1C_DisplayBattleTextFromPointer       = $C1DC1C
-C1DD7C_RunBattlePresentationCommand       = $C1DD7C
+C1DD7C_SetBattleTextByteSubstitution      = $C1DD7C
 EFMSG_PsychicPowerShieldReflectsPsiName   = $70D2
 EFMSG_PsychicShieldNullifiesPsiName        = $70FA
 EFMSG_ShieldExpired                       = $7099
@@ -46,7 +47,7 @@ C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     ldx $A970
     sep #$20
     lda $0008,X
-    jsl C1DD7C_RunBattlePresentationCommand
+    jsl C1DD7C_SetBattleTextByteSubstitution
     ldx $A970
     lda $0004,X
     sta $04

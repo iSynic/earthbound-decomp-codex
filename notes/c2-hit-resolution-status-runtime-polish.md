@@ -26,6 +26,22 @@ message constants without changing runtime bytes.
     `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
 - EF battle-text scripts for damage, miss/dodge, SMAAAASH, Spy readouts,
   Time Stop return, no-effect fallback, and late primary-status success text.
+- The shield/timed-substate join now uses the EF payload names from the
+  `EF:7099..70B1` split: `EF:70B1` is the power-shield physical reflection
+  text and `EF:7099` is the shared shield-expired text.
+
+## Shield Reflection Tail
+
+The physical-hit shield branch reads selected row `+0x23` as the active timed
+substate id:
+
+- `3` = power shield; reflect the physical hit, emit `EF:70B1`, swap
+  attacker/target text contexts through `C2:7E8A`, and apply reflected damage.
+- `4` = shield; skip reflection but share the `+0x25` countdown path.
+- when row `+0x25` expires, clear row `+0x23` and emit `EF:7099`.
+
+The SMAAAASH path refreshes row `+0x25 = 1` for substates `3` and `4` before
+entering the resist-adjusted damage path.
 
 ## Status Tails
 

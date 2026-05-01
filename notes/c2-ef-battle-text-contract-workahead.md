@@ -32,7 +32,7 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   refresh helpers used before printing the amount.
 - 2026-04-30: fifth pass promoted the `C2:A3D1..A5EC` item-side text surface.
   The source now names direct `DC1C` messages for concentration/PSI-seal,
-  shield-clear, solidification, no-effect, and HP-sucker self-drain, and names
+  shield-expired/clear, solidification, no-effect, and HP-sucker self-drain, and names
   the `DC66` amount-bearing HP-sucker script at `EF:7729`.
 - 2026-05-01: sixth pass promoted the `C2:A89D..AF1F` item/status cluster.
   The source now names poison, solidification, asleep, strange, and shared
@@ -409,6 +409,13 @@ And for the most actionable C2 call-site families:
   `EF:7843` Time Stop return script, and the late
   diamondize/paralyze/nausea/poison/cold status-result scripts. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-01: follow-up shield-tail polish aligned `C2:7EAF` and `C2:A3D1`
+  with the EF payload split: `EF:70B1` is now named as power-shield physical
+  reflection text and `EF:7099` as the shared shield-expired text used by
+  timed cleanup and item-side shield clearing.
+- 2026-05-01: the same follow-up corrected remaining `C1:DD7C` caller wording
+  in `C2:92EE` and `C2:941D`; those calls stage the C1 byte-substitution slot
+  rather than running a separate presentation command.
 - 2026-05-01: `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`,
   `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`, and
   `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm` now name the

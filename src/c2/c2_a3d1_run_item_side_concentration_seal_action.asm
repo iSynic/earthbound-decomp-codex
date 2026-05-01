@@ -14,6 +14,8 @@
 ; - The `A3D1` entry gates through `C2:7CFD` and `C2:8D41`, writes value `4`
 ;   to target row `+0x21` when clear, displays `EF:6C0B` on success, and
 ;   displays `EF:766E` on failure.
+; - The adjacent shield-clearing item action clears row `+0x23` and emits the
+;   same shield-expired text used by timed shield cleanup.
 ; - Later bodies in this unit include the HP-sucker effect and the
 ;   bottle-rocket common helper; those remain neighboring item-side actions but
 ;   are not collapsed into the concentration-seal contract.
@@ -31,7 +33,7 @@ C28125_CalculateResistAdjustedDamage            = $8125
 
 EFMSG_ConcentrationSealInflicted                = $6C0B
 EFMSG_SolidificationInflicted                   = $6BEF
-EFMSG_ShieldCleared                             = $7099
+EFMSG_ShieldExpired                             = $7099
 EFMSG_StatusNoEffect                            = $766E
 EFMSG_HpSuckerDrainedOwnHp                      = $7710
 EFMSG_HpSuckerDrainedTargetHpAmount             = $7729
@@ -113,7 +115,7 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     lda.b #$00
     sta $0000,X
     rep #$20
-    lda.w #EFMSG_ShieldCleared
+    lda.w #EFMSG_ShieldExpired
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10

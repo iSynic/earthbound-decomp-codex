@@ -16,7 +16,7 @@ C08FF7_ResolveIndexedPointerOffset             = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer            = $C1DC1C
 C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
 C1DD41_PrepareBattlePresentationState          = $C1DD41
-C1DD7C_RunBattlePresentationCommand            = $C1DD7C
+C1DD7C_SetBattleTextByteSubstitution           = $C1DD7C
 C1DDCC_SelectPartyMemberPresentation           = $C1DDCC
 C228F8_SelectBattleParticipantById             = $C228F8
 C23BCF_BuildBattleAttackerTextContext          = $C23BCF
@@ -111,7 +111,8 @@ C2937E_RunMasterBarfPooStarstormSpecialEvent_L937E:
     jsl FIX_ATTACKER_NAME
     sep #$20
     lda.b #$15
-    jsl C1DD7C_RunBattlePresentationCommand
+    ; Stage the fixed attacker-name selector for the following pointer script.
+    jsl C1DD7C_SetBattleTextByteSubstitution
     lda $D57CD4
     sta $06
     lda $D57CD6

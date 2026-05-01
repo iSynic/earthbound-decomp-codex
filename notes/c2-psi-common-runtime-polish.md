@@ -32,7 +32,8 @@ early PSI common helpers.
 `C2:941D`:
 
 - sets `$AA94 = 1`
-- dispatches the active row's presentation command from row `+0x08`
+- stages active row `+0x08` through `C1:DD7C` for EF scripts that consume the
+  byte-substitution slot
 - reads the active `D5:7B68` action descriptor type byte
 - only descriptor type `3` enters timed-substate handling
 - selected-row `+0x23 == 1` emits `EF:70D2`
@@ -57,6 +58,13 @@ name before printing the shield reflection/nullification text.
 
 The promoted model is that `$AA96` is the reflected-hit or delayed cleanup
 marker shared by PSI shield/timed-substate handling and Thunder reflection.
+
+The physical-hit path in
+`src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm` uses the
+parallel row `+0x23 == 3/4` shield family: substate `3` emits `EF:70B1`
+(`MsgBtlPowerShieldReflectsAttack`) and reflects damage through the same
+attacker/target context swap helper, while both `3` and `4` share row `+0x25`
+countdown and `EF:7099` shield-expired cleanup.
 
 ## One-Parameter PSI Helpers
 
