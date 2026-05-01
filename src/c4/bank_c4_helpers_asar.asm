@@ -2965,6 +2965,7 @@ org $C49841
 !COFFEE_TEA_TOKEN_METADATA = $C3F054
 !COFFEE_TEA_TOKEN_METADATA_BANK = $00C3
 !COFFEE_TEA_VISUAL_SOURCE = $E02188
+!COFFEE_TEA_WORK_BANK = $007F
 !COFFEE_TEA_TILE_BUFFER = $3492
 !COFFEE_TEA_TILE_BUFFER_WORDS = $0340
 !COFFEE_TEA_TILE_COMMIT_SIZE = $0680
@@ -2997,6 +2998,27 @@ org $C49841
 !COFFEE_TEA_UPLOAD_SELECTOR_00 = $00
 !COFFEE_TEA_DISPLAY_SHADOW_30_VALUE = $18
 !COFFEE_TEA_DISPLAY_STATE_3C18_VALUE = $001A
+!COFFEE_TEA_BATTLE_BG_VISUAL_STATE = $0001
+!COFFEE_TEA_VISUAL_TILE_SOURCE_INDEX = $0008
+!COFFEE_TEA_VISUAL_TILE_DESTINATION = $0200
+!COFFEE_TEA_TILE_MASK_ROW_BYTES = $0008
+!COFFEE_TEA_TILE_MASK_PASS_COUNT = $0002
+!COFFEE_TEA_TILE_SOURCE_PLANE_B_OFFSET = $0002
+!COFFEE_TEA_TILE_SOURCE_PLANE_C_OFFSET = $0004
+!COFFEE_TEA_TILE_SOURCE_TRAILER_A_OFFSET = $003A
+!COFFEE_TEA_TILE_SOURCE_TRAILER_B_OFFSET = $003C
+!COFFEE_TEA_TILE_SOURCE_TRAILER_C_OFFSET = $003E
+!COFFEE_TEA_TOKEN_SOURCE_STRIDE_OFFSET = $0038
+!COFFEE_TEA_TOKEN_SOURCE_POINTER_OFFSET = $0034
+!COFFEE_TEA_TOKEN_ROW_STEP_OFFSET = $003A
+!COFFEE_TEA_TOKEN_WIDTH_TABLE_OFFSET = $0030
+!COFFEE_TEA_DIRTY_MIN_RESET = $FFFF
+!COFFEE_TEA_SCROLL_REMAINDER_MASK = $0007
+!COFFEE_TEA_ROW_REVEAL_PIXEL_BIAS = $0008
+!COFFEE_TEA_OFFSET_HIGH_BYTE_MASK = $FF00
+!COFFEE_TEA_FULL_BYTE_MASK = $00FF
+!COFFEE_TEA_ZERO_WORD = $0000
+!COFFEE_TEA_SIGNED_WORD_INVERT_MASK = $FFFF
 !COFFEE_TEA_TILE_WINDOW_INDEX = $9F2D
 !COFFEE_TEA_ROW_PIXEL_CURSOR = $9F2F
 !COFFEE_TEA_ROW_BASE_CURSOR = $9F31
@@ -3010,7 +3032,7 @@ org $C49841
 !DISPLAY_SHADOW_30 = $0030
 C49841_BeginCoffeeTeaBattleBgVisualState:
     rep #$31
-    lda #$0001
+    lda #!COFFEE_TEA_BATTLE_BG_VISUAL_STATE
     jsl !C2EA15_BeginBattleBgVisualState
     rtl
 C4984B_InvertCoffeeTeaTileBufferWords:
@@ -3026,7 +3048,7 @@ C4984B_InvertCoffeeTeaTileBufferWords:
 C4985D_InvertCoffeeTeaTileBufferWords_Loop:
     tax
     lda.w $0000,x
-    eor #$FFFF
+    eor #!COFFEE_TEA_SIGNED_WORD_INVERT_MASK
     sta.w $0000,x
     dey
     lda $0E
@@ -3034,7 +3056,7 @@ C4985D_InvertCoffeeTeaTileBufferWords_Loop:
     inc
     sta $0E
 C4986E_InvertCoffeeTeaTileBufferWords_Check:
-    cpy #$0000
+    cpy #!COFFEE_TEA_ZERO_WORD
     bne C4985D_InvertCoffeeTeaTileBufferWords_Loop
     pld
     rts
@@ -3052,7 +3074,7 @@ C49875_ApplyCoffeeTeaTileRowMask:
     sta $0A
     lda $2A
     sta $0C
-    ldy #$0008
+    ldy #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     lda.w !COFFEE_TEA_ROW_PIXEL_CURSOR
     jsl !C09231_ShiftRightByYPreserveWidth
     sta $14
@@ -3066,21 +3088,21 @@ C49875_ApplyCoffeeTeaTileRowMask:
     sta $08
     lda $02
     sta $12
-    lda #$0000
+    lda #!COFFEE_TEA_ZERO_WORD
     sta $04
     bra C498F9_ApplyCoffeeTeaTileRowMask_FirstPassCheck
 C498B2_ApplyCoffeeTeaTileRowMask_FirstPassRow:
-    ldy #$0000
+    ldy #!COFFEE_TEA_ZERO_WORD
     sty $10
     bra C498EA_ApplyCoffeeTeaTileRowMask_FirstPassByteCheck
 C498B9_ApplyCoffeeTeaTileRowMask_FirstPassByte:
     sep #$20
     lda [$06]
-    eor.b #$FF
+    eor.b #!COFFEE_TEA_FULL_BYTE_MASK
     ldy $14
     sep #$10
     jsl !C09251_ShiftRightByYAlt
-    eor.b #$FF
+    eor.b #!COFFEE_TEA_FULL_BYTE_MASK
     rep #$10
     ldx $02
     inx
@@ -3098,7 +3120,7 @@ C498B9_ApplyCoffeeTeaTileRowMask_FirstPassByte:
     sty $10
     inc $06
 C498EA_ApplyCoffeeTeaTileRowMask_FirstPassByteCheck:
-    cpy #$0008
+    cpy #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     bcc C498B9_ApplyCoffeeTeaTileRowMask_FirstPassByte
     lda $12
     clc
@@ -3106,7 +3128,7 @@ C498EA_ApplyCoffeeTeaTileRowMask_FirstPassByteCheck:
     sta $02
     inc $04
 C498F9_ApplyCoffeeTeaTileRowMask_FirstPassCheck:
-    lda #$0002
+    lda #!COFFEE_TEA_TILE_MASK_PASS_COUNT
     clc
     sbc $04
     bvs C49905_ApplyCoffeeTeaTileRowMask_FirstPassOverflow
@@ -3132,7 +3154,7 @@ C4991B_ApplyCoffeeTeaTileRowMask_CrossedRow:
     asl
     sta $16
     sta.w !COFFEE_TEA_ROW_BASE_CURSOR
-    lda #$0008
+    lda #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     sec
     sbc $14
     sta $12
@@ -3145,21 +3167,21 @@ C4991B_ApplyCoffeeTeaTileRowMask_CrossedRow:
     stx $08
     sta $14
     sta $02
-    lda #$0000
+    lda #!COFFEE_TEA_ZERO_WORD
     sta $04
     bra C4998B_ApplyCoffeeTeaTileRowMask_SecondPassCheck
 C49944_ApplyCoffeeTeaTileRowMask_SecondPassRow:
-    ldy #$0000
+    ldy #!COFFEE_TEA_ZERO_WORD
     sty $0E
     bra C4997C_ApplyCoffeeTeaTileRowMask_SecondPassByteCheck
 C4994B_ApplyCoffeeTeaTileRowMask_SecondPassByte:
     sep #$20
     lda [$06]
-    eor.b #$FF
+    eor.b #!COFFEE_TEA_FULL_BYTE_MASK
     ldy $12
     sep #$10
     jsl !C0923E_ShiftRightByY
-    eor.b #$FF
+    eor.b #!COFFEE_TEA_FULL_BYTE_MASK
     rep #$10
     ldx $02
     inx
@@ -3177,7 +3199,7 @@ C4994B_ApplyCoffeeTeaTileRowMask_SecondPassByte:
     sty $0E
     inc $06
 C4997C_ApplyCoffeeTeaTileRowMask_SecondPassByteCheck:
-    cpy #$0008
+    cpy #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     bcc C4994B_ApplyCoffeeTeaTileRowMask_SecondPassByte
     lda $14
     clc
@@ -3185,7 +3207,7 @@ C4997C_ApplyCoffeeTeaTileRowMask_SecondPassByteCheck:
     sta $02
     inc $04
 C4998B_ApplyCoffeeTeaTileRowMask_SecondPassCheck:
-    lda #$0002
+    lda #!COFFEE_TEA_TILE_MASK_PASS_COUNT
     clc
     sbc $04
     bvs C49997_ApplyCoffeeTeaTileRowMask_SecondPassOverflow
@@ -3212,10 +3234,10 @@ C4999B_DrawCoffeeTeaTileTokenRun:
     sta $0A
     lda #!COFFEE_TEA_TOKEN_METADATA_BANK
     sta $0C
-    ldy #$0038
+    ldy #!COFFEE_TEA_TOKEN_SOURCE_STRIDE_OFFSET
     lda [$0A],y
     tax
-    ldy #$0034
+    ldy #!COFFEE_TEA_TOKEN_SOURCE_POINTER_OFFSET
     lda [$0A],y
     pha
     iny
@@ -3231,10 +3253,10 @@ C4999B_DrawCoffeeTeaTileTokenRun:
     clc
     adc $06
     sta $06
-    ldy #$003A
+    ldy #!COFFEE_TEA_TOKEN_ROW_STEP_OFFSET
     lda [$0A],y
     sta $04
-    ldy #$0030
+    ldy #!COFFEE_TEA_TOKEN_WIDTH_TABLE_OFFSET
     lda [$0A],y
     pha
     iny
@@ -3248,12 +3270,12 @@ C4999B_DrawCoffeeTeaTileTokenRun:
     adc $0A
     sta $0A
     lda [$0A]
-    and #$00FF
+    and #!COFFEE_TEA_FULL_BYTE_MASK
     tax
     stx $02
     inc $02
     lda $02
-    cmp #$0008
+    cmp #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     bcc C49A36_DrawCoffeeTeaTileTokenRun_FinalChunk
     beq C49A36_DrawCoffeeTeaTileTokenRun_FinalChunk
 C49A0A_DrawCoffeeTeaTileTokenRun_FullChunk:
@@ -3263,18 +3285,18 @@ C49A0A_DrawCoffeeTeaTileTokenRun_FullChunk:
     sta $10
     ldy #!COFFEE_TEA_TILE_BUFFER
     ldx $04
-    lda #$0008
+    lda #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     jsl C49875_ApplyCoffeeTeaTileRowMask
     lda $02
     sec
-    sbc #$0008
+    sbc #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     sta $02
     lda $04
     clc
     adc $06
     sta $06
     lda $02
-    cmp #$0008
+    cmp #!COFFEE_TEA_TILE_MASK_ROW_BYTES
     beq C49A36_DrawCoffeeTeaTileTokenRun_FinalChunk
     bcs C49A0A_DrawCoffeeTeaTileTokenRun_FullChunk
 C49A36_DrawCoffeeTeaTileTokenRun_FinalChunk:
@@ -3299,16 +3321,16 @@ C49A56_InitCoffeeTeaTileBufferAndTransferState:
     tdc
     adc #$FFEA
     tcd
-    lda #$0000
+    lda #!COFFEE_TEA_ZERO_WORD
     sta $06
-    lda #$007F
+    lda #!COFFEE_TEA_WORK_BANK
     sta $08
     jsl !C08726_BlankWaitAndDisableHdma
     ldy #!COFFEE_TEA_TILEMAP_VRAM_BASE
     ldx #!COFFEE_TEA_STATIC_VISUAL_SOURCE
-    lda #$0000
+    lda #!COFFEE_TEA_ZERO_WORD
     jsl !C08E1C_UpdateBg3ScreenBaseRegistersFromQueue
-    lda #$0000
+    lda #!COFFEE_TEA_ZERO_WORD
     sta [$06]
     lda $06
     sta $0E
@@ -3323,20 +3345,20 @@ C49A56_InitCoffeeTeaTileBufferAndTransferState:
     sta $0E
     lda.w #!COFFEE_TEA_VISUAL_SOURCE>>16
     sta $10
-    ldx #$0008
-    lda.w #$0200
+    ldx #!COFFEE_TEA_VISUAL_TILE_SOURCE_INDEX
+    lda.w #!COFFEE_TEA_VISUAL_TILE_DESTINATION
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     lda.b #!COFFEE_TEA_DISPLAY_SHADOW_30_VALUE
     sta.w !DISPLAY_SHADOW_30
-    lda.b #$FF
+    lda.b #!COFFEE_TEA_FULL_BYTE_MASK
     sta $0E
     ldx #!COFFEE_TEA_TILE_COMMIT_SIZE
     rep #$20
     lda #!COFFEE_TEA_TILE_BUFFER
     jsl !C08EFC_CommitTileBufferToStaging
     ldy #!COFFEE_TEA_INITIAL_TILE_ID
-    ldx #$0000
+    ldx #!COFFEE_TEA_ZERO_WORD
     stx $14
     bra C49B20_InitCoffeeTeaTileBufferAndTransferState_ColumnCheck
 C49AC9_InitCoffeeTeaTileBufferAndTransferState_Column:
@@ -3350,9 +3372,9 @@ C49AC9_InitCoffeeTeaTileBufferAndTransferState_Column:
     tax
     stz.w !COFFEE_TEA_TILE_SOURCE_LOW,x
     tax
-    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+$0002,x
+    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+!COFFEE_TEA_TILE_SOURCE_PLANE_B_OFFSET,x
     tax
-    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+$0004,x
+    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+!COFFEE_TEA_TILE_SOURCE_PLANE_C_OFFSET,x
     lda #!COFFEE_TEA_TILE_COLUMN_FIRST
     sta $12
     bra C49B01_InitCoffeeTeaTileBufferAndTransferState_RowCheck
@@ -3390,11 +3412,11 @@ C49B01_InitCoffeeTeaTileBufferAndTransferState_RowCheck:
     asl
     asl
     tax
-    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+$003A,x
+    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+!COFFEE_TEA_TILE_SOURCE_TRAILER_A_OFFSET,x
     tax
-    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+$003C,x
+    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+!COFFEE_TEA_TILE_SOURCE_TRAILER_B_OFFSET,x
     tax
-    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+$003E,x
+    stz.w !COFFEE_TEA_TILE_SOURCE_LOW+!COFFEE_TEA_TILE_SOURCE_TRAILER_C_OFFSET,x
     ldx $14
     inx
     stx $14
@@ -3421,7 +3443,7 @@ C49B20_InitCoffeeTeaTileBufferAndTransferState_ColumnCheck:
     lda.w #!COFFEE_TEA_DISPLAY_STATE_3C18_VALUE
     sta.w !COFFEE_TEA_DISPLAY_STATE_3C18
     stz.w !COFFEE_TEA_DISPLAY_STATE_3C1C
-    lda.w #$FFFF
+    lda.w #!COFFEE_TEA_DIRTY_MIN_RESET
     sta.w !COFFEE_TEA_DIRTY_MIN
     stz.w !COFFEE_TEA_DIRTY_MAX
     stz.w !COFFEE_TEA_SCROLL_FRAME_ACCUM
@@ -3538,7 +3560,7 @@ C49C16_UploadCoffeeTeaTileBufferWindow_Contiguous:
     lda.b #!COFFEE_TEA_UPLOAD_SELECTOR_00
     jsl !C08616_QueueVramTransfer_FromDpSource
 C49C47_UploadCoffeeTeaTileBufferWindow_Done:
-    lda.w #$FFFF
+    lda.w #!COFFEE_TEA_DIRTY_MIN_RESET
     sta.w !COFFEE_TEA_DIRTY_MIN
     stz.w !COFFEE_TEA_DIRTY_MAX
     jsl !C08756_WaitOneFrameAndPollInput
@@ -3571,14 +3593,14 @@ C49C56_AdvanceCoffeeTeaTileScrollState:
 C49C81_AdvanceCoffeeTeaTileScrollState_InRange:
     jsl !C08F8B_PrepareTileBufferCommit
     sep #$20
-    lda.b #$FF
+    lda.b #!COFFEE_TEA_FULL_BYTE_MASK
     sta $0E
     ldx #!COFFEE_TEA_TILE_COMMIT_SIZE
     rep #$20
     lda #!COFFEE_TEA_TILE_BUFFER
     jsl !C08EFC_CommitTileBufferToStaging
     lda.w !COFFEE_TEA_SCROLL_PIXEL_ACCUM
-    and #$0007
+    and #!COFFEE_TEA_SCROLL_REMAINDER_MASK
     sta.w !COFFEE_TEA_SCROLL_PIXEL_ACCUM
     stz.w !COFFEE_TEA_ROW_PIXEL_CURSOR
     stz.w !COFFEE_TEA_ROW_BASE_CURSOR
@@ -3586,9 +3608,9 @@ C49C81_AdvanceCoffeeTeaTileScrollState_InRange:
     rtl
 C49CA8_AdvanceCoffeeTeaRowRevealCursor:
     rep #$31
-    and #$00FF
+    and #!COFFEE_TEA_FULL_BYTE_MASK
     clc
-    adc #$0008
+    adc #!COFFEE_TEA_ROW_REVEAL_PIXEL_BIAS
     clc
     adc.w !COFFEE_TEA_ROW_PIXEL_CURSOR
     sta.w !COFFEE_TEA_ROW_PIXEL_CURSOR
@@ -3621,7 +3643,7 @@ C49CC3_RenderCoffeeTeaTokenString:
     pla
     sta $08
     stz $09
-    ldx #$0000
+    ldx #!COFFEE_TEA_ZERO_WORD
     stx $10
     bra C49CF8_RenderCoffeeTeaTokenString_Check
 C49CEB_RenderCoffeeTeaTokenString_DrawToken:
@@ -3636,7 +3658,7 @@ C49CF8_RenderCoffeeTeaTokenString_Check:
     bcs C49D12_RenderCoffeeTeaTokenString_Return
     rep #$20
     lda [$06]
-    and #$00FF
+    and #!COFFEE_TEA_FULL_BYTE_MASK
     sta $0E
     clc
     sbc #!COFFEE_TEA_TOKEN_DRAW_THRESHOLD_MINUS_ONE
@@ -3665,7 +3687,7 @@ C49D1E_AdvanceCoffeeTeaVramOffsetByTileRow:
     sta $10
     jsl !C088B1_WaitOneFrameAndUpdateDisplayState
     lda $10
-    and #$FF00
+    and #!COFFEE_TEA_OFFSET_HIGH_BYTE_MASK
     sta $02
     lda $10
     clc
@@ -3673,7 +3695,7 @@ C49D1E_AdvanceCoffeeTeaVramOffsetByTileRow:
     tax
     stx $0E
     txa
-    and #$FF00
+    and #!COFFEE_TEA_OFFSET_HIGH_BYTE_MASK
     sta $10
     cmp $02
     beq C49D65_AdvanceCoffeeTeaVramOffsetByTileRow_Return

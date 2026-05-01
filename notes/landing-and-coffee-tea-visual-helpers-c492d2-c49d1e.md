@@ -130,6 +130,12 @@ renderer used by the coffee/tea script parser.
 adjusts BG scroll word `$003B` through a C0 interpolation helper, calls
 `C0:8B26`, and returns the advanced offset.
 
+Source polish: `src/c4/coffee_tea_tile_buffer_helpers.asm` now names the
+coffee/tea battle-bg visual state id, row-mask byte/pass counts, token metadata
+field offsets, dirty-range reset sentinel, scroll remainder mask, row-reveal
+bias, offset high-byte mask, tile-source plane/trailer offsets, work-bank value,
+and the visual tile transfer source/destination arguments.
+
 ## Flyover intro text runner
 
 `C4:9EA4` is an eight-entry long-pointer table for the flyover/intro text
