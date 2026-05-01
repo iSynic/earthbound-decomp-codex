@@ -17,6 +17,8 @@ DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-project
 DEFAULT_MANIFEST_OUT = ROOT / "manifests" / "coilsnake-crosswalk.json"
 DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
 DEFAULT_EXPERIMENT_PLAN = ROOT / "manifests" / "coilsnake-experiment-plan.json"
+DEFAULT_PREJOIN_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-experiment-prejoin-report.json"
+DEFAULT_PREJOIN_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-experiment-prejoin-report.md"
 DEFAULT_FIELD_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_FIELD_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
 
@@ -44,6 +46,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-out", type=Path, default=DEFAULT_MANIFEST_OUT)
     parser.add_argument("--field-semantics", type=Path, default=DEFAULT_FIELD_SEMANTICS)
     parser.add_argument("--experiment-plan", type=Path, default=DEFAULT_EXPERIMENT_PLAN)
+    parser.add_argument("--prejoin-json-out", type=Path, default=DEFAULT_PREJOIN_JSON_OUT)
+    parser.add_argument("--prejoin-markdown-out", type=Path, default=DEFAULT_PREJOIN_MARKDOWN_OUT)
     parser.add_argument("--field-json-out", type=Path, default=DEFAULT_FIELD_JSON_OUT)
     parser.add_argument("--field-markdown-out", type=Path, default=DEFAULT_FIELD_MARKDOWN_OUT)
     parser.add_argument(
@@ -149,7 +153,12 @@ def inject_field_join_workflow(
     write_json(manifest_path, updated)
 
 
-def inject_experiment_plan_workflow(manifest_path: Path, experiment_plan_path: Path) -> None:
+def inject_experiment_plan_workflow(
+    manifest_path: Path,
+    experiment_plan_path: Path,
+    prejoin_json_path: Path,
+    prejoin_markdown_path: Path,
+) -> None:
     manifest = load_json(manifest_path)
     plan = load_json(experiment_plan_path)
     experiments = plan.get("planned_experiments", [])
@@ -175,6 +184,9 @@ def inject_experiment_plan_workflow(manifest_path: Path, experiment_plan_path: P
         "validator": "tools/validate_coilsnake_experiment_plan.py",
         "runner": "tools/run_coilsnake_edit_experiment.py",
         "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+        "prejoin_tool": "tools/build_coilsnake_experiment_prejoin_report.py",
+        "tracked_prejoin_summary": rel(prejoin_markdown_path),
+        "ignored_prejoin_json_report": rel(prejoin_json_path),
         "default_compile_timeout_seconds": plan.get("default_compile_timeout_seconds"),
         "planned_count": len(experiments),
         "next_experiments": next_experiments,
@@ -202,6 +214,8 @@ def main() -> int:
     manifest_out = args.manifest_out.resolve()
     field_semantics = args.field_semantics.resolve()
     experiment_plan = args.experiment_plan.resolve()
+    prejoin_json_out = args.prejoin_json_out.resolve()
+    prejoin_markdown_out = args.prejoin_markdown_out.resolve()
     field_json_out = args.field_json_out.resolve()
     field_markdown_out = args.field_markdown_out.resolve()
 
@@ -263,8 +277,24 @@ def main() -> int:
                 str(project_dir),
             ]
         )
+        run(
+            [
+                sys.executable,
+                str(TOOLS / "build_coilsnake_experiment_prejoin_report.py"),
+                "--plan",
+                str(experiment_plan),
+                "--crosswalk",
+                str(manifest_out),
+                "--project-dir",
+                str(project_dir),
+                "--json-out",
+                str(prejoin_json_out),
+                "--markdown-out",
+                str(prejoin_markdown_out),
+            ]
+        )
         inject_field_join_workflow(manifest_out, field_json_out, field_markdown_out)
-        inject_experiment_plan_workflow(manifest_out, experiment_plan)
+        inject_experiment_plan_workflow(manifest_out, experiment_plan, prejoin_json_out, prejoin_markdown_out)
         print(f"Refreshed {rel(manifest_out)}")
         print(f"Refreshed {rel(field_markdown_out)}")
         return 0

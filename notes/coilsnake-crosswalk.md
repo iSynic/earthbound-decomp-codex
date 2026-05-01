@@ -10,6 +10,7 @@ labels, WRAM fields, or byte-equivalent decomp claims.
 Tracked machine-readable summary: `manifests/coilsnake-crosswalk.json`.
 Tracked field semantics: `manifests/coilsnake-field-semantics.json`.
 Tracked planned experiments: `manifests/coilsnake-experiment-plan.json`.
+Tracked planned experiment prejoin: `notes/coilsnake-experiment-prejoin-report.md`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
 
 Ignored local outputs:
@@ -86,6 +87,9 @@ python tools/run_coilsnake_planned_experiment.py --experiment-id psi-ness-omega-
 `manifests/coilsnake-experiment-plan.json` sets
 `default_compile_timeout_seconds` to `600`. Longer compiles should be explicit
 per run or per planned experiment so the oracle loop stays bounded.
+`tools/build_coilsnake_experiment_prejoin_report.py` is compile-free; it checks
+the planned edit match counts and maps each queued probe to local crosswalk
+families/docs before any CoilSnake executable is launched.
 
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text

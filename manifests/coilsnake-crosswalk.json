@@ -1304,6 +1304,9 @@
     "validator": "tools/validate_coilsnake_experiment_plan.py",
     "runner": "tools/run_coilsnake_edit_experiment.py",
     "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+    "prejoin_tool": "tools/build_coilsnake_experiment_prejoin_report.py",
+    "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
+    "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
     "planned_count": 6,
     "next_experiments": [

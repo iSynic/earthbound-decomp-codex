@@ -61,6 +61,11 @@ def validate_plan(plan_path: Path, crosswalk_path: Path, project_dir: Path) -> l
     controlled_experiments = crosswalk.get("controlled_experiments", {})
     if not isinstance(controlled_experiments, dict):
         controlled_experiments = {}
+    family_ids = {
+        family.get("id")
+        for family in crosswalk.get("families", [])
+        if isinstance(family, dict) and isinstance(family.get("id"), str)
+    }
 
     experiments = plan.get("planned_experiments", [])
     if not isinstance(experiments, list):
@@ -92,6 +97,10 @@ def validate_plan(plan_path: Path, crosswalk_path: Path, project_dir: Path) -> l
         for key in ("batch", "resource_family", "source_file", "find", "replace", "edit_description", "promotion_target"):
             if key in experiment and (not isinstance(experiment[key], str) or not experiment[key]):
                 problems.append(f"{experiment_id}: {key} must be a nonempty string")
+
+        resource_family = experiment.get("resource_family")
+        if isinstance(resource_family, str) and resource_family and resource_family not in family_ids:
+            problems.append(f"{experiment_id}: resource_family is not in crosswalk families: {resource_family}")
 
         status = experiment.get("status")
         if status not in STATUSES:
