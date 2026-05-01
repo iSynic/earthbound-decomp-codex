@@ -16,6 +16,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff offsets are measured against `build/coilsnake/baseline-rebuild.sfc`, not the original 3 MiB ROM.
 - `diff-confirmed` means the CoilSnake edit/rebuild changed the reported span; runtime naming still needs local caller or source evidence.
 - A local range match whose vocabulary disagrees with the CoilSnake file is a relocation or compiler-normalization candidate, not a promoted runtime claim.
+- Non-diff experiments, failed compiles, and dry runs are listed as pending instead of being forced into offset joins.
 
 ## item-cost-probe
 
@@ -26,7 +27,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 105
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 138
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -85,4 +86,4 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 78
+  - `notes/coilsnake-crosswalk.md` line 105
