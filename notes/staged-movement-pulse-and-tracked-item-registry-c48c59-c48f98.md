@@ -81,6 +81,11 @@ This finalizes the movement pulse accumulator. It reserves a new accumulator tai
 
 The C0 movement setup paths call it immediately after queuing the delayed movement callback and storing staged target coordinates, which makes this the "install the generated movement pulse script" step.
 
+Source polish: `src/c4/staged_movement_and_tracked_item_pulse_helpers.asm`
+now names the movement pulse first index, active run flag, minimum staged
+movement delta, signed-word inversion mask, direction half/full octant rounding
+span, and repeated-pulse done count used by `C4:8C69..8E95`.
+
 ## Tracked item pulse registry
 
 ### `C4:8ECE`

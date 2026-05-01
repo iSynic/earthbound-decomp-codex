@@ -1747,6 +1747,13 @@ org $C48C59
 !TRACKED_ITEM_PULSE_GLOBAL_TIMER = $9F2C
 !TRACKED_ITEM_PULSE_SLOT_BASE_LOW = $9F1A
 !MOVEMENT_PULSE_RUN_LIMIT = $0040
+!MOVEMENT_PULSE_RUN_FIRST_INDEX = $0000
+!MOVEMENT_PULSE_RUN_ACTIVE_FLAG = $01
+!STAGED_MOVEMENT_MIN_DELTA = $0001
+!SIGNED_WORD_INVERT_MASK = $FFFF
+!MOVEMENT_DIRECTION_ANGLE_SPAN = $2000
+!MOVEMENT_DIRECTION_HALF_SPAN = $1000
+!REPEATED_PULSE_DONE_COUNT = $0000
 !TRACKED_ITEM_SLOT_COUNT = $0004
 !TRACKED_ITEM_SLOT_REFRESH_TIMER = $3C
 !TRACKED_ITEM_RANDOM_WINDOW = $0002
@@ -1759,7 +1766,7 @@ C48C69_ClearMovementPulseAccumulator:
     adc #$FFF0
     tcd
     stz !MOVEMENT_PULSE_RUN_COUNT
-    lda #$0000
+    lda #!MOVEMENT_PULSE_RUN_FIRST_INDEX
     sta $0E
     bra C48C90_ClearMovementPulseAccumulator_CheckLoop
 C48C7B_ClearMovementPulseAccumulator_ClearEntry:
@@ -1808,7 +1815,7 @@ C48C97_AppendMovementPulseSelectorRun:
     ldx $0E
     sta $0000,X
     sep #$20
-    lda.b #$01
+    lda.b #!MOVEMENT_PULSE_RUN_ACTIVE_FLAG
     sta !MOVEMENT_PULSE_RUN_FLAG_BASE
     bra C48D34_AppendMovementPulseSelectorRun_Return
 C48CD4_AppendMovementPulseSelectorRun_SearchExisting:
@@ -1861,7 +1868,7 @@ C48D14_AppendMovementPulseSelectorRun_StoreNew:
     adc $04
     tax
     sep #$20
-    lda.b #$01
+    lda.b #!MOVEMENT_PULSE_RUN_ACTIVE_FLAG
     sta !MOVEMENT_PULSE_RUN_FLAG_BASE,X
 C48D34_AppendMovementPulseSelectorRun_Return:
     rep #$20
@@ -1883,7 +1890,7 @@ C48D58_BuildStagedMovementPulsesAndReturnDelay:
     tax
     ldy $2E
     sty $1C
-    lda #$0000
+    lda #!MOVEMENT_PULSE_RUN_FIRST_INDEX
     sta $04
     stx $12
     lda $02
@@ -1900,7 +1907,7 @@ C48D76_BuildStagedMovementPulsesAndReturnDelay_Loop:
     sta $18
     lda $1A
     sta $02
-    lda #$0000
+    lda #!MOVEMENT_PULSE_RUN_FIRST_INDEX
     clc
     sbc $02
     bvc C48D96_BuildStagedMovementPulsesAndReturnDelay_CheckAbsXSign
@@ -1910,14 +1917,14 @@ C48D96_BuildStagedMovementPulsesAndReturnDelay_CheckAbsXSign:
     bmi C48DA0_BuildStagedMovementPulsesAndReturnDelay_KeepAbsX
 C48D98_BuildStagedMovementPulsesAndReturnDelay_NegateAbsX:
     lda $1A
-    eor #$FFFF
+    eor #!SIGNED_WORD_INVERT_MASK
     inc A
     bra C48DA2_BuildStagedMovementPulsesAndReturnDelay_CheckXDelta
 C48DA0_BuildStagedMovementPulsesAndReturnDelay_KeepAbsX:
     lda $1A
 C48DA2_BuildStagedMovementPulsesAndReturnDelay_CheckXDelta:
     clc
-    sbc #$0001
+    sbc #!STAGED_MOVEMENT_MIN_DELTA
     bvs C48DAC_BuildStagedMovementPulsesAndReturnDelay_CheckXDeltaSign
     bpl C48DDA_BuildStagedMovementPulsesAndReturnDelay_EmitStep
     bra C48DAE_BuildStagedMovementPulsesAndReturnDelay_CheckYDelta
@@ -1926,7 +1933,7 @@ C48DAC_BuildStagedMovementPulsesAndReturnDelay_CheckXDeltaSign:
 C48DAE_BuildStagedMovementPulsesAndReturnDelay_CheckYDelta:
     lda $18
     sta $02
-    lda #$0000
+    lda #!MOVEMENT_PULSE_RUN_FIRST_INDEX
     clc
     sbc $02
     bvc C48DBE_BuildStagedMovementPulsesAndReturnDelay_CheckAbsYSign
@@ -1936,14 +1943,14 @@ C48DBE_BuildStagedMovementPulsesAndReturnDelay_CheckAbsYSign:
     bmi C48DC8_BuildStagedMovementPulsesAndReturnDelay_KeepAbsY
 C48DC0_BuildStagedMovementPulsesAndReturnDelay_NegateAbsY:
     lda $02
-    eor #$FFFF
+    eor #!SIGNED_WORD_INVERT_MASK
     inc A
     bra C48DCA_BuildStagedMovementPulsesAndReturnDelay_CheckYDelta
 C48DC8_BuildStagedMovementPulsesAndReturnDelay_KeepAbsY:
     lda $02
 C48DCA_BuildStagedMovementPulsesAndReturnDelay_CheckYDelta:
     clc
-    sbc #$0001
+    sbc #!STAGED_MOVEMENT_MIN_DELTA
     bvc C48DD5_BuildStagedMovementPulsesAndReturnDelay_CheckYDeltaSign
     bmi C48DDA_BuildStagedMovementPulsesAndReturnDelay_EmitStep
     jmp C48E67_BuildStagedMovementPulsesAndReturnDelay_Done
@@ -1957,9 +1964,9 @@ C48DDA_BuildStagedMovementPulsesAndReturnDelay_EmitStep:
     ldx $16
     lda $12
     jsl !C41EFF_ComputeDirectionOctantFromDelta
-    ldy #$2000
+    ldy #!MOVEMENT_DIRECTION_ANGLE_SPAN
     clc
-    adc #$1000
+    adc #!MOVEMENT_DIRECTION_HALF_SPAN
     jsl !C0915B_ScaleOrDivideAngleMagnitude
     tax
     stx $18
@@ -2047,7 +2054,7 @@ C48E7C_AppendRepeatedMovementPulseSelector_Entry:
     dex
     stx $10
 C48E8E_AppendRepeatedMovementPulseSelector_CheckLoop:
-    cpx #$0000
+    cpx #!REPEATED_PULSE_DONE_COUNT
     bne C48E7C_AppendRepeatedMovementPulseSelector_Entry
     pld
     rtl
