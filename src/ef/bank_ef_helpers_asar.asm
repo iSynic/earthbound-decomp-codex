@@ -6016,71 +6016,120 @@ org $EFD95E
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
 !C47F87_RefreshWindowFlavorPalette = $C47F87
 !EFD95E_LoadDebugMenuGraphicsAndPalette = $EFD95E
+!ScratchLongPointerLo = $06
+!ScratchLongPointerBank = $08
+!SourcePointerLo = $0E
+!SourcePointerBank = $10
+!DebugMenuMode = $B559
+!DebugCursorSpriteSlot = $B553
+!DebugMenuCommandRow = $B555
+!DebugMenuCommandInputLatch = $B557
+!DebugMenuRuntimeScratchB551 = $B551
+!DebugMenuRuntimeScratchB55D = $B55D
+!DebugOverlayTileMode = $B55F
+!DebugMenuPaletteMarker = $0204
+!PresentationFlag4A58 = $4A58
+!PresentationCounter4A5A = $4A5A
+!DebugMenuFontSourceLo = $EB5F
+!DebugMenuMode3ExtraSourceLo = $EF9F
+!DebugMenuLateTileSourceLo = $F1BB
+!EfBankWord = $00EF
+!ScratchWramBankWord = $007F
+!DebugMenuFontVramDest = $6100
+!DebugMenuFontTransferBytes = $1000
+!DebugMenuTilemapVramDest = $7C00
+!DebugMenuTilemapTransferBytes = $0800
+!DebugMenuLateTileCopyDest = $0200
+!DebugMenuLateTileCopyWordCount = $0200
+!DebugMenuMode3ExtraCopyDest = $0200
+!DebugMenuMode3ExtraCopyWordCount = $0018
+!DebugMenuNoPaletteMarker = $FFFF
+!DebugMenuWindowTilemapBlock = $0009
+!DebugLayerBandAStart = $0000
+!DebugLayerBandAEnd = $3800
+!DebugLayerBandBStart = $2000
+!DebugLayerBandBEnd = $5800
+!DebugLayerClearStart = $6000
+!DebugLayerClearEnd = $7C00
+!DebugLayerConfigMode = $0002
+!DebugCursorSpriteAllocationY = $0034
+!DebugDisplayDirtyFlags = $18
+!DebugMenuTextLayerMode = $17
+!DebugMenuTilemapBasePage = $2F
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!ZeroByte = $00
+!ZeroWord = $0000
+!OneWord = $0001
+!DebugMenuWindowPaletteMode = $0001
+!DebugMenuMode3 = $0003
+!DebugMenuVramTransferMode0 = $00
+!DebugMenuVramTransferMode3 = $03
 EFD95E_LoadDebugMenuGraphicsAndPalette:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$0000
-    sta $06
-    lda.w #$007F
-    sta $08
+    lda.w #!ZeroWord
+    sta !ScratchLongPointerLo
+    lda.w #!ScratchWramBankWord
+    sta !ScratchLongPointerBank
     jsl !C200D9_ClearBattleOrPresentationState
     jsl !C08756_WaitOneFrameAndPollInput
-    lda $B559
-    cmp.w #$0001
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuWindowPaletteMode
     bne EFD991_DebugMenuGraphicsAndStateInit_LD991
     jsl !C47C3F_ClearWindowOrMenuMaskState
-    lda.w #$0001
+    lda.w #!OneWord
     jsl !C44963_ResetActiveTextGlyphRun
     jsl !C47F87_RefreshWindowFlavorPalette
     bra EFD9E8_DebugMenuGraphicsAndStateInit_LD9E8
 EFD991_DebugMenuGraphicsAndStateInit_LD991:
-    lda.w #$EB5F
-    sta $0E
-    lda.w #$00EF
-    sta $10
-    ldy.w #$6100
-    ldx.w #$1000
-    sep #$20
-    lda.b #$00
+    lda.w #!DebugMenuFontSourceLo
+    sta !SourcePointerLo
+    lda.w #!EfBankWord
+    sta !SourcePointerBank
+    ldy.w #!DebugMenuFontVramDest
+    ldx.w #!DebugMenuFontTransferBytes
+    sep #!AccumulatorWidthFlag
+    lda.b #!DebugMenuVramTransferMode0
     jsl !C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0000
-    sta [$06]
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    ldy.w #$7C00
-    ldx.w #$0800
-    sep #$20
-    lda.b #$03
+    lda.w #!ZeroWord
+    sta [!ScratchLongPointerLo]
+    lda !ScratchLongPointerLo
+    sta !SourcePointerLo
+    lda !ScratchLongPointerBank
+    sta !SourcePointerBank
+    ldy.w #!DebugMenuTilemapVramDest
+    ldx.w #!DebugMenuTilemapTransferBytes
+    sep #!AccumulatorWidthFlag
+    lda.b #!DebugMenuVramTransferMode3
     jsl !C08616_QueueVramTransfer_FromDpSource
-    lda $B559
-    cmp.w #$0003
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuMode3
     beq EFD9D4_DebugMenuGraphicsAndStateInit_LD9D4
-    lda.w #$FFFF
-    sta $0204
+    lda.w #!DebugMenuNoPaletteMarker
+    sta !DebugMenuPaletteMarker
     bra EFD9E8_DebugMenuGraphicsAndStateInit_LD9E8
 EFD9D4_DebugMenuGraphicsAndStateInit_LD9D4:
-    lda.w #$EF9F
-    sta $0E
-    lda.w #$00EF
-    sta $10
-    ldx.w #$0018
-    lda.w #$0200
+    lda.w #!DebugMenuMode3ExtraSourceLo
+    sta !SourcePointerLo
+    lda.w #!EfBankWord
+    sta !SourcePointerBank
+    ldx.w #!DebugMenuMode3ExtraCopyWordCount
+    lda.w #!DebugMenuMode3ExtraCopyDest
     jsl !C08ED2_CopyWordsFromDpSource
 EFD9E8_DebugMenuGraphicsAndStateInit_LD9E8:
-    sep #$20
-    lda.b #$18
+    sep #!AccumulatorWidthFlag
+    lda.b #!DebugDisplayDirtyFlags
     sta $0030
-    rep #$20
+    rep #!AccumulatorWidthFlag
     pld
     rtl
 EFD9F3_RefreshDebugMenuGraphicsIfNeeded:
-    rep #$31
-    lda $B559
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda !DebugMenuMode
     beq EFDA00_DebugMenuGraphicsAndStateInit_LDA00
     jsl !EFD95E_LoadDebugMenuGraphicsAndPalette
     bra EFDA04_DebugMenuGraphicsAndStateInit_LDA04
@@ -6089,72 +6138,72 @@ EFDA00_DebugMenuGraphicsAndStateInit_LDA00:
 EFDA04_DebugMenuGraphicsAndStateInit_LDA04:
     rtl
 EFDA05_InitializeDebugMenuStateAndGraphics:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$0000
-    sta $06
-    lda.w #$007F
-    sta $08
+    lda.w #!ZeroWord
+    sta !ScratchLongPointerLo
+    lda.w #!ScratchWramBankWord
+    sta !ScratchLongPointerBank
     jsl !C08726_ResetMenuInputState
-    sep #$20
-    lda.b #$17
+    sep #!AccumulatorWidthFlag
+    lda.b #!DebugMenuTextLayerMode
     sta $001A
-    lda.b #$2F
+    lda.b #!DebugMenuTilemapBasePage
     sta $000B
-    rep #$20
-    stz $B55D
-    stz $B557
-    stz $B555
-    stz $B551
-    stz $B55F
-    lda.w #$0009
+    rep #!AccumulatorWidthFlag
+    stz !DebugMenuRuntimeScratchB55D
+    stz !DebugMenuCommandInputLatch
+    stz !DebugMenuCommandRow
+    stz !DebugMenuRuntimeScratchB551
+    stz !DebugOverlayTileMode
+    lda.w #!DebugMenuWindowTilemapBlock
     jsl !C08D79_ClearWindowTilemapBlock
-    ldy.w #$0000
-    ldx.w #$3800
-    lda.w #$0001
+    ldy.w #!DebugLayerBandAStart
+    ldx.w #!DebugLayerBandAEnd
+    lda.w #!OneWord
     jsl !C08D9E_FillDebugLayerBand
-    ldy.w #$2000
-    ldx.w #$5800
-    lda.w #$0001
+    ldy.w #!DebugLayerBandBStart
+    ldx.w #!DebugLayerBandBEnd
+    lda.w #!OneWord
     jsl !C08DDE_FillDebugLayerBandAlt
-    ldy.w #$6000
-    ldx.w #$7C00
-    lda.w #$0000
+    ldy.w #!DebugLayerClearStart
+    ldx.w #!DebugLayerClearEnd
+    lda.w #!ZeroWord
     jsl !C08E1C_ClearDebugLayerRegion
-    lda.w #$0002
+    lda.w #!DebugLayerConfigMode
     jsl !C08D92_SetDebugLayerConfig
-    lda.w #$0000
-    sta [$06]
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    ldy.w #$0000
+    lda.w #!ZeroWord
+    sta [!ScratchLongPointerLo]
+    lda !ScratchLongPointerLo
+    sta !SourcePointerLo
+    lda !ScratchLongPointerBank
+    sta !SourcePointerBank
+    ldy.w #!ZeroWord
     tyx
-    sep #$20
-    lda.b #$03
+    sep #!AccumulatorWidthFlag
+    lda.b #!DebugMenuVramTransferMode3
     jsl !C08616_QueueVramTransfer_FromDpSource
-    lda.w #$F1BB
-    sta $0E
-    lda.w #$00EF
-    sta $10
-    ldx.w #$0200
-    lda.w #$0200
+    lda.w #!DebugMenuLateTileSourceLo
+    sta !SourcePointerLo
+    lda.w #!EfBankWord
+    sta !SourcePointerBank
+    ldx.w #!DebugMenuLateTileCopyWordCount
+    lda.w #!DebugMenuLateTileCopyDest
     jsl !C08ED2_CopyWordsFromDpSource
     jsl !EFD95E_LoadDebugMenuGraphicsAndPalette
     stz $0A4C
-    lda.w #$0001
+    lda.w #!OneWord
     sta $0A4E
-    ldy.w #$0034
+    ldy.w #!DebugCursorSpriteAllocationY
     tyx
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C092F5_AllocateEntityOrSpriteSlot
-    sta $B553
-    stz $4A58
-    stz $4A5A
+    sta !DebugCursorSpriteSlot
+    stz !PresentationFlag4A58
+    stz !PresentationCounter4A5A
     pld
     rts
 

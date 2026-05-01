@@ -84,3 +84,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   scratch, `$0069/$006D` input masks, `$B54B/$B54D/$B54F` BGM/SE/effect
   selectors, `$B545` temporary BGM restore slot, row cursor writeback through
   `$0BCA`, and wrap ranges for the BGM, SE, and effect selector rows.
+- 2026-05-01: EF debug graphics/state initializer polish landed as byte-neutral
+  source aliases. The promoted contracts name the `$B559` debug menu mode,
+  `EF:EB5F` debug-font load, `EF:EF9F` mode-3 extra block, `EF:F1BB` late tile
+  source copy, `$B553/$B555/$B557/$B55F` cursor/command/overlay state fields,
+  layer clear/fill bands, `$0204` palette marker, and `$4A58/$4A5A`
+  presentation flags cleared by debug menu initialization.

@@ -29,6 +29,10 @@ menu text/number drawing helpers start.
   - Loads the debug menu font from `EF:EB5F`.
   - Queues the debug tile transfer and optionally copies the palette/source
     block at `EF:EF9F`.
+  - The source now names `$B559` as the debug menu mode, the `EF:EB5F`
+    debug-font source, the `EF:EF9F` mode-3 extra block, the `0x6100` font
+    VRAM transfer, the `0x7C00` tilemap transfer, and the `$0204` palette
+    marker used when mode 3 is not active.
 - `EF:D9F3` = `RefreshDebugMenuGraphicsIfNeeded`
   - Refreshes the debug menu graphics path when `$B559` requests it, otherwise
     refreshes the window flavor palette.
@@ -37,6 +41,10 @@ menu text/number drawing helpers start.
   - Initializes tilemap/layer regions.
   - Copies the late EF debug data block at `EF:F1BB`.
   - Allocates the debug cursor/sprite slot state.
+  - The source now names the command row/input latch fields at `$B555/$B557`,
+    cursor slot `$B553`, overlay tile mode `$B55F`, conservative runtime
+    scratch fields `$B551/$B55D`, the layer clear/fill bands, the `EF:F1BB`
+    late tile source copy, and presentation flags `$4A58/$4A5A`.
 
 ## Data
 
@@ -65,8 +73,8 @@ text-line helper used by the earlier sound-menu row renderer.
 
 ## Current Validation
 
-The debug sound-menu controller source remains byte-equivalent after the
-semantic alias pass:
+The debug sound-menu controller and graphics/state initializer sources remain
+byte-equivalent after the semantic alias passes:
 
 ```powershell
 python tools\build_source_bank_scaffold.py --bank EF
