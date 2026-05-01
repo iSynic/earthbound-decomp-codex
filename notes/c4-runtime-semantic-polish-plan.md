@@ -172,6 +172,12 @@ closure.
   and high-byte masks, tile-source plane/trailer offsets, work-bank value, and
   visual tile transfer arguments. See
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-01 coffee/tea and flyover tail: promoted the scene interpreters'
+  prompt token ids, initial window index, shared command bytes, byte masks,
+  flyover pointer offset, display-bracket arguments, clear region,
+  busy-complete sentinel, flyover wait count, display modes, and `$10E4`
+  state-mask/restore contract. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 

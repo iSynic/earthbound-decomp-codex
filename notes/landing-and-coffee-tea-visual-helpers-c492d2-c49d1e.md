@@ -163,6 +163,12 @@ transition helper at `C0:87CE`, waits `#$00B4` frames through
 `C0:8726` and `C4:800B`, restores `$10E4`, then closes the display bracket with
 `C0:8744`.
 
+Source polish: `src/c4/coffee_tea_and_flyover_scene_interpreters.asm` now names
+the coffee/tea prompt token ids, initial window index, shared command bytes,
+script byte masks, flyover pointer-bank offset, display-bracket arguments,
+scene clear region, busy-complete sentinel, flyover wait count, display modes,
+and `$10E4` state-mask/restore contract.
+
 The routine has no direct `JSL`/same-bank `JSR` callers in the split-bank scan,
 so the current best read is that it is reached through a pointer/script/event
 path rather than a direct code reference.

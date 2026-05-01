@@ -3755,14 +3755,24 @@ org $C49D6A
 !COFFEE_TEA_ROW_TILE_LIMIT = $2000
 !COFFEE_TEA_FRAME_STEP = $0018
 !COFFEE_TEA_TOKEN_WIDTH = $000C
+!COFFEE_TEA_INITIAL_WINDOW_INDEX = $001C
+!COFFEE_PROMPT_TOKEN = $00E8
+!TEA_PROMPT_TOKEN = $00EA
+!COFFEE_RESPONSE_PROMPT_TOKEN = $00E7
+!TEA_RESPONSE_PROMPT_TOKEN = $00E9
+!DISPLAY_TRANSITION_MAIN_SLOT = $0001
+!DISPLAY_TRANSITION_LAYER_ZERO = $0000
+!DISPLAY_TRANSITION_LAYER_THREE = $0003
 !COFFEE_TEA_SCRIPT_TERMINATOR = $0000
 !COFFEE_TEA_CMD_SCROLL_PAGE = $0009
 !COFFEE_TEA_CMD_ADVANCE_ROW = $0001
 !COFFEE_TEA_CMD_TOKEN_STRING = $0008
 !FLYOVER_CMD_SET_WINDOW_INDEX = $0002
+!FLYOVER_POINTER_BANK_OFFSET = $0002
 !FLYOVER_END_WAIT_FRAMES = $00B4
 !SCENE_CLEAR_WORDS = $0380
 !SCENE_CLEAR_BASE = $7DFE
+!SCENE_BUSY_COMPLETE = $00FF
 !DISPLAY_SHADOW_1A = $001A
 !COFFEE_TEA_DISPLAY_MODE_04 = $04
 !FLYOVER_DISPLAY_MODE_17 = $17
@@ -3770,6 +3780,8 @@ org $C49D6A
 !FLYOVER_STATE_WORD_10E4 = $10E4
 !FLYOVER_STATE_MASK_C000 = $C000
 !INPUT_STATE_28 = $0028
+!LowByteMask = $00FF
+!ZeroWord = $0000
 COFFEETEA_SCENE:
 !C49D6A_RunCoffeeTeaScene = COFFEETEA_SCENE
     rep #$31
@@ -3780,34 +3792,34 @@ COFFEETEA_SCENE:
     tcd
     pla
     sta $02
-    ldy #$0000
-    ldx #$0001
+    ldy #!DISPLAY_TRANSITION_LAYER_ZERO
+    ldx #!DISPLAY_TRANSITION_MAIN_SLOT
     txa
     jsl !C08814_OpenDisplayTransitionBracket
     jsl !C49A56_InitCoffeeTeaTileBufferAndTransferState_Ext
     jsl !C088B1_WaitOneFrameAndUpdateDisplayState
     lda $02
     bne C49D92_RunCoffeeTeaScene_TeaPrompt
-    ldx #$00E8
+    ldx #!COFFEE_PROMPT_TOKEN
     bra C49D95_RunCoffeeTeaScene_DisplayPrompt
 C49D92_RunCoffeeTeaScene_TeaPrompt:
-    ldx #$00EA
+    ldx #!TEA_PROMPT_TOKEN
 C49D95_RunCoffeeTeaScene_DisplayPrompt:
     lda $02
     bne C49D9E_RunCoffeeTeaScene_TeaResponsePrompt
-    ldy #$00E7
+    ldy #!COFFEE_RESPONSE_PROMPT_TOKEN
     bra C49DA1_RunCoffeeTeaScene_DisplayResponsePrompt
 C49D9E_RunCoffeeTeaScene_TeaResponsePrompt:
-    ldy #$00E9
+    ldy #!TEA_RESPONSE_PROMPT_TOKEN
 C49DA1_RunCoffeeTeaScene_DisplayResponsePrompt:
     tya
     jsl !C47370_DisplayTextTokenOrPrompt
-    ldx #$0001
+    ldx #!DISPLAY_TRANSITION_MAIN_SLOT
     txa
     jsl !C0886C_SetDisplayTransitionState
-    lda #$001C
+    lda #!COFFEE_TEA_INITIAL_WINDOW_INDEX
     sta.w !COFFEE_TEA_TILE_WINDOW_INDEX
-    lda #$0000
+    lda #!ZeroWord
     sta $04
     lda $02
     bne C49DC9_RunCoffeeTeaScene_UseTeaScript
@@ -3825,7 +3837,7 @@ C49DD3_RunCoffeeTeaScene_StartScript:
     stz.w !SCENE_BUSY_FLAG_5E6E
 C49DD6_RunCoffeeTeaScene_ReadCommand:
     lda [$06]
-    and #$00FF
+    and #!LowByteMask
     inc $06
     cmp #!COFFEE_TEA_SCRIPT_TERMINATOR
     beq C49E58_RunCoffeeTeaScene_EndScript
@@ -3871,7 +3883,7 @@ C49E2B_RunCoffeeTeaScene_AdvanceRow:
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 C49E39_RunCoffeeTeaScene_TokenString:
     lda [$06]
-    and #$00FF
+    and #!LowByteMask
     tay
     inc $06
     ldx #!COFFEE_TEA_TOKEN_WIDTH
@@ -3880,11 +3892,11 @@ C49E39_RunCoffeeTeaScene_TokenString:
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 C49E4B_RunCoffeeTeaScene_SingleToken:
     ldy #!COFFEE_TEA_TOKEN_WIDTH
-    ldx #$0000
+    ldx #!ZeroWord
     jsl !C49D16_RenderSingleCoffeeTeaTileToken_Ext
     jmp C49DD6_RunCoffeeTeaScene_ReadCommand
 C49E58_RunCoffeeTeaScene_EndScript:
-    ldx #$0001
+    ldx #!DISPLAY_TRANSITION_MAIN_SLOT
     txa
     jsl !C0887A_ClearDisplayTransitionState
     bra C49E65_RunCoffeeTeaScene_WaitForInputReleaseCheck
@@ -3892,7 +3904,7 @@ C49E62_RunCoffeeTeaScene_WaitForInputRelease:
     jsr !C49A4B_WaitFrameAndUpdateBattleBgVisualState_Near
 C49E65_RunCoffeeTeaScene_WaitForInputReleaseCheck:
     lda.w !INPUT_STATE_28
-    and #$00FF
+    and #!LowByteMask
     bne C49E62_RunCoffeeTeaScene_WaitForInputRelease
     jsl !C08726_BlankWaitAndDisableHdma
     jsl !C018F3_RestoreOrRefreshDisplayState
@@ -3900,19 +3912,19 @@ C49E65_RunCoffeeTeaScene_WaitForInputReleaseCheck:
     ldx #!SCENE_CLEAR_WORDS
     bra C49E86_RunCoffeeTeaScene_ClearTileBufferCheck
 C49E7D_RunCoffeeTeaScene_ClearTileBuffer:
-    lda #$0000
+    lda #!ZeroWord
     sta.w $0000,y
     iny
     iny
     dex
 C49E86_RunCoffeeTeaScene_ClearTileBufferCheck:
     bne C49E7D_RunCoffeeTeaScene_ClearTileBuffer
-    lda #$00FF
+    lda #!SCENE_BUSY_COMPLETE
     sta.w !SCENE_BUSY_FLAG_5E6E
     jsl !C08726_BlankWaitAndDisableHdma
     jsl !C4800B_RestoreC4VisualState
     jsl !C08744_CloseDisplayTransitionBracket
-    ldx #$0001
+    ldx #!DISPLAY_TRANSITION_MAIN_SLOT
     txa
     jsl !C0886C_SetDisplayTransitionState
     pld
@@ -3945,7 +3957,7 @@ C49EC4_RunFlyoverIntroTextSceneByIndex:
     clc
     adc $0A
     sta $0A
-    ldy #$0002
+    ldy #!FLYOVER_POINTER_BANK_OFFSET
     lda [$0A],y
     tay
     lda [$0A]
@@ -3954,7 +3966,7 @@ C49EC4_RunFlyoverIntroTextSceneByIndex:
     stz.w !SCENE_BUSY_FLAG_5E6E
 C49F04_RunFlyoverIntroTextScene_ReadCommand:
     lda [$06]
-    and #$00FF
+    and #!LowByteMask
     inc $06
     cmp #!COFFEE_TEA_SCRIPT_TERMINATOR
     beq C49F72_RunFlyoverIntroTextScene_EndScript
@@ -3969,7 +3981,7 @@ C49F04_RunFlyoverIntroTextScene_ReadCommand:
     bra C49F66_RunFlyoverIntroTextScene_SingleToken
 C49F26_RunFlyoverIntroTextScene_SetWindowIndex:
     lda [$06]
-    and #$00FF
+    and #!LowByteMask
     sta.w !COFFEE_TEA_TILE_WINDOW_INDEX
     inc $06
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
@@ -3989,7 +4001,7 @@ C49F46_RunFlyoverIntroTextScene_AdvanceRow:
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 C49F54_RunFlyoverIntroTextScene_TokenString:
     lda [$06]
-    and #$00FF
+    and #!LowByteMask
     tay
     inc $06
     ldx #!COFFEE_TEA_TOKEN_WIDTH
@@ -3998,19 +4010,19 @@ C49F54_RunFlyoverIntroTextScene_TokenString:
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 C49F66_RunFlyoverIntroTextScene_SingleToken:
     ldy #!COFFEE_TEA_TOKEN_WIDTH
-    ldx #$0000
+    ldx #!ZeroWord
     jsl !C49D16_RenderSingleCoffeeTeaTileToken_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 C49F72_RunFlyoverIntroTextScene_EndScript:
     sep #$20
     lda.b #!COFFEE_TEA_DISPLAY_MODE_04
     sta.w !DISPLAY_SHADOW_1A
-    ldy #$0000
-    ldx #$0003
+    ldy #!DISPLAY_TRANSITION_LAYER_ZERO
+    ldx #!DISPLAY_TRANSITION_LAYER_THREE
     rep #$20
-    lda #$0001
+    lda #!DISPLAY_TRANSITION_MAIN_SLOT
     jsl !C087CE_ApplyDisplayStateOrLayerPreset
-    ldx #$0000
+    ldx #!ZeroWord
     stx $0E
     bra C49F98_RunFlyoverIntroTextScene_WaitCheck
 C49F8F_RunFlyoverIntroTextScene_WaitFrame:
@@ -4021,9 +4033,9 @@ C49F8F_RunFlyoverIntroTextScene_WaitFrame:
 C49F98_RunFlyoverIntroTextScene_WaitCheck:
     cpx #!FLYOVER_END_WAIT_FRAMES
     bcc C49F8F_RunFlyoverIntroTextScene_WaitFrame
-    ldy #$0000
-    ldx #$0003
-    lda #$0001
+    ldy #!DISPLAY_TRANSITION_LAYER_ZERO
+    ldx #!DISPLAY_TRANSITION_LAYER_THREE
+    lda #!DISPLAY_TRANSITION_MAIN_SLOT
     jsl !C08814_OpenDisplayTransitionBracket
     sep #$20
     lda.b #!FLYOVER_DISPLAY_MODE_17
@@ -4033,7 +4045,7 @@ C49F98_RunFlyoverIntroTextScene_WaitCheck:
     bra C49FC4_RunFlyoverIntroTextScene_ClearTileBufferCheck
 C49FB9_RunFlyoverIntroTextScene_ClearTileBuffer:
     rep #$20
-    lda #$0000
+    lda #!ZeroWord
     sta.w $0000,y
     iny
     iny
@@ -4041,7 +4053,7 @@ C49FB9_RunFlyoverIntroTextScene_ClearTileBuffer:
 C49FC4_RunFlyoverIntroTextScene_ClearTileBufferCheck:
     bne C49FB9_RunFlyoverIntroTextScene_ClearTileBuffer
     rep #$20
-    lda #$00FF
+    lda #!SCENE_BUSY_COMPLETE
     sta.w !SCENE_BUSY_FLAG_5E6E
     jsl !C08726_BlankWaitAndDisableHdma
     jsl !C4800B_RestoreC4VisualState
