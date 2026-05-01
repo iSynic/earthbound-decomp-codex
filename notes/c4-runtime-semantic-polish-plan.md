@@ -133,6 +133,11 @@ closure.
   and VRAM transfer values, palette staging offsets, intro display state, and
   phase staging buffer constants. See
   `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
+- 2026-05-01 saved landing fades: promoted the saved landing fade helpers'
+  abort latch, success/abort sentinels, palette restore source/scale/commit
+  values, long/short phase frame counts, phase stage ids, text/event gate
+  pointers, and no-source fade counters. See
+  `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
 
 ## Validation
 

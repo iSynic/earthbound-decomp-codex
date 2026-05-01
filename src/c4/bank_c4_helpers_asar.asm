@@ -8053,6 +8053,27 @@ org $C4C2DE
 !SavedLandingPaletteStagePreviousDestOffset = $02C0
 !SavedLandingPaletteStageBytes = $00C0
 !SavedLandingPaletteStageSliceBytes = $0020
+!WRAM_LO_BANK = $007E
+!SavedLandingAbortInputLatch = $006D
+!SavedLandingPhaseAbortReturn = $FFFF
+!SavedLandingPhaseSuccessReturn = $0000
+!SavedLandingPaletteRestoreSource = $0200
+!SavedLandingPaletteRestoreScaleStep = $0064
+!SavedLandingPaletteFadeNoSourceIndex = $FFFF
+!SavedLandingPaletteFadeFirstFrame = $0000
+!SavedLandingCgramCommitFillByte = $FF
+!SavedLandingCgramCommitOffset = $0200
+!SavedLandingPaletteRestoreWaitFrames = $0018
+!SavedLandingSequenceLongPauseFrames = $003C
+!SavedLandingSequenceTextPointer = $DE7D
+!SavedLandingSequenceTextBank = $00C7
+!SavedLandingSequenceEventFlagPointer = $C30184
+!SavedLandingPhaseLongFrameCount = $005A
+!SavedLandingPhaseShortFrameCount = $0008
+!SavedLandingPhaseStage1 = $0001
+!SavedLandingPhaseStage2 = $0002
+!SavedLandingPhaseStage3 = $0003
+!SavedLandingPhaseStage4 = $0004
 !LowByteMask = $00FF
 !ZeroWord = $0000
 !ZeroByte = $00
@@ -8332,9 +8353,9 @@ C4C519_RunLandingPalettePhaseFadeFrames:
     jsl INITIALIZE_MAP_PALETTE_FADE
     bra C4C54A_InitializeSavedLandingDisplayState_LC54A
 C4C533_InitializeSavedLandingDisplayState_LC533:
-    lda $006D
+    lda !SavedLandingAbortInputLatch
     beq C4C53D_InitializeSavedLandingDisplayState_LC53D
-    lda.w #$FFFF
+    lda.w #!SavedLandingPhaseAbortReturn
     bra C4C565_InitializeSavedLandingDisplayState_LC565
 C4C53D_InitializeSavedLandingDisplayState_LC53D:
     jsl !C492D2_RunLandingInterpolationFrame
@@ -8345,14 +8366,14 @@ C4C53D_InitializeSavedLandingDisplayState_LC53D:
 C4C54A_InitializeSavedLandingDisplayState_LC54A:
     ldy $12
     bne C4C533_InitializeSavedLandingDisplayState_LC533
-    lda.w #$7800
+    lda.w #!SavedLandingPaletteStageBufferBase
     sta $0E
-    lda.w #$007F
+    lda.w #!SavedLandingWorkBank
     sta $10
-    ldx.w #$00C0
-    lda.w #$0240
+    ldx.w #!SavedLandingPaletteStageBytes
+    lda.w #!SavedLandingPaletteStageSourceOffset
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
 C4C565_InitializeSavedLandingDisplayState_LC565:
     pld
     rts
@@ -8368,9 +8389,9 @@ SKIPPABLE_PAUSE:
     sta $0E
     bra C4C588_InitializeSavedLandingDisplayState_LC588
 C4C575_InitializeSavedLandingDisplayState_LC575:
-    lda $006D
+    lda !SavedLandingAbortInputLatch
     beq C4C57F_InitializeSavedLandingDisplayState_LC57F
-    lda.w #$FFFF
+    lda.w #!SavedLandingPhaseAbortReturn
     bra C4C58D_InitializeSavedLandingDisplayState_LC58D
 C4C57F_InitializeSavedLandingDisplayState_LC57F:
     jsl !C08756_WaitOneFrameAndPollInput
@@ -8379,7 +8400,7 @@ C4C57F_InitializeSavedLandingDisplayState_LC57F:
     sta $0E
 C4C588_InitializeSavedLandingDisplayState_LC588:
     bne C4C575_InitializeSavedLandingDisplayState_LC575
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
 C4C58D_InitializeSavedLandingDisplayState_LC58D:
     pld
     rts
@@ -8392,7 +8413,7 @@ C4C58F_RunSavedLandingPaletteRestoreFadeFrames:
     tcd
     pla
     sta $02
-    lda.w #$0200
+    lda.w #!SavedLandingPaletteRestoreSource
     sta $06
     phb
     sep #$20
@@ -8404,7 +8425,7 @@ C4C58F_RunSavedLandingPaletteRestoreFadeFrames:
     sta $12
     lda $08
     sta $14
-    lda.w #$007E
+    lda.w #!WRAM_LO_BANK
     sta $14
     lda $12
     sta $06
@@ -8414,12 +8435,12 @@ C4C58F_RunSavedLandingPaletteRestoreFadeFrames:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0064
+    lda.w #!SavedLandingPaletteRestoreScaleStep
     jsl !C4954C_SeedPaletteFadeWorkBuffer
-    ldx.w #$FFFF
+    ldx.w #!SavedLandingPaletteFadeNoSourceIndex
     lda $02
     jsl !C496E7_StartPaletteFadeFromWorkBuffer
-    lda.w #$0000
+    lda.w #!SavedLandingPaletteFadeFirstFrame
     sta $16
     bra C4C5EB_InitializeSavedLandingDisplayState_LC5EB
 C4C5DE_InitializeSavedLandingDisplayState_LC5DE:
@@ -8432,13 +8453,13 @@ C4C5EB_InitializeSavedLandingDisplayState_LC5EB:
     cmp $02
     bcc C4C5DE_InitializeSavedLandingDisplayState_LC5DE
     sep #$20
-    lda.b #$FF
+    lda.b #!SavedLandingCgramCommitFillByte
     sta $0E
-    ldx.w #$0200
+    ldx.w #!SavedLandingCgramCommitOffset
     rep #$20
-    lda.w #$0200
+    lda.w #!SavedLandingCgramCommitOffset
     jsl !C08EFC_CommitTileBufferToStaging
-    lda.w #$0018
+    lda.w #!SavedLandingPaletteRestoreWaitFrames
     jsl !C0856B_WaitFramesOrTransitionDelay
     jsl !C08756_WaitOneFrameAndPollInput
     pld
@@ -8452,10 +8473,10 @@ C4C60E_RunSavedLandingPaletteWorldRefreshFadeFrames:
     tcd
     pla
     sta $02
-    ldx.w #$FFFF
+    ldx.w #!SavedLandingPaletteFadeNoSourceIndex
     lda $02
     jsl !C496E7_StartPaletteFadeFromWorkBuffer
-    lda.w #$0000
+    lda.w #!SavedLandingPaletteFadeFirstFrame
     sta $0E
     bra C4C643_InitializeSavedLandingDisplayState_LC643
 C4C62A_InitializeSavedLandingDisplayState_LC62A:
@@ -8479,84 +8500,84 @@ C4C64D_RunSavedLandingFadeSequence:
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$003C
+    lda.w #!SavedLandingSequenceLongPauseFrames
     jsr.w SKIPPABLE_PAUSE
-    lda.w #$DE7D
+    lda.w #!SavedLandingSequenceTextPointer
     sta $0E
-    lda.w #$00C7
+    lda.w #!SavedLandingSequenceTextBank
     sta $10
     jsl !C186B1_PrintTextFromPointer
     jsl !C1DD5F_WaitForTextOrMenuAcknowledge
-    lda $C30184
+    lda !SavedLandingSequenceEventFlagPointer
     jsl !C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     bne C4C686_InitializeSavedLandingDisplayState_LC686
-    lda.w #$003C
+    lda.w #!SavedLandingSequenceLongPauseFrames
     jsr.w SKIPPABLE_PAUSE
-    lda.w #$FFFF
+    lda.w #!SavedLandingPhaseAbortReturn
     jmp.w C4C716_InitializeSavedLandingDisplayState_LC716
 C4C686_InitializeSavedLandingDisplayState_LC686:
-    lda.w #$003C
+    lda.w #!SavedLandingSequenceLongPauseFrames
     jsr.w SKIPPABLE_PAUSE
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C697_InitializeSavedLandingDisplayState_LC697
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     jmp.w C4C716_InitializeSavedLandingDisplayState_LC716
 C4C697_InitializeSavedLandingDisplayState_LC697:
-    ldx.w #$005A
-    lda.w #$0001
+    ldx.w #!SavedLandingPhaseLongFrameCount
+    lda.w #!SavedLandingPhaseStage1
     jsr.w C4C519_RunLandingPalettePhaseFadeFrames
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C6AA_InitializeSavedLandingDisplayState_LC6AA
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6AA_InitializeSavedLandingDisplayState_LC6AA:
-    lda.w #$0001
+    lda.w #!SavedLandingPhaseStage1
     jsr.w SKIPPABLE_PAUSE
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C6BA_InitializeSavedLandingDisplayState_LC6BA
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6BA_InitializeSavedLandingDisplayState_LC6BA:
-    ldx.w #$005A
-    lda.w #$0002
+    ldx.w #!SavedLandingPhaseLongFrameCount
+    lda.w #!SavedLandingPhaseStage2
     jsr.w C4C519_RunLandingPalettePhaseFadeFrames
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C6CD_InitializeSavedLandingDisplayState_LC6CD
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6CD_InitializeSavedLandingDisplayState_LC6CD:
-    lda.w #$0001
+    lda.w #!SavedLandingPhaseStage1
     jsr.w SKIPPABLE_PAUSE
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C6DD_InitializeSavedLandingDisplayState_LC6DD
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6DD_InitializeSavedLandingDisplayState_LC6DD:
-    ldx.w #$005A
-    lda.w #$0003
+    ldx.w #!SavedLandingPhaseLongFrameCount
+    lda.w #!SavedLandingPhaseStage3
     jsr.w C4C519_RunLandingPalettePhaseFadeFrames
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C6F0_InitializeSavedLandingDisplayState_LC6F0
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C6F0_InitializeSavedLandingDisplayState_LC6F0:
-    lda.w #$0001
+    lda.w #!SavedLandingPhaseStage1
     jsr.w SKIPPABLE_PAUSE
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C700_InitializeSavedLandingDisplayState_LC700
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C700_InitializeSavedLandingDisplayState_LC700:
-    ldx.w #$0008
-    lda.w #$0004
+    ldx.w #!SavedLandingPhaseShortFrameCount
+    lda.w #!SavedLandingPhaseStage4
     jsr.w C4C519_RunLandingPalettePhaseFadeFrames
-    cmp.w #$0000
+    cmp.w #!SavedLandingPhaseSuccessReturn
     beq C4C713_InitializeSavedLandingDisplayState_LC713
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
     bra C4C716_InitializeSavedLandingDisplayState_LC716
 C4C713_InitializeSavedLandingDisplayState_LC713:
-    lda.w #$0000
+    lda.w #!SavedLandingPhaseSuccessReturn
 C4C716_InitializeSavedLandingDisplayState_LC716:
     pld
     rts

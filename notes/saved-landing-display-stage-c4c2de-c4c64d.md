@@ -74,6 +74,10 @@ destination offsets, `0xC0` staging byte count, and `0x20` slice width.
 
 `C4:C567` is the smaller wait-loop version of the same abort contract: it waits caller A frames through `C0:8756`, returning `#$FFFF` if `$006D` becomes nonzero.
 
+Source polish: the source now names the `$006D` abort latch, success/abort
+return sentinels, phase staging buffer copy-back arguments, and the shared
+wait-loop return contract used by `C4:C519` and `C4:C567`.
+
 ## Sequence runner
 
 `C4:C64D` chains the landing fade phases used by `C4:C718`:
@@ -86,6 +90,10 @@ destination offsets, `0xC0` staging byte count, and `0x20` slice width.
 
 This makes `C4:C64D` the saved-landing fade sequence runner that follows the display setup done by `C4:C2DE`.
 
+Source polish: the fade sequence now names the long pause duration, text/event
+gate pointer inputs, long/short phase frame counts, stage ids `1..4`, and the
+success return used on interruption after the event gate.
+
 ## Post-sequence palette restores
 
 `C4:C58F` is the post-saved-landing palette fade used by `C4:C718` after `C4:C64D` reports success.
@@ -95,6 +103,11 @@ Input:
 - `A` = frame count
 
 It stages a full-scale palette target from `$7E:0200` through `C4:954C(0x64)`, initializes the landing interpolation planes from `0x0200` through `C4:96E7`, steps `C4:26ED` once per frame with `C0:8756`, then commits the resulting `$0200` palette block through `C0:8EFC`, queues selector `0x18` through `C0:856B`, and waits one more frame.
+
+Source polish: `C4:C58F` now names the `$7E:0200` restore source, `0x64`
+scale step, no-source fade index, first-frame counter, CGRAM commit fill/offset,
+and restore wait duration; `C4:C60E` shares the named no-source and first-frame
+fade counters.
 
 The direct caller is `C4:C752`, immediately after the saved-landing fade sequence returns zero. That makes this the success-side palette restore/settle phase before the broader saved-coordinate reload path resumes world setup.
 
