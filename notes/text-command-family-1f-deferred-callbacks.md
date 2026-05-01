@@ -34,6 +34,13 @@ The large `C1:621F..7274` callback corridor is now decoded source in `src/c1/c1_
 
 The adjacent `C1:7274..7440` corridor is now decoded source in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. It covers `1F 40`, `1F 41`'s local special-event-dispatch wrapper, `1F D2`'s wandering-photographer helper bridge, `1F F3/F4`, the `C1:73C0` battle visual result stager, and `1F 07`. The `C1:7440` timed-delivery callback adapter itself is now decoded source in `src/c1/c1_7440_timed_delivery_row_selector_callback.asm`. The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+The immediate `0x1F D1` branch's target is now semantically polished in
+`src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
+source names the magic-truffle pose descriptor, missing-slot sentinel,
+out-of-range and too-close return values, player/live-entity world coordinate
+fields, range gates, and octant rounding contract before returning the
+direction code to the text-command caller.
+
 The most concretely proved deferred branch is `0x1F D3`:
 
 - script uses `[1F D3 xx]`

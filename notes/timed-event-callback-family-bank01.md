@@ -59,6 +59,12 @@ Three of those siblings are now strong enough to name cautiously from local-plus
 
 The `C1:7274..7440` sibling strip is now decoded source in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`, including `C1:7304`, `C1:7325`, `C1:737D`, the intermediate `C1:73C0` battle visual result stager, and the `C1:741F` wrapper.
 
+The `D1` target at `C4:90EE` is now source-polished in
+`src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`, with
+named contracts for the magic-truffle pose lookup, player and live-entity world
+coordinates, range gates, no-truffle/out-of-range/too-close return values, and
+direction octant rounding.
+
 The clearest fully pinned callback remains `C1:7440`, because it has a direct `JSL EF:0EAD` bridge. But `C1:61F0 / C1:63A7` no longer looks like an anonymous sibling. It now looks much more like the deferred broken-item/Jeff-repair member of the same bank-`01` framework.
 
 ## Why this matters

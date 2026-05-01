@@ -19,7 +19,26 @@ C08ED2_QueueOrTransferDynamicTileBlock           = $C08ED2
 C08EED_CopyToVramOrRendererBuffer                = $C08EED
 C08FF7_ResolveIndexedPointerOffset               = $C08FF7
 C0915B_DivideUnsignedWordByY                     = $C0915B
+C41EFF_CalculateAngleBetweenPoints               = $C41EFF
 C46028_FindEntitySlotByCachedPoseDescriptorId    = $C46028
+
+; ---------------------------------------------------------------------------
+; Nearby magic truffle contracts
+
+MagicTrufflePoseDescriptorId                     = $0178
+MissingEntitySlotSentinel                        = $FFFF
+TruffleDirectionNoTruffle                        = $0000
+TruffleDirectionOutOfRange                       = $0001
+TruffleDirectionTooCloseFallback                 = $000A
+MagicTruffleNearbyRadius                         = $0040
+MagicTruffleMinimumDirectionDistance             = $0010
+LiveEntityWorldXTable                            = $0B8E
+LiveEntityWorldYTable                            = $0BCA
+PlayerWorldX                                     = $9877
+PlayerWorldY                                     = $987B
+SignedWordInvertMask                             = $FFFF
+DirectionAngleOctantSpan                         = $2000
+DirectionAngleHalfOctant                         = $1000
 
 ; ---------------------------------------------------------------------------
 ; C4:90EE
@@ -31,55 +50,55 @@ C490EE_GetNearbyMagicTruffleDirection = GET_DISTANCE_TO_MAGIC_TRUFFLE
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$0178
+    lda.w #MagicTrufflePoseDescriptorId
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $04
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlotSentinel
     bne C4910A_NearbyTruffleAndLandingProfileInterpolationHelpers_L910A
-    lda.w #$0000
+    lda.w #TruffleDirectionNoTruffle
     jmp.w C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
 C4910A_NearbyTruffleAndLandingProfileInterpolationHelpers_L910A:
     lda $04
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sta $12
-    ldy $9877
+    ldy PlayerWorldX
     tya
     sec
-    sbc.w #$0040
+    sbc.w #MagicTruffleNearbyRadius
     sta $02
     lda $12
     cmp $02
     bcc C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
     tya
     clc
-    adc.w #$0040
+    adc.w #MagicTruffleNearbyRadius
     sta $02
     lda $12
     cmp $02
     beq C49132_NearbyTruffleAndLandingProfileInterpolationHelpers_L9132
     bcs C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
 C49132_NearbyTruffleAndLandingProfileInterpolationHelpers_L9132:
-    ldy $0BCA,X
-    lda $987B
+    ldy LiveEntityWorldYTable,X
+    lda PlayerWorldY
     sta $12
     sec
-    sbc.w #$0040
+    sbc.w #MagicTruffleNearbyRadius
     sta $02
     tya
     cmp $02
     bcc C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
     lda $12
     clc
-    adc.w #$0040
+    adc.w #MagicTruffleNearbyRadius
     sta $02
     tya
     cmp $02
     bcc C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A
     beq C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A
 C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154:
-    lda.w #$0001
+    lda.w #TruffleDirectionOutOfRange
     jmp.w C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
 C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A:
     lda $12
@@ -89,7 +108,7 @@ C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A:
     sbc $02
     sta $12
     sta $02
-    lda.w #$0000
+    lda.w #TruffleDirectionNoTruffle
     clc
     sbc $02
     bvc C49172_NearbyTruffleAndLandingProfileInterpolationHelpers_L9172
@@ -99,7 +118,7 @@ C49172_NearbyTruffleAndLandingProfileInterpolationHelpers_L9172:
     bmi C49180_NearbyTruffleAndLandingProfileInterpolationHelpers_L9180
 C49174_NearbyTruffleAndLandingProfileInterpolationHelpers_L9174:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $02
     sta $10
@@ -112,12 +131,12 @@ C49186_NearbyTruffleAndLandingProfileInterpolationHelpers_L9186:
     lda $04
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $9877
+    sbc PlayerWorldX
     sta $12
     sta $02
-    lda.w #$0000
+    lda.w #TruffleDirectionNoTruffle
     clc
     sbc $02
     bvc C491A1_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A1
@@ -127,7 +146,7 @@ C491A1_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A1:
     bmi C491AB_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AB
 C491A3_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A3:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     bra C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD
 C491AB_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AB:
@@ -138,7 +157,7 @@ C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD:
     clc
     adc $02
     sta $02
-    lda.w #$0010
+    lda.w #MagicTruffleMinimumDirectionDistance
     clc
     sbc $02
     bvc C491C2_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C2
@@ -147,21 +166,21 @@ C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD:
 C491C2_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C2:
     bmi C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9
 C491C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C4:
-    lda.w #$000A
+    lda.w #TruffleDirectionTooCloseFallback
     bra C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
 C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9:
     lda $04
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
-    ldx $987B
-    lda $9877
-    jsl $C41EFF
-    ldy.w #$2000
+    ldy LiveEntityWorldXTable,X
+    ldx PlayerWorldY
+    lda PlayerWorldX
+    jsl C41EFF_CalculateAngleBetweenPoints
+    ldy.w #DirectionAngleOctantSpan
     clc
-    adc.w #$1000
+    adc.w #DirectionAngleHalfOctant
     jsl C0915B_DivideUnsignedWordByY
     inc A
     inc A

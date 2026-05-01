@@ -157,6 +157,11 @@ closure.
   and first-pulse sentinels, low-byte masks, and full-value C1 item pulse
   argument. See
   `notes/staged-movement-pulse-and-tracked-item-registry-c48c59-c48f98.md`.
+- 2026-05-01 magic-truffle direction helper: promoted the immediate text
+  command helper's truffle pose descriptor, missing-slot sentinel, range and
+  minimum-distance gates, result values, live entity/player coordinate fields,
+  signed delta inversion mask, and direction octant rounding constants. See
+  `notes/text-command-family-1f-deferred-callbacks.md`.
 
 ## Validation
 
