@@ -5,79 +5,6 @@
       "candidate_runtime_anchors": {
         "candidate_local_ranges": [
           {
-            "basis": "Local D5 source split and data-contract notes identify D5:9589 as the enemy configuration table.",
-            "label": "ENEMY_CONFIGURATION_TABLE",
-            "range": "D5:9589..D5:EA5B"
-          }
-        ],
-        "field_hints": [
-          {
-            "basis": "CoilSnake YAML exposes action-slot vocabulary; local table range is known, but the field offset must wait for a changed span.",
-            "candidate_local_field": "enemy row action slot; exact byte offset pending diff-confirmed join",
-            "coilsnake_field": "Action 1"
-          }
-        ],
-        "note_anchor_paths": [
-          "notes/class2-d59589-enemy-data-crosswalk.md",
-          "notes/data-contracts-c0-c2.md",
-          "notes/c2-battle-contract-workahead.md",
-          "notes/c2-battle-sprite-runtime-polish.md"
-        ],
-        "runtime_consumer_hints": [
-          {
-            "basis": "Existing C2 data-contract notes treat D5:9589 rows as battle-facing enemy records.",
-            "consumer": "C2 battle enemy/record consumers",
-            "status": "candidate"
-          }
-        ],
-        "source_anchor_paths": [
-          "src/d5/table_enemy_configuration_table.asm"
-        ],
-        "status": "candidate-until-diff-confirmed"
-      },
-      "evidence_gate": {
-        "allowed_promotion_after": [
-          "runner report has compile.returncode 0",
-          "diff.status is different",
-          "diff.first_changed_offset is present"
-        ],
-        "blocking_status": "none",
-        "next_required_evidence": "diff-confirmed"
-      },
-      "experiment_id": "enemy-insane-cultist-action1-probe",
-      "experiment_report": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json",
-      "family_label": "Gameplay YAML tables",
-      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
-      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json",
-      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
-      "planned_edit": "Changed enemy 1 Insane Cultist Action 1 from 215 to 216.",
-      "prejoin_status": "ready-to-run",
-      "promotion_target": "Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers.",
-      "required_join_fields": [
-        "changed file offset",
-        "canonical HiROM address",
-        "local asset/data or contract range",
-        "field-level semantic claim",
-        "runtime consumer status",
-        "promotion status"
-      ],
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "enemy_configuration_table.yml",
-      "tracked_update_targets": [
-        "notes/asset-data-contract-frontier.md",
-        "notes/battle-background-scene-bundles.md",
-        "notes/battle-psi-ability-table-d58a50.md",
-        "notes/battle-sprite-bundle-contracts.md",
-        "notes/battle-visual-asset-contracts.md",
-        "notes/c2-battle-contract-workahead.md",
-        "notes/c3-battle-psi-menu-data-contracts.md",
-        "notes/class2-d57b68-battle-action-table-match.md"
-      ]
-    },
-    {
-      "candidate_runtime_anchors": {
-        "candidate_local_ranges": [
-          {
             "basis": "The map-object contract joins NPC config rows to placed-object behavior, text pointers, event flags, sectors, and movement/actionscript pointers across the map data banks.",
             "label": "NPC_CONFIG_TABLE",
             "range": "D6:0000..DF:FFFF"
@@ -296,8 +223,8 @@
   "source_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
   "source_prejoin_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
   "summary": {
-    "ready_to_run_count": 4,
-    "stub_count": 4,
+    "ready_to_run_count": 3,
+    "stub_count": 3,
     "tooling_blocked_count": 0
   }
 }

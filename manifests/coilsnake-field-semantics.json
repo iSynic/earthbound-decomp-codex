@@ -24,6 +24,27 @@
         }
       ]
     },
+    "enemy-insane-cultist-action1-probe": {
+      "coilsnake_field": "enemy_configuration_table.yml / enemy 1 Insane Cultist / Action 1",
+      "edited_value": "215 -> 216",
+      "local_field": "ENEMY_CONFIGURATION_TABLE row 1 normal action id slot 0 at row +0x46",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C2:5024 RunBattleStartCandidateControllerFront",
+          "source": "src/c2/c2_5024_run_battle_start_candidate_controller_front.asm",
+          "detail": "The controller resolves the enemy id into the D5:9589 enemy row, reads action_order at +0x45, selects a normal action slot, reads the action id from +0x46 + slot*2, and stages the action plus its argument into the battle row."
+        },
+        {
+          "kind": "same-table-context",
+          "routine": "D5:9589 enemy_data contract",
+          "source": "notes/data-contracts-c0-c2.md",
+          "detail": "The local data contract maps +0x46 as four normal action ids and +0x50 as their paired action arguments within 0x5E-byte ENEMY_CONFIGURATION_TABLE rows."
+        }
+      ]
+    },
     "item-cost-probe": {
       "coilsnake_field": "item_configuration_table.yml / Teddy bear / Cost",
       "edited_value": "178 -> 179",

@@ -9,6 +9,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 | Experiment | CoilSnake file | Offset | HiROM | Local range | Source candidate | Join status | Warning |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | battle-action-pp-cost-probe | `battle_action_table.yml` | `0x157C07` | `D5:7C07` | `BATTLE_ACTION_TABLE` | `src/d5/table_battle_action_table.asm` | `local-range-confirmed` | no |
+| enemy-insane-cultist-action1-probe | `enemy_configuration_table.yml` | `0x15962D` | `D5:962D` | `ENEMY_CONFIGURATION_TABLE` | `src/d5/table_enemy_configuration_table.asm` | `local-range-confirmed` | no |
 | item-cost-probe | `item_configuration_table.yml` | `0x155068` | `D5:5068` | `ITEM_CONFIGURATION_TABLE` | `src/d5/table_item_configuration_table.asm` | `local-range-confirmed` | no |
 | map-palette-probe | `map_palette_settings.yml` | `0x1A0C40` | `DA:0C40` | `MAP_DATA_TILE_ARRANGEMENT_5` | `src/da/asset_map_data_tile_arrangement_5.asm` | `local-range-confirmed` | yes |
 | psi-ness-omega-level-probe | `psi_ability_table.yml` | `0x158A92` | `D5:8A92` | `PSI_ABILITY_TABLE` | `src/d5/table_psi_ability_table.asm` | `local-range-confirmed` | no |
@@ -35,7 +36,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A4F` in `notes/d5-table-splits.md` line 27
-  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-promotion-stubs.md` line 41
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 187
   - `build-candidate` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 140
   - `D5:7B68..D5:8A50` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 3018
   - `OK` `D5:7B68..D5:8A50` in `notes/d5-byte-equivalence-validation.md` line 139
@@ -47,6 +48,33 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/battle-affliction-recovery-family-c29aea-a39d.md` line 198
   - `notes/c0-c4-integration-pass.md` line 120
   - `notes/c2-battle-contract-workahead.md` line 173
+
+## enemy-insane-cultist-action1-probe
+
+- CoilSnake edit: `enemy_configuration_table.yml` - Changed enemy 1 Insane Cultist Action 1 from 215 to 216.
+- Diff result: `1` byte(s), first changed offset `0x15962D` -> `D5:962D` / `0xD5962D`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `enemy_configuration_table.yml / enemy 1 Insane Cultist / Action 1` (215 -> 216); local read `ENEMY_CONFIGURATION_TABLE row 1 normal action id slot 0 at row +0x46`; promotion `field-runtime-correlated`.
+- Runtime consumer evidence:
+  - `C2:5024 RunBattleStartCandidateControllerFront` (exact-field-consumer) in `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`: The controller resolves the enemy id into the D5:9589 enemy row, reads action_order at +0x45, selects a normal action slot, reads the action id from +0x46 + slot*2, and stages the action plus its argument into the battle row.
+  - `D5:9589 enemy_data contract` (same-table-context) in `notes/data-contracts-c0-c2.md`: The local data contract maps +0x46 as four normal action ids and +0x50 as their paired action arguments within 0x5E-byte ENEMY_CONFIGURATION_TABLE rows.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5A` in `notes/d5-table-splits.md` line 32
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-promotion-stubs.md` line 40
+  - `build-candidate` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 145
+  - `D5:9589..D5:EA5B` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 3133
+  - `OK` `D5:9589..D5:EA5B` in `notes/d5-byte-equivalence-validation.md` line 144
+- Source scaffold candidates:
+  - `src/d5/table_enemy_configuration_table.asm` (filename:enemy; address-lines:10)
+- Existing note anchors:
+  - `notes/bank-c0-c2-closure.md` line 93
+  - `notes/bank-c2-first-pass.md` line 81
+  - `notes/c0-c4-integration-pass.md` line 122
+  - `notes/c2-battle-sprite-runtime-polish.md` line 32
+  - `notes/class2-005e-record-domain.md` line 17
 
 ## item-cost-probe
 
@@ -62,7 +90,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 187
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 182
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -119,7 +147,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 199
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 198
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140

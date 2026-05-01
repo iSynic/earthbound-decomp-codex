@@ -1319,6 +1319,40 @@
         ],
         "status": "different"
       }
+    },
+    "enemy-insane-cultist-action1-probe": {
+      "report": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "edit": "Changed enemy 1 Insane Cultist Action 1 from 215 to 216.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15962D",
+        "last_changed_offset_exclusive": "0x15962E",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15962E",
+            "length": 1,
+            "start": "0x15962D"
+          }
+        ],
+        "status": "different"
+      }
     }
   },
   "field_join_workflow": {
@@ -1333,6 +1367,19 @@
         "hirom": "D5:7C07",
         "local_contract": "BATTLE_ACTION_TABLE",
         "source_scaffold": "src/d5/table_battle_action_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "enemy-insane-cultist-action1-probe",
+        "coilsnake_file": "enemy_configuration_table.yml",
+        "changed_file_offset": "0x15962D",
+        "hirom": "D5:962D",
+        "local_contract": "ENEMY_CONFIGURATION_TABLE",
+        "source_scaffold": "src/d5/table_enemy_configuration_table.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "runtime-correlated",
         "promotion_status": "field-runtime-correlated",
@@ -1402,15 +1449,8 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 4,
+    "planned_count": 3,
     "next_experiments": [
-      {
-        "experiment_id": "enemy-insane-cultist-action1-probe",
-        "batch": "battle-data",
-        "source_file": "enemy_configuration_table.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers."
-      },
       {
         "experiment_id": "npc-config-first-text-pointer-probe",
         "batch": "map-object",
@@ -1440,8 +1480,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 4,
-    "ready_to_run_count": 4,
+    "stub_count": 3,
+    "ready_to_run_count": 3,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [

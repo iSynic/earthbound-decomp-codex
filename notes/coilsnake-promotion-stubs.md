@@ -6,58 +6,19 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `4`
-- Ready to run: `4`
+- Promotion stubs: `3`
+- Ready to run: `3`
 - Tooling-blocked: `0`
 
 ## Stubs
 
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
-| `enemy-insane-cultist-action1-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
 | `npc-config-first-text-pointer-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 | `map-door-first-destination-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 | `window-config-width-probe` | `diff-confirmed` | `ui_font_town_map_assets` | `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/landing-cast-visual-contracts.md` |
 
 ## Promotion Checklist
-
-### `enemy-insane-cultist-action1-probe`
-
-- Planned edit: Changed enemy 1 Insane Cultist Action 1 from 215 to 216.
-- Source file: `enemy_configuration_table.yml`
-- Evidence gate: `diff-confirmed`
-- Blocking status: `none`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B`: Local D5 source split and data-contract notes identify D5:9589 as the enemy configuration table.
-- Field hints:
-  - `Action 1` -> `enemy row action slot; exact byte offset pending diff-confirmed join`: CoilSnake YAML exposes action-slot vocabulary; local table range is known, but the field offset must wait for a changed span.
-- Candidate source anchors:
-  - `src/d5/table_enemy_configuration_table.asm`
-- Candidate note anchors:
-  - `notes/class2-d59589-enemy-data-crosswalk.md`
-  - `notes/data-contracts-c0-c2.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c2-battle-sprite-runtime-polish.md`
-- Runtime consumer hints:
-  - `C2 battle enemy/record consumers` (candidate): Existing C2 data-contract notes treat D5:9589 rows as battle-facing enemy records.
-- Candidate tracked update targets:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-background-scene-bundles.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/battle-sprite-bundle-contracts.md`
-  - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
 
 ### `npc-config-first-text-pointer-probe`
 
