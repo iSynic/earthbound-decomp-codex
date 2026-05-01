@@ -1,6 +1,7 @@
 # CoilSnake Crosswalk
 
-Status: baseline generated, first planned diff batch complete.
+Status: baseline generated, first planned diff batch complete; Phase 2 coverage
+plan queued.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -353,22 +354,51 @@ Current learned joins:
 - Keep ROMs, CoilSnake projects, extracted graphics/audio/text, rebuilt ROMs,
   and experiment outputs ignored.
 
-## Next Work
+## Phase 2 Completion Plan
 
-- Keep the door-data, map-palette, and window-width probes below
-  `runtime-correlated` until direct consumers or pointer packing joins are
-  found. For door data specifically, require an original-ROM-to-CoilSnake-rebuild
-  layout map before promoting rebuilt `CF:000C` as a local runtime field.
-- Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
-  each successful runner experiment so manifest and field-join evidence stay in
-  sync.
-- Use `notes/coilsnake-promotion-stubs.md` after each successful diff to fill in
-  the required offset, HiROM, local-contract, field-semantic, and runtime
-  consumer evidence before promoting a claim.
-- Seed the next experiment batch in `manifests/coilsnake-experiment-plan.json`.
-  The first planned queue is empty after the NPC text pointer, map door
-  destination, and window width probes.
-- Run a true CCScript `scriptdump` and a minimal CCScript label/body experiment
-  once we want command-lowering proof rather than text YAML proof.
-- Extend experiments to enemy stats, battle sprite metadata, and safer
-  window/font edits when those contracts need editor-facing constraints.
+The remaining CoilSnake work should finish the original plan by coverage, not by
+probing every ROM byte. A resource family is done enough when its editor-facing
+fields are mapped to either direct original-ROM bytes, a rebuilt-to-original
+candidate cluster, or a clear deferred reason.
+
+Phase 2A is the next runnable queue. It should add one-byte probes for:
+
+- `store_table.yml`: shop inventory row field.
+- `condiment_table.yml`: food/condiment recovery field.
+- `psi_teleport_dest_table.yml`: teleport destination coordinate field.
+- `enemy_groups.yml`: battle background/group metadata field.
+- `map_music.yml`: sector music row field.
+- `map_hotspots.yml`: hotspot coordinate field.
+
+For each successful probe:
+
+- Run `tools/run_coilsnake_planned_experiment.py --experiment-id <id>`.
+- Refresh with `tools/refresh_coilsnake_crosswalk.py --experiment-report <new-report>`
+  plus the existing successful report set.
+- Promote only the fields that become `local-range-confirmed`,
+  `diff-confirmed`, or `runtime-correlated`.
+- Keep ROMs, project copies, image/audio/text payloads, and rebuilt ROMs under
+  ignored `build/coilsnake/`.
+
+Phase 2B is runtime promotion. Keep door-data, map-sprite, map-palette, and
+window probes below `runtime-correlated` until local routines, pointer tables,
+or bit/packing contracts explain the candidate original addresses. Door and
+sprite probes already have unique rebuilt-to-original candidates; their next
+step is pointer-path and consumer naming, not more first-row byte probes.
+
+Phase 2C is format behavior. Run a true CCScript `scriptdump` and one minimal
+CCScript label/body compile experiment for command-lowering proof. Then add
+representative visual/editor probes for `BattleSprites`, `BattleBGs`, `Fonts`,
+`WindowGraphics`, and one tileset/town-map style resource to document fixed-size
+versus repointed insert behavior.
+
+Exit criteria:
+
+- Every first-class CoilSnake YAML table is classified as `runtime-correlated`,
+  `diff-confirmed`, `local-range-confirmed`, or explicitly deferred.
+- Every moved/rebuilt candidate has an original-ROM cluster assessment in
+  `notes/coilsnake-rebuild-original-layout-report.md`.
+- The experiment queue is empty only after the next coverage batch has either
+  been ingested or intentionally retired.
+- Validators pass: ROM verification, CoilSnake field semantics, experiment
+  plan, promotion stubs, JSON syntax, and asset manifests.

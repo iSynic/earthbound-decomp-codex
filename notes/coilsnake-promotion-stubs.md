@@ -6,13 +6,151 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `0`
-- Ready to run: `0`
+- Promotion stubs: `6`
+- Ready to run: `6`
 - Tooling-blocked: `0`
 
 ## Stubs
 
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
+| `store-first-shop-item1-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-psi-ability-table-d58a50.md`, `notes/c2-battle-contract-workahead.md` |
+| `condiment-first-good-recover-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-psi-ability-table-d58a50.md`, `notes/c2-battle-contract-workahead.md` |
+| `teleport-onett-x-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-psi-ability-table-d58a50.md`, `notes/c2-battle-contract-workahead.md` |
+| `enemy-group-first-background-probe` | `diff-confirmed` | `battle_visual_assets` | `notes/battle-background-scene-bundles.md`, `notes/battle-sprite-bundle-contracts.md`, `notes/battle-visual-asset-contracts.md` |
+| `map-music-sector1-music-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
+| `map-hotspot-first-x1-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 
 ## Promotion Checklist
+
+### `store-first-shop-item1-probe`
+
+- Planned edit: Changed shop 1 Item 1 from 17 to 19.
+- Source file: `store_table.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/store-first-shop-item1-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/asset-data-contract-frontier.md`
+  - `notes/battle-psi-ability-table-d58a50.md`
+  - `notes/c2-battle-contract-workahead.md`
+  - `notes/c3-battle-psi-menu-data-contracts.md`
+  - `notes/class2-d57b68-battle-action-table-match.md`
+
+### `condiment-first-good-recover-probe`
+
+- Planned edit: Changed condiment row 0 good recover from 2 to 3.
+- Source file: `condiment_table.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/condiment-first-good-recover-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/asset-data-contract-frontier.md`
+  - `notes/battle-psi-ability-table-d58a50.md`
+  - `notes/c2-battle-contract-workahead.md`
+  - `notes/c3-battle-psi-menu-data-contracts.md`
+  - `notes/class2-d57b68-battle-action-table-match.md`
+
+### `teleport-onett-x-probe`
+
+- Planned edit: Changed teleport destination Onett X coordinate from 253 to 254.
+- Source file: `psi_teleport_dest_table.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/teleport-onett-x-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/asset-data-contract-frontier.md`
+  - `notes/battle-psi-ability-table-d58a50.md`
+  - `notes/c2-battle-contract-workahead.md`
+  - `notes/c3-battle-psi-menu-data-contracts.md`
+  - `notes/class2-d57b68-battle-action-table-match.md`
+
+### `enemy-group-first-background-probe`
+
+- Planned edit: Changed enemy group 1 Background 1 from 262 to 263.
+- Source file: `enemy_groups.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/enemy-group-first-background-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/battle-background-scene-bundles.md`
+  - `notes/battle-sprite-bundle-contracts.md`
+  - `notes/battle-visual-asset-contracts.md`
+  - `notes/psi-animation-bundle-contracts.md`
+  - `notes/swirl-sequence-bundle-contracts.md`
+
+### `map-music-sector1-music-probe`
+
+- Planned edit: Changed map music sector 1 fallback Music from 4 to 5.
+- Source file: `map_music.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-music-sector1-music-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`
+
+### `map-hotspot-first-x1-probe`
+
+- Planned edit: Changed map hotspot 1 X1 coordinate from 620 to 621.
+- Source file: `map_hotspots.yml`
+- Evidence gate: `diff-confirmed`
+- Blocking status: `none`
+- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/experiment-report.json`
+- Required join fields:
+  - `changed file offset`
+  - `canonical HiROM address`
+  - `local asset/data or contract range`
+  - `field-level semantic claim`
+  - `runtime consumer status`
+  - `promotion status`
+- Candidate tracked update targets:
+  - `notes/map-collision-runtime-bit-contract.md`
+  - `notes/map-fts-format-audit.md`
+  - `notes/map-milestone-closure.md`
+  - `notes/map-object-bundles.md`
+  - `notes/map-palette-descriptor-context.md`
+  - `notes/map-scene-composition-contract.md`
+  - `notes/map-sector-bundles.md`
+  - `notes/map-tileset-bundles.md`

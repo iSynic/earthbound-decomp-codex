@@ -1978,8 +1978,51 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 0,
-    "next_experiments": []
+    "planned_count": 6,
+    "next_experiments": [
+      {
+        "experiment_id": "store-first-shop-item1-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "store_table.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake shop inventory row fields to the local store/shop table range and any shop menu runtime consumers."
+      },
+      {
+        "experiment_id": "condiment-first-good-recover-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "condiment_table.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake condiment recovery fields to the local item/food effect data contract and runtime recovery consumers."
+      },
+      {
+        "experiment_id": "teleport-onett-x-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "psi_teleport_dest_table.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake teleport destination coordinates to the local PSI teleport destination table and menu/overworld consumers."
+      },
+      {
+        "experiment_id": "enemy-group-first-background-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "enemy_groups.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake enemy group battle background metadata to local battle background/group contracts."
+      },
+      {
+        "experiment_id": "map-music-sector1-music-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "map_music.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake map music sector rows to local CF overworld event music pointer/table contracts."
+      },
+      {
+        "experiment_id": "map-hotspot-first-x1-probe",
+        "batch": "phase-2a-coverage",
+        "source_file": "map_hotspots.yml",
+        "status": "planned",
+        "promotion_target": "Map CoilSnake hotspot coordinate fields to local map hotspot/sector contracts and runtime lookup consumers."
+      }
+    ]
   },
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
@@ -1987,8 +2030,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 0,
-    "ready_to_run_count": 0,
+    "stub_count": 6,
+    "ready_to_run_count": 6,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [

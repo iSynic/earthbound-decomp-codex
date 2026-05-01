@@ -47,7 +47,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A4F` in `notes/d5-table-splits.md` line 27
-  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 199
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 200
   - `build-candidate` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 140
   - `D5:7B68..D5:8A50` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 3018
   - `OK` `D5:7B68..D5:8A50` in `notes/d5-byte-equivalence-validation.md` line 139
@@ -74,7 +74,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5A` in `notes/d5-table-splits.md` line 32
-  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 203
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 204
   - `build-candidate` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 145
   - `D5:9589..D5:EA5B` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 3133
   - `OK` `D5:9589..D5:EA5B` in `notes/d5-byte-equivalence-validation.md` line 144
@@ -101,7 +101,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5A` in `notes/d5-table-splits.md` line 32
-  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 203
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 204
   - `build-candidate` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 145
   - `D5:9589..D5:EA5B` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 3133
   - `OK` `D5:9589..D5:EA5B` in `notes/d5-byte-equivalence-validation.md` line 144
@@ -128,7 +128,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 194
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 195
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -158,13 +158,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 233
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 234
   - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
   - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 41
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 176
+  - `notes/coilsnake-crosswalk.md` line 177
   - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
@@ -185,13 +185,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 233
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 234
   - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
   - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 41
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 176
+  - `notes/coilsnake-crosswalk.md` line 177
   - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
@@ -212,13 +212,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 233
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 234
   - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
   - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 41
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 176
+  - `notes/coilsnake-crosswalk.md` line 177
   - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
@@ -239,13 +239,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 233
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 234
   - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
   - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 41
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 176
+  - `notes/coilsnake-crosswalk.md` line 177
   - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
@@ -293,7 +293,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
-  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 312
+  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 313
   - `CF:61E7..CF:6BE6` `CF:61E7..CF:6BE6` in `notes/bank-cf-first-pass.md` line 69
   - `SPRITE_PLACEMENT_POINTER_TABLE` `CF:61E7..CF:6BE6` in `notes/cf-table-splits.md` line 26
   - `CF:61E7..CF:6BE7` `CF:61E7..CF:6BE7` in `notes/bank-cf-source-scaffold-handoff.md` line 47
@@ -301,7 +301,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/cf/table_sprite_placement_pointer_table.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 181
+  - `notes/coilsnake-crosswalk.md` line 182
   - `notes/coilsnake-rebuild-original-layout-report.md` line 20
   - `notes/data-contracts-c0-c4.md` line 1218
   - `notes/map-sprite-usage-contract.md` line 12
@@ -320,7 +320,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
-  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 312
+  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 313
   - `CF:61E7..CF:6BE6` `CF:61E7..CF:6BE6` in `notes/bank-cf-first-pass.md` line 69
   - `SPRITE_PLACEMENT_POINTER_TABLE` `CF:61E7..CF:6BE6` in `notes/cf-table-splits.md` line 26
   - `CF:61E7..CF:6BE7` `CF:61E7..CF:6BE7` in `notes/bank-cf-source-scaffold-handoff.md` line 47
@@ -328,7 +328,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/cf/table_sprite_placement_pointer_table.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 181
+  - `notes/coilsnake-crosswalk.md` line 182
   - `notes/coilsnake-rebuild-original-layout-report.md` line 20
   - `notes/data-contracts-c0-c4.md` line 1218
   - `notes/map-sprite-usage-contract.md` line 12
@@ -347,7 +347,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
-  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 312
+  - `CF:61E9..CF:61EC` `CF:61E9..CF:61EC` in `notes/coilsnake-crosswalk.md` line 313
   - `CF:61E7..CF:6BE6` `CF:61E7..CF:6BE6` in `notes/bank-cf-first-pass.md` line 69
   - `SPRITE_PLACEMENT_POINTER_TABLE` `CF:61E7..CF:6BE6` in `notes/cf-table-splits.md` line 26
   - `CF:61E7..CF:6BE7` `CF:61E7..CF:6BE7` in `notes/bank-cf-source-scaffold-handoff.md` line 47
@@ -355,7 +355,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/cf/table_sprite_placement_pointer_table.asm` (address-lines:10)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 181
+  - `notes/coilsnake-crosswalk.md` line 182
   - `notes/coilsnake-rebuild-original-layout-report.md` line 20
   - `notes/data-contracts-c0-c4.md` line 1218
   - `notes/map-sprite-usage-contract.md` line 12
@@ -377,7 +377,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:8985..CF:F2B4` `CF:8985..CF:F2B4` in `notes/bank-cf-first-pass.md` line 71
   - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/cf-table-splits.md` line 28
-  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/coilsnake-crosswalk.md` line 227
+  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/coilsnake-crosswalk.md` line 228
   - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/bank-cf-source-scaffold-handoff.md` line 49
   - `build-candidate` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 23
 - Source scaffold candidates:
@@ -404,7 +404,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 222
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 223
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
@@ -440,7 +440,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24,26)
 - Existing note anchors:
   - `notes/c2-runtime-semantic-polish-plan.md` line 221
-  - `notes/coilsnake-crosswalk.md` line 153
+  - `notes/coilsnake-crosswalk.md` line 154
   - `notes/coilsnake-rebuild-original-layout-report.md` line 75
 
 ## window-config-height-probe
@@ -456,7 +456,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 259
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 260
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:
@@ -465,7 +465,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `src/c3/window_text_helpers.asm` (filename:window)
 - Existing note anchors:
   - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13
-  - `notes/coilsnake-crosswalk.md` line 177
+  - `notes/coilsnake-crosswalk.md` line 178
   - `notes/coilsnake-rebuild-original-layout-report.md` line 21
 
 ## window-config-width-probe
@@ -481,7 +481,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 259
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 260
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:
@@ -490,5 +490,5 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `src/c3/window_text_helpers.asm` (filename:window)
 - Existing note anchors:
   - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13
-  - `notes/coilsnake-crosswalk.md` line 177
+  - `notes/coilsnake-crosswalk.md` line 178
   - `notes/coilsnake-rebuild-original-layout-report.md` line 21
