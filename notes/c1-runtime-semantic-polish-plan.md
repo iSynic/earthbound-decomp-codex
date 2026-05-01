@@ -149,3 +149,8 @@ This planning pass is documentation-only.
   bytes, three-entry queue rooted at `$97F5`, owner/source and item-byte side
   fields, pending-item versus inventory-removal paths, and primary/secondary
   text-context output staging.
+- 2026-05-01: C1 inventory/storage/count text-command polish landed as
+  byte-neutral source aliases. The promoted contracts name the `0x19 19`
+  character inventory-slot item read, `0x19 1A` Escargo storage item byte read,
+  and `0x19 1B` loaded-string count helper, including primary and secondary
+  text-context staging outputs.

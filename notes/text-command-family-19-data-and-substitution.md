@@ -77,7 +77,7 @@ Parser/runtime cross-check looks healthy here: the current exposed script set hi
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 19/1A/1B` inventory, Escargo storage, and loaded-string count staging contracts, plus the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 
@@ -235,6 +235,8 @@ Why:
 
 - the inherited parser label `ADD_ITEM_ID_TO_WORK_MEMORY` is too vague
 - local leaf `C1:597F` resolves one character id and one inventory slot index, calls [C3:E977](notes/item-slot-helper-pair-c3e977-c3ee14.md), stages the found item through `C1:0489`, and stages the source character id through `C1:045D`
+- the source now names the deferred character selector, inventory-slot selector,
+  `C3:E977` item-byte read, secondary item output, and primary character output
 - exact parsed hits cluster in inventory / service text neighborhoods
 
 So this now reads better as a real character-inventory item lookup than as a generic memory-add helper.
@@ -252,6 +254,8 @@ Confidence:
 Why:
 
 - local body `C1:5B0E` resolves the item index, reads from `$984B`, and stages the result through `C1:045D`
+- the source now names `$984B` as the Escargo storage byte array and stages the
+  selected item byte through the primary text-context output
 - exact parsed hits occur only in `ESHOP3` plus one debug hit
 
 ### `0x19 1B`
@@ -267,6 +271,8 @@ Confidence:
 Why:
 
 - local body `C1:5C36` reads the one-byte selector and routes through context helper `C1:2BD5`, then stages the result through `C1:045D`
+- the source now names the `C1:2BD5` loaded-string count helper and its primary
+  text-context output staging
 - exact parsed hits occur in `ESHOP1`, which is full of window-relative loaded-string use
 
 ### `0x19 1C`

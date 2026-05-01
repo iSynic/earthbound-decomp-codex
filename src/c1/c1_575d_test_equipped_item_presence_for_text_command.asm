@@ -17,6 +17,7 @@ C1045D_InstallPrimaryInteractionContextPointer = $045D
 C10489_InstallSecondaryInteractionContextPointer = $0489
 C18C27_RemoveItemFromCharacterInventory = $8C27
 C191B0_RemovePendingItemIdAtIndex = $91B0
+C12BD5_GetLoadedStringCountForWindow = $2BD5
 C3E977_ReadCharacterInventorySlotByte = $C3E977
 
 WorkValueLo = $06
@@ -29,6 +30,9 @@ DeliveryQueueItemInfoPointer = $12
 DeliveryQueueOwnerInfoPointer = $14
 QueuedItemId = $02
 QueuedItemOwnerOrSource = $04
+CharacterSelector = $02
+InventorySlotSelector = $12
+EscargoStorageItemBytes = $984B
 DeferredCommandByteQueue = $97BA
 DeferredCommandQueueCount = $97CA
 DeliveryQueueEntryBase = $97F5
@@ -41,11 +45,13 @@ ProcessorStatus16BitAIndexCarryClear = $31
 AccumulatorWidthFlag = $20
 TextCommandFarFrameOffset = $FFEE
 TextCommandTwoArgumentFrameOffset = $FFEA
+InventorySlotItemFrameOffset = $FFEC
 DeliveryQueueHelperFrameOffset = $FFF0
 QueueDeliveryOrPickupItemCallback = $5FF7
 ReadDeliveryOrPickupItemInfoCallback = $6080
 ZeroWord = $0000
 ZeroByte = $00
+LowByteMask = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C1:575D
@@ -371,72 +377,72 @@ C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
     rts
 CC_19_19:
 C1597F_ReadCharacterInventorySlotItemTextCommand = CC_19_19
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #InventorySlotItemFrameOffset
     tcd
     pla
     txy
-    sty $12
-    lda.w #$0001
+    sty InventorySlotSelector
+    lda.w #DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
-    bvc C15999_C1575D_TestEquippedItemPresenceForTextCommand_L5999
-    bpl C159AE_C1575D_TestEquippedItemPresenceForTextCommand_L59AE
-    bra C1599B_C1575D_TestEquippedItemPresenceForTextCommand_L599B
-C15999_C1575D_TestEquippedItemPresenceForTextCommand_L5999:
-    bmi C159AE_C1575D_TestEquippedItemPresenceForTextCommand_L59AE
-C1599B_C1575D_TestEquippedItemPresenceForTextCommand_L599B:
+    sbc DeferredCommandQueueCount
+    bvc C15999_CheckInventorySlotItemArgumentSign
+    bpl C159AE_ReadCharacterInventorySlotItem
+    bra C1599B_QueueInventoryCharacterSelectorArgument
+C15999_CheckInventorySlotItemArgumentSign:
+    bmi C159AE_ReadCharacterInventorySlotItem
+C1599B_QueueInventoryCharacterSelectorArgument:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
     lda.w #$597F
-    bra C159F7_C1575D_TestEquippedItemPresenceForTextCommand_L59F7
-C159AE_C1575D_TestEquippedItemPresenceForTextCommand_L59AE:
-    lda $97BA
-    and.w #$00FF
+    bra C159F7_ReturnReadCharacterInventorySlotItem
+C159AE_ReadCharacterInventorySlotItem:
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
-    beq C159BA_C1575D_TestEquippedItemPresenceForTextCommand_L59BA
+    beq C159BA_LoadInventoryCharacterSelectorFromTextContext
     txa
-    bra C159BF_C1575D_TestEquippedItemPresenceForTextCommand_L59BF
-C159BA_C1575D_TestEquippedItemPresenceForTextCommand_L59BA:
-    jsr $040A
-    lda $06
-C159BF_C1575D_TestEquippedItemPresenceForTextCommand_L59BF:
-    sta $02
-    ldy $12
-    beq C159C8_C1575D_TestEquippedItemPresenceForTextCommand_L59C8
+    bra C159BF_ResolveInventorySlotSelector
+C159BA_LoadInventoryCharacterSelectorFromTextContext:
+    jsr C1040A_LoadPrimaryInteractionContextPointer
+    lda WorkValueLo
+C159BF_ResolveInventorySlotSelector:
+    sta CharacterSelector
+    ldy InventorySlotSelector
+    beq C159C8_ReadInventorySlotSelectorFromTextCommand
     tya
-    bra C159CD_C1575D_TestEquippedItemPresenceForTextCommand_L59CD
-C159C8_C1575D_TestEquippedItemPresenceForTextCommand_L59C8:
-    jsr $03DC
-    lda $06
-C159CD_C1575D_TestEquippedItemPresenceForTextCommand_L59CD:
+    bra C159CD_ReadInventorySlotItemByte
+C159C8_ReadInventorySlotSelectorFromTextCommand:
+    jsr C103DC_ReadTextCommandArgumentWord
+    lda WorkValueLo
+C159CD_ReadInventorySlotItemByte:
     tax
-    lda $02
-    jsl $C3E977
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $0489
-    lda $02
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
-C159F7_C1575D_TestEquippedItemPresenceForTextCommand_L59F7:
+    lda CharacterSelector
+    jsl C3E977_ReadCharacterInventorySlotByte
+    sta WorkValueLo
+    stz WorkValueHi
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C10489_InstallSecondaryInteractionContextPointer
+    lda CharacterSelector
+    sta WorkValueLo
+    stz WorkValueHi
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #ZeroWord
+C159F7_ReturnReadCharacterInventorySlotItem:
     pld
     rts
 CC_1D_14:
@@ -585,36 +591,36 @@ C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
     rts
 CC_19_1A:
 C15B0E_ReadEscargoStorageItemTextCommand = CC_19_1A
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #TextCommandFarFrameOffset
     tcd
     pla
-    cpx.w #$0000
-    beq C15B20_C1575D_TestEquippedItemPresenceForTextCommand_L5B20
+    cpx.w #ZeroWord
+    beq C15B20_ReadEscargoStorageIndexFromTextCommand
     txa
-    bra C15B25_C1575D_TestEquippedItemPresenceForTextCommand_L5B25
-C15B20_C1575D_TestEquippedItemPresenceForTextCommand_L5B20:
-    jsr $03DC
-    lda $06
-C15B25_C1575D_TestEquippedItemPresenceForTextCommand_L5B25:
+    bra C15B25_ReadEscargoStorageItemByte
+C15B20_ReadEscargoStorageIndexFromTextCommand:
+    jsr C103DC_ReadTextCommandArgumentWord
+    lda WorkValueLo
+C15B25_ReadEscargoStorageItemByte:
     tax
     dex
-    sep #$20
-    lda $984B,X
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    sep #AccumulatorWidthFlag
+    lda EscargoStorageItemBytes,X
+    sta WorkValueLo
+    stz WorkValueByte1
+    stz WorkValueHi
+    stz WorkValueByte3
+    rep #AccumulatorWidthFlag
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #ZeroWord
     pld
     rts
 CC_18_0D:
@@ -757,23 +763,23 @@ C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
     rts
 CC_19_1B:
 C15C36_GetLoadedStringCountForWindowTextCommand = CC_19_1B
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #TextCommandFarFrameOffset
     tcd
     pla
     txa
-    jsr $2BD5
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    jsr C12BD5_GetLoadedStringCountForWindow
+    sta WorkValueLo
+    stz WorkValueHi
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #ZeroWord
     pld
     rts
 CC_1F_71:
