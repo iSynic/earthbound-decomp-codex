@@ -1,4 +1,4 @@
-; EarthBound C2 asleep wrapper plus adjacent PP drain and poison status actions.
+; EarthBound C2 asleep wrapper plus adjacent PP drain and paralysis status actions.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -10,7 +10,7 @@
 ;
 ; Runtime contract:
 ; - Contains the asleep wrapper, PP-drain actions, and a resist-checked
-;   primary-affliction status body.
+;   primary-affliction paralysis status body.
 ; - `C2:9F57` redirects to the asleep body at `C2:9F06`; this is the reusable
 ;   second-pointer wrapper seen in multiple `D5:7B68` action-table rows.
 ; - `C2:9F5E` drains a bounded random PP amount, emits amount-bearing
@@ -33,7 +33,7 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C29F06_RunResistCheckedAsleepStatusAction     = $C29F06
 EFMSG_PpDrainAmount                           = $773F
-EFMSG_PoisonInflicted                         = $6AE0
+EFMSG_ParalysisInflicted                      = $6AE0
 EFMSG_StatusNoEffect                          = $766E
 
 ; ---------------------------------------------------------------------------
@@ -129,7 +129,7 @@ C29FF9_RunAsleepStatusWrapperAction_L9FF9:
 C29FFD_RunAsleepStatusWrapperAction_L9FFD:
     rtl
 BTLACT_PARALYSIS_A:
-C29FFE_RunResistCheckedPoisonStatusAction = BTLACT_PARALYSIS_A
+C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     rep #$31
     phd
     tdc
@@ -153,7 +153,7 @@ C29FFE_RunResistCheckedPoisonStatusAction = BTLACT_PARALYSIS_A
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ; Success/failure EF scripts both read the target-name battle text context.
-    lda.w #EFMSG_PoisonInflicted
+    lda.w #EFMSG_ParalysisInflicted
     sta $0E
     lda.w #$00EF
     sta $10
@@ -169,7 +169,7 @@ C2A04D_RunAsleepStatusWrapperAction_LA04D:
     pld
     rtl
 REDIRECT_BTLACT_PARALYSIS_A:
-C2A04F_RunPoisonStatusWrapperAction = REDIRECT_BTLACT_PARALYSIS_A
+C2A04F_RunParalysisStatusWrapperAction = REDIRECT_BTLACT_PARALYSIS_A
     rep #$31
     jsl BTLACT_PARALYSIS_A
     rtl

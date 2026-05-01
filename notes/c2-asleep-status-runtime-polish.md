@@ -56,6 +56,21 @@ The safe wording is therefore not "this is only Hypnosis alpha" or "this is only
 an enemy action." It is a reusable all-target asleep-status wrapper with at
 least one PSI-side use and one `other` use.
 
+## Adjacent PP Drain And Paralysis Tail
+
+The same source module also carries the adjacent `C2:9F5E..A04F` tail:
+
+- `C2:9F5E` drains PP and emits amount-bearing `EF:773F` through
+  `C1:DC66`.
+- `C2:9FFE` is the `BTLACT_PARALYSIS_A` body. It writes primary affliction
+  byte `+0x1D = 3` and emits `EF:6AE0`, now cross-checked in the EF text
+  payload split as the body-numb/paralysis result text.
+- `C2:A04F` is the far wrapper for that paralysis body.
+
+The earlier local "poison" wording was too broad for this tail. Actual
+poison-inflicted text remains the separate `EF:6B18` script used by the
+item/status cluster.
+
 ## Decomp Value
 
 This slice joins three contracts that were easy to read separately:

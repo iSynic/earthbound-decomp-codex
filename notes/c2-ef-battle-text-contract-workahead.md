@@ -75,6 +75,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `PRINT_ACTION_AMOUNT` branch in source. The branch now explicitly reloads
   the `DC66`/`AD0A` payload through `C1:AD26`, stages it to `$0E/$10`, and
   prints it through `C1:0DF6`.
+- 2026-05-01: EF text-payload split follow-up added source anchors for the
+  C2-proven battle scripts and corrected the local `C2:9FFE` naming drift:
+  `EF:6AE0` is the body-numb/paralysis result used by `BTLACT_PARALYSIS_A`,
+  while poison-inflicted text remains the separate `EF:6B18` script.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -231,9 +235,9 @@ These are core “amount/status result” scripts used by C2 feedback helpers.
   - same structure as `EF:69BA`, but prints `" PP!"`
   - **C2 caller**: `C2:7318` (`src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm`) uses `DC66` here.
 
-- `EF:6AE0` (poison inflicted message)
+- `EF:6AE0` (paralysis/body-numb inflicted message)
   - starts `01 70 1C 0E` = `START_NEW_LINE`, `"@"`, `PRINT_ACTION_TARGET_NAME`
-  - **C2 caller**: `C2:9FFE` (in `src/c2/c2_9f57_run_asleep_status_wrapper_action.asm`, `RunResistCheckedPoisonStatusAction`) chooses `EF:6AE0` vs `EF:766E`.
+  - **C2 caller**: `C2:9FFE` (in `src/c2/c2_9f57_run_asleep_status_wrapper_action.asm`, `RunResistCheckedParalysisStatusAction`) chooses `EF:6AE0` vs `EF:766E`.
 - `EF:6C55` (asleep inflicted message)
   - starts `01 70 1C 0E` = `START_NEW_LINE`, `"@"`, `PRINT_ACTION_TARGET_NAME`
   - **C2 caller**: `C2:9F06` (`src/c2/c2_9f06_run_resist_checked_asleep_status_action.asm`) chooses `EF:6C55` vs `EF:766E`.
@@ -256,7 +260,7 @@ These are core “amount/status result” scripts used by C2 feedback helpers.
 
 - `EF:766E` (shared resist/no-effect “didn’t work” message)
   - contains `PRINT_ACTION_TARGET_NAME` (`1C 0E`) and ends with `... 51 03 02`
-  - **C2 callers**: `C2:9F06` (asleep), `C2:9FFE` (poison), `C2:A056` (strange) all fall back to `EF:766E` via `DC1C`.
+  - **C2 callers**: `C2:9F06` (asleep), `C2:9FFE` (paralysis), `C2:A056` (strange) all fall back to `EF:766E` via `DC1C`.
 
 ### `EBATTLE8` (base `EF:77FD`, `refs/ebsrc` offset `0x2F77FD`)
 
@@ -336,7 +340,7 @@ Promotion effect: model `$AA10` as “byte substitution argument” for a specif
 ### Resist-checked affliction actions (paired EF success/fail scripts via `DC1C`)
 
 - `C2:9F06` (`src/c2/c2_9f06_run_resist_checked_asleep_status_action.asm`) chooses `EF:6C55` (success) vs `EF:766E` (no effect)
-- `C2:9FFE` (in `src/c2/c2_9f57_run_asleep_status_wrapper_action.asm`, `RunResistCheckedPoisonStatusAction`) chooses `EF:6AE0` vs `EF:766E`
+- `C2:9FFE` (in `src/c2/c2_9f57_run_asleep_status_wrapper_action.asm`, `RunResistCheckedParalysisStatusAction`) chooses `EF:6AE0` vs `EF:766E`
 - `C2:A056` (`src/c2/c2_a056_run_resist_checked_strange_status_action.asm`) chooses `EF:6C3A` vs `EF:766E`
 
 Promotion effect: these corridors are stable “status result” emitters; promote with status-specific names rather than generic “display text”.

@@ -239,16 +239,102 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:4E20..EF:C51B` (`30459` bytes, SHA-1 `1419dd1b8b80745a5a22e78d498fcb67a60547aa`) `EfTextPayloadData`
+- `EF:4E20..EF:69A1` (`7041` bytes, SHA-1 `01e65c5a7a785e159bf4ff974f298265569521e6`) `EfPreBattleTextPayloadData`
+- `EF:69A1..EF:69BA` (`25` bytes, SHA-1 `33973d8aedbab180bc8c1d16f85be38becd9dfe7`) `EBattle5MsgBtlHpMaxRecovered`
+- `EF:69BA..EF:69D2` (`24` bytes, SHA-1 `dee68da43f55467846a4643c14bd193aefad587d`) `EBattle5MsgBtlHpRecoveredAmount`
+- `EF:69D2..EF:69EA` (`24` bytes, SHA-1 `178a8e52dbf9278e6a66f1bfc8b5e4d7dbc5065c`) `EBattle5MsgBtlPpRecoveredAmount`
+- `EF:69EA..EF:6AE0` (`246` bytes, SHA-1 `0d5c241896ccb7b02bfeb32ad4d86f31eba5f42d`) `EBattle5AmountAndStatusPreludeText`
+- `EF:6AE0..EF:6AFB` (`27` bytes, SHA-1 `77937f95269e6421b86b3d4693c44fd3843f5b7b`) `EBattle5MsgBtlParalysisInflicted`
+- `EF:6AFB..EF:6C3A` (`319` bytes, SHA-1 `ff740354a816475627f460adfd8d1472320cb6eb`) `EBattle5AfflictionTextBeforeStrange`
+- `EF:6C3A..EF:6C55` (`27` bytes, SHA-1 `af8d51b31d83087c92c0d9710c2f57976aa45e70`) `EBattle5MsgBtlStrangeInflicted`
+- `EF:6C55..EF:6C6B` (`22` bytes, SHA-1 `4d5790f342b2e74a3d9baf1f2c69c44a5cf6e2a9`) `EBattle5MsgBtlAsleepInflicted`
+- `EF:6C6B..EF:6F9A` (`815` bytes, SHA-1 `2fe86c65a91f609f7d72fe250b1deede5cda18c3`) `EBattle5StatusAndNpcDeathText`
+- `EF:6F9A..EF:6FBD` (`35` bytes, SHA-1 `32b9f94859cc1256432748a68c7afd7904e57bfb`) `EBattle5MsgBtlShieldOn`
+- `EF:6FBD..EF:6FD3` (`22` bytes, SHA-1 `75d0bac14ab6514e2ea88b25e1500ef00dbe9695`) `EBattle5MsgBtlShieldAdd`
+- `EF:6FD3..EF:6FF4` (`33` bytes, SHA-1 `436ff24c2b098518d72aea4b6e92c7ae016598e4`) `EBattle5MsgBtlPowerShieldOn`
+- `EF:6FF4..EF:700C` (`24` bytes, SHA-1 `91688e4579bfd0a98d936abb9eeb605696421bdb`) `EBattle5MsgBtlPowerShieldAdd`
+- `EF:700C..EF:7032` (`38` bytes, SHA-1 `8e09d7147d7b1d6f5812c470721b0cf2a891391a`) `EBattle5MsgBtlPsychicShieldOn`
+- `EF:7032..EF:7050` (`30` bytes, SHA-1 `95e260b622016c2efeadc2209d43bf3512c25816`) `EBattle5MsgBtlPsychicShieldAdd`
+- `EF:7050..EF:707A` (`42` bytes, SHA-1 `ef9940bdeff8772e33413e1128347df7677d3049`) `EBattle5MsgBtlPsiPowerShieldOn`
+- `EF:707A..EF:7099` (`31` bytes, SHA-1 `b696662c257fbd2ce9510ea7933052b89d4fbf38`) `EBattle5MsgBtlPsiPowerShieldAdd`
+- `EF:7099..EF:7186` (`237` bytes, SHA-1 `e76fe16e4e367d440f1be13d535266373ed6fb20`) `EBattle5ShieldTurnAndNeutralizeText`
+- `EF:7186..EF:766E` (`1256` bytes, SHA-1 `91b0965d6124e0d4c0f933e878f798917355e3ba`) `EBattle4PreNoEffectBattleText`
+- `EF:766E..EF:7682` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4MsgBtlStatusNoEffect`
+- `EF:7682..EF:7696` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4AdjacentNoEffectText`
+- `EF:7696..EF:76B3` (`29` bytes, SHA-1 `e4113ef4fa47015dc03660c723c49ae26e239e23`) `EBattle4MsgBtlNoVisibleEffect`
+- `EF:76B3..EF:773F` (`140` bytes, SHA-1 `575f13249e5df1ad8aca9ea0699944c0253db22d`) `EBattle4LateMissAndDrainPreludeText`
+- `EF:773F..EF:7755` (`22` bytes, SHA-1 `6232b10ccb1d72f3eadde7a851e2688209a5c83a`) `EBattle4MsgBtlPpDrainAmount`
+- `EF:7755..EF:77FD` (`168` bytes, SHA-1 `dd4beaa5a8c9cefefa6f4e5ba4eb2c9a6531450d`) `EBattle4RemainingDamageOverTimeText`
+- `EF:77FD..EF:7B77` (`890` bytes, SHA-1 `58b1e4156748c4f82dba0ee374957988e2086fbd`) `EBattle8CallForHelpAndLevelUpText`
+- `EF:7B77..EF:7B83` (`12` bytes, SHA-1 `b6be0ba66868c82cafdd691ac712705f421cd14f`) `EBattle8ByteSubstitutionPsiNameText`
+- `EF:7B83..EF:7B85` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionIntroState`
+- `EF:7B85..EF:7BA0` (`27` bytes, SHA-1 `0b507165fcb107b37b9f7d92fdf7728fb2dff65a`) `EBattle8PointerSubstitutionSweetBranch`
+- `EF:7BA0..EF:7BA2` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionBranch2State`
+- `EF:7BA2..EF:7BBF` (`29` bytes, SHA-1 `4a8f6b390ce34f65d348108205b2f550d4323e90`) `EBattle8PointerSubstitutionTearsBranch`
+- `EF:7BBF..EF:7BC1` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionBranch3State`
+- `EF:7BC1..EF:7BDF` (`30` bytes, SHA-1 `20ff702f734c16985cdf2024350476ddbae5485a`) `EBattle8PointerSubstitutionOhBabyBranch`
+- `EF:7BDF..EF:7C42` (`99` bytes, SHA-1 `ac0008afdd533cbce642a6a974fdc139a6e12e2e`) `EBattle8MsgBtlPresentByteSubstitution`
+- `EF:7C42..EF:7DD5` (`403` bytes, SHA-1 `aad1b60802b5e4178d26960edcb9f969bd1b6fba`) `EBattle8PresentInventoryResultText`
+- `EF:7DD5..EF:7E25` (`80` bytes, SHA-1 `dafcd39be3495506595588a2d98ec0bee797af4f`) `EBattle8MsgBtlCheckPresentGetByteSubstitution`
+- `EF:7E25..EF:843F` (`1562` bytes, SHA-1 `efa6270325aec8cbac88465ebe4dc1b864e62d0c`) `EBattle2AndPreStartBattleText`
+- `EF:843F..EF:8444` (`5` bytes, SHA-1 `d296611446d215d359e8c7664e0a30f31aa7b62e`) `EBattle0MsgAtStartAsleep`
+- `EF:8444..EF:8445` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EBattle0MsgAtStartPsiSeal`
+- `EF:8445..EF:845D` (`24` bytes, SHA-1 `290b309cbe7864982914515bbac8838cfec3ec00`) `EBattle0MsgAtStartStrange`
+- `EF:845D..EF:8477` (`26` bytes, SHA-1 `b9cc80704b48261d7854d1582bd91cdb057d291d`) `EBattle0MsgRandomActStrange`
+- `EF:8477..EF:848C` (`21` bytes, SHA-1 `e8df4e1a416a16e883880dddfb6f8cfea9620e20`) `EBattle0MsgRandomActMushroom`
+- `EF:848C..EF:C51B` (`16527` bytes, SHA-1 `dab5835771e09fd99e15ea184f8f4fc7da9eab54`) `EfPostBattleTextPayloadData`
 
 Labels:
 
-- `EF:4E20 EfTextPayloadData`
+- `EF:4E20 EfPreBattleTextPayloadData`
+- `EF:69A1 EBattle5MsgBtlHpMaxRecovered`
+- `EF:69BA EBattle5MsgBtlHpRecoveredAmount`
+- `EF:69D2 EBattle5MsgBtlPpRecoveredAmount`
+- `EF:69EA EBattle5AmountAndStatusPreludeText`
+- `EF:6AE0 EBattle5MsgBtlParalysisInflicted`
+- `EF:6AFB EBattle5AfflictionTextBeforeStrange`
+- `EF:6C3A EBattle5MsgBtlStrangeInflicted`
+- `EF:6C55 EBattle5MsgBtlAsleepInflicted`
+- `EF:6C6B EBattle5StatusAndNpcDeathText`
+- `EF:6F9A EBattle5MsgBtlShieldOn`
+- `EF:6FBD EBattle5MsgBtlShieldAdd`
+- `EF:6FD3 EBattle5MsgBtlPowerShieldOn`
+- `EF:6FF4 EBattle5MsgBtlPowerShieldAdd`
+- `EF:700C EBattle5MsgBtlPsychicShieldOn`
+- `EF:7032 EBattle5MsgBtlPsychicShieldAdd`
+- `EF:7050 EBattle5MsgBtlPsiPowerShieldOn`
+- `EF:707A EBattle5MsgBtlPsiPowerShieldAdd`
+- `EF:7099 EBattle5ShieldTurnAndNeutralizeText`
+- `EF:7186 EBattle4PreNoEffectBattleText`
+- `EF:766E EBattle4MsgBtlStatusNoEffect`
+- `EF:7682 EBattle4AdjacentNoEffectText`
+- `EF:7696 EBattle4MsgBtlNoVisibleEffect`
+- `EF:76B3 EBattle4LateMissAndDrainPreludeText`
+- `EF:773F EBattle4MsgBtlPpDrainAmount`
+- `EF:7755 EBattle4RemainingDamageOverTimeText`
+- `EF:77FD EBattle8CallForHelpAndLevelUpText`
+- `EF:7B77 EBattle8ByteSubstitutionPsiNameText`
+- `EF:7B83 EBattle8PointerSubstitutionIntroState`
+- `EF:7B85 EBattle8PointerSubstitutionSweetBranch`
+- `EF:7BA0 EBattle8PointerSubstitutionBranch2State`
+- `EF:7BA2 EBattle8PointerSubstitutionTearsBranch`
+- `EF:7BBF EBattle8PointerSubstitutionBranch3State`
+- `EF:7BC1 EBattle8PointerSubstitutionOhBabyBranch`
+- `EF:7BDF EBattle8MsgBtlPresentByteSubstitution`
+- `EF:7C42 EBattle8PresentInventoryResultText`
+- `EF:7DD5 EBattle8MsgBtlCheckPresentGetByteSubstitution`
+- `EF:7E25 EBattle2AndPreStartBattleText`
+- `EF:843F EBattle0MsgAtStartAsleep`
+- `EF:8444 EBattle0MsgAtStartPsiSeal`
+- `EF:8445 EBattle0MsgAtStartStrange`
+- `EF:845D EBattle0MsgRandomActStrange`
+- `EF:8477 EBattle0MsgRandomActMushroom`
+- `EF:848C EfPostBattleTextPayloadData`
 
 Evidence:
 
 - `notes/bank-ef-first-pass.md`
-- `notes/ef-readable-source-split-queue.md`
+- `notes/ef-runtime-semantic-polish-plan.md`
 - `notes/c2-ef-battle-text-contract-workahead.md`
 
 ### `src/ef/ef_c51b_d56f_text_glyph_mask_tables.asm`

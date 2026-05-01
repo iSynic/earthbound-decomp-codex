@@ -100,3 +100,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   sprite slot, `$B555/$B557` command row and input latch, `$B55F` overlay tile
   mode, `$B575` view-character hold flag, the seven visible command rows, and
   the mode-specific view-character/check-position overlay dispatch.
+- 2026-05-01: EF battle-text payload split polish landed as ROM-preserving
+  data-gap anchors plus `notes/ef-battle-text-payload-runtime-polish.md`. The
+  promoted anchors cover HP/PP amount scripts, paralysis/strange/asleep result
+  text, shield/timed-substate result pairs, present byte substitution,
+  pointer-substitution branches, PP-drain amount text, and battle-start status
+  announcements.

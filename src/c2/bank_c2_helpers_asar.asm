@@ -7827,7 +7827,7 @@ org $C29F57
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C29F06_RunResistCheckedAsleepStatusAction = $C29F06
 !EFMSG_PpDrainAmount = $773F
-!EFMSG_PoisonInflicted = $6AE0
+!EFMSG_ParalysisInflicted = $6AE0
 !EFMSG_StatusNoEffect = $766E
 REDIRECT_BTLACT_HYPNOSIS_A_COPY:
 !C29F57_RunAsleepStatusWrapperAction = REDIRECT_BTLACT_HYPNOSIS_A_COPY
@@ -7915,7 +7915,7 @@ C29FF9_RunAsleepStatusWrapperAction_L9FF9:
 C29FFD_RunAsleepStatusWrapperAction_L9FFD:
     rtl
 BTLACT_PARALYSIS_A:
-!C29FFE_RunResistCheckedPoisonStatusAction = BTLACT_PARALYSIS_A
+!C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     rep #$31
     phd
     tdc
@@ -7936,7 +7936,7 @@ BTLACT_PARALYSIS_A:
     jsr INFLICT_STATUS_BATTLE
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
-    lda.w #!EFMSG_PoisonInflicted
+    lda.w #!EFMSG_ParalysisInflicted
     sta $0E
     lda.w #$00EF
     sta $10
@@ -7952,7 +7952,7 @@ C2A04D_RunAsleepStatusWrapperAction_LA04D:
     pld
     rtl
 REDIRECT_BTLACT_PARALYSIS_A:
-!C2A04F_RunPoisonStatusWrapperAction = REDIRECT_BTLACT_PARALYSIS_A
+!C2A04F_RunParalysisStatusWrapperAction = REDIRECT_BTLACT_PARALYSIS_A
     rep #$31
     jsl BTLACT_PARALYSIS_A
     rtl

@@ -10,6 +10,272 @@
 ; - EF:4E20..EF:C51B EfTextPayloadData
 
 ; ---------------------------------------------------------------------------
+; EF:4E20
+
+; Coarse text payload run. Interior labels below are zero-byte anchors used by
+; the source-bank scaffold to split ROM-preserved text data around C1/C2-proven
+; battle-text payload joins.
+EF4E20_EfTextPayloadData:
+
+; ---------------------------------------------------------------------------
+; EF:69A1
+
+; EBATTLE5: HP already maxed recovery text.
+EF69A1_EBattle5MsgBtlHpMaxRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:69BA
+
+; EBATTLE5: amount-bearing HP recovery text, consumed through C1:DC66/1C 0F.
+EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+
+; ---------------------------------------------------------------------------
+; EF:69D2
+
+; EBATTLE5: amount-bearing PP recovery text, consumed through C1:DC66/1C 0F.
+EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+
+; ---------------------------------------------------------------------------
+; EF:69EA
+
+; EBATTLE5: amount-bearing stat/check text continues here.
+EF69EA_EBattle5AmountAndStatusPreludeText:
+
+; ---------------------------------------------------------------------------
+; EF:6AE0
+
+; EBATTLE5: paralysis/body-numb inflicted text used by BTLACT_PARALYSIS_A.
+EF6AE0_EBattle5MsgBtlParalysisInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6AFB
+
+; EBATTLE5: adjacent affliction text before poison/strange/asleep scripts.
+EF6AFB_EBattle5AfflictionTextBeforeStrange:
+
+; ---------------------------------------------------------------------------
+; EF:6C3A
+
+; EBATTLE5: strange-status inflicted text.
+EF6C3A_EBattle5MsgBtlStrangeInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6C55
+
+; EBATTLE5: asleep-status inflicted text.
+EF6C55_EBattle5MsgBtlAsleepInflicted:
+
+; ---------------------------------------------------------------------------
+; EF:6C6B
+
+; EBATTLE5: remaining status and NPC-death text before shield result scripts.
+EF6C6B_EBattle5StatusAndNpcDeathText:
+
+; ---------------------------------------------------------------------------
+; EF:6F9A
+
+; EBATTLE5: shield-on timed substate result text.
+EF6F9A_EBattle5MsgBtlShieldOn:
+
+; ---------------------------------------------------------------------------
+; EF:6FBD
+
+; EBATTLE5: shield-added timed substate result text.
+EF6FBD_EBattle5MsgBtlShieldAdd:
+
+; ---------------------------------------------------------------------------
+; EF:6FD3
+
+; EBATTLE5: power-shield-on timed substate result text.
+EF6FD3_EBattle5MsgBtlPowerShieldOn:
+
+; ---------------------------------------------------------------------------
+; EF:6FF4
+
+; EBATTLE5: power-shield-added timed substate result text.
+EF6FF4_EBattle5MsgBtlPowerShieldAdd:
+
+; ---------------------------------------------------------------------------
+; EF:700C
+
+; EBATTLE5: psychic-shield-on timed substate result text.
+EF700C_EBattle5MsgBtlPsychicShieldOn:
+
+; ---------------------------------------------------------------------------
+; EF:7032
+
+; EBATTLE5: psychic-shield-added timed substate result text.
+EF7032_EBattle5MsgBtlPsychicShieldAdd:
+
+; ---------------------------------------------------------------------------
+; EF:7050
+
+; EBATTLE5: PSI-power-shield-on timed substate result text.
+EF7050_EBattle5MsgBtlPsiPowerShieldOn:
+
+; ---------------------------------------------------------------------------
+; EF:707A
+
+; EBATTLE5: PSI-power-shield-added timed substate result text.
+EF707A_EBattle5MsgBtlPsiPowerShieldAdd:
+
+; ---------------------------------------------------------------------------
+; EF:7099
+
+; EBATTLE5: shield turn-off, neutralize, and Franklin-turn text tail.
+EF7099_EBattle5ShieldTurnAndNeutralizeText:
+
+; ---------------------------------------------------------------------------
+; EF:7186
+
+; EBATTLE4: battle text preceding the shared no-effect scripts.
+EF7186_EBattle4PreNoEffectBattleText:
+
+; ---------------------------------------------------------------------------
+; EF:766E
+
+; EBATTLE4: shared status no-effect text.
+EF766E_EBattle4MsgBtlStatusNoEffect:
+
+; ---------------------------------------------------------------------------
+; EF:7682
+
+; EBATTLE4: adjacent no-effect text before HP/PP no-visible-effect text.
+EF7682_EBattle4AdjacentNoEffectText:
+
+; ---------------------------------------------------------------------------
+; EF:7696
+
+; EBATTLE4: no visible effect text.
+EF7696_EBattle4MsgBtlNoVisibleEffect:
+
+; ---------------------------------------------------------------------------
+; EF:76B3
+
+; EBATTLE4: late miss and drain prelude text.
+EF76B3_EBattle4LateMissAndDrainPreludeText:
+
+; ---------------------------------------------------------------------------
+; EF:773F
+
+; EBATTLE4: amount-bearing PP drain text, consumed through C1:DC66/1C 0F.
+EF773F_EBattle4MsgBtlPpDrainAmount:
+
+; ---------------------------------------------------------------------------
+; EF:7755
+
+; EBATTLE4: remaining damage-over-time amount text before EBATTLE8.
+EF7755_EBattle4RemainingDamageOverTimeText:
+
+; ---------------------------------------------------------------------------
+; EF:77FD
+
+; EBATTLE8: call-for-help and level-up text run.
+EF77FD_EBattle8CallForHelpAndLevelUpText:
+
+; ---------------------------------------------------------------------------
+; EF:7B77
+
+; EBATTLE8: byte-substitution PSI-name text.
+EF7B77_EBattle8ByteSubstitutionPsiNameText:
+
+; ---------------------------------------------------------------------------
+; EF:7B83
+
+; EBATTLE8: pointer-substitution branch state.
+EF7B83_EBattle8PointerSubstitutionIntroState:
+
+; ---------------------------------------------------------------------------
+; EF:7B85
+
+; EBATTLE8: pointer-substitution "Sweet!" branch, consumed through 19 1E.
+EF7B85_EBattle8PointerSubstitutionSweetBranch:
+
+; ---------------------------------------------------------------------------
+; EF:7BA0
+
+; EBATTLE8: pointer-substitution branch state.
+EF7BA0_EBattle8PointerSubstitutionBranch2State:
+
+; ---------------------------------------------------------------------------
+; EF:7BA2
+
+; EBATTLE8: pointer-substitution tears branch, consumed through 19 1E.
+EF7BA2_EBattle8PointerSubstitutionTearsBranch:
+
+; ---------------------------------------------------------------------------
+; EF:7BBF
+
+; EBATTLE8: pointer-substitution branch state.
+EF7BBF_EBattle8PointerSubstitutionBranch3State:
+
+; ---------------------------------------------------------------------------
+; EF:7BC1
+
+; EBATTLE8: pointer-substitution "Oh, baby!" branch, consumed through 19 1E.
+EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
+
+; ---------------------------------------------------------------------------
+; EF:7BDF
+
+; EBATTLE8: present item byte-substitution text, consumed through 19 1F.
+EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+
+; ---------------------------------------------------------------------------
+; EF:7C42
+
+; EBATTLE8: present inventory-result continuation text.
+EF7C42_EBattle8PresentInventoryResultText:
+
+; ---------------------------------------------------------------------------
+; EF:7DD5
+
+; EBATTLE8: check-present-get byte-substitution text, consumed through 19 1F.
+EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+
+; ---------------------------------------------------------------------------
+; EF:7E25
+
+; EBATTLE2 and pre-start-battle text run.
+EF7E25_EBattle2AndPreStartBattleText:
+
+; ---------------------------------------------------------------------------
+; EF:843F
+
+; EBATTLE0: battle-start asleep announcement.
+EF843F_EBattle0MsgAtStartAsleep:
+
+; ---------------------------------------------------------------------------
+; EF:8444
+
+; EBATTLE0: battle-start PSI-seal announcement.
+EF8444_EBattle0MsgAtStartPsiSeal:
+
+; ---------------------------------------------------------------------------
+; EF:8445
+
+; EBATTLE0: battle-start strange-status announcement.
+EF8445_EBattle0MsgAtStartStrange:
+
+; ---------------------------------------------------------------------------
+; EF:845D
+
+; EBATTLE0: random action strange-status text.
+EF845D_EBattle0MsgRandomActStrange:
+
+; ---------------------------------------------------------------------------
+; EF:8477
+
+; EBATTLE0: random action mushroom-status text.
+EF8477_EBattle0MsgRandomActMushroom:
+
+; ---------------------------------------------------------------------------
+; EF:848C
+
+; Remaining EF text payload data after the battle-start action text anchors.
+EF848C_EfPostBattleTextPayloadData:
+
+; ---------------------------------------------------------------------------
 ; EF:C51B
 
 ; EfTextPayloadDataEnd
