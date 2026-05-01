@@ -18,6 +18,7 @@ C08756_WaitOneFrameAndPollInput                  = $C08756
 C08ED2_QueueOrTransferDynamicTileBlock           = $C08ED2
 C08EED_CopyToVramOrRendererBuffer                = $C08EED
 C08FF7_ResolveIndexedPointerOffset               = $C08FF7
+C090E6_DivideSignedFixedPointDelta               = $C090E6
 C0915B_DivideUnsignedWordByY                     = $C0915B
 C41EFF_CalculateAngleBetweenPoints               = $C41EFF
 C46028_FindEntitySlotByCachedPoseDescriptorId    = $C46028
@@ -39,6 +40,43 @@ PlayerWorldY                                     = $987B
 SignedWordInvertMask                             = $FFFF
 DirectionAngleOctantSpan                         = $2000
 DirectionAngleHalfOctant                         = $1000
+
+; ---------------------------------------------------------------------------
+; Landing profile color/display contracts
+
+LandingProfileSourceBuffer                       = $7800
+LandingProfileWorkBank                           = $007F
+LandingProfileTemplateBuffer                     = $0240
+LandingProfileColorEntryCount                    = $0060
+LandingProfileStepWaitSelector                   = $0008
+LandingProfileDescriptorTable                    = $10FB
+LandingProfileDescriptorBank                     = $00EF
+LandingProfilePointerBankOffset                  = $0002
+LandingProfileRowStride                          = $00C0
+LandingProfileTransferBlockSize                  = $00C0
+LandingProfileStaticCopySource                   = $0000
+LandingProfileStaticCopyBank                     = $00C3
+LandingProfileStaticCopySize                     = $0100
+LandingProfileStaticCopyDestination              = $0300
+LandingProfileDisplayBuildWaitSelector           = $0018
+LandingProfileDisplayCacheLatch                  = $4474
+LandingProfileTransferBusyByte                   = $0030
+LandingProfileComponentDeltaLowPlane             = $7F7900
+LandingProfileComponentDeltaMidPlane             = $7F7A00
+LandingProfileComponentDeltaHighPlane            = $7F7B00
+LandingProfileComponentBaseLowPlane              = $7F7C00
+LandingProfileComponentBaseMidPlane              = $7F7D00
+LandingProfileComponentBaseHighPlane             = $7F7E00
+LandingProfileBaseLowPlanePointer                = $7C00
+LandingProfileBaseMidPlanePointer                = $7D00
+LandingProfileBaseHighPlanePointer               = $7E00
+Rgb555ComponentMask                              = $001F
+Rgb555MidComponentMask                           = $03E0
+Rgb555HighComponentMask                          = $7C00
+Rgb555HighComponentNormalizeDenominator          = $0400
+Rgb555ComponentFixedByteMask                     = $FF00
+LowByteMask                                      = $00FF
+ZeroWord                                         = $0000
 
 ; ---------------------------------------------------------------------------
 ; C4:90EE
@@ -201,8 +239,8 @@ C491EE_ScaleColorComponentDeltaByStep = GET_COLOUR_FADE_SLOPE
     sec
     sbc $02
     xba
-    and.w #$FF00
-    jsl $C090E6
+    and.w #Rgb555ComponentFixedByteMask
+    jsl C090E6_DivideSignedFixedPointDelta
     pld
     rts
 INITIALIZE_MAP_PALETTE_FADE:
@@ -215,9 +253,9 @@ C49208_BuildLandingInterpolationPlanesFrom7f7800 = INITIALIZE_MAP_PALETTE_FADE
     tcd
     pla
     sta $16
-    lda.w #$7800
+    lda.w #LandingProfileSourceBuffer
     sta $06
-    lda.w #$007F
+    lda.w #LandingProfileWorkBank
     sta $08
     stz $14
     jmp.w C492C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L92C4
@@ -226,7 +264,7 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     asl A
     sta $02
     clc
-    adc.w #$0240
+    adc.w #LandingProfileTemplateBuffer
     sta $12
     lda ($12)
     sta $10
@@ -234,16 +272,16 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     sta $04
     ldy $16
     lda $04
-    and.w #$001F
+    and.w #Rgb555ComponentMask
     tax
     lda $10
-    and.w #$001F
+    and.w #Rgb555ComponentMask
     jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
-    sta $7F7900,X
+    sta LandingProfileComponentDeltaLowPlane,X
     ldy $16
     lda $04
-    and.w #$03E0
+    and.w #Rgb555MidComponentMask
     lsr A
     lsr A
     lsr A
@@ -251,7 +289,7 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     lsr A
     tax
     lda $10
-    and.w #$03E0
+    and.w #Rgb555MidComponentMask
     lsr A
     lsr A
     lsr A
@@ -259,47 +297,47 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     lsr A
     jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
-    sta $7F7A00,X
+    sta LandingProfileComponentDeltaMidPlane,X
     ldy $16
     sty $0E
-    ldy.w #$0400
+    ldy.w #Rgb555HighComponentNormalizeDenominator
     lda $04
-    and.w #$7C00
+    and.w #Rgb555HighComponentMask
     jsl C0915B_DivideUnsignedWordByY
     tax
-    ldy.w #$0400
+    ldy.w #Rgb555HighComponentNormalizeDenominator
     lda $10
-    and.w #$7C00
+    and.w #Rgb555HighComponentMask
     jsl C0915B_DivideUnsignedWordByY
     ldy $0E
     jsr.w GET_COLOUR_FADE_SLOPE
     ldx $02
-    sta $7F7B00,X
+    sta LandingProfileComponentDeltaHighPlane,X
     lda ($12)
-    and.w #$001F
+    and.w #Rgb555ComponentMask
     xba
-    and.w #$FF00
+    and.w #Rgb555ComponentFixedByteMask
     ldx $02
-    sta $7F7C00,X
+    sta LandingProfileComponentBaseLowPlane,X
     lda ($12)
-    and.w #$03E0
+    and.w #Rgb555MidComponentMask
     asl A
     asl A
     asl A
     ldx $02
-    sta $7F7D00,X
+    sta LandingProfileComponentBaseMidPlane,X
     lda ($12)
-    and.w #$7C00
+    and.w #Rgb555HighComponentMask
     lsr A
     lsr A
     ldx $02
-    sta $7F7E00,X
+    sta LandingProfileComponentBaseHighPlane,X
     inc $06
     inc $06
     inc $14
 C492C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L92C4:
     lda $14
-    cmp.w #$0060
+    cmp.w #LandingProfileColorEntryCount
     bcs C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0
     beq C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0
     jmp.w C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223
@@ -312,18 +350,18 @@ C492D2_StepLandingProfile7900ColorPlanesTo0240:
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$0240
+    lda.w #LandingProfileTemplateBuffer
     sta $12
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $04
     jmp.w C49387_NearbyTruffleAndLandingProfileInterpolationHelpers_L9387
 C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     lda $04
     asl A
     sta $10
-    lda.w #$7C00
+    lda.w #LandingProfileBaseLowPlanePointer
     sta $06
-    lda.w #$007F
+    lda.w #LandingProfileWorkBank
     sta $08
     lda $10
     clc
@@ -333,12 +371,12 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     tax
     lda [$06]
     clc
-    adc $7F7900,X
+    adc LandingProfileComponentDeltaLowPlane,X
     tay
     sta [$06]
-    lda.w #$7D00
+    lda.w #LandingProfileBaseMidPlanePointer
     sta $06
-    lda.w #$007F
+    lda.w #LandingProfileWorkBank
     sta $08
     lda $10
     clc
@@ -348,12 +386,12 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     tax
     lda [$06]
     clc
-    adc $7F7A00,X
+    adc LandingProfileComponentDeltaMidPlane,X
     sta $02
     sta [$06]
-    lda.w #$7E00
+    lda.w #LandingProfileBaseHighPlanePointer
     sta $06
-    lda.w #$007F
+    lda.w #LandingProfileWorkBank
     sta $08
     lda $10
     clc
@@ -363,18 +401,18 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     tax
     lda [$06]
     clc
-    adc $7F7B00,X
+    adc LandingProfileComponentDeltaHighPlane,X
     tax
     sta [$06]
     tya
     xba
-    and.w #$00FF
-    and.w #$001F
+    and.w #LowByteMask
+    and.w #Rgb555ComponentMask
     tay
     lda $02
     xba
-    and.w #$00FF
-    and.w #$001F
+    and.w #LowByteMask
+    and.w #Rgb555ComponentMask
     asl A
     asl A
     asl A
@@ -383,10 +421,10 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     sta $10
     txa
     xba
-    and.w #$00FF
-    and.w #$001F
+    and.w #LowByteMask
+    and.w #Rgb555ComponentMask
     xba
-    and.w #$FF00
+    and.w #Rgb555ComponentFixedByteMask
     asl A
     asl A
     sta $02
@@ -404,12 +442,12 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     inc $04
 C49387_NearbyTruffleAndLandingProfileInterpolationHelpers_L9387:
     lda $04
-    cmp.w #$0060
+    cmp.w #LandingProfileColorEntryCount
     bcs C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393
     beq C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393
     jmp.w C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7
 C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393:
-    lda.w #$0008
+    lda.w #LandingProfileStepWaitSelector
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
@@ -428,27 +466,27 @@ C4939C_RunLandingProfileDisplayBuildAndFade:
     lda $2B
     sta $1C
     rep #$20
-    stz $4474
-    lda.w #$10FB
+    stz LandingProfileDisplayCacheLatch
+    lda.w #LandingProfileDescriptorTable
     sta $06
-    lda.w #$00EF
+    lda.w #LandingProfileDescriptorBank
     sta $08
     lda $00
-    and.w #$00FF
+    and.w #LowByteMask
     asl A
     asl A
     clc
     adc $06
     sta $06
-    ldy.w #$0002
+    ldy.w #LandingProfilePointerBankOffset
     lda [$06],Y
     tay
     lda [$06]
     sta $06
     sty $08
     lda $1C
-    and.w #$00FF
-    ldy.w #$00C0
+    and.w #LowByteMask
+    ldy.w #LandingProfileRowStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
@@ -457,31 +495,31 @@ C4939C_RunLandingProfileDisplayBuildAndFade:
     lda $08
     sta $18
     lda $01
-    and.w #$00FF
+    and.w #LowByteMask
     bne C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$00C0
-    lda.w #$0240
+    ldx.w #LandingProfileTransferBlockSize
+    lda.w #LandingProfileTemplateBuffer
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     jmp.w C49494_NearbyTruffleAndLandingProfileInterpolationHelpers_L9494
 C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C:
-    lda.w #$7800
+    lda.w #LandingProfileSourceBuffer
     sta $0E
-    lda.w #$007F
+    lda.w #LandingProfileWorkBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    lda.w #$00C0
+    lda.w #LandingProfileTransferBlockSize
     jsl C08EED_CopyToVramOrRendererBuffer
     lda $01
-    and.w #$00FF
+    and.w #LowByteMask
     jsl INITIALIZE_MAP_PALETTE_FADE
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $1A
     bra C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442
 C49435_NearbyTruffleAndLandingProfileInterpolationHelpers_L9435:
@@ -492,7 +530,7 @@ C49435_NearbyTruffleAndLandingProfileInterpolationHelpers_L9435:
     sta $1A
 C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442:
     lda $01
-    and.w #$00FF
+    and.w #LowByteMask
     sta $02
     lda $1A
     cmp $02
@@ -505,23 +543,23 @@ C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$00C0
-    lda.w #$0240
+    ldx.w #LandingProfileTransferBlockSize
+    lda.w #LandingProfileTemplateBuffer
     jsl C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$0000
+    lda.w #LandingProfileStaticCopySource
     sta $0E
-    lda.w #$00C3
+    lda.w #LandingProfileStaticCopyBank
     sta $10
-    ldx.w #$0100
-    lda.w #$0300
+    ldx.w #LandingProfileStaticCopySize
+    lda.w #LandingProfileStaticCopyDestination
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     jsl C00480_BuildLandingDisplayRows
     jsl C00778_BuildLandingDisplayTilemap
-    lda.w #$0018
+    lda.w #LandingProfileDisplayBuildWaitSelector
     jsl C0856B_WaitFramesOrTransitionDelay
 C4948C_NearbyTruffleAndLandingProfileInterpolationHelpers_L948C:
-    lda $0030
-    and.w #$00FF
+    lda LandingProfileTransferBusyByte
+    and.w #LowByteMask
     bne C4948C_NearbyTruffleAndLandingProfileInterpolationHelpers_L948C
 C49494_NearbyTruffleAndLandingProfileInterpolationHelpers_L9494:
     pld

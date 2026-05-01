@@ -36,6 +36,13 @@ selected `0x0240` template, copies a `C3:0000` source block to `0x0300`, runs
 the landing row/template builders at `C0:0480` and `C0:0778`, and queues
 selector `#$18`.
 
+Source polish: `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`
+now names the parallel `$7F:7900..7E00` component delta/base planes, the
+`0x0240` template buffer, RGB555 component masks and high-channel normalize
+denominator, `EF:10FB` profile descriptor table, profile row stride, static
+`C3:0000 -> 0x0300` transfer block, display cache latch, wait selectors, and
+transfer-busy byte.
+
 `C4:9496` converts one packed RGB555 color word through the C0 fixed-point
 helpers. The caller supplies a step or scale in X; the routine extracts low,
 middle, and high 5-bit color components, scales each component, clamps overflow

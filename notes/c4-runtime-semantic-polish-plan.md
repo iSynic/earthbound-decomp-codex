@@ -162,6 +162,11 @@ closure.
   minimum-distance gates, result values, live entity/player coordinate fields,
   signed delta inversion mask, and direction octant rounding constants. See
   `notes/text-command-family-1f-deferred-callbacks.md`.
+- 2026-05-01 landing profile interpolation: promoted the adjacent landing
+  profile color/display helper contracts for the `$7F:7900..7E00` component
+  planes, `0x0240` template buffer, RGB555 masks, `EF:10FB` descriptor table,
+  row stride, transfer blocks, wait selectors, display cache latch, and busy
+  byte. See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 

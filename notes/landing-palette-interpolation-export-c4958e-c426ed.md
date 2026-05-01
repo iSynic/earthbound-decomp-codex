@@ -150,6 +150,11 @@ So the safest current cross-check is:
 - the landing subsystem contains at least two closely related color interpolation families
 - the `7F:0200..0C00` family is not an isolated oddity; it matches a broader palette-style work pattern
 
+Source polish: `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`
+now carries the same six-plane interpretation for the `7F:7900..7E00` family,
+including named low/mid/high component delta planes, base planes, RGB555 masks,
+and the `0x0240` repacked template output.
+
 ## Confidence boundaries
 
 ### Locally proved
