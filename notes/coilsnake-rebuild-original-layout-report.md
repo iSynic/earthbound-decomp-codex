@@ -5,9 +5,9 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 
 ## Summary
 
-- Experiments analyzed: `17`
+- Experiments analyzed: `23`
 - Multi-probe clusters analyzed: `4`
-- Direct same-offset matches with at least an 8-byte exact window: `9`
+- Direct same-offset matches with at least an 8-byte exact window: `14`
 - Unique moved original cluster candidates: `2`
 - Ambiguous cluster candidates: `2`
 
@@ -59,6 +59,8 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 | Experiment | Rebuilt HiROM | Changed byte matches original | Best exact same-offset window |
 | --- | --- | --- | ---: |
 | `battle-action-pp-cost-probe` | `D5:7C07` | `yes` | 32 |
+| `condiment-first-good-recover-probe` | `D5:EA7B` | `yes` | 32 |
+| `enemy-group-first-background-probe` | `CB:D89E` | `yes` | 8 |
 | `enemy-insane-cultist-action1-probe` | `D5:962D` | `yes` | 32 |
 | `enemy-insane-cultist-hp-probe` | `D5:9608` | `yes` | 8 |
 | `item-cost-probe` | `D5:5068` | `yes` | 32 |
@@ -66,12 +68,16 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 | `map-door-first-destination-y-probe` | `CF:000A` | `no` | 0 |
 | `map-door-first-direction-probe` | `CF:000B` | `no` | 0 |
 | `map-door-first-style-probe` | `CF:000E` | `no` | 0 |
+| `map-hotspot-first-x1-probe` | `D5:F303` | `yes` | 32 |
+| `map-music-sector1-music-probe` | `CF:590D` | `no` | 0 |
 | `map-palette-probe` | `DA:0C40` | `no` | 0 |
 | `map-sprite-first-npc-id-probe` | `CF:61E9` | `no` | 0 |
 | `map-sprite-first-x-probe` | `CF:61EC` | `no` | 0 |
 | `map-sprite-first-y-probe` | `CF:61EB` | `no` | 0 |
 | `npc-config-first-text-pointer-probe` | `CF:899F` | `yes` | 32 |
 | `psi-ness-omega-level-probe` | `D5:8A92` | `yes` | 32 |
+| `store-first-shop-item1-probe` | `D5:76B9` | `yes` | 32 |
+| `teleport-onett-x-probe` | `D5:78BA` | `yes` | 32 |
 | `text-menu-probe` | `C4:A00A` | `yes` | 32 |
 | `window-config-height-probe` | `C3:E296` | `yes` | 32 |
 | `window-config-width-probe` | `C3:E294` | `yes` | 32 |

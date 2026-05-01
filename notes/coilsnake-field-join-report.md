@@ -9,6 +9,8 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 | Experiment | CoilSnake file | Offset | HiROM | Local range | Source candidate | Join status | Warning |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | battle-action-pp-cost-probe | `battle_action_table.yml` | `0x157C07` | `D5:7C07` | `BATTLE_ACTION_TABLE` | `src/d5/table_battle_action_table.asm` | `local-range-confirmed` | no |
+| condiment-first-good-recover-probe | `condiment_table.yml` | `0x15EA7B` | `D5:EA7B` | `CONDIMENT_TABLE` | `src/d5/table_condiment_table.asm` | `local-range-confirmed` | no |
+| enemy-group-first-background-probe | `enemy_groups.yml` | `0x0BD89E` | `CB:D89E` | `data/battle/background_layer_table.asm` | `src/cb/table_data_battle_background_layer_table_asm.asm` | `local-range-confirmed` | yes |
 | enemy-insane-cultist-action1-probe | `enemy_configuration_table.yml` | `0x15962D` | `D5:962D` | `ENEMY_CONFIGURATION_TABLE` | `src/d5/table_enemy_configuration_table.asm` | `local-range-confirmed` | no |
 | enemy-insane-cultist-hp-probe | `enemy_configuration_table.yml` | `0x159608` | `D5:9608` | `ENEMY_CONFIGURATION_TABLE` | `src/d5/table_enemy_configuration_table.asm` | `local-range-confirmed` | no |
 | item-cost-probe | `item_configuration_table.yml` | `0x155068` | `D5:5068` | `ITEM_CONFIGURATION_TABLE` | `src/d5/table_item_configuration_table.asm` | `local-range-confirmed` | no |
@@ -16,12 +18,16 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 | map-door-first-destination-y-probe | `map_doors.yml` | `0x0F000A` | `CF:000A` | `CF:0000..CF:264E` | `src/cf/table_door_data.asm` | `local-range-confirmed` | yes |
 | map-door-first-direction-probe | `map_doors.yml` | `0x0F000B` | `CF:000B` | `CF:0000..CF:264E` | `src/cf/table_door_data.asm` | `local-range-confirmed` | yes |
 | map-door-first-style-probe | `map_doors.yml` | `0x0F000E` | `CF:000E` | `CF:0000..CF:264E` | `src/cf/table_door_data.asm` | `local-range-confirmed` | yes |
+| map-hotspot-first-x1-probe | `map_hotspots.yml` | `0x15F303` | `D5:F303` | `MAP_HOTSPOTS` | `src/d5/table_map_hotspots.asm` | `local-range-confirmed` | no |
+| map-music-sector1-music-probe | `map_music.yml` | `0x0F590D` | `CF:590D` | `CF:58EF..CF:5A38` | `src/cf/table_overworld_event_music_pointer_table.asm` | `local-range-confirmed` | no |
 | map-palette-probe | `map_palette_settings.yml` | `0x1A0C40` | `DA:0C40` | `MAP_DATA_TILE_ARRANGEMENT_5` | `src/da/asset_map_data_tile_arrangement_5.asm` | `local-range-confirmed` | yes |
 | map-sprite-first-npc-id-probe | `map_sprites.yml` | `0x0F61E9` | `CF:61E9` | `CF:61E9..CF:61EC` | `src/cf/table_sprite_placement_pointer_table.asm` | `local-range-confirmed` | yes |
 | map-sprite-first-x-probe | `map_sprites.yml` | `0x0F61EC` | `CF:61EC` | `CF:61E9..CF:61EC` | `src/cf/table_sprite_placement_pointer_table.asm` | `local-range-confirmed` | yes |
 | map-sprite-first-y-probe | `map_sprites.yml` | `0x0F61EB` | `CF:61EB` | `CF:61E9..CF:61EC` | `src/cf/table_sprite_placement_pointer_table.asm` | `local-range-confirmed` | yes |
 | npc-config-first-text-pointer-probe | `npc_config_table.yml` | `0x0F899F` | `CF:899F` | `CF:8985..CF:F2B4` | `src/cf/table_npc_config_table.asm` | `local-range-confirmed` | no |
 | psi-ness-omega-level-probe | `psi_ability_table.yml` | `0x158A92` | `D5:8A92` | `PSI_ABILITY_TABLE` | `src/d5/table_psi_ability_table.asm` | `local-range-confirmed` | no |
+| store-first-shop-item1-probe | `store_table.yml` | `0x1576B9` | `D5:76B9` | `STORE_TABLE` | `src/d5/table_store_table.asm` | `local-range-confirmed` | no |
+| teleport-onett-x-probe | `psi_teleport_dest_table.yml` | `0x1578BA` | `D5:78BA` | `PSI_TELEPORT_DEST_TABLE` | `src/d5/table_psi_teleport_dest_table.asm` | `local-range-confirmed` | no |
 | text-menu-probe | `text_misc.yml` | `0x04A00A` | `C4:A00A` | `C4:9FE1..C4:A0CF` | `src/c4/battle_target_candidate_selection_helpers.asm` | `local-range-confirmed` | no |
 | window-config-height-probe | `window_configuration_table.yml` | `0x03E296` | `C3:E296` | `C3:E250..C3:E3F8` | `src/c3/script_event_payloads_0000_e450.asm` | `local-range-confirmed` | no |
 | window-config-width-probe | `window_configuration_table.yml` | `0x03E294` | `C3:E294` | `C3:E250..C3:E3F8` | `src/c3/script_event_payloads_0000_e450.asm` | `local-range-confirmed` | no |
@@ -59,6 +65,58 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/battle-affliction-recovery-family-c29aea-a39d.md` line 198
   - `notes/c0-c4-integration-pass.md` line 120
   - `notes/c2-battle-contract-workahead.md` line 173
+
+## condiment-first-good-recover-probe
+
+- CoilSnake edit: `condiment_table.yml` - Changed condiment row 0 good recover from 2 to 3.
+- Diff result: `1` byte(s), first changed offset `0x15EA7B` -> `D5:EA7B` / `0xD5EA7B`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `condiment_table.yml / row 0 / good recover` (2 -> 3); local read `CONDIMENT_TABLE row 0 good_recover byte at row +0x04`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `D5:EA77 CondimentTable contract` (source-range-context) in `notes/data-contracts-c0-c4.md`: The diff proves CoilSnake row 0 good recover lands at D5:EA7B, matching CONDIMENT_TABLE row 0 offset +0x04 in the local condiment_rule contract.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `CONDIMENT_TABLE` `D5:EA77..D5:EBAA` in `notes/d5-table-splits.md` line 34
+  - `build-candidate` `D5:EA77..D5:EBAB` in `notes/d5-build-candidate-ranges.md` line 147
+  - `D5:EA77..D5:EBAB` `D5:EA77..D5:EBAB` in `notes/d5-build-candidate-ranges.md` line 3179
+  - `OK` `D5:EA77..D5:EBAB` in `notes/d5-byte-equivalence-validation.md` line 146
+  - `D5:7B68..D5:EBAA` `D5:7B68..D5:EBAA` in `notes/bank-d5-source-scaffold-handoff.md` line 47
+- Source scaffold candidates:
+  - `src/d5/table_condiment_table.asm` (filename:condiment; address-lines:10)
+- Existing note anchors:
+  - `notes/bank-d5-asset-data-map.md` line 154
+  - `notes/bank-d5-first-pass.md` line 63
+  - `notes/bank-d5-gameplay-table-split-plan.md` line 32
+  - `notes/bank-d5-source-scaffold-handoff.md` line 47
+  - `notes/coilsnake-crosswalk.md` line 367
+
+## enemy-group-first-background-probe
+
+- CoilSnake edit: `enemy_groups.yml` - Changed enemy group 1 Background 1 from 262 to 263.
+- Diff result: `1` byte(s), first changed offset `0x0BD89E` -> `CB:D89E` / `0xCBD89E`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `enemy_groups.yml / group 1 / Background 1` (262 -> 263); local read `battle background layer table byte at CB:D89E after CoilSnake rebuild`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `CB:D89A battle background layer table` (source-range-context) in `notes/battle-visual-asset-contracts.md`: The diff proves CoilSnake enemy group 1 Background 1 changes CB:D89E in the checked-in battle background layer table range. The edited byte also matches the verified original at the same offset, but the exact battle group/background consumer remains open.
+- Local asset/data range matches:
+  - `table.cb.300_data_battle_background_layer_table_asm` `CB:D89A..CB:E02A` in `asset-manifests/bank-cb-assets.json` (raw-table)
+- Local contract/note range matches:
+  - `data/battle/background_layer_table.asm` `CB:D89A..CB:E029` in `notes/bank-cb-asset-data-map.md` line 326
+  - `CB:D89A..CB:E029` `CB:D89A..CB:E029` in `notes/bank-cb-first-pass.md` line 51
+  - `data/battle/background_layer_table.asm` `CB:D89A..CB:E029` in `notes/bank-cb-first-pass.md` line 76
+  - `CB:D89A..CB:E02A` `CB:D89A..CB:E02A` in `notes/bank-cb-source-scaffold-handoff.md` line 44
+  - `table.cb.300_data_battle_background_layer_table_asm` `CB:D89A..CB:E02A` in `notes/battle-visual-asset-contracts.md` line 407
+- Source scaffold candidates:
+  - `src/cb/table_data_battle_background_layer_table_asm.asm` (address-lines:10)
+- Existing note anchors:
+  - `notes/coilsnake-crosswalk.md` line 369
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 63
+  - `notes/data-contracts-c0-c4.md` line 780
+  - `notes/map-milestone-closure.md` line 39
+- Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
 
 ## enemy-insane-cultist-action1-probe
 
@@ -251,6 +309,61 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
 
+## map-hotspot-first-x1-probe
+
+- CoilSnake edit: `map_hotspots.yml` - Changed map hotspot 1 X1 coordinate from 620 to 621.
+- Diff result: `1` byte(s), first changed offset `0x15F303` -> `D5:F303` / `0xD5F303`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `map_hotspots.yml / hotspot 1 / X1` (620 -> 621); local read `MAP_HOTSPOTS row 1 x1 word low byte at row +0x00`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `D5:F2FB MapHotspots contract` (source-range-context) in `notes/data-contracts-c0-c4.md`: The diff proves CoilSnake hotspot 1 X1 low byte lands at D5:F303, which is MAP_HOTSPOTS row 1 offset +0x00 in the local map_hotspot contract.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `MAP_HOTSPOTS` `D5:F2FB..D5:F4BA` in `notes/d5-table-splits.md` line 36
+  - `build-candidate` `D5:F2FB..D5:F4BB` in `notes/d5-build-candidate-ranges.md` line 149
+  - `D5:F2FB..D5:F4BB` `D5:F2FB..D5:F4BB` in `notes/d5-build-candidate-ranges.md` line 3225
+  - `OK` `D5:F2FB..D5:F4BB` in `notes/d5-byte-equivalence-validation.md` line 148
+  - `D5:EBAA..D5:F711` `D5:EBAA..D5:F711` in `notes/bank-d5-source-scaffold-handoff.md` line 48
+- Source scaffold candidates:
+  - `src/d5/table_map_hotspots.asm` (filename:hotspots; address-lines:10)
+- Existing note anchors:
+  - `notes/coilsnake-crosswalk.md` line 371
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 71
+  - `notes/d5-build-candidate-ranges.md` line 149
+  - `notes/d5-byte-equivalence-validation.md` line 148
+  - `notes/d5-table-splits.md` line 36
+
+## map-music-sector1-music-probe
+
+- CoilSnake edit: `map_music.yml` - Changed map music sector 1 fallback Music from 4 to 5.
+- Diff result: `1` byte(s), first changed offset `0x0F590D` -> `CF:590D` / `0xCF590D`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `map_music.yml / sector 1 / fallback Music` (4 -> 5); local read `changed byte lands in CoilSnake baseline-rebuild CF event music pointer-table area at CF:590D; verified original ROM does not match at the same offset`; promotion `relocation-or-compiler-normalization-candidate`.
+- Runtime consumer evidence:
+  - `CoilSnake baseline rebuild map_music payload` (compiler-normalization-context) in `notes/coilsnake-rebuild-original-layout-report.md`: The controlled diff proves changing sector 1 Music from 4 to 5 mutates baseline-rebuild CF:590D. The same-offset original check fails, so this is not yet a direct original-ROM music field promotion.
+  - `CF overworld event music pointer/table contracts` (same-family-runtime-context) in `notes/data-contracts-c0-c4.md`: Local contracts map CF:58EF..CF:5A38 as overworld event music pointers and CF:5A39..CF:61DC as variable event/music rows. The precise rebuilt-to-original row join remains open.
+- Local asset/data range matches:
+  - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
+- Local contract/note range matches:
+  - `CF:58EF..CF:5A38` `CF:58EF..CF:5A38` in `notes/bank-cf-first-pass.md` line 66
+  - `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` `CF:58EF..CF:5A38` in `notes/cf-table-splits.md` line 23
+  - `CF:58EF..CF:5A39` `CF:58EF..CF:5A39` in `notes/bank-cf-source-scaffold-handoff.md` line 44
+  - `build-candidate` `CF:58EF..CF:5A39` in `notes/cf-build-candidate-ranges.md` line 18
+  - `CF:58EF..CF:5A39` `CF:58EF..CF:5A39` in `notes/cf-build-candidate-ranges.md` line 76
+- Source scaffold candidates:
+  - `src/cf/table_overworld_event_music_pointer_table.asm` (filename:music; address-lines:10)
+  - `src/cf/table_overworld_event_music_table.asm` (filename:music)
+  - `src/cf/table_cf_inline_event_music_trailer.asm` (filename:music)
+- Existing note anchors:
+  - `notes/bank-d5-ee-integration-closure.md` line 41
+  - `notes/class4-class6-surface-contexts.md` line 26
+  - `notes/coilsnake-crosswalk.md` line 370
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 72
+  - `notes/data-contracts-c0-c4.md` line 1173
+
 ## map-palette-probe
 
 - CoilSnake edit: `map_palette_settings.yml` - Changed the first Sprite Palette value from 4 to 5.
@@ -419,6 +532,61 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/battle-choice-text-family-c1b2ec-b997.md` line 53
   - `notes/battle-psi-ability-table-d58a50.md` line 1
 
+## store-first-shop-item1-probe
+
+- CoilSnake edit: `store_table.yml` - Changed shop 1 Item 1 from 17 to 19.
+- Diff result: `1` byte(s), first changed offset `0x1576B9` -> `D5:76B9` / `0xD576B9`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `store_table.yml / shop 1 / Item 1` (17 -> 19); local read `STORE_TABLE row 1 item_id_0 byte at row +0x00`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `D5:76B2 StoreTable contract` (source-range-context) in `notes/data-contracts-c0-c4.md`: The diff proves CoilSnake shop 1 Item 1 lands at D5:76B9, which is STORE_TABLE row 1 offset +0x00 using the local 7-byte store_inventory row contract.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `STORE_TABLE` `D5:76B2..D5:787F` in `notes/d5-table-splits.md` line 23
+  - `build-candidate` `D5:76B2..D5:7880` in `notes/d5-build-candidate-ranges.md` line 136
+  - `D5:76B2..D5:7880` `D5:76B2..D5:7880` in `notes/d5-build-candidate-ranges.md` line 2926
+  - `OK` `D5:76B2..D5:7880` in `notes/d5-byte-equivalence-validation.md` line 135
+  - `D5:5000..D5:7B68` `D5:5000..D5:7B68` in `notes/bank-d5-source-scaffold-handoff.md` line 46
+- Source scaffold candidates:
+  - `src/d5/table_store_table.asm` (filename:store; address-lines:10)
+- Existing note anchors:
+  - `notes/bank-d5-first-pass.md` line 79
+  - `notes/bank-d5-gameplay-table-split-plan.md` line 85
+  - `notes/coilsnake-crosswalk.md` line 366
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 79
+  - `notes/d5-build-candidate-ranges.md` line 136
+
+## teleport-onett-x-probe
+
+- CoilSnake edit: `psi_teleport_dest_table.yml` - Changed teleport destination Onett X coordinate from 253 to 254.
+- Diff result: `1` byte(s), first changed offset `0x1578BA` -> `D5:78BA` / `0xD578BA`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `psi_teleport_dest_table.yml / Onett / X` (253 -> 254); local read `PSI_TELEPORT_DEST_TABLE row 1 x word low byte at row +0x1B`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `D5:7880 PsiTeleportDestTable contract` (source-range-context) in `notes/data-contracts-c0-c4.md`: The diff proves CoilSnake's Onett X coordinate low byte lands at D5:78BA, which is PSI_TELEPORT_DEST_TABLE row 1 offset +0x1B in the local psi_teleport_destination contract.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `PSI_TELEPORT_DEST_TABLE` `D5:7880..D5:7A6F` in `notes/d5-table-splits.md` line 24
+  - `build-candidate` `D5:7880..D5:7A70` in `notes/d5-build-candidate-ranges.md` line 137
+  - `D5:7880..D5:7A70` `D5:7880..D5:7A70` in `notes/d5-build-candidate-ranges.md` line 2949
+  - `OK` `D5:7880..D5:7A70` in `notes/d5-byte-equivalence-validation.md` line 136
+  - `D5:5000..D5:7B68` `D5:5000..D5:7B68` in `notes/bank-d5-source-scaffold-handoff.md` line 46
+- Source scaffold candidates:
+  - `src/d5/table_psi_teleport_dest_table.asm` (filename:psi,teleport,dest; address-lines:10)
+  - `src/d5/table_teleport_destination_table.asm` (filename:teleport,dest)
+  - `src/d5/table_psi_name_table.asm` (filename:psi)
+  - `src/d5/table_psi_ability_table.asm` (filename:psi)
+- Existing note anchors:
+  - `notes/coilsnake-crosswalk.md` line 368
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 80
+  - `notes/d5-build-candidate-ranges.md` line 137
+  - `notes/d5-byte-equivalence-validation.md` line 136
+  - `notes/d5-table-splits.md` line 24
+
 ## text-menu-probe
 
 - CoilSnake edit: `text_misc.yml` - Changed Battle Menu / Auto Fight display text from Auto Fight to Auto Fighu.
@@ -441,7 +609,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Existing note anchors:
   - `notes/c2-runtime-semantic-polish-plan.md` line 221
   - `notes/coilsnake-crosswalk.md` line 154
-  - `notes/coilsnake-rebuild-original-layout-report.md` line 75
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 81
 
 ## window-config-height-probe
 

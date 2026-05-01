@@ -5,8 +5,8 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 ## Summary
 
-- Planned experiments: `6`
-- Ready to run once CoilSnake is trusted: `6`
+- Planned experiments: `0`
+- Ready to run once CoilSnake is trusted: `0`
 - Tooling-blocked but prepared: `0`
 - Edit match mismatches: `0`
 
@@ -14,95 +14,5 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 | Experiment | Status | Source | Match | Local family | Promotion target |
 | --- | --- | --- | ---: | --- | --- |
-| `store-first-shop-item1-probe` | `ready-to-run` | `store_table.yml` | `1/1` | `gameplay_yaml_tables` | Map CoilSnake shop inventory row fields to the local store/shop table range and any shop menu runtime consumers. |
-| `condiment-first-good-recover-probe` | `ready-to-run` | `condiment_table.yml` | `1/1` | `gameplay_yaml_tables` | Map CoilSnake condiment recovery fields to the local item/food effect data contract and runtime recovery consumers. |
-| `teleport-onett-x-probe` | `ready-to-run` | `psi_teleport_dest_table.yml` | `1/1` | `gameplay_yaml_tables` | Map CoilSnake teleport destination coordinates to the local PSI teleport destination table and menu/overworld consumers. |
-| `enemy-group-first-background-probe` | `ready-to-run` | `enemy_groups.yml` | `1/1` | `battle_visual_assets` | Map CoilSnake enemy group battle background metadata to local battle background/group contracts. |
-| `map-music-sector1-music-probe` | `ready-to-run` | `map_music.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Map CoilSnake map music sector rows to local CF overworld event music pointer/table contracts. |
-| `map-hotspot-first-x1-probe` | `ready-to-run` | `map_hotspots.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Map CoilSnake hotspot coordinate fields to local map hotspot/sector contracts and runtime lookup consumers. |
 
 ## Local Anchors
-
-### `store-first-shop-item1-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `gameplay_yaml_table` banks `C2, C3, D5, EF` status `mixed-contract-frontier`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
-
-### `condiment-first-good-recover-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `gameplay_yaml_table` banks `C2, C3, D5, EF` status `mixed-contract-frontier`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
-
-### `teleport-onett-x-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `gameplay_yaml_table` banks `C2, C3, D5, EF` status `mixed-contract-frontier`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
-
-### `enemy-group-first-background-probe`
-
-- Family: `Battle visual assets` (`contract-seeded`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `battle_yaml_table` banks `CA, CB, CC, CD, CE` status `contract-seeded`
-- Related local docs:
-  - `notes/battle-background-scene-bundles.md`
-  - `notes/battle-sprite-bundle-contracts.md`
-  - `notes/battle-visual-asset-contracts.md`
-  - `notes/psi-animation-bundle-contracts.md`
-  - `notes/swirl-sequence-bundle-contracts.md`
-
-### `map-music-sector1-music-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-hotspot-first-x1-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`

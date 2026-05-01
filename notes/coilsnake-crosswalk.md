@@ -1,7 +1,7 @@
 # CoilSnake Crosswalk
 
-Status: baseline generated, first planned diff batch complete; Phase 2 coverage
-plan queued.
+Status: baseline generated, first planned diff batch complete; Phase 2A coverage
+batch complete.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -184,6 +184,12 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `map-sprite-first-y-probe` | `map_sprites.yml`: first placed sprite `Y` `112 -> 113` | `1` | `0x0F61EB..0x0F61EC` |
 | `window-config-height-probe` | `window_configuration_table.yml`: window 8 `Height` `18 -> 19` | `1` | `0x03E296..0x03E297` |
 | `enemy-insane-cultist-hp-probe` | `enemy_configuration_table.yml`: enemy 1 `HP` `94 -> 95` | `1` | `0x159608..0x159609` |
+| `store-first-shop-item1-probe` | `store_table.yml`: shop 1 `Item 1` `17 -> 19` | `1` | `0x1576B9..0x1576BA` |
+| `condiment-first-good-recover-probe` | `condiment_table.yml`: row 0 `good recover` `2 -> 3` | `1` | `0x15EA7B..0x15EA7C` |
+| `teleport-onett-x-probe` | `psi_teleport_dest_table.yml`: Onett `X` `253 -> 254` | `1` | `0x1578BA..0x1578BB` |
+| `enemy-group-first-background-probe` | `enemy_groups.yml`: group 1 `Background 1` `262 -> 263` | `1` | `0x0BD89E..0x0BD89F` |
+| `map-music-sector1-music-probe` | `map_music.yml`: sector 1 fallback `Music` `4 -> 5` | `1` | `0x0F590D..0x0F590E` |
+| `map-hotspot-first-x1-probe` | `map_hotspots.yml`: hotspot 1 `X1` `620 -> 621` | `1` | `0x15F303..0x15F304` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.
@@ -265,6 +271,26 @@ checked-in field join summary. Current joins:
   probe. Original ROM bytes match the CoilSnake baseline here, so this looks
   like a direct local window-configuration table byte pair, but consumer naming
   remains open.
+- `store-first-shop-item1-probe`: `0x1576B9` -> `D5:76B9`, matching
+  `STORE_TABLE` row 1 offset `+0x00`, the first item id byte in the local
+  seven-byte store inventory row contract.
+- `condiment-first-good-recover-probe`: `0x15EA7B` -> `D5:EA7B`, matching
+  `CONDIMENT_TABLE` row 0 offset `+0x04`, the `good_recover` byte in the local
+  condiment rule contract.
+- `teleport-onett-x-probe`: `0x1578BA` -> `D5:78BA`, matching
+  `PSI_TELEPORT_DEST_TABLE` row 1 offset `+0x1B`, the low byte of Onett's X
+  coordinate in the local PSI teleport destination contract.
+- `enemy-group-first-background-probe`: `0x0BD89E` -> `CB:D89E`, matching the
+  checked-in battle background layer table range. This proves CoilSnake's enemy
+  group `Background 1` field points into the local battle-background metadata
+  family; the precise runtime consumer remains open.
+- `map-hotspot-first-x1-probe`: `0x15F303` -> `D5:F303`, matching
+  `MAP_HOTSPOTS` row 1 offset `+0x00`, the low byte of the `x1` coordinate.
+- `map-music-sector1-music-probe`: `0x0F590D` -> `CF:590D`, landing in the
+  CoilSnake baseline rebuild's overworld event music pointer-table area. The
+  verified original ROM does not match at that same offset, so this remains a
+  rebuild-layout candidate until a cluster or pointer-path join maps the edited
+  sector music row back to original CF event-music rows.
 
 ## Promoted Local Contracts
 
@@ -291,6 +317,20 @@ front doors and source scaffolds:
   primary text/actionscript pointer payload, with runtime evidence from the C1
   TALK_TO/CHECK interaction result selectors.
 
+The Phase 2A coverage probes also add these `diff-confirmed` local field
+contracts, with runtime consumer naming still open:
+
+- `store-first-shop-item1-probe`: `STORE_TABLE` row 1 `+0x00` is the first shop
+  item id byte.
+- `condiment-first-good-recover-probe`: `CONDIMENT_TABLE` row 0 `+0x04` is the
+  `good_recover` byte.
+- `teleport-onett-x-probe`: `PSI_TELEPORT_DEST_TABLE` row 1 `+0x1B` is the low
+  byte of the X coordinate.
+- `enemy-group-first-background-probe`: CoilSnake enemy group `Background 1`
+  changes the local battle background layer table byte at `CB:D89E`.
+- `map-hotspot-first-x1-probe`: `MAP_HOTSPOTS` row 1 `+0x00` is the low byte of
+  `x1`.
+
 ## Rebuild-Normalized Findings
 
 Some CoilSnake edits prove an editor schema field and a rebuilt-ROM byte without
@@ -315,6 +355,11 @@ runtime field.
   `SPRITE_PLACEMENT_POINTER_TABLE`. The follow-up X/Y probes now determine the
   rebuilt record fingerprint well enough to map it back to the original
   `SPRITE_PLACEMENT_TABLE` cluster at `CF:6BE9..CF:6BEC`.
+- `map-music-sector1-music-probe`: CoilSnake emits the sector 1 fallback music
+  edit at `CF:590D` in the baseline rebuild, but the verified original ROM does
+  not match at that same offset. Treat this like the other normalized map
+  families until a multi-probe cluster or pointer walk identifies the original
+  event-music row.
 
 ## Rebuilt-to-Original Layout Joins
 
@@ -361,7 +406,7 @@ probing every ROM byte. A resource family is done enough when its editor-facing
 fields are mapped to either direct original-ROM bytes, a rebuilt-to-original
 candidate cluster, or a clear deferred reason.
 
-Phase 2A is the next runnable queue. It should add one-byte probes for:
+Phase 2A has been run and ingested. It added one-byte probes for:
 
 - `store_table.yml`: shop inventory row field.
 - `condiment_table.yml`: food/condiment recovery field.
@@ -370,15 +415,9 @@ Phase 2A is the next runnable queue. It should add one-byte probes for:
 - `map_music.yml`: sector music row field.
 - `map_hotspots.yml`: hotspot coordinate field.
 
-For each successful probe:
-
-- Run `tools/run_coilsnake_planned_experiment.py --experiment-id <id>`.
-- Refresh with `tools/refresh_coilsnake_crosswalk.py --experiment-report <new-report>`
-  plus the existing successful report set.
-- Promote only the fields that become `local-range-confirmed`,
-  `diff-confirmed`, or `runtime-correlated`.
-- Keep ROMs, project copies, image/audio/text payloads, and rebuilt ROMs under
-  ignored `build/coilsnake/`.
+The queue is now empty because those probes were compiled, diffed, ingested, and
+classified. Keep ROMs, project copies, image/audio/text payloads, and rebuilt
+ROMs under ignored `build/coilsnake/`.
 
 Phase 2B is runtime promotion. Keep door-data, map-sprite, map-palette, and
 window probes below `runtime-correlated` until local routines, pointer tables,

@@ -122,6 +122,102 @@
       "promotion_status": "relocation-or-compiler-normalization-candidate",
       "runtime_consumers": []
     },
+    "store-first-shop-item1-probe": {
+      "coilsnake_field": "store_table.yml / shop 1 / Item 1",
+      "edited_value": "17 -> 19",
+      "local_field": "STORE_TABLE row 1 item_id_0 byte at row +0x00",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "D5:76B2 StoreTable contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The diff proves CoilSnake shop 1 Item 1 lands at D5:76B9, which is STORE_TABLE row 1 offset +0x00 using the local 7-byte store_inventory row contract."
+        }
+      ]
+    },
+    "condiment-first-good-recover-probe": {
+      "coilsnake_field": "condiment_table.yml / row 0 / good recover",
+      "edited_value": "2 -> 3",
+      "local_field": "CONDIMENT_TABLE row 0 good_recover byte at row +0x04",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "D5:EA77 CondimentTable contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The diff proves CoilSnake row 0 good recover lands at D5:EA7B, matching CONDIMENT_TABLE row 0 offset +0x04 in the local condiment_rule contract."
+        }
+      ]
+    },
+    "teleport-onett-x-probe": {
+      "coilsnake_field": "psi_teleport_dest_table.yml / Onett / X",
+      "edited_value": "253 -> 254",
+      "local_field": "PSI_TELEPORT_DEST_TABLE row 1 x word low byte at row +0x1B",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "D5:7880 PsiTeleportDestTable contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The diff proves CoilSnake's Onett X coordinate low byte lands at D5:78BA, which is PSI_TELEPORT_DEST_TABLE row 1 offset +0x1B in the local psi_teleport_destination contract."
+        }
+      ]
+    },
+    "enemy-group-first-background-probe": {
+      "coilsnake_field": "enemy_groups.yml / group 1 / Background 1",
+      "edited_value": "262 -> 263",
+      "local_field": "battle background layer table byte at CB:D89E after CoilSnake rebuild",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "CB:D89A battle background layer table",
+          "source": "notes/battle-visual-asset-contracts.md",
+          "detail": "The diff proves CoilSnake enemy group 1 Background 1 changes CB:D89E in the checked-in battle background layer table range. The edited byte also matches the verified original at the same offset, but the exact battle group/background consumer remains open."
+        }
+      ]
+    },
+    "map-music-sector1-music-probe": {
+      "coilsnake_field": "map_music.yml / sector 1 / fallback Music",
+      "edited_value": "4 -> 5",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF event music pointer-table area at CF:590D; verified original ROM does not match at the same offset",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "runtime_consumers": [
+        {
+          "kind": "compiler-normalization-context",
+          "routine": "CoilSnake baseline rebuild map_music payload",
+          "source": "notes/coilsnake-rebuild-original-layout-report.md",
+          "detail": "The controlled diff proves changing sector 1 Music from 4 to 5 mutates baseline-rebuild CF:590D. The same-offset original check fails, so this is not yet a direct original-ROM music field promotion."
+        },
+        {
+          "kind": "same-family-runtime-context",
+          "routine": "CF overworld event music pointer/table contracts",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "Local contracts map CF:58EF..CF:5A38 as overworld event music pointers and CF:5A39..CF:61DC as variable event/music rows. The precise rebuilt-to-original row join remains open."
+        }
+      ]
+    },
+    "map-hotspot-first-x1-probe": {
+      "coilsnake_field": "map_hotspots.yml / hotspot 1 / X1",
+      "edited_value": "620 -> 621",
+      "local_field": "MAP_HOTSPOTS row 1 x1 word low byte at row +0x00",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "D5:F2FB MapHotspots contract",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The diff proves CoilSnake hotspot 1 X1 low byte lands at D5:F303, which is MAP_HOTSPOTS row 1 offset +0x00 in the local map_hotspot contract."
+        }
+      ]
+    },
     "map-door-first-destination-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Destination X",
       "edited_value": "784 -> 785",

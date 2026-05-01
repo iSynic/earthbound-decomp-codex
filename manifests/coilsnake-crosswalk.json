@@ -1727,6 +1727,210 @@
         ],
         "status": "different"
       }
+    },
+    "store-first-shop-item1-probe": {
+      "report": "build/coilsnake/edit-experiments/store-first-shop-item1-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "store_table.yml",
+      "edit": "Changed shop 1 Item 1 from 17 to 19.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/store-first-shop-item1-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/store-first-shop-item1-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x1576B9",
+        "last_changed_offset_exclusive": "0x1576BA",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/store-first-shop-item1-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x1576BA",
+            "length": 1,
+            "start": "0x1576B9"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "condiment-first-good-recover-probe": {
+      "report": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "condiment_table.yml",
+      "edit": "Changed condiment row 0 good recover from 2 to 3.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15EA7B",
+        "last_changed_offset_exclusive": "0x15EA7C",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/condiment-first-good-recover-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15EA7C",
+            "length": 1,
+            "start": "0x15EA7B"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "teleport-onett-x-probe": {
+      "report": "build/coilsnake/edit-experiments/teleport-onett-x-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "psi_teleport_dest_table.yml",
+      "edit": "Changed teleport destination Onett X coordinate from 253 to 254.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/teleport-onett-x-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/teleport-onett-x-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x1578BA",
+        "last_changed_offset_exclusive": "0x1578BB",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/teleport-onett-x-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x1578BB",
+            "length": 1,
+            "start": "0x1578BA"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "enemy-group-first-background-probe": {
+      "report": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "battle_visual_assets",
+      "source_file": "enemy_groups.yml",
+      "edit": "Changed enemy group 1 Background 1 from 262 to 263.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0BD89E",
+        "last_changed_offset_exclusive": "0x0BD89F",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/enemy-group-first-background-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0BD89F",
+            "length": 1,
+            "start": "0x0BD89E"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-music-sector1-music-probe": {
+      "report": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_music.yml",
+      "edit": "Changed map music sector 1 fallback Music from 4 to 5.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F590D",
+        "last_changed_offset_exclusive": "0x0F590E",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-music-sector1-music-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F590E",
+            "length": 1,
+            "start": "0x0F590D"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-hotspot-first-x1-probe": {
+      "report": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_hotspots.yml",
+      "edit": "Changed map hotspot 1 X1 coordinate from 620 to 621.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x15F303",
+        "last_changed_offset_exclusive": "0x15F304",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-hotspot-first-x1-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x15F304",
+            "length": 1,
+            "start": "0x15F303"
+          }
+        ],
+        "status": "different"
+      }
     }
   },
   "field_join_workflow": {
@@ -1746,6 +1950,32 @@
         "promotion_status": "field-runtime-correlated",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "condiment-first-good-recover-probe",
+        "coilsnake_file": "condiment_table.yml",
+        "changed_file_offset": "0x15EA7B",
+        "hirom": "D5:EA7B",
+        "local_contract": "CONDIMENT_TABLE",
+        "source_scaffold": "src/d5/table_condiment_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "enemy-group-first-background-probe",
+        "coilsnake_file": "enemy_groups.yml",
+        "changed_file_offset": "0x0BD89E",
+        "hirom": "CB:D89E",
+        "local_contract": "data/battle/background_layer_table.asm",
+        "source_scaffold": "src/cb/table_data_battle_background_layer_table_asm.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
       {
         "experiment_id": "enemy-insane-cultist-action1-probe",
@@ -1839,6 +2069,32 @@
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
       {
+        "experiment_id": "map-hotspot-first-x1-probe",
+        "coilsnake_file": "map_hotspots.yml",
+        "changed_file_offset": "0x15F303",
+        "hirom": "D5:F303",
+        "local_contract": "MAP_HOTSPOTS",
+        "source_scaffold": "src/d5/table_map_hotspots.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "map-music-sector1-music-probe",
+        "coilsnake_file": "map_music.yml",
+        "changed_file_offset": "0x0F590D",
+        "hirom": "CF:590D",
+        "local_contract": "CF:58EF..CF:5A38",
+        "source_scaffold": "src/cf/table_overworld_event_music_pointer_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
         "experiment_id": "map-palette-probe",
         "coilsnake_file": "map_palette_settings.yml",
         "changed_file_offset": "0x1A0C40",
@@ -1917,6 +2173,32 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
+        "experiment_id": "store-first-shop-item1-probe",
+        "coilsnake_file": "store_table.yml",
+        "changed_file_offset": "0x1576B9",
+        "hirom": "D5:76B9",
+        "local_contract": "STORE_TABLE",
+        "source_scaffold": "src/d5/table_store_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "teleport-onett-x-probe",
+        "coilsnake_file": "psi_teleport_dest_table.yml",
+        "changed_file_offset": "0x1578BA",
+        "hirom": "D5:78BA",
+        "local_contract": "PSI_TELEPORT_DEST_TABLE",
+        "source_scaffold": "src/d5/table_psi_teleport_dest_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
         "experiment_id": "text-menu-probe",
         "coilsnake_file": "text_misc.yml",
         "changed_file_offset": "0x04A00A",
@@ -1964,8 +2246,8 @@
     "summary": {
       "ambiguous_cluster_count": 2,
       "cluster_count": 4,
-      "direct_same_offset_count": 9,
-      "experiment_count": 17,
+      "direct_same_offset_count": 14,
+      "experiment_count": 23,
       "unique_original_cluster_candidate_count": 2
     }
   },
@@ -1978,51 +2260,8 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 6,
-    "next_experiments": [
-      {
-        "experiment_id": "store-first-shop-item1-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "store_table.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake shop inventory row fields to the local store/shop table range and any shop menu runtime consumers."
-      },
-      {
-        "experiment_id": "condiment-first-good-recover-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "condiment_table.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake condiment recovery fields to the local item/food effect data contract and runtime recovery consumers."
-      },
-      {
-        "experiment_id": "teleport-onett-x-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "psi_teleport_dest_table.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake teleport destination coordinates to the local PSI teleport destination table and menu/overworld consumers."
-      },
-      {
-        "experiment_id": "enemy-group-first-background-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "enemy_groups.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake enemy group battle background metadata to local battle background/group contracts."
-      },
-      {
-        "experiment_id": "map-music-sector1-music-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "map_music.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake map music sector rows to local CF overworld event music pointer/table contracts."
-      },
-      {
-        "experiment_id": "map-hotspot-first-x1-probe",
-        "batch": "phase-2a-coverage",
-        "source_file": "map_hotspots.yml",
-        "status": "planned",
-        "promotion_target": "Map CoilSnake hotspot coordinate fields to local map hotspot/sector contracts and runtime lookup consumers."
-      }
-    ]
+    "planned_count": 0,
+    "next_experiments": []
   },
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
@@ -2030,8 +2269,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 6,
-    "ready_to_run_count": 6,
+    "stub_count": 0,
+    "ready_to_run_count": 0,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [
