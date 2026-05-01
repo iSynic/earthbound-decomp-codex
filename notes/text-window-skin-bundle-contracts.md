@@ -168,6 +168,14 @@ No ROM-derived graphics or palette payload files are checked in by this report.
 - `notes/equipment-menu-display-fringe-c19a11-c19f29.md`: C1:9D49 selects the same flavor block and copies the row at offset +$18 to $0218.
 - `notes/town-map-selection-rendering-c4d274-c4d744.md`: C4:D553 consumes the six long pointers at the tail of this span for town-map graphics loading.
 
+## CoilSnake Probe Context
+
+- `windowgraphics-windows1-copy-probe`: replacing
+  `WindowGraphics/Windows1_0.png` with a neighboring valid PNG changes `27`
+  rebuilt-ROM bytes across `E0:1FCB..E0:2000`. Treat this as
+  `diff-confirmed` CoilSnake insertion evidence for the window-graphics/palette
+  area; row-level runtime names still come from the C4/C1 selector callers.
+
 ## Open Questions
 
 - Name the seven per-block palette row roles beyond the known +$18 equipment/status row.

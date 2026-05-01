@@ -65,6 +65,14 @@ as 1024 arrangement/collision records with 16 three-byte cells each.
 `notes/map-fts-animation-settings-contract.md` records the 290-character
 tile-animation/settings rows as five 58-character blocks per row.
 
+## CoilSnake Probe Context
+
+- `tileset00-fts-nibble-probe`: changing one hex nibble in
+  `Tilesets/00.fts` compiles, but the rebuilt diff is broad (`21693` bytes
+  across `D8:8F7B..EF:10B8`). Treat this as evidence that CoilSnake accepts the
+  `.fts` edit and then recompresses/reinserts downstream payloads; it is not a
+  direct one-byte map runtime field.
+
 ## Machine-Readable Data
 
 `notes/map-tileset-bundles.json` records one row per tileset ID with:

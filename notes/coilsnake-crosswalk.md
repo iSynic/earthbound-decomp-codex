@@ -122,6 +122,10 @@ replacement, compiles against `build/coilsnake/base-expanded.sfc`, diffs against
 `build/coilsnake/baseline-rebuild.sfc`, and writes an ignored
 `experiment-report.json`. It has an internal compile timeout so a stuck
 CoilSnake run leaves a report instead of only timing out at the shell layer.
+`tools/run_coilsnake_file_replace_experiment.py` follows the same copy/compile/
+diff/report pattern for valid whole-file replacement probes, which is useful for
+PNG-backed CoilSnake resources where arbitrary byte edits would corrupt the
+source asset.
 `tools/build_coilsnake_project_inventory.py` can ingest those reports with
 `--experiment-report`; tracked manifest output keeps only sanitized status,
 metadata, and diff spans, and only promotes the evidence level to
@@ -495,7 +499,7 @@ Two minimal CCScript probes are now `diff-confirmed`:
 
 ## Format Behavior Probes
 
-Three non-script Phase 2C probes now show fixed-byte lowering in the CoilSnake
+Six non-script Phase 2C probes now describe CoilSnake format lowering in the
 baseline rebuild:
 
 - `font0-width5-probe` edits `Fonts/0_widths.yml` and changes `1` byte at
@@ -510,6 +514,19 @@ baseline rebuild:
   `1` byte at `0x2011A4..0x2011A5` (`E0:11A4..E0:11A5`) when compared with
   `build/coilsnake/baseline-rebuild.sfc`. This is `diff-confirmed` evidence for
   town-map icon-position locality, not yet a town-map renderer claim.
+- `windowgraphics-windows1-copy-probe` replaces one valid
+  `WindowGraphics/Windows1_0.png` resource with a neighboring valid PNG and
+  changes `27` bytes across `7` runs at `0x201FCB..0x202000`
+  (`E0:1FCB..E0:2000`). This is bounded replacement evidence for window
+  graphics/palette insertion.
+- `battlesprite-001-copy-probe` replaces one valid battle-sprite PNG with a
+  neighboring valid PNG and changes `121244` bytes across `5766` runs from
+  `0x00EBF3` (`C0:EBF3`) through `0x2F11C8` (`EF:11C8`). This is broad
+  compiler/repacking evidence, not a direct sprite runtime-address claim.
+- `tileset00-fts-nibble-probe` changes one hex nibble in `Tilesets/00.fts` and
+  changes `21693` bytes across `957` runs from `0x188F7B` (`D8:8F7B`) through
+  `0x2F10B8` (`EF:10B8`). This is broad tileset compression/repacking evidence,
+  not a direct map-tile runtime-address claim.
 
 ## Promotion Rules
 
@@ -559,9 +576,11 @@ Phase 2C is format behavior. The true CCScript `scriptdump` baseline,
 compile roundtrip, one minimal CCScript label-reference probe, one body-command
 argument probe, one font metric probe, and one battle-background metadata probe
 plus one town-map icon-position probe are complete, and the results are tracked
-as payload-free summaries. The next format step is representative
-`WindowGraphics`, `BattleSprites`, and one tileset-style resource probe to
-document fixed-size versus repointed insert behavior.
+as payload-free summaries. The representative `WindowGraphics`, `BattleSprites`,
+and tileset-style probes are also complete. The next format step should either
+promote these into local runtime/asset contracts where existing callers already
+support the address, or intentionally defer families whose broad diffs show
+compression/repacking rather than stable runtime fields.
 
 Exit criteria:
 

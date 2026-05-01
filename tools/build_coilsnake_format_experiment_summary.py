@@ -14,6 +14,9 @@ DEFAULT_EXPERIMENT_IDS = [
     "font0-width5-probe",
     "bg-data-distortion1-probe",
     "town-map-first-icon-x-probe",
+    "windowgraphics-windows1-copy-probe",
+    "battlesprite-001-copy-probe",
+    "tileset00-fts-nibble-probe",
 ]
 
 
@@ -54,6 +57,11 @@ def summarize_report(path: Path) -> dict[str, Any]:
         "status": report.get("status"),
         "resource_family": report.get("resource_family"),
         "source_file": str(report.get("source_file", "")).replace("\\", "/"),
+        "replacement_file": (
+            str(report.get("replacement_file", "")).replace("\\", "/")
+            if report.get("replacement_file")
+            else None
+        ),
         "edit": report.get("edit"),
         "evidence_level": report.get("evidence_level"),
         "comparison_base": report.get("comparison_base"),
@@ -117,8 +125,8 @@ def markdown(summary: dict[str, Any]) -> str:
         f"- Missing expected reports: `{summary['missing_count']}`",
         f"- Experiment root: `{summary['experiments_dir']}`",
         "",
-        "| Experiment | Family | Source | Comparison base | Changed bytes | Changed span | Evidence |",
-        "| --- | --- | --- | --- | ---: | --- | --- |",
+        "| Experiment | Family | Source | Replacement | Comparison base | Changed bytes | Changed span | Evidence |",
+        "| --- | --- | --- | --- | --- | ---: | --- | --- |",
     ]
     for experiment in summary["experiments"]:
         diff = experiment["diff"]
@@ -136,6 +144,7 @@ def markdown(summary: dict[str, Any]) -> str:
             f"`{experiment['experiment_id']}` | "
             f"`{experiment['resource_family']}` | "
             f"`{experiment['source_file']}` | "
+            f"{'`' + experiment['replacement_file'] + '`' if experiment.get('replacement_file') else '-'} | "
             f"`{experiment['comparison_base']}` | "
             f"`{changed}` | "
             f"{span} | "
@@ -148,6 +157,7 @@ def markdown(summary: dict[str, Any]) -> str:
             "",
             "- These probes show whether CoilSnake format-facing fields lower to fixed rebuilt-ROM bytes or broader compiler rewrites.",
             "- A one-byte diff proves edit locality in the CoilSnake baseline rebuild; runtime naming still needs local source or asset-contract correlation.",
+            "- Broad multi-run diffs are compiler/repacking evidence, not direct runtime ownership claims.",
             "",
         ]
     )

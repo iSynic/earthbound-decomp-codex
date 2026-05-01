@@ -1,5 +1,5 @@
 {
-  "experiment_count": 3,
+  "experiment_count": 6,
   "experiments": [
     {
       "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
@@ -19,6 +19,7 @@
       "edit": "Fonts/0 width entry 5 from 9 to 8",
       "evidence_level": "diff-confirmed",
       "experiment_id": "font0-width5-probe",
+      "replacement_file": null,
       "report": "build/coilsnake/edit-experiments/font0-width5-probe/experiment-report.json",
       "resource_family": "ui-font",
       "source_file": "Fonts/0_widths.yml",
@@ -42,6 +43,7 @@
       "edit": "bg_data_table row distortion 1 from 61 to 62",
       "evidence_level": "diff-confirmed",
       "experiment_id": "bg-data-distortion1-probe",
+      "replacement_file": null,
       "report": "build/coilsnake/edit-experiments/bg-data-distortion1-probe/experiment-report.json",
       "resource_family": "battle-visual",
       "source_file": "bg_data_table.yml",
@@ -65,9 +67,82 @@
       "edit": "TownMaps first icon X from 85 to 86",
       "evidence_level": "diff-confirmed",
       "experiment_id": "town-map-first-icon-x-probe",
+      "replacement_file": null,
       "report": "build/coilsnake/edit-experiments/town-map-first-icon-x-probe/experiment-report.json",
       "resource_family": "ui-town-map",
       "source_file": "TownMaps/icon_positions.yml",
+      "status": "diffed"
+    },
+    {
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "changed_bytes": 27,
+        "contiguous_changed_runs": 7,
+        "first_changed_hirom": "E0:1FCB",
+        "first_changed_offset": "0x201FCB",
+        "last_changed_hirom_exclusive": "E0:2000",
+        "last_changed_offset_exclusive": "0x202000",
+        "status": "different"
+      },
+      "edit": "WindowGraphics Windows1_0 replaced with Windows1_1 PNG",
+      "evidence_level": "diff-confirmed",
+      "experiment_id": "windowgraphics-windows1-copy-probe",
+      "replacement_file": "WindowGraphics/Windows1_1.png",
+      "report": "build/coilsnake/edit-experiments/windowgraphics-windows1-copy-probe/experiment-report.json",
+      "resource_family": "ui-window-graphics",
+      "source_file": "WindowGraphics/Windows1_0.png",
+      "status": "diffed"
+    },
+    {
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "changed_bytes": 121244,
+        "contiguous_changed_runs": 5766,
+        "first_changed_hirom": "C0:EBF3",
+        "first_changed_offset": "0x00EBF3",
+        "last_changed_hirom_exclusive": "EF:11C8",
+        "last_changed_offset_exclusive": "0x2F11C8",
+        "status": "different"
+      },
+      "edit": "BattleSprites 001 replaced with BattleSprites 002 PNG",
+      "evidence_level": "diff-confirmed",
+      "experiment_id": "battlesprite-001-copy-probe",
+      "replacement_file": "BattleSprites/002.png",
+      "report": "build/coilsnake/edit-experiments/battlesprite-001-copy-probe/experiment-report.json",
+      "resource_family": "battle-sprite",
+      "source_file": "BattleSprites/001.png",
+      "status": "diffed"
+    },
+    {
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "changed_bytes": 21693,
+        "contiguous_changed_runs": 957,
+        "first_changed_hirom": "D8:8F7B",
+        "first_changed_offset": "0x188F7B",
+        "last_changed_hirom_exclusive": "EF:10B8",
+        "last_changed_offset_exclusive": "0x2F10B8",
+        "status": "different"
+      },
+      "edit": "Tilesets/00.fts one hex nibble changed in a unique tile line",
+      "evidence_level": "diff-confirmed",
+      "experiment_id": "tileset00-fts-nibble-probe",
+      "replacement_file": null,
+      "report": "build/coilsnake/edit-experiments/tileset00-fts-nibble-probe/experiment-report.json",
+      "resource_family": "map-tileset",
+      "source_file": "Tilesets/00.fts",
       "status": "diffed"
     }
   ],

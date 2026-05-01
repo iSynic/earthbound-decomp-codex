@@ -197,6 +197,11 @@ No ROM-derived sprite graphics, palette bytes, or rendered previews are checked 
 
 ## Open Questions
 
+- `battlesprite-001-copy-probe`: replacing one valid CoilSnake battle-sprite
+  PNG with a neighboring valid PNG compiles, but the rebuilt diff is broad
+  (`121244` bytes across `C0:EBF3..EF:11C8`). Treat this as evidence that the
+  image resource participates in compiler compression/repacking, not as a direct
+  runtime-address promotion.
 - Enemy config row 224 / Evil Eye references battle sprite id 110, but the checked ebsrc pointer table and manifests define ids 0..109 only.
 - Enemy-table names are used only as usage hints; renderer-facing identity remains the numeric battle sprite id and palette index.
 - Rendered battle sprite previews remain local user-ROM-derived outputs and are not checked in.
