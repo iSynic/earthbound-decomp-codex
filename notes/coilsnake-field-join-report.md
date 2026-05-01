@@ -8,6 +8,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 
 | Experiment | CoilSnake file | Offset | HiROM | Local range | Source candidate | Join status | Warning |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| battle-action-pp-cost-probe | `battle_action_table.yml` | `0x157C07` | `D5:7C07` | `BATTLE_ACTION_TABLE` | `src/d5/table_battle_action_table.asm` | `local-range-confirmed` | no |
 | item-cost-probe | `item_configuration_table.yml` | `0x155068` | `D5:5068` | `ITEM_CONFIGURATION_TABLE` | `src/d5/table_item_configuration_table.asm` | `local-range-confirmed` | no |
 | map-palette-probe | `map_palette_settings.yml` | `0x1A0C40` | `DA:0C40` | `MAP_DATA_TILE_ARRANGEMENT_5` | `src/da/asset_map_data_tile_arrangement_5.asm` | `local-range-confirmed` | yes |
 | psi-ness-omega-level-probe | `psi_ability_table.yml` | `0x158A92` | `D5:8A92` | `PSI_ABILITY_TABLE` | `src/d5/table_psi_ability_table.asm` | `local-range-confirmed` | no |
@@ -19,6 +20,33 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - `diff-confirmed` means the CoilSnake edit/rebuild changed the reported span; runtime naming still needs local caller or source evidence.
 - A local range match whose vocabulary disagrees with the CoilSnake file is a relocation or compiler-normalization candidate, not a promoted runtime claim.
 - Non-diff experiments, failed compiles, and dry runs are listed as pending instead of being forced into offset joins.
+
+## battle-action-pp-cost-probe
+
+- CoilSnake edit: `battle_action_table.yml` - Changed battle action 13 PP Cost from 98 to 99.
+- Diff result: `1` byte(s), first changed offset `0x157C07` -> `D5:7C07` / `0xD57C07`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `battle_action_table.yml / action 13 / PP Cost` (98 -> 99); local read `BATTLE_ACTION_TABLE row 13 cost byte at row +0x03`; promotion `field-runtime-correlated`.
+- Runtime consumer evidence:
+  - `C1:CC39 Battle PSI menu controller PP guard` (exact-field-consumer) in `src/c1/c1_cb7f_has_battle_psi_category_entries.asm`: The controller resolves the selected D5:8A50 PSI row to its associated D5:7B68 action id, indexes the 12-byte action row, adds +0x03, and compares that PP cost byte against the acting character's current PP.
+  - `C2:40A4 ApplyBattleActionSecondPointerPayload` (same-table-consumer) in `src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm`: C2 action dispatch consumes the same D5:7B68 descriptor family's action pointer field at row +0x08 after target-mask construction.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A4F` in `notes/d5-table-splits.md` line 27
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-promotion-stubs.md` line 41
+  - `build-candidate` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 140
+  - `D5:7B68..D5:8A50` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 3018
+  - `OK` `D5:7B68..D5:8A50` in `notes/d5-byte-equivalence-validation.md` line 139
+- Source scaffold candidates:
+  - `src/d5/table_battle_action_table.asm` (filename:battle,action; address-lines:10)
+- Existing note anchors:
+  - `notes/bank-c0-c2-closure.md` line 134
+  - `notes/bank-c2-first-pass.md` line 81
+  - `notes/battle-affliction-recovery-family-c29aea-a39d.md` line 198
+  - `notes/c0-c4-integration-pass.md` line 120
+  - `notes/c2-battle-contract-workahead.md` line 173
 
 ## item-cost-probe
 
@@ -34,7 +62,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 186
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 187
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -91,10 +119,10 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 199
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
-  - `D5:7B68..D5:EBAA` `D5:7B68..D5:EBAA` in `notes/bank-d5-source-scaffold-handoff.md` line 47
 - Source scaffold candidates:
   - `src/d5/table_psi_ability_table.asm` (filename:psi,ability; address-lines:10)
   - `src/d5/table_psi_teleport_dest_table.asm` (filename:psi)

@@ -5,87 +5,6 @@
       "candidate_runtime_anchors": {
         "candidate_local_ranges": [
           {
-            "basis": "Local table split and class2 action-table note identify D5:7B68 as 12-byte battle action rows.",
-            "label": "BATTLE_ACTION_TABLE",
-            "range": "D5:7B68..D5:8A50"
-          }
-        ],
-        "field_hints": [
-          {
-            "basis": "notes/class2-d57b68-battle-action-table-match.md maps the first four row bytes as direction, target, type, and cost.",
-            "candidate_local_field": "battle action row byte +0x03 cost",
-            "coilsnake_field": "PP Cost"
-          }
-        ],
-        "note_anchor_paths": [
-          "notes/class2-d57b68-battle-action-table-match.md",
-          "notes/c2-battle-contract-workahead.md",
-          "notes/battle-psi-menu-controller-c1cc39-ce73.md",
-          "notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md"
-        ],
-        "runtime_consumer_hints": [
-          {
-            "basis": "Consumes D5:7B68 action rows for targetting metadata.",
-            "consumer": "C1:ADB4 targetting resolver",
-            "status": "candidate"
-          },
-          {
-            "basis": "Existing PSI-menu notes describe PP availability and menu display as reading the associated D5:7B68 action row.",
-            "consumer": "C1 battle PSI menu PP guard / row formatter",
-            "status": "candidate"
-          }
-        ],
-        "source_anchor_paths": [
-          "src/d5/table_battle_action_table.asm",
-          "src/c1/c1_adb4_determine_battle_targetting.asm",
-          "src/c1/c1_b5b6_open_battle_psi_user_selection.asm",
-          "src/c1/c1_c8bc_format_battle_psi_menu_entry_row.asm"
-        ],
-        "status": "candidate-until-diff-confirmed"
-      },
-      "evidence_gate": {
-        "allowed_promotion_after": [
-          "runner report has compile.returncode 0",
-          "diff.status is different",
-          "diff.first_changed_offset is present"
-        ],
-        "blocking_status": "local-coilsnake-executable-timeout",
-        "next_required_evidence": "successful-compile-diff"
-      },
-      "experiment_id": "battle-action-pp-cost-probe",
-      "experiment_report": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json",
-      "family_label": "Gameplay YAML tables",
-      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
-      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json",
-      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
-      "planned_edit": "Changed battle action 13 PP Cost from 98 to 99.",
-      "prejoin_status": "tooling-blocked-ready-to-rerun",
-      "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers.",
-      "required_join_fields": [
-        "changed file offset",
-        "canonical HiROM address",
-        "local asset/data or contract range",
-        "field-level semantic claim",
-        "runtime consumer status",
-        "promotion status"
-      ],
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "battle_action_table.yml",
-      "tracked_update_targets": [
-        "notes/asset-data-contract-frontier.md",
-        "notes/battle-background-scene-bundles.md",
-        "notes/battle-psi-ability-table-d58a50.md",
-        "notes/battle-sprite-bundle-contracts.md",
-        "notes/battle-visual-asset-contracts.md",
-        "notes/c2-battle-contract-workahead.md",
-        "notes/c3-battle-psi-menu-data-contracts.md",
-        "notes/class2-d57b68-battle-action-table-match.md"
-      ]
-    },
-    {
-      "candidate_runtime_anchors": {
-        "candidate_local_ranges": [
-          {
             "basis": "Local D5 source split and data-contract notes identify D5:9589 as the enemy configuration table.",
             "label": "ENEMY_CONFIGURATION_TABLE",
             "range": "D5:9589..D5:EA5B"
@@ -378,7 +297,7 @@
   "source_prejoin_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
   "summary": {
     "ready_to_run_count": 4,
-    "stub_count": 5,
-    "tooling_blocked_count": 1
+    "stub_count": 4,
+    "tooling_blocked_count": 0
   }
 }

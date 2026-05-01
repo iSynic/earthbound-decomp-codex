@@ -5,38 +5,21 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 ## Summary
 
-- Planned experiments: `5`
+- Planned experiments: `4`
 - Ready to run once CoilSnake is trusted: `4`
-- Tooling-blocked but prepared: `1`
+- Tooling-blocked but prepared: `0`
 - Edit match mismatches: `0`
 
 ## Planned Probes
 
 | Experiment | Status | Source | Match | Local family | Promotion target |
 | --- | --- | --- | ---: | --- | --- |
-| `battle-action-pp-cost-probe` | `tooling-blocked-ready-to-rerun` | `battle_action_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers. |
 | `enemy-insane-cultist-action1-probe` | `ready-to-run` | `enemy_configuration_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers. |
 | `npc-config-first-text-pointer-probe` | `ready-to-run` | `npc_config_table.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts. |
 | `map-door-first-destination-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers. |
 | `window-config-width-probe` | `ready-to-run` | `window_configuration_table.yml` | `1/1` | `ui_font_town_map_assets` | Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts. |
 
 ## Local Anchors
-
-### `battle-action-pp-cost-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `timeout-path-verified-pending-rerun`
-- CoilSnake resource matches:
-  - `battle_yaml_table` banks `CA, CB, CC, CD, CE` status `contract-seeded`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-background-scene-bundles.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/battle-sprite-bundle-contracts.md`
-  - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
 
 ### `enemy-insane-cultist-action1-probe`
 

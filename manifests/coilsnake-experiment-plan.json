@@ -4,19 +4,6 @@
   "safety_note": "This manifest stores planned tiny CoilSnake project edits, expected text-match counts, and promotion targets only; generated projects and rebuilt ROMs stay under ignored build/coilsnake.",
   "planned_experiments": [
     {
-      "experiment_id": "battle-action-pp-cost-probe",
-      "batch": "battle-data",
-      "priority": 10,
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "battle_action_table.yml",
-      "find": "  PP Cost: 98",
-      "replace": "  PP Cost: 99",
-      "expected_count": 1,
-      "edit_description": "Changed battle action 13 PP Cost from 98 to 99.",
-      "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers.",
-      "status": "timeout-path-verified-pending-rerun"
-    },
-    {
       "experiment_id": "enemy-insane-cultist-action1-probe",
       "batch": "battle-data",
       "priority": 30,

@@ -3,6 +3,27 @@
   "generated_by": "manual CoilSnake field-to-runtime promotion",
   "safety_note": "This manifest stores field names, offsets, local source anchors, and evidence status only; it does not contain ROM-derived payload bytes.",
   "field_semantics": {
+    "battle-action-pp-cost-probe": {
+      "coilsnake_field": "battle_action_table.yml / action 13 / PP Cost",
+      "edited_value": "98 -> 99",
+      "local_field": "BATTLE_ACTION_TABLE row 13 cost byte at row +0x03",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
+      "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:CC39 Battle PSI menu controller PP guard",
+          "source": "src/c1/c1_cb7f_has_battle_psi_category_entries.asm",
+          "detail": "The controller resolves the selected D5:8A50 PSI row to its associated D5:7B68 action id, indexes the 12-byte action row, adds +0x03, and compares that PP cost byte against the acting character's current PP."
+        },
+        {
+          "kind": "same-table-consumer",
+          "routine": "C2:40A4 ApplyBattleActionSecondPointerPayload",
+          "source": "src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm",
+          "detail": "C2 action dispatch consumes the same D5:7B68 descriptor family's action pointer field at row +0x08 after target-mask construction."
+        }
+      ]
+    },
     "item-cost-probe": {
       "coilsnake_field": "item_configuration_table.yml / Teddy bear / Cost",
       "edited_value": "178 -> 179",

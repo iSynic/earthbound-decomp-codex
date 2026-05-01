@@ -1252,6 +1252,40 @@
         ]
       }
     },
+    "battle-action-pp-cost-probe": {
+      "report": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "battle_action_table.yml",
+      "edit": "Changed battle action 13 PP Cost from 98 to 99.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x157C07",
+        "last_changed_offset_exclusive": "0x157C08",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x157C08",
+            "length": 1,
+            "start": "0x157C07"
+          }
+        ],
+        "status": "different"
+      }
+    },
     "psi-ness-omega-level-probe": {
       "report": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
       "experiment_status": "diffed",
@@ -1292,6 +1326,19 @@
     "tracked_summary": "notes/coilsnake-field-join-report.md",
     "ignored_json_report": "build/coilsnake/reports/coilsnake-field-join-report.json",
     "promoted_joins": [
+      {
+        "experiment_id": "battle-action-pp-cost-probe",
+        "coilsnake_file": "battle_action_table.yml",
+        "changed_file_offset": "0x157C07",
+        "hirom": "D5:7C07",
+        "local_contract": "BATTLE_ACTION_TABLE",
+        "source_scaffold": "src/d5/table_battle_action_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
       {
         "experiment_id": "item-cost-probe",
         "coilsnake_file": "item_configuration_table.yml",
@@ -1355,15 +1402,8 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 5,
+    "planned_count": 4,
     "next_experiments": [
-      {
-        "experiment_id": "battle-action-pp-cost-probe",
-        "batch": "battle-data",
-        "source_file": "battle_action_table.yml",
-        "status": "timeout-path-verified-pending-rerun",
-        "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers."
-      },
       {
         "experiment_id": "enemy-insane-cultist-action1-probe",
         "batch": "battle-data",
@@ -1400,9 +1440,9 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 5,
+    "stub_count": 4,
     "ready_to_run_count": 4,
-    "tooling_blocked_count": 1
+    "tooling_blocked_count": 0
   },
   "promotion_policy": [
     "Do not promote CoilSnake names or schemas into source labels without local ROM/routine evidence.",

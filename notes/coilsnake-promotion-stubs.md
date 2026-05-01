@@ -6,63 +6,20 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `5`
+- Promotion stubs: `4`
 - Ready to run: `4`
-- Tooling-blocked: `1`
+- Tooling-blocked: `0`
 
 ## Stubs
 
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
-| `battle-action-pp-cost-probe` | `successful-compile-diff` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
 | `enemy-insane-cultist-action1-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
 | `npc-config-first-text-pointer-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 | `map-door-first-destination-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 | `window-config-width-probe` | `diff-confirmed` | `ui_font_town_map_assets` | `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/landing-cast-visual-contracts.md` |
 
 ## Promotion Checklist
-
-### `battle-action-pp-cost-probe`
-
-- Planned edit: Changed battle action 13 PP Cost from 98 to 99.
-- Source file: `battle_action_table.yml`
-- Evidence gate: `successful-compile-diff`
-- Blocking status: `local-coilsnake-executable-timeout`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50`: Local table split and class2 action-table note identify D5:7B68 as 12-byte battle action rows.
-- Field hints:
-  - `PP Cost` -> `battle action row byte +0x03 cost`: notes/class2-d57b68-battle-action-table-match.md maps the first four row bytes as direction, target, type, and cost.
-- Candidate source anchors:
-  - `src/d5/table_battle_action_table.asm`
-  - `src/c1/c1_adb4_determine_battle_targetting.asm`
-  - `src/c1/c1_b5b6_open_battle_psi_user_selection.asm`
-  - `src/c1/c1_c8bc_format_battle_psi_menu_entry_row.asm`
-- Candidate note anchors:
-  - `notes/class2-d57b68-battle-action-table-match.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/battle-psi-menu-controller-c1cc39-ce73.md`
-  - `notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md`
-- Runtime consumer hints:
-  - `C1:ADB4 targetting resolver` (candidate): Consumes D5:7B68 action rows for targetting metadata.
-  - `C1 battle PSI menu PP guard / row formatter` (candidate): Existing PSI-menu notes describe PP availability and menu display as reading the associated D5:7B68 action row.
-- Candidate tracked update targets:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-background-scene-bundles.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/battle-sprite-bundle-contracts.md`
-  - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
 
 ### `enemy-insane-cultist-action1-probe`
 

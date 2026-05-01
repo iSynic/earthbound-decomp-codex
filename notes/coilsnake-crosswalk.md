@@ -170,12 +170,7 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `text-menu-probe` | `text_misc.yml`: Battle Menu `Auto Fight -> Auto Fighu` | `1` | `0x04A00A..0x04A00B` |
 | `map-palette-probe` | `map_palette_settings.yml`: first `Sprite Palette` `4 -> 5` | `1` | `0x1A0C40..0x1A0C41` |
 | `psi-ness-omega-level-probe` | `psi_ability_table.yml`: ability 4 `Level learned by Ness` `75 -> 76` | `1` | `0x158A92..0x158A93` |
-
-Queued/pending compile:
-
-| Experiment | Edit | Current status |
-| --- | --- | --- |
-| `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `13` `PP Cost` `98 -> 99` | planned edit match confirmed; packaged `CoilSnake-4.2.exe` compile exceeded a 30-minute shell timeout before producing `rebuilt.sfc`; rerun through the source CLI |
+| `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `13` `PP Cost` `98 -> 99` | `1` | `0x157C07..0x157C08` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.
@@ -188,6 +183,10 @@ checked-in field join summary. Current joins:
   source scaffold. The edited cost field is now runtime-correlated to the
   shop-item row builder, which reads item row `+0x1A` and prints that value as
   the active-window right-aligned decimal.
+- `battle-action-pp-cost-probe`: `0x157C07` -> `D5:7C07`, matching the local
+  `BATTLE_ACTION_TABLE` split (`D5:7B68..D5:8A50`) and the D5 battle action
+  table source scaffold. The edited byte lands at row 13 `+0x03`, matching the
+  current local cost-byte field and the `C1:CC39` PSI menu PP guard.
 - `text-menu-probe`: `0x04A00A` -> `C4:A00A`, matching the local
   battle-menu/target-precheck data corridor in C4. The fixed-width text row is
   range-confirmed; a direct renderer/caller is still open.
@@ -214,23 +213,19 @@ checked-in field join summary. Current joins:
 
 ## Next Work
 
-- Promote the item-cost runtime-correlated field into the next D5 item-table
-  contract pass; keep the text-menu field at local-range-confirmed until its
-  direct renderer/caller is joined. The map palette probe remains a
-  relocation/compiler-normalization candidate.
+- Promote the item-cost and battle-action PP-cost runtime-correlated fields
+  into the next D5 table contract pass; keep the text-menu field at
+  local-range-confirmed until its direct renderer/caller is joined. The map
+  palette probe remains a relocation/compiler-normalization candidate.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.
 - Use `notes/coilsnake-promotion-stubs.md` after each successful diff to fill in
   the required offset, HiROM, local-contract, field-semantic, and runtime
   consumer evidence before promoting a claim.
-- Rerun `battle-action-pp-cost-probe` with the reusable experiment runner once
-  the local CoilSnake executable can complete the compile in this shell. The
-  planned edit is entry `13` in `battle_action_table.yml`, changing `PP Cost`
-  `98 -> 99`.
 - Work down `manifests/coilsnake-experiment-plan.json` for the next focused
-  probes: battle action PP cost, enemy action slot, NPC text pointer, map door
-  destination, and window width.
+  probes: enemy action slot, NPC text pointer, map door destination, and window
+  width.
 - Run a true CCScript `scriptdump` and a minimal CCScript label/body experiment
   once we want command-lowering proof rather than text YAML proof.
 - Extend experiments to enemy stats, battle sprite metadata, and window/font
