@@ -44,6 +44,12 @@ Locally it:
 
 The safest current local name is a saved-landing display initializer. It is larger than a palette-only helper and smaller than the whole saved-coordinate reload path.
 
+Source polish: `src/c4/saved_landing_display_stage_helpers.asm` now names
+the one-time init latch, stage cursor/scratch latches, saved map selector byte,
+E1 graphics/arrangement/palette asset pointers, BG setup values, VRAM
+transfer destinations/sizes, palette staging offsets, intro display-state byte,
+and the initial transition arguments used by `C4:C2DE`.
+
 ## Palette staging helper
 
 `C4:C45F` stages a 0xC0-byte landing palette work region around `$7F:7800`.
@@ -53,6 +59,9 @@ It:
 - clears/copies a 0xC0-byte block at `$7F:7800`
 - uses caller A as a stage index
 - copies 0x20-byte slices between `$0240`, `$02C0`, `$02E0`, and `$7F:7800 + stage * 0x20`
+
+Source polish: the source now names the `$7F:7800` stage buffer, source/stage
+destination offsets, `0xC0` staging byte count, and `0x20` slice width.
 
 `C4:C519` wraps this staging step into a timed fade phase:
 

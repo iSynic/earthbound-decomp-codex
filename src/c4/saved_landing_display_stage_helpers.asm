@@ -53,6 +53,56 @@ C49740_FinishPaletteFadeWorkBuffer               = $C49740
 C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 
 ; ---------------------------------------------------------------------------
+; Saved landing display setup contracts
+
+SavedLandingOneTimeInitLatch                     = $4DC4
+SavedLandingStageCursorLow                       = $4472
+SavedLandingStageCursorHigh                      = $4474
+SavedLandingDisplayScratchLatch                  = $9F2A
+SavedLandingMapSelectorByte                      = $986F
+SavedLandingDisplayStateByte                     = $001A
+CameraXPixelSubposition                          = $0037
+CameraYPixelSubposition                          = $0035
+ScreenShakeOrDisplayOffsetLatch                  = $0031
+SavedLandingSoundStoneMelodyId                   = $0007
+SavedLandingInitialTransitionMode                = $0001
+SavedLandingInitialTransitionArg                 = $0000
+SavedLandingBgMode                               = $0009
+SavedLandingBg1ScreenBase                        = $5800
+SavedLandingBg2ScreenBase                        = $6000
+SavedLandingBg2TileBase                          = $7C00
+SavedLandingGraphicsBufferBase                   = $0000
+SavedLandingWorkBank                             = $007F
+SavedLandingGraphicsAssetPointer                 = $CFAF
+SavedLandingArrangementAssetPointer              = $D5E8
+SavedLandingPaletteAssetPointer                  = $D4F4
+SavedLandingAssetBank                            = $00E1
+SavedLandingMapSelectorAlternate                 = $0003
+SavedLandingGraphicsVramDestination              = $0000
+SavedLandingGraphicsTransferSize                 = $8000
+SavedLandingArrangementVramDestination           = $5800
+SavedLandingArrangementTransferSize              = $0800
+SavedLandingCgramShadowBuffer                    = $0200
+SavedLandingPaletteWorkOffsetA                   = $02E0
+SavedLandingPaletteWorkOffsetB                   = $0220
+SavedLandingPaletteWorkOffsetC                   = $0240
+SavedLandingPaletteSliceBytes                    = $0020
+SavedLandingPaletteCommitBytes                   = $00C0
+SavedLandingResetGlyphRunId                      = $0001
+SavedLandingIntroDelayFrames                     = $0018
+SavedLandingDisplayStateIntro                    = $05
+SavedLandingInitialDisplayTransitionState        = $0001
+SavedLandingPaletteStageBufferBase               = $7800
+SavedLandingPaletteStageSourceOffset             = $0240
+SavedLandingPaletteStageFirstDestOffset          = $02E0
+SavedLandingPaletteStagePreviousDestOffset       = $02C0
+SavedLandingPaletteStageBytes                    = $00C0
+SavedLandingPaletteStageSliceBytes               = $0020
+LowByteMask                                      = $00FF
+ZeroWord                                         = $0000
+ZeroByte                                         = $00
+
+; ---------------------------------------------------------------------------
 ; C4:C2DE
 
 C4C2DE_InitializeSavedLandingDisplayState:
@@ -61,73 +111,73 @@ C4C2DE_InitializeSavedLandingDisplayState:
     tdc
     adc.w #$FFE8
     tcd
-    lda $4DC4
+    lda SavedLandingOneTimeInitLatch
     bne C4C2FD_InitializeSavedLandingDisplayState_LC2FD
-    lda.w #$0007
+    lda.w #SavedLandingSoundStoneMelodyId
     jsl C4FBBD_PlaySoundStoneMelody
-    ldy.w #$0000
-    ldx.w #$0001
+    ldy.w #SavedLandingInitialTransitionArg
+    ldx.w #SavedLandingInitialTransitionMode
     txa
     jsl C08814_SetDisplayTransitionMode
 C4C2FD_InitializeSavedLandingDisplayState_LC2FD:
-    stz $4472
-    stz $4474
-    stz $9F2A
-    lda.w #$0009
+    stz SavedLandingStageCursorLow
+    stz SavedLandingStageCursorHigh
+    stz SavedLandingDisplayScratchLatch
+    lda.w #SavedLandingBgMode
     jsl C08D79_UpdateBgModeRegisterFromQueue
-    ldy.w #$0000
-    ldx.w #$5800
+    ldy.w #ZeroWord
+    ldx.w #SavedLandingBg1ScreenBase
     tya
     jsl C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
-    ldy.w #$6000
-    ldx.w #$7C00
-    lda.w #$0000
+    ldy.w #SavedLandingBg2ScreenBase
+    ldx.w #SavedLandingBg2TileBase
+    lda.w #ZeroWord
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    lda.w #$0000
+    lda.w #SavedLandingGraphicsBufferBase
     sta $06
-    lda.w #$007F
+    lda.w #SavedLandingWorkBank
     sta $08
-    lda.w #$CFAF
+    lda.w #SavedLandingGraphicsAssetPointer
     sta $0E
-    lda.w #$00E1
+    lda.w #SavedLandingAssetBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
-    lda $986F
-    and.w #$00FF
-    cmp.w #$0003
+    lda SavedLandingMapSelectorByte
+    and.w #LowByteMask
+    cmp.w #SavedLandingMapSelectorAlternate
     beq C4C367_InitializeSavedLandingDisplayState_LC367
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldy.w #$0000
-    ldx.w #$8000
+    ldy.w #SavedLandingGraphicsVramDestination
+    ldx.w #SavedLandingGraphicsTransferSize
     sep #$20
     tya
     jsl C08616_QueueVramTransfer_FromDpSource
     bra C4C37E_InitializeSavedLandingDisplayState_LC37E
 C4C367_InitializeSavedLandingDisplayState_LC367:
-    lda.w #$8000
+    lda.w #SavedLandingGraphicsTransferSize
     sta $0E
-    lda.w #$007F
+    lda.w #SavedLandingWorkBank
     sta $10
-    ldy.w #$0000
-    ldx.w #$8000
+    ldy.w #SavedLandingGraphicsVramDestination
+    ldx.w #SavedLandingGraphicsTransferSize
     sep #$20
     tya
     jsl C08616_QueueVramTransfer_FromDpSource
 C4C37E_InitializeSavedLandingDisplayState_LC37E:
-    lda.w #$0000
+    lda.w #SavedLandingGraphicsBufferBase
     sta $06
-    lda.w #$007F
+    lda.w #SavedLandingWorkBank
     sta $08
-    lda.w #$D5E8
+    lda.w #SavedLandingArrangementAssetPointer
     sta $0E
-    lda.w #$00E1
+    lda.w #SavedLandingAssetBank
     sta $10
     lda $06
     sta $12
@@ -138,12 +188,12 @@ C4C37E_InitializeSavedLandingDisplayState_LC37E:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$5800
-    ldx.w #$0800
+    ldy.w #SavedLandingArrangementVramDestination
+    ldx.w #SavedLandingArrangementTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #ZeroByte
     jsl C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0200
+    lda.w #SavedLandingCgramShadowBuffer
     sta $06
     phb
     sep #$20
@@ -151,29 +201,29 @@ C4C37E_InitializeSavedLandingDisplayState_LC37E:
     sta $08
     stz $09
     rep #$20
-    lda.w #$D4F4
+    lda.w #SavedLandingPaletteAssetPointer
     sta $0E
-    lda.w #$00E1
+    lda.w #SavedLandingAssetBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
-    ldy.w #$02E0
+    ldy.w #SavedLandingPaletteWorkOffsetA
     sty $16
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0020
+    ldx.w #SavedLandingPaletteSliceBytes
     tya
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $0E
-    ldx.w #$00C0
+    ldx.w #SavedLandingPaletteCommitBytes
     rep #$20
-    lda.w #$0220
+    lda.w #SavedLandingPaletteWorkOffsetB
     jsl C08EFC_CommitTileBufferToStaging
     ldy $16
     tya
@@ -188,26 +238,26 @@ C4C37E_InitializeSavedLandingDisplayState_LC37E:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0020
-    lda.w #$0240
+    ldx.w #SavedLandingPaletteSliceBytes
+    lda.w #SavedLandingPaletteWorkOffsetC
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     jsl C200D9_ClearBattleOrPresentationState
     jsl C47C3F_ClearWindowOrMenuMaskState
-    lda.w #$0001
+    lda.w #SavedLandingResetGlyphRunId
     jsl C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavorPalette
-    lda.w #$0018
+    lda.w #SavedLandingIntroDelayFrames
     jsl C0856B_WaitFramesOrTransitionDelay
     sep #$20
-    lda.b #$05
-    sta $001A
+    lda.b #SavedLandingDisplayStateIntro
+    sta SavedLandingDisplayStateByte
     rep #$20
-    stz $4DC4
-    stz $0037
-    stz $0035
-    stz $0031
-    stz $0031
-    ldx.w #$0001
+    stz SavedLandingOneTimeInitLatch
+    stz CameraXPixelSubposition
+    stz CameraYPixelSubposition
+    stz ScreenShakeOrDisplayOffsetLatch
+    stz ScreenShakeOrDisplayOffsetLatch
+    ldx.w #SavedLandingInitialDisplayTransitionState
     txa
     jsl C0886C_SetDisplayTransitionState
     jsl C0888B_WaitForDisplayTransition
@@ -223,9 +273,9 @@ C4C45F_StageLandingPalettePhaseBlock:
     pla
     tax
     stx $1A
-    lda.w #$7800
+    lda.w #SavedLandingPaletteStageBufferBase
     sta $06
-    lda.w #$007F
+    lda.w #SavedLandingWorkBank
     sta $08
     lda $06
     sta $16
@@ -235,7 +285,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0240
+    lda.w #SavedLandingPaletteStageSourceOffset
     sta $06
     phb
     sep #$20
@@ -247,7 +297,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $12
     lda $08
     sta $14
-    lda.w #$00C0
+    lda.w #SavedLandingPaletteStageBytes
     jsl C08EED_CopyToVramOrRendererBuffer
     ldx $1A
     txa
@@ -266,7 +316,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $0E
     lda $08
     sta $10
-    lda.w #$02E0
+    lda.w #SavedLandingPaletteStageFirstDestOffset
     sta $06
     phb
     sep #$20
@@ -278,7 +328,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $12
     lda $08
     sta $14
-    lda.w #$0020
+    lda.w #SavedLandingPaletteStageSliceBytes
     jsl C08EED_CopyToVramOrRendererBuffer
     ldx $1A
     txa
@@ -298,7 +348,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $0E
     lda $08
     sta $10
-    lda.w #$02C0
+    lda.w #SavedLandingPaletteStagePreviousDestOffset
     sta $06
     phb
     sep #$20
@@ -310,7 +360,7 @@ C4C45F_StageLandingPalettePhaseBlock:
     sta $12
     lda $08
     sta $14
-    lda.w #$0020
+    lda.w #SavedLandingPaletteStageSliceBytes
     jsl C08EED_CopyToVramOrRendererBuffer
     pld
     rts

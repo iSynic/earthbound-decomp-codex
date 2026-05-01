@@ -128,6 +128,11 @@ closure.
   first-word/fade sentinels, and the existing-work selector bit in the landing
   palette/display helper. See
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-01 saved landing setup: promoted the saved landing display
+  initializer's init latch, stage cursor/scratch latches, E1 asset pointers, BG
+  and VRAM transfer values, palette staging offsets, intro display state, and
+  phase staging buffer constants. See
+  `notes/saved-landing-display-stage-c4c2de-c4c64d.md`.
 
 ## Validation
 
