@@ -61,6 +61,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `C2:BD13`, `C2:BD5E`, and `C2:BE6C` now name the `DC1C` dispatch ABI and the
   four EF result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`) used by
   ordinary and seed/sprout-flavored reinforcement outcomes.
+- 2026-05-01: twelfth pass promoted the remaining Rainbow Colors / Final
+  Prayer direct battle-text exits. `C2:C14E`, `C2:C37A`, `C2:C41F`,
+  `C2:C572`, and `C2:C6F0` now name the `DC1C` dispatch ABI plus the C8/C9
+  special-event, prayer, finale, and Pokey run-away scripts staged by those
+  helpers.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -381,6 +386,14 @@ And for the most actionable C2 call-site families:
   `src/c2/c2_be6c_run_call_for_help_enemy_selection_body.asm` now name the
   call-for-help `DC1C` text exits and their four EF outcome scripts. See
   `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-01: `src/c2/c2_c14e_run_rainbow_colors_special_event.asm`,
+  `src/c2/c2_c37a_run_final_prayer_stage_transition.asm`,
+  `src/c2/c2_c41f_run_final_prayer_narrative_transition.asm`,
+  `src/c2/c2_c572_run_final_prayer_opening_transition.asm`, and
+  `src/c2/c2_c6f0_run_final_prayer_finale_opening_sequence.asm` now name the
+  Rainbow Colors / Final Prayer `DC1C` text exits and their C8/C9 script
+  constants. See `notes/class2-special-event-results-c29298-c2c14e.md` and
+  `notes/c2-final-prayer-runtime-polish.md`.
 
 ## Integration checklist (manual)
 

@@ -24,8 +24,12 @@
 C0886C_SetDisplayTransitionState     = $C0886C
 C0887A_ClearDisplayTransitionState   = $C0887A
 C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+C1DC1C_DisplayBattleTextFromPointer  = $C1DC1C
 C1DD5F_WaitForTextOrMenuAcknowledge  = $C1DD5F
 C4FBBD_PlaySoundStoneMelody          = $C4FBBD
+
+C8_BattleTextScriptBank        = $00C8
+C8MSG_MechPokeyFirstSpeechTail = $FC2E
 
 ; ---------------------------------------------------------------------------
 ; C2:C41F
@@ -70,7 +74,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     sta $0E
     lda $08
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $9643
     lda.w #$0014
@@ -110,11 +114,11 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$00BA
     lda.w #$01DC
     jsr $C21F
-    lda.w #$FC2E
+    lda.w #C8MSG_MechPokeyFirstSpeechTail
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     stz $A276
     rep #$20

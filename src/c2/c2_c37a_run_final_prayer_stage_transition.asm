@@ -20,6 +20,7 @@
 ; External contracts used by this module
 
 C0887A_ClearDisplayTransitionState  = $C0887A
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 
 ; ---------------------------------------------------------------------------
@@ -53,7 +54,7 @@ C2C37A_RunFinalPrayerStageTransition:
     sta $0E
     lda $08
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     ldx.w #$0002
     lda.w #$0001
     jsl C0887A_ClearDisplayTransitionState

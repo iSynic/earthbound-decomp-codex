@@ -34,6 +34,9 @@ temporarily disables battle-background frame updates through `$9643`, displays
 the prayer text, applies the caller's battle visual selector through `C2:C21F`,
 then restores updates and returns through C1 cleanup.
 
+The staged text display is now named at the source site as the `C1:DC1C`
+direct battle-text pointer ABI.
+
 `C2:C3E2` is the shared prayer damage worker. Input A is the amount. The helper
 points `$A972` at battler table root `$A21C`, starts red flash timer
 `$AD9E = 0x3C`, marks `$AA8E = 1`, prepares amount text through `C2:6AFD`, and
@@ -43,6 +46,9 @@ forces amount application through `C2:8125` with X = `0x00FF`.
 finale text blocks. It runs a different display and Sound Stone cue sequence,
 pauses battle-background updates, displays the staged text, then replays the
 caller-selected melody cue.
+
+The helper now names both its staged `C1:DC1C` dispatch and the direct
+`C8:FC2E` Mech-Pokey speech tail used by the adjacent transition body.
 
 ## Phase Ladder
 
@@ -78,6 +84,11 @@ It then runs the Sound Stone/noise table rooted at `C4:A35D`, drives layer-1
 battle-background distortion swaps through `C2:DAE3`, starts the final overlay
 through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
 terminal battle visual state.
+
+The finale source now names the four C9 narrative scripts (`C9:F70C`,
+`C9:F7BB`, `C9:F804`, `C9:F84D`) and the direct `C8:FF31` Pokey run-away text
+dispatched through `C1:DC1C`. The opening prayer follow-up at `C9:F86A` is also
+named in the phase-1 source body.
 
 ## Decomp Value
 

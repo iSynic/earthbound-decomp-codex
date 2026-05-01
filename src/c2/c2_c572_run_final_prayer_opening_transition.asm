@@ -17,7 +17,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+
+C9_BattleTextScriptBank       = $00C9
+C9MSG_FinalPrayerDamagePhase1 = $F86A
 
 ; ---------------------------------------------------------------------------
 ; C2:C572
@@ -47,11 +50,11 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     lda.w #$000C
     sta $AD8E
     ; Follow-up text after the first prayer shake cue.
-    lda.w #$F86A
+    lda.w #C9MSG_FinalPrayerDamagePhase1
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0005
     sta $A97A
     lda.w #$00E5

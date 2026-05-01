@@ -19301,6 +19301,7 @@ org $C2C14E
 !C08726_BlankWaitAndDisableHdma = $C08726
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C0886C_SetDisplayTransitionState = $C0886C
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
 !C2D121_LoadPresentationSpriteResource = $C2D121
@@ -19309,6 +19310,9 @@ org $C2C14E
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C8_BattleTextScriptBank = $00C8
+!C8MSG_BelchGrabbedSuccess = $F8C0
+!C8MSG_BelchGrabbedFailure = $F8FD
 BTLACT_RAINBOW_OF_COLOURS:
 !C2C14E_RunRainbowColorsSpecialEvent = BTLACT_RAINBOW_OF_COLOURS
     rep #$31
@@ -19381,11 +19385,11 @@ C2C1CD_RunRainbowColorsSpecialEvent_LC1CD:
 C2C1ED_RunRainbowColorsSpecialEvent_LC1ED:
     lda.w #$00A9
     sta $0000,X
-    lda.w #$F8C0
+    lda.w #!C8MSG_BelchGrabbedSuccess
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2C21D_RunRainbowColorsSpecialEvent_LC21D
 C2C203_RunRainbowColorsSpecialEvent_LC203:
     txa
@@ -19396,11 +19400,11 @@ C2C203_RunRainbowColorsSpecialEvent_LC203:
 C2C20A_RunRainbowColorsSpecialEvent_LC20A:
     cpy.w #$0020
     bcc C2C1CD_RunRainbowColorsSpecialEvent_LC1CD
-    lda.w #$F8FD
+    lda.w #!C8MSG_BelchGrabbedFailure
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2C21D_RunRainbowColorsSpecialEvent_LC21D:
     pld
     rtl
@@ -21282,6 +21286,7 @@ hirom
 org $C2C37A
 
 !C0887A_ClearDisplayTransitionState = $C0887A
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 C2C37A_RunFinalPrayerStageTransition:
     rep #$31
@@ -21309,7 +21314,7 @@ C2C37A_RunFinalPrayerStageTransition:
     sta $0E
     lda $08
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx.w #$0002
     lda.w #$0001
     jsl !C0887A_ClearDisplayTransitionState
@@ -22208,6 +22213,9 @@ C207B6_MarkAndRedrawPartyHpPpWindow:
 hirom
 org $C2C572
 
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C9_BattleTextScriptBank = $00C9
+!C9MSG_FinalPrayerDamagePhase1 = $F86A
 BTLACT_GIYGAS_PRAYER_1:
 !C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     rep #$31
@@ -22232,11 +22240,11 @@ BTLACT_GIYGAS_PRAYER_1:
     sta $AD8C
     lda.w #$000C
     sta $AD8E
-    lda.w #$F86A
+    lda.w #!C9MSG_FinalPrayerDamagePhase1
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0005
     sta $A97A
     lda.w #$00E5
@@ -23872,8 +23880,11 @@ org $C2C41F
 !C0886C_SetDisplayTransitionState = $C0886C
 !C0887A_ClearDisplayTransitionState = $C0887A
 !C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C8_BattleTextScriptBank = $00C8
+!C8MSG_MechPokeyFirstSpeechTail = $FC2E
 C2C41F_RunFinalPrayerNarrativeTransition:
     rep #$31
     phd
@@ -23912,7 +23923,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     sta $0E
     lda $08
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $9643
     lda.w #$0014
@@ -23951,11 +23962,11 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$00BA
     lda.w #$01DC
     jsr $C21F
-    lda.w #$FC2E
+    lda.w #!C8MSG_MechPokeyFirstSpeechTail
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     stz $A276
     rep #$20
@@ -25796,7 +25807,15 @@ hirom
 org $C2C6F0
 
 !C0ABC6_ClearPresentationQueues = $C0ABC6
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C8_BattleTextScriptBank = $00C8
+!C8MSG_PokeyRunAway = $FF31
+!C9_BattleTextScriptBank = $00C9
+!C9MSG_FinalPrayerBackToPc9 = $F70C
+!C9MSG_FinalPrayerFinale1 = $F7BB
+!C9MSG_FinalPrayerFinale2 = $F804
+!C9MSG_FinalPrayerFinale3 = $F84D
 !C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     rep #$31
     phd
@@ -25804,33 +25823,33 @@ org $C2C6F0
     adc.w #$FFE6
     tcd
     jsl $C20F9A
-    lda.w #$F70C
+    lda.w #!C9MSG_FinalPrayerBackToPc9
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$0C80
     jsr $C3E2
-    lda.w #$F7BB
+    lda.w #!C9MSG_FinalPrayerFinale1
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$1900
     jsr $C3E2
-    lda.w #$F804
+    lda.w #!C9MSG_FinalPrayerFinale2
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$3200
     jsr $C3E2
-    lda.w #$F84D
+    lda.w #!C9MSG_FinalPrayerFinale3
     sta $0E
-    lda.w #$00C9
+    lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
@@ -25895,11 +25914,11 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.b #$01
     sta $0000,X
     jsl $C2F8F9
-    lda.w #$FF31
+    lda.w #!C8MSG_PokeyRunAway
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     lda.b #$00
     ldx $16

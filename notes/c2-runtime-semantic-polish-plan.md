@@ -315,6 +315,12 @@ contract notes for C0/C1/C3/C4 consumers.
   bank, and the four ordinary/seed-flavored reinforcement scripts at `EF:77FD`,
   `EF:7810`, `EF:7824`, and `EF:7830`. See
   `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-01 forty-eighth slice: promoted the Rainbow Colors and Final Prayer
+  direct battle-text exits with byte-neutral aliases for the `C1:DC1C` ABI,
+  C8/C9 text banks, C8 Belch/Pokey scripts, and the C9 prayer/finale narrative
+  scripts staged by `C2:C37A`, `C2:C41F`, `C2:C572`, and `C2:C6F0`. See
+  `notes/class2-special-event-results-c29298-c2c14e.md` and
+  `notes/c2-final-prayer-runtime-polish.md`.
 
 ## Validation
 

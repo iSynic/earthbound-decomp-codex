@@ -20,7 +20,16 @@
 ; External contracts used by this module
 
 C0ABC6_ClearPresentationQueues = $C0ABC6
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C4FBBD_PlaySoundStoneMelody    = $C4FBBD
+
+C8_BattleTextScriptBank        = $00C8
+C8MSG_PokeyRunAway             = $FF31
+C9_BattleTextScriptBank        = $00C9
+C9MSG_FinalPrayerBackToPc9     = $F70C
+C9MSG_FinalPrayerFinale1       = $F7BB
+C9MSG_FinalPrayerFinale2       = $F804
+C9MSG_FinalPrayerFinale3       = $F84D
 
 ; ---------------------------------------------------------------------------
 ; C2:C6F0
@@ -32,36 +41,36 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     adc.w #$FFE6
     tcd
     jsl $C20F9A
-    lda.w #$F70C
+    lda.w #C9MSG_FinalPrayerBackToPc9
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$0C80
     ; Finale damage tier: 3200.
     jsr $C3E2
-    lda.w #$F7BB
+    lda.w #C9MSG_FinalPrayerFinale1
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$1900
     ; Finale damage tier: 6400.
     jsr $C3E2
-    lda.w #$F804
+    lda.w #C9MSG_FinalPrayerFinale2
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
     lda.w #$3200
     ; Finale damage tier: 12800.
     jsr $C3E2
-    lda.w #$F84D
+    lda.w #C9MSG_FinalPrayerFinale3
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
     jsr $C41F
@@ -128,11 +137,11 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.b #$01
     sta $0000,X
     jsl $C2F8F9
-    lda.w #$FF31
+    lda.w #C8MSG_PokeyRunAway
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     lda.b #$00
     ldx $16

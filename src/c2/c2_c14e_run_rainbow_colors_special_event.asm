@@ -16,6 +16,7 @@ C0856B_WaitFramesOrTransitionDelay            = $C0856B
 C08726_BlankWaitAndDisableHdma                = $C08726
 C08744_OpenDisplayTransitionBracket           = $C08744
 C0886C_SetDisplayTransitionState              = $C0886C
+C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2C8C8_ResetBattleVisualPresentationState     = $C2C8C8
 C2D121_LoadPresentationSpriteResource         = $C2D121
@@ -24,6 +25,10 @@ C2F8F9_RenderAndCommitBattleSpriteRows        = $C2F8F9
 C44963_ResetActiveTextGlyphRun                = $C44963
 C47C3F_ClearWindowOrMenuMaskState             = $C47C3F
 C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+
+C8_BattleTextScriptBank    = $00C8
+C8MSG_BelchGrabbedSuccess  = $F8C0
+C8MSG_BelchGrabbedFailure  = $F8FD
 
 ; ---------------------------------------------------------------------------
 ; C2:C14E
@@ -100,11 +105,11 @@ C2C1CD_RunRainbowColorsSpecialEvent_LC1CD:
 C2C1ED_RunRainbowColorsSpecialEvent_LC1ED:
     lda.w #$00A9
     sta $0000,X
-    lda.w #$F8C0
+    lda.w #C8MSG_BelchGrabbedSuccess
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2C21D_RunRainbowColorsSpecialEvent_LC21D
 C2C203_RunRainbowColorsSpecialEvent_LC203:
     txa
@@ -115,11 +120,11 @@ C2C203_RunRainbowColorsSpecialEvent_LC203:
 C2C20A_RunRainbowColorsSpecialEvent_LC20A:
     cpy.w #$0020
     bcc C2C1CD_RunRainbowColorsSpecialEvent_LC1CD
-    lda.w #$F8FD
+    lda.w #C8MSG_BelchGrabbedFailure
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2C21D_RunRainbowColorsSpecialEvent_LC21D:
     pld
     rtl

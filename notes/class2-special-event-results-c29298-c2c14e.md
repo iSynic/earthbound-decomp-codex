@@ -110,6 +110,9 @@ The body is much richer than a plain text tail:
 - then prints `C8:F8C0` or `C8:F8FD`
 
 Those `C8:F8C0/F8FD` texts are the strongest current anchor here, because they explicitly mention `Master Belch grabbed ...`
+The C2 source now names them as `C8MSG_BelchGrabbedSuccess` and
+`C8MSG_BelchGrabbedFailure`, both dispatched through the `C1:DC1C`
+direct battle-text pointer ABI.
 
 So the safest current local interpretation is:
 
