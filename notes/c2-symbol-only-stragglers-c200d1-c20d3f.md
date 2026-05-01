@@ -58,7 +58,19 @@ Observed behavior:
 
 The callers at `C2:0F17` and `C2:0F49` are wrappers immediately before `C2:0F58`, the HP/PP roller prelude already documented in the window/HPPP note. One path directly fills a tile buffer after splitting the input value; the other branches between reusing an existing tile-buffer descriptor (`C2:0D89`) and splitting/filling a fresh value through `C2:0D3F` plus `C2:0DC5`.
 
+Source polish:
+
+- 2026-05-01: `src/c2/c2_0d3f_split_value_into_three_decimal_digits_at8966.asm`
+  now names the digit staging bytes `$8966..$8968`, divisor `10`, HP/PP tile
+  buffer roots `$896D/$8975`, tile source offset bases, blank/visible digit
+  offsets, second-row tile delta, and the callable `C2:0F08/0F26` HP/PP
+  wrapper entries.
+
 ## Working Names
 
 - `C2:00D1` = `WindowResetInitialCoordinateData`
 - `C2:0D3F` = `SplitValueIntoThreeDecimalDigitsAt8966`
+- `C2:0D89` = `FillHpPpTileBufferX`
+- `C2:0DC5` = `FillHpPpTileBuffer`
+- `C2:0F08` = `FillCharacterHpTileBuffer`
+- `C2:0F26` = `FillCharacterPpTileBuffer`

@@ -15,6 +15,29 @@ C090FF_AddLongPointerOffset   = $C090FF
 C0915B_DivideUnsignedWordByY  = $C0915B
 C09231_ModUnsignedWordByIndex = $C09231
 
+HundredsDigitByte              = $8966
+TensDigitByte                  = $8967
+OnesDigitByte                  = $8968
+DecimalDivisor                 = $000A
+
+HpPpTileBufferBase             = $896D
+HpPpTileBufferXBase            = $8975
+HpPpDigitTilePointerBase       = $3400
+HpPpDigitTilePointerBank       = $0000
+PpTilePointerOffsetBase        = $3000
+DigitTileCount                 = $0003
+OnesDigitTileBase              = $2600
+UpperDigitTileBase             = $2400
+TileSecondRowOffset            = $0010
+VisibleDigitTileOffset         = $0200
+LeadingBlankTileOffset         = $0248
+DigitNine                      = $0009
+NoDigitCarryOffset             = $0000
+XGlyphTopTileBase              = $264C
+XGlyphBottomTileBase           = $265C
+HpTileColumnIndex              = $0000
+PpTileColumnIndex              = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:0D3F
 
@@ -28,23 +51,23 @@ C20D3F_SplitValueIntoThreeDecimalDigitsAt8966 = SEPARATE_DECIMAL_DIGITS
     tcd
     pla
     sta $0E
-    ldx.w #$8968
-    ldy.w #$000A
+    ldx.w #OnesDigitByte
+    ldy.w #DecimalDivisor
     jsl C09231_ModUnsignedWordByIndex
     sep #$20
     sta $0000,X
     dex
-    ldy.w #$000A
+    ldy.w #DecimalDivisor
     rep #$20
     lda $0E
     jsl C0915B_DivideUnsignedWordByY
     sta $0E
-    ldy.w #$000A
+    ldy.w #DecimalDivisor
     jsl C09231_ModUnsignedWordByIndex
     sep #$20
     sta $0000,X
     dex
-    ldy.w #$000A
+    ldy.w #DecimalDivisor
     rep #$20
     lda $0E
     jsl C0915B_DivideUnsignedWordByY
@@ -69,18 +92,18 @@ C20D89_SplitValueIntoThreeDecimalDigitsAt8966_L0D89 = FILL_HP_PP_TILE_BUFFER_X
     asl A
     asl A
     clc
-    adc.w #$8975
+    adc.w #HpPpTileBufferXBase
     tax
-    lda.w #$0000
+    lda.w #NoDigitCarryOffset
     sta $0E
     bra C20DBE_SplitValueIntoThreeDecimalDigitsAt8966_L0DBE
 C20DA7_SplitValueIntoThreeDecimalDigitsAt8966_L0DA7:
     clc
-    adc.w #$264C
+    adc.w #XGlyphTopTileBase
     sta $0000,X
     lda $0E
     clc
-    adc.w #$265C
+    adc.w #XGlyphBottomTileBase
     sta $0006,X
     lda $0E
     inc A
@@ -88,7 +111,7 @@ C20DA7_SplitValueIntoThreeDecimalDigitsAt8966_L0DA7:
     inx
     inx
 C20DBE_SplitValueIntoThreeDecimalDigitsAt8966_L0DBE:
-    cmp.w #$0003
+    cmp.w #DigitTileCount
     bcc C20DA7_SplitValueIntoThreeDecimalDigitsAt8966_L0DA7
     pld
     rts
@@ -103,20 +126,20 @@ C20DC5_SplitValueIntoThreeDecimalDigitsAt8966_L0DC5 = FILL_HP_PP_TILE_BUFFER
     pla
     stx $02
     tax
-    cpy.w #$3000
+    cpy.w #PpTilePointerOffsetBase
     bcs C20DDE_SplitValueIntoThreeDecimalDigitsAt8966_L0DDE
-    lda.w #$0000
+    lda.w #NoDigitCarryOffset
     sta $16
     bra C20DE5_SplitValueIntoThreeDecimalDigitsAt8966_L0DE5
 C20DDE_SplitValueIntoThreeDecimalDigitsAt8966_L0DDE:
     tya
     sec
-    sbc.w #$3000
+    sbc.w #PpTilePointerOffsetBase
     sta $16
 C20DE5_SplitValueIntoThreeDecimalDigitsAt8966_L0DE5:
-    lda.w #$3400
+    lda.w #HpPpDigitTilePointerBase
     sta $0A
-    lda.w #$0000
+    lda.w #HpPpDigitTilePointerBank
     sta $0C
     lda $16
     sta $06
@@ -141,15 +164,15 @@ C20DE5_SplitValueIntoThreeDecimalDigitsAt8966_L0DE5:
     clc
     adc $02
     clc
-    adc.w #$896D
+    adc.w #HpPpTileBufferBase
     tax
-    lda $8968
+    lda OnesDigitByte
     and.w #$00FF
     sta $14
-    lda $8967
+    lda TensDigitByte
     and.w #$00FF
     sta $04
-    lda $8966
+    lda HundredsDigitByte
     and.w #$00FF
     sta $12
     lda $14
@@ -169,12 +192,12 @@ C20DE5_SplitValueIntoThreeDecimalDigitsAt8966_L0DE5:
     clc
     adc $02
     clc
-    adc.w #$2600
+    adc.w #OnesDigitTileBase
     sta $02
     sta $0000,X
     lda $02
     clc
-    adc.w #$0010
+    adc.w #TileSecondRowOffset
     sta $0006,X
     txa
     dec A
@@ -185,18 +208,18 @@ C20DE5_SplitValueIntoThreeDecimalDigitsAt8966_L0DE5:
     bne C20E6C_SplitValueIntoThreeDecimalDigitsAt8966_L0E6C
     lda $12
     bne C20E6C_SplitValueIntoThreeDecimalDigitsAt8966_L0E6C
-    ldx.w #$0248
+    ldx.w #LeadingBlankTileOffset
     bra C20E6F_SplitValueIntoThreeDecimalDigitsAt8966_L0E6F
 C20E6C_SplitValueIntoThreeDecimalDigitsAt8966_L0E6C:
-    ldx.w #$0200
+    ldx.w #VisibleDigitTileOffset
 C20E6F_SplitValueIntoThreeDecimalDigitsAt8966_L0E6F:
     lda $14
-    cmp.w #$0009
+    cmp.w #DigitNine
     bne C20E7B_SplitValueIntoThreeDecimalDigitsAt8966_L0E7B
-    cpy.w #$0000
+    cpy.w #NoDigitCarryOffset
     bne C20E7E_SplitValueIntoThreeDecimalDigitsAt8966_L0E7E
 C20E7B_SplitValueIntoThreeDecimalDigitsAt8966_L0E7B:
-    ldy.w #$0000
+    ldy.w #NoDigitCarryOffset
 C20E7E_SplitValueIntoThreeDecimalDigitsAt8966_L0E7E:
     lda $04
     lsr A
@@ -218,12 +241,12 @@ C20E7E_SplitValueIntoThreeDecimalDigitsAt8966_L0E7E:
     clc
     adc $02
     clc
-    adc.w #$2400
+    adc.w #UpperDigitTileBase
     ldx $10
     stx $02
     sta $0000,X
     clc
-    adc.w #$0010
+    adc.w #TileSecondRowOffset
     ldx $02
     sta $0006,X
     lda $02
@@ -232,18 +255,18 @@ C20E7E_SplitValueIntoThreeDecimalDigitsAt8966_L0E7E:
     sta $0E
     lda $12
     bne C20EBC_SplitValueIntoThreeDecimalDigitsAt8966_L0EBC
-    ldx.w #$0248
+    ldx.w #LeadingBlankTileOffset
     bra C20EBF_SplitValueIntoThreeDecimalDigitsAt8966_L0EBF
 C20EBC_SplitValueIntoThreeDecimalDigitsAt8966_L0EBC:
-    ldx.w #$0200
+    ldx.w #VisibleDigitTileOffset
 C20EBF_SplitValueIntoThreeDecimalDigitsAt8966_L0EBF:
     lda $04
-    cmp.w #$0009
+    cmp.w #DigitNine
     bne C20ECB_SplitValueIntoThreeDecimalDigitsAt8966_L0ECB
-    cpy.w #$0000
+    cpy.w #NoDigitCarryOffset
     bne C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE
 C20ECB_SplitValueIntoThreeDecimalDigitsAt8966_L0ECB:
-    ldy.w #$0000
+    ldy.w #NoDigitCarryOffset
 C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     sty $04
     lda $12
@@ -265,7 +288,7 @@ C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     clc
     adc $02
     clc
-    adc.w #$2400
+    adc.w #UpperDigitTileBase
     tax
     stx $12
     phx
@@ -278,11 +301,13 @@ C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     ldx $12
     txa
     clc
-    adc.w #$0010
+    adc.w #TileSecondRowOffset
     plx
     sta $0006,X
     pld
     rts
+
+C20F08_FillCharacterHpTileBuffer:
     rep #$31
     phd
     pha
@@ -295,11 +320,13 @@ C20ECE_SplitValueIntoThreeDecimalDigitsAt8966_L0ECE:
     txa
     jsr.w SEPARATE_DECIMAL_DIGITS
     ldy $0E
-    ldx.w #$0000
+    ldx.w #HpTileColumnIndex
     lda $02
     jsr.w FILL_HP_PP_TILE_BUFFER
     pld
     rts
+
+C20F26_FillCharacterPpTileBuffer:
     rep #$31
     phd
     pha
@@ -321,7 +348,7 @@ C20F47_SplitValueIntoThreeDecimalDigitsAt8966_L0F47:
     lda $04
     jsr.w SEPARATE_DECIMAL_DIGITS
     ldy $0E
-    ldx.w #$0001
+    ldx.w #PpTileColumnIndex
     lda $02
     jsr.w FILL_HP_PP_TILE_BUFFER
 C20F56_SplitValueIntoThreeDecimalDigitsAt8966_L0F56:

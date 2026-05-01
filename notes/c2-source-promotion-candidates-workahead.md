@@ -67,6 +67,10 @@ Semantic humanization update:
   byte-neutral local aliases for the status-slice scan order, C4 lookup tables,
   no-status fallback values, and item-byte `+0x19` equipment subtype classifier
   tails. See `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-01: the decimal digit / HP-PP tile-buffer strip (`C2:0D3F..0F58`)
+  received byte-neutral local aliases for the digit staging bytes, tile-buffer
+  roots, digit tile source offsets, blank/visible digit offsets, and HP/PP
+  wrapper entries. See `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
 
 ## Completed True Byte-Corridor Promotions
 

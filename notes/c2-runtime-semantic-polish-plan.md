@@ -297,6 +297,12 @@ contract notes for C0/C1/C3/C4 consumers.
   item config rows, packed item byte `+0x19`, equipment-slot subtype mask
   `0x0C`, and slot ordinal returns. See
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-01 forty-fifth slice: promoted the decimal digit and HP/PP
+  tile-buffer staging helpers with byte-neutral aliases for `$8966..$8968`
+  digit bytes, `$896D/$8975` tile buffer roots, digit tile source offsets,
+  blank/visible digit tile offsets, and the `C2:0F08/0F26` HP/PP wrapper
+  entries. See `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`
+  and `notes/c2-symbol-only-stragglers-c200d1-c20d3f.md`.
 
 ## Validation
 

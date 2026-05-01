@@ -102,6 +102,12 @@ If a target lags below the live value while the corresponding dirty/status field
 
 `C2:109F` is the named HP/PP roller that follows these includes. It is called from `C1:2E14` and `C1:2E44` in the heavier and lighter window tick paths. The early portion picks the current party member from `$986F[$0002 & 3]`, refuses non-party values, then increments/decrements the `$43/$45/$47` and `$49/$4B/$4D` rolling fields using the delta pair from `C2:0F58` or a forced `#$4000/#$0006` pair when `$9696/$9698` demand a fast catch-up.
 
+`C2:0D3F..0F58` is the digit staging layer immediately before that prelude.
+It splits a value into three decimal digits at `$8966..$8968`, writes the
+three two-row digit tile pairs into the HP/PP tile buffer rooted at `$896D`,
+uses `$8975` for the "X" placeholder strip, and exposes the two callable
+character wrappers at `C2:0F08` and `C2:0F26` for HP and PP tile-buffer fills.
+
 ## Source Polish
 
 2026-05-01 semantic polish promoted the already scaffold-backed source for this
@@ -124,6 +130,9 @@ cluster without changing runtime bytes:
   default title tile run, registered window-title upload slot, `$8650` window
   record/title-string fields, `$894E` upload-slot table, C4 title glyph upload
   call, and HP/PP tilemap/scratch buffer clear ranges.
+- `C2:0D3F..0F58` now names the `$8966..$8968` decimal digit staging bytes,
+  HP/PP digit tile-buffer bases, digit tile source offsets, blank/visible digit
+  tile offsets, and the HP/PP wrapper entries at `C2:0F08/0F26`.
 
 ## Working Names
 
@@ -143,6 +152,11 @@ These are proposed local names, intentionally phrased as behavior names until we
 - `C2:0958` = `MenuOrNameEntryMaskTable`
 - `C2:09A0` = `CloseAndClearCurrentWindowTilemap`
 - `C2:0B65` = `FindNextSelectableMenuCell`
+- `C2:0D3F` = `SplitValueIntoThreeDecimalDigitsAt8966`
+- `C2:0D89` = `FillHpPpTileBufferX`
+- `C2:0DC5` = `FillHpPpTileBuffer`
+- `C2:0F08` = `FillCharacterHpTileBuffer`
+- `C2:0F26` = `FillCharacterPpTileBuffer`
 - `C2:0F58` = `SelectHpPpRollDelta`
 - `C2:0F9A` = `ClampHpPpRollTargetsToLiveValues`
 - `C2:1034` = `AreAllHpPpRollersSettled`
