@@ -20,6 +20,10 @@ menu text/number drawing helpers start.
   - Moves between BGM, SE, and effect rows.
   - Updates the displayed row cursor through `$0BCA`.
   - Calls the C0 sound-preview/commit helpers for the selected row.
+  - The source now names the controller row scratch at `$02`, window index at
+    `$04`, input masks from `$0069/$006D`, BGM/SE/effect state bytes
+    `$B54B/$B54D/$B54F`, saved temporary BGM byte `$B545`, and wrap ranges for
+    BGM (`0x01..0xBF`), SE (`0x01..0x7F`), and effect (`0x01..0x20`).
 - `EF:D95E` = `LoadDebugMenuGraphicsAndPalette`
   - Clears presentation state.
   - Loads the debug menu font from `EF:EB5F`.
@@ -58,3 +62,15 @@ starts at `EF:D8B5`. Stopping at `EF:D8B4` would accidentally treat the final
 
 The next preserved seam starts at `EF:DABD`, which is the shared debug menu
 text-line helper used by the earlier sound-menu row renderer.
+
+## Current Validation
+
+The debug sound-menu controller source remains byte-equivalent after the
+semantic alias pass:
+
+```powershell
+python tools\build_source_bank_scaffold.py --bank EF
+python tools\validate_source_bank_byte_equivalence.py --bank EF --module all --combined --scaffold src\ef\bank_ef_helpers_asar.asm --strict
+```
+
+Result: `EF byte-equivalence: OK, 28 module(s), 0 mismatch(es).`

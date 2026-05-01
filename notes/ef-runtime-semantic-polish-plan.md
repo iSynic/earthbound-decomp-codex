@@ -79,3 +79,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   copy spans, `$9F79` missing-save mask, `EF:05A6` missing-save slot bit masks,
   `$30:7FFE` SRAM integrity marker, and the C0 multiply helper used to scale
   slot and block indices into SRAM offsets.
+- 2026-05-01: EF debug sound-menu controller polish landed as byte-neutral
+  source aliases. The promoted contracts name the controller row/window
+  scratch, `$0069/$006D` input masks, `$B54B/$B54D/$B54F` BGM/SE/effect
+  selectors, `$B545` temporary BGM restore slot, row cursor writeback through
+  `$0BCA`, and wrap ranges for the BGM, SE, and effect selector rows.

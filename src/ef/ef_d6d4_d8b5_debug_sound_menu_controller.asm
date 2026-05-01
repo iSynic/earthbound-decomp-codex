@@ -25,217 +25,258 @@ C0AC0C_DebugSoundMenuPlayEffect      = $C0AC0C
 C0AC20_DebugSoundMenuBgmPreview      = $C0AC20
 C4FBBD_PlaySoundStoneMelody          = $C4FBBD
 
+CurrentDebugSoundMenuRow = $02
+DebugSoundMenuWindowIndex = $04
+PressedInputButtons = $006D
+HeldInputButtons = $0069
+LatchedBgmTrackId = $B53B
+SavedBgmTrackId = $B545
+DebugSoundMenuBgmTrackId = $B54B
+DebugSoundMenuSeId = $B54D
+DebugSoundMenuEffectId = $B54F
+DebugSoundMenuCursorRowTable = $0BCA
+ProcessorStatus16BitAIndexCarryClear = $31
+ZeroWord = $0000
+DebugSoundMenuSeRow = $0001
+DebugSoundMenuEffectRow = $0002
+DebugSoundMenuRowCount = $0003
+InvalidWord = $FFFF
+DebugSoundMenuBgmWrapHigh = $00BF
+DebugSoundMenuBgmWrapLimit = $00C0
+DebugSoundMenuSeWrapHigh = $007F
+DebugSoundMenuSeWrapLimit = $0080
+DebugSoundMenuEffectWrapHigh = $0020
+DebugSoundMenuEffectWrapLimit = $0021
+DebugSoundMenuInitialEffectId = $0002
+DebugSoundMenuTemporaryBgmTrackId = $002E
+DebugSoundMenuCursorBaseY = $0054
+DebugHexColumn = $0012
+DebugSoundMenuBgmValueRow = $000A
+DebugSoundMenuSeValueRow = $000C
+DebugSoundMenuEffectValueRow = $000E
+InputChordExitDebugSoundMenu = $3000
+InputRefreshSoundVersionField = $4000
+InputMoveRowUp = $0800
+InputMoveRowDown = $0400
+InputDecrementValue = $0200
+InputIncrementValue = $0100
+InputPreviewOrPlayValue = $0080
+InputCommitSoundSelection = $0040
+InputHoldTemporaryBgmPreview = $0020
+InputRestoreTemporaryBgmPreviewA = $8000
+InputRestoreTemporaryBgmPreviewB = $0010
+
 ; ---------------------------------------------------------------------------
 ; EF:D6D4
 
 EFD6D4_RunDebugSoundMenuController:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF2
     tcd
     pla
-    sta $04
-    lda.w #$0000
-    sta $02
-    ldx $B53B
-    stx $B545
-    stx $B54B
-    lda.w #$0002
-    sta $B54F
-    lda $04
+    sta DebugSoundMenuWindowIndex
+    lda.w #ZeroWord
+    sta CurrentDebugSoundMenuRow
+    ldx LatchedBgmTrackId
+    stx SavedBgmTrackId
+    stx DebugSoundMenuBgmTrackId
+    lda.w #DebugSoundMenuInitialEffectId
+    sta DebugSoundMenuEffectId
+    lda DebugSoundMenuWindowIndex
     jsr EFD5D9_DrawDebugSoundMenuRows
 EFD6F9_DebugSoundMenuController_LD6F9:
     jsl C08B26_ResetDebugMenuInputLatch
     jsl C08756_WaitOneFrameAndPollInput
-    lda $006D
-    and.w #$4000
+    lda PressedInputButtons
+    and.w #InputRefreshSoundVersionField
     beq EFD711_DebugSoundMenuController_LD711
     jsr EFE175_UpdateDebugSoundVersionField
-    lda $04
+    lda DebugSoundMenuWindowIndex
     jsr EFD5D9_DrawDebugSoundMenuRows
 EFD711_DebugSoundMenuController_LD711:
     jsl C088B1_UpdateDebugMenuInputState
     jsl C09466_RefreshDebugMenuInput
-    ldy $B54B
-    ldx.w #$000A
-    lda.w #$0012
+    ldy DebugSoundMenuBgmTrackId
+    ldx.w #DebugSoundMenuBgmValueRow
+    lda.w #DebugHexColumn
     jsr EFD56F_WriteDebugHexByteToTileBuffer
-    ldy $B54D
-    ldx.w #$000C
-    lda.w #$0012
+    ldy DebugSoundMenuSeId
+    ldx.w #DebugSoundMenuSeValueRow
+    lda.w #DebugHexColumn
     jsr EFD56F_WriteDebugHexByteToTileBuffer
-    ldy $B54F
-    ldx.w #$000E
-    lda.w #$0012
+    ldy DebugSoundMenuEffectId
+    ldx.w #DebugSoundMenuEffectValueRow
+    lda.w #DebugHexColumn
     jsr EFD56F_WriteDebugHexByteToTileBuffer
-    lda $006D
-    cmp.w #$3000
+    lda PressedInputButtons
+    cmp.w #InputChordExitDebugSoundMenu
     bne EFD748_DebugSoundMenuController_LD748
     jmp.w EFD8B3_DebugSoundMenuController_LD8B3
 EFD748_DebugSoundMenuController_LD748:
-    lda $0069
-    and.w #$0800
+    lda HeldInputButtons
+    and.w #InputMoveRowUp
     beq EFD755_DebugSoundMenuController_LD755
-    lda $02
+    lda CurrentDebugSoundMenuRow
     dec A
-    sta $02
+    sta CurrentDebugSoundMenuRow
 EFD755_DebugSoundMenuController_LD755:
-    lda $0069
-    and.w #$0400
+    lda HeldInputButtons
+    and.w #InputMoveRowDown
     beq EFD75F_DebugSoundMenuController_LD75F
-    inc $02
+    inc CurrentDebugSoundMenuRow
 EFD75F_DebugSoundMenuController_LD75F:
-    lda $02
-    cmp.w #$FFFF
+    lda CurrentDebugSoundMenuRow
+    cmp.w #InvalidWord
     bne EFD76B_DebugSoundMenuController_LD76B
-    lda.w #$0002
-    sta $02
+    lda.w #DebugSoundMenuEffectRow
+    sta CurrentDebugSoundMenuRow
 EFD76B_DebugSoundMenuController_LD76B:
-    lda $02
-    cmp.w #$0003
+    lda CurrentDebugSoundMenuRow
+    cmp.w #DebugSoundMenuRowCount
     bne EFD777_DebugSoundMenuController_LD777
-    lda.w #$0000
-    sta $02
+    lda.w #ZeroWord
+    sta CurrentDebugSoundMenuRow
 EFD777_DebugSoundMenuController_LD777:
-    lda $006D
-    and.w #$0020
+    lda PressedInputButtons
+    and.w #InputHoldTemporaryBgmPreview
     beq EFD78B_DebugSoundMenuController_LD78B
-    lda $B54B
-    sta $B545
-    lda.w #$002E
-    sta $B54B
+    lda DebugSoundMenuBgmTrackId
+    sta SavedBgmTrackId
+    lda.w #DebugSoundMenuTemporaryBgmTrackId
+    sta DebugSoundMenuBgmTrackId
 EFD78B_DebugSoundMenuController_LD78B:
-    lda $006D
-    and.w #$8000
+    lda PressedInputButtons
+    and.w #InputRestoreTemporaryBgmPreviewA
     bne EFD79B_DebugSoundMenuController_LD79B
-    lda $006D
-    and.w #$0010
+    lda PressedInputButtons
+    and.w #InputRestoreTemporaryBgmPreviewB
     beq EFD7A1_DebugSoundMenuController_LD7A1
 EFD79B_DebugSoundMenuController_LD79B:
-    lda $B545
-    sta $B54B
+    lda SavedBgmTrackId
+    sta DebugSoundMenuBgmTrackId
 EFD7A1_DebugSoundMenuController_LD7A1:
-    lda $02
+    lda CurrentDebugSoundMenuRow
     beq EFD7B5_DebugSoundMenuController_LD7B5
-    cmp.w #$0001
+    cmp.w #DebugSoundMenuSeRow
     beq EFD80B_DebugSoundMenuController_LD80B
-    cmp.w #$0002
+    cmp.w #DebugSoundMenuEffectRow
     bne EFD7B2_DebugSoundMenuController_LD7B2
     jmp.w EFD84E_DebugSoundMenuController_LD84E
 EFD7B2_DebugSoundMenuController_LD7B2:
     jmp.w EFD88F_DebugSoundMenuController_LD88F
 EFD7B5_DebugSoundMenuController_LD7B5:
-    lda $0069
-    and.w #$0200
+    lda HeldInputButtons
+    and.w #InputDecrementValue
     beq EFD7C0_DebugSoundMenuController_LD7C0
-    dec $B54B
+    dec DebugSoundMenuBgmTrackId
 EFD7C0_DebugSoundMenuController_LD7C0:
-    lda $0069
-    and.w #$0100
+    lda HeldInputButtons
+    and.w #InputIncrementValue
     beq EFD7CB_DebugSoundMenuController_LD7CB
-    inc $B54B
+    inc DebugSoundMenuBgmTrackId
 EFD7CB_DebugSoundMenuController_LD7CB:
-    lda $B54B
-    cmp.w #$FFFF
+    lda DebugSoundMenuBgmTrackId
+    cmp.w #InvalidWord
     bne EFD7D9_DebugSoundMenuController_LD7D9
-    lda.w #$00BF
-    sta $B54B
+    lda.w #DebugSoundMenuBgmWrapHigh
+    sta DebugSoundMenuBgmTrackId
 EFD7D9_DebugSoundMenuController_LD7D9:
-    lda $B54B
-    cmp.w #$00C0
+    lda DebugSoundMenuBgmTrackId
+    cmp.w #DebugSoundMenuBgmWrapLimit
     bne EFD7E7_DebugSoundMenuController_LD7E7
-    lda.w #$0001
-    sta $B54B
+    lda.w #DebugSoundMenuSeRow
+    sta DebugSoundMenuBgmTrackId
 EFD7E7_DebugSoundMenuController_LD7E7:
-    lda $006D
-    and.w #$0080
+    lda PressedInputButtons
+    and.w #InputPreviewOrPlayValue
     bne EFD7F2_DebugSoundMenuController_LD7F2
     jmp.w EFD88F_DebugSoundMenuController_LD88F
 EFD7F2_DebugSoundMenuController_LD7F2:
     jsl C0ABC6_DebugSoundMenuDecrementBgm
     jsl C08756_WaitOneFrameAndPollInput
-    lda $B53B
+    lda LatchedBgmTrackId
     jsl C0AC20_DebugSoundMenuBgmPreview
-    lda $B54B
+    lda DebugSoundMenuBgmTrackId
     jsl C4FBBD_PlaySoundStoneMelody
     jmp.w EFD88F_DebugSoundMenuController_LD88F
 EFD80B_DebugSoundMenuController_LD80B:
-    lda $0069
-    and.w #$0200
+    lda HeldInputButtons
+    and.w #InputDecrementValue
     beq EFD816_DebugSoundMenuController_LD816
-    dec $B54D
+    dec DebugSoundMenuSeId
 EFD816_DebugSoundMenuController_LD816:
-    lda $0069
-    and.w #$0100
+    lda HeldInputButtons
+    and.w #InputIncrementValue
     beq EFD821_DebugSoundMenuController_LD821
-    inc $B54D
+    inc DebugSoundMenuSeId
 EFD821_DebugSoundMenuController_LD821:
-    lda $B54D
-    cmp.w #$FFFF
+    lda DebugSoundMenuSeId
+    cmp.w #InvalidWord
     bne EFD82F_DebugSoundMenuController_LD82F
-    lda.w #$007F
-    sta $B54D
+    lda.w #DebugSoundMenuSeWrapHigh
+    sta DebugSoundMenuSeId
 EFD82F_DebugSoundMenuController_LD82F:
-    lda $B54D
-    cmp.w #$0080
+    lda DebugSoundMenuSeId
+    cmp.w #DebugSoundMenuSeWrapLimit
     bne EFD83D_DebugSoundMenuController_LD83D
-    lda.w #$0001
-    sta $B54D
+    lda.w #DebugSoundMenuSeRow
+    sta DebugSoundMenuSeId
 EFD83D_DebugSoundMenuController_LD83D:
-    lda $006D
-    and.w #$0080
+    lda PressedInputButtons
+    and.w #InputPreviewOrPlayValue
     beq EFD88F_DebugSoundMenuController_LD88F
-    lda $B54D
+    lda DebugSoundMenuSeId
     jsl C0ABE0_DebugSoundMenuDecrementSe
     bra EFD88F_DebugSoundMenuController_LD88F
 EFD84E_DebugSoundMenuController_LD84E:
-    lda $0069
-    and.w #$0200
+    lda HeldInputButtons
+    and.w #InputDecrementValue
     beq EFD859_DebugSoundMenuController_LD859
-    dec $B54F
+    dec DebugSoundMenuEffectId
 EFD859_DebugSoundMenuController_LD859:
-    lda $0069
-    and.w #$0100
+    lda HeldInputButtons
+    and.w #InputIncrementValue
     beq EFD864_DebugSoundMenuController_LD864
-    inc $B54F
+    inc DebugSoundMenuEffectId
 EFD864_DebugSoundMenuController_LD864:
-    lda $B54F
-    cmp.w #$FFFF
+    lda DebugSoundMenuEffectId
+    cmp.w #InvalidWord
     bne EFD872_DebugSoundMenuController_LD872
-    lda.w #$0020
-    sta $B54F
+    lda.w #DebugSoundMenuEffectWrapHigh
+    sta DebugSoundMenuEffectId
 EFD872_DebugSoundMenuController_LD872:
-    lda $B54F
-    cmp.w #$0021
+    lda DebugSoundMenuEffectId
+    cmp.w #DebugSoundMenuEffectWrapLimit
     bne EFD880_DebugSoundMenuController_LD880
-    lda.w #$0001
-    sta $B54F
+    lda.w #DebugSoundMenuSeRow
+    sta DebugSoundMenuEffectId
 EFD880_DebugSoundMenuController_LD880:
-    lda $006D
-    and.w #$0080
+    lda PressedInputButtons
+    and.w #InputPreviewOrPlayValue
     beq EFD88F_DebugSoundMenuController_LD88F
-    lda $B54F
+    lda DebugSoundMenuEffectId
     jsl C0AC0C_DebugSoundMenuPlayEffect
 EFD88F_DebugSoundMenuController_LD88F:
-    lda $006D
-    and.w #$0040
+    lda PressedInputButtons
+    and.w #InputCommitSoundSelection
     beq EFD89F_DebugSoundMenuController_LD89F
     jsl C0ABC6_DebugSoundMenuDecrementBgm
     jsl C0AC01_DebugSoundMenuCommitSelection
 EFD89F_DebugSoundMenuController_LD89F:
-    lda $04
+    lda DebugSoundMenuWindowIndex
     asl A
     tax
-    lda $02
+    lda CurrentDebugSoundMenuRow
     asl A
     asl A
     asl A
     asl A
     clc
-    adc.w #$0054
-    sta $0BCA,X
+    adc.w #DebugSoundMenuCursorBaseY
+    sta DebugSoundMenuCursorRowTable,X
     jmp.w EFD6F9_DebugSoundMenuController_LD6F9
 EFD8B3_DebugSoundMenuController_LD8B3:
     pld
