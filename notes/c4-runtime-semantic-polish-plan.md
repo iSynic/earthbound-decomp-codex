@@ -152,6 +152,11 @@ closure.
   and path-builder's first index, active run flag, minimum delta, signed-word
   inversion mask, direction rounding spans, and repeated-pulse loop sentinel.
   See `notes/staged-movement-pulse-and-tracked-item-registry-c48c59-c48f98.md`.
+- 2026-05-01 tracked-item pulse registry: promoted the tracked item pulse
+  helpers' active/inactive return values, blocked overworld state, first-slot
+  and first-pulse sentinels, low-byte masks, and full-value C1 item pulse
+  argument. See
+  `notes/staged-movement-pulse-and-tracked-item-registry-c48c59-c48f98.md`.
 
 ## Validation
 

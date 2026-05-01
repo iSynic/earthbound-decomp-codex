@@ -1757,6 +1757,13 @@ org $C48C59
 !TRACKED_ITEM_SLOT_COUNT = $0004
 !TRACKED_ITEM_SLOT_REFRESH_TIMER = $3C
 !TRACKED_ITEM_RANDOM_WINDOW = $0002
+!TRACKED_ITEM_SLOT_INACTIVE = $0000
+!TRACKED_ITEM_SLOT_ACTIVE = $0001
+!TRACKED_ITEM_BLOCKED_OVERWORLD_STATE = $0002
+!TRACKED_ITEM_FIRST_SLOT_INDEX = $0000
+!TRACKED_ITEM_FIRST_PULSE_ALLOWED = $0001
+!TRACKED_ITEM_PREPARE_FULL_VALUE = $00FF
+!LOW_BYTE_MASK = $00FF
 C48C59_MovementOctantToPulseSelectorTable:
     db $00,$08,$00,$09,$00,$01,$00,$05,$00,$04,$00,$06,$00,$02,$00,$0A
 C48C69_ClearMovementPulseAccumulator:
@@ -2092,18 +2099,18 @@ C48E95_InstallGeneratedMovementPulseScript:
 IS_VALID_ITEM_TRANSFORMATION:
 !C48ECE_CheckTrackedItemPulseSlotActive = IS_VALID_ITEM_TRANSFORMATION
     rep #$31
-    ldy #$0000
+    ldy #!TRACKED_ITEM_SLOT_INACTIVE
     asl
     asl
     tax
     lda !TRACKED_ITEM_PULSE_SLOT_TIMER_BASE,X
-    and #$00FF
+    and #!LOW_BYTE_MASK
     bne C48EE6_CheckTrackedItemPulseSlotActive_Active
     lda !TRACKED_ITEM_PULSE_SLOT_DELAY_BASE,X
-    and #$00FF
+    and #!LOW_BYTE_MASK
     beq C48EE9_CheckTrackedItemPulseSlotActive_Return
 C48EE6_CheckTrackedItemPulseSlotActive_Active:
-    ldy #$0001
+    ldy #!TRACKED_ITEM_SLOT_ACTIVE
 C48EE9_CheckTrackedItemPulseSlotActive_Return:
     tya
     rtl
@@ -2120,7 +2127,7 @@ INITIALIZE_ITEM_TRANSFORMATION:
     stx $10
     txa
     jsl IS_VALID_ITEM_TRANSFORMATION
-    cmp #$0000
+    cmp #!TRACKED_ITEM_SLOT_INACTIVE
     bne C48F0E_ArmTrackedItemPulseSlotFromD5f4bb_AlreadyActive
     sep #$20
     lda.b #!TRACKED_ITEM_SLOT_REFRESH_TIMER
@@ -2219,7 +2226,7 @@ C48F98_ClearTrackedItemPulseSlot:
     stx $0E
     txa
     jsl IS_VALID_ITEM_TRANSFORMATION
-    cmp #$0000
+    cmp #!TRACKED_ITEM_SLOT_INACTIVE
     beq C48FC0_ClearTrackedItemPulseSlot_Return
     dec !TRACKED_ITEM_PULSE_ACTIVE_COUNT
     ldx $0E
@@ -2252,7 +2259,7 @@ C48FD8_StepTrackedItemPulseSlots_CheckFreeze:
     jmp C490EC_StepTrackedItemPulseSlots_Return
 C48FE0_StepTrackedItemPulseSlots_CheckState:
     lda !OVERWORLD_STATE
-    cmp #$0002
+    cmp #!TRACKED_ITEM_BLOCKED_OVERWORLD_STATE
     bne C48FEB_StepTrackedItemPulseSlots_TickGlobalTimer
     jmp C490EC_StepTrackedItemPulseSlots_Return
 C48FEB_StepTrackedItemPulseSlots_TickGlobalTimer:
@@ -2261,7 +2268,7 @@ C48FEB_StepTrackedItemPulseSlots_TickGlobalTimer:
     dec A
     sta !TRACKED_ITEM_PULSE_GLOBAL_TIMER
     rep #$20
-    and #$00FF
+    and #!LOW_BYTE_MASK
     beq C48FFE_StepTrackedItemPulseSlots_ResetGlobalTimer
     jmp C490EC_StepTrackedItemPulseSlots_Return
 C48FFE_StepTrackedItemPulseSlots_ResetGlobalTimer:
@@ -2271,9 +2278,9 @@ C48FFE_StepTrackedItemPulseSlots_ResetGlobalTimer:
     rep #$20
     lda #!TRACKED_ITEM_PULSE_SLOT_BASE_LOW
     sta $02
-    lda #$0001
+    lda #!TRACKED_ITEM_FIRST_PULSE_ALLOWED
     sta $14
-    lda #$0000
+    lda #!TRACKED_ITEM_FIRST_SLOT_INDEX
     sta $04
     sta $12
     jmp C490E0_StepTrackedItemPulseSlots_CheckLoop
@@ -2284,7 +2291,7 @@ C4901B_StepTrackedItemPulseSlots_SlotLoop:
     iny
     sty $10
     lda $0000,Y
-    and #$00FF
+    and #!LOW_BYTE_MASK
     beq C4906B_StepTrackedItemPulseSlots_TickPairTimer
     ldx $02
     inx
@@ -2295,7 +2302,7 @@ C4901B_StepTrackedItemPulseSlots_SlotLoop:
     dec A
     sta $0000,X
     rep #$20
-    and #$00FF
+    and #!LOW_BYTE_MASK
     bne C4906B_StepTrackedItemPulseSlots_TickPairTimer
     lda #!TRACKED_ITEM_RANDOM_WINDOW
     jsl !C45F7B_GetRandomLessThanA
@@ -2311,7 +2318,7 @@ C4901B_StepTrackedItemPulseSlots_SlotLoop:
     ldx $02
     rep #$20
     lda $0000,X
-    and #$00FF
+    and #!LOW_BYTE_MASK
     jsl !C0ABE0_PlayMovementPulseSelector
     stz $14
 C4906B_StepTrackedItemPulseSlots_TickPairTimer:
@@ -2320,13 +2327,13 @@ C4906B_StepTrackedItemPulseSlots_TickPairTimer:
     inx
     inx
     lda $0000,X
-    and #$00FF
+    and #!LOW_BYTE_MASK
     beq C490CE_StepTrackedItemPulseSlots_AdvanceSlot
     sep #$20
     dec A
     sta $0000,X
     rep #$20
-    and #$00FF
+    and #!LOW_BYTE_MASK
     bne C490CE_StepTrackedItemPulseSlots_AdvanceSlot
     lda #!TRACKED_ITEM_PULSE_SOURCE_TABLE
     sta $06
@@ -2348,9 +2355,9 @@ C4906B_StepTrackedItemPulseSlots_TickPairTimer:
     adc $0A
     sta $0A
     lda [$0A]
-    and #$00FF
+    and #!LOW_BYTE_MASK
     tax
-    lda #$00FF
+    lda #!TRACKED_ITEM_PREPARE_FULL_VALUE
     jsl !C18EAD_PrepareTrackedItemPulseValue
     sta $10
     ldy $0E
@@ -2362,7 +2369,7 @@ C4906B_StepTrackedItemPulseSlots_TickPairTimer:
     adc $06
     sta $06
     lda [$06]
-    and #$00FF
+    and #!LOW_BYTE_MASK
     tax
     lda $10
     jsl !C18BC6_ApplyTrackedItemPulsePair

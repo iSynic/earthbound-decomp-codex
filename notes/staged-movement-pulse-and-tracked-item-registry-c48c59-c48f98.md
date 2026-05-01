@@ -128,6 +128,10 @@ For each active record it:
 
 The direct caller is `C0:5246`, which makes this a global periodic service routine rather than another explicit egg/chick/chicken inventory scan helper.
 
+Source polish: the tracked-item half now names the active/inactive return
+values, blocked overworld state, first-slot and first-pulse sentinels, low-byte
+masks, and the full-value argument passed to `C1:8EAD` while ticking records.
+
 ## Working Names
 
 - `C4:8C59` = `MovementOctantToPulseSelectorTable`
