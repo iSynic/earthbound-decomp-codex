@@ -11,7 +11,41 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1040A_LoadPrimaryInteractionContextPointer = $040A
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C10489_InstallSecondaryInteractionContextPointer = $0489
+C18C27_RemoveItemFromCharacterInventory = $8C27
+C191B0_RemovePendingItemIdAtIndex = $91B0
+C3E977_ReadCharacterInventorySlotByte = $C3E977
+
+WorkValueLo = $06
+WorkValueByte1 = $07
+WorkValueHi = $08
+WorkValueByte3 = $09
+QueueScanIndex = $0E
+DeferredTextCommandArgument = $10
+DeliveryQueueItemInfoPointer = $12
+DeliveryQueueOwnerInfoPointer = $14
+QueuedItemId = $02
+QueuedItemOwnerOrSource = $04
+DeferredCommandByteQueue = $97BA
+DeferredCommandQueueCount = $97CA
+DeliveryQueueEntryBase = $97F5
+DeliveryQueueOwnerOffset = $00B6
+DeliveryQueueItemOffset = $00B9
+DeliveryQueueSlotCount = $0003
+DeferredSingleByteArgumentLimit = $0001
+EscargoStorageSourceSelector = $00FF
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+TextCommandFarFrameOffset = $FFEE
+TextCommandTwoArgumentFrameOffset = $FFEA
+DeliveryQueueHelperFrameOffset = $FFF0
+QueueDeliveryOrPickupItemCallback = $5FF7
+ReadDeliveryOrPickupItemInfoCallback = $6080
+ZeroWord = $0000
+ZeroByte = $00
 
 ; ---------------------------------------------------------------------------
 ; C1:575D
@@ -1199,213 +1233,213 @@ C15FA8_C1575D_TestEquippedItemPresenceForTextCommand_L5FA8:
     lda.w #$0000
     pld
     rts
-C15FB1_C1575D_TestEquippedItemPresenceForTextCommand_L5FB1:
-    rep #$31
+C15FB1_StoreDeliveryOrPickupQueueEntry:
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #DeliveryQueueHelperFrameOffset
     tcd
     pla
-    stx $04
-    sta $02
-    ldy.w #$0000
-    bra C15FEE_C1575D_TestEquippedItemPresenceForTextCommand_L5FEE
-C15FC4_C1575D_TestEquippedItemPresenceForTextCommand_L5FC4:
+    stx QueuedItemOwnerOrSource
+    sta QueuedItemId
+    ldy.w #ZeroWord
+    bra C15FEE_CheckNextDeliveryQueueSlot
+C15FC4_CheckDeliveryQueueSlot:
     tya
     clc
-    adc.w #$97F5
-    sta $0E
+    adc.w #DeliveryQueueEntryBase
+    sta QueueScanIndex
     clc
-    adc.w #$00B6
+    adc.w #DeliveryQueueOwnerOffset
     tax
     lda $0000,X
     and.w #$00FF
-    bne C15FED_C1575D_TestEquippedItemPresenceForTextCommand_L5FED
-    lda $04
-    sep #$20
+    bne C15FED_AdvanceDeliveryQueueSlot
+    lda QueuedItemOwnerOrSource
+    sep #AccumulatorWidthFlag
     sta $0000,X
-    rep #$20
-    lda $0E
+    rep #AccumulatorWidthFlag
+    lda QueueScanIndex
     tax
-    lda $02
-    sep #$20
-    sta $00B9,X
-    bra C15FF3_C1575D_TestEquippedItemPresenceForTextCommand_L5FF3
-C15FED_C1575D_TestEquippedItemPresenceForTextCommand_L5FED:
+    lda QueuedItemId
+    sep #AccumulatorWidthFlag
+    sta DeliveryQueueItemOffset,X
+    bra C15FF3_ReturnDeliveryQueueStore
+C15FED_AdvanceDeliveryQueueSlot:
     iny
-C15FEE_C1575D_TestEquippedItemPresenceForTextCommand_L5FEE:
-    cpy.w #$0003
-    bcc C15FC4_C1575D_TestEquippedItemPresenceForTextCommand_L5FC4
-C15FF3_C1575D_TestEquippedItemPresenceForTextCommand_L5FF3:
-    rep #$20
+C15FEE_CheckNextDeliveryQueueSlot:
+    cpy.w #DeliveryQueueSlotCount
+    bcc C15FC4_CheckDeliveryQueueSlot
+C15FF3_ReturnDeliveryQueueStore:
+    rep #AccumulatorWidthFlag
     pld
     rts
 CC_19_1C:
 C15FF7_QueueDeliveryOrPickupItemTextCommand = CC_19_1C
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #TextCommandFarFrameOffset
     tcd
     pla
-    stx $10
-    lda.w #$0001
+    stx DeferredTextCommandArgument
+    lda.w #DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
-    bvc C16010_C1575D_TestEquippedItemPresenceForTextCommand_L6010
-    bpl C16025_C1575D_TestEquippedItemPresenceForTextCommand_L6025
-    bra C16012_C1575D_TestEquippedItemPresenceForTextCommand_L6012
-C16010_C1575D_TestEquippedItemPresenceForTextCommand_L6010:
-    bmi C16025_C1575D_TestEquippedItemPresenceForTextCommand_L6025
-C16012_C1575D_TestEquippedItemPresenceForTextCommand_L6012:
+    sbc DeferredCommandQueueCount
+    bvc C16010_CheckQueueDeliveryArgumentSign
+    bpl C16025_ResolveQueuedDeliveryOrPickupItem
+    bra C16012_QueueDeliverySourceSelectorArgument
+C16010_CheckQueueDeliveryArgumentSign:
+    bmi C16025_ResolveQueuedDeliveryOrPickupItem
+C16012_QueueDeliverySourceSelectorArgument:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5FF7
-    bra C1607E_C1575D_TestEquippedItemPresenceForTextCommand_L607E
-C16025_C1575D_TestEquippedItemPresenceForTextCommand_L6025:
-    lda $97BA
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
+    lda.w #QueueDeliveryOrPickupItemCallback
+    bra C1607E_ReturnQueueDeliveryOrPickupItem
+C16025_ResolveQueuedDeliveryOrPickupItem:
+    lda DeferredCommandByteQueue
     and.w #$00FF
-    beq C1603C_C1575D_TestEquippedItemPresenceForTextCommand_L603C
-    sep #$20
-    lda $97BA
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    bra C1603F_C1575D_TestEquippedItemPresenceForTextCommand_L603F
-C1603C_C1575D_TestEquippedItemPresenceForTextCommand_L603C:
-    jsr $040A
-C1603F_C1575D_TestEquippedItemPresenceForTextCommand_L603F:
-    rep #$20
-    lda $06
-    sta $04
-    ldx $10
-    beq C1604C_C1575D_TestEquippedItemPresenceForTextCommand_L604C
+    beq C1603C_LoadDeliverySourceSelectorFromTextContext
+    sep #AccumulatorWidthFlag
+    lda DeferredCommandByteQueue
+    sta WorkValueLo
+    stz WorkValueByte1
+    stz WorkValueHi
+    stz WorkValueByte3
+    bra C1603F_ResolveDeliveryItemArgument
+C1603C_LoadDeliverySourceSelectorFromTextContext:
+    jsr C1040A_LoadPrimaryInteractionContextPointer
+C1603F_ResolveDeliveryItemArgument:
+    rep #AccumulatorWidthFlag
+    lda WorkValueLo
+    sta QueuedItemOwnerOrSource
+    ldx DeferredTextCommandArgument
+    beq C1604C_ReadDeliveryItemArgumentFromTextCommand
     txa
-    bra C16051_C1575D_TestEquippedItemPresenceForTextCommand_L6051
-C1604C_C1575D_TestEquippedItemPresenceForTextCommand_L604C:
-    jsr $03DC
-    lda $06
-C16051_C1575D_TestEquippedItemPresenceForTextCommand_L6051:
+    bra C16051_RemoveAndQueueDeliveryItem
+C1604C_ReadDeliveryItemArgumentFromTextCommand:
+    jsr C103DC_ReadTextCommandArgumentWord
+    lda WorkValueLo
+C16051_RemoveAndQueueDeliveryItem:
     tay
-    sty $0E
-    lda $04
-    cmp.w #$00FF
-    bne C16063_C1575D_TestEquippedItemPresenceForTextCommand_L6063
+    sty QueueScanIndex
+    lda QueuedItemOwnerOrSource
+    cmp.w #EscargoStorageSourceSelector
+    bne C16063_RemoveDeliveryItemFromCharacterInventory
     tya
-    jsr $91B0
-    sta $02
-    bra C16074_C1575D_TestEquippedItemPresenceForTextCommand_L6074
-C16063_C1575D_TestEquippedItemPresenceForTextCommand_L6063:
+    jsr C191B0_RemovePendingItemIdAtIndex
+    sta QueuedItemId
+    bra C16074_StoreDeliveryOrPickupQueueEntry
+C16063_RemoveDeliveryItemFromCharacterInventory:
     tyx
-    lda $04
-    jsl $C3E977
-    sta $02
-    ldy $0E
+    lda QueuedItemOwnerOrSource
+    jsl C3E977_ReadCharacterInventorySlotByte
+    sta QueuedItemId
+    ldy QueueScanIndex
     tyx
-    lda $04
-    jsr $8C27
-C16074_C1575D_TestEquippedItemPresenceForTextCommand_L6074:
-    ldx $02
-    lda $04
-    jsr.w C15FB1_C1575D_TestEquippedItemPresenceForTextCommand_L5FB1
-    lda.w #$0000
-C1607E_C1575D_TestEquippedItemPresenceForTextCommand_L607E:
+    lda QueuedItemOwnerOrSource
+    jsr C18C27_RemoveItemFromCharacterInventory
+C16074_StoreDeliveryOrPickupQueueEntry:
+    ldx QueuedItemId
+    lda QueuedItemOwnerOrSource
+    jsr.w C15FB1_StoreDeliveryOrPickupQueueEntry
+    lda.w #ZeroWord
+C1607E_ReturnQueueDeliveryOrPickupItem:
     pld
     rts
 CC_19_1D:
 C16080_ReadDeliveryOrPickupItemInfoTextCommand = CC_19_1D
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #TextCommandTwoArgumentFrameOffset
     tcd
     pla
-    stx $02
-    lda.w #$0001
+    stx QueuedItemId
+    lda.w #DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
-    bvc C16099_C1575D_TestEquippedItemPresenceForTextCommand_L6099
-    bpl C160AF_C1575D_TestEquippedItemPresenceForTextCommand_L60AF
-    bra C1609B_C1575D_TestEquippedItemPresenceForTextCommand_L609B
-C16099_C1575D_TestEquippedItemPresenceForTextCommand_L6099:
-    bmi C160AF_C1575D_TestEquippedItemPresenceForTextCommand_L60AF
-C1609B_C1575D_TestEquippedItemPresenceForTextCommand_L609B:
-    lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$6080
-    bra C16122_C1575D_TestEquippedItemPresenceForTextCommand_L6122
-C160AF_C1575D_TestEquippedItemPresenceForTextCommand_L60AF:
-    lda $97BA
+    sbc DeferredCommandQueueCount
+    bvc C16099_CheckReadDeliveryQueueArgumentSign
+    bpl C160AF_ReadDeliveryOrPickupQueueEntry
+    bra C1609B_QueueDeliveryReadIndexArgument
+C16099_CheckReadDeliveryQueueArgumentSign:
+    bmi C160AF_ReadDeliveryOrPickupQueueEntry
+C1609B_QueueDeliveryReadIndexArgument:
+    lda QueuedItemId
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
+    lda.w #ReadDeliveryOrPickupItemInfoCallback
+    bra C16122_ReturnReadDeliveryOrPickupItemInfo
+C160AF_ReadDeliveryOrPickupQueueEntry:
+    lda DeferredCommandByteQueue
     and.w #$00FF
     tax
-    beq C160BB_C1575D_TestEquippedItemPresenceForTextCommand_L60BB
+    beq C160BB_LoadDeliveryQueueIndexFromTextContext
     txa
-    bra C160C0_C1575D_TestEquippedItemPresenceForTextCommand_L60C0
-C160BB_C1575D_TestEquippedItemPresenceForTextCommand_L60BB:
-    jsr $040A
-    lda $06
-C160C0_C1575D_TestEquippedItemPresenceForTextCommand_L60C0:
+    bra C160C0_LoadDeliveryQueueEntryPointers
+C160BB_LoadDeliveryQueueIndexFromTextContext:
+    jsr C1040A_LoadPrimaryInteractionContextPointer
+    lda WorkValueLo
+C160C0_LoadDeliveryQueueEntryPointers:
     dec A
     clc
-    adc.w #$97F5
-    sta $14
+    adc.w #DeliveryQueueEntryBase
+    sta DeliveryQueueOwnerInfoPointer
     clc
-    adc.w #$00B9
+    adc.w #DeliveryQueueItemOffset
     tay
-    sty $12
-    sep #$20
+    sty DeliveryQueueItemInfoPointer
+    sep #AccumulatorWidthFlag
     lda $0000,Y
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda $14
+    sta WorkValueLo
+    stz WorkValueByte1
+    stz WorkValueHi
+    stz WorkValueByte3
+    rep #AccumulatorWidthFlag
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    lda DeliveryQueueOwnerInfoPointer
     clc
-    adc.w #$00B6
+    adc.w #DeliveryQueueOwnerOffset
     tax
-    stx $14
-    sep #$20
+    stx DeliveryQueueOwnerInfoPointer
+    sep #AccumulatorWidthFlag
     lda $0000,X
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $0489
-    lda $02
-    beq C1611D_C1575D_TestEquippedItemPresenceForTextCommand_L611D
-    sep #$20
-    lda.b #$00
-    ldx $14
+    sta WorkValueLo
+    stz WorkValueByte1
+    stz WorkValueHi
+    stz WorkValueByte3
+    rep #AccumulatorWidthFlag
+    lda WorkValueLo
+    sta QueueScanIndex
+    lda WorkValueHi
+    sta DeferredTextCommandArgument
+    jsr C10489_InstallSecondaryInteractionContextPointer
+    lda QueuedItemId
+    beq C1611D_ReturnDeliveryQueueEntryInfo
+    sep #AccumulatorWidthFlag
+    lda.b #ZeroByte
+    ldx DeliveryQueueOwnerInfoPointer
     sta $0000,X
-    ldy $12
+    ldy DeliveryQueueItemInfoPointer
     sta $0000,Y
-C1611D_C1575D_TestEquippedItemPresenceForTextCommand_L611D:
-    rep #$20
-    lda.w #$0000
-C16122_C1575D_TestEquippedItemPresenceForTextCommand_L6122:
+C1611D_ReturnDeliveryQueueEntryInfo:
+    rep #AccumulatorWidthFlag
+    lda.w #ZeroWord
+C16122_ReturnReadDeliveryOrPickupItemInfo:
     pld
     rts
 CC_1D_18:

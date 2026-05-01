@@ -77,7 +77,7 @@ Parser/runtime cross-check looks healthy here: the current exposed script set hi
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 
@@ -282,6 +282,10 @@ Confidence:
 Why:
 
 - local body `C1:5FF7` removes an item either from Escargo storage (`0xFF` path) or from a character inventory slot through [C1:8C27](notes/inventory-slot-removal-helper-c18c27.md), then hands the result to queue helper `C1:5FB1`
+- the source now names the three-entry delivery queue rooted at `$97F5`,
+  the owner/source byte side at `+0xB6`, the item byte side at `+0xB9`, and
+  the `C1:91B0` pending-item versus `C3:E977`/`C1:8C27` inventory-removal
+  split
 - exact parsed hits cluster entirely in `ESHOP3`
 
 ### `0x19 1D`
@@ -297,6 +301,8 @@ Confidence:
 Why:
 
 - local body `C1:6080` resolves an entry index, reads paired queue fields near `97F5+`, stages one through `C1:045D` and the other through `C1:0489`, and optionally clears the queue slot
+- the source now names the primary item byte and secondary owner/source byte
+  staging outputs, plus the optional queue-slot clear path after readback
 - exact parsed hits occur entirely in `ESHOP3`
 
 ### `0x19 1E`

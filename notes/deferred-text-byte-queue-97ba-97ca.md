@@ -15,6 +15,8 @@ The strongest local anchors are:
 - `C1:42AD`
 - `C14070`
 - `C1:7796` for the loaded-string companion-byte collector path
+- `C1:5FF7` / `C1:6080` for deferred one-byte arguments feeding the
+  delivery/pickup queue commands
 
 ## Producers
 
@@ -33,6 +35,11 @@ same small byte queue shape. `C1:7796` stores up to three companion bytes in
 `97BA..97BC` using `97CA` as the fill count, then packs those bytes together
 with the final incoming byte before calling the shared text-entry installer
 `C1:13D1`.
+
+The delivery/pickup helpers use the same deferred-byte mechanism more narrowly:
+`C1:5FF7` queues its source selector before resolving and storing an item, and
+`C1:6080` queues the requested delivery entry index before reading the paired
+queue fields back into primary and secondary text-context output slots.
 
 ## Selector helper
 

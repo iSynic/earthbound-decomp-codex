@@ -144,3 +144,8 @@ This planning pass is documentation-only.
   `$97D7/$97CA` loaded-string buffer/count, `$97BA..$97BC` companion-byte queue,
   packed companion metadata path into `C1:13D1`, and the `0x19 14` Escargo
   storage byte staging path.
+- 2026-05-01: C1 delivery/pickup queue polish landed as byte-neutral source
+  aliases. The promoted contracts name the `0x19 1C/1D` deferred argument
+  bytes, three-entry queue rooted at `$97F5`, owner/source and item-byte side
+  fields, pending-item versus inventory-removal paths, and primary/secondary
+  text-context output staging.
