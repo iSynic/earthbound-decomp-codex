@@ -11,64 +11,81 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C113D1_InstallTextEntryRecord = $13D1
+
+LoadedStringSourcePointerLo = $06
+LoadedStringSourcePointerHi = $08
+TextEntrySourcePointerLo = $0E
+TextEntrySourcePointerHi = $10
+TextEntryCompanionPointerLo = $12
+TextEntryCompanionPointerHi = $14
+LoadedStringByteBuffer = $97D7
+LoadedStringQueueCount = $97CA
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+LoadedStringCollectorFrameOffset = $FFEA
+LoadedStringControlTerminateForCompanion = $0001
+LoadedStringControlInstallImmediate = $0002
+ContinueLoadedStringInlineCollector = $7889
+FinalizeLoadedStringWithCompanionPointer = $7796
+ZeroWord = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:7889
 
 C17889_ContinueLoadedStringInlineCollector:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #LoadedStringCollectorFrameOffset
     tcd
     pla
     txa
-    cmp.w #$0001
-    beq C178A0_ContinueLoadedStringInlineCollector_L78A0
-    cmp.w #$0002
-    beq C178B2_ContinueLoadedStringInlineCollector_L78B2
-    bra C178E5_ContinueLoadedStringInlineCollector_L78E5
-C178A0_ContinueLoadedStringInlineCollector_L78A0:
-    ldx $97CA
-    sep #$20
-    stz $97D7,X
-    rep #$20
-    stz $97CA
-    lda.w #$7796
-    bra C178F5_ContinueLoadedStringInlineCollector_L78F5
-C178B2_ContinueLoadedStringInlineCollector_L78B2:
-    ldx $97CA
-    sep #$20
-    stz $97D7,X
-    rep #$20
-    lda.w #$97D7
-    sta $06
+    cmp.w #LoadedStringControlTerminateForCompanion
+    beq C178A0_TerminateLoadedStringAndContinueWithCompanion
+    cmp.w #LoadedStringControlInstallImmediate
+    beq C178B2_TerminateAndInstallLoadedStringEntry
+    bra C178E5_AppendLoadedStringInlineByte
+C178A0_TerminateLoadedStringAndContinueWithCompanion:
+    ldx LoadedStringQueueCount
+    sep #AccumulatorWidthFlag
+    stz LoadedStringByteBuffer,X
+    rep #AccumulatorWidthFlag
+    stz LoadedStringQueueCount
+    lda.w #FinalizeLoadedStringWithCompanionPointer
+    bra C178F5_ReturnLoadedStringCollectorNextCallback
+C178B2_TerminateAndInstallLoadedStringEntry:
+    ldx LoadedStringQueueCount
+    sep #AccumulatorWidthFlag
+    stz LoadedStringByteBuffer,X
+    rep #AccumulatorWidthFlag
+    lda.w #LoadedStringByteBuffer
+    sta LoadedStringSourcePointerLo
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
-    sta $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0000
-    sta $12
-    lda.w #$0000
-    sta $14
-    jsr $13D1
-    lda.w #$0000
-    bra C178F5_ContinueLoadedStringInlineCollector_L78F5
-C178E5_ContinueLoadedStringInlineCollector_L78E5:
-    sep #$20
-    ldx $97CA
-    sta $97D7,X
-    rep #$20
-    inc $97CA
-    lda.w #$7889
-C178F5_ContinueLoadedStringInlineCollector_L78F5:
+    sta LoadedStringSourcePointerHi
+    stz LoadedStringSourcePointerHi+1
+    rep #AccumulatorWidthFlag
+    lda LoadedStringSourcePointerLo
+    sta TextEntrySourcePointerLo
+    lda LoadedStringSourcePointerHi
+    sta TextEntrySourcePointerHi
+    lda.w #ZeroWord
+    sta TextEntryCompanionPointerLo
+    lda.w #ZeroWord
+    sta TextEntryCompanionPointerHi
+    jsr C113D1_InstallTextEntryRecord
+    lda.w #ZeroWord
+    bra C178F5_ReturnLoadedStringCollectorNextCallback
+C178E5_AppendLoadedStringInlineByte:
+    sep #AccumulatorWidthFlag
+    ldx LoadedStringQueueCount
+    sta LoadedStringByteBuffer,X
+    rep #AccumulatorWidthFlag
+    inc LoadedStringQueueCount
+    lda.w #ContinueLoadedStringInlineCollector
+C178F5_ReturnLoadedStringCollectorNextCallback:
     pld
     rts

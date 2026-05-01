@@ -14,6 +14,7 @@ The strongest local anchors are:
 - `C1:4265`
 - `C1:42AD`
 - `C14070`
+- `C1:7796` for the loaded-string companion-byte collector path
 
 ## Producers
 
@@ -26,6 +27,12 @@ The strongest local anchors are:
 If `97CA` is already nonzero, they take a different immediate path instead of queueing another deferred byte.
 
 That makes `97BA` look like queued byte payload storage, and `97CA` like the current queued-byte count.
+
+The loaded-string collector now gives a second named source-backed use of the
+same small byte queue shape. `C1:7796` stores up to three companion bytes in
+`97BA..97BC` using `97CA` as the fill count, then packs those bytes together
+with the final incoming byte before calling the shared text-entry installer
+`C1:13D1`.
 
 ## Selector helper
 

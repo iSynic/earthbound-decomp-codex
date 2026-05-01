@@ -77,7 +77,7 @@ Parser/runtime cross-check looks healthy here: the current exposed script set hi
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 
@@ -96,6 +96,10 @@ Why:
 - abundant exact parsed hits
 - local callback root `C1:78F7`
 - `C1:78F7` and the small state machine at `C1:7889` now look like a queued loader over `$97D7/$97CA`
+- the source now names `$97D7` as the loaded-string byte buffer, `$97CA` as
+  the collector count, `C1:7889` as the continuation callback, and `C1:7796`
+  as the companion-byte finalizer that packs three queued bytes plus the final
+  byte before calling `C1:13D1`
 - its flush-side branch at `C1:78B2` null-terminates the queue and hands it to [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md), which installs a live `89D4` text-entry record rather than a stable selector buffer
 - [text-entry-builder-c113d1-89d4.md](notes/text-entry-builder-c113d1-89d4.md) still should be treated as adjacent shared infrastructure rather than the defining source of selector-`2` semantics
 - the first clean local write-side bridge into selector `2` is now naming-specific:
@@ -181,6 +185,8 @@ Why:
 
 - live ordinary dispatcher includes it directly
 - local body at `C1:7A96` reads from `$984B` using the value from `C1:0400`, then stages the result through `C1:045D` and increments the secondary-memory side through `C1:042E`
+- the source now names that staging path as an Escargo storage item-byte read
+  into the ordinary display-text source pointer pair
 - exact parsed hits appear only in `ESHOP3`, which is exactly where Escargo storage enumeration belongs
 
 ### `0x19 16`

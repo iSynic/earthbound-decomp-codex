@@ -16022,130 +16022,158 @@ C17780_ResolveStatisticSelectorTextValue:
 hirom
 org $C17796
 
+!C09246_ShiftLeft32ByY = $C09246
+!C113D1_InstallTextEntryRecord = $13D1
+!PackedCompanionValueLo = $06
+!PackedCompanionValueHi = $08
+!PackedCompanionScratchLo = $0A
+!PackedCompanionScratchHi = $0C
+!TextEntrySourcePointerLo = $0E
+!TextEntrySourcePointerHi = $10
+!TextEntryCompanionPointerLo = $12
+!TextEntryCompanionPointerHi = $14
+!PackedCompanionResultLo = $16
+!PackedCompanionResultHi = $18
+!CurrentCompanionByte = $1A
+!LoadedStringCompanionBytes = $97BA
+!LoadedStringCompanionByte1 = $97BB
+!LoadedStringCompanionByte2 = $97BC
+!LoadedStringByteBuffer = $97D7
+!LoadedStringQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!IndexWidthFlag = $10
+!AccumulatorWidthFlag = $20
+!LoadedStringCompanionFrameOffset = $FFE4
+!LoadedStringCompanionByteLimit = $0003
+!ContinueLoadedStringCompanionCollector = $7796
+!ShiftBits24 = $18
+!ShiftBits16 = $10
+!ShiftBits8 = $08
+!ZeroWord = $0000
 C17796_FinalizeLoadedStringWithCompanionPointer:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFE4
+    adc.w #!LoadedStringCompanionFrameOffset
     tcd
     pla
     txa
-    sta $1A
-    lda.w #$0003
+    sta !CurrentCompanionByte
+    lda.w #!LoadedStringCompanionByteLimit
     clc
-    sbc $97CA
-    bvc C177B0_FinalizeLoadedStringWithCompanionPointer_L77B0
-    bpl C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7
-    bra C177B2_FinalizeLoadedStringWithCompanionPointer_L77B2
-C177B0_FinalizeLoadedStringWithCompanionPointer_L77B0:
-    bmi C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7
-C177B2_FinalizeLoadedStringWithCompanionPointer_L77B2:
-    lda $1A
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$7796
-    jmp.w C17887_FinalizeLoadedStringWithCompanionPointer_L7887
-C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7:
-    sep #$10
-    ldy.b #$18
-    lda $1A
-    sta $06
-    stz $08
-    jsl $C09246
-    lda $08
+    sbc !LoadedStringQueueCount
+    bvc C177B0_CheckLoadedStringCompanionQueueSign
+    bpl C177C7_PackLoadedStringCompanionBytes
+    bra C177B2_QueueLoadedStringCompanionByte
+C177B0_CheckLoadedStringCompanionQueueSign:
+    bmi C177C7_PackLoadedStringCompanionBytes
+C177B2_QueueLoadedStringCompanionByte:
+    lda !CurrentCompanionByte
+    sep #!AccumulatorWidthFlag
+    ldx !LoadedStringQueueCount
+    sta !LoadedStringCompanionBytes,X
+    rep #!AccumulatorWidthFlag
+    inc !LoadedStringQueueCount
+    lda.w #!ContinueLoadedStringCompanionCollector
+    jmp.w C17887_ReturnLoadedStringCompanionCollector
+C177C7_PackLoadedStringCompanionBytes:
+    sep #!IndexWidthFlag
+    ldy.b #!ShiftBits24
+    lda !CurrentCompanionByte
+    sta !PackedCompanionValueLo
+    stz !PackedCompanionValueHi
+    jsl !C09246_ShiftLeft32ByY
+    lda !PackedCompanionValueHi
     pha
-    lda $06
+    lda !PackedCompanionValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    jsl $C09246
-    lda $08
+    ldy.b #!ShiftBits16
+    sep #!AccumulatorWidthFlag
+    lda !LoadedStringCompanionByte2
+    sta !PackedCompanionValueLo
+    stz !PackedCompanionValueLo+1
+    stz !PackedCompanionValueHi
+    stz !PackedCompanionValueHi+1
+    rep #!AccumulatorWidthFlag
+    jsl !C09246_ShiftLeft32ByY
+    lda !PackedCompanionValueHi
     pha
-    lda $06
+    lda !PackedCompanionValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    jsl $C09246
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    ldy.b #!ShiftBits8
+    sep #!AccumulatorWidthFlag
+    lda !LoadedStringCompanionByte1
+    sta !PackedCompanionValueLo
+    stz !PackedCompanionValueLo+1
+    stz !PackedCompanionValueHi
+    stz !PackedCompanionValueHi+1
+    rep #!AccumulatorWidthFlag
+    jsl !C09246_ShiftLeft32ByY
+    lda !PackedCompanionValueLo
+    sta !PackedCompanionScratchLo
+    lda !PackedCompanionValueHi
+    sta !PackedCompanionScratchHi
+    sep #!AccumulatorWidthFlag
+    lda !LoadedStringCompanionBytes
+    sta !PackedCompanionValueLo
+    stz !PackedCompanionValueLo+1
+    stz !PackedCompanionValueHi
+    stz !PackedCompanionValueHi+1
+    rep #!AccumulatorWidthFlag
+    lda !PackedCompanionValueLo
+    ora !PackedCompanionScratchLo
+    sta !PackedCompanionValueLo
+    lda !PackedCompanionValueHi
+    ora !PackedCompanionScratchHi
+    sta !PackedCompanionValueHi
     pla
-    sta $0A
+    sta !PackedCompanionScratchLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !PackedCompanionScratchHi
+    lda !PackedCompanionValueLo
+    ora !PackedCompanionScratchLo
+    sta !PackedCompanionValueLo
+    lda !PackedCompanionValueHi
+    ora !PackedCompanionScratchHi
+    sta !PackedCompanionValueHi
     pla
-    sta $0A
+    sta !PackedCompanionScratchLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $16
-    lda $08
-    sta $18
-    lda.w #$97D7
-    sta $06
+    sta !PackedCompanionScratchHi
+    lda !PackedCompanionValueLo
+    ora !PackedCompanionScratchLo
+    sta !PackedCompanionValueLo
+    lda !PackedCompanionValueHi
+    ora !PackedCompanionScratchHi
+    sta !PackedCompanionValueHi
+    lda !PackedCompanionValueLo
+    sta !PackedCompanionResultLo
+    lda !PackedCompanionValueHi
+    sta !PackedCompanionResultHi
+    lda.w #!LoadedStringByteBuffer
+    sta !PackedCompanionValueLo
     phb
-    sep #$20
+    sep #!AccumulatorWidthFlag
     pla
-    sta $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda $16
-    sta $06
-    lda $18
-    sta $08
-    lda $06
-    sta $12
-    lda $08
-    sta $14
-    jsr $13D1
-    lda.w #$0000
-C17887_FinalizeLoadedStringWithCompanionPointer_L7887:
+    sta !PackedCompanionValueHi
+    stz !PackedCompanionValueHi+1
+    rep #!AccumulatorWidthFlag
+    lda !PackedCompanionValueLo
+    sta !TextEntrySourcePointerLo
+    lda !PackedCompanionValueHi
+    sta !TextEntrySourcePointerHi
+    lda !PackedCompanionResultLo
+    sta !PackedCompanionValueLo
+    lda !PackedCompanionResultHi
+    sta !PackedCompanionValueHi
+    lda !PackedCompanionValueLo
+    sta !TextEntryCompanionPointerLo
+    lda !PackedCompanionValueHi
+    sta !TextEntryCompanionPointerHi
+    jsr !C113D1_InstallTextEntryRecord
+    lda.w #!ZeroWord
+C17887_ReturnLoadedStringCompanionCollector:
     pld
     rts
 
@@ -16157,60 +16185,77 @@ C17887_FinalizeLoadedStringWithCompanionPointer_L7887:
 hirom
 org $C17889
 
+!C113D1_InstallTextEntryRecord = $13D1
+!LoadedStringSourcePointerLo = $06
+!LoadedStringSourcePointerHi = $08
+!TextEntrySourcePointerLo = $0E
+!TextEntrySourcePointerHi = $10
+!TextEntryCompanionPointerLo = $12
+!TextEntryCompanionPointerHi = $14
+!LoadedStringByteBuffer = $97D7
+!LoadedStringQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!LoadedStringCollectorFrameOffset = $FFEA
+!LoadedStringControlTerminateForCompanion = $0001
+!LoadedStringControlInstallImmediate = $0002
+!ContinueLoadedStringInlineCollector = $7889
+!FinalizeLoadedStringWithCompanionPointer = $7796
+!ZeroWord = $0000
 C17889_ContinueLoadedStringInlineCollector:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!LoadedStringCollectorFrameOffset
     tcd
     pla
     txa
-    cmp.w #$0001
-    beq C178A0_ContinueLoadedStringInlineCollector_L78A0
-    cmp.w #$0002
-    beq C178B2_ContinueLoadedStringInlineCollector_L78B2
-    bra C178E5_ContinueLoadedStringInlineCollector_L78E5
-C178A0_ContinueLoadedStringInlineCollector_L78A0:
-    ldx $97CA
-    sep #$20
-    stz $97D7,X
-    rep #$20
-    stz $97CA
-    lda.w #$7796
-    bra C178F5_ContinueLoadedStringInlineCollector_L78F5
-C178B2_ContinueLoadedStringInlineCollector_L78B2:
-    ldx $97CA
-    sep #$20
-    stz $97D7,X
-    rep #$20
-    lda.w #$97D7
-    sta $06
+    cmp.w #!LoadedStringControlTerminateForCompanion
+    beq C178A0_TerminateLoadedStringAndContinueWithCompanion
+    cmp.w #!LoadedStringControlInstallImmediate
+    beq C178B2_TerminateAndInstallLoadedStringEntry
+    bra C178E5_AppendLoadedStringInlineByte
+C178A0_TerminateLoadedStringAndContinueWithCompanion:
+    ldx !LoadedStringQueueCount
+    sep #!AccumulatorWidthFlag
+    stz !LoadedStringByteBuffer,X
+    rep #!AccumulatorWidthFlag
+    stz !LoadedStringQueueCount
+    lda.w #!FinalizeLoadedStringWithCompanionPointer
+    bra C178F5_ReturnLoadedStringCollectorNextCallback
+C178B2_TerminateAndInstallLoadedStringEntry:
+    ldx !LoadedStringQueueCount
+    sep #!AccumulatorWidthFlag
+    stz !LoadedStringByteBuffer,X
+    rep #!AccumulatorWidthFlag
+    lda.w #!LoadedStringByteBuffer
+    sta !LoadedStringSourcePointerLo
     phb
-    sep #$20
+    sep #!AccumulatorWidthFlag
     pla
-    sta $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0000
-    sta $12
-    lda.w #$0000
-    sta $14
-    jsr $13D1
-    lda.w #$0000
-    bra C178F5_ContinueLoadedStringInlineCollector_L78F5
-C178E5_ContinueLoadedStringInlineCollector_L78E5:
-    sep #$20
-    ldx $97CA
-    sta $97D7,X
-    rep #$20
-    inc $97CA
-    lda.w #$7889
-C178F5_ContinueLoadedStringInlineCollector_L78F5:
+    sta !LoadedStringSourcePointerHi
+    stz !LoadedStringSourcePointerHi+1
+    rep #!AccumulatorWidthFlag
+    lda !LoadedStringSourcePointerLo
+    sta !TextEntrySourcePointerLo
+    lda !LoadedStringSourcePointerHi
+    sta !TextEntrySourcePointerHi
+    lda.w #!ZeroWord
+    sta !TextEntryCompanionPointerLo
+    lda.w #!ZeroWord
+    sta !TextEntryCompanionPointerHi
+    jsr !C113D1_InstallTextEntryRecord
+    lda.w #!ZeroWord
+    bra C178F5_ReturnLoadedStringCollectorNextCallback
+C178E5_AppendLoadedStringInlineByte:
+    sep #!AccumulatorWidthFlag
+    ldx !LoadedStringQueueCount
+    sta !LoadedStringByteBuffer,X
+    rep #!AccumulatorWidthFlag
+    inc !LoadedStringQueueCount
+    lda.w #!ContinueLoadedStringInlineCollector
+C178F5_ReturnLoadedStringCollectorNextCallback:
     pld
     rts
 
@@ -16222,22 +16267,65 @@ C178F5_ContinueLoadedStringInlineCollector_L78F5:
 hirom
 org $C178F7
 
+!C10400_GetCurrentTextContextWorkmem = $0400
+!C1042E_IncrementCurrentTextContextWorkmem = $042E
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C11383_ClearLoadedTextStrings = $1383
+!LoadedStringValueLo = $06
+!LoadedStringValueByte1 = $07
+!LoadedStringValueHi = $08
+!LoadedStringValueByte3 = $09
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!LoadedStringByteBuffer = $97D7
+!LoadedStringQueueCount = $97CA
+!EscargoStorageItemBytes = $984B
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!TextCommandFamilyFrameOffset = $FFEE
+!TextCommandCallbackFrameOffset = $FFF0
+!ContinueLoadedStringInlineCollector = $7889
+!StartLoadedStringInlineCollector = $78F7
+!GetCharacterNumberHelper = $4723
+!GetCharacterNameLetterHelper = $47CC
+!InflictStatusHelper = $506F
+!GetCharacterStatusByteHelper = $5007
+!GetExperienceNeededToLevelUpHelper = $5384
+!GetInventorySlotItemHelper = $597F
+!GetEscargoStorageItemHelper = $5B0E
+!GetLoadedStringCountHelper = $5C36
+!QueueDeliveryPickupItemHelper = $5FF7
+!ReadDeliveryPickupQueueItemHelper = $6080
+!LoadPointerSubstitutionSlotHelper = $7AE3
+!LoadByteSubstitutionSlotHelper = $7AF3
+!LoadMushroomizedSelectorByteHelper = $7B0D
+!DisplayTextFoodCategoryHelperPointer = $7B29
+!DisplayTextCharacterToObjectDirectionHelperPointer = $7B2E
+!DisplayTextNpcToObjectDirectionHelperPointer = $7B33
+!DisplayTextGeneratedSpriteDirectionHelperPointer = $7B38
+!DisplayTextFoodCondimentHelperPointer = $7B3D
+!DisplayTextTransitionLandingSnapshotHelperPointer = $7B42
+!DisplayTextStatisticSelectorValueHelperPointer = $7B47
+!DisplayTextStatisticSelectorCharacterHelperPointer = $7B4C
+!DisplayTextSubstitutionSharedContinuation = $7B51
+!ReturnDisplayTextStaticPointer = $7B54
+!ZeroWord = $0000
 CC_19_02:
 !C178F7_StartLoadedStringInlineCollector = CC_19_02
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
-    sep #$20
-    ldx $97CA
-    sta $97D7,X
-    rep #$20
-    inc $97CA
-    lda.w #$7889
+    sep #!AccumulatorWidthFlag
+    ldx !LoadedStringQueueCount
+    sta !LoadedStringByteBuffer,X
+    rep #!AccumulatorWidthFlag
+    inc !LoadedStringQueueCount
+    lda.w #!ContinueLoadedStringInlineCollector
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TextCommandCallbackFrameOffset
     tcd
     pla
     tay
@@ -16316,11 +16404,11 @@ C179A5_StartLoadedStringInlineCollector_L79A5:
 C179A8_StartLoadedStringInlineCollector_L79A8:
     pld
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommandFamilyFrameOffset
     tcd
     pla
     txa
@@ -16378,102 +16466,102 @@ C17A15_StartLoadedStringInlineCollector_L7A15:
 C17A1D_StartLoadedStringInlineCollector_L7A1D:
     cmp.w #$001E
     bne C17A25_StartLoadedStringInlineCollector_L7A25
-    jmp $7AE3
+    jmp !LoadPointerSubstitutionSlotHelper
 C17A25_StartLoadedStringInlineCollector_L7A25:
     cmp.w #$001F
     bne C17A2D_StartLoadedStringInlineCollector_L7A2D
-    jmp $7AF3
+    jmp !LoadByteSubstitutionSlotHelper
 C17A2D_StartLoadedStringInlineCollector_L7A2D:
     cmp.w #$0020
     bne C17A35_StartLoadedStringInlineCollector_L7A35
-    jmp $7B0D
+    jmp !LoadMushroomizedSelectorByteHelper
 C17A35_StartLoadedStringInlineCollector_L7A35:
     cmp.w #$0021
     bne C17A3D_StartLoadedStringInlineCollector_L7A3D
-    jmp $7B29
+    jmp !DisplayTextFoodCategoryHelperPointer
 C17A3D_StartLoadedStringInlineCollector_L7A3D:
     cmp.w #$0022
     bne C17A45_StartLoadedStringInlineCollector_L7A45
-    jmp $7B2E
+    jmp !DisplayTextCharacterToObjectDirectionHelperPointer
 C17A45_StartLoadedStringInlineCollector_L7A45:
     cmp.w #$0023
     bne C17A4D_StartLoadedStringInlineCollector_L7A4D
-    jmp $7B33
+    jmp !DisplayTextNpcToObjectDirectionHelperPointer
 C17A4D_StartLoadedStringInlineCollector_L7A4D:
     cmp.w #$0024
     bne C17A55_StartLoadedStringInlineCollector_L7A55
-    jmp $7B38
+    jmp !DisplayTextGeneratedSpriteDirectionHelperPointer
 C17A55_StartLoadedStringInlineCollector_L7A55:
     cmp.w #$0025
     bne C17A5D_StartLoadedStringInlineCollector_L7A5D
-    jmp $7B3D
+    jmp !DisplayTextFoodCondimentHelperPointer
 C17A5D_StartLoadedStringInlineCollector_L7A5D:
     cmp.w #$0026
     bne C17A65_StartLoadedStringInlineCollector_L7A65
-    jmp $7B42
+    jmp !DisplayTextTransitionLandingSnapshotHelperPointer
 C17A65_StartLoadedStringInlineCollector_L7A65:
     cmp.w #$0027
     bne C17A6D_StartLoadedStringInlineCollector_L7A6D
-    jmp $7B47
+    jmp !DisplayTextStatisticSelectorValueHelperPointer
 C17A6D_StartLoadedStringInlineCollector_L7A6D:
     cmp.w #$0028
     bne C17A75_StartLoadedStringInlineCollector_L7A75
-    jmp $7B4C
+    jmp !DisplayTextStatisticSelectorCharacterHelperPointer
 C17A75_StartLoadedStringInlineCollector_L7A75:
-    jmp $7B51
+    jmp !DisplayTextSubstitutionSharedContinuation
 C17A78_StartLoadedStringInlineCollector_L7A78:
-    lda.w #$78F7
-    jmp $7B54
+    lda.w #!StartLoadedStringInlineCollector
+    jmp !ReturnDisplayTextStaticPointer
 C17A7E_StartLoadedStringInlineCollector_L7A7E:
-    jsr $1383
-    jmp $7B51
+    jsr !C11383_ClearLoadedTextStrings
+    jmp !DisplayTextSubstitutionSharedContinuation
 C17A84_StartLoadedStringInlineCollector_L7A84:
-    lda.w #$506F
-    jmp $7B54
+    lda.w #!InflictStatusHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17A8A_StartLoadedStringInlineCollector_L7A8A:
-    lda.w #$4723
-    jmp $7B54
+    lda.w #!GetCharacterNumberHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17A90_StartLoadedStringInlineCollector_L7A90:
-    lda.w #$47CC
-    jmp $7B54
+    lda.w #!GetCharacterNameLetterHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17A96_StartLoadedStringInlineCollector_L7A96:
-    jsr $0400
+    jsr !C10400_GetCurrentTextContextWorkmem
     tax
     dex
-    sep #$20
-    lda $984B,X
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    jsr $042E
-    jmp $7B51
+    sep #!AccumulatorWidthFlag
+    lda !EscargoStorageItemBytes,X
+    sta !LoadedStringValueLo
+    stz !LoadedStringValueByte1
+    stz !LoadedStringValueHi
+    stz !LoadedStringValueByte3
+    rep #!AccumulatorWidthFlag
+    lda !LoadedStringValueLo
+    sta !TextContextSourcePointerLo
+    lda !LoadedStringValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr !C1042E_IncrementCurrentTextContextWorkmem
+    jmp !DisplayTextSubstitutionSharedContinuation
 C17ABB_StartLoadedStringInlineCollector_L7ABB:
-    lda.w #$5007
-    jmp $7B54
+    lda.w #!GetCharacterStatusByteHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17AC1_StartLoadedStringInlineCollector_L7AC1:
-    lda.w #$5384
-    jmp $7B54
+    lda.w #!GetExperienceNeededToLevelUpHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17AC7_StartLoadedStringInlineCollector_L7AC7:
-    lda.w #$597F
-    jmp $7B54
+    lda.w #!GetInventorySlotItemHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17ACD_StartLoadedStringInlineCollector_L7ACD:
-    lda.w #$5B0E
-    jmp $7B54
+    lda.w #!GetEscargoStorageItemHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17AD3_StartLoadedStringInlineCollector_L7AD3:
-    lda.w #$5C36
-    jmp $7B54
+    lda.w #!GetLoadedStringCountHelper
+    jmp !ReturnDisplayTextStaticPointer
 C17AD9_StartLoadedStringInlineCollector_L7AD9:
-    lda.w #$5FF7
+    lda.w #!QueueDeliveryPickupItemHelper
     bra C17B54_ReturnDisplayTextStaticPointer
 C17ADE_StartLoadedStringInlineCollector_L7ADE:
-    lda.w #$6080
+    lda.w #!ReadDeliveryPickupQueueItemHelper
     bra C17B54_ReturnDisplayTextStaticPointer
 
 

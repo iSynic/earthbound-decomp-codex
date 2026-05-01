@@ -11,134 +11,162 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C09246_ShiftLeft32ByY = $C09246
+C113D1_InstallTextEntryRecord = $13D1
+
+PackedCompanionValueLo = $06
+PackedCompanionValueHi = $08
+PackedCompanionScratchLo = $0A
+PackedCompanionScratchHi = $0C
+TextEntrySourcePointerLo = $0E
+TextEntrySourcePointerHi = $10
+TextEntryCompanionPointerLo = $12
+TextEntryCompanionPointerHi = $14
+PackedCompanionResultLo = $16
+PackedCompanionResultHi = $18
+CurrentCompanionByte = $1A
+LoadedStringCompanionBytes = $97BA
+LoadedStringCompanionByte1 = $97BB
+LoadedStringCompanionByte2 = $97BC
+LoadedStringByteBuffer = $97D7
+LoadedStringQueueCount = $97CA
+ProcessorStatus16BitAIndexCarryClear = $31
+IndexWidthFlag = $10
+AccumulatorWidthFlag = $20
+LoadedStringCompanionFrameOffset = $FFE4
+LoadedStringCompanionByteLimit = $0003
+ContinueLoadedStringCompanionCollector = $7796
+ShiftBits24 = $18
+ShiftBits16 = $10
+ShiftBits8 = $08
+ZeroWord = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:7796
 
 C17796_FinalizeLoadedStringWithCompanionPointer:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFE4
+    adc.w #LoadedStringCompanionFrameOffset
     tcd
     pla
     txa
-    sta $1A
-    lda.w #$0003
+    sta CurrentCompanionByte
+    lda.w #LoadedStringCompanionByteLimit
     clc
-    sbc $97CA
-    bvc C177B0_FinalizeLoadedStringWithCompanionPointer_L77B0
-    bpl C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7
-    bra C177B2_FinalizeLoadedStringWithCompanionPointer_L77B2
-C177B0_FinalizeLoadedStringWithCompanionPointer_L77B0:
-    bmi C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7
-C177B2_FinalizeLoadedStringWithCompanionPointer_L77B2:
-    lda $1A
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$7796
-    jmp.w C17887_FinalizeLoadedStringWithCompanionPointer_L7887
-C177C7_FinalizeLoadedStringWithCompanionPointer_L77C7:
-    sep #$10
-    ldy.b #$18
-    lda $1A
-    sta $06
-    stz $08
-    jsl $C09246
-    lda $08
+    sbc LoadedStringQueueCount
+    bvc C177B0_CheckLoadedStringCompanionQueueSign
+    bpl C177C7_PackLoadedStringCompanionBytes
+    bra C177B2_QueueLoadedStringCompanionByte
+C177B0_CheckLoadedStringCompanionQueueSign:
+    bmi C177C7_PackLoadedStringCompanionBytes
+C177B2_QueueLoadedStringCompanionByte:
+    lda CurrentCompanionByte
+    sep #AccumulatorWidthFlag
+    ldx LoadedStringQueueCount
+    sta LoadedStringCompanionBytes,X
+    rep #AccumulatorWidthFlag
+    inc LoadedStringQueueCount
+    lda.w #ContinueLoadedStringCompanionCollector
+    jmp.w C17887_ReturnLoadedStringCompanionCollector
+C177C7_PackLoadedStringCompanionBytes:
+    sep #IndexWidthFlag
+    ldy.b #ShiftBits24
+    lda CurrentCompanionByte
+    sta PackedCompanionValueLo
+    stz PackedCompanionValueHi
+    jsl C09246_ShiftLeft32ByY
+    lda PackedCompanionValueHi
     pha
-    lda $06
+    lda PackedCompanionValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    jsl $C09246
-    lda $08
+    ldy.b #ShiftBits16
+    sep #AccumulatorWidthFlag
+    lda LoadedStringCompanionByte2
+    sta PackedCompanionValueLo
+    stz PackedCompanionValueLo+1
+    stz PackedCompanionValueHi
+    stz PackedCompanionValueHi+1
+    rep #AccumulatorWidthFlag
+    jsl C09246_ShiftLeft32ByY
+    lda PackedCompanionValueHi
     pha
-    lda $06
+    lda PackedCompanionValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    jsl $C09246
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    ldy.b #ShiftBits8
+    sep #AccumulatorWidthFlag
+    lda LoadedStringCompanionByte1
+    sta PackedCompanionValueLo
+    stz PackedCompanionValueLo+1
+    stz PackedCompanionValueHi
+    stz PackedCompanionValueHi+1
+    rep #AccumulatorWidthFlag
+    jsl C09246_ShiftLeft32ByY
+    lda PackedCompanionValueLo
+    sta PackedCompanionScratchLo
+    lda PackedCompanionValueHi
+    sta PackedCompanionScratchHi
+    sep #AccumulatorWidthFlag
+    lda LoadedStringCompanionBytes
+    sta PackedCompanionValueLo
+    stz PackedCompanionValueLo+1
+    stz PackedCompanionValueHi
+    stz PackedCompanionValueHi+1
+    rep #AccumulatorWidthFlag
+    lda PackedCompanionValueLo
+    ora PackedCompanionScratchLo
+    sta PackedCompanionValueLo
+    lda PackedCompanionValueHi
+    ora PackedCompanionScratchHi
+    sta PackedCompanionValueHi
     pla
-    sta $0A
+    sta PackedCompanionScratchLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta PackedCompanionScratchHi
+    lda PackedCompanionValueLo
+    ora PackedCompanionScratchLo
+    sta PackedCompanionValueLo
+    lda PackedCompanionValueHi
+    ora PackedCompanionScratchHi
+    sta PackedCompanionValueHi
     pla
-    sta $0A
+    sta PackedCompanionScratchLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $16
-    lda $08
-    sta $18
-    lda.w #$97D7
-    sta $06
+    sta PackedCompanionScratchHi
+    lda PackedCompanionValueLo
+    ora PackedCompanionScratchLo
+    sta PackedCompanionValueLo
+    lda PackedCompanionValueHi
+    ora PackedCompanionScratchHi
+    sta PackedCompanionValueHi
+    lda PackedCompanionValueLo
+    sta PackedCompanionResultLo
+    lda PackedCompanionValueHi
+    sta PackedCompanionResultHi
+    lda.w #LoadedStringByteBuffer
+    sta PackedCompanionValueLo
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
-    sta $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda $16
-    sta $06
-    lda $18
-    sta $08
-    lda $06
-    sta $12
-    lda $08
-    sta $14
-    jsr $13D1
-    lda.w #$0000
-C17887_FinalizeLoadedStringWithCompanionPointer_L7887:
+    sta PackedCompanionValueHi
+    stz PackedCompanionValueHi+1
+    rep #AccumulatorWidthFlag
+    lda PackedCompanionValueLo
+    sta TextEntrySourcePointerLo
+    lda PackedCompanionValueHi
+    sta TextEntrySourcePointerHi
+    lda PackedCompanionResultLo
+    sta PackedCompanionValueLo
+    lda PackedCompanionResultHi
+    sta PackedCompanionValueHi
+    lda PackedCompanionValueLo
+    sta TextEntryCompanionPointerLo
+    lda PackedCompanionValueHi
+    sta TextEntryCompanionPointerHi
+    jsr C113D1_InstallTextEntryRecord
+    lda.w #ZeroWord
+C17887_ReturnLoadedStringCompanionCollector:
     pld
     rts

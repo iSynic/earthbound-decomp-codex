@@ -139,3 +139,8 @@ This planning pass is documentation-only.
   source aliases. The promoted contracts name the `0x19 28` `C4:550F`
   selector-table walk, current text-context character index, out-of-range zero
   result, and display-text staging pair used before `C1:045D`.
+- 2026-05-01: C1 loaded-string collector polish landed as byte-neutral source
+  aliases. The promoted contracts name the `0x19 02` inline byte collector,
+  `$97D7/$97CA` loaded-string buffer/count, `$97BA..$97BC` companion-byte queue,
+  packed companion metadata path into `C1:13D1`, and the `0x19 14` Escargo
+  storage byte staging path.

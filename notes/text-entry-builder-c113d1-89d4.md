@@ -81,6 +81,12 @@ That is stronger and cleaner than treating `$9801` as the generic endpoint of al
 
 The loaded-string side around `C1:7881 / 78DD` also reuses `C1:13D1`, which makes the builder look even more general.
 
+Source polish: the loaded-string collector modules now name the source side
+explicitly. `C1:78F7` and `C1:7889` append inline bytes to `$97D7` using
+`$97CA` as the collector count, while `C1:7796` queues companion bytes in
+`$97BA..$97BC`, packs them with the final byte, and passes `$97D7` plus the
+packed companion word pair to `C1:13D1`.
+
 So the safest current split is:
 
 - `$97D7/$97CA` = queued loaded-string input side

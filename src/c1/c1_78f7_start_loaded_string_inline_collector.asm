@@ -11,27 +11,70 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C10400_GetCurrentTextContextWorkmem = $0400
+C1042E_IncrementCurrentTextContextWorkmem = $042E
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C11383_ClearLoadedTextStrings = $1383
+
+LoadedStringValueLo = $06
+LoadedStringValueByte1 = $07
+LoadedStringValueHi = $08
+LoadedStringValueByte3 = $09
+TextContextSourcePointerLo = $0E
+TextContextSourcePointerHi = $10
+LoadedStringByteBuffer = $97D7
+LoadedStringQueueCount = $97CA
+EscargoStorageItemBytes = $984B
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+TextCommandFamilyFrameOffset = $FFEE
+TextCommandCallbackFrameOffset = $FFF0
+ContinueLoadedStringInlineCollector = $7889
+StartLoadedStringInlineCollector = $78F7
+GetCharacterNumberHelper = $4723
+GetCharacterNameLetterHelper = $47CC
+InflictStatusHelper = $506F
+GetCharacterStatusByteHelper = $5007
+GetExperienceNeededToLevelUpHelper = $5384
+GetInventorySlotItemHelper = $597F
+GetEscargoStorageItemHelper = $5B0E
+GetLoadedStringCountHelper = $5C36
+QueueDeliveryPickupItemHelper = $5FF7
+ReadDeliveryPickupQueueItemHelper = $6080
+LoadPointerSubstitutionSlotHelper = $7AE3
+LoadByteSubstitutionSlotHelper = $7AF3
+LoadMushroomizedSelectorByteHelper = $7B0D
+DisplayTextFoodCategoryHelperPointer = $7B29
+DisplayTextCharacterToObjectDirectionHelperPointer = $7B2E
+DisplayTextNpcToObjectDirectionHelperPointer = $7B33
+DisplayTextGeneratedSpriteDirectionHelperPointer = $7B38
+DisplayTextFoodCondimentHelperPointer = $7B3D
+DisplayTextTransitionLandingSnapshotHelperPointer = $7B42
+DisplayTextStatisticSelectorValueHelperPointer = $7B47
+DisplayTextStatisticSelectorCharacterHelperPointer = $7B4C
+DisplayTextSubstitutionSharedContinuation = $7B51
+ReturnDisplayTextStaticPointer = $7B54
+ZeroWord = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:78F7
 
 CC_19_02:
 C178F7_StartLoadedStringInlineCollector = CC_19_02
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     txa
-    sep #$20
-    ldx $97CA
-    sta $97D7,X
-    rep #$20
-    inc $97CA
-    lda.w #$7889
+    sep #AccumulatorWidthFlag
+    ldx LoadedStringQueueCount
+    sta LoadedStringByteBuffer,X
+    rep #AccumulatorWidthFlag
+    inc LoadedStringQueueCount
+    lda.w #ContinueLoadedStringInlineCollector
     rts
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TextCommandCallbackFrameOffset
     tcd
     pla
     tay
@@ -110,11 +153,11 @@ C179A5_StartLoadedStringInlineCollector_L79A5:
 C179A8_StartLoadedStringInlineCollector_L79A8:
     pld
     rts
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #TextCommandFamilyFrameOffset
     tcd
     pla
     txa
@@ -172,100 +215,100 @@ C17A15_StartLoadedStringInlineCollector_L7A15:
 C17A1D_StartLoadedStringInlineCollector_L7A1D:
     cmp.w #$001E
     bne C17A25_StartLoadedStringInlineCollector_L7A25
-    jmp $7AE3
+    jmp LoadPointerSubstitutionSlotHelper
 C17A25_StartLoadedStringInlineCollector_L7A25:
     cmp.w #$001F
     bne C17A2D_StartLoadedStringInlineCollector_L7A2D
-    jmp $7AF3
+    jmp LoadByteSubstitutionSlotHelper
 C17A2D_StartLoadedStringInlineCollector_L7A2D:
     cmp.w #$0020
     bne C17A35_StartLoadedStringInlineCollector_L7A35
-    jmp $7B0D
+    jmp LoadMushroomizedSelectorByteHelper
 C17A35_StartLoadedStringInlineCollector_L7A35:
     cmp.w #$0021
     bne C17A3D_StartLoadedStringInlineCollector_L7A3D
-    jmp $7B29
+    jmp DisplayTextFoodCategoryHelperPointer
 C17A3D_StartLoadedStringInlineCollector_L7A3D:
     cmp.w #$0022
     bne C17A45_StartLoadedStringInlineCollector_L7A45
-    jmp $7B2E
+    jmp DisplayTextCharacterToObjectDirectionHelperPointer
 C17A45_StartLoadedStringInlineCollector_L7A45:
     cmp.w #$0023
     bne C17A4D_StartLoadedStringInlineCollector_L7A4D
-    jmp $7B33
+    jmp DisplayTextNpcToObjectDirectionHelperPointer
 C17A4D_StartLoadedStringInlineCollector_L7A4D:
     cmp.w #$0024
     bne C17A55_StartLoadedStringInlineCollector_L7A55
-    jmp $7B38
+    jmp DisplayTextGeneratedSpriteDirectionHelperPointer
 C17A55_StartLoadedStringInlineCollector_L7A55:
     cmp.w #$0025
     bne C17A5D_StartLoadedStringInlineCollector_L7A5D
-    jmp $7B3D
+    jmp DisplayTextFoodCondimentHelperPointer
 C17A5D_StartLoadedStringInlineCollector_L7A5D:
     cmp.w #$0026
     bne C17A65_StartLoadedStringInlineCollector_L7A65
-    jmp $7B42
+    jmp DisplayTextTransitionLandingSnapshotHelperPointer
 C17A65_StartLoadedStringInlineCollector_L7A65:
     cmp.w #$0027
     bne C17A6D_StartLoadedStringInlineCollector_L7A6D
-    jmp $7B47
+    jmp DisplayTextStatisticSelectorValueHelperPointer
 C17A6D_StartLoadedStringInlineCollector_L7A6D:
     cmp.w #$0028
     bne C17A75_StartLoadedStringInlineCollector_L7A75
-    jmp $7B4C
+    jmp DisplayTextStatisticSelectorCharacterHelperPointer
 C17A75_StartLoadedStringInlineCollector_L7A75:
-    jmp $7B51
+    jmp DisplayTextSubstitutionSharedContinuation
 C17A78_StartLoadedStringInlineCollector_L7A78:
-    lda.w #$78F7
-    jmp $7B54
+    lda.w #StartLoadedStringInlineCollector
+    jmp ReturnDisplayTextStaticPointer
 C17A7E_StartLoadedStringInlineCollector_L7A7E:
-    jsr $1383
-    jmp $7B51
+    jsr C11383_ClearLoadedTextStrings
+    jmp DisplayTextSubstitutionSharedContinuation
 C17A84_StartLoadedStringInlineCollector_L7A84:
-    lda.w #$506F
-    jmp $7B54
+    lda.w #InflictStatusHelper
+    jmp ReturnDisplayTextStaticPointer
 C17A8A_StartLoadedStringInlineCollector_L7A8A:
-    lda.w #$4723
-    jmp $7B54
+    lda.w #GetCharacterNumberHelper
+    jmp ReturnDisplayTextStaticPointer
 C17A90_StartLoadedStringInlineCollector_L7A90:
-    lda.w #$47CC
-    jmp $7B54
+    lda.w #GetCharacterNameLetterHelper
+    jmp ReturnDisplayTextStaticPointer
 C17A96_StartLoadedStringInlineCollector_L7A96:
-    jsr $0400
+    jsr C10400_GetCurrentTextContextWorkmem
     tax
     dex
-    sep #$20
-    lda $984B,X
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    jsr $042E
-    jmp $7B51
+    sep #AccumulatorWidthFlag
+    lda EscargoStorageItemBytes,X
+    sta LoadedStringValueLo
+    stz LoadedStringValueByte1
+    stz LoadedStringValueHi
+    stz LoadedStringValueByte3
+    rep #AccumulatorWidthFlag
+    lda LoadedStringValueLo
+    sta TextContextSourcePointerLo
+    lda LoadedStringValueHi
+    sta TextContextSourcePointerHi
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    jsr C1042E_IncrementCurrentTextContextWorkmem
+    jmp DisplayTextSubstitutionSharedContinuation
 C17ABB_StartLoadedStringInlineCollector_L7ABB:
-    lda.w #$5007
-    jmp $7B54
+    lda.w #GetCharacterStatusByteHelper
+    jmp ReturnDisplayTextStaticPointer
 C17AC1_StartLoadedStringInlineCollector_L7AC1:
-    lda.w #$5384
-    jmp $7B54
+    lda.w #GetExperienceNeededToLevelUpHelper
+    jmp ReturnDisplayTextStaticPointer
 C17AC7_StartLoadedStringInlineCollector_L7AC7:
-    lda.w #$597F
-    jmp $7B54
+    lda.w #GetInventorySlotItemHelper
+    jmp ReturnDisplayTextStaticPointer
 C17ACD_StartLoadedStringInlineCollector_L7ACD:
-    lda.w #$5B0E
-    jmp $7B54
+    lda.w #GetEscargoStorageItemHelper
+    jmp ReturnDisplayTextStaticPointer
 C17AD3_StartLoadedStringInlineCollector_L7AD3:
-    lda.w #$5C36
-    jmp $7B54
+    lda.w #GetLoadedStringCountHelper
+    jmp ReturnDisplayTextStaticPointer
 C17AD9_StartLoadedStringInlineCollector_L7AD9:
-    lda.w #$5FF7
+    lda.w #QueueDeliveryPickupItemHelper
     bra C17B54_ReturnDisplayTextStaticPointer
 C17ADE_StartLoadedStringInlineCollector_L7ADE:
-    lda.w #$6080
+    lda.w #ReadDeliveryPickupQueueItemHelper
     bra C17B54_ReturnDisplayTextStaticPointer
