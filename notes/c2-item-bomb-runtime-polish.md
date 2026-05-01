@@ -12,6 +12,7 @@ Primary source modules:
 - `src/c2/c2_a658_run_bomb_common_splash_damage.asm`
 - `src/c2/c2_a818_run_bomb_action.asm`
 - `src/c2/c2_a821_run_super_bomb_action.asm`
+- `src/c2/c2_a89d_run_random_damage_and_status_item_action_cluster.asm`
 
 Related evidence notes:
 
@@ -70,12 +71,29 @@ Wrappers:
 - `C2:A818` / `BTLACT_BOMB`: base damage `0x005A` (`90`)
 - `C2:A821` / `BTLACT_SUPER_BOMB`: base damage `0x010E` (`270`)
 
+## Random-Damage And Status Item Cluster
+
+`C2:A89D..AF1F` now has source-promoted text contracts for the stable item-side
+leaves in the cluster:
+
+- poison and solidification item-status leaves emit `EF:6B18` / `EF:6BEF` or
+  shared no-effect `EF:766E` through `C1:DC1C`
+- Sudden Guts Pill stages the doubled guts value and emits C8:F80A through the
+  `C1:DC66` substitution-payload path
+- the item-side defense-up wrapper snapshots row `+0x28`, applies its helper,
+  and emits the positive defense delta through C8:F79A plus `C1:DC66`
+- the Pray aroma/rending-sound leaves now name the asleep and strange result
+  scripts, but the wider Pray dispatcher table remains deliberately local until
+  a focused Pray pass ties the C4 text table and effect rows together
+
 ## Decomp Value
 
 This slice tightens several item-side runtime contracts:
 
 - row `+0x21 = 4` has a second concentration/PSI-seal action-table anchor
 - row `+0x1F = 4` solidification is tied to item-side damage-plus-status logic
+- the A89D item-status leaves now share the same direct-text and
+  amount-payload ABI names as the earlier A3D1/A5EC and stat-action slices
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane

@@ -11,7 +11,25 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset              = $C08FF7
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+
+EFMSG_PoisonInflicted                           = $6B18
+EFMSG_SolidificationInflicted                   = $6BEF
+EFMSG_AsleepInflicted                           = $6C55
+EFMSG_StrangeInflicted                          = $6C3A
+EFMSG_StatusNoEffect                            = $766E
+EF_BattleTextScriptBank                         = $00EF
+
+C8MSG_DefenseIncreaseAmount                     = $F79A
+C8MSG_DoubledGutsIncreaseAmount                 = $F80A
+C8_BattleTextScriptBank                         = $00C8
+C9_BattleTextScriptBank                         = $00C9
+
+SelectedRowAfflictionChanceByte                 = $0037
+SelectedRowGutsByte                             = $002C
+SelectedRowDefenseByte                          = $0028
 
 ; ---------------------------------------------------------------------------
 ; C2:A89D
@@ -47,18 +65,18 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     jsr $724A
     cmp.w #$0000
     beq C2A900_RunRandomDamageAndStatusItemActionCluster_LA900
-    lda.w #$6B18
+    lda.w #EFMSG_PoisonInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A900_RunRandomDamageAndStatusItemActionCluster_LA900
 C2A8F2_RunRandomDamageAndStatusItemActionCluster_LA8F2:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A900_RunRandomDamageAndStatusItemActionCluster_LA900:
     pld
     rtl
@@ -74,7 +92,7 @@ C2A902_RunStatusItemActionCondition4 = BTLACT_INFLICT_SOLIDIFICATION
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
     ldx $A972
     sep #$20
-    lda $0037,X
+    lda SelectedRowAfflictionChanceByte,X
     jsr $6BB8
     cmp.w #$0000
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
@@ -84,18 +102,18 @@ C2A902_RunStatusItemActionCondition4 = BTLACT_INFLICT_SOLIDIFICATION
     jsr $724A
     cmp.w #$0000
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
-    lda.w #$6BEF
+    lda.w #EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A951_RunRandomDamageAndStatusItemActionCluster_LA951
 C2A943_RunRandomDamageAndStatusItemActionCluster_LA943:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A951_RunRandomDamageAndStatusItemActionCluster_LA951:
     pld
     rtl
@@ -108,7 +126,7 @@ C2A953_RunStatusItemActionCondition5 = BTLACT_INFLICT_POISON
     tcd
     ldx $A972
     sep #$20
-    lda $0037,X
+    lda SelectedRowAfflictionChanceByte,X
     jsr $6BB8
     cmp.w #$0000
     beq C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C
@@ -118,18 +136,18 @@ C2A953_RunStatusItemActionCondition5 = BTLACT_INFLICT_POISON
     jsr $724A
     cmp.w #$0000
     beq C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C
-    lda.w #$6B18
+    lda.w #EFMSG_PoisonInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A99A_RunRandomDamageAndStatusItemActionCluster_LA99A
 C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A99A_RunRandomDamageAndStatusItemActionCluster_LA99A:
     pld
     rtl
@@ -182,11 +200,11 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     jsr $8125
     bra C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A
 C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A:
     pld
     rts
@@ -233,11 +251,11 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     jsr $8125
     bra C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B
 C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B:
     pld
     rts
@@ -264,27 +282,27 @@ C2AA7F_RunDoubleHpHealStatusItemAction = BTLACT_SUDDEN_GUTS_PILL
     cmp.w #$0000
     bne C2AAC4_RunRandomDamageAndStatusItemActionCluster_LAAC4
     ldx $A972
-    lda $002C,X
+    lda SelectedRowGutsByte,X
     asl A
     cmp.w #$00FF
     bcc C2AA9E_RunRandomDamageAndStatusItemActionCluster_LAA9E
     lda.w #$00FF
 C2AA9E_RunRandomDamageAndStatusItemActionCluster_LAA9E:
     ldx $A972
-    sta $002C,X
-    lda.w #$F80A
+    sta SelectedRowGutsByte,X
+    lda.w #C8MSG_DoubledGutsIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldx $A972
-    lda $002C,X
+    lda SelectedRowGutsByte,X
     sta $06
     stz $08
     lda $06
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C2AAC4_RunRandomDamageAndStatusItemActionCluster_LAAC4:
     pld
     rtl
@@ -299,18 +317,18 @@ C2AAC6_RunTargetHpHealFromCurrentHpAction = BTLACT_DEFENSE_SPRAY
     cmp.w #$0000
     bne C2AB0B_RunRandomDamageAndStatusItemActionCluster_LAB0B
     ldx $A972
-    ldy $0028,X
+    ldy SelectedRowDefenseByte,X
     sty $16
     lda $A972
     jsr $7D82
-    lda.w #$F79A
+    lda.w #C8MSG_DefenseIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     sty $02
     ldx $A972
-    lda $0028,X
+    lda SelectedRowDefenseByte,X
     sec
     sbc $02
     sta $06
@@ -319,7 +337,7 @@ C2AAC6_RunTargetHpHealFromCurrentHpAction = BTLACT_DEFENSE_SPRAY
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
 C2AB0B_RunRandomDamageAndStatusItemActionCluster_LAB0B:
     pld
     rtl
@@ -427,9 +445,9 @@ C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF:
     jsl $C1DDC6
     lda.w #$FE41
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     sep #$20
     lda.b #$03
     sta $0E
@@ -441,16 +459,16 @@ C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF:
 C2AC0A_RunRandomDamageAndStatusItemActionCluster_LAC0A:
     lda.w #$FE9D
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2AC28_RunRandomDamageAndStatusItemActionCluster_LAC28
 C2AC1A_RunRandomDamageAndStatusItemActionCluster_LAC1A:
     lda.w #$FEE3
     sta $0E
-    lda.w #$00C9
+    lda.w #C9_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2AC28_RunRandomDamageAndStatusItemActionCluster_LAC28:
     pld
     rtl
@@ -534,18 +552,18 @@ C2AC99_RunStatusItemActionStatus2 = BTLACT_PRAY_AROMA
     jsr $724A
     cmp.w #$0000
     beq C2ACCA_RunRandomDamageAndStatusItemActionCluster_LACCA
-    lda.w #$6C55
+    lda.w #EFMSG_AsleepInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2ACD8_RunRandomDamageAndStatusItemActionCluster_LACD8
 C2ACCA_RunRandomDamageAndStatusItemActionCluster_LACCA:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2ACD8_RunRandomDamageAndStatusItemActionCluster_LACD8:
     pld
     rtl
@@ -565,18 +583,18 @@ C2ACDA_RunStatusItemActionStatus3 = BTLACT_PRAY_RENDING_SOUND
     jsr $724A
     cmp.w #$0000
     beq C2AD0B_RunRandomDamageAndStatusItemActionCluster_LAD0B
-    lda.w #$6C3A
+    lda.w #EFMSG_StrangeInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2AD19_RunRandomDamageAndStatusItemActionCluster_LAD19
 C2AD0B_RunRandomDamageAndStatusItemActionCluster_LAD0B:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2AD19_RunRandomDamageAndStatusItemActionCluster_LAD19:
     pld
     rtl
@@ -613,7 +631,7 @@ C2AD1B_RunRandomItemSideEffectDispatcher = BTLACT_PRAY
     sta $0E
     lda $08
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     lda $16
     beq C2ADA7_RunRandomDamageAndStatusItemActionCluster_LADA7
     cmp.w #$0001

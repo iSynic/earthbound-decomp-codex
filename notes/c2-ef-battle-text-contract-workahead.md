@@ -34,6 +34,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   The source now names direct `DC1C` messages for concentration/PSI-seal,
   shield-clear, solidification, no-effect, and HP-sucker self-drain, and names
   the `DC66` amount-bearing HP-sucker script at `EF:7729`.
+- 2026-05-01: sixth pass promoted the `C2:A89D..AF1F` item/status cluster.
+  The source now names poison, solidification, asleep, strange, and shared
+  no-effect direct-text scripts, the C8 doubled-guts and defense-up amount
+  scripts, and the `DC66` amount-bearing calls used by Sudden Guts Pill and the
+  item-side defense-up wrapper.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
