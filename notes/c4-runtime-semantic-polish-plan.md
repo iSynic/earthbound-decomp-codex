@@ -115,6 +115,10 @@ closure.
   sentinel, source-bank/list offsets, paired-plane VRAM transfer, and the four
   stream pointer families seeded by `C4:B26B`. See
   `notes/landing-display-assembly-cluster-c007b6-c4b26b.md`.
+- 2026-05-01 landing child anchors: promoted the child-anchor/spawn helper's
+  placement modes, `$B3F8/$B3FA` anchor pair, live entity table families,
+  child-definition field offsets, signed-offset masks, spawn descriptor, and
+  attached-parent tag. See `notes/child-entity-spawn-c4b3d0-c40de8.md`.
 
 ## Validation
 

@@ -57,6 +57,10 @@ The caller has already seeded the base coordinate scratch words from the parent 
 
 After this helper returns, `C4:B3D0` applies the child record's signed X/Y bytes on top of the adjusted base. The safest current statement is still: the child attachment point is `parent position`, then geometry-aware anchor adjustment, then signed child offset.
 
+Source polish: `src/c4/landing_child_anchor_spawn_helpers.asm` now names
+the placement-adjust modes, `$B3F8/$B3FA` child-anchor pair, the
+half-tile footprint adjustment, and the geometry-table driven anchor cases.
+
 ## `C4:B3D0` spawn worker
 
 The locally strongest flow is:
@@ -70,6 +74,12 @@ The locally strongest flow is:
 7. copy some display-state from the parent into the child
 
 So the safest current read is: `C4:B3D0` spawns a child entity that inherits some visual state from its parent and is positioned relative to that parent in world space.
+
+Source polish: the spawn source now names the live entity status, world
+position, footprint selector, attached-parent, and control-word tables, plus
+the child-definition placement/X/Y offsets, signed-byte extension masks,
+`C01E49` no-parent argument, `#$0311` spawn descriptor, and high-bit
+attached-parent tag.
 
 ## `C4:B4BE` clear/despawn worker
 

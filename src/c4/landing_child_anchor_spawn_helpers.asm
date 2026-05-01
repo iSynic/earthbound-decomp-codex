@@ -21,6 +21,37 @@ LandingDisplayChildDefinitionTable           = $C40DE8
 C01E49_SpawnEntityAtCurrentSlotAnchor        = $C01E49
 
 ; ---------------------------------------------------------------------------
+; Landing-display child anchor/spawn contracts
+
+LandingChildAnchorX                          = $B3F8
+LandingChildAnchorY                          = $B3FA
+LiveEntityStatusTable                        = $0A62
+LiveEntityWorldXTable                        = $0B8E
+LiveEntityWorldYTable                        = $0BCA
+LiveEntityAttachedParentTable                = $103E
+LiveEntityFootprintSelectorTable             = $2B6E
+LiveEntityControlWordTable                   = $2BAA
+LandingChildPlacementUpLeft                  = $0001
+LandingChildPlacementUpTight                 = $0002
+LandingChildPlacementUpWide                  = $0003
+LandingChildPlacementLeft                    = $0004
+LandingChildPlacementNoAdjust                = $0005
+LandingChildPlacementLeftWide                = $0006
+LandingChildFootprintHalfTile                = $0008
+MissingParentSlotSentinel                    = $FFFF
+EmptyLiveEntitySlotSentinel                  = $FFFF
+LandingChildDefinitionPlacementOffset        = $0002
+LandingChildDefinitionXOffset                = $0003
+LandingChildDefinitionYOffset                = $0004
+LowByteMask                                  = $00FF
+SignedByteHighBitMask                        = $0080
+SignExtendHighByte                           = $FF00
+ZeroWord                                     = $0000
+SpawnEntityNoParentSlot                      = $FFFF
+LandingChildSpawnEntityDescriptor            = $0311
+AttachedParentStateTagMask                   = $C000
+
+; ---------------------------------------------------------------------------
 ; C4:B329
 
 ; AdjustChildEntityAnchorForParentGeometry
@@ -33,20 +64,20 @@ C4B329_AdjustChildEntityAnchorForParentGeometry:
 	TCD
 	PLA
 	STX.b $0E
-	CMP.w #$0001
+	CMP.w #LandingChildPlacementUpLeft
 	BEQ.b C4B358_AdjustChildEntityAnchorForParentGeometry_ShiftUpLeft
-	CMP.w #$0004
+	CMP.w #LandingChildPlacementLeft
 	BEQ.b C4B36E_AdjustChildEntityAnchorForParentGeometry_ShiftLeft
-	CMP.w #$0002
+	CMP.w #LandingChildPlacementUpTight
 	BEQ.b C4B388_AdjustChildEntityAnchorForParentGeometry_ShiftUpTight
-	CMP.w #$0005
+	CMP.w #LandingChildPlacementNoAdjust
 	BNE.b C4B34C_AdjustChildEntityAnchorForParentGeometry_CheckDown
 	JMP.w C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return
 
 C4B34C_AdjustChildEntityAnchorForParentGeometry_CheckDown:
-	CMP.w #$0003
+	CMP.w #LandingChildPlacementUpWide
 	BEQ.b C4B3A0_AdjustChildEntityAnchorForParentGeometry_ShiftUpWide
-	CMP.w #$0006
+	CMP.w #LandingChildPlacementLeftWide
 	BEQ.b C4B3B6_AdjustChildEntityAnchorForParentGeometry_ShiftLeftWide
 	BRA.b C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return
 
@@ -56,12 +87,12 @@ C4B358_AdjustChildEntityAnchorForParentGeometry_ShiftUpLeft:
 	TAX
 	LDA.l EntityFootprintYOffsetTable,X
 	CLC
-	ADC.w #$0008
+	ADC.w #LandingChildFootprintHalfTile
 	STA.b $02
-	LDA.w $B3FA
+	LDA.w LandingChildAnchorY
 	SEC
 	SBC.b $02
-	STA.w $B3FA
+	STA.w LandingChildAnchorY
 C4B36E_AdjustChildEntityAnchorForParentGeometry_ShiftLeft:
 	LDX.b $0E
 	TXA
@@ -69,12 +100,12 @@ C4B36E_AdjustChildEntityAnchorForParentGeometry_ShiftLeft:
 	TAX
 	LDA.l EntityFootprintXOffsetTable,X
 	SEC
-	SBC.w #$0008
+	SBC.w #LandingChildFootprintHalfTile
 	STA.b $02
-	LDA.w $B3F8
+	LDA.w LandingChildAnchorX
 	SEC
 	SBC.b $02
-	STA.w $B3F8
+	STA.w LandingChildAnchorX
 	BRA.b C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return
 
 C4B388_AdjustChildEntityAnchorForParentGeometry_ShiftUpTight:
@@ -83,12 +114,12 @@ C4B388_AdjustChildEntityAnchorForParentGeometry_ShiftUpTight:
 	TAX
 	LDA.l EntityFootprintYOffsetTable,X
 	SEC
-	SBC.w #$0008
+	SBC.w #LandingChildFootprintHalfTile
 	STA.b $02
-	LDA.w $B3FA
+	LDA.w LandingChildAnchorY
 	SEC
 	SBC.b $02
-	STA.w $B3FA
+	STA.w LandingChildAnchorY
 	BRA.b C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return
 
 C4B3A0_AdjustChildEntityAnchorForParentGeometry_ShiftUpWide:
@@ -97,12 +128,12 @@ C4B3A0_AdjustChildEntityAnchorForParentGeometry_ShiftUpWide:
 	TAX
 	LDA.l EntityFootprintYOffsetTable,X
 	CLC
-	ADC.w #$0008
+	ADC.w #LandingChildFootprintHalfTile
 	STA.b $02
-	LDA.w $B3FA
+	LDA.w LandingChildAnchorY
 	SEC
 	SBC.b $02
-	STA.w $B3FA
+	STA.w LandingChildAnchorY
 C4B3B6_AdjustChildEntityAnchorForParentGeometry_ShiftLeftWide:
 	LDX.b $0E
 	TXA
@@ -110,12 +141,12 @@ C4B3B6_AdjustChildEntityAnchorForParentGeometry_ShiftLeftWide:
 	TAX
 	LDA.l EntityFootprintXOffsetTable,X
 	CLC
-	ADC.w #$0008
+	ADC.w #LandingChildFootprintHalfTile
 	STA.b $02
-	LDA.w $B3F8
+	LDA.w LandingChildAnchorX
 	SEC
 	SBC.b $02
-	STA.w $B3F8
+	STA.w LandingChildAnchorX
 C4B3CE_AdjustChildEntityAnchorForParentGeometry_Return:
 	PLD
 	RTS
@@ -135,7 +166,7 @@ C4B3D0_SpawnAttachedChildEntityFromParentSlot = SPAWN_FLOATING_SPRITE
 	PLA
 	TXY
 	STA.b $02
-	CMP.w #$FFFF
+	CMP.w #MissingParentSlotSentinel
 	BNE.b C4B3E5_SpawnAttachedChildEntityFromParentSlot_CheckParentSlot
 	JMP.w C4B4BC_SpawnAttachedChildEntityFromParentSlot_Return
 
@@ -143,13 +174,13 @@ C4B3E5_SpawnAttachedChildEntityFromParentSlot_CheckParentSlot:
 	LDA.b $02
 	ASL
 	TAX
-	LDA.w $0A62,X
-	CMP.w #$FFFF
+	LDA.w LiveEntityStatusTable,X
+	CMP.w #EmptyLiveEntitySlotSentinel
 	BNE.b C4B3F4_SpawnAttachedChildEntityFromParentSlot_LoadParentState
 	JMP.w C4B4BC_SpawnAttachedChildEntityFromParentSlot_Return
 
 C4B3F4_SpawnAttachedChildEntityFromParentSlot_LoadParentState:
-	LDA.w $2B6E,X
+	LDA.w LiveEntityFootprintSelectorTable,X
 	STA.b $14
 	LDA.w #LandingDisplayChildDefinitionTable
 	STA.b $06
@@ -163,85 +194,85 @@ C4B3F4_SpawnAttachedChildEntityFromParentSlot_LoadParentState:
 	CLC
 	ADC.b $06
 	STA.b $06
-	LDA.w $0B8E,X
-	STA.w $B3F8
-	LDA.w $0BCA,X
-	STA.w $B3FA
+	LDA.w LiveEntityWorldXTable,X
+	STA.w LandingChildAnchorX
+	LDA.w LiveEntityWorldYTable,X
+	STA.w LandingChildAnchorY
 	LDA.b $14
 	TAX
 	SEP.b #$20
-	LDY.w #$0002
+	LDY.w #LandingChildDefinitionPlacementOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #LowByteMask
 	JSR.w C4B329_AdjustChildEntityAnchorForParentGeometry
 	SEP.b #$20
-	LDY.w #$0003
+	LDY.w #LandingChildDefinitionXOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
-	AND.w #$0080
+	AND.w #LowByteMask
+	AND.w #SignedByteHighBitMask
 	BEQ.b C4B443_SpawnAttachedChildEntityFromParentSlot_PositiveXOffset
-	LDX.w #$FF00
+	LDX.w #SignExtendHighByte
 	BRA.b C4B446_SpawnAttachedChildEntityFromParentSlot_StoreXOffsetSign
 
 C4B443_SpawnAttachedChildEntityFromParentSlot_PositiveXOffset:
-	LDX.w #$0000
+	LDX.w #ZeroWord
 C4B446_SpawnAttachedChildEntityFromParentSlot_StoreXOffsetSign:
 	STX.b $04
 	SEP.b #$20
-	LDY.w #$0003
+	LDY.w #LandingChildDefinitionXOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #LowByteMask
 	ORA.b $04
 	CLC
-	ADC.w $B3F8
-	STA.w $B3F8
+	ADC.w LandingChildAnchorX
+	STA.w LandingChildAnchorX
 	SEP.b #$20
-	LDY.w #$0004
+	LDY.w #LandingChildDefinitionYOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
-	AND.w #$0080
+	AND.w #LowByteMask
+	AND.w #SignedByteHighBitMask
 	BEQ.b C4B473_SpawnAttachedChildEntityFromParentSlot_PositiveYOffset
-	LDX.w #$FF00
+	LDX.w #SignExtendHighByte
 	BRA.b C4B476_SpawnAttachedChildEntityFromParentSlot_StoreYOffsetSign
 
 C4B473_SpawnAttachedChildEntityFromParentSlot_PositiveYOffset:
-	LDX.w #$0000
+	LDX.w #ZeroWord
 C4B476_SpawnAttachedChildEntityFromParentSlot_StoreYOffsetSign:
 	STX.b $04
 	SEP.b #$20
-	LDY.w #$0004
+	LDY.w #LandingChildDefinitionYOffset
 	LDA.b [$06],Y
 	REP.b #$20
-	AND.w #$00FF
+	AND.w #LowByteMask
 	ORA.b $04
 	CLC
-	ADC.w $B3FA
+	ADC.w LandingChildAnchorY
 	STA.b $12
-	STA.w $B3FA
-	LDA.w $B3F8
+	STA.w LandingChildAnchorY
+	LDA.w LandingChildAnchorX
 	STA.b $0E
 	LDA.b $12
 	STA.b $10
-	LDY.w #$FFFF
-	LDX.w #$0311
+	LDY.w #SpawnEntityNoParentSlot
+	LDX.w #LandingChildSpawnEntityDescriptor
 	LDA.b [$06]
 	JSL.l C01E49_SpawnEntityAtCurrentSlotAnchor
 	ASL
 	TAX
 	STX.b $12
 	LDA.b $02
-	ORA.w #$C000
-	STA.w $103E,X
+	ORA.w #AttachedParentStateTagMask
+	STA.w LiveEntityAttachedParentTable,X
 	LDA.b $02
 	ASL
 	TAX
-	LDA.w $2BAA,X
+	LDA.w LiveEntityControlWordTable,X
 	LDX.b $12
-	STA.w $2BAA,X
+	STA.w LiveEntityControlWordTable,X
 C4B4BC_SpawnAttachedChildEntityFromParentSlot_Return:
 	PLD
 	RTL
