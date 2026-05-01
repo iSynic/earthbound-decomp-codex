@@ -13,15 +13,21 @@
 
 ; No named external contracts were supplied or recognized.
 
+HdmaEnableShadow = $001F
+PpuWindow1Left = $002126
+PpuWindow1Right = $002127
+AccumulatorWidthFlag = $20
+DebugWindowResetLeft = $80
+
 ; ---------------------------------------------------------------------------
 ; EF:EB2A
 
 EFEB2A_ResetDebugColorMathDmaRegisters:
-    sep #$20
-    stz $001F
-    lda.b #$80
-    sta $002126
+    sep #AccumulatorWidthFlag
+    stz HdmaEnableShadow
+    lda.b #DebugWindowResetLeft
+    sta PpuWindow1Left
     dec A
-    sta $002127
-    rep #$20
+    sta PpuWindow1Right
+    rep #AccumulatorWidthFlag
     rtl

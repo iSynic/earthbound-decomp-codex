@@ -59,6 +59,33 @@ C24821_LoadDebugModeFourScreen                   = $C24821
 C46631_LoadSpecialWindowOrPalette                = $C46631
 EFEB2A_ResetDebugColorMathDmaRegisters           = $EFEB2A
 
+DebugColorMathWindowTableLo = $EB1D
+EfBankByte = $EF
+DebugColorMathWindowLeft = $18
+DebugColorMathWindowRight = $78
+DebugColorMathWindowMaskSetting = $20
+DebugColorMathWindowLayerMask = $13
+DebugColorMathCgwselMode = $10
+DebugColorMathCgaddsubMode = $93
+DebugColorMathColdataRedBlue = $EF
+DebugColorMathHdmaControl = $01
+DebugColorMathHdmaBbusTarget = $26
+DebugColorMathHdmaEnableBit = $10
+PpuWindowMaskMainSub = $002125
+PpuWindow1Left = $002126
+PpuWindow1Right = $002127
+PpuWindowMaskBgObj = $00212E
+PpuColorMathControlA = $002130
+PpuColorMathControlB = $002131
+PpuFixedColorData = $002132
+Dma4Control = $004340
+Dma4BbusAddress = $004341
+Dma4SourceAddressLo = $004342
+Dma4SourceBank = $004344
+Dma4IndirectBank = $004347
+HdmaEnableShadow = $001F
+AccumulatorWidthFlag = $20
+
 ; ---------------------------------------------------------------------------
 ; EF:E175
 
@@ -1131,33 +1158,33 @@ EFEAB6_DebugMenuRuntimeAndMapViewHelpers_LEAB6:
     rep #$20
     rtl
 EFEAC8_InstallDebugColorMathDmaRegisters:
-    sep #$20
-    lda.b #$20
-    sta $002125
-    lda.b #$18
-    sta $002126
-    lda.b #$78
-    sta $002127
-    lda.b #$13
-    sta $00212E
-    lda.b #$10
-    sta $002130
-    lda.b #$93
-    sta $002131
-    lda.b #$EF
-    sta $002132
-    lda.b #$01
-    sta $004340
-    lda.b #$26
-    sta $004341
-    rep #$20
-    lda.w #$EB1D
-    sta $004342
-    sep #$20
-    lda.b #$EF
-    sta $004344
-    sta $004347
-    lda.b #$10
-    tsb $001F
-    rep #$20
+    sep #AccumulatorWidthFlag
+    lda.b #DebugColorMathWindowMaskSetting
+    sta PpuWindowMaskMainSub
+    lda.b #DebugColorMathWindowLeft
+    sta PpuWindow1Left
+    lda.b #DebugColorMathWindowRight
+    sta PpuWindow1Right
+    lda.b #DebugColorMathWindowLayerMask
+    sta PpuWindowMaskBgObj
+    lda.b #DebugColorMathCgwselMode
+    sta PpuColorMathControlA
+    lda.b #DebugColorMathCgaddsubMode
+    sta PpuColorMathControlB
+    lda.b #DebugColorMathColdataRedBlue
+    sta PpuFixedColorData
+    lda.b #DebugColorMathHdmaControl
+    sta Dma4Control
+    lda.b #DebugColorMathHdmaBbusTarget
+    sta Dma4BbusAddress
+    rep #AccumulatorWidthFlag
+    lda.w #DebugColorMathWindowTableLo
+    sta Dma4SourceAddressLo
+    sep #AccumulatorWidthFlag
+    lda.b #EfBankByte
+    sta Dma4SourceBank
+    sta Dma4IndirectBank
+    lda.b #DebugColorMathHdmaEnableBit
+    tsb HdmaEnableShadow
+    rep #AccumulatorWidthFlag
     rtl

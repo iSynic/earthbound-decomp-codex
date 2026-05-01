@@ -49,6 +49,14 @@ plus the include anchors.
 | `EF:EB1D..EF:EB2A` | `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm` | Tiny color-math/window table loaded by the `EFEAC8` DMA setup helper. |
 | `EF:EB3D..EF:EB5F` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | Debug cursor tilemap data immediately before `DEBUG_MENU_FONT`. |
 
+## Color Math / HDMA Tail
+
+The `EFEAC8` mode-5 setup path now names the PPU window/color-math registers,
+DMA channel-4 source fields, HDMA enable shadow, and the `EF:EB1D` window HDMA
+table source. The reset helper at `EF:EB2A` now names the matching HDMA-enable
+clear and window-left/right reset values before returning to 16-bit
+accumulator mode.
+
 ## Cross-Bank Meaning
 
 - `EF:E708`, `EF:E746`, and `EF:E759` are callable from C0-era overworld
@@ -66,3 +74,6 @@ This corridor is source-bank build-candidate material, not hand-authored source
 of record yet. It is accepted because the combined EF scaffold preserves byte
 equivalence against the original ROM and the source/data cuts match ebsrc
 include boundaries.
+
+Current byte-equivalence result after the color-math/HDMA semantic alias pass:
+`EF byte-equivalence: OK, 28 module(s), 0 mismatch(es).`

@@ -10,6 +10,11 @@
 ; - EF:EB1D..EF:EB2A EfDebugColorMathWindowTable
 
 ; ---------------------------------------------------------------------------
+; EF:EB1D
+
+EFEB1D_DebugColorMathWindowHdmaTable:
+
+; ---------------------------------------------------------------------------
 ; EF:EB2A
 
 ; EfDebugColorMathWindowTableEnd

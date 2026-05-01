@@ -90,3 +90,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   source copy, `$B553/$B555/$B557/$B55F` cursor/command/overlay state fields,
   layer clear/fill bands, `$0204` palette marker, and `$4A58/$4A5A`
   presentation flags cleared by debug menu initialization.
+- 2026-05-01: EF debug color-math/HDMA tail polish landed as byte-neutral
+  source aliases. The promoted contracts name the `EFEAC8` PPU window and
+  color-math register setup, DMA channel-4 HDMA table source at `EF:EB1D`,
+  HDMA enable shadow bit, and the `EF:EB2A` window/HDMA reset helper.
