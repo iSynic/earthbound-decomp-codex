@@ -5,8 +5,8 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 ## Summary
 
-- Planned experiments: `6`
-- Ready to run once CoilSnake is trusted: `6`
+- Planned experiments: `0`
+- Ready to run once CoilSnake is trusted: `0`
 - Tooling-blocked but prepared: `0`
 - Edit match mismatches: `0`
 
@@ -14,107 +14,5 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 | Experiment | Status | Source | Match | Local family | Promotion target |
 | --- | --- | --- | ---: | --- | --- |
-| `map-door-first-destination-y-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Determine whether neighboring map_doors.yml destination fields are contiguous in CoilSnake's rebuilt CF door payload and map the rebuilt layout back to local D0/CF door runtime records. |
-| `map-door-first-direction-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Identify the rebuilt CF field that stores the first unique door direction and distinguish destination payload bytes from transition style/direction bytes. |
-| `map-door-first-style-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Identify the rebuilt CF field that stores the first unique door transition style and connect it to C0 transition presentation helpers if the original layout map becomes clear. |
-| `map-sprite-first-npc-id-probe` | `ready-to-run` | `map_sprites.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake map_sprites.yml placement vocabulary to local sprite placement pointer/table ranges and NPC config references. |
-| `window-config-height-probe` | `ready-to-run` | `window_configuration_table.yml` | `1/1` | `ui_font_town_map_assets` | Pair with the existing window width probe to identify adjacent window configuration fields and decide whether C3:E250..E3F8 needs a finer local window/config split. |
-| `enemy-insane-cultist-hp-probe` | `ready-to-run` | `enemy_configuration_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake enemy stat vocabulary to ENEMY_CONFIGURATION_TABLE stat field offsets and battle runtime HP initialization consumers. |
 
 ## Local Anchors
-
-### `map-door-first-destination-y-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-door-first-direction-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-door-first-style-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-sprite-first-npc-id-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `window-config-height-probe`
-
-- Family: `UI, fonts, logos, windows, and town maps` (`contract-seeded`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `window_yaml_table` banks `E0, E1` status `contract-seeded`
-- Related local docs:
-  - `notes/font-bundle-contracts.md`
-  - `notes/intro-title-visual-bundle-contracts.md`
-  - `notes/landing-cast-visual-contracts.md`
-  - `notes/sram-template-contracts.md`
-  - `notes/text-window-skin-bundle-contracts.md`
-  - `notes/title-screen-letter-oam-contracts.md`
-  - `notes/title-screen-palette-animation-contracts.md`
-  - `notes/ui-font-town-map-asset-contracts.md`
-
-### `enemy-insane-cultist-hp-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `battle_yaml_table` banks `CA, CB, CC, CD, CE` status `contract-seeded`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-background-scene-bundles.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/battle-sprite-bundle-contracts.md`
-  - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`

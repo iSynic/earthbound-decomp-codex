@@ -11,6 +11,9 @@
 ;
 ; Contract highlights:
 ; - 231 rows, stride $5E.
+; - Row +$21 is the HP word; CoilSnake `enemy-insane-cultist-hp-probe`
+;   changed D5:9608, proving enemy 1 HP lands on row +$21. C2:654C reads
+;   this field in the Magic Butterfly enemy-row HP/PP gate.
 ; - Row +$45 is action-order metadata.
 ; - Row +$46..+$4D are four normal action id words; row +$50..+$53 are their
 ;   paired argument bytes.

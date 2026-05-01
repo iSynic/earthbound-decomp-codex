@@ -175,6 +175,12 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `npc-config-first-text-pointer-probe` | `npc_config_table.yml`: NPC config 1 `Text Pointer 1` `$c74c07 -> $c74c08` | `1` | `0x0F899F..0x0F89A0` |
 | `map-door-first-destination-probe` | `map_doors.yml`: first unique door `Destination X` `784 -> 785` | `1` | `0x0F000C..0x0F000D` |
 | `window-config-width-probe` | `window_configuration_table.yml`: window 8 `Width` `30 -> 31` | `1` | `0x03E294..0x03E295` |
+| `map-door-first-destination-y-probe` | `map_doors.yml`: first unique door `Destination Y` `1210 -> 1211` | `1` | `0x0F000A..0x0F000B` |
+| `map-door-first-direction-probe` | `map_doors.yml`: first unique door `Direction` `left -> right` | `1` | `0x0F000B..0x0F000C` |
+| `map-door-first-style-probe` | `map_doors.yml`: first unique door `Style` `1 -> 2` | `1` | `0x0F000E..0x0F000F` |
+| `map-sprite-first-npc-id-probe` | `map_sprites.yml`: first placed sprite `NPC ID` `1254 -> 1255` | `1` | `0x0F61E9..0x0F61EA` |
+| `window-config-height-probe` | `window_configuration_table.yml`: window 8 `Height` `18 -> 19` | `1` | `0x03E296..0x03E297` |
+| `enemy-insane-cultist-hp-probe` | `enemy_configuration_table.yml`: enemy 1 `HP` `94 -> 95` | `1` | `0x159608..0x159609` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.
@@ -196,6 +202,11 @@ checked-in field join summary. Current joins:
   configuration table source scaffold. The edited byte lands at enemy row 1
   `+0x46`, matching the first normal action id slot and the `C2:5024` battle
   start candidate controller's action-slot staging path.
+- `enemy-insane-cultist-hp-probe`: `0x159608` -> `D5:9608`, matching the local
+  `ENEMY_CONFIGURATION_TABLE` split and proving enemy row 1 `+0x21` is the HP
+  word low byte. This is runtime-correlated to the C2 Magic Butterfly
+  enemy-row gate, which reads row `+0x21` alongside row `+0x3A` before allowing
+  the restore animation path.
 - `text-menu-probe`: `0x04A00A` -> `C4:A00A`, matching the local
   battle-menu/target-precheck data corridor in C4. The edited byte lands in the
   fixed-width Auto Fight row at row offset `+0x09`; `C2:311B` loads the
@@ -224,11 +235,30 @@ checked-in field join summary. Current joins:
   the low byte to `0x11`. Treat this as CoilSnake rebuild-layout evidence and a
   door-data packing/normalization candidate until a pointer/runtime join maps
   rebuilt CF subrecords back to the original local table layout.
+- `map-door-first-destination-y-probe`: `0x0F000A` -> `CF:000A`, another
+  CoilSnake baseline-rebuild door payload byte. Together with Direction at
+  `CF:000B` and Destination X at `CF:000C`, this starts to outline CoilSnake's
+  normalized first-door record layout.
+- `map-door-first-direction-probe`: `0x0F000B` -> `CF:000B`, sitting between
+  the Destination Y and Destination X low bytes in the rebuilt first-door
+  record.
+- `map-door-first-style-probe`: `0x0F000E` -> `CF:000E`, proving the first-door
+  Style field is nearby but not contiguous with the destination/direction byte
+  trio in CoilSnake's rebuilt layout.
+- `map-sprite-first-npc-id-probe`: `0x0F61E9` -> `CF:61E9`, changing the low
+  byte of CoilSnake's first placed sprite NPC ID in the baseline rebuild. The
+  verified original ROM uses the same address as part of the local sprite
+  placement pointer table, so this is also rebuild-layout evidence rather than
+  a direct original-ROM placement-row promotion.
 - `window-config-width-probe`: `0x03E294` -> `C3:E294`, landing in the local
   `C3:E250..C3:E3F8` preserved/window-config payload corridor. The edit proves
   CoilSnake's window width field reaches this local range; the exact local
   window-dimension consumer remains open because the current C3 scaffold is
   still coarse.
+- `window-config-height-probe`: `0x03E296` -> `C3:E296`, adjacent to the width
+  probe. Original ROM bytes match the CoilSnake baseline here, so this looks
+  like a direct local window-configuration table byte pair, but consumer naming
+  remains open.
 
 ## Promoted Local Contracts
 
@@ -242,6 +272,9 @@ front doors and source scaffolds:
 - `enemy-insane-cultist-action1-probe`: `ENEMY_CONFIGURATION_TABLE` row
   `+0x46` is the first normal action id slot, with runtime evidence from the C2
   battle-start enemy action-slot staging path.
+- `enemy-insane-cultist-hp-probe`: `ENEMY_CONFIGURATION_TABLE` row `+0x21` is
+  the HP word, with runtime evidence from the C2 Magic Butterfly enemy-row
+  HP/PP gate and local table-contract corroboration.
 - `text-menu-probe`: `C4:9FE1 + 0x20` is the fixed-width Auto Fight battle-menu
   label row, with runtime evidence from the C2 battle-start present/message
   controller's C1 menu-builder calls.
@@ -262,9 +295,19 @@ runtime field.
   Destination X changes `CF:000C` in CoilSnake's baseline rebuild. Local C0/C4
   door helpers do consume bank-CF door destination records, but CoilSnake's
   rebuilt CF door payload is normalized/repacked relative to the original ROM at
-  that address. The next door experiments should isolate neighboring
-  destination/style/direction fields and then map the rebuilt records back to the
-  original D0/CF trigger and destination layout.
+  that address.
+- `map-door-first-destination-y-probe`, `map-door-first-direction-probe`, and
+  `map-door-first-style-probe`: these follow-ups show CoilSnake's rebuilt first
+  door layout has Destination Y low byte at `CF:000A`, Direction at `CF:000B`,
+  Destination X low byte at `CF:000C`, and Style at `CF:000E`. The byte pattern
+  is useful for reverse-engineering CoilSnake's compiler output, but it still
+  needs a rebuilt-to-original layout map before local runtime promotion.
+- `map-sprite-first-npc-id-probe`: CoilSnake emits the first placed map sprite
+  NPC ID at `CF:61E9` in the baseline rebuild, while the verified original ROM
+  uses that neighborhood for the local `SPRITE_PLACEMENT_POINTER_TABLE`.
+  Follow-up X/Y probes should determine the rebuilt map_sprites record shape
+  before mapping it back to the original pointer-table plus placement-list
+  layout.
 
 ## Promotion Rules
 

@@ -1455,6 +1455,210 @@
         ],
         "status": "different"
       }
+    },
+    "map-door-first-destination-y-probe": {
+      "report": "build/coilsnake/edit-experiments/map-door-first-destination-y-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "edit": "Changed the first unique map door Destination Y field from 1210 to 1211.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-door-first-destination-y-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-door-first-destination-y-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F000A",
+        "last_changed_offset_exclusive": "0x0F000B",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-door-first-destination-y-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F000B",
+            "length": 1,
+            "start": "0x0F000A"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-door-first-direction-probe": {
+      "report": "build/coilsnake/edit-experiments/map-door-first-direction-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "edit": "Changed the first unique map door Direction field from left to right.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-door-first-direction-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-door-first-direction-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F000B",
+        "last_changed_offset_exclusive": "0x0F000C",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-door-first-direction-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F000C",
+            "length": 1,
+            "start": "0x0F000B"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-door-first-style-probe": {
+      "report": "build/coilsnake/edit-experiments/map-door-first-style-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "edit": "Changed the first unique map door Style field from 1 to 2.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-door-first-style-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-door-first-style-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F000E",
+        "last_changed_offset_exclusive": "0x0F000F",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-door-first-style-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F000F",
+            "length": 1,
+            "start": "0x0F000E"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-sprite-first-npc-id-probe": {
+      "report": "build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_sprites.yml",
+      "edit": "Changed the first placed map sprite NPC ID from 1254 to 1255.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F61E9",
+        "last_changed_offset_exclusive": "0x0F61EA",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-sprite-first-npc-id-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F61EA",
+            "length": 1,
+            "start": "0x0F61E9"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "window-config-height-probe": {
+      "report": "build/coilsnake/edit-experiments/window-config-height-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "edit": "Changed window configuration 8 Height from 18 to 19.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/window-config-height-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x03E296",
+        "last_changed_offset_exclusive": "0x03E297",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/window-config-height-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x03E297",
+            "length": 1,
+            "start": "0x03E296"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "enemy-insane-cultist-hp-probe": {
+      "report": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "edit": "Changed enemy 1 Insane Cultist HP from 94 to 95.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x159608",
+        "last_changed_offset_exclusive": "0x159609",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/enemy-insane-cultist-hp-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x159609",
+            "length": 1,
+            "start": "0x159608"
+          }
+        ],
+        "status": "different"
+      }
     }
   },
   "field_join_workflow": {
@@ -1480,6 +1684,19 @@
         "coilsnake_file": "enemy_configuration_table.yml",
         "changed_file_offset": "0x15962D",
         "hirom": "D5:962D",
+        "local_contract": "ENEMY_CONFIGURATION_TABLE",
+        "source_scaffold": "src/d5/table_enemy_configuration_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "enemy-insane-cultist-hp-probe",
+        "coilsnake_file": "enemy_configuration_table.yml",
+        "changed_file_offset": "0x159608",
+        "hirom": "D5:9608",
         "local_contract": "ENEMY_CONFIGURATION_TABLE",
         "source_scaffold": "src/d5/table_enemy_configuration_table.asm",
         "evidence_level": "diff-confirmed",
@@ -1515,12 +1732,64 @@
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
       {
+        "experiment_id": "map-door-first-destination-y-probe",
+        "coilsnake_file": "map_doors.yml",
+        "changed_file_offset": "0x0F000A",
+        "hirom": "CF:000A",
+        "local_contract": "CF:0000..CF:264E",
+        "source_scaffold": "src/cf/table_door_data.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-door-first-direction-probe",
+        "coilsnake_file": "map_doors.yml",
+        "changed_file_offset": "0x0F000B",
+        "hirom": "CF:000B",
+        "local_contract": "CF:0000..CF:264E",
+        "source_scaffold": "src/cf/table_door_data.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-door-first-style-probe",
+        "coilsnake_file": "map_doors.yml",
+        "changed_file_offset": "0x0F000E",
+        "hirom": "CF:000E",
+        "local_contract": "CF:0000..CF:264E",
+        "source_scaffold": "src/cf/table_door_data.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
         "experiment_id": "map-palette-probe",
         "coilsnake_file": "map_palette_settings.yml",
         "changed_file_offset": "0x1A0C40",
         "hirom": "DA:0C40",
         "local_contract": "MAP_DATA_TILE_ARRANGEMENT_5",
         "source_scaffold": "src/da/asset_map_data_tile_arrangement_5.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-sprite-first-npc-id-probe",
+        "coilsnake_file": "map_sprites.yml",
+        "changed_file_offset": "0x0F61E9",
+        "hirom": "CF:61E9",
+        "local_contract": "CF:61E7..CF:6BE6",
+        "source_scaffold": "src/cf/table_sprite_placement_pointer_table.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
         "promotion_status": "relocation-or-compiler-normalization-candidate",
@@ -1567,6 +1836,19 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
+        "experiment_id": "window-config-height-probe",
+        "coilsnake_file": "window_configuration_table.yml",
+        "changed_file_offset": "0x03E296",
+        "hirom": "C3:E296",
+        "local_contract": "C3:E250..C3:E3F8",
+        "source_scaffold": "src/c3/script_event_payloads_0000_e450.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
         "experiment_id": "window-config-width-probe",
         "coilsnake_file": "window_configuration_table.yml",
         "changed_file_offset": "0x03E294",
@@ -1590,51 +1872,8 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 6,
-    "next_experiments": [
-      {
-        "experiment_id": "map-door-first-destination-y-probe",
-        "batch": "map-door-normalization",
-        "source_file": "map_doors.yml",
-        "status": "planned",
-        "promotion_target": "Determine whether neighboring map_doors.yml destination fields are contiguous in CoilSnake's rebuilt CF door payload and map the rebuilt layout back to local D0/CF door runtime records."
-      },
-      {
-        "experiment_id": "map-door-first-direction-probe",
-        "batch": "map-door-normalization",
-        "source_file": "map_doors.yml",
-        "status": "planned",
-        "promotion_target": "Identify the rebuilt CF field that stores the first unique door direction and distinguish destination payload bytes from transition style/direction bytes."
-      },
-      {
-        "experiment_id": "map-door-first-style-probe",
-        "batch": "map-door-normalization",
-        "source_file": "map_doors.yml",
-        "status": "planned",
-        "promotion_target": "Identify the rebuilt CF field that stores the first unique door transition style and connect it to C0 transition presentation helpers if the original layout map becomes clear."
-      },
-      {
-        "experiment_id": "map-sprite-first-npc-id-probe",
-        "batch": "map-object",
-        "source_file": "map_sprites.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake map_sprites.yml placement vocabulary to local sprite placement pointer/table ranges and NPC config references."
-      },
-      {
-        "experiment_id": "window-config-height-probe",
-        "batch": "visual-editor",
-        "source_file": "window_configuration_table.yml",
-        "status": "planned",
-        "promotion_target": "Pair with the existing window width probe to identify adjacent window configuration fields and decide whether C3:E250..E3F8 needs a finer local window/config split."
-      },
-      {
-        "experiment_id": "enemy-insane-cultist-hp-probe",
-        "batch": "battle-data",
-        "source_file": "enemy_configuration_table.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake enemy stat vocabulary to ENEMY_CONFIGURATION_TABLE stat field offsets and battle runtime HP initialization consumers."
-      }
-    ]
+    "planned_count": 0,
+    "next_experiments": []
   },
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
@@ -1642,8 +1881,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 6,
-    "ready_to_run_count": 6,
+    "stub_count": 0,
+    "ready_to_run_count": 0,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [
