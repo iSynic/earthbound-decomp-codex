@@ -168,3 +168,7 @@ This planning pass is documentation-only.
   `DC1C` lane, the primary-script plus `$9D12/$9D14` payload lane at `DC66`,
   the pointer-only staging lane at `DD82`, the mode-1/no-prompt action-table
   lane at `DD9F`, and the `19 1E/19 1F/1C 0F` text-command consumers.
+- 2026-05-01: C1 display-text payload consumer polish landed as byte-neutral
+  comments/constants. The `19 1E` pointer-substitution leaf now names its
+  `$9D12/$9D14` source, and the `1C 0F` amount-print branch in the dynamic
+  selector corridor now names `C1:AD26`, `$0E/$10` staging, and `C1:0DF6`.

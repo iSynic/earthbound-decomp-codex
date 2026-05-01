@@ -48,6 +48,13 @@ The clearest local example is Jeff repair:
 
 So the best current system-level read is that `0x1C` is not a grab-bag of unrelated helpers. It is the main print/data-display family that consumes the current bank-`01` text context.
 
+Source polish update: the `0x1C 0F` branch inside
+`src/c1/c1_7b56_dispatch_display_text_dynamic_source_selector.asm` now names
+the getter through `C1:AD26`, the `$9D12/$9D14` staged action-amount payload,
+the handoff into `$0E/$10`, and the final `C1:0DF6` number printer. This
+matches the `C1:DC66` display wrapper contract used by C2 amount-result
+callers.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.

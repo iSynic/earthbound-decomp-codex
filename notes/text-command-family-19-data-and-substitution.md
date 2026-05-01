@@ -336,6 +336,8 @@ Why:
 
 - this case is already pinned in the battle-text substitution family
 - local body `C1:7AE3` reads through `C1:AD26` and stages the resulting pointer through the text pipeline
+- the source now comments this as the display-text `19 1E` consumer of the
+  `$9D12/$9D14` pointer payload staged by `C1:AD0A`
 - exact parsed hits occur only in `EBATTLE8`
 
 See also [class2-cc19-1f-display-text-bridge.md](notes/class2-cc19-1f-display-text-bridge.md).

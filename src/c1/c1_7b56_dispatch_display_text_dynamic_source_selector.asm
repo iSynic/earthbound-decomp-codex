@@ -13,7 +13,14 @@
 
 C0886C_SetDisplayTransitionState   = $C0886C
 C0887A_ClearDisplayTransitionState = $C0887A
+C10DF6_PrintNumber                 = $0DF6
+C1AD26_LoadBattleTextSubstitutionPointer = $AD26
 C2165E_SetEventFlagOrState         = $C2165E
+
+LoadedBattleTextAmountPointerLo    = $06
+LoadedBattleTextAmountPointerHi    = $08
+TextContextSourcePointerLo         = $0E
+TextContextSourcePointerHi         = $10
 
 ; ---------------------------------------------------------------------------
 ; C1:7B56
@@ -474,12 +481,13 @@ C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6:
     jsl $C447FB
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
-    jsr $AD26
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $0DF6
+    ; Text command 1C 0F: print the action amount payload staged in $9D12/$9D14.
+    jsr C1AD26_LoadBattleTextSubstitutionPointer
+    lda LoadedBattleTextAmountPointerLo
+    sta TextContextSourcePointerLo
+    lda LoadedBattleTextAmountPointerHi
+    sta TextContextSourcePointerHi
+    jsr C10DF6_PrintNumber
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EFD_DispatchDisplayTextDynamicSourceSelector_L7EFD:
     lda.w #$40CF

@@ -23,6 +23,7 @@ LoadedSubstitutionPointerHi    = $08
 ; C1:7AE3
 
 C17AE3_LoadDisplayTextPointerSubstitutionSlot:
+    ; Text command 19 1E: load the pointer payload staged through $9D12/$9D14.
     jsr C1AD26_LoadBattleTextSubstitutionPointer
     lda LoadedSubstitutionPointerLo
     sta TextContextSourcePointerLo

@@ -71,6 +71,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `AD0A`, and `AD26` now spell out caller-frame aliasing, byte/pointer
   substitution slots, and the `19 1E`, `19 1F`, and `1C 0F` EF text-command
   consumers that C2 callers rely on.
+- 2026-05-01: C1 display-text consumer follow-up named the `1C 0F`
+  `PRINT_ACTION_AMOUNT` branch in source. The branch now explicitly reloads
+  the `DC66`/`AD0A` payload through `C1:AD26`, stages it to `$0E/$10`, and
+  prints it through `C1:0DF6`.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
