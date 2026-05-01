@@ -16,29 +16,34 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+
+EFMSG_SolidificationInflicted                   = $6BEF
+EFMSG_StatusNoEffect                            = $766E
+EF_BattleTextScriptBank                         = $00EF
 
 ; ---------------------------------------------------------------------------
 ; C2:A630
 
 C2A630_ApplySolidificationStatusFromItemAction:
-    jsr $724A
+    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
     cmp.w #$0000
     beq C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
     ; Success: target's body solidified.
-    lda.w #$6BEF
+    lda.w #EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
 C2A648_DisplaySolidificationFailureText:
     ; Generic "did not work" fallback.
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656:
     pld
     rtl

@@ -39,6 +39,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   no-effect direct-text scripts, the C8 doubled-guts and defense-up amount
   scripts, and the `DC66` amount-bearing calls used by Sudden Guts Pill and the
   item-side defense-up wrapper.
+- 2026-05-01: seventh pass promoted the short item/status helper leaves at
+  `C2:A39D`, `C2:A630`, `C2:A82A`, and `C2:A86B`. These now name poison-removed
+  `EF:6E97`, solidification `EF:6BEF`, no-effect `EF:766E`, the EF text bank,
+  and their `DC1C` direct-text calls.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

@@ -8439,6 +8439,11 @@ hirom
 org $C2A39D
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!SelectedRowPrimaryAfflictionByte = $001D
+!PrimaryAfflictionPoisonValue = $0005
+!ClearedAfflictionValue = $00
+!EFMSG_PoisonRemoved = $6E97
+!EF_BattleTextScriptBank = $00EF
 HEAL_POISON:
 !C2A39D_TryRecoverSelectedBattlerPoisonOnly = HEAL_POISON
     rep #$31
@@ -8448,19 +8453,19 @@ HEAL_POISON:
     tcd
     lda $A972
     clc
-    adc.w #$001D
+    adc.w #!SelectedRowPrimaryAfflictionByte
     tax
     lda $0000,X
     and.w #$00FF
-    cmp.w #$0005
+    cmp.w #!PrimaryAfflictionPoisonValue
     bne C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF
     sep #$20
-    lda.b #$00
+    lda.b #!ClearedAfflictionValue
     sta $0000,X
     rep #$20
-    lda.w #$6E97
+    lda.w #!EFMSG_PoisonRemoved
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF:
@@ -22527,22 +22532,27 @@ C2FC92_C2FB35_EnemySpriteColorWaveComparisonHelper_LFC92:
 hirom
 org $C2A630
 
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!EFMSG_SolidificationInflicted = $6BEF
+!EFMSG_StatusNoEffect = $766E
+!EF_BattleTextScriptBank = $00EF
 C2A630_ApplySolidificationStatusFromItemAction:
-    jsr $724A
+    jsr !C2724A_ApplyBattlerAfflictionSubgroupValue
     cmp.w #$0000
     beq C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
-    lda.w #$6BEF
+    lda.w #!EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
 C2A648_DisplaySolidificationFailureText:
-    lda.w #$766E
+    lda.w #!EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656:
     pld
     rtl
@@ -23421,6 +23431,14 @@ BTLACT_SUPER_BOMB:
 hirom
 org $C2A82A
 
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C27C96_RollSelectedRowThresholdGate = $7C96
+!EFMSG_SolidificationInflicted = $6BEF
+!EFMSG_StatusNoEffect = $766E
+!EF_BattleTextScriptBank = $00EF
+!TemporaryAfflictionSubgroupIndex = $0002
+!SolidificationStatusValue = $0004
 BTLACT_SOLIDIFY_2:
 !C2A82A_RunSolidificationItemAction = BTLACT_SOLIDIFY_2
     rep #$31
@@ -23428,27 +23446,27 @@ BTLACT_SOLIDIFY_2:
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
-    ldy.w #$0004
-    ldx.w #$0002
+    ldy.w #!SolidificationStatusValue
+    ldx.w #!TemporaryAfflictionSubgroupIndex
     lda $A972
-    jsr $724A
+    jsr !C2724A_ApplyBattlerAfflictionSubgroupValue
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
-    lda.w #$6BEF
+    lda.w #!EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2A869_C2A82A_RunSolidificationItemAction_LA869
 C2A85B_C2A82A_RunSolidificationItemAction_LA85B:
-    lda.w #$766E
+    lda.w #!EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2A869_C2A82A_RunSolidificationItemAction_LA869:
     pld
     rtl
@@ -23461,6 +23479,15 @@ C2A869_C2A82A_RunSolidificationItemAction_LA869:
 hirom
 org $C2A86B
 
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C26A2D_RollRandomThreshold = $6A2D
+!C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
+!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!EFMSG_StatusNoEffect = $766E
+!EF_BattleTextScriptBank = $00EF
+!HighSuccessGateThreshold = $00FA
+!RandomDamageRollLimit = $0004
+!DefaultDamageType = $00FF
 BTLACT_YOGURT_DISPENSER:
 !C2A86B_RunRandomDamageItemAction = BTLACT_YOGURT_DISPENSER
     rep #$31
@@ -23468,22 +23495,22 @@ BTLACT_YOGURT_DISPENSER:
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$00FA
-    jsr $7CAF
+    lda.w #!HighSuccessGateThreshold
+    jsr !C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A88D_C2A86B_RunRandomDamageItemAction_LA88D
-    lda.w #$0004
-    jsr $6A2D
-    ldx.w #$00FF
+    lda.w #!RandomDamageRollLimit
+    jsr !C26A2D_RollRandomThreshold
+    ldx.w #!DefaultDamageType
     inc A
-    jsr $8125
+    jsr !C28125_ApplyTypedDamageToSelectedTarget
     bra C2A89B_C2A86B_RunRandomDamageItemAction_LA89B
 C2A88D_C2A86B_RunRandomDamageItemAction_LA88D:
-    lda.w #$766E
+    lda.w #!EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2A89B_C2A86B_RunRandomDamageItemAction_LA89B:
     pld
     rtl

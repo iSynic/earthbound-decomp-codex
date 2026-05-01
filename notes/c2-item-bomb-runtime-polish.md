@@ -12,6 +12,8 @@ Primary source modules:
 - `src/c2/c2_a658_run_bomb_common_splash_damage.asm`
 - `src/c2/c2_a818_run_bomb_action.asm`
 - `src/c2/c2_a821_run_super_bomb_action.asm`
+- `src/c2/c2_a82a_run_solidification_item_action.asm`
+- `src/c2/c2_a86b_run_random_damage_item_action.asm`
 - `src/c2/c2_a89d_run_random_damage_and_status_item_action_cluster.asm`
 
 Related evidence notes:
@@ -53,7 +55,16 @@ The action:
 - attempts `C2:724A(target, X=2, Y=4)`
 
 `C2:A630` is the solidification text tail. Success displays `EF:6BEF`; failure
-displays `EF:766E`.
+displays `EF:766E`. The source now names the shared `C2:724A` affliction writer,
+the EF scripts, the EF battle-text bank, and the `C1:DC1C` direct-text dispatch.
+
+`C2:A82A` is the direct item-side solidification sibling after the bomb wrappers.
+It uses the selected-row threshold gate, applies subgroup `X = 2`, value `4`
+through `C2:724A`, and emits the same solidification/no-effect text pair.
+
+`C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF`,
+rolls a `1..4` damage amount with `C2:6A2D`, applies typed damage through
+`C2:8125`, and emits shared no-effect text on failure.
 
 ## Bomb Common
 
@@ -92,6 +103,8 @@ This slice tightens several item-side runtime contracts:
 
 - row `+0x21 = 4` has a second concentration/PSI-seal action-table anchor
 - row `+0x1F = 4` solidification is tied to item-side damage-plus-status logic
+- the direct A630/A82A solidification leaves now share the same local
+  affliction-writer and text-dispatch names as the larger A5EC/A89D clusters
 - the A89D item-status leaves now share the same direct-text and
   amount-payload ABI names as the earlier A3D1/A5EC and stat-action slices
 - bomb wrappers now have durable base damage constants

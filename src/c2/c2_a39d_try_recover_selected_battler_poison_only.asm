@@ -18,6 +18,12 @@
 
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 
+SelectedRowPrimaryAfflictionByte   = $001D
+PrimaryAfflictionPoisonValue       = $0005
+ClearedAfflictionValue             = $00
+EFMSG_PoisonRemoved                = $6E97
+EF_BattleTextScriptBank            = $00EF
+
 ; ---------------------------------------------------------------------------
 ; C2:A39D
 
@@ -30,20 +36,20 @@ C2A39D_TryRecoverSelectedBattlerPoisonOnly = HEAL_POISON
     tcd
     lda $A972
     clc
-    adc.w #$001D
+    adc.w #SelectedRowPrimaryAfflictionByte
     tax
     lda $0000,X
     and.w #$00FF
     ; Main affliction byte value 5 = poison in this recovery family.
-    cmp.w #$0005
+    cmp.w #PrimaryAfflictionPoisonValue
     bne C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF
     sep #$20
-    lda.b #$00
+    lda.b #ClearedAfflictionValue
     sta $0000,X
     rep #$20
-    lda.w #$6E97
+    lda.w #EFMSG_PoisonRemoved
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF:

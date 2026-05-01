@@ -11,7 +11,16 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+C27C96_RollSelectedRowThresholdGate             = $7C96
+
+EFMSG_SolidificationInflicted                   = $6BEF
+EFMSG_StatusNoEffect                            = $766E
+EF_BattleTextScriptBank                         = $00EF
+
+TemporaryAfflictionSubgroupIndex                = $0002
+SolidificationStatusValue                       = $0004
 
 ; ---------------------------------------------------------------------------
 ; C2:A82A
@@ -23,27 +32,27 @@ C2A82A_RunSolidificationItemAction = BTLACT_SOLIDIFY_2
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
-    ldy.w #$0004
-    ldx.w #$0002
+    ldy.w #SolidificationStatusValue
+    ldx.w #TemporaryAfflictionSubgroupIndex
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
-    lda.w #$6BEF
+    lda.w #EFMSG_SolidificationInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A869_C2A82A_RunSolidificationItemAction_LA869
 C2A85B_C2A82A_RunSolidificationItemAction_LA85B:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A869_C2A82A_RunSolidificationItemAction_LA869:
     pld
     rtl

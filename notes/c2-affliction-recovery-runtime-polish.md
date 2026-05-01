@@ -57,6 +57,10 @@ helper `C2:7397` with row word `+0x15`; otherwise it falls back to `C2:9C2C`.
 `C2:A39D` is a narrow item-side helper. It only checks `+0x1D == 5`; on match it
 clears poison and emits `EF:6E97`. Otherwise it returns silently.
 
+Source-promotion status: `src/c2/c2_a39d_try_recover_selected_battler_poison_only.asm`
+now names the selected-row primary affliction byte, poison value, clear value,
+poison-removed text script, EF text bank, and `C1:DC1C` direct-text dispatch.
+
 ## Promoted Main Affliction Map
 
 Within this recovery family, row byte `+0x1D` is now strong enough to document as

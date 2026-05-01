@@ -11,7 +11,17 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
+C26A2D_RollRandomThreshold                      = $6A2D
+C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
+C28125_ApplyTypedDamageToSelectedTarget         = $8125
+
+EFMSG_StatusNoEffect                            = $766E
+EF_BattleTextScriptBank                         = $00EF
+
+HighSuccessGateThreshold                        = $00FA
+RandomDamageRollLimit                           = $0004
+DefaultDamageType                               = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C2:A86B
@@ -23,22 +33,22 @@ C2A86B_RunRandomDamageItemAction = BTLACT_YOGURT_DISPENSER
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$00FA
-    jsr $7CAF
+    lda.w #HighSuccessGateThreshold
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A88D_C2A86B_RunRandomDamageItemAction_LA88D
-    lda.w #$0004
-    jsr $6A2D
-    ldx.w #$00FF
+    lda.w #RandomDamageRollLimit
+    jsr C26A2D_RollRandomThreshold
+    ldx.w #DefaultDamageType
     inc A
-    jsr $8125
+    jsr C28125_ApplyTypedDamageToSelectedTarget
     bra C2A89B_C2A86B_RunRandomDamageItemAction_LA89B
 C2A88D_C2A86B_RunRandomDamageItemAction_LA88D:
-    lda.w #$766E
+    lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2A89B_C2A86B_RunRandomDamageItemAction_LA89B:
     pld
     rtl

@@ -237,6 +237,11 @@ contract notes for C0/C1/C3/C4 consumers.
   solidification, asleep, strange, and shared no-effect EF scripts; the C8
   doubled-guts and defense-up amount scripts; the C8/C9/EF text banks; and the
   `C1:DC1C` / `C1:DC66` text-dispatch ABIs used by the stable item-side leaves.
+- 2026-05-01 thirty-fifth slice: promoted the small A-range item/status helper
+  leaves (`A39D`, `A630`, `A82A`, `A86B`) with byte-neutral aliases for the
+  poison-only cure row byte/value, solidification subgroup writes, random
+  damage gates, typed damage helper, EF status-result scripts, and `C1:DC1C`
+  direct-text dispatch ABI.
 
 ## Validation
 
