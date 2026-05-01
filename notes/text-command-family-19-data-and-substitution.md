@@ -77,7 +77,7 @@ Parser/runtime cross-check looks healthy here: the current exposed script set hi
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` now names the `0x19 05/16/18` status and experience helper contracts into `C4:58AF`, `C4:58FE`, and `C4:599A`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 19/1A/1B` inventory, Escargo storage, and loaded-string count staging contracts, plus the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_461a_handle_text_command0_estore_to_argmem.asm` covers `0x19 10/11`, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_461a_handle_text_command0_estore_to_argmem.asm` now names the `0x19 10` active overworld registry type-code read, the `0x19 11` character-name pointer resolver through `C2:22D3`, current text-context character index use, one-based name-letter lookup, and primary text-context staging outputs. `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` now names the `0x19 05/16/18` status and experience helper contracts into `C4:58AF`, `C4:58FE`, and `C4:599A`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 19/1A/1B` inventory, Escargo storage, and loaded-string count staging contracts, plus the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 
@@ -156,6 +156,8 @@ Why:
 
 - abundant exact parsed hits
 - local leaf `C1:4723`
+- the source now names the `C1:90E6` active overworld registry type-code
+  reader and the primary text-context output staging contract
 - script neighborhoods use it exactly like "party slot to actual character id" conversion
 
 ### `0x19 11`
@@ -171,6 +173,9 @@ Confidence:
 Why:
 
 - local leaf `C1:47CC`
+- the source now names the `C2:22D3` character-name pointer resolver,
+  current text-context character index, one-based byte lookup, and primary
+  text-context output staging contract
 - script neighborhoods print the resulting letter immediately afterward
 
 ### `0x19 14`

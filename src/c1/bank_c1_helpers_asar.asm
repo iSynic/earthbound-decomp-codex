@@ -8895,6 +8895,23 @@ hirom
 org $C1461A
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C103DC_ReadTextCommandArgumentWord = $03DC
+!C10400_GetCurrentTextContextWorkmem = $0400
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C190E6_ReadActiveOverworldRegistryTypeCode = $90E6
+!C222D3_ResolveCharacterNamePointer = $C222D3
+!CurrentNameCharacterIndex = $02
+!TextResultValueLo = $06
+!TextResultValueByte1 = $07
+!TextResultValueHi = $08
+!TextResultValueByte3 = $09
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!TextCommandFamilyFrameOffset = $FFEE
+!ZeroWord = $0000
+!OneBasedNameCharacterIndexBase = $0001
 CC_0E:
 !C1461A_HandleTextCommand0EStoreToArgmem = CC_0E
     rep #$31
@@ -9042,30 +9059,32 @@ C146F9_HandleTextCommand0EStoreToArgmem_L46F9:
     lda.w #$0000
     pld
     rts
-    rep #$31
+CC_19_10:
+!C14723_ReadActiveCharacterNumberTextCommand = CC_19_10
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommandFamilyFrameOffset
     tcd
     pla
-    cpx.w #$0000
-    beq C14735_HandleTextCommand0EStoreToArgmem_L4735
+    cpx.w #!ZeroWord
+    beq C14735_ReadCharacterSelectorArgument
     txa
-    bra C1473A_HandleTextCommand0EStoreToArgmem_L473A
-C14735_HandleTextCommand0EStoreToArgmem_L4735:
-    jsr $03DC
-    lda $06
-C1473A_HandleTextCommand0EStoreToArgmem_L473A:
-    jsr $90E6
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    bra C1473A_ResolveActiveCharacterNumber
+C14735_ReadCharacterSelectorArgument:
+    jsr !C103DC_ReadTextCommandArgumentWord
+    lda !TextResultValueLo
+C1473A_ResolveActiveCharacterNumber:
+    jsr !C190E6_ReadActiveOverworldRegistryTypeCode
+    sta !TextResultValueLo
+    stz !TextResultValueHi
+    lda !TextResultValueLo
+    sta !TextContextSourcePointerLo
+    lda !TextResultValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_00:
@@ -9143,45 +9162,47 @@ C147C1_HandleTextCommand0EStoreToArgmem_L47C1:
     lda.w #$0000
     pld
     rts
-    rep #$31
+CC_19_11:
+!C147CC_ReadCharacterNameLetterTextCommand = CC_19_11
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommandFamilyFrameOffset
     tcd
     pla
-    cpx.w #$0000
-    beq C147DE_HandleTextCommand0EStoreToArgmem_L47DE
+    cpx.w #!ZeroWord
+    beq C147DE_ReadCharacterNameSelectorArgument
     txa
-    bra C147E3_HandleTextCommand0EStoreToArgmem_L47E3
-C147DE_HandleTextCommand0EStoreToArgmem_L47DE:
-    jsr $03DC
-    lda $06
-C147E3_HandleTextCommand0EStoreToArgmem_L47E3:
-    jsl $C222D3
-    jsr $0400
-    sta $02
-    lda.w #$0001
+    bra C147E3_ResolveCharacterNameLetter
+C147DE_ReadCharacterNameSelectorArgument:
+    jsr !C103DC_ReadTextCommandArgumentWord
+    lda !TextResultValueLo
+C147E3_ResolveCharacterNameLetter:
+    jsl !C222D3_ResolveCharacterNamePointer
+    jsr !C10400_GetCurrentTextContextWorkmem
+    sta !CurrentNameCharacterIndex
+    lda.w #!OneBasedNameCharacterIndexBase
     sec
-    sbc $02
+    sbc !CurrentNameCharacterIndex
     eor.w #$FFFF
     inc A
     clc
-    adc $06
-    sta $06
-    sep #$20
-    lda [$06]
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    adc !TextResultValueLo
+    sta !TextResultValueLo
+    sep #!AccumulatorWidthFlag
+    lda [!TextResultValueLo]
+    sta !TextResultValueLo
+    stz !TextResultValueByte1
+    stz !TextResultValueHi
+    stz !TextResultValueByte3
+    rep #!AccumulatorWidthFlag
+    lda !TextResultValueLo
+    sta !TextContextSourcePointerLo
+    lda !TextResultValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
     pld
     rts
 

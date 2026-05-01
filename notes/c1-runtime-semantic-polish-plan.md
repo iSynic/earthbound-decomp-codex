@@ -158,3 +158,8 @@ This planning pass is documentation-only.
   source aliases. The promoted contracts name the `0x19 16` status-group byte
   read through `C4:58AF`, `0x19 05` nonbattle status write through `C4:58FE`,
   and `0x19 18` required-experience remaining helper through `C4:599A`.
+- 2026-05-01: C1 character identity text-command polish landed as byte-neutral
+  source aliases. The promoted contracts name the `0x19 10` active overworld
+  registry type-code read and the `0x19 11` character-name letter lookup
+  through `C2:22D3`, including current text-context indexing and primary
+  text-context result staging.
