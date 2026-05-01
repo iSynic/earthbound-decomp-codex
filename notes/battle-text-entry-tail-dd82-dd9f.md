@@ -18,6 +18,11 @@ already names the context-only pointer staging slots, and
 caller-frame text pointer slots and the forced mode-1/no-prompt display value
 used by the current-action table text lane.
 
+Implementation update: the source now spells out that `C1:DD82` uses the same
+`$9D12/$9D14` commit path as `C1:DC66` without dispatching visible text, and
+that `C1:DD9F` is the mode-1/no-prompt lane where the caller owns the
+follow-up wait/tick loop after the action-table row script is displayed.
+
 ## Working Names
 
 - `C1:DD82` = `StageBattleTextPointerSubstitutionOnly`

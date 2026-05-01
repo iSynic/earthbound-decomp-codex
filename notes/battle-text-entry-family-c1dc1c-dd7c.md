@@ -54,6 +54,13 @@ the caller-frame pointer slots, `$98B1/$0065` battle-text gate, `$9643` mode
 latch, prompt-wait mode value, primary text pointer pair, and secondary
 substitution payload pair used by these wrappers.
 
+Implementation update: the wrapper sources now also name the shared
+caller-frame alias offset and processor-width masks directly. `C1:DC1C` is
+called out as the one-pointer display lane with no secondary payload commit,
+while `C1:DC66` is called out as the primary-script plus `$9D12/$9D14`
+payload lane whose EF consumers include `1C 0F` amount text and `19 1E`
+pointer substitution.
+
 ## `C1:DC1C` as the main one-pointer battle-text wrapper
 
 The strongest locally proved behavior of `C1:DC1C` is:

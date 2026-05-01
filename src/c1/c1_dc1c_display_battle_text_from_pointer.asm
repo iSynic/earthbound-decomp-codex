@@ -34,18 +34,22 @@ BattleTextModeLatch              = $9643
 BattleTextModePromptWait         = $0002
 LowByteMask                      = $00FF
 ZeroByte                         = $00
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag             = $20
+FarCallerFrameAliasOffset        = $FFEE
 
 ; ---------------------------------------------------------------------------
 ; C1:DC1C
 
 DISPLAY_IN_BATTLE_TEXT:
 C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     ; Shift DP so caller $0E/$10 appear here as $20/$22.
     ; C2 callers use those slots as the battle-text script far pointer.
+    ; Unlike DC66, this wrapper does not commit a secondary payload.
     tdc
-    adc.w #$FFEE
+    adc.w #FarCallerFrameAliasOffset
     tcd
     lda CallerFrameTextPointerLo
     sta LocalTextPointerLo
@@ -58,7 +62,7 @@ C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
     lda BattleTextGateStatusWord
     and.w #BattleTextGateStatusBit
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
-    sep #$20
+    sep #AccumulatorWidthFlag
     lda.b #ZeroByte
     sta $0000,X
     jsl C20293_ClearBattleTextGateState

@@ -27,7 +27,8 @@ C1AD0A_StageBattleTextSubstitutionPointer:
     rep #ProcessorStatus16BitAIndexCarryClear
     phd
     ; C1:DC66 calls this after shifting DP; its $1C/$1E slots alias the
-    ; original caller's $12/$14 payload pointer.
+    ; original caller's $12/$14 payload pointer. C1:DD82 uses the same commit
+    ; path for pointer-only staging into the shared $9D12/$9D14 slot.
     tdc
     adc.w #DisplayTextCallerFrameAliasOffset
     tcd

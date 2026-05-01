@@ -25,6 +25,10 @@ Source polish: `src/c1/c1_acf8_stage_battle_text_substitution_byte.asm`,
 `src/c1/c1_dd7c_redirect_stage_battle_text_substitution_byte.asm` now name the
 processor-width masks and `$9D11` one-byte substitution slot directly.
 
+Implementation update: the setter/getter sources now explicitly tie this slot
+to text command `19 1F`: `C1:ACF8` stages the byte, and `C1:AD02` is the
+getter reached from the `C1:7AF3` display-text command leaf.
+
 ### `C1:ACF8`
 
 Local body:

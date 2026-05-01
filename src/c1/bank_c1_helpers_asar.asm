@@ -30421,11 +30421,12 @@ org $C1DD9F
 !TextDispatchPointerLo = $0E
 !TextDispatchPointerHi = $10
 !BattleTextModeCurrentActionNoPrompt = $0001
+!FarCallerFrameAliasOffset = $FFEE
 C1DD9F_DisplayCurrentActionTableTextMode1:
     rep #$31
     phd
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
     lda !CallerFrameTextPointerLo
     sta !LocalTextPointerLo
@@ -35756,12 +35757,15 @@ org $C1DC1C
 !BattleTextModePromptWait = $0002
 !LowByteMask = $00FF
 !ZeroByte = $00
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!FarCallerFrameAliasOffset = $FFEE
 DISPLAY_IN_BATTLE_TEXT:
 !C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
     lda !CallerFrameTextPointerLo
     sta !LocalTextPointerLo
@@ -35774,7 +35778,7 @@ DISPLAY_IN_BATTLE_TEXT:
     lda !BattleTextGateStatusWord
     and.w #!BattleTextGateStatusBit
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda.b #!ZeroByte
     sta $0000,X
     jsl !C20293_ClearBattleTextGateState
@@ -35823,12 +35827,15 @@ org $C1DC66
 !BattleTextModePromptWait = $0002
 !LowByteMask = $00FF
 !ZeroByte = $00
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!FarCallerFrameAliasOffset = $FFEE
 DISPLAY_TEXT_WAIT:
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
     lda !CallerFrameSubstitutionPayloadLo
     sta !LocalSubstitutionPayloadLo
@@ -35845,7 +35852,7 @@ DISPLAY_TEXT_WAIT:
     lda !BattleTextGateStatusWord
     and.w #!BattleTextGateStatusBit
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda.b #!ZeroByte
     sta $0000,X
     jsl !C20293_ClearBattleTextGateState

@@ -21,6 +21,7 @@ AccumulatorWidthFlag = $20
 C1ACF8_StageBattleTextSubstitutionByte:
     rep #ProcessorStatus16BitAIndexCarryClear
     sep #AccumulatorWidthFlag
+    ; Setter side for text command 19 1F byte-substitution loads.
     sta BattleTextSubstitutionByte
     rep #AccumulatorWidthFlag
     rts

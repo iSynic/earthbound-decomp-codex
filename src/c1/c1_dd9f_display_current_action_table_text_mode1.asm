@@ -29,6 +29,7 @@ LocalTextPointerHi                         = $08
 TextDispatchPointerLo                      = $0E
 TextDispatchPointerHi                      = $10
 BattleTextModeCurrentActionNoPrompt        = $0001
+FarCallerFrameAliasOffset                  = $FFEE
 
 ; ---------------------------------------------------------------------------
 ; C1:DD9F
@@ -39,7 +40,7 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
     ; Shift DP so caller $0E/$10 appear here as $20/$22. The only known
     ; C2 caller stages an action-table row script pointer in those slots.
     tdc
-    adc.w #$FFEE
+    adc.w #FarCallerFrameAliasOffset
     tcd
     lda CallerFrameTextPointerLo
     sta LocalTextPointerLo
@@ -51,7 +52,8 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
     sta TextDispatchPointerLo
     lda LocalTextPointerHi
     sta TextDispatchPointerHi
-    ; Mode 1 text lane for D5:7B68 action-table row messages.
+    ; Mode 1 text lane for D5:7B68 action-table row messages; the caller owns
+    ; the follow-up wait/tick loop after this no-prompt dispatch.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_ClearBattleTextDisplayMode
     pld

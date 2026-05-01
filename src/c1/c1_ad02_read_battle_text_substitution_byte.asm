@@ -21,5 +21,6 @@ AccumulatorWidthFlag = $20
 C1AD02_ReadBattleTextSubstitutionByte:
     rep #ProcessorStatus16BitAIndexCarryClear
     sep #AccumulatorWidthFlag
+    ; Getter side used by C1:7AF3 for text command 19 1F.
     lda BattleTextSubstitutionByte
     rts

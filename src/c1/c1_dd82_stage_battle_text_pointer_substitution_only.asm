@@ -27,6 +27,8 @@ FarCallerFrameAliasOffset = $FFEE
 C1DD82_StageBattleTextPointerSubstitutionOnly:
     rep #ProcessorStatus16BitAIndexCarryClear
     phd
+    ; Shift DP so caller $0E/$10 appear here as $20/$22; this wrapper
+    ; commits the pointer payload only and does not dispatch visible text.
     tdc
     adc.w #FarCallerFrameAliasOffset
     tcd
@@ -38,6 +40,7 @@ C1DD82_StageBattleTextPointerSubstitutionOnly:
     sta TextDispatchPointerLo
     lda LocalSubstitutionPointerHi
     sta TextDispatchPointerHi
+    ; Commit through the same $9D12/$9D14 slot used by DC66 payloads.
     jsr C1AD0A_StageBattleTextSubstitutionPointer
     pld
     rtl

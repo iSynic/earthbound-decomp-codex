@@ -34,19 +34,22 @@ BattleTextModeLatch                        = $9643
 BattleTextModePromptWait                   = $0002
 LowByteMask                                = $00FF
 ZeroByte                                   = $00
+ProcessorStatus16BitAIndexCarryClear       = $31
+AccumulatorWidthFlag                       = $20
+FarCallerFrameAliasOffset                  = $FFEE
 
 ; ---------------------------------------------------------------------------
 ; C1:DC66
 
 DISPLAY_TEXT_WAIT:
 C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     ; Shift DP so caller $0E/$10 and $12/$14 appear here as $20/$22
     ; and $24/$26. C2 uses the first pair for the EF script pointer and
     ; the second pair for the script-read payload.
     tdc
-    adc.w #$FFEE
+    adc.w #FarCallerFrameAliasOffset
     tcd
     lda CallerFrameSubstitutionPayloadLo
     sta LocalSubstitutionPayloadLo
@@ -63,7 +66,7 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
     lda BattleTextGateStatusWord
     and.w #BattleTextGateStatusBit
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
-    sep #$20
+    sep #AccumulatorWidthFlag
     lda.b #ZeroByte
     sta $0000,X
     jsl C20293_ClearBattleTextGateState
@@ -73,7 +76,7 @@ C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C:
     lda LocalSubstitutionPayloadHi
     sta TextDispatchPointerHi
     ; Commit the secondary payload to $9D12/$9D14 before the script runs.
-    ; EF scripts then consume it as PRINT_ACTION_AMOUNT or pointer substitution.
+    ; EF scripts consume it as 1C 0F amount text or 19 1E pointer substitution.
     jsr C1AD0A_StageBattleTextSubstitutionPointer
     lda BattleTextModeLatch
     beq C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2

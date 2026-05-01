@@ -66,6 +66,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `C2:C572`, and `C2:C6F0` now name the `DC1C` dispatch ABI plus the C8/C9
   special-event, prayer, finale, and Pokey run-away scripts staged by those
   helpers.
+- 2026-05-01: C1-side ABI follow-up tightened the source comments/constants
+  around the same joins. `DC1C`, `DC66`, `DD82`, `DD9F`, `ACF8`, `AD02`,
+  `AD0A`, and `AD26` now spell out caller-frame aliasing, byte/pointer
+  substitution slots, and the `19 1E`, `19 1F`, and `1C 0F` EF text-command
+  consumers that C2 callers rely on.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

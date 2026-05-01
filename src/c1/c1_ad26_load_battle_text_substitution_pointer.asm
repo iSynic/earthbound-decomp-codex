@@ -26,7 +26,8 @@ DisplayTextCallerFrameAliasOffset = $FFF2
 C1AD26_LoadBattleTextSubstitutionPointer:
     rep #ProcessorStatus16BitAIndexCarryClear
     phd
-    ; Getter side for EF battle-text commands such as PRINT_ACTION_AMOUNT.
+    ; Getter side for EF battle-text commands such as PRINT_ACTION_AMOUNT
+    ; (1C 0F) and pointer substitution (19 1E).
     tdc
     adc.w #DisplayTextCallerFrameAliasOffset
     tcd

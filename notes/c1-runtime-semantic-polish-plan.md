@@ -163,3 +163,8 @@ This planning pass is documentation-only.
   registry type-code read and the `0x19 11` character-name letter lookup
   through `C2:22D3`, including current text-context indexing and primary
   text-context result staging.
+- 2026-05-01: C1 battle-text ABI follow-up landed as byte-neutral source
+  comments/constants. The promoted contracts now distinguish the one-pointer
+  `DC1C` lane, the primary-script plus `$9D12/$9D14` payload lane at `DC66`,
+  the pointer-only staging lane at `DD82`, the mode-1/no-prompt action-table
+  lane at `DD9F`, and the `19 1E/19 1F/1C 0F` text-command consumers.
