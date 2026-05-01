@@ -8,6 +8,12 @@
 ;
 ; Source units covered:
 ; - D5:5000..D5:76B2 ItemConfigurationTable
+;
+; Contract highlights:
+; - 254 rows, stride $27.
+; - Row +$1A is the little-endian store cost word.
+; - CoilSnake `item-cost-probe` changed D5:5068, proving the YAML Cost field
+;   lands on row +$1A; C1:9DB5 consumes it for shop item display.
 
 ; ---------------------------------------------------------------------------
 ; D5:76B2

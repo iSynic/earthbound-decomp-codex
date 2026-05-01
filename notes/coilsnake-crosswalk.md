@@ -224,6 +224,19 @@ checked-in field join summary. Current joins:
   window-dimension consumer remains open because the current C3 scaffold is
   still coarse.
 
+## Promoted Local Contracts
+
+The strongest runtime-correlated D5 probes are now reflected in the local
+contract front doors and source scaffolds:
+
+- `item-cost-probe`: `ITEM_CONFIGURATION_TABLE` row `+0x1A` is the store cost
+  word, with runtime evidence from the C1 shop item row builder.
+- `battle-action-pp-cost-probe`: `BATTLE_ACTION_TABLE` row `+0x03` is the
+  PP/cost byte, with runtime evidence from the C1 battle PSI menu PP guard.
+- `enemy-insane-cultist-action1-probe`: `ENEMY_CONFIGURATION_TABLE` row
+  `+0x46` is the first normal action id slot, with runtime evidence from the C2
+  battle-start enemy action-slot staging path.
+
 ## Promotion Rules
 
 - Use CoilSnake output to choose good questions and vocabulary, not to rename
@@ -237,11 +250,9 @@ checked-in field join summary. Current joins:
 
 ## Next Work
 
-- Promote the item-cost, battle-action PP-cost, and enemy action-slot
-  runtime-correlated fields into the next D5 table contract pass; keep the
-  text-menu, NPC text-pointer, PSI learn-level, door-data, map-palette, and
-  window-width probes at their current evidence levels until direct consumers or
-  pointer packing joins are found.
+- Keep the text-menu, NPC text-pointer, PSI learn-level, door-data,
+  map-palette, and window-width probes at their current evidence levels until
+  direct consumers or pointer packing joins are found.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.

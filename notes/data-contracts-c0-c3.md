@@ -228,14 +228,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `battle_action`
 - confidence: `corroborated`
 - note: Battle action rows consumed by targetting, menu, PP-cost, text, and battle-function dispatch paths.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/data/battle/action_table.asm`, `notes/battle-targetting-resolver-c1adb4-af50.md`
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/src/data/battle/action_table.asm`, `notes/battle-targetting-resolver-c1adb4-af50.md`, `notes/battle-psi-menu-controller-c1cc39-ce73.md`, `manifests/coilsnake-field-semantics.json`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `direction` | 1 | 1 | enemy/ally/immediate direction selector |
 | `0x1` | `target` | 1 | 1 | target subtype consumed by the C1 targetting resolver |
 | `0x2` | `type` | 1 | 1 | battle action type |
-| `0x3` | `pp_cost` | 1 | 1 | PSI/action PP cost |
+| `0x3` | `pp_cost` | 1 | 1 | PSI/action PP cost; CoilSnake `battle-action-pp-cost-probe` is runtime-correlated to the C1:CC39 battle PSI PP guard |
 | `0x4` | `description_text_pointer` | 4 | 1 | battle text pointer |
 | `0x8` | `battle_function_pointer` | 4 | 1 | battle action handler pointer |
 
@@ -273,7 +273,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `enemy_data`
 - confidence: `corroborated`
 - note: Enemy configuration records copied into battler slots by the C2 battle-init paths.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/class2-005e-record-domain.md`, `notes/class2-local-enemy-id-to-battler-init-chain.md`
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/ebsrc-main/ebsrc-main/include/symbols/misc.inc.asm`, `notes/class2-005e-record-domain.md`, `notes/class2-local-enemy-id-to-battler-init-chain.md`, `notes/class2-d59589-enemy-data-crosswalk.md`, `manifests/coilsnake-field-semantics.json`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -306,7 +306,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | `0x43` | `hypnosis_brainshock_vulnerability` | 1 | 1 |  |
 | `0x44` | `miss_rate` | 1 | 1 |  |
 | `0x45` | `action_order` | 1 | 1 |  |
-| `0x46` | `actions` | 2 | 4 | normal action ids |
+| `0x46` | `actions` | 2 | 4 | normal action ids; CoilSnake `enemy-insane-cultist-action1-probe` is runtime-correlated to the C2:5024 enemy action-slot staging path |
 | `0x4E` | `final_action` | 2 | 1 |  |
 | `0x50` | `action_args` | 1 | 4 | arguments for normal actions |
 | `0x54` | `final_action_arg` | 1 | 1 |  |

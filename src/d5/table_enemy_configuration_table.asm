@@ -8,6 +8,14 @@
 ;
 ; Source units covered:
 ; - D5:9589..D5:EA5B EnemyConfigurationTable
+;
+; Contract highlights:
+; - 231 rows, stride $5E.
+; - Row +$45 is action-order metadata.
+; - Row +$46..+$4D are four normal action id words; row +$50..+$53 are their
+;   paired argument bytes.
+; - CoilSnake `enemy-insane-cultist-action1-probe` changed D5:962D, proving
+;   Action 1 lands on row +$46; C2:5024 stages this slot into the battler row.
 
 ; ---------------------------------------------------------------------------
 ; D5:EA5B

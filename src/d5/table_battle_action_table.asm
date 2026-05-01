@@ -8,6 +8,13 @@
 ;
 ; Source units covered:
 ; - D5:7B68..D5:8A50 BattleActionTable
+;
+; Contract highlights:
+; - 318 rows, stride $0C.
+; - Row +$03 is the PP/cost byte.
+; - CoilSnake `battle-action-pp-cost-probe` changed D5:7C07, proving the
+;   YAML PP Cost field lands on row +$03; C1:CC39 consumes it for the battle
+;   PSI menu PP guard.
 
 ; ---------------------------------------------------------------------------
 ; D5:8A50
