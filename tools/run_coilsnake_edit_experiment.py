@@ -22,6 +22,7 @@ DEFAULT_BASE_EXPANDED_ROM = ROOT / "build" / "coilsnake" / "base-expanded.sfc"
 DEFAULT_BASELINE_REBUILD_ROM = ROOT / "build" / "coilsnake" / "baseline-rebuild.sfc"
 DEFAULT_EXPERIMENTS_DIR = ROOT / "build" / "coilsnake" / "edit-experiments"
 DEFAULT_COILSNAKE_EXE = ROOT / "build" / "coilsnake" / "tools" / "CoilSnake-4.2.exe"
+DEFAULT_COMPILE_TIMEOUT_SECONDS = 600
 
 
 def rel(path: Path) -> str:
@@ -54,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--compile-timeout-seconds",
         type=int,
-        default=1200,
+        default=DEFAULT_COMPILE_TIMEOUT_SECONDS,
         help="Abort CoilSnake compile after this many seconds and still write a report.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Apply checks but do not copy or compile.")

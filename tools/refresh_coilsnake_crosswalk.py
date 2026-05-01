@@ -175,6 +175,7 @@ def inject_experiment_plan_workflow(manifest_path: Path, experiment_plan_path: P
         "validator": "tools/validate_coilsnake_experiment_plan.py",
         "runner": "tools/run_coilsnake_edit_experiment.py",
         "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+        "default_compile_timeout_seconds": plan.get("default_compile_timeout_seconds"),
         "planned_count": len(experiments),
         "next_experiments": next_experiments,
     }

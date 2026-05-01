@@ -78,16 +78,26 @@ def main() -> int:
         print(f"Experiment runner not found: {runner}", file=sys.stderr)
         return 2
 
-    experiment = find_experiment(load_json(plan_path), args.experiment_id)
+    plan = load_json(plan_path)
+    experiment = find_experiment(plan, args.experiment_id)
     if experiment is None:
         print(f"Planned experiment not found: {args.experiment_id}", file=sys.stderr)
         return 2
+
+    compile_timeout_seconds = args.compile_timeout_seconds
+    if compile_timeout_seconds is None:
+        experiment_timeout = experiment.get("compile_timeout_seconds")
+        plan_timeout = plan.get("default_compile_timeout_seconds")
+        if isinstance(experiment_timeout, int):
+            compile_timeout_seconds = experiment_timeout
+        elif isinstance(plan_timeout, int):
+            compile_timeout_seconds = plan_timeout
 
     command = build_command(
         runner=runner,
         experiment=experiment,
         dry_run=args.dry_run,
-        compile_timeout_seconds=args.compile_timeout_seconds,
+        compile_timeout_seconds=compile_timeout_seconds,
     )
     print(" ".join(command))
     if args.print_command:

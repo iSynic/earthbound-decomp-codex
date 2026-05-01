@@ -83,6 +83,10 @@ python tools/validate_coilsnake_experiment_plan.py
 python tools/run_coilsnake_planned_experiment.py --experiment-id psi-ness-omega-level-probe --dry-run
 ```
 
+`manifests/coilsnake-experiment-plan.json` sets
+`default_compile_timeout_seconds` to `600`. Longer compiles should be explicit
+per run or per planned experiment so the oracle loop stays bounded.
+
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text
 replacement, compiles against `build/coilsnake/base-expanded.sfc`, diffs against
@@ -103,7 +107,7 @@ Local tool caveat as of this pass:
 - The local `build/coilsnake/tools/CoilSnake-4.2.exe` can be invoked, but the
   first new compile probe exceeded a 30-minute shell timeout before producing a
   rebuilt ROM. The runner now writes a prepared report before compiling and uses
-  an internal compile timeout that is shorter than that shell boundary.
+  a 10-minute internal compile timeout by default.
 
 Results:
 
@@ -148,7 +152,7 @@ Queued/pending compile:
 
 | Experiment | Edit | Current status |
 | --- | --- | --- |
-| `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `10` `PP Cost` `10 -> 11` | dry-run match confirmed; local `CoilSnake-4.2.exe` compile exceeded a 10-minute shell timeout before producing `rebuilt.sfc` |
+| `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `13` `PP Cost` `98 -> 99` | planned edit match confirmed; local `CoilSnake-4.2.exe` compile exceeded a 30-minute shell timeout before producing `rebuilt.sfc`; a 5-second timeout smoke verified the runner writes an ignored `compile-timeout` report |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.

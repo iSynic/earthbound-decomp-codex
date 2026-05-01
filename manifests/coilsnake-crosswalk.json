@@ -1304,13 +1304,14 @@
     "validator": "tools/validate_coilsnake_experiment_plan.py",
     "runner": "tools/run_coilsnake_edit_experiment.py",
     "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+    "default_compile_timeout_seconds": 600,
     "planned_count": 6,
     "next_experiments": [
       {
         "experiment_id": "battle-action-pp-cost-probe",
         "batch": "battle-data",
         "source_file": "battle_action_table.yml",
-        "status": "prepared-timeout-pending-rerun",
+        "status": "timeout-path-verified-pending-rerun",
         "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers."
       },
       {

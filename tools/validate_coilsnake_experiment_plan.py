@@ -15,6 +15,7 @@ DEFAULT_PROJECT_DIR = ROOT / "build" / "coilsnake" / "baseline-project"
 STATUSES = {
     "planned",
     "prepared-timeout-pending-rerun",
+    "timeout-path-verified-pending-rerun",
     "needs-match-review",
     "diff-confirmed",
     "retired",
@@ -65,6 +66,10 @@ def validate_plan(plan_path: Path, crosswalk_path: Path, project_dir: Path) -> l
     if not isinstance(experiments, list):
         return ["planned_experiments must be a list"]
 
+    default_timeout = plan.get("default_compile_timeout_seconds")
+    if not isinstance(default_timeout, int) or default_timeout < 1:
+        problems.append("default_compile_timeout_seconds must be a positive integer")
+
     seen: set[str] = set()
     for index, experiment in enumerate(experiments):
         label = f"planned_experiments[{index}]"
@@ -95,6 +100,10 @@ def validate_plan(plan_path: Path, crosswalk_path: Path, project_dir: Path) -> l
         priority = experiment.get("priority")
         if not isinstance(priority, int) or priority < 0:
             problems.append(f"{experiment_id}: priority must be a nonnegative integer")
+
+        compile_timeout = experiment.get("compile_timeout_seconds")
+        if compile_timeout is not None and (not isinstance(compile_timeout, int) or compile_timeout < 1):
+            problems.append(f"{experiment_id}: compile_timeout_seconds must be a positive integer")
 
         expected_count = experiment.get("expected_count")
         if not isinstance(expected_count, int) or expected_count < 1:
