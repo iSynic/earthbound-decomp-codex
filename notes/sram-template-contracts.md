@@ -104,7 +104,7 @@ Reserved template blocks:
 - `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank20.asm`: The asset is inserted as `COMPRESSED_SRAM` immediately after the USA romaji font and before the Mr. Saturn font data.
 - `refs/ebsrc-main/ebsrc-main/include/structs.asm`: `save_block` is a 1280-byte structure whose section offsets exactly match each decompressed 0x500-byte block.
 - `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/sram.asm`: The SRAM segment defines SAVE_BASE and the live game-state/character/event-flag SRAM regions used by save logic.
-- `src/ef/ef_05a9_0c3d_save_sram_helpers.asm`: EF save helpers map three user save slots to primary/backup block pairs 0/1, 2/3, and 4/5; blocks 6/7 are outside the normal slot loops.
+- `src/ef/ef_05a9_0c3d_save_sram_helpers.asm`: EF save helpers map three user save slots to primary/backup block pairs 0/1, 2/3, and 4/5; blocks 6/7 are outside the normal slot loops. The source now names the 0x500-byte save-block size, 0x0A00-byte slot-pair stride, payload/header offsets, live game-state/party/event-flag copy spans, SRAM integrity marker, and `$9F79` missing-save mask; see `notes/ef-save-sram-runtime-polish.md`.
 
 ## Open Questions
 

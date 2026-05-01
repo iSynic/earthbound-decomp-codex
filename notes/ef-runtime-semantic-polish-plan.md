@@ -69,3 +69,13 @@ python tools\build_source_bank_residual_map.py --bank EF
 ```
 
 This planning pass does not split EF source corridors or regenerate the bank.
+
+## Implementation Notes
+
+- 2026-05-01: EF save/SRAM helper polish landed as byte-neutral source
+  aliases/constants plus `notes/ef-save-sram-runtime-polish.md`. The promoted
+  contracts name the 0x500-byte save-block layout, primary/backup save-slot
+  pair sizing, checksum/complement fields, live game-state/party/event-flag
+  copy spans, `$9F79` missing-save mask, `EF:05A6` missing-save slot bit masks,
+  `$30:7FFE` SRAM integrity marker, and the C0 multiply helper used to scale
+  slot and block indices into SRAM offsets.

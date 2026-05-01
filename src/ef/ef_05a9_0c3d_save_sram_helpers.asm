@@ -24,31 +24,64 @@ C08EED_CopyToVramOrRendererBuffer      = $C08EED
 C08F15_ClearVramOrRendererBuffer       = $C08F15
 C08F22_CopyLongBlockMaybe              = $C08F22
 C08F2F_CompareLongBlockMaybe           = $C08F2F
-C09032_DivideUnsignedWordByIndex       = $C09032
-EF05A6_SaveBlockPresentBitMasks        = $EF05A6
+C09032_Multiply16By16_ViaHardwareRegisters = $C09032
+EF05A6_MissingSaveSlotBitMasks         = $EF05A6
+
+SaveBlockSize = $0500
+SaveSlotPairSize = $0A00
+SaveBlockSramBaseLo = $6000
+SaveBlockPayloadBaseLo = $6020
+SaveBlockChecksumFieldLo = $601C
+SaveBlockComplementFieldLo = $601E
+SaveBlockSramBankWord = $0030
+SaveBlockPayloadByteCount = $04E0
+SaveBlockPayloadWordCount = $0270
+SaveSramClearByteCount = $2000
+SramIntegrityMarkerAddressLo = $7FFE
+SramIntegrityMarker = $0493
+GameStateSourceBase = $97F5
+PartyCharacterSourceBase = $99CE
+EventFlagsSourceBase = $9C08
+GameStateSaveByteCount = $01D9
+PartyCharacterSaveByteCount = $023A
+EventFlagsSaveByteCount = $0080
+ActiveMapPointerLo = $00A7
+ActiveMapPointerHi = $00A9
+SavedMapPointerLo = $99C9
+SavedMapPointerHi = $99CB
+SramIntegrityMarkerMirror = $9F77
+MissingSaveSlotMask = $9F79
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+ZeroByte = $00
+ZeroWord = $0000
+InvalidWord = $FFFF
+SaveBlockPairCount = $0006
+UserSaveSlotCount = $0003
+SignatureReinitializedFlag = $0001
 
 ; ---------------------------------------------------------------------------
 ; EF:05A9
 
 ERASE_SAVE_BLOCK:
 EF05A9_EraseSaveBlock = ERASE_SAVE_BLOCK
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFE4
     tcd
     pla
-    ldy.w #$0500
-    jsl C09032_DivideUnsignedWordByIndex
+    ldy.w #SaveBlockSize
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $0A
     stz $0C
     clc
     lda $0A
-    adc.w #$6000
+    adc.w #SaveBlockSramBaseLo
     sta $0A
     lda $0C
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $0C
     lda $0A
     sta $06
@@ -58,9 +91,9 @@ EF05A9_EraseSaveBlock = ERASE_SAVE_BLOCK
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0500
-    sep #$20
-    lda.b #$00
+    ldx.w #SaveBlockSize
+    sep #AccumulatorWidthFlag
+    lda.b #ZeroByte
     jsl C08F15_ClearVramOrRendererBuffer
     lda.w #$0591
     sta $06
@@ -98,7 +131,7 @@ EF05A9_EraseSaveBlock = ERASE_SAVE_BLOCK
     rts
 CHECK_BLOCK_SIGNATURE:
 EF0630_CheckSaveBlockSignature = CHECK_BLOCK_SIGNATURE
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -107,17 +140,17 @@ EF0630_CheckSaveBlockSignature = CHECK_BLOCK_SIGNATURE
     pla
     tax
     stx $16
-    ldy.w #$0500
+    ldy.w #SaveBlockSize
     txa
-    jsl C09032_DivideUnsignedWordByIndex
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $06
     stz $08
     clc
     lda $06
-    adc.w #$6000
+    adc.w #SaveBlockSramBaseLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     lda.w #$0591
     sta $0E
@@ -128,26 +161,26 @@ EF0630_CheckSaveBlockSignature = CHECK_BLOCK_SIGNATURE
     lda $08
     sta $14
     jsl C08F2F_CompareLongBlockMaybe
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq EF067E_SaveSramHelperCluster_L067E
     ldx $16
     txa
     jsr.w ERASE_SAVE_BLOCK
-    lda.w #$0001
+    lda.w #SignatureReinitializedFlag
     bra EF0681_SaveSramHelperCluster_L0681
 EF067E_SaveSramHelperCluster_L067E:
-    lda.w #$0000
+    lda.w #ZeroWord
 EF0681_SaveSramHelperCluster_L0681:
     pld
     rts
 CHECK_ALL_BLOCKS_SIGNATURE:
 EF0683_CheckAllSaveBlockSignatures = CHECK_ALL_BLOCKS_SIGNATURE
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #$0000
+    ldx.w #ZeroWord
     stx $0E
     bra EF069B_SaveSramHelperCluster_L069B
 EF0692_SaveSramHelperCluster_L0692:
@@ -157,13 +190,13 @@ EF0692_SaveSramHelperCluster_L0692:
     inx
     stx $0E
 EF069B_SaveSramHelperCluster_L069B:
-    cpx.w #$0006
+    cpx.w #SaveBlockPairCount
     bcc EF0692_SaveSramHelperCluster_L0692
     pld
     rts
 COPY_SAVE_BLOCK:
 EF06A2_CopySaveBlock = COPY_SAVE_BLOCK
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -171,13 +204,13 @@ EF06A2_CopySaveBlock = COPY_SAVE_BLOCK
     tcd
     pla
     sta $1E
-    lda.w #$6000
+    lda.w #SaveBlockSramBaseLo
     sta $06
-    lda.w #$0030
+    lda.w #SaveBlockSramBankWord
     sta $08
-    ldy.w #$0500
+    ldy.w #SaveBlockSize
     lda $1E
-    jsl C09032_DivideUnsignedWordByIndex
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $0A
     stz $0C
     clc
@@ -195,9 +228,9 @@ EF06A2_CopySaveBlock = COPY_SAVE_BLOCK
     sta $0A
     lda $08
     sta $0C
-    ldy.w #$0500
+    ldy.w #SaveBlockSize
     txa
-    jsl C09032_DivideUnsignedWordByIndex
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $06
     stz $08
     clc
@@ -231,31 +264,31 @@ EF06A2_CopySaveBlock = COPY_SAVE_BLOCK
     sta $12
     lda $08
     sta $14
-    lda.w #$0500
+    lda.w #SaveBlockSize
     jsl C08EED_CopyToVramOrRendererBuffer
     pld
     rts
 CALC_SAVE_BLOCK_ADD_CHECKSUM:
 EF0734_CalcSaveBlockChecksum = CALC_SAVE_BLOCK_ADD_CHECKSUM
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF0
     tcd
     pla
-    ldy.w #$0500
-    jsl C09032_DivideUnsignedWordByIndex
+    ldy.w #SaveBlockSize
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $06
     stz $08
     clc
     lda $06
-    adc.w #$6020
+    adc.w #SaveBlockPayloadBaseLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
-    ldx.w #$0000
+    ldx.w #ZeroWord
     txa
     sta $0E
     bra EF0773_SaveSramHelperCluster_L0773
@@ -272,32 +305,32 @@ EF0760_SaveSramHelperCluster_L0760:
     inc A
     sta $0E
 EF0773_SaveSramHelperCluster_L0773:
-    cmp.w #$04E0
+    cmp.w #SaveBlockPayloadByteCount
     bcc EF0760_SaveSramHelperCluster_L0760
     txa
     pld
     rts
 CALC_SAVE_BLOCK_XOR_CHECKSUM:
 EF077B_CalcSaveBlockChecksumComplement = CALC_SAVE_BLOCK_XOR_CHECKSUM
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF0
     tcd
     pla
-    ldy.w #$0500
-    jsl C09032_DivideUnsignedWordByIndex
+    ldy.w #SaveBlockSize
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $06
     stz $08
     clc
     lda $06
-    adc.w #$6020
+    adc.w #SaveBlockPayloadBaseLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
-    ldx.w #$0000
+    ldx.w #ZeroWord
     txa
     sta $0E
     bra EF07B8_SaveSramHelperCluster_L07B8
@@ -313,14 +346,14 @@ EF07A7_SaveSramHelperCluster_L07A7:
     inc A
     sta $0E
 EF07B8_SaveSramHelperCluster_L07B8:
-    cmp.w #$0270
+    cmp.w #SaveBlockPayloadWordCount
     bcc EF07A7_SaveSramHelperCluster_L07A7
     txa
     pld
     rts
 VALIDATE_SAVE_BLOCK_CHECKSUMS:
 EF07C0_ValidateSaveBlockChecksums = VALIDATE_SAVE_BLOCK_CHECKSUMS
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -336,10 +369,10 @@ EF07C0_ValidateSaveBlockChecksums = VALIDATE_SAVE_BLOCK_CHECKSUMS
     txa
     jsr.w CALC_SAVE_BLOCK_XOR_CHECKSUM
     sta $02
-    ldy.w #$0500
+    ldy.w #SaveBlockSize
     ldx $0E
     txa
-    jsl C09032_DivideUnsignedWordByIndex
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $0A
     stz $0C
     lda $0A
@@ -348,17 +381,17 @@ EF07C0_ValidateSaveBlockChecksums = VALIDATE_SAVE_BLOCK_CHECKSUMS
     sta $08
     clc
     lda $06
-    adc.w #$601C
+    adc.w #SaveBlockChecksumFieldLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     clc
     lda $0A
-    adc.w #$601E
+    adc.w #SaveBlockComplementFieldLo
     sta $0A
     lda $0C
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $0C
     lda [$06]
     cmp $04
@@ -367,16 +400,16 @@ EF07C0_ValidateSaveBlockChecksums = VALIDATE_SAVE_BLOCK_CHECKSUMS
     cmp $02
     beq EF0820_SaveSramHelperCluster_L0820
 EF081B_SaveSramHelperCluster_L081B:
-    lda.w #$FFFF
+    lda.w #InvalidWord
     bra EF0823_SaveSramHelperCluster_L0823
 EF0820_SaveSramHelperCluster_L0820:
-    lda.w #$0000
+    lda.w #ZeroWord
 EF0823_SaveSramHelperCluster_L0823:
     pld
     rts
 CHECK_SAVE_CORRUPTION:
 EF0825_CheckSaveCorruption = CHECK_SAVE_CORRUPTION
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -389,7 +422,7 @@ EF0825_CheckSaveCorruption = CHECK_SAVE_CORRUPTION
     asl A
     sta $02
     jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq EF086F_SaveSramHelperCluster_L086F
     lda $02
     jsr.w ERASE_SAVE_BLOCK
@@ -398,7 +431,7 @@ EF0825_CheckSaveCorruption = CHECK_SAVE_CORRUPTION
     stx $0E
     txa
     jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq EF0868_SaveSramHelperCluster_L0868
     ldx $0E
     txa
@@ -406,9 +439,9 @@ EF0825_CheckSaveCorruption = CHECK_SAVE_CORRUPTION
     ldy $10
     tyx
     sep #$20
-    lda EF05A6_SaveBlockPresentBitMasks,X
-    ora $9F79
-    sta $9F79
+    lda EF05A6_MissingSaveSlotBitMasks,X
+    ora MissingSaveSlotMask
+    sta MissingSaveSlotMask
     bra EF088B_SaveSramHelperCluster_L088B
 EF0868_SaveSramHelperCluster_L0868:
     ldx $0E
@@ -420,7 +453,7 @@ EF086F_SaveSramHelperCluster_L086F:
     sty $10
     tya
     jsr.w VALIDATE_SAVE_BLOCK_CHECKSUMS
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq EF088B_SaveSramHelperCluster_L088B
     ldy $10
     tya
@@ -430,12 +463,12 @@ EF086F_SaveSramHelperCluster_L086F:
     tya
     jsr.w COPY_SAVE_BLOCK
 EF088B_SaveSramHelperCluster_L088B:
-    rep #$20
+    rep #AccumulatorWidthFlag
     pld
     rts
 SAVE_GAME_BLOCK:
 EF088F_SaveGameBlock = SAVE_GAME_BLOCK
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -445,18 +478,18 @@ EF088F_SaveGameBlock = SAVE_GAME_BLOCK
     tay
     sty $20
 EF089C_SaveSramHelperCluster_L089C:
-    lda $00A7
+    lda ActiveMapPointerLo
     sta $06
-    lda $00A9
+    lda ActiveMapPointerHi
     sta $08
     lda $06
-    sta $99C9
+    sta SavedMapPointerLo
     lda $08
-    sta $99CB
+    sta SavedMapPointerHi
     ldy $20
     tya
-    ldy.w #$0500
-    jsl C09032_DivideUnsignedWordByIndex
+    ldy.w #SaveBlockSize
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $0A
     stz $0C
     lda $0A
@@ -465,23 +498,23 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $08
     clc
     lda $06
-    adc.w #$6020
+    adc.w #SaveBlockPayloadBaseLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     lda $06
     sta $1C
     lda $08
     sta $1E
-    lda.w #$97F5
+    lda.w #GameStateSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -509,9 +542,9 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $12
     lda $08
     sta $14
-    lda.w #$01D9
+    lda.w #GameStateSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda.w #$01D9
+    lda.w #GameStateSaveByteCount
     ldx $1C
     stx $06
     ldx $1E
@@ -522,14 +555,14 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $1C
     lda $08
     sta $1E
-    lda.w #$99CE
+    lda.w #PartyCharacterSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -553,9 +586,9 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $12
     lda $08
     sta $14
-    lda.w #$023A
+    lda.w #PartyCharacterSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda.w #$023A
+    lda.w #PartyCharacterSaveByteCount
     ldx $1C
     stx $06
     ldx $1E
@@ -566,14 +599,14 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $1C
     lda $08
     sta $1E
-    lda.w #$9C08
+    lda.w #EventFlagsSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -597,7 +630,7 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $12
     lda $08
     sta $14
-    lda.w #$0080
+    lda.w #EventFlagsSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
     lda $0A
     sta $06
@@ -605,10 +638,10 @@ EF089C_SaveSramHelperCluster_L089C:
     sta $08
     clc
     lda $06
-    adc.w #$601C
+    adc.w #SaveBlockChecksumFieldLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     ldy $20
     tya
@@ -633,10 +666,10 @@ EF0A16_SaveSramHelperCluster_L0A16:
     sta $08
     clc
     lda $06
-    adc.w #$601E
+    adc.w #SaveBlockComplementFieldLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     ldy $20
     tya
@@ -659,7 +692,7 @@ EF0A4B_SaveSramHelperCluster_L0A4B:
     rts
 SAVE_GAME_SLOT:
 EF0A4D_SaveGameSlot = SAVE_GAME_SLOT
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -679,36 +712,36 @@ EF0A4D_SaveGameSlot = SAVE_GAME_SLOT
     rtl
 LOAD_GAME_SLOT:
 EF0A68_LoadGameSlot = LOAD_GAME_SLOT
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFE0
     tcd
     pla
-    ldy.w #$0A00
-    jsl C09032_DivideUnsignedWordByIndex
+    ldy.w #SaveSlotPairSize
+    jsl C09032_Multiply16By16_ViaHardwareRegisters
     sta $06
     stz $08
     clc
     lda $06
-    adc.w #$6020
+    adc.w #SaveBlockPayloadBaseLo
     sta $06
     lda $08
-    adc.w #$0030
+    adc.w #SaveBlockSramBankWord
     sta $08
     lda $06
     sta $1C
     lda $08
     sta $1E
-    lda.w #$97F5
+    lda.w #GameStateSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -736,23 +769,23 @@ EF0A68_LoadGameSlot = LOAD_GAME_SLOT
     sta $12
     lda $08
     sta $14
-    lda.w #$01D9
+    lda.w #GameStateSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda.w #$01D9
+    lda.w #GameStateSaveByteCount
     clc
     adc $06
     sta $06
     sta $1C
     lda $08
     sta $1E
-    lda.w #$99CE
+    lda.w #PartyCharacterSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -776,23 +809,23 @@ EF0A68_LoadGameSlot = LOAD_GAME_SLOT
     sta $12
     lda $08
     sta $14
-    lda.w #$023A
+    lda.w #PartyCharacterSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda.w #$023A
+    lda.w #PartyCharacterSaveByteCount
     clc
     adc $06
     sta $06
     sta $1C
     lda $08
     sta $1E
-    lda.w #$9C08
+    lda.w #EventFlagsSourceBase
     sta $06
     phb
-    sep #$20
+    sep #AccumulatorWidthFlag
     pla
     sta $08
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     lda $06
     sta $16
     lda $08
@@ -816,67 +849,67 @@ EF0A68_LoadGameSlot = LOAD_GAME_SLOT
     sta $12
     lda $08
     sta $14
-    lda.w #$0080
+    lda.w #EventFlagsSaveByteCount
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda $99C9
+    lda SavedMapPointerLo
     sta $06
-    lda $99CB
+    lda SavedMapPointerHi
     sta $08
     lda $06
-    sta $00A7
+    sta ActiveMapPointerLo
     lda $08
-    sta $00A9
+    sta ActiveMapPointerHi
     pld
     rtl
 CHECK_SRAM_INTEGRITY:
 EF0B9E_CheckSramIntegrity = CHECK_SRAM_INTEGRITY
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$0493
-    sta $9F77
-    lda.w #$7FFE
+    lda.w #SramIntegrityMarker
+    sta SramIntegrityMarkerMirror
+    lda.w #SramIntegrityMarkerAddressLo
     sta $06
-    lda.w #$0030
+    lda.w #SaveBlockSramBankWord
     sta $08
     lda [$06]
-    cmp.w #$0493
+    cmp.w #SramIntegrityMarker
     beq EF0BD2_SaveSramHelperCluster_L0BD2
-    lda.w #$6000
+    lda.w #SaveBlockSramBaseLo
     sta $0E
-    lda.w #$0030
+    lda.w #SaveBlockSramBankWord
     sta $10
-    ldx.w #$2000
-    sep #$20
-    lda.b #$00
+    ldx.w #SaveSramClearByteCount
+    sep #AccumulatorWidthFlag
+    lda.b #ZeroByte
     jsl C08F15_ClearVramOrRendererBuffer
 EF0BD2_SaveSramHelperCluster_L0BD2:
     jsr.w CHECK_ALL_BLOCKS_SIGNATURE
-    sep #$20
-    stz $9F79
-    ldx.w #$0000
+    sep #AccumulatorWidthFlag
+    stz MissingSaveSlotMask
+    ldx.w #ZeroWord
     stx $12
     bra EF0BEC_SaveSramHelperCluster_L0BEC
 EF0BE1_SaveSramHelperCluster_L0BE1:
-    rep #$20
+    rep #AccumulatorWidthFlag
     txa
     jsr.w CHECK_SAVE_CORRUPTION
     ldx $12
     inx
     stx $12
 EF0BEC_SaveSramHelperCluster_L0BEC:
-    cpx.w #$0003
+    cpx.w #UserSaveSlotCount
     bcc EF0BE1_SaveSramHelperCluster_L0BE1
-    rep #$20
-    lda $9F77
+    rep #AccumulatorWidthFlag
+    lda SramIntegrityMarkerMirror
     sta [$06]
     pld
     rtl
 ERASE_SAVE:
 EF0BFA_EraseSaveSlot = ERASE_SAVE
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -896,7 +929,7 @@ EF0BFA_EraseSaveSlot = ERASE_SAVE
     rtl
 COPY_SAVE:
 EF0C15_CopySaveSlot = COPY_SAVE
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
