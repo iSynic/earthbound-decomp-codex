@@ -13,10 +13,70 @@
 
 C08814_SetDisplayTransitionMode       = $C08814
 C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
+C0927C_InitDelayedActionPools         = $C0927C
+C0F009_PollIntroPredicateState0       = $C0F009
+C0F33C_PollIntroPredicateState1       = $C0F33C
 C0AC0C_QueuePresentationSfxOrCounter  = $C0AC0C
 C200D9_ClearBattleOrPresentationState = $C200D9
+C3F3C5_ShowTitleScreenStillImage      = $C3F3C5
+C432B1_ResetPartyVisualMasksAndStatusBytes = $C432B1
 RunFileSelectSwirlTransitionMode      = $C4D989
 C4FBBD_PlaySoundStoneMelody           = $C4FBBD
+
+; ---------------------------------------------------------------------------
+; Init-intro / file-select state machine contracts
+
+InitIntroStateScratch                 = $02
+InitIntroResultScratch                = $0E
+FileSelectSessionActiveFlag           = $B4B6
+PresentationActiveFlag                = $5DD8
+DisplayControlShadow                  = $000D
+DisplayForcedBlankBit                 = $0080
+DecompressBusyByte                    = $0028
+ColorMathRegister                     = $002131
+ColorWindowRegister                   = $002130
+DisplayModeLatch                      = $001A
+DisplaySubmodeLatch                   = $001B
+ScreenOriginXCurrent                  = $0031
+ScreenOriginYCurrent                  = $0033
+ScreenOriginXApplied                  = $0035
+ScreenOriginYApplied                  = $0037
+ScreenScrollXExtra                    = $0039
+ScreenScrollYExtra                    = $003B
+
+InitIntroState0                       = $0000
+InitIntroState1                       = $0001
+InitIntroState2                       = $0002
+InitIntroState3                       = $0003
+InitIntroState4                       = $0004
+InitIntroState5                       = $0005
+InitIntroState6                       = $0006
+InitIntroState7                       = $0007
+InitIntroState8                       = $0008
+InitIntroState9                       = $0009
+InitIntroState10                      = $000A
+InitIntroNoResult                     = $0000
+InitIntroHasResult                    = $0001
+PresentationSfxCounterTick            = $0002
+DisplayTransitionSlotZero             = $0000
+DisplayTransitionSlotActive           = $0001
+DisplayTransitionModeFade             = $0004
+ColorMathDisabled                     = $00
+DisplayModeIntroSetup                 = $01
+LowByteMask                           = $00FF
+SoundStoneIntroMelody                 = $00AF
+SoundStoneState1Melody                = $0001
+SoundStoneSwirlLeadInMelody           = $009D
+TitleStillImageZero                   = $0000
+TitleStillImageOne                    = $0001
+FileSelectSwirlMode0                  = $0000
+FileSelectSwirlMode2                  = $0002
+FileSelectSwirlMode3                  = $0003
+FileSelectSwirlMode4                  = $0004
+FileSelectSwirlMode5                  = $0005
+FileSelectSwirlMode6                  = $0006
+FileSelectSwirlMode7                  = $0007
+FileSelectSwirlMode9                  = $0009
 
 ; ---------------------------------------------------------------------------
 ; C4:DAD2
@@ -28,229 +88,229 @@ C4DAD2_InitIntroFileSelectStateDispatcher = INIT_INTRO
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0000
-    sta $02
-    lda.w #$0001
-    sta $B4B6
-    lda.w #$0002
+    lda.w #InitIntroState0
+    sta InitIntroStateScratch
+    lda.w #InitIntroHasResult
+    sta FileSelectSessionActiveFlag
+    lda.w #PresentationSfxCounterTick
     jsl C0AC0C_QueuePresentationSfxOrCounter
-    jsl $C0927C
+    jsl C0927C_InitDelayedActionPools
     jsl C200D9_ClearBattleOrPresentationState
-    jsl $C432B1
-    lda.w #$0001
-    sta $5DD8
-    stz $0039
-    stz $003B
-    stz $0037
-    stz $0035
-    stz $0033
-    stz $0031
+    jsl C432B1_ResetPartyVisualMasksAndStatusBytes
+    lda.w #InitIntroHasResult
+    sta PresentationActiveFlag
+    stz ScreenScrollXExtra
+    stz ScreenScrollYExtra
+    stz ScreenOriginYApplied
+    stz ScreenOriginXApplied
+    stz ScreenOriginYCurrent
+    stz ScreenOriginXCurrent
     jsl C08B26_FlushQueuedSpriteOrTileWork
-    stz $0039
-    stz $003B
-    stz $0037
-    stz $0035
-    stz $0033
-    stz $0031
+    stz ScreenScrollXExtra
+    stz ScreenScrollYExtra
+    stz ScreenOriginYApplied
+    stz ScreenOriginXApplied
+    stz ScreenOriginYCurrent
+    stz ScreenOriginXCurrent
     jsl C08B26_FlushQueuedSpriteOrTileWork
 C4DB2A_InitIntroFileSelectStateDispatcher_LDB2A:
-    lda $02
+    lda InitIntroStateScratch
     beq C4DB81_InitIntroFileSelectStateDispatcher_LDB81
-    cmp.w #$0001
+    cmp.w #InitIntroState1
     bne C4DB36_InitIntroFileSelectStateDispatcher_LDB36
     jmp.w C4DBCA_InitIntroFileSelectStateDispatcher_LDBCA
 C4DB36_InitIntroFileSelectStateDispatcher_LDB36:
-    cmp.w #$0002
+    cmp.w #InitIntroState2
     bne C4DB3E_InitIntroFileSelectStateDispatcher_LDB3E
     jmp.w C4DC2D_InitIntroFileSelectStateDispatcher_LDC2D
 C4DB3E_InitIntroFileSelectStateDispatcher_LDB3E:
-    cmp.w #$0003
+    cmp.w #InitIntroState3
     bne C4DB46_InitIntroFileSelectStateDispatcher_LDB46
     jmp.w C4DC40_InitIntroFileSelectStateDispatcher_LDC40
 C4DB46_InitIntroFileSelectStateDispatcher_LDB46:
-    cmp.w #$0004
+    cmp.w #InitIntroState4
     bne C4DB4E_InitIntroFileSelectStateDispatcher_LDB4E
     jmp.w C4DC53_InitIntroFileSelectStateDispatcher_LDC53
 C4DB4E_InitIntroFileSelectStateDispatcher_LDB4E:
-    cmp.w #$0005
+    cmp.w #InitIntroState5
     bne C4DB56_InitIntroFileSelectStateDispatcher_LDB56
     jmp.w C4DC5F_InitIntroFileSelectStateDispatcher_LDC5F
 C4DB56_InitIntroFileSelectStateDispatcher_LDB56:
-    cmp.w #$0006
+    cmp.w #InitIntroState6
     bne C4DB5E_InitIntroFileSelectStateDispatcher_LDB5E
     jmp.w C4DC6B_InitIntroFileSelectStateDispatcher_LDC6B
 C4DB5E_InitIntroFileSelectStateDispatcher_LDB5E:
-    cmp.w #$0007
+    cmp.w #InitIntroState7
     bne C4DB66_InitIntroFileSelectStateDispatcher_LDB66
     jmp.w C4DC77_InitIntroFileSelectStateDispatcher_LDC77
 C4DB66_InitIntroFileSelectStateDispatcher_LDB66:
-    cmp.w #$0008
+    cmp.w #InitIntroState8
     bne C4DB6E_InitIntroFileSelectStateDispatcher_LDB6E
     jmp.w C4DC83_InitIntroFileSelectStateDispatcher_LDC83
 C4DB6E_InitIntroFileSelectStateDispatcher_LDB6E:
-    cmp.w #$0009
+    cmp.w #InitIntroState9
     bne C4DB76_InitIntroFileSelectStateDispatcher_LDB76
     jmp.w C4DC8F_InitIntroFileSelectStateDispatcher_LDC8F
 C4DB76_InitIntroFileSelectStateDispatcher_LDB76:
-    cmp.w #$000A
+    cmp.w #InitIntroState10
     bne C4DB7E_InitIntroFileSelectStateDispatcher_LDB7E
     jmp.w C4DC9B_InitIntroFileSelectStateDispatcher_LDC9B
 C4DB7E_InitIntroFileSelectStateDispatcher_LDB7E:
     jmp.w C4DCA7_InitIntroFileSelectStateDispatcher_LDCA7
 C4DB81_InitIntroFileSelectStateDispatcher_LDB81:
-    jsl $C0F009
-    cmp.w #$0000
+    jsl C0F009_PollIntroPredicateState0
+    cmp.w #InitIntroNoResult
     beq C4DBC2_InitIntroFileSelectStateDispatcher_LDBC2
-    lda.w #$0002
+    lda.w #PresentationSfxCounterTick
     jsl C0AC0C_QueuePresentationSfxOrCounter
-    lda $000D
-    and.w #$00FF
-    cmp.w #$0080
+    lda DisplayControlShadow
+    and.w #LowByteMask
+    cmp.w #DisplayForcedBlankBit
     beq C4DBA9_InitIntroFileSelectStateDispatcher_LDBA9
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0004
+    ldy.w #DisplayTransitionSlotZero
+    ldx.w #DisplayTransitionSlotActive
+    lda.w #DisplayTransitionModeFade
     jsl C08814_SetDisplayTransitionMode
 C4DBA9_InitIntroFileSelectStateDispatcher_LDBA9:
-    lda.w #$00AF
+    lda.w #SoundStoneIntroMelody
     jsl C4FBBD_PlaySoundStoneMelody
-    lda.w #$0001
-    jsl $C3F3C5
+    lda.w #TitleStillImageOne
+    jsl C3F3C5_ShowTitleScreenStillImage
     tax
-    stx $0E
-    lda.w #$0002
-    sta $02
+    stx InitIntroResultScratch
+    lda.w #InitIntroState2
+    sta InitIntroStateScratch
     jmp.w C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DBC2_InitIntroFileSelectStateDispatcher_LDBC2:
-    ldx.w #$0000
-    stx $0E
+    ldx.w #InitIntroNoResult
+    stx InitIntroResultScratch
     jmp.w C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DBCA_InitIntroFileSelectStateDispatcher_LDBCA:
-    lda.w #$0001
+    lda.w #SoundStoneState1Melody
     jsl C4FBBD_PlaySoundStoneMelody
-    jsl $C0F33C
-    cmp.w #$0000
+    jsl C0F33C_PollIntroPredicateState1
+    cmp.w #InitIntroNoResult
     beq C4DC25_InitIntroFileSelectStateDispatcher_LDC25
-    lda.w #$0002
+    lda.w #PresentationSfxCounterTick
     jsl C0AC0C_QueuePresentationSfxOrCounter
-    lda $000D
-    and.w #$00FF
-    cmp.w #$0080
+    lda DisplayControlShadow
+    and.w #LowByteMask
+    cmp.w #DisplayForcedBlankBit
     beq C4DBF9_InitIntroFileSelectStateDispatcher_LDBF9
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0004
+    ldy.w #DisplayTransitionSlotZero
+    ldx.w #DisplayTransitionSlotActive
+    lda.w #DisplayTransitionModeFade
     jsl C08814_SetDisplayTransitionMode
 C4DBF9_InitIntroFileSelectStateDispatcher_LDBF9:
     sep #$20
-    lda.b #$00
-    sta $002131
-    sta $002130
-    lda.b #$01
-    sta $001A
-    stz $001B
+    lda.b #ColorMathDisabled
+    sta ColorMathRegister
+    sta ColorWindowRegister
+    lda.b #DisplayModeIntroSetup
+    sta DisplayModeLatch
+    stz DisplaySubmodeLatch
     rep #$20
-    lda.w #$00AF
+    lda.w #SoundStoneIntroMelody
     jsl C4FBBD_PlaySoundStoneMelody
-    lda.w #$0001
-    jsl $C3F3C5
+    lda.w #TitleStillImageOne
+    jsl C3F3C5_ShowTitleScreenStillImage
     tax
-    stx $0E
-    inc $02
+    stx InitIntroResultScratch
+    inc InitIntroStateScratch
     jmp.w C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC25_InitIntroFileSelectStateDispatcher_LDC25:
-    ldx.w #$0000
-    stx $0E
+    ldx.w #InitIntroNoResult
+    stx InitIntroResultScratch
     jmp.w C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC2D_InitIntroFileSelectStateDispatcher_LDC2D:
-    lda.w #$00AF
+    lda.w #SoundStoneIntroMelody
     jsl C4FBBD_PlaySoundStoneMelody
-    lda.w #$0000
-    jsl $C3F3C5
+    lda.w #TitleStillImageZero
+    jsl C3F3C5_ShowTitleScreenStillImage
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC40_InitIntroFileSelectStateDispatcher_LDC40:
-    lda.w #$009D
+    lda.w #SoundStoneSwirlLeadInMelody
     jsl C4FBBD_PlaySoundStoneMelody
-    lda.w #$0000
+    lda.w #FileSelectSwirlMode0
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC53_InitIntroFileSelectStateDispatcher_LDC53:
-    lda.w #$0002
+    lda.w #FileSelectSwirlMode2
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC5F_InitIntroFileSelectStateDispatcher_LDC5F:
-    lda.w #$0003
+    lda.w #FileSelectSwirlMode3
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC6B_InitIntroFileSelectStateDispatcher_LDC6B:
-    lda.w #$0004
+    lda.w #FileSelectSwirlMode4
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC77_InitIntroFileSelectStateDispatcher_LDC77:
-    lda.w #$0005
+    lda.w #FileSelectSwirlMode5
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC83_InitIntroFileSelectStateDispatcher_LDC83:
-    lda.w #$0006
+    lda.w #FileSelectSwirlMode6
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC8F_InitIntroFileSelectStateDispatcher_LDC8F:
-    lda.w #$0007
+    lda.w #FileSelectSwirlMode7
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DC9B_InitIntroFileSelectStateDispatcher_LDC9B:
-    lda.w #$0009
+    lda.w #FileSelectSwirlMode9
     jsl RunFileSelectSwirlTransitionMode
     tax
-    stx $0E
+    stx InitIntroResultScratch
     bra C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC
 C4DCA7_InitIntroFileSelectStateDispatcher_LDCA7:
-    lda.w #$0001
-    sta $02
+    lda.w #InitIntroState1
+    sta InitIntroStateScratch
 C4DCAC_InitIntroFileSelectStateDispatcher_LDCAC:
-    inc $02
-    ldx $0E
+    inc InitIntroStateScratch
+    ldx InitIntroResultScratch
     bne C4DCB5_InitIntroFileSelectStateDispatcher_LDCB5
     jmp.w C4DB2A_InitIntroFileSelectStateDispatcher_LDB2A
 C4DCB5_InitIntroFileSelectStateDispatcher_LDCB5:
-    lda.w #$0002
+    lda.w #PresentationSfxCounterTick
     jsl C0AC0C_QueuePresentationSfxOrCounter
     sep #$20
-    stz $0028
+    stz DecompressBusyByte
     rep #$20
-    lda $000D
-    and.w #$00FF
-    cmp.w #$0080
+    lda DisplayControlShadow
+    and.w #LowByteMask
+    cmp.w #DisplayForcedBlankBit
     beq C4DCDB_InitIntroFileSelectStateDispatcher_LDCDB
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0004
+    ldy.w #DisplayTransitionSlotZero
+    ldx.w #DisplayTransitionSlotActive
+    lda.w #DisplayTransitionModeFade
     jsl C08814_SetDisplayTransitionMode
 C4DCDB_InitIntroFileSelectStateDispatcher_LDCDB:
     sep #$20
-    lda.b #$00
-    sta $002131
-    sta $002130
-    lda.b #$01
-    sta $001A
-    stz $001B
+    lda.b #ColorMathDisabled
+    sta ColorMathRegister
+    sta ColorWindowRegister
+    lda.b #DisplayModeIntroSetup
+    sta DisplayModeLatch
+    stz DisplaySubmodeLatch
     rep #$20
-    stz $5DD8
+    stz PresentationActiveFlag
     pld
     rtl

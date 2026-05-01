@@ -95,6 +95,11 @@ closure.
   `C3:FD8D` text pointer table, overlay completion latch, input abort masks,
   busy byte, and return-value sentinels. See
   `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
+- 2026-05-01 init-intro dispatcher: promoted state ids, session/presentation
+  flags, screen-origin reset fields, forced-blank checks, color/display latches,
+  Sound Stone melody ids, title still-image arguments, and file-select swirl
+  mode values. See
+  `notes/file-select-entity-scripts-and-swirl-transition-c4d830-c4d989.md`.
 
 ## Validation
 

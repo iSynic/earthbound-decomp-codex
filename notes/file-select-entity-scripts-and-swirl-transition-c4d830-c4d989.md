@@ -125,6 +125,13 @@ file-select swirl mode values. The common exit clears `$5DD8`, resets color
 math registers `$2130/$2131`, and sets `$001A/$001B` to the same post-transition
 display state used by the file-select visual corridor.
 
+Source polish: `src/c4/file_select_intro_state_dispatcher_helpers.asm` now
+names the init-intro state ids, result scratch, `$B4B6` file-select session
+flag, `$5DD8` presentation flag, screen-origin reset words, forced-blank
+display shadow check, color/display latches, Sound Stone melody ids,
+`C3:F3C5` still-image arguments, and the swirl mode values passed into
+`C4:D989`.
+
 ## `C4:DCF6` - decompressed tile word priority pass
 
 Direct callers:
