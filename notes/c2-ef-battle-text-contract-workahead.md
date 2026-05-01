@@ -52,6 +52,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `C2:A57A` helper now names its zero-hit `EF:766E` no-effect fallback through
   `DC1C`, while the successful-hit path stays damage-only and does not claim an
   amount-bearing battle-text contract.
+- 2026-05-01: tenth pass returned to the battle-start payload joins. The
+  `C2:5024..6189` controller and `C2:6189..654C` instant-win handler now use
+  source aliases for `DC1C`, `DC66`, and `DD7C`, name the EF/C8 battle scripts
+  staged by those paths, and mark the `$AA10 -> $9D11 -> EF:7BDF` present-item
+  byte-substitution bridge at the source sites.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -361,6 +366,12 @@ And for the most actionable C2 call-site families:
   `EF:7843` Time Stop return script, and the late
   diamondize/paralyze/nausea/poison/cold status-result scripts. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-01: `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`,
+  `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`, and
+  `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm` now name the
+  battle-start/instant-win `DC1C`/`DC66`/`DD7C` payload joins and the EF/C8
+  scripts they stage. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Integration checklist (manual)
 

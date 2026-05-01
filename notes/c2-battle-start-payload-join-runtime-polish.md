@@ -1,0 +1,61 @@
+# C2 Battle-Start Payload Join Runtime Polish
+
+Primary queue context: `notes/c2-runtime-semantic-polish-plan.md`,
+`notes/c2-ef-battle-text-contract-workahead.md`,
+`notes/source-readiness-triage.md`, and `notes/project-status.md`.
+
+## Scope
+
+This pass covers the battle-start controller and instant-win text payload joins
+in:
+
+- `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`
+- `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`
+- `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm`
+
+The edit is semantic source polish only. It promotes local aliases, constants,
+and comments while preserving byte-equivalence.
+
+## Promoted Contracts
+
+- `C1:DC1C` is named as the direct `$0E/$10` battle-text pointer dispatch.
+- `C1:DC66` is named as the `$12/$14` substitution-payload display wrapper.
+- `C1:DD7C` is named as the byte-substitution setter for `$9D11`.
+- The battle-start front half now names `EF:78F7`, `EF:84F3`, and `EF:8511`
+  as the Sensei Monster and player-flee result scripts.
+- The battle-start back half now names the C8 PSI-cannot script, EF target/
+  status/victory scripts, and the `EF:7BDF` present script.
+- The instant-win handler now names `EF:7A28` as the forced-win script and
+  reuses the `EF:7BDF` present script for the optional present item byte.
+
+## Payload Joins
+
+The newly commented `$AA10` paths are the concrete C2 side of the byte
+substitution bridge:
+
+- `$AA10` is loaded as an 8-bit value.
+- `C1:DD7C` stages it into `$9D11`.
+- `EF:7BDF` (`MSG_BTL_PRESENT`) later consumes it through the `0x19 0x1F`
+  byte-substitution command before printing the item name.
+
+The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
+accumulated result pointer/value pair, keeping them separate from direct
+`C1:DC1C` status-result text.
+
+## Evidence Inputs
+
+- `notes/c2-ef-battle-text-contract-workahead.md`
+- `notes/class2-ufo-present-message-family.md`
+- `notes/class2-battle-text-cluster-overview.md`
+- `refs/EB-M2-Listing-v1/US/bank08.txt`
+- `refs/EB-M2-Listing-v1/US/bank2F.txt`
+
+## Validation
+
+Future implementation gates remain the normal C2 scaffold and byte-equivalence
+checks:
+
+```powershell
+python tools\build_source_bank_scaffold.py --bank C2
+python tools\validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src\c2\bank_c2_helpers_asar.asm --strict
+```

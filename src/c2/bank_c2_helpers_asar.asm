@@ -14012,11 +14012,17 @@ org $C26189
 !C090FF_AddLongPointerOffset = $C090FF
 !C0943C_SaveCurrentCoordinateState = $C0943C
 !C09451_RestoreSavedCoordinateState = $C09451
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!EF_BattleTextScriptBank = $00EF
+!EFMSG_InstantWinForce = $7A28
+!EFMSG_Present = $7BDF
 C26189_FillInstantWinTileBufferAndUpload:
     rep #$31
     phd
@@ -14285,15 +14291,15 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     sta $A974
     lda $08
     sta $A976
-    lda.w #$7A28
+    lda.w #!EFMSG_InstantWinForce
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldy.w #$9FAC
     sty $1A
     lda.w #$0000
@@ -14433,12 +14439,12 @@ C26511_FillInstantWinTileBufferAndUpload_L6511:
     beq C2652D_FillInstantWinTileBufferAndUpload_L652D
     sep #$20
     lda $AA10
-    jsl $C1DD7C
-    lda.w #$7BDF
+    jsl !C1DD7C_SetBattleTextByteSubstitution
+    lda.w #!EFMSG_Present
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2652D_FillInstantWinTileBufferAndUpload_L652D:
     jsl !C1DD5F_WaitForTextOrMenuAcknowledge
     lda $9883
@@ -27241,8 +27247,14 @@ org $C25024
 !C08E9A_GetRandom16 = $C08E9A
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0915B_DivideUnsignedWordByY = $C0915B
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !D57B68_BattleActionTable = $D57B68
+!EF_BattleTextScriptBank = $00EF
+!EFMSG_BattleStartSenseiMon = $78F7
+!EFMSG_PlayerFlee = $84F3
+!EFMSG_PlayerFleeFailed = $8511
 C25024_RunBattleStartCandidateControllerFront:
     lda.w #$0000
     sta $31
@@ -27828,11 +27840,11 @@ C254EE_RunBattleStartCandidateControllerFront_L54EE:
     lda $1D
     cmp.w #$0002
     bne C2550A_RunBattleStartCandidateControllerFront_L550A
-    lda.w #$78F7
+    lda.w #!EFMSG_BattleStartSenseiMon
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2550A_RunBattleStartCandidateControllerFront_L550A:
     lda $27
     bne C25511_RunBattleStartCandidateControllerFront_L5511
@@ -27946,20 +27958,20 @@ C255B8_RunBattleStartCandidateControllerFront_L55B8:
     cmp $02
     bcs C25604_RunBattleStartCandidateControllerFront_L5604
 C255F1_RunBattleStartCandidateControllerFront_L55F1:
-    lda.w #$84F3
+    lda.w #!EFMSG_PlayerFlee
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     stz $17
     jmp $6093
 C25604_RunBattleStartCandidateControllerFront_L5604:
     stz $27
-    lda.w #$8511
+    lda.w #!EFMSG_PlayerFleeFailed
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C25614_RunBattleStartCandidateControllerFront_L5614:
     stz $1D
     jmp $6081
@@ -28508,7 +28520,7 @@ C25AE2_RunBattleStartCandidateControllerFront_L5AE2:
     ldx $A970
     sep #$20
     lda $0008,X
-    jsl $C1DD7C
+    jsl !C1DD7C_SetBattleTextByteSubstitution
     jsl $C23E32
 
 
@@ -28526,10 +28538,25 @@ org $C25AFB
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C090FF_AddLongPointerOffset = $C090FF
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !D57B68_BattleActionTable = $D57B68
+!C8_BattleTextScriptBank = $00C8
+!C8MSG_PsiCannot = $FAB8
+!EF_BattleTextScriptBank = $00EF
+!EFMSG_AsleepRecovered = $6F54
+!EFMSG_BodyStatusOff = $6EED
+!EFMSG_FrozenStatus = $6F0B
+!EFMSG_PsiSealRecovered = $6F64
+!EFMSG_NeutralizeMetamorph = $7142
+!EFMSG_NoTargetExists = $76FD
+!EFMSG_PlayerWon = $79D7
+!EFMSG_PlayerWonBoss = $7A14
+!EFMSG_MonstersWon = $7A4D
+!EFMSG_Present = $7BDF
 C25AFB_RunBattleStartCandidateControllerBack:
     ldx $A970
     lda $000E,X
@@ -28582,11 +28609,11 @@ C25B3D_RunBattleStartCandidateControllerBack_L5B3D:
     cmp $0019,X
     bcc C25B75_RunBattleStartCandidateControllerBack_L5B75
     beq C25B75_RunBattleStartCandidateControllerBack_L5B75
-    lda.w #$FAB8
+    lda.w #!C8MSG_PsiCannot
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp.w C25DA9_RunBattleStartCandidateControllerBack_L5DA9
 C25B75_RunBattleStartCandidateControllerBack_L5B75:
     tax
@@ -28755,11 +28782,11 @@ C25CD1_RunBattleStartCandidateControllerBack_L5CD1:
     lda $C4A08D,X
     tax
     bne C25CC3_RunBattleStartCandidateControllerBack_L5CC3
-    lda.w #$76FD
+    lda.w #!EFMSG_NoTargetExists
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp.w C25D9A_RunBattleStartCandidateControllerBack_L5D9A
 C25CEB_RunBattleStartCandidateControllerBack_L5CEB:
     lda.w #$7B68
@@ -28893,11 +28920,11 @@ C25DA9_RunBattleStartCandidateControllerBack_L5DA9:
     lda $08
     sta $14
     jsl $C2AF1F
-    lda.w #$7142
+    lda.w #!EFMSG_NeutralizeMetamorph
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C25E14_RunBattleStartCandidateControllerBack_L5E14:
     jsl $C1DDD3
 C25E18_RunBattleStartCandidateControllerBack_L5E18:
@@ -28919,11 +28946,11 @@ C25E40_RunBattleStartCandidateControllerBack_L5E40:
     jsl !C08E9A_GetRandom16
     and.w #$0003
     bne C25E9A_RunBattleStartCandidateControllerBack_L5E9A
-    lda.w #$6F54
+    lda.w #!EFMSG_AsleepRecovered
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $A970
     sep #$20
     stz $001F,X
@@ -28933,21 +28960,21 @@ C25E61_MaybeEmitSelectedRowAfflictionFeedback:
     jsr $6A2D
     cmp.w #$0055
     bcs C25E9A_RunBattleStartCandidateControllerBack_L5E9A
-    lda.w #$6EED
+    lda.w #!EFMSG_BodyStatusOff
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $A970
     sep #$20
     stz $001F,X
     bra C25E9A_RunBattleStartCandidateControllerBack_L5E9A
 C25E84_MaybeEmitSelectedRowStatusFeedback:
-    lda.w #$6F0B
+    lda.w #!EFMSG_FrozenStatus
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $A970
     sep #$20
     stz $001F,X
@@ -28970,11 +28997,11 @@ C25E9A_RunBattleStartCandidateControllerBack_L5E9A:
     rep #$20
     and.w #$00FF
     bne C25ECF_RunBattleStartCandidateControllerBack_L5ECF
-    lda.w #$6F64
+    lda.w #!EFMSG_PsiSealRecovered
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C25ECF_RunBattleStartCandidateControllerBack_L5ECF:
     lda.w #$9FAC
     ldx.w #$0000
@@ -29003,11 +29030,11 @@ C25EF7_ResolveBattleStartCandidateCompletion:
     lda.w #$0001
     sta $17
     jsl $C20F9A
-    lda.w #$7A4D
+    lda.w #!EFMSG_MonstersWon
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
     sta $23
 C25F1F_RunBattleStartCandidateControllerBack_L5F1F:
@@ -29084,37 +29111,37 @@ C25F2E_RunBattleStartCandidateControllerBack_L5F2E:
     lda $4A8C
     cmp.w #$01C0
     bcc C25FE6_RunBattleStartCandidateControllerBack_L5FE6
-    lda.w #$7A14
+    lda.w #!EFMSG_PlayerWonBoss
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C25FFC_RunBattleStartCandidateControllerBack_L5FFC
 C25FE6_RunBattleStartCandidateControllerBack_L5FE6:
-    lda.w #$79D7
+    lda.w #!EFMSG_PlayerWon
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
 C25FFC_RunBattleStartCandidateControllerBack_L5FFC:
     lda $AA10
     beq C26018_RunBattleStartCandidateControllerBack_L6018
     sep #$20
     lda $AA10
-    jsl $C1DD7C
-    lda.w #$7BDF
+    jsl !C1DD7C_SetBattleTextByteSubstitution
+    lda.w #!EFMSG_Present
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C26018_RunBattleStartCandidateControllerBack_L6018:
     ldy.w #$9FAC
     sty $31

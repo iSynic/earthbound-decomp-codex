@@ -14,8 +14,15 @@
 C08E9A_GetRandom16                 = $C08E9A
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 D57B68_BattleActionTable           = $D57B68
+
+EF_BattleTextScriptBank      = $00EF
+EFMSG_BattleStartSenseiMon   = $78F7
+EFMSG_PlayerFlee             = $84F3
+EFMSG_PlayerFleeFailed       = $8511
 
 ; ---------------------------------------------------------------------------
 ; C2:5024
@@ -605,11 +612,11 @@ C254EE_RunBattleStartCandidateControllerFront_L54EE:
     lda $1D
     cmp.w #$0002
     bne C2550A_RunBattleStartCandidateControllerFront_L550A
-    lda.w #$78F7
+    lda.w #EFMSG_BattleStartSenseiMon
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2550A_RunBattleStartCandidateControllerFront_L550A:
     lda $27
     bne C25511_RunBattleStartCandidateControllerFront_L5511
@@ -723,20 +730,20 @@ C255B8_RunBattleStartCandidateControllerFront_L55B8:
     cmp $02
     bcs C25604_RunBattleStartCandidateControllerFront_L5604
 C255F1_RunBattleStartCandidateControllerFront_L55F1:
-    lda.w #$84F3
+    lda.w #EFMSG_PlayerFlee
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     stz $17
     jmp $6093
 C25604_RunBattleStartCandidateControllerFront_L5604:
     stz $27
-    lda.w #$8511
+    lda.w #EFMSG_PlayerFleeFailed
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C25614_RunBattleStartCandidateControllerFront_L5614:
     stz $1D
     jmp $6081
@@ -1284,6 +1291,7 @@ C25AE2_RunBattleStartCandidateControllerFront_L5AE2:
     jsl $C23BCF
     ldx $A970
     sep #$20
+    ; Stage selected row byte +8 for the generic C1 byte-substitution slot.
     lda $0008,X
-    jsl $C1DD7C
+    jsl C1DD7C_SetBattleTextByteSubstitution
     jsl $C23E32

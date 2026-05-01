@@ -20,11 +20,18 @@ C08FF7_ResolveIndexedPointerOffset            = $C08FF7
 C090FF_AddLongPointerOffset                   = $C090FF
 C0943C_SaveCurrentCoordinateState             = $C0943C
 C09451_RestoreSavedCoordinateState            = $C09451
+C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1DD7C_SetBattleTextByteSubstitution          = $C1DD7C
 C1DD5F_WaitForTextOrMenuAcknowledge           = $C1DD5F
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
 C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+
+EF_BattleTextScriptBank   = $00EF
+EFMSG_InstantWinForce     = $7A28
+EFMSG_Present             = $7BDF
 
 ; ---------------------------------------------------------------------------
 ; C2:6189
@@ -297,15 +304,15 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     sta $A974
     lda $08
     sta $A976
-    lda.w #$7A28
+    lda.w #EFMSG_InstantWinForce
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     ldy.w #$9FAC
     sty $1A
     lda.w #$0000
@@ -444,13 +451,14 @@ C26511_FillInstantWinTileBufferAndUpload_L6511:
     lda $AA10
     beq C2652D_FillInstantWinTileBufferAndUpload_L652D
     sep #$20
+    ; Instant-win still reuses the UFO-present byte-substitution contract.
     lda $AA10
-    jsl $C1DD7C
-    lda.w #$7BDF
+    jsl C1DD7C_SetBattleTextByteSubstitution
+    lda.w #EFMSG_Present
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2652D_FillInstantWinTileBufferAndUpload_L652D:
     jsl C1DD5F_WaitForTextOrMenuAcknowledge
     lda $9883

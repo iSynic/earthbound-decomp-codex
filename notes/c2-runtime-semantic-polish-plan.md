@@ -303,6 +303,13 @@ contract notes for C0/C1/C3/C4 consumers.
   blank/visible digit tile offsets, and the `C2:0F08/0F26` HP/PP wrapper
   entries. See `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`
   and `notes/c2-symbol-only-stragglers-c200d1-c20d3f.md`.
+- 2026-05-01 forty-sixth slice: returned to the C1/C2 battle-text payload
+  joins in the battle-start controller and instant-win handler. The promoted
+  contracts cover direct `C1:DC1C` status/result text, `C1:DC66`
+  substitution-payload victory text, `C1:DD7C` byte-substitution staging,
+  EF/C8 battle-script constants, and the `$AA10 -> $9D11 -> EF:7BDF`
+  present-item bridge. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Validation
 
