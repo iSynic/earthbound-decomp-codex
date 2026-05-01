@@ -123,6 +123,11 @@ closure.
   wrapper's `$103E` scan table, tagged-parent mask, live-slot loop bounds,
   default base-slot arguments, and resolver-backed spawn call contract. See
   `notes/child-entity-spawn-c4b3d0-c40de8.md`.
+- 2026-05-01 landing palette touch-up: promoted RGB555 scale/repack
+  thresholds, high-component normalization, WRAM-low selectors, palette
+  first-word/fade sentinels, and the existing-work selector bit in the landing
+  palette/display helper. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 

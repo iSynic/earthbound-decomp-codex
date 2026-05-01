@@ -66,6 +66,11 @@ The strongest current component alignment is therefore:
 - `7F:0400 / 0A00` = middle-channel delta / current
 - `7F:0600 / 0C00` = high-channel delta / current
 
+Source polish: `src/c4/landing_palette_display_helpers.asm` now names the
+selector bit that chooses the existing `$7F:0000` work word versus the source
+template word, along with the high-channel fixed-point normalization
+denominator and repack byte masks.
+
 I am still keeping the human-facing channel names slightly cautious, but the packed `BBBBBGGGGGRRRRR` style layout makes `low / middle / high` line up naturally with red / green / blue order.
 
 ## `C4:91EE` as per-step component delta helper

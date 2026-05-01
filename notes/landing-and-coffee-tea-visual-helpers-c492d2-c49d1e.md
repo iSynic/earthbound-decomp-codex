@@ -59,6 +59,11 @@ block into `$7F:0000`, initializes the six-plane interpolation state from
 `0x0200`, steps `C4:26ED` for the requested number of frames with frame waits,
 then exports and queues the palette upload through `C4:9740`.
 
+Source polish: `src/c4/landing_palette_display_helpers.asm` now names the
+full-scale `#$0032` RGB555 step, repack byte masks, high-component normalize
+denominator, WRAM-low bank selector, palette first-word/fade sentinels, and the
+existing-work selector bit used by `C4:958E`.
+
 `C4:0BE8` is the shared blank source block immediately after the footstep sound
 table. The ROM bytes from `C4:0BE8..0DE7` are all zero, and the next named data
 family begins at `C4:0DE8`. Multiple setup paths use this as a fixed bank-`C4`

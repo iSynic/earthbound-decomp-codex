@@ -2418,12 +2418,22 @@ org $C49496
 !RGB555_SCALE_CLAMP_THRESHOLD = $1E45
 !RGB555_SCALE_CLAMP_VALUE = $1F00
 !RGB555_GREEN_SHIFT = $000A
+!RGB555_FULL_SCALE_STEP = $0032
+!RGB555_REPACK_HIGH_BYTE_MASK = $00FF
+!RGB555_BASE_LOW_COMPONENT_BYTE_MASK = $FF00
+!RGB555_HIGH_COMPONENT_NORMALIZE_DENOMINATOR = $0400
 !LANDING_CGRAM_UPLOAD_SELECTOR = $0018
 !STATIC_VISUAL_CLEAR_SOURCE = $0BE8
 !STATIC_VISUAL_CLEAR_SOURCE_BANK = $00C4
 !STATIC_VISUAL_VRAM_SOURCE_DEST = $7C00
 !STATIC_VISUAL_COPY_SIZE = $0800
 !STATIC_VISUAL_TRANSFER_SELECTOR = $03
+!WRAM_LO_BANK = $007E
+!ZeroWord = $0000
+!ZeroByte = $00
+!LandingPaletteFirstWord = $0000
+!LandingPaletteFadeImmediateFrameCount = $0001
+!LandingPaletteUseExistingWorkBit = $0001
 C49496_ScalePackedRgb555ColorByStep:
     rep #$31
     phd
@@ -2433,7 +2443,7 @@ C49496_ScalePackedRgb555ColorByStep:
     tcd
     pla
     sta $12
-    cpx #$0032
+    cpx #!RGB555_FULL_SCALE_STEP
     bcs C49515_ScalePackedRgb555ColorByStep_HandleLargeStep
     txa
     sta $04
@@ -2490,7 +2500,7 @@ C49505_ScalePackedRgb555ColorByStep_CheckBlue:
     sta $12
     bra C49522_ScalePackedRgb555ColorByStep_Repack
 C49515_ScalePackedRgb555ColorByStep_HandleLargeStep:
-    cpx #$0032
+    cpx #!RGB555_FULL_SCALE_STEP
     beq C49548_ScalePackedRgb555ColorByStep_ReturnOriginal
     lda #!RGB555_SCALE_CLAMP_VALUE
     sta $12
@@ -2499,11 +2509,11 @@ C49515_ScalePackedRgb555ColorByStep_HandleLargeStep:
 C49522_ScalePackedRgb555ColorByStep_Repack:
     lda $02
     xba
-    and #$00FF
+    and #!RGB555_REPACK_HIGH_BYTE_MASK
     sta $02
     txa
     xba
-    and #$00FF
+    and #!RGB555_REPACK_HIGH_BYTE_MASK
     asl
     asl
     asl
@@ -2514,7 +2524,7 @@ C49522_ScalePackedRgb555ColorByStep_Repack:
     ldy.b #!RGB555_GREEN_SHIFT
     lda $12
     xba
-    and #$00FF
+    and #!RGB555_REPACK_HIGH_BYTE_MASK
     jsl !C0923E_ShiftRightByY
     ora $04
     ora $02
@@ -2539,7 +2549,7 @@ C4954C_BuildScaledPaletteBlockTo7f0000:
     sta $06
     lda #!LANDING_PALETTE_WORK_BANK
     sta $08
-    ldy #$0000
+    ldy #!LandingPaletteFirstWord
     sty $0E
     bra C49587_BuildScaledPaletteBlockTo7f0000_CheckLoop
 C49571_BuildScaledPaletteBlockTo7f0000_Entry:
@@ -2580,7 +2590,7 @@ C4958E_BuildLandingPaletteInterpolationPlanes:
     sta $10
     ldx #!LANDING_COMPONENT_PLANE_CLEAR_BYTES
     sep #$20
-    lda.b #$00
+    lda.b #!ZeroByte
     jsl !C08F15_FillLongBlockWithByte
     stz $1A
     jmp C496D9_BuildLandingPaletteInterpolationPlanes_CheckOuterLoop
@@ -2590,7 +2600,7 @@ C495C2_BuildLandingPaletteInterpolationPlanes_StartRow:
     jmp C4966E_BuildLandingPaletteInterpolationPlanes_CheckCurrentBlock
 C495C9_BuildLandingPaletteInterpolationPlanes_UseExistingWorkWord:
     lda $1E
-    and #$0001
+    and #!LandingPaletteUseExistingWorkBit
     beq C495E6_BuildLandingPaletteInterpolationPlanes_LoadTemplateWord
     lda $18
     asl
@@ -2658,12 +2668,12 @@ C49603_BuildLandingPaletteInterpolationPlanes_BuildDeltas:
     sta.l !LANDING_COMPONENT_DELTA_MID_PLANE,X
     ldy $1C
     sty $12
-    ldy #$0400
+    ldy #!RGB555_HIGH_COMPONENT_NORMALIZE_DENOMINATOR
     lda $02
     and #!RGB555_HIGH_COMPONENT_MASK
     jsl !C0915B_ScaleOrDivideAngleMagnitude
     tax
-    ldy #$0400
+    ldy #!RGB555_HIGH_COMPONENT_NORMALIZE_DENOMINATOR
     lda $14
     and #!RGB555_HIGH_COMPONENT_MASK
     jsl !C0915B_ScaleOrDivideAngleMagnitude
@@ -2694,7 +2704,7 @@ C49683_BuildLandingPaletteInterpolationPlanes_CopyBaseRow:
     lda $0000,X
     and #!RGB555_COMPONENT_MASK
     xba
-    and #$FF00
+    and #!RGB555_BASE_LOW_COMPONENT_BYTE_MASK
     ldx $02
     sta.l !LANDING_COMPONENT_BASE_LOW_PLANE,X
     ldx $14
@@ -2765,7 +2775,7 @@ C496F9_MirrorCgramShadow0200To7f0000:
     sta $16
     lda $08
     sta $18
-    lda #$007E
+    lda #!WRAM_LO_BANK
     sta $18
     lda #!LANDING_PALETTE_WORK_BASE
     sta $0E
@@ -2801,7 +2811,7 @@ C49740_ExportLandingPaletteAndQueueCgramUpload:
     sta $16
     lda $08
     sta $18
-    lda #$007E
+    lda #!WRAM_LO_BANK
     sta $18
     lda $16
     sta $06
@@ -2832,10 +2842,10 @@ C4978E_CopyCgramShadow0200To4476:
     stz $08
     clc
     lda $06
-    adc #$0000
+    adc #!ZeroWord
     sta $06
     lda $08
-    adc #$007E
+    adc #!WRAM_LO_BANK
     sta $08
     lda $06
     sta $0E
@@ -2875,9 +2885,9 @@ C497C0_RunLandingPaletteFadeToScaledBlock:
     lda $02
     jsl C496E7_InitLandingPalettePlanesFrom0200
     lda $02
-    cmp #$0001
+    cmp #!LandingPaletteFadeImmediateFrameCount
     beq C49812_RunLandingPaletteFadeToScaledBlock_Export
-    lda #$0000
+    lda #!ZeroWord
     sta $12
     bra C4980E_RunLandingPaletteFadeToScaledBlock_CheckLoop
 C49801_RunLandingPaletteFadeToScaledBlock_Frame:
