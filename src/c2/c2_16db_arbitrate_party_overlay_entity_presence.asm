@@ -16,6 +16,27 @@ C2239D_CheckPartyOverlayRegistryPresence = $C2239D
 C228F8_InsertPartyOverlayTrackedItemId   = $C228F8
 C229BB_RemovePartyOverlayTrackedItemId   = $C229BB
 
+ActiveEntityTypeSourceArray        = $986F
+ActivePartyMemberCount             = $98A4
+PartyCharacterRecordBase           = $99CE
+PartyCharacterRecordStride         = $005F
+PartyInventoryItemOffset           = $0023
+PartyInventorySlotCount            = $000E
+
+ItemConfigTablePointerLo           = $5000
+ItemConfigTablePointerBank         = $00D5
+ItemConfigRecordStride             = $0027
+ItemConfigTypeOffset               = $0019
+ItemConfigOverlayEntityOffset      = $001F
+ItemConfigOverlayPriorityOffset    = $0021
+OverlayArbitrationItemType         = $0004
+
+NoOverlayCandidate                 = $00
+OverlayEntityTypeSlotA             = $0010
+OverlayEntityTypeSlotB             = $0011
+OverlayEntityTypeSignBias          = $0080
+OverlayEntityTypeSignFlip          = $FF80
+
 ; ---------------------------------------------------------------------------
 ; C2:16DB
 
@@ -34,23 +55,23 @@ C216EC_ArbitratePartyOverlayEntityPresence_L16EC:
     lda $17
     and.w #$00FF
     tax
-    lda $986F,X
+    lda ActiveEntityTypeSourceArray,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterRecordBase
     tax
     stx $15
     sep #$20
-    lda.b #$00
+    lda.b #NoOverlayCandidate
     sta $01
     jmp.w C2179F_ArbitratePartyOverlayEntityPresence_L179F
 C21712_ArbitratePartyOverlayEntityPresence_L1712:
-    lda.w #$5000
+    lda.w #ItemConfigTablePointerLo
     sta $06
-    lda.w #$00D5
+    lda.w #ItemConfigTablePointerBank
     sta $08
     lda $06
     sta $11
@@ -58,11 +79,11 @@ C21712_ArbitratePartyOverlayEntityPresence_L1712:
     sta $13
     lda $00
     and.w #$00FF
-    ldy.w #$0027
+    ldy.w #ItemConfigRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $0F
     clc
-    adc.w #$0019
+    adc.w #ItemConfigTypeOffset
     ldx $06
     stx $0A
     ldx $08
@@ -72,14 +93,14 @@ C21712_ArbitratePartyOverlayEntityPresence_L1712:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    cmp.w #$0004
+    cmp.w #OverlayArbitrationItemType
     bne C2179B_ArbitratePartyOverlayEntityPresence_L179B
     lda $18
     and.w #$00FF
     beq C21793_ArbitratePartyOverlayEntityPresence_L1793
     lda $0F
     clc
-    adc.w #$0021
+    adc.w #ItemConfigOverlayPriorityOffset
     clc
     adc $06
     sta $06
@@ -89,10 +110,10 @@ C21712_ArbitratePartyOverlayEntityPresence_L1712:
     rep #$20
     lda $18
     and.w #$00FF
-    ldy.w #$0027
+    ldy.w #ItemConfigRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0021
+    adc.w #ItemConfigOverlayPriorityOffset
     ldx $11
     stx $06
     ldx $13
@@ -122,7 +143,7 @@ C2179F_ArbitratePartyOverlayEntityPresence_L179F:
     lda $01
     and.w #$00FF
     sta $02
-    lda.w #$000E
+    lda.w #PartyInventorySlotCount
     clc
     sbc $02
     bvc C217B4_ArbitratePartyOverlayEntityPresence_L17B4
@@ -137,7 +158,7 @@ C217B6_ArbitratePartyOverlayEntityPresence_L17B6:
     adc $02
     tax
     sep #$20
-    lda $0023,X
+    lda PartyInventoryItemOffset,X
     sta $00
     sta $0E
     rep #$20
@@ -149,7 +170,7 @@ C217D2_ArbitratePartyOverlayEntityPresence_L17D2:
     sep #$20
     inc $17
 C217D6_ArbitratePartyOverlayEntityPresence_L17D6:
-    lda $98A4
+    lda ActivePartyMemberCount
     cmp $17
     beq C217E2_ArbitratePartyOverlayEntityPresence_L17E2
     bcc C217E2_ArbitratePartyOverlayEntityPresence_L17E2
@@ -159,16 +180,16 @@ C217E2_ArbitratePartyOverlayEntityPresence_L17E2:
     lda $18
     and.w #$00FF
     beq C21847_ArbitratePartyOverlayEntityPresence_L1847
-    lda.w #$5000
+    lda.w #ItemConfigTablePointerLo
     sta $06
-    lda.w #$00D5
+    lda.w #ItemConfigTablePointerBank
     sta $08
     lda $18
     and.w #$00FF
-    ldy.w #$0027
+    ldy.w #ItemConfigRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$001F
+    adc.w #ItemConfigOverlayEntityOffset
     clc
     adc $06
     sta $06
@@ -177,29 +198,29 @@ C217E2_ArbitratePartyOverlayEntityPresence_L17E2:
     rep #$20
     sec
     and.w #$00FF
-    sbc.w #$0080
-    eor.w #$FF80
+    sbc.w #OverlayEntityTypeSignBias
+    eor.w #OverlayEntityTypeSignFlip
     jsl C2239D_CheckPartyOverlayRegistryPresence
-    cmp.w #$0000
+    cmp.w #NoOverlayCandidate
     bne C21855_ArbitratePartyOverlayEntityPresence_L1855
-    lda.w #$0010
-    jsl REMOVE_CHAR_FROM_PARTY
-    lda.w #$0011
-    jsl REMOVE_CHAR_FROM_PARTY
+    lda.w #OverlayEntityTypeSlotA
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    lda.w #OverlayEntityTypeSlotB
+    jsl C229BB_RemovePartyOverlayTrackedItemId
     sep #$20
     lda [$06]
     rep #$20
     sec
     and.w #$00FF
-    sbc.w #$0080
-    eor.w #$FF80
-    jsl ADD_CHAR_TO_PARTY
+    sbc.w #OverlayEntityTypeSignBias
+    eor.w #OverlayEntityTypeSignFlip
+    jsl C228F8_InsertPartyOverlayTrackedItemId
     bra C21855_ArbitratePartyOverlayEntityPresence_L1855
 C21847_ArbitratePartyOverlayEntityPresence_L1847:
-    lda.w #$0010
-    jsl REMOVE_CHAR_FROM_PARTY
-    lda.w #$0011
-    jsl REMOVE_CHAR_FROM_PARTY
+    lda.w #OverlayEntityTypeSlotA
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    lda.w #OverlayEntityTypeSlotB
+    jsl C229BB_RemovePartyOverlayTrackedItemId
 C21855_ArbitratePartyOverlayEntityPresence_L1855:
     pld
     rtl

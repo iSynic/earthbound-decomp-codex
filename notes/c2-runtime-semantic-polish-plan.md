@@ -286,6 +286,11 @@ contract notes for C0/C1/C3/C4 consumers.
   title fields, `$894E` registered upload-slot table, `$7700` title VRAM
   destination base, and HP/PP tilemap/scratch clear ranges. See
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-01 forty-third slice: promoted the party overlay arbitration helper
+  with byte-neutral aliases for `$986F` active entity source entries, `$98A4`
+  active party count, `$99CE` party-character inventory slots, `D5:5000` item
+  config row fields, overlay entity types `0x10/0x11`, and the C2 registry
+  insert/remove calls. See `notes/party-overlay-arbitration-c216db-c3ebca.md`.
 
 ## Validation
 

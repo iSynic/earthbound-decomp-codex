@@ -90,6 +90,17 @@ A few potentially useful leads from the wider pass are still being left out of t
 - stronger naming for the overlay entity class beyond "likely mushroomized walking overlay"
 - firmer semantic names for the deeper `C3:EBCA` tables and `C4:8F98` until their local consumers are tighter
 
+## Source polish
+
+- 2026-05-01: `src/c2/c2_16db_arbitrate_party_overlay_entity_presence.asm`
+  now names the active source array `$986F`, active party count `$98A4`,
+  `$99CE` party-character record stride, inventory item-slot region,
+  `D5:5000` item config row fields used by the arbitration pass, overlay entity
+  types `0x10/0x11`, and the `C2:28F8` / `C2:29BB` registry insert/remove
+  calls. The source keeps the overlay item type and entity identity deliberately
+  structural because the exact visible overlay class is still softer than the
+  arbitration role.
+
 ## Best current interpretation
 
 The safest current interpretation is:

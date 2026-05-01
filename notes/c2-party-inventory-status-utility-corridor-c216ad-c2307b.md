@@ -185,6 +185,9 @@ Source polish:
   save/restore block at `$983A/$983B/$983C/$983E`, its saved mirror at
   `$9841..$9849`, the cleared pair at `$9831/$9833`, and the `C2:28F8` /
   `C2:29BB` active-party overlay insert/remove calls.
+- 2026-05-01: `C2:16DB` now names the active entity source array, active
+  party-count bound, party-character inventory slots, D5 item-config fields,
+  and overlay entity type insert/remove calls used by the arbitration pass.
 
 ## Source Scaffold Promotion
 
