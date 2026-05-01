@@ -179,6 +179,8 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `map-door-first-direction-probe` | `map_doors.yml`: first unique door `Direction` `left -> right` | `1` | `0x0F000B..0x0F000C` |
 | `map-door-first-style-probe` | `map_doors.yml`: first unique door `Style` `1 -> 2` | `1` | `0x0F000E..0x0F000F` |
 | `map-sprite-first-npc-id-probe` | `map_sprites.yml`: first placed sprite `NPC ID` `1254 -> 1255` | `1` | `0x0F61E9..0x0F61EA` |
+| `map-sprite-first-x-probe` | `map_sprites.yml`: first placed sprite `X` `152 -> 153` | `1` | `0x0F61EC..0x0F61ED` |
+| `map-sprite-first-y-probe` | `map_sprites.yml`: first placed sprite `Y` `112 -> 113` | `1` | `0x0F61EB..0x0F61EC` |
 | `window-config-height-probe` | `window_configuration_table.yml`: window 8 `Height` `18 -> 19` | `1` | `0x03E296..0x03E297` |
 | `enemy-insane-cultist-hp-probe` | `enemy_configuration_table.yml`: enemy 1 `HP` `94 -> 95` | `1` | `0x159608..0x159609` |
 
@@ -247,11 +249,12 @@ checked-in field join summary. Current joins:
 - `map-door-first-style-probe`: `0x0F000E` -> `CF:000E`, proving the first-door
   Style field is nearby but not contiguous with the destination/direction byte
   trio in CoilSnake's rebuilt layout.
-- `map-sprite-first-npc-id-probe`: `0x0F61E9` -> `CF:61E9`, changing the low
-  byte of CoilSnake's first placed sprite NPC ID in the baseline rebuild. The
-  verified original ROM uses the same address as part of the local sprite
-  placement pointer table, so this is also rebuild-layout evidence rather than
-  a direct original-ROM placement-row promotion.
+- `map-sprite-first-npc-id-probe`, `map-sprite-first-x-probe`, and
+  `map-sprite-first-y-probe`: `0x0F61E9`, `0x0F61EB`, and `0x0F61EC` ->
+  `CF:61E9`, `CF:61EB`, and `CF:61EC` in the CoilSnake baseline rebuild. The
+  same addresses are in the original ROM's sprite placement pointer table, but
+  the three-byte cluster uniquely matches the verified original ROM at
+  `CF:6BE9`, `CF:6BEB`, and `CF:6BEC` inside `SPRITE_PLACEMENT_TABLE`.
 - `window-config-width-probe`: `0x03E294` -> `C3:E294`, landing in the local
   `C3:E250..C3:E3F8` preserved/window-config payload corridor. The edit proves
   CoilSnake's window width field reaches this local range; the exact local
@@ -304,12 +307,13 @@ runtime field.
   Destination X low byte at `CF:000C`, and Style at `CF:000E`. The byte pattern
   is useful for reverse-engineering CoilSnake's compiler output, but it still
   needs a rebuilt-to-original layout map before local runtime promotion.
-- `map-sprite-first-npc-id-probe`: CoilSnake emits the first placed map sprite
-  NPC ID at `CF:61E9` in the baseline rebuild, while the verified original ROM
-  uses that neighborhood for the local `SPRITE_PLACEMENT_POINTER_TABLE`.
-  Follow-up X/Y probes should determine the rebuilt map_sprites record shape
-  before mapping it back to the original pointer-table plus placement-list
-  layout.
+- `map-sprite-first-npc-id-probe`, `map-sprite-first-x-probe`, and
+  `map-sprite-first-y-probe`: CoilSnake emits the first placed map sprite
+  record at `CF:61E9..CF:61EC` in the baseline rebuild, while the verified
+  original ROM uses that neighborhood for the local
+  `SPRITE_PLACEMENT_POINTER_TABLE`. The follow-up X/Y probes now determine the
+  rebuilt record fingerprint well enough to map it back to the original
+  `SPRITE_PLACEMENT_TABLE` cluster at `CF:6BE9..CF:6BEC`.
 
 ## Rebuilt-to-Original Layout Joins
 
@@ -328,11 +332,15 @@ Current learned joins:
   original `CF:23A7`, packed Direction/control byte rebuilt `CF:000B` ->
   original `CF:23A8`, Destination X low byte rebuilt `CF:000C` -> original
   `CF:23A9`, and Style byte rebuilt `CF:000E` -> original `CF:23AB`.
+- `map_sprites.yml`: the NPC ID, Y, and X probes form a unique original-ROM
+  candidate. CoilSnake's rebuilt first placed-sprite cluster starts at
+  `CF:61E9`, while the matching original cluster starts at `CF:6BE9` inside
+  `SPRITE_PLACEMENT_TABLE`. Candidate field addresses are NPC ID low byte
+  rebuilt `CF:61E9` -> original `CF:6BE9`, Y byte rebuilt `CF:61EB` ->
+  original `CF:6BEB`, and X byte rebuilt `CF:61EC` -> original `CF:6BEC`.
 - Direct same-offset exact windows confirm the already-promoted D5 gameplay
   table probes, the C4 battle menu text probe, the CF NPC text pointer probe,
   and both C3 window-config dimension probes.
-- `map_sprites.yml` still has only one probe, so the original placement-row
-  mapping remains underdetermined. Add X/Y probes before promoting it.
 
 ## Promotion Rules
 

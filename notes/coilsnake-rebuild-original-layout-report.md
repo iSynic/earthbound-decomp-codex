@@ -5,10 +5,10 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 
 ## Summary
 
-- Experiments analyzed: `15`
-- Multi-probe clusters analyzed: `3`
+- Experiments analyzed: `17`
+- Multi-probe clusters analyzed: `4`
 - Direct same-offset matches with at least an 8-byte exact window: `9`
-- Unique moved original cluster candidates: `1`
+- Unique moved original cluster candidates: `2`
 - Ambiguous cluster candidates: `2`
 
 ## Cluster Matches
@@ -17,6 +17,7 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 | --- | ---: | --- | ---: | ---: | --- | --- |
 | `enemy_configuration_table.yml` | 2 | `0x159608` / `D5:9608` | 2 | 7 | `C5:8452` | `ambiguous-original-candidates` |
 | `map_doors.yml` | 4 | `0x0F000A` / `CF:000A` | 4 | 1 | `CF:23A7` | `unique-original-candidate` |
+| `map_sprites.yml` | 3 | `0x0F61E9` / `CF:61E9` | 3 | 1 | `CF:6BE9` | `unique-original-candidate` |
 | `window_configuration_table.yml` | 2 | `0x03E294` / `C3:E294` | 2 | 174 | `C0:056D` | `ambiguous-original-candidates` |
 
 ## Interpretation
@@ -41,6 +42,18 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 | `map-door-first-destination-probe` | `CF:000C` | `CF:23A9` | `CF:0000..CF:264E` |
 | `map-door-first-style-probe` | `CF:000E` | `CF:23AB` | `CF:0000..CF:264E` |
 
+### `map_sprites.yml`
+
+- Cluster assessment: `unique-original-candidate`
+- Rebuilt cluster start: `CF:61E9`
+- Candidate original start: `CF:6BE9`
+
+| Experiment | Rebuilt | Candidate original | Best local contract |
+| --- | --- | --- | --- |
+| `map-sprite-first-npc-id-probe` | `CF:61E9` | `CF:6BE9` | `SPRITE_PLACEMENT_TABLE` |
+| `map-sprite-first-y-probe` | `CF:61EB` | `CF:6BEB` | `SPRITE_PLACEMENT_TABLE` |
+| `map-sprite-first-x-probe` | `CF:61EC` | `CF:6BEC` | `CF:6BE7..CF:8984` |
+
 ## Same-Offset Checks
 
 | Experiment | Rebuilt HiROM | Changed byte matches original | Best exact same-offset window |
@@ -55,6 +68,8 @@ This report records offsets, candidate addresses, match counts, and evidence sta
 | `map-door-first-style-probe` | `CF:000E` | `no` | 0 |
 | `map-palette-probe` | `DA:0C40` | `no` | 0 |
 | `map-sprite-first-npc-id-probe` | `CF:61E9` | `no` | 0 |
+| `map-sprite-first-x-probe` | `CF:61EC` | `no` | 0 |
+| `map-sprite-first-y-probe` | `CF:61EB` | `no` | 0 |
 | `npc-config-first-text-pointer-probe` | `CF:899F` | `yes` | 32 |
 | `psi-ness-omega-level-probe` | `D5:8A92` | `yes` | 32 |
 | `text-menu-probe` | `C4:A00A` | `yes` | 32 |

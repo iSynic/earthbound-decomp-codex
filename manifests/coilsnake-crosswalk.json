@@ -1659,6 +1659,74 @@
         ],
         "status": "different"
       }
+    },
+    "map-sprite-first-x-probe": {
+      "report": "build/coilsnake/edit-experiments/map-sprite-first-x-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_sprites.yml",
+      "edit": "Changed the first placed map sprite X coordinate from 152 to 153.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-sprite-first-x-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-sprite-first-x-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F61EC",
+        "last_changed_offset_exclusive": "0x0F61ED",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-sprite-first-x-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F61ED",
+            "length": 1,
+            "start": "0x0F61EC"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-sprite-first-y-probe": {
+      "report": "build/coilsnake/edit-experiments/map-sprite-first-y-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_sprites.yml",
+      "edit": "Changed the first placed map sprite Y coordinate from 112 to 113.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-sprite-first-y-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-sprite-first-y-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F61EB",
+        "last_changed_offset_exclusive": "0x0F61EC",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-sprite-first-y-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F61EC",
+            "length": 1,
+            "start": "0x0F61EB"
+          }
+        ],
+        "status": "different"
+      }
     }
   },
   "field_join_workflow": {
@@ -1788,11 +1856,37 @@
         "coilsnake_file": "map_sprites.yml",
         "changed_file_offset": "0x0F61E9",
         "hirom": "CF:61E9",
-        "local_contract": "CF:61E7..CF:6BE6",
+        "local_contract": "CF:61E9..CF:61EC",
         "source_scaffold": "src/cf/table_sprite_placement_pointer_table.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-sprite-first-x-probe",
+        "coilsnake_file": "map_sprites.yml",
+        "changed_file_offset": "0x0F61EC",
+        "hirom": "CF:61EC",
+        "local_contract": "CF:61E9..CF:61EC",
+        "source_scaffold": "src/cf/table_sprite_placement_pointer_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "map-sprite-first-y-probe",
+        "coilsnake_file": "map_sprites.yml",
+        "changed_file_offset": "0x0F61EB",
+        "hirom": "CF:61EB",
+        "local_contract": "CF:61E9..CF:61EC",
+        "source_scaffold": "src/cf/table_sprite_placement_pointer_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1869,10 +1963,10 @@
     "ignored_json_report": "build/coilsnake/reports/coilsnake-rebuild-original-layout-report.json",
     "summary": {
       "ambiguous_cluster_count": 2,
-      "cluster_count": 3,
+      "cluster_count": 4,
       "direct_same_offset_count": 9,
-      "experiment_count": 15,
-      "unique_original_cluster_candidate_count": 1
+      "experiment_count": 17,
+      "unique_original_cluster_candidate_count": 2
     }
   },
   "experiment_plan_workflow": {

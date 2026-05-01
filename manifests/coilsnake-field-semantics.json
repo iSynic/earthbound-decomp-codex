@@ -240,23 +240,68 @@
     "map-sprite-first-npc-id-probe": {
       "coilsnake_field": "map_sprites.yml / first placed map sprite / NPC ID",
       "edited_value": "1254 -> 1255",
-      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF map-sprite payload at CF:61E9; original verified ROM uses that address as part of the sprite placement pointer table",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF map-sprite payload at CF:61E9; clustered NPC ID/X/Y probes uniquely match original verified ROM candidate CF:6BE9 inside SPRITE_PLACEMENT_TABLE",
       "field_evidence_level": "diff-confirmed",
-      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
       "runtime_consumers": [
         {
           "kind": "compiler-normalization-context",
           "routine": "CoilSnake baseline rebuild map_sprites payload",
           "source": "notes/coilsnake-crosswalk.md",
-          "detail": "The controlled diff changes the low byte of NPC ID 1254 at baseline-rebuild offset 0x0F61E9 (CF:61E9). The verified original ROM has pointer-table bytes at the same address, so this is CoilSnake rebuilt-layout evidence rather than a direct original-ROM placement row promotion."
+          "detail": "The controlled diff changes the low byte of NPC ID 1254 at baseline-rebuild offset 0x0F61E9 (CF:61E9). The verified original ROM has pointer-table bytes at the same address, but the three-probe NPC ID/X/Y cluster uniquely matches original CF:6BE9."
         },
         {
           "kind": "same-family-runtime-context",
-          "routine": "CF:61E7 SpritePlacementPointerTable and map object bundle contracts",
+          "routine": "CF:6BE7 SpritePlacementTable and map object bundle contracts",
           "source": "notes/bank-cf-first-pass.md",
-          "detail": "Local contracts identify CF:61E7..CF:6BE6 as the original sprite placement pointer table and track placed-object joins separately; this probe shows CoilSnake's rebuilt map_sprites layout differs at the same address."
+          "detail": "Local contracts identify CF:6BE7..CF:8984 as the original sprite placement sector-list block. The unique rebuilt-to-original candidate puts this NPC ID byte at original CF:6BE9, inside the first placement record rather than the pointer table."
         }
-      ]
+      ],
+      "original_candidate": "CF:6BE9"
+    },
+    "map-sprite-first-x-probe": {
+      "coilsnake_field": "map_sprites.yml / first placed map sprite / X",
+      "edited_value": "152 -> 153",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF map-sprite payload at CF:61EC; clustered NPC ID/X/Y probes uniquely match original verified ROM candidate CF:6BEC inside SPRITE_PLACEMENT_TABLE",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "compiler-normalization-context",
+          "routine": "CoilSnake baseline rebuild map_sprites payload",
+          "source": "notes/coilsnake-rebuild-original-layout-report.md",
+          "detail": "The controlled diff proves CoilSnake's first placed map sprite X coordinate is emitted at baseline-rebuild offset 0x0F61EC (CF:61EC). The three-probe map_sprites cluster uniquely matches the verified original ROM at CF:6BE9, making this field's candidate original byte CF:6BEC."
+        },
+        {
+          "kind": "same-family-runtime-context",
+          "routine": "CF:6BE7 SpritePlacementTable and map object bundle contracts",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The local contract maps CF:6BE7..CF:8984 as the variable sprite placement sector-list block. Runtime consumer naming for the exact X field remains open."
+        }
+      ],
+      "original_candidate": "CF:6BEC"
+    },
+    "map-sprite-first-y-probe": {
+      "coilsnake_field": "map_sprites.yml / first placed map sprite / Y",
+      "edited_value": "112 -> 113",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF map-sprite payload at CF:61EB; clustered NPC ID/X/Y probes uniquely match original verified ROM candidate CF:6BEB inside SPRITE_PLACEMENT_TABLE",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "compiler-normalization-context",
+          "routine": "CoilSnake baseline rebuild map_sprites payload",
+          "source": "notes/coilsnake-rebuild-original-layout-report.md",
+          "detail": "The controlled diff proves CoilSnake's first placed map sprite Y coordinate is emitted at baseline-rebuild offset 0x0F61EB (CF:61EB). The three-probe map_sprites cluster uniquely matches the verified original ROM at CF:6BE9, making this field's candidate original byte CF:6BEB."
+        },
+        {
+          "kind": "same-family-runtime-context",
+          "routine": "CF:6BE7 SpritePlacementTable and map object bundle contracts",
+          "source": "notes/data-contracts-c0-c4.md",
+          "detail": "The local contract maps CF:6BE7..CF:8984 as the variable sprite placement sector-list block. Runtime consumer naming for the exact Y field remains open."
+        }
+      ],
+      "original_candidate": "CF:6BEB"
     },
     "psi-ness-omega-level-probe": {
       "coilsnake_field": "psi_ability_table.yml / ability 4 / Level learned by Ness",
