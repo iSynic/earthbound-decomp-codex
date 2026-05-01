@@ -13,6 +13,11 @@
 
 ; No named external contracts were supplied or recognized.
 
+DefaultTitleTileRunPointerLo   = $E40E
+DefaultTitleTileRunPointerBank = $00C3
+DefaultTitleUploadTileBuffer   = $8272
+DefaultTitleUploadWordCount    = $0004
+
 ; ---------------------------------------------------------------------------
 ; C2:0266
 
@@ -22,10 +27,10 @@ C20266_LoadDefaultTitleUploadTiles:
     tdc
     adc.w #$FFF2
     tcd
-    ldy.w #$8272
-    lda.w #$E40E
+    ldy.w #DefaultTitleUploadTileBuffer
+    lda.w #DefaultTitleTileRunPointerLo
     sta $06
-    lda.w #$00C3
+    lda.w #DefaultTitleTileRunPointerBank
     sta $08
     ldx.w #$0000
     bra C2028C_LoadDefaultTitleUploadTiles_L028C
@@ -38,7 +43,7 @@ C20280_LoadDefaultTitleUploadTiles_L0280:
     iny
     inx
 C2028C_LoadDefaultTitleUploadTiles_L028C:
-    cpx.w #$0004
+    cpx.w #DefaultTitleUploadWordCount
     bcc C20280_LoadDefaultTitleUploadTiles_L0280
     pld
     rtl

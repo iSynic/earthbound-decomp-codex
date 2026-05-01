@@ -280,6 +280,12 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/equipment-preview-slot-block-9cd0-9cd6.md`,
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`, and
   `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
+- 2026-05-01 forty-second slice: promoted the early window-title and HP/PP
+  tilemap reset helpers with byte-neutral aliases for the default title tile
+  run at `C3:E40E`, `$8272` title tile upload buffer, `$8650` window record
+  title fields, `$894E` registered upload-slot table, `$7700` title VRAM
+  destination base, and HP/PP tilemap/scratch clear ranges. See
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
 
 ## Validation
 

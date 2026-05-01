@@ -8480,16 +8480,20 @@ C2A3CF_TryRecoverSelectedBattlerPoisonOnly_LA3CF:
 hirom
 org $C20266
 
+!DefaultTitleTileRunPointerLo = $E40E
+!DefaultTitleTileRunPointerBank = $00C3
+!DefaultTitleUploadTileBuffer = $8272
+!DefaultTitleUploadWordCount = $0004
 C20266_LoadDefaultTitleUploadTiles:
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    ldy.w #$8272
-    lda.w #$E40E
+    ldy.w #!DefaultTitleUploadTileBuffer
+    lda.w #!DefaultTitleTileRunPointerLo
     sta $06
-    lda.w #$00C3
+    lda.w #!DefaultTitleTileRunPointerBank
     sta $08
     ldx.w #$0000
     bra C2028C_LoadDefaultTitleUploadTiles_L028C
@@ -8502,7 +8506,7 @@ C20280_LoadDefaultTitleUploadTiles_L0280:
     iny
     inx
 C2028C_LoadDefaultTitleUploadTiles_L028C:
-    cpx.w #$0004
+    cpx.w #!DefaultTitleUploadWordCount
     bcc C20280_LoadDefaultTitleUploadTiles_L0280
     pld
     rtl
@@ -8515,19 +8519,22 @@ C2028C_LoadDefaultTitleUploadTiles_L028C:
 hirom
 org $C20293
 
+!DefaultTitleUploadTileBuffer = $8272
+!DefaultTitleUploadWordCount = $0004
+!BlankTileWord = $0000
 C20293_ClearDefaultTitleUploadTiles:
     rep #$31
-    ldy.w #$8272
+    ldy.w #!DefaultTitleUploadTileBuffer
     ldx.w #$0000
     bra C202A6_ClearDefaultTitleUploadTiles_L02A6
 C2029D_ClearDefaultTitleUploadTiles_L029D:
-    lda.w #$0000
+    lda.w #!BlankTileWord
     sta $0000,Y
     iny
     iny
     inx
 C202A6_ClearDefaultTitleUploadTiles_L02A6:
-    cpx.w #$0004
+    cpx.w #!DefaultTitleUploadWordCount
     bcc C2029D_ClearDefaultTitleUploadTiles_L029D
     rtl
 
@@ -8541,6 +8548,16 @@ org $C202AC
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C444FB_UploadWindowTitleGlyphTiles = $C444FB
+!WindowRecordIndexTable = $88E4
+!WindowRecordStride = $0052
+!WindowRecordBase = $8650
+!WindowRecordTitleUploadSlot = $003B
+!WindowRecordTitleGlyphSource = $003C
+!WindowTitleUploadSlotTable = $894E
+!WindowTitleUploadSlotCount = $0005
+!UnregisteredTitleUploadSlot = $FFFF
+!FirstTitleUploadSlotIndex = $0000
+!WindowTitleVramDestinationBase = $7700
 C202AC_RegisterAndUploadWindowTitleBuffer:
     rep #$31
     phd
@@ -8552,51 +8569,51 @@ C202AC_RegisterAndUploadWindowTitleBuffer:
     sta $02
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #!WindowRecordBase
     tay
     clc
-    adc.w #$003C
+    adc.w #!WindowRecordTitleGlyphSource
     sta $04
-    lda $003B,Y
+    lda !WindowRecordTitleUploadSlot,Y
     and.w #$00FF
     bne C2030E_RegisterAndUploadWindowTitleBuffer_L030E
-    lda.w #$0000
+    lda.w #!FirstTitleUploadSlotIndex
     sta $10
     bra C202F3_RegisterAndUploadWindowTitleBuffer_L02F3
 C202DE_RegisterAndUploadWindowTitleBuffer_L02DE:
     asl A
     clc
-    adc.w #$894E
+    adc.w #!WindowTitleUploadSlotTable
     tax
     stx $0E
     lda $0000,X
-    cmp.w #$FFFF
+    cmp.w #!UnregisteredTitleUploadSlot
     beq C202FA_RegisterAndUploadWindowTitleBuffer_L02FA
     lda $10
     inc A
     sta $10
 C202F3_RegisterAndUploadWindowTitleBuffer_L02F3:
-    cmp.w #$0005
+    cmp.w #!WindowTitleUploadSlotCount
     bne C202DE_RegisterAndUploadWindowTitleBuffer_L02DE
     bra C20329_RegisterAndUploadWindowTitleBuffer_L0329
 C202FA_RegisterAndUploadWindowTitleBuffer_L02FA:
     lda $02
     asl A
     tax
-    lda $88E4,X
+    lda !WindowRecordIndexTable,X
     ldx $0E
     sta $0000,X
     lda $10
     sep #$20
     inc A
-    sta $003B,Y
+    sta !WindowRecordTitleUploadSlot,Y
 C2030E_RegisterAndUploadWindowTitleBuffer_L030E:
     rep #$20
-    lda $003B,Y
+    lda !WindowRecordTitleUploadSlot,Y
     and.w #$00FF
     dec A
     asl A
@@ -8607,7 +8624,7 @@ C2030E_RegisterAndUploadWindowTitleBuffer_L030E:
     asl A
     asl A
     clc
-    adc.w #$7700
+    adc.w #!WindowTitleVramDestinationBase
     tax
     lda $04
     jsl !C444FB_UploadWindowTitleGlyphTiles
@@ -8625,6 +8642,11 @@ org $C2032B
 
 !C202AC_RegisterAndUploadWindowTitleBuffer = $02AC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!WindowRecordIndexTable = $88E4
+!WindowRecordStride = $0052
+!WindowTitleStringBufferBase = $868C
+!WindowTitleTerminatorByte = $00
+!NoTitleCharactersRemaining = $0000
 SET_WINDOW_TITLE:
 !C2032B_WriteWindowTitleAndUpload = SET_WINDOW_TITLE
     rep #$31
@@ -8643,11 +8665,11 @@ SET_WINDOW_TITLE:
     lda $04
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$868C
+    adc.w #!WindowTitleStringBufferBase
     tay
     bra C20362_WriteWindowTitleAndUpload_L0362
 C20356_WriteWindowTitleAndUpload_L0356:
@@ -8668,11 +8690,11 @@ C20362_WriteWindowTitleAndUpload_L0362:
     lda $02
     dec A
     sta $02
-    cpx.w #$0000
+    cpx.w #!NoTitleCharactersRemaining
     bne C20356_WriteWindowTitleAndUpload_L0356
 C2037B_WriteWindowTitleAndUpload_L037B:
     sep #$20
-    lda.b #$00
+    lda.b #!WindowTitleTerminatorByte
     sta $0000,Y
     rep #$20
     lda $04
@@ -8690,28 +8712,37 @@ org $C2038B
 
 !C08616_CopyLongBuffer = $C08616
 !C0862E_FillLongBuffer = $C0862E
+!BufferBank7E = $007E
+!HpPpWindowTilemapBufferBase = $7C00
+!HpPpWindowTilemapClearStart = $7DFE
+!HpPpWindowTilemapClearLength = $0700
+!ZeroTileSourceOffsetC4 = $0BE8
+!ZeroTileSourceBankC4 = $00C4
+!HpPpWindowScratchClearStart = $7F80
+!HpPpWindowScratchClearLength = $0040
+!ZeroFillByte = $00
 C2038B_ResetHpPpTilemapBuffers:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$007E
+    lda.w #!BufferBank7E
     sta $0E
-    lda.w #$7C00
+    lda.w #!HpPpWindowTilemapBufferBase
     sta $10
-    ldy.w #$7DFE
-    ldx.w #$0700
+    ldy.w #!HpPpWindowTilemapClearStart
+    ldx.w #!HpPpWindowTilemapClearLength
     sep #$20
     jsl !C0862E_FillLongBuffer
-    lda.w #$0BE8
+    lda.w #!ZeroTileSourceOffsetC4
     sta $0E
-    lda.w #$00C4
+    lda.w #!ZeroTileSourceBankC4
     sta $10
-    ldy.w #$7F80
-    ldx.w #$0040
+    ldy.w #!HpPpWindowScratchClearStart
+    ldx.w #!HpPpWindowScratchClearLength
     sep #$20
-    lda.b #$00
+    lda.b #!ZeroFillByte
     jsl !C08616_CopyLongBuffer
     pld
     rtl

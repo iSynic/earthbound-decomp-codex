@@ -120,6 +120,10 @@ cluster without changing runtime bytes:
 - `C2:0F58`, `C2:0F9A`, `C2:1034`, and `C2:108C` now name the HP/PP roller
   delta pair, scaled-delta flag, roll dirty latch, party slot map, character
   record stride, and HP/PP current/target/dirty fields.
+- `C2:0266`, `C2:0293`, `C2:02AC`, `C2:032B`, and `C2:038B` now name the
+  default title tile run, registered window-title upload slot, `$8650` window
+  record/title-string fields, `$894E` upload-slot table, C4 title glyph upload
+  call, and HP/PP tilemap/scratch buffer clear ranges.
 
 ## Working Names
 

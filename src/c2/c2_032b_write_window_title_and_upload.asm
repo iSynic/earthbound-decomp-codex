@@ -14,6 +14,12 @@
 C202AC_RegisterAndUploadWindowTitleBuffer = $02AC
 C08FF7_ResolveIndexedPointerOffset        = $C08FF7
 
+WindowRecordIndexTable       = $88E4
+WindowRecordStride           = $0052
+WindowTitleStringBufferBase  = $868C
+WindowTitleTerminatorByte    = $00
+NoTitleCharactersRemaining   = $0000
+
 ; ---------------------------------------------------------------------------
 ; C2:032B
 
@@ -35,11 +41,11 @@ C2032B_WriteWindowTitleAndUpload = SET_WINDOW_TITLE
     lda $04
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$868C
+    adc.w #WindowTitleStringBufferBase
     tay
     bra C20362_WriteWindowTitleAndUpload_L0362
 C20356_WriteWindowTitleAndUpload_L0356:
@@ -60,11 +66,11 @@ C20362_WriteWindowTitleAndUpload_L0362:
     lda $02
     dec A
     sta $02
-    cpx.w #$0000
+    cpx.w #NoTitleCharactersRemaining
     bne C20356_WriteWindowTitleAndUpload_L0356
 C2037B_WriteWindowTitleAndUpload_L037B:
     sep #$20
-    lda.b #$00
+    lda.b #WindowTitleTerminatorByte
     sta $0000,Y
     rep #$20
     lda $04

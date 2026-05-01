@@ -13,21 +13,25 @@
 
 ; No named external contracts were supplied or recognized.
 
+DefaultTitleUploadTileBuffer = $8272
+DefaultTitleUploadWordCount  = $0004
+BlankTileWord                = $0000
+
 ; ---------------------------------------------------------------------------
 ; C2:0293
 
 C20293_ClearDefaultTitleUploadTiles:
     rep #$31
-    ldy.w #$8272
+    ldy.w #DefaultTitleUploadTileBuffer
     ldx.w #$0000
     bra C202A6_ClearDefaultTitleUploadTiles_L02A6
 C2029D_ClearDefaultTitleUploadTiles_L029D:
-    lda.w #$0000
+    lda.w #BlankTileWord
     sta $0000,Y
     iny
     iny
     inx
 C202A6_ClearDefaultTitleUploadTiles_L02A6:
-    cpx.w #$0004
+    cpx.w #DefaultTitleUploadWordCount
     bcc C2029D_ClearDefaultTitleUploadTiles_L029D
     rtl

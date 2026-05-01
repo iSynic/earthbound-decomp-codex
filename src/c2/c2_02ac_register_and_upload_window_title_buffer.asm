@@ -14,6 +14,17 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C444FB_UploadWindowTitleGlyphTiles = $C444FB
 
+WindowRecordIndexTable          = $88E4
+WindowRecordStride              = $0052
+WindowRecordBase                = $8650
+WindowRecordTitleUploadSlot     = $003B
+WindowRecordTitleGlyphSource    = $003C
+WindowTitleUploadSlotTable      = $894E
+WindowTitleUploadSlotCount      = $0005
+UnregisteredTitleUploadSlot     = $FFFF
+FirstTitleUploadSlotIndex       = $0000
+WindowTitleVramDestinationBase  = $7700
+
 ; ---------------------------------------------------------------------------
 ; C2:02AC
 
@@ -28,51 +39,51 @@ C202AC_RegisterAndUploadWindowTitleBuffer:
     sta $02
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #WindowRecordBase
     tay
     clc
-    adc.w #$003C
+    adc.w #WindowRecordTitleGlyphSource
     sta $04
-    lda $003B,Y
+    lda WindowRecordTitleUploadSlot,Y
     and.w #$00FF
     bne C2030E_RegisterAndUploadWindowTitleBuffer_L030E
-    lda.w #$0000
+    lda.w #FirstTitleUploadSlotIndex
     sta $10
     bra C202F3_RegisterAndUploadWindowTitleBuffer_L02F3
 C202DE_RegisterAndUploadWindowTitleBuffer_L02DE:
     asl A
     clc
-    adc.w #$894E
+    adc.w #WindowTitleUploadSlotTable
     tax
     stx $0E
     lda $0000,X
-    cmp.w #$FFFF
+    cmp.w #UnregisteredTitleUploadSlot
     beq C202FA_RegisterAndUploadWindowTitleBuffer_L02FA
     lda $10
     inc A
     sta $10
 C202F3_RegisterAndUploadWindowTitleBuffer_L02F3:
-    cmp.w #$0005
+    cmp.w #WindowTitleUploadSlotCount
     bne C202DE_RegisterAndUploadWindowTitleBuffer_L02DE
     bra C20329_RegisterAndUploadWindowTitleBuffer_L0329
 C202FA_RegisterAndUploadWindowTitleBuffer_L02FA:
     lda $02
     asl A
     tax
-    lda $88E4,X
+    lda WindowRecordIndexTable,X
     ldx $0E
     sta $0000,X
     lda $10
     sep #$20
     inc A
-    sta $003B,Y
+    sta WindowRecordTitleUploadSlot,Y
 C2030E_RegisterAndUploadWindowTitleBuffer_L030E:
     rep #$20
-    lda $003B,Y
+    lda WindowRecordTitleUploadSlot,Y
     and.w #$00FF
     dec A
     asl A
@@ -83,7 +94,7 @@ C2030E_RegisterAndUploadWindowTitleBuffer_L030E:
     asl A
     asl A
     clc
-    adc.w #$7700
+    adc.w #WindowTitleVramDestinationBase
     tax
     lda $04
     jsl C444FB_UploadWindowTitleGlyphTiles

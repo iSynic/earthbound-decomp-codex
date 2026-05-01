@@ -14,6 +14,16 @@
 C08616_CopyLongBuffer = $C08616
 C0862E_FillLongBuffer = $C0862E
 
+BufferBank7E                  = $007E
+HpPpWindowTilemapBufferBase   = $7C00
+HpPpWindowTilemapClearStart   = $7DFE
+HpPpWindowTilemapClearLength  = $0700
+ZeroTileSourceOffsetC4        = $0BE8
+ZeroTileSourceBankC4          = $00C4
+HpPpWindowScratchClearStart   = $7F80
+HpPpWindowScratchClearLength  = $0040
+ZeroFillByte                  = $00
+
 ; ---------------------------------------------------------------------------
 ; C2:038B
 
@@ -23,22 +33,22 @@ C2038B_ResetHpPpTilemapBuffers:
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$007E
+    lda.w #BufferBank7E
     sta $0E
-    lda.w #$7C00
+    lda.w #HpPpWindowTilemapBufferBase
     sta $10
-    ldy.w #$7DFE
-    ldx.w #$0700
+    ldy.w #HpPpWindowTilemapClearStart
+    ldx.w #HpPpWindowTilemapClearLength
     sep #$20
     jsl C0862E_FillLongBuffer
-    lda.w #$0BE8
+    lda.w #ZeroTileSourceOffsetC4
     sta $0E
-    lda.w #$00C4
+    lda.w #ZeroTileSourceBankC4
     sta $10
-    ldy.w #$7F80
-    ldx.w #$0040
+    ldy.w #HpPpWindowScratchClearStart
+    ldx.w #HpPpWindowScratchClearLength
     sep #$20
-    lda.b #$00
+    lda.b #ZeroFillByte
     jsl C08616_CopyLongBuffer
     pld
     rtl
