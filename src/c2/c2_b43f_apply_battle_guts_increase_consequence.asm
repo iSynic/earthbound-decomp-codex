@@ -17,7 +17,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset                = $C08FF7
+C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
+C21BA4_RecalculateCharacterDerivedGuts            = $C21BA4
+
+SelectedRowGutsByte                               = $002C
+PartyRecordStride                                 = $005F
+LiveCharacterGutsByteBase                         = $9A26
+C8MSG_GutsIncreaseAmount                          = $F7D2
+C8_BattleTextScriptBank                           = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:B43F
@@ -25,7 +33,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C2B43F_ApplyBattleGutsIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002C
+    adc.w #SelectedRowGutsByte
     pha
     ldy $16
     sty $02
@@ -38,10 +46,10 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A26
+    adc.w #LiveCharacterGutsByteBase
     pha
     ldy $16
     sep #$10
@@ -57,11 +65,11 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21BA4
+    jsl C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
-    lda.w #$F7D2
+    lda.w #C8MSG_GutsIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -71,5 +79,5 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp $B5E3

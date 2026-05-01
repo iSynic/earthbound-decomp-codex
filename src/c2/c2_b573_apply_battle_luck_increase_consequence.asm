@@ -19,8 +19,16 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08EFC_ClearDestinationBlock       = $C08EFC
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08EFC_ClearDestinationBlock                    = $C08EFC
+C08FF7_ResolveIndexedPointerOffset              = $C08FF7
+C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C21C5D_RecalculateCharacterDerivedLuck          = $C21C5D
+
+SelectedRowLuckByte                             = $002E
+PartyRecordStride                               = $005F
+LiveCharacterLuckByteBase                       = $9A29
+C8MSG_LuckIncreaseAmount                        = $F86B
+C8_BattleTextScriptBank                         = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:B573
@@ -28,7 +36,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C2B573_ApplyBattleLuckIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002E
+    adc.w #SelectedRowLuckByte
     pha
     ldy $16
     sty $02
@@ -41,10 +49,10 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A29
+    adc.w #LiveCharacterLuckByteBase
     pha
     ldy $16
     sep #$10
@@ -60,11 +68,11 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21C5D
+    jsl C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
-    lda.w #$F86B
+    lda.w #C8MSG_LuckIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -74,7 +82,7 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
     ; Selector 9: narrow affliction-recovery tail.
     jsl $C29AEA

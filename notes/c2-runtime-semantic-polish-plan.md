@@ -218,6 +218,15 @@ contract notes for C0/C1/C3/C4 consumers.
   candidate helpers, party/snapshot stride constants, and the Final Prayer
   phase-to-action row map (`$A97A` phases `4..12` -> action rows
   `0x123..0x12B`).
+- 2026-04-30 thirty-first slice: joined CoilSnake `text_misc.yml` Battle Menu /
+  Auto Fight to the local runtime path. `C2:311B` now names the `C4:9FE1`
+  battle-menu text base and the `+0x20` Auto Fight row passed to the C1
+  selection-menu builder.
+- 2026-04-30 thirty-second slice: promoted the direct stat-increase and
+  A056 stat-up amount-text callers into byte-neutral source aliases. The
+  promoted contracts cover the selected-row stat offsets, live character mirror
+  bytes, derived-stat refresh helper calls, C8 amount-bearing message scripts,
+  and the `C1:DC66` substitution-payload ABI used to print the staged amount.
 
 ## Validation
 

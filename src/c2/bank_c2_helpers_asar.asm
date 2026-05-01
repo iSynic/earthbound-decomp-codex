@@ -7976,6 +7976,22 @@ org $C2A056
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !EFMSG_StrangeInflicted = $6C3A
 !EFMSG_StatusNoEffect = $766E
+!EF_BattleTextScriptBank = $00EF
+!C8MSG_OffenseIncreaseAmount = $F77D
+!C8MSG_DefenseIncreaseAmount = $F79A
+!C8MSG_IqIncreaseAmount = $F7B8
+!C8MSG_GutsIncreaseAmount = $F7D2
+!C8MSG_SpeedIncreaseAmount = $F82F
+!C8MSG_VitalityIncreaseAmount = $F84C
+!C8MSG_LuckIncreaseAmount = $F86B
+!C8_BattleTextScriptBank = $00C8
+!SelectedRowOffenseByte = $0026
+!SelectedRowDefenseByte = $0028
+!SelectedRowSpeedByte = $002A
+!SelectedRowGutsByte = $002C
+!SelectedRowLuckByte = $002E
+!SelectedRowVitalityByte = $0030
+!SelectedRowIqByte = $0031
 BTLACT_BRAINSHOCK_A:
 !C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     rep #$31
@@ -8000,14 +8016,14 @@ BTLACT_BRAINSHOCK_A:
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     lda.w #!EFMSG_StrangeInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
 C2A097_RunResistCheckedStrangeStatusAction_LA097:
     lda.w #!EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5:
@@ -8077,7 +8093,7 @@ BTLACT_IQ_UP_1D4:
     sta $16
     lda $A972
     clc
-    adc.w #$0031
+    adc.w #!SelectedRowIqByte
     tax
     lda $16
     sep #$20
@@ -8087,9 +8103,9 @@ BTLACT_IQ_UP_1D4:
     adc $00
     sta $0000,X
     rep #$20
-    lda.w #$F7B8
+    lda.w #!C8MSG_IqIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8117,7 +8133,7 @@ BTLACT_GUTS_UP_1D4:
     sta $16
     lda $A972
     clc
-    adc.w #$002C
+    adc.w #!SelectedRowGutsByte
     tax
     lda $16
     sta $02
@@ -8125,9 +8141,9 @@ BTLACT_GUTS_UP_1D4:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F7D2
+    lda.w #!C8MSG_GutsIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8155,7 +8171,7 @@ BTLACT_SPEED_UP_1D4:
     sta $16
     lda $A972
     clc
-    adc.w #$002A
+    adc.w #!SelectedRowSpeedByte
     tax
     lda $16
     sta $02
@@ -8163,9 +8179,9 @@ BTLACT_SPEED_UP_1D4:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F82F
+    lda.w #!C8MSG_SpeedIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8193,7 +8209,7 @@ BTLACT_VITALITY_UP_1D4:
     sta $16
     lda $A972
     clc
-    adc.w #$0030
+    adc.w #!SelectedRowVitalityByte
     tax
     lda $16
     sep #$20
@@ -8203,9 +8219,9 @@ BTLACT_VITALITY_UP_1D4:
     adc $00
     sta $0000,X
     rep #$20
-    lda.w #$F84C
+    lda.w #!C8MSG_VitalityIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8233,7 +8249,7 @@ BTLACT_LUCK_UP_1D4:
     sta $16
     lda $A972
     clc
-    adc.w #$002E
+    adc.w #!SelectedRowLuckByte
     tax
     lda $16
     sta $02
@@ -8241,9 +8257,9 @@ BTLACT_LUCK_UP_1D4:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F86B
+    lda.w #!C8MSG_LuckIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8308,7 +8324,7 @@ C2A2C2_RunRandomStatUpDefenseBranch:
     sta $16
     lda $A972
     clc
-    adc.w #$0028
+    adc.w #!SelectedRowDefenseByte
     tax
     lda $16
     sta $02
@@ -8316,9 +8332,9 @@ C2A2C2_RunRandomStatUpDefenseBranch:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F79A
+    lda.w #!C8MSG_DefenseIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -8339,7 +8355,7 @@ C2A302_RunRandomStatUpOffenseBranch:
     sta $16
     lda $A972
     clc
-    adc.w #$0026
+    adc.w #!SelectedRowOffenseByte
     tax
     lda $16
     sta $02
@@ -8347,9 +8363,9 @@ C2A302_RunRandomStatUpOffenseBranch:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F77D
+    lda.w #!C8MSG_OffenseIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -19465,10 +19481,17 @@ org $C2B573
 
 !C08EFC_ClearDestinationBlock = $C08EFC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C21C5D_RecalculateCharacterDerivedLuck = $C21C5D
+!SelectedRowLuckByte = $002E
+!PartyRecordStride = $005F
+!LiveCharacterLuckByteBase = $9A29
+!C8MSG_LuckIncreaseAmount = $F86B
+!C8_BattleTextScriptBank = $00C8
 C2B573_ApplyBattleLuckIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002E
+    adc.w #!SelectedRowLuckByte
     pha
     ldy $16
     sty $02
@@ -19481,10 +19504,10 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A29
+    adc.w #!LiveCharacterLuckByteBase
     pha
     ldy $16
     sep #$10
@@ -19500,11 +19523,11 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21C5D
+    jsl !C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
-    lda.w #$F86B
+    lda.w #!C8MSG_LuckIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -19514,7 +19537,7 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
     jsl $C29AEA
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
@@ -20708,6 +20731,7 @@ org $C2B3D8
 !PartyRecordStride = $005F
 !LiveCharacterIqByteBase = $9A28
 !C8MSG_IqIncreaseAmount = $F7B8
+!C8_BattleTextScriptBank = $00C8
 C2B3D8_ApplyBattleIqIncreaseConsequence:
     lda $A972
     clc
@@ -20747,7 +20771,7 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     rep #$20
     lda.w #!C8MSG_IqIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -20769,10 +20793,17 @@ hirom
 org $C2B43F
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C21BA4_RecalculateCharacterDerivedGuts = $C21BA4
+!SelectedRowGutsByte = $002C
+!PartyRecordStride = $005F
+!LiveCharacterGutsByteBase = $9A26
+!C8MSG_GutsIncreaseAmount = $F7D2
+!C8_BattleTextScriptBank = $00C8
 C2B43F_ApplyBattleGutsIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002C
+    adc.w #!SelectedRowGutsByte
     pha
     ldy $16
     sty $02
@@ -20785,10 +20816,10 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A26
+    adc.w #!LiveCharacterGutsByteBase
     pha
     ldy $16
     sep #$10
@@ -20804,11 +20835,11 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21BA4
+    jsl !C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
-    lda.w #$F7D2
+    lda.w #!C8MSG_GutsIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -20818,7 +20849,7 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp $B5E3
 
 
@@ -20830,10 +20861,17 @@ hirom
 org $C2B4A6
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C21AEB_RecalculateCharacterDerivedSpeed = $C21AEB
+!SelectedRowSpeedByte = $002A
+!PartyRecordStride = $005F
+!LiveCharacterSpeedByteBase = $9A25
+!C8MSG_SpeedIncreaseAmount = $F82F
+!C8_BattleTextScriptBank = $00C8
 C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002A
+    adc.w #!SelectedRowSpeedByte
     pha
     ldy $16
     sty $02
@@ -20846,10 +20884,10 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A25
+    adc.w #!LiveCharacterSpeedByteBase
     pha
     ldy $16
     sep #$10
@@ -20865,11 +20903,11 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21AEB
+    jsl !C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
-    lda.w #$F82F
+    lda.w #!C8MSG_SpeedIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -20879,7 +20917,7 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp $B5E3
 
 
@@ -20891,10 +20929,17 @@ hirom
 org $C2B50D
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C21D65_RecalculateCharacterDerivedVitality = $C21D65
+!SelectedRowVitalityByte = $0030
+!PartyRecordStride = $005F
+!LiveCharacterVitalityByteBase = $9A27
+!C8MSG_VitalityIncreaseAmount = $F84C
+!C8_BattleTextScriptBank = $00C8
 C2B50D_ApplyBattleVitalityIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$0030
+    adc.w #!SelectedRowVitalityByte
     ldy $16
     sep #$10
     sty $00
@@ -20911,10 +20956,10 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     rep #$20
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A27
+    adc.w #!LiveCharacterVitalityByteBase
     pha
     tax
     sep #$20
@@ -20926,11 +20971,11 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21D65
+    jsl !C21D65_RecalculateCharacterDerivedVitality
     rep #$20
-    lda.w #$F84C
+    lda.w #!C8MSG_VitalityIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -20940,7 +20985,7 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     db $80, $70
 
 
@@ -23617,6 +23662,13 @@ org $C2311B
 !FinalPrayerActionPhase12 = $012B
 !PrayMenuActionWord = $0117
 !MirrorMenuActionWord = $0118
+!BattleMenuTextBaseLo = $9FE1
+!BattleMenuTextBank = $00C4
+!BattleMenuTextGoodsOffset = $0010
+!BattleMenuTextAutoFightOffset = $0020
+!BattleMenuTextDefendOffset = $0040
+!BattleMenuTextShootRowLo = $A041
+!BattleMenuTextDoNothingRowLo = $A081
 BATTLE_SELECTION_MENU:
 !C2311B_BattleStartUfoPresentFallbackTable_End = BATTLE_SELECTION_MENU
 !C2311B_RunBattleStartPresentAndMessageController = BATTLE_SELECTION_MENU
@@ -24162,9 +24214,9 @@ C2358F_C2311B_RunBattleStartPresentAndMessageController_L358F:
     beq C23637_C2311B_RunBattleStartPresentAndMessageController_L3637
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5:
-    lda.w #$9FE1
+    lda.w #!BattleMenuTextBaseLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -24176,9 +24228,9 @@ C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5:
     jsl !C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
-    lda.w #$A041
+    lda.w #!BattleMenuTextShootRowLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -24190,9 +24242,9 @@ C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
     jsl !C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23637_C2311B_RunBattleStartPresentAndMessageController_L3637:
-    lda.w #$A081
+    lda.w #!BattleMenuTextDoNothingRowLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -24208,9 +24260,9 @@ C23656_C2311B_RunBattleStartPresentAndMessageController_L3656:
     bne C23660_C2311B_RunBattleStartPresentAndMessageController_L3660
     jmp.w C236E2_C2311B_RunBattleStartPresentAndMessageController_L36E2
 C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
-    lda.w #$9FE1
+    lda.w #!BattleMenuTextBaseLo
     sta $0A
-    lda.w #$00C4
+    lda.w #!BattleMenuTextBank
     sta $0C
     lda.w #$0000
     sta $06
@@ -24220,7 +24272,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     sta $16
     lda $08
     sta $18
-    lda.w #$0010
+    lda.w #!BattleMenuTextGoodsOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -24243,7 +24295,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     ldx.w #$0006
     lda.w #$0002
     jsl !C1DDDA_BuildSelectionMenuSetupAndRedirects
-    lda.w #$0040
+    lda.w #!BattleMenuTextDefendOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -24290,9 +24342,9 @@ C23708_C2311B_RunBattleStartPresentAndMessageController_L3708:
     inc $04
     inc $04
 C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
-    lda.w #$9FE1
+    lda.w #!BattleMenuTextBaseLo
     sta $06
-    lda.w #$00C4
+    lda.w #!BattleMenuTextBank
     sta $08
     lda $06
     sta $16
@@ -24302,7 +24354,7 @@ C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
     sta $0A
     lda.w #$0000
     sta $0C
-    lda.w #$0020
+    lda.w #!BattleMenuTextAutoFightOffset
     clc
     adc $06
     sta $06

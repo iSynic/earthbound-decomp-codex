@@ -25,6 +25,7 @@ SelectedRowIqByte                                 = $0031
 PartyRecordStride                                 = $005F
 LiveCharacterIqByteBase                           = $9A28
 C8MSG_IqIncreaseAmount                            = $F7B8
+C8_BattleTextScriptBank                           = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:B3D8
@@ -68,7 +69,7 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     rep #$20
     lda.w #C8MSG_IqIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya

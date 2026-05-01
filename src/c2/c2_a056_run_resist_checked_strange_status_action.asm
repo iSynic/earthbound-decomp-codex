@@ -29,10 +29,27 @@ C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
 C27294_ApplyBattlerHpRecoveryFeedback         = $7294
 C27318_ApplyBattlerPpRecoveryFeedback         = $7318
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
-C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 EFMSG_StrangeInflicted                        = $6C3A
 EFMSG_StatusNoEffect                          = $766E
+EF_BattleTextScriptBank                       = $00EF
+C8MSG_OffenseIncreaseAmount                   = $F77D
+C8MSG_DefenseIncreaseAmount                   = $F79A
+C8MSG_IqIncreaseAmount                        = $F7B8
+C8MSG_GutsIncreaseAmount                      = $F7D2
+C8MSG_SpeedIncreaseAmount                     = $F82F
+C8MSG_VitalityIncreaseAmount                  = $F84C
+C8MSG_LuckIncreaseAmount                      = $F86B
+C8_BattleTextScriptBank                       = $00C8
+
+SelectedRowOffenseByte                        = $0026
+SelectedRowDefenseByte                        = $0028
+SelectedRowSpeedByte                          = $002A
+SelectedRowGutsByte                           = $002C
+SelectedRowLuckByte                           = $002E
+SelectedRowVitalityByte                       = $0030
+SelectedRowIqByte                             = $0031
 
 ; ---------------------------------------------------------------------------
 ; C2:A056
@@ -64,14 +81,14 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     ; Success/failure EF scripts both read the target-name battle text context.
     lda.w #EFMSG_StrangeInflicted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
 C2A097_RunResistCheckedStrangeStatusAction_LA097:
     lda.w #EFMSG_StatusNoEffect
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5:
@@ -141,7 +158,7 @@ C2A0FF_RunIqUp1d4Action = BTLACT_IQ_UP_1D4
     sta $16
     lda $A972
     clc
-    adc.w #$0031
+    adc.w #SelectedRowIqByte
     tax
     lda $16
     sep #$20
@@ -151,9 +168,9 @@ C2A0FF_RunIqUp1d4Action = BTLACT_IQ_UP_1D4
     adc $00
     sta $0000,X
     rep #$20
-    lda.w #$F7B8
+    lda.w #C8MSG_IqIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -181,7 +198,7 @@ C2A14B_RunGutsUp1d4Action = BTLACT_GUTS_UP_1D4
     sta $16
     lda $A972
     clc
-    adc.w #$002C
+    adc.w #SelectedRowGutsByte
     tax
     lda $16
     sta $02
@@ -189,9 +206,9 @@ C2A14B_RunGutsUp1d4Action = BTLACT_GUTS_UP_1D4
     clc
     adc $02
     sta $0000,X
-    lda.w #$F7D2
+    lda.w #C8MSG_GutsIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -219,7 +236,7 @@ C2A193_RunSpeedUp1d4Action = BTLACT_SPEED_UP_1D4
     sta $16
     lda $A972
     clc
-    adc.w #$002A
+    adc.w #SelectedRowSpeedByte
     tax
     lda $16
     sta $02
@@ -227,9 +244,9 @@ C2A193_RunSpeedUp1d4Action = BTLACT_SPEED_UP_1D4
     clc
     adc $02
     sta $0000,X
-    lda.w #$F82F
+    lda.w #C8MSG_SpeedIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -257,7 +274,7 @@ C2A1DB_RunVitalityUp1d4Action = BTLACT_VITALITY_UP_1D4
     sta $16
     lda $A972
     clc
-    adc.w #$0030
+    adc.w #SelectedRowVitalityByte
     tax
     lda $16
     sep #$20
@@ -267,9 +284,9 @@ C2A1DB_RunVitalityUp1d4Action = BTLACT_VITALITY_UP_1D4
     adc $00
     sta $0000,X
     rep #$20
-    lda.w #$F84C
+    lda.w #C8MSG_VitalityIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -297,7 +314,7 @@ C2A227_RunLuckUp1d4Action = BTLACT_LUCK_UP_1D4
     sta $16
     lda $A972
     clc
-    adc.w #$002E
+    adc.w #SelectedRowLuckByte
     tax
     lda $16
     sta $02
@@ -305,9 +322,9 @@ C2A227_RunLuckUp1d4Action = BTLACT_LUCK_UP_1D4
     clc
     adc $02
     sta $0000,X
-    lda.w #$F86B
+    lda.w #C8MSG_LuckIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -372,7 +389,7 @@ C2A2C2_RunRandomStatUpDefenseBranch:
     sta $16
     lda $A972
     clc
-    adc.w #$0028
+    adc.w #SelectedRowDefenseByte
     tax
     lda $16
     sta $02
@@ -380,9 +397,9 @@ C2A2C2_RunRandomStatUpDefenseBranch:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F79A
+    lda.w #C8MSG_DefenseIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06
@@ -403,7 +420,7 @@ C2A302_RunRandomStatUpOffenseBranch:
     sta $16
     lda $A972
     clc
-    adc.w #$0026
+    adc.w #SelectedRowOffenseByte
     tax
     lda $16
     sta $02
@@ -411,9 +428,9 @@ C2A302_RunRandomStatUpOffenseBranch:
     clc
     adc $02
     sta $0000,X
-    lda.w #$F77D
+    lda.w #C8MSG_OffenseIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     lda $16
     sta $06

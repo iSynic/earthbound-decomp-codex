@@ -83,6 +83,20 @@ Selectors `4..8` share a strong row-local plus live-character mirror pattern:
 This is a concrete runtime bridge between battle action consequences and the
 same live derived-stat family used by equipment and level-up paths.
 
+Source-promotion status:
+
+- `src/c2/c2_b3d8_apply_battle_iq_increase_consequence.asm`,
+  `src/c2/c2_b43f_apply_battle_guts_increase_consequence.asm`,
+  `src/c2/c2_b4a6_apply_battle_speed_increase_consequence.asm`,
+  `src/c2/c2_b50d_apply_battle_vitality_increase_consequence.asm`, and
+  `src/c2/c2_b573_apply_battle_luck_increase_consequence.asm` now carry local
+  aliases for the selected-row stat byte, live character mirror byte, `0x5F`
+  character stride, derived-stat refresh helper, C8 amount script, C8 script
+  bank, and `C1:DC66` substitution-payload call.
+- `src/c2/c2_a056_run_resist_checked_strange_status_action.asm` now uses the
+  same C8 amount-script and selected-row stat-byte names for the 1d4 stat-up
+  actions and random stat-up offense/defense branches.
+
 ## Affliction-Recovery Tails
 
 Selectors `9` and `0x0A` are now documented as tails into the affliction

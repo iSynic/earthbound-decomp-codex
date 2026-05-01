@@ -17,7 +17,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset                = $C08FF7
+C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
+C21D65_RecalculateCharacterDerivedVitality        = $C21D65
+
+SelectedRowVitalityByte                           = $0030
+PartyRecordStride                                 = $005F
+LiveCharacterVitalityByteBase                     = $9A27
+C8MSG_VitalityIncreaseAmount                      = $F84C
+C8_BattleTextScriptBank                           = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:B50D
@@ -25,7 +33,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C2B50D_ApplyBattleVitalityIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$0030
+    adc.w #SelectedRowVitalityByte
     ldy $16
     sep #$10
     sty $00
@@ -42,10 +50,10 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     rep #$20
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A27
+    adc.w #LiveCharacterVitalityByteBase
     pha
     tax
     sep #$20
@@ -57,11 +65,11 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21D65
+    jsl C21D65_RecalculateCharacterDerivedVitality
     rep #$20
-    lda.w #$F84C
+    lda.w #C8MSG_VitalityIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -71,5 +79,5 @@ C2B50D_ApplyBattleVitalityIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     db $80, $70

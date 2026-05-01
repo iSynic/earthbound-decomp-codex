@@ -24,6 +24,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `C1DC66_DisplayBattleTextWithNumber` aliases from C2 source modules and
   named the C8/EF amount-result scripts for PP, guts, offense, and defense
   stat/resource deltas, plus the C8 IQ-increase amount script.
+- 2026-04-30: fourth pass promoted the direct stat-increase consequence leaves
+  (`C2:B3D8..B5E3`) and the `C2:A056` 1d4/random stat-up wrappers so their
+  selected-row offsets, C8 amount scripts, C8 script bank, and `C1:DC66`
+  substitution-payload calls are named at the source sites. The `B3D8..B573`
+  direct leaves also name the live character mirror bytes and derived-stat
+  refresh helpers used before printing the amount.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

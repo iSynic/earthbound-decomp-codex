@@ -70,6 +70,14 @@ FinalPrayerActionPhase12                            = $012B
 PrayMenuActionWord                                  = $0117
 MirrorMenuActionWord                                = $0118
 
+BattleMenuTextBaseLo                                = $9FE1
+BattleMenuTextBank                                  = $00C4
+BattleMenuTextGoodsOffset                           = $0010
+BattleMenuTextAutoFightOffset                       = $0020
+BattleMenuTextDefendOffset                          = $0040
+BattleMenuTextShootRowLo                            = $A041
+BattleMenuTextDoNothingRowLo                        = $A081
+
 ; ---------------------------------------------------------------------------
 ; C2:311B
 
@@ -618,9 +626,9 @@ C2358F_C2311B_RunBattleStartPresentAndMessageController_L358F:
     beq C23637_C2311B_RunBattleStartPresentAndMessageController_L3637
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5:
-    lda.w #$9FE1
+    lda.w #BattleMenuTextBaseLo
     sta $0E
-    lda.w #$00C4
+    lda.w #BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -632,9 +640,9 @@ C235F5_C2311B_RunBattleStartPresentAndMessageController_L35F5:
     jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
-    lda.w #$A041
+    lda.w #BattleMenuTextShootRowLo
     sta $0E
-    lda.w #$00C4
+    lda.w #BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -646,9 +654,9 @@ C23616_C2311B_RunBattleStartPresentAndMessageController_L3616:
     jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
     bra C23656_C2311B_RunBattleStartPresentAndMessageController_L3656
 C23637_C2311B_RunBattleStartPresentAndMessageController_L3637:
-    lda.w #$A081
+    lda.w #BattleMenuTextDoNothingRowLo
     sta $0E
-    lda.w #$00C4
+    lda.w #BattleMenuTextBank
     sta $10
     lda.w #$0000
     sta $12
@@ -664,9 +672,9 @@ C23656_C2311B_RunBattleStartPresentAndMessageController_L3656:
     bne C23660_C2311B_RunBattleStartPresentAndMessageController_L3660
     jmp.w C236E2_C2311B_RunBattleStartPresentAndMessageController_L36E2
 C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
-    lda.w #$9FE1
+    lda.w #BattleMenuTextBaseLo
     sta $0A
-    lda.w #$00C4
+    lda.w #BattleMenuTextBank
     sta $0C
     lda.w #$0000
     sta $06
@@ -676,7 +684,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     sta $16
     lda $08
     sta $18
-    lda.w #$0010
+    lda.w #BattleMenuTextGoodsOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -699,7 +707,7 @@ C23660_C2311B_RunBattleStartPresentAndMessageController_L3660:
     ldx.w #$0006
     lda.w #$0002
     jsl C1DDDA_BuildSelectionMenuSetupAndRedirects
-    lda.w #$0040
+    lda.w #BattleMenuTextDefendOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -746,9 +754,9 @@ C23708_C2311B_RunBattleStartPresentAndMessageController_L3708:
     inc $04
     inc $04
 C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
-    lda.w #$9FE1
+    lda.w #BattleMenuTextBaseLo
     sta $06
-    lda.w #$00C4
+    lda.w #BattleMenuTextBank
     sta $08
     lda $06
     sta $16
@@ -758,7 +766,8 @@ C2370C_C2311B_RunBattleStartPresentAndMessageController_L370C:
     sta $0A
     lda.w #$0000
     sta $0C
-    lda.w #$0020
+    ; C4:9FE1 + $20 is the fixed-width Auto Fight text row from text_misc.yml.
+    lda.w #BattleMenuTextAutoFightOffset
     clc
     adc $06
     sta $06

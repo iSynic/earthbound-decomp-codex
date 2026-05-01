@@ -197,8 +197,10 @@ checked-in field join summary. Current joins:
   `+0x46`, matching the first normal action id slot and the `C2:5024` battle
   start candidate controller's action-slot staging path.
 - `text-menu-probe`: `0x04A00A` -> `C4:A00A`, matching the local
-  battle-menu/target-precheck data corridor in C4. The fixed-width text row is
-  range-confirmed; a direct renderer/caller is still open.
+  battle-menu/target-precheck data corridor in C4. The edited byte lands in the
+  fixed-width Auto Fight row at row offset `+0x09`; `C2:311B` loads the
+  `C4:9FE1` battle-menu text base, adds `+0x20` for that row, and passes the
+  pointer to the C1 selection-menu builder.
 - `map-palette-probe`: `0x1A0C40` -> `DA:0C40`, currently landing in the local
   `MAP_DATA_TILE_ARRANGEMENT_5` range; because that vocabulary disagrees with
   CoilSnake's `map_palette_settings.yml`, treat it as a relocation or compiler
@@ -226,8 +228,8 @@ checked-in field join summary. Current joins:
 
 ## Promoted Local Contracts
 
-The strongest runtime-correlated D5 probes are now reflected in the local
-contract front doors and source scaffolds:
+The strongest runtime-correlated probes are now reflected in local contract
+front doors and source scaffolds:
 
 - `item-cost-probe`: `ITEM_CONFIGURATION_TABLE` row `+0x1A` is the store cost
   word, with runtime evidence from the C1 shop item row builder.
@@ -236,6 +238,9 @@ contract front doors and source scaffolds:
 - `enemy-insane-cultist-action1-probe`: `ENEMY_CONFIGURATION_TABLE` row
   `+0x46` is the first normal action id slot, with runtime evidence from the C2
   battle-start enemy action-slot staging path.
+- `text-menu-probe`: `C4:9FE1 + 0x20` is the fixed-width Auto Fight battle-menu
+  label row, with runtime evidence from the C2 battle-start present/message
+  controller's C1 menu-builder calls.
 
 ## Promotion Rules
 
@@ -250,9 +255,9 @@ contract front doors and source scaffolds:
 
 ## Next Work
 
-- Keep the text-menu, NPC text-pointer, PSI learn-level, door-data,
-  map-palette, and window-width probes at their current evidence levels until
-  direct consumers or pointer packing joins are found.
+- Keep the NPC text-pointer, PSI learn-level, door-data, map-palette, and
+  window-width probes at their current evidence levels until direct consumers
+  or pointer packing joins are found.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.

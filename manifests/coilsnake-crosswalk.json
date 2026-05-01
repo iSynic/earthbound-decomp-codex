@@ -1561,8 +1561,8 @@
         "local_contract": "C4:9FE1..C4:A0CF",
         "source_scaffold": "src/c4/battle_target_candidate_selection_helpers.asm",
         "evidence_level": "diff-confirmed",
-        "field_evidence_level": "local-range-confirmed",
-        "promotion_status": "field-range-confirmed-runtime-consumer-open",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },

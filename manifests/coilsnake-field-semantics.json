@@ -75,15 +75,21 @@
     "text-menu-probe": {
       "coilsnake_field": "text_misc.yml / Battle Menu / Auto Fight",
       "edited_value": "Auto Fight -> Auto Fighu",
-      "local_field": "C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row",
-      "field_evidence_level": "local-range-confirmed",
-      "promotion_status": "field-range-confirmed-runtime-consumer-open",
+      "local_field": "C4:9FE1 BattleMenuAndTargetPrecheckData row 2 fixed-width Auto Fight text at row +0x09",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
       "runtime_consumers": [
+        {
+          "kind": "exact-row-consumer",
+          "routine": "C2:311B battle-start present/message controller",
+          "source": "src/c2/c2_311b_run_battle_start_present_and_message_controller.asm",
+          "detail": "The controller loads C4:9FE1 as the fixed-width battle menu text base, adds +0x20 for the Auto Fight row, and passes that pointer to C1:DDDA to build the selection menu entry."
+        },
         {
           "kind": "source-table-anchor",
           "routine": "C4:9FE1 BattleMenuAndTargetPrecheckData",
           "source": "src/c4/battle_target_candidate_selection_helpers.asm",
-          "detail": "The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed."
+          "detail": "The changed byte lands at C4:A00A, which is row 2 offset +0x09 inside the checked-in fixed-width Auto Fight text row."
         }
       ]
     },

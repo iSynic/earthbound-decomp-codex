@@ -17,7 +17,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08FF7_ResolveIndexedPointerOffset                = $C08FF7
+C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
+C21AEB_RecalculateCharacterDerivedSpeed           = $C21AEB
+
+SelectedRowSpeedByte                              = $002A
+PartyRecordStride                                 = $005F
+LiveCharacterSpeedByteBase                        = $9A25
+C8MSG_SpeedIncreaseAmount                         = $F82F
+C8_BattleTextScriptBank                           = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:B4A6
@@ -25,7 +33,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     lda $A972
     clc
-    adc.w #$002A
+    adc.w #SelectedRowSpeedByte
     pha
     ldy $16
     sty $02
@@ -38,10 +46,10 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     ldx $1C
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A25
+    adc.w #LiveCharacterSpeedByteBase
     pha
     ldy $16
     sep #$10
@@ -57,11 +65,11 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     ldx $1C
     rep #$20
     txa
-    jsl $C21AEB
+    jsl C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
-    lda.w #$F82F
+    lda.w #C8MSG_SpeedIncreaseAmount
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     ldy $16
     tya
@@ -71,5 +79,5 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     sta $12
     lda $08
     sta $14
-    jsl $C1DC66
+    jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
     jmp $B5E3

@@ -39,12 +39,12 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A4F` in `notes/d5-table-splits.md` line 27
-  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 188
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 191
   - `build-candidate` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 140
   - `D5:7B68..D5:8A50` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 3018
   - `OK` `D5:7B68..D5:8A50` in `notes/d5-byte-equivalence-validation.md` line 139
 - Source scaffold candidates:
-  - `src/d5/table_battle_action_table.asm` (filename:battle,action; address-lines:10)
+  - `src/d5/table_battle_action_table.asm` (filename:battle,action; address-lines:10,15)
 - Existing note anchors:
   - `notes/bank-c0-c2-closure.md` line 134
   - `notes/bank-c2-first-pass.md` line 81
@@ -66,12 +66,12 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5A` in `notes/d5-table-splits.md` line 32
-  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 192
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 195
   - `build-candidate` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 145
   - `D5:9589..D5:EA5B` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 3133
   - `OK` `D5:9589..D5:EA5B` in `notes/d5-byte-equivalence-validation.md` line 144
 - Source scaffold candidates:
-  - `src/d5/table_enemy_configuration_table.asm` (filename:enemy; address-lines:10)
+  - `src/d5/table_enemy_configuration_table.asm` (filename:enemy; address-lines:10,17)
 - Existing note anchors:
   - `notes/bank-c0-c2-closure.md` line 93
   - `notes/bank-c2-first-pass.md` line 81
@@ -93,13 +93,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 183
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 186
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
   - `OK` `D5:5000..D5:76B2` in `notes/d5-byte-equivalence-validation.md` line 134
 - Source scaffold candidates:
-  - `src/d5/table_item_configuration_table.asm` (filename:item; address-lines:10)
+  - `src/d5/table_item_configuration_table.asm` (filename:item; address-lines:10,15)
   - `src/d5/table_timed_item_transformation_table.asm` (filename:item)
 - Existing note anchors:
   - `notes/bank-c0-c2-closure.md` line 134
@@ -120,12 +120,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 217
   - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
   - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
-  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 38
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
+  - `notes/coilsnake-crosswalk.md` line 176
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -173,9 +174,9 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:8985..CF:F2B4` `CF:8985..CF:F2B4` in `notes/bank-cf-first-pass.md` line 71
   - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/cf-table-splits.md` line 28
+  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/coilsnake-crosswalk.md` line 212
   - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/bank-cf-source-scaffold-handoff.md` line 49
   - `build-candidate` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 23
-  - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 171
 - Source scaffold candidates:
   - `src/cf/table_npc_config_table.asm` (filename:npc,config; address-lines:10)
   - `src/cf/table_door_config_table.asm` (filename:config)
@@ -199,7 +200,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 204
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 207
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
@@ -220,9 +221,10 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x04A00A` -> `C4:A00A` / `0xC4A00A`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `text_misc.yml / Battle Menu / Auto Fight` (Auto Fight -> Auto Fighu); local read `C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row`; promotion `field-range-confirmed-runtime-consumer-open`.
+- Field semantic: `text_misc.yml / Battle Menu / Auto Fight` (Auto Fight -> Auto Fighu); local read `C4:9FE1 BattleMenuAndTargetPrecheckData row 2 fixed-width Auto Fight text at row +0x09`; promotion `field-runtime-correlated`.
 - Runtime consumer evidence:
-  - `C4:9FE1 BattleMenuAndTargetPrecheckData` (source-table-anchor) in `src/c4/battle_target_candidate_selection_helpers.asm`: The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed.
+  - `C2:311B battle-start present/message controller` (exact-row-consumer) in `src/c2/c2_311b_run_battle_start_present_and_message_controller.asm`: The controller loads C4:9FE1 as the fixed-width battle menu text base, adds +0x20 for the Auto Fight row, and passes that pointer to C1:DDDA to build the selection menu entry.
+  - `C4:9FE1 BattleMenuAndTargetPrecheckData` (source-table-anchor) in `src/c4/battle_target_candidate_selection_helpers.asm`: The changed byte lands at C4:A00A, which is row 2 offset +0x09 inside the checked-in fixed-width Auto Fight text row.
 - Local asset/data range matches: none in checked-in asset manifests.
 - Local contract/note range matches:
   - `C4:9FE1..C4:A0CF` `C4:9FE1..C4:A0CF` in `notes/c4-build-candidate-ranges.md` line 2394
@@ -231,7 +233,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `C4:9FE1..C4:A228` `C4:9FE1..C4:A228` in `notes/bank-c4-cluster-map.md` line 869
   - `C4:9FE1..C4:A228` `C4:9FE1..C4:A228` in `notes/bank-c4-first-pass.md` line 120
 - Source scaffold candidates:
-  - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24)
+  - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24,26)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 153
 
@@ -248,12 +250,13 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 222
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
-  - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-preserved-gap-contracts.md` line 18
 - Source scaffold candidates:
   - `src/c3/script_event_payloads_0000_e450.asm` (address-lines:1,210,5833,5865)
   - `src/c3/bank_c3_event_scripts_source_pilot.asar.asm` (address-lines:6)
   - `src/c3/window_text_helpers.asm` (filename:window)
 - Existing note anchors:
   - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13
+  - `notes/coilsnake-crosswalk.md` line 177
