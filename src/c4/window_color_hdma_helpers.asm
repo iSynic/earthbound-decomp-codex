@@ -63,11 +63,15 @@ HDMA_TARGET_WH0                      = $26
 HDMA_TARGET_WH2                      = $28
 WOBJSEL_DUAL_WINDOW                  = $A0
 WOBJSEL_OBJECT_WINDOW                = $20
+WOBJSEL_NO_WINDOW                    = $00
 CGADSUB_COLOR_MATH_33                = $33
 CGADSUB_SUBTRACT_HALF_B3             = $B3
 FIXED_COLOR_FULL_WHITE               = $FF
 FIXED_COLOR_CENTERED_SUBTRACT        = $EF
 FIXED_COLOR_SELECTOR_MASK            = $E0
+COLDATA_RED_SELECTOR                 = $80
+COLDATA_GREEN_SELECTOR               = $40
+COLDATA_BLUE_SELECTOR                = $20
 
 ; ---------------------------------------------------------------------------
 ; C4:23DC
@@ -126,13 +130,13 @@ C42439_ApplyColorMathAndFixedColorFrom9e37:
     sep #$30
     sta.l REGISTER_CGADSUB
     lda FIXED_COLOR_RED_COMPONENT
-    ora.b #$80
+    ora.b #COLDATA_RED_SELECTOR
     sta.l REGISTER_COLDATA
     lda FIXED_COLOR_GREEN_COMPONENT
-    ora.b #$40
+    ora.b #COLDATA_GREEN_SELECTOR
     sta.l REGISTER_COLDATA
     lda FIXED_COLOR_BLUE_COMPONENT
-    ora.b #$20
+    ora.b #COLDATA_BLUE_SELECTOR
     sta.l REGISTER_COLDATA
     rep #$30
     rtl
@@ -172,7 +176,7 @@ C4248A_StopWh0HdmaChannel4AndClearWhsel:
     sep #$20
     lda.b #HDMA_CHANNEL4_ENABLE_BIT
     trb.w HDMA_ENABLE_SHADOW
-    lda.b #$00
+    lda.b #WOBJSEL_NO_WINDOW
     sta.l REGISTER_WOBJSEL
     rep #$20
     rtl

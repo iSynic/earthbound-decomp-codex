@@ -25,6 +25,10 @@ So the safe local read is:
 
 `C4:2439` writes caller A to `CGADSUB` and then writes the fixed color from `$9E37-$9E39` into `COLDATA`, ORing the three bytes with the blue/green/red selector bits. This is the C4-side equivalent of the direct fixed-color helper family noted in the C0 PPU frontier.
 
+Source polish: `src/c4/window_color_hdma_helpers.asm` now names the
+`COLDATA` red/green/blue selector bits and the WOBJSEL clear value used by
+the channel-4 teardown helper.
+
 `C4:249A`, `C4:24D1`, `C4:2509`, and `C4:258C` are larger one-shot presets:
 
 - `C4:249A` takes caller A as `CGADSUB`, uses a full-screen `WH0/WH1` range, enables the object/color window through `WOBJSEL = #$20`, and writes fixed color from caller X ORed with `#$E0`.

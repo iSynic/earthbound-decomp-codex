@@ -73,6 +73,10 @@ closure.
   merge masks, and the PSI-menu continuation flag. See
   `notes/text-token-glyph-run-stager-c44b3a-c44e61.md` and
   `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
+- 2026-05-01 window/color touch-up: named the fixed-color `COLDATA`
+  component selector bits and channel-4 WOBJSEL clear value in the
+  window/color HDMA helper. See
+  `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
 
 ## Validation
 
