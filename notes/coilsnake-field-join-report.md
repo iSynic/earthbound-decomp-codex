@@ -24,6 +24,11 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x155068` -> `D5:5068` / `0xD55068`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `item_configuration_table.yml / Teddy bear / Cost` (178 -> 179); local read `ITEM_CONFIGURATION_TABLE row cost word at item row +0x1A`; promotion `field-runtime-correlated`.
+- Runtime consumer evidence:
+  - `C1:9DB5 BuildShopItemSelectionMenu` (exact-field-consumer) in `src/c1/c1_9d49_prepare_equipment_menu_status_display.asm`: BuildShopItemTextEntry resolves an item row, adds +0x1A, reads the cost word, then calls C4:507A to print the active-window right-aligned decimal.
+  - `C1:9216 PrintItemNameFromConfigurationTable` (same-table-consumer) in `src/c1/c1_9216_print_item_name_from_configuration_table.asm`: Indexes D5:5000 item rows with stride 0x27 and prints the fixed 0x19-byte item-name field.
+  - `C1:CE85 ResolveSelectedBattleItemAction` (same-table-consumer) in `src/c1/c1_ce85_resolve_selected_battle_item_action.asm`: Indexes the same item rows for battle-use/category byte +0x19 and action word +0x1D.
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
@@ -48,6 +53,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x1A0C40` -> `DA:0C40` / `0xDA0C40`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `map_palette_settings.yml / first Sprite Palette` (4 -> 5); local read `lands inside MAP_DATA_TILE_ARRANGEMENT_5 after CoilSnake rebuild`; promotion `relocation-or-compiler-normalization-candidate`.
 - Local asset/data range matches:
   - `asset.da.map_data_tile_arrangement_5` `DA:0000..DA:1342` in `asset-manifests/bank-da-assets.json` (graphics)
 - Local contract/note range matches:
@@ -76,6 +82,9 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x04A00A` -> `C4:A00A` / `0xC4A00A`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `text_misc.yml / Battle Menu / Auto Fight` (Auto Fight -> Auto Fighu); local read `C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row`; promotion `field-range-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `C4:9FE1 BattleMenuAndTargetPrecheckData` (source-table-anchor) in `src/c4/battle_target_candidate_selection_helpers.asm`: The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed.
 - Local asset/data range matches: none in checked-in asset manifests.
 - Local contract/note range matches:
   - `C4:9FE1..C4:A0CF` `C4:9FE1..C4:A0CF` in `notes/c4-build-candidate-ranges.md` line 2394

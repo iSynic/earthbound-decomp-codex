@@ -103,6 +103,8 @@ def build_field_join_workflow(
                 "local_contract": contract.get("label"),
                 "source_scaffold": source.get("path"),
                 "evidence_level": join.get("evidence_level"),
+                "field_evidence_level": join.get("field_semantics", {}).get("field_evidence_level"),
+                "promotion_status": join.get("field_semantics", {}).get("promotion_status"),
                 "join_status": join.get("join_status"),
                 "runtime_consumer_status": (
                     "relocation-or-compiler-normalization-candidate"

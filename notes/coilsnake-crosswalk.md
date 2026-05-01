@@ -141,9 +141,12 @@ checked-in field join summary. Current joins:
 
 - `item-cost-probe`: `0x155068` -> `D5:5068`, matching the local
   `ITEM_CONFIGURATION_TABLE` split (`D5:5000..D5:76B1`) and the D5 item table
-  source scaffold.
+  source scaffold. The edited cost field is now runtime-correlated to the
+  shop-item row builder, which reads item row `+0x1A` and prints that value as
+  the active-window right-aligned decimal.
 - `text-menu-probe`: `0x04A00A` -> `C4:A00A`, matching the local
-  battle-menu/target-precheck data corridor in C4.
+  battle-menu/target-precheck data corridor in C4. The fixed-width text row is
+  range-confirmed; a direct renderer/caller is still open.
 - `map-palette-probe`: `0x1A0C40` -> `DA:0C40`, currently landing in the local
   `MAP_DATA_TILE_ARRANGEMENT_5` range; because that vocabulary disagrees with
   CoilSnake's `map_palette_settings.yml`, treat it as a relocation or compiler
@@ -162,10 +165,10 @@ checked-in field join summary. Current joins:
 
 ## Next Work
 
-- Promote field-join facts into family-specific contracts only when runtime
-  consumers are confirmed. The current item/text probes have local source-range
-  joins; the map palette probe remains a relocation/compiler-normalization
-  candidate.
+- Promote the item-cost runtime-correlated field into the next D5 item-table
+  contract pass; keep the text-menu field at local-range-confirmed until its
+  direct renderer/caller is joined. The map palette probe remains a
+  relocation/compiler-normalization candidate.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.

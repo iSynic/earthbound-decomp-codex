@@ -1266,6 +1266,8 @@
         "local_contract": "ITEM_CONFIGURATION_TABLE",
         "source_scaffold": "src/d5/table_item_configuration_table.asm",
         "evidence_level": "diff-confirmed",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
@@ -1277,6 +1279,8 @@
         "local_contract": "MAP_DATA_TILE_ARRANGEMENT_5",
         "source_scaffold": "src/da/asset_map_data_tile_arrangement_5.asm",
         "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1288,6 +1292,8 @@
         "local_contract": "C4:9FE1..C4:A0CF",
         "source_scaffold": "src/c4/battle_target_candidate_selection_helpers.asm",
         "evidence_level": "diff-confirmed",
+        "field_evidence_level": "local-range-confirmed",
+        "promotion_status": "field-range-confirmed-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       }

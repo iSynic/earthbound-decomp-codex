@@ -17,6 +17,60 @@ DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-j
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
 
 
+FIELD_SEMANTICS: dict[str, dict[str, Any]] = {
+    "item-cost-probe": {
+        "coilsnake_field": "item_configuration_table.yml / Teddy bear / Cost",
+        "edited_value": "178 -> 179",
+        "local_field": "ITEM_CONFIGURATION_TABLE row cost word at item row +0x1A",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
+        "runtime_consumers": [
+            {
+                "kind": "exact-field-consumer",
+                "routine": "C1:9DB5 BuildShopItemSelectionMenu",
+                "source": "src/c1/c1_9d49_prepare_equipment_menu_status_display.asm",
+                "detail": "BuildShopItemTextEntry resolves an item row, adds +0x1A, reads the cost word, then calls C4:507A to print the active-window right-aligned decimal.",
+            },
+            {
+                "kind": "same-table-consumer",
+                "routine": "C1:9216 PrintItemNameFromConfigurationTable",
+                "source": "src/c1/c1_9216_print_item_name_from_configuration_table.asm",
+                "detail": "Indexes D5:5000 item rows with stride 0x27 and prints the fixed 0x19-byte item-name field.",
+            },
+            {
+                "kind": "same-table-consumer",
+                "routine": "C1:CE85 ResolveSelectedBattleItemAction",
+                "source": "src/c1/c1_ce85_resolve_selected_battle_item_action.asm",
+                "detail": "Indexes the same item rows for battle-use/category byte +0x19 and action word +0x1D.",
+            },
+        ],
+    },
+    "text-menu-probe": {
+        "coilsnake_field": "text_misc.yml / Battle Menu / Auto Fight",
+        "edited_value": "Auto Fight -> Auto Fighu",
+        "local_field": "C4:9FE1 BattleMenuAndTargetPrecheckData fixed-width menu text row",
+        "field_evidence_level": "local-range-confirmed",
+        "promotion_status": "field-range-confirmed-runtime-consumer-open",
+        "runtime_consumers": [
+            {
+                "kind": "source-table-anchor",
+                "routine": "C4:9FE1 BattleMenuAndTargetPrecheckData",
+                "source": "src/c4/battle_target_candidate_selection_helpers.asm",
+                "detail": "The changed byte lands in the checked-in C4 fixed-width battle-menu/precheck data table; a direct renderer/caller is not yet claimed.",
+            }
+        ],
+    },
+    "map-palette-probe": {
+        "coilsnake_field": "map_palette_settings.yml / first Sprite Palette",
+        "edited_value": "4 -> 5",
+        "local_field": "lands inside MAP_DATA_TILE_ARRANGEMENT_5 after CoilSnake rebuild",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "runtime_consumers": [],
+    },
+}
+
+
 @dataclass(frozen=True)
 class Address:
     file_offset: int
@@ -426,6 +480,7 @@ def build_join(
     note_matches = find_note_matches(ROOT / "notes", address, experiment)
     family = families.get(str(experiment.get("resource_family", "")), {})
     warning = relocation_warning(experiment, assets, contract_matches)
+    field_semantics = FIELD_SEMANTICS.get(experiment_id, {})
 
     join: dict[str, Any] = {
         "experiment_id": experiment_id,
@@ -463,6 +518,8 @@ def build_join(
             else "address-hit-in-source-scaffold"
         ),
     }
+    if field_semantics:
+        join["field_semantics"] = field_semantics
     if warning:
         join["warning"] = warning
     return join
@@ -521,6 +578,32 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"- Join status: `{join['join_status']}`; lookup status: `{join['lookup_status']}`.",
             ]
         )
+        field_semantics = join.get("field_semantics")
+        if isinstance(field_semantics, dict):
+            detail_lines.append(
+                "- Field semantic: `{field}` ({value}); local read `{local}`; promotion `{promotion}`.".format(
+                    field=field_semantics.get("coilsnake_field", "unknown"),
+                    value=field_semantics.get("edited_value", "unknown"),
+                    local=field_semantics.get("local_field", "unknown"),
+                    promotion=field_semantics.get("promotion_status", "unknown"),
+                )
+            )
+            consumers = [
+                consumer
+                for consumer in field_semantics.get("runtime_consumers", [])
+                if isinstance(consumer, dict)
+            ]
+            if consumers:
+                detail_lines.append("- Runtime consumer evidence:")
+                for consumer in consumers:
+                    detail_lines.append(
+                        "  - `{routine}` ({kind}) in `{source}`: {detail}".format(
+                            routine=consumer.get("routine", "unknown"),
+                            kind=consumer.get("kind", "unknown"),
+                            source=consumer.get("source", "unknown"),
+                            detail=consumer.get("detail", "no detail recorded"),
+                        )
+                    )
         if join["local_asset_matches"]:
             detail_lines.append("- Local asset/data range matches:")
             for asset in join["local_asset_matches"][:4]:
@@ -618,17 +701,22 @@ def build_report(crosswalk_path: Path, asset_manifest_dir: Path) -> dict[str, An
         "generated_by": "tools/build_coilsnake_field_join_report.py",
         "source_manifest": rel(crosswalk_path),
         "asset_manifest_dir": rel(asset_manifest_dir),
-        "summary": {
-            "controlled_experiment_count": len(joins) + len(pending_experiments),
-            "experiment_count": len(joins),
-            "joined_experiment_count": len(joins),
-            "pending_experiment_count": len(pending_experiments),
-            "diff_confirmed_count": sum(1 for join in joins if join.get("evidence_level") == "diff-confirmed"),
-            "range_matched_count": sum(1 for join in joins if join.get("local_asset_matches")),
-            "contract_range_matched_count": sum(1 for join in joins if join.get("local_contract_matches")),
-            "source_candidate_count": sum(1 for join in joins if join.get("source_scaffold_matches")),
-            "warning_count": sum(1 for join in joins if join.get("warning")),
-        },
+            "summary": {
+                "controlled_experiment_count": len(joins) + len(pending_experiments),
+                "experiment_count": len(joins),
+                "joined_experiment_count": len(joins),
+                "pending_experiment_count": len(pending_experiments),
+                "diff_confirmed_count": sum(1 for join in joins if join.get("evidence_level") == "diff-confirmed"),
+                "runtime_correlated_field_count": sum(
+                    1
+                    for join in joins
+                    if join.get("field_semantics", {}).get("field_evidence_level") == "runtime-correlated"
+                ),
+                "range_matched_count": sum(1 for join in joins if join.get("local_asset_matches")),
+                "contract_range_matched_count": sum(1 for join in joins if join.get("local_contract_matches")),
+                "source_candidate_count": sum(1 for join in joins if join.get("source_scaffold_matches")),
+                "warning_count": sum(1 for join in joins if join.get("warning")),
+            },
         "joins": joins,
         "pending_experiments": pending_experiments,
     }
