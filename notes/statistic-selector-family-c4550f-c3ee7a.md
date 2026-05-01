@@ -8,7 +8,7 @@ See also [text-command-family-19-data-and-substitution.md](notes/text-command-fa
 
 The late `0x19` statistic tail is now more grounded locally than it first looked.
 
-The strongest shared anchor is the compact 3-byte selector table at `C4:550F`, used by:
+The strongest shared anchor is the compact 3-byte selector table at `C4:550F`.
 
 ## Working Names
 
@@ -18,6 +18,12 @@ The strongest shared anchor is the compact 3-byte selector table at `C4:550F`, u
 - `C3:EE7A` = `ResolveStatisticSelectorValue`, the live worker behind `0x19 27`
 - `C1:4819`, the live worker behind `0x19 28`
 - `C1:9249`, the bank-`01` statistic-display side used by `C1:40C7`
+
+Source polish: `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm`
+now names the `0x19 27` argument slots, `C3:EE7A` resolver call, `$0E/$10`
+display-text staging pair, and `C1:045D` install helper. The same pass names
+the `C1:7B47 -> C1:776A` and `C1:7B4C -> C1:4819` static helper pointers in
+`src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm`.
 
 So the safest current read is that `0x19 27` and `0x19 28` are not unrelated one-offs. They are two views into the same statistic-selector table:
 

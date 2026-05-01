@@ -130,3 +130,8 @@ This planning pass is documentation-only.
   display-text loaders, `$9D11` byte payload, `$9D12/$9D14` pointer payload,
   DP-frame alias shifts, and the `DD7C/DD82` far wrappers that bridge C2/EF
   battle-text scripts into the local display-text engine.
+- 2026-05-01: C1 text-command `0x19` tail polish landed as byte-neutral source
+  aliases. The promoted contracts name the `0x19 21..28` helper-pointer tail,
+  the mushroomized selector byte loader, item equipment-class return values,
+  and the `0x19 27` statistic-selector value staging path through `C3:EE7A`
+  and `C1:045D`.

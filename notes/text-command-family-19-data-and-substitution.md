@@ -63,21 +63,21 @@ The live local case map at `C1:79AA` is:
 - `0x1E -> C1:7AE3`
 - `0x1F -> C1:7AF3`
 - `0x20 -> C1:7B0D` (`LOAD_MUSHROOMIZED_SELECTOR_BYTE`)
-- `0x21 -> C1:7B29 -> C1:6143`
-- `0x22 -> C1:7B2E -> C1:68A0`
-- `0x23 -> C1:7B33 -> C1:6947`
-- `0x24 -> C1:7B38 -> C1:6A7B`
-- `0x25 -> C1:7B3D -> C1:6F9F`
-- `0x26 -> C1:7B42 -> C1:7037`
-- `0x27 -> C1:7B47 -> C1:776A`
-- `0x28 -> C1:7B4C -> C1:4819`
+- `0x21 -> C1:7B29 -> C1:6143` (food category helper)
+- `0x22 -> C1:7B2E -> C1:68A0` (character-to-object direction helper)
+- `0x23 -> C1:7B33 -> C1:6947` (NPC-to-object direction helper)
+- `0x24 -> C1:7B38 -> C1:6A7B` (generated-sprite direction helper)
+- `0x25 -> C1:7B3D -> C1:6F9F` (food condiment helper)
+- `0x26 -> C1:7B42 -> C1:7037` (transition landing snapshot helper)
+- `0x27 -> C1:7B47 -> C1:776A` (statistic-selector value helper)
+- `0x28 -> C1:7B4C -> C1:4819` (statistic-selector character helper)
 - default -> `C1:7B51 -> 0`
 
 Parser/runtime cross-check looks healthy here: the current exposed script set hits nearly the whole late half of the family, and unlike the earlier false-lead families there is no evidence that the ordinary live center itself is misidentified.
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, and `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 

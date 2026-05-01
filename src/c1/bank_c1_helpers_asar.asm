@@ -15887,84 +15887,106 @@ hirom
 org $C17708
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C103DC_ReadTextCommandArgumentWord = $03DC
+!C3EE7A_ResolveStatisticSelectorValue = $C3EE7A
+!TextCommandArgumentValueLo = $06
+!TextCommandArgumentValueHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!ProcessorStatus16BitAIndexCarryClear = $31
+!FarCallerFrameAliasOffset = $FFEE
+!ItemRecordPointerIndex = $0027
+!ItemEquipSlotFamilyOffset = $0019
+!ItemDataBase = $D55000
+!LowByteMask = $00FF
+!EquipmentFamilyMask = $000C
+!EquipmentFamilyWeapon = $0000
+!EquipmentFamilyBody = $0004
+!EquipmentFamilyArms = $0008
+!EquipmentFamilyOther = $000C
+!TextResultNotEquipment = $0000
+!TextResultOffensiveEquipment = $0001
+!TextResultDefensiveEquipment = $0002
+!ZeroWord = $0000
 CC_1D_23:
 !C17708_ClassifyEquippedItemOffensiveDefensive = CC_1D_23
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
     pla
     txa
-    beq C1771B_c1_7708_classify_equipped_item_offensive_defensive_L771B
-    sta $06
-    stz $08
-    bra C1771E_c1_7708_classify_equipped_item_offensive_defensive_L771E
-C1771B_c1_7708_classify_equipped_item_offensive_defensive_L771B:
-    jsr $03DC
-C1771E_c1_7708_classify_equipped_item_offensive_defensive_L771E:
-    lda $06
-    ldy.w #$0027
+    beq C1771B_ReadEquipmentItemArgumentFromTextCommand
+    sta !TextCommandArgumentValueLo
+    stz !TextCommandArgumentValueHi
+    bra C1771E_ClassifyEquipmentSlotFamily
+C1771B_ReadEquipmentItemArgumentFromTextCommand:
+    jsr !C103DC_ReadTextCommandArgumentWord
+C1771E_ClassifyEquipmentSlotFamily:
+    lda !TextCommandArgumentValueLo
+    ldy.w #!ItemRecordPointerIndex
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0019
+    adc.w #!ItemEquipSlotFamilyOffset
     tax
-    lda $D55000,X
-    and.w #$00FF
-    and.w #$000C
-    beq C17749_c1_7708_classify_equipped_item_offensive_defensive_L7749
-    cmp.w #$0004
-    beq C1774E_c1_7708_classify_equipped_item_offensive_defensive_L774E
-    cmp.w #$0008
-    beq C1774E_c1_7708_classify_equipped_item_offensive_defensive_L774E
-    cmp.w #$000C
-    beq C1774E_c1_7708_classify_equipped_item_offensive_defensive_L774E
-    bra C17753_c1_7708_classify_equipped_item_offensive_defensive_L7753
-C17749_c1_7708_classify_equipped_item_offensive_defensive_L7749:
-    lda.w #$0001
-    bra C17756_c1_7708_classify_equipped_item_offensive_defensive_L7756
-C1774E_c1_7708_classify_equipped_item_offensive_defensive_L774E:
-    lda.w #$0002
-    bra C17756_c1_7708_classify_equipped_item_offensive_defensive_L7756
-C17753_c1_7708_classify_equipped_item_offensive_defensive_L7753:
-    lda.w #$0000
-C17756_c1_7708_classify_equipped_item_offensive_defensive_L7756:
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    lda !ItemDataBase,X
+    and.w #!LowByteMask
+    and.w #!EquipmentFamilyMask
+    beq C17749_ReturnOffensiveEquipmentClass
+    cmp.w #!EquipmentFamilyBody
+    beq C1774E_ReturnDefensiveEquipmentClass
+    cmp.w #!EquipmentFamilyArms
+    beq C1774E_ReturnDefensiveEquipmentClass
+    cmp.w #!EquipmentFamilyOther
+    beq C1774E_ReturnDefensiveEquipmentClass
+    bra C17753_ReturnNoEquipmentClass
+C17749_ReturnOffensiveEquipmentClass:
+    lda.w #!TextResultOffensiveEquipment
+    bra C17756_StageEquipmentClassTextResult
+C1774E_ReturnDefensiveEquipmentClass:
+    lda.w #!TextResultDefensiveEquipment
+    bra C17756_StageEquipmentClassTextResult
+C17753_ReturnNoEquipmentClass:
+    lda.w #!TextResultNotEquipment
+C17756_StageEquipmentClassTextResult:
+    sta !TextCommandArgumentValueLo
+    stz !TextCommandArgumentValueHi
+    lda !TextCommandArgumentValueLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandArgumentValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
     pld
     rts
 CC_19_27:
 !C1776A_StageStatisticSelectorValueTextCommand = CC_19_27
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
     pla
     txa
-    beq C1777D_c1_7708_classify_equipped_item_offensive_defensive_L777D
-    sta $06
-    stz $08
-    bra C17780_c1_7708_classify_equipped_item_offensive_defensive_L7780
-C1777D_c1_7708_classify_equipped_item_offensive_defensive_L777D:
-    jsr $03DC
-C17780_c1_7708_classify_equipped_item_offensive_defensive_L7780:
-    lda $06
-    jsl $C3EE7A
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    beq C1777D_ReadStatisticSelectorArgumentFromTextCommand
+    sta !TextCommandArgumentValueLo
+    stz !TextCommandArgumentValueHi
+    bra C17780_ResolveStatisticSelectorTextValue
+C1777D_ReadStatisticSelectorArgumentFromTextCommand:
+    jsr !C103DC_ReadTextCommandArgumentWord
+C17780_ResolveStatisticSelectorTextValue:
+    lda !TextCommandArgumentValueLo
+    jsl !C3EE7A_ResolveStatisticSelectorValue
+    lda !TextCommandArgumentValueLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandArgumentValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
     pld
     rts
 
@@ -16495,51 +16517,61 @@ org $C17B0D
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
-!ScratchValueLo = $06
-!ScratchValueByte1 = $07
-!ScratchValueHi = $08
-!ScratchValueByte3 = $09
+!LoadedMushroomizedSelectorValueLo = $06
+!LoadedMushroomizedSelectorValueByte1 = $07
+!LoadedMushroomizedSelectorValueHi = $08
+!LoadedMushroomizedSelectorValueByte3 = $09
 !MushroomizedSelectorByte = $98A4
+!AccumulatorWidthFlag = $20
+!DisplayTextFoodCategoryHelper = $6143
+!DisplayTextCharacterToObjectDirectionHelper = $68A0
+!DisplayTextNpcToObjectDirectionHelper = $6947
+!DisplayTextGeneratedSpriteDirectionHelper = $6A7B
+!DisplayTextFoodCondimentHelper = $6F9F
+!DisplayTextTransitionLandingSnapshotHelper = $7037
+!DisplayTextStatisticSelectorValueHelper = $776A
+!DisplayTextStatisticSelectorCharacterHelper = $4819
+!ZeroWord = $0000
 C17B0D_LoadDisplayTextMushroomizedSelectorByte:
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda !MushroomizedSelectorByte
-    sta !ScratchValueLo
-    stz !ScratchValueByte1
-    stz !ScratchValueHi
-    stz !ScratchValueByte3
-    rep #$20
-    lda !ScratchValueLo
+    sta !LoadedMushroomizedSelectorValueLo
+    stz !LoadedMushroomizedSelectorValueByte1
+    stz !LoadedMushroomizedSelectorValueHi
+    stz !LoadedMushroomizedSelectorValueByte3
+    rep #!AccumulatorWidthFlag
+    lda !LoadedMushroomizedSelectorValueLo
     sta !TextContextSourcePointerLo
-    lda !ScratchValueHi
+    lda !LoadedMushroomizedSelectorValueHi
     sta !TextContextSourcePointerHi
     jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
-C17B29_LoadDisplayTextStaticPointer6143:
-    lda.w #$6143
+C17B29_LoadDisplayTextFoodCategoryHelperPointer:
+    lda.w #!DisplayTextFoodCategoryHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B2E_LoadDisplayTextStaticPointer68A0:
-    lda.w #$68A0
+C17B2E_LoadDisplayTextCharacterToObjectDirectionHelperPointer:
+    lda.w #!DisplayTextCharacterToObjectDirectionHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B33_LoadDisplayTextStaticPointer6947:
-    lda.w #$6947
+C17B33_LoadDisplayTextNpcToObjectDirectionHelperPointer:
+    lda.w #!DisplayTextNpcToObjectDirectionHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B38_LoadDisplayTextStaticPointer6A7B:
-    lda.w #$6A7B
+C17B38_LoadDisplayTextGeneratedSpriteDirectionHelperPointer:
+    lda.w #!DisplayTextGeneratedSpriteDirectionHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B3D_LoadDisplayTextStaticPointer6F9F:
-    lda.w #$6F9F
+C17B3D_LoadDisplayTextFoodCondimentHelperPointer:
+    lda.w #!DisplayTextFoodCondimentHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B42_LoadDisplayTextStaticPointer7037:
-    lda.w #$7037
+C17B42_LoadDisplayTextTransitionLandingSnapshotHelperPointer:
+    lda.w #!DisplayTextTransitionLandingSnapshotHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B47_LoadDisplayTextStaticPointer776A:
-    lda.w #$776A
+C17B47_LoadDisplayTextStatisticSelectorValueHelperPointer:
+    lda.w #!DisplayTextStatisticSelectorValueHelper
     bra C17B54_ReturnDisplayTextStaticPointer
-C17B4C_LoadDisplayTextStaticPointer4819:
-    lda.w #$4819
+C17B4C_LoadDisplayTextStatisticSelectorCharacterHelperPointer:
+    lda.w #!DisplayTextStatisticSelectorCharacterHelper
     bra C17B54_ReturnDisplayTextStaticPointer
 C17B51_DisplayTextSubstitutionSharedContinuation:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17B54_ReturnDisplayTextStaticPointer:
     pld
     rts
