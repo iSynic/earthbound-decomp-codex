@@ -11,31 +11,33 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-CallerFramePointerLo = $1C
-CallerFramePointerHi = $1E
-LocalPointerLo = $06
-LocalPointerHi = $08
+CallerFrameSubstitutionPointerLo = $1C
+CallerFrameSubstitutionPointerHi = $1E
+LocalSubstitutionPointerLo = $06
+LocalSubstitutionPointerHi = $08
 BattleTextSubstitutionPointerLo = $9D12
 BattleTextSubstitutionPointerHi = $9D14
+ProcessorStatus16BitAIndexCarryClear = $31
+DisplayTextCallerFrameAliasOffset = $FFF2
 
 ; ---------------------------------------------------------------------------
 ; C1:AD0A
 
 C1AD0A_StageBattleTextSubstitutionPointer:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     ; C1:DC66 calls this after shifting DP; its $1C/$1E slots alias the
     ; original caller's $12/$14 payload pointer.
     tdc
-    adc.w #$FFF2
+    adc.w #DisplayTextCallerFrameAliasOffset
     tcd
-    lda CallerFramePointerLo
-    sta LocalPointerLo
-    lda CallerFramePointerHi
-    sta LocalPointerHi
-    lda LocalPointerLo
+    lda CallerFrameSubstitutionPointerLo
+    sta LocalSubstitutionPointerLo
+    lda CallerFrameSubstitutionPointerHi
+    sta LocalSubstitutionPointerHi
+    lda LocalSubstitutionPointerLo
     sta BattleTextSubstitutionPointerLo
-    lda LocalPointerHi
+    lda LocalSubstitutionPointerHi
     sta BattleTextSubstitutionPointerHi
     pld
     rts

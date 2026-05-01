@@ -14,19 +14,19 @@
 C1045D_InstallPrimaryInteractionContextPointer = $045D
 C1AD26_LoadBattleTextSubstitutionPointer       = $AD26
 
-TextContextSourcePointerLo = $0E
-TextContextSourcePointerHi = $10
-ScratchPointerLo           = $06
-ScratchPointerHi           = $08
+TextContextSourcePointerLo     = $0E
+TextContextSourcePointerHi     = $10
+LoadedSubstitutionPointerLo    = $06
+LoadedSubstitutionPointerHi    = $08
 
 ; ---------------------------------------------------------------------------
 ; C1:7AE3
 
 C17AE3_LoadDisplayTextPointerSubstitutionSlot:
     jsr C1AD26_LoadBattleTextSubstitutionPointer
-    lda ScratchPointerLo
+    lda LoadedSubstitutionPointerLo
     sta TextContextSourcePointerLo
-    lda ScratchPointerHi
+    lda LoadedSubstitutionPointerHi
     sta TextContextSourcePointerHi
     jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation

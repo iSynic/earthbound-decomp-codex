@@ -12,12 +12,14 @@
 ; External contracts used by this module
 
 BattleTextSubstitutionByte = $9D11
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
 
 ; ---------------------------------------------------------------------------
 ; C1:AD02
 
 C1AD02_ReadBattleTextSubstitutionByte:
-    rep #$31
-    sep #$20
+    rep #ProcessorStatus16BitAIndexCarryClear
+    sep #AccumulatorWidthFlag
     lda BattleTextSubstitutionByte
     rts

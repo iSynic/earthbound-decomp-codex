@@ -12,30 +12,32 @@
 ; External contracts used by this module
 
 C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
-CallerFramePointerLo = $20
-CallerFramePointerHi = $22
-LocalPointerLo = $06
-LocalPointerHi = $08
-TextPointerLo = $0E
-TextPointerHi = $10
+CallerFrameSubstitutionPointerLo = $20
+CallerFrameSubstitutionPointerHi = $22
+LocalSubstitutionPointerLo = $06
+LocalSubstitutionPointerHi = $08
+TextDispatchPointerLo = $0E
+TextDispatchPointerHi = $10
+ProcessorStatus16BitAIndexCarryClear = $31
+FarCallerFrameAliasOffset = $FFEE
 
 ; ---------------------------------------------------------------------------
 ; C1:DD82
 
 C1DD82_StageBattleTextPointerSubstitutionOnly:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFEE
+    adc.w #FarCallerFrameAliasOffset
     tcd
-    lda CallerFramePointerLo
-    sta LocalPointerLo
-    lda CallerFramePointerHi
-    sta LocalPointerHi
-    lda LocalPointerLo
-    sta TextPointerLo
-    lda LocalPointerHi
-    sta TextPointerHi
+    lda CallerFrameSubstitutionPointerLo
+    sta LocalSubstitutionPointerLo
+    lda CallerFrameSubstitutionPointerHi
+    sta LocalSubstitutionPointerHi
+    lda LocalSubstitutionPointerLo
+    sta TextDispatchPointerLo
+    lda LocalSubstitutionPointerHi
+    sta TextDispatchPointerHi
     jsr C1AD0A_StageBattleTextSubstitutionPointer
     pld
     rtl

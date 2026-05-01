@@ -12,13 +12,15 @@
 ; External contracts used by this module
 
 BattleTextSubstitutionByte = $9D11
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
 
 ; ---------------------------------------------------------------------------
 ; C1:ACF8
 
 C1ACF8_StageBattleTextSubstitutionByte:
-    rep #$31
-    sep #$20
+    rep #ProcessorStatus16BitAIndexCarryClear
+    sep #AccumulatorWidthFlag
     sta BattleTextSubstitutionByte
-    rep #$20
+    rep #AccumulatorWidthFlag
     rts

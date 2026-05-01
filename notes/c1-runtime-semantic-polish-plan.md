@@ -125,3 +125,8 @@ This planning pass is documentation-only.
   `$98B1/$0065` battle-text gate, `$9643` mode latch, prompt-wait and
   mode-1/no-prompt display values, and the primary script versus substitution
   payload argument pairs for `C1:DC1C`, `C1:DC66`, `C1:DD82`, and `C1:DD9F`.
+- 2026-05-01: C1 substitution-slot leaf polish landed as byte-neutral source
+  aliases. The promoted contracts tighten the `0x19 0x1E/0x1F`
+  display-text loaders, `$9D11` byte payload, `$9D12/$9D14` pointer payload,
+  DP-frame alias shifts, and the `DD7C/DD82` far wrappers that bridge C2/EF
+  battle-text scripts into the local display-text engine.

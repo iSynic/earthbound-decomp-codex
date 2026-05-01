@@ -11,30 +11,32 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-LocalPointerLo = $06
-LocalPointerHi = $08
-TextPointerLo = $14
-TextPointerHi = $16
+LocalSubstitutionPointerLo = $06
+LocalSubstitutionPointerHi = $08
+ReturnSubstitutionPointerLo = $14
+ReturnSubstitutionPointerHi = $16
 BattleTextSubstitutionPointerLo = $9D12
 BattleTextSubstitutionPointerHi = $9D14
+ProcessorStatus16BitAIndexCarryClear = $31
+DisplayTextCallerFrameAliasOffset = $FFF2
 
 ; ---------------------------------------------------------------------------
 ; C1:AD26
 
 C1AD26_LoadBattleTextSubstitutionPointer:
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     ; Getter side for EF battle-text commands such as PRINT_ACTION_AMOUNT.
     tdc
-    adc.w #$FFF2
+    adc.w #DisplayTextCallerFrameAliasOffset
     tcd
     lda BattleTextSubstitutionPointerLo
-    sta LocalPointerLo
+    sta LocalSubstitutionPointerLo
     lda BattleTextSubstitutionPointerHi
-    sta LocalPointerHi
-    lda LocalPointerLo
-    sta TextPointerLo
-    lda LocalPointerHi
-    sta TextPointerHi
+    sta LocalSubstitutionPointerHi
+    lda LocalSubstitutionPointerLo
+    sta ReturnSubstitutionPointerLo
+    lda LocalSubstitutionPointerHi
+    sta ReturnSubstitutionPointerHi
     pld
     rts

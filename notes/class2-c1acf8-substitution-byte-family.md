@@ -20,6 +20,11 @@ That makes this family much more concrete than the older "argument-like helper" 
 
 The local bytes make the core behavior unusually easy to trust.
 
+Source polish: `src/c1/c1_acf8_stage_battle_text_substitution_byte.asm`,
+`src/c1/c1_ad02_read_battle_text_substitution_byte.asm`, and the far wrapper
+`src/c1/c1_dd7c_redirect_stage_battle_text_substitution_byte.asm` now name the
+processor-width masks and `$9D11` one-byte substitution slot directly.
+
 ### `C1:ACF8`
 
 Local body:

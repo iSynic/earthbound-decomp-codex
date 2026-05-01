@@ -12,12 +12,13 @@
 ; External contracts used by this module
 
 C1ACF8_StageBattleTextSubstitutionByte = $ACF8
+ProcessorStatus16BitAIndexCarryClear = $31
 
 ; ---------------------------------------------------------------------------
 ; C1:DD7C
 
 REDIRECT_C1ACF8:
 C1DD7C_RedirectStageBattleTextSubstitutionByte = REDIRECT_C1ACF8
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     jsr C1ACF8_StageBattleTextSubstitutionByte
     rtl

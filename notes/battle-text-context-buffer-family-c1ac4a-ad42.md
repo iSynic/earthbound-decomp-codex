@@ -23,6 +23,9 @@ Source-scaffold promotion:
 - `src/c1/c1_ac4a_build_battle_attacker_name_buffer.asm` through
   `src/c1/c1_ad42_get_front_interaction_result_class.asm` assemble as
   source segments in `build/c1-build-candidate-ranges.json`.
+- The substitution leaves now name their processor-width masks, caller-frame
+  alias shifts, local return slots, and `$9D11/$9D12/$9D14` byte/pointer
+  payload slots directly in source.
 - Validation remains clean: `C1 byte-equivalence: OK, 172 module(s), 0
   mismatch(es).`
 

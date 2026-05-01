@@ -14,26 +14,27 @@
 C1045D_InstallPrimaryInteractionContextPointer = $045D
 C1AD02_ReadBattleTextSubstitutionByte          = $AD02
 
-TextContextSourcePointerLo = $0E
-TextContextSourcePointerHi = $10
-ScratchValueLo             = $06
-ScratchValueByte1          = $07
-ScratchValueHi             = $08
-ScratchValueByte3          = $09
+TextContextSourcePointerLo     = $0E
+TextContextSourcePointerHi     = $10
+LoadedSubstitutionValueLo      = $06
+LoadedSubstitutionValueByte1   = $07
+LoadedSubstitutionValueHi      = $08
+LoadedSubstitutionValueByte3   = $09
+AccumulatorWidthFlag           = $20
 
 ; ---------------------------------------------------------------------------
 ; C1:7AF3
 
 C17AF3_LoadDisplayTextByteSubstitutionSlot:
     jsr C1AD02_ReadBattleTextSubstitutionByte
-    sta ScratchValueLo
-    stz ScratchValueByte1
-    stz ScratchValueHi
-    stz ScratchValueByte3
-    rep #$20
-    lda ScratchValueLo
+    sta LoadedSubstitutionValueLo
+    stz LoadedSubstitutionValueByte1
+    stz LoadedSubstitutionValueHi
+    stz LoadedSubstitutionValueByte3
+    rep #AccumulatorWidthFlag
+    lda LoadedSubstitutionValueLo
     sta TextContextSourcePointerLo
-    lda ScratchValueHi
+    lda LoadedSubstitutionValueHi
     sta TextContextSourcePointerHi
     jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation

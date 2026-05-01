@@ -16442,13 +16442,13 @@ org $C17AE3
 !C1AD26_LoadBattleTextSubstitutionPointer = $AD26
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
-!ScratchPointerLo = $06
-!ScratchPointerHi = $08
+!LoadedSubstitutionPointerLo = $06
+!LoadedSubstitutionPointerHi = $08
 C17AE3_LoadDisplayTextPointerSubstitutionSlot:
     jsr !C1AD26_LoadBattleTextSubstitutionPointer
-    lda !ScratchPointerLo
+    lda !LoadedSubstitutionPointerLo
     sta !TextContextSourcePointerLo
-    lda !ScratchPointerHi
+    lda !LoadedSubstitutionPointerHi
     sta !TextContextSourcePointerHi
     jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
@@ -16465,20 +16465,21 @@ org $C17AF3
 !C1AD02_ReadBattleTextSubstitutionByte = $AD02
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
-!ScratchValueLo = $06
-!ScratchValueByte1 = $07
-!ScratchValueHi = $08
-!ScratchValueByte3 = $09
+!LoadedSubstitutionValueLo = $06
+!LoadedSubstitutionValueByte1 = $07
+!LoadedSubstitutionValueHi = $08
+!LoadedSubstitutionValueByte3 = $09
+!AccumulatorWidthFlag = $20
 C17AF3_LoadDisplayTextByteSubstitutionSlot:
     jsr !C1AD02_ReadBattleTextSubstitutionByte
-    sta !ScratchValueLo
-    stz !ScratchValueByte1
-    stz !ScratchValueHi
-    stz !ScratchValueByte3
-    rep #$20
-    lda !ScratchValueLo
+    sta !LoadedSubstitutionValueLo
+    stz !LoadedSubstitutionValueByte1
+    stz !LoadedSubstitutionValueHi
+    stz !LoadedSubstitutionValueByte3
+    rep #!AccumulatorWidthFlag
+    lda !LoadedSubstitutionValueLo
     sta !TextContextSourcePointerLo
-    lda !ScratchValueHi
+    lda !LoadedSubstitutionValueHi
     sta !TextContextSourcePointerHi
     jsr SET_WORKING_MEMORY
     bra C17B51_DisplayTextSubstitutionSharedContinuation
@@ -18364,11 +18365,13 @@ hirom
 org $C1ACF8
 
 !BattleTextSubstitutionByte = $9D11
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
 C1ACF8_StageBattleTextSubstitutionByte:
-    rep #$31
-    sep #$20
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    sep #!AccumulatorWidthFlag
     sta !BattleTextSubstitutionByte
-    rep #$20
+    rep #!AccumulatorWidthFlag
     rts
 
 
@@ -18380,9 +18383,11 @@ hirom
 org $C1AD02
 
 !BattleTextSubstitutionByte = $9D11
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
 C1AD02_ReadBattleTextSubstitutionByte:
-    rep #$31
-    sep #$20
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    sep #!AccumulatorWidthFlag
     lda !BattleTextSubstitutionByte
     rts
 
@@ -18394,25 +18399,27 @@ C1AD02_ReadBattleTextSubstitutionByte:
 hirom
 org $C1AD0A
 
-!CallerFramePointerLo = $1C
-!CallerFramePointerHi = $1E
-!LocalPointerLo = $06
-!LocalPointerHi = $08
+!CallerFrameSubstitutionPointerLo = $1C
+!CallerFrameSubstitutionPointerHi = $1E
+!LocalSubstitutionPointerLo = $06
+!LocalSubstitutionPointerHi = $08
 !BattleTextSubstitutionPointerLo = $9D12
 !BattleTextSubstitutionPointerHi = $9D14
+!ProcessorStatus16BitAIndexCarryClear = $31
+!DisplayTextCallerFrameAliasOffset = $FFF2
 C1AD0A_StageBattleTextSubstitutionPointer:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFF2
+    adc.w #!DisplayTextCallerFrameAliasOffset
     tcd
-    lda !CallerFramePointerLo
-    sta !LocalPointerLo
-    lda !CallerFramePointerHi
-    sta !LocalPointerHi
-    lda !LocalPointerLo
+    lda !CallerFrameSubstitutionPointerLo
+    sta !LocalSubstitutionPointerLo
+    lda !CallerFrameSubstitutionPointerHi
+    sta !LocalSubstitutionPointerHi
+    lda !LocalSubstitutionPointerLo
     sta !BattleTextSubstitutionPointerLo
-    lda !LocalPointerHi
+    lda !LocalSubstitutionPointerHi
     sta !BattleTextSubstitutionPointerHi
     pld
     rts
@@ -18425,26 +18432,28 @@ C1AD0A_StageBattleTextSubstitutionPointer:
 hirom
 org $C1AD26
 
-!LocalPointerLo = $06
-!LocalPointerHi = $08
-!TextPointerLo = $14
-!TextPointerHi = $16
+!LocalSubstitutionPointerLo = $06
+!LocalSubstitutionPointerHi = $08
+!ReturnSubstitutionPointerLo = $14
+!ReturnSubstitutionPointerHi = $16
 !BattleTextSubstitutionPointerLo = $9D12
 !BattleTextSubstitutionPointerHi = $9D14
+!ProcessorStatus16BitAIndexCarryClear = $31
+!DisplayTextCallerFrameAliasOffset = $FFF2
 C1AD26_LoadBattleTextSubstitutionPointer:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFF2
+    adc.w #!DisplayTextCallerFrameAliasOffset
     tcd
     lda !BattleTextSubstitutionPointerLo
-    sta !LocalPointerLo
+    sta !LocalSubstitutionPointerLo
     lda !BattleTextSubstitutionPointerHi
-    sta !LocalPointerHi
-    lda !LocalPointerLo
-    sta !TextPointerLo
-    lda !LocalPointerHi
-    sta !TextPointerHi
+    sta !LocalSubstitutionPointerHi
+    lda !LocalSubstitutionPointerLo
+    sta !ReturnSubstitutionPointerLo
+    lda !LocalSubstitutionPointerHi
+    sta !ReturnSubstitutionPointerHi
     pld
     rts
 
@@ -18687,9 +18696,10 @@ hirom
 org $C1DD7C
 
 !C1ACF8_StageBattleTextSubstitutionByte = $ACF8
+!ProcessorStatus16BitAIndexCarryClear = $31
 REDIRECT_C1ACF8:
 !C1DD7C_RedirectStageBattleTextSubstitutionByte = REDIRECT_C1ACF8
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     jsr !C1ACF8_StageBattleTextSubstitutionByte
     rtl
 
@@ -18702,26 +18712,28 @@ hirom
 org $C1DD82
 
 !C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
-!CallerFramePointerLo = $20
-!CallerFramePointerHi = $22
-!LocalPointerLo = $06
-!LocalPointerHi = $08
-!TextPointerLo = $0E
-!TextPointerHi = $10
+!CallerFrameSubstitutionPointerLo = $20
+!CallerFrameSubstitutionPointerHi = $22
+!LocalSubstitutionPointerLo = $06
+!LocalSubstitutionPointerHi = $08
+!TextDispatchPointerLo = $0E
+!TextDispatchPointerHi = $10
+!ProcessorStatus16BitAIndexCarryClear = $31
+!FarCallerFrameAliasOffset = $FFEE
 C1DD82_StageBattleTextPointerSubstitutionOnly:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
-    adc.w #$FFEE
+    adc.w #!FarCallerFrameAliasOffset
     tcd
-    lda !CallerFramePointerLo
-    sta !LocalPointerLo
-    lda !CallerFramePointerHi
-    sta !LocalPointerHi
-    lda !LocalPointerLo
-    sta !TextPointerLo
-    lda !LocalPointerHi
-    sta !TextPointerHi
+    lda !CallerFrameSubstitutionPointerLo
+    sta !LocalSubstitutionPointerLo
+    lda !CallerFrameSubstitutionPointerHi
+    sta !LocalSubstitutionPointerHi
+    lda !LocalSubstitutionPointerLo
+    sta !TextDispatchPointerLo
+    lda !LocalSubstitutionPointerHi
+    sta !TextDispatchPointerHi
     jsr !C1AD0A_StageBattleTextSubstitutionPointer
     pld
     rtl

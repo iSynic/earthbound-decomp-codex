@@ -19,6 +19,9 @@ Source-scaffold promotion:
   `src/c1/c1_7af3_load_display_text_byte_substitution_slot.asm`.
 - `C1:7B0D..7B56` is now decoded source in
   `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm`.
+- The pointer and byte substitution loaders now name the loaded substitution
+  payload slots before they install `$0E/$10` into the active display-text
+  state.
 - The promoted source validates through the durable C1 scaffold:
   `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
@@ -59,7 +62,7 @@ Local bytes decode cleanly:
 Mechanically, that means:
 
 - read the low byte from `$9D11` through `C1:AD02`
-- zero-extend it into a temporary 32-bit work area at `$06..$09`
+- zero-extend it into the named substitution-value work area at `$06..$09`
 - copy the low 16 bits into the display-text staging pair `$0E/$10`
 - hand the staged value to `C1:045D`
 - return to the shared display-text continuation
