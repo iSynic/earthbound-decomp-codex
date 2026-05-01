@@ -11,7 +11,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0923E_BuildSingleBitMask8              = $C0923E
+C203C3_ComposePartyMemberHpPpWindowTiles = $03C3
+
+HpPpDirtyPartyWindowMask = $9647
+HpPpGlobalRedrawLatch    = $9649
 
 ; ---------------------------------------------------------------------------
 ; C2:07B6
@@ -29,12 +33,12 @@ C207B6_MarkAndRedrawPartyHpPpWindow:
     tay
     rep #$20
     lda.w #$0001
-    jsl $C0923E
-    ora $9647
-    sta $9647
+    jsl C0923E_BuildSingleBitMask8
+    ora HpPpDirtyPartyWindowMask
+    sta HpPpDirtyPartyWindowMask
     lda $0E
-    jsr $03C3
+    jsr C203C3_ComposePartyMemberHpPpWindowTiles
     lda.w #$0001
-    sta $9649
+    sta HpPpGlobalRedrawLatch
     pld
     rtl

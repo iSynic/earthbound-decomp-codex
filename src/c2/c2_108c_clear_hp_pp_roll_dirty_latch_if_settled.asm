@@ -13,16 +13,19 @@
 
 C21034_AreAllHpPpRollersSettled = $C21034
 
+HpPpRollDirtyLatch = $9696
+BoolFalse          = $0000
+
 ; ---------------------------------------------------------------------------
 ; C2:108C
 
 C2108C_ClearHpPpRollDirtyLatchIfSettled:
     rep #$31
     jsl C21034_AreAllHpPpRollersSettled
-    cmp.w #$0000
+    cmp.w #BoolFalse
     beq C2109C_ClearHpPpRollDirtyLatchIfSettled_L109C
     sep #$20
-    stz $9696
+    stz HpPpRollDirtyLatch
 C2109C_ClearHpPpRollDirtyLatchIfSettled_L109C:
     rep #$20
     rtl

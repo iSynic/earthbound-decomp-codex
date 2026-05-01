@@ -8892,6 +8892,17 @@ org $C208B8
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_DivideUnsignedWordByIndex = $C09032
+!CurrentFocusedWindowId = $8958
+!WindowRecordIndexTable = $88E4
+!WindowRecordBase = $8650
+!WindowRecordIndexStride = $0052
+!WindowRecordTilemapBase = $0035
+!WindowRecordColumnCount = $000A
+!TileIdMask = $03FF
+!SelectableMenuCellTileA = $004F
+!SelectableMenuCellTileB = $0041
+!SelectableMenuCellResult = $002F
+!BlockedMenuCellResult = $0040
 C208B8_ClassifyMenuTileForCursorScan:
     rep #$31
     phd
@@ -8902,20 +8913,20 @@ C208B8_ClassifyMenuTileForCursorScan:
     pla
     stx $12
     sta $10
-    lda $8958
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #!WindowRecordBase
     tay
     sty $0E
     lda $10
     asl A
     sta $02
-    lda $000A,Y
+    lda !WindowRecordColumnCount,Y
     tay
     ldx $12
     txa
@@ -8924,21 +8935,21 @@ C208B8_ClassifyMenuTileForCursorScan:
     asl A
     ldy $0E
     clc
-    adc $0035,Y
+    adc !WindowRecordTilemapBase,Y
     clc
     adc $02
     tax
     lda $0000,X
-    and.w #$03FF
-    cmp.w #$004F
+    and.w #!TileIdMask
+    cmp.w #!SelectableMenuCellTileA
     beq C20908_ClassifyMenuTileForCursorScan_L0908
-    cmp.w #$0041
+    cmp.w #!SelectableMenuCellTileB
     bne C2090D_ClassifyMenuTileForCursorScan_L090D
 C20908_ClassifyMenuTileForCursorScan_L0908:
-    lda.w #$002F
+    lda.w #!SelectableMenuCellResult
     bra C20910_ClassifyMenuTileForCursorScan_L0910
 C2090D_ClassifyMenuTileForCursorScan_L090D:
-    lda.w #$0040
+    lda.w #!BlockedMenuCellResult
 C20910_ClassifyMenuTileForCursorScan_L0910:
     pld
     rtl
@@ -8954,6 +8965,14 @@ org $C20B65
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 !C208B8_ClassifyMenuTileForCursorScan = $C208B8
+!CurrentFocusedWindowId = $8958
+!WindowRecordIndexTable = $88E4
+!WindowRecordBase = $8650
+!WindowRecordIndexStride = $0052
+!WindowRecordColumnCount = $000A
+!WindowRecordTileCount = $000C
+!SelectableMenuCellResult = $002F
+!NoSelectableMenuCell = $FFFF
 C20B65_FindNextSelectableMenuCell:
     rep #$31
     phd
@@ -8969,14 +8988,14 @@ C20B65_FindNextSelectableMenuCell:
     stx $16
     ldy $2A
     sty $14
-    lda $8958
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #!WindowRecordBase
     sta $12
     lda $18
     sta $02
@@ -8998,7 +9017,7 @@ C20BAC_FindNextSelectableMenuCell_L0BAC:
     lda $10
     sta $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     bne C20BBD_FindNextSelectableMenuCell_L0BBD
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20BBD_FindNextSelectableMenuCell_L0BBD:
@@ -9009,7 +9028,7 @@ C20BBD_FindNextSelectableMenuCell_L0BBD:
     tay
     sty $0E
 C20BC6_FindNextSelectableMenuCell_L0BC6:
-    ldy.w #$000C
+    ldy.w #!WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -9034,7 +9053,7 @@ C20BE8_FindNextSelectableMenuCell_L0BE8:
     tyx
     lda $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     bne C20BF9_FindNextSelectableMenuCell_L0BF9
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20BF9_FindNextSelectableMenuCell_L0BF9:
@@ -9042,7 +9061,7 @@ C20BF9_FindNextSelectableMenuCell_L0BF9:
     dec A
     sta $02
 C20BFE_FindNextSelectableMenuCell_L0BFE:
-    ldy.w #$000A
+    ldy.w #!WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20BE8_FindNextSelectableMenuCell_L0BE8
@@ -9056,7 +9075,7 @@ C20BFE_FindNextSelectableMenuCell_L0BFE:
     tay
     sty $0E
 C20C16_FindNextSelectableMenuCell_L0C16:
-    ldy.w #$000C
+    ldy.w #!WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -9080,13 +9099,13 @@ C20C37_FindNextSelectableMenuCell_L0C37:
     tyx
     lda $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     bne C20C48_FindNextSelectableMenuCell_L0C48
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20C48_FindNextSelectableMenuCell_L0C48:
     inc $02
 C20C4A_FindNextSelectableMenuCell_L0C4A:
-    ldy.w #$000A
+    ldy.w #!WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20C37_FindNextSelectableMenuCell_L0C37
@@ -9098,7 +9117,7 @@ C20C4A_FindNextSelectableMenuCell_L0C4A:
     tay
     sty $0E
 C20C5E_FindNextSelectableMenuCell_L0C5E:
-    ldy.w #$000C
+    ldy.w #!WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -9118,7 +9137,7 @@ C20C79_FindNextSelectableMenuCell_L0C79:
     tyx
     lda $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     bne C20C8A_FindNextSelectableMenuCell_L0C8A
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20C8A_FindNextSelectableMenuCell_L0C8A:
@@ -9127,7 +9146,7 @@ C20C8A_FindNextSelectableMenuCell_L0C8A:
     adc $14
     sta $02
 C20C91_FindNextSelectableMenuCell_L0C91:
-    ldy.w #$000A
+    ldy.w #!WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20C79_FindNextSelectableMenuCell_L0C79
@@ -9145,13 +9164,13 @@ C20CAA_FindNextSelectableMenuCell_L0CAA:
     tyx
     lda $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     beq C20D26_FindNextSelectableMenuCell_L0D26
     ldy $0E
     dey
     sty $0E
 C20CBB_FindNextSelectableMenuCell_L0CBB:
-    ldy.w #$000C
+    ldy.w #!WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $04
@@ -9166,7 +9185,7 @@ C20CBB_FindNextSelectableMenuCell_L0CBB:
     adc $14
     sta $02
 C20CD5_FindNextSelectableMenuCell_L0CD5:
-    ldy.w #$000A
+    ldy.w #!WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20CA3_FindNextSelectableMenuCell_L0CA3
@@ -9185,13 +9204,13 @@ C20CEF_FindNextSelectableMenuCell_L0CEF:
     tyx
     lda $02
     jsl !C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #!SelectableMenuCellResult
     beq C20D26_FindNextSelectableMenuCell_L0D26
     ldy $0E
     iny
     sty $0E
 C20D00_FindNextSelectableMenuCell_L0D00:
-    ldy.w #$000C
+    ldy.w #!WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $04
@@ -9205,16 +9224,16 @@ C20D00_FindNextSelectableMenuCell_L0D00:
     adc $14
     sta $02
 C20D18_FindNextSelectableMenuCell_L0D18:
-    ldy.w #$000A
+    ldy.w #!WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20CE9_FindNextSelectableMenuCell_L0CE9
 C20D21_FindNextSelectableMenuCell_L0D21:
-    lda.w #$FFFF
+    lda.w #!NoSelectableMenuCell
     bra C20D3D_FindNextSelectableMenuCell_L0D3D
 C20D26_FindNextSelectableMenuCell_L0D26:
     lda $16
-    cmp.w #$FFFF
+    cmp.w #!NoSelectableMenuCell
     beq C20D33_FindNextSelectableMenuCell_L0D33
     lda $16
     jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
@@ -9559,20 +9578,24 @@ hirom
 org $C20F58
 
 !C09262_ScaleHpPpRollDeltaPair = $C09262
+!HpPpUseScaledRollDeltaFlag = $9695
+!HpPpRollDeltaHp = $9627
+!HpPpRollDeltaPp = $9629
+!HpPpRollScaleModeDefault = $01
 C20F58_SelectHpPpRollDelta:
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
-    lda $9695
+    lda !HpPpUseScaledRollDeltaFlag
     and.w #$00FF
     beq C20F84_SelectHpPpRollDelta_L0F84
     sep #$10
-    ldy.b #$01
-    lda $9627
+    ldy.b #!HpPpRollScaleModeDefault
+    lda !HpPpRollDeltaHp
     sta $06
-    lda $9629
+    lda !HpPpRollDeltaPp
     sta $08
     jsl !C09262_ScaleHpPpRollDeltaPair
     lda $06
@@ -9581,9 +9604,9 @@ C20F58_SelectHpPpRollDelta:
     sta $16
     bra C20F96_SelectHpPpRollDelta_L0F96
 C20F84_SelectHpPpRollDelta_L0F84:
-    lda $9627
+    lda !HpPpRollDeltaHp
     sta $06
-    lda $9629
+    lda !HpPpRollDeltaPp
     sta $08
     lda $06
     sta $14
@@ -9603,6 +9626,19 @@ hirom
 org $C20F9A
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!PlayerControlledPartyCount = $98A4
+!PartySlotCharacterIds = $986F
+!PartyCharacterRecordBase = $99CE
+!PartyCharacterRecordStride = $005F
+!HpPpRollDirtyLatch = $9696
+!CharBattleStateByte = $000E
+!CharHpRollDirty = $0043
+!CharCurrentHp = $0045
+!CharTargetHp = $0047
+!CharPpRollDirty = $0049
+!CharCurrentPp = $004B
+!CharTargetPp = $004D
+!BattleStateAlive = $0001
 RESET_HPPP_ROLLING:
 !C20F9A_ClampHpPpRollTargetsToLiveValues = RESET_HPPP_ROLLING
     rep #$31
@@ -9615,30 +9651,30 @@ RESET_HPPP_ROLLING:
     bra C21016_ClampHpPpRollTargetsToLiveValues_L1016
 C20FA9_ClampHpPpRollTargetsToLiveValues_L0FA9:
     ldx $02
-    lda $986F,X
+    lda !PartySlotCharacterIds,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterRecordBase
     tay
-    lda $000E,Y
+    lda !CharBattleStateByte,Y
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!BattleStateAlive
     beq C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4
-    lda $0045,Y
+    lda !CharCurrentHp,Y
     bne C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4
-    lda.w #$0001
-    sta $0047,Y
+    lda.w #!BattleStateAlive
+    sta !CharTargetHp,Y
 C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4:
-    lda $0043,Y
+    lda !CharHpRollDirty,Y
     beq C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4
-    lda $0045,Y
+    lda !CharCurrentHp,Y
     sta $0E
     tya
     clc
-    adc.w #$0047
+    adc.w #!CharTargetHp
     tax
     lda $0000,X
     sta $04
@@ -9648,13 +9684,13 @@ C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4:
     beq C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4
     sta $0000,X
 C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4:
-    lda $0049,Y
+    lda !CharPpRollDirty,Y
     beq C21014_ClampHpPpRollTargetsToLiveValues_L1014
-    lda $004B,Y
+    lda !CharCurrentPp,Y
     sta $0E
     tya
     clc
-    adc.w #$004D
+    adc.w #!CharTargetPp
     tax
     lda $0000,X
     sta $04
@@ -9666,7 +9702,7 @@ C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4:
 C21014_ClampHpPpRollTargetsToLiveValues_L1014:
     inc $02
 C21016_ClampHpPpRollTargetsToLiveValues_L1016:
-    lda $98A4
+    lda !PlayerControlledPartyCount
     and.w #$00FF
     sta $04
     lda $02
@@ -9677,7 +9713,7 @@ C21016_ClampHpPpRollTargetsToLiveValues_L1016:
 C21029_ClampHpPpRollTargetsToLiveValues_L1029:
     sep #$20
     lda.b #$01
-    sta $9696
+    sta !HpPpRollDirtyLatch
     rep #$20
     pld
     rtl
@@ -9691,6 +9727,18 @@ hirom
 org $C21034
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!PlayerControlledPartyCount = $98A4
+!PartySlotCharacterIds = $986F
+!PartyCharacterRecordBase = $99CE
+!PartyCharacterRecordStride = $005F
+!CharHpRollDirty = $0043
+!CharCurrentHp = $0045
+!CharTargetHp = $0047
+!CharPpRollDirty = $0049
+!CharCurrentPp = $004B
+!CharTargetPp = $004D
+!BoolFalse = $0000
+!BoolTrue = $0001
 C21034_AreAllHpPpRollersSettled:
     rep #$31
     phd
@@ -9701,39 +9749,39 @@ C21034_AreAllHpPpRollersSettled:
     sty $0E
     bra C2107A_AreAllHpPpRollersSettled_L107A
 C21043_AreAllHpPpRollersSettled_L1043:
-    lda $986F,Y
+    lda !PartySlotCharacterIds,Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterRecordBase
     tax
-    lda $0043,X
+    lda !CharHpRollDirty,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $0049,X
+    lda !CharPpRollDirty,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $0045,X
-    cmp $0047,X
+    lda !CharCurrentHp,X
+    cmp !CharTargetHp,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $004B,X
-    cmp $004D,X
+    lda !CharCurrentPp,X
+    cmp !CharTargetPp,X
     beq C21075_AreAllHpPpRollersSettled_L1075
 C21070_AreAllHpPpRollersSettled_L1070:
-    lda.w #$0000
+    lda.w #!BoolFalse
     bra C2108A_AreAllHpPpRollersSettled_L108A
 C21075_AreAllHpPpRollersSettled_L1075:
     ldy $0E
     iny
     sty $0E
 C2107A_AreAllHpPpRollersSettled_L107A:
-    lda $98A4
+    lda !PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     tya
     cmp $02
     bcc C21043_AreAllHpPpRollersSettled_L1043
-    lda.w #$0001
+    lda.w #!BoolTrue
 C2108A_AreAllHpPpRollersSettled_L108A:
     pld
     rtl
@@ -9747,13 +9795,15 @@ hirom
 org $C2108C
 
 !C21034_AreAllHpPpRollersSettled = $C21034
+!HpPpRollDirtyLatch = $9696
+!BoolFalse = $0000
 C2108C_ClearHpPpRollDirtyLatchIfSettled:
     rep #$31
     jsl !C21034_AreAllHpPpRollersSettled
-    cmp.w #$0000
+    cmp.w #!BoolFalse
     beq C2109C_ClearHpPpRollDirtyLatchIfSettled_L109C
     sep #$20
-    stz $9696
+    stz !HpPpRollDirtyLatch
 C2109C_ClearHpPpRollDirtyLatchIfSettled_L109C:
     rep #$20
     rtl
@@ -20388,6 +20438,17 @@ hirom
 org $C207E1
 
 !C0923E_BuildSingleBitMask8 = $C0923E
+!HpPpDirtyPartyWindowMask = $9647
+!HpPpGlobalRedrawLatch = $9649
+!FocusedPartyHpPpWindowId = $89CA
+!PlayerControlledPartyCount = $98A4
+!HpPpWindowTilemapBase = $7DFE
+!FocusedHpPpWindowTileRowBase = $0012
+!OtherHpPpWindowTileRowBase = $0013
+!HpPpWindowTileWidthWords = $0007
+!HpPpWindowTileHeightRows = $0008
+!HpPpWindowTileStrideBytes = $0032
+!AllPartyWindowDirtyBits = $FFFF
 UNDRAW_HP_PP_WINDOW:
 !C207E1_ClearPartyHpPpWindowTiles = UNDRAW_HP_PP_WINDOW
     rep #$31
@@ -20400,22 +20461,22 @@ UNDRAW_HP_PP_WINDOW:
     tax
     stx $10
     lda.w #$0001
-    sta $9649
+    sta !HpPpGlobalRedrawLatch
     sep #$10
     txy
     jsl !C0923E_BuildSingleBitMask8
-    eor.w #$FFFF
-    and $9647
-    sta $9647
+    eor.w #!AllPartyWindowDirtyBits
+    and !HpPpDirtyPartyWindowMask
+    sta !HpPpDirtyPartyWindowMask
     rep #$10
     ldx $10
-    cpx $89CA
+    cpx !FocusedPartyHpPpWindowId
     bne C20814_ClearPartyHpPpWindowTiles_L0814
-    lda.w #$0012
+    lda.w #!FocusedHpPpWindowTileRowBase
     sta $0E
     bra C20819_ClearPartyHpPpWindowTiles_L0819
 C20814_ClearPartyHpPpWindowTiles_L0814:
-    lda.w #$0013
+    lda.w #!OtherHpPpWindowTileRowBase
     sta $0E
 C20819_ClearPartyHpPpWindowTiles_L0819:
     txa
@@ -20425,7 +20486,7 @@ C20819_ClearPartyHpPpWindowTiles_L0819:
     asl A
     adc $04
     pha
-    lda $98A4
+    lda !PlayerControlledPartyCount
     and.w #$00FF
     sta $04
     asl A
@@ -20456,12 +20517,12 @@ C20819_ClearPartyHpPpWindowTiles_L0819:
     clc
     adc $02
     clc
-    adc.w #$7DFE
+    adc.w #!HpPpWindowTilemapBase
     tax
-    ldy.w #$0008
+    ldy.w #!HpPpWindowTileHeightRows
     bra C20878_ClearPartyHpPpWindowTiles_L0878
 C2085B_ClearPartyHpPpWindowTiles_L085B:
-    lda.w #$0007
+    lda.w #!HpPpWindowTileWidthWords
     sta $0E
     bra C2086F_ClearPartyHpPpWindowTiles_L086F
 C20862_ClearPartyHpPpWindowTiles_L0862:
@@ -20476,7 +20537,7 @@ C2086F_ClearPartyHpPpWindowTiles_L086F:
     bne C20862_ClearPartyHpPpWindowTiles_L0862
     txa
     clc
-    adc.w #$0032
+    adc.w #!HpPpWindowTileStrideBytes
     tax
     dey
 C20878_ClearPartyHpPpWindowTiles_L0878:
@@ -20493,6 +20554,21 @@ hirom
 org $C20A20
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!CurrentFocusedWindowId = $8958
+!WindowRecordIndexTable = $88E4
+!WindowRecordIndexStride = $0052
+!WindowRecordManagedTextState0 = $865E
+!WindowRecordManagedTextState2 = $8660
+!WindowRecordManagedTextState4 = $8662
+!WindowRecordManagedTextState5 = $8663
+!WindowRecordManagedTextState7 = $8665
+!ManagedTextSlotWindowId = $0000
+!ManagedTextSlotState0 = $0002
+!ManagedTextSlotState2 = $0004
+!ManagedTextSlotState4 = $0006
+!ManagedTextSlotState5 = $0007
+!ManagedTextSlotState7 = $0009
+!NoFocusedWindow = $FFFF
 C20A20_SnapshotManagedTextEventSlotState:
     rep #$31
     phd
@@ -20503,65 +20579,65 @@ C20A20_SnapshotManagedTextEventSlotState:
     pla
     tax
     stx $0E
-    lda $8958
-    sta $0000,X
-    lda $8958
-    cmp.w #$FFFF
+    lda !CurrentFocusedWindowId
+    sta !ManagedTextSlotWindowId,X
+    lda !CurrentFocusedWindowId
+    cmp.w #!NoFocusedWindow
     bne C20A3E_SnapshotManagedTextEventSlotState_L0A3E
     jmp.w C20ABA_SnapshotManagedTextEventSlotState_L0ABA
 C20A3E_SnapshotManagedTextEventSlotState_L0A3E:
-    lda $8958
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $865E,X
+    lda !WindowRecordManagedTextState0,X
     ldx $0E
-    sta $0002,X
-    lda $8958
+    sta !ManagedTextSlotState0,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8660,X
+    lda !WindowRecordManagedTextState2,X
     ldx $0E
-    sta $0004,X
-    lda $8958
+    sta !ManagedTextSlotState2,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $8662,X
+    lda !WindowRecordManagedTextState4,X
     ldx $0E
-    sta $0006,X
+    sta !ManagedTextSlotState4,X
     rep #$20
-    lda $8958
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8663,X
+    lda !WindowRecordManagedTextState5,X
     ldx $0E
-    sta $0007,X
-    lda $8958
+    sta !ManagedTextSlotState5,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8665,X
+    lda !WindowRecordManagedTextState7,X
     ldx $0E
-    sta $0009,X
+    sta !ManagedTextSlotState7,X
 C20ABA_SnapshotManagedTextEventSlotState_L0ABA:
     pld
     rtl
@@ -20575,6 +20651,21 @@ hirom
 org $C20ABC
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!CurrentFocusedWindowId = $8958
+!WindowRecordIndexTable = $88E4
+!WindowRecordIndexStride = $0052
+!WindowRecordManagedTextState0 = $865E
+!WindowRecordManagedTextState2 = $8660
+!WindowRecordManagedTextState4 = $8662
+!WindowRecordManagedTextState5 = $8663
+!WindowRecordManagedTextState7 = $8665
+!ManagedTextSlotWindowId = $0000
+!ManagedTextSlotState0 = $0002
+!ManagedTextSlotState2 = $0004
+!ManagedTextSlotState4 = $0006
+!ManagedTextSlotState5 = $0007
+!ManagedTextSlotState7 = $0009
+!NoFocusedWindow = $FFFF
 C20ABC_RestoreManagedTextEventSlotState:
     rep #$31
     phd
@@ -20585,72 +20676,72 @@ C20ABC_RestoreManagedTextEventSlotState:
     pla
     tay
     sty $10
-    lda $0000,Y
+    lda !ManagedTextSlotWindowId,Y
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #!NoFocusedWindow
     bne C20AD6_RestoreManagedTextEventSlotState_L0AD6
     jmp.w C20B63_RestoreManagedTextEventSlotState_L0B63
 C20AD6_RestoreManagedTextEventSlotState_L0AD6:
     asl A
     clc
-    adc.w #$88E4
+    adc.w #!WindowRecordIndexTable
     tax
     lda $0000,X
-    cmp.w #$FFFF
+    cmp.w #!NoFocusedWindow
     bne C20AE7_RestoreManagedTextEventSlotState_L0AE7
     jmp.w C20B63_RestoreManagedTextEventSlotState_L0B63
 C20AE7_RestoreManagedTextEventSlotState_L0AE7:
     lda $0E
-    sta $8958
+    sta !CurrentFocusedWindowId
     lda $0000,X
-    ldy.w #$0052
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     ldy $10
-    lda $0002,Y
-    sta $865E,X
-    lda $8958
+    lda !ManagedTextSlotState0,Y
+    sta !WindowRecordManagedTextState0,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     ldy $10
-    lda $0004,Y
-    sta $8660,X
-    lda $8958
+    lda !ManagedTextSlotState2,Y
+    sta !WindowRecordManagedTextState2,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     ldy $10
     sep #$20
-    lda $0006,Y
-    sta $8662,X
+    lda !ManagedTextSlotState4,Y
+    sta !WindowRecordManagedTextState4,X
     rep #$20
-    lda $8958
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     ldy $10
-    lda $0007,Y
-    sta $8663,X
-    lda $8958
+    lda !ManagedTextSlotState5,Y
+    sta !WindowRecordManagedTextState5,X
+    lda !CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !WindowRecordIndexTable,X
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     ldy $10
-    lda $0009,Y
-    sta $8665,X
+    lda !ManagedTextSlotState7,Y
+    sta !WindowRecordManagedTextState7,X
 C20B63_RestoreManagedTextEventSlotState_L0B63:
     pld
     rtl
@@ -21126,6 +21217,20 @@ org $C209A0
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_DivideUnsignedWordByIndex = $C09032
+!C44E4D_FreeTileSafe = $C44E4D
+!C07C5B_RefreshDisplayAfterWindowStateChange = $C07C5B
+!WindowRecordIndexTable = $88E4
+!WindowRecordBase = $8650
+!WindowRecordIndexStride = $0052
+!WindowRecordColumnCount = $000A
+!WindowRecordTileCount = $000C
+!WindowRecordTilemapBase = $0035
+!WindowRecordTitleUploadSlot = $003B
+!WindowRecordTitleScratchByte = $003C
+!WindowTitleUploadSlotTable = $894E
+!RedrawAllWindowsFlag = $9623
+!WindowRecordAbsent = $FFFF
+!EmptyWindowTile = $0040
 C209A0_CloseAndClearCurrentWindowTilemap:
     rep #$31
     phd
@@ -21136,19 +21241,19 @@ C209A0_CloseAndClearCurrentWindowTilemap:
     pla
     asl A
     tax
-    lda $88E4,X
-    cmp.w #$FFFF
+    lda !WindowRecordIndexTable,X
+    cmp.w #!WindowRecordAbsent
     bne C20A1E_C209A0_CloseAndClearCurrentWindowTilemap_L0A1E
-    ldy.w #$0052
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #!WindowRecordBase
     tax
     stx $10
-    ldy $0035,X
+    ldy !WindowRecordTilemapBase,X
     sty $0E
-    ldy $000C,X
-    lda $000A,X
+    ldy !WindowRecordTileCount,X
+    lda !WindowRecordColumnCount,X
     jsl !C09032_DivideUnsignedWordByIndex
     sta $02
     bra C209F1_C209A0_CloseAndClearCurrentWindowTilemap_L09F1
@@ -21156,9 +21261,9 @@ C209D5_C209A0_CloseAndClearCurrentWindowTilemap_L09D5:
     ldy $0E
     lda $0000,Y
     beq C209E0_C209A0_CloseAndClearCurrentWindowTilemap_L09E0
-    jsl $C44E4D
+    jsl !C44E4D_FreeTileSafe
 C209E0_C209A0_CloseAndClearCurrentWindowTilemap_L09E0:
-    lda.w #$0040
+    lda.w #!EmptyWindowTile
     ldy $0E
     sta $0000,Y
     iny
@@ -21171,23 +21276,23 @@ C209F1_C209A0_CloseAndClearCurrentWindowTilemap_L09F1:
     lda $02
     bne C209D5_C209A0_CloseAndClearCurrentWindowTilemap_L09D5
     ldx $10
-    lda $003B,X
+    lda !WindowRecordTitleUploadSlot,X
     and.w #$00FF
     beq C20A0B_C209A0_CloseAndClearCurrentWindowTilemap_L0A0B
     and.w #$00FF
     dec A
     asl A
     tax
-    lda.w #$FFFF
-    sta $894E,X
+    lda.w #!WindowRecordAbsent
+    sta !WindowTitleUploadSlotTable,X
 C20A0B_C209A0_CloseAndClearCurrentWindowTilemap_L0A0B:
     ldx $10
     sep #$20
-    stz $003C,X
-    stz $003B,X
+    stz !WindowRecordTitleScratchByte,X
+    stz !WindowRecordTitleUploadSlot,X
     lda.b #$01
-    sta $9623
-    jsl $C07C5B
+    sta !RedrawAllWindowsFlag
+    jsl !C07C5B_RefreshDisplayAfterWindowStateChange
 C20A1E_C209A0_CloseAndClearCurrentWindowTilemap_L0A1E:
     pld
     rtl
@@ -21814,13 +21919,16 @@ C2BD0C_C2BCB9_ApplyBattlerPpTargetLoss_LBD0C:
 hirom
 org $C2077D
 
+!C203C3_ComposePartyMemberHpPpWindowTiles = $03C3
+!HpPpDirtyPartyWindowMask = $9647
+!PlayerControlledPartyCount = $98A4
 C2077D_RedrawDirtyPartyHpPpWindows:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    ldy $9647
+    ldy !HpPpDirtyPartyWindowMask
     sty $10
     ldx.w #$0000
     stx $0E
@@ -21830,7 +21938,7 @@ C20791_C2077D_RedrawDirtyPartyHpPpWindows_L0791:
     and.w #$0001
     beq C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B
     txa
-    jsr $03C3
+    jsr !C203C3_ComposePartyMemberHpPpWindowTiles
 C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B:
     ldy $10
     tya
@@ -21841,7 +21949,7 @@ C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B:
     inx
     stx $0E
 C207A7_C2077D_RedrawDirtyPartyHpPpWindows_L07A7:
-    lda $98A4
+    lda !PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     txa
@@ -21858,6 +21966,10 @@ C207A7_C2077D_RedrawDirtyPartyHpPpWindows_L07A7:
 hirom
 org $C207B6
 
+!C0923E_BuildSingleBitMask8 = $C0923E
+!C203C3_ComposePartyMemberHpPpWindowTiles = $03C3
+!HpPpDirtyPartyWindowMask = $9647
+!HpPpGlobalRedrawLatch = $9649
 C207B6_MarkAndRedrawPartyHpPpWindow:
     rep #$31
     phd
@@ -21871,13 +21983,13 @@ C207B6_MarkAndRedrawPartyHpPpWindow:
     tay
     rep #$20
     lda.w #$0001
-    jsl $C0923E
-    ora $9647
-    sta $9647
+    jsl !C0923E_BuildSingleBitMask8
+    ora !HpPpDirtyPartyWindowMask
+    sta !HpPpDirtyPartyWindowMask
     lda $0E
-    jsr $03C3
+    jsr !C203C3_ComposePartyMemberHpPpWindowTiles
     lda.w #$0001
-    sta $9649
+    sta !HpPpGlobalRedrawLatch
     pld
     rtl
 
@@ -22140,33 +22252,40 @@ hirom
 org $C2087C
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C107AF_ProcessOpenWindowTextTick = $C107AF
+!C2077D_RedrawDirtyPartyHpPpWindows = $077D
+!OpenWindowListHead = $88E0
+!HpPpAnyDirtyWindowFlag = $89C9
+!WindowRecordIndexStride = $0052
+!WindowRecordNextWindowIdOffset = $8652
+!NoOpenWindowId = $FFFF
 C2087C_RefreshDirtyHpPpAndOpenTextWindows:
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $89C9
+    lda !HpPpAnyDirtyWindowFlag
     and.w #$00FF
     beq C2088F_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L088F
-    jsr $077D
+    jsr !C2077D_RedrawDirtyPartyHpPpWindows
 C2088F_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L088F:
-    lda $88E0
-    cmp.w #$FFFF
+    lda !OpenWindowListHead
+    cmp.w #!NoOpenWindowId
     beq C208B6_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L08B6
-    ldy $88E0
+    ldy !OpenWindowListHead
     sty $0E
 C2089C_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L089C:
     tya
-    jsl $C107AF
+    jsl !C107AF_ProcessOpenWindowTextTick
     ldy $0E
     tya
-    ldy.w #$0052
+    ldy.w #!WindowRecordIndexStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    ldy $8652,X
+    ldy !WindowRecordNextWindowIdOffset,X
     sty $0E
-    cpy.w #$FFFF
+    cpy.w #!NoOpenWindowId
     bne C2089C_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L089C
 C208B6_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L08B6:
     pld

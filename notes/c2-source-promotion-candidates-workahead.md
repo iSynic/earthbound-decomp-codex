@@ -43,6 +43,15 @@ The former top three true byte corridors have been promoted and validated:
 
 Historical notes below are retained as evidence for the promotions and for future cleanup/humanization passes.
 
+Semantic humanization update:
+
+- 2026-05-01: the ranked HP/PP window redraw + refresh cluster
+  (`C2:077D..0A20`), managed text-event snapshot/restore pair
+  (`C2:0A20..0B65`), directional menu scanner (`C2:0B65..0D3F`), and HP/PP
+  roller prelude (`C2:0F58..109F`) received byte-neutral local aliases and
+  contract constants. See
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+
 ## Completed True Byte-Corridor Promotions
 
 ### G1) Final Prayer finale controller (split recommended) (`C2:C6F0..C2:CFE5`)

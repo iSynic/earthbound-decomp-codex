@@ -102,6 +102,25 @@ If a target lags below the live value while the corresponding dirty/status field
 
 `C2:109F` is the named HP/PP roller that follows these includes. It is called from `C1:2E14` and `C1:2E44` in the heavier and lighter window tick paths. The early portion picks the current party member from `$986F[$0002 & 3]`, refuses non-party values, then increments/decrements the `$43/$45/$47` and `$49/$4B/$4D` rolling fields using the delta pair from `C2:0F58` or a forced `#$4000/#$0006` pair when `$9696/$9698` demand a fast catch-up.
 
+## Source Polish
+
+2026-05-01 semantic polish promoted the already scaffold-backed source for this
+cluster without changing runtime bytes:
+
+- `C2:077D`, `C2:07B6`, `C2:07E1`, and `C2:087C` now name the HP/PP dirty
+  party-window mask, global redraw latch, focused party slot, player-count
+  bound, and the C2/C1 window redraw/tick helper joins.
+- `C2:08B8` and `C2:0B65` now name the current-window record lookup, window
+  record stride, tilemap/dimension fields, selectable/blocked menu-cell return
+  values, and the no-selection sentinel.
+- `C2:09A0` now names the window-record title upload slot, tilemap clear tile,
+  C4 free-tile helper, upload-slot table, and redraw-all-window latch.
+- `C2:0A20` and `C2:0ABC` now name the managed text-event snapshot layout and
+  the window-record fields copied to and from it.
+- `C2:0F58`, `C2:0F9A`, `C2:1034`, and `C2:108C` now name the HP/PP roller
+  delta pair, scaled-delta flag, roll dirty latch, party slot map, character
+  record stride, and HP/PP current/target/dirty fields.
+
 ## Working Names
 
 These are proposed local names, intentionally phrased as behavior names until we have source-level integration:

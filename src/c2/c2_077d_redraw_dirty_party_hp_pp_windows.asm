@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C203C3_ComposePartyMemberHpPpWindowTiles = $03C3
+
+HpPpDirtyPartyWindowMask   = $9647
+PlayerControlledPartyCount = $98A4
 
 ; ---------------------------------------------------------------------------
 ; C2:077D
@@ -22,7 +25,7 @@ C2077D_RedrawDirtyPartyHpPpWindows:
     tdc
     adc.w #$FFEE
     tcd
-    ldy $9647
+    ldy HpPpDirtyPartyWindowMask
     sty $10
     ldx.w #$0000
     stx $0E
@@ -32,7 +35,7 @@ C20791_C2077D_RedrawDirtyPartyHpPpWindows_L0791:
     and.w #$0001
     beq C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B
     txa
-    jsr $03C3
+    jsr C203C3_ComposePartyMemberHpPpWindowTiles
 C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B:
     ldy $10
     tya
@@ -43,7 +46,7 @@ C2079B_C2077D_RedrawDirtyPartyHpPpWindows_L079B:
     inx
     stx $0E
 C207A7_C2077D_RedrawDirtyPartyHpPpWindows_L07A7:
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     txa

@@ -16,6 +16,22 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_DivideUnsignedWordByIndex   = $C09032
+C44E4D_FreeTileSafe                = $C44E4D
+C07C5B_RefreshDisplayAfterWindowStateChange = $C07C5B
+
+WindowRecordIndexTable        = $88E4
+WindowRecordBase              = $8650
+WindowRecordIndexStride       = $0052
+WindowRecordColumnCount       = $000A
+WindowRecordTileCount         = $000C
+WindowRecordTilemapBase       = $0035
+WindowRecordTitleUploadSlot   = $003B
+WindowRecordTitleScratchByte  = $003C
+WindowTitleUploadSlotTable    = $894E
+RedrawAllWindowsFlag          = $9623
+
+WindowRecordAbsent            = $FFFF
+EmptyWindowTile               = $0040
 
 ; ---------------------------------------------------------------------------
 ; C2:09A0
@@ -30,19 +46,19 @@ C209A0_CloseAndClearCurrentWindowTilemap:
     pla
     asl A
     tax
-    lda $88E4,X
-    cmp.w #$FFFF
+    lda WindowRecordIndexTable,X
+    cmp.w #WindowRecordAbsent
     bne C20A1E_C209A0_CloseAndClearCurrentWindowTilemap_L0A1E
-    ldy.w #$0052
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #WindowRecordBase
     tax
     stx $10
-    ldy $0035,X
+    ldy WindowRecordTilemapBase,X
     sty $0E
-    ldy $000C,X
-    lda $000A,X
+    ldy WindowRecordTileCount,X
+    lda WindowRecordColumnCount,X
     jsl C09032_DivideUnsignedWordByIndex
     sta $02
     bra C209F1_C209A0_CloseAndClearCurrentWindowTilemap_L09F1
@@ -50,9 +66,9 @@ C209D5_C209A0_CloseAndClearCurrentWindowTilemap_L09D5:
     ldy $0E
     lda $0000,Y
     beq C209E0_C209A0_CloseAndClearCurrentWindowTilemap_L09E0
-    jsl $C44E4D
+    jsl C44E4D_FreeTileSafe
 C209E0_C209A0_CloseAndClearCurrentWindowTilemap_L09E0:
-    lda.w #$0040
+    lda.w #EmptyWindowTile
     ldy $0E
     sta $0000,Y
     iny
@@ -65,23 +81,23 @@ C209F1_C209A0_CloseAndClearCurrentWindowTilemap_L09F1:
     lda $02
     bne C209D5_C209A0_CloseAndClearCurrentWindowTilemap_L09D5
     ldx $10
-    lda $003B,X
+    lda WindowRecordTitleUploadSlot,X
     and.w #$00FF
     beq C20A0B_C209A0_CloseAndClearCurrentWindowTilemap_L0A0B
     and.w #$00FF
     dec A
     asl A
     tax
-    lda.w #$FFFF
-    sta $894E,X
+    lda.w #WindowRecordAbsent
+    sta WindowTitleUploadSlotTable,X
 C20A0B_C209A0_CloseAndClearCurrentWindowTilemap_L0A0B:
     ldx $10
     sep #$20
-    stz $003C,X
-    stz $003B,X
+    stz WindowRecordTitleScratchByte,X
+    stz WindowRecordTitleUploadSlot,X
     lda.b #$01
-    sta $9623
-    jsl $C07C5B
+    sta RedrawAllWindowsFlag
+    jsl C07C5B_RefreshDisplayAfterWindowStateChange
 C20A1E_C209A0_CloseAndClearCurrentWindowTilemap_L0A1E:
     pld
     rtl

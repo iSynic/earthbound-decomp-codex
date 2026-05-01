@@ -259,6 +259,12 @@ contract notes for C0/C1/C3/C4 consumers.
   and HP/status helpers, reflected-hit context swaps, Time Stop return text,
   and the diamondize/paralyze/nausea/poison/cold primary-status tails. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-01 thirty-ninth slice: promoted the early
+  window/HPPP/menu-selection corridor with byte-neutral aliases for HP/PP dirty
+  party-window redraw state, open-window ticking, menu-cell classifier/scanner
+  constants, current-window record fields, managed text-event snapshot layout,
+  and HP/PP roller current/target/dirty fields. See
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
 
 ## Validation
 

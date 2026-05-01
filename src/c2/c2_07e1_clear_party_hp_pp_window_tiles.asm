@@ -13,6 +13,19 @@
 
 C0923E_BuildSingleBitMask8 = $C0923E
 
+HpPpDirtyPartyWindowMask  = $9647
+HpPpGlobalRedrawLatch     = $9649
+FocusedPartyHpPpWindowId  = $89CA
+PlayerControlledPartyCount = $98A4
+HpPpWindowTilemapBase     = $7DFE
+
+FocusedHpPpWindowTileRowBase = $0012
+OtherHpPpWindowTileRowBase   = $0013
+HpPpWindowTileWidthWords     = $0007
+HpPpWindowTileHeightRows     = $0008
+HpPpWindowTileStrideBytes    = $0032
+AllPartyWindowDirtyBits      = $FFFF
+
 ; ---------------------------------------------------------------------------
 ; C2:07E1
 
@@ -28,22 +41,22 @@ C207E1_ClearPartyHpPpWindowTiles = UNDRAW_HP_PP_WINDOW
     tax
     stx $10
     lda.w #$0001
-    sta $9649
+    sta HpPpGlobalRedrawLatch
     sep #$10
     txy
     jsl C0923E_BuildSingleBitMask8
-    eor.w #$FFFF
-    and $9647
-    sta $9647
+    eor.w #AllPartyWindowDirtyBits
+    and HpPpDirtyPartyWindowMask
+    sta HpPpDirtyPartyWindowMask
     rep #$10
     ldx $10
-    cpx $89CA
+    cpx FocusedPartyHpPpWindowId
     bne C20814_ClearPartyHpPpWindowTiles_L0814
-    lda.w #$0012
+    lda.w #FocusedHpPpWindowTileRowBase
     sta $0E
     bra C20819_ClearPartyHpPpWindowTiles_L0819
 C20814_ClearPartyHpPpWindowTiles_L0814:
-    lda.w #$0013
+    lda.w #OtherHpPpWindowTileRowBase
     sta $0E
 C20819_ClearPartyHpPpWindowTiles_L0819:
     txa
@@ -53,7 +66,7 @@ C20819_ClearPartyHpPpWindowTiles_L0819:
     asl A
     adc $04
     pha
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $04
     asl A
@@ -84,12 +97,12 @@ C20819_ClearPartyHpPpWindowTiles_L0819:
     clc
     adc $02
     clc
-    adc.w #$7DFE
+    adc.w #HpPpWindowTilemapBase
     tax
-    ldy.w #$0008
+    ldy.w #HpPpWindowTileHeightRows
     bra C20878_ClearPartyHpPpWindowTiles_L0878
 C2085B_ClearPartyHpPpWindowTiles_L085B:
-    lda.w #$0007
+    lda.w #HpPpWindowTileWidthWords
     sta $0E
     bra C2086F_ClearPartyHpPpWindowTiles_L086F
 C20862_ClearPartyHpPpWindowTiles_L0862:
@@ -104,7 +117,7 @@ C2086F_ClearPartyHpPpWindowTiles_L086F:
     bne C20862_ClearPartyHpPpWindowTiles_L0862
     txa
     clc
-    adc.w #$0032
+    adc.w #HpPpWindowTileStrideBytes
     tax
     dey
 C20878_ClearPartyHpPpWindowTiles_L0878:

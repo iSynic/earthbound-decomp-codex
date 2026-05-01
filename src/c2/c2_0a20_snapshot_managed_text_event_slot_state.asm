@@ -13,6 +13,23 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+CurrentFocusedWindowId          = $8958
+WindowRecordIndexTable          = $88E4
+WindowRecordIndexStride         = $0052
+WindowRecordManagedTextState0   = $865E
+WindowRecordManagedTextState2   = $8660
+WindowRecordManagedTextState4   = $8662
+WindowRecordManagedTextState5   = $8663
+WindowRecordManagedTextState7   = $8665
+
+ManagedTextSlotWindowId         = $0000
+ManagedTextSlotState0           = $0002
+ManagedTextSlotState2           = $0004
+ManagedTextSlotState4           = $0006
+ManagedTextSlotState5           = $0007
+ManagedTextSlotState7           = $0009
+NoFocusedWindow                 = $FFFF
+
 ; ---------------------------------------------------------------------------
 ; C2:0A20
 
@@ -26,65 +43,65 @@ C20A20_SnapshotManagedTextEventSlotState:
     pla
     tax
     stx $0E
-    lda $8958
-    sta $0000,X
-    lda $8958
-    cmp.w #$FFFF
+    lda CurrentFocusedWindowId
+    sta ManagedTextSlotWindowId,X
+    lda CurrentFocusedWindowId
+    cmp.w #NoFocusedWindow
     bne C20A3E_SnapshotManagedTextEventSlotState_L0A3E
     jmp.w C20ABA_SnapshotManagedTextEventSlotState_L0ABA
 C20A3E_SnapshotManagedTextEventSlotState_L0A3E:
-    lda $8958
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $865E,X
+    lda WindowRecordManagedTextState0,X
     ldx $0E
-    sta $0002,X
-    lda $8958
+    sta ManagedTextSlotState0,X
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8660,X
+    lda WindowRecordManagedTextState2,X
     ldx $0E
-    sta $0004,X
-    lda $8958
+    sta ManagedTextSlotState2,X
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $8662,X
+    lda WindowRecordManagedTextState4,X
     ldx $0E
-    sta $0006,X
+    sta ManagedTextSlotState4,X
     rep #$20
-    lda $8958
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8663,X
+    lda WindowRecordManagedTextState5,X
     ldx $0E
-    sta $0007,X
-    lda $8958
+    sta ManagedTextSlotState5,X
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $8665,X
+    lda WindowRecordManagedTextState7,X
     ldx $0E
-    sta $0009,X
+    sta ManagedTextSlotState7,X
 C20ABA_SnapshotManagedTextEventSlotState_L0ABA:
     pld
     rtl

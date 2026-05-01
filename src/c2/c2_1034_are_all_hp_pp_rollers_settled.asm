@@ -13,6 +13,21 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+PlayerControlledPartyCount = $98A4
+PartySlotCharacterIds      = $986F
+PartyCharacterRecordBase   = $99CE
+PartyCharacterRecordStride = $005F
+
+CharHpRollDirty            = $0043
+CharCurrentHp              = $0045
+CharTargetHp               = $0047
+CharPpRollDirty            = $0049
+CharCurrentPp              = $004B
+CharTargetPp               = $004D
+
+BoolFalse                  = $0000
+BoolTrue                   = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:1034
 
@@ -26,39 +41,39 @@ C21034_AreAllHpPpRollersSettled:
     sty $0E
     bra C2107A_AreAllHpPpRollersSettled_L107A
 C21043_AreAllHpPpRollersSettled_L1043:
-    lda $986F,Y
+    lda PartySlotCharacterIds,Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterRecordBase
     tax
-    lda $0043,X
+    lda CharHpRollDirty,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $0049,X
+    lda CharPpRollDirty,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $0045,X
-    cmp $0047,X
+    lda CharCurrentHp,X
+    cmp CharTargetHp,X
     bne C21070_AreAllHpPpRollersSettled_L1070
-    lda $004B,X
-    cmp $004D,X
+    lda CharCurrentPp,X
+    cmp CharTargetPp,X
     beq C21075_AreAllHpPpRollersSettled_L1075
 C21070_AreAllHpPpRollersSettled_L1070:
-    lda.w #$0000
+    lda.w #BoolFalse
     bra C2108A_AreAllHpPpRollersSettled_L108A
 C21075_AreAllHpPpRollersSettled_L1075:
     ldy $0E
     iny
     sty $0E
 C2107A_AreAllHpPpRollersSettled_L107A:
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     tya
     cmp $02
     bcc C21043_AreAllHpPpRollersSettled_L1043
-    lda.w #$0001
+    lda.w #BoolTrue
 C2108A_AreAllHpPpRollersSettled_L108A:
     pld
     rtl

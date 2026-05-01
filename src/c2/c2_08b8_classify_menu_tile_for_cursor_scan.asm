@@ -14,6 +14,19 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_DivideUnsignedWordByIndex   = $C09032
 
+CurrentFocusedWindowId      = $8958
+WindowRecordIndexTable      = $88E4
+WindowRecordBase            = $8650
+WindowRecordIndexStride     = $0052
+WindowRecordTilemapBase     = $0035
+WindowRecordColumnCount     = $000A
+
+TileIdMask                  = $03FF
+SelectableMenuCellTileA     = $004F
+SelectableMenuCellTileB     = $0041
+SelectableMenuCellResult    = $002F
+BlockedMenuCellResult       = $0040
+
 ; ---------------------------------------------------------------------------
 ; C2:08B8
 
@@ -27,20 +40,20 @@ C208B8_ClassifyMenuTileForCursorScan:
     pla
     stx $12
     sta $10
-    lda $8958
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #WindowRecordBase
     tay
     sty $0E
     lda $10
     asl A
     sta $02
-    lda $000A,Y
+    lda WindowRecordColumnCount,Y
     tay
     ldx $12
     txa
@@ -49,21 +62,21 @@ C208B8_ClassifyMenuTileForCursorScan:
     asl A
     ldy $0E
     clc
-    adc $0035,Y
+    adc WindowRecordTilemapBase,Y
     clc
     adc $02
     tax
     lda $0000,X
-    and.w #$03FF
-    cmp.w #$004F
+    and.w #TileIdMask
+    cmp.w #SelectableMenuCellTileA
     beq C20908_ClassifyMenuTileForCursorScan_L0908
-    cmp.w #$0041
+    cmp.w #SelectableMenuCellTileB
     bne C2090D_ClassifyMenuTileForCursorScan_L090D
 C20908_ClassifyMenuTileForCursorScan_L0908:
-    lda.w #$002F
+    lda.w #SelectableMenuCellResult
     bra C20910_ClassifyMenuTileForCursorScan_L0910
 C2090D_ClassifyMenuTileForCursorScan_L090D:
-    lda.w #$0040
+    lda.w #BlockedMenuCellResult
 C20910_ClassifyMenuTileForCursorScan_L0910:
     pld
     rtl

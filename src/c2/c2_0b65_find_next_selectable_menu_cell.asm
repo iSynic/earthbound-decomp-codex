@@ -15,6 +15,16 @@ C08FF7_ResolveIndexedPointerOffset       = $C08FF7
 C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 C208B8_ClassifyMenuTileForCursorScan     = $C208B8
 
+CurrentFocusedWindowId  = $8958
+WindowRecordIndexTable  = $88E4
+WindowRecordBase        = $8650
+WindowRecordIndexStride = $0052
+WindowRecordColumnCount = $000A
+WindowRecordTileCount   = $000C
+
+SelectableMenuCellResult = $002F
+NoSelectableMenuCell     = $FFFF
+
 ; ---------------------------------------------------------------------------
 ; C2:0B65
 
@@ -33,14 +43,14 @@ C20B65_FindNextSelectableMenuCell:
     stx $16
     ldy $2A
     sty $14
-    lda $8958
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #WindowRecordBase
     sta $12
     lda $18
     sta $02
@@ -62,7 +72,7 @@ C20BAC_FindNextSelectableMenuCell_L0BAC:
     lda $10
     sta $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     bne C20BBD_FindNextSelectableMenuCell_L0BBD
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20BBD_FindNextSelectableMenuCell_L0BBD:
@@ -73,7 +83,7 @@ C20BBD_FindNextSelectableMenuCell_L0BBD:
     tay
     sty $0E
 C20BC6_FindNextSelectableMenuCell_L0BC6:
-    ldy.w #$000C
+    ldy.w #WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -98,7 +108,7 @@ C20BE8_FindNextSelectableMenuCell_L0BE8:
     tyx
     lda $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     bne C20BF9_FindNextSelectableMenuCell_L0BF9
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20BF9_FindNextSelectableMenuCell_L0BF9:
@@ -106,7 +116,7 @@ C20BF9_FindNextSelectableMenuCell_L0BF9:
     dec A
     sta $02
 C20BFE_FindNextSelectableMenuCell_L0BFE:
-    ldy.w #$000A
+    ldy.w #WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20BE8_FindNextSelectableMenuCell_L0BE8
@@ -120,7 +130,7 @@ C20BFE_FindNextSelectableMenuCell_L0BFE:
     tay
     sty $0E
 C20C16_FindNextSelectableMenuCell_L0C16:
-    ldy.w #$000C
+    ldy.w #WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -144,13 +154,13 @@ C20C37_FindNextSelectableMenuCell_L0C37:
     tyx
     lda $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     bne C20C48_FindNextSelectableMenuCell_L0C48
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20C48_FindNextSelectableMenuCell_L0C48:
     inc $02
 C20C4A_FindNextSelectableMenuCell_L0C4A:
-    ldy.w #$000A
+    ldy.w #WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20C37_FindNextSelectableMenuCell_L0C37
@@ -162,7 +172,7 @@ C20C4A_FindNextSelectableMenuCell_L0C4A:
     tay
     sty $0E
 C20C5E_FindNextSelectableMenuCell_L0C5E:
-    ldy.w #$000C
+    ldy.w #WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $02
@@ -182,7 +192,7 @@ C20C79_FindNextSelectableMenuCell_L0C79:
     tyx
     lda $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     bne C20C8A_FindNextSelectableMenuCell_L0C8A
     jmp.w C20D26_FindNextSelectableMenuCell_L0D26
 C20C8A_FindNextSelectableMenuCell_L0C8A:
@@ -191,7 +201,7 @@ C20C8A_FindNextSelectableMenuCell_L0C8A:
     adc $14
     sta $02
 C20C91_FindNextSelectableMenuCell_L0C91:
-    ldy.w #$000A
+    ldy.w #WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20C79_FindNextSelectableMenuCell_L0C79
@@ -209,13 +219,13 @@ C20CAA_FindNextSelectableMenuCell_L0CAA:
     tyx
     lda $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     beq C20D26_FindNextSelectableMenuCell_L0D26
     ldy $0E
     dey
     sty $0E
 C20CBB_FindNextSelectableMenuCell_L0CBB:
-    ldy.w #$000C
+    ldy.w #WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $04
@@ -230,7 +240,7 @@ C20CBB_FindNextSelectableMenuCell_L0CBB:
     adc $14
     sta $02
 C20CD5_FindNextSelectableMenuCell_L0CD5:
-    ldy.w #$000A
+    ldy.w #WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20CA3_FindNextSelectableMenuCell_L0CA3
@@ -249,13 +259,13 @@ C20CEF_FindNextSelectableMenuCell_L0CEF:
     tyx
     lda $02
     jsl C208B8_ClassifyMenuTileForCursorScan
-    cmp.w #$002F
+    cmp.w #SelectableMenuCellResult
     beq C20D26_FindNextSelectableMenuCell_L0D26
     ldy $0E
     iny
     sty $0E
 C20D00_FindNextSelectableMenuCell_L0D00:
-    ldy.w #$000C
+    ldy.w #WindowRecordTileCount
     lda ($12),Y
     lsr A
     sta $04
@@ -269,16 +279,16 @@ C20D00_FindNextSelectableMenuCell_L0D00:
     adc $14
     sta $02
 C20D18_FindNextSelectableMenuCell_L0D18:
-    ldy.w #$000A
+    ldy.w #WindowRecordColumnCount
     lda $02
     cmp ($12),Y
     bcc C20CE9_FindNextSelectableMenuCell_L0CE9
 C20D21_FindNextSelectableMenuCell_L0D21:
-    lda.w #$FFFF
+    lda.w #NoSelectableMenuCell
     bra C20D3D_FindNextSelectableMenuCell_L0D3D
 C20D26_FindNextSelectableMenuCell_L0D26:
     lda $16
-    cmp.w #$FFFF
+    cmp.w #NoSelectableMenuCell
     beq C20D33_FindNextSelectableMenuCell_L0D33
     lda $16
     jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue

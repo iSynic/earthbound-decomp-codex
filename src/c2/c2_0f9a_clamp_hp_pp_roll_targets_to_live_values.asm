@@ -13,6 +13,22 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+PlayerControlledPartyCount = $98A4
+PartySlotCharacterIds      = $986F
+PartyCharacterRecordBase   = $99CE
+PartyCharacterRecordStride = $005F
+HpPpRollDirtyLatch         = $9696
+
+CharBattleStateByte        = $000E
+CharHpRollDirty            = $0043
+CharCurrentHp              = $0045
+CharTargetHp               = $0047
+CharPpRollDirty            = $0049
+CharCurrentPp              = $004B
+CharTargetPp               = $004D
+
+BattleStateAlive           = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:0F9A
 
@@ -28,30 +44,30 @@ C20F9A_ClampHpPpRollTargetsToLiveValues = RESET_HPPP_ROLLING
     bra C21016_ClampHpPpRollTargetsToLiveValues_L1016
 C20FA9_ClampHpPpRollTargetsToLiveValues_L0FA9:
     ldx $02
-    lda $986F,X
+    lda PartySlotCharacterIds,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterRecordBase
     tay
-    lda $000E,Y
+    lda CharBattleStateByte,Y
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #BattleStateAlive
     beq C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4
-    lda $0045,Y
+    lda CharCurrentHp,Y
     bne C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4
-    lda.w #$0001
-    sta $0047,Y
+    lda.w #BattleStateAlive
+    sta CharTargetHp,Y
 C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4:
-    lda $0043,Y
+    lda CharHpRollDirty,Y
     beq C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4
-    lda $0045,Y
+    lda CharCurrentHp,Y
     sta $0E
     tya
     clc
-    adc.w #$0047
+    adc.w #CharTargetHp
     tax
     lda $0000,X
     sta $04
@@ -61,13 +77,13 @@ C20FD4_ClampHpPpRollTargetsToLiveValues_L0FD4:
     beq C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4
     sta $0000,X
 C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4:
-    lda $0049,Y
+    lda CharPpRollDirty,Y
     beq C21014_ClampHpPpRollTargetsToLiveValues_L1014
-    lda $004B,Y
+    lda CharCurrentPp,Y
     sta $0E
     tya
     clc
-    adc.w #$004D
+    adc.w #CharTargetPp
     tax
     lda $0000,X
     sta $04
@@ -79,7 +95,7 @@ C20FF4_ClampHpPpRollTargetsToLiveValues_L0FF4:
 C21014_ClampHpPpRollTargetsToLiveValues_L1014:
     inc $02
 C21016_ClampHpPpRollTargetsToLiveValues_L1016:
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $04
     lda $02
@@ -90,7 +106,7 @@ C21016_ClampHpPpRollTargetsToLiveValues_L1016:
 C21029_ClampHpPpRollTargetsToLiveValues_L1029:
     sep #$20
     lda.b #$01
-    sta $9696
+    sta HpPpRollDirtyLatch
     rep #$20
     pld
     rtl

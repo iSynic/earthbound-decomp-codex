@@ -13,6 +13,11 @@
 
 C09262_ScaleHpPpRollDeltaPair = $C09262
 
+HpPpUseScaledRollDeltaFlag = $9695
+HpPpRollDeltaHp            = $9627
+HpPpRollDeltaPp            = $9629
+HpPpRollScaleModeDefault   = $01
+
 ; ---------------------------------------------------------------------------
 ; C2:0F58
 
@@ -22,14 +27,14 @@ C20F58_SelectHpPpRollDelta:
     tdc
     adc.w #$FFF2
     tcd
-    lda $9695
+    lda HpPpUseScaledRollDeltaFlag
     and.w #$00FF
     beq C20F84_SelectHpPpRollDelta_L0F84
     sep #$10
-    ldy.b #$01
-    lda $9627
+    ldy.b #HpPpRollScaleModeDefault
+    lda HpPpRollDeltaHp
     sta $06
-    lda $9629
+    lda HpPpRollDeltaPp
     sta $08
     jsl C09262_ScaleHpPpRollDeltaPair
     lda $06
@@ -38,9 +43,9 @@ C20F58_SelectHpPpRollDelta:
     sta $16
     bra C20F96_SelectHpPpRollDelta_L0F96
 C20F84_SelectHpPpRollDelta_L0F84:
-    lda $9627
+    lda HpPpRollDeltaHp
     sta $06
-    lda $9629
+    lda HpPpRollDeltaPp
     sta $08
     lda $06
     sta $14

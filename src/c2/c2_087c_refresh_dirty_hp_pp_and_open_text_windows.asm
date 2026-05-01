@@ -12,6 +12,14 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C107AF_ProcessOpenWindowTextTick   = $C107AF
+C2077D_RedrawDirtyPartyHpPpWindows = $077D
+
+OpenWindowListHead             = $88E0
+HpPpAnyDirtyWindowFlag         = $89C9
+WindowRecordIndexStride        = $0052
+WindowRecordNextWindowIdOffset = $8652
+NoOpenWindowId                 = $FFFF
 
 ; ---------------------------------------------------------------------------
 ; C2:087C
@@ -22,27 +30,27 @@ C2087C_RefreshDirtyHpPpAndOpenTextWindows:
     tdc
     adc.w #$FFF0
     tcd
-    lda $89C9
+    lda HpPpAnyDirtyWindowFlag
     and.w #$00FF
     beq C2088F_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L088F
-    jsr $077D
+    jsr C2077D_RedrawDirtyPartyHpPpWindows
 C2088F_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L088F:
-    lda $88E0
-    cmp.w #$FFFF
+    lda OpenWindowListHead
+    cmp.w #NoOpenWindowId
     beq C208B6_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L08B6
-    ldy $88E0
+    ldy OpenWindowListHead
     sty $0E
 C2089C_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L089C:
     tya
-    jsl $C107AF
+    jsl C107AF_ProcessOpenWindowTextTick
     ldy $0E
     tya
-    ldy.w #$0052
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    ldy $8652,X
+    ldy WindowRecordNextWindowIdOffset,X
     sty $0E
-    cpy.w #$FFFF
+    cpy.w #NoOpenWindowId
     bne C2089C_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L089C
 C208B6_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L08B6:
     pld
