@@ -7215,6 +7215,86 @@ org $EFE175
 !C24821_LoadDebugModeFourScreen = $C24821
 !C46631_LoadSpecialWindowOrPalette = $C46631
 !EFEB2A_ResetDebugColorMathDmaRegisters = $EFEB2A
+!ScratchValue = $0E
+!DebugModeCameraX = $04
+!DebugModeCameraY = $02
+!DebugModeEntityId = $1C
+!SavedDebugModeCameraX = $B561
+!SavedDebugModeCameraY = $B563
+!SavedDebugModeEntityId = $B565
+!DebugInputPlaybackViewActive = $B567
+!SavedDebugPlaybackCameraX = $B569
+!SavedDebugPlaybackCameraY = $B56B
+!SavedDebugPlayerX = $B56D
+!SavedDebugPlayerY = $B56F
+!SavedDebugPlayerDirection = $B571
+!SavedDebugPlayerEntitySlot = $B573
+!DebugViewCharacterHoldFlag = $B575
+!DebugMenuMode = $B559
+!DebugCursorSpriteSlot = $B553
+!DebugMenuCommandRow = $B555
+!DebugMenuCommandInputLatch = $B557
+!DebugOverlayTileMode = $B55F
+!DebugMenuCursorRowTable = $0BCA
+!DebugModeCameraXMirror = $9877
+!DebugModeCameraYMirror = $987B
+!DebugModeCameraRegion = $987F
+!PressedInputButtons = $006D
+!HeldInputButtons = $0069
+!HeldInputButtonsAlt = $0065
+!HeldInputButtonsViewCharacter = $006B
+!HeldInputButtonsOverlay = $006F
+!PresentationFlag4A58 = $4A58
+!PresentationCounter4A5A = $4A5A
+!DebugViewCharacterInitialObjectId = $4A5E
+!DebugMenuIntroStartCameraX = $0080
+!DebugMenuIntroStartCameraY = $0070
+!DebugMenuIntroStartEntityId = $0094
+!DebugMenuCommandRowGame = $0000
+!DebugMenuCommandRowViewMap = $0001
+!DebugMenuCommandRowViewCharacter = $0002
+!DebugMenuCommandRowViewAttribute = $0003
+!DebugMenuCommandRowShowBattle = $0004
+!DebugMenuCommandRowCheckPosition = $0005
+!DebugMenuCommandRowSoundMode = $0006
+!DebugMenuCommandRowCount = $0007
+!DebugMenuCommandRowMax = $0006
+!DebugMenuModeGame = $0001
+!DebugMenuModeViewCharacter = $0002
+!DebugMenuModeViewAttribute = $0003
+!DebugMenuModeShowBattle = $0004
+!DebugMenuModeCheckPosition = $0005
+!DebugMenuModeSound = $0006
+!DebugMenuModeOneCommandClamp = $000A
+!DebugModeCheckPositionOverlayCount = $0004
+!DebugMenuCursorBaseY = $0034
+!DebugMenuTransitionLayer = $0001
+!DebugMenuTransitionMode = $0004
+!DebugMenuDefaultPaletteMarker = $FFFF
+!DebugViewCharacterObjectId = $000A
+!InputMenuCursorUp = $0800
+!InputMenuCursorDown = $0400
+!InputDebugCommandLatchMask = $90A0
+!InputOpenDebugModeOneMenu = $8000
+!InputSaveDebugModeStateChord = $3000
+!InputOpenPartyStatusMenu = $4000
+!InputCycleOverlayTileMode = $2000
+!InputConfirmDebugMode = $0080
+!InputMarkViewCharacterHold = $0040
+!InputViewCharacterNext = $0800
+!InputViewCharacterPrevious = $0400
+!InputViewCharacterHide = $4000
+!InputViewCharacterShow = $0040
+!InputViewCharacterSpawnAtPlayer = $0080
+!InputViewCharacterBuildPath = $8000
+!ZeroWord = $0000
+!OneWord = $0001
+!InvalidWord = $FFFF
+!DebugMapPaletteSet1 = $0001
+!DebugMapPaletteSet2 = $0002
+!DebugMapPaletteSet3 = $0003
+!DebugSpecialPaletteSelector = $00FF
+!ProcessorStatus16BitAIndexCarryClear = $31
 !DebugColorMathWindowTableLo = $EB1D
 !EfBankByte = $EF
 !DebugColorMathWindowLeft = $18
@@ -7242,46 +7322,46 @@ org $EFE175
 !HdmaEnableShadow = $001F
 !AccumulatorWidthFlag = $20
 EFE175_RunDebugMenuModeRuntime:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFE2
     tcd
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
     lda.w #$007F
     sta $08
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta [$06]
-    lda $B561
-    sta $04
-    lda $B563
-    sta $02
+    lda !SavedDebugModeCameraX
+    sta !DebugModeCameraX
+    lda !SavedDebugModeCameraY
+    sta !DebugModeCameraY
     jsl !C08726_BlankWaitAndDisableHdma
     jsl !C0927C_PollOrRefreshInputState
     jsl !C01A86_ResetEntityBytePool467E
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     lda.w #$8000
     jsl !C01C11_InitializeEntityStateMask
     jsl !C01A69_ResetEntitySlotStateTables
-    lda $B565
-    sta $1C
+    lda !SavedDebugModeEntityId
+    sta !DebugModeEntityId
     lda.w #$0017
     sta $0A4C
     lda.w #$0018
     sta $0A4E
     lda.w #$0003
     sta $0A4A
-    lda $04
-    sta $9877
-    lda $02
-    sta $987B
-    ldy.w #$0000
+    lda !DebugModeCameraX
+    sta !DebugModeCameraXMirror
+    lda !DebugModeCameraY
+    sta !DebugModeCameraYMirror
+    ldy.w #!ZeroWord
     tyx
-    lda.w #$0001
+    lda.w #!OneWord
     jsl !C09321_InitDelayedActionState
     jsl !C02D29_ResetPresentationTilemapState
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     bra EFE1EB_DebugMenuRuntimeAndMapViewHelpers_LE1EB
 EFE1E5_DebugMenuRuntimeAndMapViewHelpers_LE1E5:
     sep #$20
@@ -7290,35 +7370,35 @@ EFE1E5_DebugMenuRuntimeAndMapViewHelpers_LE1E5:
 EFE1EB_DebugMenuRuntimeAndMapViewHelpers_LE1EB:
     cpx.w #$0006
     bcc EFE1E5_DebugMenuRuntimeAndMapViewHelpers_LE1E5
-    rep #$20
-    lda.w #$0001
+    rep #!AccumulatorWidthFlag
+    lda.w #!DebugMapPaletteSet1
     jsl !C228F8_LoadMapPaletteSet
-    lda $B559
-    cmp.w #$0005
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeCheckPosition
     beq EFE217_DebugMenuRuntimeAndMapViewHelpers_LE217
-    lda $B559
-    cmp.w #$0003
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewAttribute
     beq EFE217_DebugMenuRuntimeAndMapViewHelpers_LE217
-    lda.w #$0002
+    lda.w #!DebugMapPaletteSet2
     jsl !C228F8_LoadMapPaletteSet
-    lda.w #$0003
+    lda.w #!DebugMapPaletteSet3
     jsl !C228F8_LoadMapPaletteSet
 EFE217_DebugMenuRuntimeAndMapViewHelpers_LE217:
-    lda.w #$00FF
+    lda.w #!DebugSpecialPaletteSelector
     jsl !C46631_LoadSpecialWindowOrPalette
     ldx.w #$0080
     stx $0B46
     ldx.w #$0070
     stx $0B82
-    lda $B559
-    cmp.w #$0002
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     bne EFE268_DebugMenuRuntimeAndMapViewHelpers_LE268
     lda.w #$0020
     sta $0E
     sta $10
     ldy.w #$FFFF
     ldx.w #$0004
-    lda $1C
+    lda !DebugModeEntityId
     jsl !C01E49_CreateEntityFromDescriptor
     sta $1A
     asl A
@@ -7337,25 +7417,25 @@ EFE217_DebugMenuRuntimeAndMapViewHelpers_LE217:
     ora.w #$8000
     sta $0000,X
 EFE268_DebugMenuRuntimeAndMapViewHelpers_LE268:
-    sep #$20
+    sep #!AccumulatorWidthFlag
     stz $0E
     ldx.w #$0200
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda.w #$0200
     jsl !C08EFC_CommitTileBufferToStaging
     jsl $C0004B
-    ldx $02
-    lda $04
+    ldx !DebugModeCameraY
+    lda !DebugModeCameraX
     jsl !C013F6_UpdateOverworldCameraFromCoordinates
     ldy.w #$0004
-    ldx $02
-    lda $04
+    ldx !DebugModeCameraY
+    lda !DebugModeCameraX
     jsl !C03FA9_RefreshPostTransitionEntityPlacement
     jsl !EFD95E_DebugMenuGraphicsAndStateInit
-    lda $B559
-    cmp.w #$0003
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewAttribute
     bne EFE2BB_DebugMenuRuntimeAndMapViewHelpers_LE2BB
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda.b #$13
     sta $001A
     lda.b #$04
@@ -7364,27 +7444,27 @@ EFE268_DebugMenuRuntimeAndMapViewHelpers_LE268:
     sta $002130
     lda.b #$47
     sta $002131
-    rep #$20
-    lda.w #$0003
-    sta $B559
+    rep #!AccumulatorWidthFlag
+    lda.w #!DebugMenuModeViewAttribute
+    sta !DebugMenuMode
 EFE2BB_DebugMenuRuntimeAndMapViewHelpers_LE2BB:
-    lda $B559
-    cmp.w #$0005
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeCheckPosition
     bne EFE2C7_DebugMenuRuntimeAndMapViewHelpers_LE2C7
     jsl EFEAC8_InstallDebugColorMathDmaRegisters
 EFE2C7_DebugMenuRuntimeAndMapViewHelpers_LE2C7:
     lda.w #$DC4E
     jsl !C0851C_SetFrameCallbackPtr
     jsl !C08744_OpenDisplayTransitionBracket
-    ldx.w #$0001
+    ldx.w #!DebugMenuTransitionLayer
     txa
     jsl !C0886C_SetDisplayTransitionState
 EFE2DA_DebugMenuRuntimeAndMapViewHelpers_LE2DA:
     jsl !C088B1_ResetRendererFrameState
-    lda $B559
-    cmp.w #$0002
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     beq EFE2ED_DebugMenuRuntimeAndMapViewHelpers_LE2ED
-    cmp.w #$0005
+    cmp.w #!DebugMenuModeCheckPosition
     beq EFE2F2_DebugMenuRuntimeAndMapViewHelpers_LE2F2
     bra EFE2F5_DebugMenuRuntimeAndMapViewHelpers_LE2F5
 EFE2ED_DebugMenuRuntimeAndMapViewHelpers_LE2ED:
@@ -7393,17 +7473,17 @@ EFE2ED_DebugMenuRuntimeAndMapViewHelpers_LE2ED:
 EFE2F2_DebugMenuRuntimeAndMapViewHelpers_LE2F2:
     jsr DISPLAY_CHECK_POSITION_DEBUG_OVERLAY
 EFE2F5_DebugMenuRuntimeAndMapViewHelpers_LE2F5:
-    lda $006D
-    and.w #$0080
+    lda !PressedInputButtons
+    and.w #!InputConfirmDebugMode
     bne EFE300_DebugMenuRuntimeAndMapViewHelpers_LE300
     jmp.w EFE387_DebugMenuRuntimeAndMapViewHelpers_LE387
 EFE300_DebugMenuRuntimeAndMapViewHelpers_LE300:
     stz $5D60
-    lda $0065
-    and.w #$0040
+    lda !HeldInputButtonsAlt
+    and.w #!InputMarkViewCharacterHold
     beq EFE311_DebugMenuRuntimeAndMapViewHelpers_LE311
     lda.w #$FFFF
-    sta $B575
+    sta !DebugViewCharacterHoldFlag
 EFE311_DebugMenuRuntimeAndMapViewHelpers_LE311:
     lda.w #$FFFF
     sta $4370
@@ -7415,49 +7495,49 @@ EFE311_DebugMenuRuntimeAndMapViewHelpers_LE311:
     and.w #$FFF8
     sta $4382
     jsl !C08726_BlankWaitAndDisableHdma
-    lda.w #$9877
-    sta $04
-    lda.w #$987B
-    sta $02
-    ldx $02
+    lda.w #!DebugModeCameraXMirror
+    sta !DebugModeCameraX
+    lda.w #!DebugModeCameraYMirror
+    sta !DebugModeCameraY
+    ldx !DebugModeCameraY
     lda $0000,X
     tax
     stx $16
-    ldx $04
+    ldx !DebugModeCameraX
     lda $0000,X
     ldx $16
     jsl !C013F6_UpdateOverworldCameraFromCoordinates
-    ldy $987F
-    ldx $02
+    ldy !DebugModeCameraRegion
+    ldx !DebugModeCameraY
     lda $0000,X
     tax
     stx $16
-    ldx $04
+    ldx !DebugModeCameraX
     lda $0000,X
     ldx $16
     jsl !C03FA9_RefreshPostTransitionEntityPlacement
     jsl !EFD95E_DebugMenuGraphicsAndStateInit
-    stz $B575
-    lda $B559
-    cmp.w #$0005
+    stz !DebugViewCharacterHoldFlag
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeCheckPosition
     bne EFE376_DebugMenuRuntimeAndMapViewHelpers_LE376
     jsl EFEAC8_InstallDebugColorMathDmaRegisters
 EFE376_DebugMenuRuntimeAndMapViewHelpers_LE376:
     jsl !C08744_OpenDisplayTransitionBracket
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0004
+    ldy.w #!ZeroWord
+    ldx.w #!DebugMenuTransitionLayer
+    lda.w #!DebugMenuTransitionMode
     jsl !C087CE_SetDisplayTransitionConfig
 EFE387_DebugMenuRuntimeAndMapViewHelpers_LE387:
-    lda $B559
-    cmp.w #$0002
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     beq EFE392_DebugMenuRuntimeAndMapViewHelpers_LE392
     jmp.w EFE4C2_DebugMenuRuntimeAndMapViewHelpers_LE4C2
 EFE392_DebugMenuRuntimeAndMapViewHelpers_LE392:
     ldy $1C
-    lda $006B
+    lda !HeldInputButtonsViewCharacter
     sta $14
-    and.w #$0800
+    and.w #!InputViewCharacterNext
     beq EFE3AD_DebugMenuRuntimeAndMapViewHelpers_LE3AD
     lda $1C
     cmp.w #$014D
@@ -7469,7 +7549,7 @@ EFE3A9_DebugMenuRuntimeAndMapViewHelpers_LE3A9:
     bra EFE3C1_DebugMenuRuntimeAndMapViewHelpers_LE3C1
 EFE3AD_DebugMenuRuntimeAndMapViewHelpers_LE3AD:
     lda $14
-    and.w #$0400
+    and.w #!InputViewCharacterPrevious
     beq EFE3C1_DebugMenuRuntimeAndMapViewHelpers_LE3C1
     lda $1C
     beq EFE3BC_DebugMenuRuntimeAndMapViewHelpers_LE3BC
@@ -7479,8 +7559,8 @@ EFE3BC_DebugMenuRuntimeAndMapViewHelpers_LE3BC:
     lda.w #$0144
     sta $1C
 EFE3C1_DebugMenuRuntimeAndMapViewHelpers_LE3C1:
-    lda $006F
-    and.w #$0040
+    lda !HeldInputButtonsOverlay
+    and.w #!InputViewCharacterShow
     beq EFE3EC_DebugMenuRuntimeAndMapViewHelpers_LE3EC
     lda $1A
     asl A
@@ -7499,8 +7579,8 @@ EFE3C1_DebugMenuRuntimeAndMapViewHelpers_LE3C1:
     ora.w #$8000
     sta $0000,X
 EFE3EC_DebugMenuRuntimeAndMapViewHelpers_LE3EC:
-    lda $006F
-    and.w #$4000
+    lda !HeldInputButtonsOverlay
+    and.w #!InputViewCharacterHide
     beq EFE417_DebugMenuRuntimeAndMapViewHelpers_LE417
     lda $1A
     asl A
@@ -7534,8 +7614,8 @@ EFE417_DebugMenuRuntimeAndMapViewHelpers_LE417:
     tax
     stz $2C9A,X
 EFE438_DebugMenuRuntimeAndMapViewHelpers_LE438:
-    lda $006F
-    and.w #$0080
+    lda !HeldInputButtonsOverlay
+    and.w #!InputViewCharacterSpawnAtPlayer
     beq EFE474_DebugMenuRuntimeAndMapViewHelpers_LE474
     lda $1A
     asl A
@@ -7562,13 +7642,13 @@ EFE438_DebugMenuRuntimeAndMapViewHelpers_LE438:
     tax
     stz $2C9A,X
 EFE474_DebugMenuRuntimeAndMapViewHelpers_LE474:
-    lda $006F
-    and.w #$8000
+    lda !HeldInputButtonsOverlay
+    and.w #!InputViewCharacterBuildPath
     beq EFE4C2_DebugMenuRuntimeAndMapViewHelpers_LE4C2
     ldy $0031
     lda $0033
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $02
     bra EFE49C_DebugMenuRuntimeAndMapViewHelpers_LE49C
 EFE48B_DebugMenuRuntimeAndMapViewHelpers_LE48B:
@@ -7599,49 +7679,49 @@ EFE49C_DebugMenuRuntimeAndMapViewHelpers_LE49C:
     jsl !C0BD96_BuildPathRequestToPartyMemberAndApplyStep
 EFE4C2_DebugMenuRuntimeAndMapViewHelpers_LE4C2:
     jsl !C09466_RefreshActiveEntitySpriteState
-    lda $0065
-    and.w #$3000
-    cmp.w #$3000
+    lda !HeldInputButtonsAlt
+    and.w #!InputSaveDebugModeStateChord
+    cmp.w #!InputSaveDebugModeStateChord
     bne EFE4E4_DebugMenuRuntimeAndMapViewHelpers_LE4E4
     lda $0BBE
-    sta $B561
+    sta !SavedDebugModeCameraX
     lda $0BFA
-    sta $B563
-    lda $1C
-    sta $B565
+    sta !SavedDebugModeCameraY
+    lda !DebugModeEntityId
+    sta !SavedDebugModeEntityId
     bra EFE554_DebugMenuRuntimeAndMapViewHelpers_LE554
 EFE4E4_DebugMenuRuntimeAndMapViewHelpers_LE4E4:
-    lda $006D
-    and.w #$4000
+    lda !PressedInputButtons
+    and.w #!InputOpenPartyStatusMenu
     beq EFE4F0_DebugMenuRuntimeAndMapViewHelpers_LE4F0
     jsl !C12E63_OpenPartyStatusMenu
 EFE4F0_DebugMenuRuntimeAndMapViewHelpers_LE4F0:
-    lda $B559
-    cmp.w #$0003
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewAttribute
     bne EFE524_DebugMenuRuntimeAndMapViewHelpers_LE524
     lda $0031
     sta $0039
     lda $0033
     sta $003B
-    lda $006D
-    and.w #$2000
+    lda !PressedInputButtons
+    and.w #!InputCycleOverlayTileMode
     beq EFE524_DebugMenuRuntimeAndMapViewHelpers_LE524
-    ldx $B55F
+    ldx !DebugOverlayTileMode
     inx
-    stx $B55F
-    cpx.w #$0004
+    stx !DebugOverlayTileMode
+    cpx.w #!DebugModeCheckPositionOverlayCount
     bne EFE51B_DebugMenuRuntimeAndMapViewHelpers_LE51B
-    stz $B55F
+    stz !DebugOverlayTileMode
 EFE51B_DebugMenuRuntimeAndMapViewHelpers_LE51B:
-    ldx $987B
-    lda $9877
+    ldx !DebugModeCameraYMirror
+    lda !DebugModeCameraXMirror
     jsr !EFE133_DrawDebugOverlayTileRowSweep
 EFE524_DebugMenuRuntimeAndMapViewHelpers_LE524:
-    lda $B559
-    cmp.w #$0001
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeGame
     bne EFE538_DebugMenuRuntimeAndMapViewHelpers_LE538
-    lda $006D
-    and.w #$8000
+    lda !PressedInputButtons
+    and.w #!InputOpenDebugModeOneMenu
     beq EFE538_DebugMenuRuntimeAndMapViewHelpers_LE538
     jsl !C134A7_OpenDebugModeOneMenu
 EFE538_DebugMenuRuntimeAndMapViewHelpers_LE538:
@@ -7660,7 +7740,7 @@ EFE554_DebugMenuRuntimeAndMapViewHelpers_LE554:
     rts
 LOAD_DEBUG_CURSOR_GRAPHICS:
 !EFE556_LoadDebugCursorGraphics = LOAD_DEBUG_CURSOR_GRAPHICS
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFEE
@@ -7678,38 +7758,38 @@ LOAD_DEBUG_CURSOR_GRAPHICS:
     rtl
 DEBUG_HANDLE_CURSOR_MOVEMENT:
 !EFE578_HandleDebugCursorMovement = DEBUG_HANDLE_CURSOR_MOVEMENT
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $0069
-    sta $0E
-    and.w #$0800
+    lda !HeldInputButtons
+    sta !ScratchValue
+    and.w #!InputMenuCursorUp
     beq EFE59A_DebugMenuRuntimeAndMapViewHelpers_LE59A
-    lda $B555
+    lda !DebugMenuCommandRow
     beq EFE594_DebugMenuRuntimeAndMapViewHelpers_LE594
-    dec $B555
+    dec !DebugMenuCommandRow
     bra EFE59A_DebugMenuRuntimeAndMapViewHelpers_LE59A
 EFE594_DebugMenuRuntimeAndMapViewHelpers_LE594:
-    lda.w #$0006
-    sta $B555
+    lda.w #!DebugMenuCommandRowMax
+    sta !DebugMenuCommandRow
 EFE59A_DebugMenuRuntimeAndMapViewHelpers_LE59A:
-    lda $0E
-    and.w #$0400
+    lda !ScratchValue
+    and.w #!InputMenuCursorDown
     beq EFE5B1_DebugMenuRuntimeAndMapViewHelpers_LE5B1
-    lda $B555
-    cmp.w #$0006
+    lda !DebugMenuCommandRow
+    cmp.w #!DebugMenuCommandRowMax
     beq EFE5AE_DebugMenuRuntimeAndMapViewHelpers_LE5AE
-    inc $B555
+    inc !DebugMenuCommandRow
     bra EFE5B1_DebugMenuRuntimeAndMapViewHelpers_LE5B1
 EFE5AE_DebugMenuRuntimeAndMapViewHelpers_LE5AE:
-    stz $B555
+    stz !DebugMenuCommandRow
 EFE5B1_DebugMenuRuntimeAndMapViewHelpers_LE5B1:
-    lda $B553
+    lda !DebugCursorSpriteSlot
     asl A
     tax
-    lda $B555
+    lda !DebugMenuCommandRow
     sta $04
     asl A
     adc $04
@@ -7717,106 +7797,106 @@ EFE5B1_DebugMenuRuntimeAndMapViewHelpers_LE5B1:
     asl A
     asl A
     clc
-    adc.w #$0034
-    sta $0BCA,X
-    lda $006D
-    and.w #$90A0
-    sta $B557
+    adc.w #!DebugMenuCursorBaseY
+    sta !DebugMenuCursorRowTable,X
+    lda !PressedInputButtons
+    and.w #!InputDebugCommandLatchMask
+    sta !DebugMenuCommandInputLatch
     pld
     rts
 DEBUG_PROCESS_COMMAND_SELECTION:
 !EFE5D3_ProcessDebugCommandSelection = DEBUG_PROCESS_COMMAND_SELECTION
-    rep #$31
-    lda $B557
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda !DebugMenuCommandInputLatch
     bne EFE5DD_DebugMenuRuntimeAndMapViewHelpers_LE5DD
     jmp.w EFE688_DebugMenuRuntimeAndMapViewHelpers_LE688
 EFE5DD_DebugMenuRuntimeAndMapViewHelpers_LE5DD:
-    lda $B555
+    lda !DebugMenuCommandRow
     beq EFE602_DebugMenuRuntimeAndMapViewHelpers_LE602
-    cmp.w #$0001
+    cmp.w #!DebugMenuCommandRowViewMap
     beq EFE615_DebugMenuRuntimeAndMapViewHelpers_LE615
-    cmp.w #$0002
+    cmp.w #!DebugMenuCommandRowViewCharacter
     beq EFE626_DebugMenuRuntimeAndMapViewHelpers_LE626
-    cmp.w #$0003
+    cmp.w #!DebugMenuCommandRowViewAttribute
     beq EFE63D_DebugMenuRuntimeAndMapViewHelpers_LE63D
-    cmp.w #$0004
+    cmp.w #!DebugMenuCommandRowShowBattle
     beq EFE648_DebugMenuRuntimeAndMapViewHelpers_LE648
-    cmp.w #$0005
+    cmp.w #!DebugMenuCommandRowCheckPosition
     beq EFE654_DebugMenuRuntimeAndMapViewHelpers_LE654
-    cmp.w #$0006
+    cmp.w #!DebugMenuCommandRowSoundMode
     beq EFE65F_DebugMenuRuntimeAndMapViewHelpers_LE65F
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE602_DebugMenuRuntimeAndMapViewHelpers_LE602:
-    ldy.w #$0000
-    ldx.w #$0001
-    lda.w #$0004
+    ldy.w #!ZeroWord
+    ldx.w #!DebugMenuTransitionLayer
+    lda.w #!DebugMenuTransitionMode
     jsl !C08814_SetDisplayTransitionMode
     jsl !C0B7D8_InitializeIntroOverworldSceneLoop
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE615_DebugMenuRuntimeAndMapViewHelpers_LE615:
-    lda.w #$0001
-    sta $B559
-    lda.w #$FFFF
-    sta $4A58
+    lda.w #!DebugMenuModeGame
+    sta !DebugMenuMode
+    lda.w #!InvalidWord
+    sta !PresentationFlag4A58
     jsr.w EFE175_RunDebugMenuModeRuntime
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE626_DebugMenuRuntimeAndMapViewHelpers_LE626:
-    lda.w #$0002
-    sta $B559
-    lda.w #$000A
-    sta $4A5E
-    lda.w #$FFFF
-    sta $4A5A
+    lda.w #!DebugMenuModeViewCharacter
+    sta !DebugMenuMode
+    lda.w #!DebugViewCharacterObjectId
+    sta !DebugViewCharacterInitialObjectId
+    lda.w #!InvalidWord
+    sta !PresentationCounter4A5A
     jsr.w EFE175_RunDebugMenuModeRuntime
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE63D_DebugMenuRuntimeAndMapViewHelpers_LE63D:
-    lda.w #$0003
-    sta $B559
+    lda.w #!DebugMenuModeViewAttribute
+    sta !DebugMenuMode
     jsr.w EFE175_RunDebugMenuModeRuntime
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE648_DebugMenuRuntimeAndMapViewHelpers_LE648:
-    lda.w #$0004
-    sta $B559
+    lda.w #!DebugMenuModeShowBattle
+    sta !DebugMenuMode
     jsl !C24821_LoadDebugModeFourScreen
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE654_DebugMenuRuntimeAndMapViewHelpers_LE654:
-    lda.w #$0005
-    sta $B559
+    lda.w #!DebugMenuModeCheckPosition
+    sta !DebugMenuMode
     jsr.w EFE175_RunDebugMenuModeRuntime
     bra EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C
 EFE65F_DebugMenuRuntimeAndMapViewHelpers_LE65F:
-    lda.w #$0006
-    sta $B559
-    lda $B553
+    lda.w #!DebugMenuModeSound
+    sta !DebugMenuMode
+    lda !DebugCursorSpriteSlot
     jsl $EFD6D4
 EFE66C_DebugMenuRuntimeAndMapViewHelpers_LE66C:
     jsl !EFEB2A_ResetDebugColorMathDmaRegisters
-    stz $B557
-    stz $B559
+    stz !DebugMenuCommandInputLatch
+    stz !DebugMenuMode
     jsl !C0927C_PollOrRefreshInputState
     jsr !EFDA05_LoadDebugMenuGraphics
     jsr DEBUG_DISPLAY_MENU_OPTIONS
-    ldx.w #$0001
+    ldx.w #!DebugMenuTransitionLayer
     txa
     jsl !C0886C_SetDisplayTransitionState
 EFE688_DebugMenuRuntimeAndMapViewHelpers_LE688:
     rts
 DEBUG_MENU_LOAD:
 !EFE689_LoadDebugMenu = DEBUG_MENU_LOAD
-    rep #$31
-    lda.w #$0080
-    sta $B561
-    lda.w #$0070
-    sta $B563
-    lda.w #$0094
-    sta $B565
-    lda.w #$FFFF
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda.w #!DebugMenuIntroStartCameraX
+    sta !SavedDebugModeCameraX
+    lda.w #!DebugMenuIntroStartCameraY
+    sta !SavedDebugModeCameraY
+    lda.w #!DebugMenuIntroStartEntityId
+    sta !SavedDebugModeEntityId
+    lda.w #!DebugMenuDefaultPaletteMarker
     sta $9E54
     jsl !C0927C_PollOrRefreshInputState
     jsr !EFDA05_LoadDebugMenuGraphics
     jsr DEBUG_DISPLAY_MENU_OPTIONS
-    ldx.w #$0001
-    lda.w #$0004
+    ldx.w #!DebugMenuTransitionLayer
+    lda.w #!DebugMenuTransitionMode
     jsl !C0886C_SetDisplayTransitionState
 EFE6B7_DebugMenuRuntimeAndMapViewHelpers_LE6B7:
     jsl !C088B1_ResetRendererFrameState
@@ -7827,93 +7907,95 @@ EFE6B7_DebugMenuRuntimeAndMapViewHelpers_LE6B7:
     jsl !C08756_WaitOneFrameAndPollInput
     bra EFE6B7_DebugMenuRuntimeAndMapViewHelpers_LE6B7
 EFE6CF_CheckDebugMenuModeIsSound:
-    rep #$31
-    lda $B559
-    cmp.w #$0001
+!EFE6CF_CheckDebugMenuModeIsGame = EFE6CF_CheckDebugMenuModeIsSound
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeGame
     bne EFE6DE_DebugMenuRuntimeAndMapViewHelpers_LE6DE
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra EFE6E1_DebugMenuRuntimeAndMapViewHelpers_LE6E1
 EFE6DE_DebugMenuRuntimeAndMapViewHelpers_LE6DE:
-    lda.w #$FFFF
+    lda.w #!InvalidWord
 EFE6E1_DebugMenuRuntimeAndMapViewHelpers_LE6E1:
     rtl
 EFE6E2_ClampDebugCommandIndexForSoundMode:
-    rep #$31
+!EFE6E2_ClampDebugCommandIndexForGameMode = EFE6E2_ClampDebugCommandIndexForSoundMode
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF0
     tcd
     pla
-    sta $0E
-    lda $B559
-    cmp.w #$0001
+    sta !ScratchValue
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeGame
     bne EFE704_DebugMenuRuntimeAndMapViewHelpers_LE704
-    lda $0E
-    cmp.w #$000A
+    lda !ScratchValue
+    cmp.w #!DebugMenuModeOneCommandClamp
     bcc EFE704_DebugMenuRuntimeAndMapViewHelpers_LE704
     beq EFE704_DebugMenuRuntimeAndMapViewHelpers_LE704
-    lda.w #$000A
-    sta $0E
+    lda.w #!DebugMenuModeOneCommandClamp
+    sta !ScratchValue
 EFE704_DebugMenuRuntimeAndMapViewHelpers_LE704:
-    lda $0E
+    lda !ScratchValue
     pld
     rtl
 EFE708_CheckDebugModeExitRequested:
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0000
-    sta $0E
-    lda $B559
-    cmp.w #$0002
+    lda.w #!ZeroWord
+    sta !ScratchValue
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     bne EFE735_DebugMenuRuntimeAndMapViewHelpers_LE735
     bra EFE723_DebugMenuRuntimeAndMapViewHelpers_LE723
 EFE71F_DebugMenuRuntimeAndMapViewHelpers_LE71F:
     jsl !C08756_WaitOneFrameAndPollInput
 EFE723_DebugMenuRuntimeAndMapViewHelpers_LE723:
-    lda $0065
-    and.w #$8000
+    lda !HeldInputButtonsAlt
+    and.w #!InputOpenDebugModeOneMenu
     beq EFE71F_DebugMenuRuntimeAndMapViewHelpers_LE71F
     stz $4DC2
-    lda.w #$FFFF
-    sta $0E
+    lda.w #!InvalidWord
+    sta !ScratchValue
     bra EFE742_DebugMenuRuntimeAndMapViewHelpers_LE742
 EFE735_DebugMenuRuntimeAndMapViewHelpers_LE735:
-    lda $0065
-    and.w #$4000
+    lda !HeldInputButtonsAlt
+    and.w #!InputOpenPartyStatusMenu
     beq EFE742_DebugMenuRuntimeAndMapViewHelpers_LE742
-    lda.w #$FFFF
-    sta $0E
+    lda.w #!InvalidWord
+    sta !ScratchValue
 EFE742_DebugMenuRuntimeAndMapViewHelpers_LE742:
-    lda $0E
+    lda !ScratchValue
     pld
     rtl
 DEBUG_CHECK_VIEW_CHARACTER_MODE:
 !EFE746_CheckDebugViewCharacterMode = DEBUG_CHECK_VIEW_CHARACTER_MODE
-    rep #$31
-    lda $B559
-    cmp.w #$0002
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     bne EFE755_DebugMenuRuntimeAndMapViewHelpers_LE755
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra EFE758_DebugMenuRuntimeAndMapViewHelpers_LE758
 EFE755_DebugMenuRuntimeAndMapViewHelpers_LE755:
-    lda.w #$0001
+    lda.w #!OneWord
 EFE758_DebugMenuRuntimeAndMapViewHelpers_LE758:
     rtl
 EFE759_CheckDebugViewCharacterHoldFlag:
-    rep #$31
-    lda $B559
-    cmp.w #$0002
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda !DebugMenuMode
+    cmp.w #!DebugMenuModeViewCharacter
     bne EFE76D_DebugMenuRuntimeAndMapViewHelpers_LE76D
-    lda $B575
+    lda !DebugViewCharacterHoldFlag
     beq EFE76D_DebugMenuRuntimeAndMapViewHelpers_LE76D
-    lda.w #$FFFF
+    lda.w #!InvalidWord
     bra EFE770_DebugMenuRuntimeAndMapViewHelpers_LE770
 EFE76D_DebugMenuRuntimeAndMapViewHelpers_LE76D:
-    lda.w #$0000
+    lda.w #!ZeroWord
 EFE770_DebugMenuRuntimeAndMapViewHelpers_LE770:
     rtl
 SAVE_REPLAY_SAVE_SLOT:

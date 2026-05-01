@@ -49,6 +49,29 @@ plus the include anchors.
 | `EF:EB1D..EF:EB2A` | `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm` | Tiny color-math/window table loaded by the `EFEAC8` DMA setup helper. |
 | `EF:EB3D..EF:EB5F` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | Debug cursor tilemap data immediately before `DEBUG_MENU_FONT`. |
 
+## Runtime Loop And Command Helpers
+
+The `EF:E175..EF:EB1D` runtime cluster now names the main debug mode byte
+`$B559`, saved mode camera/entity state at `$B561/$B563/$B565`, cursor sprite
+slot `$B553`, command row `$B555`, command input latch `$B557`, overlay tile
+mode `$B55F`, and view-character hold flag `$B575`.
+
+The cursor and command-selection helpers now expose the seven visible debug
+menu rows as source constants:
+
+- `0`: game / intro scene path
+- `1`: view-map / mode-one menu path
+- `2`: view character
+- `3`: view attribute
+- `4`: show battle
+- `5`: check position
+- `6`: sound mode
+
+The main mode runtime now names the view-character and check-position mode
+checks, the overlay-tile-mode cycle, the saved-camera chord, the party-status
+debug chord, and the mode-specific branch into `DISPLAY_VIEW_CHARACTER_DEBUG_OVERLAY`
+or `DISPLAY_CHECK_POSITION_DEBUG_OVERLAY`.
+
 ## Color Math / HDMA Tail
 
 The `EFEAC8` mode-5 setup path now names the PPU window/color-math registers,
@@ -75,5 +98,5 @@ of record yet. It is accepted because the combined EF scaffold preserves byte
 equivalence against the original ROM and the source/data cuts match ebsrc
 include boundaries.
 
-Current byte-equivalence result after the color-math/HDMA semantic alias pass:
+Current byte-equivalence result after the runtime/cursor/command semantic alias pass:
 `EF byte-equivalence: OK, 28 module(s), 0 mismatch(es).`

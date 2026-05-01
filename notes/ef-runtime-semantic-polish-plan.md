@@ -94,3 +94,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   source aliases. The promoted contracts name the `EFEAC8` PPU window and
   color-math register setup, DMA channel-4 HDMA table source at `EF:EB1D`,
   HDMA enable shadow bit, and the `EF:EB2A` window/HDMA reset helper.
+- 2026-05-01: EF debug runtime loop/cursor command polish landed as
+  byte-neutral source aliases. The promoted contracts name `$B559` debug menu
+  mode, `$B561/$B563/$B565` saved mode camera/entity state, `$B553` cursor
+  sprite slot, `$B555/$B557` command row and input latch, `$B55F` overlay tile
+  mode, `$B575` view-character hold flag, the seven visible command rows, and
+  the mode-specific view-character/check-position overlay dispatch.
