@@ -32530,6 +32530,10 @@ org $C2BD13
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0915B_DivideUnsignedWordByY = $C0915B
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!EF_BattleTextScriptBank = $00EF
+!EFMSG_CallForHelpNoOneCame = $7824
+!EFMSG_CallForHelpSeedNoSprout = $7830
 C2BD13_SumActiveEnemyBattleSpriteWidths:
     rep #$31
     phd
@@ -32626,18 +32630,18 @@ C2BDB4_SumActiveEnemyBattleSpriteWidths_LBDB4:
 C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6:
     lda $28
     beq C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB
-    lda.w #$7830
+    lda.w #!EFMSG_CallForHelpSeedNoSprout
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp $C13A
 C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB:
-    lda.w #$7824
+    lda.w #!EFMSG_CallForHelpNoOneCame
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp $C13A
 C2BDEC_SumActiveEnemyBattleSpriteWidths_LBDEC:
     ldx.w #$9FAC
@@ -32710,6 +32714,10 @@ C2BE22_SumActiveEnemyBattleSpriteWidths_LBE22:
 hirom
 org $C2BE6C
 
+!C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!EF_BattleTextScriptBank = $00EF
+!EFMSG_CallForHelpEnemyJoined = $77FD
+!EFMSG_CallForHelpSeedSprouted = $7810
 C2BE6C_RunCallForHelpEnemySelectionBody:
     sep #$20
     jsr $6BB8
@@ -33062,18 +33070,18 @@ C2C0FD_RunCallForHelpEnemySelectionBody_LC0FD:
     jsl $C23D05
     lda $28
     beq C2C12C_RunCallForHelpEnemySelectionBody_LC12C
-    lda.w #$7810
+    lda.w #!EFMSG_CallForHelpSeedSprouted
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C2C13A_ReturnCallForHelpEnemySelectionBody
 C2C12C_RunCallForHelpEnemySelectionBody_LC12C:
-    lda.w #$77FD
+    lda.w #!EFMSG_CallForHelpEnemyJoined
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl !C1DC1C_DisplayBattleTextFromPointer
 C2C13A_ReturnCallForHelpEnemySelectionBody:
     pld
     rts

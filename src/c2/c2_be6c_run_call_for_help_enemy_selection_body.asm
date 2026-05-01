@@ -21,7 +21,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+
+EF_BattleTextScriptBank       = $00EF
+EFMSG_CallForHelpEnemyJoined  = $77FD
+EFMSG_CallForHelpSeedSprouted = $7810
 
 ; ---------------------------------------------------------------------------
 ; C2:BE6C
@@ -388,18 +392,18 @@ C2C0FD_RunCallForHelpEnemySelectionBody_LC0FD:
     lda $28
     beq C2C12C_RunCallForHelpEnemySelectionBody_LC12C
     ; Success message flavor selected by the wrapper input.
-    lda.w #$7810
+    lda.w #EFMSG_CallForHelpSeedSprouted
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     bra C2C13A_ReturnCallForHelpEnemySelectionBody
 C2C12C_RunCallForHelpEnemySelectionBody_LC12C:
-    lda.w #$77FD
+    lda.w #EFMSG_CallForHelpEnemyJoined
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
 C2C13A_ReturnCallForHelpEnemySelectionBody:
     pld
     rts

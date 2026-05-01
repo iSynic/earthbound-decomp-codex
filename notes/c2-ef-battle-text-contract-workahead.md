@@ -57,6 +57,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   source aliases for `DC1C`, `DC66`, and `DD7C`, name the EF/C8 battle scripts
   staged by those paths, and mark the `$AA10 -> $9D11 -> EF:7BDF` present-item
   byte-substitution bridge at the source sites.
+- 2026-05-01: eleventh pass promoted the call-for-help result text exits.
+  `C2:BD13`, `C2:BD5E`, and `C2:BE6C` now name the `DC1C` dispatch ABI and the
+  four EF result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`) used by
+  ordinary and seed/sprout-flavored reinforcement outcomes.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -372,6 +376,11 @@ And for the most actionable C2 call-site families:
   battle-start/instant-win `DC1C`/`DC66`/`DD7C` payload joins and the EF/C8
   scripts they stage. See
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-01: `src/c2/c2_bd13_sum_active_enemy_battle_sprite_widths.asm`,
+  `src/c2/c2_bd5e_call_for_help_enemy_selection_and_message_body.asm`, and
+  `src/c2/c2_be6c_run_call_for_help_enemy_selection_body.asm` now name the
+  call-for-help `DC1C` text exits and their four EF outcome scripts. See
+  `notes/c2-call-for-help-runtime-polish.md`.
 
 ## Integration checklist (manual)
 

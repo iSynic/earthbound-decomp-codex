@@ -50,6 +50,11 @@ The prefix:
 - scales the probability by `max_called - already_present`
 - routes failure to EF text and the shared `C2:C13A` action tail
 
+The two failure scripts are now named at the source sites:
+
+- `EF:7824` / `MSG_BTL_NAKAMA_NO` for the ordinary "no one came" path.
+- `EF:7830` / `MSG_BTL_TANEMAKI_NO` for the seed/sprout-flavored failure path.
+
 ## Placement
 
 `C2:BE6C` performs the successful selection and placement path:
@@ -64,6 +69,12 @@ The prefix:
   slot, and `+0x0D` active/new marker
 - emits the success message selected by the wrapper input
 
+The two success scripts are now named at the source sites:
+
+- `EF:77FD` / `MSG_BTL_NAKAMA_KITA` for the ordinary joined-battle path.
+- `EF:7810` / `MSG_BTL_TANEMAKI_HAETA` for the seed/sprout-flavored success
+  path.
+
 ## Decomp Value
 
 This slice connects enemy config, battle-group data, battler rows, and battle
@@ -74,6 +85,8 @@ sprite layout:
 - new enemy placement writes the same position and loaded-sprite fields consumed
   by battle sprite rendering
 - failure and success EF text paths are separated from placement mechanics
+- the `C1:DC1C` dispatch ABI is explicit on all four call-for-help result text
+  exits
 
 ## Remaining Soft Spots
 

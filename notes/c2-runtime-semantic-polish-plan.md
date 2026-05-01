@@ -310,6 +310,11 @@ contract notes for C0/C1/C3/C4 consumers.
   EF/C8 battle-script constants, and the `$AA10 -> $9D11 -> EF:7BDF`
   present-item bridge. See
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-01 forty-seventh slice: promoted the call-for-help result text exits
+  with byte-neutral aliases for the `C1:DC1C` direct-text ABI, EF battle-text
+  bank, and the four ordinary/seed-flavored reinforcement scripts at `EF:77FD`,
+  `EF:7810`, `EF:7824`, and `EF:7830`. See
+  `notes/c2-call-for-help-runtime-polish.md`.
 
 ## Validation
 

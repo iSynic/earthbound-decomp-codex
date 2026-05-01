@@ -23,6 +23,11 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
+C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+
+EF_BattleTextScriptBank       = $00EF
+EFMSG_CallForHelpNoOneCame    = $7824
+EFMSG_CallForHelpSeedNoSprout = $7830
 
 ; ---------------------------------------------------------------------------
 ; C2:BD5E
@@ -86,18 +91,18 @@ C2BDB4_CallForHelpEnemySelectionAndMessageBody_LBDB4:
 C2BDC6_CallForHelpEnemySelectionAndMessageBody_LBDC6:
     lda $28
     beq C2BDDB_CallForHelpEnemySelectionAndMessageBody_LBDDB
-    lda.w #$7830
+    lda.w #EFMSG_CallForHelpSeedNoSprout
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     jmp $C13A
 C2BDDB_CallForHelpEnemySelectionAndMessageBody_LBDDB:
-    lda.w #$7824
+    lda.w #EFMSG_CallForHelpNoOneCame
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
-    jsl $C1DC1C
+    jsl C1DC1C_DisplayBattleTextFromPointer
     jmp $C13A
 C2BDEC_CallForHelpEnemySelectionAndMessageBody_LBDEC:
     ldx.w #$9FAC
