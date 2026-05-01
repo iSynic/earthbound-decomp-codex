@@ -18789,6 +18789,9 @@ org $C2A3D1
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+!C27CAF_TestSpeedBasedSuccess = $7CAF
+!C28125_CalculateResistAdjustedDamage = $8125
 !EFMSG_ConcentrationSealInflicted = $6C0B
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_ShieldCleared = $7099
@@ -18802,6 +18805,12 @@ org $C2A3D1
 !BattlerMaxHpWord = $0015
 !BattlerDefenseWord = $0028
 !ConcentrationSealStateValue = $04
+!BottleRocketHitGatePercent = $0064
+!BottleRocketDamagePerHit = $0078
+!BottleRocketDamageType = $00FF
+!BottleRocketCount = $0001
+!BigBottleRocketCount = $0005
+!MultiBottleRocketCount = $0014
 BTLACT_COUNTER_PSI:
 !C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     rep #$31
@@ -19003,7 +19012,7 @@ C2A578_RunItemSideConcentrationSealAction_LA578:
     pld
     rtl
 BOTTLE_ROCKET_COMMON:
-!C2A57A_RunItemSideConcentrationSealAction_LA57A = BOTTLE_ROCKET_COMMON
+!C2A57A_RunBottleRocketCommon = BOTTLE_ROCKET_COMMON
     rep #$31
     phd
     pha
@@ -19018,8 +19027,8 @@ BOTTLE_ROCKET_COMMON:
     stx $12
     bra C2A5A5_RunItemSideConcentrationSealAction_LA5A5
 C2A590_RunItemSideConcentrationSealAction_LA590:
-    lda.w #$0064
-    jsr $7CAF
+    lda.w #!BottleRocketHitGatePercent
+    jsr !C27CAF_TestSpeedBasedSuccess
     cmp.w #$0000
     beq C2A5A0_RunItemSideConcentrationSealAction_LA5A0
     ldy $14
@@ -19036,11 +19045,11 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     ldy $14
     beq C2A5C1_RunItemSideConcentrationSealAction_LA5C1
     tya
-    ldy.w #$0078
+    ldy.w #!BottleRocketDamagePerHit
     jsl !C08FF7_ResolveIndexedPointerOffset
-    jsr $6AFD
-    ldx.w #$00FF
-    jsr $8125
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
+    ldx.w #!BottleRocketDamageType
+    jsr !C28125_CalculateResistAdjustedDamage
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
     lda.w #!EFMSG_StatusNoEffect
@@ -19051,16 +19060,22 @@ C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
 C2A5CF_RunItemSideConcentrationSealAction_LA5CF:
     pld
     rts
+BTLACT_BOTTLE_ROCKET:
+!C2A5D1_RunBottleRocketAction = BTLACT_BOTTLE_ROCKET
     rep #$31
-    lda.w #$0001
+    lda.w #!BottleRocketCount
     jsr.w BOTTLE_ROCKET_COMMON
     rtl
+BTLACT_BIG_BOTTLE_ROCKET:
+!C2A5DA_RunBigBottleRocketAction = BTLACT_BIG_BOTTLE_ROCKET
     rep #$31
-    lda.w #$0005
+    lda.w #!BigBottleRocketCount
     jsr.w BOTTLE_ROCKET_COMMON
     rtl
+BTLACT_MULTI_BOTTLE_ROCKET:
+!C2A5E3_RunMultiBottleRocketAction = BTLACT_MULTI_BOTTLE_ROCKET
     rep #$31
-    lda.w #$0014
+    lda.w #!MultiBottleRocketCount
     jsr.w BOTTLE_ROCKET_COMMON
     rtl
 

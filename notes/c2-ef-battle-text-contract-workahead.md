@@ -48,6 +48,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   (`EF:6A99` / `EF:6AB3`) and `C2:B172` names the condiment spice hit/miss
   scripts (`C9:7C9D` / `C9:7CB1`) plus the shared no-effect fallback
   (`EF:766E`) and their `DC1C` direct-text dispatches.
+- 2026-05-01: ninth pass promoted the bottle-rocket item family. The shared
+  `C2:A57A` helper now names its zero-hit `EF:766E` no-effect fallback through
+  `DC1C`, while the successful-hit path stays damage-only and does not claim an
+  amount-bearing battle-text contract.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

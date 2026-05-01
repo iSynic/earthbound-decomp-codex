@@ -21,6 +21,7 @@ Related evidence notes:
 - `notes/class2-concentration-seal-family-c28d5a-c2a3d1.md`
 - `notes/class2-solidification-item-action-c2a5ec-a630.md`
 - `notes/class2-bomb-common-family-c2a658-c2a821.md`
+- `notes/c2-bottle-rocket-runtime-polish.md`
 - `notes/c2-late-status-runtime-polish.md`
 - `notes/c2-action-dispatch-runtime-polish.md`
 
@@ -38,8 +39,14 @@ The same source unit also contains neighboring item-side helpers such as
 HP-sucker and bottle-rocket common paths. HP-sucker is now source-promoted far
 enough to name the `EF:7710` self-drain direct text, the `EF:7729`
 amount-bearing drain text, and the `C1:DC66` substitution-payload call that
-prints the drained HP amount. Bottle-rocket remains adjacent context for a later
-dedicated pass.
+prints the drained HP amount.
+
+The bottle-rocket family is now source-promoted as its own neighboring item
+slice. `C2:A57A` is the shared `BOTTLE_ROCKET_COMMON` helper; `C2:A5D1`,
+`C2:A5DA`, and `C2:A5E3` are the bottle, big-bottle, and multi-bottle wrappers
+with attempt counts `1`, `5`, and `20`. Successful attempts use speed-gated
+hit checks, `120` damage per hit, 25-percent variance, and resist-adjusted
+damage; zero successful hits emits shared no-effect text `EF:766E`.
 
 ## Solidification Item
 
@@ -110,11 +117,11 @@ This slice tightens several item-side runtime contracts:
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane
+- bottle-rocket wrappers now have durable reference-backed names and attempt
+  counts, with the shared speed-gated damage path named locally
 
 ## Remaining Soft Spots
 
-- full runtime polish for the bottle-rocket bodies in the `A3D1..A5EC` source
-  unit
 - whether all `A821` reuses should be named strictly as Super Bomb or broader
   explosive/projectile clones
 - final player-facing names for nearby item entries around `A5D1..A5E3`

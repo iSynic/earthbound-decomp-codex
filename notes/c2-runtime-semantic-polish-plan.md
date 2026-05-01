@@ -248,6 +248,11 @@ contract notes for C0/C1/C3/C4 consumers.
   metamorphose success/failure scripts, condiment lookup/removal helpers, C9
   spice hit/miss scripts, D5 item/condiment table anchors, and the shared
   `C1:DC1C` direct-text dispatch ABI.
+- 2026-05-01 thirty-seventh slice: promoted the `A57A/A5D1/A5DA/A5E3`
+  bottle-rocket family with byte-neutral aliases for the shared speed-gated
+  hit loop, per-hit damage scaling, 25-percent variance helper, resist-adjusted
+  damage helper, no-effect text fallback, and wrapper attempt counts `1`, `5`,
+  and `20`.
 
 ## Validation
 
