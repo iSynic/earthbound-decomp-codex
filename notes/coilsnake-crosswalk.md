@@ -1,7 +1,7 @@
 # CoilSnake Crosswalk
 
 Status: baseline generated, first planned diff batch complete; Phase 2A and
-Phase 2B coverage batches complete.
+Phase 2B coverage batches complete; Phase 2C scriptdump baseline captured.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -16,6 +16,10 @@ Tracked promotion stubs: `manifests/coilsnake-promotion-stubs.json` and
 `notes/coilsnake-promotion-stubs.md`.
 Tracked runtime anchor hints: `manifests/coilsnake-runtime-anchor-hints.json`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
+Tracked scriptdump summary: `manifests/coilsnake-scriptdump-summary.json` and
+`notes/coilsnake-scriptdump-report.md`.
+Tracked CCScript edit experiments: `manifests/coilsnake-ccscript-experiments.json`
+and `notes/coilsnake-ccscript-experiments.md`.
 
 Ignored local outputs:
 
@@ -24,6 +28,8 @@ Ignored local outputs:
 - `build/coilsnake/baseline-rebuild.sfc`
 - `build/coilsnake/edit-experiments/`
 - `build/coilsnake/reports/`
+- `build/coilsnake/scriptdump-project/`
+- `build/coilsnake/scriptdump-rebuild.sfc`
 - `build/coilsnake/tools/`
 - `build/coilsnake/venv-coilsnake/`
 
@@ -103,6 +109,10 @@ It also folds in candidate runtime/source anchors from
 candidate-only until a diff-confirmed changed span lands.
 `tools/validate_coilsnake_promotion_stubs.py` keeps those stubs aligned with the
 current prejoin report.
+`tools/build_coilsnake_scriptdump_report.py` records a payload-free summary of a
+CoilSnake `scriptdump` project and compile roundtrip. The tracked summary keeps
+file counts, line counts, sizes, and diff spans only; generated CCScript payloads
+stay in ignored project directories.
 
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text
@@ -439,6 +449,42 @@ Current learned joins:
   table probes, the C4 battle menu text probe, the CF NPC text pointer probe,
   and both C3 window-config dimension probes.
 
+## CCScript Scriptdump Roundtrip
+
+CoilSnake `scriptdump` has now been run against the verified ROM into an ignored
+copy of the baseline project. The generated CCScript payloads stay local-only;
+the tracked summary records only project shape and diff ranges.
+
+Current observed shape:
+
+- Baseline `ccscript/`: `1` file, `0` `.ccs` files, `0` data modules, `0`
+  text lines.
+- Scriptdump `ccscript/`: `65` files, `64` `.ccs` files, `63` data modules,
+  `39287` text lines, and `1601998` bytes.
+- The dumped project compiled successfully against `build/coilsnake/base-expanded.sfc`.
+- The compiled scriptdump rebuild is not byte-identical to
+  `build/coilsnake/baseline-rebuild.sfc`: `511398` changed bytes across
+  `30055` runs, from `0x03FD8D` (`C3:FD8D`) through exclusive end
+  `0x38A10C` (`F8:A10C`).
+
+Interpretation:
+
+- `scriptdump` is now proven useful as a CCScript authoring and compiler oracle.
+- The large roundtrip diff means dumped-and-recompiled scripts are compiler
+  normalized, not direct runtime evidence by themselves.
+- Command-lowering facts need tiny CCScript edit probes that compile and diff
+  against the unedited scriptdump rebuild when the broad roundtrip is
+  compiler-normalized.
+
+One minimal CCScript label-reference probe is now `diff-confirmed`:
+
+- `ccscript-rom-goto-label-probe` edits one generated `ccscript/main.ccs` ROM
+  hook label target in an ignored copy of the scriptdump project. Compared
+  against `build/coilsnake/scriptdump-rebuild.sfc`, the edited rebuild changes
+  `2` bytes in one run at `0x050001..0x050003` (`C5:0001..C5:0003`). This
+  proves CCScript can lower that label target into the C5 text/script bank, but
+  it should not be promoted as a text VM command semantic by itself.
+
 ## Promotion Rules
 
 - Use CoilSnake output to choose good questions and vocabulary, not to rename
@@ -483,9 +529,12 @@ bit/packing contracts explain the candidate original addresses. Door and sprite
 probes already have unique rebuilt-to-original candidates; their next step is
 pointer-path and consumer naming, not more first-row byte probes.
 
-Phase 2C is format behavior. Run a true CCScript `scriptdump` and one minimal
-CCScript label/body compile experiment for command-lowering proof. Then add
-representative visual/editor probes for `BattleSprites`, `BattleBGs`, `Fonts`,
+Phase 2C is format behavior. The true CCScript `scriptdump` baseline,
+compile roundtrip, and one minimal CCScript label-reference probe are complete,
+and the results are tracked as payload-free summaries. The next text/script step
+is a tiny body-command or body-text probe that edits generated CCScript without
+including payload in tracked files. After that, add representative visual/editor
+probes for `BattleSprites`, `BattleBGs`, `Fonts`,
 `WindowGraphics`, and one tileset/town-map style resource to document fixed-size
 versus repointed insert behavior.
 
@@ -495,6 +544,9 @@ Exit criteria:
   `diff-confirmed`, `local-range-confirmed`, or explicitly deferred.
 - Every moved/rebuilt candidate has an original-ROM cluster assessment in
   `notes/coilsnake-rebuild-original-layout-report.md`.
+- The CCScript scriptdump summary remains payload-free, and any promoted
+  command-lowering claim comes from a tiny edited CCScript diff rather than the
+  broad normalized roundtrip.
 - The experiment queue is empty only after the next coverage batch has either
   been ingested or intentionally retired.
 - Validators pass: ROM verification, CoilSnake field semantics, experiment
