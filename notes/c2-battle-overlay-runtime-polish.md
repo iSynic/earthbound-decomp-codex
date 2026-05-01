@@ -89,9 +89,14 @@ This slice closes the local runtime story around the battle overlay tail:
 - `$AECC/$AECE` are the active overlay script pointer pair
 - `$AEC2` is the active overlay latch cleared by both reset helpers
 
+The matching C4 interpreter side is now source-polished as well: the
+`C4:A591..A67E` data corridor is split into the static wave table plus the four
+open/close script payload blocks, and `C4:A67E/A7B0` share named contracts for
+the `$AEC2..$AEE6` state record, script/frame tables, record stride/sentinel
+fields, and C0 window/offset helper calls.
+
 ## Remaining Soft Spots
 
-- exact C4 script semantics for `A5CE/A5FA/A626/A652`
 - final user-facing names for the `$4DBC` overlay profile values
 - whether a later scaffold cleanup should replace the three corridor files with
   split decoded source units

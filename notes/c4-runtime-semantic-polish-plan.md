@@ -183,6 +183,12 @@ closure.
   tilemap attribute rewrite fields, battle-visual tile-state/chunk staging
   values, script start value, and mask/sentinel literals. See
   `notes/gas-station-intro-asset-loader-c4a377.md`.
+- 2026-05-01 battle overlay island: split the adjacent transition data into
+  the static wave table and four named open/close script payload blocks, then
+  promoted shared `$AEC2..$AEE6` state names, flag bits, script/frame tables,
+  record stride/sentinel fields, effect position/size deltas, special-mode
+  ladder values, and C0 window/offset helper contracts. See
+  `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
 
 ## Validation
 

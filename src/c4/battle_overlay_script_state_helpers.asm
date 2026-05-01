@@ -35,6 +35,20 @@ BATTLE_OVERLAY_SCRIPT_PTR                     = $AECC
 BATTLE_OVERLAY_SPECIAL_MODE                   = $AEE4
 BATTLE_OVERLAY_SPECIAL_STEP                   = $AEE5
 BATTLE_OVERLAY_SPECIAL_DELAY                  = $AEE6
+BATTLE_OVERLAY_MODE0_SCRIPT_BANK              = $00C4
+BATTLE_OVERLAY_LAYER_SELECT_FLAG              = $0002
+BATTLE_OVERLAY_REVERSE_FLAG_BIT               = $0001
+BATTLE_OVERLAY_WIDE_TILE_COUNT_FLAG           = $0004
+BATTLE_OVERLAY_SPECIAL_MODE_FLAG              = $0080
+BATTLE_OVERLAY_FLAG_ON                        = $01
+BATTLE_OVERLAY_TILE_COUNT_WIDE                = $20
+BATTLE_OVERLAY_TILE_COUNT_DEFAULT             = $1F
+BATTLE_OVERLAY_DEFAULT_ACTIVE_COUNT           = $01
+BATTLE_OVERLAY_DEFAULT_WORK_BYTE              = $01
+BATTLE_OVERLAY_SPECIAL_FRAME_COUNT            = $04
+BATTLE_OVERLAY_SPECIAL_INITIAL_DELAY          = $08
+ZeroWord                                      = $0000
+LowByteMask                                   = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C4:A67E
@@ -52,10 +66,10 @@ C4A67E_StartBattleOverlayScriptState:
     sta $04
 
     lda $02
-    and #$0002
+    and #BATTLE_OVERLAY_LAYER_SELECT_FLAG
     beq C4A69C_StartBattleOverlayScriptState_ClearLayerSelect
     sep #$20
-    lda.b #$01
+    lda.b #BATTLE_OVERLAY_FLAG_ON
     sta.w BATTLE_OVERLAY_LAYER_SELECT
     bra C4A6A1_StartBattleOverlayScriptState_LayerSelectDone
 
@@ -65,10 +79,10 @@ C4A69C_StartBattleOverlayScriptState_ClearLayerSelect:
 C4A6A1_StartBattleOverlayScriptState_LayerSelectDone:
     rep #$20
     lda $02
-    and #$0001
+    and #BATTLE_OVERLAY_REVERSE_FLAG_BIT
     beq C4A6B3_StartBattleOverlayScriptState_ClearReverseFlag
     sep #$20
-    lda.b #$01
+    lda.b #BATTLE_OVERLAY_FLAG_ON
     sta.w BATTLE_OVERLAY_REVERSE_FLAG
     bra C4A6B8_StartBattleOverlayScriptState_ReverseDone
 
@@ -78,19 +92,19 @@ C4A6B3_StartBattleOverlayScriptState_ClearReverseFlag:
 C4A6B8_StartBattleOverlayScriptState_ReverseDone:
     rep #$20
     lda $02
-    and #$0004
+    and #BATTLE_OVERLAY_WIDE_TILE_COUNT_FLAG
     beq C4A6CA_StartBattleOverlayScriptState_DefaultTileCount
     sep #$20
-    lda.b #$20
+    lda.b #BATTLE_OVERLAY_TILE_COUNT_WIDE
     sta.w BATTLE_OVERLAY_TILE_COUNT
     bra C4A6D1_StartBattleOverlayScriptState_TileCountDone
 
 C4A6CA_StartBattleOverlayScriptState_DefaultTileCount:
     sep #$20
-    lda.b #$1F
+    lda.b #BATTLE_OVERLAY_TILE_COUNT_DEFAULT
     sta.w BATTLE_OVERLAY_TILE_COUNT
 C4A6D1_StartBattleOverlayScriptState_TileCountDone:
-    lda.b #$01
+    lda.b #BATTLE_OVERLAY_DEFAULT_ACTIVE_COUNT
     sta.w BATTLE_OVERLAY_SCRIPT_ACTIVE
     rep #$20
     lda #BATTLE_OVERLAY_SCRIPT_TABLE_BASE
@@ -139,7 +153,7 @@ C4A6D1_StartBattleOverlayScriptState_TileCountDone:
     sta.w $0000,x
     rep #$20
     lda.w BATTLE_OVERLAY_REVERSE_FLAG
-    and #$00FF
+    and #LowByteMask
     beq C4A748_StartBattleOverlayScriptState_FrameIndexReady
     sep #$20
     lda.w $0000,y
@@ -152,9 +166,9 @@ C4A6D1_StartBattleOverlayScriptState_TileCountDone:
 C4A748_StartBattleOverlayScriptState_FrameIndexReady:
     ldy #BATTLE_OVERLAY_SCRIPT_PTR
     rep #$20
-    lda #$0000
+    lda #ZeroWord
     sta $06
-    lda #$0000
+    lda #ZeroWord
     sta $08
     lda $06
     sta.w $0000,y
@@ -164,7 +178,7 @@ C4A748_StartBattleOverlayScriptState_FrameIndexReady:
     bne C4A779_StartBattleOverlayScriptState_NoDefaultOpenScript
     lda #BATTLE_OVERLAY_OPEN_MODE0_SCRIPT
     sta $06
-    lda #$00C4
+    lda #BATTLE_OVERLAY_MODE0_SCRIPT_BANK
     sta $08
     lda $06
     sta.w $0000,y
@@ -175,19 +189,19 @@ C4A779_StartBattleOverlayScriptState_NoDefaultOpenScript:
     sep #$20
     stz.w BATTLE_OVERLAY_ANIMATION_PARITY
     stz.w BATTLE_OVERLAY_WORK_BYTE_AECA
-    lda.b #$01
+    lda.b #BATTLE_OVERLAY_DEFAULT_WORK_BYTE
     sta.w BATTLE_OVERLAY_WORK_BYTE_AECB
     rep #$20
     lda $02
-    and #$0080
+    and #BATTLE_OVERLAY_SPECIAL_MODE_FLAG
     beq C4A7A5_StartBattleOverlayScriptState_ClearSpecialMode
     lda $04
     sep #$20
     sta.w BATTLE_OVERLAY_SPECIAL_MODE
-    lda.b #$04
+    lda.b #BATTLE_OVERLAY_SPECIAL_FRAME_COUNT
     sta.w BATTLE_OVERLAY_SCRIPT_FRAME_COUNT
     stz.w BATTLE_OVERLAY_SPECIAL_STEP
-    lda.b #$08
+    lda.b #BATTLE_OVERLAY_SPECIAL_INITIAL_DELAY
     sta.w BATTLE_OVERLAY_SPECIAL_DELAY
     bra C4A7AA_StartBattleOverlayScriptState_ResetRenderer
 

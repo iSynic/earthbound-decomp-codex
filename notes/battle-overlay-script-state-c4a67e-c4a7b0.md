@@ -47,6 +47,10 @@ The opening records share the same payload except for the first word
 delta words (`0xFF20`, `0xFF49`, `0xFFFC`, `0xFFFD`) plus `0x8000` sentinel
 values in the optional fields.
 
+Source polish: `src/c4/battle_overlay_transition_data.asm` now splits the
+combined data corridor into the static transition wave table and the four named
+open/close script payload blocks while preserving the byte layout.
+
 ## Initializer
 
 `C4:A67E` initializes the active overlay state.
@@ -89,6 +93,14 @@ When the active script pointer is null, it falls back to the table-driven
 `C0:AE34` and `C0:B0B8`, applies `$AEC6/$AEC7/$AEC8` to the C0 layer helpers,
 and advances or decrements the phase counters until the overlay becomes
 inactive.
+
+Source polish: `src/c4/battle_overlay_script_state_helpers.asm` and
+`src/c4/battle_overlay_script_stepper.asm` now share named contracts for the
+flag bits, active/frame/repeat/index bytes, layer/reverse/tile-count controls,
+active script pointer, `CE:DD41` script table, `CE:DC45` frame pointer table,
+`#$16` record stride, `#$8000` optional-field sentinel, effect position/size
+and delta fields, special-mode delay ladder, and the C0 window/offset helper
+calls.
 
 ## Working Names
 
