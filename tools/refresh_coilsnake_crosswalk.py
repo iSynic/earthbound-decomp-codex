@@ -19,6 +19,8 @@ DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
 DEFAULT_EXPERIMENT_PLAN = ROOT / "manifests" / "coilsnake-experiment-plan.json"
 DEFAULT_PREJOIN_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-experiment-prejoin-report.json"
 DEFAULT_PREJOIN_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-experiment-prejoin-report.md"
+DEFAULT_PROMOTION_STUBS_JSON_OUT = ROOT / "manifests" / "coilsnake-promotion-stubs.json"
+DEFAULT_PROMOTION_STUBS_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-promotion-stubs.md"
 DEFAULT_FIELD_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_FIELD_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
 
@@ -48,6 +50,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--experiment-plan", type=Path, default=DEFAULT_EXPERIMENT_PLAN)
     parser.add_argument("--prejoin-json-out", type=Path, default=DEFAULT_PREJOIN_JSON_OUT)
     parser.add_argument("--prejoin-markdown-out", type=Path, default=DEFAULT_PREJOIN_MARKDOWN_OUT)
+    parser.add_argument("--promotion-stubs-json-out", type=Path, default=DEFAULT_PROMOTION_STUBS_JSON_OUT)
+    parser.add_argument("--promotion-stubs-markdown-out", type=Path, default=DEFAULT_PROMOTION_STUBS_MARKDOWN_OUT)
     parser.add_argument("--field-json-out", type=Path, default=DEFAULT_FIELD_JSON_OUT)
     parser.add_argument("--field-markdown-out", type=Path, default=DEFAULT_FIELD_MARKDOWN_OUT)
     parser.add_argument(
@@ -206,6 +210,38 @@ def inject_experiment_plan_workflow(
     write_json(manifest_path, updated)
 
 
+def inject_promotion_stubs_workflow(
+    manifest_path: Path,
+    promotion_stubs_json_path: Path,
+    promotion_stubs_markdown_path: Path,
+) -> None:
+    manifest = load_json(manifest_path)
+    stubs_doc = load_json(promotion_stubs_json_path)
+
+    workflow = {
+        "tool": "tools/build_coilsnake_promotion_stubs.py",
+        "validator": "tools/validate_coilsnake_promotion_stubs.py",
+        "tracked_manifest": rel(promotion_stubs_json_path),
+        "tracked_summary": rel(promotion_stubs_markdown_path),
+        "stub_count": stubs_doc.get("summary", {}).get("stub_count"),
+        "ready_to_run_count": stubs_doc.get("summary", {}).get("ready_to_run_count"),
+        "tooling_blocked_count": stubs_doc.get("summary", {}).get("tooling_blocked_count"),
+    }
+
+    updated: dict[str, Any] = {}
+    inserted = False
+    for key, value in manifest.items():
+        if key == "promotion_stubs_workflow":
+            continue
+        if key == "promotion_policy":
+            updated["promotion_stubs_workflow"] = workflow
+            inserted = True
+        updated[key] = value
+    if not inserted:
+        updated["promotion_stubs_workflow"] = workflow
+    write_json(manifest_path, updated)
+
+
 def main() -> int:
     args = parse_args()
     project_dir = args.project_dir.resolve()
@@ -216,6 +252,8 @@ def main() -> int:
     experiment_plan = args.experiment_plan.resolve()
     prejoin_json_out = args.prejoin_json_out.resolve()
     prejoin_markdown_out = args.prejoin_markdown_out.resolve()
+    promotion_stubs_json_out = args.promotion_stubs_json_out.resolve()
+    promotion_stubs_markdown_out = args.promotion_stubs_markdown_out.resolve()
     field_json_out = args.field_json_out.resolve()
     field_markdown_out = args.field_markdown_out.resolve()
 
@@ -293,10 +331,34 @@ def main() -> int:
                 str(prejoin_markdown_out),
             ]
         )
+        run(
+            [
+                sys.executable,
+                str(TOOLS / "build_coilsnake_promotion_stubs.py"),
+                "--prejoin",
+                str(prejoin_json_out),
+                "--json-out",
+                str(promotion_stubs_json_out),
+                "--markdown-out",
+                str(promotion_stubs_markdown_out),
+            ]
+        )
+        run(
+            [
+                sys.executable,
+                str(TOOLS / "validate_coilsnake_promotion_stubs.py"),
+                "--stubs",
+                str(promotion_stubs_json_out),
+                "--prejoin",
+                str(prejoin_json_out),
+            ]
+        )
         inject_field_join_workflow(manifest_out, field_json_out, field_markdown_out)
         inject_experiment_plan_workflow(manifest_out, experiment_plan, prejoin_json_out, prejoin_markdown_out)
+        inject_promotion_stubs_workflow(manifest_out, promotion_stubs_json_out, promotion_stubs_markdown_out)
         print(f"Refreshed {rel(manifest_out)}")
         print(f"Refreshed {rel(field_markdown_out)}")
+        print(f"Refreshed {rel(promotion_stubs_markdown_out)}")
         return 0
     except (FileNotFoundError, subprocess.CalledProcessError) as exc:
         print(exc, file=sys.stderr)

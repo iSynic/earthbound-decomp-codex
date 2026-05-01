@@ -11,6 +11,8 @@ Tracked machine-readable summary: `manifests/coilsnake-crosswalk.json`.
 Tracked field semantics: `manifests/coilsnake-field-semantics.json`.
 Tracked planned experiments: `manifests/coilsnake-experiment-plan.json`.
 Tracked planned experiment prejoin: `notes/coilsnake-experiment-prejoin-report.md`.
+Tracked promotion stubs: `manifests/coilsnake-promotion-stubs.json` and
+`notes/coilsnake-promotion-stubs.md`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
 
 Ignored local outputs:
@@ -90,6 +92,11 @@ per run or per planned experiment so the oracle loop stays bounded.
 `tools/build_coilsnake_experiment_prejoin_report.py` is compile-free; it checks
 the planned edit match counts and maps each queued probe to local crosswalk
 families/docs before any CoilSnake executable is launched.
+`tools/build_coilsnake_promotion_stubs.py` turns that prejoin report into a
+payload-free promotion checklist for each planned probe, including required
+diff evidence, ingest command, and candidate local notes/contracts to update.
+`tools/validate_coilsnake_promotion_stubs.py` keeps those stubs aligned with the
+current prejoin report.
 
 The runner copies the ignored baseline project into
 `build/coilsnake/edit-experiments/<id>/project`, applies one exact text
@@ -197,6 +204,9 @@ checked-in field join summary. Current joins:
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.
+- Use `notes/coilsnake-promotion-stubs.md` after each successful diff to fill in
+  the required offset, HiROM, local-contract, field-semantic, and runtime
+  consumer evidence before promoting a claim.
 - Rerun `battle-action-pp-cost-probe` with the reusable experiment runner once
   the local CoilSnake executable can complete the compile in this shell. The
   planned edit is entry `13` in `battle_action_table.yml`, changing `PP Cost`

@@ -1354,6 +1354,15 @@
       }
     ]
   },
+  "promotion_stubs_workflow": {
+    "tool": "tools/build_coilsnake_promotion_stubs.py",
+    "validator": "tools/validate_coilsnake_promotion_stubs.py",
+    "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
+    "tracked_summary": "notes/coilsnake-promotion-stubs.md",
+    "stub_count": 6,
+    "ready_to_run_count": 5,
+    "tooling_blocked_count": 1
+  },
   "promotion_policy": [
     "Do not promote CoilSnake names or schemas into source labels without local ROM/routine evidence.",
     "Keep generated CoilSnake project files, rebuilt ROMs, and edit experiments under ignored build/coilsnake.",

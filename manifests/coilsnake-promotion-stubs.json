@@ -1,0 +1,250 @@
+{
+  "generated_by": "tools/build_coilsnake_promotion_stubs.py",
+  "promotion_stubs": [
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "local-coilsnake-executable-timeout",
+        "next_required_evidence": "successful-compile-diff"
+      },
+      "experiment_id": "battle-action-pp-cost-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json",
+      "family_label": "Gameplay YAML tables",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/battle-action-pp-cost-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed battle action 13 PP Cost from 98 to 99.",
+      "prejoin_status": "tooling-blocked-ready-to-rerun",
+      "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "battle_action_table.yml",
+      "tracked_update_targets": [
+        "notes/asset-data-contract-frontier.md",
+        "notes/battle-background-scene-bundles.md",
+        "notes/battle-psi-ability-table-d58a50.md",
+        "notes/battle-sprite-bundle-contracts.md",
+        "notes/battle-visual-asset-contracts.md",
+        "notes/c2-battle-contract-workahead.md",
+        "notes/c3-battle-psi-menu-data-contracts.md",
+        "notes/class2-d57b68-battle-action-table-match.md"
+      ]
+    },
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "none",
+        "next_required_evidence": "diff-confirmed"
+      },
+      "experiment_id": "psi-ness-omega-level-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
+      "family_label": "Gameplay YAML tables",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed PSI ability 4 Ness learned level from 75 to 76.",
+      "prejoin_status": "ready-to-run",
+      "promotion_target": "Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "psi_ability_table.yml",
+      "tracked_update_targets": [
+        "notes/asset-data-contract-frontier.md",
+        "notes/battle-psi-ability-table-d58a50.md",
+        "notes/c2-battle-contract-workahead.md",
+        "notes/c3-battle-psi-menu-data-contracts.md",
+        "notes/class2-d57b68-battle-action-table-match.md"
+      ]
+    },
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "none",
+        "next_required_evidence": "diff-confirmed"
+      },
+      "experiment_id": "enemy-insane-cultist-action1-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json",
+      "family_label": "Gameplay YAML tables",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/enemy-insane-cultist-action1-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed enemy 1 Insane Cultist Action 1 from 215 to 216.",
+      "prejoin_status": "ready-to-run",
+      "promotion_target": "Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "tracked_update_targets": [
+        "notes/asset-data-contract-frontier.md",
+        "notes/battle-background-scene-bundles.md",
+        "notes/battle-psi-ability-table-d58a50.md",
+        "notes/battle-sprite-bundle-contracts.md",
+        "notes/battle-visual-asset-contracts.md",
+        "notes/c2-battle-contract-workahead.md",
+        "notes/c3-battle-psi-menu-data-contracts.md",
+        "notes/class2-d57b68-battle-action-table-match.md"
+      ]
+    },
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "none",
+        "next_required_evidence": "diff-confirmed"
+      },
+      "experiment_id": "npc-config-first-text-pointer-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json",
+      "family_label": "Map tilesets and runtime tables",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
+      "prejoin_status": "ready-to-run",
+      "promotion_target": "Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "npc_config_table.yml",
+      "tracked_update_targets": [
+        "notes/map-collision-runtime-bit-contract.md",
+        "notes/map-fts-format-audit.md",
+        "notes/map-milestone-closure.md",
+        "notes/map-object-bundles.md",
+        "notes/map-palette-descriptor-context.md",
+        "notes/map-scene-composition-contract.md",
+        "notes/map-sector-bundles.md",
+        "notes/map-tileset-bundles.md"
+      ]
+    },
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "none",
+        "next_required_evidence": "diff-confirmed"
+      },
+      "experiment_id": "map-door-first-destination-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/map-door-first-destination-probe/experiment-report.json",
+      "family_label": "Map tilesets and runtime tables",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-door-first-destination-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed the first unique map door Destination X field from 784 to 785.",
+      "prejoin_status": "ready-to-run",
+      "promotion_target": "Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "tracked_update_targets": [
+        "notes/map-collision-runtime-bit-contract.md",
+        "notes/map-fts-format-audit.md",
+        "notes/map-milestone-closure.md",
+        "notes/map-object-bundles.md",
+        "notes/map-palette-descriptor-context.md",
+        "notes/map-scene-composition-contract.md",
+        "notes/map-sector-bundles.md",
+        "notes/map-tileset-bundles.md"
+      ]
+    },
+    {
+      "evidence_gate": {
+        "allowed_promotion_after": [
+          "runner report has compile.returncode 0",
+          "diff.status is different",
+          "diff.first_changed_offset is present"
+        ],
+        "blocking_status": "none",
+        "next_required_evidence": "diff-confirmed"
+      },
+      "experiment_id": "window-config-width-probe",
+      "experiment_report": "build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json",
+      "family_label": "UI, fonts, logos, windows, and town maps",
+      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
+      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json",
+      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
+      "planned_edit": "Changed window configuration 8 Width from 30 to 31.",
+      "prejoin_status": "ready-to-run",
+      "promotion_target": "Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts.",
+      "required_join_fields": [
+        "changed file offset",
+        "canonical HiROM address",
+        "local asset/data or contract range",
+        "field-level semantic claim",
+        "runtime consumer status",
+        "promotion status"
+      ],
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "tracked_update_targets": [
+        "notes/font-bundle-contracts.md",
+        "notes/intro-title-visual-bundle-contracts.md",
+        "notes/landing-cast-visual-contracts.md",
+        "notes/sram-template-contracts.md",
+        "notes/text-window-skin-bundle-contracts.md",
+        "notes/title-screen-letter-oam-contracts.md",
+        "notes/title-screen-palette-animation-contracts.md",
+        "notes/ui-font-town-map-asset-contracts.md"
+      ]
+    }
+  ],
+  "safety_note": "This manifest stores promotion workflow metadata only; it does not contain CoilSnake project contents, rebuilt ROMs, or ROM-derived payload bytes.",
+  "schema": "earthbound-decomp.coilsnake-promotion-stubs.v1",
+  "source_prejoin_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
+  "summary": {
+    "ready_to_run_count": 5,
+    "stub_count": 6,
+    "tooling_blocked_count": 1
+  }
+}
