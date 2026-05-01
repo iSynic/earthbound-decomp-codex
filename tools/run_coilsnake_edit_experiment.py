@@ -5,6 +5,7 @@ import json
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -53,7 +54,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--compile-timeout-seconds",
         type=int,
-        default=1800,
+        default=1200,
         help="Abort CoilSnake compile after this many seconds and still write a report.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Apply checks but do not copy or compile.")
@@ -135,9 +136,12 @@ def build_report(
     compile_result: dict[str, Any] | None,
     diff: dict[str, Any] | None,
     dry_run: bool,
+    status: str,
+    prepared_at: str | None = None,
 ) -> dict[str, Any]:
     return {
         "experiment_id": experiment_id,
+        "status": status,
         "resource_family": resource_family,
         "source_file": source_file,
         "edit": edit_description,
@@ -148,7 +152,13 @@ def build_report(
         "dry_run": dry_run,
         "compile": compile_result,
         "diff": diff,
+        "prepared_at": prepared_at,
     }
+
+
+def write_report(report_path: Path, report: dict[str, Any]) -> None:
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+    report_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -197,6 +207,7 @@ def main() -> int:
                 compile_result=None,
                 diff=None,
                 dry_run=True,
+                status="dry-run",
             )
             print(json.dumps(report, indent=2))
             return 0
@@ -204,6 +215,24 @@ def main() -> int:
         copy_project(project_dir, project_copy, experiments_dir)
         edited_file = project_copy / args.source_file
         apply_text_edit(edited_file, args.find, args.replace, args.expected_count)
+        prepared_at = datetime.now(timezone.utc).isoformat()
+        write_report(
+            report_path,
+            build_report(
+                experiment_id=args.experiment_id,
+                resource_family=args.resource_family,
+                source_file=args.source_file,
+                edit_description=args.edit_description,
+                project_copy=project_copy,
+                rebuilt_rom=rebuilt_rom,
+                baseline_rebuild_rom=baseline_rebuild_rom,
+                compile_result=None,
+                diff=None,
+                dry_run=False,
+                status="prepared",
+                prepared_at=prepared_at,
+            ),
+        )
 
         compile_result = run_compile(
             args.coilsnake.resolve(),
@@ -227,9 +256,18 @@ def main() -> int:
             compile_result=compile_result,
             diff=diff,
             dry_run=False,
+            status=(
+                "diffed"
+                if diff and diff.get("status") == "different"
+                else "compiled"
+                if compile_result["returncode"] == 0
+                else "compile-timeout"
+                if compile_result["timed_out"]
+                else "compile-failed"
+            ),
+            prepared_at=prepared_at,
         )
-        report_path.parent.mkdir(parents=True, exist_ok=True)
-        report_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        write_report(report_path, report)
         print(json.dumps(report, indent=2))
         if compile_result["returncode"] == 0:
             return 0

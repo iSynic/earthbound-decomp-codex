@@ -9,6 +9,7 @@ labels, WRAM fields, or byte-equivalent decomp claims.
 
 Tracked machine-readable summary: `manifests/coilsnake-crosswalk.json`.
 Tracked field semantics: `manifests/coilsnake-field-semantics.json`.
+Tracked planned experiments: `manifests/coilsnake-experiment-plan.json`.
 Tracked field join summary: `notes/coilsnake-field-join-report.md`.
 
 Ignored local outputs:
@@ -65,11 +66,21 @@ ingest a new runner report without hand-editing the crosswalk manifest.
 `tools/validate_coilsnake_field_semantics.py` checks that promoted field entries
 match controlled experiment ids, use valid evidence levels, and point at
 existing local source files.
+`tools/validate_coilsnake_experiment_plan.py` checks the next planned edit queue
+against the baseline CoilSnake project, including exact text-match counts before
+any copied project or rebuild is attempted.
 
 Reusable experiment runner:
 
 ```powershell
 python tools/run_coilsnake_edit_experiment.py --experiment-id <id> --source-file <project-file> --find <old-text> --replace <new-text> --edit-description <description>
+```
+
+Planned experiment queue:
+
+```powershell
+python tools/validate_coilsnake_experiment_plan.py
+python tools/run_coilsnake_planned_experiment.py --experiment-id psi-ness-omega-level-probe --dry-run
 ```
 
 The runner copies the ignored baseline project into
@@ -90,8 +101,9 @@ Local tool caveat as of this pass:
   has a CLI entry point, but the active Python runtimes are missing CoilSnake's
   Python dependencies (`PyYAML`, `Pillow`, `CCScriptWriter`, and `ccscript`).
 - The local `build/coilsnake/tools/CoilSnake-4.2.exe` can be invoked, but the
-  first new compile probe exceeded a 10-minute shell timeout before producing a
-  rebuilt ROM. The runner now records such timeouts.
+  first new compile probe exceeded a 30-minute shell timeout before producing a
+  rebuilt ROM. The runner now writes a prepared report before compiling and uses
+  an internal compile timeout that is shorter than that shell boundary.
 
 Results:
 
@@ -177,9 +189,13 @@ checked-in field join summary. Current joins:
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.
-- Run `battle-action-pp-cost-probe` with the reusable experiment runner once the
-  local CoilSnake executable can complete the compile in this shell. The dry-run
-  edit is entry `10` in `battle_action_table.yml`, changing `PP Cost` `10 -> 11`.
+- Rerun `battle-action-pp-cost-probe` with the reusable experiment runner once
+  the local CoilSnake executable can complete the compile in this shell. The
+  planned edit is entry `13` in `battle_action_table.yml`, changing `PP Cost`
+  `98 -> 99`.
+- Work down `manifests/coilsnake-experiment-plan.json` for the next focused
+  probes: PSI learn level, enemy action slot, NPC text pointer, map door
+  destination, and window width.
 - Run a true CCScript `scriptdump` and a minimal CCScript label/body experiment
   once we want command-lowering proof rather than text YAML proof.
 - Extend experiments to enemy stats, battle sprite metadata, and window/font

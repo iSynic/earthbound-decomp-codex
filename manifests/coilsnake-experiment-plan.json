@@ -1,0 +1,84 @@
+{
+  "schema": "earthbound-decomp.coilsnake-experiment-plan.v1",
+  "safety_note": "This manifest stores planned tiny CoilSnake project edits, expected text-match counts, and promotion targets only; generated projects and rebuilt ROMs stay under ignored build/coilsnake.",
+  "planned_experiments": [
+    {
+      "experiment_id": "battle-action-pp-cost-probe",
+      "batch": "battle-data",
+      "priority": 10,
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "battle_action_table.yml",
+      "find": "  PP Cost: 98",
+      "replace": "  PP Cost: 99",
+      "expected_count": 1,
+      "edit_description": "Changed battle action 13 PP Cost from 98 to 99.",
+      "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers.",
+      "status": "prepared-timeout-pending-rerun"
+    },
+    {
+      "experiment_id": "psi-ness-omega-level-probe",
+      "batch": "battle-data",
+      "priority": 20,
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "psi_ability_table.yml",
+      "find": "  Level learned by Ness: 75",
+      "replace": "  Level learned by Ness: 76",
+      "expected_count": 1,
+      "edit_description": "Changed PSI ability 4 Ness learned level from 75 to 76.",
+      "promotion_target": "Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "enemy-insane-cultist-action1-probe",
+      "batch": "battle-data",
+      "priority": 30,
+      "resource_family": "gameplay_yaml_tables",
+      "source_file": "enemy_configuration_table.yml",
+      "find": "1:\n  '\"The\" Flag': 'true'\n  Action 1: 215",
+      "replace": "1:\n  '\"The\" Flag': 'true'\n  Action 1: 216",
+      "expected_count": 1,
+      "edit_description": "Changed enemy 1 Insane Cultist Action 1 from 215 to 216.",
+      "promotion_target": "Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "npc-config-first-text-pointer-probe",
+      "batch": "map-object",
+      "priority": 40,
+      "resource_family": "map_object_yaml_tables",
+      "source_file": "npc_config_table.yml",
+      "find": "  Text Pointer 1: $c74c07",
+      "replace": "  Text Pointer 1: $c74c08",
+      "expected_count": 1,
+      "edit_description": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
+      "promotion_target": "Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "map-door-first-destination-probe",
+      "batch": "map-object",
+      "priority": 50,
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "find": "  1:\n  - Destination X: 784",
+      "replace": "  1:\n  - Destination X: 785",
+      "expected_count": 1,
+      "edit_description": "Changed the first unique map door Destination X field from 784 to 785.",
+      "promotion_target": "Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers.",
+      "status": "planned"
+    },
+    {
+      "experiment_id": "window-config-width-probe",
+      "batch": "visual-editor",
+      "priority": 60,
+      "resource_family": "ui_font_window_assets",
+      "source_file": "window_configuration_table.yml",
+      "find": "8:\n  Height: 18\n  Width: 30",
+      "replace": "8:\n  Height: 18\n  Width: 31",
+      "expected_count": 1,
+      "edit_description": "Changed window configuration 8 Width from 30 to 31.",
+      "promotion_target": "Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts.",
+      "status": "planned"
+    }
+  ]
+}

@@ -16,6 +16,7 @@ DEFAULT_BASELINE_REBUILD_ROM = ROOT / "build" / "coilsnake" / "baseline-rebuild.
 DEFAULT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-project-inventory.json"
 DEFAULT_MANIFEST_OUT = ROOT / "manifests" / "coilsnake-crosswalk.json"
 DEFAULT_FIELD_SEMANTICS = ROOT / "manifests" / "coilsnake-field-semantics.json"
+DEFAULT_EXPERIMENT_PLAN = ROOT / "manifests" / "coilsnake-experiment-plan.json"
 DEFAULT_FIELD_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_FIELD_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
 
@@ -42,6 +43,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--manifest-out", type=Path, default=DEFAULT_MANIFEST_OUT)
     parser.add_argument("--field-semantics", type=Path, default=DEFAULT_FIELD_SEMANTICS)
+    parser.add_argument("--experiment-plan", type=Path, default=DEFAULT_EXPERIMENT_PLAN)
     parser.add_argument("--field-json-out", type=Path, default=DEFAULT_FIELD_JSON_OUT)
     parser.add_argument("--field-markdown-out", type=Path, default=DEFAULT_FIELD_MARKDOWN_OUT)
     parser.add_argument(
@@ -147,6 +149,50 @@ def inject_field_join_workflow(
     write_json(manifest_path, updated)
 
 
+def inject_experiment_plan_workflow(manifest_path: Path, experiment_plan_path: Path) -> None:
+    manifest = load_json(manifest_path)
+    plan = load_json(experiment_plan_path)
+    experiments = plan.get("planned_experiments", [])
+    if not isinstance(experiments, list):
+        experiments = []
+    next_experiments = [
+        {
+            "experiment_id": experiment.get("experiment_id"),
+            "batch": experiment.get("batch"),
+            "source_file": experiment.get("source_file"),
+            "status": experiment.get("status"),
+            "promotion_target": experiment.get("promotion_target"),
+        }
+        for experiment in sorted(
+            (item for item in experiments if isinstance(item, dict)),
+            key=lambda item: item.get("priority", 999999),
+        )
+        if experiment.get("status") not in {"diff-confirmed", "retired"}
+    ]
+
+    workflow = {
+        "tracked_plan": rel(experiment_plan_path),
+        "validator": "tools/validate_coilsnake_experiment_plan.py",
+        "runner": "tools/run_coilsnake_edit_experiment.py",
+        "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+        "planned_count": len(experiments),
+        "next_experiments": next_experiments,
+    }
+
+    updated: dict[str, Any] = {}
+    inserted = False
+    for key, value in manifest.items():
+        if key == "experiment_plan_workflow":
+            continue
+        if key == "promotion_policy":
+            updated["experiment_plan_workflow"] = workflow
+            inserted = True
+        updated[key] = value
+    if not inserted:
+        updated["experiment_plan_workflow"] = workflow
+    write_json(manifest_path, updated)
+
+
 def main() -> int:
     args = parse_args()
     project_dir = args.project_dir.resolve()
@@ -154,6 +200,7 @@ def main() -> int:
     json_out = args.json_out.resolve()
     manifest_out = args.manifest_out.resolve()
     field_semantics = args.field_semantics.resolve()
+    experiment_plan = args.experiment_plan.resolve()
     field_json_out = args.field_json_out.resolve()
     field_markdown_out = args.field_markdown_out.resolve()
 
@@ -161,6 +208,7 @@ def main() -> int:
         require_dir(project_dir, "CoilSnake baseline project")
         require_file(baseline_rebuild, "CoilSnake baseline rebuild ROM")
         require_file(field_semantics, "CoilSnake field semantics manifest")
+        require_file(experiment_plan, "CoilSnake experiment plan manifest")
 
         inventory_command = [
             sys.executable,
@@ -202,7 +250,20 @@ def main() -> int:
                 str(field_markdown_out),
             ]
         )
+        run(
+            [
+                sys.executable,
+                str(TOOLS / "validate_coilsnake_experiment_plan.py"),
+                "--plan",
+                str(experiment_plan),
+                "--crosswalk",
+                str(manifest_out),
+                "--project-dir",
+                str(project_dir),
+            ]
+        )
         inject_field_join_workflow(manifest_out, field_json_out, field_markdown_out)
+        inject_experiment_plan_workflow(manifest_out, experiment_plan)
         print(f"Refreshed {rel(manifest_out)}")
         print(f"Refreshed {rel(field_markdown_out)}")
         return 0

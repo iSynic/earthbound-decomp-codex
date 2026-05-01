@@ -1299,6 +1299,57 @@
       }
     ]
   },
+  "experiment_plan_workflow": {
+    "tracked_plan": "manifests/coilsnake-experiment-plan.json",
+    "validator": "tools/validate_coilsnake_experiment_plan.py",
+    "runner": "tools/run_coilsnake_edit_experiment.py",
+    "planned_runner": "tools/run_coilsnake_planned_experiment.py",
+    "planned_count": 6,
+    "next_experiments": [
+      {
+        "experiment_id": "battle-action-pp-cost-probe",
+        "batch": "battle-data",
+        "source_file": "battle_action_table.yml",
+        "status": "prepared-timeout-pending-rerun",
+        "promotion_target": "Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers."
+      },
+      {
+        "experiment_id": "psi-ness-omega-level-probe",
+        "batch": "battle-data",
+        "source_file": "psi_ability_table.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers."
+      },
+      {
+        "experiment_id": "enemy-insane-cultist-action1-probe",
+        "batch": "battle-data",
+        "source_file": "enemy_configuration_table.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers."
+      },
+      {
+        "experiment_id": "npc-config-first-text-pointer-probe",
+        "batch": "map-object",
+        "source_file": "npc_config_table.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts."
+      },
+      {
+        "experiment_id": "map-door-first-destination-probe",
+        "batch": "map-object",
+        "source_file": "map_doors.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers."
+      },
+      {
+        "experiment_id": "window-config-width-probe",
+        "batch": "visual-editor",
+        "source_file": "window_configuration_table.yml",
+        "status": "planned",
+        "promotion_target": "Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts."
+      }
+    ]
+  },
   "promotion_policy": [
     "Do not promote CoilSnake names or schemas into source labels without local ROM/routine evidence.",
     "Keep generated CoilSnake project files, rebuilt ROMs, and edit experiments under ignored build/coilsnake.",
