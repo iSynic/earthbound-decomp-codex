@@ -135,3 +135,7 @@ This planning pass is documentation-only.
   the mushroomized selector byte loader, item equipment-class return values,
   and the `0x19 27` statistic-selector value staging path through `C3:EE7A`
   and `C1:045D`.
+- 2026-05-01: C1 statistic-selector character polish landed as byte-neutral
+  source aliases. The promoted contracts name the `0x19 28` `C4:550F`
+  selector-table walk, current text-context character index, out-of-range zero
+  result, and display-text staging pair used before `C1:045D`.

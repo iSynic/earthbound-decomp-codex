@@ -11,92 +11,116 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C10400_GetCurrentTextContextWorkmem = $0400
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C103DC_ReadTextCommandArgumentWord = $03DC
+C10CB6_PrintSingleGlyphToActiveWindow = $0CB6
+
+RequestedCharacterIndex = $02
+SelectorOffsetScratch = $04
+SelectorTablePointerLo = $06
+SelectorTablePointerHi = $08
+SelectorRecordPointerLo = $0A
+SelectorRecordPointerHi = $0C
+TextContextSourcePointerLo = $0E
+TextContextSourcePointerHi = $10
+StatisticSelector = $12
+StatisticSelectorRecordOffset = $12
+TextResultValueLo = $06
+TextResultValueHi = $08
+ProcessorStatus16BitAIndexCarryClear = $31
+StatisticStringCallerFrameAliasOffset = $FFEC
+TextCommandCallerFrameAliasOffset = $FFF2
+StatisticSelectorTableLo = $550F
+StatisticSelectorTableBankWord = $00C4
+LowByteMask = $00FF
+ZeroWord = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:4819
 
 CC_19_28:
 C14819_ReadStatisticSelectorStringCharacter = CC_19_28
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #StatisticStringCallerFrameAliasOffset
     tcd
     pla
     txa
-    sta $12
-    lda.w #$550F
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $12
-    sta $04
+    sta StatisticSelector
+    lda.w #StatisticSelectorTableLo
+    sta SelectorTablePointerLo
+    lda.w #StatisticSelectorTableBankWord
+    sta SelectorTablePointerHi
+    lda StatisticSelector
+    sta SelectorOffsetScratch
     asl A
-    adc $04
-    sta $12
-    jsr $0400
-    sta $02
-    lda $12
-    ldx $06
-    stx $0A
-    ldx $08
-    stx $0C
+    adc SelectorOffsetScratch
+    sta StatisticSelectorRecordOffset
+    jsr C10400_GetCurrentTextContextWorkmem
+    sta RequestedCharacterIndex
+    lda StatisticSelectorRecordOffset
+    ldx SelectorTablePointerLo
+    stx SelectorRecordPointerLo
+    ldx SelectorTablePointerHi
+    stx SelectorRecordPointerHi
     clc
-    adc $0A
-    sta $0A
-    lda [$0A]
-    and.w #$00FF
-    cmp $02
-    bcs C1485B_ReadStatisticSelectorStringCharacter_L485B
-    lda.w #$0000
-    bra C14875_ReadStatisticSelectorStringCharacter_L4875
-C1485B_ReadStatisticSelectorStringCharacter_L485B:
-    jsr $0400
-    sta $02
-    lda $12
+    adc SelectorRecordPointerLo
+    sta SelectorRecordPointerLo
+    lda [SelectorRecordPointerLo]
+    and.w #LowByteMask
+    cmp RequestedCharacterIndex
+    bcs C1485B_ReadStatisticSelectorCharacterFromTable
+    lda.w #ZeroWord
+    bra C14875_StageStatisticSelectorCharacter
+C1485B_ReadStatisticSelectorCharacterFromTable:
+    jsr C10400_GetCurrentTextContextWorkmem
+    sta RequestedCharacterIndex
+    lda StatisticSelectorRecordOffset
     inc A
     clc
-    adc $06
-    sta $06
-    lda [$06]
+    adc SelectorTablePointerLo
+    sta SelectorTablePointerLo
+    lda [SelectorTablePointerLo]
     clc
-    adc $02
+    adc RequestedCharacterIndex
     tax
     dex
     lda $0000,X
-    and.w #$00FF
-C14875_ReadStatisticSelectorStringCharacter_L4875:
-    sta $06
-    stz $08
-    bpl C1487D_ReadStatisticSelectorStringCharacter_L487D
-    dec $08
-C1487D_ReadStatisticSelectorStringCharacter_L487D:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    and.w #LowByteMask
+C14875_StageStatisticSelectorCharacter:
+    sta TextResultValueLo
+    stz TextResultValueHi
+    bpl C1487D_InstallStatisticSelectorCharacterResult
+    dec TextResultValueHi
+C1487D_InstallStatisticSelectorCharacterResult:
+    lda TextResultValueLo
+    sta TextContextSourcePointerLo
+    lda TextResultValueHi
+    sta TextContextSourcePointerHi
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #ZeroWord
     pld
     rts
-    rep #$31
+C14887_PrintTextCommandGlyphArgument:
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #TextCommandCallerFrameAliasOffset
     tcd
     pla
-    cpx.w #$0000
-    beq C1489F_ReadStatisticSelectorStringCharacter_L489F
+    cpx.w #ZeroWord
+    beq C1489F_ReadGlyphArgumentFromTextCommand
     txa
-    bra C148A4_ReadStatisticSelectorStringCharacter_L48A4
-C1489F_ReadStatisticSelectorStringCharacter_L489F:
-    jsr $03DC
-    lda $06
-C148A4_ReadStatisticSelectorStringCharacter_L48A4:
-    jsr $0CB6
-    lda.w #$0000
+    bra C148A4_PrintResolvedGlyphArgument
+C1489F_ReadGlyphArgumentFromTextCommand:
+    jsr C103DC_ReadTextCommandArgumentWord
+    lda TextResultValueLo
+C148A4_PrintResolvedGlyphArgument:
+    jsr C10CB6_PrintSingleGlyphToActiveWindow
+    lda.w #ZeroWord
     pld
     rts

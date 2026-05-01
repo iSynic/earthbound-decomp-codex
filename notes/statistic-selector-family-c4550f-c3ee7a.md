@@ -24,6 +24,10 @@ now names the `0x19 27` argument slots, `C3:EE7A` resolver call, `$0E/$10`
 display-text staging pair, and `C1:045D` install helper. The same pass names
 the `C1:7B47 -> C1:776A` and `C1:7B4C -> C1:4819` static helper pointers in
 `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm`.
+`src/c1/c1_4819_read_statistic_selector_string_character.asm` now gives the
+`0x19 28` side matching source names for the selector table pointer,
+tripled-record offset, current text-context character index, out-of-range zero
+result, and `$0E/$10` display-text staging pair.
 
 So the safest current read is that `0x19 27` and `0x19 28` are not unrelated one-offs. They are two views into the same statistic-selector table:
 
