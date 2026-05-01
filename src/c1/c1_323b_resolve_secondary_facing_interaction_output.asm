@@ -163,6 +163,8 @@ C1332F_ResolveSecondaryFacingInteractionOutput_L332F:
     lda [$0A]
     sta $9C88
     lda $12
+    ; Class 2 returns the CF:8985 row +9 text/actionscript pointer after
+    ; installing context pointers and the event flag.
     clc
     adc.w #$0009
     clc
@@ -177,6 +179,7 @@ C1332F_ResolveSecondaryFacingInteractionOutput_L332F:
     bra C13394_ResolveSecondaryFacingInteractionOutput_L3394
 C13375_ResolveSecondaryFacingInteractionOutput_L3375:
     lda $12
+    ; Class 3 returns the CF:8985 row +9 text/actionscript pointer directly.
     clc
     adc.w #$0009
     ldx $14

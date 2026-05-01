@@ -86,6 +86,7 @@ C13202_ResolvePrimaryFrontInteractionOutput_L3202:
     asl A
     asl A
     adc $04
+    ; CF:8985 interaction rows use +9 as the returned text/actionscript pointer.
     clc
     adc.w #$0009
     ldx $0E

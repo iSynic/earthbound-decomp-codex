@@ -213,8 +213,9 @@ checked-in field join summary. Current joins:
 - `npc-config-first-text-pointer-probe`: `0x0F899F` -> `CF:899F`, matching the
   local `NPC_CONFIG_TABLE` split (`CF:8985..CF:F2B4`) and the CF NPC config
   table source scaffold. The edited byte lands at row 1 `+0x09`, which is the
-  low byte of CoilSnake's first text/actionscript pointer field; the exact
-  local interaction/text dispatch consumer is still open.
+  low byte of CoilSnake's first text/actionscript pointer field. The C1 TALK_TO
+  and CHECK selectors both consume this `+0x09` payload as the returned
+  interaction pointer for relevant classes.
 - `map-door-first-destination-probe`: `0x0F000C` -> `CF:000C`, landing in the
   local `DOOR_DATA` range (`CF:0000..CF:264E`). Because the changed byte is
   from CoilSnake `map_doors.yml` but the local split is door-data vocabulary,
@@ -244,6 +245,9 @@ front doors and source scaffolds:
 - `psi-ness-omega-level-probe`: `PSI_ABILITY_TABLE` row `+0x06` is the Ness
   learn-level byte, with runtime evidence from the C1 battle PSI category
   predicate's character-specific learn-level comparison.
+- `npc-config-first-text-pointer-probe`: `NPC_CONFIG_TABLE` row `+0x09` is the
+  primary text/actionscript pointer payload, with runtime evidence from the C1
+  TALK_TO/CHECK interaction result selectors.
 
 ## Promotion Rules
 
@@ -258,9 +262,8 @@ front doors and source scaffolds:
 
 ## Next Work
 
-- Keep the NPC text-pointer, door-data, map-palette, and window-width probes at
-  their current evidence levels until direct consumers or pointer packing joins
-  are found.
+- Keep the door-data, map-palette, and window-width probes at their current
+  evidence levels until direct consumers or pointer packing joins are found.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.

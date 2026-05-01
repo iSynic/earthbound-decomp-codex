@@ -1535,8 +1535,8 @@
         "local_contract": "CF:8985..CF:F2B4",
         "source_scaffold": "src/cf/table_npc_config_table.asm",
         "evidence_level": "diff-confirmed",
-        "field_evidence_level": "diff-confirmed",
-        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "field_evidence_level": "runtime-correlated",
+        "promotion_status": "field-runtime-correlated",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },

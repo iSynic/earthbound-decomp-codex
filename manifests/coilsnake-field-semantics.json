@@ -113,14 +113,26 @@
       "coilsnake_field": "npc_config_table.yml / NPC config 1 / Text Pointer 1",
       "edited_value": "$c74c07 -> $c74c08",
       "local_field": "NPC_CONFIG_TABLE row 1 primary text/actionscript pointer low byte at row +0x09",
-      "field_evidence_level": "diff-confirmed",
-      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "field_evidence_level": "runtime-correlated",
+      "promotion_status": "field-runtime-correlated",
       "runtime_consumers": [
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:3187 ResolvePrimaryFrontInteractionOutput",
+          "source": "src/c1/c1_3187_resolve_primary_front_interaction_output.asm",
+          "detail": "The TALK_TO selector indexes CF:8985 interaction rows as result * 0x11, adds +0x09, reads the three-byte returned pointer, and passes that output into the checking/talking pipeline."
+        },
+        {
+          "kind": "exact-field-consumer",
+          "routine": "C1:323B ResolveSecondaryFacingInteractionOutput",
+          "source": "src/c1/c1_323b_resolve_secondary_facing_interaction_output.asm",
+          "detail": "The CHECK selector returns the same row +0x09 pointer for class 2 after installing interaction context and for class 3 directly."
+        },
         {
           "kind": "same-table-context",
           "routine": "Map object bundle contract",
           "source": "notes/map-object-bundles.md",
-          "detail": "The map object contract records primary and secondary text pointers for placed NPC config rows; this diff proves CoilSnake's Text Pointer 1 field lands in the local CF NPC config table, while a direct local interaction/text dispatch consumer remains open."
+          "detail": "The map object contract records primary and secondary text pointers for placed NPC config rows; the diff proves CoilSnake's Text Pointer 1 low byte lands in the same CF interaction row payload consumed by C1:3187 and C1:323B."
         }
       ]
     },

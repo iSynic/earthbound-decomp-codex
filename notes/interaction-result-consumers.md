@@ -51,7 +51,11 @@ Working record layout from the observed access pattern:
 - `+9`: returned pointer-like payload used by classes `1`, `2`, and `3`
 - `+13`: auxiliary word consumed only by result class `2`
 
-The returned payload is not yet proven to be a plain text pointer. The consumers treat it as structured output that eventually feeds `EB_ProcessTextboxData_Main`.
+The CoilSnake `npc-config-first-text-pointer-probe` changed NPC config row 1
+byte `+9` at `CF:899F`, proving CoilSnake's `Text Pointer 1` low byte lands on
+this returned payload field. The consumers treat it as structured output that
+eventually feeds `EB_ProcessTextboxData_Main`, so the safest local name remains
+text/actionscript pointer rather than plain text pointer.
 
 ## Small class reader at `C1:AD42`
 

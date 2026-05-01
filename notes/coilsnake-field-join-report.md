@@ -120,7 +120,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
-  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 219
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 220
   - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
   - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
 - Source scaffold candidates:
@@ -166,9 +166,11 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F899F` -> `CF:899F` / `0xCF899F`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `npc_config_table.yml / NPC config 1 / Text Pointer 1` ($c74c07 -> $c74c08); local read `NPC_CONFIG_TABLE row 1 primary text/actionscript pointer low byte at row +0x09`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Field semantic: `npc_config_table.yml / NPC config 1 / Text Pointer 1` ($c74c07 -> $c74c08); local read `NPC_CONFIG_TABLE row 1 primary text/actionscript pointer low byte at row +0x09`; promotion `field-runtime-correlated`.
 - Runtime consumer evidence:
-  - `Map object bundle contract` (same-table-context) in `notes/map-object-bundles.md`: The map object contract records primary and secondary text pointers for placed NPC config rows; this diff proves CoilSnake's Text Pointer 1 field lands in the local CF NPC config table, while a direct local interaction/text dispatch consumer remains open.
+  - `C1:3187 ResolvePrimaryFrontInteractionOutput` (exact-field-consumer) in `src/c1/c1_3187_resolve_primary_front_interaction_output.asm`: The TALK_TO selector indexes CF:8985 interaction rows as result * 0x11, adds +0x09, reads the three-byte returned pointer, and passes that output into the checking/talking pipeline.
+  - `C1:323B ResolveSecondaryFacingInteractionOutput` (exact-field-consumer) in `src/c1/c1_323b_resolve_secondary_facing_interaction_output.asm`: The CHECK selector returns the same row +0x09 pointer for class 2 after installing interaction context and for class 3 directly.
+  - `Map object bundle contract` (same-table-context) in `notes/map-object-bundles.md`: The map object contract records primary and secondary text pointers for placed NPC config rows; the diff proves CoilSnake's Text Pointer 1 low byte lands in the same CF interaction row payload consumed by C1:3187 and C1:323B.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
@@ -252,7 +254,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 224
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 225
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:
