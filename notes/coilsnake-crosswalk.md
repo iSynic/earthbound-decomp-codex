@@ -52,9 +52,14 @@ coilsnake-cli --verbose decompile "EarthBound (USA).sfc" build/coilsnake/baselin
 Copy-Item -Path "EarthBound (USA).sfc" -Destination build/coilsnake/base-expanded.sfc -Force
 coilsnake-cli --verbose expand build/coilsnake/base-expanded.sfc false
 coilsnake-cli --verbose compile build/coilsnake/baseline-project build/coilsnake/base-expanded.sfc build/coilsnake/baseline-rebuild.sfc
-python tools/build_coilsnake_project_inventory.py --project-dir build/coilsnake/baseline-project --compare-rom baseline-rebuild=build/coilsnake/baseline-rebuild.sfc
-python tools/build_coilsnake_field_join_report.py
+python tools/refresh_coilsnake_crosswalk.py
 ```
+
+`tools/refresh_coilsnake_crosswalk.py` regenerates the tracked crosswalk
+manifest, the ignored detailed inventory report, the ignored field-join JSON,
+and the tracked field-join note from the baseline project, baseline rebuild, and
+the three known one-byte probe rebuilds. Pass `--experiment-report` to ingest a
+new runner report without hand-editing the manifest.
 
 Reusable experiment runner:
 
@@ -157,8 +162,13 @@ checked-in field join summary. Current joins:
 
 ## Next Work
 
-- Add focused contract enrichments for the three one-byte diff probes by joining
-  their offsets to local table/routine contracts.
+- Promote field-join facts into family-specific contracts only when runtime
+  consumers are confirmed. The current item/text probes have local source-range
+  joins; the map palette probe remains a relocation/compiler-normalization
+  candidate.
+- Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
+  each successful runner experiment so manifest and field-join evidence stay in
+  sync.
 - Run `battle-action-pp-cost-probe` with the reusable experiment runner once the
   local CoilSnake executable can complete the compile in this shell. The dry-run
   edit is entry `10` in `battle_action_table.yml`, changing `PP Cost` `10 -> 11`.

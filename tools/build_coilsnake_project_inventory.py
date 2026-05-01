@@ -570,12 +570,11 @@ def build_crosswalk(
             "Upgrade resource evidence to diff-confirmed only after a minimal edit/rebuild experiment identifies changed spans.",
         ],
         "recommended_diff_experiments": [
-            "item_configuration_table.yml single numeric field edit",
-            "enemy_configuration_table.yml single numeric field edit",
-            "ccscript minimal text label/body edit",
-            "map_palette_settings.yml or map sector field edit",
-            "BattleSprites or BattleBG metadata/resource edit",
-            "window_configuration_table.yml or Fonts width edit",
+            "battle/data batch: enemy_configuration_table.yml, battle_action_table.yml, psi_ability_table.yml, item_configuration_table.yml",
+            "map/object batch: npc_config_table.yml, map_sprites.yml, map_doors.yml, map_palette_settings.yml",
+            "text/script batch: scriptdump, then minimal CCScript label/body lowering",
+            "visual/editor batch: BattleSprites, BattleBGs, Fonts, WindowGraphics",
+            "map_palette_settings.yml pointer/rebuild follow-up for the DA:0C40 tile-arrangement landing",
         ],
     }
 

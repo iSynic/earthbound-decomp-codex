@@ -1267,18 +1267,7 @@
         "source_scaffold": "src/d5/table_item_configuration_table.asm",
         "evidence_level": "diff-confirmed",
         "join_status": "local-range-confirmed",
-        "runtime_consumer_status": "known-runtime-consumer-not-yet-claimed"
-      },
-      {
-        "experiment_id": "text-menu-probe",
-        "coilsnake_file": "text_misc.yml",
-        "changed_file_offset": "0x04A00A",
-        "hirom": "C4:A00A",
-        "local_contract": "C4:9FE1..C4:A0CF battle menu and target precheck data",
-        "source_scaffold": "src/c4/battle_target_candidate_selection_helpers.asm",
-        "evidence_level": "diff-confirmed",
-        "join_status": "local-range-confirmed",
-        "runtime_consumer_status": "known-runtime-consumer-not-yet-claimed"
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
         "experiment_id": "map-palette-probe",
@@ -1290,6 +1279,17 @@
         "evidence_level": "diff-confirmed",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "text-menu-probe",
+        "coilsnake_file": "text_misc.yml",
+        "changed_file_offset": "0x04A00A",
+        "hirom": "C4:A00A",
+        "local_contract": "C4:9FE1..C4:A0CF",
+        "source_scaffold": "src/c4/battle_target_candidate_selection_helpers.asm",
+        "evidence_level": "diff-confirmed",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
       }
     ]
   },
