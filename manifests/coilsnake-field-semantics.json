@@ -125,86 +125,90 @@
     "map-door-first-destination-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Destination X",
       "edited_value": "784 -> 785",
-      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; original verified ROM has different bytes at the same address",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; clustered door probes uniquely match original verified ROM candidate CF:23A9",
       "field_evidence_level": "diff-confirmed",
-      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
       "runtime_consumers": [
         {
           "kind": "compiler-normalization-context",
           "routine": "CoilSnake baseline rebuild CF door-data payload",
           "source": "notes/coilsnake-crosswalk.md",
-          "detail": "The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The verified original ROM byte at CF:000C is not the same payload, so this is rebuild-layout evidence rather than a direct original-ROM runtime field promotion."
+          "detail": "The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The four-probe door cluster uniquely matches the verified original ROM at CF:23A7, making this field's candidate original byte CF:23A9."
         },
         {
           "kind": "same-family-runtime-context",
           "routine": "C0/C4 door destination trigger helpers",
           "source": "notes/front-interaction-flow.md",
-          "detail": "Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The exact original-ROM subrecord mapping for CoilSnake's rebuilt CF:000C field remains open."
+          "detail": "Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The original candidate is known, but the precise pointer path from the trigger tables to this original subrecord still needs runtime correlation."
         }
-      ]
+      ],
+      "original_candidate": "CF:23A9"
     },
     "map-door-first-destination-y-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Destination Y",
       "edited_value": "1210 -> 1211",
-      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000A; original verified ROM has different bytes at the same address",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000A; clustered door probes uniquely match original verified ROM candidate CF:23A7",
       "field_evidence_level": "diff-confirmed",
-      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
       "runtime_consumers": [
         {
           "kind": "compiler-normalization-context",
           "routine": "CoilSnake baseline rebuild CF door-data payload",
           "source": "notes/coilsnake-crosswalk.md",
-          "detail": "The controlled diff proves CoilSnake's first unique map door Destination Y low byte is emitted at baseline-rebuild offset 0x0F000A (CF:000A). Together with Direction at CF:000B and Destination X at CF:000C, this describes CoilSnake's rebuilt record layout, not the original ROM layout at that address."
+          "detail": "The controlled diff proves CoilSnake's first unique map door Destination Y low byte is emitted at baseline-rebuild offset 0x0F000A (CF:000A). Together with the Direction/control, Destination X, and Style probes, this cluster uniquely matches the verified original ROM at CF:23A7."
         },
         {
           "kind": "same-family-runtime-context",
           "routine": "C0/C4 door destination trigger helpers",
           "source": "notes/front-interaction-flow.md",
-          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but the original-ROM-to-CoilSnake-rebuild layout map remains open."
+          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but the precise runtime pointer path from trigger lookup to this original subrecord remains open."
         }
-      ]
+      ],
+      "original_candidate": "CF:23A7"
     },
     "map-door-first-direction-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Direction",
       "edited_value": "left -> right",
-      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000B; original verified ROM has different bytes at the same address",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF packed destination/control byte at CF:000B; clustered door probes uniquely match original verified ROM candidate CF:23A8",
       "field_evidence_level": "diff-confirmed",
-      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
       "runtime_consumers": [
         {
           "kind": "compiler-normalization-context",
           "routine": "CoilSnake baseline rebuild CF door-data payload",
           "source": "notes/coilsnake-crosswalk.md",
-          "detail": "The controlled diff proves CoilSnake's first unique map door Direction byte is emitted at baseline-rebuild offset 0x0F000B (CF:000B), between Destination Y low byte and Destination X low byte in CoilSnake's rebuilt layout."
+          "detail": "The controlled diff proves changing CoilSnake Direction mutates the byte at baseline-rebuild offset 0x0F000B (CF:000B), between Destination Y low byte and Destination X low byte. This appears to be a packed destination/control byte rather than a standalone direction byte; the clustered pattern uniquely matches original CF:23A8."
         },
         {
           "kind": "same-family-runtime-context",
           "routine": "C0/C4 door destination trigger helpers",
           "source": "notes/front-interaction-flow.md",
-          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but this direction byte still needs an original-ROM layout join before it can be called a local runtime field."
+          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but the bit-level control semantics of this packed byte still need runtime correlation."
         }
-      ]
+      ],
+      "original_candidate": "CF:23A8"
     },
     "map-door-first-style-probe": {
       "coilsnake_field": "map_doors.yml / first unique door / Style",
       "edited_value": "1 -> 2",
-      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000E; original verified ROM has different bytes at the same address",
+      "local_field": "changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000E; clustered door probes uniquely match original verified ROM candidate CF:23AB",
       "field_evidence_level": "diff-confirmed",
-      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
       "runtime_consumers": [
         {
           "kind": "compiler-normalization-context",
           "routine": "CoilSnake baseline rebuild CF door-data payload",
           "source": "notes/coilsnake-crosswalk.md",
-          "detail": "The controlled diff proves CoilSnake's first unique map door Style byte is emitted at baseline-rebuild offset 0x0F000E (CF:000E), a few bytes after the destination/direction cluster in CoilSnake's rebuilt layout."
+          "detail": "The controlled diff proves CoilSnake's first unique map door Style byte is emitted at baseline-rebuild offset 0x0F000E (CF:000E), a few bytes after the destination/control cluster. The four-probe pattern uniquely matches original CF:23A7, making this field's candidate original byte CF:23AB."
         },
         {
           "kind": "same-family-runtime-context",
           "routine": "C0/C4 door destination trigger helpers",
           "source": "notes/front-interaction-flow.md",
-          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but the rebuilt style byte still needs a pointer/runtime join back to the original ROM layout."
+          "detail": "Local C0/C4 door probes consume bank-CF door destination records, but the exact transition-style consumer remains open."
         }
-      ]
+      ],
+      "original_candidate": "CF:23AB"
     },
     "npc-config-first-text-pointer-probe": {
       "coilsnake_field": "npc_config_table.yml / NPC config 1 / Text Pointer 1",

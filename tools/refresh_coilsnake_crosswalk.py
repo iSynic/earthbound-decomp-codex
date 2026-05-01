@@ -24,6 +24,8 @@ DEFAULT_PROMOTION_STUBS_JSON_OUT = ROOT / "manifests" / "coilsnake-promotion-stu
 DEFAULT_PROMOTION_STUBS_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-promotion-stubs.md"
 DEFAULT_FIELD_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-field-join-report.json"
 DEFAULT_FIELD_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-field-join-report.md"
+DEFAULT_LAYOUT_JSON_OUT = ROOT / "build" / "coilsnake" / "reports" / "coilsnake-rebuild-original-layout-report.json"
+DEFAULT_LAYOUT_MARKDOWN_OUT = ROOT / "notes" / "coilsnake-rebuild-original-layout-report.md"
 
 KNOWN_EXPERIMENT_ROMS = {
     "item-cost-probe": ROOT / "build" / "coilsnake" / "edit-experiments" / "item-cost-probe" / "rebuilt.sfc",
@@ -56,6 +58,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--promotion-stubs-markdown-out", type=Path, default=DEFAULT_PROMOTION_STUBS_MARKDOWN_OUT)
     parser.add_argument("--field-json-out", type=Path, default=DEFAULT_FIELD_JSON_OUT)
     parser.add_argument("--field-markdown-out", type=Path, default=DEFAULT_FIELD_MARKDOWN_OUT)
+    parser.add_argument("--layout-json-out", type=Path, default=DEFAULT_LAYOUT_JSON_OUT)
+    parser.add_argument("--layout-markdown-out", type=Path, default=DEFAULT_LAYOUT_MARKDOWN_OUT)
     parser.add_argument(
         "--experiment-report",
         action="append",
@@ -246,6 +250,34 @@ def inject_promotion_stubs_workflow(
     write_json(manifest_path, updated)
 
 
+def inject_rebuild_original_layout_workflow(
+    manifest_path: Path,
+    layout_json_path: Path,
+    layout_markdown_path: Path,
+) -> None:
+    manifest = load_json(manifest_path)
+    layout_report = load_json(layout_json_path)
+    workflow = {
+        "tool": "tools/map_coilsnake_rebuild_to_original.py",
+        "tracked_summary": rel(layout_markdown_path),
+        "ignored_json_report": rel(layout_json_path),
+        "summary": layout_report.get("summary", {}),
+    }
+
+    updated: dict[str, Any] = {}
+    inserted = False
+    for key, value in manifest.items():
+        if key == "rebuild_original_layout_workflow":
+            continue
+        if key == "promotion_policy":
+            updated["rebuild_original_layout_workflow"] = workflow
+            inserted = True
+        updated[key] = value
+    if not inserted:
+        updated["rebuild_original_layout_workflow"] = workflow
+    write_json(manifest_path, updated)
+
+
 def main() -> int:
     args = parse_args()
     project_dir = args.project_dir.resolve()
@@ -261,6 +293,8 @@ def main() -> int:
     promotion_stubs_markdown_out = args.promotion_stubs_markdown_out.resolve()
     field_json_out = args.field_json_out.resolve()
     field_markdown_out = args.field_markdown_out.resolve()
+    layout_json_out = args.layout_json_out.resolve()
+    layout_markdown_out = args.layout_markdown_out.resolve()
 
     try:
         require_dir(project_dir, "CoilSnake baseline project")
@@ -307,6 +341,22 @@ def main() -> int:
                 str(field_json_out),
                 "--markdown-out",
                 str(field_markdown_out),
+            ]
+        )
+        run(
+            [
+                sys.executable,
+                str(TOOLS / "map_coilsnake_rebuild_to_original.py"),
+                "--crosswalk",
+                str(manifest_out),
+                "--field-semantics",
+                str(field_semantics),
+                "--baseline-rebuild",
+                str(baseline_rebuild),
+                "--json-out",
+                str(layout_json_out),
+                "--markdown-out",
+                str(layout_markdown_out),
             ]
         )
         run(
@@ -362,10 +412,12 @@ def main() -> int:
             ]
         )
         inject_field_join_workflow(manifest_out, field_json_out, field_markdown_out)
+        inject_rebuild_original_layout_workflow(manifest_out, layout_json_out, layout_markdown_out)
         inject_experiment_plan_workflow(manifest_out, experiment_plan, prejoin_json_out, prejoin_markdown_out)
         inject_promotion_stubs_workflow(manifest_out, anchor_hints, promotion_stubs_json_out, promotion_stubs_markdown_out)
         print(f"Refreshed {rel(manifest_out)}")
         print(f"Refreshed {rel(field_markdown_out)}")
+        print(f"Refreshed {rel(layout_markdown_out)}")
         print(f"Refreshed {rel(promotion_stubs_markdown_out)}")
         return 0
     except (FileNotFoundError, subprocess.CalledProcessError) as exc:

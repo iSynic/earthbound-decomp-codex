@@ -1727,7 +1727,7 @@
         "source_scaffold": "src/cf/table_door_data.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1740,7 +1740,7 @@
         "source_scaffold": "src/cf/table_door_data.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1753,7 +1753,7 @@
         "source_scaffold": "src/cf/table_door_data.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1766,7 +1766,7 @@
         "source_scaffold": "src/cf/table_door_data.asm",
         "evidence_level": "diff-confirmed",
         "field_evidence_level": "diff-confirmed",
-        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "promotion_status": "rebuilt-to-original-candidate-unique-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
       },
@@ -1862,6 +1862,18 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       }
     ]
+  },
+  "rebuild_original_layout_workflow": {
+    "tool": "tools/map_coilsnake_rebuild_to_original.py",
+    "tracked_summary": "notes/coilsnake-rebuild-original-layout-report.md",
+    "ignored_json_report": "build/coilsnake/reports/coilsnake-rebuild-original-layout-report.json",
+    "summary": {
+      "ambiguous_cluster_count": 2,
+      "cluster_count": 3,
+      "direct_same_offset_count": 9,
+      "experiment_count": 15,
+      "unique_original_cluster_candidate_count": 1
+    }
   },
   "experiment_plan_workflow": {
     "tracked_plan": "manifests/coilsnake-experiment-plan.json",

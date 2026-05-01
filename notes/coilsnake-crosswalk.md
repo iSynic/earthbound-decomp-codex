@@ -241,7 +241,9 @@ checked-in field join summary. Current joins:
   normalized first-door record layout.
 - `map-door-first-direction-probe`: `0x0F000B` -> `CF:000B`, sitting between
   the Destination Y and Destination X low bytes in the rebuilt first-door
-  record.
+  record. Because the Destination Y probe also leaves this byte adjacent to the
+  Y coordinate, treat it as a packed destination/control byte until bit-level
+  runtime evidence separates direction from coordinate high bits.
 - `map-door-first-style-probe`: `0x0F000E` -> `CF:000E`, proving the first-door
   Style field is nearby but not contiguous with the destination/direction byte
   trio in CoilSnake's rebuilt layout.
@@ -308,6 +310,29 @@ runtime field.
   Follow-up X/Y probes should determine the rebuilt map_sprites record shape
   before mapping it back to the original pointer-table plus placement-list
   layout.
+
+## Rebuilt-to-Original Layout Joins
+
+`tools/map_coilsnake_rebuild_to_original.py` compares CoilSnake baseline-rebuild
+diff clusters against the verified original ROM without writing ROM payload bytes
+to tracked files. Its tracked summary is
+`notes/coilsnake-rebuild-original-layout-report.md`; the detailed JSON stays in
+`build/coilsnake/reports/`.
+
+Current learned joins:
+
+- `map_doors.yml`: the four first-door probes form a unique original-ROM
+  candidate. CoilSnake's rebuilt first-door cluster starts at `CF:000A`, while
+  the matching original cluster starts at `CF:23A7` inside `DOOR_DATA`.
+  Candidate field addresses are Destination Y low byte rebuilt `CF:000A` ->
+  original `CF:23A7`, packed Direction/control byte rebuilt `CF:000B` ->
+  original `CF:23A8`, Destination X low byte rebuilt `CF:000C` -> original
+  `CF:23A9`, and Style byte rebuilt `CF:000E` -> original `CF:23AB`.
+- Direct same-offset exact windows confirm the already-promoted D5 gameplay
+  table probes, the C4 battle menu text probe, the CF NPC text pointer probe,
+  and both C3 window-config dimension probes.
+- `map_sprites.yml` still has only one probe, so the original placement-row
+  mapping remains underdetermined. Add X/Y probes before promoting it.
 
 ## Promotion Rules
 

@@ -147,24 +147,23 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F000C` -> `CF:000C` / `0xCF000C`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `map_doors.yml / first unique door / Destination X` (784 -> 785); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; original verified ROM has different bytes at the same address`; promotion `relocation-or-compiler-normalization-candidate`.
+- Field semantic: `map_doors.yml / first unique door / Destination X` (784 -> 785); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000C; clustered door probes uniquely match original verified ROM candidate CF:23A9`; promotion `rebuilt-to-original-candidate-unique-runtime-consumer-open`.
 - Runtime consumer evidence:
-  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The verified original ROM byte at CF:000C is not the same payload, so this is rebuild-layout evidence rather than a direct original-ROM runtime field promotion.
-  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The exact original-ROM subrecord mapping for CoilSnake's rebuilt CF:000C field remains open.
+  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Destination X low byte is emitted at baseline-rebuild offset 0x0F000C (CF:000C), changing 0x10 to 0x11 for 784 -> 785. The four-probe door cluster uniquely matches the verified original ROM at CF:23A7, making this field's candidate original byte CF:23A9.
+  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes resolve bank-CF door trigger records through C0:7477, then cache or enqueue destination pointers for movement and interaction transitions. The original candidate is known, but the precise pointer path from the trigger tables to this original subrecord still needs runtime correlation.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 231
-  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
-  - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
+  - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 39
+  - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 176
-  - `notes/coilsnake-experiment-prejoin-report.md` line 17
-  - `notes/coilsnake-promotion-stubs.md` line 29
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -175,24 +174,23 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F000A` -> `CF:000A` / `0xCF000A`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `map_doors.yml / first unique door / Destination Y` (1210 -> 1211); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000A; original verified ROM has different bytes at the same address`; promotion `relocation-or-compiler-normalization-candidate`.
+- Field semantic: `map_doors.yml / first unique door / Destination Y` (1210 -> 1211); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000A; clustered door probes uniquely match original verified ROM candidate CF:23A7`; promotion `rebuilt-to-original-candidate-unique-runtime-consumer-open`.
 - Runtime consumer evidence:
-  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Destination Y low byte is emitted at baseline-rebuild offset 0x0F000A (CF:000A). Together with Direction at CF:000B and Destination X at CF:000C, this describes CoilSnake's rebuilt record layout, not the original ROM layout at that address.
-  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but the original-ROM-to-CoilSnake-rebuild layout map remains open.
+  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Destination Y low byte is emitted at baseline-rebuild offset 0x0F000A (CF:000A). Together with the Direction/control, Destination X, and Style probes, this cluster uniquely matches the verified original ROM at CF:23A7.
+  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but the precise runtime pointer path from trigger lookup to this original subrecord remains open.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 231
-  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
-  - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
+  - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 39
+  - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 176
-  - `notes/coilsnake-experiment-prejoin-report.md` line 17
-  - `notes/coilsnake-promotion-stubs.md` line 29
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -203,24 +201,23 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F000B` -> `CF:000B` / `0xCF000B`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `map_doors.yml / first unique door / Direction` (left -> right); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000B; original verified ROM has different bytes at the same address`; promotion `relocation-or-compiler-normalization-candidate`.
+- Field semantic: `map_doors.yml / first unique door / Direction` (left -> right); local read `changed byte lands in CoilSnake baseline-rebuild CF packed destination/control byte at CF:000B; clustered door probes uniquely match original verified ROM candidate CF:23A8`; promotion `rebuilt-to-original-candidate-unique-runtime-consumer-open`.
 - Runtime consumer evidence:
-  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Direction byte is emitted at baseline-rebuild offset 0x0F000B (CF:000B), between Destination Y low byte and Destination X low byte in CoilSnake's rebuilt layout.
-  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but this direction byte still needs an original-ROM layout join before it can be called a local runtime field.
+  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves changing CoilSnake Direction mutates the byte at baseline-rebuild offset 0x0F000B (CF:000B), between Destination Y low byte and Destination X low byte. This appears to be a packed destination/control byte rather than a standalone direction byte; the clustered pattern uniquely matches original CF:23A8.
+  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but the bit-level control semantics of this packed byte still need runtime correlation.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 231
-  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
-  - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
+  - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 39
+  - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 176
-  - `notes/coilsnake-experiment-prejoin-report.md` line 17
-  - `notes/coilsnake-promotion-stubs.md` line 29
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -231,24 +228,23 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Diff result: `1` byte(s), first changed offset `0x0F000E` -> `CF:000E` / `0xCF000E`.
 - Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
 - Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
-- Field semantic: `map_doors.yml / first unique door / Style` (1 -> 2); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000E; original verified ROM has different bytes at the same address`; promotion `relocation-or-compiler-normalization-candidate`.
+- Field semantic: `map_doors.yml / first unique door / Style` (1 -> 2); local read `changed byte lands in CoilSnake baseline-rebuild CF door payload at CF:000E; clustered door probes uniquely match original verified ROM candidate CF:23AB`; promotion `rebuilt-to-original-candidate-unique-runtime-consumer-open`.
 - Runtime consumer evidence:
-  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Style byte is emitted at baseline-rebuild offset 0x0F000E (CF:000E), a few bytes after the destination/direction cluster in CoilSnake's rebuilt layout.
-  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but the rebuilt style byte still needs a pointer/runtime join back to the original ROM layout.
+  - `CoilSnake baseline rebuild CF door-data payload` (compiler-normalization-context) in `notes/coilsnake-crosswalk.md`: The controlled diff proves CoilSnake's first unique map door Style byte is emitted at baseline-rebuild offset 0x0F000E (CF:000E), a few bytes after the destination/control cluster. The four-probe pattern uniquely matches original CF:23A7, making this field's candidate original byte CF:23AB.
+  - `C0/C4 door destination trigger helpers` (same-family-runtime-context) in `notes/front-interaction-flow.md`: Local C0/C4 door probes consume bank-CF door destination records, but the exact transition-style consumer remains open.
 - Local asset/data range matches:
   - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
 - Local contract/note range matches:
   - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
   - `DOOR_DATA` `CF:0000..CF:264E` in `notes/coilsnake-crosswalk.md` line 231
-  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
-  - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
+  - `map-door-first-destination-y-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 39
+  - `map-door-first-direction-probe` `CF:0000..CF:264E` in `notes/coilsnake-rebuild-original-layout-report.md` line 40
 - Source scaffold candidates:
   - `src/cf/table_door_data.asm` (address-lines:10)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 176
-  - `notes/coilsnake-experiment-prejoin-report.md` line 17
-  - `notes/coilsnake-promotion-stubs.md` line 29
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 19
   - `notes/map-object-layer-closure.md` line 146
   - `notes/map-sector-bundles.md` line 99
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -304,8 +300,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `src/cf/table_sprite_placement_pointer_table.asm` (address-lines:10)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 181
-  - `notes/coilsnake-experiment-prejoin-report.md` line 20
-  - `notes/coilsnake-promotion-stubs.md` line 101
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 57
   - `notes/data-contracts-c0-c4.md` line 1218
   - `notes/map-sprite-usage-contract.md` line 12
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
@@ -390,6 +385,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Existing note anchors:
   - `notes/c2-runtime-semantic-polish-plan.md` line 221
   - `notes/coilsnake-crosswalk.md` line 153
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 60
 
 ## window-config-height-probe
 
@@ -404,7 +400,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 254
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 256
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:
@@ -414,8 +410,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Existing note anchors:
   - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13
   - `notes/coilsnake-crosswalk.md` line 177
-  - `notes/coilsnake-experiment-prejoin-report.md` line 21
-  - `notes/coilsnake-promotion-stubs.md` line 125
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 20
 
 ## window-config-width-probe
 
@@ -430,7 +425,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local contract/note range matches:
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
   - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
-  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 254
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/coilsnake-crosswalk.md` line 256
   - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
   - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
 - Source scaffold candidates:
@@ -440,5 +435,4 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Existing note anchors:
   - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13
   - `notes/coilsnake-crosswalk.md` line 177
-  - `notes/coilsnake-experiment-prejoin-report.md` line 21
-  - `notes/coilsnake-promotion-stubs.md` line 125
+  - `notes/coilsnake-rebuild-original-layout-report.md` line 20
