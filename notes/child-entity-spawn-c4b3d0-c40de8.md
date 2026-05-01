@@ -87,6 +87,11 @@ This looks like the matched cleanup path. It scans active entries for the tagged
 
 So the safest current read is: `C4:B4BE` clears previously spawned attached child entities rather than doing general unrelated cleanup.
 
+Source polish: `src/c4/landing_attached_child_lookup_helpers.asm` now names
+the `$103E` attached-parent scan table, missing-parent sentinel, high-bit
+attached-parent tag, live-slot loop bounds, zero clear value, and the fixed
+base-slot/default-child wrapper arguments.
+
 ## Resolver-backed caller pairs
 
 Three paired families are now visible:
@@ -101,6 +106,10 @@ The pattern is consistent:
 
 - spawn variant resolves a parent entity, then calls `C4:B3D0`
 - clear variant resolves the same family, then calls `C4:B4BE`
+
+The source now routes the resolver-backed spawn wrappers through the named
+`C4B3D0_SpawnAttachedChildEntityFromParentSlot` contract instead of the legacy
+`SPAWN_FLOATING_SPRITE` label.
 
 The registry-backed pair is stronger than before now that the underlying RAM block is better understood: `C4:608C` is operating over the small `$988B/$9891/$9897/$98A3` overworld type registry, not just an anonymous six-entry list.
 

@@ -6282,6 +6282,14 @@ org $C4B4BE
 !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
 !C4B3D0_SpawnAttachedChildEntityFromParentSlot = $C4B3D0
 !C4B4BE_ClearAttachedChildEntitiesByParentSlot = $C4B4BE
+!LiveEntityAttachedParentTable = $103E
+!MissingParentSlotSentinel = $FFFF
+!AttachedParentStateTagMask = $C000
+!ClearLoopFirstLiveSlot = $0000
+!ClearLoopLiveSlotCount = $001E
+!ZeroWord = $0000
+!DefaultAttachedChildDefinitionIndex = $0001
+!DefaultAttachedChildParentSlot = $0018
 C4B4BE_ClearAttachedChildEntitiesByParentSlot:
 	REP.b #$31
 	PHD
@@ -6290,23 +6298,23 @@ C4B4BE_ClearAttachedChildEntitiesByParentSlot:
 	ADC.w #$FFF0
 	TCD
 	PLA
-	CMP.w #$FFFF
+	CMP.w #!MissingParentSlotSentinel
 	BEQ.b C4B4FC_ClearAttachedChildEntitiesByParentSlot_Return
-	ORA.w #$C000
+	ORA.w #!AttachedParentStateTagMask
 	STA.b $02
-	LDY.w #$0000
+	LDY.w #!ClearLoopFirstLiveSlot
 	STY.b $0E
 	BRA.b C4B4F7_ClearAttachedChildEntitiesByParentSlot_CheckLoop
 C4B4D9_ClearAttachedChildEntitiesByParentSlot_Loop:
 	TYA
 	ASL
 	CLC
-	ADC.w #$103E
+	ADC.w #!LiveEntityAttachedParentTable
 	TAX
 	LDA.w $0000,X
 	CMP.b $02
 	BNE.b C4B4F2_ClearAttachedChildEntitiesByParentSlot_Next
-	LDA.w #$0000
+	LDA.w #!ZeroWord
 	STA.w $0000,X
 	TYA
 	JSL.l !C02140_ClearEntitySlot
@@ -6315,7 +6323,7 @@ C4B4F2_ClearAttachedChildEntitiesByParentSlot_Next:
 	INY
 	STY.b $0E
 C4B4F7_ClearAttachedChildEntitiesByParentSlot_CheckLoop:
-	CPY.w #$001E
+	CPY.w #!ClearLoopLiveSlotCount
 	BCC.b C4B4D9_ClearAttachedChildEntitiesByParentSlot_Loop
 C4B4FC_ClearAttachedChildEntitiesByParentSlot_Return:
 	PLD
@@ -6334,7 +6342,7 @@ C4B4FE_SpawnAttachedChildForRegistryTypeCode:
 	JSL.l !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
 	LDY.b $0E
 	TYX
-	JSL.l SPAWN_FLOATING_SPRITE
+	JSL.l !C4B3D0_SpawnAttachedChildEntityFromParentSlot
 	PLD
 	RTL
 C4B519_ClearAttachedChildForRegistryTypeCode:
@@ -6356,7 +6364,7 @@ C4B524_SpawnAttachedChildForVisualTypeId:
 	JSL.l !C4605A_FindEntitySlotByVisualTypeId
 	LDY.b $0E
 	TYX
-	JSL.l SPAWN_FLOATING_SPRITE
+	JSL.l !C4B3D0_SpawnAttachedChildEntityFromParentSlot
 	PLD
 	RTL
 C4B53F_ClearAttachedChildForVisualTypeId:
@@ -6378,7 +6386,7 @@ C4B54A_SpawnAttachedChildForPoseDescriptorId:
 	JSL.l !C46028_FindEntitySlotByCachedPoseDescriptorId
 	LDY.b $0E
 	TYX
-	JSL.l SPAWN_FLOATING_SPRITE
+	JSL.l !C4B3D0_SpawnAttachedChildEntityFromParentSlot
 	PLD
 	RTL
 C4B565_ClearAttachedChildForPoseDescriptorId:
@@ -6388,13 +6396,13 @@ C4B565_ClearAttachedChildForPoseDescriptorId:
 	RTL
 C4B570_SpawnDefaultAttachedChildForBaseSlot18:
 	REP.b #$31
-	LDX.w #$0001
-	LDA.w #$0018
-	JSL.l SPAWN_FLOATING_SPRITE
+	LDX.w #!DefaultAttachedChildDefinitionIndex
+	LDA.w #!DefaultAttachedChildParentSlot
+	JSL.l !C4B3D0_SpawnAttachedChildEntityFromParentSlot
 	RTL
 C4B57D_ClearDefaultAttachedChildForBaseSlot18:
 	REP.b #$31
-	LDA.w #$0018
+	LDA.w #!DefaultAttachedChildParentSlot
 	JSL.l !C4B4BE_ClearAttachedChildEntitiesByParentSlot
 	RTL
 

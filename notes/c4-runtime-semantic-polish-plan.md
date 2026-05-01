@@ -119,6 +119,10 @@ closure.
   placement modes, `$B3F8/$B3FA` anchor pair, live entity table families,
   child-definition field offsets, signed-offset masks, spawn descriptor, and
   attached-parent tag. See `notes/child-entity-spawn-c4b3d0-c40de8.md`.
+- 2026-05-01 landing child lookup: promoted the attached-child clear/lookup
+  wrapper's `$103E` scan table, tagged-parent mask, live-slot loop bounds,
+  default base-slot arguments, and resolver-backed spawn call contract. See
+  `notes/child-entity-spawn-c4b3d0-c40de8.md`.
 
 ## Validation
 
