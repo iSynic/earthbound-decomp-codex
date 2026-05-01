@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C4FBBD_PlaySoundStoneMelody = $C4FBBD
+C4FBBD_ChangeMusic = $C4FBBD
+
+CurrentMusicStateMirrorA = $5DD4
+CurrentMusicStateMirrorB = $5DD6
 
 ; ---------------------------------------------------------------------------
 ; C2:16AD
@@ -27,9 +30,9 @@ C216AD_ApplyMusicStateAndMirrorTo5DD4:
     tax
     stx $0E
     txa
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     ldx $0E
-    stx $5DD4
-    stx $5DD6
+    stx CurrentMusicStateMirrorA
+    stx CurrentMusicStateMirrorB
     pld
     rtl

@@ -16,6 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; C2:26C5
 
+; Prologue fragment; execution falls through to C2:26D0 after TXA.
 C226C5_SetCurrent9C88FlagAndRefresh5D64:
     rep #$31
     phd

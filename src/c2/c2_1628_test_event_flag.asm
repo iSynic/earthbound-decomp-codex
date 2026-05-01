@@ -14,6 +14,11 @@
 C09231_ModuloIndexByY        = $C09231
 C4562F_EventFlagBitMaskTable = $C4562F
 
+EventFlagBitfieldBase  = $9C08
+EventFlagBitsPerByte   = $0008
+BoolFalse              = $0000
+BoolTrue               = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:1628
 
@@ -32,21 +37,21 @@ C21628_TestEventFlag = GET_EVENT_FLAG
     lsr A
     lsr A
     pha
-    ldy.w #$0008
+    ldy.w #EventFlagBitsPerByte
     lda $0E
     jsl C09231_ModuloIndexByY
     tax
     sep #$20
     lda C4562F_EventFlagBitMaskTable,X
     plx
-    and $9C08,X
+    and EventFlagBitfieldBase,X
     rep #$20
     and.w #$00FF
     beq C21659_TestEventFlag_L1659
-    lda.w #$0001
+    lda.w #BoolTrue
     bra C2165C_TestEventFlag_L165C
 C21659_TestEventFlag_L1659:
-    lda.w #$0000
+    lda.w #BoolFalse
 C2165C_TestEventFlag_L165C:
     pld
     rtl

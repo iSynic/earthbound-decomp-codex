@@ -13,6 +13,13 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+PlayerControlledPartyCount = $98A4
+PartyStatusRegistry        = $988B
+PartyCharacterRecordStride = $005F
+PartyCharacterStateByte    = $99DC
+PartyStateOne              = $0001
+PartyStateTwo              = $0002
+
 ; ---------------------------------------------------------------------------
 ; C2:272F
 
@@ -28,18 +35,18 @@ C2272F_CountPartySlotsNotStateOneOrTwo:
     sty $0E
     bra C2276B_CountPartySlotsNotStateOneOrTwo_L276B
 C22741_CountPartySlotsNotStateOneOrTwo_L2741:
-    lda $988B,Y
+    lda PartyStatusRegistry,Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $99DC,X
+    lda PartyCharacterStateByte,X
     and.w #$00FF
     tax
-    cpx.w #$0001
+    cpx.w #PartyStateOne
     beq C22766_CountPartySlotsNotStateOneOrTwo_L2766
-    cpx.w #$0002
+    cpx.w #PartyStateTwo
     beq C22766_CountPartySlotsNotStateOneOrTwo_L2766
     lda $10
     inc A
@@ -49,7 +56,7 @@ C22766_CountPartySlotsNotStateOneOrTwo_L2766:
     iny
     sty $0E
 C2276B_CountPartySlotsNotStateOneOrTwo_L276B:
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     tya

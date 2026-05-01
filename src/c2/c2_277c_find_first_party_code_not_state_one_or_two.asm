@@ -13,6 +13,14 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+PlayerControlledPartyCount = $98A4
+PartyStatusRegistry        = $988B
+PartyCharacterRecordStride = $005F
+PartyCharacterStateByte    = $99DC
+PartyStateOne              = $0001
+PartyStateTwo              = $0002
+NoPartyCode                = $0000
+
 ; ---------------------------------------------------------------------------
 ; C2:277C
 
@@ -26,19 +34,19 @@ C2277C_FindFirstPartyCodeNotStateOneOrTwo:
     sty $10
     bra C227B6_FindFirstPartyCodeNotStateOneOrTwo_L27B6
 C2278B_FindFirstPartyCodeNotStateOneOrTwo_L278B:
-    lda $988B,Y
+    lda PartyStatusRegistry,Y
     and.w #$00FF
     sta $0E
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $99DC,X
+    lda PartyCharacterStateByte,X
     and.w #$00FF
     tax
-    cpx.w #$0001
+    cpx.w #PartyStateOne
     beq C227B1_FindFirstPartyCodeNotStateOneOrTwo_L27B1
-    cpx.w #$0002
+    cpx.w #PartyStateTwo
     beq C227B1_FindFirstPartyCodeNotStateOneOrTwo_L27B1
     lda $0E
     bra C227C6_FindFirstPartyCodeNotStateOneOrTwo_L27C6
@@ -47,13 +55,13 @@ C227B1_FindFirstPartyCodeNotStateOneOrTwo_L27B1:
     iny
     sty $10
 C227B6_FindFirstPartyCodeNotStateOneOrTwo_L27B6:
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     tya
     cmp $02
     bcc C2278B_FindFirstPartyCodeNotStateOneOrTwo_L278B
-    lda.w #$0000
+    lda.w #NoPartyCode
 C227C6_FindFirstPartyCodeNotStateOneOrTwo_L27C6:
     pld
     rtl

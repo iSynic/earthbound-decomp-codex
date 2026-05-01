@@ -11,11 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+CurrentInteractionEventFlagId = $9C88
 
 ; ---------------------------------------------------------------------------
 ; C2:26E6
 
+; Prologue fragment; execution falls through to C2:26EB after loading the flag id.
 C226E6_GetCurrent9C88Flag:
     rep #$31
-    lda $9C88
+    lda CurrentInteractionEventFlagId

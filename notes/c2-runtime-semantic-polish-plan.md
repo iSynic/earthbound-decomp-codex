@@ -265,6 +265,12 @@ contract notes for C0/C1/C3/C4 consumers.
   constants, current-window record fields, managed text-event snapshot layout,
   and HP/PP roller current/target/dirty fields. See
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-01 fortieth slice: promoted the C2 event-flag and party-status
+  utility wrappers with byte-neutral aliases for the `$9C08` event-flag
+  bitfield, C4 bitmask table, `$9C88` current interaction flag id, `$5D64`
+  refresh target, `$988B` party status registry, `$99DC` state byte, and
+  state-1/state-2 filters. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
 
 ## Validation
 

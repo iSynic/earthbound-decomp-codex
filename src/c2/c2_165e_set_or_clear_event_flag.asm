@@ -14,6 +14,10 @@
 C09231_ModuloIndexByY        = $C09231
 C4562F_EventFlagBitMaskTable = $C4562F
 
+EventFlagBitfieldBase  = $9C08
+EventFlagBitsPerByte   = $0008
+EventFlagClearMask     = $FF
+
 ; ---------------------------------------------------------------------------
 ; C2:165E
 
@@ -35,10 +39,10 @@ C2165E_SetOrClearEventFlag = SET_EVENT_FLAG
     lsr A
     lsr A
     clc
-    adc.w #$9C08
+    adc.w #EventFlagBitfieldBase
     tax
     stx $0E
-    ldy.w #$0008
+    ldy.w #EventFlagBitsPerByte
     lda $10
     jsl C09231_ModuloIndexByY
     tax
@@ -52,7 +56,7 @@ C2165E_SetOrClearEventFlag = SET_EVENT_FLAG
     ora $00
     bra C216A3_SetOrClearEventFlag_L16A3
 C21698_SetOrClearEventFlag_L1698:
-    eor.b #$FF
+    eor.b #EventFlagClearMask
     sta $00
     ldx $0E
     lda $0000,X

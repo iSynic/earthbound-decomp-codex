@@ -14,15 +14,18 @@
 C0C30C_RefreshTargetFrom5D64 = $C0C30C
 C2165E_SetOrClearEventFlag   = $C2165E
 
+CurrentInteractionEventFlagId = $9C88
+CurrentInteractionTargetId    = $5D64
+
 ; ---------------------------------------------------------------------------
 ; C2:26D0
 
 C226D0_SetCurrentInteractionEventFlagAndRefreshTarget:
-    lda $9C88
+    lda CurrentInteractionEventFlagId
     jsl SET_EVENT_FLAG
     tax
     stx $0E
-    lda $5D64
+    lda CurrentInteractionTargetId
     jsl C0C30C_RefreshTargetFrom5D64
     ldx $0E
     txa

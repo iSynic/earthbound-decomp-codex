@@ -13,6 +13,12 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+PlayerControlledPartyCount = $98A4
+PartyStatusRegistry        = $988B
+PartyCharacterRecordStride = $005F
+PartyCharacterStateByte    = $99DC
+PartyStateOne              = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:26F0
 
@@ -30,17 +36,17 @@ C226FF_FindFirstPartySlotWithStateOne_L26FF:
     sta $0E
 C22702_FindFirstPartySlotWithStateOne_L2702:
     tax
-    lda $988B,X
+    lda PartyStatusRegistry,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $99DC,X
+    lda PartyCharacterStateByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #PartyStateOne
     beq C2272B_FindFirstPartySlotWithStateOne_L272B
-    lda $98A4
+    lda PlayerControlledPartyCount
     and.w #$00FF
     sta $02
     lda $0E

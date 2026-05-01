@@ -170,6 +170,18 @@ Working names:
 - `C2:26C5` = `SetCurrent9C88FlagAndRefresh5D64`
 - `C2:26E6` = `GetCurrent9C88Flag`
 
+Source polish:
+
+- 2026-05-01: `C2:1628` and `C2:165E` now name the `$9C08`
+  event-flag bitfield base, eight-flags-per-byte division, C4 bitmask table,
+  and boolean returns.
+- 2026-05-01: the `C2:26C5/26D0` and `C2:26E6/26EB` wrapper pairs now call
+  out their fall-through prologue/tail structure, `$9C88` current flag id, and
+  `$5D64` refresh target.
+- 2026-05-01: `C2:26F0`, `C2:272F`, and `C2:277C` now name the `$988B`
+  party status registry, player-count bound, character record stride,
+  `$99DC` state byte, and state-1/state-2 filter constants.
+
 ## Source Scaffold Promotion
 
 The HP/PP status-tile lookup helpers are now represented as durable source modules:
