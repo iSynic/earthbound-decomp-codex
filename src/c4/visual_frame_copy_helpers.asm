@@ -52,8 +52,12 @@ COPY_COUNT                            = $16
 
 WRAM_BANK_7F                          = $007F
 FRAME_POINTER_LOW_MASK                = $FFF0
+FRAME_LIST_ENTRY_BYTES                = $0004
 TILE_ROW_WORDS                        = $0010
 TILE_COLUMN_PAIR_OFFSET               = $0010
+TILE_COLUMN_MASK_INDEX_MASK           = $0007
+TILE_COLUMN_ROW_OFFSET_MASK           = $FFF8
+TILE_COLUMN_MASK_COMPLEMENT_WORD      = $FFFF
 
 DMA_SOURCE_BANK_7E                    = $7E
 DMA_MAIN_SCREEN_SOURCE_LOW            = $ADB8
@@ -72,6 +76,8 @@ DMA_TRANSFER_SIZE_OR_STRIDE           = $0092
 DMA_SOURCE_OFFSET_LOW                 = $0094
 DMA_SOURCE_BANK                       = $0096
 DMA_TARGET_LOW                        = $0097
+
+RENDER_STRIP_SOURCE_OFFSET_HIGH_ZERO  = $0000
 
 ; Direct-page locals:
 ;   $00/$02 and $04/$06 = long source/destination pointers.
@@ -155,7 +161,7 @@ C42884_CopyDirectionalVisualProfileFrameWords:
     lda LONG_POINTER_LOW
     clc
 C428B2_CopyDirectionalVisualProfileFrameWords_AdvancePointer:
-    adc #$0004
+    adc #FRAME_LIST_ENTRY_BYTES
     dex
     bne C428B2_CopyDirectionalVisualProfileFrameWords_AdvancePointer
     sta LONG_POINTER_LOW
@@ -229,15 +235,15 @@ C428FC_MergeMasked7fTileColumnRows:
     sta LONG_POINTER_BANK
     sta LONG_POINTER_2_BANK
     tya
-    and #$0007
+    and #TILE_COLUMN_MASK_INDEX_MASK
     asl
     tax
     lda.l TILE_COLUMN_WORD_PAIR_MASK_TABLE,X
     sta MASK_WORD
-    eor #$FFFF
+    eor #TILE_COLUMN_MASK_COMPLEMENT_WORD
     sta MASK_COMPLEMENT
     tya
-    and #$FFF8
+    and #TILE_COLUMN_ROW_OFFSET_MASK
     asl
     asl
     tay
@@ -301,7 +307,7 @@ C42965_MergeMasked7fTileColumnPair:
     tax
     lda.l TILE_COLUMN_WORD_PAIR_MASK_TABLE,X
     sta MASK_WORD
-    eor #$FFFF
+    eor #TILE_COLUMN_MASK_COMPLEMENT_WORD
     sta MASK_COMPLEMENT
     lda [LONG_POINTER_2_LOW],Y
     and MASK_WORD
@@ -335,7 +341,7 @@ C429AE_GenerateVisualProfileRenderDmaStrips:
     tax
     lda VISUAL_FRAME_PIECE_COUNT_TABLE,X
     sta LONG_POINTER_LOW
-    lda #$0000
+    lda #RENDER_STRIP_SOURCE_OFFSET_HIGH_ZERO
     sta DMA_SOURCE_OFFSET_HIGH
     lda VISUAL_FRAME_RECORD_STRIDE_TABLE,X
     sta DMA_TRANSFER_SIZE_OR_STRIDE

@@ -59,6 +59,11 @@ The mask table at `C4:2955` is the eight-entry word-pair mask ladder:
 
 That strongly reads as a bitplane/tile-column merge mask table.
 
+Source polish: `src/c4/visual_frame_copy_helpers.asm` now names the
+directional frame-list entry stride, tile-column mask index, row-offset mask,
+mask complement word, and zero high-source field used when emitting visual
+profile render strip descriptors.
+
 ## Render descriptor and HDMA helpers
 
 `C4:29AE` is a C4 wrapper around `C0:A56E` (`Generate_RenderDmaStripDescriptors`). It takes the caller's initial source in A and a slot/profile selector in X, then:

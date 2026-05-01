@@ -77,6 +77,11 @@ closure.
   component selector bits and channel-4 WOBJSEL clear value in the
   window/color HDMA helper. See
   `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
+- 2026-05-01 movement/presentation start: confirmed the screen-position
+  interpolation source already carries the local `$3C22..$3C30` and live-slot
+  rebase contracts, then promoted visual-frame helper literals for directional
+  frame-list stride, tile-column merge masks, and render-strip source fields.
+  See `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md`.
 
 ## Validation
 
