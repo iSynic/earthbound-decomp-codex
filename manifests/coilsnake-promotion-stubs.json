@@ -86,84 +86,6 @@
       "candidate_runtime_anchors": {
         "candidate_local_ranges": [
           {
-            "basis": "Local table split and PSI ability note identify D5:8A50 as 15-byte PSI ability rows.",
-            "label": "PSI_ABILITY_TABLE",
-            "range": "D5:8A50..D5:8D7A"
-          }
-        ],
-        "field_hints": [
-          {
-            "basis": "notes/battle-psi-ability-table-d58a50.md maps bytes +6..+8 to Ness, Paula, and Poo learn levels.",
-            "candidate_local_field": "PSI ability row byte +0x06 Ness learn level",
-            "coilsnake_field": "Level learned by Ness"
-          }
-        ],
-        "note_anchor_paths": [
-          "notes/battle-psi-ability-table-d58a50.md",
-          "notes/c1-battle-psi-runtime-polish.md",
-          "notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md",
-          "notes/battle-psi-menu-controller-c1cc39-ce73.md"
-        ],
-        "runtime_consumer_hints": [
-          {
-            "basis": "Uses character-specific learn-level bytes while building PSI entry lists.",
-            "consumer": "C1:C452 shared PSI entry-list builder",
-            "status": "candidate"
-          },
-          {
-            "basis": "C4 helper aliases D5:8A50 as PsiLearnTableD58A50 and reads per-character learn data.",
-            "consumer": "C4 PSI learn/glyph helper cluster",
-            "status": "candidate"
-          }
-        ],
-        "source_anchor_paths": [
-          "src/d5/table_psi_ability_table.asm",
-          "src/c1/c1_c452_build_shared_battle_psi_entry_list.asm",
-          "src/c1/c1_c165_current_character_knows_psi.asm",
-          "src/c4/glyph_scratch_psi_rng_direction_helpers.asm"
-        ],
-        "status": "candidate-until-diff-confirmed"
-      },
-      "evidence_gate": {
-        "allowed_promotion_after": [
-          "runner report has compile.returncode 0",
-          "diff.status is different",
-          "diff.first_changed_offset is present"
-        ],
-        "blocking_status": "none",
-        "next_required_evidence": "diff-confirmed"
-      },
-      "experiment_id": "psi-ness-omega-level-probe",
-      "experiment_report": "build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
-      "family_label": "Gameplay YAML tables",
-      "field_semantics_action": "add a manifests/coilsnake-field-semantics.json entry only after diff-confirmed offset/range evidence exists",
-      "ingest_command": "python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json",
-      "payload_policy": "Do not commit copied CoilSnake projects, rebuilt ROMs, project file contents, or ROM-derived bytes.",
-      "planned_edit": "Changed PSI ability 4 Ness learned level from 75 to 76.",
-      "prejoin_status": "ready-to-run",
-      "promotion_target": "Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers.",
-      "required_join_fields": [
-        "changed file offset",
-        "canonical HiROM address",
-        "local asset/data or contract range",
-        "field-level semantic claim",
-        "runtime consumer status",
-        "promotion status"
-      ],
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "psi_ability_table.yml",
-      "tracked_update_targets": [
-        "notes/asset-data-contract-frontier.md",
-        "notes/battle-psi-ability-table-d58a50.md",
-        "notes/c2-battle-contract-workahead.md",
-        "notes/c3-battle-psi-menu-data-contracts.md",
-        "notes/class2-d57b68-battle-action-table-match.md"
-      ]
-    },
-    {
-      "candidate_runtime_anchors": {
-        "candidate_local_ranges": [
-          {
             "basis": "Local D5 source split and data-contract notes identify D5:9589 as the enemy configuration table.",
             "label": "ENEMY_CONFIGURATION_TABLE",
             "range": "D5:9589..D5:EA5B"
@@ -455,8 +377,8 @@
   "source_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
   "source_prejoin_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
   "summary": {
-    "ready_to_run_count": 5,
-    "stub_count": 6,
+    "ready_to_run_count": 4,
+    "stub_count": 5,
     "tooling_blocked_count": 1
   }
 }

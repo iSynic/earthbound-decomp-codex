@@ -21,7 +21,15 @@ DEFAULT_PROJECT_DIR = ROOT / "build" / "coilsnake" / "baseline-project"
 DEFAULT_BASE_EXPANDED_ROM = ROOT / "build" / "coilsnake" / "base-expanded.sfc"
 DEFAULT_BASELINE_REBUILD_ROM = ROOT / "build" / "coilsnake" / "baseline-rebuild.sfc"
 DEFAULT_EXPERIMENTS_DIR = ROOT / "build" / "coilsnake" / "edit-experiments"
-DEFAULT_COILSNAKE_EXE = ROOT / "build" / "coilsnake" / "tools" / "CoilSnake-4.2.exe"
+DEFAULT_COILSNAKE_CLI = (
+    ROOT
+    / "build"
+    / "coilsnake"
+    / "venv-coilsnake"
+    / "Scripts"
+    / "coilsnake-cli.exe"
+)
+FALLBACK_COILSNAKE_EXE = ROOT / "build" / "coilsnake" / "tools" / "CoilSnake-4.2.exe"
 DEFAULT_COMPILE_TIMEOUT_SECONDS = 600
 
 
@@ -51,7 +59,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--base-expanded-rom", type=Path, default=DEFAULT_BASE_EXPANDED_ROM)
     parser.add_argument("--baseline-rebuild-rom", type=Path, default=DEFAULT_BASELINE_REBUILD_ROM)
     parser.add_argument("--experiments-dir", type=Path, default=DEFAULT_EXPERIMENTS_DIR)
-    parser.add_argument("--coilsnake", type=Path, default=DEFAULT_COILSNAKE_EXE)
+    parser.add_argument(
+        "--coilsnake",
+        type=Path,
+        default=DEFAULT_COILSNAKE_CLI
+        if DEFAULT_COILSNAKE_CLI.is_file()
+        else FALLBACK_COILSNAKE_EXE,
+        help=(
+            "CoilSnake CLI/executable path. Defaults to the ignored source-install "
+            "venv CLI when present, otherwise the packaged 4.2 executable."
+        ),
+    )
     parser.add_argument(
         "--compile-timeout-seconds",
         type=int,

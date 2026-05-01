@@ -5,8 +5,8 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 ## Summary
 
-- Planned experiments: `6`
-- Ready to run once CoilSnake is trusted: `5`
+- Planned experiments: `5`
+- Ready to run once CoilSnake is trusted: `4`
 - Tooling-blocked but prepared: `1`
 - Edit match mismatches: `0`
 
@@ -15,7 +15,6 @@ This note is compile-free and payload-free; it only records planned edit metadat
 | Experiment | Status | Source | Match | Local family | Promotion target |
 | --- | --- | --- | ---: | --- | --- |
 | `battle-action-pp-cost-probe` | `tooling-blocked-ready-to-rerun` | `battle_action_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake battle action PP cost vocabulary to BATTLE_ACTION_TABLE field offsets and C2 PSI/action runtime consumers. |
-| `psi-ness-omega-level-probe` | `ready-to-run` | `psi_ability_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers. |
 | `enemy-insane-cultist-action1-probe` | `ready-to-run` | `enemy_configuration_table.yml` | `1/1` | `gameplay_yaml_tables` | Join CoilSnake enemy action-slot vocabulary to ENEMY_CONFIGURATION_TABLE field offsets and battle action dispatch consumers. |
 | `npc-config-first-text-pointer-probe` | `ready-to-run` | `npc_config_table.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts. |
 | `map-door-first-destination-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers. |
@@ -35,19 +34,6 @@ This note is compile-free and payload-free; it only records planned edit metadat
   - `notes/battle-psi-ability-table-d58a50.md`
   - `notes/battle-sprite-bundle-contracts.md`
   - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
-
-### `psi-ness-omega-level-probe`
-
-- Family: `Gameplay YAML tables` (`mixed-contract-frontier`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `gameplay_yaml_table` banks `C2, C3, D5, EF` status `mixed-contract-frontier`
-- Related local docs:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
   - `notes/c2-battle-contract-workahead.md`
   - `notes/c3-battle-psi-menu-data-contracts.md`
   - `notes/class2-d57b68-battle-action-table-match.md`

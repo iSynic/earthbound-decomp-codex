@@ -6,8 +6,8 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `6`
-- Ready to run: `5`
+- Promotion stubs: `5`
+- Ready to run: `4`
 - Tooling-blocked: `1`
 
 ## Stubs
@@ -15,7 +15,6 @@ This note is compile-free and payload-free. It defines what evidence is required
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
 | `battle-action-pp-cost-probe` | `successful-compile-diff` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
-| `psi-ness-omega-level-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-psi-ability-table-d58a50.md`, `notes/c2-battle-contract-workahead.md` |
 | `enemy-insane-cultist-action1-probe` | `diff-confirmed` | `gameplay_yaml_tables` | `notes/asset-data-contract-frontier.md`, `notes/battle-background-scene-bundles.md`, `notes/battle-psi-ability-table-d58a50.md` |
 | `npc-config-first-text-pointer-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
 | `map-door-first-destination-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
@@ -61,45 +60,6 @@ This note is compile-free and payload-free. It defines what evidence is required
   - `notes/battle-psi-ability-table-d58a50.md`
   - `notes/battle-sprite-bundle-contracts.md`
   - `notes/battle-visual-asset-contracts.md`
-  - `notes/c2-battle-contract-workahead.md`
-  - `notes/c3-battle-psi-menu-data-contracts.md`
-  - `notes/class2-d57b68-battle-action-table-match.md`
-
-### `psi-ness-omega-level-probe`
-
-- Planned edit: Changed PSI ability 4 Ness learned level from 75 to 76.
-- Source file: `psi_ability_table.yml`
-- Evidence gate: `diff-confirmed`
-- Blocking status: `none`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/psi-ness-omega-level-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A`: Local table split and PSI ability note identify D5:8A50 as 15-byte PSI ability rows.
-- Field hints:
-  - `Level learned by Ness` -> `PSI ability row byte +0x06 Ness learn level`: notes/battle-psi-ability-table-d58a50.md maps bytes +6..+8 to Ness, Paula, and Poo learn levels.
-- Candidate source anchors:
-  - `src/d5/table_psi_ability_table.asm`
-  - `src/c1/c1_c452_build_shared_battle_psi_entry_list.asm`
-  - `src/c1/c1_c165_current_character_knows_psi.asm`
-  - `src/c4/glyph_scratch_psi_rng_direction_helpers.asm`
-- Candidate note anchors:
-  - `notes/battle-psi-ability-table-d58a50.md`
-  - `notes/c1-battle-psi-runtime-polish.md`
-  - `notes/battle-psi-menu-metadata-family-c1c853-c1c8bc.md`
-  - `notes/battle-psi-menu-controller-c1cc39-ce73.md`
-- Runtime consumer hints:
-  - `C1:C452 shared PSI entry-list builder` (candidate): Uses character-specific learn-level bytes while building PSI entry lists.
-  - `C4 PSI learn/glyph helper cluster` (candidate): C4 helper aliases D5:8A50 as PsiLearnTableD58A50 and reads per-character learn data.
-- Candidate tracked update targets:
-  - `notes/asset-data-contract-frontier.md`
-  - `notes/battle-psi-ability-table-d58a50.md`
   - `notes/c2-battle-contract-workahead.md`
   - `notes/c3-battle-psi-menu-data-contracts.md`
   - `notes/class2-d57b68-battle-action-table-match.md`

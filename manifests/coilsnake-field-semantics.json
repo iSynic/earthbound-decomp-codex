@@ -52,6 +52,21 @@
       "field_evidence_level": "diff-confirmed",
       "promotion_status": "relocation-or-compiler-normalization-candidate",
       "runtime_consumers": []
+    },
+    "psi-ness-omega-level-probe": {
+      "coilsnake_field": "psi_ability_table.yml / ability 4 / Level learned by Ness",
+      "edited_value": "75 -> 76",
+      "local_field": "PSI_ABILITY_TABLE row 4 learn-level byte at row +0x06",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "same-table-runtime-context",
+          "routine": "C1:BB21..C1:CE73 Battle PSI menu family",
+          "source": "notes/battle-psi-ability-table-d58a50.md",
+          "detail": "The local PSI ability table note maps bytes +6..+8 as Ness, Paula, and Poo learn levels; this diff proves CoilSnake's Ness learn-level field lands on row byte +0x06, while a direct local learn-check routine remains open."
+        }
+      ]
     }
   }
 }

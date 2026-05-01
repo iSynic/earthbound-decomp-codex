@@ -17,19 +17,6 @@
       "status": "timeout-path-verified-pending-rerun"
     },
     {
-      "experiment_id": "psi-ness-omega-level-probe",
-      "batch": "battle-data",
-      "priority": 20,
-      "resource_family": "gameplay_yaml_tables",
-      "source_file": "psi_ability_table.yml",
-      "find": "  Level learned by Ness: 75",
-      "replace": "  Level learned by Ness: 76",
-      "expected_count": 1,
-      "edit_description": "Changed PSI ability 4 Ness learned level from 75 to 76.",
-      "promotion_target": "Join CoilSnake PSI learn-level vocabulary to PSI_ABILITY_TABLE field offsets and menu/learn-check runtime consumers.",
-      "status": "planned"
-    },
-    {
       "experiment_id": "enemy-insane-cultist-action1-probe",
       "batch": "battle-data",
       "priority": 30,

@@ -10,6 +10,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | item-cost-probe | `item_configuration_table.yml` | `0x155068` | `D5:5068` | `ITEM_CONFIGURATION_TABLE` | `src/d5/table_item_configuration_table.asm` | `local-range-confirmed` | no |
 | map-palette-probe | `map_palette_settings.yml` | `0x1A0C40` | `DA:0C40` | `MAP_DATA_TILE_ARRANGEMENT_5` | `src/da/asset_map_data_tile_arrangement_5.asm` | `local-range-confirmed` | yes |
+| psi-ness-omega-level-probe | `psi_ability_table.yml` | `0x158A92` | `D5:8A92` | `PSI_ABILITY_TABLE` | `src/d5/table_psi_ability_table.asm` | `local-range-confirmed` | no |
 | text-menu-probe | `text_misc.yml` | `0x04A00A` | `C4:A00A` | `C4:9FE1..C4:A0CF` | `src/c4/battle_target_candidate_selection_helpers.asm` | `local-range-confirmed` | no |
 
 ## Interpretation Rules
@@ -33,7 +34,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 179
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 186
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -77,6 +78,34 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/bank-ce-source-scaffold-handoff.md` line 44
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
 
+## psi-ness-omega-level-probe
+
+- CoilSnake edit: `psi_ability_table.yml` - Changed PSI ability 4 Ness learned level from 75 to 76.
+- Diff result: `1` byte(s), first changed offset `0x158A92` -> `D5:8A92` / `0xD58A92`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `psi_ability_table.yml / ability 4 / Level learned by Ness` (75 -> 76); local read `PSI_ABILITY_TABLE row 4 learn-level byte at row +0x06`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `C1:BB21..C1:CE73 Battle PSI menu family` (same-table-runtime-context) in `notes/battle-psi-ability-table-d58a50.md`: The local PSI ability table note maps bytes +6..+8 as Ness, Paula, and Poo learn levels; this diff proves CoilSnake's Ness learn-level field lands on row byte +0x06, while a direct local learn-check routine remains open.
+- Local asset/data range matches:
+  - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
+- Local contract/note range matches:
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
+  - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
+  - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
+  - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
+  - `D5:7B68..D5:EBAA` `D5:7B68..D5:EBAA` in `notes/bank-d5-source-scaffold-handoff.md` line 47
+- Source scaffold candidates:
+  - `src/d5/table_psi_ability_table.asm` (filename:psi,ability; address-lines:10)
+  - `src/d5/table_psi_teleport_dest_table.asm` (filename:psi)
+  - `src/d5/table_psi_name_table.asm` (filename:psi)
+- Existing note anchors:
+  - `notes/bank-c0-c2-closure.md` line 134
+  - `notes/bank-c2-first-pass.md` line 81
+  - `notes/bank-ef-first-pass.md` line 72
+  - `notes/battle-choice-text-family-c1b2ec-b997.md` line 53
+  - `notes/battle-psi-ability-table-d58a50.md` line 1
+
 ## text-menu-probe
 
 - CoilSnake edit: `text_misc.yml` - Changed Battle Menu / Auto Fight display text from Auto Fight to Auto Fighu.
@@ -96,4 +125,4 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Source scaffold candidates:
   - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24)
 - Existing note anchors:
-  - `notes/coilsnake-crosswalk.md` line 146
+  - `notes/coilsnake-crosswalk.md` line 153
