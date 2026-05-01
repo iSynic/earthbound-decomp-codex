@@ -154,3 +154,7 @@ This planning pass is documentation-only.
   character inventory-slot item read, `0x19 1A` Escargo storage item byte read,
   and `0x19 1B` loaded-string count helper, including primary and secondary
   text-context staging outputs.
+- 2026-05-01: C1 status/experience text-command polish landed as byte-neutral
+  source aliases. The promoted contracts name the `0x19 16` status-group byte
+  read through `C4:58AF`, `0x19 05` nonbattle status write through `C4:58FE`,
+  and `0x19 18` required-experience remaining helper through `C4:599A`.

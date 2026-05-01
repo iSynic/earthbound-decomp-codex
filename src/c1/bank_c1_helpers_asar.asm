@@ -10209,6 +10209,34 @@ hirom
 org $C14EAB
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C103DC_ReadTextCommandArgumentWord = $03DC
+!C1040A_LoadPrimaryInteractionContextPointer = $040A
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C458AF_ReadPartyMemberStatusGroupValue = $C458AF
+!C458FE_SetPartyMemberStatusGroupValue = $C458FE
+!C4599A_StoreRequiredExperienceRemainingForCharacter = $C4599A
+!WorkValueLo = $06
+!WorkValueByte1 = $07
+!WorkValueHi = $08
+!WorkValueByte3 = $09
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!StatusGroupSelector = $12
+!StatusTargetSelector = $14
+!StatusEffectValue = $02
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!TextCommandFarFrameOffset = $FFEE
+!TextCommandStatusFrameOffset = $FFEA
+!DeferredSingleByteArgumentLimit = $0001
+!DeferredTwoByteArgumentLimit = $0002
+!GetCharacterStatusByteCallback = $5007
+!InflictStatusCallback = $506F
+!ZeroWord = $0000
+!LowByteMask = $00FF
 CC_10:
 !C14EAB_HandleTextCommand10ParameterizedPause = CC_10
     rep #$31
@@ -10408,126 +10436,126 @@ C15002_C14EAB_HandleTextCommand10ParameterizedPause_L5002:
     rts
 CC_19_16:
 !C15007_GetCharacterStatusByteTextCommand = CC_19_16
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!TextCommandStatusFrameOffset
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
-    bvc C1501E_C14EAB_HandleTextCommand10ParameterizedPause_L501E
-    bpl C15033_C14EAB_HandleTextCommand10ParameterizedPause_L5033
-    bra C15020_C14EAB_HandleTextCommand10ParameterizedPause_L5020
-C1501E_C14EAB_HandleTextCommand10ParameterizedPause_L501E:
-    bmi C15033_C14EAB_HandleTextCommand10ParameterizedPause_L5033
-C15020_C14EAB_HandleTextCommand10ParameterizedPause_L5020:
+    sbc !DeferredCommandQueueCount
+    bvc C1501E_CheckStatusByteArgumentSign
+    bpl C15033_ReadCharacterStatusByte
+    bra C15020_QueueStatusTargetSelectorArgument
+C1501E_CheckStatusByteArgumentSign:
+    bmi C15033_ReadCharacterStatusByte
+C15020_QueueStatusTargetSelectorArgument:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5007
-    bra C1506D_C14EAB_HandleTextCommand10ParameterizedPause_L506D
-C15033_C14EAB_HandleTextCommand10ParameterizedPause_L5033:
-    lda $97BA
-    and.w #$00FF
-    sta $14
-    cpx.w #$0000
-    beq C15044_C14EAB_HandleTextCommand10ParameterizedPause_L5044
-    stx $12
-    bra C1504C_C14EAB_HandleTextCommand10ParameterizedPause_L504C
-C15044_C14EAB_HandleTextCommand10ParameterizedPause_L5044:
-    jsr $03DC
-    lda $06
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!GetCharacterStatusByteCallback
+    bra C1506D_ReturnCharacterStatusByteCommand
+C15033_ReadCharacterStatusByte:
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
+    sta !StatusTargetSelector
+    cpx.w #!ZeroWord
+    beq C15044_ReadStatusGroupSelectorFromTextCommand
+    stx !StatusGroupSelector
+    bra C1504C_ResolveStatusTargetSelector
+C15044_ReadStatusGroupSelectorFromTextCommand:
+    jsr !C103DC_ReadTextCommandArgumentWord
+    lda !WorkValueLo
     tax
-    stx $12
-C1504C_C14EAB_HandleTextCommand10ParameterizedPause_L504C:
-    lda $14
-    bne C15055_C14EAB_HandleTextCommand10ParameterizedPause_L5055
-    jsr $040A
-    lda $06
-C15055_C14EAB_HandleTextCommand10ParameterizedPause_L5055:
-    ldx $12
-    jsl $C458AF
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
-C1506D_C14EAB_HandleTextCommand10ParameterizedPause_L506D:
+    stx !StatusGroupSelector
+C1504C_ResolveStatusTargetSelector:
+    lda !StatusTargetSelector
+    bne C15055_LoadSelectedStatusGroupValue
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
+    lda !WorkValueLo
+C15055_LoadSelectedStatusGroupValue:
+    ldx !StatusGroupSelector
+    jsl !C458AF_ReadPartyMemberStatusGroupValue
+    sta !WorkValueLo
+    stz !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
+C1506D_ReturnCharacterStatusByteCommand:
     pld
     rts
 CC_19_05:
 !C1506F_InflictStatusTextCommand = CC_19_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!TextCommandStatusFrameOffset
     tcd
     pla
-    stx $02
-    lda.w #$0002
+    stx !StatusEffectValue
+    lda.w #!DeferredTwoByteArgumentLimit
     clc
-    sbc $97CA
-    bvc C15088_C14EAB_HandleTextCommand10ParameterizedPause_L5088
-    bpl C1509E_C14EAB_HandleTextCommand10ParameterizedPause_L509E
-    bra C1508A_C14EAB_HandleTextCommand10ParameterizedPause_L508A
-C15088_C14EAB_HandleTextCommand10ParameterizedPause_L5088:
-    bmi C1509E_C14EAB_HandleTextCommand10ParameterizedPause_L509E
-C1508A_C14EAB_HandleTextCommand10ParameterizedPause_L508A:
-    lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$506F
-    bra C150E2_C14EAB_HandleTextCommand10ParameterizedPause_L50E2
-C1509E_C14EAB_HandleTextCommand10ParameterizedPause_L509E:
-    lda $97BA
-    and.w #$00FF
+    sbc !DeferredCommandQueueCount
+    bvc C15088_CheckInflictStatusArgumentSign
+    bpl C1509E_ApplyInflictStatusCommand
+    bra C1508A_QueueInflictStatusEffectArgument
+C15088_CheckInflictStatusArgumentSign:
+    bmi C1509E_ApplyInflictStatusCommand
+C1508A_QueueInflictStatusEffectArgument:
+    lda !StatusEffectValue
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!InflictStatusCallback
+    bra C150E2_ReturnInflictStatusCommand
+C1509E_ApplyInflictStatusCommand:
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tay
-    sty $14
-    lda $97BB
-    and.w #$00FF
+    sty !StatusTargetSelector
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     tax
-    beq C150B4_C14EAB_HandleTextCommand10ParameterizedPause_L50B4
-    stx $12
-    bra C150BC_C14EAB_HandleTextCommand10ParameterizedPause_L50BC
-C150B4_C14EAB_HandleTextCommand10ParameterizedPause_L50B4:
-    jsr $03DC
-    lda $06
+    beq C150B4_ReadStatusGroupArgumentFromTextCommand
+    stx !StatusGroupSelector
+    bra C150BC_ResolveInflictStatusTargetSelector
+C150B4_ReadStatusGroupArgumentFromTextCommand:
+    jsr !C103DC_ReadTextCommandArgumentWord
+    lda !WorkValueLo
     tax
-    stx $12
-C150BC_C14EAB_HandleTextCommand10ParameterizedPause_L50BC:
-    ldy $14
-    beq C150C3_C14EAB_HandleTextCommand10ParameterizedPause_L50C3
+    stx !StatusGroupSelector
+C150BC_ResolveInflictStatusTargetSelector:
+    ldy !StatusTargetSelector
+    beq C150C3_LoadInflictStatusTargetFromTextContext
     tya
-    bra C150C8_C14EAB_HandleTextCommand10ParameterizedPause_L50C8
-C150C3_C14EAB_HandleTextCommand10ParameterizedPause_L50C3:
-    jsr $040A
-    lda $06
-C150C8_C14EAB_HandleTextCommand10ParameterizedPause_L50C8:
-    ldy $02
-    ldx $12
-    jsl $C458FE
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
-C150E2_C14EAB_HandleTextCommand10ParameterizedPause_L50E2:
+    bra C150C8_ApplySelectedStatusGroupValue
+C150C3_LoadInflictStatusTargetFromTextContext:
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
+    lda !WorkValueLo
+C150C8_ApplySelectedStatusGroupValue:
+    ldy !StatusEffectValue
+    ldx !StatusGroupSelector
+    jsl !C458FE_SetPartyMemberStatusGroupValue
+    sta !WorkValueLo
+    stz !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
+C150E2_ReturnInflictStatusCommand:
     pld
     rts
 CC_1D_0D:
@@ -10881,28 +10909,28 @@ C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
     rts
 CC_19_18:
 !C15384_GetExperienceNeededToLevelTextCommand = CC_19_18
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommandFarFrameOffset
     tcd
     pla
-    cpx.w #$0000
-    beq C15396_C14EAB_HandleTextCommand10ParameterizedPause_L5396
+    cpx.w #!ZeroWord
+    beq C15396_ReadExperienceCharacterSelectorFromTextCommand
     txa
-    bra C1539B_C14EAB_HandleTextCommand10ParameterizedPause_L539B
-C15396_C14EAB_HandleTextCommand10ParameterizedPause_L5396:
-    jsr $03DC
-    lda $06
-C1539B_C14EAB_HandleTextCommand10ParameterizedPause_L539B:
-    jsl $C4599A
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    jsr $045D
-    lda.w #$0000
+    bra C1539B_GetRequiredExperienceRemaining
+C15396_ReadExperienceCharacterSelectorFromTextCommand:
+    jsr !C103DC_ReadTextCommandArgumentWord
+    lda !WorkValueLo
+C1539B_GetRequiredExperienceRemaining:
+    jsl !C4599A_StoreRequiredExperienceRemainingForCharacter
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    lda.w #!ZeroWord
     pld
     rts
 CC_1C_0A:

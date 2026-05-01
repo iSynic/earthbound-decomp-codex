@@ -77,7 +77,7 @@ Parser/runtime cross-check looks healthy here: the current exposed script set hi
 
 ## Source scaffold promotion
 
-The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 19/1A/1B` inventory, Escargo storage, and loaded-string count staging contracts, plus the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
+The front, middle, and display-side local `0x19` leaves now have additional checked-in source coverage. `C1:4819..48AC` covers the statistic-selector/string-character helper, `src/c1/c1_9249_print_statistic_selector_value.asm` covers the display-side statistic-selector value printer, `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` covers `C1:5007..506F` for `0x19 16`, `C1:506F..50E4` for `0x19 05`, and `C1:5384..53AF` for `0x19 18`, `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` covers `0x19 19/1A/1B/1C/1D/21`, and `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` covers `0x19 22/23/24/25/26`. `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` now names the `0x19 05/16/18` status and experience helper contracts into `C4:58AF`, `C4:58FE`, and `C4:599A`. `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now names the `0x19 19/1A/1B` inventory, Escargo storage, and loaded-string count staging contracts, plus the `0x19 1C/1D` delivery/pickup queue layout, pending-item versus character-inventory removal paths, and primary/secondary text staging outputs. `src/c1/c1_7796_finalize_loaded_string_with_companion_pointer.asm`, `src/c1/c1_7889_continue_loaded_string_inline_collector.asm`, and `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now name the loaded-string byte buffer, companion-byte queue, callback return values, `C1:13D1` text-entry install contract, and the Escargo `0x19 14` staging path. `src/c1/c1_7b0d_load_display_text_mushroomized_selector_byte.asm` now names the `0x19 21..28` tail helper targets directly, `src/c1/c1_7708_classify_equipped_item_offensive_defensive.asm` names the `0x19 27` statistic-selector staging contract, and `src/c1/c1_4819_read_statistic_selector_string_character.asm` names the matching `0x19 28` selector-character reader. The source-backed C1 scaffold validates byte-for-byte: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
 ## Best current case map
 
@@ -139,6 +139,8 @@ Why:
 
 - abundant exact parsed hits in ailment-heavy script neighborhoods
 - local leaf `C1:506F` is a two-argument resolver into a dedicated bank-`04` status helper (`C4:58FE`)
+- the source now names the deferred status target/effect arguments, status-group
+  selector, `C4:58FE` status write helper, and result staging through `C1:045D`
 
 ### `0x19 10`
 
@@ -203,6 +205,8 @@ Why:
 
 - local leaf `C1:5007`
 - resolves one character selector and one status-group byte, then hands them to bank-`04` helper `C4:58AF`
+- the source now names the deferred target selector, status-group selector,
+  `C4:58AF` status-byte read helper, and primary text-context staging output
 - exact parsed hits occur in `ESHOP2`
 
 ### `0x19 18`
@@ -219,6 +223,8 @@ Why:
 
 - exact parsed hits occur in `ESHOP3`
 - local leaf `C1:5384` is a compact single-argument reader that feeds bank-`04` helper `C4:599A`
+- the source now names `C4:599A` as the required-experience remaining helper
+  and stages its returned word pair through the primary text-context output
 - the community docs and the sparse local use both match Dad/save-style progress text much better than any inventory or menu reading
 
 ### `0x19 19`
