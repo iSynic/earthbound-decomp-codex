@@ -35,17 +35,24 @@ early PSI common helpers.
 - dispatches the active row's presentation command from row `+0x08`
 - reads the active `D5:7B68` action descriptor type byte
 - only descriptor type `3` enters timed-substate handling
-- selected-row `+0x23 == 1` emits `EF:70D2`, sets `$AA96 = 1`, and swaps
+- selected-row `+0x23 == 1` emits `EF:70D2`
+  (`MsgBtlPsychicPowerShieldReflectsPsiName`), sets `$AA96 = 1`, and swaps
   attacker/target text contexts
-- selected-row `+0x23 == 2` emits `EF:70FA`, decrements row `+0x25`, and when
+- selected-row `+0x23 == 2` emits `EF:70FA`
+  (`MsgBtlPsychicShieldNullifiesPsiName`), decrements row `+0x25`, and when
   the counter expires clears `+0x23` and emits `EF:7099`
+  (`MsgBtlShieldExpired`)
+
+`EF:70D2` and `EF:70FA` both consume the pending byte substitution as a PSI
+name before printing the shield reflection/nullification text.
 
 `C2:94CE`:
 
 - clears `$AA94`
 - if `$AA96` is set, swaps attacker/target text contexts back
 - decrements selected-row `+0x25`
-- clears selected-row `+0x23` and emits `EF:7099` when the counter expires
+- clears selected-row `+0x23` and emits `EF:7099`
+  (`MsgBtlShieldExpired`) when the counter expires
 - clears `$AA96`
 
 The promoted model is that `$AA96` is the reflected-hit or delayed cleanup
@@ -107,7 +114,8 @@ Promoted local flow:
 - clear selected-row marker `+0x4B`
 - if selected-row `+0x0E == 0`, check `C4:5683` for row `+0x10 + 1` using
   search slot `X = 1`
-- on success, emit `EF:7160`, set `$AA96 = 1`, and swap attacker/target contexts
+- on success, emit `EF:7160` (`MsgBtlFranklinBadgeReflectsThunder`), set
+  `$AA96 = 1`, and swap attacker/target contexts
 - timed substates `+0x23 == 1/2` refresh row `+0x25 = 1`
 - run the shared PSI blocker/damage/cleanup path
 - miss path emits `EF:8837` and `C8:FAF6`

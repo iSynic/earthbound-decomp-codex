@@ -12,8 +12,9 @@
 ; - Thunder post-strike tail reached after the common helper selects one target.
 ; - Clears selected-row membership marker `+0x4B`.
 ; - If selected-row `+0x0E == 0`, checks possession/inventory helper `C4:5683`
-;   for row `+0x10 + 1` with search slot X = 1; on success emits `EF:7160`,
-;   marks reflected-hit state `$AA96 = 1`, and swaps attacker/target contexts.
+;   for row `+0x10 + 1` with search slot X = 1; on success emits the Franklin
+;   Badge reflection text, marks reflected-hit state `$AA96 = 1`, and swaps
+;   attacker/target contexts.
 ; - Timed substates `+0x23 == 1/2` refresh row `+0x25 = 1` before the shared
 ;   PSI pre-hit blocker and damage path.
 ; - Miss path emits `EF:8837` and `C8:FAF6`; loop tail continues until side
@@ -30,6 +31,11 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C2BAC5_CountRowsWithPhaseValue                  = $C2BAC5
 C45683_CheckInventoryForSelectedItem            = $C45683
+EFMSG_FranklinBadgeReflectsThunder              = $7160
+EFMSG_ThunderMiss                               = $8837
+C8MSG_ThunderMissPresentationTail               = $FAF6
+EF_BattleTextScriptBank                         = $00EF
+C8_BattleTextScriptBank                         = $00C8
 
 ; ---------------------------------------------------------------------------
 ; C2:97A5
@@ -55,9 +61,9 @@ C297A5_HandlePsiThunderFranklinBadgeReflection:
     jsl C45683_CheckInventoryForSelectedItem
     cmp.w #$0000
     beq C297EB_HandlePsiThunderFranklinBadgeReflection_L97EB
-    lda.w #$7160
+    lda.w #EFMSG_FranklinBadgeReflectsThunder
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
@@ -91,14 +97,14 @@ C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
     ; Thunder miss presentation path.
-    lda.w #$8837
+    lda.w #EFMSG_ThunderMiss
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    lda.w #$FAF6
+    lda.w #C8MSG_ThunderMissPresentationTail
     sta $0E
-    lda.w #$00C8
+    lda.w #C8_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C2983D_HandlePsiThunderFranklinBadgeReflection_L983D:

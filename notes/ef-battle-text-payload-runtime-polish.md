@@ -27,8 +27,13 @@ callers.
 - `EF:6AFB..6C0B` is now split around the adjacent sick/cold/mushroomized,
   possessed, crying, immobilized, solidification, and PSI-seal status payloads
   instead of one broad affliction corridor.
-- `EF:6F9A..707A` now marks the shield and timed substate result text pairs
-  used by the hard-state recovery/status-result C2 corridor.
+- `EF:6F9A/6FBD`, `EF:6FD3/6FF4`, `EF:700C/7032`, and `EF:7050/707A`
+  now mark the installed/strengthened text pairs for shield, power shield,
+  psychic shield, and psychic power shield.
+- `EF:7099`, `EF:70B1`, `EF:70D2`, `EF:70FA`, `EF:7123`, `EF:7142`, and
+  `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
+  shield-nullify, Neutralizer, and Franklin Badge text tail used by C2 timed
+  substate and Thunder reflection helpers.
 - `EF:766E`, `EF:7696`, and `EF:773F` now mark shared no-effect, no-visible
   effect, and PP-drain amount text. `EF:773F` is another `1C 0F` amount
   consumer.

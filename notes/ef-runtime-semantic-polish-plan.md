@@ -110,3 +110,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:6AFB..6C3A` EBATTLE5 corridor around actual poison `EF:6B18`,
   solidification `EF:6BEF`, and neighboring sick/cold/mushroomized/possessed/
   crying/immobilized/PSI-seal status text anchors.
+- 2026-05-01: EF timed shield/reflection payload follow-up split the
+  `EF:6F9A..7186` EBATTLE5 corridor into installed/strengthened shield,
+  power-shield, psychic-shield, and psychic-power-shield result pairs plus the
+  shield-expired, shield-reflection, PSI-name nullify, Neutralizer, and
+  Franklin Badge text tail used by the C2 timed-substate and Thunder
+  reflection helpers.

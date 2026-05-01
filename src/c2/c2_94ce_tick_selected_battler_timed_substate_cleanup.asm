@@ -13,13 +13,16 @@
 ; - Clears `$AA94` on entry.
 ; - If reflected-hit marker `$AA96` is set, swaps attacker/target text contexts
 ;   back through `C2:7E8A`, decrements selected-row `+0x25`, clears `+0x23`
-;   when the counter expires, emits `EF:7099`, then clears `$AA96`.
+;   when the counter expires, emits the shield-expired text, then clears
+;   `$AA96`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
 C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 C1DC1C_DisplayBattleTextFromPointer       = $C1DC1C
+EFMSG_ShieldExpired                       = $7099
+EF_BattleTextScriptBank                   = $00EF
 
 ; ---------------------------------------------------------------------------
 ; C2:94CE
@@ -52,9 +55,9 @@ C294CE_TickSelectedBattlerTimedSubstateCleanup = WEAKEN_SHIELD
     ; Expired reflected substate clears `+0x23` and emits the end text.
     stz $0023,X
     rep #$20
-    lda.w #$7099
+    lda.w #EFMSG_ShieldExpired
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29511_TickSelectedBattlerTimedSubstateCleanup_L9511:

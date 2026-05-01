@@ -86,10 +86,18 @@ record their shared shape:
 
 - row `+0x23` = active timed substate id
 - row `+0x25` = bounded refresh counter
-- return value from the common helper chooses installed versus refreshed EF text
+- return value from the common helper chooses installed versus strengthened EF
+  text
 
-Those helpers already have local EF message aliases in source from the previous
-battle-text pass.
+Those helpers now keep the shield gameplay mapping local:
+
+- row `+0x23 == 4`: shield, `EF:6F9A` installed / `EF:6FBD` strengthened
+- row `+0x23 == 3`: power shield, `EF:6FD3` installed / `EF:6FF4`
+  strengthened
+- row `+0x23 == 2`: psychic shield, `EF:700C` installed / `EF:7032`
+  strengthened
+- row `+0x23 == 1`: psychic power shield, `EF:7050` installed /
+  `EF:707A` strengthened
 
 ## Decomp Value
 

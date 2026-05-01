@@ -248,12 +248,18 @@ These are core “amount/status result” scripts used by C2 feedback helpers.
   - starts `01 70 1C 0E` = `START_NEW_LINE`, `"@"`, `PRINT_ACTION_TARGET_NAME`
   - **C2 caller**: `C2:A056` (`src/c2/c2_a056_run_resist_checked_strange_status_action.asm`) chooses `EF:6C3A` vs `EF:766E`.
 
-- timed substate messages (paired success/fail scripts)
+- shield/timed substate messages (paired strengthened/installed scripts)
   - **C2 caller**: `src/c2/c2_9cb8_try_recover_selected_battler_hard_state.asm` dispatches:
-    - `EF:6FBD` vs `EF:6F9A` (substate 4)
-    - `EF:6FF4` vs `EF:6FD3` (substate 3)
-    - `EF:7032` vs `EF:700C` (substate 2)
-    - `EF:707A` vs `EF:7050` (substate 1)
+    - `EF:6FBD` vs `EF:6F9A` (substate 4: shield strengthened/installed)
+    - `EF:6FF4` vs `EF:6FD3` (substate 3: power shield strengthened/installed)
+    - `EF:7032` vs `EF:700C` (substate 2: psychic shield strengthened/installed)
+    - `EF:707A` vs `EF:7050` (substate 1: psychic power shield strengthened/installed)
+  - **C2 timed-substate blocker**: `src/c2/c2_941d_check_selected_battler_timed_substate_blocker.asm`
+    emits `EF:70D2` for psychic power shield PSI-name reflection,
+    `EF:70FA` for psychic shield PSI-name nullification, and `EF:7099`
+    when the timed shield expires.
+  - **C2 Thunder reflection tail**: `src/c2/c2_97a5_handle_psi_thunder_franklin_badge_reflection.asm`
+    emits `EF:7160` when the Franklin Badge reflects Thunder.
 
 ### `EBATTLE6` (base `EF:7186`, `refs/ebsrc` offset `0x2F7186`)
 
@@ -354,15 +360,27 @@ Promotion effect: these corridors are stable “status result” emitters; promo
 
 Promotion effect: keep the staged value type explicit (delta PP) and preserve the invariant “`DC66` only on `1C 0F` scripts”.
 
-### Timed substate message pairs (EF scripts via `DC1C`)
+### Shield/timed substate message pairs (EF scripts via `DC1C`)
 
-- `src/c2/c2_9cb8_try_recover_selected_battler_hard_state.asm` dispatches paired success/fail scripts:
-  - `EF:6FBD` vs `EF:6F9A`
-  - `EF:6FF4` vs `EF:6FD3`
-  - `EF:7032` vs `EF:700C`
-  - `EF:707A` vs `EF:7050`
+- `src/c2/c2_9cb8_try_recover_selected_battler_hard_state.asm` dispatches paired strengthened/installed scripts:
+  - `EF:6FBD` vs `EF:6F9A` = shield, row `+0x23 == 4`
+  - `EF:6FF4` vs `EF:6FD3` = power shield, row `+0x23 == 3`
+  - `EF:7032` vs `EF:700C` = psychic shield, row `+0x23 == 2`
+  - `EF:707A` vs `EF:7050` = psychic power shield, row `+0x23 == 1`
+- `src/c2/c2_941d_check_selected_battler_timed_substate_blocker.asm` and
+  `src/c2/c2_94ce_tick_selected_battler_timed_substate_cleanup.asm` now keep
+  the shield-expiry and PSI-name reflection/nullify EF pointers local:
+  `EF:70D2`, `EF:70FA`, and `EF:7099`.
+- `src/c2/c2_97a5_handle_psi_thunder_franklin_badge_reflection.asm` names the
+  adjacent Franklin Badge reflection script at `EF:7160`.
 
-Promotion effect: promote as an internally consistent “apply timed substate then emit paired result text” family; defer the gameplay names of each substate index.
+Promotion effect: promote as an internally consistent shield/timed-substate
+family where each row `+0x23` id has a concrete result-text pair and the shared
+PSI blocker owns the reflective/nullifying text tail.
+
+Implementation status: the gameplay names of the timed shield indices are now
+known from the EF payload split, so follow-up promotions should keep the row-id
+mapping local to the shield/timed-substate family.
 
 ## Naming proposals (workahead)
 

@@ -13,10 +13,12 @@
 ; - Marks `$AA94 = 1`, emits the action presentation command from active row
 ;   `+0x08`, then reads the active `D5:7B68` action descriptor type byte.
 ; - Only descriptor type `3` enters the selected-row timed-substate handling.
-; - Selected-row `+0x23 == 1` emits `EF:70D2`, sets reflected-hit marker
-;   `$AA96 = 1`, and swaps attacker/target text contexts through `C2:7E8A`.
-; - Selected-row `+0x23 == 2` emits `EF:70FA`, decrements row `+0x25`, and
-;   when it expires clears `+0x23` and emits `EF:7099`.
+; - Selected-row `+0x23 == 1` emits the psychic power shield PSI-name
+;   reflection text, sets reflected-hit marker `$AA96 = 1`, and swaps
+;   attacker/target text contexts through `C2:7E8A`.
+; - Selected-row `+0x23 == 2` emits the psychic shield PSI-name nullify text,
+;   decrements row `+0x25`, and when it expires clears `+0x23` and emits the
+;   shield-expired text.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -24,6 +26,10 @@
 C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 C1DC1C_DisplayBattleTextFromPointer       = $C1DC1C
 C1DD7C_RunBattlePresentationCommand       = $C1DD7C
+EFMSG_PsychicPowerShieldReflectsPsiName   = $70D2
+EFMSG_PsychicShieldNullifiesPsiName        = $70FA
+EFMSG_ShieldExpired                       = $7099
+EF_BattleTextScriptBank                   = $00EF
 
 ; ---------------------------------------------------------------------------
 ; C2:941D
@@ -69,9 +75,10 @@ C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458:
     beq C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
-    lda.w #$70D2
+    ; Both shield blocker messages consume the pending PSI-name substitution.
+    lda.w #EFMSG_PsychicPowerShieldReflectsPsiName
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
@@ -79,9 +86,9 @@ C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
     jsr SWAP_ATTACKER_WITH_TARGET
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
-    lda.w #$70FA
+    lda.w #EFMSG_PsychicShieldNullifiesPsiName
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     ; Timed substate 2 consumes row `+0x25` before clearing `+0x23`.
@@ -100,9 +107,9 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     sep #$20
     stz $0023,X
     rep #$20
-    lda.w #$7099
+    lda.w #EFMSG_ShieldExpired
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C294C4_CheckSelectedBattlerTimedSubstateBlocker_L94C4:

@@ -6053,6 +6053,10 @@ org $C2941D
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD7C_RunBattlePresentationCommand = $C1DD7C
+!EFMSG_PsychicPowerShieldReflectsPsiName = $70D2
+!EFMSG_PsychicShieldNullifiesPsiName = $70FA
+!EFMSG_ShieldExpired = $7099
+!EF_BattleTextScriptBank = $00EF
 PSI_SHIELD_NULLIFY:
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     rep #$31
@@ -6092,9 +6096,9 @@ C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458:
     beq C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
-    lda.w #$70D2
+    lda.w #!EFMSG_PsychicPowerShieldReflectsPsiName
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
@@ -6102,9 +6106,9 @@ C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
     jsr SWAP_ATTACKER_WITH_TARGET
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
-    lda.w #$70FA
+    lda.w #!EFMSG_PsychicShieldNullifiesPsiName
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     lda $A972
@@ -6122,9 +6126,9 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     sep #$20
     stz $0023,X
     rep #$20
-    lda.w #$7099
+    lda.w #!EFMSG_ShieldExpired
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C294C4_CheckSelectedBattlerTimedSubstateBlocker_L94C4:
@@ -6146,6 +6150,8 @@ org $C294CE
 
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!EFMSG_ShieldExpired = $7099
+!EF_BattleTextScriptBank = $00EF
 WEAKEN_SHIELD:
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = WEAKEN_SHIELD
     rep #$31
@@ -6172,9 +6178,9 @@ WEAKEN_SHIELD:
     sep #$20
     stz $0023,X
     rep #$20
-    lda.w #$7099
+    lda.w #!EFMSG_ShieldExpired
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C29511_TickSelectedBattlerTimedSubstateCleanup_L9511:
@@ -6584,6 +6590,11 @@ org $C297A5
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
 !C45683_CheckInventoryForSelectedItem = $C45683
+!EFMSG_FranklinBadgeReflectsThunder = $7160
+!EFMSG_ThunderMiss = $8837
+!C8MSG_ThunderMissPresentationTail = $FAF6
+!EF_BattleTextScriptBank = $00EF
+!C8_BattleTextScriptBank = $00C8
 C297A5_HandlePsiThunderFranklinBadgeReflection:
     ldx $A972
     sep #$20
@@ -6603,9 +6614,9 @@ C297A5_HandlePsiThunderFranklinBadgeReflection:
     jsl !C45683_CheckInventoryForSelectedItem
     cmp.w #$0000
     beq C297EB_HandlePsiThunderFranklinBadgeReflection_L97EB
-    lda.w #$7160
+    lda.w #!EFMSG_FranklinBadgeReflectsThunder
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
@@ -6636,14 +6647,14 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
-    lda.w #$8837
+    lda.w #!EFMSG_ThunderMiss
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    lda.w #$FAF6
+    lda.w #!C8MSG_ThunderMissPresentationTail
     sta $0E
-    lda.w #$00C8
+    lda.w #!C8_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C2983D_HandlePsiThunderFranklinBadgeReflection_L983D:
@@ -7401,14 +7412,15 @@ org $C29CB8
 !C27397_InstallBattlerHeavyRecoveryReset = $7397
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C29C2C_TryRecoverSelectedBattlerBroadAfflictions = $C29C2C
-!EFMSG_TimedSubstate4Refreshed = $6FBD
-!EFMSG_TimedSubstate4Installed = $6F9A
-!EFMSG_TimedSubstate3Refreshed = $6FF4
-!EFMSG_TimedSubstate3Installed = $6FD3
-!EFMSG_TimedSubstate2Refreshed = $7032
-!EFMSG_TimedSubstate2Installed = $700C
-!EFMSG_TimedSubstate1Refreshed = $707A
-!EFMSG_TimedSubstate1Installed = $7050
+!EFMSG_ShieldStrengthened = $6FBD
+!EFMSG_ShieldInstalled = $6F9A
+!EFMSG_PowerShieldStrengthened = $6FF4
+!EFMSG_PowerShieldInstalled = $6FD3
+!EFMSG_PsychicShieldStrengthened = $7032
+!EFMSG_PsychicShieldInstalled = $700C
+!EFMSG_PsychicPowerShieldStrengthened = $707A
+!EFMSG_PsychicPowerShieldInstalled = $7050
+!EF_BattleTextScriptBank = $00EF
 BTLACT_HEALING_O:
 !C29CB8_TryRecoverSelectedBattlerHardState = BTLACT_HEALING_O
     rep #$31
@@ -7500,16 +7512,16 @@ BTLACT_SHIELD_A:
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29D6A_TryRecoverSelectedBattlerHardState_L9D6A
-    lda.w #!EFMSG_TimedSubstate4Refreshed
+    lda.w #!EFMSG_ShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C29D78_TryRecoverSelectedBattlerHardState_L9D78
 C29D6A_TryRecoverSelectedBattlerHardState_L9D6A:
-    lda.w #!EFMSG_TimedSubstate4Installed
+    lda.w #!EFMSG_ShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C29D78_TryRecoverSelectedBattlerHardState_L9D78:
@@ -7532,16 +7544,16 @@ BTLACT_SHIELD_B:
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DA7_TryRecoverSelectedBattlerHardState_L9DA7
-    lda.w #!EFMSG_TimedSubstate3Refreshed
+    lda.w #!EFMSG_PowerShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C29DB5_TryRecoverSelectedBattlerHardState_L9DB5
 C29DA7_TryRecoverSelectedBattlerHardState_L9DA7:
-    lda.w #!EFMSG_TimedSubstate3Installed
+    lda.w #!EFMSG_PowerShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C29DB5_TryRecoverSelectedBattlerHardState_L9DB5:
@@ -7564,16 +7576,16 @@ BTLACT_PSI_SHIELD_A:
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DE4_TryRecoverSelectedBattlerHardState_L9DE4
-    lda.w #!EFMSG_TimedSubstate2Refreshed
+    lda.w #!EFMSG_PsychicShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C29DF2_TryRecoverSelectedBattlerHardState_L9DF2
 C29DE4_TryRecoverSelectedBattlerHardState_L9DE4:
-    lda.w #!EFMSG_TimedSubstate2Installed
+    lda.w #!EFMSG_PsychicShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C29DF2_TryRecoverSelectedBattlerHardState_L9DF2:
@@ -7596,16 +7608,16 @@ BTLACT_PSI_SHIELD_B:
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29E21_TryRecoverSelectedBattlerHardState_L9E21
-    lda.w #!EFMSG_TimedSubstate1Refreshed
+    lda.w #!EFMSG_PsychicPowerShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     bra C29E2F_TryRecoverSelectedBattlerHardState_L9E2F
 C29E21_TryRecoverSelectedBattlerHardState_L9E21:
-    lda.w #!EFMSG_TimedSubstate1Installed
+    lda.w #!EFMSG_PsychicPowerShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C29E2F_TryRecoverSelectedBattlerHardState_L9E2F:

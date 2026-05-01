@@ -12,9 +12,9 @@
 ; - Top recovery wrapper above the broad affliction ladder.
 ; - If active row `+0x1D == 1`, routes through `C2:7397` using row word
 ;   `+0x15`; otherwise falls back to `C2:9C2C`.
-; - The adjacent timed-substate helpers use row `+0x23` as the active substate
+; - The adjacent shield helpers use row `+0x23` as the active timed-substate
 ;   id and row `+0x25` as a bounded refresh counter, then choose paired EF
-;   installed/refreshed messages.
+;   installed/strengthened messages.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -22,14 +22,18 @@
 C27397_InstallBattlerHeavyRecoveryReset          = $7397
 C1DC1C_DisplayBattleTextFromPointer              = $C1DC1C
 C29C2C_TryRecoverSelectedBattlerBroadAfflictions = $C29C2C
-EFMSG_TimedSubstate4Refreshed                    = $6FBD
-EFMSG_TimedSubstate4Installed                    = $6F9A
-EFMSG_TimedSubstate3Refreshed                    = $6FF4
-EFMSG_TimedSubstate3Installed                    = $6FD3
-EFMSG_TimedSubstate2Refreshed                    = $7032
-EFMSG_TimedSubstate2Installed                    = $700C
-EFMSG_TimedSubstate1Refreshed                    = $707A
-EFMSG_TimedSubstate1Installed                    = $7050
+EFMSG_ShieldStrengthened                         = $6FBD
+EFMSG_ShieldInstalled                            = $6F9A
+EFMSG_PowerShieldStrengthened                    = $6FF4
+EFMSG_PowerShieldInstalled                       = $6FD3
+EFMSG_PsychicShieldStrengthened                  = $7032
+EFMSG_PsychicShieldInstalled                     = $700C
+EFMSG_PsychicPowerShieldStrengthened             = $707A
+EFMSG_PsychicPowerShieldInstalled                = $7050
+EF_BattleTextScriptBank                          = $00EF
+
+; Row `+0x23` ids map 4/3/2/1 to shield, power shield, psychic shield,
+; and psychic power shield respectively.
 
 ; ---------------------------------------------------------------------------
 ; C2:9CB8
@@ -126,18 +130,18 @@ C29D44_RunTimedSubstateFourAction = BTLACT_SHIELD_A
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29D6A_TryRecoverSelectedBattlerHardState_L9D6A
-    ; SHIELDS_COMMON returns nonzero when an existing timed substate is
-    ; refreshed; zero means a new timed substate was installed.
-    lda.w #EFMSG_TimedSubstate4Refreshed
+    ; SHIELDS_COMMON returns nonzero when an existing shield substate is
+    ; strengthened; zero means a new shield substate was installed.
+    lda.w #EFMSG_ShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29D78_TryRecoverSelectedBattlerHardState_L9D78
 C29D6A_TryRecoverSelectedBattlerHardState_L9D6A:
-    lda.w #EFMSG_TimedSubstate4Installed
+    lda.w #EFMSG_ShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29D78_TryRecoverSelectedBattlerHardState_L9D78:
@@ -160,16 +164,16 @@ C29D81_RunTimedSubstateThreeAction = BTLACT_SHIELD_B
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DA7_TryRecoverSelectedBattlerHardState_L9DA7
-    lda.w #EFMSG_TimedSubstate3Refreshed
+    lda.w #EFMSG_PowerShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29DB5_TryRecoverSelectedBattlerHardState_L9DB5
 C29DA7_TryRecoverSelectedBattlerHardState_L9DA7:
-    lda.w #EFMSG_TimedSubstate3Installed
+    lda.w #EFMSG_PowerShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29DB5_TryRecoverSelectedBattlerHardState_L9DB5:
@@ -192,16 +196,16 @@ C29DBE_RunTimedSubstateTwoAction = BTLACT_PSI_SHIELD_A
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29DE4_TryRecoverSelectedBattlerHardState_L9DE4
-    lda.w #EFMSG_TimedSubstate2Refreshed
+    lda.w #EFMSG_PsychicShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29DF2_TryRecoverSelectedBattlerHardState_L9DF2
 C29DE4_TryRecoverSelectedBattlerHardState_L9DE4:
-    lda.w #EFMSG_TimedSubstate2Installed
+    lda.w #EFMSG_PsychicShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29DF2_TryRecoverSelectedBattlerHardState_L9DF2:
@@ -224,16 +228,16 @@ C29DFB_RunTimedSubstateOneAction = BTLACT_PSI_SHIELD_B
     jsr.w SHIELDS_COMMON
     cmp.w #$0000
     beq C29E21_TryRecoverSelectedBattlerHardState_L9E21
-    lda.w #EFMSG_TimedSubstate1Refreshed
+    lda.w #EFMSG_PsychicPowerShieldStrengthened
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     bra C29E2F_TryRecoverSelectedBattlerHardState_L9E2F
 C29E21_TryRecoverSelectedBattlerHardState_L9E21:
-    lda.w #EFMSG_TimedSubstate1Installed
+    lda.w #EFMSG_PsychicPowerShieldInstalled
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C29E2F_TryRecoverSelectedBattlerHardState_L9E2F:

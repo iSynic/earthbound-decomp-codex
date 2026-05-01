@@ -3889,7 +3889,7 @@ db $51,$1F,$02,$53,$03,$02
 
 EF6C6B_EBattle5StatusAndNpcDeathText:
 
-; Original data gap before EF6F9A_EBattle5MsgBtlShieldOn:
+; Original data gap before EF6F9A_EBattle5MsgBtlShieldInstalled:
 db $01,$70,$1C,$0E,$16,$4D,$98,$A5,$A2,$A4,$15,$04,$93,$16,$F9,$A0
 db $A3,$95,$16,$29,$1F,$02,$20,$03,$02,$01,$70,$1C,$0E,$16,$4D,$98
 db $A5,$A2,$A4,$00,$50,$15,$04,$93,$16,$F9,$A0,$A3,$95,$16,$29,$1F
@@ -3942,76 +3942,103 @@ db $50,$15,$6F,$16,$57,$93,$15,$9E,$A2,$16,$66,$51,$1F,$02,$25,$03
 db $02,$01,$70,$1C,$0E,$15,$C4,$A2,$95,$A6,$17,$C9,$94,$51,$1F,$02
 db $25,$03,$02,$01,$16,$F4,$15,$CB,$16,$90,$9B,$15,$03,$03,$02
 
-EF6F9A_EBattle5MsgBtlShieldOn:
+EF6F9A_EBattle5MsgBtlShieldInstalled:
 
-; Original data gap before EF6FBD_EBattle5MsgBtlShieldAdd:
+; Original data gap before EF6FBD_EBattle5MsgBtlShieldStrengthened:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$16,$26,$98,$99,$95,$9C,$16,$34,$9C,$15,$BB
 db $51,$03,$02
 
-EF6FBD_EBattle5MsgBtlShieldAdd:
+EF6FBD_EBattle5MsgBtlShieldStrengthened:
 
-; Original data gap before EF6FD3_EBattle5MsgBtlPowerShieldOn:
+; Original data gap before EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
 db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$15,$BD,$17,$76,$15
 db $9F,$95,$A2,$51,$03,$02
 
-EF6FD3_EBattle5MsgBtlPowerShieldOn:
+EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
 
-; Original data gap before EF6FF4_EBattle5MsgBtlPowerShieldAdd:
+; Original data gap before EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$15,$25,$15,$FB,$17,$E8,$95,$9C,$94,$51,$03
 db $02
 
-EF6FF4_EBattle5MsgBtlPowerShieldAdd:
+EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
 
-; Original data gap before EF700C_EBattle5MsgBtlPsychicShieldOn:
+; Original data gap before EF700C_EBattle5MsgBtlPsychicShieldInstalled:
 db $01,$70,$1C,$0E,$57,$A3,$15,$FB,$17,$E8,$95,$9C,$94,$15,$BD,$17
 db $76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF700C_EBattle5MsgBtlPsychicShieldOn:
+EF700C_EBattle5MsgBtlPsychicShieldInstalled:
 
-; Original data gap before EF7032_EBattle5MsgBtlPsychicShieldAdd:
+; Original data gap before EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$16,$54,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$51,$03,$02
 
-EF7032_EBattle5MsgBtlPsychicShieldAdd:
+EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
 
-; Original data gap before EF7050_EBattle5MsgBtlPsiPowerShieldOn:
+; Original data gap before EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7050_EBattle5MsgBtlPsiPowerShieldOn:
+EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
 
-; Original data gap before EF707A_EBattle5MsgBtlPsiPowerShieldAdd:
+; Original data gap before EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$03,$00,$15,$95,$A0,$A3,$A9,$93,$98,$99,$93
 db $15,$FB,$17,$E8,$95,$9C,$94,$51,$03,$02
 
-EF707A_EBattle5MsgBtlPsiPowerShieldAdd:
+EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
 
-; Original data gap before EF7099_EBattle5ShieldTurnAndNeutralizeText:
+; Original data gap before EF7099_EBattle5MsgBtlShieldExpired:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17
 db $E8,$95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7099_EBattle5ShieldTurnAndNeutralizeText:
+EF7099_EBattle5MsgBtlShieldExpired:
+
+; Original data gap before EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$00,$50,$16,$B1,$A3
+db $16,$56,$91,$17,$45,$51,$03,$02
+
+EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+
+; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+db $01,$15,$7F,$15,$FB,$17,$E8,$95,$9C,$94,$00,$50,$16,$E7,$96,$9C
+db $16,$A5,$15,$4A,$91,$A4,$A4,$17,$16,$51,$1F,$02,$5D,$10,$1E,$03
+db $02
+
+EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+
+; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+db $01,$15,$14,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17,$E8,$95,$9C
+db $94,$00,$19,$1F,$1B,$04,$50,$16,$E7,$96,$9C,$95,$93,$16,$B6,$1C
+db $12,$00,$51,$1F,$02,$5D,$03,$02
+
+EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+
+; Original data gap before EF7123_EBattle5MsgBtlNeutralizeResult:
+db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
+db $95,$9C,$94,$17,$DF,$94,$95,$19,$1F,$1B,$04,$50,$1C,$12,$00,$16
+db $B1,$A3,$16,$56,$91,$A2,$51,$03,$02
+
+EF7123_EBattle5MsgBtlNeutralizeResult:
+
+; Original data gap before EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+db $01,$15,$14,$95,$96,$96,$16,$A5,$16,$5C,$80,$83,$79,$17,$50,$00
+db $50,$50,$1C,$0E,$15,$21,$97,$15,$7E,$51,$1F,$02,$29,$03,$02
+
+EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+
+; Original data gap before EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+db $01,$70,$1C,$01,$4A,$50,$16,$97,$95,$94,$00,$50,$15,$90,$16,$D9
+db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
+
+EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
 
 ; Original data gap before EF7186_EBattle4PreNoEffectBattleText:
-db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$00,$50,$16,$B1,$A3
-db $16,$56,$91,$17,$45,$51,$03,$02,$01,$15,$7F,$15,$FB,$17,$E8,$95
-db $9C,$94,$00,$50,$16,$E7,$96,$9C,$16,$A5,$15,$4A,$91,$A4,$A4,$17
-db $16,$51,$1F,$02,$5D,$10,$1E,$03,$02,$01,$15,$14,$A0,$A3,$A9,$93
-db $98,$99,$93,$15,$FB,$17,$E8,$95,$9C,$94,$00,$19,$1F,$1B,$04,$50
-db $16,$E7,$96,$9C,$95,$93,$16,$B6,$1C,$12,$00,$51,$1F,$02,$5D,$03
-db $02,$01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5
-db $99,$95,$9C,$94,$17,$DF,$94,$95,$19,$1F,$1B,$04,$50,$1C,$12,$00
-db $16,$B1,$A3,$16,$56,$91,$A2,$51,$03,$02,$01,$15,$14,$95,$96,$96
-db $16,$A5,$16,$5C,$80,$83,$79,$17,$50,$00,$50,$50,$1C,$0E,$15,$21
-db $97,$15,$7E,$51,$1F,$02,$29,$03,$02,$01,$70,$1C,$01,$4A,$50,$16
-db $97,$95,$94,$00,$50,$15,$90,$16,$D9,$9F,$A2,$99,$97,$99,$9E,$91
-db $9C,$16,$12,$9D,$51,$03,$02,$01,$15,$14,$76,$A2,$91,$9E,$9B,$9C
-db $17,$68,$72,$91,$94,$97,$95,$16,$E7,$96,$9C,$16,$A5,$95,$94,$00
-db $15,$95,$9C,$15,$BB,$16,$50,$51,$1F,$02,$5D,$03,$02
+db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95
+db $16,$E7,$96,$9C,$16,$A5,$95,$94,$00,$15,$95,$9C,$15,$BB,$16,$50
+db $51,$1F,$02,$5D,$03,$02
 
 EF7186_EBattle4PreNoEffectBattleText:
 

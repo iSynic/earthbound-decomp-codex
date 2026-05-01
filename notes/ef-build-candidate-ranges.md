@@ -258,15 +258,21 @@ Data gaps inside protected span:
 - `EF:6C3A..EF:6C55` (`27` bytes, SHA-1 `af8d51b31d83087c92c0d9710c2f57976aa45e70`) `EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55..EF:6C6B` (`22` bytes, SHA-1 `4d5790f342b2e74a3d9baf1f2c69c44a5cf6e2a9`) `EBattle5MsgBtlAsleepInflicted`
 - `EF:6C6B..EF:6F9A` (`815` bytes, SHA-1 `2fe86c65a91f609f7d72fe250b1deede5cda18c3`) `EBattle5StatusAndNpcDeathText`
-- `EF:6F9A..EF:6FBD` (`35` bytes, SHA-1 `32b9f94859cc1256432748a68c7afd7904e57bfb`) `EBattle5MsgBtlShieldOn`
-- `EF:6FBD..EF:6FD3` (`22` bytes, SHA-1 `75d0bac14ab6514e2ea88b25e1500ef00dbe9695`) `EBattle5MsgBtlShieldAdd`
-- `EF:6FD3..EF:6FF4` (`33` bytes, SHA-1 `436ff24c2b098518d72aea4b6e92c7ae016598e4`) `EBattle5MsgBtlPowerShieldOn`
-- `EF:6FF4..EF:700C` (`24` bytes, SHA-1 `91688e4579bfd0a98d936abb9eeb605696421bdb`) `EBattle5MsgBtlPowerShieldAdd`
-- `EF:700C..EF:7032` (`38` bytes, SHA-1 `8e09d7147d7b1d6f5812c470721b0cf2a891391a`) `EBattle5MsgBtlPsychicShieldOn`
-- `EF:7032..EF:7050` (`30` bytes, SHA-1 `95e260b622016c2efeadc2209d43bf3512c25816`) `EBattle5MsgBtlPsychicShieldAdd`
-- `EF:7050..EF:707A` (`42` bytes, SHA-1 `ef9940bdeff8772e33413e1128347df7677d3049`) `EBattle5MsgBtlPsiPowerShieldOn`
-- `EF:707A..EF:7099` (`31` bytes, SHA-1 `b696662c257fbd2ce9510ea7933052b89d4fbf38`) `EBattle5MsgBtlPsiPowerShieldAdd`
-- `EF:7099..EF:7186` (`237` bytes, SHA-1 `e76fe16e4e367d440f1be13d535266373ed6fb20`) `EBattle5ShieldTurnAndNeutralizeText`
+- `EF:6F9A..EF:6FBD` (`35` bytes, SHA-1 `32b9f94859cc1256432748a68c7afd7904e57bfb`) `EBattle5MsgBtlShieldInstalled`
+- `EF:6FBD..EF:6FD3` (`22` bytes, SHA-1 `75d0bac14ab6514e2ea88b25e1500ef00dbe9695`) `EBattle5MsgBtlShieldStrengthened`
+- `EF:6FD3..EF:6FF4` (`33` bytes, SHA-1 `436ff24c2b098518d72aea4b6e92c7ae016598e4`) `EBattle5MsgBtlPowerShieldInstalled`
+- `EF:6FF4..EF:700C` (`24` bytes, SHA-1 `91688e4579bfd0a98d936abb9eeb605696421bdb`) `EBattle5MsgBtlPowerShieldStrengthened`
+- `EF:700C..EF:7032` (`38` bytes, SHA-1 `8e09d7147d7b1d6f5812c470721b0cf2a891391a`) `EBattle5MsgBtlPsychicShieldInstalled`
+- `EF:7032..EF:7050` (`30` bytes, SHA-1 `95e260b622016c2efeadc2209d43bf3512c25816`) `EBattle5MsgBtlPsychicShieldStrengthened`
+- `EF:7050..EF:707A` (`42` bytes, SHA-1 `ef9940bdeff8772e33413e1128347df7677d3049`) `EBattle5MsgBtlPsychicPowerShieldInstalled`
+- `EF:707A..EF:7099` (`31` bytes, SHA-1 `b696662c257fbd2ce9510ea7933052b89d4fbf38`) `EBattle5MsgBtlPsychicPowerShieldStrengthened`
+- `EF:7099..EF:70B1` (`24` bytes, SHA-1 `454c896efa3a20c3a15ce78eaf78527172fd73b1`) `EBattle5MsgBtlShieldExpired`
+- `EF:70B1..EF:70D2` (`33` bytes, SHA-1 `e49767fe7e0ce9f98ca65b69ae3603fdb1521eb3`) `EBattle5MsgBtlPowerShieldReflectsAttack`
+- `EF:70D2..EF:70FA` (`40` bytes, SHA-1 `1b955d8041a0b0aaf2eea5aa7d690e99a1ba285b`) `EBattle5MsgBtlPsychicPowerShieldReflectsPsiName`
+- `EF:70FA..EF:7123` (`41` bytes, SHA-1 `03c5e8c29fe5f19b590afe6a060faa5889e44487`) `EBattle5MsgBtlPsychicShieldNullifiesPsiName`
+- `EF:7123..EF:7142` (`31` bytes, SHA-1 `a3f610416e889477be5df78079b1d761d75480f8`) `EBattle5MsgBtlNeutralizeResult`
+- `EF:7142..EF:7160` (`30` bytes, SHA-1 `146cd7f37e71519b0d2004be040ff876becb3cef`) `EBattle5MsgBtlNeutralizeMetamorph`
+- `EF:7160..EF:7186` (`38` bytes, SHA-1 `594e1e727b025bec9e212a9aaadb94b68870fb34`) `EBattle5MsgBtlFranklinBadgeReflectsThunder`
 - `EF:7186..EF:766E` (`1256` bytes, SHA-1 `91b0965d6124e0d4c0f933e878f798917355e3ba`) `EBattle4PreNoEffectBattleText`
 - `EF:766E..EF:7682` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4MsgBtlStatusNoEffect`
 - `EF:7682..EF:7696` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4AdjacentNoEffectText`
@@ -314,15 +320,21 @@ Labels:
 - `EF:6C3A EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55 EBattle5MsgBtlAsleepInflicted`
 - `EF:6C6B EBattle5StatusAndNpcDeathText`
-- `EF:6F9A EBattle5MsgBtlShieldOn`
-- `EF:6FBD EBattle5MsgBtlShieldAdd`
-- `EF:6FD3 EBattle5MsgBtlPowerShieldOn`
-- `EF:6FF4 EBattle5MsgBtlPowerShieldAdd`
-- `EF:700C EBattle5MsgBtlPsychicShieldOn`
-- `EF:7032 EBattle5MsgBtlPsychicShieldAdd`
-- `EF:7050 EBattle5MsgBtlPsiPowerShieldOn`
-- `EF:707A EBattle5MsgBtlPsiPowerShieldAdd`
-- `EF:7099 EBattle5ShieldTurnAndNeutralizeText`
+- `EF:6F9A EBattle5MsgBtlShieldInstalled`
+- `EF:6FBD EBattle5MsgBtlShieldStrengthened`
+- `EF:6FD3 EBattle5MsgBtlPowerShieldInstalled`
+- `EF:6FF4 EBattle5MsgBtlPowerShieldStrengthened`
+- `EF:700C EBattle5MsgBtlPsychicShieldInstalled`
+- `EF:7032 EBattle5MsgBtlPsychicShieldStrengthened`
+- `EF:7050 EBattle5MsgBtlPsychicPowerShieldInstalled`
+- `EF:707A EBattle5MsgBtlPsychicPowerShieldStrengthened`
+- `EF:7099 EBattle5MsgBtlShieldExpired`
+- `EF:70B1 EBattle5MsgBtlPowerShieldReflectsAttack`
+- `EF:70D2 EBattle5MsgBtlPsychicPowerShieldReflectsPsiName`
+- `EF:70FA EBattle5MsgBtlPsychicShieldNullifiesPsiName`
+- `EF:7123 EBattle5MsgBtlNeutralizeResult`
+- `EF:7142 EBattle5MsgBtlNeutralizeMetamorph`
+- `EF:7160 EBattle5MsgBtlFranklinBadgeReflectsThunder`
 - `EF:7186 EBattle4PreNoEffectBattleText`
 - `EF:766E EBattle4MsgBtlStatusNoEffect`
 - `EF:7682 EBattle4AdjacentNoEffectText`
