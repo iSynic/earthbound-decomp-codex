@@ -9944,6 +9944,55 @@ org $C4D274
 !C08C54_DrawTilemapIconAtPosition = $C08C54
 !C0915B_DivideUnsignedWordByY = $C0915B
 !C21628_CheckEventFlag = $C21628
+!TownMapSectorLookupTable = $EFA70F
+!TownMapConnectorIconNorthId = $EFC513
+!TownMapConnectorIconSouthId = $EFC515
+!TownMapConnectorIconWestId = $EFC517
+!TownMapConnectorIconEastId = $EFC519
+!TownMapPositionMarkerAltIconId = $EFC511
+!TownMapPositionMarkerIconId = $EFC50F
+!TownMapIconPointerTable = $E1F44C
+!TownMapIconPointerTableLow = $F44C
+!TownMapIconBlinkSuppressTable = $E1F47A
+!TownMapIconPlacementPointerTable = $E1F491
+!TownMapIconPlacementPointerTableLow = $F491
+!TownMapIconTablesBank = $00E1
+!TownMapPaletteCountdown = $B4B2
+!TownMapPositionBlinkTimer = $B4B0
+!TownMapStaticIconBlinkPhase = $B4AE
+!TownMapRendererWorkFlag = $2400
+!CurrentPlayerWorldX = $9877
+!CurrentPlayerWorldY = $987B
+!CgramShadowBuffer = $0200
+!CgramUploadSourceMirror = $0302
+!CgramUploadDestMirror = $030E
+!TownMapCellPixelSize = $0080
+!TownMapSectorByteMask = $00FF
+!TownMapCellConnectorMask = $0070
+!TownMapConnectorNorthBit = $0010
+!TownMapConnectorSouthBit = $0020
+!TownMapConnectorEastBit = $0030
+!TownMapConnectorWestBit = $0040
+!TownMapConnectorPixelOffset = $0008
+!TownMapConnectorEastPixelOffset = $0010
+!TownMapPositionBlinkHalfFrames = $000A
+!TownMapPositionBlinkPeriodFrames = $0014
+!TownMapStaticBlinkHalfFrames = $000A
+!TownMapStaticBlinkPeriodFrames = $003C
+!TownMapPalettePeriodFrames = $000C
+!TownMapPaletteFirstCyclingEntry = $0082
+!TownMapPaletteEndCyclingEntry = $0088
+!TownMapPaletteCommitFrames = $0010
+!TownMapIconPlacementRecordBytes = $0005
+!TownMapIconRecordXOffset = $0000
+!TownMapIconRecordYOffset = $0001
+!TownMapIconRecordIconIdOffset = $0002
+!TownMapIconRecordEventFlagOffset = $0003
+!TownMapIconRecordEventFlagPolarity = $8000
+!TownMapIconRecordEventFlagMask = $7FFF
+!TownMapIconPlacementTerminator = $00FF
+!DrawIconFlag = $0001
+!HideIconFlag = $0000
 GET_TOWN_MAP_ID:
 !C4D274_GetTownMapIdForCurrentPosition = GET_TOWN_MAP_ID
     rep #$31
@@ -9954,12 +10003,12 @@ GET_TOWN_MAP_ID:
     tcd
     pla
     xba
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     sta $04
     asl A
     adc $04
     sta $02
-    ldy.w #$0080
+    ldy.w #!TownMapCellPixelSize
     txa
     jsl !C0915B_DivideUnsignedWordByY
     sta $04
@@ -9973,8 +10022,8 @@ GET_TOWN_MAP_ID:
     clc
     adc $02
     tax
-    lda $EFA70F,X
-    and.w #$00FF
+    lda !TownMapSectorLookupTable,X
+    and.w #!TownMapSectorByteMask
     pld
     rts
 C4D2A8_TickTownMapPaletteAnimation:
@@ -9983,13 +10032,13 @@ C4D2A8_TickTownMapPaletteAnimation:
     tdc
     adc.w #$FFEE
     tcd
-    lda $B4B2
+    lda !TownMapPaletteCountdown
     bne C4D2EB_GetTownMapIdForCurrentPosition_LD2EB
-    lda.w #$000C
-    sta $B4B2
-    ldx $0302
+    lda.w #!TownMapPalettePeriodFrames
+    sta !TownMapPaletteCountdown
+    ldx !CgramUploadSourceMirror
     stx $10
-    lda.w #$0082
+    lda.w #!TownMapPaletteFirstCyclingEntry
     sta $0E
     bra C4D2DA_GetTownMapIdForCurrentPosition_LD2DA
 C4D2C7_GetTownMapIdForCurrentPosition_LD2C7:
@@ -9999,21 +10048,21 @@ C4D2C7_GetTownMapIdForCurrentPosition_LD2C7:
     lda $0E
     asl A
     tax
-    lda $0200,X
+    lda !CgramShadowBuffer,X
     plx
-    sta $0200,X
+    sta !CgramShadowBuffer,X
     lda $0E
     inc A
     sta $0E
 C4D2DA_GetTownMapIdForCurrentPosition_LD2DA:
-    cmp.w #$0088
+    cmp.w #!TownMapPaletteEndCyclingEntry
     bcc C4D2C7_GetTownMapIdForCurrentPosition_LD2C7
     ldx $10
-    stx $030E
-    lda.w #$0010
+    stx !CgramUploadDestMirror
+    lda.w #!TownMapPaletteCommitFrames
     jsl !C0856B_WaitFramesOrTransitionDelay
 C4D2EB_GetTownMapIdForCurrentPosition_LD2EB:
-    dec $B4B2
+    dec !TownMapPaletteCountdown
     pld
     rts
 C4D2F0_DrawTownMapCurrentPositionOverlay:
@@ -10022,12 +10071,12 @@ C4D2F0_DrawTownMapCurrentPositionOverlay:
     tdc
     adc.w #$FFEA
     tcd
-    lda $9877
+    lda !CurrentPlayerWorldX
     xba
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     tax
-    ldy.w #$0080
-    lda $987B
+    ldy.w #!TownMapCellPixelSize
+    lda !CurrentPlayerWorldY
     jsl !C0915B_DivideUnsignedWordByY
     sta $14
     lda.w #$A70F
@@ -10060,7 +10109,7 @@ C4D2F0_DrawTownMapCurrentPositionOverlay:
     adc $0A
     sta $0A
     lda [$0A]
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     sta $04
     lda $12
     inc A
@@ -10073,52 +10122,52 @@ C4D2F0_DrawTownMapCurrentPositionOverlay:
     adc $0A
     sta $0A
     lda [$0A]
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     sta $02
     lda $12
     clc
     adc $06
     sta $06
     lda [$06]
-    and.w #$00FF
-    and.w #$0070
+    and.w #!TownMapSectorByteMask
+    and.w #!TownMapCellConnectorMask
     bne C4D370_GetTownMapIdForCurrentPosition_LD370
     jmp.w C4D3F8_GetTownMapIdForCurrentPosition_LD3F8
 C4D370_GetTownMapIdForCurrentPosition_LD370:
-    cmp.w #$0010
+    cmp.w #!TownMapConnectorNorthBit
     beq C4D386_GetTownMapIdForCurrentPosition_LD386
-    cmp.w #$0020
+    cmp.w #!TownMapConnectorSouthBit
     beq C4D3A3_GetTownMapIdForCurrentPosition_LD3A3
-    cmp.w #$0040
+    cmp.w #!TownMapConnectorWestBit
     beq C4D3C0_GetTownMapIdForCurrentPosition_LD3C0
-    cmp.w #$0030
+    cmp.w #!TownMapConnectorEastBit
     beq C4D3DD_GetTownMapIdForCurrentPosition_LD3DD
     bra C4D3F8_GetTownMapIdForCurrentPosition_LD3F8
 C4D386_GetTownMapIdForCurrentPosition_LD386:
     lda $02
     sec
-    sbc.w #$0008
+    sbc.w #!TownMapConnectorPixelOffset
     tay
     ldx $04
     stx $10
-    lda $EFC513
+    lda !TownMapConnectorIconNorthId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $10
     jsl !C08C54_DrawTilemapIconAtPosition
     bra C4D3F8_GetTownMapIdForCurrentPosition_LD3F8
 C4D3A3_GetTownMapIdForCurrentPosition_LD3A3:
     lda $02
     clc
-    adc.w #$0008
+    adc.w #!TownMapConnectorPixelOffset
     tay
     ldx $04
     stx $10
-    lda $EFC515
+    lda !TownMapConnectorIconSouthId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $10
     jsl !C08C54_DrawTilemapIconAtPosition
     bra C4D3F8_GetTownMapIdForCurrentPosition_LD3F8
@@ -10126,13 +10175,13 @@ C4D3C0_GetTownMapIdForCurrentPosition_LD3C0:
     ldy $02
     lda $04
     sec
-    sbc.w #$0008
+    sbc.w #!TownMapConnectorPixelOffset
     tax
     stx $12
-    lda $EFC517
+    lda !TownMapConnectorIconWestId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $12
     jsl !C08C54_DrawTilemapIconAtPosition
     bra C4D3F8_GetTownMapIdForCurrentPosition_LD3F8
@@ -10140,26 +10189,26 @@ C4D3DD_GetTownMapIdForCurrentPosition_LD3DD:
     ldy $02
     lda $04
     clc
-    adc.w #$0010
+    adc.w #!TownMapConnectorEastPixelOffset
     tax
     stx $0E
-    lda $EFC519
+    lda !TownMapConnectorIconEastId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $0E
     jsl !C08C54_DrawTilemapIconAtPosition
 C4D3F8_GetTownMapIdForCurrentPosition_LD3F8:
-    lda $B4B0
-    cmp.w #$000A
+    lda !TownMapPositionBlinkTimer
+    cmp.w #!TownMapPositionBlinkHalfFrames
     bcs C4D418_GetTownMapIdForCurrentPosition_LD418
     ldy $02
     ldx $04
     stx $10
-    lda $EFC511
+    lda !TownMapPositionMarkerAltIconId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $10
     jsl !C08C54_DrawTilemapIconAtPosition
     bra C4D42E_GetTownMapIdForCurrentPosition_LD42E
@@ -10167,19 +10216,19 @@ C4D418_GetTownMapIdForCurrentPosition_LD418:
     ldy $02
     ldx $04
     stx $10
-    lda $EFC50F
+    lda !TownMapPositionMarkerIconId
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldx $10
     jsl !C08C54_DrawTilemapIconAtPosition
 C4D42E_GetTownMapIdForCurrentPosition_LD42E:
-    ldx $B4B0
+    ldx !TownMapPositionBlinkTimer
     dex
-    stx $B4B0
+    stx !TownMapPositionBlinkTimer
     bne C4D43D_GetTownMapIdForCurrentPosition_LD43D
-    lda.w #$0014
-    sta $B4B0
+    lda.w #!TownMapPositionBlinkPeriodFrames
+    sta !TownMapPositionBlinkTimer
 C4D43D_GetTownMapIdForCurrentPosition_LD43D:
     pld
     rts
@@ -10193,18 +10242,18 @@ C4D43F_DrawTownMapStaticIconsAndOverlay:
     pla
     tax
     stx $16
-    stz $2400
-    lda.w #$F44C
+    stz !TownMapRendererWorkFlag
+    lda.w #!TownMapIconPointerTableLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!TownMapIconTablesBank
     sta $10
     jsl !C088A5_SetRendererWorkBank
     rep #$20
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     sta $02
-    lda.w #$F491
+    lda.w #!TownMapIconPlacementPointerTableLow
     sta $0A
-    lda.w #$00E1
+    lda.w #!TownMapIconTablesBank
     sta $0C
     ldx $16
     txa
@@ -10221,50 +10270,50 @@ C4D43F_DrawTownMapStaticIconsAndOverlay:
     sty $08
     jmp.w C4D521_GetTownMapIdForCurrentPosition_LD521
 C4D487_GetTownMapIdForCurrentPosition_LD487:
-    ldy.w #$0001
+    ldy.w #!DrawIconFlag
     sty $14
     sep #$20
-    ldy.w #$0002
+    ldy.w #!TownMapIconRecordIconIdOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     tax
-    lda $E1F47A,X
-    and.w #$00FF
+    lda !TownMapIconBlinkSuppressTable,X
+    and.w #!TownMapSectorByteMask
     beq C4D4AF_GetTownMapIdForCurrentPosition_LD4AF
-    lda $B4AE
-    cmp.w #$000A
+    lda !TownMapStaticIconBlinkPhase
+    cmp.w #!TownMapStaticBlinkHalfFrames
     bcs C4D4AF_GetTownMapIdForCurrentPosition_LD4AF
-    ldy.w #$0000
+    ldy.w #!HideIconFlag
     sty $14
 C4D4AF_GetTownMapIdForCurrentPosition_LD4AF:
-    ldx.w #$0000
+    ldx.w #!HideIconFlag
     stx $12
-    ldy.w #$0003
+    ldy.w #!TownMapIconRecordEventFlagOffset
     lda [$06],Y
-    cmp.w #$8000
+    cmp.w #!TownMapIconRecordEventFlagPolarity
     bcc C4D4C3_GetTownMapIdForCurrentPosition_LD4C3
-    ldx.w #$0001
+    ldx.w #!DrawIconFlag
     stx $12
 C4D4C3_GetTownMapIdForCurrentPosition_LD4C3:
-    ldy.w #$0003
+    ldy.w #!TownMapIconRecordEventFlagOffset
     lda [$06],Y
-    and.w #$7FFF
+    and.w #!TownMapIconRecordEventFlagMask
     jsl !C21628_CheckEventFlag
     ldx $12
     stx $04
     cmp $04
     beq C4D4DC_GetTownMapIdForCurrentPosition_LD4DC
-    ldy.w #$0000
+    ldy.w #!HideIconFlag
     sty $14
 C4D4DC_GetTownMapIdForCurrentPosition_LD4DC:
     ldy $14
     beq C4D519_GetTownMapIdForCurrentPosition_LD519
     sep #$20
-    ldy.w #$0001
+    ldy.w #!TownMapIconRecordYOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     tay
     sty $16
     lda $06
@@ -10272,22 +10321,22 @@ C4D4DC_GetTownMapIdForCurrentPosition_LD4DC:
     lda $08
     sta $0C
     lda [$0A]
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     tax
     stx $12
     sep #$20
-    ldy.w #$0002
+    ldy.w #!TownMapIconRecordIconIdOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!TownMapSectorByteMask
     asl A
     tax
-    lda $E1F44C,X
+    lda !TownMapIconPointerTable,X
     ldy $16
     ldx $12
     jsl !C08C54_DrawTilemapIconAtPosition
 C4D519_GetTownMapIdForCurrentPosition_LD519:
-    lda.w #$0005
+    lda.w #!TownMapIconPlacementRecordBytes
     clc
     adc $06
     sta $06
@@ -10297,18 +10346,18 @@ C4D521_GetTownMapIdForCurrentPosition_LD521:
     lda $08
     sta $0C
     lda [$0A]
-    and.w #$00FF
-    cmp.w #$00FF
+    and.w #!TownMapSectorByteMask
+    cmp.w #!TownMapIconPlacementTerminator
     beq C4D536_GetTownMapIdForCurrentPosition_LD536
     jmp.w C4D487_GetTownMapIdForCurrentPosition_LD487
 C4D536_GetTownMapIdForCurrentPosition_LD536:
     jsr.w C4D2F0_DrawTownMapCurrentPositionOverlay
-    ldx $B4AE
+    ldx !TownMapStaticIconBlinkPhase
     dex
-    stx $B4AE
+    stx !TownMapStaticIconBlinkPhase
     bne C4D548_GetTownMapIdForCurrentPosition_LD548
-    lda.w #$003C
-    sta $B4AE
+    lda.w #!TownMapStaticBlinkPeriodFrames
+    sta !TownMapStaticIconBlinkPhase
 C4D548_GetTownMapIdForCurrentPosition_LD548:
     lda $02
     jsl !C088A5_SetRendererWorkBank
@@ -10334,6 +10383,40 @@ org $C4D553
 !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!TownMapGraphicsPointerTableLow = $2190
+!TownMapGraphicsPointerTableBank = $00E0
+!TownMapDecompressionDestinationLow = $0000
+!TownMapWorkBank7F = $007F
+!TownMapDecompressBusyByte = $0028
+!TownMapTileBlockSourceLow = $0200
+!TownMapTileBlockSize = $0040
+!TownMapIconGraphicsSourceLow = $F1C3
+!TownMapIconGraphicsSourceBank = $00E1
+!TownMapIconTileBlockSourceLow = $0300
+!TownMapIconTileBlockSize = $0100
+!TownMapBg1ScreenBaseArg = $3000
+!TownMapObjBaseArg = $0003
+!ColorMathRegister = $002131
+!ColorWindowRegister = $002130
+!DisplayModeLatch = $001A
+!DisplaySubmodeLatch = $001B
+!DisplayModeTownMapSetup = $01
+!TownMapBgTileSourceLow = $0040
+!TownMapBgVramDestination = $3000
+!TownMapBgVramTransferSize = $0800
+!TownMapChunkedSourceLow = $0840
+!TownMapChunkedVramDestination = $4000
+!TownMapLabelsCompressedSourceLow = $EA50
+!TownMapLabelsCompressedSourceBank = $00E1
+!TownMapLabelsVramDestination = $6000
+!TownMapLabelsVramTransferSize = $2400
+!TownMapPaletteCommitFrames = $0018
+!DisplayModeTownMapActive = $11
+!ScreenOriginX = $0031
+!ScreenOriginY = $0033
+!TransitionSlotActive = $0001
+!TransitionArg = $0002
+!VramTransferFlagsNone = $00
 LOAD_TOWN_MAP_DATA:
 !C4D553_LoadTownMapData = LOAD_TOWN_MAP_DATA
     rep #$31
@@ -10345,12 +10428,12 @@ LOAD_TOWN_MAP_DATA:
     pla
     tay
     sty $16
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #!TransitionSlotActive
+    lda.w #!TransitionArg
     jsl !C0887A_ClearDisplayTransitionState
-    lda.w #$2190
+    lda.w #!TownMapGraphicsPointerTableLow
     sta $0A
-    lda.w #$00E0
+    lda.w #!TownMapGraphicsPointerTableBank
     sta $0C
     ldy $16
     tya
@@ -10369,68 +10452,68 @@ LOAD_TOWN_MAP_DATA:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #!TownMapDecompressionDestinationLow
     sta $12
-    lda.w #$007F
+    lda.w #!TownMapWorkBank7F
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
 C4D5A0_LoadTownMapData_LD5A0:
-    lda $0028
+    lda !TownMapDecompressBusyByte
     and.w #$00FF
     bne C4D5A0_LoadTownMapData_LD5A0
-    lda.w #$0000
+    lda.w #!TownMapDecompressionDestinationLow
     sta $06
-    lda.w #$007F
+    lda.w #!TownMapWorkBank7F
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #!TownMapTileBlockSize
+    lda.w #!TownMapTileBlockSourceLow
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$F1C3
+    lda.w #!TownMapIconGraphicsSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!TownMapIconGraphicsSourceBank
     sta $10
-    ldx.w #$0100
-    lda.w #$0300
+    ldx.w #!TownMapIconTileBlockSize
+    lda.w #!TownMapIconTileBlockSourceLow
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     ldy.w #$0000
-    ldx.w #$3000
+    ldx.w #!TownMapBg1ScreenBaseArg
     tya
     jsl !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
-    lda.w #$0003
+    lda.w #!TownMapObjBaseArg
     jsl !C08D92_UpdateObjSizeAndBaseRegister
     sep #$20
-    lda.b #$00
-    sta $002131
-    sta $002130
-    lda.b #$01
-    sta $001A
-    stz $001B
+    lda.b #!VramTransferFlagsNone
+    sta !ColorMathRegister
+    sta !ColorWindowRegister
+    lda.b #!DisplayModeTownMapSetup
+    sta !DisplayModeLatch
+    stz !DisplaySubmodeLatch
     rep #$20
-    lda.w #$0040
+    lda.w #!TownMapBgTileSourceLow
     sta $0E
-    lda.w #$007F
+    lda.w #!TownMapWorkBank7F
     sta $10
-    ldy.w #$3000
-    ldx.w #$0800
+    ldy.w #!TownMapBgVramDestination
+    ldx.w #!TownMapBgVramTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #!VramTransferFlagsNone
     jsl !C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0840
+    lda.w #!TownMapChunkedSourceLow
     sta $0E
-    lda.w #$007F
+    lda.w #!TownMapWorkBank7F
     sta $10
     ldy.w #$0000
-    ldx.w #$4000
+    ldx.w #!TownMapChunkedVramDestination
     sep #$20
     tya
     jsl !C085B7_QueueChunkedVramDma
-    lda.w #$EA50
+    lda.w #!TownMapLabelsCompressedSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!TownMapLabelsCompressedSourceBank
     sta $10
     lda $06
     sta $12
@@ -10441,22 +10524,22 @@ C4D5A0_LoadTownMapData_LD5A0:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$6000
-    ldx.w #$2400
+    ldy.w #!TownMapLabelsVramDestination
+    ldx.w #!TownMapLabelsVramTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #!VramTransferFlagsNone
     jsl !C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0018
+    lda.w #!TownMapPaletteCommitFrames
     jsl !C0856B_WaitFramesOrTransitionDelay
     sep #$20
-    lda.b #$11
-    sta $001A
+    lda.b #!DisplayModeTownMapActive
+    sta !DisplayModeLatch
     rep #$20
-    stz $0033
-    stz $0031
+    stz !ScreenOriginY
+    stz !ScreenOriginX
     jsl !C08B26_FlushQueuedSpriteOrTileWork
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #!TransitionSlotActive
+    lda.w #!TransitionArg
     jsl !C0886C_SetDisplayTransitionState
     pld
     rts
@@ -10479,6 +10562,36 @@ org $C4D681
 !C088B1_ResetRendererFrameState = $C088B1
 !C08B26_FlushQueuedSpriteOrTileWork = $C08B26
 !C4800B_RestoreWorldDisplayState = $C4800B
+!TownMapStaticIconBlinkPhase = $B4AE
+!TownMapPositionBlinkTimer = $B4B0
+!TownMapPaletteCountdown = $B4B2
+!CurrentPlayerWorldX = $9877
+!CurrentPlayerWorldY = $987B
+!PresentationActiveFlag = $5DD8
+!SavedDisplayStateCurrent = $5DD6
+!SavedDisplayStateRestore = $5DD4
+!InputHeldOrPressed = $006D
+!DisplayModeLatch = $001A
+!TownMapStaticBlinkInitialFrames = $003C
+!TownMapPositionBlinkInitialFrames = $0014
+!TownMapPaletteInitialFrames = $000C
+!TownMapIdLowNibbleMask = $000F
+!TownMapCloseoutFrames = $0010
+!TownMapBrowseFirstIndex = $0000
+!TownMapBrowseLastIndex = $0005
+!TownMapBrowseIndexCount = $0006
+!TownMapBrowseBeforeFirstSentinel = $FFFF
+!TownMapExitInputMaskLow = $00A0
+!TownMapExitInputMaskHigh = $A000
+!TownMapExitInputMaskLeft = $0020
+!TownMapExitInputMaskRight = $0040
+!TownMapBrowsePrevInputMask = $0800
+!TownMapBrowseNextInputMask = $0400
+!TownMapBrowseExitInputMask = $0080
+!TownMapTransitionArg = $0002
+!TownMapTransitionSlotActive = $0001
+!TownMapTransitionSlotZero = $0000
+!WorldDisplayModeAfterTownMap = $17
 DISPLAY_TOWN_MAP:
 !C4D681_DisplayCurrentPositionTownMap = DISPLAY_TOWN_MAP
     rep #$31
@@ -10486,16 +10599,16 @@ DISPLAY_TOWN_MAP:
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$003C
-    sta $B4AE
-    lda.w #$0014
-    sta $B4B0
-    lda.w #$000C
-    sta $B4B2
-    ldx $987B
-    lda $9877
+    lda.w #!TownMapStaticBlinkInitialFrames
+    sta !TownMapStaticIconBlinkPhase
+    lda.w #!TownMapPositionBlinkInitialFrames
+    sta !TownMapPositionBlinkTimer
+    lda.w #!TownMapPaletteInitialFrames
+    sta !TownMapPaletteCountdown
+    ldx !CurrentPlayerWorldY
+    lda !CurrentPlayerWorldX
     jsr !GetTownMapIdForCurrentPosition
-    and.w #$000F
+    and.w #!TownMapIdLowNibbleMask
     tay
     sty $10
     bne C4D6AF_DisplayCurrentPositionTownMap_LD6AF
@@ -10512,23 +10625,23 @@ C4D6B4_DisplayCurrentPositionTownMap_LD6B4:
     dec A
     jsr !DrawTownMapStaticIconsAndOverlay
     jsl !C08B26_FlushQueuedSpriteOrTileWork
-    lda $006D
-    and.w #$00A0
+    lda !InputHeldOrPressed
+    and.w #!TownMapExitInputMaskLow
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$A000
+    lda !InputHeldOrPressed
+    and.w #!TownMapExitInputMaskHigh
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$0020
+    lda !InputHeldOrPressed
+    and.w #!TownMapExitInputMaskLeft
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$0040
+    lda !InputHeldOrPressed
+    and.w #!TownMapExitInputMaskRight
     beq C4D6B4_DisplayCurrentPositionTownMap_LD6B4
 C4D6E7_DisplayCurrentPositionTownMap_LD6E7:
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #!TownMapTransitionSlotActive
+    lda.w #!TownMapTransitionArg
     jsl !C0887A_ClearDisplayTransitionState
-    ldx.w #$0000
+    ldx.w #!TownMapTransitionSlotZero
     stx $0E
     bra C4D710_DisplayCurrentPositionTownMap_LD710
 C4D6F8_DisplayCurrentPositionTownMap_LD6F8:
@@ -10543,21 +10656,21 @@ C4D6F8_DisplayCurrentPositionTownMap_LD6F8:
     inx
     stx $0E
 C4D710_DisplayCurrentPositionTownMap_LD710:
-    cpx.w #$0010
+    cpx.w #!TownMapCloseoutFrames
     bcc C4D6F8_DisplayCurrentPositionTownMap_LD6F8
-    lda.w #$0001
-    sta $5DD8
+    lda.w #!TownMapTransitionSlotActive
+    sta !PresentationActiveFlag
     jsl !C018F3_CloseOrResetPresentationState
-    lda $5DD6
-    sta $5DD4
+    lda !SavedDisplayStateCurrent
+    sta !SavedDisplayStateRestore
     jsl !C4800B_RestoreWorldDisplayState
-    stz $5DD8
+    stz !PresentationActiveFlag
     sep #$20
-    lda.b #$17
-    sta $001A
-    ldx.w #$0001
+    lda.b #!WorldDisplayModeAfterTownMap
+    sta !DisplayModeLatch
+    ldx.w #!TownMapTransitionSlotActive
     rep #$20
-    lda.w #$0002
+    lda.w #!TownMapTransitionArg
     jsl !C0886C_SetDisplayTransitionState
 C4D73F_DisplayCurrentPositionTownMap_LD73F:
     ldy $10
@@ -10570,44 +10683,44 @@ C4D744_RunTownMapBrowseViewer:
     tdc
     adc.w #$FFEE
     tcd
-    ldx.w #$0000
+    ldx.w #!TownMapBrowseFirstIndex
     stx $10
     txy
     sty $0E
-    lda.w #$003C
-    sta $B4AE
-    lda.w #$0014
-    sta $B4B0
-    lda.w #$000C
-    sta $B4B2
+    lda.w #!TownMapStaticBlinkInitialFrames
+    sta !TownMapStaticIconBlinkPhase
+    lda.w #!TownMapPositionBlinkInitialFrames
+    sta !TownMapPositionBlinkTimer
+    lda.w #!TownMapPaletteInitialFrames
+    sta !TownMapPaletteCountdown
     txa
     jsr !LoadTownMapData
 C4D76A_DisplayCurrentPositionTownMap_LD76A:
     jsl !C08756_WaitOneFrameAndPollInput
     jsl !C088B1_ResetRendererFrameState
-    lda $006D
-    and.w #$0800
+    lda !InputHeldOrPressed
+    and.w #!TownMapBrowsePrevInputMask
     beq C4D77F_DisplayCurrentPositionTownMap_LD77F
     ldx $10
     dex
     stx $10
 C4D77F_DisplayCurrentPositionTownMap_LD77F:
-    lda $006D
-    and.w #$0400
+    lda !InputHeldOrPressed
+    and.w #!TownMapBrowseNextInputMask
     beq C4D78C_DisplayCurrentPositionTownMap_LD78C
     ldx $10
     inx
     stx $10
 C4D78C_DisplayCurrentPositionTownMap_LD78C:
     ldx $10
-    cpx.w #$FFFF
+    cpx.w #!TownMapBrowseBeforeFirstSentinel
     bne C4D798_DisplayCurrentPositionTownMap_LD798
-    ldx.w #$0005
+    ldx.w #!TownMapBrowseLastIndex
     stx $10
 C4D798_DisplayCurrentPositionTownMap_LD798:
-    cpx.w #$0006
+    cpx.w #!TownMapBrowseIndexCount
     bne C4D7A2_DisplayCurrentPositionTownMap_LD7A2
-    ldx.w #$0000
+    ldx.w #!TownMapBrowseFirstIndex
     stx $10
 C4D7A2_DisplayCurrentPositionTownMap_LD7A2:
     stx $02
@@ -10623,8 +10736,8 @@ C4D7A2_DisplayCurrentPositionTownMap_LD7A2:
 C4D7B4_DisplayCurrentPositionTownMap_LD7B4:
     txa
     jsr !DrawTownMapStaticIconsAndOverlay
-    lda $006D
-    and.w #$0080
+    lda !InputHeldOrPressed
+    and.w #!TownMapBrowseExitInputMask
     bne C4D7C6_DisplayCurrentPositionTownMap_LD7C6
     jsl !C08B26_FlushQueuedSpriteOrTileWork
     bra C4D76A_DisplayCurrentPositionTownMap_LD76A
@@ -10632,8 +10745,8 @@ C4D7C6_DisplayCurrentPositionTownMap_LD7C6:
     jsl !C4800B_RestoreWorldDisplayState
     jsl !C018F3_CloseOrResetPresentationState
     sep #$20
-    lda.b #$17
-    sta $001A
+    lda.b #!WorldDisplayModeAfterTownMap
+    sta !DisplayModeLatch
     rep #$20
     pld
     rtl

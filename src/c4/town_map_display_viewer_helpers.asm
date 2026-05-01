@@ -23,6 +23,41 @@ C08B26_FlushQueuedSpriteOrTileWork   = $C08B26
 C4800B_RestoreWorldDisplayState      = $C4800B
 
 ; ---------------------------------------------------------------------------
+; Town-map display state
+
+TownMapStaticIconBlinkPhase          = $B4AE
+TownMapPositionBlinkTimer            = $B4B0
+TownMapPaletteCountdown              = $B4B2
+CurrentPlayerWorldX                  = $9877
+CurrentPlayerWorldY                  = $987B
+PresentationActiveFlag               = $5DD8
+SavedDisplayStateCurrent             = $5DD6
+SavedDisplayStateRestore             = $5DD4
+InputHeldOrPressed                   = $006D
+DisplayModeLatch                     = $001A
+
+TownMapStaticBlinkInitialFrames      = $003C
+TownMapPositionBlinkInitialFrames    = $0014
+TownMapPaletteInitialFrames          = $000C
+TownMapIdLowNibbleMask               = $000F
+TownMapCloseoutFrames                = $0010
+TownMapBrowseFirstIndex              = $0000
+TownMapBrowseLastIndex               = $0005
+TownMapBrowseIndexCount              = $0006
+TownMapBrowseBeforeFirstSentinel     = $FFFF
+TownMapExitInputMaskLow              = $00A0
+TownMapExitInputMaskHigh             = $A000
+TownMapExitInputMaskLeft             = $0020
+TownMapExitInputMaskRight            = $0040
+TownMapBrowsePrevInputMask           = $0800
+TownMapBrowseNextInputMask           = $0400
+TownMapBrowseExitInputMask           = $0080
+TownMapTransitionArg                 = $0002
+TownMapTransitionSlotActive          = $0001
+TownMapTransitionSlotZero            = $0000
+WorldDisplayModeAfterTownMap         = $17
+
+; ---------------------------------------------------------------------------
 ; C4:D681
 
 DISPLAY_TOWN_MAP:
@@ -32,16 +67,16 @@ C4D681_DisplayCurrentPositionTownMap = DISPLAY_TOWN_MAP
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$003C
-    sta $B4AE
-    lda.w #$0014
-    sta $B4B0
-    lda.w #$000C
-    sta $B4B2
-    ldx $987B
-    lda $9877
+    lda.w #TownMapStaticBlinkInitialFrames
+    sta TownMapStaticIconBlinkPhase
+    lda.w #TownMapPositionBlinkInitialFrames
+    sta TownMapPositionBlinkTimer
+    lda.w #TownMapPaletteInitialFrames
+    sta TownMapPaletteCountdown
+    ldx CurrentPlayerWorldY
+    lda CurrentPlayerWorldX
     jsr GetTownMapIdForCurrentPosition
-    and.w #$000F
+    and.w #TownMapIdLowNibbleMask
     tay
     sty $10
     bne C4D6AF_DisplayCurrentPositionTownMap_LD6AF
@@ -58,23 +93,23 @@ C4D6B4_DisplayCurrentPositionTownMap_LD6B4:
     dec A
     jsr DrawTownMapStaticIconsAndOverlay
     jsl C08B26_FlushQueuedSpriteOrTileWork
-    lda $006D
-    and.w #$00A0
+    lda InputHeldOrPressed
+    and.w #TownMapExitInputMaskLow
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$A000
+    lda InputHeldOrPressed
+    and.w #TownMapExitInputMaskHigh
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$0020
+    lda InputHeldOrPressed
+    and.w #TownMapExitInputMaskLeft
     bne C4D6E7_DisplayCurrentPositionTownMap_LD6E7
-    lda $006D
-    and.w #$0040
+    lda InputHeldOrPressed
+    and.w #TownMapExitInputMaskRight
     beq C4D6B4_DisplayCurrentPositionTownMap_LD6B4
 C4D6E7_DisplayCurrentPositionTownMap_LD6E7:
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #TownMapTransitionSlotActive
+    lda.w #TownMapTransitionArg
     jsl C0887A_ClearDisplayTransitionState
-    ldx.w #$0000
+    ldx.w #TownMapTransitionSlotZero
     stx $0E
     bra C4D710_DisplayCurrentPositionTownMap_LD710
 C4D6F8_DisplayCurrentPositionTownMap_LD6F8:
@@ -89,21 +124,21 @@ C4D6F8_DisplayCurrentPositionTownMap_LD6F8:
     inx
     stx $0E
 C4D710_DisplayCurrentPositionTownMap_LD710:
-    cpx.w #$0010
+    cpx.w #TownMapCloseoutFrames
     bcc C4D6F8_DisplayCurrentPositionTownMap_LD6F8
-    lda.w #$0001
-    sta $5DD8
+    lda.w #TownMapTransitionSlotActive
+    sta PresentationActiveFlag
     jsl C018F3_CloseOrResetPresentationState
-    lda $5DD6
-    sta $5DD4
+    lda SavedDisplayStateCurrent
+    sta SavedDisplayStateRestore
     jsl C4800B_RestoreWorldDisplayState
-    stz $5DD8
+    stz PresentationActiveFlag
     sep #$20
-    lda.b #$17
-    sta $001A
-    ldx.w #$0001
+    lda.b #WorldDisplayModeAfterTownMap
+    sta DisplayModeLatch
+    ldx.w #TownMapTransitionSlotActive
     rep #$20
-    lda.w #$0002
+    lda.w #TownMapTransitionArg
     jsl C0886C_SetDisplayTransitionState
 C4D73F_DisplayCurrentPositionTownMap_LD73F:
     ldy $10
@@ -116,44 +151,44 @@ C4D744_RunTownMapBrowseViewer:
     tdc
     adc.w #$FFEE
     tcd
-    ldx.w #$0000
+    ldx.w #TownMapBrowseFirstIndex
     stx $10
     txy
     sty $0E
-    lda.w #$003C
-    sta $B4AE
-    lda.w #$0014
-    sta $B4B0
-    lda.w #$000C
-    sta $B4B2
+    lda.w #TownMapStaticBlinkInitialFrames
+    sta TownMapStaticIconBlinkPhase
+    lda.w #TownMapPositionBlinkInitialFrames
+    sta TownMapPositionBlinkTimer
+    lda.w #TownMapPaletteInitialFrames
+    sta TownMapPaletteCountdown
     txa
     jsr LoadTownMapData
 C4D76A_DisplayCurrentPositionTownMap_LD76A:
     jsl C08756_WaitOneFrameAndPollInput
     jsl C088B1_ResetRendererFrameState
-    lda $006D
-    and.w #$0800
+    lda InputHeldOrPressed
+    and.w #TownMapBrowsePrevInputMask
     beq C4D77F_DisplayCurrentPositionTownMap_LD77F
     ldx $10
     dex
     stx $10
 C4D77F_DisplayCurrentPositionTownMap_LD77F:
-    lda $006D
-    and.w #$0400
+    lda InputHeldOrPressed
+    and.w #TownMapBrowseNextInputMask
     beq C4D78C_DisplayCurrentPositionTownMap_LD78C
     ldx $10
     inx
     stx $10
 C4D78C_DisplayCurrentPositionTownMap_LD78C:
     ldx $10
-    cpx.w #$FFFF
+    cpx.w #TownMapBrowseBeforeFirstSentinel
     bne C4D798_DisplayCurrentPositionTownMap_LD798
-    ldx.w #$0005
+    ldx.w #TownMapBrowseLastIndex
     stx $10
 C4D798_DisplayCurrentPositionTownMap_LD798:
-    cpx.w #$0006
+    cpx.w #TownMapBrowseIndexCount
     bne C4D7A2_DisplayCurrentPositionTownMap_LD7A2
-    ldx.w #$0000
+    ldx.w #TownMapBrowseFirstIndex
     stx $10
 C4D7A2_DisplayCurrentPositionTownMap_LD7A2:
     stx $02
@@ -169,8 +204,8 @@ C4D7A2_DisplayCurrentPositionTownMap_LD7A2:
 C4D7B4_DisplayCurrentPositionTownMap_LD7B4:
     txa
     jsr DrawTownMapStaticIconsAndOverlay
-    lda $006D
-    and.w #$0080
+    lda InputHeldOrPressed
+    and.w #TownMapBrowseExitInputMask
     bne C4D7C6_DisplayCurrentPositionTownMap_LD7C6
     jsl C08B26_FlushQueuedSpriteOrTileWork
     bra C4D76A_DisplayCurrentPositionTownMap_LD76A
@@ -178,8 +213,8 @@ C4D7C6_DisplayCurrentPositionTownMap_LD7C6:
     jsl C4800B_RestoreWorldDisplayState
     jsl C018F3_CloseOrResetPresentationState
     sep #$20
-    lda.b #$17
-    sta $001A
+    lda.b #WorldDisplayModeAfterTownMap
+    sta DisplayModeLatch
     rep #$20
     pld
     rtl

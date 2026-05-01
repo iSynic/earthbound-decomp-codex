@@ -23,6 +23,44 @@ C08ED2_QueueOrTransferDynamicTileBlock       = $C08ED2
 C41A9E_GraphicsDecompressionRoutines_Main    = $C41A9E
 
 ; ---------------------------------------------------------------------------
+; Town-map asset load/display contracts
+
+TownMapGraphicsPointerTableLow        = $2190
+TownMapGraphicsPointerTableBank       = $00E0
+TownMapDecompressionDestinationLow    = $0000
+TownMapWorkBank7F                     = $007F
+TownMapDecompressBusyByte             = $0028
+TownMapTileBlockSourceLow             = $0200
+TownMapTileBlockSize                  = $0040
+TownMapIconGraphicsSourceLow          = $F1C3
+TownMapIconGraphicsSourceBank         = $00E1
+TownMapIconTileBlockSourceLow         = $0300
+TownMapIconTileBlockSize              = $0100
+TownMapBg1ScreenBaseArg               = $3000
+TownMapObjBaseArg                     = $0003
+ColorMathRegister                     = $002131
+ColorWindowRegister                   = $002130
+DisplayModeLatch                     = $001A
+DisplaySubmodeLatch                  = $001B
+DisplayModeTownMapSetup              = $01
+TownMapBgTileSourceLow               = $0040
+TownMapBgVramDestination             = $3000
+TownMapBgVramTransferSize            = $0800
+TownMapChunkedSourceLow              = $0840
+TownMapChunkedVramDestination        = $4000
+TownMapLabelsCompressedSourceLow     = $EA50
+TownMapLabelsCompressedSourceBank    = $00E1
+TownMapLabelsVramDestination         = $6000
+TownMapLabelsVramTransferSize        = $2400
+TownMapPaletteCommitFrames           = $0018
+DisplayModeTownMapActive             = $11
+ScreenOriginX                        = $0031
+ScreenOriginY                        = $0033
+TransitionSlotActive                 = $0001
+TransitionArg                        = $0002
+VramTransferFlagsNone                = $00
+
+; ---------------------------------------------------------------------------
 ; C4:D553
 
 LOAD_TOWN_MAP_DATA:
@@ -36,12 +74,12 @@ C4D553_LoadTownMapData = LOAD_TOWN_MAP_DATA
     pla
     tay
     sty $16
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #TransitionSlotActive
+    lda.w #TransitionArg
     jsl C0887A_ClearDisplayTransitionState
-    lda.w #$2190
+    lda.w #TownMapGraphicsPointerTableLow
     sta $0A
-    lda.w #$00E0
+    lda.w #TownMapGraphicsPointerTableBank
     sta $0C
     ldy $16
     tya
@@ -60,68 +98,68 @@ C4D553_LoadTownMapData = LOAD_TOWN_MAP_DATA
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #TownMapDecompressionDestinationLow
     sta $12
-    lda.w #$007F
+    lda.w #TownMapWorkBank7F
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
 C4D5A0_LoadTownMapData_LD5A0:
-    lda $0028
+    lda TownMapDecompressBusyByte
     and.w #$00FF
     bne C4D5A0_LoadTownMapData_LD5A0
-    lda.w #$0000
+    lda.w #TownMapDecompressionDestinationLow
     sta $06
-    lda.w #$007F
+    lda.w #TownMapWorkBank7F
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #TownMapTileBlockSize
+    lda.w #TownMapTileBlockSourceLow
     jsl C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$F1C3
+    lda.w #TownMapIconGraphicsSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #TownMapIconGraphicsSourceBank
     sta $10
-    ldx.w #$0100
-    lda.w #$0300
+    ldx.w #TownMapIconTileBlockSize
+    lda.w #TownMapIconTileBlockSourceLow
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     ldy.w #$0000
-    ldx.w #$3000
+    ldx.w #TownMapBg1ScreenBaseArg
     tya
     jsl C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
-    lda.w #$0003
+    lda.w #TownMapObjBaseArg
     jsl C08D92_UpdateObjSizeAndBaseRegister
     sep #$20
-    lda.b #$00
-    sta $002131
-    sta $002130
-    lda.b #$01
-    sta $001A
-    stz $001B
+    lda.b #VramTransferFlagsNone
+    sta ColorMathRegister
+    sta ColorWindowRegister
+    lda.b #DisplayModeTownMapSetup
+    sta DisplayModeLatch
+    stz DisplaySubmodeLatch
     rep #$20
-    lda.w #$0040
+    lda.w #TownMapBgTileSourceLow
     sta $0E
-    lda.w #$007F
+    lda.w #TownMapWorkBank7F
     sta $10
-    ldy.w #$3000
-    ldx.w #$0800
+    ldy.w #TownMapBgVramDestination
+    ldx.w #TownMapBgVramTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #VramTransferFlagsNone
     jsl C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0840
+    lda.w #TownMapChunkedSourceLow
     sta $0E
-    lda.w #$007F
+    lda.w #TownMapWorkBank7F
     sta $10
     ldy.w #$0000
-    ldx.w #$4000
+    ldx.w #TownMapChunkedVramDestination
     sep #$20
     tya
     jsl C085B7_QueueChunkedVramDma
-    lda.w #$EA50
+    lda.w #TownMapLabelsCompressedSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #TownMapLabelsCompressedSourceBank
     sta $10
     lda $06
     sta $12
@@ -132,22 +170,22 @@ C4D5A0_LoadTownMapData_LD5A0:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$6000
-    ldx.w #$2400
+    ldy.w #TownMapLabelsVramDestination
+    ldx.w #TownMapLabelsVramTransferSize
     sep #$20
-    lda.b #$00
+    lda.b #VramTransferFlagsNone
     jsl C08616_QueueVramTransfer_FromDpSource
-    lda.w #$0018
+    lda.w #TownMapPaletteCommitFrames
     jsl C0856B_WaitFramesOrTransitionDelay
     sep #$20
-    lda.b #$11
-    sta $001A
+    lda.b #DisplayModeTownMapActive
+    sta DisplayModeLatch
     rep #$20
-    stz $0033
-    stz $0031
+    stz ScreenOriginY
+    stz ScreenOriginX
     jsl C08B26_FlushQueuedSpriteOrTileWork
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #TransitionSlotActive
+    lda.w #TransitionArg
     jsl C0886C_SetDisplayTransitionState
     pld
     rts

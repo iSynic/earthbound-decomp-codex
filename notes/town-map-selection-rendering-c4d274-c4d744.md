@@ -105,6 +105,12 @@ Input:
 
 It selects a pointer from the table at `E0:2190`, decompresses the selected town-map asset into bank `7F` through `C4:1A9E`, waits for the decompressor busy byte `$0028` to clear, clears/transfers staging buffers through `C0:8ED2`, `C0:8D9E`, `C0:8D92`, `C0:8616`, and `C0:85B7`, and resets display color/math state before returning. The byte-level transfer contract is display setup, while the reference include gives the player-facing identity: load town map data.
 
+Source polish: the town-map source helpers now name the `EF:A70F` sector
+lookup, E0 graphics pointer table, E1 icon pointer/suppress/placement tables,
+`$B4AE/$B4B0/$B4B2` blink/palette timers, town-map input masks, decompressor
+busy byte, display mode latches, and the main VRAM transfer destinations for
+map graphics, labels, and icon tiles.
+
 `C4:D681` is the local body corresponding to `overworld/display_town_map.asm`.
 
 It initializes the town-map timers:

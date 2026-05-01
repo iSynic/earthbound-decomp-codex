@@ -82,6 +82,10 @@ closure.
   rebase contracts, then promoted visual-frame helper literals for directional
   frame-list stride, tile-column merge masks, and render-strip source fields.
   See `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md`.
+- 2026-05-01 file-select/town-map start: promoted town-map renderer/load
+  constants for the `EF:A70F` sector lookup, E0/E1 asset tables, blink and
+  palette timers, input masks, decompressor latch, display latches, and VRAM
+  transfer destinations. See `notes/town-map-selection-rendering-c4d274-c4d744.md`.
 
 ## Validation
 
