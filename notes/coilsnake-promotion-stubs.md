@@ -6,127 +6,13 @@ This note is compile-free and payload-free. It defines what evidence is required
 
 ## Summary
 
-- Promotion stubs: `3`
-- Ready to run: `3`
+- Promotion stubs: `0`
+- Ready to run: `0`
 - Tooling-blocked: `0`
 
 ## Stubs
 
 | Experiment | Gate | Family | First tracked targets |
 | --- | --- | --- | --- |
-| `npc-config-first-text-pointer-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
-| `map-door-first-destination-probe` | `diff-confirmed` | `map_tilesets_and_runtime_tables` | `notes/map-collision-runtime-bit-contract.md`, `notes/map-fts-format-audit.md`, `notes/map-milestone-closure.md` |
-| `window-config-width-probe` | `diff-confirmed` | `ui_font_town_map_assets` | `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/landing-cast-visual-contracts.md` |
 
 ## Promotion Checklist
-
-### `npc-config-first-text-pointer-probe`
-
-- Planned edit: Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.
-- Source file: `npc_config_table.yml`
-- Evidence gate: `diff-confirmed`
-- Blocking status: `none`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `NPC_CONFIG_TABLE` `D6:0000..DF:FFFF`: The map-object contract joins NPC config rows to placed-object behavior, text pointers, event flags, sectors, and movement/actionscript pointers across the map data banks.
-- Field hints:
-  - `Text Pointer 1` -> `primary placed-object text/actionscript pointer`: notes/map-object-bundles.md records primary text pointers for placed NPC config rows.
-- Candidate note anchors:
-  - `notes/map-object-bundles.md`
-  - `notes/localization-map-object-crosswalk.md`
-  - `notes/c3-actionscript-semantics-audit.md`
-  - `notes/map-scene-composition-contract.md`
-- Runtime consumer hints:
-  - `map object interaction / actionscript dispatch path` (candidate): Local map-object and localization crosswalk notes join placed-object rows to behavior scripts and text pointers.
-- Candidate tracked update targets:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-door-first-destination-probe`
-
-- Planned edit: Changed the first unique map door Destination X field from 784 to 785.
-- Source file: `map_doors.yml`
-- Evidence gate: `diff-confirmed`
-- Blocking status: `none`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/map-door-first-destination-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `MAP_DOOR_DESTINATION_TABLES` `D6:0000..DF:FFFF`: Map-sector and scene-composition contracts treat map doors as part of the D6-DF map runtime table family.
-- Field hints:
-  - `Destination X` -> `door/warp destination X coordinate`: CoilSnake map_doors.yml exposes door destination vocabulary; exact local table offset waits for the rebuild diff.
-- Candidate note anchors:
-  - `notes/map-sector-bundles.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-- Runtime consumer hints:
-  - `map transition / door runtime` (candidate): Door destinations are tracked with sector and scene-composition contracts, but the exact runtime consumer remains open until the diff lands.
-- Candidate tracked update targets:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `window-config-width-probe`
-
-- Planned edit: Changed window configuration 8 Width from 30 to 31.
-- Source file: `window_configuration_table.yml`
-- Evidence gate: `diff-confirmed`
-- Blocking status: `none`
-- Ingest command: `python tools/refresh_coilsnake_crosswalk.py --experiment-report build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json`
-- Required join fields:
-  - `changed file offset`
-  - `canonical HiROM address`
-  - `local asset/data or contract range`
-  - `field-level semantic claim`
-  - `runtime consumer status`
-  - `promotion status`
-- Runtime anchor status: `candidate-until-diff-confirmed`
-- Candidate local ranges:
-  - `TEXT_WINDOW_PROPERTIES` `E0:1FB9..E0:21A8`: UI/font contract records E0 text-window graphics, property rows, and palette/font-colour data as the local window-facing table family.
-- Field hints:
-  - `Width` -> `window configuration width or window-property row field`: CoilSnake window_configuration_table.yml exposes editor width vocabulary; local E0 window-property row linkage needs a changed span.
-- Candidate source anchors:
-  - `src/e0/table_006_data_text_window_properties_asm.asm`
-  - `src/e0/asset_text_window_gfx.asm`
-- Candidate note anchors:
-  - `notes/ui-font-town-map-asset-contracts.md`
-  - `notes/text-window-skin-bundle-contracts.md`
-  - `notes/text-window-rendering-primitives-c1078d-c10d7c.md`
-  - `notes/window-flavour-palette-block-refresh-c47f87.md`
-- Runtime consumer hints:
-  - `C0/C4 text-window setup and rendering helpers` (candidate): Existing UI contracts identify C0/C4 callers for window graphics, palette flavor, and rendering primitives.
-- Candidate tracked update targets:
-  - `notes/font-bundle-contracts.md`
-  - `notes/intro-title-visual-bundle-contracts.md`
-  - `notes/landing-cast-visual-contracts.md`
-  - `notes/sram-template-contracts.md`
-  - `notes/text-window-skin-bundle-contracts.md`
-  - `notes/title-screen-letter-oam-contracts.md`
-  - `notes/title-screen-palette-animation-contracts.md`
-  - `notes/ui-font-town-map-asset-contracts.md`

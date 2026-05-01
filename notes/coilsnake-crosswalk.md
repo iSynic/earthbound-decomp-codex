@@ -1,6 +1,6 @@
 # CoilSnake Crosswalk
 
-Status: baseline generated, first diff experiments complete.
+Status: baseline generated, first planned diff batch complete.
 
 This note defines how this repository uses CoilSnake. CoilSnake is a local-only
 resource schema and compiler oracle. It can show the practical editable shape of
@@ -172,6 +172,9 @@ against `build/coilsnake/base-expanded.sfc`, and compared against
 | `psi-ness-omega-level-probe` | `psi_ability_table.yml`: ability 4 `Level learned by Ness` `75 -> 76` | `1` | `0x158A92..0x158A93` |
 | `battle-action-pp-cost-probe` | `battle_action_table.yml`: entry `13` `PP Cost` `98 -> 99` | `1` | `0x157C07..0x157C08` |
 | `enemy-insane-cultist-action1-probe` | `enemy_configuration_table.yml`: enemy 1 `Action 1` `215 -> 216` | `1` | `0x15962D..0x15962E` |
+| `npc-config-first-text-pointer-probe` | `npc_config_table.yml`: NPC config 1 `Text Pointer 1` `$c74c07 -> $c74c08` | `1` | `0x0F899F..0x0F89A0` |
+| `map-door-first-destination-probe` | `map_doors.yml`: first unique door `Destination X` `784 -> 785` | `1` | `0x0F000C..0x0F000D` |
+| `window-config-width-probe` | `window_configuration_table.yml`: window 8 `Width` `30 -> 31` | `1` | `0x03E294..0x03E295` |
 
 These are `diff-confirmed` byte-span facts only. They do not by themselves prove
 the consuming routine, table stride, or final semantic name.
@@ -205,6 +208,21 @@ checked-in field join summary. Current joins:
   source scaffold. The edited byte lands at row 4 `+0x06`, which matches the
   current local table note's Ness learn-level field; a direct local learn-check
   routine is still open.
+- `npc-config-first-text-pointer-probe`: `0x0F899F` -> `CF:899F`, matching the
+  local `NPC_CONFIG_TABLE` split (`CF:8985..CF:F2B4`) and the CF NPC config
+  table source scaffold. The edited byte lands at row 1 `+0x09`, which is the
+  low byte of CoilSnake's first text/actionscript pointer field; the exact
+  local interaction/text dispatch consumer is still open.
+- `map-door-first-destination-probe`: `0x0F000C` -> `CF:000C`, landing in the
+  local `DOOR_DATA` range (`CF:0000..CF:264E`). Because the changed byte is
+  from CoilSnake `map_doors.yml` but the local split is door-data vocabulary,
+  treat this as a door-data packing, relocation, or compiler-normalization
+  candidate until a pointer/runtime join explains the mapping.
+- `window-config-width-probe`: `0x03E294` -> `C3:E294`, landing in the local
+  `C3:E250..C3:E3F8` preserved/window-config payload corridor. The edit proves
+  CoilSnake's window width field reaches this local range; the exact local
+  window-dimension consumer remains open because the current C3 scaffold is
+  still coarse.
 
 ## Promotion Rules
 
@@ -221,18 +239,19 @@ checked-in field join summary. Current joins:
 
 - Promote the item-cost, battle-action PP-cost, and enemy action-slot
   runtime-correlated fields into the next D5 table contract pass; keep the
-  text-menu field at local-range-confirmed until its direct renderer/caller is
-  joined. The map palette probe remains a relocation/compiler-normalization
-  candidate.
+  text-menu, NPC text-pointer, PSI learn-level, door-data, map-palette, and
+  window-width probes at their current evidence levels until direct consumers or
+  pointer packing joins are found.
 - Use `tools/refresh_coilsnake_crosswalk.py --experiment-report <report>` after
   each successful runner experiment so manifest and field-join evidence stay in
   sync.
 - Use `notes/coilsnake-promotion-stubs.md` after each successful diff to fill in
   the required offset, HiROM, local-contract, field-semantic, and runtime
   consumer evidence before promoting a claim.
-- Work down `manifests/coilsnake-experiment-plan.json` for the next focused
-  probes: NPC text pointer, map door destination, and window width.
+- Seed the next experiment batch in `manifests/coilsnake-experiment-plan.json`.
+  The first planned queue is empty after the NPC text pointer, map door
+  destination, and window width probes.
 - Run a true CCScript `scriptdump` and a minimal CCScript label/body experiment
   once we want command-lowering proof rather than text YAML proof.
-- Extend experiments to enemy stats, battle sprite metadata, and window/font
-  edits when those contracts need editor-facing constraints.
+- Extend experiments to enemy stats, battle sprite metadata, and safer
+  window/font edits when those contracts need editor-facing constraints.

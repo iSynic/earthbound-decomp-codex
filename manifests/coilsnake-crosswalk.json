@@ -1353,6 +1353,108 @@
         ],
         "status": "different"
       }
+    },
+    "npc-config-first-text-pointer-probe": {
+      "report": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "npc_config_table.yml",
+      "edit": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F899F",
+        "last_changed_offset_exclusive": "0x0F89A0",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/npc-config-first-text-pointer-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F89A0",
+            "length": 1,
+            "start": "0x0F899F"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "map-door-first-destination-probe": {
+      "report": "build/coilsnake/edit-experiments/map-door-first-destination-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "map_tilesets_and_runtime_tables",
+      "source_file": "map_doors.yml",
+      "edit": "Changed the first unique map door Destination X field from 784 to 785.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/map-door-first-destination-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/map-door-first-destination-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x0F000C",
+        "last_changed_offset_exclusive": "0x0F000D",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/map-door-first-destination-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x0F000D",
+            "length": 1,
+            "start": "0x0F000C"
+          }
+        ],
+        "status": "different"
+      }
+    },
+    "window-config-width-probe": {
+      "report": "build/coilsnake/edit-experiments/window-config-width-probe/experiment-report.json",
+      "experiment_status": "diffed",
+      "comparison_base": "build/coilsnake/baseline-rebuild.sfc",
+      "resource_family": "ui_font_town_map_assets",
+      "source_file": "window_configuration_table.yml",
+      "edit": "Changed window configuration 8 Width from 30 to 31.",
+      "evidence_level": "diff-confirmed",
+      "project_copy": "build/coilsnake/edit-experiments/window-config-width-probe/project",
+      "rebuilt_rom": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
+      "dry_run": false,
+      "compile": {
+        "returncode": 0,
+        "timed_out": false
+      },
+      "diff": {
+        "base_size": 4194304,
+        "changed_bytes": 1,
+        "contiguous_changed_runs": 1,
+        "exists": true,
+        "first_changed_offset": "0x03E294",
+        "last_changed_offset_exclusive": "0x03E295",
+        "other_size": 4194304,
+        "path": "build/coilsnake/edit-experiments/window-config-width-probe/rebuilt.sfc",
+        "sample_runs": [
+          {
+            "end_exclusive": "0x03E295",
+            "length": 1,
+            "start": "0x03E294"
+          }
+        ],
+        "status": "different"
+      }
     }
   },
   "field_join_workflow": {
@@ -1400,6 +1502,19 @@
         "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
+        "experiment_id": "map-door-first-destination-probe",
+        "coilsnake_file": "map_doors.yml",
+        "changed_file_offset": "0x0F000C",
+        "hirom": "CF:000C",
+        "local_contract": "CF:0000..CF:264E",
+        "source_scaffold": "src/cf/table_door_data.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "relocation-or-compiler-normalization-candidate",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
         "experiment_id": "map-palette-probe",
         "coilsnake_file": "map_palette_settings.yml",
         "changed_file_offset": "0x1A0C40",
@@ -1411,6 +1526,19 @@
         "promotion_status": "relocation-or-compiler-normalization-candidate",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "relocation-or-compiler-normalization-candidate"
+      },
+      {
+        "experiment_id": "npc-config-first-text-pointer-probe",
+        "coilsnake_file": "npc_config_table.yml",
+        "changed_file_offset": "0x0F899F",
+        "hirom": "CF:899F",
+        "local_contract": "CF:8985..CF:F2B4",
+        "source_scaffold": "src/cf/table_npc_config_table.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
       },
       {
         "experiment_id": "psi-ness-omega-level-probe",
@@ -1437,6 +1565,19 @@
         "promotion_status": "field-range-confirmed-runtime-consumer-open",
         "join_status": "local-range-confirmed",
         "runtime_consumer_status": "address-hit-in-source-scaffold"
+      },
+      {
+        "experiment_id": "window-config-width-probe",
+        "coilsnake_file": "window_configuration_table.yml",
+        "changed_file_offset": "0x03E294",
+        "hirom": "C3:E294",
+        "local_contract": "C3:E250..C3:E3F8",
+        "source_scaffold": "src/c3/script_event_payloads_0000_e450.asm",
+        "evidence_level": "diff-confirmed",
+        "field_evidence_level": "diff-confirmed",
+        "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+        "join_status": "local-range-confirmed",
+        "runtime_consumer_status": "address-hit-in-source-scaffold"
       }
     ]
   },
@@ -1449,30 +1590,8 @@
     "tracked_prejoin_summary": "notes/coilsnake-experiment-prejoin-report.md",
     "ignored_prejoin_json_report": "build/coilsnake/reports/coilsnake-experiment-prejoin-report.json",
     "default_compile_timeout_seconds": 600,
-    "planned_count": 3,
-    "next_experiments": [
-      {
-        "experiment_id": "npc-config-first-text-pointer-probe",
-        "batch": "map-object",
-        "source_file": "npc_config_table.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts."
-      },
-      {
-        "experiment_id": "map-door-first-destination-probe",
-        "batch": "map-object",
-        "source_file": "map_doors.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers."
-      },
-      {
-        "experiment_id": "window-config-width-probe",
-        "batch": "visual-editor",
-        "source_file": "window_configuration_table.yml",
-        "status": "planned",
-        "promotion_target": "Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts."
-      }
-    ]
+    "planned_count": 0,
+    "next_experiments": []
   },
   "promotion_stubs_workflow": {
     "tool": "tools/build_coilsnake_promotion_stubs.py",
@@ -1480,8 +1599,8 @@
     "tracked_anchor_hints": "manifests/coilsnake-runtime-anchor-hints.json",
     "tracked_manifest": "manifests/coilsnake-promotion-stubs.json",
     "tracked_summary": "notes/coilsnake-promotion-stubs.md",
-    "stub_count": 3,
-    "ready_to_run_count": 3,
+    "stub_count": 0,
+    "ready_to_run_count": 0,
     "tooling_blocked_count": 0
   },
   "promotion_policy": [

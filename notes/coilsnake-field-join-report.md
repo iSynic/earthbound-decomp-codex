@@ -11,9 +11,12 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 | battle-action-pp-cost-probe | `battle_action_table.yml` | `0x157C07` | `D5:7C07` | `BATTLE_ACTION_TABLE` | `src/d5/table_battle_action_table.asm` | `local-range-confirmed` | no |
 | enemy-insane-cultist-action1-probe | `enemy_configuration_table.yml` | `0x15962D` | `D5:962D` | `ENEMY_CONFIGURATION_TABLE` | `src/d5/table_enemy_configuration_table.asm` | `local-range-confirmed` | no |
 | item-cost-probe | `item_configuration_table.yml` | `0x155068` | `D5:5068` | `ITEM_CONFIGURATION_TABLE` | `src/d5/table_item_configuration_table.asm` | `local-range-confirmed` | no |
+| map-door-first-destination-probe | `map_doors.yml` | `0x0F000C` | `CF:000C` | `CF:0000..CF:264E` | `src/cf/table_door_data.asm` | `local-range-confirmed` | yes |
 | map-palette-probe | `map_palette_settings.yml` | `0x1A0C40` | `DA:0C40` | `MAP_DATA_TILE_ARRANGEMENT_5` | `src/da/asset_map_data_tile_arrangement_5.asm` | `local-range-confirmed` | yes |
+| npc-config-first-text-pointer-probe | `npc_config_table.yml` | `0x0F899F` | `CF:899F` | `CF:8985..CF:F2B4` | `src/cf/table_npc_config_table.asm` | `local-range-confirmed` | no |
 | psi-ness-omega-level-probe | `psi_ability_table.yml` | `0x158A92` | `D5:8A92` | `PSI_ABILITY_TABLE` | `src/d5/table_psi_ability_table.asm` | `local-range-confirmed` | no |
 | text-menu-probe | `text_misc.yml` | `0x04A00A` | `C4:A00A` | `C4:9FE1..C4:A0CF` | `src/c4/battle_target_candidate_selection_helpers.asm` | `local-range-confirmed` | no |
+| window-config-width-probe | `window_configuration_table.yml` | `0x03E294` | `C3:E294` | `C3:E250..C3:E3F8` | `src/c3/script_event_payloads_0000_e450.asm` | `local-range-confirmed` | no |
 
 ## Interpretation Rules
 
@@ -36,7 +39,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A4F` in `notes/d5-table-splits.md` line 27
-  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 187
+  - `BATTLE_ACTION_TABLE` `D5:7B68..D5:8A50` in `notes/coilsnake-crosswalk.md` line 188
   - `build-candidate` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 140
   - `D5:7B68..D5:8A50` `D5:7B68..D5:8A50` in `notes/d5-build-candidate-ranges.md` line 3018
   - `OK` `D5:7B68..D5:8A50` in `notes/d5-byte-equivalence-validation.md` line 139
@@ -63,7 +66,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5A` in `notes/d5-table-splits.md` line 32
-  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-promotion-stubs.md` line 40
+  - `ENEMY_CONFIGURATION_TABLE` `D5:9589..D5:EA5B` in `notes/coilsnake-crosswalk.md` line 192
   - `build-candidate` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 145
   - `D5:9589..D5:EA5B` `D5:9589..D5:EA5B` in `notes/d5-build-candidate-ranges.md` line 3133
   - `OK` `D5:9589..D5:EA5B` in `notes/d5-byte-equivalence-validation.md` line 144
@@ -90,7 +93,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
 - Local asset/data range matches:
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
-  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 182
+  - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/coilsnake-crosswalk.md` line 183
   - `ITEM_CONFIGURATION_TABLE` `D5:5000..D5:76B1` in `notes/d5-table-splits.md` line 22
   - `build-candidate` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 135
   - `D5:5000..D5:76B2` `D5:5000..D5:76B2` in `notes/d5-build-candidate-ranges.md` line 2903
@@ -104,6 +107,28 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/bank-d5-gameplay-table-split-plan.md` line 84
   - `notes/bank-d5-source-scaffold-handoff.md` line 46
   - `notes/battle-item-action-selection-c1ce85-c1cfc6.md` line 53
+
+## map-door-first-destination-probe
+
+- CoilSnake edit: `map_doors.yml` - Changed the first unique map door Destination X field from 784 to 785.
+- Diff result: `1` byte(s), first changed offset `0x0F000C` -> `CF:000C` / `0xCF000C`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `map_doors.yml / first unique door / Destination X` (784 -> 785); local read `changed byte lands in CF DOOR_DATA at CF:000C after CoilSnake rebuild`; promotion `relocation-or-compiler-normalization-candidate`.
+- Local asset/data range matches:
+  - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
+- Local contract/note range matches:
+  - `CF:0000..CF:264E` `CF:0000..CF:264E` in `notes/bank-cf-first-pass.md` line 64
+  - `DOOR_DATA` `CF:0000..CF:264E` in `notes/cf-table-splits.md` line 21
+  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/bank-cf-source-scaffold-handoff.md` line 42
+  - `build-candidate` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 16
+  - `CF:0000..CF:264F` `CF:0000..CF:264F` in `notes/cf-build-candidate-ranges.md` line 38
+- Source scaffold candidates:
+  - `src/cf/table_door_data.asm` (address-lines:10)
+- Existing note anchors:
+  - `notes/map-object-layer-closure.md` line 146
+  - `notes/map-sector-bundles.md` line 99
+- Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
 
 ## map-palette-probe
 
@@ -134,6 +159,33 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `notes/bank-ce-source-scaffold-handoff.md` line 44
 - Warning: Changed offset falls in a local asset range whose vocabulary does not match the CoilSnake source file; treat as a relocation/compiler-normalization candidate until a runtime consumer or pointer table is joined.
 
+## npc-config-first-text-pointer-probe
+
+- CoilSnake edit: `npc_config_table.yml` - Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.
+- Diff result: `1` byte(s), first changed offset `0x0F899F` -> `CF:899F` / `0xCF899F`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `npc_config_table.yml / NPC config 1 / Text Pointer 1` ($c74c07 -> $c74c08); local read `NPC_CONFIG_TABLE row 1 primary text/actionscript pointer low byte at row +0x09`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `Map object bundle contract` (same-table-context) in `notes/map-object-bundles.md`: The map object contract records primary and secondary text pointers for placed NPC config rows; this diff proves CoilSnake's Text Pointer 1 field lands in the local CF NPC config table, while a direct local interaction/text dispatch consumer remains open.
+- Local asset/data range matches:
+  - `table.cf.000_data_map_door_data_asm` `CF:0000..CF:F2B5` in `asset-manifests/bank-cf-assets.json` (raw-table)
+- Local contract/note range matches:
+  - `CF:8985..CF:F2B4` `CF:8985..CF:F2B4` in `notes/bank-cf-first-pass.md` line 71
+  - `NPC_CONFIG_TABLE` `CF:8985..CF:F2B4` in `notes/cf-table-splits.md` line 28
+  - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/bank-cf-source-scaffold-handoff.md` line 49
+  - `build-candidate` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 23
+  - `CF:8985..CF:F2B5` `CF:8985..CF:F2B5` in `notes/cf-build-candidate-ranges.md` line 171
+- Source scaffold candidates:
+  - `src/cf/table_npc_config_table.asm` (filename:npc,config; address-lines:10)
+  - `src/cf/table_door_config_table.asm` (filename:config)
+- Existing note anchors:
+  - `notes/bank-cf-first-pass.md` line 71
+  - `notes/bank-cf-source-scaffold-handoff.md` line 49
+  - `notes/cf-build-candidate-ranges.md` line 23
+  - `notes/cf-byte-equivalence-validation.md` line 22
+  - `notes/cf-table-splits.md` line 28
+
 ## psi-ness-omega-level-probe
 
 - CoilSnake edit: `psi_ability_table.yml` - Changed PSI ability 4 Ness learned level from 75 to 76.
@@ -147,7 +199,7 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `gap.d5.d5_5000` `D5:5000..D5:10000` in `asset-manifests/bank-d5-assets.json` (raw-gap)
 - Local contract/note range matches:
   - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D79` in `notes/d5-table-splits.md` line 28
-  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 198
+  - `PSI_ABILITY_TABLE` `D5:8A50..D5:8D7A` in `notes/coilsnake-crosswalk.md` line 204
   - `build-candidate` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 141
   - `D5:8A50..D5:8D7A` `D5:8A50..D5:8D7A` in `notes/d5-build-candidate-ranges.md` line 3041
   - `OK` `D5:8A50..D5:8D7A` in `notes/d5-byte-equivalence-validation.md` line 140
@@ -182,3 +234,26 @@ This note records offsets, ranges, and local anchors only; it does not contain R
   - `src/c4/battle_target_candidate_selection_helpers.asm` (address-lines:24)
 - Existing note anchors:
   - `notes/coilsnake-crosswalk.md` line 153
+
+## window-config-width-probe
+
+- CoilSnake edit: `window_configuration_table.yml` - Changed window configuration 8 Width from 30 to 31.
+- Diff result: `1` byte(s), first changed offset `0x03E294` -> `C3:E294` / `0xC3E294`.
+- Evidence: `diff-confirmed`; behavior: `fixed-size byte`.
+- Join status: `local-range-confirmed`; lookup status: `address-hit-in-source-scaffold`.
+- Field semantic: `window_configuration_table.yml / window 8 / Width` (30 -> 31); local read `changed byte lands in C3:E250..C3:E3F8 preserved/event payload range after CoilSnake rebuild`; promotion `field-byte-diff-confirmed-runtime-consumer-open`.
+- Runtime consumer evidence:
+  - `C3 preserved window/config payload range` (source-range-context) in `notes/c3-preserved-gap-contracts.md`: The diff proves CoilSnake's window width field lands in the local C3:E250..E3F8 range; local window-dimension consumer naming remains open because the current source scaffold is still coarse.
+- Local asset/data range matches: none in checked-in asset manifests.
+- Local contract/note range matches:
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 113
+  - `C3:E250..C3:E3F8` `C3:E250..C3:E3F8` in `notes/c3-preserved-gap-contracts.md` line 138
+  - `C3:E240..C3:E3F8` `C3:E240..C3:E3F8` in `notes/c3-build-candidate-ranges.md` line 233
+  - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-event-script-source-scaffold.md` line 32
+  - `C3:DFE8..C3:E450` `C3:DFE8..C3:E450` in `notes/c3-preserved-gap-contracts.md` line 18
+- Source scaffold candidates:
+  - `src/c3/script_event_payloads_0000_e450.asm` (address-lines:1,210,5833,5865)
+  - `src/c3/bank_c3_event_scripts_source_pilot.asar.asm` (address-lines:6)
+  - `src/c3/window_text_helpers.asm` (filename:window)
+- Existing note anchors:
+  - `notes/c3-menu-cursor-tile-data-e3f8-e450.md` line 13

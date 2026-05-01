@@ -2,45 +2,5 @@
   "schema": "earthbound-decomp.coilsnake-experiment-plan.v1",
   "default_compile_timeout_seconds": 600,
   "safety_note": "This manifest stores planned tiny CoilSnake project edits, expected text-match counts, and promotion targets only; generated projects and rebuilt ROMs stay under ignored build/coilsnake.",
-  "planned_experiments": [
-    {
-      "experiment_id": "npc-config-first-text-pointer-probe",
-      "batch": "map-object",
-      "priority": 40,
-      "resource_family": "map_tilesets_and_runtime_tables",
-      "source_file": "npc_config_table.yml",
-      "find": "  Text Pointer 1: $c74c07",
-      "replace": "  Text Pointer 1: $c74c08",
-      "expected_count": 1,
-      "edit_description": "Changed NPC config 1 Text Pointer 1 from $c74c07 to $c74c08.",
-      "promotion_target": "Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts.",
-      "status": "planned"
-    },
-    {
-      "experiment_id": "map-door-first-destination-probe",
-      "batch": "map-object",
-      "priority": 50,
-      "resource_family": "map_tilesets_and_runtime_tables",
-      "source_file": "map_doors.yml",
-      "find": "  1:\n  - Destination X: 784",
-      "replace": "  1:\n  - Destination X: 785",
-      "expected_count": 1,
-      "edit_description": "Changed the first unique map door Destination X field from 784 to 785.",
-      "promotion_target": "Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers.",
-      "status": "planned"
-    },
-    {
-      "experiment_id": "window-config-width-probe",
-      "batch": "visual-editor",
-      "priority": 60,
-      "resource_family": "ui_font_town_map_assets",
-      "source_file": "window_configuration_table.yml",
-      "find": "8:\n  Height: 18\n  Width: 30",
-      "replace": "8:\n  Height: 18\n  Width: 31",
-      "expected_count": 1,
-      "edit_description": "Changed window configuration 8 Width from 30 to 31.",
-      "promotion_target": "Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts.",
-      "status": "planned"
-    }
-  ]
+  "planned_experiments": []
 }

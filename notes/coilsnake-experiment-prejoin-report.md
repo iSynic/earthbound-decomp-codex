@@ -5,8 +5,8 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 ## Summary
 
-- Planned experiments: `3`
-- Ready to run once CoilSnake is trusted: `3`
+- Planned experiments: `0`
+- Ready to run once CoilSnake is trusted: `0`
 - Tooling-blocked but prepared: `0`
 - Edit match mismatches: `0`
 
@@ -14,56 +14,5 @@ This note is compile-free and payload-free; it only records planned edit metadat
 
 | Experiment | Status | Source | Match | Local family | Promotion target |
 | --- | --- | --- | ---: | --- | --- |
-| `npc-config-first-text-pointer-probe` | `ready-to-run` | `npc_config_table.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake NPC text pointer vocabulary to local map-object/actionscript text dispatch contracts. |
-| `map-door-first-destination-probe` | `ready-to-run` | `map_doors.yml` | `1/1` | `map_tilesets_and_runtime_tables` | Join CoilSnake map door destination vocabulary to local door/warp table ranges and map transition consumers. |
-| `window-config-width-probe` | `ready-to-run` | `window_configuration_table.yml` | `1/1` | `ui_font_town_map_assets` | Join CoilSnake window configuration vocabulary to E0/E1 UI/font/window contracts. |
 
 ## Local Anchors
-
-### `npc-config-first-text-pointer-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_object_yaml_table` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `map-door-first-destination-probe`
-
-- Family: `Map tilesets and runtime tables` (`contract-backed-with-known-followups`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `map_resource` banks `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` status `contract-backed-with-known-followups`
-- Related local docs:
-  - `notes/map-collision-runtime-bit-contract.md`
-  - `notes/map-fts-format-audit.md`
-  - `notes/map-milestone-closure.md`
-  - `notes/map-object-bundles.md`
-  - `notes/map-palette-descriptor-context.md`
-  - `notes/map-scene-composition-contract.md`
-  - `notes/map-sector-bundles.md`
-  - `notes/map-tileset-bundles.md`
-
-### `window-config-width-probe`
-
-- Family: `UI, fonts, logos, windows, and town maps` (`contract-seeded`)
-- Plan status: `planned`
-- CoilSnake resource matches:
-  - `window_yaml_table` banks `E0, E1` status `contract-seeded`
-- Related local docs:
-  - `notes/font-bundle-contracts.md`
-  - `notes/intro-title-visual-bundle-contracts.md`
-  - `notes/landing-cast-visual-contracts.md`
-  - `notes/sram-template-contracts.md`
-  - `notes/text-window-skin-bundle-contracts.md`
-  - `notes/title-screen-letter-oam-contracts.md`
-  - `notes/title-screen-palette-animation-contracts.md`
-  - `notes/ui-font-town-map-asset-contracts.md`

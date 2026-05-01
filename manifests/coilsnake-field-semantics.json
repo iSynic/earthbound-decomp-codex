@@ -95,6 +95,29 @@
       "promotion_status": "relocation-or-compiler-normalization-candidate",
       "runtime_consumers": []
     },
+    "map-door-first-destination-probe": {
+      "coilsnake_field": "map_doors.yml / first unique door / Destination X",
+      "edited_value": "784 -> 785",
+      "local_field": "changed byte lands in CF DOOR_DATA at CF:000C after CoilSnake rebuild",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "relocation-or-compiler-normalization-candidate",
+      "runtime_consumers": []
+    },
+    "npc-config-first-text-pointer-probe": {
+      "coilsnake_field": "npc_config_table.yml / NPC config 1 / Text Pointer 1",
+      "edited_value": "$c74c07 -> $c74c08",
+      "local_field": "NPC_CONFIG_TABLE row 1 primary text/actionscript pointer low byte at row +0x09",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "same-table-context",
+          "routine": "Map object bundle contract",
+          "source": "notes/map-object-bundles.md",
+          "detail": "The map object contract records primary and secondary text pointers for placed NPC config rows; this diff proves CoilSnake's Text Pointer 1 field lands in the local CF NPC config table, while a direct local interaction/text dispatch consumer remains open."
+        }
+      ]
+    },
     "psi-ness-omega-level-probe": {
       "coilsnake_field": "psi_ability_table.yml / ability 4 / Level learned by Ness",
       "edited_value": "75 -> 76",
@@ -107,6 +130,21 @@
           "routine": "C1:BB21..C1:CE73 Battle PSI menu family",
           "source": "notes/battle-psi-ability-table-d58a50.md",
           "detail": "The local PSI ability table note maps bytes +6..+8 as Ness, Paula, and Poo learn levels; this diff proves CoilSnake's Ness learn-level field lands on row byte +0x06, while a direct local learn-check routine remains open."
+        }
+      ]
+    },
+    "window-config-width-probe": {
+      "coilsnake_field": "window_configuration_table.yml / window 8 / Width",
+      "edited_value": "30 -> 31",
+      "local_field": "changed byte lands in C3:E250..C3:E3F8 preserved/event payload range after CoilSnake rebuild",
+      "field_evidence_level": "diff-confirmed",
+      "promotion_status": "field-byte-diff-confirmed-runtime-consumer-open",
+      "runtime_consumers": [
+        {
+          "kind": "source-range-context",
+          "routine": "C3 preserved window/config payload range",
+          "source": "notes/c3-preserved-gap-contracts.md",
+          "detail": "The diff proves CoilSnake's window width field lands in the local C3:E250..E3F8 range; local window-dimension consumer naming remains open because the current source scaffold is still coarse."
         }
       ]
     }
