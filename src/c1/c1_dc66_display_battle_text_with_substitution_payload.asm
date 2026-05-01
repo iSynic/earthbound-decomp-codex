@@ -12,9 +12,28 @@
 ; External contracts used by this module
 
 C1003C_WaitBattleTextDisplayTail          = $003C
+C10036_SetBattleTextDisplayMode           = $0036
 C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
 C186B1_PrintTextFromPointer               = $C186B1
 C20293_ClearBattleTextGateState           = $C20293
+
+CallerFramePrimaryTextPointerLo           = $20
+CallerFramePrimaryTextPointerHi           = $22
+CallerFrameSubstitutionPayloadLo          = $24
+CallerFrameSubstitutionPayloadHi          = $26
+LocalSubstitutionPayloadLo                 = $06
+LocalSubstitutionPayloadHi                 = $08
+LocalPrimaryTextPointerLo                  = $0A
+LocalPrimaryTextPointerHi                  = $0C
+TextDispatchPointerLo                      = $0E
+TextDispatchPointerHi                      = $10
+BattleTextGateFlag                         = $98B1
+BattleTextGateStatusWord                   = $0065
+BattleTextGateStatusBit                    = $8000
+BattleTextModeLatch                        = $9643
+BattleTextModePromptWait                   = $0002
+LowByteMask                                = $00FF
+ZeroByte                                   = $00
 
 ; ---------------------------------------------------------------------------
 ; C1:DC66
@@ -29,46 +48,46 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
     tdc
     adc.w #$FFEE
     tcd
-    lda $24
-    sta $06
-    lda $26
-    sta $08
-    lda $20
-    sta $0A
-    lda $22
-    sta $0C
-    ldx.w #$98B1
+    lda CallerFrameSubstitutionPayloadLo
+    sta LocalSubstitutionPayloadLo
+    lda CallerFrameSubstitutionPayloadHi
+    sta LocalSubstitutionPayloadHi
+    lda CallerFramePrimaryTextPointerLo
+    sta LocalPrimaryTextPointerLo
+    lda CallerFramePrimaryTextPointerHi
+    sta LocalPrimaryTextPointerHi
+    ldx.w #BattleTextGateFlag
     lda $0000,X
-    and.w #$00FF
+    and.w #LowByteMask
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
-    lda $0065
-    and.w #$8000
+    lda BattleTextGateStatusWord
+    and.w #BattleTextGateStatusBit
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
     sep #$20
-    lda.b #$00
+    lda.b #ZeroByte
     sta $0000,X
     jsl C20293_ClearBattleTextGateState
 C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda LocalSubstitutionPayloadLo
+    sta TextDispatchPointerLo
+    lda LocalSubstitutionPayloadHi
+    sta TextDispatchPointerHi
     ; Commit the secondary payload to $9D12/$9D14 before the script runs.
     ; EF scripts then consume it as PRINT_ACTION_AMOUNT or pointer substitution.
     jsr C1AD0A_StageBattleTextSubstitutionPointer
-    lda $9643
+    lda BattleTextModeLatch
     beq C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2
-    lda.w #$0002
-    jsr $0036
+    lda.w #BattleTextModePromptWait
+    jsr C10036_SetBattleTextDisplayMode
 C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2:
-    lda $0A
-    sta $06
-    lda $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda LocalPrimaryTextPointerLo
+    sta LocalSubstitutionPayloadLo
+    lda LocalPrimaryTextPointerHi
+    sta LocalSubstitutionPayloadHi
+    lda LocalSubstitutionPayloadLo
+    sta TextDispatchPointerLo
+    lda LocalSubstitutionPayloadHi
+    sta TextDispatchPointerHi
     ; Dispatch the primary EF battle script after payload staging.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_WaitBattleTextDisplayTail

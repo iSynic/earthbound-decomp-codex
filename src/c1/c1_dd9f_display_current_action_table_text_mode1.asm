@@ -22,6 +22,14 @@ C186B1_PrintTextFromPointer        = $C186B1
 C1CBCD_OpenBattlePsiCategorySelectionStage = $CBCD
 C1CFC6_OpenBattleItemSelectionLoop         = $CFC6
 
+CallerFrameTextPointerLo                   = $20
+CallerFrameTextPointerHi                   = $22
+LocalTextPointerLo                         = $06
+LocalTextPointerHi                         = $08
+TextDispatchPointerLo                      = $0E
+TextDispatchPointerHi                      = $10
+BattleTextModeCurrentActionNoPrompt        = $0001
+
 ; ---------------------------------------------------------------------------
 ; C1:DD9F
 
@@ -33,16 +41,16 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
     tdc
     adc.w #$FFEE
     tcd
-    lda $20
-    sta $06
-    lda $22
-    sta $08
-    lda.w #$0001
+    lda CallerFrameTextPointerLo
+    sta LocalTextPointerLo
+    lda CallerFrameTextPointerHi
+    sta LocalTextPointerHi
+    lda.w #BattleTextModeCurrentActionNoPrompt
     jsr C10036_SetBattleTextDisplayMode
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda LocalTextPointerLo
+    sta TextDispatchPointerLo
+    lda LocalTextPointerHi
+    sta TextDispatchPointerHi
     ; Mode 1 text lane for D5:7B68 action-table row messages.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_ClearBattleTextDisplayMode

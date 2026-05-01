@@ -120,3 +120,8 @@ This planning pass is documentation-only.
   table entries for menu, character prompt, item selection, and PSI category
   selection, plus the `C1:CFC6/CE85` battle item-selection record and
   `D5:5000` item-row fields consumed by the target/action resolver.
+- 2026-05-01: C1 battle-text wrapper contract polish landed as byte-neutral
+  source aliases. The promoted contracts name the caller-frame pointer slots,
+  `$98B1/$0065` battle-text gate, `$9643` mode latch, prompt-wait and
+  mode-1/no-prompt display values, and the primary script versus substitution
+  payload argument pairs for `C1:DC1C`, `C1:DC66`, `C1:DD82`, and `C1:DD9F`.

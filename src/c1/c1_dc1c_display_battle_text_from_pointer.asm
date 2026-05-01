@@ -17,8 +17,23 @@
 ;   text entry wrappers.
 
 C1003C_WaitBattleTextDisplayTail = $003C
+C10036_SetBattleTextDisplayMode  = $0036
 C186B1_PrintTextFromPointer      = $C186B1
 C20293_ClearBattleTextGateState  = $C20293
+
+CallerFrameTextPointerLo         = $20
+CallerFrameTextPointerHi         = $22
+LocalTextPointerLo               = $06
+LocalTextPointerHi               = $08
+TextDispatchPointerLo            = $0E
+TextDispatchPointerHi            = $10
+BattleTextGateFlag               = $98B1
+BattleTextGateStatusWord         = $0065
+BattleTextGateStatusBit          = $8000
+BattleTextModeLatch              = $9643
+BattleTextModePromptWait         = $0002
+LowByteMask                      = $00FF
+ZeroByte                         = $00
 
 ; ---------------------------------------------------------------------------
 ; C1:DC1C
@@ -32,31 +47,31 @@ C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
     tdc
     adc.w #$FFEE
     tcd
-    lda $20
-    sta $06
-    lda $22
-    sta $08
-    ldx.w #$98B1
+    lda CallerFrameTextPointerLo
+    sta LocalTextPointerLo
+    lda CallerFrameTextPointerHi
+    sta LocalTextPointerHi
+    ldx.w #BattleTextGateFlag
     lda $0000,X
-    and.w #$00FF
+    and.w #LowByteMask
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
-    lda $0065
-    and.w #$8000
+    lda BattleTextGateStatusWord
+    and.w #BattleTextGateStatusBit
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
     sep #$20
-    lda.b #$00
+    lda.b #ZeroByte
     sta $0000,X
     jsl C20293_ClearBattleTextGateState
 C1DC4A_DisplayBattleTextFromPointer_LDC4A:
-    lda $9643
+    lda BattleTextModeLatch
     beq C1DC55_DisplayBattleTextFromPointer_LDC55
-    lda.w #$0002
-    jsr $0036
+    lda.w #BattleTextModePromptWait
+    jsr C10036_SetBattleTextDisplayMode
 C1DC55_DisplayBattleTextFromPointer_LDC55:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda LocalTextPointerLo
+    sta TextDispatchPointerLo
+    lda LocalTextPointerHi
+    sta TextDispatchPointerHi
     ; Dispatch the staged EF battle script through the generic text engine.
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_WaitBattleTextDisplayTail

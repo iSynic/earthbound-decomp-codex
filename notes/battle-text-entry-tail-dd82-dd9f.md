@@ -12,6 +12,12 @@ The local `DD82 .. DD9F` tail now looks like a small pair of battle-text-adjacen
 
 `C1:DD9F..E1A2` is now promoted into byte-equivalent source at `src/c1/c1_dd9f_display_current_action_table_text_mode1.asm`. The promoted interval starts with the mode-`1` display wrapper, then includes the tiny redirect shims at `DDC6/ DDCC / DDD3`, and the selection-menu setup/print/selection redirect strip at `DDDA..E1A2`.
 
+Source polish: `src/c1/c1_dd82_stage_battle_text_pointer_substitution_only.asm`
+already names the context-only pointer staging slots, and
+`src/c1/c1_dd9f_display_current_action_table_text_mode1.asm` now names the
+caller-frame text pointer slots and the forced mode-1/no-prompt display value
+used by the current-action table text lane.
+
 ## Working Names
 
 - `C1:DD82` = `StageBattleTextPointerSubstitutionOnly`

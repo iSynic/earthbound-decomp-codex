@@ -30169,22 +30169,29 @@ org $C1DD9F
 !C186B1_PrintTextFromPointer = $C186B1
 !C1CBCD_OpenBattlePsiCategorySelectionStage = $CBCD
 !C1CFC6_OpenBattleItemSelectionLoop = $CFC6
+!CallerFrameTextPointerLo = $20
+!CallerFrameTextPointerHi = $22
+!LocalTextPointerLo = $06
+!LocalTextPointerHi = $08
+!TextDispatchPointerLo = $0E
+!TextDispatchPointerHi = $10
+!BattleTextModeCurrentActionNoPrompt = $0001
 C1DD9F_DisplayCurrentActionTableTextMode1:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda $20
-    sta $06
-    lda $22
-    sta $08
-    lda.w #$0001
+    lda !CallerFrameTextPointerLo
+    sta !LocalTextPointerLo
+    lda !CallerFrameTextPointerHi
+    sta !LocalTextPointerHi
+    lda.w #!BattleTextModeCurrentActionNoPrompt
     jsr !C10036_SetBattleTextDisplayMode
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !LocalTextPointerLo
+    sta !TextDispatchPointerLo
+    lda !LocalTextPointerHi
+    sta !TextDispatchPointerHi
     jsl !C186B1_PrintTextFromPointer
     jsr !C1003C_ClearBattleTextDisplayMode
     pld
@@ -35488,8 +35495,22 @@ hirom
 org $C1DC1C
 
 !C1003C_WaitBattleTextDisplayTail = $003C
+!C10036_SetBattleTextDisplayMode = $0036
 !C186B1_PrintTextFromPointer = $C186B1
 !C20293_ClearBattleTextGateState = $C20293
+!CallerFrameTextPointerLo = $20
+!CallerFrameTextPointerHi = $22
+!LocalTextPointerLo = $06
+!LocalTextPointerHi = $08
+!TextDispatchPointerLo = $0E
+!TextDispatchPointerHi = $10
+!BattleTextGateFlag = $98B1
+!BattleTextGateStatusWord = $0065
+!BattleTextGateStatusBit = $8000
+!BattleTextModeLatch = $9643
+!BattleTextModePromptWait = $0002
+!LowByteMask = $00FF
+!ZeroByte = $00
 DISPLAY_IN_BATTLE_TEXT:
 !C1DC1C_DisplayBattleTextFromPointer = DISPLAY_IN_BATTLE_TEXT
     rep #$31
@@ -35497,31 +35518,31 @@ DISPLAY_IN_BATTLE_TEXT:
     tdc
     adc.w #$FFEE
     tcd
-    lda $20
-    sta $06
-    lda $22
-    sta $08
-    ldx.w #$98B1
+    lda !CallerFrameTextPointerLo
+    sta !LocalTextPointerLo
+    lda !CallerFrameTextPointerHi
+    sta !LocalTextPointerHi
+    ldx.w #!BattleTextGateFlag
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
-    lda $0065
-    and.w #$8000
+    lda !BattleTextGateStatusWord
+    and.w #!BattleTextGateStatusBit
     beq C1DC4A_DisplayBattleTextFromPointer_LDC4A
     sep #$20
-    lda.b #$00
+    lda.b #!ZeroByte
     sta $0000,X
     jsl !C20293_ClearBattleTextGateState
 C1DC4A_DisplayBattleTextFromPointer_LDC4A:
-    lda $9643
+    lda !BattleTextModeLatch
     beq C1DC55_DisplayBattleTextFromPointer_LDC55
-    lda.w #$0002
-    jsr $0036
+    lda.w #!BattleTextModePromptWait
+    jsr !C10036_SetBattleTextDisplayMode
 C1DC55_DisplayBattleTextFromPointer_LDC55:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !LocalTextPointerLo
+    sta !TextDispatchPointerLo
+    lda !LocalTextPointerHi
+    sta !TextDispatchPointerHi
     jsl !C186B1_PrintTextFromPointer
     jsr !C1003C_WaitBattleTextDisplayTail
     pld
@@ -35536,9 +35557,27 @@ hirom
 org $C1DC66
 
 !C1003C_WaitBattleTextDisplayTail = $003C
+!C10036_SetBattleTextDisplayMode = $0036
 !C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
 !C186B1_PrintTextFromPointer = $C186B1
 !C20293_ClearBattleTextGateState = $C20293
+!CallerFramePrimaryTextPointerLo = $20
+!CallerFramePrimaryTextPointerHi = $22
+!CallerFrameSubstitutionPayloadLo = $24
+!CallerFrameSubstitutionPayloadHi = $26
+!LocalSubstitutionPayloadLo = $06
+!LocalSubstitutionPayloadHi = $08
+!LocalPrimaryTextPointerLo = $0A
+!LocalPrimaryTextPointerHi = $0C
+!TextDispatchPointerLo = $0E
+!TextDispatchPointerHi = $10
+!BattleTextGateFlag = $98B1
+!BattleTextGateStatusWord = $0065
+!BattleTextGateStatusBit = $8000
+!BattleTextModeLatch = $9643
+!BattleTextModePromptWait = $0002
+!LowByteMask = $00FF
+!ZeroByte = $00
 DISPLAY_TEXT_WAIT:
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = DISPLAY_TEXT_WAIT
     rep #$31
@@ -35546,44 +35585,44 @@ DISPLAY_TEXT_WAIT:
     tdc
     adc.w #$FFEE
     tcd
-    lda $24
-    sta $06
-    lda $26
-    sta $08
-    lda $20
-    sta $0A
-    lda $22
-    sta $0C
-    ldx.w #$98B1
+    lda !CallerFrameSubstitutionPayloadLo
+    sta !LocalSubstitutionPayloadLo
+    lda !CallerFrameSubstitutionPayloadHi
+    sta !LocalSubstitutionPayloadHi
+    lda !CallerFramePrimaryTextPointerLo
+    sta !LocalPrimaryTextPointerLo
+    lda !CallerFramePrimaryTextPointerHi
+    sta !LocalPrimaryTextPointerHi
+    ldx.w #!BattleTextGateFlag
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
-    lda $0065
-    and.w #$8000
+    lda !BattleTextGateStatusWord
+    and.w #!BattleTextGateStatusBit
     beq C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C
     sep #$20
-    lda.b #$00
+    lda.b #!ZeroByte
     sta $0000,X
     jsl !C20293_ClearBattleTextGateState
 C1DC9C_DisplayBattleTextWithSubstitutionPayload_LDC9C:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !LocalSubstitutionPayloadLo
+    sta !TextDispatchPointerLo
+    lda !LocalSubstitutionPayloadHi
+    sta !TextDispatchPointerHi
     jsr !C1AD0A_StageBattleTextSubstitutionPointer
-    lda $9643
+    lda !BattleTextModeLatch
     beq C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2
-    lda.w #$0002
-    jsr $0036
+    lda.w #!BattleTextModePromptWait
+    jsr !C10036_SetBattleTextDisplayMode
 C1DCB2_DisplayBattleTextWithSubstitutionPayload_LDCB2:
-    lda $0A
-    sta $06
-    lda $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !LocalPrimaryTextPointerLo
+    sta !LocalSubstitutionPayloadLo
+    lda !LocalPrimaryTextPointerHi
+    sta !LocalSubstitutionPayloadHi
+    lda !LocalSubstitutionPayloadLo
+    sta !TextDispatchPointerLo
+    lda !LocalSubstitutionPayloadHi
+    sta !TextDispatchPointerHi
     jsl !C186B1_PrintTextFromPointer
     jsr !C1003C_WaitBattleTextDisplayTail
     pld

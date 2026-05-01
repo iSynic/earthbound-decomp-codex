@@ -48,6 +48,12 @@ The `C1:DC1C..DD3B` display-wrapper and battle-start initializer strip is now so
 
 That makes the surrounding `class2` battle-text notes much healthier: we are no longer relying on `C1:DC1C` alone to carry the whole family.
 
+Source polish: `src/c1/c1_dc1c_display_battle_text_from_pointer.asm` and
+`src/c1/c1_dc66_display_battle_text_with_substitution_payload.asm` now name
+the caller-frame pointer slots, `$98B1/$0065` battle-text gate, `$9643` mode
+latch, prompt-wait mode value, primary text pointer pair, and secondary
+substitution payload pair used by these wrappers.
+
 ## `C1:DC1C` as the main one-pointer battle-text wrapper
 
 The strongest locally proved behavior of `C1:DC1C` is:
