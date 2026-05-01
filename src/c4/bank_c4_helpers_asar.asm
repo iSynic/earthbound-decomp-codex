@@ -4098,28 +4098,40 @@ org $C4A377
 !GAS_STATION_BG3_UPLOAD_SIZE = $2000
 !GAS_STATION_TILE_UPLOAD_SIZE = $0800
 !GAS_STATION_TILE_ATTR_BYTES = $0800
+!GAS_STATION_TILE_ATTR_HIGH_BYTE_OFFSET = $0001
+!GAS_STATION_BG_MODE_3 = $0003
+!GAS_STATION_CLEAR_SELECTOR = $0000
+!GAS_STATION_UPLOAD_SELECTOR_00 = $00
+!GAS_STATION_POINTER_BANK_OFFSET = $0002
 !GAS_STATION_SELECTOR_OFFSET_C = $1397
 !GAS_STATION_SELECTOR_OFFSET_D = $1398
 !GAS_STATION_BATTLE_VISUAL_SCRIPT = $ADD4
 !GAS_STATION_BATTLE_VISUAL_STATE = $AE20
 !GAS_STATION_BATTLE_VISUAL_ENABLE = $AE4B
+!GAS_STATION_BATTLE_VISUAL_TILE_STATE = $0240
+!GAS_STATION_BATTLE_VISUAL_CHUNK_A_DEST = $ADE0
+!GAS_STATION_BATTLE_VISUAL_CHUNK_B_DEST = $AE00
+!GAS_STATION_BATTLE_VISUAL_CHUNK_SIZE = $0020
+!GAS_STATION_BATTLE_VISUAL_SCRIPT_START = $02
 !GAS_STATION_TILE_ATTR_MASK = $DF
 !GAS_STATION_TILE_ATTR_SET_BITS = $08
+!LowByteMask = $00FF
+!ZeroWord = $0000
 C4A377_LoadGasStationIntroGraphicsAndTilemap:
     rep #$31
     phd
     tdc
     adc #$FFE0
     tcd
-    lda #$0003
+    lda #!GAS_STATION_BG_MODE_3
     jsl !C08D79_UpdateBgModeRegisterFromQueue
-    ldy #$0000
+    ldy #!ZeroWord
     ldx #!GAS_STATION_BG1_SCREEN_BASE
     tya
     jsl !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
     ldy #!GAS_STATION_BG3_VRAM_TARGET
     ldx #!GAS_STATION_BG3_SCREEN_BASE
-    lda #$0000
+    lda #!GAS_STATION_CLEAR_SELECTOR
     jsl !C08DDE_UpdateBg3ScreenBaseRegistersFromQueue
     lda #!GAS_STATION_GRAPHICS_SELECTOR_SOURCE
     sta $0A
@@ -4138,13 +4150,13 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     lda #!GAS_STATION_GRAPHICS_POINTER_TABLE_A_BANK
     sta $08
     lda [$0A]
-    and #$00FF
+    and #!LowByteMask
     asl
     asl
     clc
     adc $06
     sta $06
-    ldy #$0002
+    ldy #!GAS_STATION_POINTER_BANK_OFFSET
     lda [$06],y
     tay
     lda [$06]
@@ -4170,10 +4182,10 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     ldy #!GAS_STATION_BG3_VRAM_TARGET
     ldx #!GAS_STATION_BG3_UPLOAD_SIZE
     sep #$20
-    lda.b #$00
+    lda.b #!GAS_STATION_UPLOAD_SELECTOR_00
     jsl !C08616_QueueVramTransfer_FromDpSource
     lda [$0A]
-    and.w #$00FF
+    and.w #!LowByteMask
     asl
     asl
     pha
@@ -4185,7 +4197,7 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     clc
     adc $0A
     sta $0A
-    ldy #$0002
+    ldy #!GAS_STATION_POINTER_BANK_OFFSET
     lda [$0A],y
     tay
     lda [$0A]
@@ -4204,7 +4216,7 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     lda $08
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
-    lda #$0000
+    lda #!ZeroWord
     sta $1A
     bra C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck
 C4A455_LoadGasStationIntroGraphicsAndTilemap_AttrLoop:
@@ -4212,7 +4224,7 @@ C4A455_LoadGasStationIntroGraphicsAndTilemap_AttrLoop:
     stz $08
     clc
     lda $06
-    adc #$0001
+    adc #!GAS_STATION_TILE_ATTR_HIGH_BYTE_OFFSET
     sta $06
     lda $08
     adc #!GAS_STATION_WORK_BANK
@@ -4237,7 +4249,7 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     ldy #!GAS_STATION_VRAM_SOURCE_BASE
     ldx #!GAS_STATION_TILE_UPLOAD_SIZE
     sep #$20
-    lda.b #$00
+    lda.b #!GAS_STATION_UPLOAD_SELECTOR_00
     jsl !C08616_QueueVramTransfer_FromDpSource
     lda.w #!GAS_STATION_GRAPHICS_POINTER_TABLE_C
     sta $0A
@@ -4258,10 +4270,10 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     jsl !C2CFE5_DecompressOrCopyBattleVisualAsset
     lda #!GAS_STATION_BATTLE_VISUAL_STATE
     sta $02
-    lda #$0240
+    lda #!GAS_STATION_BATTLE_VISUAL_TILE_STATE
     ldx $02
     sta.w $0000,x
-    ldy #$ADE0
+    ldy #!GAS_STATION_BATTLE_VISUAL_CHUNK_A_DEST
     sty $18
     lda #!GAS_STATION_GRAPHICS_POINTER_TABLE_D
     sta $06
@@ -4276,13 +4288,13 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     adc $0A
     sta $0A
     lda [$0A]
-    and #$00FF
+    and #!LowByteMask
     asl
     asl
     clc
     adc $06
     sta $06
-    ldy #$0002
+    ldy #!GAS_STATION_POINTER_BANK_OFFSET
     lda [$06],y
     tay
     lda [$06]
@@ -4292,12 +4304,12 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     sta $0E
     lda $08
     sta $10
-    ldx #$0020
+    ldx #!GAS_STATION_BATTLE_VISUAL_CHUNK_SIZE
     ldy $18
     tya
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     lda [$0A]
-    and #$00FF
+    and #!LowByteMask
     asl
     asl
     ldx $1C
@@ -4311,7 +4323,7 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     clc
     adc $0A
     sta $0A
-    ldy #$0002
+    ldy #!GAS_STATION_POINTER_BANK_OFFSET
     lda [$0A],y
     tay
     lda [$0A]
@@ -4321,8 +4333,8 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     sta $0E
     lda $08
     sta $10
-    ldx #$0020
-    lda #$AE00
+    ldx #!GAS_STATION_BATTLE_VISUAL_CHUNK_SIZE
+    lda #!GAS_STATION_BATTLE_VISUAL_CHUNK_B_DEST
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     ldy $18
     tya
@@ -4337,16 +4349,16 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     sta $0E
     lda $08
     sta $10
-    ldx #$0020
+    ldx #!GAS_STATION_BATTLE_VISUAL_CHUNK_SIZE
     stx $16
     ldx $02
     lda.w $0000,x
     ldx $16
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #$02
+    lda.b #!GAS_STATION_BATTLE_VISUAL_SCRIPT_START
     sta.w !GAS_STATION_BATTLE_VISUAL_SCRIPT
-    ldx #$0000
+    ldx #!ZeroWord
     rep #$20
     lda #!GAS_STATION_BATTLE_VISUAL_SCRIPT
     jsl !C2C92D_QueueOrApplyBattleVisualScript

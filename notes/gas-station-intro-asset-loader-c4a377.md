@@ -41,6 +41,12 @@ After the main GFX/tilemap loads, the routine continues through more `CA:` point
 
 That tail is still softer than the main asset-load contract. It is very likely part of the same screen setup, but the exact meaning of `$ADD4/$AE4B` in this intro context should stay open until the surrounding C2/C4 presentation state is named more tightly.
 
+Source polish: `src/c4/gas_station_intro_visual_loader.asm` now names the
+display mode and clear selector, pointer-table bank-field offset, upload
+selector, tilemap attribute high-byte offset and bit rewrite, battle-visual
+tile-state word, `$ADE0/$AE00` chunk destinations, `$20` chunk size, script
+start value, and zero/byte-mask sentinels used by the loader tail.
+
 ## Why this is not the battle overlay interpreter
 
 The include order places `C4:A377` near Giygas/static-transition and battle overlay data, and the next documented code family at `C4:A67E..A7B0` is the battle overlay script interpreter.

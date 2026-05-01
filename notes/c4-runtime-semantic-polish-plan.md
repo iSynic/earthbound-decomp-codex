@@ -178,6 +178,11 @@ closure.
   busy-complete sentinel, flyover wait count, display modes, and `$10E4`
   state-mask/restore contract. See
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-01 gas-station intro loader: promoted the C4-side intro asset
+  loader's display mode, clear/upload selectors, pointer bank-field offset,
+  tilemap attribute rewrite fields, battle-visual tile-state/chunk staging
+  values, script start value, and mask/sentinel literals. See
+  `notes/gas-station-intro-asset-loader-c4a377.md`.
 
 ## Validation
 
