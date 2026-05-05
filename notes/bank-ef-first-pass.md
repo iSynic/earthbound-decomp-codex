@@ -75,9 +75,10 @@ The current high-level EF layout is:
 - `EF:C51B..EF:CD1A`: text-token glyph merge mask table. `C4:4B3A` uses the
   `EF:C51B` table while merging bit-aligned glyph rows into the active text
   scratch buffer.
-- `EF:CD1B..EF:D56E`: companion glyph carry-mask/table region before the debug
-  sound-menu strings. `C4:4B3A` uses `EF:CD1B` when a rendered glyph run crosses
-  into the next scratch row.
+- `EF:CD1B..EF:D51A`: companion glyph carry-mask/table region. `C4:4B3A`
+  uses `EF:CD1B` when a rendered glyph run crosses into the next scratch row.
+- `EF:D51B..EF:D56E`: debug sound-menu option and version strings from the
+  listing-visible `sound_menu_option_strings.asm` include.
 - `EF:D56F..EF:EB5E`: debug/menu code, debug menu strings, debug overlay
   helpers, cursor/menu processing helpers, and remaining unknown routines. This
   region is mostly debug-facing by source order, but `EF:E759` is also called by
@@ -121,8 +122,9 @@ High confidence:
 - `EF:05A6..0C3C` is a save/SRAM helper family by named source includes.
 - `EF:101B..4A3F` is map tileset/sprite grouping table data by named source
   includes.
-- `EF:4A40..4E1F`, `EF:4E20..C51A`, `EF:C51B..CD1A`, and `EF:CD1B..D56E` have
-  strong cross-bank corroboration from C4, D5, and C1 notes.
+- `EF:4A40..4E1F`, `EF:4E20..C51A`, `EF:C51B..CD1A`, `EF:CD1B..D51A`, and
+  `EF:D51B..D56E` have strong cross-bank corroboration from C4, D5, C1, and
+  listing-visible debug-string notes.
 - `EF:EB5F..EF:EF6F` and `EF:EFB7..EF:F0D6` are exact binary graphics payloads.
 - `src/ef/bank_ef_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline. This is byte closure, not semantic EF source

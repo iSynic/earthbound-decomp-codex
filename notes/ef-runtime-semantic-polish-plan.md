@@ -178,3 +178,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF front text-payload follow-up split `EF:4E20..69A1` into PSI
   explanation, Dungeon Man/Deep Darkness, and Grapefruit Falls/Threed payload
   anchors.
+- 2026-05-05: EF glyph/debug-string follow-up split `EF:C51B..D56F` into the
+  text glyph merge mask table, companion carry-mask table, and debug sound-menu
+  option/version strings.

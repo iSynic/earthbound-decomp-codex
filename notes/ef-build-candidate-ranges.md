@@ -1400,11 +1400,16 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:C51B..EF:D56F` (`4180` bytes, SHA-1 `73467ad28329342430e2add59df931780f2e488b`) `EfTextGlyphMaskTables`
+- `EF:C51B..EF:CD1B` (`2048` bytes, SHA-1 `c05d069ecc05fe0ddc3cea5509e32ec384c3465e`) `TextGlyphMergeMaskTable`
+- `EF:CD1B..EF:D51B` (`2048` bytes, SHA-1 `b468bd09266de57cf450958f7ab63c87af089b6b`) `TextGlyphCarryMaskTable`
+- `EF:D51B..EF:D56F` (`84` bytes, SHA-1 `a074bb0fafeff51b2f0ba603e53fe79c4c23e7f7`) `DebugSoundMenuOptionAndVersionStrings`
 
 Labels:
 
-- `EF:C51B EfTextGlyphMaskTables`
+- `EF:C51B TextGlyphMergeMaskTable`
+- `EF:CD1B TextGlyphCarryMaskTable`
+- `EF:D51B DebugSoundMenuOptionAndVersionStrings`
+- `EF:D56F EfTextGlyphMaskTablesEnd`
 
 Evidence:
 

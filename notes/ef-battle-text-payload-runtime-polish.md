@@ -297,6 +297,14 @@ Falls/Threed event text and boss-grave branches. The result is a fully labeled
 front half of the EF text-payload module without converting the EB text bytecode
 to macro source.
 
+## Adjacent Glyph And Debug-String Follow-up
+
+The adjacent `EF:C51B..D56F` table corridor is now split around its
+listing-visible includes. `EF:C51B..CD1B` names the text glyph merge mask table
+used by the C4 token renderer, `EF:CD1B..D51B` names the companion carry-mask
+table for row-crossing glyph runs, and `EF:D51B..D56F` exposes the debug
+sound-menu option/version strings before the late debug/menu code begins.
+
 ## Validation
 
 This slice should validate both touched banks:

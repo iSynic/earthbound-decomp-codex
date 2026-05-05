@@ -7775,8 +7775,9 @@ EFC51B_EfTextPayloadDataEnd:
 hirom
 org $EFC51B
 
+EFC51B_TextGlyphMergeMaskTable:
 
-; Original data gap before EFD56F_EfTextGlyphMaskTablesEnd:
+; Original data gap before EFCD1B_TextGlyphCarryMaskTable:
 db $00,$01,$02,$03,$04,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F
 db $10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D,$1E,$1F
 db $20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$2A,$2B,$2C,$2D,$2E,$2F
@@ -7905,6 +7906,10 @@ db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
 db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
+
+EFCD1B_TextGlyphCarryMaskTable:
+
+; Original data gap before EFD51B_DebugSoundMenuOptionAndVersionStrings:
 db $00,$01,$02,$03,$04,$05,$06,$07,$08,$09,$0A,$0B,$0C,$0D,$0E,$0F
 db $10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$1A,$1B,$1C,$1D,$1E,$1F
 db $20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$2A,$2B,$2C,$2D,$2E,$2F
@@ -8033,6 +8038,10 @@ db $7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF
 db $7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF
 db $7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF
 db $7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF,$7F,$FF
+
+EFD51B_DebugSoundMenuOptionAndVersionStrings:
+
+; Original data gap before EFD56F_EfTextGlyphMaskTablesEnd:
 db $53,$4F,$55,$4E,$44,$20,$4D,$45,$4E,$55,$20,$20,$20,$00,$42,$47
 db $4D,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$00,$53,$45,$20,$20
 db $20,$20,$20,$20,$20,$20,$20,$20,$20,$00,$45,$46,$46,$45,$43,$54
