@@ -13,9 +13,610 @@
 ; EF:4E20
 
 ; Coarse text payload run. Interior labels below are zero-byte anchors used by
-; the source-bank scaffold to split ROM-preserved text data around C1/C2-proven
-; battle-text payload joins.
-EF4E20_EfTextPayloadData:
+; the source-bank scaffold to split ROM-preserved text data around proved
+; runtime joins and exact listing-visible payload boundaries.
+; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_ALFA`.
+EF4E20_EExplPsiMsgExplPsiHissatsuAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:4E38
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_BETA`.
+EF4E38_EExplPsiMsgExplPsiHissatsuBeta:
+
+; ---------------------------------------------------------------------------
+; EF:4E51
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_GAMMA`.
+EF4E51_EExplPsiMsgExplPsiHissatsuGamma:
+
+; ---------------------------------------------------------------------------
+; EF:4E6A
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_OMEGA`.
+EF4E6A_EExplPsiMsgExplPsiHissatsuOmega:
+
+; ---------------------------------------------------------------------------
+; EF:4E83
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FIRE_ALFA`.
+EF4E83_EExplPsiMsgExplPsiFireAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:4E99
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FIRE_BETA`.
+EF4E99_EExplPsiMsgExplPsiFireBeta:
+
+; ---------------------------------------------------------------------------
+; EF:4EB0
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FIRE_GAMMA`.
+EF4EB0_EExplPsiMsgExplPsiFireGamma:
+
+; ---------------------------------------------------------------------------
+; EF:4EC7
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FIRE_OMEGA`.
+EF4EC7_EExplPsiMsgExplPsiFireOmega:
+
+; ---------------------------------------------------------------------------
+; EF:4EDE
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FREEZ_ALFA`.
+EF4EDE_EExplPsiMsgExplPsiFreezAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:4F06
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FREEZ_BETA`.
+EF4F06_EExplPsiMsgExplPsiFreezBeta:
+
+; ---------------------------------------------------------------------------
+; EF:4F2E
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FREEZ_GAMMA`.
+EF4F2E_EExplPsiMsgExplPsiFreezGamma:
+
+; ---------------------------------------------------------------------------
+; EF:4F56
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FREEZ_OMEGA`.
+EF4F56_EExplPsiMsgExplPsiFreezOmega:
+
+; ---------------------------------------------------------------------------
+; EF:4F7E
+
+; PSI explanation payload text: `MSG_EXPL_PSI_THUNDER_ALFA`.
+EF4F7E_EExplPsiMsgExplPsiThunderAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:4FA6
+
+; PSI explanation payload text: `MSG_EXPL_PSI_THUNDER_BETA`.
+EF4FA6_EExplPsiMsgExplPsiThunderBeta:
+
+; ---------------------------------------------------------------------------
+; EF:4FDC
+
+; PSI explanation payload text: `MSG_EXPL_PSI_THUNDER_GAMMA`.
+EF4FDC_EExplPsiMsgExplPsiThunderGamma:
+
+; ---------------------------------------------------------------------------
+; EF:5013
+
+; PSI explanation payload text: `MSG_EXPL_PSI_THUNDER_OMEGA`.
+EF5013_EExplPsiMsgExplPsiThunderOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5049
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FLASH_ALFA`.
+EF5049_EExplPsiMsgExplPsiFlashAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:506B
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FLASH_BETA`.
+EF506B_EExplPsiMsgExplPsiFlashBeta:
+
+; ---------------------------------------------------------------------------
+; EF:50AF
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FLASH_GAMMA`.
+EF50AF_EExplPsiMsgExplPsiFlashGamma:
+
+; ---------------------------------------------------------------------------
+; EF:50E1
+
+; PSI explanation payload text: `MSG_EXPL_PSI_FLASH_OMEGA`.
+EF50E1_EExplPsiMsgExplPsiFlashOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5131
+
+; PSI explanation payload text: `MSG_EXPL_PSI_STARSTOM_ALFA`.
+EF5131_EExplPsiMsgExplPsiStarstomAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5152
+
+; PSI explanation payload text: `MSG_EXPL_PSI_STARSTORM_OMEGA`.
+EF5152_EExplPsiMsgExplPsiStarstormOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5173
+
+; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_ALFA`.
+EF5173_EExplPsiMsgExplPsiLifeupAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5189
+
+; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_BETA`.
+EF5189_EExplPsiMsgExplPsiLifeupBeta:
+
+; ---------------------------------------------------------------------------
+; EF:519F
+
+; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_GAMMA`.
+EF519F_EExplPsiMsgExplPsiLifeupGamma:
+
+; ---------------------------------------------------------------------------
+; EF:51BB
+
+; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_OMEGA`.
+EF51BB_EExplPsiMsgExplPsiLifeupOmega:
+
+; ---------------------------------------------------------------------------
+; EF:51CF
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HEALING_ALFA`.
+EF51CF_EExplPsiMsgExplPsiHealingAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:51F0
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HEALING_BETA`.
+EF51F0_EExplPsiMsgExplPsiHealingBeta:
+
+; ---------------------------------------------------------------------------
+; EF:5239
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HEALING_GAMMA`.
+EF5239_EExplPsiMsgExplPsiHealingGamma:
+
+; ---------------------------------------------------------------------------
+; EF:52A5
+
+; PSI explanation payload text: `MSG_EXPL_PSI_HEALING_OMEGA`.
+EF52A5_EExplPsiMsgExplPsiHealingOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5301
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SHIELD_ALFA`.
+EF5301_EExplPsiMsgExplPsiShieldAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5361
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SHIELD_SIGMA`.
+EF5361_EExplPsiMsgExplPsiShieldSigma:
+
+; ---------------------------------------------------------------------------
+; EF:53C0
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SHIELD_BETA`.
+EF53C0_EExplPsiMsgExplPsiShieldBeta:
+
+; ---------------------------------------------------------------------------
+; EF:5428
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SHIELD_OMEGA`.
+EF5428_EExplPsiMsgExplPsiShieldOmega:
+
+; ---------------------------------------------------------------------------
+; EF:548F
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_SHIELD_ALFA`.
+EF548F_EExplPsiMsgExplPsiPShieldAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:54E6
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_SHIELD_SIGMA`.
+EF54E6_EExplPsiMsgExplPsiPShieldSigma:
+
+; ---------------------------------------------------------------------------
+; EF:553C
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_SHIELD_BETA`.
+EF553C_EExplPsiMsgExplPsiPShieldBeta:
+
+; ---------------------------------------------------------------------------
+; EF:55A0
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_SHIELD_OMEGA`.
+EF55A0_EExplPsiMsgExplPsiPShieldOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5603
+
+; PSI explanation payload text: `MSG_EXPL_PSI_OFFENSE_UP_ALFA`.
+EF5603_EExplPsiMsgExplPsiOffenseUpAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:562E
+
+; PSI explanation payload text: `MSG_EXPL_PSI_OFFENSE_UP_OMEGA`.
+EF562E_EExplPsiMsgExplPsiOffenseUpOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5658
+
+; PSI explanation payload text: `MSG_EXPL_PSI_DEFENSE_DOWN_ALFA`.
+EF5658_EExplPsiMsgExplPsiDefenseDownAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5687
+
+; PSI explanation payload text: `MSG_EXPL_PSI_DEFENSE_DOWN_OMEGA`.
+EF5687_EExplPsiMsgExplPsiDefenseDownOmega:
+
+; ---------------------------------------------------------------------------
+; EF:56B9
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SAIMIN_ALFA`.
+EF56B9_EExplPsiMsgExplPsiSaiminAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:56D0
+
+; PSI explanation payload text: `MSG_EXPL_PSI_SAIMIN_OMEGA`.
+EF56D0_EExplPsiMsgExplPsiSaiminOmega:
+
+; ---------------------------------------------------------------------------
+; EF:56EB
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_MAGNET_ALFA`.
+EF56EB_EExplPsiMsgExplPsiPMagnetAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5712
+
+; PSI explanation payload text: `MSG_EXPL_PSI_P_MAGNET_OMEGA`.
+EF5712_EExplPsiMsgExplPsiPMagnetOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5739
+
+; PSI explanation payload text: `MSG_EXPL_PSI_PARALYSIS_ALFA`.
+EF5739_EExplPsiMsgExplPsiParalysisAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:574E
+
+; PSI explanation payload text: `MSG_EXPL_PSI_PARALYSIS_OMEGA`.
+EF574E_EExplPsiMsgExplPsiParalysisOmega:
+
+; ---------------------------------------------------------------------------
+; EF:5766
+
+; PSI explanation payload text: `MSG_EXPL_PSI_BRAIN_SHOCK_ALFA`.
+EF5766_EExplPsiMsgExplPsiBrainShockAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:5777
+
+; PSI explanation payload text: `MSG_EXPL_PSI_BRAIN_SHOCK_OMEGA`.
+EF5777_EExplPsiMsgExplPsiBrainShockOmega:
+
+; ---------------------------------------------------------------------------
+; EF:578B
+
+; PSI explanation payload text: `MSG_EXPL_PSI_TELEPORT_ALFA`.
+EF578B_EExplPsiMsgExplPsiTeleportAlfa:
+
+; ---------------------------------------------------------------------------
+; EF:57AE
+
+; PSI explanation payload text: `MSG_EXPL_PSI_TELEPORT_BETA`.
+EF57AE_EExplPsiMsgExplPsiTeleportBeta:
+
+; ---------------------------------------------------------------------------
+; EF:57EB
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_FIRE_BOSS`.
+EF57EB_E16DkfdMsgDkfdFireBoss:
+
+; ---------------------------------------------------------------------------
+; EF:5864
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_DOSEI`.
+EF5864_E16DkfdMsgDkfdDosei:
+
+; ---------------------------------------------------------------------------
+; EF:58C7
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_SKYWALKER`.
+EF58C7_E16DkfdMsgDkfdSkywalker:
+
+; ---------------------------------------------------------------------------
+; EF:5917
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_OLDMAN`.
+EF5917_E16DkfdMsgDkfdOldman:
+
+; ---------------------------------------------------------------------------
+; EF:5A3E
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_A`.
+EF5A3E_E16DkfdMsgDkfdGumiA:
+
+; ---------------------------------------------------------------------------
+; EF:5A81
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_A_END`.
+EF5A81_E16DkfdBranchDkfdGumiAEnd:
+
+; ---------------------------------------------------------------------------
+; EF:5AB5
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_A_RECEIVE`.
+EF5AB5_E16DkfdMsgDkfdGumiAReceive:
+
+; ---------------------------------------------------------------------------
+; EF:5AED
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_BOSS`.
+EF5AED_E16DkfdMsgDkfdGumiBoss:
+
+; ---------------------------------------------------------------------------
+; EF:5B97
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_BOSS_AFTER`.
+EF5B97_E16DkfdBranchDkfdGumiBossAfter:
+
+; ---------------------------------------------------------------------------
+; EF:5BC8
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_BOSS_END`.
+EF5BC8_E16DkfdBranchDkfdGumiBossEnd:
+
+; ---------------------------------------------------------------------------
+; EF:5BE6
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_C`.
+EF5BE6_E16DkfdMsgDkfdGumiC:
+
+; ---------------------------------------------------------------------------
+; EF:5C46
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_C_END`.
+EF5C46_E16DkfdBranchDkfdGumiCEnd:
+
+; ---------------------------------------------------------------------------
+; EF:5C98
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_D`.
+EF5C98_E16DkfdMsgDkfdGumiD:
+
+; ---------------------------------------------------------------------------
+; EF:5CE4
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_D_END`.
+EF5CE4_E16DkfdBranchDkfdGumiDEnd:
+
+; ---------------------------------------------------------------------------
+; EF:5D16
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_E`.
+EF5D16_E16DkfdMsgDkfdGumiE:
+
+; ---------------------------------------------------------------------------
+; EF:5DF8
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_E_B`.
+EF5DF8_E16DkfdBranchDkfdGumiEB:
+
+; ---------------------------------------------------------------------------
+; EF:5E94
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_F`.
+EF5E94_E16DkfdMsgDkfdGumiF:
+
+; ---------------------------------------------------------------------------
+; EF:5F31
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_F_END`.
+EF5F31_E16DkfdBranchDkfdGumiFEnd:
+
+; ---------------------------------------------------------------------------
+; EF:5F7D
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_G`.
+EF5F7D_E16DkfdMsgDkfdGumiG:
+
+; ---------------------------------------------------------------------------
+; EF:5FDF
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_H`.
+EF5FDF_E16DkfdMsgDkfdGumiH:
+
+; ---------------------------------------------------------------------------
+; EF:6038
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_H_END`.
+EF6038_E16DkfdBranchDkfdGumiHEnd:
+
+; ---------------------------------------------------------------------------
+; EF:6049
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_I`.
+EF6049_E16DkfdMsgDkfdGumiI:
+
+; ---------------------------------------------------------------------------
+; EF:604F
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_K`.
+EF604F_E16DkfdMsgDkfdGumiK:
+
+; ---------------------------------------------------------------------------
+; EF:6084
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_L`.
+EF6084_E16DkfdMsgDkfdGumiL:
+
+; ---------------------------------------------------------------------------
+; EF:60C5
+
+; Dungeon Man/Deep Darkness helper branch: `_DKFD_GUMI_L_END`.
+EF60C5_E16DkfdBranchDkfdGumiLEnd:
+
+; ---------------------------------------------------------------------------
+; EF:60F2
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_BIRD_PHONE`.
+EF60F2_E16DkfdMsgDkfdBirdPhone:
+
+; ---------------------------------------------------------------------------
+; EF:610C
+
+; Dungeon Man/Deep Darkness payload text: `MSG_DKFD_GUMI_DOOR_RECEIVE`.
+EF610C_E16DkfdMsgDkfdGumiDoorReceive:
+
+; ---------------------------------------------------------------------------
+; EF:610D
+
+; Dungeon Man/Deep Darkness payload text: `MSG_READ_DKFD_GUMI_1`.
+EF610D_E16DkfdMsgReadDkfdGumi1:
+
+; ---------------------------------------------------------------------------
+; EF:6132
+
+; Dungeon Man/Deep Darkness payload text: `MSG_READ_DKFD_GUMI_2`.
+EF6132_E16DkfdMsgReadDkfdGumi2:
+
+; ---------------------------------------------------------------------------
+; EF:6157
+
+; Dungeon Man/Deep Darkness payload text: `MSG_READ_DKFD_GUMI_3`.
+EF6157_E16DkfdMsgReadDkfdGumi3:
+
+; ---------------------------------------------------------------------------
+; EF:617B
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MINIGEPPU_A`.
+EF617B_E07GpftMsgGpftMinigeppuA:
+
+; ---------------------------------------------------------------------------
+; EF:61CB
+
+; Grapefruit Falls/Threed helper branch: `_GPFT_MINIGEPPU_A_NO`.
+EF61CB_E07GpftBranchGpftMinigeppuANo:
+
+; ---------------------------------------------------------------------------
+; EF:61F3
+
+; Grapefruit Falls/Threed helper branch: `_GPFT_MINIGEPPU_A_YESNO`.
+EF61F3_E07GpftBranchGpftMinigeppuAYesno:
+
+; ---------------------------------------------------------------------------
+; EF:6247
+
+; Grapefruit Falls/Threed helper branch: `_GPFT_MINIGEPPU_A_YES`.
+EF6247_E07GpftBranchGpftMinigeppuAYes:
+
+; ---------------------------------------------------------------------------
+; EF:6276
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MINIGEPPU_B`.
+EF6276_E07GpftMsgGpftMinigeppuB:
+
+; ---------------------------------------------------------------------------
+; EF:62B1
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MINIGEPPU_C`.
+EF62B1_E07GpftMsgGpftMinigeppuC:
+
+; ---------------------------------------------------------------------------
+; EF:62F5
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MINIGEPPU_D`.
+EF62F5_E07GpftMsgGpftMinigeppuD:
+
+; ---------------------------------------------------------------------------
+; EF:63B5
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MINIGEPPU_E`.
+EF63B5_E07GpftMsgGpftMinigeppuE:
+
+; ---------------------------------------------------------------------------
+; EF:6400
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_DOSEI_A`.
+EF6400_E07GpftMsgGpftDoseiA:
+
+; ---------------------------------------------------------------------------
+; EF:6419
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_DOSEI_B`.
+EF6419_E07GpftMsgGpftDoseiB:
+
+; ---------------------------------------------------------------------------
+; EF:6446
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_GEPPU`.
+EF6446_E07GpftMsgGpftGeppu:
+
+; ---------------------------------------------------------------------------
+; EF:6569
+
+; Grapefruit Falls/Threed helper branch: `_GPFT_GEPPU_MAIN`.
+EF6569_E07GpftBranchGpftGeppuMain:
+
+; ---------------------------------------------------------------------------
+; EF:66CA
+
+; Grapefruit Falls/Threed helper branch: `_GPFT_GEPPU_DEAD`.
+EF66CA_E07GpftBranchGpftGeppuDead:
+
+; ---------------------------------------------------------------------------
+; EF:679A
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_MLKY_BOSS`.
+EF679A_E07GpftMsgGpftMlkyBoss:
+
+; ---------------------------------------------------------------------------
+; EF:6814
+
+; Grapefruit Falls/Threed payload text: `MSG_GPFT_HAKAMORI`.
+EF6814_E07GpftMsgGpftHakamori:
+
+; ---------------------------------------------------------------------------
+; EF:681A
+
+; Grapefruit Falls/Threed payload text: `MSG_THRK_BOSS_GRAVE`.
+EF681A_E07GpftMsgThrkBossGrave:
+
+; ---------------------------------------------------------------------------
+; EF:6874
+
+; Grapefruit Falls/Threed helper branch: `_THRK_BOSS_GRAVE_HAVE`.
+EF6874_E07GpftBranchThrkBossGraveHave:
+
+; ---------------------------------------------------------------------------
+; EF:68D7
+
+; Grapefruit Falls/Threed payload text: `MSG_THRK_BOSS_GRAVE_DIE`.
+EF68D7_E07GpftMsgThrkBossGraveDie:
+
+; ---------------------------------------------------------------------------
+; EF:6954
+
+; Grapefruit Falls/Threed helper branch: `_THRK_BOSS_GRAVE_DIE_HAVE`.
+EF6954_E07GpftBranchThrkBossGraveDieHave:
 
 ; ---------------------------------------------------------------------------
 ; EF:69A1

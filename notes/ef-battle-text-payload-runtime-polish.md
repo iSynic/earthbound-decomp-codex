@@ -16,6 +16,9 @@ callers.
 
 ## Promoted Payload Anchors
 
+- `EF:4E20..69A1` now splits the front text-payload corridor into the
+  `EEXPLPSI` PSI explanation scripts, the `E16DKFD` Dungeon Man/Deep Darkness
+  payloads, and the `E07GPFT` Grapefruit Falls/Threed payloads before EBATTLE5.
 - `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
   and PP recovered amount text. The two amount scripts are consumed through
   `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
@@ -282,6 +285,17 @@ command-window and status-window text tables that sit before the keyboard
 include. `EF:A460..A6EB` splits the six name-input keyboard layouts, then
 `EF:A6EB` and `EF:A6EC` expose the one-byte `UNKNOWN7` end-block payload and
 the larger debug/menu runtime script that runs to `EF:C51B`.
+
+## Front PSI And Field-Event Follow-up
+
+The front `EF:4E20..69A1` corridor is now split through the exact includes that
+precede EBATTLE5. `EF:4E20..57EB` exposes the PSI explanation text used by PSI
+help/menu descriptions, from Rockin through Teleport. `EF:57EB..617B` exposes
+the Dungeon Man/Deep Darkness field-event scripts, including Gumi Village
+branches and readable-glyph payloads. `EF:617B..69A1` exposes Grapefruit
+Falls/Threed event text and boss-grave branches. The result is a fully labeled
+front half of the EF text-payload module without converting the EB text bytecode
+to macro source.
 
 ## Validation
 

@@ -239,7 +239,107 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:4E20..EF:69A1` (`7041` bytes, SHA-1 `01e65c5a7a785e159bf4ff974f298265569521e6`) `EfPreBattleTextPayloadData`
+- `EF:4E20..EF:4E38` (`24` bytes, SHA-1 `a38fb2b85cb816804013896b3190cf035712a451`) `EExplPsiMsgExplPsiHissatsuAlfa`
+- `EF:4E38..EF:4E51` (`25` bytes, SHA-1 `f670133c5279693e2a340de17f09698fffdc97f1`) `EExplPsiMsgExplPsiHissatsuBeta`
+- `EF:4E51..EF:4E6A` (`25` bytes, SHA-1 `e833f10e54861e18528aa466fb2322fe91d7e3ef`) `EExplPsiMsgExplPsiHissatsuGamma`
+- `EF:4E6A..EF:4E83` (`25` bytes, SHA-1 `54d1dce5f8dc4970e180177b0c2d5e2c720a875b`) `EExplPsiMsgExplPsiHissatsuOmega`
+- `EF:4E83..EF:4E99` (`22` bytes, SHA-1 `7bee6e901f11396ff73966f08f1aabe73bfd8f4c`) `EExplPsiMsgExplPsiFireAlfa`
+- `EF:4E99..EF:4EB0` (`23` bytes, SHA-1 `5fbf5b6573e5e0f7343777f8ff86696267b99f9e`) `EExplPsiMsgExplPsiFireBeta`
+- `EF:4EB0..EF:4EC7` (`23` bytes, SHA-1 `c5188cf1a223c059e41d5d7c045ead92c86dc87a`) `EExplPsiMsgExplPsiFireGamma`
+- `EF:4EC7..EF:4EDE` (`23` bytes, SHA-1 `a9f83ac47f88ed95cd9c1a7c2f86fbac720f5d6c`) `EExplPsiMsgExplPsiFireOmega`
+- `EF:4EDE..EF:4F06` (`40` bytes, SHA-1 `287050333550079e3b04ba4f82430416cc335619`) `EExplPsiMsgExplPsiFreezAlfa`
+- `EF:4F06..EF:4F2E` (`40` bytes, SHA-1 `cf65c6e67805d8c33f7ee48f308fc137ad854914`) `EExplPsiMsgExplPsiFreezBeta`
+- `EF:4F2E..EF:4F56` (`40` bytes, SHA-1 `7d9d47ab81b4fe564baaf2175801c5ba0a0b1e86`) `EExplPsiMsgExplPsiFreezGamma`
+- `EF:4F56..EF:4F7E` (`40` bytes, SHA-1 `8787262214b9abf471d901d973590ec18faea2fa`) `EExplPsiMsgExplPsiFreezOmega`
+- `EF:4F7E..EF:4FA6` (`40` bytes, SHA-1 `59145d2e6c2654b81e2016d1d72aca8af696ea28`) `EExplPsiMsgExplPsiThunderAlfa`
+- `EF:4FA6..EF:4FDC` (`54` bytes, SHA-1 `a1ea91256935bd297e3af2ca66ca97b53ea14590`) `EExplPsiMsgExplPsiThunderBeta`
+- `EF:4FDC..EF:5013` (`55` bytes, SHA-1 `5e2bf0d467d2dea5b108f7b84c505b1deeb62b14`) `EExplPsiMsgExplPsiThunderGamma`
+- `EF:5013..EF:5049` (`54` bytes, SHA-1 `d981aac242c9ae506eda0d79eed9ec90554ebcb8`) `EExplPsiMsgExplPsiThunderOmega`
+- `EF:5049..EF:506B` (`34` bytes, SHA-1 `e181e76e79ed169246e1228277acfac373709e18`) `EExplPsiMsgExplPsiFlashAlfa`
+- `EF:506B..EF:50AF` (`68` bytes, SHA-1 `c511f3ebbcdf50ec2568e54a34d8c715c1d946fc`) `EExplPsiMsgExplPsiFlashBeta`
+- `EF:50AF..EF:50E1` (`50` bytes, SHA-1 `ee66bf811739ff09b7d229eb101fed6a112c3d43`) `EExplPsiMsgExplPsiFlashGamma`
+- `EF:50E1..EF:5131` (`80` bytes, SHA-1 `4e31853c9bc5f24c38dbfdbe0c60fae797fd918c`) `EExplPsiMsgExplPsiFlashOmega`
+- `EF:5131..EF:5152` (`33` bytes, SHA-1 `23d72142d013945ee9994a2768d136ce245661e6`) `EExplPsiMsgExplPsiStarstomAlfa`
+- `EF:5152..EF:5173` (`33` bytes, SHA-1 `68341b6cf833504b28f26e30604c909b9749a411`) `EExplPsiMsgExplPsiStarstormOmega`
+- `EF:5173..EF:5189` (`22` bytes, SHA-1 `e8743125db5eca94d2e3029409fcbd131cda2e32`) `EExplPsiMsgExplPsiLifeupAlfa`
+- `EF:5189..EF:519F` (`22` bytes, SHA-1 `b6a47eb58c5e6060a28c84895fbc36bb57c39da7`) `EExplPsiMsgExplPsiLifeupBeta`
+- `EF:519F..EF:51BB` (`28` bytes, SHA-1 `d548417645da9f9d88f5d1e8ac07cc854ca7c5d4`) `EExplPsiMsgExplPsiLifeupGamma`
+- `EF:51BB..EF:51CF` (`20` bytes, SHA-1 `bca86248000b10ef0e1aa027f01f6512e7df403f`) `EExplPsiMsgExplPsiLifeupOmega`
+- `EF:51CF..EF:51F0` (`33` bytes, SHA-1 `794b1189a6b6053ed91fb81a7db847c9624d90bf`) `EExplPsiMsgExplPsiHealingAlfa`
+- `EF:51F0..EF:5239` (`73` bytes, SHA-1 `e7edc47883f33ec729257c582a4aa705922d9f9f`) `EExplPsiMsgExplPsiHealingBeta`
+- `EF:5239..EF:52A5` (`108` bytes, SHA-1 `a6c1cb70d1bc5bf3d3b4fa6e8a4c859051618928`) `EExplPsiMsgExplPsiHealingGamma`
+- `EF:52A5..EF:5301` (`92` bytes, SHA-1 `974bb03fab94d4f89202e725c89421eb00e47e56`) `EExplPsiMsgExplPsiHealingOmega`
+- `EF:5301..EF:5361` (`96` bytes, SHA-1 `428bd4268b1ff79667baff37d37f1db8e9e35c04`) `EExplPsiMsgExplPsiShieldAlfa`
+- `EF:5361..EF:53C0` (`95` bytes, SHA-1 `0d7a35becb531ebba0dd358ac50f76e82e367646`) `EExplPsiMsgExplPsiShieldSigma`
+- `EF:53C0..EF:5428` (`104` bytes, SHA-1 `32eb6a514f042beacd54df4e47c29ddb6155cb59`) `EExplPsiMsgExplPsiShieldBeta`
+- `EF:5428..EF:548F` (`103` bytes, SHA-1 `6205a1c33ed5a362491ea1973ef9685954aaeb81`) `EExplPsiMsgExplPsiShieldOmega`
+- `EF:548F..EF:54E6` (`87` bytes, SHA-1 `5970e8a6411aca74c19e39d4b44bb5072025c63f`) `EExplPsiMsgExplPsiPShieldAlfa`
+- `EF:54E6..EF:553C` (`86` bytes, SHA-1 `0ac0f3490e0bc6f5fe449911aa8a7c2c3ee3ec33`) `EExplPsiMsgExplPsiPShieldSigma`
+- `EF:553C..EF:55A0` (`100` bytes, SHA-1 `ba73f490c30f7367771bd56b2112bb949ca35e0b`) `EExplPsiMsgExplPsiPShieldBeta`
+- `EF:55A0..EF:5603` (`99` bytes, SHA-1 `6df9ab6f483f3f3dffa11f8c77738b871573f739`) `EExplPsiMsgExplPsiPShieldOmega`
+- `EF:5603..EF:562E` (`43` bytes, SHA-1 `d9ce08f63e395aff6189be56902da24cc64164d3`) `EExplPsiMsgExplPsiOffenseUpAlfa`
+- `EF:562E..EF:5658` (`42` bytes, SHA-1 `d3216f9065649673acd933df58c924d0da5d898e`) `EExplPsiMsgExplPsiOffenseUpOmega`
+- `EF:5658..EF:5687` (`47` bytes, SHA-1 `2cfc44ea15c93321cbba28dcf8dfda1918a18dbc`) `EExplPsiMsgExplPsiDefenseDownAlfa`
+- `EF:5687..EF:56B9` (`50` bytes, SHA-1 `bbda87750913e850293fe13241492bbf8f4ec6cb`) `EExplPsiMsgExplPsiDefenseDownOmega`
+- `EF:56B9..EF:56D0` (`23` bytes, SHA-1 `3ac89ee08743f75cd0045e781526ff85728f23b1`) `EExplPsiMsgExplPsiSaiminAlfa`
+- `EF:56D0..EF:56EB` (`27` bytes, SHA-1 `c7b0f8a5fa604801426f0951fc980b67c8eed206`) `EExplPsiMsgExplPsiSaiminOmega`
+- `EF:56EB..EF:5712` (`39` bytes, SHA-1 `0a6d6bd6edb65dad931b549854b8677e44d5cda7`) `EExplPsiMsgExplPsiPMagnetAlfa`
+- `EF:5712..EF:5739` (`39` bytes, SHA-1 `023f6278c3460f0154959e83df94b124dec9cae3`) `EExplPsiMsgExplPsiPMagnetOmega`
+- `EF:5739..EF:574E` (`21` bytes, SHA-1 `5ae3fed5f18ef201010f257d4dffcdb8fb817cab`) `EExplPsiMsgExplPsiParalysisAlfa`
+- `EF:574E..EF:5766` (`24` bytes, SHA-1 `f7e15b4a12ed4e4881d1a163e3506ba120160e66`) `EExplPsiMsgExplPsiParalysisOmega`
+- `EF:5766..EF:5777` (`17` bytes, SHA-1 `1768e57987a6003881709f19d5fd133332cb0fe4`) `EExplPsiMsgExplPsiBrainShockAlfa`
+- `EF:5777..EF:578B` (`20` bytes, SHA-1 `f164a5cdd85dec4598bc2302df21178641c3b1b6`) `EExplPsiMsgExplPsiBrainShockOmega`
+- `EF:578B..EF:57AE` (`35` bytes, SHA-1 `f26105ad8e2676e8168b6f2e471283d62e509d0f`) `EExplPsiMsgExplPsiTeleportAlfa`
+- `EF:57AE..EF:57EB` (`61` bytes, SHA-1 `50084c9c20016b063075417279c20989059920f8`) `EExplPsiMsgExplPsiTeleportBeta`
+- `EF:57EB..EF:5864` (`121` bytes, SHA-1 `db47c6279541f1f16b227f0c5676e6138617d7c5`) `E16DkfdMsgDkfdFireBoss`
+- `EF:5864..EF:58C7` (`99` bytes, SHA-1 `e569e91e0b350487f3f7fae5e60841e9bc233f84`) `E16DkfdMsgDkfdDosei`
+- `EF:58C7..EF:5917` (`80` bytes, SHA-1 `f7d629446948af3aa2a9012624644fc9008a2ea4`) `E16DkfdMsgDkfdSkywalker`
+- `EF:5917..EF:5A3E` (`295` bytes, SHA-1 `12829213f428ae1469048cfad932e99f91c98566`) `E16DkfdMsgDkfdOldman`
+- `EF:5A3E..EF:5A81` (`67` bytes, SHA-1 `cbbe74672c5d7f936f1424ebb13f217de2da1e46`) `E16DkfdMsgDkfdGumiA`
+- `EF:5A81..EF:5AB5` (`52` bytes, SHA-1 `f1fb268fefbab5ef344dfb839d7336af2bdebedd`) `E16DkfdBranchDkfdGumiAEnd`
+- `EF:5AB5..EF:5AED` (`56` bytes, SHA-1 `90470d7bebaa062c27a121bc7b3e7ae3c22e830e`) `E16DkfdMsgDkfdGumiAReceive`
+- `EF:5AED..EF:5B97` (`170` bytes, SHA-1 `0c6afb40b3510d754905984778fd2de59bb56cfd`) `E16DkfdMsgDkfdGumiBoss`
+- `EF:5B97..EF:5BC8` (`49` bytes, SHA-1 `0d50e9a485c393fb20e29b6a47f24ad5e2933b65`) `E16DkfdBranchDkfdGumiBossAfter`
+- `EF:5BC8..EF:5BE6` (`30` bytes, SHA-1 `4bce2b9d4714b5dc5211beaae437870f96235320`) `E16DkfdBranchDkfdGumiBossEnd`
+- `EF:5BE6..EF:5C46` (`96` bytes, SHA-1 `13aea68e448ddd415bb85955f511f35284392be3`) `E16DkfdMsgDkfdGumiC`
+- `EF:5C46..EF:5C98` (`82` bytes, SHA-1 `774527d2e9e640e0d11655101375d0b211318010`) `E16DkfdBranchDkfdGumiCEnd`
+- `EF:5C98..EF:5CE4` (`76` bytes, SHA-1 `d3b36270aafcaa29e0d52a24500ae032faa44950`) `E16DkfdMsgDkfdGumiD`
+- `EF:5CE4..EF:5D16` (`50` bytes, SHA-1 `d40491156fa7bd61e2fc70f3756c41a4b43b77f7`) `E16DkfdBranchDkfdGumiDEnd`
+- `EF:5D16..EF:5DF8` (`226` bytes, SHA-1 `2570571d979432a292ab595cac59201c9c692b4a`) `E16DkfdMsgDkfdGumiE`
+- `EF:5DF8..EF:5E94` (`156` bytes, SHA-1 `affb31e3bc4b6e7ece79840cc70d8c9671518564`) `E16DkfdBranchDkfdGumiEB`
+- `EF:5E94..EF:5F31` (`157` bytes, SHA-1 `ff5b5876c4003c1df1aea7e6f55a58fafb69790f`) `E16DkfdMsgDkfdGumiF`
+- `EF:5F31..EF:5F7D` (`76` bytes, SHA-1 `2762742d55c235f57f9de8964655338a9225437c`) `E16DkfdBranchDkfdGumiFEnd`
+- `EF:5F7D..EF:5FDF` (`98` bytes, SHA-1 `b298ee2195696f3603d06db21dc55f4ba78ea5b6`) `E16DkfdMsgDkfdGumiG`
+- `EF:5FDF..EF:6038` (`89` bytes, SHA-1 `abc2c1057271185956f66fcb2f810912b1767a10`) `E16DkfdMsgDkfdGumiH`
+- `EF:6038..EF:6049` (`17` bytes, SHA-1 `51020c10f25bdfd87e70e979b346bb24bf79f5e6`) `E16DkfdBranchDkfdGumiHEnd`
+- `EF:6049..EF:604F` (`6` bytes, SHA-1 `4afb7afefc564bcddc4abfd5d4417ae901f3dea6`) `E16DkfdMsgDkfdGumiI`
+- `EF:604F..EF:6084` (`53` bytes, SHA-1 `5051af522ca393bae97368c935cb6a60063c5b80`) `E16DkfdMsgDkfdGumiK`
+- `EF:6084..EF:60C5` (`65` bytes, SHA-1 `f3fd2c9be250efe0f9ddc7e97875eac4b9507cf2`) `E16DkfdMsgDkfdGumiL`
+- `EF:60C5..EF:60F2` (`45` bytes, SHA-1 `5f2079d73770196ba6acf436dd1e0adcde2e827e`) `E16DkfdBranchDkfdGumiLEnd`
+- `EF:60F2..EF:610C` (`26` bytes, SHA-1 `39fc3cbde7196648906058a376b92c049d5179eb`) `E16DkfdMsgDkfdBirdPhone`
+- `EF:610C..EF:610D` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `E16DkfdMsgDkfdGumiDoorReceive`
+- `EF:610D..EF:6132` (`37` bytes, SHA-1 `0463085e2f577d3d1cc30fdbe25f0a0035f3df04`) `E16DkfdMsgReadDkfdGumi1`
+- `EF:6132..EF:6157` (`37` bytes, SHA-1 `19bed1a61fc27da303674feff457a00ad9c9dec0`) `E16DkfdMsgReadDkfdGumi2`
+- `EF:6157..EF:617B` (`36` bytes, SHA-1 `5a41db8792f2536667dc716db5c9609bf246e99b`) `E16DkfdMsgReadDkfdGumi3`
+- `EF:617B..EF:61CB` (`80` bytes, SHA-1 `da74bf4837d835f35c8392823ddca7d808527bf0`) `E07GpftMsgGpftMinigeppuA`
+- `EF:61CB..EF:61F3` (`40` bytes, SHA-1 `3657f94c718579ddd4093d427802d4891423d0cb`) `E07GpftBranchGpftMinigeppuANo`
+- `EF:61F3..EF:6247` (`84` bytes, SHA-1 `57b3b9da330662d997190724d162e19c7aeee51d`) `E07GpftBranchGpftMinigeppuAYesno`
+- `EF:6247..EF:6276` (`47` bytes, SHA-1 `47c62007c7f03acae75713d555acd691b684c170`) `E07GpftBranchGpftMinigeppuAYes`
+- `EF:6276..EF:62B1` (`59` bytes, SHA-1 `6f8d426d582b9f665fb00e0480e8a02c825115a2`) `E07GpftMsgGpftMinigeppuB`
+- `EF:62B1..EF:62F5` (`68` bytes, SHA-1 `3e5e944dbef71d7e463f6bb113e8af46e1dde202`) `E07GpftMsgGpftMinigeppuC`
+- `EF:62F5..EF:63B5` (`192` bytes, SHA-1 `b90a67f25cd296ce4f7f236374f0754b51ff49d3`) `E07GpftMsgGpftMinigeppuD`
+- `EF:63B5..EF:6400` (`75` bytes, SHA-1 `fa63b4b1afe17f70b99ac2bfbb3862cb667e4dda`) `E07GpftMsgGpftMinigeppuE`
+- `EF:6400..EF:6419` (`25` bytes, SHA-1 `7a2bd68efacbee6baeac1f3e75ac76a2166eebc3`) `E07GpftMsgGpftDoseiA`
+- `EF:6419..EF:6446` (`45` bytes, SHA-1 `727fc54a31e79c6d1b9826d21fdaf77d0282fe9b`) `E07GpftMsgGpftDoseiB`
+- `EF:6446..EF:6569` (`291` bytes, SHA-1 `51f35d49c6ef43dabe4752487df1643c655a839c`) `E07GpftMsgGpftGeppu`
+- `EF:6569..EF:66CA` (`353` bytes, SHA-1 `e71073b1379886ecae801e7b6530d43290859c77`) `E07GpftBranchGpftGeppuMain`
+- `EF:66CA..EF:679A` (`208` bytes, SHA-1 `afe47cd14d80b3371d5c69c4aaf836ac2935ae44`) `E07GpftBranchGpftGeppuDead`
+- `EF:679A..EF:6814` (`122` bytes, SHA-1 `2b28e39da9a6352398297aea70751cbbcd2177f3`) `E07GpftMsgGpftMlkyBoss`
+- `EF:6814..EF:681A` (`6` bytes, SHA-1 `c92bb3cf7b16f3d28984700c8193935b4ff93423`) `E07GpftMsgGpftHakamori`
+- `EF:681A..EF:6874` (`90` bytes, SHA-1 `896ec0d5d9f9e3e67790a13144f0a5f8cbf3dc53`) `E07GpftMsgThrkBossGrave`
+- `EF:6874..EF:68D7` (`99` bytes, SHA-1 `edc673f28ab405744a3716e6bfdb60f2bac239d7`) `E07GpftBranchThrkBossGraveHave`
+- `EF:68D7..EF:6954` (`125` bytes, SHA-1 `cb6bf282d65903b98517d5a2cf31b2fdb1f23c37`) `E07GpftMsgThrkBossGraveDie`
+- `EF:6954..EF:69A1` (`77` bytes, SHA-1 `9ec02392bd5354a6e592f0186a961e5a1ed9e2ed`) `E07GpftBranchThrkBossGraveDieHave`
 - `EF:69A1..EF:69BA` (`25` bytes, SHA-1 `33973d8aedbab180bc8c1d16f85be38becd9dfe7`) `EBattle5MsgBtlHpMaxRecovered`
 - `EF:69BA..EF:69D2` (`24` bytes, SHA-1 `dee68da43f55467846a4643c14bd193aefad587d`) `EBattle5MsgBtlHpRecoveredAmount`
 - `EF:69D2..EF:69EA` (`24` bytes, SHA-1 `178a8e52dbf9278e6a66f1bfc8b5e4d7dbc5065c`) `EBattle5MsgBtlPpRecoveredAmount`
@@ -713,7 +813,107 @@ Data gaps inside protected span:
 
 Labels:
 
-- `EF:4E20 EfPreBattleTextPayloadData`
+- `EF:4E20 EExplPsiMsgExplPsiHissatsuAlfa`
+- `EF:4E38 EExplPsiMsgExplPsiHissatsuBeta`
+- `EF:4E51 EExplPsiMsgExplPsiHissatsuGamma`
+- `EF:4E6A EExplPsiMsgExplPsiHissatsuOmega`
+- `EF:4E83 EExplPsiMsgExplPsiFireAlfa`
+- `EF:4E99 EExplPsiMsgExplPsiFireBeta`
+- `EF:4EB0 EExplPsiMsgExplPsiFireGamma`
+- `EF:4EC7 EExplPsiMsgExplPsiFireOmega`
+- `EF:4EDE EExplPsiMsgExplPsiFreezAlfa`
+- `EF:4F06 EExplPsiMsgExplPsiFreezBeta`
+- `EF:4F2E EExplPsiMsgExplPsiFreezGamma`
+- `EF:4F56 EExplPsiMsgExplPsiFreezOmega`
+- `EF:4F7E EExplPsiMsgExplPsiThunderAlfa`
+- `EF:4FA6 EExplPsiMsgExplPsiThunderBeta`
+- `EF:4FDC EExplPsiMsgExplPsiThunderGamma`
+- `EF:5013 EExplPsiMsgExplPsiThunderOmega`
+- `EF:5049 EExplPsiMsgExplPsiFlashAlfa`
+- `EF:506B EExplPsiMsgExplPsiFlashBeta`
+- `EF:50AF EExplPsiMsgExplPsiFlashGamma`
+- `EF:50E1 EExplPsiMsgExplPsiFlashOmega`
+- `EF:5131 EExplPsiMsgExplPsiStarstomAlfa`
+- `EF:5152 EExplPsiMsgExplPsiStarstormOmega`
+- `EF:5173 EExplPsiMsgExplPsiLifeupAlfa`
+- `EF:5189 EExplPsiMsgExplPsiLifeupBeta`
+- `EF:519F EExplPsiMsgExplPsiLifeupGamma`
+- `EF:51BB EExplPsiMsgExplPsiLifeupOmega`
+- `EF:51CF EExplPsiMsgExplPsiHealingAlfa`
+- `EF:51F0 EExplPsiMsgExplPsiHealingBeta`
+- `EF:5239 EExplPsiMsgExplPsiHealingGamma`
+- `EF:52A5 EExplPsiMsgExplPsiHealingOmega`
+- `EF:5301 EExplPsiMsgExplPsiShieldAlfa`
+- `EF:5361 EExplPsiMsgExplPsiShieldSigma`
+- `EF:53C0 EExplPsiMsgExplPsiShieldBeta`
+- `EF:5428 EExplPsiMsgExplPsiShieldOmega`
+- `EF:548F EExplPsiMsgExplPsiPShieldAlfa`
+- `EF:54E6 EExplPsiMsgExplPsiPShieldSigma`
+- `EF:553C EExplPsiMsgExplPsiPShieldBeta`
+- `EF:55A0 EExplPsiMsgExplPsiPShieldOmega`
+- `EF:5603 EExplPsiMsgExplPsiOffenseUpAlfa`
+- `EF:562E EExplPsiMsgExplPsiOffenseUpOmega`
+- `EF:5658 EExplPsiMsgExplPsiDefenseDownAlfa`
+- `EF:5687 EExplPsiMsgExplPsiDefenseDownOmega`
+- `EF:56B9 EExplPsiMsgExplPsiSaiminAlfa`
+- `EF:56D0 EExplPsiMsgExplPsiSaiminOmega`
+- `EF:56EB EExplPsiMsgExplPsiPMagnetAlfa`
+- `EF:5712 EExplPsiMsgExplPsiPMagnetOmega`
+- `EF:5739 EExplPsiMsgExplPsiParalysisAlfa`
+- `EF:574E EExplPsiMsgExplPsiParalysisOmega`
+- `EF:5766 EExplPsiMsgExplPsiBrainShockAlfa`
+- `EF:5777 EExplPsiMsgExplPsiBrainShockOmega`
+- `EF:578B EExplPsiMsgExplPsiTeleportAlfa`
+- `EF:57AE EExplPsiMsgExplPsiTeleportBeta`
+- `EF:57EB E16DkfdMsgDkfdFireBoss`
+- `EF:5864 E16DkfdMsgDkfdDosei`
+- `EF:58C7 E16DkfdMsgDkfdSkywalker`
+- `EF:5917 E16DkfdMsgDkfdOldman`
+- `EF:5A3E E16DkfdMsgDkfdGumiA`
+- `EF:5A81 E16DkfdBranchDkfdGumiAEnd`
+- `EF:5AB5 E16DkfdMsgDkfdGumiAReceive`
+- `EF:5AED E16DkfdMsgDkfdGumiBoss`
+- `EF:5B97 E16DkfdBranchDkfdGumiBossAfter`
+- `EF:5BC8 E16DkfdBranchDkfdGumiBossEnd`
+- `EF:5BE6 E16DkfdMsgDkfdGumiC`
+- `EF:5C46 E16DkfdBranchDkfdGumiCEnd`
+- `EF:5C98 E16DkfdMsgDkfdGumiD`
+- `EF:5CE4 E16DkfdBranchDkfdGumiDEnd`
+- `EF:5D16 E16DkfdMsgDkfdGumiE`
+- `EF:5DF8 E16DkfdBranchDkfdGumiEB`
+- `EF:5E94 E16DkfdMsgDkfdGumiF`
+- `EF:5F31 E16DkfdBranchDkfdGumiFEnd`
+- `EF:5F7D E16DkfdMsgDkfdGumiG`
+- `EF:5FDF E16DkfdMsgDkfdGumiH`
+- `EF:6038 E16DkfdBranchDkfdGumiHEnd`
+- `EF:6049 E16DkfdMsgDkfdGumiI`
+- `EF:604F E16DkfdMsgDkfdGumiK`
+- `EF:6084 E16DkfdMsgDkfdGumiL`
+- `EF:60C5 E16DkfdBranchDkfdGumiLEnd`
+- `EF:60F2 E16DkfdMsgDkfdBirdPhone`
+- `EF:610C E16DkfdMsgDkfdGumiDoorReceive`
+- `EF:610D E16DkfdMsgReadDkfdGumi1`
+- `EF:6132 E16DkfdMsgReadDkfdGumi2`
+- `EF:6157 E16DkfdMsgReadDkfdGumi3`
+- `EF:617B E07GpftMsgGpftMinigeppuA`
+- `EF:61CB E07GpftBranchGpftMinigeppuANo`
+- `EF:61F3 E07GpftBranchGpftMinigeppuAYesno`
+- `EF:6247 E07GpftBranchGpftMinigeppuAYes`
+- `EF:6276 E07GpftMsgGpftMinigeppuB`
+- `EF:62B1 E07GpftMsgGpftMinigeppuC`
+- `EF:62F5 E07GpftMsgGpftMinigeppuD`
+- `EF:63B5 E07GpftMsgGpftMinigeppuE`
+- `EF:6400 E07GpftMsgGpftDoseiA`
+- `EF:6419 E07GpftMsgGpftDoseiB`
+- `EF:6446 E07GpftMsgGpftGeppu`
+- `EF:6569 E07GpftBranchGpftGeppuMain`
+- `EF:66CA E07GpftBranchGpftGeppuDead`
+- `EF:679A E07GpftMsgGpftMlkyBoss`
+- `EF:6814 E07GpftMsgGpftHakamori`
+- `EF:681A E07GpftMsgThrkBossGrave`
+- `EF:6874 E07GpftBranchThrkBossGraveHave`
+- `EF:68D7 E07GpftMsgThrkBossGraveDie`
+- `EF:6954 E07GpftBranchThrkBossGraveDieHave`
 - `EF:69A1 EBattle5MsgBtlHpMaxRecovered`
 - `EF:69BA EBattle5MsgBtlHpRecoveredAmount`
 - `EF:69D2 EBattle5MsgBtlPpRecoveredAmount`

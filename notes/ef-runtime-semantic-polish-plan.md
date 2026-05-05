@@ -175,3 +175,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF tail follow-up split `EF:A2FA..C51B` into unknown event,
   command/status window text, name-input keyboard, `UNKNOWN7`, and debug/menu
   runtime payload anchors.
+- 2026-05-05: EF front text-payload follow-up split `EF:4E20..69A1` into PSI
+  explanation, Dungeon Man/Deep Darkness, and Grapefruit Falls/Threed payload
+  anchors.

@@ -132,6 +132,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-05: EF tail follow-up split `EF:A2FA..C51B` into the unknown
   monster-off/Sky Runner event payload, command/status window text tables,
   name-input keyboard layouts, `UNKNOWN7`, and the debug/menu runtime script.
+- 2026-05-05: EF front text-payload follow-up split `EF:4E20..69A1` into
+  `EEXPLPSI` PSI explanation scripts, `E16DKFD` Dungeon Man/Deep Darkness
+  field-event payloads, and `E07GPFT` Grapefruit Falls/Threed payloads.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,
