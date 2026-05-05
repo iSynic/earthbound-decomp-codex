@@ -106,6 +106,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   into exact `MSG_BTL_*` anchors. These are intentionally symbol-derived for
   now; the C2 action-table consumer pass can translate or group them once the
   source-side action ids are pinned.
+- 2026-05-05: EF EBATTLE1 front follow-up split `EF:848C..8814` around the
+  action-table text pointers already proved in
+  `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
+  `EF:848C`, Spy/check `EF:8530`, and shared PSI text `EF:8543`, plus the
+  adjacent PSI animation/effect dispatch branches.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

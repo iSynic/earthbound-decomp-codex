@@ -494,7 +494,31 @@ Data gaps inside protected span:
 - `EF:8445..EF:845D` (`24` bytes, SHA-1 `290b309cbe7864982914515bbac8838cfec3ec00`) `EBattle0MsgAtStartStrange`
 - `EF:845D..EF:8477` (`26` bytes, SHA-1 `b9cc80704b48261d7854d1582bd91cdb057d291d`) `EBattle0MsgRandomActStrange`
 - `EF:8477..EF:848C` (`21` bytes, SHA-1 `e8df4e1a416a16e883880dddfb6f8cfea9620e20`) `EBattle0MsgRandomActMushroom`
-- `EF:848C..EF:C51B` (`16527` bytes, SHA-1 `dab5835771e09fd99e15ea184f8f4fc7da9eab54`) `EfPostBattleTextPayloadData`
+- `EF:848C..EF:84A7` (`27` bytes, SHA-1 `e99323f03a7fecbf7430c1c5a4705be0f63e7bbe`) `EBattle1MsgBtlAttack`
+- `EF:84A7..EF:84B6` (`15` bytes, SHA-1 `9c57f551049dbfdfe3f3e70588767d34b4dee5ee`) `EBattle1AttackPlayerSideBranch`
+- `EF:84B6..EF:84C6` (`16` bytes, SHA-1 `6b8d415e3a2eb1313177e37f9276f39cf41b329c`) `EBattle1MsgBtlShoot`
+- `EF:84C6..EF:84D4` (`14` bytes, SHA-1 `ae67ec66f07eb13a1bf5563e47b2d5d48d2a43fa`) `EBattle1MsgBtlGuard`
+- `EF:84D4..EF:84F3` (`31` bytes, SHA-1 `a2324897cf11d3b03a6e89ccc07526c64949a6ab`) `EBattle1MsgBtlMetamorphose`
+- `EF:84F3..EF:8511` (`30` bytes, SHA-1 `9aa5ecf35c8d1a4c6ed04410e38632dd3b3d20d9`) `EBattle1MsgBtlPlayerFlee`
+- `EF:8511..EF:8530` (`31` bytes, SHA-1 `56bab7d7ebab3e80fc4e8caa0360e928e87ecfce`) `EBattle1MsgBtlPlayerFleeFailed`
+- `EF:8530..EF:8543` (`19` bytes, SHA-1 `2e0e634a37bc7bb6b511a9912f101bfe9d4e2a08`) `EBattle1MsgBtlCheck`
+- `EF:8543..EF:8568` (`37` bytes, SHA-1 `3c0205881fd711e75811d00d23d8eab375519aca`) `EBattle1MsgBtlPsi`
+- `EF:8568..EF:857E` (`22` bytes, SHA-1 `eddea2b0a407599f67da715136320d0ad7df8434`) `EBattle1PsiPlayerSideBranch`
+- `EF:857E..EF:864C` (`206` bytes, SHA-1 `ec707732de843dd8d0abe6f92b98fa0caf3e9b26`) `EBattle1PsiAnimationDispatch`
+- `EF:864C..EF:866E` (`34` bytes, SHA-1 `ce2b90bbf03460d92795d3b257fcfebde934203c`) `EBattle1PsiEffectBranch1`
+- `EF:866E..EF:8698` (`42` bytes, SHA-1 `218694e33ef698d221e4b70f886ec82f1d58b57b`) `EBattle1PsiEffectBranch2`
+- `EF:8698..EF:86E2` (`74` bytes, SHA-1 `c8afd6c2732a2b05a59bb99d89bf0b318ccdab11`) `EBattle1PsiEffectBranch3`
+- `EF:86E2..EF:874A` (`104` bytes, SHA-1 `ed5a9e5453145ff58972590b0c6a5129a226b296`) `EBattle1PsiEffectBranch4`
+- `EF:874A..EF:875F` (`21` bytes, SHA-1 `77ef427c60e6f4661fe595a64c11ac1309fa0f17`) `EBattle1PsiEffectBranch5`
+- `EF:875F..EF:8777` (`24` bytes, SHA-1 `0863376914292a310452e1f6d5cf9c8ec002fd25`) `EBattle1PsiEffectBranch6`
+- `EF:8777..EF:878F` (`24` bytes, SHA-1 `8f0729f6aa5bf3250cc0316104003b2595dbf930`) `EBattle1PsiEffectBranch7`
+- `EF:878F..EF:87AC` (`29` bytes, SHA-1 `9b91884c0ce8e8e378914cc23732e19f891535a0`) `EBattle1PsiEffectBranch8`
+- `EF:87AC..EF:87C3` (`23` bytes, SHA-1 `6f9bf3f6f55d99837f9ddfb68e0df8d1de7d666c`) `EBattle1PsiEffectBranch9`
+- `EF:87C3..EF:87DA` (`23` bytes, SHA-1 `eec8d005cba50856630e74edb227c1bf4ccfa251`) `EBattle1PsiEffectBranch10`
+- `EF:87DA..EF:87F4` (`26` bytes, SHA-1 `6d54b1dfd7f86685bb26e0c7b5b3baa2f2311f5e`) `EBattle1PsiEffectBranch11`
+- `EF:87F4..EF:8813` (`31` bytes, SHA-1 `076c405486c2f25ca4213396771efb5a162a1405`) `EBattle1PsiEffectBranch12`
+- `EF:8813..EF:8814` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EBattle1PsiEffectBranch13`
+- `EF:8814..EF:C51B` (`15623` bytes, SHA-1 `4f4e9237c391299b7722179aeee556536bb2c3ca`) `EfPostPsiFrontTextPayloadData`
 
 Labels:
 
@@ -753,7 +777,31 @@ Labels:
 - `EF:8445 EBattle0MsgAtStartStrange`
 - `EF:845D EBattle0MsgRandomActStrange`
 - `EF:8477 EBattle0MsgRandomActMushroom`
-- `EF:848C EfPostBattleTextPayloadData`
+- `EF:848C EBattle1MsgBtlAttack`
+- `EF:84A7 EBattle1AttackPlayerSideBranch`
+- `EF:84B6 EBattle1MsgBtlShoot`
+- `EF:84C6 EBattle1MsgBtlGuard`
+- `EF:84D4 EBattle1MsgBtlMetamorphose`
+- `EF:84F3 EBattle1MsgBtlPlayerFlee`
+- `EF:8511 EBattle1MsgBtlPlayerFleeFailed`
+- `EF:8530 EBattle1MsgBtlCheck`
+- `EF:8543 EBattle1MsgBtlPsi`
+- `EF:8568 EBattle1PsiPlayerSideBranch`
+- `EF:857E EBattle1PsiAnimationDispatch`
+- `EF:864C EBattle1PsiEffectBranch1`
+- `EF:866E EBattle1PsiEffectBranch2`
+- `EF:8698 EBattle1PsiEffectBranch3`
+- `EF:86E2 EBattle1PsiEffectBranch4`
+- `EF:874A EBattle1PsiEffectBranch5`
+- `EF:875F EBattle1PsiEffectBranch6`
+- `EF:8777 EBattle1PsiEffectBranch7`
+- `EF:878F EBattle1PsiEffectBranch8`
+- `EF:87AC EBattle1PsiEffectBranch9`
+- `EF:87C3 EBattle1PsiEffectBranch10`
+- `EF:87DA EBattle1PsiEffectBranch11`
+- `EF:87F4 EBattle1PsiEffectBranch12`
+- `EF:8813 EBattle1PsiEffectBranch13`
+- `EF:8814 EfPostPsiFrontTextPayloadData`
 
 Evidence:
 

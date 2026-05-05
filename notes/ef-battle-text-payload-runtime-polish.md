@@ -106,6 +106,9 @@ callers.
   `MSG_BTL_CHOU_ONPA` payload before EBATTLE0 begins.
 - `EF:843F`, `EF:8444`, `EF:8445`, `EF:845D`, and `EF:8477` now mark
   battle-start and random-action status text used by C2 direct `DC1C` callers.
+- `EF:848C..8814` now splits the EBATTLE1 battle-command front into
+  Bash/attack, Shoot, Guard, Metamorphose, flee success/failure, Spy/check,
+  shared PSI action text, and the first PSI animation/effect dispatch branches.
 
 ## Correction
 
@@ -188,6 +191,16 @@ shows enemy action narration, but some original symbol names are better kept as
 stable anchors until a C2 action-table consumer pass proves narrower runtime
 roles. The result is still useful immediately because the large pre-start-battle
 blob no longer hides dozens of direct battle-text payload targets.
+
+## EBATTLE1 Battle Command Front Follow-up
+
+The first slice of `EF:848C..C51B` is now split through `EF:8814`. This is the
+runtime-facing battle-command front already tied to the C2 action table notes:
+`EF:848C` is the Bash/attack text pointer for the table's ordinary attack
+entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
+text pointer reused by many PSI-shaped action rows. The `EF:857E` dispatch and
+`EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
+have stable anchors for later PSI animation/effect consumer work.
 
 ## Validation
 

@@ -1544,8 +1544,152 @@ EF8477_EBattle0MsgRandomActMushroom:
 ; ---------------------------------------------------------------------------
 ; EF:848C
 
-; Remaining EF text payload data after the battle-start action text anchors.
-EF848C_EfPostBattleTextPayloadData:
+; EBATTLE1: Bash/attack text, with enemy/player-side branches.
+EF848C_EBattle1MsgBtlAttack:
+
+; ---------------------------------------------------------------------------
+; EF:84A7
+
+; EBATTLE1: player-side Bash/attack branch.
+EF84A7_EBattle1AttackPlayerSideBranch:
+
+; ---------------------------------------------------------------------------
+; EF:84B6
+
+; EBATTLE1: Shoot/attack text.
+EF84B6_EBattle1MsgBtlShoot:
+
+; ---------------------------------------------------------------------------
+; EF:84C6
+
+; EBATTLE1: Guard text.
+EF84C6_EBattle1MsgBtlGuard:
+
+; ---------------------------------------------------------------------------
+; EF:84D4
+
+; EBATTLE1: Metamorphose attempt text.
+EF84D4_EBattle1MsgBtlMetamorphose:
+
+; ---------------------------------------------------------------------------
+; EF:84F3
+
+; EBATTLE1: successful player flee text.
+EF84F3_EBattle1MsgBtlPlayerFlee:
+
+; ---------------------------------------------------------------------------
+; EF:8511
+
+; EBATTLE1: failed player flee text.
+EF8511_EBattle1MsgBtlPlayerFleeFailed:
+
+; ---------------------------------------------------------------------------
+; EF:8530
+
+; EBATTLE1: Spy/check text.
+EF8530_EBattle1MsgBtlCheck:
+
+; ---------------------------------------------------------------------------
+; EF:8543
+
+; EBATTLE1: shared PSI action text with PSI-name byte substitution.
+EF8543_EBattle1MsgBtlPsi:
+
+; ---------------------------------------------------------------------------
+; EF:8568
+
+; EBATTLE1: player-side PSI action branch.
+EF8568_EBattle1PsiPlayerSideBranch:
+
+; ---------------------------------------------------------------------------
+; EF:857E
+
+; EBATTLE1: PSI animation dispatch after PSI action text.
+EF857E_EBattle1PsiAnimationDispatch:
+
+; ---------------------------------------------------------------------------
+; EF:864C
+
+; EBATTLE1: PSI animation/effect branch 1.
+EF864C_EBattle1PsiEffectBranch1:
+
+; ---------------------------------------------------------------------------
+; EF:866E
+
+; EBATTLE1: PSI animation/effect branch 2.
+EF866E_EBattle1PsiEffectBranch2:
+
+; ---------------------------------------------------------------------------
+; EF:8698
+
+; EBATTLE1: PSI animation/effect branch 3.
+EF8698_EBattle1PsiEffectBranch3:
+
+; ---------------------------------------------------------------------------
+; EF:86E2
+
+; EBATTLE1: PSI animation/effect branch 4.
+EF86E2_EBattle1PsiEffectBranch4:
+
+; ---------------------------------------------------------------------------
+; EF:874A
+
+; EBATTLE1: PSI animation/effect branch 5.
+EF874A_EBattle1PsiEffectBranch5:
+
+; ---------------------------------------------------------------------------
+; EF:875F
+
+; EBATTLE1: PSI animation/effect branch 6.
+EF875F_EBattle1PsiEffectBranch6:
+
+; ---------------------------------------------------------------------------
+; EF:8777
+
+; EBATTLE1: PSI animation/effect branch 7.
+EF8777_EBattle1PsiEffectBranch7:
+
+; ---------------------------------------------------------------------------
+; EF:878F
+
+; EBATTLE1: PSI animation/effect branch 8.
+EF878F_EBattle1PsiEffectBranch8:
+
+; ---------------------------------------------------------------------------
+; EF:87AC
+
+; EBATTLE1: PSI animation/effect branch 9.
+EF87AC_EBattle1PsiEffectBranch9:
+
+; ---------------------------------------------------------------------------
+; EF:87C3
+
+; EBATTLE1: PSI animation/effect branch 10.
+EF87C3_EBattle1PsiEffectBranch10:
+
+; ---------------------------------------------------------------------------
+; EF:87DA
+
+; EBATTLE1: PSI animation/effect branch 11.
+EF87DA_EBattle1PsiEffectBranch11:
+
+; ---------------------------------------------------------------------------
+; EF:87F4
+
+; EBATTLE1: PSI animation/effect branch 12.
+EF87F4_EBattle1PsiEffectBranch12:
+
+; ---------------------------------------------------------------------------
+; EF:8813
+
+; EBATTLE1: PSI animation/effect branch 13 terminator.
+EF8813_EBattle1PsiEffectBranch13:
+
+; ---------------------------------------------------------------------------
+; EF:8814
+
+; Remaining EF text payload data after the EBATTLE1 PSI front split.
+EF8814_EfPostPsiFrontTextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B
