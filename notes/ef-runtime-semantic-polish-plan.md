@@ -168,3 +168,5 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into field-monster, graveyard/Paula, boss/girl, and
   Guts tutorial message anchors.
+- 2026-05-05: EF EBATTLE1 action-tail follow-up split `EF:9A47..9EF4` into
+  action payload anchors from `MSG_BTL_NAKAMA0` through `MSG_BTL_FIRE_BREATH`.

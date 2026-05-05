@@ -120,6 +120,9 @@ callers.
   include: the party-size helper branch, Sanctuary field-monster payloads,
   Paula/graveyard branches, signpost/boss/girl text, and the Guts tutorial
   system-message branches.
+- `EF:9A47..9EF4` now splits the later EBATTLE1 action-tail include into
+  symbol-derived action payload anchors from `MSG_BTL_NAKAMA0` through
+  `MSG_BTL_FIRE_BREATH`.
 
 ## Correction
 
@@ -244,6 +247,15 @@ Paula-related branches, the Lilliput Steps boss script, the mushroom girl and
 Shinto bridge text, and the long Guts tutorial yes/no branches. These remain
 ROM-preserved text bytecode, but the include is no longer one anonymous EF
 tail before the later EBATTLE1 action-text block.
+
+## EBATTLE1 Action-Tail Follow-up
+
+The later EBATTLE1 include at `EF:9A47..9EF4` is now split around exact action
+payload labels. This covers the join/call-for-help seed text, explosion/burn
+and goods-use branches, Time Stop and enemy gaze/wave/breath/status-flavor
+messages, coffee/music/discharge/lightning/fire payloads, and the final
+`MSG_BTL_FIRE_BREATH` anchor before the next `EGOODS2` include. These are
+conservative symbol-derived anchors for later C2 action-table consumer work.
 
 ## Validation
 

@@ -651,7 +651,41 @@ Data gaps inside protected span:
 - `EF:9857..EF:98AD` (`86` bytes, SHA-1 `1eb1a3ae22b8b1aa17805372eda1416ab472947c`) `EBattle9MsgGrfdSysmsgGuts`
 - `EF:98AD..EF:98D3` (`38` bytes, SHA-1 `6c7bc6e5ca266f2258abd0f1f35f7a24a7530c5f`) `EBattle9BranchGrfdSysmsgGutsNo`
 - `EF:98D3..EF:9A47` (`372` bytes, SHA-1 `6a0319d43accf6cea67e3862755fd7426b532ebc`) `EBattle9BranchGrfdSysmsgGutsYes`
-- `EF:9A47..EF:C51B` (`10964` bytes, SHA-1 `735bf5e3d2ec8fce7c27a376f261717f22178c3c`) `EfPostEbattle9TextPayloadData`
+- `EF:9A47..EF:9A5E` (`23` bytes, SHA-1 `7fe8f42c7c345fdfcea3f55550c80633365e5a15`) `EBattle1MsgBtlNakama0`
+- `EF:9A5E..EF:9A7E` (`32` bytes, SHA-1 `6694a9b335a04365eb5aa8098f32cd0c28d66dd7`) `EBattle1MsgBtlTanemaki0`
+- `EF:9A7E..EF:9A9E` (`32` bytes, SHA-1 `9a5428ade7470f09753d284f96e51504db9c376d`) `EBattle1MsgBtlExplosion`
+- `EF:9A9E..EF:9ABB` (`29` bytes, SHA-1 `8c79314e616171db1ba717a09283e86594aec79a`) `EBattle1MsgBtlBurn`
+- `EF:9ABB..EF:9AE8` (`45` bytes, SHA-1 `c722f88a4a989c9637522e8b2a3d17529e1948cd`) `EBattle1MsgBtlGoods`
+- `EF:9AE8..EF:9B02` (`26` bytes, SHA-1 `94a69dc8ea08bb7bf36d4b4a931976282328c727`) `EBattle1BranchBtlGoodsFailed`
+- `EF:9B02..EF:9B20` (`30` bytes, SHA-1 `9d9b6d9c2684d81f5e58d8254948dbabe3ae5621`) `EBattle1MsgBtlTimestop`
+- `EF:9B20..EF:9B43` (`35` bytes, SHA-1 `0aed63df96b0077e8dad772a85bf7fd38c2fe8fa`) `EBattle1MsgBtlManazashi`
+- `EF:9B43..EF:9B73` (`48` bytes, SHA-1 `2472974b8f9e2fd98dbd7bbbd4e2f7fd529f0eb1`) `EBattle1MsgBtlKaidenpa`
+- `EF:9B73..EF:9B96` (`35` bytes, SHA-1 `4c85a69637c49f35bdb855400ee38b4b4e978b17`) `EBattle1MsgBtlYoroKaidenpa`
+- `EF:9B96..EF:9BC3` (`45` bytes, SHA-1 `ceee98d6c167ddd47b7470fef837fb167aa986f5`) `EBattle1MsgBtlGeppuIki`
+- `EF:9BC3..EF:9BE6` (`35` bytes, SHA-1 `daa0033fc10a78ef6777cd0cf6a22d750b0ac2f5`) `EBattle1MsgBtlDokubari`
+- `EF:9BE6..EF:9C02` (`28` bytes, SHA-1 `c24516dfae2433534c5e8302bc919a7073393b77`) `EBattle1MsgBtlDeathKiss`
+- `EF:9C02..EF:9C30` (`46` bytes, SHA-1 `8f13ee7b6bff533f1869ac782e0754c8e7dfd859`) `EBattle1MsgBtlTumetaiIki`
+- `EF:9C30..EF:9C51` (`33` bytes, SHA-1 `4d7482ad028bc7753889aad44fc4c0f4e7cf5906`) `EBattle1MsgBtlHoushi`
+- `EF:9C51..EF:9C7E` (`45` bytes, SHA-1 `5c5ae37d604b20ca7d6052bc3410d12e65c4ac99`) `EBattle1MsgBtlTorituki`
+- `EF:9C7E..EF:9CAD` (`47` bytes, SHA-1 `d5cafc61a45adef93bc56554c26fc1e80b4a2577`) `EBattle1MsgBtlYoiKaori`
+- `EF:9CAD..EF:9CD1` (`36` bytes, SHA-1 `7cc73f6604b6c2623532742c45eb6b8cfebf878c`) `EBattle1MsgBtlKabiHousi`
+- `EF:9CD1..EF:9CF1` (`32` bytes, SHA-1 `88d4c30ffa9e11278a24af9ad87470877f24d8e9`) `EBattle1MsgBtlShibari`
+- `EF:9CF1..EF:9D14` (`35` bytes, SHA-1 `37ffb8a2fac5906083a9bacb8c13b97ef7e5dae0`) `EBattle1MsgBtlNeneki`
+- `EF:9D14..EF:9D3E` (`42` bytes, SHA-1 `8ff51ebb6e98575faa74c86033bf59eaf623b40a`) `EBattle1MsgBtlHaemitu`
+- `EF:9D3E..EF:9D62` (`36` bytes, SHA-1 `ea59178d860f252b7da70ffb5d9f12f2ab0fa540`) `EBattle1MsgBtlOshiriIto`
+- `EF:9D62..EF:9D81` (`31` bytes, SHA-1 `d774995c70bc4289b6e3f63ebcc0c137d9f97f7d`) `EBattle1MsgBtlKowaiKotoba`
+- `EF:9D81..EF:9DA1` (`32` bytes, SHA-1 `c0580c0112d4f9d9faa4300202a78339cd46331c`) `EBattle1MsgBtlAyashiKoto`
+- `EF:9DA1..EF:9DBD` (`28` bytes, SHA-1 `cea81260269969217b4d542b8f841cfe155cf986`) `EBattle1MsgBtlFuuin`
+- `EF:9DBD..EF:9DDA` (`29` bytes, SHA-1 `53d8d20887b69388012b92bb30b0f3e2f9319e93`) `EBattle1MsgBtlTachibaThink`
+- `EF:9DDA..EF:9E05` (`43` bytes, SHA-1 `88c576ad7d6763a1ef94ce9a0f40a32f88dcfad1`) `EBattle1MsgBtlKogeppuIki`
+- `EF:9E05..EF:9E22` (`29` bytes, SHA-1 `0fac325e4c81396bbc36ed9cfef32afe93a07f05`) `EBattle1MsgBtlTyphoon`
+- `EF:9E22..EF:9E47` (`37` bytes, SHA-1 `0af8075d8d380fcd1919ab78c0a2788e65e9eba5`) `EBattle1MsgBtlCoffee`
+- `EF:9E47..EF:9E69` (`34` bytes, SHA-1 `a44e10fe8085e7b4a3c995ef7fc3182a391e807e`) `EBattle1MsgBtlMusic`
+- `EF:9E69..EF:9E92` (`41` bytes, SHA-1 `f51bb224643d0f2e5e3106b0b13499bac6ea1d88`) `EBattle1MsgBtlSyoukaEki`
+- `EF:9E92..EF:9EB4` (`34` bytes, SHA-1 `dfd4284c849c8695219a6beb4c0c3ff37eb2fb20`) `EBattle1MsgBtlKaminari`
+- `EF:9EB4..EF:9ED7` (`35` bytes, SHA-1 `8958f89db69495bad9bb558817ebaa0b1523be82`) `EBattle1MsgBtlFire`
+- `EF:9ED7..EF:9EF4` (`29` bytes, SHA-1 `bb9edb85dd80363a4f4d86a1b13a26bc8d15d907`) `EBattle1MsgBtlFireBreath`
+- `EF:9EF4..EF:C51B` (`9767` bytes, SHA-1 `b831343d7737ff67856ed07bb4d3daf676c0df27`) `EfPostEbattle1ActionTailTextPayloadData`
 
 Labels:
 
@@ -1067,7 +1101,41 @@ Labels:
 - `EF:9857 EBattle9MsgGrfdSysmsgGuts`
 - `EF:98AD EBattle9BranchGrfdSysmsgGutsNo`
 - `EF:98D3 EBattle9BranchGrfdSysmsgGutsYes`
-- `EF:9A47 EfPostEbattle9TextPayloadData`
+- `EF:9A47 EBattle1MsgBtlNakama0`
+- `EF:9A5E EBattle1MsgBtlTanemaki0`
+- `EF:9A7E EBattle1MsgBtlExplosion`
+- `EF:9A9E EBattle1MsgBtlBurn`
+- `EF:9ABB EBattle1MsgBtlGoods`
+- `EF:9AE8 EBattle1BranchBtlGoodsFailed`
+- `EF:9B02 EBattle1MsgBtlTimestop`
+- `EF:9B20 EBattle1MsgBtlManazashi`
+- `EF:9B43 EBattle1MsgBtlKaidenpa`
+- `EF:9B73 EBattle1MsgBtlYoroKaidenpa`
+- `EF:9B96 EBattle1MsgBtlGeppuIki`
+- `EF:9BC3 EBattle1MsgBtlDokubari`
+- `EF:9BE6 EBattle1MsgBtlDeathKiss`
+- `EF:9C02 EBattle1MsgBtlTumetaiIki`
+- `EF:9C30 EBattle1MsgBtlHoushi`
+- `EF:9C51 EBattle1MsgBtlTorituki`
+- `EF:9C7E EBattle1MsgBtlYoiKaori`
+- `EF:9CAD EBattle1MsgBtlKabiHousi`
+- `EF:9CD1 EBattle1MsgBtlShibari`
+- `EF:9CF1 EBattle1MsgBtlNeneki`
+- `EF:9D14 EBattle1MsgBtlHaemitu`
+- `EF:9D3E EBattle1MsgBtlOshiriIto`
+- `EF:9D62 EBattle1MsgBtlKowaiKotoba`
+- `EF:9D81 EBattle1MsgBtlAyashiKoto`
+- `EF:9DA1 EBattle1MsgBtlFuuin`
+- `EF:9DBD EBattle1MsgBtlTachibaThink`
+- `EF:9DDA EBattle1MsgBtlKogeppuIki`
+- `EF:9E05 EBattle1MsgBtlTyphoon`
+- `EF:9E22 EBattle1MsgBtlCoffee`
+- `EF:9E47 EBattle1MsgBtlMusic`
+- `EF:9E69 EBattle1MsgBtlSyoukaEki`
+- `EF:9E92 EBattle1MsgBtlKaminari`
+- `EF:9EB4 EBattle1MsgBtlFire`
+- `EF:9ED7 EBattle1MsgBtlFireBreath`
+- `EF:9EF4 EfPostEbattle1ActionTailTextPayloadData`
 
 Evidence:
 

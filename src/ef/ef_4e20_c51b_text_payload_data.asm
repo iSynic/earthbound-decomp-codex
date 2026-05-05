@@ -2486,8 +2486,212 @@ EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 ; ---------------------------------------------------------------------------
 ; EF:9A47
 
-; Remaining EF text payload data after the EBATTLE9 field-monster/graveyard split.
-EF9A47_EfPostEbattle9TextPayloadData:
+; EBATTLE1: `MSG_BTL_NAKAMA0` action payload text.
+EF9A47_EBattle1MsgBtlNakama0:
+
+; ---------------------------------------------------------------------------
+; EF:9A5E
+
+; EBATTLE1: `MSG_BTL_TANEMAKI0` action payload text.
+EF9A5E_EBattle1MsgBtlTanemaki0:
+
+; ---------------------------------------------------------------------------
+; EF:9A7E
+
+; EBATTLE1: `MSG_BTL_EXPLOSION` action payload text.
+EF9A7E_EBattle1MsgBtlExplosion:
+
+; ---------------------------------------------------------------------------
+; EF:9A9E
+
+; EBATTLE1: `MSG_BTL_BURN` action payload text.
+EF9A9E_EBattle1MsgBtlBurn:
+
+; ---------------------------------------------------------------------------
+; EF:9ABB
+
+; EBATTLE1: `MSG_BTL_GOODS` action payload text.
+EF9ABB_EBattle1MsgBtlGoods:
+
+; ---------------------------------------------------------------------------
+; EF:9AE8
+
+; EBATTLE1: `_BTL_GOODS_FAILED` helper branch.
+EF9AE8_EBattle1BranchBtlGoodsFailed:
+
+; ---------------------------------------------------------------------------
+; EF:9B02
+
+; EBATTLE1: `MSG_BTL_TIMESTOP` action payload text.
+EF9B02_EBattle1MsgBtlTimestop:
+
+; ---------------------------------------------------------------------------
+; EF:9B20
+
+; EBATTLE1: `MSG_BTL_MANAZASHI` action payload text.
+EF9B20_EBattle1MsgBtlManazashi:
+
+; ---------------------------------------------------------------------------
+; EF:9B43
+
+; EBATTLE1: `MSG_BTL_KAIDENPA` action payload text.
+EF9B43_EBattle1MsgBtlKaidenpa:
+
+; ---------------------------------------------------------------------------
+; EF:9B73
+
+; EBATTLE1: `MSG_BTL_YORO_KAIDENPA` action payload text.
+EF9B73_EBattle1MsgBtlYoroKaidenpa:
+
+; ---------------------------------------------------------------------------
+; EF:9B96
+
+; EBATTLE1: `MSG_BTL_GEPPU_IKI` action payload text.
+EF9B96_EBattle1MsgBtlGeppuIki:
+
+; ---------------------------------------------------------------------------
+; EF:9BC3
+
+; EBATTLE1: `MSG_BTL_DOKUBARI` action payload text.
+EF9BC3_EBattle1MsgBtlDokubari:
+
+; ---------------------------------------------------------------------------
+; EF:9BE6
+
+; EBATTLE1: `MSG_BTL_DEATH_KISS` action payload text.
+EF9BE6_EBattle1MsgBtlDeathKiss:
+
+; ---------------------------------------------------------------------------
+; EF:9C02
+
+; EBATTLE1: `MSG_BTL_TUMETAI_IKI` action payload text.
+EF9C02_EBattle1MsgBtlTumetaiIki:
+
+; ---------------------------------------------------------------------------
+; EF:9C30
+
+; EBATTLE1: `MSG_BTL_HOUSHI` action payload text.
+EF9C30_EBattle1MsgBtlHoushi:
+
+; ---------------------------------------------------------------------------
+; EF:9C51
+
+; EBATTLE1: `MSG_BTL_TORITUKI` action payload text.
+EF9C51_EBattle1MsgBtlTorituki:
+
+; ---------------------------------------------------------------------------
+; EF:9C7E
+
+; EBATTLE1: `MSG_BTL_YOI_KAORI` action payload text.
+EF9C7E_EBattle1MsgBtlYoiKaori:
+
+; ---------------------------------------------------------------------------
+; EF:9CAD
+
+; EBATTLE1: `MSG_BTL_KABI_HOUSI` action payload text.
+EF9CAD_EBattle1MsgBtlKabiHousi:
+
+; ---------------------------------------------------------------------------
+; EF:9CD1
+
+; EBATTLE1: `MSG_BTL_SHIBARI` action payload text.
+EF9CD1_EBattle1MsgBtlShibari:
+
+; ---------------------------------------------------------------------------
+; EF:9CF1
+
+; EBATTLE1: `MSG_BTL_NENEKI` action payload text.
+EF9CF1_EBattle1MsgBtlNeneki:
+
+; ---------------------------------------------------------------------------
+; EF:9D14
+
+; EBATTLE1: `MSG_BTL_HAEMITU` action payload text.
+EF9D14_EBattle1MsgBtlHaemitu:
+
+; ---------------------------------------------------------------------------
+; EF:9D3E
+
+; EBATTLE1: `MSG_BTL_OSHIRI_ITO` action payload text.
+EF9D3E_EBattle1MsgBtlOshiriIto:
+
+; ---------------------------------------------------------------------------
+; EF:9D62
+
+; EBATTLE1: `MSG_BTL_KOWAI_KOTOBA` action payload text.
+EF9D62_EBattle1MsgBtlKowaiKotoba:
+
+; ---------------------------------------------------------------------------
+; EF:9D81
+
+; EBATTLE1: `MSG_BTL_AYASHI_KOTO` action payload text.
+EF9D81_EBattle1MsgBtlAyashiKoto:
+
+; ---------------------------------------------------------------------------
+; EF:9DA1
+
+; EBATTLE1: `MSG_BTL_FUUIN` action payload text.
+EF9DA1_EBattle1MsgBtlFuuin:
+
+; ---------------------------------------------------------------------------
+; EF:9DBD
+
+; EBATTLE1: `MSG_BTL_TACHIBA_THINK` action payload text.
+EF9DBD_EBattle1MsgBtlTachibaThink:
+
+; ---------------------------------------------------------------------------
+; EF:9DDA
+
+; EBATTLE1: `MSG_BTL_KOGEPPU_IKI` action payload text.
+EF9DDA_EBattle1MsgBtlKogeppuIki:
+
+; ---------------------------------------------------------------------------
+; EF:9E05
+
+; EBATTLE1: `MSG_BTL_TYPHOON` action payload text.
+EF9E05_EBattle1MsgBtlTyphoon:
+
+; ---------------------------------------------------------------------------
+; EF:9E22
+
+; EBATTLE1: `MSG_BTL_COFFEE` action payload text.
+EF9E22_EBattle1MsgBtlCoffee:
+
+; ---------------------------------------------------------------------------
+; EF:9E47
+
+; EBATTLE1: `MSG_BTL_MUSIC` action payload text.
+EF9E47_EBattle1MsgBtlMusic:
+
+; ---------------------------------------------------------------------------
+; EF:9E69
+
+; EBATTLE1: `MSG_BTL_SYOUKA_EKI` action payload text.
+EF9E69_EBattle1MsgBtlSyoukaEki:
+
+; ---------------------------------------------------------------------------
+; EF:9E92
+
+; EBATTLE1: `MSG_BTL_KAMINARI` action payload text.
+EF9E92_EBattle1MsgBtlKaminari:
+
+; ---------------------------------------------------------------------------
+; EF:9EB4
+
+; EBATTLE1: `MSG_BTL_FIRE` action payload text.
+EF9EB4_EBattle1MsgBtlFire:
+
+; ---------------------------------------------------------------------------
+; EF:9ED7
+
+; EBATTLE1: `MSG_BTL_FIRE_BREATH` action payload text.
+EF9ED7_EBattle1MsgBtlFireBreath:
+
+; ---------------------------------------------------------------------------
+; EF:9EF4
+
+; Remaining EF text payload data after the EBATTLE1 action-tail split.
+EF9EF4_EfPostEbattle1ActionTailTextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B
