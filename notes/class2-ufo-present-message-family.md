@@ -210,3 +210,22 @@ A later C2 source-polish pass named `$AA10` locally as
 
 The source name does not make `$9D11` present-specific; it documents the C2
 runtime role of this particular caller family.
+
+## Update: EF present-result branches now have source anchors
+
+A later EF payload split promoted the `MSG_BTL_PRESENT` continuation labels
+from the EBATTLE8 listing into source anchors:
+
+- `EF:7C42` recipient-dead fallback
+- `EF:7C73` inventory-full text
+- `EF:7C89` throw-away prompt
+- `EF:7CB4` abandon confirmation prompt
+- `EF:7CED` abandon retry text
+- `EF:7CF8` abandon confirmed text
+- `EF:7D0F` drop selection prompt
+- `EF:7D83` drop confirmed text
+- `EF:7DBE` forbidden-drop retry text
+
+This keeps the C2 `$AA10` producer, the C1 `$9D11` staging bridge, and the EF
+result branches visible as one present-family contract without converting the
+EB text bytecode into macro source yet.

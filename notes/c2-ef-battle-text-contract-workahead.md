@@ -475,6 +475,11 @@ And for the most actionable C2 call-site families:
   that local byte-slot name at the `EF:7BDF` and `EF:7DD5` consumers. See
   `notes/c2-battle-start-payload-join-runtime-polish.md` and
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-05: EF present-result follow-up split the `EF:7C42..7DD5`
+  continuation behind `MSG_BTL_PRESENT` into inventory-full, abandon/drop, and
+  forbidden-drop text anchors. The C2 side still treats `$AA10` as
+  `BattlePresentItemByte`; EF now exposes the downstream result branches that
+  run after `EF:7BDF` consumes that byte through `19 1F`.
 - 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
   now names the Spy readout target battler offsets for offense, defense, fire/
   freeze/flash/paralysis resistance, hypnosis resistance, brainshock

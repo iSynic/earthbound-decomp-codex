@@ -358,7 +358,15 @@ Data gaps inside protected span:
 - `EF:7BBF..EF:7BC1` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionBranch3State`
 - `EF:7BC1..EF:7BDF` (`30` bytes, SHA-1 `20ff702f734c16985cdf2024350476ddbae5485a`) `EBattle8PointerSubstitutionOhBabyBranch`
 - `EF:7BDF..EF:7C42` (`99` bytes, SHA-1 `ac0008afdd533cbce642a6a974fdc139a6e12e2e`) `EBattle8MsgBtlPresentByteSubstitution`
-- `EF:7C42..EF:7DD5` (`403` bytes, SHA-1 `aad1b60802b5e4178d26960edcb9f969bd1b6fba`) `EBattle8PresentInventoryResultText`
+- `EF:7C42..EF:7C73` (`49` bytes, SHA-1 `9883fd43ae25bfc47c43f439c44c7f9b697743ab`) `EBattle8PresentRecipientDeadText`
+- `EF:7C73..EF:7C89` (`22` bytes, SHA-1 `8a967e4efbdbc4b30f8ce9df0b7383b475aafb7b`) `EBattle8PresentInventoryFullText`
+- `EF:7C89..EF:7CB4` (`43` bytes, SHA-1 `6c65899112a80c79c027fd860a338bc055828858`) `EBattle8PresentThrowAwayPrompt`
+- `EF:7CB4..EF:7CED` (`57` bytes, SHA-1 `cdf2ec69a05a549e316427fe56a0ce913d6853ba`) `EBattle8PresentAbandonPrompt`
+- `EF:7CED..EF:7CF8` (`11` bytes, SHA-1 `fc32170687965f02c20effcc7bc3d9882392ae4b`) `EBattle8PresentAbandonRetryText`
+- `EF:7CF8..EF:7D0F` (`23` bytes, SHA-1 `2049a2c4eb026d5a9e973d3a2c55b9b559cf1fd4`) `EBattle8PresentAbandonConfirmedText`
+- `EF:7D0F..EF:7D83` (`116` bytes, SHA-1 `e03d93926ccfc1c23b3e4432788f9c8b83303541`) `EBattle8PresentDropSelectionPrompt`
+- `EF:7D83..EF:7DBE` (`59` bytes, SHA-1 `de1a1a6d3283e8ab312a1f6c10c88035bb0d8796`) `EBattle8PresentDropConfirmedText`
+- `EF:7DBE..EF:7DD5` (`23` bytes, SHA-1 `8b1dce22187c4631cb6f88b5cb74df4b81b50070`) `EBattle8PresentDropForbiddenText`
 - `EF:7DD5..EF:7E25` (`80` bytes, SHA-1 `dafcd39be3495506595588a2d98ec0bee797af4f`) `EBattle8MsgBtlCheckPresentGetByteSubstitution`
 - `EF:7E25..EF:843F` (`1562` bytes, SHA-1 `efa6270325aec8cbac88465ebe4dc1b864e62d0c`) `EBattle2AndPreStartBattleText`
 - `EF:843F..EF:8444` (`5` bytes, SHA-1 `d296611446d215d359e8c7664e0a30f31aa7b62e`) `EBattle0MsgAtStartAsleep`
@@ -489,7 +497,15 @@ Labels:
 - `EF:7BBF EBattle8PointerSubstitutionBranch3State`
 - `EF:7BC1 EBattle8PointerSubstitutionOhBabyBranch`
 - `EF:7BDF EBattle8MsgBtlPresentByteSubstitution`
-- `EF:7C42 EBattle8PresentInventoryResultText`
+- `EF:7C42 EBattle8PresentRecipientDeadText`
+- `EF:7C73 EBattle8PresentInventoryFullText`
+- `EF:7C89 EBattle8PresentThrowAwayPrompt`
+- `EF:7CB4 EBattle8PresentAbandonPrompt`
+- `EF:7CED EBattle8PresentAbandonRetryText`
+- `EF:7CF8 EBattle8PresentAbandonConfirmedText`
+- `EF:7D0F EBattle8PresentDropSelectionPrompt`
+- `EF:7D83 EBattle8PresentDropConfirmedText`
+- `EF:7DBE EBattle8PresentDropForbiddenText`
 - `EF:7DD5 EBattle8MsgBtlCheckPresentGetByteSubstitution`
 - `EF:7E25 EBattle2AndPreStartBattleText`
 - `EF:843F EBattle0MsgAtStartAsleep`

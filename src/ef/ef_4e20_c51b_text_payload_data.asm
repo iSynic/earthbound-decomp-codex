@@ -728,8 +728,56 @@ EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
 ; ---------------------------------------------------------------------------
 ; EF:7C42
 
-; EBATTLE8: present inventory-result continuation text.
-EF7C42_EBattle8PresentInventoryResultText:
+; EBATTLE8: present item result when recipient cannot receive directly.
+EF7C42_EBattle8PresentRecipientDeadText:
+
+; ---------------------------------------------------------------------------
+; EF:7C73
+
+; EBATTLE8: present result when party inventory is full.
+EF7C73_EBattle8PresentInventoryFullText:
+
+; ---------------------------------------------------------------------------
+; EF:7C89
+
+; EBATTLE8: present full-inventory throw-away prompt.
+EF7C89_EBattle8PresentThrowAwayPrompt:
+
+; ---------------------------------------------------------------------------
+; EF:7CB4
+
+; EBATTLE8: present abandon confirmation prompt.
+EF7CB4_EBattle8PresentAbandonPrompt:
+
+; ---------------------------------------------------------------------------
+; EF:7CED
+
+; EBATTLE8: present abandon retry text.
+EF7CED_EBattle8PresentAbandonRetryText:
+
+; ---------------------------------------------------------------------------
+; EF:7CF8
+
+; EBATTLE8: present abandon confirmed text.
+EF7CF8_EBattle8PresentAbandonConfirmedText:
+
+; ---------------------------------------------------------------------------
+; EF:7D0F
+
+; EBATTLE8: present drop selection prompt.
+EF7D0F_EBattle8PresentDropSelectionPrompt:
+
+; ---------------------------------------------------------------------------
+; EF:7D83
+
+; EBATTLE8: present drop confirmed text.
+EF7D83_EBattle8PresentDropConfirmedText:
+
+; ---------------------------------------------------------------------------
+; EF:7DBE
+
+; EBATTLE8: present drop forbidden text.
+EF7DBE_EBattle8PresentDropForbiddenText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7DD5

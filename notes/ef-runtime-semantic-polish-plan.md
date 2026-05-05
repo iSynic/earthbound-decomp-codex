@@ -135,3 +135,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:6C6B..6F9A` corridor into player collapse, Flying Man/teddy-bear death,
   enemy defeat flavor, affliction recovery/removal, revive success/failure, and
   shield-adjacent recovery payload anchors.
+- 2026-05-05: EF EBATTLE8 present-result follow-up split the
+  `EF:7C42..7DD5` continuation behind `MSG_BTL_PRESENT` into
+  dead-recipient, full-inventory, throw-away prompt, abandon confirmation,
+  drop-selection, drop-confirmed, and forbidden-drop text anchors. This extends
+  the C2/C1 present byte-substitution bridge without converting EB text bytes
+  to macro source.
