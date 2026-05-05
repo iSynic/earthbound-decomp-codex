@@ -141,3 +141,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   drop-selection, drop-confirmed, and forbidden-drop text anchors. This extends
   the C2/C1 present byte-substitution bridge without converting EB text bytes
   to macro source.
+- 2026-05-05: EF EBATTLE4 status/event prelude follow-up split the
+  `EF:7186..75AB` corridor into action-blocking status text, PSI-seal result
+  branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm
+  event text, Pokey random talk branches, and companion talk anchors before
+  the already split damage pipeline.

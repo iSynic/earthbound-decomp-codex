@@ -105,6 +105,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:763C`, `EF:7655`), miss/target-gone and HP-sucker scripts
   (`EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, `EF:7729`), and periodic
   status damage scripts (`EF:7768`, `EF:7787`, `EF:77B1`, `EF:77DB`).
+- 2026-05-05: EF EBATTLE4 prelude follow-up added source anchors for the
+  preceding `EF:7186..75AB` status/event scripts: action-blocking status
+  flavor, PSI-seal result text, guard/Fly-Honey/homesick text, Runaway Five
+  and Poo/Starstorm event scripts, Pokey random talk branches, and companion
+  talk payloads.
 - 2026-05-05: EF EBATTLE5 recovery/death follow-up added source anchors for
   C2-facing recovery scripts including poison removed `EF:6E97`, nausea
   recovered `EF:6E81`, crying recovered `EF:6ED1`, strange recovered

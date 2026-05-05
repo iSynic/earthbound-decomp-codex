@@ -4243,81 +4243,228 @@ db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
 
 EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
 
-; Original data gap before EF7186_EBattle4StatusEventPreludeText:
+; Original data gap before EF7186_EBattle4MsgBtlDiamondizedCannotMove:
 db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95
 db $16,$E7,$96,$9C,$16,$A5,$95,$94,$00,$15,$95,$9C,$15,$BB,$16,$50
 db $51,$1F,$02,$5D,$03,$02
 
-EF7186_EBattle4StatusEventPreludeText:
+EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+
+; Original data gap before EF7192_EBattle4MsgBtlParalysisCannotMove:
+db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02
+
+EF7192_EBattle4MsgBtlParalysisCannotMove:
+
+; Original data gap before EF71B4_EBattle4MsgBtlNauseaCannotMove:
+db $01,$70,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$16,$00,$00,$50,$50,$9E
+db $A5,$9D,$92,$15,$04,$08,$02,$E6,$C7,$00,$15,$61,$9D,$16,$61,$51
+db $03,$02
+
+EF71B4_EBattle4MsgBtlNauseaCannotMove:
+
+; Original data gap before EF71CC_EBattle4MsgBtlPoisonStatus:
+db $01,$70,$1C,$0D,$17,$20,$A3,$00,$50,$16,$40,$50,$A3,$15,$FA,$15
+db $0C,$9D,$9F,$A6,$15,$34,$03,$02
+
+EF71CC_EBattle4MsgBtlPoisonStatus:
+
+; Original data gap before EF71DF_EBattle4MsgBtlAsleepStatus:
+db $01,$70,$1C,$0E,$16,$00,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E,$94
+db $51,$03,$02
+
+EF71DF_EBattle4MsgBtlAsleepStatus:
+
+; Original data gap before EF71F6_EBattle4MsgBtlImmobilizedStatus:
+db $01,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$50,$96,$15,$D8,$17,$46,$91
+db $A3,$9C,$15,$C9,$51,$03,$02
+
+EF71F6_EBattle4MsgBtlImmobilizedStatus:
+
+; Original data gap before EF720C_EBattle4MsgBtlPsiSealStatus:
+db $01,$70,$1C,$0D,$17,$77,$9E,$16,$07,$00,$50,$50,$9D,$16,$61,$50
+db $91,$17,$10,$51,$03,$02
+
+EF720C_EBattle4MsgBtlPsiSealStatus:
+
+; Original data gap before EF721E_EBattle4PsiSealPlayerSideSoundBranch:
+db $01,$1F,$41,$08,$1B,$02,$1E,$72,$EF,$00,$1F,$02,$37,$0A,$21,$72
+db $EF,$00
+
+EF721E_EBattle4PsiSealPlayerSideSoundBranch:
+
+; Original data gap before EF7221_EBattle4PsiSealResultText:
+db $1F,$02,$1D
+
+EF7221_EBattle4PsiSealResultText:
+
+; Original data gap before EF7249_EBattle4MsgBtlGuardOn:
+db $70,$1C,$0D,$19,$1F,$1B,$04,$50,$A4,$17,$B0,$00,$50,$50,$1C,$12
+db $00,$51,$1F,$02,$57,$03,$00,$16,$DE,$15,$6C,$15,$CB,$16,$90,$9B
+db $15,$67,$A7,$16,$7F,$51,$03,$02
+
+EF7249_EBattle4MsgBtlGuardOn:
+
+; Original data gap before EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+db $01,$70,$1C,$0E,$16,$00,$00,$50,$16,$BC,$97,$A5,$16,$73,$51,$03
+db $02
+
+EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+
+; Original data gap before EF727F_EBattle4MsgBtlHomesickRandom:
+db $01,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$17,$84,$94,$15
+db $F5,$A7,$9F,$9C,$96,$15,$1B,$17,$9F,$50,$6C,$76,$15,$9D,$78,$17
+db $3E,$6E,$51,$03,$02
+
+EF727F_EBattle4MsgBtlHomesickRandom:
+
+; Original data gap before EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+db $1D,$21,$03,$09,$03,$A0,$72,$EF,$00,$B9,$72,$EF,$00,$DB,$72,$EF
+db $00,$01,$70,$1C,$0D,$50,$9D,$99,$A3,$A3,$95,$A3,$16,$FF,$5E,$03
+db $02
+
+EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+
+; Original data gap before EF72B9_EBattle4MsgBtlHomesickCravingFood:
+db $01,$70,$1C,$0D,$17,$B3,$94,$94,$95,$9E,$9C,$A9,$15,$80,$15,$07
+db $16,$55,$50,$7D,$9F,$9D,$5E,$03,$02
+
+EF72B9_EBattle4MsgBtlHomesickCravingFood:
+
+; Original data gap before EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+db $01,$70,$1C,$0D,$15,$80,$15,$07,$95,$91,$16,$35,$15,$1C,$1C,$01
+db $04,$15,$04,$16,$9F,$A2,$16,$B6,$93,$A2,$91,$A6,$15,$1B,$17,$B5
+db $03,$02
+
+EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+
+; Original data gap before EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
+db $5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
+
+EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+
+; Original data gap before EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+db $02
+
+EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+
+; Original data gap before EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+db $01,$70,$72,$9C,$17,$16,$50,$A3,$9D,$17,$09,$50,$A0,$9F,$A5,$17
+db $7C,$17,$A4,$00,$50,$50,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$51,$14
+db $00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C,$92
+db $A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95,$17
+db $99,$15,$9B,$51,$14,$02
+
+EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+
+; Original data gap before EF7415_EBattle4MsgBtlPooBreakIn:
+db $01,$70,$71,$9C,$9C,$15,$4F,$91,$17,$B3,$94,$94,$95,$9E,$5C,$00
+db $50,$15,$1C,$97,$A5,$A9,$A3,$50,$A2,$A5,$A3,$98,$95,$94,$16,$0B
+db $15,$68,$16,$71,$51,$14,$1F,$00,$00,$95,$10,$3C,$01,$70,$79,$15
+db $E4,$A4,$15,$2D,$51,$14,$18,$00,$10,$1E,$18,$01,$01,$01,$1F,$62
+db $00,$70,$7C,$17,$D0,$A9,$50,$A1,$A5,$15,$FA,$15,$9D,$94,$17,$D0
+db $15,$57,$92,$95,$98,$99,$15,$B4,$A2,$9F,$92,$9F,$A4,$51,$14,$1F
+db $02,$0B,$10,$3C,$18,$06,$70,$6C,$79,$50,$96,$9C,$99,$A0,$A0,$15
+db $4A,$A3,$A7,$99,$A4,$93,$98,$16,$02,$17,$67,$17,$91,$A0,$16,$92
+db $50,$6E,$03,$00,$70,$6C,$78,$91,$16,$62,$16,$0C,$17,$03,$00,$50
+db $50,$77,$95,$95,$AA,$5C,$15,$77,$91,$17,$53,$A3,$15,$E0,$A2,$9F
+db $92,$9F,$A4,$5E,$16,$8F,$15,$E4,$A3,$9F,$50,$17,$FA,$16,$6A,$17
+db $91,$51,$6E,$10,$14,$14,$18,$06,$70,$6C,$84,$98,$91,$15,$E4,$A1
+db $A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E,$14,$10,$3C,$1F,$62,$01,$18
+db $00,$18,$01,$0E,$04,$3E,$01,$02
+
+EF7415_EBattle4MsgBtlPooBreakIn:
+
+; Original data gap before EF743B_EBattle4MsgBtlPooStarstormReveal:
+db $1F,$71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50
+db $1C,$02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15
+db $52,$A3,$9B,$A9,$51,$02
+
+EF743B_EBattle4MsgBtlPooStarstormReveal:
+
+; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
+db $01,$70,$1C,$02,$04,$16,$AC,$16,$55,$50,$9E,$95,$A7,$50,$16,$FE
+db $5C,$14,$00,$50,$50,$80,$83,$79,$50,$83,$A4,$91,$A2,$17,$60,$9D
+db $51,$14,$00,$02
+
+EF745F_EBattle4MsgBtlPokeyTalkRandom:
+
+; Original data gap before EF749D_EBattle4MsgBtlPokeyPlayedDead:
+db $1D,$21,$08,$09,$08,$9D,$74,$EF,$00,$B0,$74,$EF,$00,$C9,$74,$EF
+db $00,$E6,$74,$EF,$00,$FA,$74,$EF,$00,$14,$75,$EF,$00,$30,$75,$EF
+db $00,$48,$75,$EF,$00,$01,$70,$80,$17,$09,$A9,$16,$AC,$1C,$01,$08
+db $00,$50,$50,$91,$16,$F5,$17,$E8,$95,$9C,$94,$51,$03,$02
+
+EF749D_EBattle4MsgBtlPokeyPlayedDead:
+
+; Original data gap before EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+db $01,$70,$80,$17,$09,$A9,$50,$17,$36,$A9,$15,$57,$94,$95,$91,$94
+db $51,$03,$02
+
+EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+
+; Original data gap before EF74C9_EBattle4MsgBtlPokeyApologized:
+db $01,$70,$80,$17,$09,$A9,$50,$A0,$A2,$95,$A4,$16,$74,$95,$94,$00
+db $50,$15,$0C,$93,$A2,$A9,$51,$03,$02
+
+EF74C9_EBattle4MsgBtlPokeyApologized:
+
+; Original data gap before EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+db $01,$70,$80,$17,$09,$A9,$50,$91,$A0,$9F,$9C,$9F,$97,$99,$AA,$95
+db $94,$00,$50,$17,$96,$96,$16,$4B,$9C,$A9,$51,$03,$02
+
+EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+
+; Original data gap before EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+db $01,$70,$80,$17,$09,$A9,$15,$80,$00,$50,$15,$0C,$98,$99,$9D,$16
+db $EB,$51,$03,$02
+
+EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+
+; Original data gap before EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+db $01,$70,$80,$17,$09,$A9,$50,$17,$9D,$95,$94,$00,$50,$50,$15,$BF
+db $99,$9E,$9E,$9F,$93,$15,$9E,$51,$03,$02
+
+EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+
+; Original data gap before EF7530_EBattle4MsgBtlPokeyComplained:
+db $01,$70,$80,$17,$09,$A9,$50,$A3,$9D,$99,$9C,$95,$94,$00,$50,$15
+db $8C,$A3,$99,$17,$CE,$A2,$95,$9C,$A9,$51,$03,$02
+
+EF7530_EBattle4MsgBtlPokeyComplained:
+
+; Original data gap before EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+db $01,$70,$80,$17,$09,$A9,$16,$C5,$A0,$9C,$16,$43,$95,$94,$00,$50
+db $15,$0C,$1C,$01,$08,$51,$03,$02
+
+EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+
+; Original data gap before EF7569_EBattle4MsgBtlMyDogHowling:
+db $01,$70,$80,$17,$09,$A9,$50,$A4,$17,$B0,$15,$90,$00,$50,$50,$95
+db $94,$97,$95,$50,$93,$9C,$9F,$17,$AB,$15,$06,$17,$42,$A9,$51,$03
+db $02
+
+EF7569_EBattle4MsgBtlMyDogHowling:
+
+; Original data gap before EF7579_EBattle4MsgBtlPickeyTalk:
+db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$92,$17,$25,$17,$7D,$03,$02
+
+EF7579_EBattle4MsgBtlPickeyTalk:
+
+; Original data gap before EF7591_EBattle4MsgBtlTonyTalk:
+db $01,$70,$1C,$0D,$16,$00,$00,$50,$17,$EF,$16,$DC,$16,$96,$9D,$17
+db $BE,$17,$F4,$16,$7F,$51,$03,$02
+
+EF7591_EBattle4MsgBtlTonyTalk:
+
+; Original data gap before EF7593_EBattle4MsgBtlBalmonTalk:
+db $01,$02
+
+EF7593_EBattle4MsgBtlBalmonTalk:
 
 ; Original data gap before EF75AB_EBattle4MsgBtlDamageAmount:
-db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02,$01,$70,$1C,$0D
-db $15,$39,$92,$9F,$94,$A9,$16,$00,$00,$50,$50,$9E,$A5,$9D,$92,$15
-db $04,$08,$02,$E6,$C7,$00,$15,$61,$9D,$16,$61,$51,$03,$02,$01,$70
-db $1C,$0D,$17,$20,$A3,$00,$50,$16,$40,$50,$A3,$15,$FA,$15,$0C,$9D
-db $9F,$A6,$15,$34,$03,$02,$01,$70,$1C,$0E,$16,$00,$00,$50,$50,$A0
-db $9F,$99,$A3,$15,$7E,$94,$51,$03,$02,$01,$70,$1C,$0D,$16,$0C,$A3
-db $00,$50,$50,$96,$15,$D8,$17,$46,$91,$A3,$9C,$15,$C9,$51,$03,$02
-db $01,$70,$1C,$0D,$17,$77,$9E,$16,$07,$00,$50,$50,$9D,$16,$61,$50
-db $91,$17,$10,$51,$03,$02,$01,$1F,$41,$08,$1B,$02,$1E,$72,$EF,$00
-db $1F,$02,$37,$0A,$21,$72,$EF,$00,$1F,$02,$1D,$70,$1C,$0D,$19,$1F
-db $1B,$04,$50,$A4,$17,$B0,$00,$50,$50,$1C,$12,$00,$51,$1F,$02,$57
-db $03,$00,$16,$DE,$15,$6C,$15,$CB,$16,$90,$9B,$15,$67,$A7,$16,$7F
-db $51,$03,$02,$01,$70,$1C,$0E,$16,$00,$00,$50,$16,$BC,$97,$A5,$16
-db $73,$51,$03,$02,$01,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9
-db $17,$84,$94,$15,$F5,$A7,$9F,$9C,$96,$15,$1B,$17,$9F,$50,$6C,$76
-db $15,$9D,$78,$17,$3E,$6E,$51,$03,$02,$1D,$21,$03,$09,$03,$A0,$72
-db $EF,$00,$B9,$72,$EF,$00,$DB,$72,$EF,$00,$01,$70,$1C,$0D,$50,$9D
-db $99,$A3,$A3,$95,$A3,$16,$FF,$5E,$03,$02,$01,$70,$1C,$0D,$17,$B3
-db $94,$94,$95,$9E,$9C,$A9,$15,$80,$15,$07,$16,$55,$50,$7D,$9F,$9D
-db $5E,$03,$02,$01,$70,$1C,$0D,$15,$80,$15,$07,$95,$91,$16,$35,$15
-db $1C,$1C,$01,$04,$15,$04,$16,$9F,$A2,$16,$B6,$93,$A2,$91,$A6,$15
-db $1B,$17,$B5,$03,$02,$01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D
-db $9F,$A4,$99,$A6,$15,$5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
-db $02,$01,$70,$72,$9C,$17,$16,$50,$A3,$9D,$17,$09,$50,$A0,$9F,$A5
-db $17,$7C,$17,$A4,$00,$50,$50,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$51
-db $14,$00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C
-db $92,$A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95
-db $17,$99,$15,$9B,$51,$14,$02,$01,$70,$71,$9C,$9C,$15,$4F,$91,$17
-db $B3,$94,$94,$95,$9E,$5C,$00,$50,$15,$1C,$97,$A5,$A9,$A3,$50,$A2
-db $A5,$A3,$98,$95,$94,$16,$0B,$15,$68,$16,$71,$51,$14,$1F,$00,$00
-db $95,$10,$3C,$01,$70,$79,$15,$E4,$A4,$15,$2D,$51,$14,$18,$00,$10
-db $1E,$18,$01,$01,$01,$1F,$62,$00,$70,$7C,$17,$D0,$A9,$50,$A1,$A5
-db $15,$FA,$15,$9D,$94,$17,$D0,$15,$57,$92,$95,$98,$99,$15,$B4,$A2
-db $9F,$92,$9F,$A4,$51,$14,$1F,$02,$0B,$10,$3C,$18,$06,$70,$6C,$79
-db $50,$96,$9C,$99,$A0,$A0,$15,$4A,$A3,$A7,$99,$A4,$93,$98,$16,$02
-db $17,$67,$17,$91,$A0,$16,$92,$50,$6E,$03,$00,$70,$6C,$78,$91,$16
-db $62,$16,$0C,$17,$03,$00,$50,$50,$77,$95,$95,$AA,$5C,$15,$77,$91
-db $17,$53,$A3,$15,$E0,$A2,$9F,$92,$9F,$A4,$5E,$16,$8F,$15,$E4,$A3
-db $9F,$50,$17,$FA,$16,$6A,$17,$91,$51,$6E,$10,$14,$14,$18,$06,$70
-db $6C,$84,$98,$91,$15,$E4,$A1,$A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E
-db $14,$10,$3C,$1F,$62,$01,$18,$00,$18,$01,$0E,$04,$3E,$01,$02,$1F
-db $71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50,$1C
-db $02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15,$52
-db $A3,$9B,$A9,$51,$02,$01,$70,$1C,$02,$04,$16,$AC,$16,$55,$50,$9E
-db $95,$A7,$50,$16,$FE,$5C,$14,$00,$50,$50,$80,$83,$79,$50,$83,$A4
-db $91,$A2,$17,$60,$9D,$51,$14,$00,$02,$1D,$21,$08,$09,$08,$9D,$74
-db $EF,$00,$B0,$74,$EF,$00,$C9,$74,$EF,$00,$E6,$74,$EF,$00,$FA,$74
-db $EF,$00,$14,$75,$EF,$00,$30,$75,$EF,$00,$48,$75,$EF,$00,$01,$70
-db $80,$17,$09,$A9,$16,$AC,$1C,$01,$08,$00,$50,$50,$91,$16,$F5,$17
-db $E8,$95,$9C,$94,$51,$03,$02,$01,$70,$80,$17,$09,$A9,$50,$17,$36
-db $A9,$15,$57,$94,$95,$91,$94,$51,$03,$02,$01,$70,$80,$17,$09,$A9
-db $50,$A0,$A2,$95,$A4,$16,$74,$95,$94,$00,$50,$15,$0C,$93,$A2,$A9
-db $51,$03,$02,$01,$70,$80,$17,$09,$A9,$50,$91,$A0,$9F,$9C,$9F,$97
-db $99,$AA,$95,$94,$00,$50,$17,$96,$96,$16,$4B,$9C,$A9,$51,$03,$02
-db $01,$70,$80,$17,$09,$A9,$15,$80,$00,$50,$15,$0C,$98,$99,$9D,$16
-db $EB,$51,$03,$02,$01,$70,$80,$17,$09,$A9,$50,$17,$9D,$95,$94,$00
-db $50,$50,$15,$BF,$99,$9E,$9E,$9F,$93,$15,$9E,$51,$03,$02,$01,$70
-db $80,$17,$09,$A9,$50,$A3,$9D,$99,$9C,$95,$94,$00,$50,$15,$8C,$A3
-db $99,$17,$CE,$A2,$95,$9C,$A9,$51,$03,$02,$01,$70,$80,$17,$09,$A9
-db $16,$C5,$A0,$9C,$16,$43,$95,$94,$00,$50,$15,$0C,$1C,$01,$08,$51
-db $03,$02,$01,$70,$80,$17,$09,$A9,$50,$A4,$17,$B0,$15,$90,$00,$50
-db $50,$95,$94,$97,$95,$50,$93,$9C,$9F,$17,$AB,$15,$06,$17,$42,$A9
-db $51,$03,$02,$01,$70,$1C,$0D,$16,$00,$00,$50,$50,$92,$17,$25,$17
-db $7D,$03,$02,$01,$70,$1C,$0D,$16,$00,$00,$50,$17,$EF,$16,$DC,$16
-db $96,$9D,$17,$BE,$17,$F4,$16,$7F,$51,$03,$02,$01,$02,$01,$70,$1C
-db $0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97,$97,$16,$D9
-db $17,$29,$51,$03,$02
+db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97
+db $97,$16,$D9,$17,$29,$51,$03,$02
 
 EF75AB_EBattle4MsgBtlDamageAmount:
 

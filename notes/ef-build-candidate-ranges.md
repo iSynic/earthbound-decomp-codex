@@ -319,7 +319,39 @@ Data gaps inside protected span:
 - `EF:7123..EF:7142` (`31` bytes, SHA-1 `a3f610416e889477be5df78079b1d761d75480f8`) `EBattle5MsgBtlNeutralizeResult`
 - `EF:7142..EF:7160` (`30` bytes, SHA-1 `146cd7f37e71519b0d2004be040ff876becb3cef`) `EBattle5MsgBtlNeutralizeMetamorph`
 - `EF:7160..EF:7186` (`38` bytes, SHA-1 `594e1e727b025bec9e212a9aaadb94b68870fb34`) `EBattle5MsgBtlFranklinBadgeReflectsThunder`
-- `EF:7186..EF:75AB` (`1061` bytes, SHA-1 `d9bc54b2be269050c6fff70a778cd425edf280cd`) `EBattle4StatusEventPreludeText`
+- `EF:7186..EF:7192` (`12` bytes, SHA-1 `2084a70d00b0f28717b31a940e08dc392efd030a`) `EBattle4MsgBtlDiamondizedCannotMove`
+- `EF:7192..EF:71B4` (`34` bytes, SHA-1 `ee123464ea5ef423e62887b3e7b8c0a900faf0a2`) `EBattle4MsgBtlParalysisCannotMove`
+- `EF:71B4..EF:71CC` (`24` bytes, SHA-1 `56d7f2996d8139565c7d2080a335d91d2d2991c8`) `EBattle4MsgBtlNauseaCannotMove`
+- `EF:71CC..EF:71DF` (`19` bytes, SHA-1 `936f8a6a64fe4a23f442f9c3bcaeeec34560b8c9`) `EBattle4MsgBtlPoisonStatus`
+- `EF:71DF..EF:71F6` (`23` bytes, SHA-1 `414a41a2205d2aa0ede68bf9b4e640fa50158380`) `EBattle4MsgBtlAsleepStatus`
+- `EF:71F6..EF:720C` (`22` bytes, SHA-1 `0991dca0b9526a694996eaedc929fd64a5cce488`) `EBattle4MsgBtlImmobilizedStatus`
+- `EF:720C..EF:721E` (`18` bytes, SHA-1 `f88e28c612efd7475a9884c83b7096db8155978d`) `EBattle4MsgBtlPsiSealStatus`
+- `EF:721E..EF:7221` (`3` bytes, SHA-1 `9a9dd4fc9529f0d0f21e55e79186969738ff5347`) `EBattle4PsiSealPlayerSideSoundBranch`
+- `EF:7221..EF:7249` (`40` bytes, SHA-1 `dcfb9f7c3024d3ae05efc7ed93620eab47123ab9`) `EBattle4PsiSealResultText`
+- `EF:7249..EF:725A` (`17` bytes, SHA-1 `e1e8b5c5040f3d970649b4b145463eaf03a3f380`) `EBattle4MsgBtlGuardOn`
+- `EF:725A..EF:727F` (`37` bytes, SHA-1 `d358286d973116af553ce1a0f035ad1d45ab27ce`) `EBattle4MsgBtlFlyHoneyMindLost`
+- `EF:727F..EF:72A0` (`33` bytes, SHA-1 `6bb0689abc8567d99a0b15ab932c3a0bf765117c`) `EBattle4MsgBtlHomesickRandom`
+- `EF:72A0..EF:72B9` (`25` bytes, SHA-1 `e82ec910c7592d8d35e0390774f11d0b1f322757`) `EBattle4MsgBtlHomesickThoughtMom`
+- `EF:72B9..EF:72DB` (`34` bytes, SHA-1 `2d9e60b39dd3262f51e1440eaca477ff6fb3fc0a`) `EBattle4MsgBtlHomesickCravingFood`
+- `EF:72DB..EF:72F6` (`27` bytes, SHA-1 `34003ffbe658ce975f6ccf063e23d3fed6328071`) `EBattle4MsgBtlHomesickLostMotivation`
+- `EF:72F6..EF:72F7` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EBattle4MsgBtlRunawayFiveBreakIn`
+- `EF:72F7..EF:733D` (`70` bytes, SHA-1 `d196be4d816335a0625788e2688c097ac7643009`) `EBattle4MsgBtlRunawayFiveBreakInFailed`
+- `EF:733D..EF:7415` (`216` bytes, SHA-1 `cbac0b9bda5afd16cfeb868e2ab0cca1e264a1f4`) `EBattle4MsgBtlRunawayFiveBreakInSucceeded`
+- `EF:7415..EF:743B` (`38` bytes, SHA-1 `81313c365a179948200316a3ecdbd5af3b80cef3`) `EBattle4MsgBtlPooBreakIn`
+- `EF:743B..EF:745F` (`36` bytes, SHA-1 `0c94d0a4d445894725aaefaee75c40ff2e9d39c1`) `EBattle4MsgBtlPooStarstormReveal`
+- `EF:745F..EF:749D` (`62` bytes, SHA-1 `727799622495458a59d956ae265b52e126ff9e17`) `EBattle4MsgBtlPokeyTalkRandom`
+- `EF:749D..EF:74B0` (`19` bytes, SHA-1 `6ff4d647c88229bd1f60ddf0a4bafd728e9b1e5b`) `EBattle4MsgBtlPokeyPlayedDead`
+- `EF:74B0..EF:74C9` (`25` bytes, SHA-1 `62861e3d1b1b19fb77a2b8518e14ea9199f0343e`) `EBattle4MsgBtlPokeyPretendedCry`
+- `EF:74C9..EF:74E6` (`29` bytes, SHA-1 `f993d969d77773f68e357daa1c19e75e0a99d69a`) `EBattle4MsgBtlPokeyApologized`
+- `EF:74E6..EF:74FA` (`20` bytes, SHA-1 `e750f9faef3fc1bcf8ef9378a88b5f4778b47499`) `EBattle4MsgBtlPokeyThoughtToSelf`
+- `EF:74FA..EF:7514` (`26` bytes, SHA-1 `4f14bd39c5448b7f9124ef6ac3f0700332d004f9`) `EBattle4MsgBtlPokeyActedInnocent`
+- `EF:7514..EF:7530` (`28` bytes, SHA-1 `b7989bfe3e2065c2c0ef97b711ccf26d4706496f`) `EBattle4MsgBtlPokeySmiledSincerely`
+- `EF:7530..EF:7548` (`24` bytes, SHA-1 `5929c9017c057517713d38a6ee897b3d29ff2915`) `EBattle4MsgBtlPokeyComplained`
+- `EF:7548..EF:7569` (`33` bytes, SHA-1 `da8410480a860a2f8541bc06c10e87107d9bc134`) `EBattle4MsgBtlPokeyEdgedCloser`
+- `EF:7569..EF:7579` (`16` bytes, SHA-1 `a5c0a43b5021b7c9d03729377bf61d1f51c06acb`) `EBattle4MsgBtlMyDogHowling`
+- `EF:7579..EF:7591` (`24` bytes, SHA-1 `fe848981a1676bc95dc4b02c8262e536d9e6f80c`) `EBattle4MsgBtlPickeyTalk`
+- `EF:7591..EF:7593` (`2` bytes, SHA-1 `0ca623e2855f2c75c842ad302fe820e41b4d197d`) `EBattle4MsgBtlTonyTalk`
+- `EF:7593..EF:75AB` (`24` bytes, SHA-1 `d751fe2f17af56e2dc089f3204a9d23240a8ddf9`) `EBattle4MsgBtlBalmonTalk`
 - `EF:75AB..EF:75C2` (`23` bytes, SHA-1 `3a053f08b2ec79049925f079d8b40170757597b4`) `EBattle4MsgBtlDamageAmount`
 - `EF:75C2..EF:75D9` (`23` bytes, SHA-1 `edfab9740fc98f70467246c48b24749140cb7442`) `EBattle4MsgBtlMortalDamageAmount`
 - `EF:75D9..EF:75F0` (`23` bytes, SHA-1 `3a053f08b2ec79049925f079d8b40170757597b4`) `EBattle4MsgBtlSmashDamageAmount`
@@ -458,7 +490,39 @@ Labels:
 - `EF:7123 EBattle5MsgBtlNeutralizeResult`
 - `EF:7142 EBattle5MsgBtlNeutralizeMetamorph`
 - `EF:7160 EBattle5MsgBtlFranklinBadgeReflectsThunder`
-- `EF:7186 EBattle4StatusEventPreludeText`
+- `EF:7186 EBattle4MsgBtlDiamondizedCannotMove`
+- `EF:7192 EBattle4MsgBtlParalysisCannotMove`
+- `EF:71B4 EBattle4MsgBtlNauseaCannotMove`
+- `EF:71CC EBattle4MsgBtlPoisonStatus`
+- `EF:71DF EBattle4MsgBtlAsleepStatus`
+- `EF:71F6 EBattle4MsgBtlImmobilizedStatus`
+- `EF:720C EBattle4MsgBtlPsiSealStatus`
+- `EF:721E EBattle4PsiSealPlayerSideSoundBranch`
+- `EF:7221 EBattle4PsiSealResultText`
+- `EF:7249 EBattle4MsgBtlGuardOn`
+- `EF:725A EBattle4MsgBtlFlyHoneyMindLost`
+- `EF:727F EBattle4MsgBtlHomesickRandom`
+- `EF:72A0 EBattle4MsgBtlHomesickThoughtMom`
+- `EF:72B9 EBattle4MsgBtlHomesickCravingFood`
+- `EF:72DB EBattle4MsgBtlHomesickLostMotivation`
+- `EF:72F6 EBattle4MsgBtlRunawayFiveBreakIn`
+- `EF:72F7 EBattle4MsgBtlRunawayFiveBreakInFailed`
+- `EF:733D EBattle4MsgBtlRunawayFiveBreakInSucceeded`
+- `EF:7415 EBattle4MsgBtlPooBreakIn`
+- `EF:743B EBattle4MsgBtlPooStarstormReveal`
+- `EF:745F EBattle4MsgBtlPokeyTalkRandom`
+- `EF:749D EBattle4MsgBtlPokeyPlayedDead`
+- `EF:74B0 EBattle4MsgBtlPokeyPretendedCry`
+- `EF:74C9 EBattle4MsgBtlPokeyApologized`
+- `EF:74E6 EBattle4MsgBtlPokeyThoughtToSelf`
+- `EF:74FA EBattle4MsgBtlPokeyActedInnocent`
+- `EF:7514 EBattle4MsgBtlPokeySmiledSincerely`
+- `EF:7530 EBattle4MsgBtlPokeyComplained`
+- `EF:7548 EBattle4MsgBtlPokeyEdgedCloser`
+- `EF:7569 EBattle4MsgBtlMyDogHowling`
+- `EF:7579 EBattle4MsgBtlPickeyTalk`
+- `EF:7591 EBattle4MsgBtlTonyTalk`
+- `EF:7593 EBattle4MsgBtlBalmonTalk`
 - `EF:75AB EBattle4MsgBtlDamageAmount`
 - `EF:75C2 EBattle4MsgBtlMortalDamageAmount`
 - `EF:75D9 EBattle4MsgBtlSmashDamageAmount`

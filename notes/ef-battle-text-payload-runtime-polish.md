@@ -55,6 +55,13 @@ callers.
   `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
   shield-nullify, Neutralizer, and Franklin Badge text tail used by C2 timed
   substate and Thunder reflection helpers.
+- `EF:7186..7249` now splits EBATTLE4 action-blocking status text for
+  diamondized, paralysis, nausea, poison, asleep, immobilized, and PSI-seal
+  turns, including the PSI-seal player-side sound branch and `19 1F` byte
+  substitution before `PRINT_PSI_NAME 0`.
+- `EF:7249..75AB` now splits EBATTLE4 guard, Fly Honey, homesickness,
+  Runaway Five, Poo/Starstorm, Pokey, and companion event text before the
+  central damage block.
 - `EF:75AB`, `EF:75C2`, `EF:75D9`, `EF:75F0`, and `EF:7607` now mark the
   amount-bearing damage and SMAAAASH damage scripts selected by the C2
   hit-resolution cluster. These are `1C 0F` amount consumers.
@@ -118,9 +125,16 @@ messages visible while leaving the larger appear/victory/level-up tail coarse.
 The C2 hit-resolution source names a dense EBATTLE4 result set around
 `EF:75AB..77FD`: amount-bearing damage variants, SMAAAASH presentation, dodge,
 miss, target-gone, HP/PP drain, and periodic status damage. Splitting those
-anchors makes the central damage pipeline visible on the EF side while leaving
-the earlier `EF:7186..75AB` status/event prelude coarse until its local
-consumers are promoted.
+anchors makes the central damage pipeline visible on the EF side.
+
+## EBATTLE4 Status And Event Prelude Follow-up
+
+The remaining `EF:7186..75AB` prelude is now split around exact EBATTLE4
+labels. The front status run exposes action-blocking result text for
+diamondized, paralysis, nausea, poison, sleep, immobilization, and PSI seal.
+The event half exposes guard, Fly Honey, homesick flavor, Runaway Five
+intervention, Poo/Starstorm, Pokey random talk branches, and companion text
+before the damage pipeline begins at `EF:75AB`.
 
 ## Recovery And Death Follow-up
 

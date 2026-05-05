@@ -494,8 +494,200 @@ EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
 ; ---------------------------------------------------------------------------
 ; EF:7186
 
-; EBATTLE4: status, guard, event, and companion battle text before damage.
-EF7186_EBattle4StatusEventPreludeText:
+; EBATTLE4: diamondized cannot-move status text.
+EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+
+; ---------------------------------------------------------------------------
+; EF:7192
+
+; EBATTLE4: paralysis cannot-move status text.
+EF7192_EBattle4MsgBtlParalysisCannotMove:
+
+; ---------------------------------------------------------------------------
+; EF:71B4
+
+; EBATTLE4: nausea cannot-move status text.
+EF71B4_EBattle4MsgBtlNauseaCannotMove:
+
+; ---------------------------------------------------------------------------
+; EF:71CC
+
+; EBATTLE4: poison status text.
+EF71CC_EBattle4MsgBtlPoisonStatus:
+
+; ---------------------------------------------------------------------------
+; EF:71DF
+
+; EBATTLE4: asleep status text.
+EF71DF_EBattle4MsgBtlAsleepStatus:
+
+; ---------------------------------------------------------------------------
+; EF:71F6
+
+; EBATTLE4: immobilized status text.
+EF71F6_EBattle4MsgBtlImmobilizedStatus:
+
+; ---------------------------------------------------------------------------
+; EF:720C
+
+; EBATTLE4: PSI-seal status text.
+EF720C_EBattle4MsgBtlPsiSealStatus:
+
+; ---------------------------------------------------------------------------
+; EF:721E
+
+; EBATTLE4: PSI-seal player-side sound branch.
+EF721E_EBattle4PsiSealPlayerSideSoundBranch:
+
+; ---------------------------------------------------------------------------
+; EF:7221
+
+; EBATTLE4: PSI-seal result text.
+EF7221_EBattle4PsiSealResultText:
+
+; ---------------------------------------------------------------------------
+; EF:7249
+
+; EBATTLE4: guard-on text.
+EF7249_EBattle4MsgBtlGuardOn:
+
+; ---------------------------------------------------------------------------
+; EF:725A
+
+; EBATTLE4: Fly Honey mind-loss text.
+EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+
+; ---------------------------------------------------------------------------
+; EF:727F
+
+; EBATTLE4: homesick random branch dispatcher.
+EF727F_EBattle4MsgBtlHomesickRandom:
+
+; ---------------------------------------------------------------------------
+; EF:72A0
+
+; EBATTLE4: homesick thought-of-mom branch.
+EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+
+; ---------------------------------------------------------------------------
+; EF:72B9
+
+; EBATTLE4: homesick craving-food branch.
+EF72B9_EBattle4MsgBtlHomesickCravingFood:
+
+; ---------------------------------------------------------------------------
+; EF:72DB
+
+; EBATTLE4: homesick lost-motivation branch.
+EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+
+; ---------------------------------------------------------------------------
+; EF:72F6
+
+; EBATTLE4: Runaway Five break-in root text.
+EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+
+; ---------------------------------------------------------------------------
+; EF:72F7
+
+; EBATTLE4: Runaway Five break-in failure text.
+EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+
+; ---------------------------------------------------------------------------
+; EF:733D
+
+; EBATTLE4: Runaway Five break-in success text.
+EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+
+; ---------------------------------------------------------------------------
+; EF:7415
+
+; EBATTLE4: Poo break-in PSI realization text.
+EF7415_EBattle4MsgBtlPooBreakIn:
+
+; ---------------------------------------------------------------------------
+; EF:743B
+
+; EBATTLE4: Poo Starstorm reveal text.
+EF743B_EBattle4MsgBtlPooStarstormReveal:
+
+; ---------------------------------------------------------------------------
+; EF:745F
+
+; EBATTLE4: Pokey talk random branch dispatcher.
+EF745F_EBattle4MsgBtlPokeyTalkRandom:
+
+; ---------------------------------------------------------------------------
+; EF:749D
+
+; EBATTLE4: Pokey played-dead talk branch.
+EF749D_EBattle4MsgBtlPokeyPlayedDead:
+
+; ---------------------------------------------------------------------------
+; EF:74B0
+
+; EBATTLE4: Pokey pretended-to-cry talk branch.
+EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+
+; ---------------------------------------------------------------------------
+; EF:74C9
+
+; EBATTLE4: Pokey apology talk branch.
+EF74C9_EBattle4MsgBtlPokeyApologized:
+
+; ---------------------------------------------------------------------------
+; EF:74E6
+
+; EBATTLE4: Pokey thought-to-self talk branch.
+EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+
+; ---------------------------------------------------------------------------
+; EF:74FA
+
+; EBATTLE4: Pokey innocent-act talk branch.
+EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+
+; ---------------------------------------------------------------------------
+; EF:7514
+
+; EBATTLE4: Pokey sincere-smile talk branch.
+EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+
+; ---------------------------------------------------------------------------
+; EF:7530
+
+; EBATTLE4: Pokey complaint talk branch.
+EF7530_EBattle4MsgBtlPokeyComplained:
+
+; ---------------------------------------------------------------------------
+; EF:7548
+
+; EBATTLE4: Pokey edge-closer talk branch.
+EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+
+; ---------------------------------------------------------------------------
+; EF:7569
+
+; EBATTLE4: My Dog howling text.
+EF7569_EBattle4MsgBtlMyDogHowling:
+
+; ---------------------------------------------------------------------------
+; EF:7579
+
+; EBATTLE4: Pickey talk text.
+EF7579_EBattle4MsgBtlPickeyTalk:
+
+; ---------------------------------------------------------------------------
+; EF:7591
+
+; EBATTLE4: Tony talk text.
+EF7591_EBattle4MsgBtlTonyTalk:
+
+; ---------------------------------------------------------------------------
+; EF:7593
+
+; EBATTLE4: Balmon talk text.
+EF7593_EBattle4MsgBtlBalmonTalk:
 
 ; ---------------------------------------------------------------------------
 ; EF:75AB

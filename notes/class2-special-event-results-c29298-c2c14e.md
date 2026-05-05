@@ -130,6 +130,19 @@ Instead, it contains special event results:
 - `92EE` = strong local Master Barf defeat / Poo swoop event result
 - `C14E` = strong local rainbow-colors / Master Belch-side special event family
 
+## EF source-anchor update
+
+A later EF payload split promoted the local event text anchors behind the first
+two families:
+
+- `EF:72F6`, `EF:72F7`, and `EF:733D` now name the Runaway Five break-in root,
+  failed, and succeeded scripts.
+- `EF:7415` and `EF:743B` now name the Poo break-in / PSI Starstorm reveal
+  scripts.
+
+That keeps the C2 special-event row bodies and their EF text payloads visible as
+one contract while the EBATTLE4 bytecode remains ROM-preserved data.
+
 ## What is still open
 
 Still open:
