@@ -151,3 +151,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   helper branches, ordinary/boss/forced victory text, monster-win text,
   level-up/stat-gain amount scripts, and the learned-PSI lead-in before the
   existing `EF:7B77` PSI-name byte-substitution payload.
+- 2026-05-05: EF EBATTLE2 action-flavor follow-up split the
+  `EF:7E25..843F` island into exact `MSG_BTL_*` payload anchors from
+  `MSG_BTL_PPDOWN` through `MSG_BTL_CHOU_ONPA`. The names are intentionally
+  symbol-derived pending a later C2 action-table consumer pass.

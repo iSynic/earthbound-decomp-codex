@@ -102,6 +102,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:7858..7B77` tail into encounter-opening variants, group-actor helper
   branches, victory/loss text, level-up/stat-gain amount scripts, and the
   learned-PSI lead-in before the existing PSI-name byte-substitution payload.
+- 2026-05-05: EF EBATTLE2 action-flavor follow-up split `EF:7E25..843F`
+  into exact `MSG_BTL_*` anchors. These are intentionally symbol-derived for
+  now; the C2 action-table consumer pass can translate or group them once the
+  source-side action ids are pinned.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

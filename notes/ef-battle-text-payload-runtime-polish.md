@@ -100,6 +100,10 @@ callers.
   `EF:7D0F`, `EF:7D83`, and `EF:7DBE` now split the `MSG_BTL_PRESENT`
   result continuation into dead-recipient, full-inventory, abandon, drop, and
   forbidden-drop text paths.
+- `EF:7E25..843F` now splits EBATTLE2 action-flavor narration into
+  symbol-derived `MSG_BTL_*` anchors, covering enemy attack descriptions,
+  guard/flavor actions, gases/breath/light/sound effects, and the last
+  `MSG_BTL_CHOU_ONPA` payload before EBATTLE0 begins.
 - `EF:843F`, `EF:8444`, `EF:8445`, `EF:845D`, and `EF:8477` now mark
   battle-start and random-action status text used by C2 direct `DC1C` callers.
 
@@ -174,6 +178,16 @@ continuations named by the EBATTLE8 listing: recipient-dead fallback,
 inventory-full throw-away prompts, abandon confirmation branches, selected-item
 drop confirmation, and the no-drop retry path. This keeps the present family
 readable without decoding the EB text bytecode into macro source yet.
+
+## EBATTLE2 Action-Flavor Follow-up
+
+The `EF:7E25..843F` EBATTLE2 island is now split around exact listing labels
+from `MSG_BTL_PPDOWN` through `MSG_BTL_CHOU_ONPA`. These labels are
+intentionally conservative and mostly symbol-derived: the visible English text
+shows enemy action narration, but some original symbol names are better kept as
+stable anchors until a C2 action-table consumer pass proves narrower runtime
+roles. The result is still useful immediately because the large pre-start-battle
+blob no longer hides dozens of direct battle-text payload targets.
 
 ## Validation
 

@@ -1214,8 +1214,302 @@ EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
 ; ---------------------------------------------------------------------------
 ; EF:7E25
 
-; EBATTLE2 and pre-start-battle text run.
-EF7E25_EBattle2AndPreStartBattleText:
+; EBATTLE2: `MSG_BTL_PPDOWN` action-flavor text.
+EF7E25_EBattle2MsgBtlPpDown:
+
+; ---------------------------------------------------------------------------
+; EF:7E3E
+
+; EBATTLE2: `MSG_BTL_OKORU` action-flavor text.
+EF7E3E_EBattle2MsgBtlOkoru:
+
+; ---------------------------------------------------------------------------
+; EF:7E55
+
+; EBATTLE2: `MSG_BTL_KITANAI_KOTOBA` action-flavor text.
+EF7E55_EBattle2MsgBtlKitanaiKotoba:
+
+; ---------------------------------------------------------------------------
+; EF:7E70
+
+; EBATTLE2: `MSG_BTL_SUIBUN` action-flavor text.
+EF7E70_EBattle2MsgBtlSuibun:
+
+; ---------------------------------------------------------------------------
+; EF:7E88
+
+; EBATTLE2: `MSG_BTL_ENERGY` action-flavor text.
+EF7E88_EBattle2MsgBtlEnergy:
+
+; ---------------------------------------------------------------------------
+; EF:7EAC
+
+; EBATTLE2: `MSG_BTL_DOKU_KAMITUKI` action-flavor text.
+EF7EAC_EBattle2MsgBtlDokuKamituki:
+
+; ---------------------------------------------------------------------------
+; EF:7ED5
+
+; EBATTLE2: `MSG_BTL_YORO_MISSILE` action-flavor text.
+EF7ED5_EBattle2MsgBtlYoroMissile:
+
+; ---------------------------------------------------------------------------
+; EF:7F02
+
+; EBATTLE2: `MSG_BTL_MULTI_ATTACK` action-flavor text.
+EF7F02_EBattle2MsgBtlMultiAttack:
+
+; ---------------------------------------------------------------------------
+; EF:7F1E
+
+; EBATTLE2: `MSG_BTL_MIGAMAE` action-flavor text.
+EF7F1E_EBattle2MsgBtlMigamae:
+
+; ---------------------------------------------------------------------------
+; EF:7F32
+
+; EBATTLE2: `MSG_BTL_FIREBALL` action-flavor text.
+EF7F32_EBattle2MsgBtlFireball:
+
+; ---------------------------------------------------------------------------
+; EF:7F5A
+
+; EBATTLE2: `MSG_BTL_GEKITOTU` action-flavor text.
+EF7F5A_EBattle2MsgBtlGekitotu:
+
+; ---------------------------------------------------------------------------
+; EF:7F7B
+
+; EBATTLE2: `MSG_BTL_KARATE` action-flavor text.
+EF7F7B_EBattle2MsgBtlKarate:
+
+; ---------------------------------------------------------------------------
+; EF:7F9A
+
+; EBATTLE2: `MSG_BTL_TOMOE` action-flavor text.
+EF7F9A_EBattle2MsgBtlTomoe:
+
+; ---------------------------------------------------------------------------
+; EF:7FC3
+
+; EBATTLE2: `MSG_BTL_BOUSOU` action-flavor text.
+EF7FC3_EBattle2MsgBtlBousou:
+
+; ---------------------------------------------------------------------------
+; EF:7FE0
+
+; EBATTLE2: `MSG_BTL_KNIFE` action-flavor text.
+EF7FE0_EBattle2MsgBtlKnife:
+
+; ---------------------------------------------------------------------------
+; EF:7FFC
+
+; EBATTLE2: `MSG_BTL_TOSSIN` action-flavor text.
+EF7FFC_EBattle2MsgBtlTossin:
+
+; ---------------------------------------------------------------------------
+; EF:8010
+
+; EBATTLE2: `MSG_BTL_KAMITUKI` action-flavor text.
+EF8010_EBattle2MsgBtlKamituki:
+
+; ---------------------------------------------------------------------------
+; EF:8026
+
+; EBATTLE2: `MSG_BTL_HIKKAKI` action-flavor text.
+EF8026_EBattle2MsgBtlHikkaki:
+
+; ---------------------------------------------------------------------------
+; EF:804B
+
+; EBATTLE2: `MSG_BTL_SIPPO` action-flavor text.
+EF804B_EBattle2MsgBtlSippo:
+
+; ---------------------------------------------------------------------------
+; EF:806D
+
+; EBATTLE2: `MSG_BTL_NOSHIKAKARI` action-flavor text.
+EF806D_EBattle2MsgBtlNoshikakari:
+
+; ---------------------------------------------------------------------------
+; EF:808D
+
+; EBATTLE2: `MSG_BTL_KAMIBUKURO` action-flavor text.
+EF808D_EBattle2MsgBtlKamibukuro:
+
+; ---------------------------------------------------------------------------
+; EF:80AC
+
+; EBATTLE2: `MSG_BTL_KONBOU` action-flavor text.
+EF80AC_EBattle2MsgBtlKonbou:
+
+; ---------------------------------------------------------------------------
+; EF:80C4
+
+; EBATTLE2: `MSG_BTL_TATUMAKI` action-flavor text.
+EF80C4_EBattle2MsgBtlTatumaki:
+
+; ---------------------------------------------------------------------------
+; EF:80E4
+
+; EBATTLE2: `MSG_BTL_WATER` action-flavor text.
+EF80E4_EBattle2MsgBtlWater:
+
+; ---------------------------------------------------------------------------
+; EF:8109
+
+; EBATTLE2: `MSG_BTL_FUTEKI_SMILE` action-flavor text.
+EF8109_EBattle2MsgBtlFutekiSmile:
+
+; ---------------------------------------------------------------------------
+; EF:812B
+
+; EBATTLE2: `MSG_BTL_LOUD_SMILE` action-flavor text.
+EF812B_EBattle2MsgBtlLoudSmile:
+
+; ---------------------------------------------------------------------------
+; EF:814F
+
+; EBATTLE2: `MSG_BTL_NIJIRIYORU` action-flavor text.
+EF814F_EBattle2MsgBtlNijiriyoru:
+
+; ---------------------------------------------------------------------------
+; EF:8167
+
+; EBATTLE2: `MSG_BTL_TUBUYAKI1` action-flavor text.
+EF8167_EBattle2MsgBtlTubuyaki1:
+
+; ---------------------------------------------------------------------------
+; EF:8186
+
+; EBATTLE2: `MSG_BTL_TUBUYAKI2` action-flavor text.
+EF8186_EBattle2MsgBtlTubuyaki2:
+
+; ---------------------------------------------------------------------------
+; EF:81A5
+
+; EBATTLE2: `MSG_BTL_TUBUYAKI3` action-flavor text.
+EF81A5_EBattle2MsgBtlTubuyaki3:
+
+; ---------------------------------------------------------------------------
+; EF:81C4
+
+; EBATTLE2: `MSG_BTL_KOROBU` action-flavor text.
+EF81C4_EBattle2MsgBtlKorobu:
+
+; ---------------------------------------------------------------------------
+; EF:81D7
+
+; EBATTLE2: `MSG_BTL_BOOTTO` action-flavor text.
+EF81D7_EBattle2MsgBtlBootto:
+
+; ---------------------------------------------------------------------------
+; EF:81F1
+
+; EBATTLE2: `MSG_BTL_JYOUKI` action-flavor text.
+EF81F1_EBattle2MsgBtlJyouki:
+
+; ---------------------------------------------------------------------------
+; EF:8211
+
+; EBATTLE2: `MSG_BTL_YOROYORO` action-flavor text.
+EF8211_EBattle2MsgBtlYoroyoro:
+
+; ---------------------------------------------------------------------------
+; EF:8226
+
+; EBATTLE2: `MSG_BTL_FURAFURA` action-flavor text.
+EF8226_EBattle2MsgBtlFurafura:
+
+; ---------------------------------------------------------------------------
+; EF:8239
+
+; EBATTLE2: `MSG_BTL_NITANITA` action-flavor text.
+EF8239_EBattle2MsgBtlNitanita:
+
+; ---------------------------------------------------------------------------
+; EF:825C
+
+; EBATTLE2: `MSG_BTL_KOKYUU` action-flavor text.
+EF825C_EBattle2MsgBtlKokyuu:
+
+; ---------------------------------------------------------------------------
+; EF:8281
+
+; EBATTLE2: `MSG_BTL_AISATU` action-flavor text.
+EF8281_EBattle2MsgBtlAisatu:
+
+; ---------------------------------------------------------------------------
+; EF:8299
+
+; EBATTLE2: `MSG_BTL_UNARI` action-flavor text.
+EF8299_EBattle2MsgBtlUnari:
+
+; ---------------------------------------------------------------------------
+; EF:82BC
+
+; EBATTLE2: `MSG_BTL_KACHIKACHI` action-flavor text.
+EF82BC_EBattle2MsgBtlKachikachi:
+
+; ---------------------------------------------------------------------------
+; EF:82D7
+
+; EBATTLE2: `MSG_BTL_MABUSII_HIKARI` action-flavor text.
+EF82D7_EBattle2MsgBtlMabusiiHikari:
+
+; ---------------------------------------------------------------------------
+; EF:82F7
+
+; EBATTLE2: `MSG_BTL_BIRIBIRI` action-flavor text.
+EF82F7_EBattle2MsgBtlBiribiri:
+
+; ---------------------------------------------------------------------------
+; EF:8317
+
+; EBATTLE2: `MSG_BTL_KAFUN` action-flavor text.
+EF8317_EBattle2MsgBtlKafun:
+
+; ---------------------------------------------------------------------------
+; EF:833E
+
+; EBATTLE2: `MSG_BTL_COLD_HAND` action-flavor text.
+EF833E_EBattle2MsgBtlColdHand:
+
+; ---------------------------------------------------------------------------
+; EF:835C
+
+; EBATTLE2: `MSG_BTL_POISON_BREATH` action-flavor text.
+EF835C_EBattle2MsgBtlPoisonBreath:
+
+; ---------------------------------------------------------------------------
+; EF:838A
+
+; EBATTLE2: `MSG_BTL_HAIKI_GAS` action-flavor text.
+EF838A_EBattle2MsgBtlHaikiGas:
+
+; ---------------------------------------------------------------------------
+; EF:83A8
+
+; EBATTLE2: `MSG_BTL_LAUGH_HEN` action-flavor text.
+EF83A8_EBattle2MsgBtlLaughHen:
+
+; ---------------------------------------------------------------------------
+; EF:83CA
+
+; EBATTLE2: `MSG_BTL_FUE` action-flavor text.
+EF83CA_EBattle2MsgBtlFue:
+
+; ---------------------------------------------------------------------------
+; EF:83ED
+
+; EBATTLE2: `MSG_BTL_JUMP_TO_FACE` action-flavor text.
+EF83ED_EBattle2MsgBtlJumpToFace:
+
+; ---------------------------------------------------------------------------
+; EF:8413
+
+; EBATTLE2: `MSG_BTL_CHOU_ONPA` action-flavor text.
+EF8413_EBattle2MsgBtlChouOnpa:
 
 ; ---------------------------------------------------------------------------
 ; EF:843F

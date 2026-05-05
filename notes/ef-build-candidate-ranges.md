@@ -439,7 +439,56 @@ Data gaps inside protected span:
 - `EF:7D83..EF:7DBE` (`59` bytes, SHA-1 `de1a1a6d3283e8ab312a1f6c10c88035bb0d8796`) `EBattle8PresentDropConfirmedText`
 - `EF:7DBE..EF:7DD5` (`23` bytes, SHA-1 `8b1dce22187c4631cb6f88b5cb74df4b81b50070`) `EBattle8PresentDropForbiddenText`
 - `EF:7DD5..EF:7E25` (`80` bytes, SHA-1 `dafcd39be3495506595588a2d98ec0bee797af4f`) `EBattle8MsgBtlCheckPresentGetByteSubstitution`
-- `EF:7E25..EF:843F` (`1562` bytes, SHA-1 `efa6270325aec8cbac88465ebe4dc1b864e62d0c`) `EBattle2AndPreStartBattleText`
+- `EF:7E25..EF:7E3E` (`25` bytes, SHA-1 `326d9aa5613a268a7cf091c729ebce805764c396`) `EBattle2MsgBtlPpDown`
+- `EF:7E3E..EF:7E55` (`23` bytes, SHA-1 `62b508e63eb223b99d8b88f4ced5c3d19c6ec3bf`) `EBattle2MsgBtlOkoru`
+- `EF:7E55..EF:7E70` (`27` bytes, SHA-1 `ad403c9d5c62af3b63a0c2073426d080edae4595`) `EBattle2MsgBtlKitanaiKotoba`
+- `EF:7E70..EF:7E88` (`24` bytes, SHA-1 `d4cc7c09fd548f062cece1a70ac73fd9964ef968`) `EBattle2MsgBtlSuibun`
+- `EF:7E88..EF:7EAC` (`36` bytes, SHA-1 `7adc1d09fead93fcb2723913006fbb6a7583ebd4`) `EBattle2MsgBtlEnergy`
+- `EF:7EAC..EF:7ED5` (`41` bytes, SHA-1 `0bb466bd8007c342c6a9297891c822d2673299ed`) `EBattle2MsgBtlDokuKamituki`
+- `EF:7ED5..EF:7F02` (`45` bytes, SHA-1 `5d6e6f3b90307c29703ea2ea2a8b9269e44b7d37`) `EBattle2MsgBtlYoroMissile`
+- `EF:7F02..EF:7F1E` (`28` bytes, SHA-1 `598fb84e36c1c4e781b7776dd6819c825c857d4f`) `EBattle2MsgBtlMultiAttack`
+- `EF:7F1E..EF:7F32` (`20` bytes, SHA-1 `52fa387f2cbecca8ff2195b8de671309037c6804`) `EBattle2MsgBtlMigamae`
+- `EF:7F32..EF:7F5A` (`40` bytes, SHA-1 `85f388be8449a78fd1d47b3faec59d47cf1a0f99`) `EBattle2MsgBtlFireball`
+- `EF:7F5A..EF:7F7B` (`33` bytes, SHA-1 `b0142cf7c5087b89a62952b0991c1bd0dbd913fb`) `EBattle2MsgBtlGekitotu`
+- `EF:7F7B..EF:7F9A` (`31` bytes, SHA-1 `a357002a69f1b46b6a76a7e9b3055c7bb0c77775`) `EBattle2MsgBtlKarate`
+- `EF:7F9A..EF:7FC3` (`41` bytes, SHA-1 `75819d5a006c32395c7a2a2cc2bacff2436c788e`) `EBattle2MsgBtlTomoe`
+- `EF:7FC3..EF:7FE0` (`29` bytes, SHA-1 `69f0796dc2b04c37be3fb915a1eda2ddb512dbc1`) `EBattle2MsgBtlBousou`
+- `EF:7FE0..EF:7FFC` (`28` bytes, SHA-1 `3e2a4bdea4fc98b6be491c43db53802c41bde675`) `EBattle2MsgBtlKnife`
+- `EF:7FFC..EF:8010` (`20` bytes, SHA-1 `5cd8bbe977488af7d4e836905a40f20d2543df07`) `EBattle2MsgBtlTossin`
+- `EF:8010..EF:8026` (`22` bytes, SHA-1 `8425ae9463d5386f41bf5748ea3474b581fccdfd`) `EBattle2MsgBtlKamituki`
+- `EF:8026..EF:804B` (`37` bytes, SHA-1 `f923668a1fc483512cc1b511ed685041e859caf3`) `EBattle2MsgBtlHikkaki`
+- `EF:804B..EF:806D` (`34` bytes, SHA-1 `003a2d6cffe3fa65dd03c9665a3e70afdddc4ff1`) `EBattle2MsgBtlSippo`
+- `EF:806D..EF:808D` (`32` bytes, SHA-1 `c683c425d77fd742eacc25e674d6f856cad46a72`) `EBattle2MsgBtlNoshikakari`
+- `EF:808D..EF:80AC` (`31` bytes, SHA-1 `1d59a71f4c62e68ddf8b5529ee3d7a0c81c4b84a`) `EBattle2MsgBtlKamibukuro`
+- `EF:80AC..EF:80C4` (`24` bytes, SHA-1 `68c5e94a8b1ecc6ec2ddac6e066621481fe6f4fe`) `EBattle2MsgBtlKonbou`
+- `EF:80C4..EF:80E4` (`32` bytes, SHA-1 `be3cd61d6d790466e389c8d4a19deb52b8a4eda4`) `EBattle2MsgBtlTatumaki`
+- `EF:80E4..EF:8109` (`37` bytes, SHA-1 `b3f9f938dce38896c987ec9240ded077a1bfdfbf`) `EBattle2MsgBtlWater`
+- `EF:8109..EF:812B` (`34` bytes, SHA-1 `53867573d3ca72ac82a92a2691f1b2c1a0dc6a19`) `EBattle2MsgBtlFutekiSmile`
+- `EF:812B..EF:814F` (`36` bytes, SHA-1 `e74b9c9ae63002c1db3ea7abf8cb17562ba686c6`) `EBattle2MsgBtlLoudSmile`
+- `EF:814F..EF:8167` (`24` bytes, SHA-1 `1406b3b5c44491ee07f0035ec553474792d6a55f`) `EBattle2MsgBtlNijiriyoru`
+- `EF:8167..EF:8186` (`31` bytes, SHA-1 `a6d127caa5d9da57e9250b5ff7efdb2c9a62ff2a`) `EBattle2MsgBtlTubuyaki1`
+- `EF:8186..EF:81A5` (`31` bytes, SHA-1 `b72d3a435ff08c08ca000b008f4655333c269777`) `EBattle2MsgBtlTubuyaki2`
+- `EF:81A5..EF:81C4` (`31` bytes, SHA-1 `e01da5c379b716391ea472922d569164ca7fc4a1`) `EBattle2MsgBtlTubuyaki3`
+- `EF:81C4..EF:81D7` (`19` bytes, SHA-1 `c0fbd669a88ec949c2a21f88712018535491f99f`) `EBattle2MsgBtlKorobu`
+- `EF:81D7..EF:81F1` (`26` bytes, SHA-1 `04b5000c1073ded928bc32f09a02e8652c54b772`) `EBattle2MsgBtlBootto`
+- `EF:81F1..EF:8211` (`32` bytes, SHA-1 `4d2f2d2fc803360d542ab15691cb06621dc22e4e`) `EBattle2MsgBtlJyouki`
+- `EF:8211..EF:8226` (`21` bytes, SHA-1 `fe763552f4afd02d5177d51edaee3b5686d705a0`) `EBattle2MsgBtlYoroyoro`
+- `EF:8226..EF:8239` (`19` bytes, SHA-1 `796343d6f46509bee0764b341f85ab8e7d5e6951`) `EBattle2MsgBtlFurafura`
+- `EF:8239..EF:825C` (`35` bytes, SHA-1 `55e8e7100f0546551f76ae0bc38ae504856ef4ed`) `EBattle2MsgBtlNitanita`
+- `EF:825C..EF:8281` (`37` bytes, SHA-1 `9d1dfffbada6fb639a91c9ecda304fe52b8166af`) `EBattle2MsgBtlKokyuu`
+- `EF:8281..EF:8299` (`24` bytes, SHA-1 `62a5b594ee81fff4b5989ab508d8cc00ec85c4aa`) `EBattle2MsgBtlAisatu`
+- `EF:8299..EF:82BC` (`35` bytes, SHA-1 `9109b3c215aa6a5088aba3ad48e560a0e137f7b5`) `EBattle2MsgBtlUnari`
+- `EF:82BC..EF:82D7` (`27` bytes, SHA-1 `4c0bde06d175c46ede6731980022ae937b9fe071`) `EBattle2MsgBtlKachikachi`
+- `EF:82D7..EF:82F7` (`32` bytes, SHA-1 `5a3f46d35b42a7e4d4ba283dbe852b6cff01a407`) `EBattle2MsgBtlMabusiiHikari`
+- `EF:82F7..EF:8317` (`32` bytes, SHA-1 `814782bd0c0fc50f71212577f6c07e33213a2e78`) `EBattle2MsgBtlBiribiri`
+- `EF:8317..EF:833E` (`39` bytes, SHA-1 `05b7ffcb0b2d759a14805f3e8b751620a039b0f2`) `EBattle2MsgBtlKafun`
+- `EF:833E..EF:835C` (`30` bytes, SHA-1 `f6dbe8e72962065aba0cb517f1b989878f798f5b`) `EBattle2MsgBtlColdHand`
+- `EF:835C..EF:838A` (`46` bytes, SHA-1 `7b8d12313f204b74ba26d24358487f2eb82246a2`) `EBattle2MsgBtlPoisonBreath`
+- `EF:838A..EF:83A8` (`30` bytes, SHA-1 `dc29ae79032986a73eca082ce7a40b7576c899e3`) `EBattle2MsgBtlHaikiGas`
+- `EF:83A8..EF:83CA` (`34` bytes, SHA-1 `c34824f9fbb92f396328cd17f130aabe04b5ba49`) `EBattle2MsgBtlLaughHen`
+- `EF:83CA..EF:83ED` (`35` bytes, SHA-1 `df48a364ea3ae15bff4a6c36865fb6bcb59d006c`) `EBattle2MsgBtlFue`
+- `EF:83ED..EF:8413` (`38` bytes, SHA-1 `01f9156f8793463283afb295e0e2d387291bf972`) `EBattle2MsgBtlJumpToFace`
+- `EF:8413..EF:843F` (`44` bytes, SHA-1 `bde83f459bf6244484edc67955bd6654773055be`) `EBattle2MsgBtlChouOnpa`
 - `EF:843F..EF:8444` (`5` bytes, SHA-1 `d296611446d215d359e8c7664e0a30f31aa7b62e`) `EBattle0MsgAtStartAsleep`
 - `EF:8444..EF:8445` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EBattle0MsgAtStartPsiSeal`
 - `EF:8445..EF:845D` (`24` bytes, SHA-1 `290b309cbe7864982914515bbac8838cfec3ec00`) `EBattle0MsgAtStartStrange`
@@ -649,7 +698,56 @@ Labels:
 - `EF:7D83 EBattle8PresentDropConfirmedText`
 - `EF:7DBE EBattle8PresentDropForbiddenText`
 - `EF:7DD5 EBattle8MsgBtlCheckPresentGetByteSubstitution`
-- `EF:7E25 EBattle2AndPreStartBattleText`
+- `EF:7E25 EBattle2MsgBtlPpDown`
+- `EF:7E3E EBattle2MsgBtlOkoru`
+- `EF:7E55 EBattle2MsgBtlKitanaiKotoba`
+- `EF:7E70 EBattle2MsgBtlSuibun`
+- `EF:7E88 EBattle2MsgBtlEnergy`
+- `EF:7EAC EBattle2MsgBtlDokuKamituki`
+- `EF:7ED5 EBattle2MsgBtlYoroMissile`
+- `EF:7F02 EBattle2MsgBtlMultiAttack`
+- `EF:7F1E EBattle2MsgBtlMigamae`
+- `EF:7F32 EBattle2MsgBtlFireball`
+- `EF:7F5A EBattle2MsgBtlGekitotu`
+- `EF:7F7B EBattle2MsgBtlKarate`
+- `EF:7F9A EBattle2MsgBtlTomoe`
+- `EF:7FC3 EBattle2MsgBtlBousou`
+- `EF:7FE0 EBattle2MsgBtlKnife`
+- `EF:7FFC EBattle2MsgBtlTossin`
+- `EF:8010 EBattle2MsgBtlKamituki`
+- `EF:8026 EBattle2MsgBtlHikkaki`
+- `EF:804B EBattle2MsgBtlSippo`
+- `EF:806D EBattle2MsgBtlNoshikakari`
+- `EF:808D EBattle2MsgBtlKamibukuro`
+- `EF:80AC EBattle2MsgBtlKonbou`
+- `EF:80C4 EBattle2MsgBtlTatumaki`
+- `EF:80E4 EBattle2MsgBtlWater`
+- `EF:8109 EBattle2MsgBtlFutekiSmile`
+- `EF:812B EBattle2MsgBtlLoudSmile`
+- `EF:814F EBattle2MsgBtlNijiriyoru`
+- `EF:8167 EBattle2MsgBtlTubuyaki1`
+- `EF:8186 EBattle2MsgBtlTubuyaki2`
+- `EF:81A5 EBattle2MsgBtlTubuyaki3`
+- `EF:81C4 EBattle2MsgBtlKorobu`
+- `EF:81D7 EBattle2MsgBtlBootto`
+- `EF:81F1 EBattle2MsgBtlJyouki`
+- `EF:8211 EBattle2MsgBtlYoroyoro`
+- `EF:8226 EBattle2MsgBtlFurafura`
+- `EF:8239 EBattle2MsgBtlNitanita`
+- `EF:825C EBattle2MsgBtlKokyuu`
+- `EF:8281 EBattle2MsgBtlAisatu`
+- `EF:8299 EBattle2MsgBtlUnari`
+- `EF:82BC EBattle2MsgBtlKachikachi`
+- `EF:82D7 EBattle2MsgBtlMabusiiHikari`
+- `EF:82F7 EBattle2MsgBtlBiribiri`
+- `EF:8317 EBattle2MsgBtlKafun`
+- `EF:833E EBattle2MsgBtlColdHand`
+- `EF:835C EBattle2MsgBtlPoisonBreath`
+- `EF:838A EBattle2MsgBtlHaikiGas`
+- `EF:83A8 EBattle2MsgBtlLaughHen`
+- `EF:83CA EBattle2MsgBtlFue`
+- `EF:83ED EBattle2MsgBtlJumpToFace`
+- `EF:8413 EBattle2MsgBtlChouOnpa`
 - `EF:843F EBattle0MsgAtStartAsleep`
 - `EF:8444 EBattle0MsgAtStartPsiSeal`
 - `EF:8445 EBattle0MsgAtStartStrange`
