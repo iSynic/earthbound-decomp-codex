@@ -19,6 +19,16 @@ callers.
 - `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
   and PP recovered amount text. The two amount scripts are consumed through
   `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
+- `EF:69EA` and `EF:69FF` now mark the Spy offense and defense amount
+  readouts. Both scripts are `1C 0F` amount consumers reached through the C2
+  Spy setup and the `C1:DC66` amount-print contract.
+- `EF:6A0D`, `EF:6A24`, `EF:6A3C`, `EF:6A54`, `EF:6A6C`, and `EF:6A7F`
+  now mark the Spy vulnerability/susceptibility direct readout text for fire,
+  freeze, flash, paralysis, hypnosis, and Brain Shock. C2 gates these direct
+  scripts from battler resistance bytes before issuing the `DC1C` display call.
+- `EF:6A99` and `EF:6AB3` now mark metamorphose success/failure text used by
+  the C2 normalization tail. `EF:6AC7` now marks the diamondized inflicted
+  text adjacent to the existing paralysis/status payload split.
 - `EF:6AE0`, `EF:6B18`, `EF:6BEF`, `EF:6C3A`, and `EF:6C55` now mark
   paralysis, poison, solidification, strange, and asleep inflicted text. The EF
   decode shows `EF:6AE0` as the body-numb/paralysis message used by
@@ -50,6 +60,16 @@ The EF decode corrected one local C2 naming drift: `C2:9FFE` is the
 body-numb/paralysis result text. The source now names that path as paralysis
 rather than poison. The actual poison-inflicted text remains the separate
 `EF:6B18` script used by the item/status cluster.
+
+## Spy Readout Follow-up
+
+The C2 Spy refinement proved that the coarse `EF:69EA..6AE0` EBATTLE5 corridor
+contains a compact set of distinct scripts, not one generic stat/status
+prelude. Offense and defense use the same amount-print path as HP/PP recovery,
+while the resistance readouts are direct display scripts selected only when C2
+finds a vulnerable/susceptible resistance byte. The metamorphose and diamondized
+neighbors were split in the same pass so the late C2 primary-status tail no
+longer lands in an anonymous gap.
 
 ## Validation
 

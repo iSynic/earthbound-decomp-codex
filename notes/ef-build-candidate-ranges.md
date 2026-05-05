@@ -243,7 +243,17 @@ Data gaps inside protected span:
 - `EF:69A1..EF:69BA` (`25` bytes, SHA-1 `33973d8aedbab180bc8c1d16f85be38becd9dfe7`) `EBattle5MsgBtlHpMaxRecovered`
 - `EF:69BA..EF:69D2` (`24` bytes, SHA-1 `dee68da43f55467846a4643c14bd193aefad587d`) `EBattle5MsgBtlHpRecoveredAmount`
 - `EF:69D2..EF:69EA` (`24` bytes, SHA-1 `178a8e52dbf9278e6a66f1bfc8b5e4d7dbc5065c`) `EBattle5MsgBtlPpRecoveredAmount`
-- `EF:69EA..EF:6AE0` (`246` bytes, SHA-1 `0d5c241896ccb7b02bfeb32ad4d86f31eba5f42d`) `EBattle5AmountAndStatusPreludeText`
+- `EF:69EA..EF:69FF` (`21` bytes, SHA-1 `cbca03e002672de1af2ce08e0476abeb1818a953`) `EBattle5MsgBtlCheckOffenseAmount`
+- `EF:69FF..EF:6A0D` (`14` bytes, SHA-1 `fb730cb9ad258a3376ee011615e57a6bb17319b9`) `EBattle5MsgBtlCheckDefenseAmount`
+- `EF:6A0D..EF:6A24` (`23` bytes, SHA-1 `eaf532c68b3a87d9980a1732fc70a81627fc6cfd`) `EBattle5MsgBtlCheckAntiFire`
+- `EF:6A24..EF:6A3C` (`24` bytes, SHA-1 `7bfa471b99fc69bf48792fe2102e215cc0abbcb2`) `EBattle5MsgBtlCheckAntiFreeze`
+- `EF:6A3C..EF:6A54` (`24` bytes, SHA-1 `91e70fea8be98342875e635db61652bc75aac0ed`) `EBattle5MsgBtlCheckAntiFlash`
+- `EF:6A54..EF:6A6C` (`24` bytes, SHA-1 `384312931078402facd3a775d197d37e6c2221cf`) `EBattle5MsgBtlCheckAntiParalysis`
+- `EF:6A6C..EF:6A7F` (`19` bytes, SHA-1 `d35c8d638a6133af56367bfee05a00320394e969`) `EBattle5MsgBtlCheckBrainLevel0`
+- `EF:6A7F..EF:6A99` (`26` bytes, SHA-1 `10763eb9cfd6b86fa000114461c0c0859e3a50ea`) `EBattle5MsgBtlCheckBrainLevel3`
+- `EF:6A99..EF:6AB3` (`26` bytes, SHA-1 `bfaaec9540a8b30f2c7e48a7f999f357c1f45096`) `EBattle5MsgBtlMetamorphoseOk`
+- `EF:6AB3..EF:6AC7` (`20` bytes, SHA-1 `d19194f31d229b82f858043b7526f136277ae4ab`) `EBattle5MsgBtlMetamorphoseFailed`
+- `EF:6AC7..EF:6AE0` (`25` bytes, SHA-1 `1d28c385166c187b0eb36d3ad118adb8a44c2326`) `EBattle5MsgBtlDiamondized`
 - `EF:6AE0..EF:6AFB` (`27` bytes, SHA-1 `77937f95269e6421b86b3d4693c44fd3843f5b7b`) `EBattle5MsgBtlParalysisInflicted`
 - `EF:6AFB..EF:6B18` (`29` bytes, SHA-1 `3b3d3f415dce645e7699370021264b3c224e9266`) `EBattle5MsgBtlFeelingSickInflicted`
 - `EF:6B18..EF:6B2F` (`23` bytes, SHA-1 `7812336a84bc28904a7bf104c7ec344f21c5819e`) `EBattle5MsgBtlPoisonInflicted`
@@ -305,7 +315,17 @@ Labels:
 - `EF:69A1 EBattle5MsgBtlHpMaxRecovered`
 - `EF:69BA EBattle5MsgBtlHpRecoveredAmount`
 - `EF:69D2 EBattle5MsgBtlPpRecoveredAmount`
-- `EF:69EA EBattle5AmountAndStatusPreludeText`
+- `EF:69EA EBattle5MsgBtlCheckOffenseAmount`
+- `EF:69FF EBattle5MsgBtlCheckDefenseAmount`
+- `EF:6A0D EBattle5MsgBtlCheckAntiFire`
+- `EF:6A24 EBattle5MsgBtlCheckAntiFreeze`
+- `EF:6A3C EBattle5MsgBtlCheckAntiFlash`
+- `EF:6A54 EBattle5MsgBtlCheckAntiParalysis`
+- `EF:6A6C EBattle5MsgBtlCheckBrainLevel0`
+- `EF:6A7F EBattle5MsgBtlCheckBrainLevel3`
+- `EF:6A99 EBattle5MsgBtlMetamorphoseOk`
+- `EF:6AB3 EBattle5MsgBtlMetamorphoseFailed`
+- `EF:6AC7 EBattle5MsgBtlDiamondized`
 - `EF:6AE0 EBattle5MsgBtlParalysisInflicted`
 - `EF:6AFB EBattle5MsgBtlFeelingSickInflicted`
 - `EF:6B18 EBattle5MsgBtlPoisonInflicted`

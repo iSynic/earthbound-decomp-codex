@@ -88,9 +88,13 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `+0x57`, the `C2:3109` UFO fallback table, `EF:7BDF`, and `EF:7DD5` to the
   same `$AA10 -> C1:DD7C -> $9D11 -> 19 1F` byte-substitution bridge.
 - 2026-05-01: Spy readout source follow-up named the `BTLACT_SPY` target
-  battler stat/resistance fields. `EF:69EA` and `EF:69FF` remain `DC66`
+  battler stat/resistance fields. `EF:69EA` and `EF:69FF` are `DC66`
   amount-payload consumers for offense/defense, while the resistance messages
   are direct `DC1C` scripts gated by `0xFF` vulnerability bytes.
+- 2026-05-05: EF payload follow-up added source anchors for the Spy readout
+  scripts at `EF:69EA`, `EF:69FF`, `EF:6A0D`, `EF:6A24`, `EF:6A3C`,
+  `EF:6A54`, `EF:6A6C`, and `EF:6A7F`, plus the neighboring metamorphose
+  and diamondized scripts at `EF:6A99`, `EF:6AB3`, and `EF:6AC7`.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

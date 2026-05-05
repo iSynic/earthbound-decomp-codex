@@ -116,3 +116,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   shield-expired, shield-reflection, PSI-name nullify, Neutralizer, and
   Franklin Badge text tail used by the C2 timed-substate and Thunder
   reflection helpers.
+- 2026-05-05: EF Spy/metamorphose payload follow-up split the
+  `EF:69EA..6AE0` EBATTLE5 corridor into Spy offense/defense amount consumers,
+  direct fire/freeze/flash/paralysis/hypnosis/Brain Shock vulnerability
+  readouts, metamorphose success/failure text, and the diamondized status text
+  adjacent to the existing paralysis/status payload anchors.
