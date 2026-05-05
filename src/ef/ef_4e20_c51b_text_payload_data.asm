@@ -278,8 +278,62 @@ EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
 ; ---------------------------------------------------------------------------
 ; EF:7186
 
-; EBATTLE4: battle text preceding the shared no-effect scripts.
-EF7186_EBattle4PreNoEffectBattleText:
+; EBATTLE4: status, guard, event, and companion battle text before damage.
+EF7186_EBattle4StatusEventPreludeText:
+
+; ---------------------------------------------------------------------------
+; EF:75AB
+
+; EBATTLE4: ordinary amount-bearing damage text, consumed through C1:DC66/1C 0F.
+EF75AB_EBattle4MsgBtlDamageAmount:
+
+; ---------------------------------------------------------------------------
+; EF:75C2
+
+; EBATTLE4: mortal amount-bearing damage text, consumed through C1:DC66/1C 0F.
+EF75C2_EBattle4MsgBtlMortalDamageAmount:
+
+; ---------------------------------------------------------------------------
+; EF:75D9
+
+; EBATTLE4: SMAAAASH amount-bearing damage text, consumed through C1:DC66/1C 0F.
+EF75D9_EBattle4MsgBtlSmashDamageAmount:
+
+; ---------------------------------------------------------------------------
+; EF:75F0
+
+; EBATTLE4: mortal SMAAAASH amount-bearing damage text.
+EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+
+; ---------------------------------------------------------------------------
+; EF:7607
+
+; EBATTLE4: amount-bearing mortal damage-to-death text.
+EF7607_EBattle4MsgBtlDamageToDeathAmount:
+
+; ---------------------------------------------------------------------------
+; EF:7624
+
+; EBATTLE4: player-side SMAAAASH presentation text.
+EF7624_EBattle4MsgBtlSmashPlayer:
+
+; ---------------------------------------------------------------------------
+; EF:7630
+
+; EBATTLE4: monster-side SMAAAASH presentation text.
+EF7630_EBattle4MsgBtlSmashMonster:
+
+; ---------------------------------------------------------------------------
+; EF:763C
+
+; EBATTLE4: shooting/action dodge text.
+EF763C_EBattle4MsgBtlShootDodged:
+
+; ---------------------------------------------------------------------------
+; EF:7655
+
+; EBATTLE4: bash/physical dodge text.
+EF7655_EBattle4MsgBtlBashDodged:
 
 ; ---------------------------------------------------------------------------
 ; EF:766E
@@ -302,8 +356,38 @@ EF7696_EBattle4MsgBtlNoVisibleEffect:
 ; ---------------------------------------------------------------------------
 ; EF:76B3
 
-; EBATTLE4: late miss and drain prelude text.
-EF76B3_EBattle4LateMissAndDrainPreludeText:
+; EBATTLE4: third no-effect variant before miss and drain text.
+EF76B3_EBattle4MsgBtlNoEffectVariantC:
+
+; ---------------------------------------------------------------------------
+; EF:76C7
+
+; EBATTLE4: physical miss text.
+EF76C7_EBattle4MsgBtlMissPhysical:
+
+; ---------------------------------------------------------------------------
+; EF:76D8
+
+; EBATTLE4: shoot miss text.
+EF76D8_EBattle4MsgBtlMissShoot:
+
+; ---------------------------------------------------------------------------
+; EF:76FD
+
+; EBATTLE4: target no-longer-exists text before HP-sucker results.
+EF76FD_EBattle4MsgBtlTargetNotExist:
+
+; ---------------------------------------------------------------------------
+; EF:7710
+
+; EBATTLE4: HP-sucker self-drain direct text.
+EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+
+; ---------------------------------------------------------------------------
+; EF:7729
+
+; EBATTLE4: amount-bearing HP-sucker drain text, consumed through C1:DC66/1C 0F.
+EF7729_EBattle4MsgBtlHpSuckAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:773F
@@ -314,8 +398,32 @@ EF773F_EBattle4MsgBtlPpDrainAmount:
 ; ---------------------------------------------------------------------------
 ; EF:7755
 
-; EBATTLE4: remaining damage-over-time amount text before EBATTLE8.
-EF7755_EBattle4RemainingDamageOverTimeText:
+; EBATTLE4: target-side PP drain text before periodic damage.
+EF7755_EBattle4MsgBtlPpDrainTarget:
+
+; ---------------------------------------------------------------------------
+; EF:7768
+
+; EBATTLE4: strange/status periodic damage text.
+EF7768_EBattle4MsgBtlStrangeDamage:
+
+; ---------------------------------------------------------------------------
+; EF:7787
+
+; EBATTLE4: poison periodic damage text.
+EF7787_EBattle4MsgBtlPoisonDamage:
+
+; ---------------------------------------------------------------------------
+; EF:77B1
+
+; EBATTLE4: sunstroke periodic damage text.
+EF77B1_EBattle4MsgBtlSunstrokeDamage:
+
+; ---------------------------------------------------------------------------
+; EF:77DB
+
+; EBATTLE4: cold periodic damage text.
+EF77DB_EBattle4MsgBtlColdDamage:
 
 ; ---------------------------------------------------------------------------
 ; EF:77FD

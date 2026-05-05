@@ -44,9 +44,20 @@ callers.
   `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
   shield-nullify, Neutralizer, and Franklin Badge text tail used by C2 timed
   substate and Thunder reflection helpers.
+- `EF:75AB`, `EF:75C2`, `EF:75D9`, `EF:75F0`, and `EF:7607` now mark the
+  amount-bearing damage and SMAAAASH damage scripts selected by the C2
+  hit-resolution cluster. These are `1C 0F` amount consumers.
+- `EF:7624`, `EF:7630`, `EF:763C`, and `EF:7655` now mark the player/monster
+  SMAAAASH presentation scripts and shooting/physical dodge scripts used by the
+  same C2 hit-resolution lane.
 - `EF:766E`, `EF:7696`, and `EF:773F` now mark shared no-effect, no-visible
   effect, and PP-drain amount text. `EF:773F` is another `1C 0F` amount
   consumer.
+- `EF:76B3`, `EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, and `EF:7729`
+  now split the adjacent EBATTLE4 no-effect/miss/target-gone/HP-sucker text
+  tail. `EF:7729` is an HP-sucker `1C 0F` amount consumer.
+- `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and `EF:77DB` now split the
+  target-side PP drain and periodic status damage text before EBATTLE8.
 - `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
   call-for-help result scripts selected by the C2 reinforcement prefix/body:
   ordinary success, seed/sprout success, ordinary failure, and seed/sprout
@@ -86,6 +97,15 @@ plus ordinary and seed/sprout failure paths at `EF:7824` and `EF:7830`. The
 same EBATTLE8 neighborhood also contains the `EF:7843` Time Stop return script
 used by the C2 hit-resolution cluster. This split keeps those runtime-facing
 messages visible while leaving the larger appear/victory/level-up tail coarse.
+
+## Damage And Miss Follow-up
+
+The C2 hit-resolution source names a dense EBATTLE4 result set around
+`EF:75AB..77FD`: amount-bearing damage variants, SMAAAASH presentation, dodge,
+miss, target-gone, HP/PP drain, and periodic status damage. Splitting those
+anchors makes the central damage pipeline visible on the EF side while leaving
+the earlier `EF:7186..75AB` status/event prelude coarse until its local
+consumers are promoted.
 
 ## Validation
 

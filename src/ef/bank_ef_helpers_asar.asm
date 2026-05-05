@@ -4080,14 +4080,14 @@ db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
 
 EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
 
-; Original data gap before EF7186_EBattle4PreNoEffectBattleText:
+; Original data gap before EF7186_EBattle4StatusEventPreludeText:
 db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95
 db $16,$E7,$96,$9C,$16,$A5,$95,$94,$00,$15,$95,$9C,$15,$BB,$16,$50
 db $51,$1F,$02,$5D,$03,$02
 
-EF7186_EBattle4PreNoEffectBattleText:
+EF7186_EBattle4StatusEventPreludeText:
 
-; Original data gap before EF766E_EBattle4MsgBtlStatusNoEffect:
+; Original data gap before EF75AB_EBattle4MsgBtlDamageAmount:
 db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02,$01,$70,$1C,$0D
 db $15,$39,$92,$9F,$94,$A9,$16,$00,$00,$50,$50,$9E,$A5,$9D,$92,$15
 db $04,$08,$02,$E6,$C7,$00,$15,$61,$9D,$16,$61,$51,$03,$02,$01,$70
@@ -4154,19 +4154,59 @@ db $51,$03,$02,$01,$70,$1C,$0D,$16,$00,$00,$50,$50,$92,$17,$25,$17
 db $7D,$03,$02,$01,$70,$1C,$0D,$16,$00,$00,$50,$17,$EF,$16,$DC,$16
 db $96,$9D,$17,$BE,$17,$F4,$16,$7F,$51,$03,$02,$01,$02,$01,$70,$1C
 db $0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97,$97,$16,$D9
-db $17,$29,$51,$03,$02,$01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15
-db $86,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02,$01,$1F,$02,$1E
-db $70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50,$15,$0C,$1C,$0E
-db $51,$03,$02,$01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15
-db $D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02,$01,$1F,$02,$1E,$70,$1C
-db $0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03
-db $02,$01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2
-db $A4,$91,$9C,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02,$01,$1F
-db $02,$1F,$50,$50,$1C,$08,$01,$00,$03,$02,$01,$50,$50,$1C,$08,$01
-db $00,$1F,$02,$2F,$03,$02,$01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94
-db $97,$95,$94,$00,$50,$50,$A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02,$01
-db $1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50,$A1
-db $A5,$15,$FA,$9C,$A9,$51,$03,$02
+db $17,$29,$51,$03,$02
+
+EF75AB_EBattle4MsgBtlDamageAmount:
+
+; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageAmount:
+db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
+db $15,$0C,$1C,$0E,$51,$03,$02
+
+EF75C2_EBattle4MsgBtlMortalDamageAmount:
+
+; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageAmount:
+db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
+db $15,$0C,$1C,$0E,$51,$03,$02
+
+EF75D9_EBattle4MsgBtlSmashDamageAmount:
+
+; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
+db $15,$0C,$1C,$0E,$51,$03,$02
+
+EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+
+; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathAmount:
+db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
+db $15,$0C,$1C,$0E,$51,$03,$02
+
+EF7607_EBattle4MsgBtlDamageToDeathAmount:
+
+; Original data gap before EF7624_EBattle4MsgBtlSmashPlayer:
+db $01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2,$A4
+db $91,$9C,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02
+
+EF7624_EBattle4MsgBtlSmashPlayer:
+
+; Original data gap before EF7630_EBattle4MsgBtlSmashMonster:
+db $01,$1F,$02,$1F,$50,$50,$1C,$08,$01,$00,$03,$02
+
+EF7630_EBattle4MsgBtlSmashMonster:
+
+; Original data gap before EF763C_EBattle4MsgBtlShootDodged:
+db $01,$50,$50,$1C,$08,$01,$00,$1F,$02,$2F,$03,$02
+
+EF763C_EBattle4MsgBtlShootDodged:
+
+; Original data gap before EF7655_EBattle4MsgBtlBashDodged:
+db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
+db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
+
+EF7655_EBattle4MsgBtlBashDodged:
+
+; Original data gap before EF766E_EBattle4MsgBtlStatusNoEffect:
+db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
+db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
 EF766E_EBattle4MsgBtlStatusNoEffect:
 
@@ -4182,43 +4222,85 @@ db $0E,$51,$03,$02
 
 EF7696_EBattle4MsgBtlNoVisibleEffect:
 
-; Original data gap before EF76B3_EBattle4LateMissAndDrainPreludeText:
+; Original data gap before EF76B3_EBattle4MsgBtlNoEffectVariantC:
 db $01,$15,$DA,$98,$91,$94,$17,$58,$50,$A6,$99,$A3,$99,$17,$98,$95
 db $96,$96,$16,$A5,$00,$50,$16,$BC,$1C,$0E,$51,$03,$02
 
-EF76B3_EBattle4LateMissAndDrainPreludeText:
+EF76B3_EBattle4MsgBtlNoEffectVariantC:
+
+; Original data gap before EF76C7_EBattle4MsgBtlMissPhysical:
+db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
+db $0E,$51,$03,$02
+
+EF76C7_EBattle4MsgBtlMissPhysical:
+
+; Original data gap before EF76D8_EBattle4MsgBtlMissShoot:
+db $01,$1F,$02,$22,$70,$7A,$16,$A0,$9D,$99,$A3,$A3,$95,$94,$51,$03
+db $02
+
+EF76D8_EBattle4MsgBtlMissShoot:
+
+; Original data gap before EF76FD_EBattle4MsgBtlTargetNotExist:
+db $01,$1F,$02,$22,$15,$37,$9E,$91,$A2,$17,$5B,$15,$9D,$9D,$99,$A3
+db $A3,$95,$94,$00,$50,$50,$98,$99,$A4,$A4,$15,$EB,$50,$A4,$91,$A2
+db $16,$23,$51,$03,$02
+
+EF76FD_EBattle4MsgBtlTargetNotExist:
+
+; Original data gap before EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+db $01,$16,$DE,$50,$1C,$0E,$17,$B1,$00,$50,$15,$70,$97,$9F,$9E,$15
+db $34,$03,$02
+
+EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+
+; Original data gap before EF7729_EBattle4MsgBtlHpSuckAmount:
+db $01,$70,$1C,$0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00
+db $50,$17,$F0,$50,$78,$80,$51,$03,$02
+
+EF7729_EBattle4MsgBtlHpSuckAmount:
 
 ; Original data gap before EF773F_EBattle4MsgBtlPpDrainAmount:
-db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
-db $0E,$51,$03,$02,$01,$1F,$02,$22,$70,$7A,$16,$A0,$9D,$99,$A3,$A3
-db $95,$94,$51,$03,$02,$01,$1F,$02,$22,$15,$37,$9E,$91,$A2,$17,$5B
-db $15,$9D,$9D,$99,$A3,$A3,$95,$94,$00,$50,$50,$98,$99,$A4,$A4,$15
-db $EB,$50,$A4,$91,$A2,$16,$23,$51,$03,$02,$01,$16,$DE,$50,$1C,$0E
-db $17,$B1,$00,$50,$15,$70,$97,$9F,$9E,$15,$34,$03,$02,$01,$70,$1C
-db $0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00,$50,$17,$F0
-db $50,$78,$80,$51,$03,$02,$01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F
-db $50,$78,$80,$00,$50,$15,$2B,$1C,$0E,$51,$03,$02
+db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$78,$80,$00,$50,$15
+db $2B,$1C,$0E,$51,$03,$02
 
 EF773F_EBattle4MsgBtlPpDrainAmount:
 
-; Original data gap before EF7755_EBattle4RemainingDamageOverTimeText:
+; Original data gap before EF7755_EBattle4MsgBtlPpDrainTarget:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF7755_EBattle4RemainingDamageOverTimeText:
+EF7755_EBattle4MsgBtlPpDrainTarget:
+
+; Original data gap before EF7768_EBattle4MsgBtlStrangeDamage:
+db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
+db $51,$03,$02
+
+EF7768_EBattle4MsgBtlStrangeDamage:
+
+; Original data gap before EF7787_EBattle4MsgBtlPoisonDamage:
+db $01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA,$00,$50,$15
+db $04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
+
+EF7787_EBattle4MsgBtlPoisonDamage:
+
+; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamage:
+db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00,$50,$15
+db $52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17,$37,$50
+db $1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02
+
+EF77B1_EBattle4MsgBtlSunstrokeDamage:
+
+; Original data gap before EF77DB_EBattle4MsgBtlColdDamage:
+db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50
+db $15,$04,$A7,$95,$91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57
+db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
+
+EF77DB_EBattle4MsgBtlColdDamage:
 
 ; Original data gap before EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
-db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
-db $51,$03,$02,$01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA
-db $00,$50,$15,$04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51
-db $03,$02,$01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00
-db $50,$15,$52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17
-db $37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02,$01,$70,$1C,$0E
-db $50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50,$15,$04,$A7,$95
-db $91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57,$1C,$0F,$50,$78
-db $80,$15,$D6,$51,$03,$02,$01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA
-db $95,$94,$00,$50,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57,$1C,$0F
-db $50,$78,$80,$15,$D6,$51,$03,$02
+db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04
+db $A2,$95,$93,$95,$99,$A6,$15,$57,$1C,$0F,$50,$78,$80,$15,$D6,$51
+db $03,$02
 
 EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
 

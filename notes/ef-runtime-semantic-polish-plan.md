@@ -126,3 +126,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution
   Time Stop return script at `EF:7843`, and a still-coarse
   appear/victory/level-up tail at `EF:7858..7B77`.
+- 2026-05-05: EF EBATTLE4 damage/miss follow-up split the
+  `EF:7186..77FD` corridor around C2-proven damage amount scripts,
+  SMAAAASH presentation, shooting/physical dodge, shared no-effect variants,
+  physical/shoot miss text, target-gone text, HP/PP drain text, and periodic
+  strange/poison/sunstroke/cold damage scripts.

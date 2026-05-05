@@ -283,13 +283,31 @@ Data gaps inside protected span:
 - `EF:7123..EF:7142` (`31` bytes, SHA-1 `a3f610416e889477be5df78079b1d761d75480f8`) `EBattle5MsgBtlNeutralizeResult`
 - `EF:7142..EF:7160` (`30` bytes, SHA-1 `146cd7f37e71519b0d2004be040ff876becb3cef`) `EBattle5MsgBtlNeutralizeMetamorph`
 - `EF:7160..EF:7186` (`38` bytes, SHA-1 `594e1e727b025bec9e212a9aaadb94b68870fb34`) `EBattle5MsgBtlFranklinBadgeReflectsThunder`
-- `EF:7186..EF:766E` (`1256` bytes, SHA-1 `91b0965d6124e0d4c0f933e878f798917355e3ba`) `EBattle4PreNoEffectBattleText`
+- `EF:7186..EF:75AB` (`1061` bytes, SHA-1 `d9bc54b2be269050c6fff70a778cd425edf280cd`) `EBattle4StatusEventPreludeText`
+- `EF:75AB..EF:75C2` (`23` bytes, SHA-1 `3a053f08b2ec79049925f079d8b40170757597b4`) `EBattle4MsgBtlDamageAmount`
+- `EF:75C2..EF:75D9` (`23` bytes, SHA-1 `edfab9740fc98f70467246c48b24749140cb7442`) `EBattle4MsgBtlMortalDamageAmount`
+- `EF:75D9..EF:75F0` (`23` bytes, SHA-1 `3a053f08b2ec79049925f079d8b40170757597b4`) `EBattle4MsgBtlSmashDamageAmount`
+- `EF:75F0..EF:7607` (`23` bytes, SHA-1 `edfab9740fc98f70467246c48b24749140cb7442`) `EBattle4MsgBtlMortalSmashDamageAmount`
+- `EF:7607..EF:7624` (`29` bytes, SHA-1 `806a7ef398d67cb517fa40d0c53b297828f651d4`) `EBattle4MsgBtlDamageToDeathAmount`
+- `EF:7624..EF:7630` (`12` bytes, SHA-1 `4ea6c0dfa6c448606b728bd676b9541a300edcc8`) `EBattle4MsgBtlSmashPlayer`
+- `EF:7630..EF:763C` (`12` bytes, SHA-1 `d6e222f2f3092a8dbb1df396ebb3a8e82b71ff61`) `EBattle4MsgBtlSmashMonster`
+- `EF:763C..EF:7655` (`25` bytes, SHA-1 `2f17677a234132a95abbcfc211c405e544cf70fc`) `EBattle4MsgBtlShootDodged`
+- `EF:7655..EF:766E` (`25` bytes, SHA-1 `2f17677a234132a95abbcfc211c405e544cf70fc`) `EBattle4MsgBtlBashDodged`
 - `EF:766E..EF:7682` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4MsgBtlStatusNoEffect`
 - `EF:7682..EF:7696` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4AdjacentNoEffectText`
 - `EF:7696..EF:76B3` (`29` bytes, SHA-1 `e4113ef4fa47015dc03660c723c49ae26e239e23`) `EBattle4MsgBtlNoVisibleEffect`
-- `EF:76B3..EF:773F` (`140` bytes, SHA-1 `575f13249e5df1ad8aca9ea0699944c0253db22d`) `EBattle4LateMissAndDrainPreludeText`
+- `EF:76B3..EF:76C7` (`20` bytes, SHA-1 `6097e90c945e2f040dfd0fac365f206f0fe77d8d`) `EBattle4MsgBtlNoEffectVariantC`
+- `EF:76C7..EF:76D8` (`17` bytes, SHA-1 `1110635d12eaf03417de5aa31df997cab60c78a3`) `EBattle4MsgBtlMissPhysical`
+- `EF:76D8..EF:76FD` (`37` bytes, SHA-1 `033b47d37cc1f9de69b043c95cb3c5397bf50dd1`) `EBattle4MsgBtlMissShoot`
+- `EF:76FD..EF:7710` (`19` bytes, SHA-1 `d96d3e5e48371da5b741502fdc4f7a176cbd001a`) `EBattle4MsgBtlTargetNotExist`
+- `EF:7710..EF:7729` (`25` bytes, SHA-1 `3cbd6bb358b9f9607b00e49444509e19f0afa236`) `EBattle4MsgBtlHpSuckSelfDrain`
+- `EF:7729..EF:773F` (`22` bytes, SHA-1 `f8dba4e9c54f6f73c48303350ff61ab1c781e140`) `EBattle4MsgBtlHpSuckAmount`
 - `EF:773F..EF:7755` (`22` bytes, SHA-1 `6232b10ccb1d72f3eadde7a851e2688209a5c83a`) `EBattle4MsgBtlPpDrainAmount`
-- `EF:7755..EF:77FD` (`168` bytes, SHA-1 `dd4beaa5a8c9cefefa6f4e5ba4eb2c9a6531450d`) `EBattle4RemainingDamageOverTimeText`
+- `EF:7755..EF:7768` (`19` bytes, SHA-1 `97622bb4a3f2a58999cb73e624a6e6dd4a2bfe67`) `EBattle4MsgBtlPpDrainTarget`
+- `EF:7768..EF:7787` (`31` bytes, SHA-1 `210944d8fe14331b7fab9ff513e052ec49376722`) `EBattle4MsgBtlStrangeDamage`
+- `EF:7787..EF:77B1` (`42` bytes, SHA-1 `9b8f7fc7618de1531e7d1434952a808da5777b06`) `EBattle4MsgBtlPoisonDamage`
+- `EF:77B1..EF:77DB` (`42` bytes, SHA-1 `e1107c8d05e467a473077d1c58c466c9a116e071`) `EBattle4MsgBtlSunstrokeDamage`
+- `EF:77DB..EF:77FD` (`34` bytes, SHA-1 `128d1011da049119cb9abfd21c65fa7cfec2bab4`) `EBattle4MsgBtlColdDamage`
 - `EF:77FD..EF:7810` (`19` bytes, SHA-1 `bf11a9604ab664ba99d8259cf9a94fd91e386065`) `EBattle8MsgBtlCallForHelpEnemyJoined`
 - `EF:7810..EF:7824` (`20` bytes, SHA-1 `bc9c731025178de4aa8c5dd234c7df273376bf43`) `EBattle8MsgBtlCallForHelpSeedSprouted`
 - `EF:7824..EF:7830` (`12` bytes, SHA-1 `37eb2ca0de50d3f88b762f3cefb361d0d5f08cae`) `EBattle8MsgBtlCallForHelpNoOneCame`
@@ -360,13 +378,31 @@ Labels:
 - `EF:7123 EBattle5MsgBtlNeutralizeResult`
 - `EF:7142 EBattle5MsgBtlNeutralizeMetamorph`
 - `EF:7160 EBattle5MsgBtlFranklinBadgeReflectsThunder`
-- `EF:7186 EBattle4PreNoEffectBattleText`
+- `EF:7186 EBattle4StatusEventPreludeText`
+- `EF:75AB EBattle4MsgBtlDamageAmount`
+- `EF:75C2 EBattle4MsgBtlMortalDamageAmount`
+- `EF:75D9 EBattle4MsgBtlSmashDamageAmount`
+- `EF:75F0 EBattle4MsgBtlMortalSmashDamageAmount`
+- `EF:7607 EBattle4MsgBtlDamageToDeathAmount`
+- `EF:7624 EBattle4MsgBtlSmashPlayer`
+- `EF:7630 EBattle4MsgBtlSmashMonster`
+- `EF:763C EBattle4MsgBtlShootDodged`
+- `EF:7655 EBattle4MsgBtlBashDodged`
 - `EF:766E EBattle4MsgBtlStatusNoEffect`
 - `EF:7682 EBattle4AdjacentNoEffectText`
 - `EF:7696 EBattle4MsgBtlNoVisibleEffect`
-- `EF:76B3 EBattle4LateMissAndDrainPreludeText`
+- `EF:76B3 EBattle4MsgBtlNoEffectVariantC`
+- `EF:76C7 EBattle4MsgBtlMissPhysical`
+- `EF:76D8 EBattle4MsgBtlMissShoot`
+- `EF:76FD EBattle4MsgBtlTargetNotExist`
+- `EF:7710 EBattle4MsgBtlHpSuckSelfDrain`
+- `EF:7729 EBattle4MsgBtlHpSuckAmount`
 - `EF:773F EBattle4MsgBtlPpDrainAmount`
-- `EF:7755 EBattle4RemainingDamageOverTimeText`
+- `EF:7755 EBattle4MsgBtlPpDrainTarget`
+- `EF:7768 EBattle4MsgBtlStrangeDamage`
+- `EF:7787 EBattle4MsgBtlPoisonDamage`
+- `EF:77B1 EBattle4MsgBtlSunstrokeDamage`
+- `EF:77DB EBattle4MsgBtlColdDamage`
 - `EF:77FD EBattle8MsgBtlCallForHelpEnemyJoined`
 - `EF:7810 EBattle8MsgBtlCallForHelpSeedSprouted`
 - `EF:7824 EBattle8MsgBtlCallForHelpNoOneCame`

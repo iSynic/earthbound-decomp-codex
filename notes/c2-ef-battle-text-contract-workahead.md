@@ -99,6 +99,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   call-for-help result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`)
   and the Time Stop return script at `EF:7843`, while keeping the broader
   appear/victory/level-up tail as a coarse payload island.
+- 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
+  hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
+  `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,
+  `EF:763C`, `EF:7655`), miss/target-gone and HP-sucker scripts
+  (`EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, `EF:7729`), and periodic
+  status damage scripts (`EF:7768`, `EF:7787`, `EF:77B1`, `EF:77DB`).
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
