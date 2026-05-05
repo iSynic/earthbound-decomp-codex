@@ -2768,8 +2768,74 @@ EFA2D6_EGoods2MsgOnetTabigoyaReceive:
 ; ---------------------------------------------------------------------------
 ; EF:A2FA
 
-; Remaining EF text payload data after the EGOODS2 item-use split.
-EFA2FA_EfPostEGoods2TextPayloadData:
+; UNKNOWN_EFA2FA: monster-off/Sky Runner event payload.
+EFA2FA_TextUnknownEfa2faMonsterOffEventPayload:
+
+; ---------------------------------------------------------------------------
+; EF:A37A
+
+; Command window option text table.
+EFA37A_CommandWindowText:
+
+; ---------------------------------------------------------------------------
+; EF:A3B6
+
+; Status window label text table.
+EFA3B6_StatusWindowText:
+
+; ---------------------------------------------------------------------------
+; EF:A459
+
+; Unknown window-open tail after the status window text table.
+EFA459_StatusWindowUnknownOpenTail:
+
+; ---------------------------------------------------------------------------
+; EF:A460
+
+; KEYBOARD: name-input window selection layout 0.
+EFA460_NameInputWindowSelectionLayout0:
+
+; ---------------------------------------------------------------------------
+; EF:A4E3
+
+; KEYBOARD: name-input window selection layout 1.
+EFA4E3_NameInputWindowSelectionLayout1:
+
+; ---------------------------------------------------------------------------
+; EF:A566
+
+; KEYBOARD: name-input window selection layout 2.
+EFA566_NameInputWindowSelectionLayout2:
+
+; ---------------------------------------------------------------------------
+; EF:A5E9
+
+; KEYBOARD: name-input window selection layout 3.
+EFA5E9_NameInputWindowSelectionLayout3:
+
+; ---------------------------------------------------------------------------
+; EF:A66C
+
+; KEYBOARD: name-input window selection layout 4.
+EFA66C_NameInputWindowSelectionLayout4:
+
+; ---------------------------------------------------------------------------
+; EF:A6A7
+
+; KEYBOARD: name-input window selection layout 5.
+EFA6A7_NameInputWindowSelectionLayout5:
+
+; ---------------------------------------------------------------------------
+; EF:A6EB
+
+; UNKNOWN7: one-byte end-block payload.
+EFA6EB_TextUnknown7EndBlockPayload:
+
+; ---------------------------------------------------------------------------
+; EF:A6EC
+
+; UNKNOWN7: debug/menu runtime script payload.
+EFA6EC_TextDebugUnknownMenu2:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

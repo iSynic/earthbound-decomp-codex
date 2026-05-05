@@ -698,7 +698,18 @@ Data gaps inside protected span:
 - `EF:A2C9..EF:A2D5` (`12` bytes, SHA-1 `16da9d264bfec7f719429a66fd991ce23355990e`) `EGoods2MsgOnetTabigoya`
 - `EF:A2D5..EF:A2D6` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EGoods2BranchOnetTabigoyaEnd`
 - `EF:A2D6..EF:A2FA` (`36` bytes, SHA-1 `8c143343e807a77d4db7ab725345d2cca0ad491a`) `EGoods2MsgOnetTabigoyaReceive`
-- `EF:A2FA..EF:C51B` (`8737` bytes, SHA-1 `df598f76904cfbac6d2fe28716e6689480fdc4df`) `EfPostEGoods2TextPayloadData`
+- `EF:A2FA..EF:A37A` (`128` bytes, SHA-1 `f6451930cdd148157b9d721702cd030ed42c8315`) `TextUnknownEfa2faMonsterOffEventPayload`
+- `EF:A37A..EF:A3B6` (`60` bytes, SHA-1 `10c466fda240e424b349d311bf6fd86c31be27a0`) `CommandWindowText`
+- `EF:A3B6..EF:A459` (`163` bytes, SHA-1 `c2a8a80c125f8f3ec4e8cdc13da0b68ba59bab19`) `StatusWindowText`
+- `EF:A459..EF:A460` (`7` bytes, SHA-1 `98b234d1e6c672086af5bec751ccf2b653822503`) `StatusWindowUnknownOpenTail`
+- `EF:A460..EF:A4E3` (`131` bytes, SHA-1 `b30ef3e0f03bfaecbfe7796865d70aea0de84269`) `NameInputWindowSelectionLayout0`
+- `EF:A4E3..EF:A566` (`131` bytes, SHA-1 `1a8b23bf683b613191e4d0b1cd49fcd10c4d7711`) `NameInputWindowSelectionLayout1`
+- `EF:A566..EF:A5E9` (`131` bytes, SHA-1 `b30ef3e0f03bfaecbfe7796865d70aea0de84269`) `NameInputWindowSelectionLayout2`
+- `EF:A5E9..EF:A66C` (`131` bytes, SHA-1 `1a8b23bf683b613191e4d0b1cd49fcd10c4d7711`) `NameInputWindowSelectionLayout3`
+- `EF:A66C..EF:A6A7` (`59` bytes, SHA-1 `c35b88c957876a9a45f6f30aed6cb3243c8def3d`) `NameInputWindowSelectionLayout4`
+- `EF:A6A7..EF:A6EB` (`68` bytes, SHA-1 `7641b11de4780c6b6722df547518253ecdd4f51c`) `NameInputWindowSelectionLayout5`
+- `EF:A6EB..EF:A6EC` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `TextUnknown7EndBlockPayload`
+- `EF:A6EC..EF:C51B` (`7727` bytes, SHA-1 `c591fb7eb6bc3f65a7c4e467fdf4dbc151ae4eed`) `TextDebugUnknownMenu2`
 
 Labels:
 
@@ -1161,7 +1172,18 @@ Labels:
 - `EF:A2C9 EGoods2MsgOnetTabigoya`
 - `EF:A2D5 EGoods2BranchOnetTabigoyaEnd`
 - `EF:A2D6 EGoods2MsgOnetTabigoyaReceive`
-- `EF:A2FA EfPostEGoods2TextPayloadData`
+- `EF:A2FA TextUnknownEfa2faMonsterOffEventPayload`
+- `EF:A37A CommandWindowText`
+- `EF:A3B6 StatusWindowText`
+- `EF:A459 StatusWindowUnknownOpenTail`
+- `EF:A460 NameInputWindowSelectionLayout0`
+- `EF:A4E3 NameInputWindowSelectionLayout1`
+- `EF:A566 NameInputWindowSelectionLayout2`
+- `EF:A5E9 NameInputWindowSelectionLayout3`
+- `EF:A66C NameInputWindowSelectionLayout4`
+- `EF:A6A7 NameInputWindowSelectionLayout5`
+- `EF:A6EB TextUnknown7EndBlockPayload`
+- `EF:A6EC TextDebugUnknownMenu2`
 
 Evidence:
 

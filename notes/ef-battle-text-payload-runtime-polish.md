@@ -125,6 +125,10 @@ callers.
   `MSG_BTL_FIRE_BREATH`.
 - `EF:9EF4..A2FA` now splits the EGOODS2 item-use include around the Exit
   Mouse, Hieroglyph, Town Map, and Onett traveler-shack payload branches.
+- `EF:A2FA..C51B` now splits the remaining EF text-payload tail into the
+  unknown monster-off/Sky Runner event payload, command/status window text
+  tables, name-input keyboard layouts, the one-byte `UNKNOWN7` payload, and
+  the debug/menu runtime script at `EF:A6EC`.
 
 ## Correction
 
@@ -267,6 +271,17 @@ followed by the Hieroglyph payload, Town Map success/failure text, and Onett
 traveler-shack receive/end branches. This keeps item/map text payloads separate
 from the preceding EBATTLE1 action text and the following unknown event payload
 at `EF:A2FA`.
+
+## Tail Event, Window Text, Keyboard, And Debug Follow-up
+
+The final `EF:A2FA..C51B` tail is now split across the listing-visible payload
+families. `EF:A2FA` is the unknown monster-off/Sky Runner event script that
+sets `FLG_SYS_MONSTER_OFF`, stages Sky Runner and Dr. Andonuts sprites, and
+returns into the Jeff/Threed event flow. `EF:A37A` and `EF:A3B6` expose the
+command-window and status-window text tables that sit before the keyboard
+include. `EF:A460..A6EB` splits the six name-input keyboard layouts, then
+`EF:A6EB` and `EF:A6EC` expose the one-byte `UNKNOWN7` end-block payload and
+the larger debug/menu runtime script that runs to `EF:C51B`.
 
 ## Validation
 

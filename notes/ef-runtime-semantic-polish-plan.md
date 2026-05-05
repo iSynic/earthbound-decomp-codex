@@ -172,3 +172,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   action payload anchors from `MSG_BTL_NAKAMA0` through `MSG_BTL_FIRE_BREATH`.
 - 2026-05-05: EF EGOODS2 item-use follow-up split `EF:9EF4..A2FA` into Exit
   Mouse, Hieroglyph, Town Map, and traveler-shack payload branches.
+- 2026-05-05: EF tail follow-up split `EF:A2FA..C51B` into unknown event,
+  command/status window text, name-input keyboard, `UNKNOWN7`, and debug/menu
+  runtime payload anchors.
