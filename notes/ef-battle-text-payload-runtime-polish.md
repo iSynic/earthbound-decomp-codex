@@ -116,6 +116,10 @@ callers.
 - `EF:89FE..8FAD` now splits the complete EBATTLE3 enemy-action text include,
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, before the next
   EBATTLE9 include begins.
+- `EF:8FAD..9A47` now splits the complete EBATTLE9 field-monster/graveyard
+  include: the party-size helper branch, Sanctuary field-monster payloads,
+  Paula/graveyard branches, signpost/boss/girl text, and the Guts tutorial
+  system-message branches.
 
 ## Correction
 
@@ -229,6 +233,17 @@ physical variants, enemy hesitation branches, HP-sucker and Shield Killer
 scripts, and the late lightning/Giygas-flavor scripts. The split keeps the
 runtime payloads visible for a later C2 action-table consumer pass while still
 leaving the EB text bytecode ROM-preserved.
+
+## EBATTLE9 Field-Monster And Graveyard Follow-up
+
+The `EF:8FAD..9A47` EBATTLE9 include is now split as a coherent field-facing
+payload island. The front `_SUB_SOREZORE` branch and its end label are helper
+anchors used by the local message scripts, followed by the Moon/Pyramid/Brick
+Road/stone-boss field-monster payload families. The tail covers graveyard and
+Paula-related branches, the Lilliput Steps boss script, the mushroom girl and
+Shinto bridge text, and the long Guts tutorial yes/no branches. These remain
+ROM-preserved text bytecode, but the include is no longer one anonymous EF
+tail before the later EBATTLE1 action-text block.
 
 ## Validation
 

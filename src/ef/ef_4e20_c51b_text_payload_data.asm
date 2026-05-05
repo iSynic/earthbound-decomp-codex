@@ -2132,8 +2132,362 @@ EF8F91_EBattle3MsgBtlGyiyyig3:
 ; ---------------------------------------------------------------------------
 ; EF:8FAD
 
-; Remaining EF text payload data after the EBATTLE3 enemy-action split.
-EF8FAD_EfPostEbattle3TextPayloadData:
+; EBATTLE9: `_SUB_SOREZORE` party-size helper branch.
+EF8FAD_EBattle9SubSorezoreHelper:
+
+; ---------------------------------------------------------------------------
+; EF:8FC9
+
+; EBATTLE9: `_SOREZORE_END` helper branch.
+EF8FC9_EBattle9BranchSorezoreEnd:
+
+; ---------------------------------------------------------------------------
+; EF:8FCB
+
+; EBATTLE9: `MSG_FMON_MOON_A` payload text.
+EF8FCB_EBattle9MsgFmonMoonA:
+
+; ---------------------------------------------------------------------------
+; EF:8FE4
+
+; EBATTLE9: `MSG_FMON_MOON_B` payload text.
+EF8FE4_EBattle9MsgFmonMoonB:
+
+; ---------------------------------------------------------------------------
+; EF:9003
+
+; EBATTLE9: `MSG_FMON_MOON_B_2` payload text.
+EF9003_EBattle9MsgFmonMoonB2:
+
+; ---------------------------------------------------------------------------
+; EF:9022
+
+; EBATTLE9: `MSG_FMON_MOON_C` payload text.
+EF9022_EBattle9MsgFmonMoonC:
+
+; ---------------------------------------------------------------------------
+; EF:9041
+
+; EBATTLE9: `MSG_FMON_PYRA_A_A` payload text.
+EF9041_EBattle9MsgFmonPyraAA:
+
+; ---------------------------------------------------------------------------
+; EF:9060
+
+; EBATTLE9: `MSG_FMON_PYRA_A_B` payload text.
+EF9060_EBattle9MsgFmonPyraAB:
+
+; ---------------------------------------------------------------------------
+; EF:907F
+
+; EBATTLE9: `MSG_FMON_PYRA_A_C` payload text.
+EF907F_EBattle9MsgFmonPyraAC:
+
+; ---------------------------------------------------------------------------
+; EF:909E
+
+; EBATTLE9: `MSG_FMON_PYRA_A_D` payload text.
+EF909E_EBattle9MsgFmonPyraAD:
+
+; ---------------------------------------------------------------------------
+; EF:90BD
+
+; EBATTLE9: `MSG_FMON_PYRA_A_E` payload text.
+EF90BD_EBattle9MsgFmonPyraAE:
+
+; ---------------------------------------------------------------------------
+; EF:90DC
+
+; EBATTLE9: `MSG_FMON_PYRA_A_F` payload text.
+EF90DC_EBattle9MsgFmonPyraAF:
+
+; ---------------------------------------------------------------------------
+; EF:90F9
+
+; EBATTLE9: `MSG_FMON_PYRA_A_G` payload text.
+EF90F9_EBattle9MsgFmonPyraAG:
+
+; ---------------------------------------------------------------------------
+; EF:9118
+
+; EBATTLE9: `MSG_FMON_PYRA_A_H` payload text.
+EF9118_EBattle9MsgFmonPyraAH:
+
+; ---------------------------------------------------------------------------
+; EF:9137
+
+; EBATTLE9: `MSG_FMON_PYRA_A_I` payload text.
+EF9137_EBattle9MsgFmonPyraAI:
+
+; ---------------------------------------------------------------------------
+; EF:9156
+
+; EBATTLE9: `MSG_FMON_PYRA_A_J` payload text.
+EF9156_EBattle9MsgFmonPyraAJ:
+
+; ---------------------------------------------------------------------------
+; EF:9175
+
+; EBATTLE9: `MSG_FMON_PYRA_A_K` payload text.
+EF9175_EBattle9MsgFmonPyraAK:
+
+; ---------------------------------------------------------------------------
+; EF:9194
+
+; EBATTLE9: `MSG_FMON_PYRA_A_L` payload text.
+EF9194_EBattle9MsgFmonPyraAL:
+
+; ---------------------------------------------------------------------------
+; EF:91B3
+
+; EBATTLE9: `MSG_FMON_PYRA_A_M` payload text.
+EF91B3_EBattle9MsgFmonPyraAM:
+
+; ---------------------------------------------------------------------------
+; EF:91D2
+
+; EBATTLE9: `MSG_FMON_PYRA_A_N` payload text.
+EF91D2_EBattle9MsgFmonPyraAN:
+
+; ---------------------------------------------------------------------------
+; EF:91F1
+
+; EBATTLE9: `MSG_FMON_PYRA_A_O` payload text.
+EF91F1_EBattle9MsgFmonPyraAO:
+
+; ---------------------------------------------------------------------------
+; EF:9210
+
+; EBATTLE9: `MSG_FMON_PYRA_A_P` payload text.
+EF9210_EBattle9MsgFmonPyraAP:
+
+; ---------------------------------------------------------------------------
+; EF:922F
+
+; EBATTLE9: `MSG_FMON_PYRA_A_Q` payload text.
+EF922F_EBattle9MsgFmonPyraAQ:
+
+; ---------------------------------------------------------------------------
+; EF:924E
+
+; EBATTLE9: `MSG_FMON_PYRA_B_A` payload text.
+EF924E_EBattle9MsgFmonPyraBA:
+
+; ---------------------------------------------------------------------------
+; EF:926D
+
+; EBATTLE9: `MSG_FMON_PYRA_B_B` payload text.
+EF926D_EBattle9MsgFmonPyraBB:
+
+; ---------------------------------------------------------------------------
+; EF:928C
+
+; EBATTLE9: `MSG_FMON_PYRA_B_C` payload text.
+EF928C_EBattle9MsgFmonPyraBC:
+
+; ---------------------------------------------------------------------------
+; EF:92AB
+
+; EBATTLE9: `MSG_FMON_PYRA_B_D` payload text.
+EF92AB_EBattle9MsgFmonPyraBD:
+
+; ---------------------------------------------------------------------------
+; EF:92CA
+
+; EBATTLE9: `MSG_FMON_PYRA_B_E` payload text.
+EF92CA_EBattle9MsgFmonPyraBE:
+
+; ---------------------------------------------------------------------------
+; EF:92E9
+
+; EBATTLE9: `MSG_FMON_PYRA_B_F` payload text.
+EF92E9_EBattle9MsgFmonPyraBF:
+
+; ---------------------------------------------------------------------------
+; EF:9308
+
+; EBATTLE9: `MSG_FMON_PYRA_B_G` payload text.
+EF9308_EBattle9MsgFmonPyraBG:
+
+; ---------------------------------------------------------------------------
+; EF:9327
+
+; EBATTLE9: `MSG_FMON_PYRA_B_H` payload text.
+EF9327_EBattle9MsgFmonPyraBH:
+
+; ---------------------------------------------------------------------------
+; EF:9346
+
+; EBATTLE9: `MSG_FMON_PYRA_B_I` payload text.
+EF9346_EBattle9MsgFmonPyraBI:
+
+; ---------------------------------------------------------------------------
+; EF:9365
+
+; EBATTLE9: `MSG_FMON_BRICK_A_A` payload text.
+EF9365_EBattle9MsgFmonBrickAA:
+
+; ---------------------------------------------------------------------------
+; EF:9384
+
+; EBATTLE9: `MSG_FMON_BRICK_A_B` payload text.
+EF9384_EBattle9MsgFmonBrickAB:
+
+; ---------------------------------------------------------------------------
+; EF:93A3
+
+; EBATTLE9: `MSG_FMON_BRICK_B_A` payload text.
+EF93A3_EBattle9MsgFmonBrickBA:
+
+; ---------------------------------------------------------------------------
+; EF:93C2
+
+; EBATTLE9: `MSG_FMON_BRICK_B_B` payload text.
+EF93C2_EBattle9MsgFmonBrickBB:
+
+; ---------------------------------------------------------------------------
+; EF:93E1
+
+; EBATTLE9: `MSG_FMON_BRICK_C_A` payload text.
+EF93E1_EBattle9MsgFmonBrickCA:
+
+; ---------------------------------------------------------------------------
+; EF:9400
+
+; EBATTLE9: `MSG_FMON_BRICK_C_B` payload text.
+EF9400_EBattle9MsgFmonBrickCB:
+
+; ---------------------------------------------------------------------------
+; EF:941F
+
+; EBATTLE9: `MSG_FMON_STONE_BOSS` payload text.
+EF941F_EBattle9MsgFmonStoneBoss:
+
+; ---------------------------------------------------------------------------
+; EF:9448
+
+; EBATTLE9: `MSG_FMON_PYRA_BOSS` payload text.
+EF9448_EBattle9MsgFmonPyraBoss:
+
+; ---------------------------------------------------------------------------
+; EF:9467
+
+; EBATTLE9: `MSG_FMON_KRAKEN2_A` payload text.
+EF9467_EBattle9MsgFmonKraken2A:
+
+; ---------------------------------------------------------------------------
+; EF:9486
+
+; EBATTLE9: `MSG_FMON_KRAKEN2_B` payload text.
+EF9486_EBattle9MsgFmonKraken2B:
+
+; ---------------------------------------------------------------------------
+; EF:94A5
+
+; EBATTLE9: `MSG_FMON_KRAKEN2_C` payload text.
+EF94A5_EBattle9MsgFmonKraken2C:
+
+; ---------------------------------------------------------------------------
+; EF:94C4
+
+; EBATTLE9: `MSG_FMON_HIEROGLYPH_A` payload text.
+EF94C4_EBattle9MsgFmonHieroglyphA:
+
+; ---------------------------------------------------------------------------
+; EF:94E3
+
+; EBATTLE9: `MSG_FMON_HIEROGLYPH_B` payload text.
+EF94E3_EBattle9MsgFmonHieroglyphB:
+
+; ---------------------------------------------------------------------------
+; EF:9502
+
+; EBATTLE9: `MSG_FMON_BOSS_GRAVE` payload text.
+EF9502_EBattle9MsgFmonBossGrave:
+
+; ---------------------------------------------------------------------------
+; EF:952E
+
+; EBATTLE9: `MSG_GRFD_POLA` payload text.
+EF952E_EBattle9MsgGrfdPola:
+
+; ---------------------------------------------------------------------------
+; EF:95A3
+
+; EBATTLE9: `_GRFD_POLA_TMP` helper branch.
+EF95A3_EBattle9BranchGrfdPolaTmp:
+
+; ---------------------------------------------------------------------------
+; EF:96D3
+
+; EBATTLE9: `_GRFD_POLA_ITEMFULL` helper branch.
+EF96D3_EBattle9BranchGrfdPolaItemfull:
+
+; ---------------------------------------------------------------------------
+; EF:970F
+
+; EBATTLE9: `_GRFD_POLA_1` helper branch.
+EF970F_EBattle9BranchGrfdPola1:
+
+; ---------------------------------------------------------------------------
+; EF:9737
+
+; EBATTLE9: `_GRFD_POLA_LATER` helper branch.
+EF9737_EBattle9BranchGrfdPolaLater:
+
+; ---------------------------------------------------------------------------
+; EF:976B
+
+; EBATTLE9: `_GRFD_POLA_LATER_YES` helper branch.
+EF976B_EBattle9BranchGrfdPolaLaterYes:
+
+; ---------------------------------------------------------------------------
+; EF:9785
+
+; EBATTLE9: `MSG_GRFD_SIGNPOST_A` payload text.
+EF9785_EBattle9MsgGrfdSignpostA:
+
+; ---------------------------------------------------------------------------
+; EF:97A2
+
+; EBATTLE9: `MSG_GRFD_LLPT_BOSS` payload text.
+EF97A2_EBattle9MsgGrfdLlptBoss:
+
+; ---------------------------------------------------------------------------
+; EF:981C
+
+; EBATTLE9: `MSG_GRFD_KINOKO_GIRL` payload text.
+EF981C_EBattle9MsgGrfdKinokoGirl:
+
+; ---------------------------------------------------------------------------
+; EF:9822
+
+; EBATTLE9: `MSG_GRFD_SHINTO_A` payload text.
+EF9822_EBattle9MsgGrfdShintoA:
+
+; ---------------------------------------------------------------------------
+; EF:9857
+
+; EBATTLE9: `MSG_GRFD_SYSMSG_GUTS` payload text.
+EF9857_EBattle9MsgGrfdSysmsgGuts:
+
+; ---------------------------------------------------------------------------
+; EF:98AD
+
+; EBATTLE9: `_GRFD_SYSMSG_GUTS_NO` helper branch.
+EF98AD_EBattle9BranchGrfdSysmsgGutsNo:
+
+; ---------------------------------------------------------------------------
+; EF:98D3
+
+; EBATTLE9: `_GRFD_SYSMSG_GUTS_YES` helper branch.
+EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
+
+; ---------------------------------------------------------------------------
+; EF:9A47
+
+; Remaining EF text payload data after the EBATTLE9 field-monster/graveyard split.
+EF9A47_EfPostEbattle9TextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

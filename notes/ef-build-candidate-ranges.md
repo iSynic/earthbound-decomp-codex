@@ -592,7 +592,66 @@ Data gaps inside protected span:
 - `EF:8F17..EF:8F4A` (`51` bytes, SHA-1 `833abb473eaaedd8995dcddb89018c082eb03c8c`) `EBattle3MsgBtlLightningB`
 - `EF:8F4A..EF:8F91` (`71` bytes, SHA-1 `886d431e469f10d4a3febb85630f90affcbdfa12`) `EBattle3MsgBtlLightningC`
 - `EF:8F91..EF:8FAD` (`28` bytes, SHA-1 `9281e687823201e0c4448a95e648ee7cb050705f`) `EBattle3MsgBtlGyiyyig3`
-- `EF:8FAD..EF:C51B` (`13678` bytes, SHA-1 `5f4aa78a8085cb7adb5cf8658ed4a532af56638d`) `EfPostEbattle3TextPayloadData`
+- `EF:8FAD..EF:8FC9` (`28` bytes, SHA-1 `85565ca69ac505eba7758a22fb37a12eb0c52c73`) `EBattle9SubSorezoreHelper`
+- `EF:8FC9..EF:8FCB` (`2` bytes, SHA-1 `4fce485363574d7c53f9f57541e8ca8e5547ca3e`) `EBattle9BranchSorezoreEnd`
+- `EF:8FCB..EF:8FE4` (`25` bytes, SHA-1 `c38cfb4e78b4b7becd09aa6f89758a5da605112f`) `EBattle9MsgFmonMoonA`
+- `EF:8FE4..EF:9003` (`31` bytes, SHA-1 `c304db5699c9b0354d4e9dfc937712456cc5b022`) `EBattle9MsgFmonMoonB`
+- `EF:9003..EF:9022` (`31` bytes, SHA-1 `8cd064f06e194706d2f5e83df5e2e5856125e662`) `EBattle9MsgFmonMoonB2`
+- `EF:9022..EF:9041` (`31` bytes, SHA-1 `13972fd4c49638f84c6dacf9af9d73684aaf0a9c`) `EBattle9MsgFmonMoonC`
+- `EF:9041..EF:9060` (`31` bytes, SHA-1 `dce7701bc60980c9a3c122989b8adb8bc5380786`) `EBattle9MsgFmonPyraAA`
+- `EF:9060..EF:907F` (`31` bytes, SHA-1 `e8c17004311bf72e64fefb7ba9070b6fb3bd3f84`) `EBattle9MsgFmonPyraAB`
+- `EF:907F..EF:909E` (`31` bytes, SHA-1 `956edb5ee5ef7ded7861cb538998a858e3e4c24f`) `EBattle9MsgFmonPyraAC`
+- `EF:909E..EF:90BD` (`31` bytes, SHA-1 `ed376cb9bbcca2fb3368a5c9339688df8602c136`) `EBattle9MsgFmonPyraAD`
+- `EF:90BD..EF:90DC` (`31` bytes, SHA-1 `484c78017457ae7074e5284f941fd04f0de693c4`) `EBattle9MsgFmonPyraAE`
+- `EF:90DC..EF:90F9` (`29` bytes, SHA-1 `7861af5351db2579422044cdb40272325f5ce72c`) `EBattle9MsgFmonPyraAF`
+- `EF:90F9..EF:9118` (`31` bytes, SHA-1 `a4863329f6fbe984984ddbfd9e83cdad044cf531`) `EBattle9MsgFmonPyraAG`
+- `EF:9118..EF:9137` (`31` bytes, SHA-1 `41cf3f6628b17355784680bee25d6c21645a552e`) `EBattle9MsgFmonPyraAH`
+- `EF:9137..EF:9156` (`31` bytes, SHA-1 `1afc8860c48cd15d61b69432c57c05d0c1baad1a`) `EBattle9MsgFmonPyraAI`
+- `EF:9156..EF:9175` (`31` bytes, SHA-1 `65f97bb7bce387d3f08033ed92303a23b297866f`) `EBattle9MsgFmonPyraAJ`
+- `EF:9175..EF:9194` (`31` bytes, SHA-1 `9cefc0675df7e868d7b03fe9a25b014af2609281`) `EBattle9MsgFmonPyraAK`
+- `EF:9194..EF:91B3` (`31` bytes, SHA-1 `8f26f4addbc1bd47d8477ea3d1f47278e098d633`) `EBattle9MsgFmonPyraAL`
+- `EF:91B3..EF:91D2` (`31` bytes, SHA-1 `262501c913e8458e7556e5b83105693793845789`) `EBattle9MsgFmonPyraAM`
+- `EF:91D2..EF:91F1` (`31` bytes, SHA-1 `c75b54a7ca63939f5c974b0c52b11ea2d7dafd64`) `EBattle9MsgFmonPyraAN`
+- `EF:91F1..EF:9210` (`31` bytes, SHA-1 `60ba4558cf89731322edd63f94ac9b50ae53b74d`) `EBattle9MsgFmonPyraAO`
+- `EF:9210..EF:922F` (`31` bytes, SHA-1 `7761d652ae6a5b92be2269760ff25ec4379faeba`) `EBattle9MsgFmonPyraAP`
+- `EF:922F..EF:924E` (`31` bytes, SHA-1 `3dbd41343a9b165b8d7180da4804eb4cb29a47a0`) `EBattle9MsgFmonPyraAQ`
+- `EF:924E..EF:926D` (`31` bytes, SHA-1 `2ebc7c757a0baa868ff139438ab7f5364c35d79e`) `EBattle9MsgFmonPyraBA`
+- `EF:926D..EF:928C` (`31` bytes, SHA-1 `aea4093eb19f7cefd5bf3164c9adf5522530376b`) `EBattle9MsgFmonPyraBB`
+- `EF:928C..EF:92AB` (`31` bytes, SHA-1 `8cebe9fbe07c4307227d4f342485c2dd163cb29e`) `EBattle9MsgFmonPyraBC`
+- `EF:92AB..EF:92CA` (`31` bytes, SHA-1 `c1f6fd356c890496b066f62a4a01b893cc9c06be`) `EBattle9MsgFmonPyraBD`
+- `EF:92CA..EF:92E9` (`31` bytes, SHA-1 `99bc7f88df3f898cb37ea840d4516534c284a413`) `EBattle9MsgFmonPyraBE`
+- `EF:92E9..EF:9308` (`31` bytes, SHA-1 `92702d492224f3ef0ce443c19c27b1859f8d96dd`) `EBattle9MsgFmonPyraBF`
+- `EF:9308..EF:9327` (`31` bytes, SHA-1 `271df4f18cbe770f4d239fcd32b8443da1d0b468`) `EBattle9MsgFmonPyraBG`
+- `EF:9327..EF:9346` (`31` bytes, SHA-1 `6ebe77996708dec675a7366d5b93512318faf360`) `EBattle9MsgFmonPyraBH`
+- `EF:9346..EF:9365` (`31` bytes, SHA-1 `3c592975cc6025e1c61759b7f9a5a9fa20521a5b`) `EBattle9MsgFmonPyraBI`
+- `EF:9365..EF:9384` (`31` bytes, SHA-1 `3dfe4fc6c9f2998337a731f040770719574a24fe`) `EBattle9MsgFmonBrickAA`
+- `EF:9384..EF:93A3` (`31` bytes, SHA-1 `815cf57d88c0abbb5de7b6c074ea6ebcb730499e`) `EBattle9MsgFmonBrickAB`
+- `EF:93A3..EF:93C2` (`31` bytes, SHA-1 `1fa670e775cb500bcaed55394840bcf8717bef83`) `EBattle9MsgFmonBrickBA`
+- `EF:93C2..EF:93E1` (`31` bytes, SHA-1 `0ba76b461380516d7ea8325da30c4c8eb51e7645`) `EBattle9MsgFmonBrickBB`
+- `EF:93E1..EF:9400` (`31` bytes, SHA-1 `a2082d742be870c306f1c0135df29947a82c549b`) `EBattle9MsgFmonBrickCA`
+- `EF:9400..EF:941F` (`31` bytes, SHA-1 `f3d5d78b11c0464af283742409b5d6476f103ae5`) `EBattle9MsgFmonBrickCB`
+- `EF:941F..EF:9448` (`41` bytes, SHA-1 `2a7854d77988c48c20b9697fb68685e0c9c0130f`) `EBattle9MsgFmonStoneBoss`
+- `EF:9448..EF:9467` (`31` bytes, SHA-1 `316cc125d02314e085bd6671a824cc815d954230`) `EBattle9MsgFmonPyraBoss`
+- `EF:9467..EF:9486` (`31` bytes, SHA-1 `be526fe81e108312ed7c4684cb9c01b3bd5b63d5`) `EBattle9MsgFmonKraken2A`
+- `EF:9486..EF:94A5` (`31` bytes, SHA-1 `b8145bbfecb61c2a9cf90dda65a5f5cde0161317`) `EBattle9MsgFmonKraken2B`
+- `EF:94A5..EF:94C4` (`31` bytes, SHA-1 `70ac0ebd90c5586c45ecaf4e81deaf856673347f`) `EBattle9MsgFmonKraken2C`
+- `EF:94C4..EF:94E3` (`31` bytes, SHA-1 `639b9364ee7c4f7392fc117d2e8ab9975a05301e`) `EBattle9MsgFmonHieroglyphA`
+- `EF:94E3..EF:9502` (`31` bytes, SHA-1 `9b12e0cecc8e13a1f3f49f462928cc22a595a86b`) `EBattle9MsgFmonHieroglyphB`
+- `EF:9502..EF:952E` (`44` bytes, SHA-1 `c08e46e25732d2e11186f5502c6a88b877690c75`) `EBattle9MsgFmonBossGrave`
+- `EF:952E..EF:95A3` (`117` bytes, SHA-1 `14df05fbff9167b7233af8d918b7c231cc2959fc`) `EBattle9MsgGrfdPola`
+- `EF:95A3..EF:96D3` (`304` bytes, SHA-1 `6ea08a2240fdabe884c3ebf7b0dc1dbc4b42e0f4`) `EBattle9BranchGrfdPolaTmp`
+- `EF:96D3..EF:970F` (`60` bytes, SHA-1 `30a952fc63655186cc26b4ff26b0a03d3375b0e6`) `EBattle9BranchGrfdPolaItemfull`
+- `EF:970F..EF:9737` (`40` bytes, SHA-1 `ea0e9d939eadfa78e0248849e59830af373c4c98`) `EBattle9BranchGrfdPola1`
+- `EF:9737..EF:976B` (`52` bytes, SHA-1 `89db592d733f389422caf3a29c029fc9bfb782ec`) `EBattle9BranchGrfdPolaLater`
+- `EF:976B..EF:9785` (`26` bytes, SHA-1 `805a459f38b1e7fe7dce3a79fa1dba509f243c23`) `EBattle9BranchGrfdPolaLaterYes`
+- `EF:9785..EF:97A2` (`29` bytes, SHA-1 `b6f2027ae4e5933a540807f6e1ae5035321d4134`) `EBattle9MsgGrfdSignpostA`
+- `EF:97A2..EF:981C` (`122` bytes, SHA-1 `7154f507558fb405c979067d55d4c5a5ade1fe54`) `EBattle9MsgGrfdLlptBoss`
+- `EF:981C..EF:9822` (`6` bytes, SHA-1 `63a71570d82e222296584eb406e25b15c69faea6`) `EBattle9MsgGrfdKinokoGirl`
+- `EF:9822..EF:9857` (`53` bytes, SHA-1 `0ae3548be10c4e96fb62bd2fb0ea5997ecf873e8`) `EBattle9MsgGrfdShintoA`
+- `EF:9857..EF:98AD` (`86` bytes, SHA-1 `1eb1a3ae22b8b1aa17805372eda1416ab472947c`) `EBattle9MsgGrfdSysmsgGuts`
+- `EF:98AD..EF:98D3` (`38` bytes, SHA-1 `6c7bc6e5ca266f2258abd0f1f35f7a24a7530c5f`) `EBattle9BranchGrfdSysmsgGutsNo`
+- `EF:98D3..EF:9A47` (`372` bytes, SHA-1 `6a0319d43accf6cea67e3862755fd7426b532ebc`) `EBattle9BranchGrfdSysmsgGutsYes`
+- `EF:9A47..EF:C51B` (`10964` bytes, SHA-1 `735bf5e3d2ec8fce7c27a376f261717f22178c3c`) `EfPostEbattle9TextPayloadData`
 
 Labels:
 
@@ -949,7 +1008,66 @@ Labels:
 - `EF:8F17 EBattle3MsgBtlLightningB`
 - `EF:8F4A EBattle3MsgBtlLightningC`
 - `EF:8F91 EBattle3MsgBtlGyiyyig3`
-- `EF:8FAD EfPostEbattle3TextPayloadData`
+- `EF:8FAD EBattle9SubSorezoreHelper`
+- `EF:8FC9 EBattle9BranchSorezoreEnd`
+- `EF:8FCB EBattle9MsgFmonMoonA`
+- `EF:8FE4 EBattle9MsgFmonMoonB`
+- `EF:9003 EBattle9MsgFmonMoonB2`
+- `EF:9022 EBattle9MsgFmonMoonC`
+- `EF:9041 EBattle9MsgFmonPyraAA`
+- `EF:9060 EBattle9MsgFmonPyraAB`
+- `EF:907F EBattle9MsgFmonPyraAC`
+- `EF:909E EBattle9MsgFmonPyraAD`
+- `EF:90BD EBattle9MsgFmonPyraAE`
+- `EF:90DC EBattle9MsgFmonPyraAF`
+- `EF:90F9 EBattle9MsgFmonPyraAG`
+- `EF:9118 EBattle9MsgFmonPyraAH`
+- `EF:9137 EBattle9MsgFmonPyraAI`
+- `EF:9156 EBattle9MsgFmonPyraAJ`
+- `EF:9175 EBattle9MsgFmonPyraAK`
+- `EF:9194 EBattle9MsgFmonPyraAL`
+- `EF:91B3 EBattle9MsgFmonPyraAM`
+- `EF:91D2 EBattle9MsgFmonPyraAN`
+- `EF:91F1 EBattle9MsgFmonPyraAO`
+- `EF:9210 EBattle9MsgFmonPyraAP`
+- `EF:922F EBattle9MsgFmonPyraAQ`
+- `EF:924E EBattle9MsgFmonPyraBA`
+- `EF:926D EBattle9MsgFmonPyraBB`
+- `EF:928C EBattle9MsgFmonPyraBC`
+- `EF:92AB EBattle9MsgFmonPyraBD`
+- `EF:92CA EBattle9MsgFmonPyraBE`
+- `EF:92E9 EBattle9MsgFmonPyraBF`
+- `EF:9308 EBattle9MsgFmonPyraBG`
+- `EF:9327 EBattle9MsgFmonPyraBH`
+- `EF:9346 EBattle9MsgFmonPyraBI`
+- `EF:9365 EBattle9MsgFmonBrickAA`
+- `EF:9384 EBattle9MsgFmonBrickAB`
+- `EF:93A3 EBattle9MsgFmonBrickBA`
+- `EF:93C2 EBattle9MsgFmonBrickBB`
+- `EF:93E1 EBattle9MsgFmonBrickCA`
+- `EF:9400 EBattle9MsgFmonBrickCB`
+- `EF:941F EBattle9MsgFmonStoneBoss`
+- `EF:9448 EBattle9MsgFmonPyraBoss`
+- `EF:9467 EBattle9MsgFmonKraken2A`
+- `EF:9486 EBattle9MsgFmonKraken2B`
+- `EF:94A5 EBattle9MsgFmonKraken2C`
+- `EF:94C4 EBattle9MsgFmonHieroglyphA`
+- `EF:94E3 EBattle9MsgFmonHieroglyphB`
+- `EF:9502 EBattle9MsgFmonBossGrave`
+- `EF:952E EBattle9MsgGrfdPola`
+- `EF:95A3 EBattle9BranchGrfdPolaTmp`
+- `EF:96D3 EBattle9BranchGrfdPolaItemfull`
+- `EF:970F EBattle9BranchGrfdPola1`
+- `EF:9737 EBattle9BranchGrfdPolaLater`
+- `EF:976B EBattle9BranchGrfdPolaLaterYes`
+- `EF:9785 EBattle9MsgGrfdSignpostA`
+- `EF:97A2 EBattle9MsgGrfdLlptBoss`
+- `EF:981C EBattle9MsgGrfdKinokoGirl`
+- `EF:9822 EBattle9MsgGrfdShintoA`
+- `EF:9857 EBattle9MsgGrfdSysmsgGuts`
+- `EF:98AD EBattle9BranchGrfdSysmsgGutsNo`
+- `EF:98D3 EBattle9BranchGrfdSysmsgGutsYes`
+- `EF:9A47 EfPostEbattle9TextPayloadData`
 
 Evidence:
 

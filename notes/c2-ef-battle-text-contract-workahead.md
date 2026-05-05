@@ -119,6 +119,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:89FE..8FAD` include into exact `MSG_BTL_*` anchors, from
   `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, ready for a later C2
   action-table consumer pass.
+- 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
+  `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
+  field-monster payloads, graveyard/Paula branches, and the Guts tutorial
+  yes/no system-message tail.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

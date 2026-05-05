@@ -165,3 +165,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF EBATTLE3 action-flavor follow-up split the complete
   `EF:89FE..8FAD` enemy-action text include into exact `MSG_BTL_*` anchors
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`.
+- 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
+  `EF:8FAD..9A47` include into field-monster, graveyard/Paula, boss/girl, and
+  Guts tutorial message anchors.
