@@ -182,8 +182,224 @@ EF6C55_EBattle5MsgBtlAsleepInflicted:
 ; ---------------------------------------------------------------------------
 ; EF:6C6B
 
-; EBATTLE5: remaining status and NPC-death text before shield result scripts.
-EF6C6B_EBattle5StatusAndNpcDeathText:
+; EBATTLE5: player-side incapacitated/collapsed text.
+EF6C6B_EBattle5MsgBtlIncapacitated:
+
+; ---------------------------------------------------------------------------
+; EF:6C84
+
+; EBATTLE5: Flying Man death text and party-removal branch driver.
+EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+
+; ---------------------------------------------------------------------------
+; EF:6CC7
+
+; EBATTLE5: Flying Man death branch for slot B.
+EF6CC7_EBattle5FlyingManDeadBranchB:
+
+; ---------------------------------------------------------------------------
+; EF:6CD0
+
+; EBATTLE5: Flying Man death branch for slot C.
+EF6CD0_EBattle5FlyingManDeadBranchC:
+
+; ---------------------------------------------------------------------------
+; EF:6CD9
+
+; EBATTLE5: Flying Man death branch for slot D.
+EF6CD9_EBattle5FlyingManDeadBranchD:
+
+; ---------------------------------------------------------------------------
+; EF:6CE2
+
+; EBATTLE5: Flying Man death branch for slot E.
+EF6CE2_EBattle5FlyingManDeadBranchE:
+
+; ---------------------------------------------------------------------------
+; EF:6CEB
+
+; EBATTLE5: Flying Man party-removal helper text command payload.
+EF6CEB_EBattle5FlyingManRemovePartyMemberHelper:
+
+; ---------------------------------------------------------------------------
+; EF:6CFC
+
+; EBATTLE5: Flying Man party-removal helper branch 2.
+EF6CFC_EBattle5FlyingManRemoveBranch2:
+
+; ---------------------------------------------------------------------------
+; EF:6D0A
+
+; EBATTLE5: Flying Man party-removal helper branch 3.
+EF6D0A_EBattle5FlyingManRemoveBranch3:
+
+; ---------------------------------------------------------------------------
+; EF:6D18
+
+; EBATTLE5: Flying Man party-removal helper branch 4.
+EF6D18_EBattle5FlyingManRemoveBranch4:
+
+; ---------------------------------------------------------------------------
+; EF:6D26
+
+; EBATTLE5: Flying Man party-removal helper branch 5.
+EF6D26_EBattle5FlyingManRemoveBranch5:
+
+; ---------------------------------------------------------------------------
+; EF:6D2A
+
+; EBATTLE5: teddy bear destroyed text.
+EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+
+; ---------------------------------------------------------------------------
+; EF:6D4C
+
+; EBATTLE5: super plush bear destroyed text.
+EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+
+; ---------------------------------------------------------------------------
+; EF:6D71
+
+; EBATTLE5: enemy defeated text.
+EF6D71_EBattle5MsgBtlEnemyDefeated:
+
+; ---------------------------------------------------------------------------
+; EF:6D83
+
+; EBATTLE5: enemy stopped moving defeat text.
+EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+
+; ---------------------------------------------------------------------------
+; EF:6D96
+
+; EBATTLE5: enemy became tame defeat text.
+EF6D96_EBattle5MsgBtlEnemyBecameTame:
+
+; ---------------------------------------------------------------------------
+; EF:6DA7
+
+; EBATTLE5: enemy disappeared defeat text.
+EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+
+; ---------------------------------------------------------------------------
+; EF:6DB8
+
+; EBATTLE5: enemy figure melted away defeat text.
+EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+
+; ---------------------------------------------------------------------------
+; EF:6DD8
+
+; EBATTLE5: enemy broke into pieces defeat text.
+EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+
+; ---------------------------------------------------------------------------
+; EF:6DF0
+
+; EBATTLE5: enemy destroyed defeat text.
+EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+
+; ---------------------------------------------------------------------------
+; EF:6E03
+
+; EBATTLE5: enemy scrapped defeat text.
+EF6E03_EBattle5MsgBtlEnemyScrapped:
+
+; ---------------------------------------------------------------------------
+; EF:6E19
+
+; EBATTLE5: enemy turned back to normal defeat text.
+EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+
+; ---------------------------------------------------------------------------
+; EF:6E31
+
+; EBATTLE5: enemy returned to dust defeat text.
+EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+
+; ---------------------------------------------------------------------------
+; EF:6E4A
+
+; EBATTLE5: diamondized/body hard-state recovery text.
+EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6E67
+
+; EBATTLE5: paralysis/body-numb recovery text.
+EF6E67_EBattle5MsgBtlParalysisRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6E81
+
+; EBATTLE5: nausea/sickness recovery text.
+EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6E97
+
+; EBATTLE5: poison removed text used by C2 affliction recovery helpers.
+EF6E97_EBattle5MsgBtlPoisonRemoved:
+
+; ---------------------------------------------------------------------------
+; EF:6EBC
+
+; EBATTLE5: cold recovery text.
+EF6EBC_EBattle5MsgBtlColdRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6ED1
+
+; EBATTLE5: crying recovery text.
+EF6ED1_EBattle5MsgBtlCryingRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6EED
+
+; EBATTLE5: immobilized/body-state recovery text.
+EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6F0B
+
+; EBATTLE5: frozen/solidified movement recovery text.
+EF6F0B_EBattle5MsgBtlFrozenCanMove:
+
+; ---------------------------------------------------------------------------
+; EF:6F1E
+
+; EBATTLE5: strange/confused recovery text.
+EF6F1E_EBattle5MsgBtlStrangeRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6F38
+
+; EBATTLE5: sunstroke cured text.
+EF6F38_EBattle5MsgBtlSunstrokeCured:
+
+; ---------------------------------------------------------------------------
+; EF:6F54
+
+; EBATTLE5: asleep/woke-up recovery text.
+EF6F54_EBattle5MsgBtlAsleepRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6F64
+
+; EBATTLE5: PSI-seal/concentration recovery text.
+EF6F64_EBattle5MsgBtlPsiSealRecovered:
+
+; ---------------------------------------------------------------------------
+; EF:6F7C
+
+; EBATTLE5: revived text.
+EF6F7C_EBattle5MsgBtlRevived:
+
+; ---------------------------------------------------------------------------
+; EF:6F8E
+
+; EBATTLE5: revive failed text.
+EF6F8E_EBattle5MsgBtlReviveFailed:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F9A

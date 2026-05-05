@@ -267,7 +267,43 @@ Data gaps inside protected span:
 - `EF:6C0B..EF:6C3A` (`47` bytes, SHA-1 `30a911438fa0c874b4da136accd54ef893390ac5`) `EBattle5MsgBtlPsiSealInflicted`
 - `EF:6C3A..EF:6C55` (`27` bytes, SHA-1 `af8d51b31d83087c92c0d9710c2f57976aa45e70`) `EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55..EF:6C6B` (`22` bytes, SHA-1 `4d5790f342b2e74a3d9baf1f2c69c44a5cf6e2a9`) `EBattle5MsgBtlAsleepInflicted`
-- `EF:6C6B..EF:6F9A` (`815` bytes, SHA-1 `2fe86c65a91f609f7d72fe250b1deede5cda18c3`) `EBattle5StatusAndNpcDeathText`
+- `EF:6C6B..EF:6C84` (`25` bytes, SHA-1 `5239e087feae40fca6e73094ad08a3a9a2700cd9`) `EBattle5MsgBtlIncapacitated`
+- `EF:6C84..EF:6CC7` (`67` bytes, SHA-1 `9b17266ec30e32ad1633dbb3b8c70c20733d827f`) `EBattle5MsgSysNpcDeadFlyingMan`
+- `EF:6CC7..EF:6CD0` (`9` bytes, SHA-1 `37c8b56b3e68d1f01245bd27c582578e20d4bb89`) `EBattle5FlyingManDeadBranchB`
+- `EF:6CD0..EF:6CD9` (`9` bytes, SHA-1 `bac11a5d8dcd2becc5f3140ec40663275ff9fa96`) `EBattle5FlyingManDeadBranchC`
+- `EF:6CD9..EF:6CE2` (`9` bytes, SHA-1 `e1ffb352ec6abd1b6e69f11fe10897371f250eca`) `EBattle5FlyingManDeadBranchD`
+- `EF:6CE2..EF:6CEB` (`9` bytes, SHA-1 `0411f98368826c3c274b91e869979bd29b8c5894`) `EBattle5FlyingManDeadBranchE`
+- `EF:6CEB..EF:6CFC` (`17` bytes, SHA-1 `8fabdceb9b80f856e60384c13517ca1e8f3538c7`) `EBattle5FlyingManRemovePartyMemberHelper`
+- `EF:6CFC..EF:6D0A` (`14` bytes, SHA-1 `b28f114fc77d50a7abbd9735595c14530428c793`) `EBattle5FlyingManRemoveBranch2`
+- `EF:6D0A..EF:6D18` (`14` bytes, SHA-1 `6803c77f9e4feb6a50f7126724d278419fa264e2`) `EBattle5FlyingManRemoveBranch3`
+- `EF:6D18..EF:6D26` (`14` bytes, SHA-1 `32c251725020ca643d2e22839b21b6f579bd6f6c`) `EBattle5FlyingManRemoveBranch4`
+- `EF:6D26..EF:6D2A` (`4` bytes, SHA-1 `f287881dd67b925df1531e0762bcc1b47a69fff1`) `EBattle5FlyingManRemoveBranch5`
+- `EF:6D2A..EF:6D4C` (`34` bytes, SHA-1 `66e3b4d004b2cbe67b60093cc87a2587dad3e20d`) `EBattle5MsgSysNpcDeadTeddyBear`
+- `EF:6D4C..EF:6D71` (`37` bytes, SHA-1 `1caf43c69b75eee750489f0cf121dd2e218876da`) `EBattle5MsgSysNpcDeadSuperPlushBear`
+- `EF:6D71..EF:6D83` (`18` bytes, SHA-1 `fecde504825e2393a05568e18875e785481531f5`) `EBattle5MsgBtlEnemyDefeated`
+- `EF:6D83..EF:6D96` (`19` bytes, SHA-1 `527d33a59d9804279c66b0a7cd83b4236874de51`) `EBattle5MsgBtlEnemyStoppedMoving`
+- `EF:6D96..EF:6DA7` (`17` bytes, SHA-1 `ea833438b4ed642747c0190a152671889d2e2381`) `EBattle5MsgBtlEnemyBecameTame`
+- `EF:6DA7..EF:6DB8` (`17` bytes, SHA-1 `c078f6115a03dcfc7e65035cb6ce43093994f26d`) `EBattle5MsgBtlEnemyDisappeared`
+- `EF:6DB8..EF:6DD8` (`32` bytes, SHA-1 `135dd0b094f3e417766e94fc01ab38a4b98310b9`) `EBattle5MsgBtlEnemyMeltedAway`
+- `EF:6DD8..EF:6DF0` (`24` bytes, SHA-1 `dd7e896c37e93caed82eeab43f111efc68324687`) `EBattle5MsgBtlEnemyBrokeIntoPieces`
+- `EF:6DF0..EF:6E03` (`19` bytes, SHA-1 `0e8ac92ab6aaa62cfad2aa56ed8eed1af8fd76d1`) `EBattle5MsgBtlEnemyDestroyed`
+- `EF:6E03..EF:6E19` (`22` bytes, SHA-1 `280ed6e4bf9525875d970089ca8a196f521a4446`) `EBattle5MsgBtlEnemyScrapped`
+- `EF:6E19..EF:6E31` (`24` bytes, SHA-1 `954a4b24573c031af08645cd4eee93c55180f3d5`) `EBattle5MsgBtlEnemyReturnedToNormal`
+- `EF:6E31..EF:6E4A` (`25` bytes, SHA-1 `b28bef70d6b861992262429f24ef463357850bfc`) `EBattle5MsgBtlEnemyReturnedToDust`
+- `EF:6E4A..EF:6E67` (`29` bytes, SHA-1 `c6d274d913564c37c09cb02eb8a519422febc47c`) `EBattle5MsgBtlDiamondizedRecovered`
+- `EF:6E67..EF:6E81` (`26` bytes, SHA-1 `d5c28bd7008e59e91d35fd8a238dfdab161bdce3`) `EBattle5MsgBtlParalysisRecovered`
+- `EF:6E81..EF:6E97` (`22` bytes, SHA-1 `e4343b886d04ec9a5eb0807d4e98ad3d4a4f31db`) `EBattle5MsgBtlFeelingSickRecovered`
+- `EF:6E97..EF:6EBC` (`37` bytes, SHA-1 `8c2836a58ae92c87ef94de7c948cb53687f7b637`) `EBattle5MsgBtlPoisonRemoved`
+- `EF:6EBC..EF:6ED1` (`21` bytes, SHA-1 `42a2c1124dfdb1a894a49009bc0997dab13a340d`) `EBattle5MsgBtlColdRecovered`
+- `EF:6ED1..EF:6EED` (`28` bytes, SHA-1 `34c08afa2f8f82674324e5b33f79aabb288b0794`) `EBattle5MsgBtlCryingRecovered`
+- `EF:6EED..EF:6F0B` (`30` bytes, SHA-1 `7759e6d88ccd2107724e2effd474691264519a54`) `EBattle5MsgBtlImmobilizedRecovered`
+- `EF:6F0B..EF:6F1E` (`19` bytes, SHA-1 `b9d1f92448dc963887cae2234364d16da454de28`) `EBattle5MsgBtlFrozenCanMove`
+- `EF:6F1E..EF:6F38` (`26` bytes, SHA-1 `2115437f9f27384c25780b921af73ab04ad771ef`) `EBattle5MsgBtlStrangeRecovered`
+- `EF:6F38..EF:6F54` (`28` bytes, SHA-1 `04314f2ae74e84c31b2b19944056b5b006e9aac9`) `EBattle5MsgBtlSunstrokeCured`
+- `EF:6F54..EF:6F64` (`16` bytes, SHA-1 `7a0edecaff603fff5fbea3ab9a2c116a2abf63ba`) `EBattle5MsgBtlAsleepRecovered`
+- `EF:6F64..EF:6F7C` (`24` bytes, SHA-1 `e835c44f305cf081f18da12269b343050e2048a8`) `EBattle5MsgBtlPsiSealRecovered`
+- `EF:6F7C..EF:6F8E` (`18` bytes, SHA-1 `6c4ae3818b87052c84ba3a39b27e14c33bb92d44`) `EBattle5MsgBtlRevived`
+- `EF:6F8E..EF:6F9A` (`12` bytes, SHA-1 `21ed1025a46bdab04851bccf116953f8bbeb000a`) `EBattle5MsgBtlReviveFailed`
 - `EF:6F9A..EF:6FBD` (`35` bytes, SHA-1 `32b9f94859cc1256432748a68c7afd7904e57bfb`) `EBattle5MsgBtlShieldInstalled`
 - `EF:6FBD..EF:6FD3` (`22` bytes, SHA-1 `75d0bac14ab6514e2ea88b25e1500ef00dbe9695`) `EBattle5MsgBtlShieldStrengthened`
 - `EF:6FD3..EF:6FF4` (`33` bytes, SHA-1 `436ff24c2b098518d72aea4b6e92c7ae016598e4`) `EBattle5MsgBtlPowerShieldInstalled`
@@ -362,7 +398,43 @@ Labels:
 - `EF:6C0B EBattle5MsgBtlPsiSealInflicted`
 - `EF:6C3A EBattle5MsgBtlStrangeInflicted`
 - `EF:6C55 EBattle5MsgBtlAsleepInflicted`
-- `EF:6C6B EBattle5StatusAndNpcDeathText`
+- `EF:6C6B EBattle5MsgBtlIncapacitated`
+- `EF:6C84 EBattle5MsgSysNpcDeadFlyingMan`
+- `EF:6CC7 EBattle5FlyingManDeadBranchB`
+- `EF:6CD0 EBattle5FlyingManDeadBranchC`
+- `EF:6CD9 EBattle5FlyingManDeadBranchD`
+- `EF:6CE2 EBattle5FlyingManDeadBranchE`
+- `EF:6CEB EBattle5FlyingManRemovePartyMemberHelper`
+- `EF:6CFC EBattle5FlyingManRemoveBranch2`
+- `EF:6D0A EBattle5FlyingManRemoveBranch3`
+- `EF:6D18 EBattle5FlyingManRemoveBranch4`
+- `EF:6D26 EBattle5FlyingManRemoveBranch5`
+- `EF:6D2A EBattle5MsgSysNpcDeadTeddyBear`
+- `EF:6D4C EBattle5MsgSysNpcDeadSuperPlushBear`
+- `EF:6D71 EBattle5MsgBtlEnemyDefeated`
+- `EF:6D83 EBattle5MsgBtlEnemyStoppedMoving`
+- `EF:6D96 EBattle5MsgBtlEnemyBecameTame`
+- `EF:6DA7 EBattle5MsgBtlEnemyDisappeared`
+- `EF:6DB8 EBattle5MsgBtlEnemyMeltedAway`
+- `EF:6DD8 EBattle5MsgBtlEnemyBrokeIntoPieces`
+- `EF:6DF0 EBattle5MsgBtlEnemyDestroyed`
+- `EF:6E03 EBattle5MsgBtlEnemyScrapped`
+- `EF:6E19 EBattle5MsgBtlEnemyReturnedToNormal`
+- `EF:6E31 EBattle5MsgBtlEnemyReturnedToDust`
+- `EF:6E4A EBattle5MsgBtlDiamondizedRecovered`
+- `EF:6E67 EBattle5MsgBtlParalysisRecovered`
+- `EF:6E81 EBattle5MsgBtlFeelingSickRecovered`
+- `EF:6E97 EBattle5MsgBtlPoisonRemoved`
+- `EF:6EBC EBattle5MsgBtlColdRecovered`
+- `EF:6ED1 EBattle5MsgBtlCryingRecovered`
+- `EF:6EED EBattle5MsgBtlImmobilizedRecovered`
+- `EF:6F0B EBattle5MsgBtlFrozenCanMove`
+- `EF:6F1E EBattle5MsgBtlStrangeRecovered`
+- `EF:6F38 EBattle5MsgBtlSunstrokeCured`
+- `EF:6F54 EBattle5MsgBtlAsleepRecovered`
+- `EF:6F64 EBattle5MsgBtlPsiSealRecovered`
+- `EF:6F7C EBattle5MsgBtlRevived`
+- `EF:6F8E EBattle5MsgBtlReviveFailed`
 - `EF:6F9A EBattle5MsgBtlShieldInstalled`
 - `EF:6FBD EBattle5MsgBtlShieldStrengthened`
 - `EF:6FD3 EBattle5MsgBtlPowerShieldInstalled`

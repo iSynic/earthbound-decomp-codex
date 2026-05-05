@@ -37,6 +37,17 @@ callers.
 - `EF:6AFB..6C0B` is now split around the adjacent sick/cold/mushroomized,
   possessed, crying, immobilized, solidification, and PSI-seal status payloads
   instead of one broad affliction corridor.
+- `EF:6C6B..6E31` now splits the post-status EBATTLE5 death-result corridor:
+  player collapse, Flying Man/teddy-bear NPC death payloads, and enemy defeat
+  flavor text now have source anchors instead of one anonymous status tail.
+- `EF:6E4A`, `EF:6E67`, `EF:6E81`, `EF:6E97`, `EF:6EBC`, `EF:6ED1`,
+  `EF:6EED`, `EF:6F0B`, `EF:6F1E`, `EF:6F38`, `EF:6F54`, and `EF:6F64`
+  now mark the EBATTLE5 recovery/removal scripts for diamondized, paralysis,
+  nausea, poison, cold, crying, immobilized, frozen, strange, sunstroke,
+  asleep, and PSI-seal states. These line up with the C2 affliction-recovery
+  helper families.
+- `EF:6F7C` and `EF:6F8E` now mark revive success/failure text immediately
+  before the shield-result block.
 - `EF:6F9A/6FBD`, `EF:6FD3/6FF4`, `EF:700C/7032`, and `EF:7050/707A`
   now mark the installed/strengthened text pairs for shield, power shield,
   psychic shield, and psychic power shield.
@@ -106,6 +117,14 @@ miss, target-gone, HP/PP drain, and periodic status damage. Splitting those
 anchors makes the central damage pipeline visible on the EF side while leaving
 the earlier `EF:7186..75AB` status/event prelude coarse until its local
 consumers are promoted.
+
+## Recovery And Death Follow-up
+
+The C2 affliction-recovery source and notes repeatedly dispatch into the
+`EF:6E4A..6F64` recovery/removal subrange for poison, nausea, crying, strange,
+sunstroke, asleep, and PSI-seal cleanup. Splitting the wider `EF:6C6B..6F9A`
+island also exposes the adjacent player/NPC/enemy death-result payloads and the
+revive success/failure scripts that sit before the shield-result block.
 
 ## Validation
 

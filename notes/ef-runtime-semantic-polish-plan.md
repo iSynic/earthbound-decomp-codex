@@ -131,3 +131,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   SMAAAASH presentation, shooting/physical dodge, shared no-effect variants,
   physical/shoot miss text, target-gone text, HP/PP drain text, and periodic
   strange/poison/sunstroke/cold damage scripts.
+- 2026-05-05: EF EBATTLE5 recovery/death follow-up split the
+  `EF:6C6B..6F9A` corridor into player collapse, Flying Man/teddy-bear death,
+  enemy defeat flavor, affliction recovery/removal, revive success/failure, and
+  shield-adjacent recovery payload anchors.
