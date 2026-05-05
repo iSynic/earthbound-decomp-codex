@@ -126,6 +126,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-05: EF EBATTLE1 action-tail follow-up split `EF:9A47..9EF4` into
   exact `MSG_BTL_*` anchors from `MSG_BTL_NAKAMA0` through
   `MSG_BTL_FIRE_BREATH`, stopping before the next `EGOODS2` item-use include.
+- 2026-05-05: EF EGOODS2 item-use follow-up split `EF:9EF4..A2FA` around
+  Exit Mouse success/failure branches, Hieroglyph, Town Map, and Onett
+  traveler-shack payloads.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

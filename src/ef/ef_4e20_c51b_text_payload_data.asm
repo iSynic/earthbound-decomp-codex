@@ -2690,8 +2690,86 @@ EF9ED7_EBattle1MsgBtlFireBreath:
 ; ---------------------------------------------------------------------------
 ; EF:9EF4
 
-; Remaining EF text payload data after the EBATTLE1 action-tail split.
-EF9EF4_EfPostEbattle1ActionTailTextPayloadData:
+; EGOODS2: Exit Mouse use payload text.
+EF9EF4_EGoods2MsgBtlEscapeMouse:
+
+; ---------------------------------------------------------------------------
+; EF:9F9F
+
+; EGOODS2: Exit Mouse not-in-dungeon failure branch.
+EF9F9F_EGoods2BranchMouseNotDungeon:
+
+; ---------------------------------------------------------------------------
+; EF:9FE2
+
+; EGOODS2: Exit Mouse cannot-use failure branch.
+EF9FE2_EGoods2BranchMouseCantUse:
+
+; ---------------------------------------------------------------------------
+; EF:A002
+
+; EGOODS2: Exit Mouse pizza-shop destination branch.
+EFA002_EGoods2BranchBtlEscapeMousePizza:
+
+; ---------------------------------------------------------------------------
+; EF:A029
+
+; EGOODS2: Exit Mouse signboard destination branch.
+EFA029_EGoods2BranchBtlEscapeMouseKanban:
+
+; ---------------------------------------------------------------------------
+; EF:A07E
+
+; EGOODS2: Exit Mouse Escargo Express destination branch.
+EFA07E_EGoods2BranchBtlEscapeMouseEscargo:
+
+; ---------------------------------------------------------------------------
+; EF:A0B7
+
+; EGOODS2: Exit Mouse capsule destination branch.
+EFA0B7_EGoods2BranchBtlEscapeMouseCapsule:
+
+; ---------------------------------------------------------------------------
+; EF:A0DC
+
+; EGOODS2: Hieroglyph item-use payload text.
+EFA0DC_EGoods2MsgBtlHiero:
+
+; ---------------------------------------------------------------------------
+; EF:A2AB
+
+; EGOODS2: Town Map item-use payload text.
+EFA2AB_EGoods2MsgBtlTownMap:
+
+; ---------------------------------------------------------------------------
+; EF:A2B5
+
+; EGOODS2: Town Map unavailable branch.
+EFA2B5_EGoods2BranchTownMapNg:
+
+; ---------------------------------------------------------------------------
+; EF:A2C9
+
+; EGOODS2: Onett traveler shack payload text.
+EFA2C9_EGoods2MsgOnetTabigoya:
+
+; ---------------------------------------------------------------------------
+; EF:A2D5
+
+; EGOODS2: Onett traveler shack end branch.
+EFA2D5_EGoods2BranchOnetTabigoyaEnd:
+
+; ---------------------------------------------------------------------------
+; EF:A2D6
+
+; EGOODS2: Onett traveler shack receive branch.
+EFA2D6_EGoods2MsgOnetTabigoyaReceive:
+
+; ---------------------------------------------------------------------------
+; EF:A2FA
+
+; Remaining EF text payload data after the EGOODS2 item-use split.
+EFA2FA_EfPostEGoods2TextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

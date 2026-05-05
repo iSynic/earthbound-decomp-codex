@@ -123,6 +123,8 @@ callers.
 - `EF:9A47..9EF4` now splits the later EBATTLE1 action-tail include into
   symbol-derived action payload anchors from `MSG_BTL_NAKAMA0` through
   `MSG_BTL_FIRE_BREATH`.
+- `EF:9EF4..A2FA` now splits the EGOODS2 item-use include around the Exit
+  Mouse, Hieroglyph, Town Map, and Onett traveler-shack payload branches.
 
 ## Correction
 
@@ -256,6 +258,15 @@ and goods-use branches, Time Stop and enemy gaze/wave/breath/status-flavor
 messages, coffee/music/discharge/lightning/fire payloads, and the final
 `MSG_BTL_FIRE_BREATH` anchor before the next `EGOODS2` include. These are
 conservative symbol-derived anchors for later C2 action-table consumer work.
+
+## EGOODS2 Item-Use Follow-up
+
+The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.
+The front Exit Mouse script has separate failure and destination branches,
+followed by the Hieroglyph payload, Town Map success/failure text, and Onett
+traveler-shack receive/end branches. This keeps item/map text payloads separate
+from the preceding EBATTLE1 action text and the following unknown event payload
+at `EF:A2FA`.
 
 ## Validation
 

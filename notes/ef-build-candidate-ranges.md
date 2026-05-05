@@ -685,7 +685,20 @@ Data gaps inside protected span:
 - `EF:9E92..EF:9EB4` (`34` bytes, SHA-1 `dfd4284c849c8695219a6beb4c0c3ff37eb2fb20`) `EBattle1MsgBtlKaminari`
 - `EF:9EB4..EF:9ED7` (`35` bytes, SHA-1 `8958f89db69495bad9bb558817ebaa0b1523be82`) `EBattle1MsgBtlFire`
 - `EF:9ED7..EF:9EF4` (`29` bytes, SHA-1 `bb9edb85dd80363a4f4d86a1b13a26bc8d15d907`) `EBattle1MsgBtlFireBreath`
-- `EF:9EF4..EF:C51B` (`9767` bytes, SHA-1 `b831343d7737ff67856ed07bb4d3daf676c0df27`) `EfPostEbattle1ActionTailTextPayloadData`
+- `EF:9EF4..EF:9F9F` (`171` bytes, SHA-1 `be821dbacac76baa97aa4e8d8488f2b99b4e77de`) `EGoods2MsgBtlEscapeMouse`
+- `EF:9F9F..EF:9FE2` (`67` bytes, SHA-1 `dcbcc6b6beff39146c2e1f297fb6a8e0e83ad448`) `EGoods2BranchMouseNotDungeon`
+- `EF:9FE2..EF:A002` (`32` bytes, SHA-1 `3db4c29e585499780330bef22379d31d89603065`) `EGoods2BranchMouseCantUse`
+- `EF:A002..EF:A029` (`39` bytes, SHA-1 `8f8b62322c41a5a7bb48fbbc1b46d884c5152585`) `EGoods2BranchBtlEscapeMousePizza`
+- `EF:A029..EF:A07E` (`85` bytes, SHA-1 `b13b27c6d6981e5e59c0c21d658773e98deb4c15`) `EGoods2BranchBtlEscapeMouseKanban`
+- `EF:A07E..EF:A0B7` (`57` bytes, SHA-1 `fc37b4cf034a1a3e5ecb49b2e6c3588d3ef6f7bb`) `EGoods2BranchBtlEscapeMouseEscargo`
+- `EF:A0B7..EF:A0DC` (`37` bytes, SHA-1 `ac7c3cc18de03208637026da1d7ab93a06712587`) `EGoods2BranchBtlEscapeMouseCapsule`
+- `EF:A0DC..EF:A2AB` (`463` bytes, SHA-1 `9e8e54461ae0b2afd11003fbe9c93773dea4132d`) `EGoods2MsgBtlHiero`
+- `EF:A2AB..EF:A2B5` (`10` bytes, SHA-1 `746cccf13625d978840dc86f11e0d9e156bcc4ca`) `EGoods2MsgBtlTownMap`
+- `EF:A2B5..EF:A2C9` (`20` bytes, SHA-1 `d24354573cfc8d5171e55c57d2ba2d907deaa66f`) `EGoods2BranchTownMapNg`
+- `EF:A2C9..EF:A2D5` (`12` bytes, SHA-1 `16da9d264bfec7f719429a66fd991ce23355990e`) `EGoods2MsgOnetTabigoya`
+- `EF:A2D5..EF:A2D6` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EGoods2BranchOnetTabigoyaEnd`
+- `EF:A2D6..EF:A2FA` (`36` bytes, SHA-1 `8c143343e807a77d4db7ab725345d2cca0ad491a`) `EGoods2MsgOnetTabigoyaReceive`
+- `EF:A2FA..EF:C51B` (`8737` bytes, SHA-1 `df598f76904cfbac6d2fe28716e6689480fdc4df`) `EfPostEGoods2TextPayloadData`
 
 Labels:
 
@@ -1135,7 +1148,20 @@ Labels:
 - `EF:9E92 EBattle1MsgBtlKaminari`
 - `EF:9EB4 EBattle1MsgBtlFire`
 - `EF:9ED7 EBattle1MsgBtlFireBreath`
-- `EF:9EF4 EfPostEbattle1ActionTailTextPayloadData`
+- `EF:9EF4 EGoods2MsgBtlEscapeMouse`
+- `EF:9F9F EGoods2BranchMouseNotDungeon`
+- `EF:9FE2 EGoods2BranchMouseCantUse`
+- `EF:A002 EGoods2BranchBtlEscapeMousePizza`
+- `EF:A029 EGoods2BranchBtlEscapeMouseKanban`
+- `EF:A07E EGoods2BranchBtlEscapeMouseEscargo`
+- `EF:A0B7 EGoods2BranchBtlEscapeMouseCapsule`
+- `EF:A0DC EGoods2MsgBtlHiero`
+- `EF:A2AB EGoods2MsgBtlTownMap`
+- `EF:A2B5 EGoods2BranchTownMapNg`
+- `EF:A2C9 EGoods2MsgOnetTabigoya`
+- `EF:A2D5 EGoods2BranchOnetTabigoyaEnd`
+- `EF:A2D6 EGoods2MsgOnetTabigoyaReceive`
+- `EF:A2FA EfPostEGoods2TextPayloadData`
 
 Evidence:
 
