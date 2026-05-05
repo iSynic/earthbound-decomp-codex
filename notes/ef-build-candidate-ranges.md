@@ -547,7 +547,52 @@ Data gaps inside protected span:
 - `EF:89BC..EF:89CE` (`18` bytes, SHA-1 `731b1615df090f21f79e7faef34ff2905d213bff`) `EBattle1PsiEffectBranch49`
 - `EF:89CE..EF:89E0` (`18` bytes, SHA-1 `c14cb7a4b9b698376aec8d772ebe8cc2fcb90366`) `EBattle1PsiEffectBranch50`
 - `EF:89E0..EF:89FE` (`30` bytes, SHA-1 `8afe90ada4dfe0b5def823aeba59fd3ad4a62b83`) `EBattle1MsgBtlPray`
-- `EF:89FE..EF:C51B` (`15133` bytes, SHA-1 `698d41a85a8b059573c10ec1066e48c23f77fc01`) `EfPostThunderPrayTextPayloadData`
+- `EF:89FE..EF:8A18` (`26` bytes, SHA-1 `82516287de48a79fcc57c207a112334b7dc1e5d8`) `EBattle3MsgBtlJihibiki`
+- `EF:8A18..EF:8A33` (`27` bytes, SHA-1 `b9cf25d951570548a9173205917a1e124c8e642e`) `EBattle3MsgBtlOsaetsuke`
+- `EF:8A33..EF:8A52` (`31` bytes, SHA-1 `a9a6f80fa14e823657269b9d4b31ddfe73be7fff`) `EBattle3MsgBtlCurseWord`
+- `EF:8A52..EF:8A6F` (`29` bytes, SHA-1 `4f91dc6da094af749a6e9d11f864a1ccc7385948`) `EBattle3MsgBtlJimi`
+- `EF:8A6F..EF:8A8C` (`29` bytes, SHA-1 `b2d6de625aaec60f0c0a5fb3cd8960d9c86747cf`) `EBattle3MsgBtlPenki`
+- `EF:8A8C..EF:8AA3` (`23` bytes, SHA-1 `fa89bcca9563639b4ab17e070bae0b505eabd87d`) `EBattle3MsgBtlNaguriKakari`
+- `EF:8AA3..EF:8AC2` (`31` bytes, SHA-1 `7958bb3b03bfff1342284529767b16d6d187dbe7`) `EBattle3MsgBtlClaw`
+- `EF:8AC2..EF:8ADD` (`27` bytes, SHA-1 `a91b11f0930f7946017719b45d7c40719d76d48f`) `EBattle3MsgBtlKuchibashi`
+- `EF:8ADD..EF:8AF8` (`27` bytes, SHA-1 `9ce620a6a7cc254e98e62faaf3ec46964da1f001`) `EBattle3MsgBtlTsuno`
+- `EF:8AF8..EF:8B11` (`25` bytes, SHA-1 `58b5a0c797894b84c4be5351b86664266a1de1df`) `EBattle3MsgBtlPunch`
+- `EF:8B11..EF:8B2F` (`30` bytes, SHA-1 `78e6dd2a297ed89f0a39f966d95223e77084482c`) `EBattle3MsgBtlPumpkin`
+- `EF:8B2F..EF:8B4A` (`27` bytes, SHA-1 `69d3dc47622dba92d8559a1b40437d128d75454f`) `EBattle3MsgBtlBeam`
+- `EF:8B4A..EF:8B65` (`27` bytes, SHA-1 `bd4124fb9b77641746a3257a196d127f749d5266`) `EBattle3MsgBtlYari`
+- `EF:8B65..EF:8B89` (`36` bytes, SHA-1 `9c048f1c73a7b16c2d40bb4b3cf6c4d796cd908a`) `EBattle3MsgBtlFumitsuke`
+- `EF:8B89..EF:8BA8` (`31` bytes, SHA-1 `5417a382c51d8e4d0e5747665d0ebc805e87047e`) `EBattle3MsgBtlFurafuupu`
+- `EF:8BA8..EF:8BC0` (`24` bytes, SHA-1 `3f23d1e935b11d01c3a5f0fd7c5ac3584f024507`) `EBattle3MsgBtlTaiatari`
+- `EF:8BC0..EF:8BE8` (`40` bytes, SHA-1 `a5a34cf8340e55b1a1c0e3a907e0c1035772c0aa`) `EBattle3MsgBtlSkateboard`
+- `EF:8BE8..EF:8BFB` (`19` bytes, SHA-1 `ae517ccac21dfd6f14940ad00e0afc12c3ae1dbd`) `EBattle3MsgBtlKamitsukiDiamond`
+- `EF:8BFB..EF:8C1D` (`34` bytes, SHA-1 `8f38bb4bfe94c040267c40727b8865266ea1db9a`) `EBattle3MsgBtlKudamaki`
+- `EF:8C1D..EF:8C3A` (`29` bytes, SHA-1 `501f385ddfdc187cbae2cad0900521f642b4aae2`) `EBattle3MsgBtlSekkyou`
+- `EF:8C3A..EF:8C58` (`30` bytes, SHA-1 `c7e3eb9c98f5d814edd59d5b3bb46a3e5aa97cc5`) `EBattle3MsgBtlShikaritsuke`
+- `EF:8C58..EF:8C75` (`29` bytes, SHA-1 `9b42d558d2e655d77fae4bad4cfd20e53ba2a43c`) `EBattle3MsgBtlBadSmell`
+- `EF:8C75..EF:8C92` (`29` bytes, SHA-1 `b4982e8d6381eb7f10748d19f888653b69d8d4a9`) `EBattle3MsgBtlLoudVoice`
+- `EF:8C92..EF:8CAC` (`26` bytes, SHA-1 `30917200a7b1000f96d516272cec8facb90f1cfc`) `EBattle3MsgBtlOtakebi`
+- `EF:8CAC..EF:8CC7` (`27` bytes, SHA-1 `a6e12ad62550dfe21bbdefa92948f39f72b61d17`) `EBattle3MsgBtlFakeDead`
+- `EF:8CC7..EF:8CDD` (`22` bytes, SHA-1 `c053dea2b746d7465ec36b4cbda8e7fde606dae4`) `EBattle3MsgBtlYudan`
+- `EF:8CDD..EF:8CFB` (`30` bytes, SHA-1 `566d7352fc35a8042bbff3e69ded5685d144bdad`) `EBattle3MsgBtlYudan1`
+- `EF:8CFB..EF:8D17` (`28` bytes, SHA-1 `a7e7834f9eb926f03d26dae91032cab9fe910ea2`) `EBattle3MsgBtlYudan2`
+- `EF:8D17..EF:8D2F` (`24` bytes, SHA-1 `ffa8ca67550206b698c7d354dc445011b1c436fe`) `EBattle3MsgBtlYudan3`
+- `EF:8D2F..EF:8D4C` (`29` bytes, SHA-1 `2a6d2c8d426340e2668e23b7004c71851b2038e4`) `EBattle3MsgBtlYudan4`
+- `EF:8D4C..EF:8D72` (`38` bytes, SHA-1 `b8360b3a6defa5ef388b5156d8d5ffe4c99fe053`) `EBattle3MsgBtlYudanLifeup`
+- `EF:8D72..EF:8D9F` (`45` bytes, SHA-1 `bfe6951299f51a254f8fc2c8a7ad342a71ee7849`) `EBattle3MsgBtlNebieBeam`
+- `EF:8D9F..EF:8DC1` (`34` bytes, SHA-1 `f4ec5f481aa20e8c37e63a06f35875137d5091a2`) `EBattle3MsgBtlNeutralizeSparkle`
+- `EF:8DC1..EF:8DDE` (`29` bytes, SHA-1 `937dfc5ae9d58e40fc26e3abf8c21d78635a4cb7`) `EBattle3MsgBtlMakitsuki`
+- `EF:8DDE..EF:8E27` (`73` bytes, SHA-1 `a2be184479ff15037a0869f1ce3735092130949d`) `EBattle3MsgBtlToDiamondDog`
+- `EF:8E27..EF:8E3C` (`21` bytes, SHA-1 `ed6bb71d52ce16b2c70f35a67f0f207f0b83571e`) `EBattle3MsgBtlWarpNear`
+- `EF:8E3C..EF:8E5E` (`34` bytes, SHA-1 `8dd727c3912f31d6a832803481482da02856bb65`) `EBattle3MsgBtlAntipsi`
+- `EF:8E5E..EF:8E7E` (`32` bytes, SHA-1 `cb9e63f7d89c72e768b383127b4fa45d1e1babb7`) `EBattle3MsgBtlHpsuck`
+- `EF:8E7E..EF:8E9E` (`32` bytes, SHA-1 `416aeaab8b0876ccc0dd67be014af23b5e05f153`) `EBattle3MsgBtlHpsucksp`
+- `EF:8E9E..EF:8EBE` (`32` bytes, SHA-1 `aac956c87de5ca8f08c162acb29102248e1e6ca9`) `EBattle3MsgBtlShieldkill`
+- `EF:8EBE..EF:8EE2` (`36` bytes, SHA-1 `e1dbb11052439787f5983da25167064d3bbbe743`) `EBattle3MsgBtlBadSmellGas`
+- `EF:8EE2..EF:8F17` (`53` bytes, SHA-1 `9d095da1f28789d8c787cfc7241d78a97b832eff`) `EBattle3MsgBtlLightning`
+- `EF:8F17..EF:8F4A` (`51` bytes, SHA-1 `833abb473eaaedd8995dcddb89018c082eb03c8c`) `EBattle3MsgBtlLightningB`
+- `EF:8F4A..EF:8F91` (`71` bytes, SHA-1 `886d431e469f10d4a3febb85630f90affcbdfa12`) `EBattle3MsgBtlLightningC`
+- `EF:8F91..EF:8FAD` (`28` bytes, SHA-1 `9281e687823201e0c4448a95e648ee7cb050705f`) `EBattle3MsgBtlGyiyyig3`
+- `EF:8FAD..EF:C51B` (`13678` bytes, SHA-1 `5f4aa78a8085cb7adb5cf8658ed4a532af56638d`) `EfPostEbattle3TextPayloadData`
 
 Labels:
 
@@ -859,7 +904,52 @@ Labels:
 - `EF:89BC EBattle1PsiEffectBranch49`
 - `EF:89CE EBattle1PsiEffectBranch50`
 - `EF:89E0 EBattle1MsgBtlPray`
-- `EF:89FE EfPostThunderPrayTextPayloadData`
+- `EF:89FE EBattle3MsgBtlJihibiki`
+- `EF:8A18 EBattle3MsgBtlOsaetsuke`
+- `EF:8A33 EBattle3MsgBtlCurseWord`
+- `EF:8A52 EBattle3MsgBtlJimi`
+- `EF:8A6F EBattle3MsgBtlPenki`
+- `EF:8A8C EBattle3MsgBtlNaguriKakari`
+- `EF:8AA3 EBattle3MsgBtlClaw`
+- `EF:8AC2 EBattle3MsgBtlKuchibashi`
+- `EF:8ADD EBattle3MsgBtlTsuno`
+- `EF:8AF8 EBattle3MsgBtlPunch`
+- `EF:8B11 EBattle3MsgBtlPumpkin`
+- `EF:8B2F EBattle3MsgBtlBeam`
+- `EF:8B4A EBattle3MsgBtlYari`
+- `EF:8B65 EBattle3MsgBtlFumitsuke`
+- `EF:8B89 EBattle3MsgBtlFurafuupu`
+- `EF:8BA8 EBattle3MsgBtlTaiatari`
+- `EF:8BC0 EBattle3MsgBtlSkateboard`
+- `EF:8BE8 EBattle3MsgBtlKamitsukiDiamond`
+- `EF:8BFB EBattle3MsgBtlKudamaki`
+- `EF:8C1D EBattle3MsgBtlSekkyou`
+- `EF:8C3A EBattle3MsgBtlShikaritsuke`
+- `EF:8C58 EBattle3MsgBtlBadSmell`
+- `EF:8C75 EBattle3MsgBtlLoudVoice`
+- `EF:8C92 EBattle3MsgBtlOtakebi`
+- `EF:8CAC EBattle3MsgBtlFakeDead`
+- `EF:8CC7 EBattle3MsgBtlYudan`
+- `EF:8CDD EBattle3MsgBtlYudan1`
+- `EF:8CFB EBattle3MsgBtlYudan2`
+- `EF:8D17 EBattle3MsgBtlYudan3`
+- `EF:8D2F EBattle3MsgBtlYudan4`
+- `EF:8D4C EBattle3MsgBtlYudanLifeup`
+- `EF:8D72 EBattle3MsgBtlNebieBeam`
+- `EF:8D9F EBattle3MsgBtlNeutralizeSparkle`
+- `EF:8DC1 EBattle3MsgBtlMakitsuki`
+- `EF:8DDE EBattle3MsgBtlToDiamondDog`
+- `EF:8E27 EBattle3MsgBtlWarpNear`
+- `EF:8E3C EBattle3MsgBtlAntipsi`
+- `EF:8E5E EBattle3MsgBtlHpsuck`
+- `EF:8E7E EBattle3MsgBtlHpsucksp`
+- `EF:8E9E EBattle3MsgBtlShieldkill`
+- `EF:8EBE EBattle3MsgBtlBadSmellGas`
+- `EF:8EE2 EBattle3MsgBtlLightning`
+- `EF:8F17 EBattle3MsgBtlLightningB`
+- `EF:8F4A EBattle3MsgBtlLightningC`
+- `EF:8F91 EBattle3MsgBtlGyiyyig3`
+- `EF:8FAD EfPostEbattle3TextPayloadData`
 
 Evidence:
 

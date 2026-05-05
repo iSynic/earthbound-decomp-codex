@@ -113,6 +113,9 @@ callers.
   small and large Thunder presentation scripts, the Thunder miss sound script,
   PSI presentation/effect branches 17-50, and the Pray action opening text at
   `EF:89E0`.
+- `EF:89FE..8FAD` now splits the complete EBATTLE3 enemy-action text include,
+  from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, before the next
+  EBATTLE9 include begins.
 
 ## Correction
 
@@ -216,6 +219,16 @@ The `EF:883D..89E0` branch anchors preserve the PBFX 17-50 presentation
 dispatch targets without trying to decode the EB text bytecode yet. `EF:89E0`
 is the Pray action text pointer used by the action table, so the first Pray
 entry is now visible before the following EBATTLE3 enemy-action text block.
+
+## EBATTLE3 Enemy-Action Follow-up
+
+The complete `EF:89FE..8FAD` EBATTLE3 include is now split around its exact US
+listing labels. This is another symbol-derived action-flavor island, similar to
+the earlier EBATTLE2 split: the anchors cover rumble/grab/curse/flavor attacks,
+physical variants, enemy hesitation branches, HP-sucker and Shield Killer
+scripts, and the late lightning/Giygas-flavor scripts. The split keeps the
+runtime payloads visible for a later C2 action-table consumer pass while still
+leaving the EB text bytecode ROM-preserved.
 
 ## Validation
 

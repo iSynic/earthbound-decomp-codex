@@ -1862,8 +1862,278 @@ EF89E0_EBattle1MsgBtlPray:
 ; ---------------------------------------------------------------------------
 ; EF:89FE
 
-; Remaining EF text payload data after the EBATTLE1 Thunder/effect/Pray split.
-EF89FE_EfPostThunderPrayTextPayloadData:
+; EBATTLE3: `MSG_BTL_JIHIBIKI` enemy-action text.
+EF89FE_EBattle3MsgBtlJihibiki:
+
+; ---------------------------------------------------------------------------
+; EF:8A18
+
+; EBATTLE3: `MSG_BTL_OSAETSUKE` enemy-action text.
+EF8A18_EBattle3MsgBtlOsaetsuke:
+
+; ---------------------------------------------------------------------------
+; EF:8A33
+
+; EBATTLE3: `MSG_BTL_CURSE_WORD` enemy-action text.
+EF8A33_EBattle3MsgBtlCurseWord:
+
+; ---------------------------------------------------------------------------
+; EF:8A52
+
+; EBATTLE3: `MSG_BTL_JIMI` enemy-action text.
+EF8A52_EBattle3MsgBtlJimi:
+
+; ---------------------------------------------------------------------------
+; EF:8A6F
+
+; EBATTLE3: `MSG_BTL_PENKI` enemy-action text.
+EF8A6F_EBattle3MsgBtlPenki:
+
+; ---------------------------------------------------------------------------
+; EF:8A8C
+
+; EBATTLE3: `MSG_BTL_NAGURI_KAKARI` enemy-action text.
+EF8A8C_EBattle3MsgBtlNaguriKakari:
+
+; ---------------------------------------------------------------------------
+; EF:8AA3
+
+; EBATTLE3: `MSG_BTL_CLAW` enemy-action text.
+EF8AA3_EBattle3MsgBtlClaw:
+
+; ---------------------------------------------------------------------------
+; EF:8AC2
+
+; EBATTLE3: `MSG_BTL_KUCHIBASHI` enemy-action text.
+EF8AC2_EBattle3MsgBtlKuchibashi:
+
+; ---------------------------------------------------------------------------
+; EF:8ADD
+
+; EBATTLE3: `MSG_BTL_TSUNO` enemy-action text.
+EF8ADD_EBattle3MsgBtlTsuno:
+
+; ---------------------------------------------------------------------------
+; EF:8AF8
+
+; EBATTLE3: `MSG_BTL_PUNCH` enemy-action text.
+EF8AF8_EBattle3MsgBtlPunch:
+
+; ---------------------------------------------------------------------------
+; EF:8B11
+
+; EBATTLE3: `MSG_BTL_PUMPKIN` enemy-action text.
+EF8B11_EBattle3MsgBtlPumpkin:
+
+; ---------------------------------------------------------------------------
+; EF:8B2F
+
+; EBATTLE3: `MSG_BTL_BEAM` enemy-action text.
+EF8B2F_EBattle3MsgBtlBeam:
+
+; ---------------------------------------------------------------------------
+; EF:8B4A
+
+; EBATTLE3: `MSG_BTL_YARI` enemy-action text.
+EF8B4A_EBattle3MsgBtlYari:
+
+; ---------------------------------------------------------------------------
+; EF:8B65
+
+; EBATTLE3: `MSG_BTL_FUMITSUKE` enemy-action text.
+EF8B65_EBattle3MsgBtlFumitsuke:
+
+; ---------------------------------------------------------------------------
+; EF:8B89
+
+; EBATTLE3: `MSG_BTL_FURAFUUPU` enemy-action text.
+EF8B89_EBattle3MsgBtlFurafuupu:
+
+; ---------------------------------------------------------------------------
+; EF:8BA8
+
+; EBATTLE3: `MSG_BTL_TAIATARI` enemy-action text.
+EF8BA8_EBattle3MsgBtlTaiatari:
+
+; ---------------------------------------------------------------------------
+; EF:8BC0
+
+; EBATTLE3: `MSG_BTL_SKATEBOARD` enemy-action text.
+EF8BC0_EBattle3MsgBtlSkateboard:
+
+; ---------------------------------------------------------------------------
+; EF:8BE8
+
+; EBATTLE3: `MSG_BTL_KAMITSUKI_DIAMOND` enemy-action text.
+EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+
+; ---------------------------------------------------------------------------
+; EF:8BFB
+
+; EBATTLE3: `MSG_BTL_KUDAMAKI` enemy-action text.
+EF8BFB_EBattle3MsgBtlKudamaki:
+
+; ---------------------------------------------------------------------------
+; EF:8C1D
+
+; EBATTLE3: `MSG_BTL_SEKKYOU` enemy-action text.
+EF8C1D_EBattle3MsgBtlSekkyou:
+
+; ---------------------------------------------------------------------------
+; EF:8C3A
+
+; EBATTLE3: `MSG_BTL_SHIKARITSUKE` enemy-action text.
+EF8C3A_EBattle3MsgBtlShikaritsuke:
+
+; ---------------------------------------------------------------------------
+; EF:8C58
+
+; EBATTLE3: `MSG_BTL_BAD_SMELL` enemy-action text.
+EF8C58_EBattle3MsgBtlBadSmell:
+
+; ---------------------------------------------------------------------------
+; EF:8C75
+
+; EBATTLE3: `MSG_BTL_LOUD_VOICE` enemy-action text.
+EF8C75_EBattle3MsgBtlLoudVoice:
+
+; ---------------------------------------------------------------------------
+; EF:8C92
+
+; EBATTLE3: `MSG_BTL_OTAKEBI` enemy-action text.
+EF8C92_EBattle3MsgBtlOtakebi:
+
+; ---------------------------------------------------------------------------
+; EF:8CAC
+
+; EBATTLE3: `MSG_BTL_FAKE_DEAD` enemy-action text.
+EF8CAC_EBattle3MsgBtlFakeDead:
+
+; ---------------------------------------------------------------------------
+; EF:8CC7
+
+; EBATTLE3: `MSG_BTL_YUDAN` enemy-action text.
+EF8CC7_EBattle3MsgBtlYudan:
+
+; ---------------------------------------------------------------------------
+; EF:8CDD
+
+; EBATTLE3: `MSG_BTL_YUDAN_1` enemy-action text.
+EF8CDD_EBattle3MsgBtlYudan1:
+
+; ---------------------------------------------------------------------------
+; EF:8CFB
+
+; EBATTLE3: `MSG_BTL_YUDAN_2` enemy-action text.
+EF8CFB_EBattle3MsgBtlYudan2:
+
+; ---------------------------------------------------------------------------
+; EF:8D17
+
+; EBATTLE3: `MSG_BTL_YUDAN_3` enemy-action text.
+EF8D17_EBattle3MsgBtlYudan3:
+
+; ---------------------------------------------------------------------------
+; EF:8D2F
+
+; EBATTLE3: `MSG_BTL_YUDAN_4` enemy-action text.
+EF8D2F_EBattle3MsgBtlYudan4:
+
+; ---------------------------------------------------------------------------
+; EF:8D4C
+
+; EBATTLE3: `MSG_BTL_YUDAN_LIFEUP` enemy-action text.
+EF8D4C_EBattle3MsgBtlYudanLifeup:
+
+; ---------------------------------------------------------------------------
+; EF:8D72
+
+; EBATTLE3: `MSG_BTL_NEBIE_BEAM` enemy-action text.
+EF8D72_EBattle3MsgBtlNebieBeam:
+
+; ---------------------------------------------------------------------------
+; EF:8D9F
+
+; EBATTLE3: `MSG_BTL_NEUTRALIZE_SPARKLE` enemy-action text.
+EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+
+; ---------------------------------------------------------------------------
+; EF:8DC1
+
+; EBATTLE3: `MSG_BTL_MAKITSUKI` enemy-action text.
+EF8DC1_EBattle3MsgBtlMakitsuki:
+
+; ---------------------------------------------------------------------------
+; EF:8DDE
+
+; EBATTLE3: `MSG_BTL_TO_DIAMOND_DOG` enemy-action text.
+EF8DDE_EBattle3MsgBtlToDiamondDog:
+
+; ---------------------------------------------------------------------------
+; EF:8E27
+
+; EBATTLE3: `MSG_BTL_WARP_NEAR` enemy-action text.
+EF8E27_EBattle3MsgBtlWarpNear:
+
+; ---------------------------------------------------------------------------
+; EF:8E3C
+
+; EBATTLE3: `MSG_BTL_ANTIPSI` enemy-action text.
+EF8E3C_EBattle3MsgBtlAntipsi:
+
+; ---------------------------------------------------------------------------
+; EF:8E5E
+
+; EBATTLE3: `MSG_BTL_HPSUCK` enemy-action text.
+EF8E5E_EBattle3MsgBtlHpsuck:
+
+; ---------------------------------------------------------------------------
+; EF:8E7E
+
+; EBATTLE3: `MSG_BTL_HPSUCKSP` enemy-action text.
+EF8E7E_EBattle3MsgBtlHpsucksp:
+
+; ---------------------------------------------------------------------------
+; EF:8E9E
+
+; EBATTLE3: `MSG_BTL_SHIELDKILL` enemy-action text.
+EF8E9E_EBattle3MsgBtlShieldkill:
+
+; ---------------------------------------------------------------------------
+; EF:8EBE
+
+; EBATTLE3: `MSG_BTL_BAD_SMELL_GAS` enemy-action text.
+EF8EBE_EBattle3MsgBtlBadSmellGas:
+
+; ---------------------------------------------------------------------------
+; EF:8EE2
+
+; EBATTLE3: `MSG_BTL_LIGHTNING` enemy-action text.
+EF8EE2_EBattle3MsgBtlLightning:
+
+; ---------------------------------------------------------------------------
+; EF:8F17
+
+; EBATTLE3: `MSG_BTL_LIGHTNING_B` enemy-action text.
+EF8F17_EBattle3MsgBtlLightningB:
+
+; ---------------------------------------------------------------------------
+; EF:8F4A
+
+; EBATTLE3: `MSG_BTL_LIGHTNING_C` enemy-action text.
+EF8F4A_EBattle3MsgBtlLightningC:
+
+; ---------------------------------------------------------------------------
+; EF:8F91
+
+; EBATTLE3: `MSG_BTL_GYIYYIG_3` enemy-action text.
+EF8F91_EBattle3MsgBtlGyiyyig3:
+
+; ---------------------------------------------------------------------------
+; EF:8FAD
+
+; Remaining EF text payload data after the EBATTLE3 enemy-action split.
+EF8FAD_EfPostEbattle3TextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

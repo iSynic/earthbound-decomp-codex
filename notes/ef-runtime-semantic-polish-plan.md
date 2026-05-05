@@ -162,3 +162,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:8814..89FE` into small/large Thunder presentation text, Thunder miss
   sound text, PBFX presentation branches 17-50, and the Pray action opening
   text at `EF:89E0`.
+- 2026-05-05: EF EBATTLE3 action-flavor follow-up split the complete
+  `EF:89FE..8FAD` enemy-action text include into exact `MSG_BTL_*` anchors
+  from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`.
