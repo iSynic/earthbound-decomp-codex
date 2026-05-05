@@ -6,8 +6,8 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 - ranges: `28`
 - total bytes: `65536`
-- source bytes: `10899`
-- data gap bytes: `54637`
+- source bytes: `10828`
+- data gap bytes: `54708`
 
 ## Ranges
 
@@ -38,7 +38,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/ef/ef_eb2a_eb3d_debug_color_math_dma_reset.asm` | `EF:EB2A..EF:EB3D` | 19 | 19 | 0 | `b7703e2d448dca9da5dd3146081d989ae457fc32` |
 | `build-candidate` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | `EF:EB3D..EF:EB5F` | 34 | 0 | 34 | `dd51f90c8b6debd5ab65cfcad48a0f1cf3a4fb6a` |
 | `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 1041 | 0 | `7d8195145f270d5d310df09b7c73a32cca868614` |
-| `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 71 | 0 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
+| `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 0 | 71 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
 | `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 288 | 0 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
 | `build-candidate` | `src/ef/asset_bank_ef_gap_1_tailpadding.asm` | `EF:F0D7..EF:10000` | 3881 | 0 | 3881 | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
 
@@ -1674,17 +1674,25 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| `EF:EF70..EF:EFB7` | 71 | `TableEfef70` | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `EF:EF70..EF:EF9F` (`47` bytes, SHA-1 `061b137ba2bb0b901659da146a46549fd93913df`) `UnknownEfef70Data`
+- `EF:EF9F..EF:EFB7` (`24` bytes, SHA-1 `bc2bc6857fb27664ccb31dabc20ed81f504f429e`) `DebugFontPalette`
 
 Labels:
 
-- `EF:EF70 TableEfef70`
+- `EF:EF70 UnknownEfef70Data`
+- `EF:EF9F DebugFontPalette`
+- `EF:EFB7 DebugFontPaletteAndUnknownTableEnd`
 
 Evidence:
 
-- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2F.asm`
-- `refs/ebsrc-main/ebsrc-main/earthbound.yml`
-- `build/asset-bank-ef.json`
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/EB-M2-Listing-v1/US/bank2F.txt`
+- `refs/ebsrc-main/ebsrc-main/src/data/debug/debug_font_palette.asm`
+- `notes/bank-ef-first-pass.md`
 - `notes/bank-ef-asset-data-map.md`
 
 ### `src/ef/asset_debug_cursor_graphics.asm`

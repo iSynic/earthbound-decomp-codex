@@ -85,8 +85,8 @@ The current high-level EF layout is:
   the overworld spawn/placement path when `$436C != 0`, so not every unknown
   routine here should be assumed to be debug-only.
 - `EF:EB5F..EF:EF6F`: `DEBUG_MENU_FONT`, exact binary span, `1041` bytes.
-- `EF:EF70..EF:EFB6`: small debug font palette/unknown table region, inferred
-  `71` bytes in the manifest.
+- `EF:EF70..EF:EF9E`: unknown data block before the debug font palette.
+- `EF:EF9F..EF:EFB6`: `DEBUG_FONT_PALETTE`, `24` bytes.
 - `EF:EFB7..EF:F0D6`: `DEBUG_CURSOR_GRAPHICS`, exact binary span, `288` bytes.
 - `EF:F0D7..EF:F5EA`: named late data tail. The bankconfig names
   `data/unknown/EFF0D7.asm`, `data/unknown/EFF1BB.asm`,

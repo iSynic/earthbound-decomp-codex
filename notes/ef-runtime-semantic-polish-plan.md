@@ -189,3 +189,5 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF late-tail follow-up split `EF:F0D7..10000` into the two
   unknown data includes, embedded version string, three unused data blocks,
   debug cursor spritemap pointer/entries, and residual bank padding.
+- 2026-05-05: EF debug font-palette follow-up split `EF:EF70..EFB7` into the
+  unknown `EFEF70` include and the `DEBUG_FONT_PALETTE` payload.
