@@ -7,7 +7,13 @@
 ;   as one data gap before the terminal label below.
 ;
 ; Source units covered:
-; - EF:EB3D..EF:EB5F EfDebugCursorTilemapData
+; - EF:EB3D..EF:EB5F DebugCursorTilemapData
+
+; ---------------------------------------------------------------------------
+; EF:EB3D
+
+; Debug cursor tilemap data immediately before the debug menu font payload.
+EFEB3D_DebugCursorTilemapData:
 
 ; ---------------------------------------------------------------------------
 ; EF:EB5F

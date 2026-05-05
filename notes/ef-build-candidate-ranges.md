@@ -1599,11 +1599,11 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:EB1D..EF:EB2A` (`13` bytes, SHA-1 `49c3bca75bbbe59051ec87f6e80fc31946136449`) `EfDebugColorMathWindowTable`
+- `EF:EB1D..EF:EB2A` (`13` bytes, SHA-1 `49c3bca75bbbe59051ec87f6e80fc31946136449`) `DebugColorMathWindowHdmaTable`
 
 Labels:
 
-- `EF:EB1D EfDebugColorMathWindowTable`
+- `EF:EB1D DebugColorMathWindowHdmaTable`
 
 Evidence:
 
@@ -1639,11 +1639,11 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:EB3D..EF:EB5F` (`34` bytes, SHA-1 `dd51f90c8b6debd5ab65cfcad48a0f1cf3a4fb6a`) `EfDebugCursorTilemapData`
+- `EF:EB3D..EF:EB5F` (`34` bytes, SHA-1 `dd51f90c8b6debd5ab65cfcad48a0f1cf3a4fb6a`) `DebugCursorTilemapData`
 
 Labels:
 
-- `EF:EB3D EfDebugCursorTilemapData`
+- `EF:EB3D DebugCursorTilemapData`
 
 Evidence:
 

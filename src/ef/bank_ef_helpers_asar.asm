@@ -11055,6 +11055,7 @@ EFEB2A_ResetDebugColorMathDmaRegisters:
 hirom
 org $EFEB3D
 
+EFEB3D_DebugCursorTilemapData:
 !EFEB5F_EfDebugCursorTilemapDataEnd = DEBUG_MENU_FONT
 
 ; Original terminal data gap ending at $EFEB5F

@@ -183,3 +183,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   option/version strings.
 - 2026-05-05: EF debug menu string follow-up split `EF:D8B5..D95E` into the
   ROM/version header, title line, and seven selectable debug-menu option rows.
+- 2026-05-05: EF debug tail data follow-up aligned `EF:EB1D..EB2A` as the
+  debug color-math window HDMA table and added the missing `EF:EB3D` debug
+  cursor tilemap anchor before `DEBUG_MENU_FONT`.

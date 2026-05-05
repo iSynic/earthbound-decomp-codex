@@ -46,8 +46,8 @@ plus the include anchors.
 
 | Range | File | Role |
 | --- | --- | --- |
-| `EF:EB1D..EF:EB2A` | `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm` | Tiny color-math/window table loaded by the `EFEAC8` DMA setup helper. |
-| `EF:EB3D..EF:EB5F` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | Debug cursor tilemap data immediately before `DEBUG_MENU_FONT`. |
+| `EF:EB1D..EF:EB2A` | `src/ef/ef_eb1d_eb2a_debug_color_math_window_table.asm` | `DebugColorMathWindowHdmaTable`, the tiny color-math/window table loaded by the `EFEAC8` DMA setup helper. |
+| `EF:EB3D..EF:EB5F` | `src/ef/ef_eb3d_eb5f_debug_cursor_tilemap_data.asm` | `DebugCursorTilemapData`, the debug cursor tilemap data immediately before `DEBUG_MENU_FONT`. |
 
 ## Runtime Loop And Command Helpers
 
@@ -79,6 +79,10 @@ DMA channel-4 source fields, HDMA enable shadow, and the `EF:EB1D` window HDMA
 table source. The reset helper at `EF:EB2A` now names the matching HDMA-enable
 clear and window-left/right reset values before returning to 16-bit
 accumulator mode.
+
+The preserved data islands now expose source anchors at `EF:EB1D` and
+`EF:EB3D`, keeping the HDMA table and cursor tilemap payload named without
+decoding either island as executable code.
 
 ## Cross-Bank Meaning
 

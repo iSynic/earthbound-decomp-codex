@@ -7,11 +7,12 @@
 ;   as one data gap before the terminal label below.
 ;
 ; Source units covered:
-; - EF:EB1D..EF:EB2A EfDebugColorMathWindowTable
+; - EF:EB1D..EF:EB2A DebugColorMathWindowHdmaTable
 
 ; ---------------------------------------------------------------------------
 ; EF:EB1D
 
+; HDMA table source installed by the debug color-math window helper.
 EFEB1D_DebugColorMathWindowHdmaTable:
 
 ; ---------------------------------------------------------------------------
