@@ -6,8 +6,8 @@ This manifest records source slices promoted into the reusable source-bank scaff
 
 - ranges: `28`
 - total bytes: `65536`
-- source bytes: `14780`
-- data gap bytes: `50756`
+- source bytes: `10899`
+- data gap bytes: `54637`
 
 ## Ranges
 
@@ -40,7 +40,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/ef/asset_debug_menu_font.asm` | `EF:EB5F..EF:EF70` | 1041 | 1041 | 0 | `7d8195145f270d5d310df09b7c73a32cca868614` |
 | `build-candidate` | `src/ef/table_141_data_unknown_efef70_asm.asm` | `EF:EF70..EF:EFB7` | 71 | 71 | 0 | `274b0fc73b39180dd07b1df5e5fd1077c481387d` |
 | `build-candidate` | `src/ef/asset_debug_cursor_graphics.asm` | `EF:EFB7..EF:F0D7` | 288 | 288 | 0 | `d4aa5ac9ca83bf8da624ffab3ed1c95d0e85cdd8` |
-| `build-candidate` | `src/ef/asset_bank_ef_gap_1_tailpadding.asm` | `EF:F0D7..EF:10000` | 3881 | 3881 | 0 | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
+| `build-candidate` | `src/ef/asset_bank_ef_gap_1_tailpadding.asm` | `EF:F0D7..EF:10000` | 3881 | 0 | 3881 | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
 
 ## Source Segments
 
@@ -1708,17 +1708,37 @@ Evidence:
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| `EF:F0D7..EF:10000` | 3881 | `AssetBankEFGap1TailPadding` | `8e09b47444551098bd77c1dd73e19f0a9ba0a71f` |
+| n/a | 0 | `data-only protected span` | n/a |
+
+Data gaps inside protected span:
+
+- `EF:F0D7..EF:F1BB` (`228` bytes, SHA-1 `12b445e0dbf65060bfc3dd1a0958f2524d48d324`) `UnknownEff0d7ZeroPaddingData`
+- `EF:F1BB..EF:F3BB` (`512` bytes, SHA-1 `1e2c1bba7c448f87003ab6b0fcab8db1e9052106`) `UnknownEff1bbLateData`
+- `EF:F3BB..EF:F3DB` (`32` bytes, SHA-1 `de5c2e7d4ef51bd9017400589954706aaa3fe48f`) `UnknownVersionString`
+- `EF:F3DB..EF:F511` (`310` bytes, SHA-1 `73fe4836b23e2f293057c4fbd72d07ab677aa1de`) `UnusedEff3dbData`
+- `EF:F511..EF:F53B` (`42` bytes, SHA-1 `4413bc6dc79f4ca5d8706d508448c47e21e2647e`) `UnusedEff511Data`
+- `EF:F53B..EF:F5BB` (`128` bytes, SHA-1 `0ae4f711ef5d6e9d26c611fd2c8c8ac45ecbf9e7`) `UnusedEff53bData`
+- `EF:F5BB..EF:F5BD` (`2` bytes, SHA-1 `1e488f170b28a6dd965b53b53a149be60e05b7e1`) `DebugCursorSpritemapPointer`
+- `EF:F5BD..EF:F5EB` (`46` bytes, SHA-1 `6bb0e228293b21e97cf3586d88c8e73dddc4a4ab`) `DebugCursorSpritemapEntries`
+- `EF:F5EB..EF:10000` (`2581` bytes, SHA-1 `2738019380ee57a09c6901377bf56f13979f7079`) `EfBankTailPadding`
 
 Labels:
 
-- `EF:F0D7 AssetBankEFGap1TailPadding`
+- `EF:F0D7 UnknownEff0d7ZeroPaddingData`
+- `EF:F1BB UnknownEff1bbLateData`
+- `EF:F3BB UnknownVersionString`
+- `EF:F3DB UnusedEff3dbData`
+- `EF:F511 UnusedEff511Data`
+- `EF:F53B UnusedEff53bData`
+- `EF:F5BB DebugCursorSpritemapPointer`
+- `EF:F5BD DebugCursorSpritemapEntries`
+- `EF:F5EB EfBankTailPadding`
 
 Evidence:
 
-- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2F.asm`
-- `refs/ebsrc-main/ebsrc-main/earthbound.yml`
-- `build/asset-bank-ef.json`
+- `refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank2f.asm`
+- `refs/EB-M2-Listing-v1/US/bank2F.txt`
+- `notes/bank-ef-first-pass.md`
 - `notes/bank-ef-asset-data-map.md`
 
 ## Notes

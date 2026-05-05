@@ -30,7 +30,7 @@ The generated asset map accounts for:
 - binary asset bytes: `1329`
 - table includes: `149`
 - inferred table bytes: `60326`
-- unresolved late named tail: `3881` bytes
+- unresolved late padding after named tail data: `2581` bytes
 - source scaffold protected bytes: `65536 / 65536`
 - byte-equivalence scaffold validation: `durable-scaffold`, `5` modules,
   `0` non-OK modules, `0` byte mismatches
@@ -88,12 +88,13 @@ The current high-level EF layout is:
 - `EF:EF70..EF:EFB6`: small debug font palette/unknown table region, inferred
   `71` bytes in the manifest.
 - `EF:EFB7..EF:F0D6`: `DEBUG_CURSOR_GRAPHICS`, exact binary span, `288` bytes.
-- `EF:F0D7..EF:FFFF`: named late data tail. The bankconfig names
+- `EF:F0D7..EF:F5EA`: named late data tail. The bankconfig names
   `data/unknown/EFF0D7.asm`, `data/unknown/EFF1BB.asm`,
   `data/unknown_version_string.asm`, three unused data includes, and
-  `data/debug/debug_cursor_spritemap.asm`. The manifest reports this as a
-  coverage gap because earlier source includes are missing, not because the tail
-  is empty or unassigned.
+  `data/debug/debug_cursor_spritemap.asm`; the scaffold now preserves these as
+  split data islands.
+- `EF:F5EB..EF:FFFF`: residual end-of-bank padding after the debug cursor
+  spritemap.
 
 ## Cross-bank anchors
 
@@ -135,8 +136,8 @@ Still intentionally out of scope:
 - Exact internal splits for absent `unknown/EF/*.asm` files.
 - Exact byte boundaries inside the large text run between `EF:4E20` and
   `EF:C51A`.
-- Exact layout of the late `EF:F0D7..FFFF` named tail until the missing source
-  includes are recovered or derived directly from ROM bytes.
+- Semantic meaning of the unknown/unused late-tail payloads at
+  `EF:F0D7..F5BA`; the include boundaries are now explicit.
 - Full semantic names for the save helpers, map tables, and debug routines.
 
 ## Recommended next move
