@@ -121,3 +121,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   direct fire/freeze/flash/paralysis/hypnosis/Brain Shock vulnerability
   readouts, metamorphose success/failure text, and the diamondized status text
   adjacent to the existing paralysis/status payload anchors.
+- 2026-05-05: EF EBATTLE8 call-for-help/Time Stop follow-up split the
+  `EF:77FD..7B77` corridor into the four C2 call-for-help result scripts at
+  `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution
+  Time Stop return script at `EF:7843`, and a still-coarse
+  appear/victory/level-up tail at `EF:7858..7B77`.

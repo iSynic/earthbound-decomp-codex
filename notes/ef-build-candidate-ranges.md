@@ -290,7 +290,12 @@ Data gaps inside protected span:
 - `EF:76B3..EF:773F` (`140` bytes, SHA-1 `575f13249e5df1ad8aca9ea0699944c0253db22d`) `EBattle4LateMissAndDrainPreludeText`
 - `EF:773F..EF:7755` (`22` bytes, SHA-1 `6232b10ccb1d72f3eadde7a851e2688209a5c83a`) `EBattle4MsgBtlPpDrainAmount`
 - `EF:7755..EF:77FD` (`168` bytes, SHA-1 `dd4beaa5a8c9cefefa6f4e5ba4eb2c9a6531450d`) `EBattle4RemainingDamageOverTimeText`
-- `EF:77FD..EF:7B77` (`890` bytes, SHA-1 `58b1e4156748c4f82dba0ee374957988e2086fbd`) `EBattle8CallForHelpAndLevelUpText`
+- `EF:77FD..EF:7810` (`19` bytes, SHA-1 `bf11a9604ab664ba99d8259cf9a94fd91e386065`) `EBattle8MsgBtlCallForHelpEnemyJoined`
+- `EF:7810..EF:7824` (`20` bytes, SHA-1 `bc9c731025178de4aa8c5dd234c7df273376bf43`) `EBattle8MsgBtlCallForHelpSeedSprouted`
+- `EF:7824..EF:7830` (`12` bytes, SHA-1 `37eb2ca0de50d3f88b762f3cefb361d0d5f08cae`) `EBattle8MsgBtlCallForHelpNoOneCame`
+- `EF:7830..EF:7843` (`19` bytes, SHA-1 `0a637d9c7d18747424692410bf1e652aaff3533e`) `EBattle8MsgBtlCallForHelpSeedNoSprout`
+- `EF:7843..EF:7858` (`21` bytes, SHA-1 `52dfe17ffa36d7b426f1aa12d86779148c6094ad`) `EBattle8MsgBtlTimeStopReturn`
+- `EF:7858..EF:7B77` (`799` bytes, SHA-1 `86833bd8daa945b5d02f70b7a05e510f45dad7ed`) `EBattle8AppearVictoryLevelUpText`
 - `EF:7B77..EF:7B83` (`12` bytes, SHA-1 `b6be0ba66868c82cafdd691ac712705f421cd14f`) `EBattle8ByteSubstitutionPsiNameText`
 - `EF:7B83..EF:7B85` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionIntroState`
 - `EF:7B85..EF:7BA0` (`27` bytes, SHA-1 `0b507165fcb107b37b9f7d92fdf7728fb2dff65a`) `EBattle8PointerSubstitutionSweetBranch`
@@ -362,7 +367,12 @@ Labels:
 - `EF:76B3 EBattle4LateMissAndDrainPreludeText`
 - `EF:773F EBattle4MsgBtlPpDrainAmount`
 - `EF:7755 EBattle4RemainingDamageOverTimeText`
-- `EF:77FD EBattle8CallForHelpAndLevelUpText`
+- `EF:77FD EBattle8MsgBtlCallForHelpEnemyJoined`
+- `EF:7810 EBattle8MsgBtlCallForHelpSeedSprouted`
+- `EF:7824 EBattle8MsgBtlCallForHelpNoOneCame`
+- `EF:7830 EBattle8MsgBtlCallForHelpSeedNoSprout`
+- `EF:7843 EBattle8MsgBtlTimeStopReturn`
+- `EF:7858 EBattle8AppearVictoryLevelUpText`
 - `EF:7B77 EBattle8ByteSubstitutionPsiNameText`
 - `EF:7B83 EBattle8PointerSubstitutionIntroState`
 - `EF:7B85 EBattle8PointerSubstitutionSweetBranch`

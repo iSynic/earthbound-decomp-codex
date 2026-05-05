@@ -47,6 +47,13 @@ callers.
 - `EF:766E`, `EF:7696`, and `EF:773F` now mark shared no-effect, no-visible
   effect, and PP-drain amount text. `EF:773F` is another `1C 0F` amount
   consumer.
+- `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
+  call-for-help result scripts selected by the C2 reinforcement prefix/body:
+  ordinary success, seed/sprout success, ordinary failure, and seed/sprout
+  failure. They are direct `C1:DC1C` text exits.
+- `EF:7843` now marks the Time Stop return text used by the C2 hit-resolution
+  cluster. `EF:7858..7B77` remains a larger EBATTLE8 appear/victory/level-up
+  text run until more local consumers need finer labels.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
   substitution for present item names and `19 1E` pointer substitution branches.
@@ -70,6 +77,15 @@ while the resistance readouts are direct display scripts selected only when C2
 finds a vulnerable/susceptible resistance byte. The metamorphose and diamondized
 neighbors were split in the same pass so the late C2 primary-status tail no
 longer lands in an anonymous gap.
+
+## Call-For-Help And Time Stop Follow-up
+
+The C2 call-for-help polish proved four direct text exits in the front of
+`EBATTLE8`: ordinary and seed/sprout success paths at `EF:77FD` and `EF:7810`,
+plus ordinary and seed/sprout failure paths at `EF:7824` and `EF:7830`. The
+same EBATTLE8 neighborhood also contains the `EF:7843` Time Stop return script
+used by the C2 hit-resolution cluster. This split keeps those runtime-facing
+messages visible while leaving the larger appear/victory/level-up tail coarse.
 
 ## Validation
 

@@ -320,8 +320,38 @@ EF7755_EBattle4RemainingDamageOverTimeText:
 ; ---------------------------------------------------------------------------
 ; EF:77FD
 
-; EBATTLE8: call-for-help and level-up text run.
-EF77FD_EBattle8CallForHelpAndLevelUpText:
+; EBATTLE8: ordinary call-for-help success text.
+EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+
+; ---------------------------------------------------------------------------
+; EF:7810
+
+; EBATTLE8: seed/sprout-flavored call-for-help success text.
+EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+
+; ---------------------------------------------------------------------------
+; EF:7824
+
+; EBATTLE8: ordinary call-for-help failure text.
+EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+
+; ---------------------------------------------------------------------------
+; EF:7830
+
+; EBATTLE8: seed/sprout-flavored call-for-help failure text.
+EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+
+; ---------------------------------------------------------------------------
+; EF:7843
+
+; EBATTLE8: Time Stop return text used by the C2 hit-resolution cluster.
+EF7843_EBattle8MsgBtlTimeStopReturn:
+
+; ---------------------------------------------------------------------------
+; EF:7858
+
+; EBATTLE8: battle appear, victory, level-up, and pre-present text run.
+EF7858_EBattle8AppearVictoryLevelUpText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B77
