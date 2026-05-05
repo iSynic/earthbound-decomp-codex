@@ -866,8 +866,242 @@ EF7843_EBattle8MsgBtlTimeStopReturn:
 ; ---------------------------------------------------------------------------
 ; EF:7858
 
-; EBATTLE8: battle appear, victory, level-up, and pre-present text run.
-EF7858_EBattle8AppearVictoryLevelUpText:
+; EBATTLE8: enemy attacked encounter-opening text.
+EF7858_EBattle8MsgBtlAppearAttacked:
+
+; ---------------------------------------------------------------------------
+; EF:7866
+
+; EBATTLE8: enemy blocked-the-way encounter-opening text.
+EF7866_EBattle8MsgBtlAppearBlockedWay:
+
+; ---------------------------------------------------------------------------
+; EF:7879
+
+; EBATTLE8: enemy came-after-you encounter-opening text.
+EF7879_EBattle8MsgBtlAppearCameAfterYou:
+
+; ---------------------------------------------------------------------------
+; EF:788B
+
+; EBATTLE8: enemy trapped-you encounter-opening text.
+EF788B_EBattle8MsgBtlAppearTrappedYou:
+
+; ---------------------------------------------------------------------------
+; EF:789C
+
+; EBATTLE8: final-encounter wording variant 4.
+EF789C_EBattle8MsgBtlFinalEncounter4:
+
+; ---------------------------------------------------------------------------
+; EF:78AB
+
+; EBATTLE8: final-encounter wording variant 5.
+EF78AB_EBattle8MsgBtlFinalEncounter5:
+
+; ---------------------------------------------------------------------------
+; EF:78B8
+
+; EBATTLE8: final-encounter wording variant 6.
+EF78B8_EBattle8MsgBtlFinalEncounter6:
+
+; ---------------------------------------------------------------------------
+; EF:78C7
+
+; EBATTLE8: final-encounter wording variant 7.
+EF78C7_EBattle8MsgBtlFinalEncounter7:
+
+; ---------------------------------------------------------------------------
+; EF:78D8
+
+; EBATTLE8: player-side surprise opening attack text.
+EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+
+; ---------------------------------------------------------------------------
+; EF:78F7
+
+; EBATTLE8: monster-side surprise opening attack text.
+EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+
+; ---------------------------------------------------------------------------
+; EF:790B
+
+; EBATTLE8: group-actor helper for encounter-opening text.
+EF790B_EBattle8GroupActorOpeningHelper:
+
+; ---------------------------------------------------------------------------
+; EF:792B
+
+; EBATTLE8: group-actor opening singular branch.
+EF792B_EBattle8GroupActorOpeningSingular:
+
+; ---------------------------------------------------------------------------
+; EF:792E
+
+; EBATTLE8: group-actor opening cohort branch.
+EF792E_EBattle8GroupActorOpeningCohort:
+
+; ---------------------------------------------------------------------------
+; EF:793C
+
+; EBATTLE8: group-actor opening cohorts branch.
+EF793C_EBattle8GroupActorOpeningCohorts:
+
+; ---------------------------------------------------------------------------
+; EF:794B
+
+; EBATTLE8: group-actor helper for final-encounter text.
+EF794B_EBattle8GroupActorFinalHelper:
+
+; ---------------------------------------------------------------------------
+; EF:796C
+
+; EBATTLE8: group-actor final singular branch.
+EF796C_EBattle8GroupActorFinalSingular:
+
+; ---------------------------------------------------------------------------
+; EF:7970
+
+; EBATTLE8: group-actor final cohort branch.
+EF7970_EBattle8GroupActorFinalCohort:
+
+; ---------------------------------------------------------------------------
+; EF:797F
+
+; EBATTLE8: group-actor final cohorts branch.
+EF797F_EBattle8GroupActorFinalCohorts:
+
+; ---------------------------------------------------------------------------
+; EF:798F
+
+; EBATTLE8: group-actor helper for surprise-opening text.
+EF798F_EBattle8GroupActorSurpriseHelper:
+
+; ---------------------------------------------------------------------------
+; EF:79B1
+
+; EBATTLE8: group-actor possessive singular branch.
+EF79B1_EBattle8GroupActorPossessiveSingular:
+
+; ---------------------------------------------------------------------------
+; EF:79B6
+
+; EBATTLE8: group-actor possessive cohort branch.
+EF79B6_EBattle8GroupActorPossessiveCohort:
+
+; ---------------------------------------------------------------------------
+; EF:79C6
+
+; EBATTLE8: group-actor possessive cohorts branch.
+EF79C6_EBattle8GroupActorPossessiveCohorts:
+
+; ---------------------------------------------------------------------------
+; EF:79D7
+
+; EBATTLE8: ordinary player-victory text.
+EF79D7_EBattle8MsgBtlPlayerWin:
+
+; ---------------------------------------------------------------------------
+; EF:79E6
+
+; EBATTLE8: player-victory event/homesick branch.
+EF79E6_EBattle8PlayerWinEventBranch:
+
+; ---------------------------------------------------------------------------
+; EF:79EF
+
+; EBATTLE8: player-victory experience gain text.
+EF79EF_EBattle8PlayerWinExperienceText:
+
+; ---------------------------------------------------------------------------
+; EF:7A0A
+
+; EBATTLE8: player-victory homesick branch.
+EF7A0A_EBattle8PlayerWinHomesickBranch:
+
+; ---------------------------------------------------------------------------
+; EF:7A14
+
+; EBATTLE8: boss player-victory text.
+EF7A14_EBattle8MsgBtlPlayerWinBoss:
+
+; ---------------------------------------------------------------------------
+; EF:7A28
+
+; EBATTLE8: forced player-victory text.
+EF7A28_EBattle8MsgBtlPlayerWinForce:
+
+; ---------------------------------------------------------------------------
+; EF:7A4D
+
+; EBATTLE8: monster-victory text.
+EF7A4D_EBattle8MsgBtlMonsterWin:
+
+; ---------------------------------------------------------------------------
+; EF:7A66
+
+; EBATTLE8: level-up announcement text.
+EF7A66_EBattle8MsgBtlLevelUp:
+
+; ---------------------------------------------------------------------------
+; EF:7A7D
+
+; EBATTLE8: level-up offense gain amount text.
+EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+
+; ---------------------------------------------------------------------------
+; EF:7A97
+
+; EBATTLE8: level-up defense gain amount text.
+EF7A97_EBattle8MsgBtlLevelDefenseUp:
+
+; ---------------------------------------------------------------------------
+; EF:7AB1
+
+; EBATTLE8: level-up speed gain amount text.
+EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+
+; ---------------------------------------------------------------------------
+; EF:7AC9
+
+; EBATTLE8: level-up guts gain amount text.
+EF7AC9_EBattle8MsgBtlLevelGutsUp:
+
+; ---------------------------------------------------------------------------
+; EF:7AE0
+
+; EBATTLE8: level-up vitality gain amount text.
+EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+
+; ---------------------------------------------------------------------------
+; EF:7AFB
+
+; EBATTLE8: level-up IQ gain amount text.
+EF7AFB_EBattle8MsgBtlLevelIqUp:
+
+; ---------------------------------------------------------------------------
+; EF:7B11
+
+; EBATTLE8: level-up luck gain amount text.
+EF7B11_EBattle8MsgBtlLevelLuckUp:
+
+; ---------------------------------------------------------------------------
+; EF:7B28
+
+; EBATTLE8: level-up maximum HP gain amount text.
+EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+
+; ---------------------------------------------------------------------------
+; EF:7B46
+
+; EBATTLE8: level-up maximum PP gain amount text.
+EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+
+; ---------------------------------------------------------------------------
+; EF:7B64
+
+; EBATTLE8: learned-PSI announcement leading into 19 1F PSI-name text.
+EF7B64_EBattle8MsgBtlLearnPsi:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B77

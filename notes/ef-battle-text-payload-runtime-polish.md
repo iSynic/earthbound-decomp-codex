@@ -81,8 +81,18 @@ callers.
   ordinary success, seed/sprout success, ordinary failure, and seed/sprout
   failure. They are direct `C1:DC1C` text exits.
 - `EF:7843` now marks the Time Stop return text used by the C2 hit-resolution
-  cluster. `EF:7858..7B77` remains a larger EBATTLE8 appear/victory/level-up
-  text run until more local consumers need finer labels.
+  cluster.
+- `EF:7858..790B` now splits the EBATTLE8 encounter-opening text variants:
+  ordinary attack, blocked-way, came-after-you, trapped-you, final-encounter
+  wording, and surprise-opening messages.
+- `EF:790B..79D7` now splits the group-actor helper branches used by those
+  encounter-opening messages.
+- `EF:79D7..7A66` now splits ordinary/boss/forced player victory,
+  monster-victory, homesick, and experience-gain text.
+- `EF:7A66..7B64` now splits the level-up and stat-gain amount text consumed
+  by the C1 level-up stat narration family.
+- `EF:7B64` now marks the learned-PSI lead-in that falls through to the
+  existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
   substitution for present item names and `19 1E` pointer substitution branches.
@@ -118,7 +128,18 @@ The C2 call-for-help polish proved four direct text exits in the front of
 plus ordinary and seed/sprout failure paths at `EF:7824` and `EF:7830`. The
 same EBATTLE8 neighborhood also contains the `EF:7843` Time Stop return script
 used by the C2 hit-resolution cluster. This split keeps those runtime-facing
-messages visible while leaving the larger appear/victory/level-up tail coarse.
+messages visible.
+
+## Encounter, Victory, And Level-Up Follow-up
+
+The `EF:7858..7B77` EBATTLE8 island is now split around exact encounter,
+group-actor, victory, and level-up labels. This exposes the encounter-opening
+message variants and their `LOAD_SPECIAL 2` group-name helper branches, then
+the ordinary/boss/forced victory text and monster-win text. The stat-gain tail
+at `EF:7A66..7B64` now lines up directly with the C1 level-up narration note:
+each stat leaf stages an amount through `C1:AD0A` before dispatching one of
+these `PRINT_ACTION_AMOUNT` scripts, while learned PSI falls through into the
+existing `EF:7B77` PSI-name byte-substitution payload.
 
 ## Damage And Miss Follow-up
 

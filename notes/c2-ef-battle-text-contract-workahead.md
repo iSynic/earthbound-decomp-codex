@@ -97,8 +97,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   and diamondized scripts at `EF:6A99`, `EF:6AB3`, and `EF:6AC7`.
 - 2026-05-05: EF EBATTLE8 follow-up added source anchors for the four
   call-for-help result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`)
-  and the Time Stop return script at `EF:7843`, while keeping the broader
-  appear/victory/level-up tail as a coarse payload island.
+  and the Time Stop return script at `EF:7843`.
+- 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
+  `EF:7858..7B77` tail into encounter-opening variants, group-actor helper
+  branches, victory/loss text, level-up/stat-gain amount scripts, and the
+  learned-PSI lead-in before the existing PSI-name byte-substitution payload.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

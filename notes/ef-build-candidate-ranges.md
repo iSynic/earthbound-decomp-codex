@@ -381,7 +381,46 @@ Data gaps inside protected span:
 - `EF:7824..EF:7830` (`12` bytes, SHA-1 `37eb2ca0de50d3f88b762f3cefb361d0d5f08cae`) `EBattle8MsgBtlCallForHelpNoOneCame`
 - `EF:7830..EF:7843` (`19` bytes, SHA-1 `0a637d9c7d18747424692410bf1e652aaff3533e`) `EBattle8MsgBtlCallForHelpSeedNoSprout`
 - `EF:7843..EF:7858` (`21` bytes, SHA-1 `52dfe17ffa36d7b426f1aa12d86779148c6094ad`) `EBattle8MsgBtlTimeStopReturn`
-- `EF:7858..EF:7B77` (`799` bytes, SHA-1 `86833bd8daa945b5d02f70b7a05e510f45dad7ed`) `EBattle8AppearVictoryLevelUpText`
+- `EF:7858..EF:7866` (`14` bytes, SHA-1 `4d5a11d42293acfb56e1cf0d8374921883580b28`) `EBattle8MsgBtlAppearAttacked`
+- `EF:7866..EF:7879` (`19` bytes, SHA-1 `a2a870ec7ee0273ca58ff0fbabc06ce35724819d`) `EBattle8MsgBtlAppearBlockedWay`
+- `EF:7879..EF:788B` (`18` bytes, SHA-1 `601418a2ba5572f9579db119b2a2ae80bc99014b`) `EBattle8MsgBtlAppearCameAfterYou`
+- `EF:788B..EF:789C` (`17` bytes, SHA-1 `5e7a280e02b5f6f0df4c30b2ed5064150d20ba32`) `EBattle8MsgBtlAppearTrappedYou`
+- `EF:789C..EF:78AB` (`15` bytes, SHA-1 `f6eeb8fa2be831dc6287125509ba6b3cdfd6a6f1`) `EBattle8MsgBtlFinalEncounter4`
+- `EF:78AB..EF:78B8` (`13` bytes, SHA-1 `278a3e4ed17a269f7ffc5ccee8e587fe2b5ba6fe`) `EBattle8MsgBtlFinalEncounter5`
+- `EF:78B8..EF:78C7` (`15` bytes, SHA-1 `f05800508c53134fc535d6cd050404dae1eef43f`) `EBattle8MsgBtlFinalEncounter6`
+- `EF:78C7..EF:78D8` (`17` bytes, SHA-1 `2080ccac7302058d749a169170a56a1ebb9bdfb2`) `EBattle8MsgBtlFinalEncounter7`
+- `EF:78D8..EF:78F7` (`31` bytes, SHA-1 `26ee97fbd73c9c60ab94c8163458502711d6a0b3`) `EBattle8MsgBtlSurpriseOpeningPlayer`
+- `EF:78F7..EF:790B` (`20` bytes, SHA-1 `90c7110d1d12d06be949f877d90c179117defef6`) `EBattle8MsgBtlSurpriseOpeningMonster`
+- `EF:790B..EF:792B` (`32` bytes, SHA-1 `411101a02bc0b8a6fe05ac3ac40abea3ba061f6f`) `EBattle8GroupActorOpeningHelper`
+- `EF:792B..EF:792E` (`3` bytes, SHA-1 `4a27df79273058f0219426b59dd2b8b9f2b7d78c`) `EBattle8GroupActorOpeningSingular`
+- `EF:792E..EF:793C` (`14` bytes, SHA-1 `ee4e526a2a39700402be4dad3ef1a53cfcde90ee`) `EBattle8GroupActorOpeningCohort`
+- `EF:793C..EF:794B` (`15` bytes, SHA-1 `575504d3e9b534fc31e2c3ed57f5a5ef06814f23`) `EBattle8GroupActorOpeningCohorts`
+- `EF:794B..EF:796C` (`33` bytes, SHA-1 `19c340b43361fe13f2bcb709b89643f229c6236b`) `EBattle8GroupActorFinalHelper`
+- `EF:796C..EF:7970` (`4` bytes, SHA-1 `56025a7a5d5a8ee1a1c68a2f5b88491a8d4e5976`) `EBattle8GroupActorFinalSingular`
+- `EF:7970..EF:797F` (`15` bytes, SHA-1 `5c3eb0d5485504b3e04a52ec3da5d24b7bd36567`) `EBattle8GroupActorFinalCohort`
+- `EF:797F..EF:798F` (`16` bytes, SHA-1 `4f96cd2005bdb1ee1cd918cb471cff574f07aa8d`) `EBattle8GroupActorFinalCohorts`
+- `EF:798F..EF:79B1` (`34` bytes, SHA-1 `382d187af964992ccb3bc63695695030b0d277fe`) `EBattle8GroupActorSurpriseHelper`
+- `EF:79B1..EF:79B6` (`5` bytes, SHA-1 `a10ad7f83b45f191f7dd962fa5ba655b21cc0a66`) `EBattle8GroupActorPossessiveSingular`
+- `EF:79B6..EF:79C6` (`16` bytes, SHA-1 `1cbb5a4d47444c21001efd34672b4d656c444f4f`) `EBattle8GroupActorPossessiveCohort`
+- `EF:79C6..EF:79D7` (`17` bytes, SHA-1 `d007527ebf6d4dc0c0c9d48da65c9fd8cfb6bbc8`) `EBattle8GroupActorPossessiveCohorts`
+- `EF:79D7..EF:79E6` (`15` bytes, SHA-1 `221d916a6e712021994e7c4684b3a4e4461f3256`) `EBattle8MsgBtlPlayerWin`
+- `EF:79E6..EF:79EF` (`9` bytes, SHA-1 `22fde23f6d3e83b620160063961a09dd94fb0224`) `EBattle8PlayerWinEventBranch`
+- `EF:79EF..EF:7A0A` (`27` bytes, SHA-1 `b16daf1c08292f4100a4100aacce1e17463db462`) `EBattle8PlayerWinExperienceText`
+- `EF:7A0A..EF:7A14` (`10` bytes, SHA-1 `a1bd985ecd904e4dc7f4b9196d65bc24312ebb85`) `EBattle8PlayerWinHomesickBranch`
+- `EF:7A14..EF:7A28` (`20` bytes, SHA-1 `e05701efbb9a38a5cea8b6cfcbd2c2fd0ff16135`) `EBattle8MsgBtlPlayerWinBoss`
+- `EF:7A28..EF:7A4D` (`37` bytes, SHA-1 `4d2e54e69418be3f2b2317a6b4bda0b7ed87a1a8`) `EBattle8MsgBtlPlayerWinForce`
+- `EF:7A4D..EF:7A66` (`25` bytes, SHA-1 `672a4fbbe3b373a33f71987733c859a721c6a601`) `EBattle8MsgBtlMonsterWin`
+- `EF:7A66..EF:7A7D` (`23` bytes, SHA-1 `984036287db549d282f5beff29201f2d2b9ca871`) `EBattle8MsgBtlLevelUp`
+- `EF:7A7D..EF:7A97` (`26` bytes, SHA-1 `ec77fa82818ea8cecc7c4834eeabfd2c57885a80`) `EBattle8MsgBtlLevelOffenseUp`
+- `EF:7A97..EF:7AB1` (`26` bytes, SHA-1 `9d2dc4ed5905762d1a852394c42a29488fd25c44`) `EBattle8MsgBtlLevelDefenseUp`
+- `EF:7AB1..EF:7AC9` (`24` bytes, SHA-1 `39b68910ac9dd7206a5bee0f0e8f633911b62986`) `EBattle8MsgBtlLevelSpeedUp`
+- `EF:7AC9..EF:7AE0` (`23` bytes, SHA-1 `4a7050baace11ee1ea47ee40d14fb3d7b638b6dc`) `EBattle8MsgBtlLevelGutsUp`
+- `EF:7AE0..EF:7AFB` (`27` bytes, SHA-1 `df79e167961329b312903fb495c4f9be48264ce9`) `EBattle8MsgBtlLevelVitalityUp`
+- `EF:7AFB..EF:7B11` (`22` bytes, SHA-1 `3bd4ef6250187c7e7ddce8351afe96909c3aaa0a`) `EBattle8MsgBtlLevelIqUp`
+- `EF:7B11..EF:7B28` (`23` bytes, SHA-1 `ef0f8019e02b166fe0aba14ad12df591443834e7`) `EBattle8MsgBtlLevelLuckUp`
+- `EF:7B28..EF:7B46` (`30` bytes, SHA-1 `ecb58cf466d840e103faca3c57ebf8972fd1d725`) `EBattle8MsgBtlLevelMaxHpUp`
+- `EF:7B46..EF:7B64` (`30` bytes, SHA-1 `f319f6186d7ebe34933682c772778e6b1100214e`) `EBattle8MsgBtlLevelMaxPpUp`
+- `EF:7B64..EF:7B77` (`19` bytes, SHA-1 `b9e211e8574e37ce78c2d391d2b43777f2eb3ff3`) `EBattle8MsgBtlLearnPsi`
 - `EF:7B77..EF:7B83` (`12` bytes, SHA-1 `b6be0ba66868c82cafdd691ac712705f421cd14f`) `EBattle8ByteSubstitutionPsiNameText`
 - `EF:7B83..EF:7B85` (`2` bytes, SHA-1 `d13061bfe442388f8bf8b53be38aa80ed585e8b5`) `EBattle8PointerSubstitutionIntroState`
 - `EF:7B85..EF:7BA0` (`27` bytes, SHA-1 `0b507165fcb107b37b9f7d92fdf7728fb2dff65a`) `EBattle8PointerSubstitutionSweetBranch`
@@ -552,7 +591,46 @@ Labels:
 - `EF:7824 EBattle8MsgBtlCallForHelpNoOneCame`
 - `EF:7830 EBattle8MsgBtlCallForHelpSeedNoSprout`
 - `EF:7843 EBattle8MsgBtlTimeStopReturn`
-- `EF:7858 EBattle8AppearVictoryLevelUpText`
+- `EF:7858 EBattle8MsgBtlAppearAttacked`
+- `EF:7866 EBattle8MsgBtlAppearBlockedWay`
+- `EF:7879 EBattle8MsgBtlAppearCameAfterYou`
+- `EF:788B EBattle8MsgBtlAppearTrappedYou`
+- `EF:789C EBattle8MsgBtlFinalEncounter4`
+- `EF:78AB EBattle8MsgBtlFinalEncounter5`
+- `EF:78B8 EBattle8MsgBtlFinalEncounter6`
+- `EF:78C7 EBattle8MsgBtlFinalEncounter7`
+- `EF:78D8 EBattle8MsgBtlSurpriseOpeningPlayer`
+- `EF:78F7 EBattle8MsgBtlSurpriseOpeningMonster`
+- `EF:790B EBattle8GroupActorOpeningHelper`
+- `EF:792B EBattle8GroupActorOpeningSingular`
+- `EF:792E EBattle8GroupActorOpeningCohort`
+- `EF:793C EBattle8GroupActorOpeningCohorts`
+- `EF:794B EBattle8GroupActorFinalHelper`
+- `EF:796C EBattle8GroupActorFinalSingular`
+- `EF:7970 EBattle8GroupActorFinalCohort`
+- `EF:797F EBattle8GroupActorFinalCohorts`
+- `EF:798F EBattle8GroupActorSurpriseHelper`
+- `EF:79B1 EBattle8GroupActorPossessiveSingular`
+- `EF:79B6 EBattle8GroupActorPossessiveCohort`
+- `EF:79C6 EBattle8GroupActorPossessiveCohorts`
+- `EF:79D7 EBattle8MsgBtlPlayerWin`
+- `EF:79E6 EBattle8PlayerWinEventBranch`
+- `EF:79EF EBattle8PlayerWinExperienceText`
+- `EF:7A0A EBattle8PlayerWinHomesickBranch`
+- `EF:7A14 EBattle8MsgBtlPlayerWinBoss`
+- `EF:7A28 EBattle8MsgBtlPlayerWinForce`
+- `EF:7A4D EBattle8MsgBtlMonsterWin`
+- `EF:7A66 EBattle8MsgBtlLevelUp`
+- `EF:7A7D EBattle8MsgBtlLevelOffenseUp`
+- `EF:7A97 EBattle8MsgBtlLevelDefenseUp`
+- `EF:7AB1 EBattle8MsgBtlLevelSpeedUp`
+- `EF:7AC9 EBattle8MsgBtlLevelGutsUp`
+- `EF:7AE0 EBattle8MsgBtlLevelVitalityUp`
+- `EF:7AFB EBattle8MsgBtlLevelIqUp`
+- `EF:7B11 EBattle8MsgBtlLevelLuckUp`
+- `EF:7B28 EBattle8MsgBtlLevelMaxHpUp`
+- `EF:7B46 EBattle8MsgBtlLevelMaxPpUp`
+- `EF:7B64 EBattle8MsgBtlLearnPsi`
 - `EF:7B77 EBattle8ByteSubstitutionPsiNameText`
 - `EF:7B83 EBattle8PointerSubstitutionIntroState`
 - `EF:7B85 EBattle8PointerSubstitutionSweetBranch`

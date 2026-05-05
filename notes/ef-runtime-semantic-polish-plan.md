@@ -124,7 +124,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF EBATTLE8 call-for-help/Time Stop follow-up split the
   `EF:77FD..7B77` corridor into the four C2 call-for-help result scripts at
   `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution
-  Time Stop return script at `EF:7843`, and a still-coarse
+  Time Stop return script at `EF:7843`, and the then-coarse
   appear/victory/level-up tail at `EF:7858..7B77`.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up split the
   `EF:7186..77FD` corridor around C2-proven damage amount scripts,
@@ -146,3 +146,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm
   event text, Pokey random talk branches, and companion talk anchors before
   the already split damage pipeline.
+- 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
+  remaining `EF:7858..7B77` tail into encounter-opening variants, group-actor
+  helper branches, ordinary/boss/forced victory text, monster-win text,
+  level-up/stat-gain amount scripts, and the learned-PSI lead-in before the
+  existing `EF:7B77` PSI-name byte-substitution payload.

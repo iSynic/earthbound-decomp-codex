@@ -41,7 +41,7 @@ The fixed scripts now give the family a concrete message map:
 - `EF:7A7D` = offense went up by `{delta}`
 - `EF:7A97` = defense went up by `{delta}`
 - `EF:7AB1` = speed went up by `{delta}`
-- `EF:7ACA` = guts went up by `{delta}`
+- `EF:7AC9` = guts went up by `{delta}`
 - `EF:7AE0` = vitality went up by `{delta}`
 - `EF:7AFB` = IQ went up by `{delta}`
 - `EF:7B11` = luck went up by `{delta}`
@@ -58,7 +58,7 @@ The current safest local anchors are:
 - `C1:D204` = offense delta message through `EF:7A7D`
 - `C1:D28C` = defense delta message through `EF:7A97`
 - `C1:D31B` = speed delta message through `EF:7AB1`
-- `C1:D3A5` = guts delta message through `EF:7ACA`
+- `C1:D3A5` = guts delta message through `EF:7AC9`
 - `C1:D48D` = vitality delta message through `EF:7AE0`
 - `C1:D575` = IQ delta message through `EF:7AFB`
 - `C1:D606` = luck delta message through `EF:7B11`
@@ -97,3 +97,10 @@ The safest current interpretation is:
 - this family is the level-up and stat-gain narration layer for character-side growth
 - it uses the ordinary battle-text context machinery rather than a special one-off printer
 - the target-name buffer and amount substitution slots are reused cleanly for level-up text, not just for battle actions and reflected-hit messages
+
+## EF source-anchor update
+
+A later EF payload split promoted the whole `EF:7A66..7B64` message ladder as
+source anchors in `src/ef/ef_4e20_c51b_text_payload_data.asm`. The split also
+corrected the local guts-message address to `EF:7AC9`, matching the EBATTLE8
+listing and the generated EF range manifest.
