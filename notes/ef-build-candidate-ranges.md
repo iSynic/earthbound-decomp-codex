@@ -518,7 +518,36 @@ Data gaps inside protected span:
 - `EF:87DA..EF:87F4` (`26` bytes, SHA-1 `6d54b1dfd7f86685bb26e0c7b5b3baa2f2311f5e`) `EBattle1PsiEffectBranch11`
 - `EF:87F4..EF:8813` (`31` bytes, SHA-1 `076c405486c2f25ca4213396771efb5a162a1405`) `EBattle1PsiEffectBranch12`
 - `EF:8813..EF:8814` (`1` bytes, SHA-1 `c4ea21bb365bbeeaf5f2c654883e56d11e43c44e`) `EBattle1PsiEffectBranch13`
-- `EF:8814..EF:C51B` (`15623` bytes, SHA-1 `4f4e9237c391299b7722179aeee556536bb2c3ca`) `EfPostPsiFrontTextPayloadData`
+- `EF:8814..EF:8823` (`15` bytes, SHA-1 `bacf80ef562971b5da5160d6dc5f1207a5a7e9f1`) `EBattle1MsgBtlThunderSmall`
+- `EF:8823..EF:8837` (`20` bytes, SHA-1 `70e485664a175f6e96d22f420a2e64f0a19a7167`) `EBattle1MsgBtlThunderLarge`
+- `EF:8837..EF:883D` (`6` bytes, SHA-1 `d578438044de353967285000e232ed6a3197dc6c`) `EBattle1MsgBtlThunderMissSound`
+- `EF:883D..EF:8847` (`10` bytes, SHA-1 `f597df942fb9d6040573b05ffb6159cf8c203fe0`) `EBattle1PsiEffectBranch17`
+- `EF:8847..EF:8851` (`10` bytes, SHA-1 `385acbf80d92ba740dfe7e2237138c14cb7af3fd`) `EBattle1PsiEffectBranch18`
+- `EF:8851..EF:8868` (`23` bytes, SHA-1 `6466f9e55d028c83a18fcb91c353b5ab3348d8d9`) `EBattle1PsiEffectBranch19`
+- `EF:8868..EF:8882` (`26` bytes, SHA-1 `23ff0c9a6d5f0785db34a8ee10a6becb17a4be31`) `EBattle1PsiEffectBranch20`
+- `EF:8882..EF:88B8` (`54` bytes, SHA-1 `5c8f7e904dd0d302133cbe80c0d67499ecf8bfeb`) `EBattle1PsiEffectBranch21`
+- `EF:88B8..EF:88E9` (`49` bytes, SHA-1 `6a15a90a432ef6f937a5fda1438af7fe230491b9`) `EBattle1PsiEffectBranch22`
+- `EF:88E9..EF:88EC` (`3` bytes, SHA-1 `d683592bd8f0f4027832289929db6c4b17d8c1d8`) `EBattle1PsiEffectBranch23`
+- `EF:88EC..EF:88F6` (`10` bytes, SHA-1 `d41331b297de5b85c40c27fec7922ca2c210bc82`) `EBattle1PsiEffectBranch31`
+- `EF:88F6..EF:8900` (`10` bytes, SHA-1 `d41331b297de5b85c40c27fec7922ca2c210bc82`) `EBattle1PsiEffectBranch32`
+- `EF:8900..EF:890A` (`10` bytes, SHA-1 `1d2de306edf4d102fd1e949a6f1a45552d0ead43`) `EBattle1PsiEffectBranch33`
+- `EF:890A..EF:8914` (`10` bytes, SHA-1 `1d2de306edf4d102fd1e949a6f1a45552d0ead43`) `EBattle1PsiEffectBranch34`
+- `EF:8914..EF:891E` (`10` bytes, SHA-1 `31138bbb7086ac62a11e26c82af0f29f57d34ee5`) `EBattle1PsiEffectBranch35`
+- `EF:891E..EF:8928` (`10` bytes, SHA-1 `31138bbb7086ac62a11e26c82af0f29f57d34ee5`) `EBattle1PsiEffectBranch36`
+- `EF:8928..EF:8932` (`10` bytes, SHA-1 `b345262ccbc40a82c3bf346b6dac5d39c51cd634`) `EBattle1PsiEffectBranch37`
+- `EF:8932..EF:893C` (`10` bytes, SHA-1 `b345262ccbc40a82c3bf346b6dac5d39c51cd634`) `EBattle1PsiEffectBranch38`
+- `EF:893C..EF:894C` (`16` bytes, SHA-1 `d0af558122f28e371aa5675c3dba7b576dab985d`) `EBattle1PsiEffectBranch41`
+- `EF:894C..EF:895C` (`16` bytes, SHA-1 `84be21126a203362bced7549ed0899ddf8d4f760`) `EBattle1PsiEffectBranch42`
+- `EF:895C..EF:896C` (`16` bytes, SHA-1 `3c40e5f79fb9ddf9520e5f9de17c78066105b0f7`) `EBattle1PsiEffectBranch43`
+- `EF:896C..EF:897C` (`16` bytes, SHA-1 `c3317246f9f2e20b90a313b5c210562340583e90`) `EBattle1PsiEffectBranch44`
+- `EF:897C..EF:898C` (`16` bytes, SHA-1 `be771ab8a27e5cd0a91a66896b20e7598d0c56b4`) `EBattle1PsiEffectBranch45`
+- `EF:898C..EF:899C` (`16` bytes, SHA-1 `54efcb0927a24fcb20d757fe916f53fed32146ff`) `EBattle1PsiEffectBranch46`
+- `EF:899C..EF:89AC` (`16` bytes, SHA-1 `dcc52620ced6474867a1bc52e9c368f2fa9bbed7`) `EBattle1PsiEffectBranch47`
+- `EF:89AC..EF:89BC` (`16` bytes, SHA-1 `05a5c2915048697e801c8fb55fbed9b7575503b3`) `EBattle1PsiEffectBranch48`
+- `EF:89BC..EF:89CE` (`18` bytes, SHA-1 `731b1615df090f21f79e7faef34ff2905d213bff`) `EBattle1PsiEffectBranch49`
+- `EF:89CE..EF:89E0` (`18` bytes, SHA-1 `c14cb7a4b9b698376aec8d772ebe8cc2fcb90366`) `EBattle1PsiEffectBranch50`
+- `EF:89E0..EF:89FE` (`30` bytes, SHA-1 `8afe90ada4dfe0b5def823aeba59fd3ad4a62b83`) `EBattle1MsgBtlPray`
+- `EF:89FE..EF:C51B` (`15133` bytes, SHA-1 `698d41a85a8b059573c10ec1066e48c23f77fc01`) `EfPostThunderPrayTextPayloadData`
 
 Labels:
 
@@ -801,7 +830,36 @@ Labels:
 - `EF:87DA EBattle1PsiEffectBranch11`
 - `EF:87F4 EBattle1PsiEffectBranch12`
 - `EF:8813 EBattle1PsiEffectBranch13`
-- `EF:8814 EfPostPsiFrontTextPayloadData`
+- `EF:8814 EBattle1MsgBtlThunderSmall`
+- `EF:8823 EBattle1MsgBtlThunderLarge`
+- `EF:8837 EBattle1MsgBtlThunderMissSound`
+- `EF:883D EBattle1PsiEffectBranch17`
+- `EF:8847 EBattle1PsiEffectBranch18`
+- `EF:8851 EBattle1PsiEffectBranch19`
+- `EF:8868 EBattle1PsiEffectBranch20`
+- `EF:8882 EBattle1PsiEffectBranch21`
+- `EF:88B8 EBattle1PsiEffectBranch22`
+- `EF:88E9 EBattle1PsiEffectBranch23`
+- `EF:88EC EBattle1PsiEffectBranch31`
+- `EF:88F6 EBattle1PsiEffectBranch32`
+- `EF:8900 EBattle1PsiEffectBranch33`
+- `EF:890A EBattle1PsiEffectBranch34`
+- `EF:8914 EBattle1PsiEffectBranch35`
+- `EF:891E EBattle1PsiEffectBranch36`
+- `EF:8928 EBattle1PsiEffectBranch37`
+- `EF:8932 EBattle1PsiEffectBranch38`
+- `EF:893C EBattle1PsiEffectBranch41`
+- `EF:894C EBattle1PsiEffectBranch42`
+- `EF:895C EBattle1PsiEffectBranch43`
+- `EF:896C EBattle1PsiEffectBranch44`
+- `EF:897C EBattle1PsiEffectBranch45`
+- `EF:898C EBattle1PsiEffectBranch46`
+- `EF:899C EBattle1PsiEffectBranch47`
+- `EF:89AC EBattle1PsiEffectBranch48`
+- `EF:89BC EBattle1PsiEffectBranch49`
+- `EF:89CE EBattle1PsiEffectBranch50`
+- `EF:89E0 EBattle1MsgBtlPray`
+- `EF:89FE EfPostThunderPrayTextPayloadData`
 
 Evidence:
 

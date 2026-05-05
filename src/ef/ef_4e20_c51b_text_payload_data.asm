@@ -1688,8 +1688,182 @@ EF8813_EBattle1PsiEffectBranch13:
 ; ---------------------------------------------------------------------------
 ; EF:8814
 
-; Remaining EF text payload data after the EBATTLE1 PSI front split.
-EF8814_EfPostPsiFrontTextPayloadData:
+; EBATTLE1: small Thunder presentation text/effect block.
+EF8814_EBattle1MsgBtlThunderSmall:
+
+; ---------------------------------------------------------------------------
+; EF:8823
+
+; EBATTLE1: large Thunder presentation text/effect block.
+EF8823_EBattle1MsgBtlThunderLarge:
+
+; ---------------------------------------------------------------------------
+; EF:8837
+
+; EBATTLE1: Thunder miss sound-effect presentation block.
+EF8837_EBattle1MsgBtlThunderMissSound:
+
+; ---------------------------------------------------------------------------
+; EF:883D
+
+; EBATTLE1: PSI presentation/effect branch 17.
+EF883D_EBattle1PsiEffectBranch17:
+
+; ---------------------------------------------------------------------------
+; EF:8847
+
+; EBATTLE1: PSI presentation/effect branch 18.
+EF8847_EBattle1PsiEffectBranch18:
+
+; ---------------------------------------------------------------------------
+; EF:8851
+
+; EBATTLE1: PSI presentation/effect branch 19.
+EF8851_EBattle1PsiEffectBranch19:
+
+; ---------------------------------------------------------------------------
+; EF:8868
+
+; EBATTLE1: PSI presentation/effect branch 20.
+EF8868_EBattle1PsiEffectBranch20:
+
+; ---------------------------------------------------------------------------
+; EF:8882
+
+; EBATTLE1: PSI presentation/effect branch 21.
+EF8882_EBattle1PsiEffectBranch21:
+
+; ---------------------------------------------------------------------------
+; EF:88B8
+
+; EBATTLE1: PSI presentation/effect branch 22.
+EF88B8_EBattle1PsiEffectBranch22:
+
+; ---------------------------------------------------------------------------
+; EF:88E9
+
+; EBATTLE1: PSI presentation/effect branch 23.
+EF88E9_EBattle1PsiEffectBranch23:
+
+; ---------------------------------------------------------------------------
+; EF:88EC
+
+; EBATTLE1: PSI presentation/effect branch 31.
+EF88EC_EBattle1PsiEffectBranch31:
+
+; ---------------------------------------------------------------------------
+; EF:88F6
+
+; EBATTLE1: PSI presentation/effect branch 32.
+EF88F6_EBattle1PsiEffectBranch32:
+
+; ---------------------------------------------------------------------------
+; EF:8900
+
+; EBATTLE1: PSI presentation/effect branch 33.
+EF8900_EBattle1PsiEffectBranch33:
+
+; ---------------------------------------------------------------------------
+; EF:890A
+
+; EBATTLE1: PSI presentation/effect branch 34.
+EF890A_EBattle1PsiEffectBranch34:
+
+; ---------------------------------------------------------------------------
+; EF:8914
+
+; EBATTLE1: PSI presentation/effect branch 35.
+EF8914_EBattle1PsiEffectBranch35:
+
+; ---------------------------------------------------------------------------
+; EF:891E
+
+; EBATTLE1: PSI presentation/effect branch 36.
+EF891E_EBattle1PsiEffectBranch36:
+
+; ---------------------------------------------------------------------------
+; EF:8928
+
+; EBATTLE1: PSI presentation/effect branch 37.
+EF8928_EBattle1PsiEffectBranch37:
+
+; ---------------------------------------------------------------------------
+; EF:8932
+
+; EBATTLE1: PSI presentation/effect branch 38.
+EF8932_EBattle1PsiEffectBranch38:
+
+; ---------------------------------------------------------------------------
+; EF:893C
+
+; EBATTLE1: PSI presentation/effect branch 41.
+EF893C_EBattle1PsiEffectBranch41:
+
+; ---------------------------------------------------------------------------
+; EF:894C
+
+; EBATTLE1: PSI presentation/effect branch 42.
+EF894C_EBattle1PsiEffectBranch42:
+
+; ---------------------------------------------------------------------------
+; EF:895C
+
+; EBATTLE1: PSI presentation/effect branch 43.
+EF895C_EBattle1PsiEffectBranch43:
+
+; ---------------------------------------------------------------------------
+; EF:896C
+
+; EBATTLE1: PSI presentation/effect branch 44.
+EF896C_EBattle1PsiEffectBranch44:
+
+; ---------------------------------------------------------------------------
+; EF:897C
+
+; EBATTLE1: PSI presentation/effect branch 45.
+EF897C_EBattle1PsiEffectBranch45:
+
+; ---------------------------------------------------------------------------
+; EF:898C
+
+; EBATTLE1: PSI presentation/effect branch 46.
+EF898C_EBattle1PsiEffectBranch46:
+
+; ---------------------------------------------------------------------------
+; EF:899C
+
+; EBATTLE1: PSI presentation/effect branch 47.
+EF899C_EBattle1PsiEffectBranch47:
+
+; ---------------------------------------------------------------------------
+; EF:89AC
+
+; EBATTLE1: PSI presentation/effect branch 48.
+EF89AC_EBattle1PsiEffectBranch48:
+
+; ---------------------------------------------------------------------------
+; EF:89BC
+
+; EBATTLE1: PSI presentation/effect branch 49.
+EF89BC_EBattle1PsiEffectBranch49:
+
+; ---------------------------------------------------------------------------
+; EF:89CE
+
+; EBATTLE1: PSI presentation/effect branch 50.
+EF89CE_EBattle1PsiEffectBranch50:
+
+; ---------------------------------------------------------------------------
+; EF:89E0
+
+; EBATTLE1: Pray action opening text.
+EF89E0_EBattle1MsgBtlPray:
+
+; ---------------------------------------------------------------------------
+; EF:89FE
+
+; Remaining EF text payload data after the EBATTLE1 Thunder/effect/Pray split.
+EF89FE_EfPostThunderPrayTextPayloadData:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

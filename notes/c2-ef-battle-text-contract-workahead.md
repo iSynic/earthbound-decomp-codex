@@ -111,6 +111,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
   `EF:848C`, Spy/check `EF:8530`, and shared PSI text `EF:8543`, plus the
   adjacent PSI animation/effect dispatch branches.
+- 2026-05-05: EF EBATTLE1 Thunder/effect follow-up split `EF:8814..89FE`
+  around the C2 Thunder common text pointers (`EF:8814` small Thunder,
+  `EF:8823` large Thunder), Thunder miss sound payload `EF:8837`, PBFX
+  presentation branches 17-50, and the action-table Pray pointer `EF:89E0`.
 - 2026-05-05: EF EBATTLE4 damage/miss follow-up added source anchors for the
   hit-resolution damage amount scripts (`EF:75AB`, `EF:75C2`, `EF:75D9`,
   `EF:75F0`, `EF:7607`), SMAAAASH/dodge scripts (`EF:7624`, `EF:7630`,

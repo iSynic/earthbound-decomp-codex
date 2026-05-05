@@ -109,6 +109,10 @@ callers.
 - `EF:848C..8814` now splits the EBATTLE1 battle-command front into
   Bash/attack, Shoot, Guard, Metamorphose, flee success/failure, Spy/check,
   shared PSI action text, and the first PSI animation/effect dispatch branches.
+- `EF:8814..89FE` now splits the adjacent EBATTLE1 Thunder/effect/Pray run:
+  small and large Thunder presentation scripts, the Thunder miss sound script,
+  PSI presentation/effect branches 17-50, and the Pray action opening text at
+  `EF:89E0`.
 
 ## Correction
 
@@ -201,6 +205,17 @@ entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
 text pointer reused by many PSI-shaped action rows. The `EF:857E` dispatch and
 `EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
 have stable anchors for later PSI animation/effect consumer work.
+
+## Thunder, Effect, And Pray Follow-up
+
+The adjacent `EF:8814..89FE` run is now split around the US listing labels that
+continue the EBATTLE1 PSI presentation table. C2 Thunder common already emits
+`EF:8814` for the small Thunder presentation and `EF:8823` for the large
+Thunder presentation, with `EF:8837` serving the Thunder miss sound payload.
+The `EF:883D..89E0` branch anchors preserve the PBFX 17-50 presentation
+dispatch targets without trying to decode the EB text bytecode yet. `EF:89E0`
+is the Pray action text pointer used by the action table, so the first Pray
+entry is now visible before the following EBATTLE3 enemy-action text block.
 
 ## Validation
 
