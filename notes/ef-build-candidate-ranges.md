@@ -1459,15 +1459,32 @@ Evidence:
 
 Data gaps inside protected span:
 
-- `EF:D8B5..EF:D95E` (`169` bytes, SHA-1 `395083f64a645515a8e42c25127744e5764ec74c`) `EfDebugMenuOptionStrings`
+- `EF:D8B5..EF:D8D6` (`33` bytes, SHA-1 `31f10c69f697cd6178e14aa801da883b4de1ab06`) `DebugMenuRomVersionLine`
+- `EF:D8D6..EF:D8E7` (`17` bytes, SHA-1 `54027409a40418b5a91e5793a72fa75ac21d2805`) `DebugMenuTitleLine`
+- `EF:D8E7..EF:D8F8` (`17` bytes, SHA-1 `8714bb0f8399aae4c8cd9b0ef4df85f30b88e7f8`) `DebugMenuGameOptionLine`
+- `EF:D8F8..EF:D909` (`17` bytes, SHA-1 `50f324cf9e0de6003fc1acbed9c5542b1e55269f`) `DebugMenuViewMapOptionLine`
+- `EF:D909..EF:D91A` (`17` bytes, SHA-1 `9ea121b47ef4e6e294e8aaea57f74f5608cb9eb5`) `DebugMenuViewCharacterOptionLine`
+- `EF:D91A..EF:D92B` (`17` bytes, SHA-1 `556050c750b230f7d3134b68e1f2fc9fa1b04d21`) `DebugMenuViewAttributeOptionLine`
+- `EF:D92B..EF:D93C` (`17` bytes, SHA-1 `8b14a4a5b3008e82adf9c014d8fc8a0a79cf71d7`) `DebugMenuShowBattleOptionLine`
+- `EF:D93C..EF:D94D` (`17` bytes, SHA-1 `43ac03ef4d7f4d2dbe2b04d994e4036379f2e2d3`) `DebugMenuCheckPositionOptionLine`
+- `EF:D94D..EF:D95E` (`17` bytes, SHA-1 `ae778a0e72072a3c27cffff20f866148c1c5fae3`) `DebugMenuSoundModeOptionLine`
 
 Labels:
 
-- `EF:D8B5 EfDebugMenuOptionStrings`
+- `EF:D8B5 DebugMenuRomVersionLine`
+- `EF:D8D6 DebugMenuTitleLine`
+- `EF:D8E7 DebugMenuGameOptionLine`
+- `EF:D8F8 DebugMenuViewMapOptionLine`
+- `EF:D909 DebugMenuViewCharacterOptionLine`
+- `EF:D91A DebugMenuViewAttributeOptionLine`
+- `EF:D92B DebugMenuShowBattleOptionLine`
+- `EF:D93C DebugMenuCheckPositionOptionLine`
+- `EF:D94D DebugMenuSoundModeOptionLine`
 
 Evidence:
 
 - `refs/ebsrc-main/ebsrc-main/src/data/debug/menu_option_strings.asm`
+- `refs/EB-M2-Listing-v1/US/bank2F.txt`
 - `notes/debug-menu-reachability-c0-c1-ef.md`
 - `notes/bank-ef-first-pass.md`
 - `notes/ef-debug-menu-controller-and-loader-d6d4-dabd.md`

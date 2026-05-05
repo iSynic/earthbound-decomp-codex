@@ -62,6 +62,12 @@ the visible strings:
 - `6 CHECK POSITION`
 - `7 SOUND MODE`
 
+The source-bank scaffold now anchors each displayed row separately:
+`EF:D8B5`, `EF:D8D6`, `EF:D8E7`, `EF:D8F8`, `EF:D909`, `EF:D91A`, `EF:D92B`,
+`EF:D93C`, and `EF:D94D` correspond to the ROM/version header, menu title, and
+seven selectable debug menu options. The bytes remain preserved data gaps; this
+only narrows the table boundaries to the reference-source string labels.
+
 ## Boundary Notes
 
 The controller ends with `PLD; RTL` at `EF:D8B3..EF:D8B4`, so the string block

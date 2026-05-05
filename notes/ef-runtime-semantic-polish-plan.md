@@ -181,3 +181,5 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF glyph/debug-string follow-up split `EF:C51B..D56F` into the
   text glyph merge mask table, companion carry-mask table, and debug sound-menu
   option/version strings.
+- 2026-05-05: EF debug menu string follow-up split `EF:D8B5..D95E` into the
+  ROM/version header, title line, and seven selectable debug-menu option rows.
