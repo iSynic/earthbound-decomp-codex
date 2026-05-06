@@ -17,9 +17,9 @@ hirom
 !InitAlternatePhysicsVar4WalkPulse = $AB26
 !LoopField2B32VerticalOscillation = $B0B6
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -99,7 +99,7 @@ LoopEvent51_PartyMemberOrbitDamping:
     %EVENT_PAUSE($01) ; C3:B09B  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $0800) ; C3:B09D  14 00 02 00 08
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:B0A2  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:B0A7  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:B0A7  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:B0AB  42 0E 73 C4
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:B0AF  42 2F A8 C0
     %EVENT_SHORTJUMP(LoopEvent51_PartyMemberOrbitDamping) ; C3:B0B3  19 9B B0

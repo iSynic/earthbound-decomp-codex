@@ -30,13 +30,13 @@ hirom
 !LoopPartyLooksAtActiveEntity = $AFA3
 !OnettDoorCloseDisplayResetLoop = $7276
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToWalkDirectionStep = $C46B51
 !RunWindowGfxVariantLoop = $3C1D
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -204,7 +204,7 @@ Event620_OnettDoorCloseArcWalkHalt:
     %EVENT_LOOP($40) ; C3:707E  01 40
     %EVENT_PAUSE($01) ; C3:7080  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:7082  14 00 02 00 10
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:7087  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:7087  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:708B  02
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:708C  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:708F  42 5F A6 C0

@@ -21,10 +21,10 @@ hirom
 !InitMovementPreset00_02Pulse6Frame = $AA82
 !InitMovementPreset60_01Pulse9Frame = $AA6E
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
@@ -146,7 +146,7 @@ LoopEvent667_ArcRiseDamping:
     %EVENT_PAUSE($01) ; C3:7B31  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:7B33  14 00 02 00 10
     %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:7B38  42 6F A8 C0 A9 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:7B3E  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:7B3E  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:7B42  42 0E 73 C4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotField2B32) ; C3:7B46  42 91 A6 C0
     %EVENT_BINOP_TEMPVAR($02, $0080) ; C3:7B4A  27 02 80 00

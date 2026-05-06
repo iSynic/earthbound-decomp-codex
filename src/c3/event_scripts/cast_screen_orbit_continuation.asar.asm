@@ -28,12 +28,12 @@ hirom
 !LoopCastScreenActorRefreshGateTask = $5F8B
 !LoopField2B32VerticalOscillation = $B0B6
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !ProjectWorldToScreen_FromCamera39 = $A055
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RestoreCurrentSlotAnchorFromCachedTarget = $C46C87
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SnapshotCurrentSlotAnchorToStagedPosition = $C46C45
@@ -171,7 +171,7 @@ LoopCastScreenOrbitDamping:
     %EVENT_PAUSE($01) ; C3:6384  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $0800) ; C3:6386  14 00 02 00 08
     %EVENT_CALLROUTINE_0(!RestoreCurrentSlotAnchorFromCachedTarget) ; C3:638B  42 87 6C C4
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:638F  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:638F  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:6393  42 0E 73 C4
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:6397  42 2F A8 C0
     %EVENT_SHORTJUMP(LoopCastScreenOrbitDamping) ; C3:639B  19 84 63

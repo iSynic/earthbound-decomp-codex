@@ -26,13 +26,13 @@ hirom
 !Integrate_XYVelocityOnly = $9FC8
 !IsEntityStillOnCastScreen = $C4ECE7
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !ProjectWorldToScreen_FromCamera39 = $A055
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -263,7 +263,7 @@ LoopCastScreenStarMasterArc:
     %EVENT_PAUSE($01) ; C3:6709  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:670B  14 00 02 00 10
     %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:6710  42 6F A8 C0 A9 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:6716  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:6716  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:671A  02
     %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0062, $0343) ; C3:671B  42 8B A9 C0 62 00 43 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6723  19 04 A2

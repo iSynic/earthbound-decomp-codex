@@ -143,6 +143,7 @@ CALL_ARG_COUNTS: dict[str, int] = {
     "C0:A8D1": 0,
     "C0:A8DC": 0,
     "C0:A8E7": 0,
+    "C0:A8EF": 0,
     "C0:A8F7": 0,
     "C0:A8FF": 0,
     "C0:A907": 1,
@@ -710,6 +711,16 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "StepCurrentSlotTowardCachedTarget_NoFacingRefresh",
         "group": "movement",
         "contract": "step current slot toward cached target without refreshing the current slot facing selector, and report arrival",
+    },
+    "C0:A8E7": {
+        "name": "ProjectSlot0e5eAngleAndRefreshFacing_Mode0",
+        "group": "movement",
+        "contract": "project current slot field $0E5E through C4:72A8 without the mode-1 half-turn rotation and refresh facing when its coarse bucket changes",
+    },
+    "C0:A8EF": {
+        "name": "ProjectSlot0e5eAngleAndRefreshFacing_Mode1",
+        "group": "movement",
+        "contract": "project current slot field $0E5E through C4:72A8 with the mode-1 half-turn rotation and refresh facing when its coarse bucket changes",
     },
     "C0:20F1": {
         "name": "ScriptRelease_CurrentEntityVisualState",

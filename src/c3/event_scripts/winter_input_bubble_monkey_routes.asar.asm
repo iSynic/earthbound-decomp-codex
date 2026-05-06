@@ -19,12 +19,12 @@ hirom
 !DisableCurrentSlotNeighborCache = $C0A82F
 !InitActionScriptMovementState = $AA38
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !ReadInputState0065 = $C468AF
 !ReadInputState006d = $C468A9
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToPoseDescriptorSlotPosition_ReadWord = $C0A938
@@ -198,7 +198,7 @@ Event318_BubbleMonkeyLongRouteHalt:
     %EVENT_PAUSE($01) ; C3:1500  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:1502  14 00 02 00 10
     %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:1507  42 6F A8 C0 A9 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:150D  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:150D  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:1511  02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $06C0) ; C3:1512  0E 06 C0 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $15A8) ; C3:1516  0E 07 A8 15
