@@ -176,6 +176,46 @@ TextCommand1D19HaveXPartyMembers          = $6172
 TextCommand1D21GenerateRandomNumber       = $61F0
 TextCommand1D23ClassifyEquippedItemOffensiveDefensive = $7708
 TextCommand1D24StageBankDepositAccumulator = $7274
+TextCommand1D01TakeItemFromCharacterSubcommand = $0001
+TextCommand1D02CheckItemBroadClassSubcommand = $0002
+TextCommand1D03FindInventoryRoomSubcommand = $0003
+TextCommand1D04FindCharacterWithoutItemSubcommand = $0004
+TextCommand1D05FindCharacterWithItemSubcommand = $0005
+TextCommand1D06AddToAtmSubcommand = $0006
+TextCommand1D07TakeFromAtmSubcommand = $0007
+TextCommand1D08AddToWalletSubcommand = $0008
+TextCommand1D09TakeFromWalletSubcommand = $0009
+TextCommand1D0AGetBuyPriceOfItemSubcommand = $000A
+TextCommand1D0BGetSellPriceOfItemSubcommand = $000B
+TextCommand1D0CCheckEscargoStorageStatusSubcommand = $000C
+TextCommand1D0DCharacterHasAilmentSubcommand = $000D
+TextCommand1D0EGiveItemToCharacterBSubcommand = $000E
+TextCommand1D0FRemoveInventoryItemBySlotSubcommand = $000F
+TextCommand1D10CheckItemEquippedSubcommand = $0010
+TextCommand1D11CheckInventoryItemUsabilitySubcommand = $0011
+TextCommand1D12StoreInventoryItemWithEscargoSubcommand = $0012
+TextCommand1D13WithdrawEscargoItemToInventorySubcommand = $0013
+TextCommand1D14HaveEnoughMoneySubcommand = $0014
+TextCommand1D15PutValueInArgmemSubcommand = $0015
+TextCommand1D17HaveEnoughMoneyInAtmSubcommand = $0017
+TextCommand1D18AddItemToEscargoStorageSubcommand = $0018
+TextCommand1D19HaveXPartyMembersSubcommand = $0019
+TextCommand1D20TestUserTargetingSelfSubcommand = $0020
+TextCommand1D21GenerateRandomNumberSubcommand = $0021
+TextCommand1D22TestExitMouseUsableSubcommand = $0022
+TextCommand1D23ClassifyEquippedItemOffensiveDefensiveSubcommand = $0023
+TextCommand1D24StageBankDepositAccumulatorSubcommand = $0024
+TextPredicateFalseValue           = $0000
+TextPredicateTrueValue            = $0001
+TextPredicateResultLo             = $06
+TextPredicateResultHi             = $08
+TextPredicateResultScratch        = $14
+BattleTargetNameBufferPointerLo   = $12
+NullNameEntryLetterBoxPointer     = $0000
+CurrentOverworldX                 = $9877
+CurrentOverworldY                 = $987B
+MapPositionContextClassMask       = $0007
+ExitMouseUsableMapClass           = $0002
 
 TextCommand1E00RecoverHpPercent           = $49B6
 TextCommand1E01DepleteHpPercent           = $4A03
@@ -740,119 +780,119 @@ C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F:
     bne C17F21_DispatchDisplayTextDynamicSourceSelector_L7F21
     jmp.w C1800C_DispatchDisplayTextDynamicSourceSelector_L800C
 C17F21_DispatchDisplayTextDynamicSourceSelector_L7F21:
-    cmp.w #$0001
+    cmp.w #TextCommand1D01TakeItemFromCharacterSubcommand
     bne C17F29_DispatchDisplayTextDynamicSourceSelector_L7F29
     jmp.w C18012_DispatchDisplayTextDynamicSourceSelector_L8012
 C17F29_DispatchDisplayTextDynamicSourceSelector_L7F29:
-    cmp.w #$0002
+    cmp.w #TextCommand1D02CheckItemBroadClassSubcommand
     bne C17F31_DispatchDisplayTextDynamicSourceSelector_L7F31
     jmp.w C18018_DispatchDisplayTextDynamicSourceSelector_L8018
 C17F31_DispatchDisplayTextDynamicSourceSelector_L7F31:
-    cmp.w #$0003
+    cmp.w #TextCommand1D03FindInventoryRoomSubcommand
     bne C17F39_DispatchDisplayTextDynamicSourceSelector_L7F39
     jmp.w C1801E_DispatchDisplayTextDynamicSourceSelector_L801E
 C17F39_DispatchDisplayTextDynamicSourceSelector_L7F39:
-    cmp.w #$0004
+    cmp.w #TextCommand1D04FindCharacterWithoutItemSubcommand
     bne C17F41_DispatchDisplayTextDynamicSourceSelector_L7F41
     jmp.w C18024_DispatchDisplayTextDynamicSourceSelector_L8024
 C17F41_DispatchDisplayTextDynamicSourceSelector_L7F41:
-    cmp.w #$0005
+    cmp.w #TextCommand1D05FindCharacterWithItemSubcommand
     bne C17F49_DispatchDisplayTextDynamicSourceSelector_L7F49
     jmp.w C1802A_DispatchDisplayTextDynamicSourceSelector_L802A
 C17F49_DispatchDisplayTextDynamicSourceSelector_L7F49:
-    cmp.w #$0006
+    cmp.w #TextCommand1D06AddToAtmSubcommand
     bne C17F51_DispatchDisplayTextDynamicSourceSelector_L7F51
     jmp.w C18030_DispatchDisplayTextDynamicSourceSelector_L8030
 C17F51_DispatchDisplayTextDynamicSourceSelector_L7F51:
-    cmp.w #$0007
+    cmp.w #TextCommand1D07TakeFromAtmSubcommand
     bne C17F59_DispatchDisplayTextDynamicSourceSelector_L7F59
     jmp.w C18036_DispatchDisplayTextDynamicSourceSelector_L8036
 C17F59_DispatchDisplayTextDynamicSourceSelector_L7F59:
-    cmp.w #$0008
+    cmp.w #TextCommand1D08AddToWalletSubcommand
     bne C17F61_DispatchDisplayTextDynamicSourceSelector_L7F61
     jmp.w C1803C_DispatchDisplayTextDynamicSourceSelector_L803C
 C17F61_DispatchDisplayTextDynamicSourceSelector_L7F61:
-    cmp.w #$0009
+    cmp.w #TextCommand1D09TakeFromWalletSubcommand
     bne C17F69_DispatchDisplayTextDynamicSourceSelector_L7F69
     jmp.w C18042_DispatchDisplayTextDynamicSourceSelector_L8042
 C17F69_DispatchDisplayTextDynamicSourceSelector_L7F69:
-    cmp.w #$000A
+    cmp.w #TextCommand1D0AGetBuyPriceOfItemSubcommand
     bne C17F71_DispatchDisplayTextDynamicSourceSelector_L7F71
     jmp.w C18048_DispatchDisplayTextDynamicSourceSelector_L8048
 C17F71_DispatchDisplayTextDynamicSourceSelector_L7F71:
-    cmp.w #$000B
+    cmp.w #TextCommand1D0BGetSellPriceOfItemSubcommand
     bne C17F79_DispatchDisplayTextDynamicSourceSelector_L7F79
     jmp.w C1804E_DispatchDisplayTextDynamicSourceSelector_L804E
 C17F79_DispatchDisplayTextDynamicSourceSelector_L7F79:
-    cmp.w #$000C
+    cmp.w #TextCommand1D0CCheckEscargoStorageStatusSubcommand
     bne C17F81_DispatchDisplayTextDynamicSourceSelector_L7F81
     jmp.w C18054_DispatchDisplayTextDynamicSourceSelector_L8054
 C17F81_DispatchDisplayTextDynamicSourceSelector_L7F81:
-    cmp.w #$000D
+    cmp.w #TextCommand1D0DCharacterHasAilmentSubcommand
     bne C17F89_DispatchDisplayTextDynamicSourceSelector_L7F89
     jmp.w C1805A_DispatchDisplayTextDynamicSourceSelector_L805A
 C17F89_DispatchDisplayTextDynamicSourceSelector_L7F89:
-    cmp.w #$000E
+    cmp.w #TextCommand1D0EGiveItemToCharacterBSubcommand
     bne C17F91_DispatchDisplayTextDynamicSourceSelector_L7F91
     jmp.w C18060_DispatchDisplayTextDynamicSourceSelector_L8060
 C17F91_DispatchDisplayTextDynamicSourceSelector_L7F91:
-    cmp.w #$000F
+    cmp.w #TextCommand1D0FRemoveInventoryItemBySlotSubcommand
     bne C17F99_DispatchDisplayTextDynamicSourceSelector_L7F99
     jmp.w C18066_DispatchDisplayTextDynamicSourceSelector_L8066
 C17F99_DispatchDisplayTextDynamicSourceSelector_L7F99:
-    cmp.w #$0010
+    cmp.w #TextCommand1D10CheckItemEquippedSubcommand
     bne C17FA1_DispatchDisplayTextDynamicSourceSelector_L7FA1
     jmp.w C1806C_DispatchDisplayTextDynamicSourceSelector_L806C
 C17FA1_DispatchDisplayTextDynamicSourceSelector_L7FA1:
-    cmp.w #$0011
+    cmp.w #TextCommand1D11CheckInventoryItemUsabilitySubcommand
     bne C17FA9_DispatchDisplayTextDynamicSourceSelector_L7FA9
     jmp.w C18072_DispatchDisplayTextDynamicSourceSelector_L8072
 C17FA9_DispatchDisplayTextDynamicSourceSelector_L7FA9:
-    cmp.w #$0012
+    cmp.w #TextCommand1D12StoreInventoryItemWithEscargoSubcommand
     bne C17FB1_DispatchDisplayTextDynamicSourceSelector_L7FB1
     jmp.w C18078_DispatchDisplayTextDynamicSourceSelector_L8078
 C17FB1_DispatchDisplayTextDynamicSourceSelector_L7FB1:
-    cmp.w #$0013
+    cmp.w #TextCommand1D13WithdrawEscargoItemToInventorySubcommand
     bne C17FB9_DispatchDisplayTextDynamicSourceSelector_L7FB9
     jmp.w C1807E_DispatchDisplayTextDynamicSourceSelector_L807E
 C17FB9_DispatchDisplayTextDynamicSourceSelector_L7FB9:
-    cmp.w #$0014
+    cmp.w #TextCommand1D14HaveEnoughMoneySubcommand
     bne C17FC1_DispatchDisplayTextDynamicSourceSelector_L7FC1
     jmp.w C18084_DispatchDisplayTextDynamicSourceSelector_L8084
 C17FC1_DispatchDisplayTextDynamicSourceSelector_L7FC1:
-    cmp.w #$0015
+    cmp.w #TextCommand1D15PutValueInArgmemSubcommand
     bne C17FC9_DispatchDisplayTextDynamicSourceSelector_L7FC9
     jmp.w C1808A_DispatchDisplayTextDynamicSourceSelector_L808A
 C17FC9_DispatchDisplayTextDynamicSourceSelector_L7FC9:
-    cmp.w #$0017
+    cmp.w #TextCommand1D17HaveEnoughMoneyInAtmSubcommand
     bne C17FD1_DispatchDisplayTextDynamicSourceSelector_L7FD1
     jmp.w C18090_DispatchDisplayTextDynamicSourceSelector_L8090
 C17FD1_DispatchDisplayTextDynamicSourceSelector_L7FD1:
-    cmp.w #$0018
+    cmp.w #TextCommand1D18AddItemToEscargoStorageSubcommand
     bne C17FD9_DispatchDisplayTextDynamicSourceSelector_L7FD9
     jmp.w C18096_DispatchDisplayTextDynamicSourceSelector_L8096
 C17FD9_DispatchDisplayTextDynamicSourceSelector_L7FD9:
-    cmp.w #$0019
+    cmp.w #TextCommand1D19HaveXPartyMembersSubcommand
     bne C17FE1_DispatchDisplayTextDynamicSourceSelector_L7FE1
     jmp.w C1809C_DispatchDisplayTextDynamicSourceSelector_L809C
 C17FE1_DispatchDisplayTextDynamicSourceSelector_L7FE1:
-    cmp.w #$0020
+    cmp.w #TextCommand1D20TestUserTargetingSelfSubcommand
     bne C17FE9_DispatchDisplayTextDynamicSourceSelector_L7FE9
     jmp.w C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2
 C17FE9_DispatchDisplayTextDynamicSourceSelector_L7FE9:
-    cmp.w #$0021
+    cmp.w #TextCommand1D21GenerateRandomNumberSubcommand
     bne C17FF1_DispatchDisplayTextDynamicSourceSelector_L7FF1
     jmp.w C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7
 C17FF1_DispatchDisplayTextDynamicSourceSelector_L7FF1:
-    cmp.w #$0022
+    cmp.w #TextCommand1D22TestExitMouseUsableSubcommand
     bne C17FF9_DispatchDisplayTextDynamicSourceSelector_L7FF9
     jmp.w C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC
 C17FF9_DispatchDisplayTextDynamicSourceSelector_L7FF9:
-    cmp.w #$0023
+    cmp.w #TextCommand1D23ClassifyEquippedItemOffensiveDefensiveSubcommand
     bne C18001_DispatchDisplayTextDynamicSourceSelector_L8001
     jmp.w C18110_DispatchDisplayTextDynamicSourceSelector_L8110
 C18001_DispatchDisplayTextDynamicSourceSelector_L8001:
-    cmp.w #$0024
+    cmp.w #TextCommand1D24StageBankDepositAccumulatorSubcommand
     bne C18009_DispatchDisplayTextDynamicSourceSelector_L8009
     jmp.w C18115_DispatchDisplayTextDynamicSourceSelector_L8115
 C18009_DispatchDisplayTextDynamicSourceSelector_L8009:
@@ -933,58 +973,58 @@ C1809C_DispatchDisplayTextDynamicSourceSelector_L809C:
     lda.w #TextCommand1D19HaveXPartyMembers
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2:
-    ldy.w #$0000
-    sty $14
+    ldy.w #TextPredicateFalseValue
+    sty TextPredicateResultScratch
     jsr C1ACF2_GetBattleTargetNameBufferBase
-    sta $12
+    sta BattleTargetNameBufferPointerLo
     jsr C1AC9B_GetBattleAttackerNameBufferBase
     tax
-    lda $12
+    lda BattleTargetNameBufferPointerLo
     jsr C14070_ReadNameEntryLetterBoxPointer
-    cmp.w #$0000
+    cmp.w #NullNameEntryLetterBoxPointer
     bne C180BF_DispatchDisplayTextDynamicSourceSelector_L80BF
-    ldy.w #$0001
-    sty $14
+    ldy.w #TextPredicateTrueValue
+    sty TextPredicateResultScratch
 C180BF_DispatchDisplayTextDynamicSourceSelector_L80BF:
-    ldy $14
+    ldy TextPredicateResultScratch
     tya
-    sta $06
-    stz $08
+    sta TextPredicateResultLo
+    stz TextPredicateResultHi
     bpl C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA
-    dec $08
+    dec TextPredicateResultHi
 C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda TextPredicateResultLo
+    sta TextContextSourcePointerLo
+    lda TextPredicateResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7:
     lda.w #TextCommand1D21GenerateRandomNumber
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC:
-    ldy.w #$0000
-    sty $14
-    ldx $987B
-    lda $9877
+    ldy.w #TextPredicateFalseValue
+    sty TextPredicateResultScratch
+    ldx CurrentOverworldY
+    lda CurrentOverworldX
     jsl C00AA1_ReadMapPositionContext
-    and.w #$0007
-    cmp.w #$0002
+    and.w #MapPositionContextClassMask
+    cmp.w #ExitMouseUsableMapClass
     bne C180F8_DispatchDisplayTextDynamicSourceSelector_L80F8
-    ldy.w #$0001
-    sty $14
+    ldy.w #TextPredicateTrueValue
+    sty TextPredicateResultScratch
 C180F8_DispatchDisplayTextDynamicSourceSelector_L80F8:
-    ldy $14
+    ldy TextPredicateResultScratch
     tya
-    sta $06
-    stz $08
+    sta TextPredicateResultLo
+    stz TextPredicateResultHi
     bpl C18103_DispatchDisplayTextDynamicSourceSelector_L8103
-    dec $08
+    dec TextPredicateResultHi
 C18103_DispatchDisplayTextDynamicSourceSelector_L8103:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda TextPredicateResultLo
+    sta TextContextSourcePointerLo
+    lda TextPredicateResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C18110_DispatchDisplayTextDynamicSourceSelector_L8110:
@@ -994,7 +1034,7 @@ C18115_DispatchDisplayTextDynamicSourceSelector_L8115:
     lda.w #TextCommand1D24StageBankDepositAccumulator
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1811A_DispatchDisplayTextDynamicSourceSelector_L811A:
-    lda.w #$0000
+    lda.w #TextCommandNoFollowupCallback
 C1811D_DispatchDisplayTextDynamicSourceSelector_L811D:
     pld
     rts

@@ -47,6 +47,11 @@ See also:
   `01..0F` and `11..15`, plus the battle user/target selector values,
   staged name-buffer pointer bytes, text-context handoff pair, fixed-string
   preflight length, and no-follow-up return value.
+- The adjacent `0x1D` inventory/money dispatcher now names its live
+  subselector ids for `01..15`, `17..19`, and `20..24`, while keeping the
+  absent `16` and parser-artifact `1C` gaps visible. Its inline `20` and `22`
+  predicate bodies also name their boolean result staging, battle name-buffer
+  comparison, current map-position inputs, map-class mask, and exit-mouse class.
 - The later `1F` command corridor now names the text-context snapshot/restore,
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game

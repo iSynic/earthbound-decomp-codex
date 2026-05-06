@@ -153,6 +153,15 @@ wrappers now use the same vocabulary. `0x1D 04`, `0x1D 05`, and adjacent
 with `$97CA`, and return through named self-callback low words at `C1:4D24`,
 `C1:4D93`, and `C1:4DFB`.
 
+Source polish follow-up (2026-05-06): the live `C1:7F11` family dispatcher now
+names its selector ladder directly in `src/c1/c1_7b56_dispatch_display_text_dynamic_source_selector.asm`.
+The source names the stable `0x1D 01..15`, `17..19`, and `20..24`
+subselector ids, preserving the live absences for `0x16` and `0x1C`. The two
+inline predicate bodies are named too: `0x1D 20` exposes the battle
+user-targeting-self helper chain and boolean text-context staging, while
+`0x1D 22` exposes the current-map-position lookup, map-class mask, exit-mouse
+usable class, and the same boolean text-context staging.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

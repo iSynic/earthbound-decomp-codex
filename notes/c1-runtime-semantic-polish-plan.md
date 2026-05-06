@@ -591,6 +591,13 @@ This planning pass is documentation-only.
   preflight length, and no-follow-up return value. This continues the adjacent
   text-command-family sweep while leaving the later `0x1D` inventory/money
   ladder for its own pass.
+- 2026-05-06 follow-up: the adjacent `0x1D` inventory/money dispatcher in
+  `C1:7F11..811D` now names the live selector ids for `01..15`, `17..19`, and
+  `20..24`, preserving the `16` and `1C` gaps as non-live cases. The inline
+  `1D 20` and `1D 22` predicate bodies now expose their battle-name-buffer
+  comparison, current map-position lookup, map-class mask, exit-mouse class,
+  boolean scratch/result staging, `$0E/$10` text-context handoff, and
+  no-follow-up return contract.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments
