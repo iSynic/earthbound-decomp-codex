@@ -102,6 +102,12 @@ name their queued-byte slots and callback self-returns, tightening the contract
 between family dispatchers and the callback leaves without changing emitted
 bytes.
 
+Source polish follow-up (2026-05-06): the same queued-selector names now cover
+the previously raw front possession checks in `C1:4CEE..4EAB`: `0x1D 04`,
+`0x1D 05`, and adjacent `0x1F 20` stage a one-byte selector in `$97BA`, count
+it with `$97CA`, and return through named self-callback low words instead of
+raw literals.
+
 Source polish follow-up (2026-05-06): the `C1:575D..621F` continuation now
 uses the same vocabulary for the next dense strip. This covers `0x1D
 10/11/12/13/14/15/17`, `0x18 0D`, `0x19 19/1C/1D`, and the adjacent `0x1F

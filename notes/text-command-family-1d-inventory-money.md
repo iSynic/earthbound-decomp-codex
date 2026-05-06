@@ -147,6 +147,12 @@ selector for give/take item wrappers. The adjacent `0x1D 0D/0E/0F` leaves in
 and remove-by-slot staging, so the source shows the queue contract instead of
 bare `$97BA/$97CA` and low-word self-return literals.
 
+Source polish follow-up (2026-05-06): the remaining front possession-selector
+wrappers now use the same vocabulary. `0x1D 04`, `0x1D 05`, and adjacent
+`0x1F 20` queue their one-byte character/source selector in `$97BA`, count it
+with `$97CA`, and return through named self-callback low words at `C1:4D24`,
+`C1:4D93`, and `C1:4DFB`.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

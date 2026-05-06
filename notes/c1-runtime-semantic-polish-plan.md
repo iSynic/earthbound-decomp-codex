@@ -550,3 +550,8 @@ This planning pass is documentation-only.
   in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm` now use
   explicit `db` bytes, keeping raw helper-call scans focused on real C1
   contracts. The structural split and deeper semantic naming remain deferred.
+- 2026-05-06 follow-up: the front inventory/possession text-command wrappers
+  now finish the local queued-selector vocabulary. `C1:4CEE..4EAB` names
+  `$97BA/$97CA`, the one-byte argument limit, and self-return callback low
+  words for `0x1D 04`, `0x1D 05`, and adjacent `0x1F 20`, matching the
+  already-polished lower queued callback ABI.

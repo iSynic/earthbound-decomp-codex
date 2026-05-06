@@ -10313,6 +10313,12 @@ org $C14CEE
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C3E9F7_CheckEquippedInventoryItemPresence = $C3E9F7
 !C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!OneDeferredArgument = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!TextCommand1D04FindPartyMemberWithoutItemCallback = $4D24
 CC_1D_03:
 !C14CEE_FindPartyMemberWithInventoryRoomForTextCommand = CC_1D_03
     rep #$31
@@ -10322,7 +10328,7 @@ CC_1D_03:
     adc.w #$FFEE
     tcd
     pla
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14D00_FindPartyMemberWithInventoryRoomForTextCommand_L4D00
     txa
     bra C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05
@@ -10331,7 +10337,7 @@ C14D00_FindPartyMemberWithInventoryRoomForTextCommand_L4D00:
     lda $06
 C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05:
     jsl !C4572B_FindPartyMemberWithInventoryRoomWildcard
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14
@@ -10342,7 +10348,7 @@ C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1D_04:
@@ -10354,9 +10360,9 @@ CC_1D_04:
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14D3B_FindPartyMemberWithInventoryRoomForTextCommand_L4D3B
     bpl C14D50_FindPartyMemberWithInventoryRoomForTextCommand_L4D50
     bra C14D3D_FindPartyMemberWithInventoryRoomForTextCommand_L4D3D
@@ -10365,17 +10371,17 @@ C14D3B_FindPartyMemberWithInventoryRoomForTextCommand_L4D3B:
 C14D3D_FindPartyMemberWithInventoryRoomForTextCommand_L4D3D:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4D24
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1D04FindPartyMemberWithoutItemCallback
     bra C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91
 C14D50_FindPartyMemberWithInventoryRoomForTextCommand_L4D50:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14D61_FindPartyMemberWithInventoryRoomForTextCommand_L4D61
     stx $12
     bra C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69
@@ -10392,7 +10398,7 @@ C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69:
 C14D72_FindPartyMemberWithInventoryRoomForTextCommand_L4D72:
     ldx $12
     jsl !C3E9F7_CheckEquippedInventoryItemPresence
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C14D83_FindPartyMemberWithInventoryRoomForTextCommand_L4D83
@@ -10403,7 +10409,7 @@ C14D83_FindPartyMemberWithInventoryRoomForTextCommand_L4D83:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91:
     pld
     rts
@@ -10422,6 +10428,13 @@ org $C14D93
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C1BCAB_ExecuteTeleportDestination = $BCAB
 !C45683_FindPartyMemberWithItemWildcard = $C45683
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!OneDeferredArgument = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!TextCommand1D05FindPartyMemberWithItemCallback = $4D93
+!TextCommand1F20UseItemOnCharacterCallback = $4DFB
 CC_1D_05:
 !C14D93_FindPartyMemberWithItemForTextCommand = CC_1D_05
     rep #$31
@@ -10431,9 +10444,9 @@ CC_1D_05:
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14DAA_FindPartyMemberWithItemForTextCommand_L4DAA
     bpl C14DBF_FindPartyMemberWithItemForTextCommand_L4DBF
     bra C14DAC_FindPartyMemberWithItemForTextCommand_L4DAC
@@ -10442,17 +10455,17 @@ C14DAA_FindPartyMemberWithItemForTextCommand_L4DAA:
 C14DAC_FindPartyMemberWithItemForTextCommand_L4DAC:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4D93
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1D05FindPartyMemberWithItemCallback
     bra C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9
 C14DBF_FindPartyMemberWithItemForTextCommand_L4DBF:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14DD0_FindPartyMemberWithItemForTextCommand_L4DD0
     stx $12
     bra C14DD8_FindPartyMemberWithItemForTextCommand_L4DD8
@@ -10476,7 +10489,7 @@ C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9:
     pld
     rts
@@ -10491,9 +10504,9 @@ CC_1F_20:
     pla
     txa
     sta $14
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14E15_FindPartyMemberWithItemForTextCommand_L4E15
     bpl C14E2B_FindPartyMemberWithItemForTextCommand_L4E2B
     bra C14E17_FindPartyMemberWithItemForTextCommand_L4E17
@@ -10502,15 +10515,15 @@ C14E15_FindPartyMemberWithItemForTextCommand_L4E15:
 C14E17_FindPartyMemberWithItemForTextCommand_L4E17:
     lda $14
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4DFB
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F20UseItemOnCharacterCallback
     bra C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A
 C14E2B_FindPartyMemberWithItemForTextCommand_L4E2B:
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $00
     rep #$20
     lda $14
@@ -10530,7 +10543,7 @@ C14E46_FindPartyMemberWithItemForTextCommand_L4E46:
     sta $12
 C14E51_FindPartyMemberWithItemForTextCommand_L4E51:
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C14E60_FindPartyMemberWithItemForTextCommand_L4E60
     sep #$20
     lda $00
@@ -10556,7 +10569,7 @@ C14E71_FindPartyMemberWithItemForTextCommand_L4E71:
     sta $0E
     lda $0F
     jsl !C0DD53_SetTeleportStateSelectors
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A:
     pld
     rts
@@ -10569,7 +10582,7 @@ CC_1F_21:
     adc.w #$FFF2
     tcd
     pla
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14E9E_FindPartyMemberWithItemForTextCommand_L4E9E
     txa
     bra C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3
@@ -10578,7 +10591,7 @@ C14E9E_FindPartyMemberWithItemForTextCommand_L4E9E:
     lda $06
 C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3:
     jsr !C1BCAB_ExecuteTeleportDestination
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 
