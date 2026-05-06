@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from typing import Any
@@ -12,6 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CAMPAIGN = ROOT / "manifests" / "audio-independent-oracle-campaign-plan.json"
 DEFAULT_SUMMARY = ROOT / "build" / "audio" / "independent-oracle-campaign-runs" / "independent-oracle-campaign-run-summary.json"
+SPC_SIGNATURE = b"SNES-SPC700 Sound File Data"
 REQUIRED_METADATA_FIELDS = {
     "oracle_id",
     "oracle_kind",
@@ -47,6 +49,45 @@ def parse_args() -> argparse.Namespace:
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def sha1_file(path: Path) -> str:
+    digest = hashlib.sha1()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def read_u16(data: bytes, offset: int) -> int:
+    return int.from_bytes(data[offset : offset + 2], "little")
+
+
+def read_u32(data: bytes, offset: int) -> int:
+    return int.from_bytes(data[offset : offset + 4], "little")
+
+
+def wav_metadata(path: Path) -> dict[str, float | int]:
+    data = path.read_bytes()
+    if len(data) < 44 or data[0:4] != b"RIFF" or data[8:12] != b"WAVE":
+        raise ValueError(f"reference WAV is missing RIFF/WAVE header: {path}")
+    if data[12:16] != b"fmt ":
+        raise ValueError(f"reference WAV is missing canonical fmt chunk: {path}")
+    fmt_size = read_u32(data, 16)
+    data_offset = 20 + fmt_size
+    if len(data) < data_offset + 8 or data[data_offset : data_offset + 4] != b"data":
+        raise ValueError(f"reference WAV is missing canonical data chunk: {path}")
+    channels = read_u16(data, 22)
+    sample_rate = read_u32(data, 24)
+    bits_per_sample = read_u16(data, 34)
+    data_bytes = read_u32(data, data_offset + 4)
+    bytes_per_frame = max(1, channels * bits_per_sample // 8)
+    return {
+        "render_sample_rate": sample_rate,
+        "channels": channels,
+        "bits_per_sample": bits_per_sample,
+        "duration_seconds": round(data_bytes / bytes_per_frame / sample_rate, 6) if sample_rate else 0.0,
+    }
 
 
 def resolve_repo_path(path_text: str) -> Path:
@@ -93,6 +134,12 @@ def metadata_audit(job: dict[str, Any]) -> dict[str, Any]:
         "oracle_id": None,
         "oracle_kind": None,
         "source_spc_sha1_matches": False,
+        "spc_exists": False,
+        "spc_sha1_matches": False,
+        "spc_signature_ok": False,
+        "wav_exists": False,
+        "wav_sha1_matches": False,
+        "wav_metadata_matches": False,
         "wav_format_matches_policy": False,
         "duration_covers_planned": False,
     }
@@ -100,6 +147,19 @@ def metadata_audit(job: dict[str, Any]) -> dict[str, Any]:
         return record
     metadata = load_json(metadata_path)
     missing_fields = REQUIRED_METADATA_FIELDS - set(metadata)
+    imported = metadata.get("imported_outputs", {})
+    spc_record = imported.get("spc_snapshot", {})
+    wav_record = imported.get("pcm_wav", {})
+    spc_path = resolve_repo_path(str(outputs.get("spc_snapshot", "")))
+    wav_path = resolve_repo_path(str(outputs.get("pcm_wav", "")))
+    spc_exists = spc_path.exists()
+    wav_exists = wav_path.exists()
+    wav_meta: dict[str, float | int] = {}
+    if wav_exists:
+        try:
+            wav_meta = wav_metadata(wav_path)
+        except ValueError:
+            wav_meta = {}
     record.update(
         {
             "missing_metadata_fields": sorted(missing_fields),
@@ -107,6 +167,16 @@ def metadata_audit(job: dict[str, Any]) -> dict[str, Any]:
             "oracle_id": metadata.get("oracle_id"),
             "oracle_kind": metadata.get("oracle_kind"),
             "source_spc_sha1_matches": metadata.get("source_spc_sha1") == job.get("source_spc", {}).get("sha1"),
+            "spc_exists": spc_exists,
+            "spc_sha1_matches": spc_exists and spc_record.get("sha1") == sha1_file(spc_path),
+            "spc_signature_ok": spc_exists and spc_path.read_bytes().startswith(SPC_SIGNATURE),
+            "wav_exists": wav_exists,
+            "wav_sha1_matches": wav_exists and metadata.get("reference_wav_sha1") == sha1_file(wav_path),
+            "wav_metadata_matches": bool(wav_meta)
+            and all(
+                int(metadata.get(field, 0)) == int(wav_meta[field])
+                for field in ("render_sample_rate", "channels", "bits_per_sample")
+            ),
             "wav_format_matches_policy": (
                 int(metadata.get("render_sample_rate", 0)) == 32000
                 and int(metadata.get("channels", 0)) == 2
@@ -126,6 +196,12 @@ def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
         and audit.get("independent_emulator_capture") is True
         and not audit.get("missing_metadata_fields")
         and audit.get("source_spc_sha1_matches") is True
+        and audit.get("spc_exists") is True
+        and audit.get("spc_sha1_matches") is True
+        and audit.get("spc_signature_ok") is True
+        and audit.get("wav_exists") is True
+        and audit.get("wav_sha1_matches") is True
+        and audit.get("wav_metadata_matches") is True
         and audit.get("wav_format_matches_policy") is True
         and audit.get("duration_covers_planned") is True
     )
@@ -140,6 +216,7 @@ def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
         "mode": mode,
         "status": status,
         "import_command": job["import_command"],
+        "capture_validator_command": job["capture_validator_command"],
         "collect_command": job["collect_command"],
         "result_validator": job["result_validator"],
         "capture_metadata_path": job.get("reference_capture_outputs", {}).get("capture_metadata"),

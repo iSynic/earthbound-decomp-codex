@@ -104,6 +104,7 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Build independent external-emulator oracle campaign plan: `python tools/build_audio_independent_oracle_campaign_plan.py`.
 - Validate independent external-emulator oracle campaign plan: `python tools/validate_audio_independent_oracle_campaign_plan.py`.
 - Import one independent external-emulator oracle capture: `python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id <id> --spc <capture.spc> --wav <capture.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings>`.
+- Validate one independent external-emulator oracle capture: `python tools/validate_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id <id>`.
 - Dry-run or audit independent external-emulator oracle campaign jobs: `python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan`.
 - Validate independent external-emulator oracle campaign run summary: `python tools/validate_audio_independent_oracle_campaign_run_summary.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
