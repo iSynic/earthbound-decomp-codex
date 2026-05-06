@@ -189,6 +189,14 @@ closure.
   record stride/sentinel fields, effect position/size deltas, special-mode
   ladder values, and C0 window/offset helper contracts. See
   `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
+- 2026-05-06 credits presentation follow-up: tightened the C4 credits queue
+  and playback controller around the newly polished C0 command-stream callback.
+  The source now names the frame-callback install/reset calls, 9-byte credits
+  DMA queue records, `$B4E3/$B4E5/$B4E7..$B4ED` command-stream/scroll fields,
+  E1:2F8A photographer record stride/count, photograph render state, and the
+  BG3 scroll/progress comparison at `$003B`. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md` and
+  `notes/frame-callback-bodies.md`.
 
 ## Validation
 

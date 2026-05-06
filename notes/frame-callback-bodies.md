@@ -201,6 +201,9 @@ Working interpretation:
 
 - `C4:F673` resets the callback to the default `RTS` stub through `C0:8522`.
 
+- `C4:F701` reinstalls `FrameCallback_ProcessDelayedActions` through
+  `C0:851C` after the credits display cleanup.
+
 - `C0:B6C5` seeds `7E:9E54` with `#$0697` immediately before installing `FrameCallback_ProcessDelayedActions`.
 
 - `C0:766F` and `EF:E6A0` also write `7E:9E54`, which makes that address a strong cross-reference point for this subsystem.
@@ -215,9 +218,10 @@ Working interpretation:
 
 - Continue naming the `C0:F41E` command handlers from stream data ownership:
   `01/02` are row emitters, `03` advances the timing threshold, `04` remaps a
-  staged row through `$B4F9`, and `FF` terminates the stream. The next useful
-  step is tying the stream payload source and `$B4E3/$B4E5/$B4E7/$B4EB`
-  fields to the C4 installer at `C4:F592`.
+  staged row through `$B4F9`, and `FF` terminates the stream. The C4 installer
+  side now names the setup/teardown contract: `C4:F07D` seeds
+  `$B4E3/$B4E5/$B4E7..$B4ED`, `C4:F592` installs `C0:F41E`, `C4:F673`
+  resets to the default callback, and `C4:F701` reinstalls delayed actions.
 
 ## Working Names
 

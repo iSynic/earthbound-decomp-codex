@@ -11,9 +11,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-CreditsSceneState                   = $B4E3
+CreditsCommandStreamThreshold       = $B4E3
+CreditsNextBg3RowThreshold          = $B4E5
+CreditsCommandStreamPointerLo       = $B4E7
+CreditsCommandStreamPointerBank     = $B4E9
+CreditsBg3ScrollFixedLo             = $B4EB
+CreditsBg3ScrollFixedHi             = $B4ED
 CreditsDmaQueueReadIndex            = $B4F3
 CreditsDmaQueueWriteIndex           = $B4F5
+CreditsCommandStreamRowIndex        = $B4F7
 ResetActiveEntitySlots              = $C021E6
 QueueVramTransfer_FromDpSource      = $C08616
 ClearRange7fMaybe                   = $C08726
@@ -32,6 +38,9 @@ ExpandC4AssetMaybe                  = $C41A9E
 
 INITIALIZE_CREDITS_SCENE:
 C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
+    ; Build the ending credits presentation state: clear staging WRAM, seed the
+    ; credits DMA ring, load graphics/palette assets, and arm C0:F41E with the
+    ; E1 credits command stream.
     rep #$31
     phd
     tdc
@@ -43,7 +52,7 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     sta $08
     jsl ClearRange7fMaybe
     jsl ResetActiveEntitySlots
-    stz $B4F7
+    stz CreditsCommandStreamRowIndex
     stz CreditsDmaQueueWriteIndex
     stz CreditsDmaQueueReadIndex
     ldy.w #$0000
@@ -189,13 +198,13 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     lda.b #$17
     sta $001A
     rep #$20
-    stz CreditsSceneState
+    stz CreditsCommandStreamThreshold
     lda.w #$0000
-    sta $B4EB
+    sta CreditsBg3ScrollFixedLo
     lda.w #$0000
-    sta $B4ED
+    sta CreditsBg3ScrollFixedHi
     lda.w #$0007
-    sta $B4E5
+    sta CreditsNextBg3RowThreshold
     lda.w #$7DFE
     sta $06
     phb
@@ -217,9 +226,9 @@ C4F24B_InitializeCreditsScene_LF24B:
     bcc C4F23F_InitializeCreditsScene_LF23F
     rep #$20
     lda.w #$413F
-    sta $B4E7
+    sta CreditsCommandStreamPointerLo
     lda.w #$00E1
-    sta $B4E9
+    sta CreditsCommandStreamPointerBank
     jsl FinalizeDisplaySetupMaybe
     pld
     rtl

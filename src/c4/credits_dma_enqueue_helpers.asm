@@ -14,11 +14,18 @@
 CreditsDmaQueueBuffer     = $5156
 CreditsDmaQueueWriteIndex = $B4F5
 
+; Queue record layout under `CreditsDmaQueueBuffer`, stride 9 bytes:
+; +0 transfer selector byte, +1 destination VRAM word, +3 source pointer
+; low/bank word pair, +7 transfer byte count.
+
 ; ---------------------------------------------------------------------------
 ; C4:EFC4
 
 ENQUEUE_CREDITS_DMA:
 C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
+    ; Append one credits-row DMA request. A carries the C0 VRAM-transfer
+    ; selector byte, X the byte count, Y the destination VRAM word, and
+    ; `$0E/$10` the long source pointer staged by the C0 command callback.
     rep #$31
     phd
     pha
@@ -36,6 +43,7 @@ C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
     lda $1F
     sta $08
     lda CreditsDmaQueueWriteIndex
+    ; Convert the ring index to a 9-byte queue record offset.
     sta $04
     asl A
     asl A

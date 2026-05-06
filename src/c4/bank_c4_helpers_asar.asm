@@ -14885,9 +14885,15 @@ C4F07B_ProcessCreditsDmaQueue_LF07B:
 hirom
 org $C4F07D
 
-!CreditsSceneState = $B4E3
+!CreditsCommandStreamThreshold = $B4E3
+!CreditsNextBg3RowThreshold = $B4E5
+!CreditsCommandStreamPointerLo = $B4E7
+!CreditsCommandStreamPointerBank = $B4E9
+!CreditsBg3ScrollFixedLo = $B4EB
+!CreditsBg3ScrollFixedHi = $B4ED
 !CreditsDmaQueueReadIndex = $B4F3
 !CreditsDmaQueueWriteIndex = $B4F5
+!CreditsCommandStreamRowIndex = $B4F7
 !ResetActiveEntitySlots = $C021E6
 !QueueVramTransfer_FromDpSource = $C08616
 !ClearRange7fMaybe = $C08726
@@ -14913,7 +14919,7 @@ INITIALIZE_CREDITS_SCENE:
     sta $08
     jsl !ClearRange7fMaybe
     jsl !ResetActiveEntitySlots
-    stz $B4F7
+    stz !CreditsCommandStreamRowIndex
     stz !CreditsDmaQueueWriteIndex
     stz !CreditsDmaQueueReadIndex
     ldy.w #$0000
@@ -15059,13 +15065,13 @@ INITIALIZE_CREDITS_SCENE:
     lda.b #$17
     sta $001A
     rep #$20
-    stz !CreditsSceneState
+    stz !CreditsCommandStreamThreshold
     lda.w #$0000
-    sta $B4EB
+    sta !CreditsBg3ScrollFixedLo
     lda.w #$0000
-    sta $B4ED
+    sta !CreditsBg3ScrollFixedHi
     lda.w #$0007
-    sta $B4E5
+    sta !CreditsNextBg3RowThreshold
     lda.w #$7DFE
     sta $06
     phb
@@ -15087,9 +15093,9 @@ C4F24B_InitializeCreditsScene_LF24B:
     bcc C4F23F_InitializeCreditsScene_LF23F
     rep #$20
     lda.w #$413F
-    sta $B4E7
+    sta !CreditsCommandStreamPointerLo
     lda.w #$00E1
-    sta $B4E9
+    sta !CreditsCommandStreamPointerBank
     jsl !FinalizeDisplaySetupMaybe
     pld
     rtl
@@ -15102,12 +15108,18 @@ C4F24B_InitializeCreditsScene_LF24B:
 hirom
 org $C4F264
 
+!LoadMapAtPosition = $C013F6
 !CreateEntityAtPositionMaybe = $C01E49
 !ResolveVisualEntityTypeMaybe = $C079EC
 !AttachEntityVisualMaybe = $C07A31
 !QueueOrTransferDynamicTileBlock = $C08ED2
 !Multiply16By8_ViaHardwareRegisters = $C08FF7
 !CheckEventFlagMaybe = $C21628
+!PhotographerCfgTableLo = $2F8A
+!PhotographerCfgTableBank = $00E1
+!PhotographerCfgRecordStride = $003E
+!CreditsPhotographRenderActive = $B4EF
+!CreditsCurrentPhotographIndex = $B4F1
 TRY_RENDERING_PHOTOGRAPH:
 !C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
     rep #$31
@@ -15120,12 +15132,12 @@ TRY_RENDERING_PHOTOGRAPH:
     sta $1E
     ldx.w #$0000
     stx $1C
-    lda.w #$2F8A
+    lda.w #!PhotographerCfgTableLo
     sta $0A
-    lda.w #$00E1
+    lda.w #!PhotographerCfgTableBank
     sta $0C
     lda $1E
-    ldy.w #$003E
+    ldy.w #!PhotographerCfgRecordStride
     jsl !Multiply16By8_ViaHardwareRegisters
     clc
     adc $0A
@@ -15140,9 +15152,9 @@ TRY_RENDERING_PHOTOGRAPH:
     jmp.w C4F42E_TryRenderingPhotograph_LF42E
 C4F2A1_TryRenderingPhotograph_LF2A1:
     lda.w #$0001
-    sta $B4EF
+    sta !CreditsPhotographRenderActive
     lda $1E
-    sta $B4F1
+    sta !CreditsCurrentPhotographIndex
     lda $4A5A
     sta $02
     stz $4A5A
@@ -15179,12 +15191,12 @@ C4F2C5_TryRenderingPhotograph_LF2C5:
     asl A
     asl A
     asl A
-    jsl $C013F6
+    jsl !LoadMapAtPosition
     lda $02
     sta $4A5A
     stz $0037
     stz $0035
-    stz $B4EF
+    stz !CreditsPhotographRenderActive
     stz $1A
     lda.w #$0000
     sta $02
@@ -15359,6 +15371,8 @@ org $C4F433
 !Multiply16By8_ViaHardwareRegisters = $C08FF7
 !CheckEventFlagMaybe = $C21628
 !CreditsPhotographTable = $E12F8A
+!CreditsPhotographRecordStride = $003E
+!CreditsPhotographRecordCount = $0020
 COUNT_PHOTO_FLAGS:
 !C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
     rep #$31
@@ -15373,7 +15387,7 @@ COUNT_PHOTO_FLAGS:
     bra C4F465_CountPhotoFlags_LF465
 C4F445_CountPhotoFlags_LF445:
     txa
-    ldy.w #$003E
+    ldy.w #!CreditsPhotographRecordStride
     jsl !Multiply16By8_ViaHardwareRegisters
     tax
     lda !CreditsPhotographTable,X
@@ -15388,7 +15402,7 @@ C4F460_CountPhotoFlags_LF460:
     inx
     stx $0E
 C4F465_CountPhotoFlags_LF465:
-    cpx.w #$0020
+    cpx.w #!CreditsPhotographRecordCount
     bcc C4F445_CountPhotoFlags_LF445
     ldy $10
     tya
@@ -15409,6 +15423,13 @@ org $C4F46F
 !RunTextSystemFrameMaybe = $C1004E
 !ProjectMagnitudeByDirectionAngle = $C41FFF
 !ProcessCreditsDmaQueue = $C4F01D
+!PhotographerCfgTableLo = $2F8A
+!PhotographerCfgTableBank = $00E1
+!PhotographerCfgRecordStride = $003E
+!Bg3HScrollLow = $0031
+!Bg3VScrollLow = $0033
+!Bg3HScrollHigh = $0035
+!Bg3VScrollHigh = $0037
 SLIDE_CREDITS_PHOTOGRAPH:
 !C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     rep #$31
@@ -15419,12 +15440,12 @@ SLIDE_CREDITS_PHOTOGRAPH:
     tcd
     pla
     sta $22
-    lda.w #$2F8A
+    lda.w #!PhotographerCfgTableLo
     sta $06
-    lda.w #$00E1
+    lda.w #!PhotographerCfgTableBank
     sta $08
     lda $22
-    ldy.w #$003E
+    ldy.w #!PhotographerCfgRecordStride
     jsl !Multiply16By8_ViaHardwareRegisters
     clc
     adc $06
@@ -15471,9 +15492,9 @@ SLIDE_CREDITS_PHOTOGRAPH:
     sta $1C
     lda $0E
     sta $1A
-    lda $0031
+    lda !Bg3HScrollLow
     sta $18
-    lda $0033
+    lda !Bg3VScrollLow
     sta $16
     lda.w #$0000
     sta $04
@@ -15496,17 +15517,17 @@ C4F50A_SlideCreditsPhotograph_LF50A:
     tax
     clc
     adc $18
-    sta $0031
+    sta !Bg3HScrollLow
     ldy.w #$0100
     lda $04
     jsl !Divide16By16_ViaHardwareRegisters
     sta $12
     clc
     adc $16
-    sta $0033
-    stx $0035
+    sta !Bg3VScrollLow
+    stx !Bg3HScrollHigh
     lda $12
-    sta $0037
+    sta !Bg3VScrollHigh
     jsl !ProcessCreditsDmaQueue
     jsl !RunTextSystemFrameMaybe
     ldy $14
@@ -15530,16 +15551,16 @@ org $C4F554
 !ResetActiveEntitySlots = $C021E6
 !FinalizeEntitiesMaybe = $C02D29
 !RefreshOverworldStateMaybe = $C03A24
-!SetCreditsScrollTargetMaybe = $C0851C
-!ClearCreditsScrollMaybe = $C08522
-!WaitForScrollTargetMaybe = $C0856B
+!SetFrameCallbackPtr = $C0851C
+!ResetFrameCallbackToDefault = $C08522
+!WriteDisplayTransferSelector30 = $C0856B
 !ClearRange7fMaybe = $C08726
 !SetDisplayTransitionMode = $C08814
 !SetDisplayTransitionState = $C0886C
 !WaitOneFrameAndUpdateDisplayState = $C088B1
 !FillLocalBufferMaybe = $C08EFC
 !C08F15_ClearVramOrRendererBuffer = $C08F15
-!ScaleByVisiblePhotoCountMaybe = $C0915B
+!DivideCreditsScrollLimitByPhotoCount = $C0915B
 !SpawnEntityByScriptMaybe = $C09321
 !RunTextSystemFrameMaybe = $C1004E
 !ApplyFullscreenColorMathWithFixedColorX = $C4249A
@@ -15552,6 +15573,14 @@ org $C4F554
 !TryRenderingPhotograph = $C4F264
 !CountPhotoFlags = $C4F433
 !SlideCreditsPhotograph = $C4F46F
+!CreditsPresentationActive = $B4B6
+!Bg3VerticalScrollFixedHigh = $003B
+!FrameCallback_ProcessCommandStream = $F41E
+!FrameCallback_ProcessDelayedActions = $DC4E
+!CreditsPhotoRecordCount = $0020
+!CreditsScrollLimit = $11B0
+!CreditsPhotoFadeFrames = $0040
+!CreditsDisplayTransferSelector = $0018
 PLAY_CREDITS:
 !C4F554_PlayCredits = PLAY_CREDITS
     rep #$31
@@ -15560,7 +15589,7 @@ PLAY_CREDITS:
     adc.w #$FFEA
     tcd
     lda.w #$0001
-    sta $B4B6
+    sta !CreditsPresentationActive
     jsl !InitializeCreditsScene
     jsl !WaitOneFrameAndUpdateDisplayState
     ldx.w #$0002
@@ -15571,16 +15600,16 @@ PLAY_CREDITS:
     beq C4F58B_PlayCredits_LF58B
     jsl !CountPhotoFlags
     tay
-    lda.w #$11B0
-    jsl !ScaleByVisiblePhotoCountMaybe
+    lda.w #!CreditsScrollLimit
+    jsl !DivideCreditsScrollLimitByPhotoCount
     bra C4F58E_PlayCredits_LF58E
 C4F58B_PlayCredits_LF58B:
-    lda.w #$11B0
+    lda.w #!CreditsScrollLimit
 C4F58E_PlayCredits_LF58E:
     sta $04
     sta $02
-    lda.w #$F41E
-    jsl !SetCreditsScrollTargetMaybe
+    lda.w #!FrameCallback_ProcessCommandStream
+    jsl !SetFrameCallbackPtr
     ldy.w #$0000
     sty $14
     jmp.w C4F657_PlayCredits_LF657
@@ -15592,9 +15621,9 @@ C4F5A1_PlayCredits_LF5A1:
     jmp.w C4F652_PlayCredits_LF652
 C4F5AE_PlayCredits_LF5AE:
     ldx.w #$FFFF
-    lda.w #$0040
+    lda.w #!CreditsPhotoFadeFrames
     jsl !SetLandingPaletteFadeMaybe
-    ldx.w #$0040
+    ldx.w #!CreditsPhotoFadeFrames
     stx $12
     bra C4F5D0_PlayCredits_LF5D0
 C4F5BF_PlayCredits_LF5BF:
@@ -15616,7 +15645,7 @@ C4F5DF_PlayCredits_LF5DF:
     jsl !RunTextSystemFrameMaybe
 C4F5E7_PlayCredits_LF5E7:
     lda $02
-    cmp $003B
+    cmp !Bg3VerticalScrollFixedHigh
     beq C4F5F0_PlayCredits_LF5F0
     bcs C4F5DF_PlayCredits_LF5DF
 C4F5F0_PlayCredits_LF5F0:
@@ -15629,7 +15658,7 @@ C4F5F0_PlayCredits_LF5F0:
     lda.b #$00
     jsl !C08F15_ClearVramOrRendererBuffer
     ldx.w #$FFFF
-    lda.w #$0040
+    lda.w #!CreditsPhotoFadeFrames
     jsl !SetLandingPaletteFadeMaybe
     ldx.w #$0000
     stx $12
@@ -15642,7 +15671,7 @@ C4F616_PlayCredits_LF616:
     inx
     stx $12
 C4F627_PlayCredits_LF627:
-    cpx.w #$0040
+    cpx.w #!CreditsPhotoFadeFrames
     bcc C4F616_PlayCredits_LF616
     sep #$20
     stz $0E
@@ -15650,8 +15679,8 @@ C4F627_PlayCredits_LF627:
     rep #$20
     lda.w #$0220
     jsl !FillLocalBufferMaybe
-    lda.w #$0018
-    jsl !WaitForScrollTargetMaybe
+    lda.w #!CreditsDisplayTransferSelector
+    jsl !WriteDisplayTransferSelector30
     jsl !ProcessCreditsDmaQueue
     jsl !RunTextSystemFrameMaybe
     lda $02
@@ -15663,7 +15692,7 @@ C4F652_PlayCredits_LF652:
     iny
     sty $14
 C4F657_PlayCredits_LF657:
-    cpy.w #$0020
+    cpy.w #!CreditsPhotoRecordCount
     bcs C4F661_PlayCredits_LF661
     beq C4F661_PlayCredits_LF661
     jmp.w C4F5A1_PlayCredits_LF5A1
@@ -15673,10 +15702,10 @@ C4F663_PlayCredits_LF663:
     jsl !ProcessCreditsDmaQueue
     jsl !RunTextSystemFrameMaybe
 C4F66B_PlayCredits_LF66B:
-    lda $003B
-    cmp.w #$11B0
+    lda !Bg3VerticalScrollFixedHigh
+    cmp.w #!CreditsScrollLimit
     bcc C4F663_PlayCredits_LF663
-    jsl !ClearCreditsScrollMaybe
+    jsl !ResetFrameCallbackToDefault
     ldx.w #$0000
     stx $12
     bra C4F687_PlayCredits_LF687
@@ -15732,9 +15761,9 @@ C4F6EC_PlayCredits_LF6EC:
     lda.b #$17
     sta $001A
     rep #$20
-    lda.w #$DC4E
-    jsl !SetCreditsScrollTargetMaybe
-    stz $B4B6
+    lda.w #!FrameCallback_ProcessDelayedActions
+    jsl !SetFrameCallbackPtr
+    stz !CreditsPresentationActive
     pld
     rtl
 

@@ -11,18 +11,27 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+LoadMapAtPosition                  = $C013F6
 CreateEntityAtPositionMaybe        = $C01E49
 ResolveVisualEntityTypeMaybe       = $C079EC
 AttachEntityVisualMaybe            = $C07A31
 QueueOrTransferDynamicTileBlock    = $C08ED2
 Multiply16By8_ViaHardwareRegisters = $C08FF7
 CheckEventFlagMaybe                = $C21628
+PhotographerCfgTableLo             = $2F8A
+PhotographerCfgTableBank           = $00E1
+PhotographerCfgRecordStride        = $003E
+CreditsPhotographRenderActive      = $B4EF
+CreditsCurrentPhotographIndex      = $B4F1
 
 ; ---------------------------------------------------------------------------
 ; C4:F264
 
 TRY_RENDERING_PHOTOGRAPH:
 C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
+    ; A selects one E1:2F8A photographer config record. If that record's event
+    ; flag is set, stage its background block and spawn the associated live
+    ; entities used during the credits photograph slide.
     rep #$31
     phd
     pha
@@ -33,12 +42,12 @@ C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
     sta $1E
     ldx.w #$0000
     stx $1C
-    lda.w #$2F8A
+    lda.w #PhotographerCfgTableLo
     sta $0A
-    lda.w #$00E1
+    lda.w #PhotographerCfgTableBank
     sta $0C
     lda $1E
-    ldy.w #$003E
+    ldy.w #PhotographerCfgRecordStride
     jsl Multiply16By8_ViaHardwareRegisters
     clc
     adc $0A
@@ -53,9 +62,9 @@ C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
     jmp.w C4F42E_TryRenderingPhotograph_LF42E
 C4F2A1_TryRenderingPhotograph_LF2A1:
     lda.w #$0001
-    sta $B4EF
+    sta CreditsPhotographRenderActive
     lda $1E
-    sta $B4F1
+    sta CreditsCurrentPhotographIndex
     lda $4A5A
     sta $02
     stz $4A5A
@@ -92,12 +101,12 @@ C4F2C5_TryRenderingPhotograph_LF2C5:
     asl A
     asl A
     asl A
-    jsl $C013F6
+    jsl LoadMapAtPosition
     lda $02
     sta $4A5A
     stz $0037
     stz $0035
-    stz $B4EF
+    stz CreditsPhotographRenderActive
     stz $1A
     lda.w #$0000
     sta $02

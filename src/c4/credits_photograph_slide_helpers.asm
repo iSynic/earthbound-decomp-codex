@@ -17,12 +17,22 @@ Divide16By16_ViaHardwareRegisters   = $C090E6
 RunTextSystemFrameMaybe             = $C1004E
 ProjectMagnitudeByDirectionAngle    = $C41FFF
 ProcessCreditsDmaQueue              = $C4F01D
+PhotographerCfgTableLo              = $2F8A
+PhotographerCfgTableBank            = $00E1
+PhotographerCfgRecordStride         = $003E
+Bg3HScrollLow                       = $0031
+Bg3VScrollLow                       = $0033
+Bg3HScrollHigh                      = $0035
+Bg3VScrollHigh                      = $0037
 
 ; ---------------------------------------------------------------------------
 ; C4:F46F
 
 SLIDE_CREDITS_PHOTOGRAPH:
 C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
+    ; Move the active photograph along the vector encoded in its E1:2F8A record.
+    ; The inner loop updates BG3 scroll words and drains one queued credits DMA
+    ; record per frame so text rows keep streaming during the slide.
     rep #$31
     phd
     pha
@@ -31,12 +41,12 @@ C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     tcd
     pla
     sta $22
-    lda.w #$2F8A
+    lda.w #PhotographerCfgTableLo
     sta $06
-    lda.w #$00E1
+    lda.w #PhotographerCfgTableBank
     sta $08
     lda $22
-    ldy.w #$003E
+    ldy.w #PhotographerCfgRecordStride
     jsl Multiply16By8_ViaHardwareRegisters
     clc
     adc $06
@@ -83,9 +93,9 @@ C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     sta $1C
     lda $0E
     sta $1A
-    lda $0031
+    lda Bg3HScrollLow
     sta $18
-    lda $0033
+    lda Bg3VScrollLow
     sta $16
     lda.w #$0000
     sta $04
@@ -108,17 +118,17 @@ C4F50A_SlideCreditsPhotograph_LF50A:
     tax
     clc
     adc $18
-    sta $0031
+    sta Bg3HScrollLow
     ldy.w #$0100
     lda $04
     jsl Divide16By16_ViaHardwareRegisters
     sta $12
     clc
     adc $16
-    sta $0033
-    stx $0035
+    sta Bg3VScrollLow
+    stx Bg3HScrollHigh
     lda $12
-    sta $0037
+    sta Bg3VScrollHigh
     jsl ProcessCreditsDmaQueue
     jsl RunTextSystemFrameMaybe
     ldy $14

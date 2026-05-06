@@ -15,16 +15,16 @@ ResetDisplayStateMaybe                  = $C00013
 ResetActiveEntitySlots                  = $C021E6
 FinalizeEntitiesMaybe                   = $C02D29
 RefreshOverworldStateMaybe              = $C03A24
-SetCreditsScrollTargetMaybe             = $C0851C
-ClearCreditsScrollMaybe                 = $C08522
-WaitForScrollTargetMaybe                = $C0856B
+SetFrameCallbackPtr                     = $C0851C
+ResetFrameCallbackToDefault             = $C08522
+WriteDisplayTransferSelector30          = $C0856B
 ClearRange7fMaybe                       = $C08726
 SetDisplayTransitionMode                = $C08814
 SetDisplayTransitionState               = $C0886C
 WaitOneFrameAndUpdateDisplayState       = $C088B1
 FillLocalBufferMaybe                    = $C08EFC
 C08F15_ClearVramOrRendererBuffer        = $C08F15
-ScaleByVisiblePhotoCountMaybe           = $C0915B
+DivideCreditsScrollLimitByPhotoCount    = $C0915B
 SpawnEntityByScriptMaybe                = $C09321
 RunTextSystemFrameMaybe                 = $C1004E
 ApplyFullscreenColorMathWithFixedColorX = $C4249A
@@ -37,19 +37,31 @@ InitializeCreditsScene                  = $C4F07D
 TryRenderingPhotograph                  = $C4F264
 CountPhotoFlags                         = $C4F433
 SlideCreditsPhotograph                  = $C4F46F
+CreditsPresentationActive               = $B4B6
+Bg3VerticalScrollFixedHigh              = $003B
+FrameCallback_ProcessCommandStream      = $F41E
+FrameCallback_ProcessDelayedActions     = $DC4E
+CreditsPhotoRecordCount                 = $0020
+CreditsScrollLimit                      = $11B0
+CreditsPhotoFadeFrames                  = $0040
+CreditsDisplayTransferSelector          = $0018
 
 ; ---------------------------------------------------------------------------
 ; C4:F554
 
 PLAY_CREDITS:
 C4F554_PlayCredits = PLAY_CREDITS
+    ; Orchestrate the ending credits: initialize assets and the C0 command-stream
+    ; frame callback, space eligible photographs across the scroll length, drain
+    ; the credits DMA queue during fades/slides, then restore the default frame
+    ; callback and overworld display state.
     rep #$31
     phd
     tdc
     adc.w #$FFEA
     tcd
     lda.w #$0001
-    sta $B4B6
+    sta CreditsPresentationActive
     jsl InitializeCreditsScene
     jsl WaitOneFrameAndUpdateDisplayState
     ldx.w #$0002
@@ -60,16 +72,16 @@ C4F554_PlayCredits = PLAY_CREDITS
     beq C4F58B_PlayCredits_LF58B
     jsl CountPhotoFlags
     tay
-    lda.w #$11B0
-    jsl ScaleByVisiblePhotoCountMaybe
+    lda.w #CreditsScrollLimit
+    jsl DivideCreditsScrollLimitByPhotoCount
     bra C4F58E_PlayCredits_LF58E
 C4F58B_PlayCredits_LF58B:
-    lda.w #$11B0
+    lda.w #CreditsScrollLimit
 C4F58E_PlayCredits_LF58E:
     sta $04
     sta $02
-    lda.w #$F41E
-    jsl SetCreditsScrollTargetMaybe
+    lda.w #FrameCallback_ProcessCommandStream
+    jsl SetFrameCallbackPtr
     ldy.w #$0000
     sty $14
     jmp.w C4F657_PlayCredits_LF657
@@ -81,9 +93,9 @@ C4F5A1_PlayCredits_LF5A1:
     jmp.w C4F652_PlayCredits_LF652
 C4F5AE_PlayCredits_LF5AE:
     ldx.w #$FFFF
-    lda.w #$0040
+    lda.w #CreditsPhotoFadeFrames
     jsl SetLandingPaletteFadeMaybe
-    ldx.w #$0040
+    ldx.w #CreditsPhotoFadeFrames
     stx $12
     bra C4F5D0_PlayCredits_LF5D0
 C4F5BF_PlayCredits_LF5BF:
@@ -105,7 +117,7 @@ C4F5DF_PlayCredits_LF5DF:
     jsl RunTextSystemFrameMaybe
 C4F5E7_PlayCredits_LF5E7:
     lda $02
-    cmp $003B
+    cmp Bg3VerticalScrollFixedHigh
     beq C4F5F0_PlayCredits_LF5F0
     bcs C4F5DF_PlayCredits_LF5DF
 C4F5F0_PlayCredits_LF5F0:
@@ -118,7 +130,7 @@ C4F5F0_PlayCredits_LF5F0:
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
     ldx.w #$FFFF
-    lda.w #$0040
+    lda.w #CreditsPhotoFadeFrames
     jsl SetLandingPaletteFadeMaybe
     ldx.w #$0000
     stx $12
@@ -131,7 +143,7 @@ C4F616_PlayCredits_LF616:
     inx
     stx $12
 C4F627_PlayCredits_LF627:
-    cpx.w #$0040
+    cpx.w #CreditsPhotoFadeFrames
     bcc C4F616_PlayCredits_LF616
     sep #$20
     stz $0E
@@ -139,8 +151,8 @@ C4F627_PlayCredits_LF627:
     rep #$20
     lda.w #$0220
     jsl FillLocalBufferMaybe
-    lda.w #$0018
-    jsl WaitForScrollTargetMaybe
+    lda.w #CreditsDisplayTransferSelector
+    jsl WriteDisplayTransferSelector30
     jsl ProcessCreditsDmaQueue
     jsl RunTextSystemFrameMaybe
     lda $02
@@ -152,7 +164,7 @@ C4F652_PlayCredits_LF652:
     iny
     sty $14
 C4F657_PlayCredits_LF657:
-    cpy.w #$0020
+    cpy.w #CreditsPhotoRecordCount
     bcs C4F661_PlayCredits_LF661
     beq C4F661_PlayCredits_LF661
     jmp.w C4F5A1_PlayCredits_LF5A1
@@ -162,10 +174,10 @@ C4F663_PlayCredits_LF663:
     jsl ProcessCreditsDmaQueue
     jsl RunTextSystemFrameMaybe
 C4F66B_PlayCredits_LF66B:
-    lda $003B
-    cmp.w #$11B0
+    lda Bg3VerticalScrollFixedHigh
+    cmp.w #CreditsScrollLimit
     bcc C4F663_PlayCredits_LF663
-    jsl ClearCreditsScrollMaybe
+    jsl ResetFrameCallbackToDefault
     ldx.w #$0000
     stx $12
     bra C4F687_PlayCredits_LF687
@@ -221,8 +233,8 @@ C4F6EC_PlayCredits_LF6EC:
     lda.b #$17
     sta $001A
     rep #$20
-    lda.w #$DC4E
-    jsl SetCreditsScrollTargetMaybe
-    stz $B4B6
+    lda.w #FrameCallback_ProcessDelayedActions
+    jsl SetFrameCallbackPtr
+    stz CreditsPresentationActive
     pld
     rtl

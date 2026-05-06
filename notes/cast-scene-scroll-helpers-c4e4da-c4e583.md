@@ -122,14 +122,19 @@ three-color format used by the ending/credits display path. The branch joins
 need explicit accumulator-width hints during source emission, but the resulting
 module validates byte-for-byte.
 
-`C4:EFC4..C4:F07D` is the credits DMA queue pair. `C4:EFC4` appends a queue
-record under `$B4F5`; `C4:F01D` drains records from `$B4F3` and calls the C0
-VRAM-transfer queue helper.
+`C4:EFC4..C4:F07D` is the credits DMA queue pair. `C4:EFC4` appends a
+9-byte queue record under `$B4F5`; the record carries the C0 VRAM-transfer
+selector byte, destination VRAM word, long source pointer, and byte count that
+the C0 credits command-stream callback supplies. `C4:F01D` drains one record
+per call from `$B4F3` and forwards it to `C0:8616`.
 
 `C4:F07D..C4:F70A` is the main credits scene block. It initializes the credits
-display, checks which photograph flags are set, renders eligible photographs,
-slides them while draining the credits DMA queue, and then restores the display
-state after the credits presentation.
+display, seeds the command-stream WRAM fields at `$B4E3/$B4E5/$B4E7..$B4ED`,
+checks which photograph flags are set, installs `C0:F41E` through the C0 frame
+callback pointer, renders eligible photographs, slides them while draining the
+credits DMA queue, resets the callback to the default stub, reinstalls the
+delayed-action callback, and restores the display state after the credits
+presentation.
 
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table.
 `C4:F947..C4:FB42` is the music pack pointer table selected by the audio
@@ -180,5 +185,8 @@ data loading, and the auto-sector music-change latch.
 
 - The named ebsrc tail is source/data-covered through `C4:FD4B`; bank-end
   padding remains outside the source scaffold.
-- Confirm the user-facing meaning of `$003B`, `$0BCA`, `$0E5E`, and the
+- Confirm the user-facing meaning of `$0BCA`, `$0E5E`, and the
   `$1002 + slot * 2` cast-scene position word against the wider ending scene.
+- The credits side now identifies `$003B` as the high word consumed by the
+  BG3 vertical-scroll/credits progress loop; the broader display-scroll naming
+  still needs one cross-bank pass before making it a global symbol.

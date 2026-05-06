@@ -21,6 +21,9 @@ QueueVramTransfer_FromDpSource = $C08616
 
 PROCESS_CREDITS_DMA_QUEUE:
 C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
+    ; Drain at most one 9-byte credits DMA queue record per call. The playback
+    ; loops call this every frame so staged rows from C0:F41E reach VRAM while
+    ; photographs fade/slide and BG3 scroll advances.
     rep #$31
     phd
     tdc
@@ -30,6 +33,7 @@ C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     cmp CreditsDmaQueueReadIndex
     beq C4F07B_ProcessCreditsDmaQueue_LF07B
     lda CreditsDmaQueueReadIndex
+    ; Convert the ring index to a 9-byte queue record offset.
     sta $04
     asl A
     asl A

@@ -14,12 +14,16 @@
 Multiply16By8_ViaHardwareRegisters = $C08FF7
 CheckEventFlagMaybe                = $C21628
 CreditsPhotographTable             = $E12F8A
+CreditsPhotographRecordStride      = $003E
+CreditsPhotographRecordCount       = $0020
 
 ; ---------------------------------------------------------------------------
 ; C4:F433
 
 COUNT_PHOTO_FLAGS:
 C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
+    ; Count the E1:2F8A photographer records whose first word event flag is set.
+    ; The playback controller uses this to space the credits photo reveals.
     rep #$31
     phd
     tdc
@@ -32,7 +36,7 @@ C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
     bra C4F465_CountPhotoFlags_LF465
 C4F445_CountPhotoFlags_LF445:
     txa
-    ldy.w #$003E
+    ldy.w #CreditsPhotographRecordStride
     jsl Multiply16By8_ViaHardwareRegisters
     tax
     lda CreditsPhotographTable,X
@@ -47,7 +51,7 @@ C4F460_CountPhotoFlags_LF460:
     inx
     stx $0E
 C4F465_CountPhotoFlags_LF465:
-    cpx.w #$0020
+    cpx.w #CreditsPhotographRecordCount
     bcc C4F445_CountPhotoFlags_LF445
     ldy $10
     tya

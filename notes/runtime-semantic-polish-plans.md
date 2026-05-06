@@ -78,6 +78,10 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `CREDITS_SCROLL_FRAME` alias, named `C4:EFC4` credits-DMA enqueues and the
   `C0:AD9F` BG3 vertical-scroll commit, and refreshed the `01/02/03/04/FF`
   command-handler interpretation. See `notes/frame-callback-bodies.md`.
+- 2026-05-06: C4 credits presentation follow-up connected that C0 callback to
+  the installer/playback side by naming the frame-callback install/reset calls,
+  credits DMA queue record contract, command-stream WRAM fields, E1:2F8A
+  photograph record stride/count, and the `$003B` BG3 scroll progress gate.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source
