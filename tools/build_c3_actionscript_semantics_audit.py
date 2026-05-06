@@ -15,6 +15,7 @@ from decode_event_script import (
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
+    OPCODE_ARG_FIELDS,
     decode_script,
     load_names,
     parse_address,
@@ -37,7 +38,7 @@ SCRIPT_CLASSES = {
 
 CALLROUTINE_RE = re.compile(r"EVENT_CALLROUTINE\s+\$([0-9A-F]{2}:[0-9A-F]{4})")
 INSTALLED_CALLBACK_RE = re.compile(
-    r"EVENT_SET_(?:TICK|DRAW|POSITION_CHANGE|PHYSICS)_CALLBACK\s+\$([0-9A-F]{2}:[0-9A-F]{4})"
+    r"EVENT_SET_(?:TICK|DRAW|POSITION_CHANGE|PHYSICS)_CALLBACK\s+(?:[a-z_]+=\s*)?\$([0-9A-F]{2}:[0-9A-F]{4})"
 )
 TARGET_RE = re.compile(r"\$([0-9A-F]{2}:[0-9A-F]{4})")
 UNKNOWN_OPCODE_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4}).*unknown event opcode")
@@ -91,8 +92,61 @@ def first_opcode(rom: bytes, address: Address) -> dict[str, Any]:
         "name": opcode.name if opcode else "UNKNOWN_EVENT_OPCODE",
         "known": opcode is not None,
         "operands": list(opcode.args) if opcode else [],
+        "operand_fields": list(OPCODE_ARG_FIELDS.get(opcode.name, ())) if opcode else [],
         "terminal": bool(opcode.terminal) if opcode else False,
     }
+
+
+def opcode_control_flow_role(opcode: Any) -> str:
+    if opcode.terminal:
+        return "terminal"
+    if opcode.name in {
+        "EVENT_LONGJUMP",
+        "EVENT_SHORTJUMP",
+        "EVENT_SWITCH_JUMP_TEMPVAR",
+        "EVENT_BREAK_IF_FALSE",
+        "EVENT_BREAK_IF_TRUE",
+    }:
+        return "branch"
+    if opcode.name in {
+        "EVENT_LONGCALL",
+        "EVENT_SHORTCALL",
+        "EVENT_SHORTCALL_CONDITIONAL",
+        "EVENT_SHORTCALL_CONDITIONAL_NOT",
+        "EVENT_SWITCH_CALL_TEMPVAR",
+    }:
+        return "script call"
+    if opcode.name in {
+        "EVENT_SET_TICK_CALLBACK",
+        "EVENT_SET_DRAW_CALLBACK",
+        "EVENT_SET_POSITION_CHANGE_CALLBACK",
+        "EVENT_SET_PHYSICS_CALLBACK",
+        "EVENT_CLEAR_TICK_CALLBACK",
+    }:
+        return "callback binding"
+    if opcode.name in {"EVENT_START_TASK", "EVENT_END_TASK", "EVENT_END_LAST_TASK"}:
+        return "task control"
+    if opcode.name in {"EVENT_LOOP", "EVENT_LOOP_END", "EVENT_LOOP_TEMPVAR"}:
+        return "loop control"
+    return "state/operand"
+
+
+def build_opcode_catalog() -> list[dict[str, Any]]:
+    catalog: list[dict[str, Any]] = []
+    for opcode_byte, opcode in sorted(OPCODES.items()):
+        fields = list(OPCODE_ARG_FIELDS.get(opcode.name, ()))
+        catalog.append(
+            {
+                "opcode": f"${opcode_byte:02X}",
+                "name": opcode.name,
+                "byte_shape": list(opcode.args),
+                "semantic_fields": fields,
+                "control_flow_role": opcode_control_flow_role(opcode),
+                "terminal": opcode.terminal,
+                "confidence": "high",
+            }
+        )
+    return catalog
 
 
 def normalize_evidence(items: Any) -> list[str]:
@@ -441,6 +495,7 @@ def build_audit(
             "installed_callback_contracts": len(installed_callback_contracts),
             "installed_callback_groups": dict(installed_callback_groups.most_common()),
         },
+        "opcode_catalog": build_opcode_catalog(),
         "callback_contracts": callback_contracts,
         "installed_callback_contracts": installed_callback_contracts,
         "rows": rows,
@@ -515,6 +570,29 @@ def render_markdown(audit: dict[str, Any]) -> str:
             )
     else:
         lines.append("No syntactic decode frontiers at the current bounds.")
+
+    lines.extend(
+        [
+            "",
+            "## Opcode operand catalog",
+            "",
+            "| Opcode | Name | Byte shape | Semantic fields | Role | Confidence |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for opcode in audit["opcode_catalog"]:
+        shape = ", ".join(f"`{value}`" for value in opcode["byte_shape"]) or "-"
+        fields = ", ".join(f"`{value}`" for value in opcode["semantic_fields"]) or "-"
+        lines.append(
+            "| `{opcode}` | `{name}` | {shape} | {fields} | `{role}` | `{confidence}` |".format(
+                opcode=opcode["opcode"],
+                name=opcode["name"],
+                shape=shape,
+                fields=fields,
+                role=opcode["control_flow_role"],
+                confidence=opcode["confidence"],
+            )
+        )
 
     lines.extend(
         [

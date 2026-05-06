@@ -96,6 +96,14 @@ decode excerpts use `script_var=var4`, `frames=$08`, `animation_id=$01`, and
 named callback arguments such as `event_flag_word=$000C` or
 `neighbor_cache_callback_long=$C0:64A6 <...>`.
 
+Pointer-shaped operands are labeled too. Short branches/calls now distinguish
+`jump_target`, `call_target`, `conditional_call_target`, and
+`inverted_conditional_call_target`; task launchers use `task_script`; callback
+installers use `tick_callback`, `draw_callback`, `position_change_callback`,
+and `physics_callback`. The audit renders this as an opcode operand catalog so
+port/reassembler work can separate byte width from VM role without reading the
+Python decoder first.
+
 The decoder also applies a deliberately small value-symbol layer where the
 evidence is already bank-local or cross-referenced:
 

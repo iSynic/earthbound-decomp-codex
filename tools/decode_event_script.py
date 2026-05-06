@@ -642,18 +642,33 @@ WRAM_FIELD_NAMES = {
 
 OPCODE_ARG_FIELDS: dict[str, tuple[str, ...]] = {
     "EVENT_LOOP": ("count",),
+    "EVENT_LONGJUMP": ("jump_target",),
+    "EVENT_LONGCALL": ("call_target",),
     "EVENT_PAUSE": ("frames",),
+    "EVENT_START_TASK": ("task_script",),
+    "EVENT_SET_TICK_CALLBACK": ("tick_callback",),
+    "EVENT_SHORTCALL_CONDITIONAL": ("conditional_call_target",),
+    "EVENT_SHORTCALL_CONDITIONAL_NOT": ("inverted_conditional_call_target",),
     "EVENT_SET_VAR": ("script_var", "value_word"),
+    "EVENT_SWITCH_JUMP_TEMPVAR": ("switch_jump_targets",),
+    "EVENT_SWITCH_CALL_TEMPVAR": ("switch_call_targets",),
     "EVENT_WRITE_BYTE_WRAM": ("wram_addr", "value_byte"),
     "EVENT_BINOP": ("script_var", "operation_byte", "value_word"),
     "EVENT_WRITE_WORD_WRAM": ("wram_addr", "value_word"),
+    "EVENT_BREAK_IF_FALSE": ("break_target",),
+    "EVENT_BREAK_IF_TRUE": ("break_target",),
     "EVENT_BINOP_WRAM": ("wram_addr", "operation_byte", "script_var"),
+    "EVENT_SHORTJUMP": ("jump_target",),
+    "EVENT_SHORTCALL": ("call_target",),
     "EVENT_SET_ANIMATION_POINTER": ("animation_pointer",),
     "EVENT_WRITE_WORD_TEMPVAR": ("value_word",),
     "EVENT_WRITE_WRAM_TEMPVAR": ("wram_addr",),
     "EVENT_WRITE_TEMPVAR_TO_VAR": ("script_var",),
     "EVENT_WRITE_VAR_TO_TEMPVAR": ("script_var",),
     "EVENT_WRITE_VAR_TO_WAIT_TIMER": ("script_var",),
+    "EVENT_SET_DRAW_CALLBACK": ("draw_callback",),
+    "EVENT_SET_POSITION_CHANGE_CALLBACK": ("position_change_callback",),
+    "EVENT_SET_PHYSICS_CALLBACK": ("physics_callback",),
     "EVENT_SET_ANIMATION_FRAME_VAR": ("script_var",),
     "EVENT_BINOP_TEMPVAR": ("operation_byte", "value_word"),
     "EVENT_SET_X": ("x_word",),
@@ -804,6 +819,13 @@ def format_semantic_value(field: str | None, spec: str, value: int) -> str:
     return f"{field}={format_word(value)}"
 
 
+def format_pointer_value(field: str | None, target: Address, names: dict[str, list[str]]) -> str:
+    rendered = format_target(target, names)
+    if field is None:
+        return rendered
+    return f"{field}={rendered}"
+
+
 def call_arg_fields(target_key: str) -> list[str]:
     schema = CALL_TARGET_SEMANTICS.get(target_key, {}).get("args", "")
     return [field.strip() for field in schema.split(",") if field.strip()]
@@ -881,19 +903,19 @@ def decode_args(
             if pos + 1 >= len(rom):
                 return args, pos, False
             target = Address(bank, read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 2
         elif spec == "callbackptr":
             if pos + 1 >= len(rom):
                 return args, pos, False
             target = Address(0xC0, read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 2
         elif spec == "ptr3":
             if pos + 2 >= len(rom):
                 return args, pos, False
             target = Address(rom[pos + 2], read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 3
         elif spec == "wordlist":
             if pos >= len(rom):
@@ -908,7 +930,8 @@ def decode_args(
                 target = Address(bank, read_u16(rom, pos))
                 values.append(format_target(target, names))
                 pos += 2
-            args.append(f"count={count} [" + ", ".join(values) + "]")
+            field_prefix = f"{field}=" if field else ""
+            args.append(f"{field_prefix}count={count} [" + ", ".join(values) + "]")
         elif spec == "callroutine":
             if pos + 2 >= len(rom):
                 return args, pos, False
