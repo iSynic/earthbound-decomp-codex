@@ -15,6 +15,19 @@ Scope:
 This is a consumer crosswalk, not an EB text macro decode. Exact `MSG_BTL_*`
 labels remain stable unless the C2 behavior body proves a narrower result name.
 
+Evidence boundary:
+
+- The local `src/d5/table_battle_action_table.asm` scaffold proves the
+  `D5:7B68` action-table span, row count, and `0x0C` stride, but it does not
+  currently include the table bytes needed to recover every row `+4` EF message
+  pointer.
+- C2 late-action notes often prove row `+8` behavior bodies. Those bodies are
+  enough to document direct result scripts, but not enough to rename an EF
+  row-message anchor unless the row `+4` pointer is also known.
+- Rows below are promoted only when local notes or source-backed C2 evidence
+  already join the row id, row `+4` EF message pointer, and row `+8` behavior
+  pointer.
+
 ## Status-Action Row Messages
 
 These rows are the highest-value EF/C2 joins because the row message, behavior
@@ -89,10 +102,64 @@ For future EF payload work:
 
 ## Next Crosswalk Frontier
 
-The next rows to mine are the numeric-effect and no-op flavor groups:
+The immediate frontier is not a naming pass; it is row `+4` pointer recovery.
+Several C2 behavior lanes are already understood, but the current local source
+evidence does not prove their EF action-row message pointer.
 
-- rows `95..98`, `48`, `49`, and `96` from the stat/resource family
-- rows with `C2:9033` and neighboring no-op tails from the late flavor-only run
-- special-event rows `243`, `244`, and Final Prayer rows `291..299`, where
-  many row messages live outside EF but the secondary result scripts still
-  affect the battle-text contract
+### Behavior-Known Numeric-Effect Rows
+
+These rows have source-backed C2 row `+8` behavior bodies in the stat/resource
+family, but should not be added to the concrete crosswalk table until their row
+`+4` EF message pointers are recovered.
+
+| Rows | Known row `+8` behavior | Known result-text lane | Missing join |
+| --- | --- | --- | --- |
+| `95` | `C2:8E42` | PP reduction family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
+| `48`, `96` | `C2:9E38` | One-target offense-up family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
+| `49` | `C2:9E7F` | All-target offense-up wrapper over the same amount lane | Row `+4` EF action message |
+| `97` | `C2:8EAE` | Guts-cutting family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
+| `98`, `233`, `234` | `C2:8F21` | Paired offense/defense reduction family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
+
+Modeling rule: keep the C8 amount scripts in the C2-focused notes. The EF
+action-row labels remain exact `MSG_BTL_*` anchors until the row `+4` pointers
+are known.
+
+### Behavior-Known No-Op And Flavor Rows
+
+The late flavor-tail note proves several no-op behavior tails, but these are
+especially easy to overname from English-looking `MSG_BTL_*` anchors. Treat the
+following as behavior-known only:
+
+| Rows | Known row `+8` behavior | Current read | Missing join |
+| --- | --- | --- | --- |
+| `119..134`, `186..188`, `257`, `260..266` | `C2:9033` | Shared flavor-only no-op tail | Row `+4` EF action message |
+| `0..3`, `258` and siblings | `C2:9039` | Default no-op tail | Row `+4` EF action message for each late reuse |
+| `9` | `C2:903C` | Isolated no-op row | Row `+4` EF action message |
+| `251..256` | `C2:903F`, `C2:9042`, `C2:9045`, `C2:9048`, `C2:904B`, `C2:904E` | Tiny no-op tails in the late run | Row `+4` EF action message |
+
+Modeling rule: a no-op row `+8` body can still have a meaningful row `+4`
+presentation message. Do not collapse those messages into "no effect" result
+text; the row message is consumed through `C1:DD9F` before the behavior body
+returns.
+
+### Special-Event Rows
+
+Rows `243`, `244`, and Final Prayer rows `291..299` remain a separate frontier.
+Many of their row messages live outside EF, while secondary result scripts still
+affect the battle-text contract through C8/C9 direct-result lanes. Keep them
+out of EF row-message rename work unless a local row `+4` EF pointer is proved.
+
+## Next Evidence To Add
+
+The fastest way to expand this crosswalk is to add or derive local
+action-table row evidence that records, per row:
+
+- row id and row `+0..+3` metadata
+- row `+4` EF message pointer
+- row `+8` C2 behavior pointer
+- secondary EF/C8/C9 result scripts emitted by the behavior body
+
+Once that exists, promote rows family by family. Numeric-effect rows should be
+first because their C2 behavior bodies and amount-result lanes are already well
+documented; no-op/flavor rows should follow because they need stricter
+separation between presentation text and behavior effects.

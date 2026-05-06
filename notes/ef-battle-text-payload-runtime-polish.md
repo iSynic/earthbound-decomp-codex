@@ -315,6 +315,12 @@ temporary-status rows `78..87`, asleep row `90`, and the item-side
 concentration row `159` in EBATTLE3. These remain exact action-message anchors;
 their success/failure result scripts stay separately named.
 
+The crosswalk also records a stricter unresolved frontier: numeric-effect rows
+and no-op/flavor rows may have well-understood C2 row `+8` behavior bodies, but
+they should not drive EF row-message renames until their row `+4` EF pointers
+are locally recovered. This keeps `C1:DD9F` presentation text separate from
+`DC1C`/`DC66` result text and avoids overclaiming from behavior-only evidence.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

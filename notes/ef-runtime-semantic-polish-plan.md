@@ -206,3 +206,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `notes/ef-battle-text-row-message-crosswalk.md`, mapping source-backed
   `D5:7B68` rows onto EF row-message anchors and the secondary result scripts
   emitted by their C2 row `+8` behavior bodies.
+- 2026-05-06: EF row-message frontier follow-up tightened that crosswalk around
+  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows are
+  now listed as blocked on row `+4` EF pointer recovery rather than treated as
+  nameable action-message joins.

@@ -173,6 +173,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   row `+4` joins into source-backed late status, physical/special, and
   normalization/event rows. See
   `notes/ef-battle-text-row-message-crosswalk.md`.
+- 2026-05-06: EF row-message frontier follow-up separated behavior-known rows
+  from proved EF message joins. Numeric-effect and no-op/flavor rows with known
+  C2 row `+8` bodies now remain explicitly blocked on local row `+4` pointer
+  recovery before EF action-message labels are promoted.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

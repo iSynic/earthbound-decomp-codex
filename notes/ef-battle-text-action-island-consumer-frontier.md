@@ -73,6 +73,13 @@ rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
 physical/special rows (`100`, `102`, `104`, `117`, `118`, `228`, `232`,
 `247`, `248`, `273`, and `290`).
 
+Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
+locally recovered should stay out of the proved-join table. The current
+behavior-known frontier includes numeric-effect rows `95..98`, `48`, `49`,
+`96`, `233`, and `234`, plus late no-op/flavor rows that return through
+`C2:9033` and neighboring tiny no-op tails. These are good C2 behavior notes,
+but not yet EF row-message naming evidence.
+
 ## Direct Result Joins Adjacent To Action Islands
 
 These are not row `+4` action messages, but they sit in the same EF payload
@@ -109,9 +116,9 @@ action island remains symbol-derived.
 
 ## Best Next Pass
 
-The highest-value next EF/C2 join is extending
-`notes/ef-battle-text-row-message-crosswalk.md` past the current status and
-late physical/special rows. For each new row, record:
+The highest-value next EF/C2 join is recovering local row `+4` pointer evidence
+for the behavior-known numeric-effect and flavor-only rows recorded in
+`notes/ef-battle-text-row-message-crosswalk.md`. For each new row, record:
 
 - row id and row `+0..+3` metadata
 - row `+4` EF message pointer
@@ -119,3 +126,7 @@ late physical/special rows. For each new row, record:
 - any secondary EF result scripts emitted by the behavior body
 - whether the row message can graduate from exact `MSG_BTL_*` anchor to a
   gameplay-facing name
+
+Do not promote an EF row-message label from the row `+8` behavior body alone.
+That body proves result lanes and gameplay effects, but the `C1:DD9F`
+presentation text comes from the row `+4` field.
