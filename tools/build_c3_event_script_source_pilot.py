@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
@@ -1488,6 +1489,55 @@ VAR_NAMES = {
     0x06: "!ACTIONSCRIPT_VARS_V6",
     0x07: "!ACTIONSCRIPT_VARS_V7",
 }
+
+def call_arg_fields(target_key: str) -> tuple[str, ...]:
+    schema = CALL_TARGET_SEMANTICS.get(target_key, {}).get("args", "")
+    return tuple(field.strip() for field in schema.split(",") if field.strip())
+
+
+def call_arg_width(field: str) -> int | None:
+    if field.endswith("_byte"):
+        return 1
+    if field.endswith("_word"):
+        return 2
+    if field.endswith("_long"):
+        return 3
+    return None
+
+
+def callroutine_schema(target: Address, arg_count: int | None) -> tuple[str, ...] | None:
+    fields = call_arg_fields(target.key)
+    if not fields or any("[]" in field for field in fields):
+        return None
+    widths = [call_arg_width(field) for field in fields]
+    if any(width is None for width in widths):
+        return None
+    if sum(int(width) for width in widths) != (arg_count or 0):
+        return None
+    return fields
+
+
+def callroutine_schema_suffix(fields: tuple[str, ...]) -> str:
+    parts = []
+    for field in fields:
+        base = re.sub(r"_(?:byte|word|long)$", "", field)
+        text = re.sub(r"[^0-9A-Za-z_]+", "_", base)
+        text = re.sub(r"_+", "_", text).strip("_")
+        parts.append((text or "ARG").upper())
+    return "_".join(parts)
+
+
+CALLROUTINE_SCHEMA_MACROS: dict[str, tuple[str, ...]] = {}
+for address, count in CALL_ARG_COUNTS.items():
+    fields = call_arg_fields(address)
+    if not fields or any("[]" in field for field in fields):
+        continue
+    widths = [call_arg_width(field) for field in fields]
+    if any(width is None for width in widths):
+        continue
+    if sum(int(width) for width in widths) != count:
+        continue
+    CALLROUTINE_SCHEMA_MACROS[f"EVENT_CALLROUTINE_{callroutine_schema_suffix(fields)}"] = fields
 
 FAMILY_DEFAULTS = {
     "movement-pulse-presets": {
@@ -3400,6 +3450,46 @@ def callroutine_target(instruction: Instruction) -> Address | None:
     return instruction.operands[0].value
 
 
+def call_arg_expr(
+    field: str,
+    raw_args: list[int],
+    cursor: int,
+    *,
+    constants: dict[str, str],
+) -> tuple[str, int]:
+    width = call_arg_width(field)
+    if width is None or cursor + width > len(raw_args):
+        raise ValueError(f"cannot render call argument field {field!r}")
+    if width == 1:
+        value = raw_args[cursor]
+        if field == "direction_class_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DIRECTION_WORDS,
+                prefix="DIRECTION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        return fmt_byte(raw_args[cursor]), cursor + 1
+    if width == 2:
+        value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
+        if field == "field2b32_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_FIELD2B32_WORDS,
+                prefix="FIELD2B32",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        return fmt_word(value), cursor + 2
+    value = raw_args[cursor] | (raw_args[cursor + 1] << 8) | (raw_args[cursor + 2] << 16)
+    return fmt_long(value), cursor + 3
+
+
 def macro_name(instruction: Instruction) -> str:
     if instruction.opcode.name == "EVENT_CALLROUTINE":
         target = callroutine_target(instruction)
@@ -3410,8 +3500,10 @@ def macro_name(instruction: Instruction) -> str:
                 if operand.kind == "call_wordlist_count"
             )
             return f"EVENT_CHOOSE_RANDOM_SCRIPT_WORD_{count}"
-        if target and target.key == "C0:A685" and instruction.call_arg_count == 2:
-            return "EVENT_CALLROUTINE_FIELD2B32"
+        if target:
+            fields = callroutine_schema(target, instruction.call_arg_count)
+            if fields:
+                return f"EVENT_CALLROUTINE_{callroutine_schema_suffix(fields)}"
         return f"EVENT_CALLROUTINE_{instruction.call_arg_count or 0}"
     if instruction.opcode.name in {"EVENT_SWITCH_JUMP_TEMPVAR", "EVENT_SWITCH_CALL_TEMPVAR"}:
         return f"{instruction.opcode.name}_{instruction.operands[0].value}"
@@ -3426,7 +3518,8 @@ def rendered_operands(
     constants: dict[str, str],
 ) -> list[str]:
     target = callroutine_target(instruction)
-    if target and target.key == "C0:A685" and len(instruction.operands) == 3:
+    fields = callroutine_schema(target, instruction.call_arg_count) if target else None
+    if target and fields:
         target_expr = operand_expr(
             instruction.operands[0],
             instruction=instruction,
@@ -3435,17 +3528,15 @@ def rendered_operands(
             names=names,
             constants=constants,
         )
-        low = int(instruction.operands[1].value)
-        high = int(instruction.operands[2].value)
-        field2b32_word = low | (high << 8)
-        word_expr = catalog_constant(
-            field2b32_word,
-            ACTIONSCRIPT_FIELD2B32_WORDS,
-            prefix="FIELD2B32",
-            formatter=fmt_word,
-            constants=constants,
-        ) or fmt_word(field2b32_word)
-        return [target_expr, word_expr]
+        raw_args = [int(operand.value) for operand in instruction.operands[1:]]
+        cursor = 0
+        rendered = [target_expr]
+        for field in fields:
+            value, cursor = call_arg_expr(field, raw_args, cursor, constants=constants)
+            rendered.append(value)
+        if cursor != len(raw_args):
+            raise ValueError(f"unused call arguments for {target.key}")
+        return rendered
 
     return [
         operand_expr(
@@ -3493,7 +3584,6 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_CALLROUTINE_4": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>"],
         "EVENT_CALLROUTINE_5": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>"],
         "EVENT_CALLROUTINE_6": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>, <arg5>"],
-        "EVENT_CALLROUTINE_FIELD2B32": ["    db $42", "    dl <target>", "    dw <field2b32_word>"],
         "EVENT_CLEAR_TICK_CALLBACK": ["    db $0F"],
         "EVENT_END": ["    db $00"],
         "EVENT_END_LAST_TASK": ["    db $13"],
@@ -3548,7 +3638,6 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_CALLROUTINE_4": "target, arg0, arg1, arg2, arg3",
         "EVENT_CALLROUTINE_5": "target, arg0, arg1, arg2, arg3, arg4",
         "EVENT_CALLROUTINE_6": "target, arg0, arg1, arg2, arg3, arg4, arg5",
-        "EVENT_CALLROUTINE_FIELD2B32": "target, field2b32_word",
         "EVENT_LOOP": "count",
         "EVENT_PAUSE": "frames",
         "EVENT_SET_ANIMATION": "animation",
@@ -3607,6 +3696,23 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
             *[f"    dw <target{i}>" for i in range(count)],
         ]
         args[name] = ", ".join(["count", *target_args])
+    for name in sorted(used_macros):
+        fields = CALLROUTINE_SCHEMA_MACROS.get(name)
+        if not fields:
+            continue
+        body = ["    db $42", "    dl <target>"]
+        for field in fields:
+            width = call_arg_width(field)
+            if width == 1:
+                body.append(f"    db <{field}>")
+            elif width == 2:
+                body.append(f"    dw <{field}>")
+            elif width == 3:
+                body.append(f"    dl <{field}>")
+            else:
+                raise ValueError(f"cannot emit schema macro for field {field!r}")
+        bodies[name] = body
+        args[name] = ", ".join(["target", *fields])
     missing = sorted(used_macros - bodies.keys())
     if missing:
         raise ValueError(f"missing macro definitions for: {', '.join(missing)}")
@@ -3680,6 +3786,7 @@ def render_report(
     output_path: Path,
     manifest_path: Path,
     constants: dict[str, str],
+    used_macros: set[str],
     mismatches: list[str],
 ) -> str:
     total_bytes = sum(row.size for row in rows)
@@ -3729,6 +3836,17 @@ def render_report(
     if any(symbol.startswith("!ACTIONSCRIPT_FIELD2B32_") for symbol in constants):
         readability_lines.append(
             "- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_DIRECTION_") for symbol in constants):
+        readability_lines.append(
+            "- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants."
+        )
+    schema_macros = sorted(macro for macro in used_macros if macro in CALLROUTINE_SCHEMA_MACROS)
+    if schema_macros:
+        visible = ", ".join(f"`%{macro}`" for macro in schema_macros[:4])
+        suffix = f", +{len(schema_macros) - 4}" if len(schema_macros) > 4 else ""
+        readability_lines.append(
+            f"- Known native callback argument schemas render as field-shaped macros: {visible}{suffix}."
         )
     if readability_lines:
         lines.extend(["", "## Source Readability", "", *readability_lines])
@@ -3782,6 +3900,7 @@ def main() -> int:
     rows.extend(load_spans(rom, list(family["spans"]), names))
     labels = collect_label_map(rows, names)
     source, constants = render_source(rows, labels, names, family_id=args.family)
+    used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
 
     mismatches: list[str] = []
     for row in rows:
@@ -3819,6 +3938,7 @@ def main() -> int:
             output_path=output_path,
             manifest_path=manifest_path,
             constants=constants,
+            used_macros=used_macros,
             mismatches=mismatches,
         ),
         encoding="utf-8",

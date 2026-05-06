@@ -24,6 +24,11 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`.
+
 ## Next Promotion Step
 
 Continue only after pinning the next bus-driver callback blockers around `C0:D77F`, or move to another newly unlocked terminal seam from `notes/c3-source-pilot-frontier.md`.

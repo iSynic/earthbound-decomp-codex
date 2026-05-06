@@ -1165,7 +1165,10 @@ def format_call_arg_value(
     if width is None or cursor + width > len(raw_args):
         return None
     if width == 1:
-        return f"{field}={format_byte(raw_args[cursor])}", cursor + 1
+        value = raw_args[cursor]
+        if field == "direction_class_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
+        return f"{field}={format_byte(value)}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
         if field == "field2b32_word":
