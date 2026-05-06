@@ -23,6 +23,7 @@ Primary artifacts:
 
 - `notes/bank-d0-asset-data-map.md`
 - `notes/d0-table-splits.md`
+- `notes/d0-variable-list-contracts.md`
 - `build/asset-bank-d0.json`
 - `build/d0-table-splits.json`
 
@@ -99,14 +100,21 @@ High confidence:
 - D0 is data/audio, not executable code.
 - The generated map/battle-data block runs from `D0:0000` through `D0:DFB3`.
 - The internal generated-data spans are exact in `notes/d0-table-splits.md`.
+- `ENEMY_PLACEMENT_GROUPS_TABLE` list headers and weighted entries are
+  consumer-backed by `C0:2668` and summarized in
+  `notes/d0-variable-list-contracts.md`.
+- `ENEMY_BATTLE_GROUPS_TABLE` repeat-count enemy entries are consumer-backed by
+  C2 battle setup/sprite/help-selection paths and summarized in
+  `notes/d0-variable-list-contracts.md`.
 - The audio tail contains US retail `AUDIO_PACK_139`.
 - Only `D0:FFA8..D0:FFFF` remains unclaimed tail slack.
 
 Still intentionally out of scope:
 
 - Row-level semantic expansion is still needed for the variable
-  `MAP_TILE_EVENT_CONTROL_TABLE`, `ENEMY_PLACEMENT_GROUPS_TABLE`, and
-  `ENEMY_BATTLE_GROUPS_TABLE` payloads.
+  `MAP_TILE_EVENT_CONTROL_TABLE` chains.
+- Human-facing names for individual enemy placement groups and battle-group
+  pointer slices remain open.
 - Audio-pack internals remain opaque.
 
 ## Recommended next move
@@ -114,4 +122,5 @@ Still intentionally out of scope:
 Treat D0 as structurally complete and byte-protected for the current
 bank-coverage phase. Use D0 and CF as the map-data splitter pattern for D8's
 collision/pointer region. For D0 itself, the next source step is typed emission
-plus variable-list subrecord decoding rather than boundary archaeology.
+for the placement/battle variable-list rows plus `MAP_TILE_EVENT_CONTROL_TABLE`
+chain decoding rather than boundary archaeology.

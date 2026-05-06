@@ -283,10 +283,10 @@ RAW_D0_ENEMY_PLACEMENT_GROUP_FIELDS = (
 )
 
 BATTLE_ENTRY_POINTER_FIELDS = (
-    field("pointer", 0x00, 4),
+    field("enemy_list_pointer", 0x00, 4, note="long pointer to a D0:D52D enemy battle-group list"),
     field("run_away_flag", 0x04, 2),
     field("run_away_flag_state", 0x06, 1),
-    field("letterbox_style", 0x07, 1),
+    field("presentation_sprite_style", 0x07, 1, note="C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource"),
 )
 
 RAW_D0_BATTLE_GROUP_FIELDS = (

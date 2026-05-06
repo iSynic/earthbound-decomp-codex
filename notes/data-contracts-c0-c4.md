@@ -896,10 +896,10 @@ Generated from local notes plus quarantined reference structs. This is the machi
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 4 | 1 |  |
+| `0x0` | `enemy_list_pointer` | 4 | 1 | long pointer to a D0:D52D enemy battle-group list |
 | `0x4` | `run_away_flag` | 2 | 1 |  |
 | `0x6` | `run_away_flag_state` | 1 | 1 |  |
-| `0x7` | `letterbox_style` | 1 | 1 |  |
+| `0x7` | `presentation_sprite_style` | 1 | 1 | C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource |
 
 ### ENEMY_BATTLE_GROUPS_TABLE
 
