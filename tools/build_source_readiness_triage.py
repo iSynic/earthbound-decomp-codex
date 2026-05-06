@@ -223,9 +223,9 @@ def build_triage() -> list[BankTriage]:
             "sprite tail plus gameplay tables",
             "data-contract-ready",
             3,
-            "Emit D5 as sprite assets plus exact table source includes using `notes/d5-table-splits.md` and the promoted D5 contracts.",
-            ["timed delivery row subfields remain intentionally raw until consumer-code confirmation"],
-            ["overworld sprite tail", "explicit zero pad", "exact D5 table splits", "promoted D5 data contracts"],
+            "Emit D5 as sprite assets plus exact table source includes using `notes/d5-table-splits.md`, the promoted D5 contracts, and `notes/d5-timed-delivery-row-contracts.md` for the effective controller rows.",
+            ["story-specific timed-delivery row labels remain optional; source include tooling should preserve the D5:F649 source window versus D5:F645 effective controller base"],
+            ["overworld sprite tail", "explicit zero pad", "exact D5 table splits", "promoted D5 data contracts", "timed-delivery controller rows"],
         )
     )
     rows.append(
@@ -500,7 +500,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF door/sprite rows, D0 tile-event and placement/battle variable lists, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in CF packed/event-music payloads and source/data emission.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
             "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
