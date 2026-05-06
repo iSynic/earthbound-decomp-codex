@@ -34,7 +34,7 @@ C44B3A_MergeGlyphSpanIntoTileBuffer          = $C44B3A
 ; bank $7F work buffers, compact tile-state reconstruction through the shared
 ; $3492 glyph scratch rows, and local refresh of the palette block at $0200.
 ; The C0 helpers remain transfer/copy callees; avoid assigning their NMI-side
-; behavior beyond the selector/queue values written in this module.
+; behavior beyond the display-selector latch and queue values written here.
 
 WindowGfxBaseSourceLow                       = $0000
 WindowGfxBaseSourceBank                      = $00E0
@@ -61,7 +61,7 @@ LeadPartySlotIndex                           = $98A4
 PartyObjectRecordIndexTable                  = $9891
 ObjectRecordPointerTable                     = $4DC8
 TileWordRewritePatternPointer                = $C45A89
-DisplayTransferSelector30                    = $0030
+DisplaySelectorLatch30                       = $0030
 FlyoverBg2ScreenBaseY                        = $6000
 FlyoverBg2ScreenBaseX                        = $7C00
 WindowGfxAltSourceLow                        = $0754
@@ -69,7 +69,7 @@ WindowGfxAltDecompressByteCount              = $0100
 WindowGfxAltFlavourSelector                  = $0008
 WindowGfxPaletteRefreshWaitFrames            = $0008
 FlyoverGlyphRunIndex                         = $0002
-DisplayTransferSelectorWindowGfx             = $18
+WindowGfxDisplaySelector18                   = $18
 
 ; Rebuilds the active text-window graphics cache: decompresses the base E0
 ; graphics into $7F, stages/copies the 7F tile blocks, rebuilds compact tile
@@ -556,7 +556,8 @@ C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF:
 ; Restores the flyover text presentation back to the normal world/window
 ; display path: updates the BG2 screen-base queue, lets the C2-owned callee do
 ; its own cleanup, reloads window graphics, resets glyph run 2, refreshes the
-; window-flavour palette block, and marks the display selector for window gfx.
+; window-flavour palette block, and writes selector #$18 into the $0030
+; display-selector latch. C0/NMI owns the later upload/refresh interpretation.
 UNDRAW_FLYOVER_TEXT:
 C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     rep #$31
@@ -564,15 +565,15 @@ C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     ldx.w #FlyoverBg2ScreenBaseX
     lda.w #$0000
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    ; C4 only sequences this C2 cleanup before reloading the window gfx cache.
+    ; C4 only sequences this C2 cleanup; C2 owns the cleanup side effects.
     jsl C2038B_FlyoverTextCleanupCallee
     jsl LOAD_WINDOW_GFX
     lda.w #FlyoverGlyphRunIndex
     jsl C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavourPaletteBlock
     sep #$20
-    lda.b #DisplayTransferSelectorWindowGfx
-    sta DisplayTransferSelector30
+    lda.b #WindowGfxDisplaySelector18
+    sta DisplaySelectorLatch30
     rep #$20
     rtl
 

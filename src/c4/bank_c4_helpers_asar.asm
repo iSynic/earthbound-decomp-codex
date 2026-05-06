@@ -28630,7 +28630,7 @@ org $C47C3F
 !PartyObjectRecordIndexTable = $9891
 !ObjectRecordPointerTable = $4DC8
 !TileWordRewritePatternPointer = $C45A89
-!DisplayTransferSelector30 = $0030
+!DisplaySelectorLatch30 = $0030
 !FlyoverBg2ScreenBaseY = $6000
 !FlyoverBg2ScreenBaseX = $7C00
 !WindowGfxAltSourceLow = $0754
@@ -28638,7 +28638,7 @@ org $C47C3F
 !WindowGfxAltFlavourSelector = $0008
 !WindowGfxPaletteRefreshWaitFrames = $0008
 !FlyoverGlyphRunIndex = $0002
-!DisplayTransferSelectorWindowGfx = $18
+!WindowGfxDisplaySelector18 = $18
 LOAD_WINDOW_GFX:
 !C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     rep #$31
@@ -29127,8 +29127,8 @@ UNDRAW_FLYOVER_TEXT:
     jsl !C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavourPaletteBlock
     sep #$20
-    lda.b #!DisplayTransferSelectorWindowGfx
-    sta !DisplayTransferSelector30
+    lda.b #!WindowGfxDisplaySelector18
+    sta !DisplaySelectorLatch30
     rep #$20
     rtl
 C48037_LumineHallAndEvent353TextPayload:

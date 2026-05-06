@@ -442,6 +442,12 @@ closure.
   the `$0030 = #$18` display selector. The C2 flyover cleanup remains a
   sequenced callee rather than a C4-owned contract. See
   `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 window-gfx selector/latch follow-up: split the flyover-undraw
+  path's `$0030` display-selector latch from the `#$18` window-gfx selector
+  value, and clarified that C4 only sequences the `C2:038B` cleanup before
+  reloading the cache. C2 cleanup side effects and C0/NMI selector
+  interpretation remain external. See
+  `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
 - 2026-05-06 battle-background brightness follow-up: tightened the
   movement-script battle-background loader and palette-brightness adapters
   around BG mode/base queue arguments, C2 sprite-resource argument staging,

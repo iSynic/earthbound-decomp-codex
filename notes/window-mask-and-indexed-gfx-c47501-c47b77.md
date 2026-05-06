@@ -128,6 +128,12 @@ run reset index, and `$0030 = #$18` selector write are named locally. The raw
 `C2:038B` call is now a named C2 cleanup callee only in the sequencing sense;
 C4 does not claim its internal cleanup contract.
 
+2026-05-06 window-gfx selector/latch follow-up: the flyover-undraw source now
+splits the `$0030` display-selector latch from the `#$18` window-gfx selector
+value. `UNDRAW_FLYOVER_TEXT` still only sequences `C2:038B` before reloading the
+window graphics cache; C2 owns the cleanup side effects, and C0/NMI owns the
+later selector interpretation.
+
 ## Working Names
 
 - `C4:74F6` = `WhWindowSpanRadiusRampTable`
