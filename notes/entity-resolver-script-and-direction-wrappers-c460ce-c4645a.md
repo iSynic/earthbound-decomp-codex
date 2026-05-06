@@ -95,6 +95,12 @@ The exact semantic name of `$0A6A` bit `$8000` remains open, so the safest curre
 
 This is the clearing sibling of `C4:63F4`. It uses the same single-registry-code versus `#$00FF` whole-registry iteration pattern, but clears the high bit with `AND #$7FFF`.
 
+The following wrapper band is covered separately in
+`notes/c4-entity-visual-flag-current-slot-wrappers-c4645a-c46a5e.md`, including
+the prepared-entity consumers of `$9E2D/$9E2F/$9E31`, `$10B6/$116A` flag-word
+families, visual-type movement pointer queueing, and current-slot facing
+helpers.
+
 ## Working Names
 
 - `C4:60CE` = `RunVisualTypeEntityScriptWithCachedPose`
@@ -115,4 +121,3 @@ This is the clearing sibling of `C4:63F4`. It uses the same single-registry-code
 - the record format/name for the three-byte table at `C4:C4D4`
 - the user-facing meaning of `$0A6A` bit `$8000`
 - the exact C1 event opcode parameter names for the two-entity octant helpers
-

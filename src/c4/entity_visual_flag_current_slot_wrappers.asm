@@ -24,11 +24,66 @@ C46028_FindEntitySlotByCachedPoseDescriptorId         = $C46028
 C4605A_FindEntitySlotByVisualTypeId                   = $C4605A
 C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
 C46594_SetRegistrySlotFlagsC000                       = $C46594
+CurrentSlotIndex                                      = $1A42
+RegistryAllCode                                       = $00FF
+MissingEntitySlot                                     = $FFFF
+RegistryActiveCount                                   = $98A3
+RegistrySlotList                                      = $9897
+RegistryTypeCodeList                                  = $988B
+EntityFlagC000Table                                   = $10B6
+EntityFlag8000Table                                   = $116A
+RegistryAllLeadFlagC000Word                           = $10E4
+EntityFlagSetC000Mask                                 = $C000
+EntityFlagClearC000Mask                               = $3FFF
+EntityFlagSet8000Mask                                 = $8000
+EntityFlagClear8000Mask                               = $7FFF
+VisualTypeRecordTableLo                               = $8985
+VisualTypeRecordTableBank                             = $00CF
+VisualTypeRecordCreateDescriptorOffset                = $0001
+VisualTypeRecordMovementScriptOffset                  = $0009
+VisualTypeRecordByte03Offset                          = $0003
+LongPointerBankOffset                                 = $0002
+NewEntityStagedX                                      = $9E2D
+NewEntityStagedY                                      = $9E2F
+NewEntityStagedFacing                                 = $9E31
+LiveEntityWorldXTable                                 = $0B8E
+LiveEntityWorldYTable                                 = $0BCA
+LiveEntityDrawYTable                                  = $0B52
+LiveEntityFrameSelectorTable                          = $2AF6
+LiveEntityVisualTypeTable                             = $2C9A
+LiveEntityPoseDescriptorTable                         = $2CD6
+CreateEntityDefaultYArg                               = $FFFF
+MovementPointerRecordType                             = $0008
+SelectedModeSlot                                      = $9E33
+SelectedModeState                                     = $98A5
+SelectedModeLatch                                     = $9885
+SelectedModeActiveValue                               = $0002
+PhotographerTempLatch                                 = $5D58
+PhotoSceneRecordIndex                                 = $9E35
+WanderingPhotographerTextPtrLow                       = $AB3F
+WanderingPhotographerTextPtrBank                      = $00C7
+LeadRegistryIndex                                     = $0001
+RegistrySkipTypeCode09                                = $0009
+RandomDelayMask                                       = $001F
+RandomDelayBase                                       = $000C
+ScreenHeightPixels                                    = $0100
+Pose016fDescriptorId                                  = $016F
+EntitySlotScanCount                                   = $001E
+InputStatePressedHeld                                 = $006D
+InputStateNewPress                                    = $0065
+PlayerWorldY                                          = $987B
+FallbackVisualTypeRecordByte03                        = $0004
+AngleOctantUnit                                       = $2000
+AngleOctantBias                                       = $1000
+TrueValue                                             = $0001
+FalseValue                                            = $0000
 
 ; ---------------------------------------------------------------------------
 ; C4:645A
 
 C4645A_ClearRegistryEntitySlotsFlag8000:
+    ; Clear the C4-local $8000 flag-word family for one registry-selected slot,
+    ; or for every live registry slot when the caller passes $00FF.
     rep #$31
     phd
     pha
@@ -36,18 +91,18 @@ C4645A_ClearRegistryEntitySlotsFlag8000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #RegistryAllCode
     beq C46485_EntityVisualFlagCurrentSlotWrappers_L6485
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #EntityFlagClear8000Mask
     sta $0000,X
     bra C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3
 C46485_EntityVisualFlagCurrentSlotWrappers_L6485:
@@ -57,19 +112,19 @@ C46485_EntityVisualFlagCurrentSlotWrappers_L6485:
 C4648C_EntityVisualFlagCurrentSlotWrappers_L648C:
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #EntityFlagClear8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C464A5_EntityVisualFlagCurrentSlotWrappers_L64A5:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -80,6 +135,9 @@ C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3:
     rtl
 CREATE_PREPARED_ENTITY_NPC:
 C464B5_InitWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_NPC
+    ; Consume the staged new-entity position/facing words and a CF:8985 visual
+    ; type row. C4 writes the spawned slot's facing and visual-type cache; C0
+    ; owns entity allocation/initialization.
     rep #$31
     phd
     pha
@@ -88,9 +146,9 @@ C464B5_InitWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_NPC
     tcd
     pla
     sta $02
-    lda.w #$8985
+    lda.w #VisualTypeRecordTableLo
     sta $06
-    lda.w #$00CF
+    lda.w #VisualTypeRecordTableBank
     sta $08
     lda $02
     sta $04
@@ -102,28 +160,30 @@ C464B5_InitWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_NPC
     clc
     adc $06
     sta $06
-    lda $9E2D
+    lda NewEntityStagedX
     sta $0E
-    lda $9E2F
+    lda NewEntityStagedY
     sta $10
-    ldy.w #$FFFF
+    ldy.w #CreateEntityDefaultYArg
     sty $14
-    ldy.w #$0001
+    ldy.w #VisualTypeRecordCreateDescriptorOffset
     lda [$06],Y
     ldy $14
     jsl C01E49_CreateEntityFromDescriptor
     sta $12
     asl A
     tax
-    lda $9E31
-    sta $2AF6,X
+    lda NewEntityStagedFacing
+    sta LiveEntityFrameSelectorTable,X
     lda $02
-    sta $2C9A,X
+    sta LiveEntityVisualTypeTable,X
     lda $12
     pld
     rtl
 CREATE_PREPARED_ENTITY_SPRITE:
 C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENTITY_SPRITE
+    ; Forced-slot sibling: A is passed directly to the entity creator, with
+    ; position/facing coming from the staged new-entity argument words.
     rep #$31
     phd
     pha
@@ -132,22 +192,24 @@ C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId = CREATE_PREPARED_ENT
     tcd
     pla
     sta $14
-    lda $9E2D
+    lda NewEntityStagedX
     sta $0E
-    lda $9E2F
+    lda NewEntityStagedY
     sta $10
-    ldy.w #$FFFF
+    ldy.w #CreateEntityDefaultYArg
     lda $14
     jsl C01E49_CreateEntityFromDescriptor
     sta $12
     asl A
     tax
-    lda $9E31
-    sta $2AF6,X
+    lda NewEntityStagedFacing
+    sta LiveEntityFrameSelectorTable,X
     lda $12
     pld
     rtl
 C46534_SpawnEntityAtCurrentSlotAnchor:
+    ; C4 stages the current slot's live anchor as create-entity X/Y, then
+    ; hands allocation to the external create-entity helper.
     rep #$31
     phd
     pha
@@ -157,14 +219,14 @@ C46534_SpawnEntityAtCurrentSlotAnchor:
     pla
     stx $02
     sta $12
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sta $0E
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $10
-    ldy.w #$FFFF
+    ldy.w #CreateEntityDefaultYArg
     ldx $02
     lda $12
     jsl C01E49_CreateEntityFromDescriptor
@@ -173,32 +235,34 @@ C46534_SpawnEntityAtCurrentSlotAnchor:
 C4655E_SetVisualTypeSlotFlagsC000:
     rep #$31
     jsl C4605A_FindEntitySlotByVisualTypeId
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46578_EntityVisualFlagCurrentSlotWrappers_L6578
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
 C46578_EntityVisualFlagCurrentSlotWrappers_L6578:
     rtl
 C46579_SetPoseDescriptorSlotFlagsC000:
     rep #$31
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46593_EntityVisualFlagCurrentSlotWrappers_L6593
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
 C46593_EntityVisualFlagCurrentSlotWrappers_L6593:
     rtl
 C46594_SetRegistrySlotFlagsC000:
+    ; Set the C4-local $C000 flag-word family by registry code, or fan out to
+    ; the lead/every live registry slot when A=$00FF.
     rep #$31
     phd
     pha
@@ -206,24 +270,24 @@ C46594_SetRegistrySlotFlagsC000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #RegistryAllCode
     beq C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
     bra C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9
 C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF:
-    ldx.w #$10E4
+    ldx.w #RegistryAllLeadFlagC000Word
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
     lda.w #$0000
     sta $0E
@@ -231,19 +295,19 @@ C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF:
 C465D2_EntityVisualFlagCurrentSlotWrappers_L65D2:
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C465EB_EntityVisualFlagCurrentSlotWrappers_L65EB:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -255,32 +319,34 @@ C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9:
 C465FB_ClearVisualTypeSlotFlagsC000:
     rep #$31
     jsl C4605A_FindEntitySlotByVisualTypeId
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46615_EntityVisualFlagCurrentSlotWrappers_L6615
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
 C46615_EntityVisualFlagCurrentSlotWrappers_L6615:
     rtl
 C46616_ClearPoseDescriptorSlotFlagsC000:
     rep #$31
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46630_EntityVisualFlagCurrentSlotWrappers_L6630
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
 C46630_EntityVisualFlagCurrentSlotWrappers_L6630:
     rtl
 C46631_ClearRegistrySlotFlagsC000:
+    ; Clearing sibling of C46594; it uses the same one-slot versus all-live
+    ; registry split but masks the local $C000 flag bits off.
     rep #$31
     phd
     pha
@@ -288,24 +354,24 @@ C46631_ClearRegistrySlotFlagsC000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #RegistryAllCode
     beq C4665C_EntityVisualFlagCurrentSlotWrappers_L665C
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46696_EntityVisualFlagCurrentSlotWrappers_L6696
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
     bra C46696_EntityVisualFlagCurrentSlotWrappers_L6696
 C4665C_EntityVisualFlagCurrentSlotWrappers_L665C:
-    ldx.w #$10E4
+    ldx.w #RegistryAllLeadFlagC000Word
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
     lda.w #$0000
     sta $0E
@@ -313,19 +379,19 @@ C4665C_EntityVisualFlagCurrentSlotWrappers_L665C:
 C4666F_EntityVisualFlagCurrentSlotWrappers_L666F:
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C46688_EntityVisualFlagCurrentSlotWrappers_L6688:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -337,23 +403,26 @@ C46696_EntityVisualFlagCurrentSlotWrappers_L6696:
 C46698_SelectModeSlotByVisualTypeId:
     rep #$31
     jsl C4605A_FindEntitySlotByVisualTypeId
-    sta $9E33
-    lda.w #$0002
-    sta $98A5
+    sta SelectedModeSlot
+    lda.w #SelectedModeActiveValue
+    sta SelectedModeState
     rtl
 C466A8_SelectModeSlotByPoseDescriptorId:
     rep #$31
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
-    sta $9E33
-    lda.w #$0002
-    sta $98A5
+    sta SelectedModeSlot
+    lda.w #SelectedModeActiveValue
+    sta SelectedModeState
     rtl
 C466B8_ClearSelectedModeSlot:
     rep #$31
-    stz $9885
-    stz $98A5
+    stz SelectedModeLatch
+    stz SelectedModeState
     rtl
 C466C1_RunWanderingPhotographerScriptForPhotoIndex:
+    ; A is one-based photo index from the caller. C4 stores the zero-based
+    ; scene index for the photo-placement helper, runs a fixed nested text
+    ; pointer, then performs the local photographer cleanup handoff.
     rep #$31
     phd
     pha
@@ -363,13 +432,13 @@ C466C1_RunWanderingPhotographerScriptForPhotoIndex:
     pla
     sta $12
     jsl C07C5B_ResolveCurrentEntityOrPlayerSlot
-    stz $5D58
+    stz PhotographerTempLatch
     lda $12
     dec A
-    sta $9E35
-    lda.w #$AB3F
+    sta PhotoSceneRecordIndex
+    lda.w #WanderingPhotographerTextPtrLow
     sta $0E
-    lda.w #$00C7
+    lda.w #WanderingPhotographerTextPtrBank
     sta $10
     jsl C186B1_ExecuteNestedTextPointer
     lda $12
@@ -397,38 +466,39 @@ C466F0_ExecuteNestedTextPointerFromAx:
     pld
     rtl
 C46712_SetLeadAndCompanionRegistryVisualFlags:
+    ; Lead slot gets the $C000 flag family; companions get the $8000 family.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $9897
+    lda RegistrySlotList
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #EntityFlagSetC000Mask
     sta $0000,X
-    lda.w #$0001
+    lda.w #LeadRegistryIndex
     sta $0E
     bra C4674C_EntityVisualFlagCurrentSlotWrappers_L674C
 C46733_EntityVisualFlagCurrentSlotWrappers_L6733:
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #EntityFlagSet8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C4674C_EntityVisualFlagCurrentSlotWrappers_L674C:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -437,45 +507,47 @@ C4674C_EntityVisualFlagCurrentSlotWrappers_L674C:
     pld
     rtl
 C4675C_ClearLeadAndCompanionRegistryVisualFlags:
+    ; Clearing sibling of C46712. Registry code 9 is skipped in the companion
+    ; loop, preserving the original script-visible exception.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $9897
+    lda RegistrySlotList
     asl A
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
-    lda.w #$0001
+    lda.w #LeadRegistryIndex
     sta $0E
     bra C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4
 C4677D_EntityVisualFlagCurrentSlotWrappers_L677D:
     tax
-    lda $988B,X
+    lda RegistryTypeCodeList,X
     and.w #$00FF
-    cmp.w #$0009
+    cmp.w #RegistrySkipTypeCode09
     beq C4679F_EntityVisualFlagCurrentSlotWrappers_L679F
     lda $0E
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #EntityFlagClear8000Mask
     sta $0000,X
 C4679F_EntityVisualFlagCurrentSlotWrappers_L679F:
     lda $0E
     inc A
     sta $0E
 C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -486,9 +558,9 @@ C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4:
 C467B4_RandomDelay0cTo2b:
     rep #$31
     jsl C08E9A_GetRandom16
-    and.w #$001F
+    and.w #RandomDelayMask
     clc
-    adc.w #$000C
+    adc.w #RandomDelayBase
     rtl
 C467C2_RandomDelayBiasedByCurrentDrawY:
     rep #$31
@@ -497,14 +569,14 @@ C467C2_RandomDelayBiasedByCurrentDrawY:
     adc.w #$FFF2
     tcd
     jsl C08E9A_GetRandom16
-    and.w #$001F
+    and.w #RandomDelayMask
     sta $02
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda.w #$0100
+    lda.w #ScreenHeightPixels
     sec
-    sbc $0B52,X
+    sbc LiveEntityDrawYTable,X
     lsr A
     lsr A
     clc
@@ -512,6 +584,8 @@ C467C2_RandomDelayBiasedByCurrentDrawY:
     pld
     rtl
 C467E6_ClearFlagsForPose016fEntities:
+    ; Scan live entity slots and clear the C000 flag family for cached pose
+    ; descriptor $016F.
     rep #$31
     phd
     tdc
@@ -523,41 +597,43 @@ C467E6_ClearFlagsForPose016fEntities:
 C467F5_EntityVisualFlagCurrentSlotWrappers_L67F5:
     asl A
     tax
-    lda $2CD6,X
-    cmp.w #$016F
+    lda LiveEntityPoseDescriptorTable,X
+    cmp.w #Pose016fDescriptorId
     bne C4680E_EntityVisualFlagCurrentSlotWrappers_L680E
     txa
     clc
-    adc.w #$10B6
+    adc.w #EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #EntityFlagClearC000Mask
     sta $0000,X
 C4680E_EntityVisualFlagCurrentSlotWrappers_L680E:
     lda $0E
     inc A
     sta $0E
 C46813_EntityVisualFlagCurrentSlotWrappers_L6813:
-    cmp.w #$001E
+    cmp.w #EntitySlotScanCount
     bcc C467F5_EntityVisualFlagCurrentSlotWrappers_L67F5
     pld
     rtl
 C4681A_QueueCurrentVisualTypeMovementScript:
+    ; Read the current slot's visual-type row and queue its optional movement
+    ; script pointer as record type 8. Null long pointers are ignored locally.
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $2C9A,X
+    lda LiveEntityVisualTypeTable,X
     sta $12
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C4687F_EntityVisualFlagCurrentSlotWrappers_L687F
-    lda.w #$8985
+    lda.w #VisualTypeRecordTableLo
     sta $0A
-    lda.w #$00CF
+    lda.w #VisualTypeRecordTableBank
     sta $0C
     lda $12
     sta $04
@@ -567,11 +643,11 @@ C4681A_QueueCurrentVisualTypeMovementScript:
     asl A
     adc $04
     clc
-    adc.w #$0009
+    adc.w #VisualTypeRecordMovementScriptOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #LongPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -592,12 +668,14 @@ C4686E_EntityVisualFlagCurrentSlotWrappers_L686E:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #MovementPointerRecordType
     jsl C064E3_QueueMovementScript
 C4687F_EntityVisualFlagCurrentSlotWrappers_L687F:
     pld
     rtl
 C46881_SetAllRegistryFlagsAndQueueCallerMovement:
+    ; Combine the all-registry C000 flag fanout with queueing the caller's
+    ; already-staged movement pointer.
     rep #$31
     phd
     tdc
@@ -607,23 +685,23 @@ C46881_SetAllRegistryFlagsAndQueueCallerMovement:
     sta $06
     lda $22
     sta $08
-    lda.w #$00FF
+    lda.w #RegistryAllCode
     jsl C46594_SetRegistrySlotFlagsC000
     lda $06
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #MovementPointerRecordType
     jsl C064E3_QueueMovementScript
     pld
     rtl
 C468A9_ReadInputState006d:
     rep #$31
-    lda $006D
+    lda InputStatePressedHeld
     rtl
 C468AF_ReadInputState0065:
     rep #$31
-    lda $0065
+    lda InputStateNewPress
     rtl
 C468B5_TestValueLeftOfCurrentAnchorX:
     rep #$31
@@ -634,15 +712,15 @@ C468B5_TestValueLeftOfCurrentAnchorX:
     tcd
     pla
     sta $10
-    ldx.w #$0000
+    ldx.w #FalseValue
     stx $0E
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
     lda $10
-    cmp $0B8E,X
+    cmp LiveEntityWorldXTable,X
     bcs C468D7_EntityVisualFlagCurrentSlotWrappers_L68D7
-    ldx.w #$0001
+    ldx.w #TrueValue
     stx $0E
 C468D7_EntityVisualFlagCurrentSlotWrappers_L68D7:
     ldx $0E
@@ -658,15 +736,15 @@ C468DC_TestValueAboveCurrentAnchorY:
     tcd
     pla
     sta $10
-    ldx.w #$0000
+    ldx.w #FalseValue
     stx $0E
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
     lda $10
-    cmp $0BCA,X
+    cmp LiveEntityWorldYTable,X
     bcs C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE
-    ldx.w #$0001
+    ldx.w #TrueValue
     stx $0E
 C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE:
     ldx $0E
@@ -675,33 +753,35 @@ C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE:
     rtl
 C46903_TestValueBelowPlayerY:
     rep #$31
-    ldx.w #$0000
-    cmp $987B
+    ldx.w #FalseValue
+    cmp PlayerWorldY
     bcc C46912_EntityVisualFlagCurrentSlotWrappers_L6912
     beq C46912_EntityVisualFlagCurrentSlotWrappers_L6912
-    ldx.w #$0001
+    ldx.w #TrueValue
 C46912_EntityVisualFlagCurrentSlotWrappers_L6912:
     txa
     rtl
 C46914_GetCurrentVisualTypeRecordByte03:
+    ; Return byte +3 from the current slot's visual-type record; missing rows
+    ; fall back to the local value 4.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $2C9A,X
+    lda LiveEntityVisualTypeTable,X
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     bne C46930_EntityVisualFlagCurrentSlotWrappers_L6930
-    lda.w #$0004
+    lda.w #FallbackVisualTypeRecordByte03
     bra C46955_EntityVisualFlagCurrentSlotWrappers_L6955
 C46930_EntityVisualFlagCurrentSlotWrappers_L6930:
-    lda.w #$8985
+    lda.w #VisualTypeRecordTableLo
     sta $06
-    lda.w #$00CF
+    lda.w #VisualTypeRecordTableBank
     sta $08
     lda $0E
     sta $04
@@ -714,7 +794,7 @@ C46930_EntityVisualFlagCurrentSlotWrappers_L6930:
     adc $06
     sta $06
     sep #$20
-    ldy.w #$0003
+    ldy.w #VisualTypeRecordByte03Offset
     lda [$06],Y
     rep #$20
     and.w #$00FF
@@ -722,6 +802,8 @@ C46955_EntityVisualFlagCurrentSlotWrappers_L6955:
     pld
     rtl
 C46957_UpdateCurrentSlotFrameSelector:
+    ; Update the current slot frame selector and refresh the visual profile
+    ; only when the value actually changes.
     rep #$31
     phd
     pha
@@ -730,11 +812,11 @@ C46957_UpdateCurrentSlotFrameSelector:
     tcd
     pla
     sta $0E
-    ldy $1A42
+    ldy CurrentSlotIndex
     tya
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $0E
     sta $02
@@ -749,6 +831,8 @@ C46982_EntityVisualFlagCurrentSlotWrappers_L6982:
     pld
     rtl
 C46984_FaceVisualTypeSlotTowardCurrentSlot:
+    ; Resolve a visual-type keyed slot, compute its direction toward the
+    ; current slot, and refresh its frame selector if the octant changes.
     rep #$31
     phd
     pha
@@ -757,12 +841,12 @@ C46984_FaceVisualTypeSlotTowardCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy CurrentSlotIndex
     sty $10
     txa
     jsl C4605A_FindEntitySlotByVisualTypeId
     sta $04
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C469EF_EntityVisualFlagCurrentSlotWrappers_L69EF
     lda $04
     asl A
@@ -771,25 +855,25 @@ C46984_FaceVisualTypeSlotTowardCurrentSlot:
     tya
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy LiveEntityWorldXTable,X
     ldx $02
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     tax
     stx $10
     ldx $02
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     ldx $10
     jsl C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #AngleOctantBias
     jsl C0915B_DivideUnsignedWordByY
     sta $10
     lda $02
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $10
     sta $02
@@ -804,6 +888,7 @@ C469EF_EntityVisualFlagCurrentSlotWrappers_L69EF:
     pld
     rtl
 C469F1_FacePoseDescriptorSlotTowardCurrentSlot:
+    ; Pose-descriptor keyed sibling of C46984.
     rep #$31
     phd
     pha
@@ -812,12 +897,12 @@ C469F1_FacePoseDescriptorSlotTowardCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy CurrentSlotIndex
     sty $10
     txa
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $04
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46A5C_EntityVisualFlagCurrentSlotWrappers_L6A5C
     lda $04
     asl A
@@ -826,25 +911,25 @@ C469F1_FacePoseDescriptorSlotTowardCurrentSlot:
     tya
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy LiveEntityWorldXTable,X
     ldx $02
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     tax
     stx $10
     ldx $02
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     ldx $10
     jsl C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #AngleOctantBias
     jsl C0915B_DivideUnsignedWordByY
     sta $10
     lda $02
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $10
     sta $02

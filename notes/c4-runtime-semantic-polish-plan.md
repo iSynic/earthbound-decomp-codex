@@ -328,6 +328,12 @@ closure.
   comparison `$98C9/$98CB` visual row packing. See
   `notes/current-slot-position-staging-c46b8d-c46d4b.md` and
   `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md`.
+- 2026-05-06 entity visual wrapper follow-up: tightened the prepared-entity
+  consumers of `$9E2D/$9E2F/$9E31`, C4-local `$10B6/$116A` flag-word families,
+  all-registry fanout paths, wandering-photographer `$9E35` seed, visual-type
+  movement-pointer queueing, and current-slot facing/frame-selector refresh
+  helpers. See
+  `notes/c4-entity-visual-flag-current-slot-wrappers-c4645a-c46a5e.md`.
 
 ## Validation
 

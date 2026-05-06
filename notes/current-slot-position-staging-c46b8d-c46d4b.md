@@ -101,6 +101,11 @@ type, and the proximity-check staged X/Y plus threshold tables. The comments
 keep the C4-owned staging and comparison roles separate from C0 queue/entity
 creation behavior.
 
+The adjacent consumer pass in
+`notes/c4-entity-visual-flag-current-slot-wrappers-c4645a-c46a5e.md` now names
+where `$9E2D/$9E2F/$9E31` are consumed by the C4 prepared-entity wrappers and
+where `$9E35` is seeded by the wandering-photographer entry path.
+
 ## Event-script corroboration
 
 Reference scripts make the split visible:
