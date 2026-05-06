@@ -217,6 +217,12 @@ closure.
   offsets, `$7F:4000` staging, BG3 `$7C00` wrap math, and the C0 VRAM-transfer
   selector byte without claiming C0/C3/E1 callee internals. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 cast-name wrapper follow-up: carried the same local contracts into
+  `CopyCastNameTilemap`, `PrintCastNameParty`, and
+  `PrintCastNameEntityVar0`, naming `$7F:4000` row staging, `$B4D1` tile-base
+  adjustment, E1:2EFA three-byte pointer rows, C3:FDB5 party lookup, and the
+  special source-selector `7 -> 01C0`. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 - 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
   the music dataset row fields, audio pack pointer row shape, US bank resolver
   mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,

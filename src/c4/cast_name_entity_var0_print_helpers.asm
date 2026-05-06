@@ -13,12 +13,18 @@
 
 CopyCastNameTilemap = $C4EA9C
 PrintCastName       = $C4EB04
+CastNamePartySourceTable            = $C3FDB5
+CastNameSpecialSourceSelector       = $0007
+CastNameRenderColumnCount           = $0006
+CastNameSpecialTextSourceLow        = $01C0
 
 ; ---------------------------------------------------------------------------
 ; C4:EC05
 
 PRINT_CAST_NAME_PARTY:
 C4EC05_PrintCastNameEntityVar0 = PRINT_CAST_NAME_PARTY
+    ; A is the script-selected source index. Index 7 uses the standalone
+    ; special source; other values map through the C3:FDB5 party table.
     rep #$31
     phd
     pha
@@ -28,28 +34,28 @@ C4EC05_PrintCastNameEntityVar0 = PRINT_CAST_NAME_PARTY
     pla
     sty $04
     stx $02
-    cmp.w #$0007
+    cmp.w #CastNameSpecialSourceSelector
     beq C4EC39_PrintCastNameEntityVar0_LEC39
     ldy $02
-    ldx.w #$0006
+    ldx.w #CastNameRenderColumnCount
     stx $0E
     dec A
     asl A
     tax
-    lda $C3FDB5,X
+    lda CastNamePartySourceTable,X
     ldx $0E
     jsl CopyCastNameTilemap
-    ldy.w #$0006
+    ldy.w #CastNameRenderColumnCount
     ldx $04
     lda $02
     jsl PrintCastName
     bra C4EC50_PrintCastNameEntityVar0_LEC50
 C4EC39_PrintCastNameEntityVar0_LEC39:
     ldy $02
-    ldx.w #$0006
-    lda.w #$01C0
+    ldx.w #CastNameRenderColumnCount
+    lda.w #CastNameSpecialTextSourceLow
     jsl CopyCastNameTilemap
-    ldy.w #$0006
+    ldy.w #CastNameRenderColumnCount
     ldx $04
     lda $02
     jsl PrintCastName

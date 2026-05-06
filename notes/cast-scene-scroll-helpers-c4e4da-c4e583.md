@@ -126,6 +126,11 @@ staging bank, BG3 `$7C00` row wrap math, and C0 transfer selector byte. These
 remain C4-local presentation-table contracts; C0 copy/VRAM queue internals and
 C3/E1 payload decoding stay external.
 
+2026-05-06 cast-name wrapper follow-up: the copy/wrapper helpers now carry the
+same local `$7F:4000` row shape, `$B4D1` tile-base delta, E1:2EFA three-byte
+pointer-record shape, C3:FDB5 party source lookup, and special source-selector
+`7 -> 01C0` contract used by the polished preparation path.
+
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 
