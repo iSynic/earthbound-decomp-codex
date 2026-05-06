@@ -92,7 +92,7 @@ No syntactic decode frontiers at the current bounds.
 
 ## Operand value seed catalog
 
-These names are source-pilot readability seeds from recurring decoded C3 actionscript values. Direction-word counts are candidate sightings from `EVENT_WRITE_WORD_TEMPVAR`; scripts can reuse tempvar for other roles, so the catalog treats them as labels to verify at callback boundaries.
+These names are source-pilot readability seeds from recurring decoded C3 actionscript values. Direction-word names are promoted only at callback boundaries where the tempvar or random-choice result reaches the direction/vector runtime helpers.
 
 ### Animation IDs
 
@@ -121,10 +121,53 @@ These names are source-pilot readability seeds from recurring decoded C3 actions
 
 | Value | Name | Tempvar decode count | Contract |
 | --- | --- | ---: | --- |
-| `$0000` | `direction_down` | 3 | down/south-facing direction class word, commonly staged in tempvar before direction-class callbacks |
-| `$0002` | `direction_right` | 3 | right/east-facing direction class word, commonly staged in tempvar before direction-class callbacks |
-| `$0004` | `direction_up` | 6 | up/north-facing direction class word, commonly staged in tempvar before direction-class callbacks |
-| `$0006` | `direction_left` | 6 | left/west-facing direction class word, commonly staged in tempvar before direction-class callbacks |
+| `$0000` | `direction_down` | 3 | down/south-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence |
+| `$0002` | `direction_right` | 3 | right/east-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence |
+| `$0004` | `direction_up` | 6 | up/north-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence |
+| `$0006` | `direction_left` | 6 | left/west-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence |
+
+### Direction callback boundary evidence
+
+C3 direction-class words are backed by the runtime chain documented around `C0:A65F` and `C0:C83B`: `C0:A65F` stores the active direction/class in `$2AF6[current]` and returns it, while `C0:C83B` stores the direction/mode in `$1A86[current]` and derives signed movement vector words from it. The table below records decoded C3 producers that reach those consumers inside the same source-map span.
+
+- boundary-confirmed producers: `141`
+- value coverage: `{'$0004': 63, '$0006': 42, '$0002': 26, '$0000': 25}`
+- consumer coverage: `{'C0:A65F': 141, 'C0:C83B': 7}`
+
+| Producer | Source | Values | Consumers | Rows |
+| --- | --- | --- | --- | --- |
+| `C3:9B4C` | `C0:9F82 choices` | `$0000 <direction_down>`, `$0002 <direction_right>`, `$0004 <direction_up>`, `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:9AC7` |
+| `C3:A301` | `C0:9F82 choices` | `$0000 <direction_down>`, `$0002 <direction_right>`, `$0004 <direction_up>`, `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:A204 ReleaseCurrentVisualEntityAndEnd`, `C3:A22C Var0AnimationCase0Pulse8FrameOn`, +6 |
+| `C3:A3C9` | `C0:9F82 choices` | `$0000 <direction_down>`, `$0002 <direction_right>`, `$0004 <direction_up>`, `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:A234 Var0AnimationCase1Pulse8FrameOff`, `C3:A23D Var0AnimationCase2Pulse4Frame`, +8 |
+| `C3:ABAC` | `C0:9F82 choices` | `$0000 <direction_down>`, `$0002 <direction_right>`, `$0004 <direction_up>`, `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:AB9E` |
+| `C3:B79B` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:B70C` |
+| `C3:B7A8` | `EVENT_WRITE_WORD_TEMPVAR` | `$0002 <direction_right>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:B70C` |
+| `C3:CF62` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive`, `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:CEB9` |
+| `C3:0426` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:0295 MoveActiveEntityLeftToScriptVarsAndWait` |
+| `C3:1F13` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:1EEF` |
+| `C3:1F44` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:1EEF` |
+| `C3:1F75` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:1EEF` |
+| `C3:1FA6` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:1EEF` |
+| `C3:225A` | `EVENT_WRITE_WORD_TEMPVAR` | `$0002 <direction_right>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2138` |
+| `C3:2271` | `EVENT_WRITE_WORD_TEMPVAR` | `$0000 <direction_down>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2138` |
+| `C3:2288` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2138` |
+| `C3:2D0E` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D2B` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D39` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D59` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D66` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D83` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2D90` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DA7` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DB4` | `EVENT_WRITE_WORD_TEMPVAR` | `$0000 <direction_down>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DC1` | `EVENT_WRITE_WORD_TEMPVAR` | `$0002 <direction_right>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DCE` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DDB` | `EVENT_WRITE_WORD_TEMPVAR` | `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:2DE8` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:2CD2` |
+| `C3:34DF` | `EVENT_WRITE_WORD_TEMPVAR` | `$0002 <direction_right>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:33DD` |
+| `C3:3C58` | `C0:9F82 choices` | `$0000 <direction_down>`, `$0002 <direction_right>`, `$0004 <direction_up>`, `$0006 <direction_left>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:3C1D` |
+| `C3:3DE9` | `EVENT_WRITE_WORD_TEMPVAR` | `$0004 <direction_up>` | `C0:A65F SetCurrentSlotDirectionClassIfActive` | `C3:3DBE` |
+| `...` | `summary` | - | - | `110` additional boundary-confirmed producer(s) in JSON output |
 
 ## Native callback contract seed
 

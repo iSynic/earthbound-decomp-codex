@@ -853,19 +853,19 @@ SCRIPT_VAR_NAMES = {index: f"var{index}" for index in range(8)}
 ACTIONSCRIPT_DIRECTION_WORDS: dict[int, dict[str, str]] = {
     0x0000: {
         "name": "direction_down",
-        "contract": "down/south-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+        "contract": "down/south-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
     },
     0x0002: {
         "name": "direction_right",
-        "contract": "right/east-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+        "contract": "right/east-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
     },
     0x0004: {
         "name": "direction_up",
-        "contract": "up/north-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+        "contract": "up/north-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
     },
     0x0006: {
         "name": "direction_left",
-        "contract": "left/west-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+        "contract": "left/west-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
     },
 }
 

@@ -113,6 +113,10 @@ evidence is already bank-local or cross-referenced:
   queue and transient special-state notes
 - velocity and relative-position words show signed decimal meaning beside the
   raw hex value
+- the generated audit now has a direction callback boundary table: C3 tempvar
+  writes or `C0:9F82` random-choice word lists are counted as direction values
+  only when they reach `C0:A65F` and, for movement-vector cases, `C0:C83B`
+  inside the same decoded source-map span
 
 This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still
