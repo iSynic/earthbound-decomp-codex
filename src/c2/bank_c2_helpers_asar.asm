@@ -4073,6 +4073,9 @@ org $C277CA
 !C269BE_WaitFrames = $69BE
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
+!C2F8F9_RenderAndCommitBattleSpriteRows = $C2F8F9
+!C2FAD8_SetEnemySpriteColorWaveDuration = $C2FAD8
+!C2FB35_EnemySpriteColorWaveComparisonHelper = $C2FB35
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
 !BattleActionTableRowSize = $000C
@@ -4439,7 +4442,7 @@ C27A61_RunClass2LateSelectedRowController_L7A61:
     sta.w !BattlerActiveMarkerByte,X
     rep #$20
     lda.w #$000A
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27A9F_RunClass2LateSelectedRowController_L7A9F
@@ -4459,7 +4462,7 @@ C27A7F_RunClass2LateSelectedRowController_L7A7F:
     clc
     adc $04
     ldx $1E
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $04
 C27A9F_RunClass2LateSelectedRowController_L7A9F:
     lda $04
@@ -4468,7 +4471,7 @@ C27A9F_RunClass2LateSelectedRowController_L7A9F:
     lda.w #$000A
     jsr !C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27AD9_RunClass2LateSelectedRowController_L7AD9
@@ -4487,7 +4490,7 @@ C27ABA_RunClass2LateSelectedRowController_L7ABA:
     clc
     adc $04
     ldx $1E
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $04
 C27AD9_RunClass2LateSelectedRowController_L7AD9:
     lda $04
@@ -4549,7 +4552,7 @@ C27B51_RunClass2LateSelectedRowController_L7B51:
     lda.w #$0021
     jsl $C0ABE0
     lda.w #$000A
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27B81_RunClass2LateSelectedRowController_L7B81
@@ -4562,7 +4565,7 @@ C27B6B_RunClass2LateSelectedRowController_L7B6B:
     tay
     tax
     lda $04
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
 C27B7F_RunClass2LateSelectedRowController_L7B7F:
     inc $04
 C27B81_RunClass2LateSelectedRowController_L7B81:
@@ -4572,7 +4575,7 @@ C27B81_RunClass2LateSelectedRowController_L7B81:
     lda.w #$000A
     jsr !C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27BB1_RunClass2LateSelectedRowController_L7BB1
@@ -4584,7 +4587,7 @@ C27B9C_RunClass2LateSelectedRowController_L7B9C:
     ldy.w #$0000
     tyx
     lda $04
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
 C27BAF_RunClass2LateSelectedRowController_L7BAF:
     inc $04
 C27BB1_RunClass2LateSelectedRowController_L7BB1:
@@ -4613,7 +4616,7 @@ C27BD5_RunClass2LateSelectedRowController_L7BD5:
 C27BDE_RunClass2LateSelectedRowController_L7BDE:
     cpy.w #!TargetBitLimit
     bcc C27BC6_RunClass2LateSelectedRowController_L7BC6
-    jsl $C2F8F9
+    jsl !C2F8F9_RenderAndCommitBattleSpriteRows
     lda.w #$0002
     sta !LateVisualCompletionFlag
 C27BED_RunClass2LateSelectedRowController_L7BED:
@@ -17483,6 +17486,7 @@ C2FAD0_BuildBattleSpriteRowRenderOrder_LFAD0:
     rep #$31
     lda.w #$0001
     rtl
+C2FAD8_SetEnemySpriteColorWaveDuration:
     rep #$31
     sta $B37C
     rtl

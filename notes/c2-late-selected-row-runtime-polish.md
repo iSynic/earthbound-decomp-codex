@@ -81,8 +81,11 @@ Source follow-up: the late controller now calls `C2:0F9A` as
 `ClampHpPpRollTargetsToLiveValues` before the single phase-1 source claim scan,
 and calls the newly labeled `C2:3E32` helper as
 `BuildFirstTargetTextContextFromCurrentMask` in its nested action pass. The
-remaining `FAD8/FB35/F8F9` presentation helpers stay raw pending a focused
-visual-refresh pass.
+visual-refresh follow-up now names the same presentation helpers: `C2:FAD8`
+stores the color-wave duration in `$B37C`, `C2:FB35` installs per-entry
+enemy-sprite color-wave comparison/delta state, and `C2:F8F9` renders and
+commits the battle sprite rows after the optional descriptor `+0x5A` active-row
+marking route.
 
 ## State And Marker Effects
 
@@ -125,6 +128,8 @@ This slice closes the immediate loop around `C2:7550`:
   late behavior
 - the old unresolved `760C` battler-init call now has a local selected-row
   companion rebuild contract
+- the collapse/late visual pass now calls the battle-sprite color-wave duration,
+  per-entry color-wave state, and render/commit helpers by source-backed names
 
 ## Remaining Soft Spots
 

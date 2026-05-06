@@ -723,6 +723,13 @@ contract notes for C0/C1/C3/C4 consumers.
   `TryPickAiFlaggedNpcBattlerTargetOrdinal` and `C2:4477` calls it by that
   zero-or-one-based-target-ordinal contract before falling back to its random
   valid-target loop. See `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 ninety-fourth slice: tightened the late selected-row visual
+  refresh joins. `C2:77CA` now calls `C2:FAD8` as
+  `SetEnemySpriteColorWaveDuration`, `C2:FB35` as
+  `EnemySpriteColorWaveComparisonHelper`, and `C2:F8F9` as
+  `RenderAndCommitBattleSpriteRows`, using the same battle-sprite color-wave
+  vocabulary as the source helper family. See
+  `notes/c2-late-selected-row-runtime-polish.md`.
 
 ## Validation
 

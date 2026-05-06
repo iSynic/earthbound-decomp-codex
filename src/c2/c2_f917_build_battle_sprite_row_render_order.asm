@@ -242,6 +242,7 @@ C2FAD0_BuildBattleSpriteRowRenderOrder_LFAD0:
     rep #$31
     lda.w #$0001
     rtl
+C2FAD8_SetEnemySpriteColorWaveDuration:
     rep #$31
     sta $B37C
     rtl
