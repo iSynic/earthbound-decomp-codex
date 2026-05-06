@@ -8294,6 +8294,7 @@ C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
 hirom
 org $C14103
 
+!C09246_ShiftLeft32ByY = $C09246
 CC_0A:
 !C14103_BuildTextCommand24BitJumpTarget = CC_0A
     rep #$31
@@ -8328,7 +8329,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     sep #$10
     ldy.b #$18
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -8341,7 +8342,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -8354,7 +8355,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -8411,6 +8412,7 @@ C141CE_BuildTextCommand24BitJumpTarget_L41CE:
 hirom
 org $C141D0
 
+!C1040A_LoadPrimaryInteractionContextPointer = $040A
 CC_09:
 !C141D0_HandleTextCommand09JumpMulti = CC_09
     rep #$31
@@ -8424,7 +8426,7 @@ CC_09:
     sty $10
     tax
     stx $0E
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -8436,7 +8438,7 @@ CC_09:
     cmp $0A
 C141F7_HandleTextCommand09JumpMulti_L41F7:
     beq C1423E_HandleTextCommand09JumpMulti_L423E
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     ldy $10
     tya
     sta $0A
@@ -8450,7 +8452,7 @@ C141F7_HandleTextCommand09JumpMulti_L41F7:
     ldx $0E
     txy
     sty $0E
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A
@@ -8503,6 +8505,7 @@ C14263_HandleTextCommand09JumpMulti_L4263:
 hirom
 org $C14265
 
+!C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
 CC_04:
 !C14265_HandleTextCommand04SetEventFlag = CC_04
@@ -8529,7 +8532,7 @@ C1428B_HandleTextCommand04SetEventFlag_L428B:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -8550,6 +8553,7 @@ C142AB_HandleTextCommand04SetEventFlag_L42AB:
 hirom
 org $C142AD
 
+!C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
 CC_05:
 !C142AD_HandleTextCommand05ClearEventFlag = CC_05
@@ -8576,7 +8580,7 @@ C142D3_HandleTextCommand05ClearEventFlag_L42D3:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -8597,6 +8601,7 @@ C142F3_HandleTextCommand05ClearEventFlag_L42F3:
 hirom
 org $C142F5
 
+!C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C21628_CheckEventFlag = $C21628
 CC_06:
 !C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
@@ -8623,7 +8628,7 @@ C1431A_HandleTextCommand06JumpIfFlagSet_L431A:
     txa
     sep #$10
     ldy.b #$08
-    jsl $C0923E
+    jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -8660,6 +8665,11 @@ C1435D_HandleTextCommand06JumpIfFlagSet_L435D:
 hirom
 org $C1435F
 
+!C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
+!C1007E_SetFocusWindowOrContext = $007E
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+!C10EE3_DispatchDebugMenuPrintMode = $0EE3
 !C21628_CheckEventFlag = $C21628
 CC_07:
 !C1435F_HandleTextCommand07CheckEventFlag = CC_07
@@ -8686,7 +8696,7 @@ C14385_HandleTextCommand07CheckEventFlag_L4385:
     sep #$10
     ldy.b #$08
     lda $12
-    jsl $C0923E
+    jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -8702,24 +8712,24 @@ C143A8_HandleTextCommand07CheckEventFlag_L43A8:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C143B6_HandleTextCommand07CheckEventFlag_L43B6:
     pld
     rts
     rep #$31
     txa
-    jsr $0EE3
+    jsr !C10EE3_DispatchDebugMenuPrintMode
     lda.w #$0000
     rts
     rep #$31
     txa
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0000
     rts
     rep #$31
     txa
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0000
     rts
 
@@ -8731,7 +8741,13 @@ C143B6_HandleTextCommand07CheckEventFlag_L43B6:
 hirom
 org $C143D6
 
+!C09246_ShiftLeft32ByY = $C09246
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
+!C1101C_RunNumberSelectPrompt = $101C
 !C186B1_PrintTextFromPointer = $C186B1
+!C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+!C43D75_StageGlyphVariantTileState = $C43D75
 CC_08:
 !C143D6_BuildCallTextFarPointerAndDispatch = CC_08
     rep #$31
@@ -8766,7 +8782,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -8779,7 +8795,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -8792,7 +8808,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -8849,7 +8865,7 @@ CC_1F_52:
     tcd
     pla
     txa
-    jsr $101C
+    jsr !C1101C_RunNumberSelectPrompt
     lda.w #$FFFF
     sta $0A
     lda.w #$FFFF
@@ -8873,7 +8889,7 @@ C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $12
     sta $06
     lda $14
@@ -8882,14 +8898,14 @@ C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C14504_BuildCallTextFarPointerAndDispatch_L4504
 C144F9_BuildCallTextFarPointerAndDispatch_L44F9:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
 C14504_BuildCallTextFarPointerAndDispatch_L4504:
     lda.w #$0000
     pld
@@ -8928,11 +8944,11 @@ C14535_BuildCallTextFarPointerAndDispatch_L4535:
     and.w #$00FF
     beq C1454D_BuildCallTextFarPointerAndDispatch_L454D
     lda $0E
-    jsl $C43D75
+    jsl !C43D75_StageGlyphVariantTileState
     bra C14553_BuildCallTextFarPointerAndDispatch_L4553
 C1454D_BuildCallTextFarPointerAndDispatch_L454D:
     lda $0E
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
 C14553_BuildCallTextFarPointerAndDispatch_L4553:
     lda.w #$0000
 C14556_BuildCallTextFarPointerAndDispatch_L4556:

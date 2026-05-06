@@ -87,6 +87,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `$89D4` text-entry constructor chain. See
   `notes/interaction-result-consumers.md` and
   `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.
+- 2026-05-06: C1 low text-command strip follow-up named helper-call edges
+  across `C1:4103..4558`: 24-bit target assembly, `JUMP_MULTI` context reads,
+  event-flag high-byte assembly, flag set/clear/check, call-text dispatch,
+  number selection, context installs, focus/window wrappers, and C4
+  glyph/cursor staging. See
+  `notes/lower-bank01-text-control-strip-00-17.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

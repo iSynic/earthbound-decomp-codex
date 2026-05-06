@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C1040A_LoadPrimaryInteractionContextPointer = $040A
 
 ; ---------------------------------------------------------------------------
 ; C1:41D0
@@ -29,7 +29,7 @@ C141D0_HandleTextCommand09JumpMulti = CC_09
     sty $10
     tax
     stx $0E
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -41,7 +41,7 @@ C141D0_HandleTextCommand09JumpMulti = CC_09
     cmp $0A
 C141F7_HandleTextCommand09JumpMulti_L41F7:
     beq C1423E_HandleTextCommand09JumpMulti_L423E
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     ldy $10
     tya
     sta $0A
@@ -55,7 +55,7 @@ C141F7_HandleTextCommand09JumpMulti_L41F7:
     ldx $0E
     txy
     sty $0E
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A

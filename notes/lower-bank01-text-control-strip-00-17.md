@@ -97,6 +97,14 @@ The combined C1 scaffold validates byte-for-byte after promotion:
 
 - `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+### Source polish follow-up (2026-05-06)
+
+The `C1:4103..4558` low text-command source now names its helper-call edges
+for 24-bit target assembly, `JUMP_MULTI` context reads, event-flag high-byte
+assembly, flag set/clear/check handling, context staging, the number selector,
+window/focus wrappers, and the glyph/cursor staging split used by forced text
+alignment.
+
 ### 1. The lower strip is mostly not family-shaped
 
 Below the richer family-heavy range higher up, most of these bytes are just direct opcodes.

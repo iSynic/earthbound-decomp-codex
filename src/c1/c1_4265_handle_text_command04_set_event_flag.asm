@@ -11,6 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 C2165E_SetEventFlagOrState = $C2165E
 
 ; ---------------------------------------------------------------------------
@@ -41,7 +42,7 @@ C1428B_HandleTextCommand04SetEventFlag_L428B:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF

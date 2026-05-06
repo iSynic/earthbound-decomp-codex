@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C09246_ShiftLeft32ByY = $C09246
 
 ; ---------------------------------------------------------------------------
 ; C1:4103
@@ -50,7 +50,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     sep #$10
     ldy.b #$18
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -63,7 +63,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -76,7 +76,7 @@ C14133_BuildTextCommand24BitJumpTarget_L4133:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08

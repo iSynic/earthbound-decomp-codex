@@ -11,7 +11,13 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C09246_ShiftLeft32ByY = $C09246
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C10489_InstallSecondaryInteractionContextPointer = $0489
+C1101C_RunNumberSelectPrompt = $101C
 C186B1_PrintTextFromPointer = $C186B1
+C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+C43D75_StageGlyphVariantTileState = $C43D75
 
 ; ---------------------------------------------------------------------------
 ; C1:43D6
@@ -50,7 +56,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -63,7 +69,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -76,7 +82,7 @@ C14407_BuildCallTextFarPointerAndDispatch_L4407:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -133,7 +139,7 @@ C144A3_CreateNumberSelectorFromTextCommand = CC_1F_52
     tcd
     pla
     txa
-    jsr $101C
+    jsr C1101C_RunNumberSelectPrompt
     lda.w #$FFFF
     sta $0A
     lda.w #$FFFF
@@ -157,7 +163,7 @@ C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda $12
     sta $06
     lda $14
@@ -166,14 +172,14 @@ C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr C10489_InstallSecondaryInteractionContextPointer
     bra C14504_BuildCallTextFarPointerAndDispatch_L4504
 C144F9_BuildCallTextFarPointerAndDispatch_L44F9:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
 C14504_BuildCallTextFarPointerAndDispatch_L4504:
     lda.w #$0000
     pld
@@ -212,11 +218,11 @@ C14535_BuildCallTextFarPointerAndDispatch_L4535:
     and.w #$00FF
     beq C1454D_BuildCallTextFarPointerAndDispatch_L454D
     lda $0E
-    jsl $C43D75
+    jsl C43D75_StageGlyphVariantTileState
     bra C14553_BuildCallTextFarPointerAndDispatch_L4553
 C1454D_BuildCallTextFarPointerAndDispatch_L454D:
     lda $0E
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
 C14553_BuildCallTextFarPointerAndDispatch_L4553:
     lda.w #$0000
 C14556_BuildCallTextFarPointerAndDispatch_L4556:

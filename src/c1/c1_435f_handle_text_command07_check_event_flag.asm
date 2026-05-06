@@ -11,6 +11,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
+C1007E_SetFocusWindowOrContext = $007E
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+C10EE3_DispatchDebugMenuPrintMode = $0EE3
 C21628_CheckEventFlag = $C21628
 
 ; ---------------------------------------------------------------------------
@@ -41,7 +46,7 @@ C14385_HandleTextCommand07CheckEventFlag_L4385:
     sep #$10
     ldy.b #$08
     lda $12
-    jsl $C0923E
+    jsl C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -57,23 +62,23 @@ C143A8_HandleTextCommand07CheckEventFlag_L43A8:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C143B6_HandleTextCommand07CheckEventFlag_L43B6:
     pld
     rts
     rep #$31
     txa
-    jsr $0EE3
+    jsr C10EE3_DispatchDebugMenuPrintMode
     lda.w #$0000
     rts
     rep #$31
     txa
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0000
     rts
     rep #$31
     txa
-    jsr $007E
+    jsr C1007E_SetFocusWindowOrContext
     lda.w #$0000
     rts

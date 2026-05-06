@@ -324,3 +324,16 @@ This planning pass is documentation-only.
   covers `C1:04B5`, `C1:13D1..1596`, `C1:3187`, and `C1:323B` without
   changing bytes. See `notes/interaction-result-consumers.md` and
   `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.
+- 2026-05-06 follow-up: the low text-command strip at `C1:4103..4558` now
+  names the helper-call surface for direct 24-bit jump target assembly,
+  `JUMP_MULTI` context reads, event-flag high-byte assembly, flag
+  set/clear/check operations, call-text pointer dispatch, number selection,
+  context pointer installs, focus/window wrappers, and C4 glyph/cursor staging.
+  See `notes/lower-bank01-text-control-strip-00-17.md`,
+  `notes/text-command-04-set-event-flag.md`,
+  `notes/text-command-05-clear-event-flag.md`,
+  `notes/text-command-06-jump-if-flag-set.md`,
+  `notes/text-command-07-check-event-flag.md`,
+  `notes/text-command-08-call-text.md`,
+  `notes/text-command-09-jump-multi.md`, and
+  `notes/text-command-0a-24bit-jump.md`.
