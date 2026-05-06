@@ -3768,7 +3768,7 @@ org $C49D6A
 !COFFEE_TEA_TILE_WINDOW_INDEX = $9F2D
 !COFFEE_TEA_ROW_TILE_LIMIT = $2000
 !COFFEE_TEA_FRAME_STEP = $0018
-!COFFEE_TEA_TOKEN_WIDTH = $000C
+!COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG = $000C
 !COFFEE_TEA_INITIAL_WINDOW_INDEX = $001C
 !COFFEE_PROMPT_TOKEN = $00E8
 !TEA_PROMPT_TOKEN = $00EA
@@ -3900,12 +3900,12 @@ C49E39_RunCoffeeTeaScene_TokenString:
     and #!LowByteMask
     tay
     inc $06
-    ldx #!COFFEE_TEA_TOKEN_WIDTH
+    ldx #!COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl !C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 C49E4B_RunCoffeeTeaScene_SingleToken:
-    ldy #!COFFEE_TEA_TOKEN_WIDTH
+    ldy #!COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #!ZeroWord
     jsl !C49D16_RenderSingleCoffeeTeaTileToken_Ext
     jmp C49DD6_RunCoffeeTeaScene_ReadCommand
@@ -4040,12 +4040,12 @@ C49F54_RunFlyoverIntroTextScene_TokenString:
     and #!LowByteMask
     tay
     inc $06
-    ldx #!COFFEE_TEA_TOKEN_WIDTH
+    ldx #!COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl !C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 C49F66_RunFlyoverIntroTextScene_SingleToken:
-    ldy #!COFFEE_TEA_TOKEN_WIDTH
+    ldy #!COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #!ZeroWord
     jsl !C49D16_RenderSingleCoffeeTeaTileToken_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand

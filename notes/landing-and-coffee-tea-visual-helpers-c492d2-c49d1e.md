@@ -104,7 +104,9 @@ visual-mode wrapper for the coffee/tea transition family.
 `C4:9875` applies an 8-row byte mask into the destination tile buffer. Its
 callers set up `$3492` as the destination and feed it source bytes, row counts,
 and stride-like values; the routine uses C0 bit-scaling helpers to AND generated
-masks into paired destination bytes.
+masks into paired destination bytes. In this helper family it advances the
+row-pixel/base cursors as masks cross tile rows, but `$3C1E/$3C20` are only
+initialized/reset by the surrounding init/upload helpers.
 
 `C4:999B` draws or composites a token-driven run into the `$3492` tile buffer.
 It indexes data rooted at `$C3:F054`, maps the incoming token through table
@@ -126,7 +128,8 @@ waits a frame.
 
 `C4:9C56` advances the coffee/tea tile-scroll state. It accumulates caller A
 into `$3C16`, derives the next `$9F2D` position, wraps at `#$20`, commits the
-`$3492` tile block through `C0:8EFC`, and resets `$9F2F/$9F31`.
+`$3492` tile block through `C0:8EFC` on each call, keeps only the pixel
+remainder in `$3C16`, and resets `$9F2F/$9F31`.
 
 `C4:9CA8` advances the 8-pixel row cursor stored at `$9F2F/$9F31`. It adds
 caller A plus 8, stores the raw position, then aligns the derived row base to a
@@ -156,6 +159,14 @@ VRAM-offset/BG-scroll helper. The ownership boundary is intentionally narrow:
 C4 owns `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`, while
 C0/C2 own the bracket, transfer, and battle-background callees.
 
+2026-05-06 tile-buffer contract follow-up: the source now limits the row-mask
+helper to `$3492` writes plus row-cursor advancement and leaves `$3C1E/$3C20`
+dirty-range changes to the init/upload reset points visible in this family.
+The scroll-state helper is also documented as committing through `C0:8EFC` on
+each call, not only on wrap, and the token-render entry comments now treat the
+`#$000C` register setup in the script interpreters as preserved call-surface
+state while the actual glyph width remains owned by the `C3:F054` metadata.
+
 ## Flyover intro text runner
 
 `C4:9EA4` is an eight-entry long-pointer table for the flyover/intro text
@@ -173,7 +184,7 @@ interprets the selected script as byte commands:
 | `02 xx` | set `$9F2D = xx`, the coffee/tea tile-window position |
 | `09` | upload/scroll one `#$18` step through `C4:9B6E`, wait one frame, then advance `C4:9C56` |
 | `01 xx` | advance the row reveal cursor through `C4:9CA8(xx)` |
-| `08 xx` | render compact token string `xx` through `C4:9CC3` with width/slot `#$000C` |
+| `08 xx` | render compact token string `xx` through `C4:9CC3`; the preserved `#$000C` register setup is not the glyph-width source |
 | other nonzero byte | render it as a single tile token through `C4:9D16` |
 
 The end tail changes display mode `$001A` to `#$04`, calls the C0 display

@@ -169,8 +169,9 @@ C4986E_InvertCoffeeTeaTileBufferWords_Check:
 ;
 ; Entry:
 ;   A/Y and direct-page pointer locals select the source run and row window.
-; Side effects: AND/merge writes into the $3492 tile buffer and updates the
-; dirty min/max range at $3C1E/$3C20.
+; Side effects: AND/merge writes into the $3492 tile buffer and advances the
+; row-pixel/base cursors when the rendered mask crosses a tile row. This helper
+; does not update the shared $3C1E/$3C20 dirty-range words in this family.
 C49875_ApplyCoffeeTeaTileRowMask:
     rep #$31
     phd
@@ -343,9 +344,10 @@ C49999_ApplyCoffeeTeaTileRowMask_Return:
 ; DrawCoffeeTeaTileTokenRun
 ;
 ; Entry:
-;   A = token id; X = render width/slot argument.
-; Side effects: resolves C3:F054 token metadata and merges the selected token
-; graphics into the $3492 tile buffer through ApplyCoffeeTeaTileRowMask.
+;   A = token id.
+; Side effects: resolves C3:F054 token metadata, including source stride and
+; width fields, then merges the selected token graphics into the $3492 tile
+; buffer through ApplyCoffeeTeaTileRowMask.
 C4999B_DrawCoffeeTeaTileTokenRun:
     rep #$31
     phd
@@ -735,7 +737,8 @@ C49C47_UploadCoffeeTeaTileBufferWindow_Done:
 ; Entry:
 ;   A = scroll step to accumulate.
 ; Side effects: advances $3C16/$9F2D, commits the $3492 tile buffer through
-; C0:8EFC when the row window wraps, and resets $9F2F/$9F31.
+; C0:8EFC, wraps $9F2D at $20 rows, keeps the pixel remainder in $3C16, and
+; resets $9F2F/$9F31.
 C49C56_AdvanceCoffeeTeaTileScrollState:
     rep #$31
     phd
@@ -810,9 +813,10 @@ C49CA8_AdvanceCoffeeTeaRowRevealCursor:
 ; RenderCoffeeTeaTokenString
 ;
 ; Entry:
-;   A = compact token-string index; X = token render width/slot argument.
+;   A = compact token-string index.
 ; Side effects: draws up to five token bytes from the compact C4 table through
-; DrawCoffeeTeaTileTokenRun.
+; DrawCoffeeTeaTileTokenRun. Caller X/Y setup is not a semantic width input;
+; DrawCoffeeTeaTileTokenRun resolves token width from C3:F054 metadata.
 C49CC3_RenderCoffeeTeaTokenString:
     rep #$31
     phd
@@ -870,7 +874,8 @@ C49D12_RenderCoffeeTeaTokenString_Return:
 ; RenderSingleCoffeeTeaTileToken
 ;
 ; Entry:
-;   A = token id; X/Y are passed through to DrawCoffeeTeaTileTokenRun.
+;   A = token id. Caller X/Y setup is preserved at the call surface but is not
+;   a semantic input to DrawCoffeeTeaTileTokenRun.
 C49D16_RenderSingleCoffeeTeaTileToken:
     rep #$31
     tax

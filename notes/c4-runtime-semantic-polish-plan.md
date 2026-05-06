@@ -343,6 +343,13 @@ closure.
   command, row-reveal byte, compact-token byte, direct-token fallback, flyover
   window-index command, and both cleanup tails. See
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 coffee tile-buffer contract follow-up: corrected the row-mask
+  helper side-effect boundary so `$3C1E/$3C20` dirty-range words are only
+  claimed at the visible init/upload reset points, documented `C4:9C56` as an
+  every-call tile-buffer commit rather than a wrap-only commit, and demoted the
+  script interpreters' `#$000C` token register setup to preserved call-surface
+  state while leaving glyph widths owned by `C3:F054` metadata. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 - 2026-05-06 cast-name patch follow-up: split the inline C4:E796 tilemap patch
   bytes into the three local suffix rows used by `PrepareCastNameTilemap`, then
   replaced the raw E796/E79D/E7A4 source lows with row-specific constants and

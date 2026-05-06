@@ -66,7 +66,7 @@ FLYOVER_TEXT_POINTER7_LOW                    = $0C61
 COFFEE_TEA_TILE_WINDOW_INDEX                 = $9F2D
 COFFEE_TEA_ROW_TILE_LIMIT                    = $2000
 COFFEE_TEA_FRAME_STEP                        = $0018
-COFFEE_TEA_TOKEN_WIDTH                       = $000C
+COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG           = $000C
 COFFEE_TEA_INITIAL_WINDOW_INDEX              = $001C
 COFFEE_PROMPT_TOKEN                          = $00E8
 TEA_PROMPT_TOKEN                             = $00EA
@@ -220,18 +220,20 @@ C49E2B_RunCoffeeTeaScene_AdvanceRow:
 
 C49E39_RunCoffeeTeaScene_TokenString:
     ; Command 08: consume the following byte as a compact C4 token-string row.
+    ; The #$000C register setup is preserved call-surface state; the shared
+    ; tile-token helper resolves actual glyph width from C3:F054 metadata.
     lda [$06]
     and #LowByteMask
     tay
     inc $06
-    ldx #COFFEE_TEA_TOKEN_WIDTH
+    ldx #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 
 C49E4B_RunCoffeeTeaScene_SingleToken:
-    ; Other nonzero bytes are direct token ids rendered at the shared width.
-    ldy #COFFEE_TEA_TOKEN_WIDTH
+    ; Other nonzero bytes are direct token ids rendered by the shared tile path.
+    ldy #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #ZeroWord
     jsl C49D16_RenderSingleCoffeeTeaTileToken_Ext
     jmp C49DD6_RunCoffeeTeaScene_ReadCommand
@@ -400,18 +402,20 @@ C49F46_RunFlyoverIntroTextScene_AdvanceRow:
 
 C49F54_RunFlyoverIntroTextScene_TokenString:
     ; Command 08: render a compact token string through the shared tile path.
+    ; The #$000C register setup is preserved call-surface state; the shared
+    ; tile-token helper resolves actual glyph width from C3:F054 metadata.
     lda [$06]
     and #LowByteMask
     tay
     inc $06
-    ldx #COFFEE_TEA_TOKEN_WIDTH
+    ldx #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F66_RunFlyoverIntroTextScene_SingleToken:
     ; Other nonzero bytes are direct token ids.
-    ldy #COFFEE_TEA_TOKEN_WIDTH
+    ldy #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #ZeroWord
     jsl C49D16_RenderSingleCoffeeTeaTileToken_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
