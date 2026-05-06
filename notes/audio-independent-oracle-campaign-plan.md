@@ -51,6 +51,10 @@ Status: independent external-emulator representative capture campaign is ready; 
 
 ## Post Capture Validation
 
+- `python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan`
+- `python tools/validate_audio_independent_oracle_campaign_run_summary.py`
+- `python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode audit-existing-captures`
+- `python tools/validate_audio_independent_oracle_campaign_run_summary.py`
 - `python tools/validate_audio_oracle_comparison_plan.py manifests/audio-oracle-comparison-plan-all-tracks.json --allow-missing-source-outputs`
 - `python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json`
 - `python tools/validate_audio_oracle_comparison_summary.py build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --require-compared`

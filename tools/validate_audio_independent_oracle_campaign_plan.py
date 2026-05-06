@@ -137,6 +137,10 @@ def validate(
         require(set(job.get("accepted_oracles", [])) >= EXTERNAL_ORACLE_TOKENS, f"{job_id}: missing external oracle options")
         require("import_audio_oracle_reference_capture.py" in str(job.get("import_command", "")), f"{job_id}: missing import command")
         require("--emulator-version" in str(job.get("import_command", "")), f"{job_id}: importer command lacks metadata args")
+        require("run_audio_independent_oracle_campaign.py" in str(job.get("dry_run_command", "")), f"{job_id}: missing dry-run command")
+        require("--mode dry-run-plan" in str(job.get("dry_run_command", "")), f"{job_id}: bad dry-run command")
+        require("run_audio_independent_oracle_campaign.py" in str(job.get("audit_command", "")), f"{job_id}: missing audit command")
+        require("--mode audit-existing-captures" in str(job.get("audit_command", "")), f"{job_id}: bad audit command")
         require("collect_audio_oracle_comparison_results.py" in str(job.get("collect_command", "")), f"{job_id}: missing collect command")
         require("validate_audio_oracle_verification_report.py" in str(job.get("result_validator", "")), f"{job_id}: missing result validator")
 
@@ -167,6 +171,9 @@ def validate(
         require(field in set(capture_contract.get("minimum_metadata_fields", [])), f"capture contract missing {field}")
     commands = data.get("post_capture_validation_commands", [])
     for command in (
+        "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan",
+        "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode audit-existing-captures",
+        "python tools/validate_audio_independent_oracle_campaign_run_summary.py",
         "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
         "python tools/validate_audio_duration_uncertainty_register.py",
     ):

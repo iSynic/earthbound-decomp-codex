@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Run non-mutating checks for the independent external-emulator oracle campaign."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_CAMPAIGN = ROOT / "manifests" / "audio-independent-oracle-campaign-plan.json"
+DEFAULT_SUMMARY = ROOT / "build" / "audio" / "independent-oracle-campaign-runs" / "independent-oracle-campaign-run-summary.json"
+REQUIRED_METADATA_FIELDS = {
+    "oracle_id",
+    "oracle_kind",
+    "independent_emulator_capture",
+    "emulator_version",
+    "capture_command",
+    "audio_settings",
+    "source_spc_sha1",
+    "reference_wav_sha1",
+    "render_sample_rate",
+    "channels",
+    "bits_per_sample",
+    "duration_seconds",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Run independent oracle campaign checks.")
+    parser.add_argument("--campaign", default=str(DEFAULT_CAMPAIGN), help="Committed independent oracle campaign JSON.")
+    parser.add_argument(
+        "--mode",
+        default="dry-run-plan",
+        choices=["dry-run-plan", "audit-existing-captures"],
+        help="Emit checklist records only, or audit existing planned capture metadata without modifying it.",
+    )
+    parser.add_argument("--phase", action="append", help="Campaign phase to include. May be repeated.")
+    parser.add_argument("--track-id", type=int, action="append", help="Track id to include. May be repeated.")
+    parser.add_argument("--job-id", action="append", help="Oracle job id to include. May be repeated.")
+    parser.add_argument("--limit", type=int, help="Maximum selected jobs to include.")
+    parser.add_argument("--summary", default=str(DEFAULT_SUMMARY), help="Ignored run summary output.")
+    return parser.parse_args()
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def resolve_repo_path(path_text: str) -> Path:
+    path = Path(path_text)
+    return path if path.is_absolute() else ROOT / path
+
+
+def select_jobs(campaign: dict[str, Any], args: argparse.Namespace) -> list[dict[str, Any]]:
+    phases = set(args.phase or [])
+    track_ids = set(args.track_id or [])
+    job_ids = set(args.job_id or [])
+    jobs: list[dict[str, Any]] = []
+    for job in campaign.get("campaign_jobs", []):
+        if phases and job.get("phase") not in phases:
+            continue
+        if track_ids and int(job.get("track_id", -1)) not in track_ids:
+            continue
+        if job_ids and job.get("job_id") not in job_ids:
+            continue
+        jobs.append(job)
+    available_job_ids = {str(job.get("job_id")) for job in campaign.get("campaign_jobs", [])}
+    available_track_ids = {int(job.get("track_id", -1)) for job in campaign.get("campaign_jobs", [])}
+    missing_jobs = job_ids - available_job_ids
+    missing_tracks = track_ids - available_track_ids
+    if missing_jobs:
+        raise ValueError(f"requested job ids not found: {', '.join(sorted(missing_jobs))}")
+    if missing_tracks:
+        raise ValueError(f"requested track ids not found: {sorted(missing_tracks)}")
+    jobs.sort(key=lambda item: int(item.get("execution_order", 0)))
+    if args.limit is not None:
+        jobs = jobs[: args.limit]
+    return jobs
+
+
+def metadata_audit(job: dict[str, Any]) -> dict[str, Any]:
+    outputs = job.get("reference_capture_outputs", {})
+    metadata_path_text = str(outputs.get("capture_metadata", ""))
+    metadata_path = resolve_repo_path(metadata_path_text)
+    record: dict[str, Any] = {
+        "capture_metadata_path": metadata_path_text,
+        "capture_metadata_exists": metadata_path.exists(),
+        "missing_metadata_fields": sorted(REQUIRED_METADATA_FIELDS),
+        "independent_emulator_capture": False,
+        "oracle_id": None,
+        "oracle_kind": None,
+        "source_spc_sha1_matches": False,
+        "wav_format_matches_policy": False,
+        "duration_covers_planned": False,
+    }
+    if not metadata_path.exists():
+        return record
+    metadata = load_json(metadata_path)
+    missing_fields = REQUIRED_METADATA_FIELDS - set(metadata)
+    record.update(
+        {
+            "missing_metadata_fields": sorted(missing_fields),
+            "independent_emulator_capture": bool(metadata.get("independent_emulator_capture")),
+            "oracle_id": metadata.get("oracle_id"),
+            "oracle_kind": metadata.get("oracle_kind"),
+            "source_spc_sha1_matches": metadata.get("source_spc_sha1") == job.get("source_spc", {}).get("sha1"),
+            "wav_format_matches_policy": (
+                int(metadata.get("render_sample_rate", 0)) == 32000
+                and int(metadata.get("channels", 0)) == 2
+                and int(metadata.get("bits_per_sample", 0)) == 16
+            ),
+            "duration_covers_planned": float(metadata.get("duration_seconds", 0.0)) >= float(job.get("duration_seconds", 0.0)),
+        }
+    )
+    return record
+
+
+def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
+    audit = metadata_audit(job) if mode == "audit-existing-captures" else {}
+    ready = (
+        mode == "audit-existing-captures"
+        and audit.get("capture_metadata_exists") is True
+        and audit.get("independent_emulator_capture") is True
+        and not audit.get("missing_metadata_fields")
+        and audit.get("source_spc_sha1_matches") is True
+        and audit.get("wav_format_matches_policy") is True
+        and audit.get("duration_covers_planned") is True
+    )
+    status = "independent_capture_ready" if ready else "pending_independent_capture"
+    return {
+        "execution_order": int(job["execution_order"]),
+        "campaign_job_id": job["campaign_job_id"],
+        "job_id": job["job_id"],
+        "track_id": int(job["track_id"]),
+        "track_name": job["track_name"],
+        "phase": job["phase"],
+        "mode": mode,
+        "status": status,
+        "import_command": job["import_command"],
+        "collect_command": job["collect_command"],
+        "result_validator": job["result_validator"],
+        "capture_metadata_path": job.get("reference_capture_outputs", {}).get("capture_metadata"),
+        "promotion_allowed_by_run": False,
+        "audit": audit,
+    }
+
+
+def write_summary(campaign: dict[str, Any], summary_path: Path, args: argparse.Namespace, runs: list[dict[str, Any]]) -> None:
+    independent_ready_count = sum(1 for run in runs if run.get("status") == "independent_capture_ready")
+    pending_count = sum(1 for run in runs if run.get("status") == "pending_independent_capture")
+    summary = {
+        "schema": "earthbound-decomp.audio-independent-oracle-campaign-run.v1",
+        "campaign_plan": "manifests/audio-independent-oracle-campaign-plan.json",
+        "campaign_status": campaign.get("status"),
+        "mode": args.mode,
+        "selected_count": len(runs),
+        "independent_capture_ready_count": independent_ready_count,
+        "pending_independent_capture_count": pending_count,
+        "promotion_allowed_by_run": False,
+        "release_quality_claim_ready_by_run": False,
+        "selection": {
+            "phase": args.phase or [],
+            "track_id": args.track_id or [],
+            "job_id": args.job_id or [],
+            "limit": args.limit,
+        },
+        "runs": runs,
+    }
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    summary_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    args = parse_args()
+    campaign = load_json(Path(args.campaign))
+    selected = select_jobs(campaign, args)
+    print(f"Selected {len(selected)} independent oracle campaign jobs for {args.mode} mode")
+    runs = [run_one(job, mode=args.mode) for job in selected]
+    for run in runs:
+        print(f"- {run['execution_order']:03d} {run['job_id']}: {run['status']}")
+    write_summary(campaign, Path(args.summary), args, runs)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

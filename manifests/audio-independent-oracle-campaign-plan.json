@@ -74,6 +74,10 @@
     }
   },
   "post_capture_validation_commands": [
+    "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan",
+    "python tools/validate_audio_independent_oracle_campaign_run_summary.py",
+    "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode audit-existing-captures",
+    "python tools/validate_audio_independent_oracle_campaign_run_summary.py",
     "python tools/validate_audio_oracle_comparison_plan.py manifests/audio-oracle-comparison-plan-all-tracks.json --allow-missing-source-outputs",
     "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
     "python tools/validate_audio_oracle_comparison_summary.py build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --require-compared",
@@ -153,6 +157,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 1 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-001-gas_station --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-001-gas_station --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -228,6 +234,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 17 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-017-monotoli_building --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-017-monotoli_building --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -303,6 +311,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 32 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-032-giant_step --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-032-giant_step --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -378,6 +388,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 46 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-046-onett --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-046-onett --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -453,6 +465,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 171 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-171-winters_intro --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-171-winters_intro --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -528,6 +542,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 173 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-173-good_morning_moonside --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-173-good_morning_moonside --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -603,6 +619,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 175 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-175-title_screen --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-175-title_screen --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -678,6 +696,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 10 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-010-what_the_heck --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-010-what_the_heck --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -753,6 +773,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 8 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-008-battle_swirl1 --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-008-battle_swirl1 --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -828,6 +850,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 5 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-005-you_won1 --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-005-you_won1 --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -903,6 +927,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 12 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-012-you_won2 --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-012-you_won2 --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -978,6 +1004,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 25 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-025-chaos_theatre --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-025-chaos_theatre --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -1053,6 +1081,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 115 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-115-phone_call --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-115-phone_call --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -1128,6 +1158,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 123 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-123-someone_joins --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-123-someone_joins --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -1203,6 +1235,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 135 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-135-teleport_in --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-135-teleport_in --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
@@ -1278,6 +1312,8 @@
         "any mismatch must be classified before release-quality playback is claimed"
       ],
       "import_command": "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 161 --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
+      "dry_run_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-161-soundstone_recording_lilliput_steps --mode dry-run-plan",
+      "audit_command": "python tools/run_audio_independent_oracle_campaign.py --job-id oracle-track-161-soundstone_recording_lilliput_steps --mode audit-existing-captures",
       "collect_command": "python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json",
       "report_refresh_command": "python tools/build_audio_oracle_verification_report.py --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json --json manifests/audio-oracle-verification-report-all-tracks.json --markdown notes/audio-oracle-verification-report-all-tracks.md",
       "result_validator": "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
