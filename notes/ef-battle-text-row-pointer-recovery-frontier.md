@@ -66,6 +66,24 @@ Recover these before any broader action-table sweep:
 | `4` | `119..134`, `186..188`, `257`, `260..266` | `C2:9033` no-op flavor rows need row-message pointers to separate pure presentation from missing mechanics. |
 | `5` | `251..258` | Neighboring tiny no-op tails need row-message pointers and bank classification. |
 
+## Lifeup Caution
+
+Rows `32..35` are deliberately kept in the pointer-recovery frontier even though
+several neighboring PSI rows already use `EF:8543`:
+
+- local notes prove `EF:8543` for early PSI examples such as rows `10..31` and
+  later PSI-status rows `53` and `58`;
+- local C2 notes prove the Lifeup behavior wrappers at `C2:9AC6`, `C2:9ACF`,
+  `C2:9AD8`, and `C2:9AE1`;
+- no current local note proves the row `+4` message pointer for Lifeup rows
+  `32..35`;
+- EF Lifeup explanation text at `EF:5173..51BB` and enemy-action flavor text
+  at `EF:8D4C` are separate anchors and should not be treated as row `32..35`
+  presentation messages without table evidence.
+
+This is exactly the kind of case where the row `+8` behavior body is strong,
+but the `C1:DD9F` presentation text still needs the row `+4` pointer.
+
 ## Promotion Rules
 
 Use the recovered row `+4` bank to decide the follow-up:

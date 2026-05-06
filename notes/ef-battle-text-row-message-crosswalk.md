@@ -153,6 +153,9 @@ evidence currently records the PSI metadata and row `+8` bodies, not the row
 Modeling rule: do not fold rows `32..35` into the shared `EF:8543` PSI
 row-message bucket until their row `+4` pointers are recovered. Their behavior
 bodies are known; their presentation anchors are not yet locally joined.
+Do not substitute the EF Lifeup explanation anchors or the enemy-action
+`MSG_BTL_YUDAN_LIFEUP` flavor anchor for these row messages without table
+evidence.
 
 ### Behavior-Known No-Op And Flavor Rows
 
