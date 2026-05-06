@@ -79,6 +79,10 @@ Examples:
 - EBATTLE4 action-blocking status anchors in `EF:7186..720C` explain a blocked
   turn; the adjacent PSI-seal result at `EF:7221` is a
   `ByteSubstitutionResultText` consumer, not a row presentation anchor.
+- EBATTLE0 battle-start status announcements at `EF:843F/8444/8445` and
+  random-action status text at `EF:845D/8477` are direct `DC1C` emissions
+  around target-context setup and row-message selection; they are not EBATTLE1
+  row `+4` presentation text.
 - `EF:7249..72DB` names the guard-on, Fly-Honey, and homesick branch front of
   the EBATTLE4 event/flavor corridor. These labels are source anchors only
   until caller evidence proves a row-presentation or direct-result lane.

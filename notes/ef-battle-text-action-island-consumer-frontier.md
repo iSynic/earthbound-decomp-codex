@@ -89,9 +89,11 @@ These are not row `+4` action messages, but they sit in the same EF payload
 neighborhood and should remain visibly separate:
 
 - `EF:843F`, `EF:8444`, and `EF:8445` are battle-start status announcements
-  displayed after C2 builds target text context.
+  displayed after C2 builds target text context; the EF source now names them
+  `BattleStart...StatusAnnouncementText`.
 - `EF:845D` and `EF:8477` are random-action strange/mushroom status text
-  emitted directly before the action-table row message selection.
+  emitted directly before the action-table row message selection; the EF source
+  now names them `RandomAction...StatusText`.
 - `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
   by the row `243` and `244` behavior bodies after their row `+4` presentation
   messages at `EF:72F6` and `EF:7415`.

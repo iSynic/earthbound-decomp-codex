@@ -151,7 +151,8 @@ macros.
   guard/flavor actions, gases/breath/light/sound effects, and the last
   `MSG_BTL_CHOU_ONPA` payload before EBATTLE0 begins.
 - `EF:843F`, `EF:8444`, `EF:8445`, `EF:845D`, and `EF:8477` now mark
-  battle-start and random-action status text used by C2 direct `DC1C` callers.
+  battle-start status announcements and random-action status text used by C2
+  direct `DC1C` callers without inherited `MsgAtStart`/`MsgRandomAct` shells.
 - `EF:848C..8814` now splits the EBATTLE1 battle-command front into
   Bash/attack and Shoot row presentation, Guard/Metamorphose/flee command
   text, Spy/check row presentation, shared PSI name byte-substitution row
@@ -343,6 +344,21 @@ for `D5:7B68` row `+4` pointers. Locally proved rows include `100 -> EF:7EAC`,
 `102 -> EF:7F02`, `104 -> EF:7F32`, `117 -> EF:80C4`, and `118 -> EF:80E4`;
 the rest should stay exact `MSG_BTL_*` anchors until row `+8` behavior bodies
 are joined.
+
+## EBATTLE0 Status Follow-up
+
+The EBATTLE0 front now names the two direct `DC1C` status corridors that sit
+between EBATTLE2 action flavor and EBATTLE1 row presentation text. `EF:843F`,
+`EF:8444`, and `EF:8445` are battle-start asleep, PSI-seal, and strange status
+announcements emitted after `C2:4F62+` builds target text context through
+`C2:3D05`. `EF:845D` and `EF:8477` are random-action strange and mushroom
+status text emitted directly before the `D5:7B68` row `+4` message selection.
+
+The labels intentionally name the caller lane rather than the old EBATTLE
+symbols: battle-start anchors use `BattleStart...StatusAnnouncementText`, and
+the random-action anchors use `RandomAction...StatusText`. This keeps both
+families separate from the adjacent EBATTLE1 `RowPresentationText` anchors
+displayed through `C1:DD9F`.
 
 ## EBATTLE1 Battle Command Front Follow-up
 

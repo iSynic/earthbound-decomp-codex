@@ -201,6 +201,11 @@ This planning pass does not split EF source corridors or regenerate the bank.
   front so Bash/Shoot/Spy/shared-PSI/Pray carry `RowPresentationText`,
   `EF:8543` keeps the shared PSI-name `ByteSubstitution` role, and Thunder
   common anchors carry presentation-text names without changing C1/C2 source.
+- 2026-05-06: EF EBATTLE0 status naming follow-up tightened `EF:843F..8477`:
+  battle-start asleep/PSI-seal/strange text now names the target-context
+  `DC1C` status-announcement lane, and random-action strange/mushroom text now
+  names the pre-`DD9F` direct status lane without inherited `MsgAtStart` or
+  `MsgRandomAct` shells.
 - 2026-05-05: EF EBATTLE1 Thunder/effect/Pray follow-up split
   `EF:8814..89FE` into small/large Thunder presentation text, Thunder miss
   sound text, PBFX presentation branches 17-50, and the Pray action opening

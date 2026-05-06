@@ -5803,34 +5803,34 @@ db $15,$4E,$A3,$51,$03,$02
 
 EF8413_EBattle2MsgBtlChouOnpa:
 
-; Original data gap before EF843F_EBattle0MsgAtStartAsleep:
+; Original data gap before EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$BD,$17,$76,$00,$50,$15,$28,$9C
 db $A9,$15,$04,$91,$96,$96,$95,$93,$16,$11,$16,$66,$51,$03,$00,$15
 db $11,$92,$17,$16,$95,$94,$17,$3B,$5E,$00,$03,$02
 
-EF843F_EBattle0MsgAtStartAsleep:
+EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 
-; Original data gap before EF8444_EBattle0MsgAtStartPsiSeal:
+; Original data gap before EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 db $0A,$DF,$71,$EF,$00
 
-EF8444_EBattle0MsgAtStartPsiSeal:
+EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 
-; Original data gap before EF8445_EBattle0MsgAtStartStrange:
+; Original data gap before EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 db $02
 
-EF8445_EBattle0MsgAtStartStrange:
+EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 
-; Original data gap before EF845D_EBattle0MsgRandomActStrange:
+; Original data gap before EF845D_EBattle0RandomActionStrangeStatusText:
 db $01,$70,$1C,$0E,$15,$21,$91,$93,$16,$35,$00,$50,$50,$91,$15,$5F
 db $92,$99,$A4,$15,$B9,$5E,$03,$02
 
-EF845D_EBattle0MsgRandomActStrange:
+EF845D_EBattle0RandomActionStrangeStatusText:
 
-; Original data gap before EF8477_EBattle0MsgRandomActMushroom:
+; Original data gap before EF8477_EBattle0RandomActionMushroomStatusText:
 db $01,$70,$1C,$0D,$15,$21,$91,$93,$16,$35,$00,$50,$17,$33,$17,$67
 db $A5,$9E,$A5,$A3,$A5,$91,$9C,$5E,$03,$02
 
-EF8477_EBattle0MsgRandomActMushroom:
+EF8477_EBattle0RandomActionMushroomStatusText:
 
 ; Original data gap before EF848C_EBattle1BashAttackRowPresentationText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$17,$CC,$16,$A3,$96,$A5,$9E

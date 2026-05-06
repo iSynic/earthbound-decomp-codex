@@ -2166,31 +2166,31 @@ EF8413_EBattle2MsgBtlChouOnpa:
 ; EF:843F
 
 ; EBATTLE0: battle-start asleep announcement.
-EF843F_EBattle0MsgAtStartAsleep:
+EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8444
 
 ; EBATTLE0: battle-start PSI-seal announcement.
-EF8444_EBattle0MsgAtStartPsiSeal:
+EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8445
 
 ; EBATTLE0: battle-start strange-status announcement.
-EF8445_EBattle0MsgAtStartStrange:
+EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:845D
 
 ; EBATTLE0: random action strange-status text.
-EF845D_EBattle0MsgRandomActStrange:
+EF845D_EBattle0RandomActionStrangeStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8477
 
 ; EBATTLE0: random action mushroom-status text.
-EF8477_EBattle0MsgRandomActMushroom:
+EF8477_EBattle0RandomActionMushroomStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:848C

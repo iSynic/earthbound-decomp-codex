@@ -188,6 +188,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   adjacent My Dog/Pickey/Tony/Balmon companion talk anchors through `EF:7593`.
   These remain flavor/event text islands until a C2 caller or row-pointer pass
   proves a stronger consumer lane.
+- 2026-05-06: EF EBATTLE0 status naming follow-up removed the inherited
+  `MsgAtStart`/`MsgRandomAct` shells from `EF:843F..8477`. Battle-start
+  asleep/PSI-seal/strange anchors now name `BattleStart...StatusAnnouncementText`
+  direct `DC1C` emissions, while random-action strange/mushroom anchors name
+  `RandomAction...StatusText` before the `DD9F` row-message lane.
 - 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up renamed
   `EF:7249..72DB` from inherited `MsgBtl` anchors into guard-on flavor,
   Fly-Honey event, homesick dispatcher, and homesick branch labels. The pass
