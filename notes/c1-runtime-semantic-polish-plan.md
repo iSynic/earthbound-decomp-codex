@@ -636,3 +636,8 @@ This planning pass is documentation-only.
   movement-record dword before `C0:64E3`, `1F 66` exposes the hotspot selector,
   target selector, and five-byte payload before `C0:72CF`, and `1F F1/F2`
   expose their visual-type or pose-descriptor script selector pairs.
+- 2026-05-06 follow-up: the adjacent Escargo/condiment source polish in
+  `C1:6F9F..711A` names the `0x19 25` food-condiment result staging and the
+  `0x1D 0C` Escargo storage-status classifier. The latter now exposes its
+  queued selector, storage-full bit, selected inventory item lookup, item
+  storage flag mask, and final two-bit status result path.

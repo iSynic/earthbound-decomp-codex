@@ -126,6 +126,12 @@ selector assembly for `1F F1/F2`. The callback low words are unchanged, but
 the movement-record, hotspot-activation, visual-script, and pose-script
 handoffs are now readable at the source boundary.
 
+Source polish follow-up (2026-05-06): the adjacent `0x19 25` and `0x1D 0C`
+consumer leaves in `C1:6F9F..711A` now expose their result staging too. The
+condiment helper and Escargo storage-status classifier both install their
+outputs through the shared text-context result pair instead of bare direct-page
+scratch names.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

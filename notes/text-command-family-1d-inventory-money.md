@@ -162,6 +162,14 @@ user-targeting-self helper chain and boolean text-context staging, while
 `0x1D 22` exposes the current-map-position lookup, map-class mask, exit-mouse
 usable class, and the same boolean text-context staging.
 
+Source polish follow-up (2026-05-06): the `0x1D 0C` Escargo storage status
+leaf in `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`
+now names its C1-side staging directly. The source exposes the queued storage
+selector, primary-context fallback, inventory-slot argument fallback,
+storage-full bit, selected inventory item lookup at `$99F1`, item-table
+storage flag byte `+0x1C`, not-storable mask `0x40`, and final two-bit status
+result installation through `$06/$08 -> $0E/$10`.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

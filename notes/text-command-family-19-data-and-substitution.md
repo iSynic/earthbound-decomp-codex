@@ -98,6 +98,12 @@ call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
 name; the condiment leaf calls the C1 condiment lookup helper; and the landing
 snapshot leaf calls `C2:30F3` by name after resolving its staged argument.
 
+Source polish follow-up (2026-05-06): the `0x19 25` condiment leaf now also
+names its local staging in the same source module. It resolves either the
+incoming food-item byte or the next text argument, calls the condiment lookup
+helper, and installs the result through the shared `$06/$08 -> $0E/$10`
+text-context result path.
+
 Source polish follow-up (2026-05-06): the `C1:78F7..7AE3` dispatcher module now
 also names the shared `0x18` window-helper edge surface that lives beside the
 `0x19` loaded-string dispatcher. This does not change the `0x19` case map, but
@@ -583,5 +589,4 @@ The cleanest next move is probably the success-side branch of `0x19 26` or the s
 
 - `0x19 26` is no longer structurally mysterious; the remaining gap is the exact meaning of `$9F3F` and the landing modes in `$9F41`
 - the statistics tail now has a real shared local anchor and a partial late-table crosswalk, so the next gain there is to name the remaining early and middle `C4:550F` selectors
-
 

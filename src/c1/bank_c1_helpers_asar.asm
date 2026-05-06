@@ -13609,6 +13609,22 @@ org $C1621F
 !HotspotActivationSelector = $00
 !HotspotActivationTargetSelector = $12
 !HotspotActivationCurrentPayloadByte = $13
+!TextCommandResultLo = $06
+!TextCommandResultHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!EscargoStatusFrameOffset = $FFEA
+!EscargoStorageModeSelector = $14
+!EscargoStorageFullStatusBit = $14
+!EscargoCharacterSelector = $02
+!EscargoInventorySlotOffset = $02
+!EscargoStatusBitScratch = $02
+!EscargoInventorySlotSelector = $12
+!InventoryItemListBase = $99F1
+!InventorySlotItemRecordStride = $0027
+!ItemTableStorageFlagsOffset = $001C
+!ItemCannotBeStoredMask = $0040
+!StorageFullResultBit = $0002
 !TextCommand1FC0JumpMulti2FinalizerCallback = $621F
 !TextCommand1FC0JumpMulti2Callback = $6308
 !TextCommand1FD0JeffRepairBrokenItemCallback = $63A7
@@ -15512,26 +15528,26 @@ CC_19_25:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    beq C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2
-    sta $06
-    stz $08
-    bra C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5
-C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2:
+    beq C16FB2_ReadCondimentFoodItemArgument
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C16FB5_FindCondimentForResolvedFoodItem
+C16FB2_ReadCondimentFoodItemArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
+C16FB5_FindCondimentForResolvedFoodItem:
     sep #$20
-    lda $06
+    lda !TextCommandResultLo
     jsl !C1DB33_FindCondimentForFoodItem
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -15616,20 +15632,20 @@ CC_1D_0C:
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!EscargoStatusFrameOffset
     tcd
     pla
     txy
-    sty $14
+    sty !EscargoStorageModeSelector
     lda.w #!OneWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072
-    bpl C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-    bra C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074
-C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072:
-    bmi C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
+    bvc C17072_CheckEscargoStatusArgumentLimitSign
+    bpl C17088_ApplyQueuedEscargoStorageStatusCheck
+    bra C17074_QueueEscargoStorageStatusArgumentByte
+C17072_CheckEscargoStatusArgumentLimitSign:
+    bmi C17088_ApplyQueuedEscargoStorageStatusCheck
+C17074_QueueEscargoStorageStatusArgumentByte:
     tya
     sep #$20
     ldx !DeferredCommandQueueCount
@@ -15637,85 +15653,85 @@ C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1D0CCheckEscargoStorageStatusCallback
-    jmp.w C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A
-C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088:
+    jmp.w C1711A_ReturnFromEscargoStorageStatusTextCommand
+C17088_ApplyQueuedEscargoStorageStatusCheck:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
-    beq C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094
+    beq C17094_LoadEscargoCharacterFromPrimaryContext
     txa
-    bra C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099
-C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094:
+    bra C17099_StageEscargoCharacterSelector
+C17094_LoadEscargoCharacterFromPrimaryContext:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099:
-    sta $02
-    ldy $14
-    beq C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2
+    lda !TextCommandResultLo
+C17099_StageEscargoCharacterSelector:
+    sta !EscargoCharacterSelector
+    ldy !EscargoStorageModeSelector
+    beq C170A2_ReadEscargoInventorySlotArgument
     tya
-    bra C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7
-C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2:
+    bra C170A7_StageEscargoInventorySlotSelector
+C170A2_ReadEscargoInventorySlotArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-    lda $06
-C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7:
+    lda !TextCommandResultLo
+C170A7_StageEscargoInventorySlotSelector:
     tay
-    sty $12
+    sty !EscargoInventorySlotSelector
     jsr !C190F1_CheckEscargoStorageQueueFull
     cmp.w #!ZeroWord
-    beq C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9
-    ldx.w #!TwoWord
-    stx $14
-    bra C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE
-C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9:
+    beq C170B9_StageEscargoStorageHasRoomBit
+    ldx.w #!StorageFullResultBit
+    stx !EscargoStorageFullStatusBit
+    bra C170BE_TestEscargoItemStorageFlag
+C170B9_StageEscargoStorageHasRoomBit:
     ldx.w #!ZeroWord
-    stx $14
-C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
-    ldy $12
+    stx !EscargoStorageFullStatusBit
+C170BE_TestEscargoItemStorageFlag:
+    ldy !EscargoInventorySlotSelector
     tya
     dec A
     pha
-    lda $02
+    lda !EscargoCharacterSelector
     dec A
     ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99F1
+    adc.w #!InventoryItemListBase
     ply
-    sty $02
+    sty !EscargoInventorySlotOffset
     clc
-    adc $02
+    adc !EscargoInventorySlotOffset
     tax
     lda $0000,X
     and.w #!LowByteMask
-    ldy.w #$0027
+    ldy.w #!InventorySlotItemRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$001C
+    adc.w #!ItemTableStorageFlagsOffset
     tax
     lda $D55000,X
     and.w #!LowByteMask
-    and.w #$0040
-    beq C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB
+    and.w #!ItemCannotBeStoredMask
+    beq C170FB_StageEscargoItemStorableBit
     lda.w #!OneWord
-    bra C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE
-C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB:
+    bra C170FE_CombineEscargoStorageStatusBits
+C170FB_StageEscargoItemStorableBit:
     lda.w #!ZeroWord
-C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE:
-    ldx $14
-    stx $02
-    ora $02
-    sta $06
-    stz $08
-    bpl C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C
-    dec $08
-C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+C170FE_CombineEscargoStorageStatusBits:
+    ldx !EscargoStorageFullStatusBit
+    stx !EscargoStatusBitScratch
+    ora !EscargoStatusBitScratch
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bpl C1710C_InstallEscargoStorageStatusResult
+    dec !TextCommandResultHi
+C1710C_InstallEscargoStorageStatusResult:
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
-C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
+C1711A_ReturnFromEscargoStorageStatusTextCommand:
     pld
     rts
 CC_1F_66:
