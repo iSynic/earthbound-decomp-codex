@@ -5,6 +5,7 @@ import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
@@ -31,6 +32,7 @@ class CheckedReport:
     path: Path
     expected: str
     command: str
+    data: dict[str, Any] | None = None
 
 
 def normalize_text(text: str) -> str:
@@ -63,6 +65,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_smoke_fixtures.DEFAULT_JSON_OUT,
             json_text(smoke_plan),
             "python tools/build_asset_output_smoke_fixtures.py",
+            smoke_plan,
         )
     )
     reports.append(
@@ -79,6 +82,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_recipe_contracts.DEFAULT_MARKDOWN_OUT,
             build_asset_output_recipe_contracts.render_markdown(recipe_contract),
             "python tools/build_asset_output_recipe_contracts.py",
+            recipe_contract,
         )
     )
 
@@ -88,6 +92,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_preview_geometry.DEFAULT_MARKDOWN_OUT,
             build_asset_output_preview_geometry.render_markdown(preview_geometry),
             "python tools/build_asset_output_preview_geometry.py",
+            preview_geometry,
         )
     )
 
@@ -101,6 +106,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_index.DEFAULT_MARKDOWN_OUT,
             build_asset_output_index.render_markdown(output_index),
             "python tools/build_asset_output_index.py",
+            output_index,
         )
     )
 
@@ -110,6 +116,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_source_refs.DEFAULT_MARKDOWN_OUT,
             build_asset_output_source_refs.render_markdown(source_refs),
             "python tools/build_asset_output_source_refs.py",
+            source_refs,
         )
     )
 
@@ -119,6 +126,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_path_audit.DEFAULT_MARKDOWN_OUT,
             build_asset_output_path_audit.render_markdown(path_audit),
             "python tools/build_asset_output_path_audit.py",
+            path_audit,
         )
     )
 
@@ -128,6 +136,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_raw_only_audit.DEFAULT_MARKDOWN_OUT,
             build_asset_output_raw_only_audit.render_markdown(raw_only_audit),
             "python tools/build_asset_output_raw_only_audit.py",
+            raw_only_audit,
         )
     )
 
@@ -137,6 +146,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_source_range_audit.DEFAULT_MARKDOWN_OUT,
             build_asset_source_range_audit.render_markdown(source_range_audit),
             "python tools/build_asset_source_range_audit.py",
+            source_range_audit,
         )
     )
 
@@ -146,6 +156,7 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_data_contract_frontier.DEFAULT_MARKDOWN_OUT,
             build_asset_data_contract_frontier.render_markdown(frontier),
             "python tools/build_asset_data_contract_frontier.py",
+            frontier,
         )
     )
 
@@ -156,10 +167,25 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
                 validate_asset_output_codecs.DEFAULT_MARKDOWN_OUT,
                 validate_asset_output_codecs.render_markdown(codec_report),
                 "python tools/validate_asset_output_codecs.py",
+                codec_report,
             )
         )
 
     return reports
+
+
+def report_health_errors(report: CheckedReport) -> list[str]:
+    data = report.data
+    if data is None:
+        return []
+    errors: list[str] = []
+    status = data.get("status")
+    if status is not None and status != "ok":
+        errors.append(f"{rel(report.path)} generated status is {status!r}; run `{report.command}` and inspect errors")
+    report_errors = data.get("errors")
+    if isinstance(report_errors, list) and report_errors:
+        errors.append(f"{rel(report.path)} generated {len(report_errors)} error(s); run `{report.command}`")
+    return errors
 
 
 def validate_reports(manifest_dir: Path, *, include_codec: bool) -> list[str]:
@@ -172,6 +198,7 @@ def validate_reports(manifest_dir: Path, *, include_codec: bool) -> list[str]:
                 errors.append(f"{rel(report.path)} is missing; run `{report.command}`")
             else:
                 errors.append(f"{rel(report.path)} is stale; run `{report.command}`")
+        errors.extend(report_health_errors(report))
     return errors
 
 
