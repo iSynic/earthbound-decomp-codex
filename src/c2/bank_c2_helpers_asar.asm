@@ -20211,8 +20211,11 @@ org $C2B573
 
 !C08EFC_ClearDestinationBlock = $C08EFC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C076C8_DispatchBattleConsequenceControlByte = $C076C8
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C21C5D_RecalculateCharacterDerivedLuck = $C21C5D
+!C29AEA_TryRecoverSelectedBattlerNarrowAffliction = $C29AEA
+!C2A39D_TryRecoverSelectedBattlerPoisonOnly = $C2A39D
 !SelectedRowLuckByte = $002E
 !PartyRecordStride = $005F
 !LiveCharacterLuckByteBase = $9A29
@@ -20269,9 +20272,9 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     sta $14
     jsl !C1DC66_DisplayBattleTextWithSubstitutionPayload
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
-    jsl $C29AEA
+    jsl !C29AEA_TryRecoverSelectedBattlerNarrowAffliction
     bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
-    jsl $C2A39D
+    jsl !C2A39D_TryRecoverSelectedBattlerPoisonOnly
 C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
     lda $18
     sta $06
@@ -20288,7 +20291,7 @@ C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
     asl A
     adc $04
     asl A
-    jsl $C076C8
+    jsl !C076C8_DispatchBattleConsequenceControlByte
 C2B606_ApplyBattleLuckIncreaseConsequence_LB606:
     pld
     rtl

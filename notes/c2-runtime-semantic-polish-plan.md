@@ -697,6 +697,13 @@ contract notes for C0/C1/C3/C4 consumers.
   still-soft visual refresh helpers raw. See
   `notes/c2-battle-start-payload-join-runtime-polish.md` and
   `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 ninetieth slice: tightened the battle stat-consequence epilogue
+  and recovery leaves. `C2:B573..B6EB` now names selector `9` as
+  `TryRecoverSelectedBattlerNarrowAffliction`, selector `0x0A` as
+  `TryRecoverSelectedBattlerPoisonOnly`, and the optional consequence-record
+  byte `+3` handoff through `C0:76C8` as
+  `DispatchBattleConsequenceControlByte`. See
+  `notes/c2-stat-consequence-runtime-polish.md`.
 
 ## Validation
 

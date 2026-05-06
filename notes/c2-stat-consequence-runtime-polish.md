@@ -47,6 +47,13 @@ Current promoted selector map:
 The common epilogue restores the caller pointer and may dispatch a trailing
 control byte at record offset `+3` through `C0:76C8`.
 
+Source follow-up: the `C2:B573..B6EB` source now names selector `9` as
+`TryRecoverSelectedBattlerNarrowAffliction`, selector `0x0A` as
+`TryRecoverSelectedBattlerPoisonOnly`, and the epilogue's optional `+3` byte
+handoff as `DispatchBattleConsequenceControlByte`. The C0 helper name remains
+local to this consequence-record contract until its wider bank-C0 role is
+promoted from its own callers.
+
 ## HP/PP Feedback Selectors
 
 Selectors `0` and `1` reuse the selected-row feedback helpers documented in the
