@@ -75,7 +75,7 @@ The important local conclusion is that Thunder is not just replaying a static ef
 
 ## Success branch: hit presentation, busy wait, and target-side handling
 
-Once the selected target is established, the local helper calls `C2:3D05`, then feeds the derived value in `$02` through `C2:6BB8`.
+Once the selected target is established, the local helper calls `C2:3D05`, then feeds the derived value in `$02` through `C2:6BB8` / `RollActionChanceGate`.
 
 Current safest interpretation:
 

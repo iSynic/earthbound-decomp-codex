@@ -70,8 +70,10 @@ enemy id `0xD5` after neighboring `+0x1E == 2` checks. See
 
 The extra gates stay intentionally mechanical for now:
 
-- `C2:9F06` tests selected-row `+0x3C` through `C2:6BB8`
-- `C2:8C69` tests selected-row `+0x39` through `C2:6BB8`
+- `C2:9F06` tests selected-row `+0x3C` through `C2:6BB8` /
+  `RollActionChanceGate`
+- `C2:8C69` tests selected-row `+0x39` through `C2:6BB8` /
+  `RollActionChanceGate`
 - `C2:8CF1` tests through threshold helper `C2:7C96`
 
 ## Strange Subgroup `+0x20`
@@ -82,7 +84,7 @@ The strange-status bodies converge on `Y = 1`, `X = 3`, writing selected-row
 - `C2:8D3A` is a thin wrapper to the resist-checked body at `C2:A056`
 - `C2:8DBB` is the direct strange-status sibling without the extra `+0x3B` gate
 - `C2:A056` is the resist-checked body that tests selected-row `+0x3B` through
-  `C2:6BB8`
+  `C2:6BB8` / `RollActionChanceGate`
 
 Success text is `EF:6C3A`; failure text is `EF:766E`.
 

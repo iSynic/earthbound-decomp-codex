@@ -24,7 +24,7 @@
 ; External contracts used by this module
 
 C26A2D_RollRandomThreshold                    = $6A2D
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C27191_ClampBattlerPpTargetDelta              = $7191
 C2721D_ReduceBattlerPpTarget                  = $721D
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
@@ -142,7 +142,7 @@ C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     sep #$20
     lda $0037,X
     ; Primary-affliction status gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ldy.w #$0003

@@ -109,7 +109,7 @@ Promoted local flow:
 - choose one surviving target and map it into selected row `$A972`
 - rebuild target text context
 - use the clamped active-count value as the strike success threshold through
-  `C2:6BB8`
+  `C2:6BB8` / `RollActionChanceGate`
 - emit `EF:8814` for the small Thunder presentation or `EF:8823` for the large
   Thunder presentation
 - wait on `C2:EACF` until the presentation is no longer busy
@@ -156,7 +156,7 @@ runtime-helpful action helpers:
 
 - final names for selected-row `+0x38/+0x3A` beyond damage-selector wording
 - exact symbolic name for descriptor type `3` in `D5:7B68`
-- one-to-one local names for `C2:6BB8`, `C2:8125`, and the damage/resistance
-  helper stack
+- deeper helper-body promotion for `C2:6BB8`, `C2:8125`, and the
+  damage/resistance helper stack
 - global promotion of the reflection item identity should wait until item table
   evidence is joined locally

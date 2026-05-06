@@ -28,7 +28,10 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CAF_TestSpeedBasedSuccess                     = $7CAF
+C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
+C28D41_CheckTargetField2eThresholdGate          = $8D41
 C28125_CalculateResistAdjustedDamage            = $8125
 
 EFMSG_ConcentrationSealInflicted                = $6C0B
@@ -62,10 +65,10 @@ C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A420_RunItemSideConcentrationSealAction_LA420
-    jsr $8D41
+    jsr C28D41_CheckTargetField2eThresholdGate
     cmp.w #$0000
     beq C2A412_RunItemSideConcentrationSealAction_LA412
     lda $A972
@@ -214,11 +217,11 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     tdc
     adc.w #$FFEC
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #$00FA
-    jsr $7CAF
+    jsr C27CAF_TestSpeedBasedSuccess
     cmp.w #$0000
     beq C2A56A_RunItemSideConcentrationSealAction_LA56A
     ldx $A972
@@ -236,11 +239,11 @@ C2A53F_RunItemSideConcentrationSealAction_LA53F:
 C2A541_RunItemSideConcentrationSealAction_LA541:
     ldx.w #$00FF
     lda $12
-    jsr $8125
+    jsr C28125_CalculateResistAdjustedDamage
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #EFMSG_SolidificationInflicted

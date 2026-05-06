@@ -25,7 +25,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C08FF7_ResolveIndexedPointerOffset            = $C08FF7
 C12DD5_RunThunderPresentationEffect           = $C12DD5
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
@@ -170,7 +170,7 @@ C2974D_RunPsiThunderCommon_L974D:
     lda $02
     sep #$20
     ; Use the clamped active-count threshold to decide whether this strike hits.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C29771_RunPsiThunderCommon_L9771
     jmp $9821

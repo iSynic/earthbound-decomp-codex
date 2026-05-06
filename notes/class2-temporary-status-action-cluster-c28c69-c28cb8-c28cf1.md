@@ -42,7 +42,8 @@ That already suggests a themed local cluster rather than unrelated isolated acti
 Locally it does all of the following:
 
 - gates through `C2:7CFD`
-- performs one extra target-side gate through `row + 0x39 -> C2:6BB8`
+- performs one extra target-side gate through `row + 0x39 -> C2:6BB8` /
+  `RollActionChanceGate`
 - then sets `Y = 2`, `X = 2`
 - applies that pair through `C2:724A`
 - on success, displays `EF:6BBB`
@@ -118,7 +119,7 @@ Still open:
 
 - exact reference-side action names for entries `78..83`
 - whether the repeated `C2:8CB8` entry texts correspond to different thematic attacks sharing one immobilize effect body, or a narrower family such as multiple spray or mucus attacks
-- whether the extra `row + 0x39 -> C2:6BB8` gate in `C2:8C69` has a more specific semantic meaning than a general extra eligibility check
+- whether the extra `row + 0x39 -> C2:6BB8` / `RollActionChanceGate` path in `C2:8C69` has a more specific semantic meaning than a general extra eligibility check
 
 ## Current takeaway
 

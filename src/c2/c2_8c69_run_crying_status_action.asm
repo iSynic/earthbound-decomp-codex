@@ -19,7 +19,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
@@ -43,7 +43,7 @@ C28C69_RunCryingStatusAction = BTLACT_CRYING
     sep #$20
     lda $0039,X
     ; Extra selected-row gate before crying can be installed.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28CA8_RunCryingStatusAction_L8CA8
     ldy.w #$0002

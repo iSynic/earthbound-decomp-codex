@@ -43,7 +43,7 @@ Locally it does all of the following:
 
 - gates through `C2:7CFD`
 - reads target byte `row + 0x3B`
-- passes that byte through `C2:6BB8`
+- passes that byte through `C2:6BB8` / `RollActionChanceGate`
 - only continues on success of that extra target-side gate
 - then sets `Y = 1`, `X = 3`
 - applies that pair through `C2:724A`
@@ -56,7 +56,7 @@ Locally it does all of the following:
 
 That makes `C2:A056` the strongest current local anchor for `battler::afflictions+3 = 1`.
 
-The extra `row + 0x3B -> C2:6BB8` gate is especially useful, because it matches the broad shape of a resist-style variant rather than a plain status writer.
+The extra `row + 0x3B -> C2:6BB8` / `RollActionChanceGate` path is especially useful, because it matches the broad shape of a resist-style variant rather than a plain status writer.
 
 In the action table, the strongest current live anchor is:
 
@@ -131,7 +131,7 @@ Still open:
 
 - the exact local symbolic names for entries `84`, `86`, and `207`
 - whether `C2:8DBB` best matches reference `BTLACT_FEELSTRANGE`, `BTLACT_PRAY_RENDING_SOUND`, or another generic strange-inflict action
-- the exact human-facing meaning of target byte `row + 0x3B` and helper `C2:6BB8`
+- the exact human-facing meaning of target byte `row + 0x3B`
 
 ## Best next target
 

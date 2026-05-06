@@ -512,6 +512,16 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-psi-flash-runtime-polish.md`,
   `notes/c2-late-status-runtime-polish.md`, and
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 seventy-second slice: named the caller-side `C2:6BB8` contract as
+  `RollActionChanceGate` across status, PSI, item, and call-for-help action
+  leaves. The same pass finished nearby raw ABI calls in the A89D and A3D1 item
+  clusters, so their chance gates, selected-row slot writes, target blockers,
+  random rollers, damage applicators, and HP/PP feedback helpers now use
+  source-facing contract names while staying byte-neutral. See
+  `notes/c2-asleep-status-runtime-polish.md`,
+  `notes/c2-late-status-runtime-polish.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-call-for-help-runtime-polish.md`.
 
 ## Validation
 

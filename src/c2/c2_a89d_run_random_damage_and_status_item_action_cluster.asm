@@ -15,12 +15,25 @@ C08FF7_ResolveIndexedPointerOffset              = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
+C26A2D_RollRandomThreshold                      = $6A2D
+C26A44_RollRandomAmount                         = $6A44
+C26AFD_RollDamageAmount                         = $6AFD
+C26BB8_RollActionChanceGate                     = $6BB8
 C26BFB_MaskSet_BuildActiveTypedBattlers         = $C26BFB
 C26C82_MaskSet_BuildEnemySideBattlers           = $C26C82
 C26E00_MaskSet_BuildActiveBattlers              = $C26E00
 C26E77_MaskSet_RemoveActiveNpcBattlers          = $C26E77
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
 C270E4_MaskSet_PruneAfflictionFlaggedBattlers   = $70E4
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
+C27294_ApplyBattlerHpRecoveryFeedback           = $7294
+C27318_ApplyBattlerPpRecoveryFeedback           = $7318
+C27397_InstallBattlerHeavyRecoveryReset         = $7397
+C27C96_RollSelectedRowThresholdGate             = $7C96
+C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
+C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
+C27D82_ApplyBoundedDefenseIncrease              = $7D82
+C28125_ApplyTypedDamageToSelectedTarget         = $8125
 
 EFMSG_PoisonInflicted                           = $6B18
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -49,27 +62,27 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A900_RunRandomDamageAndStatusItemActionCluster_LA900
     lda.w #$00FA
-    jsr $7CAF
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A8F2_RunRandomDamageAndStatusItemActionCluster_LA8F2
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_RollRandomThreshold
     ldx.w #$00FF
     inc A
-    jsr $8125
+    jsr C28125_ApplyTypedDamageToSelectedTarget
     sep #$20
     lda.b #$80
-    jsr $6BB8
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A900_RunRandomDamageAndStatusItemActionCluster_LA900
     ldy.w #$0005
     ldx.w #$0000
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A900_RunRandomDamageAndStatusItemActionCluster_LA900
     lda.w #EFMSG_PoisonInflicted
@@ -94,19 +107,19 @@ C2A902_RunStatusItemActionCondition4 = BTLACT_INFLICT_SOLIDIFICATION
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
     ldx $A972
     sep #$20
     lda SelectedRowAfflictionChanceByte,X
-    jsr $6BB8
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A943_RunRandomDamageAndStatusItemActionCluster_LA943
     lda.w #EFMSG_SolidificationInflicted
@@ -134,13 +147,13 @@ C2A953_RunStatusItemActionCondition5 = BTLACT_INFLICT_POISON
     ldx $A972
     sep #$20
     lda SelectedRowAfflictionChanceByte,X
-    jsr $6BB8
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C
     ldy.w #$0005
     ldx.w #$0000
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A98C_RunRandomDamageAndStatusItemActionCluster_LA98C
     lda.w #EFMSG_PoisonInflicted
@@ -166,14 +179,14 @@ C2A99C_RunRandomDamageRollBySlot3A = BTLACT_BAG_OF_DRAGONITE
     adc.w #$FFF0
     tcd
     lda.w #$0320
-    jsr $6AFD
+    jsr C26AFD_RollDamageAmount
     sta $0E
     ldx $A972
     lda $003A,X
     and.w #$00FF
     tax
     lda $0E
-    jsr $8125
+    jsr C28125_ApplyTypedDamageToSelectedTarget
     pld
     rtl
 INSECT_SPRAY_COMMON:
@@ -187,7 +200,7 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     pla
     tax
     stx $12
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $A972
@@ -202,9 +215,9 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $12
     txa
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyTypedDamageToSelectedTarget
     bra C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A
 C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC:
     lda.w #EFMSG_StatusNoEffect
@@ -238,7 +251,7 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     pla
     tax
     stx $12
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $A972
@@ -253,9 +266,9 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $12
     txa
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyTypedDamageToSelectedTarget
     bra C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B
 C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D:
     lda.w #EFMSG_StatusNoEffect
@@ -285,7 +298,7 @@ C2AA7F_RunDoubleHpHealStatusItemAction = BTLACT_SUDDEN_GUTS_PILL
     tdc
     adc.w #$FFEA
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2AAC4_RunRandomDamageAndStatusItemActionCluster_LAAC4
     ldx $A972
@@ -320,14 +333,14 @@ C2AAC6_RunTargetHpHealFromCurrentHpAction = BTLACT_DEFENSE_SPRAY
     tdc
     adc.w #$FFE8
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2AB0B_RunRandomDamageAndStatusItemActionCluster_LAB0B
     ldx $A972
     ldy SelectedRowDefenseByte,X
     sty $16
     lda $A972
-    jsr $7D82
+    jsr C27D82_ApplyBoundedDefenseIncrease
     lda.w #C8MSG_DefenseIncreaseAmount
     sta $0E
     lda.w #C8_BattleTextScriptBank
@@ -416,7 +429,7 @@ C2AB8B_RunRandomDamageAndStatusItemActionCluster_LAB8B:
     lda $9643
     beq C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF
     lda.w #$0064
-    jsr $6A2D
+    jsr C26A2D_RollRandomThreshold
     sta $14
     ldx $A970
     lda $0008,X
@@ -490,7 +503,7 @@ C2AC2A_RestoreTargetContextAfterItemEffect = BTLACT_PRAY_SUBTLE
     lsr A
     tax
     lda $A972
-    jsr $7294
+    jsr C27294_ApplyBattlerHpRecoveryFeedback
     rtl
 BTLACT_PRAY_WARM:
 C2AC3E_RestoreShiftedTargetContextAfterItemEffect = BTLACT_PRAY_WARM
@@ -502,7 +515,7 @@ C2AC3E_RestoreShiftedTargetContextAfterItemEffect = BTLACT_PRAY_WARM
     lsr A
     tax
     lda $A972
-    jsr $7294
+    jsr C27294_ApplyBattlerHpRecoveryFeedback
     rtl
 BTLACT_PRAY_GOLDEN:
 C2AC51_RestoreTargetContextOffsetAfterItemEffect = BTLACT_PRAY_GOLDEN
@@ -514,19 +527,19 @@ C2AC51_RestoreTargetContextOffsetAfterItemEffect = BTLACT_PRAY_GOLDEN
     sbc $0013,X
     tax
     lda $A972
-    jsr $7294
+    jsr C27294_ApplyBattlerHpRecoveryFeedback
     rtl
 BTLACT_PRAY_MYSTERIOUS:
 C2AC68_ApplyRandomSmallKnockbackItemEffect = BTLACT_PRAY_MYSTERIOUS
     rep #$31
     lda.w #$0005
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     tax
     bne C2AC74_RunRandomDamageAndStatusItemActionCluster_LAC74
     inx
 C2AC74_RunRandomDamageAndStatusItemActionCluster_LAC74:
     lda $A972
-    jsr $7318
+    jsr C27318_ApplyBattlerPpRecoveryFeedback
     rtl
 BTLACT_PRAY_RAINBOW:
 C2AC7B_ApplyFeelingStrangeTargetContextItemEffect = BTLACT_PRAY_RAINBOW
@@ -540,7 +553,7 @@ C2AC7B_ApplyFeelingStrangeTargetContextItemEffect = BTLACT_PRAY_RAINBOW
     lda $0015,X
     tax
     lda $A972
-    jsr $7397
+    jsr C27397_InstallBattlerHeavyRecoveryReset
 C2AC98_RunRandomDamageAndStatusItemActionCluster_LAC98:
     rtl
 BTLACT_PRAY_AROMA:
@@ -550,13 +563,13 @@ C2AC99_RunStatusItemActionStatus2 = BTLACT_PRAY_AROMA
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2ACD8_RunRandomDamageAndStatusItemActionCluster_LACD8
     ldy.w #$0001
     ldx.w #$0002
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2ACCA_RunRandomDamageAndStatusItemActionCluster_LACCA
     lda.w #EFMSG_AsleepInflicted
@@ -581,13 +594,13 @@ C2ACDA_RunStatusItemActionStatus3 = BTLACT_PRAY_RENDING_SOUND
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2AD19_RunRandomDamageAndStatusItemActionCluster_LAD19
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2AD0B_RunRandomDamageAndStatusItemActionCluster_LAD0B
     lda.w #EFMSG_StrangeInflicted
@@ -613,7 +626,7 @@ C2AD1B_RunRandomItemSideEffectDispatcher = BTLACT_PRAY
     adc.w #$FFE8
     tcd
     lda.w #$0010
-    jsr $6A2D
+    jsr C26A2D_RollRandomThreshold
     tax
     lda $C4A2F9,X
     and.w #$00FF

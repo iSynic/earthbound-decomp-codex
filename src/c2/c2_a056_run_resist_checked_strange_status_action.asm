@@ -24,7 +24,7 @@
 
 C26A2D_RollRandomThreshold                    = $6A2D
 C26AFD_RollDamageAmount                       = $6AFD
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27294_ApplyBattlerHpRecoveryFeedback         = $7294
 C27318_ApplyBattlerPpRecoveryFeedback         = $7318
@@ -68,7 +68,7 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     sep #$20
     lda $003B,X
     ; Strange-family selected-row gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     ldy.w #$0001

@@ -59,6 +59,7 @@ The two failure scripts are now named at the source sites:
 
 `C2:BE6C` performs the successful selection and placement path:
 
+- starts with the generic `C2:6BB8` / `RollActionChanceGate` probability check
 - rechecks the width budget using `C2:BD13`
 - scans active enemy rows for placement bounds
 - computes x position and row side when the candidate can fit

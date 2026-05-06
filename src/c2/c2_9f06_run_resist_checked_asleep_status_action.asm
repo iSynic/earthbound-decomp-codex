@@ -23,7 +23,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
@@ -47,7 +47,7 @@ C29F06_RunResistCheckedAsleepStatusAction = BTLACT_HYPNOSIS_A
     sep #$20
     lda $003C,X
     ; Asleep/Hypnosis-family selected-row resistance gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C29F47_RunResistCheckedAsleepStatusAction_L9F47
     ldy.w #$0001

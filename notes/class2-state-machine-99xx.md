@@ -44,7 +44,8 @@ That makes it a front-door blocker for the family.
 
 ### `C2:98A1`
 
-This routine first calls `C2:941D`, then checks current-slot byte `+39` through `C2:6BB8`.
+This routine first calls `C2:941D`, then checks current-slot byte `+39`
+through `C2:6BB8` / `RollActionChanceGate`.
 
 Current best reading:
 
@@ -156,5 +157,4 @@ The safest current interpretation is:
 ## Best next target
 
 - See `notes/class2-mask-helper-family.md` for the decoded bitset layer. The best next move is to map the candidate list rooted at `9FAC` or decode the metadata tables around `9FC9`, so the family can be named from concrete behavior instead of just transition structure.
-
 

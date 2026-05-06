@@ -12,15 +12,15 @@
 ; - Broader recovery helper above `C2:9B7A`.
 ; - Handles row `+0x1D == 3` numb/paralysis recovery and `+0x1D == 2`
 ;   diamondized/body-state recovery.
-; - Row `+0x1D == 1` is the hard recovery branch: it tests the candidate mask
-;   phase and either routes through the heavy recovery/reset helper or emits
+; - Row `+0x1D == 1` is the hard recovery branch: it tests a status chance
+;   gate and either routes through the heavy recovery/reset helper or emits
 ;   `EF:6F8E`.
 ; - Falls back to the curative sibling when none of those states are present.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                      = $6BB8
+C26BB8_RollActionChanceGate                         = $6BB8
 C27397_InstallBattlerHeavyRecoveryReset             = $7397
 C1DC1C_DisplayBattleTextFromPointer                 = $C1DC1C
 C29B7A_TryRecoverSelectedBattlerCurativeAfflictions = $C29B7A
@@ -75,7 +75,7 @@ C29C6C_TryRecoverSelectedBattlerBroadAfflictions_L9C6C:
 C29C85_TryRecoverSelectedBattlerBroadAfflictions_L9C85:
     sep #$20
     lda.b #$C0
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C29CA2_TryRecoverSelectedBattlerBroadAfflictions_L9CA2
     ldx $A972

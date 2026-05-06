@@ -22,6 +22,7 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C26BB8_RollActionChanceGate         = $6BB8
 
 EF_BattleTextScriptBank       = $00EF
 EFMSG_CallForHelpEnemyJoined  = $77FD
@@ -32,7 +33,7 @@ EFMSG_CallForHelpSeedSprouted = $7810
 
 C2BE6C_RunCallForHelpEnemySelectionBody:
     sep #$20
-    jsr $6BB8
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C2BE79_RunCallForHelpEnemySelectionBody_LBE79
     ; Probability failed: jump to the prefix failure text path.

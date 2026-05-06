@@ -22,7 +22,7 @@ C2698B_GetBattleActionType                      = $698B
 C269BE_WaitFrames                               = $69BE
 C269F8_Truncate16To8                            = $69F8
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
-C26BB8_BuildCandidateMaskPhase                  = $6BB8
+C26BB8_RollActionChanceGate                     = $6BB8
 C26BDB_Success500                               = $6BDB
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
 C27126_SetBattlerHp                             = $7126
@@ -564,7 +564,7 @@ C282BC_RunHitResolutionAndStatusActionCluster_L82BC:
     bne C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     sep #$20
     lda.b #$80
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     ldx $A972
@@ -1444,7 +1444,7 @@ C289E1_RunHitResolutionAndStatusActionCluster_L89E1:
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C289F4_RunHitResolutionAndStatusActionCluster_L89F4
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -1531,7 +1531,7 @@ C28A92_RunParalyzeStatusAction = BTLACT_PARALYZE
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldy.w #BattleStatusParalyzed
@@ -1630,7 +1630,7 @@ C28B6D_RunColdStatusAction = BTLACT_COLD
     ldx $A972
     sep #$20
     lda $0038,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
     ldy.w #BattleStatusCold

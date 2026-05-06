@@ -127,6 +127,9 @@ This slice tightens several item-side runtime contracts:
   used by `D5:7B68` second-pointer consumers
 - the table-driven A89D payload leaves now share the same named mask-helper
   vocabulary as the standalone class-`2` target-set family
+- the A89D item-status and Pray leaves now call their local action chance gate,
+  selected-row slot writer, target blocker, random rollers, damage applicator,
+  and HP/PP recovery feedback helpers by source-facing contract names
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane
