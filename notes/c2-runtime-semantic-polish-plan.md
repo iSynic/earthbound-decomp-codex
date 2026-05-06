@@ -404,6 +404,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/class2-psi-shield-post-hit-aa96.md`,
   `notes/c2-action-dispatch-runtime-polish.md`, and
   `notes/class2-second-pointer-consumer-40a4.md`.
+- 2026-05-05 sixtieth slice: cleaned up two remaining action-table/payload
+  edges outside the main action-dispatch modules. `C2:654C` now names the
+  Magic Butterfly PP restore amount, party-slot count, PP target/max-PP fields,
+  visual pass constants, and its embedded `D5:7B68` action-type helper.
+  `C2:A89D..AF1F` now calls the named `C2:40A4` action-payload applicator at
+  its local payload tail. See
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 

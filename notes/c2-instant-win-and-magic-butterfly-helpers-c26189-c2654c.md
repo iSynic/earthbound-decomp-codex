@@ -16,9 +16,13 @@ Source-scaffold promotion:
 
 - `C2:6189..654C` is now decoded source in `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm`.
 - `C2:654C..6BFB` is now decoded source in `src/c2/c2_654c_run_magic_butterfly_pp_restore_animation.asm`.
-- Both modules validate in the combined C2 scaffold: `C2 byte-equivalence: OK, 216 module(s), 0 mismatch(es).`
+- Both modules validate in the combined C2 scaffold: `C2 byte-equivalence: OK, 233 module(s), 0 mismatch(es).`
 - The `C2:6189` source emission requires forced 16-bit accumulator state at `C2:651F` and `C2:652D`, where external text helpers return into 16-bit local code.
 - The `C2:654C` source emission requires forced 16-bit accumulator state at `C2:6ADB` and `C2:6B95`, branch-join labels in helper routines that otherwise inherit the wrong 8-bit accumulator state from neighboring call paths.
+- Follow-up polish in `C2:654C` now names the Magic Butterfly PP restore
+  amount, party-slot scan count, party PP target/max-PP fields, visual pass
+  counts, and the embedded `C2:698B` helper that returns the `D5:7B68` action
+  type byte for a caller-provided action id.
 
 ## `C2:6189` - instant-win tile-buffer fill/upload helper
 
@@ -108,6 +112,12 @@ Relevant WRAM fields:
 - `$9A1B` = `PARTY_CHARACTERS + 0x4D`, `current_pp_target`
 
 The party-id filter is preserved as observed from the ROM/reference disassembly. The routine is therefore best named around its concrete event behavior rather than a generic "restore PP" label: it is the Magic Butterfly event's PP-target restoration plus its accompanying C4/C0 visual sequence.
+
+The source also contains a small local helper at `C2:698B` that converts a
+`D5:7B68` action id into the action descriptor type byte at row `+0x02`. That
+helper now uses the shared battle-action table vocabulary rather than a raw
+`$D57B68` read, keeping this event-facing module aligned with the battle-start
+and selected-row action-table consumers.
 
 ## Relation to instant-win check
 

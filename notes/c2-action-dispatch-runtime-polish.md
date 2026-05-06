@@ -146,6 +146,13 @@ by the sibling target-mask pruning helper. This keeps the second-pointer
 consumer aligned with the C1 DD9F tail's distinction between current payload
 slots and ordinary battle-text dispatch staging.
 
+Second follow-up: `src/c2/c2_a89d_run_random_damage_and_status_item_action_cluster.asm`
+now calls the same named `C2:40A4` applicator for its local payload tail, and
+`src/c2/c2_654c_run_magic_butterfly_pp_restore_animation.asm` names its
+embedded `D5:7B68` action-type helper. These are small edges, but they keep
+non-table-looking helper modules from drifting back to raw action-payload
+vocabulary.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local

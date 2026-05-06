@@ -14,6 +14,7 @@
 C08FF7_ResolveIndexedPointerOffset              = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
 
 EFMSG_PoisonInflicted                           = $6B18
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -823,7 +824,7 @@ C2AEFD_RunRandomDamageAndStatusItemActionCluster_LAEFD:
     sta $0E
     lda $08
     sta $10
-    jsl $C240A4
+    jsl C240A4_ApplyBattleActionSecondPointerPayload
     lda.w #$0000
     sta $A96C
     lda.w #$0000

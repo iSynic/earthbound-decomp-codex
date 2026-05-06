@@ -103,6 +103,9 @@ leaves in the cluster:
 - the Pray aroma/rending-sound leaves now name the asleep and strange result
   scripts, but the wider Pray dispatcher table remains deliberately local until
   a focused Pray pass ties the C4 text table and effect rows together
+- the item/status cluster tail now calls the named
+  `C2:40A4` second-pointer payload applicator directly, keeping the local Pray
+  and table-driven payload lanes aligned with the broader action-dispatch note
 
 ## Decomp Value
 
@@ -114,6 +117,8 @@ This slice tightens several item-side runtime contracts:
   affliction-writer and text-dispatch names as the larger A5EC/A89D clusters
 - the A89D item-status leaves now share the same direct-text and
   amount-payload ABI names as the earlier A3D1/A5EC and stat-action slices
+- the A89D payload tail now names the same `C2:40A4` action-payload applicator
+  used by `D5:7B68` second-pointer consumers
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane

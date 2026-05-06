@@ -20,6 +20,20 @@ C426ED_AdvanceEventFrame             = $C426ED
 C496E7_StartMagicButterflyVisualPass = $C496E7
 C49740_EndMagicButterflyVisualPass   = $C49740
 
+D57B68_BattleActionTable             = $D57B68
+BattleActionTableRowSize             = $000C
+BattleActionTableTypeOffset          = $0002
+
+PartySlotListBase                    = $986F
+PartyRecordStride                    = $005F
+PartyCurrentPpTargetBase             = $9A1B
+PartyMaxPpBase                       = $99DA
+PartySlotCount                       = $0006
+MagicButterflyRestoredPpAmount       = $0014
+MagicButterflyVisualPassCount        = $0002
+MagicButterflyVisualPassFrames       = $000C
+MagicButterflyVisualFillTile         = $5D70
+
 ; ---------------------------------------------------------------------------
 ; C2:654C
 
@@ -59,7 +73,7 @@ C26562_RunMagicButterflyPpRestoreAnimation_L6562:
 C26591_RunMagicButterflyPpRestoreAnimation_L6591:
     asl A
     tax
-    lda.w #$5D70
+    lda.w #MagicButterflyVisualFillTile
     sta $0200,X
     lda $1A
     inc A
@@ -68,7 +82,7 @@ C2659E_RunMagicButterflyPpRestoreAnimation_L659E:
     cmp.w #$0100
     bcc C26591_RunMagicButterflyPpRestoreAnimation_L6591
     ldx.w #$FFFF
-    lda.w #$000C
+    lda.w #MagicButterflyVisualPassFrames
     jsl C496E7_StartMagicButterflyVisualPass
     ldx.w #$0000
     stx $1A
@@ -80,21 +94,21 @@ C265B4_RunMagicButterflyPpRestoreAnimation_L65B4:
     inx
     stx $1A
 C265C1_RunMagicButterflyPpRestoreAnimation_L65C1:
-    cpx.w #$000C
+    cpx.w #MagicButterflyVisualPassFrames
     bcc C265B4_RunMagicButterflyPpRestoreAnimation_L65B4
     jsl C49740_EndMagicButterflyVisualPass
     ldy $1C
     iny
     sty $1C
 C265CF_RunMagicButterflyPpRestoreAnimation_L65CF:
-    cpy.w #$0002
+    cpy.w #MagicButterflyVisualPassCount
     bcc C26562_RunMagicButterflyPpRestoreAnimation_L6562
     lda.w #$0000
     sta $02
     bra C2662B_RunMagicButterflyPpRestoreAnimation_L662B
 C265DB_RunMagicButterflyPpRestoreAnimation_L65DB:
     ldx $02
-    lda $986F,X
+    lda PartySlotListBase,X
     and.w #$00FF
     tax
     cpx.w #$0001
@@ -106,22 +120,22 @@ C265DB_RunMagicButterflyPpRestoreAnimation_L65DB:
 C265F3_RunMagicButterflyPpRestoreAnimation_L65F3:
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $18
     clc
-    adc.w #$9A1B
+    adc.w #PartyCurrentPpTargetBase
     tay
     lda $0000,Y
     clc
-    adc.w #$0014
+    adc.w #MagicButterflyRestoredPpAmount
     tax
     stx $16
     txa
     sta $0000,Y
     lda $18
     tax
-    lda $99DA,X
+    lda PartyMaxPpBase,X
     sta $18
     sta $04
     ldx $16
@@ -135,7 +149,7 @@ C26629_RunMagicButterflyPpRestoreAnimation_L6629:
     inc $02
 C2662B_RunMagicButterflyPpRestoreAnimation_L662B:
     lda $02
-    cmp.w #$0006
+    cmp.w #PartySlotCount
     bcc C265DB_RunMagicButterflyPpRestoreAnimation_L65DB
     pld
     rtl
@@ -588,6 +602,8 @@ C26982_RunMagicButterflyPpRestoreAnimation_L6982:
 C26989_RunMagicButterflyPpRestoreAnimation_L6989:
     pld
     rtl
+LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID:
+C2698B_LoadBattleActionTypeFromActionId = LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID
     rep #$31
     phd
     pha
@@ -596,6 +612,7 @@ C26989_RunMagicButterflyPpRestoreAnimation_L6989:
     tcd
     pla
     sta $04
+    ; A is a D5:7B68 action id; return its action-type byte at row +2.
     asl A
     adc $04
     asl A
@@ -603,7 +620,7 @@ C26989_RunMagicButterflyPpRestoreAnimation_L6989:
     tax
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
     pld
     rts
