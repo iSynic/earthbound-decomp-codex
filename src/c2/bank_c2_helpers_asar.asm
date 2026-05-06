@@ -2857,6 +2857,7 @@ C26C7B_MaskSet_BuildActiveTypedCandidates_L6C7B:
 hirom
 org $C26EF8
 
+!C269EF_GetRandomByte = $69EF
 !C4A279_OneHotTargetBitMaskTableLo = $A279
 !C4A279_OneHotTargetBitMaskTableBank = $00C4
 !InputMaskLo = $24
@@ -2908,7 +2909,7 @@ C26F24_MaskSet_FindFirstMatchInRange_L6F24:
 C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     ldy.w #$0000
     sty !TargetBitIndex
-    jsr $69EF
+    jsr !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #!RandomBitMask
@@ -15518,7 +15519,8 @@ C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     bne C269E2_RunMagicButterflyPpRestoreAnimation_L69E2
     rts
 RAND_LONG:
-!C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = RAND_LONG
+!C269EF_GetRandomByte = RAND_LONG
+!C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = C269EF_GetRandomByte
     rep #$31
     jsl !C08E9A_GetRandom16
     sep #$20
@@ -15565,7 +15567,7 @@ RAND_LIMIT:
     pla
     tax
     stx $0E
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     ldx $0E
     jsr.w TRUNCATE_16_TO_8
     pld
@@ -15579,12 +15581,12 @@ C26A44_RollRandomAmount:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -15692,12 +15694,12 @@ C26AFD_ApplyTwentyFivePercentVariance:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -15807,7 +15809,7 @@ C26BB4_RunMagicButterflyPpRestoreAnimation_L6BB4:
     pla
     sep #$20
     sta $00
-    jsr.w RAND_LONG
+    jsr.w !C269EF_GetRandomByte
     cmp $00
     bcs C26BD4_RunMagicButterflyPpRestoreAnimation_L6BD4
     rep #$20
@@ -17967,6 +17969,7 @@ org $C2F121
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08FF7_Multiply16 = $C08FF7
+!C269EF_GetRandomByte = $69EF
 !C2EFFD_GetBattleSpriteWidthBucket = $EFFD
 !C2F09F_FindLoadedBattleSpriteSlotById = $F09F
 C2F121_AssignEnemyBattleSpriteRowsAndXPositions:
@@ -18143,7 +18146,7 @@ C2F25A_AssignEnemyBattleSpriteRowsAndXPositions_LF25A:
     clc
     adc $19
     sta $1D
-    jsr $69EF
+    jsr !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001
@@ -18171,7 +18174,7 @@ C2F2A1_AssignEnemyBattleSpriteRowsAndXPositions_LF2A1:
     bcc C2F2C8_AssignEnemyBattleSpriteRowsAndXPositions_LF2C8
     cmp $02
     bne C2F2FA_AssignEnemyBattleSpriteRowsAndXPositions_LF2FA
-    jsr $69EF
+    jsr !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001
@@ -18322,7 +18325,7 @@ C2F3C6_AssignEnemyBattleSpriteRowsAndXPositions_LF3C6:
     bcc C2F3EE_AssignEnemyBattleSpriteRowsAndXPositions_LF3EE
     cmp $04
     bne C2F423_AssignEnemyBattleSpriteRowsAndXPositions_LF423
-    jsr $69EF
+    jsr !C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001

@@ -667,7 +667,8 @@ C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     bne C269E2_RunMagicButterflyPpRestoreAnimation_L69E2
     rts
 RAND_LONG:
-C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = RAND_LONG
+C269EF_GetRandomByte = RAND_LONG
+C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = C269EF_GetRandomByte
     rep #$31
     jsl C08E9A_GetRandom16
     sep #$20
@@ -714,7 +715,7 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     pla
     tax
     stx $0E
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     ldx $0E
     jsr.w TRUNCATE_16_TO_8
     pld
@@ -728,12 +729,12 @@ C26A44_RollRandomAmount:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -841,12 +842,12 @@ C26AFD_ApplyTwentyFivePercentVariance:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -956,7 +957,7 @@ C26BB4_RunMagicButterflyPpRestoreAnimation_L6BB4:
     pla
     sep #$20
     sta $00
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     cmp $00
     bcs C26BD4_RunMagicButterflyPpRestoreAnimation_L6BD4
     rep #$20

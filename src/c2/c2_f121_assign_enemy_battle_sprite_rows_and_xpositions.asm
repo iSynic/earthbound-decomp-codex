@@ -25,6 +25,7 @@ C08CD5_DrawTileStagingBlock            = $C08CD5
 C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 C08EFC_CommitTileBufferToStaging       = $C08EFC
 C08FF7_Multiply16                      = $C08FF7
+C269EF_GetRandomByte                   = $69EF
 C2EFFD_GetBattleSpriteWidthBucket      = $EFFD
 C2F09F_FindLoadedBattleSpriteSlotById  = $F09F
 
@@ -209,7 +210,8 @@ C2F25A_AssignEnemyBattleSpriteRowsAndXPositions_LF25A:
     clc
     adc $19
     sta $1D
-    jsr $69EF
+    ; Break exact left/right placement ties with the low random byte.
+    jsr C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001
@@ -237,7 +239,7 @@ C2F2A1_AssignEnemyBattleSpriteRowsAndXPositions_LF2A1:
     bcc C2F2C8_AssignEnemyBattleSpriteRowsAndXPositions_LF2C8
     cmp $02
     bne C2F2FA_AssignEnemyBattleSpriteRowsAndXPositions_LF2FA
-    jsr $69EF
+    jsr C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001
@@ -388,7 +390,7 @@ C2F3C6_AssignEnemyBattleSpriteRowsAndXPositions_LF3C6:
     bcc C2F3EE_AssignEnemyBattleSpriteRowsAndXPositions_LF3EE
     cmp $04
     bne C2F423_AssignEnemyBattleSpriteRowsAndXPositions_LF423
-    jsr $69EF
+    jsr C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #$0001

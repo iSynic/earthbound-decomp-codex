@@ -104,7 +104,8 @@ Observed behavior:
 - accumulates row widths and assigns battler row state around `$9FBC`
 - moves enemies to the opposite row when the front row would exceed the `0x1E` practical layout width
 - computes x positions around `$9FF0`, using the row total widths to center the group around battle-screen center `0x20`
-- uses the local random helper at `C2:69EF` for tie/placement variation
+- uses the local `C2:69EF` / `GetRandomByte` helper for tie/placement
+  variation when left/right x-position choices are exactly balanced
 
 The downstream render helpers consume the row and x-position fields this routine writes.
 

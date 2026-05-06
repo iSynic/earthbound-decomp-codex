@@ -750,6 +750,12 @@ contract notes for C0/C1/C3/C4 consumers.
   behavior names; the HP/PP wrapper and direct stat leaves also target
   `RunBattleStatChangeConsequenceEpilogue` instead of raw `$B5E3`. See
   `notes/c2-stat-consequence-runtime-polish.md`.
+- 2026-05-06 ninety-eighth slice: named the local random-byte helper used by
+  mask scans and sprite placement tie-breakers. `C2:69EF` is now exposed as
+  `GetRandomByte`; `C2:6EF8` uses it to randomize the first-match target-mask
+  scan, and `C2:F121` uses it for balanced enemy-sprite x-position tie
+  decisions. See `notes/class2-mask-helper-family.md` and
+  `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`.
 
 ## Validation
 
