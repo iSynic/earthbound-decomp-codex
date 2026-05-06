@@ -11,13 +11,17 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-PREPARE_VRAM_COPY     = $C08616
-C08756_WaitOneFrameAndPollInput           = $C08756
-C08814_SetDisplayTransitionMode           = $C08814
-C08EFC_CommitTileBufferToStaging          = $C08EFC
-C08F15_ClearVramOrRendererBuffer          = $C08F15
-C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
-C496E7_StartPaletteFadeFromWorkBuffer     = $C496E7
+C0EE68_LogoScreenLoad                        = $EE68
+C08616_QueueVramTransfer_FromDpSource        = $C08616
+C08756_WaitOneFrameAndPollInput              = $C08756
+C087CE_FadeInWithMosaic                      = $C087CE
+C08814_SetDisplayTransitionMode              = $C08814
+C08EFC_CommitTileBufferToStaging             = $C08EFC
+C08F15_ClearVramOrRendererBuffer             = $C08F15
+C41A9E_GraphicsDecompressionRoutines_Main    = $C41A9E
+C496E7_StartPaletteFadeFromWorkBuffer        = $C496E7
+C496F9_MirrorCgramShadow0200To7f0000         = $C496F9
+C4A377_LoadGasStationIntroGraphicsAndTilemap = $C4A377
 
 ; ---------------------------------------------------------------------------
 ; C0:EFE1
@@ -48,17 +52,19 @@ C0F002_WaitFramesWithIntroCancel_LF002:
 C0F007_WaitFramesWithIntroCancel_LF007:
     pld
     rts
+C0F009_RunIntroLogoScreen:
+    ; Cycle Nintendo, APE, and HALKEN logo screens with cancel-aware waits.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
     lda.w #$0000
-    jsr $EE68
+    jsr C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl C087CE_FadeInWithMosaic
     lda $436C
     beq C0F031_WaitFramesWithIntroCancel_LF031
     lda.w #$00B4
@@ -82,11 +88,11 @@ C0F046_WaitFramesWithIntroCancel_LF046:
     lda.w #$0001
     jsl C08814_SetDisplayTransitionMode
     lda.w #$0001
-    jsr $EE68
+    jsr C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl C087CE_FadeInWithMosaic
     lda.w #$0078
     jsr.w C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
@@ -103,11 +109,11 @@ C0F083_WaitFramesWithIntroCancel_LF083:
     lda.w #$0001
     jsl C08814_SetDisplayTransitionMode
     lda.w #$0002
-    jsr $EE68
+    jsr C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl C087CE_FadeInWithMosaic
     lda.w #$0078
     jsr.w C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
@@ -127,6 +133,8 @@ C0F0C0_WaitFramesWithIntroCancel_LF0C0:
 C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     pld
     rtl
+C0F0D2_GasStationLoad:
+    ; Decompress the gas-station visual bundle, queue VRAM, then seed palette state.
     rep #$31
     phd
     tdc
@@ -157,15 +165,14 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$C000
     sep #$20
     tya
-    jsl PREPARE_VRAM_COPY
-    lda.b #$D3
-    eor $85,X
-    asl $E1A9
-    brk #$85
-    db $10, $A5
-    asl $85
-    ora ($A5)
-    php
+    jsl C08616_QueueVramTransfer_FromDpSource
+    lda.w #$55D3
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda $06
+    sta $12
+    lda $08
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
     lda $06
@@ -176,13 +183,12 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl PREPARE_VRAM_COPY
-    lda.b #$B7
-    lda.b #$85
-    asl $E1A9
-    brk #$85
-    db $10, $A9
-    brk #$02
+    jsl C08616_QueueVramTransfer_FromDpSource
+    lda.w #$A9B7
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
     sta $06
     phb
     sep #$20
@@ -195,8 +201,8 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     lda $08
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
-    jsl $C4A377
-    jsl $C496F9
+    jsl C4A377_LoadGasStationIntroGraphicsAndTilemap
+    jsl C496F9_MirrorCgramShadow0200To7f0000
     lda.w #$0040
     sta $0E
     lda.w #$007F

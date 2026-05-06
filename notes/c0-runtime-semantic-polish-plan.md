@@ -134,6 +134,12 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   `C0:B525` file-select initialization routine; the intro continuation now
   calls `C0B525_FileSelectInit` by name. See
   `notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
+- 2026-05-06 follow-up: the intro logo/gas-station presentation pass fixed
+  two state-aware decode artifacts in `C0:EFE1..F41E`, named the logo-screen
+  and gas-station entry leaves, and tied the C2 battle-background update hooks,
+  C4 gas-station visual loader, CGRAM mirror, palette fade helpers, and entity
+  cleanup call into local source contracts. See
+  `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`.
 
 ## Validation
 

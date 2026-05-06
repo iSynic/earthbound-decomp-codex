@@ -11,16 +11,24 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C0856B_WaitFramesOrTransitionDelay            = $C0856B
-C08756_WaitOneFrameAndPollInput               = $C08756
-C0886C_SetDisplayTransitionState              = $C0886C
-C08ED2_QueueOrTransferDynamicTileBlock        = $C08ED2
-C08EFC_CommitTileBufferToStaging              = $C08EFC
-C092F5_AllocateEntityOrSpriteSlot             = $C092F5
-C09466_RefreshActiveEntitySpriteState         = $C09466
-C41A9E_GraphicsDecompressionRoutines_Main     = $C41A9E
-C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
-C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+C0EFE1_WaitFramesWithIntroCancel                  = $EFE1
+C0F0D2_GasStationLoad                             = $F0D2
+C0F1D2_RunIntroTimedPaletteFadeTail               = $F1D2
+C0856B_WaitFramesOrTransitionDelay                = $C0856B
+C08756_WaitOneFrameAndPollInput                   = $C08756
+C0886C_SetDisplayTransitionState                  = $C0886C
+C08ED2_QueueOrTransferDynamicTileBlock            = $C08ED2
+C08EFC_CommitTileBufferToStaging                  = $C08EFC
+C0927C_InitDelayedActionPools                     = $C0927C
+C092F5_AllocateEntityOrSpriteSlot                 = $C092F5
+C09466_RefreshActiveEntitySpriteState             = $C09466
+C09C35_CleanupEntitySlotState                     = $C09C35
+C2DB14_CopyBattleBgDistortionBufferToWorkingState = $C2DB14
+C2DB3F_RunBattleBgPerFrameUpdateBody              = $C2DB3F
+C41A9E_GraphicsDecompressionRoutines_Main         = $C41A9E
+C426ED_ApplyPaletteComponentInterpolationStep     = $C426ED
+C49740_FinishPaletteFadeWorkBuffer                = $C49740
+C4FBBD_PlaySoundStoneMelody                       = $C4FBBD
 
 ; ---------------------------------------------------------------------------
 ; C0:F21E
@@ -42,7 +50,7 @@ C0F230_RunGasStationIntroScreenLoop_LF230:
     lda.w #$0001
     jmp.w C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F23B_RunGasStationIntroScreenLoop_LF23B:
-    jsl $C2DB3F
+    jsl C2DB3F_RunBattleBgPerFrameUpdateBody
     jsl C08756_WaitOneFrameAndPollInput
     ldx $12
     inx
@@ -53,11 +61,13 @@ C0F248_RunGasStationIntroScreenLoop_LF248:
     lda.w #$0000
     sta $02
     bra C0F2C2_RunGasStationIntroScreenLoop_LF2C2
+C0F254_RunGasStationIntroScreenLoop_LF254:
     lda $006D
     beq C0F25F_RunGasStationIntroScreenLoop_LF25F
     lda.w #$0001
     jmp.w C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F25F_RunGasStationIntroScreenLoop_LF25F:
+    ; Pulse the palette backup through the battle-bg update path while waiting.
     ldy.w #$0240
     sty $12
     tya
@@ -78,9 +88,9 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     jsl C426ED_ApplyPaletteComponentInterpolationStep
     sep #$20
     stz $0030
-    jsl $C2DB14
-    lda.b #$76
-    mvp $85,$06
+    jsl C2DB14_CopyBattleBgDistortionBufferToWorkingState
+    lda.w #$4476
+    sta $06
     phb
     sep #$20
     pla
@@ -95,7 +105,7 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     ldy $12
     tya
     jsl C08ED2_QueueOrTransferDynamicTileBlock
-    jsl $C2DB3F
+    jsl C2DB3F_RunBattleBgPerFrameUpdateBody
     sep #$20
     lda.b #$18
     sta $0030
@@ -103,13 +113,12 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     inc $02
 C0F2C2_RunGasStationIntroScreenLoop_LF2C2:
     lda $02
-    cmp.b #$E0
-    ora ($B0,X)
-    ora $F0
-    ora $4C,S
-    mvn $F2,$22
-    rti
-    sta [$C4],Y
+    cmp.w #$01E0
+    bcs C0F2CE_RunGasStationIntroScreenLoop_LF2CE
+    beq C0F2CE_RunGasStationIntroScreenLoop_LF2CE
+    jmp.w C0F254_RunGasStationIntroScreenLoop_LF254
+C0F2CE_RunGasStationIntroScreenLoop_LF2CE:
+    jsl C49740_FinishPaletteFadeWorkBuffer
     sep #$20
     lda.b #$00
     sta $002131
@@ -119,12 +128,13 @@ C0F2C2_RunGasStationIntroScreenLoop_LF2C2:
     stz $001B
     rep #$20
     lda.w #$0078
-    jsr $EFE1
+    jsr C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
     beq C0F2F8_RunGasStationIntroScreenLoop_LF2F8
     lda.w #$0001
     bra C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F2F8_RunGasStationIntroScreenLoop_LF2F8:
+    ; Play the second gas-station cue and run the timed event before fading out.
     lda.w #$00AE
     jsl C4FBBD_PlaySoundStoneMelody
     ldy.w #$0000
@@ -139,7 +149,7 @@ C0F30E_RunGasStationIntroScreenLoop_LF30E:
     lda $006D
     beq C0F326_RunGasStationIntroScreenLoop_LF326
     lda $12
-    jsl $C09C35
+    jsl C09C35_CleanupEntitySlotState
     lda.w #$0001
     bra C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F326_RunGasStationIntroScreenLoop_LF326:
@@ -150,18 +160,20 @@ C0F326_RunGasStationIntroScreenLoop_LF326:
     cmp.w #$FFFF
     bne C0F30E_RunGasStationIntroScreenLoop_LF30E
     lda.w #$014A
-    jsr $F1D2
+    jsr C0F1D2_RunIntroTimedPaletteFadeTail
     lda $04
 C0F33A_RunGasStationIntroScreenLoop_LF33A:
     pld
     rts
+C0F33C_RunGasStationIntro:
+    ; Top-level gas-station intro wrapper: load, fade in, run loop, then settle.
     rep #$31
     phd
     tdc
     adc.w #$FFED
     tcd
-    jsl $C0927C
-    jsr $F0D2
+    jsl C0927C_InitDelayedActionPools
+    jsr C0F0D2_GasStationLoad
     ldx.w #$000B
     lda.w #$0001
     jsl C0886C_SetDisplayTransitionState
@@ -203,7 +215,7 @@ C0F380_RunGasStationIntroScreenLoop_LF380:
     bne C0F3AB_RunGasStationIntroScreenLoop_LF3AB
     rep #$20
     lda.w #$001E
-    jsr $EFE1
+    jsr C0EFE1_WaitFramesWithIntroCancel
 C0F3AB_RunGasStationIntroScreenLoop_LF3AB:
     ldy $11
     rep #$20
@@ -211,6 +223,8 @@ C0F3AB_RunGasStationIntroScreenLoop_LF3AB:
 C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
     pld
     rtl
+C0F3B2_LoadGasStationFlashPalette:
+    ; Load the alternate flash palette payload from E1.
     rep #$31
     phd
     tdc
@@ -237,6 +251,8 @@ C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
+C0F3E8_LoadGasStationPalette:
+    ; Restore the base gas-station palette payload from E1.
     rep #$31
     phd
     tdc

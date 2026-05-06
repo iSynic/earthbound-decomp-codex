@@ -37099,13 +37099,17 @@ C0EFA7_Clear_CurrentTitleObjectHiddenFlag_LEFA7:
 hirom
 org $C0EFE1
 
-!PREPARE_VRAM_COPY = $C08616
+!C0EE68_LogoScreenLoad = $EE68
+!C08616_QueueVramTransfer_FromDpSource = $C08616
 !C08756_WaitOneFrameAndPollInput = $C08756
+!C087CE_FadeInWithMosaic = $C087CE
 !C08814_SetDisplayTransitionMode = $C08814
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08F15_ClearVramOrRendererBuffer = $C08F15
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
+!C496F9_MirrorCgramShadow0200To7f0000 = $C496F9
+!C4A377_LoadGasStationIntroGraphicsAndTilemap = $C4A377
 C0EFE1_WaitFramesWithIntroCancel:
     rep #$31
     phd
@@ -37132,17 +37136,18 @@ C0F002_WaitFramesWithIntroCancel_LF002:
 C0F007_WaitFramesWithIntroCancel_LF007:
     pld
     rts
+C0F009_RunIntroLogoScreen:
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
     lda.w #$0000
-    jsr $EE68
+    jsr !C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl !C087CE_FadeInWithMosaic
     lda $436C
     beq C0F031_WaitFramesWithIntroCancel_LF031
     lda.w #$00B4
@@ -37166,11 +37171,11 @@ C0F046_WaitFramesWithIntroCancel_LF046:
     lda.w #$0001
     jsl !C08814_SetDisplayTransitionMode
     lda.w #$0001
-    jsr $EE68
+    jsr !C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl !C087CE_FadeInWithMosaic
     lda.w #$0078
     jsr.w C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
@@ -37187,11 +37192,11 @@ C0F083_WaitFramesWithIntroCancel_LF083:
     lda.w #$0001
     jsl !C08814_SetDisplayTransitionMode
     lda.w #$0002
-    jsr $EE68
+    jsr !C0EE68_LogoScreenLoad
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
-    jsl $C087CE
+    jsl !C087CE_FadeInWithMosaic
     lda.w #$0078
     jsr.w C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
@@ -37211,6 +37216,7 @@ C0F0C0_WaitFramesWithIntroCancel_LF0C0:
 C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     pld
     rtl
+C0F0D2_GasStationLoad:
     rep #$31
     phd
     tdc
@@ -37241,15 +37247,14 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$C000
     sep #$20
     tya
-    jsl !PREPARE_VRAM_COPY
-    lda.b #$D3
-    eor $85,X
-    asl $E1A9
-    brk #$85
-    db $10, $A5
-    asl $85
-    ora ($A5)
-    php
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.w #$55D3
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda $06
+    sta $12
+    lda $08
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
     lda $06
@@ -37260,13 +37265,12 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     ldx.w #$0800
     sep #$20
     lda.b #$00
-    jsl !PREPARE_VRAM_COPY
-    lda.b #$B7
-    lda.b #$85
-    asl $E1A9
-    brk #$85
-    db $10, $A9
-    brk #$02
+    jsl !C08616_QueueVramTransfer_FromDpSource
+    lda.w #$A9B7
+    sta $0E
+    lda.w #$00E1
+    sta $10
+    lda.w #$0200
     sta $06
     phb
     sep #$20
@@ -37279,8 +37283,8 @@ C0F0D0_WaitFramesWithIntroCancel_LF0D0:
     lda $08
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
-    jsl $C4A377
-    jsl $C496F9
+    jsl !C4A377_LoadGasStationIntroGraphicsAndTilemap
+    jsl !C496F9_MirrorCgramShadow0200To7f0000
     lda.w #$0040
     sta $0E
     lda.w #$007F
@@ -37377,15 +37381,23 @@ C0F1D2_RunIntroTimedPaletteFadeTail:
 hirom
 org $C0F21E
 
+!C0EFE1_WaitFramesWithIntroCancel = $EFE1
+!C0F0D2_GasStationLoad = $F0D2
+!C0F1D2_RunIntroTimedPaletteFadeTail = $F1D2
 !C0856B_WaitFramesOrTransitionDelay = $C0856B
 !C08756_WaitOneFrameAndPollInput = $C08756
 !C0886C_SetDisplayTransitionState = $C0886C
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C08EFC_CommitTileBufferToStaging = $C08EFC
+!C0927C_InitDelayedActionPools = $C0927C
 !C092F5_AllocateEntityOrSpriteSlot = $C092F5
 !C09466_RefreshActiveEntitySpriteState = $C09466
+!C09C35_CleanupEntitySlotState = $C09C35
+!C2DB14_CopyBattleBgDistortionBufferToWorkingState = $C2DB14
+!C2DB3F_RunBattleBgPerFrameUpdateBody = $C2DB3F
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
+!C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
 C0F21E_RunGasStationIntroScreenLoop:
     rep #$31
@@ -37404,7 +37416,7 @@ C0F230_RunGasStationIntroScreenLoop_LF230:
     lda.w #$0001
     jmp.w C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F23B_RunGasStationIntroScreenLoop_LF23B:
-    jsl $C2DB3F
+    jsl !C2DB3F_RunBattleBgPerFrameUpdateBody
     jsl !C08756_WaitOneFrameAndPollInput
     ldx $12
     inx
@@ -37415,6 +37427,7 @@ C0F248_RunGasStationIntroScreenLoop_LF248:
     lda.w #$0000
     sta $02
     bra C0F2C2_RunGasStationIntroScreenLoop_LF2C2
+C0F254_RunGasStationIntroScreenLoop_LF254:
     lda $006D
     beq C0F25F_RunGasStationIntroScreenLoop_LF25F
     lda.w #$0001
@@ -37440,9 +37453,9 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     jsl !C426ED_ApplyPaletteComponentInterpolationStep
     sep #$20
     stz $0030
-    jsl $C2DB14
-    lda.b #$76
-    mvp $85,$06
+    jsl !C2DB14_CopyBattleBgDistortionBufferToWorkingState
+    lda.w #$4476
+    sta $06
     phb
     sep #$20
     pla
@@ -37457,7 +37470,7 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     ldy $12
     tya
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    jsl $C2DB3F
+    jsl !C2DB3F_RunBattleBgPerFrameUpdateBody
     sep #$20
     lda.b #$18
     sta $0030
@@ -37465,13 +37478,12 @@ C0F25F_RunGasStationIntroScreenLoop_LF25F:
     inc $02
 C0F2C2_RunGasStationIntroScreenLoop_LF2C2:
     lda $02
-    cmp.b #$E0
-    ora ($B0,X)
-    ora $F0
-    ora $4C,S
-    mvn $F2,$22
-    rti
-    sta [$C4],Y
+    cmp.w #$01E0
+    bcs C0F2CE_RunGasStationIntroScreenLoop_LF2CE
+    beq C0F2CE_RunGasStationIntroScreenLoop_LF2CE
+    jmp.w C0F254_RunGasStationIntroScreenLoop_LF254
+C0F2CE_RunGasStationIntroScreenLoop_LF2CE:
+    jsl !C49740_FinishPaletteFadeWorkBuffer
     sep #$20
     lda.b #$00
     sta $002131
@@ -37481,7 +37493,7 @@ C0F2C2_RunGasStationIntroScreenLoop_LF2C2:
     stz $001B
     rep #$20
     lda.w #$0078
-    jsr $EFE1
+    jsr !C0EFE1_WaitFramesWithIntroCancel
     cmp.w #$0000
     beq C0F2F8_RunGasStationIntroScreenLoop_LF2F8
     lda.w #$0001
@@ -37501,7 +37513,7 @@ C0F30E_RunGasStationIntroScreenLoop_LF30E:
     lda $006D
     beq C0F326_RunGasStationIntroScreenLoop_LF326
     lda $12
-    jsl $C09C35
+    jsl !C09C35_CleanupEntitySlotState
     lda.w #$0001
     bra C0F33A_RunGasStationIntroScreenLoop_LF33A
 C0F326_RunGasStationIntroScreenLoop_LF326:
@@ -37512,18 +37524,19 @@ C0F326_RunGasStationIntroScreenLoop_LF326:
     cmp.w #$FFFF
     bne C0F30E_RunGasStationIntroScreenLoop_LF30E
     lda.w #$014A
-    jsr $F1D2
+    jsr !C0F1D2_RunIntroTimedPaletteFadeTail
     lda $04
 C0F33A_RunGasStationIntroScreenLoop_LF33A:
     pld
     rts
+C0F33C_RunGasStationIntro:
     rep #$31
     phd
     tdc
     adc.w #$FFED
     tcd
-    jsl $C0927C
-    jsr $F0D2
+    jsl !C0927C_InitDelayedActionPools
+    jsr !C0F0D2_GasStationLoad
     ldx.w #$000B
     lda.w #$0001
     jsl !C0886C_SetDisplayTransitionState
@@ -37565,7 +37578,7 @@ C0F380_RunGasStationIntroScreenLoop_LF380:
     bne C0F3AB_RunGasStationIntroScreenLoop_LF3AB
     rep #$20
     lda.w #$001E
-    jsr $EFE1
+    jsr !C0EFE1_WaitFramesWithIntroCancel
 C0F3AB_RunGasStationIntroScreenLoop_LF3AB:
     ldy $11
     rep #$20
@@ -37573,6 +37586,7 @@ C0F3AB_RunGasStationIntroScreenLoop_LF3AB:
 C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
     pld
     rtl
+C0F3B2_LoadGasStationFlashPalette:
     rep #$31
     phd
     tdc
@@ -37599,6 +37613,7 @@ C0F3B0_RunGasStationIntroScreenLoop_LF3B0:
     jsl !C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
+C0F3E8_LoadGasStationPalette:
     rep #$31
     phd
     tdc

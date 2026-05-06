@@ -69,6 +69,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   and `C0:B525` file-select initialization routine. The intro continuation now
   calls `C0B525_FileSelectInit` by name. See
   `notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
+- 2026-05-06: C0 intro logo/gas-station follow-up regenerated the
+  `C0:EFE1..F41E` source with corrected accumulator-width force points, named
+  the logo and gas-station entry leaves, and closed the raw helper-call surface
+  for C2 battle-bg updates, C4 gas-station/palette helpers, and entity cleanup.
+  See `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source

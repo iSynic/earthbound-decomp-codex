@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `514`
+- Proposals: `519`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -517,6 +517,11 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:EE47` | `Set_DisplayMode13` | `notes/title-screen-logo-palette-event-helpers-c0ebe0-c0ee53.md:51` |
 | `C0:EE53` | `Clear_CurrentTitleObjectHiddenFlag` | `notes/title-screen-logo-palette-event-helpers-c0ebe0-c0ee53.md:52` |
 | `C0:EFE1` | `WaitFramesWithIntroCancel` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:12` |
-| `C0:F1D2` | `RunIntroTimedPaletteFadeTail` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:13` |
-| `C0:F21E` | `RunGasStationIntroScreenLoop` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:14` |
+| `C0:F009` | `RunIntroLogoScreen` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:13` |
+| `C0:F0D2` | `GasStationLoad` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:14` |
+| `C0:F1D2` | `RunIntroTimedPaletteFadeTail` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:15` |
+| `C0:F21E` | `RunGasStationIntroScreenLoop` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:16` |
+| `C0:F33C` | `RunGasStationIntro` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:17` |
+| `C0:F3B2` | `LoadGasStationFlashPalette` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:18` |
+| `C0:F3E8` | `LoadGasStationPalette` | `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md:19` |
 | `C0:F41E` | `FrameCallback_ProcessCommandStream` | `notes/frame-callback-bodies.md:249` |
