@@ -68,7 +68,10 @@ So the cleanest current read is:
 This also matches the concrete table values very well:
 
 - most rows use `0006, 000F` = six attempts with fifteen-second waits
-- the HoiHoi row uses `FFFF, FFFF`, which fits a special-case bypass much better than an ordinary bounded retry policy
+- the HoiHoi row uses `00FF, 00FF` in the byte-equivalent D5 scaffold, which
+  fits a very long retry policy; the code still supports `FFFF` as an
+  immediate-success sentinel, but that sentinel is not observed in the current
+  row data
 
 ## `EF:0D46`: seed the per-row delivery countdown
 
@@ -88,7 +91,10 @@ So this helper seeds a per-row WRAM countdown from record word `4`.
 
 That makes the `0D46 -> 0D73` pair a strong local proof that record word `4` is a countdown-like field.
 
-Combined with the reference `timed_delivery` struct and the concrete values in `D5:F645`, the cleanest current read is:
+Combined with the reference `timed_delivery` struct and the concrete values in
+`D5:F645`, now summarized in
+[d5-timed-delivery-row-contracts.md](notes/d5-timed-delivery-row-contracts.md),
+the cleanest current read is:
 
 - word `4` = `delivery_time`
 

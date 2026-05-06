@@ -1,0 +1,230 @@
+{
+  "generator": "tools/build_d5_timed_delivery_contracts.py",
+  "record_shape": [
+    {
+      "consumer": "EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with placeholder fallback when zero",
+      "field": "sprite_object_descriptor",
+      "offset": 0,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0EE8 tests this through C2:1628 while scanning rows",
+      "field": "event_flag_gate",
+      "offset": 2,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0CA7 compares the row-local retry counter against this threshold",
+      "field": "retry_threshold",
+      "offset": 4,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0D23 returns this to the 499+500_common one-second retry loop",
+      "field": "retry_wait_seconds",
+      "offset": 6,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0D46 seeds the row-local countdown from this field",
+      "field": "delivery_time",
+      "offset": 8,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0D8D queues this far pointer as staged queue type 0x0008",
+      "field": "success_pointer",
+      "offset": 10,
+      "size": 3
+    },
+    {
+      "consumer": "EF:0DFA queues this far pointer as staged queue type 0x000A",
+      "field": "failure_pointer",
+      "offset": 13,
+      "size": 3
+    },
+    {
+      "consumer": "EF:0E67 returns this for the arrival-side movement branch",
+      "field": "enter_speed",
+      "offset": 16,
+      "size": 2
+    },
+    {
+      "consumer": "EF:0E8A returns this for the departure-side movement branch",
+      "field": "exit_speed",
+      "offset": 18,
+      "size": 2
+    }
+  ],
+  "rows": [
+    {
+      "address": "D5:F645",
+      "delivery_time": 180,
+      "enter_speed": 512,
+      "event_flag_gate": "0x00B4",
+      "exit_speed": 512,
+      "failure_pointer": "C6:4CF8",
+      "family": "pizza",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 0,
+      "selector_byte": 1,
+      "sprite_object_descriptor": 151,
+      "success_pointer": "C6:4BBF"
+    },
+    {
+      "address": "D5:F659",
+      "delivery_time": 10,
+      "enter_speed": 384,
+      "event_flag_gate": "0x00B5",
+      "exit_speed": 384,
+      "failure_pointer": "C6:4515",
+      "family": "escargo",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 1,
+      "selector_byte": 2,
+      "sprite_object_descriptor": 135,
+      "success_pointer": "C6:42A3"
+    },
+    {
+      "address": "D5:F66D",
+      "delivery_time": 10,
+      "enter_speed": 384,
+      "event_flag_gate": "0x0285",
+      "exit_speed": 384,
+      "failure_pointer": "C6:451A",
+      "family": "escargo_alternate",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 2,
+      "selector_byte": 3,
+      "sprite_object_descriptor": 135,
+      "success_pointer": "C6:3EB0"
+    },
+    {
+      "address": "D5:F681",
+      "delivery_time": 1,
+      "enter_speed": 640,
+      "event_flag_gate": "0x01BE",
+      "exit_speed": 640,
+      "failure_pointer": "C5:DDF1",
+      "family": "customer_a",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 3,
+      "selector_byte": 4,
+      "sprite_object_descriptor": 55,
+      "success_pointer": "C5:D844"
+    },
+    {
+      "address": "D5:F695",
+      "delivery_time": 2,
+      "enter_speed": 640,
+      "event_flag_gate": "0x0286",
+      "exit_speed": 640,
+      "failure_pointer": "C5:DDF1",
+      "family": "customer_b",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 4,
+      "selector_byte": 5,
+      "sprite_object_descriptor": 108,
+      "success_pointer": "C5:D858"
+    },
+    {
+      "address": "D5:F6A9",
+      "delivery_time": 3,
+      "enter_speed": 640,
+      "event_flag_gate": "0x0287",
+      "exit_speed": 640,
+      "failure_pointer": "C5:DDF1",
+      "family": "customer_c",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 5,
+      "selector_byte": 6,
+      "sprite_object_descriptor": 112,
+      "success_pointer": "C5:D86C"
+    },
+    {
+      "address": "D5:F6BD",
+      "delivery_time": 4,
+      "enter_speed": 640,
+      "event_flag_gate": "0x0288",
+      "exit_speed": 640,
+      "failure_pointer": "C5:DDF1",
+      "family": "customer_d",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 6,
+      "selector_byte": 7,
+      "sprite_object_descriptor": 85,
+      "success_pointer": "C5:D880"
+    },
+    {
+      "address": "D5:F6D1",
+      "delivery_time": 5,
+      "enter_speed": 384,
+      "event_flag_gate": "0x02A3",
+      "exit_speed": 384,
+      "failure_pointer": "C7:A7D9",
+      "family": "special_mach_pizza_zombie_paper",
+      "retry_threshold": 255,
+      "retry_wait_seconds": 255,
+      "row": 7,
+      "selector_byte": 8,
+      "sprite_object_descriptor": 151,
+      "success_pointer": "C7:A542"
+    },
+    {
+      "address": "D5:F6E5",
+      "delivery_time": 10,
+      "enter_speed": 384,
+      "event_flag_gate": "0x02B6",
+      "exit_speed": 384,
+      "failure_pointer": "C6:95AC",
+      "family": "special_escargo",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 8,
+      "selector_byte": 9,
+      "sprite_object_descriptor": 135,
+      "success_pointer": "C6:943A"
+    },
+    {
+      "address": "D5:F6F9",
+      "delivery_time": 10,
+      "enter_speed": 384,
+      "event_flag_gate": "0x02B7",
+      "exit_speed": 384,
+      "failure_pointer": "C6:95B3",
+      "family": "special_escargo",
+      "retry_threshold": 6,
+      "retry_wait_seconds": 15,
+      "row": 9,
+      "selector_byte": 10,
+      "sprite_object_descriptor": 135,
+      "success_pointer": "C6:94F4"
+    }
+  ],
+  "schema": "earthbound-decomp.d5-timed-delivery-row-contracts.v1",
+  "source": "src\\d5\\bank_d5_helpers_asar.asm",
+  "summary": {
+    "effective_controller_base": "D5:F645",
+    "effective_controller_end_exclusive": "D5:F70D",
+    "row_7_retry_pair": {
+      "retry_threshold": 255,
+      "retry_wait_seconds": 255
+    },
+    "row_count": 10,
+    "row_size": 20,
+    "source_split_base": "D5:F649",
+    "source_split_end_exclusive": "D5:F711",
+    "source_split_starts_at_controller_offset": 4,
+    "source_split_trailing_padding_all_zero": true,
+    "source_split_trailing_padding_bytes": 4,
+    "source_split_trailing_padding_range": "D5:F70D..D5:F711"
+  },
+  "title": "D5 Timed Delivery Row Contracts"
+}

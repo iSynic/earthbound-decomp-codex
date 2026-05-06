@@ -199,13 +199,19 @@ INITIAL_STATS_FIELDS = (
 )
 
 TIMED_DELIVERY_FIELDS = (
-    field("raw_row", 0x00, 1, 0x14, "20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation"),
+    field(
+        "source_window_bytes",
+        0x00,
+        1,
+        0x14,
+        "20-byte source-order window beginning at D5:F649; this starts at +0x04 into effective controller row 0, so use TIMED_DELIVERY_CONTROLLER_TABLE for row-aligned fields",
+    ),
 )
 
 TIMED_DELIVERY_CONTROLLER_FIELDS = (
     field("sprite_object_descriptor", 0x00, 2, note="record word 0; EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with a placeholder fallback when zero"),
     field("event_flag_gate", 0x02, 2, note="record word 1; EF:0EE8 tests this through C2:1628 before selecting the row"),
-    field("retry_threshold", 0x04, 2, note="record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF as a special immediate-success value"),
+    field("retry_threshold", 0x04, 2, note="record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF supported as an immediate-success sentinel"),
     field("retry_wait_seconds", 0x06, 2, note="record word 3; EF:0D23 returns this to the 499+500_common one-second retry loop"),
     field("delivery_time", 0x08, 2, note="record word 4; EF:0D46 seeds the row-local countdown from this field"),
     field("success_pointer_low_word", 0x0A, 2, note="low word of pointer 1; EF:0D8D queues this as staged queue type 0x0008"),
@@ -1063,13 +1069,14 @@ def extra_contracts() -> list[Contract]:
             address="D5:F649",
             stride=0x14,
             count=10,
-            struct_name="timed_delivery",
-            confidence="boundary-corroborated",
-            note="Timed delivery rows for the current D5 split front door. Keep this boundary contract raw because the EF helper family treats D5:F645 as the effective row base.",
+            struct_name="timed_delivery_source_window",
+            confidence="exact-source-window",
+            note="Exact source-order timed-delivery split window; it starts four bytes into the EF consumer-effective controller rows at D5:F645 and ends with four zero padding bytes.",
             evidence=(
                 "refs/eb-decompile-4ef92/timed_delivery_table.yml",
                 "notes/d5-table-splits.md",
                 "notes/delivery-row-helpers-ef0e67-ef0ead.md",
+                "notes/d5-timed-delivery-row-contracts.md",
                 "CoilSnake timed-delivery-first-timer-probe",
             ),
             fields=TIMED_DELIVERY_FIELDS,
@@ -1084,6 +1091,7 @@ def extra_contracts() -> list[Contract]:
             confidence="consumer-corroborated",
             note="Consumer-effective timed-delivery/service table base used by the EF:0CA7..0EE8 helper family and the C1 1F D3 row-selector callback.",
             evidence=(
+                "notes/d5-timed-delivery-row-contracts.md",
                 "notes/delivery-row-helpers-ef0e67-ef0ead.md",
                 "notes/timed-delivery-controller-499-500-common.md",
                 "notes/timed-delivery-row-index-command-1f-d3.md",

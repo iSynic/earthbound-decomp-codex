@@ -12,6 +12,7 @@ Primary artifacts:
 
 - `notes/bank-d5-asset-data-map.md`
 - `notes/d5-table-splits.md`
+- `notes/d5-timed-delivery-row-contracts.md`
 - `notes/bank-d5-source-scaffold-handoff.md`
 - `build/asset-bank-d5.json`
 - `build/d5-table-splits.json`
@@ -97,13 +98,20 @@ High confidence:
 - `D5:45C0..D5:4FFF` is an explicit zero-filled pad in the US retail build.
 - `D5:5000..D5:FFFF` is exactly split into source-order gameplay/battle/map
   table data plus a zero-filled tail.
+- The timed-delivery source split at `D5:F649` is now understood as a
+  source-order window that begins four bytes into the EF consumer-effective
+  controller rows at `D5:F645`.
+- `TIMED_DELIVERY_CONTROLLER_TABLE` row fields are consumer-backed by the
+  EF timed-delivery helper family and summarized in
+  `notes/d5-timed-delivery-row-contracts.md`.
 - `src/d5/bank_d5_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline: `139` data-corridor modules, `65536` protected
   bytes, and `0` byte-equivalence mismatches.
 
 Still intentionally out of scope:
 
-- Consumer-confirmed subfield ordering for `TIMED_DELIVERY_TABLE`.
+- Story-specific names for every timed-delivery row beyond the script-backed
+  family labels.
 - Rendering or semantic grouping for the final sprite payloads beyond the
   source labels.
 
@@ -112,5 +120,5 @@ Still intentionally out of scope:
 D5 is now closed for byte-preserving scaffold purposes. The next D5 work is
 semantic rather than coverage: promote the exact table splits into richer data
 contracts where useful, keep the corrected `254`-row item table count in
-downstream tools, and decode timed-delivery row fields against the C3/C4
-delivery scripts before treating that table as fully understood.
+downstream tools, and use the row-family labels in the timed-delivery contract
+as the boundary for any later story/script-specific naming pass.

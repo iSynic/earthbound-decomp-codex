@@ -30,7 +30,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TIMED_ITEM_TRANSFORMATION_TABLE | rom-table | `D5:F4BB` | `0x5` | 4 | `timed_item_transformation` | 5 | corroborated |
 | DONT_CARE_NAMES | rom-table | `D5:F4CF` | `0x2A` | 7 | `default_name_set` | 7 | corroborated |
 | INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
-| TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery` | 1 | boundary-corroborated |
+| TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery_source_window` | 1 | exact-source-window |
 | TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
 | CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
@@ -703,14 +703,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D5:F649`
 - stride: `0x14`
 - count: `10`
-- struct: `timed_delivery`
-- confidence: `boundary-corroborated`
-- note: Timed delivery rows for the current D5 split front door. Keep this boundary contract raw because the EF helper family treats D5:F645 as the effective row base.
-- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, CoilSnake `timed-delivery-first-timer-probe`
+- struct: `timed_delivery_source_window`
+- confidence: `exact-source-window`
+- note: Exact source-order timed-delivery split window; it starts four bytes into the EF consumer-effective controller rows at D5:F645 and ends with four zero padding bytes.
+- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/d5-timed-delivery-row-contracts.md`, CoilSnake `timed-delivery-first-timer-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation |
+| `0x0` | `source_window_bytes` | 1 | 20 | 20-byte source-order window beginning at D5:F649; this starts at +0x04 into effective controller row 0, so use TIMED_DELIVERY_CONTROLLER_TABLE for row-aligned fields |
 
 ### TIMED_DELIVERY_CONTROLLER_TABLE
 
@@ -721,13 +721,13 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `timed_delivery_controller_row`
 - confidence: `consumer-corroborated`
 - note: Consumer-effective timed-delivery/service table base used by the EF:0CA7..0EE8 helper family and the C1 1F D3 row-selector callback.
-- evidence: `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/timed-delivery-controller-499-500-common.md`, `notes/timed-delivery-row-index-command-1f-d3.md`, `notes/selector-row-config-family-ef0ee8.md`, `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm`, `notes/coilsnake-field-join-report.md`
+- evidence: `notes/d5-timed-delivery-row-contracts.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/timed-delivery-controller-499-500-common.md`, `notes/timed-delivery-row-index-command-1f-d3.md`, `notes/selector-row-config-family-ef0ee8.md`, `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm`, `notes/coilsnake-field-join-report.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `sprite_object_descriptor` | 2 | 1 | record word 0; EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with a placeholder fallback when zero |
 | `0x2` | `event_flag_gate` | 2 | 1 | record word 1; EF:0EE8 tests this through C2:1628 before selecting the row |
-| `0x4` | `retry_threshold` | 2 | 1 | record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF as a special immediate-success value |
+| `0x4` | `retry_threshold` | 2 | 1 | record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF supported as an immediate-success sentinel |
 | `0x6` | `retry_wait_seconds` | 2 | 1 | record word 3; EF:0D23 returns this to the 499+500_common one-second retry loop |
 | `0x8` | `delivery_time` | 2 | 1 | record word 4; EF:0D46 seeds the row-local countdown from this field |
 | `0xA` | `success_pointer_low_word` | 2 | 1 | low word of pointer 1; EF:0D8D queues this as staged queue type 0x0008 |
