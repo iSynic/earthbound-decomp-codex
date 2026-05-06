@@ -102,6 +102,14 @@ the adjacent preserved `C4:2F45..2F65` callback byte island, map-tile chunk
 pointers, and the two visual tile-word ladders. The descriptor labels follow
 the generated secondary-visual descriptor contract note and remain C4-local.
 
+2026-05-06 equipment comparison row follow-up:
+`src/c4/party_equipment_comparison_visual_state_rows.asm` now marks the
+equipment-comparison visual row packing at `$98C9/$98CB`, the six slot bytes
+per row, the candidate source base, party-record stride/base, clamp limit, and
+the three packed flag bits (`$20/$40/$80`). This is a local presentation-row
+contract only; it does not promote the descriptor bytes at record offsets
+`+$0E/+$0F` to global field names.
+
 ## Working Names
 
 - `C4:283F` = `CopySecondaryVisualProfileFrameWords`

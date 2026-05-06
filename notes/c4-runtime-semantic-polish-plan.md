@@ -321,6 +321,13 @@ closure.
   comments keep map load, entity spawn, visual attach, BG3 scroll, and DMA
   queue behavior as caller joins into their owning helpers. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 photo/new-entity producer follow-up: tightened the C4 producer
+  side around the photographer scene-record placement helper, staged new-entity
+  argument words, teleport destination rows, yield-to-text latch, deferred
+  text-pointer record type, staged-position proximity check, and equipment
+  comparison `$98C9/$98CB` visual row packing. See
+  `notes/current-slot-position-staging-c46b8d-c46d4b.md` and
+  `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md`.
 
 ## Validation
 

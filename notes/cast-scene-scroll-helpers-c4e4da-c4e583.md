@@ -175,6 +175,13 @@ and slide angle/frame-count fields. The source comments identify only the C4
 argument staging for map load, entity spawn, visual attach, BG3 scroll, and
 DMA queue drains; the C0/C2 helper internals remain external.
 
+The adjacent producer-side follow-up in
+`src/c4/photo_and_new_entity_preparation_helpers.asm` now uses compatible
+names for the same photographer record family when `C4:6D4B` places the current
+slot from offsets `+$0A/+$0C`; see
+`notes/current-slot-position-staging-c46b8d-c46d4b.md` for that movement-facing
+contract.
+
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
 the requested music id as one-based, subtracts one for the row lookup, and reads
 three byte fields per row: primary sample pack, secondary sample pack, and

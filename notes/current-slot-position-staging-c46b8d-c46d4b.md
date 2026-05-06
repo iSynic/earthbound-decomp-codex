@@ -93,6 +93,14 @@ The local name keeps the latch address because the downstream text-yield contrac
 
 `C4:6E4F` is reached from `C0:A88D`, and ebsrc's event macro file maps that wrapper to `EVENT_QUEUE_TEXT`. The helper copies the caller pointer pieces into direct-page `$06/$08` and `$0E/$10`, then calls `C0:64E3` with `A = #$0008`. Existing queue notes name `C0:64E3` as `Enqueue_MovementRecord`, but the type-8 users are better described as deferred pointer records: `C4:681A` queues a current visual-type script pointer, while this helper queues a text pointer supplied by the action-script stream.
 
+2026-05-06 source polish follow-up: `src/c4/photo_and_new_entity_preparation_helpers.asm`
+now names the local photographer record table/stride, photo-scene X/Y cell
+offsets, staged new-entity argument words `$9E2D/$9E2F/$9E31`, D5 teleport
+destination row fields, text-yield latch value, deferred text-pointer record
+type, and the proximity-check staged X/Y plus threshold tables. The comments
+keep the C4-owned staging and comparison roles separate from C0 queue/entity
+creation behavior.
+
 ## Event-script corroboration
 
 Reference scripts make the split visible:
