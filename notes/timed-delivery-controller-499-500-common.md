@@ -116,6 +116,8 @@ So the trailing table pair still reads best as:
 ## Data-side cross-check
 
 The third reference project at [timed_delivery_table.yml](refs/eb-decompile-4ef92/timed_delivery_table.yml) lines up well with the local controller picture.
+The local byte-equivalent row summary is now generated at
+[d5-timed-delivery-row-contracts.md](notes/d5-timed-delivery-row-contracts.md).
 
 Its exposed fields already match:
 
@@ -129,6 +131,8 @@ And its two remaining anonymous byte groups map neatly onto the locally decoded 
 
 - `Unknown = 6,0,15,0` matches the common `word2 = 6`, `word3 = 15` rows
 - `Unknown2 = 128,1,128,1` matches the common `word8 = 0x0180`, `word9 = 0x0180` rows
+- the special row `7` retry pair is `0x00FF/0x00FF`; `EF:0CA7` supports a
+  `0xFFFF` sentinel path, but the observed D5 rows do not use that sentinel
 
 So the external data dump is a useful confirmation of the local struct sketch, not just a parallel guess.
 
@@ -147,5 +151,4 @@ For the shared timed-delivery rows in `D5:F645`, the best current local sketch i
 - word `9` = exit speed
 
 That is a much stronger end-to-end interpretation than the earlier "service-flavored table with several unresolved scalars" wording.
-
 

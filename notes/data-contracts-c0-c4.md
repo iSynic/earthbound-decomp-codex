@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `104`
-- fields: `485`
+- contracts: `167`
+- fields: `686`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -30,10 +30,11 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TIMED_ITEM_TRANSFORMATION_TABLE | rom-table | `D5:F4BB` | `0x5` | 4 | `timed_item_transformation` | 5 | corroborated |
 | DONT_CARE_NAMES | rom-table | `D5:F4CF` | `0x2A` | 7 | `default_name_set` | 7 | corroborated |
 | INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
-| TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery` | 1 | boundary-corroborated |
+| TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery_source_window` | 1 | exact-source-window |
+| TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
 | CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
-| D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `far_pointer` | 1 | exact |
+| D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `door_sector_list_far_pointer` | 3 | exact |
 | SCREEN_TRANSITION_CONFIG_TABLE | rom-table | `D0:1400` | `0xC` | 34 | `screen_transition_config` | 12 | corroborated |
 | EVENT_CONTROL_PTR_TABLE | rom-table | `D0:1598` | `0x2` | 20 | `word_pointer` | 1 | exact |
 | MAP_TILE_EVENT_CONTROL_TABLE | rom-variable-table | `D0:15C0` | `0x2C0` | 1 | `map_tile_event_chain_block` | 1 | exact-variable-chains |
@@ -42,32 +43,94 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ENEMY_PLACEMENT_GROUPS_TABLE | rom-variable-table | `D0:BBAC` | `0xA61` | 1 | `enemy_placement_group_lists` | 1 | exact-variable-lists |
 | BTL_ENTRY_PTR_TABLE | rom-table | `D0:C60D` | `0x8` | 484 | `battle_entry_ptr_entry` | 4 | corroborated |
 | ENEMY_BATTLE_GROUPS_TABLE | rom-variable-table | `D0:D52D` | `0xA87` | 1 | `enemy_battle_group_payloads` | 1 | exact-variable-lists |
-| MAP_TILE_COLLISION_DATA | rom-block | `D8:0000` | `0x8F50` | 1 | `raw_tile_collision_data` | 1 | exact-boundary |
+| D7_SECTOR_TILESET_PALETTE_TABLE | rom-table | `D7:A800` | `0x1` | 1280 | `map_sector_tileset_palette` | 1 | consumer-corroborated |
+| D7_SECTOR_CONTEXT_WORD_TABLE | rom-table | `D7:B200` | `0x2` | 1280 | `map_sector_context_word` | 1 | consumer-corroborated-low3 |
+| MAP_TILE_COLLISION_DATA | rom-table | `D8:0000` | `0x10` | 2293 | `map_tile_collision_record` | 16 | consumer-corroborated |
 | MAP_DATA_TILE_COLLISION_PTR_TABLE | rom-table | `EF:117B` | `0x4` | 20 | `far_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_2 | rom-table | `D8:9C6A` | `0x2` | 827 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_3 | rom-table | `D8:A2E0` | `0x2` | 524 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_4 | rom-table | `D8:A6F8` | `0x2` | 935 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_5 | rom-table | `D8:AE46` | `0x2` | 287 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_6 | rom-table | `D8:B084` | `0x2` | 875 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_7 | rom-table | `D8:B75A` | `0x2` | 749 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_8 | rom-table | `D8:BD34` | `0x2` | 628 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_9 | rom-table | `D8:C21C` | `0x2` | 933 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_10 | rom-table | `D8:C966` | `0x2` | 871 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_11 | rom-table | `D8:D034` | `0x2` | 713 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_12 | rom-table | `D8:D5C6` | `0x2` | 462 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_13 | rom-table | `D8:D962` | `0x2` | 882 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_14 | rom-table | `D8:E046` | `0x2` | 203 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_15 | rom-table | `D8:E1DC` | `0x2` | 143 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_16 | rom-table | `D8:E2FA` | `0x2` | 390 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_2 | rom-table | `D8:9C6A` | `0x2` | 827 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_3 | rom-table | `D8:A2E0` | `0x2` | 524 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_4 | rom-table | `D8:A6F8` | `0x2` | 935 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_5 | rom-table | `D8:AE46` | `0x2` | 287 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_6 | rom-table | `D8:B084` | `0x2` | 875 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_7 | rom-table | `D8:B75A` | `0x2` | 749 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_8 | rom-table | `D8:BD34` | `0x2` | 628 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_9 | rom-table | `D8:C21C` | `0x2` | 933 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_10 | rom-table | `D8:C966` | `0x2` | 871 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_11 | rom-table | `D8:D034` | `0x2` | 713 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_12 | rom-table | `D8:D5C6` | `0x2` | 462 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_13 | rom-table | `D8:D962` | `0x2` | 882 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_14 | rom-table | `D8:E046` | `0x2` | 203 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_15 | rom-table | `D8:E1DC` | `0x2` | 143 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_16 | rom-table | `D8:E2FA` | `0x2` | 390 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
+| DA_MAP_PALETTE_VARIANT_TABLE | rom-table | `DA:7CA7` | `0xC0` | 168 | `da_map_palette_variant` | 10 | tool-and-script-corroborated |
+| PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
+| LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
+| LANDING_PALETTE_ANIM_PROFILE_0 | rom-variable-table | `DF:E55D` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_1 | rom-variable-table | `DF:E566` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_2 | rom-variable-table | `DF:E56F` | `0xB` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_3 | rom-variable-table | `DF:E57A` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_4 | rom-variable-table | `DF:E582` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_5 | rom-variable-table | `DF:E58B` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_6 | rom-variable-table | `DF:E593` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_7 | rom-variable-table | `DF:E59B` | `0xD` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_8 | rom-variable-table | `DF:E5A8` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_9 | rom-variable-table | `DF:E5AD` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_10 | rom-variable-table | `DF:E5B2` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_11 | rom-variable-table | `DF:E5B7` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_12 | rom-variable-table | `DF:E5BC` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_13 | rom-variable-table | `DF:E5C1` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_14 | rom-variable-table | `DF:E5C6` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_15 | rom-variable-table | `DF:E5CB` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_16 | rom-variable-table | `DF:E5D0` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_17 | rom-variable-table | `DF:E5D5` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_18 | rom-variable-table | `DF:E5DA` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_19 | rom-variable-table | `DF:E5DF` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_20 | rom-variable-table | `DF:E5E4` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_21 | rom-variable-table | `DF:E5E9` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_22 | rom-variable-table | `DF:E5EE` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_23 | rom-variable-table | `DF:E5F3` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_24 | rom-variable-table | `DF:E5F8` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_25 | rom-variable-table | `DF:E5FD` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_26 | rom-variable-table | `DF:E602` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_27 | rom-variable-table | `DF:E607` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_28 | rom-variable-table | `DF:E60C` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_29 | rom-variable-table | `DF:E611` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_30 | rom-variable-table | `DF:E616` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PAYLOAD_0 | rom-compressed-payload | `DF:E61B` | `0x97` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_1 | rom-compressed-payload | `DF:E6B2` | `0x8B` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_2 | rom-compressed-payload | `DF:E73D` | `0x1A3` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_3 | rom-compressed-payload | `DF:E8E0` | `0x8C` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_4 | rom-compressed-payload | `DF:E96C` | `0xEA` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_5 | rom-compressed-payload | `DF:EA56` | `0xDB` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_6 | rom-compressed-payload | `DF:EB31` | `0x7B` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_7 | rom-compressed-payload | `DF:EBAC` | `0x9A` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| TEXT_WINDOW_FLAVOR_SELECTOR_TABLE | rom-table | `E0:1FB9` | `0x3` | 5 | `text_window_flavor_selector` | 2 | runtime-corroborated |
+| TEXT_WINDOW_PALETTE_BLOCKS | rom-table | `E0:1FC8` | `0x40` | 7 | `text_window_palette_block` | 8 | runtime-corroborated |
+| MOVEMENT_TEXT_STRING_PALETTE | rom-table | `E0:2188` | `0x8` | 1 | `four_colour_palette_row` | 4 | structural-corroborated |
+| TOWN_MAP_GFX_POINTER_TABLE | rom-table | `E0:2190` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
+| TITLE_SCREEN_LETTER_OAM_RECORDS | rom-table | `E1:CE08` | `0x2D` | 9 | `title_screen_letter_oam_record` | 1 | verified |
+| TITLE_SCREEN_LETTER_OAM_POINTER_TABLE | rom-table | `E1:CF9D` | `0x2` | 9 | `word_pointer` | 1 | verified |
+| PHOTOGRAPHER_CONFIG_TABLE | rom-table | `E1:2F8A` | `0x3E` | 32 | `photographer_config_record` | 31 | consumer-corroborated-partial |
+| TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS | rom-table | `E1:F203` | `0x5` | 117 | `town_map_icon_graphic_descriptor` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE | rom-table | `E1:F44C` | `0x2` | 23 | `word_pointer` | 1 | runtime-corroborated |
+| TOWN_MAP_BLINK_SUPPRESS_TABLE | rom-table | `E1:F47A` | `0x1` | 23 | `town_map_blink_suppress_flag` | 1 | runtime-corroborated |
+| TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE | rom-table | `E1:F491` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
+| TOWN_MAP_ICON_PLACEMENT_LIST_0 | rom-variable-table | `E1:F4A9` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_1 | rom-variable-table | `E1:F4CD` | `0x5` | 8 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_2 | rom-variable-table | `E1:F4F6` | `0x5` | 9 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_3 | rom-variable-table | `E1:F524` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_4 | rom-variable-table | `E1:F548` | `0x5` | 5 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_5 | rom-variable-table | `E1:F562` | `0x5` | 6 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
 | OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
-| SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `word_pointer` | 1 | exact |
+| SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `sprite_placement_sector_pointer` | 1 | exact |
 | SPRITE_PLACEMENT_TABLE | rom-variable-table | `CF:6BE7` | `0x1D9E` | 1 | `sprite_placement_sector_list_block` | 1 | exact-variable-lists |
 | NPC_CONFIG_TABLE | rom-table | `CF:8985` | `0x11` | 1584 | `npc_config` | 8 | corroborated |
 | BATTLE_SELECTION_SNAPSHOT | wram-overlay | `7E:9FFA` | `0x4E` | 1 | `battle_menu_selection_header_plus_snapshot` | 17 | corroborated-overlay |
@@ -344,7 +407,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `telephone_contact`
 - confidence: `corroborated`
 - note: Phone contact rows with fixed-width name, event flag, and text pointer.
-- evidence: `refs/eb-decompile-4ef92/telephone_contacts_table.yml`, `notes/d5-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/telephone_contacts_table.yml`, `notes/d5-table-splits.md`, CoilSnake `telephone-dad-text-pointer-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -507,7 +570,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `stats_growth_vars`
 - confidence: `corroborated`
 - note: Seven-byte per-character stat growth parameter rows.
-- evidence: `refs/eb-decompile-4ef92/stats_growth_vars.yml`, `notes/d5-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/stats_growth_vars.yml`, `notes/d5-table-splits.md`, CoilSnake `stats-growth-ness-offense-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -587,7 +650,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `timed_item_transformation`
 - confidence: `corroborated`
 - note: Timed item conversion rows for delayed item changes and sound feedback.
-- evidence: `refs/eb-decompile-4ef92/timed_item_transformation_table.yml`, `notes/d5-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/timed_item_transformation_table.yml`, `notes/d5-table-splits.md`, CoilSnake `timed-item-transform-delay-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -627,7 +690,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `initial_party_member_stats`
 - confidence: `corroborated`
 - note: Initial character setup rows with level, money, EXP, and starting inventory.
-- evidence: `refs/eb-decompile-4ef92/initial_stats.yml`, `notes/d5-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/initial_stats.yml`, `notes/d5-table-splits.md`, CoilSnake `initial-stats-ness-money-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -643,14 +706,39 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D5:F649`
 - stride: `0x14`
 - count: `10`
-- struct: `timed_delivery`
-- confidence: `boundary-corroborated`
-- note: Timed delivery rows. Table boundary and row count are exact; subfield ordering remains intentionally raw pending consumer-code confirmation.
-- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`
+- struct: `timed_delivery_source_window`
+- confidence: `exact-source-window`
+- note: Exact source-order timed-delivery split window; it starts four bytes into the EF consumer-effective controller rows at D5:F645 and ends with four zero padding bytes.
+- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/d5-timed-delivery-row-contracts.md`, CoilSnake `timed-delivery-first-timer-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation |
+| `0x0` | `source_window_bytes` | 1 | 20 | 20-byte source-order window beginning at D5:F649; this starts at +0x04 into effective controller row 0, so use TIMED_DELIVERY_CONTROLLER_TABLE for row-aligned fields |
+
+### TIMED_DELIVERY_CONTROLLER_TABLE
+
+- domain: `rom-table`
+- address: `D5:F645`
+- stride: `0x14`
+- count: `10`
+- struct: `timed_delivery_controller_row`
+- confidence: `consumer-corroborated`
+- note: Consumer-effective timed-delivery/service table base used by the EF:0CA7..0EE8 helper family and the C1 1F D3 row-selector callback.
+- evidence: `notes/d5-timed-delivery-row-contracts.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/timed-delivery-controller-499-500-common.md`, `notes/timed-delivery-row-index-command-1f-d3.md`, `notes/selector-row-config-family-ef0ee8.md`, `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm`, `notes/coilsnake-field-join-report.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `sprite_object_descriptor` | 2 | 1 | record word 0; EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with a placeholder fallback when zero |
+| `0x2` | `event_flag_gate` | 2 | 1 | record word 1; EF:0EE8 tests this through C2:1628 before selecting the row |
+| `0x4` | `retry_threshold` | 2 | 1 | record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF supported as an immediate-success sentinel |
+| `0x6` | `retry_wait_seconds` | 2 | 1 | record word 3; EF:0D23 returns this to the 499+500_common one-second retry loop |
+| `0x8` | `delivery_time` | 2 | 1 | record word 4; EF:0D46 seeds the row-local countdown from this field |
+| `0xA` | `success_pointer_low_word` | 2 | 1 | low word of pointer 1; EF:0D8D queues this as staged queue type 0x0008 |
+| `0xC` | `success_pointer_bank` | 1 | 1 | bank byte of pointer 1 |
+| `0xD` | `failure_pointer_low_word` | 2 | 1 | low word of pointer 2; EF:0DFA queues this as staged queue type 0x000A |
+| `0xF` | `failure_pointer_bank` | 1 | 1 | bank byte of pointer 2 |
+| `0x10` | `enter_speed` | 2 | 1 | record word 8; EF:0E67 returns this for the arrival-side movement branch |
+| `0x12` | `exit_speed` | 2 | 1 | record word 9; EF:0E8A returns this for the departure-side movement branch |
 
 ### CF_DOOR_DATA
 
@@ -675,12 +763,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `door_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 1280 counted door sector lists; D0 door pointers address individual lists inside this block.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+- note: 1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_sector_lists` | 1 | 12960 | 1280 counted sector door lists; each list is count word plus five-byte entries |
+| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries |
 
 ### D0_DOOR_POINTER_TABLE
 
@@ -688,14 +776,16 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D0:0000`
 - stride: `0x4`
 - count: `1280`
-- struct: `far_pointer`
+- struct: `door_sector_list_far_pointer`
 - confidence: `exact`
 - note: 40x32 long-pointer grid into the CF door sector lists.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm`
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 4 | 1 |  |
+| `0x0` | `door_sector_list_pointer_low_word` | 2 | 1 | low word of a CF door sector-list start inside CF:264F..CF:58EE |
+| `0x2` | `door_sector_list_pointer_bank` | 1 | 1 | bank byte; validated as CF for all 1280 rows |
+| `0x3` | `reserved` | 1 | 1 | zero pad byte in the four-byte long-pointer row |
 
 ### SCREEN_TRANSITION_CONFIG_TABLE
 
@@ -791,12 +881,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `enemy_placement_group_lists`
 - confidence: `exact-variable-lists`
-- note: 203 variable enemy placement group lists.
-- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`
+- note: 203 variable enemy placement group lists: event_flag_gate, primary_spawn_chance, flagged_spawn_chance, then selection_weight + battle_group_id entries consumed by C0:2668.
+- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`, `notes/d0-variable-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_group_lists` | 1 | 2657 | 203 variable enemy placement group lists |
+| `0x0` | `raw_group_lists` | 1 | 2657 | 203 variable enemy placement group lists; see notes/d0-variable-list-contracts.json for decoded headers and weighted entries |
 
 ### BTL_ENTRY_PTR_TABLE
 
@@ -811,10 +901,10 @@ Generated from local notes plus quarantined reference structs. This is the machi
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 4 | 1 |  |
+| `0x0` | `enemy_list_pointer` | 4 | 1 | long pointer to a D0:D52D enemy battle-group list |
 | `0x4` | `run_away_flag` | 2 | 1 |  |
 | `0x6` | `run_away_flag_state` | 1 | 1 |  |
-| `0x7` | `letterbox_style` | 1 | 1 |  |
+| `0x7` | `presentation_sprite_style` | 1 | 1 | C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource |
 
 ### ENEMY_BATTLE_GROUPS_TABLE
 
@@ -824,27 +914,72 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `enemy_battle_group_payloads`
 - confidence: `exact-variable-lists`
-- note: Variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE.
-- evidence: `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`
+- note: Consumer-visible suffix slices addressed by BTL_ENTRY_PTR_TABLE; entries are repeat_count + enemy_id until an FF terminator and are consumed by C2 battle setup, sprite loading, and call-for-help selection.
+- evidence: `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`, `notes/d0-variable-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_battle_groups` | 1 | 2695 | variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE |
+| `0x0` | `raw_battle_groups` | 1 | 2695 | consumer-visible battle group pointer slices; see notes/d0-variable-list-contracts.json for repeat-count enemy entries |
+
+### D7_SECTOR_TILESET_PALETTE_TABLE
+
+- domain: `rom-table`
+- address: `D7:A800`
+- stride: `0x1`
+- count: `1280`
+- struct: `map_sector_tileset_palette`
+- confidence: `consumer-corroborated`
+- note: 40x32 sector table whose packed byte is bits 3..7 tileset_id and bits 0..2 palette_variant; every row matches map-sector metadata and multiple C0/C4 consumers.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm`, `src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm`, `src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm`, `src/c4/your_sanctuary_tile_arrangement_helpers.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `packed_tileset_palette` | 1 | 1 | bits 3..7 are tileset_id and bits 0..2 are palette_variant; exact join to map-sector metadata and D7A800 consumers |
+
+### D7_SECTOR_CONTEXT_WORD_TABLE
+
+- domain: `rom-table`
+- address: `D7:B200`
+- stride: `0x2`
+- count: `1280`
+- struct: `map_sector_context_word`
+- confidence: `consumer-corroborated-low3`
+- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver |
 
 ### MAP_TILE_COLLISION_DATA
 
-- domain: `rom-block`
+- domain: `rom-table`
 - address: `D8:0000`
-- stride: `0x8F50`
-- count: `1`
-- struct: `raw_tile_collision_data`
-- confidence: `exact-boundary`
-- note: Raw tile collision data block before the 20 D8 collision pointer tables.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- stride: `0x10`
+- count: `2293`
+- struct: `map_tile_collision_record`
+- confidence: `consumer-corroborated`
+- note: Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 surface/collision flag grid.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/d8-collision-subrecord-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_collision_data` | 1 | 36688 | raw tile collision data addressed by the D8 collision pointer tables |
+| `0x0` | `cell_r0_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x1` | `cell_r0_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x2` | `cell_r0_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x3` | `cell_r0_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x4` | `cell_r1_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x5` | `cell_r1_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x6` | `cell_r1_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x7` | `cell_r1_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x8` | `cell_r2_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x9` | `cell_r2_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xA` | `cell_r2_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xB` | `cell_r2_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xC` | `cell_r3_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xD` | `cell_r3_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xE` | `cell_r3_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xF` | `cell_r3_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
 
 ### MAP_DATA_TILE_COLLISION_PTR_TABLE
 
@@ -867,14 +1002,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:8F50`
 - stride: `0x2`
 - count: `832`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_1
 
@@ -882,14 +1017,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:95D0`
 - stride: `0x2`
 - count: `845`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_2
 
@@ -897,14 +1032,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:9C6A`
 - stride: `0x2`
 - count: `827`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_3
 
@@ -912,14 +1047,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:A2E0`
 - stride: `0x2`
 - count: `524`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_4
 
@@ -927,14 +1062,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:A6F8`
 - stride: `0x2`
 - count: `935`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_5
 
@@ -942,14 +1077,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:AE46`
 - stride: `0x2`
 - count: `287`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_6
 
@@ -957,14 +1092,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:B084`
 - stride: `0x2`
 - count: `875`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_7
 
@@ -972,14 +1107,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:B75A`
 - stride: `0x2`
 - count: `749`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_8
 
@@ -987,14 +1122,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:BD34`
 - stride: `0x2`
 - count: `628`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_9
 
@@ -1002,14 +1137,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:C21C`
 - stride: `0x2`
 - count: `933`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_10
 
@@ -1017,14 +1152,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:C966`
 - stride: `0x2`
 - count: `871`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_11
 
@@ -1032,14 +1167,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D034`
 - stride: `0x2`
 - count: `713`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_12
 
@@ -1047,14 +1182,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D5C6`
 - stride: `0x2`
 - count: `462`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_13
 
@@ -1062,14 +1197,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D962`
 - stride: `0x2`
 - count: `882`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_14
 
@@ -1077,14 +1212,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E046`
 - stride: `0x2`
 - count: `203`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_15
 
@@ -1092,14 +1227,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E1DC`
 - stride: `0x2`
 - count: `143`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_16
 
@@ -1107,14 +1242,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E2FA`
 - stride: `0x2`
 - count: `390`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_17
 
@@ -1122,14 +1257,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E606`
 - stride: `0x2`
 - count: `343`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_18
 
@@ -1137,14 +1272,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E8B4`
 - stride: `0x2`
 - count: `445`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_19
 
@@ -1152,14 +1287,1025 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:EC2E`
 - stride: `0x2`
 - count: `536`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
+
+### MAP_PALETTE_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `DA:FAA7`
+- stride: `0x3`
+- count: `32`
+- struct: `snes_long_pointer24`
+- confidence: `verified`
+- note: Thirty-two 24-bit pointers to the bank DA map-palette payloads; each entry matches the corresponding MAP_DATA_PALETTE_N asset.
+- evidence: `notes/bank-da-asset-data-map.md`, `notes/map-palette-pointer-table-contract.md`, `notes/map-palette-descriptor-context.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `target_low_word` | 2 | 1 |  |
+| `0x2` | `target_bank` | 1 | 1 |  |
+
+### DA_MAP_PALETTE_VARIANT_TABLE
+
+- domain: `rom-table`
+- address: `DA:7CA7`
+- stride: `0xC0`
+- count: `168`
+- struct: `da_map_palette_variant`
+- confidence: `tool-and-script-corroborated`
+- note: Contiguous physical DA map-palette variant rows. Each row is six 16-colour SNES BGR555 subpalettes; the first words of subpalettes 0..3 carry raw-ROM metadata that matches map_palette_settings and is zeroed in .fts visual rows.
+- evidence: `notes/da-map-palette-subrecord-contracts.md`, `notes/map-fts-palette-variant-contract.md`, `notes/map-palette-pointer-table-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/map-palette-command-usage-contract.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_flag` | 2 | 1 | raw ROM metadata word matching map_palette_settings; zeroed in .fts visual palette rows |
+| `0x0` | `map_subpalette_0_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 2 / CGRAM $0240..$025F; colour 0 overlaps event_flag in raw ROM |
+| `0x20` | `event_palette_selector_word` | 2 | 1 | raw ROM metadata word whose presence matches event-palette payload settings; runtime dispatch semantics remain deferred |
+| `0x20` | `map_subpalette_1_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 3 / CGRAM $0260..$027F; colour 0 overlaps event_palette_selector_word in raw ROM |
+| `0x40` | `sprite_palette` | 2 | 1 | raw ROM metadata word matching map_palette_settings Sprite Palette; zeroed in .fts visual palette rows |
+| `0x40` | `map_subpalette_2_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 4 / CGRAM $0280..$029F; colour 0 overlaps sprite_palette in raw ROM |
+| `0x60` | `flash_effect` | 2 | 1 | raw ROM metadata word matching map_palette_settings Flash Effect; zeroed in .fts visual palette rows |
+| `0x60` | `map_subpalette_3_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 5 / CGRAM $02A0..$02BF; colour 0 overlaps flash_effect in raw ROM |
+| `0x80` | `map_subpalette_4_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 6 / CGRAM $02C0..$02DF |
+| `0xA0` | `map_subpalette_5_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 7 / CGRAM $02E0..$02FF |
+
+### PER_SECTOR_MUSIC_TABLE
+
+- domain: `rom-table`
+- address: `DC:D637`
+- stride: `0x2`
+- count: `1280`
+- struct: `per_sector_music_options_index`
+- confidence: `structural-corroborated`
+- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory.
+- evidence: `notes/bank-dc-asset-data-map.md`, `notes/map-sector-bundles.md`, `tools/build_map_sector_bundle_contract.py`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `music_options_index` | 2 | 1 | 40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract |
+
+### LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `DF:E4E1`
+- stride: `0x4`
+- count: `31`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Thirty-one long pointers from landing palette/profile selector ($02A0 - 1) to DF:E55D..DF:E61B profile records.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### LANDING_PALETTE_ANIM_PROFILE_0
+
+- domain: `rom-variable-table`
+- address: `DF:E55D`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 0; C0:023F selects this record through DF:E4E1, decompresses DF:E61B, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_1
+
+- domain: `rom-variable-table`
+- address: `DF:E566`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 1; C0:023F selects this record through DF:E4E1, decompresses DF:E6B2, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_2
+
+- domain: `rom-variable-table`
+- address: `DF:E56F`
+- stride: `0xB`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 2; C0:023F selects this record through DF:E4E1, decompresses DF:E73D, and copies 6 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 6 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_3
+
+- domain: `rom-variable-table`
+- address: `DF:E57A`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 3; C0:023F selects this record through DF:E4E1, decompresses DF:E8E0, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_4
+
+- domain: `rom-variable-table`
+- address: `DF:E582`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 4; C0:023F selects this record through DF:E4E1, decompresses DF:E96C, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_5
+
+- domain: `rom-variable-table`
+- address: `DF:E58B`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 5; C0:023F selects this record through DF:E4E1, decompresses DF:EA56, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_6
+
+- domain: `rom-variable-table`
+- address: `DF:E593`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 6; C0:023F selects this record through DF:E4E1, decompresses DF:EB31, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_7
+
+- domain: `rom-variable-table`
+- address: `DF:E59B`
+- stride: `0xD`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 7; C0:023F selects this record through DF:E4E1, decompresses DF:EBAC, and copies 8 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 8 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_8
+
+- domain: `rom-variable-table`
+- address: `DF:E5A8`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 8; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_9
+
+- domain: `rom-variable-table`
+- address: `DF:E5AD`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 9; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_10
+
+- domain: `rom-variable-table`
+- address: `DF:E5B2`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 10; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_11
+
+- domain: `rom-variable-table`
+- address: `DF:E5B7`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 11; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_12
+
+- domain: `rom-variable-table`
+- address: `DF:E5BC`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 12; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_13
+
+- domain: `rom-variable-table`
+- address: `DF:E5C1`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 13; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_14
+
+- domain: `rom-variable-table`
+- address: `DF:E5C6`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 14; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_15
+
+- domain: `rom-variable-table`
+- address: `DF:E5CB`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 15; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_16
+
+- domain: `rom-variable-table`
+- address: `DF:E5D0`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 16; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_17
+
+- domain: `rom-variable-table`
+- address: `DF:E5D5`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 17; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_18
+
+- domain: `rom-variable-table`
+- address: `DF:E5DA`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 18; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_19
+
+- domain: `rom-variable-table`
+- address: `DF:E5DF`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 19; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_20
+
+- domain: `rom-variable-table`
+- address: `DF:E5E4`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 20; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_21
+
+- domain: `rom-variable-table`
+- address: `DF:E5E9`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 21; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_22
+
+- domain: `rom-variable-table`
+- address: `DF:E5EE`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 22; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_23
+
+- domain: `rom-variable-table`
+- address: `DF:E5F3`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 23; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_24
+
+- domain: `rom-variable-table`
+- address: `DF:E5F8`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 24; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_25
+
+- domain: `rom-variable-table`
+- address: `DF:E5FD`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 25; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_26
+
+- domain: `rom-variable-table`
+- address: `DF:E602`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 26; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_27
+
+- domain: `rom-variable-table`
+- address: `DF:E607`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 27; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_28
+
+- domain: `rom-variable-table`
+- address: `DF:E60C`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 28; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_29
+
+- domain: `rom-variable-table`
+- address: `DF:E611`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 29; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_30
+
+- domain: `rom-variable-table`
+- address: `DF:E616`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 30; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_0
+
+- domain: `rom-compressed-payload`
+- address: `DF:E61B`
+- stride: `0x97`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 151 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_1
+
+- domain: `rom-compressed-payload`
+- address: `DF:E6B2`
+- stride: `0x8B`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 139 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_2
+
+- domain: `rom-compressed-payload`
+- address: `DF:E73D`
+- stride: `0x1A3`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 419 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_3
+
+- domain: `rom-compressed-payload`
+- address: `DF:E8E0`
+- stride: `0x8C`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 140 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_4
+
+- domain: `rom-compressed-payload`
+- address: `DF:E96C`
+- stride: `0xEA`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 234 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_5
+
+- domain: `rom-compressed-payload`
+- address: `DF:EA56`
+- stride: `0xDB`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 219 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_6
+
+- domain: `rom-compressed-payload`
+- address: `DF:EB31`
+- stride: `0x7B`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 123 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_7
+
+- domain: `rom-compressed-payload`
+- address: `DF:EBAC`
+- stride: `0x9A`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 154 | C4:1A9E-compatible compressed payload bytes |
+
+### TEXT_WINDOW_FLAVOR_SELECTOR_TABLE
+
+- domain: `rom-table`
+- address: `E0:1FB9`
+- stride: `0x3`
+- count: `5`
+- struct: `text_window_flavor_selector`
+- confidence: `runtime-corroborated`
+- note: Five selectable text-window flavour rows; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `palette_block_offset` | 2 | 1 | offset from E0:1FC8 selected by C4:7F87/C1:9D49 for the current text-window flavour |
+| `0x2` | `selector_aux_byte` | 1 | 1 | third selector byte preserved by the checked E0 window-skin contract |
+
+### TEXT_WINDOW_PALETTE_BLOCKS
+
+- domain: `rom-table`
+- address: `E0:1FC8`
+- stride: `0x40`
+- count: `7`
+- struct: `text_window_palette_block`
+- confidence: `runtime-corroborated`
+- note: Seven 0x40-byte text-window palette blocks; blocks 0..4 are selectable, block 5 is the lead-entity override, and block 6 is preserved as nonselectable/extra.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `palette_row_0` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x8` | `palette_row_1` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x10` | `palette_row_2` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x18` | `palette_row_3` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x20` | `palette_row_4` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x28` | `palette_row_5` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x30` | `palette_row_6` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x38` | `palette_row_7` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+
+### MOVEMENT_TEXT_STRING_PALETTE
+
+- domain: `rom-table`
+- address: `E0:2188`
+- stride: `0x8`
+- count: `1`
+- struct: `four_colour_palette_row`
+- confidence: `structural-corroborated`
+- note: Standalone four-colour movement-text palette row between the text-window palette blocks and the town-map pointer tail.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/bank-e0-asset-data-map.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `colour_0` | 2 | 1 |  |
+| `0x2` | `colour_1` | 2 | 1 |  |
+| `0x4` | `colour_2` | 2 | 1 |  |
+| `0x6` | `colour_3` | 2 | 1 |  |
+
+### TOWN_MAP_GFX_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E0:2190`
+- stride: `0x4`
+- count: `6`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Six long pointers consumed by C4:D553 to decompress the selected E0 town-map graphics payload.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### TITLE_SCREEN_LETTER_OAM_RECORDS
+
+- domain: `rom-table`
+- address: `E1:CE08`
+- stride: `0x2D`
+- count: `9`
+- struct: `title_screen_letter_oam_record`
+- confidence: `verified`
+- note: Nine animated letter OAM record rows for EARTHOUND; each row contains nine 5-byte OAM-ish entries.
+- evidence: `notes/title-screen-letter-oam-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `oam_entries` | 5 | 9 | nine OAM-ish entries: y, tile, attrs, x, control; terminal entries have bit 7 set in control |
+
+### TITLE_SCREEN_LETTER_OAM_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:CF9D`
+- stride: `0x2`
+- count: `9`
+- struct: `word_pointer`
+- confidence: `verified`
+- note: Nine local pointers whose targets match the E1:CE08 title-screen letter OAM record starts.
+- evidence: `notes/title-screen-letter-oam-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `pointer` | 2 | 1 |  |
+
+### PHOTOGRAPHER_CONFIG_TABLE
+
+- domain: `rom-table`
+- address: `E1:2F8A`
+- stride: `0x3E`
+- count: `32`
+- struct: `photographer_config_record`
+- confidence: `consumer-corroborated-partial`
+- note: Thirty-two photographer/photo-scene configuration records; named fields are limited to offsets read by C4 photo, credits, and current-slot consumers.
+- evidence: `notes/bank-e1-asset-data-map.md`, `notes/current-slot-position-staging-c46b8d-c46d4b.md`, `src/c4/credits_photo_flag_counter.asm`, `src/c4/credits_photograph_render_helpers.asm`, `src/c4/credits_photograph_slide_helpers.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_flag_gate` | 2 | 1 | credits/photo helpers test this event flag before counting or rendering a photo scene |
+| `0x2` | `map_load_x_tile` | 2 | 1 | C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition |
+| `0x4` | `map_load_y_tile` | 2 | 1 | C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition |
+| `0x8` | `slide_angle` | 1 | 1 | C4:F46F projects the credits photograph slide vector from this angle byte |
+| `0x9` | `slide_duration` | 1 | 1 | C4:F46F scales this byte into the slide frame count |
+| `0xA` | `photo_scene_x_tile` | 2 | 1 | C4:6D4B shifts this word left three and writes the current slot live X |
+| `0xC` | `photo_scene_y_tile` | 2 | 1 | C4:6D4B shifts this word left three and writes the current slot live Y |
+| `0xE` | `attached_visual_0_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x10` | `attached_visual_0_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x12` | `attached_visual_1_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x14` | `attached_visual_1_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x16` | `attached_visual_2_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x18` | `attached_visual_2_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x1A` | `attached_visual_3_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x1C` | `attached_visual_3_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x1E` | `attached_visual_4_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x20` | `attached_visual_4_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x22` | `attached_visual_5_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x24` | `attached_visual_5_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x26` | `photo_entity_0_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x28` | `photo_entity_0_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x2A` | `photo_entity_0_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x2C` | `photo_entity_1_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x2E` | `photo_entity_1_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x30` | `photo_entity_1_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x32` | `photo_entity_2_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x34` | `photo_entity_2_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x36` | `photo_entity_2_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x38` | `photo_entity_3_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x3A` | `photo_entity_3_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x3C` | `photo_entity_3_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+
+### TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS
+
+- domain: `rom-table`
+- address: `E1:F203`
+- stride: `0x5`
+- count: `117`
+- struct: `town_map_icon_graphic_descriptor`
+- confidence: `runtime-corroborated-shape`
+- note: Five-byte town-map icon graphic descriptors split by the E1:F44C icon pointer table and consumed by C0:8C54/C0:8CD5.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `relative_y_offset` | 1 | 1 | signed Y offset consumed by C0:8C54/C0:8CD5 |
+| `0x1` | `tile_attribute_word` | 2 | 1 | tile/attribute word staged by the town-map icon renderer |
+| `0x3` | `relative_x_offset` | 1 | 1 | signed X offset consumed by C0:8C54/C0:8CD5 |
+| `0x4` | `control_flags` | 1 | 1 | bit 7 terminates the descriptor list; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit |
+
+### TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:F44C`
+- stride: `0x2`
+- count: `23`
+- struct: `word_pointer`
+- confidence: `runtime-corroborated`
+- note: Twenty-three local pointers mapping town-map icon ids to E1:F203 five-byte graphic descriptor lists.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### TOWN_MAP_BLINK_SUPPRESS_TABLE
+
+- domain: `rom-table`
+- address: `E1:F47A`
+- stride: `0x1`
+- count: `23`
+- struct: `town_map_blink_suppress_flag`
+- confidence: `runtime-corroborated`
+- note: Town-map icon blink/suppression flags checked before static icon drawing.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 1 | 1 |  |
+
+### TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:F491`
+- stride: `0x4`
+- count: `6`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Six long pointers from selected town-map id to variable icon placement lists in E1:F4A9..E1:F581.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_0
+
+- domain: `rom-variable-table`
+- address: `E1:F4A9`
+- stride: `0x5`
+- count: `7`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 0; C4:D43F walks five-byte records until the FF terminator at E1:F4CC.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_1
+
+- domain: `rom-variable-table`
+- address: `E1:F4CD`
+- stride: `0x5`
+- count: `8`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 1; C4:D43F walks five-byte records until the FF terminator at E1:F4F5.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_2
+
+- domain: `rom-variable-table`
+- address: `E1:F4F6`
+- stride: `0x5`
+- count: `9`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 2; C4:D43F walks five-byte records until the FF terminator at E1:F523.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_3
+
+- domain: `rom-variable-table`
+- address: `E1:F524`
+- stride: `0x5`
+- count: `7`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 3; C4:D43F walks five-byte records until the FF terminator at E1:F547.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_4
+
+- domain: `rom-variable-table`
+- address: `E1:F548`
+- stride: `0x5`
+- count: `5`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 4; C4:D43F walks five-byte records until the FF terminator at E1:F561.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_5
+
+- domain: `rom-variable-table`
+- address: `E1:F562`
+- stride: `0x5`
+- count: `6`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 5; C4:D43F walks five-byte records until the FF terminator at E1:F580.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
 
 ### OVERWORLD_EVENT_MUSIC_POINTER_TABLE
 
@@ -1212,14 +2358,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `CF:61E7`
 - stride: `0x2`
 - count: `1280`
-- struct: `word_pointer`
+- struct: `sprite_placement_sector_pointer`
 - confidence: `exact`
 - note: 40x32 sector pointer grid into the CF sprite placement table; zero means empty.
-- evidence: `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `sprite_placement_list_offset` | 2 | 1 | zero means empty sector; nonzero is a CPU low word into CF:6BE7..CF:8984 |
 
 ### SPRITE_PLACEMENT_TABLE
 
@@ -1229,12 +2375,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `sprite_placement_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 627 counted sprite-placement sector lists; each entry matches the ebsrc sprite_placement struct.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+- note: 627 counted sprite-placement sector lists with complete decoded rows in notes/cf-sector-list-contracts.json; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/coilsnake-field-join-report.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; each entry is sprite_placement |
+| `0x0` | `counted_sprite_placement_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; see notes/cf-sector-list-contracts.json for complete decoded lists and npc_config_id/sector_local_y/sector_local_x entries |
 
 ### NPC_CONFIG_TABLE
 

@@ -9,6 +9,10 @@ inferred palette pointer table, and an audio pack.
 Primary artifacts:
 
 - `notes/bank-da-asset-data-map.md`
+- `notes/da-map-palette-subrecord-contracts.md`
+- `notes/da-map-palette-subrecord-contracts.json`
+- `notes/map-palette-pointer-table-contract.md`
+- `notes/map-fts-palette-variant-contract.md`
 - `build/asset-bank-da.json`
 
 The generated map accounts for:
@@ -45,6 +49,22 @@ The checked-in source tree does not contain
 `AUDIO_PACK_111` at `DA:FB07`. The manifest therefore safely infers the pointer
 table as `DA:FAA7..DA:FB06`.
 
+The palette payload run now has a consumer/tool-backed subrecord contract:
+
+- `DA:7CA7..DA:FAA6`: `DA_MAP_PALETTE_VARIANT_TABLE`, 168 physical rows of
+  192 bytes. Each row contains six 16-colour SNES BGR555 subpalettes for map
+  descriptor palettes `2..7`; raw-ROM words `0`, `16`, `32`, and `48` are
+  metadata slots named `event_flag`, `event_palette_selector_word`,
+  `sprite_palette`, and `flash_effect`.
+- `DA:FAA7..DA:FB06`: `MAP_PALETTE_POINTER_TABLE`, 32 three-byte long pointers
+  whose targets match `MAP_DATA_PALETTE_0..31`.
+
+`notes/da-map-palette-subrecord-contracts.md` ties this to the `.fts` palette
+variant rows, map descriptor palette audit, and parsed `CHANGE_MAP_PALETTE`
+script commands. All 168 palette-setting row keys match, all raw-ROM versus
+visual-row differences are explained by metadata-word zeroing, and descriptor
+palettes `2..7` map to DA subpalettes with zero overflow cells.
+
 ## Current DA confidence boundary
 
 High confidence:
@@ -52,16 +72,19 @@ High confidence:
 - DA is data/assets, not executable code.
 - Arrangement, palette, inferred pointer-table, and audio spans are exact for
   the US retail build.
+- The palette pointer table and 192-byte palette variant subrecords are now
+  contract-backed.
 - Only `18` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:
 
-- Meaning of the unknown map palette pointer table.
-- Palette-to-sector/tileset assignment semantics.
+- Runtime dispatch semantics for the `event_palette_selector_word` metadata
+  slot.
 - Decompressing or rendering arrangements `5` through `7`.
 - Audio-pack internals.
 
 ## Recommended next move
 
-Proceed to `DB`. The next bank continues compressed map arrangements and adds an
-audio pack, so it should be another fast asset-boundary pass.
+Keep the DA palette contracts regression-tested while future runtime passes
+follow the event-palette selector path. Arrangement rendering remains optional
+asset polish rather than a blocker for table semantics.

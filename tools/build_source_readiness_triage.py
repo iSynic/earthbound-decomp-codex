@@ -187,8 +187,8 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md` and the promoted CF contracts.",
-                ["variable-list subrecords still need semantic expansion before row-level source emission"],
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md` and the complete decoded row artifact in `notes/cf-sector-list-contracts.json`.",
+                ["DOOR_DATA payload variants and OVERWORLD_EVENT_MUSIC_TABLE rows remain unresolved"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]
@@ -200,8 +200,8 @@ def build_triage() -> list[BankTriage]:
             "generated map/battle data",
             "data-contract-ready",
             3,
-            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md` and the promoted D0 contracts.",
-            ["variable-list tile-event, enemy-placement-group, and battle-group subrecords still need semantic expansion"],
+            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, and `notes/d0-variable-list-contracts.md`.",
+            ["MAP_TILE_EVENT_CONTROL_TABLE chains still need row-level semantic expansion"],
             ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "audio tail"],
         )
     )
@@ -245,8 +245,8 @@ def build_triage() -> list[BankTriage]:
             "map tiles/palette/arrangement",
             "asset-and-table-ready",
             3,
-            "Extract map tile chunks and start a cross-bank arrangement/palette inventory.",
-            ["palette/sector attribute region should get a table contract"],
+            "Extract map tile chunks and keep the D7 sector metadata contracts regression-tested.",
+            ["two bounded D7 metadata planes and context-word high bits remain unnamed"],
             ["map tile chunks", "palette/sector attributes", "compressed arrangement stream"],
         )
     )
@@ -280,8 +280,8 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/palette/audio assets",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and palettes, then give the palette pointer table a named contract.",
-            ["palette pointer table is inferred and should be contract-backed"],
+            "Extract arrangements and palettes, and keep the DA palette pointer/variant contracts regression-tested.",
+            ["event-palette selector runtime dispatch semantics remain deferred"],
             ["compressed arrangements", "map palettes", "audio pack"],
         )
     )
@@ -291,8 +291,8 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs; promote the per-sector music table to a named data contract.",
-            ["per-sector music table is inferred"],
+            "Extract arrangements and audio packs, and keep the per-sector music table contract regression-tested.",
+            ["per-sector music option list semantics live in the map-sector bundle contract"],
             ["compressed arrangements", "per-sector music table", "audio packs"],
         )
     )
@@ -302,8 +302,8 @@ def build_triage() -> list[BankTriage]:
             "map graphics plus palette animation data",
             "asset-and-table-ready",
             3,
-            "Extract tileset/animation graphics and promote the palette-animation table family.",
-            ["palette-animation region is inferred"],
+            "Extract tileset/animation graphics and keep the landing palette-animation table contracts regression-tested.",
+            ["profile meanings still need naming, but the table/payload split is contract-backed"],
             ["tileset graphics", "animation graphics", "palette-animation table", "audio pack"],
         )
     )
@@ -500,8 +500,8 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; remaining work is subrecord semantics and source/data emission.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: smaller inferred table/pointer contract promotions.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF door/sprite rows, D0 placement/battle variable lists, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in CF packed/event-music payloads, D0 tile-event chains, and source/data emission.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",

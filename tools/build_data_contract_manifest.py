@@ -199,7 +199,27 @@ INITIAL_STATS_FIELDS = (
 )
 
 TIMED_DELIVERY_FIELDS = (
-    field("raw_row", 0x00, 1, 0x14, "20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation"),
+    field(
+        "source_window_bytes",
+        0x00,
+        1,
+        0x14,
+        "20-byte source-order window beginning at D5:F649; this starts at +0x04 into effective controller row 0, so use TIMED_DELIVERY_CONTROLLER_TABLE for row-aligned fields",
+    ),
+)
+
+TIMED_DELIVERY_CONTROLLER_FIELDS = (
+    field("sprite_object_descriptor", 0x00, 2, note="record word 0; EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with a placeholder fallback when zero"),
+    field("event_flag_gate", 0x02, 2, note="record word 1; EF:0EE8 tests this through C2:1628 before selecting the row"),
+    field("retry_threshold", 0x04, 2, note="record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF supported as an immediate-success sentinel"),
+    field("retry_wait_seconds", 0x06, 2, note="record word 3; EF:0D23 returns this to the 499+500_common one-second retry loop"),
+    field("delivery_time", 0x08, 2, note="record word 4; EF:0D46 seeds the row-local countdown from this field"),
+    field("success_pointer_low_word", 0x0A, 2, note="low word of pointer 1; EF:0D8D queues this as staged queue type 0x0008"),
+    field("success_pointer_bank", 0x0C, 1, note="bank byte of pointer 1"),
+    field("failure_pointer_low_word", 0x0D, 2, note="low word of pointer 2; EF:0DFA queues this as staged queue type 0x000A"),
+    field("failure_pointer_bank", 0x0F, 1, note="bank byte of pointer 2"),
+    field("enter_speed", 0x10, 2, note="record word 8; EF:0E67 returns this for the arrival-side movement branch"),
+    field("exit_speed", 0x12, 2, note="record word 9; EF:0E8A returns this for the departure-side movement branch"),
 )
 
 RAW_CF_DOOR_DATA_FIELDS = (
@@ -207,7 +227,19 @@ RAW_CF_DOOR_DATA_FIELDS = (
 )
 
 RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
-    field("raw_sector_lists", 0x00, 1, 0x32A0, "1280 counted sector door lists; each list is count word plus five-byte entries"),
+    field(
+        "counted_door_sector_lists",
+        0x00,
+        1,
+        0x32A0,
+        "1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries",
+    ),
+)
+
+D0_DOOR_POINTER_FIELDS = (
+    field("door_sector_list_pointer_low_word", 0x00, 2, note="low word of a CF door sector-list start inside CF:264F..CF:58EE"),
+    field("door_sector_list_pointer_bank", 0x02, 1, note="bank byte; validated as CF for all 1280 rows"),
+    field("reserved", 0x03, 1, note="zero pad byte in the four-byte long-pointer row"),
 )
 
 FAR_POINTER_FIELDS = (
@@ -227,7 +259,22 @@ RAW_CF_INLINE_EVENT_MUSIC_TRAILER_FIELDS = (
 )
 
 RAW_CF_SPRITE_PLACEMENT_LIST_FIELDS = (
-    field("raw_sector_lists", 0x00, 1, 0x1D9E, "627 counted sprite-placement sector lists; each entry is sprite_placement"),
+    field(
+        "counted_sprite_placement_sector_lists",
+        0x00,
+        1,
+        0x1D9E,
+        "627 counted sprite-placement sector lists; see notes/cf-sector-list-contracts.json for complete decoded lists and npc_config_id/sector_local_y/sector_local_x entries",
+    ),
+)
+
+SPRITE_PLACEMENT_POINTER_FIELDS = (
+    field(
+        "sprite_placement_list_offset",
+        0x00,
+        2,
+        note="zero means empty sector; nonzero is a CPU low word into CF:6BE7..CF:8984",
+    ),
 )
 
 NPC_CONFIG_FIELDS = (
@@ -265,22 +312,229 @@ MAP_ENEMY_PLACEMENT_FIELDS = (
 )
 
 RAW_D0_ENEMY_PLACEMENT_GROUP_FIELDS = (
-    field("raw_group_lists", 0x00, 1, 0x0A61, "203 variable enemy placement group lists"),
+    field(
+        "raw_group_lists",
+        0x00,
+        1,
+        0x0A61,
+        "203 variable enemy placement group lists; see notes/d0-variable-list-contracts.json for decoded headers and weighted entries",
+    ),
 )
 
 BATTLE_ENTRY_POINTER_FIELDS = (
-    field("pointer", 0x00, 4),
+    field("enemy_list_pointer", 0x00, 4, note="long pointer to a D0:D52D enemy battle-group list"),
     field("run_away_flag", 0x04, 2),
     field("run_away_flag_state", 0x06, 1),
-    field("letterbox_style", 0x07, 1),
+    field("presentation_sprite_style", 0x07, 1, note="C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource"),
 )
 
 RAW_D0_BATTLE_GROUP_FIELDS = (
-    field("raw_battle_groups", 0x00, 1, 0x0A87, "variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE"),
+    field(
+        "raw_battle_groups",
+        0x00,
+        1,
+        0x0A87,
+        "consumer-visible battle group pointer slices; see notes/d0-variable-list-contracts.json for repeat-count enemy entries",
+    ),
 )
 
 RAW_D8_COLLISION_DATA_FIELDS = (
     field("raw_collision_data", 0x00, 1, 0x8F50, "raw tile collision data addressed by the D8 collision pointer tables"),
+)
+
+D8_SURFACE_COLLISION_FLAGS_NOTE = (
+    "surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand "
+    "these records into the .fts collision grid, and C0 runtime masks define "
+    "0x80 as observed high collision, 0x10 as special-surface coordinate latch, "
+    "0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved "
+    "low surface modifiers with provisional gameplay labels"
+)
+
+MAP_TILE_COLLISION_ROW_FIELDS = tuple(
+    field(
+        f"cell_r{row}_c{column}_surface_collision_flags",
+        row * 4 + column,
+        1,
+        note=D8_SURFACE_COLLISION_FLAGS_NOTE,
+    )
+    for row in range(4)
+    for column in range(4)
+)
+
+D8_COLLISION_RECORD_OFFSET_FIELDS = (
+    field(
+        "collision_record_offset",
+        0x00,
+        2,
+        note="16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer",
+    ),
+)
+
+D7_SECTOR_TILESET_PALETTE_FIELDS = (
+    field(
+        "packed_tileset_palette",
+        0x00,
+        1,
+        note="bits 3..7 are tileset_id and bits 0..2 are palette_variant; exact join to map-sector metadata and D7A800 consumers",
+    ),
+)
+
+D7_SECTOR_CONTEXT_WORD_FIELDS = (
+    field(
+        "sector_context_word",
+        0x00,
+        2,
+        note="per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver",
+    ),
+)
+
+SNES_LONG_POINTER24_FIELDS = (
+    field("target_low_word", 0x00, 2),
+    field("target_bank", 0x02, 1),
+)
+
+PER_SECTOR_MUSIC_FIELDS = (
+    field("music_options_index", 0x00, 2, note="40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract"),
+)
+
+TEXT_WINDOW_FLAVOR_SELECTOR_FIELDS = (
+    field("palette_block_offset", 0x00, 2, note="offset from E0:1FC8 selected by C4:7F87/C1:9D49 for the current text-window flavour"),
+    field("selector_aux_byte", 0x02, 1, note="third selector byte preserved by the checked E0 window-skin contract"),
+)
+
+WINDOW_PALETTE_BLOCK_FIELDS = tuple(
+    field(
+        f"palette_row_{index}",
+        index * 8,
+        2,
+        4,
+        "four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block",
+    )
+    for index in range(8)
+)
+
+PALETTE_ROW_4_FIELDS = (
+    field("colour_0", 0x00, 2),
+    field("colour_1", 0x02, 2),
+    field("colour_2", 0x04, 2),
+    field("colour_3", 0x06, 2),
+)
+
+DA_MAP_PALETTE_VARIANT_FIELDS = (
+    field(
+        "event_flag",
+        0x00,
+        2,
+        note="raw ROM metadata word matching map_palette_settings; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_0_colours",
+        0x00,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 2 / CGRAM $0240..$025F; colour 0 overlaps event_flag in raw ROM",
+    ),
+    field(
+        "event_palette_selector_word",
+        0x20,
+        2,
+        note="raw ROM metadata word whose presence matches event-palette payload settings; runtime dispatch semantics remain deferred",
+    ),
+    field(
+        "map_subpalette_1_colours",
+        0x20,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 3 / CGRAM $0260..$027F; colour 0 overlaps event_palette_selector_word in raw ROM",
+    ),
+    field(
+        "sprite_palette",
+        0x40,
+        2,
+        note="raw ROM metadata word matching map_palette_settings Sprite Palette; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_2_colours",
+        0x40,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 4 / CGRAM $0280..$029F; colour 0 overlaps sprite_palette in raw ROM",
+    ),
+    field(
+        "flash_effect",
+        0x60,
+        2,
+        note="raw ROM metadata word matching map_palette_settings Flash Effect; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_3_colours",
+        0x60,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 5 / CGRAM $02A0..$02BF; colour 0 overlaps flash_effect in raw ROM",
+    ),
+    field(
+        "map_subpalette_4_colours",
+        0x80,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 6 / CGRAM $02C0..$02DF",
+    ),
+    field(
+        "map_subpalette_5_colours",
+        0xA0,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 7 / CGRAM $02E0..$02FF",
+    ),
+)
+
+LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS = (
+    field("compressed_palette_payload_pointer", 0x00, 4, note="C0:023F decompresses this payload to 7E:B800"),
+    field("step_count", 0x04, 1, note="C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy"),
+)
+
+TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_FIELDS = (
+    field("relative_y_offset", 0x00, 1, note="signed Y offset consumed by C0:8C54/C0:8CD5"),
+    field("tile_attribute_word", 0x01, 2, note="tile/attribute word staged by the town-map icon renderer"),
+    field("relative_x_offset", 0x03, 1, note="signed X offset consumed by C0:8C54/C0:8CD5"),
+    field("control_flags", 0x04, 1, note="bit 7 terminates the descriptor list; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit"),
+)
+
+TOWN_MAP_ICON_PLACEMENT_FIELDS = (
+    field("x", 0x00, 1, note="base X coordinate passed to C0:8C54 by C4:D43F"),
+    field("y", 0x01, 1, note="base Y coordinate passed to C0:8C54 by C4:D43F"),
+    field("icon_id", 0x02, 1, note="town-map icon id remapped through the E1:F44C graphic pointer table"),
+    field("event_flag_with_draw_polarity", 0x03, 2, note="event flag word; high bit means draw when set, clear high bit means draw when clear"),
+)
+
+PHOTOGRAPHER_CONFIG_FIELDS = (
+    field("event_flag_gate", 0x00, 2, note="credits/photo helpers test this event flag before counting or rendering a photo scene"),
+    field("map_load_x_tile", 0x02, 2, note="C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition"),
+    field("map_load_y_tile", 0x04, 2, note="C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition"),
+    field("slide_angle", 0x08, 1, note="C4:F46F projects the credits photograph slide vector from this angle byte"),
+    field("slide_duration", 0x09, 1, note="C4:F46F scales this byte into the slide frame count"),
+    field("photo_scene_x_tile", 0x0A, 2, note="C4:6D4B shifts this word left three and writes the current slot live X"),
+    field("photo_scene_y_tile", 0x0C, 2, note="C4:6D4B shifts this word left three and writes the current slot live Y"),
+) + tuple(
+    field(name, offset, 2, note=note)
+    for index in range(6)
+    for name, offset, note in (
+        (f"attached_visual_{index}_x_tile", 0x0E + index * 4, "C4:F264 shifts this attached visual X tile coordinate left three before spawning"),
+        (f"attached_visual_{index}_y_tile", 0x10 + index * 4, "C4:F264 shifts this attached visual Y tile coordinate left three before spawning"),
+    )
+) + tuple(
+    field(name, offset, 2, note=note)
+    for index in range(4)
+    for name, offset, note in (
+        (f"photo_entity_{index}_x_tile", 0x26 + index * 6, "C4:F264 shifts this live photo-entity X tile coordinate left three before spawning"),
+        (f"photo_entity_{index}_y_tile", 0x28 + index * 6, "C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning"),
+        (f"photo_entity_{index}_descriptor", 0x2A + index * 6, "C4:F264 skips this live photo-entity slot when the descriptor word is zero"),
+    )
+)
+
+TITLE_SCREEN_LETTER_OAM_RECORD_FIELDS = (
+    field("oam_entries", 0x00, 5, 9, "nine OAM-ish entries: y, tile, attrs, x, control; terminal entries have bit 7 set in control"),
 )
 
 C3_WORD_TABLE_VALUE_FIELD = (field("value", 0x00, 2),)
@@ -513,16 +767,149 @@ def d8_collision_pointer_contracts() -> list[Contract]:
             address=address,
             stride=0x02,
             count=count,
-            struct_name="word_pointer",
+            struct_name="map_tile_collision_record_offset",
             confidence="exact",
-            note="Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.",
+            note="16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm",
                 "notes/d8-table-splits.md",
+                "notes/map-collision-pointer-contract.md",
             ),
-            fields=WORD_POINTER_FIELDS,
+            fields=D8_COLLISION_RECORD_OFFSET_FIELDS,
         )
         for index, address, count in specs
+    ]
+
+
+def town_map_icon_placement_list_contracts() -> list[Contract]:
+    specs = (
+        (0, "E1:F4A9", 7, "E1:F4CC"),
+        (1, "E1:F4CD", 8, "E1:F4F5"),
+        (2, "E1:F4F6", 9, "E1:F523"),
+        (3, "E1:F524", 7, "E1:F547"),
+        (4, "E1:F548", 5, "E1:F561"),
+        (5, "E1:F562", 6, "E1:F580"),
+    )
+    return [
+        Contract(
+            id=f"TOWN_MAP_ICON_PLACEMENT_LIST_{index}",
+            domain="rom-variable-table",
+            address=address,
+            stride=0x05,
+            count=count,
+            struct_name="town_map_icon_placement_record",
+            confidence="runtime-corroborated-shape",
+            note=f"Town-map icon placement list {index}; C4:D43F walks five-byte records until the FF terminator at {terminator}.",
+            evidence=(
+                "notes/ui-font-town-map-asset-contracts.md",
+                "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            ),
+            fields=TOWN_MAP_ICON_PLACEMENT_FIELDS,
+        )
+        for index, address, count, terminator in specs
+    ]
+
+
+def landing_palette_anim_profile_fields(step_count: int) -> tuple[FieldSpec, ...]:
+    if step_count == 0:
+        return LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS
+    return LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS + (
+        field(
+            "step_durations",
+            0x05,
+            1,
+            step_count,
+            "one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F",
+        ),
+    )
+
+
+def landing_palette_anim_profile_contracts() -> list[Contract]:
+    specs = (
+        (0, "DF:E55D", "DF:E61B", 4),
+        (1, "DF:E566", "DF:E6B2", 4),
+        (2, "DF:E56F", "DF:E73D", 6),
+        (3, "DF:E57A", "DF:E8E0", 3),
+        (4, "DF:E582", "DF:E96C", 4),
+        (5, "DF:E58B", "DF:EA56", 3),
+        (6, "DF:E593", "DF:EB31", 3),
+        (7, "DF:E59B", "DF:EBAC", 8),
+        (8, "DF:E5A8", "DF:EC46", 0),
+        (9, "DF:E5AD", "DF:EC46", 0),
+        (10, "DF:E5B2", "DF:EC46", 0),
+        (11, "DF:E5B7", "DF:EC46", 0),
+        (12, "DF:E5BC", "DF:EC46", 0),
+        (13, "DF:E5C1", "DF:EC46", 0),
+        (14, "DF:E5C6", "DF:EC46", 0),
+        (15, "DF:E5CB", "DF:EC46", 0),
+        (16, "DF:E5D0", "DF:EC46", 0),
+        (17, "DF:E5D5", "DF:EC46", 0),
+        (18, "DF:E5DA", "DF:EC46", 0),
+        (19, "DF:E5DF", "DF:EC46", 0),
+        (20, "DF:E5E4", "DF:EC46", 0),
+        (21, "DF:E5E9", "DF:EC46", 0),
+        (22, "DF:E5EE", "DF:EC46", 0),
+        (23, "DF:E5F3", "DF:EC46", 0),
+        (24, "DF:E5F8", "DF:EC46", 0),
+        (25, "DF:E5FD", "DF:EC46", 0),
+        (26, "DF:E602", "DF:EC46", 0),
+        (27, "DF:E607", "DF:EC46", 0),
+        (28, "DF:E60C", "DF:EC46", 0),
+        (29, "DF:E611", "DF:EC46", 0),
+        (30, "DF:E616", "DF:EC46", 0),
+    )
+    return [
+        Contract(
+            id=f"LANDING_PALETTE_ANIM_PROFILE_{index}",
+            domain="rom-variable-table",
+            address=address,
+            stride=0x05 + step_count,
+            count=1,
+            struct_name="landing_palette_anim_profile",
+            confidence="runtime-corroborated-shape",
+            note=f"Landing palette-animation profile {index}; C0:023F selects this record through DF:E4E1, decompresses {payload_address}, and copies {step_count} step bytes after the payload pointer.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+                "src/c0/c0_030f_advance_landing_profile_step_sequencer.asm",
+            ),
+            fields=landing_palette_anim_profile_fields(step_count),
+        )
+        for index, address, payload_address, step_count in specs
+    ]
+
+
+def landing_palette_anim_payload_contracts() -> list[Contract]:
+    specs = (
+        (0, "DF:E61B", 0x97),
+        (1, "DF:E6B2", 0x8B),
+        (2, "DF:E73D", 0x1A3),
+        (3, "DF:E8E0", 0x8C),
+        (4, "DF:E96C", 0xEA),
+        (5, "DF:EA56", 0xDB),
+        (6, "DF:EB31", 0x7B),
+        (7, "DF:EBAC", 0x9A),
+    )
+    return [
+        Contract(
+            id=f"LANDING_PALETTE_ANIM_PAYLOAD_{index}",
+            domain="rom-compressed-payload",
+            address=address,
+            stride=size,
+            count=1,
+            struct_name="landing_palette_anim_compressed_payload",
+            confidence="pointer-bounded",
+            note="Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+                "src/df/bank_df_helpers_asar.asm",
+            ),
+            fields=(field("compressed_payload", 0x00, 1, size, "C4:1A9E-compatible compressed payload bytes"),),
+        )
+        for index, address, size in specs
     ]
 
 
@@ -589,6 +976,7 @@ def extra_contracts() -> list[Contract]:
             evidence=(
                 "refs/eb-decompile-4ef92/telephone_contacts_table.yml",
                 "notes/d5-table-splits.md",
+                "CoilSnake telephone-dad-text-pointer-probe",
             ),
             fields=TELEPHONE_CONTACT_FIELDS,
         ),
@@ -705,6 +1093,7 @@ def extra_contracts() -> list[Contract]:
             evidence=(
                 "refs/eb-decompile-4ef92/stats_growth_vars.yml",
                 "notes/d5-table-splits.md",
+                "CoilSnake stats-growth-ness-offense-probe",
             ),
             fields=STATS_GROWTH_VAR_FIELDS,
         ),
@@ -765,6 +1154,7 @@ def extra_contracts() -> list[Contract]:
             evidence=(
                 "refs/eb-decompile-4ef92/timed_item_transformation_table.yml",
                 "notes/d5-table-splits.md",
+                "CoilSnake timed-item-transform-delay-probe",
             ),
             fields=TIMED_ITEM_TRANSFORMATION_FIELDS,
         ),
@@ -795,6 +1185,7 @@ def extra_contracts() -> list[Contract]:
             evidence=(
                 "refs/eb-decompile-4ef92/initial_stats.yml",
                 "notes/d5-table-splits.md",
+                "CoilSnake initial-stats-ness-money-probe",
             ),
             fields=INITIAL_STATS_FIELDS,
         ),
@@ -804,14 +1195,37 @@ def extra_contracts() -> list[Contract]:
             address="D5:F649",
             stride=0x14,
             count=10,
-            struct_name="timed_delivery",
-            confidence="boundary-corroborated",
-            note="Timed delivery rows. Table boundary and row count are exact; subfield ordering remains intentionally raw pending consumer-code confirmation.",
+            struct_name="timed_delivery_source_window",
+            confidence="exact-source-window",
+            note="Exact source-order timed-delivery split window; it starts four bytes into the EF consumer-effective controller rows at D5:F645 and ends with four zero padding bytes.",
             evidence=(
                 "refs/eb-decompile-4ef92/timed_delivery_table.yml",
                 "notes/d5-table-splits.md",
+                "notes/delivery-row-helpers-ef0e67-ef0ead.md",
+                "notes/d5-timed-delivery-row-contracts.md",
+                "CoilSnake timed-delivery-first-timer-probe",
             ),
             fields=TIMED_DELIVERY_FIELDS,
+        ),
+        Contract(
+            id="TIMED_DELIVERY_CONTROLLER_TABLE",
+            domain="rom-table",
+            address="D5:F645",
+            stride=0x14,
+            count=10,
+            struct_name="timed_delivery_controller_row",
+            confidence="consumer-corroborated",
+            note="Consumer-effective timed-delivery/service table base used by the EF:0CA7..0EE8 helper family and the C1 1F D3 row-selector callback.",
+            evidence=(
+                "notes/d5-timed-delivery-row-contracts.md",
+                "notes/delivery-row-helpers-ef0e67-ef0ead.md",
+                "notes/timed-delivery-controller-499-500-common.md",
+                "notes/timed-delivery-row-index-command-1f-d3.md",
+                "notes/selector-row-config-family-ef0ee8.md",
+                "src/ef/ef_0ca7_delivery_selector_helper_cluster.asm",
+                "notes/coilsnake-field-join-report.md",
+            ),
+            fields=TIMED_DELIVERY_CONTROLLER_FIELDS,
         ),
         Contract(
             id="CF_DOOR_DATA",
@@ -836,9 +1250,10 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="door_sector_list_block",
             confidence="exact-variable-lists",
-            note="1280 counted door sector lists; D0 door pointers address individual lists inside this block.",
+            note="1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
             ),
             fields=RAW_CF_DOOR_CONFIG_LIST_FIELDS,
@@ -849,14 +1264,15 @@ def extra_contracts() -> list[Contract]:
             address="D0:0000",
             stride=0x04,
             count=1280,
-            struct_name="far_pointer",
+            struct_name="door_sector_list_far_pointer",
             confidence="exact",
             note="40x32 long-pointer grid into the CF door sector lists.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm",
             ),
-            fields=FAR_POINTER_FIELDS,
+            fields=D0_DOOR_POINTER_FIELDS,
         ),
         Contract(
             id="SCREEN_TRANSITION_CONFIG_TABLE",
@@ -941,10 +1357,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="enemy_placement_group_lists",
             confidence="exact-variable-lists",
-            note="203 variable enemy placement group lists.",
+            note="203 variable enemy placement group lists: event_flag_gate, primary_spawn_chance, flagged_spawn_chance, then selection_weight + battle_group_id entries consumed by C0:2668.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_enemy_groups.yml",
                 "notes/d0-table-splits.md",
+                "notes/d0-variable-list-contracts.md",
             ),
             fields=RAW_D0_ENEMY_PLACEMENT_GROUP_FIELDS,
         ),
@@ -972,27 +1389,67 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="enemy_battle_group_payloads",
             confidence="exact-variable-lists",
-            note="Variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE.",
+            note="Consumer-visible suffix slices addressed by BTL_ENTRY_PTR_TABLE; entries are repeat_count + enemy_id until an FF terminator and are consumed by C2 battle setup, sprite loading, and call-for-help selection.",
             evidence=(
                 "refs/eb-decompile-4ef92/enemy_groups.yml",
                 "notes/d0-table-splits.md",
+                "notes/d0-variable-list-contracts.md",
             ),
             fields=RAW_D0_BATTLE_GROUP_FIELDS,
         ),
         Contract(
+            id="D7_SECTOR_TILESET_PALETTE_TABLE",
+            domain="rom-table",
+            address="D7:A800",
+            stride=0x01,
+            count=1280,
+            struct_name="map_sector_tileset_palette",
+            confidence="consumer-corroborated",
+            note="40x32 sector table whose packed byte is bits 3..7 tileset_id and bits 0..2 palette_variant; every row matches map-sector metadata and multiple C0/C4 consumers.",
+            evidence=(
+                "notes/d7-sector-metadata-contracts.md",
+                "notes/map-sector-bundles.md",
+                "src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm",
+                "src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm",
+                "src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm",
+                "src/c4/your_sanctuary_tile_arrangement_helpers.asm",
+            ),
+            fields=D7_SECTOR_TILESET_PALETTE_FIELDS,
+        ),
+        Contract(
+            id="D7_SECTOR_CONTEXT_WORD_TABLE",
+            domain="rom-table",
+            address="D7:B200",
+            stride=0x02,
+            count=1280,
+            struct_name="map_sector_context_word",
+            confidence="consumer-corroborated-low3",
+            note="40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.",
+            evidence=(
+                "notes/d7-sector-metadata-contracts.md",
+                "notes/map-sector-bundles.md",
+                "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
+                "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+            ),
+            fields=D7_SECTOR_CONTEXT_WORD_FIELDS,
+        ),
+        Contract(
             id="MAP_TILE_COLLISION_DATA",
-            domain="rom-block",
+            domain="rom-table",
             address="D8:0000",
-            stride=0x8F50,
-            count=1,
-            struct_name="raw_tile_collision_data",
-            confidence="exact-boundary",
-            note="Raw tile collision data block before the 20 D8 collision pointer tables.",
+            stride=0x10,
+            count=2293,
+            struct_name="map_tile_collision_record",
+            confidence="consumer-corroborated",
+            note="Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 surface/collision flag grid.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm",
                 "notes/d8-table-splits.md",
+                "notes/map-collision-pointer-contract.md",
+                "notes/map-collision-runtime-bit-contract.md",
+                "notes/d8-collision-subrecord-contracts.md",
             ),
-            fields=RAW_D8_COLLISION_DATA_FIELDS,
+            fields=MAP_TILE_COLLISION_ROW_FIELDS,
         ),
         Contract(
             id="MAP_DATA_TILE_COLLISION_PTR_TABLE",
@@ -1011,6 +1468,236 @@ def extra_contracts() -> list[Contract]:
             fields=FAR_POINTER_FIELDS,
         ),
         *d8_collision_pointer_contracts(),
+        Contract(
+            id="MAP_PALETTE_POINTER_TABLE",
+            domain="rom-table",
+            address="DA:FAA7",
+            stride=0x03,
+            count=32,
+            struct_name="snes_long_pointer24",
+            confidence="verified",
+            note="Thirty-two 24-bit pointers to the bank DA map-palette payloads; each entry matches the corresponding MAP_DATA_PALETTE_N asset.",
+            evidence=(
+                "notes/bank-da-asset-data-map.md",
+                "notes/map-palette-pointer-table-contract.md",
+                "notes/map-palette-descriptor-context.md",
+            ),
+            fields=SNES_LONG_POINTER24_FIELDS,
+        ),
+        Contract(
+            id="DA_MAP_PALETTE_VARIANT_TABLE",
+            domain="rom-table",
+            address="DA:7CA7",
+            stride=0xC0,
+            count=168,
+            struct_name="da_map_palette_variant",
+            confidence="tool-and-script-corroborated",
+            note="Contiguous physical DA map-palette variant rows. Each row is six 16-colour SNES BGR555 subpalettes; the first words of subpalettes 0..3 carry raw-ROM metadata that matches map_palette_settings and is zeroed in .fts visual rows.",
+            evidence=(
+                "notes/da-map-palette-subrecord-contracts.md",
+                "notes/map-fts-palette-variant-contract.md",
+                "notes/map-palette-pointer-table-contract.md",
+                "notes/map-palette-descriptor-context.md",
+                "notes/map-palette-command-usage-contract.md",
+            ),
+            fields=DA_MAP_PALETTE_VARIANT_FIELDS,
+        ),
+        Contract(
+            id="PER_SECTOR_MUSIC_TABLE",
+            domain="rom-table",
+            address="DC:D637",
+            stride=0x02,
+            count=1280,
+            struct_name="per_sector_music_options_index",
+            confidence="structural-corroborated",
+            note="40x32 sector-indexed music-options table used by the map sector bundle inventory.",
+            evidence=(
+                "notes/bank-dc-asset-data-map.md",
+                "notes/map-sector-bundles.md",
+                "tools/build_map_sector_bundle_contract.py",
+            ),
+            fields=PER_SECTOR_MUSIC_FIELDS,
+        ),
+        Contract(
+            id="LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE",
+            domain="rom-table",
+            address="DF:E4E1",
+            stride=0x04,
+            count=31,
+            struct_name="far_pointer",
+            confidence="runtime-corroborated",
+            note="Thirty-one long pointers from landing palette/profile selector ($02A0 - 1) to DF:E55D..DF:E61B profile records.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+            ),
+            fields=FAR_POINTER_FIELDS,
+        ),
+        *landing_palette_anim_profile_contracts(),
+        *landing_palette_anim_payload_contracts(),
+        Contract(
+            id="TEXT_WINDOW_FLAVOR_SELECTOR_TABLE",
+            domain="rom-table",
+            address="E0:1FB9",
+            stride=0x03,
+            count=5,
+            struct_name="text_window_flavor_selector",
+            confidence="runtime-corroborated",
+            note="Five selectable text-window flavour rows; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8.",
+            evidence=(
+                "notes/text-window-skin-bundle-contracts.md",
+                "notes/ui-font-town-map-asset-contracts.md",
+            ),
+            fields=TEXT_WINDOW_FLAVOR_SELECTOR_FIELDS,
+        ),
+        Contract(
+            id="TEXT_WINDOW_PALETTE_BLOCKS",
+            domain="rom-table",
+            address="E0:1FC8",
+            stride=0x40,
+            count=7,
+            struct_name="text_window_palette_block",
+            confidence="runtime-corroborated",
+            note="Seven 0x40-byte text-window palette blocks; blocks 0..4 are selectable, block 5 is the lead-entity override, and block 6 is preserved as nonselectable/extra.",
+            evidence=(
+                "notes/text-window-skin-bundle-contracts.md",
+                "notes/ui-font-town-map-asset-contracts.md",
+            ),
+            fields=WINDOW_PALETTE_BLOCK_FIELDS,
+        ),
+        Contract(
+            id="MOVEMENT_TEXT_STRING_PALETTE",
+            domain="rom-table",
+            address="E0:2188",
+            stride=0x08,
+            count=1,
+            struct_name="four_colour_palette_row",
+            confidence="structural-corroborated",
+            note="Standalone four-colour movement-text palette row between the text-window palette blocks and the town-map pointer tail.",
+            evidence=(
+                "notes/text-window-skin-bundle-contracts.md",
+                "notes/bank-e0-asset-data-map.md",
+            ),
+            fields=PALETTE_ROW_4_FIELDS,
+        ),
+        Contract(
+            id="TOWN_MAP_GFX_POINTER_TABLE",
+            domain="rom-table",
+            address="E0:2190",
+            stride=0x04,
+            count=6,
+            struct_name="far_pointer",
+            confidence="runtime-corroborated",
+            note="Six long pointers consumed by C4:D553 to decompress the selected E0 town-map graphics payload.",
+            evidence=(
+                "notes/text-window-skin-bundle-contracts.md",
+                "notes/ui-font-town-map-asset-contracts.md",
+                "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            ),
+            fields=FAR_POINTER_FIELDS,
+        ),
+        Contract(
+            id="TITLE_SCREEN_LETTER_OAM_RECORDS",
+            domain="rom-table",
+            address="E1:CE08",
+            stride=0x2D,
+            count=9,
+            struct_name="title_screen_letter_oam_record",
+            confidence="verified",
+            note="Nine animated letter OAM record rows for EARTHOUND; each row contains nine 5-byte OAM-ish entries.",
+            evidence=(
+                "notes/title-screen-letter-oam-contracts.md",
+                "notes/intro-title-visual-bundle-contracts.md",
+                "notes/ui-font-town-map-asset-contracts.md",
+            ),
+            fields=TITLE_SCREEN_LETTER_OAM_RECORD_FIELDS,
+        ),
+        Contract(
+            id="TITLE_SCREEN_LETTER_OAM_POINTER_TABLE",
+            domain="rom-table",
+            address="E1:CF9D",
+            stride=0x02,
+            count=9,
+            struct_name="word_pointer",
+            confidence="verified",
+            note="Nine local pointers whose targets match the E1:CE08 title-screen letter OAM record starts.",
+            evidence=("notes/title-screen-letter-oam-contracts.md",),
+            fields=WORD_POINTER_FIELDS,
+        ),
+        Contract(
+            id="PHOTOGRAPHER_CONFIG_TABLE",
+            domain="rom-table",
+            address="E1:2F8A",
+            stride=0x3E,
+            count=32,
+            struct_name="photographer_config_record",
+            confidence="consumer-corroborated-partial",
+            note="Thirty-two photographer/photo-scene configuration records; named fields are limited to offsets read by C4 photo, credits, and current-slot consumers.",
+            evidence=(
+                "notes/bank-e1-asset-data-map.md",
+                "notes/current-slot-position-staging-c46b8d-c46d4b.md",
+                "src/c4/credits_photo_flag_counter.asm",
+                "src/c4/credits_photograph_render_helpers.asm",
+                "src/c4/credits_photograph_slide_helpers.asm",
+            ),
+            fields=PHOTOGRAPHER_CONFIG_FIELDS,
+        ),
+        Contract(
+            id="TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS",
+            domain="rom-table",
+            address="E1:F203",
+            stride=0x05,
+            count=117,
+            struct_name="town_map_icon_graphic_descriptor",
+            confidence="runtime-corroborated-shape",
+            note="Five-byte town-map icon graphic descriptors split by the E1:F44C icon pointer table and consumed by C0:8C54/C0:8CD5.",
+            evidence=(
+                "notes/ui-font-town-map-asset-contracts.md",
+                "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            ),
+            fields=TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_FIELDS,
+        ),
+        Contract(
+            id="TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE",
+            domain="rom-table",
+            address="E1:F44C",
+            stride=0x02,
+            count=23,
+            struct_name="word_pointer",
+            confidence="runtime-corroborated",
+            note="Twenty-three local pointers mapping town-map icon ids to E1:F203 five-byte graphic descriptor lists.",
+            evidence=("notes/ui-font-town-map-asset-contracts.md",),
+            fields=WORD_POINTER_FIELDS,
+        ),
+        Contract(
+            id="TOWN_MAP_BLINK_SUPPRESS_TABLE",
+            domain="rom-table",
+            address="E1:F47A",
+            stride=0x01,
+            count=23,
+            struct_name="town_map_blink_suppress_flag",
+            confidence="runtime-corroborated",
+            note="Town-map icon blink/suppression flags checked before static icon drawing.",
+            evidence=("notes/ui-font-town-map-asset-contracts.md",),
+            fields=BYTE_VALUE_FIELD,
+        ),
+        Contract(
+            id="TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE",
+            domain="rom-table",
+            address="E1:F491",
+            stride=0x04,
+            count=6,
+            struct_name="far_pointer",
+            confidence="runtime-corroborated",
+            note="Six long pointers from selected town-map id to variable icon placement lists in E1:F4A9..E1:F581.",
+            evidence=(
+                "notes/ui-font-town-map-asset-contracts.md",
+                "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            ),
+            fields=FAR_POINTER_FIELDS,
+        ),
+        *town_map_icon_placement_list_contracts(),
         Contract(
             id="OVERWORLD_EVENT_MUSIC_POINTER_TABLE",
             domain="rom-table",
@@ -1062,14 +1749,15 @@ def extra_contracts() -> list[Contract]:
             address="CF:61E7",
             stride=0x02,
             count=1280,
-            struct_name="word_pointer",
+            struct_name="sprite_placement_sector_pointer",
             confidence="exact",
             note="40x32 sector pointer grid into the CF sprite placement table; zero means empty.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_sprites.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
             ),
-            fields=WORD_POINTER_FIELDS,
+            fields=SPRITE_PLACEMENT_POINTER_FIELDS,
         ),
         Contract(
             id="SPRITE_PLACEMENT_TABLE",
@@ -1079,11 +1767,13 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="sprite_placement_sector_list_block",
             confidence="exact-variable-lists",
-            note="627 counted sprite-placement sector lists; each entry matches the ebsrc sprite_placement struct.",
+            note="627 counted sprite-placement sector lists with complete decoded rows in notes/cf-sector-list-contracts.json; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/include/structs.asm",
                 "refs/eb-decompile-4ef92/map_sprites.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
+                "notes/coilsnake-field-join-report.md",
             ),
             fields=RAW_CF_SPRITE_PLACEMENT_LIST_FIELDS,
         ),
@@ -1777,6 +2467,12 @@ def markdown_escape(text: str) -> str:
     return text.replace("|", "\\|")
 
 
+def evidence_label(text: str) -> str:
+    if text.startswith("CoilSnake "):
+        return "CoilSnake `" + text.removeprefix("CoilSnake ") + "`"
+    return f"`{text}`"
+
+
 def render_markdown(manifest: dict[str, object]) -> str:
     contracts = manifest["contracts"]
     assert isinstance(contracts, list)
@@ -1829,7 +2525,7 @@ def render_markdown(manifest: dict[str, object]) -> str:
                 f"- struct: `{contract['struct']}`",
                 f"- confidence: `{contract['confidence']}`",
                 f"- note: {contract['note']}",
-                f"- evidence: {', '.join(f'`{item}`' for item in contract['evidence'])}",
+                f"- evidence: {', '.join(evidence_label(str(item)) for item in contract['evidence'])}",
                 "",
                 "| Offset | Field | Size | Count | Note |",
                 "| ---: | --- | ---: | ---: | --- |",

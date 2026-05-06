@@ -1,0 +1,293 @@
+{
+  "generator": "tools/build_da_palette_subrecord_contracts.py",
+  "interpretation_boundary": [
+    "The 168 DA rows are physical contiguous palette variants; use the pointer contract to map palette_id and variant to a physical row.",
+    "The four reserved metadata words are field-named because they match map_palette_settings and explain all raw-ROM versus `.fts` visual-row differences.",
+    "The event_palette_selector_word is only named as a selector/presence word here; its runtime dispatch semantics remain deferred.",
+    "Descriptor palettes 0 and 1 belong to text/common palette memory, not the DA map palette variant rows."
+  ],
+  "physical_row_samples": [
+    {
+      "address": "DA:7CA7",
+      "asset": "MAP_DATA_PALETTE_0",
+      "asset_range": "DA:7CA7..DA:7FA7",
+      "palette_id": 0,
+      "physical_row_index": 0,
+      "row_id": "00",
+      "sector_count": 79,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 0
+    },
+    {
+      "address": "DA:7D67",
+      "asset": "MAP_DATA_PALETTE_0",
+      "asset_range": "DA:7CA7..DA:7FA7",
+      "palette_id": 0,
+      "physical_row_index": 1,
+      "row_id": "01",
+      "sector_count": 79,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 1
+    },
+    {
+      "address": "DA:7E27",
+      "asset": "MAP_DATA_PALETTE_0",
+      "asset_range": "DA:7CA7..DA:7FA7",
+      "palette_id": 0,
+      "physical_row_index": 2,
+      "row_id": "02",
+      "sector_count": 79,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 2
+    },
+    {
+      "address": "DA:7EE7",
+      "asset": "MAP_DATA_PALETTE_0",
+      "asset_range": "DA:7CA7..DA:7FA7",
+      "palette_id": 0,
+      "physical_row_index": 3,
+      "row_id": "03",
+      "sector_count": 79,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 3
+    },
+    {
+      "address": "DA:7FA7",
+      "asset": "MAP_DATA_PALETTE_1",
+      "asset_range": "DA:7FA7..DA:81E7",
+      "palette_id": 1,
+      "physical_row_index": 4,
+      "row_id": "10",
+      "sector_count": 191,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 0
+    },
+    {
+      "address": "DA:8067",
+      "asset": "MAP_DATA_PALETTE_1",
+      "asset_range": "DA:7FA7..DA:81E7",
+      "palette_id": 1,
+      "physical_row_index": 5,
+      "row_id": "11",
+      "sector_count": 191,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 1
+    },
+    {
+      "address": "DA:8127",
+      "asset": "MAP_DATA_PALETTE_1",
+      "asset_range": "DA:7FA7..DA:81E7",
+      "palette_id": 1,
+      "physical_row_index": 6,
+      "row_id": "12",
+      "sector_count": 191,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 2
+    },
+    {
+      "address": "DA:81E7",
+      "asset": "MAP_DATA_PALETTE_2",
+      "asset_range": "DA:81E7..DA:84E7",
+      "palette_id": 2,
+      "physical_row_index": 7,
+      "row_id": "20",
+      "sector_count": 0,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 0
+    },
+    {
+      "address": "DA:82A7",
+      "asset": "MAP_DATA_PALETTE_2",
+      "asset_range": "DA:81E7..DA:84E7",
+      "palette_id": 2,
+      "physical_row_index": 8,
+      "row_id": "21",
+      "sector_count": 0,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 1
+    },
+    {
+      "address": "DA:8367",
+      "asset": "MAP_DATA_PALETTE_2",
+      "asset_range": "DA:81E7..DA:84E7",
+      "palette_id": 2,
+      "physical_row_index": 9,
+      "row_id": "22",
+      "sector_count": 0,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 2
+    },
+    {
+      "address": "DA:8427",
+      "asset": "MAP_DATA_PALETTE_2",
+      "asset_range": "DA:81E7..DA:84E7",
+      "palette_id": 2,
+      "physical_row_index": 10,
+      "row_id": "23",
+      "sector_count": 0,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 3
+    },
+    {
+      "address": "DA:84E7",
+      "asset": "MAP_DATA_PALETTE_3",
+      "asset_range": "DA:84E7..DA:8667",
+      "palette_id": 3,
+      "physical_row_index": 11,
+      "row_id": "30",
+      "sector_count": 0,
+      "tileset_dependency_status": "direct_fts_export",
+      "variant": 0
+    }
+  ],
+  "record_shape": {
+    "fields": [
+      {
+        "field": "event_flag",
+        "note": "raw ROM metadata word in the first colour slot of this subpalette; EBDecomp `.fts` visual rows zero this slot",
+        "offset": 0,
+        "size": 2,
+        "word_index": 0
+      },
+      {
+        "cgram_shadow_range": "$0240..$025F",
+        "count": 16,
+        "descriptor_palette": 2,
+        "field": "map_subpalette_0_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 2; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 0,
+        "size": 2
+      },
+      {
+        "field": "event_palette_selector_word",
+        "note": "raw ROM metadata word in the first colour slot of this subpalette; EBDecomp `.fts` visual rows zero this slot",
+        "offset": 32,
+        "size": 2,
+        "word_index": 16
+      },
+      {
+        "cgram_shadow_range": "$0260..$027F",
+        "count": 16,
+        "descriptor_palette": 3,
+        "field": "map_subpalette_1_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 3; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 32,
+        "size": 2
+      },
+      {
+        "field": "sprite_palette",
+        "note": "raw ROM metadata word in the first colour slot of this subpalette; EBDecomp `.fts` visual rows zero this slot",
+        "offset": 64,
+        "size": 2,
+        "word_index": 32
+      },
+      {
+        "cgram_shadow_range": "$0280..$029F",
+        "count": 16,
+        "descriptor_palette": 4,
+        "field": "map_subpalette_2_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 4; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 64,
+        "size": 2
+      },
+      {
+        "field": "flash_effect",
+        "note": "raw ROM metadata word in the first colour slot of this subpalette; EBDecomp `.fts` visual rows zero this slot",
+        "offset": 96,
+        "size": 2,
+        "word_index": 48
+      },
+      {
+        "cgram_shadow_range": "$02A0..$02BF",
+        "count": 16,
+        "descriptor_palette": 5,
+        "field": "map_subpalette_3_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 5; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 96,
+        "size": 2
+      },
+      {
+        "cgram_shadow_range": "$02C0..$02DF",
+        "count": 16,
+        "descriptor_palette": 6,
+        "field": "map_subpalette_4_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 6; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 128,
+        "size": 2
+      },
+      {
+        "cgram_shadow_range": "$02E0..$02FF",
+        "count": 16,
+        "descriptor_palette": 7,
+        "field": "map_subpalette_5_colours",
+        "note": "16 SNES BGR555 colours for arrangement descriptor palette 7; raw colour 0 overlaps the metadata word at this subpalette boundary",
+        "offset": 160,
+        "size": 2
+      }
+    ],
+    "size": 192,
+    "struct": "da_map_palette_variant"
+  },
+  "schema": "earthbound-decomp.da-map-palette-subrecord-contracts.v1",
+  "script_command_shape": {
+    "bytes": "1F E1 word byte",
+    "fields": [
+      {
+        "field": "palette_word",
+        "model": "palette_word = (variant << 8) | palette_id",
+        "offset": 2,
+        "size": 2
+      },
+      {
+        "field": "duration_frames",
+        "model": "palette fade/change duration in frames",
+        "offset": 4,
+        "size": 1
+      }
+    ],
+    "macro": "CHANGE_MAP_PALETTE"
+  },
+  "source_policy": "Derived from checked-in palette pointer, FTS palette variant, descriptor-context, and script-command usage contracts. This records row shapes, offsets, counts, hashes/statuses, and interpretation boundaries only; it does not commit raw palette bytes.",
+  "sources": {
+    "fts_palette_variant_contract": "notes/map-fts-palette-variant-contract.json",
+    "palette_command_usage": "notes/map-palette-command-usage-contract.json",
+    "palette_descriptor_context": "notes/map-palette-descriptor-context.json",
+    "palette_pointer_contract": "notes/map-palette-pointer-table-contract.json"
+  },
+  "summary": {
+    "colours_per_subpalette": 16,
+    "da_map_palette_fit_overflow_cells": 0,
+    "descriptor_palettes_0_1_text_palette_cells": 291628,
+    "descriptor_palettes_2_7_map_palette_cells": 681172,
+    "exact_pointer_asset_matches": 32,
+    "exact_rom_palette_variant_matches": 129,
+    "fts_row_key_matches": 168,
+    "fts_status_counts": {
+      "exact_rom_palette_variant_match": 129,
+      "matches_rom_variant_after_reserved_metadata_zeroing": 39
+    },
+    "metadata_word_setting_mismatches": 0,
+    "palette_setting_variant_count": 168,
+    "palette_variant_bytes": 192,
+    "palette_variant_rows": 168,
+    "palette_variant_table_range": "DA:7CA7..DA:FAA7",
+    "palette_variant_words": 96,
+    "pointer_entries": 32,
+    "reserved_metadata_difference_counts": {
+      "event_flag": 14,
+      "event_palette_selector_word": 14,
+      "flash_effect": 8,
+      "sprite_palette": 23
+    },
+    "reserved_metadata_zeroed_matches": 39,
+    "script_command_status_counts": {
+      "exact_rom_palette_variant_match": 23,
+      "matches_rom_variant_after_reserved_metadata_zeroing": 10
+    },
+    "script_palette_command_hits": 33,
+    "script_referenced_palette_variants": 15,
+    "subpalettes_per_variant": 6,
+    "unexplained_mismatches": 0
+  },
+  "title": "DA Map Palette Subrecord Contracts"
+}

@@ -1,0 +1,435 @@
+{
+  "counts": {
+    "packed_tileset_palette": {
+      "0x0000": 31,
+      "0x0001": 38,
+      "0x0003": 10,
+      "0x0008": 185,
+      "0x000A": 6,
+      "0x0020": 110,
+      "0x0021": 33,
+      "0x0028": 45,
+      "0x0029": 6,
+      "0x002B": 4,
+      "0x0030": 88,
+      "0x0031": 43,
+      "0x0038": 81,
+      "0x0041": 8,
+      "0x0048": 31,
+      "0x004A": 12,
+      "0x0050": 2,
+      "0x0051": 4,
+      "0x0056": 4,
+      "0x0057": 2,
+      "0x0058": 1,
+      "0x0059": 1,
+      "0x005A": 1,
+      "0x005B": 1,
+      "0x005C": 1,
+      "0x005D": 1,
+      "0x005E": 1,
+      "0x005F": 2,
+      "0x0060": 2,
+      "0x0062": 1,
+      "0x0066": 1,
+      "0x0067": 1,
+      "0x0068": 86,
+      "0x0069": 8,
+      "0x0070": 4,
+      "0x0074": 2,
+      "0x0075": 1,
+      "0x0076": 1,
+      "0x0078": 10,
+      "0x0079": 2,
+      "0x007B": 2,
+      "0x007C": 2,
+      "0x0080": 3,
+      "0x0083": 3,
+      "0x008B": 1,
+      "0x008C": 1,
+      "0x008D": 7,
+      "0x008F": 5,
+      "0x0090": 40,
+      "0x009A": 9,
+      "0x009B": 4,
+      "0x009C": 2,
+      "0x00A2": 1,
+      "0x00A4": 1,
+      "0x00A5": 2,
+      "0x00A7": 1,
+      "0x00B0": 12,
+      "0x00B4": 2,
+      "0x00B9": 6,
+      "0x00BA": 1,
+      "0x00C0": 3,
+      "0x00C3": 1,
+      "0x00C9": 1,
+      "0x00CA": 1,
+      "0x00CB": 1,
+      "0x00CD": 1,
+      "0x00CE": 1,
+      "0x00CF": 1,
+      "0x00D0": 61,
+      "0x00D1": 9,
+      "0x00D2": 8,
+      "0x00D3": 3,
+      "0x00D8": 38,
+      "0x00D9": 2,
+      "0x00DA": 3,
+      "0x00DB": 23,
+      "0x00E0": 16,
+      "0x00E1": 15,
+      "0x00E2": 4,
+      "0x00E3": 9,
+      "0x00E4": 32,
+      "0x00E8": 6,
+      "0x00E9": 4,
+      "0x00EA": 1,
+      "0x00EB": 6,
+      "0x00EC": 8,
+      "0x00F1": 32,
+      "0x00F2": 14
+    },
+    "palette_variant": {
+      "0x0000": 855,
+      "0x0001": 212,
+      "0x0002": 62,
+      "0x0003": 68,
+      "0x0004": 51,
+      "0x0005": 12,
+      "0x0006": 8,
+      "0x0007": 12
+    },
+    "sector_context_word": {
+      "0x0000": 180,
+      "0x0003": 38,
+      "0x0020": 110,
+      "0x0028": 40,
+      "0x0030": 81,
+      "0x0080": 59,
+      "0x0081": 50,
+      "0x0082": 276,
+      "0x0084": 45,
+      "0x0085": 10,
+      "0x0089": 61,
+      "0x008A": 9,
+      "0x009A": 2,
+      "0x00A1": 14,
+      "0x00A2": 32,
+      "0xB000": 88,
+      "0xB008": 185
+    },
+    "sector_setting_code_low3": {
+      "0x0000": 743,
+      "0x0001": 125,
+      "0x0002": 319,
+      "0x0003": 38,
+      "0x0004": 45,
+      "0x0005": 10
+    },
+    "tileset_id": {
+      "0x0000": 79,
+      "0x0001": 191,
+      "0x0004": 143,
+      "0x0005": 55,
+      "0x0006": 131,
+      "0x0007": 81,
+      "0x0008": 8,
+      "0x0009": 43,
+      "0x000A": 12,
+      "0x000B": 9,
+      "0x000C": 5,
+      "0x000D": 94,
+      "0x000E": 8,
+      "0x000F": 16,
+      "0x0010": 6,
+      "0x0011": 14,
+      "0x0012": 40,
+      "0x0013": 15,
+      "0x0014": 5,
+      "0x0016": 14,
+      "0x0017": 7,
+      "0x0018": 4,
+      "0x0019": 6,
+      "0x001A": 81,
+      "0x001B": 66,
+      "0x001C": 76,
+      "0x001D": 25,
+      "0x001E": 46
+    }
+  },
+  "generator": "tools/build_d7_sector_metadata_contracts.py",
+  "interpretation_boundary": [
+    "D7:AD00..D7:B1FF is a bounded 1280-byte plane, but no direct consumer-backed field names are promoted here.",
+    "D7:BC00..D7:C5FF is a bounded 1280-word plane, but no direct consumer-backed field names are promoted here.",
+    "Only the low three bits of D7:B200 sector_context_word are named; the high bits remain context_flags_or_payload_undecoded."
+  ],
+  "mismatches": {
+    "packed_tileset_palette": [],
+    "sector_setting_code_low3": []
+  },
+  "record_shapes": {
+    "map_sector_context_word": [
+      {
+        "bits": {
+          "0..2": "sector_setting_code",
+          "3..15": "context_flags_or_payload_undecoded"
+        },
+        "evidence": "low three bits match map-sector `Setting` for all 1280 sectors; C0:0AA1 loads the full word to $438E",
+        "field": "sector_context_word",
+        "offset": 0,
+        "size": 2
+      }
+    ],
+    "map_sector_tileset_palette": [
+      {
+        "bits": {
+          "0..2": "palette_variant",
+          "3..7": "tileset_id"
+        },
+        "evidence": "matches map-sector `Palette` and `Tileset` for all 1280 sectors",
+        "field": "packed_tileset_palette",
+        "offset": 0,
+        "size": 1
+      }
+    ]
+  },
+  "sample_rows": [
+    {
+      "packed_tileset_palette": "0xF2",
+      "palette_variant": 2,
+      "sector": {
+        "linear_index": 0,
+        "x": 0,
+        "y": 0
+      },
+      "sector_context_word": "0x0082",
+      "sector_index": 0,
+      "sector_setting": "exit mouse usable",
+      "sector_setting_code_low3": 2,
+      "tileset_id": 30
+    },
+    {
+      "packed_tileset_palette": "0xF2",
+      "palette_variant": 2,
+      "sector": {
+        "linear_index": 1,
+        "x": 0,
+        "y": 1
+      },
+      "sector_context_word": "0x0082",
+      "sector_index": 1,
+      "sector_setting": "exit mouse usable",
+      "sector_setting_code_low3": 2,
+      "tileset_id": 30
+    },
+    {
+      "packed_tileset_palette": "0xF2",
+      "palette_variant": 2,
+      "sector": {
+        "linear_index": 2,
+        "x": 0,
+        "y": 2
+      },
+      "sector_context_word": "0x0082",
+      "sector_index": 2,
+      "sector_setting": "exit mouse usable",
+      "sector_setting_code_low3": 2,
+      "tileset_id": 30
+    },
+    {
+      "packed_tileset_palette": "0x08",
+      "palette_variant": 0,
+      "sector": {
+        "linear_index": 3,
+        "x": 0,
+        "y": 3
+      },
+      "sector_context_word": "0xB008",
+      "sector_index": 3,
+      "sector_setting": "none",
+      "sector_setting_code_low3": 0,
+      "tileset_id": 1
+    },
+    {
+      "packed_tileset_palette": "0x08",
+      "palette_variant": 0,
+      "sector": {
+        "linear_index": 4,
+        "x": 0,
+        "y": 4
+      },
+      "sector_context_word": "0xB008",
+      "sector_index": 4,
+      "sector_setting": "none",
+      "sector_setting_code_low3": 0,
+      "tileset_id": 1
+    },
+    {
+      "packed_tileset_palette": "0x08",
+      "palette_variant": 0,
+      "sector": {
+        "linear_index": 5,
+        "x": 0,
+        "y": 5
+      },
+      "sector_context_word": "0xB008",
+      "sector_index": 5,
+      "sector_setting": "none",
+      "sector_setting_code_low3": 0,
+      "tileset_id": 1
+    },
+    {
+      "packed_tileset_palette": "0x08",
+      "palette_variant": 0,
+      "sector": {
+        "linear_index": 6,
+        "x": 0,
+        "y": 6
+      },
+      "sector_context_word": "0xB008",
+      "sector_index": 6,
+      "sector_setting": "none",
+      "sector_setting_code_low3": 0,
+      "tileset_id": 1
+    },
+    {
+      "packed_tileset_palette": "0x08",
+      "palette_variant": 0,
+      "sector": {
+        "linear_index": 7,
+        "x": 0,
+        "y": 7
+      },
+      "sector_context_word": "0xB008",
+      "sector_index": 7,
+      "sector_setting": "none",
+      "sector_setting_code_low3": 0,
+      "tileset_id": 1
+    }
+  ],
+  "schema": "earthbound-decomp.d7-sector-metadata-contracts.v1",
+  "setting_codes": {
+    "exit mouse usable": "0x2",
+    "indoors": "0x1",
+    "lost underworld sprites": "0x3",
+    "magicant sprites": "0x4",
+    "none": "0x0",
+    "robot sprites": "0x5"
+  },
+  "source_policy": "Derived from byte-equivalent D7 source-scaffold bytes and the checked-in map sector bundle contract. The JSON records row-level decoded values, counts, field names, and validation summaries only; it does not commit the unresolved raw metadata planes.",
+  "sources": {
+    "d7_helper": "src/d7/bank_d7_helpers_asar.asm",
+    "sector_bundles": "notes/map-sector-bundles.json",
+    "source": "src/d7/table_data_map_global_tileset_palette_data_asm.asm"
+  },
+  "spans": [
+    {
+      "address": "D7:A800",
+      "bytes": 1280,
+      "end_exclusive": "D7:AD00",
+      "name": "D7_SECTOR_TILESET_PALETTE_TABLE",
+      "row_size": 1,
+      "rows": 1280,
+      "status": "consumer-backed"
+    },
+    {
+      "address": "D7:AD00",
+      "bytes": 1280,
+      "end_exclusive": "D7:B200",
+      "name": "D7_UNRESOLVED_METADATA_BYTE_PLANE",
+      "row_size": 1,
+      "rows": 1280,
+      "status": "bounded-but-unnamed"
+    },
+    {
+      "address": "D7:B200",
+      "bytes": 2560,
+      "end_exclusive": "D7:BC00",
+      "name": "D7_SECTOR_CONTEXT_WORD_TABLE",
+      "row_size": 2,
+      "rows": 1280,
+      "status": "consumer-backed-low3"
+    },
+    {
+      "address": "D7:BC00",
+      "bytes": 2560,
+      "end_exclusive": "D7:C600",
+      "name": "D7_UNRESOLVED_METADATA_WORD_PLANE",
+      "row_size": 2,
+      "rows": 1280,
+      "status": "bounded-but-unnamed"
+    }
+  ],
+  "summary": {
+    "context_word_top_values": [
+      {
+        "count": 276,
+        "value": "0x0082"
+      },
+      {
+        "count": 185,
+        "value": "0xB008"
+      },
+      {
+        "count": 180,
+        "value": "0x0000"
+      },
+      {
+        "count": 110,
+        "value": "0x0020"
+      },
+      {
+        "count": 88,
+        "value": "0xB000"
+      },
+      {
+        "count": 81,
+        "value": "0x0030"
+      },
+      {
+        "count": 61,
+        "value": "0x0089"
+      },
+      {
+        "count": 59,
+        "value": "0x0080"
+      },
+      {
+        "count": 50,
+        "value": "0x0081"
+      },
+      {
+        "count": 45,
+        "value": "0x0084"
+      },
+      {
+        "count": 40,
+        "value": "0x0028"
+      },
+      {
+        "count": 38,
+        "value": "0x0003"
+      }
+    ],
+    "metadata_bytes": 7680,
+    "metadata_range": "D7:A800..D7:C600",
+    "packed_tileset_palette_matches": 1280,
+    "sector_rows": 1280,
+    "sector_setting_low3_matches": 1280,
+    "setting_counts": {
+      "exit mouse usable": 319,
+      "indoors": 125,
+      "lost underworld sprites": 38,
+      "magicant sprites": 45,
+      "none": 743,
+      "robot sprites": 10
+    },
+    "unique_packed_tileset_palette_bytes": 88,
+    "unique_palette_variants": 8,
+    "unique_sector_context_words": 17,
+    "unique_sector_setting_codes": 6,
+    "unique_tileset_ids": 28
+  },
+  "title": "D7 Sector Metadata Contracts"
+}

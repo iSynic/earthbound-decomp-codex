@@ -22,9 +22,9 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | Family | Banks | Maturity | Assets | Bytes | Gap bytes | Inferred metadata | Contract-covered | Unresolved metadata | Next contract |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | 0 | 0 | Major battle visual joins are covered for phase 4; remaining work is optional alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding. |
-| Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | 0 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
+| Mixed asset/table banks | `CF, D0` | `contract-backed-with-known-followups` | 7 | 131072 | 95 | 0 | 0 | 0 | CF/D0 table contracts are now useful for source planning; remaining polish is CF DOOR_DATA/event-music payload decoding and D0 MAP_TILE_EVENT chain decoding. |
 | Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
-| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: collision low modifier labels and DA palette metadata/event-selector runtime behavior are bounded deferred semantic polish. |
+| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: D7 sector metadata and DA palette subrecords are contract-backed; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish. |
 | UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | 5 | 0 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish. |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | 0 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
 | EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
@@ -41,9 +41,9 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ### Mixed asset/table banks
 
-- maturity: `manifest-backed`
-- proof: table split manifests and source scaffolds account for bytes, but family semantics are still shallow
-- checked docs: `notes/bank-cf-asset-data-map.md`, `notes/bank-d0-asset-data-map.md`
+- maturity: `contract-backed-with-known-followups`
+- proof: table split manifests, source scaffolds, CF sector-list contracts, and D0 placement/battle variable-list contracts account for bytes and the highest-risk variable-list subrecords
+- checked docs: `notes/bank-cf-asset-data-map.md`, `notes/bank-d0-asset-data-map.md`, `notes/cf-sector-list-contracts.md`, `notes/d0-variable-list-contracts.md`
 - category mix: `audio` 3, `raw-gap` 2, `raw-table` 2
 - output recipe mix: `raw` 7
 
@@ -58,8 +58,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### Map tilesets and runtime tables
 
 - maturity: `contract-backed-with-known-followups`
-- proof: map object, sector, tileset, FTS, collision, palette, movement, sprite-usage, and scene-composition contracts exist
-- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/map-scene-composition-contract.md`
+- proof: map object, sector, D7 sector metadata, DA palette subrecords, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist
+- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/d7-sector-metadata-contracts.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/da-map-palette-subrecord-contracts.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/bank-df-first-pass.md`, `notes/map-scene-composition-contract.md`
 - category mix: `graphics` 97, `binary-asset` 10, `audio` 9, `raw-gap` 9, +1 more
 - output recipe mix: `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, +1 more
 
@@ -96,8 +96,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | `CC` | `battle_visual_assets` | `contract-seeded` | 83 | 65536 | 196 | `graphics` 72, `binary-asset` 6, `raw-table` 3, +2 more | `raw` 83, `earthbound_lzhal` 44, `snes_palette_json` 34, +2 more | 37 | 0 |
 | `CD` | `battle_visual_assets` | `contract-seeded` | 55 | 65536 | 319 | `graphics` 55 | `earthbound_lzhal_battle_sprite_png` 77, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 77, `earthbound_lzhal` 55, +2 more | 0 | 0 |
 | `CE` | `battle_visual_assets` | `contract-seeded` | 220 | 65536 | 576 | `binary-asset` 126, `graphics` 89, `raw-table` 3, +2 more | `raw` 220, `earthbound_lzhal_battle_sprite_png` 89, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 89, +4 more | 86 | 0 |
-| `CF` | `mixed_asset_tables` | `manifest-backed` | 4 | 65536 | 4 | `audio` 2, `raw-gap` 1, `raw-table` 1 | `raw` 4 | 7 | 0 |
-| `D0` | `mixed_asset_tables` | `manifest-backed` | 3 | 65536 | 3 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `raw` 3 | 88 | 0 |
+| `CF` | `mixed_asset_tables` | `contract-backed-with-known-followups` | 4 | 65536 | 4 | `audio` 2, `raw-gap` 1, `raw-table` 1 | `raw` 4 | 7 | 0 |
+| `D0` | `mixed_asset_tables` | `contract-backed-with-known-followups` | 3 | 65536 | 3 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `raw` 3 | 88 | 0 |
 | `D1` | `overworld_sprites` | `contract-backed` | 123 | 65536 | 369 | `graphics` 123 | `raw` 123, `snes_4bpp_tiles_palette_png` 123, `snes_4bpp_tiles_png` 123 | 0 | 0 |
 | `D2` | `overworld_sprites` | `contract-backed` | 231 | 65536 | 693 | `graphics` 231 | `raw` 231, `snes_4bpp_tiles_palette_png` 231, `snes_4bpp_tiles_png` 231 | 0 | 0 |
 | `D3` | `overworld_sprites` | `contract-backed` | 339 | 65536 | 1017 | `graphics` 339 | `raw` 339, `snes_4bpp_tiles_palette_png` 339, `snes_4bpp_tiles_png` 339 | 0 | 0 |
