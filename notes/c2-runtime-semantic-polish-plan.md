@@ -730,6 +730,13 @@ contract notes for C0/C1/C3/C4 consumers.
   `RenderAndCommitBattleSpriteRows`, using the same battle-sprite color-wave
   vocabulary as the source helper family. See
   `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 ninety-fifth slice: carried the same color-wave vocabulary into
+  the heavy recovery/status leaf. `C2:7397` now calls `C2:FAD8` as
+  `SetEnemySpriteColorWaveDuration` and `C2:FB35` as
+  `EnemySpriteColorWaveComparisonHelper`, tying revival-grade recovery visuals
+  to the late selected-row collapse visual-refresh contract. See
+  `notes/c2-selected-row-controller-runtime-polish.md` and
+  `notes/c2-affliction-recovery-runtime-polish.md`.
 
 ## Validation
 

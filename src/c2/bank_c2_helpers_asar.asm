@@ -3655,6 +3655,8 @@ org $C27397
 !C269BE_WaitFrames = $69BE
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C2FAD8_SetEnemySpriteColorWaveDuration = $C2FAD8
+!C2FB35_EnemySpriteColorWaveComparisonHelper = $C2FB35
 REVIVE_TARGET:
 !C27397_InstallBattlerHeavyRecoveryReset = REVIVE_TARGET
     rep #$31
@@ -3790,7 +3792,7 @@ C274A6_InstallBattlerHeavyRecoveryReset_L74A6:
     bcc C27489_InstallBattlerHeavyRecoveryReset_L7489
     rep #$20
     lda.w #$000A
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $02
     bra C274DB_InstallBattlerHeavyRecoveryReset_L74DB
@@ -3810,7 +3812,7 @@ C274BB_InstallBattlerHeavyRecoveryReset_L74BB:
     clc
     adc $02
     ldx $14
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $02
 C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     lda $02
@@ -3819,7 +3821,7 @@ C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     lda.w #$000A
     jsr !C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $02
     bra C2753E_InstallBattlerHeavyRecoveryReset_L753E
@@ -3863,7 +3865,7 @@ C274F6_InstallBattlerHeavyRecoveryReset_L74F6:
     and.w #$001F
     tax
     lda $14
-    jsl $C2FB35
+    jsl !C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $02
 C2753E_InstallBattlerHeavyRecoveryReset_L753E:
     lda $02

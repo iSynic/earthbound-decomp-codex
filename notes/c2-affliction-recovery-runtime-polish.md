@@ -51,6 +51,9 @@ The ladder operates on the active selected row pointer `$A972`.
 
 `C2:9CB8` is the top wrapper. If `+0x1D == 1`, it calls the heavy recovery/reset
 helper `C2:7397` with row word `+0x15`; otherwise it falls back to `C2:9C2C`.
+That heavy recovery helper now names its color-wave presentation joins as
+`SetEnemySpriteColorWaveDuration` and `EnemySpriteColorWaveComparisonHelper`,
+matching the late selected-row visual refresh contract.
 
 ## Poison-Only Helper
 
