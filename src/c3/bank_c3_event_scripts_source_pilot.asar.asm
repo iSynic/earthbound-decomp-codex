@@ -199,6 +199,7 @@ Event228_232_CommonCoordinatePairMovement:
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR = $0009
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !CheckStagedPositionWithinPlayerProximityThreshold = $C46E74
 !LoopPartyLooksAtActiveEntity = $AFA3
@@ -287,7 +288,7 @@ Event238_DoorCloseCoordinateRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1DD0) ; C3:03A8  0E 06 D0 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $00D8) ; C3:03AC  0E 07 D8 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:03B0  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:03B3  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:03B3  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:03B9  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:03BD  19 04 A2
 Event239_PartyMemberPositionTextHalt:
@@ -402,6 +403,7 @@ Event241_FacingSequenceCoordinatePath:
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR = $0008
 !ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST = $0061
 !ActionScript_QueueTextPointer = $C0A88D
 !ActionScript_SetOrClearEventFlag_ReadWordPreserveMode = $C0A857
@@ -576,9 +578,9 @@ Event247_CollisionDisabledPresetMovement:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:064E  1A 59 AB
     %EVENT_END_LAST_TASK() ; C3:0651  13
     %EVENT_END_LAST_TASK() ; C3:0652  13
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0008) ; C3:0653  42 41 A8 C0 08 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR) ; C3:0653  42 41 A8 C0 08 00
     %EVENT_PAUSE($0A) ; C3:0659  06 0A
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:065B  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:065B  42 41 A8 C0 09 00
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:0661  1D 01 00
     %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0067) ; C3:0664  42 57 A8 C0 67 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:066A  42 46 6E C4
@@ -702,6 +704,8 @@ Event254_DirectionVisualCountdownHalt:
 
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_SOUND_EFFECT_BLOW_A_BUBBLE = $000E
+!ACTIONSCRIPT_SOUND_EFFECT_SHOOT = $001B
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !MarkCurrentSlotCollisionStateFFFF = $C0A838
 !MoveCurrentSlotAwayFromTargetVector = $AB67
@@ -841,7 +845,7 @@ EarlyEvent255PoseAndTextRoutes:
     %EVENT_PAUSE($01) ; C3:081A  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFF0) ; C3:081C  14 07 02 F0 FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:0821  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $001B) ; C3:0824  42 41 A8 C0 1B 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_SHOOT) ; C3:0824  42 41 A8 C0 1B 00
     %EVENT_END_LAST_TASK() ; C3:082A  13
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:082B  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:082F  19 04 A2
@@ -862,7 +866,7 @@ LoopEarlyEvent255VisualCountdown:
     %EVENT_SHORTJUMP(LoopEarlyEvent255VisualCountdown) ; C3:0866  19 4E 08
     %EVENT_SET_X_RELATIVE($0007) ; C3:0869  2B 07 00
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:086C  1A 26 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $000E) ; C3:086F  42 41 A8 C0 0E 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_BLOW_A_BUBBLE) ; C3:086F  42 41 A8 C0 0E 00
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:0875  42 6E AA C0 04 00
     %EVENT_SET_Z_VELOCITY($0080) ; C3:087B  41 80 00
     %EVENT_PAUSE($A0) ; C3:087E  06 A0
@@ -906,6 +910,7 @@ LoopEarlyEvent255VisualCountdown:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE = $0011
 !DispatchCurrentLandingProfileAction = $C4733C
 !RefreshMapStripForIndexPreserveA = $C4734C
 !RefreshMapStripsAroundCameraFarWrapper = $C47369
@@ -956,7 +961,7 @@ EarlyEvent255LandingProfileTail:
     %EVENT_PAUSE($1E) ; C3:091B  06 1E
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:091D  1D 01 00
     %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0137) ; C3:0920  42 57 A8 C0 37 01
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0011) ; C3:0926  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE) ; C3:0926  42 41 A8 C0 11 00
     %EVENT_CALLROUTINE_0(!DispatchCurrentLandingProfileAction) ; C3:092C  42 3C 73 C4
     %EVENT_WRITE_WORD_TEMPVAR($0029) ; C3:0930  1D 29 00
     %EVENT_LOOP($0A) ; C3:0933  01 0A
@@ -996,6 +1001,7 @@ EarlyEvent255LandingProfileTail:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_PLAYER_WOUNDED = $002E
 !ShortZBounceTask = $0A1F
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -1047,7 +1053,7 @@ LoopEvent267_WaitForMovementWrapper:
     %EVENT_PAUSE($14) ; C3:09DF  06 14
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:09E1  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:09E5  06 01
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0011) ; C3:09E7  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE) ; C3:09E7  42 41 A8 C0 11 00
     %EVENT_SET_Y_VELOCITY($0100) ; C3:09ED  40 00 01
     %EVENT_SET_X_VELOCITY($FFC0) ; C3:09F0  3F C0 FF
     %EVENT_SET_Z_VELOCITY($0300) ; C3:09F3  41 00 03
@@ -1062,7 +1068,7 @@ LoopEvent267_WaitForMovementWrapper:
     %EVENT_PAUSE($0A) ; C3:0A0A  06 0A
     %EVENT_SET_Z_VELOCITY($FE00) ; C3:0A0C  41 00 FE
     %EVENT_PAUSE($0C) ; C3:0A0F  06 0C
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $002E) ; C3:0A11  42 41 A8 C0 2E 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_PLAYER_WOUNDED) ; C3:0A11  42 41 A8 C0 2E 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:0A17  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:0A18  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:0A1C  19 04 A2
@@ -1994,11 +2000,11 @@ LoopEvent301_WaitForTempFlag1Clear:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1648) ; C3:120B  0E 06 48 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1608) ; C3:120F  0E 07 08 16
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1213  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0008) ; C3:1216  42 41 A8 C0 08 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR) ; C3:1216  42 41 A8 C0 08 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:121C  42 46 6E C4
     %EVENT_HALT() ; C3:1220  09
 Event302_DoorCloseCoordinatePath:
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:1221  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:1221  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1227  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:122C  1A 38 AA
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:122F  42 85 A6 C0 C0 00
@@ -2087,7 +2093,7 @@ Event305_DoorCloseMovementRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1610) ; C3:12CF  0E 06 10 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1350) ; C3:12D3  0E 07 50 13
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:12D7  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:12DA  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:12DA  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:12E0  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:12E4  19 04 A2
 Event306_TargetVisualTypeTrackerLoop:
@@ -6477,6 +6483,7 @@ Event448_PhotoSceneJumpRelease:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_CAMERA_SHUTTER = $000D
 !LoadCurrentEntityIndexedWindowGfxToVram = $C47A9E
 !LoadIndexedWindowGfxAndReadVariantByte = $C47B77
 !UndrawFlyoverTextAndRestoreWorldDisplay = $C4800B
@@ -6529,7 +6536,7 @@ Event452_WindowGfxSoundRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:3BBC  0E 00 01 00
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:3BC0  42 9E 7A C4
     %EVENT_PAUSE($05) ; C3:3BC4  06 05
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $000D) ; C3:3BC6  42 41 A8 C0 0D 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_CAMERA_SHUTTER) ; C3:3BC6  42 41 A8 C0 0D 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0005) ; C3:3BCC  0E 01 05 00
     %EVENT_LOOP($06) ; C3:3BD0  01 06
     %EVENT_CALLROUTINE_0(!LoadIndexedWindowGfxAndReadVariantByte) ; C3:3BD2  42 77 7B C4
@@ -8437,7 +8444,7 @@ RunFallingBouncePresentation:
     %EVENT_SET_Z($0080) ; C3:4D39  2A 80 00
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:4D3C  1A 26 AB
     %EVENT_SET_Z_VELOCITY($FC00) ; C3:4D3F  41 00 FC
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0011) ; C3:4D42  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE) ; C3:4D42  42 41 A8 C0 11 00
     %EVENT_PAUSE($20) ; C3:4D48  06 20
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4D4A  39
     %EVENT_PAUSE($02) ; C3:4D4B  06 02
@@ -11513,7 +11520,7 @@ Event619_PartyLookDoorSoundRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1DD0) ; C3:6FF8  0E 06 D0 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $00D8) ; C3:6FFC  0E 07 D8 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7000  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:7003  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:7003  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7009  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:700D  19 04 A2
 
@@ -11752,6 +11759,7 @@ OnettDoorCloseWalkInRelease:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_ENEMY_DAMAGED = $001E
 !LoopC40015SlowPulseUntilRelease = $A17B
 !LoopC40015Var4GatedPulseUntilRelease = $A15E
 !PrepareAlignedMovementToY1616 = $7439
@@ -11911,7 +11919,7 @@ OnettDoorCloseFlashSoundHalt:
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:73DE  42 6E AA C0 04 00
     %EVENT_PAUSE($04) ; C3:73E4  06 04
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:73E6  42 6E AA C0 06 01
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $001E) ; C3:73EC  42 41 A8 C0 1E 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_ENEMY_DAMAGED) ; C3:73EC  42 41 A8 C0 1E 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $000C) ; C3:73F2  0E 00 0C 00
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eFixedColorMath) ; C3:73F6  42 A8 74 C4
     %EVENT_PAUSE($07) ; C3:73FA  06 07
@@ -12034,7 +12042,7 @@ Event636_CoordinateSoundYieldHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0A30) ; C3:74CE  0E 06 30 0A
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0F30) ; C3:74D2  0E 07 30 0F
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:74D6  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $001B) ; C3:74D9  42 41 A8 C0 1B 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_SHOOT) ; C3:74D9  42 41 A8 C0 1B 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:74DF  42 46 6E C4
     %EVENT_HALT() ; C3:74E3  09
 Event637_CoordinateTextYieldRelease:
@@ -12111,6 +12119,7 @@ RunLeftRightFacingPulsePair:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_YELL_OR_SAY_SOMETHING_NASTY = $0054
 !InitMovementPreset00_01Pulse12Frame = $AA5A
 !InitMovementPreset00_02Pulse6Frame = $AA82
 !InitStationaryVar4PulseAndReturn = $7A7C
@@ -12311,7 +12320,7 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_Z($0020) ; C3:778C  2A 20 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:778F  42 BF A4 C0
     %EVENT_PAUSE($01) ; C3:7793  06 01
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0011) ; C3:7795  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE) ; C3:7795  42 41 A8 C0 11 00
     %EVENT_SET_Y_VELOCITY($0092) ; C3:779B  40 92 00
     %EVENT_SET_X_VELOCITY($FF25) ; C3:779E  3F 25 FF
     %EVENT_SET_Z_VELOCITY($0180) ; C3:77A1  41 80 01
@@ -12328,7 +12337,7 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_PAUSE($04) ; C3:77BD  06 04
     %EVENT_SET_Z_VELOCITY($FB00) ; C3:77BF  41 00 FB
     %EVENT_PAUSE($04) ; C3:77C2  06 04
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $002E) ; C3:77C4  42 41 A8 C0 2E 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_PLAYER_WOUNDED) ; C3:77C4  42 41 A8 C0 2E 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:77CA  39
     %EVENT_PAUSE($08) ; C3:77CB  06 08
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:77CD  42 46 6E C4
@@ -12365,7 +12374,7 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:7829  42 99 74 C4
     %EVENT_PAUSE($09) ; C3:782D  06 09
     %EVENT_LOOP_END() ; C3:782F  02
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0054) ; C3:7830  42 41 A8 C0 54 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_YELL_OR_SAY_SOMETHING_NASTY) ; C3:7830  42 41 A8 C0 54 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0005) ; C3:7836  0E 00 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:783A  0E 01 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0002) ; C3:783E  0E 02 02 00
@@ -12964,6 +12973,7 @@ PrepareThreedEscaperRandomTextActor:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_GIYGAS_ATTACK_ARCTIC_COLD_BREATH = $0051
 
 ; Minimal macro vocabulary used by this source pilot.
 
@@ -13000,7 +13010,7 @@ RunThreedEscaperRandomTextPause:
     %EVENT_PAUSE($01) ; C3:7E66  06 01
     %EVENT_CALLROUTINE_0(!MarkCurrentSlotCollisionStateFFFF) ; C3:7E68  42 38 A8 C0
     %EVENT_START_TASK(TaskThreedEscaperRandomTextFacePlayer) ; C3:7E6C  07 AE 7E
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0051) ; C3:7E6F  42 41 A8 C0 51 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_GIYGAS_ATTACK_ARCTIC_COLD_BREATH) ; C3:7E6F  42 41 A8 C0 51 00
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:7E75  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E78  42 5F A6 C0
     %EVENT_PAUSE($08) ; C3:7E7C  06 08
@@ -13143,6 +13153,8 @@ RunThreedEscaperRandomTextReleaseTail:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_CURSOR_MOVE = $0003
+!ACTIONSCRIPT_SOUND_EFFECT_WINDOW_OPEN = $0004
 !ChooseRandomFacingCycleStepCount = $83BC
 !LoopActiveEntityWalkPulse12Frame = $A0C5
 !LoopActiveEntityWalkPulseVar4Gate = $A111
@@ -13346,7 +13358,7 @@ ContinueThreedEscaperDirectionGateB:
     %EVENT_PAUSE($01) ; C3:81B3  06 01
     %EVENT_SHORTJUMP(LoopThreedEscaperLiveAreaDirectionGateB) ; C3:81B5  19 64 81
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:81B8  1A B8 AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0003) ; C3:81BB  42 41 A8 C0 03 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_CURSOR_MOVE) ; C3:81BB  42 41 A8 C0 03 00
     %EVENT_CALLROUTINE_0(!GetCurrentSlotDirectionClass) ; C3:81C1  42 73 A6 C0
     %EVENT_WRITE_TEMPVAR_TO_VAR(!ACTIONSCRIPT_VARS_V1) ; C3:81C5  1F 01
 LoopThreedEscaperFacingPulseFast:
@@ -13358,7 +13370,7 @@ LoopThreedEscaperFacingPulseFast:
     %EVENT_PAUSE($04) ; C3:81DB  06 04
     %EVENT_SHORTJUMP(LoopThreedEscaperFacingPulseFast) ; C3:81DD  19 C7 81
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:81E0  1A B8 AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0003) ; C3:81E3  42 41 A8 C0 03 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_CURSOR_MOVE) ; C3:81E3  42 41 A8 C0 03 00
     %EVENT_CALLROUTINE_0(!GetCurrentSlotDirectionClass) ; C3:81E9  42 73 A6 C0
     %EVENT_WRITE_TEMPVAR_TO_VAR(!ACTIONSCRIPT_VARS_V1) ; C3:81ED  1F 01
 LoopThreedEscaperFacingPulseSlow:
@@ -13370,7 +13382,7 @@ LoopThreedEscaperFacingPulseSlow:
     %EVENT_PAUSE($06) ; C3:8203  06 06
     %EVENT_SHORTJUMP(LoopThreedEscaperFacingPulseSlow) ; C3:8205  19 EF 81
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:8208  1A B8 AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0003) ; C3:820B  42 41 A8 C0 03 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_CURSOR_MOVE) ; C3:820B  42 41 A8 C0 03 00
     %EVENT_CALLROUTINE_0(!GetCurrentSlotDirectionClass) ; C3:8211  42 73 A6 C0
     %EVENT_WRITE_TEMPVAR_TO_VAR(!ACTIONSCRIPT_VARS_V1) ; C3:8215  1F 01
 LoopThreedEscaperFacingPulseMedium:
@@ -13395,7 +13407,7 @@ LoopThreedEscaperFacingPulseMedium:
     %EVENT_LOOP_END() ; C3:8253  02
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V1) ; C3:8254  20 01
     %EVENT_SHORTCALL(!SwitchAnimPortFlagsFromTempvar) ; C3:8256  1A 5D 83
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0004) ; C3:8259  42 41 A8 C0 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_WINDOW_OPEN) ; C3:8259  42 41 A8 C0 04 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:825F  42 46 6E C4
     %EVENT_HALT() ; C3:8263  09
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:8264  1A B8 AA
@@ -13412,7 +13424,7 @@ LoopThreedEscaperFacingPulseMedium:
     %EVENT_LOOP_END() ; C3:8287  02
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V1) ; C3:8288  20 01
     %EVENT_SHORTCALL(!SwitchAnimPortFlagsFromTempvar) ; C3:828A  1A 5D 83
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0004) ; C3:828D  42 41 A8 C0 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_WINDOW_OPEN) ; C3:828D  42 41 A8 C0 04 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8293  42 46 6E C4
     %EVENT_HALT() ; C3:8297  09
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:8298  1A B8 AA
@@ -13429,7 +13441,7 @@ LoopThreedEscaperFacingPulseMedium:
     %EVENT_LOOP_END() ; C3:82BB  02
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V1) ; C3:82BC  20 01
     %EVENT_SHORTCALL(!SwitchAnimPortFlagsFromTempvar) ; C3:82BE  1A 5D 83
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0004) ; C3:82C1  42 41 A8 C0 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_WINDOW_OPEN) ; C3:82C1  42 41 A8 C0 04 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:82C7  42 46 6E C4
     %EVENT_HALT() ; C3:82CB  09
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:82CC  1A B8 AA
@@ -13443,7 +13455,7 @@ LoopThreedEscaperFacingPulseMedium:
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V1) ; C3:82E7  20 01
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:82E9  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:82ED  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0004) ; C3:82F1  42 41 A8 C0 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_WINDOW_OPEN) ; C3:82F1  42 41 A8 C0 04 00
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V2) ; C3:82F7  21 02
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V2, $02, $0002) ; C3:82F9  14 02 02 02 00
     %EVENT_LOOP_END() ; C3:82FE  02
@@ -13827,7 +13839,7 @@ Event702_RightMovementDoorOpenHalt:
     %EVENT_SET_X_VELOCITY($0040) ; C3:8682  3F 40 00
     %EVENT_PAUSE($90) ; C3:8685  06 90
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8687  39
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0008) ; C3:8688  42 41 A8 C0 08 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR) ; C3:8688  42 41 A8 C0 08 00
     %EVENT_HALT() ; C3:868E  09
 Event703_BounceTextYieldHalt:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:868F  25 7A A3
@@ -13855,6 +13867,7 @@ Event704_CollisionOffWaitRelease:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_FREEZE_3 = $003A
 !Event705_706_ColorMathFlashTask = $8751
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -13910,7 +13923,7 @@ Event706_WindowGfxSoundTextRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:871A  0E 01 00 00
     %EVENT_SHORTCALL(!RunWindowGfxVariantLoop) ; C3:871E  1A 1D 3C
     %EVENT_LOOP_END() ; C3:8721  02
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $003A) ; C3:8722  42 41 A8 C0 3A 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FREEZE_3) ; C3:8722  42 41 A8 C0 3A 00
     %EVENT_PAUSE($06) ; C3:8728  06 06
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:872A  42 46 6E C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0003) ; C3:872E  0E 01 03 00
@@ -14328,7 +14341,7 @@ Event719_OnettTownHallDoorMovementPath:
     %EVENT_START_TASK(LoopEvent719_DoorSoundTask) ; C3:8AE5  07 29 8B
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0008) ; C3:8AE8  0E 04 08 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8AEC  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8AF0  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8AF0  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0140) ; C3:8AF6  42 85 A6 C0 40 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8AFC  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0648) ; C3:8B00  0E 06 48 06
@@ -14456,11 +14469,11 @@ Event724_DoorOpenCloseMovementPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0850) ; C3:8C46  0E 06 50 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1B90) ; C3:8C4A  0E 07 90 1B
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:8C4E  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0008) ; C3:8C51  42 41 A8 C0 08 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR) ; C3:8C51  42 41 A8 C0 08 00
     %EVENT_SET_X_RELATIVE($FF00) ; C3:8C57  2B 00 FF
     %EVENT_PAUSE($A0) ; C3:8C5A  06 A0
     %EVENT_SET_X_RELATIVE($0100) ; C3:8C5C  2B 00 01
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8C5F  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8C5F  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8C65  42 46 6E C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0830) ; C3:8C69  0E 06 30 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1BB0) ; C3:8C6D  0E 07 B0 1B
@@ -14474,7 +14487,7 @@ Event725_DoorCloseMovementPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8C82  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0008) ; C3:8C85  0E 04 08 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8C89  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8C8D  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8C8D  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:8C93  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8C99  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0840) ; C3:8C9D  0E 06 40 08
@@ -14489,7 +14502,7 @@ Event726_DoorCloseShortMovementPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8CB6  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000A) ; C3:8CB9  0E 04 0A 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8CBD  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8CC1  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8CC1  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:8CC7  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8CCD  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0838) ; C3:8CD1  0E 06 38 08
@@ -14504,7 +14517,7 @@ Event727_DoorCloseAlignedMovementPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8CEA  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000E) ; C3:8CED  0E 04 0E 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8CF1  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8CF5  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8CF5  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:8CFB  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8D01  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0850) ; C3:8D05  0E 06 50 08
@@ -14519,7 +14532,7 @@ Event728_DoorCloseTextYieldMovementPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8D1E  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0014) ; C3:8D21  0E 04 14 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8D25  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8D29  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8D29  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:8D2F  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:8D35  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0824) ; C3:8D39  0E 06 24 08
@@ -14535,7 +14548,7 @@ Event729_TownHallDoorSoundMovementPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8D56  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0007) ; C3:8D59  0E 04 07 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8D5D  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:8D61  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:8D61  42 41 A8 C0 09 00
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:8D67  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8D6D  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1ED4) ; C3:8D71  0E 06 D4 1E
@@ -14566,6 +14579,7 @@ Event729_TownHallDoorSoundMovementPath:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_STAIRS = $0012
 !Event737_740_CommonDirectionHalt = $8F06
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -14661,7 +14675,7 @@ Event735_SoundMovementTextHalt:
     %EVENT_SET_Y($0C08) ; C3:8E8C  29 08 0C
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8E8F  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000B) ; C3:8E92  0E 04 0B 00
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0012) ; C3:8E96  42 41 A8 C0 12 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_STAIRS) ; C3:8E96  42 41 A8 C0 12 00
     %EVENT_PAUSE($28) ; C3:8E9C  06 28
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:8E9E  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8EA4  0E 05 02 00
@@ -15142,7 +15156,7 @@ LoopEvent757_StepBattleOverlayTask:
     %EVENT_PAUSE($10) ; C3:937F  06 10
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9381  39
     %EVENT_PAUSE($6E) ; C3:9382  06 6E
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $000D) ; C3:9384  42 41 A8 C0 0D 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_CAMERA_SHUTTER) ; C3:9384  42 41 A8 C0 0D 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:938A  0E 00 00 00
     %EVENT_LOOP($04) ; C3:938E  01 04
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $0007) ; C3:9390  14 00 02 07 00
@@ -16067,6 +16081,7 @@ Event778_ClearPendingInteractionsRelease:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_MISS_ATTACK = $0022
 
 ; Minimal macro vocabulary used by this source pilot.
 
@@ -16092,7 +16107,7 @@ Event776_BattleSwirlWindowGfxRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0002) ; C3:9E9E  0E 02 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0078) ; C3:9EA2  0E 03 78 00
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:9EA6  42 9E 7A C4
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0022) ; C3:9EAA  42 41 A8 C0 22 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_MISS_ATTACK) ; C3:9EAA  42 41 A8 C0 22 00
     %EVENT_SHORTCALL(!RunWindowGfxVariantLoop) ; C3:9EB0  1A 1D 3C
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9EB3  19 04 A2
 Event779_LeftVisualCountdownHalt:
@@ -17789,6 +17804,7 @@ ChooseRandomWanderWaitTimer:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_PHONE_RING = $000A
 !ActionScript_PrepareNewEntity = $C0A912
 !ActionScript_PrepareNewEntityAtPartyLeader = $C0A8FF
 !LoopRandomDirectionMovementTimer = $A2FD
@@ -18091,7 +18107,7 @@ ContinueAfterTrafficLightWaitGate:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:AEB1  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:AEB2  42 DB C7 C0
 LoopFlyoverSoundFacingPulse:
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $000A) ; C3:AEB6  42 41 A8 C0 0A 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_PHONE_RING) ; C3:AEB6  42 41 A8 C0 0A 00
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $01) ; C3:AEBC  42 6E AA C0 00 01
     %EVENT_PAUSE($18) ; C3:AEC2  06 18
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:AEC4  42 6E AA C0 02 01
@@ -19071,7 +19087,7 @@ Event79_BikiniZombieHotelDoorPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2438) ; C3:B8D2  0E 07 38 24
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:B8D6  42 85 A6 C0 00 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B8DC  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:B8DF  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:B8DF  42 41 A8 C0 09 00
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B8E5  19 04 A2
 Event80_ResetVar4AfterPartyMove:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:B8E8  1A AA AA
@@ -19118,9 +19134,9 @@ Event83_PartyMemberOneOuchSequence:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:B97D  0E 04 01 00
     %EVENT_PAUSE($28) ; C3:B981  06 28
     %EVENT_PAUSE($1E) ; C3:B983  06 1E
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0054) ; C3:B985  42 41 A8 C0 54 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_YELL_OR_SAY_SOMETHING_NASTY) ; C3:B985  42 41 A8 C0 54 00
     %EVENT_PAUSE($64) ; C3:B98B  06 64
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0012) ; C3:B98D  42 41 A8 C0 12 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_STAIRS) ; C3:B98D  42 41 A8 C0 12 00
     %EVENT_PAUSE($46) ; C3:B993  06 46
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:B995  0E 04 00 00
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:B999  3B 00
@@ -19690,7 +19706,7 @@ Event115_TempFlag1DoorCloseSequence:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:BEFA  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:BF00  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BF03  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:BF06  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:BF06  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:BF0C  06 16
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:BF0E  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BF11  1A 1E AA
@@ -19722,7 +19738,7 @@ Event116_TempFlag2DoorCloseSequence:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:BF5B  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:BF61  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BF64  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:BF67  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:BF67  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:BF6D  06 16
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:BF6F  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BF72  1A 1E AA
@@ -19755,7 +19771,7 @@ Event117_TempFlag3DoorCloseSequence:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:BFBF  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:BFC5  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BFC8  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:BFCB  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:BFCB  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:BFD1  06 16
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:BFD3  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:BFD6  1A 1E AA
@@ -19788,7 +19804,7 @@ Event118_TempFlag4DoorCloseSequence:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C023  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:C029  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C02C  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C02F  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C02F  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:C035  06 16
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:C037  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C03A  1A 1E AA
@@ -19822,7 +19838,7 @@ Event119_TempFlag5DoorCloseSequence:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C089  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:C08F  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C092  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C095  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C095  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:C09B  06 16
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:C09D  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C0A0  1A 1E AA
@@ -19900,7 +19916,7 @@ RunStaggeredDoorCloseMovement:
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C14C  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:C152  1D 05 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C155  1A 1E AA
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C158  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C158  42 41 A8 C0 09 00
     %EVENT_PAUSE($16) ; C3:C15E  06 16
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:C160  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C163  1A 1E AA
@@ -20009,7 +20025,7 @@ RunPositionDoorCloseSoundPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1368) ; C3:C213  0E 07 68 13
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C217  42 85 A6 C0 00 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:C21D  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C220  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C220  42 41 A8 C0 09 00
     %EVENT_SHORT_RETURN() ; C3:C226  1B
 
 ; ---------------------------------------------------------------------------
@@ -20287,12 +20303,12 @@ Event136_PositionTextDoorSoundMovementHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1A28) ; C3:C482  0E 06 28 1A
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1E50) ; C3:C486  0E 07 50 1E
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:C48A  1A 59 AB
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0012) ; C3:C48D  42 41 A8 C0 12 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_STAIRS) ; C3:C48D  42 41 A8 C0 12 00
     %EVENT_SET_X_RELATIVE($FF00) ; C3:C493  2B 00 FF
     %EVENT_PAUSE($3C) ; C3:C496  06 3C
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C498  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C498  42 41 A8 C0 09 00
     %EVENT_PAUSE($3C) ; C3:C49E  06 3C
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C4A0  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR) ; C3:C4A0  42 41 A8 C0 09 00
     %EVENT_PAUSE($28) ; C3:C4A6  06 28
     %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST) ; C3:C4A8  42 41 A8 C0 61 00
     %EVENT_PAUSE($32) ; C3:C4AE  06 32
@@ -21392,6 +21408,7 @@ LoopSkyRunnerElectricEffectRise:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_SKY_RUNNER_SIGNAL_GIYGAS_SHIELD = $0049
 !LoopSkyRunnerElectricEffectRise = $CEB9
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -21426,7 +21443,7 @@ Event163_SkyRunnerElectricEffectReflectRelease:
     %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CED3  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:CED8  39
     %EVENT_START_TASK(!LoopSkyRunnerElectricEffectRise) ; C3:CED9  07 B9 CE
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0049) ; C3:CEDC  42 41 A8 C0 49 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_SKY_RUNNER_SIGNAL_GIYGAS_SHIELD) ; C3:CEDC  42 41 A8 C0 49 00
     %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:CEE2  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:CEE8  06 08
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:CEEA  3B FF
@@ -22952,6 +22969,7 @@ SaveEvent455_BusDriverAttentionPosition:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY = $005F
 !RestoreSavedCoordinateState = $C09451
 !Restore_CurrentSlotAttentionPosition = $C0D7C7
 !RunMagicButterflyPpRestoreAnimation = $C2654C
@@ -22990,7 +23008,7 @@ Event34_MagicButterflyPpRestoreRelease:
     %EVENT_SET_Z($0005) ; C3:DF32  2A 05 00
     %EVENT_CALLROUTINE_0(!Restore_CurrentSlotAttentionPosition) ; C3:DF35  42 C7 D7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DF39  42 BF A4 C0
-    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $005F) ; C3:DF3D  42 41 A8 C0 5F 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY) ; C3:DF3D  42 41 A8 C0 5F 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:DF43  0E 05 01 00
     %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:DF47  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0001) ; C3:DF4C  14 07 02 01 00

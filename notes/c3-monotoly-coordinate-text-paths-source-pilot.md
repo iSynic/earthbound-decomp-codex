@@ -28,6 +28,7 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
 - `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
+- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand.
 - Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, `%EVENT_CALLROUTINE_SOUND_EFFECT_ID`, `%EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK`, +3.
 
 ## Next Promotion Step

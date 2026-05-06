@@ -203,14 +203,16 @@ revalidate against the ROM byte-for-byte.
 ## Sound-Effect Word Constants
 
 `C0:A841` reads a word-shaped `sound_effect_id_word` and hands it to the sound
-queue path. The source-pilot renderer now names `$0061` as
-`!ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST`, backed by
-`refs/earthbound-sounddriver-byte-perfect/sfx_sequences.asm`, where `SFX_61` is
-commented as `Stairs fast`.
+queue path. The source-pilot renderer names the C3-used IDs that have direct
+`SFX_XX` comments in `refs/earthbound-sounddriver-byte-perfect/sfx_sequences.asm`.
+Examples include `!ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR`,
+`!ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR`, `!ACTIONSCRIPT_SOUND_EFFECT_CAMERA_SHUTTER`,
+`!ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY`, and
+`!ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST`.
 
-That catalog is deliberately narrow. Other `$0061` words in C3, such as entity
-visual-type operands passed to spawn helpers, remain numeric because they are
-not `sound_effect_id_word` operands.
+That catalog is deliberately narrow. Other words that happen to match a sound
+ID numerically, such as entity visual-type operands passed to spawn helpers,
+remain numeric because they are not `sound_effect_id_word` operands.
 
 ## Good-Enough Boundary
 

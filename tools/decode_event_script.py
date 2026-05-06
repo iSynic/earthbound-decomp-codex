@@ -1087,6 +1087,78 @@ ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
 }
 
 ACTIONSCRIPT_SOUND_EFFECT_IDS: dict[int, dict[str, str]] = {
+    0x0003: {
+        "name": "sound_effect_cursor_move",
+        "contract": "sound effect $0003; sound-driver reference labels SFX_03 as cursor move",
+    },
+    0x0004: {
+        "name": "sound_effect_window_open",
+        "contract": "sound effect $0004; sound-driver reference labels SFX_04 as window open",
+    },
+    0x0008: {
+        "name": "sound_effect_enter_door",
+        "contract": "sound effect $0008; sound-driver reference labels SFX_08 as enter door",
+    },
+    0x0009: {
+        "name": "sound_effect_exit_door",
+        "contract": "sound effect $0009; sound-driver reference labels SFX_09 as exit door",
+    },
+    0x000A: {
+        "name": "sound_effect_phone_ring",
+        "contract": "sound effect $000A; sound-driver reference labels SFX_0A as phone ring",
+    },
+    0x000D: {
+        "name": "sound_effect_camera_shutter",
+        "contract": "sound effect $000D; sound-driver reference labels SFX_0D as camera shutter",
+    },
+    0x000E: {
+        "name": "sound_effect_blow_a_bubble",
+        "contract": "sound effect $000E; sound-driver reference labels SFX_0E as blow a bubble",
+    },
+    0x0011: {
+        "name": "sound_effect_fall_into_hole",
+        "contract": "sound effect $0011; sound-driver reference labels SFX_11 as fall into hole",
+    },
+    0x0012: {
+        "name": "sound_effect_stairs",
+        "contract": "sound effect $0012; sound-driver reference labels SFX_12 as stairs",
+    },
+    0x001B: {
+        "name": "sound_effect_shoot",
+        "contract": "sound effect $001B; sound-driver reference labels SFX_1B as shoot",
+    },
+    0x001E: {
+        "name": "sound_effect_enemy_damaged",
+        "contract": "sound effect $001E; sound-driver reference labels SFX_1E as enemy damaged",
+    },
+    0x0022: {
+        "name": "sound_effect_miss_attack",
+        "contract": "sound effect $0022; sound-driver reference labels SFX_22 as miss attack",
+    },
+    0x002E: {
+        "name": "sound_effect_player_wounded",
+        "contract": "sound effect $002E; sound-driver reference labels SFX_2E as player wounded",
+    },
+    0x003A: {
+        "name": "sound_effect_freeze_3",
+        "contract": "sound effect $003A; sound-driver reference labels SFX_3A as Freeze 3",
+    },
+    0x0049: {
+        "name": "sound_effect_sky_runner_signal_giygas_shield",
+        "contract": "sound effect $0049; sound-driver reference labels SFX_49 as Sky Runner signal/Giygas shield",
+    },
+    0x0051: {
+        "name": "sound_effect_giygas_attack_arctic_cold_breath",
+        "contract": "sound effect $0051; sound-driver reference labels SFX_51 as Giygas attack/arctic-cold breath",
+    },
+    0x0054: {
+        "name": "sound_effect_yell_or_say_something_nasty",
+        "contract": "sound effect $0054; sound-driver reference labels SFX_54 as yell/say something nasty",
+    },
+    0x005F: {
+        "name": "sound_effect_magic_butterfly",
+        "contract": "sound effect $005F; sound-driver reference labels SFX_5F as Magic Butterfly",
+    },
     0x0061: {
         "name": "sound_effect_stairs_fast",
         "contract": "sound effect $0061; sound-driver reference labels SFX_61 as the fast stairs effect",
