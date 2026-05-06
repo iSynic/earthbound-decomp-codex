@@ -833,6 +833,30 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read two entity initializer words and spawn or initialize an entity at the current slot anchor",
         "args": "entity_visual_type_word, entity_initializer_word",
     },
+    "C0:A99F": {
+        "name": "SpawnEntityRelative_ReadTwoWords",
+        "group": "entity-spawn",
+        "contract": "read visual-type and initializer words, then spawn a cast-scene entity at the staged script var0/var1 position relative to the live BG3 scroll",
+        "args": "entity_visual_type_word, entity_initializer_word",
+    },
+    "C0:A9B3": {
+        "name": "PrintCastNameParty_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name source and tile-position words, then print the party cast-name row through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
+    },
+    "C0:A9CF": {
+        "name": "PrintCastNameEntityVar0_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name source and tile-position words, then print the entity-var0 cast-name row through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
+    },
+    "C0:A9EB": {
+        "name": "PrintCastNameCurrentThreshold_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name print words, replace the source selector with the current cast-scroll threshold, and print through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
+    },
     "C0:9FBB": {
         "name": "ActionScript_FadeOutWrapper",
         "group": "presentation-render",

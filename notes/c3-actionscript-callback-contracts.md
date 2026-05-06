@@ -105,6 +105,25 @@ The `C0:D77F/D7B3/D7C7/D7E0` contracts are imported from
 bus-driver and compact NPC-attention pilots without promoting any C0 runtime
 implementation into C3 ownership.
 
+## Cast-Scroll Source-Pilot Wrappers
+
+The large event-801 cast-scroll pilot now has field-shaped wrappers for its
+high-volume C0 helper calls:
+
+- `C0:A99F` -> `SpawnEntityRelative_ReadTwoWords`: reads visual-type and
+  initializer words, then calls the C4 cast-scene spawn helper that combines
+  staged script `var0/var1` with the live BG3 scroll.
+- `C0:A9B3` -> `PrintCastNameParty_ReadThreeWords`
+- `C0:A9CF` -> `PrintCastNameEntityVar0_ReadThreeWords`
+- `C0:A9EB` -> `PrintCastNameCurrentThreshold_ReadThreeWords`
+
+Those cast-name helpers render as
+`cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word`; the
+entity spawner renders as `entity_visual_type_word, entity_initializer_word`.
+The contracts are imported from the C0 wrapper strip and
+`notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`, then applied only as C3
+decoder/source-pilot metadata.
+
 Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
 now names the current-slot index, action-script callback flag bit, active
 entity registry scan tables/count, live world/screen/offset coordinate tables,
