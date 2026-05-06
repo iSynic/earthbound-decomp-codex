@@ -704,6 +704,12 @@ contract notes for C0/C1/C3/C4 consumers.
   byte `+3` handoff through `C0:76C8` as
   `DispatchBattleConsequenceControlByte`. See
   `notes/c2-stat-consequence-runtime-polish.md`.
+- 2026-05-06 ninety-first slice: tightened the item/status cluster's
+  Teleport Box-style tail. `C2:A89D..AF1F` now calls `C0:0AA1` as
+  `LookupPositionCellContextWord`, `C1:DDC6` as
+  `RedirectRemoveItemFromInventory`, and `C0:DD53` as
+  `SetTeleportStateSelectors`, leaving the still-local spray type helper and
+  Pray/table pass raw. See `notes/c2-item-bomb-runtime-polish.md`.
 
 ## Validation
 

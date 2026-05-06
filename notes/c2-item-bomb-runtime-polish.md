@@ -122,6 +122,10 @@ leaves in the cluster:
   `C2:6BFB/6C82/6E00/6E77/6EF8` and the `C2:70E4` pruner build, subtract,
   scan, and prune candidate sets before handing the selected second-pointer
   payload to `C2:40A4`
+- the Teleport Box-style tail now names its cross-bank joins without broadening
+  the still-local Pray/table pass: `C0:0AA1` reads the position-cell context
+  word used by the initial gate, `C1:DDC6` removes the selected item slot, and
+  `C0:DD53` installs the teleport state selectors after the success text.
 
 ## Decomp Value
 
@@ -155,6 +159,9 @@ This slice tightens several item-side runtime contracts:
   counts, with the shared speed-gated damage path named locally
 - amount-shaping callers now distinguish `C2:6A44` / `RollRandomAmount` from
   `C2:6AFD` / `ApplyTwentyFivePercentVariance`
+- the Teleport Box-style item path now shares the same position-context,
+  inventory-removal, and teleport-state names used by the C0/C1/C2 source
+  families, while preserving its local boss/encounter gates.
 
 ## Remaining Soft Spots
 
