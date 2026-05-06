@@ -1,4 +1,4 @@
-; EarthBound C2 candidate row promotion into collapse affliction controller state.
+; EarthBound C2 source-entry promotion into collapse affliction controller state.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,17 +6,18 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:BB18..C2:BC5C PromoteCandidateToCollapseAfflictionController
+; - C2:BB18..C2:BC5C PromoteSourceEntryToCollapseAfflictionController
 ;
 ; Runtime contract:
-; - Scans the six source candidate entries seeded in the `$9FB8..9FCF` family.
+; - Scans the six selected-row source entries rooted in the `$9FB8..9FCF`
+;   battler-field family.
 ; - For enabled entries with no blocking state, mirrors live battler fields from
-;   `$99CE + slot * 0x5F` back into the candidate row.
+;   `$99CE + slot * 0x5F` back into the source entry.
 ; - If the row is newly entering the collapse/affliction controller state, writes
 ;   the selected row pointer into `$A972`, sets row `+0x1D = 1`, clears row
 ;   `+0x1E..+0x23`, builds target text context, and emits the hardcoded
 ;   `EF:6C6B` battle text.
-; - Finishes by copying seven candidate metadata bytes into live battler
+; - Finishes by copying seven source-entry status bytes into live battler
 ;   status/transient fields and refreshing battle/overworld presentation state.
 
 ; ---------------------------------------------------------------------------
@@ -29,11 +30,42 @@ C1DD47_OpenBattleTextWindow                 = $C1DD47
 C1DD59_WaitForBattleText                    = $C1DD59
 C23D05_BuildBattleTargetTextContext         = $C23D05
 
+SelectedRowSourceEntryCount                 = $0006
+BattlerRowSize                              = $004E
+CharacterRecordStride                       = $005F
+CharacterRecordsBase                        = $99CE
+SourceEntryActiveByteBase                   = $9FB8
+SourceEntryPhaseGroupByteBase               = $9FBA
+SourceEntryRouteSubtypeGateByteBase         = $9FBB
+SourceEntryLinkedCharacterSlotByteBase      = $9FBC
+SourceEntryHpOrTransientMirrorWordBase      = $9FBD
+SourceEntryPresentationMirrorByteBase       = $9FC3
+SourceEntryStatusBytesBase                  = $9FC9
+BattlersTableBase                           = $9FAC
+ActiveTargetBattlerPointer                  = $A972
+SelectedRowPrimaryAfflictionByte            = $001D
+SelectedRowSubstateByte1                    = $001E
+SelectedRowSubstateByte2                    = $001F
+SelectedRowSubstateByte3                    = $0020
+SelectedRowSubstateByte4                    = $0021
+SelectedRowSubstateByte5                    = $0022
+SelectedRowSubstateByte6                    = $0023
+CharacterHpTransientMirrorOffset            = $0045
+CharacterPresentationMirrorOffset           = $004B
+LiveBattlerStatusMirrorStartOffset          = $000E
+LiveBattlerPostStatusMirrorByte             = $0012
+CollapseControllerHardStateValue            = $0001
+StatusMirrorByteCount                       = $0007
+BattleTextWindowId                          = $000E
+EFMSG_CollapseAfflictionHardText            = $6C6B
+EF_BattleTextScriptBank                     = $00EF
+
 ; ---------------------------------------------------------------------------
 ; C2:BB18
 
 CHECK_DEAD_PLAYERS:
-C2BB18_PromoteCandidateToCollapseAfflictionController = CHECK_DEAD_PLAYERS
+C2BB18_PromoteSourceEntryToCollapseAfflictionController = CHECK_DEAD_PLAYERS
+C2BB18_PromoteCandidateToCollapseAfflictionController = C2BB18_PromoteSourceEntryToCollapseAfflictionController
     rep #$31
     phd
     tdc
@@ -44,82 +76,82 @@ C2BB18_PromoteCandidateToCollapseAfflictionController = CHECK_DEAD_PLAYERS
     jmp.w C2BC4E_PromoteCandidateToCollapseAfflictionController_LBC4E
 C2BB28_PromoteCandidateToCollapseAfflictionController_LBB28:
     lda $04
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tay
     sty $16
-    lda $9FB8,Y
+    lda.w SourceEntryActiveByteBase,Y
     and.w #$00FF
     bne C2BB3F_PromoteCandidateToCollapseAfflictionController_LBB3F
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB3F_PromoteCandidateToCollapseAfflictionController_LBB3F:
-    lda $9FBA,Y
+    lda.w SourceEntryPhaseGroupByteBase,Y
     and.w #$00FF
     beq C2BB4A_PromoteCandidateToCollapseAfflictionController_LBB4A
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB4A_PromoteCandidateToCollapseAfflictionController_LBB4A:
-    lda $9FBB,Y
+    lda.w SourceEntryRouteSubtypeGateByteBase,Y
     and.w #$00FF
     beq C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55:
-    lda $9FBC,Y
+    lda.w SourceEntryLinkedCharacterSlotByteBase,Y
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #CharacterRecordsBase
     sta $02
     sta $14
     ldy $16
     tya
     clc
-    adc.w #$9FBD
+    adc.w #SourceEntryHpOrTransientMirrorWordBase
     tax
     stx $12
     ldx $02
-    lda $0045,X
+    lda.w CharacterHpTransientMirrorOffset,X
     ldx $12
     sta $0000,X
     ldx $02
-    lda $004B,X
-    sta $9FC3,Y
+    lda.w CharacterPresentationMirrorOffset,X
+    sta.w SourceEntryPresentationMirrorByteBase,Y
     ldx $12
     lda $0000,X
     bne C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5
     ; Newly collapsed/unconscious row: select row and clear controller fields.
-    lda $9FC9,Y
+    lda.w SourceEntryStatusBytesBase,Y
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #CollapseControllerHardStateValue
     beq C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5
     tya
     clc
-    adc.w #$9FAC
-    sta $A972
+    adc.w #BattlersTableBase
+    sta ActiveTargetBattlerPointer
     tax
     sep #$20
-    lda.b #$01
-    sta $001D,X
-    ldx $A972
-    stz $0023,X
-    ldx $A972
-    stz $0022,X
-    ldx $A972
-    stz $0021,X
-    ldx $A972
-    stz $0020,X
-    ldx $A972
-    stz $001F,X
-    ldx $A972
-    stz $001E,X
+    lda.b #CollapseControllerHardStateValue
+    sta.w SelectedRowPrimaryAfflictionByte,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte6,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte5,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte4,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte3,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte2,X
+    ldx ActiveTargetBattlerPointer
+    stz.w SelectedRowSubstateByte1,X
     jsl FIX_TARGET_NAME
     ldx $8900
     stx $16
-    lda.w #$000E
+    lda.w #BattleTextWindowId
     jsl C1DD47_OpenBattleTextWindow
-    lda.w #$6C6B
+    lda.w #EFMSG_CollapseAfflictionHardText
     sta $0E
-    lda.w #$00EF
+    lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     ldx $16
@@ -131,7 +163,7 @@ C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5:
     stx $12
     bra C2BC29_PromoteCandidateToCollapseAfflictionController_LBC29
 C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC:
-    ; Copy candidate metadata bytes into the linked live battler row.
+    ; Copy selected source-entry status bytes into the linked live battler row.
     rep #$20
     lda $14
     sta $02
@@ -141,34 +173,34 @@ C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC:
     pha
     stx $02
     lda $04
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FC9
+    adc.w #SourceEntryStatusBytesBase
     clc
     adc $02
     tax
     sep #$20
     lda $0000,X
     plx
-    sta $000E,X
+    sta.w LiveBattlerStatusMirrorStartOffset,X
     ldx $12
     inx
     stx $12
 C2BC29_PromoteCandidateToCollapseAfflictionController_LBC29:
-    cpx.w #$0007
+    cpx.w #StatusMirrorByteCount
     bcc C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC
     rep #$20
     lda $14
     sta $02
     clc
-    adc.w #$0012
+    adc.w #LiveBattlerPostStatusMirrorByte
     tax
     lda $0000,X
     and.w #$00FF
     beq C2BC48_PromoteCandidateToCollapseAfflictionController_LBC48
     sep #$20
-    lda.b #$01
+    lda.b #CollapseControllerHardStateValue
     sta $0000,X
 C2BC48_PromoteCandidateToCollapseAfflictionController_LBC48:
     jsl C034D6_RefreshOverworldSpritesOrBattleState
@@ -176,7 +208,7 @@ C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C:
     inc $04
 C2BC4E_PromoteCandidateToCollapseAfflictionController_LBC4E:
     lda $04
-    cmp.w #$0006
+    cmp.w #SelectedRowSourceEntryCount
     bcs C2BC5A_PromoteCandidateToCollapseAfflictionController_LBC5A
     beq C2BC5A_PromoteCandidateToCollapseAfflictionController_LBC5A
     jmp.w C2BB28_PromoteCandidateToCollapseAfflictionController_LBB28

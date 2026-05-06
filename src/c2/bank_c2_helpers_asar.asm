@@ -15995,8 +15995,18 @@ BATTLE_INIT_PLAYER_STATS:
 hirom
 org $C2BAC5
 
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerConsciousnessByte = $000C
+!BattlerPhaseGroupByte = $000E
+!BattlerRouteSubtypeGateByte = $000F
+!BattlerPrimaryAfflictionByte = $001D
+!BattlerHardStateValue = $0001
+!BattlerBlockedStateValue = $0002
+!TargetMaskBitLimit = $0020
 COUNT_CHARS:
-!C2BAC5_CountFilteredSecondStageRows = COUNT_CHARS
+!C2BAC5_CountFilteredSecondStageBattlerRows = COUNT_CHARS
+!C2BAC5_CountFilteredSecondStageRows = C2BAC5_CountFilteredSecondStageBattlerRows
     rep #$31
     phd
     pha
@@ -16007,35 +16017,35 @@ COUNT_CHARS:
     sta $04
     lda.w #$0000
     sta $02
-    ldx.w #$9FAC
+    ldx.w #!BattlersTableBase
     tay
     bra C2BB0F_CountFilteredSecondStageRows_LBB0F
 C2BADC_CountFilteredSecondStageRows_LBADC:
-    lda $000C,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C2BB08_CountFilteredSecondStageRows_LBB08
-    lda $000E,X
+    lda.w !BattlerPhaseGroupByte,X
     and.w #$00FF
     cmp $04
     bne C2BB08_CountFilteredSecondStageRows_LBB08
-    lda $000F,X
+    lda.w !BattlerRouteSubtypeGateByte,X
     and.w #$00FF
     bne C2BB08_CountFilteredSecondStageRows_LBB08
-    lda $001D,X
+    lda.w !BattlerPrimaryAfflictionByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!BattlerHardStateValue
     beq C2BB08_CountFilteredSecondStageRows_LBB08
-    cmp.w #$0002
+    cmp.w #!BattlerBlockedStateValue
     beq C2BB08_CountFilteredSecondStageRows_LBB08
     inc $02
 C2BB08_CountFilteredSecondStageRows_LBB08:
     txa
     clc
-    adc.w #$004E
+    adc.w #!BattlerRowSize
     tax
     iny
 C2BB0F_CountFilteredSecondStageRows_LBB0F:
-    cpy.w #$0020
+    cpy.w #!TargetMaskBitLimit
     bcc C2BADC_CountFilteredSecondStageRows_LBADC
     lda $02
     pld
@@ -16055,8 +16065,38 @@ org $C2BB18
 !C1DD47_OpenBattleTextWindow = $C1DD47
 !C1DD59_WaitForBattleText = $C1DD59
 !C23D05_BuildBattleTargetTextContext = $C23D05
+!SelectedRowSourceEntryCount = $0006
+!BattlerRowSize = $004E
+!CharacterRecordStride = $005F
+!CharacterRecordsBase = $99CE
+!SourceEntryActiveByteBase = $9FB8
+!SourceEntryPhaseGroupByteBase = $9FBA
+!SourceEntryRouteSubtypeGateByteBase = $9FBB
+!SourceEntryLinkedCharacterSlotByteBase = $9FBC
+!SourceEntryHpOrTransientMirrorWordBase = $9FBD
+!SourceEntryPresentationMirrorByteBase = $9FC3
+!SourceEntryStatusBytesBase = $9FC9
+!BattlersTableBase = $9FAC
+!ActiveTargetBattlerPointer = $A972
+!SelectedRowPrimaryAfflictionByte = $001D
+!SelectedRowSubstateByte1 = $001E
+!SelectedRowSubstateByte2 = $001F
+!SelectedRowSubstateByte3 = $0020
+!SelectedRowSubstateByte4 = $0021
+!SelectedRowSubstateByte5 = $0022
+!SelectedRowSubstateByte6 = $0023
+!CharacterHpTransientMirrorOffset = $0045
+!CharacterPresentationMirrorOffset = $004B
+!LiveBattlerStatusMirrorStartOffset = $000E
+!LiveBattlerPostStatusMirrorByte = $0012
+!CollapseControllerHardStateValue = $0001
+!StatusMirrorByteCount = $0007
+!BattleTextWindowId = $000E
+!EFMSG_CollapseAfflictionHardText = $6C6B
+!EF_BattleTextScriptBank = $00EF
 CHECK_DEAD_PLAYERS:
-!C2BB18_PromoteCandidateToCollapseAfflictionController = CHECK_DEAD_PLAYERS
+!C2BB18_PromoteSourceEntryToCollapseAfflictionController = CHECK_DEAD_PLAYERS
+!C2BB18_PromoteCandidateToCollapseAfflictionController = C2BB18_PromoteSourceEntryToCollapseAfflictionController
     rep #$31
     phd
     tdc
@@ -16067,81 +16107,81 @@ CHECK_DEAD_PLAYERS:
     jmp.w C2BC4E_PromoteCandidateToCollapseAfflictionController_LBC4E
 C2BB28_PromoteCandidateToCollapseAfflictionController_LBB28:
     lda $04
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
     sty $16
-    lda $9FB8,Y
+    lda.w !SourceEntryActiveByteBase,Y
     and.w #$00FF
     bne C2BB3F_PromoteCandidateToCollapseAfflictionController_LBB3F
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB3F_PromoteCandidateToCollapseAfflictionController_LBB3F:
-    lda $9FBA,Y
+    lda.w !SourceEntryPhaseGroupByteBase,Y
     and.w #$00FF
     beq C2BB4A_PromoteCandidateToCollapseAfflictionController_LBB4A
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB4A_PromoteCandidateToCollapseAfflictionController_LBB4A:
-    lda $9FBB,Y
+    lda.w !SourceEntryRouteSubtypeGateByteBase,Y
     and.w #$00FF
     beq C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55
     jmp.w C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C
 C2BB55_PromoteCandidateToCollapseAfflictionController_LBB55:
-    lda $9FBC,Y
+    lda.w !SourceEntryLinkedCharacterSlotByteBase,Y
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!CharacterRecordsBase
     sta $02
     sta $14
     ldy $16
     tya
     clc
-    adc.w #$9FBD
+    adc.w #!SourceEntryHpOrTransientMirrorWordBase
     tax
     stx $12
     ldx $02
-    lda $0045,X
+    lda.w !CharacterHpTransientMirrorOffset,X
     ldx $12
     sta $0000,X
     ldx $02
-    lda $004B,X
-    sta $9FC3,Y
+    lda.w !CharacterPresentationMirrorOffset,X
+    sta.w !SourceEntryPresentationMirrorByteBase,Y
     ldx $12
     lda $0000,X
     bne C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5
-    lda $9FC9,Y
+    lda.w !SourceEntryStatusBytesBase,Y
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!CollapseControllerHardStateValue
     beq C2BBF5_PromoteCandidateToCollapseAfflictionController_LBBF5
     tya
     clc
-    adc.w #$9FAC
-    sta $A972
+    adc.w #!BattlersTableBase
+    sta !ActiveTargetBattlerPointer
     tax
     sep #$20
-    lda.b #$01
-    sta $001D,X
-    ldx $A972
-    stz $0023,X
-    ldx $A972
-    stz $0022,X
-    ldx $A972
-    stz $0021,X
-    ldx $A972
-    stz $0020,X
-    ldx $A972
-    stz $001F,X
-    ldx $A972
-    stz $001E,X
+    lda.b #!CollapseControllerHardStateValue
+    sta.w !SelectedRowPrimaryAfflictionByte,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte6,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte5,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte4,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte3,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte2,X
+    ldx !ActiveTargetBattlerPointer
+    stz.w !SelectedRowSubstateByte1,X
     jsl FIX_TARGET_NAME
     ldx $8900
     stx $16
-    lda.w #$000E
+    lda.w #!BattleTextWindowId
     jsl !C1DD47_OpenBattleTextWindow
-    lda.w #$6C6B
+    lda.w #!EFMSG_CollapseAfflictionHardText
     sta $0E
-    lda.w #$00EF
+    lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $16
@@ -16162,34 +16202,34 @@ C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC:
     pha
     stx $02
     lda $04
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FC9
+    adc.w #!SourceEntryStatusBytesBase
     clc
     adc $02
     tax
     sep #$20
     lda $0000,X
     plx
-    sta $000E,X
+    sta.w !LiveBattlerStatusMirrorStartOffset,X
     ldx $12
     inx
     stx $12
 C2BC29_PromoteCandidateToCollapseAfflictionController_LBC29:
-    cpx.w #$0007
+    cpx.w #!StatusMirrorByteCount
     bcc C2BBFC_PromoteCandidateToCollapseAfflictionController_LBBFC
     rep #$20
     lda $14
     sta $02
     clc
-    adc.w #$0012
+    adc.w #!LiveBattlerPostStatusMirrorByte
     tax
     lda $0000,X
     and.w #$00FF
     beq C2BC48_PromoteCandidateToCollapseAfflictionController_LBC48
     sep #$20
-    lda.b #$01
+    lda.b #!CollapseControllerHardStateValue
     sta $0000,X
 C2BC48_PromoteCandidateToCollapseAfflictionController_LBC48:
     jsl !C034D6_RefreshOverworldSpritesOrBattleState
@@ -16197,7 +16237,7 @@ C2BC4C_PromoteCandidateToCollapseAfflictionController_LBC4C:
     inc $04
 C2BC4E_PromoteCandidateToCollapseAfflictionController_LBC4E:
     lda $04
-    cmp.w #$0006
+    cmp.w #!SelectedRowSourceEntryCount
     bcs C2BC5A_PromoteCandidateToCollapseAfflictionController_LBC5A
     beq C2BC5A_PromoteCandidateToCollapseAfflictionController_LBC5A
     jmp.w C2BB28_PromoteCandidateToCollapseAfflictionController_LBB28
@@ -16214,8 +16254,21 @@ hirom
 org $C2BC5C
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!SelectedRowSourceEntryCount = $0006
+!BattlerRowSize = $004E
+!CharacterRecordStride = $005F
+!CharacterRecordsBase = $99CE
+!SourceEntryActiveByteBase = $9FB8
+!SourceEntryPhaseGroupByteBase = $9FBA
+!SourceEntryRouteSubtypeGateByteBase = $9FBB
+!SourceEntryLinkedCharacterSlotByteBase = $9FBC
+!LiveBattlerRouteLinkByte = $0010
+!LiveBattlerTransientByte1 = $0011
+!LiveBattlerPostStatusMirrorByte = $0012
+!LiveBattlerTransientByte2 = $0014
 RESET_POST_BATTLE_STATS:
-!C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = RESET_POST_BATTLE_STATS
+!C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = RESET_POST_BATTLE_STATS
+!C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields
     rep #$31
     phd
     tdc
@@ -16225,37 +16278,37 @@ RESET_POST_BATTLE_STATS:
     sta $0E
     bra C2BCB2_ClearInactiveCandidateLiveSlotTransientFields_LBCB2
 C2BC6B_ClearInactiveCandidateLiveSlotTransientFields_LBC6B:
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w !SourceEntryActiveByteBase,X
     and.w #$00FF
     beq C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBA,X
+    lda.w !SourceEntryPhaseGroupByteBase,X
     and.w #$00FF
     bne C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBB,X
+    lda.w !SourceEntryRouteSubtypeGateByteBase,X
     and.w #$00FF
     bne C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBC,X
+    lda.w !SourceEntryLinkedCharacterSlotByteBase,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!CharacterRecordsBase
     tax
     sep #$20
-    stz $0014,X
-    stz $0012,X
-    stz $0011,X
-    stz $0010,X
+    stz.w !LiveBattlerTransientByte2,X
+    stz.w !LiveBattlerPostStatusMirrorByte,X
+    stz.w !LiveBattlerTransientByte1,X
+    stz.w !LiveBattlerRouteLinkByte,X
 C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB:
     rep #$20
     lda $0E
     inc A
     sta $0E
 C2BCB2_ClearInactiveCandidateLiveSlotTransientFields_LBCB2:
-    cmp.w #$0006
+    cmp.w #!SelectedRowSourceEntryCount
     bcc C2BC6B_ClearInactiveCandidateLiveSlotTransientFields_LBC6B
     pld
     rtl

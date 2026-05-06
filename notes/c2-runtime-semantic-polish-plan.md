@@ -490,6 +490,16 @@ contract notes for C0/C1/C3/C4 consumers.
   preserving older `TARGET_*`/candidate labels as compatibility anchors. See
   `notes/c2-action-dispatch-runtime-polish.md` and
   `notes/class2-mask-helper-family.md`.
+- 2026-05-06 seventieth slice: carried the battler-table correction into the
+  second-stage target/result corridor. `C2:BAC5` now names its 32-row scan as
+  filtered second-stage battler-row counting, while `C2:BB18` and `C2:BC5C`
+  distinguish six selected-row source-entry passes from the live battler rows
+  they mirror into. The source now names the `$9FB8/$9FBA/$9FBB/$9FBC/$9FC9`
+  family as source-entry battler fields, `$A972` as the active target battler
+  pointer, the `+0x1D..+0x23` collapse-controller state bytes, and the
+  `EF:6C6B` collapse/affliction text edge. See
+  `notes/c2-target-selection-runtime-polish.md` and
+  `notes/c2-late-selected-row-runtime-polish.md`.
 
 ## Validation
 
