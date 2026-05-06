@@ -5776,11 +5776,11 @@ db $99,$A3,$9F,$9E,$17,$26,$50,$92,$16,$82,$98,$51,$03,$02
 
 EF838A_EBattle2MsgBtlHaikiGas:
 
-; Original data gap before EF83A8_EBattle2MsgBtlLaughHen:
+; Original data gap before EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $95,$A8,$98,$91,$16,$A0,$96,$A5,$9D,$95,$A3,$51,$03,$02
 
-EF83A8_EBattle2MsgBtlLaughHen:
+EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 
 ; Original data gap before EF83CA_EBattle2MsgBtlFue:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$A4,$95,$94,$00,$50,$50

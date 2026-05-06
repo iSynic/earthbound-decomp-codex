@@ -198,6 +198,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `100`, `101`, `102`, `104`, `117`, and `118` to gameplay-facing
   `RowPresentationText` anchors, leaving the remaining unproved EBATTLE2
   action-flavor labels as exact `MSG_BTL_*` symbols.
+- 2026-05-06: EF EBATTLE2 row `207` follow-up promoted `EF:83A8` to a
+  strange-status `RowPresentationText` anchor, closing the proved status-row
+  outlier that reuses the `C2:8D3A -> C2:A056` body.
 - 2026-05-05: EF EBATTLE1 battle-command front follow-up split
   `EF:848C..8814` into Bash/attack, Shoot, Guard, Metamorphose, flee, Spy,
   shared PSI action text, and the first PSI animation/effect dispatch branches.

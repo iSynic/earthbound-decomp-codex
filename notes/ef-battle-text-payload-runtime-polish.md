@@ -151,7 +151,7 @@ macros.
   guard/flavor actions, gases/breath/light/sound effects, and the last
   `MSG_BTL_CHOU_ONPA` payload before EBATTLE0 begins. Proved row-message
   consumers inside this island now carry `RowPresentationText` names for rows
-  `99`, `100`, `101`, `102`, `104`, `117`, and `118`.
+  `99`, `100`, `101`, `102`, `104`, `117`, `118`, and `207`.
 - `EF:843F`, `EF:8444`, `EF:8445`, `EF:845D`, and `EF:8477` now mark
   battle-start status announcements and random-action status text used by C2
   direct `DC1C` callers without inherited `MsgAtStart`/`MsgRandomAct` shells.
@@ -347,9 +347,9 @@ blob no longer hides dozens of direct battle-text payload targets.
 The current consumer frontier keeps this island as a row-message candidate set
 for `D5:7B68` row `+4` pointers. Locally proved rows `99 -> EF:7E88`,
 `100 -> EF:7EAC`, `101 -> EF:7ED5`, `102 -> EF:7F02`, `104 -> EF:7F32`,
-`117 -> EF:80C4`, and `118 -> EF:80E4` now use `RowPresentationText` source
-names. The rest should stay exact `MSG_BTL_*` anchors until row `+8` behavior
-bodies are joined.
+`117 -> EF:80C4`, `118 -> EF:80E4`, and `207 -> EF:83A8` now use
+`RowPresentationText` source names. The rest should stay exact `MSG_BTL_*`
+anchors until row `+8` behavior bodies are joined.
 
 ## EBATTLE0 Status Follow-up
 

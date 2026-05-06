@@ -2138,9 +2138,8 @@ EF838A_EBattle2MsgBtlHaikiGas:
 ; ---------------------------------------------------------------------------
 ; EF:83A8
 
-; EBATTLE2: `MSG_BTL_LAUGH_HEN` action-flavor text; D5:7B68 row 207 reuses
-; the C2 strange-status wrapper body.
-EF83A8_EBattle2MsgBtlLaughHen:
+; EBATTLE2: row 207 row +4 strange-status laugh presentation text.
+EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83CA

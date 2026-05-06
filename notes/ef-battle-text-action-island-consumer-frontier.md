@@ -65,6 +65,7 @@ consumer-ready handoff points:
 | `104` | `EF:7F32` | Fire-damage / flaming-fireball row message |
 | `117` | `EF:80C4` | All-target physical wrapper, tornado text |
 | `118` | `EF:80E4` | All-target physical wrapper, gigantic-blast text |
+| `207` | `EF:83A8` | Strange-status wrapper reuse row message |
 
 The EBATTLE1 action tail has a proved late status row-message cluster:
 

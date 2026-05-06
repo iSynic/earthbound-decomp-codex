@@ -144,6 +144,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   action-tail status rows `75`, `76`, `78..87`, and `90` from inherited
   `MSG_BTL_*` labels into `RowPresentationText` anchors, keeping their
   behavior-emitted success/fallback result scripts separate.
+- 2026-05-06: EF EBATTLE2 row `207` follow-up promoted `EF:83A8` from the
+  inherited `MSG_BTL_LAUGH_HEN` shell into a strange-status
+  `RowPresentationText` anchor, matching its `C2:8D3A -> C2:A056` behavior
+  join.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial

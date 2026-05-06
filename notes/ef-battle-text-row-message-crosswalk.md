@@ -53,7 +53,7 @@ body, success text, and fallback text are all visible.
 | `87` | `EF:9DDA` `CryingBreathRowPresentationText` | `C2:8DFC` | All-target crying-family sibling; grouped with the affliction+2 crying body |
 | `90` | `EF:9E47` `AsleepMusicRowPresentationText` | `C2:9F57 -> C2:9F06` | Asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
 | `159` | `EF:8E3C` `ConcentrationPsiSealRowPresentationText` | `C2:A3D1` | Item-side concentration/PSI-seal; emits `EF:6C0B` or `EF:766E` |
-| `207` | `EF:83A8` `MSG_BTL_LAUGH_HEN` | `C2:8D3A -> C2:A056` | Strange-status wrapper reuse; emits `EF:6C3A` or `EF:766E` |
+| `207` | `EF:83A8` `StrangeStatusLaughRowPresentationText` | `C2:8D3A -> C2:A056` | Strange-status wrapper reuse; emits `EF:6C3A` or `EF:766E` |
 
 Important modeling point: the row `+4` message is the action presentation text
 shown through `C1:DD9F`. The success/failure payloads listed above are separate
