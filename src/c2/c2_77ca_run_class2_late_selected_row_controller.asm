@@ -30,9 +30,11 @@ C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer          = $C1DC1C
 C23BCF_BuildBattleAttackerTextContext        = $C23BCF
 C23D05_BuildBattleTargetTextContext          = $C23D05
+C23E32_BuildFirstTargetTextContextFromCurrentMask = $C23E32
 C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 C24477_BuildClass2DerivedActionCode          = $C24477
 C24703_DispatchClass2DerivedAction           = $C24703
+C20F9A_ClampHpPpRollTargetsToLiveValues      = $C20F9A
 C26A2D_GetRandomBelow                        = $6A2D
 C269BE_WaitFrames                            = $69BE
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
@@ -130,7 +132,7 @@ C277EF_RunClass2LateSelectedRowController_L77EF:
     beq C277FE_RunClass2LateSelectedRowController_L77FE
     jmp.w C27879_RunClass2LateSelectedRowController_L7879
 C277FE_RunClass2LateSelectedRowController_L77FE:
-    jsl $C20F9A
+    jsl C20F9A_ClampHpPpRollTargetsToLiveValues
     lda.w #$0000
     sta $22
     bra C27874_RunClass2LateSelectedRowController_L7874
@@ -274,7 +276,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     jsl C24703_DispatchClass2DerivedAction
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
-    jsl $C23E32
+    jsl C23E32_BuildFirstTargetTextContextFromCurrentMask
     lda.w #D57B68_BattleActionTableLo
     sta $0A
     lda.w #D57B68_BattleActionTableBank

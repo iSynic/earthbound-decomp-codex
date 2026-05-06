@@ -76,6 +76,8 @@ Current safest reading:
 - it copies descriptor-backed fields into row words `+0x04` and `+0x08`
 - it then runs the same action-builder and dispatcher pair we saw earlier: `C2:4477` followed by `C2:4703`
 - it also runs additional controller helpers at `C2:3BCF`, `C2:3E32`, and later `C2:40A4`
+- source now names `C2:3E32` as the current-mask first-target text-context
+  rebuild helper, matching the battle-start front-controller caller
 - after the temporary active-row work, it clears `$AA90`, restores `$A970/$A972` and `$A96C/$A96E`, then runs `C2:3BCF` and `C2:3D05` again in the restored state
 
 That makes this branch look like a nested late-phase controller pass that temporarily swaps the active row, performs action selection and dispatch, then restores the outer controller state.

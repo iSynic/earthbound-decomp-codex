@@ -688,6 +688,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at each result-completion
   branch. See `notes/c2-action-dispatch-runtime-polish.md` and
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 eighty-ninth slice: carried the same helper vocabulary into the
+  adjacent battle-start menu and late selected-row controller. `C2:311B` now
+  names `EF:0262` as `SetHalfHpPpMeterSpeed`, `EF:026E` as `ResumeMusic`, and
+  `C2:0266` as `LoadDefaultTitleUploadTiles`; `C2:77CA` now calls `C2:0F9A`
+  as `ClampHpPpRollTargetsToLiveValues` and `C2:3E32` as the current-mask
+  first-target text-context rebuild helper, while leaving debug shortcuts and
+  still-soft visual refresh helpers raw. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-late-selected-row-runtime-polish.md`.
 
 ## Validation
 

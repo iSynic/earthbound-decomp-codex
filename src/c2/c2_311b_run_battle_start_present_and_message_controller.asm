@@ -20,6 +20,7 @@ C1DE2B_OpenMenuSelectionLoopFar                     = $C1DE2B
 C1DE31_OpenBattleItemSelectionLoopFar               = $C1DE31
 C1DE37_RunCharacterSelectionPromptFar               = $C1DE37
 C1DE3D_OpenBattlePsiCategorySelectionStageFar       = $C1DE3D
+C20266_LoadDefaultTitleUploadTiles                  = $C20266
 C2032B_WriteWindowTitleAndUpload                    = $C2032B
 C26A2D_GetRandomBelow                               = $6A2D
 C2B930_ExportBattleSelectionSnapshot                = $C2B930
@@ -29,6 +30,8 @@ C3E977_GetItemInCharacterInventorySlot              = $C3E977
 C45ECE_CheckPartyMemberPsiKnown                     = $C45ECE
 C4A0CF_SelectClosestRankedBattleTargetCandidate     = $C4A0CF
 C4A15D_SelectLowestRangeRankedBattleTargetCandidate = $C4A15D
+EF0262_SetHalfHpPpMeterSpeed                        = $EF0262
+EF026E_ResumeMusic                                  = $EF026E
 
 BattleActionSelectionResolvedItemId                 = $A97C
 BattleActionSelectionRecord                         = $A97D
@@ -563,7 +566,7 @@ C2353D_C2311B_RunBattleStartPresentAndMessageController_L353D:
     lda $1A
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
 C2356E_C2311B_RunBattleStartPresentAndMessageController_L356E:
-    jsl $EF0262
+    jsl EF0262_SetHalfHpPpMeterSpeed
     lda $26
     cmp.w #$0002
     beq C23580_C2311B_RunBattleStartPresentAndMessageController_L3580
@@ -899,7 +902,7 @@ C2384F_C2311B_RunBattleStartPresentAndMessageController_L384F:
     and.w #$3000
     cmp.w #$3000
     bne C23869_C2311B_RunBattleStartPresentAndMessageController_L3869
-    jsl $EF026E
+    jsl EF026E_ResumeMusic
     lda.w #$FFFF
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
 C23869_C2311B_RunBattleStartPresentAndMessageController_L3869:
@@ -950,7 +953,7 @@ C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0:
     jsl $C13EE7
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF:
-    jsl $EF026E
+    jsl EF026E_ResumeMusic
     lda.w #$0000
     jmp.w C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64
 C238D9_C2311B_RunBattleStartPresentAndMessageController_L38D9:
@@ -1060,7 +1063,7 @@ C239AD_C2311B_RunBattleStartPresentAndMessageController_L39AD:
     sep #$20
     lda.b #$01
     sta $98B1
-    jsl $C20266
+    jsl C20266_LoadDefaultTitleUploadTiles
     lda.w #$0000
     sta $02
     sta $1E
@@ -1257,7 +1260,7 @@ C23B4D_C2311B_RunBattleStartPresentAndMessageController_L3B4D:
     lda $C4A1F2,X
     and.w #$00FF
     jsl C1DD4D_RedirectSetWindowFocus
-    jsl $EF026E
+    jsl EF026E_ResumeMusic
     lda $1E
     sta $02
 C23B64_C2311B_RunBattleStartPresentAndMessageController_L3B64:

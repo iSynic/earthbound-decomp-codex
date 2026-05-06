@@ -135,6 +135,12 @@ calls `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at the monsters-win,
 player-win, and cleanup-tail completion branches, keeping battle-start result
 flow tied to the HP/PP roller target contract.
 
+Present/menu follow-up: the `C2:311B` controller now names the EF meter/audio
+helpers and C2 title-tile setup it already depended on. Menu entry calls
+`EF:0262` as `SetHalfHpPpMeterSpeed`, menu exits call `EF:026E` as
+`ResumeMusic`, and the Goods branch calls `C2:0266` as
+`LoadDefaultTitleUploadTiles` before entering the battle item-selection loop.
+
 ## Evidence Inputs
 
 - `notes/c2-ef-battle-text-contract-workahead.md`

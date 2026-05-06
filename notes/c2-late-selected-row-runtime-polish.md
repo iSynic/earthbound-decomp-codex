@@ -66,6 +66,8 @@ nested action pass:
 - make the current row the active row
 - copy descriptor-backed fields into row words `+0x04` and `+0x08`
 - run target selection and derived action dispatch
+- rebuild the first target text context from the current target mask through
+  `C2:3E32`
 - emit the first pointer from the selected `D5:7B68` action entry through
   `C1:DC1C`
 - apply the companion pointer through `C2:40A4`
@@ -74,6 +76,13 @@ nested action pass:
 
 That gives the decomp a source-commented bridge from selected-row phase state to
 the battle-action descriptor table and second-pointer payload path.
+
+Source follow-up: the late controller now calls `C2:0F9A` as
+`ClampHpPpRollTargetsToLiveValues` before the single phase-1 source claim scan,
+and calls the newly labeled `C2:3E32` helper as
+`BuildFirstTargetTextContextFromCurrentMask` in its nested action pass. The
+remaining `FAD8/FB35/F8F9` presentation helpers stay raw pending a focused
+visual-refresh pass.
 
 ## State And Marker Effects
 
