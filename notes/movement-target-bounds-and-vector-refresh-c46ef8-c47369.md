@@ -26,6 +26,14 @@ octant cache, and camera-origin placement fields; see
 `notes/direction-octant-normalizers-c46a5e-c46b51.md` and
 `notes/current-slot-position-staging-c46b8d-c46d4b.md`.
 
+2026-05-06 movement-vector source follow-up: the same source now names the
+arrival return values, area-class return values, sign-extension masks, split
+vector high/low tables, and the C0 movement-install/facing-refresh caller
+joins. It also keeps separate local aliases for `$0ED6/$0F12`: in `C4:6EF8`
+they are proximity thresholds, while in `C4:7225..7269` they are the Y bounds
+of the current-slot area rectangle. Do not collapse those roles into a single
+global field name from this evidence alone.
+
 ## `C4:6EF8`
 
 `C4:6EF8` returns `0` immediately while `$9F3F` is nonzero. Otherwise it compares the current slot position (`$0B8E/$0BCA`) against the player position (`$9877/$987B`):

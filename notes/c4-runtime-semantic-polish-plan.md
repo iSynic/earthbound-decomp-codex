@@ -346,6 +346,13 @@ closure.
   placement, and registry recent-slot target contracts. See
   `notes/direction-octant-normalizers-c46a5e-c46b51.md` and
   `notes/current-slot-position-staging-c46b8d-c46d4b.md`.
+- 2026-05-06 movement vector/bounds follow-up: tightened the downstream
+  movement target helper around cached-target arrival tests, split vector
+  high/low writes, sign-extension masks, area-class returns, landing-profile
+  dispatch, camera-column refresh arguments, and the C0 movement/facing caller
+  joins. The source keeps `$0ED6/$0F12` proximity-threshold aliases separate
+  from their area-bound aliases. See
+  `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`.
 
 ## Validation
 

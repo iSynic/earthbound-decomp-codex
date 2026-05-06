@@ -16,6 +16,7 @@ C01A63_RefreshMapStripForCameraColumn          = $C01A63
 C0923E_ShiftLeftByY                            = $C0923E
 C09251_ShiftRightByY                           = $C09251
 C0A48F_RefreshVisualProfileForSlot             = $C0A48F
+C0C83B_InstallMovementFromDirection            = $C0C83B
 C41FFF_ProjectAngleByMagnitude                 = $C41FFF
 C46AA3_MapDirectionToSpriteFacingBucket        = $C46AA3
 C46AAC_ComputeSignDeltaDirectionToCachedTarget = $C46AAC
@@ -47,6 +48,9 @@ CurrentSlotAreaMinXTable                       = $0E5E
 CurrentSlotAreaMaxXTable                       = $0E9A
 CurrentSlotAreaMinYTable                       = $0ED6
 CurrentSlotAreaMaxYTable                       = $0F12
+CurrentSlotProximityXThresholdTable           = $0ED6
+CurrentSlotProximityYThresholdTable           = $0F12
+CurrentSlotAngleSourceTable                    = $0E5E
 CachedTargetWorldXTable                        = $0FC6
 CachedTargetWorldYTable                        = $1002
 MovementArrivalToleranceTable                  = $0F8A
@@ -55,8 +59,21 @@ LiveEntityMovementMagnitudeTable               = $2B32
 CameraScreenOriginX                            = $0031
 LandingProfileIndex                            = $436E
 LandingProfileActionPointerTable               = $EF101B
+ActiveRegistryCountMask                        = $00FF
 SignedWordInvertMask                           = $FFFF
 SignByteShift                                  = $0008
+SignedHighBitMask                              = $8000
+NegativeHighByteMask                           = $FF00
+PositiveLowByteMask                            = $00FF
+NegativeLowByteMask                            = $00FF
+PositiveHighByteMask                           = $FF00
+MovementArrivedValue                           = $0001
+MovementStillActiveValue                       = $0000
+AreaClassInside                                = $0000
+AreaClassBelowMaxY                             = $0001
+AreaClassLeftOfMinX                            = $0003
+AreaClassAboveMinY                             = $0005
+AreaClassRightOfMaxX                           = $0007
 
 ; ---------------------------------------------------------------------------
 ; C4:6EF8
@@ -69,18 +86,18 @@ C46EF8_CheckCurrentSlotWithinPlayerProximityThreshold:
     tdc
     adc.w #$FFEE
     tcd
-    lda $9F3F
+    lda MovementProximityGateFlag
     beq C46F0A_MovementTargetBoundsAndVectorRefreshHelpers_L6F0A
-    lda.w #$0000
+    lda.w #MovementStillActiveValue
     bra C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A
 C46F0A_MovementTargetBoundsAndVectorRefreshHelpers_L6F0A:
-    ldy $1A42
+    ldy CurrentEntitySlotIndex
     tya
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $9877
+    sbc PlayerWorldXSnapshot
     sta $10
     sta $02
     lda.w #$0000
@@ -93,7 +110,7 @@ C46F27_MovementTargetBoundsAndVectorRefreshHelpers_L6F27:
     bmi C46F33_MovementTargetBoundsAndVectorRefreshHelpers_L6F33
 C46F29_MovementTargetBoundsAndVectorRefreshHelpers_L6F29:
     lda $10
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $0E
     bra C46F37_MovementTargetBoundsAndVectorRefreshHelpers_L6F37
@@ -105,11 +122,11 @@ C46F37_MovementTargetBoundsAndVectorRefreshHelpers_L6F37:
     asl A
     tax
     lda $0E
-    cmp $0ED6,X
+    cmp CurrentSlotProximityXThresholdTable,X
     bcs C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc $987B
+    sbc PlayerWorldYSnapshot
     sta $10
     sta $02
     lda.w #$0000
@@ -122,7 +139,7 @@ C46F58_MovementTargetBoundsAndVectorRefreshHelpers_L6F58:
     bmi C46F64_MovementTargetBoundsAndVectorRefreshHelpers_L6F64
 C46F5A_MovementTargetBoundsAndVectorRefreshHelpers_L6F5A:
     lda $10
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $10
     bra C46F68_MovementTargetBoundsAndVectorRefreshHelpers_L6F68
@@ -134,12 +151,12 @@ C46F68_MovementTargetBoundsAndVectorRefreshHelpers_L6F68:
     asl A
     tax
     lda $10
-    cmp $0F12,X
+    cmp CurrentSlotProximityYThresholdTable,X
     bcs C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77
-    lda.w #$0001
+    lda.w #MovementArrivedValue
     bra C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A
 C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77:
-    lda.w #$0000
+    lda.w #MovementStillActiveValue
 C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A:
     pld
     rtl
@@ -152,12 +169,12 @@ C46F7C_StepCurrentSlotTowardCachedTargetOrReportArrival:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0FC6,X
+    lda CachedTargetWorldXTable,X
     sec
-    sbc $0B8E,X
+    sbc LiveEntityWorldXTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -170,7 +187,7 @@ C46FA0_MovementTargetBoundsAndVectorRefreshHelpers_L6FA0:
     bmi C46FAC_MovementTargetBoundsAndVectorRefreshHelpers_L6FAC
 C46FA2_MovementTargetBoundsAndVectorRefreshHelpers_L6FA2:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $10
     bra C46FB0_MovementTargetBoundsAndVectorRefreshHelpers_L6FB0
@@ -178,15 +195,15 @@ C46FAC_MovementTargetBoundsAndVectorRefreshHelpers_L6FAC:
     lda $12
     sta $10
 C46FB0_MovementTargetBoundsAndVectorRefreshHelpers_L6FB0:
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
     lda $10
-    cmp $0F8A,X
+    cmp MovementArrivalToleranceTable,X
     bcs C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4
-    lda $1002,X
+    lda CachedTargetWorldYTable,X
     sec
-    sbc $0BCA,X
+    sbc LiveEntityWorldYTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -199,7 +216,7 @@ C46FD3_MovementTargetBoundsAndVectorRefreshHelpers_L6FD3:
     bmi C46FDF_MovementTargetBoundsAndVectorRefreshHelpers_L6FDF
 C46FD5_MovementTargetBoundsAndVectorRefreshHelpers_L6FD5:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $0E
     bra C46FE3_MovementTargetBoundsAndVectorRefreshHelpers_L6FE3
@@ -207,30 +224,31 @@ C46FDF_MovementTargetBoundsAndVectorRefreshHelpers_L6FDF:
     lda $12
     sta $0E
 C46FE3_MovementTargetBoundsAndVectorRefreshHelpers_L6FE3:
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
     lda $0E
-    cmp $0F8A,X
+    cmp MovementArrivalToleranceTable,X
     bcs C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4
-    lda.w #$0001
+    lda.w #MovementArrivedValue
     bra C47042_MovementTargetBoundsAndVectorRefreshHelpers_L7042
 C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4:
     jsl C46AAC_ComputeSignDeltaDirectionToCachedTarget
     tay
     sty $10
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
     tya
-    cmp $2AF6,X
+    cmp LiveEntityFacingDirectionTable,X
     beq C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F
+    ; C4 owns the direction comparison; C0:C83B installs the movement state.
     tya
-    jsl $C0C83B
-    lda $1A42
+    jsl C0C83B_InstallMovementFromDirection
+    lda CurrentEntitySlotIndex
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFacingDirectionTable
     tax
     lda $0000,X
     sta $12
@@ -249,10 +267,10 @@ C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4:
     txa
     cmp $02
     beq C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F
-    lda $1A42
+    lda CurrentEntitySlotIndex
     jsl C0A48F_RefreshVisualProfileForSlot
 C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F:
-    lda.w #$0000
+    lda.w #MovementStillActiveValue
 C47042_MovementTargetBoundsAndVectorRefreshHelpers_L7042:
     pld
     rtl
@@ -268,12 +286,12 @@ C47044_ProjectAngleIntoCurrentSlotVectorWords:
     tcd
     pla
     sta $04
-    lda $1A42
+    lda CurrentEntitySlotIndex
     sta $02
     asl A
     tay
     sty $16
-    lda $2B32,Y
+    lda LiveEntityMovementMagnitudeTable,Y
     tax
     lda $04
     jsl C41FFF_ProjectAngleByMagnitude
@@ -282,46 +300,46 @@ C47044_ProjectAngleIntoCurrentSlotVectorWords:
     lda $08
     sta $10
     sta $14
-    and.w #$8000
+    and.w #SignedHighBitMask
     beq C4709C_MovementTargetBoundsAndVectorRefreshHelpers_L709C
     sep #$10
     ldy.b #$08
     lda $14
     jsl C09251_ShiftRightByY
-    ora.w #$FF00
+    ora.w #NegativeHighByteMask
     rep #$10
     ldy $16
-    sta $0CF6,Y
+    sta LiveEntityVelocityXHighTable,Y
     sep #$10
     ldy.b #$08
     lda $14
     jsl C0923E_ShiftLeftByY
-    ora.w #$00FF
+    ora.w #NegativeLowByteMask
     rep #$10
     ldy $16
-    sta $0DAA,Y
+    sta LiveEntityVelocityXLowTable,Y
     bra C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4
 C4709C_MovementTargetBoundsAndVectorRefreshHelpers_L709C:
     sep #$10
     ldy.b #$08
     lda $14
     jsl C09251_ShiftRightByY
-    and.w #$00FF
+    and.w #PositiveLowByteMask
     rep #$10
     ldy $16
-    sta $0CF6,Y
+    sta LiveEntityVelocityXHighTable,Y
     sep #$10
     ldy.b #$08
     lda $14
     jsl C0923E_ShiftLeftByY
-    and.w #$FF00
+    and.w #PositiveHighByteMask
     rep #$10
     ldy $16
-    sta $0DAA,Y
+    sta LiveEntityVelocityXLowTable,Y
 C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     lda $0E
     sta $14
-    and.w #$8000
+    and.w #SignedHighBitMask
     beq C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107
     lda $02
     asl A
@@ -334,10 +352,10 @@ C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     rep #$20
     lda $14
     jsl C09251_ShiftRightByY
-    ora.w #$FF00
+    ora.w #NegativeHighByteMask
     rep #$10
     ldx $12
-    sta $0D32,X
+    sta LiveEntityVelocityYHighTable,X
     sep #$20
     lda.b #$08
     sep #$10
@@ -345,10 +363,10 @@ C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     rep #$20
     lda $14
     jsl C0923E_ShiftLeftByY
-    ora.w #$00FF
+    ora.w #NegativeLowByteMask
     rep #$10
     ldx $12
-    sta $0DE6,X
+    sta LiveEntityVelocityYLowTable,X
     bra C4713F_MovementTargetBoundsAndVectorRefreshHelpers_L713F
 C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     lda $02
@@ -362,10 +380,10 @@ C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     rep #$20
     lda $14
     jsl C09251_ShiftRightByY
-    and.w #$00FF
+    and.w #PositiveLowByteMask
     rep #$10
     ldx $12
-    sta $0D32,X
+    sta LiveEntityVelocityYHighTable,X
     sep #$20
     lda.b #$08
     sep #$10
@@ -373,10 +391,10 @@ C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     rep #$20
     lda $14
     jsl C0923E_ShiftLeftByY
-    and.w #$FF00
+    and.w #PositiveHighByteMask
     rep #$10
     ldx $12
-    sta $0DE6,X
+    sta LiveEntityVelocityYLowTable,X
 C4713F_MovementTargetBoundsAndVectorRefreshHelpers_L713F:
     lda $04
     pld
@@ -394,15 +412,15 @@ C47143_StepCurrentSlotTargetVectorByAngleModes:
     txy
     sty $16
     sta $04
-    lda $1A42
+    lda CurrentEntitySlotIndex
     sta $02
     sta $14
     lda $02
     asl A
     tax
-    lda $0FC6,X
+    lda CachedTargetWorldXTable,X
     sec
-    sbc $0B8E,X
+    sbc LiveEntityWorldXTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -415,7 +433,7 @@ C47174_MovementTargetBoundsAndVectorRefreshHelpers_L7174:
     bmi C47180_MovementTargetBoundsAndVectorRefreshHelpers_L7180
 C47176_MovementTargetBoundsAndVectorRefreshHelpers_L7176:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $12
     bra C47184_MovementTargetBoundsAndVectorRefreshHelpers_L7184
@@ -428,11 +446,11 @@ C47184_MovementTargetBoundsAndVectorRefreshHelpers_L7184:
     asl A
     tax
     lda $12
-    cmp $0F8A,X
+    cmp MovementArrivalToleranceTable,X
     bcs C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA
-    lda $1002,X
+    lda CachedTargetWorldYTable,X
     sec
-    sbc $0BCA,X
+    sbc LiveEntityWorldYTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -445,7 +463,7 @@ C471A8_MovementTargetBoundsAndVectorRefreshHelpers_L71A8:
     bmi C471B4_MovementTargetBoundsAndVectorRefreshHelpers_L71B4
 C471AA_MovementTargetBoundsAndVectorRefreshHelpers_L71AA:
     lda $12
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     sta $12
     bra C471B8_MovementTargetBoundsAndVectorRefreshHelpers_L71B8
@@ -458,9 +476,9 @@ C471B8_MovementTargetBoundsAndVectorRefreshHelpers_L71B8:
     asl A
     tax
     lda $12
-    cmp $0F8A,X
+    cmp MovementArrivalToleranceTable,X
     bcs C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA
-    lda.w #$0001
+    lda.w #MovementArrivedValue
     bra C47223_MovementTargetBoundsAndVectorRefreshHelpers_L7223
 C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA:
     jsl C46ADB_ComputeAngleToCachedTarget
@@ -485,7 +503,7 @@ C471F0_MovementTargetBoundsAndVectorRefreshHelpers_L71F0:
     lda $02
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFacingDirectionTable
     tay
     lda $0000,Y
     sta $0E
@@ -506,7 +524,7 @@ C471F0_MovementTargetBoundsAndVectorRefreshHelpers_L71F0:
     lda $02
     jsl C0A48F_RefreshVisualProfileForSlot
 C47220_MovementTargetBoundsAndVectorRefreshHelpers_L7220:
-    lda.w #$0000
+    lda.w #MovementStillActiveValue
 C47223_MovementTargetBoundsAndVectorRefreshHelpers_L7223:
     pld
     rtl
@@ -521,68 +539,68 @@ C47225_SetCurrentSlotAreaBoundsFromRadii:
     pla
     stx $02
     sta $04
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tay
     clc
-    adc.w #$0B8E
+    adc.w #LiveEntityWorldXTable
     tax
     lda $0000,X
     sec
     sbc $02
-    sta $0E5E,Y
+    sta CurrentSlotAreaMinXTable,Y
     lda $0000,X
     clc
     adc $02
-    sta $0E9A,Y
+    sta CurrentSlotAreaMaxXTable,Y
     tya
     clc
-    adc.w #$0BCA
+    adc.w #LiveEntityWorldYTable
     tax
     lda $0000,X
     sec
     sbc $04
-    sta $0ED6,Y
+    sta CurrentSlotAreaMinYTable,Y
     lda $0000,X
     clc
     adc $04
-    sta $0F12,Y
+    sta CurrentSlotAreaMaxYTable,Y
     pld
     rtl
 ; Classifies current-slot live position against the local bounds rectangle.
 ; Return values are direction-like edge classes used by the caller.
 C47269_ClassifyCurrentSlotAgainstAreaBounds:
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
-    ldy $0BCA,X
-    cmp $0E5E,X
+    lda LiveEntityWorldXTable,X
+    ldy LiveEntityWorldYTable,X
+    cmp CurrentSlotAreaMinXTable,X
     bcs C47280_MovementTargetBoundsAndVectorRefreshHelpers_L7280
-    lda.w #$0003
+    lda.w #AreaClassLeftOfMinX
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C47280_MovementTargetBoundsAndVectorRefreshHelpers_L7280:
-    cmp $0E9A,X
+    cmp CurrentSlotAreaMaxXTable,X
     bcc C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C
     beq C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C
-    lda.w #$0007
+    lda.w #AreaClassRightOfMaxX
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C:
     tya
-    cmp $0ED6,X
+    cmp CurrentSlotAreaMinYTable,X
     bcs C47297_MovementTargetBoundsAndVectorRefreshHelpers_L7297
-    lda.w #$0005
+    lda.w #AreaClassAboveMinY
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C47297_MovementTargetBoundsAndVectorRefreshHelpers_L7297:
     tya
-    cmp $0F12,X
+    cmp CurrentSlotAreaMaxYTable,X
     bcc C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4
     beq C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4
-    lda.w #$0001
+    lda.w #AreaClassBelowMaxY
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4:
-    lda.w #$0000
+    lda.w #AreaClassInside
 C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7:
     rtl
 ; Treats $0E5E[current] as a local angle source in this helper, projects the
@@ -597,11 +615,11 @@ C472A8_ProjectSlot0e5eAngleAndRefreshFacing:
     pla
     tax
     stx $12
-    lda $1A42
+    lda CurrentEntitySlotIndex
     sta $02
     asl A
     tax
-    ldy $0E5E,X
+    ldy CurrentSlotAngleSourceTable,X
     sty $10
     tya
     jsl C47044_ProjectAngleIntoCurrentSlotVectorWords
@@ -620,7 +638,7 @@ C472DC_MovementTargetBoundsAndVectorRefreshHelpers_L72DC:
     lda $02
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFacingDirectionTable
     tax
     lda $0000,X
     sta $0E
@@ -650,14 +668,14 @@ C4730E_HalveCurrentSlot0d32PreserveSign:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     clc
-    adc.w #$0D32
+    adc.w #LiveEntityVelocityYHighTable
     tax
     lda $0000,X
     sta $0E
-    and.w #$8000
+    and.w #SignedHighBitMask
     sta $02
     lda $0E
     lsr A
@@ -668,17 +686,18 @@ C4730E_HalveCurrentSlot0d32PreserveSign:
 ; Reads the low byte of the active overworld registry count.
 C47333_ReadActiveOverworldRegistryCount:
     rep #$31
-    lda $98A3
-    and.w #$00FF
+    lda ActiveOverworldRegistryCount
+    and.w #ActiveRegistryCountMask
     rtl
-; Dispatches the C4-owned landing-profile action selected by $436E through the
-; C0 action dispatcher. C4 owns the table lookup; C0 owns the callee behavior.
+; Dispatches the C4-owned landing-profile action selected by the landing-profile
+; index through the C0 action dispatcher. C4 owns the table lookup; C0 owns the
+; callee behavior.
 C4733C_DispatchCurrentLandingProfileAction:
     rep #$31
-    lda $436E
+    lda LandingProfileIndex
     asl A
     tax
-    lda $EF101B,X
+    lda LandingProfileActionPointerTable,X
     jsl C006F2_DispatchLandingProfileAction
     rtl
 ; Refreshes the map strip for the current camera column and returns caller A.
@@ -693,7 +712,8 @@ C4734C_RefreshMapStripForIndexPreserveA:
     tay
     sty $0E
     tyx
-    lda $0031
+    lda.w CameraScreenOriginX
+    ; Convert the screen-origin pixel coordinate to the map-strip column.
     lsr A
     lsr A
     lsr A
