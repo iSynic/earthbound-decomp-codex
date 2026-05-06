@@ -139,6 +139,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   SMAAAASH presentation, shooting/physical dodge, shared no-effect variants,
   physical/shoot miss text, target-gone text, HP/PP drain text, and periodic
   strange/poison/sunstroke/cold damage scripts.
+- 2026-05-06: EF EBATTLE4 damage/drain naming follow-up tightened
+  `EF:75AB..77DB`: damage/drain/periodic-damage labels now carry
+  `ActionAmount`, SMAAAASH carries presentation text, and miss/no-effect/
+  target-gone/self-drain labels stay direct text anchors.
 - 2026-05-05: EF EBATTLE5 recovery/death follow-up split the
   `EF:6C6B..6F9A` corridor into player collapse, Flying Man/teddy-bear death,
   enemy defeat flavor, affliction recovery/removal, revive success/failure, and

@@ -246,6 +246,13 @@ The C2 hit-resolution source names a dense EBATTLE4 result set around
 miss, target-gone, HP/PP drain, and periodic status damage. Splitting those
 anchors makes the central damage pipeline visible on the EF side.
 
+The source labels now remove inherited `MsgBtl` shells across that whole
+pipeline. `EF:75AB..7607` are damage `ActionAmount` scripts, `EF:7624/7630`
+are SMAAAASH presentation text, `EF:763C/7655` are dodge text, `EF:7696..7710`
+are no-effect/miss/target-gone/direct HP-sucker text, and `EF:7729..77DB` are
+HP/PP drain or periodic damage `ActionAmount` scripts. This keeps staged amount
+consumers separate from direct text and presentation-only anchors.
+
 ## EBATTLE4 Status And Event Prelude Follow-up
 
 The remaining `EF:7186..75AB` prelude is now split around exact EBATTLE4
@@ -473,7 +480,8 @@ the shared no-effect fallback. The source labels now carry the
 
 The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
 and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and
-`EF:77DB` are `ActionAmount` result scripts, not row-message anchors.
+`EF:77DB` are `ActionAmount` result scripts, not row-message anchors. The
+central damage/drain front now uses the same convention for `EF:75AB..773F`.
 
 The EBATTLE8 level-up gain island carries `ActionAmount` suffixes for
 `EF:7A7D..7B46`. These are C1 level-up narration consumers rather than C2

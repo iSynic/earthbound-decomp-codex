@@ -4939,57 +4939,57 @@ db $01,$02
 
 EF7593_EBattle4CompanionBalmonTalkText:
 
-; Original data gap before EF75AB_EBattle4MsgBtlDamageActionAmount:
+; Original data gap before EF75AB_EBattle4DamageActionAmount:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97
 db $97,$16,$D9,$17,$29,$51,$03,$02
 
-EF75AB_EBattle4MsgBtlDamageActionAmount:
+EF75AB_EBattle4DamageActionAmount:
 
-; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+; Original data gap before EF75C2_EBattle4MortalDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+EF75C2_EBattle4MortalDamageActionAmount:
 
-; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+; Original data gap before EF75D9_EBattle4SmashDamageActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+EF75D9_EBattle4SmashDamageActionAmount:
 
-; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+; Original data gap before EF75F0_EBattle4MortalSmashDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+EF75F0_EBattle4MortalSmashDamageActionAmount:
 
-; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+; Original data gap before EF7607_EBattle4DamageToDeathActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+EF7607_EBattle4DamageToDeathActionAmount:
 
-; Original data gap before EF7624_EBattle4MsgBtlSmashPlayer:
+; Original data gap before EF7624_EBattle4PlayerSmashPresentationText:
 db $01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2,$A4
 db $91,$9C,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02
 
-EF7624_EBattle4MsgBtlSmashPlayer:
+EF7624_EBattle4PlayerSmashPresentationText:
 
-; Original data gap before EF7630_EBattle4MsgBtlSmashMonster:
+; Original data gap before EF7630_EBattle4MonsterSmashPresentationText:
 db $01,$1F,$02,$1F,$50,$50,$1C,$08,$01,$00,$03,$02
 
-EF7630_EBattle4MsgBtlSmashMonster:
+EF7630_EBattle4MonsterSmashPresentationText:
 
-; Original data gap before EF763C_EBattle4MsgBtlShootDodged:
+; Original data gap before EF763C_EBattle4ShootDodgedText:
 db $01,$50,$50,$1C,$08,$01,$00,$1F,$02,$2F,$03,$02
 
-EF763C_EBattle4MsgBtlShootDodged:
+EF763C_EBattle4ShootDodgedText:
 
-; Original data gap before EF7655_EBattle4MsgBtlBashDodged:
+; Original data gap before EF7655_EBattle4BashDodgedText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
 db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
-EF7655_EBattle4MsgBtlBashDodged:
+EF7655_EBattle4BashDodgedText:
 
 ; Original data gap before EF766E_EBattle4StatusNoEffectResultText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
@@ -5005,91 +5005,91 @@ db $0E,$51,$03,$02
 
 EF7682_EBattle4AdjacentNoEffectText:
 
-; Original data gap before EF7696_EBattle4MsgBtlNoVisibleEffect:
+; Original data gap before EF7696_EBattle4NoVisibleEffectText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
 db $0E,$51,$03,$02
 
-EF7696_EBattle4MsgBtlNoVisibleEffect:
+EF7696_EBattle4NoVisibleEffectText:
 
-; Original data gap before EF76B3_EBattle4MsgBtlNoEffectVariantC:
+; Original data gap before EF76B3_EBattle4NoEffectVariantCText:
 db $01,$15,$DA,$98,$91,$94,$17,$58,$50,$A6,$99,$A3,$99,$17,$98,$95
 db $96,$96,$16,$A5,$00,$50,$16,$BC,$1C,$0E,$51,$03,$02
 
-EF76B3_EBattle4MsgBtlNoEffectVariantC:
+EF76B3_EBattle4NoEffectVariantCText:
 
-; Original data gap before EF76C7_EBattle4MsgBtlMissPhysical:
+; Original data gap before EF76C7_EBattle4PhysicalMissText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
 db $0E,$51,$03,$02
 
-EF76C7_EBattle4MsgBtlMissPhysical:
+EF76C7_EBattle4PhysicalMissText:
 
-; Original data gap before EF76D8_EBattle4MsgBtlMissShoot:
+; Original data gap before EF76D8_EBattle4ShootMissText:
 db $01,$1F,$02,$22,$70,$7A,$16,$A0,$9D,$99,$A3,$A3,$95,$94,$51,$03
 db $02
 
-EF76D8_EBattle4MsgBtlMissShoot:
+EF76D8_EBattle4ShootMissText:
 
-; Original data gap before EF76FD_EBattle4MsgBtlTargetNotExist:
+; Original data gap before EF76FD_EBattle4TargetGoneText:
 db $01,$1F,$02,$22,$15,$37,$9E,$91,$A2,$17,$5B,$15,$9D,$9D,$99,$A3
 db $A3,$95,$94,$00,$50,$50,$98,$99,$A4,$A4,$15,$EB,$50,$A4,$91,$A2
 db $16,$23,$51,$03,$02
 
-EF76FD_EBattle4MsgBtlTargetNotExist:
+EF76FD_EBattle4TargetGoneText:
 
-; Original data gap before EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+; Original data gap before EF7710_EBattle4HpSuckerSelfDrainText:
 db $01,$16,$DE,$50,$1C,$0E,$17,$B1,$00,$50,$15,$70,$97,$9F,$9E,$15
 db $34,$03,$02
 
-EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+EF7710_EBattle4HpSuckerSelfDrainText:
 
-; Original data gap before EF7729_EBattle4MsgBtlHpSuckActionAmount:
+; Original data gap before EF7729_EBattle4HpSuckerDrainActionAmount:
 db $01,$70,$1C,$0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00
 db $50,$17,$F0,$50,$78,$80,$51,$03,$02
 
-EF7729_EBattle4MsgBtlHpSuckActionAmount:
+EF7729_EBattle4HpSuckerDrainActionAmount:
 
-; Original data gap before EF773F_EBattle4MsgBtlPpDrainActionAmount:
+; Original data gap before EF773F_EBattle4PpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$78,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF773F_EBattle4MsgBtlPpDrainActionAmount:
+EF773F_EBattle4PpDrainActionAmount:
 
-; Original data gap before EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+; Original data gap before EF7755_EBattle4TargetPpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
 ; EBATTLE4: target-side PP drain amount text; consumes C1:DC66/1C 0F.
-EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+EF7755_EBattle4TargetPpDrainActionAmount:
 
-; Original data gap before EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+; Original data gap before EF7768_EBattle4StrangeDamageActionAmount:
 db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
 db $51,$03,$02
 
 ; EBATTLE4: strange/status periodic damage amount text; consumes C1:DC66/1C 0F.
-EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+EF7768_EBattle4StrangeDamageActionAmount:
 
-; Original data gap before EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+; Original data gap before EF7787_EBattle4PoisonDamageActionAmount:
 db $01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA,$00,$50,$15
 db $04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
 ; EBATTLE4: poison periodic damage amount text; consumes C1:DC66/1C 0F.
-EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+EF7787_EBattle4PoisonDamageActionAmount:
 
-; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+; Original data gap before EF77B1_EBattle4SunstrokeDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00,$50,$15
 db $52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17,$37,$50
 db $1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02
 
 ; EBATTLE4: sunstroke periodic damage amount text; consumes C1:DC66/1C 0F.
-EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+EF77B1_EBattle4SunstrokeDamageActionAmount:
 
-; Original data gap before EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+; Original data gap before EF77DB_EBattle4ColdDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50
 db $15,$04,$A7,$95,$91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57
 db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
 ; EBATTLE4: cold periodic damage amount text; consumes C1:DC66/1C 0F.
-EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+EF77DB_EBattle4ColdDamageActionAmount:
 
 ; Original data gap before EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04

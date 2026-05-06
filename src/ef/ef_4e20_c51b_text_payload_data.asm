@@ -1323,55 +1323,55 @@ EF7593_EBattle4CompanionBalmonTalkText:
 ; EF:75AB
 
 ; EBATTLE4: ordinary damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75AB_EBattle4MsgBtlDamageActionAmount:
+EF75AB_EBattle4DamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75C2
 
 ; EBATTLE4: mortal damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+EF75C2_EBattle4MortalDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75D9
 
 ; EBATTLE4: SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+EF75D9_EBattle4SmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75F0
 
 ; EBATTLE4: mortal SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+EF75F0_EBattle4MortalSmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7607
 
 ; EBATTLE4: mortal damage-to-death text; C2 stages HP damage through C1:DC66/1C 0F.
-EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+EF7607_EBattle4DamageToDeathActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7624
 
 ; EBATTLE4: player-side SMAAAASH presentation text.
-EF7624_EBattle4MsgBtlSmashPlayer:
+EF7624_EBattle4PlayerSmashPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7630
 
 ; EBATTLE4: monster-side SMAAAASH presentation text.
-EF7630_EBattle4MsgBtlSmashMonster:
+EF7630_EBattle4MonsterSmashPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:763C
 
 ; EBATTLE4: shooting/action dodge text.
-EF763C_EBattle4MsgBtlShootDodged:
+EF763C_EBattle4ShootDodgedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7655
 
 ; EBATTLE4: bash/physical dodge text.
-EF7655_EBattle4MsgBtlBashDodged:
+EF7655_EBattle4BashDodgedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:766E
@@ -1390,84 +1390,84 @@ EF7682_EBattle4AdjacentNoEffectText:
 ; EF:7696
 
 ; EBATTLE4: no visible effect text.
-EF7696_EBattle4MsgBtlNoVisibleEffect:
+EF7696_EBattle4NoVisibleEffectText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76B3
 
 ; EBATTLE4: third no-effect variant before miss and drain text.
-EF76B3_EBattle4MsgBtlNoEffectVariantC:
+EF76B3_EBattle4NoEffectVariantCText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76C7
 
 ; EBATTLE4: physical miss text.
-EF76C7_EBattle4MsgBtlMissPhysical:
+EF76C7_EBattle4PhysicalMissText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76D8
 
 ; EBATTLE4: shoot miss text.
-EF76D8_EBattle4MsgBtlMissShoot:
+EF76D8_EBattle4ShootMissText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76FD
 
 ; EBATTLE4: target no-longer-exists text before HP-sucker results.
-EF76FD_EBattle4MsgBtlTargetNotExist:
+EF76FD_EBattle4TargetGoneText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7710
 
 ; EBATTLE4: HP-sucker self-drain direct text.
-EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+EF7710_EBattle4HpSuckerSelfDrainText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7729
 
 ; EBATTLE4: HP-sucker drain text; C2 stages drained HP through C1:DC66/1C 0F.
-EF7729_EBattle4MsgBtlHpSuckActionAmount:
+EF7729_EBattle4HpSuckerDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:773F
 
 ; EBATTLE4: PP drain text; C2 stages drained PP through C1:DC66/1C 0F.
-EF773F_EBattle4MsgBtlPpDrainActionAmount:
+EF773F_EBattle4PpDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7755
 
 ; EBATTLE4: target-side PP drain text; C2 stages drained PP through
 ; C1:DC66/1C 0F.
-EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+EF7755_EBattle4TargetPpDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7768
 
 ; EBATTLE4: strange/status periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+EF7768_EBattle4StrangeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7787
 
 ; EBATTLE4: poison periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+EF7787_EBattle4PoisonDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77B1
 
 ; EBATTLE4: sunstroke periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+EF77B1_EBattle4SunstrokeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77DB
 
 ; EBATTLE4: cold periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+EF77DB_EBattle4ColdDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77FD

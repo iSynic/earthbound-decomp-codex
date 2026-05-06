@@ -158,6 +158,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:763C`, `EF:7655`), miss/target-gone and HP-sucker scripts
   (`EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, `EF:7729`), and periodic
   status damage scripts (`EF:7768`, `EF:7787`, `EF:77B1`, `EF:77DB`).
+- 2026-05-06: EF EBATTLE4 damage/drain naming follow-up removed inherited
+  `MsgBtl` shells from `EF:75AB..77DB`, keeping HP/PP damage/drain and
+  periodic damage anchors as `ActionAmount`, SMAAAASH as presentation text,
+  and no-effect/miss/target-gone/HP-sucker self-drain as direct text anchors.
 - 2026-05-05: EF EBATTLE4 prelude follow-up added source anchors for the
   preceding `EF:7186..75AB` status/event scripts: action-blocking status
   flavor, PSI-seal result text, guard/Fly-Honey/homesick text, Runaway Five

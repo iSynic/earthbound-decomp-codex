@@ -117,7 +117,9 @@ Examples:
 - Spy offense/defense readouts at `EF:69EA/69FF` are `ActionAmount` consumers
   staged by C2 Spy setup through `DC66`.
 - damage, drain, stat-up, stat-down, and HP-sucker scripts consume staged
-  amount payloads.
+  amount payloads. EBATTLE4 examples include damage `EF:75AB..7607`,
+  HP-sucker `EF:7729`, PP drain `EF:773F/7755`, and periodic damage
+  `EF:7768..77DB`.
 - EF periodic damage and PP-loss scripts such as `EF:7755`, `EF:7768`,
   `EF:7787`, `EF:77B1`, and `EF:77DB` are `ActionAmount` result scripts when
   emitted through `DC66`.
