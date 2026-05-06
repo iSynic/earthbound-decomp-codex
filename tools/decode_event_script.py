@@ -457,6 +457,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read an inline choice count followed by that many words, choose one at random, and leave it in the tempvar/result latch",
         "args": "choice_count_byte, choice_words[]",
     },
+    "C0:9FAE": {
+        "name": "ActionScript_FadeInWrapper",
+        "group": "presentation-render",
+        "contract": "read one display-transition word and pass it to the fade-in transition helper at C0:886C",
+        "args": "fadein_effect_word",
+    },
     "C0:AA6E": {
         "name": "Script_ApplyCurrentSlotVisualCountdownState",
         "group": "visual-profile",
@@ -827,6 +833,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read X/Y radius words and build an area-bounds rectangle around the current slot",
         "args": "radius_x_word, radius_y_word",
     },
+    "C0:A977": {
+        "name": "Movement_LoadBattleBg",
+        "group": "presentation-render",
+        "contract": "read battle-background animation and presentation-sprite resource words, then load the battle-bg presentation state for a movement script",
+        "args": "battle_bg_animation_word, presentation_sprite_resource_word",
+    },
     "C0:A98B": {
         "name": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
         "group": "entity-spawn",
@@ -862,6 +874,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "presentation-render",
         "contract": "read one fade-out effect word and pass it to C0:887A",
         "args": "fadeout_effect_word",
+    },
+    "C0:AA07": {
+        "name": "ActionScript_FadeOutWithMosaic",
+        "group": "presentation-render",
+        "contract": "read three display-transition words and pass them to the mosaic fade-out transition helper at C0:8814",
+        "args": "display_transition_mode_word, display_transition_x_word, display_transition_y_word",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",

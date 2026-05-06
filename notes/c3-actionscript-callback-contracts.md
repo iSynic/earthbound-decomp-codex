@@ -124,6 +124,23 @@ The contracts are imported from the C0 wrapper strip and
 `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`, then applied only as C3
 decoder/source-pilot metadata.
 
+## Presentation Wrapper Operands
+
+The C3 decoder now carries a few more small presentation wrapper schemas that
+show up in town hall, coffee/tea, teleport, and battle-background transition
+pilots:
+
+- `C0:9FAE` -> `ActionScript_FadeInWrapper`: one `fadein_effect_word`.
+- `C0:A977` -> `Movement_LoadBattleBg`: `battle_bg_animation_word` plus
+  `presentation_sprite_resource_word`, matching the C0 wrapper into the C4
+  battle-bg presentation loader.
+- `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: three display-transition
+  words passed to the mosaic fade-out transition helper.
+
+These are byte-shape contracts only. Exact visual-effect naming can stay with
+the C0/C4 presentation notes; C3 pilots only need the operand widths and roles
+to avoid anonymous byte lists.
+
 Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
 now names the current-slot index, action-script callback flag bit, active
 entity registry scan tables/count, live world/screen/offset coordinate tables,
