@@ -105,6 +105,13 @@ The front and middle local `0x1D` / adjacent item-helper strip is now checked in
 
 The current C1 scaffold still validates byte-for-byte after the wider `C1:4EAB..91F8` promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the front `0x1D` source wrappers at
+`C1:48AC..4EAB` now name their helper-call edges directly. This covers the
+compact item-category classifier, wallet add/take wrappers, HP/PP
+recovery/depletion quartet, inventory give/take helpers, inventory-room and
+item-possession wildcard searches, equipped-inventory predicate, text-context
+staging helpers, and the `1F 20/21` teleport-state and preset-teleport joins.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

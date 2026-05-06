@@ -11,7 +11,19 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0923E_ShiftCommandArgumentHighByteIntoWord = $C0923E
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1040A_LoadPrimaryInteractionContextPointer = $040A
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C18BC6_InsertItemIntoCharacterInventory = $C18BC6
+C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
+C18F0E_DepleteHpForCharacterOrActiveParty = $8F0E
+C18F64_RecoverHpForCharacterOrActiveParty = $8F64
+C18FBA_DepletePpForCharacterOrActiveParty = $8FBA
+C19010_RecoverPpForCharacterOrActiveParty = $9010
+C19EE6_ClassifyItemCompactCategory = $9EE6
+C22214_AddToWallet = $C22214
+C22272_TakeFromWallet = $C22272
 
 ; ---------------------------------------------------------------------------
 ; C1:48AC
@@ -28,9 +40,9 @@ C148AC_TestCurrentItemCompactCategory = CC_1D_02
     stx $02
     ldx.w #$0000
     stx $12
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
-    jsr $9EE6
+    jsr C19EE6_ClassifyItemCompactCategory
     cmp $02
     bne C148CE_TestCurrentItemCompactCategory_L48CE
     ldx.w #$0001
@@ -47,7 +59,7 @@ C148D9_TestCurrentItemCompactCategory_L48D9:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -76,7 +88,7 @@ C1490F_TestCurrentItemCompactCategory_L490F:
     sep #$10
     ldy.b #$08
     lda $12
-    jsl $C0923E
+    jsl C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -86,18 +98,18 @@ C1490F_TestCurrentItemCompactCategory_L490F:
     stz $08
     bra C1492E_TestCurrentItemCompactCategory_L492E
 C1492B_TestCurrentItemCompactCategory_L492B:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C1492E_TestCurrentItemCompactCategory_L492E:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C22214
+    jsl C22214_AddToWallet
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14948_TestCurrentItemCompactCategory_L4948:
     pld
@@ -127,7 +139,7 @@ C14970_TestCurrentItemCompactCategory_L4970:
     sep #$10
     ldy.b #$08
     lda $12
-    jsl $C0923E
+    jsl C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
     lda $97BA
     and.w #$00FF
@@ -137,13 +149,13 @@ C14970_TestCurrentItemCompactCategory_L4970:
     stz $08
     bra C1498F_TestCurrentItemCompactCategory_L498F
 C1498C_TestCurrentItemCompactCategory_L498C:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C1498F_TestCurrentItemCompactCategory_L498F:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C22272
+    jsl C22272_TakeFromWallet
     cmp.w #$0000
     sta $06
     stz $08
@@ -154,7 +166,7 @@ C149A6_TestCurrentItemCompactCategory_L49A6:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C149B4_TestCurrentItemCompactCategory_L49B4:
     pld
@@ -194,12 +206,12 @@ C149E5_TestCurrentItemCompactCategory_L49E5:
     txa
     bra C149F6_TestCurrentItemCompactCategory_L49F6
 C149F1_TestCurrentItemCompactCategory_L49F1:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C149F6_TestCurrentItemCompactCategory_L49F6:
     ldy.w #$0000
     ldx $02
-    jsr $8F64
+    jsr C18F64_RecoverHpForCharacterOrActiveParty
     lda.w #$0000
 C14A01_TestCurrentItemCompactCategory_L4A01:
     pld
@@ -239,12 +251,12 @@ C14A32_TestCurrentItemCompactCategory_L4A32:
     txa
     bra C14A43_TestCurrentItemCompactCategory_L4A43
 C14A3E_TestCurrentItemCompactCategory_L4A3E:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A43_TestCurrentItemCompactCategory_L4A43:
     ldy.w #$0000
     ldx $02
-    jsr $8F0E
+    jsr C18F0E_DepleteHpForCharacterOrActiveParty
     lda.w #$0000
 C14A4E_TestCurrentItemCompactCategory_L4A4E:
     pld
@@ -284,12 +296,12 @@ C14A7F_TestCurrentItemCompactCategory_L4A7F:
     txa
     bra C14A90_TestCurrentItemCompactCategory_L4A90
 C14A8B_TestCurrentItemCompactCategory_L4A8B:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A90_TestCurrentItemCompactCategory_L4A90:
     ldy.w #$0001
     ldx $02
-    jsr $8F64
+    jsr C18F64_RecoverHpForCharacterOrActiveParty
     lda.w #$0000
 C14A9B_TestCurrentItemCompactCategory_L4A9B:
     pld
@@ -329,12 +341,12 @@ C14ACC_TestCurrentItemCompactCategory_L4ACC:
     txa
     bra C14ADD_TestCurrentItemCompactCategory_L4ADD
 C14AD8_TestCurrentItemCompactCategory_L4AD8:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14ADD_TestCurrentItemCompactCategory_L4ADD:
     ldy.w #$0001
     ldx $02
-    jsr $8F0E
+    jsr C18F0E_DepleteHpForCharacterOrActiveParty
     lda.w #$0000
 C14AE8_TestCurrentItemCompactCategory_L4AE8:
     pld
@@ -374,12 +386,12 @@ C14B19_TestCurrentItemCompactCategory_L4B19:
     txa
     bra C14B2A_TestCurrentItemCompactCategory_L4B2A
 C14B25_TestCurrentItemCompactCategory_L4B25:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B2A_TestCurrentItemCompactCategory_L4B2A:
     ldy.w #$0000
     ldx $02
-    jsr $9010
+    jsr C19010_RecoverPpForCharacterOrActiveParty
     lda.w #$0000
 C14B35_TestCurrentItemCompactCategory_L4B35:
     pld
@@ -419,12 +431,12 @@ C14B66_TestCurrentItemCompactCategory_L4B66:
     txa
     bra C14B77_TestCurrentItemCompactCategory_L4B77
 C14B72_TestCurrentItemCompactCategory_L4B72:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B77_TestCurrentItemCompactCategory_L4B77:
     ldy.w #$0000
     ldx $02
-    jsr $8FBA
+    jsr C18FBA_DepletePpForCharacterOrActiveParty
     lda.w #$0000
 C14B82_TestCurrentItemCompactCategory_L4B82:
     pld
@@ -463,12 +475,12 @@ C14BB2_TestCurrentItemCompactCategory_L4BB2:
     and.w #$00FF
     bra C14BC4_TestCurrentItemCompactCategory_L4BC4
 C14BBF_TestCurrentItemCompactCategory_L4BBF:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14BC4_TestCurrentItemCompactCategory_L4BC4:
     ldy.w #$0001
     ldx $0E
-    jsr $9010
+    jsr C19010_RecoverPpForCharacterOrActiveParty
     lda.w #$0000
 C14BCF_TestCurrentItemCompactCategory_L4BCF:
     pld
@@ -508,12 +520,12 @@ C14C00_TestCurrentItemCompactCategory_L4C00:
     txa
     bra C14C11_TestCurrentItemCompactCategory_L4C11
 C14C0C_TestCurrentItemCompactCategory_L4C0C:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14C11_TestCurrentItemCompactCategory_L4C11:
     ldy.w #$0001
     ldx $02
-    jsr $8FBA
+    jsr C18FBA_DepletePpForCharacterOrActiveParty
     lda.w #$0000
 C14C1C_TestCurrentItemCompactCategory_L4C1C:
     pld
@@ -553,25 +565,25 @@ C14C4A_TestCurrentItemCompactCategory_L4C4A:
     stx $12
     bra C14C63_TestCurrentItemCompactCategory_L4C63
 C14C5B_TestCurrentItemCompactCategory_L4C5B:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C14C63_TestCurrentItemCompactCategory_L4C63:
     lda $14
     bne C14C6C_TestCurrentItemCompactCategory_L4C6C
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C14C6C_TestCurrentItemCompactCategory_L4C6C:
     ldx $12
-    jsl $C18BC6
+    jsl C18BC6_InsertItemIntoCharacterInventory
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14C84_TestCurrentItemCompactCategory_L4C84:
     pld
@@ -611,25 +623,25 @@ C14CB2_TestCurrentItemCompactCategory_L4CB2:
     stx $12
     bra C14CCB_TestCurrentItemCompactCategory_L4CCB
 C14CC3_TestCurrentItemCompactCategory_L4CC3:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C14CCB_TestCurrentItemCompactCategory_L4CCB:
     lda $14
     bne C14CD4_TestCurrentItemCompactCategory_L4CD4
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C14CD4_TestCurrentItemCompactCategory_L4CD4:
     ldx $12
-    jsl $C18EAD
+    jsl C18EAD_SearchAndRemoveItemFromActiveInventories
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14CEC_TestCurrentItemCompactCategory_L4CEC:
     pld

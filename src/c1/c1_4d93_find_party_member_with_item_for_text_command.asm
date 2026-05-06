@@ -11,7 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0DD53_SetTeleportStateSelectors = $C0DD53
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1040A_LoadPrimaryInteractionContextPointer = $040A
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C1BCAB_ExecuteTeleportDestination = $BCAB
+C45683_FindPartyMemberWithItemWildcard = $C45683
 
 ; ---------------------------------------------------------------------------
 ; C1:4D93
@@ -51,25 +56,25 @@ C14DBF_FindPartyMemberWithItemForTextCommand_L4DBF:
     stx $12
     bra C14DD8_FindPartyMemberWithItemForTextCommand_L4DD8
 C14DD0_FindPartyMemberWithItemForTextCommand_L4DD0:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C14DD8_FindPartyMemberWithItemForTextCommand_L4DD8:
     lda $14
     bne C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1:
     ldx $12
-    jsl $C45683
+    jsl C45683_FindPartyMemberWithItemWildcard
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9:
     pld
@@ -117,7 +122,7 @@ C14E2B_FindPartyMemberWithItemForTextCommand_L4E2B:
     sta $12
     bra C14E51_FindPartyMemberWithItemForTextCommand_L4E51
 C14E46_FindPartyMemberWithItemForTextCommand_L4E46:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     sta $10
     lda $08
@@ -131,7 +136,7 @@ C14E51_FindPartyMemberWithItemForTextCommand_L4E51:
     sta $0F
     bra C14E71_FindPartyMemberWithItemForTextCommand_L4E71
 C14E60_FindPartyMemberWithItemForTextCommand_L4E60:
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $0A
     lda $08
@@ -149,7 +154,7 @@ C14E71_FindPartyMemberWithItemForTextCommand_L4E71:
     lda $06
     sta $0E
     lda $0F
-    jsl $C0DD53
+    jsl C0DD53_SetTeleportStateSelectors
     lda.w #$0000
 C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A:
     pld
@@ -168,10 +173,10 @@ C14E8C_TeleportToPresetLocationTextCommand = CC_1F_21
     txa
     bra C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3
 C14E9E_FindPartyMemberWithItemForTextCommand_L4E9E:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3:
-    jsr $BCAB
+    jsr C1BCAB_ExecuteTeleportDestination
     lda.w #$0000
     pld
     rts

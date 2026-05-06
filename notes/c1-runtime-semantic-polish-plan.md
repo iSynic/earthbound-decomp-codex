@@ -337,3 +337,17 @@ This planning pass is documentation-only.
   `notes/text-command-08-call-text.md`,
   `notes/text-command-09-jump-multi.md`, and
   `notes/text-command-0a-24bit-jump.md`.
+- 2026-05-06 follow-up: the adjacent `C1:4558..4EAB` low text-command and
+  inventory helper strip now names the helper-call surface for `0C/0E`
+  workmem/argmem staging, `1A 00/01` character-selection queue builders,
+  `1C 05/06/07` print/layout helpers, `1D 00..05/08/09` item, wallet, and
+  possession wrappers, early `1E 00..07` HP/PP wrappers, and `1F 20/21`
+  teleport joins. The shared current-text-context workmem setter label was
+  corrected to `C1:0443`. See
+  `notes/lower-bank01-text-control-strip-00-17.md`,
+  `notes/text-command-family-1d-inventory-money.md`,
+  `notes/text-command-family-1e-stat-recovery.md`,
+  `notes/item-category-classifier-c19ee6.md`,
+  `notes/party-inventory-room-search-c456e4-c4572b.md`,
+  `notes/party-item-possession-search-c45637-c45683.md`, and
+  `notes/teleport-menu-wrapper-c1bb71-bcab.md`.

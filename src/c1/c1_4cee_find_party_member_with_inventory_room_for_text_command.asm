@@ -11,7 +11,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1040A_LoadPrimaryInteractionContextPointer = $040A
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C3E9F7_CheckEquippedInventoryItemPresence = $C3E9F7
+C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
 
 ; ---------------------------------------------------------------------------
 ; C1:4CEE
@@ -30,10 +34,10 @@ C14CEE_FindPartyMemberWithInventoryRoomForTextCommand = CC_1D_03
     txa
     bra C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05
 C14D00_FindPartyMemberWithInventoryRoomForTextCommand_L4D00:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05:
-    jsl $C4572B
+    jsl C4572B_FindPartyMemberWithInventoryRoomWildcard
     cmp.w #$0000
     sta $06
     stz $08
@@ -44,7 +48,7 @@ C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -83,18 +87,18 @@ C14D50_FindPartyMemberWithInventoryRoomForTextCommand_L4D50:
     stx $12
     bra C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69
 C14D61_FindPartyMemberWithInventoryRoomForTextCommand_L4D61:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69:
     lda $14
     bne C14D72_FindPartyMemberWithInventoryRoomForTextCommand_L4D72
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C14D72_FindPartyMemberWithInventoryRoomForTextCommand_L4D72:
     ldx $12
-    jsl $C3E9F7
+    jsl C3E9F7_CheckEquippedInventoryItemPresence
     cmp.w #$0000
     sta $06
     stz $08
@@ -105,7 +109,7 @@ C14D83_FindPartyMemberWithInventoryRoomForTextCommand_L4D83:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91:
     pld

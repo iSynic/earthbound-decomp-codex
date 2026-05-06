@@ -105,6 +105,14 @@ assembly, flag set/clear/check handling, context staging, the number selector,
 window/focus wrappers, and the glyph/cursor staging split used by forced text
 alignment.
 
+The adjacent `C1:4558..4EAB` text-command and item-helper strip now also names
+the helper-call surface for `0C/0E` workmem and argmem staging, text-entry
+layout refresh, item-name/town-name printing, compact item-class tests,
+wallet mutations, HP/PP recovery and depletion wrappers, inventory insertion
+and removal, party inventory-room and item-possession searches, and preset
+teleport execution. The shared current-text-context workmem setter is now
+addressed correctly as `C1:0443`.
+
 ### 1. The lower strip is mostly not family-shaped
 
 Below the richer family-heavy range higher up, most of these bytes are just direct opcodes.

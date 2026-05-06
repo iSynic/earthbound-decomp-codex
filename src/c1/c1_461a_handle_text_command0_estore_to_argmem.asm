@@ -17,9 +17,13 @@ C216C9_StopMusicRedirect = $C216C9
 C216D0_PlaySoundAndTickLightWindow = $C216D0
 C103DC_ReadTextCommandArgumentWord = $03DC
 C10400_GetCurrentTextContextWorkmem = $0400
+C10443_SetCurrentTextContextWorkmem = $0443
 C1045D_InstallPrimaryInteractionContextPointer = $045D
+C1244C_CharacterSelectPrompt = $244C
 C190E6_ReadActiveOverworldRegistryTypeCode = $90E6
+C19216_PrintItemNameFromConfigurationTable = $9216
 C222D3_ResolveCharacterNamePointer = $C222D3
+C447FB_PrintFixedStringWithWrapPreflight = $C447FB
 
 CurrentNameCharacterIndex = $02
 TextResultValueLo = $06
@@ -48,13 +52,13 @@ C1461A_HandleTextCommand0EStoreToArgmem = CC_0E
     pla
     cpx.w #$0000
     bne C14632_HandleTextCommand0EStoreToArgmem_L4632
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     and.w #$00FF
     tax
 C14632_HandleTextCommand0EStoreToArgmem_L4632:
     txa
-    jsr $0443
+    jsr C10443_SetCurrentTextContextWorkmem
     lda.w #$0000
     pld
     rts
@@ -81,14 +85,14 @@ C1463B_BuildTextQueueSelector0 = CC_1A_00
 C14660_HandleTextCommand0EStoreToArgmem_L4660:
     ldy.w #$0000
     lda.w #$97BA
-    jsr $244C
+    jsr C1244C_CharacterSelectPrompt
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1467B_HandleTextCommand0EStoreToArgmem_L467B:
     pld
@@ -116,14 +120,14 @@ C1467D_BuildTextQueueSelector1 = CC_1A_01
 C146A2_HandleTextCommand0EStoreToArgmem_L46A2:
     ldy.w #$0001
     lda.w #$97BA
-    jsr $244C
+    jsr C1244C_CharacterSelectPrompt
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C146BD_HandleTextCommand0EStoreToArgmem_L46BD:
     pld
@@ -142,10 +146,10 @@ C146BF_PrintItemNameTextCommandFamily = CC_1C_05
     txa
     bra C146D6_HandleTextCommand0EStoreToArgmem_L46D6
 C146D1_HandleTextCommand0EStoreToArgmem_L46D1:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C146D6_HandleTextCommand0EStoreToArgmem_L46D6:
-    jsr $9216
+    jsr C19216_PrintItemNameFromConfigurationTable
     lda.w #$0000
     pld
     rts
@@ -162,7 +166,7 @@ C146D6_HandleTextCommand0EStoreToArgmem_L46D6:
     sta $12
     bra C146F9_HandleTextCommand0EStoreToArgmem_L46F9
 C146F2_HandleTextCommand0EStoreToArgmem_L46F2:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
     sta $12
 C146F9_HandleTextCommand0EStoreToArgmem_L46F9:
@@ -180,7 +184,7 @@ C146F9_HandleTextCommand0EStoreToArgmem_L46F9:
     lda $08
     sta $10
     lda.w #$0019
-    jsl $C447FB
+    jsl C447FB_PrintFixedStringWithWrapPreflight
     lda.w #$0000
     pld
     rts
@@ -248,7 +252,7 @@ C14781_HandleTextCommand0EStoreToArgmem_L4781:
     stz $08
     bra C1478E_HandleTextCommand0EStoreToArgmem_L478E
 C1478B_HandleTextCommand0EStoreToArgmem_L478B:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C1478E_HandleTextCommand0EStoreToArgmem_L478E:
     lda $97BA
     and.w #$00FF
@@ -283,7 +287,7 @@ C147AB_CheckEventFlagFromTextArgument = CC_1F_02
     stz $08
     bra C147C1_HandleTextCommand0EStoreToArgmem_L47C1
 C147BE_HandleTextCommand0EStoreToArgmem_L47BE:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C147C1_HandleTextCommand0EStoreToArgmem_L47C1:
     lda $06
     jsl C216D0_PlaySoundAndTickLightWindow

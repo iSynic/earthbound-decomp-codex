@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1040A_LoadPrimaryInteractionContextPointer = $040A
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C1180D_LayoutActiveTextEntriesAndRefresh = $180D
 
 ; ---------------------------------------------------------------------------
 ; C1:4591
@@ -28,7 +31,7 @@ C14591_HandleTextCommand0CTestWorkmemFalse = CC_0C
     stx $02
     lda.w #$0000
     sta $12
-    jsr $040A
+    jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     cmp $02
     beq C145B0_HandleTextCommand0CTestWorkmemFalse_L45B0
@@ -45,7 +48,7 @@ C145BA_HandleTextCommand0CTestWorkmemFalse_L45BA:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -61,12 +64,12 @@ C145BA_HandleTextCommand0CTestWorkmemFalse_L45BA:
     txa
     bra C145E1_HandleTextCommand0CTestWorkmemFalse_L45E1
 C145DC_HandleTextCommand0CTestWorkmemFalse_L45DC:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C145E1_HandleTextCommand0CTestWorkmemFalse_L45E1:
     ldy.w #$0000
     ldx.w #$0001
-    jsr $180D
+    jsr C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$0000
     pld
     rts

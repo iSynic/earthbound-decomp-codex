@@ -33,9 +33,9 @@ C1042E_IncrementCurrentTextContextWorkmem = INCREMENT_SECONDARY_MEMORY
     rts
 
 ; ---------------------------------------------------------------------------
-; C1:0450
+; C1:0443
 
-C10450_SetCurrentTextContextWorkmem:
+C10443_SetCurrentTextContextWorkmem:
     rep #$31
     phd
     pha

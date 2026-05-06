@@ -93,6 +93,14 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   number selection, context installs, focus/window wrappers, and C4
   glyph/cursor staging. See
   `notes/lower-bank01-text-control-strip-00-17.md`.
+- 2026-05-06: C1 adjacent low text-command/inventory follow-up named helper
+  edges across `C1:4558..4EAB`, covering workmem/argmem staging,
+  character-selection queue builders, print/layout helpers, item-class tests,
+  wallet mutations, HP/PP wrappers, inventory give/take/search helpers, and
+  preset teleport joins. The current text-context workmem setter label is now
+  corrected to `C1:0443`. See
+  `notes/lower-bank01-text-control-strip-00-17.md` and
+  `notes/text-command-family-1d-inventory-money.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source
