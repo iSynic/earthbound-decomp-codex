@@ -309,6 +309,11 @@ closure.
   offsets, and `$007F` index mask, then marked where C4 packs/unpacks the C0
   transfer selector, VRAM destination, long source pointer, and byte count.
   See `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 credits scene state follow-up: tightened the credits initializer
+  and playback controller around their C4-owned work-buffer, command-stream,
+  display selector/mode, post-scroll hold, return-spawn, and scene-clear
+  arguments while leaving frame-callback and display internals to C0. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 
 ## Validation
 

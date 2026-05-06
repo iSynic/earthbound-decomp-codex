@@ -160,6 +160,13 @@ credits DMA queue, resets the callback to the default stub, reinstalls the
 delayed-action callback, and restores the display state after the credits
 presentation.
 
+2026-05-06 credits scene state follow-up: the initializer now names the local
+`$7F:0000` work buffer, E1 command-stream start at `E1:413F`, initial BG3 row
+threshold, `$7DFE` clear span, and display selector/mode bytes it seeds before
+arming the C0 command-stream callback. The playback tail now names the fixed
+post-scroll hold, return entity spawn coordinates, final `$7DFE` clear span,
+and display mode restored before the delayed-action callback is reinstalled.
+
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
 the requested music id as one-based, subtracts one for the row lookup, and reads
 three byte fields per row: primary sample pack, secondary sample pack, and
