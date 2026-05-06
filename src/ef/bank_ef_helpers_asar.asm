@@ -5832,58 +5832,58 @@ db $A5,$9E,$A5,$A3,$A5,$91,$9C,$5E,$03,$02
 
 EF8477_EBattle0MsgRandomActMushroom:
 
-; Original data gap before EF848C_EBattle1MsgBtlAttack:
+; Original data gap before EF848C_EBattle1BashAttackRowPresentationText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$17,$CC,$16,$A3,$96,$A5,$9E
 db $9B,$A9,$5E,$03,$02
 
-EF848C_EBattle1MsgBtlAttack:
+EF848C_EBattle1BashAttackRowPresentationText:
 
-; Original data gap before EF84A7_EBattle1AttackPlayerSideBranch:
+; Original data gap before EF84A7_EBattle1BashAttackPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$A7,$84,$EF,$00,$1F,$02,$19,$70,$1C,$0D
 db $16,$00,$15,$DB,$17,$7D,$1F,$02,$1A,$03,$02
 
-EF84A7_EBattle1AttackPlayerSideBranch:
+EF84A7_EBattle1BashAttackPlayerSideBranch:
 
-; Original data gap before EF84B6_EBattle1MsgBtlShoot:
+; Original data gap before EF84B6_EBattle1ShootRowPresentationText:
 db $1F,$02,$18,$70,$1C,$0D,$15,$DB,$A3,$51,$1F,$02,$1A,$03,$02
 
-EF84B6_EBattle1MsgBtlShoot:
+EF84B6_EBattle1ShootRowPresentationText:
 
-; Original data gap before EF84C6_EBattle1MsgBtlGuard:
+; Original data gap before EF84C6_EBattle1GuardCommandText:
 db $01,$1F,$02,$18,$70,$1C,$0D,$15,$DB,$A3,$51,$1F,$02,$1B,$03,$02
 
-EF84C6_EBattle1MsgBtlGuard:
+EF84C6_EBattle1GuardCommandText:
 
-; Original data gap before EF84D4_EBattle1MsgBtlMetamorphose:
+; Original data gap before EF84D4_EBattle1MetamorphoseAttemptText:
 db $01,$70,$1C,$0D,$15,$21,$17,$86,$97,$A5,$16,$73,$5E,$02
 
-EF84D4_EBattle1MsgBtlMetamorphose:
+EF84D4_EBattle1MetamorphoseAttemptText:
 
-; Original data gap before EF84F3_EBattle1MsgBtlPlayerFlee:
+; Original data gap before EF84F3_EBattle1PlayerFleeSuccessText:
 db $01,$70,$1C,$0D,$17,$48,$9C,$91,$A8,$95,$94,$00,$50,$15,$04,$A4
 db $17,$37,$15,$BC,$94,$15,$C9,$50,$92,$16,$82,$98,$5E,$03,$02
 
-EF84F3_EBattle1MsgBtlPlayerFlee:
+EF84F3_EBattle1PlayerFleeSuccessText:
 
-; Original data gap before EF8511_EBattle1MsgBtlPlayerFleeFailed:
+; Original data gap before EF8511_EBattle1PlayerFleeFailureText:
 db $01,$70,$08,$D7,$E6,$C7,$00,$16,$EF,$99,$15,$33,$16,$5B,$16,$C9
 db $5C,$10,$3C,$03,$00,$70,$16,$4F,$94,$99,$94,$51,$03,$02
 
-EF8511_EBattle1MsgBtlPlayerFleeFailed:
+EF8511_EBattle1PlayerFleeFailureText:
 
-; Original data gap before EF8530_EBattle1MsgBtlCheck:
+; Original data gap before EF8530_EBattle1SpyCheckRowPresentationText:
 db $01,$70,$08,$D7,$E6,$C7,$00,$16,$EF,$99,$15,$33,$16,$5B,$16,$C9
 db $5C,$10,$3C,$03,$00,$16,$BF,$93,$16,$EC,$17,$08,$51,$03,$02
 
-EF8530_EBattle1MsgBtlCheck:
+EF8530_EBattle1SpyCheckRowPresentationText:
 
-; Original data gap before EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+; Original data gap before EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
 ; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
 ; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$68,$85,$EF,$00,$1F,$02,$37,$70,$1C,$0D
@@ -5997,21 +5997,21 @@ db $29,$00,$10,$1F,$1F,$02,$3A,$10,$1B,$1F,$02,$3A,$10,$14,$02
 
 EF8813_EBattle1PsiEffectBranch13:
 
-; Original data gap before EF8814_EBattle1MsgBtlThunderSmall:
+; Original data gap before EF8814_EBattle1SmallThunderPresentationText:
 db $02
 
-EF8814_EBattle1MsgBtlThunderSmall:
+EF8814_EBattle1SmallThunderPresentationText:
 
-; Original data gap before EF8823_EBattle1MsgBtlThunderLarge:
+; Original data gap before EF8823_EBattle1LargeThunderPresentationText:
 db $1F,$02,$3D,$1C,$13,$2E,$21,$10,$16,$1F,$02,$3F,$10,$1E,$02
 
-EF8823_EBattle1MsgBtlThunderLarge:
+EF8823_EBattle1LargeThunderPresentationText:
 
-; Original data gap before EF8837_EBattle1MsgBtlThunderMissSound:
+; Original data gap before EF8837_EBattle1ThunderMissSoundPresentationText:
 db $1F,$02,$3E,$1C,$13,$2E,$22,$10,$16,$1F,$02,$3F,$10,$17,$1F,$02
 db $3F,$10,$1E,$02
 
-EF8837_EBattle1MsgBtlThunderMissSound:
+EF8837_EBattle1ThunderMissSoundPresentationText:
 
 ; Original data gap before EF883D_EBattle1PsiEffectBranch17:
 db $1F,$02,$3C,$10,$3C,$02
@@ -6147,11 +6147,11 @@ db $4C,$02
 
 EF89CE_EBattle1PsiEffectBranch50:
 
-; Original data gap before EF89E0_EBattle1MsgBtlPray:
+; Original data gap before EF89E0_EBattle1PrayRowPresentationText:
 db $10,$14,$1F,$02,$50,$1C,$13,$00,$03,$10,$28,$1C,$13,$2F,$00,$10
 db $80,$02
 
-EF89E0_EBattle1MsgBtlPray:
+EF89E0_EBattle1PrayRowPresentationText:
 
 ; Original data gap before EF89FE_EBattle3MsgBtlJihibiki:
 db $01,$1F,$02,$1C,$70,$1C,$0D,$50,$A0,$A2,$91,$A9,$95,$94,$00,$50

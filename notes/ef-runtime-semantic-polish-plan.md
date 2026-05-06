@@ -181,6 +181,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF EBATTLE1 battle-command front follow-up split
   `EF:848C..8814` into Bash/attack, Shoot, Guard, Metamorphose, flee, Spy,
   shared PSI action text, and the first PSI animation/effect dispatch branches.
+- 2026-05-06: EF EBATTLE1 row-presentation naming follow-up tightened that
+  front so Bash/Shoot/Spy/shared-PSI/Pray carry `RowPresentationText`,
+  `EF:8543` keeps the shared PSI-name `ByteSubstitution` role, and Thunder
+  common anchors carry presentation-text names without changing C1/C2 source.
 - 2026-05-05: EF EBATTLE1 Thunder/effect/Pray follow-up split
   `EF:8814..89FE` into small/large Thunder presentation text, Thunder miss
   sound text, PBFX presentation branches 17-50, and the Pray action opening

@@ -111,6 +111,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
   `EF:848C`, Spy/check `EF:8530`, and shared PSI `ByteSubstitution` text
   `EF:8543`, plus the adjacent PSI animation/effect dispatch branches.
+- 2026-05-06: EF EBATTLE1 row-presentation naming follow-up renamed the proved
+  Bash/Shoot/Spy/shared-PSI/Pray anchors with `RowPresentationText`, kept
+  shared PSI as a `ByteSubstitution` consumer, and converted the adjacent
+  Thunder common labels to presentation text without editing C1/C2 source.
 - 2026-05-05: C1-side DD9F tail follow-up named the source-side consumer of
   the action-table Bash/Shoot text and companion payload offsets. The
   `C1:DD9F..E1A2` source now keeps `$00BC/$00BE` current text pointers

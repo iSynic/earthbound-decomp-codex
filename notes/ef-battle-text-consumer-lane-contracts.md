@@ -46,9 +46,11 @@ Examples:
 - row `140 -> EF:8E27 -> C2:9AD8` and row `247 -> EF:8E27 -> C2:90C6`
   intentionally reuse one EF row-message anchor with different C2 behavior
   bodies.
-- rows `53` and `58` reuse shared `EF:8543` PSI `ByteSubstitution`
-  presentation text, while their behavior bodies emit asleep or strange result
-  text through `DC1C`.
+- Bash/attack `EF:848C`, Shoot `EF:84B6`, Spy/check `EF:8530`, shared PSI
+  `EF:8543`, and Pray `EF:89E0` are proved EF row `+4` presentation anchors.
+- rows `53` and `58` reuse shared
+  `EF:8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText`, while
+  their behavior bodies emit asleep or strange result text through `DC1C`.
 
 ## Direct Result Lane
 
@@ -123,8 +125,9 @@ consume that byte should keep the `ByteSubstitution` suffix. Present/item-name
 and PSI-name examples are the current high-confidence cases:
 `EF:7BDF_EBattle8PresentItemByteSubstitutionText` and
 `EF:7DD5_EBattle8CheckPresentGetItemByteSubstitutionText` for present item
-names, `EF:7B77` and shared row text `EF:8543` for PSI names, plus shield
-PSI-name result scripts `EF:70D2` and `EF:70FA`.
+names, `EF:7B77` and shared row text
+`EF:8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText` for PSI
+names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
 
 The present continuation at `EF:7C42..7DBE` is downstream result/prompt flow
 after the present item byte has been consumed. Its result and prompt labels

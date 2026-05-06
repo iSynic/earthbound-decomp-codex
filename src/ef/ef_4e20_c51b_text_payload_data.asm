@@ -2199,57 +2199,58 @@ EF8477_EBattle0MsgRandomActMushroom:
 ; through C1:DD9F. Proved row-message anchors include Bash, Shoot, Spy, shared
 ; PSI, and Pray.
 ; EBATTLE1: Bash/attack text, with enemy/player-side branches.
-EF848C_EBattle1MsgBtlAttack:
+EF848C_EBattle1BashAttackRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84A7
 
 ; EBATTLE1: player-side Bash/attack branch.
-EF84A7_EBattle1AttackPlayerSideBranch:
+EF84A7_EBattle1BashAttackPlayerSideBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:84B6
 
 ; EBATTLE1: Shoot/attack text.
-EF84B6_EBattle1MsgBtlShoot:
+EF84B6_EBattle1ShootRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84C6
 
 ; EBATTLE1: Guard text.
-EF84C6_EBattle1MsgBtlGuard:
+EF84C6_EBattle1GuardCommandText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84D4
 
 ; EBATTLE1: Metamorphose attempt text.
-EF84D4_EBattle1MsgBtlMetamorphose:
+EF84D4_EBattle1MetamorphoseAttemptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84F3
 
 ; EBATTLE1: successful player flee text.
-EF84F3_EBattle1MsgBtlPlayerFlee:
+EF84F3_EBattle1PlayerFleeSuccessText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8511
 
 ; EBATTLE1: failed player flee text.
-EF8511_EBattle1MsgBtlPlayerFleeFailed:
+EF8511_EBattle1PlayerFleeFailureText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8530
 
 ; EBATTLE1: Spy/check text.
-EF8530_EBattle1MsgBtlCheck:
+EF8530_EBattle1SpyCheckRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8543
 
-; EBATTLE1: shared PSI action text with PSI-name byte substitution. D5:7B68
-; rows 10..31 plus PSI-status rows 53 and 58 use this as row +4 `DD9F`
-; presentation text; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+; EBATTLE1: shared PSI row presentation text with PSI-name byte substitution.
+; D5:7B68 rows 10..31 plus PSI-status rows 53 and 58 use this as row +4
+; `DD9F` presentation text; Lifeup rows 32..35 still need local row +4
+; recovery.
+EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8568
@@ -2345,19 +2346,19 @@ EF8813_EBattle1PsiEffectBranch13:
 ; EF:8814
 
 ; EBATTLE1: small Thunder presentation text/effect block.
-EF8814_EBattle1MsgBtlThunderSmall:
+EF8814_EBattle1SmallThunderPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8823
 
 ; EBATTLE1: large Thunder presentation text/effect block.
-EF8823_EBattle1MsgBtlThunderLarge:
+EF8823_EBattle1LargeThunderPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8837
 
 ; EBATTLE1: Thunder miss sound-effect presentation block.
-EF8837_EBattle1MsgBtlThunderMissSound:
+EF8837_EBattle1ThunderMissSoundPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:883D
@@ -2513,7 +2514,7 @@ EF89CE_EBattle1PsiEffectBranch50:
 ; EF:89E0
 
 ; EBATTLE1: Pray action opening text.
-EF89E0_EBattle1MsgBtlPray:
+EF89E0_EBattle1PrayRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:89FE

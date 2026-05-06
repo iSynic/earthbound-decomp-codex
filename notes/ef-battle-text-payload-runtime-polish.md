@@ -149,12 +149,13 @@ macros.
 - `EF:843F`, `EF:8444`, `EF:8445`, `EF:845D`, and `EF:8477` now mark
   battle-start and random-action status text used by C2 direct `DC1C` callers.
 - `EF:848C..8814` now splits the EBATTLE1 battle-command front into
-  Bash/attack, Shoot, Guard, Metamorphose, flee success/failure, Spy/check,
-  shared PSI action text, and the first PSI animation/effect dispatch branches.
+  Bash/attack and Shoot row presentation, Guard/Metamorphose/flee command
+  text, Spy/check row presentation, shared PSI name byte-substitution row
+  presentation, and the first PSI animation/effect dispatch branches.
 - `EF:8814..89FE` now splits the adjacent EBATTLE1 Thunder/effect/Pray run:
-  small and large Thunder presentation scripts, the Thunder miss sound script,
-  PSI presentation/effect branches 17-50, and the Pray action opening text at
-  `EF:89E0`.
+  small and large Thunder presentation scripts, the Thunder miss sound
+  presentation script, PSI presentation/effect branches 17-50, and the Pray
+  row presentation text at `EF:89E0`.
 - `EF:89FE..8FAD` now splits the complete EBATTLE3 enemy-action text include,
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, before the next
   EBATTLE9 include begins.
@@ -317,30 +318,35 @@ are joined.
 
 The first slice of `EF:848C..C51B` is now split through `EF:8814`. This is the
 runtime-facing battle-command front already tied to the C2 action table notes:
-`EF:848C` is the Bash/attack text pointer for the table's ordinary attack
-entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
-`ByteSubstitution` text pointer reused by many PSI-shaped action rows. The
-`EF:857E` dispatch and `EF:864C..8813` branches remain ROM-preserved
-text/effect bytecode, but now have stable anchors for later PSI
-animation/effect consumer work.
+`EF:848C` is the Bash/attack row presentation text pointer for the table's
+ordinary attack entry, `EF:84B6` is the Shoot row presentation text, `EF:8530`
+is the Spy/check row presentation text, and `EF:8543` is the shared PSI-name
+`ByteSubstitution` row presentation text reused by many PSI-shaped action rows.
+Guard, Metamorphose, and flee labels in the same front now use command/result
+names without claiming additional row evidence. The `EF:857E` dispatch and
+`EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
+have stable anchors for later PSI animation/effect consumer work.
 
 The row-message consumer split is now explicit: `C2:5C66` selects the
 `D5:7B68` row `+4` message pointer and displays it through `C1:DD9F`, while
 the row `+8` behavior pointer is a separate C2 action payload. The shared
 `EF:8543` PSI row message still belongs to that `DD9F` row-presentation lane;
-its `ByteSubstitution` suffix only records that the displayed script consumes
-the `C1:DD7C -> $9D11 -> 19 1F` PSI-name byte.
+its `ByteSubstitutionRowPresentationText` suffix records both facts: the
+displayed row message consumes the `C1:DD7C -> $9D11 -> 19 1F` PSI-name byte,
+and the row-message proof remains distinct from row `+8` behavior bodies.
 
 ## Thunder, Effect, And Pray Follow-up
 
 The adjacent `EF:8814..89FE` run is now split around the US listing labels that
 continue the EBATTLE1 PSI presentation table. C2 Thunder common already emits
 `EF:8814` for the small Thunder presentation and `EF:8823` for the large
-Thunder presentation, with `EF:8837` serving the Thunder miss sound payload.
+Thunder presentation, with `EF:8837` serving the Thunder miss sound
+presentation payload.
 The `EF:883D..89E0` branch anchors preserve the PBFX 17-50 presentation
 dispatch targets without trying to decode the EB text bytecode yet. `EF:89E0`
-is the Pray action text pointer used by the action table, so the first Pray
-entry is now visible before the following EBATTLE3 enemy-action text block.
+is the Pray row presentation text pointer used by the action table, so the
+first Pray entry is now visible before the following EBATTLE3 enemy-action text
+block.
 
 ## EBATTLE3 Enemy-Action Follow-up
 
