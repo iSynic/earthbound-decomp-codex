@@ -181,8 +181,11 @@ Target-picker follow-up: `src/c2/c2_4477_build_class2_derived_action_code.asm`
 now calls the documented `C2:4434` helper as
 `PickRandomBattlerFromFrontBackRows` in the two `CHOOSE_TARGET` loops that
 need a front/back-row candidate before validating it through `C4:A1F5`. The
-nearby `C2:3F6C` call remains raw until its target-selection role is proven
-from local evidence.
+nearby `C2:3F6C` call now reads as
+`TryPickAiFlaggedNpcBattlerTargetOrdinal`: it may return a one-based
+`current_target` ordinal for an active battler whose `npc_id` matches a party
+slot carrying enemy-AI flag `0x02`, otherwise it returns zero and the existing
+random valid-target fallback remains in charge.
 
 Battle-start target-mask follow-up: the target text-context source now exposes
 two formerly hidden helper entries inside `C2:3D05..40A4`. `C2:3E32` rebuilds
@@ -220,6 +223,11 @@ Its helper tails also name the `$A96C/$A96E` current target mask, the
 `$AD56/$AD7A/$AD82` front/back battler order lists, and the mask builders used
 by action-targeting modes.
 
+Small target-picker tail: the same source now exposes `C2:3F6C` as the
+AI-flagged NPC battler target ordinal probe used by `C2:4477`. The helper keeps
+its zero-result ABI explicit so callers can distinguish "no special NPC target"
+from a real one-based target ordinal.
+
 This is the first source-backed spot where the newer `$9FAC == BATTLERS_TABLE`
 correction is carried directly through the battle-text context builders instead
 of only appearing in notes.
@@ -255,6 +263,8 @@ This slice makes the selected-row controller more actionable:
   and bit-test vocabulary as well.
 - resistance mirrors in initialized/exported battler rows now share the same
   elemental/status conversion helper names used by the C1 action-text lane.
+- the last raw `C2:4477` target-picker helper now has an explicit zero-result
+  or one-based target ordinal contract for AI-flagged NPC battlers.
 
 ## Remaining Soft Spots
 

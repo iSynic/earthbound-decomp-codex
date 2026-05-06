@@ -718,6 +718,11 @@ contract notes for C0/C1/C3/C4 consumers.
   consumer and retiring the earlier compact-stat soft spot. See
   `notes/class2-local-enemy-id-to-battler-init-chain.md` and
   `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 ninety-third slice: tightened the remaining raw target-picker
+  helper in the class-2 action builder. `C2:3F6C` is now exposed as
+  `TryPickAiFlaggedNpcBattlerTargetOrdinal` and `C2:4477` calls it by that
+  zero-or-one-based-target-ordinal contract before falling back to its random
+  valid-target loop. See `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 

@@ -49,6 +49,7 @@ EnemyDataTableBase = $9589
 EnemyDataTableBank = $00D5
 EnemyDataRowSize = $005E
 EnemyAiTable = $D58F23
+EnemyAiNpcTargetFlag = $0002
 EnemyNameCopyLength = $0019
 TargetNameRedirectLength = $001B
 SelectedTargetNameRedirectLength = $001A
@@ -352,6 +353,8 @@ C23F4E_BuildBattleTargetTextContext_L3F4E:
     sta LastAttackerBattleTextId
     pld
     rtl
+; Returns a one-based target ordinal, or zero when no AI-flagged NPC battler matches.
+C23F6C_TryPickAiFlaggedNpcBattlerTargetOrdinal:
     rep #$31
     phd
     tdc
@@ -379,7 +382,7 @@ C23F89_BuildBattleTargetTextContext_L3F89:
     tax
     lda.l EnemyAiTable,X
     and.w #$00FF
-    and.w #$0002
+    and.w #EnemyAiNpcTargetFlag
     beq C23FDB_BuildBattleTargetTextContext_L3FDB
     lda.w #$0000
     sta $10

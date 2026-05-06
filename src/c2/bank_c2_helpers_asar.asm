@@ -469,6 +469,7 @@ org $C23D05
 !EnemyDataTableBank = $00D5
 !EnemyDataRowSize = $005E
 !EnemyAiTable = $D58F23
+!EnemyAiNpcTargetFlag = $0002
 !EnemyNameCopyLength = $0019
 !TargetNameRedirectLength = $001B
 !SelectedTargetNameRedirectLength = $001A
@@ -767,6 +768,7 @@ C23F4E_BuildBattleTargetTextContext_L3F4E:
     sta !LastAttackerBattleTextId
     pld
     rtl
+C23F6C_TryPickAiFlaggedNpcBattlerTargetOrdinal:
     rep #$31
     phd
     tdc
@@ -794,7 +796,7 @@ C23F89_BuildBattleTargetTextContext_L3F89:
     tax
     lda.l !EnemyAiTable,X
     and.w #$00FF
-    and.w #$0002
+    and.w #!EnemyAiNpcTargetFlag
     beq C23FDB_BuildBattleTargetTextContext_L3FDB
     lda.w #$0000
     sta $10
@@ -1518,6 +1520,7 @@ org $C24477
 
 !C08E9A_GetRandom16 = $C08E9A
 !C0915B_DivideUnsignedWordByY = $C0915B
+!C23F6C_TryPickAiFlaggedNpcBattlerTargetOrdinal = $C23F6C
 !C24434_PickRandomBattlerFromFrontBackRows = $C24434
 !C2F917_RebuildClass2CandidateRanking = $C2F917
 !C4A1F5_CheckCandidateInList = $C4A1F5
@@ -1723,7 +1726,7 @@ C245BC_BuildClass2DerivedActionCode_L45BC:
     lda [$06]
     and.w #$00FF
     bne C2462B_BuildClass2DerivedActionCode_L462B
-    jsl $C23F6C
+    jsl !C23F6C_TryPickAiFlaggedNpcBattlerTargetOrdinal
     sep #$20
     ldx $02
     sta.w !BattlerCurrentTargetByte,X
