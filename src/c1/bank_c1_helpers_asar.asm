@@ -10492,12 +10492,36 @@ hirom
 org $C14EAB
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09246_ShiftLeft32ByY = $C09246
+!C100D6_WaitTextTicks = $00D6
+!C100FE_WaitForTextPromptOrInputGate = $00FE
+!C1007E_SetFocusWindowOrContext = $007E
+!C10301_GetActiveInteractionContextRecord = $0301
 !C103DC_ReadTextCommandArgumentWord = $03DC
+!C10400_GetCurrentTextContextWorkmem = $0400
 !C1040A_LoadPrimaryInteractionContextPointer = $040A
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+!C10DF6_PrintDecimalValueFromCallerPointer = $0DF6
+!C18BC6_InsertItemIntoCharacterInventory = $C18BC6
+!C18C27_RemoveItemFromCharacterInventorySlot = $8C27
+!C1931B_PrintPsiOrSmallDynamicLabel = $931B
+!C198DE_RenderCharacterInventoryOrEquipmentRows = $98DE
+!C19A11_RunSelectionHelperWithTemporaryFocus = $9A11
+!C19DB5_RunShopItemSelectionMenu = $9DB5
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C20A20_SnapshotManagedTextEventSlotState = $C20A20
+!C22351_FindFirstEmptyInventorySlotForCharacter = $C22351
+!C2272F_CountPartySlotsNotStateOneOrTwo = $C2272F
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C3E977_ReadCharacterInventorySlotByte = $C3E977
+!C3EE14_CheckItemEquipmentSlotCompatibility = $C3EE14
+!C4507A_PrintRightAlignedDecimalValueInActiveWindow = $C4507A
 !C458AF_ReadPartyMemberStatusGroupValue = $C458AF
 !C458FE_SetPartyMemberStatusGroupValue = $C458FE
 !C4599A_StoreRequiredExperienceRemainingForCharacter = $C4599A
+!EF0115_CloseOrReleaseEscargoStorageWindow = $EF0115
 !WorkValueLo = $06
 !WorkValueByte1 = $07
 !WorkValueHi = $08
@@ -10524,7 +10548,7 @@ CC_10:
 !C14EAB_HandleTextCommand10ParameterizedPause = CC_10
     rep #$31
     txa
-    jsr $00D6
+    jsr !C100D6_WaitTextTicks
     lda.w #$0000
     rts
 CC_1A_06:
@@ -10537,28 +10561,28 @@ CC_1A_06:
     tcd
     pla
     stx $12
-    jsl $C3E4CA
+    jsl !C3E4CA_ClearInstantPrinting
     lda $8958
-    jsr $04EE
-    jsl $C12DD5
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsl !C12DD5_TickWindowTextSystem
     ldx $12
     beq C14ED6_C14EAB_HandleTextCommand10ParameterizedPause_L4ED6
     txa
     bra C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB
 C14ED6_C14EAB_HandleTextCommand10ParameterizedPause_L4ED6:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB:
-    jsr $9DB5
+    jsr !C19DB5_RunShopItemSelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $8958
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0000
     pld
     rts
@@ -10576,7 +10600,7 @@ CC_1D_0A:
     txa
     bra C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F
 C14F0A_C14EAB_HandleTextCommand10ParameterizedPause_L4F0A:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     ldy.w #$0027
@@ -10591,7 +10615,7 @@ C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -10609,7 +10633,7 @@ CC_1D_0B:
     txa
     bra C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A
 C14F45_C14EAB_HandleTextCommand10ParameterizedPause_L4F45:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     ldy.w #$0027
@@ -10625,7 +10649,7 @@ C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -10664,25 +10688,25 @@ C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B:
     stx $12
     bra C14FB4_C14EAB_HandleTextCommand10ParameterizedPause_L4FB4
 C14FAC_C14EAB_HandleTextCommand10ParameterizedPause_L4FAC:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C14FB4_C14EAB_HandleTextCommand10ParameterizedPause_L4FB4:
     lda $14
     bne C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD:
     ldx $12
-    jsl $C3EE14
+    jsl !C3EE14_CheckItemEquipmentSlotCompatibility
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5:
     pld
@@ -10698,10 +10722,10 @@ CC_1C_02:
     pla
     cpx.w #$00FF
     bne C14FF2_C14EAB_HandleTextCommand10ParameterizedPause_L4FF2
-    jsr $0301
+    jsr !C10301_GetActiveInteractionContextRecord
     tax
     lda $0021,X
-    jsr $931B
+    jsr !C1931B_PrintPsiOrSmallDynamicLabel
     bra C15002_C14EAB_HandleTextCommand10ParameterizedPause_L5002
 C14FF2_C14EAB_HandleTextCommand10ParameterizedPause_L4FF2:
     cpx.w #$0000
@@ -10709,10 +10733,10 @@ C14FF2_C14EAB_HandleTextCommand10ParameterizedPause_L4FF2:
     txa
     bra C14FFF_C14EAB_HandleTextCommand10ParameterizedPause_L4FFF
 C14FFA_C14EAB_HandleTextCommand10ParameterizedPause_L4FFA:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14FFF_C14EAB_HandleTextCommand10ParameterizedPause_L4FFF:
-    jsr $931B
+    jsr !C1931B_PrintPsiOrSmallDynamicLabel
 C15002_C14EAB_HandleTextCommand10ParameterizedPause_L5002:
     lda.w #$0000
     pld
@@ -10882,18 +10906,18 @@ C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113:
     stx $12
     bra C15138_C14EAB_HandleTextCommand10ParameterizedPause_L5138
 C15130_C14EAB_HandleTextCommand10ParameterizedPause_L5130:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $12
 C15138_C14EAB_HandleTextCommand10ParameterizedPause_L5138:
     lda $16
     bne C15141_C14EAB_HandleTextCommand10ParameterizedPause_L5141
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C15141_C14EAB_HandleTextCommand10ParameterizedPause_L5141:
     ldx $12
-    jsl $C458AF
+    jsl !C458AF_ReadPartyMemberStatusGroupValue
     cmp $02
     bne C15150_C14EAB_HandleTextCommand10ParameterizedPause_L5150
     ldy.w #$0001
@@ -10910,7 +10934,7 @@ C1515B_C14EAB_HandleTextCommand10ParameterizedPause_L515B:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169:
     pld
@@ -10959,7 +10983,7 @@ C151BC_C14EAB_HandleTextCommand10ParameterizedPause_L51BC:
     ldx $12
     cpx.w #$0001
     beq C151D5_C14EAB_HandleTextCommand10ParameterizedPause_L51D5
-    jsl $C2272F
+    jsl !C2272F_CountPartySlotsNotStateOneOrTwo
     tax
     cpx.w #$0003
     bcc C151D2_C14EAB_HandleTextCommand10ParameterizedPause_L51D2
@@ -10984,7 +11008,7 @@ C151E8_C14EAB_HandleTextCommand10ParameterizedPause_L51E8:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -11032,7 +11056,7 @@ C1524D_C14EAB_HandleTextCommand10ParameterizedPause_L524D:
     ldx $12
     cpx.w #$0001
     beq C15266_C14EAB_HandleTextCommand10ParameterizedPause_L5266
-    jsl $C2272F
+    jsl !C2272F_CountPartySlotsNotStateOneOrTwo
     tax
     cpx.w #$0003
     bcc C15263_C14EAB_HandleTextCommand10ParameterizedPause_L5263
@@ -11057,7 +11081,7 @@ C15279_C14EAB_HandleTextCommand10ParameterizedPause_L5279:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -11093,7 +11117,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     sep #$20
     lda $97BA
     sta $0A
@@ -11116,7 +11140,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $0A
     ora $06
     sta $0A
@@ -11132,7 +11156,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $0A
     ora $06
     sta $0A
@@ -11142,15 +11166,15 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     rep #$10
     ldx $12
     bne C15337_C14EAB_HandleTextCommand10ParameterizedPause_L5337
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     bra C15348_C14EAB_HandleTextCommand10ParameterizedPause_L5348
 C15337_C14EAB_HandleTextCommand10ParameterizedPause_L5337:
     cpx.w #$0001
     bne C15341_C14EAB_HandleTextCommand10ParameterizedPause_L5341
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     bra C15348_C14EAB_HandleTextCommand10ParameterizedPause_L5348
 C15341_C14EAB_HandleTextCommand10ParameterizedPause_L5341:
-    jsr $0400
+    jsr !C10400_GetCurrentTextContextWorkmem
     sta $06
     stz $08
 C15348_C14EAB_HandleTextCommand10ParameterizedPause_L5348:
@@ -11185,7 +11209,7 @@ C15374_C14EAB_HandleTextCommand10ParameterizedPause_L5374:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
     pld
@@ -11250,7 +11274,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -11263,7 +11287,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -11276,7 +11300,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -11325,13 +11349,13 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     cmp $0A
 C1547F_C14EAB_HandleTextCommand10ParameterizedPause_L547F:
     bne C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $0DF6
+    jsr !C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0000
 C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492:
     pld
@@ -11340,7 +11364,7 @@ CC_1F_60:
 !C15494_WaitForTextPromptOrInputGateTextCommand = CC_1F_60
     rep #$31
     txa
-    jsr $00FE
+    jsr !C100FE_WaitForTextPromptOrInputGate
     lda.w #$0000
     rts
 CC_1A_05:
@@ -11380,7 +11404,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     cmp.w #$0001
     bne C15511_C14EAB_HandleTextCommand10ParameterizedPause_L5511
     lda.w #$0001
-    jsl $EF0115
+    jsl !EF0115_CloseOrReleaseEscargoStorageWindow
     lda $8958
     asl A
     tax
@@ -11397,7 +11421,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     tya
     clc
     adc.w #$0006
-    jsl $C20A20
+    jsl !C20A20_SnapshotManagedTextEventSlotState
     sep #$20
     stz $5E71
 C15511_C14EAB_HandleTextCommand10ParameterizedPause_L5511:
@@ -11407,11 +11431,11 @@ C15511_C14EAB_HandleTextCommand10ParameterizedPause_L5511:
     txa
     bra C1551F_C14EAB_HandleTextCommand10ParameterizedPause_L551F
 C1551A_C14EAB_HandleTextCommand10ParameterizedPause_L551A:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C1551F_C14EAB_HandleTextCommand10ParameterizedPause_L551F:
     ldx $02
-    jsr $98DE
+    jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
     lda.w #$0000
 C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527:
     pld
@@ -11427,14 +11451,14 @@ CC_18_08:
     pla
     txa
     ldx.w #$0000
-    jsr $9A11
+    jsr !C19A11_RunSelectionHelperWithTemporaryFocus
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -11449,14 +11473,14 @@ CC_18_09:
     pla
     txa
     ldx.w #$0001
-    jsr $9A11
+    jsr !C19A11_RunSelectionHelperWithTemporaryFocus
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -11494,7 +11518,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -11507,7 +11531,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -11520,7 +11544,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -11569,13 +11593,13 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     cmp $0A
 C15643_C14EAB_HandleTextCommand10ParameterizedPause_L5643:
     bne C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C4507A
+    jsl !C4507A_PrintRightAlignedDecimalValueInActiveWindow
     lda.w #$0000
 C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657:
     pld
@@ -11615,29 +11639,29 @@ C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685:
     stx $14
     bra C1569E_C14EAB_HandleTextCommand10ParameterizedPause_L569E
 C15696_C14EAB_HandleTextCommand10ParameterizedPause_L5696:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $14
 C1569E_C14EAB_HandleTextCommand10ParameterizedPause_L569E:
     lda $16
     bne C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
     ldx $14
-    jsl $C18BC6
+    jsl !C18BC6_InsertItemIntoCharacterInventory
     tax
     stx $12
     txa
-    jsl $C22351
+    jsl !C22351_FindFirstEmptyInventorySlotForCharacter
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
@@ -11646,7 +11670,7 @@ C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9:
     pld
@@ -11686,7 +11710,7 @@ C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709:
     tya
     bra C1571A_C14EAB_HandleTextCommand10ParameterizedPause_L571A
 C15715_C14EAB_HandleTextCommand10ParameterizedPause_L5715:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C1571A_C14EAB_HandleTextCommand10ParameterizedPause_L571A:
     sta $02
@@ -11695,32 +11719,32 @@ C1571A_C14EAB_HandleTextCommand10ParameterizedPause_L571A:
     txa
     bra C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728
 C15723_C14EAB_HandleTextCommand10ParameterizedPause_L5723:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728:
     tay
     sty $12
     tyx
     lda $02
-    jsl $C3E977
+    jsl !C3E977_ReadCharacterInventorySlotByte
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     ldy $12
     tyx
     lda $02
-    jsr $8C27
+    jsr !C18C27_RemoveItemFromCharacterInventorySlot
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B:
     pld

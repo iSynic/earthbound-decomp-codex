@@ -60,6 +60,13 @@ Follow-up source polish also names the adjacent battle-name display pair. The
 setup, `C1:AC9B/C1:ACF2` attacker/target name-buffer base reads, and the
 `C4:47FB` fixed-string preflight printer by contract names.
 
+Follow-up source polish now covers the front display leaves in
+`src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` as well. The
+`0x1C 02`, `0x1C 0A`, `0x1C 0B`, and `0x1C 14/15` paths name the character
+label printer, decimal and right-aligned money printers, special-selector
+context installers, party-count checks, and text-event snapshot helper edges,
+leaving that corridor byte-equivalent and free of raw helper calls.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.

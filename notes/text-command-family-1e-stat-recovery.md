@@ -72,6 +72,14 @@ So the family has a stable local execution map instead of being just a macro lis
 
 The local `0x1E` family is now more broadly source-backed in the C1 scaffold. The early HP/PP recover/deplete text-command leaves remain decoded inside `src/c1/c1_48ac_test_current_item_compact_category.asm`, and the shared HP/PP worker quartet is now decoded in `src/c1/c1_8f0e_deplete_hp_for_character_or_active_party.asm`, `src/c1/c1_8f64_recover_hp_for_character_or_active_party.asm`, `src/c1/c1_8fba_deplete_pp_for_character_or_active_party.asm`, and `src/c1/c1_9010_recover_pp_for_character_or_active_party.asm`; `0x1E 08` is decoded inside `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`; and `0x1E 09..0E` is now decoded in `src/c1/c1_7440_timed_delivery_row_selector_callback.asm`, covering the experience-award leaf plus the IQ/Guts/Speed/Vitality/Luck stat-boost leaves. The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the adjacent `C1:4EAB..575D` text-command
+corridor does not add new `0x1E` leaves, but it now names the neighboring
+status and level-progress helper calls that share the same character/stat
+staging shape. In particular, `0x19 16`, `0x19 05`, `0x1D 0D`, and `0x19 18`
+now call the C4 status-group read/write and required-experience helpers by
+name, which keeps the stat/recovery evidence layer aligned with the surrounding
+text-command implementation.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:

@@ -351,3 +351,16 @@ This planning pass is documentation-only.
   `notes/party-inventory-room-search-c456e4-c4572b.md`,
   `notes/party-item-possession-search-c45637-c45683.md`, and
   `notes/teleport-menu-wrapper-c1bb71-bcab.md`.
+- 2026-05-06 follow-up: the next `C1:4EAB..575D` text-command helper corridor
+  now has no raw helper-call edges. The pass names the parameterized pause
+  worker, shop/inventory menu front ends, buy/sell price wrappers, item
+  compatibility checks, character-name and number/money printers,
+  status/ailment get/set helpers, special-selector loaders, queued-value
+  comparison helpers, required-experience staging, party-count checks,
+  Escargo storage cleanup, inventory row rendering, empty-slot search, item
+  insertion, item-slot lookup, and item-slot removal. See
+  `notes/text-command-10-parameterized-pause.md`,
+  `notes/text-command-family-1c-print-display.md`,
+  `notes/text-command-family-1d-inventory-money.md`,
+  `notes/text-command-family-19-data-and-substitution.md`, and
+  `notes/jeff-repair-item-name-bridge.md`.

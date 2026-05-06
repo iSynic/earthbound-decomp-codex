@@ -101,6 +101,14 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   corrected to `C1:0443`. See
   `notes/lower-bank01-text-control-strip-00-17.md` and
   `notes/text-command-family-1d-inventory-money.md`.
+- 2026-05-06: C1 `C1:4EAB..575D` text-command corridor follow-up named the
+  helper-call surface for parameterized pause, shop/inventory menus, item
+  buy/sell price wrappers, item compatibility, character-name and
+  number/money printing, status/ailment helpers, special-selector loaders,
+  required-experience staging, Escargo storage cleanup, item insertion, and
+  inventory-slot removal. See `notes/text-command-10-parameterized-pause.md`,
+  `notes/text-command-family-1c-print-display.md`, and
+  `notes/text-command-family-1d-inventory-money.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

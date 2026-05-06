@@ -112,6 +112,15 @@ recovery/depletion quartet, inventory give/take helpers, inventory-room and
 item-possession wildcard searches, equipped-inventory predicate, text-context
 staging helpers, and the `1F 20/21` teleport-state and preset-teleport joins.
 
+Source polish follow-up (2026-05-06): the adjacent `C1:4EAB..575D` corridor
+now names the edge helpers for the `0x1D 0A/0B/0D/0E/0F` leaves. This covers
+buy/sell price reads through the C3 item-data helpers, ailment display through
+the C4 status-group reader, give-item-B insertion and empty-slot search through
+the C1/C2 inventory helpers, and remove-slot cleanup through the C3 slot reader
+and C1 inventory-slot remover. The shared decimal/right-aligned printers and
+context-pointer installs are named as future readers' implementation gates,
+with C1 byte-equivalence still green.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

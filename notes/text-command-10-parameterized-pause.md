@@ -46,6 +46,12 @@ This is the key reason not to treat the second byte as a family subopcode.
 
 This leaf is now source-backed in `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm`; the wider `C1:4EAB..575D` helper corridor validates byte-for-byte in the C1 scaffold.
 
+Source polish follow-up (2026-05-06): the same source module now names the
+`C1:00D6` wait worker and the rest of the corridor's menu, print, status,
+inventory, and context helper calls directly. The parameterized-pause leaf
+itself remains intentionally tiny: it forwards the numeric argument to the
+wait worker and returns zero.
+
 ## Shared worker at `C1:00D6`
 
 `C1:00D6` is a countdown-style wait helper.
