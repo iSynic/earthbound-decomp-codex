@@ -218,3 +218,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `101`, and `140` into the row-message crosswalk and marked C9 item/Final
   Prayer row messages as non-EF presentation lanes that should not drive EF
   anchor naming.
+- 2026-05-06: EF PSI-status row-message follow-up promoted rows `53` and `58`
+  into the crosswalk as shared `EF:8543` PSI presentation rows with separate
+  asleep/strange result payloads emitted by their C2 behavior bodies.

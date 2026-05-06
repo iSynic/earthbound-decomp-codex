@@ -184,6 +184,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-06: EF healing/explosive row-message follow-up added rows `99`,
   `101`, and `140` to the proved row `+4` crosswalk and documented C9 item and
   Final Prayer row-message lanes as non-EF presentation consumers.
+- 2026-05-06: EF PSI-status row-message follow-up added rows `53` and `58` as
+  shared `EF:8543` PSI presentation joins whose C2 bodies emit asleep and
+  strange direct-result scripts separately.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

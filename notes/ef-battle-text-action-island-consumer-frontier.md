@@ -69,9 +69,9 @@ The EBATTLE1 action tail has at least one strong late-table row-message join:
 | `85` | `EF:9DA1` | Concentration/PSI-seal action row message; the `+8` body emits success `EF:6C0B` or fallback `EF:766E` |
 
 The row-message crosswalk expands this into the currently source-backed status
-rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late physical,
-special, item, and event rows (`99..102`, `104`, `117`, `118`, `140`, `228`,
-`232`, `243`, `244`, `247`, `248`, `273`, and `290`).
+rows (`53`, `58`, `75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
+physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
+`140`, `228`, `232`, `243`, `244`, `247`, `248`, `273`, and `290`).
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current

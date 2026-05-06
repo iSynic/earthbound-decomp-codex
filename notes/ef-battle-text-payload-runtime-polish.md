@@ -333,6 +333,11 @@ messages that local C2 notes already prove: row `99 -> EF:7E88`, row
 row-message lanes for C9 item wrappers and Final Prayer so EF anchor work does
 not accidentally claim presentation text that lives in another bank.
 
+It also calls out the PSI-side status rows `53` and `58`, which reuse the
+shared `EF:8543` PSI action text while their row `+8` bodies emit asleep and
+strange status-result scripts. This keeps shared PSI presentation text distinct
+from the later `EF:6C55` and `EF:6C3A` direct-result payloads.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.
