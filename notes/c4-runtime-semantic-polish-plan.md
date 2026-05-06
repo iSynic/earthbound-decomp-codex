@@ -223,6 +223,15 @@ closure.
   `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`,
   `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`, and
   `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-06 visual table follow-up: split the coarse
+  `C4:2A1F..30EC` footprint / secondary visual descriptor corridor into
+  labeled footprint geometry tables, the secondary descriptor pointer table,
+  descriptor rows, the preserved callback byte island, map-tile chunk pointers,
+  and visual tile-word ladders. Also documented the side effects for the visual
+  frame-word copy helpers, render-strip wrapper, and `$212C` main-screen HDMA
+  starter. See
+  `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md` and
+  `notes/secondary-visual-descriptor-contracts.md`.
 
 ## Validation
 
