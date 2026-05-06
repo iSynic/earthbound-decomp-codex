@@ -52,6 +52,11 @@ The strongest local flow is:
 
 The exact arithmetic is written in terms of partial zero-extended values and OR-combined shifted pieces rather than a simple literal long-pointer comment, but the resulting structure is clearly a 24-bit far destination.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_43d6_build_call_text_far_pointer_and_dispatch.asm`
+now names the queued argument bytes, queue count, self-return callback low word,
+scratch dword, staged text-context source pointer, and the adjacent `0x18 05`
+forced-alignment one-byte queue that shares the same source unit.
+
 ## Shared helper at `C1:86B1`
 
 `C1:86B1` is not specific to `0x08`; it is a broadly reused nested text-execution helper with many direct `JSL` callers.

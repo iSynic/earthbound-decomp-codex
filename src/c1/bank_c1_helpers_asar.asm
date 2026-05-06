@@ -8295,9 +8295,25 @@ hirom
 org $C14103
 
 !C09246_ShiftLeft32ByY = $C09246
+!WorkValueLo = $06
+!WorkValueHi = $08
+!PointerWritebackLo = $0E
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!DeferredThreeByteArgumentLimit = $0003
+!ShiftByEightBits = $08
+!ShiftBySixteenBits = $10
+!ShiftByTwentyFourBits = $18
+!BuildTextCommand24BitJumpTargetCallback = $4103
+!ZeroWord = $0000
 CC_0A:
 !C14103_BuildTextCommand24BitJumpTarget = CC_0A
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8305,10 +8321,10 @@ CC_0A:
     tcd
     pla
     tay
-    sty $0E
-    lda.w #$0003
+    sty !PointerWritebackLo
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1411D_BuildTextCommand24BitJumpTarget_L411D
     bpl C14133_BuildTextCommand24BitJumpTarget_L4133
     bra C1411F_BuildTextCommand24BitJumpTarget_L411F
@@ -8316,90 +8332,90 @@ C1411D_BuildTextCommand24BitJumpTarget_L411D:
     bmi C14133_BuildTextCommand24BitJumpTarget_L4133
 C1411F_BuildTextCommand24BitJumpTarget_L411F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4103
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!BuildTextCommand24BitJumpTargetCallback
     jmp.w C141CE_BuildTextCommand24BitJumpTarget_L41CE
 C14133_BuildTextCommand24BitJumpTarget_L4133:
     txa
-    sta $06
-    stz $08
-    sep #$10
-    ldy.b #$18
+    sta !WorkValueLo
+    stz !WorkValueHi
+    sep #!IndexWidthFlag
+    ldy.b #!ShiftByTwentyFourBits
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
+    ldy.b #!ShiftBySixteenBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
+    ldy.b #!ShiftByEightBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $06
+    lda !WorkValueLo
     sta $0A
-    lda $08
+    lda !WorkValueHi
     sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
-    lda $06
+    rep #!AccumulatorWidthFlag
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    pla
-    sta $0A
-    pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !WorkValueHi
     pla
     sta $0A
     pla
     sta $0C
-    lda $06
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    rep #$10
-    ldy $0E
-    lda $06
+    sta !WorkValueHi
+    pla
+    sta $0A
+    pla
+    sta $0C
+    lda !WorkValueLo
+    ora $0A
+    sta !WorkValueLo
+    lda !WorkValueHi
+    ora $0C
+    sta !WorkValueHi
+    rep #!IndexWidthFlag
+    ldy !PointerWritebackLo
+    lda !WorkValueLo
     sta $0000,Y
-    lda $08
+    lda !WorkValueHi
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C141CE_BuildTextCommand24BitJumpTarget_L41CE:
     pld
     rts
@@ -8507,9 +8523,18 @@ org $C14265
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!EventFlagSetValue = $0001
+!LowByteMask = $00FF
+!SetEventFlagCallback = $4265
+!ZeroWord = $0000
 CC_04:
 !C14265_HandleTextCommand04SetEventFlag = CC_04
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8518,29 +8543,29 @@ CC_04:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1428B_HandleTextCommand04SetEventFlag_L428B
     lda $0E
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4265
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!SetEventFlagCallback
     bra C142AB_HandleTextCommand04SetEventFlag_L42AB
 C1428B_HandleTextCommand04SetEventFlag_L428B:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $0E
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
-    rep #$10
-    ldx.w #$0001
+    rep #!IndexWidthFlag
+    ldx.w #!EventFlagSetValue
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0000
+    lda.w #!ZeroWord
 C142AB_HandleTextCommand04SetEventFlag_L42AB:
     pld
     rts
@@ -8555,9 +8580,18 @@ org $C142AD
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!EventFlagClearValue = $0000
+!LowByteMask = $00FF
+!ClearEventFlagCallback = $42AD
+!ZeroWord = $0000
 CC_05:
 !C142AD_HandleTextCommand05ClearEventFlag = CC_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8566,29 +8600,29 @@ CC_05:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C142D3_HandleTextCommand05ClearEventFlag_L42D3
     lda $0E
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42AD
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!ClearEventFlagCallback
     bra C142F3_HandleTextCommand05ClearEventFlag_L42F3
 C142D3_HandleTextCommand05ClearEventFlag_L42D3:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $0E
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
-    rep #$10
-    ldx.w #$0000
+    rep #!IndexWidthFlag
+    ldx.w #!EventFlagClearValue
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0000
+    lda.w #!ZeroWord
 C142F3_HandleTextCommand05ClearEventFlag_L42F3:
     pld
     rts
@@ -8603,9 +8637,19 @@ org $C142F5
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C21628_CheckEventFlag = $C21628
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!LowByteMask = $00FF
+!JumpIfFlagSetCallback = $42F5
+!BuildTextCommand24BitJumpTargetCallback = $4103
+!ZeroWord = $0000
+!BranchOperandByteCount = $0004
 CC_06:
 !C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8614,30 +8658,30 @@ CC_06:
     pla
     tay
     sty $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1431A_HandleTextCommand06JumpIfFlagSet_L431A
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42F5
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!JumpIfFlagSetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1431A_HandleTextCommand06JumpIfFlagSet_L431A:
     txa
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
     jsl !C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C1433E_HandleTextCommand06JumpIfFlagSet_L433E
-    stz $97CA
-    lda.w #$4103
+    stz !DeferredCommandQueueCount
+    lda.w #!BuildTextCommand24BitJumpTargetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     ldy $0E
@@ -8645,14 +8689,14 @@ C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     sta $06
     lda $0002,Y
     sta $08
-    lda.w #$0004
+    lda.w #!BranchOperandByteCount
     clc
     adc $06
     sta $06
     sta $0000,Y
     lda $08
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1435D_HandleTextCommand06JumpIfFlagSet_L435D:
     pld
     rts
@@ -8671,9 +8715,17 @@ org $C1435F
 !C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 !C10EE3_DispatchDebugMenuPrintMode = $0EE3
 !C21628_CheckEventFlag = $C21628
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!LowByteMask = $00FF
+!CheckEventFlagCallback = $435F
+!ZeroWord = $0000
 CC_07:
 !C1435F_HandleTextCommand07CheckEventFlag = CC_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8682,27 +8734,27 @@ CC_07:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C14385_HandleTextCommand07CheckEventFlag_L4385
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$435F
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckEventFlagCallback
     bra C143B6_HandleTextCommand07CheckEventFlag_L43B6
 C14385_HandleTextCommand07CheckEventFlag_L4385:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $12
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
     jsl !C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C143A8_HandleTextCommand07CheckEventFlag_L43A8
@@ -8713,24 +8765,24 @@ C143A8_HandleTextCommand07CheckEventFlag_L43A8:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C143B6_HandleTextCommand07CheckEventFlag_L43B6:
     pld
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C10EE3_DispatchDebugMenuPrintMode
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C1007E_SetFocusWindowOrContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 
 
@@ -8748,9 +8800,31 @@ org $C143D6
 !C186B1_PrintTextFromPointer = $C186B1
 !C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
 !C43D75_StageGlyphVariantTileState = $C43D75
+!WorkValueLo = $06
+!WorkValueHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!ForcedAlignmentOperand = $0E
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!DeferredSingleByteArgumentLimit = $0001
+!DeferredThreeByteArgumentLimit = $0003
+!LowByteMask = $00FF
+!ShiftByEightBits = $08
+!ShiftBySixteenBits = $10
+!ShiftByTwentyFourBits = $18
+!CallTextFarPointerCallback = $43D6
+!ForceTextAlignmentCallback = $4509
+!NumberSelectCancelSentinel = $FFFF
+!ZeroWord = $0000
 CC_08:
 !C143D6_BuildCallTextFarPointerAndDispatch = CC_08
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8759,9 +8833,9 @@ CC_08:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C143F0_BuildCallTextFarPointerAndDispatch_L43F0
     bpl C14407_BuildCallTextFarPointerAndDispatch_L4407
     bra C143F2_BuildCallTextFarPointerAndDispatch_L43F2
@@ -8769,95 +8843,95 @@ C143F0_BuildCallTextFarPointerAndDispatch_L43F0:
     bmi C14407_BuildCallTextFarPointerAndDispatch_L4407
 C143F2_BuildCallTextFarPointerAndDispatch_L43F2:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$43D6
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CallTextFarPointerCallback
     jmp.w C144A1_BuildCallTextFarPointerAndDispatch_L44A1
 C14407_BuildCallTextFarPointerAndDispatch_L4407:
-    sep #$10
-    ldy.b #$18
+    sep #!IndexWidthFlag
+    ldy.b #!ShiftByTwentyFourBits
     lda $12
-    sta $06
-    stz $08
+    sta !WorkValueLo
+    stz !WorkValueHi
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
+    ldy.b #!ShiftBySixteenBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
+    ldy.b #!ShiftByEightBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $06
+    lda !WorkValueLo
     sta $0A
-    lda $08
+    lda !WorkValueHi
     sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
-    lda $06
+    rep #!AccumulatorWidthFlag
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    pla
-    sta $0A
-    pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !WorkValueHi
     pla
     sta $0A
     pla
     sta $0C
-    lda $06
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !WorkValueHi
+    pla
+    sta $0A
+    pla
+    sta $0C
+    lda !WorkValueLo
+    ora $0A
+    sta !WorkValueLo
+    lda !WorkValueHi
+    ora $0C
+    sta !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsl !C186B1_PrintTextFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C144A1_BuildCallTextFarPointerAndDispatch_L44A1:
     pld
     rts
 CC_1F_52:
 !C144A3_CreateNumberSelectorFromTextCommand = CC_1F_52
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8866,62 +8940,62 @@ CC_1F_52:
     pla
     txa
     jsr !C1101C_RunNumberSelectPrompt
-    lda.w #$FFFF
+    lda.w #!NumberSelectCancelSentinel
     sta $0A
-    lda.w #$FFFF
+    lda.w #!NumberSelectCancelSentinel
     sta $0C
-    lda $08
+    lda !WorkValueHi
     cmp $0C
     bne C144C5_BuildCallTextFarPointerAndDispatch_L44C5
-    lda $06
+    lda !WorkValueLo
     cmp $0A
 C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     bne C144F9_BuildCallTextFarPointerAndDispatch_L44F9
-    lda.w #$0000
-    sta $06
-    lda.w #$0000
-    sta $08
-    lda $06
+    lda.w #!ZeroWord
+    sta !WorkValueLo
+    lda.w #!ZeroWord
+    sta !WorkValueHi
+    lda !WorkValueLo
     sta $12
-    lda $08
+    lda !WorkValueHi
     sta $14
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $12
-    sta $06
+    sta !WorkValueLo
     lda $14
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C14504_BuildCallTextFarPointerAndDispatch_L4504
 C144F9_BuildCallTextFarPointerAndDispatch_L44F9:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
 C14504_BuildCallTextFarPointerAndDispatch_L4504:
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_18_05:
 !C14509_HandleTextCommand18ForceTextAlignment = CC_18_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF0
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14520_BuildCallTextFarPointerAndDispatch_L4520
     bpl C14535_BuildCallTextFarPointerAndDispatch_L4535
     bra C14522_BuildCallTextFarPointerAndDispatch_L4522
@@ -8929,28 +9003,28 @@ C14520_BuildCallTextFarPointerAndDispatch_L4520:
     bmi C14535_BuildCallTextFarPointerAndDispatch_L4535
 C14522_BuildCallTextFarPointerAndDispatch_L4522:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4509
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!ForceTextAlignmentCallback
     bra C14556_BuildCallTextFarPointerAndDispatch_L4556
 C14535_BuildCallTextFarPointerAndDispatch_L4535:
-    lda $97BA
-    and.w #$00FF
-    sta $0E
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
+    sta !ForcedAlignmentOperand
     lda $5E71
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1454D_BuildCallTextFarPointerAndDispatch_L454D
-    lda $0E
+    lda !ForcedAlignmentOperand
     jsl !C43D75_StageGlyphVariantTileState
     bra C14553_BuildCallTextFarPointerAndDispatch_L4553
 C1454D_BuildCallTextFarPointerAndDispatch_L454D:
-    lda $0E
+    lda !ForcedAlignmentOperand
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
 C14553_BuildCallTextFarPointerAndDispatch_L4553:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14556_BuildCallTextFarPointerAndDispatch_L4556:
     pld
     rts
@@ -9586,9 +9660,30 @@ org $C148AC
 !C19EE6_ClassifyItemCompactCategory = $9EE6
 !C22214_AddToWallet = $C22214
 !C22272_TakeFromWallet = $C22272
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!DeferredSingleByteArgumentLimit = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!PercentAdjustmentMode = $0000
+!AmountAdjustmentMode = $0001
+!AddToWalletCallback = $48E9
+!TakeFromWalletCallback = $494A
+!RecoverHpPercentCallback = $49B6
+!DepleteHpPercentCallback = $4A03
+!RecoverHpAmountCallback = $4A50
+!DepleteHpAmountCallback = $4A9D
+!RecoverPpPercentCallback = $4AEA
+!DepletePpPercentCallback = $4B37
+!RecoverPpAmountCallback = $4B84
+!DepletePpAmountCallback = $4BD1
+!GiveItemToCharacterCallback = $4C1E
+!TakeItemFromCharacterCallback = $4C86
 CC_1D_02:
 !C148AC_TestCurrentItemCompactCategory = CC_1D_02
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9618,12 +9713,12 @@ C148D9_TestCurrentItemCompactCategory_L48D9:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1D_08:
 !C148E9_HandleTextCommand1D08 = CC_1D_08
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9632,15 +9727,15 @@ CC_1D_08:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1490F_TestCurrentItemCompactCategory_L490F
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$48E9
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!AddToWalletCallback
     bra C14948_TestCurrentItemCompactCategory_L4948
 C1490F_TestCurrentItemCompactCategory_L490F:
     sep #$10
@@ -9648,8 +9743,8 @@ C1490F_TestCurrentItemCompactCategory_L490F:
     lda $12
     jsl !C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C1492B_TestCurrentItemCompactCategory_L492B
     sta $06
@@ -9668,13 +9763,13 @@ C1492E_TestCurrentItemCompactCategory_L492E:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14948_TestCurrentItemCompactCategory_L4948:
     pld
     rts
 CC_1D_09:
 !C1494A_HandleTextCommand1D09 = CC_1D_09
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9683,15 +9778,15 @@ CC_1D_09:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C14970_TestCurrentItemCompactCategory_L4970
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$494A
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeFromWalletCallback
     bra C149B4_TestCurrentItemCompactCategory_L49B4
 C14970_TestCurrentItemCompactCategory_L4970:
     sep #$10
@@ -9699,8 +9794,8 @@ C14970_TestCurrentItemCompactCategory_L4970:
     lda $12
     jsl !C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C1498C_TestCurrentItemCompactCategory_L498C
     sta $06
@@ -9725,13 +9820,13 @@ C149A6_TestCurrentItemCompactCategory_L49A6:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C149B4_TestCurrentItemCompactCategory_L49B4:
     pld
     rts
 CC_1E_00:
 !C149B6_RecoverHpPercentTextCommand = CC_1E_00
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9739,9 +9834,9 @@ CC_1E_00:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C149CF_TestCurrentItemCompactCategory_L49CF
     bpl C149E5_TestCurrentItemCompactCategory_L49E5
     bra C149D1_TestCurrentItemCompactCategory_L49D1
@@ -9749,16 +9844,16 @@ C149CF_TestCurrentItemCompactCategory_L49CF:
     bmi C149E5_TestCurrentItemCompactCategory_L49E5
 C149D1_TestCurrentItemCompactCategory_L49D1:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$49B6
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverHpPercentCallback
     bra C14A01_TestCurrentItemCompactCategory_L4A01
 C149E5_TestCurrentItemCompactCategory_L49E5:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C149F1_TestCurrentItemCompactCategory_L49F1
     txa
@@ -9767,16 +9862,16 @@ C149F1_TestCurrentItemCompactCategory_L49F1:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C149F6_TestCurrentItemCompactCategory_L49F6:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18F64_RecoverHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A01_TestCurrentItemCompactCategory_L4A01:
     pld
     rts
 CC_1E_01:
 !C14A03_DepleteHpPercentTextCommand = CC_1E_01
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9784,9 +9879,9 @@ CC_1E_01:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14A1C_TestCurrentItemCompactCategory_L4A1C
     bpl C14A32_TestCurrentItemCompactCategory_L4A32
     bra C14A1E_TestCurrentItemCompactCategory_L4A1E
@@ -9794,16 +9889,16 @@ C14A1C_TestCurrentItemCompactCategory_L4A1C:
     bmi C14A32_TestCurrentItemCompactCategory_L4A32
 C14A1E_TestCurrentItemCompactCategory_L4A1E:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A03
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepleteHpPercentCallback
     bra C14A4E_TestCurrentItemCompactCategory_L4A4E
 C14A32_TestCurrentItemCompactCategory_L4A32:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14A3E_TestCurrentItemCompactCategory_L4A3E
     txa
@@ -9812,16 +9907,16 @@ C14A3E_TestCurrentItemCompactCategory_L4A3E:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A43_TestCurrentItemCompactCategory_L4A43:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18F0E_DepleteHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A4E_TestCurrentItemCompactCategory_L4A4E:
     pld
     rts
 CC_1E_02:
 !C14A50_RecoverHpAmountTextCommand = CC_1E_02
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9829,9 +9924,9 @@ CC_1E_02:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14A69_TestCurrentItemCompactCategory_L4A69
     bpl C14A7F_TestCurrentItemCompactCategory_L4A7F
     bra C14A6B_TestCurrentItemCompactCategory_L4A6B
@@ -9839,16 +9934,16 @@ C14A69_TestCurrentItemCompactCategory_L4A69:
     bmi C14A7F_TestCurrentItemCompactCategory_L4A7F
 C14A6B_TestCurrentItemCompactCategory_L4A6B:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A50
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverHpAmountCallback
     bra C14A9B_TestCurrentItemCompactCategory_L4A9B
 C14A7F_TestCurrentItemCompactCategory_L4A7F:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14A8B_TestCurrentItemCompactCategory_L4A8B
     txa
@@ -9857,16 +9952,16 @@ C14A8B_TestCurrentItemCompactCategory_L4A8B:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A90_TestCurrentItemCompactCategory_L4A90:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18F64_RecoverHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A9B_TestCurrentItemCompactCategory_L4A9B:
     pld
     rts
 CC_1E_03:
 !C14A9D_DepleteHpAmountTextCommand = CC_1E_03
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9874,9 +9969,9 @@ CC_1E_03:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14AB6_TestCurrentItemCompactCategory_L4AB6
     bpl C14ACC_TestCurrentItemCompactCategory_L4ACC
     bra C14AB8_TestCurrentItemCompactCategory_L4AB8
@@ -9884,16 +9979,16 @@ C14AB6_TestCurrentItemCompactCategory_L4AB6:
     bmi C14ACC_TestCurrentItemCompactCategory_L4ACC
 C14AB8_TestCurrentItemCompactCategory_L4AB8:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A9D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepleteHpAmountCallback
     bra C14AE8_TestCurrentItemCompactCategory_L4AE8
 C14ACC_TestCurrentItemCompactCategory_L4ACC:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14AD8_TestCurrentItemCompactCategory_L4AD8
     txa
@@ -9902,16 +9997,16 @@ C14AD8_TestCurrentItemCompactCategory_L4AD8:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14ADD_TestCurrentItemCompactCategory_L4ADD:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18F0E_DepleteHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14AE8_TestCurrentItemCompactCategory_L4AE8:
     pld
     rts
 CC_1E_04:
 !C14AEA_RecoverPpPercentTextCommand = CC_1E_04
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9919,9 +10014,9 @@ CC_1E_04:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B03_TestCurrentItemCompactCategory_L4B03
     bpl C14B19_TestCurrentItemCompactCategory_L4B19
     bra C14B05_TestCurrentItemCompactCategory_L4B05
@@ -9929,16 +10024,16 @@ C14B03_TestCurrentItemCompactCategory_L4B03:
     bmi C14B19_TestCurrentItemCompactCategory_L4B19
 C14B05_TestCurrentItemCompactCategory_L4B05:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4AEA
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverPpPercentCallback
     bra C14B35_TestCurrentItemCompactCategory_L4B35
 C14B19_TestCurrentItemCompactCategory_L4B19:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14B25_TestCurrentItemCompactCategory_L4B25
     txa
@@ -9947,16 +10042,16 @@ C14B25_TestCurrentItemCompactCategory_L4B25:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B2A_TestCurrentItemCompactCategory_L4B2A:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C19010_RecoverPpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14B35_TestCurrentItemCompactCategory_L4B35:
     pld
     rts
 CC_1E_05:
 !C14B37_DepletePpPercentTextCommand = CC_1E_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9964,9 +10059,9 @@ CC_1E_05:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B50_TestCurrentItemCompactCategory_L4B50
     bpl C14B66_TestCurrentItemCompactCategory_L4B66
     bra C14B52_TestCurrentItemCompactCategory_L4B52
@@ -9974,16 +10069,16 @@ C14B50_TestCurrentItemCompactCategory_L4B50:
     bmi C14B66_TestCurrentItemCompactCategory_L4B66
 C14B52_TestCurrentItemCompactCategory_L4B52:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4B37
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepletePpPercentCallback
     bra C14B82_TestCurrentItemCompactCategory_L4B82
 C14B66_TestCurrentItemCompactCategory_L4B66:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14B72_TestCurrentItemCompactCategory_L4B72
     txa
@@ -9992,16 +10087,16 @@ C14B72_TestCurrentItemCompactCategory_L4B72:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B77_TestCurrentItemCompactCategory_L4B77:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18FBA_DepletePpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14B82_TestCurrentItemCompactCategory_L4B82:
     pld
     rts
 CC_1E_06:
 !C14B84_RecoverPpAmountTextCommand = CC_1E_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -10009,9 +10104,9 @@ CC_1E_06:
     tcd
     pla
     stx $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B9D_TestCurrentItemCompactCategory_L4B9D
     bpl C14BB2_TestCurrentItemCompactCategory_L4BB2
     bra C14B9F_TestCurrentItemCompactCategory_L4B9F
@@ -10019,33 +10114,33 @@ C14B9D_TestCurrentItemCompactCategory_L4B9D:
     bmi C14BB2_TestCurrentItemCompactCategory_L4BB2
 C14B9F_TestCurrentItemCompactCategory_L4B9F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4B84
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverPpAmountCallback
     bra C14BCF_TestCurrentItemCompactCategory_L4BCF
 C14BB2_TestCurrentItemCompactCategory_L4BB2:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     beq C14BBF_TestCurrentItemCompactCategory_L4BBF
-    and.w #$00FF
+    and.w #!LowByteMask
     bra C14BC4_TestCurrentItemCompactCategory_L4BC4
 C14BBF_TestCurrentItemCompactCategory_L4BBF:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14BC4_TestCurrentItemCompactCategory_L4BC4:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $0E
     jsr !C19010_RecoverPpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14BCF_TestCurrentItemCompactCategory_L4BCF:
     pld
     rts
 CC_1E_07:
 !C14BD1_DepletePpAmountTextCommand = CC_1E_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -10053,9 +10148,9 @@ CC_1E_07:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14BEA_TestCurrentItemCompactCategory_L4BEA
     bpl C14C00_TestCurrentItemCompactCategory_L4C00
     bra C14BEC_TestCurrentItemCompactCategory_L4BEC
@@ -10063,16 +10158,16 @@ C14BEA_TestCurrentItemCompactCategory_L4BEA:
     bmi C14C00_TestCurrentItemCompactCategory_L4C00
 C14BEC_TestCurrentItemCompactCategory_L4BEC:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4BD1
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepletePpAmountCallback
     bra C14C1C_TestCurrentItemCompactCategory_L4C1C
 C14C00_TestCurrentItemCompactCategory_L4C00:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14C0C_TestCurrentItemCompactCategory_L4C0C
     txa
@@ -10081,25 +10176,25 @@ C14C0C_TestCurrentItemCompactCategory_L4C0C:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14C11_TestCurrentItemCompactCategory_L4C11:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18FBA_DepletePpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14C1C_TestCurrentItemCompactCategory_L4C1C:
     pld
     rts
 CC_1D_00:
 !C14C1E_GiveItemToCharacterTextCommand = CC_1D_00
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14C35_TestCurrentItemCompactCategory_L4C35
     bpl C14C4A_TestCurrentItemCompactCategory_L4C4A
     bra C14C37_TestCurrentItemCompactCategory_L4C37
@@ -10107,18 +10202,18 @@ C14C35_TestCurrentItemCompactCategory_L4C35:
     bmi C14C4A_TestCurrentItemCompactCategory_L4C4A
 C14C37_TestCurrentItemCompactCategory_L4C37:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4C1E
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!GiveItemToCharacterCallback
     bra C14C84_TestCurrentItemCompactCategory_L4C84
 C14C4A_TestCurrentItemCompactCategory_L4C4A:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14C5B_TestCurrentItemCompactCategory_L4C5B
     stx $12
     bra C14C63_TestCurrentItemCompactCategory_L4C63
@@ -10142,22 +10237,22 @@ C14C6C_TestCurrentItemCompactCategory_L4C6C:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14C84_TestCurrentItemCompactCategory_L4C84:
     pld
     rts
 CC_1D_01:
 !C14C86_TakeItemFromCharacterTextCommand = CC_1D_01
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14C9D_TestCurrentItemCompactCategory_L4C9D
     bpl C14CB2_TestCurrentItemCompactCategory_L4CB2
     bra C14C9F_TestCurrentItemCompactCategory_L4C9F
@@ -10165,18 +10260,18 @@ C14C9D_TestCurrentItemCompactCategory_L4C9D:
     bmi C14CB2_TestCurrentItemCompactCategory_L4CB2
 C14C9F_TestCurrentItemCompactCategory_L4C9F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4C86
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeItemFromCharacterCallback
     bra C14CEC_TestCurrentItemCompactCategory_L4CEC
 C14CB2_TestCurrentItemCompactCategory_L4CB2:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14CC3_TestCurrentItemCompactCategory_L4CC3
     stx $12
     bra C14CCB_TestCurrentItemCompactCategory_L4CCB
@@ -10200,7 +10295,7 @@ C14CD4_TestCurrentItemCompactCategory_L4CD4:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14CEC_TestCurrentItemCompactCategory_L4CEC:
     pld
     rts
@@ -10218,6 +10313,12 @@ org $C14CEE
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C3E9F7_CheckEquippedInventoryItemPresence = $C3E9F7
 !C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!OneDeferredArgument = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!TextCommand1D04FindPartyMemberWithoutItemCallback = $4D24
 CC_1D_03:
 !C14CEE_FindPartyMemberWithInventoryRoomForTextCommand = CC_1D_03
     rep #$31
@@ -10227,7 +10328,7 @@ CC_1D_03:
     adc.w #$FFEE
     tcd
     pla
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14D00_FindPartyMemberWithInventoryRoomForTextCommand_L4D00
     txa
     bra C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05
@@ -10236,7 +10337,7 @@ C14D00_FindPartyMemberWithInventoryRoomForTextCommand_L4D00:
     lda $06
 C14D05_FindPartyMemberWithInventoryRoomForTextCommand_L4D05:
     jsl !C4572B_FindPartyMemberWithInventoryRoomWildcard
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14
@@ -10247,7 +10348,7 @@ C14D14_FindPartyMemberWithInventoryRoomForTextCommand_L4D14:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1D_04:
@@ -10259,9 +10360,9 @@ CC_1D_04:
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14D3B_FindPartyMemberWithInventoryRoomForTextCommand_L4D3B
     bpl C14D50_FindPartyMemberWithInventoryRoomForTextCommand_L4D50
     bra C14D3D_FindPartyMemberWithInventoryRoomForTextCommand_L4D3D
@@ -10270,17 +10371,17 @@ C14D3B_FindPartyMemberWithInventoryRoomForTextCommand_L4D3B:
 C14D3D_FindPartyMemberWithInventoryRoomForTextCommand_L4D3D:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4D24
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1D04FindPartyMemberWithoutItemCallback
     bra C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91
 C14D50_FindPartyMemberWithInventoryRoomForTextCommand_L4D50:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14D61_FindPartyMemberWithInventoryRoomForTextCommand_L4D61
     stx $12
     bra C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69
@@ -10297,7 +10398,7 @@ C14D69_FindPartyMemberWithInventoryRoomForTextCommand_L4D69:
 C14D72_FindPartyMemberWithInventoryRoomForTextCommand_L4D72:
     ldx $12
     jsl !C3E9F7_CheckEquippedInventoryItemPresence
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C14D83_FindPartyMemberWithInventoryRoomForTextCommand_L4D83
@@ -10308,7 +10409,7 @@ C14D83_FindPartyMemberWithInventoryRoomForTextCommand_L4D83:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14D91_FindPartyMemberWithInventoryRoomForTextCommand_L4D91:
     pld
     rts
@@ -10327,6 +10428,13 @@ org $C14D93
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C1BCAB_ExecuteTeleportDestination = $BCAB
 !C45683_FindPartyMemberWithItemWildcard = $C45683
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!OneDeferredArgument = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!TextCommand1D05FindPartyMemberWithItemCallback = $4D93
+!TextCommand1F20UseItemOnCharacterCallback = $4DFB
 CC_1D_05:
 !C14D93_FindPartyMemberWithItemForTextCommand = CC_1D_05
     rep #$31
@@ -10336,9 +10444,9 @@ CC_1D_05:
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14DAA_FindPartyMemberWithItemForTextCommand_L4DAA
     bpl C14DBF_FindPartyMemberWithItemForTextCommand_L4DBF
     bra C14DAC_FindPartyMemberWithItemForTextCommand_L4DAC
@@ -10347,17 +10455,17 @@ C14DAA_FindPartyMemberWithItemForTextCommand_L4DAA:
 C14DAC_FindPartyMemberWithItemForTextCommand_L4DAC:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4D93
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1D05FindPartyMemberWithItemCallback
     bra C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9
 C14DBF_FindPartyMemberWithItemForTextCommand_L4DBF:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14DD0_FindPartyMemberWithItemForTextCommand_L4DD0
     stx $12
     bra C14DD8_FindPartyMemberWithItemForTextCommand_L4DD8
@@ -10381,7 +10489,7 @@ C14DE1_FindPartyMemberWithItemForTextCommand_L4DE1:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14DF9_FindPartyMemberWithItemForTextCommand_L4DF9:
     pld
     rts
@@ -10396,9 +10504,9 @@ CC_1F_20:
     pla
     txa
     sta $14
-    lda.w #$0001
+    lda.w #!OneDeferredArgument
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14E15_FindPartyMemberWithItemForTextCommand_L4E15
     bpl C14E2B_FindPartyMemberWithItemForTextCommand_L4E2B
     bra C14E17_FindPartyMemberWithItemForTextCommand_L4E17
@@ -10407,15 +10515,15 @@ C14E15_FindPartyMemberWithItemForTextCommand_L4E15:
 C14E17_FindPartyMemberWithItemForTextCommand_L4E17:
     lda $14
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4DFB
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F20UseItemOnCharacterCallback
     bra C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A
 C14E2B_FindPartyMemberWithItemForTextCommand_L4E2B:
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $00
     rep #$20
     lda $14
@@ -10435,7 +10543,7 @@ C14E46_FindPartyMemberWithItemForTextCommand_L4E46:
     sta $12
 C14E51_FindPartyMemberWithItemForTextCommand_L4E51:
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C14E60_FindPartyMemberWithItemForTextCommand_L4E60
     sep #$20
     lda $00
@@ -10461,7 +10569,7 @@ C14E71_FindPartyMemberWithItemForTextCommand_L4E71:
     sta $0E
     lda $0F
     jsl !C0DD53_SetTeleportStateSelectors
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14E8A_FindPartyMemberWithItemForTextCommand_L4E8A:
     pld
     rts
@@ -10474,7 +10582,7 @@ CC_1F_21:
     adc.w #$FFF2
     tcd
     pla
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14E9E_FindPartyMemberWithItemForTextCommand_L4E9E
     txa
     bra C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3
@@ -10483,7 +10591,7 @@ C14E9E_FindPartyMemberWithItemForTextCommand_L4E9E:
     lda $06
 C14EA3_FindPartyMemberWithItemForTextCommand_L4EA3:
     jsr !C1BCAB_ExecuteTeleportDestination
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 
@@ -10537,6 +10645,8 @@ org $C14EAB
 !StatusEffectValue = $02
 !DeferredCommandByteQueue = $97BA
 !DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandByte3 = $97BD
 !DeferredCommandQueueCount = $97CA
 !ProcessorStatus16BitAIndexCarryClear = $31
 !AccumulatorWidthFlag = $20
@@ -10546,6 +10656,14 @@ org $C14EAB
 !DeferredTwoByteArgumentLimit = $0002
 !GetCharacterStatusByteCallback = $5007
 !InflictStatusCallback = $506F
+!CheckDirectItemUseCompatibilityCallback = $4F6F
+!CharacterHasAilmentCallback = $50E4
+!CompareQueuedValueAgainstTextRegisterCallback = $528D
+!PrintNumberCallback = $53AF
+!DisplayInventoryMenuCallback = $549E
+!PrintMoneyAmountCallback = $5573
+!GiveItemToCharacterBCallback = $5659
+!RemoveInventoryItemBySlotCallback = $56DB
 !ZeroWord = $0000
 !LowByteMask = $00FF
 CC_10:
@@ -10668,7 +10786,7 @@ CC_1F_81:
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86
     bpl C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B
     bra C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88
@@ -10677,14 +10795,14 @@ C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86:
 C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4F6F
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckDirectItemUseCompatibilityCallback
     bra C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5
 C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $14
     cpx.w #$0000
@@ -10881,7 +10999,7 @@ CC_1D_0D:
     stx $02
     lda.w #$0002
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD
     bpl C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113
     bra C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF
@@ -10890,17 +11008,17 @@ C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD:
 C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$50E4
+    inc !DeferredCommandQueueCount
+    lda.w #!CharacterHasAilmentCallback
     bra C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169
 C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $16
-    lda $97BB
+    lda !DeferredCommandByte1
     and.w #$00FF
     tax
     ldy.w #$0000
@@ -11099,23 +11217,23 @@ CC_18_07:
     tcd
     pla
     stx $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     cmp.w #$0004
     bcs C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$528D
+    inc !DeferredCommandQueueCount
+    lda.w #!CompareQueuedValueAgainstTextRegisterCallback
     jmp.w C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382
 C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$08
     sep #$10
     tay
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11123,7 +11241,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     rep #$20
     jsl !C09246_ShiftLeft32ByY
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $0A
     stz $0B
     stz $0C
@@ -11138,7 +11256,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$10
     tay
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11154,7 +11272,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$18
     tay
-    lda $97BD
+    lda !DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -11257,7 +11375,7 @@ CC_1C_0A:
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9
     bpl C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0
     bra C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB
@@ -11266,11 +11384,11 @@ C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9:
 C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$53AF
+    inc !DeferredCommandQueueCount
+    lda.w #!PrintNumberCallback
     jmp.w C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492
 C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     sep #$10
@@ -11285,7 +11403,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11298,7 +11416,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11310,7 +11428,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -11385,7 +11503,7 @@ CC_1A_05:
     sty $0E
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA
     bpl C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF
     bra C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC
@@ -11394,14 +11512,14 @@ C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA:
 C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$549E
+    inc !DeferredCommandQueueCount
+    lda.w #!DisplayInventoryMenuCallback
     bra C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527
 C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $02
     lda $8958
@@ -11501,7 +11619,7 @@ CC_1C_0B:
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D
     bpl C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4
     bra C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F
@@ -11510,11 +11628,11 @@ C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D:
 C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5573
+    inc !DeferredCommandQueueCount
+    lda.w #!PrintMoneyAmountCallback
     jmp.w C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657
 C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     sep #$10
@@ -11529,7 +11647,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11542,7 +11660,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11554,7 +11672,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -11619,7 +11737,7 @@ CC_1D_0E:
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670
     bpl C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685
     bra C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672
@@ -11628,14 +11746,14 @@ C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670:
 C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5659
+    inc !DeferredCommandQueueCount
+    lda.w #!GiveItemToCharacterBCallback
     bra C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9
 C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $16
     cpx.w #$0000
@@ -11691,7 +11809,7 @@ CC_1D_0F:
     stx $12
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4
     bpl C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709
     bra C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6
@@ -11700,14 +11818,14 @@ C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4:
 C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$56DB
+    inc !DeferredCommandQueueCount
+    lda.w #!RemoveInventoryItemBySlotCallback
     bra C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B
 C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     tay
     beq C15715_C14EAB_HandleTextCommand10ParameterizedPause_L5715
@@ -11806,27 +11924,49 @@ org $C1575D
 !InventorySlotSelector = $12
 !EscargoStorageItemBytes = $984B
 !DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
 !DeferredCommandQueueCount = $97CA
 !DeliveryQueueEntryBase = $97F5
 !DeliveryQueueOwnerOffset = $00B6
 !DeliveryQueueItemOffset = $00B9
 !DeliveryQueueSlotCount = $0003
 !DeferredSingleByteArgumentLimit = $0001
+!DeferredThreeByteArgumentLimit = $0003
 !EscargoStorageSourceSelector = $00FF
+!WalletBalanceLo = $9831
+!WalletBalanceHi = $9833
+!AtmBalanceLo = $9835
+!AtmBalanceHi = $9837
+!ActivePartyMemberCount = $98A4
 !ProcessorStatus16BitAIndexCarryClear = $31
 !AccumulatorWidthFlag = $20
 !TextCommandFarFrameOffset = $FFEE
 !TextCommandTwoArgumentFrameOffset = $FFEA
 !InventorySlotItemFrameOffset = $FFEC
 !DeliveryQueueHelperFrameOffset = $FFF0
+!TestEquippedItemPresenceCallback = $575D
+!CheckInventoryItemUsabilityCallback = $57CD
+!CheckDeferredItemUseCompatibilityCallback = $583D
+!StoreInventoryItemWithEscargoCallback = $58A5
+!WithdrawEscargoItemToInventoryCallback = $58FE
+!ReadCharacterInventorySlotItemCallback = $597F
+!HaveEnoughMoneyCallback = $59F9
+!RunStatusWindowDisplayCallback = $5B46
+!PutValueInArgmemCallback = $5BCA
+!PartyUtilityCallback = $5C58
+!AddToAtmCallback = $5C85
+!TakeFromAtmCallback = $5D6B
+!HaveEnoughMoneyInAtmCallback = $5E5C
 !QueueDeliveryOrPickupItemCallback = $5FF7
 !ReadDeliveryOrPickupItemInfoCallback = $6080
 !ZeroWord = $0000
+!OneWord = $0001
 !ZeroByte = $00
 !LowByteMask = $00FF
 CC_1D_10:
 !C1575D_TestEquippedItemPresenceForTextCommand = CC_1D_10
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11835,9 +11975,9 @@ CC_1D_10:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15777_C1575D_TestEquippedItemPresenceForTextCommand_L5777
     bpl C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C
     bra C15779_C1575D_TestEquippedItemPresenceForTextCommand_L5779
@@ -11845,16 +11985,16 @@ C15777_C1575D_TestEquippedItemPresenceForTextCommand_L5777:
     bmi C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C
 C15779_C1575D_TestEquippedItemPresenceForTextCommand_L5779:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$575D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TestEquippedItemPresenceCallback
     bra C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB
 C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15798_C1575D_TestEquippedItemPresenceForTextCommand_L5798
     txa
@@ -11892,7 +12032,7 @@ C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
     rts
 CC_1D_11:
 !C157CD_CheckInventoryItemUsabilityTextCommand = CC_1D_11
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11901,9 +12041,9 @@ CC_1D_11:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C157E7_C1575D_TestEquippedItemPresenceForTextCommand_L57E7
     bpl C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC
     bra C157E9_C1575D_TestEquippedItemPresenceForTextCommand_L57E9
@@ -11911,16 +12051,16 @@ C157E7_C1575D_TestEquippedItemPresenceForTextCommand_L57E7:
     bmi C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC
 C157E9_C1575D_TestEquippedItemPresenceForTextCommand_L57E9:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$57CD
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckInventoryItemUsabilityCallback
     bra C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B
 C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15808_C1575D_TestEquippedItemPresenceForTextCommand_L5808
     txa
@@ -11957,7 +12097,7 @@ C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
     rts
 CC_1F_83:
 !C1583D_CheckDeferredItemUseCompatibilityTextCommand = CC_1F_83
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11966,9 +12106,9 @@ CC_1F_83:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15857_C1575D_TestEquippedItemPresenceForTextCommand_L5857
     bpl C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C
     bra C15859_C1575D_TestEquippedItemPresenceForTextCommand_L5859
@@ -11976,16 +12116,16 @@ C15857_C1575D_TestEquippedItemPresenceForTextCommand_L5857:
     bmi C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C
 C15859_C1575D_TestEquippedItemPresenceForTextCommand_L5859:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$583D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckDeferredItemUseCompatibilityCallback
     bra C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3
 C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15878_C1575D_TestEquippedItemPresenceForTextCommand_L5878
     txa
@@ -12019,7 +12159,7 @@ C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
     rts
 CC_1D_12:
 !C158A5_StoreInventoryItemWithEscargoTextCommand = CC_1D_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12028,9 +12168,9 @@ CC_1D_12:
     pla
     txy
     sty $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C158BF_C1575D_TestEquippedItemPresenceForTextCommand_L58BF
     bpl C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4
     bra C158C1_C1575D_TestEquippedItemPresenceForTextCommand_L58C1
@@ -12038,16 +12178,16 @@ C158BF_C1575D_TestEquippedItemPresenceForTextCommand_L58BF:
     bmi C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4
 C158C1_C1575D_TestEquippedItemPresenceForTextCommand_L58C1:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$58A5
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!StoreInventoryItemWithEscargoCallback
     bra C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC
 C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C158E0_C1575D_TestEquippedItemPresenceForTextCommand_L58E0
     txa
@@ -12074,16 +12214,16 @@ C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC:
     rts
 CC_1D_13:
 !C158FE_WithdrawEscargoItemToInventoryTextCommand = CC_1D_13
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFE8
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15915_C1575D_TestEquippedItemPresenceForTextCommand_L5915
     bpl C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A
     bra C15917_C1575D_TestEquippedItemPresenceForTextCommand_L5917
@@ -12091,16 +12231,16 @@ C15915_C1575D_TestEquippedItemPresenceForTextCommand_L5915:
     bmi C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A
 C15917_C1575D_TestEquippedItemPresenceForTextCommand_L5917:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$58FE
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!WithdrawEscargoItemToInventoryCallback
     bra C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D
 C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $16
     cpx.w #$0000
     beq C1593B_C1575D_TestEquippedItemPresenceForTextCommand_L593B
@@ -12169,7 +12309,7 @@ C1599B_QueueInventoryCharacterSelectorArgument:
     sta !DeferredCommandByteQueue,X
     rep #!AccumulatorWidthFlag
     inc !DeferredCommandQueueCount
-    lda.w #$597F
+    lda.w #!ReadCharacterInventorySlotItemCallback
     bra C159F7_ReturnReadCharacterInventorySlotItem
 C159AE_ReadCharacterInventorySlotItem:
     lda !DeferredCommandByteQueue
@@ -12215,7 +12355,7 @@ C159F7_ReturnReadCharacterInventorySlotItem:
     rts
 CC_1D_14:
 !C159F9_HaveEnoughMoneyTextCommand = CC_1D_14
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12224,9 +12364,9 @@ CC_1D_14:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15A13_C1575D_TestEquippedItemPresenceForTextCommand_L5A13
     bpl C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A
     bra C15A15_C1575D_TestEquippedItemPresenceForTextCommand_L5A15
@@ -12234,12 +12374,12 @@ C15A13_C1575D_TestEquippedItemPresenceForTextCommand_L5A13:
     bmi C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A
 C15A15_C1575D_TestEquippedItemPresenceForTextCommand_L5A15:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$59F9
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!HaveEnoughMoneyCallback
     jmp.w C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C
 C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     sep #$10
@@ -12253,38 +12393,38 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12330,16 +12470,16 @@ C15AD3_C1575D_TestEquippedItemPresenceForTextCommand_L5AD3:
     sta $0A
     lda $08
     sta $0C
-    lda $9831
+    lda !WalletBalanceLo
     sta $06
-    lda $9833
+    lda !WalletBalanceHi
     sta $08
     lda $06
     cmp $0A
     lda $08
     sbc $0C
     bcs C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4
-    lda.w #$0001
+    lda.w #!OneWord
     sta $12
 C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4:
     lda $12
@@ -12393,7 +12533,7 @@ C15B25_ReadEscargoStorageItemByte:
     rts
 CC_18_0D:
 !C15B46_RunStatusWindowDisplayTextCommand = CC_18_0D
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12402,9 +12542,9 @@ CC_18_0D:
     pla
     txy
     sty $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15B60_C1575D_TestEquippedItemPresenceForTextCommand_L5B60
     bpl C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75
     bra C15B62_C1575D_TestEquippedItemPresenceForTextCommand_L5B62
@@ -12412,16 +12552,16 @@ C15B60_C1575D_TestEquippedItemPresenceForTextCommand_L5B60:
     bmi C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75
 C15B62_C1575D_TestEquippedItemPresenceForTextCommand_L5B62:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5B46
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RunStatusWindowDisplayCallback
     bra C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5
 C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15B81_C1575D_TestEquippedItemPresenceForTextCommand_L5B81
     txa
@@ -12452,7 +12592,7 @@ C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5:
     rts
 CC_1C_0C:
 !C15BA7_PrintVerticalTextStringCommand = CC_1C_0C
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12475,7 +12615,7 @@ C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE:
     rts
 CC_1D_15:
 !C15BCA_PutValueInArgmemTextCommand = CC_1D_15
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12484,27 +12624,27 @@ CC_1D_15:
     pla
     txa
     sta $14
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0
     lda $14
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5BCA
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!PutValueInArgmemCallback
     bra C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34
 C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0:
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda.b #$08
     sep #$10
     tay
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $14
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
@@ -12552,10 +12692,10 @@ CC_19_1B:
     rts
 CC_1F_71:
 !C15C58_RunTextCommand1F71PartyUtility = CC_1F_71
-    rep #$31
-    lda.w #$0001
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15C67_C1575D_TestEquippedItemPresenceForTextCommand_L5C67
     bpl C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C
     bra C15C69_C1575D_TestEquippedItemPresenceForTextCommand_L5C69
@@ -12563,12 +12703,12 @@ C15C67_C1575D_TestEquippedItemPresenceForTextCommand_L5C67:
     bmi C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C
 C15C69_C1575D_TestEquippedItemPresenceForTextCommand_L5C69:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5C58
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!PartyUtilityCallback
     bra C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84
 C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C:
     txa
@@ -12578,7 +12718,7 @@ C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84:
     rts
 CC_1D_06:
 !C15C85_AddToAtmTextCommand = CC_1D_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12587,9 +12727,9 @@ CC_1D_06:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15C9F_C1575D_TestEquippedItemPresenceForTextCommand_L5C9F
     bpl C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6
     bra C15CA1_C1575D_TestEquippedItemPresenceForTextCommand_L5CA1
@@ -12597,12 +12737,12 @@ C15C9F_C1575D_TestEquippedItemPresenceForTextCommand_L5C9F:
     bmi C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6
 C15CA1_C1575D_TestEquippedItemPresenceForTextCommand_L5CA1:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5C85
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!AddToAtmCallback
     jmp.w C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69
 C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     sep #$10
@@ -12616,38 +12756,38 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12698,7 +12838,7 @@ C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
     rts
 CC_1D_07:
 !C15D6B_TakeFromAtmTextCommand = CC_1D_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12707,9 +12847,9 @@ CC_1D_07:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15D85_C1575D_TestEquippedItemPresenceForTextCommand_L5D85
     bpl C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C
     bra C15D87_C1575D_TestEquippedItemPresenceForTextCommand_L5D87
@@ -12717,12 +12857,12 @@ C15D85_C1575D_TestEquippedItemPresenceForTextCommand_L5D85:
     bmi C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C
 C15D87_C1575D_TestEquippedItemPresenceForTextCommand_L5D87:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5D6B
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeFromAtmCallback
     jmp.w C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A
 C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     sep #$10
@@ -12736,38 +12876,38 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12823,7 +12963,7 @@ C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
     rts
 CC_1D_17:
 !C15E5C_HaveEnoughMoneyInAtmTextCommand = CC_1D_17
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12832,9 +12972,9 @@ CC_1D_17:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15E76_C1575D_TestEquippedItemPresenceForTextCommand_L5E76
     bpl C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D
     bra C15E78_C1575D_TestEquippedItemPresenceForTextCommand_L5E78
@@ -12842,12 +12982,12 @@ C15E76_C1575D_TestEquippedItemPresenceForTextCommand_L5E76:
     bmi C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D
 C15E78_C1575D_TestEquippedItemPresenceForTextCommand_L5E78:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5E5C
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!HaveEnoughMoneyInAtmCallback
     jmp.w C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F
 C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     sep #$10
@@ -12861,38 +13001,38 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12938,16 +13078,16 @@ C15F31_C1575D_TestEquippedItemPresenceForTextCommand_L5F31:
     sta $0A
     lda $08
     sta $0C
-    lda $9835
+    lda !AtmBalanceLo
     sta $06
-    lda $9837
+    lda !AtmBalanceHi
     sta $08
     lda $06
     cmp $0A
     lda $08
     sbc $0C
     bcs C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57
-    lda.w #$0001
+    lda.w #!OneWord
     sta $12
 C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57:
     lda $12
@@ -12967,7 +13107,7 @@ C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
     rts
 CC_1F_11:
 !C15F71_AddToWalletTextCommand = CC_1F_11
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12988,7 +13128,7 @@ C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88:
     rts
 CC_1F_12:
 !C15F91_TakeFromWalletTextCommand = CC_1F_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13028,7 +13168,7 @@ C15FC4_CheckDeliveryQueueSlot:
     adc.w #!DeliveryQueueOwnerOffset
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     bne C15FED_AdvanceDeliveryQueueSlot
     lda !QueuedItemOwnerOrSource
     sep #!AccumulatorWidthFlag
@@ -13078,7 +13218,7 @@ C16012_QueueDeliverySourceSelectorArgument:
     bra C1607E_ReturnQueueDeliveryOrPickupItem
 C16025_ResolveQueuedDeliveryOrPickupItem:
     lda !DeferredCommandByteQueue
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1603C_LoadDeliverySourceSelectorFromTextContext
     sep #!AccumulatorWidthFlag
     lda !DeferredCommandByteQueue
@@ -13156,7 +13296,7 @@ C1609B_QueueDeliveryReadIndexArgument:
     bra C16122_ReturnReadDeliveryOrPickupItemInfo
 C160AF_ReadDeliveryOrPickupQueueEntry:
     lda !DeferredCommandByteQueue
-    and.w #$00FF
+    and.w #!LowByteMask
     tax
     beq C160BB_LoadDeliveryQueueIndexFromTextContext
     txa
@@ -13218,7 +13358,7 @@ C16122_ReturnReadDeliveryOrPickupItemInfo:
     rts
 CC_1D_18:
 !C16124_AddItemToEscargoStorageTextCommand = CC_1D_18
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13239,7 +13379,7 @@ C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B:
     rts
 CC_19_21:
 !C16143_ClassifyFoodItemTextCommand = CC_19_21
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13267,7 +13407,7 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     rts
 CC_1D_19:
 !C16172_HaveXPartyMembersTextCommand = CC_1D_19
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13289,13 +13429,13 @@ C16190_C1575D_TestEquippedItemPresenceForTextCommand_L6190:
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $98A4
+    sep #!AccumulatorWidthFlag
+    lda !ActivePartyMemberCount
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     cmp $0A
     lda $08
@@ -13321,7 +13461,7 @@ C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     rts
 CC_1C_12:
 !C161D1_PrintPsiNameTextCommand = CC_1C_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13342,7 +13482,7 @@ C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8:
     rts
 CC_1D_21:
 !C161F0_GenerateRandomNumberTextCommand = CC_1D_21
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13431,6 +13571,63 @@ org $C1621F
 !C4B524_SpawnAttachedChildForVisualTypeId = $C4B524
 !C4B53F_ClearAttachedChildForVisualTypeId = $C4B53F
 !C4C91A_AppendDynamicVisualRecord = $C4C91A
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandByte3 = $97BD
+!DeferredCommandByte4 = $97BE
+!DeferredCommandQueueCount = $97CA
+!RemainingJumpMulti2DestinationCount = $97D5
+!LowByteMask = $00FF
+!EightBitShift = $08
+!SixteenBitShift = $10
+!TwentyFourBitShift = $18
+!CharacterRecordStride = $005F
+!ZeroWord = $0000
+!OneWord = $0001
+!TwoWord = $0002
+!ThreeWord = $0003
+!FourWord = $0004
+!FiveWord = $0005
+!SixWord = $0006
+!TenWord = $000A
+!TextCommand1FC0JumpMulti2FinalizerCallback = $621F
+!TextCommand1FC0JumpMulti2Callback = $6308
+!TextCommand1FD0JeffRepairBrokenItemCallback = $63A7
+!TextCommand1F13Callback = $63FD
+!TextCommand1F16Callback = $6490
+!TextCommand1F17Callback = $6509
+!TextCommand1F18Callback = $6582
+!TextCommand1F19Callback = $65AA
+!TextCommand1F1ACallback = $65D2
+!TextCommand1F1BCallback = $662A
+!TextCommand1F1CCallback = $666D
+!TextCommand1FE1Callback = $66FE
+!TextCommand1F15Callback = $6744
+!TextCommand1F1ECallback = $67D6
+!TextCommand1F1FCallback = $683B
+!TextCommand1922FacingDirectionCallback = $68A0
+!TextCommand1923FacingDirectionCallback = $6947
+!TextCommand1F62Callback = $69F7
+!TextCommand1E08SetCharacterLevelCallback = $6A01
+!TextCommand1924FacingDirectionCallback = $6A7B
+!TextCommand1FE4Callback = $6B2B
+!TextCommand1FE6Callback = $6BAF
+!TextCommand1FE7Callback = $6BF2
+!TextCommand1FE9Callback = $6C40
+!TextCommand1FEACallback = $6C83
+!TextCommand1FEBCallback = $6CC6
+!TextCommand1FECCallback = $6D14
+!TextCommand1FEECallback = $6D62
+!TextCommand1FEFCallback = $6DA5
+!TextCommand1F63Callback = $6DE8
+!TextCommand1FF1Callback = $6EBF
+!TextCommand1FF2Callback = $6F2F
+!TextCommand1F23Callback = $6FD1
+!TextCommand1D0CCheckEscargoStorageStatusCallback = $7058
+!TextCommand1F66Callback = $711C
+!TextCommand1F67Callback = $7233
+!TextCommand1F04Callback = $7254
 C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     rep #$31
     phd
@@ -13440,9 +13637,9 @@ C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     tcd
     pla
     sta $12
-    lda.w #$0003
+    lda.w #!ThreeWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16238_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6238
     bpl C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E
     bra C1623A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L623A
@@ -13451,11 +13648,11 @@ C16238_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6238:
 C1623A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L623A:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$621F
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FC0JumpMulti2FinalizerCallback
     jmp.w C16306_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6306
 C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     txa
@@ -13470,7 +13667,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -13483,7 +13680,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -13495,7 +13692,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -13538,7 +13735,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     sta $06
     lda $0002,Y
     sta $08
-    lda $97D5
+    lda !RemainingJumpMulti2DestinationCount
     asl A
     asl A
     clc
@@ -13547,7 +13744,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     sta $0000,Y
     lda $08
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16306_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6306:
     pld
     rts
@@ -13564,9 +13761,9 @@ CC_1F_C0:
     tay
     sty $0E
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0A
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0C
     lda $08
     cmp $0C
@@ -13593,7 +13790,7 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     txa
     sec
     sbc $02
-    sta $97D5
+    sta !RemainingJumpMulti2DestinationCount
     ldy $0E
     sty $10
     jsr !C1040A_LoadPrimaryInteractionContextPointer
@@ -13614,8 +13811,8 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     sta $0000,Y
     lda $08
     sta $0002,Y
-    stz $97CA
-    lda.w #$621F
+    stz !DeferredCommandQueueCount
+    lda.w #!TextCommand1FC0JumpMulti2FinalizerCallback
     bra C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5
 C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
     ldy $0E
@@ -13633,7 +13830,7 @@ C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
     sta $0000,Y
     lda $08
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5:
     pld
     rts
@@ -13646,7 +13843,7 @@ CC_1F_D0:
     adc.w #$FFEC
     tcd
     pla
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C163B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63B9
     txa
     bra C163BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63BE
@@ -13664,9 +13861,9 @@ C163BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63BE:
     stz $08
     bra C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB
 C163D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63D1:
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
 C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda $06
@@ -13683,7 +13880,7 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda $08
     sta $10
     jsr !C10489_InstallSecondaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_13:
@@ -13697,9 +13894,9 @@ CC_1F_13:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16417_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6417
     bpl C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D
     bra C16419_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6419
@@ -13708,18 +13905,18 @@ C16417_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6417:
 C16419_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6419:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$63FD
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F13Callback
     bra C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C
 C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     beq C16444_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6444
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -13744,9 +13941,9 @@ C1645C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L645C:
     tax
     dex
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     jsl !C46363_UpdateEntityFrameSelectorByRegistryTypeCode
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
@@ -13770,7 +13967,7 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     lda $06
     dec A
     jsl !C46397_BroadcastRegistryEntityFrameSelectorUpdate
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_16:
@@ -13783,9 +13980,9 @@ CC_1F_16:
     tcd
     pla
     stx $10
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C164A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64A9
     bpl C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE
     bra C164AB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64AB
@@ -13794,11 +13991,11 @@ C164A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64A9:
 C164AB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64AB:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6490
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F16Callback
     bra C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507
 C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     sep #$20
@@ -13806,12 +14003,12 @@ C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C164E3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64E3
     sta $06
@@ -13837,7 +14034,7 @@ C164FA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64FA:
     dex
     lda $0E
     jsl !C462FF_UpdateEntityFrameSelectorByVisualTypeId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
@@ -13852,9 +14049,9 @@ CC_1F_17:
     pla
     txy
     sty $10
-    lda.w #$0004
+    lda.w #!FourWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16523_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6523
     bpl C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538
     bra C16525_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6525
@@ -13863,33 +14060,33 @@ C16523_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6523:
 C16525_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6525:
     tya
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6509
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F17Callback
     bra C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580
 C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     sta $0E
     sep #$20
     lda.b #$08
     tay
     rep #$20
-    lda $97BD
-    and.w #$00FF
+    lda !DeferredCommandByte3
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BC
-    and.w #$00FF
+    lda !DeferredCommandByte2
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
@@ -13898,16 +14095,16 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     ldy $10
     tyx
     jsl !C4C91A_AppendDynamicVisualRecord
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
 CC_1F_18:
 !C16582_HandleTextCommand1F18 = CC_1F_18
     rep #$31
-    lda.w #$0006
+    lda.w #!SixWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16591_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6591
     bpl C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6
     bra C16593_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6593
@@ -13916,22 +14113,22 @@ C16591_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6591:
 C16593_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6593:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6582
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F18Callback
     bra C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9
 C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
 CC_1F_19:
 !C165AA_HandleTextCommand1F19 = CC_1F_19
     rep #$31
-    lda.w #$0006
+    lda.w #!SixWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C165B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65B9
     bpl C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE
     bra C165BB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65BB
@@ -13940,14 +14137,14 @@ C165B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65B9:
 C165BB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65BB:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$65AA
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F19Callback
     bra C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1
 C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
 CC_1F_1A:
@@ -13960,9 +14157,9 @@ CC_1F_1A:
     tcd
     pla
     stx $0E
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C165EB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65EB
     bpl C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600
     bra C165ED_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65ED
@@ -13971,11 +14168,11 @@ C165EB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65EB:
 C165ED_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65ED:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$65D2
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F1ACallback
     bra C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628
 C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     sep #$20
@@ -13983,17 +14180,17 @@ C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     ldx $0E
     jsl !C4B524_SpawnAttachedChildForVisualTypeId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
@@ -14008,15 +14205,15 @@ CC_1F_1B:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$662A
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F1BCallback
     bra C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B
 C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     sep #$10
@@ -14024,11 +14221,11 @@ C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C4B53F_ClearAttachedChildForVisualTypeId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
@@ -14043,9 +14240,9 @@ CC_1F_1C:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16687_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6687
     bpl C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D
     bra C16689_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6689
@@ -14054,18 +14251,18 @@ C16687_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6687:
 C16689_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6689:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$666D
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F1CCallback
     bra C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB
 C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     beq C166B4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66B4
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -14089,9 +14286,9 @@ C166CC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66CC:
     lda $06
     tax
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     jsl !C4B4FE_SpawnAttachedChildForRegistryTypeCode
-    lda.w #$0000
+    lda.w #!ZeroWord
 C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
@@ -14114,7 +14311,7 @@ C166F0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F0:
 C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     lda $06
     jsl !C4B519_ClearAttachedChildForRegistryTypeCode
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_E1:
@@ -14126,9 +14323,9 @@ CC_1F_E1:
     adc.w #$FFF0
     tcd
     pla
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16715_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6715
     bpl C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A
     bra C16717_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6717
@@ -14137,23 +14334,23 @@ C16715_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6715:
 C16717_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6717:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$66FE
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FE1Callback
     bra C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742
 C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $0E
     rep #$20
     txa
     sep #$20
     sta $0F
-    lda $97BA
+    lda !DeferredCommandByteQueue
     jsl !C4939C_RunLandingProfileDisplayBuildAndFade
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
@@ -14167,9 +14364,9 @@ CC_1F_15:
     tcd
     pla
     stx $02
-    lda.w #$0004
+    lda.w #!FourWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1675D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675D
     bpl C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773
     bra C1675F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675F
@@ -14178,37 +14375,37 @@ C1675D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675D:
 C1675F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675F:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6744
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F15Callback
     bra C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4
 C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $04
     rep #$10
     tay
     sty $10
     sep #$10
     ldy.b #$08
-    lda $97BD
-    and.w #$00FF
+    lda !DeferredCommandByte3
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BC
-    and.w #$00FF
+    lda !DeferredCommandByte2
+    and.w #!LowByteMask
     ora $04
     sta $0E
     lda $02
-    cmp.w #$00FF
+    cmp.w #!LowByteMask
     bne C167BF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67BF
     lda $0E
     rep #$10
@@ -14227,7 +14424,7 @@ C167BF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67BF:
     ldx $02
     jsl !C4C91A_AppendDynamicVisualRecord
 C167D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D1:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
@@ -14241,9 +14438,9 @@ CC_1F_1E:
     tcd
     pla
     stx $02
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C167EF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67EF
     bpl C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805
     bra C167F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67F1
@@ -14252,21 +14449,21 @@ C167EF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67EF:
 C167F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67F1:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$67D6
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F1ECallback
     bra C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839
 C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $04
     rep #$10
     tay
@@ -14279,7 +14476,7 @@ C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     ldy $0E
     tya
     jsl !C460CE_RunVisualTypeEntityScriptWithCachedPose
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
@@ -14293,9 +14490,9 @@ CC_1F_1F:
     tcd
     pla
     stx $02
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16854_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6854
     bpl C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A
     bra C16856_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6856
@@ -14304,21 +14501,21 @@ C16854_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6854:
 C16856_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6856:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$683B
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F1FCallback
     bra C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E
 C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $04
     rep #$10
     tay
@@ -14331,7 +14528,7 @@ C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     ldy $0E
     tya
     jsl !C46125_RunPoseDescriptorEntityScriptWithCachedPose
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E:
     pld
     rts
@@ -14346,9 +14543,9 @@ CC_19_22:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!ThreeWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C168BA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68BA
     bpl C168D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68D0
     bra C168BC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68BC
@@ -14357,19 +14554,19 @@ C168BA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68BA:
 C168BC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68BC:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$68A0
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1922FacingDirectionCallback
     bra C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945
 C168D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68D0:
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $00
     rep #$20
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C168EE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68EE
     sep #$20
     lda $00
@@ -14384,7 +14581,7 @@ C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1:
     sep #$20
     lda $06
     sta $01
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $00
     sep #$10
     ldy.b #$08
@@ -14392,8 +14589,8 @@ C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1:
     lda $12
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BC
-    and.w #$00FF
+    lda !DeferredCommandByte2
+    and.w #!LowByteMask
     ora $02
     beq C1691A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691A
     sta $06
@@ -14406,11 +14603,11 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     rep #$10
     tay
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     tax
     dex
     lda $01
-    and.w #$00FF
+    and.w #!LowByteMask
     jsl !C462E4_ComputeRegistryEntityFacingOctantToTarget
     inc A
     sta $06
@@ -14420,7 +14617,7 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     lda $08
     sta $10
     jsr !C10489_InstallSecondaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
     pld
     rts
@@ -14435,9 +14632,9 @@ CC_19_23:
     pla
     txa
     sta $12
-    lda.w #$0004
+    lda.w #!FourWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16961_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6961
     bpl C16978_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6978
     bra C16963_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6963
@@ -14446,11 +14643,11 @@ C16961_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6961:
 C16963_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6963:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6947
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1923FacingDirectionCallback
     jmp.w C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5
 C16978_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6978:
     sep #$20
@@ -14458,12 +14655,12 @@ C16978_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6978:
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
@@ -14478,7 +14675,7 @@ C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4:
     lda $06
     sta $02
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $00
     sep #$10
     ldy.b #$08
@@ -14486,8 +14683,8 @@ C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4:
     lda $12
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BD
-    and.w #$00FF
+    lda !DeferredCommandByte3
+    and.w #!LowByteMask
     ora $04
     beq C169CD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69CD
     sta $06
@@ -14500,7 +14697,7 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     rep #$10
     tay
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     tax
     dex
     lda $02
@@ -14513,7 +14710,7 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     lda $08
     sta $10
     jsr !C10489_InstallSecondaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
@@ -14522,7 +14719,7 @@ CC_1F_62:
     rep #$31
     txa
     jsr !C10036_SetBlinkingTriangleState
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 CC_1E_08:
 !C16A01_SetCharacterLevelTextCommand = CC_1E_08
@@ -14533,9 +14730,9 @@ CC_1E_08:
     adc.w #$FFF2
     tcd
     pla
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16A18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A18
     bpl C16A2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A2D
     bra C16A1A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A1A
@@ -14544,20 +14741,20 @@ C16A18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A18:
 C16A1A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A1A:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6A01
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E08SetCharacterLevelCallback
     bra C16A79_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A79
 C16A2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A2D:
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $00
     rep #$20
     txa
     beq C16A46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A46
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $0A
     stz $0C
     bpl C16A44_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A44
@@ -14572,7 +14769,7 @@ C16A46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A46:
     sta $0C
 C16A51_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A51:
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C16A66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A66
     sep #$20
     lda $00
@@ -14584,13 +14781,13 @@ C16A51_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A51:
 C16A66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A66:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
 C16A69_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A69:
-    ldy.w #$0001
+    ldy.w #!OneWord
     rep #$20
     lda $0A
     tax
     lda $06
     jsr !C1D8D0_RefreshCharacterBattleStartState
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16A79_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A79:
     pld
     rts
@@ -14605,9 +14802,9 @@ CC_19_24:
     pla
     txa
     sta $12
-    lda.w #$0004
+    lda.w #!FourWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16A95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A95
     bpl C16AAC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AAC
     bra C16A97_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A97
@@ -14616,11 +14813,11 @@ C16A95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A95:
 C16A97_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A97:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6A7B
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1924FacingDirectionCallback
     jmp.w C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29
 C16AAC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AAC:
     sep #$20
@@ -14628,12 +14825,12 @@ C16AAC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AAC:
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
@@ -14648,7 +14845,7 @@ C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8:
     lda $06
     sta $02
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $00
     sep #$10
     ldy.b #$08
@@ -14656,8 +14853,8 @@ C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8:
     lda $12
     jsl !C0923E_ShiftWordLeftByY
     sta $04
-    lda $97BD
-    and.w #$00FF
+    lda !DeferredCommandByte3
+    and.w #!LowByteMask
     ora $04
     beq C16B01_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B01
     sta $06
@@ -14670,7 +14867,7 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     rep #$10
     tay
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     tax
     dex
     lda $02
@@ -14683,7 +14880,7 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     lda $08
     sta $10
     jsr !C10489_InstallSecondaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
@@ -14697,9 +14894,9 @@ CC_1F_E4:
     tcd
     pla
     stx $10
-    lda.w #$0002
+    lda.w #!TwoWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16B44_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B44
     bpl C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59
     bra C16B46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B46
@@ -14708,11 +14905,11 @@ C16B44_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B44:
 C16B46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B46:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6B2B
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FE4Callback
     bra C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2
 C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     sep #$20
@@ -14720,12 +14917,12 @@ C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C16B7E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B7E
     sta $06
@@ -14751,7 +14948,7 @@ C16B95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B95:
     dex
     lda $0E
     jsl !C46331_UpdateEntityFrameSelectorByPoseDescriptorId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
@@ -14760,7 +14957,7 @@ CC_1F_E5:
     rep #$31
     txa
     jsl !C46594_SetRegistrySlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 CC_1F_E6:
 !C16BAF_HandleTextCommand1FE6 = CC_1F_E6
@@ -14773,15 +14970,15 @@ CC_1F_E6:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6BAF
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FE6Callback
     bra C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0
 C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     sep #$10
@@ -14789,11 +14986,11 @@ C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C4655E_SetVisualTypeSlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
@@ -14808,15 +15005,15 @@ CC_1F_E7:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6BF2
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FE7Callback
     bra C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33
 C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     sep #$10
@@ -14824,11 +15021,11 @@ C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C46579_SetPoseDescriptorSlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
@@ -14837,7 +15034,7 @@ CC_1F_E8:
     rep #$31
     txa
     jsl !C46631_ClearRegistrySlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 CC_1F_E9:
 !C16C40_HandleTextCommand1FE9 = CC_1F_E9
@@ -14850,15 +15047,15 @@ CC_1F_E9:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6C40
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FE9Callback
     bra C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81
 C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     sep #$10
@@ -14866,11 +15063,11 @@ C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C465FB_ClearVisualTypeSlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
@@ -14885,15 +15082,15 @@ CC_1F_EA:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6C83
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FEACallback
     bra C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4
 C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     sep #$10
@@ -14901,11 +15098,11 @@ C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C46616_ClearPoseDescriptorSlotFlagsC000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
@@ -14919,9 +15116,9 @@ CC_1F_EB:
     tcd
     pla
     stx $10
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16CDF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CDF
     bpl C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4
     bra C16CE1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CE1
@@ -14930,15 +15127,15 @@ C16CDF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CDF:
 C16CE1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CE1:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6CC6
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FEBCallback
     bra C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12
 C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tay
     sty $0E
     tya
@@ -14948,7 +15145,7 @@ C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
     ldy $0E
     tya
     jsl !C463F4_MarkRegistryEntitySlotsFlag8000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
@@ -14962,9 +15159,9 @@ CC_1F_EC:
     tcd
     pla
     stx $10
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16D2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2D
     bpl C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42
     bra C16D2F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2F
@@ -14973,15 +15170,15 @@ C16D2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2D:
 C16D2F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2F:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6D14
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FECCallback
     bra C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60
 C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tay
     sty $0E
     tya
@@ -14991,7 +15188,7 @@ C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
     ldy $0E
     tya
     jsl !C4645A_ClearRegistryEntitySlotsFlag8000
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
@@ -15006,15 +15203,15 @@ CC_1F_EE:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6D62
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FEECallback
     bra C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3
 C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     sep #$10
@@ -15022,11 +15219,11 @@ C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C46698_SelectModeSlotByVisualTypeId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
@@ -15041,15 +15238,15 @@ CC_1F_EF:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6DA5
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FEFCallback
     bra C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6
 C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     sep #$10
@@ -15057,11 +15254,11 @@ C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C466A8_SelectModeSlotByPoseDescriptorId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
@@ -15076,9 +15273,9 @@ CC_1F_63:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!ThreeWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02
     bpl C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19
     bra C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04
@@ -15087,11 +15284,11 @@ C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02:
 C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6DE8
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F63Callback
     jmp.w C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD
 C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     sep #$10
@@ -15106,7 +15303,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -15119,7 +15316,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -15131,7 +15328,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -15163,15 +15360,15 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     lda $08
     ora $0C
     sta $08
-    lda.w #$00FF
+    lda.w #!LowByteMask
     jsl !C46594_SetRegistrySlotFlagsC000
     lda $06
     sta $0E
     lda $08
     sta $10
-    lda.w #$000A
+    lda.w #!TenWord
     jsl !C064E3_EnqueueMovementRecord
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
     pld
     rts
@@ -15186,9 +15383,9 @@ CC_1F_F1:
     pla
     txa
     sta $10
-    lda.w #$0003
+    lda.w #!ThreeWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9
     bpl C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF
     bra C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB
@@ -15197,21 +15394,21 @@ C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9:
 C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB:
     lda $10
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6EBF
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FF1Callback
     bra C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D
 C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tay
@@ -15221,15 +15418,15 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
     lda $10
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BC
-    and.w #$00FF
+    lda !DeferredCommandByte2
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
     ldy $0E
     tya
     jsl !C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
     pld
     rts
@@ -15244,9 +15441,9 @@ CC_1F_F2:
     pla
     txa
     sta $10
-    lda.w #$0003
+    lda.w #!ThreeWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49
     bpl C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F
     bra C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B
@@ -15255,21 +15452,21 @@ C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49:
 C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B:
     lda $10
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6F2F
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FF2Callback
     bra C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D
 C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
     sep #$10
     ldy.b #$08
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tay
@@ -15279,15 +15476,15 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
     lda $10
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BC
-    and.w #$00FF
+    lda !DeferredCommandByte2
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
     ldy $0E
     tya
     jsl !C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4
-    lda.w #$0000
+    lda.w #!ZeroWord
 C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
     pld
     rts
@@ -15318,7 +15515,7 @@ C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_23:
@@ -15332,15 +15529,15 @@ CC_1F_23:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$6FD1
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F23Callback
     bra C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035
 C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
     sep #$10
@@ -15348,8 +15545,8 @@ C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
     lda $12
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013
     sta $06
@@ -15360,7 +15557,7 @@ C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013:
 C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016:
     lda $06
     jsl !C22F38_InitBattleScripted
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027
@@ -15371,7 +15568,7 @@ C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
     pld
     rts
@@ -15392,7 +15589,7 @@ C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A:
 C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
     lda $06
     jsl !C230F3_SnapshotRespawnWarpTargetState
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1D_0C:
@@ -15406,9 +15603,9 @@ CC_1D_0C:
     pla
     txy
     sty $14
-    lda.w #$0001
+    lda.w #!OneWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072
     bpl C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
     bra C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074
@@ -15417,15 +15614,15 @@ C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072:
 C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
     tya
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7058
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1D0CCheckEscargoStorageStatusCallback
     jmp.w C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A
 C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094
     txa
@@ -15446,13 +15643,13 @@ C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7:
     tay
     sty $12
     jsr !C190F1_CheckEscargoStorageQueueFull
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9
-    ldx.w #$0002
+    ldx.w #!TwoWord
     stx $14
     bra C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE
 C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9:
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     stx $14
 C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
     ldy $12
@@ -15461,7 +15658,7 @@ C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
     pha
     lda $02
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99F1
@@ -15471,20 +15668,20 @@ C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
     adc $02
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$001C
     tax
     lda $D55000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     and.w #$0040
     beq C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB
-    lda.w #$0001
+    lda.w #!OneWord
     bra C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE
 C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE:
     ldx $14
     stx $02
@@ -15499,7 +15696,7 @@ C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
     pld
     rts
@@ -15513,9 +15710,9 @@ CC_1F_66:
     tcd
     pla
     stx $13
-    lda.w #$0005
+    lda.w #!FiveWord
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135
     bpl C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B
     bra C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137
@@ -15524,15 +15721,15 @@ C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135:
 C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$711C
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F66Callback
     jmp.w C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231
 C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     beq C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F
     sep #$20
     sta $06
@@ -15547,8 +15744,8 @@ C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162:
     lda $06
     sta $00
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     beq C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E
     sep #$20
     sta $06
@@ -15576,7 +15773,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BE
+    lda !DeferredCommandByte4
     sta $06
     stz $07
     stz $08
@@ -15589,7 +15786,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BD
+    lda !DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -15601,7 +15798,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     lda $08
     sta $0C
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -15638,13 +15835,13 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     lda $08
     sta $10
     lda $12
-    and.w #$00FF
+    and.w #!LowByteMask
     rep #$10
     tax
     lda $00
-    and.w #$00FF
+    and.w #!LowByteMask
     jsl !C072CF_ActivateHotspot
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
     pld
     rts
@@ -15667,7 +15864,7 @@ C17246_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7246:
 C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     lda $06
     jsl !C071E5_DisableHotspot
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_04:
@@ -15689,7 +15886,7 @@ C17267_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7267:
 C1726A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L726A:
     lda $06
     jsr !C10048_SetTextSoundMode
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 
@@ -15711,6 +15908,20 @@ org $C17274
 !C466C1_RunWanderingPhotographerScriptForPhotoIndex = $C466C1
 !C4B54A_SpawnAttachedChildForPoseDescriptorId = $C4B54A
 !C4B565_ClearAttachedChildForPoseDescriptorId = $C4B565
+!BankDepositAccumulatorTextValue = $98B9
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandQueueCount = $97CA
+!ClearBankDepositAccumulatorSelector = $0002
+!AttachedChildPoseDescriptorArgumentLimit = $0002
+!BattleVisualEffectArgumentLimit = $0001
+!LowByteMask = $00FF
+!EightBitShift = $08
+!ZeroWord = $0000
+!TextCommand1F40StageSpecialEventArgumentCallback = $72BC
+!TextCommand1FF3SpawnAttachedChildByPoseCallback = $7325
+!TextCommand1FF4ClearAttachedChildByPoseCallback = $737D
+!TextCommand1C13StageBattleVisualEffectResultCallback = $73C0
 CC_1D_24:
 !C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     rep #$31
@@ -15721,7 +15932,7 @@ CC_1D_24:
     tcd
     pla
     stx $14
-    ldy.w #$98B9
+    ldy.w #!BankDepositAccumulatorTextValue
     sty $12
     lda $0000,Y
     sta $06
@@ -15733,11 +15944,11 @@ CC_1D_24:
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     ldx $14
-    cpx.w #$0002
+    cpx.w #!ClearBankDepositAccumulatorSelector
     bne C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
     ldy $12
     lda $06
@@ -15745,24 +15956,24 @@ CC_1D_24:
     lda $08
     sta $0002,Y
 C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7:
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_40:
 !C172BC_HandleTextCommand1F40 = CC_1F_40
     rep #$31
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$72BC
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1F40StageSpecialEventArgumentCallback
     bra C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9
 C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9:
     rts
 CC_1F_41:
@@ -15776,7 +15987,7 @@ CC_1F_41:
     pla
     txa
     jsl !C1BEFC_DispatchTextCommand1F41SpecialEvent
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4
@@ -15787,7 +15998,7 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_D2:
@@ -15809,7 +16020,7 @@ C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317:
 C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda $06
     jsl !C466C1_RunWanderingPhotographerScriptForPhotoIndex
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1F_F3:
@@ -15822,9 +16033,9 @@ CC_1F_F3:
     tcd
     pla
     stx $0E
-    lda.w #$0002
+    lda.w #!AttachedChildPoseDescriptorArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E
     bpl C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353
     bra C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340
@@ -15833,29 +16044,29 @@ C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E:
 C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7325
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseCallback
     bra C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B
 C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
     sep #$20
-    lda.b #$08
+    lda.b #!EightBitShift
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda !DeferredCommandByte1
+    and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     ldx $0E
     jsl !C4B54A_SpawnAttachedChildForPoseDescriptorId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
     rts
@@ -15870,27 +16081,27 @@ CC_1F_F4:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$737D
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1FF4ClearAttachedChildByPoseCallback
     bra C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE
 C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
     sep #$10
-    ldy.b #$08
+    ldy.b #!EightBitShift
     lda $0E
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     jsl !C4B565_ClearAttachedChildForPoseDescriptorId
-    lda.w #$0000
+    lda.w #!ZeroWord
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
     rts
@@ -15904,9 +16115,9 @@ CC_1C_13:
     tcd
     pla
     stx $12
-    lda.w #$0001
+    lda.w #!BattleVisualEffectArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9
     bpl C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE
     bra C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB
@@ -15915,23 +16126,23 @@ C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9:
 C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$73C0
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1C13StageBattleVisualEffectResultCallback
     bra C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D
 C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
     jsr !C10042_ReadBlinkingTriangleState
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A
     ldx $12
     dex
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     dec A
     jsl !C3FAC9_DispatchBattleActorVisualEffectToken
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F
@@ -15943,7 +16154,7 @@ C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F:
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
 C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
     pld
     rts
@@ -15966,7 +16177,7 @@ C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432:
 C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435:
     lda $06
     jsl !C0AC0C_QueuePresentationSfxOrCounter
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 
@@ -15987,12 +16198,37 @@ org $C17440
 !C21D65_RecalculateCharacterDerivedVitality = $C21D65
 !C21D7D_RecalculateCharacterDerivedIq = $C21D7D
 !EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder = $EF0EAD
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandByte3 = $97BD
+!DeferredCommandQueueCount = $97CA
+!GiveExperienceArgumentLimit = $0004
+!StatBoostArgumentLimit = $0001
+!AwardExperienceModeNormal = $0001
+!CharacterRecordStride = $005F
+!CharacterSpeedFieldBase = $9A25
+!CharacterGutsFieldBase = $9A26
+!CharacterVitalityFieldBase = $9A27
+!CharacterIqFieldBase = $9A28
+!CharacterLuckFieldBase = $9A29
+!LowByteMask = $00FF
+!EightBitShift = $08
+!SixteenBitShift = $10
+!TwentyFourBitShift = $18
+!ZeroWord = $0000
+!TextCommand1E09GiveExperienceCallback = $744B
+!TextCommand1E0ABoostIqCallback = $7523
+!TextCommand1E0BBoostGutsCallback = $7584
+!TextCommand1E0CBoostSpeedCallback = $75E5
+!TextCommand1E0DBoostVitalityCallback = $7646
+!TextCommand1E0EBoostLuckCallback = $76A7
 CC_1F_D3:
 !C17440_TimedDeliveryRowSelectorCallback = CC_1F_D3
     rep #$31
     txa
     jsl !EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 CC_1E_09:
 !C1744B_GiveExperienceTextCommand = CC_1E_09
@@ -16005,9 +16241,9 @@ CC_1E_09:
     pla
     txa
     sta $12
-    lda.w #$0004
+    lda.w #!GiveExperienceArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C17465_c1_7440_timed_delivery_row_selector_callback_L7465
     bpl C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
     bra C17467_c1_7440_timed_delivery_row_selector_callback_L7467
@@ -16016,15 +16252,15 @@ C17465_c1_7440_timed_delivery_row_selector_callback_L7465:
 C17467_c1_7440_timed_delivery_row_selector_callback_L7467:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$744B
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E09GiveExperienceCallback
     jmp.w C17521_c1_7440_timed_delivery_row_selector_callback_L7521
 C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     sep #$10
-    ldy.b #$18
+    ldy.b #!TwentyFourBitShift
     lda $12
     sta $06
     stz $08
@@ -16033,9 +16269,9 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     pha
     lda $06
     pha
-    ldy.b #$10
+    ldy.b #!SixteenBitShift
     sep #$20
-    lda $97BD
+    lda !DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -16046,9 +16282,9 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     pha
     lda $06
     pha
-    ldy.b #$08
+    ldy.b #!EightBitShift
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -16060,7 +16296,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     lda $08
     sta $0C
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -16097,11 +16333,11 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     lda $08
     sta $10
     rep #$10
-    ldx.w #$0001
-    lda $97BA
-    and.w #$00FF
+    ldx.w #!AwardExperienceModeNormal
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     jsl !C1D9E9_AwardExperienceToCharacter
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
     pld
     rts
@@ -16116,9 +16352,9 @@ CC_1E_0A:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1753D_c1_7440_timed_delivery_row_selector_callback_L753D
     bpl C17553_c1_7440_timed_delivery_row_selector_callback_L7553
     bra C1753F_c1_7440_timed_delivery_row_selector_callback_L753F
@@ -16127,21 +16363,21 @@ C1753D_c1_7440_timed_delivery_row_selector_callback_L753D:
 C1753F_c1_7440_timed_delivery_row_selector_callback_L753F:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7523
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E0ABoostIqCallback
     bra C17582_c1_7440_timed_delivery_row_selector_callback_L7582
 C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A28
+    adc.w #!CharacterIqFieldBase
     tay
     lda $0E
     sep #$20
@@ -16154,7 +16390,7 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
     txa
     jsl !C21D7D_RecalculateCharacterDerivedIq
     rep #$20
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
     pld
     rts
@@ -16169,9 +16405,9 @@ CC_1E_0B:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1759E_c1_7440_timed_delivery_row_selector_callback_L759E
     bpl C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
     bra C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0
@@ -16180,21 +16416,21 @@ C1759E_c1_7440_timed_delivery_row_selector_callback_L759E:
 C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7584
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E0BBoostGutsCallback
     bra C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3
 C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A26
+    adc.w #!CharacterGutsFieldBase
     tay
     lda $0E
     sep #$20
@@ -16207,7 +16443,7 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
     txa
     jsl !C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
-    lda.w #$0000
+    lda.w #!ZeroWord
 C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
     pld
     rts
@@ -16222,9 +16458,9 @@ CC_1E_0C:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF
     bpl C17615_c1_7440_timed_delivery_row_selector_callback_L7615
     bra C17601_c1_7440_timed_delivery_row_selector_callback_L7601
@@ -16233,21 +16469,21 @@ C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF:
 C17601_c1_7440_timed_delivery_row_selector_callback_L7601:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$75E5
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E0CBoostSpeedCallback
     bra C17644_c1_7440_timed_delivery_row_selector_callback_L7644
 C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A25
+    adc.w #!CharacterSpeedFieldBase
     tay
     lda $0E
     sep #$20
@@ -16260,7 +16496,7 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
     txa
     jsl !C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
     pld
     rts
@@ -16275,9 +16511,9 @@ CC_1E_0D:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C17660_c1_7440_timed_delivery_row_selector_callback_L7660
     bpl C17676_c1_7440_timed_delivery_row_selector_callback_L7676
     bra C17662_c1_7440_timed_delivery_row_selector_callback_L7662
@@ -16286,21 +16522,21 @@ C17660_c1_7440_timed_delivery_row_selector_callback_L7660:
 C17662_c1_7440_timed_delivery_row_selector_callback_L7662:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7646
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E0DBoostVitalityCallback
     bra C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5
 C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A27
+    adc.w #!CharacterVitalityFieldBase
     tay
     lda $0E
     sep #$20
@@ -16313,7 +16549,7 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
     txa
     jsl !C21D65_RecalculateCharacterDerivedVitality
     rep #$20
-    lda.w #$0000
+    lda.w #!ZeroWord
 C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
     pld
     rts
@@ -16328,9 +16564,9 @@ CC_1E_0E:
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #!StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1
     bpl C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
     bra C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3
@@ -16339,21 +16575,21 @@ C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1:
 C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$76A7
+    inc !DeferredCommandQueueCount
+    lda.w #!TextCommand1E0EBoostLuckCallback
     bra C17706_c1_7440_timed_delivery_row_selector_callback_L7706
 C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A29
+    adc.w #!CharacterLuckFieldBase
     tay
     lda $0E
     sep #$20
@@ -16366,7 +16602,7 @@ C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
     txa
     jsl !C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
-    lda.w #$0000
+    lda.w #!ZeroWord
 C17706_c1_7440_timed_delivery_row_selector_callback_L7706:
     pld
     rts
@@ -17228,6 +17464,125 @@ org $C17B56
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!TextCommand0A24BitJumpCallback = $4103
+!TextCommand1A00PartySelectionMenuNoCancel = $463B
+!TextCommand1A01PartySelectionMenu = $467D
+!TextCommand1A05DisplayInventoryMenu = $549E
+!TextCommand1A06DisplayShopMenu = $4EB5
+!TextCommand1C00TextColourEffects = $40F9
+!TextCommand1C01PrintStatistic = $40B0
+!TextCommand1C02PrintCharacterName = $4FD7
+!TextCommand1C03PrintCharacter = $488D
+!TextCommand1C05PrintItemName = $46BF
+!TextCommand1C06PrintTeleportDestinationName = $46DE
+!TextCommand1C07PrintHorizontalTextString = $45CA
+!TextCommand1C08PrintBattleSpecialGraphics = $43B8
+!TextCommand1C09SetActiveWindowTextMode = $40EF
+!TextCommand1C0APrintNumber = $53AF
+!TextCommand1C0BPrintMoneyAmount = $5573
+!TextCommand1C0CPrintVerticalTextString = $5BA7
+!TextCommand1C11LoadSpecialSelector = $40CF
+!TextCommand1C12PrintPsiName = $61D1
+!TextCommand1C13StageBattleVisualEffectResult = $73C0
+!TextCommand1C14LoadSpecialTextSelector = $516B
+!TextCommand1C15LoadSpecialForJumpMultiSelector = $51FC
+!TextCommand1D00GiveItemToCharacter = $4C1E
+!TextCommand1D01TakeItemFromCharacter = $4C86
+!TextCommand1D02CheckItemBroadClass = $48AC
+!TextCommand1D03FindInventoryRoom = $4CEE
+!TextCommand1D04FindCharacterWithoutItem = $4D24
+!TextCommand1D05FindCharacterWithItem = $4D93
+!TextCommand1D06AddToAtm = $5C85
+!TextCommand1D07TakeFromAtm = $5D6B
+!TextCommand1D08AddToWallet = $48E9
+!TextCommand1D09TakeFromWallet = $494A
+!TextCommand1D0AGetBuyPriceOfItem = $4EF8
+!TextCommand1D0BGetSellPriceOfItem = $4F33
+!TextCommand1D0CCheckEscargoStorageStatus = $7058
+!TextCommand1D0DCharacterHasAilment = $50E4
+!TextCommand1D0EGiveItemToCharacterB = $5659
+!TextCommand1D0FRemoveInventoryItemBySlot = $56DB
+!TextCommand1D10CheckItemEquipped = $575D
+!TextCommand1D11CheckInventoryItemUsability = $57CD
+!TextCommand1D12StoreInventoryItemWithEscargo = $58A5
+!TextCommand1D13WithdrawEscargoItemToInventory = $58FE
+!TextCommand1D14HaveEnoughMoney = $59F9
+!TextCommand1D15PutValueInArgmem = $5BCA
+!TextCommand1D17HaveEnoughMoneyInAtm = $5E5C
+!TextCommand1D18AddItemToEscargoStorage = $6124
+!TextCommand1D19HaveXPartyMembers = $6172
+!TextCommand1D21GenerateRandomNumber = $61F0
+!TextCommand1D23ClassifyEquippedItemOffensiveDefensive = $7708
+!TextCommand1D24StageBankDepositAccumulator = $7274
+!TextCommand1E00RecoverHpPercent = $49B6
+!TextCommand1E01DepleteHpPercent = $4A03
+!TextCommand1E02RecoverHpAmount = $4A50
+!TextCommand1E03DepleteHpAmount = $4A9D
+!TextCommand1E04RecoverPpPercent = $4AEA
+!TextCommand1E05DepletePpPercent = $4B37
+!TextCommand1E06RecoverPpAmount = $4B84
+!TextCommand1E07DepletePpAmount = $4BD1
+!TextCommand1E08SetCharacterLevel = $6A01
+!TextCommand1E09GiveExperience = $744B
+!TextCommand1E0ABoostIq = $7523
+!TextCommand1E0BBoostGuts = $7584
+!TextCommand1E0CBoostSpeed = $75E5
+!TextCommand1E0DBoostVitality = $7646
+!TextCommand1E0EBoostLuck = $76A7
+!TextCommand1F00QueueOrApplyMusicTrack = $4751
+!TextCommand1F01StopMusic = $47A0
+!TextCommand1F02PlaySound = $47AB
+!TextCommand1F04Callback = $7254
+!TextCommand1F07Callback = $741F
+!TextCommand1F11AddToWallet = $5F71
+!TextCommand1F12TakeFromWallet = $5F91
+!TextCommand1F13Callback = $63FD
+!TextCommand1F14Callback = $646E
+!TextCommand1F15Callback = $6744
+!TextCommand1F16Callback = $6490
+!TextCommand1F17Callback = $6509
+!TextCommand1F18Callback = $6582
+!TextCommand1F19Callback = $65AA
+!TextCommand1F1ACallback = $65D2
+!TextCommand1F1BCallback = $662A
+!TextCommand1F1CCallback = $666D
+!TextCommand1F1DCallback = $66DD
+!TextCommand1F1ECallback = $67D6
+!TextCommand1F1FCallback = $683B
+!TextCommand1F20UseItemOnCharacter = $4DFB
+!TextCommand1F21TeleportToPresetLocation = $4E8C
+!TextCommand1F23Callback = $6FD1
+!TextCommand1F40StageSpecialEventArgument = $72BC
+!TextCommand1F41SpecialEventDispatch = $72DA
+!TextCommand1F52CreateNumberSelector = $44A3
+!TextCommand1F60WaitForTextPromptOrInputGate = $5494
+!TextCommand1F62Callback = $69F7
+!TextCommand1F63Callback = $6DE8
+!TextCommand1F66Callback = $711C
+!TextCommand1F67Callback = $7233
+!TextCommand1F71PartyUtility = $5C58
+!TextCommand1F81CheckDirectItemUseCompatibility = $4F6F
+!TextCommand1F83CheckDeferredItemUseCompatibility = $583D
+!TextCommand1FC0JumpMulti2 = $6308
+!TextCommand1FD0JeffRepairBrokenItem = $63A7
+!TextCommand1FD2WanderingPhotographer = $7304
+!TextCommand1FD3TimedDeliveryRowSelector = $7440
+!TextCommand1FE1Callback = $66FE
+!TextCommand1FE4Callback = $6B2B
+!TextCommand1FE5Callback = $6BA4
+!TextCommand1FE6Callback = $6BAF
+!TextCommand1FE7Callback = $6BF2
+!TextCommand1FE8Callback = $6C35
+!TextCommand1FE9Callback = $6C40
+!TextCommand1FEACallback = $6C83
+!TextCommand1FEBCallback = $6CC6
+!TextCommand1FECCallback = $6D14
+!TextCommand1FEECallback = $6D62
+!TextCommand1FEFCallback = $6DA5
+!TextCommand1FF1Callback = $6EBF
+!TextCommand1FF2Callback = $6F2F
+!TextCommand1FF3Callback = $7325
+!TextCommand1FF4Callback = $737D
 CC_1A_TREE:
 !C17B56_DispatchDisplayTextDynamicSourceSelector = CC_1A_TREE
     rep #$31
@@ -17263,10 +17618,10 @@ C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E:
 C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96:
     jmp.w C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17B99_DispatchDisplayTextDynamicSourceSelector_L7B99:
-    lda.w #$463B
+    lda.w #!TextCommand1A00PartySelectionMenuNoCancel
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F:
-    lda.w #$467D
+    lda.w #!TextCommand1A01PartySelectionMenu
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     lda.w #$0000
@@ -17281,10 +17636,10 @@ C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     jsr !C11383_ClearLoadedTextStrings
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BBF_DispatchDisplayTextDynamicSourceSelector_L7BBF:
-    lda.w #$549E
+    lda.w #!TextCommand1A05DisplayInventoryMenu
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4:
-    lda.w #$4EB5
+    lda.w #!TextCommand1A06DisplayShopMenu
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
     jsr !C19A43_BuildEscargoStorageSelectionMenu
@@ -17391,7 +17746,7 @@ C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C:
     cmp $0A
 C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93:
     bne C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B
-    lda.w #$4103
+    lda.w #!TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B:
     ldy $16
@@ -17420,7 +17775,7 @@ C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA:
     cmp $0A
 C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1:
     beq C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9
-    lda.w #$4103
+    lda.w #!TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9:
     ldy $16
@@ -17603,49 +17958,49 @@ C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C:
 C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44:
     jmp.w C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17E47_DispatchDisplayTextDynamicSourceSelector_L7E47:
-    lda.w #$40F9
+    lda.w #!TextCommand1C00TextColourEffects
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E4D_DispatchDisplayTextDynamicSourceSelector_L7E4D:
-    lda.w #$40B0
+    lda.w #!TextCommand1C01PrintStatistic
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E53_DispatchDisplayTextDynamicSourceSelector_L7E53:
-    lda.w #$4FD7
+    lda.w #!TextCommand1C02PrintCharacterName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E59_DispatchDisplayTextDynamicSourceSelector_L7E59:
-    lda.w #$488D
+    lda.w #!TextCommand1C03PrintCharacter
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E5F_DispatchDisplayTextDynamicSourceSelector_L7E5F:
     jsr !C10A04_ShowHpppWindowsInternal
     jmp.w C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17E65_DispatchDisplayTextDynamicSourceSelector_L7E65:
-    lda.w #$46BF
+    lda.w #!TextCommand1C05PrintItemName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E6B_DispatchDisplayTextDynamicSourceSelector_L7E6B:
-    lda.w #$46DE
+    lda.w #!TextCommand1C06PrintTeleportDestinationName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E71_DispatchDisplayTextDynamicSourceSelector_L7E71:
-    lda.w #$45CA
+    lda.w #!TextCommand1C07PrintHorizontalTextString
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E77_DispatchDisplayTextDynamicSourceSelector_L7E77:
-    lda.w #$43B8
+    lda.w #!TextCommand1C08PrintBattleSpecialGraphics
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E7D_DispatchDisplayTextDynamicSourceSelector_L7E7D:
-    lda.w #$40EF
+    lda.w #!TextCommand1C09SetActiveWindowTextMode
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E83_DispatchDisplayTextDynamicSourceSelector_L7E83:
-    lda.w #$53AF
+    lda.w #!TextCommand1C0APrintNumber
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E89_DispatchDisplayTextDynamicSourceSelector_L7E89:
-    lda.w #$5573
+    lda.w #!TextCommand1C0BPrintMoneyAmount
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E8F_DispatchDisplayTextDynamicSourceSelector_L7E8F:
-    lda.w #$5BA7
+    lda.w #!TextCommand1C0CPrintVerticalTextString
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E95_DispatchDisplayTextDynamicSourceSelector_L7E95:
-    lda.w #$516B
+    lda.w #!TextCommand1C14LoadSpecialTextSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A:
-    lda.w #$51FC
+    lda.w #!TextCommand1C15LoadSpecialForJumpMultiSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
     lda.w #$0000
@@ -17692,13 +18047,13 @@ C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
     jsr !C10DF6_PrintNumber
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EFD_DispatchDisplayTextDynamicSourceSelector_L7EFD:
-    lda.w #$40CF
+    lda.w #!TextCommand1C11LoadSpecialSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F02_DispatchDisplayTextDynamicSourceSelector_L7F02:
-    lda.w #$61D1
+    lda.w #!TextCommand1C12PrintPsiName
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07:
-    lda.w #$73C0
+    lda.w #!TextCommand1C13StageBattleVisualEffectResult
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C:
     lda.w #$0000
@@ -17834,79 +18189,79 @@ C18001_DispatchDisplayTextDynamicSourceSelector_L8001:
 C18009_DispatchDisplayTextDynamicSourceSelector_L8009:
     jmp.w C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C1800C_DispatchDisplayTextDynamicSourceSelector_L800C:
-    lda.w #$4C1E
+    lda.w #!TextCommand1D00GiveItemToCharacter
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18012_DispatchDisplayTextDynamicSourceSelector_L8012:
-    lda.w #$4C86
+    lda.w #!TextCommand1D01TakeItemFromCharacter
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18018_DispatchDisplayTextDynamicSourceSelector_L8018:
-    lda.w #$48AC
+    lda.w #!TextCommand1D02CheckItemBroadClass
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1801E_DispatchDisplayTextDynamicSourceSelector_L801E:
-    lda.w #$4CEE
+    lda.w #!TextCommand1D03FindInventoryRoom
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18024_DispatchDisplayTextDynamicSourceSelector_L8024:
-    lda.w #$4D24
+    lda.w #!TextCommand1D04FindCharacterWithoutItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1802A_DispatchDisplayTextDynamicSourceSelector_L802A:
-    lda.w #$4D93
+    lda.w #!TextCommand1D05FindCharacterWithItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18030_DispatchDisplayTextDynamicSourceSelector_L8030:
-    lda.w #$5C85
+    lda.w #!TextCommand1D06AddToAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18036_DispatchDisplayTextDynamicSourceSelector_L8036:
-    lda.w #$5D6B
+    lda.w #!TextCommand1D07TakeFromAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1803C_DispatchDisplayTextDynamicSourceSelector_L803C:
-    lda.w #$48E9
+    lda.w #!TextCommand1D08AddToWallet
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18042_DispatchDisplayTextDynamicSourceSelector_L8042:
-    lda.w #$494A
+    lda.w #!TextCommand1D09TakeFromWallet
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18048_DispatchDisplayTextDynamicSourceSelector_L8048:
-    lda.w #$4EF8
+    lda.w #!TextCommand1D0AGetBuyPriceOfItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1804E_DispatchDisplayTextDynamicSourceSelector_L804E:
-    lda.w #$4F33
+    lda.w #!TextCommand1D0BGetSellPriceOfItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18054_DispatchDisplayTextDynamicSourceSelector_L8054:
-    lda.w #$7058
+    lda.w #!TextCommand1D0CCheckEscargoStorageStatus
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1805A_DispatchDisplayTextDynamicSourceSelector_L805A:
-    lda.w #$50E4
+    lda.w #!TextCommand1D0DCharacterHasAilment
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18060_DispatchDisplayTextDynamicSourceSelector_L8060:
-    lda.w #$5659
+    lda.w #!TextCommand1D0EGiveItemToCharacterB
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18066_DispatchDisplayTextDynamicSourceSelector_L8066:
-    lda.w #$56DB
+    lda.w #!TextCommand1D0FRemoveInventoryItemBySlot
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1806C_DispatchDisplayTextDynamicSourceSelector_L806C:
-    lda.w #$575D
+    lda.w #!TextCommand1D10CheckItemEquipped
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18072_DispatchDisplayTextDynamicSourceSelector_L8072:
-    lda.w #$57CD
+    lda.w #!TextCommand1D11CheckInventoryItemUsability
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18078_DispatchDisplayTextDynamicSourceSelector_L8078:
-    lda.w #$58A5
+    lda.w #!TextCommand1D12StoreInventoryItemWithEscargo
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1807E_DispatchDisplayTextDynamicSourceSelector_L807E:
-    lda.w #$58FE
+    lda.w #!TextCommand1D13WithdrawEscargoItemToInventory
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18084_DispatchDisplayTextDynamicSourceSelector_L8084:
-    lda.w #$59F9
+    lda.w #!TextCommand1D14HaveEnoughMoney
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1808A_DispatchDisplayTextDynamicSourceSelector_L808A:
-    lda.w #$5BCA
+    lda.w #!TextCommand1D15PutValueInArgmem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18090_DispatchDisplayTextDynamicSourceSelector_L8090:
-    lda.w #$5E5C
+    lda.w #!TextCommand1D17HaveEnoughMoneyInAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18096_DispatchDisplayTextDynamicSourceSelector_L8096:
-    lda.w #$6124
+    lda.w #!TextCommand1D18AddItemToEscargoStorage
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1809C_DispatchDisplayTextDynamicSourceSelector_L809C:
-    lda.w #$6172
+    lda.w #!TextCommand1D19HaveXPartyMembers
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2:
     ldy.w #$0000
@@ -17936,7 +18291,7 @@ C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA:
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7:
-    lda.w #$61F0
+    lda.w #!TextCommand1D21GenerateRandomNumber
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC:
     ldy.w #$0000
@@ -17964,10 +18319,10 @@ C18103_DispatchDisplayTextDynamicSourceSelector_L8103:
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C18110_DispatchDisplayTextDynamicSourceSelector_L8110:
-    lda.w #$7708
+    lda.w #!TextCommand1D23ClassifyEquippedItemOffensiveDefensive
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18115_DispatchDisplayTextDynamicSourceSelector_L8115:
-    lda.w #$7274
+    lda.w #!TextCommand1D24StageBankDepositAccumulator
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1811A_DispatchDisplayTextDynamicSourceSelector_L811A:
     lda.w #$0000
@@ -18007,49 +18362,49 @@ C1811D_DispatchDisplayTextDynamicSourceSelector_L811D:
     beq C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2
     bra C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7
 C1816C_DispatchDisplayTextDynamicSourceSelector_L816C:
-    lda.w #$49B6
+    lda.w #!TextCommand1E00RecoverHpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18171_DispatchDisplayTextDynamicSourceSelector_L8171:
-    lda.w #$4A03
+    lda.w #!TextCommand1E01DepleteHpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18176_DispatchDisplayTextDynamicSourceSelector_L8176:
-    lda.w #$4A50
+    lda.w #!TextCommand1E02RecoverHpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1817B_DispatchDisplayTextDynamicSourceSelector_L817B:
-    lda.w #$4A9D
+    lda.w #!TextCommand1E03DepleteHpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18180_DispatchDisplayTextDynamicSourceSelector_L8180:
-    lda.w #$4AEA
+    lda.w #!TextCommand1E04RecoverPpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18185_DispatchDisplayTextDynamicSourceSelector_L8185:
-    lda.w #$4B37
+    lda.w #!TextCommand1E05DepletePpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1818A_DispatchDisplayTextDynamicSourceSelector_L818A:
-    lda.w #$4B84
+    lda.w #!TextCommand1E06RecoverPpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1818F_DispatchDisplayTextDynamicSourceSelector_L818F:
-    lda.w #$4BD1
+    lda.w #!TextCommand1E07DepletePpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18194_DispatchDisplayTextDynamicSourceSelector_L8194:
-    lda.w #$6A01
+    lda.w #!TextCommand1E08SetCharacterLevel
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18199_DispatchDisplayTextDynamicSourceSelector_L8199:
-    lda.w #$744B
+    lda.w #!TextCommand1E09GiveExperience
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1819E_DispatchDisplayTextDynamicSourceSelector_L819E:
-    lda.w #$7523
+    lda.w #!TextCommand1E0ABoostIq
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181A3_DispatchDisplayTextDynamicSourceSelector_L81A3:
-    lda.w #$7584
+    lda.w #!TextCommand1E0BBoostGuts
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181A8_DispatchDisplayTextDynamicSourceSelector_L81A8:
-    lda.w #$75E5
+    lda.w #!TextCommand1E0CBoostSpeed
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181AD_DispatchDisplayTextDynamicSourceSelector_L81AD:
-    lda.w #$7646
+    lda.w #!TextCommand1E0DBoostVitality
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2:
-    lda.w #$76A7
+    lda.w #!TextCommand1E0EBoostLuck
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7:
     lda.w #$0000
@@ -18360,13 +18715,13 @@ C1840B_DispatchDisplayTextDynamicSourceSelector_L840B:
 C18413_DispatchDisplayTextDynamicSourceSelector_L8413:
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18416_DispatchDisplayTextDynamicSourceSelector_L8416:
-    lda.w #$4751
+    lda.w #!TextCommand1F00QueueOrApplyMusicTrack
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1841C_DispatchDisplayTextDynamicSourceSelector_L841C:
-    lda.w #$47A0
+    lda.w #!TextCommand1F01StopMusic
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
-    lda.w #$47AB
+    lda.w #!TextCommand1F02PlaySound
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     jsl !C069F7_Get_CurrentPositionMusicTrack
@@ -18374,7 +18729,7 @@ C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     jsl !C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
-    lda.w #$7254
+    lda.w #!TextCommand1F04Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
     lda.w #!DisableAutoSectorMusicChanges
@@ -18385,70 +18740,70 @@ C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
     jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
-    lda.w #$741F
+    lda.w #!TextCommand1F07Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18456_DispatchDisplayTextDynamicSourceSelector_L8456:
-    lda.w #$5F71
+    lda.w #!TextCommand1F11AddToWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1845C_DispatchDisplayTextDynamicSourceSelector_L845C:
-    lda.w #$5F91
+    lda.w #!TextCommand1F12TakeFromWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18462_DispatchDisplayTextDynamicSourceSelector_L8462:
-    lda.w #$63FD
+    lda.w #!TextCommand1F13Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18468_DispatchDisplayTextDynamicSourceSelector_L8468:
-    lda.w #$646E
+    lda.w #!TextCommand1F14Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1846E_DispatchDisplayTextDynamicSourceSelector_L846E:
-    lda.w #$6744
+    lda.w #!TextCommand1F15Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18474_DispatchDisplayTextDynamicSourceSelector_L8474:
-    lda.w #$6490
+    lda.w #!TextCommand1F16Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1847A_DispatchDisplayTextDynamicSourceSelector_L847A:
-    lda.w #$6509
+    lda.w #!TextCommand1F17Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18480_DispatchDisplayTextDynamicSourceSelector_L8480:
-    lda.w #$6582
+    lda.w #!TextCommand1F18Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18486_DispatchDisplayTextDynamicSourceSelector_L8486:
-    lda.w #$65AA
+    lda.w #!TextCommand1F19Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1848C_DispatchDisplayTextDynamicSourceSelector_L848C:
-    lda.w #$65D2
+    lda.w #!TextCommand1F1ACallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18492_DispatchDisplayTextDynamicSourceSelector_L8492:
-    lda.w #$662A
+    lda.w #!TextCommand1F1BCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18498_DispatchDisplayTextDynamicSourceSelector_L8498:
-    lda.w #$666D
+    lda.w #!TextCommand1F1CCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1849E_DispatchDisplayTextDynamicSourceSelector_L849E:
-    lda.w #$66DD
+    lda.w #!TextCommand1F1DCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4:
-    lda.w #$67D6
+    lda.w #!TextCommand1F1ECallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA:
-    lda.w #$683B
+    lda.w #!TextCommand1F1FCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0:
-    lda.w #$4DFB
+    lda.w #!TextCommand1F20UseItemOnCharacter
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6:
-    lda.w #$4E8C
+    lda.w #!TextCommand1F21TeleportToPresetLocation
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC:
-    lda.w #$6FD1
+    lda.w #!TextCommand1F23Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2:
     jsr !C10FAC_SetActiveWindowGlyphModeFlag
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184C8_DispatchDisplayTextDynamicSourceSelector_L84C8:
-    lda.w #$72BC
+    lda.w #!TextCommand1F40StageSpecialEventArgument
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184CE_DispatchDisplayTextDynamicSourceSelector_L84CE:
-    lda.w #$72DA
+    lda.w #!TextCommand1F41SpecialEventDispatch
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184D4_DispatchDisplayTextDynamicSourceSelector_L84D4:
     jsr !C100C7_LockTextInput
@@ -18457,19 +18812,19 @@ C184DA_DispatchDisplayTextDynamicSourceSelector_L84DA:
     jsr !C100D0_UnlockTextInput
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184E0_DispatchDisplayTextDynamicSourceSelector_L84E0:
-    lda.w #$44A3
+    lda.w #!TextCommand1F52CreateNumberSelector
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184E6_DispatchDisplayTextDynamicSourceSelector_L84E6:
-    lda.w #$5494
+    lda.w #!TextCommand1F60WaitForTextPromptOrInputGate
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC:
     jsr !C102D0_WaitForTextStateFlag9641
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2:
-    lda.w #$69F7
+    lda.w #!TextCommand1F62Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
-    lda.w #$6DE8
+    lda.w #!TextCommand1F63Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
 !C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
@@ -18480,10 +18835,10 @@ C18505_DispatchDisplayTextDynamicSourceSelector_L8505:
     jsl !C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
-    lda.w #$711C
+    lda.w #!TextCommand1F66Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18512_DispatchDisplayTextDynamicSourceSelector_L8512:
-    lda.w #$7233
+    lda.w #!TextCommand1F67Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18518_DispatchDisplayTextDynamicSourceSelector_L8518:
     lda $9877
@@ -18530,13 +18885,13 @@ C1853B_DispatchDisplayTextDynamicSourceSelector_L853B:
     sta $5DC4
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18582_DispatchDisplayTextDynamicSourceSelector_L8582:
-    lda.w #$5C58
+    lda.w #!TextCommand1F71PartyUtility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18588_DispatchDisplayTextDynamicSourceSelector_L8588:
-    lda.w #$4F6F
+    lda.w #!TextCommand1F81CheckDirectItemUseCompatibility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1858E_DispatchDisplayTextDynamicSourceSelector_L858E:
-    lda.w #$583D
+    lda.w #!TextCommand1F83CheckDeferredItemUseCompatibility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr !C19441_BuildPhoneContactSelectionMenu
@@ -18578,10 +18933,10 @@ C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
     jsl !C22A2C_SaveCurrentGame
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1:
-    lda.w #$6308
+    lda.w #!TextCommand1FC0JumpMulti2
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7:
-    lda.w #$63A7
+    lda.w #!TextCommand1FD0JeffRepairBrokenItem
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsl !C490EE_GetNearbyMagicTruffleDirection
@@ -18594,64 +18949,64 @@ C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18602_DispatchDisplayTextDynamicSourceSelector_L8602:
-    lda.w #$7304
+    lda.w #!TextCommand1FD2WanderingPhotographer
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18607_DispatchDisplayTextDynamicSourceSelector_L8607:
-    lda.w #$7440
+    lda.w #!TextCommand1FD3TimedDeliveryRowSelector
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1860C_DispatchDisplayTextDynamicSourceSelector_L860C:
-    lda.w #$66FE
+    lda.w #!TextCommand1FE1Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18611_DispatchDisplayTextDynamicSourceSelector_L8611:
-    lda.w #$6B2B
+    lda.w #!TextCommand1FE4Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18616_DispatchDisplayTextDynamicSourceSelector_L8616:
-    lda.w #$6BA4
+    lda.w #!TextCommand1FE5Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1861B_DispatchDisplayTextDynamicSourceSelector_L861B:
-    lda.w #$6BAF
+    lda.w #!TextCommand1FE6Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18620_DispatchDisplayTextDynamicSourceSelector_L8620:
-    lda.w #$6BF2
+    lda.w #!TextCommand1FE7Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18625_DispatchDisplayTextDynamicSourceSelector_L8625:
-    lda.w #$6C35
+    lda.w #!TextCommand1FE8Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862A_DispatchDisplayTextDynamicSourceSelector_L862A:
-    lda.w #$6C40
+    lda.w #!TextCommand1FE9Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862F_DispatchDisplayTextDynamicSourceSelector_L862F:
-    lda.w #$6C83
+    lda.w #!TextCommand1FEACallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18634_DispatchDisplayTextDynamicSourceSelector_L8634:
-    lda.w #$6CC6
+    lda.w #!TextCommand1FEBCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
-    lda.w #$6D14
+    lda.w #!TextCommand1FECCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
     jsl !C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
-    lda.w #$6D62
+    lda.w #!TextCommand1FEECallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
-    lda.w #$6DA5
+    lda.w #!TextCommand1FEFCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl !C03C5E_GetOnBicycle
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18654_DispatchDisplayTextDynamicSourceSelector_L8654:
-    lda.w #$6EBF
+    lda.w #!TextCommand1FF1Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18659_DispatchDisplayTextDynamicSourceSelector_L8659:
-    lda.w #$6F2F
+    lda.w #!TextCommand1FF2Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1865E_DispatchDisplayTextDynamicSourceSelector_L865E:
-    lda.w #$7325
+    lda.w #!TextCommand1FF3Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18663_DispatchDisplayTextDynamicSourceSelector_L8663:
-    lda.w #$737D
+    lda.w #!TextCommand1FF4Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18668_DispatchDisplayTextDynamicSourceSelector_L8668:
     lda.w #$0000
@@ -19724,7 +20079,7 @@ C1253F_DispatchCharacterSelectionPromptMode_L253F:
     jsl !C3E521_CloseWindowById
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    jmp $27CB
+    db $4C, $CB, $27
 C1255C_DispatchCharacterSelectionPromptMode_L255C:
     ldx.w #$0000
     bra C12586_DispatchCharacterSelectionPromptMode_L2586
@@ -19876,7 +20231,7 @@ C12683_DispatchCharacterSelectionPromptMode_L2683:
     lda.b #$00
     brk #$85
     asl $4C,X
-    jsr $2227
+    db $20, $27, $22
     wdm #$2E
     cmp ($AD,X)
     adc $2900
@@ -19894,7 +20249,7 @@ C126A5_DispatchCharacterSelectionPromptMode_L26A5:
 C126A8_DispatchCharacterSelectionPromptMode_L26A8:
     lda.b #$02
     brk #$8D
-    jmp ($4C5E,X)
+    db $7C, $5E, $4C
     eor [$27]
 C126B1_DispatchCharacterSelectionPromptMode_L26B1:
     lda $006D
@@ -19912,7 +20267,7 @@ C126C7_DispatchCharacterSelectionPromptMode_L26C7:
 C126CA_DispatchCharacterSelectionPromptMode_L26CA:
     lda.b #$03
     brk #$8D
-    jmp ($805E,X)
+    db $7C, $5E, $80
     adc $AD,X
     adc $2900
     ldy.w #$F000
@@ -19924,7 +20279,7 @@ C126CA_DispatchCharacterSelectionPromptMode_L26CA:
     lda.b #$01
     brk #$22
     cpx.w #$C0AB
-    jmp $27CB
+    db $4C, $CB, $27
     lda $006D
     and.b #$00
     ldy.w #$24F0
@@ -19943,7 +20298,7 @@ C1270F_DispatchCharacterSelectionPromptMode_L270F:
     tya
     jsl !C0ABE0_PlaySoundEffect
     jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
-    jmp $27CB
+    db $4C, $CB, $27
     lda $16
     inc A
     sta $16
@@ -19952,7 +20307,7 @@ C1270F_DispatchCharacterSelectionPromptMode_L270F:
     cmp $02
     bcs C1272D_DispatchCharacterSelectionPromptMode_L272D
     beq C1272D_DispatchCharacterSelectionPromptMode_L272D
-    jmp $268B
+    db $4C, $8B, $26
 C1272D_DispatchCharacterSelectionPromptMode_L272D:
     lda $5E7C
     bne C12737_DispatchCharacterSelectionPromptMode_L2737
@@ -20203,7 +20558,7 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     jsl !C3E521_CloseWindowById
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    jmp $2BB1
+    db $4C, $B1, $2B
 C12925_DispatchCharacterSelectionPromptMode_L2925:
     lda $89CA
     cmp.w #$FFFF
@@ -20345,7 +20700,7 @@ C12A3D_DispatchCharacterSelectionPromptMode_L2A3D:
     sty $16
     lda.b #$02
     brk #$8D
-    jmp ($4C5E,X)
+    db $7C, $5E, $4C
     cpx.w #$AD2A
     adc $2900
     brk #$01
@@ -20363,7 +20718,7 @@ C12A61_DispatchCharacterSelectionPromptMode_L2A61:
     sty $16
     lda.b #$03
     brk #$8D
-    jmp ($805E,X)
+    db $7C, $5E, $80
     adc $AD,X
     adc $2900
     ldy.w #$F000
@@ -20375,7 +20730,7 @@ C12A61_DispatchCharacterSelectionPromptMode_L2A61:
     lda.b #$01
     brk #$22
     cpx.w #$C0AB
-    jmp $2BB1
+    db $4C, $B1, $2B
     lda $006D
     and.b #$00
     ldy.w #$24F0
@@ -20394,7 +20749,7 @@ C12AA8_DispatchCharacterSelectionPromptMode_L2AA8:
     tya
     jsl !C0ABE0_PlaySoundEffect
     jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
-    jmp $2BB1
+    db $4C, $B1, $2B
     lda $1E
     inc A
     sta $1E
@@ -20416,7 +20771,7 @@ C12AD3_DispatchCharacterSelectionPromptMode_L2AD3:
     lda.b #$0A
     brk #$85
     cop.b #$85
-    jsr $AE4C
+    db $20, $4C, $AE
     and.b #$8A
     sec
     sbc $04
@@ -20482,7 +20837,7 @@ C12B34_DispatchCharacterSelectionPromptMode_L2B34:
     cmp.b #$00
     brk #$D0
     bpl C12AF7_DispatchCharacterSelectionPromptMode_L2AF7
-    jsr $0285
+    db $20, $85, $02
     ldx $1A
     txa
     clc
@@ -20529,7 +20884,7 @@ C12BA7_DispatchCharacterSelectionPromptMode_L2BA7:
     lda.b #$04
     brk #$85
     cop.b #$85
-    jsr $764C
+    db $20, $4C, $76
     and.b #$A9
     sbc $7C8DFF,X
     lsr $22A5,X
@@ -25779,6 +26134,7 @@ org $C1D109
 !C21D7D_RecalculateCharacterDerivedIq = $C21D7D
 !C45F7B_GetRandomLessThanA = $C45F7B
 !C4FBBD_ChangeMusic = $C4FBBD
+!C1D8C7_ClearBattleTextDisplayModeAndReturn = $D8C7
 LEVEL_UP_CHAR:
 !C1D109_LevelUpCharacterAndRefreshDerivedStats = LEVEL_UP_CHAR
     rep #$31
@@ -26531,7 +26887,7 @@ C1D6A6_LevelUpCharacterAndRefreshDerivedStats_LD6A6:
     ldy $1B
     cpy.w #$0002
     bne C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0:
     cpy.w #$0000
     bne C1D6D5_LevelUpCharacterAndRefreshDerivedStats_LD6D5
@@ -26639,7 +26995,7 @@ C1D76D_PrintMaximumPpGainMessage:
 C1D77E_LevelUpCharacterAndRefreshDerivedStats_LD77E:
     lda $1D
     bne C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     lda $16
     sta $04
@@ -26654,7 +27010,7 @@ C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     bne C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F
     jmp.w C1D867_LevelUpCharacterAndRefreshDerivedStats_LD867
 C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F:
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D7A2_LevelUpCharacterAndRefreshDerivedStats_LD7A2:
     ldx.w #$0001
     stx $1B
@@ -27302,6 +27658,144 @@ org $C1F616
 !C1D8D0_RefreshCharacterBattleStartState = $D8D0
 !C1D9E9_AwardExperienceToCharacter = $C1D9E9
 !EF0A4D_SaveGameSlot = $EF0A4D
+!TextSpeedMenuWindowId = $0018
+!SoundSettingMenuWindowId = $0019
+!WindowFlavourMenuWindowId = $0032
+!CurrentTextSpeedSetting = $98B6
+!CurrentSoundSetting = $98B7
+!CurrentWindowFlavourSetting = $99CD
+!CurrentSaveSlot = $B4A1
+!ActiveWindowFocus = $8958
+!ActiveWindowDescriptorTable = $88E4
+!WindowDescriptorTableBase = $8650
+!WindowDescriptorEntryListOffset = $2B
+!WindowDescriptorStride = $0052
+!TextEntryRecordTableBase = $89D4
+!TextEntryRecordStride = $002D
+!TextEntryNextRecordOffset = $0002
+!TextEntryCursorColumnOffset = $0008
+!TextEntryCursorRowOffset = $000A
+!TextEntryBodyTextOffset = $0013
+!RedrawSelectedSetupRowMode = $0006
+!MenuSelectionEnabled = $0001
+!MenuSelectionCancel = $0000
+!WindowFlavourFirstChoice = $0002
+!WindowFlavourSecondChoice = $0003
+!WindowFlavourThirdChoice = $0004
+!WindowFlavourFourthChoice = $0005
+!WindowFlavourFifthChoice = $0006
+!WindowFlavourDefault = $01
+!NewFileStartupFlagValue = $01
+!C4FileSelectMenuTextBank = $00C4
+!WindowFlavourPromptTextLo = $C128
+!WindowFlavourOption1TextLo = $C14D
+!WindowFlavourOption2TextLo = $C15A
+!WindowFlavourOption3TextLo = $C166
+!WindowFlavourOption4TextLo = $C178
+!WindowFlavourOption5TextLo = $C186
+!WindowFlavourPromptPrintLength = $0025
+!C1EC8F_WindowFlavourPreviewCallbackLow = $EC8F
+!C1EC8F_WindowFlavourPreviewCallbackBank = $00C1
+!NamingFieldRetrySentinel = $FFFF
+!NameEntryPromptTableTextLo = $C194
+!NameEntryPromptTableEntryStride = $0028
+!PlayableCharacterNameFieldLimit = $0004
+!PetNameFieldIndex = $0004
+!FavoriteFoodFieldIndex = $0005
+!FavoriteThingFieldIndex = $0006
+!NamingFlowDoneFieldIndex = $0007
+!PartyCharacterRecordBase = $99CE
+!PartyCharacterRecordStride = $005F
+!PartyCharacterNameWidth = $0005
+!PetNameBuffer = $9819
+!PetNameWidth = $0006
+!FavoriteFoodBuffer = $981F
+!FavoriteFoodWidth = $0006
+!FavoriteThingSuffixBuffer = $9829
+!FavoriteThingSuffixWidth = $0006
+!NamingFlowAdvanceStep = $0001
+!NameConfirmationPartySummaryWindowBase = $001D
+!NameConfirmationPartySummaryWindowCount = $0004
+!NameConfirmationPlayerNameWindowId = $0021
+!NameConfirmationFavoriteFoodWindowId = $0022
+!NameConfirmationFavoriteThingWindowId = $0023
+!NameConfirmationPromptWindowId = $0024
+!NameConfirmationFavoriteFoodLabelTextLo = $C2AC
+!NameConfirmationFavoriteThingLabelTextLo = $C2BA
+!NameConfirmationQuestionTextLo = $C2C8
+!NameConfirmationYesTextLo = $C2D5
+!NameConfirmationNoTextLo = $C2D9
+!NameConfirmationLabelPrintLength = $000E
+!NameConfirmationQuestionPrintLength = $000D
+!FavoriteFoodWindowDescriptorHandle = $8928
+!FavoriteThingWindowDescriptorHandle = $892A
+!WindowDescriptorRightColumnBase = $865A
+!NameConfirmationCenteringBucketCount = $0008
+!NameConfirmationMaxCenteredTileSkew = $0006
+!NameConfirmationPrintedNameRow = $0001
+!NameConfirmationOptionRow = $0000
+!NameConfirmationYesColumn = $000E
+!NameConfirmationNoColumn = $0012
+!NameConfirmationYesResult = $0001
+!AutoWrapPreflightGate = $5E6E
+!AutoWrapEnabledSentinel = $00FF
+!NewFileCreationMusicId = $009E
+!FileSelectEntityScriptBusyWaitFrames = $00B4
+!InitialStatsTableLo = $F5F5
+!InitialStatsTableBank = $00D5
+!InitialStatsStartYOffset = $0002
+!InitialStatsMoneyOffset = $0004
+!InitialStatsBattleStateOffset = $0006
+!InitialStatsExperienceAwardOffset = $0008
+!InitialStatsInventorySeedOffset = $000A
+!InitialStatsInventorySeedLength = $000A
+!NewFileInitialPartyCount = $0004
+!PartyCharacterInitialHpSource = $99D8
+!PartyCharacterInitialPpSource = $99DA
+!PartyCharacterHpTarget = $9A13
+!PartyCharacterHpDisplay = $9A15
+!PartyCharacterPpTarget = $9A19
+!PartyCharacterPpDisplay = $9A1B
+!PartyCharacterHpPpRollingState = $9A17
+!PartyCharacterCurrentHpPpWindowState = $9A11
+!PartyCharacterInventoryBase = $99F1
+!PartyCharacterInventoryClearLength = $000E
+!PartyCharacterBattleGaugeMarker = $9A1D
+!NewFileBattleGaugeMarkerValue = $0400
+!StartingMoneyLo = $9831
+!StartingMoneyHi = $9833
+!FavoriteThingCompositeBuffer = $9825
+!FavoriteThingPrefixGlyphP = $80
+!FavoriteThingPrefixGlyphS = $83
+!FavoriteThingPrefixGlyphI = $79
+!FavoriteThingPrefixGlyphSpace = $50
+!FavoriteThingPrefixLength = $0004
+!FavoriteThingTerminatorFillGlyph = $50
+!LandingDestinationSelectorByte = $98B8
+!CurrentPlayerWorldX = $9877
+!CurrentPlayerWorldY = $987B
+!SavedCoordinateXSnapshot = $9D1F
+!SavedCoordinateYSnapshot = $9D21
+!NewFileFallbackStartX = $06E8
+!NewFileFallbackStartY = $0840
+!NewFileStartScriptTextLo = $E70B
+!NewFileStartScriptTextBank = $00C5
+!NewFileInitialEventFlag = $000B
+!NewFileEventFlagEnabled = $0001
+!NewFileIntroStateFlag = $4A66
+!TextSpeedTimingTableLo = $FB1F
+!TextSpeedTimingTableBank = $00C3
+!TextSpeedTimingPointerBankOffset = $0002
+!TextPrintDelay = $9625
+!HpPpRollingStepPointerLo = $9627
+!HpPpRollingStepPointerBank = $9629
+!TextSpeedSlowEntry = $0003
+!DefaultPromptWaitTicks = $964B
+!MovementStateBusyFlag = $5DBA
+!StartSelectedFileTextLo = $DE2B
+!StartSelectedFileTextBank = $00C7
+!NoCursorLimit = $FFFF
+!ZeroWord = $0000
 C1F616_OpenOrRefreshSoundSettingSelection:
     rep #$31
     phd
@@ -27312,56 +27806,56 @@ C1F616_OpenOrRefreshSoundSettingSelection:
     pla
     tax
     stx $16
-    lda.w #$0019
-    sta $8958
+    lda.w #!SoundSettingMenuWindowId
+    sta !ActiveWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
     ldx $16
     bne C1F634_OpenOrRefreshSoundSettingSelection_LF634
     jmp.w C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0
 C1F634_OpenOrRefreshSoundSettingSelection_LF634:
     jsr !C1F568_OpenSoundSettingMenu
-    lda $8958
+    lda !ActiveWindowFocus
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !ActiveWindowDescriptorTable,X
+    ldy.w #!WindowDescriptorStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $867B,X
-    ldy.w #$002D
+    lda !WindowDescriptorTableBase+!WindowDescriptorEntryListOffset,X
+    ldy.w #!TextEntryRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #!TextEntryRecordTableBase
     tay
     sty $14
-    lda $98B7
+    lda !CurrentSoundSetting
     and.w #$00FF
     tax
     dex
     bra C1F674_OpenOrRefreshSoundSettingSelection_LF674
 C1F662_OpenOrRefreshSoundSettingSelection_LF662:
-    lda $0002,Y
-    ldy.w #$002D
+    lda !TextEntryNextRecordOffset,Y
+    ldy.w #!TextEntryRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #!TextEntryRecordTableBase
     tay
     sty $14
     dex
 C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     bne C1F662_OpenOrRefreshSoundSettingSelection_LF662
-    lda.w #$0006
+    lda.w #!RedrawSelectedSetupRowMode
     jsr !C10FEA_ClearOrPrepareWindowContent
     ldy $14
-    lda $000A,Y
+    lda !TextEntryCursorRowOffset,Y
     tax
-    lda $0008,Y
+    lda !TextEntryCursorColumnOffset,Y
     inc A
     jsl !C438A5_SetTextCursorPosition
     ldy $14
     tya
     clc
-    adc.w #$0013
+    adc.w #!TextEntryBodyTextOffset
     sta $06
     phb
     sep #$20
@@ -27373,12 +27867,12 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0001
-    lda.w #$FFFF
+    ldx.w #!MenuSelectionEnabled
+    lda.w #!NoCursorLimit
     jsl !C43BB9_PrintTextFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsr !C10FEA_ClearOrPrepareWindowContent
-    lda $98B7
+    lda !CurrentSoundSetting
     and.w #$00FF
     tax
     stx $12
@@ -27391,10 +27885,10 @@ C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0:
     beq C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1
     txa
     sep #$20
-    sta $98B7
+    sta !CurrentSoundSetting
 C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1:
     rep #$20
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl !EF0A4D_SaveGameSlot
@@ -27410,95 +27904,95 @@ OPEN_FLAVOUR_MENU:
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0032
+    lda.w #!WindowFlavourMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$C128
+    lda.w #!WindowFlavourPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0025
+    lda.w #!WindowFlavourPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
-    lda.w #$C14D
+    lda.w #!WindowFlavourOption1TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
-    lda.w #$0000
+    ldx.w #!WindowFlavourFirstChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C15A
+    lda.w #!WindowFlavourOption2TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #!WindowFlavourSecondChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C166
+    lda.w #!WindowFlavourOption3TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0004
-    lda.w #$0000
+    ldx.w #!WindowFlavourThirdChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C178
+    lda.w #!WindowFlavourOption4TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0005
-    lda.w #$0000
+    ldx.w #!WindowFlavourFourthChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C186
+    lda.w #!WindowFlavourOption5TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0006
-    lda.w #$0000
+    ldx.w #!WindowFlavourFifthChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    ldx.w #$99CD
+    ldx.w #!CurrentWindowFlavourSetting
     lda $0000,X
     and.w #$00FF
     bne C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8
     sep #$20
-    lda.b #$01
+    lda.b #!WindowFlavourDefault
     sta $0000,X
 C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
-    ldx.w #$99CD
+    ldx.w #!CurrentWindowFlavourSetting
     stx $18
     rep #$20
     lda $0000,X
     and.w #$00FF
     dec A
     jsr !C11887_SelectActiveTextEntryByA
-    lda.w #$EC8F
+    lda.w #!C1EC8F_WindowFlavourPreviewCallbackLow
     sta $0E
-    lda.w #$00C1
+    lda.w #!C1EC8F_WindowFlavourPreviewCallbackBank
     sta $10
     jsr !C11F5A_SetMenuRowFormatterCallback
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tay
     sty $16
@@ -27521,7 +28015,7 @@ C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB:
     jsl !C1EC8F_PreviewWindowFlavourAndRedraw
 C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     rep #$20
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl !EF0A4D_SaveGameSlot
@@ -27583,28 +28077,28 @@ C1F868_OpenOrRefreshSoundSettingSelection_LF868:
 C1F872_RunExistingFileSetupFlow:
     jsl !C1F3C2_OpenTextSpeedMenu
 C1F876_OpenOrRefreshSoundSettingSelection_LF876:
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     jsl !C1F497_OpenOrRefreshTextSpeedSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F88B_OpenOrRefreshSoundSettingSelection_LF88B
-    lda.w #$0018
+    lda.w #!TextSpeedMenuWindowId
     jsl !C3E521_CloseWindow
     bra C1F824_DispatchFileSelectActionMenuChoice
 C1F88B_OpenOrRefreshSoundSettingSelection_LF88B:
     jsr !C1F568_OpenSoundSettingMenu
 C1F88E_OpenOrRefreshSoundSettingSelection_LF88E:
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F8A2_OpenOrRefreshSoundSettingSelection_LF8A2
-    lda.w #$0019
+    lda.w #!SoundSettingMenuWindowId
     jsl !C3E521_CloseWindow
     bra C1F876_OpenOrRefreshSoundSettingSelection_LF876
 C1F8A2_OpenOrRefreshSoundSettingSelection_LF8A2:
     jsr.w !C1F6E3_OpenOrRefreshWindowFlavourSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
-    lda.w #$0032
+    lda.w #!WindowFlavourMenuWindowId
     jsl !C3E521_CloseWindow
     bra C1F88E_OpenOrRefreshSoundSettingSelection_LF88E
 C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3:
@@ -27613,28 +28107,28 @@ C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3:
 C1F8B9_RunNewFileSetupFlow:
     jsl !C1F3C2_OpenTextSpeedMenu
 C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD:
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     jsl !C1F497_OpenOrRefreshTextSpeedSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F8D3_OpenOrRefreshSoundSettingSelection_LF8D3
-    lda.w #$0018
+    lda.w #!TextSpeedMenuWindowId
     jsl !C3E521_CloseWindow
     jmp.w C1F80D_OpenOrRefreshSoundSettingSelection_LF80D
 C1F8D3_OpenOrRefreshSoundSettingSelection_LF8D3:
     jsr !C1F568_OpenSoundSettingMenu
 C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6:
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA
-    lda.w #$0019
+    lda.w #!SoundSettingMenuWindowId
     jsl !C3E521_CloseWindow
     bra C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD
 C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
     jsr.w !C1F6E3_OpenOrRefreshWindowFlavourSelection
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB
-    lda.w #$0032
+    lda.w #!WindowFlavourMenuWindowId
     jsl !C3E521_CloseWindow
     bra C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6
 C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
@@ -27642,20 +28136,20 @@ C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
     jsl !C4FBBD_ChangeMusic
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
     jsr !C1008E_CloseAndDrainAllWindows
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $04
     sta $24
     jmp.w C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE
 C1F90F_ResumeFileSelectNamingOrSetupFlow:
     lda $04
-    cmp.w #$FFFF
+    cmp.w #!NamingFieldRetrySentinel
     bne C1F935_OpenOrRefreshSoundSettingSelection_LF935
     jsr !C1008E_CloseAndDrainAllWindows
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     jsr !C1ED5B_OpenFileSelectSlotChoiceMenu
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     jsl !C1F497_OpenOrRefreshTextSpeedSelection
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
     lda.w #$0003
     jsl !C4FBBD_ChangeMusic
@@ -27663,7 +28157,7 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
 C1F935_OpenOrRefreshSoundSettingSelection_LF935:
     lda $04
     jsl !C4D7D9_UpdateNameEntrySelection
-    lda.w #$0004
+    lda.w #!PlayableCharacterNameFieldLimit
     clc
     sbc $04
     bvc C1F947_OpenOrRefreshSoundSettingSelection_LF947
@@ -27672,9 +28166,9 @@ C1F935_OpenOrRefreshSoundSettingSelection_LF935:
 C1F947_OpenOrRefreshSoundSettingSelection_LF947:
     bmi C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5
 C1F949_OpenOrRefreshSoundSettingSelection_LF949:
-    lda.w #$C194
+    lda.w #!NameEntryPromptTableTextLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $04
     sta $04
@@ -27690,39 +28184,39 @@ C1F949_OpenOrRefreshSoundSettingSelection_LF949:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0028
+    lda.w #!NameEntryPromptTableEntryStride
     sta $12
     lda $24
     sta $04
     ldy $04
     sty $22
     lda $04
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterRecordBase
     tax
-    lda.w #$0005
+    lda.w #!PartyCharacterNameWidth
     ldy $22
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     beq C1F99B_OpenOrRefreshSoundSettingSelection_LF99B
-    lda.w #$FFFF
+    lda.w #!NamingFieldRetrySentinel
     sta $02
     sta $20
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F99B_OpenOrRefreshSoundSettingSelection_LF99B:
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     sta $02
     sta $20
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5:
     lda $04
-    cmp.w #$0004
+    cmp.w #!PetNameFieldIndex
     bne C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9
-    lda.w #$C194
+    lda.w #!NameEntryPromptTableTextLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $04
     sta $04
@@ -27738,32 +28232,32 @@ C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0028
+    lda.w #!NameEntryPromptTableEntryStride
     sta $12
     lda $24
     sta $04
     ldy $04
-    ldx.w #$9819
-    lda.w #$0006
+    ldx.w #!PetNameBuffer
+    lda.w #!PetNameWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     beq C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF
-    lda.w #$FFFF
+    lda.w #!NamingFieldRetrySentinel
     sta $02
     sta $20
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF:
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     sta $02
     sta $20
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9:
     lda $04
-    cmp.w #$0005
+    cmp.w #!FavoriteFoodFieldIndex
     bne C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B
-    lda.w #$C194
+    lda.w #!NameEntryPromptTableTextLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $04
     sta $04
@@ -27779,32 +28273,32 @@ C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0028
+    lda.w #!NameEntryPromptTableEntryStride
     sta $12
     lda $24
     sta $04
     ldy $04
-    ldx.w #$981F
-    lda.w #$0006
+    ldx.w #!FavoriteFoodBuffer
+    lda.w #!FavoriteFoodWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     beq C1FA42_OpenOrRefreshSoundSettingSelection_LFA42
-    lda.w #$FFFF
+    lda.w #!NamingFieldRetrySentinel
     sta $02
     sta $20
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA42_OpenOrRefreshSoundSettingSelection_LFA42:
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     sta $02
     sta $20
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B:
     lda $04
-    cmp.w #$0006
+    cmp.w #!FavoriteThingFieldIndex
     bne C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
-    lda.w #$C194
+    lda.w #!NameEntryPromptTableTextLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $04
     sta $04
@@ -27820,22 +28314,22 @@ C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0028
+    lda.w #!NameEntryPromptTableEntryStride
     sta $12
     lda $24
     sta $04
     ldy $04
-    ldx.w #$9829
-    lda.w #$0006
+    ldx.w #!FavoriteThingSuffixBuffer
+    lda.w #!FavoriteThingSuffixWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     beq C1FA94_OpenOrRefreshSoundSettingSelection_LFA94
-    lda.w #$FFFF
+    lda.w #!NamingFieldRetrySentinel
     sta $02
     sta $20
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA94_OpenOrRefreshSoundSettingSelection_LFA94:
-    lda.w #$0001
+    lda.w #!NamingFlowAdvanceStep
     sta $02
     sta $20
 C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B:
@@ -27849,7 +28343,7 @@ C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B:
     sta $04
     sta $24
 C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE:
-    lda.w #$0007
+    lda.w #!NamingFlowDoneFieldIndex
     clc
     sbc $04
     bvs C1FABB_OpenOrRefreshSoundSettingSelection_LFABB
@@ -27861,13 +28355,13 @@ C1FABB_OpenOrRefreshSoundSettingSelection_LFABB:
 C1FAC0_OpenOrRefreshSoundSettingSelection_LFAC0:
     jsr !C1008E_CloseAndDrainAllWindows
     jsl !C3E4D4_EnterWindowUpdateScope
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     stx $24
     bra C1FAE3_OpenOrRefreshSoundSettingSelection_LFAE3
 C1FACE_OpenOrRefreshSoundSettingSelection_LFACE:
     txa
     clc
-    adc.w #$001D
+    adc.w #!NameConfirmationPartySummaryWindowBase
     jsr !C104EE_SetWindowFocus
     ldx $24
     inx
@@ -27878,7 +28372,7 @@ C1FACE_OpenOrRefreshSoundSettingSelection_LFACE:
     stx $24
 C1FAE3_OpenOrRefreshSoundSettingSelection_LFAE3:
     stx $04
-    lda.w #$0004
+    lda.w #!NameConfirmationPartySummaryWindowCount
     clc
     sbc $04
     bvs C1FAF1_OpenOrRefreshSoundSettingSelection_LFAF1
@@ -27887,19 +28381,19 @@ C1FAE3_OpenOrRefreshSoundSettingSelection_LFAE3:
 C1FAF1_OpenOrRefreshSoundSettingSelection_LFAF1:
     bmi C1FACE_OpenOrRefreshSoundSettingSelection_LFACE
 C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
-    lda.w #$0021
+    lda.w #!NameConfirmationPlayerNameWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$0007
+    lda.w #!NamingFlowDoneFieldIndex
     jsr !C1931B_PrintSelectedFileCharacterSummary
-    lda.w #$0022
+    lda.w #!NameConfirmationFavoriteFoodWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$C2AC
+    lda.w #!NameConfirmationFavoriteFoodLabelTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!NameConfirmationLabelPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$981F
+    lda.w #!FavoriteFoodBuffer
     sta $06
     phb
     sep #$20
@@ -27917,7 +28411,7 @@ C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     lda $1E
     jsl !C44FF3_MeasureGlyphByteRunPixelWidth
     tax
@@ -27932,31 +28426,31 @@ C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
     ora.w #$F000
 C1FB50_OpenOrRefreshSoundSettingSelection_LFB50:
     sta $24
-    ldy.w #$0008
+    ldy.w #!NameConfirmationCenteringBucketCount
     txa
     jsl !C091F4_ModuloOrRandomBoundedIndex
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1FB66_OpenOrRefreshSoundSettingSelection_LFB66
     lda $24
-    cmp.w #$0006
+    cmp.w #!NameConfirmationMaxCenteredTileSkew
     bne C1FB69_OpenOrRefreshSoundSettingSelection_LFB69
 C1FB66_OpenOrRefreshSoundSettingSelection_LFB66:
     lda $24
     inc A
 C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
-    ldx.w #$0001
+    ldx.w #!NameConfirmationPrintedNameRow
     stx $1C
     sta $04
-    lda $8928
-    ldy.w #$0052
+    lda !FavoriteFoodWindowDescriptorHandle
+    ldy.w #!WindowDescriptorStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $865A,X
+    lda !WindowDescriptorRightColumnBase,X
     sec
     sbc $04
     ldx $1C
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$981F
+    lda.w #!FavoriteFoodBuffer
     sta $06
     phb
     sep #$20
@@ -27976,15 +28470,15 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     sta $10
     lda $24
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0023
+    lda.w #!NameConfirmationFavoriteThingWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$C2BA
+    lda.w #!NameConfirmationFavoriteThingLabelTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!NameConfirmationLabelPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$9829
+    lda.w #!FavoriteThingSuffixBuffer
     sta $06
     phb
     sep #$20
@@ -28002,7 +28496,7 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     lda $1E
     jsl !C44FF3_MeasureGlyphByteRunPixelWidth
     tax
@@ -28017,31 +28511,31 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     ora.w #$F000
 C1FC02_OpenOrRefreshSoundSettingSelection_LFC02:
     sta $24
-    ldy.w #$0008
+    ldy.w #!NameConfirmationCenteringBucketCount
     txa
     jsl !C091F4_ModuloOrRandomBoundedIndex
-    cmp.w #$0000
+    cmp.w #!MenuSelectionCancel
     bne C1FC18_OpenOrRefreshSoundSettingSelection_LFC18
     lda $24
-    cmp.w #$0006
+    cmp.w #!NameConfirmationMaxCenteredTileSkew
     bne C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B
 C1FC18_OpenOrRefreshSoundSettingSelection_LFC18:
     lda $24
     inc A
 C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
-    ldx.w #$0001
+    ldx.w #!NameConfirmationPrintedNameRow
     stx $22
     sta $04
-    lda $892A
-    ldy.w #$0052
+    lda !FavoriteThingWindowDescriptorHandle
+    ldy.w #!WindowDescriptorStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $865A,X
+    lda !WindowDescriptorRightColumnBase,X
     sec
     sbc $04
     ldx $22
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$9829
+    lda.w #!FavoriteThingSuffixBuffer
     sta $06
     phb
     sep #$20
@@ -28061,57 +28555,57 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     sta $10
     lda $24
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0024
+    lda.w #!NameConfirmationPromptWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$C2C8
+    lda.w #!NameConfirmationQuestionTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000D
+    lda.w #!NameConfirmationQuestionPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
-    lda.w #$C2D5
+    lda.w #!NameConfirmationYesTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000E
-    lda.w #$0001
+    ldy.w #!NameConfirmationOptionRow
+    ldx.w #!NameConfirmationYesColumn
+    lda.w #!NameConfirmationYesResult
     jsr !C1153B_AddSelectionMenuItem
-    lda.w #$C2D9
+    lda.w #!NameConfirmationNoTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$0012
+    ldy.w #!NameConfirmationOptionRow
+    ldx.w #!NameConfirmationNoColumn
     tya
     jsr !C1153B_AddSelectionMenuItem
     jsr !C1163C_FinalizeSelectionMenu
     jsl !C4D8FA_SpawnFileSelectFixedEntityBatch
-    lda.w #$00FF
-    sta $5E6E
-    lda.w #$0001
+    lda.w #!AutoWrapEnabledSentinel
+    sta !AutoWrapPreflightGate
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tax
     bne C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA
     jsl !C021E6_ResetActiveEntitySlots
     jmp.w C1F902_OpenOrRefreshSoundSettingSelection_LF902
 C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA:
-    lda.w #$009E
+    lda.w #!NewFileCreationMusicId
     jsl !C4FBBD_ChangeMusic
     jsl !C12DD5_ResetTextWindowState
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     stx $24
     bra C1FCF5_OpenOrRefreshSoundSettingSelection_LFCF5
 C1FCEC_OpenOrRefreshSoundSettingSelection_LFCEC:
@@ -28121,7 +28615,7 @@ C1FCEC_OpenOrRefreshSoundSettingSelection_LFCEC:
     stx $24
 C1FCF5_OpenOrRefreshSoundSettingSelection_LFCF5:
     stx $02
-    lda.w #$00B4
+    lda.w #!FileSelectEntityScriptBusyWaitFrames
     clc
     sbc $02
     bvs C1FD03_OpenOrRefreshSoundSettingSelection_LFD03
@@ -28139,9 +28633,9 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     inc $04
     lda $04
     sta $24
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $1E
     sta $04
@@ -28151,10 +28645,10 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     asl A
     asl A
     sta $02
-    ldy.w #$0000
+    ldy.w #!ZeroWord
     lda $02
     clc
-    adc.w #$0006
+    adc.w #!InitialStatsBattleStateOffset
     ldx $06
     stx $0A
     ldx $08
@@ -28169,7 +28663,7 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     jsr !C1D8D0_RefreshCharacterBattleStartState
     lda $02
     clc
-    adc.w #$0008
+    adc.w #!InitialStatsExperienceAwardOffset
     clc
     adc $06
     sta $06
@@ -28181,38 +28675,38 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     lda $04
     jsl !C1D9E9_AwardExperienceToCharacter
 C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     lda $1E
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
     sty $1A
-    lda $99D8,Y
-    sta $9A13,Y
-    sta $9A15,Y
-    lda $99DA,Y
-    sta $9A19,Y
-    sta $9A1B,Y
+    lda !PartyCharacterInitialHpSource,Y
+    sta !PartyCharacterHpTarget,Y
+    sta !PartyCharacterHpDisplay,Y
+    lda !PartyCharacterInitialPpSource,Y
+    sta !PartyCharacterPpTarget,Y
+    sta !PartyCharacterPpDisplay,Y
     tyx
-    stz $9A17,X
+    stz !PartyCharacterHpPpRollingState,X
     tyx
-    stz $9A11,X
+    stz !PartyCharacterCurrentHpPpWindowState,X
     tya
     clc
-    adc.w #$99F1
+    adc.w #!PartyCharacterInventoryBase
     sta $02
     sep #$20
     stz $0E
-    ldx.w #$000E
+    ldx.w #!PartyCharacterInventoryClearLength
     rep #$20
     lda $02
     jsl !C08EFC_CommitTileBufferToStaging
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $1E
     sta $04
@@ -28222,22 +28716,22 @@ C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     asl A
     asl A
     clc
-    adc.w #$000A
+    adc.w #!InitialStatsInventorySeedOffset
     clc
     adc $06
     sta $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$000A
+    ldx.w #!InitialStatsInventorySeedLength
     lda $02
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$0400
+    lda.w #!NewFileBattleGaugeMarkerValue
     ldy $1A
-    sta $9A1D,Y
+    sta !PartyCharacterBattleGaugeMarker,Y
     inc $1E
 C1FDE4_OpenOrRefreshSoundSettingSelection_LFDE4:
-    lda.w #$0004
+    lda.w #!NewFileInitialPartyCount
     clc
     sbc $1E
     bvs C1FDF1_OpenOrRefreshSoundSettingSelection_LFDF1
@@ -28247,27 +28741,27 @@ C1FDF1_OpenOrRefreshSoundSettingSelection_LFDF1:
     bpl C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6
     jmp.w C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E
 C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6:
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $06
     sta $16
     lda $08
     sta $18
-    ldy.w #$0004
+    ldy.w #!InitialStatsMoneyOffset
     lda [$06],Y
     sta $06
     stz $08
     lda $06
-    sta $9831
+    sta !StartingMoneyLo
     lda $08
-    sta $9833
+    sta !StartingMoneyHi
     lda $16
     sta $06
     lda $18
     sta $08
-    ldy.w #$0002
+    ldy.w #!InitialStatsStartYOffset
     lda [$06],Y
     asl A
     asl A
@@ -28279,28 +28773,28 @@ C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6:
     asl A
     jsl !C0B65F_SeedPlayerOverworldStartPosition
     sep #$20
-    lda.b #$80
-    sta $9825
-    lda.b #$83
-    sta $9826
-    lda.b #$79
-    sta $9827
-    lda.b #$50
-    sta $9828
+    lda.b #!FavoriteThingPrefixGlyphP
+    sta !FavoriteThingCompositeBuffer
+    lda.b #!FavoriteThingPrefixGlyphS
+    sta !FavoriteThingCompositeBuffer+1
+    lda.b #!FavoriteThingPrefixGlyphI
+    sta !FavoriteThingCompositeBuffer+2
+    lda.b #!FavoriteThingPrefixGlyphSpace
+    sta !FavoriteThingCompositeBuffer+3
     rep #$20
-    lda.w #$0004
+    lda.w #!FavoriteThingPrefixLength
     sta $1E
     bra C1FE71_OpenOrRefreshSoundSettingSelection_LFE71
 C1FE54_OpenOrRefreshSoundSettingSelection_LFE54:
     lda $1E
     clc
-    adc.w #$9825
+    adc.w #!FavoriteThingCompositeBuffer
     tax
     lda $0000,X
     and.w #$00FF
     bne C1FE6C_OpenOrRefreshSoundSettingSelection_LFE6C
     sep #$20
-    lda.b #$50
+    lda.b #!FavoriteThingTerminatorFillGlyph
     sta $0000,X
     bra C1FE81_OpenOrRefreshSoundSettingSelection_LFE81
 C1FE6C_OpenOrRefreshSoundSettingSelection_LFE6C:
@@ -28319,38 +28813,38 @@ C1FE7F_OpenOrRefreshSoundSettingSelection_LFE7F:
     bmi C1FE54_OpenOrRefreshSoundSettingSelection_LFE54
 C1FE81_OpenOrRefreshSoundSettingSelection_LFE81:
     sep #$20
-    lda.b #$01
-    sta $98B8
+    lda.b #!NewFileStartupFlagValue
+    sta !LandingDestinationSelectorByte
     rep #$20
-    lda $9877
-    sta $9D1F
-    lda $987B
-    sta $9D21
+    lda !CurrentPlayerWorldX
+    sta !SavedCoordinateXSnapshot
+    lda !CurrentPlayerWorldY
+    sta !SavedCoordinateYSnapshot
     jsl !C064D4_LoadSelectedSaveGame
-    ldx.w #$06E8
-    lda.w #$0840
+    ldx.w #!NewFileFallbackStartX
+    lda.w #!NewFileFallbackStartY
     jsl !C0B65F_SeedPlayerOverworldStartPosition
-    lda.w #$E70B
+    lda.w #!NewFileStartScriptTextLo
     sta $0E
-    lda.w #$00C5
+    lda.w #!NewFileStartScriptTextBank
     sta $10
     jsl !C46881_SetAllRegistryFlagsAndQueueCallerMovement
-    ldx.w #$0001
-    lda.w #$000B
+    ldx.w #!NewFileEventFlagEnabled
+    lda.w #!NewFileInitialEventFlag
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0001
-    sta $4A66
+    lda.w #!NewFileEventFlagEnabled
+    sta !NewFileIntroStateFlag
 C1FEC2_StartSelectedFileFromFileSelect:
     jsr !C1008E_CloseAndDrainAllWindows
     jsl !C3EBCA_SyncPartyOverlayTrackedItemFamilyState
-    lda $98B6
+    lda !CurrentTextSpeedSetting
     and.w #$00FF
     sta $20
     tax
     dex
-    lda.w #$FB1F
+    lda.w #!TextSpeedTimingTableLo
     sta $0A
-    lda.w #$00C3
+    lda.w #!TextSpeedTimingTableBank
     sta $0C
     txa
     asl A
@@ -28358,21 +28852,21 @@ C1FEC2_StartSelectedFileFromFileSelect:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!TextSpeedTimingPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
     sta $06
     sty $08
     lda $06
-    sta $9627
+    sta !HpPpRollingStepPointerLo
     lda $08
-    sta $9629
-    stx $9625
+    sta !HpPpRollingStepPointerBank
+    stx !TextPrintDelay
     lda $20
-    cmp.w #$0003
+    cmp.w #!TextSpeedSlowEntry
     bne C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra C1FF16_OpenOrRefreshSoundSettingSelection_LFF16
 C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A:
     sta $04
@@ -28384,11 +28878,11 @@ C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A:
     adc $04
     asl A
 C1FF16_OpenOrRefreshSoundSettingSelection_LFF16:
-    sta $964B
-    stz $5DBA
-    lda.w #$DE2B
+    sta !DefaultPromptWaitTicks
+    stz !MovementStateBusyFlag
+    lda.w #!StartSelectedFileTextLo
     sta $0E
-    lda.w #$00C7
+    lda.w #!StartSelectedFileTextBank
     sta $10
     jsl !C186B1_PrintTextFromPointer
     pld
@@ -29537,6 +30031,12 @@ org $C1E4BE
 !C4406A_ReadNameEntryGridCharacter = $C4406A
 !C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
 !C442AC_RenderTextInputOptionStrip = $C442AC
+!TextInputDialogWindowId = $001C
+!NameEntryDialogWindowId = $0027
+!NameEntryPreludeState = $5E6E
+!NameEntryActiveFlag = $B49D
+!NameEntryActiveValue = $01
+!C1EB4C_RunNamingBufferCommitFlowWithPreview = $EB4C
 C1E4BE_BuildTextInputOptionStrip:
     rep #$31
     phd
@@ -29635,7 +30135,7 @@ C1E545_BuildTextInputOptionStrip_LE545:
     and.w #$00FF
     tax
     bne C1E536_BuildTextInputOptionStrip_LE536
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C1007E_SetActiveWindowFocus
     lda $12
     sta $04
@@ -29665,7 +30165,7 @@ TEXT_INPUT_DIALOG:
     lda $26
     sta $1E
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C104EE_SetWindowFocus
     lda $28
     cmp.w #$FFFF
@@ -29754,7 +30254,7 @@ C1E65A_BuildTextInputOptionStrip_LE65A:
     bne C1E667_BuildTextInputOptionStrip_LE667
     jmp.w C1E71F_BuildTextInputOptionStrip_LE71F
 C1E667_BuildTextInputOptionStrip_LE667:
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $28
@@ -30270,16 +30770,16 @@ ENTER_YOUR_NAME_PLEASE:
     pla
     tax
     stx $14
-    stz $5E6E
+    stz !NameEntryPreludeState
     sep #$20
-    lda.b #$01
-    sta $B49D
+    lda.b #!NameEntryActiveValue
+    sta !NameEntryActiveFlag
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$0027
+    lda.w #!NameEntryDialogWindowId
     jsr !C104EE_SetWindowFocus
     ldx $14
     bne C1EACE_BuildTextInputOptionStrip_LEACE
-    jmp $EB4C
+    jmp !C1EB4C_RunNamingBufferCommitFlowWithPreview
 C1EACE_BuildTextInputOptionStrip_LEACE:
     ldx.w #$0000
     txa
@@ -34271,8 +34771,22 @@ org $C1EAD6
 !C440B5_BuildTextInputStringGlyphMetrics = $C440B5
 !C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
 !C4D065_NormalizeNamingBufferToCommittedSelectorText = $C4D065
+!PlayerNameInputBuffer = $9801
+!TemporaryNameInputBuffer = $97F5
+!CommittedNameSelectorBuffer = $9C9F
+!PlayerNameInputLength = $0018
+!TemporaryNameInputLength = $000C
+!TextInputDialogWindowId = $0027
+!TextInputOptionWindowId = $001C
+!NamePreviewWindowId = $001A
+!NamePreviewBodyWindowId = $001B
+!NameEntryPreludeState = $5E6E
+!NameEntryActiveFlag = $B49D
+!NameEntryFinishedSentinel = $00FF
+!NoInitialCursorLimit = $FFFF
+!ZeroWord = $0000
 C1EAD6_RunNamingBufferCommitFlow:
-    lda.w #$9801
+    lda.w #!PlayerNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -34284,17 +34798,17 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0018
+    lda.w #!PlayerNameInputLength
     jsr !C10EFC_PrintTextFromPointerLocal
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$000C
+    lda.w #!TemporaryNameInputLength
     jsl !C441B7_InitializeTextInputOptionGlyphMetrics
-    lda $97F5
+    lda !TemporaryNameInputBuffer
     and.w #$00FF
     beq C1EB29_RunNamingBufferCommitFlow_LEB29
-    lda.w #$97F5
+    lda.w #!TemporaryNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -34306,19 +34820,19 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$000C
+    lda.w #!TemporaryNameInputLength
     jsr !C10EFC_PrintTextFromPointerLocal
 C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
     stz $0E
-    lda.w #$FFFF
+    lda.w #!NoInitialCursorLimit
     sta $10
-    ldy.w #$97F5
-    ldx.w #$000C
-    lda.w #$0027
-    jsr TEXT_INPUT_DIALOG
+    ldy.w #!TemporaryNameInputBuffer
+    ldx.w #!TemporaryNameInputLength
+    lda.w #!TextInputDialogWindowId
+    jsr !C1E57F_RunTextInputDialog
     tay
     sty $12
     jmp.w C1EBE4_RunNamingBufferCommitFlow_LEBE4
@@ -34329,43 +34843,43 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     sta $0E
     lda.w #$00C3
     sta $10
-    lda.w #$001A
+    lda.w #!NamePreviewWindowId
     jsr !C10EFC_PrintTextFromPointerLocal
     jsl !C08F8B_RefreshNamingPreviewGlyphState
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$0018
+    lda.w #!PlayerNameInputLength
     jsl !C441B7_InitializeTextInputOptionGlyphMetrics
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    ldy.w #$9801
+    ldy.w #!PlayerNameInputBuffer
     lda $0000,Y
     and.w #$00FF
     beq C1EB96_RunNamingBufferCommitFlow_LEB96
-    ldx.w #$0018
+    ldx.w #!PlayerNameInputLength
     tya
     jsl !C440B5_BuildTextInputStringGlyphMetrics
 C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$9801
+    lda.w #!PlayerNameInputBuffer
     sta $02
     stz $0E
-    lda.w #$FFFF
+    lda.w #!NoInitialCursorLimit
     sta $10
     ldy $02
-    ldx.w #$0018
-    lda.w #$0027
-    jsr TEXT_INPUT_DIALOG
+    ldx.w #!PlayerNameInputLength
+    lda.w #!TextInputDialogWindowId
+    jsr !C1E57F_RunTextInputDialog
     tay
     sty $12
     ldx $02
-    lda.w #$9C9F
+    lda.w #!CommittedNameSelectorBuffer
     jsl !C4D065_NormalizeNamingBufferToCommittedSelectorText
-    lda.w #$9C9F
+    lda.w #!CommittedNameSelectorBuffer
     sta $06
     phb
     sep #$20
@@ -34377,18 +34891,18 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$000C
-    lda.w #$97F5
+    ldx.w #!TemporaryNameInputLength
+    lda.w #!TemporaryNameInputBuffer
     jsl !C08ED2_CopyWordsFromLongSource
 C1EBE4_RunNamingBufferCommitFlow_LEBE4:
-    lda.w #$001C
+    lda.w #!TextInputOptionWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
-    lda.w #$0027
+    lda.w #!TextInputDialogWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
-    lda.w #$00FF
-    sta $5E6E
+    lda.w #!NameEntryFinishedSentinel
+    sta !NameEntryPreludeState
     sep #$20
-    stz $B49D
+    stz !NameEntryActiveFlag
     ldy $12
     rep #$20
     tya
@@ -34414,7 +34928,7 @@ NAME_A_CHARACTER:
     lda $26
     sta $08
     jsl !C3E4D4_SetInstantPrinting
-    lda.w #$001A
+    lda.w #!NamePreviewWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     ldy $12
@@ -34432,7 +34946,7 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     ldx.w #$0000
     txa
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$001B
+    lda.w #!NamePreviewBodyWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $06
@@ -34449,11 +34963,11 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     sta $10
     ldy $12
     ldx $02
-    lda.w #$001A
-    jsr TEXT_INPUT_DIALOG
+    lda.w #!NamePreviewWindowId
+    jsr !C1E57F_RunTextInputDialog
     tax
     stx $14
-    lda.w #$001C
+    lda.w #!TextInputOptionWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
     ldx $14
     txa
@@ -34480,6 +34994,33 @@ org $C1F497
 !C438A5_SetTextCursorPosition = $C438A5
 !C43BB9_PrintTextFromPointer = $C43BB9
 !EF0A4D_SaveCurrentFileSetupState = $EF0A4D
+!TextSpeedMenuWindowId = $0018
+!SoundSettingMenuWindowId = $0019
+!CurrentTextSpeedSetting = $98B6
+!CurrentSoundSetting = $98B7
+!CurrentSaveSlot = $B4A1
+!ActiveWindowFocus = $8958
+!ActiveWindowDescriptorTable = $88E4
+!WindowDescriptorTableBase = $8650
+!WindowDescriptorEntryListOffset = $2B
+!WindowDescriptorStride = $0052
+!TextEntryRecordTableBase = $89D4
+!TextEntryRecordStride = $002D
+!TextEntryNextRecordOffset = $0002
+!TextEntryCursorColumnOffset = $0008
+!TextEntryCursorRowOffset = $000A
+!TextEntryBodyTextOffset = $0013
+!RedrawSelectedSetupRowMode = $0006
+!MenuSelectionEnabled = $0001
+!SoundMonoEntry = $0002
+!SoundDefaultEntry = $0000
+!SoundMonoTextOffset = $0007
+!SoundSettingPromptTextLo = $C0FE
+!SoundSettingOptionTableLo = $C11A
+!C4FileSelectMenuTextBank = $00C4
+!SoundSettingPromptPrintLength = $001C
+!NoCursorLimit = $FFFF
+!ZeroWord = $0000
 C1F497_OpenOrRefreshTextSpeedSelection:
     rep #$31
     phd
@@ -34490,56 +35031,56 @@ C1F497_OpenOrRefreshTextSpeedSelection:
     pla
     tax
     stx $16
-    lda.w #$0018
-    sta $8958
+    lda.w #!TextSpeedMenuWindowId
+    sta !ActiveWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
     ldx $16
     bne C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5
     jmp.w C1F542_OpenOrRefreshTextSpeedSelection_LF542
 C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5:
     jsl OPEN_TEXT_SPEED_MENU
-    lda $8958
+    lda !ActiveWindowFocus
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda !ActiveWindowDescriptorTable,X
+    ldy.w #!WindowDescriptorStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $867B,X
-    ldy.w #$002D
+    lda !WindowDescriptorTableBase+!WindowDescriptorEntryListOffset,X
+    ldy.w #!TextEntryRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #!TextEntryRecordTableBase
     tay
     sty $14
-    lda $98B6
+    lda !CurrentTextSpeedSetting
     and.w #$00FF
     tax
     dex
     bra C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6
 C1F4E4_OpenOrRefreshTextSpeedSelection_LF4E4:
-    lda $0002,Y
-    ldy.w #$002D
+    lda !TextEntryNextRecordOffset,Y
+    ldy.w #!TextEntryRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #!TextEntryRecordTableBase
     tay
     sty $14
     dex
 C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6:
     bne C1F4E4_OpenOrRefreshTextSpeedSelection_LF4E4
-    lda.w #$0006
+    lda.w #!RedrawSelectedSetupRowMode
     jsr !C10FEA_ClearOrPrepareWindowContent
     ldy $14
-    lda $000A,Y
+    lda !TextEntryCursorRowOffset,Y
     tax
-    lda $0008,Y
+    lda !TextEntryCursorColumnOffset,Y
     inc A
     jsl !C438A5_SetTextCursorPosition
     ldy $14
     tya
     clc
-    adc.w #$0013
+    adc.w #!TextEntryBodyTextOffset
     sta $06
     phb
     sep #$20
@@ -34551,28 +35092,28 @@ C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0001
-    lda.w #$FFFF
+    ldx.w #!MenuSelectionEnabled
+    lda.w #!NoCursorLimit
     jsl !C43BB9_PrintTextFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsr !C10FEA_ClearOrPrepareWindowContent
-    lda $98B6
+    lda !CurrentTextSpeedSetting
     and.w #$00FF
     tax
     stx $12
     bra C1F563_OpenOrRefreshTextSpeedSelection_LF563
 C1F542_OpenOrRefreshTextSpeedSelection_LF542:
     stz $5E6E
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tax
     stx $12
     beq C1F563_OpenOrRefreshTextSpeedSelection_LF563
     txa
     sep #$20
-    sta $98B6
+    sta !CurrentTextSpeedSetting
     rep #$20
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl !EF0A4D_SaveCurrentFileSetupState
@@ -34588,22 +35129,22 @@ OPEN_SOUND_MENU:
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0019
+    lda.w #!SoundSettingMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$C0FE
+    lda.w #!SoundSettingPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$001C
+    lda.w #!SoundSettingPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$C11A
+    lda.w #!SoundSettingOptionTableLo
     sta $0A
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $0C
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
     lda $06
     sta $16
@@ -34625,10 +35166,10 @@ OPEN_SOUND_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!MenuSelectionEnabled
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #!SoundMonoTextOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -34647,10 +35188,10 @@ OPEN_SOUND_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
-    lda.w #$0000
+    ldx.w #!SoundMonoEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda $98B7
+    lda !CurrentSoundSetting
     and.w #$00FF
     beq C1F60D_OpenOrRefreshTextSpeedSelection_LF60D
     and.w #$00FF
@@ -34658,7 +35199,7 @@ OPEN_SOUND_MENU:
     dex
     bra C1F610_OpenOrRefreshTextSpeedSelection_LF610
 C1F60D_OpenOrRefreshTextSpeedSelection_LF60D:
-    ldx.w #$0000
+    ldx.w #!SoundDefaultEntry
 C1F610_OpenOrRefreshTextSpeedSelection_LF610:
     txa
     jsr !C11887_SelectActiveTextEntryByA
@@ -34681,17 +35222,35 @@ org $C1F14F
 !C1196A_OpenMenuSelectionLoop = $196A
 !C3E4D4_PrepareMenuDisplayContext = $C3E4D4
 !EF0C15_CopySaveSlot = $EF0C15
+!CopyDestinationMultiSlotWindowId = $0015
+!CopyDestinationSingleSlotWindowId = $0016
+!SaveSlotStatusBase = $B49E
+!CurrentSaveSlot = $B4A1
+!CopyDestinationPromptTextLo = $C0B0
+!C4FileSelectMenuTextBank = $00C4
+!SaveSlotCount = $0003
+!SingleDestinationCount = $0001
+!MenuSelectionCancel = $0000
+!MenuSelectionEnabled = $0001
+!CopyPromptPrintLength = $000E
+!CopyDestinationLabelBuffer = $9C9F
+!CopyDestinationSlotLetterBase = $61
+!CopyDestinationSlotLabelSuffix = $6A
+!CopyDestinationRowColumn = $0000
+!SingleDestinationRow = $0001
+!ZeroPointerWord = $0000
+!AutoWrapPreflightGate = $5E6E
 C1F14F_OpenCopyDestinationMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    ldx.w #$0000
+    ldx.w #!MenuSelectionCancel
     txy
     bra C1F167_OpenCopyDestinationMenu_LF167
 C1F15D_OpenCopyDestinationMenu_LF15D:
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F166_OpenCopyDestinationMenu_LF166
     iny
@@ -34699,7 +35258,7 @@ C1F166_OpenCopyDestinationMenu_LF166:
     inx
 C1F167_OpenCopyDestinationMenu_LF167:
     stx $02
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F175_OpenCopyDestinationMenu_LF175
@@ -34708,37 +35267,37 @@ C1F167_OpenCopyDestinationMenu_LF167:
 C1F175_OpenCopyDestinationMenu_LF175:
     bmi C1F15D_OpenCopyDestinationMenu_LF15D
 C1F177_OpenCopyDestinationMenu_LF177:
-    cpy.w #$0001
+    cpy.w #!SingleDestinationCount
     beq C1F17F_OpenCopyDestinationMenu_LF17F
     jmp.w C1F1FE_OpenCopyDestinationMenu_LF1FE
 C1F17F_OpenCopyDestinationMenu_LF17F:
-    lda.w #$0016
+    lda.w #!CopyDestinationSingleSlotWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #!CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!CopyPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     sta $02
     bra C1F1ED_OpenCopyDestinationMenu_LF1ED
 C1F1A0_OpenCopyDestinationMenu_LF1A0:
     ldx $02
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F1EB_OpenCopyDestinationMenu_LF1EB
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #!CopyDestinationSlotLetterBase
+    sta !CopyDestinationLabelBuffer
+    lda.b #!CopyDestinationSlotLabelSuffix
+    sta !CopyDestinationLabelBuffer+1
+    stz !CopyDestinationLabelBuffer+2
     rep #$20
-    lda.w #$9C9F
+    lda.w #!CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -34750,19 +35309,19 @@ C1F1A0_OpenCopyDestinationMenu_LF1A0:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0001
-    ldx.w #$0000
+    ldy.w #!SingleDestinationRow
+    ldx.w #!CopyDestinationRowColumn
     lda $02
     inc A
     jsr !C1153B_AddSelectionMenuItem
 C1F1EB_OpenCopyDestinationMenu_LF1EB:
     inc $02
 C1F1ED_OpenCopyDestinationMenu_LF1ED:
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F1F9_OpenCopyDestinationMenu_LF1F9
@@ -34773,37 +35332,37 @@ C1F1F9_OpenCopyDestinationMenu_LF1F9:
 C1F1FB_OpenCopyDestinationMenu_LF1FB:
     jmp.w C1F281_OpenCopyDestinationMenu_LF281
 C1F1FE_OpenCopyDestinationMenu_LF1FE:
-    lda.w #$0015
+    lda.w #!CopyDestinationMultiSlotWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #!CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!CopyPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     sta $02
-    lda.w #$0001
+    lda.w #!SingleDestinationRow
     sta $04
     bra C1F273_OpenCopyDestinationMenu_LF273
 C1F224_OpenCopyDestinationMenu_LF224:
     ldx $02
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F271_OpenCopyDestinationMenu_LF271
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #!CopyDestinationSlotLetterBase
+    sta !CopyDestinationLabelBuffer
+    lda.b #!CopyDestinationSlotLabelSuffix
+    sta !CopyDestinationLabelBuffer+1
+    stz !CopyDestinationLabelBuffer+2
     ldx $04
     rep #$20
     inc $04
-    lda.w #$9C9F
+    lda.w #!CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -34815,19 +35374,19 @@ C1F224_OpenCopyDestinationMenu_LF224:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
     txy
-    ldx.w #$0000
+    ldx.w #!CopyDestinationRowColumn
     lda $02
     inc A
     jsr !C1153B_AddSelectionMenuItem
 C1F271_OpenCopyDestinationMenu_LF271:
     inc $02
 C1F273_OpenCopyDestinationMenu_LF273:
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F27F_OpenCopyDestinationMenu_LF27F
@@ -34837,12 +35396,12 @@ C1F27F_OpenCopyDestinationMenu_LF27F:
     bmi C1F224_OpenCopyDestinationMenu_LF224
 C1F281_OpenCopyDestinationMenu_LF281:
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tay
     sty $16
     beq C1F29D_OpenCopyDestinationMenu_LF29D
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     tax
     dex
@@ -34850,7 +35409,7 @@ C1F281_OpenCopyDestinationMenu_LF281:
     dec A
     jsl !EF0C15_CopySaveSlot
 C1F29D_OpenCopyDestinationMenu_LF29D:
-    stz $5E6E
+    stz !AutoWrapPreflightGate
     jsr CLOSE_FOCUS_WINDOW
     ldy $16
     tya
@@ -34869,57 +35428,79 @@ org $C1F07E
 !C1153B_AddSelectionMenuItem = $153B
 !C1163C_FinalizeSelectionMenu = $163C
 !C1196A_OpenMenuSelectionLoop = $196A
+!FileActionMenuWindowId = $0014
+!CurrentSaveSlot = $B4A1
+!SaveSlotStatusBase = $B49E
+!SaveSlotCount = $0003
+!FileActionContinueTextLo = $C094
+!FileActionCopyTextLo = $C09D
+!FileActionDeleteTextLo = $C0A2
+!FileActionSetupTextLo = $C0A9
+!C4FileSelectMenuTextBank = $00C4
+!MenuSelectionCancel = $0000
+!MenuSelectionEnabled = $0001
+!MenuActionContinue = $0001
+!MenuActionCopy = $0002
+!MenuActionDelete = $0003
+!MenuActionSetup = $0004
+!CopyRowColumn = $0006
+!DeleteRowColumn = $000A
+!SetupRowColumn = $000F
+!MenuRow = $0000
+!ZeroPointerWord = $0000
+!AutoWrapPreflightGate = $5E6E
+!AutoWrapEnabledSentinel = $00FF
 C1F07E_OpenFileSelectActionMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$0014
+    lda.w #!FileActionMenuWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$C094
+    lda.w #!FileActionContinueTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0000
+    ldy.w #!MenuRow
     tyx
-    lda.w #$0001
+    lda.w #!MenuActionContinue
     jsr !C1153B_AddSelectionMenuItem
-    ldx.w #$0000
+    ldx.w #!MenuSelectionCancel
     bra C1F0E8_OpenFileSelectActionMenu_LF0E8
 C1F0AF_OpenFileSelectActionMenu_LF0AF:
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     sta $02
     txa
     cmp $02
     beq C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda.w #$C09D
+    lda.w #!FileActionCopyTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0000
-    ldx.w #$0006
-    lda.w #$0002
+    ldy.w #!MenuRow
+    ldx.w #!CopyRowColumn
+    lda.w #!MenuActionCopy
     jsr !C1153B_AddSelectionMenuItem
     bra C1F0F8_OpenFileSelectActionMenu_LF0F8
 C1F0E7_OpenFileSelectActionMenu_LF0E7:
     inx
 C1F0E8_OpenFileSelectActionMenu_LF0E8:
     stx $02
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F0F6_OpenFileSelectActionMenu_LF0F6
@@ -34928,38 +35509,38 @@ C1F0E8_OpenFileSelectActionMenu_LF0E8:
 C1F0F6_OpenFileSelectActionMenu_LF0F6:
     bmi C1F0AF_OpenFileSelectActionMenu_LF0AF
 C1F0F8_OpenFileSelectActionMenu_LF0F8:
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $08
-    lda.w #$C0A2
+    lda.w #!FileActionDeleteTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000A
-    lda.w #$0003
+    ldy.w #!MenuRow
+    ldx.w #!DeleteRowColumn
+    lda.w #!MenuActionDelete
     jsr !C1153B_AddSelectionMenuItem
-    lda.w #$C0A9
+    lda.w #!FileActionSetupTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000F
-    lda.w #$0004
+    ldy.w #!MenuRow
+    ldx.w #!SetupRowColumn
+    lda.w #!MenuActionSetup
     jsr !C1153B_AddSelectionMenuItem
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$00FF
-    sta $5E6E
-    lda.w #$0001
+    lda.w #!AutoWrapEnabledSentinel
+    sta !AutoWrapPreflightGate
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     pld
     rts
@@ -35031,34 +35612,65 @@ org $C1F2A8
 !C438A5_SetTextPosition = $C438A5
 !C43D75_StageGlyphVariantTileState = $C43D75
 !EF0BFA_DeleteSaveSlot = $EF0BFA
+!DeleteConfirmationWindowId = $0017
+!TextSpeedMenuWindowId = $0018
+!CurrentSaveSlot = $B4A1
+!SelectedFileLevel = $99D3
+!DeleteConfirmationPromptTextLo = $C0BE
+!LevelLabelTextLo = $C06E
+!DeleteNoTextLo = $C0DE
+!DeleteYesTextLo = $C0E1
+!TextSpeedPromptTextLo = $C0E5
+!TextSpeedOptionTableLo = $C07F
+!C4FileSelectMenuTextBank = $00C4
+!DeleteConfirmationPromptLength = $0020
+!LevelLabelPrintLength = $0006
+!TextSpeedPromptPrintLength = $0019
+!FileNumberSuffixGlyph = $006A
+!TopRow = $0000
+!SummaryRow = $0001
+!NameSummaryColumn = $0002
+!LevelLabelColumn = $0008
+!LevelValueColumn = $000C
+!NoOptionRow = $0002
+!YesOptionRow = $0003
+!MenuColumn = $0000
+!MenuSelectionEnabled = $0001
+!DeleteYesResult = $0001
+!TextSpeedFastEntry = $0001
+!TextSpeedMediumEntry = $0002
+!TextSpeedSlowEntry = $0003
+!TextSpeedMediumTextOffset = $0007
+!TextSpeedSlowTextOffset = $000E
+!ZeroWord = $0000
 C1F2A8_OpenDeleteFileConfirmationMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    lda.w #$0017
+    lda.w #!DeleteConfirmationWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsr !C10EB4_ClearOrPrepareWindowContent
-    ldx.w #$0000
+    ldx.w #!TopRow
     txa
     jsl !C438A5_SetTextPosition
-    lda.w #$C0BE
+    lda.w #!DeleteConfirmationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0020
+    lda.w #!DeleteConfirmationPromptLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!SummaryRow
+    lda.w #!MenuColumn
     jsl !C43D75_StageGlyphVariantTileState
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!SummaryRow
+    lda.w #!MenuColumn
     jsl !C438A5_SetTextPosition
     sep #$20
-    lda $B4A1
+    lda !CurrentSaveSlot
     sta $06
     stz $07
     stz $08
@@ -35069,27 +35681,27 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr !C10DF6_PrintNumberFromPointer
-    lda.w #$006A
+    lda.w #!FileNumberSuffixGlyph
     jsr PRINT_LETTER
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #!SummaryRow
+    lda.w #!NameSummaryColumn
     jsl !C438A5_SetTextPosition
-    lda.w #$0001
+    lda.w #!SummaryRow
     jsr !C1931B_PrintSelectedFileCharacterSummary
-    ldx.w #$0001
-    lda.w #$0008
+    ldx.w #!SummaryRow
+    lda.w #!LevelLabelColumn
     jsl !C438A5_SetTextPosition
-    lda.w #$C06E
+    lda.w #!LevelLabelTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0006
+    lda.w #!LevelLabelPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$000C
+    ldx.w #!SummaryRow
+    lda.w #!LevelValueColumn
     jsl !C438A5_SetTextPosition
     sep #$20
-    lda $99D3
+    lda !SelectedFileLevel
     sta $06
     stz $07
     stz $08
@@ -35100,41 +35712,41 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr !C10DF6_PrintNumberFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
-    lda.w #$C0DE
+    lda.w #!DeleteNoTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0002
-    ldx.w #$0000
+    ldy.w #!NoOptionRow
+    ldx.w #!MenuColumn
     txa
     jsr !C1153B_AddSelectionMenuItem
-    lda.w #$C0E1
+    lda.w #!DeleteYesTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0003
-    ldx.w #$0000
-    lda.w #$0001
+    ldy.w #!YesOptionRow
+    ldx.w #!MenuColumn
+    lda.w #!DeleteYesResult
     jsr !C1153B_AddSelectionMenuItem
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tax
     stx $16
     beq C1F3B7_OpenDeleteFileConfirmationMenu_LF3B7
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl !EF0BFA_DeleteSaveSlot
@@ -35152,26 +35764,26 @@ OPEN_TEXT_SPEED_MENU:
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0018
+    lda.w #!TextSpeedMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0E5
+    lda.w #!TextSpeedPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0019
+    lda.w #!TextSpeedPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$C07F
+    lda.w #!TextSpeedOptionTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $06
     sta $16
     lda $08
     sta $18
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0A
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0C
     lda $06
     sta $0E
@@ -35185,10 +35797,10 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!TextSpeedFastEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #!TextSpeedMediumTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -35207,10 +35819,10 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
-    lda.w #$0000
+    ldx.w #!TextSpeedMediumEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$000E
+    lda.w #!TextSpeedSlowTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -35229,8 +35841,8 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #!TextSpeedSlowEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda $98B6
     and.w #$00FF
@@ -35240,7 +35852,7 @@ OPEN_TEXT_SPEED_MENU:
     dex
     bra C1F491_OpenDeleteFileConfirmationMenu_LF491
 C1F48E_OpenDeleteFileConfirmationMenu_LF48E:
-    ldx.w #$0001
+    ldx.w #!TextSpeedFastEntry
 C1F491_OpenDeleteFileConfirmationMenu_LF491:
     txa
     jsr !C11887_SelectActiveTextEntryByA
@@ -35480,9 +36092,16 @@ org $C1BEFC
 !C4D681_DisplayCurrentPositionTownMap = $C4D681
 !C4ED0E_RunCastScene = $C4ED0E
 !C4F554_RunCreditsOrPhotoScene = $C4F554
+!SpecialEventArgumentZero = $0000
+!SpecialEventArgumentOne = $0001
+!HomesicknessRestrictionEventFlag = $0049
+!BicycleMovementState = $9883
+!BicycleStateMounted = $0003
+!SpecialEventFlagClearStart = $9C08
+!SpecialEventFlagClearLength = $0080
 C1BEFC_DispatchTextCommand1F41SpecialEvent:
     rep #$31
-    cmp.w #$0001
+    cmp.w #!SpecialEventArgumentOne
     bne C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06
     jmp.w C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91
 C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06:
@@ -35556,27 +36175,27 @@ C1BF86_DispatchTextCommand1F41SpecialEvent_LBF86:
 C1BF8E_DispatchTextCommand1F41SpecialEvent_LBF8E:
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsl !C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF9B_DispatchTextCommand1F41SpecialEvent_LBF9B:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFA5_DispatchTextCommand1F41SpecialEvent_LBFA5:
-    lda.w #$0000
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #!SpecialEventArgumentZero
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFAF_DispatchTextCommand1F41SpecialEvent_LBFAF:
-    lda.w #$0001
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #!SpecialEventArgumentOne
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFB9_DispatchTextCommand1F41SpecialEvent_LBFB9:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C43344_SetSpecialEventRestrictionLatch5d98
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFC3_DispatchTextCommand1F41SpecialEvent_LBFC3:
-    lda.w #$0049
+    lda.w #!HomesicknessRestrictionEventFlag
     jsl !C21628_CheckEventFlag
     jsl !C43344_SetSpecialEventRestrictionLatch5d98
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
@@ -35587,11 +36206,11 @@ C1BFD6_DispatchTextCommand1F41SpecialEvent_LBFD6:
     jsl !C3FB09_CheckActionUserSide
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1BFDC_DispatchTextCommand1F41SpecialEvent_LBFDC:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFE5_DispatchTextCommand1F41SpecialEvent_LBFE5:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C3F3C5_ShowTitleScreenStillImage
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFEE_DispatchTextCommand1F41SpecialEvent_LBFEE:
@@ -35601,44 +36220,44 @@ C1BFF4_DispatchTextCommand1F41SpecialEvent_LBFF4:
     jsl !C4F554_RunCreditsOrPhotoScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFFA_DispatchTextCommand1F41SpecialEvent_LBFFA:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsr !C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C002_DispatchTextCommand1F41SpecialEvent_LC002:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsr !C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C00A_DispatchTextCommand1F41SpecialEvent_LC00A:
-    ldx.w #$0000
+    ldx.w #!SpecialEventArgumentZero
     bra C1C015_DispatchTextCommand1F41SpecialEvent_LC015
 C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F:
     sep #$20
-    stz $9C08,X
+    stz !SpecialEventFlagClearStart,X
     inx
 C1C015_DispatchTextCommand1F41SpecialEvent_LC015:
-    cpx.w #$0080
+    cpx.w #!SpecialEventFlagClearLength
     bcc C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr ATTEMPT_HOMESICKNESS
+    jsr !C1BE4D_AttemptHomesicknessResult
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
-    lda $9883
-    cmp.w #$0003
+    lda !BicycleMovementState
+    cmp.w #!BicycleStateMounted
     bne C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B
     jsl !C03CFD_ExitBicycleMode
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C040_DispatchTextCommand1F41SpecialEvent_LC040:
     rep #$20
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
 C1C045_DispatchTextCommand1F41SpecialEvent_LC045:
     rtl
 

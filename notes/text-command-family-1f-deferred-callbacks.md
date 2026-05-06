@@ -89,6 +89,37 @@ Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
 now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
 instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.
 
+Source polish follow-up (2026-05-06): the dynamic source-selector dispatcher
+now names the `0x1F` callback low-word returns directly. The `1F 00..02`,
+`04`, `07`, `11..23`, `40/41`, `52`, `60`, `62/63`, `66/67`, `71`, `81/83`,
+`C0`, `D0`, `D2/D3`, `E1`, `E4..EC`, `EE/EF`, and `F1..F4` cases return
+source-facing aliases instead of raw `$xxxx` literals. The immediate helper
+leaves in the same dispatcher, including `1F 03`, `64/65`, `A0/A1/A2`, `B0`,
+`D1`, `ED`, and `F0`, keep their direct helper-call contracts.
+
+Source polish follow-up (2026-05-06): the callback leaves in
+`src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` and
+`src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` now name the
+same queued-argument ABI at the point of use. `$97BA..$97BE` read as deferred
+argument bytes, `$97CA` reads as the deferred argument count, and each staged
+leaf returns a named callback low word while it waits for more bytes. The
+`1F C0`, `1F 13..23`, `1F 62/63/66/67`, `1F D0`, `1F E1/E4..EC/EE/EF`, and
+`1F F1..F4` source bodies are therefore aligned with the dispatcher table.
+
+Source polish follow-up (2026-05-06): the lower deferred-callback siblings in
+`src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now match
+that naming too. `1F 83` uses the one-byte item-use compatibility selector
+queue, and `1F 71` uses the same one-byte party utility queue, both returning
+through named callback aliases instead of raw low-word literals.
+
+Source polish follow-up (2026-05-06): the `[1F 41]` special-event caller and
+name-entry path now share source-facing names. Cases `03/04` call
+`C1:EAA6_RunNameEntrySpecialEventPrelude` directly; the prelude names its
+name-entry state flags and tail-call into the `EB4C` preview-entry path; and
+the neighboring naming-buffer commit source names the `$9801`, `$97F5`, and
+`$9C9F` buffers plus the text-input window ids used by the dialog.
+Case `11` now calls `C1BE4D_AttemptHomesicknessResult` by name as well.
+
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
 source names the magic-truffle pose descriptor, missing-slot sentinel,

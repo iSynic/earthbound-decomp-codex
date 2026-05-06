@@ -72,6 +72,13 @@ layout helper and the `0x1C 12` PSI-name printer edge directly. This keeps the
 front display-family source readable while the broader `0x1D/0x19` inventory
 and queue helpers continue to carry most of the module's behavior.
 
+Follow-up source polish now names the deferred-byte ABI inside the
+`0x1C 0A/0B` numeric display leaves themselves. `PRINT_NUMBER` and
+`PRINT_MONEY_AMOUNT` both assemble queued bytes from `$97BA..$97BC` plus the
+caller byte before falling back to the next text argument when that assembled
+value is zero; their callback low words are now source aliases rather than raw
+`C1:53AF` / `C1:5573` literals.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.

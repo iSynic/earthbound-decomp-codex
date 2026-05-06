@@ -49,6 +49,11 @@ The strongest local flow is:
 
 So the safest current read is that `0x0A` is a 24-bit branch target installer using the same queue-and-assemble machinery that the conditional jump helpers reuse.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_4103_build_text_command24_bit_jump_target.asm`
+now names the three queued argument bytes, queue count, self-return callback
+low word, shift counts, scratch dword, and parser-pointer writeback slot used
+by this builder.
+
 ## Script-side usage pattern
 
 The exposed script hits fit that model well.

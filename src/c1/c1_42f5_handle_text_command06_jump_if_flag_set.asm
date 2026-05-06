@@ -14,12 +14,23 @@
 C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 C21628_CheckEventFlag = $C21628
 
+EventFlagLowByte = $97BA
+DeferredCommandQueueCount = $97CA
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+IndexWidthFlag = $10
+LowByteMask = $00FF
+JumpIfFlagSetCallback = $42F5
+BuildTextCommand24BitJumpTargetCallback = $4103
+ZeroWord = $0000
+BranchOperandByteCount = $0004
+
 ; ---------------------------------------------------------------------------
 ; C1:42F5
 
 CC_06:
 C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -28,30 +39,30 @@ C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
     pla
     tay
     sty $0E
-    lda $97CA
+    lda DeferredCommandQueueCount
     bne C1431A_HandleTextCommand06JumpIfFlagSet_L431A
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42F5
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta EventFlagLowByte,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
+    lda.w #JumpIfFlagSetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1431A_HandleTextCommand06JumpIfFlagSet_L431A:
     txa
-    sep #$10
+    sep #IndexWidthFlag
     ldy.b #$08
     jsl C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda EventFlagLowByte
+    and.w #LowByteMask
     ora $02
     jsl C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq C1433E_HandleTextCommand06JumpIfFlagSet_L433E
-    stz $97CA
-    lda.w #$4103
+    stz DeferredCommandQueueCount
+    lda.w #BuildTextCommand24BitJumpTargetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     ldy $0E
@@ -59,14 +70,14 @@ C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     sta $06
     lda $0002,Y
     sta $08
-    lda.w #$0004
+    lda.w #BranchOperandByteCount
     clc
     adc $06
     sta $06
     sta $0000,Y
     lda $08
     sta $0002,Y
-    lda.w #$0000
+    lda.w #ZeroWord
 C1435D_HandleTextCommand06JumpIfFlagSet_L435D:
     pld
     rts

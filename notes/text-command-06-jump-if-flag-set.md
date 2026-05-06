@@ -51,6 +51,10 @@ The strongest local flow is:
 
 So the local structure is very clean: build flag id, test it, then either branch through `C1:4103` or skip the branch payload.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_42f5_handle_text_command06_jump_if_flag_set.asm`
+now names the queued flag low byte, queue count, callback self-return low word,
+branch-target callback handoff, low-byte mask, and four-byte branch-payload skip.
+
 ## Relationship to `0x07`
 
 `0x06` and `0x07` now form a very tidy pair.

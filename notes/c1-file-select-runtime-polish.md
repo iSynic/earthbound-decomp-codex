@@ -81,6 +81,34 @@ wrapper for `$98B7`. It persists through the same `EF:0A4D` setup-state helper.
 rows through `C1:EC8F`, commits `$99CD` on nonzero selection, and persists setup
 state through `EF:0A4D`.
 
+The setup source now also names the local UI caller contract around these
+wrappers: active focus `$8958`, descriptor lookup through `$88E4/$8650+0x2B`,
+the `$89D4` text-entry chain stride and selected-row text offsets, cancel
+results passed between the three setup stages, and the explicit `C1:EC8F`
+preview callback low/bank pair used by the window-flavour menu.
+
+The visible action/copy/delete/setup menu builders now also name their C4
+file-select text pointer lows and bank word in source. This covers the action
+labels, copy-destination prompt and generated slot-label buffer, delete
+confirmation prompt/options, text-speed prompt/options, sound prompt/options,
+and window-flavour prompt/options.
+
+The new-file naming and confirmation branch inside `C1:F616` now names the
+same caller-side text contract. The source exposes the `C4:C194` 0x28-byte
+prompt table, character-record stride/base for the four party-name commits,
+the fixed `$9819/$981F/$9829` pet/food/thing commit buffers, and the
+confirmation-screen labels/options at `C4:C2AC..C2D9`. This keeps the C4 data
+source untouched while making the C1 text-entry caller contract explicit.
+
+The new-file initialization tail also names its caller-side startup contracts.
+`C1:FD0E..FEC2` now exposes the `D5:F5F5` initial-stats table pointer, the
+row offsets consumed by the C1 party setup loop, the HP/PP rolling display
+fields initialized from `$99D8/$99DA`, the inventory seed and starting-money
+loads, the fixed `"PSI "` prefix at `$9825..$9828`, the `$98B8/$9D1F/$9D21`
+landing snapshot, the C5 start-script pointer, and the C3 text-speed timing
+table used to populate `$9625/$9627/$9629/$964B` before the C7 start-file text
+handoff.
+
 The source now names that persistence edge as `EF0A4D_SaveGameSlot`, matching
 the EF save/SRAM contract: C1 passes the visible one-based slot minus one, and
 EF expands it to the primary/backup save-block pair.
@@ -131,6 +159,14 @@ This slice makes the file-select path useful to future SRAM/setup work:
 - EF save helpers are linked to the exact UI paths that call them
 - setup bytes `$98B6`, `$98B7`, and `$99CD` are tied to their preview, commit,
   and persistence paths
+- the setup UI wrappers now expose their window ids, cancel contract, active
+  descriptor lookup, text-entry selected-row offsets, and window-flavour
+  preview callback pointer as source names
+- visible C4 file-select menu text pointers now have local source names without
+  leaving the new-file naming confirmation tail as raw C4 pointer loads
+- new-file startup now names its D5 initial-stats row consumers, favorite-thing
+  prefix seed, landing snapshot, start-script handoff, and text-speed timing
+  state updates
 - the bank-C1 session wrapper and transient redraw latch are separated from the
   larger menu loop
 - the main file-select loop now has named source edges for its submenu

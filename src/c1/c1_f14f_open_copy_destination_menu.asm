@@ -26,6 +26,24 @@ C1163C_FinalizeSelectionMenu     = $163C
 C1196A_OpenMenuSelectionLoop     = $196A
 C3E4D4_PrepareMenuDisplayContext = $C3E4D4
 EF0C15_CopySaveSlot              = $EF0C15
+CopyDestinationMultiSlotWindowId = $0015
+CopyDestinationSingleSlotWindowId = $0016
+SaveSlotStatusBase = $B49E
+CurrentSaveSlot = $B4A1
+CopyDestinationPromptTextLo = $C0B0
+C4FileSelectMenuTextBank = $00C4
+SaveSlotCount = $0003
+SingleDestinationCount = $0001
+MenuSelectionCancel = $0000
+MenuSelectionEnabled = $0001
+CopyPromptPrintLength = $000E
+CopyDestinationLabelBuffer = $9C9F
+CopyDestinationSlotLetterBase = $61
+CopyDestinationSlotLabelSuffix = $6A
+CopyDestinationRowColumn = $0000
+SingleDestinationRow = $0001
+ZeroPointerWord = $0000
+AutoWrapPreflightGate = $5E6E
 
 ; ---------------------------------------------------------------------------
 ; C1:F14F
@@ -36,11 +54,11 @@ C1F14F_OpenCopyDestinationMenu:
     tdc
     adc.w #$FFE8
     tcd
-    ldx.w #$0000
+    ldx.w #MenuSelectionCancel
     txy
     bra C1F167_OpenCopyDestinationMenu_LF167
 C1F15D_OpenCopyDestinationMenu_LF15D:
-    lda $B49E,X
+    lda SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F166_OpenCopyDestinationMenu_LF166
     iny
@@ -48,7 +66,7 @@ C1F166_OpenCopyDestinationMenu_LF166:
     inx
 C1F167_OpenCopyDestinationMenu_LF167:
     stx $02
-    lda.w #$0003
+    lda.w #SaveSlotCount
     clc
     sbc $02
     bvs C1F175_OpenCopyDestinationMenu_LF175
@@ -57,37 +75,37 @@ C1F167_OpenCopyDestinationMenu_LF167:
 C1F175_OpenCopyDestinationMenu_LF175:
     bmi C1F15D_OpenCopyDestinationMenu_LF15D
 C1F177_OpenCopyDestinationMenu_LF177:
-    cpy.w #$0001
+    cpy.w #SingleDestinationCount
     beq C1F17F_OpenCopyDestinationMenu_LF17F
     jmp.w C1F1FE_OpenCopyDestinationMenu_LF1FE
 C1F17F_OpenCopyDestinationMenu_LF17F:
-    lda.w #$0016
+    lda.w #CopyDestinationSingleSlotWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #CopyPromptPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #MenuSelectionCancel
     sta $02
     bra C1F1ED_OpenCopyDestinationMenu_LF1ED
 C1F1A0_OpenCopyDestinationMenu_LF1A0:
     ldx $02
-    lda $B49E,X
+    lda SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F1EB_OpenCopyDestinationMenu_LF1EB
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #CopyDestinationSlotLetterBase
+    sta CopyDestinationLabelBuffer
+    lda.b #CopyDestinationSlotLabelSuffix
+    sta CopyDestinationLabelBuffer + 1
+    stz CopyDestinationLabelBuffer + 2
     rep #$20
-    lda.w #$9C9F
+    lda.w #CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -99,19 +117,19 @@ C1F1A0_OpenCopyDestinationMenu_LF1A0:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $14
-    ldy.w #$0001
-    ldx.w #$0000
+    ldy.w #SingleDestinationRow
+    ldx.w #CopyDestinationRowColumn
     lda $02
     inc A
     jsr C1153B_AddSelectionMenuItem
 C1F1EB_OpenCopyDestinationMenu_LF1EB:
     inc $02
 C1F1ED_OpenCopyDestinationMenu_LF1ED:
-    lda.w #$0003
+    lda.w #SaveSlotCount
     clc
     sbc $02
     bvs C1F1F9_OpenCopyDestinationMenu_LF1F9
@@ -122,37 +140,37 @@ C1F1F9_OpenCopyDestinationMenu_LF1F9:
 C1F1FB_OpenCopyDestinationMenu_LF1FB:
     jmp.w C1F281_OpenCopyDestinationMenu_LF281
 C1F1FE_OpenCopyDestinationMenu_LF1FE:
-    lda.w #$0015
+    lda.w #CopyDestinationMultiSlotWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #CopyPromptPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #MenuSelectionCancel
     sta $02
-    lda.w #$0001
+    lda.w #SingleDestinationRow
     sta $04
     bra C1F273_OpenCopyDestinationMenu_LF273
 C1F224_OpenCopyDestinationMenu_LF224:
     ldx $02
-    lda $B49E,X
+    lda SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F271_OpenCopyDestinationMenu_LF271
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #CopyDestinationSlotLetterBase
+    sta CopyDestinationLabelBuffer
+    lda.b #CopyDestinationSlotLabelSuffix
+    sta CopyDestinationLabelBuffer + 1
+    stz CopyDestinationLabelBuffer + 2
     ldx $04
     rep #$20
     inc $04
-    lda.w #$9C9F
+    lda.w #CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -164,19 +182,19 @@ C1F224_OpenCopyDestinationMenu_LF224:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $14
     txy
-    ldx.w #$0000
+    ldx.w #CopyDestinationRowColumn
     lda $02
     inc A
     jsr C1153B_AddSelectionMenuItem
 C1F271_OpenCopyDestinationMenu_LF271:
     inc $02
 C1F273_OpenCopyDestinationMenu_LF273:
-    lda.w #$0003
+    lda.w #SaveSlotCount
     clc
     sbc $02
     bvs C1F27F_OpenCopyDestinationMenu_LF27F
@@ -186,12 +204,12 @@ C1F27F_OpenCopyDestinationMenu_LF27F:
     bmi C1F224_OpenCopyDestinationMenu_LF224
 C1F281_OpenCopyDestinationMenu_LF281:
     jsr C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #MenuSelectionEnabled
     jsr C1196A_OpenMenuSelectionLoop
     tay
     sty $16
     beq C1F29D_OpenCopyDestinationMenu_LF29D
-    lda $B4A1
+    lda CurrentSaveSlot
     and.w #$00FF
     tax
     dex
@@ -199,7 +217,7 @@ C1F281_OpenCopyDestinationMenu_LF281:
     dec A
     jsl EF0C15_CopySaveSlot
 C1F29D_OpenCopyDestinationMenu_LF29D:
-    stz $5E6E
+    stz AutoWrapPreflightGate
     jsr CLOSE_FOCUS_WINDOW
     ldy $16
     tya

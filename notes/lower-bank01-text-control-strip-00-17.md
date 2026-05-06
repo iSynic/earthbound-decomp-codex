@@ -105,6 +105,12 @@ assembly, flag set/clear/check handling, context staging, the number selector,
 window/focus wrappers, and the glyph/cursor staging split used by forced text
 alignment.
 
+Source polish follow-up (2026-05-06): the same `C1:4103..4558` strip now names
+the deferred argument ABI used by the callback leaves. Commands `0x04..0x08`,
+`0x0A`, and adjacent `0x18 05` read `$97BA..$97BC/$97CA` through queued-byte
+aliases, and their self-return callback low words now use local contract names
+instead of raw address literals.
+
 The adjacent `C1:4558..4EAB` text-command and item-helper strip now also names
 the helper-call surface for `0C/0E` workmem and argmem staging, text-entry
 layout refresh, item-name/town-name printing, compact item-class tests,

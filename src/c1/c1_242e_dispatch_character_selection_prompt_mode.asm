@@ -14,6 +14,10 @@
 ;   otherwise to the full two-list character/party candidate prompt.
 ; - C1:244C continues the deeper character-select prompt core and should keep
 ;   conservative wording until its internal mixed decode is split further.
+; - The mixed island contains byte payload/control fragments that the first
+;   linear decode rendered as local jumps/calls. Those fragments stay as
+;   explicit bytes below so raw edge scans do not mistake them for callable
+;   contracts.
 
 C08616_QueueVramTransfer_FromDpSource  = $C08616
 C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
@@ -199,7 +203,7 @@ C1253F_DispatchCharacterSelectionPromptMode_L253F:
     jsl C3E521_CloseWindowById
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState
-    jmp $27CB
+    db $4C, $CB, $27
 C1255C_DispatchCharacterSelectionPromptMode_L255C:
     ldx.w #$0000
     bra C12586_DispatchCharacterSelectionPromptMode_L2586
@@ -351,7 +355,7 @@ C12683_DispatchCharacterSelectionPromptMode_L2683:
     lda.b #$00
     brk #$85
     asl $4C,X
-    jsr $2227
+    db $20, $27, $22
     wdm #$2E
     cmp ($AD,X)
     adc $2900
@@ -369,7 +373,7 @@ C126A5_DispatchCharacterSelectionPromptMode_L26A5:
 C126A8_DispatchCharacterSelectionPromptMode_L26A8:
     lda.b #$02
     brk #$8D
-    jmp ($4C5E,X)
+    db $7C, $5E, $4C
     eor [$27]
 C126B1_DispatchCharacterSelectionPromptMode_L26B1:
     lda $006D
@@ -387,7 +391,7 @@ C126C7_DispatchCharacterSelectionPromptMode_L26C7:
 C126CA_DispatchCharacterSelectionPromptMode_L26CA:
     lda.b #$03
     brk #$8D
-    jmp ($805E,X)
+    db $7C, $5E, $80
     adc $AD,X
     adc $2900
     ldy.w #$F000
@@ -399,7 +403,7 @@ C126CA_DispatchCharacterSelectionPromptMode_L26CA:
     lda.b #$01
     brk #$22
     cpx.w #$C0AB
-    jmp $27CB
+    db $4C, $CB, $27
     lda $006D
     and.b #$00
     ldy.w #$24F0
@@ -418,7 +422,7 @@ C1270F_DispatchCharacterSelectionPromptMode_L270F:
     tya
     jsl C0ABE0_PlaySoundEffect
     jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
-    jmp $27CB
+    db $4C, $CB, $27
     lda $16
     inc A
     sta $16
@@ -427,7 +431,7 @@ C1270F_DispatchCharacterSelectionPromptMode_L270F:
     cmp $02
     bcs C1272D_DispatchCharacterSelectionPromptMode_L272D
     beq C1272D_DispatchCharacterSelectionPromptMode_L272D
-    jmp $268B
+    db $4C, $8B, $26
 C1272D_DispatchCharacterSelectionPromptMode_L272D:
     lda $5E7C
     bne C12737_DispatchCharacterSelectionPromptMode_L2737
@@ -678,7 +682,7 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     jsl C3E521_CloseWindowById
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState
-    jmp $2BB1
+    db $4C, $B1, $2B
 C12925_DispatchCharacterSelectionPromptMode_L2925:
     lda $89CA
     cmp.w #$FFFF
@@ -820,7 +824,7 @@ C12A3D_DispatchCharacterSelectionPromptMode_L2A3D:
     sty $16
     lda.b #$02
     brk #$8D
-    jmp ($4C5E,X)
+    db $7C, $5E, $4C
     cpx.w #$AD2A
     adc $2900
     brk #$01
@@ -838,7 +842,7 @@ C12A61_DispatchCharacterSelectionPromptMode_L2A61:
     sty $16
     lda.b #$03
     brk #$8D
-    jmp ($805E,X)
+    db $7C, $5E, $80
     adc $AD,X
     adc $2900
     ldy.w #$F000
@@ -850,7 +854,7 @@ C12A61_DispatchCharacterSelectionPromptMode_L2A61:
     lda.b #$01
     brk #$22
     cpx.w #$C0AB
-    jmp $2BB1
+    db $4C, $B1, $2B
     lda $006D
     and.b #$00
     ldy.w #$24F0
@@ -869,7 +873,7 @@ C12AA8_DispatchCharacterSelectionPromptMode_L2AA8:
     tya
     jsl C0ABE0_PlaySoundEffect
     jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
-    jmp $2BB1
+    db $4C, $B1, $2B
     lda $1E
     inc A
     sta $1E
@@ -891,7 +895,7 @@ C12AD3_DispatchCharacterSelectionPromptMode_L2AD3:
     lda.b #$0A
     brk #$85
     cop.b #$85
-    jsr $AE4C
+    db $20, $4C, $AE
     and.b #$8A
     sec
     sbc $04
@@ -957,7 +961,7 @@ C12B34_DispatchCharacterSelectionPromptMode_L2B34:
     cmp.b #$00
     brk #$D0
     bpl C12AF7_DispatchCharacterSelectionPromptMode_L2AF7
-    jsr $0285
+    db $20, $85, $02
     ldx $1A
     txa
     clc
@@ -1004,7 +1008,7 @@ C12BA7_DispatchCharacterSelectionPromptMode_L2BA7:
     lda.b #$04
     brk #$85
     cop.b #$85
-    jsr $764C
+    db $20, $4C, $76
     and.b #$A9
     sbc $7C8DFF,X
     lsr $22A5,X

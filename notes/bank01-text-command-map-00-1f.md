@@ -82,6 +82,44 @@ callback roots directly, along with the lower-strip callback roots for
 tables used by pseudo-opcodes `0x15..17`, matching the caution above that those
 three entries are not ordinary runtime families.
 
+Source polish follow-up (2026-05-06): the adjacent dynamic source-selector
+source now names the returned low-word leaves behind the `0x1A`, `0x1C`,
+`0x1D`, `0x1E`, and `0x1F` family dispatchers. The labels are local callback
+contracts only; they preserve the same return values while making the menu,
+display, inventory/money, stat-recovery, and deferred-callback tables readable
+without relying on bare addresses.
+
+Source polish follow-up (2026-05-06): the deferred callback leaf bodies now use
+the same naming at the consumer side. The shared queued-byte block
+`$97BA..$97BE/$97CA` is named in the `1F C0` and adjacent `1F` callback tail,
+and the late `1E` stat-recovery leaves now name their staged bytes and target
+character-record fields.
+
+Source polish follow-up (2026-05-06): the lower queued leaves now share that
+consumer-side vocabulary too. The `0x1D 08/09`, `0x1E 00..07`, `0x1D 00/01`,
+`0x1F 81`, `0x1D 0D/0E/0F`, `0x18 07`, `0x1A 05`, and `0x1C 0A/0B` bodies
+name their queued-byte slots and callback self-returns, tightening the contract
+between family dispatchers and the callback leaves without changing emitted
+bytes.
+
+Source polish follow-up (2026-05-06): the same queued-selector names now cover
+the previously raw front possession checks in `C1:4CEE..4EAB`: `0x1D 04`,
+`0x1D 05`, and adjacent `0x1F 20` stage a one-byte selector in `$97BA`, count
+it with `$97CA`, and return through named self-callback low words instead of
+raw literals.
+
+Source polish follow-up (2026-05-06): the `C1:575D..621F` continuation now
+uses the same vocabulary for the next dense strip. This covers `0x1D
+10/11/12/13/14/15/17`, `0x18 0D`, `0x19 19/1C/1D`, and the adjacent `0x1F
+71/83` callback leaves, including the shared money-byte assemblers and the
+wallet/ATM comparison state.
+
+Source polish follow-up (2026-05-06): the lower control strip now has matching
+consumer-side names too. The `0x04..0x08`, `0x0A`, and adjacent `0x18 05`
+callback bodies name their queued-byte slots, queue count, callback self-return
+low words, 24-bit assembly scratch, event-flag staging, and call-text or
+forced-alignment output slots.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

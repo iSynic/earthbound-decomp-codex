@@ -54,6 +54,8 @@ StatusTargetSelector = $14
 StatusEffectValue = $02
 DeferredCommandByteQueue = $97BA
 DeferredCommandByte1 = $97BB
+DeferredCommandByte2 = $97BC
+DeferredCommandByte3 = $97BD
 DeferredCommandQueueCount = $97CA
 ProcessorStatus16BitAIndexCarryClear = $31
 AccumulatorWidthFlag = $20
@@ -63,6 +65,14 @@ DeferredSingleByteArgumentLimit = $0001
 DeferredTwoByteArgumentLimit = $0002
 GetCharacterStatusByteCallback = $5007
 InflictStatusCallback = $506F
+CheckDirectItemUseCompatibilityCallback = $4F6F
+CharacterHasAilmentCallback = $50E4
+CompareQueuedValueAgainstTextRegisterCallback = $528D
+PrintNumberCallback = $53AF
+DisplayInventoryMenuCallback = $549E
+PrintMoneyAmountCallback = $5573
+GiveItemToCharacterBCallback = $5659
+RemoveInventoryItemBySlotCallback = $56DB
 ZeroWord = $0000
 LowByteMask = $00FF
 
@@ -189,7 +199,7 @@ C14F6F_CheckDirectItemUseCompatibilityTextCommand = CC_1F_81
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86
     bpl C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B
     bra C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88
@@ -198,14 +208,14 @@ C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86:
 C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4F6F
+    inc DeferredCommandQueueCount
+    lda.w #CheckDirectItemUseCompatibilityCallback
     bra C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5
 C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B:
-    lda $97BA
+    lda DeferredCommandByteQueue
     and.w #$00FF
     sta $14
     cpx.w #$0000
@@ -402,7 +412,7 @@ C150E4_CharacterHasAilmentTextCommand = CC_1D_0D
     stx $02
     lda.w #$0002
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD
     bpl C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113
     bra C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF
@@ -411,17 +421,17 @@ C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD:
 C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$50E4
+    inc DeferredCommandQueueCount
+    lda.w #CharacterHasAilmentCallback
     bra C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169
 C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113:
-    lda $97BA
+    lda DeferredCommandByteQueue
     and.w #$00FF
     sta $16
-    lda $97BB
+    lda DeferredCommandByte1
     and.w #$00FF
     tax
     ldy.w #$0000
@@ -620,23 +630,23 @@ C1528D_CompareQueuedValueAgainstTextRegisterCommand = CC_18_07
     tcd
     pla
     stx $12
-    lda $97CA
+    lda DeferredCommandQueueCount
     cmp.w #$0004
     bcs C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$528D
+    inc DeferredCommandQueueCount
+    lda.w #CompareQueuedValueAgainstTextRegisterCallback
     jmp.w C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382
 C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$08
     sep #$10
     tay
-    lda $97BB
+    lda DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -644,7 +654,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     rep #$20
     jsl C09246_ShiftLeft32ByY
     sep #$20
-    lda $97BA
+    lda DeferredCommandByteQueue
     sta $0A
     stz $0B
     stz $0C
@@ -659,7 +669,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$10
     tay
-    lda $97BC
+    lda DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -675,7 +685,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$18
     tay
-    lda $97BD
+    lda DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -778,7 +788,7 @@ C153AF_PrintNumberTextCommand = CC_1C_0A
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9
     bpl C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0
     bra C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB
@@ -787,11 +797,11 @@ C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9:
 C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$53AF
+    inc DeferredCommandQueueCount
+    lda.w #PrintNumberCallback
     jmp.w C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492
 C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     sep #$10
@@ -806,7 +816,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -819,7 +829,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -831,7 +841,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -906,7 +916,7 @@ C1549E_DisplayInventoryMenuTextCommand = CC_1A_05
     sty $0E
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA
     bpl C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF
     bra C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC
@@ -915,14 +925,14 @@ C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA:
 C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$549E
+    inc DeferredCommandQueueCount
+    lda.w #DisplayInventoryMenuCallback
     bra C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527
 C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
-    lda $97BA
+    lda DeferredCommandByteQueue
     and.w #$00FF
     sta $02
     lda $8958
@@ -1022,7 +1032,7 @@ C15573_PrintMoneyAmountTextCommand = CC_1C_0B
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D
     bpl C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4
     bra C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F
@@ -1031,11 +1041,11 @@ C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D:
 C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5573
+    inc DeferredCommandQueueCount
+    lda.w #PrintMoneyAmountCallback
     jmp.w C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657
 C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     sep #$10
@@ -1050,7 +1060,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -1063,7 +1073,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -1075,7 +1085,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -1140,7 +1150,7 @@ C15659_GiveItemToCharacterBTextCommand = CC_1D_0E
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670
     bpl C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685
     bra C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672
@@ -1149,14 +1159,14 @@ C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670:
 C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5659
+    inc DeferredCommandQueueCount
+    lda.w #GiveItemToCharacterBCallback
     bra C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9
 C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685:
-    lda $97BA
+    lda DeferredCommandByteQueue
     and.w #$00FF
     sta $16
     cpx.w #$0000
@@ -1212,7 +1222,7 @@ C156DB_RemoveInventoryItemBySlotTextCommand = CC_1D_0F
     stx $12
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4
     bpl C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709
     bra C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6
@@ -1221,14 +1231,14 @@ C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4:
 C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$56DB
+    inc DeferredCommandQueueCount
+    lda.w #RemoveInventoryItemBySlotCallback
     bra C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B
 C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709:
-    lda $97BA
+    lda DeferredCommandByteQueue
     and.w #$00FF
     tay
     beq C15715_C14EAB_HandleTextCommand10ParameterizedPause_L5715

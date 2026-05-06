@@ -38,6 +38,8 @@ C21D7D_RecalculateCharacterDerivedIq      = $C21D7D
 C45F7B_GetRandomLessThanA                 = $C45F7B
 C4FBBD_ChangeMusic                        = $C4FBBD
 
+C1D8C7_ClearBattleTextDisplayModeAndReturn = $D8C7
+
 ; ---------------------------------------------------------------------------
 ; C1:D109
 
@@ -793,7 +795,7 @@ C1D6A6_LevelUpCharacterAndRefreshDerivedStats_LD6A6:
     ldy $1B
     cpy.w #$0002
     bne C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0
-    jmp $D8C7
+    jmp C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0:
     cpy.w #$0000
     bne C1D6D5_LevelUpCharacterAndRefreshDerivedStats_LD6D5
@@ -901,7 +903,7 @@ C1D76D_PrintMaximumPpGainMessage:
 C1D77E_LevelUpCharacterAndRefreshDerivedStats_LD77E:
     lda $1D
     bne C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785
-    jmp $D8C7
+    jmp C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     lda $16
     sta $04
@@ -916,7 +918,7 @@ C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     bne C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F
     jmp.w C1D867_LevelUpCharacterAndRefreshDerivedStats_LD867
 C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F:
-    jmp $D8C7
+    jmp C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D7A2_LevelUpCharacterAndRefreshDerivedStats_LD7A2:
     ldx.w #$0001
     stx $1B

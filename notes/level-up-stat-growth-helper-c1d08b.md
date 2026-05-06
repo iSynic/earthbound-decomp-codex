@@ -104,3 +104,8 @@ at `C2:1D7D/C2:1C5D`, the C4 bounded-random helper used by max HP/PP growth,
 the battle-text display-mode/focus/name-buffer helpers, and the final
 Sound Stone melody display tick tail. The `C1:D109..DC1C` source unit now has
 no raw helper-call edges.
+
+2026-05-06 follow-up: the same source unit now names its shared `D8C7` cleanup
+tail as `ClearBattleTextDisplayModeAndReturn`, replacing the last raw local
+branch targets in the level-up source without touching the surrounding mixed
+byte-preserved region.

@@ -13,12 +13,29 @@
 
 C09246_ShiftLeft32ByY = $C09246
 
+WorkValueLo = $06
+WorkValueHi = $08
+PointerWritebackLo = $0E
+DeferredCommandByteQueue = $97BA
+DeferredCommandByte1 = $97BB
+DeferredCommandByte2 = $97BC
+DeferredCommandQueueCount = $97CA
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+IndexWidthFlag = $10
+DeferredThreeByteArgumentLimit = $0003
+ShiftByEightBits = $08
+ShiftBySixteenBits = $10
+ShiftByTwentyFourBits = $18
+BuildTextCommand24BitJumpTargetCallback = $4103
+ZeroWord = $0000
+
 ; ---------------------------------------------------------------------------
 ; C1:4103
 
 CC_0A:
 C14103_BuildTextCommand24BitJumpTarget = CC_0A
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -26,10 +43,10 @@ C14103_BuildTextCommand24BitJumpTarget = CC_0A
     tcd
     pla
     tay
-    sty $0E
-    lda.w #$0003
+    sty PointerWritebackLo
+    lda.w #DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C1411D_BuildTextCommand24BitJumpTarget_L411D
     bpl C14133_BuildTextCommand24BitJumpTarget_L4133
     bra C1411F_BuildTextCommand24BitJumpTarget_L411F
@@ -37,90 +54,90 @@ C1411D_BuildTextCommand24BitJumpTarget_L411D:
     bmi C14133_BuildTextCommand24BitJumpTarget_L4133
 C1411F_BuildTextCommand24BitJumpTarget_L411F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4103
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
+    lda.w #BuildTextCommand24BitJumpTargetCallback
     jmp.w C141CE_BuildTextCommand24BitJumpTarget_L41CE
 C14133_BuildTextCommand24BitJumpTarget_L4133:
     txa
-    sta $06
-    stz $08
-    sep #$10
-    ldy.b #$18
+    sta WorkValueLo
+    stz WorkValueHi
+    sep #IndexWidthFlag
+    ldy.b #ShiftByTwentyFourBits
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda WorkValueHi
     pha
-    lda $06
+    lda WorkValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
+    ldy.b #ShiftBySixteenBits
+    sep #AccumulatorWidthFlag
+    lda DeferredCommandByte2
+    sta WorkValueLo
     stz $07
-    stz $08
+    stz WorkValueHi
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda WorkValueHi
     pha
-    lda $06
+    lda WorkValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
+    ldy.b #ShiftByEightBits
+    sep #AccumulatorWidthFlag
+    lda DeferredCommandByte1
+    sta WorkValueLo
     stz $07
-    stz $08
+    stz WorkValueHi
     stz $09
-    rep #$20
+    rep #AccumulatorWidthFlag
     jsl C09246_ShiftLeft32ByY
-    lda $06
+    lda WorkValueLo
     sta $0A
-    lda $08
+    lda WorkValueHi
     sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
+    sep #AccumulatorWidthFlag
+    lda DeferredCommandByteQueue
+    sta WorkValueLo
     stz $07
-    stz $08
+    stz WorkValueHi
     stz $09
-    rep #$20
-    lda $06
+    rep #AccumulatorWidthFlag
+    lda WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta WorkValueLo
+    lda WorkValueHi
     ora $0C
-    sta $08
-    pla
-    sta $0A
-    pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta WorkValueHi
     pla
     sta $0A
     pla
     sta $0C
-    lda $06
+    lda WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta WorkValueLo
+    lda WorkValueHi
     ora $0C
-    sta $08
-    rep #$10
-    ldy $0E
-    lda $06
+    sta WorkValueHi
+    pla
+    sta $0A
+    pla
+    sta $0C
+    lda WorkValueLo
+    ora $0A
+    sta WorkValueLo
+    lda WorkValueHi
+    ora $0C
+    sta WorkValueHi
+    rep #IndexWidthFlag
+    ldy PointerWritebackLo
+    lda WorkValueLo
     sta $0000,Y
-    lda $08
+    lda WorkValueHi
     sta $0002,Y
-    lda.w #$0000
+    lda.w #ZeroWord
 C141CE_BuildTextCommand24BitJumpTarget_L41CE:
     pld
     rts

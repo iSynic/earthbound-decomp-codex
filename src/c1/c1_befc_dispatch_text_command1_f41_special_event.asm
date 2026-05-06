@@ -25,12 +25,20 @@ C4D681_DisplayCurrentPositionTownMap       = $C4D681
 C4ED0E_RunCastScene                        = $C4ED0E
 C4F554_RunCreditsOrPhotoScene              = $C4F554
 
+SpecialEventArgumentZero = $0000
+SpecialEventArgumentOne = $0001
+HomesicknessRestrictionEventFlag = $0049
+BicycleMovementState = $9883
+BicycleStateMounted = $0003
+SpecialEventFlagClearStart = $9C08
+SpecialEventFlagClearLength = $0080
+
 ; ---------------------------------------------------------------------------
 ; C1:BEFC
 
 C1BEFC_DispatchTextCommand1F41SpecialEvent:
     rep #$31
-    cmp.w #$0001
+    cmp.w #SpecialEventArgumentOne
     bne C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06
     jmp.w C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91
 C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06:
@@ -104,27 +112,27 @@ C1BF86_DispatchTextCommand1F41SpecialEvent_LBF86:
 C1BF8E_DispatchTextCommand1F41SpecialEvent_LBF8E:
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91:
-    lda.w #$0000
+    lda.w #SpecialEventArgumentZero
     jsl C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF9B_DispatchTextCommand1F41SpecialEvent_LBF9B:
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     jsl C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFA5_DispatchTextCommand1F41SpecialEvent_LBFA5:
-    lda.w #$0000
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #SpecialEventArgumentZero
+    jsl C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFAF_DispatchTextCommand1F41SpecialEvent_LBFAF:
-    lda.w #$0001
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #SpecialEventArgumentOne
+    jsl C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFB9_DispatchTextCommand1F41SpecialEvent_LBFB9:
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     jsl C43344_SetSpecialEventRestrictionLatch5d98
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFC3_DispatchTextCommand1F41SpecialEvent_LBFC3:
-    lda.w #$0049
+    lda.w #HomesicknessRestrictionEventFlag
     jsl C21628_CheckEventFlag
     jsl C43344_SetSpecialEventRestrictionLatch5d98
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
@@ -135,11 +143,11 @@ C1BFD6_DispatchTextCommand1F41SpecialEvent_LBFD6:
     jsl C3FB09_CheckActionUserSide
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1BFDC_DispatchTextCommand1F41SpecialEvent_LBFDC:
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     jsl C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFE5_DispatchTextCommand1F41SpecialEvent_LBFE5:
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     jsl C3F3C5_ShowTitleScreenStillImage
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFEE_DispatchTextCommand1F41SpecialEvent_LBFEE:
@@ -149,43 +157,43 @@ C1BFF4_DispatchTextCommand1F41SpecialEvent_LBFF4:
     jsl C4F554_RunCreditsOrPhotoScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFFA_DispatchTextCommand1F41SpecialEvent_LBFFA:
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     jsr C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C002_DispatchTextCommand1F41SpecialEvent_LC002:
-    lda.w #$0000
+    lda.w #SpecialEventArgumentZero
     jsr C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C00A_DispatchTextCommand1F41SpecialEvent_LC00A:
-    ldx.w #$0000
+    ldx.w #SpecialEventArgumentZero
     bra C1C015_DispatchTextCommand1F41SpecialEvent_LC015
 C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F:
     sep #$20
-    stz $9C08,X
+    stz SpecialEventFlagClearStart,X
     inx
 C1C015_DispatchTextCommand1F41SpecialEvent_LC015:
-    cpx.w #$0080
+    cpx.w #SpecialEventFlagClearLength
     bcc C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
-    lda.w #$0000
+    lda.w #SpecialEventArgumentZero
     jsl C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr ATTEMPT_HOMESICKNESS
+    jsr C1BE4D_AttemptHomesicknessResult
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
-    lda $9883
-    cmp.w #$0003
+    lda BicycleMovementState
+    cmp.w #BicycleStateMounted
     bne C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B
     jsl C03CFD_ExitBicycleMode
-    lda.w #$0001
+    lda.w #SpecialEventArgumentOne
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B:
-    lda.w #$0000
+    lda.w #SpecialEventArgumentZero
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C040_DispatchTextCommand1F41SpecialEvent_LC040:
     rep #$20
-    lda.w #$0000
+    lda.w #SpecialEventArgumentZero
 C1C045_DispatchTextCommand1F41SpecialEvent_LC045:
     rtl

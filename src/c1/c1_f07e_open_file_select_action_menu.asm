@@ -22,6 +22,28 @@ C104EE_SetWindowFocus        = $04EE
 C1153B_AddSelectionMenuItem  = $153B
 C1163C_FinalizeSelectionMenu = $163C
 C1196A_OpenMenuSelectionLoop = $196A
+FileActionMenuWindowId = $0014
+CurrentSaveSlot = $B4A1
+SaveSlotStatusBase = $B49E
+SaveSlotCount = $0003
+FileActionContinueTextLo = $C094
+FileActionCopyTextLo = $C09D
+FileActionDeleteTextLo = $C0A2
+FileActionSetupTextLo = $C0A9
+C4FileSelectMenuTextBank = $00C4
+MenuSelectionCancel = $0000
+MenuSelectionEnabled = $0001
+MenuActionContinue = $0001
+MenuActionCopy = $0002
+MenuActionDelete = $0003
+MenuActionSetup = $0004
+CopyRowColumn = $0006
+DeleteRowColumn = $000A
+SetupRowColumn = $000F
+MenuRow = $0000
+ZeroPointerWord = $0000
+AutoWrapPreflightGate = $5E6E
+AutoWrapEnabledSentinel = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C1:F07E
@@ -32,51 +54,51 @@ C1F07E_OpenFileSelectActionMenu:
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$0014
+    lda.w #FileActionMenuWindowId
     jsr C104EE_SetWindowFocus
-    lda.w #$C094
+    lda.w #FileActionContinueTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $14
-    ldy.w #$0000
+    ldy.w #MenuRow
     tyx
-    lda.w #$0001
+    lda.w #MenuActionContinue
     jsr C1153B_AddSelectionMenuItem
-    ldx.w #$0000
+    ldx.w #MenuSelectionCancel
     bra C1F0E8_OpenFileSelectActionMenu_LF0E8
 C1F0AF_OpenFileSelectActionMenu_LF0AF:
-    lda $B4A1
+    lda CurrentSaveSlot
     and.w #$00FF
     dec A
     sta $02
     txa
     cmp $02
     beq C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda $B49E,X
+    lda SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda.w #$C09D
+    lda.w #FileActionCopyTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $14
-    ldy.w #$0000
-    ldx.w #$0006
-    lda.w #$0002
+    ldy.w #MenuRow
+    ldx.w #CopyRowColumn
+    lda.w #MenuActionCopy
     jsr C1153B_AddSelectionMenuItem
     bra C1F0F8_OpenFileSelectActionMenu_LF0F8
 C1F0E7_OpenFileSelectActionMenu_LF0E7:
     inx
 C1F0E8_OpenFileSelectActionMenu_LF0E8:
     stx $02
-    lda.w #$0003
+    lda.w #SaveSlotCount
     clc
     sbc $02
     bvs C1F0F6_OpenFileSelectActionMenu_LF0F6
@@ -85,38 +107,38 @@ C1F0E8_OpenFileSelectActionMenu_LF0E8:
 C1F0F6_OpenFileSelectActionMenu_LF0F6:
     bmi C1F0AF_OpenFileSelectActionMenu_LF0AF
 C1F0F8_OpenFileSelectActionMenu_LF0F8:
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $06
-    lda.w #$0000
+    lda.w #ZeroPointerWord
     sta $08
-    lda.w #$C0A2
+    lda.w #FileActionDeleteTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000A
-    lda.w #$0003
+    ldy.w #MenuRow
+    ldx.w #DeleteRowColumn
+    lda.w #MenuActionDelete
     jsr C1153B_AddSelectionMenuItem
-    lda.w #$C0A9
+    lda.w #FileActionSetupTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000F
-    lda.w #$0004
+    ldy.w #MenuRow
+    ldx.w #SetupRowColumn
+    lda.w #MenuActionSetup
     jsr C1153B_AddSelectionMenuItem
     jsr C1163C_FinalizeSelectionMenu
-    lda.w #$00FF
-    sta $5E6E
-    lda.w #$0001
+    lda.w #AutoWrapEnabledSentinel
+    sta AutoWrapPreflightGate
+    lda.w #MenuSelectionEnabled
     jsr C1196A_OpenMenuSelectionLoop
     pld
     rts

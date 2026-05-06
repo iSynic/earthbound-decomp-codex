@@ -34,6 +34,37 @@ C3E4D4_PrepareMenuDisplayContext                = $C3E4D4
 C438A5_SetTextPosition                          = $C438A5
 C43D75_StageGlyphVariantTileState               = $C43D75
 EF0BFA_DeleteSaveSlot                           = $EF0BFA
+DeleteConfirmationWindowId = $0017
+TextSpeedMenuWindowId = $0018
+CurrentSaveSlot = $B4A1
+SelectedFileLevel = $99D3
+DeleteConfirmationPromptTextLo = $C0BE
+LevelLabelTextLo = $C06E
+DeleteNoTextLo = $C0DE
+DeleteYesTextLo = $C0E1
+TextSpeedPromptTextLo = $C0E5
+TextSpeedOptionTableLo = $C07F
+C4FileSelectMenuTextBank = $00C4
+DeleteConfirmationPromptLength = $0020
+LevelLabelPrintLength = $0006
+TextSpeedPromptPrintLength = $0019
+FileNumberSuffixGlyph = $006A
+TopRow = $0000
+SummaryRow = $0001
+NameSummaryColumn = $0002
+LevelLabelColumn = $0008
+LevelValueColumn = $000C
+NoOptionRow = $0002
+YesOptionRow = $0003
+MenuColumn = $0000
+MenuSelectionEnabled = $0001
+DeleteYesResult = $0001
+TextSpeedFastEntry = $0001
+TextSpeedMediumEntry = $0002
+TextSpeedSlowEntry = $0003
+TextSpeedMediumTextOffset = $0007
+TextSpeedSlowTextOffset = $000E
+ZeroWord = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:F2A8
@@ -44,28 +75,28 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     tdc
     adc.w #$FFE8
     tcd
-    lda.w #$0017
+    lda.w #DeleteConfirmationWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_PrepareMenuDisplayContext
-    lda.w #$0000
+    lda.w #ZeroWord
     jsr C10EB4_ClearOrPrepareWindowContent
-    ldx.w #$0000
+    ldx.w #TopRow
     txa
     jsl C438A5_SetTextPosition
-    lda.w #$C0BE
+    lda.w #DeleteConfirmationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0020
+    lda.w #DeleteConfirmationPromptLength
     jsr C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #SummaryRow
+    lda.w #MenuColumn
     jsl C43D75_StageGlyphVariantTileState
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #SummaryRow
+    lda.w #MenuColumn
     jsl C438A5_SetTextPosition
     sep #$20
-    lda $B4A1
+    lda CurrentSaveSlot
     sta $06
     stz $07
     stz $08
@@ -76,27 +107,27 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr C10DF6_PrintNumberFromPointer
-    lda.w #$006A
+    lda.w #FileNumberSuffixGlyph
     jsr PRINT_LETTER
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #SummaryRow
+    lda.w #NameSummaryColumn
     jsl C438A5_SetTextPosition
-    lda.w #$0001
+    lda.w #SummaryRow
     jsr C1931B_PrintSelectedFileCharacterSummary
-    ldx.w #$0001
-    lda.w #$0008
+    ldx.w #SummaryRow
+    lda.w #LevelLabelColumn
     jsl C438A5_SetTextPosition
-    lda.w #$C06E
+    lda.w #LevelLabelTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0006
+    lda.w #LevelLabelPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$000C
+    ldx.w #SummaryRow
+    lda.w #LevelValueColumn
     jsl C438A5_SetTextPosition
     sep #$20
-    lda $99D3
+    lda SelectedFileLevel
     sta $06
     stz $07
     stz $08
@@ -107,41 +138,41 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr C10DF6_PrintNumberFromPointer
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $08
-    lda.w #$C0DE
+    lda.w #DeleteNoTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0002
-    ldx.w #$0000
+    ldy.w #NoOptionRow
+    ldx.w #MenuColumn
     txa
     jsr C1153B_AddSelectionMenuItem
-    lda.w #$C0E1
+    lda.w #DeleteYesTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0003
-    ldx.w #$0000
-    lda.w #$0001
+    ldy.w #YesOptionRow
+    ldx.w #MenuColumn
+    lda.w #DeleteYesResult
     jsr C1153B_AddSelectionMenuItem
     jsr C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #MenuSelectionEnabled
     jsr C1196A_OpenMenuSelectionLoop
     tax
     stx $16
     beq C1F3B7_OpenDeleteFileConfirmationMenu_LF3B7
-    lda $B4A1
+    lda CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl EF0BFA_DeleteSaveSlot
@@ -159,26 +190,26 @@ C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0018
+    lda.w #TextSpeedMenuWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0E5
+    lda.w #TextSpeedPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0019
+    lda.w #TextSpeedPromptPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$C07F
+    lda.w #TextSpeedOptionTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $08
     lda $06
     sta $16
     lda $08
     sta $18
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $0A
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $0C
     lda $06
     sta $0E
@@ -192,10 +223,10 @@ C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     sta $12
     lda $08
     sta $14
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #TextSpeedFastEntry
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #TextSpeedMediumTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -214,10 +245,10 @@ C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
-    lda.w #$0000
+    ldx.w #TextSpeedMediumEntry
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$000E
+    lda.w #TextSpeedSlowTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -236,8 +267,8 @@ C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #TextSpeedSlowEntry
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda $98B6
     and.w #$00FF
@@ -247,7 +278,7 @@ C1F3C2_OpenTextSpeedMenu = OPEN_TEXT_SPEED_MENU
     dex
     bra C1F491_OpenDeleteFileConfirmationMenu_LF491
 C1F48E_OpenDeleteFileConfirmationMenu_LF48E:
-    ldx.w #$0001
+    ldx.w #TextSpeedFastEntry
 C1F491_OpenDeleteFileConfirmationMenu_LF491:
     txa
     jsr C11887_SelectActiveTextEntryByA

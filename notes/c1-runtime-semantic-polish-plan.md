@@ -478,5 +478,107 @@ This planning pass is documentation-only.
   contracts: `C1:DDDA` calls `C1:153B` as `AddSelectionMenuItem`,
   `C1:ECD1` calls `C1:EC8F` as `PreviewWindowFlavourAndRedraw`, and the
   new-file party setup branch calls `C1:D9E9` as `AwardExperienceToCharacter`.
-  The remaining C1 numeric calls are the four deferred local structural edges
+  The remaining raw local numeric edges are fenced to the mixed-decode island
   in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
+- 2026-05-06 follow-up: the display-text dynamic source selector now names
+  its callback-return low words for the stable `1A`, `1C`, `1D`, `1E`, and
+  `1F` text-command leaves. This keeps the dispatcher contract table readable
+  without changing the byte stream: menu leaves, print/display leaves,
+  inventory/money leaves, stat-recovery leaves, and deferred callback/event
+  leaves all return through source-facing aliases instead of raw low-word
+  literals. Validation was attempted in this worktree, but the local ROM was
+  absent from both default lookup paths, so byte-equivalence remains pending
+  until `EarthBound (USA).sfc` is supplied.
+- 2026-05-06 follow-up: the `C1:621F..7708` deferred-callback tail now names
+  the shared `$97BA..$97BE/$97CA` queued-argument ABI and the self-return
+  low-word contracts inside the callback leaves themselves. This covers the
+  `1F C0` dword jump finalizer, adjacent `1F` event/entity callbacks,
+  `1D 24` bank-deposit staging, `1C 13` battle visual-effect staging, and the
+  `1E 09..0E` experience/stat-boost leaves. The durable C1 scaffold was
+  regenerated from source; byte-equivalence is still pending on the missing ROM
+  gate noted above.
+- 2026-05-06 follow-up: the lower queued text-command leaves now use the same
+  source-facing deferred-byte vocabulary. `C1:48AC..4CEE` names the
+  `$97BA/$97CA` queue and callback low words for wallet add/take, early HP/PP
+  recover/deplete, and item give/take wrappers; `C1:4EAB..575D` extends the
+  same queue names through direct item-use compatibility, ailment checks,
+  window-register comparison, print-number/money, inventory display, give-item
+  B, and remove-slot leaves. The C1 scaffold was regenerated from source with
+  the local ROM still absent from the exact byte-equivalence gate.
+- 2026-05-06 follow-up: the `C1:575D..621F` continuation now follows the same
+  queued-byte style. The source names `$97BA..$97BC/$97CA`, callback low words,
+  wallet/ATM balance words, and active-party count for equipped-item,
+  inventory-usability, Escargo transfer, wallet/ATM amount, status-window,
+  party utility, delivery/pickup queue, party-count, and random-number leaves.
+  The scaffold was regenerated from source; exact byte-equivalence remains
+  pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the lower control strip at `C1:4103..4558` now uses
+  the same deferred-byte ABI vocabulary inside the callback leaves themselves.
+  The source names `$97BA..$97BC/$97CA`, self-return callback low words,
+  24-bit target assembly scratch, flag low-byte staging, call-text pointer
+  staging, the number-select cancel sentinel, and the `0x18 05` forced
+  alignment single-byte queue. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the `[1F 41]` name-entry caller contract now reaches
+  through the C1 UI sources. The special-event dispatcher calls `C1:EAA6` by
+  name for cases `03/04`, names its zero/one scene arguments and local event
+  spans, while `C1:EAA6..EC8F` names the name-entry state flags, the
+  `EAA6 -> EB4C` preview-entry handoff, `$9801/$97F5/$9C9F` naming buffers,
+  text-input window ids, and commit-flow cleanup flags. The scaffold was
+  regenerated from source; exact byte-equivalence remains pending on the same
+  missing-ROM gate.
+- 2026-05-06 follow-up: the final non-fenced raw local C1 branch/caller aliases
+  now use stable contract names. `C1:D109..DC1C` names the shared `D8C7`
+  battle-text-mode cleanup tail, `[1F 41]` case `11` calls
+  `C1BE4D_AttemptHomesicknessResult` by name, and the naming-buffer commit flow
+  calls `C1E57F_RunTextInputDialog` directly. The only remaining raw numeric
+  local jumps/calls in checked-in C1 source are the intentionally deferred
+  mixed-decode edges in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
+  The scaffold was regenerated from source; exact byte-equivalence remains
+  pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the file-select setup menu wrappers now expose their
+  local UI contracts in source. `C1:F497` and `C1:F616` name the text-speed,
+  sound, and window-flavour window ids, active-focus and descriptor/table
+  lookup fields, `$89D4` text-entry selected-row offsets, setup-state bytes
+  `$98B6/$98B7/$99CD`, the setup-stage cancel value, the `C1:EC8F`
+  window-flavour preview callback pointer, and the final selected-file text
+  speed handoff. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the visible file-select action/copy/delete/setup menu
+  builders now name their C4 file-select text pointer contracts in source.
+  `C1:F07E`, `C1:F14F`, `C1:F2A8`, `C1:F3C2`, `C1:F568`, and `C1:F6E3` expose
+  their prompt/option pointer lows, C4 bank word, window/result ids, row/column
+  positions, generated copy-destination label buffer, and setup option entry
+  ids. The deeper new-file naming/body text pointer loads inside `C1:F616`
+  were left for the follow-up below. The scaffold was regenerated from source;
+  exact byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the deferred new-file naming/confirmation tail inside
+  `C1:F616` now has caller-side source names. The pass names the `C4:C194`
+  prompt table and 0x28-byte prompt stride, party-character record
+  stride/base, fixed-width `$9819/$981F/$9829` pet/food/thing commit buffers,
+  confirmation windows `0x21..0x24`, centered food/thing display layout, the
+  `C4:C2AC..C2D9` confirmation labels/options, and the final yes/no menu
+  result contract. C4 data source remains untouched; the C1 scaffold was
+  regenerated from source, with exact byte-equivalence still blocked by the
+  missing local ROM/asar gates.
+- 2026-05-06 follow-up: the new-file initialization and shared start-file tail
+  in `C1:F616` now names the C1-facing D5/C0/C3/C5/C7 joins. The promoted
+  names cover the `D5:F5F5` initial-stats table pointer and row offsets,
+  battle-state and experience-award inputs, HP/PP rolling display fields,
+  inventory seed/clear lengths, starting money and start position loads, the
+  fixed favorite-thing `"PSI "` prefix seed, `$98B8/$9D1F/$9D21` landing
+  snapshot, the C5 start script, initial event flag write, C3 text-speed timing
+  table pointer, `$9625/$9627/$9629/$964B` timing state, and final C7
+  start-file text pointer. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM/asar gates.
+- 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
+  core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
+  The byte stream is unchanged, but the unaligned generated decode fragments
+  in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm` now use
+  explicit `db` bytes, keeping raw helper-call scans focused on real C1
+  contracts. The structural split and deeper semantic naming remain deferred.
+- 2026-05-06 follow-up: the front inventory/possession text-command wrappers
+  now finish the local queued-selector vocabulary. `C1:4CEE..4EAB` names
+  `$97BA/$97CA`, the one-byte argument limit, and self-return callback low
+  words for `0x1D 04`, `0x1D 05`, and adjacent `0x1F 20`, matching the
+  already-polished lower queued callback ABI.

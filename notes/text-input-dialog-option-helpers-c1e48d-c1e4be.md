@@ -103,6 +103,10 @@ candidate search helpers, C0 sound effects, C1:E48D single-row render wrapper,
 and C0 text-length measurement edge. The source unit has no remaining raw
 helper-call edges while preserving C1 byte equivalence.
 
+2026-05-06 follow-up: the adjacent naming-buffer commit source now calls
+`C1E57F_RunTextInputDialog` through the promoted contract name, keeping the
+`EAD6..EC8F` naming flow aligned with the dialog body named here.
+
 ## Remaining Soft Edge
 
 The exact layout of `D5:F4CF` still needs a table dump before assigning final names to each page/mode. The routine shape is already clear enough for decompilation work:

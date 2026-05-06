@@ -33,6 +33,13 @@ C4406A_ReadNameEntryGridCharacter            = $C4406A
 C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
 C442AC_RenderTextInputOptionStrip            = $C442AC
 
+TextInputDialogWindowId = $001C
+NameEntryDialogWindowId = $0027
+NameEntryPreludeState = $5E6E
+NameEntryActiveFlag = $B49D
+NameEntryActiveValue = $01
+C1EB4C_RunNamingBufferCommitFlowWithPreview = $EB4C
+
 ; ---------------------------------------------------------------------------
 ; C1:E4BE
 
@@ -134,7 +141,7 @@ C1E545_BuildTextInputOptionStrip_LE545:
     and.w #$00FF
     tax
     bne C1E536_BuildTextInputOptionStrip_LE536
-    lda.w #$001C
+    lda.w #TextInputDialogWindowId
     jsr C1007E_SetActiveWindowFocus
     lda $12
     sta $04
@@ -164,7 +171,7 @@ C1E57F_RunTextInputDialog = TEXT_INPUT_DIALOG
     lda $26
     sta $1E
     jsl C3E4D4_EnterWindowUpdateScope
-    lda.w #$001C
+    lda.w #TextInputDialogWindowId
     jsr C104EE_SetWindowFocus
     lda $28
     cmp.w #$FFFF
@@ -253,7 +260,7 @@ C1E65A_BuildTextInputOptionStrip_LE65A:
     bne C1E667_BuildTextInputOptionStrip_LE667
     jmp.w C1E71F_BuildTextInputOptionStrip_LE71F
 C1E667_BuildTextInputOptionStrip_LE667:
-    lda.w #$001C
+    lda.w #TextInputDialogWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4E0_TickWindowWithoutInstantPrinting
     lda $28
@@ -769,16 +776,16 @@ C1EAA6_RunNameEntrySpecialEventPrelude = ENTER_YOUR_NAME_PLEASE
     pla
     tax
     stx $14
-    stz $5E6E
+    stz NameEntryPreludeState
     sep #$20
-    lda.b #$01
-    sta $B49D
+    lda.b #NameEntryActiveValue
+    sta NameEntryActiveFlag
     jsl C3E4D4_EnterWindowUpdateScope
-    lda.w #$0027
+    lda.w #NameEntryDialogWindowId
     jsr C104EE_SetWindowFocus
     ldx $14
     bne C1EACE_BuildTextInputOptionStrip_LEACE
-    jmp $EB4C
+    jmp C1EB4C_RunNamingBufferCommitFlowWithPreview
 C1EACE_BuildTextInputOptionStrip_LEACE:
     ldx.w #$0000
     txa

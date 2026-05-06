@@ -22,6 +22,23 @@ C466C1_RunWanderingPhotographerScriptForPhotoIndex = $C466C1
 C4B54A_SpawnAttachedChildForPoseDescriptorId = $C4B54A
 C4B565_ClearAttachedChildForPoseDescriptorId = $C4B565
 
+BankDepositAccumulatorTextValue = $98B9
+DeferredCommandByteQueue = $97BA
+DeferredCommandByte1 = $97BB
+DeferredCommandQueueCount = $97CA
+
+ClearBankDepositAccumulatorSelector = $0002
+AttachedChildPoseDescriptorArgumentLimit = $0002
+BattleVisualEffectArgumentLimit = $0001
+LowByteMask = $00FF
+EightBitShift = $08
+ZeroWord = $0000
+
+TextCommand1F40StageSpecialEventArgumentCallback = $72BC
+TextCommand1FF3SpawnAttachedChildByPoseCallback = $7325
+TextCommand1FF4ClearAttachedChildByPoseCallback = $737D
+TextCommand1C13StageBattleVisualEffectResultCallback = $73C0
+
 ; ---------------------------------------------------------------------------
 ; C1:7274
 
@@ -35,7 +52,7 @@ C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     tcd
     pla
     stx $14
-    ldy.w #$98B9
+    ldy.w #BankDepositAccumulatorTextValue
     sty $12
     lda $0000,Y
     sta $06
@@ -47,11 +64,11 @@ C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     ldx $14
-    cpx.w #$0002
+    cpx.w #ClearBankDepositAccumulatorSelector
     bne C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $08
     ldy $12
     lda $06
@@ -59,24 +76,24 @@ C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     lda $08
     sta $0002,Y
 C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7:
-    lda.w #$0000
+    lda.w #ZeroWord
     pld
     rts
 CC_1F_40:
 C172BC_HandleTextCommand1F40 = CC_1F_40
     rep #$31
-    lda $97CA
+    lda DeferredCommandQueueCount
     bne C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$72BC
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1F40StageSpecialEventArgumentCallback
     bra C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9
 C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6:
-    lda.w #$0000
+    lda.w #ZeroWord
 C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9:
     rts
 CC_1F_41:
@@ -90,7 +107,7 @@ C172DA_HandleTextCommand1F41 = CC_1F_41
     pla
     txa
     jsl C1BEFC_DispatchTextCommand1F41SpecialEvent
-    cmp.w #$0000
+    cmp.w #ZeroWord
     sta $06
     stz $08
     bpl C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4
@@ -101,7 +118,7 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     lda $08
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #ZeroWord
     pld
     rts
 CC_1F_D2:
@@ -123,7 +140,7 @@ C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317:
 C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda $06
     jsl C466C1_RunWanderingPhotographerScriptForPhotoIndex
-    lda.w #$0000
+    lda.w #ZeroWord
     pld
     rts
 CC_1F_F3:
@@ -136,9 +153,9 @@ C17325_HandleTextCommand1FF3 = CC_1F_F3
     tcd
     pla
     stx $0E
-    lda.w #$0002
+    lda.w #AttachedChildPoseDescriptorArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E
     bpl C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353
     bra C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340
@@ -147,29 +164,29 @@ C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E:
 C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7325
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1FF3SpawnAttachedChildByPoseCallback
     bra C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B
 C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
     sep #$20
-    lda.b #$08
+    lda.b #EightBitShift
     sep #$10
     tay
     rep #$20
-    lda $97BB
-    and.w #$00FF
+    lda DeferredCommandByte1
+    and.w #LowByteMask
     jsl C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     ora $02
     rep #$10
     ldx $0E
     jsl C4B54A_SpawnAttachedChildForPoseDescriptorId
-    lda.w #$0000
+    lda.w #ZeroWord
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
     rts
@@ -184,27 +201,27 @@ C1737D_HandleTextCommand1FF4 = CC_1F_F4
     pla
     txa
     sta $0E
-    lda $97CA
+    lda DeferredCommandQueueCount
     bne C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$737D
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1FF4ClearAttachedChildByPoseCallback
     bra C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE
 C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
     sep #$10
-    ldy.b #$08
+    ldy.b #EightBitShift
     lda $0E
     jsl C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     ora $02
     jsl C4B565_ClearAttachedChildForPoseDescriptorId
-    lda.w #$0000
+    lda.w #ZeroWord
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
     rts
@@ -218,9 +235,9 @@ C173C0_StageBattleVisualEffectResultTextCommand = CC_1C_13
     tcd
     pla
     stx $12
-    lda.w #$0001
+    lda.w #BattleVisualEffectArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9
     bpl C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE
     bra C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB
@@ -229,23 +246,23 @@ C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9:
 C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$73C0
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1C13StageBattleVisualEffectResultCallback
     bra C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D
 C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
     jsr C10042_ReadBlinkingTriangleState
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A
     ldx $12
     dex
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     dec A
     jsl C3FAC9_DispatchBattleActorVisualEffectToken
-    cmp.w #$0000
+    cmp.w #ZeroWord
     sta $06
     stz $08
     bpl C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F
@@ -257,7 +274,7 @@ C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F:
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
 C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
-    lda.w #$0000
+    lda.w #ZeroWord
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
     pld
     rts
@@ -280,6 +297,6 @@ C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432:
 C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435:
     lda $06
     jsl C0AC0C_QueuePresentationSfxOrCounter
-    lda.w #$0000
+    lda.w #ZeroWord
     pld
     rts

@@ -69,6 +69,23 @@ slot snapshot helper before activating `slot + 4`; and `0x18 01/03/05/07/08/09/0
 return named callback low words for the open-window, switch-window,
 force-alignment, register-compare, window-selection, and status-display leaves.
 
+Source polish follow-up (2026-05-06): the `0x18 07` comparison body at
+`C1:528D` now names the queued source bytes and callback return inside the leaf
+itself. The source reads `$97BA..$97BD` as the four assembled comparison bytes,
+then compares the result against either the active text-context value, the next
+text argument, or current work memory depending on the caller selector.
+
+Source polish follow-up (2026-05-06): the `0x18 0D` status-window body at
+`C1:5B46` now names its one-byte deferred character selector and callback
+return inside the leaf. The body still leaves the submode split cautious, but
+the staged selector and status-window display handoff now use the same source
+vocabulary as the adjacent inventory/money callback leaves.
+
+Source polish follow-up (2026-05-06): the adjacent `0x18 05` forced-alignment
+leaf at `C1:4509` now names its one-byte queued argument, queue count,
+self-return callback low word, low-byte mask, and C4 glyph-versus-cursor staging
+helpers in the source unit that also houses `CALL_TEXT`.
+
 ## Best current case map
 
 ### `0x18 00`
@@ -300,4 +317,4 @@ The safest current interpretation is:
 
 ## Best next target
 
-The best next move is to flatten `C1:528D` enough to promote `0x18 07` from a doc-backed label into a real local register-comparison note, or else to pin the exact user-facing semantics of `0x18 0D` from one concrete status-window caller.
+The best next move is to pin the exact user-facing semantics of `0x18 0D` from one concrete status-window caller, since both `0x18 07` and `0x18 0D` now have source-backed queued-byte bodies.
