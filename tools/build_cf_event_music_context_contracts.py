@@ -11,6 +11,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CF_SOURCE = ROOT / "src" / "cf" / "bank_cf_helpers_asar.asm"
 DEFAULT_DC_SOURCE = ROOT / "src" / "dc" / "bank_dc_helpers_asar.asm"
+DEFAULT_SECTOR_BUNDLES = ROOT / "notes" / "map-sector-bundles.json"
 DEFAULT_JSON_OUT = ROOT / "notes" / "cf-event-music-context-contracts.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "cf-event-music-context-contracts.md"
 
@@ -57,6 +58,26 @@ def hex_counter_dict(counter: Counter[int]) -> dict[str, int]:
     return {f"0x{key:02X}": counter[key] for key in sorted(counter)}
 
 
+def top_counter_rows(counter: Counter[int], count: int = 12, width: int = 2) -> list[dict[str, Any]]:
+    return [
+        {"value": f"0x{value:0{width}X}", "count": seen}
+        for value, seen in counter.most_common(count)
+    ]
+
+
+def load_sector_music_ids(path: Path) -> list[int]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    sectors = data["sectors"]
+    if len(sectors) != DC_SELECTOR_ROWS:
+        raise ValueError(f"expected {DC_SELECTOR_ROWS} sector rows in {path}, found {len(sectors)}")
+    music_ids = []
+    for index, row in enumerate(sectors):
+        if int(row["sector"]["linear_index"]) != index:
+            raise ValueError(f"unexpected sector order at row {index}: {row['sector']!r}")
+        music_ids.append(int(row["metadata"]["Music"]))
+    return music_ids
+
+
 def parse_context_chain(
     selector_id: int, start: int, table_data: list[int], pointer_targets: dict[int, list[int]]
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -100,9 +121,10 @@ def parse_context_chain(
     return chain, rows
 
 
-def build_contract(cf_source: Path, dc_source: Path) -> dict[str, Any]:
+def build_contract(cf_source: Path, dc_source: Path, sector_bundles: Path) -> dict[str, Any]:
     cf_text = cf_source.read_text(encoding="utf-8")
     dc_text = dc_source.read_text(encoding="utf-8")
+    sector_music_ids = load_sector_music_ids(sector_bundles)
     pointer_data = parse_db_bytes(source_slice(cf_text, "src/cf/table_overworld_event_music_pointer_table.asm"))
     table_data = parse_db_bytes(source_slice(cf_text, "src/cf/table_overworld_event_music_table.asm"))
     sector_data = parse_db_bytes(source_slice(dc_text, "src/dc/table_data_map_per_sector_music_asm.asm"))
@@ -153,6 +175,15 @@ def build_contract(cf_source: Path, dc_source: Path) -> dict[str, Any]:
     invalid_selectors = sorted({value for value in first_plane if value >= CF_POINTER_ROWS})
     if invalid_selectors:
         raise ValueError(f"DC selector plane references invalid CF selectors: {invalid_selectors}")
+    sector_music_mismatches = [
+        {
+            "sector_index": index,
+            "sector_music": sector_music_id,
+            "event_music_context_selector": selector_id,
+        }
+        for index, (selector_id, sector_music_id) in enumerate(zip(first_plane, sector_music_ids))
+        if selector_id != sector_music_id
+    ]
 
     selector_rows = []
     for sector_index, selector_id in enumerate(first_plane):
@@ -181,6 +212,7 @@ def build_contract(cf_source: Path, dc_source: Path) -> dict[str, Any]:
         "sources": {
             "cf_source_scaffold": str(cf_source.relative_to(ROOT)),
             "dc_source_scaffold": str(dc_source.relative_to(ROOT)),
+            "sector_bundles": str(sector_bundles.relative_to(ROOT)),
             "cf_table_splits": "notes/cf-table-splits.md",
             "c0_consumer": "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             "ef_debug_consumer": "src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm",
@@ -256,14 +288,21 @@ def build_contract(cf_source: Path, dc_source: Path) -> dict[str, Any]:
             "current_position_selector_rows": len(selector_rows),
             "current_position_selector_unique_count": len(set(first_plane)),
             "current_position_selector_range": [min(first_plane), max(first_plane)],
+            "current_position_selector_map_sector_music_matches": DC_SELECTOR_ROWS - len(sector_music_mismatches),
+            "current_position_selector_map_sector_music_mismatches": len(sector_music_mismatches),
             "current_position_selector_histogram": counter_dict(Counter(first_plane)),
+            "current_position_selector_top_values": top_counter_rows(Counter(first_plane)),
             "chain_row_count_histogram": counter_dict(Counter(chain["row_count"] for chain in chains)),
             "chain_conditional_row_count_histogram": counter_dict(Counter(chain["conditional_rows"] for chain in chains)),
             "music_track_histogram": hex_counter_dict(Counter(row["music_track"] for row in rows)),
+            "music_track_top_values": top_counter_rows(Counter(row["music_track"] for row in rows)),
             "screen_transition_sfx_histogram": hex_counter_dict(Counter(row["screen_transition_sfx"] for row in rows)),
+            "screen_transition_sfx_top_values": top_counter_rows(Counter(row["screen_transition_sfx"] for row in rows)),
             "second_plane_value_range": [min(second_plane), max(second_plane)],
             "second_plane_unique_count": len(set(second_plane)),
+            "second_plane_top_values": top_counter_rows(Counter(second_plane)),
         },
+        "current_position_selector_map_sector_music_mismatches": sector_music_mismatches,
         "event_music_context_pointer_rows": pointer_rows,
         "event_music_context_chains": chains,
         "event_music_context_rows": rows,
@@ -290,6 +329,10 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- DC current-position selector rows: `{summary['current_position_selector_rows']}`",
         f"- DC selector unique count: `{summary['current_position_selector_unique_count']}`",
         f"- DC selector range: `{summary['current_position_selector_range']}`",
+        f"- DC selector/map-sector Music matches: `{summary['current_position_selector_map_sector_music_matches']}`",
+        f"- DC selector/map-sector Music mismatches: `{summary['current_position_selector_map_sector_music_mismatches']}`",
+        f"- DC second-plane unique count: `{summary['second_plane_unique_count']}`",
+        f"- DC second-plane range: `{summary['second_plane_value_range']}`",
         f"- chain row-count histogram: `{summary['chain_row_count_histogram']}`",
         "",
         "## Record Shapes",
@@ -330,7 +373,7 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "",
             "## DC Selector Plane",
             "",
-            "`C0:68F4` computes `sector_index = sector_y * 32 + sector_x`, reads the byte at `DC:D637 + sector_index`, and uses that selector to choose a CF pointer row.",
+            "`C0:68F4` computes `sector_index = sector_y * 32 + sector_x`, reads the byte at `DC:D637 + sector_index`, and uses that selector to choose a CF pointer row. This byte plane also matches map-sector `Music` for all 1280 checked sector rows.",
             "",
             "| Selector | Sectors | Target |",
             "| ---: | ---: | --- |",
@@ -345,17 +388,57 @@ def render_markdown(contract: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Distribution Snapshot",
+            "",
+            "### Top music tracks",
+            "",
+            "| Track | Rows |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["music_track_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
+            "### Screen transition SFX bytes",
+            "",
+            "| SFX | Rows |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["screen_transition_sfx_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
+            "### Unnamed second DC plane",
+            "",
+            "| Value | Rows |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["second_plane_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
             "## Interpretation Boundary",
             "",
             "- Selector `0` is a null CF pointer row and is not referenced by the observed `DC:D637` current-position selector plane.",
+            "- The first `DC:D637` byte plane matches map-sector `Music` for every checked sector row, but C0/EF evidence proves the runtime role as a CF event-music context selector.",
             "- A zero `event_flag_condition_word` is the selected default row; C0 still reads `music_track` and `screen_transition_sfx` from that row.",
-            "- The second 1280-byte half of `DC:D637..DC:E036` is byte-accounted here but remains unnamed because the C0/EF consumers cited in this pass read only the first plane.",
+            "- The second 1280-byte half of `DC:D637..DC:E036` is byte-accounted and distribution-summarized here, but remains unnamed because the C0/EF consumers cited in this pass read only the first plane.",
             "- Track ids, SFX ids, and individual event flags are left as numeric ids; this contract does not assign human names to them.",
             "",
             "## Evidence",
             "",
             "- `src/c0/c0_65c2_probe_type6_door_candidate.asm` derives the 32x40 sector index, reads `DC:D637`, indexes `CF:58EF`, walks four-byte rows, and selects music/SFX bytes.",
             "- `src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm` reads the same `DC:D637` selector byte for the debug position overlay.",
+            "- `notes/map-sector-bundles.json` provides the checked sector-order `Music` values matched by the first `DC:D637` byte plane.",
             "- `notes/c0-current-position-music-refresh-c068f4-c069af.md` documents the C0 music-context refresh and apply path.",
             "- `notes/cf-event-music-context-contracts.json` carries complete decoded pointer rows, context chains, context rows, and first-plane DC selector rows.",
         ]
@@ -367,6 +450,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Build CF/DC event-music context contracts.")
     parser.add_argument("--cf-source", type=Path, default=DEFAULT_CF_SOURCE)
     parser.add_argument("--dc-source", type=Path, default=DEFAULT_DC_SOURCE)
+    parser.add_argument("--sector-bundles", type=Path, default=DEFAULT_SECTOR_BUNDLES)
     parser.add_argument("--json-out", type=Path, default=DEFAULT_JSON_OUT)
     parser.add_argument("--markdown-out", type=Path, default=DEFAULT_MARKDOWN_OUT)
     return parser
@@ -374,7 +458,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = build_parser().parse_args()
-    contract = build_contract(args.cf_source, args.dc_source)
+    contract = build_contract(args.cf_source, args.dc_source, args.sector_bundles)
     args.json_out.write_text(json.dumps(contract, indent=2) + "\n", encoding="utf-8")
     args.markdown_out.write_text(render_markdown(contract), encoding="utf-8")
     print(f"Wrote {args.json_out} and {args.markdown_out}")

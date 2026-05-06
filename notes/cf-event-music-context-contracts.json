@@ -6,6 +6,7 @@
   "sources": {
     "cf_source_scaffold": "src\\cf\\bank_cf_helpers_asar.asm",
     "dc_source_scaffold": "src\\dc\\bank_dc_helpers_asar.asm",
+    "sector_bundles": "notes\\map-sector-bundles.json",
     "cf_table_splits": "notes/cf-table-splits.md",
     "c0_consumer": "src/c0/c0_65c2_probe_type6_door_candidate.asm",
     "ef_debug_consumer": "src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm",
@@ -87,6 +88,8 @@
       1,
       164
     ],
+    "current_position_selector_map_sector_music_matches": 1280,
+    "current_position_selector_map_sector_music_mismatches": 0,
     "current_position_selector_histogram": {
       "1": 15,
       "2": 185,
@@ -173,6 +176,56 @@
       "163": 8,
       "164": 1
     },
+    "current_position_selector_top_values": [
+      {
+        "value": "0x02",
+        "count": 185
+      },
+      {
+        "value": "0x0B",
+        "count": 110
+      },
+      {
+        "value": "0x07",
+        "count": 93
+      },
+      {
+        "value": "0x05",
+        "count": 88
+      },
+      {
+        "value": "0x0C",
+        "count": 81
+      },
+      {
+        "value": "0x2F",
+        "count": 61
+      },
+      {
+        "value": "0x09",
+        "count": 43
+      },
+      {
+        "value": "0x3B",
+        "count": 39
+      },
+      {
+        "value": "0x3D",
+        "count": 38
+      },
+      {
+        "value": "0x12",
+        "count": 38
+      },
+      {
+        "value": "0x2D",
+        "count": 32
+      },
+      {
+        "value": "0x0F",
+        "count": 31
+      }
+    ],
     "chain_row_count_histogram": {
       "1": 8,
       "2": 79,
@@ -294,15 +347,122 @@
       "0xBB": 7,
       "0xBC": 1
     },
+    "music_track_top_values": [
+      {
+        "value": "0x5D",
+        "count": 144
+      },
+      {
+        "value": "0x1E",
+        "count": 24
+      },
+      {
+        "value": "0x13",
+        "count": 24
+      },
+      {
+        "value": "0x11",
+        "count": 20
+      },
+      {
+        "value": "0x1C",
+        "count": 20
+      },
+      {
+        "value": "0x1F",
+        "count": 12
+      },
+      {
+        "value": "0x82",
+        "count": 10
+      },
+      {
+        "value": "0x53",
+        "count": 9
+      },
+      {
+        "value": "0x12",
+        "count": 9
+      },
+      {
+        "value": "0x57",
+        "count": 8
+      },
+      {
+        "value": "0x4D",
+        "count": 8
+      },
+      {
+        "value": "0x04",
+        "count": 7
+      }
+    ],
     "screen_transition_sfx_histogram": {
       "0x00": 489
     },
+    "screen_transition_sfx_top_values": [
+      {
+        "value": "0x00",
+        "count": 489
+      }
+    ],
     "second_plane_value_range": [
       1,
       162
     ],
-    "second_plane_unique_count": 104
+    "second_plane_unique_count": 104,
+    "second_plane_top_values": [
+      {
+        "value": "0x03",
+        "count": 157
+      },
+      {
+        "value": "0x0A",
+        "count": 152
+      },
+      {
+        "value": "0x06",
+        "count": 116
+      },
+      {
+        "value": "0x10",
+        "count": 80
+      },
+      {
+        "value": "0x3A",
+        "count": 58
+      },
+      {
+        "value": "0x18",
+        "count": 38
+      },
+      {
+        "value": "0x30",
+        "count": 33
+      },
+      {
+        "value": "0x04",
+        "count": 32
+      },
+      {
+        "value": "0x80",
+        "count": 30
+      },
+      {
+        "value": "0x33",
+        "count": 26
+      },
+      {
+        "value": "0x29",
+        "count": 26
+      },
+      {
+        "value": "0x1D",
+        "count": 24
+      }
+    ]
   },
+  "current_position_selector_map_sector_music_mismatches": [],
   "event_music_context_pointer_rows": [
     {
       "selector_id": 0,

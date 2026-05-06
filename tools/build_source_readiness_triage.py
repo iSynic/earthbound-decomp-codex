@@ -291,9 +291,9 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs, and keep the CF/DC event-music selector contract regression-tested.",
-            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed"],
-            ["compressed arrangements", "per-sector music table", "audio packs"],
+            "Extract arrangements and audio packs, and use `notes/cf-event-music-context-contracts.md` for the CF/DC event-music selector plane and bounded second-plane summary.",
+            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed without direct consumers"],
+            ["compressed arrangements", "consumer-backed event-music selector plane", "bounded second music byte plane", "audio packs"],
         )
     )
     rows.append(

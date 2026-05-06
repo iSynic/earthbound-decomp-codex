@@ -420,7 +420,7 @@ CURRENT_POSITION_EVENT_MUSIC_SELECTOR_FIELDS = (
         "event_music_context_selector",
         0x00,
         1,
-        note="byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF",
+        note="byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF; matches map-sector Music for all 1280 rows",
     ),
 )
 
@@ -1565,9 +1565,10 @@ def extra_contracts() -> list[Contract]:
             count=1280,
             struct_name="current_position_event_music_context_selector",
             confidence="consumer-corroborated",
-            note="The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF.",
+            note="The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF; it also matches map-sector Music for every checked sector row.",
             evidence=(
                 "notes/cf-event-music-context-contracts.md",
+                "notes/map-sector-bundles.md",
                 "notes/c0-current-position-music-refresh-c068f4-c069af.md",
                 "src/c0/c0_65c2_probe_type6_door_candidate.asm",
                 "src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm",

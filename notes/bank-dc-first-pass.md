@@ -53,9 +53,11 @@ The consumer-backed subshape now has a narrow contract:
   event-music context pointer table at `CF:58EF`.
 - The first 1280 bytes are therefore a 32x40 current-position
   `event_music_context_selector` plane. They reference selectors 1..164, use
-  84 unique selectors, and never reference selector 0.
-- The second 1280 bytes remain byte-accounted but intentionally unnamed here;
-  this pass did not find a cited C0/EF consumer for that plane.
+  84 unique selectors, never reference selector 0, and match map-sector `Music`
+  for all 1280 checked sector rows.
+- The second 1280 bytes remain byte-accounted and distribution-summarized but
+  intentionally unnamed here; this pass did not find a cited C0/EF consumer for
+  that plane.
 
 ## Current DC confidence boundary
 
@@ -65,7 +67,7 @@ High confidence:
 - Arrangement, graphics, inferred per-sector music, and audio spans are exact
   for the US retail build.
 - The first per-sector music byte plane is tied to the CF event-music context
-  contract and C0/EF consumers.
+  contract, C0/EF consumers, and the map-sector `Music` inventory.
 - Only `110` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:
@@ -78,5 +80,6 @@ Still intentionally out of scope:
 ## Recommended next move
 
 Keep the CF/DC event-music selector contract regression-tested while source
-emission work proceeds. The remaining DC semantic work is the unnamed second
-per-sector byte plane and optional arrangement/music cross-reference fixtures.
+emission work proceeds. The remaining DC semantic work is the unnamed
+distribution-bounded second per-sector byte plane and optional arrangement/music
+cross-reference fixtures.
