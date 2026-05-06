@@ -273,8 +273,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `D5:7B68` rows onto EF row-message anchors and the secondary result scripts
   emitted by their C2 row `+8` behavior bodies.
 - 2026-05-06: EF row-message frontier follow-up tightened that crosswalk around
-  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows are
-  now listed as blocked on row `+4` EF pointer recovery rather than treated as
+  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows were
+  listed as blocked on row `+4` EF pointer recovery rather than treated as
   nameable action-message joins.
 - 2026-05-06: EF special-event row-message follow-up promoted the locally
   proved row `243` and `244` joins into the same crosswalk, keeping their
@@ -288,13 +288,18 @@ This planning pass does not split EF source corridors or regenerate the bank.
   into the crosswalk as shared `EF:8543` PSI presentation rows with separate
   asleep/strange result payloads emitted by their C2 behavior bodies, and
   extended the non-EF C9 item lane to later bomb-family rows `310` and `311`.
-  The same follow-up marks explosive rows `64` and `65` as behavior-known but
-  still blocked on exact row `+4` EF pointer recovery, and adds PSI-side Lifeup
-  rows `32..35` to the pointer-recovery frontier.
+  A later pointer-recovery pass resolved the temporary blocker for explosive
+  rows `64/65` and PSI-side Lifeup rows `32..35`.
 - 2026-05-06: EF row-pointer recovery frontier follow-up added
-  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the exact
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the initial
   local blocker and recovery commands for remaining row `+4` joins before any
   further EF action-anchor promotion.
+- 2026-05-06: EF row-pointer recovery follow-up used the local ROM-backed
+  action inspector to promote Lifeup rows `32..35`, PSI offense-up rows
+  `48/49`, numeric-effect rows `95..98/233/234`, and explosive rows `64/65`
+  into the concrete EF row-message crosswalk. Source labels now carry
+  `RowPresentationText` names for those anchors while C8/HP result lanes remain
+  separate.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
   table for row presentation, direct result, amount, byte/pointer substitution,
@@ -311,9 +316,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   comments at `EF:6B81..6C55` and `EF:766E` to keep C2 row `+8` `DC1C`
   result emissions separate from row `+4` presentation messages in the source.
 - 2026-05-06: EF negative-guardrail source follow-up added byte-neutral
-  comments at Lifeup-looking and explosive-looking anchors so rows `32..35`
-  and `64/65` remain blocked on row `+4` pointer recovery rather than nearby
-  EF flavor text.
+  comments at Lifeup-looking anchors so `EF:5173..51BB` and `EF:8D4C` remain
+  separate from the recovered row `32..35 -> EF:8543` presentation join.
 - 2026-05-06: EF amount-result suffix follow-up renamed `EF:7755..77DB`
   PP-loss and periodic damage anchors as `ActionAmount` scripts so their
   `DC66`/`1C 0F` payload contract is visible in source.

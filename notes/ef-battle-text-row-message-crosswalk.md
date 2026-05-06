@@ -23,15 +23,15 @@ labels remain stable unless the C2 behavior body proves a narrower result name.
 Evidence boundary:
 
 - The local `src/d5/table_battle_action_table.asm` scaffold proves the
-  `D5:7B68` action-table span, row count, and `0x0C` stride, but it does not
-  currently include the table bytes needed to recover every row `+4` EF message
-  pointer.
+  `D5:7B68` action-table span, row count, and `0x0C` stride, while
+  `tools/inspect_battle_action.py` can recover exact row bytes from a local
+  ROM.
 - C2 late-action notes often prove row `+8` behavior bodies. Those bodies are
   enough to document direct result scripts, but not enough to rename an EF
   row-message anchor unless the row `+4` pointer is also known.
-- Rows below are promoted only when local notes or source-backed C2 evidence
-  already join the row id, row `+4` EF message pointer, and row `+8` behavior
-  pointer.
+- Rows below are promoted only when local notes, source-backed C2 evidence, or
+  ROM-backed row inspection already join the row id, row `+4` EF message
+  pointer, and row `+8` behavior pointer.
 
 ## Status-Action Row Messages
 
@@ -84,6 +84,26 @@ writes.
 | `273` | `EF:8EBE` `BadSmellGasRowPresentationText` | `C2:9254` | Odor/offense-reduction family reuse |
 | `290` | `EF:8DDE` `RainbowColorsEventRowPresentationText` | `C2:C14E` | Rainbow-colors / Master Belch-side special-event family |
 
+## Numeric, Healing, And Explosive Row Messages
+
+The local ROM-backed inspector recovered the formerly behavior-only row `+4`
+joins for the highest-risk amount/healing/explosive rows. Their behavior
+bodies still emit separate result or amount text after the `DD9F` presentation.
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
+| ---: | --- | --- | --- |
+| `32..35` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | `C2:9AC6`, `C2:9ACF`, `C2:9AD8`, `C2:9AE1` | PSI Lifeup alpha/beta/gamma/omega row presentation; HP recovery worker emits result text through `C2:7294` |
+| `48` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | `C2:9E38` | PSI offense-up row presentation; amount text lives in C8 via `DC66` |
+| `49` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | `C2:9E7F` | All-target offense-up wrapper over the same amount lane |
+| `64` | `EF:9A7E` `ExplosionRowPresentationText` | `C2:A821` | Explosive wrapper over bomb-common splash damage |
+| `65` | `EF:9A9E` `BurstIntoFlamesRowPresentationText` | `C2:A821` | Same explosive wrapper over bomb-common splash damage |
+| `95` | `EF:7E25` `PpReductionRowPresentationText` | `C2:8E42` | PP reduction family; C8 amount text through `C1:DC66` |
+| `96` | `EF:7E3E` `SteamedOffenseUpRowPresentationText` | `C2:9E38` | One-target offense-up family; C8 amount text through `C1:DC66` |
+| `97` | `EF:7E55` `DirtyWordsGutsReductionRowPresentationText` | `C2:8EAE` | Guts-cutting family; C8 amount text through `C1:DC66` |
+| `98` | `EF:7E70` `MoistureSuckedOffenseDefenseReductionRowPresentationText` | `C2:8F21` | Paired offense/defense reduction family; C8 amount text through `C1:DC66` |
+| `233` | `EF:8C75` `LoudVoiceOffenseDefenseReductionRowPresentationText` | `C2:8F21` | Paired offense/defense reduction family; reports amount through C8 text via `DC66` |
+| `234` | `EF:8C92` `WarCryOffenseDefenseReductionRowPresentationText` | `C2:8F21` | Same paired offense/defense reduction family |
+
 Rows whose behavior body emits C8/C9 scripts should not force EF result names.
 Keep the EF row-message labels presentation-oriented and document the secondary
 script bank in the C2-focused note.
@@ -103,7 +123,7 @@ The early row-message joins remain the cleanest `DD9F` examples:
 | `5` | `EF:84B6` `ShootRowPresentationText` | `C2:8740` | Shoot |
 | `6` | `EF:8530` `SpyCheckRowPresentationText` | `C2:8770` | Spy |
 | `7` | `EF:89E0` `PrayRowPresentationText` | `C2:AD1B` | Pray |
-| `10..31`, `53`, `58` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | PSI wrapper/status families | Shared PSI row message; `ByteSubstitution` PSI name |
+| `10..35`, `48`, `49`, `53`, `58` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | PSI wrapper/status/offense families | Shared PSI row message; `ByteSubstitution` PSI name |
 
 ## How To Use This Crosswalk
 
@@ -119,44 +139,10 @@ For future EF payload work:
 
 ## Next Crosswalk Frontier
 
-The immediate frontier is not a naming pass; it is row `+4` pointer recovery.
-Several C2 behavior lanes are already understood, but the current local source
-evidence does not prove their EF action-row message pointer.
-
-### Behavior-Known Numeric-Effect Rows
-
-These rows have source-backed C2 row `+8` behavior bodies in the stat/resource
-family, but should not be added to the concrete crosswalk table until their row
-`+4` EF message pointers are recovered.
-
-| Rows | Known row `+8` behavior | Known result-text lane | Missing join |
-| --- | --- | --- | --- |
-| `95` | `C2:8E42` | PP reduction family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
-| `48`, `96` | `C2:9E38` | One-target offense-up family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
-| `49` | `C2:9E7F` | All-target offense-up wrapper over the same amount lane | Row `+4` EF action message |
-| `97` | `C2:8EAE` | Guts-cutting family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
-| `98`, `233`, `234` | `C2:8F21` | Paired offense/defense reduction family; C8 amount text through `C1:DC66` | Row `+4` EF action message |
-
-Modeling rule: keep the C8 amount scripts in the C2-focused notes. The EF
-action-row labels remain exact `MSG_BTL_*` anchors until the row `+4` pointers
-are known.
-
-### Behavior-Known Healing Rows
-
-The healing note proves the fixed-amount HP recovery wrappers, but the local
-evidence currently records the PSI metadata and row `+8` bodies, not the row
-`+4` presentation pointers for the PSI-side quartet.
-
-| Rows | Known row `+8` behavior | Known result-text lane | Missing join |
-| --- | --- | --- | --- |
-| `32..35` | `C2:9AC6`, `C2:9ACF`, `C2:9AD8`, `C2:9AE1` | HP recovery worker emits full-heal/direct or amount-bearing EF result scripts through `C2:7294` | Row `+4` action message for each Lifeup row |
-
-Modeling rule: do not fold rows `32..35` into the shared `EF:8543` PSI
-row-message bucket until their row `+4` pointers are recovered. Their behavior
-bodies are known; their presentation anchors are not yet locally joined.
-Do not substitute the EF Lifeup explanation anchors or the enemy-action
-`MSG_BTL_YUDAN_LIFEUP` flavor anchor for these row messages without table
-evidence.
+The immediate frontier has narrowed: Lifeup, numeric-effect, and explosive rows
+now have recovered EF row `+4` joins. The remaining row-pointer work is mostly
+late no-op/flavor rows whose C2 row `+8` bodies return without direct result
+text.
 
 ### Behavior-Known No-Op And Flavor Rows
 
@@ -175,19 +161,6 @@ Modeling rule: a no-op row `+8` body can still have a meaningful row `+4`
 presentation message. Do not collapse those messages into "no effect" result
 text; the row message is consumed through `C1:DD9F` before the behavior body
 returns.
-
-### Behavior-Known Projectile/Explosive Rows
-
-The bomb-common note proves the shared behavior body for several explosive rows,
-but only some of those rows have local row-message pointers in this crosswalk.
-
-| Rows | Known row `+8` behavior | Known text evidence | Missing join |
-| --- | --- | --- | --- |
-| `64`, `65` | `C2:A821` | Bomb note names nearby explosive EF text candidates `EF:9A7E` and `EF:9A9E` | Exact row `+4` EF action message per row |
-
-Modeling rule: do not infer row `64` or `65` message anchors from the C2
-behavior body or from nearby EF text flavor alone. Promote these only after the
-row `+4` pointer is recovered.
 
 ### Remaining Special-Event Rows
 

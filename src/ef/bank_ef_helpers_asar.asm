@@ -5479,32 +5479,36 @@ db $5E,$14,$0A,$0F,$7D,$EF,$00
 
 EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
 
-; Original data gap before EF7E25_EBattle2MsgBtlPpDown:
+; Original data gap before EF7E25_EBattle2PpReductionRowPresentationText:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92
 db $95,$98,$99,$15,$B4,$17,$42,$A9,$5E,$03,$00,$1F,$02,$10,$70,$79
 db $9E,$A3,$99,$94,$15,$15,$16,$AF,$15,$9E,$5C,$00,$19,$1F,$1B,$04
 db $50,$15,$79,$A7,$91,$16,$F5,$1C,$05,$00,$5E,$03,$00,$70,$1C,$02
 db $03,$50,$17,$0F,$A3,$17,$8F,$1D,$0E,$03,$00,$1F,$02,$74,$03,$02
 
-EF7E25_EBattle2MsgBtlPpDown:
+; EBATTLE2: row 95 row +4 PP-reduction presentation text.
+EF7E25_EBattle2PpReductionRowPresentationText:
 
-; Original data gap before EF7E3E_EBattle2MsgBtlOkoru:
+; Original data gap before EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$DF,$94,$95,$00,$50,$15,$0A,$A3
 db $A0,$17,$68,$91,$17,$10,$51,$03,$02
 
-EF7E3E_EBattle2MsgBtlOkoru:
+; EBATTLE2: row 96 row +4 steamed/offense-up presentation text.
+EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 
-; Original data gap before EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; Original data gap before EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$A4
 db $95,$9D,$16,$A1,$51,$03,$02
 
-EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; EBATTLE2: row 97 row +4 dirty-words/guts-reduction presentation text.
+EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 
-; Original data gap before EF7E70_EBattle2MsgBtlSuibun:
+; Original data gap before EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$9E
 db $16,$A6,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
-EF7E70_EBattle2MsgBtlSuibun:
+; EBATTLE2: row 98 row +4 moisture-sucked offense/defense reduction text.
+EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 
 ; Original data gap before EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$A6,$91,$93
@@ -5881,8 +5885,7 @@ EF8530_EBattle1SpyCheckRowPresentationText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
-; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
-; Lifeup rows 32..35 still need local row +4 recovery.
+; EBATTLE1: shared PSI row +4 presentation for rows 10..35, 48, 49, 53, and 58.
 EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
@@ -6288,17 +6291,19 @@ db $50,$17,$F5,$91,$A2,$A0,$9C,$A9,$51,$1F,$02,$54,$03,$02
 
 EF8C58_EBattle3BadSmellOdorRowPresentationText:
 
-; Original data gap before EF8C75_EBattle3MsgBtlLoudVoice:
+; Original data gap before EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$16,$F6,$95,$94,$00,$50,$15,$BC
 db $16,$06,$A2,$99,$17,$98,$9F,$94,$9F,$A2,$51,$03,$02
 
-EF8C75_EBattle3MsgBtlLoudVoice:
+; EBATTLE3: row 233 row +4 loud-voice offense/defense reduction text.
+EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 
-; Original data gap before EF8C92_EBattle3MsgBtlOtakebi:
+; Original data gap before EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A5,$A4,$95,$94,$00,$50,$15
 db $8C,$17,$1F,$A5,$94,$50,$A6,$9F,$16,$C1,$51,$03,$02
 
-EF8C92_EBattle3MsgBtlOtakebi:
+; EBATTLE3: row 234 row +4 war-cry offense/defense reduction text.
+EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 
 ; Original data gap before EF8CAC_EBattle3MsgBtlFakeDead:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F5,$A2,$99,$95,$9B,$15,$57,$91
@@ -6874,19 +6879,19 @@ db $8D,$51,$1F,$02,$48,$03,$02
 
 EF9A5E_EBattle1MsgBtlTanemaki0:
 
-; Original data gap before EF9A7E_EBattle1MsgBtlExplosion:
+; Original data gap before EF9A7E_EBattle1ExplosionRowPresentationText:
 db $1F,$02,$19,$01,$70,$1C,$0D,$16,$7C,$A7,$95,$94,$00,$50,$15,$1C
 db $16,$67,$94,$A3,$15,$AB,$99,$A4,$16,$EB,$51,$1F,$02,$48,$03,$02
 
-; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
-EF9A7E_EBattle1MsgBtlExplosion:
+; EBATTLE1: row 64 row +4 explosive presentation text.
+EF9A7E_EBattle1ExplosionRowPresentationText:
 
-; Original data gap before EF9A9E_EBattle1MsgBtlBurn:
+; Original data gap before EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$A0,$9C,$9F,$94,$95,$94
 db $00,$50,$16,$0B,$92,$99,$A4,$A3,$51,$1F,$02,$5B,$03,$10,$1E,$02
 
-; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
-EF9A9E_EBattle1MsgBtlBurn:
+; EBATTLE1: row 65 row +4 burst-into-flames presentation text.
+EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 
 ; Original data gap before EF9ABB_EBattle1MsgBtlGoods:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$4E,$A2,$A3,$A4,$00,$50,$16,$0B

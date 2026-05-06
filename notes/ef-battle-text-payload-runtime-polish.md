@@ -483,21 +483,20 @@ The non-EF row-message table also includes the later C9 bomb-family item rows
 `167`, `168`, `310`, and `311`, keeping those item presentation wrappers out
 of EF action-anchor naming while preserving their C2 behavior-body joins.
 
-Rows `64` and `65` are now called out as behavior-known explosive rows whose
-row `+4` EF message pointers are still unrecovered locally. Nearby EF explosive
-text at `EF:9A7E` and `EF:9A9E` remains candidate flavor evidence, not a
-proved action-row join.
+Rows `64` and `65` are now recovered explosive row-message joins:
+`64 -> EF:9A7E -> C2:A821` and `65 -> EF:9A9E -> C2:A821`. Those row `+4`
+presentation scripts are separate from row `101 -> EF:7ED5`, which reaches the
+same explosive behavior body with fired-missile presentation text.
 
-The same evidence-boundary section now covers PSI-side Lifeup rows `32..35`.
-Their C2 healing wrappers and HP recovery result lanes are documented, but their
-row `+4` action-presentation pointers still need local recovery before EF can
-claim exact row-message anchors.
+The same pointer-recovery pass proved PSI-side Lifeup rows `32..35` and
+offense-up rows `48/49` reuse the shared `EF:8543` PSI-name
+`ByteSubstitution` row-presentation anchor. Their C2 healing/stat wrappers and
+HP/C8 amount result lanes remain separate from that `DD9F` presentation text.
 
-The row-pointer recovery frontier now captures the local blocker explicitly:
-the D5 action table source is a preserved data gap, the ROM-backed inspector has
-no ROM in this checkout, and the older `eb-decompile-4ef92` table reference is
-not present here. That keeps the next EF pass focused on recovering row
-pointers rather than renaming from behavior-only evidence.
+The row-pointer recovery frontier now records the resolved set and the remaining
+local frontier. The ROM-backed inspector is available in this checkout, so the
+next EF pass can focus on late no-op/flavor rows rather than the already proved
+Lifeup, numeric-effect, and explosive joins.
 
 The consumer-lane contract note now gives the compact decision table for these
 joins: `DD9F` row presentation, `DC1C` direct results, `DC66` amount payloads,
@@ -530,11 +529,11 @@ action-row result emissions, but they read the same staged amount slot through
 `1C 0F`.
 
 The EF source now also carries negative guardrails at the most tempting
-behavior-only anchors: Lifeup explanation text `EF:5173..51BB`,
-enemy-action Lifeup flavor `EF:8D4C`, and explosive candidates
-`EF:9A7E/9A9E`. These comments preserve the current frontier: rows `32..35`
-and `64/65` need row `+4` pointer recovery before those nearby EF scripts can
-be treated as action-row presentation joins.
+non-row-message Lifeup anchors: Lifeup explanation text `EF:5173..51BB` and
+enemy-action Lifeup flavor `EF:8D4C`. Rows `32..35` proved their presentation
+text at `EF:8543`, while explosive rows `64/65` proved `EF:9A7E/9A9E`, so those
+guards now prevent only adjacent-lane confusion rather than blocking the
+recovered row-message joins.
 
 ## EGOODS2 Item-Use Follow-up
 

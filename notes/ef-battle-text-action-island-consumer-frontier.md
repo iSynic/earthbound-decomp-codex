@@ -52,6 +52,8 @@ The front EBATTLE1 row-message joins are currently the strongest:
 | `0x0006` | `EF:8530` | Spy/check row message via `DD9F` |
 | `0x0007` | `EF:89E0` | Pray row message via `DD9F` |
 | `0x000A..0x0019` | `EF:8543` | Shared PSI row message via `DD9F`, with PSI-name `ByteSubstitution` |
+| `32..35` | `EF:8543` | Shared PSI Lifeup row messages via `DD9F`, with PSI-name `ByteSubstitution` |
+| `48`, `49` | `EF:8543` | Shared PSI offense-up row messages via `DD9F`, with PSI-name `ByteSubstitution` |
 
 The EF source labels for those early joins now carry the same lane names:
 `BashAttackRowPresentationText`, `ShootRowPresentationText`,
@@ -63,6 +65,10 @@ consumer-ready handoff points:
 
 | Action-table row | Row `+4` EF pointer | Current consumer read |
 | ---: | --- | --- |
+| `95` | `EF:7E25` | PP-reduction row message |
+| `96` | `EF:7E3E` | Steamed/offense-up row message |
+| `97` | `EF:7E55` | Dirty-words/guts-reduction row message |
+| `98` | `EF:7E70` | Moisture-sucked offense/defense reduction row message |
 | `99` | `EF:7E88` | Full-heal/fuel-supply row message |
 | `100` | `EF:7EAC` | Poison-on-hit physical row message |
 | `101` | `EF:7ED5` | Fired-missile projectile/explosive row message |
@@ -72,10 +78,25 @@ consumer-ready handoff points:
 | `118` | `EF:80E4` | All-target physical wrapper, gigantic-blast text |
 | `207` | `EF:83A8` | Strange-status wrapper reuse row message |
 
+EBATTLE3 now has a proved row-presentation subset inside the larger
+enemy-action island:
+
+| Action-table row | Row `+4` EF pointer | Current consumer read |
+| ---: | --- | --- |
+| `140`, `247` | `EF:8E27` | Shared named-item/normalization row message |
+| `159` | `EF:8E3C` | Concentration/PSI-seal item-side row message |
+| `228` | `EF:8BE8` | Diamondize-bite row message |
+| `232` | `EF:8C58` | Odor/offense-reduction row message |
+| `233`, `234` | `EF:8C75/8C92` | Offense/defense reduction row messages |
+| `248` | `EF:8D9F` | Neutralize-sparkle row message |
+| `273` | `EF:8EBE` | Bad-smell gas row message |
+| `290` | `EF:8DDE` | Rainbow-colors event row message |
+
 The EBATTLE1 action tail has a proved late status row-message cluster:
 
 | Action-table row | Row `+4` EF pointer | Current consumer read |
 | ---: | --- | --- |
+| `64`, `65` | `EF:9A7E/9A9E` | Explosive row messages over the shared `C2:A821` behavior body |
 | `75..76` | `EF:9C30/9C51` | Persistent-status row messages; behavior bodies emit success `EF:6B81/6B98` or fallback `EF:766E` |
 | `78..87` | `EF:9CAD..9DDA` | Temporary-status row messages; behavior bodies emit success `EF:6BBB..6C3A` or fallback `EF:766E` |
 | `90` | `EF:9E47` | Asleep row message; the `+8` body emits success `EF:6C55` or fallback `EF:766E` |
@@ -83,15 +104,16 @@ The EBATTLE1 action tail has a proved late status row-message cluster:
 The row-message crosswalk expands this into the currently source-backed status
 rows (`53`, `58`, `75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
 physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
-`140`, `228`, `232`, `243`, `244`, `247`, `248`, `273`, and `290`).
+`140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
+It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
+`49`), numeric-effect rows (`95..98`, `233`, `234`), and explosive rows
+(`64`, `65`).
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
-behavior-known frontier includes numeric-effect rows `95..98`, `48`, `49`,
-`96`, `233`, and `234`, PSI-side healing rows `32..35`,
-projectile/explosive rows `64` and `65`, plus late no-op/flavor rows that
-return through `C2:9033` and neighboring tiny no-op tails. These are good C2
-behavior notes, but not yet EF row-message naming evidence.
+behavior-known frontier has narrowed to late no-op/flavor rows that return
+through `C2:9033` and neighboring tiny no-op tails. These are good C2 behavior
+notes, but not yet EF row-message naming evidence.
 
 ## Direct Result Joins Adjacent To Action Islands
 
@@ -121,14 +143,17 @@ Keep the exact `MSG_BTL_*` anchor names for the unproved action islands until a
 row `+4` pointer and row `+8` behavior body are joined:
 
 - `EF:7E25..843F` EBATTLE2: late physical, special, and message-only action
-  row-message candidates. Promote only the rows with local C2 body evidence.
+  row-message candidates. Promoted anchors now include rows `95..102`, `104`,
+  `117`, `118`, and `207`; promote the rest only with local row `+4/+8`
+  evidence.
 - `EF:89FE..8FAD` EBATTLE3: enemy-action text include. Promoted anchors include
-  rows `140/247`, `159`, `228`, `232`, `248`, `273`, and `290`; the remaining
-  labels should stay symbol-derived until specific `D5:7B68` rows are mapped.
+  rows `140/247`, `159`, `228`, `232..234`, `248`, `273`, and `290`; the
+  remaining labels should stay symbol-derived until specific `D5:7B68` rows
+  are mapped.
 - `EF:9A47..9EF4` EBATTLE1 tail: status, flavor, item, and special action
-  row-message candidates. The proved status rows are already promoted; promote
-  remaining flavor/item/special anchors only after C2 row `+4/+8` joins prove
-  the runtime role.
+  row-message candidates. The proved explosive and status rows are already
+  promoted; promote remaining flavor/item/special anchors only after C2 row
+  `+4/+8` joins prove the runtime role.
 
 Direct status/result scripts are different: if a C2 body chooses a hardcoded EF
 pointer through `DC1C`, or an `ActionAmount` script through `DC66`, it is safe
@@ -138,7 +163,7 @@ action island remains symbol-derived.
 ## Best Next Pass
 
 The highest-value next EF/C2 join is recovering local row `+4` pointer evidence
-for the behavior-known rows recorded in
+for the remaining no-op/flavor rows recorded in
 `notes/ef-battle-text-row-pointer-recovery-frontier.md`. For each new row,
 record:
 

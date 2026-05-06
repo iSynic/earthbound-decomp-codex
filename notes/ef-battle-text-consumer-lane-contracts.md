@@ -180,12 +180,14 @@ name EF result scripts if the C2 behavior body later emits an EF pointer.
 - Do not treat direct `DC1C` result scripts as row `+4` presentation messages.
 - Do not treat C8/C9 amount or narrative scripts as EF anchor evidence.
 - Do not infer row messages from nearby English-looking EF action flavor text.
-- Do not fold Lifeup rows `32..35` into the shared `EF:8543` PSI bucket until
-  their row `+4` pointers are recovered.
+- Lifeup rows `32..35` now have recovered `EF:8543` row `+4` pointers; keep
+  their `DD9F` presentation lane separate from HP recovery result text.
 - Do not treat Lifeup explanation text `EF:5173..51BB`, enemy Lifeup flavor
-  `EF:8D4C`, or explosive flavor candidates `EF:9A7E/9A9E` as row-message
-  joins for rows `32..35` or `64/65` until row `+4` pointer recovery proves
-  them.
+  `EF:8D4C`, or unrelated nearby action flavor as row-message joins without
+  row `+4` pointer evidence.
+- Explosive rows `64/65` now have recovered `EF:9A7E/9A9E` row `+4` pointers;
+  keep those presentation scripts separate from row `101 -> EF:7ED5` and the
+  shared `C2:A821` behavior body.
 - Do not collapse no-op behavior rows into "no effect" result text; a no-op
   row `+8` body can still have meaningful row `+4` presentation text.
 

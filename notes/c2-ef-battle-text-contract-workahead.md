@@ -152,6 +152,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   command/PSI joins and rows `243/244` to use their promoted source labels
   directly, leaving only unproved action islands under the exact `MSG_BTL_*`
   naming policy.
+- 2026-05-06: EF row-pointer recovery follow-up used the local ROM-backed
+  action inspector to prove Lifeup rows `32..35`, PSI offense-up rows `48/49`,
+  numeric-effect rows `95..98/233/234`, and explosive rows `64/65` as concrete
+  EF row `+4` presentation joins. The EF source now promotes those anchors to
+  `RowPresentationText` names while keeping C8/HP amount-result lanes separate.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial
@@ -237,9 +242,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   normalization/event rows. See
   `notes/ef-battle-text-row-message-crosswalk.md`.
 - 2026-05-06: EF row-message frontier follow-up separated behavior-known rows
-  from proved EF message joins. Numeric-effect and no-op/flavor rows with known
-  C2 row `+8` bodies now remain explicitly blocked on local row `+4` pointer
-  recovery before EF action-message labels are promoted.
+  from proved EF message joins. This initially kept numeric-effect and
+  no-op/flavor rows blocked on local row `+4` pointer recovery before EF
+  action-message labels were promoted.
 - 2026-05-06: EF special-event row-message follow-up promoted rows `243` and
   `244` into the row-message crosswalk: `EF:72F6 -> C2:9298` and
   `EF:7415 -> C2:92EE`, with their behavior continuations kept as separate
@@ -251,14 +256,13 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   shared `EF:8543` PSI `ByteSubstitution` presentation joins whose C2 bodies
   emit asleep and strange direct-result scripts separately. The same pass
   extended the non-EF C9 item row-message lane to the later bomb-family rows
-  `310` and `311`, and marked explosive rows `64` and `65` as blocked on exact
-  row `+4` EF pointer recovery. It also records PSI-side Lifeup rows `32..35`
-  as behavior-known but not yet row-message-pointer joined.
+  `310` and `311`. The later row-pointer recovery pass resolved the temporary
+  blocker for explosive rows `64/65` and PSI-side Lifeup rows `32..35`.
 - 2026-05-06: EF row-pointer recovery frontier follow-up added
   `notes/ef-battle-text-row-pointer-recovery-frontier.md`, documenting the
-  current local blocker for new row `+4` joins: D5 source preserves the table
-  as a data gap, the ROM-backed inspector has no local ROM, and the older
-  `eb-decompile-4ef92` table reference is absent from this worktree.
+  original local blocker for new row `+4` joins: D5 source preserves the table
+  as a data gap and the inspector needs a local ROM. The local ROM is now
+  present, so the note tracks recovered joins and the remaining no-op frontier.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, consolidating the
   `DD9F`, `DC1C`, `DC66`, `DD7C`, pointer-substitution, and non-EF C7/C8/C9
@@ -293,9 +297,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   event anchors so `EF:72F6/7415` carry `RowPresentationText` and
   `EF:72F7/733D/743B` carry `ResultText` continuation semantics.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
-  and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
-  row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer
-  recovery.
+  and enemy-flavor anchors as not row-message joins. The later pointer-recovery
+  pass proved `EF:8543` for rows `32..35` and `EF:9A7E/9A9E` for rows `64/65`,
+  so those guardrails now only prevent adjacent-lane confusion.
 - 2026-05-06: EF amount-result suffix follow-up renamed the `EF:7755..77DB`
   PP-loss and periodic-damage result anchors with `ActionAmount` suffixes,
   matching their `C1:DC66 -> 1C 0F` payload consumption.

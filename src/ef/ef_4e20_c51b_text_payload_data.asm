@@ -1862,26 +1862,26 @@ EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
 ; EBATTLE2 action island: exact MSG_BTL anchors for D5:7B68 row-message
 ; candidates. Keep symbol-derived names until a row +4 EF pointer and row +8
 ; C2 behavior body are joined.
-; EBATTLE2: `MSG_BTL_PPDOWN` action-flavor text.
-EF7E25_EBattle2MsgBtlPpDown:
+; EBATTLE2: row 95 row +4 PP-reduction presentation text.
+EF7E25_EBattle2PpReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E3E
 
-; EBATTLE2: `MSG_BTL_OKORU` action-flavor text.
-EF7E3E_EBattle2MsgBtlOkoru:
+; EBATTLE2: row 96 row +4 steamed/offense-up presentation text.
+EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E55
 
-; EBATTLE2: `MSG_BTL_KITANAI_KOTOBA` action-flavor text.
-EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; EBATTLE2: row 97 row +4 dirty-words/guts-reduction presentation text.
+EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E70
 
-; EBATTLE2: `MSG_BTL_SUIBUN` action-flavor text.
-EF7E70_EBattle2MsgBtlSuibun:
+; EBATTLE2: row 98 row +4 moisture-sucked offense/defense reduction text.
+EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E88
@@ -2244,9 +2244,8 @@ EF8530_EBattle1SpyCheckRowPresentationText:
 ; EF:8543
 
 ; EBATTLE1: shared PSI row presentation text with PSI-name byte substitution.
-; D5:7B68 rows 10..31 plus PSI-status rows 53 and 58 use this as row +4
-; `DD9F` presentation text; Lifeup rows 32..35 still need local row +4
-; recovery.
+; D5:7B68 rows 10..35, 48, 49, 53, and 58 use this as row +4 `DD9F`
+; presentation text.
 EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
@@ -2650,14 +2649,14 @@ EF8C58_EBattle3BadSmellOdorRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8C75
 
-; EBATTLE3: `MSG_BTL_LOUD_VOICE` enemy-action text.
-EF8C75_EBattle3MsgBtlLoudVoice:
+; EBATTLE3: row 233 row +4 loud-voice offense/defense reduction text.
+EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C92
 
-; EBATTLE3: `MSG_BTL_OTAKEBI` enemy-action text.
-EF8C92_EBattle3MsgBtlOtakebi:
+; EBATTLE3: row 234 row +4 war-cry offense/defense reduction text.
+EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CAC
@@ -3157,16 +3156,14 @@ EF9A5E_EBattle1MsgBtlTanemaki0:
 ; ---------------------------------------------------------------------------
 ; EF:9A7E
 
-; EBATTLE1: `MSG_BTL_EXPLOSION` action payload text. Candidate explosive
-; flavor near rows 64/65, but row +4 pointers are still unrecovered.
-EF9A7E_EBattle1MsgBtlExplosion:
+; EBATTLE1: row 64 row +4 explosive presentation text.
+EF9A7E_EBattle1ExplosionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A9E
 
-; EBATTLE1: `MSG_BTL_BURN` action payload text. Candidate explosive flavor
-; near rows 64/65, but row +4 pointers are still unrecovered.
-EF9A9E_EBattle1MsgBtlBurn:
+; EBATTLE1: row 65 row +4 burst-into-flames presentation text.
+EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9ABB
