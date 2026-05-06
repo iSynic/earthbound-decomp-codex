@@ -1411,6 +1411,15 @@ org $C24477
 !C2F917_RebuildClass2CandidateRanking = $C2F917
 !C4A1F5_CheckCandidateInList = $C4A1F5
 !C4A228_StoreRankedBattlerTargetOrdinal = $C4A228
+!D57B68_BattleActionTable = $D57B68
+!D57B68_BattleActionTableLo = $7B68
+!D57B68_BattleActionTableBank = $00D5
+!BattleActionTableRowSize = $000C
+!BattleActionTableDirectionClassOffset = $0000
+!BattleActionTableTargetShapeOffset = $0001
+!CandidateRowActionIdOffset = $0004
+!CandidateRowDerivedActionCodeOffset = $0009
+!CandidateRowDerivedActionParamOffset = $000A
 CHOOSE_TARGET:
 !C24477_BuildClass2DerivedActionCode = CHOOSE_TARGET
     rep #$31
@@ -1461,7 +1470,7 @@ C244C7_BuildClass2DerivedActionCode_L44C7:
     asl A
     asl A
     tax
-    lda $D57B68,X
+    lda !D57B68_BattleActionTable,X
     and.w #$00FF
     bne C244FE_BuildClass2DerivedActionCode_L44FE
     ldx $02
@@ -1496,9 +1505,9 @@ C24516_BuildClass2DerivedActionCode_L4516:
     stz $0009,X
 C2451D_BuildClass2DerivedActionCode_L451D:
     rep #$20
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $08
     ldx $02
     inx
@@ -1539,7 +1548,7 @@ C2456A_BuildClass2DerivedActionCode_L456A:
 C2456D_BuildClass2DerivedActionCode_L456D:
     lda $02
     clc
-    adc.w #$0009
+    adc.w #!CandidateRowDerivedActionCodeOffset
     tax
     sep #$20
     lda $0000,X
@@ -1574,7 +1583,7 @@ C245A4_BuildClass2DerivedActionCode_L45A4:
 C245BC_BuildClass2DerivedActionCode_L45BC:
     lda $02
     clc
-    adc.w #$0009
+    adc.w #!CandidateRowDerivedActionCodeOffset
     tay
     sep #$20
     lda $0000,Y
@@ -1674,7 +1683,7 @@ C2466D_BuildClass2DerivedActionCode_L466D:
 C2468C_BuildClass2DerivedActionCode_L468C:
     lda $02
     clc
-    adc.w #$0009
+    adc.w #!CandidateRowDerivedActionCodeOffset
     tax
     sep #$20
     lda $0000,X
@@ -1718,7 +1727,7 @@ C246D7_BuildClass2DerivedActionCode_L46D7:
 C246E7_BuildClass2DerivedActionCode_L46E7:
     lda $02
     clc
-    adc.w #$0009
+    adc.w #!CandidateRowDerivedActionCodeOffset
     tax
     sep #$20
     lda $0000,X

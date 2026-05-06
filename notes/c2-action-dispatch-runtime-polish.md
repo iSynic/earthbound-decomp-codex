@@ -57,6 +57,12 @@ The `+0x00` and `+0x01` bytes directly influence `C2:4477`'s derived
 `+0x09/+0x0A` writes. The `+0x08` pointer is consumed by `C2:40A4` through the
 second-pointer path.
 
+Implementation update: `src/c2/c2_4477_build_class2_derived_action_code.asm`
+now carries the same local `D5:7B68` row root/bank constants, `0x0C` row-size
+constant, and candidate-row `+0x04/+0x09/+0x0A` names used by the battle-start
+and late selected-row action-table text passes. This keeps the action-row
+producer aligned with the C1/C2 text and payload consumers.
+
 ## Target-Mask Dispatch
 
 `C2:4703` accepts a candidate row base in A, clears `$A96C/$A96E`, then

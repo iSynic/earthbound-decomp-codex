@@ -347,6 +347,10 @@ contract notes for C0/C1/C3/C4 consumers.
   `0x0C` row size, row `+2/+3/+4/+8` fields, `C1:DD9F` primary current-action
   text display, and the separate companion payload pointer. See
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-05 fifty-second slice: carried the same `D5:7B68` action-row
+  vocabulary upstream into `C2:4477`, where candidate row `+0x04` selects the
+  table row and row bytes `+0/+1` produce candidate row `+0x09/+0x0A` for
+  `C2:4703`. See `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 
