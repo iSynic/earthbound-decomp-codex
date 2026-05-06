@@ -3476,24 +3476,28 @@ db $08,$DF,$69,$C5,$00,$01,$15,$DA,$94,$17,$C1,$A3,$15,$07,$67,$62
 db $60,$50,$16,$A4,$A3,$15,$86,$15,$D6,$15,$0C,$17,$71,$15,$F3,$5E
 db $02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF5173_EExplPsiMsgExplPsiLifeupAlfa:
 
 ; Original data gap before EF5189_EExplPsiMsgExplPsiLifeupBeta:
 db $70,$82,$95,$17,$60,$17,$52,$61,$60,$60,$50,$78,$80,$15,$90,$16
 db $9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF5189_EExplPsiMsgExplPsiLifeupBeta:
 
 ; Original data gap before EF519F_EExplPsiMsgExplPsiLifeupGamma:
 db $70,$82,$95,$17,$60,$17,$52,$63,$60,$60,$50,$78,$80,$15,$90,$16
 db $9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF519F_EExplPsiMsgExplPsiLifeupGamma:
 
 ; Original data gap before EF51BB_EExplPsiMsgExplPsiLifeupOmega:
 db $70,$73,$9F,$9D,$17,$05,$A4,$95,$15,$9D,$A2,$95,$17,$60,$95,$15
 db $32,$78,$80,$15,$86,$16,$9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF51BB_EExplPsiMsgExplPsiLifeupOmega:
 
 ; Original data gap before EF51CF_EExplPsiMsgExplPsiHealingAlfa:
@@ -4221,29 +4225,29 @@ db $50,$77,$A9,$9F,$A2,$97,$51,$15,$03,$03,$18,$04,$02
 
 EF69A1_EBattle5MsgBtlHpMaxRecovered:
 
-; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$78,$80,$17,$61,$00,$50,$17,$DF,$A8,$95
 db $94,$15,$93,$51,$1F,$02,$24,$03,$02
 
-EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
 
-; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $78,$80,$51,$1F,$02,$24,$03,$02
 
-EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 
-; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseAmount:
+; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $80,$80,$51,$1F,$02,$24,$03,$02
 
-EF69EA_EBattle5MsgBtlCheckOffenseAmount:
+EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
 
-; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseAmount:
+; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$7F,$96,$96,$17,$C7,$16,$46
 db $1C,$0F,$51,$03,$02
 
-EF69FF_EBattle5MsgBtlCheckDefenseAmount:
+EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
 
 ; Original data gap before EF6A0D_EBattle5MsgBtlCheckAntiFire:
 db $01,$70,$74,$95,$96,$17,$C7,$16,$46,$1C,$0F,$51,$03,$02
@@ -4292,35 +4296,35 @@ db $EB,$9F,$00,$50,$50,$1C,$0E,$51,$03,$02
 
 EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
 
-; Original data gap before EF6AC7_EBattle5MsgBtlDiamondized:
+; Original data gap before EF6AC7_EBattle5DiamondizedStatusResultText:
 db $01,$70,$1C,$0D,$15,$91,$16,$07,$50,$17,$3C,$00,$50,$16,$0B,$1C
 db $0E,$51,$03,$02
 
-EF6AC7_EBattle5MsgBtlDiamondized:
+EF6AC7_EBattle5DiamondizedStatusResultText:
 
-; Original data gap before EF6AE0_EBattle5MsgBtlParalysisInflicted:
+; Original data gap before EF6AE0_EBattle5ParalysisStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$16,$B1,$91,$9D,$9F,$9E,$94,$99
 db $AA,$95,$94,$51,$1F,$02,$53,$03,$02
 
-EF6AE0_EBattle5MsgBtlParalysisInflicted:
+EF6AE0_EBattle5ParalysisStatusResultText:
 
-; Original data gap before EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+; Original data gap before EF6AFB_EBattle5FeelingSickStatusResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$BD,$17,$76
 db $50,$9E,$A5,$9D,$92,$51,$1F,$02,$53,$03,$02
 
-EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+EF6AFB_EBattle5FeelingSickStatusResultText:
 
-; Original data gap before EF6B18_EBattle5MsgBtlPoisonInflicted:
+; Original data gap before EF6B18_EBattle5PoisonStatusResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$15,$D9,$A7,$15,$C6
 db $9E,$91,$16,$4B,$9F,$A5,$15,$53,$1F,$02,$53,$03,$02
 
-EF6B18_EBattle5MsgBtlPoisonInflicted:
+EF6B18_EBattle5PoisonStatusResultText:
 
-; Original data gap before EF6B2F_EBattle5MsgBtlColdInflicted:
+; Original data gap before EF6B2F_EBattle5ColdStatusResultText:
 db $01,$70,$1C,$0E,$16,$1B,$A4,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E
 db $94,$51,$1F,$02,$53,$03,$02
 
-EF6B2F_EBattle5MsgBtlColdInflicted:
+EF6B2F_EBattle5ColdStatusResultText:
 
 ; Original data gap before EF6B43_EBattle5ObjectPronounSubtext:
 db $01,$70,$1C,$0E,$17,$77,$A5,$97,$98,$17,$0D,$93,$17,$F9,$51,$1F
@@ -4328,57 +4332,73 @@ db $02,$53,$03,$02
 
 EF6B43_EBattle5ObjectPronounSubtext:
 
-; Original data gap before EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+; Original data gap before EF6B81_EBattle5MushroomizedStatusResultText:
 db $1C,$15,$01,$09,$03,$54,$6B,$EF,$00,$59,$6B,$EF,$00,$5F,$6B,$EF
 db $00,$58,$98,$95,$59,$02,$58,$A3,$98,$95,$59,$02,$58,$99,$A4,$59
 db $02,$1C,$15,$02,$09,$03,$75,$6B,$EF,$00,$79,$6B,$EF,$00,$7D,$6B
 db $EF,$00,$58,$61,$59,$02,$58,$62,$59,$02,$58,$63,$59,$02
 
-EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+; EBATTLE5: mushroomized/feeling strange mushroom direct-result text emitted by
+; C2 row +8 behavior bodies, not a row +4 presentation message.
+EF6B81_EBattle5MushroomizedStatusResultText:
 
-; Original data gap before EF6B98_EBattle5MsgBtlPossessedInflicted:
+; Original data gap before EF6B98_EBattle5PossessedStatusResultText:
 db $01,$70,$1C,$0E,$15,$BD,$97,$15,$A2,$A4,$9F,$00,$50,$17,$20,$15
 db $B9,$51,$1F,$02,$53,$03,$02
 
-EF6B98_EBattle5MsgBtlPossessedInflicted:
+; EBATTLE5: possessed/haunted-by-ghost direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
+EF6B98_EBattle5PossessedStatusResultText:
 
-; Original data gap before EF6BBB_EBattle5MsgBtlCryingInflicted:
+; Original data gap before EF6BBB_EBattle5CryingStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$50,$17,$E9,$A3,$15,$DF,$95,$94
 db $15,$F5,$91,$50,$17,$84,$99,$5D,$97,$98,$9F,$A3,$A4,$51,$1F,$02
 db $53,$03,$02
 
-EF6BBB_EBattle5MsgBtlCryingInflicted:
+; EBATTLE5: crying/tears direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
+EF6BBB_EBattle5CryingStatusResultText:
 
-; Original data gap before EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+; Original data gap before EF6BD3_EBattle5ImmobilizedStatusResultText:
 db $01,$70,$1C,$0E,$15,$91,$16,$07,$00,$50,$50,$17,$91,$50,$93,$A2
 db $A9,$17,$7D,$1F,$02,$53,$03,$02
 
-EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+; EBATTLE5: immobilized/tied-down direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
+EF6BD3_EBattle5ImmobilizedStatusResultText:
 
-; Original data gap before EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+; Original data gap before EF6BEF_EBattle5SolidificationStatusResultText:
 db $01,$70,$1C,$0E,$17,$B3,$94,$94,$95,$9E,$9C,$A9,$00,$50,$15,$91
 db $16,$07,$50,$9D,$16,$61,$51,$1F,$02,$53,$03,$02
 
-EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+; EBATTLE5: solidified body direct-result text used by C2 item/status behavior
+; bodies, not a row +4 presentation message.
+EF6BEF_EBattle5SolidificationStatusResultText:
 
-; Original data gap before EF6C0B_EBattle5MsgBtlPsiSealInflicted:
+; Original data gap before EF6C0B_EBattle5PsiSealStatusResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$16,$7C,$9C,$99
 db $94,$99,$96,$99,$95,$94,$51,$1F,$02,$53,$03,$02
 
-EF6C0B_EBattle5MsgBtlPsiSealInflicted:
+; EBATTLE5: PSI-seal direct-result text emitted by C2 row +8 behavior bodies,
+; not a row +4 presentation message.
+EF6C0B_EBattle5PsiSealStatusResultText:
 
-; Original data gap before EF6C3A_EBattle5MsgBtlStrangeInflicted:
+; Original data gap before EF6C3A_EBattle5StrangeStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$50,$16,$07,$15,$6F,$16,$57,$93
 db $15,$9E,$A2,$16,$66,$51,$1F,$02,$53,$03,$00,$70,$1C,$0E,$17,$B1
 db $00,$50,$50,$16,$07,$15,$6F,$17,$55,$80,$83,$79,$51,$03,$02
 
-EF6C3A_EBattle5MsgBtlStrangeInflicted:
+; EBATTLE5: strange-status direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
+EF6C3A_EBattle5StrangeStatusResultText:
 
-; Original data gap before EF6C55_EBattle5MsgBtlAsleepInflicted:
+; Original data gap before EF6C55_EBattle5AsleepStatusResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$50,$91,$15,$5F,$A3
 db $17,$35,$9E,$97,$15,$34,$1F,$02,$53,$03,$02
 
-EF6C55_EBattle5MsgBtlAsleepInflicted:
+; EBATTLE5: asleep-status direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
+EF6C55_EBattle5AsleepStatusResultText:
 
 ; Original data gap before EF6C6B_EBattle5MsgBtlIncapacitated:
 db $01,$70,$1C,$0E,$50,$96,$16,$7F,$00,$50,$50,$91,$A3,$9C,$15,$C9
@@ -4515,77 +4535,77 @@ db $9D,$91,$9C,$51,$1F,$02,$21,$02
 
 EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
 
-; Original data gap before EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+; Original data gap before EF6E4A_EBattle5DiamondizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$16,$97,$95,$94,$15,$06,$94,$17,$E6,$15,$09
 db $15,$EA,$A4,$98,$51,$1F,$02,$21,$02
 
-EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+EF6E4A_EBattle5DiamondizedRecoveryResultText:
 
-; Original data gap before EF6E67_EBattle5MsgBtlParalysisRecovered:
+; Original data gap before EF6E67_EBattle5ParalysisRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$50,$16,$97,$15
 db $33,$9E,$9F,$A2,$9D,$91,$9C,$51,$1F,$02,$25,$03,$02
 
-EF6E67_EBattle5MsgBtlParalysisRecovered:
+EF6E67_EBattle5ParalysisRecoveryResultText:
 
-; Original data gap before EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+; Original data gap before EF6E81_EBattle5FeelingSickRecoveryResultText:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$9E,$A5,$9D,$92,$16,$09,$15
 db $21,$97,$15,$7E,$51,$1F,$02,$25,$03,$02
 
-EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+EF6E81_EBattle5FeelingSickRecoveryResultText:
 
-; Original data gap before EF6E97_EBattle5MsgBtlPoisonRemoved:
+; Original data gap before EF6E97_EBattle5PoisonRemovalResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$15,$62,$50,$16,$98
 db $51,$1F,$02,$25,$03,$02
 
-EF6E97_EBattle5MsgBtlPoisonRemoved:
+EF6E97_EBattle5PoisonRemovalResultText:
 
-; Original data gap before EF6EBC_EBattle5MsgBtlColdRecovered:
+; Original data gap before EF6EBC_EBattle5ColdRecoveryResultText:
 db $01,$15,$14,$A0,$9F,$99,$A3,$9F,$9E,$15,$C4,$A2,$95,$9D,$9F,$A6
 db $15,$57,$17,$A4,$00,$50,$50,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$51
 db $1F,$02,$25,$03,$02
 
-EF6EBC_EBattle5MsgBtlColdRecovered:
+EF6EBC_EBattle5ColdRecoveryResultText:
 
-; Original data gap before EF6ED1_EBattle5MsgBtlCryingRecovered:
+; Original data gap before EF6ED1_EBattle5CryingRecoveryResultText:
 db $01,$70,$1C,$0E,$16,$1B,$A4,$15,$CF,$00,$15,$95,$93,$17,$F9,$51
 db $1F,$02,$25,$03,$02
 
-EF6ED1_EBattle5MsgBtlCryingRecovered:
+EF6ED1_EBattle5CryingRecoveryResultText:
 
-; Original data gap before EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+; Original data gap before EF6EED_EBattle5ImmobilizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$96,$16,$63,$00,$50,$50,$17,$91,$A0,$15,$57
 db $93,$A2,$A9,$16,$44,$5E,$5E,$1F,$02,$25,$03,$02
 
-EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+EF6EED_EBattle5ImmobilizedRecoveryResultText:
 
-; Original data gap before EF6F0B_EBattle5MsgBtlFrozenCanMove:
+; Original data gap before EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$5B,$17,$6F
 db $A6,$15,$57,$96,$16,$FA,$9C,$A9,$51,$1F,$02,$25,$03,$02
 
-EF6F0B_EBattle5MsgBtlFrozenCanMove:
+EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
-; Original data gap before EF6F1E_EBattle5MsgBtlStrangeRecovered:
+; Original data gap before EF6F1E_EBattle5StrangeRecoveryResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$9D,$16,$61,$51,$1F,$02
 db $25,$03,$02
 
-EF6F1E_EBattle5MsgBtlStrangeRecovered:
+EF6F1E_EBattle5StrangeRecoveryResultText:
 
-; Original data gap before EF6F38_EBattle5MsgBtlSunstrokeCured:
+; Original data gap before EF6F38_EBattle5SunstrokeRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$A7,$15,$9E,$00,$50,$15,$85,$15,$0C,$9E,$9F
 db $A2,$9D,$91,$9C,$51,$1F,$02,$25,$03,$02
 
-EF6F38_EBattle5MsgBtlSunstrokeCured:
+EF6F38_EBattle5SunstrokeRecoveryResultText:
 
-; Original data gap before EF6F54_EBattle5MsgBtlAsleepRecovered:
+; Original data gap before EF6F54_EBattle5AsleepRecoveryResultText:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$17,$B3,$9E,$A3,$A4,$A2,$17,$09
 db $15,$C4,$93,$A5,$17,$45,$51,$1F,$02,$25,$03,$02
 
-EF6F54_EBattle5MsgBtlAsleepRecovered:
+EF6F54_EBattle5AsleepRecoveryResultText:
 
-; Original data gap before EF6F64_EBattle5MsgBtlPsiSealRecovered:
+; Original data gap before EF6F64_EBattle5PsiSealRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$A7,$17,$09,$17,$B8,$51,$1F,$02,$25,$03,$02
 
-EF6F64_EBattle5MsgBtlPsiSealRecovered:
+EF6F64_EBattle5PsiSealRecoveryResultText:
 
 ; Original data gap before EF6F7C_EBattle5MsgBtlRevived:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$16,$57,$93,$15,$9E,$A2
@@ -4662,19 +4682,19 @@ db $16,$56,$91,$17,$45,$51,$03,$02
 
 EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
 
-; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
 db $01,$15,$7F,$15,$FB,$17,$E8,$95,$9C,$94,$00,$50,$16,$E7,$96,$9C
 db $16,$A5,$15,$4A,$91,$A4,$A4,$17,$16,$51,$1F,$02,$5D,$10,$1E,$03
 db $02
 
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
 
-; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
 db $01,$15,$14,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17,$E8,$95,$9C
 db $94,$00,$19,$1F,$1B,$04,$50,$16,$E7,$96,$9C,$95,$93,$16,$B6,$1C
 db $12,$00,$51,$1F,$02,$5D,$03,$02
 
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
 
 ; Original data gap before EF7123_EBattle5MsgBtlNeutralizeResult:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
@@ -4793,11 +4813,13 @@ EF72DB_EBattle4MsgBtlHomesickLostMotivation:
 db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
 db $5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
 
+; EBATTLE4: row 243 `DD9F` presentation; C2 behavior selects the continuation.
 EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
 
 ; Original data gap before EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
 db $02
 
+; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
 EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
 
 ; Original data gap before EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
@@ -4807,6 +4829,7 @@ db $00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C,$92
 db $A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95,$17
 db $99,$15,$9B,$51,$14,$02
 
+; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
 EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
 
 ; Original data gap before EF7415_EBattle4MsgBtlPooBreakIn:
@@ -4825,6 +4848,7 @@ db $91,$51,$6E,$10,$14,$14,$18,$06,$70,$6C,$84,$98,$91,$15,$E4,$A1
 db $A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E,$14,$10,$3C,$1F,$62,$01,$18
 db $00,$18,$01,$0E,$04,$3E,$01,$02
 
+; EBATTLE4: row 244 `DD9F` presentation before the Poo/Starstorm event result.
 EF7415_EBattle4MsgBtlPooBreakIn:
 
 ; Original data gap before EF743B_EBattle4MsgBtlPooStarstormReveal:
@@ -4832,6 +4856,7 @@ db $1F,$71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50
 db $1C,$02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15
 db $52,$A3,$9B,$A9,$51,$02
 
+; EBATTLE4: row 244 direct-result continuation, not row +4 presentation text.
 EF743B_EBattle4MsgBtlPooStarstormReveal:
 
 ; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
@@ -4914,35 +4939,35 @@ db $01,$02
 
 EF7593_EBattle4MsgBtlBalmonTalk:
 
-; Original data gap before EF75AB_EBattle4MsgBtlDamageAmount:
+; Original data gap before EF75AB_EBattle4MsgBtlDamageActionAmount:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97
 db $97,$16,$D9,$17,$29,$51,$03,$02
 
-EF75AB_EBattle4MsgBtlDamageAmount:
+EF75AB_EBattle4MsgBtlDamageActionAmount:
 
-; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageAmount:
+; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75C2_EBattle4MsgBtlMortalDamageAmount:
+EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
 
-; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageAmount:
+; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75D9_EBattle4MsgBtlSmashDamageAmount:
+EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
 
-; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
 
-; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathAmount:
+; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF7607_EBattle4MsgBtlDamageToDeathAmount:
+EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
 
 ; Original data gap before EF7624_EBattle4MsgBtlSmashPlayer:
 db $01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2,$A4
@@ -4966,11 +4991,13 @@ db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
 EF7655_EBattle4MsgBtlBashDodged:
 
-; Original data gap before EF766E_EBattle4MsgBtlStatusNoEffect:
+; Original data gap before EF766E_EBattle4StatusNoEffectResultText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
 db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
-EF766E_EBattle4MsgBtlStatusNoEffect:
+; EBATTLE4: shared status no-effect direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
+EF766E_EBattle4StatusNoEffectResultText:
 
 ; Original data gap before EF7682_EBattle4AdjacentNoEffectText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
@@ -5015,49 +5042,54 @@ db $34,$03,$02
 
 EF7710_EBattle4MsgBtlHpSuckSelfDrain:
 
-; Original data gap before EF7729_EBattle4MsgBtlHpSuckAmount:
+; Original data gap before EF7729_EBattle4MsgBtlHpSuckActionAmount:
 db $01,$70,$1C,$0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00
 db $50,$17,$F0,$50,$78,$80,$51,$03,$02
 
-EF7729_EBattle4MsgBtlHpSuckAmount:
+EF7729_EBattle4MsgBtlHpSuckActionAmount:
 
-; Original data gap before EF773F_EBattle4MsgBtlPpDrainAmount:
+; Original data gap before EF773F_EBattle4MsgBtlPpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$78,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF773F_EBattle4MsgBtlPpDrainAmount:
+EF773F_EBattle4MsgBtlPpDrainActionAmount:
 
-; Original data gap before EF7755_EBattle4MsgBtlPpDrainTarget:
+; Original data gap before EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF7755_EBattle4MsgBtlPpDrainTarget:
+; EBATTLE4: target-side PP drain amount text; consumes C1:DC66/1C 0F.
+EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
 
-; Original data gap before EF7768_EBattle4MsgBtlStrangeDamage:
+; Original data gap before EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
 db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
 db $51,$03,$02
 
-EF7768_EBattle4MsgBtlStrangeDamage:
+; EBATTLE4: strange/status periodic damage amount text; consumes C1:DC66/1C 0F.
+EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
 
-; Original data gap before EF7787_EBattle4MsgBtlPoisonDamage:
+; Original data gap before EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
 db $01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA,$00,$50,$15
 db $04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
-EF7787_EBattle4MsgBtlPoisonDamage:
+; EBATTLE4: poison periodic damage amount text; consumes C1:DC66/1C 0F.
+EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
 
-; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamage:
+; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00,$50,$15
 db $52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17,$37,$50
 db $1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02
 
-EF77B1_EBattle4MsgBtlSunstrokeDamage:
+; EBATTLE4: sunstroke periodic damage amount text; consumes C1:DC66/1C 0F.
+EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
 
-; Original data gap before EF77DB_EBattle4MsgBtlColdDamage:
+; Original data gap before EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50
 db $15,$04,$A7,$95,$91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57
 db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
-EF77DB_EBattle4MsgBtlColdDamage:
+; EBATTLE4: cold periodic damage amount text; consumes C1:DC66/1C 0F.
+EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 
 ; Original data gap before EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
 db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04
@@ -5257,59 +5289,68 @@ db $15,$36,$92,$17,$14,$15,$03,$14,$02
 
 EF7A66_EBattle8MsgBtlLevelUp:
 
-; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$9C,$95,$A6,$95,$9C,$16,$00,$00,$50,$16
 db $8E,$50,$1C,$0F,$51,$14,$02
 
-EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+; EBATTLE8: level-up offense gain amount text; consumes C1:AD0A/1C 0F.
+EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
 
-; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUp:
+; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7F,$96,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7A97_EBattle8MsgBtlLevelDefenseUp:
+; EBATTLE8: level-up defense gain amount text; consumes C1:AD0A/1C 0F.
+EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
 
-; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$74,$95,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+; EBATTLE8: level-up speed gain amount text; consumes C1:AD0A/1C 0F.
+EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
 
-; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUp:
+; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$83,$A0,$95,$15,$57,$A7,$16,$32,$A5
 db $A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AC9_EBattle8MsgBtlLevelGutsUp:
+; EBATTLE8: level-up guts gain amount text; consumes C1:AD0A/1C 0F.
+EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
 
-; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$77,$A5,$17,$DA,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+; EBATTLE8: level-up vitality gain amount text; consumes C1:AD0A/1C 0F.
+EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
 
-; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUp:
+; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$86,$99,$A4,$91,$9C,$17,$C5,$50,$A7
 db $16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AFB_EBattle8MsgBtlLevelIqUp:
+; EBATTLE8: level-up IQ gain amount text; consumes C1:AD0A/1C 0F.
+EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
 
-; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUp:
+; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$79,$81,$50,$A7,$16,$32,$A5,$A0,$15
 db $F5,$1C,$0F,$51,$14,$02
 
-EF7B11_EBattle8MsgBtlLevelLuckUp:
+; EBATTLE8: level-up luck gain amount text; consumes C1:AD0A/1C 0F.
+EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
 
-; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7C,$17,$D0,$50,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+; EBATTLE8: level-up maximum HP gain amount text; consumes C1:AD0A/1C 0F.
+EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
 
-; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
 db $01,$70,$08,$83,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$78
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+; EBATTLE8: level-up maximum PP gain amount text; consumes C1:AD0A/1C 0F.
+EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
 
 ; Original data gap before EF7B64_EBattle8MsgBtlLearnPsi:
 db $01,$70,$08,$A0,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$80
@@ -5317,11 +5358,11 @@ db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 EF7B64_EBattle8MsgBtlLearnPsi:
 
-; Original data gap before EF7B77_EBattle8ByteSubstitutionPsiNameText:
+; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionText:
 db $01,$1F,$02,$67,$70,$1C,$0E,$16,$C4,$9C,$99,$AA,$15,$4A,$16,$FE
 db $15,$86,$00
 
-EF7B77_EBattle8ByteSubstitutionPsiNameText:
+EF7B77_EBattle8PsiNameByteSubstitutionText:
 
 ; Original data gap before EF7B83_EBattle8PointerSubstitutionIntroState:
 db $19,$1F,$1B,$04,$50,$50,$1C,$12,$00,$5E,$14,$02
@@ -5355,11 +5396,11 @@ db $1B,$00
 
 EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
-; Original data gap before EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+; Original data gap before EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F
 db $98,$5C,$50,$92,$91,$92,$A9,$51,$00,$50,$50,$1B,$01,$02
 
-EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 
 ; Original data gap before EF7C42_EBattle8PresentRecipientDeadText:
 db $01,$15,$7F,$15,$F3,$17,$EC,$96,$17,$0D,$16,$AF,$15,$9E,$51,$14
@@ -5432,11 +5473,11 @@ db $1D,$0E,$00,$00,$1F,$02,$74,$10,$01,$03,$02
 
 EF7DBE_EBattle8PresentDropForbiddenText:
 
-; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 db $17,$94,$15,$81,$A4,$98,$17,$5B,$15,$18,$1C,$05,$00,$50,$16,$C9
 db $5E,$14,$0A,$0F,$7D,$EF,$00
 
-EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 
 ; Original data gap before EF7E25_EBattle2MsgBtlPpDown:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92
@@ -5469,6 +5510,7 @@ EF7E70_EBattle2MsgBtlSuibun:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$A6,$91,$93
 db $A5,$A5,$9D,$15,$DB,$51,$03,$02
 
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation message.
 EF7E88_EBattle2MsgBtlEnergy:
 
 ; Original data gap before EF7EAC_EBattle2MsgBtlDokuKamituki:
@@ -5483,6 +5525,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$16,$40,$9B,$17,$33,$17,$15,$00,$50
 db $50,$A5,$A3,$15,$1B,$99,$17,$DA,$A0,$9F,$99,$A3,$9F,$9E,$17,$26
 db $50,$96,$91,$9E,$97,$A3,$51,$03,$02
 
+; EBATTLE2: row 101 row +4 projectile/explosive presentation message.
 EF7ED5_EBattle2MsgBtlYoroMissile:
 
 ; Original data gap before EF7F02_EBattle2MsgBtlMultiAttack:
@@ -5834,11 +5877,13 @@ db $5C,$10,$3C,$03,$00,$16,$BF,$93,$16,$EC,$17,$08,$51,$03,$02
 
 EF8530_EBattle1MsgBtlCheck:
 
-; Original data gap before EF8543_EBattle1MsgBtlPsi:
+; Original data gap before EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
-EF8543_EBattle1MsgBtlPsi:
+; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
+; Lifeup rows 32..35 still need local row +4 recovery.
+EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$68,$85,$EF,$00,$1F,$02,$37,$70,$1C,$0D
@@ -6295,6 +6340,7 @@ EF8D2F_EBattle3MsgBtlYudan4:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$CD,$15,$33,$97,$9F,$00,$50,$15
 db $04,$16,$5B,$91,$17,$DB,$A4,$16,$06,$A9,$51,$03,$02
 
+; EBATTLE3: enemy Lifeup flavor, not row +4 Lifeup presentation for rows 32..35.
 EF8D4C_EBattle3MsgBtlYudanLifeup:
 
 ; Original data gap before EF8D72_EBattle3MsgBtlNebieBeam:
@@ -6322,6 +6368,7 @@ EF8DC1_EBattle3MsgBtlMakitsuki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9F,$99,$9C,$95,$94,$00,$50
 db $15,$AB,$15,$6A,$16,$B8,$15,$DB,$95,$94,$51,$03,$02
 
+; EBATTLE3: row 290 row +4 rainbow-colors / Master Belch-side event text.
 EF8DDE_EBattle3MsgBtlToDiamondDog:
 
 ; Original data gap before EF8E27_EBattle3MsgBtlWarpNear:
@@ -6331,6 +6378,8 @@ db $43,$92,$9F,$A7,$15,$4F,$93,$9F,$9C,$9F,$A2,$A3,$51,$1F,$02,$41
 db $1C,$13,$28,$00,$10,$1E,$1F,$02,$41,$1C,$13,$28,$00,$10,$1E,$1F
 db $02,$41,$1C,$13,$28,$00,$10,$1E,$02
 
+; EBATTLE3: rows 140 and 247 intentionally reuse this row +4 anchor with
+; different C2 behavior bodies.
 EF8E27_EBattle3MsgBtlWarpNear:
 
 ; Original data gap before EF8E3C_EBattle3MsgBtlAntipsi:
@@ -6829,12 +6878,14 @@ EF9A5E_EBattle1MsgBtlTanemaki0:
 db $1F,$02,$19,$01,$70,$1C,$0D,$16,$7C,$A7,$95,$94,$00,$50,$15,$1C
 db $16,$67,$94,$A3,$15,$AB,$99,$A4,$16,$EB,$51,$1F,$02,$48,$03,$02
 
+; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
 EF9A7E_EBattle1MsgBtlExplosion:
 
 ; Original data gap before EF9A9E_EBattle1MsgBtlBurn:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$A0,$9C,$9F,$94,$95,$94
 db $00,$50,$16,$0B,$92,$99,$A4,$A3,$51,$1F,$02,$5B,$03,$10,$1E,$02
 
+; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
 EF9A9E_EBattle1MsgBtlBurn:
 
 ; Original data gap before EF9ABB_EBattle1MsgBtlGoods:
@@ -6915,6 +6966,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52,$03,$10,$01
 db $02
 
+; EBATTLE1: row 76 possessed persistent-status row message.
 EF9C51_EBattle1MsgBtlTorituki:
 
 ; Original data gap before EF9C7E_EBattle1MsgBtlYoiKaori:
@@ -6936,12 +6988,14 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$9D,$17,$8E,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52
 db $03,$10,$01,$02
 
+; EBATTLE1: row 79 immobilized/could-not-move row message.
 EF9CD1_EBattle1MsgBtlShibari:
 
 ; Original data gap before EF9CF1_EBattle1MsgBtlNeneki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$A0,$9C,$9F,$A9,$95,$94
 db $00,$50,$17,$33,$99,$9E,$94,$15,$4E,$15,$DB,$51,$03,$10,$01,$02
 
+; EBATTLE1: row 80 immobilized/could-not-move row message.
 EF9CF1_EBattle1MsgBtlNeneki:
 
 ; Original data gap before EF9D14_EBattle1MsgBtlHaemitu:
@@ -6949,6 +7003,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$99,$A4,$15,$93,$50,$15,$BC
 db $A3,$A4,$15,$FA,$A9,$50,$9D,$A5,$93,$A5,$A3,$51,$1F,$02,$51,$03
 db $10,$01,$02
 
+; EBATTLE1: row 81 immobilized/could-not-move row message.
 EF9D14_EBattle1MsgBtlHaemitu:
 
 ; Original data gap before EF9D3E_EBattle1MsgBtlOshiriIto:
@@ -6956,6 +7011,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $6C,$76,$15,$9D,$78,$17,$3E,$6E,$16,$2A,$9F,$96,$16,$D9,$9D,$16
 db $17,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
+; EBATTLE1: row 82 immobilized/could-not-move row message.
 EF9D3E_EBattle1MsgBtlOshiriIto:
 
 ; Original data gap before EF9D62_EBattle1MsgBtlKowaiKotoba:
@@ -6963,30 +7019,35 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$00,$50,$17,$F4,$99,$94
 db $15,$E0,$A3,$99,$9C,$9B,$16,$2A,$9F,$96,$15,$6C,$A3,$17,$47,$94
 db $A9,$51,$03,$02
 
+; EBATTLE1: row 83 solidification row message.
 EF9D62_EBattle1MsgBtlKowaiKotoba:
 
 ; Original data gap before EF9D81_EBattle1MsgBtlAyashiKoto:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$A2
 db $95,$15,$DD,$A3,$16,$EE,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
+; EBATTLE1: row 84 resist-checked strange-status row message.
 EF9D81_EBattle1MsgBtlAyashiKoto:
 
 ; Original data gap before EF9DA1_EBattle1MsgBtlFuuin:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$94,$00,$50,$15,$0A,$15,$ED
 db $50,$9D,$A9,$A3,$16,$06,$16,$81,$51,$1F,$02,$55,$03,$10,$01,$02
 
+; EBATTLE1: row 85 concentration/PSI-seal row message.
 EF9DA1_EBattle1MsgBtlFuuin:
 
 ; Original data gap before EF9DBD_EBattle1MsgBtlTachibaThink:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A2,$A5,$A0,$A4,$95,$94
 db $00,$50,$15,$0E,$A3,$17,$C7,$95,$A3,$51,$03,$02
 
+; EBATTLE1: row 86 direct strange-status sibling row message.
 EF9DBD_EBattle1MsgBtlTachibaThink:
 
 ; Original data gap before EF9DDA_EBattle1MsgBtlKogeppuIki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$99,$AA,$15
 db $1B,$A5,$A0,$16,$26,$99,$A4,$A5,$15,$5E,$51,$03,$02
 
+; EBATTLE1: row 87 all-target crying-family row message.
 EF9DDA_EBattle1MsgBtlKogeppuIki:
 
 ; Original data gap before EF9E05_EBattle1MsgBtlTyphoon:
@@ -7266,19 +7327,19 @@ db $91,$93,$95,$18,$05,$19,$06,$2F,$7F,$7B,$02
 
 EFA6A7_NameInputWindowSelectionLayout5:
 
-; Original data gap before EFA6EB_TextUnknown7EndBlockPayload:
+; Original data gap before EFA6EB_TextUnknown7EndBlockSentinel:
 db $18,$05,$00,$04,$2F,$73,$71,$80,$79,$84,$71,$7C,$18,$05,$07,$04
 db $2F,$A3,$9D,$91,$9C,$9C,$18,$05,$11,$06,$2F,$72,$91,$93,$9B,$A3
 db $A0,$91,$93,$95,$18,$05,$19,$06,$2F,$7F,$7B,$02,$60,$A4,$EF,$00
 db $E3,$A4,$EF,$00,$66,$A5,$EF,$00,$E9,$A5,$EF,$00,$6C,$A6,$EF,$00
 db $A7,$A6,$EF,$00
 
-EFA6EB_TextUnknown7EndBlockPayload:
+EFA6EB_TextUnknown7EndBlockSentinel:
 
-; Original data gap before EFA6EC_TextDebugUnknownMenu2:
+; Original data gap before EFA6EC_TextDebugMenuRuntimePayload:
 db $02
 
-EFA6EC_TextDebugUnknownMenu2:
+EFA6EC_TextDebugMenuRuntimePayload:
 
 ; Original data gap before EFC51B_EfTextPayloadDataEnd:
 db $18,$04,$1F,$15,$6A,$00,$63,$01,$01,$10,$01,$1F,$EF,$6A,$00,$1F

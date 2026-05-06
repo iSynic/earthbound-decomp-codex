@@ -191,3 +191,82 @@ This planning pass does not split EF source corridors or regenerate the bank.
   debug cursor spritemap pointer/entries, and residual bank padding.
 - 2026-05-05: EF debug font-palette follow-up split `EF:EF70..EFB7` into the
   unknown `EFEF70` include and the `DEBUG_FONT_PALETTE` payload.
+- 2026-05-06: EF battle-text payload naming follow-up tightened the source
+  anchor suffixes for C1/C2 consumer joins: `ActionAmount` for
+  `C1:DC66`/`$9D12/$9D14`/`1C 0F` scripts, `ByteSubstitution` for
+  `C1:DD7C`/`$9D11`/`19 1F` scripts, and `PointerSubstitution` for `19 1E`
+  branches. This was an EF-only label/comment pass over ROM-preserved text
+  bytes.
+- 2026-05-06: EF action-island consumer frontier follow-up added
+  `notes/ef-battle-text-action-island-consumer-frontier.md` and source comments
+  at the EBATTLE2, EBATTLE1-front, EBATTLE3, and EBATTLE1-tail action islands.
+  The handoff separates `C1:DD9F` row `+4` message pointers, row `+8` C2
+  behavior payloads, and direct `DC1C`/`DC66` result scripts.
+- 2026-05-06: EF row-message crosswalk follow-up added
+  `notes/ef-battle-text-row-message-crosswalk.md`, mapping source-backed
+  `D5:7B68` rows onto EF row-message anchors and the secondary result scripts
+  emitted by their C2 row `+8` behavior bodies.
+- 2026-05-06: EF row-message frontier follow-up tightened that crosswalk around
+  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows are
+  now listed as blocked on row `+4` EF pointer recovery rather than treated as
+  nameable action-message joins.
+- 2026-05-06: EF special-event row-message follow-up promoted the locally
+  proved row `243` and `244` joins into the same crosswalk, keeping their
+  `C1:DD9F` row presentation messages separate from the direct event-result
+  continuations emitted by their C2 behavior bodies.
+- 2026-05-06: EF healing/explosive row-message follow-up promoted rows `99`,
+  `101`, and `140` into the row-message crosswalk and marked C9 item/Final
+  Prayer row messages as non-EF presentation lanes that should not drive EF
+  anchor naming.
+- 2026-05-06: EF PSI-status row-message follow-up promoted rows `53` and `58`
+  into the crosswalk as shared `EF:8543` PSI presentation rows with separate
+  asleep/strange result payloads emitted by their C2 behavior bodies, and
+  extended the non-EF C9 item lane to later bomb-family rows `310` and `311`.
+  The same follow-up marks explosive rows `64` and `65` as behavior-known but
+  still blocked on exact row `+4` EF pointer recovery, and adds PSI-side Lifeup
+  rows `32..35` to the pointer-recovery frontier.
+- 2026-05-06: EF row-pointer recovery frontier follow-up added
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the exact
+  local blocker and recovery commands for remaining row `+4` joins before any
+  further EF action-anchor promotion.
+- 2026-05-06: EF consumer-lane contract follow-up added
+  `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
+  table for row presentation, direct result, amount, byte/pointer substitution,
+  and non-EF row-message lanes.
+- 2026-05-06: EF row-pointer recovery triage follow-up expanded
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md` with inspector
+  command coverage and output buckets for sorting recovered rows before EF
+  anchor promotion.
+- 2026-05-06: EF source-comment lane follow-up added byte-neutral comments at
+  the proved row-message anchors so the EF source distinguishes `DD9F`
+  presentation text from `DC1C` continuations and behavior-emitted result
+  payloads without requiring a notes lookup.
+- 2026-05-06: EF status-result source-comment follow-up added byte-neutral
+  comments at `EF:6B81..6C55` and `EF:766E` to keep C2 row `+8` `DC1C`
+  result emissions separate from row `+4` presentation messages in the source.
+- 2026-05-06: EF negative-guardrail source follow-up added byte-neutral
+  comments at Lifeup-looking and explosive-looking anchors so rows `32..35`
+  and `64/65` remain blocked on row `+4` pointer recovery rather than nearby
+  EF flavor text.
+- 2026-05-06: EF amount-result suffix follow-up renamed `EF:7755..77DB`
+  PP-loss and periodic damage anchors as `ActionAmount` scripts so their
+  `DC66`/`1C 0F` payload contract is visible in source.
+- 2026-05-06: EF level-up amount suffix follow-up renamed `EF:7A7D..7B46`
+  stat-gain anchors as `ActionAmount` scripts and clarified that C1 level-up
+  leaves stage their deltas through `C1:AD0A` before `1C 0F`.
+- 2026-05-06: EF byte-substitution suffix follow-up renamed the shield
+  PSI-name scripts `EF:70D2/70FA` and shared PSI row text `EF:8543` so their
+  `C1:DD7C -> $9D11 -> 19 1F` payload contract is visible at the source
+  anchor without changing the row-presentation lane model.
+- 2026-05-06: EF pointer-substitution suffix follow-up normalized the
+  `EF:7B85/7BA2/7BC1` branch anchors so the lane noun leads the label, and
+  documented that the adjacent `EF:7B83/7BA0/7BBF` anchors are branch-state
+  separators rather than parsed `19 1E` consumer sites.
+- 2026-05-06: EF status-result label follow-up renamed the proved direct
+  `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
+  `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row
+  `+4` presentation anchors.
+- 2026-05-06: EF recovery/removal result label follow-up renamed
+  `EF:6E4A..6F64` cleanup scripts with `RecoveryResultText` or
+  `RemovalResultText` so the C2 affliction-recovery direct-result lane is
+  visible in source.

@@ -9,10 +9,38 @@ Primary source module:
 
 - `src/ef/ef_4e20_c51b_text_payload_data.asm`
 
+Action-island follow-up:
+
+- `notes/ef-battle-text-consumer-lane-contracts.md`
+- `notes/ef-battle-text-action-island-consumer-frontier.md`
+- `notes/ef-battle-text-row-message-crosswalk.md`
+- `notes/ef-battle-text-row-pointer-recovery-frontier.md`
+
 The module is still ROM-preserved text data, not decoded text macro source. The
 new labels are zero-byte scaffold anchors that split the coarse
 `EF:4E20..C51B` data gap around battle-text scripts already proved by C1/C2
 callers.
+
+## Payload Naming Contract
+
+The EF source comments now separate the three battle-text payload lanes that
+C1/C2 callers depend on:
+
+- `ActionAmount` anchors are EF scripts that consume a staged `$9D12/$9D14`
+  amount payload through `PRINT_ACTION_AMOUNT (1C 0F)`. C2 action/result paths
+  usually stage that payload through `C1:DC66 -> C1:AD0A`; C1 level-up
+  narration stages the same slot through `C1:AD0A` before dispatching its fixed
+  EF scripts. Callers should keep the staged value type explicit, such as delta
+  HP, delta PP, offense, defense, drained HP, drained PP, or stat gain.
+- `ByteSubstitution` anchors are EF scripts that consume the `C1:DD7C` byte
+  slot through `LOAD_BYTE_SUBSTITUTION (19 1F)`, including learned-PSI and
+  Present/Check Present item-name text.
+- `PointerSubstitution` anchors are EF branches that consume the staged pointer
+  payload through `LOAD_POINTER_SUBSTITUTION (19 1E)`.
+
+These are label/comment-only source anchors over ROM-preserved EB text
+bytecode. They do not change payload bytes or convert the scripts to text
+macros.
 
 ## Promoted Payload Anchors
 
@@ -20,35 +48,35 @@ callers.
   `EEXPLPSI` PSI explanation scripts, the `E16DKFD` Dungeon Man/Deep Darkness
   payloads, and the `E07GPFT` Grapefruit Falls/Threed payloads before EBATTLE5.
 - `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
-  and PP recovered amount text. The two amount scripts are consumed through
-  `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
+  and PP recovered amount text. The two `ActionAmount` scripts are consumed
+  through `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:69EA` and `EF:69FF` now mark the Spy offense and defense amount
-  readouts. Both scripts are `1C 0F` amount consumers reached through the C2
+  readouts. Both scripts are `ActionAmount` consumers reached through the C2
   Spy setup and the `C1:DC66` amount-print contract.
 - `EF:6A0D`, `EF:6A24`, `EF:6A3C`, `EF:6A54`, `EF:6A6C`, and `EF:6A7F`
   now mark the Spy vulnerability/susceptibility direct readout text for fire,
   freeze, flash, paralysis, hypnosis, and Brain Shock. C2 gates these direct
   scripts from battler resistance bytes before issuing the `DC1C` display call.
 - `EF:6A99` and `EF:6AB3` now mark metamorphose success/failure text used by
-  the C2 normalization tail. `EF:6AC7` now marks the diamondized inflicted
-  text adjacent to the existing paralysis/status payload split.
+  the C2 normalization tail. `EF:6AC7` now marks the diamondized
+  `StatusResultText` adjacent to the existing paralysis/status payload split.
 - `EF:6AE0`, `EF:6B18`, `EF:6BEF`, `EF:6C3A`, and `EF:6C55` now mark
-  paralysis, poison, solidification, strange, and asleep inflicted text. The EF
-  decode shows `EF:6AE0` as the body-numb/paralysis message used by
-  `BTLACT_PARALYSIS_A`, while actual poison remains the separate `EF:6B18`
-  script used by the item/status cluster.
+  paralysis, poison, solidification, strange, and asleep `StatusResultText`
+  anchors. The EF decode shows `EF:6AE0` as the body-numb/paralysis message
+  used by `BTLACT_PARALYSIS_A`, while actual poison remains the separate
+  `EF:6B18` script used by the item/status cluster.
 - `EF:6AFB..6C0B` is now split around the adjacent sick/cold/mushroomized,
-  possessed, crying, immobilized, solidification, and PSI-seal status payloads
-  instead of one broad affliction corridor.
+  possessed, crying, immobilized, solidification, and PSI-seal
+  `StatusResultText` payloads instead of one broad affliction corridor.
 - `EF:6C6B..6E31` now splits the post-status EBATTLE5 death-result corridor:
   player collapse, Flying Man/teddy-bear NPC death payloads, and enemy defeat
   flavor text now have source anchors instead of one anonymous status tail.
 - `EF:6E4A`, `EF:6E67`, `EF:6E81`, `EF:6E97`, `EF:6EBC`, `EF:6ED1`,
   `EF:6EED`, `EF:6F0B`, `EF:6F1E`, `EF:6F38`, `EF:6F54`, and `EF:6F64`
-  now mark the EBATTLE5 recovery/removal scripts for diamondized, paralysis,
-  nausea, poison, cold, crying, immobilized, frozen, strange, sunstroke,
-  asleep, and PSI-seal states. These line up with the C2 affliction-recovery
-  helper families.
+  now mark the EBATTLE5 `RecoveryResultText`/`RemovalResultText` scripts for
+  diamondized, paralysis, nausea, poison, cold, crying, immobilized, frozen,
+  strange, sunstroke, asleep, and PSI-seal states. These line up with the C2
+  affliction-recovery helper families.
 - `EF:6F7C` and `EF:6F8E` now mark revive success/failure text immediately
   before the shield-result block.
 - `EF:6F9A/6FBD`, `EF:6FD3/6FF4`, `EF:700C/7032`, and `EF:7050/707A`
@@ -56,8 +84,8 @@ callers.
   psychic shield, and psychic power shield.
 - `EF:7099`, `EF:70B1`, `EF:70D2`, `EF:70FA`, `EF:7123`, `EF:7142`, and
   `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
-  shield-nullify, Neutralizer, and Franklin Badge text tail used by C2 timed
-  substate and Thunder reflection helpers.
+  shield `ByteSubstitution`, Neutralizer, and Franklin Badge text tail used by
+  C2 timed substate and Thunder reflection helpers.
 - `EF:7186..7249` now splits EBATTLE4 action-blocking status text for
   diamondized, paralysis, nausea, poison, asleep, immobilized, and PSI-seal
   turns, including the PSI-seal player-side sound branch and `19 1F` byte
@@ -66,8 +94,8 @@ callers.
   Runaway Five, Poo/Starstorm, Pokey, and companion event text before the
   central damage block.
 - `EF:75AB`, `EF:75C2`, `EF:75D9`, `EF:75F0`, and `EF:7607` now mark the
-  amount-bearing damage and SMAAAASH damage scripts selected by the C2
-  hit-resolution cluster. These are `1C 0F` amount consumers.
+  `ActionAmount` damage and SMAAAASH damage scripts selected by the C2
+  hit-resolution cluster. These consume staged HP damage through `1C 0F`.
 - `EF:7624`, `EF:7630`, `EF:763C`, and `EF:7655` now mark the player/monster
   SMAAAASH presentation scripts and shooting/physical dodge scripts used by the
   same C2 hit-resolution lane.
@@ -76,9 +104,11 @@ callers.
   consumer.
 - `EF:76B3`, `EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, and `EF:7729`
   now split the adjacent EBATTLE4 no-effect/miss/target-gone/HP-sucker text
-  tail. `EF:7729` is an HP-sucker `1C 0F` amount consumer.
+  tail. `EF:7729` is an HP-sucker `ActionAmount` consumer.
 - `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and `EF:77DB` now split the
-  target-side PP drain and periodic status damage text before EBATTLE8.
+  target-side PP drain and periodic status damage text before EBATTLE8. These
+  are now named as `ActionAmount` consumers because their scripts read the
+  `C1:DC66` secondary payload through `1C 0F`.
 - `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
   call-for-help result scripts selected by the C2 reinforcement prefix/body:
   ordinary success, seed/sprout success, ordinary failure, and seed/sprout
@@ -93,12 +123,17 @@ callers.
 - `EF:79D7..7A66` now splits ordinary/boss/forced player victory,
   monster-victory, homesick, and experience-gain text.
 - `EF:7A66..7B64` now splits the level-up and stat-gain amount text consumed
-  by the C1 level-up stat narration family.
+  by the C1 level-up stat narration family. The stat-gain anchors are now
+  named as `ActionAmount` consumers because C1 stages their deltas through
+  `C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:7B64` now marks the learned-PSI lead-in that falls through to the
   existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
-  substitution for present item names and `19 1E` pointer substitution branches.
+  substitution for PSI/item names and `19 1E` pointer substitution branches.
+  The `EF:7B85/7BA2/7BC1` branch labels now keep the lane noun first
+  (`PointerSubstitutionSweet/Tears/OhBabyBranch`), while `EF:7B83/7BA0/7BBF`
+  remain the small branch-state separators around those consumers.
 - `EF:7C42`, `EF:7C73`, `EF:7C89`, `EF:7CB4`, `EF:7CED`, `EF:7CF8`,
   `EF:7D0F`, `EF:7D83`, and `EF:7DBE` now split the `MSG_BTL_PRESENT`
   result continuation into dead-recipient, full-inventory, abandon, drop, and
@@ -195,6 +230,11 @@ sunstroke, asleep, and PSI-seal cleanup. Splitting the wider `EF:6C6B..6F9A`
 island also exposes the adjacent player/NPC/enemy death-result payloads and the
 revive success/failure scripts that sit before the shield-result block.
 
+The source labels now make the cleanup lane explicit: `EF:6E4A..6F64` are
+`RecoveryResultText` or `RemovalResultText` anchors, the direct-result mirror of
+the earlier `StatusResultText` infliction island. They are C2 cleanup helper
+emissions, not row `+4` presentation messages.
+
 ## Present Result Follow-up
 
 The C2 battle-start and Check Present notes already prove the `$AA10 ->
@@ -215,15 +255,29 @@ stable anchors until a C2 action-table consumer pass proves narrower runtime
 roles. The result is still useful immediately because the large pre-start-battle
 blob no longer hides dozens of direct battle-text payload targets.
 
+The current consumer frontier keeps this island as a row-message candidate set
+for `D5:7B68` row `+4` pointers. Locally proved rows include `100 -> EF:7EAC`,
+`102 -> EF:7F02`, `104 -> EF:7F32`, `117 -> EF:80C4`, and `118 -> EF:80E4`;
+the rest should stay exact `MSG_BTL_*` anchors until row `+8` behavior bodies
+are joined.
+
 ## EBATTLE1 Battle Command Front Follow-up
 
 The first slice of `EF:848C..C51B` is now split through `EF:8814`. This is the
 runtime-facing battle-command front already tied to the C2 action table notes:
 `EF:848C` is the Bash/attack text pointer for the table's ordinary attack
 entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
-text pointer reused by many PSI-shaped action rows. The `EF:857E` dispatch and
-`EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
-have stable anchors for later PSI animation/effect consumer work.
+`ByteSubstitution` text pointer reused by many PSI-shaped action rows. The
+`EF:857E` dispatch and `EF:864C..8813` branches remain ROM-preserved
+text/effect bytecode, but now have stable anchors for later PSI
+animation/effect consumer work.
+
+The row-message consumer split is now explicit: `C2:5C66` selects the
+`D5:7B68` row `+4` message pointer and displays it through `C1:DD9F`, while
+the row `+8` behavior pointer is a separate C2 action payload. The shared
+`EF:8543` PSI row message still belongs to that `DD9F` row-presentation lane;
+its `ByteSubstitution` suffix only records that the displayed script consumes
+the `C1:DD7C -> $9D11 -> 19 1F` PSI-name byte.
 
 ## Thunder, Effect, And Pray Follow-up
 
@@ -246,6 +300,10 @@ scripts, and the late lightning/Giygas-flavor scripts. The split keeps the
 runtime payloads visible for a later C2 action-table consumer pass while still
 leaving the EB text bytecode ROM-preserved.
 
+No row-specific C2 consumer has been promoted for this island yet, so its labels
+should remain exact `MSG_BTL_*` anchors rather than gameplay-facing action
+names.
+
 ## EBATTLE9 Field-Monster And Graveyard Follow-up
 
 The `EF:8FAD..9A47` EBATTLE9 include is now split as a coherent field-facing
@@ -265,6 +323,97 @@ and goods-use branches, Time Stop and enemy gaze/wave/breath/status-flavor
 messages, coffee/music/discharge/lightning/fire payloads, and the final
 `MSG_BTL_FIRE_BREATH` anchor before the next `EGOODS2` include. These are
 conservative symbol-derived anchors for later C2 action-table consumer work.
+
+The first strong local row-message join in this tail is action-table row `85 ->
+EF:9DA1`, whose row `+8` body applies concentration/PSI seal and then emits
+`EF:6C0B` or fallback `EF:766E`. That keeps row-message text separate from the
+secondary result scripts emitted by the behavior body.
+
+The follow-up row-message crosswalk now expands this tail into the
+source-backed late affliction rows: persistent status rows `75..76`,
+temporary-status rows `78..87`, asleep row `90`, and the item-side
+concentration row `159` in EBATTLE3. These remain exact action-message anchors;
+their success/failure result scripts stay separately named.
+
+The crosswalk also records a stricter unresolved frontier: numeric-effect rows
+and no-op/flavor rows may have well-understood C2 row `+8` behavior bodies, but
+they should not drive EF row-message renames until their row `+4` EF pointers
+are locally recovered. This keeps `C1:DD9F` presentation text separate from
+`DC1C`/`DC66` result text and avoids overclaiming from behavior-only evidence.
+
+The special-event rows `243` and `244` are now joined in that crosswalk as
+proved EF row-message entries: `243 -> EF:72F6 -> C2:9298` and
+`244 -> EF:7415 -> C2:92EE`. Their behavior bodies then emit the already split
+continuations at `EF:72F7`, `EF:733D`, and `EF:743B`, so the row presentation
+and event-result text stay separate.
+
+The same crosswalk now pulls in the neighboring healing and explosive row
+messages that local C2 notes already prove: row `99 -> EF:7E88`, row
+`101 -> EF:7ED5`, and row `140 -> EF:8E27`. It also records the non-EF
+row-message lanes for C9 item wrappers and Final Prayer so EF anchor work does
+not accidentally claim presentation text that lives in another bank.
+
+It also calls out the PSI-side status rows `53` and `58`, which reuse the
+shared `EF:8543` PSI `ByteSubstitution` action text while their row `+8`
+bodies emit asleep and strange status-result scripts. This keeps shared PSI
+presentation text distinct from the later `EF:6C55` and `EF:6C3A`
+direct-result payloads.
+
+The non-EF row-message table also includes the later C9 bomb-family item rows
+`167`, `168`, `310`, and `311`, keeping those item presentation wrappers out
+of EF action-anchor naming while preserving their C2 behavior-body joins.
+
+Rows `64` and `65` are now called out as behavior-known explosive rows whose
+row `+4` EF message pointers are still unrecovered locally. Nearby EF explosive
+text at `EF:9A7E` and `EF:9A9E` remains candidate flavor evidence, not a
+proved action-row join.
+
+The same evidence-boundary section now covers PSI-side Lifeup rows `32..35`.
+Their C2 healing wrappers and HP recovery result lanes are documented, but their
+row `+4` action-presentation pointers still need local recovery before EF can
+claim exact row-message anchors.
+
+The row-pointer recovery frontier now captures the local blocker explicitly:
+the D5 action table source is a preserved data gap, the ROM-backed inspector has
+no ROM in this checkout, and the older `eb-decompile-4ef92` table reference is
+not present here. That keeps the next EF pass focused on recovering row
+pointers rather than renaming from behavior-only evidence.
+
+The consumer-lane contract note now gives the compact decision table for these
+joins: `DD9F` row presentation, `DC1C` direct results, `DC66` amount payloads,
+`DD7C` byte substitution, pointer substitution, and non-EF C7/C8/C9
+row-message lanes.
+
+The EF source comments now carry the strongest row-message lane joins directly
+at their anchors: special-event row presentation versus continuations
+(`EF:72F6`, `EF:72F7`, `EF:733D`, `EF:7415`, `EF:743B`), healing/explosive row
+messages (`EF:7E88`, `EF:7ED5`), shared PSI `ByteSubstitution` presentation
+(`EF:8543`), reused named-item/normalization presentation (`EF:8E27`), row
+`290` event presentation (`EF:8DDE`), and the late status row-message cluster
+in `EF:9C51..9DDA`.
+
+The adjacent direct-result comments now also mark the status/no-effect islands
+that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
+presentation lane: `EF:6B81..6C55` for status-result text and `EF:766E` for
+the shared no-effect fallback. The source labels now carry the
+`StatusResultText` suffix across the proved EBATTLE5 status island
+(`EF:6AC7..6C55`) and the shared EBATTLE4 no-effect fallback (`EF:766E`).
+
+The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
+and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and
+`EF:77DB` are `ActionAmount` result scripts, not row-message anchors.
+
+The EBATTLE8 level-up gain island now also carries `ActionAmount` suffixes for
+`EF:7A7D..7B46`. These are C1 level-up narration consumers rather than C2
+action-row result emissions, but they read the same staged amount slot through
+`1C 0F`.
+
+The EF source now also carries negative guardrails at the most tempting
+behavior-only anchors: Lifeup explanation text `EF:5173..51BB`,
+enemy-action Lifeup flavor `EF:8D4C`, and explosive candidates
+`EF:9A7E/9A9E`. These comments preserve the current frontier: rows `32..35`
+and `64/65` need row `+4` pointer recovery before those nearby EF scripts can
+be treated as action-row presentation joins.
 
 ## EGOODS2 Item-Use Follow-up
 
@@ -307,11 +456,17 @@ sound-menu option/version strings before the late debug/menu code begins.
 
 ## Validation
 
-This slice should validate both touched banks:
+For an EF-only label/comment pass, validate the EF scaffold and byte
+equivalence:
 
 ```powershell
 python tools\build_source_bank_scaffold.py --bank EF
 python tools\validate_source_bank_byte_equivalence.py --bank EF --module all --combined --scaffold src\ef\bank_ef_helpers_asar.asm --strict
+```
+
+If a follow-up also edits C2 consumers, validate C2 as well:
+
+```powershell
 python tools\build_source_bank_scaffold.py --bank C2
 python tools\validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src\c2\bank_c2_helpers_asar.asm --strict
 ```
