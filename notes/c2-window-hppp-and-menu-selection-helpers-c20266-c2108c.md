@@ -40,6 +40,20 @@ The useful split is:
 
 The community RAM map names `008650-0088DF` as the window statistics table, `0088E4-008957` as the window existence table, `008958` as the current focused window, `0098A4` as the number of player-controlled party members, and `0099CE-009C07` as the character stats table.
 
+## Global Window Reset Prelude
+
+`C2:00D1..00D8` is the small coordinate/config header immediately before the
+callable reset routine at `C2:00D9`. The reset body clears the open-window
+chain, window-record index table, title-upload slot table, HP/PP tilemap
+backing rows, text-entry records, scratch tile rows, text display/sound
+latches, and current focus id, then reloads the menu/name-entry mask table
+through `C4:3F53` into the `$1AD6` text-tile bitset area.
+
+Follow-up source polish now names those structural tables directly in
+`src/c2/c2_00d1_window_reset_initial_coordinate_data.asm`, keeping this
+front-door reset path aligned with the later HP/PP, menu-selection, and C4
+text-window helper notes.
+
 ## Tiny title/name buffer helpers
 
 `C2:0266` copies four 16-bit words from `C3:E40E` into `$8272`. In the ROM bytes those words are `$3A69,$3A6A,$3A6B,$3A6C`, a compact tile-id/attribute run. `C2:0293` clears the same four-word destination. The direct callers match that interpretation: `C2:0266` is reached from `C2:39B4`, while `C2:0293` is called by battle text setup/cleanup paths at `C1:DC46`, `C1:DC98`, and `C2:6175`.
@@ -145,6 +159,10 @@ battle-presentation callers:
 - `C2:DB3F` and `C2:E0E7` now call `C2:07E1` and `C2:07B6` by their HP/PP
   window roles while naming `$ADA4/$ADA6` as the HP/PP box blink
   duration/target pair.
+- `C2:00D9` now names the global window/text reset table contracts, including
+  the `$88E0/$88E2` open-window chain, `$88E4/$8650` window-record map,
+  `$894E` title-upload slots, `$89D4` text-entry records, `$8958` focus id,
+  and the `C4:3F53` `$1AD6` mask-table reload.
 
 ## Working Names
 

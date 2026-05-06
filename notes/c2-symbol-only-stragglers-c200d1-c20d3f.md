@@ -27,6 +27,16 @@ Observed local data around `C2:00D1`:
 
 Given the surrounding reset routine clears `$89C9`, `$89CA..$89D2`, `$9622..$9624`, `$9641`, the open-window chain at `$88E0/$88E2`, and several window/status tables, this symbol is best treated as a small coordinate/config data tail owned by the global window/text reset block rather than a callable routine.
 
+Source polish:
+
+- 2026-05-06: `src/c2/c2_00d1_window_reset_initial_coordinate_data.asm`
+  now names the main structural reset contracts: the `$88E0/$88E2` open-window
+  chain, `$88E4` window-record index table, `$8650` window-record base and
+  `0x52` stride, `$894E` title-upload slot table, `$89D4` text-entry record
+  base and `0x2D` stride, `$8958` current focus id, HP/PP tilemap clear range,
+  text display/sound latches, and the C4 `$1AD6` mask-table reload helper
+  `C4:3F53`.
+
 ## `C2:0D3F` - split a value into three decimal digits
 
 Suggested working name: `SplitValueIntoThreeDecimalDigitsAt8966`

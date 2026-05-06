@@ -13,6 +13,30 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C43F53_LoadMenuNameEntryMaskTableTo1ad6 = $C43F53
+
+NoWindowOrSlot                 = $FFFF
+WindowRecordBase               = $8650
+WindowRecordIndexStride        = $0052
+WindowRecordIndexTable         = $88E4
+WindowRecordCount              = $0008
+WindowRecordTableSlots         = $0035
+WindowRecordTextEntryHead      = $002B
+OpenWindowListHead             = $88E0
+OpenWindowListTail             = $88E2
+CurrentFocusedWindowId         = $8958
+TextEntryRecordBase            = $89D4
+TextEntryRecordStride          = $002D
+TextEntryRecordCount           = $0046
+WindowTitleUploadSlotTable     = $894E
+WindowTitleUploadSlotCount     = $0005
+HpPpWindowTilemapBase          = $7DFE
+HpPpWindowTilemapClearWords    = $0380
+TileScratchRowsBase            = $9D23
+TileScratchRowCount            = $0008
+TileScratchRowLengthBytes      = $0020
+TextDisplayModeLatch           = $964D
+TextSoundEnabledFlag           = $964F
 
 ; ---------------------------------------------------------------------------
 ; C2:00D1
@@ -32,7 +56,7 @@ C200D9_WindowResetInitialCoordinateData:
     sep #$20
     stz $89C9
     rep #$20
-    lda.w #$FFFF
+    lda.w #NoWindowOrSlot
     sta $89D2
     sta $89D0
     sta $89CE
@@ -46,23 +70,23 @@ C200D9_WindowResetInitialCoordinateData:
     sep #$20
     stz $9624
     rep #$20
-    lda.w #$FFFF
-    sta $88E0
-    sta $88E2
+    lda.w #NoWindowOrSlot
+    sta OpenWindowListHead
+    sta OpenWindowListTail
     lda.w #$0000
     sta $10
     bra C20131_WindowResetInitialCoordinateData_L0131
 C2011E_WindowResetInitialCoordinateData_L011E:
-    ldy.w #$0052
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda.w #$FFFF
+    lda.w #NoWindowOrSlot
     sta $8654,X
     lda $10
     inc A
     sta $10
 C20131_WindowResetInitialCoordinateData_L0131:
-    cmp.w #$0008
+    cmp.w #WindowRecordCount
     bne C2011E_WindowResetInitialCoordinateData_L011E
     lda.w #$0000
     sta $10
@@ -70,13 +94,13 @@ C20131_WindowResetInitialCoordinateData_L0131:
 C2013D_WindowResetInitialCoordinateData_L013D:
     asl A
     tax
-    lda.w #$FFFF
-    sta $88E4,X
+    lda.w #NoWindowOrSlot
+    sta WindowRecordIndexTable,X
     lda $10
     inc A
     sta $10
 C2014A_WindowResetInitialCoordinateData_L014A:
-    cmp.w #$0035
+    cmp.w #WindowRecordTableSlots
     bne C2013D_WindowResetInitialCoordinateData_L013D
     lda.w #$0000
     sta $10
@@ -84,19 +108,19 @@ C2014A_WindowResetInitialCoordinateData_L014A:
 C20156_WindowResetInitialCoordinateData_L0156:
     asl A
     tax
-    lda.w #$FFFF
-    sta $894E,X
+    lda.w #NoWindowOrSlot
+    sta WindowTitleUploadSlotTable,X
     lda $10
     inc A
     sta $10
 C20163_WindowResetInitialCoordinateData_L0163:
-    cmp.w #$0005
+    cmp.w #WindowTitleUploadSlotCount
     bne C20156_WindowResetInitialCoordinateData_L0156
-    lda.w #$FFFF
+    lda.w #NoWindowOrSlot
     sta $5E7A
     sta $5E7C
-    ldy.w #$7DFE
-    ldx.w #$0380
+    ldy.w #HpPpWindowTilemapBase
+    ldx.w #HpPpWindowTilemapClearWords
     bra C20182_WindowResetInitialCoordinateData_L0182
 C20179_WindowResetInitialCoordinateData_L0179:
     lda.w #$0000
@@ -110,15 +134,15 @@ C20182_WindowResetInitialCoordinateData_L0182:
     sta $10
     bra C2019B_WindowResetInitialCoordinateData_L019B
 C2018B_WindowResetInitialCoordinateData_L018B:
-    ldy.w #$002D
+    ldy.w #TextEntryRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    stz $89D4,X
+    stz TextEntryRecordBase,X
     lda $10
     inc A
     sta $10
 C2019B_WindowResetInitialCoordinateData_L019B:
-    cmp.w #$0046
+    cmp.w #TextEntryRecordCount
     bne C2018B_WindowResetInitialCoordinateData_L018B
     lda.w #$0000
     sta $0E
@@ -141,35 +165,35 @@ C201AE_WindowResetInitialCoordinateData_L01AE:
     tax
     sep #$20
     lda.b #$FF
-    sta $9D23,X
+    sta TileScratchRowsBase,X
     ldx $10
     inx
     stx $10
 C201C9_WindowResetInitialCoordinateData_L01C9:
-    cpx.w #$0020
+    cpx.w #TileScratchRowLengthBytes
     bcc C201AE_WindowResetInitialCoordinateData_L01AE
     rep #$20
     lda $0E
     inc A
     sta $0E
 C201D5_WindowResetInitialCoordinateData_L01D5:
-    cmp.w #$0008
+    cmp.w #TileScratchRowCount
     bcc C201A7_WindowResetInitialCoordinateData_L01A7
     stz $9E29
     stz $9E27
     stz $9E25
     stz $9E23
-    stz $964D
+    stz TextDisplayModeLatch
     lda.w #$0001
-    sta $964F
+    sta TextSoundEnabledFlag
     stz $9643
     stz $9645
-    lda.w #$FFFF
-    sta $8958
+    lda.w #NoWindowOrSlot
+    sta CurrentFocusedWindowId
     sep #$20
     lda.b #$01
     sta $5E6D
-    jsl $C43F53
+    jsl C43F53_LoadMenuNameEntryMaskTableTo1ad6
     sep #$20
     lda.b #$FF
     sta $9651
@@ -180,20 +204,20 @@ C201D5_WindowResetInitialCoordinateData_L01D5:
     stz $5E70
     stz $5E75
     rep #$20
-    lda $8958
+    lda CurrentFocusedWindowId
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda WindowRecordIndexTable,X
+    ldy.w #WindowRecordIndexStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$8650
+    adc.w #WindowRecordBase
     tax
-    lda $002B,X
-    ldy.w #$002D
+    lda WindowRecordTextEntryHead,X
+    ldy.w #TextEntryRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #TextEntryRecordBase
     tax
     sep #$20
     stz $5E71

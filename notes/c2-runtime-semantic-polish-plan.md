@@ -437,6 +437,13 @@ contract notes for C0/C1/C3/C4 consumers.
   See `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`,
   `notes/c2-battle-bg-load-update-runtime-polish.md`, and
   `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`.
+- 2026-05-06 sixty-third slice: moved to the front-door C2 window/text reset
+  initializer at `C2:00D1/00D9`. The source now names the open-window chain,
+  window-record index/base/stride, text-entry record base/stride, title-upload
+  slot table, current focus id, HP/PP tilemap clear range, text display/sound
+  latches, and the `C4:3F53` menu/name-entry mask-table reload into `$1AD6`.
+  See `notes/c2-symbol-only-stragglers-c200d1-c20d3f.md` and
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
 
 ## Validation
 
