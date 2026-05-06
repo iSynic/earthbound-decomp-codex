@@ -142,6 +142,49 @@ def make_text_window_properties_table() -> bytes:
     return bytes(data)
 
 
+def make_town_map_icon_table() -> bytes:
+    data = bytearray(894)
+
+    descriptor_starts = [index * 5 for index in range(22)]
+    for list_index, start in enumerate(descriptor_starts):
+        data[start] = (list_index * 2) & 0x7F
+        data[start + 1 : start + 3] = (0x2000 + list_index).to_bytes(2, "little")
+        data[start + 3] = (list_index * 3) & 0x7F
+        data[start + 4] = 0x81 if list_index % 2 else 0x80
+
+    icon_pointer_offset = 0x0249
+    for icon_id in range(23):
+        descriptor_start = descriptor_starts[icon_id if icon_id < 22 else 0]
+        pointer = 0xF203 + descriptor_start
+        cursor = icon_pointer_offset + icon_id * 2
+        data[cursor : cursor + 2] = pointer.to_bytes(2, "little")
+
+    blink_offset = 0x0277
+    for icon_id in range(23):
+        data[blink_offset + icon_id] = 1 if icon_id < 16 else 0
+
+    placement_pointer_offset = 0x028E
+    placement_targets = [0xF4A9, 0xF4CD, 0xF4F6, 0xF524, 0xF548, 0xF562]
+    placement_counts = [7, 8, 9, 7, 5, 6]
+    for town_map_index, target in enumerate(placement_targets):
+        cursor = placement_pointer_offset + town_map_index * 4
+        data[cursor : cursor + 2] = target.to_bytes(2, "little")
+        data[cursor + 2] = 0xE1
+        data[cursor + 3] = 0
+
+        list_cursor = target - 0xF203
+        for record_index in range(placement_counts[town_map_index]):
+            data[list_cursor] = 8 + record_index
+            data[list_cursor + 1] = 16 + town_map_index
+            data[list_cursor + 2] = record_index % 23
+            event_flag = (0x8000 if record_index % 2 else 0) | (0x100 + town_map_index * 16 + record_index)
+            data[list_cursor + 3 : list_cursor + 5] = event_flag.to_bytes(2, "little")
+            list_cursor += 5
+        data[list_cursor] = 0xFF
+
+    return bytes(data)
+
+
 def synthetic_rom(palette: bytes, graphics: bytes) -> bytes:
     rom = bytearray(ROM_SIZE)
     palette_offset = 0x1000
@@ -538,6 +581,23 @@ def output_cases() -> list[dict[str, Any]]:
                 "palette_block_count": 7,
                 "palette_row_count": 57,
                 "town_map_pointer_count": 6,
+            },
+        },
+        {
+            "id": "town-map-icon-table",
+            "data": make_town_map_icon_table(),
+            "spec": {
+                "kind": "town_map_icon_table_json",
+                "path": "town_map_icons.json",
+                "icon_count": 23,
+                "town_map_count": 6,
+            },
+            "expected_metadata": {
+                "icon_count": 23,
+                "unique_descriptor_list_count": 22,
+                "descriptor_record_count": 117,
+                "blink_suppress_count": 16,
+                "placement_record_count": 42,
             },
         },
         {

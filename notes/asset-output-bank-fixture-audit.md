@@ -41,4 +41,4 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `DE` | `ok` | 16 | `decoder_only` 11, `renderer` 5 | `asset.de.map_data_tile_animation_gfx_15` | `earthbound_lzhal_snes_4bpp_tiles_png` | `de/maps/anim_gfx/15_4bpp_preview.png` |
 | `DF` | `ok` | 36 | `decoder_only` 21, `renderer` 15 | `asset.df.map_data_tile_animation_gfx_0` | `earthbound_lzhal_snes_4bpp_tiles_png` | `df/maps/anim_gfx/0_4bpp_preview.png` |
 | `E0` | `ok` | 14 | `decoder_only` 11, `renderer` 3 | `asset.e0.mother2_romaji_font` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
-| `E1` | `ok` | 76 | `decoder_only` 48, `renderer` 28 | `asset.e1.ape_graphics` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e1/intro/logos/ape_4bpp_preview.png` |
+| `E1` | `ok` | 77 | `decoder_only` 49, `renderer` 28 | `asset.e1.ape_graphics` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e1/intro/logos/ape_4bpp_preview.png` |

@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `29`
+- synthetic cases: `30`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `28`
+- output kinds covered: `29`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -36,6 +36,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `animation-sequence-pointer-table` | `animation_sequence_pointer_table_json` | 1679 | `row_count` | `distinct_pointer_banks`, `max_parameter_byte`, `nonnull_pointer_count`, `row_count` |
 | `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `text-window-properties-table` | `text_window_properties_table_json` | 61564 | `palette_block_count`, `selector_count`, `town_map_pointer_count` | `palette_block_count`, `palette_row_count`, `selector_count`, `town_map_pointer_count` |
+| `town-map-icon-table` | `town_map_icon_table_json` | 43218 | `icon_count`, `town_map_count` | `blink_suppress_count`, `descriptor_record_count`, `icon_count`, `placement_record_count`, `unique_descriptor_list_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |
 | `snes-4bpp-tiles` | `snes_4bpp_tiles_png` | 114 | `columns` | `height`, `tiles`, `width` |

@@ -33,12 +33,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 - manifests: `38`
 - assets/tables/gaps represented: `2219`
 - source bytes represented by manifests: `2490368`
-- output recipes: `6332`
+- output recipes: `6333`
 - assets with preview/swatch recipes: `1720`
-- assets with decoder recipes beyond raw extraction: `1991`
+- assets with decoder recipes beyond raw extraction: `1992`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `23`
-- smoke fixture links from manifests: `114`
+- smoke fixture links from manifests: `116`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
@@ -96,7 +96,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 - proof: raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title scene splits, E1 title palette animation and title-letter OAM table decoding, E1 landing/cast visual runtime-owner splits, and an E0 SRAM save-block template contract
 - checked docs: `notes/ui-font-town-map-asset-contracts.md`, `notes/text-window-skin-bundle-contracts.md`, `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/title-screen-palette-animation-contracts.md`, `notes/title-screen-letter-oam-contracts.md`, `notes/landing-cast-visual-contracts.md`, `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`, `notes/bank-e1-asset-data-map.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`, `notes/your-sanctuary-location-coordinate-table-c4de78.md`
 - category mix: `graphics` 41, `binary-asset` 13, `raw-table` 10, `audio` 3, +1 more
-- output recipe mix: `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, +7 more
+- output recipe mix: `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, +8 more
 
 ### Audio packs
 
@@ -141,7 +141,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `DE` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 13 | 65536 | 29 | `graphics` 11, `audio` 1, `raw-gap` 1 | `raw` 13, `earthbound_lzhal` 11, `earthbound_lzhal_snes_4bpp_tiles_png` 5 | 44 | 0 |
 | `DF` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 24 | 65536 | 60 | `graphics` 21, `audio` 1, `raw-gap` 1, +1 more | `raw` 24, `earthbound_lzhal` 21, `earthbound_lzhal_snes_4bpp_tiles_png` 15 | 18 | 0 |
 | `E0` | `ui_font_town_map_assets` | `contract-seeded` | 16 | 65536 | 30 | `binary-asset` 8, `graphics` 4, `audio` 2, +2 more | `raw` 16, `earthbound_lzhal` 9, `earthbound_lzhal_snes_4bpp_tiles_png` 1, +4 more | 77 | 0 |
-| `E1` | `ui_font_town_map_assets` | `contract-seeded` | 53 | 65536 | 129 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +6 more | 14 | 0 |
+| `E1` | `ui_font_town_map_assets` | `contract-seeded` | 53 | 65536 | 130 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +7 more | 14 | 0 |
 | `E2` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 3 | 0 |
 | `E3` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 14 | 0 |
 | `E4` | `audio_packs` | `raw-pack-manifest` | 6 | 65536 | 6 | `audio` 5, `raw-gap` 1 | `raw` 6 | 7 | 0 |

@@ -977,6 +977,18 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the combined text-window flavor selector, palette-block, movement-text palette, and town-map graphics pointer table."
         )
+    if bank.upper() == "E1" and include == "data/unknown/E1F203.asm" and size == 894:
+        outputs.append(
+            {
+                "kind": "town_map_icon_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "icon_count": 23,
+                "town_map_count": 6,
+            }
+        )
+        notes.append(
+            "Decoded as the town-map icon descriptor, icon pointer, blink suppress, placement pointer, and placement record table."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:

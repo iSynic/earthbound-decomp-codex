@@ -30,9 +30,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - manifests with typed output summaries: `38`
 - manifests with smoke fixture links: `23`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6332`
-- typed output recipe kinds: `28`
-- decoder-backed output recipes: `4113`
+- output recipes: `6333`
+- typed output recipe kinds: `29`
+- decoder-backed output recipes: `4114`
 - renderer-backed output recipes: `3266`
 - PNG preview/render recipes: `3266`
 
@@ -76,6 +76,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `snes_palette_json` | 216 | 216 | decoded SNES palette JSON | `snes_palette` | - | - | `colors` | `asset.cb.battle_background_palette_113` -> `cb/battle_bgs/palettes/113_palette.json` |
 | `snes_palette_swatch_png` | 216 | 216 | palette swatch PNG | `snes_palette` | `palette_swatch` | `per_row`, `swatch` | `colors`, `width`, `height` | `asset.cb.battle_background_palette_113` -> `cb/battle_bgs/palettes/113_palette.png` |
 | `text_window_properties_table_json` | 1 | 1 | text-window skin/property table JSON | `text_window_properties_table` | - | `selector_count`, `palette_block_count`, `town_map_pointer_count` | `selector_count`, `palette_block_count`, `palette_row_count`, `town_map_pointer_count` | `table.e0.006_data_text_window_properties_asm` -> `e0/tables/006_data_text_window_properties_asm_decoded.json` |
+| `town_map_icon_table_json` | 1 | 1 | town-map icon descriptor/placement table JSON | `town_map_icon_table` | - | `icon_count`, `town_map_count` | `icon_count`, `unique_descriptor_list_count`, `descriptor_record_count`, `blink_suppress_count`, `placement_record_count` | `table.e1.055_data_unknown_e1f203_asm` -> `e1/tables/055_data_unknown_e1f203_asm_decoded.json` |
 
 ## Family Coverage
 
@@ -85,7 +86,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Mixed asset/table banks | `CF, D0` | 7 | 7 | 0 | 0 | 0 | `raw` 7 | - |
 | Overworld sprites | `D1, D2, D3, D4, D5` | 1148 | 3440 | 2292 | 2292 | 2292 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 292 | 162 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
-| UI, fonts, and town-map assets | `E0, E1` | 69 | 159 | 90 | 31 | 31 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +6 more | `grayscale_tile_sheet` 19, `palette_swatch` 12 |
+| UI, fonts, and town-map assets | `E0, E1` | 69 | 160 | 91 | 31 | 31 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +7 more | `grayscale_tile_sheet` 19, `palette_swatch` 12 |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | 171 | 171 | 0 | 0 | 0 | `raw` 171 | - |
 | EF debug and late-tail data | `EF` | 5 | 7 | 2 | 2 | 2 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |
 

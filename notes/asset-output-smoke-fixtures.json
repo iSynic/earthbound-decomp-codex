@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 114,
-    "unique_selected_assets": 45,
-    "unique_selected_manifest_asset_pairs": 45,
-    "recipe_kinds_covered": 28,
+    "fixture_count": 116,
+    "unique_selected_assets": 46,
+    "unique_selected_manifest_asset_pairs": 46,
+    "recipe_kinds_covered": 29,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 32,
+    "family_decoder_pairs_covered": 33,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,10 +34,10 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 32,
+      "family_decoder": 33,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 28,
+      "recipe_kind": 29,
       "recipe_option": 6
     },
     "fixture_family_counts": {
@@ -45,7 +45,7 @@
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
-      "ui_font_town_map_assets": 22
+      "ui_font_town_map_assets": 24
     }
   },
   "source_ref_coverage": {
@@ -134,7 +134,8 @@
       "snes_4bpp_tiles_png": 5,
       "snes_palette_json": 2,
       "snes_palette_swatch_png": 2,
-      "text_window_properties_table_json": 1
+      "text_window_properties_table_json": 1,
+      "town_map_icon_table_json": 1
     },
     "audio_packs": {
       "raw": 171
@@ -805,6 +806,29 @@
       "all_output_kinds": [
         "raw",
         "text_window_properties_table_json"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.town_map_icon_table_json",
+      "type": "recipe_kind",
+      "key": "town_map_icon_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E1",
+      "manifest_path": "asset-manifests/bank-e1-assets.json",
+      "asset_id": "table.e1.055_data_unknown_e1f203_asm",
+      "title": "data/unknown/E1F203.asm",
+      "category": "raw-table",
+      "bytes": 894,
+      "target_output": {
+        "kind": "town_map_icon_table_json",
+        "path": "e1/tables/055_data_unknown_e1f203_asm_decoded.json",
+        "decoder": "town_map_icon_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "raw",
+        "town_map_icon_table_json"
       ]
     },
     {
@@ -2932,6 +2956,29 @@
         "raw",
         "text_window_properties_table_json"
       ]
+    },
+    {
+      "id": "fixture.family_decoder.ui_font_town_map_assets_town_map_icon_table",
+      "type": "family_decoder",
+      "key": "ui_font_town_map_assets.town_map_icon_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E1",
+      "manifest_path": "asset-manifests/bank-e1-assets.json",
+      "asset_id": "table.e1.055_data_unknown_e1f203_asm",
+      "title": "data/unknown/E1F203.asm",
+      "category": "raw-table",
+      "bytes": 894,
+      "target_output": {
+        "kind": "town_map_icon_table_json",
+        "path": "e1/tables/055_data_unknown_e1f203_asm_decoded.json",
+        "decoder": "town_map_icon_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "raw",
+        "town_map_icon_table_json"
+      ]
     }
   ],
   "command_groups": [
@@ -3107,9 +3154,10 @@
       "asset_ids": [
         "asset.e1.ape_graphics",
         "asset.e1.ape_palette",
-        "asset.e1.staff_credits_font_palette"
+        "asset.e1.staff_credits_font_palette",
+        "table.e1.055_data_unknown_e1f203_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --asset-id table.e1.055_data_unknown_e1f203_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/ef-debug-assets.json",

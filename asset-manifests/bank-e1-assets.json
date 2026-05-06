@@ -40,9 +40,9 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 53,
-    "output_recipe_count": 129,
-    "typed_output_kind_count": 9,
-    "decoder_output_recipe_count": 76,
+    "output_recipe_count": 130,
+    "typed_output_kind_count": 10,
+    "decoder_output_recipe_count": 77,
     "renderer_output_recipe_count": 28,
     "preview_png_recipe_count": 28,
     "output_kind_counts": {
@@ -54,7 +54,8 @@
       "raw": 53,
       "snes_4bpp_tiles_png": 4,
       "snes_palette_json": 2,
-      "snes_palette_swatch_png": 2
+      "snes_palette_swatch_png": 2,
+      "town_map_icon_table_json": 1
     },
     "decoder_counts": {
       "earthbound_lzhal": 32,
@@ -62,31 +63,34 @@
       "earthbound_lzhal+snes_palette": 20,
       "font_metric_widths": 4,
       "snes_4bpp_tiles": 4,
-      "snes_palette": 4
+      "snes_palette": 4,
+      "town_map_icon_table": 1
     },
     "renderer_counts": {
       "grayscale_tile_sheet": 16,
       "palette_swatch": 12
     },
-    "smoke_fixture_count": 8,
+    "smoke_fixture_count": 10,
     "smoke_fixture_asset_ids": [
       "asset.e1.ape_graphics",
       "asset.e1.ape_palette",
-      "asset.e1.staff_credits_font_palette"
+      "asset.e1.staff_credits_font_palette",
+      "table.e1.055_data_unknown_e1f203_asm"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 2,
+      "family_decoder": 3,
       "family_renderer": 1,
       "family_renderer_geometry": 2,
-      "recipe_kind": 2
+      "recipe_kind": 3
     },
     "smoke_fixture_target_kind_counts": {
       "earthbound_lzhal_snes_4bpp_tiles_png": 1,
       "earthbound_lzhal_snes_palette_json": 2,
       "earthbound_lzhal_snes_palette_swatch_png": 3,
       "snes_palette_json": 1,
-      "snes_palette_swatch_png": 1
+      "snes_palette_swatch_png": 1,
+      "town_map_icon_table_json": 2
     }
   },
   "assets": [
@@ -1576,12 +1580,19 @@
         {
           "kind": "raw",
           "path": "e1/tables/055_data_unknown_e1f203_asm.bin"
+        },
+        {
+          "kind": "town_map_icon_table_json",
+          "path": "e1/tables/055_data_unknown_e1f203_asm_decoded.json",
+          "icon_count": 23,
+          "town_map_count": 6
         }
       ],
       "notes": [
         "Source include from ebsrc: data/unknown/E1F203.asm",
         "Original file offset: 0x21F203",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as the town-map icon descriptor, icon pointer, blink suppress, placement pointer, and placement record table."
       ]
     },
     {

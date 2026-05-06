@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `114`
-- unique selected assets: `45`
-- recipe kinds covered: `28`
+- fixture selectors: `116`
+- unique selected assets: `46`
+- recipe kinds covered: `29`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `32`
+- family/decoder pairs covered: `33`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `family_decoder` 32, `recipe_kind` 28, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 55, `ui_font_town_map_assets` 22, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
+- fixture type mix: `family_decoder` 33, `recipe_kind` 29, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 55, `ui_font_town_map_assets` 24, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -71,6 +71,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `snes_palette_json` | `asset.cb.battle_background_palette_0` | `asset-manifests/bank-cb-assets.json` | `cb/battle_bgs/palettes/0_palette.json` | `snes_palette` | - |
 | `snes_palette_swatch_png` | `asset.cb.battle_background_palette_0` | `asset-manifests/bank-cb-assets.json` | `cb/battle_bgs/palettes/0_palette.png` | `snes_palette` | `palette_swatch` |
 | `text_window_properties_table_json` | `table.e0.006_data_text_window_properties_asm` | `asset-manifests/bank-e0-assets.json` | `e0/tables/006_data_text_window_properties_asm_decoded.json` | `text_window_properties_table` | - |
+| `town_map_icon_table_json` | `table.e1.055_data_unknown_e1f203_asm` | `asset-manifests/bank-e1-assets.json` | `e1/tables/055_data_unknown_e1f203_asm_decoded.json` | `town_map_icon_table` | - |
 
 ## Family Renderer Fixtures
 
@@ -182,6 +183,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `ui_font_town_map_assets.snes_4bpp_tiles` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
 | `ui_font_town_map_assets.snes_palette` | `asset.e1.staff_credits_font_palette` | `asset-manifests/bank-e1-assets.json` | `snes_palette_json` | `e1/ending/credits_font_palette.json` |
 | `ui_font_town_map_assets.text_window_properties_table` | `table.e0.006_data_text_window_properties_asm` | `asset-manifests/bank-e0-assets.json` | `text_window_properties_table_json` | `e0/tables/006_data_text_window_properties_asm_decoded.json` |
+| `ui_font_town_map_assets.town_map_icon_table` | `table.e1.055_data_unknown_e1f203_asm` | `asset-manifests/bank-e1-assets.json` | `town_map_icon_table_json` | `e1/tables/055_data_unknown_e1f203_asm_decoded.json` |
 
 ## Extraction Command Groups
 
@@ -208,5 +210,5 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `asset-manifests/bank-de-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-de-assets.json --asset-id asset.de.map_data_tile_animation_gfx_15 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-df-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-df-assets.json --asset-id asset.df.map_data_tile_animation_gfx_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e0-assets.json` | 6 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_data --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --asset-id table.e0.006_data_text_window_properties_asm --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-e1-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-e1-assets.json` | 4 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --asset-id table.e1.055_data_unknown_e1f203_asm --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/ef-debug-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures` |

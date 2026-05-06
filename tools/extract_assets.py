@@ -434,6 +434,10 @@ def read_s16_le(data: bytes, offset: int) -> int:
     return value - 0x10000 if value & 0x8000 else value
 
 
+def read_s8(value: int) -> int:
+    return value - 0x100 if value & 0x80 else value
+
+
 PSI_ANIM_TARGET_MODES = {
     0: "current_enemy_centered",
     1: "same_enemy_row",
@@ -473,6 +477,19 @@ TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET = TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET + TEXT
 TEXT_WINDOW_TOWN_MAP_POINTER_BYTES = 0x0018
 TEXT_WINDOW_EXPECTED_BYTES = TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET + TEXT_WINDOW_TOWN_MAP_POINTER_BYTES
 
+TOWN_MAP_ICON_TABLE_START = 0xF203
+TOWN_MAP_ICON_DESCRIPTOR_OFFSET = 0x0000
+TOWN_MAP_ICON_DESCRIPTOR_BYTES = 0x0249
+TOWN_MAP_ICON_POINTER_OFFSET = 0x0249
+TOWN_MAP_ICON_POINTER_BYTES = 0x002E
+TOWN_MAP_BLINK_SUPPRESS_OFFSET = 0x0277
+TOWN_MAP_BLINK_SUPPRESS_BYTES = 0x0017
+TOWN_MAP_PLACEMENT_POINTER_OFFSET = 0x028E
+TOWN_MAP_PLACEMENT_POINTER_BYTES = 0x0018
+TOWN_MAP_PLACEMENT_RECORD_OFFSET = 0x02A6
+TOWN_MAP_PLACEMENT_RECORD_BYTES = 0x00D8
+TOWN_MAP_ICON_EXPECTED_BYTES = TOWN_MAP_PLACEMENT_RECORD_OFFSET + TOWN_MAP_PLACEMENT_RECORD_BYTES
+
 
 def bgr555_components(raw: int) -> dict[str, int]:
     return {
@@ -495,6 +512,12 @@ def text_window_table_range(offset: int, size: int) -> str:
     start = TEXT_WINDOW_TABLE_START + offset
     end = start + size
     return f"E0:{start:04X}..E0:{end:04X}"
+
+
+def e1_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"E1:{start:04X}..E1:{end:04X}"
 
 
 def text_window_palette_row(data: bytes, offset: int) -> list[dict[str, Any]]:
@@ -703,6 +726,249 @@ def write_text_window_properties_table_json(data: bytes, path: Path, spec: dict[
         "palette_block_count": palette_block_count,
         "palette_row_count": palette_row_count,
         "town_map_pointer_count": town_map_pointer_count,
+    }
+
+
+def parse_town_map_icon_descriptor_record(data: bytes, offset: int, record_index: int) -> dict[str, Any]:
+    control_flags = data[offset + 4]
+    return {
+        "record_index": record_index,
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 5),
+        "relative_y_offset": read_s8(data[offset]),
+        "tile_attribute_word": read_u16_le(data, offset + 1),
+        "relative_x_offset": read_s8(data[offset + 3]),
+        "control_flags": control_flags,
+        "is_terminal": bool(control_flags & 0x80),
+        "uses_renderer_attribute_bit": bool(control_flags & 0x01),
+        "reserved_flag_bits": control_flags & 0x7E,
+        "raw_bytes": list(data[offset : offset + 5]),
+    }
+
+
+def parse_town_map_descriptor_list(data: bytes, start: int, list_index: int, icon_ids: list[int]) -> dict[str, Any]:
+    if start < TOWN_MAP_ICON_DESCRIPTOR_OFFSET or start >= TOWN_MAP_ICON_POINTER_OFFSET:
+        raise ValueError(f"Town-map descriptor list {list_index} starts outside descriptor span: 0x{start:04X}")
+    if start % 5 != 0:
+        raise ValueError(f"Town-map descriptor list {list_index} does not start on a five-byte record: 0x{start:04X}")
+
+    records = []
+    cursor = start
+    while cursor < TOWN_MAP_ICON_POINTER_OFFSET:
+        record = parse_town_map_icon_descriptor_record(data, cursor, cursor // 5)
+        records.append(record)
+        cursor += 5
+        if record["is_terminal"]:
+            break
+    if not records or not records[-1]["is_terminal"]:
+        raise ValueError(f"Town-map descriptor list {list_index} has no terminal control flag")
+
+    return {
+        "descriptor_list_index": list_index,
+        "icon_ids": icon_ids,
+        "target": f"E1:{TOWN_MAP_ICON_TABLE_START + start:04X}",
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, start, cursor - start),
+        "record_count": len(records),
+        "records": records,
+    }
+
+
+def parse_town_map_placement_list(data: bytes, start: int, town_map_index: int) -> dict[str, Any]:
+    if start < TOWN_MAP_PLACEMENT_RECORD_OFFSET or start >= TOWN_MAP_ICON_EXPECTED_BYTES:
+        raise ValueError(f"Town-map placement list {town_map_index} starts outside placement span: 0x{start:04X}")
+
+    records = []
+    cursor = start
+    while cursor < TOWN_MAP_ICON_EXPECTED_BYTES:
+        if data[cursor] == 0xFF:
+            terminator_offset = cursor
+            cursor += 1
+            break
+        if cursor + 5 > TOWN_MAP_ICON_EXPECTED_BYTES:
+            raise ValueError(f"Town-map placement list {town_map_index} overruns table")
+        event_flag_word = read_u16_le(data, cursor + 3)
+        records.append(
+            {
+                "record_index": len(records),
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, cursor, 5),
+                "x": data[cursor],
+                "y": data[cursor + 1],
+                "icon_id": data[cursor + 2],
+                "event_flag_word": event_flag_word,
+                "event_flag_id": event_flag_word & 0x7FFF,
+                "draw_when_event_flag_set": bool(event_flag_word & 0x8000),
+                "raw_bytes": list(data[cursor : cursor + 5]),
+            }
+        )
+        cursor += 5
+    else:
+        raise ValueError(f"Town-map placement list {town_map_index} has no FF terminator")
+
+    return {
+        "town_map_index": town_map_index,
+        "target": f"E1:{TOWN_MAP_ICON_TABLE_START + start:04X}",
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, start, cursor - start),
+        "record_count": len(records),
+        "terminator_range": e1_table_range(TOWN_MAP_ICON_TABLE_START, terminator_offset, 1),
+        "records": records,
+    }
+
+
+def write_town_map_icon_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    icon_count = int(spec["icon_count"])
+    town_map_count = int(spec["town_map_count"])
+    if icon_count != 23:
+        raise ValueError(f"Town-map icon_count must be 23, got {icon_count}")
+    if town_map_count != 6:
+        raise ValueError(f"Town-map town_map_count must be 6, got {town_map_count}")
+    if len(data) != TOWN_MAP_ICON_EXPECTED_BYTES:
+        raise ValueError(f"Town-map icon table expected {TOWN_MAP_ICON_EXPECTED_BYTES} bytes, got {len(data)}")
+
+    icon_pointers = []
+    descriptor_starts_by_icon: dict[int, list[int]] = {}
+    for icon_id in range(icon_count):
+        offset = TOWN_MAP_ICON_POINTER_OFFSET + icon_id * 2
+        pointer = read_u16_le(data, offset)
+        relative = pointer - TOWN_MAP_ICON_TABLE_START
+        if relative < TOWN_MAP_ICON_DESCRIPTOR_OFFSET or relative >= TOWN_MAP_ICON_POINTER_OFFSET:
+            raise ValueError(f"Town-map icon pointer {icon_id} targets outside descriptor span: E1:{pointer:04X}")
+        descriptor_starts_by_icon.setdefault(relative, []).append(icon_id)
+        icon_pointers.append(
+            {
+                "icon_id": icon_id,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 2),
+                "target": f"E1:{pointer:04X}",
+                "descriptor_relative_offset": relative,
+                "raw_word": pointer,
+            }
+        )
+
+    descriptor_lists = []
+    for list_index, (relative, icon_ids) in enumerate(sorted(descriptor_starts_by_icon.items())):
+        descriptor_lists.append(parse_town_map_descriptor_list(data, relative, list_index, icon_ids))
+
+    descriptor_records = [
+        parse_town_map_icon_descriptor_record(data, offset, offset // 5)
+        for offset in range(TOWN_MAP_ICON_DESCRIPTOR_OFFSET, TOWN_MAP_ICON_POINTER_OFFSET, 5)
+    ]
+    if len(descriptor_records) * 5 != TOWN_MAP_ICON_DESCRIPTOR_BYTES:
+        raise ValueError("Town-map icon descriptor span is not an even set of five-byte records")
+    reserved_flag_records = sum(1 for record in descriptor_records if int(record["reserved_flag_bits"]) != 0)
+
+    blink_flags = []
+    blink_suppress_count = 0
+    for icon_id in range(icon_count):
+        offset = TOWN_MAP_BLINK_SUPPRESS_OFFSET + icon_id
+        value = data[offset]
+        if value:
+            blink_suppress_count += 1
+        blink_flags.append(
+            {
+                "icon_id": icon_id,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 1),
+                "blink_suppress_flag": value,
+                "suppressed_during_hidden_phase": value != 0,
+            }
+        )
+
+    placement_pointers = []
+    placement_lists = []
+    for town_map_index in range(town_map_count):
+        offset = TOWN_MAP_PLACEMENT_POINTER_OFFSET + town_map_index * 4
+        low_word = read_u16_le(data, offset)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if bank != 0xE1 or padding != 0:
+            raise ValueError(
+                "Town-map placement pointer expected E1 bank and zero padding for "
+                f"town map {town_map_index}, got bank 0x{bank:02X} pad 0x{padding:02X}"
+            )
+        relative = low_word - TOWN_MAP_ICON_TABLE_START
+        placement_pointers.append(
+            {
+                "town_map_index": town_map_index,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 4),
+                "target": f"E1:{low_word:04X}",
+                "placement_relative_offset": relative,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+        placement_lists.append(parse_town_map_placement_list(data, relative, town_map_index))
+
+    expected_targets = ["E1:F4A9", "E1:F4CD", "E1:F4F6", "E1:F524", "E1:F548", "E1:F562"]
+    actual_targets = [pointer["target"] for pointer in placement_pointers]
+    if actual_targets != expected_targets:
+        raise ValueError(f"Unexpected town-map placement pointer targets: {actual_targets}")
+
+    placement_record_count = sum(placement_list["record_count"] for placement_list in placement_lists)
+    terminal_descriptor_count = sum(1 for record in descriptor_records if record["is_terminal"])
+    descriptor_flag_bit_count = sum(1 for record in descriptor_records if record["uses_renderer_attribute_bit"])
+    payload = {
+        "schema": "earthbound-decomp.town-map-icon-table.v1",
+        "decoder": "town_map_icon_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "sections": [
+            {
+                "id": "icon_graphic_descriptor_records",
+                "range": "E1:F203..E1:F44C",
+                "bytes": TOWN_MAP_ICON_DESCRIPTOR_BYTES,
+                "record_count": len(descriptor_records),
+                "record_size_bytes": 5,
+            },
+            {
+                "id": "icon_graphic_pointer_table",
+                "range": "E1:F44C..E1:F47A",
+                "bytes": TOWN_MAP_ICON_POINTER_BYTES,
+                "record_count": icon_count,
+                "record_size_bytes": 2,
+            },
+            {
+                "id": "blink_suppress_table",
+                "range": "E1:F47A..E1:F491",
+                "bytes": TOWN_MAP_BLINK_SUPPRESS_BYTES,
+                "record_count": icon_count,
+                "record_size_bytes": 1,
+            },
+            {
+                "id": "icon_placement_pointer_table",
+                "range": "E1:F491..E1:F4A9",
+                "bytes": TOWN_MAP_PLACEMENT_POINTER_BYTES,
+                "record_count": town_map_count,
+                "record_size_bytes": 4,
+            },
+            {
+                "id": "icon_placement_records",
+                "range": "E1:F4A9..E1:F581",
+                "bytes": TOWN_MAP_PLACEMENT_RECORD_BYTES,
+                "record_count": placement_record_count,
+                "record_size_bytes": 5,
+                "terminator_bytes": town_map_count,
+            },
+        ],
+        "icon_count": icon_count,
+        "town_map_count": town_map_count,
+        "unique_descriptor_list_count": len(descriptor_lists),
+        "descriptor_record_count": len(descriptor_records),
+        "terminal_descriptor_count": terminal_descriptor_count,
+        "descriptor_flag_bit_count": descriptor_flag_bit_count,
+        "reserved_descriptor_flag_records": reserved_flag_records,
+        "blink_suppress_count": blink_suppress_count,
+        "placement_record_count": placement_record_count,
+        "icon_pointers": icon_pointers,
+        "descriptor_lists": descriptor_lists,
+        "blink_flags": blink_flags,
+        "placement_pointers": placement_pointers,
+        "placement_lists": placement_lists,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "icon_count": icon_count,
+        "unique_descriptor_list_count": len(descriptor_lists),
+        "descriptor_record_count": len(descriptor_records),
+        "blink_suppress_count": blink_suppress_count,
+        "placement_record_count": placement_record_count,
     }
 
 
@@ -1646,6 +1912,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "text_window_properties_table_json":
         metadata.update(write_text_window_properties_table_json(data, path, spec))
+    elif kind == "town_map_icon_table_json":
+        metadata.update(write_town_map_icon_table_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)
