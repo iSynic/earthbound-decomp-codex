@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 93,
-    "unique_selected_assets": 35,
-    "unique_selected_manifest_asset_pairs": 35,
-    "recipe_kinds_covered": 18,
+    "fixture_count": 95,
+    "unique_selected_assets": 36,
+    "unique_selected_manifest_asset_pairs": 36,
+    "recipe_kinds_covered": 19,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 22,
+    "family_decoder_pairs_covered": 23,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,14 +34,14 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 22,
+      "family_decoder": 23,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 18,
+      "recipe_kind": 19,
       "recipe_option": 5
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 36,
+      "battle_visual_assets": 38,
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
@@ -86,6 +86,7 @@
   },
   "family_output_kind_counts": {
     "battle_visual_assets": {
+      "battle_bg_pointer_table_json": 3,
       "battle_swirl_frame_json": 126,
       "battle_swirl_pointer_table_json": 1,
       "battle_swirl_sequence_table_json": 1,
@@ -135,6 +136,29 @@
     }
   },
   "fixtures": [
+    {
+      "id": "fixture.recipe_kind.battle_bg_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "battle_bg_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.020_data_battle_backgrounds_graphics_pointers_asm",
+      "title": "data/battle/backgrounds/graphics_pointers.asm",
+      "category": "raw-table",
+      "bytes": 412,
+      "target_output": {
+        "kind": "battle_bg_pointer_table_json",
+        "path": "ca/tables/020_data_battle_backgrounds_graphics_pointers_asm_decoded.json",
+        "decoder": "battle_background_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_pointer_table_json",
+        "raw"
+      ]
+    },
     {
       "id": "fixture.recipe_kind.battle_swirl_frame_json",
       "type": "recipe_kind",
@@ -1920,6 +1944,29 @@
       }
     },
     {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_background_pointer_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_background_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.020_data_battle_backgrounds_graphics_pointers_asm",
+      "title": "data/battle/backgrounds/graphics_pointers.asm",
+      "category": "raw-table",
+      "bytes": 412,
+      "target_output": {
+        "kind": "battle_bg_pointer_table_json",
+        "path": "ca/tables/020_data_battle_backgrounds_graphics_pointers_asm_decoded.json",
+        "decoder": "battle_background_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.battle_visual_assets_battle_swirl_frame_metadata",
       "type": "family_decoder",
       "key": "battle_visual_assets.battle_swirl_frame_metadata",
@@ -2446,9 +2493,10 @@
       "manifest_path": "asset-manifests/bank-ca-assets.json",
       "asset_ids": [
         "asset.ca.battle_background_arr_100",
-        "asset.ca.battle_background_gfx_38"
+        "asset.ca.battle_background_gfx_38",
+        "table.ca.020_data_battle_backgrounds_graphics_pointers_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --asset-id table.ca.020_data_battle_backgrounds_graphics_pointers_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-cb-assets.json",

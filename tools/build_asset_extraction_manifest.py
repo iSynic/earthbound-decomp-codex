@@ -753,6 +753,38 @@ def make_source(entry: dict[str, Any], rom: bytes) -> dict[str, Any]:
     }
 
 
+BATTLE_BG_POINTER_TABLES = {
+    "data/battle/backgrounds/graphics_pointers.asm": {
+        "table_id": 0,
+        "table_role": "graphics",
+        "description": "graphics payload",
+    },
+    "data/battle/backgrounds/arrangement_pointers.asm": {
+        "table_id": 1,
+        "table_role": "arrangement",
+        "description": "tile arrangement payload",
+    },
+    "data/battle/backgrounds/palette_pointers.asm": {
+        "table_id": 2,
+        "table_role": "palette",
+        "description": "palette payload",
+    },
+}
+
+
+def battle_bg_pointer_table_output(raw_path: str, include: str, size: int) -> dict[str, Any] | None:
+    table = BATTLE_BG_POINTER_TABLES.get(include)
+    if table is None or size % 4:
+        return None
+    return {
+        "kind": "battle_bg_pointer_table_json",
+        "path": sidecar_path(raw_path, "decoded", ".json"),
+        "entry_count": size // 4,
+        "table_id": table["table_id"],
+        "table_role": table["table_role"],
+    }
+
+
 def convert_binary_asset(
     bank: str,
     entry: dict[str, Any],
@@ -843,6 +875,15 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
         )
+    if bank.upper() == "CA":
+        battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
+        if battle_bg_pointer_output is not None:
+            outputs.append(battle_bg_pointer_output)
+            table = BATTLE_BG_POINTER_TABLES[include]
+            notes.append(
+                "Decoded as a 4-byte little-endian battle background pointer table "
+                f"for {table['description']} targets."
+            )
 
     return {
         "id": f"table.{bank.lower()}.{int(entry['order']):03d}_{stable_name}",

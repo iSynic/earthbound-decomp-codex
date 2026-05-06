@@ -204,6 +204,39 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-bg-pointer-table",
+            "data": bytes(
+                [
+                    0x97,
+                    0xD8,
+                    0xCB,
+                    0x00,
+                    0xD4,
+                    0xA5,
+                    0xCB,
+                    0x00,
+                    0x00,
+                    0x80,
+                    0xCA,
+                    0x00,
+                ]
+            ),
+            "spec": {
+                "kind": "battle_bg_pointer_table_json",
+                "path": "battle_bg_pointers.json",
+                "entry_count": 3,
+                "table_id": 0,
+                "table_role": "graphics",
+            },
+            "expected_metadata": {
+                "entry_count": 3,
+                "min_pointer": 0xCA8000,
+                "max_pointer": 0xCBD897,
+                "distinct_pointers": 3,
+                "distinct_banks": 2,
+            },
+        },
+        {
             "id": "font-metric-widths",
             "data": bytes([2, 3, 4, 0xFF, 6, 7]),
             "spec": {

@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `19`
+- synthetic cases: `20`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `18`
+- output kinds covered: `19`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -25,6 +25,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `battle-swirl-frame-metadata` | `battle_swirl_frame_json` | 405 | `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` | `first_opcode`, `payload_bytes`, `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` |
 | `battle-swirl-pointer-table` | `battle_swirl_pointer_table_json` | 601 | `entry_count`, `pointer_bank` | `distinct_pointers`, `entry_count`, `max_pointer`, `min_pointer`, `pointer_bank` |
 | `battle-swirl-sequence-table` | `battle_swirl_sequence_table_json` | 876 | `row_count` | `max_sequence_speed`, `row_count`, `total_frame_count`, `visible_sequence_count` |
+| `battle-bg-pointer-table` | `battle_bg_pointer_table_json` | 1227 | `entry_count`, `table_id`, `table_role` | `distinct_banks`, `distinct_pointers`, `entry_count`, `max_pointer`, `min_pointer` |
 | `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |

@@ -360,6 +360,71 @@ def write_battle_swirl_sequence_table_json(data: bytes, path: Path, spec: dict[s
     }
 
 
+def write_battle_bg_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    table_id = int(spec["table_id"])
+    table_role = str(spec["table_role"])
+    expected_bytes = entry_count * 4
+    if entry_count <= 0:
+        raise ValueError(f"Battle background pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    packed_pointers = []
+    target_banks = set()
+    for offset in range(0, len(data), 4):
+        low_word = data[offset] | (data[offset + 1] << 8)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(
+                "Battle background pointer table expected zero in fourth byte "
+                f"for row {offset // 4}, got 0x{padding:02X}"
+            )
+        packed_pointer = (bank << 16) | low_word
+        packed_pointers.append(packed_pointer)
+        target_banks.add(bank)
+        entries.append(
+            {
+                "index": offset // 4,
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-pointer-table.v1",
+        "decoder": "battle_background_pointer_table",
+        "byte_order": "little",
+        "table_id": table_id,
+        "table_role": table_role,
+        "entry_size_bytes": 4,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+        "distinct_banks": payload["distinct_banks"],
+    }
+
+
 def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     font_id = int(spec["font_id"])
     entry_count = int(spec["entry_count"])
@@ -764,6 +829,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_battle_swirl_pointer_table_json(data, path, spec))
     elif kind == "battle_swirl_sequence_table_json":
         metadata.update(write_battle_swirl_sequence_table_json(data, path, spec))
+    elif kind == "battle_bg_pointer_table_json":
+        metadata.update(write_battle_bg_pointer_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
