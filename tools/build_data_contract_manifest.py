@@ -238,7 +238,7 @@ RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
         0x00,
         1,
         0x32A0,
-        "1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries",
+        "1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists and notes/cf-movement-trigger-contracts.json for trigger_payload_word meanings by movement_trigger_type",
     ),
 )
 
@@ -1283,10 +1283,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="door_sector_list_block",
             confidence="exact-variable-lists",
-            note="1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
+            note="1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json and per-type trigger payload semantics in notes/cf-movement-trigger-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
             evidence=(
                 "notes/cf-table-splits.md",
                 "notes/cf-sector-list-contracts.md",
+                "notes/cf-movement-trigger-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
             ),
             fields=RAW_CF_DOOR_CONFIG_LIST_FIELDS,

@@ -34,6 +34,7 @@ The `CF:0000..CF:F2B4` generated map-data region now reconciles exactly.
 
 - `D0:0000..D0:13FF` is the 1280-entry long-pointer table that anchors the CF door sector lists.
 - `notes/cf-door-data-contracts.md` decodes the consumer-backed `DOOR_DATA` type `0`, type `2`, and type `6` payload variants.
+- `notes/cf-movement-trigger-contracts.md` decodes `DOOR_CONFIG_TABLE` trigger payload meanings for all source-order physical rows.
 - `DOOR_CONFIG_TABLE` and `SPRITE_PLACEMENT_TABLE` are variable-length counted sector lists.
 - `notes/cf-event-music-context-contracts.md` decodes `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` as selector-addressed current-position music/SFX context chains.
 - `NPC_CONFIG_TABLE` uses the ebsrc `npc_config` struct size of 17 bytes and the eb-decompile row count of 1584.
@@ -41,4 +42,4 @@ The `CF:0000..CF:F2B4` generated map-data region now reconciles exactly.
 
 ## Recommended next move
 
-Use the stable CF table shapes and promoted row contracts for source emission planning, then continue with the remaining trigger-type `1`/`3`/`4`/`5` parameter names only where consumer evidence supports them.
+Use the stable CF table shapes and promoted row contracts for source emission planning, then continue with optional gameplay labels or source-emission tooling that consumes the checked-in artifacts.

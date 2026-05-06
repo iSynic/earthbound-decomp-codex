@@ -187,8 +187,8 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, and the CF door-data payload contract.",
-                ["remaining trigger-type 1/3/4/5 parameter meanings are bounded but not fully named"],
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, the CF door-data payload contract, and the CF movement-trigger parameter contract.",
+                ["remaining trigger selector gameplay labels are optional polish; source-emission tooling still needs to consume the promoted row artifacts"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]

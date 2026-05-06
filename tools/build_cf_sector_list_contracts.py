@@ -444,7 +444,7 @@ def markdown(contract: dict[str, Any]) -> str:
         "| `door_trigger_entry` | `+0x00` | `sector_local_x` | 1 | movement-trigger lookup compares low 5-bit sector-local coordinates |",
         "| `door_trigger_entry` | `+0x01` | `sector_local_y` | 1 | movement-trigger lookup compares low 5-bit sector-local coordinates |",
         "| `door_trigger_entry` | `+0x02` | `movement_trigger_type` | 1 | C0 dispatch branches trigger types into the helper family |",
-        "| `door_trigger_entry` | `+0x03` | `trigger_payload_word` | 2 | helper-specific side data; type `0`/`2`/`6` CF payload records are decoded in `notes/cf-door-data-contracts.md`, while other types use different payload meanings |",
+        "| `door_trigger_entry` | `+0x03` | `trigger_payload_word` | 2 | helper-specific side data; per-type meanings are decoded in `notes/cf-movement-trigger-contracts.md`, with type `0`/`2`/`6` CF payload records expanded further in `notes/cf-door-data-contracts.md` |",
         "| `sprite_placement_sector_list` | `+0x00` | `count` | 2 | nonzero sector pointers enumerate exactly 627 counted lists |",
         "| `sprite_placement_entry` | `+0x00` | `npc_config_id` | 2 | CoilSnake `map_sprites.yml` NPC-id probe maps to the first original placement row |",
         "| `sprite_placement_entry` | `+0x02` | `sector_local_y` | 1 | CoilSnake clustered Y probe maps to the first original placement row |",
@@ -489,11 +489,12 @@ def markdown(contract: dict[str, Any]) -> str:
             "- `notes/cf-table-splits.md` fixes the CF source-order spans and counted-list byte boundaries.",
             "- `notes/d0-table-splits.md` fixes `D0:0000..D0:13FF` as the 40x32 long-pointer grid into CF door sector lists.",
             "- `notes/movement-trigger-lookup-7477.md` and `notes/movement-trigger-helper-bodies.md` back the door-trigger coordinate/type/payload naming boundary.",
+            "- `notes/cf-movement-trigger-contracts.md` records the per-type interpretation of `trigger_payload_word` for all source-order physical trigger rows.",
             "- `notes/coilsnake-field-join-report.md` backs the sprite placement `npc_config_id`, `sector_local_y`, and `sector_local_x` names through the clustered `map_sprites.yml` probes.",
             "",
             "## Remaining frontier",
             "",
-            "- `DOOR_DATA` type `0`, type `2`, and type `6` payload variants are decoded in `notes/cf-door-data-contracts.md`. The remaining trigger types should still treat `trigger_payload_word` as type-specific until each helper is joined to a payload variant.",
+            "- `DOOR_DATA` type `0`, type `2`, and type `6` payload variants are decoded in `notes/cf-door-data-contracts.md`; the sector-list-level trigger parameter meanings are decoded in `notes/cf-movement-trigger-contracts.md`.",
             "- `OVERWORLD_EVENT_MUSIC_TABLE` is decoded separately in `notes/cf-event-music-context-contracts.md`.",
         ]
     )

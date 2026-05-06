@@ -23,6 +23,7 @@ Primary artifacts:
 - `notes/cf-table-splits.md`
 - `notes/cf-sector-list-contracts.md`
 - `notes/cf-door-data-contracts.md`
+- `notes/cf-movement-trigger-contracts.md`
 - `notes/cf-event-music-context-contracts.md`
 - `build/asset-bank-cf.json`
 - `build/cf-table-splits.json`
@@ -97,6 +98,11 @@ High confidence:
   highest-risk movement-trigger variants: type `0` has 6 event-gated script
   pointer records, type `2` has 840 door-transition records used by
   `C0:6BFF`, and type `6` has 6 cached front-interaction pointer records.
+- The `DOOR_CONFIG_TABLE` trigger row payload word now has per-type semantics
+  for all 2080 source-order physical rows: type `1` selects movement state
+  `0x0007`/`0x0008`, type `3` and type `4` feed staged movement selectors,
+  and type `5` is bounded as a local no-op payload rather than promoted as a
+  pointer family.
 - `SPRITE_PLACEMENT_POINTER_TABLE` and `SPRITE_PLACEMENT_TABLE` now have a
   counted-list contract: 627 non-empty sector lists, 1582 four-byte placement
   rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
@@ -113,10 +119,10 @@ High confidence:
 
 Still intentionally out of scope:
 
-- Remaining `DOOR_DATA` trigger-type `1`, `3`, `4`, and `5` parameters stay
-  bounded/raw until their helpers are joined to a payload variant. Type `5`
-  offsets are pointer-like in source bytes, but the local C0 dispatcher body is
-  a no-op, so this pass does not promote them.
+- Gameplay labels for movement states `0x0007`/`0x0008`, staged movement
+  selectors, and type `5` pointer-like source bytes remain deferred. The local
+  C0 dispatcher keeps type `5` as a no-op, so this pass records the boundary
+  without promoting pointer semantics.
 - Human names for event flags, track ids, and transition SFX ids remain
   deferred; the event-music context contract keeps those values numeric.
 - Audio-pack internals remain opaque.
@@ -124,6 +130,6 @@ Still intentionally out of scope:
 ## Recommended next move
 
 Use the checked-in CF door-data, sector-list, and event-music-context JSON
-artifacts for source emission planning. The remaining CF semantic pass should
-focus on trigger-type `1`/`3`/`4`/`5` parameter names only where a consumer
-join supports them.
+artifacts, plus the movement-trigger parameter contract, for source emission
+planning. The remaining CF semantic work is optional gameplay-label polish and
+teaching source-emission tooling to consume the promoted row artifacts.
