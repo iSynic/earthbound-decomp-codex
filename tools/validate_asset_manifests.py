@@ -13,6 +13,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
+import build_asset_source_range_audit
 from build_asset_manifest_output_metadata import (
     SUMMARY_KEY,
     SUMMARY_SCHEMA,
@@ -127,6 +128,12 @@ def main() -> int:
         total_assets += asset_count
         total_outputs += output_count
         print(f"OK {path}: {asset_count} assets, {output_count} outputs")
+
+    source_range_audit = build_asset_source_range_audit.build_report(ROOT / "asset-manifests")
+    if source_range_audit["status"] != "ok":
+        errors = source_range_audit.get("errors", [])
+        formatted = "\n".join(f"- {error}" for error in errors[:20])
+        raise SystemExit(f"Asset source range audit failed:\n{formatted}")
 
     if args.extract:
         rom_path = rom_tools.find_rom(args.rom)

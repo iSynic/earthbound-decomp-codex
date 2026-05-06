@@ -18,7 +18,9 @@ Output source-reference coverage is tracked in `notes/asset-output-source-refs.m
 
 Output path uniqueness is tracked in `notes/asset-output-path-audit.md`; it proves every typed recipe lands at one relative bank-rooted destination before extraction writes ignored local outputs.
 
-Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
+Manifest source-range coverage is tracked in `notes/asset-source-range-audit.md`; it proves asset ranges are bank-local, byte-counted, non-overlapping, and collectively cover each manifest bank.
+
+Generated asset-output and source-range reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot
 

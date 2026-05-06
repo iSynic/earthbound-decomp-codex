@@ -17,6 +17,7 @@ import build_asset_output_preview_geometry
 import build_asset_output_recipe_contracts
 import build_asset_output_source_refs
 import build_asset_output_smoke_fixtures
+import build_asset_source_range_audit
 import validate_asset_output_codecs
 
 
@@ -117,6 +118,15 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_path_audit.DEFAULT_MARKDOWN_OUT,
             build_asset_output_path_audit.render_markdown(path_audit),
             "python tools/build_asset_output_path_audit.py",
+        )
+    )
+
+    source_range_audit = build_asset_source_range_audit.build_report(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_source_range_audit.DEFAULT_MARKDOWN_OUT,
+            build_asset_source_range_audit.render_markdown(source_range_audit),
+            "python tools/build_asset_source_range_audit.py",
         )
     )
 

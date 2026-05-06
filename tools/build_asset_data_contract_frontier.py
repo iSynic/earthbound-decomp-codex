@@ -18,6 +18,7 @@ OUTPUT_PREVIEW_GEOMETRY_MARKDOWN = ROOT / "notes" / "asset-output-preview-geomet
 OUTPUT_INDEX_MARKDOWN = ROOT / "notes" / "asset-output-index.md"
 OUTPUT_SOURCE_REFS_MARKDOWN = ROOT / "notes" / "asset-output-source-refs.md"
 OUTPUT_PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
+SOURCE_RANGE_AUDIT_MARKDOWN = ROOT / "notes" / "asset-source-range-audit.md"
 
 CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
     "E0": 1,
@@ -346,6 +347,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "output_index": rel(OUTPUT_INDEX_MARKDOWN),
             "output_source_refs": rel(OUTPUT_SOURCE_REFS_MARKDOWN),
             "output_path_audit": rel(OUTPUT_PATH_AUDIT_MARKDOWN),
+            "source_range_audit": rel(SOURCE_RANGE_AUDIT_MARKDOWN),
             "output_report_freshness_validator": "tools/validate_asset_output_reports.py",
             "rom_outputs_policy": "Generated ROM-derived outputs remain under ignored build/assets and are not required to build this report.",
         },
@@ -412,7 +414,9 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "",
         "Output path uniqueness is tracked in `notes/asset-output-path-audit.md`; it proves every typed recipe lands at one relative bank-rooted destination before extraction writes ignored local outputs.",
         "",
-        "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
+        "Manifest source-range coverage is tracked in `notes/asset-source-range-audit.md`; it proves asset ranges are bank-local, byte-counted, non-overlapping, and collectively cover each manifest bank.",
+        "",
+        "Generated asset-output and source-range reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",
         "## Snapshot",
         "",
