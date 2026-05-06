@@ -146,6 +146,12 @@ selector byte, destination VRAM word, long source pointer, and byte count that
 the C0 credits command-stream callback supplies. `C4:F01D` drains one record
 per call from `$B4F3` and forwards it to `C0:8616`.
 
+2026-05-06 credits DMA queue follow-up: the enqueue and drain helpers now share
+named record constants for the 9-byte stride, selector byte, VRAM destination,
+source low/bank words, byte count, and `$007F` ring-index mask. The source
+comments keep this as a C4-owned queue-packing/unpacking contract while leaving
+the C0 VRAM transfer helper semantics to C0.
+
 `C4:F07D..C4:F70A` is the main credits scene block. It initializes the credits
 display, seeds the command-stream WRAM fields at `$B4E3/$B4E5/$B4E7..$B4ED`,
 checks which photograph flags are set, installs `C0:F41E` through the C0 frame

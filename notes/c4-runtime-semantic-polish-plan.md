@@ -304,6 +304,11 @@ closure.
   replaced the raw E796/E79D/E7A4 source lows with row-specific constants and
   callee-argument comments. C0 tilemap-copy internals remain external. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 credits DMA queue follow-up: promoted the shared C4 credits DMA
+  ring-record shape into enqueue/drain constants for the 9-byte stride, field
+  offsets, and `$007F` index mask, then marked where C4 packs/unpacks the C0
+  transfer selector, VRAM destination, long source pointer, and byte count.
+  See `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 
 ## Validation
 
