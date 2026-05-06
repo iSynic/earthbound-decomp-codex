@@ -22,6 +22,12 @@ That is now strong enough to promote this helper as the best current match for r
 
 The resolver needed explicit source-emitter CPU-state anchors at the single-target branches because early return paths temporarily switch index width before jumping to the shared return block. The checked-in source validates byte-for-byte after those state anchors.
 
+The follow-up source polish now names the major tables and state lanes used by
+the adjacent `AF73..B5B6` strip: `D5:5000` item config rows, `D5:7B68` action
+rows, fixed C7 item-use failure text pointers, CF:8985 NPC-config fallback text,
+the `$9FFA` battle selection snapshot block, and the `$9FAC` handoff row used
+before `C2:B930`.
+
 ## Direct caller family
 
 Pinned direct callers are now:
@@ -118,6 +124,26 @@ The safest current summary is:
 - it is shared by ordinary battle choice text, PSI-menu-side helpers, and the main battle PSI menu controller
 
 The remaining soft edge is mostly the exact symbolic names of the returned targetting flag bits, not what the helper fundamentally does.
+
+## Adjacent Use-Item Bridge Boundary
+
+The `C1:AF73` tail is still physically in the same source module, but its
+runtime role is clearer now.
+
+Current safest source-backed read:
+
+- resolve the selected item id through `C3:E977`
+- index `D5:5000` with stride `0x27`
+- use item config byte `+0x19` to choose the use lane
+- use item config byte `+0x1C` for per-character usability checks
+- use item config word `+0x1D` as the associated `D5:7B68` action id
+- choose either an action-row text pointer, a fixed C7 failure text pointer, or
+  a CF:8985-derived fallback pointer
+- when targetting succeeds, flow into the `B2EC/B450` battle-choice text and
+  `$9FFA` snapshot export family
+
+This keeps `AF73` connected to `ADB4`, but it no longer needs to be described
+as an anonymous tail after the targetting resolver.
 
 ## Working Names
 

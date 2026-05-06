@@ -46,6 +46,16 @@ The strongest current local model is:
 - the same row lane also exports a larger side block into `$9FFA` through `C2:B930` and `$A972`
 - the family uses `C1:ADB4` as the shared targetting resolver when it needs concrete target-selection state from the associated battle action id
 
+Source polish now aligns this lane with the C2 action-table vocabulary:
+
+- `D5:7B68 + 0x04` is the ordinary action-row text pointer selected by the
+  item-use bridge before the choice-text family runs
+- `D5:7B68 + 0x08` is the target-choice/payload pointer dispatched by
+  `B450/B504`
+- `$9FAC` is used as the handoff row for the first `C2:B930` export
+- `$9FFA` is the later battle selection snapshot root copied back into live
+  `$99DC` party state bytes
+
 The later loops at `B4A8 .. B4E8` and `B550 .. B58E` then copy byte `+0x1D` from that exported block back into the live per-slot state area at `$99DC + slot`.
 
 So this first lane is not only "show some battle text." It also refreshes a live slot-state mirror from the same selected row family.
@@ -102,6 +112,8 @@ The safest current summary is:
 - both also export row-linked data through the larger `$9FFA`-rooted battle selection snapshot block
 - both later project row byte `+0x1D` back into the live `$99DC` slot-state family
 - both now have a cleaner bridge into the shared battle targetting resolver at `C1:ADB4`
+- the `B2EC/B450` lane now uses the same `D5:7B68 +0x04/+0x08` action-row
+  pointer vocabulary as the C2 action dispatch notes
 
 The remaining soft edge is the exact full struct layout of the exported side block and the final user-facing name of the `B2xx/B8xx` controller family. But the runtime shape of this caller cluster is now in good condition.
 

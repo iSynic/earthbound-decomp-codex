@@ -3,6 +3,7 @@
 This note covers the unknown includes at `C1:CE85` and `C1:CFC6`.
 
 See also [battle-targetting-resolver-c1adb4-af50.md](notes/battle-targetting-resolver-c1adb4-af50.md).
+See also [battle-choice-text-family-c1b2ec-b997.md](notes/battle-choice-text-family-c1b2ec-b997.md).
 See also [item-slot-helper-pair-c3e977-c3ee14.md](notes/item-slot-helper-pair-c3e977-c3ee14.md).
 See also [item-psi-name-display-and-target-prompt-c19216-c19437.md](notes/item-psi-name-display-and-target-prompt-c19216-c19437.md).
 
@@ -81,3 +82,23 @@ This pair is the missing battle-item counterpart to the PSI menu targeting path:
 - item selection resolves through `D5:5000`, chooses an item action word, and then targetting
 
 The item action word at `D5:5000 + 0x1D` is especially important, because it is passed directly to `C1:ADB4`, the same shared targetting resolver already documented for PSI and action rows.
+
+## Adjacent Use-Item Text Bridge
+
+The adjacent `C1:AF73..B5B6` body is now source-polished enough to connect this
+resolver to the text/export side of item use.
+
+Current safest read:
+
+- item config byte `+0x19` chooses the coarse battle/field use lane
+- item config byte `+0x1C` supplies the per-character usability mask
+- item config word `+0x1D` selects the associated `D5:7B68` action row
+- action row `+0x04` supplies ordinary choice text
+- action row `+0x08` supplies the later target-choice/payload text pointer
+- fixed `C7` pointers cover wrong-user and other item-use rejection branches
+- successful targetting continues into the `$9FAC -> C2:B930 -> $9FFA`
+  battle selection snapshot/export path
+
+So `C1:CE85` decides whether the chosen inventory slot can become an action
+selection record, while the adjacent `AF73/B2EC/B450` lane owns the action-row
+text and snapshot side effects that follow from that choice.

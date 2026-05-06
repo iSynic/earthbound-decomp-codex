@@ -43,6 +43,20 @@ target selection to `C1:ADB4` when item category/usability bits allow it.
 uses row byte `+0` as the direction lane and row byte `+1` as the target subtype,
 then packs the selected target id with C0:923E target-class flags on return.
 
+The adjacent `C1:AF73` item-use bridge now has named source-side joins as well:
+
+- `D5:5000 + 0x19` selects the item-use lane
+- `D5:5000 + 0x1C` supplies the per-character usability mask
+- `D5:5000 + 0x1D` supplies the associated `D5:7B68` action id
+- `D5:7B68 + 0x04` supplies ordinary action-row choice text
+- `D5:7B68 + 0x08` supplies the target-choice text pointer consumed by the
+  `$9FFA` snapshot/export path
+- fixed `C7` text pointers cover wrong-user, equip-family, blocked-bicycle,
+  and no-action fallback branches
+
+That bridge is now a better first-class member of the battle front-end slice
+instead of an unnamed tail after the targetting resolver.
+
 `C1:DC1C` remains a text-entry wrapper, not a text VM decoder. Its stable
 contract is pointer restaging and battle-text gate handling before dispatching
 through C1:86B1.
@@ -57,8 +71,8 @@ choice-text lanes.
 Open followups:
 
 - correlate C0:923E return flag bit names against C2 battle action consumers
-- split the adjacent C1:AF73 use-item bridge if future source ownership needs a
-  narrower module boundary
+- decide whether the adjacent C1:AF73 use-item bridge should be split into its
+  own source module in a later scaffold ownership pass
 - join D5:5000 item field names to CoilSnake diff-confirmed item table probes
 - expand `C1:DC66..DD7C` substitution variants after EF payload consumers are
   polished

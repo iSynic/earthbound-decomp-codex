@@ -27838,12 +27838,73 @@ org $C1ADB4
 !C1AC4A_BuildBattleAttackerNameBuffer = $AC4A
 !C1ACA1_BuildBattleTargetNameBuffer = $ACA1
 !C1ACF8_StageBattleTextSubstitutionByte = $ACF8
+!C1AD42_GetFrontInteractionResultClass = $AD42
+!C1AD7D_ReadOverworldPositionContextByte = $AD7D
 !C1ADB4_DetermineBattleTargetting = $ADB4
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
+!C104EE_SetWindowFocus = $04EE
+!C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 !C0923E_ShiftTargettingClassToFlags = $C0923E
 !C09279_DispatchTextPointer = $C09279
 !C186B1_PrintTextFromPointer = $C186B1
 !C2B930_ExportBattleSelectionSnapshot = $C2B930
+!C3E521_CloseWindowAndReleaseTileState = $C3E521
+!C3E977_GetItemInCharacterInventorySlot = $C3E977
+!C3EE4D_RestoreBattleSelectionState = $C3EE4D
+!D57B68_BattleActionTableLo = $7B68
+!D57B68_BattleActionTableBank = $00D5
+!BattleActionTableRowSize = $000C
+!BattleActionTableDirectionByte = $0000
+!BattleActionTableTargetShapeByte = $0001
+!BattleActionTablePrimaryTextPtrOffset = $0004
+!BattleActionTableSecondPayloadPtrOffset = $0008
+!ItemConfigTableLo = $5000
+!ItemConfigTableBank = $00D5
+!ItemConfigTableRowSize = $0027
+!ItemConfigBattleUseMaskByte = $0019
+!ItemConfigUsabilityMaskByte = $001C
+!ItemConfigBattleActionWord = $001D
+!ItemConfigBattleUseLaneMask = $0030
+!ItemConfigEquipmentFamilyMask = $000C
+!ItemConfigEquipmentSubtypeMask = $0003
+!ItemConfigBattleUseLane10 = $0010
+!ItemConfigBattleUseLane20 = $0020
+!ItemConfigBattleUseLane30 = $0030
+!ItemConfigEquipFamily4 = $0004
+!ItemConfigEquipFamily8 = $0008
+!PartyRecordStride = $005F
+!PartyCharacterTableBase = $99CE
+!PartyRuntimeStateBase = $99DC
+!ActivePartyRegistry = $986F
+!ActivePartyCount = $98A4
+!PartyStatusRegistry = $988B
+!BattleSelectionSnapshotBase = $9FFA
+!BattlersTableBase = $9FAC
+!ActiveAttackerBattlerPointer = $A970
+!ActiveTargetSnapshotPointer = $A972
+!BattleSelectionSnapshotItemSlotByte = $0007
+!BattleSelectionSnapshotTargetByte = $0008
+!BattleSelectionSnapshotStateByte = $001D
+!PartyStateMirrorByteCount = $0007
+!BattleChoiceWindowId = $0001
+!BattleItemWindowId = $0002
+!BattleChoiceCleanupWindowId = $0003
+!CurrentTextPointerLo = $00BC
+!CurrentTextPointerBank = $00BE
+!FarPointerBankOffset = $0002
+!C7TextBank = $00C7
+!C7ItemUseLane10TextLo = $C742
+!C7ItemUseWrongUserTextLo = $7EE8
+!C7ItemUseEquipFamily4TextLo = $C6F1
+!C7ItemUseBicycleBlockedTextLo = $C833
+!C7ItemUseDefaultNoActionTextLo = $C6B6
+!NpcConfigTableLo = $8985
+!NpcConfigTableBank = $00CF
+!NpcConfigTableRowSize = $0011
+!NpcConfigTextPointerOffset = $000D
 DETERMINE_TARGETTING:
 !C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     rep #$31
@@ -27859,9 +27920,9 @@ DETERMINE_TARGETTING:
     lda.b #$FF
     sta $01
     rep #$20
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $08
     txa
     sta $04
@@ -28004,7 +28065,7 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     sta $00
     sta $16
     rep #$20
-    lda $98A4
+    lda !ActivePartyCount
     and.w #$00FF
     cmp.w #$0001
     beq C1AF20_DetermineBattleTargetting_LAF20
@@ -28045,7 +28106,7 @@ C1AF26_DetermineBattleTargetting_LAF26:
     jsl $C45F7B
     tax
     sep #$20
-    lda $988B,X
+    lda !PartyStatusRegistry,X
     sta $01
     bra C1AF50_ReturnBattleTargetAddress
 C1AF46_DetermineBattleTargetting_LAF46:
@@ -28096,19 +28157,19 @@ C1AF73_UseItemBattleOrFieldBridge:
     sta $24
     ldx $2C
     lda $04
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     sep #$20
     sta $01
     rep #$20
     lda $01
     and.w #$00FF
     sta $22
-    lda.w #$5000
+    lda.w #!ItemConfigTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!ItemConfigTableBank
     sta $08
     lda $22
-    ldy.w #$0027
+    ldy.w #!ItemConfigTableRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
@@ -28116,19 +28177,19 @@ C1AF73_UseItemBattleOrFieldBridge:
     sta $1E
     lda $08
     sta $20
-    ldy.w #$0019
+    ldy.w #!ItemConfigBattleUseMaskByte
     lda [$1E],Y
     and.w #$00FF
     tax
     stx $1C
     txa
-    and.w #$0030
+    and.w #!ItemConfigBattleUseLaneMask
     beq C1AFF6_DetermineBattleTargetting_LAFF6
-    cmp.w #$0010
+    cmp.w #!ItemConfigBattleUseLane10
     beq C1B033_DetermineBattleTargetting_LB033
-    cmp.w #$0020
+    cmp.w #!ItemConfigBattleUseLane20
     beq C1B048_DetermineBattleTargetting_LB048
-    cmp.w #$0030
+    cmp.w #!ItemConfigBattleUseLane30
     bne C1AFF3_DetermineBattleTargetting_LAFF3
     jmp.w C1B085_DetermineBattleTargetting_LB085
 C1AFF3_DetermineBattleTargetting_LAFF3:
@@ -28137,11 +28198,11 @@ C1AFF6_DetermineBattleTargetting_LAFF6:
     lda.w #$0001
     sta $02
     sta $24
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28155,7 +28216,7 @@ C1AFF6_DetermineBattleTargetting_LAFF6:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28167,9 +28228,9 @@ C1AFF6_DetermineBattleTargetting_LAFF6:
     sta $28
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B033_DetermineBattleTargetting_LB033:
-    lda.w #$C742
+    lda.w #!C7ItemUseLane10TextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28180,11 +28241,11 @@ C1B048_DetermineBattleTargetting_LB048:
     lda.w #$0001
     sta $02
     sta $24
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28198,7 +28259,7 @@ C1B048_DetermineBattleTargetting_LB048:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28210,7 +28271,7 @@ C1B048_DetermineBattleTargetting_LB048:
     sta $28
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B085_DetermineBattleTargetting_LB085:
-    ldy.w #$001C
+    ldy.w #!ItemConfigUsabilityMaskByte
     ldx $04
     dex
     sep #$20
@@ -28219,9 +28280,9 @@ C1B085_DetermineBattleTargetting_LB085:
     rep #$20
     and.w #$00FF
     bne C1B0AF_DetermineBattleTargetting_LB0AF
-    lda.w #$7EE8
+    lda.w #!C7ItemUseWrongUserTextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28231,22 +28292,22 @@ C1B085_DetermineBattleTargetting_LB085:
 C1B0AF_DetermineBattleTargetting_LB0AF:
     ldx $1C
     txa
-    and.w #$000C
+    and.w #!ItemConfigEquipmentFamilyMask
     beq C1B0C4_DetermineBattleTargetting_LB0C4
-    cmp.w #$0004
+    cmp.w #!ItemConfigEquipFamily4
     beq C1B101_DetermineBattleTargetting_LB101
-    cmp.w #$0008
+    cmp.w #!ItemConfigEquipFamily8
     beq C1B116_DetermineBattleTargetting_LB116
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B0C4_DetermineBattleTargetting_LB0C4:
     lda.w #$0001
     sta $02
     sta $24
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28260,7 +28321,7 @@ C1B0C4_DetermineBattleTargetting_LB0C4:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28272,9 +28333,9 @@ C1B0C4_DetermineBattleTargetting_LB0C4:
     sta $28
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B101_DetermineBattleTargetting_LB101:
-    lda.w #$C6F1
+    lda.w #!C7ItemUseEquipFamily4TextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28283,7 +28344,7 @@ C1B101_DetermineBattleTargetting_LB101:
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B116_DetermineBattleTargetting_LB116:
     txa
-    and.w #$0003
+    and.w #!ItemConfigEquipmentSubtypeMask
     beq C1B131_DetermineBattleTargetting_LB131
     cmp.w #$0001
     beq C1B131_DetermineBattleTargetting_LB131
@@ -28298,11 +28359,11 @@ C1B131_DetermineBattleTargetting_LB131:
     lda.w #$0001
     sta $02
     sta $24
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28316,7 +28377,7 @@ C1B131_DetermineBattleTargetting_LB131:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28328,7 +28389,7 @@ C1B131_DetermineBattleTargetting_LB131:
     sta $28
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B16E_DetermineBattleTargetting_LB16E:
-    jsr $AD7D
+    jsr !C1AD7D_ReadOverworldPositionContextByte
     tax
     lda $22
     sta $02
@@ -28338,12 +28399,12 @@ C1B16E_DetermineBattleTargetting_LB16E:
     lda $22
     cmp.w #$00B0
     bne C1B1A0_DetermineBattleTargetting_LB1A0
-    jsl $C03C4B
+    jsl !C03C4B_ProbeCurrentPositionHighCollisionBits
     cmp.w #$0000
     beq C1B1A0_DetermineBattleTargetting_LB1A0
-    lda.w #$C833
+    lda.w #!C7ItemUseBicycleBlockedTextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28354,11 +28415,11 @@ C1B1A0_DetermineBattleTargetting_LB1A0:
     lda.w #$0001
     sta $02
     sta $24
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28372,7 +28433,7 @@ C1B1A0_DetermineBattleTargetting_LB1A0:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28384,9 +28445,9 @@ C1B1A0_DetermineBattleTargetting_LB1A0:
     sta $28
     jmp.w C1B28C_DetermineBattleTargetting_LB28C
 C1B1DD_DetermineBattleTargetting_LB1DD:
-    lda.w #$C6F1
+    lda.w #!C7ItemUseEquipFamily4TextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28397,7 +28458,7 @@ C1B1F2_DetermineBattleTargetting_LB1F2:
     lda.w #$0001
     sta $02
     sta $24
-    jsr $AD42
+    jsr !C1AD42_GetFrontInteractionResultClass
     rep #$20
     and.w #$00FF
     cmp.w #$0001
@@ -28405,9 +28466,9 @@ C1B1F2_DetermineBattleTargetting_LB1F2:
     cmp.w #$0003
     bne C1B23D_DetermineBattleTargetting_LB23D
 C1B20B_DetermineBattleTargetting_LB20B:
-    lda.w #$8985
+    lda.w #!NpcConfigTableLo
     sta $0A
-    lda.w #$00CF
+    lda.w #!NpcConfigTableBank
     sta $0C
     lda $5D62
     sta $04
@@ -28417,11 +28478,11 @@ C1B20B_DetermineBattleTargetting_LB20B:
     asl A
     adc $04
     clc
-    adc.w #$000D
+    adc.w #!NpcConfigTextPointerOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28446,11 +28507,11 @@ C1B23D_DetermineBattleTargetting_LB23D:
     cmp $0A
 C1B257_DetermineBattleTargetting_LB257:
     bne C1B28C_DetermineBattleTargetting_LB28C
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28464,7 +28525,7 @@ C1B257_DetermineBattleTargetting_LB257:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28484,7 +28545,7 @@ C1B28C_DetermineBattleTargetting_LB28C:
     sta $02
     beq C1B2CD_DetermineBattleTargetting_LB2CD
     ldx $04
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     jsr.w DETERMINE_TARGETTING
     sep #$20
@@ -28496,33 +28557,33 @@ C1B28C_DetermineBattleTargetting_LB28C:
     lda.w #$0000
     jmp.w C1B5B4_DetermineBattleTargetting_LB5B4
 C1B2B9_DetermineBattleTargetting_LB2B9:
-    ldy.w #$001C
+    ldy.w #!ItemConfigUsabilityMaskByte
     lda [$1E],Y
     and.w #$00FF
     and.w #$0080
     beq C1B2CD_DetermineBattleTargetting_LB2CD
     ldx $2C
     lda $04
-    jsr $8C27
+    jsr !C18C27_RemoveItemFromCharacterInventorySlot
 C1B2CD_DetermineBattleTargetting_LB2CD:
-    lda.w #$0003
-    jsl $C3E521
-    lda.w #$0002
-    jsl $C3E521
+    lda.w #!BattleChoiceCleanupWindowId
+    jsl !C3E521_CloseWindowAndReleaseTileState
+    lda.w #!BattleItemWindowId
+    jsl !C3E521_CloseWindowAndReleaseTileState
     ldx.w #$0005
     lda $04
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterTableBase
 C1B2EC_BuildBattleActionChoiceTextFromActionRow:
     jsr !C1AC4A_BuildBattleAttackerNameBuffer
     sep #$20
     lda $01
     jsr !C1ACF8_StageBattleTextSubstitutionByte
-    lda.w #$0001
-    jsr $04EE
+    lda.w #!BattleChoiceWindowId
+    jsr !C104EE_SetWindowFocus
     lda $04
     sta $06
     stz $08
@@ -28530,7 +28591,7 @@ C1B2EC_BuildBattleActionChoiceTextFromActionRow:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $2C
     sta $06
     stz $08
@@ -28538,7 +28599,7 @@ C1B2EC_BuildBattleActionChoiceTextFromActionRow:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda $00
     and.w #$00FF
     tay
@@ -28547,10 +28608,10 @@ C1B2EC_BuildBattleActionChoiceTextFromActionRow:
     ldx.w #$0005
     tya
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterTableBase
     jsr !C1ACA1_BuildBattleTargetNameBuffer
 C1B33C_DetermineBattleTargetting_LB33C:
     lda.w #$0000
@@ -28567,9 +28628,9 @@ C1B33C_DetermineBattleTargetting_LB33C:
     cmp $0A
 C1B356_DetermineBattleTargetting_LB356:
     bne C1B36A_DetermineBattleTargetting_LB36A
-    lda.w #$C6B6
+    lda.w #!C7ItemUseDefaultNoActionTextLo
     sta $06
-    lda.w #$00C7
+    lda.w #!C7TextBank
     sta $08
     lda $06
     sta $26
@@ -28580,15 +28641,15 @@ C1B36A_DetermineBattleTargetting_LB36A:
     bne C1B371_DetermineBattleTargetting_LB371
     jmp.w C1B596_DetermineBattleTargetting_LB596
 C1B371_DetermineBattleTargetting_LB371:
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $18
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $1A
     lda $1E
     sta $0A
     lda $20
     sta $0C
-    lda.w #$001D
+    lda.w #!ItemConfigBattleActionWord
     clc
     adc $0A
     sta $0A
@@ -28606,11 +28667,11 @@ C1B371_DetermineBattleTargetting_LB371:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #!BattleActionTableSecondPayloadPtrOffset
     clc
     adc $06
     sta $06
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$06],Y
     tay
     lda [$06]
@@ -28629,21 +28690,21 @@ C1B3CB_DetermineBattleTargetting_LB3CB:
     bne C1B3D0_DetermineBattleTargetting_LB3D0
     jmp.w C1B596_DetermineBattleTargetting_LB596
 C1B3D0_DetermineBattleTargetting_LB3D0:
-    lda.w #$9FAC
-    sta $A970
+    lda.w #!BattlersTableBase
+    sta !ActiveAttackerBattlerPointer
     tax
     lda $2A
     sta $04
     jsl !C2B930_ExportBattleSelectionSnapshot
     sep #$20
     lda $01
-    ldx $A970
-    sta $0008,X
+    ldx !ActiveAttackerBattlerPointer
+    sta.w !BattleSelectionSnapshotTargetByte,X
     rep #$20
     lda $2C
     sep #$20
-    ldx $A970
-    sta $0007,X
+    ldx !ActiveAttackerBattlerPointer
+    sta.w !BattleSelectionSnapshotItemSlotByte,X
     rep #$20
     lda $26
     sta $06
@@ -28657,8 +28718,8 @@ C1B3D0_DetermineBattleTargetting_LB3D0:
     sep #$20
     lda $01
     jsr !C1ACF8_StageBattleTextSubstitutionByte
-    ldx.w #$9FFA
-    stx $A972
+    ldx.w #!BattleSelectionSnapshotBase
+    stx !ActiveTargetSnapshotPointer
     lda $00
     and.w #$00FF
     tay
@@ -28672,7 +28733,7 @@ C1B426_DetermineBattleTargetting_LB426:
 C1B42E_DetermineBattleTargetting_LB42E:
     tya
     clc
-    adc.w #$986F
+    adc.w #!ActivePartyRegistry
     sta $02
     ldx.w #$0005
     stx $12
@@ -28680,25 +28741,25 @@ C1B42E_DetermineBattleTargetting_LB42E:
     lda $0000,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharacterTableBase
     ldx $12
 C1B450_BuildBattleActionTargetChoiceText:
     jsr !C1ACA1_BuildBattleTargetNameBuffer
-    ldx $A972
+    ldx !ActiveTargetSnapshotPointer
     stx $12
     ldx $02
     lda $0000,X
     and.w #$00FF
     ldx $12
     jsl !C2B930_ExportBattleSelectionSnapshot
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
-    ldy.w #$001D
+    ldy.w #!ItemConfigBattleActionWord
     lda [$1E],Y
     sta $04
     asl A
@@ -28706,11 +28767,11 @@ C1B450_BuildBattleActionTargetChoiceText:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #!BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28718,9 +28779,9 @@ C1B450_BuildBattleActionTargetChoiceText:
     sty $08
     pha
     lda $06
-    sta $00BC
+    sta !CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta !CurrentTextPointerBank
     pla
     jsl !C09279_DispatchTextPointer
     lda.w #$0000
@@ -28731,19 +28792,19 @@ C1B4A8_DetermineBattleTargetting_LB4A8:
     sta $02
     ldy $22
     tya
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99DC
+    adc.w #!PartyRuntimeStateBase
     clc
     adc $02
     pha
     lda $2C
     clc
-    adc $A972
+    adc !ActiveTargetSnapshotPointer
     tax
     sep #$20
-    lda $001D,X
+    lda.w !BattleSelectionSnapshotStateByte,X
     plx
     sta $0000,X
     rep #$20
@@ -28752,7 +28813,7 @@ C1B4A8_DetermineBattleTargetting_LB4A8:
     sta $2C
 C1B4D5_DetermineBattleTargetting_LB4D5:
     sta $02
-    lda.w #$0007
+    lda.w #!PartyStateMirrorByteCount
     clc
     sbc $02
     bvs C1B4E3_DetermineBattleTargetting_LB4E3
@@ -28766,7 +28827,7 @@ C1B4E5_DetermineBattleTargetting_LB4E5:
     sty $22
 C1B4EA_DetermineBattleTargetting_LB4EA:
     sty $02
-    lda $98A4
+    lda !ActivePartyCount
     and.w #$00FF
     clc
     sbc $02
@@ -28792,7 +28853,7 @@ C1B504_DetermineBattleTargetting_LB504:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #!BattleActionTableSecondPayloadPtrOffset
     pha
     lda $18
     sta $0A
@@ -28802,7 +28863,7 @@ C1B504_DetermineBattleTargetting_LB504:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -28810,9 +28871,9 @@ C1B504_DetermineBattleTargetting_LB504:
     sty $08
     pha
     lda $06
-    sta $00BC
+    sta !CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta !CurrentTextPointerBank
     pla
     jsl !C09279_DispatchTextPointer
     lda.w #$0000
@@ -28824,19 +28885,19 @@ C1B550_DetermineBattleTargetting_LB550:
     lda $00
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!PartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99DC
+    adc.w #!PartyRuntimeStateBase
     clc
     adc $02
     pha
     lda $2C
     clc
-    adc $A972
+    adc !ActiveTargetSnapshotPointer
     tax
     sep #$20
-    lda $001D,X
+    lda.w !BattleSelectionSnapshotStateByte,X
     plx
     sta $0000,X
     rep #$20
@@ -28845,7 +28906,7 @@ C1B550_DetermineBattleTargetting_LB550:
     sta $2C
 C1B580_DetermineBattleTargetting_LB580:
     sta $02
-    lda.w #$0007
+    lda.w #!PartyStateMirrorByteCount
     clc
     sbc $02
     bvs C1B58E_DetermineBattleTargetting_LB58E
@@ -28854,7 +28915,7 @@ C1B580_DetermineBattleTargetting_LB580:
 C1B58E_DetermineBattleTargetting_LB58E:
     bmi C1B550_DetermineBattleTargetting_LB550
 C1B590_DetermineBattleTargetting_LB590:
-    jsl $C3EE4D
+    jsl !C3EE4D_RestoreBattleSelectionState
     bra C1B5AA_DetermineBattleTargetting_LB5AA
 C1B596_DetermineBattleTargetting_LB596:
     lda $26
@@ -28868,7 +28929,7 @@ C1B596_DetermineBattleTargetting_LB596:
     jsl !C186B1_PrintTextFromPointer
 C1B5AA_DetermineBattleTargetting_LB5AA:
     lda.w #$0001
-    jsl $C3E521
+    jsl !C3E521_CloseWindowAndReleaseTileState
     lda.w #$0001
 C1B5B4_DetermineBattleTargetting_LB5B4:
     pld

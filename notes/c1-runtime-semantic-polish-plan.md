@@ -172,3 +172,12 @@ This planning pass is documentation-only.
   comments/constants. The `19 1E` pointer-substitution leaf now names its
   `$9D12/$9D14` source, and the `1C 0F` amount-print branch in the dynamic
   selector corridor now names `C1:AD26`, `$0E/$10` staging, and `C1:0DF6`.
+- 2026-05-05: C1 battle item-use bridge follow-up tightened the adjacent
+  `C1:AF73..B5B6` lane now that C2 action-table vocabulary is stable. The
+  promoted source constants name the `D5:5000` item config row fields,
+  `D5:7B68 +0x04/+0x08` action-row text pointers, fixed C7 item-use failure
+  text pointers, CF:8985 fallback text lookup, the `$9FAC` handoff row, and the
+  `$9FFA` battle selection snapshot copied back into `$99DC`. See
+  `notes/battle-targetting-resolver-c1adb4-af50.md`,
+  `notes/battle-item-action-selection-c1ce85-c1cfc6.md`, and
+  `notes/battle-choice-text-family-c1b2ec-b997.md`.
