@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-SequencePackMask = $B547
+SequencePackMask       = $B547
+
+AudioPackAddressMaskAll = $FFFF
 
 ; ---------------------------------------------------------------------------
 ; C4:FB42
@@ -19,6 +21,8 @@ SequencePackMask = $B547
 GET_AUDIO_BANK:
 C4FB42_GetAudioBank = GET_AUDIO_BANK
 C4FB42_MusicDatasetAndPackPointerTablesEnd = GET_AUDIO_BANK
+    ; US resolves the pack bank byte unchanged. The helper still resets the
+    ; address mask used by the following pack-pointer word load.
     rep #$31
     phd
     pha
@@ -27,7 +31,7 @@ C4FB42_MusicDatasetAndPackPointerTablesEnd = GET_AUDIO_BANK
     tcd
     pla
     sta $0E
-    lda.w #$FFFF
+    lda.w #AudioPackAddressMaskAll
     sta SequencePackMask
     lda $0E
     pld

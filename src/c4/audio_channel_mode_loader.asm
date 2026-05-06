@@ -11,13 +11,19 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-LoadSpc700Data = $C0AB06
+LoadSpc700Data              = $C0AB06
+
+AudioChannelModeMono        = $0000
+StereoMonoDataStreamMono    = $AC2C
+StereoMonoDataStreamStereo  = $AC33
+StereoMonoDataStreamBank    = $00C0
 
 ; ---------------------------------------------------------------------------
 ; C4:FD18
 
 SET_AUDIO_CHANNELS:
 C4FD18_SetAudioChannels = SET_AUDIO_CHANNELS
+    ; A == 0 loads the mono stream; nonzero loads the stereo stream.
     rep #$31
     phd
     pha
@@ -27,15 +33,15 @@ C4FD18_SetAudioChannels = SET_AUDIO_CHANNELS
     pla
     tax
     beq C4FD31_SetAudioChannels_LFD31
-    lda.w #$AC33
+    lda.w #StereoMonoDataStreamStereo
     sta $0E
-    lda.w #$00C0
+    lda.w #StereoMonoDataStreamBank
     sta $10
     bra C4FD3B_SetAudioChannels_LFD3B
 C4FD31_SetAudioChannels_LFD31:
-    lda.w #$AC2C
+    lda.w #StereoMonoDataStreamMono
     sta $0E
-    lda.w #$00C0
+    lda.w #StereoMonoDataStreamBank
     sta $10
 C4FD3B_SetAudioChannels_LFD3B:
     ldx $10

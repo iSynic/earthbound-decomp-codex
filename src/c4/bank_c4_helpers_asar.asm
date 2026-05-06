@@ -15835,6 +15835,7 @@ hirom
 org $C4FB42
 
 !SequencePackMask = $B547
+!AudioPackAddressMaskAll = $FFFF
 GET_AUDIO_BANK:
 !C4FB42_GetAudioBank = GET_AUDIO_BANK
 !C4FB42_MusicDatasetAndPackPointerTablesEnd = GET_AUDIO_BANK
@@ -15846,7 +15847,7 @@ GET_AUDIO_BANK:
     tcd
     pla
     sta $0E
-    lda.w #$FFFF
+    lda.w #!AudioPackAddressMaskAll
     sta !SequencePackMask
     lda $0E
     pld
@@ -15863,10 +15864,17 @@ org $C4FB58
 !CurrentPrimarySamplePack = $B53D
 !CurrentSecondarySamplePack = $B53F
 !CurrentSequencePack = $B541
-!Unknown7EB543 = $B543
+!BootstrapSharedAudioPack = $B543
 !SequencePackMask = $B547
 !EnableAutoSectorMusicChanges = $B549
 !LoadSpc700Data = $C0AB06
+!MusicDatasetTable = $C4F70A
+!MusicPackPointerTableLo = $F947
+!MusicPackPointerTableBank = $00C4
+!GetAudioBank = $FB42
+!AudioPackAddressMaskAll = $FFFF
+!AutoSectorMusicEnabled = $0001
+!MusicDatasetSequencePackByte = $0002
 INITIALIZE_MUSIC_SUBSYSTEM:
 !C4FB58_InitializeMusicSubsystem = INITIALIZE_MUSIC_SUBSYSTEM
     rep #$31
@@ -15874,17 +15882,17 @@ INITIALIZE_MUSIC_SUBSYSTEM:
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$FFFF
+    lda.w #!AudioPackAddressMaskAll
     sta !CurrentSequencePack
     sta !CurrentPrimarySamplePack
-    lda $C4F70C
+    lda !MusicDatasetTable+!MusicDatasetSequencePackByte
     and.w #$00FF
     sta $10
-    sta !Unknown7EB543
+    sta !BootstrapSharedAudioPack
     sta !CurrentSecondarySamplePack
-    lda.w #$F947
+    lda.w #!MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!MusicPackPointerTableBank
     sta $08
     lda $10
     sta $04
@@ -15902,7 +15910,7 @@ INITIALIZE_MUSIC_SUBSYSTEM:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr !GetAudioBank
     tax
     ldy $0E
     tya
@@ -15913,7 +15921,7 @@ INITIALIZE_MUSIC_SUBSYSTEM:
     lda [$06]
     and !SequencePackMask
     jsl !LoadSpc700Data
-    lda.w #$0001
+    lda.w #!AutoSectorMusicEnabled
     sta !EnableAutoSectorMusicChanges
     pld
     rtl
@@ -15926,19 +15934,27 @@ INITIALIZE_MUSIC_SUBSYSTEM:
 hirom
 org $C4FBBD
 
-!CreditsPlaybackActive = $B4B6
+!DisabledTransitions = $B4B6
 !CurrentMusicTrack = $B53B
 !CurrentPrimarySamplePack = $B53D
 !CurrentSecondarySamplePack = $B53F
 !CurrentSequencePack = $B541
-!Unknown7EB543 = $B543
+!BootstrapSharedAudioPack = $B543
 !SequencePackMask = $B547
 !LoadSpc700Data = $C0AB06
-!UnknownC0ABBD = $C0ABBD
-!StopMusic = $C0ABC6
-!PlaySoundUnknown0 = $C0AC01
-!StopMusicTransitionMaybe = $C0AC0C
+!SendApuPort0CommandByte = $C0ABBD
+!StopMusicAndLatchNoTrack = $C0ABC6
+!QueueSoundEffectOrPlayApuPort3Cue = $C0AC01
+!ToggleAndSendApuPort1Command = $C0AC0C
 !MusicDatasetTable = $C4F70A
+!MusicPackPointerTableLo = $F947
+!MusicPackPointerTableBank = $00C4
+!GetAudioBank = $FB42
+!AudioPackNone = $00FF
+!MusicDatasetRowSize = $0003
+!MusicTrackSoundStoneFirst = $00A0
+!MusicTrackSoundStoneLast = $00A7
+!StopMusicTransitionCommand = $0001
 CHANGE_MUSIC:
 !C4FBBD_ChangeMusic = CHANGE_MUSIC
     rep #$31
@@ -15954,20 +15970,20 @@ CHANGE_MUSIC:
     bne C4FBD2_ChangeMusic_LFBD2
     jmp.w C4FD16_ChangeMusic_LFD16
 C4FBD2_ChangeMusic_LFBD2:
-    lda !CreditsPlaybackActive
+    lda !DisabledTransitions
     bne C4FBDB_ChangeMusic_LFBDB
-    jsl !PlaySoundUnknown0
+    jsl !QueueSoundEffectOrPlayApuPort3Cue
 C4FBDB_ChangeMusic_LFBDB:
     ldx $12
-    cpx.w #$00A0
+    cpx.w #!MusicTrackSoundStoneFirst
     bcc C4FBE9_ChangeMusic_LFBE9
-    cpx.w #$00A7
+    cpx.w #!MusicTrackSoundStoneLast
     bcc C4FBF4_ChangeMusic_LFBF4
     beq C4FBF4_ChangeMusic_LFBF4
 C4FBE9_ChangeMusic_LFBE9:
-    lda.w #$0001
-    jsl !StopMusicTransitionMaybe
-    jsl !StopMusic
+    lda.w #!StopMusicTransitionCommand
+    jsl !ToggleAndSendApuPort1Command
+    jsl !StopMusicAndLatchNoTrack
 C4FBF4_ChangeMusic_LFBF4:
     ldx $12
     stx !CurrentMusicTrack
@@ -15984,12 +16000,12 @@ C4FBF4_ChangeMusic_LFBF4:
     sta $0E
     cmp !CurrentPrimarySamplePack
     beq C4FC54_ChangeMusic_LFC54
-    cmp.w #$00FF
+    cmp.w #!AudioPackNone
     beq C4FC54_ChangeMusic_LFC54
     sta !CurrentPrimarySamplePack
-    lda.w #$F947
+    lda.w #!MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -16005,7 +16021,7 @@ C4FBF4_ChangeMusic_LFBF4:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr !GetAudioBank
     tax
     lda $02
     inc A
@@ -16028,14 +16044,14 @@ C4FC54_ChangeMusic_LFC54:
     sta $0E
     cmp !CurrentSecondarySamplePack
     beq C4FCB3_ChangeMusic_LFCB3
-    cmp.w #$00FF
+    cmp.w #!AudioPackNone
     beq C4FCB3_ChangeMusic_LFCB3
-    cmp !Unknown7EB543
+    cmp !BootstrapSharedAudioPack
     beq C4FCB3_ChangeMusic_LFCB3
     sta !CurrentSecondarySamplePack
-    lda.w #$F947
+    lda.w #!MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -16051,7 +16067,7 @@ C4FC54_ChangeMusic_LFC54:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr !GetAudioBank
     tax
     lda $02
     inc A
@@ -16075,12 +16091,12 @@ C4FCB3_ChangeMusic_LFCB3:
     sta $0E
     cmp !CurrentSequencePack
     beq C4FD0E_ChangeMusic_LFD0E
-    cmp.w #$00FF
+    cmp.w #!AudioPackNone
     beq C4FD0E_ChangeMusic_LFD0E
     sta !CurrentSequencePack
-    lda.w #$F947
+    lda.w #!MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -16096,7 +16112,7 @@ C4FCB3_ChangeMusic_LFCB3:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr !GetAudioBank
     tax
     lda $02
     inc A
@@ -16110,7 +16126,7 @@ C4FD0E_ChangeMusic_LFD0E:
     ldy $10
     tya
     inc A
-    jsl !UnknownC0ABBD
+    jsl !SendApuPort0CommandByte
 C4FD16_ChangeMusic_LFD16:
     pld
     rtl
@@ -16124,6 +16140,10 @@ hirom
 org $C4FD18
 
 !LoadSpc700Data = $C0AB06
+!AudioChannelModeMono = $0000
+!StereoMonoDataStreamMono = $AC2C
+!StereoMonoDataStreamStereo = $AC33
+!StereoMonoDataStreamBank = $00C0
 SET_AUDIO_CHANNELS:
 !C4FD18_SetAudioChannels = SET_AUDIO_CHANNELS
     rep #$31
@@ -16135,15 +16155,15 @@ SET_AUDIO_CHANNELS:
     pla
     tax
     beq C4FD31_SetAudioChannels_LFD31
-    lda.w #$AC33
+    lda.w #!StereoMonoDataStreamStereo
     sta $0E
-    lda.w #$00C0
+    lda.w #!StereoMonoDataStreamBank
     sta $10
     bra C4FD3B_SetAudioChannels_LFD3B
 C4FD31_SetAudioChannels_LFD31:
-    lda.w #$AC2C
+    lda.w #!StereoMonoDataStreamMono
     sta $0E
-    lda.w #$00C0
+    lda.w #!StereoMonoDataStreamBank
     sta $10
 C4FD3B_SetAudioChannels_LFD3B:
     ldx $10

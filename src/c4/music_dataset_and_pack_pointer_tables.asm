@@ -8,11 +8,18 @@
 ; Source units covered:
 ; - C4:F70A..C4:F947 Music dataset table.
 ; - C4:F947..C4:FB42 Music pack pointer table.
+;
+; Table contracts:
+; - MusicDatasetTable rows are 3 bytes per requested track:
+;   primary sample pack, secondary sample pack, sequence pack.
+; - $FF means the corresponding pack role does not need a new load.
+; - MusicPackPointerTable rows are 3 bytes per audio pack:
+;   bank byte, then 16-bit stream address.
 
 ; ---------------------------------------------------------------------------
 ; C4:F947
 
-; MusicPackPointerTable
+; MusicPackPointerTable is declared after the dataset bytes below.
 
 ; ---------------------------------------------------------------------------
 ; C4:F70A
@@ -20,6 +27,8 @@
 MUSIC_DATASET_TABLE:
 C4F70A_MusicDatasetTable = MUSIC_DATASET_TABLE
     ; data bytes: C4:F70A..C4:F947
+    ; row stride: 3 bytes, selected by ChangeMusic after converting the
+    ; requested one-based track id to a zero-based table index.
     db $00,$FF,$01,$02,$03,$04,$02,$03,$04,$05,$FF,$FF,$05,$FF,$FF,$05
     db $FF,$FF,$05,$FF,$06,$05,$FF,$FF,$05,$FF,$FF,$05,$FF,$FF,$05,$FF
     db $FF,$05,$FF,$FF,$05,$FF,$FF,$05,$FF,$FF,$05,$FF,$07,$05,$08,$09
@@ -59,6 +68,8 @@ C4F70A_MusicDatasetTable = MUSIC_DATASET_TABLE
 
 MUSIC_PACK_POINTER_TABLE:
 C4F947_MusicPackPointerTable = MUSIC_PACK_POINTER_TABLE
+    ; data bytes: C4:F947..C4:FB42
+    ; row stride: 3 bytes: bank byte, 16-bit stream address.
 
 ; ---------------------------------------------------------------------------
 ; C4:FB42

@@ -205,6 +205,13 @@ closure.
   completion latch, and the C0 cleanup helper calls without assigning those
   per-slot tables a global meaning. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
+  the music dataset row fields, audio pack pointer row shape, US bank resolver
+  mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,
+  secondary, and sequence pack roles, Sound Stone recording transition
+  exception, stereo/mono stream loader, and auto-sector music-change latch. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md` and
+  `notes/audio-pack-format-and-renderer-frontier.md`.
 
 ## Validation
 

@@ -18,6 +18,7 @@ EnableAutoSectorMusicChanges = $B549
 
 SET_AUTO_SECTOR_MUSIC_CHANGES:
 C4FD45_SetAutoSectorMusicChanges = SET_AUTO_SECTOR_MUSIC_CHANGES
+    ; Stores the sector-music auto-change latch consumed by map/sector refresh.
     rep #$31
     sta EnableAutoSectorMusicChanges
     rtl

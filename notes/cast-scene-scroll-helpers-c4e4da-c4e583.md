@@ -60,7 +60,7 @@ The promoted helper islands are:
 - `src/c4/auto_sector_music_change_latch.asm` covers `C4:FD45..C4:FD4B`
 
 They are included in `src/c4/bank_c4_helpers_asar.asm` and the combined C4
-byte-equivalence check currently validates all `85` C4 scaffold modules with
+byte-equivalence check currently validates all `142` C4 scaffold modules with
 `0` mismatches.
 
 ## Main Result
@@ -148,14 +148,32 @@ credits DMA queue, resets the callback to the default stub, reinstalls the
 delayed-action callback, and restores the display state after the credits
 presentation.
 
-`C4:F70A..C4:F947` is the ebsrc-named music dataset table.
-`C4:F947..C4:FB42` is the music pack pointer table selected by the audio
-loader. The scaffold preserves both as data gaps rather than decoding them as
-instructions.
+`C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
+the requested music id as one-based, subtracts one for the row lookup, and reads
+three byte fields per row: primary sample pack, secondary sample pack, and
+sequence pack. A field value of `$FF` means that pack role does not request a
+new load.
 
-`C4:FB42..C4:FD4B` is the compact audio helper tail: audio bank resolution,
-music subsystem initialization, music change pack loading, stereo/mono channel
-data loading, and the auto-sector music-change latch.
+`C4:F947..C4:FB42` is the music pack pointer table selected by the audio
+loader. Each 3-byte row carries the pack stream bank byte followed by a 16-bit
+stream address. `GetAudioBank` resolves the bank byte unchanged in the US ROM
+and resets `SequencePackMask` to `$FFFF` before the address word is consumed.
+
+`C4:FB58..C4:FBBD` is the cold-start music initializer. It clears the current
+sequence/primary pack latches, loads the row-0 sequence/common pack into the
+bootstrap shared-pack latch, streams that pack through `C0:AB06`, and enables
+auto sector music changes.
+
+`C4:FBBD..C4:FD18` is the runtime music change loader. It skips unchanged or
+`$FF` pack roles, applies primary sample pack, secondary sample pack, then
+sequence pack loads through `C0:AB06`, skips the bootstrap shared pack in the
+secondary role, preserves seamless playback for Sound Stone recording tracks
+`$00A0..$00A7`, and finally sends the one-based track id through
+`C0:ABBD`.
+
+`C4:FD18..C4:FD4B` loads the stereo/mono SPC data stream selected by
+`SetAudioChannels`, then stores the auto-sector music-change latch used by map
+or sector refresh code.
 
 ## Working Names
 
@@ -206,3 +224,8 @@ data loading, and the auto-sector music-change latch.
 - The credits side now identifies `$003B` as the high word consumed by the
   BG3 vertical-scroll/credits progress loop; the broader display-scroll naming
   still needs one cross-bank pass before making it a global symbol.
+- The audio tail now has table-local contracts for the music dataset row
+  fields, audio-pack pointer row shape, bootstrap shared-pack latch, Sound
+  Stone transition exception, and `ChangeMusic -> C0:ABBD` one-based mailbox
+  command. Keep the table roles local until the audio exporter/frontier notes
+  settle a broader public API vocabulary for packs versus sequences.

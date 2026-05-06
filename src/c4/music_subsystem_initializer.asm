@@ -11,35 +11,45 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-CurrentPrimarySamplePack     = $B53D
-CurrentSecondarySamplePack   = $B53F
-CurrentSequencePack          = $B541
-Unknown7EB543                = $B543
-SequencePackMask             = $B547
-EnableAutoSectorMusicChanges = $B549
-LoadSpc700Data               = $C0AB06
+CurrentPrimarySamplePack      = $B53D
+CurrentSecondarySamplePack    = $B53F
+CurrentSequencePack           = $B541
+BootstrapSharedAudioPack      = $B543
+SequencePackMask              = $B547
+EnableAutoSectorMusicChanges  = $B549
+LoadSpc700Data                = $C0AB06
+MusicDatasetTable             = $C4F70A
+MusicPackPointerTableLo       = $F947
+MusicPackPointerTableBank     = $00C4
+GetAudioBank                  = $FB42
+
+AudioPackAddressMaskAll       = $FFFF
+AutoSectorMusicEnabled        = $0001
+MusicDatasetSequencePackByte  = $0002
 
 ; ---------------------------------------------------------------------------
 ; C4:FB58
 
 INITIALIZE_MUSIC_SUBSYSTEM:
 C4FB58_InitializeMusicSubsystem = INITIALIZE_MUSIC_SUBSYSTEM
+    ; Cold start loads the row-0 shared/sequence pack before any requested
+    ; track change can decide primary, secondary, or sequence reloads.
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda.w #$FFFF
+    lda.w #AudioPackAddressMaskAll
     sta CurrentSequencePack
     sta CurrentPrimarySamplePack
-    lda $C4F70C
+    lda MusicDatasetTable+MusicDatasetSequencePackByte
     and.w #$00FF
     sta $10
-    sta Unknown7EB543
+    sta BootstrapSharedAudioPack
     sta CurrentSecondarySamplePack
-    lda.w #$F947
+    lda.w #MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #MusicPackPointerTableBank
     sta $08
     lda $10
     sta $04
@@ -57,7 +67,7 @@ C4FB58_InitializeMusicSubsystem = INITIALIZE_MUSIC_SUBSYSTEM
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr GetAudioBank
     tax
     ldy $0E
     tya
@@ -68,7 +78,7 @@ C4FB58_InitializeMusicSubsystem = INITIALIZE_MUSIC_SUBSYSTEM
     lda [$06]
     and SequencePackMask
     jsl LoadSpc700Data
-    lda.w #$0001
+    lda.w #AutoSectorMusicEnabled
     sta EnableAutoSectorMusicChanges
     pld
     rtl

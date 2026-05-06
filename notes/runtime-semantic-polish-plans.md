@@ -86,6 +86,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   threshold polling contract, cast BG3 scroll tick callback, `$0BCA` live-Y
   source, `$1002` blank-row upload cursor, `$B4D1` cast-name tile offset,
   `$9641` completion latch, and cast controller cleanup calls.
+- 2026-05-06: C4 audio tail follow-up named the music dataset row fields,
+  audio pack pointer row shape, US bank resolver mask reset, cold-start
+  bootstrap shared pack, `ChangeMusic` primary/secondary/sequence load roles,
+  Sound Stone recording transition exception, stereo/mono stream loader, and
+  auto-sector music-change latch.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source

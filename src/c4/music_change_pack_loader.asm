@@ -11,25 +11,36 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-CreditsPlaybackActive      = $B4B6
-CurrentMusicTrack          = $B53B
-CurrentPrimarySamplePack   = $B53D
-CurrentSecondarySamplePack = $B53F
-CurrentSequencePack        = $B541
-Unknown7EB543              = $B543
-SequencePackMask           = $B547
-LoadSpc700Data             = $C0AB06
-UnknownC0ABBD              = $C0ABBD
-StopMusic                  = $C0ABC6
-PlaySoundUnknown0          = $C0AC01
-StopMusicTransitionMaybe   = $C0AC0C
-MusicDatasetTable          = $C4F70A
+DisabledTransitions               = $B4B6
+CurrentMusicTrack                 = $B53B
+CurrentPrimarySamplePack          = $B53D
+CurrentSecondarySamplePack        = $B53F
+CurrentSequencePack               = $B541
+BootstrapSharedAudioPack          = $B543
+SequencePackMask                  = $B547
+LoadSpc700Data                    = $C0AB06
+SendApuPort0CommandByte           = $C0ABBD
+StopMusicAndLatchNoTrack          = $C0ABC6
+QueueSoundEffectOrPlayApuPort3Cue = $C0AC01
+ToggleAndSendApuPort1Command      = $C0AC0C
+MusicDatasetTable                 = $C4F70A
+MusicPackPointerTableLo           = $F947
+MusicPackPointerTableBank         = $00C4
+GetAudioBank                      = $FB42
+
+AudioPackNone                     = $00FF
+MusicDatasetRowSize               = $0003
+MusicTrackSoundStoneFirst         = $00A0
+MusicTrackSoundStoneLast          = $00A7
+StopMusicTransitionCommand        = $0001
 
 ; ---------------------------------------------------------------------------
 ; C4:FBBD
 
 CHANGE_MUSIC:
 C4FBBD_ChangeMusic = CHANGE_MUSIC
+    ; A is a one-based music track id. The loader uses track-1 for the
+    ; dataset row, then sends the original one-based id to the APU mailbox.
     rep #$31
     phd
     pha
@@ -43,20 +54,20 @@ C4FBBD_ChangeMusic = CHANGE_MUSIC
     bne C4FBD2_ChangeMusic_LFBD2
     jmp.w C4FD16_ChangeMusic_LFD16
 C4FBD2_ChangeMusic_LFBD2:
-    lda CreditsPlaybackActive
+    lda DisabledTransitions
     bne C4FBDB_ChangeMusic_LFBDB
-    jsl PlaySoundUnknown0
+    jsl QueueSoundEffectOrPlayApuPort3Cue
 C4FBDB_ChangeMusic_LFBDB:
     ldx $12
-    cpx.w #$00A0
+    cpx.w #MusicTrackSoundStoneFirst
     bcc C4FBE9_ChangeMusic_LFBE9
-    cpx.w #$00A7
+    cpx.w #MusicTrackSoundStoneLast
     bcc C4FBF4_ChangeMusic_LFBF4
     beq C4FBF4_ChangeMusic_LFBF4
 C4FBE9_ChangeMusic_LFBE9:
-    lda.w #$0001
-    jsl StopMusicTransitionMaybe
-    jsl StopMusic
+    lda.w #StopMusicTransitionCommand
+    jsl ToggleAndSendApuPort1Command
+    jsl StopMusicAndLatchNoTrack
 C4FBF4_ChangeMusic_LFBF4:
     ldx $12
     stx CurrentMusicTrack
@@ -68,17 +79,18 @@ C4FBF4_ChangeMusic_LFBF4:
     asl A
     adc $04
     tax
+    ; Primary sample pack role.
     lda MusicDatasetTable,X
     and.w #$00FF
     sta $0E
     cmp CurrentPrimarySamplePack
     beq C4FC54_ChangeMusic_LFC54
-    cmp.w #$00FF
+    cmp.w #AudioPackNone
     beq C4FC54_ChangeMusic_LFC54
     sta CurrentPrimarySamplePack
-    lda.w #$F947
+    lda.w #MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -94,7 +106,7 @@ C4FBF4_ChangeMusic_LFBF4:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr GetAudioBank
     tax
     lda $02
     inc A
@@ -112,19 +124,20 @@ C4FC54_ChangeMusic_LFC54:
     adc $04
     tax
     inx
+    ; Secondary sample pack role. The cold-start shared pack is skipped here.
     lda MusicDatasetTable,X
     and.w #$00FF
     sta $0E
     cmp CurrentSecondarySamplePack
     beq C4FCB3_ChangeMusic_LFCB3
-    cmp.w #$00FF
+    cmp.w #AudioPackNone
     beq C4FCB3_ChangeMusic_LFCB3
-    cmp Unknown7EB543
+    cmp BootstrapSharedAudioPack
     beq C4FCB3_ChangeMusic_LFCB3
     sta CurrentSecondarySamplePack
-    lda.w #$F947
+    lda.w #MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -140,7 +153,7 @@ C4FC54_ChangeMusic_LFC54:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr GetAudioBank
     tax
     lda $02
     inc A
@@ -159,17 +172,18 @@ C4FCB3_ChangeMusic_LFCB3:
     tax
     inx
     inx
+    ; Sequence pack role.
     lda MusicDatasetTable,X
     and.w #$00FF
     sta $0E
     cmp CurrentSequencePack
     beq C4FD0E_ChangeMusic_LFD0E
-    cmp.w #$00FF
+    cmp.w #AudioPackNone
     beq C4FD0E_ChangeMusic_LFD0E
     sta CurrentSequencePack
-    lda.w #$F947
+    lda.w #MusicPackPointerTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #MusicPackPointerTableBank
     sta $08
     lda $0E
     sta $04
@@ -185,7 +199,7 @@ C4FCB3_ChangeMusic_LFCB3:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    jsr $FB42
+    jsr GetAudioBank
     tax
     lda $02
     inc A
@@ -199,7 +213,7 @@ C4FD0E_ChangeMusic_LFD0E:
     ldy $10
     tya
     inc A
-    jsl UnknownC0ABBD
+    jsl SendApuPort0CommandByte
 C4FD16_ChangeMusic_LFD16:
     pld
     rtl
