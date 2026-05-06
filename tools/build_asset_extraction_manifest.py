@@ -214,6 +214,24 @@ def overworld_sprite_asset_number(entry: dict[str, Any]) -> int | None:
     return int(match.group(1))
 
 
+def romaji_font_2bpp_preview_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    size = int(entry["size"])
+    if payload != "fonts/romaji.gfx":
+        return None
+    trim = size % 16
+    if trim == 0:
+        trim = 0
+    elif (size - trim) <= 0:
+        return None
+    return {
+        "kind": "snes_2bpp_tiles_png",
+        "path": preview_path(raw_path, "2bpp_preview"),
+        "columns": 11,
+        **({"trim_trailing_bytes": trim} if trim else {}),
+    }
+
+
 def load_battle_bg_palette_registry(
     bank_manifest_dir: Path,
     rom: bytes,
@@ -642,6 +660,10 @@ def binary_outputs(
                 overworld_sprite_palette_registry,
             )
         )
+    if extension == "gfx" and not compressed:
+        romaji_preview = romaji_font_2bpp_preview_output(raw_path, entry)
+        if romaji_preview is not None:
+            outputs.append(romaji_preview)
     if extension == "pal" and not compressed and size % 2 == 0:
         outputs.extend(palette_outputs(raw_path, compressed=False))
     return outputs

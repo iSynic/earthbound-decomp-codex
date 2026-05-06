@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 84,
+    "fixture_count": 85,
     "unique_selected_assets": 31,
     "unique_selected_manifest_asset_pairs": 31,
     "recipe_kinds_covered": 14,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 17,
+    "family_decoder_pairs_covered": 18,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,7 +34,7 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 17,
+      "family_decoder": 18,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
       "recipe_kind": 14,
@@ -42,10 +42,10 @@
     },
     "fixture_family_counts": {
       "battle_visual_assets": 30,
-      "ef_debug_and_late_tail": 5,
+      "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
-      "ui_font_town_map_assets": 15
+      "ui_font_town_map_assets": 18
     }
   },
   "source_ref_coverage": {
@@ -117,6 +117,7 @@
       "earthbound_lzhal_snes_palette_json": 10,
       "earthbound_lzhal_snes_palette_swatch_png": 10,
       "raw": 69,
+      "snes_2bpp_tiles_png": 1,
       "snes_4bpp_tiles_png": 5,
       "snes_palette_json": 2,
       "snes_palette_swatch_png": 2
@@ -356,16 +357,16 @@
       "type": "recipe_kind",
       "key": "snes_2bpp_tiles_png",
       "reason": "Covers one typed output recipe kind.",
-      "family": "ef_debug_and_late_tail",
-      "bank": "EF",
-      "manifest_path": "asset-manifests/ef-debug-assets.json",
-      "asset_id": "asset.debug.cursor_graphics",
-      "title": "Debug cursor graphics",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
       "category": "graphics",
-      "bytes": 288,
+      "bytes": 532,
       "target_output": {
         "kind": "snes_2bpp_tiles_png",
-        "path": "ef/debug_cursor_preview.png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
         "decoder": "snes_2bpp_tiles",
         "renderer": "grayscale_tile_sheet"
       },
@@ -527,16 +528,16 @@
       "type": "recipe_option",
       "key": "snes_2bpp_tiles_png.trim_trailing_bytes",
       "reason": "Covers an optional recipe field that changes decode input bytes.",
-      "family": "ef_debug_and_late_tail",
-      "bank": "EF",
-      "manifest_path": "asset-manifests/ef-debug-assets.json",
-      "asset_id": "asset.debug.menu_font",
-      "title": "Debug menu font graphics",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
       "category": "graphics",
-      "bytes": 1041,
+      "bytes": 532,
       "target_output": {
         "kind": "snes_2bpp_tiles_png",
-        "path": "ef/debug_menu_font_preview.png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
         "decoder": "snes_2bpp_tiles",
         "renderer": "grayscale_tile_sheet"
       },
@@ -1079,19 +1080,19 @@
       "family": "ui_font_town_map_assets",
       "bank": "E0",
       "manifest_path": "asset-manifests/bank-e0-assets.json",
-      "asset_id": "asset.e0.mrsaturn_font_gfx",
-      "title": "MRSATURN_FONT_GFX",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
       "category": "graphics",
-      "bytes": 3072,
+      "bytes": 532,
       "target_output": {
-        "kind": "snes_4bpp_tiles_png",
-        "path": "e0/fonts/mrsaturn_4bpp_preview.png",
-        "decoder": "snes_4bpp_tiles",
+        "kind": "snes_2bpp_tiles_png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
+        "decoder": "snes_2bpp_tiles",
         "renderer": "grayscale_tile_sheet"
       },
       "all_output_kinds": [
         "raw",
-        "snes_4bpp_tiles_png"
+        "snes_2bpp_tiles_png"
       ]
     },
     {
@@ -1369,19 +1370,19 @@
       "family": "ui_font_town_map_assets",
       "bank": "E0",
       "manifest_path": "asset-manifests/bank-e0-assets.json",
-      "asset_id": "asset.e0.mrsaturn_font_gfx",
-      "title": "MRSATURN_FONT_GFX",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
       "category": "graphics",
-      "bytes": 3072,
+      "bytes": 532,
       "target_output": {
-        "kind": "snes_4bpp_tiles_png",
-        "path": "e0/fonts/mrsaturn_4bpp_preview.png",
-        "decoder": "snes_4bpp_tiles",
+        "kind": "snes_2bpp_tiles_png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
+        "decoder": "snes_2bpp_tiles",
         "renderer": "grayscale_tile_sheet"
       },
       "all_output_kinds": [
         "raw",
-        "snes_4bpp_tiles_png"
+        "snes_2bpp_tiles_png"
       ]
     },
     {
@@ -1713,25 +1714,26 @@
       "family": "ui_font_town_map_assets",
       "bank": "E0",
       "manifest_path": "asset-manifests/bank-e0-assets.json",
-      "asset_id": "asset.e0.mrsaturn_font_gfx",
-      "title": "MRSATURN_FONT_GFX",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
       "category": "graphics",
-      "bytes": 3072,
+      "bytes": 532,
       "target_output": {
-        "kind": "snes_4bpp_tiles_png",
-        "path": "e0/fonts/mrsaturn_4bpp_preview.png",
-        "decoder": "snes_4bpp_tiles",
+        "kind": "snes_2bpp_tiles_png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
+        "decoder": "snes_2bpp_tiles",
         "renderer": "grayscale_tile_sheet"
       },
       "all_output_kinds": [
         "raw",
-        "snes_4bpp_tiles_png"
+        "snes_2bpp_tiles_png"
       ],
       "target_preview_geometry": {
         "status": "known",
-        "width": 64,
-        "height": 96,
-        "tiles": 96
+        "width": 88,
+        "height": 24,
+        "tiles": 33,
+        "source_bytes_after_trim": 528
       }
     },
     {
@@ -2181,6 +2183,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.ui_font_town_map_assets_snes_2bpp_tiles",
+      "type": "family_decoder",
+      "key": "ui_font_town_map_assets.snes_2bpp_tiles",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "asset.e0.mother2_romaji_font",
+      "title": "MOTHER2_ROMAJI_FONT",
+      "category": "graphics",
+      "bytes": 532,
+      "target_output": {
+        "kind": "snes_2bpp_tiles_png",
+        "path": "e0/fonts/romaji_2bpp_preview.png",
+        "decoder": "snes_2bpp_tiles",
+        "renderer": "grayscale_tile_sheet"
+      },
+      "all_output_kinds": [
+        "raw",
+        "snes_2bpp_tiles_png"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.ui_font_town_map_assets_snes_4bpp_tiles",
       "type": "family_decoder",
       "key": "ui_font_town_map_assets.snes_4bpp_tiles",
@@ -2376,10 +2401,11 @@
       "manifest_path": "asset-manifests/bank-e0-assets.json",
       "asset_ids": [
         "asset.e0.compressed_sram",
+        "asset.e0.mother2_romaji_font",
         "asset.e0.mrsaturn_font_gfx",
         "asset.e0.text_window_gfx"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-e1-assets.json",
@@ -2393,10 +2419,9 @@
     {
       "manifest_path": "asset-manifests/ef-debug-assets.json",
       "asset_ids": [
-        "asset.debug.cursor_graphics",
-        "asset.debug.menu_font"
+        "asset.debug.cursor_graphics"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --asset-id asset.debug.menu_font --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures"
     }
   ],
   "runner": {

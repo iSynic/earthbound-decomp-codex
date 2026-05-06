@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `84`
+- fixture selectors: `85`
 - unique selected assets: `31`
 - recipe kinds covered: `14`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `17`
+- family/decoder pairs covered: `18`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `bank_output` 22, `family_decoder` 17, `family_renderer_geometry` 14, `recipe_kind` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 30, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ui_font_town_map_assets` 15, `ef_debug_and_late_tail` 5
+- fixture type mix: `bank_output` 22, `family_decoder` 18, `family_renderer_geometry` 14, `recipe_kind` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 30, `map_tilesets_and_runtime_tables` 19, `ui_font_town_map_assets` 18, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -52,7 +52,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `earthbound_lzhal_snes_palette_swatch_png` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `e1/intro/logos/ape_palette.png` | `earthbound_lzhal+snes_palette` | `palette_swatch` |
 | `map_tile_chunk_index_json` | `asset.d6.map_data_tile_table_chunk_1` | `asset-manifests/bank-d6-assets.json` | `d6/maps/tiles/chunk_01_tile_index.json` | `map_tile_chunk_index` | - |
 | `raw` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `ca/battle_bgs/arrangements/100.arr.lzhal` | - | - |
-| `snes_2bpp_tiles_png` | `asset.debug.cursor_graphics` | `asset-manifests/ef-debug-assets.json` | `ef/debug_cursor_preview.png` | `snes_2bpp_tiles` | `grayscale_tile_sheet` |
+| `snes_2bpp_tiles_png` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `e0/fonts/romaji_2bpp_preview.png` | `snes_2bpp_tiles` | `grayscale_tile_sheet` |
 | `snes_4bpp_tiles_palette_png` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` |
 | `snes_4bpp_tiles_png` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` | `snes_4bpp_tiles` | `grayscale_tile_sheet` |
 | `snes_palette_json` | `asset.cb.battle_background_palette_0` | `asset-manifests/bank-cb-assets.json` | `cb/battle_bgs/palettes/0_palette.json` | `snes_palette` | - |
@@ -72,7 +72,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `map_tilesets_and_runtime_tables.palette_swatch` | `asset.d8.warning_palette` | `asset-manifests/bank-d8-assets.json` | `snes_palette_swatch_png` | `d8/errors/shared_palette.png` |
 | `overworld_sprites.grayscale_tile_sheet` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` |
 | `overworld_sprites.palette_tile_sheet` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
-| `ui_font_town_map_assets.grayscale_tile_sheet` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
+| `ui_font_town_map_assets.grayscale_tile_sheet` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
 | `ui_font_town_map_assets.palette_swatch` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_swatch_png` | `e1/intro/logos/ape_palette.png` |
 
 ## Recipe Option Fixtures
@@ -81,7 +81,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | --- | --- | --- | --- | --- |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png.palette_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png.sprite_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
-| `snes_2bpp_tiles_png.trim_trailing_bytes` | `asset.debug.menu_font` | `asset-manifests/ef-debug-assets.json` | `snes_2bpp_tiles_png` | `ef/debug_menu_font_preview.png` |
+| `snes_2bpp_tiles_png.trim_trailing_bytes` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
 | `snes_4bpp_tiles_palette_png.palette_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `snes_4bpp_tiles_palette_png.sprite_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 
@@ -109,7 +109,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `DD` | `asset.dd.map_data_tile_set_graphics_0` | `asset-manifests/bank-dd-assets.json` | `earthbound_lzhal` | `dd/maps/gfx/0.gfx` |
 | `DE` | `asset.de.map_data_tile_animation_gfx_15` | `asset-manifests/bank-de-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `de/maps/anim_gfx/15_4bpp_preview.png` |
 | `DF` | `asset.df.map_data_tile_animation_gfx_0` | `asset-manifests/bank-df-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `df/maps/anim_gfx/0_4bpp_preview.png` |
-| `E0` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
+| `E0` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
 | `E1` | `asset.e1.ape_graphics` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e1/intro/logos/ape_4bpp_preview.png` |
 
 ## Family Renderer Geometry Fixtures
@@ -126,7 +126,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `map_tilesets_and_runtime_tables.palette_swatch.known` | `asset.d8.warning_palette` | `asset-manifests/bank-d8-assets.json` | `snes_palette_swatch_png` | `d8/errors/shared_palette.png` | `known` 64x16 |
 | `overworld_sprites.grayscale_tile_sheet.known` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` | `known` 64x24 |
 | `overworld_sprites.palette_tile_sheet.known` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` | `known` 64x24 |
-| `ui_font_town_map_assets.grayscale_tile_sheet.known` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` | `known` 64x96 |
+| `ui_font_town_map_assets.grayscale_tile_sheet.known` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` | `known` 88x24 |
 | `ui_font_town_map_assets.grayscale_tile_sheet.requires_decode` | `asset.e0.text_window_gfx` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e0/graphics/text_window_4bpp_preview.png` | `requires_decode` |
 | `ui_font_town_map_assets.palette_swatch.known` | `asset.e1.staff_credits_font_palette` | `asset-manifests/bank-e1-assets.json` | `snes_palette_swatch_png` | `e1/ending/credits_font_palette.png` | `known` 128x16 |
 | `ui_font_town_map_assets.palette_swatch.requires_decode` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_swatch_png` | `e1/intro/logos/ape_palette.png` | `requires_decode` |
@@ -150,6 +150,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `ui_font_town_map_assets.earthbound_lzhal` | `asset.e0.compressed_sram` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal` | `e0/mystery_sram.bin` |
 | `ui_font_town_map_assets.earthbound_lzhal+snes_4bpp_tiles` | `asset.e0.text_window_gfx` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e0/graphics/text_window_4bpp_preview.png` |
 | `ui_font_town_map_assets.earthbound_lzhal+snes_palette` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_json` | `e1/intro/logos/ape_palette.json` |
+| `ui_font_town_map_assets.snes_2bpp_tiles` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
 | `ui_font_town_map_assets.snes_4bpp_tiles` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
 | `ui_font_town_map_assets.snes_palette` | `asset.e1.staff_credits_font_palette` | `asset-manifests/bank-e1-assets.json` | `snes_palette_json` | `e1/ending/credits_font_palette.json` |
 
@@ -177,6 +178,6 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `asset-manifests/bank-dd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dd-assets.json --asset-id asset.dd.map_data_tile_set_graphics_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-de-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-de-assets.json --asset-id asset.de.map_data_tile_animation_gfx_15 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-df-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-df-assets.json --asset-id asset.df.map_data_tile_animation_gfx_0 --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-e0-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-e0-assets.json` | 4 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e1-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/ef-debug-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --asset-id asset.debug.menu_font --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/ef-debug-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures` |

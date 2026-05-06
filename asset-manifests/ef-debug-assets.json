@@ -36,20 +36,17 @@
     "renderer_counts": {
       "grayscale_tile_sheet": 2
     },
-    "smoke_fixture_count": 5,
+    "smoke_fixture_count": 3,
     "smoke_fixture_asset_ids": [
-      "asset.debug.cursor_graphics",
-      "asset.debug.menu_font"
+      "asset.debug.cursor_graphics"
     ],
     "smoke_fixture_type_counts": {
       "family_decoder": 1,
       "family_renderer": 1,
-      "family_renderer_geometry": 1,
-      "recipe_kind": 1,
-      "recipe_option": 1
+      "family_renderer_geometry": 1
     },
     "smoke_fixture_target_kind_counts": {
-      "snes_2bpp_tiles_png": 5
+      "snes_2bpp_tiles_png": 3
     }
   },
   "assets": [

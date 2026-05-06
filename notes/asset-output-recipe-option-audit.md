@@ -11,12 +11,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 - status: `ok`
 - registered optional fields: `7`
 - used optional recipe/field pairs: `5`
-- manifest option usages: `2625`
-- smoke fixture option hits: `17`
+- manifest option usages: `2626`
+- smoke fixture option hits: `22`
 - synthetic codec option hits: `1`
 - decode-affecting used pairs: `1`
 - invalid option pairs: `0`
-- field usage mix: `palette_id` 1312, `sprite_id` 1312, `trim_trailing_bytes` 1
+- field usage mix: `palette_id` 1312, `sprite_id` 1312, `trim_trailing_bytes` 2
 
 ## Option Coverage
 
@@ -25,7 +25,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `sprite_id` | no | 166 | 2 | 0 | `ok` | `asset.cd.battle_sprite_107` -> `cd/battle_sprites/107_palette_01_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `palette_id` | no | 166 | 2 | 0 | `ok` | `asset.cd.battle_sprite_107` -> `cd/battle_sprites/107_palette_01_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `graphics_id` | no | 0 | 0 | 0 | `unused` | - |
-| `snes_2bpp_tiles_png` | `trim_trailing_bytes` | yes | 1 | 1 | 1 | `ok` | `asset.debug.menu_font` -> `ef/debug_menu_font_preview.png` |
+| `snes_2bpp_tiles_png` | `trim_trailing_bytes` | yes | 2 | 6 | 1 | `ok` | `asset.e0.mother2_romaji_font` -> `e0/fonts/romaji_2bpp_preview.png` |
 | `snes_4bpp_tiles_palette_png` | `sprite_id` | no | 1146 | 6 | 0 | `ok` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `snes_4bpp_tiles_palette_png` | `palette_id` | no | 1146 | 6 | 0 | `ok` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `snes_4bpp_tiles_palette_png` | `graphics_id` | no | 0 | 0 | 0 | `unused` | - |
@@ -36,4 +36,5 @@ Generated asset-output and source-range reports are freshness-checked together w
 | --- | ---: | --- |
 | Battle visual assets | 332 | `palette_id` 166, `sprite_id` 166 |
 | Overworld sprites | 2292 | `palette_id` 1146, `sprite_id` 1146 |
+| UI, fonts, and town-map assets | 1 | `trim_trailing_bytes` 1 |
 | EF debug and late-tail data | 1 | `trim_trailing_bytes` 1 |
