@@ -200,6 +200,18 @@ This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still
 revalidate against the ROM byte-for-byte.
 
+## Sound-Effect Word Constants
+
+`C0:A841` reads a word-shaped `sound_effect_id_word` and hands it to the sound
+queue path. The source-pilot renderer now names `$0061` as
+`!ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST`, backed by
+`refs/earthbound-sounddriver-byte-perfect/sfx_sequences.asm`, where `SFX_61` is
+commented as `Stairs fast`.
+
+That catalog is deliberately narrow. Other `$0061` words in C3, such as entity
+visual-type operands passed to spawn helpers, remain numeric because they are
+not `sound_effect_id_word` operands.
+
 ## Good-Enough Boundary
 
 C3 is good enough for this milestone when generated reports are truthful and

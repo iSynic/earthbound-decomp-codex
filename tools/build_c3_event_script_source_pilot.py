@@ -15,6 +15,7 @@ from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_SOUND_EFFECT_IDS,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -1027,8 +1028,8 @@ LABEL_OVERRIDES = {
     "C3:B86C": "Event78_BikiniZombieFlaggedLeftMove",
     "C3:B8A5": "Event79_BikiniZombieHotelDoorPath",
     "C3:B8E8": "Event80_ResetVar4AfterPartyMove",
-    "C3:B902": "Event81_PartyLookTaskUnknown61Release",
-    "C3:B926": "Event82_DirectionalUnknown61Release",
+    "C3:B902": "Event81_PartyLookTaskStairsFastSfxRelease",
+    "C3:B926": "Event82_DirectionalStairsFastSfxRelease",
     "C3:B95D": "Event83_PartyMemberOneOuchSequence",
     "C3:B9B6": "Event84_PartyMemberOneYieldAndHold",
     "C3:B9D4": "Event85_TwosonThreedTunnelFlagGateA",
@@ -3552,6 +3553,16 @@ def call_arg_expr(
             )
             if symbol:
                 return symbol, cursor + 2
+        if field == "sound_effect_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SOUND_EFFECT_IDS,
+                prefix="SOUND_EFFECT",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
         return fmt_word(value), cursor + 2
     value = raw_args[cursor] | (raw_args[cursor + 1] << 8) | (raw_args[cursor + 2] << 16)
     return fmt_long(value), cursor + 3
@@ -3920,6 +3931,10 @@ def render_report(
     if any(symbol.startswith("!ACTIONSCRIPT_DIRECTION_") for symbol in constants):
         readability_lines.append(
             "- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_SOUND_EFFECT_") for symbol in constants):
+        readability_lines.append(
+            "- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand."
         )
     if direction_tempvar_write_count:
         readability_lines.append(

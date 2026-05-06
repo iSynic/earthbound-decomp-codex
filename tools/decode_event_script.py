@@ -1086,6 +1086,13 @@ ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_SOUND_EFFECT_IDS: dict[int, dict[str, str]] = {
+    0x0061: {
+        "name": "sound_effect_stairs_fast",
+        "contract": "sound effect $0061; sound-driver reference labels SFX_61 as the fast stairs effect",
+    },
+}
+
 BINOP_OPERATION_NAMES = {
     0x00: "AND",
     0x01: "OR",
@@ -1332,6 +1339,8 @@ def format_call_arg_value(
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
         if field == "field2b32_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_FIELD2B32_WORDS)}", cursor + 2
+        if field == "sound_effect_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2
     target = Address(raw_args[cursor + 2], raw_args[cursor] | (raw_args[cursor + 1] << 8))
     return f"{field}={format_target(target, names)}", cursor + 3
