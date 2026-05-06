@@ -61,6 +61,13 @@ The stepper source now also marks the active long-script path, the null-pointer
 table-driven frame path, the special-mode ladder, and the cleanup handoff as
 separate C4-owned phases.
 
+2026-05-06 transition-record constants follow-up: the same four payload rows
+now use named constants for the open/close delay words, initial X/Y seeds,
+open-size zero seeds, closing `$8000` size sentinels, signed width/height
+deltas, delta-step words, and zero terminator rows. This keeps the C4 table
+contract readable without naming the caller-side mode selector beyond the
+already-proven open/close mode split.
+
 ## Initializer
 
 `C4:A67E` initializes the active overlay state.

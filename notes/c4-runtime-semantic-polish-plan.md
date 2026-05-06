@@ -315,6 +315,11 @@ closure.
   its active script-record path, table-driven frame fallback, special-mode
   ladder, and cleanup handoff without assigning C0/C2 renderer internals to C4.
   See `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
+- 2026-05-06 overlay transition-record follow-up: replaced the remaining raw
+  record words in the four C4:A5CE/A5FA/A626/A652 battle-overlay payloads with
+  local constants for open/close delays, initial X/Y seeds, size sentinels,
+  signed deltas, delta-step words, and zero terminators. See
+  `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
 - 2026-05-06 Sound Stone presentation follow-up: converted the C4:AC57 EF
   payload pointer prefix into nine explicit 4-byte row labels and added
   side-effect comments around the Sound Stone controller's setup, Sanctuary
