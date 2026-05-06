@@ -616,6 +616,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
   `notes/c2-hit-resolution-status-runtime-polish.md`, and
   `notes/class2-second-stage-selector-a970.md`.
+- 2026-05-06 eighty-second slice: closed the remaining battle-sprite
+  width/slot raw-call edge in the C2 layout lane. `C2:F0D1` and `C2:F121` now
+  call `C2:EFFD` as `GetBattleSpriteWidthBucket`, and `C2:F121` calls
+  `C2:F09F` as `FindLoadedBattleSpriteSlotById` while writing active enemy
+  row `+0x43`. This ties the core battle-sprite row assignment and width
+  trimming helpers to the same width and loaded-slot vocabulary already used
+  by call-for-help insertion and bomb splash overlap. See
+  `notes/c2-battle-sprite-runtime-polish.md` and
+  `notes/c2-call-for-help-runtime-polish.md`.
 
 ## Validation
 

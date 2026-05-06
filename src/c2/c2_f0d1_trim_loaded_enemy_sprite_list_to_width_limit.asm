@@ -18,6 +18,7 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C2EFFD_GetBattleSpriteWidthBucket  = $EFFD
 
 ; ---------------------------------------------------------------------------
 ; C2:F0D1
@@ -46,7 +47,7 @@ C2F0E3_TrimLoadedEnemySpriteListToWidthLimit_LF0E3:
     tax
     lda $D59589,X
     ; Width helper returns the sprite's layout width in 8x8-tile units.
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     ldy $10
     tya

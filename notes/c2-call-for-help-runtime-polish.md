@@ -99,6 +99,9 @@ sprite layout:
 - the C2 source now distinguishes the prefix, width-sum helper, width-bucket
   helper, enemy-row initializer, loaded-sprite-slot lookup, and text-context
   refresh contracts at the call sites
+- the battle-sprite layout sources now use the same
+  `FindLoadedBattleSpriteSlotById` and `GetBattleSpriteWidthBucket` names as
+  this called-enemy insertion path
 - failure and success EF text paths are separated from placement mechanics
 - the `C1:DC1C` dispatch ABI is explicit on all four call-for-help result text
   exits

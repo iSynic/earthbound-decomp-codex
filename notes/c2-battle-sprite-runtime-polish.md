@@ -38,12 +38,16 @@ After the group pass, the staged graphics/map block is transferred to VRAM
 `$2000` or `$3000` depending on loaded sprite allocation count `$AAB2`.
 
 `C2:F09F` resolves a battle sprite id to one of the four loaded slots in
-`$AABE`. `C2:F0D1` trims the staged enemy sprite list `$9F8C[0..$9F8A)` if the
-accumulated sprite widths would exceed `0x20`.
+`$AABE`. `C2:F121` now calls it by name when writing each active enemy row's
+loaded sprite slot at `+0x43`.
+
+`C2:F0D1` trims the staged enemy sprite list `$9F8C[0..$9F8A)` if the
+accumulated sprite widths would exceed `0x20`. It now calls `C2:EFFD` /
+`GetBattleSpriteWidthBucket` by name while accumulating the row-width budget.
 
 `C2:EFFD` is the shared `GetBattleSpriteWidthBucket` helper. Call-for-help
-width budgeting and bomb splash overlap checks now call it by name at their C2
-action sites.
+width budgeting, bomb splash overlap checks, staged enemy-list trimming, and
+enemy row/x-position assignment now call it by name at their C2 sites.
 
 `C2:F121` assigns active enemy battlers to rows and x/y render positions:
 
@@ -97,6 +101,8 @@ This slice connects the CD/CE battle sprite asset contract to runtime:
 - enemy configuration sprite/palette fields now have loader consumers
 - loaded sprite slot table `$AABE` has a documented lookup and layout use
 - row layout and render-order arrays are tied to battler row fields
+- width-budget trimming and row/x-position assignment now share the same named
+  width-bucket helper used by call-for-help and bomb splash action paths
 - palette wave state has clear timer, delta, accumulator, and commit roles
 - the battle-background frame lane's call to `C2:FD99` now has a concrete
   enemy sprite palette-wave meaning

@@ -17175,6 +17175,7 @@ hirom
 org $C2F0D1
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C2EFFD_GetBattleSpriteWidthBucket = $EFFD
 C2F0D1_TrimLoadedEnemySpriteListToWidthLimit:
     rep #$31
     phd
@@ -17197,7 +17198,7 @@ C2F0E3_TrimLoadedEnemySpriteListToWidthLimit_LF0E3:
     adc.w #$001C
     tax
     lda $D59589,X
-    jsr $EFFD
+    jsr !C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     ldy $10
     tya
@@ -17944,6 +17945,8 @@ org $C2F121
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08FF7_Multiply16 = $C08FF7
+!C2EFFD_GetBattleSpriteWidthBucket = $EFFD
+!C2F09F_FindLoadedBattleSpriteSlotById = $F09F
 C2F121_AssignEnemyBattleSpriteRowsAndXPositions:
     rep #$31
     phd
@@ -17973,7 +17976,7 @@ C2F14D_AssignEnemyBattleSpriteRowsAndXPositions_LF14D:
     jmp.w C2F203_AssignEnemyBattleSpriteRowsAndXPositions_LF203
 C2F15B_AssignEnemyBattleSpriteRowsAndXPositions_LF15B:
     lda $9FAC,Y
-    jsr $F09F
+    jsr !C2F09F_FindLoadedBattleSpriteSlotById
     sep #$20
     ldy $23
     sta $9FEF,Y
@@ -17982,7 +17985,7 @@ C2F15B_AssignEnemyBattleSpriteRowsAndXPositions_LF15B:
     and.w #$00FF
     sta $21
     lda $9FAE,Y
-    jsr $EFFD
+    jsr !C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     lda $21
     asl A
@@ -18016,7 +18019,7 @@ C2F19F_AssignEnemyBattleSpriteRowsAndXPositions_LF19F:
     jsl !C08FF7_Multiply16
     tax
     lda $9FAE,X
-    jsr $EFFD
+    jsr !C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     lda $23
     asl A
@@ -18099,7 +18102,7 @@ C2F24D_AssignEnemyBattleSpriteRowsAndXPositions_LF24D:
     jmp.w C2F32A_AssignEnemyBattleSpriteRowsAndXPositions_LF32A
 C2F25A_AssignEnemyBattleSpriteRowsAndXPositions_LF25A:
     lda $9FAE,Y
-    jsr $EFFD
+    jsr !C2EFFD_GetBattleSpriteWidthBucket
     lsr A
     sta $19
     lda $1B
@@ -18249,7 +18252,7 @@ C2F376_AssignEnemyBattleSpriteRowsAndXPositions_LF376:
 C2F385_AssignEnemyBattleSpriteRowsAndXPositions_LF385:
     ldx $04
     lda $9FAE,X
-    jsr $EFFD
+    jsr !C2EFFD_GetBattleSpriteWidthBucket
     lsr A
     sta $12
     ldy $25
