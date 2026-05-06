@@ -89,6 +89,9 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate non-0x00 control probe plan: `python tools/validate_audio_nonzero_control_probe_plan.py`.
 - Build non-0x00 control probe runner contract and ignored job queue: `python tools/build_audio_nonzero_control_probe_runner_contract.py`.
 - Validate non-0x00 control probe runner contract: `python tools/validate_audio_nonzero_control_probe_runner_contract.py --require-generated-jobs`.
+- Dry-run non-0x00 control probe jobs: `python tools/run_audio_nonzero_control_probe_batch.py --limit 1 --force`.
+- Check non-0x00 external harness shape: `python tools/run_audio_nonzero_control_probe_batch.py --job-id nonzero-probe-ff-pc-0957 --force --mode external --external python tools/audio_nonzero_control_probe_stub_harness.py --job "{job}" --result "{result}"`.
+- Validate non-0x00 control probe batch summary: `python tools/validate_audio_nonzero_control_probe_batch_summary.py`.
 - Validate one non-0x00 control probe result: `python tools/validate_audio_nonzero_control_probe_result.py <result-json>`.
 - Collect non-0x00 control probe results: `python tools/collect_audio_nonzero_control_probe_results.py`.
 - Validate non-0x00 control probe results: `python tools/validate_audio_nonzero_control_probe_results_summary.py`.
