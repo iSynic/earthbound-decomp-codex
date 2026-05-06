@@ -44,6 +44,15 @@ This is not the same even-facing map as `C4:6A7A / C4:6A8A`; it is used as a wal
 - `C4:6B65` copies player position `$9877/$987B` into current slot target `$0FC6/$1002`.
 - `C4:6B79` copies `$9E2D/$9E2F` into current slot target `$0FC6/$1002`.
 
+2026-05-06 source polish follow-up:
+`src/c4/direction_octant_target_helpers.asm` now names the current-slot live
+anchor tables, cached target pair, rounded-octant cache, staged new-entity
+position words, player position/facing words, registry slot list, angle
+rounding constants, octant mask, and the `$00FE` recent-registry target path.
+The comments keep the helper ownership to direction conversion and C4-side
+target staging while leaving the external resolver and angle/delta helpers to
+their owning modules.
+
 ## Caller evidence
 
 Direct callers found locally:

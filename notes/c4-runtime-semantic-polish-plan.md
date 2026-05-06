@@ -340,6 +340,12 @@ closure.
   three-byte dispatch records, selector-mode octant helpers, `$2AF6`
   frame-selector updates, registry broadcast cutoff, and `$116A/$8000` marker
   path. See `notes/entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md`.
+- 2026-05-06 direction/anchor staging follow-up: tightened the direction
+  octant and current-slot anchor helpers around live anchor, cached target,
+  staged-position, player position/facing, rounded-octant cache, camera-origin
+  placement, and registry recent-slot target contracts. See
+  `notes/direction-octant-normalizers-c46a5e-c46b51.md` and
+  `notes/current-slot-position-staging-c46b8d-c46d4b.md`.
 
 ## Validation
 

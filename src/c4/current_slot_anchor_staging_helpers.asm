@@ -14,24 +14,41 @@
 C08E9A_GetRandom16                                    = $C08E9A
 C46028_FindEntitySlotByCachedPoseDescriptorId         = $C46028
 C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
+CurrentSlotIndex                                      = $1A42
+LiveEntityWorldXTable                                 = $0B8E
+LiveEntityWorldYTable                                 = $0BCA
+CurrentSlotTargetXTable                               = $0FC6
+CurrentSlotTargetYTable                               = $1002
+CurrentSlotStagedXTable                               = $0E5E
+CurrentSlotStagedYTable                               = $0E9A
+CameraOriginX                                         = $0031
+CameraOriginY                                         = $0033
+CameraRelativeFlag0C7ETable                           = $0C7E
+CameraRelativeFlag0C42Table                           = $0C42
+CameraRelativeFlagValue                               = $8000
+RandomCameraXOffset                                   = $0070
 
 ; ---------------------------------------------------------------------------
 ; C4:6C45
 
 C46C45_SnapshotCurrentSlotAnchorToStagedPosition:
+    ; Snapshot the current slot's live anchor into the local staged-position
+    ; words used by nearby movement/action-script helpers.
     rep #$31
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $0B8E,X
-    sta $0E5E,X
-    lda $1A42
+    lda LiveEntityWorldXTable,X
+    sta CurrentSlotStagedXTable,X
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $0BCA,X
-    sta $0E9A,X
+    lda LiveEntityWorldYTable,X
+    sta CurrentSlotStagedYTable,X
     rtl
 C46C5E_SetStagedPositionOffsetFromCurrentAnchor:
+    ; X/Y offsets from the caller are added to the current slot's live anchor
+    ; and written into the staged-position words.
     rep #$31
     phd
     pha
@@ -40,33 +57,36 @@ C46C5E_SetStagedPositionOffsetFromCurrentAnchor:
     tcd
     pla
     sta $0E
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tay
     txa
     clc
-    adc $0B8E,Y
-    sta $0E5E,Y
-    lda $1A42
+    adc LiveEntityWorldXTable,Y
+    sta CurrentSlotStagedXTable,Y
+    lda CurrentSlotIndex
     asl A
     tax
     lda $0E
     clc
-    adc $0BCA,X
-    sta $0E9A,X
+    adc LiveEntityWorldYTable,X
+    sta CurrentSlotStagedYTable,X
     pld
     rtl
 C46C87_RestoreCurrentSlotAnchorFromCachedTarget:
+    ; Restore current live anchor from the cached target pair.
     rep #$31
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
-    lda $0FC6,X
-    sta $0B8E,X
-    lda $1002,X
-    sta $0BCA,X
+    lda CurrentSlotTargetXTable,X
+    sta LiveEntityWorldXTable,X
+    lda CurrentSlotTargetYTable,X
+    sta LiveEntityWorldYTable,X
     rtl
 C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
+    ; Resolve a registry code and copy that slot's live anchor into the
+    ; current slot's live anchor.
     rep #$31
     phd
     pha
@@ -74,7 +94,7 @@ C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
     adc.w #$FFEE
     tcd
     pla
-    ldx $1A42
+    ldx CurrentSlotIndex
     stx $10
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     sta $0E
@@ -85,13 +105,14 @@ C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0B8E,Y
-    lda $0BCA,X
-    sta $0BCA,Y
+    lda LiveEntityWorldXTable,X
+    sta LiveEntityWorldXTable,Y
+    lda LiveEntityWorldYTable,X
+    sta LiveEntityWorldYTable,Y
     pld
     rtl
 C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
+    ; Cached pose-descriptor keyed sibling of C46C9B.
     rep #$31
     phd
     pha
@@ -100,7 +121,7 @@ C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy CurrentSlotIndex
     sty $10
     txa
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
@@ -112,13 +133,15 @@ C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0B8E,Y
-    lda $0BCA,X
-    sta $0BCA,Y
+    lda LiveEntityWorldXTable,X
+    sta LiveEntityWorldXTable,Y
+    lda LiveEntityWorldYTable,X
+    sta LiveEntityWorldYTable,Y
     pld
     rtl
 C46CF5_SetCurrentSlotCameraRelativeAnchorWithFlags:
+    ; Place the current slot relative to the camera origin and mark the paired
+    ; camera-relative flag words. Keep these flag names local to this helper.
     rep #$31
     phd
     pha
@@ -128,40 +151,42 @@ C46CF5_SetCurrentSlotCameraRelativeAnchorWithFlags:
     pla
     stx $02
     tay
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
     lda $02
     clc
-    adc $0031
-    sta $0B8E,X
+    adc CameraOriginX
+    sta LiveEntityWorldXTable,X
     tya
     clc
-    adc $0033
-    sta $0BCA,X
-    lda.w #$8000
-    sta $0C7E,X
-    sta $0C42,X
+    adc CameraOriginY
+    sta LiveEntityWorldYTable,X
+    lda.w #CameraRelativeFlagValue
+    sta CameraRelativeFlag0C7ETable,X
+    sta CameraRelativeFlag0C42Table,X
     pld
     rtl
 C46D23_PlaceCurrentSlotAtRandomCameraXPlus70Y:
+    ; Random camera-relative X placement used by screen-edge/scripted spawn
+    ; setup. Y is the camera origin Y without an added random component.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda CurrentSlotIndex
     asl A
     tax
     stx $0E
     jsl C08E9A_GetRandom16
     clc
-    adc $0031
+    adc CameraOriginX
     clc
-    adc.w #$0070
+    adc.w #RandomCameraXOffset
     ldx $0E
-    sta $0B8E,X
-    lda $0033
-    sta $0BCA,X
+    sta LiveEntityWorldXTable,X
+    lda CameraOriginY
+    sta LiveEntityWorldYTable,X
     pld
     rtl

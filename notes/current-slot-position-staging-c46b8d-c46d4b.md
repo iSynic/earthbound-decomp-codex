@@ -106,6 +106,14 @@ The adjacent consumer pass in
 where `$9E2D/$9E2F/$9E31` are consumed by the C4 prepared-entity wrappers and
 where `$9E35` is seeded by the wandering-photographer entry path.
 
+2026-05-06 anchor/target source follow-up: the upstream
+`src/c4/direction_octant_target_helpers.asm` and
+`src/c4/current_slot_anchor_staging_helpers.asm` now share local names for the
+current-slot live anchor, cached target, staged-position, camera-origin, player
+position, staged new-entity position, and registry slot-list fields. The
+camera-relative `$0C42/$0C7E` flag writes remain helper-local because their
+broader field meaning is still open.
+
 ## Event-script corroboration
 
 Reference scripts make the split visible:

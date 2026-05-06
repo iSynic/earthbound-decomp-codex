@@ -20,6 +20,12 @@ origin, and landing-profile action table. These names are deliberately scoped
 to this movement-presentation corridor because `$0E5E/$0E9A/$0ED6/$0F12` and
 nearby per-slot fields take narrower helper-local roles elsewhere.
 
+The adjacent direction/anchor source pass now uses the same local names for the
+current-slot live anchor, cached target pair, staged-position words, rounded
+octant cache, and camera-origin placement fields; see
+`notes/direction-octant-normalizers-c46a5e-c46b51.md` and
+`notes/current-slot-position-staging-c46b8d-c46d4b.md`.
+
 ## `C4:6EF8`
 
 `C4:6EF8` returns `0` immediately while `$9F3F` is nonzero. Otherwise it compares the current slot position (`$0B8E/$0BCA`) against the player position (`$9877/$987B`):
