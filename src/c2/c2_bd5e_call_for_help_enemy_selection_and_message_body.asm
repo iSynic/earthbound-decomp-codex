@@ -34,6 +34,7 @@ EFMSG_CallForHelpSeedNoSprout = $7830
 
 CALL_FOR_HELP_COMMON:
 C2BD5E_CallForHelpEnemySelectionAndMessageBody = CALL_FOR_HELP_COMMON
+C2BD5E_ApplyCallForHelpEnemySelectionPrefix = CALL_FOR_HELP_COMMON
     rep #$31
     phd
     pha

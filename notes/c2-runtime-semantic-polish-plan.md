@@ -581,6 +581,18 @@ contract notes for C0/C1/C3/C4 consumers.
   rainbow-colors special event now use these names instead of raw helper
   addresses. See `notes/c2-final-prayer-runtime-polish.md` and
   `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
+- 2026-05-06 seventy-ninth slice: tightened the call-for-help and bomb splash
+  width corridor. `C2:EFFD` is now named as `GetBattleSpriteWidthBucket` in the
+  bomb splash, call-for-help placement, and active-enemy width-sum callers;
+  `C2:BD13` callers now use `SumActiveEnemyBattleSpriteWidths`, the adjacent
+  `C2:BD5E` prefix is labeled and called as
+  `ApplyCallForHelpEnemySelectionPrefix`, and the hidden `C2:BCE6` target-loss
+  sibling is labeled and used as `ApplyBattlerHpTargetLoss`. The call-for-help
+  placement path now also names the enemy-row initializer, loaded-sprite-slot
+  lookup, and target-text-context refresh joins. See
+  `notes/c2-call-for-help-runtime-polish.md`,
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
 
 ## Validation
 

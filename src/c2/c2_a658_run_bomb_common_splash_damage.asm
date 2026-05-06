@@ -24,6 +24,7 @@ C08FF7_Multiply16 = $C08FF7
 C23D05_BuildBattleTargetTextContext = $C23D05
 C26A44_RollRandomAmount = $6A44
 C28125_ApplyDamageToSelectedTarget = $8125
+C2EFFD_GetBattleSpriteWidthBucket = $EFFD
 
 ; ---------------------------------------------------------------------------
 ; C2:A658
@@ -157,11 +158,11 @@ C2A73B_RunBombCommonSplashDamage_LA73B:
     ldx $A972
     rep #$20
     lda $0002,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $0E
     ldx $12
     lda $9FAE,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     clc
     adc $0E
     asl A
@@ -186,11 +187,11 @@ C2A788_RunBombCommonSplashDamage_LA788:
     ldx $A972
     rep #$20
     lda $0002,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $0E
     ldx $12
     lda $9FAE,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     clc
     adc $0E
     asl A

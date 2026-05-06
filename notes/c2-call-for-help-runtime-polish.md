@@ -24,7 +24,9 @@ Related evidence notes:
 and commits through `C2:7191` / `SetBattlerPpTarget`.
 
 The adjacent body has the same shape for row `+0x13` (`hp_target`) and commits
-through `C2:7126` / `SetBattlerHpTarget`.
+through `C2:7126` / `SetBattlerHpTarget`. The source now labels this adjacent
+entry as `C2:BCE6` / `ApplyBattlerHpTargetLoss`, and the battle-start HP-loss
+caller uses that name instead of a raw long call.
 
 ## Width Budget
 
@@ -35,6 +37,8 @@ returns the accumulated width in A.
 
 The call-for-help body uses this total plus the candidate enemy width to reject
 reinforcements when the screen sprite budget would reach or exceed `0x20`.
+`C2:BD13` and `C2:BE6C` now name the battle-sprite width helper as
+`C2:EFFD` / `GetBattleSpriteWidthBucket` at each local caller.
 
 ## Prefix And Probability
 
@@ -60,15 +64,22 @@ The two failure scripts are now named at the source sites:
 `C2:BE6C` performs the successful selection and placement path:
 
 - starts with the generic `C2:6BB8` / `RollActionChanceGate` probability check
-- rechecks the width budget using `C2:BD13`
+- rechecks the width budget using `C2:BD13` /
+  `SumActiveEnemyBattleSpriteWidths`
 - scans active enemy rows for placement bounds
 - computes x position and row side when the candidate can fit
 - falls back to replacing a matching solidified/inactive row when possible
 - finds the first empty enemy battler slot
-- initializes the row through `C2:B6EB`
+- initializes the row through `C2:B6EB` /
+  `InitializeEnemyBattlerStatsFromEnemyId`
 - writes row `+0x44/+0x45` position, `+0x10` row side, `+0x43` loaded sprite
   slot, and `+0x0D` active/new marker
 - emits the success message selected by the wrapper input
+
+The placement body also calls `C2:F09F` /
+`FindLoadedBattleSpriteSlotById` and `C2:3D05` /
+`BuildBattleTargetTextContext` by name, and the two wrapper tails now call
+`C2:BD5E` / `ApplyCallForHelpEnemySelectionPrefix` instead of raw `$BD5E`.
 
 The two success scripts are now named at the source sites:
 
@@ -85,6 +96,9 @@ sprite layout:
 - call-for-help validates both probability and sprite width before insertion
 - new enemy placement writes the same position and loaded-sprite fields consumed
   by battle sprite rendering
+- the C2 source now distinguishes the prefix, width-sum helper, width-bucket
+  helper, enemy-row initializer, loaded-sprite-slot lookup, and text-context
+  refresh contracts at the call sites
 - failure and success EF text paths are separated from placement mechanics
 - the `C1:DC1C` dispatch ABI is explicit on all four call-for-help result text
   exits
@@ -94,4 +108,4 @@ sprite layout:
 - exact message distinction for the two wrapper inputs
 - final naming of row `+0x0D` in the called enemy insertion path
 - whether the duplicated `BD5E` body inside the `BD13..BE6C` source unit should
-  be split or represented once in a later source cleanup
+  eventually be split or represented once after the adjacent-body labels settle

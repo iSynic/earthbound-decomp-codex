@@ -54,6 +54,7 @@ Current strongest read:
 - it uses the battler table rooted at `$9FAC`
 - it checks side through `ally_or_enemy`
 - it checks row through battler `row`
+- it calls `C2:EFFD` / `GetBattleSpriteWidthBucket` for the current and candidate sprite ids
 - it compares position-related or sprite-width-derived spatial fields before accepting secondary targets
 - it then reapplies the damage amount to accepted nearby targets
 
@@ -95,6 +96,7 @@ The safest current interpretation is:
 - `C2:A658` is the shared explosive splash-damage worker
 - `C2:A818` and `C2:A821` are the small bomb-family wrappers over that worker
 - the exact wrapper constants and the reference `bomb.asm` or `super_bomb.asm` files now line up cleanly enough to promote those two wrapper identities
+- the secondary-target overlap check now shares named width-bucket vocabulary with the call-for-help sprite-width budget path
 
 ## What is still open
 

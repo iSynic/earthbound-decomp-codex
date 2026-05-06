@@ -41,6 +41,10 @@ After the group pass, the staged graphics/map block is transferred to VRAM
 `$AABE`. `C2:F0D1` trims the staged enemy sprite list `$9F8C[0..$9F8A)` if the
 accumulated sprite widths would exceed `0x20`.
 
+`C2:EFFD` is the shared `GetBattleSpriteWidthBucket` helper. Call-for-help
+width budgeting and bomb splash overlap checks now call it by name at their C2
+action sites.
+
 `C2:F121` assigns active enemy battlers to rows and x/y render positions:
 
 - row-width accumulators live at `$AEF0/$AEF2`

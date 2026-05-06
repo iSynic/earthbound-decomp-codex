@@ -20,6 +20,7 @@ C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C26A2D_GetRandomBelow            = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
+C2BCE6_ApplyBattlerHpTargetLoss = $C2BCE6
 D57B68_BattleActionTable           = $D57B68
 D57B68_BattleActionTableLo         = $7B68
 D57B68_BattleActionTableBank       = $00D5
@@ -1161,7 +1162,7 @@ C25967_RunBattleStartCandidateControllerFront_L5967:
 C2598B_RunBattleStartCandidateControllerFront_L598B:
     ldx $2F
     lda $A970
-    jsl $C2BCE6
+    jsl C2BCE6_ApplyBattlerHpTargetLoss
     ldx $A970
     lda $0011,X
     bne C259C4_RunBattleStartCandidateControllerFront_L59C4

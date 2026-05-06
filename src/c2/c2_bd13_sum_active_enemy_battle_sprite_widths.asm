@@ -14,8 +14,8 @@
 ;   counting only rows whose consciousness byte `+0x0C` is `1`.
 ; - Calls the local battle-sprite width helper for each active enemy sprite id
 ;   at row `+0x02` and returns the total in A.
-; - The following `BD5E` body is the call-for-help prefix that uses this width
-;   total while deciding whether another enemy can fit.
+; - The following embedded `BD5E` body is the call-for-help prefix that uses
+;   this width total while deciding whether another enemy can fit.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -23,6 +23,7 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C2EFFD_GetBattleSpriteWidthBucket   = $EFFD
 
 EF_BattleTextScriptBank       = $00EF
 EFMSG_CallForHelpNoOneCame    = $7824
@@ -51,7 +52,7 @@ C2BD2C_SumActiveEnemyBattleSpriteWidths_LBD2C:
     bne C2BD46_SumActiveEnemyBattleSpriteWidths_LBD46
     ; Active enemy row: add its battle sprite width bucket.
     lda $0002,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $04
     lda $02
     clc
@@ -73,6 +74,7 @@ C2BD55_SumActiveEnemyBattleSpriteWidths_LBD55:
     lda $02
     pld
     rts
+C2BD5E_EmbeddedCallForHelpEnemySelectionPrefix:
     rep #$31
     phd
     pha

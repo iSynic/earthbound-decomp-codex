@@ -56,6 +56,7 @@ C2BCDF_C2BCB9_ApplyBattlerPpTargetLoss_LBCDF:
     jsr C27191_SetBattlerPpTarget
     pld
     rtl
+C2BCE6_ApplyBattlerHpTargetLoss:
     rep #$31
     phd
     pha

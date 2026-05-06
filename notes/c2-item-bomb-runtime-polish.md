@@ -91,7 +91,9 @@ damage parameter. It applies full shaped damage to the primary target through
 When the target is in the battler domain, the helper scans nearby same-side and
 same-row battlers, using sprite width and x-position overlap checks. Up to two
 secondary targets receive half of the base damage. `$A972` is restored to the
-original target before returning.
+original target before returning. The overlap checks now call `C2:EFFD` /
+`GetBattleSpriteWidthBucket` by name for both the primary target and candidate
+secondary target widths.
 
 Wrappers:
 
@@ -147,6 +149,8 @@ This slice tightens several item-side runtime contracts:
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane
+- the bomb splash overlap callers now name the same `GetBattleSpriteWidthBucket`
+  contract used by call-for-help width budgeting
 - bottle-rocket wrappers now have durable reference-backed names and attempt
   counts, with the shared speed-gated damage path named locally
 - amount-shaping callers now distinguish `C2:6A44` / `RollRandomAmount` from

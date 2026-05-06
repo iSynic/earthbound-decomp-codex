@@ -22,7 +22,13 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C23D05_BuildBattleTargetTextContext = $C23D05
 C26BB8_RollActionChanceGate         = $6BB8
+C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
+C2BD13_SumActiveEnemyBattleSpriteWidths = $BD13
+C2BD5E_ApplyCallForHelpEnemySelectionPrefix = $BD5E
+C2EFFD_GetBattleSpriteWidthBucket   = $EFFD
+C2F09F_FindLoadedBattleSpriteSlotById = $F09F
 
 EF_BattleTextScriptBank       = $00EF
 EFMSG_CallForHelpEnemyJoined  = $77FD
@@ -52,7 +58,7 @@ C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     sta $0A
     lda [$0A]
     sta $20
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     asl A
     asl A
     asl A
@@ -70,11 +76,11 @@ C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     lda [$06]
     and.w #$00FF
     sta $1C
-    jsr $BD13
+    jsr C2BD13_SumActiveEnemyBattleSpriteWidths
     tax
     stx $1A
     lda $20
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     ldx $1A
     txa
@@ -103,7 +109,7 @@ C2BEE6_ScanCallForHelpPlacementBoundsLoop:
     and.w #$00FF
     beq C2BF53_RunCallForHelpEnemySelectionBody_LBF53
     lda $0002,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     asl A
     asl A
     asl A
@@ -270,11 +276,11 @@ C2C004_RunCallForHelpEnemySelectionBody_LC004:
     cmp.w #$0001
     bne C2C05B_RunCallForHelpEnemySelectionBody_LC05B
     lda $20
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $04
     ldx $12
     lda $0002,X
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     pha
     lda $04
     ply
@@ -309,11 +315,11 @@ C2C067_RunCallForHelpEnemySelectionBody_LC067:
     bcc C2C004_RunCallForHelpEnemySelectionBody_LC004
     jmp $BDC6
 C2C071_EmitCallForHelpSpawnMessage:
-    jsr $BD13
+    jsr C2BD13_SumActiveEnemyBattleSpriteWidths
     tax
     stx $22
     lda $20
-    jsr $EFFD
+    jsr C2EFFD_GetBattleSpriteWidthBucket
     sta $02
     ldx $22
     txa
@@ -351,7 +357,7 @@ C2C0B5_RunCallForHelpEnemySelectionBody_LC0B5:
     ldx $A972
     lda $26
     ; Initialize the new enemy battler row from the enemy id/type.
-    jsl $C2B6EB
+    jsl C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
     ldy $24
     tya
     sep #$20
@@ -380,7 +386,7 @@ C2C0F3_RunCallForHelpEnemySelectionBody_LC0F3:
 C2C0FD_RunCallForHelpEnemySelectionBody_LC0FD:
     rep #$20
     lda $26
-    jsr $F09F
+    jsr C2F09F_FindLoadedBattleSpriteSlotById
     sep #$20
     ldx $A972
     ; Loaded sprite slot for the new enemy.
@@ -389,7 +395,7 @@ C2C0FD_RunCallForHelpEnemySelectionBody_LC0FD:
     ldx $A972
     ; Mark row as newly/actively inserted.
     sta $000D,X
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     lda $28
     beq C2C12C_RunCallForHelpEnemySelectionBody_LC12C
     ; Success message flavor selected by the wrapper input.
@@ -410,9 +416,9 @@ C2C13A_ReturnCallForHelpEnemySelectionBody:
     rts
     rep #$31
     lda.w #$0001
-    jsr $BD5E
+    jsr C2BD5E_ApplyCallForHelpEnemySelectionPrefix
     rtl
     rep #$31
     lda.w #$0000
-    jsr $BD5E
+    jsr C2BD5E_ApplyCallForHelpEnemySelectionPrefix
     rtl
