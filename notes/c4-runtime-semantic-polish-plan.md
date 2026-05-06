@@ -449,6 +449,11 @@ closure.
   7F palette interpolation planes, `$0200` CGRAM shadow export, and `$0030`
   full-CGRAM upload selector writes. See
   `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
+- 2026-05-06 palette selector/rebase follow-up: split the palette stepper's
+  `#$18` full-CGRAM-upload selector value from the `$0030` display-selector
+  latch name, keeping C0/NMI upload behavior callee-owned, and clarified the
+  screen-position live-entity rebase loop as a two-byte slot scan bounded by a
+  byte count. See `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
 - 2026-05-06 flyover pointer table follow-up: tightened the C4:9EA4 flyover
   intro text pointer table around its eight low-word payload constants, shared
   E1 bank byte, padding byte, and row shape consumed by `C4:9EC4`, while

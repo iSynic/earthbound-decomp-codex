@@ -116,6 +116,12 @@ selector contracts. The unusual negative high-channel path still preserves the
 observed middle-delta clear exactly as byte-equivalence evidence, not as a
 broader semantic claim.
 
+2026-05-06 selector/rebase follow-up: the palette stepper source now separates
+the full-CGRAM-upload selector byte (`#$18`) from the `$0030` display-selector
+latch, explicitly leaving the actual CGRAM upload to C0/NMI behavior. The
+screen-position rebase helper now names the live-entity scan bound as a byte
+bound over two-byte slot table entries.
+
 ## Working Names
 
 - `C4:23DC` = `SetCenteredColorWindowRangePreset`

@@ -25,8 +25,8 @@ PALETTE_HIGH_CURRENT_PLANE           = $7F0C00
 PALETTE_CGRAM_SHADOW                 = $0200
 
 PALETTE_COMPONENT_UPPER_MASK         = $1F00
-FULL_CGRAM_UPLOAD_SELECTOR           = $18
-DISPLAY_UPLOAD_SELECTOR              = $0030
+DISPLAY_SELECTOR_FULL_CGRAM_UPLOAD   = $18
+DISPLAY_UPLOAD_SELECTOR_LATCH        = $0030
 PALETTE_EXPORT_BYTE_SIZE             = $0200
 PALETTE_COMPONENT_ZERO               = $0000
 DIRECT_PAGE_FRAME_BYTES              = $0002
@@ -41,9 +41,9 @@ DIRECT_PAGE_FRAME_BYTES              = $0002
 ;
 ; Steps the three component delta/current plane pairs, saturates each channel
 ; to the 5-bit range, repacks the result into the low WRAM CGRAM shadow, and
-; requests a full CGRAM upload through display selector $18.
+; requests a full CGRAM upload by writing selector $18 to the display latch.
 ; Side effects are confined to the 7F interpolation planes, the $0200 CGRAM
-; shadow, and the display upload selector.
+; shadow, and the $0030 display-selector latch. C0/NMI owns the actual upload.
 UPDATE_MAP_PALETTE_ANIMATION:
 C426ED_StepPaletteComponentInterpolationToCgramShadow = UPDATE_MAP_PALETTE_ANIMATION
     rep #$20
@@ -131,8 +131,8 @@ C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady:
 
 C42794_StepPaletteComponentInterpolationToCgramShadow_Done:
     sep #$20
-    lda.b #FULL_CGRAM_UPLOAD_SELECTOR
-    sta.w DISPLAY_UPLOAD_SELECTOR
+    lda.b #DISPLAY_SELECTOR_FULL_CGRAM_UPLOAD
+    sta.w DISPLAY_UPLOAD_SELECTOR_LATCH
     rep #$20
     pld
     rtl

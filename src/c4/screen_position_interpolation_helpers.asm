@@ -39,7 +39,7 @@ LIVE_ENTITY_WORLD_X_TABLE            = $0B8E
 LIVE_ENTITY_WORLD_Y_TABLE            = $0BCA
 LIVE_ENTITY_SCREEN_X_TABLE           = $0B16
 LIVE_ENTITY_SCREEN_Y_TABLE           = $0B52
-LIVE_ENTITY_SLOT_BYTES_END           = $003C
+LIVE_ENTITY_SLOT_SCAN_BYTES_END      = $003C
 
 ANGLE_HALF_TURN_OFFSET               = $0080
 ANGLE_BYTE_MASK                      = $00FF
@@ -135,6 +135,7 @@ C4268A_StepScreenPositionInterpolationAndApply:
 ;
 ; Side effects: for each active live-entity slot in this compact table band,
 ; rewrites screen-relative X/Y from live world X/Y minus the current origin.
+; The loop scans two-byte slot table entries up to the local $003C byte bound.
 C426C7_RebaseLiveEntityPositionsToScreenOrigin:
     rep #$30
     ldx #$0000
@@ -152,6 +153,6 @@ C426CC_RebaseLiveEntityPositionsToScreenOrigin_Loop:
 C426E5_RebaseLiveEntityPositionsToScreenOrigin_Next:
     inx
     inx
-    cpx #LIVE_ENTITY_SLOT_BYTES_END
+    cpx #LIVE_ENTITY_SLOT_SCAN_BYTES_END
     bne C426CC_RebaseLiveEntityPositionsToScreenOrigin_Loop
     rtl
