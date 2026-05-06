@@ -22,6 +22,35 @@ C4249A_ApplyFixedColorMathFromMagnitude      = $C4249A
 ; ---------------------------------------------------------------------------
 ; C4:7370
 
+; ---------------------------------------------------------------------------
+; WRAM / PPU-facing contracts
+;
+; This corridor owns C4-side presentation setup for movement-script battle
+; background visuals and a compact signed palette-brightness adapter. C0/C2
+; callees own their internal queue and battle-background state machinery; C4
+; only provides the arguments and local palette/upload selector writes below.
+
+MovementBattleBgModeValue                  = $0009
+MovementBattleBg1ScreenBase                = $5800
+MovementBattleBg2ScreenBase                = $5C00
+MovementBattleBg2TileBase                  = $1000
+MovementSpriteResourceArgY                 = $0004
+
+CurrentEntitySlotIndex                     = $1A42
+CurrentSlotBrightnessOrColorMathTable      = $0E5E
+SavedCgramShadowPaletteRows                = $4476
+PaletteBrightnessWorkRows                  = $0240
+PaletteRowByteSize                         = $0020
+PaletteRowColorCount                       = $0010
+PaletteComponent5BitMax                    = $001F
+FullCgramUploadSelector                    = $18
+DisplayTransferSelector30                  = $0030
+FixedColorMathAddMode33                    = $0033
+FixedColorMathSubModeB3                    = $00B3
+
+; Sets up the movement-script battle-background presentation surface: blanks
+; through the C0 transition helper, queues BG mode/base values, loads the C2
+; presentation sprite resource with caller A/X and Y=4, then reopens display.
 LOAD_BACKGROUND_ANIMATION:
 C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
     rep #$31
@@ -51,6 +80,7 @@ C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
     jsl C08744_OpenDisplayTransitionBracket
     pld
     rtl
+; Clamps a signed-adjusted SNES RGB555 component into the valid 0..31 range.
 C473B2_ClampSignedPaletteComponentTo5Bit:
     rep #$31
     cmp.w #$8000
@@ -68,6 +98,8 @@ C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC:
     and.w #$001F
 C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF:
     rts
+; Applies caller X as a signed brightness offset to one 16-color palette row,
+; reading from $4476 + row*0x20 and writing adjusted RGB555 words to $0240.
 C473D0_ApplySignedBrightnessOffsetToPaletteRow:
     rep #$31
     phd
@@ -163,6 +195,8 @@ C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462:
     bcc C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8
     pld
     rts
+; Applies the signed offset in A to all 16 palette rows and marks $0030 with
+; selector #$18 for the full CGRAM/palette upload path.
 C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload:
     rep #$31
     phd
@@ -191,6 +225,8 @@ C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
     rep #$20
     pld
     rtl
+; Current-slot wrapper for the palette-row brightness path. In this family
+; $0E5E[current] is a signed component offset, not a general visual state name.
 C47499_ApplyCurrentSlot0e5eBrightnessToPaletteRows:
     rep #$31
     lda $1A42
@@ -199,6 +235,8 @@ C47499_ApplyCurrentSlot0e5eBrightnessToPaletteRows:
     lda $0E5E,X
     jsl C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload
     rtl
+; Current-slot wrapper for fixed-color math. Converts signed $0E5E[current] to
+; magnitude X and mode #$33/#$B3 before delegating to the C4:249A color helper.
 C474A8_ApplyCurrentSlot0e5eFixedColorMath:
     rep #$31
     phd

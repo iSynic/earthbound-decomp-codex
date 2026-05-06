@@ -255,6 +255,14 @@ closure.
   `$987F = 2` seeds, leaving destination staging and transition interpretation
   to the owning banks. See
   `notes/event353-message-tile-builders-c4810e-c48a6d.md`.
+- 2026-05-06 battle-background / palette-brightness follow-up: tightened the
+  movement-script battle-background presentation loader around its C4-owned BG
+  mode/base arguments, display bracket calls, and C2 sprite-resource arguments.
+  The adjacent palette adapters now name the `$4476 -> $0240` row transform,
+  `$0030 = #$18` upload selector, `$0E5E[current]` signed brightness/magnitude
+  role, and the fixed-color mode values passed to C4:249A while leaving C0/C2
+  queue and battle-background internals to their owning banks. See
+  `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
 
 ## Validation
 
