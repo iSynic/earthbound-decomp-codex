@@ -13,6 +13,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
+from asset_output_recipe_contracts import validate_output_spec
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -78,6 +79,10 @@ def validate_manifest(path: Path, manifest: dict[str, Any]) -> tuple[int, int]:
         for output in outputs:
             if not isinstance(output.get("kind"), str) or not isinstance(output.get("path"), str):
                 raise ValueError(f"{path}: {asset['id']} has an invalid output spec")
+            output_errors = validate_output_spec(output, str(asset["id"]))
+            if output_errors:
+                formatted = "\n  - ".join(output_errors)
+                raise ValueError(f"{path}: typed output recipe validation failed:\n  - {formatted}")
             output_count += 1
     return len(asset_ids), output_count
 
