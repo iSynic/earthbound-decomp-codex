@@ -3781,6 +3781,11 @@ org $C277CA
 !C24703_DispatchClass2DerivedAction = $C24703
 !C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
+!D57B68_BattleActionTableLo = $7B68
+!D57B68_BattleActionTableBank = $00D5
+!BattleActionTableRowSize = $000C
+!BattleActionTablePrimaryTextPtrOffset = $0004
+!BattleActionTableSecondPayloadPtrOffset = $0008
 C277CA_RunClass2LateSelectedRowController:
     ldx $02
     lda $0000,X
@@ -3947,9 +3952,9 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
     jsl $C23E32
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
     ldx $02
     lda $0000,X
@@ -4000,7 +4005,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #!BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A
@@ -27288,6 +27293,11 @@ org $C25024
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !D57B68_BattleActionTable = $D57B68
+!D57B68_BattleActionTableLo = $7B68
+!D57B68_BattleActionTableBank = $00D5
+!BattleActionTableRowSize = $000C
+!BattleActionTableActionTypeOffset = $0002
+!BattleActionTablePrimaryFlagsOffset = $0000
 !EF_BattleTextScriptBank = $00EF
 !EFMSG_BattleStartSenseiMon = $78F7
 !EFMSG_PlayerFlee = $84F3
@@ -28253,9 +28263,9 @@ C257FC_RunBattleStartCandidateControllerFront_L57FC:
     stz $0007,X
 C2582C_RunBattleStartCandidateControllerFront_L582C:
     rep #$20
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $08
     ldx $A970
     lda $0004,X
@@ -28581,6 +28591,14 @@ org $C25AFB
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !D57B68_BattleActionTable = $D57B68
+!D57B68_BattleActionTableLo = $7B68
+!D57B68_BattleActionTableBank = $00D5
+!BattleActionTableRowSize = $000C
+!BattleActionTableActionTypeOffset = $0002
+!BattleActionTablePpCostOffset = $0003
+!BattleActionTablePrimaryTextPtrOffset = $0004
+!BattleActionTableSecondPayloadPtrOffset = $0008
+!BattleActionPresentationDelayFrames = $0C
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_PsiCannot = $FAB8
 !EF_BattleTextScriptBank = $00EF
@@ -28698,7 +28716,7 @@ C25BCC_RunBattleStartCandidateControllerBack_L5BCC:
     jsl $C2FEF9
 C25BD3_RunBattleStartCandidateControllerBack_L5BD3:
     sep #$20
-    lda.b #$0C
+    lda.b #!BattleActionPresentationDelayFrames
     ldx $A970
     sta $0049,X
     ldx.w #$0000
@@ -28710,7 +28728,7 @@ C25BE4_RunBattleStartCandidateControllerBack_L5BE4:
     inx
     stx $1F
 C25BED_RunBattleStartCandidateControllerBack_L5BED:
-    cpx.w #$000C
+    cpx.w #!BattleActionPresentationDelayFrames
     bcc C25BE4_RunBattleStartCandidateControllerBack_L5BE4
 C25BF2_RunBattleStartCandidateControllerBack_L5BF2:
     ldy $31
@@ -28739,9 +28757,9 @@ C25C14_RunBattleStartCandidateControllerBack_L5C14:
     jsl !C1DC1C_DisplayBattleTextFromPointer
 C25C30_RunBattleStartCandidateControllerBack_L5C30:
     rep #$20
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
     ldx $A970
     lda $0004,X
@@ -28827,9 +28845,9 @@ C25CD1_RunBattleStartCandidateControllerBack_L5CD1:
     jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp.w C25D9A_RunBattleStartCandidateControllerBack_L5D9A
 C25CEB_RunBattleStartCandidateControllerBack_L5CEB:
-    lda.w #$7B68
+    lda.w #!D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!D57B68_BattleActionTableBank
     sta $0C
     ldx $A970
     lda $0004,X
@@ -28839,7 +28857,7 @@ C25CEB_RunBattleStartCandidateControllerBack_L5CEB:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #!BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A

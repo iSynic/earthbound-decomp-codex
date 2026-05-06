@@ -24,6 +24,14 @@ C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
 D57B68_BattleActionTable            = $D57B68
+D57B68_BattleActionTableLo          = $7B68
+D57B68_BattleActionTableBank        = $00D5
+BattleActionTableRowSize            = $000C
+BattleActionTableActionTypeOffset   = $0002
+BattleActionTablePpCostOffset       = $0003
+BattleActionTablePrimaryTextPtrOffset = $0004
+BattleActionTableSecondPayloadPtrOffset = $0008
+BattleActionPresentationDelayFrames = $0C
 
 C8_BattleTextScriptBank = $00C8
 C8MSG_PsiCannot         = $FAB8
@@ -87,6 +95,7 @@ C25B3D_RunBattleStartCandidateControllerBack_L5B3D:
     inx
     inx
     inx
+    ; Row offset +3 is the PP cost gate for PSI-style actions.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     beq C25B7D_RunBattleStartCandidateControllerBack_L5B7D
@@ -122,6 +131,7 @@ C25B7D_RunBattleStartCandidateControllerBack_L5B7D:
     tax
     inx
     inx
+    ; Row offset +2 drives the pre-action presentation category.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0001
@@ -146,7 +156,7 @@ C25BCC_RunBattleStartCandidateControllerBack_L5BCC:
     jsl $C2FEF9
 C25BD3_RunBattleStartCandidateControllerBack_L5BD3:
     sep #$20
-    lda.b #$0C
+    lda.b #BattleActionPresentationDelayFrames
     ldx $A970
     sta $0049,X
     ldx.w #$0000
@@ -158,7 +168,7 @@ C25BE4_RunBattleStartCandidateControllerBack_L5BE4:
     inx
     stx $1F
 C25BED_RunBattleStartCandidateControllerBack_L5BED:
-    cpx.w #$000C
+    cpx.w #BattleActionPresentationDelayFrames
     bcc C25BE4_RunBattleStartCandidateControllerBack_L5BE4
 C25BF2_RunBattleStartCandidateControllerBack_L5BF2:
     ldy $31
@@ -187,13 +197,15 @@ C25C14_RunBattleStartCandidateControllerBack_L5C14:
     jsl C1DC1C_DisplayBattleTextFromPointer
 C25C30_RunBattleStartCandidateControllerBack_L5C30:
     rep #$20
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     ldx $A970
     lda $0004,X
     sta $04
+    ; Selected action id -> 0x0C-byte D5:7B68 row, then +4 for the primary
+    ; action-text far pointer consumed by C1:DD9F.
     asl A
     adc $04
     asl A
@@ -277,19 +289,21 @@ C25CD1_RunBattleStartCandidateControllerBack_L5CD1:
     jsl C1DC1C_DisplayBattleTextFromPointer
     jmp.w C25D9A_RunBattleStartCandidateControllerBack_L5D9A
 C25CEB_RunBattleStartCandidateControllerBack_L5CEB:
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     ldx $A970
     lda $0004,X
     sta $04
+    ; Selected action id -> row offset, then +8 for the companion payload
+    ; pointer applied after per-target validation.
     asl A
     adc $04
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A

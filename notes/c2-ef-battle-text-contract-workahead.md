@@ -526,6 +526,13 @@ And for the most actionable C2 call-site families:
   freeze/flash/paralysis resistance, hypnosis resistance, brainshock
   resistance, and the `0xFF` fully-vulnerable sentinel. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-05: follow-up action-table text polish aligned
+  `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`,
+  `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`, and
+  `src/c2/c2_77ca_run_class2_late_selected_row_controller.asm` on the
+  `D5:7B68` row vocabulary: `0x0C`-byte rows, row `+2` action-type branches,
+  row `+3` PP cost, row `+4` primary `C1:DD9F` text, and row `+8` companion
+  payload pointer.
 
 ## Integration checklist (manual)
 

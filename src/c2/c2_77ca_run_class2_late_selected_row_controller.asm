@@ -35,6 +35,12 @@ C24703_DispatchClass2DerivedAction           = $C24703
 C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2BAC5_CountRowsWithPhaseValue               = $C2BAC5
 
+D57B68_BattleActionTableLo                   = $7B68
+D57B68_BattleActionTableBank                 = $00D5
+BattleActionTableRowSize                     = $000C
+BattleActionTablePrimaryTextPtrOffset        = $0004
+BattleActionTableSecondPayloadPtrOffset      = $0008
+
 ; ---------------------------------------------------------------------------
 ; C2:77CA
 
@@ -210,9 +216,9 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
     jsl $C23E32
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     ; Emit the first pointer from the selected D5:7B68 action entry.
     ldx $02
@@ -224,6 +230,8 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     tay
     lda [$18],Y
     sta $04
+    ; Descriptor `+0x4E` is an action-table id; convert it into a 0x0C-byte
+    ; row and then advance to the primary action-text far pointer at +4.
     asl A
     adc $04
     asl A
@@ -265,7 +273,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A

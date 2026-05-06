@@ -27,6 +27,9 @@ and comments while preserving byte-equivalence.
   status/victory scripts, and the `EF:7BDF` present script.
 - The instant-win handler now names `EF:7A28` as the forced-win script and
   reuses the `EF:7BDF` present script for the optional present item byte.
+- Follow-up action-table polish now names the local `D5:7B68` row root/bank,
+  the `0x0C` row size, the `+2/+3/+4/+8` row fields used by battle-start, and
+  the `C1:DD9F` primary-message lane versus the later companion-payload lane.
 
 ## Payload Joins
 
@@ -48,6 +51,23 @@ byte-substitution bridge:
 The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
 accumulated result pointer/value pair, keeping them separate from direct
 `C1:DC1C` status-result text.
+
+## Action-Table Text Lane
+
+`D5:7B68` is now treated consistently as a `0x0C`-byte battle-action row table
+inside the C2 battle-start front/back halves and the late selected-row nested
+action controller:
+
+- row `+2` gates battle-start action-type/presentation branches;
+- row `+3` is the PP-cost byte checked before the C8 PSI-cannot script;
+- row `+4` is the primary action text far pointer staged into `$0E/$10` and
+  displayed through `C1:DD9F`;
+- row `+8` is the companion action payload pointer applied after target
+  validation.
+
+This keeps the C1 `DD9F` wrapper as the explicit current-action text lane and
+separates it from ordinary direct text (`DC1C`) and substitution payload
+(`DC66`) callers.
 
 ## Evidence Inputs
 

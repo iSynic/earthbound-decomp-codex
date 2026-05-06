@@ -18,6 +18,11 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 D57B68_BattleActionTable           = $D57B68
+D57B68_BattleActionTableLo         = $7B68
+D57B68_BattleActionTableBank       = $00D5
+BattleActionTableRowSize           = $000C
+BattleActionTableActionTypeOffset  = $0002
+BattleActionTablePrimaryFlagsOffset = $0000
 
 EF_BattleTextScriptBank      = $00EF
 EFMSG_BattleStartSenseiMon   = $78F7
@@ -849,6 +854,8 @@ C256D6_RunBattleStartCandidateControllerFront_L56D6:
     tax
     inx
     inx
+    ; D5:7B68 row offset +2 carries the action-type byte used by the
+    ; battle-start controller's special-case targeting branches.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0003
@@ -959,6 +966,7 @@ C257BF_RunBattleStartCandidateControllerFront_L57BF:
     tax
     inx
     inx
+    ; Re-check action row offset +2 before preserving the candidate action id.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     cmp.w #$0003
@@ -988,13 +996,14 @@ C257FC_RunBattleStartCandidateControllerFront_L57FC:
     stz $0007,X
 C2582C_RunBattleStartCandidateControllerFront_L582C:
     rep #$20
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $08
     ldx $A970
     lda $0004,X
     sta $04
+    ; Convert the selected action id into a 0x0C-byte D5:7B68 row offset.
     asl A
     adc $04
     asl A
@@ -1007,6 +1016,8 @@ C2582C_RunBattleStartCandidateControllerFront_L582C:
     clc
     adc $0A
     sta $0A
+    ; Row offset +0 flags the special battle-start setup path; offset +1 gates
+    ; whether the candidate can install its per-row actor marker.
     lda [$0A]
     and.w #$00FF
     cmp.w #$0001
@@ -1198,6 +1209,7 @@ C259F0_RunBattleStartCandidateControllerFront_L59F0:
     asl A
     asl A
     tax
+    ; Row offset +0 selects whether to build extra target/source context.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     bne C25A4F_RunBattleStartCandidateControllerFront_L5A4F
@@ -1249,6 +1261,7 @@ C25A7B_RunBattleStartCandidateControllerFront_L5A7B:
     asl A
     tax
     inx
+    ; Row offset +1 means the action owns a battle-start continuation.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     beq C25ABD_RunBattleStartCandidateControllerFront_L5ABD

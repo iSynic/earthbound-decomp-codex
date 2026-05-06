@@ -341,6 +341,12 @@ contract notes for C0/C1/C3/C4 consumers.
   flash/paralysis/hypnosis/brainshock resistance bytes, and the `0xFF`
   vulnerability sentinel that gates the direct readout text scripts. See
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-05 fifty-first slice: tightened the `D5:7B68` battle-action row
+  text lane across the battle-start front/back controllers and late selected-row
+  nested action controller. The promoted contracts name the row root/bank,
+  `0x0C` row size, row `+2/+3/+4/+8` fields, `C1:DD9F` primary current-action
+  text display, and the separate companion payload pointer. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Validation
 
