@@ -374,6 +374,24 @@ TextCommand1FF1CallbackSubcommand = $00F1
 TextCommand1FF2CallbackSubcommand = $00F2
 TextCommand1FF3CallbackSubcommand = $00F3
 TextCommand1FF4CallbackSubcommand = $00F4
+TextCommandResultLo              = $06
+TextCommandResultHi              = $08
+TeleportLandingSnapshotX         = $98B2
+TeleportLandingSnapshotY         = $98B4
+TeleportRefreshFlagCursor        = $12
+TeleportRefreshFlagStart         = $0001
+ClearEventFlagOrStateValue       = $0000
+TeleportRefreshFlagEndInclusive  = $000A
+EnableDisplayTransitionState     = $0001
+TeleportVisualStateId            = $0073
+TeleportLandingYWork             = $02
+TeleportLandingXWork             = $04
+TeleportLandingUpdateMode        = $0004
+TeleportLandingQueueState        = $2890
+InvalidTeleportDestinationWord   = $FFFF
+TeleportLandingRefreshSentinel   = $5DC4
+CurrentInteractionFlagSetValue   = $0001
+CurrentInteractionFlagClearValue = $0000
 
 ; ---------------------------------------------------------------------------
 ; C1:7B56
@@ -1640,48 +1658,48 @@ C18512_DispatchDisplayTextDynamicSourceSelector_L8512:
     lda.w #TextCommand1F67Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18518_DispatchDisplayTextDynamicSourceSelector_L8518:
-    lda $9877
-    sta $98B2
-    lda $987B
-    sta $98B4
+    lda CurrentOverworldX
+    sta TeleportLandingSnapshotX
+    lda CurrentOverworldY
+    sta TeleportLandingSnapshotY
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18527_DispatchDisplayTextDynamicSourceSelector_L8527:
-    ldy.w #$0001
-    sty $12
+    ldy.w #TeleportRefreshFlagStart
+    sty TeleportRefreshFlagCursor
     bra C1853B_DispatchDisplayTextDynamicSourceSelector_L853B
 C1852E_DispatchDisplayTextDynamicSourceSelector_L852E:
-    ldx.w #$0000
+    ldx.w #ClearEventFlagOrStateValue
     tya
     jsl C2165E_SetEventFlagOrState
-    ldy $12
+    ldy TeleportRefreshFlagCursor
     iny
-    sty $12
+    sty TeleportRefreshFlagCursor
 C1853B_DispatchDisplayTextDynamicSourceSelector_L853B:
-    cpy.w #$000A
+    cpy.w #TeleportRefreshFlagEndInclusive
     bcc C1852E_DispatchDisplayTextDynamicSourceSelector_L852E
     beq C1852E_DispatchDisplayTextDynamicSourceSelector_L852E
-    ldx.w #$0001
+    ldx.w #EnableDisplayTransitionState
     txa
     jsl C0887A_ClearDisplayTransitionState
-    lda.w #$0073
+    lda.w #TeleportVisualStateId
     jsl C0ABE0_PrepareTeleportVisualState
-    lda $98B2
-    sta $04
-    lda $98B4
-    sta $02
-    ldx $02
-    lda $04
+    lda TeleportLandingSnapshotX
+    sta TeleportLandingXWork
+    lda TeleportLandingSnapshotY
+    sta TeleportLandingYWork
+    ldx TeleportLandingYWork
+    lda TeleportLandingXWork
     jsl C013F6_SetTeleportLandingDirection
-    stz $2890
-    ldy.w #$0004
-    ldx $02
-    lda $04
+    stz TeleportLandingQueueState
+    ldy.w #TeleportLandingUpdateMode
+    ldx TeleportLandingYWork
+    lda TeleportLandingXWork
     jsl C03FA9_UpdateTeleportLandingPosition
-    ldx.w #$0001
+    ldx.w #EnableDisplayTransitionState
     txa
     jsl C0886C_SetDisplayTransitionState
-    lda.w #$FFFF
-    sta $5DC4
+    lda.w #InvalidTeleportDestinationWord
+    sta TeleportLandingRefreshSentinel
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18582_DispatchDisplayTextDynamicSourceSelector_L8582:
     lda.w #TextCommand1F71PartyUtility
@@ -1694,40 +1712,40 @@ C1858E_DispatchDisplayTextDynamicSourceSelector_L858E:
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr C19441_BuildPhoneContactSelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9:
 C185A9_SetCurrentInteractionFlagTextCommand = C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
     ; Text command 1F A0: set the current interaction flag and refresh target state.
-    lda.w #$0001
+    lda.w #CurrentInteractionFlagSetValue
     jsl C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3:
 C185B3_ClearCurrentInteractionFlagTextCommand = C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
     ; Text command 1F A1: clear the current interaction flag and refresh target state.
-    lda.w #$0000
+    lda.w #CurrentInteractionFlagClearValue
     jsl C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD:
 C185BD_GetCurrentInteractionFlagTextCommand = C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
     ; Text command 1F A2: return the current interaction flag state.
     jsl C226E6_GetCurrent9C88Flag
-    cmp.w #$0000
-    sta $06
-    stz $08
+    cmp.w #CurrentInteractionFlagClearValue
+    sta TextCommandResultLo
+    stz TextCommandResultHi
     bpl C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC
-    dec $08
+    dec TextCommandResultHi
 C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
@@ -1743,12 +1761,12 @@ C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7:
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsl C490EE_GetNearbyMagicTruffleDirection
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18602_DispatchDisplayTextDynamicSourceSelector_L8602:

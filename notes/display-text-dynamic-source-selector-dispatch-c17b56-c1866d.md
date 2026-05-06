@@ -62,6 +62,10 @@ See also:
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game
   wrapper, and teleport landing state refresh edges.
+- The immediate `1F` helper leaves now also name the C1-side staging behind
+  teleport landing snapshot/refresh, phone-contact result installation,
+  current-interaction flag set/clear/get, and nearby Magic Truffle direction
+  result installation.
 - The remaining presentation/runtime joins in this source are now named too:
   map-position context lookup, auto sector-music latch writes, the active-window
   glyph-mode flag helper at `C1:0FAC`, nearby Magic Truffle direction lookup,

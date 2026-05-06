@@ -73,6 +73,14 @@ pair stages `1` or `0` into `C2:26C5`, which falls through to the C2 refresh
 tail that uses `$9C88` and `$5D64`; the read leaf calls `C2:26E6` and stages
 the returned flag state into the active text context.
 
+Follow-up source polish (2026-05-06): the immediate helper leaves in the same
+dynamic dispatcher now expose their C1 staging layer. `1F 68/69` name the
+current-position snapshot at `$98B2/$98B4`, the teleport refresh flag loop, the
+teleport visual-state id, the `$02/$04` landing work pair, `$2890`, and the
+`$5DC4` invalid-destination sentinel. `1F 90`, `1F A2`, and `1F D1` now share
+named `$06/$08 -> $0E/$10` result staging, while `1F A0/A1` name the set/clear
+values passed to the C2 current-interaction-flag wrapper.
+
 The `1F B0` save-game leaf now calls the C2 `SaveCurrentGame` wrapper by name.
 That wrapper reads the one-based current save slot at `$B4A1`, converts it to
 the zero-based slot index expected by `EF:0A4D`, and delegates to the EF

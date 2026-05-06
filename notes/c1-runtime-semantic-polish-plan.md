@@ -609,6 +609,12 @@ This planning pass is documentation-only.
   `81/83`, `90`, `A0..A2`, `B0`, `C0`, `D0..D3`, `E1`, `E4..F4`, and the
   shared no-follow-up return. The pass leaves the downstream callback and
   immediate helper bodies on their existing contracts.
+- 2026-05-06 follow-up: the immediate `0x1F` helper leaves in
+  `C1:8518..85ED` now name their C1-side staging. The pass covers
+  teleport-position snapshot/refresh workmem, the refresh flag loop, landing
+  visual state and sentinel values, phone-contact and Magic Truffle result
+  installation through `$06/$08 -> $0E/$10`, and current-interaction flag
+  set/clear/get staging values.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments
