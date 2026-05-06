@@ -140,7 +140,7 @@ This is no longer just a loose neighboring item action. Locally, `C2:A5EC`:
 
 - gates the target
 - computes direct damage from `100 - target defense`
-- routes that damage through `C2:8125`
+- routes that damage through `C2:8125` / `ApplyDamageToSelectedTarget`
 - then calls `C2:724A` with `X = 2`, `Y = 4`
 - displays `EF:6BEF` on success and `EF:766E` on failure
 
@@ -295,4 +295,3 @@ The next late none-target slice is no longer a generic event bucket either.
 - entry `0x012B` (`299`) -> `C2:C6F0` -> strongest current local fit for `FINAL_PRAYER_9`
 
 The focused local writeup is now in [class2-final-prayer-family-c2c572-c2c6f0.md](notes/class2-final-prayer-family-c2c572-c2c6f0.md).
-

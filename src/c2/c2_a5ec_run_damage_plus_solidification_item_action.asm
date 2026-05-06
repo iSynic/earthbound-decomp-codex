@@ -18,7 +18,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C27CAF_RollSelectedVsActiveRowOffsetGate      = $7CAF
+C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
+C28125_ApplyDamageToSelectedTarget            = $8125
 
 ; ---------------------------------------------------------------------------
 ; C2:A5EC
@@ -30,11 +32,11 @@ C2A5EC_RunDamagePlusSolidificationItemAction = BTLACT_HANDBAG_STRAP
     tdc
     adc.w #$FFEC
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     db $D0, $5A
     lda.w #$00FA
-    jsr $7CAF
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     db $F0, $41
     ldx $A972
@@ -53,7 +55,7 @@ C2A61D_C2A5EC_RunDamagePlusSolidificationItemAction_LA61D:
 C2A61F_C2A5EC_RunDamagePlusSolidificationItemAction_LA61F:
     ldx.w #$00FF
     lda $12
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
     ldy.w #$0004
     ldx.w #$0002
     lda $A972

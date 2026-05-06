@@ -38,7 +38,7 @@ The local body has the same broad shape as the reference `BOMB_COMMON`:
 
 - incoming `A` is treated as the base damage parameter
 - `C2:6A44` shapes that parameter into the applied damage amount
-- damage is routed through `C2:8125`
+- damage is routed through `C2:8125` / `ApplyDamageToSelectedTarget`
 - if the current target is in the ordinary battler domain, the helper then scans other battler rows rather than stopping at one target
 - it compares candidate rows against the current target's side, row, and spatial fields before deciding whether to include them
 - selected secondary targets are then revisited and damaged through the same common amount path
@@ -114,4 +114,3 @@ The safest current takeaway is:
 ## Best next target
 
 The best next move is to pin the exact live table rows for `C2:A818` and then decide whether the surrounding projectile-flavored `A821` reuses deserve a small projectile-or-explosive subfamily note of their own.
-

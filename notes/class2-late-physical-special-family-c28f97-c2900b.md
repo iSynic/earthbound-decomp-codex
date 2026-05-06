@@ -76,8 +76,10 @@ The body:
 - seeds literal `0x015E` (`350`) into `C2:6AFD`
 - stores the resulting amount in local DP state
 - reads current target row byte `+0x3A`
-- uses that byte as the index argument for `C2:8125`
-- lets `C2:8125` drive the actual damage application and display-side follow-through
+- uses that byte as the index argument for `C2:8125` /
+  `ApplyDamageToSelectedTarget`
+- lets `C2:8125` drive the actual damage application and display-side
+  follow-through
 
 The live row and message text fit a fire-damage interpretation much better than a generic special attack label:
 
@@ -88,7 +90,7 @@ So the safest current local name is:
 
 - one-target fire-damage or flaming-fireball action
 
-There is a useful reference-side cross-check here too: the literal `350` lines up with the quarantined `BTLACT_350_FIRE_DAMAGE` helper. I am still keeping the final symbolic name for `C2:900B` slightly cautious, because the local body is a full action wrapper over `C2:8125`, not just the tiny standalone damage helper exported in that reference file.
+There is a useful reference-side cross-check here too: the literal `350` lines up with the quarantined `BTLACT_350_FIRE_DAMAGE` helper. I am still keeping the final symbolic name for `C2:900B` slightly cautious, because the local body is a full action wrapper over `C2:8125` / `ApplyDamageToSelectedTarget`, not just the tiny standalone damage helper exported in that reference file.
 
 ## Action-table anchors
 

@@ -21,6 +21,9 @@
 ; External contracts used by this module
 
 C08FF7_Multiply16 = $C08FF7
+C23D05_BuildBattleTargetTextContext = $C23D05
+C26A44_RollRandomAmount = $6A44
+C28125_ApplyDamageToSelectedTarget = $8125
 
 ; ---------------------------------------------------------------------------
 ; C2:A658
@@ -40,9 +43,9 @@ C2A658_RunBombCommonSplashDamage = BOMB_COMMON
     sta $04
     lda $1A
     ; Apply full shaped damage to the primary target first.
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
     ldx $A972
     lda $000E,X
     and.w #$00FF
@@ -227,29 +230,29 @@ C2A7D6_RunBombCommonSplashDamage_LA7D6:
     beq C2A7F4_RunBombCommonSplashDamage_LA7F4
     lda $04
     sta $A972
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     lda $1A
     lsr A
     ; Secondary target A receives half-damage.
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
 C2A7F4_RunBombCommonSplashDamage_LA7F4:
     lda $18
     beq C2A80D_RunBombCommonSplashDamage_LA80D
     lda $18
     sta $A972
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     lda $1A
     lsr A
     ; Secondary target B receives half-damage.
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
 C2A80D_RunBombCommonSplashDamage_LA80D:
     ldy $14
     sty $A972
     ; Restore the original target context before returning.
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     pld
     rts

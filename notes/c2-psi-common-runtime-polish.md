@@ -89,6 +89,11 @@ The Fire and Freeze row-byte selectors are intentionally documented as
 damage-selector fields rather than final resistance names until more non-PSI
 readers are joined.
 
+Source-vocabulary update: all one-parameter PSI damage helpers now call
+`C2:8125` by its selected-target damage role,
+`ApplyDamageToSelectedTarget`. A is the staged damage amount; X carries the
+damage/resistance selector, with `0xFF` used by default-damage callers.
+
 ## Thunder Common
 
 `C2:966B` is the two-parameter PSI helper. Its wrappers pass:
@@ -156,7 +161,7 @@ runtime-helpful action helpers:
 
 - final names for selected-row `+0x38/+0x3A` beyond damage-selector wording
 - exact symbolic name for descriptor type `3` in `D5:7B68`
-- deeper helper-body promotion for `C2:6BB8`, `C2:8125`, and the
-  damage/resistance helper stack
+- deeper helper-body promotion for the damage/resistance helper stack beneath
+  the now-named `C2:8125` selected-target damage ABI
 - global promotion of the reflection item identity should wait until item table
   evidence is joined locally

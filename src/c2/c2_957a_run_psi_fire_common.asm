@@ -20,7 +20,7 @@
 ; External contracts used by this module
 
 C26AFD_RollDamageAmount                         = $6AFD
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 
@@ -52,7 +52,7 @@ C2957A_RunPsiFireCommon = PSI_FIRE_COMMON
     ; Fire uses selected-row byte `+0x3A` as the damage selector.
     tax
     lda $0E
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     jsr WEAKEN_SHIELD
 C295A9_RunPsiFireCommon_L95A9:
     pld

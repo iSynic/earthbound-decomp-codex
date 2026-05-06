@@ -25,7 +25,7 @@
 
 C26A44_RollRandomAmount                         = $6A44
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
@@ -92,7 +92,7 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
     lda $04
     jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D

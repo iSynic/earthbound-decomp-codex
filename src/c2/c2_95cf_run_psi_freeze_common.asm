@@ -27,7 +27,7 @@ C26A2D_RollRandomThreshold                      = $6A2D
 C26AFD_RollDamageAmount                         = $6AFD
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
@@ -62,7 +62,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ; Freeze uses selected-row byte `+0x38` as the damage selector.
     tax
     lda $12
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     tax
     stx $14
     ldx $A972

@@ -33,7 +33,7 @@ C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27D82_ApplyBoundedDefenseIncrease              = $7D82
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 
 EFMSG_PoisonInflicted                           = $6B18
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -73,7 +73,7 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     jsr C26A2D_RollRandomThreshold
     ldx.w #$00FF
     inc A
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     sep #$20
     lda.b #$80
     jsr C26BB8_RollActionChanceGate
@@ -186,7 +186,7 @@ C2A99C_RunRandomDamageRollBySlot3A = BTLACT_BAG_OF_DRAGONITE
     and.w #$00FF
     tax
     lda $0E
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     pld
     rtl
 INSECT_SPRAY_COMMON:
@@ -217,7 +217,7 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     txa
     jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     bra C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A
 C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC:
     lda.w #EFMSG_StatusNoEffect
@@ -268,7 +268,7 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     txa
     jsr C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     bra C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B
 C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D:
     lda.w #EFMSG_StatusNoEffect

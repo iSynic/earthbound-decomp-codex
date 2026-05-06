@@ -110,7 +110,9 @@ These bytes behave like per-object configuration parameters, not generic runtime
 Why that fits:
 
 - they are populated from object setup data in the `C2:B820+` loader path
-- later logic does not simply toggle them; it tests them through helper comparators such as `C2:8125` and the `C2:6BB8` / `RollActionChanceGate` probability helper
+- later logic does not simply toggle them; it tests them through helper
+  contracts such as `C2:8125` / `ApplyDamageToSelectedTarget` and the
+  `C2:6BB8` / `RollActionChanceGate` probability helper
 - if they contain `#$FF`, the family falls back to default message paths in several places
 
 Current best interpretation:

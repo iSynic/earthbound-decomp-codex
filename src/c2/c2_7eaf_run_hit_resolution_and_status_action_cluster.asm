@@ -374,7 +374,7 @@ C28123_HitResolutionStatusActionReturn:
     pld
     rts
 CALC_RESIST_DAMAGE:
-C28125_RunHitResolutionStatusActionGate = CALC_RESIST_DAMAGE
+C28125_ApplyDamageToSelectedTarget = CALC_RESIST_DAMAGE
     rep #$31
     phd
     pha
@@ -781,7 +781,7 @@ C28482_RunHitResolutionAndStatusActionCluster_L8482:
     sec
     sbc $0028,X
     ldx $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     lda.w #$0001
     bra C284AB_RunHitResolutionAndStatusActionCluster_L84AB
 C284A8_RunHitResolutionAndStatusActionCluster_L84A8:
@@ -891,7 +891,7 @@ C2855C_RunHitResolutionAndStatusActionCluster_L855C:
 C28561_RunHitResolutionAndStatusActionCluster_L8561:
     ldx.w #$00FF
     lda $0E
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     pld
     rts
 HEAL_STRANGENESS:
@@ -1001,7 +1001,7 @@ C2862F_RunHitResolutionAndStatusActionCluster_L862F:
 C28634_RunHitResolutionAndStatusActionCluster_L8634:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2864F_RunHitResolutionAndStatusActionCluster_L864F
 C28641_RunHitResolutionAndStatusActionCluster_L8641:
@@ -1065,7 +1065,7 @@ C286A9_RunHitResolutionAndStatusActionCluster_L86A9:
 C286AE_RunHitResolutionAndStatusActionCluster_L86AE:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C286C9_RunHitResolutionAndStatusActionCluster_L86C9
 C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
@@ -1126,7 +1126,7 @@ C2871E_RunHitResolutionAndStatusActionCluster_L871E:
 C28723_RunHitResolutionAndStatusActionCluster_L8723:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2873E_RunHitResolutionAndStatusActionCluster_L873E
 C28730_RunHitResolutionAndStatusActionCluster_L8730:

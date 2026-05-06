@@ -522,6 +522,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-late-status-runtime-polish.md`,
   `notes/c2-item-bomb-runtime-polish.md`, and
   `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-06 seventy-third slice: normalized the caller-side `C2:8125` damage
+  ABI as `ApplyDamageToSelectedTarget`. Hit-resolution, PSI damage helpers,
+  item-side damage/status leaves, bomb splash damage, A89D random-damage
+  leaves, and Final Prayer now share one selected-target damage vocabulary,
+  while preserving the inherited `CALC_RESIST_DAMAGE` body label. See
+  `notes/c2-hit-resolution-status-runtime-polish.md`,
+  `notes/c2-psi-common-runtime-polish.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-final-prayer-runtime-polish.md`.
 
 ## Validation
 

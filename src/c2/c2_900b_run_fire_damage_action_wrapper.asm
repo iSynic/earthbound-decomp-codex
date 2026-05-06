@@ -12,7 +12,7 @@
 ; External contracts used by this module
 
 C26AFD_RollDamageAmount                 = $6AFD
-C28125_ApplyTypedDamageToSelectedTarget = $8125
+C28125_ApplyDamageToSelectedTarget      = $8125
 
 ; ---------------------------------------------------------------------------
 ; C2:900B
@@ -32,6 +32,6 @@ C2900B_RunFireDamageActionWrapper = BTLACT_350_FIRE_DAMAGE
     and.w #$00FF
     tax
     lda $0E
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     pld
     rtl

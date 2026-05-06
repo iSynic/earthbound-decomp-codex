@@ -5754,7 +5754,7 @@ hirom
 org $C2900B
 
 !C26AFD_RollDamageAmount = $6AFD
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 BTLACT_350_FIRE_DAMAGE:
 !C2900B_RunFireDamageActionWrapper = BTLACT_350_FIRE_DAMAGE
     rep #$31
@@ -5770,7 +5770,7 @@ BTLACT_350_FIRE_DAMAGE:
     and.w #$00FF
     tax
     lda $0E
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     pld
     rtl
 
@@ -6550,7 +6550,7 @@ hirom
 org $C29516
 
 !C26A44_RollRandomAmount = $6A44
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !C284AD_RunPhysicalAvoidanceGate = $84AD
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
@@ -6585,7 +6585,7 @@ PSI_ROCKIN_COMMON:
 C29549_RunPsiRockinCommon_L9549:
     ldx.w #$00FF
     lda $12
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
 C29551_RunPsiRockinCommon_L9551:
     jsr WEAKEN_SHIELD
 C29554_RunPsiRockinCommon_L9554:
@@ -6617,7 +6617,7 @@ hirom
 org $C2957A
 
 !C26AFD_RollDamageAmount = $6AFD
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
 PSI_FIRE_COMMON:
@@ -6643,7 +6643,7 @@ PSI_FIRE_COMMON:
     and.w #$00FF
     tax
     lda $0E
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     jsr WEAKEN_SHIELD
 C295A9_RunPsiFireCommon_L95A9:
     pld
@@ -6677,7 +6677,7 @@ org $C295CF
 !C26AFD_RollDamageAmount = $6AFD
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
@@ -6707,7 +6707,7 @@ PSI_FREEZE_COMMON:
     and.w #$00FF
     tax
     lda $12
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     tax
     stx $14
     ldx $A972
@@ -6936,7 +6936,7 @@ org $C297A5
 
 !C26A44_RollRandomAmount = $6A44
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
@@ -6995,7 +6995,7 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
     lda $04
     jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
@@ -7413,7 +7413,7 @@ hirom
 org $C29A80
 
 !C26AFD_RollDamageAmount = $6AFD
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
 PSI_STARSTORM_COMMON:
@@ -7434,7 +7434,7 @@ PSI_STARSTORM_COMMON:
     txa
     jsr !C26AFD_RollDamageAmount
     ldx.w #$00FF
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     jsr WEAKEN_SHIELD
 C29AA4_RunPsiStarstormCommon_L9AA4:
     pld
@@ -18942,6 +18942,9 @@ hirom
 org $C2A658
 
 !C08FF7_Multiply16 = $C08FF7
+!C23D05_BuildBattleTargetTextContext = $C23D05
+!C26A44_RollRandomAmount = $6A44
+!C28125_ApplyDamageToSelectedTarget = $8125
 BOMB_COMMON:
 !C2A658_RunBombCommonSplashDamage = BOMB_COMMON
     rep #$31
@@ -18956,9 +18959,9 @@ BOMB_COMMON:
     lda.w #$0000
     sta $04
     lda $1A
-    jsr $6A44
+    jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr !C28125_ApplyDamageToSelectedTarget
     ldx $A972
     lda $000E,X
     and.w #$00FF
@@ -19140,27 +19143,27 @@ C2A7D6_RunBombCommonSplashDamage_LA7D6:
     beq C2A7F4_RunBombCommonSplashDamage_LA7F4
     lda $04
     sta $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     lda $1A
     lsr A
-    jsr $6A44
+    jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr !C28125_ApplyDamageToSelectedTarget
 C2A7F4_RunBombCommonSplashDamage_LA7F4:
     lda $18
     beq C2A80D_RunBombCommonSplashDamage_LA80D
     lda $18
     sta $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     lda $1A
     lsr A
-    jsr $6A44
+    jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr !C28125_ApplyDamageToSelectedTarget
 C2A80D_RunBombCommonSplashDamage_LA80D:
     ldy $14
     sty $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     pld
     rts
 
@@ -19441,7 +19444,7 @@ org $C2A3D1
 !C27CAF_TestSpeedBasedSuccess = $7CAF
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C28D41_CheckTargetField2eThresholdGate = $8D41
-!C28125_CalculateResistAdjustedDamage = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !EFMSG_ConcentrationSealInflicted = $6C0B
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_ShieldExpired = $7099
@@ -19639,7 +19642,7 @@ C2A53F_RunItemSideConcentrationSealAction_LA53F:
 C2A541_RunItemSideConcentrationSealAction_LA541:
     ldx.w #$00FF
     lda $12
-    jsr !C28125_CalculateResistAdjustedDamage
+    jsr !C28125_ApplyDamageToSelectedTarget
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
@@ -19699,7 +19702,7 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     jsl !C08FF7_ResolveIndexedPointerOffset
     jsr !C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #!BottleRocketDamageType
-    jsr !C28125_CalculateResistAdjustedDamage
+    jsr !C28125_ApplyDamageToSelectedTarget
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
     lda.w #!EFMSG_StatusNoEffect
@@ -21799,6 +21802,10 @@ C2C37A_RunFinalPrayerStageTransition:
 hirom
 org $C2C3E2
 
+!C23D05_BuildBattleTargetTextContext = $C23D05
+!C269BE_WaitFrames = $69BE
+!C26AFD_RollDamageAmount = $6AFD
+!C28125_ApplyDamageToSelectedTarget = $8125
 GIYGAS_HURT_PRAYER:
 !C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     rep #$31
@@ -21811,21 +21818,21 @@ GIYGAS_HURT_PRAYER:
     tax
     stx $0E
     lda.w #$003C
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$A21C
     sta $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     lda.w #$003C
     sta $AD9E
     lda.w #$0001
     sta $AA8E
     ldx $0E
     txa
-    jsr $6AFD
+    jsr !C26AFD_RollDamageAmount
     ldx.w #$00FF
-    jsr $8125
+    jsr !C28125_ApplyDamageToSelectedTarget
     lda.w #$003C
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     pld
     rts
 
@@ -22972,6 +22979,9 @@ C208B6_C2087C_RefreshDirtyHpPpAndOpenTextWindows_L08B6:
 hirom
 org $C2A5EC
 
+!C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
+!C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
+!C28125_ApplyDamageToSelectedTarget = $8125
 BTLACT_HANDBAG_STRAP:
 !C2A5EC_RunDamagePlusSolidificationItemAction = BTLACT_HANDBAG_STRAP
     rep #$31
@@ -22979,11 +22989,11 @@ BTLACT_HANDBAG_STRAP:
     tdc
     adc.w #$FFEC
     tcd
-    jsr $7CFD
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     db $D0, $5A
     lda.w #$00FA
-    jsr $7CAF
+    jsr !C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     db $F0, $41
     ldx $A972
@@ -23001,7 +23011,7 @@ C2A61D_C2A5EC_RunDamagePlusSolidificationItemAction_LA61D:
 C2A61F_C2A5EC_RunDamagePlusSolidificationItemAction_LA61F:
     ldx.w #$00FF
     lda $12
-    jsr $8125
+    jsr !C28125_ApplyDamageToSelectedTarget
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
@@ -24294,7 +24304,7 @@ org $C2A86B
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C26A2D_RollRandomThreshold = $6A2D
 !C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !EFMSG_StatusNoEffect = $766E
 !EF_BattleTextScriptBank = $00EF
 !HighSuccessGateThreshold = $00FA
@@ -24315,7 +24325,7 @@ BTLACT_YOGURT_DISPENSER:
     jsr !C26A2D_RollRandomThreshold
     ldx.w #!DefaultDamageType
     inc A
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     bra C2A89B_C2A86B_RunRandomDamageItemAction_LA89B
 C2A88D_C2A86B_RunRandomDamageItemAction_LA88D:
     lda.w #!EFMSG_StatusNoEffect
@@ -30175,7 +30185,7 @@ C28123_HitResolutionStatusActionReturn:
     pld
     rts
 CALC_RESIST_DAMAGE:
-!C28125_RunHitResolutionStatusActionGate = CALC_RESIST_DAMAGE
+!C28125_ApplyDamageToSelectedTarget = CALC_RESIST_DAMAGE
     rep #$31
     phd
     pha
@@ -30581,7 +30591,7 @@ C28482_RunHitResolutionAndStatusActionCluster_L8482:
     sec
     sbc $0028,X
     ldx $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w !C28125_ApplyDamageToSelectedTarget
     lda.w #$0001
     bra C284AB_RunHitResolutionAndStatusActionCluster_L84AB
 C284A8_RunHitResolutionAndStatusActionCluster_L84A8:
@@ -30691,7 +30701,7 @@ C2855C_RunHitResolutionAndStatusActionCluster_L855C:
 C28561_RunHitResolutionAndStatusActionCluster_L8561:
     ldx.w #$00FF
     lda $0E
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w !C28125_ApplyDamageToSelectedTarget
     pld
     rts
 HEAL_STRANGENESS:
@@ -30801,7 +30811,7 @@ C2862F_RunHitResolutionAndStatusActionCluster_L862F:
 C28634_RunHitResolutionAndStatusActionCluster_L8634:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w !C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2864F_RunHitResolutionAndStatusActionCluster_L864F
 C28641_RunHitResolutionAndStatusActionCluster_L8641:
@@ -30865,7 +30875,7 @@ C286A9_RunHitResolutionAndStatusActionCluster_L86A9:
 C286AE_RunHitResolutionAndStatusActionCluster_L86AE:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w !C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C286C9_RunHitResolutionAndStatusActionCluster_L86C9
 C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
@@ -30926,7 +30936,7 @@ C2871E_RunHitResolutionAndStatusActionCluster_L871E:
 C28723_RunHitResolutionAndStatusActionCluster_L8723:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w !C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2873E_RunHitResolutionAndStatusActionCluster_L873E
 C28730_RunHitResolutionAndStatusActionCluster_L8730:
@@ -31511,7 +31521,7 @@ org $C2A89D
 !C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C27D82_ApplyBoundedDefenseIncrease = $7D82
-!C28125_ApplyTypedDamageToSelectedTarget = $8125
+!C28125_ApplyDamageToSelectedTarget = $8125
 !EFMSG_PoisonInflicted = $6B18
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_AsleepInflicted = $6C55
@@ -31544,7 +31554,7 @@ BTLACT_SNAKE:
     jsr !C26A2D_RollRandomThreshold
     ldx.w #$00FF
     inc A
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     sep #$20
     lda.b #$80
     jsr !C26BB8_RollActionChanceGate
@@ -31657,7 +31667,7 @@ BTLACT_BAG_OF_DRAGONITE:
     and.w #$00FF
     tax
     lda $0E
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     pld
     rtl
 INSECT_SPRAY_COMMON:
@@ -31688,7 +31698,7 @@ INSECT_SPRAY_COMMON:
     txa
     jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     bra C2AA0A_RunRandomDamageAndStatusItemActionCluster_LAA0A
 C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC:
     lda.w #!EFMSG_StatusNoEffect
@@ -31739,7 +31749,7 @@ RUST_SPRAY_COMMON:
     txa
     jsr !C26A44_RollRandomAmount
     ldx.w #$00FF
-    jsr !C28125_ApplyTypedDamageToSelectedTarget
+    jsr !C28125_ApplyDamageToSelectedTarget
     bra C2AA6B_RunRandomDamageAndStatusItemActionCluster_LAA6B
 C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D:
     lda.w #!EFMSG_StatusNoEffect

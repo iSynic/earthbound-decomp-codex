@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C26A2D_RollRandomThreshold                    = $6A2D
+C27CAF_RollSelectedVsActiveRowOffsetGate      = $7CAF
+C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
+C28125_ApplyDamageToSelectedTarget            = $8125
 
 ; ---------------------------------------------------------------------------
 ; C2:A89D
@@ -22,15 +25,15 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     db $D0, $53
     lda.w #$00FA
-    jsr $7CAF
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     db $F0, $3A
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_RollRandomThreshold
     ldx.w #$00FF
     inc A
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget

@@ -40,7 +40,8 @@ direct battle-text pointer ABI.
 `C2:C3E2` is the shared prayer damage worker. Input A is the amount. The helper
 points `$A972` at battler table root `$A21C`, starts red flash timer
 `$AD9E = 0x3C`, marks `$AA8E = 1`, prepares amount text through `C2:6AFD`, and
-forces amount application through `C2:8125` with X = `0x00FF`.
+forces amount application through `C2:8125` / `ApplyDamageToSelectedTarget`
+with X = `0x00FF`.
 
 `C2:C41F` is the late narrative transition helper used by phase 8 and the
 finale text blocks. It runs a different display and Sound Stone cue sequence,

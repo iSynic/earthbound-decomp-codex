@@ -115,7 +115,9 @@ Two nearby helper families plug into the same controller logic.
 
 ### `C2:9A80`
 
-This helper gates through `C2:941D`, computes a per-slot parameter through `C2:6AFD`, runs `C2:8125`, then falls into `C2:94CE`.
+This helper gates through `C2:941D`, computes a per-slot parameter through
+`C2:6AFD`, runs `C2:8125` / `ApplyDamageToSelectedTarget`, then falls into
+`C2:94CE`.
 
 It has two tiny wrappers:
 
@@ -157,4 +159,3 @@ The safest current interpretation is:
 ## Best next target
 
 - See `notes/class2-mask-helper-family.md` for the decoded bitset layer. The best next move is to map the candidate list rooted at `9FAC` or decode the metadata tables around `9FC9`, so the family can be named from concrete behavior instead of just transition structure.
-

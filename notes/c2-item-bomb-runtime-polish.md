@@ -58,7 +58,7 @@ The action:
 - gates through `C2:7CFD`
 - applies `C2:7CAF(0x00FA)`
 - computes damage as `0x0064 - target defense`
-- applies damage through `C2:8125`
+- applies damage through `C2:8125` / `ApplyDamageToSelectedTarget`
 - attempts `C2:724A(target, X=2, Y=4)`
 
 `C2:A630` is the solidification text tail. Success displays `EF:6BEF`; failure
@@ -71,14 +71,15 @@ It uses the selected-row threshold gate, applies subgroup `X = 2`, value `4`
 through `C2:724A`, and emits the same solidification/no-effect text pair.
 
 `C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF`,
-rolls a `1..4` damage amount with `C2:6A2D`, applies typed damage through
-`C2:8125`, and emits shared no-effect text on failure.
+rolls a `1..4` damage amount with `C2:6A2D`, applies selected-target damage
+through `C2:8125` / `ApplyDamageToSelectedTarget`, and emits shared no-effect
+text on failure.
 
 ## Bomb Common
 
 `C2:A658` is the shared bomb/explosive splash-damage worker. Input A is the base
 damage parameter. It applies full shaped damage to the primary target through
-`C2:6A44` and `C2:8125`.
+`C2:6A44` and `C2:8125` / `ApplyDamageToSelectedTarget`.
 
 When the target is in the battler domain, the helper scans nearby same-side and
 same-row battlers, using sprite width and x-position overlap checks. Up to two
@@ -130,6 +131,9 @@ This slice tightens several item-side runtime contracts:
 - the A89D item-status and Pray leaves now call their local action chance gate,
   selected-row slot writer, target blocker, random rollers, damage applicator,
   and HP/PP recovery feedback helpers by source-facing contract names
+- the A3D1, A5EC, A658, A86B, and A89D item-side damage callers now share the
+  `ApplyDamageToSelectedTarget` name for the `C2:8125` selected-target damage
+  ABI
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane

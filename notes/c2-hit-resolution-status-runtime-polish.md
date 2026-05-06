@@ -31,6 +31,9 @@ message constants without changing runtime bytes.
     `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
     `C2:724A` is now called by its selected-row slot writer role:
     `ApplySelectedRowAfflictionSlotValue`.
+  - `C2:8125` as the selected-target damage ABI now called by its
+    `ApplyDamageToSelectedTarget` role. A is the staged damage amount, while X
+    is the damage/resistance selector (`0xFF` for default damage callers).
 - EF battle-text scripts for damage, miss/dodge, SMAAAASH, Spy readouts,
   Time Stop return, no-effect fallback, and late primary-status success text.
 - The shield/timed-substate join now uses the EF payload names from the
@@ -63,7 +66,7 @@ substate id:
 - when row `+0x25` expires, clear row `+0x23` and emit `EF:7099`.
 
 The SMAAAASH path refreshes row `+0x25 = 1` for substates `3` and `4` before
-entering the resist-adjusted damage path.
+entering the `ApplyDamageToSelectedTarget` path.
 
 ## Status Tails
 

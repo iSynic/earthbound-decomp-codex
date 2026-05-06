@@ -32,7 +32,7 @@ C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CAF_TestSpeedBasedSuccess                     = $7CAF
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C28D41_CheckTargetField2eThresholdGate          = $8D41
-C28125_CalculateResistAdjustedDamage            = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 
 EFMSG_ConcentrationSealInflicted                = $6C0B
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -239,7 +239,7 @@ C2A53F_RunItemSideConcentrationSealAction_LA53F:
 C2A541_RunItemSideConcentrationSealAction_LA541:
     ldx.w #$00FF
     lda $12
-    jsr C28125_CalculateResistAdjustedDamage
+    jsr C28125_ApplyDamageToSelectedTarget
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
@@ -301,7 +301,7 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     jsr C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #BottleRocketDamageType
     ; Successful attempts scale the damage amount before applying it.
-    jsr C28125_CalculateResistAdjustedDamage
+    jsr C28125_ApplyDamageToSelectedTarget
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
     lda.w #EFMSG_StatusNoEffect
