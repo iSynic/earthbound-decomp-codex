@@ -12,6 +12,14 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C09246_ShiftLeft32ByY = $C09246
+C1D9E9_AwardExperienceToCharacter = $C1D9E9
+C21AEB_RecalculateCharacterDerivedSpeed = $C21AEB
+C21BA4_RecalculateCharacterDerivedGuts = $C21BA4
+C21C5D_RecalculateCharacterDerivedLuck = $C21C5D
+C21D65_RecalculateCharacterDerivedVitality = $C21D65
+C21D7D_RecalculateCharacterDerivedIq = $C21D7D
+EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder = $EF0EAD
 
 ; ---------------------------------------------------------------------------
 ; C1:7440
@@ -20,7 +28,7 @@ CC_1F_D3:
 C17440_TimedDeliveryRowSelectorCallback = CC_1F_D3
     rep #$31
     txa
-    jsl $EF0EAD
+    jsl EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder
     lda.w #$0000
     rts
 CC_1E_09:
@@ -57,7 +65,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -70,7 +78,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -83,7 +91,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -129,7 +137,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     ldx.w #$0001
     lda $97BA
     and.w #$00FF
-    jsl $C1D9E9
+    jsl C1D9E9_AwardExperienceToCharacter
     lda.w #$0000
 C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
     pld
@@ -181,7 +189,7 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
     sta $0000,Y
     rep #$20
     txa
-    jsl $C21D7D
+    jsl C21D7D_RecalculateCharacterDerivedIq
     rep #$20
     lda.w #$0000
 C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
@@ -234,7 +242,7 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
     sta $0000,Y
     rep #$20
     txa
-    jsl $C21BA4
+    jsl C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
     lda.w #$0000
 C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
@@ -287,7 +295,7 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
     sta $0000,Y
     rep #$20
     txa
-    jsl $C21AEB
+    jsl C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
     lda.w #$0000
 C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
@@ -340,7 +348,7 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
     sta $0000,Y
     rep #$20
     txa
-    jsl $C21D65
+    jsl C21D65_RecalculateCharacterDerivedVitality
     rep #$20
     lda.w #$0000
 C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
@@ -393,7 +401,7 @@ C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
     sta $0000,Y
     rep #$20
     txa
-    jsl $C21C5D
+    jsl C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
     lda.w #$0000
 C17706_c1_7440_timed_delivery_row_selector_callback_L7706:

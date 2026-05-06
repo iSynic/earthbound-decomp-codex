@@ -47,6 +47,10 @@ That makes `$7440` read much more strongly as a queued callback entry than as a 
 
 This adapter is now source-backed in `src/c1/c1_7440_timed_delivery_row_selector_callback.asm` as `TimedDeliveryRowSelectorCallback`.
 
+Source polish follow-up (2026-05-06): that source now calls `EF:0EAD` by the
+`InstantiateDeliveryRowSpriteOrPlaceholder` helper name, matching the row
+sprite/placeholder contract used by the EF delivery selector cluster.
+
 ## Row mapping
 
 The currently pinned cases are:

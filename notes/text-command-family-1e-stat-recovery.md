@@ -85,6 +85,13 @@ Source polish follow-up (2026-05-06): the `0x1E 08` source leaf in
 `C1:D8D0` by the `RefreshCharacterBattleStartState` contract name, matching the
 level-setting interpretation already described below.
 
+Source polish follow-up (2026-05-06): the adjacent
+`src/c1/c1_7440_timed_delivery_row_selector_callback.asm` tail now names all
+remaining helper-call edges for `0x1E 09..0E`. `GIVE_EXPERIENCE` now uses
+`C09246_ShiftLeft32ByY` for staged amount assembly and hands the result to
+`C1D9E9_AwardExperienceToCharacter`; the stat-boost leaves now call named C2
+derived-stat recalculation helpers for IQ, Guts, Speed, Vitality, and Luck.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:
@@ -150,7 +157,8 @@ This leaf is now source-backed in `src/c1/c1_7440_timed_delivery_row_selector_ca
 - it expects four queued bytes total
 - `$97BA` is the character selector
 - `$97BB/$97BC/$97BD` are assembled into a 24-bit-or-wider amount through repeated `C0:9246` conversion/or steps
-- the final payload is handed to `C1:D9E9`
+- the final payload is handed to `C1:D9E9`, now named in source as
+  `C1D9E9_AwardExperienceToCharacter`
 
 That lines up very well with the parser-backed command:
 
@@ -188,11 +196,16 @@ The whole tail is now source-backed in `src/c1/c1_7440_timed_delivery_row_select
 
 Current per-leaf local mapping:
 
-- `C1:7523` adds to `9A28` and calls `C2:1D7D`
-- `C1:7584` adds to `9A26` and calls `C2:1BA4`
-- `C1:75E5` adds to `9A25` and calls `C2:1AEB`
-- `C1:7646` adds to `9A27` and calls `C2:1D65`
-- `C1:76A7` adds to `9A29` and calls `C2:1C5D`
+- `C1:7523` adds to `9A28` and calls `C2:1D7D`, now named
+  `C21D7D_RecalculateCharacterDerivedIq`
+- `C1:7584` adds to `9A26` and calls `C2:1BA4`, now named
+  `C21BA4_RecalculateCharacterDerivedGuts`
+- `C1:75E5` adds to `9A25` and calls `C2:1AEB`, now named
+  `C21AEB_RecalculateCharacterDerivedSpeed`
+- `C1:7646` adds to `9A27` and calls `C2:1D65`, now named
+  `C21D65_RecalculateCharacterDerivedVitality`
+- `C1:76A7` adds to `9A29` and calls `C2:1C5D`, now named
+  `C21C5D_RecalculateCharacterDerivedLuck`
 
 So the safest current semantic mapping is still:
 

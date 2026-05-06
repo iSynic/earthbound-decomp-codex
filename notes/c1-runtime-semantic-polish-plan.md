@@ -392,3 +392,11 @@ This planning pass is documentation-only.
   `notes/text-command-family-1e-stat-recovery.md`,
   `notes/bank-deposit-accumulator-98b9-98bb.md`, and
   `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
+- 2026-05-06 follow-up: the adjacent `C1:7440..7708` timed-delivery and
+  `0x1E 09..0E` experience/stat tail now has no raw helper-call edges. The
+  source names the `EF:0EAD` delivery row sprite/placeholder adapter,
+  `C0:9246` 32-bit shift/assembly helper, `C1:D9E9` experience award handoff,
+  and C2 derived-stat recalculation helpers for IQ, Guts, Speed, Vitality, and
+  Luck. See `notes/timed-delivery-row-index-command-1f-d3.md`,
+  `notes/timed-event-slot-block-7440-and-c20abc.md`, and
+  `notes/text-command-family-1e-stat-recovery.md`.

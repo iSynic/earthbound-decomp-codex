@@ -25,6 +25,11 @@ Source-scaffold promotion:
 - The same module also covers the adjacent `0x1E 09..0E` experience/stat-boost leaves through `C1:7708`.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the `C1:7440` adapter source now names
+the outbound `EF:0EAD` call as the delivery row sprite/placeholder
+instantiator, so the D3 callback bridge is explicit in source rather than only
+noted here.
+
 - `0x1F D3` is a real bank-`01` text command (`C1:837B -> C1:8607`)
 - `C1:8607` returns low word `$7440` through the shared leaf-return path at `C1:866B`
 - a wider wrapper around `C1:871F` and `C1:866D` allocates or reuses a managed slot from a 10-entry ring at `97B8`

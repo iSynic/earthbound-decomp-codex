@@ -125,6 +125,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   accumulator stager. See `notes/text-command-family-1f-deferred-callbacks.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/bank-deposit-accumulator-98b9-98bb.md`.
+- 2026-05-06: C1 `C1:7440..7708` timed-delivery/stat tail follow-up named the
+  delivery row sprite/placeholder callback edge, experience amount assembly and
+  award handoff, and C2 derived-stat recalculation helpers for the
+  IQ/Guts/Speed/Vitality/Luck text-command leaves. See
+  `notes/timed-delivery-row-index-command-1f-d3.md` and
+  `notes/text-command-family-1e-stat-recovery.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

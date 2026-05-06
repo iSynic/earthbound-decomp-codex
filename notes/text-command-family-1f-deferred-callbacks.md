@@ -84,6 +84,10 @@ special-event dispatcher, wandering-photographer C4 helper, pose-descriptor
 attached-child spawn/clear helpers, battle visual effect token dispatcher, and
 shared context installers are all explicit in source.
 
+Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
+now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
+instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.
+
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
 source names the magic-truffle pose descriptor, missing-slot sentinel,
