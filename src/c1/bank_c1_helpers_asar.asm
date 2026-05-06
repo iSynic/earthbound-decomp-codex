@@ -2614,6 +2614,19 @@ org $C10F40
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_DivideUnsignedWordByIndex = $C09032
+!C09086_Multiply32 = $C09086
+!C091A6_Divide32By16 = $C091A6
+!C09237_PrepareDivide32By16 = $C09237
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C10D7C_FormatDecimalDigitsTo8960 = $0D7C
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C12E42_TickWindowInputState = $C12E42
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C3E4D4_SetInstantPrinting = $C3E4D4
+!C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+!C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
+!C44E4D_ReleaseNonBlankTextTileWord = $C44E4D
+!C45E96_ResetGlyphScratchAndAdvanceUploadCursor = $C45E96
 C10F40_C10F40_ClearWindowContentByFocusIndex:
     rep #$31
     phd
@@ -2644,7 +2657,7 @@ C10F75_ClearWindowContentByFocusIndex_L0F75:
     ldy $0E
     lda $0000,Y
     beq C10F80_ClearWindowContentByFocusIndex_L0F80
-    jsl $C44E4D
+    jsl !C44E4D_ReleaseNonBlankTextTileWord
 C10F80_ClearWindowContentByFocusIndex_L0F80:
     lda.w #$0040
     ldy $0E
@@ -2658,7 +2671,7 @@ C10F80_ClearWindowContentByFocusIndex_L0F80:
 C10F91_ClearWindowContentByFocusIndex_L0F91:
     lda $02
     bne C10F75_ClearWindowContentByFocusIndex_L0F75
-    jsl $C45E96
+    jsl !C45E96_ResetGlyphScratchAndAdvanceUploadCursor
     ldx $10
     stz $0010,X
     stz $000E,X
@@ -2781,10 +2794,10 @@ C11045_ClearWindowContentByFocusIndex_L1045:
     lda $0C
     sta $1A
 C1108C_ClearWindowContentByFocusIndex_L108C:
-    jsl $C3E4D4
+    jsl !C3E4D4_SetInstantPrinting
     ldx $22
     lda $24
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda $1E
     sta $06
     lda $20
@@ -2793,7 +2806,7 @@ C1108C_ClearWindowContentByFocusIndex_L108C:
     sta $0E
     lda $08
     sta $10
-    jsr $0D7C
+    jsr !C10D7C_FormatDecimalDigitsTo8960
     sta $02
     lda.w #$0007
     sec
@@ -2813,7 +2826,7 @@ C110C8_ClearWindowContentByFocusIndex_L10C8:
     ldx.w #$0030
 C110CB_ClearWindowContentByFocusIndex_L10CB:
     txa
-    jsl $C43F77
+    jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
     ldy $16
     dey
     sty $16
@@ -2839,17 +2852,17 @@ C110EA_ClearWindowContentByFocusIndex_L10EA:
     clc
     adc $02
     inc $04
-    jsl $C43F77
+    jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
     ldy $16
     dey
     sty $16
 C11102_ClearWindowContentByFocusIndex_L1102:
     cpy.w #$0000
     bne C110DE_ClearWindowContentByFocusIndex_L10DE
-    jsl $C3E4CA
-    jsl $C12DD5
+    jsl !C3E4CA_ClearInstantPrinting
+    jsl !C12DD5_TickWindowTextSystem
 C1110F_ClearWindowContentByFocusIndex_L110F:
-    jsl $C12E42
+    jsl !C12E42_TickWindowInputState
     lda $006D
     and.w #$0200
     beq C1115B_ClearWindowContentByFocusIndex_L115B
@@ -2857,7 +2870,7 @@ C1110F_ClearWindowContentByFocusIndex_L110F:
     cmp $26
     bcs C1115B_ClearWindowContentByFocusIndex_L115B
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     inc $1C
     lda $18
     sta $0A
@@ -2871,7 +2884,7 @@ C1110F_ClearWindowContentByFocusIndex_L110F:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl !C09086_Multiply32
     lda $06
     sta $0A
     lda $08
@@ -2890,7 +2903,7 @@ C1115B_ClearWindowContentByFocusIndex_L115B:
     bcc C111A6_ClearWindowContentByFocusIndex_L11A6
     beq C111A6_ClearWindowContentByFocusIndex_L11A6
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     dec $1C
     lda $18
     sta $0A
@@ -2904,7 +2917,7 @@ C1115B_ClearWindowContentByFocusIndex_L115B:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C091A6
+    jsl !C091A6_Divide32By16
     lda $06
     sta $0A
     lda $08
@@ -2921,7 +2934,7 @@ C111A6_ClearWindowContentByFocusIndex_L11A6:
     jmp.w C1125C_ClearWindowContentByFocusIndex_L125C
 C111B1_ClearWindowContentByFocusIndex_L11B1:
     lda.w #$0003
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda.w #$0009
     sta $12
     lda.w #$0000
@@ -2930,12 +2943,12 @@ C111B1_ClearWindowContentByFocusIndex_L11B1:
     sta $0A
     lda $1A
     sta $0C
-    jsl $C091A6
+    jsl !C091A6_Divide32By16
     lda.w #$000A
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09237
+    jsl !C09237_PrepareDivide32By16
     lda $12
     sta $0A
     lda $14
@@ -2980,7 +2993,7 @@ C11218_ClearWindowContentByFocusIndex_L1218:
     sta $0A
     lda $14
     sta $0C
-    jsl $C09086
+    jsl !C09086_Multiply32
     lda $06
     sta $0A
     lda $08
@@ -3008,17 +3021,17 @@ C1125C_ClearWindowContentByFocusIndex_L125C:
     jmp.w C1130C_ClearWindowContentByFocusIndex_L130C
 C11267_ClearWindowContentByFocusIndex_L1267:
     lda.w #$0003
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda $18
     sta $0A
     lda $1A
     sta $0C
-    jsl $C091A6
+    jsl !C091A6_Divide32By16
     lda.w #$000A
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09237
+    jsl !C09237_PrepareDivide32By16
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -3063,7 +3076,7 @@ C112C6_ClearWindowContentByFocusIndex_L12C6:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl !C09086_Multiply32
     lda $06
     sta $0A
     lda $08
@@ -3089,7 +3102,7 @@ C1130C_ClearWindowContentByFocusIndex_L130C:
     and.w #$00A0
     beq C11325_ClearWindowContentByFocusIndex_L1325
     lda.w #$0001
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda $06
     sta $2E
     lda $08
@@ -3102,7 +3115,7 @@ C11325_ClearWindowContentByFocusIndex_L1325:
     jmp.w C1110F_ClearWindowContentByFocusIndex_L110F
 C11330_ClearWindowContentByFocusIndex_L1330:
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda.w #$FFFF
     sta $06
     lda.w #$FFFF

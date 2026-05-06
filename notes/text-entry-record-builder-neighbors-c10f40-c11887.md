@@ -59,6 +59,13 @@ Then it uses descriptor fields `+0A/+0C` to compute a span through `C0:9032`, wa
 
 The active-window wrapper at `C1:0FA3` simply loads `$8958` and calls `C1:0F40`, which matches the existing `0x18 06` read as "clear current window".
 
+Source polish: `src/c1/c1_0f40_clear_window_content_by_focus_index.asm`
+now names the local helper joins used by this corridor. The clear path names
+the C4 nonblank-tile release and glyph-scratch reset edges; the interactive
+value-entry loop names instant-print toggles, active-window cursor setup,
+decimal digit formatting, glyph printing with cleanup/sound/delay, text and
+input ticks, sound effects, `MULT32`, and the shared divide helper chain.
+
 ## Text Display Setup Wrapper
 
 `C1:134B` is tiny:

@@ -258,3 +258,9 @@ This planning pass is documentation-only.
   writer at `0FAC`. See
   `notes/display-text-dynamic-source-selector-dispatch-c17b56-c1866d.md` and
   `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
+- 2026-05-06 follow-up: the `C1:0F40..134B` clear-window/value-entry corridor
+  now names its C4 tile-release and glyph-scratch reset joins, instant-print
+  toggles, active-window cursor setup, decimal formatter, glyph print,
+  text/input tick, sound effect, `MULT32`, and divide helper calls. See
+  `notes/text-entry-record-builder-neighbors-c10f40-c11887.md` and
+  `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
