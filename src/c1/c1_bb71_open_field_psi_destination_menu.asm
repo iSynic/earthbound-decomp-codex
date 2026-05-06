@@ -27,6 +27,13 @@ C1CAF5_BuildBattlePsiCategoryEntryList     = $CAF5
 C3E4E0_TickWindowWithoutInstantPrinting    = $C3E4E0
 C3E521_CloseWindowAndReleaseTileState      = $C3E521
 
+CallbackDrivenMenuDisplayCallbackLo        = $0E
+CallbackDrivenMenuDisplayCallbackBank      = $10
+CallbackDrivenMenuEligibilityCallbackLo    = $12
+CallbackDrivenMenuEligibilityCallbackBank  = $14
+MenuRowFormatterCallbackLo                 = $0E
+MenuRowFormatterCallbackBank               = $10
+
 ; ---------------------------------------------------------------------------
 ; C1:BB71
 
@@ -41,13 +48,13 @@ C1BB79_OpenFieldPsiDestinationMenu_LBB79:
     sta $5E71
 C1BB7F_OpenFieldPsiDestinationMenu_LBB7F:
     lda.w #C1952F_RunSimpleSelectionHelper
-    sta $0E
+    sta CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta CallbackDrivenMenuDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr C127EF_RunCallbackDrivenPartySelectionMenu
@@ -113,9 +120,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     sta $8958
     stz $5E71
     lda.w #C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr C1196A_OpenMenuSelectionLoop
@@ -133,9 +140,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     lda.w #$00FF
     sta $9D19
     lda.w #C1BB06_FinalizeBattlePsiSelectionState
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
 C1BC5C_OpenFieldPsiDestinationMenu_LBC5C:
     lda.w #$0001

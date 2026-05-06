@@ -36,7 +36,7 @@ C11596_CreateTypedTextEntryRecordWithExtraByte = $1596
 C115F4_CreateTypedTextEntryRecordDirect        = $15F4
 C1163C_RefreshActiveTextEntryChain             = $163C
 C1196A_RunActiveTextEntrySelectionMenu         = $196A
-C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+C127EF_RunCallbackDrivenPartySelectionMenu     = $27EF
 C13187_ResolvePrimaryFrontInteractionOutput    = $C13187
 C1323B_ResolveSecondaryFacingInteractionOutput = $C1323B
 C13CA1_OpenHpppDisplay                         = $C13CA1
@@ -85,6 +85,11 @@ C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
 C4D681_DisplayCurrentPositionTownMap           = $C4D681
 EF01D2_UpdateBattleSpriteFrameEffectState      = $EF01D2
 EF016F_RefreshBattleSpriteScratchFromCurrentEnemy = $EF016F
+
+CallbackDrivenPromptDisplayCallbackLo          = $0E
+CallbackDrivenPromptDisplayCallbackBank        = $10
+CallbackDrivenPromptEligibilityCallbackLo      = $12
+CallbackDrivenPromptEligibilityCallbackBank    = $14
 
 ; ---------------------------------------------------------------------------
 ; C1:33B0
@@ -326,16 +331,16 @@ C13599_RebuildOpenMenuTextEntryRecords_L3599:
     lda.w #$0000
     jsr C193E7_OpenTargetSelectionPromptLabel
     lda.w #$339E
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     sta $06
     stz $08
     lda $06
@@ -613,16 +618,16 @@ C13810_HandleOpenMenuGoodsChoice:
     lda.w #$0003
     jsr C193E7_OpenTargetSelectionPromptLabel
     lda.w #$33A7
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0002
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     sta $18
     jsr C19437_CloseTargetSelectionPromptLabel
     lda.w #$002C
@@ -1370,16 +1375,16 @@ C13E7A_RunDebugSetCharacterLevelPrompt = DEBUG_SET_CHAR_LEVEL
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     sta $02
     cmp.w #$0000
     beq C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE
@@ -1479,16 +1484,16 @@ C13F84_RebuildOpenMenuTextEntryRecords_L3F84:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     tay
     sty $16
     beq C13FF8_RebuildOpenMenuTextEntryRecords_L3FF8

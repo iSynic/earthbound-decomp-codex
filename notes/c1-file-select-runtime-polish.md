@@ -172,6 +172,10 @@ This slice makes the file-select path useful to future SRAM/setup work:
 - the main file-select loop now has named source edges for its submenu
   dispatch, setup-menu backtracking, file-select pose/entity refresh, and final
   party-overlay sync
+- the save-slot and window-flavour selection loops now name their preview row
+  formatter callback installs through the shared `C1:1F5A` `$0E/$10` callback
+  ABI, including the save-slot corruption/preview adapter at `C1:ECD1` and the
+  setup-window flavour preview callback at `C1:EC8F`
 
 ## Remaining Soft Spots
 

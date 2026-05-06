@@ -45,6 +45,9 @@ C3E521_CloseWindowById                  = $C3E521
 C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
 C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
 
+SelectionPromptDisplayCallbackLo        = $0E
+SelectionPromptDisplayCallbackBank      = $10
+
 ; ---------------------------------------------------------------------------
 ; C1:242E
 
@@ -669,9 +672,9 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     lda $0C
     sta $08
     lda $06
-    sta $0E
+    sta SelectionPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta SelectionPromptDisplayCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     lda $32
     jsr C1196A_RunActiveTextEntrySelectionMenu

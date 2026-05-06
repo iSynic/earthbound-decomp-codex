@@ -42,6 +42,9 @@ C1CAF5_BuildBattlePsiCategoryEntryListLong = $C1CAF5
 C3E4D4_WindowScopedUpdate                  = $C3E4D4
 C3E521_OpenWindowFocus                     = $C3E521
 
+MenuRowFormatterCallbackLo                 = $0E
+MenuRowFormatterCallbackBank               = $10
+
 BattlePsiAbilityTableLo                    = $8A50
 BattlePsiAbilityTableBank                  = $00D5
 BattlePsiAbilityTableAbsoluteBase          = $D58A50
@@ -193,9 +196,9 @@ C1CC39_OpenBattlePsiMenuController:
     ; Stage 1: choose offense/recover/assist category and validate it through
     ; C1:CB7F before opening the entry list.
     lda.w #C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr C1196A_OpenMenuSelectionLoop
@@ -223,9 +226,9 @@ C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
     ; Stage 2: build the category-specific D5:8A50 entry list, then format
     ; rows through C1:C8BC.
     lda.w #C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr C1196A_OpenMenuSelectionLoop

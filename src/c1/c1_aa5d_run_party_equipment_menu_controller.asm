@@ -27,7 +27,7 @@ C104EE_CreateOrBindWindowDescriptorAndContext   = $04EE
 C115F4_CreateTypedTextEntryRecordDirect         = $15F4
 C1180D_LayoutActiveTextEntriesAndRefresh        = $180D
 C1196A_RunActiveTextEntrySelectionMenu          = $196A
-C127EF_RunCharacterSelectionPromptWithCallback  = $27EF
+C127EF_RunCallbackDrivenPartySelectionMenu      = $27EF
 C12BD5_CountActiveTextEntriesOrMenuRows         = $2BD5
 C193E7_OpenTargetSelectionPromptLabel           = $93E7
 C19437_CloseTargetSelectionPromptLabel          = $9437
@@ -43,6 +43,11 @@ C20ABC_RestoreManagedTextEventSlotState         = $C20ABC
 C21628_CheckEventFlag                           = $C21628
 C3E521_CloseWindowById                          = $C3E521
 C43573_SelectPartyMemberForEquipmentMenu        = $C43573
+
+CallbackDrivenPromptDisplayCallbackLo           = $0E
+CallbackDrivenPromptDisplayCallbackBank         = $10
+CallbackDrivenPromptEligibilityCallbackLo       = $12
+CallbackDrivenPromptEligibilityCallbackBank     = $14
 
 ; ---------------------------------------------------------------------------
 ; C1:AA5D
@@ -75,16 +80,16 @@ C1AA87_RunPartyEquipmentMenuController_LAA87:
     lda.w #$0000
     jsr C193E7_OpenTargetSelectionPromptLabel
     lda.w #$A778
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     tax
     stx $16
     jsr C19437_CloseTargetSelectionPromptLabel

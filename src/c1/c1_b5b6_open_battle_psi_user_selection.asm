@@ -53,6 +53,13 @@ C3E521_CloseWindow                         = $C3E521
 C3ED2C_PrepareBattlePsiSnapshotWindowState = $C3ED2C
 C3EE4D_RestoreBattleSelectionState         = $C3EE4D
 
+CallbackDrivenMenuDisplayCallbackLo        = $0E
+CallbackDrivenMenuDisplayCallbackBank      = $10
+CallbackDrivenMenuEligibilityCallbackLo    = $12
+CallbackDrivenMenuEligibilityCallbackBank  = $14
+MenuRowFormatterCallbackLo                 = $0E
+MenuRowFormatterCallbackBank               = $10
+
 BattlePsiSelectedUserByte                  = $9D16
 BattlePsiSingleUserFastPathLatch           = $9D18
 BattlePsiHighlightedRowByte                = $9D19
@@ -153,13 +160,13 @@ C1B5FE_OpenBattlePsiUserSelection_LB5FE:
     lda.w #$0000
     jsr C193E7_OpenTargetSelectionPromptLabel
     lda.w #C1C853_BuildBattlePsiMenuMetadata
-    sta $0E
+    sta CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta CallbackDrivenMenuDisplayCallbackBank
     lda.w #C1C367_CheckBattlePsiUserEligibility
-    sta $12
+    sta CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$00C1
-    sta $14
+    sta CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr C127EF_RunCallbackDrivenPartySelectionMenu
@@ -193,9 +200,9 @@ C1B642_OpenBattlePsiUserSelection_LB642:
     jsr C1163C_RefreshTextEntryChainState
 C1B65D_OpenBattlePsiUserSelection_LB65D:
     lda.w #C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr C1196A_RunSelectionMenu

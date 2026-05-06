@@ -6644,7 +6644,7 @@ org $C133B0
 !C115F4_CreateTypedTextEntryRecordDirect = $15F4
 !C1163C_RefreshActiveTextEntryChain = $163C
 !C1196A_RunActiveTextEntrySelectionMenu = $196A
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C13187_ResolvePrimaryFrontInteractionOutput = $C13187
 !C1323B_ResolveSecondaryFacingInteractionOutput = $C1323B
 !C13CA1_OpenHpppDisplay = $C13CA1
@@ -6693,6 +6693,10 @@ org $C133B0
 !C4D681_DisplayCurrentPositionTownMap = $C4D681
 !EF01D2_UpdateBattleSpriteFrameEffectState = $EF01D2
 !EF016F_RefreshBattleSpriteScratchFromCurrentEnemy = $EF016F
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
 C133B0_RebuildOpenMenuTextEntryRecords:
     rep #$31
     phd
@@ -6930,16 +6934,16 @@ C13599_RebuildOpenMenuTextEntryRecords_L3599:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$339E
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $06
     stz $08
     lda $06
@@ -7217,16 +7221,16 @@ C13810_HandleOpenMenuGoodsChoice:
     lda.w #$0003
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$33A7
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0002
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $18
     jsr !C19437_CloseTargetSelectionPromptLabel
     lda.w #$002C
@@ -7974,16 +7978,16 @@ DEBUG_SET_CHAR_LEVEL:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $02
     cmp.w #$0000
     beq C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE
@@ -8083,16 +8087,16 @@ C13F84_RebuildOpenMenuTextEntryRecords_L3F84:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     tay
     sty $16
     beq C13FF8_RebuildOpenMenuTextEntryRecords_L3FF8
@@ -20203,6 +20207,8 @@ org $C1242E
 !C3E521_CloseWindowById = $C3E521
 !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
 !C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
+!SelectionPromptDisplayCallbackLo = $0E
+!SelectionPromptDisplayCallbackBank = $10
 C1242E_DispatchCharacterSelectionPromptMode:
     rep #$31
     phd
@@ -20822,9 +20828,9 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     lda $0C
     sta $08
     lda $06
-    sta $0E
+    sta !SelectionPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !SelectionPromptDisplayCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     lda $32
     jsr !C1196A_RunActiveTextEntrySelectionMenu
@@ -24419,6 +24425,8 @@ org $C19D49
 !ShopItemTable = $D576B2
 !ShopStatusRowOffsetTable = $E01FB9
 !ShopStatusTilemapRows = $E01FC8
+!ShopMenuComparisonCallbackLo = $0E
+!ShopMenuComparisonCallbackBank = $10
 C19D49_PrepareEquipmentMenuStatusDisplay:
     rep #$31
     phd
@@ -24594,9 +24602,9 @@ C19EA5_RunShopMenuSelection:
     lda.w #$0001
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$9B4E
-    sta $0E
+    sta !ShopMenuComparisonCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !ShopMenuComparisonCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     jsr !C19CDD_InitializeEquipmentComparisonMarkersDefault
     lda.w #$0001
@@ -25755,6 +25763,8 @@ org $C1A795
 !C457CA_ClearCharmEquipmentSlot = $C457CA
 !C45815_ClearBraceletEquipmentSlot = $C45815
 !C45860_ClearHeadgearEquipmentSlot = $C45860
+!SelectionPromptPreviewCallbackLo = $0E
+!SelectionPromptPreviewCallbackBank = $10
 C1A795_RunCharacterEquipmentSlotSelectionLoop:
     rep #$31
     phd
@@ -25970,30 +25980,30 @@ C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
     lda.w #$2562
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
     lda.w #$25AC
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
     lda.w #$260D
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986:
     lda.w #$2673
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
 C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001
@@ -26100,7 +26110,7 @@ org $C1AA5D
 !C115F4_CreateTypedTextEntryRecordDirect = $15F4
 !C1180D_LayoutActiveTextEntriesAndRefresh = $180D
 !C1196A_RunActiveTextEntrySelectionMenu = $196A
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C12BD5_CountActiveTextEntriesOrMenuRows = $2BD5
 !C193E7_OpenTargetSelectionPromptLabel = $93E7
 !C19437_CloseTargetSelectionPromptLabel = $9437
@@ -26116,6 +26126,10 @@ org $C1AA5D
 !C21628_CheckEventFlag = $C21628
 !C3E521_CloseWindowById = $C3E521
 !C43573_SelectPartyMemberForEquipmentMenu = $C43573
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
 C1AA5D_RunPartyEquipmentMenuController:
     rep #$31
     phd
@@ -26144,16 +26158,16 @@ C1AA87_RunPartyEquipmentMenuController_LAA87:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$A778
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     tax
     stx $16
     jsr !C19437_CloseTargetSelectionPromptLabel
@@ -27998,6 +28012,8 @@ org $C1F616
 !WindowDescriptorStride = $0052
 !TextEntryRecordTableBase = $89D4
 !TextEntryRecordStride = $002D
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !TextEntryNextRecordOffset = $0002
 !TextEntryCursorColumnOffset = $0008
 !TextEntryCursorRowOffset = $000A
@@ -28314,9 +28330,9 @@ C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     dec A
     jsr !C11887_SelectActiveTextEntryByA
     lda.w #!C1EC8F_WindowFlavourPreviewCallbackLow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #!C1EC8F_WindowFlavourPreviewCallbackBank
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
@@ -29235,7 +29251,7 @@ org $C1ADB4
 !C10489_InstallSecondaryInteractionContextPointer = $0489
 !C104EE_SetWindowFocus = $04EE
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 !C0923E_ShiftTargettingClassToFlags = $C0923E
@@ -29298,6 +29314,10 @@ org $C1ADB4
 !NpcConfigTableBank = $00CF
 !NpcConfigTableRowSize = $0011
 !NpcConfigTextPointerOffset = $000D
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
 DETERMINE_TARGETTING:
 !C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     rep #$31
@@ -29469,16 +29489,16 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sep #$20
     sta $01
     jsr !C19437_CloseCharacterSelectTargetPrompt
@@ -31153,6 +31173,12 @@ org $C1B5B6
 !C3E521_CloseWindow = $C3E521
 !C3ED2C_PrepareBattlePsiSnapshotWindowState = $C3ED2C
 !C3EE4D_RestoreBattleSelectionState = $C3EE4D
+!CallbackDrivenMenuDisplayCallbackLo = $0E
+!CallbackDrivenMenuDisplayCallbackBank = $10
+!CallbackDrivenMenuEligibilityCallbackLo = $12
+!CallbackDrivenMenuEligibilityCallbackBank = $14
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !BattlePsiSelectedUserByte = $9D16
 !BattlePsiSingleUserFastPathLatch = $9D18
 !BattlePsiHighlightedRowByte = $9D19
@@ -31244,13 +31270,13 @@ C1B5FE_OpenBattlePsiUserSelection_LB5FE:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #!C1C853_BuildBattlePsiMenuMetadata
-    sta $0E
+    sta !CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenMenuDisplayCallbackBank
     lda.w #!C1C367_CheckBattlePsiUserEligibility
-    sta $12
+    sta !CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$00C1
-    sta $14
+    sta !CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr !C127EF_RunCallbackDrivenPartySelectionMenu
@@ -31283,9 +31309,9 @@ C1B642_OpenBattlePsiUserSelection_LB642:
     jsr !C1163C_RefreshTextEntryChainState
 C1B65D_OpenBattlePsiUserSelection_LB65D:
     lda.w #!C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_RunSelectionMenu
@@ -33032,6 +33058,8 @@ org $C1CB7F
 !C1CAF5_BuildBattlePsiCategoryEntryListLong = $C1CAF5
 !C3E4D4_WindowScopedUpdate = $C3E4D4
 !C3E521_OpenWindowFocus = $C3E521
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !BattlePsiAbilityTableLo = $8A50
 !BattlePsiAbilityTableBank = $00D5
 !BattlePsiAbilityTableAbsoluteBase = $D58A50
@@ -33171,9 +33199,9 @@ C1CC37_HasBattlePsiCategoryEntries_LCC37:
     inc $1E
 C1CC39_OpenBattlePsiMenuController:
     lda.w #!C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -33199,9 +33227,9 @@ C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
     lda $02
     jsl !C1CAF5_BuildBattlePsiCategoryEntryListLong
     lda.w #!C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -33911,6 +33939,8 @@ org $C1ECD1
 !C43B15_FlushTextWindowState = $C43B15
 !C4FBBD_ChangeMusic = $C4FBBD
 !EF0A68_CheckSaveSlotChecksum = $EF0A68
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
     xba
@@ -34340,9 +34370,9 @@ C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     lda.w #$0003
     jsl !C4FBBD_ChangeMusic
     lda.w #!C1ECD1_PreviewPackedHighByteWindowFlavour
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0000
     jsr !C1196A_OpenMenuSelectionLoop
@@ -36775,6 +36805,12 @@ org $C1BB71
 !C1CAF5_BuildBattlePsiCategoryEntryList = $CAF5
 !C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 !C3E521_CloseWindowAndReleaseTileState = $C3E521
+!CallbackDrivenMenuDisplayCallbackLo = $0E
+!CallbackDrivenMenuDisplayCallbackBank = $10
+!CallbackDrivenMenuEligibilityCallbackLo = $12
+!CallbackDrivenMenuEligibilityCallbackBank = $14
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 C1BB71_OpenFieldPsiDestinationMenu:
     rep #$31
     phd
@@ -36786,13 +36822,13 @@ C1BB79_OpenFieldPsiDestinationMenu_LBB79:
     sta $5E71
 C1BB7F_OpenFieldPsiDestinationMenu_LBB7F:
     lda.w #!C1952F_RunSimpleSelectionHelper
-    sta $0E
+    sta !CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenMenuDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr !C127EF_RunCallbackDrivenPartySelectionMenu
@@ -36858,9 +36894,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     sta $8958
     stz $5E71
     lda.w #!C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -36878,9 +36914,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     lda.w #$00FF
     sta $9D19
     lda.w #!C1BB06_FinalizeBattlePsiSelectionState
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
 C1BC5C_OpenFieldPsiDestinationMenu_LBC5C:
     lda.w #$0001

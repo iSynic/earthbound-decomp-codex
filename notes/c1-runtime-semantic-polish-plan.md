@@ -674,3 +674,11 @@ This planning pass is documentation-only.
   selection-menu context installer, and the dispatcher's `0x00..1F` compare
   literals now use `TextOpcode*` aliases. This ties the ordinary parser root
   back to the deferred callback family without touching C2/C4/EF.
+- 2026-05-06 follow-up: the UI caller-side callback ABI now has source-facing
+  names at its major call sites. `C1:33B0`, `C1:AA5D`, `C1:ADB4`,
+  `C1:B5B6`, `C1:BB71`, `C1:CB7F`, `C1:242E`, `C1:9D49`, `C1:A795`,
+  `C1:ECD1`, and `C1:F616` now stage `$0E/$10` and `$12/$14` through
+  menu-row, prompt-display, prompt-eligibility, or preview-callback aliases
+  before calling `C1:1F5A`, `C1:196A`, or `C1:27EF`. This keeps the shared
+  menu/selection helper contracts readable without splitting the mixed
+  character-prompt core or changing any cross-bank names.

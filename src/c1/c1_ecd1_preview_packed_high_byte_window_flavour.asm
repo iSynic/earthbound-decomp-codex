@@ -45,6 +45,9 @@ C43B15_FlushTextWindowState               = $C43B15
 C4FBBD_ChangeMusic                        = $C4FBBD
 EF0A68_CheckSaveSlotChecksum              = $EF0A68
 
+MenuRowFormatterCallbackLo                = $0E
+MenuRowFormatterCallbackBank              = $10
+
 ; ---------------------------------------------------------------------------
 ; C1:ECD1
 
@@ -479,9 +482,9 @@ C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     lda.w #$0003
     jsl C4FBBD_ChangeMusic
     lda.w #C1ECD1_PreviewPackedHighByteWindowFlavour
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #$0000
     jsr C1196A_OpenMenuSelectionLoop

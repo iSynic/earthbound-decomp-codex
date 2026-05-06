@@ -83,6 +83,14 @@ pointer aliases at the menu-result handoff sites. The byte flow is unchanged:
 selection helpers still stage the menu result in `$06/$08`, then install it
 through the primary text context at `$0E/$10`.
 
+Source polish follow-up (2026-05-06): the UI callers that feed the same menu
+infrastructure now name their callback slots too. Open-menu party prompts,
+equipment, field PSI, battle PSI, shop comparison, and file-select preview
+loops stage display, eligibility, row-formatter, or preview callbacks through
+named `$0E/$10` and `$12/$14` aliases before invoking `C1:27EF` or `C1:1F5A`.
+This documents the menu/text-entry contract at the call sites while preserving
+the existing family dispatcher boundaries.
+
 ## Best current case map
 
 ### `0x1A 00`

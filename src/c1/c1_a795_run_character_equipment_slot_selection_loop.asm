@@ -54,6 +54,9 @@ C457CA_ClearCharmEquipmentSlot                = $C457CA
 C45815_ClearBraceletEquipmentSlot             = $C45815
 C45860_ClearHeadgearEquipmentSlot             = $C45860
 
+SelectionPromptPreviewCallbackLo             = $0E
+SelectionPromptPreviewCallbackBank           = $10
+
 ; ---------------------------------------------------------------------------
 ; C1:A795
 
@@ -273,33 +276,33 @@ C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
 C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
     ; Category 1 preview callback: weapon shadow slot `$9CD0`.
     lda.w #$2562
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
     ; Category 2 preview callback: charm/pendant/cloak shadow slot `$9CD1`.
     lda.w #$25AC
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
     ; Category 3 preview callback: bracelet/band shadow slot `$9CD2`.
     lda.w #$260D
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986:
     ; Category 4 preview callback: cap/ribbon/coin shadow slot `$9CD3`.
     lda.w #$2673
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
 C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001

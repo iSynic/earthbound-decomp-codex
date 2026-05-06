@@ -101,6 +101,13 @@ text-event snapshot/restore, C3 window update/close helpers, the C1 active
 window text-mode/content helpers, and the C4 right-aligned decimal/status
 printer.
 
+Source polish follow-up (2026-05-06): the equipment/shop UI callback handoffs
+now expose their caller-side ABI. The party equipment controller stages the
+`C1:A778` display callback for `C1:27EF` through named `$0E/$10` callback
+slots, the per-character equipment loop stages the four C2 preview callbacks
+through named `C1:1F5A` preview-callback slots, and the shop menu names the
+`C1:9B4E` comparison callback install before the shared selection loop.
+
 ## Decomp Value
 
 This slice turns the editor-facing item/equipment vocabulary into concrete

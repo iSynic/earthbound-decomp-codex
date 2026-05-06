@@ -41,6 +41,8 @@ MenuContextSnapshotBuffer = $9C8A
 ShopItemTable = $D576B2
 ShopStatusRowOffsetTable = $E01FB9
 ShopStatusTilemapRows = $E01FC8
+ShopMenuComparisonCallbackLo = $0E
+ShopMenuComparisonCallbackBank = $10
 
 ; ---------------------------------------------------------------------------
 ; C1:9D49
@@ -231,9 +233,9 @@ C19EA5_RunShopMenuSelection:
     lda.w #$0001
     jsr C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$9B4E
-    sta $0E
+    sta ShopMenuComparisonCallbackLo
     lda.w #$00C1
-    sta $10
+    sta ShopMenuComparisonCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     jsr C19CDD_InitializeEquipmentComparisonMarkersDefault
     lda.w #$0001

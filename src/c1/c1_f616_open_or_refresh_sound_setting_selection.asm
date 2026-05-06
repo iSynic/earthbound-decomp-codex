@@ -88,6 +88,8 @@ WindowDescriptorEntryListOffset = $2B
 WindowDescriptorStride = $0052
 TextEntryRecordTableBase = $89D4
 TextEntryRecordStride = $002D
+MenuRowFormatterCallbackLo = $0E
+MenuRowFormatterCallbackBank = $10
 TextEntryNextRecordOffset = $0002
 TextEntryCursorColumnOffset = $0008
 TextEntryCursorRowOffset = $000A
@@ -408,9 +410,9 @@ C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     dec A
     jsr C11887_SelectActiveTextEntryByA
     lda.w #C1EC8F_WindowFlavourPreviewCallbackLow
-    sta $0E
+    sta MenuRowFormatterCallbackLo
     lda.w #C1EC8F_WindowFlavourPreviewCallbackBank
-    sta $10
+    sta MenuRowFormatterCallbackBank
     jsr C11F5A_SetMenuRowFormatterCallback
     lda.w #MenuSelectionEnabled
     jsr C1196A_OpenMenuSelectionLoop
