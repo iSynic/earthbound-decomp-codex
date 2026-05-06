@@ -114,6 +114,12 @@ presentation-refresh arguments. The C4-side contract is still intentionally
 limited to generating WH0/WH2 streams and staging upload arguments; HDMA register
 installation and renderer queue interpretation remain in their callee helpers.
 
+2026-05-06 selector/latch follow-up: the indexed graphics loaders now split
+the `$0030` display-selector latch from the `#$18` selector value, and rename
+the local `$003B` use as a presentation-refresh latch rather than a BG-scroll
+shadow. This keeps the source focused on the values C4 writes while leaving the
+C0/NMI upload and refresh interpretation outside the contract.
+
 The adjacent window-gfx source now uses the same local boundary for the cache
 rebuild and flyover-undraw path: E0 source lows/banks, `$7F` work blocks,
 tile-state clear/copy sizes, `$3492/$9E23/$9E25` glyph scratch fields,

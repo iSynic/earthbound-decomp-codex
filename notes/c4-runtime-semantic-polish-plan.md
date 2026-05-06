@@ -430,6 +430,11 @@ closure.
   arguments. The source continues to treat HDMA install and renderer queue
   behavior as callee-owned. See
   `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 window-mask selector/latch follow-up: split the indexed graphics
+  loaders' `$0030` display-selector latch from the `#$18` selector value, and
+  renamed the local `$003B` write as a presentation-refresh latch instead of a
+  BG-scroll shadow. C0/NMI upload and refresh interpretation remains external.
+  See `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
 - 2026-05-06 window-gfx/flyover follow-up: tightened the adjacent window cache
   rebuild and flyover-undraw helper around E0 source rows, `$7F` work blocks,
   tile-state clear/copy sizes, glyph scratch fields, window-flavour palette

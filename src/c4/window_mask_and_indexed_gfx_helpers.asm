@@ -41,8 +41,8 @@ WindowMaskCurrentSlotToggleOrGfxIndexTable   = $0E5E
 IndexedWindowGfxVariantTable                 = $0E9A
 CurrentEntityMirrorYAnchorTable              = $1002
 BoxMaskStreamToggle                          = $9E3A
-DisplayTransferSelector30                    = $0030
-BgScrollShadow3b                             = $003B
+DisplaySelectorLatch30                       = $0030
+PresentationRefreshLatch3b                   = $003B
 
 WindowMaskWorkBank                           = $007F
 CurrentEntityWh0MaskBufferA                  = $0000
@@ -74,7 +74,7 @@ IndexedWindowGfxPrimaryVramDestination       = $6000
 IndexedWindowGfxPrimaryTileBlockSize         = $0200
 IndexedWindowGfxVariantVramDestination       = $7C00
 IndexedWindowGfxVariantBlockSize             = $0700
-WindowGfxTransferSelectorValue               = $18
+WindowGfxDisplaySelector18                   = $18
 PresentationRefreshSentinel                  = $FFFF
 
 
@@ -877,7 +877,8 @@ C47A6B_MirrorCurrentEntityYAroundTarget1002:
     rtl
 ; Uses the current-slot graphics index against the CC:2DE1 record family,
 ; decompresses through C4:1A9E, queues the VRAM upload, sets the transfer
-; selector, and marks the presentation refresh sentinel.
+; selector latch, and marks the presentation refresh sentinel. C4 only writes
+; the selector/sentinel values; C0/NMI owns the upload/refresh interpretation.
 C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     rep #$31
     phd
@@ -980,11 +981,11 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     lda.w #IndexedWindowGfxPrimaryTileBlockSize
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #WindowGfxTransferSelectorValue
-    sta DisplayTransferSelector30
+    lda.b #WindowGfxDisplaySelector18
+    sta DisplaySelectorLatch30
     rep #$20
     lda.w #PresentationRefreshSentinel
-    sta BgScrollShadow3b
+    sta PresentationRefreshLatch3b
     pld
     rtl
 ; Uses the current-slot graphics index and variant against the CC:2DE1 record
@@ -997,7 +998,7 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     adc.w #$FFE8
     tcd
     lda.w #PresentationRefreshSentinel
-    sta BgScrollShadow3b
+    sta PresentationRefreshLatch3b
     lda CurrentEntitySlotIndex
     asl A
     tax

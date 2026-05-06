@@ -24929,8 +24929,8 @@ org $C474F6
 !IndexedWindowGfxVariantTable = $0E9A
 !CurrentEntityMirrorYAnchorTable = $1002
 !BoxMaskStreamToggle = $9E3A
-!DisplayTransferSelector30 = $0030
-!BgScrollShadow3b = $003B
+!DisplaySelectorLatch30 = $0030
+!PresentationRefreshLatch3b = $003B
 !WindowMaskWorkBank = $007F
 !CurrentEntityWh0MaskBufferA = $0000
 !CurrentEntityWh0MaskBufferB = $02FE
@@ -24961,7 +24961,7 @@ org $C474F6
 !IndexedWindowGfxPrimaryTileBlockSize = $0200
 !IndexedWindowGfxVariantVramDestination = $7C00
 !IndexedWindowGfxVariantBlockSize = $0700
-!WindowGfxTransferSelectorValue = $18
+!WindowGfxDisplaySelector18 = $18
 !PresentationRefreshSentinel = $FFFF
 C474F6_WhWindowSpanRadiusRampTable:
     db $10,$10,$0F,$0F,$0E,$0D,$0C,$0B,$09,$06,$03
@@ -25838,11 +25838,11 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     lda.w #!IndexedWindowGfxPrimaryTileBlockSize
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #!WindowGfxTransferSelectorValue
-    sta !DisplayTransferSelector30
+    lda.b #!WindowGfxDisplaySelector18
+    sta !DisplaySelectorLatch30
     rep #$20
     lda.w #!PresentationRefreshSentinel
-    sta !BgScrollShadow3b
+    sta !PresentationRefreshLatch3b
     pld
     rtl
 C47B77_LoadIndexedWindowGfxAndReadVariantByte:
@@ -25852,7 +25852,7 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     adc.w #$FFE8
     tcd
     lda.w #!PresentationRefreshSentinel
-    sta !BgScrollShadow3b
+    sta !PresentationRefreshLatch3b
     lda !CurrentEntitySlotIndex
     asl A
     tax
