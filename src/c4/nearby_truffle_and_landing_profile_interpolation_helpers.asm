@@ -243,6 +243,8 @@ C491EE_ScaleColorComponentDeltaByStep = GET_COLOUR_FADE_SLOPE
     jsl C090E6_DivideSignedFixedPointDelta
     pld
     rts
+; Builds the parallel landing-profile interpolation planes from $7F:7800 toward
+; the current $0240 template. Caller A is the frame/divisor count.
 INITIALIZE_MAP_PALETTE_FADE:
 C49208_BuildLandingInterpolationPlanesFrom7f7800 = INITIALIZE_MAP_PALETTE_FADE
     rep #$31
@@ -344,6 +346,8 @@ C492C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L92C4:
 C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0:
     pld
     rtl
+; Advances one frame of the $7F:7900..7E00 landing-profile color planes,
+; repacks 0x60 RGB555 entries into $0240, then waits with selector #$08.
 C492D2_StepLandingProfile7900ColorPlanesTo0240:
     rep #$31
     phd
@@ -451,6 +455,9 @@ C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393:
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
+; Resolves an EF:10FB landing-profile descriptor, optionally fades through
+; $7F:7800 into $0240, restores the selected template/static block, invokes the
+; C0 row/tilemap builders, then waits for the $0030 transfer-busy byte to clear.
 C4939C_RunLandingProfileDisplayBuildAndFade:
     rep #$31
     phd

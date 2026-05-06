@@ -71,6 +71,18 @@ full-scale `#$0032` RGB555 step, repack byte masks, high-component normalize
 denominator, WRAM-low bank selector, palette first-word/fade sentinels, and the
 existing-work selector bit used by `C4:958E`.
 
+2026-05-06 landing palette polish: `landing_palette_display_helpers.asm` now
+documents the side effects of the scale/build/export lane rather than only
+listing working names. `C4:954C` is bounded as the `$7F:0000` scaled palette
+builder, `C4:958E` as the six-plane `$7F:0200..0C00` initializer, `C4:96F9` as
+the `$0200 -> $7F:0000` staging mirror, `C4:9740` as the `$7F:0000 -> $0200`
+export plus selector `#$18` queue, and `C4:97C0` as the full fade driver. The
+parallel `nearby_truffle_and_landing_profile_interpolation_helpers.asm` comments
+now similarly mark `C4:92D2` as the `$7F:7900..7E00 -> $0240` frame stepper and
+`C4:939C` as the descriptor-driven landing display/template orchestrator. The
+visible CGRAM upload claim remains limited to the `$0200` shadow plus selector
+`#$18`; the `$7F:0000` copy is still treated as C4 staging/backup work.
+
 `C4:0BE8` is the shared blank source block immediately after the footstep sound
 table. The ROM bytes from `C4:0BE8..0DE7` are all zero, and the next named data
 family begins at `C4:0DE8`. Multiple setup paths use this as a fixed bank-`C4`

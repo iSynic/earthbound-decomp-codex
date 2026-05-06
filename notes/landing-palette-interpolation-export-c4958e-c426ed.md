@@ -155,6 +155,23 @@ now carries the same six-plane interpretation for the `7F:7900..7E00` family,
 including named low/mid/high component delta planes, base planes, RGB555 masks,
 and the `0x0240` repacked template output.
 
+## 2026-05-06 source polish
+
+The C4 source comments now make the landing palette export side effects explicit.
+`src/c4/landing_palette_display_helpers.asm` marks `C4:96F9` as a mirror from
+the live `$0200` CGRAM shadow into `$7F:0000`, and `C4:9740` as the inverse
+export from `$7F:0000` back to `$0200` plus the selector `#$18` queue. This
+keeps the visible contract on the `$0200` shadow and the known CGRAM upload
+selector, while leaving the `$7F:0000` mirror as C4-owned staging/backup work
+until a later nonlocal consumer is proved.
+
+The parallel landing-profile source now also annotates `C4:92D2` as the
+`$7F:7900..7E00 -> $0240` frame stepper and `C4:939C` as the descriptor-driven
+display/template orchestrator. Those comments align the two palette families:
+one exports to the full `$0200` CGRAM shadow, while the profile path repacks the
+smaller `0x60`-entry template block at `$0240` before invoking the C0
+row/tilemap builders.
+
 ## Confidence boundaries
 
 ### Locally proved

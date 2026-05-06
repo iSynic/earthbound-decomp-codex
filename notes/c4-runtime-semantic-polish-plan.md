@@ -263,6 +263,15 @@ closure.
   role, and the fixed-color mode values passed to C4:249A while leaving C0/C2
   queue and battle-background internals to their owning banks. See
   `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
+- 2026-05-06 landing palette export follow-up: tightened side-effect comments
+  for the `$7F:0000` scaled palette builder, `$7F:0200..0C00` interpolation
+  plane initializer, `$0200 <-> $7F:0000` mirror/export pair, selector `#$18`
+  CGRAM upload queue, and the full fade driver. The parallel
+  `$7F:7900..7E00 -> $0240` landing-profile stepper and descriptor-driven
+  display/template orchestrator now carry matching source comments, with C0 row
+  and tilemap builders still treated as external callees. See
+  `notes/landing-palette-interpolation-export-c4958e-c426ed.md` and
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 
