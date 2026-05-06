@@ -9,7 +9,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 - assets/tables/gaps represented: `689`
 - source bytes represented: `327680`
 - contract families: `17`
-- assets with decoder/preview recipes beyond raw extraction: `676`
+- assets with decoder/preview recipes beyond raw extraction: `677`
 
 ## Reference Counts
 
@@ -29,7 +29,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 | PSI animation runtime tables | 3 | 600 | `CC` 3 | `raw-table` 3 | `raw` 3 | Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects. |
 | Battle sprite graphics | 110 | 90862 | `CD` 55, `CE` 55 | `graphics` 110 | `earthbound_lzhal_battle_sprite_png` 166, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 166, `earthbound_lzhal` 110, `earthbound_lzhal_snes_4bpp_tiles_png` 110, `raw` 110 | Compressed battle sprite graphics payloads selected by the CE pointer table and rendered by the C2 battle-sprite path. |
 | Battle sprite palettes | 32 | 1024 | `CE` 32 | `graphics` 32 | `raw` 32, `snes_palette_json` 32, `snes_palette_swatch_png` 32 | SNES palettes consumed by the battle sprite renderer and palette tail. |
-| Battle sprite runtime tables | 1 | 550 | `CE` 1 | `raw-table` 1 | `raw` 1 | Battle sprite pointer tables that bind sprite ids to compressed graphics payloads. |
+| Battle sprite runtime tables | 1 | 550 | `CE` 1 | `raw-table` 1 | `battle_sprite_pointer_table_json` 1, `raw` 1 | Battle sprite pointer tables that bind sprite ids to compressed graphics payloads. |
 | Swirl frame payloads | 126 | 29489 | `CE` 126 | `binary-asset` 126 | `battle_swirl_frame_json` 126, `raw` 126 | Swirl data payloads selected by battle/overworld swirl transition code. |
 | Swirl runtime tables | 2 | 280 | `CE` 2 | `raw-table` 2 | `raw` 2, `battle_swirl_pointer_table_json` 1, `battle_swirl_sequence_table_json` 1 | Swirl pointer and primary tables that sequence the CE swirl payloads. |
 | Sound Stone visual assets | 2 | 7017 | `CE` 2 | `graphics` 2 | `raw` 2, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | Compressed Sound Stone graphics and palette payloads used by presentation/display code. |
@@ -690,7 +690,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.ce.055_data_battle_battle_sprites_pointers_asm` | `CE:62EE..CE:6514` | 550 | `raw` |
+| `table.ce.055_data_battle_battle_sprites_pointers_asm` | `CE:62EE..CE:6514` | 550 | `raw`, `battle_sprite_pointer_table_json` |
 
 ### Swirl frame payloads
 

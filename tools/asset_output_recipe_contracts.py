@@ -157,6 +157,21 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         ),
         extension=".json",
     ),
+    "battle_sprite_pointer_table_json": OutputRecipeContract(
+        kind="battle_sprite_pointer_table_json",
+        output_type="battle sprite pointer/size table JSON",
+        decoder="battle_sprite_pointer_table",
+        renderer=None,
+        required_fields=("entry_count",),
+        report_required_fields=(
+            "entry_count",
+            "max_width",
+            "max_height",
+            "distinct_size_codes",
+            "distinct_banks",
+        ),
+        extension=".json",
+    ),
     "font_metric_widths_json": OutputRecipeContract(
         kind="font_metric_widths_json",
         output_type="font metric width table JSON",

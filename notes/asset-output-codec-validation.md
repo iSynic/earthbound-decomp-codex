@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `23`
+- synthetic cases: `24`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `22`
+- output kinds covered: `23`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -29,6 +29,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `battle-bg-config-table` | `battle_bg_config_table_json` | 1154 | `row_count` | `max_distortion_style`, `max_graphics_index`, `max_palette_index`, `max_scrolling_movement`, `row_count` |
 | `battle-bg-scrolling-table` | `battle_bg_scrolling_table_json` | 679 | `row_count` | `distinct_motion_vectors`, `max_duration`, `nonzero_duration_count`, `row_count` |
 | `battle-bg-distortion-table` | `battle_bg_distortion_table_json` | 987 | `row_count` | `distinct_distortion_types`, `max_duration`, `nonzero_duration_count`, `row_count` |
+| `battle-sprite-pointer-table` | `battle_sprite_pointer_table_json` | 1564 | `entry_count` | `distinct_banks`, `distinct_size_codes`, `entry_count`, `max_height`, `max_width` |
 | `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |

@@ -600,6 +600,95 @@ def write_battle_bg_distortion_table_json(data: bytes, path: Path, spec: dict[st
     }
 
 
+BATTLE_SPRITE_SIZE_CODES = {
+    1: ("_32X32", 32, 32),
+    2: ("_64X32", 64, 32),
+    3: ("_32X64", 32, 64),
+    4: ("_64X64", 64, 64),
+    5: ("_128X64", 128, 64),
+    6: ("_128X128", 128, 128),
+}
+
+
+def write_battle_sprite_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    row_size = 5
+    expected_bytes = entry_count * row_size
+    if entry_count <= 0:
+        raise ValueError(f"Battle sprite pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle sprite pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    target_banks = set()
+    size_codes = set()
+    max_width = 0
+    max_height = 0
+    for offset in range(0, len(data), row_size):
+        low_word = data[offset] | (data[offset + 1] << 8)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(
+                "Battle sprite pointer table expected zero in fourth byte "
+                f"for row {offset // row_size}, got 0x{padding:02X}"
+            )
+        size_code = data[offset + 4]
+        size = BATTLE_SPRITE_SIZE_CODES.get(size_code)
+        if size is None:
+            raise ValueError(f"Unknown battle sprite size code 0x{size_code:02X} in row {offset // row_size}")
+        size_label, width, height = size
+        target_banks.add(bank)
+        size_codes.add(size_code)
+        max_width = max(max_width, width)
+        max_height = max(max_height, height)
+        entries.append(
+            {
+                "sprite_id": offset // row_size,
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": (bank << 16) | low_word,
+                "size_code": size_code,
+                "size_label": size_label,
+                "width": width,
+                "height": height,
+                "raw_bytes": list(data[offset : offset + row_size]),
+            }
+        )
+
+    size_counts = {
+        str(code): sum(1 for entry in entries if int(entry["size_code"]) == code)
+        for code in sorted(size_codes)
+    }
+    payload = {
+        "schema": "earthbound-decomp.battle-sprite-pointer-table.v1",
+        "decoder": "battle_sprite_pointer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "distinct_size_codes": len(size_codes),
+        "size_code_counts": size_counts,
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "max_width": max_width,
+        "max_height": max_height,
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "max_width": max_width,
+        "max_height": max_height,
+        "distinct_size_codes": len(size_codes),
+        "distinct_banks": len(target_banks),
+    }
+
+
 def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     font_id = int(spec["font_id"])
     entry_count = int(spec["entry_count"])
@@ -1012,6 +1101,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_battle_bg_scrolling_table_json(data, path, spec))
     elif kind == "battle_bg_distortion_table_json":
         metadata.update(write_battle_bg_distortion_table_json(data, path, spec))
+    elif kind == "battle_sprite_pointer_table_json":
+        metadata.update(write_battle_sprite_pointer_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":

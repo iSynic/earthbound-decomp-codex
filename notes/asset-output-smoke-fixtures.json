@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 101,
-    "unique_selected_assets": 39,
-    "unique_selected_manifest_asset_pairs": 39,
-    "recipe_kinds_covered": 22,
+    "fixture_count": 103,
+    "unique_selected_assets": 40,
+    "unique_selected_manifest_asset_pairs": 40,
+    "recipe_kinds_covered": 23,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 26,
+    "family_decoder_pairs_covered": 27,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,14 +34,14 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 26,
+      "family_decoder": 27,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 22,
+      "recipe_kind": 23,
       "recipe_option": 5
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 44,
+      "battle_visual_assets": 46,
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
@@ -90,6 +90,7 @@
       "battle_bg_distortion_table_json": 1,
       "battle_bg_pointer_table_json": 3,
       "battle_bg_scrolling_table_json": 1,
+      "battle_sprite_pointer_table_json": 1,
       "battle_swirl_frame_json": 126,
       "battle_swirl_pointer_table_json": 1,
       "battle_swirl_sequence_table_json": 1,
@@ -228,6 +229,29 @@
       },
       "all_output_kinds": [
         "battle_bg_scrolling_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.battle_sprite_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "battle_sprite_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.055_data_battle_battle_sprites_pointers_asm",
+      "title": "data/battle/battle_sprites_pointers.asm",
+      "category": "raw-table",
+      "bytes": 550,
+      "target_output": {
+        "kind": "battle_sprite_pointer_table_json",
+        "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json",
+        "decoder": "battle_sprite_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_sprite_pointer_table_json",
         "raw"
       ]
     },
@@ -2108,6 +2132,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_sprite_pointer_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_sprite_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.055_data_battle_battle_sprites_pointers_asm",
+      "title": "data/battle/battle_sprites_pointers.asm",
+      "category": "raw-table",
+      "bytes": 550,
+      "target_output": {
+        "kind": "battle_sprite_pointer_table_json",
+        "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json",
+        "decoder": "battle_sprite_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_sprite_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.battle_visual_assets_battle_swirl_frame_metadata",
       "type": "family_decoder",
       "key": "battle_visual_assets.battle_swirl_frame_metadata",
@@ -2669,10 +2716,11 @@
       "asset_ids": [
         "asset.ce.battle_sprite_0",
         "asset.ce.swirl_data_0",
+        "table.ce.055_data_battle_battle_sprites_pointers_asm",
         "table.ce.214_data_battle_swirl_pointers_asm",
         "table.ce.215_inline_swirl_primary_table"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --asset-id table.ce.214_data_battle_swirl_pointers_asm --asset-id table.ce.215_inline_swirl_primary_table --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --asset-id table.ce.055_data_battle_battle_sprites_pointers_asm --asset-id table.ce.214_data_battle_swirl_pointers_asm --asset-id table.ce.215_inline_swirl_primary_table --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-d1-assets.json",

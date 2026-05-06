@@ -30,9 +30,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - manifests with typed output summaries: `38`
 - manifests with smoke fixture links: `23`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6326`
-- typed output recipe kinds: `22`
-- decoder-backed output recipes: `4107`
+- output recipes: `6327`
+- typed output recipe kinds: `23`
+- decoder-backed output recipes: `4108`
 - renderer-backed output recipes: `3266`
 - PNG preview/render recipes: `3266`
 
@@ -52,6 +52,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `battle_bg_distortion_table_json` | 1 | 1 | battle background distortion table JSON | `battle_background_distortion_table` | - | `row_count` | `row_count`, `max_duration`, `nonzero_duration_count`, `distinct_distortion_types` | `table.ca.025_data_battle_backgrounds_distortion_table_asm` -> `ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json` |
 | `battle_bg_pointer_table_json` | 3 | 3 | battle background pointer table JSON | `battle_background_pointer_table` | - | `entry_count`, `table_id`, `table_role` | `entry_count`, `min_pointer`, `max_pointer`, `distinct_pointers`, `distinct_banks` | `table.ca.020_data_battle_backgrounds_graphics_pointers_asm` -> `ca/tables/020_data_battle_backgrounds_graphics_pointers_asm_decoded.json` |
 | `battle_bg_scrolling_table_json` | 1 | 1 | battle background scrolling table JSON | `battle_background_scrolling_table` | - | `row_count` | `row_count`, `max_duration`, `nonzero_duration_count`, `distinct_motion_vectors` | `table.ca.024_data_battle_backgrounds_scrolling_table_asm` -> `ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json` |
+| `battle_sprite_pointer_table_json` | 1 | 1 | battle sprite pointer/size table JSON | `battle_sprite_pointer_table` | - | `entry_count` | `entry_count`, `max_width`, `max_height`, `distinct_size_codes`, `distinct_banks` | `table.ce.055_data_battle_battle_sprites_pointers_asm` -> `ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json` |
 | `battle_swirl_frame_json` | 126 | 126 | battle swirl frame metadata JSON | `battle_swirl_frame_metadata` | - | `swirl_id`, `sequence_id`, `sequence_frame_index`, `sequence_speed`, `sequence_frame_count` | `swirl_id`, `sequence_id`, `sequence_frame_index`, `sequence_speed`, `sequence_frame_count`, `payload_bytes`, `first_opcode` | `asset.ce.swirl_data_0` -> `ce/swirls/0_frame.json` |
 | `battle_swirl_pointer_table_json` | 1 | 1 | battle swirl pointer table JSON | `battle_swirl_pointer_table` | - | `entry_count`, `pointer_bank` | `entry_count`, `pointer_bank`, `min_pointer`, `max_pointer`, `distinct_pointers` | `table.ce.214_data_battle_swirl_pointers_asm` -> `ce/tables/214_data_battle_swirl_pointers_asm_decoded.json` |
 | `battle_swirl_sequence_table_json` | 1 | 1 | battle swirl primary sequence table JSON | `battle_swirl_sequence_table` | - | `row_count` | `row_count`, `visible_sequence_count`, `total_frame_count`, `max_sequence_speed` | `table.ce.215_inline_swirl_primary_table` -> `ce/tables/215_inline_swirl_primary_table_decoded.json` |
@@ -75,7 +76,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 | Family | Banks | Assets | Outputs | Decoder-backed | Renderer-backed | PNG previews | Output mix | Renderer mix |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| Battle visual assets | `CA, CB, CC, CD, CE` | 689 | 2251 | 1562 | 886 | 886 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +10 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
+| Battle visual assets | `CA, CB, CC, CD, CE` | 689 | 2252 | 1563 | 886 | 886 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +11 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
 | Mixed asset/table banks | `CF, D0` | 7 | 7 | 0 | 0 | 0 | `raw` 7 | - |
 | Overworld sprites | `D1, D2, D3, D4, D5` | 1148 | 3440 | 2292 | 2292 | 2292 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 292 | 162 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |

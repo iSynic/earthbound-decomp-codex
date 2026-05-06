@@ -323,6 +323,40 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-sprite-pointer-table",
+            "data": bytes(
+                [
+                    0x6D,
+                    0x60,
+                    0xCE,
+                    0x00,
+                    0x01,
+                    0x02,
+                    0xB8,
+                    0xCD,
+                    0x00,
+                    0x04,
+                    0x00,
+                    0x00,
+                    0xCD,
+                    0x00,
+                    0x06,
+                ]
+            ),
+            "spec": {
+                "kind": "battle_sprite_pointer_table_json",
+                "path": "battle_sprite_pointers.json",
+                "entry_count": 3,
+            },
+            "expected_metadata": {
+                "entry_count": 3,
+                "max_width": 128,
+                "max_height": 128,
+                "distinct_size_codes": 3,
+                "distinct_banks": 2,
+            },
+        },
+        {
             "id": "font-metric-widths",
             "data": bytes([2, 3, 4, 0xFF, 6, 7]),
             "spec": {

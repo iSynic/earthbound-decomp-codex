@@ -39,12 +39,13 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 220,
-    "output_recipe_count": 704,
-    "typed_output_kind_count": 10,
-    "decoder_output_recipe_count": 484,
+    "output_recipe_count": 705,
+    "typed_output_kind_count": 11,
+    "decoder_output_recipe_count": 485,
     "renderer_output_recipe_count": 267,
     "preview_png_recipe_count": 267,
     "output_kind_counts": {
+      "battle_sprite_pointer_table_json": 1,
       "battle_swirl_frame_json": 126,
       "battle_swirl_pointer_table_json": 1,
       "battle_swirl_sequence_table_json": 1,
@@ -57,6 +58,7 @@
       "snes_palette_swatch_png": 33
     },
     "decoder_counts": {
+      "battle_sprite_pointer_table": 1,
       "battle_swirl_frame_metadata": 126,
       "battle_swirl_pointer_table": 1,
       "battle_swirl_sequence_table": 1,
@@ -71,19 +73,21 @@
       "palette_swatch": 33,
       "palette_tile_sheet": 89
     },
-    "smoke_fixture_count": 7,
+    "smoke_fixture_count": 9,
     "smoke_fixture_asset_ids": [
       "asset.ce.battle_sprite_0",
       "asset.ce.swirl_data_0",
+      "table.ce.055_data_battle_battle_sprites_pointers_asm",
       "table.ce.214_data_battle_swirl_pointers_asm",
       "table.ce.215_inline_swirl_primary_table"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 3,
-      "recipe_kind": 3
+      "family_decoder": 4,
+      "recipe_kind": 4
     },
     "smoke_fixture_target_kind_counts": {
+      "battle_sprite_pointer_table_json": 2,
       "battle_swirl_frame_json": 2,
       "battle_swirl_pointer_table_json": 2,
       "battle_swirl_sequence_table_json": 2,
@@ -9372,11 +9376,17 @@
         {
           "kind": "raw",
           "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm.bin"
+        },
+        {
+          "kind": "battle_sprite_pointer_table_json",
+          "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json",
+          "entry_count": 110
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/battle_sprites_pointers.asm",
-        "Original file offset: 0x0E62EE"
+        "Original file offset: 0x0E62EE",
+        "Decoded as the battle sprite pointer/size table; rows preserve long pointer target and sprite dimensions."
       ]
     },
     {

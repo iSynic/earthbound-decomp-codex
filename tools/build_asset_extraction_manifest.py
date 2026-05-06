@@ -908,6 +908,17 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
         )
+    if bank.upper() == "CE" and include == "data/battle/battle_sprites_pointers.asm" and size % 5 == 0:
+        outputs.append(
+            {
+                "kind": "battle_sprite_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": size // 5,
+            }
+        )
+        notes.append(
+            "Decoded as the battle sprite pointer/size table; rows preserve long pointer target and sprite dimensions."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:

@@ -10,14 +10,14 @@ Generated asset-output and source-range reports are freshness-checked together w
 
 - status: `ok`
 - assets with outputs: `2219`
-- decoder/renderer-backed assets: `1985`
-- extract-only assets: `234`
-- extract-only bytes: `1226129`
+- decoder/renderer-backed assets: `1986`
+- extract-only assets: `233`
+- extract-only bytes: `1225579`
 - extract-only categories: `4`
 - extract-only banks: `32`
 - unsupported output kinds: `0`
-- extract-only category mix: `audio` 168, `raw-table` 33, `raw-gap` 31, `raw-preserved-corridor` 2
-- extract-only boundary mix: `deferred_audio_pack` 168, `table_semantics` 33, `preserved_coverage_gap` 31, `preserved_corridor` 2
+- extract-only category mix: `audio` 168, `raw-table` 32, `raw-gap` 31, `raw-preserved-corridor` 2
+- extract-only boundary mix: `deferred_audio_pack` 168, `table_semantics` 32, `preserved_coverage_gap` 31, `preserved_corridor` 2
 
 ## Boundary Notes
 
@@ -26,13 +26,13 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `deferred_audio_pack` | 168 | 858695 | Raw-pack extraction is intentional until the audio pack/sample/sequence contract boundary is chosen. |
 | `preserved_corridor` | 2 | 64136 | Mixed data/code corridor is intentionally preserved until source/runtime semantics split it safely. |
 | `preserved_coverage_gap` | 31 | 75549 | Raw gap output preserves source accounting and should not be flattened into a semantic asset blindly. |
-| `table_semantics` | 33 | 227749 | Table rows are byte-accounted; row-level decode should wait for caller/runtime context. |
+| `table_semantics` | 32 | 227199 | Table rows are byte-accounted; row-level decode should wait for caller/runtime context. |
 
 ## Family Extract-Only Pressure
 
 | Family | Assets | Bytes | Categories | Boundaries |
 | --- | ---: | ---: | --- | --- |
-| Battle visual assets | 13 | 15624 | `raw-table` 5, `audio` 4, `raw-gap` 4 | `table_semantics` 5, `deferred_audio_pack` 4, `preserved_coverage_gap` 4 |
+| Battle visual assets | 12 | 15074 | `audio` 4, `raw-gap` 4, `raw-table` 4 | `deferred_audio_pack` 4, `preserved_coverage_gap` 4, `table_semantics` 4 |
 | Mixed asset/table banks | 7 | 131072 | `audio` 3, `raw-gap` 2, `raw-table` 2 | `deferred_audio_pack` 3, `preserved_coverage_gap` 2, `table_semantics` 2 |
 | Overworld sprites | 2 | 47680 | `raw-gap` 1, `raw-table` 1 | `preserved_coverage_gap` 1, `table_semantics` 1 |
 | Map tilesets and runtime tables | 23 | 97106 | `audio` 9, `raw-gap` 9, `raw-table` 5 | `deferred_audio_pack` 9, `preserved_coverage_gap` 9, `table_semantics` 5 |
@@ -47,7 +47,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `CA` | 1 | 1 | `raw-gap` 1 | `preserved_coverage_gap` 1 |
 | `CB` | 4 | 10086 | `audio` 2, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 2, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `CC` | 5 | 3137 | `raw-table` 3, `audio` 1, `raw-gap` 1 | `table_semantics` 3, `deferred_audio_pack` 1, `preserved_coverage_gap` 1 |
-| `CE` | 3 | 2400 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1, `table_semantics` 1 |
+| `CE` | 2 | 1850 | `audio` 1, `raw-gap` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1 |
 | `CF` | 4 | 65536 | `audio` 2, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 2, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D0` | 3 | 65536 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D5` | 2 | 47680 | `raw-gap` 1, `raw-table` 1 | `preserved_coverage_gap` 1, `table_semantics` 1 |
@@ -94,7 +94,6 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `table.cb.300_data_battle_background_layer_table_asm` | `asset-manifests/bank-cb-assets.json` | `raw-table` | 1936 | `table_semantics` |
 | `table.df.021_data_map_palette_anim_pointer_table_asm` | `asset-manifests/bank-df-assets.json` | `raw-table` | 1893 | `table_semantics` |
 | `table.e1.055_data_unknown_e1f203_asm` | `asset-manifests/bank-e1-assets.json` | `raw-table` | 894 | `table_semantics` |
-| `table.ce.055_data_battle_battle_sprites_pointers_asm` | `asset-manifests/bank-ce-assets.json` | `raw-table` | 550 | `table_semantics` |
 | `table.e0.006_data_text_window_properties_asm` | `asset-manifests/bank-e0-assets.json` | `raw-table` | 495 | `table_semantics` |
 | `table.e1.041_data_unknown_e1ce08_asm` | `asset-manifests/bank-e1-assets.json` | `raw-table` | 423 | `table_semantics` |
 | `table.cc.043_data_psi_anim_cfg_asm` | `asset-manifests/bank-cc-assets.json` | `raw-table` | 408 | `table_semantics` |
