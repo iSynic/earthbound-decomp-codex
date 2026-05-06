@@ -6,6 +6,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-recipe-contracts.md`; that report validates output kinds, renderer fields, palette/graphics source refs, and reproducible output paths.
 
+ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.
+
 ## Snapshot
 
 - manifests: `38`

@@ -12,6 +12,7 @@ DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_JSON_OUT = ROOT / "build" / "asset-data-contract-frontier.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-data-contract-frontier.md"
 OUTPUT_RECIPE_CONTRACTS_MARKDOWN = ROOT / "notes" / "asset-output-recipe-contracts.md"
+OUTPUT_SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
 
 CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
     "E0": 1,
@@ -319,6 +320,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(DEFAULT_MARKDOWN_OUT),
             "generated_json": rel(DEFAULT_JSON_OUT),
             "typed_output_recipe_contracts": rel(OUTPUT_RECIPE_CONTRACTS_MARKDOWN),
+            "output_smoke_fixtures": rel(OUTPUT_SMOKE_FIXTURES_MARKDOWN),
             "rom_outputs_policy": "Generated ROM-derived outputs remain under ignored build/assets and are not required to build this report.",
         },
         "totals": totals,
@@ -371,6 +373,8 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "ROM-derived asset outputs are still local-only under ignored `build/assets`; this report uses manifest metadata and checked-in docs only.",
         "",
         "Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-recipe-contracts.md`; that report validates output kinds, renderer fields, palette/graphics source refs, and reproducible output paths.",
+        "",
+        "ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.",
         "",
         "## Snapshot",
         "",
