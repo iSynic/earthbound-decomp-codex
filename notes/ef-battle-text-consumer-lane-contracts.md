@@ -79,6 +79,9 @@ Examples:
 - HP/PP recovery scripts consume staged recovery amounts.
 - damage, drain, stat-up, stat-down, and HP-sucker scripts consume staged
   amount payloads.
+- EF periodic damage and PP-loss scripts such as `EF:7755`, `EF:7768`,
+  `EF:7787`, `EF:77B1`, and `EF:77DB` are `ActionAmount` result scripts when
+  emitted through `DC66`.
 - C8 amount scripts used by numeric-effect C2 bodies are result lanes, not EF
   row-message anchors.
 

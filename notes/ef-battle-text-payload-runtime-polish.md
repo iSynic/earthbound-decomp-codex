@@ -104,7 +104,9 @@ macros.
   now split the adjacent EBATTLE4 no-effect/miss/target-gone/HP-sucker text
   tail. `EF:7729` is an HP-sucker `ActionAmount` consumer.
 - `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and `EF:77DB` now split the
-  target-side PP drain and periodic status damage text before EBATTLE8.
+  target-side PP drain and periodic status damage text before EBATTLE8. These
+  are now named as `ActionAmount` consumers because their scripts read the
+  `C1:DC66` secondary payload through `1C 0F`.
 - `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
   call-for-help result scripts selected by the C2 reinforcement prefix/body:
   ordinary success, seed/sprout success, ordinary failure, and seed/sprout
@@ -377,6 +379,10 @@ The adjacent direct-result comments now also mark the status/no-effect islands
 that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
 presentation lane: `EF:6B81..6C55` for status-result text and `EF:766E` for
 the shared no-effect fallback.
+
+The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
+and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and
+`EF:77DB` are `ActionAmount` result scripts, not row-message anchors.
 
 The EF source now also carries negative guardrails at the most tempting
 behavior-only anchors: Lifeup explanation text `EF:5173..51BB`,

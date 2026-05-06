@@ -248,3 +248,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   comments at Lifeup-looking and explosive-looking anchors so rows `32..35`
   and `64/65` remain blocked on row `+4` pointer recovery rather than nearby
   EF flavor text.
+- 2026-05-06: EF amount-result suffix follow-up renamed `EF:7755..77DB`
+  PP-loss and periodic damage anchors as `ActionAmount` scripts so their
+  `DC66`/`1C 0F` payload contract is visible in source.

@@ -5054,37 +5054,42 @@ db $2B,$1C,$0E,$51,$03,$02
 
 EF773F_EBattle4MsgBtlPpDrainActionAmount:
 
-; Original data gap before EF7755_EBattle4MsgBtlPpDrainTarget:
+; Original data gap before EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF7755_EBattle4MsgBtlPpDrainTarget:
+; EBATTLE4: target-side PP drain amount text; consumes C1:DC66/1C 0F.
+EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
 
-; Original data gap before EF7768_EBattle4MsgBtlStrangeDamage:
+; Original data gap before EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
 db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
 db $51,$03,$02
 
-EF7768_EBattle4MsgBtlStrangeDamage:
+; EBATTLE4: strange/status periodic damage amount text; consumes C1:DC66/1C 0F.
+EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
 
-; Original data gap before EF7787_EBattle4MsgBtlPoisonDamage:
+; Original data gap before EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
 db $01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA,$00,$50,$15
 db $04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
-EF7787_EBattle4MsgBtlPoisonDamage:
+; EBATTLE4: poison periodic damage amount text; consumes C1:DC66/1C 0F.
+EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
 
-; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamage:
+; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00,$50,$15
 db $52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17,$37,$50
 db $1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02
 
-EF77B1_EBattle4MsgBtlSunstrokeDamage:
+; EBATTLE4: sunstroke periodic damage amount text; consumes C1:DC66/1C 0F.
+EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
 
-; Original data gap before EF77DB_EBattle4MsgBtlColdDamage:
+; Original data gap before EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50
 db $15,$04,$A7,$95,$91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57
 db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
-EF77DB_EBattle4MsgBtlColdDamage:
+; EBATTLE4: cold periodic damage amount text; consumes C1:DC66/1C 0F.
+EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 
 ; Original data gap before EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
 db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04

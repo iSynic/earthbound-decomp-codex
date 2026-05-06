@@ -217,6 +217,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
   row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer
   recovery.
+- 2026-05-06: EF amount-result suffix follow-up renamed the `EF:7755..77DB`
+  PP-loss and periodic-damage result anchors with `ActionAmount` suffixes,
+  matching their `C1:DC66 -> 1C 0F` payload consumption.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

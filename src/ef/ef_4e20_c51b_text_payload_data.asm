@@ -1434,32 +1434,37 @@ EF773F_EBattle4MsgBtlPpDrainActionAmount:
 ; ---------------------------------------------------------------------------
 ; EF:7755
 
-; EBATTLE4: target-side PP drain text before periodic damage.
-EF7755_EBattle4MsgBtlPpDrainTarget:
+; EBATTLE4: target-side PP drain text; C2 stages drained PP through
+; C1:DC66/1C 0F.
+EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7768
 
-; EBATTLE4: strange/status periodic damage text.
-EF7768_EBattle4MsgBtlStrangeDamage:
+; EBATTLE4: strange/status periodic damage text; C2 stages HP damage through
+; C1:DC66/1C 0F.
+EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7787
 
-; EBATTLE4: poison periodic damage text.
-EF7787_EBattle4MsgBtlPoisonDamage:
+; EBATTLE4: poison periodic damage text; C2 stages HP damage through
+; C1:DC66/1C 0F.
+EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77B1
 
-; EBATTLE4: sunstroke periodic damage text.
-EF77B1_EBattle4MsgBtlSunstrokeDamage:
+; EBATTLE4: sunstroke periodic damage text; C2 stages HP damage through
+; C1:DC66/1C 0F.
+EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77DB
 
-; EBATTLE4: cold periodic damage text.
-EF77DB_EBattle4MsgBtlColdDamage:
+; EBATTLE4: cold periodic damage text; C2 stages HP damage through
+; C1:DC66/1C 0F.
+EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77FD
