@@ -124,6 +124,14 @@ The contracts are imported from the C0 wrapper strip and
 `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`, then applied only as C3
 decoder/source-pilot metadata.
 
+## Position Wrapper Operands
+
+- `C0:A87A` -> `Script_SetCameraRelativeAnchor_ReadTwoWords`: X/Y offset
+  words added to the current camera origin before writing the current slot
+  anchor and anchor flags.
+- `C0:A912` -> `ActionScript_PrepareNewEntity`: explicit new-entity X/Y words
+  plus a facing/selector byte staged through the C4 new-entity helper.
+
 ## Presentation Wrapper Operands
 
 The C3 decoder now carries a few more small presentation wrapper schemas that
@@ -138,6 +146,9 @@ pilots:
   words passed to the mosaic fade-out transition helper.
 - `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
   right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
+- `C0:AAB5` -> `Script_RunLandingPaletteFade_ReadWordByteByte`: a landing
+  palette selector word, palette scale byte, and fade frame-count byte
+  forwarded to the C4 landing/flyover palette fade driver.
 
 These are byte-shape contracts only. Exact visual-effect naming can stay with
 the C0/C4 presentation notes; C3 pilots only need the operand widths and roles

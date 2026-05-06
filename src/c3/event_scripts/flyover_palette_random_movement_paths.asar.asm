@@ -4,6 +4,14 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -26,13 +34,13 @@ hirom
 !LoopActiveEntityWalkPulseVar4Countdown = $A12E
 !LoopC40015Var4GatedPulseUntilRelease = $A15E
 !LoopPartyLooksAtActiveEntity = $AFA3
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
-!ScriptWrapper_C497C0_ReadWordByteByte = $C0AAB5
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
+!Script_RunLandingPaletteFade_ReadWordByteByte = $C0AAB5
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetDirectionClassAndField1A86 = $C0A651
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -51,22 +59,56 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(target, landing_palette_selector_word, palette_scale_byte, fade_frame_count_byte)
+    db $42
+    dl <target>
+    dw <landing_palette_selector_word>
+    db <palette_scale_byte>
+    db <fade_frame_count_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_10(target, count, choice0, choice1, choice2, choice3, choice4, choice5, choice6, choice7, choice8, choice9)
@@ -184,26 +226,26 @@ endmacro
 
 org $C39AFA
 Event766_FlyoverPaletteTextRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9AFA  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9AFF  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:9B02  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9AFA  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9AFF  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9B02  3B FF
     %EVENT_CALLROUTINE_0(!CopyCgramShadow0200To4476) ; C3:9B04  42 8E 97 C4
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $00, $64) ; C3:9B08  42 B5 AA C0 FC DF 00 64
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $00, $64) ; C3:9B08  42 B5 AA C0 FC DF 00 64
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9B10  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9B14  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $32, $3C) ; C3:9B16  42 B5 AA C0 FC DF 32 3C
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $32, $3C) ; C3:9B16  42 B5 AA C0 FC DF 32 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9B1E  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9B22  19 04 A2
 LoopEvent767_RandomMovementTask:
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(!ChooseRandomScriptWord, 2, $0000, $0001) ; C3:9B25  42 82 9F C0 02 00 00 01 00
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:9B2E  44
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:9B2F  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:9B32  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:9B32  3B 00
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:9B34  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9B38  42 BF A4 C0
     %EVENT_START_TASK(!LoopC40015Var4GatedPulseUntilRelease) ; C3:9B3C  07 5E A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:9B3F  07 62 A2
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:9B42  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:9B42  42 85 A6 C0 40 00
 LoopEvent767_RandomDirectionMovement:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:9B48  0E 04 00 00
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0000, $0002, $0004, $0006) ; C3:9B4C  42 82 9F C0 04 00 00 02 00 04 00 06 00
@@ -217,77 +259,77 @@ LoopEvent767_RandomDirectionMovement:
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:9B82  44
     %EVENT_SHORTJUMP(LoopEvent767_RandomDirectionMovement) ; C3:9B83  19 48 9B
 Event768_FlyoverPaletteFadeRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9B86  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9B8B  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:9B8E  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9B86  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9B8B  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9B8E  3B FF
     %EVENT_CALLROUTINE_0(!CopyCgramShadow0200To4476) ; C3:9B90  42 8E 97 C4
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $2E, $3C) ; C3:9B94  42 B5 AA C0 FC DF 2E 3C
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $2E, $3C) ; C3:9B94  42 B5 AA C0 FC DF 2E 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9B9C  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BA0  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $2C, $01) ; C3:9BA2  42 B5 AA C0 FC DF 2C 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $2C, $01) ; C3:9BA2  42 B5 AA C0 FC DF 2C 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BAA  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BAE  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $2A, $01) ; C3:9BB0  42 B5 AA C0 FC DF 2A 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $2A, $01) ; C3:9BB0  42 B5 AA C0 FC DF 2A 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BB8  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BBC  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $28, $01) ; C3:9BBE  42 B5 AA C0 FC DF 28 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $28, $01) ; C3:9BBE  42 B5 AA C0 FC DF 28 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BC6  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BCA  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $26, $01) ; C3:9BCC  42 B5 AA C0 FC DF 26 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $26, $01) ; C3:9BCC  42 B5 AA C0 FC DF 26 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BD4  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BD8  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $24, $01) ; C3:9BDA  42 B5 AA C0 FC DF 24 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $24, $01) ; C3:9BDA  42 B5 AA C0 FC DF 24 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BE2  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BE6  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $22, $01) ; C3:9BE8  42 B5 AA C0 FC DF 22 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $22, $01) ; C3:9BE8  42 B5 AA C0 FC DF 22 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BF0  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9BF4  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $20, $01) ; C3:9BF6  42 B5 AA C0 FC DF 20 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $20, $01) ; C3:9BF6  42 B5 AA C0 FC DF 20 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9BFE  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C02  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $1E, $01) ; C3:9C04  42 B5 AA C0 FC DF 1E 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $1E, $01) ; C3:9C04  42 B5 AA C0 FC DF 1E 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C0C  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C10  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $1C, $01) ; C3:9C12  42 B5 AA C0 FC DF 1C 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $1C, $01) ; C3:9C12  42 B5 AA C0 FC DF 1C 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C1A  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C1E  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $1A, $01) ; C3:9C20  42 B5 AA C0 FC DF 1A 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $1A, $01) ; C3:9C20  42 B5 AA C0 FC DF 1A 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C28  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C2C  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $18, $01) ; C3:9C2E  42 B5 AA C0 FC DF 18 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $18, $01) ; C3:9C2E  42 B5 AA C0 FC DF 18 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C36  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C3A  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $16, $01) ; C3:9C3C  42 B5 AA C0 FC DF 16 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $16, $01) ; C3:9C3C  42 B5 AA C0 FC DF 16 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C44  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C48  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $14, $01) ; C3:9C4A  42 B5 AA C0 FC DF 14 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $14, $01) ; C3:9C4A  42 B5 AA C0 FC DF 14 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C52  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C56  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $12, $01) ; C3:9C58  42 B5 AA C0 FC DF 12 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $12, $01) ; C3:9C58  42 B5 AA C0 FC DF 12 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C60  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C64  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $10, $01) ; C3:9C66  42 B5 AA C0 FC DF 10 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $10, $01) ; C3:9C66  42 B5 AA C0 FC DF 10 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C6E  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C72  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $0E, $01) ; C3:9C74  42 B5 AA C0 FC DF 0E 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $0E, $01) ; C3:9C74  42 B5 AA C0 FC DF 0E 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C7C  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C80  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $0C, $01) ; C3:9C82  42 B5 AA C0 FC DF 0C 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $0C, $01) ; C3:9C82  42 B5 AA C0 FC DF 0C 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C8A  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C8E  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $0A, $01) ; C3:9C90  42 B5 AA C0 FC DF 0A 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $0A, $01) ; C3:9C90  42 B5 AA C0 FC DF 0A 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9C98  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9C9C  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $08, $01) ; C3:9C9E  42 B5 AA C0 FC DF 08 01
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $08, $01) ; C3:9C9E  42 B5 AA C0 FC DF 08 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9CA6  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9CAA  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $DF, $00, $78) ; C3:9CAC  42 B5 AA C0 FC DF 00 78
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $DFFC, $00, $78) ; C3:9CAC  42 B5 AA C0 FC DF 00 78
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9CB4  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9CB8  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $00, $20, $5A, $3C) ; C3:9CBA  42 B5 AA C0 00 20 5A 3C
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $2000, $5A, $3C) ; C3:9CBA  42 B5 AA C0 00 20 5A 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9CC2  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9CC6  06 01
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $00, $20, $31, $3C) ; C3:9CC8  42 B5 AA C0 00 20 31 3C
+    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $2000, $31, $3C) ; C3:9CC8  42 B5 AA C0 00 20 31 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9CD0  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9CD4  19 04 A2
 Event769_BounceVisualCountdownHalt:
@@ -299,20 +341,20 @@ Event769_BounceVisualCountdownHalt:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9CFA  39
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:9CFB  42 2F A8 C0
 Local_C39CFF:
-    %EVENT_SET_ANIMATION($FF) ; C3:9CFF  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9CFF  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:9D01  0E 04 00 00
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:9D05  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:9D05  42 51 A6 C0 04
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9D0A  42 BF A4 C0
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0000, $0002, $0004, $0006) ; C3:9D0E  42 82 9F C0 04 00 00 02 00 04 00 06 00
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:9D1B  44
     %EVENT_SET_Z($0060) ; C3:9D1C  2A 60 00
-    %EVENT_SET_ANIMATION($00) ; C3:9D1F  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:9D1F  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9D21  42 BF A4 C0
     %EVENT_SET_Z_VELOCITY($FD00) ; C3:9D25  41 00 FD
     %EVENT_PAUSE($20) ; C3:9D28  06 20
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9D2A  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0004) ; C3:9D2B  0E 04 04 00
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $00) ; C3:9D2F  42 51 A6 C0 00
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_DOWN) ; C3:9D2F  42 51 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9D34  42 BF A4 C0
     %EVENT_PAUSE($08) ; C3:9D38  06 08
     %EVENT_SHORTJUMP(Local_C39CFF) ; C3:9D3A  19 FF 9C
@@ -320,25 +362,25 @@ Event770_PartyLookCoordinateHalt:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:9D3D  1A AA AA
     %EVENT_START_TASK(!LoopPartyLooksAtActiveEntity) ; C3:9D40  07 A3 AF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0009) ; C3:9D43  0E 04 09 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $01) ; C3:9D47  42 85 A6 C0 60 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:9D47  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0018) ; C3:9D4D  0E 05 18 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FE) ; C3:9D51  42 43 A9 C0 FE
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FE) ; C3:9D51  42 43 A9 C0 FE
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:9D56  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9D59  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9D5D  06 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000C) ; C3:9D5F  0E 04 0C 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:9D63  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:9D63  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:9D69  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1F50) ; C3:9D6D  0E 06 50 1F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2558) ; C3:9D71  0E 07 58 25
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:9D75  1A 59 AB
     %EVENT_END_LAST_TASK() ; C3:9D78  13
     %EVENT_END_LAST_TASK() ; C3:9D79  13
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:9D7A  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:9D7A  42 6E AA C0 06 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9D80  42 46 6E C4
     %EVENT_HALT() ; C3:9D84  09
 Event771_AreaTextMovementHalt:
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $8B, $02) ; C3:9D85  42 4C A8 C0 8B 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $028B) ; C3:9D85  42 4C A8 C0 8B 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!TrafficLightFootprintPulse16FrameRelease) ; C3:9D8B  0B D3 A2
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:9D8E  1A B8 AA
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9D91  42 BF A4 C0
@@ -348,9 +390,9 @@ Event771_AreaTextMovementHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0004) ; C3:9DA1  0E 03 04 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:9DA5  1A 8A AB
     %EVENT_SHORTCALL(!WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:9DA8  1A 01 9E
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C9, $00, $B8, $C6) ; C3:9DAB  42 8D A8 C0 C9 00 B8 C6
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C9, $C6B8) ; C3:9DAB  42 8D A8 C0 C9 00 B8 C6
     %EVENT_PAUSE($01) ; C3:9DB3  06 01
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:9DB5  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:9DB5  42 85 A6 C0 40 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:9DBB  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0928) ; C3:9DBF  0E 06 28 09
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0A6B) ; C3:9DC3  0E 07 6B 0A
@@ -360,7 +402,7 @@ Event771_AreaTextMovementHalt:
 Event772_CoordinateTextHalt:
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:9DCF  1A B8 AA
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9DD2  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:9DD6  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:9DD6  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:9DDC  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0921) ; C3:9DE0  0E 06 21 09
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0A6B) ; C3:9DE4  0E 07 6B 0A

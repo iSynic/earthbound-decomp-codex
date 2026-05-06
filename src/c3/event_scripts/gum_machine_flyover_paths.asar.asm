@@ -4,6 +4,15 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -29,11 +38,11 @@ hirom
 !Integrate_XYVelocityOnly = $9FC8
 !LoadCurrentEntityIndexedWindowGfxToVram = $C47A9E
 !LoopPartyLooksAtActiveEntity = $AFA3
-!PhysicsCallback_C09FF0 = $9FF0
-!PositionChangeCallback_C0A039 = $A039
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !RunFlyoverIntroTextSceneByIndex = $C49EC4
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -62,22 +71,47 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <fadeout_effect_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -221,9 +255,9 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0009) ; C3:75C8  0E 04 09 00
     %EVENT_START_TASK(!LoopPartyLooksAtActiveEntity) ; C3:75CC  07 A3 AF
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:75CF  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $01) ; C3:75D3  42 85 A6 C0 60 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:75D3  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0014) ; C3:75D9  0E 05 14 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:75DD  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:75DD  42 43 A9 C0 FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:75E2  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:75E5  0E 04 00 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:75E9  42 46 6E C4
@@ -232,12 +266,12 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_Y($0E90) ; C3:75F1  29 90 0E
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:75F4  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0007) ; C3:75F7  0E 04 07 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:75FB  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:75FB  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0014) ; C3:7601  0E 05 14 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $09F8) ; C3:7605  0E 06 F8 09
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0F00) ; C3:7609  0E 07 00 0F
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:760D  1A 59 AB
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:7610  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:7610  42 43 A9 C0 FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7615  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7618  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:761C  06 01
@@ -259,71 +293,71 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1BD0) ; C3:7655  0E 07 D0 1B
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7659  1A 59 AB
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:765C  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:765F  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:7664  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:765F  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:7664  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:7667  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:766A  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:766A  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:766C  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7670  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7670  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7676  1D 00 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7679  1A 1E AA
     %EVENT_LOOP($05) ; C3:767C  01 05
     %EVENT_PAUSE($3C) ; C3:767E  06 3C
     %EVENT_LOOP_END() ; C3:7680  02
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $07) ; C3:7681  42 BB 9F C0 01 07
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0701) ; C3:7681  42 BB 9F C0 01 07
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:7687  1A E0 AB
     %EVENT_WRITE_WORD_TEMPVAR($0003) ; C3:768A  1D 03 00
     %EVENT_CALLROUTINE_0(!RunFlyoverIntroTextSceneByIndex) ; C3:768D  42 C4 9E C4
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7691  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7695  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7698  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:769D  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7698  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:769D  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:76A0  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:76A3  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:76A3  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:76A5  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:76A9  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:76A9  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:76AF  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $01F0) ; C3:76B3  0E 06 F0 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0888) ; C3:76B7  0E 07 88 08
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:76BB  1A 59 AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:76BE  39
     %EVENT_PAUSE($78) ; C3:76BF  06 78
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $07) ; C3:76C1  42 BB 9F C0 01 07
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0701) ; C3:76C1  42 BB 9F C0 01 07
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:76C7  1A E0 AB
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:76CA  1D 04 00
     %EVENT_CALLROUTINE_0(!RunFlyoverIntroTextSceneByIndex) ; C3:76CD  42 C4 9E C4
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:76D1  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:76D5  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:76D8  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:76DD  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:76D8  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:76DD  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:76E0  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:76E3  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:76E3  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:76E5  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:76E9  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:76E9  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0007) ; C3:76EF  1D 07 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:76F2  1A 1E AA
     %EVENT_LOOP($05) ; C3:76F5  01 05
     %EVENT_PAUSE($3C) ; C3:76F7  06 3C
     %EVENT_LOOP_END() ; C3:76F9  02
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $07) ; C3:76FA  42 BB 9F C0 01 07
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0701) ; C3:76FA  42 BB 9F C0 01 07
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:7700  1A E0 AB
     %EVENT_WRITE_WORD_TEMPVAR($0005) ; C3:7703  1D 05 00
     %EVENT_CALLROUTINE_0(!RunFlyoverIntroTextSceneByIndex) ; C3:7706  42 C4 9E C4
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:770A  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:770E  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7711  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:7716  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7711  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:7716  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:7719  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:771C  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:771C  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:771E  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7722  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7722  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:7728  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $11E8) ; C3:772C  0E 06 E8 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0D98) ; C3:7730  0E 07 98 0D
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7734  1A 59 AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7737  39
     %EVENT_PAUSE($78) ; C3:7738  06 78
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $07) ; C3:773A  42 BB 9F C0 01 07
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0701) ; C3:773A  42 BB 9F C0 01 07
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:7740  1A E0 AB
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:7743  1D 06 00
     %EVENT_CALLROUTINE_0(!RunFlyoverIntroTextSceneByIndex) ; C3:7746  42 C4 9E C4
@@ -338,19 +372,19 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0020) ; C3:7765  0E 03 20 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:7769  1A 8A AB
     %EVENT_SHORTCALL(!WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:776C  1A 01 9E
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $FB, $B4) ; C3:776F  42 8D A8 C0 C7 00 FB B4
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $B4FB) ; C3:776F  42 8D A8 C0 C7 00 FB B4
     %EVENT_HALT() ; C3:7777  09
     %EVENT_SET_X($0558) ; C3:7778  28 58 05
     %EVENT_SET_Y($1AF8) ; C3:777B  29 F8 1A
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:777E  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity_WithSpriteRefresh) ; C3:7781  25 F1 9F
-    %EVENT_SET_ANIMATION($00) ; C3:7784  3B 00
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:7786  42 79 A6 C0 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7784  3B 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:7786  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:778B  39
     %EVENT_SET_Z($0020) ; C3:778C  2A 20 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:778F  42 BF A4 C0
     %EVENT_PAUSE($01) ; C3:7793  06 01
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $11, $00) ; C3:7795  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0011) ; C3:7795  42 41 A8 C0 11 00
     %EVENT_SET_Y_VELOCITY($0092) ; C3:779B  40 92 00
     %EVENT_SET_X_VELOCITY($FF25) ; C3:779E  3F 25 FF
     %EVENT_SET_Z_VELOCITY($0180) ; C3:77A1  41 80 01
@@ -367,7 +401,7 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_PAUSE($04) ; C3:77BD  06 04
     %EVENT_SET_Z_VELOCITY($FB00) ; C3:77BF  41 00 FB
     %EVENT_PAUSE($04) ; C3:77C2  06 04
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $2E, $00) ; C3:77C4  42 41 A8 C0 2E 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $002E) ; C3:77C4  42 41 A8 C0 2E 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:77CA  39
     %EVENT_PAUSE($08) ; C3:77CB  06 08
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:77CD  42 46 6E C4
@@ -375,14 +409,14 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_X($0558) ; C3:77D2  28 58 05
     %EVENT_SET_Y($1AF8) ; C3:77D5  29 F8 1A
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:77D8  25 7A A3
-    %EVENT_SET_ANIMATION($FF) ; C3:77DB  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:77DB  3B FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:77DD  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:77DE  42 BF A4 C0
     %EVENT_PAUSE($01) ; C3:77E2  06 01
     %EVENT_SET_Y_VELOCITY($0092) ; C3:77E4  40 92 00
     %EVENT_SET_X_VELOCITY($FF25) ; C3:77E7  3F 25 FF
     %EVENT_PAUSE($04) ; C3:77EA  06 04
-    %EVENT_SET_ANIMATION($00) ; C3:77EC  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:77EC  3B 00
     %EVENT_PAUSE($18) ; C3:77EE  06 18
     %EVENT_SET_VELOCITIES_ZERO() ; C3:77F0  39
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:77F1  19 04 A2
@@ -395,16 +429,16 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:780A  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:780D  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7811  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7814  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:7819  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:781C  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7814  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:7819  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:781C  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:781E  0E 00 00 00
     %EVENT_LOOP($1F) ; C3:7822  01 1F
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $FFFF) ; C3:7824  14 00 02 FF FF
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:7829  42 99 74 C4
     %EVENT_PAUSE($09) ; C3:782D  06 09
     %EVENT_LOOP_END() ; C3:782F  02
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $54, $00) ; C3:7830  42 41 A8 C0 54 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0054) ; C3:7830  42 41 A8 C0 54 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0005) ; C3:7836  0E 00 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:783A  0E 01 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0002) ; C3:783E  0E 02 02 00
@@ -421,21 +455,21 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_PAUSE($01) ; C3:7866  06 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7868  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:786C  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:786F  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:786F  42 64 A8 C0 FF
     %EVENT_SET_Y_RELATIVE($0010) ; C3:7874  2C 10 00
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:7877  1A B8 AA
     %EVENT_PAUSE($20) ; C3:787A  06 20
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:787C  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:787C  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:7882  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7885  1A 1E AA
     %EVENT_PAUSE($10) ; C3:7888  06 10
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:788A  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:788D  1A 1E AA
     %EVENT_HALT() ; C3:7890  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7891  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7891  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($0010) ; C3:7896  2B 10 00
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:7899  1A B8 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:789C  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:789C  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:78A2  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78A5  1A 1E AA
     %EVENT_PAUSE($64) ; C3:78A8  06 64
@@ -445,21 +479,21 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:78AF  1D 01 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78B2  1A 1E AA
     %EVENT_HALT() ; C3:78B5  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78B6  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78B6  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($FFF0) ; C3:78BB  2B F0 FF
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:78BE  1A B8 AA
     %EVENT_PAUSE($40) ; C3:78C1  06 40
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:78C3  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:78C3  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:78C9  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78CC  1A 1E AA
     %EVENT_PAUSE($10) ; C3:78CF  06 10
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:78D1  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78D4  1A 1E AA
     %EVENT_HALT() ; C3:78D7  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78D8  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78D8  42 64 A8 C0 FF
     %EVENT_SET_Y_RELATIVE($FFF0) ; C3:78DD  2C F0 FF
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:78E0  1A B8 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:78E3  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:78E3  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:78E9  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78EC  1A 1E AA
     %EVENT_PAUSE($64) ; C3:78EF  06 64
@@ -469,20 +503,20 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:78F6  1D 01 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:78F9  1A 1E AA
     %EVENT_HALT() ; C3:78FC  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78FD  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:78FD  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($0010) ; C3:7902  2B 10 00
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:7905  1A B8 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7908  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7908  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:790E  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7911  1A 1E AA
     %EVENT_PAUSE($30) ; C3:7914  06 30
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:7916  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7919  1A 1E AA
     %EVENT_HALT() ; C3:791C  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:791D  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:791D  42 64 A8 C0 FF
     %EVENT_SET_Y_RELATIVE($0010) ; C3:7922  2C 10 00
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:7925  1A B8 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7928  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7928  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:792E  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7931  1A 1E AA
     %EVENT_PAUSE($64) ; C3:7934  06 64
@@ -490,49 +524,49 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:7938  1D 01 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:793B  1A 1E AA
     %EVENT_HALT() ; C3:793E  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:793F  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:793F  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitStationaryVar4PulseAndReturn) ; C3:7944  1A 7C 7A
     %EVENT_PAUSE($20) ; C3:7947  06 20
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7949  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:794F  1D 00 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7949  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:794F  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7952  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:7956  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:7956  1D 04 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:7959  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:795D  42 BF A4 C0
     %EVENT_PAUSE($20) ; C3:7961  06 20
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7963  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7963  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7966  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:796A  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:796A  1D 06 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:796D  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7971  42 BF A4 C0
     %EVENT_PAUSE($78) ; C3:7975  06 78
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:7977  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0101) ; C3:7977  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:797D  1A E0 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7980  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7984  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7987  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7987  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitStationaryVar4PulseAndReturn) ; C3:798C  1A 7C 7A
     %EVENT_PAUSE($10) ; C3:798F  06 10
     %EVENT_PAUSE($20) ; C3:7991  06 20
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7993  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7999  1D 00 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7993  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:7999  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:799C  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:79A0  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:79A0  1D 04 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:79A3  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:79A7  42 BF A4 C0
     %EVENT_PAUSE($20) ; C3:79AB  06 20
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:79AD  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:79AD  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:79B0  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:79B4  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:79B4  1D 06 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:79B7  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:79BB  42 BF A4 C0
     %EVENT_HALT() ; C3:79BF  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:79C0  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:79C0  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitStationaryVar4PulseAndReturn) ; C3:79C5  1A 7C 7A
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:79C8  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:79CE  1D 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:79C8  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:79CE  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:79D1  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:79D5  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:79D5  1D 02 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:79D8  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:79DC  42 BF A4 C0
     %EVENT_PAUSE($64) ; C3:79E0  06 64
@@ -545,24 +579,24 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:79F1  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:79F5  42 BF A4 C0
     %EVENT_PAUSE($28) ; C3:79F9  06 28
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:79FB  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0101) ; C3:79FB  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:7A01  1A E0 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7A04  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7A08  19 04 A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A0B  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A0B  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($FFF0) ; C3:7A10  2B F0 FF
     %EVENT_SHORTCALL(!InitStationaryVar4PulseAndReturn) ; C3:7A13  1A 7C 7A
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7A16  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:7A1C  1D 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7A16  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:7A1C  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7A1F  42 5F A6 C0
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7A23  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7A23  1D 02 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:7A26  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7A2A  42 BF A4 C0
     %EVENT_PAUSE($64) ; C3:7A2E  06 64
     %EVENT_PAUSE($5A) ; C3:7A30  06 5A
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7A32  39
     %EVENT_PAUSE($0C) ; C3:7A33  06 0C
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7A35  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7A35  1D 02 00
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:7A38  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7A3C  42 BF A4 C0
     %EVENT_PAUSE($10) ; C3:7A40  06 10
@@ -572,15 +606,15 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:7A4C  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7A50  42 BF A4 C0
     %EVENT_HALT() ; C3:7A54  09
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A55  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A55  42 64 A8 C0 FF
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:7A5A  19 AA A2
     %EVENT_SET_X($1A88) ; C3:7A5D  28 88 1A
     %EVENT_SET_Y($2748) ; C3:7A60  29 48 27
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:7A63  19 AA A2
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A66  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A66  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($0030) ; C3:7A6B  2B 30 00
     %EVENT_SET_Y_RELATIVE($0020) ; C3:7A6E  2C 20 00
     %EVENT_SHORTCALL(!InitMovementPresetC40015Pulse16Frame) ; C3:7A71  1A B8 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:7A74  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:7A74  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7A77  42 5F A6 C0
     %EVENT_HALT() ; C3:7A7B  09

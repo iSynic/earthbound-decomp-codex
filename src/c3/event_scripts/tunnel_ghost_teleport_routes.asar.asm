@@ -25,22 +25,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(target, camera_relative_x_word, camera_relative_y_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <camera_relative_x_word>
+    dw <camera_relative_y_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    db <teleport_destination_selector_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -74,14 +75,14 @@ endmacro
 
 org $C3BAEA
 Event91_TunnelGhostTeleportLeftRoute:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $50, $00) ; C3:BAEA  42 7A A8 C0 00 00 50 00
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BAF2  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0000, $0050) ; C3:BAEA  42 7A A8 C0 00 00 50 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0138) ; C3:BAF2  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event91_AlternateTeleportDestination) ; C3:BAF8  0B 06 BB
     %EVENT_SET_X_RELATIVE($0100) ; C3:BAFB  2B 00 01
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $0F) ; C3:BAFE  42 07 A9 C0 0F
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $0F) ; C3:BAFE  42 07 A9 C0 0F
     %EVENT_SHORTJUMP(RunTunnelGhostTeleportRoute) ; C3:BB03  19 0B BB
 Event91_AlternateTeleportDestination:
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $12) ; C3:BB06  42 07 A9 C0 12
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $12) ; C3:BB06  42 07 A9 C0 12
 RunTunnelGhostTeleportRoute:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:BB0B  1A 38 AA
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BB0E  1A 73 BB
@@ -89,8 +90,8 @@ RunTunnelGhostTeleportRoute:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BB15  39
     %EVENT_HALT() ; C3:BB16  09
 Event92_TunnelGhostTeleportWideRoute:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $90, $00) ; C3:BB17  42 7A A8 C0 00 00 90 00
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $38, $01) ; C3:BB1F  42 4C A8 C0 38 01
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0000, $0090) ; C3:BB17  42 7A A8 C0 00 00 90 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0138) ; C3:BB1F  42 4C A8 C0 38 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event92_TunnelGhostTeleportCommon) ; C3:BB25  0B 2B BB
     %EVENT_SET_X_RELATIVE($0100) ; C3:BB28  2B 00 01
 Event92_TunnelGhostTeleportCommon:
@@ -99,15 +100,15 @@ Event92_TunnelGhostTeleportCommon:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BB31  39
     %EVENT_HALT() ; C3:BB32  09
 Event99_TunnelGhostTeleportTextRoute:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $50, $00) ; C3:BB33  42 7A A8 C0 00 00 50 00
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $10) ; C3:BB3B  42 07 A9 C0 10
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0000, $0050) ; C3:BB33  42 7A A8 C0 00 00 50 00
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $10) ; C3:BB3B  42 07 A9 C0 10
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:BB40  1A 38 AA
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BB43  1A 73 BB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:BB46  42 46 6E C4
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BB4A  39
     %EVENT_HALT() ; C3:BB4B  09
 Event100_TunnelGhostTeleportWideRoute:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $90, $00) ; C3:BB4C  42 7A A8 C0 00 00 90 00
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0000, $0090) ; C3:BB4C  42 7A A8 C0 00 00 90 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:BB54  1A 38 AA
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BB57  1A 73 BB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BB5A  39

@@ -654,6 +654,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read one script word and copy that pose-descriptor slot anchor to current slot state",
         "args": "pose_descriptor_slot_word",
     },
+    "C0:A87A": {
+        "name": "Script_SetCameraRelativeAnchor_ReadTwoWords",
+        "group": "current-slot-state",
+        "contract": "read X/Y offset words, place the current slot at camera origin plus those offsets, and set the current-slot anchor flags",
+        "args": "camera_relative_x_word, camera_relative_y_word",
+    },
     "C0:A88D": {
         "name": "ActionScript_QueueTextPointer",
         "group": "text-presentation",
@@ -797,6 +803,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read one teleport-destination selector byte and prepare a new entity at that destination",
         "args": "teleport_destination_selector_byte",
     },
+    "C0:A912": {
+        "name": "ActionScript_PrepareNewEntity",
+        "group": "overworld-runtime",
+        "contract": "read explicit X/Y position words plus a facing/selector byte and stage a new entity through C4:6E37",
+        "args": "new_entity_x_word, new_entity_y_word, new_entity_facing_byte",
+    },
     "C0:A92D": {
         "name": "Script_SetTargetToVisualTypeSlotPosition_ReadWord",
         "group": "current-slot-state",
@@ -886,6 +898,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "presentation-render",
         "contract": "read left-X, Y, and right-X words, then forward them as A/X/Y to the C4:7765 WH0 mosaic/window-mask starter",
         "args": "mask_left_x_word, mask_y_word, mask_right_x_word",
+    },
+    "C0:AAB5": {
+        "name": "Script_RunLandingPaletteFade_ReadWordByteByte",
+        "group": "presentation-render",
+        "contract": "read a palette selector word, palette scale byte, and fade frame-count byte, then forward them to C4:97C0",
+        "args": "landing_palette_selector_word, palette_scale_byte, fade_frame_count_byte",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",
