@@ -78,7 +78,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Map tilesets and runtime tables",
         "banks": ["D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
+        "proof": "map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, DF landing palette-animation profile/payload, and scene-composition contracts exist",
         "docs": [
             "notes/map-milestone-closure.md",
             "notes/map-object-bundles.md",
@@ -93,6 +93,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/map-collision-runtime-bit-contract.md",
             "notes/map-palette-descriptor-context.md",
             "notes/bank-df-first-pass.md",
+            "notes/df-landing-palette-animation-contracts.md",
             "notes/map-scene-composition-contract.md",
         ],
         "next_contract": "Map contracts are phase-good-enough: D7 sector metadata and DA palette subrecords are contract-backed; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish.",

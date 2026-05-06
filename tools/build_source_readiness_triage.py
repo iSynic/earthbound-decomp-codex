@@ -302,9 +302,9 @@ def build_triage() -> list[BankTriage]:
             "map graphics plus palette animation data",
             "asset-and-table-ready",
             3,
-            "Extract tileset/animation graphics and keep the landing palette-animation table contracts regression-tested.",
-            ["profile meanings still need naming, but the table/payload split is contract-backed"],
-            ["tileset graphics", "animation graphics", "palette-animation table", "audio pack"],
+            "Extract tileset/animation graphics and landing palette-animation data using `notes/df-landing-palette-animation-contracts.md` and the central manifest contracts.",
+            ["human-facing profile meanings remain optional; table/profile/payload split is contract-backed"],
+            ["tileset graphics", "animation graphics", "landing palette-animation profile/payload contracts", "audio pack"],
         )
     )
 

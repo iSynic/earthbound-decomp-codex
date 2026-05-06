@@ -58,8 +58,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### Map tilesets and runtime tables
 
 - maturity: `contract-backed-with-known-followups`
-- proof: map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist
-- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/cf-event-music-context-contracts.md`, `notes/d7-sector-metadata-contracts.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/da-map-palette-subrecord-contracts.md`, `notes/d8-collision-subrecord-contracts.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/bank-df-first-pass.md`, `notes/map-scene-composition-contract.md`
+- proof: map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, DF landing palette-animation profile/payload, and scene-composition contracts exist
+- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/cf-event-music-context-contracts.md`, `notes/d7-sector-metadata-contracts.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/da-map-palette-subrecord-contracts.md`, `notes/d8-collision-subrecord-contracts.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/bank-df-first-pass.md`, `notes/df-landing-palette-animation-contracts.md`, `notes/map-scene-composition-contract.md`
 - category mix: `graphics` 97, `binary-asset` 10, `audio` 9, `raw-gap` 9, +1 more
 - output recipe mix: `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, +1 more
 
