@@ -204,6 +204,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   command list and output buckets so recovered rows can be sorted into proved
   EF row messages, non-EF row messages, result-only EF emissions, or still
   behavior-only frontier rows before any EF anchor promotion.
+- 2026-05-06: EF source-comment lane follow-up copied the strongest proved
+  row-message joins back to the EF anchors themselves, including special-event
+  row presentation versus direct continuations, shared PSI row text, reused
+  `EF:8E27`, healing/explosive row messages, row `290`, and the late status
+  row-message cluster.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

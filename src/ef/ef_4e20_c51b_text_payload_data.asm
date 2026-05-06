@@ -1193,31 +1193,37 @@ EF72DB_EBattle4MsgBtlHomesickLostMotivation:
 ; ---------------------------------------------------------------------------
 ; EF:72F6
 
-; EBATTLE4: Runaway Five break-in root text.
+; EBATTLE4: Runaway Five break-in root text; D5:7B68 row 243 uses this as the
+; row +4 `DD9F` presentation message before the C2 event body selects a
+; continuation.
 EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
 
 ; ---------------------------------------------------------------------------
 ; EF:72F7
 
-; EBATTLE4: Runaway Five break-in failure text.
+; EBATTLE4: Runaway Five break-in failure text; direct-result continuation
+; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
 EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
 
 ; ---------------------------------------------------------------------------
 ; EF:733D
 
-; EBATTLE4: Runaway Five break-in success text.
+; EBATTLE4: Runaway Five break-in success text; direct-result continuation
+; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
 EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
 
 ; ---------------------------------------------------------------------------
 ; EF:7415
 
-; EBATTLE4: Poo break-in PSI realization text.
+; EBATTLE4: Poo break-in PSI realization text; D5:7B68 row 244 uses this as
+; the row +4 `DD9F` presentation message before the C2 event result.
 EF7415_EBattle4MsgBtlPooBreakIn:
 
 ; ---------------------------------------------------------------------------
 ; EF:743B
 
-; EBATTLE4: Poo Starstorm reveal text.
+; EBATTLE4: Poo Starstorm reveal text; direct-result continuation emitted by
+; the row 244 C2 behavior body, not a row +4 presentation anchor.
 EF743B_EBattle4MsgBtlPooStarstormReveal:
 
 ; ---------------------------------------------------------------------------
@@ -1850,7 +1856,8 @@ EF7E70_EBattle2MsgBtlSuibun:
 ; ---------------------------------------------------------------------------
 ; EF:7E88
 
-; EBATTLE2: `MSG_BTL_ENERGY` action-flavor text.
+; EBATTLE2: `MSG_BTL_ENERGY` action-flavor text; D5:7B68 row 99 uses this as a
+; row +4 full-heal/fuel-supply presentation message.
 EF7E88_EBattle2MsgBtlEnergy:
 
 ; ---------------------------------------------------------------------------
@@ -1862,7 +1869,8 @@ EF7EAC_EBattle2MsgBtlDokuKamituki:
 ; ---------------------------------------------------------------------------
 ; EF:7ED5
 
-; EBATTLE2: `MSG_BTL_YORO_MISSILE` action-flavor text.
+; EBATTLE2: `MSG_BTL_YORO_MISSILE` action-flavor text; D5:7B68 row 101 uses
+; this as a row +4 projectile/explosive presentation message.
 EF7ED5_EBattle2MsgBtlYoroMissile:
 
 ; ---------------------------------------------------------------------------
@@ -2208,7 +2216,9 @@ EF8530_EBattle1MsgBtlCheck:
 ; ---------------------------------------------------------------------------
 ; EF:8543
 
-; EBATTLE1: shared PSI action text with PSI-name byte substitution.
+; EBATTLE1: shared PSI action text with PSI-name byte substitution. D5:7B68
+; rows 10..31 plus PSI-status rows 53 and 58 use this as row +4 `DD9F`
+; presentation text; Lifeup rows 32..35 still need local row +4 recovery.
 EF8543_EBattle1MsgBtlPsi:
 
 ; ---------------------------------------------------------------------------
@@ -2686,13 +2696,15 @@ EF8DC1_EBattle3MsgBtlMakitsuki:
 ; ---------------------------------------------------------------------------
 ; EF:8DDE
 
-; EBATTLE3: `MSG_BTL_TO_DIAMOND_DOG` enemy-action text.
+; EBATTLE3: `MSG_BTL_TO_DIAMOND_DOG` enemy-action text; D5:7B68 row 290 uses
+; this as the row +4 rainbow-colors / Master Belch-side event presentation.
 EF8DDE_EBattle3MsgBtlToDiamondDog:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E27
 
-; EBATTLE3: `MSG_BTL_WARP_NEAR` enemy-action text.
+; EBATTLE3: `MSG_BTL_WARP_NEAR` enemy-action text; D5:7B68 rows 140 and 247
+; intentionally reuse this row +4 anchor with different C2 behavior bodies.
 EF8E27_EBattle3MsgBtlWarpNear:
 
 ; ---------------------------------------------------------------------------
@@ -3200,7 +3212,8 @@ EF9C30_EBattle1MsgBtlHoushi:
 ; ---------------------------------------------------------------------------
 ; EF:9C51
 
-; EBATTLE1: `MSG_BTL_TORITUKI` action payload text.
+; EBATTLE1: `MSG_BTL_TORITUKI` action payload text; D5:7B68 row 76 is the
+; possessed persistent-status row message.
 EF9C51_EBattle1MsgBtlTorituki:
 
 ; ---------------------------------------------------------------------------
@@ -3219,55 +3232,64 @@ EF9CAD_EBattle1MsgBtlKabiHousi:
 ; ---------------------------------------------------------------------------
 ; EF:9CD1
 
-; EBATTLE1: `MSG_BTL_SHIBARI` action payload text.
+; EBATTLE1: `MSG_BTL_SHIBARI` action payload text; D5:7B68 row 79 is part of
+; the immobilized/could-not-move row-message cluster.
 EF9CD1_EBattle1MsgBtlShibari:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CF1
 
-; EBATTLE1: `MSG_BTL_NENEKI` action payload text.
+; EBATTLE1: `MSG_BTL_NENEKI` action payload text; D5:7B68 row 80 is part of
+; the immobilized/could-not-move row-message cluster.
 EF9CF1_EBattle1MsgBtlNeneki:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D14
 
-; EBATTLE1: `MSG_BTL_HAEMITU` action payload text.
+; EBATTLE1: `MSG_BTL_HAEMITU` action payload text; D5:7B68 row 81 is part of
+; the immobilized/could-not-move row-message cluster.
 EF9D14_EBattle1MsgBtlHaemitu:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D3E
 
-; EBATTLE1: `MSG_BTL_OSHIRI_ITO` action payload text.
+; EBATTLE1: `MSG_BTL_OSHIRI_ITO` action payload text; D5:7B68 row 82 is part
+; of the immobilized/could-not-move row-message cluster.
 EF9D3E_EBattle1MsgBtlOshiriIto:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D62
 
-; EBATTLE1: `MSG_BTL_KOWAI_KOTOBA` action payload text.
+; EBATTLE1: `MSG_BTL_KOWAI_KOTOBA` action payload text; D5:7B68 row 83 is the
+; solidification row message.
 EF9D62_EBattle1MsgBtlKowaiKotoba:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D81
 
-; EBATTLE1: `MSG_BTL_AYASHI_KOTO` action payload text.
+; EBATTLE1: `MSG_BTL_AYASHI_KOTO` action payload text; D5:7B68 row 84 reuses
+; the resist-checked strange-status behavior body.
 EF9D81_EBattle1MsgBtlAyashiKoto:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DA1
 
-; EBATTLE1: `MSG_BTL_FUUIN` action payload text.
+; EBATTLE1: `MSG_BTL_FUUIN` action payload text; D5:7B68 row 85 is the
+; concentration/PSI-seal row message.
 EF9DA1_EBattle1MsgBtlFuuin:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DBD
 
-; EBATTLE1: `MSG_BTL_TACHIBA_THINK` action payload text.
+; EBATTLE1: `MSG_BTL_TACHIBA_THINK` action payload text; D5:7B68 row 86 is the
+; direct strange-status sibling row message.
 EF9DBD_EBattle1MsgBtlTachibaThink:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DDA
 
-; EBATTLE1: `MSG_BTL_KOGEPPU_IKI` action payload text.
+; EBATTLE1: `MSG_BTL_KOGEPPU_IKI` action payload text; D5:7B68 row 87 is the
+; all-target crying-family row message.
 EF9DDA_EBattle1MsgBtlKogeppuIki:
 
 ; ---------------------------------------------------------------------------

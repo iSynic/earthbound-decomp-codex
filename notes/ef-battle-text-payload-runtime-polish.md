@@ -365,6 +365,14 @@ joins: `DD9F` row presentation, `DC1C` direct results, `DC66` amount payloads,
 `DD7C` byte substitution, pointer substitution, and non-EF C7/C8/C9
 row-message lanes.
 
+The EF source comments now carry the strongest row-message lane joins directly
+at their anchors: special-event row presentation versus continuations
+(`EF:72F6`, `EF:72F7`, `EF:733D`, `EF:7415`, `EF:743B`), healing/explosive row
+messages (`EF:7E88`, `EF:7ED5`), shared PSI presentation (`EF:8543`), reused
+named-item/normalization presentation (`EF:8E27`), row `290` event
+presentation (`EF:8DDE`), and the late status row-message cluster in
+`EF:9C51..9DDA`.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

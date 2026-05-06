@@ -4793,11 +4793,13 @@ EF72DB_EBattle4MsgBtlHomesickLostMotivation:
 db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
 db $5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
 
+; EBATTLE4: row 243 `DD9F` presentation; C2 behavior selects the continuation.
 EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
 
 ; Original data gap before EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
 db $02
 
+; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
 EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
 
 ; Original data gap before EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
@@ -4807,6 +4809,7 @@ db $00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C,$92
 db $A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95,$17
 db $99,$15,$9B,$51,$14,$02
 
+; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
 EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
 
 ; Original data gap before EF7415_EBattle4MsgBtlPooBreakIn:
@@ -4825,6 +4828,7 @@ db $91,$51,$6E,$10,$14,$14,$18,$06,$70,$6C,$84,$98,$91,$15,$E4,$A1
 db $A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E,$14,$10,$3C,$1F,$62,$01,$18
 db $00,$18,$01,$0E,$04,$3E,$01,$02
 
+; EBATTLE4: row 244 `DD9F` presentation before the Poo/Starstorm event result.
 EF7415_EBattle4MsgBtlPooBreakIn:
 
 ; Original data gap before EF743B_EBattle4MsgBtlPooStarstormReveal:
@@ -4832,6 +4836,7 @@ db $1F,$71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50
 db $1C,$02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15
 db $52,$A3,$9B,$A9,$51,$02
 
+; EBATTLE4: row 244 direct-result continuation, not row +4 presentation text.
 EF743B_EBattle4MsgBtlPooStarstormReveal:
 
 ; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
@@ -5469,6 +5474,7 @@ EF7E70_EBattle2MsgBtlSuibun:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$A6,$91,$93
 db $A5,$A5,$9D,$15,$DB,$51,$03,$02
 
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation message.
 EF7E88_EBattle2MsgBtlEnergy:
 
 ; Original data gap before EF7EAC_EBattle2MsgBtlDokuKamituki:
@@ -5483,6 +5489,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$16,$40,$9B,$17,$33,$17,$15,$00,$50
 db $50,$A5,$A3,$15,$1B,$99,$17,$DA,$A0,$9F,$99,$A3,$9F,$9E,$17,$26
 db $50,$96,$91,$9E,$97,$A3,$51,$03,$02
 
+; EBATTLE2: row 101 row +4 projectile/explosive presentation message.
 EF7ED5_EBattle2MsgBtlYoroMissile:
 
 ; Original data gap before EF7F02_EBattle2MsgBtlMultiAttack:
@@ -5838,6 +5845,8 @@ EF8530_EBattle1MsgBtlCheck:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
+; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
+; Lifeup rows 32..35 still need local row +4 recovery.
 EF8543_EBattle1MsgBtlPsi:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
@@ -6322,6 +6331,7 @@ EF8DC1_EBattle3MsgBtlMakitsuki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9F,$99,$9C,$95,$94,$00,$50
 db $15,$AB,$15,$6A,$16,$B8,$15,$DB,$95,$94,$51,$03,$02
 
+; EBATTLE3: row 290 row +4 rainbow-colors / Master Belch-side event text.
 EF8DDE_EBattle3MsgBtlToDiamondDog:
 
 ; Original data gap before EF8E27_EBattle3MsgBtlWarpNear:
@@ -6331,6 +6341,8 @@ db $43,$92,$9F,$A7,$15,$4F,$93,$9F,$9C,$9F,$A2,$A3,$51,$1F,$02,$41
 db $1C,$13,$28,$00,$10,$1E,$1F,$02,$41,$1C,$13,$28,$00,$10,$1E,$1F
 db $02,$41,$1C,$13,$28,$00,$10,$1E,$02
 
+; EBATTLE3: rows 140 and 247 intentionally reuse this row +4 anchor with
+; different C2 behavior bodies.
 EF8E27_EBattle3MsgBtlWarpNear:
 
 ; Original data gap before EF8E3C_EBattle3MsgBtlAntipsi:
@@ -6915,6 +6927,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52,$03,$10,$01
 db $02
 
+; EBATTLE1: row 76 possessed persistent-status row message.
 EF9C51_EBattle1MsgBtlTorituki:
 
 ; Original data gap before EF9C7E_EBattle1MsgBtlYoiKaori:
@@ -6936,12 +6949,14 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$9D,$17,$8E,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52
 db $03,$10,$01,$02
 
+; EBATTLE1: row 79 immobilized/could-not-move row message.
 EF9CD1_EBattle1MsgBtlShibari:
 
 ; Original data gap before EF9CF1_EBattle1MsgBtlNeneki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$A0,$9C,$9F,$A9,$95,$94
 db $00,$50,$17,$33,$99,$9E,$94,$15,$4E,$15,$DB,$51,$03,$10,$01,$02
 
+; EBATTLE1: row 80 immobilized/could-not-move row message.
 EF9CF1_EBattle1MsgBtlNeneki:
 
 ; Original data gap before EF9D14_EBattle1MsgBtlHaemitu:
@@ -6949,6 +6964,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$99,$A4,$15,$93,$50,$15,$BC
 db $A3,$A4,$15,$FA,$A9,$50,$9D,$A5,$93,$A5,$A3,$51,$1F,$02,$51,$03
 db $10,$01,$02
 
+; EBATTLE1: row 81 immobilized/could-not-move row message.
 EF9D14_EBattle1MsgBtlHaemitu:
 
 ; Original data gap before EF9D3E_EBattle1MsgBtlOshiriIto:
@@ -6956,6 +6972,7 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $6C,$76,$15,$9D,$78,$17,$3E,$6E,$16,$2A,$9F,$96,$16,$D9,$9D,$16
 db $17,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
+; EBATTLE1: row 82 immobilized/could-not-move row message.
 EF9D3E_EBattle1MsgBtlOshiriIto:
 
 ; Original data gap before EF9D62_EBattle1MsgBtlKowaiKotoba:
@@ -6963,30 +6980,35 @@ db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$00,$50,$17,$F4,$99,$94
 db $15,$E0,$A3,$99,$9C,$9B,$16,$2A,$9F,$96,$15,$6C,$A3,$17,$47,$94
 db $A9,$51,$03,$02
 
+; EBATTLE1: row 83 solidification row message.
 EF9D62_EBattle1MsgBtlKowaiKotoba:
 
 ; Original data gap before EF9D81_EBattle1MsgBtlAyashiKoto:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$A2
 db $95,$15,$DD,$A3,$16,$EE,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
+; EBATTLE1: row 84 resist-checked strange-status row message.
 EF9D81_EBattle1MsgBtlAyashiKoto:
 
 ; Original data gap before EF9DA1_EBattle1MsgBtlFuuin:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$94,$00,$50,$15,$0A,$15,$ED
 db $50,$9D,$A9,$A3,$16,$06,$16,$81,$51,$1F,$02,$55,$03,$10,$01,$02
 
+; EBATTLE1: row 85 concentration/PSI-seal row message.
 EF9DA1_EBattle1MsgBtlFuuin:
 
 ; Original data gap before EF9DBD_EBattle1MsgBtlTachibaThink:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A2,$A5,$A0,$A4,$95,$94
 db $00,$50,$15,$0E,$A3,$17,$C7,$95,$A3,$51,$03,$02
 
+; EBATTLE1: row 86 direct strange-status sibling row message.
 EF9DBD_EBattle1MsgBtlTachibaThink:
 
 ; Original data gap before EF9DDA_EBattle1MsgBtlKogeppuIki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$99,$AA,$15
 db $1B,$A5,$A0,$16,$26,$99,$A4,$A5,$15,$5E,$51,$03,$02
 
+; EBATTLE1: row 87 all-target crying-family row message.
 EF9DDA_EBattle1MsgBtlKogeppuIki:
 
 ; Original data gap before EF9E05_EBattle1MsgBtlTyphoon:

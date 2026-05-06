@@ -237,3 +237,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `notes/ef-battle-text-row-pointer-recovery-frontier.md` with inspector
   command coverage and output buckets for sorting recovered rows before EF
   anchor promotion.
+- 2026-05-06: EF source-comment lane follow-up added byte-neutral comments at
+  the proved row-message anchors so the EF source distinguishes `DD9F`
+  presentation text from `DC1C` continuations and behavior-emitted result
+  payloads without requiring a notes lookup.
