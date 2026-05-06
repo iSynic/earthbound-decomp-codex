@@ -947,6 +947,8 @@ org $C426ED
 !FULL_CGRAM_UPLOAD_SELECTOR = $18
 !DISPLAY_UPLOAD_SELECTOR = $0030
 !PALETTE_EXPORT_BYTE_SIZE = $0200
+!PALETTE_COMPONENT_ZERO = $0000
+!DIRECT_PAGE_FRAME_BYTES = $0002
 UPDATE_MAP_PALETTE_ANIMATION:
 !C426ED_StepPaletteComponentInterpolationToCgramShadow = UPDATE_MAP_PALETTE_ANIMATION
     rep #$20
@@ -954,24 +956,24 @@ UPDATE_MAP_PALETTE_ANIMATION:
     pha
     tdc
     sec
-    sbc #$0002
+    sbc #!DIRECT_PAGE_FRAME_BYTES
     tcd
     pla
-    ldx #$0000
+    ldx #!PALETTE_COMPONENT_ZERO
 C426FB_StepPaletteComponentInterpolationToCgramShadow_Loop:
     lda.l !PALETTE_LOW_DELTA_PLANE,X
     clc
     adc.l !PALETTE_LOW_CURRENT_PLANE,X
     sta.l !PALETTE_LOW_CURRENT_PLANE,X
     bpl C42713_StepPaletteComponentInterpolationToCgramShadow_LowNonnegative
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_LOW_DELTA_PLANE,X
     bra C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady
 C42713_StepPaletteComponentInterpolationToCgramShadow_LowNonnegative:
     and #!PALETTE_COMPONENT_UPPER_MASK
     cmp #!PALETTE_COMPONENT_UPPER_MASK
     bne C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_LOW_DELTA_PLANE,X
     lda #!PALETTE_COMPONENT_UPPER_MASK
 C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady:
@@ -982,14 +984,14 @@ C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady:
     adc.l !PALETTE_MID_CURRENT_PLANE,X
     sta.l !PALETTE_MID_CURRENT_PLANE,X
     bpl C42740_StepPaletteComponentInterpolationToCgramShadow_MidNonnegative
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_MID_DELTA_PLANE,X
     bra C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady
 C42740_StepPaletteComponentInterpolationToCgramShadow_MidNonnegative:
     and #!PALETTE_COMPONENT_UPPER_MASK
     cmp #!PALETTE_COMPONENT_UPPER_MASK
     bne C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_MID_DELTA_PLANE,X
     lda #!PALETTE_COMPONENT_UPPER_MASK
 C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady:
@@ -1003,14 +1005,14 @@ C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady:
     adc.l !PALETTE_HIGH_CURRENT_PLANE,X
     sta.l !PALETTE_HIGH_CURRENT_PLANE,X
     bpl C42771_StepPaletteComponentInterpolationToCgramShadow_HighNonnegative
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_MID_DELTA_PLANE,X
     bra C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady
 C42771_StepPaletteComponentInterpolationToCgramShadow_HighNonnegative:
     and #!PALETTE_COMPONENT_UPPER_MASK
     cmp #!PALETTE_COMPONENT_UPPER_MASK
     bne C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady
-    lda #$0000
+    lda #!PALETTE_COMPONENT_ZERO
     sta.l !PALETTE_HIGH_DELTA_PLANE,X
     lda #!PALETTE_COMPONENT_UPPER_MASK
 C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady:
@@ -3751,6 +3753,18 @@ org $C49D6A
 !COFFEE_TEA_SCENE_TEXT_BANK = $00E1
 !FLYOVER_TEXT_POINTER_TABLE = $C49EA4
 !FLYOVER_TEXT_POINTER_TABLE_BANK = $00C4
+!FLYOVER_TEXT_POINTER_ROW_SIZE = $0004
+!FLYOVER_TEXT_POINTER_COUNT = $0008
+!FLYOVER_TEXT_POINTER_BANK_BYTE = $E1
+!FLYOVER_TEXT_POINTER_PADDING_BYTE = $00
+!FLYOVER_TEXT_YEAR199X_LOW = $0B86
+!FLYOVER_TEXT_ONETT_LOW = $0B9C
+!FLYOVER_TEXT_NESS_HOUSE_LOW = $0BC2
+!FLYOVER_TEXT_POINTER3_LOW = $0BD2
+!FLYOVER_TEXT_POINTER4_LOW = $0BFD
+!FLYOVER_TEXT_POINTER5_LOW = $0C1B
+!FLYOVER_TEXT_POINTER6_LOW = $0C38
+!FLYOVER_TEXT_POINTER7_LOW = $0C61
 !COFFEE_TEA_TILE_WINDOW_INDEX = $9F2D
 !COFFEE_TEA_ROW_TILE_LIMIT = $2000
 !COFFEE_TEA_FRAME_STEP = $0018
@@ -3930,8 +3944,30 @@ C49E86_RunCoffeeTeaScene_ClearTileBufferCheck:
     pld
     rtl
 C49EA4_FlyoverIntroTextPointerTable:
-    db $86,$0B,$E1,$00,$9C,$0B,$E1,$00,$C2,$0B,$E1,$00,$D2,$0B,$E1,$00
-    db $FD,$0B,$E1,$00,$1B,$0C,$E1,$00,$38,$0C,$E1,$00,$61,$0C,$E1,$00
+C49EA4_FlyoverIntroTextYear199xPointer:
+    dw !FLYOVER_TEXT_YEAR199X_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EA8_FlyoverIntroTextOnettPointer:
+    dw !FLYOVER_TEXT_ONETT_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EAC_FlyoverIntroTextNessHousePointer:
+    dw !FLYOVER_TEXT_NESS_HOUSE_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EB0_FlyoverIntroTextPointer3:
+    dw !FLYOVER_TEXT_POINTER3_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EB4_FlyoverIntroTextPointer4:
+    dw !FLYOVER_TEXT_POINTER4_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EB8_FlyoverIntroTextPointer5:
+    dw !FLYOVER_TEXT_POINTER5_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EBC_FlyoverIntroTextPointer6:
+    dw !FLYOVER_TEXT_POINTER6_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
+C49EC0_FlyoverIntroTextPointer7:
+    dw !FLYOVER_TEXT_POINTER7_LOW
+    db !FLYOVER_TEXT_POINTER_BANK_BYTE,!FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EC4_RunFlyoverIntroTextSceneByIndex:
     rep #$31
     phd
@@ -4376,27 +4412,35 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
 hirom
 org $C4A591
 
+!BATTLE_OVERLAY_RECORD_STRIDE = $0016
+!BATTLE_OVERLAY_RECORD_FIELD_SENTINEL = $8000
+!BATTLE_OVERLAY_RECORD_TERMINATOR = $0000
+!BATTLE_OVERLAY_RECORD_NO_DELTA = $0000
 C4A591_BattleBgStaticTransitionWaveTable:
     db $00,$0E,$17,$17,$0C,$FB,$EE,$F0,$00,$0F,$0C,$FA,$F2,$00,$0D,$02
     db $F5,$00,$0A,$FC,$F9,$08,$00,$FA,$07,$FE,$FD,$06,$FB,$03,$00,$FE
     db $03,$FC,$04,$FC,$04,$FD,$03,$FD,$03,$FE,$02,$FF,$00,$01,$FE,$02
     db $FF,$FF,$02,$FF,$00,$01,$FF,$FF,$01,$00,$FF,$00,$01
 C4A5CE_BattleSwirlOverlayOpenMode0Script:
-    db $3D,$00,$80,$00,$70,$00,$00,$00,$00,$00,$00,$00,$00,$00,$E0,$00
-    db $B7,$00,$04,$00,$03,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+C4A5CE_BattleSwirlOverlayOpenMode0Record:
+    dw $003D,$0080,$0070,$0000,$0000,$0000,$0000,$00E0,$00B7,$0004,$0003
+C4A5E4_BattleSwirlOverlayOpenMode0Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 C4A5FA_BattleSwirlOverlayOpenMode1Script:
-    db $64,$00,$80,$00,$70,$00,$00,$00,$00,$00,$00,$00,$00,$00,$E0,$00
-    db $B7,$00,$04,$00,$03,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+C4A5FA_BattleSwirlOverlayOpenMode1Record:
+    dw $0064,$0080,$0070,$0000,$0000,$0000,$0000,$00E0,$00B7,$0004,$0003
+C4A610_BattleSwirlOverlayOpenMode1Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 C4A626_BattleSwirlOverlayCloseMode0Script:
-    db $3D,$00,$80,$00,$70,$00,$00,$80,$00,$80,$00,$00,$00,$00,$20,$FF
-    db $49,$FF,$FC,$FF,$FD,$FF,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+C4A626_BattleSwirlOverlayCloseMode0Record:
+    dw $003D,$0080,$0070,$8000,$8000,$0000,$0000,$FF20,$FF49,$FFFC,$FFFD
+C4A63C_BattleSwirlOverlayCloseMode0Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 C4A652_BattleSwirlOverlayCloseModeNonzeroScript:
-    db $64,$00,$80,$00,$70,$00,$00,$80,$00,$80,$00,$00,$00,$00,$20,$FF
-    db $49,$FF,$FC,$FF,$FD,$FF,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+C4A652_BattleSwirlOverlayCloseModeNonzeroRecord:
+    dw $0064,$0080,$0070,$8000,$8000,$0000,$0000,$FF20,$FF49,$FFFC,$FFFD
+C4A668_BattleSwirlOverlayCloseModeNonzeroTerminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 C4A67E_BattleOverlayTransitionDataEnd:
 
 
@@ -5207,15 +5251,54 @@ label_C4AC53:
 hirom
 org $C4AC57
 
-C4AC57_SoundStonePresentationTableBlock:
-    db $40,$4A,$EF,$00,$D0,$4A,$EF,$00,$3A,$4B,$EF,$00,$A4,$4B,$EF,$00
-    db $0E,$4C,$EF,$00,$78,$4C,$EF,$00,$E2,$4C,$EF,$00,$4C,$4D,$EF,$00
-    db $B6,$4D,$EF,$00,$80,$B8,$C8,$B8,$80,$48,$38,$48,$28,$38,$70,$A8
-    db $B8,$A8,$70,$38,$00,$04,$08,$0C,$44,$40,$48,$4C,$01,$04,$04,$02
-    db $02,$01,$02,$03,$00,$04,$08,$0C,$24,$20,$28,$2C,$01,$03,$01,$02
-    db $02,$01,$02,$03,$A0,$A1,$A2,$A3,$A4,$A5,$A6,$A7,$A8,$21,$01,$D2
-    db $00,$D1,$00,$D2,$00,$D2,$00,$D1,$00,$D2,$00,$D2,$00,$D2,$00,$B6
-    db $B7,$B9,$B8,$BA,$BB,$BC,$BD
+C4AC57_SoundStonePresentationDataBlock:
+!C4AC57_SoundStonePresentationTableBlock = C4AC57_SoundStonePresentationDataBlock
+C4AC57_SoundStonePresentationEfPayloadPointerTable:
+C4AC57_SoundStonePresentationEfPayloadPointer0:
+    dw $4A40
+    db $EF,$00
+C4AC5B_SoundStonePresentationEfPayloadPointer1:
+    dw $4AD0
+    db $EF,$00
+C4AC5F_SoundStonePresentationEfPayloadPointer2:
+    dw $4B3A
+    db $EF,$00
+C4AC63_SoundStonePresentationEfPayloadPointer3:
+    dw $4BA4
+    db $EF,$00
+C4AC67_SoundStonePresentationEfPayloadPointer4:
+    dw $4C0E
+    db $EF,$00
+C4AC6B_SoundStonePresentationEfPayloadPointer5:
+    dw $4C78
+    db $EF,$00
+C4AC6F_SoundStonePresentationEfPayloadPointer6:
+    dw $4CE2
+    db $EF,$00
+C4AC73_SoundStonePresentationEfPayloadPointer7:
+    dw $4D4C
+    db $EF,$00
+C4AC77_SoundStonePresentationEfPayloadPointer8:
+    dw $4DB6
+    db $EF,$00
+C4AC7B_SoundStonePresentationTileXTable:
+    db $80,$B8,$C8,$B8,$80,$48,$38,$48
+C4AC83_SoundStonePresentationTileYTable:
+    db $28,$38,$70,$A8,$B8,$A8,$70,$38
+C4AC8B_SoundStonePresentationSpriteXTable:
+    db $00,$04,$08,$0C,$44,$40,$48,$4C
+C4AC93_SoundStonePresentationSpriteYTable:
+    db $01,$04,$04,$02,$02,$01,$02,$03
+C4AC9B_SoundStonePresentationSpriteOffsetXTable:
+    db $00,$04,$08,$0C,$24,$20,$28,$2C
+C4ACA3_SoundStonePresentationSpriteOffsetYTable:
+    db $01,$03,$01,$02,$02,$01,$02,$03
+C4ACAB_SoundStonePresentationMelodyIdTable:
+    db $A0,$A1,$A2,$A3,$A4,$A5,$A6,$A7,$A8
+C4ACB4_SoundStonePresentationPhraseLengthTable:
+    dw $0121,$00D2,$00D1,$00D2,$00D2,$00D1,$00D2,$00D2,$00D2
+C4ACC6_SoundStonePresentationSanctuaryEventTable:
+    db $B6,$B7,$B9,$B8,$BA,$BB,$BC,$BD
 !C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
 
 
@@ -13103,15 +13186,46 @@ org $C4E369
 !MovementLoadBattleBg = $C47370
 !RefreshWindowFlavourPaletteBlock = $C47F87
 !PrepareCastNameTilemap = $C4E7AE
-!CastNameTileBaseOffset = $B4D1
+!DisplayTransferSelector30 = $0030
+!DisplayModeLatch1A = $001A
+!TrackedItemPulseActiveCount = $9F2A
+!LiveEntityStatusTable = $0A62
+!EntityFlag8000Table = $116A
+!CastNameGlyphWidthMode = $B4CE
 !CastSceneLatchB4CF = $B4CF
+!CastNameTileBaseOffset = $B4D1
 !Bg3HScrollLow = $0031
 !Bg3VScrollLow = $0033
 !Bg3HScrollHigh = $0035
 !Bg3VScrollHigh = $0037
 !Bg3ScrollXExtra = $0039
 !Bg3ScrollYExtra = $003B
+!CastSceneNoEntitySentinel = $FFFF
+!CastSceneEntityFlag8000 = $8000
 !CastSceneEntitySlotCount = $001E
+!CastSceneBattleBgPreset = $0117
+!CastSceneBg3TilemapBase = $7C00
+!CastSceneObjSizeAndBase = $0062
+!CastSceneClearTilemapBytes = $0800
+!CastSceneClear7fBytes = $1000
+!CastSceneStagingBank = $007F
+!CastSceneZeroSourceLow = $0000
+!CastNameTilesSource1Low = $D6E1
+!CastNameTilesSource2Low = $D835
+!CastNamePaletteSourceLow = $D815
+!CastSceneTailAssetSourceLow = $E4E6
+!CastSceneE1AssetBank = $00E1
+!CastSceneC3AssetBank = $00C3
+!CastNameTilesDest1Low = $0200
+!CastNameTilesDest2Low = $0600
+!CastSceneTailAssetDestLow = $7000
+!CastSceneTilemapUploadBytes = $8000
+!CastScenePalettePayloadBytes = $0020
+!CastScenePaletteDestLow = $0200
+!CastSceneC3PayloadBytes = $0100
+!CastSceneC3PayloadDestLow = $0300
+!CastSceneDisplayTransferSelector = $18
+!CastSceneDisplayMode = $14
 LOAD_CAST_SCENE:
 !C4E369_LoadCastScene = LOAD_CAST_SCENE
     rep #$31
@@ -13121,9 +13235,9 @@ LOAD_CAST_SCENE:
     tcd
     lda.w #$0000
     sta $06
-    lda.w #$007F
+    lda.w #!CastSceneStagingBank
     sta $08
-    stz $9F2A
+    stz !TrackedItemPulseActiveCount
     ldy.w #$0000
     ldx.w #$0001
     txa
@@ -13136,15 +13250,15 @@ LOAD_CAST_SCENE:
 C4E398_LoadCastScene_LE398:
     asl A
     tax
-    lda $0A62,X
-    cmp.w #$FFFF
+    lda !LiveEntityStatusTable,X
+    cmp.w #!CastSceneNoEntitySentinel
     beq C4E3B1_LoadCastScene_LE3B1
     txa
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #!CastSceneEntityFlag8000
     sta $0000,X
 C4E3B1_LoadCastScene_LE3B1:
     lda $16
@@ -13154,13 +13268,13 @@ C4E3B6_LoadCastScene_LE3B6:
     cmp.w #!CastSceneEntitySlotCount
     bcc C4E398_LoadCastScene_LE398
     ldx.w #$0000
-    lda.w #$0117
+    lda.w #!CastSceneBattleBgPreset
     jsl !MovementLoadBattleBg
     ldy.w #$0000
-    ldx.w #$7C00
+    ldx.w #!CastSceneBg3TilemapBase
     tya
     jsl !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    lda.w #$0062
+    lda.w #!CastSceneObjSizeAndBase
     jsl !C08D92_UpdateObjSizeAndBaseRegister
     stz !Bg3ScrollXExtra
     stz !Bg3ScrollYExtra
@@ -13175,43 +13289,43 @@ C4E3B6_LoadCastScene_LE3B6:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$7C00
-    ldx.w #$0800
+    ldy.w #!CastSceneBg3TilemapBase
+    ldx.w #!CastSceneClearTilemapBytes
     sep #$20
     lda.b #$03
     jsl !QueueVramTransfer_FromDpSource
     sep #$20
     lda.b #$FF
-    sta $B4CE
+    sta !CastNameGlyphWidthMode
     rep #$20
-    lda.w #$0000
+    lda.w #!CastSceneZeroSourceLow
     sta $06
-    lda.w #$007F
+    lda.w #!CastSceneStagingBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$1000
+    ldx.w #!CastSceneClear7fBytes
     sep #$20
     lda.b #$00
     jsl !Clear7fBufferMaybe
-    lda.w #$D6E1
+    lda.w #!CastNameTilesSource1Low
     sta $0E
-    lda.w #$00E1
+    lda.w #!CastSceneE1AssetBank
     sta $10
-    lda.w #$0200
+    lda.w #!CastNameTilesDest1Low
     sta $12
-    lda.w #$007F
+    lda.w #!CastSceneStagingBank
     sta $14
     jsl !DecompressAssetToLongDest
-    lda.w #$D835
+    lda.w #!CastNameTilesSource2Low
     sta $0E
-    lda.w #$00E1
+    lda.w #!CastSceneE1AssetBank
     sta $10
-    lda.w #$0600
+    lda.w #!CastNameTilesDest2Low
     sta $12
-    lda.w #$007F
+    lda.w #!CastSceneStagingBank
     sta $14
     jsl !DecompressAssetToLongDest
     jsl !PrepareCastNameTilemap
@@ -13220,41 +13334,41 @@ C4E3B6_LoadCastScene_LE3B6:
     lda $08
     sta $10
     ldy.w #$0000
-    ldx.w #$8000
+    ldx.w #!CastSceneTilemapUploadBytes
     sep #$20
     tya
     jsl !QueueVramTransfer_FromDpSource
     sep #$20
-    stz $B4CE
+    stz !CastNameGlyphWidthMode
     jsl !RefreshWindowFlavourPaletteBlock
-    lda.w #$D815
+    lda.w #!CastNamePaletteSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!CastSceneE1AssetBank
     sta $10
-    ldx.w #$0020
-    lda.w #$0200
+    ldx.w #!CastScenePalettePayloadBytes
+    lda.w #!CastScenePaletteDestLow
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     lda.w #$0000
     sta $0E
-    lda.w #$00C3
+    lda.w #!CastSceneC3AssetBank
     sta $10
-    ldx.w #$0100
-    lda.w #$0300
+    ldx.w #!CastSceneC3PayloadBytes
+    lda.w #!CastSceneC3PayloadDestLow
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$E4E6
+    lda.w #!CastSceneTailAssetSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!CastSceneE1AssetBank
     sta $10
-    lda.w #$7000
+    lda.w #!CastSceneTailAssetDestLow
     sta $12
-    lda.w #$007F
+    lda.w #!CastSceneStagingBank
     sta $14
     jsl !DecompressAssetToLongDest
     sep #$20
-    lda.b #$18
-    sta $0030
-    lda.b #$14
-    sta $001A
+    lda.b #!CastSceneDisplayTransferSelector
+    sta !DisplayTransferSelector30
+    lda.b #!CastSceneDisplayMode
+    sta !DisplayModeLatch1A
     rep #$20
     stz !CastSceneLatchB4CF
     stz !CastNameTileBaseOffset
@@ -13554,8 +13668,12 @@ C4E794_RenderCastNameText_LE794:
     pld
     rts
 C4E796_CastNameTextTilemapPatchTable:
-    db $57,$A3,$50,$94,$91,$94,$00,$57,$A3,$50,$9D,$9F,$9D,$00,$57,$A3
-    db $50,$7D,$91,$A3,$A4,$95,$A2,$00
+C4E796_CastNameTextTilemapPatchPossessiveDad:
+    db $57,$A3,$50,$94,$91,$94,$00
+C4E79D_CastNameTextTilemapPatchPossessiveMom:
+    db $57,$A3,$50,$9D,$9F,$9D,$00
+C4E7A4_CastNameTextTilemapPatchPossessiveMaster:
+    db $57,$A3,$50,$7D,$91,$A3,$A4,$95,$A2,$00
 
 
 ; Generated by tools/build_source_bank_scaffold.py
@@ -13570,6 +13688,30 @@ org $C4E7AE
 !FillLocalBufferMaybe = $C08EFC
 !C08F15_ClearVramOrRendererBuffer = $C08F15
 !Multiply16By8_ViaHardwareRegisters = $C08FF7
+!CastNameTextTilemapPatchBank = $00C4
+!CastNameTextTilemapPatchPossessiveDadLow = $E796
+!CastNameTextTilemapPatchPossessiveMomLow = $E79D
+!CastNameTextTilemapPatchPossessiveMasterLow = $E7A4
+!CastNamePrepScratchRowsOffset = $0016
+!CastNamePrepFillWords = $0010
+!CastNamePartyEntryCount = $0004
+!CastNamePartyTemplateStride = $005F
+!CastNamePartyTemplateBaseLow = $99CE
+!CastNamePartySourceTable = $C3FDB5
+!CastNameTemplateCopyRows = $0005
+!CastNameSpecialTemplateCopyRows = $0006
+!CastNameRenderColumnCount = $0006
+!CastNameSpecialTemplateBaseLow = $9819
+!CastNameSpecialTextSourceLow = $01C0
+!CastNameE1PointerRecordBaseLow = $2EFA
+!CastNameE1PointerRecordBank = $00E1
+!CastNameDadPointerRecordOffset = $0027
+!CastNameMomPointerRecordOffset = $0024
+!CastNameMasterPointerRecordOffset = $006C
+!CastNameDadMomTemplateBaseLow = $9A2D
+!CastNameMasterTemplateBaseLow = $9AEB
+!CastNamePointerRecordBankByteOffset = $0002
+!CastNamePointerBankMask = $00FF
 PREPARE_DYNAMIC_CAST_NAME_TEXT:
 !C4E7AE_PrepareCastNameTilemap = PREPARE_DYNAMIC_CAST_NAME_TEXT
     rep #$31
@@ -13583,15 +13725,15 @@ PREPARE_DYNAMIC_CAST_NAME_TEXT:
 C4E7BD_PrepareCastNameTilemap_LE7BD:
     sep #$20
     stz $0E
-    ldx.w #$0010
+    ldx.w #!CastNamePrepFillWords
     rep #$20
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     jsl !FillLocalBufferMaybe
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     sta $06
     phb
     sep #$20
@@ -13604,10 +13746,10 @@ C4E7BD_PrepareCastNameTilemap_LE7BD:
     lda $08
     sta $10
     lda $02
-    ldy.w #$005F
+    ldy.w #!CastNamePartyTemplateStride
     jsl !Multiply16By8_ViaHardwareRegisters
     clc
-    adc.w #$99CE
+    adc.w #!CastNamePartyTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -13619,34 +13761,34 @@ C4E7BD_PrepareCastNameTilemap_LE7BD:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #!CastNameTemplateCopyRows
     jsl !CopyLocalRowsMaybe
     lda $02
     asl A
     tax
-    lda $C3FDB5,X
+    lda !CastNamePartySourceTable,X
     tay
-    ldx.w #$0006
+    ldx.w #!CastNameRenderColumnCount
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     jsr $E583
     inc $02
 C4E826_PrepareCastNameTilemap_LE826:
     lda $02
-    cmp.w #$0004
+    cmp.w #!CastNamePartyEntryCount
     bcc C4E7BD_PrepareCastNameTilemap_LE7BD
     sep #$20
     stz $0E
-    ldx.w #$0010
+    ldx.w #!CastNamePrepFillWords
     rep #$20
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     jsl !FillLocalBufferMaybe
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     sta $0A
     phb
     sep #$20
@@ -13662,7 +13804,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$9819
+    lda.w #!CastNameSpecialTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -13674,23 +13816,23 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0006
+    lda.w #!CastNameSpecialTemplateCopyRows
     jsl !CopyLocalRowsMaybe
-    ldy.w #$01C0
-    ldx.w #$0006
+    ldy.w #!CastNameSpecialTextSourceLow
+    ldx.w #!CastNameRenderColumnCount
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     jsr $E583
-    lda.w #$2EFA
+    lda.w #!CastNameE1PointerRecordBaseLow
     sta $32
-    lda.w #$00E1
+    lda.w #!CastNameE1PointerRecordBank
     sta $34
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$0027
+    lda.w #!CastNameDadPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -13705,11 +13847,11 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #!CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl !C08F15_ClearVramOrRendererBuffer
-    lda.w #$9A2D
+    lda.w #!CastNameDadMomTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -13737,7 +13879,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #!CastNameTemplateCopyRows
     jsl !CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -13747,9 +13889,9 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E796
+    lda.w #!CastNameTextTilemapPatchPossessiveDadLow
     sta $12
-    lda.w #$00C4
+    lda.w #!CastNameTextTilemapPatchBank
     sta $14
     jsl !CopyCastNameTilemapPatchMaybe
     lda $2E
@@ -13764,21 +13906,21 @@ C4E826_PrepareCastNameTilemap_LE826:
     lda $30
     sta $08
     sep #$20
-    ldy.w #$0002
+    ldy.w #!CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     ldy $28
     jsr $E583
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$0024
+    lda.w #!CastNameMomPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -13793,7 +13935,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #!CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl !C08F15_ClearVramOrRendererBuffer
@@ -13813,7 +13955,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #!CastNameTemplateCopyRows
     jsl !CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -13823,9 +13965,9 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E79D
+    lda.w #!CastNameTextTilemapPatchPossessiveMomLow
     sta $12
-    lda.w #$00C4
+    lda.w #!CastNameTextTilemapPatchBank
     sta $14
     jsl !CopyCastNameTilemapPatchMaybe
     lda $2E
@@ -13840,21 +13982,21 @@ C4E826_PrepareCastNameTilemap_LE826:
     lda $30
     sta $08
     sep #$20
-    ldy.w #$0002
+    ldy.w #!CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     ldy $28
     jsr $E583
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$006C
+    lda.w #!CastNameMasterPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -13869,7 +14011,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #!CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl !C08F15_ClearVramOrRendererBuffer
@@ -13881,7 +14023,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$9AEB
+    lda.w #!CastNameMasterTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -13893,7 +14035,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #!CastNameTemplateCopyRows
     jsl !CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -13903,9 +14045,9 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E7A4
+    lda.w #!CastNameTextTilemapPatchPossessiveMasterLow
     sta $12
-    lda.w #$00C4
+    lda.w #!CastNameTextTilemapPatchBank
     sta $14
     jsl !CopyCastNameTilemapPatchMaybe
     lda $2E
@@ -13920,14 +14062,14 @@ C4E826_PrepareCastNameTilemap_LE826:
     tay
     sty $26
     sep #$20
-    ldy.w #$0002
+    ldy.w #!CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #!CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #!CastNamePrepScratchRowsOffset
     ldy $26
     jsr $E583
     pld
@@ -13942,9 +14084,11 @@ hirom
 org $C4EA9C
 
 !CastNameStagingBuffer = $4000
+!CastNameStagingBank = $007F
 !CastNameTileBaseOffset = $B4D1
 !CastNameTileLowNibbleMask = $000F
 !CastNameTileHighNibbleMask = $03F0
+!CastNameTileSecondRowDelta = $0010
 !CastNameSecondRowPlaneOffset = $0040
 PREPARE_CAST_NAME_TILEMAP:
 !C4EA9C_CopyCastNameTilemap = PREPARE_CAST_NAME_TILEMAP
@@ -13960,7 +14104,7 @@ PREPARE_CAST_NAME_TILEMAP:
     sta $0E
     lda.w #!CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #!CastNameStagingBank
     sta $08
     tya
     asl A
@@ -13987,7 +14131,7 @@ C4EABF_CopyCastNameTilemap_LEABF:
     stx $0C
     sta [$0A]
     clc
-    adc.w #$0010
+    adc.w #!CastNameTileSecondRowDelta
     ldy.w #!CastNameSecondRowPlaneOffset
     sta [$06],Y
     inc $06
@@ -14018,10 +14162,14 @@ org $C4EB04
 !QueueVramTransfer_FromDpSource = $C08616
 !Bg3VerticalScrollShadow = $003B
 !CastNameStagingBuffer = $4000
+!CastNameStagingBank = $007F
 !CastNameTilemapBase = $7C00
 !CastBg3TilemapRowMask = $001F
+!CastBg3TilemapLastRow = $001F
 !CastBg3TilemapRowStride = $0020
+!CastBg3TilemapWrapBackOffset = $03E0
 !CastNameRowPlaneStride = $0040
+!CastNameTransferSelector = $00
 COPY_CAST_NAME_TILEMAP:
 !C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     rep #$31
@@ -14064,7 +14212,7 @@ COPY_CAST_NAME_TILEMAP:
     sta $04
     lda.w #!CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #!CastNameStagingBank
     sta $08
     lda $16
     asl A
@@ -14079,11 +14227,11 @@ COPY_CAST_NAME_TILEMAP:
     asl A
     tax
     sep #$20
-    lda.b #$00
+    lda.b #!CastNameTransferSelector
     jsl !QueueVramTransfer_FromDpSource
     lda $14
     sta $02
-    cmp.w #$001F
+    cmp.w #!CastBg3TilemapLastRow
     beq C4EB78_PrintCastName_LEB78
     lda $04
     clc
@@ -14093,12 +14241,12 @@ COPY_CAST_NAME_TILEMAP:
 C4EB78_PrintCastName_LEB78:
     lda $04
     sec
-    sbc.w #$03E0
+    sbc.w #!CastBg3TilemapWrapBackOffset
     sta $12
 C4EB80_PrintCastName_LEB80:
     lda.w #!CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #!CastNameStagingBank
     sta $08
     lda $16
     asl A
@@ -14116,7 +14264,7 @@ C4EB80_PrintCastName_LEB80:
     asl A
     tax
     sep #$20
-    lda.b #$00
+    lda.b #!CastNameTransferSelector
     jsl !QueueVramTransfer_FromDpSource
     pld
     rtl
@@ -14131,6 +14279,10 @@ org $C4EBAD
 
 !CopyCastNameTilemap = $C4EA9C
 !PrintCastName = $C4EB04
+!CastNameE1PointerRecordBaseLow = $2EFA
+!CastNameE1PointerRecordBank = $00E1
+!CastNameE1PointerRecordStride = $0003
+!CastNamePointerRecordBankByteMask = $00FF
 PRINT_CAST_NAME:
 !C4EBAD_PrintCastNameParty = PRINT_CAST_NAME
     rep #$31
@@ -14147,9 +14299,9 @@ PRINT_CAST_NAME:
     pla
     stx $02
     sta $0E
-    lda.w #$2EFA
+    lda.w #!CastNameE1PointerRecordBaseLow
     sta $06
-    lda.w #$00E1
+    lda.w #!CastNameE1PointerRecordBank
     sta $08
     lda $0E
     sta $04
@@ -14165,12 +14317,12 @@ PRINT_CAST_NAME:
     inc $0A
     ldy $02
     lda [$0A]
-    and.w #$00FF
+    and.w #!CastNamePointerRecordBankByteMask
     tax
     lda [$06]
     jsl !CopyCastNameTilemap
     lda [$0A]
-    and.w #$00FF
+    and.w #!CastNamePointerRecordBankByteMask
     tay
     lda $10
     sta $04
@@ -14190,6 +14342,10 @@ org $C4EC05
 
 !CopyCastNameTilemap = $C4EA9C
 !PrintCastName = $C4EB04
+!CastNamePartySourceTable = $C3FDB5
+!CastNameSpecialSourceSelector = $0007
+!CastNameRenderColumnCount = $0006
+!CastNameSpecialTextSourceLow = $01C0
 PRINT_CAST_NAME_PARTY:
 !C4EC05_PrintCastNameEntityVar0 = PRINT_CAST_NAME_PARTY
     rep #$31
@@ -14201,28 +14357,28 @@ PRINT_CAST_NAME_PARTY:
     pla
     sty $04
     stx $02
-    cmp.w #$0007
+    cmp.w #!CastNameSpecialSourceSelector
     beq C4EC39_PrintCastNameEntityVar0_LEC39
     ldy $02
-    ldx.w #$0006
+    ldx.w #!CastNameRenderColumnCount
     stx $0E
     dec A
     asl A
     tax
-    lda $C3FDB5,X
+    lda !CastNamePartySourceTable,X
     ldx $0E
     jsl !CopyCastNameTilemap
-    ldy.w #$0006
+    ldy.w #!CastNameRenderColumnCount
     ldx $04
     lda $02
     jsl !PrintCastName
     bra C4EC50_PrintCastNameEntityVar0_LEC50
 C4EC39_PrintCastNameEntityVar0_LEC39:
     ldy $02
-    ldx.w #$0006
-    lda.w #$01C0
+    ldx.w #!CastNameRenderColumnCount
+    lda.w #!CastNameSpecialTextSourceLow
     jsl !CopyCastNameTilemap
-    ldy.w #$0006
+    ldy.w #!CastNameRenderColumnCount
     ldx $04
     lda $02
     jsl !PrintCastName
@@ -14240,7 +14396,7 @@ org $C4EC52
 
 !PrintCastNameParty = $C4EBAD
 !CurrentEntitySlot = $1A42
-!CastScrollThresholdTable = $0E5E
+!CastNameCurrentSlotSelectorTable = $0E5E
 PRINT_CAST_NAME_ENTITY_VAR0:
 !C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     rep #$31
@@ -14254,7 +14410,7 @@ PRINT_CAST_NAME_ENTITY_VAR0:
     lda !CurrentEntitySlot
     asl A
     tax
-    lda !CastScrollThresholdTable,X
+    lda !CastNameCurrentSlotSelectorTable,X
     ldx $0E
     jsl !PrintCastNameParty
     pld
@@ -14269,6 +14425,12 @@ hirom
 org $C4EC6E
 
 !QueueOrTransferDynamicTileBlock = $C08ED2
+!DisplayTransferSelector30 = $0030
+!SpecialCastPaletteSourceBaseLow = $7000
+!SpecialCastPaletteSourceBank = $007F
+!SpecialCastPaletteRowBytes = $0020
+!SpecialCastPaletteDestinationOffset = $0380
+!SpecialCastPaletteDisplaySelector = $10
 UPLOAD_SPECIAL_CAST_PALETTE:
 !C4EC6E_UploadSpecialCastPalette = UPLOAD_SPECIAL_CAST_PALETTE
     rep #$31
@@ -14287,21 +14449,21 @@ UPLOAD_SPECIAL_CAST_PALETTE:
     stz $08
     clc
     lda $06
-    adc.w #$7000
+    adc.w #!SpecialCastPaletteSourceBaseLow
     sta $06
     lda $08
-    adc.w #$007F
+    adc.w #!SpecialCastPaletteSourceBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0020
-    lda.w #$0380
+    ldx.w #!SpecialCastPaletteRowBytes
+    lda.w #!SpecialCastPaletteDestinationOffset
     jsl !QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #$10
-    sta $0030
+    lda.b #!SpecialCastPaletteDisplaySelector
+    sta !DisplayTransferSelector30
     rep #$20
     pld
     rtl
@@ -14320,7 +14482,9 @@ org $C4ECAD
 !CastEntitySpawnYTable = $0E9A
 !Bg3VerticalScrollShadow = $003B
 !CastSpawnVariantCounter = $B4D3
+!CastSpawnVariantArgument = $0A38
 !CastSpawnVariantMask = $0003
+!CastSpawnDefaultParent = $FFFF
 CREATE_ENTITY_AT_V01_PLUS_BG3Y:
 !C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     rep #$31
@@ -14334,7 +14498,7 @@ CREATE_ENTITY_AT_V01_PLUS_BG3Y:
     sta $12
     lda !CastSpawnVariantCounter
     and.w #!CastSpawnVariantMask
-    sta $0A38
+    sta !CastSpawnVariantArgument
     inc !CastSpawnVariantCounter
     lda !CurrentEntitySlot
     asl A
@@ -14345,7 +14509,7 @@ CREATE_ENTITY_AT_V01_PLUS_BG3Y:
     clc
     adc !Bg3VerticalScrollShadow
     sta $10
-    ldy.w #$FFFF
+    ldy.w #!CastSpawnDefaultParent
     ldx $02
     lda $12
     jsl !CreateEntityAtPositionMaybe
@@ -14820,6 +14984,13 @@ org $C4EFC4
 
 !CreditsDmaQueueBuffer = $5156
 !CreditsDmaQueueWriteIndex = $B4F5
+!CreditsDmaQueueRecordStride = $0009
+!CreditsDmaQueueRecordSelectorOffset = $0000
+!CreditsDmaQueueRecordVramDestOffset = $0001
+!CreditsDmaQueueRecordSourceLowOffset = $0003
+!CreditsDmaQueueRecordSourceBankOffset = $0005
+!CreditsDmaQueueRecordByteCountOffset = $0007
+!CreditsDmaQueueIndexMask = $007F
 ENQUEUE_CREDITS_DMA:
 !C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
     rep #$31
@@ -14866,7 +15037,7 @@ ENQUEUE_CREDITS_DMA:
     lda !CreditsDmaQueueWriteIndex
     inc A
     sta !CreditsDmaQueueWriteIndex
-    and.w #$007F
+    and.w #!CreditsDmaQueueIndexMask
     sta !CreditsDmaQueueWriteIndex
     pld
     rtl
@@ -14883,6 +15054,13 @@ org $C4F01D
 !CreditsDmaQueueReadIndex = $B4F3
 !CreditsDmaQueueWriteIndex = $B4F5
 !QueueVramTransfer_FromDpSource = $C08616
+!CreditsDmaQueueRecordStride = $0009
+!CreditsDmaQueueRecordSelectorOffset = $0000
+!CreditsDmaQueueRecordVramDestOffset = $0001
+!CreditsDmaQueueRecordSourceLowOffset = $0003
+!CreditsDmaQueueRecordSourceBankOffset = $0005
+!CreditsDmaQueueRecordByteCountOffset = $0007
+!CreditsDmaQueueIndexMask = $007F
 PROCESS_CREDITS_DMA_QUEUE:
 !C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     rep #$31
@@ -14930,7 +15108,7 @@ PROCESS_CREDITS_DMA_QUEUE:
     lda !CreditsDmaQueueReadIndex
     inc A
     sta !CreditsDmaQueueReadIndex
-    and.w #$007F
+    and.w #!CreditsDmaQueueIndexMask
     sta !CreditsDmaQueueReadIndex
 C4F07B_ProcessCreditsDmaQueue_LF07B:
     pld
@@ -14965,6 +15143,15 @@ org $C4F07D
 !QueueOrTransferDynamicTileBlock = $C08ED2
 !FillLocalBufferMaybe = $C08EFC
 !ExpandC4AssetMaybe = $C41A9E
+!CreditsWorkBufferLow = $0000
+!CreditsWorkBufferBank = $007F
+!CreditsCommandStreamStartLow = $413F
+!CreditsCommandStreamStartBank = $00E1
+!CreditsInitialBg3RowThreshold = $0007
+!CreditsSceneClearBase = $7DFE
+!CreditsSceneClearWords = $0200
+!CreditsDisplayTransferSelector = $18
+!CreditsDisplayMode = $17
 INITIALIZE_CREDITS_SCENE:
 !C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     rep #$31
@@ -14972,9 +15159,9 @@ INITIALIZE_CREDITS_SCENE:
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$0000
+    lda.w #!CreditsWorkBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #!CreditsWorkBufferBank
     sta $08
     jsl !ClearRange7fMaybe
     jsl !ResetActiveEntitySlots
@@ -15119,9 +15306,9 @@ INITIALIZE_CREDITS_SCENE:
     lda $02
     jsl !FillLocalBufferMaybe
     sep #$20
-    lda.b #$18
+    lda.b #!CreditsDisplayTransferSelector
     sta $0030
-    lda.b #$17
+    lda.b #!CreditsDisplayMode
     sta $001A
     rep #$20
     stz !CreditsCommandStreamThreshold
@@ -15129,9 +15316,9 @@ INITIALIZE_CREDITS_SCENE:
     sta !CreditsBg3ScrollFixedLo
     lda.w #$0000
     sta !CreditsBg3ScrollFixedHi
-    lda.w #$0007
+    lda.w #!CreditsInitialBg3RowThreshold
     sta !CreditsNextBg3RowThreshold
-    lda.w #$7DFE
+    lda.w #!CreditsSceneClearBase
     sta $06
     phb
     sep #$20
@@ -15148,12 +15335,12 @@ C4F23F_InitializeCreditsScene_LF23F:
     inc $06
     inx
 C4F24B_InitializeCreditsScene_LF24B:
-    cpx.w #$0200
+    cpx.w #!CreditsSceneClearWords
     bcc C4F23F_InitializeCreditsScene_LF23F
     rep #$20
-    lda.w #$413F
+    lda.w #!CreditsCommandStreamStartLow
     sta !CreditsCommandStreamPointerLo
-    lda.w #$00E1
+    lda.w #!CreditsCommandStreamStartBank
     sta !CreditsCommandStreamPointerBank
     jsl !FinalizeDisplaySetupMaybe
     pld
@@ -15177,6 +15364,32 @@ org $C4F264
 !PhotographerCfgTableLo = $2F8A
 !PhotographerCfgTableBank = $00E1
 !PhotographerCfgRecordStride = $003E
+!PhotographerCfgEventFlagOffset = $0000
+!PhotographerCfgMapLoadYCellOffset = $0002
+!PhotographerCfgMapLoadXCellOffset = $0004
+!PhotographerCfgVisualXCellOffset = $000E
+!PhotographerCfgVisualYCellOffset = $0010
+!PhotographerCfgObjectXCellOffset = $0026
+!PhotographerCfgObjectYCellOffset = $0028
+!PhotographerCfgObjectIdOffset = $002A
+!PhotographerCfgObjectStride = $0006
+!PhotographerCfgObjectCount = $0004
+!PhotographerCfgVisualCount = $0006
+!CreditsVisualOverlayTable = $98CB
+!CreditsVisualOverlayRowStride = $0008
+!CreditsVisualOverlayIdMask = $00FF
+!CreditsVisualOverlayMaxExclusive = $0012
+!CreditsPhotoTileBufferBase = $2000
+!CreditsPhotoTileBufferWords = $0400
+!CreditsPhotoPaletteSourceLow = $E92A
+!CreditsPhotoPaletteSourceBank = $00E1
+!CreditsPhotoPaletteDest = $0220
+!CreditsPhotoPaletteBytes = $0020
+!CreditsCreateObjectXArg = $031F
+!CreditsCreateVisualXArg = $0320
+!CreditsCreateEntityYArg = $FFFF
+!CreditsPhotographActiveValue = $0001
+!CreditsPhotographSuccessValue = $0001
 !CreditsPhotographRenderActive = $B4EF
 !CreditsCurrentPhotographIndex = $B4F1
 TRY_RENDERING_PHOTOGRAPH:
@@ -15210,7 +15423,7 @@ TRY_RENDERING_PHOTOGRAPH:
     bne C4F2A1_TryRenderingPhotograph_LF2A1
     jmp.w C4F42E_TryRenderingPhotograph_LF42E
 C4F2A1_TryRenderingPhotograph_LF2A1:
-    lda.w #$0001
+    lda.w #!CreditsPhotographActiveValue
     sta !CreditsPhotographRenderActive
     lda $1E
     sta !CreditsCurrentPhotographIndex
@@ -15218,7 +15431,7 @@ C4F2A1_TryRenderingPhotograph_LF2A1:
     sta $02
     stz $4A5A
     ldy.w #$0000
-    ldx.w #$2000
+    ldx.w #!CreditsPhotoTileBufferBase
     bra C4F2C5_TryRenderingPhotograph_LF2C5
 C4F2BC_TryRenderingPhotograph_LF2BC:
     lda.w #$0000
@@ -15227,25 +15440,25 @@ C4F2BC_TryRenderingPhotograph_LF2BC:
     inx
     iny
 C4F2C5_TryRenderingPhotograph_LF2C5:
-    cpy.w #$0400
+    cpy.w #!CreditsPhotoTileBufferWords
     bcc C4F2BC_TryRenderingPhotograph_LF2BC
     sep #$20
     stz $0030
     rep #$20
-    lda.w #$E92A
+    lda.w #!CreditsPhotoPaletteSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #!CreditsPhotoPaletteSourceBank
     sta $10
-    ldx.w #$0020
-    lda.w #$0220
+    ldx.w #!CreditsPhotoPaletteBytes
+    lda.w #!CreditsPhotoPaletteDest
     jsl !QueueOrTransferDynamicTileBlock
-    ldy.w #$0004
+    ldy.w #!PhotographerCfgMapLoadXCellOffset
     lda [$0A],Y
     asl A
     asl A
     asl A
     tax
-    ldy.w #$0002
+    ldy.w #!PhotographerCfgMapLoadYCellOffset
     lda [$0A],Y
     asl A
     asl A
@@ -15268,7 +15481,7 @@ C4F311_TryRenderingPhotograph_LF311:
     asl A
     sta $18
     clc
-    adc.w #$002A
+    adc.w #!PhotographerCfgObjectIdOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -15286,7 +15499,7 @@ C4F311_TryRenderingPhotograph_LF311:
     inc $1A
     lda $18
     clc
-    adc.w #$0026
+    adc.w #!PhotographerCfgObjectXCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -15301,7 +15514,7 @@ C4F311_TryRenderingPhotograph_LF311:
     sta $0E
     lda $18
     clc
-    adc.w #$0028
+    adc.w #!PhotographerCfgObjectYCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -15314,8 +15527,8 @@ C4F311_TryRenderingPhotograph_LF311:
     asl A
     asl A
     sta $10
-    ldy.w #$FFFF
-    ldx.w #$031F
+    ldy.w #!CreditsCreateEntityYArg
+    ldx.w #!CreditsCreateObjectXArg
     lda $14
     sta $06
     lda $16
@@ -15326,7 +15539,7 @@ C4F385_TryRenderingPhotograph_LF385:
     inc $02
 C4F387_TryRenderingPhotograph_LF387:
     lda $02
-    cmp.w #$0004
+    cmp.w #!PhotographerCfgObjectCount
     bcs C4F393_TryRenderingPhotograph_LF393
     beq C4F393_TryRenderingPhotograph_LF393
     jmp.w C4F311_TryRenderingPhotograph_LF311
@@ -15342,13 +15555,13 @@ C4F39B_TryRenderingPhotograph_LF39B:
     clc
     adc $04
     tax
-    lda $98CB,X
-    and.w #$00FF
+    lda !CreditsVisualOverlayTable,X
+    and.w #!CreditsVisualOverlayIdMask
     sta $02
     beq C4F41B_TryRenderingPhotograph_LF41B
     lda $02
     and.w #$001F
-    cmp.w #$0012
+    cmp.w #!CreditsVisualOverlayMaxExclusive
     bcs C4F41B_TryRenderingPhotograph_LF41B
     cmp.w #$0000
     beq C4F41B_TryRenderingPhotograph_LF41B
@@ -15366,7 +15579,7 @@ C4F39B_TryRenderingPhotograph_LF39B:
     ldx $1C
     txa
     clc
-    adc.w #$000E
+    adc.w #!PhotographerCfgVisualXCellOffset
     ldy $0A
     sty $06
     ldy $0C
@@ -15381,7 +15594,7 @@ C4F39B_TryRenderingPhotograph_LF39B:
     sta $0E
     txa
     clc
-    adc.w #$0010
+    adc.w #!PhotographerCfgVisualYCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -15394,8 +15607,8 @@ C4F39B_TryRenderingPhotograph_LF39B:
     asl A
     asl A
     sta $10
-    ldy.w #$FFFF
-    ldx.w #$0320
+    ldy.w #!CreditsCreateEntityYArg
+    ldx.w #!CreditsCreateVisualXArg
     lda $12
     jsl !CreateEntityAtPositionMaybe
     tay
@@ -15406,12 +15619,12 @@ C4F41B_TryRenderingPhotograph_LF41B:
     inc $04
 C4F41D_TryRenderingPhotograph_LF41D:
     lda $04
-    cmp.w #$0006
+    cmp.w #!PhotographerCfgVisualCount
     bcs C4F429_TryRenderingPhotograph_LF429
     beq C4F429_TryRenderingPhotograph_LF429
     jmp.w C4F39B_TryRenderingPhotograph_LF39B
 C4F429_TryRenderingPhotograph_LF429:
-    ldx.w #$0001
+    ldx.w #!CreditsPhotographSuccessValue
     stx $1C
 C4F42E_TryRenderingPhotograph_LF42E:
     ldx $1C
@@ -15432,6 +15645,7 @@ org $C4F433
 !CreditsPhotographTable = $E12F8A
 !CreditsPhotographRecordStride = $003E
 !CreditsPhotographRecordCount = $0020
+!CreditsPhotographEventFlagOffset = $0000
 COUNT_PHOTO_FLAGS:
 !C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
     rep #$31
@@ -15485,6 +15699,10 @@ org $C4F46F
 !PhotographerCfgTableLo = $2F8A
 !PhotographerCfgTableBank = $00E1
 !PhotographerCfgRecordStride = $003E
+!PhotographerCfgSlideAngleOffset = $0008
+!PhotographerCfgSlideFrameCountOffset = $0009
+!CreditsPhotoSlideProjectionMagnitude = $0400
+!CreditsPhotoSlideFractionUnit = $0100
 !Bg3HScrollLow = $0031
 !Bg3VScrollLow = $0033
 !Bg3HScrollHigh = $0035
@@ -15512,13 +15730,13 @@ SLIDE_CREDITS_PHOTOGRAPH:
     sta $1E
     lda $08
     sta $20
-    ldx.w #$0100
+    ldx.w #!CreditsPhotoSlideFractionUnit
     sep #$20
-    ldy.w #$0008
+    ldy.w #!PhotographerCfgSlideAngleOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    ldy.w #$0400
+    ldy.w #!CreditsPhotoSlideProjectionMagnitude
     jsl !Multiply16By16_ViaHardwareRegisters
     jsl !ProjectMagnitudeByDirectionAngle
     lda $06
@@ -15538,13 +15756,13 @@ SLIDE_CREDITS_PHOTOGRAPH:
     lda $20
     sta $08
     sep #$20
-    ldy.w #$0009
+    ldy.w #!PhotographerCfgSlideFrameCountOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
     xba
     and.w #$FF00
-    ldy.w #$0100
+    ldy.w #!CreditsPhotoSlideFractionUnit
     jsl !Divide16By16_ViaHardwareRegisters
     sta $22
     lda $10
@@ -15570,14 +15788,14 @@ C4F50A_SlideCreditsPhotograph_LF50A:
     clc
     adc $1A
     sta $04
-    ldy.w #$0100
+    ldy.w #!CreditsPhotoSlideFractionUnit
     lda $02
     jsl !Divide16By16_ViaHardwareRegisters
     tax
     clc
     adc $18
     sta !Bg3HScrollLow
-    ldy.w #$0100
+    ldy.w #!CreditsPhotoSlideFractionUnit
     lda $04
     jsl !Divide16By16_ViaHardwareRegisters
     sta $12
@@ -15640,6 +15858,12 @@ org $C4F554
 !CreditsScrollLimit = $11B0
 !CreditsPhotoFadeFrames = $0040
 !CreditsDisplayTransferSelector = $0018
+!CreditsPostScrollHoldFrames = $07D0
+!CreditsReturnEntitySpawnX = $0017
+!CreditsReturnEntitySpawnY = $0018
+!CreditsSceneClearBase = $7DFE
+!CreditsSceneClearWords = $0200
+!CreditsReturnDisplayMode = $17
 PLAY_CREDITS:
 !C4F554_PlayCredits = PLAY_CREDITS
     rep #$31
@@ -15774,7 +15998,7 @@ C4F67E_PlayCredits_LF67E:
     inx
     stx $12
 C4F687_PlayCredits_LF687:
-    cpx.w #$07D0
+    cpx.w #!CreditsPostScrollHoldFrames
     bcc C4F67E_PlayCredits_LF67E
     ldy.w #$0000
     ldx.w #$0002
@@ -15786,9 +16010,9 @@ C4F687_PlayCredits_LF687:
     jsl !ClearRange7fMaybe
     jsl !ResetDisplayStateMaybe
     jsl !ResetActiveEntitySlots
-    lda.w #$0017
+    lda.w #!CreditsReturnEntitySpawnX
     sta $0A4C
-    lda.w #$0018
+    lda.w #!CreditsReturnEntitySpawnY
     sta $0A4E
     ldy.w #$0000
     tyx
@@ -15796,7 +16020,7 @@ C4F687_PlayCredits_LF687:
     jsl !SpawnEntityByScriptMaybe
     jsl !FinalizeEntitiesMaybe
     jsl !RefreshOverworldStateMaybe
-    lda.w #$7DFE
+    lda.w #!CreditsSceneClearBase
     sta $06
     phb
     sep #$20
@@ -15813,11 +16037,11 @@ C4F6E0_PlayCredits_LF6E0:
     inc $06
     inx
 C4F6EC_PlayCredits_LF6EC:
-    cpx.w #$0200
+    cpx.w #!CreditsSceneClearWords
     bcc C4F6E0_PlayCredits_LF6E0
     jsl !RestoreC4VisualState
     sep #$20
-    lda.b #$17
+    lda.b #!CreditsReturnDisplayMode
     sta $001A
     rep #$20
     lda.w #!FrameCallback_ProcessDelayedActions
@@ -21352,6 +21576,39 @@ org $C46028
 !C0A780_RefreshRegistryVisualProfileForSlot = $C0A780
 !C41EFF_CalculateAngleBetweenPoints = $C41EFF
 !C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!MissingEntitySlot = $FFFF
+!EntitySlotScanCount = $001E
+!RegistryAllCode = $00FF
+!RegistryLookupCount = $0006
+!PlayerSlotIndex = $9889
+!RegistryTypeCodeList = $988B
+!RegistrySlotList = $9897
+!RegistryActiveCount = $98A3
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!LiveEntityFrameSelectorTable = $2AF6
+!LiveEntityVisualTypeTable = $2C9A
+!LiveEntityPoseDescriptorTable = $2CD6
+!NewEntityStagedX = $9E2D
+!NewEntityStagedY = $9E2F
+!NewEntityStagedFacing = $9E31
+!FixedEntityScriptDefaultLow = $A209
+!FixedEntityScriptSpecialLow = $A204
+!FixedEntityScriptBank = $00C3
+!FixedEntityScriptSpecialSelector = $0006
+!ScriptDispatchRecordTableLo = $00D4
+!ScriptDispatchRecordTableBank = $00C4
+!ScriptDispatchRecordStride = $0003
+!ScriptDispatchRecordYArgOffset = $0002
+!SelectorModeRegistry = $0000
+!SelectorModeVisualType = $0001
+!SelectorModePoseDescriptor = $0002
+!AngleOctantUnit = $2000
+!AngleOctantBias = $1000
+!RegistryBroadcastTypeCutoff = $0010
+!EntityFlag8000Table = $116A
+!EntityFlagSet8000Mask = $8000
+!PhotographerTempLatch = $5D58
 C46028_FindEntitySlotByCachedPoseDescriptorId:
     rep #$31
     phd
@@ -21371,7 +21628,7 @@ C4603C_EntitySlotResolverFrameSelectorHelpers_L603C:
     ldx $10
     txa
     plx
-    cmp $2CD6,X
+    cmp !LiveEntityPoseDescriptorTable,X
     bne C4604B_EntitySlotResolverFrameSelectorHelpers_L604B
     lda $0E
     bra C46058_EntitySlotResolverFrameSelectorHelpers_L6058
@@ -21380,9 +21637,9 @@ C4604B_EntitySlotResolverFrameSelectorHelpers_L604B:
     inc A
     sta $0E
 C46050_EntitySlotResolverFrameSelectorHelpers_L6050:
-    cmp.w #$001E
+    cmp.w #!EntitySlotScanCount
     bcc C4603C_EntitySlotResolverFrameSelectorHelpers_L603C
-    lda.w #$FFFF
+    lda.w #!MissingEntitySlot
 C46058_EntitySlotResolverFrameSelectorHelpers_L6058:
     pld
     rtl
@@ -21405,7 +21662,7 @@ C4606E_EntitySlotResolverFrameSelectorHelpers_L606E:
     ldx $10
     txa
     plx
-    cmp $2C9A,X
+    cmp !LiveEntityVisualTypeTable,X
     bne C4607D_EntitySlotResolverFrameSelectorHelpers_L607D
     lda $0E
     bra C4608A_EntitySlotResolverFrameSelectorHelpers_L608A
@@ -21414,9 +21671,9 @@ C4607D_EntitySlotResolverFrameSelectorHelpers_L607D:
     inc A
     sta $0E
 C46082_EntitySlotResolverFrameSelectorHelpers_L6082:
-    cmp.w #$001E
+    cmp.w #!EntitySlotScanCount
     bcc C4606E_EntitySlotResolverFrameSelectorHelpers_L606E
-    lda.w #$FFFF
+    lda.w #!MissingEntitySlot
 C4608A_EntitySlotResolverFrameSelectorHelpers_L608A:
     pld
     rtl
@@ -21432,9 +21689,9 @@ C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode:
     sta $0E
     rep #$20
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #!RegistryAllCode
     bne C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9
-    lda $9889
+    lda !PlayerSlotIndex
     bra C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC
 C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9:
     ldx.w #$0000
@@ -21442,21 +21699,21 @@ C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9:
 C460AE_EntitySlotResolverFrameSelectorHelpers_L60AE:
     sep #$20
     lda $0E
-    cmp $988B,X
+    cmp !RegistryTypeCodeList,X
     bne C460C1_EntitySlotResolverFrameSelectorHelpers_L60C1
     rep #$20
     txa
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     bra C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC
 C460C1_EntitySlotResolverFrameSelectorHelpers_L60C1:
     inx
 C460C2_EntitySlotResolverFrameSelectorHelpers_L60C2:
-    cpx.w #$0006
+    cpx.w #!RegistryLookupCount
     bcc C460AE_EntitySlotResolverFrameSelectorHelpers_L60AE
     rep #$20
-    lda.w #$FFFF
+    lda.w #!MissingEntitySlot
 C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC:
     pld
     rtl
@@ -21473,28 +21730,28 @@ C460CE_RunVisualTypeEntityScriptWithCachedPose:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     sta $12
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46123_EntitySlotResolverFrameSelectorHelpers_L6123
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
-    lda $2AF6,X
-    sta $9E31
+    lda !LiveEntityWorldXTable,X
+    sta !NewEntityStagedX
+    lda !LiveEntityWorldYTable,X
+    sta !NewEntityStagedY
+    lda !LiveEntityFrameSelectorTable,X
+    sta !NewEntityStagedFacing
     ldy $14
-    cpy.w #$0006
+    cpy.w #!FixedEntityScriptSpecialSelector
     beq C4610E_EntitySlotResolverFrameSelectorHelpers_L610E
-    lda.w #$A209
+    lda.w #!FixedEntityScriptDefaultLow
     sta $0E
-    lda.w #$00C3
+    lda.w #!FixedEntityScriptBank
     sta $10
     bra C46118_EntitySlotResolverFrameSelectorHelpers_L6118
 C4610E_EntitySlotResolverFrameSelectorHelpers_L610E:
-    lda.w #$A204
+    lda.w #!FixedEntityScriptSpecialLow
     sta $0E
-    lda.w #$00C3
+    lda.w #!FixedEntityScriptBank
     sta $10
 C46118_EntitySlotResolverFrameSelectorHelpers_L6118:
     ldy $10
@@ -21518,28 +21775,28 @@ C46125_RunPoseDescriptorEntityScriptWithCachedPose:
     tax
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $12
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C4617A_EntitySlotResolverFrameSelectorHelpers_L617A
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
-    lda $2AF6,X
-    sta $9E31
+    lda !LiveEntityWorldXTable,X
+    sta !NewEntityStagedX
+    lda !LiveEntityWorldYTable,X
+    sta !NewEntityStagedY
+    lda !LiveEntityFrameSelectorTable,X
+    sta !NewEntityStagedFacing
     ldy $14
-    cpy.w #$0006
+    cpy.w #!FixedEntityScriptSpecialSelector
     beq C46165_EntitySlotResolverFrameSelectorHelpers_L6165
-    lda.w #$A209
+    lda.w #!FixedEntityScriptDefaultLow
     sta $0E
-    lda.w #$00C3
+    lda.w #!FixedEntityScriptBank
     sta $10
     bra C4616F_EntitySlotResolverFrameSelectorHelpers_L616F
 C46165_EntitySlotResolverFrameSelectorHelpers_L6165:
-    lda.w #$A204
+    lda.w #!FixedEntityScriptSpecialLow
     sta $0E
-    lda.w #$00C3
+    lda.w #!FixedEntityScriptBank
     sta $10
 C4616F_EntitySlotResolverFrameSelectorHelpers_L616F:
     ldy $10
@@ -21563,11 +21820,11 @@ C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     tax
-    cpx.w #$FFFF
+    cpx.w #!MissingEntitySlot
     beq C461CA_EntitySlotResolverFrameSelectorHelpers_L61CA
-    lda.w #$00D4
+    lda.w #!ScriptDispatchRecordTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!ScriptDispatchRecordTableBank
     sta $08
     ldy $10
     tya
@@ -21609,11 +21866,11 @@ C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4:
     tax
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     tax
-    cpx.w #$FFFF
+    cpx.w #!MissingEntitySlot
     beq C4621A_EntitySlotResolverFrameSelectorHelpers_L621A
-    lda.w #$00D4
+    lda.w #!ScriptDispatchRecordTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!ScriptDispatchRecordTableBank
     sta $08
     ldy $10
     tya
@@ -21651,9 +21908,9 @@ C4621C_ResolveEntitySlotBySelectorMode:
     tcd
     pla
     beq C46234_EntitySlotResolverFrameSelectorHelpers_L6234
-    cmp.w #$0001
+    cmp.w #!SelectorModeVisualType
     beq C46240_EntitySlotResolverFrameSelectorHelpers_L6240
-    cmp.w #$0002
+    cmp.w #!SelectorModePoseDescriptor
     beq C4624A_EntitySlotResolverFrameSelectorHelpers_L624A
     bra C46252_EntitySlotResolverFrameSelectorHelpers_L6252
 C46234_EntitySlotResolverFrameSelectorHelpers_L6234:
@@ -21708,22 +21965,22 @@ C46257_ComputeRoundedOctantBetweenResolvedEntities:
     txa
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy !LiveEntityWorldXTable,X
     lda $12
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     tax
     stx $10
     lda $12
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     ldx $10
     jsl !C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #!AngleOctantBias
     jsl !C0915B_DivideUnsignedWordByY
     pld
     rtl
@@ -21740,7 +21997,7 @@ C462AE_ComputeVisualTypeEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0001
+    lda.w #!SelectorModeVisualType
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
@@ -21757,7 +22014,7 @@ C462C9_ComputePoseDescriptorEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0002
+    lda.w #!SelectorModePoseDescriptor
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
@@ -21774,7 +22031,7 @@ C462E4_ComputeRegistryEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0000
+    lda.w #!SelectorModeRegistry
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
@@ -21790,11 +22047,11 @@ C462FF_UpdateEntityFrameSelectorByVisualTypeId:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C4632F_EntitySlotResolverFrameSelectorHelpers_L632F
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -21818,11 +22075,11 @@ C46331_UpdateEntityFrameSelectorByPoseDescriptorId:
     tax
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46361_EntitySlotResolverFrameSelectorHelpers_L6361
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -21847,11 +22104,11 @@ C46363_UpdateEntityFrameSelectorByRegistryTypeCode:
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46395_EntitySlotResolverFrameSelectorHelpers_L6395
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -21876,10 +22133,10 @@ C46397_BroadcastRegistryEntityFrameSelectorUpdate:
     sty $10
     bra C463E5_EntitySlotResolverFrameSelectorHelpers_L63E5
 C463AA_EntitySlotResolverFrameSelectorHelpers_L63AA:
-    lda $988B,Y
+    lda !RegistryTypeCodeList,Y
     and.w #$00FF
     sta $04
-    lda.w #$0010
+    lda.w #!RegistryBroadcastTypeCutoff
     clc
     sbc $04
     bvc C463BE_EntitySlotResolverFrameSelectorHelpers_L63BE
@@ -21891,11 +22148,11 @@ C463C0_EntitySlotResolverFrameSelectorHelpers_L63C0:
     tya
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     sta $0E
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -21909,7 +22166,7 @@ C463E0_EntitySlotResolverFrameSelectorHelpers_L63E0:
     iny
     sty $10
 C463E5_EntitySlotResolverFrameSelectorHelpers_L63E5:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $04
     tya
@@ -21927,20 +22184,20 @@ C463F4_MarkRegistryEntitySlotsFlag8000:
     pla
     sta $0E
     jsl !C07C5B_ResolveCurrentEntityOrPlayerSlot
-    stz $5D58
+    stz !PhotographerTempLatch
     lda $0E
-    cmp.w #$00FF
+    cmp.w #!RegistryAllCode
     beq C4642A_EntitySlotResolverFrameSelectorHelpers_L642A
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46458_EntitySlotResolverFrameSelectorHelpers_L6458
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #!EntityFlagSet8000Mask
     sta $0000,X
     bra C46458_EntitySlotResolverFrameSelectorHelpers_L6458
 C4642A_EntitySlotResolverFrameSelectorHelpers_L642A:
@@ -21950,19 +22207,19 @@ C4642A_EntitySlotResolverFrameSelectorHelpers_L642A:
 C46431_EntitySlotResolverFrameSelectorHelpers_L6431:
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #!EntityFlagSet8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C4644A_EntitySlotResolverFrameSelectorHelpers_L644A:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -21993,6 +22250,59 @@ org $C4645A
 !C4605A_FindEntitySlotByVisualTypeId = $C4605A
 !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
 !C46594_SetRegistrySlotFlagsC000 = $C46594
+!CurrentSlotIndex = $1A42
+!RegistryAllCode = $00FF
+!MissingEntitySlot = $FFFF
+!RegistryActiveCount = $98A3
+!RegistrySlotList = $9897
+!RegistryTypeCodeList = $988B
+!EntityFlagC000Table = $10B6
+!EntityFlag8000Table = $116A
+!RegistryAllLeadFlagC000Word = $10E4
+!EntityFlagSetC000Mask = $C000
+!EntityFlagClearC000Mask = $3FFF
+!EntityFlagSet8000Mask = $8000
+!EntityFlagClear8000Mask = $7FFF
+!VisualTypeRecordTableLo = $8985
+!VisualTypeRecordTableBank = $00CF
+!VisualTypeRecordCreateDescriptorOffset = $0001
+!VisualTypeRecordMovementScriptOffset = $0009
+!VisualTypeRecordByte03Offset = $0003
+!LongPointerBankOffset = $0002
+!NewEntityStagedX = $9E2D
+!NewEntityStagedY = $9E2F
+!NewEntityStagedFacing = $9E31
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!LiveEntityDrawYTable = $0B52
+!LiveEntityFrameSelectorTable = $2AF6
+!LiveEntityVisualTypeTable = $2C9A
+!LiveEntityPoseDescriptorTable = $2CD6
+!CreateEntityDefaultYArg = $FFFF
+!MovementPointerRecordType = $0008
+!SelectedModeSlot = $9E33
+!SelectedModeState = $98A5
+!SelectedModeLatch = $9885
+!SelectedModeActiveValue = $0002
+!PhotographerTempLatch = $5D58
+!PhotoSceneRecordIndex = $9E35
+!WanderingPhotographerTextPtrLow = $AB3F
+!WanderingPhotographerTextPtrBank = $00C7
+!LeadRegistryIndex = $0001
+!RegistrySkipTypeCode09 = $0009
+!RandomDelayMask = $001F
+!RandomDelayBase = $000C
+!ScreenHeightPixels = $0100
+!Pose016fDescriptorId = $016F
+!EntitySlotScanCount = $001E
+!InputStatePressedHeld = $006D
+!InputStateNewPress = $0065
+!PlayerWorldY = $987B
+!FallbackVisualTypeRecordByte03 = $0004
+!AngleOctantUnit = $2000
+!AngleOctantBias = $1000
+!TrueValue = $0001
+!FalseValue = $0000
 C4645A_ClearRegistryEntitySlotsFlag8000:
     rep #$31
     phd
@@ -22001,18 +22311,18 @@ C4645A_ClearRegistryEntitySlotsFlag8000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #!RegistryAllCode
     beq C46485_EntityVisualFlagCurrentSlotWrappers_L6485
     sep #$20
     jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #!EntityFlagClear8000Mask
     sta $0000,X
     bra C464B3_EntityVisualFlagCurrentSlotWrappers_L64B3
 C46485_EntityVisualFlagCurrentSlotWrappers_L6485:
@@ -22022,19 +22332,19 @@ C46485_EntityVisualFlagCurrentSlotWrappers_L6485:
 C4648C_EntityVisualFlagCurrentSlotWrappers_L648C:
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #!EntityFlagClear8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C464A5_EntityVisualFlagCurrentSlotWrappers_L64A5:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -22053,9 +22363,9 @@ CREATE_PREPARED_ENTITY_NPC:
     tcd
     pla
     sta $02
-    lda.w #$8985
+    lda.w #!VisualTypeRecordTableLo
     sta $06
-    lda.w #$00CF
+    lda.w #!VisualTypeRecordTableBank
     sta $08
     lda $02
     sta $04
@@ -22067,23 +22377,23 @@ CREATE_PREPARED_ENTITY_NPC:
     clc
     adc $06
     sta $06
-    lda $9E2D
+    lda !NewEntityStagedX
     sta $0E
-    lda $9E2F
+    lda !NewEntityStagedY
     sta $10
-    ldy.w #$FFFF
+    ldy.w #!CreateEntityDefaultYArg
     sty $14
-    ldy.w #$0001
+    ldy.w #!VisualTypeRecordCreateDescriptorOffset
     lda [$06],Y
     ldy $14
     jsl !C01E49_CreateEntityFromDescriptor
     sta $12
     asl A
     tax
-    lda $9E31
-    sta $2AF6,X
+    lda !NewEntityStagedFacing
+    sta !LiveEntityFrameSelectorTable,X
     lda $02
-    sta $2C9A,X
+    sta !LiveEntityVisualTypeTable,X
     lda $12
     pld
     rtl
@@ -22097,18 +22407,18 @@ CREATE_PREPARED_ENTITY_SPRITE:
     tcd
     pla
     sta $14
-    lda $9E2D
+    lda !NewEntityStagedX
     sta $0E
-    lda $9E2F
+    lda !NewEntityStagedY
     sta $10
-    ldy.w #$FFFF
+    ldy.w #!CreateEntityDefaultYArg
     lda $14
     jsl !C01E49_CreateEntityFromDescriptor
     sta $12
     asl A
     tax
-    lda $9E31
-    sta $2AF6,X
+    lda !NewEntityStagedFacing
+    sta !LiveEntityFrameSelectorTable,X
     lda $12
     pld
     rtl
@@ -22122,14 +22432,14 @@ C46534_SpawnEntityAtCurrentSlotAnchor:
     pla
     stx $02
     sta $12
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     sta $0E
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sta $10
-    ldy.w #$FFFF
+    ldy.w #!CreateEntityDefaultYArg
     ldx $02
     lda $12
     jsl !C01E49_CreateEntityFromDescriptor
@@ -22138,28 +22448,28 @@ C46534_SpawnEntityAtCurrentSlotAnchor:
 C4655E_SetVisualTypeSlotFlagsC000:
     rep #$31
     jsl !C4605A_FindEntitySlotByVisualTypeId
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46578_EntityVisualFlagCurrentSlotWrappers_L6578
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
 C46578_EntityVisualFlagCurrentSlotWrappers_L6578:
     rtl
 C46579_SetPoseDescriptorSlotFlagsC000:
     rep #$31
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46593_EntityVisualFlagCurrentSlotWrappers_L6593
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
 C46593_EntityVisualFlagCurrentSlotWrappers_L6593:
     rtl
@@ -22171,24 +22481,24 @@ C46594_SetRegistrySlotFlagsC000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #!RegistryAllCode
     beq C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF
     sep #$20
     jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
     bra C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9
 C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF:
-    ldx.w #$10E4
+    ldx.w #!RegistryAllLeadFlagC000Word
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
     lda.w #$0000
     sta $0E
@@ -22196,19 +22506,19 @@ C465BF_EntityVisualFlagCurrentSlotWrappers_L65BF:
 C465D2_EntityVisualFlagCurrentSlotWrappers_L65D2:
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C465EB_EntityVisualFlagCurrentSlotWrappers_L65EB:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -22220,28 +22530,28 @@ C465F9_EntityVisualFlagCurrentSlotWrappers_L65F9:
 C465FB_ClearVisualTypeSlotFlagsC000:
     rep #$31
     jsl !C4605A_FindEntitySlotByVisualTypeId
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46615_EntityVisualFlagCurrentSlotWrappers_L6615
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
 C46615_EntityVisualFlagCurrentSlotWrappers_L6615:
     rtl
 C46616_ClearPoseDescriptorSlotFlagsC000:
     rep #$31
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46630_EntityVisualFlagCurrentSlotWrappers_L6630
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
 C46630_EntityVisualFlagCurrentSlotWrappers_L6630:
     rtl
@@ -22253,24 +22563,24 @@ C46631_ClearRegistrySlotFlagsC000:
     adc.w #$FFF0
     tcd
     pla
-    cmp.w #$00FF
+    cmp.w #!RegistryAllCode
     beq C4665C_EntityVisualFlagCurrentSlotWrappers_L665C
     sep #$20
     jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46696_EntityVisualFlagCurrentSlotWrappers_L6696
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
     bra C46696_EntityVisualFlagCurrentSlotWrappers_L6696
 C4665C_EntityVisualFlagCurrentSlotWrappers_L665C:
-    ldx.w #$10E4
+    ldx.w #!RegistryAllLeadFlagC000Word
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
     lda.w #$0000
     sta $0E
@@ -22278,19 +22588,19 @@ C4665C_EntityVisualFlagCurrentSlotWrappers_L665C:
 C4666F_EntityVisualFlagCurrentSlotWrappers_L666F:
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C46688_EntityVisualFlagCurrentSlotWrappers_L6688:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -22302,21 +22612,21 @@ C46696_EntityVisualFlagCurrentSlotWrappers_L6696:
 C46698_SelectModeSlotByVisualTypeId:
     rep #$31
     jsl !C4605A_FindEntitySlotByVisualTypeId
-    sta $9E33
-    lda.w #$0002
-    sta $98A5
+    sta !SelectedModeSlot
+    lda.w #!SelectedModeActiveValue
+    sta !SelectedModeState
     rtl
 C466A8_SelectModeSlotByPoseDescriptorId:
     rep #$31
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
-    sta $9E33
-    lda.w #$0002
-    sta $98A5
+    sta !SelectedModeSlot
+    lda.w #!SelectedModeActiveValue
+    sta !SelectedModeState
     rtl
 C466B8_ClearSelectedModeSlot:
     rep #$31
-    stz $9885
-    stz $98A5
+    stz !SelectedModeLatch
+    stz !SelectedModeState
     rtl
 C466C1_RunWanderingPhotographerScriptForPhotoIndex:
     rep #$31
@@ -22328,13 +22638,13 @@ C466C1_RunWanderingPhotographerScriptForPhotoIndex:
     pla
     sta $12
     jsl !C07C5B_ResolveCurrentEntityOrPlayerSlot
-    stz $5D58
+    stz !PhotographerTempLatch
     lda $12
     dec A
-    sta $9E35
-    lda.w #$AB3F
+    sta !PhotoSceneRecordIndex
+    lda.w #!WanderingPhotographerTextPtrLow
     sta $0E
-    lda.w #$00C7
+    lda.w #!WanderingPhotographerTextPtrBank
     sta $10
     jsl !C186B1_ExecuteNestedTextPointer
     lda $12
@@ -22367,33 +22677,33 @@ C46712_SetLeadAndCompanionRegistryVisualFlags:
     tdc
     adc.w #$FFF0
     tcd
-    lda $9897
+    lda !RegistrySlotList
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    ora.w #$C000
+    ora.w #!EntityFlagSetC000Mask
     sta $0000,X
-    lda.w #$0001
+    lda.w #!LeadRegistryIndex
     sta $0E
     bra C4674C_EntityVisualFlagCurrentSlotWrappers_L674C
 C46733_EntityVisualFlagCurrentSlotWrappers_L6733:
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #!EntityFlagSet8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C4674C_EntityVisualFlagCurrentSlotWrappers_L674C:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -22407,40 +22717,40 @@ C4675C_ClearLeadAndCompanionRegistryVisualFlags:
     tdc
     adc.w #$FFF0
     tcd
-    lda $9897
+    lda !RegistrySlotList
     asl A
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
-    lda.w #$0001
+    lda.w #!LeadRegistryIndex
     sta $0E
     bra C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4
 C4677D_EntityVisualFlagCurrentSlotWrappers_L677D:
     tax
-    lda $988B,X
+    lda !RegistryTypeCodeList,X
     and.w #$00FF
-    cmp.w #$0009
+    cmp.w #!RegistrySkipTypeCode09
     beq C4679F_EntityVisualFlagCurrentSlotWrappers_L679F
     lda $0E
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #!EntityFlag8000Table
     tax
     lda $0000,X
-    and.w #$7FFF
+    and.w #!EntityFlagClear8000Mask
     sta $0000,X
 C4679F_EntityVisualFlagCurrentSlotWrappers_L679F:
     lda $0E
     inc A
     sta $0E
 C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4:
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E
@@ -22451,9 +22761,9 @@ C467A4_EntityVisualFlagCurrentSlotWrappers_L67A4:
 C467B4_RandomDelay0cTo2b:
     rep #$31
     jsl !C08E9A_GetRandom16
-    and.w #$001F
+    and.w #!RandomDelayMask
     clc
-    adc.w #$000C
+    adc.w #!RandomDelayBase
     rtl
 C467C2_RandomDelayBiasedByCurrentDrawY:
     rep #$31
@@ -22462,14 +22772,14 @@ C467C2_RandomDelayBiasedByCurrentDrawY:
     adc.w #$FFF2
     tcd
     jsl !C08E9A_GetRandom16
-    and.w #$001F
+    and.w #!RandomDelayMask
     sta $02
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda.w #$0100
+    lda.w #!ScreenHeightPixels
     sec
-    sbc $0B52,X
+    sbc !LiveEntityDrawYTable,X
     lsr A
     lsr A
     clc
@@ -22488,22 +22798,22 @@ C467E6_ClearFlagsForPose016fEntities:
 C467F5_EntityVisualFlagCurrentSlotWrappers_L67F5:
     asl A
     tax
-    lda $2CD6,X
-    cmp.w #$016F
+    lda !LiveEntityPoseDescriptorTable,X
+    cmp.w #!Pose016fDescriptorId
     bne C4680E_EntityVisualFlagCurrentSlotWrappers_L680E
     txa
     clc
-    adc.w #$10B6
+    adc.w #!EntityFlagC000Table
     tax
     lda $0000,X
-    and.w #$3FFF
+    and.w #!EntityFlagClearC000Mask
     sta $0000,X
 C4680E_EntityVisualFlagCurrentSlotWrappers_L680E:
     lda $0E
     inc A
     sta $0E
 C46813_EntityVisualFlagCurrentSlotWrappers_L6813:
-    cmp.w #$001E
+    cmp.w #!EntitySlotScanCount
     bcc C467F5_EntityVisualFlagCurrentSlotWrappers_L67F5
     pld
     rtl
@@ -22513,16 +22823,16 @@ C4681A_QueueCurrentVisualTypeMovementScript:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $2C9A,X
+    lda !LiveEntityVisualTypeTable,X
     sta $12
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C4687F_EntityVisualFlagCurrentSlotWrappers_L687F
-    lda.w #$8985
+    lda.w #!VisualTypeRecordTableLo
     sta $0A
-    lda.w #$00CF
+    lda.w #!VisualTypeRecordTableBank
     sta $0C
     lda $12
     sta $04
@@ -22532,11 +22842,11 @@ C4681A_QueueCurrentVisualTypeMovementScript:
     asl A
     adc $04
     clc
-    adc.w #$0009
+    adc.w #!VisualTypeRecordMovementScriptOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!LongPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -22557,7 +22867,7 @@ C4686E_EntityVisualFlagCurrentSlotWrappers_L686E:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #!MovementPointerRecordType
     jsl !C064E3_QueueMovementScript
 C4687F_EntityVisualFlagCurrentSlotWrappers_L687F:
     pld
@@ -22572,23 +22882,23 @@ C46881_SetAllRegistryFlagsAndQueueCallerMovement:
     sta $06
     lda $22
     sta $08
-    lda.w #$00FF
+    lda.w #!RegistryAllCode
     jsl !C46594_SetRegistrySlotFlagsC000
     lda $06
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #!MovementPointerRecordType
     jsl !C064E3_QueueMovementScript
     pld
     rtl
 C468A9_ReadInputState006d:
     rep #$31
-    lda $006D
+    lda !InputStatePressedHeld
     rtl
 C468AF_ReadInputState0065:
     rep #$31
-    lda $0065
+    lda !InputStateNewPress
     rtl
 C468B5_TestValueLeftOfCurrentAnchorX:
     rep #$31
@@ -22599,15 +22909,15 @@ C468B5_TestValueLeftOfCurrentAnchorX:
     tcd
     pla
     sta $10
-    ldx.w #$0000
+    ldx.w #!FalseValue
     stx $0E
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
     lda $10
-    cmp $0B8E,X
+    cmp !LiveEntityWorldXTable,X
     bcs C468D7_EntityVisualFlagCurrentSlotWrappers_L68D7
-    ldx.w #$0001
+    ldx.w #!TrueValue
     stx $0E
 C468D7_EntityVisualFlagCurrentSlotWrappers_L68D7:
     ldx $0E
@@ -22623,15 +22933,15 @@ C468DC_TestValueAboveCurrentAnchorY:
     tcd
     pla
     sta $10
-    ldx.w #$0000
+    ldx.w #!FalseValue
     stx $0E
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
     lda $10
-    cmp $0BCA,X
+    cmp !LiveEntityWorldYTable,X
     bcs C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE
-    ldx.w #$0001
+    ldx.w #!TrueValue
     stx $0E
 C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE:
     ldx $0E
@@ -22640,11 +22950,11 @@ C468FE_EntityVisualFlagCurrentSlotWrappers_L68FE:
     rtl
 C46903_TestValueBelowPlayerY:
     rep #$31
-    ldx.w #$0000
-    cmp $987B
+    ldx.w #!FalseValue
+    cmp !PlayerWorldY
     bcc C46912_EntityVisualFlagCurrentSlotWrappers_L6912
     beq C46912_EntityVisualFlagCurrentSlotWrappers_L6912
-    ldx.w #$0001
+    ldx.w #!TrueValue
 C46912_EntityVisualFlagCurrentSlotWrappers_L6912:
     txa
     rtl
@@ -22654,19 +22964,19 @@ C46914_GetCurrentVisualTypeRecordByte03:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $2C9A,X
+    lda !LiveEntityVisualTypeTable,X
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     bne C46930_EntityVisualFlagCurrentSlotWrappers_L6930
-    lda.w #$0004
+    lda.w #!FallbackVisualTypeRecordByte03
     bra C46955_EntityVisualFlagCurrentSlotWrappers_L6955
 C46930_EntityVisualFlagCurrentSlotWrappers_L6930:
-    lda.w #$8985
+    lda.w #!VisualTypeRecordTableLo
     sta $06
-    lda.w #$00CF
+    lda.w #!VisualTypeRecordTableBank
     sta $08
     lda $0E
     sta $04
@@ -22679,7 +22989,7 @@ C46930_EntityVisualFlagCurrentSlotWrappers_L6930:
     adc $06
     sta $06
     sep #$20
-    ldy.w #$0003
+    ldy.w #!VisualTypeRecordByte03Offset
     lda [$06],Y
     rep #$20
     and.w #$00FF
@@ -22695,11 +23005,11 @@ C46957_UpdateCurrentSlotFrameSelector:
     tcd
     pla
     sta $0E
-    ldy $1A42
+    ldy !CurrentSlotIndex
     tya
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $0E
     sta $02
@@ -22722,12 +23032,12 @@ C46984_FaceVisualTypeSlotTowardCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $10
     txa
     jsl !C4605A_FindEntitySlotByVisualTypeId
     sta $04
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C469EF_EntityVisualFlagCurrentSlotWrappers_L69EF
     lda $04
     asl A
@@ -22736,25 +23046,25 @@ C46984_FaceVisualTypeSlotTowardCurrentSlot:
     tya
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy !LiveEntityWorldXTable,X
     ldx $02
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     tax
     stx $10
     ldx $02
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     ldx $10
     jsl !C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #!AngleOctantBias
     jsl !C0915B_DivideUnsignedWordByY
     sta $10
     lda $02
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $10
     sta $02
@@ -22777,12 +23087,12 @@ C469F1_FacePoseDescriptorSlotTowardCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $10
     txa
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $04
-    cmp.w #$FFFF
+    cmp.w #!MissingEntitySlot
     beq C46A5C_EntityVisualFlagCurrentSlotWrappers_L6A5C
     lda $04
     asl A
@@ -22791,25 +23101,25 @@ C469F1_FacePoseDescriptorSlotTowardCurrentSlot:
     tya
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy !LiveEntityWorldXTable,X
     ldx $02
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     tax
     stx $10
     ldx $02
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     ldx $10
     jsl !C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #!AngleOctantBias
     jsl !C0915B_DivideUnsignedWordByY
     sta $10
     lda $02
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFrameSelectorTable
     tax
     lda $10
     sta $02
@@ -22843,11 +23153,28 @@ org $C46A5E
 !C46A7A_DirectionOctantToAltFacingQuadrantTable = $C46A7A
 !C46A8A_DirectionOctantToSpriteFacingQuadrantTable = $C46A8A
 !C46B41_RoundedAngleToWalkDirectionTable = $C46B41
+!PlayerDirectionFacing = $987F
+!CurrentSlotIndex = $1A42
+!PlayerWorldX = $9877
+!PlayerWorldY = $987B
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!CurrentSlotTargetXTable = $0FC6
+!CurrentSlotTargetYTable = $1002
+!CurrentSlotRoundedOctantCacheTable = $1A86
+!NewEntityStagedX = $9E2D
+!NewEntityStagedY = $9E2F
+!RegistryActiveCount = $98A3
+!RegistrySlotList = $9897
+!RegistryRecentSlotCode = $00FE
+!AngleOctantUnit = $2000
+!AngleOctantBias = $1000
+!OctantMask = $0007
 C46A5E_PlayerDirection987fTurnBiasTable:
     db $01,$00,$01,$00,$01,$00,$05,$00,$05,$00,$05,$00,$05,$00,$01,$00
 C46A6E_MapPlayerDirection987fToTurnBias:
     rep #$31
-    lda $987F
+    lda !PlayerDirectionFacing
     asl A
     tax
     lda !C46A5E_PlayerDirection987fTurnBiasTable,X
@@ -22874,22 +23201,22 @@ C46AAC_ComputeCurrentSlotSignDeltaTargetDirection:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     sta $12
     tax
-    lda $1002,X
+    lda !CurrentSlotTargetYTable,X
     sta $0E
     lda $12
     tax
-    ldy $0FC6,X
+    ldy !CurrentSlotTargetXTable,X
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     tax
     stx $10
     lda $12
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     ldx $10
     jsl GET_DIRECTION_TO
     pld
@@ -22900,22 +23227,22 @@ C46ADB_ComputeCurrentSlotTargetDirectionOctant:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     sta $12
     tax
-    lda $1002,X
+    lda !CurrentSlotTargetYTable,X
     sta $0E
     lda $12
     tax
-    ldy $0FC6,X
+    ldy !CurrentSlotTargetXTable,X
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     tax
     stx $10
     lda $12
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     ldx $10
     jsl !C41EFF_CalculateAngleBetweenPoints
     pld
@@ -22928,21 +23255,21 @@ C46B0A_RoundAngleToOctantAndCacheCurrentSlot:
     adc.w #$FFF0
     tcd
     pla
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #!AngleOctantBias
     jsl !C0915B_DivideUnsignedWordByY
     sta $0E
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
     lda $0E
-    sta $1A86,X
+    sta !CurrentSlotRoundedOctantCacheTable,X
     pld
     rtl
 C46B2D_FloorAngleToDirectionOctant:
     rep #$31
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     jsl !C09032_DivideUnsignedWordByIndex
     rtl
 C46B37_RotateDirectionOctantHalfTurn:
@@ -22951,15 +23278,15 @@ C46B37_RotateDirectionOctantHalfTurn:
     inc A
     inc A
     inc A
-    and.w #$0007
+    and.w #!OctantMask
     rtl
 C46B41_RoundedAngleToWalkDirectionTable:
     db $02,$00,$03,$00,$04,$00,$05,$00,$06,$00,$07,$00,$07,$00,$01,$00
 C46B51_RoundAngleToWalkDirectionStep:
     rep #$31
-    ldy.w #$2000
+    ldy.w #!AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #!AngleOctantBias
     jsl !C0915B_DivideUnsignedWordByY
     asl A
     tax
@@ -22967,23 +23294,23 @@ C46B51_RoundAngleToWalkDirectionStep:
     rtl
 C46B65_SetCurrentSlotTargetToPlayerPosition:
     rep #$31
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $9877
-    sta $0FC6,X
-    lda $987B
-    sta $1002,X
+    lda !PlayerWorldX
+    sta !CurrentSlotTargetXTable,X
+    lda !PlayerWorldY
+    sta !CurrentSlotTargetYTable,X
     rtl
 C46B79_SetCurrentSlotTargetTo9e2dPosition:
     rep #$31
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $9E2D
-    sta $0FC6,X
-    lda $9E2F
-    sta $1002,X
+    lda !NewEntityStagedX
+    sta !CurrentSlotTargetXTable,X
+    lda !NewEntityStagedY
+    sta !CurrentSlotTargetYTable,X
     rtl
 C46B8D_SetCurrentSlotTargetToVisualTypeSlotPosition:
     rep #$31
@@ -22994,7 +23321,7 @@ C46B8D_SetCurrentSlotTargetToVisualTypeSlotPosition:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $10
     txa
     jsl !C4605A_FindEntitySlotByVisualTypeId
@@ -23006,10 +23333,10 @@ C46B8D_SetCurrentSlotTargetToVisualTypeSlotPosition:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0FC6,Y
-    lda $0BCA,X
-    sta $1002,Y
+    lda !LiveEntityWorldXTable,X
+    sta !CurrentSlotTargetXTable,Y
+    lda !LiveEntityWorldYTable,X
+    sta !CurrentSlotTargetYTable,Y
     pld
     rtl
 C46BBB_SetCurrentSlotTargetToPoseDescriptorSlotPosition:
@@ -23021,7 +23348,7 @@ C46BBB_SetCurrentSlotTargetToPoseDescriptorSlotPosition:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $10
     txa
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
@@ -23033,10 +23360,10 @@ C46BBB_SetCurrentSlotTargetToPoseDescriptorSlotPosition:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0FC6,Y
-    lda $0BCA,X
-    sta $1002,Y
+    lda !LiveEntityWorldXTable,X
+    sta !CurrentSlotTargetXTable,Y
+    lda !LiveEntityWorldYTable,X
+    sta !CurrentSlotTargetYTable,Y
     pld
     rtl
 GET_POSITION_OF_PARTY_MEMBER:
@@ -23049,11 +23376,11 @@ GET_POSITION_OF_PARTY_MEMBER:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $12
-    cpx.w #$00FE
+    cpx.w #!RegistryRecentSlotCode
     bne C46C25_SetCurrentSlotTargetToRegistrySlotPosition_ResolveExplicitCode
-    lda $98A3
+    lda !RegistryActiveCount
     and.w #$00FF
     tax
     stx $10
@@ -23061,11 +23388,11 @@ GET_POSITION_OF_PARTY_MEMBER:
     dec A
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     sta $0E
     asl A
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     bne C46C2E_SetCurrentSlotTargetToRegistrySlotPosition_CopyPosition
     ldx $10
     txa
@@ -23073,7 +23400,7 @@ GET_POSITION_OF_PARTY_MEMBER:
     dec A
     asl A
     tax
-    lda $9897,X
+    lda !RegistrySlotList,X
     sta $0E
     bra C46C2E_SetCurrentSlotTargetToRegistrySlotPosition_CopyPosition
 C46C25_SetCurrentSlotTargetToRegistrySlotPosition_ResolveExplicitCode:
@@ -23089,10 +23416,10 @@ C46C2E_SetCurrentSlotTargetToRegistrySlotPosition_CopyPosition:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0FC6,Y
-    lda $0BCA,X
-    sta $1002,Y
+    lda !LiveEntityWorldXTable,X
+    sta !CurrentSlotTargetXTable,Y
+    lda !LiveEntityWorldYTable,X
+    sta !CurrentSlotTargetYTable,Y
     pld
     rtl
 
@@ -23107,18 +23434,31 @@ org $C46C45
 !C08E9A_GetRandom16 = $C08E9A
 !C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
 !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
+!CurrentSlotIndex = $1A42
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!CurrentSlotTargetXTable = $0FC6
+!CurrentSlotTargetYTable = $1002
+!CurrentSlotStagedXTable = $0E5E
+!CurrentSlotStagedYTable = $0E9A
+!CameraOriginX = $0031
+!CameraOriginY = $0033
+!CameraRelativeFlag0C7ETable = $0C7E
+!CameraRelativeFlag0C42Table = $0C42
+!CameraRelativeFlagValue = $8000
+!RandomCameraXOffset = $0070
 C46C45_SnapshotCurrentSlotAnchorToStagedPosition:
     rep #$31
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $0B8E,X
-    sta $0E5E,X
-    lda $1A42
+    lda !LiveEntityWorldXTable,X
+    sta !CurrentSlotStagedXTable,X
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $0BCA,X
-    sta $0E9A,X
+    lda !LiveEntityWorldYTable,X
+    sta !CurrentSlotStagedYTable,X
     rtl
 C46C5E_SetStagedPositionOffsetFromCurrentAnchor:
     rep #$31
@@ -23129,31 +23469,31 @@ C46C5E_SetStagedPositionOffsetFromCurrentAnchor:
     tcd
     pla
     sta $0E
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tay
     txa
     clc
-    adc $0B8E,Y
-    sta $0E5E,Y
-    lda $1A42
+    adc !LiveEntityWorldXTable,Y
+    sta !CurrentSlotStagedXTable,Y
+    lda !CurrentSlotIndex
     asl A
     tax
     lda $0E
     clc
-    adc $0BCA,X
-    sta $0E9A,X
+    adc !LiveEntityWorldYTable,X
+    sta !CurrentSlotStagedYTable,X
     pld
     rtl
 C46C87_RestoreCurrentSlotAnchorFromCachedTarget:
     rep #$31
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda $0FC6,X
-    sta $0B8E,X
-    lda $1002,X
-    sta $0BCA,X
+    lda !CurrentSlotTargetXTable,X
+    sta !LiveEntityWorldXTable,X
+    lda !CurrentSlotTargetYTable,X
+    sta !LiveEntityWorldYTable,X
     rtl
 C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
     rep #$31
@@ -23163,7 +23503,7 @@ C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
     adc.w #$FFEE
     tcd
     pla
-    ldx $1A42
+    ldx !CurrentSlotIndex
     stx $10
     jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     sta $0E
@@ -23174,10 +23514,10 @@ C46C9B_CopyRegistrySlotAnchorToCurrentSlot:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0B8E,Y
-    lda $0BCA,X
-    sta $0BCA,Y
+    lda !LiveEntityWorldXTable,X
+    sta !LiveEntityWorldXTable,Y
+    lda !LiveEntityWorldYTable,X
+    sta !LiveEntityWorldYTable,Y
     pld
     rtl
 C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
@@ -23189,7 +23529,7 @@ C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
     tcd
     pla
     tax
-    ldy $1A42
+    ldy !CurrentSlotIndex
     sty $10
     txa
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
@@ -23201,10 +23541,10 @@ C46CC7_CopyPoseDescriptorSlotAnchorToCurrentSlot:
     lda $0E
     asl A
     tax
-    lda $0B8E,X
-    sta $0B8E,Y
-    lda $0BCA,X
-    sta $0BCA,Y
+    lda !LiveEntityWorldXTable,X
+    sta !LiveEntityWorldXTable,Y
+    lda !LiveEntityWorldYTable,X
+    sta !LiveEntityWorldYTable,Y
     pld
     rtl
 C46CF5_SetCurrentSlotCameraRelativeAnchorWithFlags:
@@ -23217,20 +23557,20 @@ C46CF5_SetCurrentSlotCameraRelativeAnchorWithFlags:
     pla
     stx $02
     tay
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
     lda $02
     clc
-    adc $0031
-    sta $0B8E,X
+    adc !CameraOriginX
+    sta !LiveEntityWorldXTable,X
     tya
     clc
-    adc $0033
-    sta $0BCA,X
-    lda.w #$8000
-    sta $0C7E,X
-    sta $0C42,X
+    adc !CameraOriginY
+    sta !LiveEntityWorldYTable,X
+    lda.w #!CameraRelativeFlagValue
+    sta !CameraRelativeFlag0C7ETable,X
+    sta !CameraRelativeFlag0C42Table,X
     pld
     rtl
 C46D23_PlaceCurrentSlotAtRandomCameraXPlus70Y:
@@ -23239,19 +23579,19 @@ C46D23_PlaceCurrentSlotAtRandomCameraXPlus70Y:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda !CurrentSlotIndex
     asl A
     tax
     stx $0E
     jsl !C08E9A_GetRandom16
     clc
-    adc $0031
+    adc !CameraOriginX
     clc
-    adc.w #$0070
+    adc.w #!RandomCameraXOffset
     ldx $0E
-    sta $0B8E,X
-    lda $0033
-    sta $0BCA,X
+    sta !LiveEntityWorldXTable,X
+    lda !CameraOriginY
+    sta !LiveEntityWorldYTable,X
     pld
     rtl
 
@@ -23268,6 +23608,7 @@ org $C46EF8
 !C0923E_ShiftLeftByY = $C0923E
 !C09251_ShiftRightByY = $C09251
 !C0A48F_RefreshVisualProfileForSlot = $C0A48F
+!C0C83B_InstallMovementFromDirection = $C0C83B
 !C41FFF_ProjectAngleByMagnitude = $C41FFF
 !C46AA3_MapDirectionToSpriteFacingBucket = $C46AA3
 !C46AAC_ComputeSignDeltaDirectionToCachedTarget = $C46AAC
@@ -23276,24 +23617,65 @@ org $C46EF8
 !C46B37_RotateDirectionHalfTurn = $C46B37
 !C46B51_ConvertAngleToFacingDirection = $C46B51
 !C47044_ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!CurrentEntitySlotIndex = $1A42
+!PlayerWorldXSnapshot = $9877
+!PlayerWorldYSnapshot = $987B
+!MovementProximityGateFlag = $9F3F
+!ActiveOverworldRegistryCount = $98A3
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!LiveEntityVelocityXHighTable = $0CF6
+!LiveEntityVelocityXLowTable = $0DAA
+!LiveEntityVelocityYHighTable = $0D32
+!LiveEntityVelocityYLowTable = $0DE6
+!CurrentSlotAreaMinXTable = $0E5E
+!CurrentSlotAreaMaxXTable = $0E9A
+!CurrentSlotAreaMinYTable = $0ED6
+!CurrentSlotAreaMaxYTable = $0F12
+!CurrentSlotProximityXThresholdTable = $0ED6
+!CurrentSlotProximityYThresholdTable = $0F12
+!CurrentSlotAngleSourceTable = $0E5E
+!CachedTargetWorldXTable = $0FC6
+!CachedTargetWorldYTable = $1002
+!MovementArrivalToleranceTable = $0F8A
+!LiveEntityFacingDirectionTable = $2AF6
+!LiveEntityMovementMagnitudeTable = $2B32
+!CameraScreenOriginX = $0031
+!LandingProfileIndex = $436E
+!LandingProfileActionPointerTable = $EF101B
+!ActiveRegistryCountMask = $00FF
+!SignedWordInvertMask = $FFFF
+!SignByteShift = $0008
+!SignedHighBitMask = $8000
+!NegativeHighByteMask = $FF00
+!PositiveLowByteMask = $00FF
+!NegativeLowByteMask = $00FF
+!PositiveHighByteMask = $FF00
+!MovementArrivedValue = $0001
+!MovementStillActiveValue = $0000
+!AreaClassInside = $0000
+!AreaClassBelowMaxY = $0001
+!AreaClassLeftOfMinX = $0003
+!AreaClassAboveMinY = $0005
+!AreaClassRightOfMaxX = $0007
 C46EF8_CheckCurrentSlotWithinPlayerProximityThreshold:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda $9F3F
+    lda !MovementProximityGateFlag
     beq C46F0A_MovementTargetBoundsAndVectorRefreshHelpers_L6F0A
-    lda.w #$0000
+    lda.w #!MovementStillActiveValue
     bra C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A
 C46F0A_MovementTargetBoundsAndVectorRefreshHelpers_L6F0A:
-    ldy $1A42
+    ldy !CurrentEntitySlotIndex
     tya
     asl A
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     sec
-    sbc $9877
+    sbc !PlayerWorldXSnapshot
     sta $10
     sta $02
     lda.w #$0000
@@ -23306,7 +23688,7 @@ C46F27_MovementTargetBoundsAndVectorRefreshHelpers_L6F27:
     bmi C46F33_MovementTargetBoundsAndVectorRefreshHelpers_L6F33
 C46F29_MovementTargetBoundsAndVectorRefreshHelpers_L6F29:
     lda $10
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $0E
     bra C46F37_MovementTargetBoundsAndVectorRefreshHelpers_L6F37
@@ -23318,11 +23700,11 @@ C46F37_MovementTargetBoundsAndVectorRefreshHelpers_L6F37:
     asl A
     tax
     lda $0E
-    cmp $0ED6,X
+    cmp !CurrentSlotProximityXThresholdTable,X
     bcs C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sec
-    sbc $987B
+    sbc !PlayerWorldYSnapshot
     sta $10
     sta $02
     lda.w #$0000
@@ -23335,7 +23717,7 @@ C46F58_MovementTargetBoundsAndVectorRefreshHelpers_L6F58:
     bmi C46F64_MovementTargetBoundsAndVectorRefreshHelpers_L6F64
 C46F5A_MovementTargetBoundsAndVectorRefreshHelpers_L6F5A:
     lda $10
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $10
     bra C46F68_MovementTargetBoundsAndVectorRefreshHelpers_L6F68
@@ -23347,12 +23729,12 @@ C46F68_MovementTargetBoundsAndVectorRefreshHelpers_L6F68:
     asl A
     tax
     lda $10
-    cmp $0F12,X
+    cmp !CurrentSlotProximityYThresholdTable,X
     bcs C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77
-    lda.w #$0001
+    lda.w #!MovementArrivedValue
     bra C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A
 C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77:
-    lda.w #$0000
+    lda.w #!MovementStillActiveValue
 C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A:
     pld
     rtl
@@ -23362,12 +23744,12 @@ C46F7C_StepCurrentSlotTowardCachedTargetOrReportArrival:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0FC6,X
+    lda !CachedTargetWorldXTable,X
     sec
-    sbc $0B8E,X
+    sbc !LiveEntityWorldXTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -23380,7 +23762,7 @@ C46FA0_MovementTargetBoundsAndVectorRefreshHelpers_L6FA0:
     bmi C46FAC_MovementTargetBoundsAndVectorRefreshHelpers_L6FAC
 C46FA2_MovementTargetBoundsAndVectorRefreshHelpers_L6FA2:
     lda $12
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $10
     bra C46FB0_MovementTargetBoundsAndVectorRefreshHelpers_L6FB0
@@ -23388,15 +23770,15 @@ C46FAC_MovementTargetBoundsAndVectorRefreshHelpers_L6FAC:
     lda $12
     sta $10
 C46FB0_MovementTargetBoundsAndVectorRefreshHelpers_L6FB0:
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
     lda $10
-    cmp $0F8A,X
+    cmp !MovementArrivalToleranceTable,X
     bcs C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4
-    lda $1002,X
+    lda !CachedTargetWorldYTable,X
     sec
-    sbc $0BCA,X
+    sbc !LiveEntityWorldYTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -23409,7 +23791,7 @@ C46FD3_MovementTargetBoundsAndVectorRefreshHelpers_L6FD3:
     bmi C46FDF_MovementTargetBoundsAndVectorRefreshHelpers_L6FDF
 C46FD5_MovementTargetBoundsAndVectorRefreshHelpers_L6FD5:
     lda $12
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $0E
     bra C46FE3_MovementTargetBoundsAndVectorRefreshHelpers_L6FE3
@@ -23417,30 +23799,30 @@ C46FDF_MovementTargetBoundsAndVectorRefreshHelpers_L6FDF:
     lda $12
     sta $0E
 C46FE3_MovementTargetBoundsAndVectorRefreshHelpers_L6FE3:
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
     lda $0E
-    cmp $0F8A,X
+    cmp !MovementArrivalToleranceTable,X
     bcs C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4
-    lda.w #$0001
+    lda.w #!MovementArrivedValue
     bra C47042_MovementTargetBoundsAndVectorRefreshHelpers_L7042
 C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4:
     jsl !C46AAC_ComputeSignDeltaDirectionToCachedTarget
     tay
     sty $10
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
     tya
-    cmp $2AF6,X
+    cmp !LiveEntityFacingDirectionTable,X
     beq C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F
     tya
-    jsl $C0C83B
-    lda $1A42
+    jsl !C0C83B_InstallMovementFromDirection
+    lda !CurrentEntitySlotIndex
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFacingDirectionTable
     tax
     lda $0000,X
     sta $12
@@ -23459,10 +23841,10 @@ C46FF4_MovementTargetBoundsAndVectorRefreshHelpers_L6FF4:
     txa
     cmp $02
     beq C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     jsl !C0A48F_RefreshVisualProfileForSlot
 C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F:
-    lda.w #$0000
+    lda.w #!MovementStillActiveValue
 C47042_MovementTargetBoundsAndVectorRefreshHelpers_L7042:
     pld
     rtl
@@ -23475,12 +23857,12 @@ C47044_ProjectAngleIntoCurrentSlotVectorWords:
     tcd
     pla
     sta $04
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     sta $02
     asl A
     tay
     sty $16
-    lda $2B32,Y
+    lda !LiveEntityMovementMagnitudeTable,Y
     tax
     lda $04
     jsl !C41FFF_ProjectAngleByMagnitude
@@ -23489,46 +23871,46 @@ C47044_ProjectAngleIntoCurrentSlotVectorWords:
     lda $08
     sta $10
     sta $14
-    and.w #$8000
+    and.w #!SignedHighBitMask
     beq C4709C_MovementTargetBoundsAndVectorRefreshHelpers_L709C
     sep #$10
     ldy.b #$08
     lda $14
     jsl !C09251_ShiftRightByY
-    ora.w #$FF00
+    ora.w #!NegativeHighByteMask
     rep #$10
     ldy $16
-    sta $0CF6,Y
+    sta !LiveEntityVelocityXHighTable,Y
     sep #$10
     ldy.b #$08
     lda $14
     jsl !C0923E_ShiftLeftByY
-    ora.w #$00FF
+    ora.w #!NegativeLowByteMask
     rep #$10
     ldy $16
-    sta $0DAA,Y
+    sta !LiveEntityVelocityXLowTable,Y
     bra C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4
 C4709C_MovementTargetBoundsAndVectorRefreshHelpers_L709C:
     sep #$10
     ldy.b #$08
     lda $14
     jsl !C09251_ShiftRightByY
-    and.w #$00FF
+    and.w #!PositiveLowByteMask
     rep #$10
     ldy $16
-    sta $0CF6,Y
+    sta !LiveEntityVelocityXHighTable,Y
     sep #$10
     ldy.b #$08
     lda $14
     jsl !C0923E_ShiftLeftByY
-    and.w #$FF00
+    and.w #!PositiveHighByteMask
     rep #$10
     ldy $16
-    sta $0DAA,Y
+    sta !LiveEntityVelocityXLowTable,Y
 C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     lda $0E
     sta $14
-    and.w #$8000
+    and.w #!SignedHighBitMask
     beq C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107
     lda $02
     asl A
@@ -23541,10 +23923,10 @@ C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     rep #$20
     lda $14
     jsl !C09251_ShiftRightByY
-    ora.w #$FF00
+    ora.w #!NegativeHighByteMask
     rep #$10
     ldx $12
-    sta $0D32,X
+    sta !LiveEntityVelocityYHighTable,X
     sep #$20
     lda.b #$08
     sep #$10
@@ -23552,10 +23934,10 @@ C470C4_MovementTargetBoundsAndVectorRefreshHelpers_L70C4:
     rep #$20
     lda $14
     jsl !C0923E_ShiftLeftByY
-    ora.w #$00FF
+    ora.w #!NegativeLowByteMask
     rep #$10
     ldx $12
-    sta $0DE6,X
+    sta !LiveEntityVelocityYLowTable,X
     bra C4713F_MovementTargetBoundsAndVectorRefreshHelpers_L713F
 C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     lda $02
@@ -23569,10 +23951,10 @@ C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     rep #$20
     lda $14
     jsl !C09251_ShiftRightByY
-    and.w #$00FF
+    and.w #!PositiveLowByteMask
     rep #$10
     ldx $12
-    sta $0D32,X
+    sta !LiveEntityVelocityYHighTable,X
     sep #$20
     lda.b #$08
     sep #$10
@@ -23580,10 +23962,10 @@ C47107_MovementTargetBoundsAndVectorRefreshHelpers_L7107:
     rep #$20
     lda $14
     jsl !C0923E_ShiftLeftByY
-    and.w #$FF00
+    and.w #!PositiveHighByteMask
     rep #$10
     ldx $12
-    sta $0DE6,X
+    sta !LiveEntityVelocityYLowTable,X
 C4713F_MovementTargetBoundsAndVectorRefreshHelpers_L713F:
     lda $04
     pld
@@ -23599,15 +23981,15 @@ C47143_StepCurrentSlotTargetVectorByAngleModes:
     txy
     sty $16
     sta $04
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     sta $02
     sta $14
     lda $02
     asl A
     tax
-    lda $0FC6,X
+    lda !CachedTargetWorldXTable,X
     sec
-    sbc $0B8E,X
+    sbc !LiveEntityWorldXTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -23620,7 +24002,7 @@ C47174_MovementTargetBoundsAndVectorRefreshHelpers_L7174:
     bmi C47180_MovementTargetBoundsAndVectorRefreshHelpers_L7180
 C47176_MovementTargetBoundsAndVectorRefreshHelpers_L7176:
     lda $12
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $12
     bra C47184_MovementTargetBoundsAndVectorRefreshHelpers_L7184
@@ -23633,11 +24015,11 @@ C47184_MovementTargetBoundsAndVectorRefreshHelpers_L7184:
     asl A
     tax
     lda $12
-    cmp $0F8A,X
+    cmp !MovementArrivalToleranceTable,X
     bcs C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA
-    lda $1002,X
+    lda !CachedTargetWorldYTable,X
     sec
-    sbc $0BCA,X
+    sbc !LiveEntityWorldYTable,X
     sta $12
     sta $02
     lda.w #$0000
@@ -23650,7 +24032,7 @@ C471A8_MovementTargetBoundsAndVectorRefreshHelpers_L71A8:
     bmi C471B4_MovementTargetBoundsAndVectorRefreshHelpers_L71B4
 C471AA_MovementTargetBoundsAndVectorRefreshHelpers_L71AA:
     lda $12
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     sta $12
     bra C471B8_MovementTargetBoundsAndVectorRefreshHelpers_L71B8
@@ -23663,9 +24045,9 @@ C471B8_MovementTargetBoundsAndVectorRefreshHelpers_L71B8:
     asl A
     tax
     lda $12
-    cmp $0F8A,X
+    cmp !MovementArrivalToleranceTable,X
     bcs C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA
-    lda.w #$0001
+    lda.w #!MovementArrivedValue
     bra C47223_MovementTargetBoundsAndVectorRefreshHelpers_L7223
 C471CA_MovementTargetBoundsAndVectorRefreshHelpers_L71CA:
     jsl !C46ADB_ComputeAngleToCachedTarget
@@ -23690,7 +24072,7 @@ C471F0_MovementTargetBoundsAndVectorRefreshHelpers_L71F0:
     lda $02
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFacingDirectionTable
     tay
     lda $0000,Y
     sta $0E
@@ -23711,7 +24093,7 @@ C471F0_MovementTargetBoundsAndVectorRefreshHelpers_L71F0:
     lda $02
     jsl !C0A48F_RefreshVisualProfileForSlot
 C47220_MovementTargetBoundsAndVectorRefreshHelpers_L7220:
-    lda.w #$0000
+    lda.w #!MovementStillActiveValue
 C47223_MovementTargetBoundsAndVectorRefreshHelpers_L7223:
     pld
     rtl
@@ -23725,66 +24107,66 @@ C47225_SetCurrentSlotAreaBoundsFromRadii:
     pla
     stx $02
     sta $04
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tay
     clc
-    adc.w #$0B8E
+    adc.w #!LiveEntityWorldXTable
     tax
     lda $0000,X
     sec
     sbc $02
-    sta $0E5E,Y
+    sta !CurrentSlotAreaMinXTable,Y
     lda $0000,X
     clc
     adc $02
-    sta $0E9A,Y
+    sta !CurrentSlotAreaMaxXTable,Y
     tya
     clc
-    adc.w #$0BCA
+    adc.w #!LiveEntityWorldYTable
     tax
     lda $0000,X
     sec
     sbc $04
-    sta $0ED6,Y
+    sta !CurrentSlotAreaMinYTable,Y
     lda $0000,X
     clc
     adc $04
-    sta $0F12,Y
+    sta !CurrentSlotAreaMaxYTable,Y
     pld
     rtl
 C47269_ClassifyCurrentSlotAgainstAreaBounds:
     rep #$31
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
-    ldy $0BCA,X
-    cmp $0E5E,X
+    lda !LiveEntityWorldXTable,X
+    ldy !LiveEntityWorldYTable,X
+    cmp !CurrentSlotAreaMinXTable,X
     bcs C47280_MovementTargetBoundsAndVectorRefreshHelpers_L7280
-    lda.w #$0003
+    lda.w #!AreaClassLeftOfMinX
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C47280_MovementTargetBoundsAndVectorRefreshHelpers_L7280:
-    cmp $0E9A,X
+    cmp !CurrentSlotAreaMaxXTable,X
     bcc C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C
     beq C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C
-    lda.w #$0007
+    lda.w #!AreaClassRightOfMaxX
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C4728C_MovementTargetBoundsAndVectorRefreshHelpers_L728C:
     tya
-    cmp $0ED6,X
+    cmp !CurrentSlotAreaMinYTable,X
     bcs C47297_MovementTargetBoundsAndVectorRefreshHelpers_L7297
-    lda.w #$0005
+    lda.w #!AreaClassAboveMinY
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C47297_MovementTargetBoundsAndVectorRefreshHelpers_L7297:
     tya
-    cmp $0F12,X
+    cmp !CurrentSlotAreaMaxYTable,X
     bcc C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4
     beq C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4
-    lda.w #$0001
+    lda.w #!AreaClassBelowMaxY
     bra C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7
 C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4:
-    lda.w #$0000
+    lda.w #!AreaClassInside
 C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7:
     rtl
 C472A8_ProjectSlot0e5eAngleAndRefreshFacing:
@@ -23797,11 +24179,11 @@ C472A8_ProjectSlot0e5eAngleAndRefreshFacing:
     pla
     tax
     stx $12
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     sta $02
     asl A
     tax
-    ldy $0E5E,X
+    ldy !CurrentSlotAngleSourceTable,X
     sty $10
     tya
     jsl !C47044_ProjectAngleIntoCurrentSlotVectorWords
@@ -23820,7 +24202,7 @@ C472DC_MovementTargetBoundsAndVectorRefreshHelpers_L72DC:
     lda $02
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #!LiveEntityFacingDirectionTable
     tax
     lda $0000,X
     sta $0E
@@ -23849,14 +24231,14 @@ C4730E_HalveCurrentSlot0d32PreserveSign:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     clc
-    adc.w #$0D32
+    adc.w #!LiveEntityVelocityYHighTable
     tax
     lda $0000,X
     sta $0E
-    and.w #$8000
+    and.w #!SignedHighBitMask
     sta $02
     lda $0E
     lsr A
@@ -23866,15 +24248,15 @@ C4730E_HalveCurrentSlot0d32PreserveSign:
     rtl
 C47333_ReadActiveOverworldRegistryCount:
     rep #$31
-    lda $98A3
-    and.w #$00FF
+    lda !ActiveOverworldRegistryCount
+    and.w #!ActiveRegistryCountMask
     rtl
 C4733C_DispatchCurrentLandingProfileAction:
     rep #$31
-    lda $436E
+    lda !LandingProfileIndex
     asl A
     tax
-    lda $EF101B,X
+    lda !LandingProfileActionPointerTable,X
     jsl !C006F2_DispatchLandingProfileAction
     rtl
 C4734C_RefreshMapStripForIndexPreserveA:
@@ -23888,7 +24270,7 @@ C4734C_RefreshMapStripForIndexPreserveA:
     tay
     sty $0E
     tyx
-    lda $0031
+    lda.w !CameraScreenOriginX
     lsr A
     lsr A
     lsr A
@@ -23908,26 +24290,57 @@ org $C46D4B
 
 !C064E3_QueueDeferredPointerRecord = $C064E3
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!CurrentSlotIndex = $1A42
+!PlayerSlotIndex = $9889
+!PhotoSceneRecordIndex = $9E35
+!PhotographerCfgTableLo = $2F8A
+!PhotographerCfgTableBank = $00E1
+!PhotographerCfgRecordStride = $003E
+!PhotographerCfgSceneXCellOffset = $000A
+!PhotographerCfgSceneYCellOffset = $000C
+!TeleportDestinationTableLo = $EBAB
+!TeleportDestinationTableBank = $00D5
+!TeleportDestinationRecordStride = $0008
+!TeleportDestinationYCellOffset = $0002
+!TeleportDestinationFacingOffset = $0004
+!NewEntityStagedX = $9E2D
+!NewEntityStagedY = $9E2F
+!NewEntityStagedFacing = $9E31
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!LiveEntityFlag0C42Table = $0C42
+!LiveEntityFlag0C7ETable = $0C7E
+!YieldToTextLatch = $9641
+!YieldToTextReadyValue = $0001
+!DeferredTextPointerRecordType = $0008
+!PresentationBusyFlag = $9F3F
+!PlayerWorldX = $9877
+!PlayerWorldY = $987B
+!CurrentSlotStagedXTable = $0E5E
+!CurrentSlotStagedYTable = $0E9A
+!CurrentSlotProximityXTable = $0ED6
+!CurrentSlotProximityYTable = $0F12
+!PositionInsideThresholdValue = $0001
 C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    ldy $9E35
-    lda $1A42
+    ldy !PhotoSceneRecordIndex
+    lda !CurrentSlotIndex
     asl A
     tax
-    lda.w #$2F8A
+    lda.w #!PhotographerCfgTableLo
     sta $06
-    lda.w #$00E1
+    lda.w #!PhotographerCfgTableBank
     sta $08
     tya
-    ldy.w #$003E
+    ldy.w #!PhotographerCfgRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     sta $0E
     clc
-    adc.w #$000A
+    adc.w #!PhotographerCfgSceneXCellOffset
     ldy $06
     sty $0A
     ldy $08
@@ -23939,10 +24352,10 @@ C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     asl A
     asl A
     asl A
-    sta $0B8E,X
+    sta !LiveEntityWorldXTable,X
     lda $0E
     clc
-    adc.w #$000C
+    adc.w #!PhotographerCfgSceneYCellOffset
     clc
     adc $06
     sta $06
@@ -23950,15 +24363,15 @@ C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     asl A
     asl A
     asl A
-    sta $0BCA,X
-    lda $1A42
+    sta !LiveEntityWorldYTable,X
+    lda !CurrentSlotIndex
     asl A
     tax
-    stz $0C7E,X
-    lda $1A42
+    stz !LiveEntityFlag0C7ETable,X
+    lda !CurrentSlotIndex
     asl A
     tax
-    stz $0C42,X
+    stz !LiveEntityFlag0C42Table,X
     pld
     rtl
 PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION:
@@ -23975,23 +24388,23 @@ PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION:
     beq C46DC7_PhotoAndNewEntityPreparationHelpers_L6DC7
     bra C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC
 C46DC0_PhotoAndNewEntityPreparationHelpers_L6DC0:
-    ldx $1A42
+    ldx !CurrentSlotIndex
     stx $0E
     bra C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC
 C46DC7_PhotoAndNewEntityPreparationHelpers_L6DC7:
-    ldx $9889
+    ldx !PlayerSlotIndex
     stx $0E
 C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC:
     ldx $0E
     txa
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
+    lda !LiveEntityWorldXTable,X
+    sta !NewEntityStagedX
+    lda !LiveEntityWorldYTable,X
+    sta !NewEntityStagedY
     lda $2AF6,X
-    sta $9E31
+    sta !NewEntityStagedFacing
     pld
     rtl
 PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
@@ -24006,9 +24419,9 @@ PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
     sep #$20
     sta $0E
     rep #$20
-    lda.w #$EBAB
+    lda.w #!TeleportDestinationTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!TeleportDestinationTableBank
     sta $08
     lda $0E
     and.w #$00FF
@@ -24025,34 +24438,34 @@ PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
     asl A
     asl A
     asl A
-    sta $9E2D
-    ldy.w #$0002
+    sta !NewEntityStagedX
+    ldy.w #!TeleportDestinationYCellOffset
     lda [$06],Y
     asl A
     asl A
     asl A
-    sta $9E2F
+    sta !NewEntityStagedY
     sep #$20
-    ldy.w #$0004
+    ldy.w #!TeleportDestinationFacingOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
     dec A
-    sta $9E31
+    sta !NewEntityStagedFacing
     pld
     rtl
 PREPARE_NEW_ENTITY:
 !C46E37_StageNewEntityFromExplicitPositionAndFacing = PREPARE_NEW_ENTITY
     rep #$31
-    stx $9E2D
-    sty $9E2F
+    stx !NewEntityStagedX
+    sty !NewEntityStagedY
     and.w #$00FF
-    sta $9E31
+    sta !NewEntityStagedFacing
     rtl
 C46E46_SetYieldToTextLatch9641:
     rep #$31
-    lda.w #$0001
-    sta $9641
+    lda.w #!YieldToTextReadyValue
+    sta !YieldToTextLatch
     rtl
 C46E4F_QueueEventTextPointerRecord8:
     rep #$31
@@ -24071,7 +24484,7 @@ C46E4F_QueueEventTextPointerRecord8:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #!DeferredTextPointerRecordType
     jsl !C064E3_QueueDeferredPointerRecord
     pld
     rtl
@@ -24082,18 +24495,18 @@ TEST_PLAYER_IN_AREA:
     tdc
     adc.w #$FFEE
     tcd
-    lda $9F3F
+    lda !PresentationBusyFlag
     beq C46E86_PhotoAndNewEntityPreparationHelpers_L6E86
     lda.w #$0000
     bra C46EF6_PhotoAndNewEntityPreparationHelpers_L6EF6
 C46E86_PhotoAndNewEntityPreparationHelpers_L6E86:
-    ldy $1A42
+    ldy !CurrentSlotIndex
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda !CurrentSlotStagedXTable,X
     sec
-    sbc $9877
+    sbc !PlayerWorldX
     sta $10
     sta $02
     lda.w #$0000
@@ -24118,11 +24531,11 @@ C46EB3_PhotoAndNewEntityPreparationHelpers_L6EB3:
     asl A
     tax
     lda $0E
-    cmp $0ED6,X
+    cmp !CurrentSlotProximityXTable,X
     bcs C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3
-    lda $0E9A,X
+    lda !CurrentSlotStagedYTable,X
     sec
-    sbc $987B
+    sbc !PlayerWorldY
     sta $10
     sta $02
     lda.w #$0000
@@ -24147,9 +24560,9 @@ C46EE4_PhotoAndNewEntityPreparationHelpers_L6EE4:
     asl A
     tax
     lda $10
-    cmp $0F12,X
+    cmp !CurrentSlotProximityYTable,X
     bcs C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3
-    lda.w #$0001
+    lda.w #!PositionInsideThresholdValue
     bra C46EF6_PhotoAndNewEntityPreparationHelpers_L6EF6
 C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3:
     lda.w #$0000
@@ -24172,6 +24585,27 @@ org $C47370
 !C08DDE_UpdateBg2ScreenBaseRegistersFromQueue = $C08DDE
 !C2D121_LoadPresentationSpriteResource = $C2D121
 !C4249A_ApplyFixedColorMathFromMagnitude = $C4249A
+!MovementBattleBgModeValue = $0009
+!MovementBattleBg1ScreenBase = $5800
+!MovementBattleBg2ScreenBase = $5C00
+!MovementBattleBg2TileBase = $1000
+!MovementSpriteResourceArgY = $0004
+!CurrentEntitySlotIndex = $1A42
+!CurrentSlotBrightnessOrColorMathTable = $0E5E
+!SavedCgramShadowPaletteRows = $4476
+!PaletteBrightnessWorkRows = $0240
+!PaletteRowByteSize = $0020
+!PaletteRowColorCount = $0010
+!PaletteComponent5BitMax = $001F
+!PaletteComponentSignedNegativeBoundary = $8000
+!PaletteComponentLowByteMask = $00FF
+!PaletteComponentHighByteMask = $FF00
+!FullCgramUploadSelector = $18
+!DisplayTransferSelector30 = $0030
+!FixedColorMathAddMode33 = $0033
+!FixedColorMathSubModeB3 = $00B3
+!SignedWordInvertMask = $FFFF
+!ZeroWord = $0000
 LOAD_BACKGROUND_ANIMATION:
 !C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
     rep #$31
@@ -24184,17 +24618,17 @@ LOAD_BACKGROUND_ANIMATION:
     stx $02
     sta $04
     jsl !C08726_BlankWaitAndDisableHdma
-    lda.w #$0009
+    lda.w #!MovementBattleBgModeValue
     jsl !C08D79_UpdateBgModeRegisterFromQueue
-    ldy.w #$0000
-    ldx.w #$5800
+    ldy.w #!ZeroWord
+    ldx.w #!MovementBattleBg1ScreenBase
     tya
     jsl !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
-    ldy.w #$1000
-    ldx.w #$5C00
-    lda.w #$0000
+    ldy.w #!MovementBattleBg2TileBase
+    ldx.w #!MovementBattleBg2ScreenBase
+    lda.w #!ZeroWord
     jsl !C08DDE_UpdateBg2ScreenBaseRegistersFromQueue
-    ldy.w #$0004
+    ldy.w #!MovementSpriteResourceArgY
     ldx $02
     lda $04
     jsl !C2D121_LoadPresentationSpriteResource
@@ -24203,19 +24637,19 @@ LOAD_BACKGROUND_ANIMATION:
     rtl
 C473B2_ClampSignedPaletteComponentTo5Bit:
     rep #$31
-    cmp.w #$8000
+    cmp.w #!PaletteComponentSignedNegativeBoundary
     bcc C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0
     beq C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF
 C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0:
-    cmp.w #$001F
+    cmp.w #!PaletteComponent5BitMax
     bcc C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC
     beq C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC
-    lda.w #$001F
+    lda.w #!PaletteComponent5BitMax
     bra C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF
 C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC:
-    and.w #$001F
+    and.w #!PaletteComponent5BitMax
 C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF:
     rts
 C473D0_ApplySignedBrightnessOffsetToPaletteRow:
@@ -24234,19 +24668,19 @@ C473D0_ApplySignedBrightnessOffsetToPaletteRow:
     asl A
     sta $18
     clc
-    adc.w #$4476
+    adc.w #!SavedCgramShadowPaletteRows
     sta $16
     lda $18
     clc
-    adc.w #$0240
+    adc.w #!PaletteBrightnessWorkRows
     sta $18
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $04
     bra C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462
 C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     lda ($16)
     tay
-    and.w #$001F
+    and.w #!PaletteComponent5BitMax
     clc
     adc $1A
     sta $14
@@ -24256,17 +24690,17 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     lsr A
     lsr A
     lsr A
-    and.w #$001F
+    and.w #!PaletteComponent5BitMax
     clc
     adc $1A
     tax
     stx $12
     tya
     xba
-    and.w #$00FF
+    and.w #!PaletteComponentLowByteMask
     lsr A
     lsr A
-    and.w #$001F
+    and.w #!PaletteComponent5BitMax
     clc
     adc $1A
     tay
@@ -24296,7 +24730,7 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     sta $02
     lda $10
     xba
-    and.w #$FF00
+    and.w #!PaletteComponentHighByteMask
     asl A
     asl A
     ora $02
@@ -24309,7 +24743,7 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     inc $04
 C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462:
     lda $04
-    cmp.w #$0010
+    cmp.w #!PaletteRowColorCount
     bcc C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8
     pld
     rts
@@ -24322,7 +24756,7 @@ C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload:
     tcd
     pla
     sta $02
-    ldy.w #$0000
+    ldy.w #!ZeroWord
     sty $0E
     bra C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489
 C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E:
@@ -24333,20 +24767,20 @@ C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E:
     iny
     sty $0E
 C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
-    cpy.w #$0010
+    cpy.w #!PaletteRowColorCount
     bcc C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #!FullCgramUploadSelector
+    sta !DisplayTransferSelector30
     rep #$20
     pld
     rtl
 C47499_ApplyCurrentSlot0e5eBrightnessToPaletteRows:
     rep #$31
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda !CurrentSlotBrightnessOrColorMathTable,X
     jsl C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload
     rtl
 C474A8_ApplyCurrentSlot0e5eFixedColorMath:
@@ -24355,13 +24789,13 @@ C474A8_ApplyCurrentSlot0e5eFixedColorMath:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda !CurrentSlotBrightnessOrColorMathTable,X
     sta $0E
     sta $02
-    lda.w #$0000
+    lda.w #!ZeroWord
     clc
     sbc $02
     bvs C474C8_BattleBgLoadAndPaletteBrightnessHelpers_L74C8
@@ -24375,13 +24809,13 @@ C474CA_BattleBgLoadAndPaletteBrightnessHelpers_L74CA:
     bra C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6
 C474CF_BattleBgLoadAndPaletteBrightnessHelpers_L74CF:
     lda $0E
-    eor.w #$FFFF
+    eor.w #!SignedWordInvertMask
     inc A
     tax
 C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6:
     lda $0E
     sta $02
-    lda.w #$0000
+    lda.w #!ZeroWord
     clc
     sbc $02
     bvs C474E6_BattleBgLoadAndPaletteBrightnessHelpers_L74E6
@@ -24390,10 +24824,10 @@ C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6:
 C474E6_BattleBgLoadAndPaletteBrightnessHelpers_L74E6:
     bmi C474ED_BattleBgLoadAndPaletteBrightnessHelpers_L74ED
 C474E8_BattleBgLoadAndPaletteBrightnessHelpers_L74E8:
-    lda.w #$0033
+    lda.w #!FixedColorMathAddMode33
     bra C474F0_BattleBgLoadAndPaletteBrightnessHelpers_L74F0
 C474ED_BattleBgLoadAndPaletteBrightnessHelpers_L74ED:
-    lda.w #$00B3
+    lda.w #!FixedColorMathSubModeB3
 C474F0_BattleBgLoadAndPaletteBrightnessHelpers_L74F0:
     jsl !C4249A_ApplyFixedColorMathFromMagnitude
     pld
@@ -24416,6 +24850,50 @@ org $C474F6
 !C42542_StartWh0HdmaKeepWindowObjSelect = $C42542
 !C425CC_StartWh0HdmaFromDpStreamAlt = $C425CC
 !C425FD_StartWh2HdmaFromDpStream = $C425FD
+!CurrentEntitySlotIndex = $1A42
+!BaseEntitySlotIndex = $9889
+!CameraScreenOriginX = $0031
+!CameraScreenOriginY = $0033
+!LiveEntityWorldXTable = $0B8E
+!LiveEntityWorldYTable = $0BCA
+!WindowMaskCurrentSlotToggleOrGfxIndexTable = $0E5E
+!IndexedWindowGfxVariantTable = $0E9A
+!CurrentEntityMirrorYAnchorTable = $1002
+!BoxMaskStreamToggle = $9E3A
+!DisplayTransferSelector30 = $0030
+!BgScrollShadow3b = $003B
+!WindowMaskWorkBank = $007F
+!CurrentEntityWh0MaskBufferA = $0000
+!CurrentEntityWh0MaskBufferB = $02FE
+!CurrentEntityWh2MaskBufferA = $05FC
+!CurrentEntityWh2MaskBufferB = $08FA
+!MosaicFadeWh0MaskBuffer = $0BF8
+!WhBoxMaskBufferA = $0000
+!WhBoxMaskBufferB = $02FE
+!IndexedWindowGfxRecordTable = $CC2DE1
+!IndexedWindowGfxRecordTableLow = $2DE1
+!IndexedWindowGfxRecordTableBank = $00CC
+!WindowSpanRadiusRampTableLow = $74F6
+!WindowSpanRadiusRampTableBank = $00C4
+!WhScreenXLimit = $0100
+!WhScreenYLimit = $00E0
+!WhScreenCoordNegativeThreshold = $8000
+!WhDescriptorMaxRunLength = $007F
+!WhDescriptorSplitRunThreshold = $0080
+!CurrentEntityWindowSpanHalfWidth = $0010
+!CurrentEntityWindowSpanRampMaxIndex = $000A
+!BaseSlotRelativeCameraYOffset = $0070
+!BaseSlotRelativeMaskYOffset = $0060
+!BaseSlotRelativeMaskHalfWidth = $0010
+!BaseSlotRelativeMaskScreenRight = $00F0
+!MosaicFadeRampRunCount = $0010
+!IndexedWindowGfxDecompressBufferLow = $0000
+!IndexedWindowGfxPrimaryVramDestination = $6000
+!IndexedWindowGfxPrimaryTileBlockSize = $0200
+!IndexedWindowGfxVariantVramDestination = $7C00
+!IndexedWindowGfxVariantBlockSize = $0700
+!WindowGfxTransferSelectorValue = $18
+!PresentationRefreshSentinel = $FFFF
 C474F6_WhWindowSpanRadiusRampTable:
     db $10,$10,$0F,$0F,$0E,$0D,$0C,$0B,$09,$06,$03
 C47501_WriteCurrentEntityWhWindowSpan:
@@ -24428,19 +24906,19 @@ C47501_WriteCurrentEntityWhWindowSpan:
     sta $06
     lda $24
     sta $08
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     sta $02
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sec
-    sbc $0033
+    sbc !CameraScreenOriginY
     tay
     iny
     iny
     iny
     iny
-    cpy.w #$8000
+    cpy.w #!WhScreenCoordNegativeThreshold
     bcc C4752C_WindowMaskAndIndexedGfxHelpers_L752C
     jmp.w C475AA_WindowMaskAndIndexedGfxHelpers_L75AA
 C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
@@ -24450,20 +24928,20 @@ C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
     sta [$06]
     rep #$20
     inc $06
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     sta $12
     sec
-    sbc.w #$0010
+    sbc.w #!CurrentEntityWindowSpanHalfWidth
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     tax
     lda $12
     clc
-    adc.w #$0010
+    adc.w #!CurrentEntityWindowSpanHalfWidth
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     sta $12
-    cpx.w #$0100
+    cpx.w #!WhScreenXLimit
     bcs C4757B_WindowMaskAndIndexedGfxHelpers_L757B
     txa
     sep #$20
@@ -24471,7 +24949,7 @@ C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
     rep #$20
     inc $06
     lda $12
-    cmp.w #$0100
+    cmp.w #!WhScreenXLimit
     bcs C4756F_WindowMaskAndIndexedGfxHelpers_L756F
     sep #$20
     sta [$06]
@@ -24486,7 +24964,7 @@ C4756F_WindowMaskAndIndexedGfxHelpers_L756F:
     inc $06
     bra C475AA_WindowMaskAndIndexedGfxHelpers_L75AA
 C4757B_WindowMaskAndIndexedGfxHelpers_L757B:
-    cmp.w #$0100
+    cmp.w #!WhScreenXLimit
     bcs C47596_WindowMaskAndIndexedGfxHelpers_L7596
     sep #$20
     lda.b #$00
@@ -24514,30 +24992,30 @@ C475AA_WindowMaskAndIndexedGfxHelpers_L75AA:
     lda $02
     asl A
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     sta $04
     tya
     clc
     adc.w #$000B
-    cmp.w #$8000
+    cmp.w #!WhScreenCoordNegativeThreshold
     bcc C475C4_WindowMaskAndIndexedGfxHelpers_L75C4
     jmp.w C4767D_WindowMaskAndIndexedGfxHelpers_L767D
 C475C4_WindowMaskAndIndexedGfxHelpers_L75C4:
-    cmp.w #$000A
+    cmp.w #!CurrentEntityWindowSpanRampMaxIndex
     bcs C475CC_WindowMaskAndIndexedGfxHelpers_L75CC
     tax
     bra C475CF_WindowMaskAndIndexedGfxHelpers_L75CF
 C475CC_WindowMaskAndIndexedGfxHelpers_L75CC:
-    ldx.w #$000A
+    ldx.w #!CurrentEntityWindowSpanRampMaxIndex
 C475CF_WindowMaskAndIndexedGfxHelpers_L75CF:
     stx $02
-    lda.w #$74F6
+    lda.w #!WindowSpanRadiusRampTableLow
     sta $0A
-    lda.w #$00C4
+    lda.w #!WindowSpanRadiusRampTableBank
     sta $0C
-    lda.w #$000A
+    lda.w #!CurrentEntityWindowSpanRampMaxIndex
     sec
     sbc $02
     clc
@@ -24568,14 +25046,14 @@ C475F1_WindowMaskAndIndexedGfxHelpers_L75F1:
     dex
     inc $0A
     lda $0E
-    cmp.w #$0100
+    cmp.w #!WhScreenXLimit
     bcs C4763F_WindowMaskAndIndexedGfxHelpers_L763F
     lda $0E
     sep #$20
     sta [$06]
     rep #$20
     inc $06
-    cpx.w #$0100
+    cpx.w #!WhScreenXLimit
     bcs C47633_WindowMaskAndIndexedGfxHelpers_L7633
     txa
     sep #$20
@@ -24591,7 +25069,7 @@ C47633_WindowMaskAndIndexedGfxHelpers_L7633:
     inc $06
     bra C4766D_WindowMaskAndIndexedGfxHelpers_L766D
 C4763F_WindowMaskAndIndexedGfxHelpers_L763F:
-    cpx.w #$0100
+    cpx.w #!WhScreenXLimit
     bcs C47659_WindowMaskAndIndexedGfxHelpers_L7659
     sep #$20
     lda.b #$00
@@ -24653,24 +25131,24 @@ C476A5_StageCurrentEntityWh0MaskAndStartHdma:
     tdc
     adc.w #$FFE6
     tcd
-    ldy $1A42
+    ldy !CurrentEntitySlotIndex
     sty $18
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda !WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     and.w #$0001
     beq C476C4_WindowMaskAndIndexedGfxHelpers_L76C4
-    lda.w #$0000
+    lda.w #!CurrentEntityWh0MaskBufferA
     sta $16
     bra C476C9_WindowMaskAndIndexedGfxHelpers_L76C9
 C476C4_WindowMaskAndIndexedGfxHelpers_L76C4:
-    lda.w #$02FE
+    lda.w #!CurrentEntityWh0MaskBufferB
     sta $16
 C476C9_WindowMaskAndIndexedGfxHelpers_L76C9:
-    lda.w #$0000
+    lda.w #!IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     lda $16
     clc
@@ -24691,7 +25169,7 @@ C476C9_WindowMaskAndIndexedGfxHelpers_L76C9:
     tya
     asl A
     clc
-    adc.w #$0E5E
+    adc.w #!WindowMaskCurrentSlotToggleOrGfxIndexTable
     tax
     lda $0000,X
     inc A
@@ -24704,24 +25182,24 @@ C47705_StageCurrentEntityWh2MaskAndStartHdma:
     tdc
     adc.w #$FFE6
     tcd
-    ldy $1A42
+    ldy !CurrentEntitySlotIndex
     sty $18
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda !WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     and.w #$0001
     beq C47724_WindowMaskAndIndexedGfxHelpers_L7724
-    lda.w #$05FC
+    lda.w #!CurrentEntityWh2MaskBufferA
     sta $16
     bra C47729_WindowMaskAndIndexedGfxHelpers_L7729
 C47724_WindowMaskAndIndexedGfxHelpers_L7724:
-    lda.w #$08FA
+    lda.w #!CurrentEntityWh2MaskBufferB
     sta $16
 C47729_WindowMaskAndIndexedGfxHelpers_L7729:
-    lda.w #$0000
+    lda.w #!IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     lda $16
     clc
@@ -24742,7 +25220,7 @@ C47729_WindowMaskAndIndexedGfxHelpers_L7729:
     tya
     asl A
     clc
-    adc.w #$0E5E
+    adc.w #!WindowMaskCurrentSlotToggleOrGfxIndexTable
     tax
     lda $0000,X
     inc A
@@ -24759,9 +25237,9 @@ C47765_StageMosaicFadeWh0MaskAndStartHdma:
     pla
     sty $02
     tay
-    lda.w #$0BF8
+    lda.w #!MosaicFadeWh0MaskBuffer
     sta $0A
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $0C
     lda $0A
     sta $06
@@ -24777,38 +25255,38 @@ C47765_StageMosaicFadeWh0MaskAndStartHdma:
     sta $08
     txa
     sec
-    sbc $0033
+    sbc !CameraScreenOriginY
     sta $14
-    cmp.w #$007F
+    cmp.w #!WhDescriptorMaxRunLength
     bcc C477DE_WindowMaskAndIndexedGfxHelpers_L77DE
     beq C477DE_WindowMaskAndIndexedGfxHelpers_L77DE
     sep #$20
     lda.b #$7F
     sta [$0A]
     rep #$20
-    lda.w #$0BF9
+    lda.w #!MosaicFadeWh0MaskBuffer+1
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     sep #$20
     lda.b #$00
     sta [$06]
     rep #$20
-    lda.w #$0BFA
+    lda.w #!MosaicFadeWh0MaskBuffer+2
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     sep #$20
     lda.b #$FF
     sta [$06]
     rep #$20
-    lda.w #$0BFB
+    lda.w #!MosaicFadeWh0MaskBuffer+3
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     lda $14
     sec
-    sbc.w #$007F
+    sbc.w #!WhDescriptorMaxRunLength
 C477DE_WindowMaskAndIndexedGfxHelpers_L77DE:
     sep #$20
     sta [$06]
@@ -24826,11 +25304,11 @@ C477DE_WindowMaskAndIndexedGfxHelpers_L77DE:
     inc $06
     tya
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     tay
     lda $02
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     sta $12
     ldx.w #$0000
     bra C47831_WindowMaskAndIndexedGfxHelpers_L7831
@@ -24856,7 +25334,7 @@ C4780D_WindowMaskAndIndexedGfxHelpers_L780D:
     sta $12
     inx
 C47831_WindowMaskAndIndexedGfxHelpers_L7831:
-    cpx.w #$0010
+    cpx.w #!MosaicFadeRampRunCount
     bcc C4780D_WindowMaskAndIndexedGfxHelpers_L780D
     sep #$20
     lda.b #$01
@@ -24938,7 +25416,7 @@ C4789E_AppendWhWindowRunDescriptor:
     sta $08
     cpx.w #$0000
     beq C47926_WindowMaskAndIndexedGfxHelpers_L7926
-    cpx.w #$0080
+    cpx.w #!WhDescriptorSplitRunThreshold
     bcs C478DE_WindowMaskAndIndexedGfxHelpers_L78DE
     txa
     sep #$20
@@ -24958,7 +25436,7 @@ C4789E_AppendWhWindowRunDescriptor:
     bra C47926_WindowMaskAndIndexedGfxHelpers_L7926
 C478DE_WindowMaskAndIndexedGfxHelpers_L78DE:
     sep #$20
-    lda.b #$7F
+    lda.b #!WhDescriptorMaxRunLength
     sta [$06]
     rep #$20
     inc $06
@@ -24980,7 +25458,7 @@ C478DE_WindowMaskAndIndexedGfxHelpers_L78DE:
     txa
     sep #$20
     sec
-    sbc.b #$7F
+    sbc.b #!WhDescriptorMaxRunLength
     sta [$06]
     rep #$20
     inc $06
@@ -25014,19 +25492,19 @@ C47930_StageWh0BoxMaskAndStartHdma:
     sta $04
     ldx $2C
     stx $02
-    lda $9E3A
+    lda !BoxMaskStreamToggle
     and.w #$0001
     beq C47952_WindowMaskAndIndexedGfxHelpers_L7952
-    lda.w #$0000
+    lda.w #!WhBoxMaskBufferA
     sta $1A
     bra C47957_WindowMaskAndIndexedGfxHelpers_L7957
 C47952_WindowMaskAndIndexedGfxHelpers_L7952:
-    lda.w #$02FE
+    lda.w #!WhBoxMaskBufferB
     sta $1A
 C47957_WindowMaskAndIndexedGfxHelpers_L7957:
-    lda.w #$0000
+    lda.w #!IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $08
     lda $1A
     clc
@@ -25035,19 +25513,19 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $12
     lda $08
     sta $14
-    ldx.w #$00E0
+    ldx.w #!WhScreenYLimit
     tya
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $18
-    ldx.w #$00E0
+    ldx.w #!WhScreenYLimit
     lda $02
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $16
-    ldx.w #$0100
+    ldx.w #!WhScreenXLimit
     lda $04
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $04
-    ldx.w #$0100
+    ldx.w #!WhScreenXLimit
     lda $1C
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $02
@@ -25055,8 +25533,8 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$007F
-    ldx.w #$0080
+    ldy.w #!WhDescriptorMaxRunLength
+    ldx.w #!WhDescriptorSplitRunThreshold
     lda $18
     jsr.w C4789E_AppendWhWindowRunDescriptor
     lda $06
@@ -25073,9 +25551,9 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$007F
-    ldx.w #$0080
-    lda.w #$00E0
+    ldy.w #!WhDescriptorMaxRunLength
+    ldx.w #!WhDescriptorSplitRunThreshold
+    lda.w #!WhScreenYLimit
     sec
     sbc $16
     dec A
@@ -25087,7 +25565,7 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     rep #$20
     lda $14
     jsl !C4245D_StartWh0HdmaFromDpStream
-    inc $9E3A
+    inc !BoxMaskStreamToggle
     pld
     rtl
 C479E9_StageCurrentEntityCenteredWh0BoxMask:
@@ -25096,18 +25574,18 @@ C479E9_StageCurrentEntityCenteredWh0BoxMask:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda !LiveEntityWorldXTable,X
     sec
-    sbc $0031
+    sbc !CameraScreenOriginX
     sta $04
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sec
-    sbc $0033
+    sbc !CameraScreenOriginY
     sta $12
-    lda $0E5E,X
+    lda !WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $02
     lda $12
     clc
@@ -25130,33 +25608,33 @@ C47A27_StageBaseSlotRelativeWh0BoxMask:
     tdc
     adc.w #$FFEC
     tcd
-    ldx $9889
+    ldx !BaseEntitySlotIndex
     stx $12
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sec
-    sbc.w #$0070
-    sta $0033
+    sbc.w #!BaseSlotRelativeCameraYOffset
+    sta !CameraScreenOriginY
     sta $02
     ldx $12
     txa
     asl A
     tax
-    lda $0BCA,X
+    lda !LiveEntityWorldYTable,X
     sec
     sbc $02
     sta $10
     clc
-    adc.w #$0060
+    adc.w #!BaseSlotRelativeMaskYOffset
     sta $0E
-    ldy.w #$00F0
+    ldy.w #!BaseSlotRelativeMaskScreenRight
     lda $10
     sec
-    sbc.w #$0060
+    sbc.w #!BaseSlotRelativeMaskYOffset
     tax
-    lda.w #$0010
+    lda.w #!BaseSlotRelativeMaskHalfWidth
     jsl C47930_StageWh0BoxMaskAndStartHdma
     pld
     rtl
@@ -25166,16 +25644,16 @@ C47A6B_MirrorCurrentEntityYAroundTarget1002:
     tdc
     adc.w #$FFEE
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     sta $10
     clc
-    adc.w #$0BCA
+    adc.w #!LiveEntityWorldYTable
     tax
     stx $0E
     lda $10
     tax
-    lda $1002,X
+    lda !CurrentEntityMirrorYAnchorTable,X
     sta $10
     sta $04
     ldx $0E
@@ -25195,14 +25673,14 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     tdc
     adc.w #$FFE4
     tcd
-    lda $1A42
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda !WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $1A
-    lda.w #$2DE1
+    lda.w #!IndexedWindowGfxRecordTableLow
     sta $06
-    lda.w #$00CC
+    lda.w #!IndexedWindowGfxRecordTableBank
     sta $08
     lda $06
     sta $16
@@ -25213,9 +25691,9 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     asl A
     asl A
     sta $1A
-    lda.w #$0000
+    lda.w #!IndexedWindowGfxDecompressBufferLow
     sta $0A
-    lda.w #$007F
+    lda.w #!WindowMaskWorkBank
     sta $0C
     lda $1A
     clc
@@ -25263,7 +25741,7 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$6000
+    ldy.w #!IndexedWindowGfxPrimaryVramDestination
     lda $16
     sta $06
     lda $18
@@ -25288,14 +25766,14 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     lda $08
     sta $10
     ldx.w #$0008
-    lda.w #$0200
+    lda.w #!IndexedWindowGfxPrimaryTileBlockSize
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #!WindowGfxTransferSelectorValue
+    sta !DisplayTransferSelector30
     rep #$20
-    lda.w #$FFFF
-    sta $003B
+    lda.w #!PresentationRefreshSentinel
+    sta !BgScrollShadow3b
     pld
     rtl
 C47B77_LoadIndexedWindowGfxAndReadVariantByte:
@@ -25304,18 +25782,18 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     tdc
     adc.w #$FFE8
     tcd
-    lda.w #$FFFF
-    sta $003B
-    lda $1A42
+    lda.w #!PresentationRefreshSentinel
+    sta !BgScrollShadow3b
+    lda !CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda !WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $16
-    lda $0E9A,X
+    lda !IndexedWindowGfxVariantTable,X
     sta $04
-    lda.w #$2DE1
+    lda.w #!IndexedWindowGfxRecordTableLow
     sta $06
-    lda.w #$00CC
+    lda.w #!IndexedWindowGfxRecordTableBank
     sta $08
     lda $06
     sta $12
@@ -25326,7 +25804,7 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     asl A
     asl A
     sta $02
-    ldy.w #$0700
+    ldy.w #!IndexedWindowGfxVariantBlockSize
     lda $04
     jsl !C09032_DivideUnsignedWordByIndex
     sta $0A
@@ -25354,14 +25832,14 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     adc.w #$0008
     sta $06
     lda $08
-    adc.w #$007F
+    adc.w #!WindowMaskWorkBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldy.w #$7C00
-    ldx.w #$0700
+    ldy.w #!IndexedWindowGfxVariantVramDestination
+    ldx.w #!IndexedWindowGfxVariantBlockSize
     sep #$20
     lda.b #$00
     jsl !C08616_QueueVramTransferFromDpSource
@@ -25417,6 +25895,29 @@ org $C4810E
 !C09231_ModUnsignedWordByIndex = $C09231
 !C3F705_QueueVisualTileTransfer = $C3F705
 !C44B3A_MergeGlyphSpanIntoTileBuffer = $C44B3A
+!CurrentEntitySlotIndex = $1A42
+!Event353RevealFrameCursorTable = $0E9A
+!Event353RevealFrameLimitTable = $0E5E
+!Event353GlyphScratchRowsBase = $3492
+!Event353GlyphScratchNextRowBase = $34B2
+!Event353GlyphBitCursor = $9E23
+!Event353GlyphRowCursor = $9E25
+!Event353TextSourcePointerLow = $99CE
+!Event353GlyphWidthVariantOffset = $5E6D
+!Event353PayloadBase = $C48037
+!Event353FontRecordTableLow = $F054
+!Event353FontRecordTableBank = $00C3
+!Event353WorkBank = $007F
+!Event353TransferHeaderBase = $0000
+!Event353TransferPayloadBase = $0002
+!Event353RevealTileMapA = $1000
+!Event353RevealTileMapB = $4000
+!Event353TileCellSourceBase = $0000
+!Event353InitialHeaderRows = $0008
+!Event353VisibleColumns = $001E
+!Event353TileTransferSource = $0000
+!Event353TileTransferVramArg = $0328
+!Event353TileTransferQueueArg = $024C
 C4810E_ExpandEvent353TileCellTo7fRows:
     rep #$31
     phd
@@ -26779,6 +27280,10 @@ C48B29_Event353MessageTileRevealHelpers_L8B29:
 hirom
 org $C48B2C
 
+!TransitionLandingModeSelector = $9F41
+!PlayerFacingDirectionWord = $987F
+!Event670LandingModeValue = $0005
+!Event670LandingFacingValue = $0002
 C48B2C_SetTeleportEvent670LandingMode:
     rep #$31
     lda.w #$0005
@@ -27749,6 +28254,24 @@ org $C4343E
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C090FF_AddLongPointerOffset = $C090FF
+!EquipmentComparisonPartyPtrOffset = $0E10
+!EquipmentComparisonClampEnd = $EA60
+!EquipmentComparisonClampLast = $EA5F
+!EquipmentComparisonRowHeaderTable = $98C9
+!EquipmentComparisonVisualSlotTable = $98CB
+!EquipmentComparisonRowStride = $0008
+!EquipmentComparisonSlotCount = $0006
+!EquipmentComparisonCandidateBase = $97F5
+!EquipmentComparisonCandidateStateOffset = $0096
+!EquipmentComparisonCandidateProfileOffset = $009C
+!EquipmentComparisonPartyRecordBase = $99CE
+!EquipmentComparisonPartyRecordStride = $005F
+!EquipmentComparisonDescriptorOffset0E = $000E
+!EquipmentComparisonDescriptorOffset0F = $000F
+!EquipmentComparisonLowVisualMask = $00FF
+!EquipmentComparisonFlag20 = $0020
+!EquipmentComparisonFlag40 = $0040
+!EquipmentComparisonFlag80 = $0080
 C4343E_BuildPartyEquipmentComparisonVisualStateRows:
     rep #$31
     phd
@@ -27760,7 +28283,7 @@ C4343E_BuildPartyEquipmentComparisonVisualStateRows:
     tax
     dec A
     sta $02
-    lda.w #$0E10
+    lda.w #!EquipmentComparisonPartyPtrOffset
     sta $0A
     lda.w #$0000
     sta $0C
@@ -27769,7 +28292,7 @@ C4343E_BuildPartyEquipmentComparisonVisualStateRows:
     lda $00A9
     sta $08
     jsl !C090FF_AddLongPointerOffset
-    lda.w #$EA60
+    lda.w #!EquipmentComparisonClampEnd
     sta $0A
     lda.w #$0000
     sta $0C
@@ -27788,7 +28311,7 @@ C4347F_PartyEquipmentComparisonVisualStateRows_L347F:
     sta $12
     bra C4348A_PartyEquipmentComparisonVisualStateRows_L348A
 C43485_PartyEquipmentComparisonVisualStateRows_L3485:
-    lda.w #$EA5F
+    lda.w #!EquipmentComparisonClampLast
     sta $12
 C4348A_PartyEquipmentComparisonVisualStateRows_L348A:
     lda $02
@@ -27797,7 +28320,7 @@ C4348A_PartyEquipmentComparisonVisualStateRows_L348A:
     asl A
     tax
     lda $12
-    sta $98C9,X
+    sta !EquipmentComparisonRowHeaderTable,X
     ldy.w #$0000
     sty $10
     jmp.w C43542_PartyEquipmentComparisonVisualStateRows_L3542
@@ -27805,14 +28328,14 @@ C4349D_PartyEquipmentComparisonVisualStateRows_L349D:
     rep #$20
     tya
     clc
-    adc.w #$97F5
+    adc.w #!EquipmentComparisonCandidateBase
     sta $12
     clc
-    adc.w #$0096
+    adc.w #!EquipmentComparisonCandidateStateOffset
     tax
     stx $0E
     lda $0000,X
-    and.w #$00FF
+    and.w #!EquipmentComparisonLowVisualMask
     bne C434C7_PartyEquipmentComparisonVisualStateRows_L34C7
     sty $04
     lda $02
@@ -27823,33 +28346,33 @@ C4349D_PartyEquipmentComparisonVisualStateRows_L349D:
     adc $04
     tax
     sep #$20
-    stz $98CB,X
+    stz !EquipmentComparisonVisualSlotTable,X
     bra C4353F_PartyEquipmentComparisonVisualStateRows_L353F
 C434C7_PartyEquipmentComparisonVisualStateRows_L34C7:
     lda $12
     tax
     lda $009C,X
-    and.w #$00FF
-    ldy.w #$005F
+    and.w #!EquipmentComparisonLowVisualMask
+    ldy.w #!EquipmentComparisonPartyRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!EquipmentComparisonPartyRecordBase
     sta $12
     sta $4DC6
     ldx $0E
     lda $0000,X
-    and.w #$00FF
+    and.w #!EquipmentComparisonLowVisualMask
     tax
     stx $0E
     lda $12
     tax
     lda $000E,X
-    and.w #$00FF
+    and.w #!EquipmentComparisonLowVisualMask
     cmp.w #$0001
     bne C43504_PartyEquipmentComparisonVisualStateRows_L3504
     ldx $0E
     txa
-    ora.w #$0020
+    ora.w #!EquipmentComparisonFlag20
     tax
     stx $0E
     bra C43512_PartyEquipmentComparisonVisualStateRows_L3512
@@ -27858,18 +28381,18 @@ C43504_PartyEquipmentComparisonVisualStateRows_L3504:
     bne C43512_PartyEquipmentComparisonVisualStateRows_L3512
     ldx $0E
     txa
-    ora.w #$0040
+    ora.w #!EquipmentComparisonFlag40
     tax
     stx $0E
 C43512_PartyEquipmentComparisonVisualStateRows_L3512:
     ldx $4DC6
     lda $000F,X
-    and.w #$00FF
+    and.w #!EquipmentComparisonLowVisualMask
     cmp.w #$0001
     bne C43529_PartyEquipmentComparisonVisualStateRows_L3529
     ldx $0E
     txa
-    ora.w #$0080
+    ora.w #!EquipmentComparisonFlag80
     tax
     stx $0E
 C43529_PartyEquipmentComparisonVisualStateRows_L3529:
@@ -27886,12 +28409,12 @@ C43529_PartyEquipmentComparisonVisualStateRows_L3529:
     txa
     sep #$20
     plx
-    sta $98CB,X
+    sta !EquipmentComparisonVisualSlotTable,X
 C4353F_PartyEquipmentComparisonVisualStateRows_L353F:
     iny
     sty $10
 C43542_PartyEquipmentComparisonVisualStateRows_L3542:
-    cpy.w #$0006
+    cpy.w #!EquipmentComparisonSlotCount
     bcs C4354C_PartyEquipmentComparisonVisualStateRows_L354C
     beq C4354C_PartyEquipmentComparisonVisualStateRows_L354C
     jmp.w C4349D_PartyEquipmentComparisonVisualStateRows_L349D
@@ -28009,9 +28532,44 @@ org $C47C3F
 !C08F15_ClearVramOrRendererBuffer = $C08F15
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_DivideUnsignedWordByIndex = $C09032
+!C2038B_FlyoverTextCleanupCallee = $C2038B
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C44B3A_MergeGlyphSpanIntoTileBuffer = $C44B3A
+!WindowGfxBaseSourceLow = $0000
+!WindowGfxBaseSourceBank = $00E0
+!WindowGfxWorkBank = $007F
+!WindowGfxDecompressBufferBase = $0000
+!WindowGfxCopySourceBlock = $2000
+!WindowGfxCopyByteCount = $1000
+!WindowGfxStagedTileBlock = $2A00
+!WindowGfxTileStateWorkBlock = $3200
+!WindowGfxTileStateClearSize = $0600
+!WindowGfxGlyphScratchRowsBase = $3492
+!WindowGfxGlyphBitCursor = $9E23
+!WindowGfxGlyphRowCursor = $9E25
+!WindowGfxVariantOffsetLowMirror = $9652
+!WindowGfxVariantOffsetHighMirror = $9654
+!WindowFlavourSelection = $99CD
+!WindowFlavourRecordTable = $E01FB9
+!WindowFlavourPaletteBaseLow = $1FC8
+!WindowFlavourLeadEntityOverridePaletteLow = $2108
+!WindowFlavourPaletteQueueDest = $0200
+!WindowFlavourPaletteQueueBytes = $0040
+!WindowFlavourSuppressLeadOverride = $B4B6
+!LeadPartySlotIndex = $98A4
+!PartyObjectRecordIndexTable = $9891
+!ObjectRecordPointerTable = $4DC8
+!TileWordRewritePatternPointer = $C45A89
+!DisplayTransferSelector30 = $0030
+!FlyoverBg2ScreenBaseY = $6000
+!FlyoverBg2ScreenBaseX = $7C00
+!WindowGfxAltSourceLow = $0754
+!WindowGfxAltDecompressByteCount = $0100
+!WindowGfxAltFlavourSelector = $0008
+!WindowGfxPaletteRefreshWaitFrames = $0008
+!FlyoverGlyphRunIndex = $0002
+!DisplayTransferSelectorWindowGfx = $18
 LOAD_WINDOW_GFX:
 !C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     rep #$31
@@ -28019,34 +28577,34 @@ LOAD_WINDOW_GFX:
     tdc
     adc.w #$FFD4
     tcd
-    lda.w #$0000
+    lda.w #!WindowGfxBaseSourceLow
     sta $0E
-    lda.w #$00E0
+    lda.w #!WindowGfxBaseSourceBank
     sta $10
-    lda.w #$0000
+    lda.w #!WindowGfxDecompressBufferBase
     sta $12
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
-    lda.w #$2000
+    lda.w #!WindowGfxCopySourceBlock
     sta $0E
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $10
-    lda.w #$1000
+    lda.w #!WindowGfxCopyByteCount
     sta $12
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $14
-    lda.w #$2A00
+    lda.w #!WindowGfxStagedTileBlock
     jsl !C08EED_CopyToVramOrRendererBuffer
-    lda.w #$3200
+    lda.w #!WindowGfxTileStateWorkBlock
     sta $0E
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $10
-    ldx.w #$0600
+    ldx.w #!WindowGfxTileStateClearSize
     sep #$20
     lda.b #$00
     jsl !C08F15_ClearVramOrRendererBuffer
-    lda $99CD
+    lda !WindowFlavourSelection
     and.w #$00FF
     dec A
     sta $04
@@ -28055,17 +28613,17 @@ LOAD_WINDOW_GFX:
     tax
     inx
     inx
-    lda $E01FB9,X
+    lda !WindowFlavourRecordTable,X
     and.w #$00FF
-    cmp.w #$0008
+    cmp.w #!WindowGfxAltFlavourSelector
     bne C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2
-    lda.w #$0754
+    lda.w #!WindowGfxAltSourceLow
     sta $0E
-    lda.w #$00E0
+    lda.w #!WindowGfxBaseSourceBank
     sta $10
-    lda.w #$0100
+    lda.w #!WindowGfxAltDecompressByteCount
     sta $12
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $14
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
 C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
@@ -28079,9 +28637,9 @@ C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
     ldy.w #$0022
     lda [$06],Y
     sta $28
-    lda.w #$2A00
+    lda.w #!WindowGfxStagedTileBlock
     sta $24
-    lda.w #$007F
+    lda.w #!WindowGfxWorkBank
     sta $26
     lda.w #$0006
     sta $22
@@ -28089,17 +28647,17 @@ C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
     sta $04
     jmp.w C47E27_WindowGfxLoadAndFlyoverUndrawHelpers_L7E27
 C47CF1_WindowGfxLoadAndFlyoverUndrawHelpers_L7CF1:
-    stz $9E25
-    stz $9E23
+    stz !WindowGfxGlyphRowCursor
+    stz !WindowGfxGlyphBitCursor
     sep #$20
     lda.b #$FF
     sta $0E
     ldx.w #$0340
     rep #$20
-    lda.w #$3492
+    lda.w #!WindowGfxGlyphScratchRowsBase
     jsl !C08EFC_CommitTileBufferToStaging
-    stz $9654
-    stz $9652
+    stz !WindowGfxVariantOffsetHighMirror
+    stz !WindowGfxVariantOffsetLowMirror
     lda $04
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
@@ -28113,7 +28671,7 @@ C47CF1_WindowGfxLoadAndFlyoverUndrawHelpers_L7CF1:
     stz $0D
     rep #$20
     lda.w #$0002
-    sta $9E23
+    sta !WindowGfxGlyphBitCursor
     lda.w #$0000
     sta $02
     bra C47D69_WindowGfxLoadAndFlyoverUndrawHelpers_L7D69
@@ -28165,7 +28723,7 @@ C47D78_WindowGfxLoadAndFlyoverUndrawHelpers_L7D78:
     adc $02
     tax
     stx $1E
-    lda.w #$3492
+    lda.w #!WindowGfxGlyphScratchRowsBase
     sta $06
     phb
     sep #$20
@@ -28431,15 +28989,15 @@ C47F87_RefreshWindowFlavourPaletteBlock:
     tdc
     adc.w #$FFEE
     tcd
-    lda $98A4
+    lda !LeadPartySlotIndex
     and.w #$00FF
     tax
     dex
-    lda $9891,X
+    lda !PartyObjectRecordIndexTable,X
     and.w #$00FF
     asl A
     tax
-    lda $4DC8,X
+    lda !ObjectRecordPointerTable,X
     tax
     lda $000E,X
     and.w #$00FF
@@ -28449,59 +29007,59 @@ C47F87_RefreshWindowFlavourPaletteBlock:
     cpx.w #$0002
     bne C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF
 C47FB4_WindowGfxLoadAndFlyoverUndrawHelpers_L7FB4:
-    lda $B4B6
+    lda !WindowFlavourSuppressLeadOverride
     bne C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF
-    lda.w #$2108
+    lda.w #!WindowFlavourLeadEntityOverridePaletteLow
     sta $0E
-    lda.w #$00E0
+    lda.w #!WindowGfxBaseSourceBank
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #!WindowFlavourPaletteQueueBytes
+    lda.w #!WindowFlavourPaletteQueueDest
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     bra C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF
 C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF:
-    lda.w #$1FC8
+    lda.w #!WindowFlavourPaletteBaseLow
     sta $06
-    lda.w #$00E0
+    lda.w #!WindowGfxBaseSourceBank
     sta $08
-    lda $99CD
+    lda !WindowFlavourSelection
     and.w #$00FF
     dec A
     sta $04
     asl A
     adc $04
     tax
-    lda $E01FB9,X
+    lda !WindowFlavourRecordTable,X
     clc
     adc $06
     sta $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #!WindowFlavourPaletteQueueBytes
+    lda.w #!WindowFlavourPaletteQueueDest
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
 C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF:
-    stz $0200
-    lda.w #$0008
+    stz !WindowFlavourPaletteQueueDest
+    lda.w #!WindowGfxPaletteRefreshWaitFrames
     jsl !C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
 UNDRAW_FLYOVER_TEXT:
 !C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     rep #$31
-    ldy.w #$6000
-    ldx.w #$7C00
+    ldy.w #!FlyoverBg2ScreenBaseY
+    ldx.w #!FlyoverBg2ScreenBaseX
     lda.w #$0000
     jsl !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    jsl $C2038B
+    jsl !C2038B_FlyoverTextCleanupCallee
     jsl LOAD_WINDOW_GFX
-    lda.w #$0002
+    lda.w #!FlyoverGlyphRunIndex
     jsl !C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavourPaletteBlock
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #!DisplayTransferSelectorWindowGfx
+    sta !DisplayTransferSelector30
     rep #$20
     rtl
 C48037_LumineHallAndEvent353TextPayload:
@@ -29479,58 +30037,84 @@ hirom
 org $C42A1F
 
 C42A1F_EntityFootprintVisualProfileTables:
-    db $08,$00,$08,$00,$0C,$00,$10,$00,$18,$00,$08,$00,$0C,$00,$08,$00
-    db $10,$00,$18,$00,$0C,$00,$08,$00,$10,$00,$18,$00,$20,$00,$20,$00
-    db $20,$00,$08,$00,$08,$00,$08,$00,$08,$00,$08,$00,$18,$00,$18,$00
-    db $18,$00,$18,$00,$18,$00,$20,$00,$28,$00,$28,$00,$28,$00,$28,$00
-    db $38,$00,$48,$00,$10,$00,$10,$00,$20,$00,$20,$00,$30,$00,$10,$00
-    db $18,$00,$10,$00,$20,$00,$30,$00,$18,$00,$10,$00,$20,$00,$30,$00
-    db $40,$00,$40,$00,$40,$00,$10,$00,$10,$00,$18,$00,$20,$00,$30,$00
-    db $18,$00,$18,$00,$20,$00,$20,$00,$20,$00,$28,$00,$30,$00,$30,$00
-    db $30,$00,$30,$00,$40,$00,$50,$00,$02,$00,$00,$00,$02,$00,$04,$00
-    db $06,$00,$02,$00,$03,$00,$02,$00,$04,$00,$06,$00,$00,$00,$02,$00
-    db $04,$00,$06,$00,$08,$00,$00,$00,$06,$00,$01,$00,$00,$00,$01,$00
-    db $01,$00,$01,$00,$01,$00,$01,$00,$01,$00,$02,$00,$02,$00,$00,$00
-    db $01,$00,$02,$00,$02,$00,$02,$00,$00,$00,$02,$00,$0A,$00,$00,$00
-    db $0A,$00,$0A,$00,$0A,$00,$18,$00,$18,$00,$18,$00,$10,$00,$10,$00
-    db $00,$00,$28,$00,$20,$00,$20,$00,$20,$00,$00,$00,$41,$00,$51,$2B
-    db $C4,$00,$51,$2B,$C4,$00,$5D,$2B,$C4,$00,$73,$2B,$C4,$00,$89,$2B
-    db $C4,$00,$A9,$2B,$C4,$00,$BF,$2B,$C4,$00,$E9,$2B,$C4,$00,$FF,$2B
-    db $C4,$00,$29,$2C,$C4,$00,$67,$2C,$C4,$00,$A5,$2C,$C4,$00,$C5,$2C
-    db $C4,$00,$03,$2D,$C4,$00,$5F,$2D,$C4,$00,$D9,$2D,$C4,$00,$7B,$2E
-    db $C4,$00,$01,$00,$F8,$00,$00,$F8,$80,$F8,$00,$40,$F8,$80,$02,$00
-    db $F8,$00,$00,$F4,$00,$F8,$02,$00,$04,$80,$F8,$00,$40,$FC,$00,$F8
-    db $02,$40,$EC,$80,$02,$00,$F8,$00,$00,$F0,$00,$F8,$02,$00,$00,$80
-    db $F8,$00,$40,$00,$00,$F8,$02,$40,$F0,$80,$03,$00,$F8,$00,$00,$E8
-    db $00,$F8,$02,$00,$F8,$00,$F8,$04,$00,$08,$80,$F8,$00,$40,$08,$00
-    db $F8,$02,$40,$F8,$00,$F8,$04,$40,$E8,$80,$02,$01,$E8,$00,$00,$F8
-    db $00,$F8,$02,$00,$F8,$80,$E8,$00,$40,$F8,$00,$F8,$02,$40,$F8,$80
+C42A1F_EntityFootprintXOffsetTable:
+    dw $0008,$0008,$000C,$0010,$0018,$0008,$000C,$0008
+    dw $0010,$0018,$000C,$0008,$0010,$0018,$0020,$0020,$0020
+C42A41_EntityFootprintYOffsetTable:
+    dw $0008,$0008,$0008,$0008,$0008,$0018,$0018,$0018
+    dw $0018,$0018,$0020,$0028,$0028,$0028,$0028,$0038,$0048
+C42A63_EntityFootprintPixelWidthTable:
+    dw $0010,$0010,$0020,$0020,$0030,$0010,$0018,$0010
+    dw $0020,$0030,$0018,$0010,$0020,$0030,$0040,$0040,$0040
+C42A85_EntityFootprintPixelHeightTable:
+    dw $0010,$0010,$0018,$0020,$0030,$0018,$0018,$0020
+    dw $0020,$0020,$0028,$0030,$0030,$0030,$0030,$0040,$0050
+C42AA7_EntityFootprintTileWidthTable:
+    dw $0002,$0000,$0002,$0004,$0006,$0002,$0003,$0002
+    dw $0004,$0006,$0000,$0002,$0004,$0006,$0008,$0000,$0006
+C42AC9_EntityFootprintTileHeightTable:
+    dw $0001,$0000,$0001,$0001,$0001,$0001,$0001,$0001
+    dw $0002,$0002,$0000,$0001,$0002,$0002,$0002,$0000,$0002
+C42AEB_EntityFootprintAnchorOffsetTable:
+    dw $000A,$0000,$000A,$000A,$000A,$0018,$0018,$0018
+    dw $0010,$0010,$0000,$0028,$0020,$0020,$0020,$0000,$0041
+C42B0D_SecondaryVisualDescriptorPointerTable:
+    db $51,$2B,$C4,$00,$51,$2B,$C4,$00,$5D,$2B,$C4,$00,$73,$2B,$C4,$00
+    db $89,$2B,$C4,$00,$A9,$2B,$C4,$00,$BF,$2B,$C4,$00,$E9,$2B,$C4,$00
+    db $FF,$2B,$C4,$00,$29,$2C,$C4,$00,$67,$2C,$C4,$00,$A5,$2C,$C4,$00
+    db $C5,$2C,$C4,$00,$03,$2D,$C4,$00,$5F,$2D,$C4,$00,$D9,$2D,$C4,$00
+    db $7B,$2E,$C4,$00
+C42B51_SecondaryVisualDescriptor1Piece:
+    db $01,$00,$F8,$00,$00,$F8,$80,$F8,$00,$40,$F8,$80
+C42B5D_SecondaryVisualDescriptor2PieceNarrow:
+    db $02,$00,$F8,$00,$00,$F4,$00,$F8,$02,$00,$04,$80,$F8,$00,$40,$FC
+    db $00,$F8,$02,$40,$EC,$80
+C42B73_SecondaryVisualDescriptor2PieceWide:
+    db $02,$00,$F8,$00,$00,$F0,$00,$F8,$02,$00,$00,$80,$F8,$00,$40,$00
+    db $00,$F8,$02,$40,$F0,$80
+C42B89_SecondaryVisualDescriptor3PieceColumn:
+    db $03,$00,$F8,$00,$00,$E8,$00,$F8,$02,$00,$F8,$00,$F8,$04,$00,$08
+    db $80,$F8,$00,$40,$08,$00,$F8,$02,$40,$F8,$00,$F8,$04,$40,$E8,$80
+C42BA9_SecondaryVisualDescriptor2PieceBandSplit:
+    db $02,$01,$E8,$00,$00,$F8,$00,$F8,$02,$00,$F8,$80,$E8,$00,$40,$F8
+    db $00,$F8,$02,$40,$F8,$80
+C42BBF_SecondaryVisualDescriptor4Piece2x2:
     db $04,$02,$E8,$00,$00,$F4,$00,$E8,$02,$00,$04,$00,$F8,$04,$00,$F4
     db $00,$F8,$06,$00,$04,$80,$E8,$00,$40,$FC,$00,$E8,$02,$40,$EC,$00
-    db $F8,$04,$40,$FC,$00,$F8,$06,$40,$EC,$80,$02,$01,$E8,$00,$00,$F8
-    db $00,$F8,$02,$00,$F8,$80,$E8,$00,$40,$F8,$00,$F8,$02,$40,$F8,$80
+    db $F8,$04,$40,$FC,$00,$F8,$06,$40,$EC,$80
+C42BE9_SecondaryVisualDescriptor2PieceBandSplitAlt:
+    db $02,$01,$E8,$00,$00,$F8,$00,$F8,$02,$00,$F8,$80,$E8,$00,$40,$F8
+    db $00,$F8,$02,$40,$F8,$80
+C42BFF_SecondaryVisualDescriptor4Piece2x2Wide:
     db $04,$02,$E8,$00,$00,$F0,$00,$E8,$02,$00,$00,$00,$F8,$04,$00,$F0
     db $00,$F8,$06,$00,$00,$80,$E8,$00,$40,$00,$00,$E8,$02,$40,$F0,$00
-    db $F8,$04,$40,$00,$00,$F8,$06,$40,$F0,$80,$06,$03,$E8,$00,$00,$E8
-    db $00,$E8,$02,$00,$F8,$00,$E8,$04,$00,$08,$00,$F8,$06,$00,$E8,$00
-    db $F8,$08,$00,$F8,$00,$F8,$0A,$00,$08,$80,$E8,$00,$40,$08,$00,$E8
-    db $02,$40,$F8,$00,$E8,$04,$40,$E8,$00,$F8,$06,$40,$08,$00,$F8,$08
-    db $40,$F8,$00,$F8,$0A,$40,$E8,$80,$06,$04,$E0,$00,$00,$F4,$00,$E0
-    db $02,$00,$04,$00,$F0,$04,$00,$F4,$00,$F0,$06,$00,$04,$00,$00,$08
-    db $00,$F4,$00,$00,$0A,$00,$04,$80,$E0,$00,$40,$FC,$00,$E0,$02,$40
-    db $EC,$00,$F0,$04,$40,$FC,$00,$F0,$06,$40,$EC,$00,$00,$08,$40,$FC
-    db $00,$00,$0A,$40,$EC,$80,$03,$02,$D8,$00,$00,$F8,$00,$E8,$02,$00
-    db $F8,$00,$F8,$04,$00,$F8,$80,$D8,$00,$40,$F8,$00,$E8,$02,$40,$F8
-    db $00,$F8,$04,$40,$F8,$80,$06,$04,$D8,$00,$00,$F0,$00,$D8,$02,$00
-    db $00,$00,$E8,$04,$00,$F0,$00,$E8,$06,$00,$00,$00,$F8,$08,$00,$F0
-    db $00,$F8,$0A,$00,$00,$80,$D8,$00,$40,$00,$00,$D8,$02,$40,$F0,$00
-    db $E8,$04,$40,$00,$00,$E8,$06,$40,$F0,$00,$F8,$08,$40,$00,$00,$F8
-    db $0A,$40,$F0,$80,$09,$06,$D8,$00,$00,$E8,$00,$D8,$02,$00,$F8,$00
-    db $D8,$04,$00,$08,$00,$E8,$06,$00,$E8,$00,$E8,$08,$00,$F8,$00,$E8
-    db $0A,$00,$08,$00,$F8,$0C,$00,$E8,$00,$F8,$0E,$00,$F8,$00,$F8,$10
-    db $00,$08,$80,$D8,$00,$40,$08,$00,$D8,$02,$40,$F8,$00,$D8,$04,$40
-    db $E8,$00,$E8,$06,$40,$08,$00,$E8,$08,$40,$F8,$00,$E8,$0A,$40,$E8
-    db $00,$F8,$0C,$40,$08,$00,$F8,$0E,$40,$F8,$00,$F8,$10,$40,$E8,$80
+    db $F8,$04,$40,$00,$00,$F8,$06,$40,$F0,$80
+C42C29_SecondaryVisualDescriptor6Piece3x2:
+    db $06,$03,$E8,$00,$00,$E8,$00,$E8,$02,$00,$F8,$00,$E8,$04,$00,$08
+    db $00,$F8,$06,$00,$E8,$00,$F8,$08,$00,$F8,$00,$F8,$0A,$00,$08,$80
+    db $E8,$00,$40,$08,$00,$E8,$02,$40,$F8,$00,$E8,$04,$40,$E8,$00,$F8
+    db $06,$40,$08,$00,$F8,$08,$40,$F8,$00,$F8,$0A,$40,$E8,$80
+C42C67_SecondaryVisualDescriptor6Piece3x2Tall:
+    db $06,$04,$E0,$00,$00,$F4,$00,$E0,$02,$00,$04,$00,$F0,$04,$00,$F4
+    db $00,$F0,$06,$00,$04,$00,$00,$08,$00,$F4,$00,$00,$0A,$00,$04,$80
+    db $E0,$00,$40,$FC,$00,$E0,$02,$40,$EC,$00,$F0,$04,$40,$FC,$00,$F0
+    db $06,$40,$EC,$00,$00,$08,$40,$FC,$00,$00,$0A,$40,$EC,$80
+C42CA5_SecondaryVisualDescriptor3Piece1x3:
+    db $03,$02,$D8,$00,$00,$F8,$00,$E8,$02,$00,$F8,$00,$F8,$04,$00,$F8
+    db $80,$D8,$00,$40,$F8,$00,$E8,$02,$40,$F8,$00,$F8,$04,$40,$F8,$80
+C42CC5_SecondaryVisualDescriptor6Piece2x3Wide:
+    db $06,$04,$D8,$00,$00,$F0,$00,$D8,$02,$00,$00,$00,$E8,$04,$00,$F0
+    db $00,$E8,$06,$00,$00,$00,$F8,$08,$00,$F0,$00,$F8,$0A,$00,$00,$80
+    db $D8,$00,$40,$00,$00,$D8,$02,$40,$F0,$00,$E8,$04,$40,$00,$00,$E8
+    db $06,$40,$F0,$00,$F8,$08,$40,$00,$00,$F8,$0A,$40,$F0,$80
+C42D03_SecondaryVisualDescriptor9Piece3x3:
+    db $09,$06,$D8,$00,$00,$E8,$00,$D8,$02,$00,$F8,$00,$D8,$04,$00,$08
+    db $00,$E8,$06,$00,$E8,$00,$E8,$08,$00,$F8,$00,$E8,$0A,$00,$08,$00
+    db $F8,$0C,$00,$E8,$00,$F8,$0E,$00,$F8,$00,$F8,$10,$00,$08,$80,$D8
+    db $00,$40,$08,$00,$D8,$02,$40,$F8,$00,$D8,$04,$40,$E8,$00,$E8,$06
+    db $40,$08,$00,$E8,$08,$40,$F8,$00,$E8,$0A,$40,$E8,$00,$F8,$0C,$40
+    db $08,$00,$F8,$0E,$40,$F8,$00,$F8,$10,$40,$E8,$80
+C42D5F_SecondaryVisualDescriptor12Piece4x3:
     db $0C,$08,$D8,$00,$00,$E0,$00,$D8,$02,$00,$F0,$00,$D8,$04,$00,$00
     db $00,$D8,$06,$00,$10,$00,$E8,$08,$00,$E0,$00,$E8,$0A,$00,$F0,$00
     db $E8,$0C,$00,$00,$00,$E8,$0E,$00,$10,$00,$F8,$10,$00,$E0,$00,$F8
@@ -29538,56 +30122,65 @@ C42A1F_EntityFootprintVisualProfileTables:
     db $40,$10,$00,$D8,$02,$40,$00,$00,$D8,$04,$40,$F0,$00,$D8,$06,$40
     db $E0,$00,$E8,$08,$40,$10,$00,$E8,$0A,$40,$00,$00,$E8,$0C,$40,$F0
     db $00,$E8,$0E,$40,$E0,$00,$F8,$10,$40,$10,$00,$F8,$12,$40,$00,$00
-    db $F8,$14,$40,$F0,$00,$F8,$16,$40,$E0,$80,$10,$08,$C8,$00,$00,$E0
-    db $00,$C8,$02,$00,$F0,$00,$C8,$04,$00,$00,$00,$C8,$06,$00,$10,$00
-    db $D8,$08,$00,$E0,$00,$D8,$0A,$00,$F0,$00,$D8,$0C,$00,$00,$00,$D8
-    db $0E,$00,$10,$00,$E8,$10,$00,$E0,$00,$E8,$12,$00,$F0,$00,$E8,$14
-    db $00,$00,$00,$E8,$16,$00,$10,$00,$F8,$18,$00,$E0,$00,$F8,$1A,$00
-    db $F0,$00,$F8,$1C,$00,$00,$00,$F8,$1E,$00,$10,$80,$C8,$00,$40,$10
-    db $00,$C8,$02,$40,$00,$00,$C8,$04,$40,$F0,$00,$C8,$06,$40,$E0,$00
-    db $D8,$08,$40,$10,$00,$D8,$0A,$40,$00,$00,$D8,$0C,$40,$F0,$00,$D8
-    db $0E,$40,$E0,$00,$E8,$10,$40,$10,$00,$E8,$12,$40,$00,$00,$E8,$14
-    db $40,$F0,$00,$E8,$16,$40,$E0,$00,$F8,$18,$40,$10,$00,$F8,$1A,$40
-    db $00,$00,$F8,$1C,$40,$F0,$00,$F8,$1E,$40,$E0,$80,$14,$08,$B8,$00
-    db $00,$E0,$00,$B8,$02,$00,$F0,$00,$B8,$04,$00,$00,$00,$B8,$06,$00
-    db $10,$00,$C8,$08,$00,$E0,$00,$C8,$0A,$00,$F0,$00,$C8,$0C,$00,$00
-    db $00,$C8,$0E,$00,$10,$00,$D8,$10,$00,$E0,$00,$D8,$12,$00,$F0,$00
-    db $D8,$14,$00,$00,$00,$D8,$16,$00,$10,$00,$E8,$18,$00,$E0,$00,$E8
-    db $1A,$00,$F0,$00,$E8,$1C,$00,$00,$00,$E8,$1E,$00,$10,$00,$F8,$20
-    db $00,$E0,$00,$F8,$22,$00,$F0,$00,$F8,$24,$00,$00,$00,$F8,$26,$00
-    db $10,$80,$B8,$00,$40,$10,$00,$B8,$02,$40,$00,$00,$B8,$04,$40,$F0
-    db $00,$B8,$06,$40,$E0,$00,$C8,$08,$40,$10,$00,$C8,$0A,$40,$00,$00
-    db $C8,$0C,$40,$F0,$00,$C8,$0E,$40,$E0,$00,$D8,$10,$40,$10,$00,$D8
-    db $12,$40,$00,$00,$D8,$14,$40,$F0,$00,$D8,$16,$40,$E0,$00,$E8,$18
-    db $40,$10,$00,$E8,$1A,$40,$00,$00,$E8,$1C,$40,$F0,$00,$E8,$1E,$40
-    db $E0,$00,$F8,$20,$40,$10,$00,$F8,$22,$40,$00,$00,$F8,$24,$40,$F0
-    db $00,$F8,$26,$40,$E0,$80,$0A,$AA,$A5,$0E,$9D,$7A,$10,$A5,$10,$9D
-    db $B6,$10,$A0,$06,$00,$E8,$E8,$A5,$12,$9D,$7A,$10,$A5,$14,$9D,$B6
-    db $10,$88,$D0,$F1,$6B,$00,$00,$D6,$00,$00,$28,$D6,$00,$00,$50,$D6
-    db $00,$00,$80,$D6,$00,$00,$A8,$D6,$00,$00,$D0,$D6,$00,$00,$00,$D7
-    db $00,$00,$28,$D7,$00,$00,$50,$D7,$00,$00,$80,$D7,$00,$00,$00,$20
-    db $00,$40,$00,$60,$00,$80,$00,$A0,$00,$C0,$00,$E0,$00,$00,$02,$20
-    db $02,$40,$02,$60,$02,$80,$02,$A0,$02,$C0,$02,$E0,$02,$00,$04,$20
-    db $04,$40,$04,$60,$04,$80,$04,$A0,$04,$C0,$04,$E0,$04,$00,$06,$20
-    db $06,$40,$06,$60,$06,$80,$06,$A0,$06,$C0,$06,$E0,$06,$00,$08,$20
-    db $08,$40,$08,$60,$08,$80,$08,$A0,$08,$C0,$08,$E0,$08,$00,$0A,$20
-    db $0A,$40,$0A,$60,$0A,$80,$0A,$A0,$0A,$C0,$0A,$E0,$0A,$00,$0C,$20
-    db $0C,$40,$0C,$60,$0C,$80,$0C,$A0,$0C,$C0,$0C,$E0,$0C,$00,$0E,$20
-    db $0E,$40,$0E,$60,$0E,$80,$0E,$A0,$0E,$C0,$0E,$E0,$0E,$00,$10,$20
-    db $10,$40,$10,$60,$10,$80,$10,$A0,$10,$C0,$10,$E0,$10,$00,$12,$20
-    db $12,$40,$12,$60,$12,$80,$12,$A0,$12,$C0,$12,$E0,$12,$00,$14,$20
-    db $14,$40,$14,$60,$14,$80,$14,$A0,$14,$C0,$14,$E0,$14,$00,$00,$02
-    db $00,$04,$00,$06,$00,$08,$00,$0A,$00,$0C,$00,$0E,$00,$20,$00,$22
-    db $00,$24,$00,$26,$00,$28,$00,$2A,$00,$2C,$00,$2E,$00,$40,$00,$42
-    db $00,$44,$00,$46,$00,$48,$00,$4A,$00,$4C,$00,$4E,$00,$60,$00,$62
-    db $00,$64,$00,$66,$00,$68,$00,$6A,$00,$6C,$00,$6E,$00,$80,$00,$82
-    db $00,$84,$00,$86,$00,$88,$00,$8A,$00,$8C,$00,$8E,$00,$A0,$00,$A2
-    db $00,$A4,$00,$A6,$00,$A8,$00,$AA,$00,$AC,$00,$AE,$00,$C0,$00,$C2
-    db $00,$C4,$00,$C6,$00,$C8,$00,$CA,$00,$CC,$00,$CE,$00,$E0,$00,$E2
-    db $00,$E4,$00,$E6,$00,$E8,$00,$EA,$00,$EC,$00,$EE,$00,$00,$01,$02
-    db $01,$04,$01,$06,$01,$08,$01,$0A,$01,$0C,$01,$0E,$01,$20,$01,$22
-    db $01,$24,$01,$26,$01,$28,$01,$2A,$01,$2C,$01,$2E,$01,$40,$01,$42
-    db $01,$44,$01,$46,$01,$48,$01,$4A,$01,$4C,$01,$4E,$01
+    db $F8,$14,$40,$F0,$00,$F8,$16,$40,$E0,$80
+C42DD9_SecondaryVisualDescriptor16Piece4x4:
+    db $10,$08,$C8,$00,$00,$E0,$00,$C8,$02,$00,$F0,$00,$C8,$04,$00,$00
+    db $00,$C8,$06,$00,$10,$00,$D8,$08,$00,$E0,$00,$D8,$0A,$00,$F0,$00
+    db $D8,$0C,$00,$00,$00,$D8,$0E,$00,$10,$00,$E8,$10,$00,$E0,$00,$E8
+    db $12,$00,$F0,$00,$E8,$14,$00,$00,$00,$E8,$16,$00,$10,$00,$F8,$18
+    db $00,$E0,$00,$F8,$1A,$00,$F0,$00,$F8,$1C,$00,$00,$00,$F8,$1E,$00
+    db $10,$80,$C8,$00,$40,$10,$00,$C8,$02,$40,$00,$00,$C8,$04,$40,$F0
+    db $00,$C8,$06,$40,$E0,$00,$D8,$08,$40,$10,$00,$D8,$0A,$40,$00,$00
+    db $D8,$0C,$40,$F0,$00,$D8,$0E,$40,$E0,$00,$E8,$10,$40,$10,$00,$E8
+    db $12,$40,$00,$00,$E8,$14,$40,$F0,$00,$E8,$16,$40,$E0,$00,$F8,$18
+    db $40,$10,$00,$F8,$1A,$40,$00,$00,$F8,$1C,$40,$F0,$00,$F8,$1E,$40
+    db $E0,$80
+C42E7B_SecondaryVisualDescriptor20Piece4x5:
+    db $14,$08,$B8,$00,$00,$E0,$00,$B8,$02,$00,$F0,$00,$B8,$04,$00,$00
+    db $00,$B8,$06,$00,$10,$00,$C8,$08,$00,$E0,$00,$C8,$0A,$00,$F0,$00
+    db $C8,$0C,$00,$00,$00,$C8,$0E,$00,$10,$00,$D8,$10,$00,$E0,$00,$D8
+    db $12,$00,$F0,$00,$D8,$14,$00,$00,$00,$D8,$16,$00,$10,$00,$E8,$18
+    db $00,$E0,$00,$E8,$1A,$00,$F0,$00,$E8,$1C,$00,$00,$00,$E8,$1E,$00
+    db $10,$00,$F8,$20,$00,$E0,$00,$F8,$22,$00,$F0,$00,$F8,$24,$00,$00
+    db $00,$F8,$26,$00,$10,$80,$B8,$00,$40,$10,$00,$B8,$02,$40,$00,$00
+    db $B8,$04,$40,$F0,$00,$B8,$06,$40,$E0,$00,$C8,$08,$40,$10,$00,$C8
+    db $0A,$40,$00,$00,$C8,$0C,$40,$F0,$00,$C8,$0E,$40,$E0,$00,$D8,$10
+    db $40,$10,$00,$D8,$12,$40,$00,$00,$D8,$14,$40,$F0,$00,$D8,$16,$40
+    db $E0,$00,$E8,$18,$40,$10,$00,$E8,$1A,$40,$00,$00,$E8,$1C,$40,$F0
+    db $00,$E8,$1E,$40,$E0,$00,$F8,$20,$40,$10,$00,$F8,$22,$40,$00,$00
+    db $F8,$24,$40,$F0,$00,$F8,$26,$40,$E0,$80
+C42F45_SetPartyTickCallbacks_PreservedBytes:
+    db $0A,$AA,$A5,$0E,$9D,$7A,$10,$A5,$10,$9D,$B6,$10,$A0,$06,$00,$E8
+    db $E8,$A5,$12,$9D,$7A,$10,$A5,$14,$9D,$B6,$10,$88,$D0,$F1,$6B,$00
+C42F65_MapTileTableChunksTable:
+    db $00,$D6,$00,$00,$28,$D6,$00,$00,$50,$D6,$00,$00,$80,$D6,$00,$00
+    db $A8,$D6,$00,$00,$D0,$D6,$00,$00,$00,$D7,$00,$00,$28,$D7,$00,$00
+    db $50,$D7,$00,$00,$80,$D7,$00
+C42F8C_VisualTileBaseVramOffsetTable:
+    dw $0000,$0020,$0040,$0060,$0080,$00A0,$00C0,$00E0
+    dw $0200,$0220,$0240,$0260,$0280,$02A0,$02C0,$02E0
+    dw $0400,$0420,$0440,$0460,$0480,$04A0,$04C0,$04E0
+    dw $0600,$0620,$0640,$0660,$0680,$06A0,$06C0,$06E0
+    dw $0800,$0820,$0840,$0860,$0880,$08A0,$08C0,$08E0
+    dw $0A00,$0A20,$0A40,$0A60,$0A80,$0AA0,$0AC0,$0AE0
+    dw $0C00,$0C20,$0C40,$0C60,$0C80,$0CA0,$0CC0,$0CE0
+    dw $0E00,$0E20,$0E40,$0E60,$0E80,$0EA0,$0EC0,$0EE0
+    dw $1000,$1020,$1040,$1060,$1080,$10A0,$10C0,$10E0
+    dw $1200,$1220,$1240,$1260,$1280,$12A0,$12C0,$12E0
+    dw $1400,$1420,$1440,$1460,$1480,$14A0,$14C0,$14E0
+C4303C_VisualPieceTileWordLadder:
+    dw $0000,$0002,$0004,$0006,$0008,$000A,$000C,$000E
+    dw $0020,$0022,$0024,$0026,$0028,$002A,$002C,$002E
+    dw $0040,$0042,$0044,$0046,$0048,$004A,$004C,$004E
+    dw $0060,$0062,$0064,$0066,$0068,$006A,$006C,$006E
+    dw $0080,$0082,$0084,$0086,$0088,$008A,$008C,$008E
+    dw $00A0,$00A2,$00A4,$00A6,$00A8,$00AA,$00AC,$00AE
+    dw $00C0,$00C2,$00C4,$00C6,$00C8,$00CA,$00CC,$00CE
+    dw $00E0,$00E2,$00E4,$00E6,$00E8,$00EA,$00EC,$00EE
+    dw $0100,$0102,$0104,$0106,$0108,$010A,$010C,$010E
+C430CC_VisualPieceTileWordLadderTail:
+    dw $0120,$0122,$0124,$0126,$0128,$012A,$012C,$012E
+    dw $0140,$0142,$0144,$0146,$0148,$014A,$014C,$014E
 VELOCITY_STORE:
 !C430EC_EntityFootprintVisualProfileTablesEnd = VELOCITY_STORE
 !C430EC_InitializePartyTickCallbackTables = VELOCITY_STORE
