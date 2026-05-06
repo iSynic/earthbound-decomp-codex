@@ -25,6 +25,8 @@ C0886C_SetDisplayTransitionState     = $C0886C
 C0887A_ClearDisplayTransitionState   = $C0887A
 C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 C1DC1C_DisplayBattleTextFromPointer  = $C1DC1C
+C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
+C1DD47_OpenBattleTextWindow          = $C1DD47
 C1DD5F_WaitForTextOrMenuAcknowledge  = $C1DD5F
 C4FBBD_ChangeMusic                   = $C4FBBD
 C269BE_WaitFrames                    = $69BE
@@ -87,9 +89,9 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     txa
     jsl C0887A_ClearDisplayTransitionState
     jsr C269DE_WaitForDisplayTransitionBusyClear
-    jsl $C1DD3B
+    jsl C1DD3B_RefreshBattlePresentationForSelectedRow
     lda.w #$000E
-    jsl $C1DD47
+    jsl C1DD47_OpenBattleTextWindow
     sep #$20
     lda.b #$17
     sta $001A

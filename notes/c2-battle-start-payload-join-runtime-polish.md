@@ -35,6 +35,9 @@ and comments while preserving byte-equivalence.
   text window, `C2:B930` exports battle selection snapshots, `C2:BAC5` counts
   filtered second-stage rows, and `C2:BC5C` clears inactive source-entry
   live-slot transient fields.
+- Presentation follow-up now names the battle-start back half's pre-action
+  `C2:FEF9` palette loader/dimmer calls, `C1:2DD5` frame ticks, `C1:DD3B`
+  selected-row presentation refresh, and `C1:DD59` battle-text wait join.
 
 ## Payload Joins
 
@@ -78,6 +81,11 @@ action controller:
 This keeps the C1 `DD9F` wrapper as the explicit current-action text lane and
 separates it from ordinary direct text (`DC1C`) and substitution payload
 (`DC66`) callers.
+
+The pre-action presentation category at row `+2` now dispatches through the
+named `C2:FEF9` / `LoadOrDimBattlePaletteSet` helper before the controller
+waits the fixed presentation-delay frame count through `C1:2DD5` /
+`WindowTick`.
 
 ## Evidence Inputs
 

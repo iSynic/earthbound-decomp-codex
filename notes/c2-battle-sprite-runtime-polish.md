@@ -92,7 +92,9 @@ component deltas to palette entries `1..15`, writes updated RGB555 words back
 around `$0382`, and commits palette changes with `C0:856B(0x10)`.
 
 `C2:FEF9` either loads one C3 battle palette row into all four sprite palette
-slots or builds a dimmed copy from `$0200` into `$0280`.
+slots or builds a dimmed copy from `$0200` into `$0280`. The battle-start
+action-presentation controller now calls it by name for its pre-action palette
+category branches.
 
 ## Decomp Value
 

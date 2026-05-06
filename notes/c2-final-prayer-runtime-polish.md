@@ -34,7 +34,9 @@ temporarily disables battle-background frame updates through `$9643`, displays
 the prayer text, applies the caller's battle visual selector through `C2:C21F`,
 then restores updates and returns through C1 cleanup. The display transitions
 now call `C2:69DE` / `WaitForDisplayTransitionBusyClear`, and the trailing
-pause calls `C2:69BE` / `WaitFrames`.
+pause calls `C2:69BE` / `WaitFrames`. Its cleanup tail now names
+`C1:DD3B` / `RefreshBattlePresentationForSelectedRow` and `C1:DD47` /
+`OpenBattleTextWindow`.
 
 The staged text display is now named at the source site as the `C1:DC1C`
 direct battle-text pointer ABI.
@@ -48,7 +50,9 @@ points `$A972` at battler table root `$A21C`, starts red flash timer
 `C2:C41F` is the late narrative transition helper used by phase 8 and the
 finale text blocks. It runs a different display and Sound Stone cue sequence,
 pauses battle-background updates, displays the staged text, then replays the
-caller-selected melody cue.
+caller-selected melody cue. The narrative helper now uses the same named
+`RefreshBattlePresentationForSelectedRow` and `OpenBattleTextWindow` joins as
+the stage-transition helper.
 
 The helper now names both its staged `C1:DC1C` dispatch and the direct
 `C8:FC2E` Mech-Pokey speech tail used by the adjacent transition body.
@@ -87,7 +91,8 @@ It then runs the Sound Stone/noise table rooted at `C4:A35D`, drives layer-1
 battle-background distortion swaps through `C2:DAE3`, starts the final overlay
 through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
 terminal battle visual state. Its fixed pauses now use the same
-`C2:69BE` / `WaitFrames` helper as the shared prayer damage worker.
+`C2:69BE` / `WaitFrames` helper as the shared prayer damage worker, and its
+per-frame presentation loops now call `C1:2DD5` / `WindowTick` by name.
 
 The finale source now names the four C9 narrative scripts (`C9:F70C`,
 `C9:F7BB`, `C9:F804`, `C9:F84D`) and the direct `C8:FF31` Pokey run-away text
@@ -105,6 +110,8 @@ bodies into a runtime contract:
 - the shared damage helper is now tied to amount setup, flash timing, and forced
   application
 - the finale is connected to battle-background distortion and overlay helpers
+- prayer transition and finale sources now use named C1 battle-presentation
+  lifecycle joins instead of raw display/window helper calls
 
 ## Remaining Soft Spots
 

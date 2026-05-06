@@ -21,6 +21,8 @@
 
 C0ABC6_ClearPresentationQueues = $C0ABC6
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C1DD59_WaitForBattleText       = $C1DD59
+C12DD5_WindowTick              = $C12DD5
 C4FBBD_ChangeMusic             = $C4FBBD
 C269BE_WaitFrames              = $69BE
 
@@ -78,12 +80,12 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$6400
     ; Finale damage tier: 25600.
     jsr $C3E2
-    jsl $C1DD59
+    jsl C1DD59_WaitForBattleText
     stz $9643
     jsl $C1DD41
     lda.w #$0001
     sta $9643
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
     lda.w #$FFFF
     sta $A97A
     lda.w #$00BE
@@ -166,7 +168,7 @@ C2C817_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC817:
     sta $18
     bra C2C842_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC842
 C2C81E_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC81E:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
     lda $04
     beq C2C83D_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC83D
     lda $02
@@ -230,7 +232,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     jsl $C2E8C4
     bra C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4
 C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
 C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
     jsl $C2E9C8
     cmp.w #$0000

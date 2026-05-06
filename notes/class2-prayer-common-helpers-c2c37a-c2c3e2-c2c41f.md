@@ -47,7 +47,8 @@ Its local body does the same broad sequence every time:
 - switches display mode again through `C0:887A`
 - routes the incoming `A/X` pair through `C2:C21F`
 - restores `$9643 = 1`
-- runs `C1:DD3B` and `C1:DD47`
+- runs `C1:DD3B` / `RefreshBattlePresentationForSelectedRow` and
+  `C1:DD47` / `OpenBattleTextWindow`
 - waits `0x3C` through `C2:69BE` / `WaitFrames`
 
 So the safest current local read is:
@@ -106,7 +107,8 @@ Its body is a different presentation path from `C2:C37A`:
 - displays the caller-selected text through `C1:DC1C`
 - restores `$9643 = 1`
 - performs another short wait and mode switch
-- runs `C1:DD3B` and `C1:DD47`
+- runs `C1:DD3B` / `RefreshBattlePresentationForSelectedRow` and
+  `C1:DD47` / `OpenBattleTextWindow`
 - writes byte `$001A = 0x17`
 - plays the caller-selected cue through `C4:FBBD`
 - reopens display mode again and returns

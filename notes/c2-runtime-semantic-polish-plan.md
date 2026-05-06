@@ -625,6 +625,17 @@ contract notes for C0/C1/C3/C4 consumers.
   by call-for-help insertion and bomb splash overlap. See
   `notes/c2-battle-sprite-runtime-polish.md` and
   `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-06 eighty-third slice: named the remaining high-confidence
+  C1/C2 presentation lifecycle joins in the battle-start and Final Prayer
+  action/result corridors. Battle-start pre-action presentation now calls
+  `C2:FEF9` as `LoadOrDimBattlePaletteSet` and its fixed waits through
+  `C1:2DD5` / `WindowTick`; battle-start completion now names the
+  `C1:DD3B` selected-row presentation refresh and `C1:DD59` battle-text wait.
+  Final Prayer stage/narrative transitions now name the `C1:DD3B` and
+  `C1:DD47` cleanup/window joins, and the finale loops name `WindowTick` plus
+  `WaitForBattleText`. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-final-prayer-runtime-polish.md`, and
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
 
 ## Validation
 
