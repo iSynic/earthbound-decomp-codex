@@ -19,6 +19,7 @@ C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C090FF_AddLongPointerOffset         = $C090FF
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1D9E9_AwardExperienceToCharacter = $C1D9E9
 C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
@@ -30,6 +31,7 @@ C09279_DispatchBattleActionPayload   = $C09279
 C23D05_BuildBattleTargetTextContext  = $C23D05
 C20293_ClearDefaultTitleUploadTiles  = $C20293
 C2108C_ClearHpPpRollDirtyLatchIfSettled = $C2108C
+C2281D_DepositIntoAtm                = $C2281D
 C26A2D_GetRandomBelow               = $6A2D
 C27029_MaskSet_TestBit               = $C27029
 C2437E_ApplyPendingStolenItemSlotIfStillValid = $C2437E
@@ -579,7 +581,7 @@ C25F2E_RunBattleStartCandidateControllerBack_L5F2E:
     sta $0E
     lda $08
     sta $10
-    jsl $C2281D
+    jsl C2281D_DepositIntoAtm
     lda $06
     sta $0A
     lda $08
@@ -697,7 +699,7 @@ C26024_RunBattleStartCandidateControllerBack_L6024:
     sta $10
     ldx.w #$0001
     lda $0000,Y
-    jsl $C1D9E9
+    jsl C1D9E9_AwardExperienceToCharacter
 C26069_RunBattleStartCandidateControllerBack_L6069:
     ldy $31
     tya

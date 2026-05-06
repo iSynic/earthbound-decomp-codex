@@ -106,6 +106,11 @@ The direct callers are `C2:462D` and `C2:465A`, both inside `CHOOSE_TARGET` loop
 
 Working name used below: `PickRandomBattlerFromFrontBackRows`.
 
+Source follow-up (2026-05-06): the `CHOOSE_TARGET` source now calls
+`C2:4434` by this name at both front/back-row picker sites. The surrounding
+loop still validates the returned battler code through `C4:A1F5`, so the
+helper remains a row-list picker rather than a complete target-validity guard.
+
 ## Relation to `CHOOSE_TARGET`
 
 The reference `CHOOSE_TARGET` source names the active battler fields touched by this strip:

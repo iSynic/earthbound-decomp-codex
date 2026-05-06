@@ -79,6 +79,14 @@ The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
 accumulated result pointer/value pair, keeping them separate from direct
 `C1:DC1C` status-result text.
 
+Reward/result follow-up now names the battle-start back and instant-win helper
+joins that shape the same result lane: `C2:281D` / `DepositIntoAtm` converts
+the money amount before adding it to the `$98B9/$98BB` bank-deposit
+accumulator, and `C1:D9E9` / `AwardExperienceToCharacter` applies the computed
+EXP amount to each eligible active battler row. The instant-win opening also
+names `C2:E9ED` as the battle overlay/layer-effect reset helper before the
+forced-victory presentation.
+
 The instant-win forced-victory path now calls the same named
 `ExportBattleSelectionSnapshot` and `CountFilteredSecondStageBattlerRows`
 helpers used by battle-start and target-selection setup before it builds the

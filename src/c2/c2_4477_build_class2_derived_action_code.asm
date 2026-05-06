@@ -22,6 +22,7 @@
 
 C08E9A_GetRandom16                     = $C08E9A
 C0915B_DivideUnsignedWordByY           = $C0915B
+C24434_PickRandomBattlerFromFrontBackRows = $C24434
 C2F917_RebuildClass2CandidateRanking   = $C2F917
 C4A1F5_CheckCandidateInList            = $C4A1F5
 C4A228_StoreRankedBattlerTargetOrdinal = $C4A228
@@ -262,7 +263,7 @@ C24629_BuildClass2DerivedActionCode_L4629:
     bra C24609_BuildClass2DerivedActionCode_L4609
 C2462B_BuildClass2DerivedActionCode_L462B:
     lda $02
-    jsl $C24434
+    jsl C24434_PickRandomBattlerFromFrontBackRows
     tax
     jsl C4A1F5_CheckCandidateInList
     cmp.w #$0000
@@ -286,7 +287,7 @@ C24640_BuildClass2DerivedActionCode_L4640:
     bne C2466D_BuildClass2DerivedActionCode_L466D
 C24658_BuildClass2DerivedActionCode_L4658:
     lda $02
-    jsl $C24434
+    jsl C24434_PickRandomBattlerFromFrontBackRows
     tax
     jsl C4A1F5_CheckCandidateInList
     cmp.w #$0000

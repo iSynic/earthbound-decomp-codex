@@ -13,6 +13,7 @@
 
 C08EFC_CommitTileBufferToStaging   = $C08EFC
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C2B66A_ReadBattlerNameVariantFlag  = $C2B66A
 
 ; ---------------------------------------------------------------------------
 ; C2:B6EB
@@ -69,7 +70,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0002,X
     ldy $0F
     tya
-    jsl $C2B66A
+    jsl C2B66A_ReadBattlerNameVariantFlag
     ldx $02
     sta $000B,X
     lda.b #$01

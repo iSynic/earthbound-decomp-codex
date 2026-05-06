@@ -54,6 +54,11 @@ Strong local field writes include:
 
 That is much too close to the reference initializer to treat as coincidence.
 
+Source follow-up (2026-05-06): the initializer now calls `C2:B66A` by the
+`ReadBattlerNameVariantFlag` contract used by the C2 battle-text context
+builders. The source still leaves the nearby `C2:B608/B639` byte transforms raw
+because their compact-stat mapping is not yet named tightly enough.
+
 ## Direct local callers of `C2:B6EB`
 
 The direct caller scan now finds 12 direct call sites to `C2:B6EB`.

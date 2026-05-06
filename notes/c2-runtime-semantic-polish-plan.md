@@ -658,6 +658,19 @@ contract notes for C0/C1/C3/C4 consumers.
   long-call addresses. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
   `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`, and
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-06 eighty-sixth slice: tightened target/result helper joins across
+  action dispatch, battle-start rewards, instant-win, and battler init.
+  `CHOOSE_TARGET` now calls `C2:4434` as
+  `PickRandomBattlerFromFrontBackRows`; battle-start and instant-win reward
+  tails name `C2:281D` as the `DepositIntoAtm` amount converter and `C1:D9E9`
+  as `AwardExperienceToCharacter`; instant-win names `C2:E9ED` as the battle
+  overlay/layer-effect reset; and `C2:B6EB` names `C2:B66A` as
+  `ReadBattlerNameVariantFlag` while leaving the still-soft `B608/B639`
+  compact-stat transforms raw. See `notes/c2-action-dispatch-runtime-polish.md`,
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`,
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
+  and `notes/class2-local-enemy-id-to-battler-init-chain.md`.
 
 ## Validation
 

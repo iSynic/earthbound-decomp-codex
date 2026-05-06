@@ -177,6 +177,13 @@ Hit-resolution follow-up: the Time Stop/retarget tail now uses the same named
 `FilterBattleActionTargetMaskByRowState` and `MaskSet_TestBit` contracts before
 refreshing the target text context and applying the selected hit payload.
 
+Target-picker follow-up: `src/c2/c2_4477_build_class2_derived_action_code.asm`
+now calls the documented `C2:4434` helper as
+`PickRandomBattlerFromFrontBackRows` in the two `CHOOSE_TARGET` loops that
+need a front/back-row candidate before validating it through `C4:A1F5`. The
+nearby `C2:3F6C` call remains raw until its target-selection role is proven
+from local evidence.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local

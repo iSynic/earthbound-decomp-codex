@@ -62,6 +62,8 @@ RTS
 The surrounding named handler also:
 
 - plays the sudden-victory music
+- clears battle overlay/layer-effect state through `C2:E9ED` /
+  `ClearBattleOverlayAndResetLayerEffects`
 - copies graphics/tile data through C0 buffer helpers
 - opens the battle text window through `C1:DD47` / `OpenBattleTextWindow`
 - caches battle money/EXP/drop scratch values
@@ -69,9 +71,11 @@ The surrounding named handler also:
   `ExportBattleSelectionSnapshot`
 - counts filtered second-stage battler rows through `C2:BAC5` /
   `CountFilteredSecondStageBattlerRows`
-- deposits money to ATM
+- converts the reward money through `C2:281D` / `DepositIntoAtm` before adding
+  it to `$98B9/$98BB`
 - rebuilds/reset battler state
-- awards EXP and item drops
+- awards EXP through `C1:D9E9` / `AwardExperienceToCharacter` and handles item
+  drops
 - restores/returns music
 
 So `C2:6189` should be understood as a presentational subroutine of the instant-win handler, not as independent battle logic.
