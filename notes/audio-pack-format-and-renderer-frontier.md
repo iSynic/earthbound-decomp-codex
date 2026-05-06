@@ -99,6 +99,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate sequence-semantics probe-result intake plan: `python tools/validate_audio_sequence_semantics_intake_plan.py`.
 - Build unified zero/nonzero probe campaign plan: `python tools/build_audio_probe_campaign_plan.py`.
 - Validate unified zero/nonzero probe campaign plan: `python tools/validate_audio_probe_campaign_plan.py`.
+- Run one unified probe campaign stub-shape job: `python tools/run_audio_probe_campaign.py --limit 1 --force --mode stub-shape`.
+- Validate unified probe campaign run summary: `python tools/validate_audio_probe_campaign_run_summary.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.
