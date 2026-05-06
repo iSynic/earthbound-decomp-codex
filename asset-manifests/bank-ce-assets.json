@@ -31,6 +31,45 @@
     "coverage_gap_bytes": 86,
     "missing_payload_metadata": 0
   },
+  "typed_output_summary": {
+    "schema": "earthbound-decomp.asset-manifest-output-summary.v1",
+    "generator": {
+      "tool": "tools/build_asset_manifest_output_metadata.py",
+      "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
+      "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
+    },
+    "asset_count": 220,
+    "output_recipe_count": 576,
+    "typed_output_kind_count": 7,
+    "decoder_output_recipe_count": 356,
+    "renderer_output_recipe_count": 267,
+    "preview_png_recipe_count": 267,
+    "output_kind_counts": {
+      "earthbound_lzhal": 56,
+      "earthbound_lzhal_battle_sprite_png": 89,
+      "earthbound_lzhal_snes_4bpp_tiles_palette_png": 89,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 56,
+      "raw": 220,
+      "snes_palette_json": 33,
+      "snes_palette_swatch_png": 33
+    },
+    "decoder_counts": {
+      "earthbound_lzhal": 56,
+      "earthbound_lzhal+snes_4bpp_tiles": 56,
+      "earthbound_lzhal+snes_4bpp_tiles+snes_palette": 178,
+      "snes_palette": 66
+    },
+    "renderer_counts": {
+      "battle_sprite": 89,
+      "grayscale_tile_sheet": 56,
+      "palette_swatch": 33,
+      "palette_tile_sheet": 89
+    },
+    "smoke_fixture_count": 0,
+    "smoke_fixture_asset_ids": [],
+    "smoke_fixture_type_counts": {},
+    "smoke_fixture_target_kind_counts": {}
+  },
   "assets": [
     {
       "id": "asset.ce.battle_sprite_82",

@@ -16,6 +16,9 @@ ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-f
 - output recipes: `6175`
 - assets with preview/swatch recipes: `1718`
 - assets with decoder recipes beyond raw extraction: `1834`
+- manifests with typed output summaries: `38`
+- banks linked to smoke fixtures: `9`
+- smoke fixture links from manifests: `41`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`

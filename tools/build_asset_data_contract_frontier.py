@@ -202,6 +202,12 @@ def summarize_manifest(entry: dict[str, Any]) -> dict[str, Any]:
     bank_summary = data.get("bank_summary", {})
     if not isinstance(bank_summary, dict):
         bank_summary = {}
+    typed_output_summary = data.get("typed_output_summary", {})
+    if not isinstance(typed_output_summary, dict):
+        typed_output_summary = {}
+    has_typed_output_summary = (
+        typed_output_summary.get("schema") == "earthbound-decomp.asset-manifest-output-summary.v1"
+    )
     missing_payload_metadata = int(bank_summary.get("missing_payload_metadata", 0) or 0)
     contract_covered_inferred_payload_metadata = min(
         missing_payload_metadata,
@@ -224,6 +230,8 @@ def summarize_manifest(entry: dict[str, Any]) -> dict[str, Any]:
         "table_bytes": int(bank_summary.get("table_bytes", 0) or 0),
         "coverage_gaps": int(bank_summary.get("coverage_gaps", 0) or 0),
         "coverage_gap_bytes": int(bank_summary.get("coverage_gap_bytes", 0) or 0),
+        "has_typed_output_summary": has_typed_output_summary,
+        "smoke_fixture_count": int(typed_output_summary.get("smoke_fixture_count", 0) or 0),
         "manifest_inferred_payload_metadata": missing_payload_metadata,
         "contract_covered_inferred_payload_metadata": contract_covered_inferred_payload_metadata,
         "unresolved_missing_payload_metadata": max(
@@ -295,6 +303,13 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
         "output_recipes": sum(int(bank["output_recipe_count"]) for bank in bank_summaries),
         "assets_with_previews": sum(int(bank["assets_with_previews"]) for bank in bank_summaries),
         "assets_with_decoders": sum(int(bank["assets_with_decoders"]) for bank in bank_summaries),
+        "manifests_with_typed_output_summary": sum(
+            1 for bank in bank_summaries if bank["has_typed_output_summary"]
+        ),
+        "banks_with_smoke_fixtures": sum(
+            1 for bank in bank_summaries if int(bank["smoke_fixture_count"]) > 0
+        ),
+        "smoke_fixture_links": sum(int(bank["smoke_fixture_count"]) for bank in bank_summaries),
         "coverage_gap_bytes": sum(int(bank["coverage_gap_bytes"]) for bank in bank_summaries),
         "manifest_inferred_payload_metadata": sum(
             int(bank["manifest_inferred_payload_metadata"]) for bank in bank_summaries
@@ -384,6 +399,9 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         f"- output recipes: `{totals['output_recipes']}`",
         f"- assets with preview/swatch recipes: `{totals['assets_with_previews']}`",
         f"- assets with decoder recipes beyond raw extraction: `{totals['assets_with_decoders']}`",
+        f"- manifests with typed output summaries: `{totals['manifests_with_typed_output_summary']}`",
+        f"- banks linked to smoke fixtures: `{totals['banks_with_smoke_fixtures']}`",
+        f"- smoke fixture links from manifests: `{totals['smoke_fixture_links']}`",
         f"- coverage gap bytes still represented as raw gaps: `{totals['coverage_gap_bytes']}`",
         f"- manifest-inferred payload metadata count: `{totals['manifest_inferred_payload_metadata']}`",
         f"- contract-covered inferred payload metadata count: `{totals['contract_covered_inferred_payload_metadata']}`",

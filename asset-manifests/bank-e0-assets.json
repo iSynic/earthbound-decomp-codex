@@ -30,6 +30,49 @@
     "coverage_gap_bytes": 77,
     "missing_payload_metadata": 1
   },
+  "typed_output_summary": {
+    "schema": "earthbound-decomp.asset-manifest-output-summary.v1",
+    "generator": {
+      "tool": "tools/build_asset_manifest_output_metadata.py",
+      "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
+      "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
+    },
+    "asset_count": 16,
+    "output_recipe_count": 27,
+    "typed_output_kind_count": 4,
+    "decoder_output_recipe_count": 11,
+    "renderer_output_recipe_count": 2,
+    "preview_png_recipe_count": 2,
+    "output_kind_counts": {
+      "earthbound_lzhal": 9,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "raw": 16,
+      "snes_4bpp_tiles_png": 1
+    },
+    "decoder_counts": {
+      "earthbound_lzhal": 9,
+      "earthbound_lzhal+snes_4bpp_tiles": 1,
+      "snes_4bpp_tiles": 1
+    },
+    "renderer_counts": {
+      "grayscale_tile_sheet": 2
+    },
+    "smoke_fixture_count": 4,
+    "smoke_fixture_asset_ids": [
+      "asset.e0.compressed_sram",
+      "asset.e0.mrsaturn_font_gfx",
+      "asset.e0.text_window_gfx"
+    ],
+    "smoke_fixture_type_counts": {
+      "family_decoder": 3,
+      "family_renderer": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "earthbound_lzhal": 1,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "snes_4bpp_tiles_png": 2
+    }
+  },
   "assets": [
     {
       "id": "asset.e0.text_window_gfx",

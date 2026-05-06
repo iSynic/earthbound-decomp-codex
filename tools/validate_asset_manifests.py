@@ -13,6 +13,12 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
+from build_asset_manifest_output_metadata import (
+    SUMMARY_KEY,
+    SUMMARY_SCHEMA,
+    build_manifest_output_summary,
+    load_smoke_plan,
+)
 from asset_output_recipe_contracts import validate_output_spec
 
 
@@ -59,7 +65,11 @@ def validate_duplicate_ids(manifests: list[tuple[Path, dict[str, Any]]]) -> list
     return [asset_id for asset_id, count in Counter(ids).items() if count > 1]
 
 
-def validate_manifest(path: Path, manifest: dict[str, Any]) -> tuple[int, int]:
+def validate_manifest(
+    path: Path,
+    manifest: dict[str, Any],
+    smoke_fixtures_by_manifest: dict[str, list[dict[str, Any]]],
+) -> tuple[int, int]:
     asset_ids = [asset.get("id") for asset in manifest["assets"]]
     missing_ids = [index for index, asset_id in enumerate(asset_ids) if not isinstance(asset_id, str)]
     if missing_ids:
@@ -84,6 +94,17 @@ def validate_manifest(path: Path, manifest: dict[str, Any]) -> tuple[int, int]:
                 formatted = "\n  - ".join(output_errors)
                 raise ValueError(f"{path}: typed output recipe validation failed:\n  - {formatted}")
             output_count += 1
+
+    summary = manifest.get(SUMMARY_KEY)
+    if not isinstance(summary, dict):
+        raise ValueError(f"{path}: missing {SUMMARY_KEY}")
+    if summary.get("schema") != SUMMARY_SCHEMA:
+        raise ValueError(f"{path}: unsupported {SUMMARY_KEY}.schema")
+    expected_summary = build_manifest_output_summary(path, manifest, smoke_fixtures_by_manifest)
+    if summary != expected_summary:
+        raise ValueError(
+            f"{path}: {SUMMARY_KEY} is stale; run tools/build_asset_manifest_output_metadata.py"
+        )
     return len(asset_ids), output_count
 
 
@@ -98,10 +119,11 @@ def main() -> int:
     if duplicate_ids:
         raise SystemExit(f"Duplicate asset IDs across manifests: {duplicate_ids[:20]}")
 
+    smoke_fixtures_by_manifest = load_smoke_plan(ROOT / "notes" / "asset-output-smoke-fixtures.json")
     total_assets = 0
     total_outputs = 0
     for path, manifest in manifests:
-        asset_count, output_count = validate_manifest(path, manifest)
+        asset_count, output_count = validate_manifest(path, manifest, smoke_fixtures_by_manifest)
         total_assets += asset_count
         total_outputs += output_count
         print(f"OK {path}: {asset_count} assets, {output_count} outputs")

@@ -137,6 +137,16 @@ def compact_counts(counts: dict[str, int], limit: int = 5) -> str:
 
 def build_contract(manifest_dir: Path) -> dict[str, Any]:
     assets = load_manifest_assets(manifest_dir)
+    manifest_files = sorted(manifest_dir.glob("*.json"))
+    typed_manifest_summaries = 0
+    smoke_linked_manifests = 0
+    for path in manifest_files:
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        summary = manifest.get("typed_output_summary")
+        if isinstance(summary, dict) and summary.get("schema") == "earthbound-decomp.asset-manifest-output-summary.v1":
+            typed_manifest_summaries += 1
+            if int(summary.get("smoke_fixture_count", 0) or 0) > 0:
+                smoke_linked_manifests += 1
     errors: list[str] = []
     output_counts: Counter[str] = Counter()
     output_asset_counts: Counter[str] = Counter()
@@ -243,7 +253,9 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
         )
 
     totals = {
-        "manifests": len(list(manifest_dir.glob("*.json"))),
+        "manifests": len(manifest_files),
+        "manifests_with_typed_output_summary": typed_manifest_summaries,
+        "manifests_with_smoke_fixtures": smoke_linked_manifests,
         "assets": len(assets),
         "output_recipes": sum(output_counts.values()),
         "typed_output_kinds": len(OUTPUT_RECIPE_CONTRACTS),
@@ -304,6 +316,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "## Snapshot",
         "",
         f"- manifests: `{totals['manifests']}`",
+        f"- manifests with typed output summaries: `{totals['manifests_with_typed_output_summary']}`",
+        f"- manifests with smoke fixture links: `{totals['manifests_with_smoke_fixtures']}`",
         f"- assets/tables/gaps represented: `{totals['assets']}`",
         f"- output recipes: `{totals['output_recipes']}`",
         f"- typed output recipe kinds: `{totals['typed_output_kinds']}`",

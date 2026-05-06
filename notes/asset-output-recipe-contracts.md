@@ -9,6 +9,8 @@ Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-
 ## Snapshot
 
 - manifests: `38`
+- manifests with typed output summaries: `38`
+- manifests with smoke fixture links: `9`
 - assets/tables/gaps represented: `2219`
 - output recipes: `6175`
 - typed output recipe kinds: `13`

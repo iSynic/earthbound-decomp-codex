@@ -28,6 +28,37 @@
     "coverage_gap_bytes": 0,
     "missing_payload_metadata": 0
   },
+  "typed_output_summary": {
+    "schema": "earthbound-decomp.asset-manifest-output-summary.v1",
+    "generator": {
+      "tool": "tools/build_asset_manifest_output_metadata.py",
+      "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
+      "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
+    },
+    "asset_count": 339,
+    "output_recipe_count": 1017,
+    "typed_output_kind_count": 3,
+    "decoder_output_recipe_count": 678,
+    "renderer_output_recipe_count": 678,
+    "preview_png_recipe_count": 678,
+    "output_kind_counts": {
+      "raw": 339,
+      "snes_4bpp_tiles_palette_png": 339,
+      "snes_4bpp_tiles_png": 339
+    },
+    "decoder_counts": {
+      "snes_4bpp_tiles": 339,
+      "snes_4bpp_tiles+snes_palette": 339
+    },
+    "renderer_counts": {
+      "grayscale_tile_sheet": 339,
+      "palette_tile_sheet": 339
+    },
+    "smoke_fixture_count": 0,
+    "smoke_fixture_asset_ids": [],
+    "smoke_fixture_type_counts": {},
+    "smoke_fixture_target_kind_counts": {}
+  },
   "assets": [
     {
       "id": "asset.d3.sprite_0354",
