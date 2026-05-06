@@ -5,6 +5,10 @@ suffix pass. The goal is not to decode EB text bytecode into macros yet; it is
 to keep the large `MSG_BTL_*` action islands aligned with the C1 display lanes
 and the C2 action-table consumers that are already source-backed.
 
+Concrete crosswalk follow-up:
+
+- `notes/ef-battle-text-row-message-crosswalk.md`
+
 Primary source module:
 
 - `src/ef/ef_4e20_c51b_text_payload_data.asm`
@@ -64,6 +68,11 @@ The EBATTLE1 action tail has at least one strong late-table row-message join:
 | ---: | --- | --- |
 | `85` | `EF:9DA1` | Concentration/PSI-seal action row message; the `+8` body emits success `EF:6C0B` or fallback `EF:766E` |
 
+The row-message crosswalk expands this into the currently source-backed status
+rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
+physical/special rows (`100`, `102`, `104`, `117`, `118`, `228`, `232`,
+`247`, `248`, `273`, and `290`).
+
 ## Direct Result Joins Adjacent To Action Islands
 
 These are not row `+4` action messages, but they sit in the same EF payload
@@ -100,11 +109,9 @@ action island remains symbol-derived.
 
 ## Best Next Pass
 
-The highest-value next EF/C2 join is a row-message crosswalk for
-`D5:7B68` rows that already have source-backed C2 body notes. Start with the
-late physical/flavor rows (`100`, `102`, `104`, `117`, `118`) and the
-concentration/status rows (`85`, `159`, neighboring late status entries). For
-each row, record:
+The highest-value next EF/C2 join is extending
+`notes/ef-battle-text-row-message-crosswalk.md` past the current status and
+late physical/special rows. For each new row, record:
 
 - row id and row `+0..+3` metadata
 - row `+4` EF message pointer

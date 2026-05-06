@@ -202,3 +202,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   at the EBATTLE2, EBATTLE1-front, EBATTLE3, and EBATTLE1-tail action islands.
   The handoff separates `C1:DD9F` row `+4` message pointers, row `+8` C2
   behavior payloads, and direct `DC1C`/`DC66` result scripts.
+- 2026-05-06: EF row-message crosswalk follow-up added
+  `notes/ef-battle-text-row-message-crosswalk.md`, mapping source-backed
+  `D5:7B68` rows onto EF row-message anchors and the secondary result scripts
+  emitted by their C2 row `+8` behavior bodies.

@@ -12,6 +12,7 @@ Primary source module:
 Action-island follow-up:
 
 - `notes/ef-battle-text-action-island-consumer-frontier.md`
+- `notes/ef-battle-text-row-message-crosswalk.md`
 
 The module is still ROM-preserved text data, not decoded text macro source. The
 new labels are zero-byte scaffold anchors that split the coarse
@@ -307,6 +308,12 @@ The first strong local row-message join in this tail is action-table row `85 ->
 EF:9DA1`, whose row `+8` body applies concentration/PSI seal and then emits
 `EF:6C0B` or fallback `EF:766E`. That keeps row-message text separate from the
 secondary result scripts emitted by the behavior body.
+
+The follow-up row-message crosswalk now expands this tail into the
+source-backed late affliction rows: persistent status rows `75..76`,
+temporary-status rows `78..87`, asleep row `90`, and the item-side
+concentration row `159` in EBATTLE3. These remain exact action-message anchors;
+their success/failure result scripts stay separately named.
 
 ## EGOODS2 Item-Use Follow-up
 

@@ -169,6 +169,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`
   behavior-payload lane, and the currently proved EF row-message joins for
   Bash/Shoot/Spy/Pray/shared PSI plus late EBATTLE2 and concentration anchors.
+- 2026-05-06: EF row-message crosswalk follow-up expanded the proved `DD9F`
+  row `+4` joins into source-backed late status, physical/special, and
+  normalization/event rows. See
+  `notes/ef-battle-text-row-message-crosswalk.md`.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

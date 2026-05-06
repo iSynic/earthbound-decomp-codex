@@ -2102,7 +2102,8 @@ EF838A_EBattle2MsgBtlHaikiGas:
 ; ---------------------------------------------------------------------------
 ; EF:83A8
 
-; EBATTLE2: `MSG_BTL_LAUGH_HEN` action-flavor text.
+; EBATTLE2: `MSG_BTL_LAUGH_HEN` action-flavor text; D5:7B68 row 207 reuses
+; the C2 strange-status wrapper body.
 EF83A8_EBattle2MsgBtlLaughHen:
 
 ; ---------------------------------------------------------------------------
@@ -2581,7 +2582,8 @@ EF8BC0_EBattle3MsgBtlSkateboard:
 ; ---------------------------------------------------------------------------
 ; EF:8BE8
 
-; EBATTLE3: `MSG_BTL_KAMITSUKI_DIAMOND` enemy-action text.
+; EBATTLE3: `MSG_BTL_KAMITSUKI_DIAMOND` enemy-action text; D5:7B68 row 228
+; uses this as the one-target diamondize row message.
 EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
 
 ; ---------------------------------------------------------------------------
@@ -2605,7 +2607,8 @@ EF8C3A_EBattle3MsgBtlShikaritsuke:
 ; ---------------------------------------------------------------------------
 ; EF:8C58
 
-; EBATTLE3: `MSG_BTL_BAD_SMELL` enemy-action text.
+; EBATTLE3: `MSG_BTL_BAD_SMELL` enemy-action text; D5:7B68 row 232 uses this
+; as an odor/offense-reduction row message.
 EF8C58_EBattle3MsgBtlBadSmell:
 
 ; ---------------------------------------------------------------------------
@@ -2695,7 +2698,8 @@ EF8E27_EBattle3MsgBtlWarpNear:
 ; ---------------------------------------------------------------------------
 ; EF:8E3C
 
-; EBATTLE3: `MSG_BTL_ANTIPSI` enemy-action text.
+; EBATTLE3: `MSG_BTL_ANTIPSI` enemy-action text; D5:7B68 row 159 uses this as
+; the item-side concentration/PSI-seal row message.
 EF8E3C_EBattle3MsgBtlAntipsi:
 
 ; ---------------------------------------------------------------------------
@@ -3189,7 +3193,8 @@ EF9C02_EBattle1MsgBtlTumetaiIki:
 ; ---------------------------------------------------------------------------
 ; EF:9C30
 
-; EBATTLE1: `MSG_BTL_HOUSHI` action payload text.
+; EBATTLE1: `MSG_BTL_HOUSHI` action payload text; D5:7B68 row 75 starts the
+; source-backed persistent-status row-message pair.
 EF9C30_EBattle1MsgBtlHoushi:
 
 ; ---------------------------------------------------------------------------
@@ -3207,7 +3212,8 @@ EF9C7E_EBattle1MsgBtlYoiKaori:
 ; ---------------------------------------------------------------------------
 ; EF:9CAD
 
-; EBATTLE1: `MSG_BTL_KABI_HOUSI` action payload text.
+; EBATTLE1: `MSG_BTL_KABI_HOUSI` action payload text; D5:7B68 row 78 starts
+; the source-backed temporary-status row-message cluster.
 EF9CAD_EBattle1MsgBtlKabiHousi:
 
 ; ---------------------------------------------------------------------------
@@ -3279,7 +3285,8 @@ EF9E22_EBattle1MsgBtlCoffee:
 ; ---------------------------------------------------------------------------
 ; EF:9E47
 
-; EBATTLE1: `MSG_BTL_MUSIC` action payload text.
+; EBATTLE1: `MSG_BTL_MUSIC` action payload text; D5:7B68 row 90 reuses the
+; all-target asleep-status wrapper body.
 EF9E47_EBattle1MsgBtlMusic:
 
 ; ---------------------------------------------------------------------------
