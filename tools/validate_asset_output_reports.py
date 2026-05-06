@@ -11,6 +11,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import build_asset_data_contract_frontier
+import build_asset_output_index
 import build_asset_output_preview_geometry
 import build_asset_output_recipe_contracts
 import build_asset_output_smoke_fixtures
@@ -83,6 +84,19 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_preview_geometry.DEFAULT_MARKDOWN_OUT,
             build_asset_output_preview_geometry.render_markdown(preview_geometry),
             "python tools/build_asset_output_preview_geometry.py",
+        )
+    )
+
+    output_index = build_asset_output_index.build_index(
+        manifest_dir,
+        smoke_plan=smoke_plan,
+        preview_geometry_report=preview_geometry,
+    )
+    reports.append(
+        CheckedReport(
+            build_asset_output_index.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_index.render_markdown(output_index),
+            "python tools/build_asset_output_index.py",
         )
     )
 

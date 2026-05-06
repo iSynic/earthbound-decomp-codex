@@ -15,6 +15,7 @@ OUTPUT_RECIPE_CONTRACTS_MARKDOWN = ROOT / "notes" / "asset-output-recipe-contrac
 OUTPUT_SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
 OUTPUT_CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 OUTPUT_PREVIEW_GEOMETRY_MARKDOWN = ROOT / "notes" / "asset-output-preview-geometry.md"
+OUTPUT_INDEX_MARKDOWN = ROOT / "notes" / "asset-output-index.md"
 
 CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
     "E0": 1,
@@ -340,6 +341,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "output_smoke_fixtures": rel(OUTPUT_SMOKE_FIXTURES_MARKDOWN),
             "output_codec_validation": rel(OUTPUT_CODEC_VALIDATION_MARKDOWN),
             "output_preview_geometry": rel(OUTPUT_PREVIEW_GEOMETRY_MARKDOWN),
+            "output_index": rel(OUTPUT_INDEX_MARKDOWN),
             "output_report_freshness_validator": "tools/validate_asset_output_reports.py",
             "rom_outputs_policy": "Generated ROM-derived outputs remain under ignored build/assets and are not required to build this report.",
         },
@@ -399,6 +401,8 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.",
         "",
         "Static preview geometry is tracked in `notes/asset-output-preview-geometry.md`; it separates PNG recipes with manifest-known dimensions from compressed recipes whose tile/color count is only known after ROM decode.",
+        "",
+        "The typed output inventory is tracked in `notes/asset-output-index.md`; it joins every manifest output to bank/family/category, decoder/renderer contract, smoke coverage, and preview geometry status.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",

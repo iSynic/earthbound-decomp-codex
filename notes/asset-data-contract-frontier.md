@@ -12,6 +12,8 @@ ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`
 
 Static preview geometry is tracked in `notes/asset-output-preview-geometry.md`; it separates PNG recipes with manifest-known dimensions from compressed recipes whose tile/color count is only known after ROM decode.
 
+The typed output inventory is tracked in `notes/asset-output-index.md`; it joins every manifest output to bank/family/category, decoder/renderer contract, smoke coverage, and preview geometry status.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot
