@@ -20,6 +20,11 @@ Source-scaffold promotion:
 - The same source module carries the adjacent small `0x1F` event-helper leaves through `C1:7440`.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the `C1:7274..7440` source module now
+names its helper-call surface, including the standard primary-context installer
+used by this accumulator leaf plus the adjacent special-event, photographer,
+attached-child, and battle visual effect helper calls.
+
 So the older wording that treated `$98B9/$98BB` like a far-pointer pair is no longer the best fit. The local code and the `ESHOP3` script neighborhood both line up much better with a running deposited-money total.
 
 ## `C1:7274`

@@ -13374,8 +13374,59 @@ hirom
 org $C1621F
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C0923E_ShiftWordLeftByY = $C0923E
+!C09246_ShiftLeft32ByY = $C09246
+!C10036_SetBlinkingTriangleState = $0036
+!C10048_SetTextSoundMode = $0048
+!C103DC_ReadTextCommandArgumentWord = $03DC
+!C1040A_LoadPrimaryInteractionContextPointer = $040A
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
 !C186B1_PrintTextFromPointer = $C186B1
+!C190F1_CheckEscargoStorageQueueFull = $90F1
+!C1D038_MapBrokenItemToRepairedItem = $D038
+!C1D8D0_RefreshCharacterBattleStartState = $D8D0
+!C1BEFC_DispatchTextCommand1F41SpecialEvent = $C1BEFC
+!C1DB33_FindCondimentForFoodItem = $C1DB33
+!C071E5_DisableHotspot = $C071E5
+!C072CF_ActivateHotspot = $C072CF
+!C064E3_EnqueueMovementRecord = $C064E3
+!C06578_DrainQueuedPreparedEntityRecords = $C06578
+!C22F38_InitBattleScripted = $C22F38
+!C230F3_SnapshotRespawnWarpTargetState = $C230F3
+!C3F1EC_TryRepairJeffBrokenInventoryItem = $C3F1EC
 !C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+!C4605A_FindEntitySlotByVisualTypeId = $C4605A
+!C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode = $C4608C
+!C460CE_RunVisualTypeEntityScriptWithCachedPose = $C460CE
+!C46125_RunPoseDescriptorEntityScriptWithCachedPose = $C46125
+!C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4 = $C4617C
+!C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4 = $C461CC
+!C462AE_ComputeVisualTypeEntityFacingOctantToTarget = $C462AE
+!C462C9_ComputePoseDescriptorEntityFacingOctantToTarget = $C462C9
+!C462E4_ComputeRegistryEntityFacingOctantToTarget = $C462E4
+!C462FF_UpdateEntityFrameSelectorByVisualTypeId = $C462FF
+!C46331_UpdateEntityFrameSelectorByPoseDescriptorId = $C46331
+!C46363_UpdateEntityFrameSelectorByRegistryTypeCode = $C46363
+!C46397_BroadcastRegistryEntityFrameSelectorUpdate = $C46397
+!C463F4_MarkRegistryEntitySlotsFlag8000 = $C463F4
+!C4645A_ClearRegistryEntitySlotsFlag8000 = $C4645A
+!C464B5_InitWorldPositionedEntityWithVisualTypeId = $C464B5
+!C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId = $C46507
+!C4655E_SetVisualTypeSlotFlagsC000 = $C4655E
+!C46579_SetPoseDescriptorSlotFlagsC000 = $C46579
+!C46594_SetRegistrySlotFlagsC000 = $C46594
+!C465FB_ClearVisualTypeSlotFlagsC000 = $C465FB
+!C46616_ClearPoseDescriptorSlotFlagsC000 = $C46616
+!C46631_ClearRegistrySlotFlagsC000 = $C46631
+!C46698_SelectModeSlotByVisualTypeId = $C46698
+!C466A8_SelectModeSlotByPoseDescriptorId = $C466A8
+!C4939C_RunLandingProfileDisplayBuildAndFade = $C4939C
+!C4B4FE_SpawnAttachedChildForRegistryTypeCode = $C4B4FE
+!C4B519_ClearAttachedChildForRegistryTypeCode = $C4B519
+!C4B524_SpawnAttachedChildForVisualTypeId = $C4B524
+!C4B53F_ClearAttachedChildForVisualTypeId = $C4B53F
+!C4C91A_AppendDynamicVisualRecord = $C4C91A
 C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     rep #$31
     phd
@@ -13408,7 +13459,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     stz $08
     sep #$10
     ldy.b #$18
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -13421,7 +13472,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -13434,7 +13485,7 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -13508,7 +13559,7 @@ CC_1F_C0:
     stx $10
     tay
     sty $0E
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -13520,7 +13571,7 @@ CC_1F_C0:
     cmp $0A
 C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     beq C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     ldx $10
     txa
     sta $0A
@@ -13531,7 +13582,7 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     lda $08
     sbc $0C
     bcs C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $02
     ldx $10
@@ -13541,7 +13592,7 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     sta $97D5
     ldy $0E
     sty $10
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A
@@ -13596,15 +13647,15 @@ CC_1F_D0:
     txa
     bra C163BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63BE
 C163B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63B9:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C163BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63BE:
-    jsl $C3F1EC
+    jsl !C3F1EC_TryRepairJeffBrokenInventoryItem
     tax
     stx $12
     beq C163D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63D1
     txa
-    jsr $D038
+    jsr !C1D038_MapBrokenItemToRepairedItem
     sta $06
     stz $08
     bra C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB
@@ -13618,7 +13669,7 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     ldx $12
     txa
     sta $06
@@ -13627,7 +13678,7 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -13671,7 +13722,7 @@ C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D:
     stz $09
     bra C16447_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6447
 C16444_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6444:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C16447_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6447:
     sep #$20
     lda $06
@@ -13683,14 +13734,14 @@ C16447_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6447:
     stz $08
     bra C1645C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L645C
 C16459_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6459:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C1645C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L645C:
     lda $06
     tax
     dex
     lda $00
     and.w #$00FF
-    jsl $C46363
+    jsl !C46363_UpdateEntityFrameSelectorByRegistryTypeCode
     lda.w #$0000
 C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
@@ -13710,11 +13761,11 @@ CC_1F_14:
     stz $08
     bra C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484
 C16481_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6481:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     lda $06
     dec A
-    jsl $C46397
+    jsl !C46397_BroadcastRegistryEntityFrameSelectorUpdate
     lda.w #$0000
     pld
     rts
@@ -13753,7 +13804,7 @@ C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -13763,7 +13814,7 @@ C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     stz $08
     bra C164E6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64E6
 C164E3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64E3:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C164E6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64E6:
     lda $06
     sta $0E
@@ -13775,13 +13826,13 @@ C164E6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64E6:
     stz $08
     bra C164FA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64FA
 C164F7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64F7:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C164FA_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64FA:
     lda $06
     tax
     dex
     lda $0E
-    jsl $C462FF
+    jsl !C462FF_UpdateEntityFrameSelectorByVisualTypeId
     lda.w #$0000
 C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
@@ -13819,7 +13870,7 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -13831,7 +13882,7 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     rep #$20
     lda $97BD
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BC
     and.w #$00FF
@@ -13839,10 +13890,10 @@ C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     rep #$10
     tax
     lda $0E
-    jsl $C464B5
+    jsl !C464B5_InitWorldPositionedEntityWithVisualTypeId
     ldy $10
     tyx
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
     lda.w #$0000
 C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
@@ -13930,14 +13981,14 @@ C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
     rep #$10
     ldx $0E
-    jsl $C4B524
+    jsl !C4B524_SpawnAttachedChildForVisualTypeId
     lda.w #$0000
 C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
@@ -13967,12 +14018,12 @@ C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C4B53F
+    jsl !C4B53F_ClearAttachedChildForVisualTypeId
     lda.w #$0000
 C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
@@ -14017,7 +14068,7 @@ C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D:
     stz $09
     bra C166B7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66B7
 C166B4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66B4:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C166B7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66B7:
     sep #$20
     lda $06
@@ -14029,13 +14080,13 @@ C166B7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66B7:
     stz $08
     bra C166CC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66CC
 C166C9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66C9:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C166CC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66CC:
     lda $06
     tax
     lda $00
     and.w #$00FF
-    jsl $C4B4FE
+    jsl !C4B4FE_SpawnAttachedChildForRegistryTypeCode
     lda.w #$0000
 C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
@@ -14055,10 +14106,10 @@ CC_1F_1D:
     stz $08
     bra C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3
 C166F0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F0:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     lda $06
-    jsl $C4B519
+    jsl !C4B519_ClearAttachedChildForRegistryTypeCode
     lda.w #$0000
     pld
     rts
@@ -14097,7 +14148,7 @@ C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
     sep #$20
     sta $0F
     lda $97BA
-    jsl $C4939C
+    jsl !C4939C_RunLandingProfileDisplayBuildAndFade
     lda.w #$0000
 C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
@@ -14134,7 +14185,7 @@ C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BA
     and.w #$00FF
@@ -14146,7 +14197,7 @@ C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     ldy.b #$08
     lda $97BD
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BC
     and.w #$00FF
@@ -14160,7 +14211,7 @@ C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     tax
     ldy $10
     tya
-    jsl $C06578
+    jsl !C06578_DrainQueuedPreparedEntityRecords
     bra C167D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D1
 C167BF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67BF:
     lda $0E
@@ -14168,9 +14219,9 @@ C167BF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67BF:
     tax
     ldy $10
     tya
-    jsl $C46507
+    jsl !C46507_InitForcedSlotWorldPositionedEntityWithVisualTypeId
     ldx $02
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
 C167D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D1:
     lda.w #$0000
 C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
@@ -14208,7 +14259,7 @@ C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BA
     and.w #$00FF
@@ -14217,13 +14268,13 @@ C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     tay
     sty $0E
     tya
-    jsl $C4605A
+    jsl !C4605A_FindEntitySlotByVisualTypeId
     ldx $02
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
     ldx $02
     ldy $0E
     tya
-    jsl $C460CE
+    jsl !C460CE_RunVisualTypeEntityScriptWithCachedPose
     lda.w #$0000
 C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
@@ -14260,7 +14311,7 @@ C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BA
     and.w #$00FF
@@ -14271,11 +14322,11 @@ C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     tya
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     ldx $02
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
     ldx $02
     ldy $0E
     tya
-    jsl $C46125
+    jsl !C46125_RunPoseDescriptorEntityScriptWithCachedPose
     lda.w #$0000
 C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E:
     pld
@@ -14324,7 +14375,7 @@ C168D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68D0:
     stz $09
     bra C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1
 C168EE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68EE:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1:
     sep #$20
     lda $06
@@ -14335,7 +14386,7 @@ C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1:
     ldy.b #$08
     rep #$20
     lda $12
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BC
     and.w #$00FF
@@ -14345,7 +14396,7 @@ C168F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L68F1:
     stz $08
     bra C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D
 C1691A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691A:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     lda $06
     rep #$10
@@ -14356,7 +14407,7 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     dex
     lda $01
     and.w #$00FF
-    jsl $C462E4
+    jsl !C462E4_ComputeRegistryEntityFacingOctantToTarget
     inc A
     sta $06
     stz $08
@@ -14364,7 +14415,7 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
     pld
@@ -14405,7 +14456,7 @@ C16978_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6978:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -14418,7 +14469,7 @@ C16978_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6978:
     stz $08
     bra C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4
 C169A1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A1:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4:
     lda $06
     sta $02
@@ -14429,7 +14480,7 @@ C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4:
     ldy.b #$08
     rep #$20
     lda $12
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BD
     and.w #$00FF
@@ -14439,7 +14490,7 @@ C169A4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69A4:
     stz $08
     bra C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0
 C169CD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69CD:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     lda $06
     rep #$10
@@ -14449,7 +14500,7 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     tax
     dex
     lda $02
-    jsl $C462AE
+    jsl !C462AE_ComputeVisualTypeEntityFacingOctantToTarget
     inc A
     sta $06
     stz $08
@@ -14457,7 +14508,7 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
@@ -14466,7 +14517,7 @@ CC_1F_62:
 !C169F7_HandleTextCommand1F62 = CC_1F_62
     rep #$31
     txa
-    jsr $0036
+    jsr !C10036_SetBlinkingTriangleState
     lda.w #$0000
     rts
 CC_1E_08:
@@ -14510,7 +14561,7 @@ C16A2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A2D:
 C16A44_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A44:
     bra C16A51_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A51
 C16A46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A46:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
     sta $0A
     lda $08
@@ -14527,14 +14578,14 @@ C16A51_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A51:
     stz $09
     bra C16A69_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A69
 C16A66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A66:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C16A69_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A69:
     ldy.w #$0001
     rep #$20
     lda $0A
     tax
     lda $06
-    jsr $D8D0
+    jsr !C1D8D0_RefreshCharacterBattleStartState
     lda.w #$0000
 C16A79_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6A79:
     pld
@@ -14575,7 +14626,7 @@ C16AAC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AAC:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -14588,7 +14639,7 @@ C16AAC_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AAC:
     stz $08
     bra C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8
 C16AD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD5:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8:
     lda $06
     sta $02
@@ -14599,7 +14650,7 @@ C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8:
     ldy.b #$08
     rep #$20
     lda $12
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $04
     lda $97BD
     and.w #$00FF
@@ -14609,7 +14660,7 @@ C16AD8_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6AD8:
     stz $08
     bra C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04
 C16B01_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B01:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     lda $06
     rep #$10
@@ -14619,7 +14670,7 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     tax
     dex
     lda $02
-    jsl $C462C9
+    jsl !C462C9_ComputePoseDescriptorEntityFacingOctantToTarget
     inc A
     sta $06
     stz $08
@@ -14627,7 +14678,7 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
@@ -14667,7 +14718,7 @@ C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -14677,7 +14728,7 @@ C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     stz $08
     bra C16B81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B81
 C16B7E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B7E:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C16B81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B81:
     lda $06
     sta $0E
@@ -14689,13 +14740,13 @@ C16B81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B81:
     stz $08
     bra C16B95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B95
 C16B92_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B92:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C16B95_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B95:
     lda $06
     tax
     dex
     lda $0E
-    jsl $C46331
+    jsl !C46331_UpdateEntityFrameSelectorByPoseDescriptorId
     lda.w #$0000
 C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
@@ -14704,7 +14755,7 @@ CC_1F_E5:
 !C16BA4_HandleTextCommand1FE5 = CC_1F_E5
     rep #$31
     txa
-    jsl $C46594
+    jsl !C46594_SetRegistrySlotFlagsC000
     lda.w #$0000
     rts
 CC_1F_E6:
@@ -14732,12 +14783,12 @@ C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C4655E
+    jsl !C4655E_SetVisualTypeSlotFlagsC000
     lda.w #$0000
 C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
@@ -14767,12 +14818,12 @@ C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C46579
+    jsl !C46579_SetPoseDescriptorSlotFlagsC000
     lda.w #$0000
 C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
@@ -14781,7 +14832,7 @@ CC_1F_E8:
 !C16C35_HandleTextCommand1FE8 = CC_1F_E8
     rep #$31
     txa
-    jsl $C46631
+    jsl !C46631_ClearRegistrySlotFlagsC000
     lda.w #$0000
     rts
 CC_1F_E9:
@@ -14809,12 +14860,12 @@ C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C465FB
+    jsl !C465FB_ClearVisualTypeSlotFlagsC000
     lda.w #$0000
 C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
@@ -14844,12 +14895,12 @@ C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C46616
+    jsl !C46616_ClearPoseDescriptorSlotFlagsC000
     lda.w #$0000
 C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
@@ -14887,12 +14938,12 @@ C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
     tay
     sty $0E
     tya
-    jsl $C4608C
+    jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     ldx $10
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
     ldy $0E
     tya
-    jsl $C463F4
+    jsl !C463F4_MarkRegistryEntitySlotsFlag8000
     lda.w #$0000
 C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
@@ -14930,12 +14981,12 @@ C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
     tay
     sty $0E
     tya
-    jsl $C4608C
+    jsl !C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     ldx $10
-    jsl $C4C91A
+    jsl !C4C91A_AppendDynamicVisualRecord
     ldy $0E
     tya
-    jsl $C4645A
+    jsl !C4645A_ClearRegistryEntitySlotsFlag8000
     lda.w #$0000
 C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
@@ -14965,12 +15016,12 @@ C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C46698
+    jsl !C46698_SelectModeSlotByVisualTypeId
     lda.w #$0000
 C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
@@ -15000,12 +15051,12 @@ C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C466A8
+    jsl !C466A8_SelectModeSlotByPoseDescriptorId
     lda.w #$0000
 C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
@@ -15044,7 +15095,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -15057,7 +15108,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -15070,7 +15121,7 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -15109,13 +15160,13 @@ C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
     ora $0C
     sta $08
     lda.w #$00FF
-    jsl $C46594
+    jsl !C46594_SetRegistrySlotFlagsC000
     lda $06
     sta $0E
     lda $08
     sta $10
     lda.w #$000A
-    jsl $C064E3
+    jsl !C064E3_EnqueueMovementRecord
     lda.w #$0000
 C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
     pld
@@ -15153,7 +15204,7 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -15164,7 +15215,7 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
     sep #$10
     ldy.b #$08
     lda $10
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BC
     and.w #$00FF
@@ -15173,7 +15224,7 @@ C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
     tax
     ldy $0E
     tya
-    jsl $C4617C
+    jsl !C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4
     lda.w #$0000
 C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
     pld
@@ -15211,7 +15262,7 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
     ldy.b #$08
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -15222,7 +15273,7 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
     sep #$10
     ldy.b #$08
     lda $10
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BC
     and.w #$00FF
@@ -15231,7 +15282,7 @@ C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
     tax
     ldy $0E
     tya
-    jsl $C461CC
+    jsl !C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4
     lda.w #$0000
 C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
     pld
@@ -15251,18 +15302,18 @@ CC_19_25:
     stz $08
     bra C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5
 C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
     sep #$20
     lda $06
-    jsl $C1DB33
+    jsl !C1DB33_FindCondimentForFoodItem
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -15291,7 +15342,7 @@ C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
     sep #$10
     ldy.b #$08
     lda $12
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -15301,10 +15352,10 @@ C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
     stz $08
     bra C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016
 C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016:
     lda $06
-    jsl $C22F38
+    jsl !C22F38_InitBattleScripted
     cmp.w #$0000
     sta $06
     stz $08
@@ -15315,7 +15366,7 @@ C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
     pld
@@ -15333,10 +15384,10 @@ C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
     stz $08
     bra C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D
 C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
     lda $06
-    jsl $C230F3
+    jsl !C230F3_SnapshotRespawnWarpTargetState
     lda.w #$0000
     pld
     rts
@@ -15376,7 +15427,7 @@ C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088:
     txa
     bra C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099
 C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099:
     sta $02
@@ -15385,12 +15436,12 @@ C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099:
     tya
     bra C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7
 C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7:
     tay
     sty $12
-    jsr $90F1
+    jsr !C190F1_CheckEscargoStorageQueueFull
     cmp.w #$0000
     beq C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9
     ldx.w #$0002
@@ -15443,7 +15494,7 @@ C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
     pld
@@ -15486,7 +15537,7 @@ C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B:
     stz $09
     bra C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162
 C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162:
     sep #$20
     lda $06
@@ -15502,7 +15553,7 @@ C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162:
     stz $09
     bra C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181
 C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
 C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     sep #$20
     lda $06
@@ -15514,7 +15565,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     stz $08
     sep #$10
     ldy.b #$18
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -15527,7 +15578,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -15540,7 +15591,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -15588,7 +15639,7 @@ C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
     tax
     lda $00
     and.w #$00FF
-    jsl $C072CF
+    jsl !C072CF_ActivateHotspot
     lda.w #$0000
 C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
     pld
@@ -15608,10 +15659,10 @@ CC_1F_67:
     stz $08
     bra C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249
 C17246_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7246:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     lda $06
-    jsl $C071E5
+    jsl !C071E5_DisableHotspot
     lda.w #$0000
     pld
     rts
@@ -15630,10 +15681,10 @@ CC_1F_04:
     stz $08
     bra C1726A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L726A
 C17267_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7267:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C1726A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L726A:
     lda $06
-    jsr $0048
+    jsr !C10048_SetTextSoundMode
     lda.w #$0000
     pld
     rts
@@ -15647,6 +15698,15 @@ hirom
 org $C17274
 
 !C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0923E_ShiftWordLeftByY = $C0923E
+!C10042_ReadBlinkingTriangleState = $0042
+!C103DC_ReadTextCommandArgumentWord = $03DC
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C1BEFC_DispatchTextCommand1F41SpecialEvent = $C1BEFC
+!C3FAC9_DispatchBattleActorVisualEffectToken = $C3FAC9
+!C466C1_RunWanderingPhotographerScriptForPhotoIndex = $C466C1
+!C4B54A_SpawnAttachedChildForPoseDescriptorId = $C4B54A
+!C4B565_ClearAttachedChildForPoseDescriptorId = $C4B565
 CC_1D_24:
 !C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     rep #$31
@@ -15667,7 +15727,7 @@ CC_1D_24:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     ldx $14
     cpx.w #$0002
     bne C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7
@@ -15711,7 +15771,7 @@ CC_1F_41:
     tcd
     pla
     txa
-    jsl $C1BEFC
+    jsl !C1BEFC_DispatchTextCommand1F41SpecialEvent
     cmp.w #$0000
     sta $06
     stz $08
@@ -15722,7 +15782,7 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -15741,10 +15801,10 @@ CC_1F_D2:
     stz $08
     bra C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A
 C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda $06
-    jsl $C466C1
+    jsl !C466C1_RunWanderingPhotographerScriptForPhotoIndex
     lda.w #$0000
     pld
     rts
@@ -15783,14 +15843,14 @@ C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
     rep #$10
     ldx $0E
-    jsl $C4B54A
+    jsl !C4B54A_SpawnAttachedChildForPoseDescriptorId
     lda.w #$0000
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
@@ -15820,12 +15880,12 @@ C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C4B565
+    jsl !C4B565_ClearAttachedChildForPoseDescriptorId
     lda.w #$0000
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
@@ -15858,7 +15918,7 @@ C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
     lda.w #$73C0
     bra C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D
 C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
-    jsr $0042
+    jsr !C10042_ReadBlinkingTriangleState
     cmp.w #$0000
     beq C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A
     ldx $12
@@ -15866,7 +15926,7 @@ C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
     lda $97BA
     and.w #$00FF
     dec A
-    jsl $C3FAC9
+    jsl !C3FAC9_DispatchBattleActorVisualEffectToken
     cmp.w #$0000
     sta $06
     stz $08
@@ -15877,7 +15937,7 @@ C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
 C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
     lda.w #$0000
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
@@ -15898,7 +15958,7 @@ CC_1F_07:
     stz $08
     bra C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435
 C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435:
     lda $06
     jsl !C0AC0C_QueuePresentationSfxOrCounter

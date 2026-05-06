@@ -12,6 +12,15 @@
 ; External contracts used by this module
 
 C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+C0923E_ShiftWordLeftByY = $C0923E
+C10042_ReadBlinkingTriangleState = $0042
+C103DC_ReadTextCommandArgumentWord = $03DC
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C1BEFC_DispatchTextCommand1F41SpecialEvent = $C1BEFC
+C3FAC9_DispatchBattleActorVisualEffectToken = $C3FAC9
+C466C1_RunWanderingPhotographerScriptForPhotoIndex = $C466C1
+C4B54A_SpawnAttachedChildForPoseDescriptorId = $C4B54A
+C4B565_ClearAttachedChildForPoseDescriptorId = $C4B565
 
 ; ---------------------------------------------------------------------------
 ; C1:7274
@@ -36,7 +45,7 @@ C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     ldx $14
     cpx.w #$0002
     bne C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7
@@ -80,7 +89,7 @@ C172DA_HandleTextCommand1F41 = CC_1F_41
     tcd
     pla
     txa
-    jsl $C1BEFC
+    jsl C1BEFC_DispatchTextCommand1F41SpecialEvent
     cmp.w #$0000
     sta $06
     stz $08
@@ -91,7 +100,7 @@ C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -110,10 +119,10 @@ C17304_HandleTextCommand1FD2 = CC_1F_D2
     stz $08
     bra C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A
 C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
     lda $06
-    jsl $C466C1
+    jsl C466C1_RunWanderingPhotographerScriptForPhotoIndex
     lda.w #$0000
     pld
     rts
@@ -152,14 +161,14 @@ C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
     rep #$20
     lda $97BB
     and.w #$00FF
-    jsl $C0923E
+    jsl C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
     rep #$10
     ldx $0E
-    jsl $C4B54A
+    jsl C4B54A_SpawnAttachedChildForPoseDescriptorId
     lda.w #$0000
 C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
     pld
@@ -189,12 +198,12 @@ C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
     sep #$10
     ldy.b #$08
     lda $0E
-    jsl $C0923E
+    jsl C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
     ora $02
-    jsl $C4B565
+    jsl C4B565_ClearAttachedChildForPoseDescriptorId
     lda.w #$0000
 C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
     pld
@@ -227,7 +236,7 @@ C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
     lda.w #$73C0
     bra C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D
 C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
-    jsr $0042
+    jsr C10042_ReadBlinkingTriangleState
     cmp.w #$0000
     beq C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A
     ldx $12
@@ -235,7 +244,7 @@ C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
     lda $97BA
     and.w #$00FF
     dec A
-    jsl $C3FAC9
+    jsl C3FAC9_DispatchBattleActorVisualEffectToken
     cmp.w #$0000
     sta $06
     stz $08
@@ -246,7 +255,7 @@ C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
 C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
     lda.w #$0000
 C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
@@ -267,7 +276,7 @@ C1741F_HandleTextCommand1F07 = CC_1F_07
     stz $08
     bra C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435
 C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
 C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435:
     lda $06
     jsl C0AC0C_QueuePresentationSfxOrCounter

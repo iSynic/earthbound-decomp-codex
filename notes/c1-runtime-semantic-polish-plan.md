@@ -378,3 +378,17 @@ This planning pass is documentation-only.
   `notes/text-command-family-1c-print-display.md`,
   `notes/pending-item-queue-984b.md`, and
   `notes/equipped-item-presence-predicate-c3e9a0.md`.
+- 2026-05-06 follow-up: the `C1:621F..7440` mixed callback and event-helper
+  tail now names its helper-call surface through the `C1:7274..7440` sibling
+  module. The pass covers the `1F C0`/`JUMP_MULTI2` target finalizer, Jeff
+  repair result mapping, battle-text mode latch access, `1E 08` level refresh,
+  `0x19 22..26` direction/condiment/landing helpers, C0 hotspot and movement
+  queue joins, C2 scripted-battle and respawn-warp helpers, C3 battle visual
+  effect dispatch, C4 entity frame/flag/script helpers, attached-child helpers,
+  wandering photographer dispatch, and the bank-deposit accumulator stager. See
+  `notes/text-command-1f-c0-jump-multi2-c1621f.md`,
+  `notes/text-command-family-1f-deferred-callbacks.md`,
+  `notes/text-command-family-19-data-and-substitution.md`,
+  `notes/text-command-family-1e-stat-recovery.md`,
+  `notes/bank-deposit-accumulator-98b9-98bb.md`, and
+  `notes/respawn-warp-target-snapshot-helper-c230f3.md`.

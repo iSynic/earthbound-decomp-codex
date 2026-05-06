@@ -80,6 +80,11 @@ now call the C4 status-group read/write and required-experience helpers by
 name, which keeps the stat/recovery evidence layer aligned with the surrounding
 text-command implementation.
 
+Source polish follow-up (2026-05-06): the `0x1E 08` source leaf in
+`src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` now calls
+`C1:D8D0` by the `RefreshCharacterBattleStartState` contract name, matching the
+level-setting interpretation already described below.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:

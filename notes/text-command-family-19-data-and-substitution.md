@@ -86,6 +86,12 @@ read/removal, delivery queue store, and primary/secondary context staging
 contracts directly, which makes this loaded-string/inventory bridge easier to
 carry into the next bank joins.
 
+Source polish follow-up (2026-05-06): the `C1:621F..7274` module now names the
+helper edges for `0x19 22/23/24/25/26` directly. The three direction helpers
+call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
+name; the condiment leaf calls the C1 condiment lookup helper; and the landing
+snapshot leaf calls `C2:30F3` by name after resolving its staged argument.
+
 ## Best current case map
 
 ### `0x19 02`

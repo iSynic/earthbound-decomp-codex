@@ -80,3 +80,7 @@ The repeated use of `$97BA/$97BB/$97BC/$97CA` is therefore intentional: it is th
 ## Practical Conclusion
 
 `C1:621F` is now locally covered as the hidden `JUMP_MULTI2` selected-target reader/finalizer. The unknown include boundary in `ebsrc-main` is explained by code shape and macro shape: it is shared support for the named `text/ccs/jump_multi2.asm` routine that follows it.
+
+Source polish follow-up (2026-05-06): `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`
+now names the shift, context-load, text-printer, and callback helper calls in
+this finalizer directly, with C1 byte-equivalence still green.

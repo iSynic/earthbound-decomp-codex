@@ -117,6 +117,14 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `notes/text-command-family-1d-inventory-money.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/pending-item-queue-984b.md`.
+- 2026-05-06: C1 `C1:621F..7440` mixed callback/event tail follow-up named
+  helper-call edges for `1F C0`, Jeff repair, level refresh, direction and
+  landing snapshot helpers, C0 hotspot/movement joins, C2 battle/respawn
+  helpers, C3 battle visual effect dispatch, C4 entity frame/flag/script and
+  attached-child helpers, wandering photographer dispatch, and the bank-deposit
+  accumulator stager. See `notes/text-command-family-1f-deferred-callbacks.md`,
+  `notes/text-command-family-19-data-and-substitution.md`, and
+  `notes/bank-deposit-accumulator-98b9-98bb.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source
