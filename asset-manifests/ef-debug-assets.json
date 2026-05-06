@@ -13,6 +13,45 @@
     "notes/ef-byte-equivalence-validation.md",
     "src/ef/bank_ef_helpers_asar.asm"
   ],
+  "typed_output_summary": {
+    "schema": "earthbound-decomp.asset-manifest-output-summary.v1",
+    "generator": {
+      "tool": "tools/build_asset_manifest_output_metadata.py",
+      "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
+      "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
+    },
+    "asset_count": 5,
+    "output_recipe_count": 7,
+    "typed_output_kind_count": 2,
+    "decoder_output_recipe_count": 2,
+    "renderer_output_recipe_count": 2,
+    "preview_png_recipe_count": 2,
+    "output_kind_counts": {
+      "raw": 5,
+      "snes_2bpp_tiles_png": 2
+    },
+    "decoder_counts": {
+      "snes_2bpp_tiles": 2
+    },
+    "renderer_counts": {
+      "grayscale_tile_sheet": 2
+    },
+    "smoke_fixture_count": 5,
+    "smoke_fixture_asset_ids": [
+      "asset.debug.cursor_graphics",
+      "asset.debug.menu_font"
+    ],
+    "smoke_fixture_type_counts": {
+      "family_decoder": 1,
+      "family_renderer": 1,
+      "family_renderer_geometry": 1,
+      "recipe_kind": 1,
+      "recipe_option": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "snes_2bpp_tiles_png": 5
+    }
+  },
   "assets": [
     {
       "id": "table.ef.front_mixed_data_code",
@@ -49,11 +88,17 @@
         {
           "kind": "raw",
           "path": "ef/debug_menu_font.gfx"
+        },
+        {
+          "kind": "snes_2bpp_tiles_png",
+          "path": "ef/debug_menu_font_preview.png",
+          "columns": 13,
+          "trim_trailing_bytes": 1
         }
       ],
       "notes": [
         "Named DEBUG_MENU_FONT in the EF asset map and asset_debug_menu_font.asm.",
-        "Kept raw until the exact debug font packing is documented."
+        "1040 bytes after the trailing pad byte decode as 65 16-byte SNES 2bpp-compatible 8x8 glyph records."
       ]
     },
     {

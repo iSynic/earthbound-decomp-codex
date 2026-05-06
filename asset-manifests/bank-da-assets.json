@@ -30,6 +30,37 @@
     "coverage_gap_bytes": 18,
     "missing_payload_metadata": 0
   },
+  "typed_output_summary": {
+    "schema": "earthbound-decomp.asset-manifest-output-summary.v1",
+    "generator": {
+      "tool": "tools/build_asset_manifest_output_metadata.py",
+      "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
+      "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
+    },
+    "asset_count": 38,
+    "output_recipe_count": 105,
+    "typed_output_kind_count": 4,
+    "decoder_output_recipe_count": 67,
+    "renderer_output_recipe_count": 32,
+    "preview_png_recipe_count": 32,
+    "output_kind_counts": {
+      "earthbound_lzhal": 3,
+      "raw": 38,
+      "snes_palette_json": 32,
+      "snes_palette_swatch_png": 32
+    },
+    "decoder_counts": {
+      "earthbound_lzhal": 3,
+      "snes_palette": 64
+    },
+    "renderer_counts": {
+      "palette_swatch": 32
+    },
+    "smoke_fixture_count": 0,
+    "smoke_fixture_asset_ids": [],
+    "smoke_fixture_type_counts": {},
+    "smoke_fixture_target_kind_counts": {}
+  },
   "assets": [
     {
       "id": "asset.da.map_data_tile_arrangement_5",

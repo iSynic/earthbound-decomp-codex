@@ -206,6 +206,21 @@ def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any])
     return len(entries)
 
 
+def swatch_dimensions(colors: int, spec: dict[str, Any]) -> dict[str, int]:
+    per_row = int(spec.get("per_row", 16))
+    swatch = int(spec.get("swatch", 16))
+    rows = math.ceil(colors / per_row) if colors else 0
+    return {"width": min(colors, per_row) * swatch if colors else 0, "height": rows * swatch}
+
+
+def tile_sheet_metadata(rows: list[list[Any]], data: bytes, tile_size: int) -> dict[str, int]:
+    return {
+        "width": len(rows[0]) if rows else 0,
+        "height": len(rows),
+        "tiles": len(data) // tile_size,
+    }
+
+
 def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
     if len(data) % 16 != 0:
         raise ValueError(f"SNES 2bpp tile data must be a multiple of 16 bytes, got {len(data)}")
@@ -230,6 +245,15 @@ def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
                 pixels[tile_y + y][tile_x + x] = palette[color]
 
     return pixels
+
+
+def trim_trailing_bytes(data: bytes, spec: dict[str, Any]) -> bytes:
+    trim = int(spec.get("trim_trailing_bytes", 0) or 0)
+    if trim <= 0:
+        return data
+    if trim >= len(data):
+        raise ValueError(f"Cannot trim {trim} trailing bytes from {len(data)}-byte source")
+    return data[:-trim]
 
 
 def decode_snes_4bpp_tile_indices(data: bytes, columns: int) -> list[list[int]]:
@@ -322,6 +346,7 @@ def write_snes_4bpp_palette_png(
     ]
     write_rgb_png(path, rows)
     result = {"colors": len(entries), "palette_source_range": spec["palette_source"]["range"]}
+    result.update(tile_sheet_metadata(rows, data, 32))
     for key in ("sprite_id", "graphics_id", "palette_id"):
         if key in spec:
             result[key] = spec[key]
@@ -462,6 +487,8 @@ def write_battle_bg_arrangement_png(
         "palette_source_range": spec["palette_source"]["range"],
         "bpp": bpp,
         "max_tile": max_tile,
+        "width": width_tiles * 8,
+        "height": height_tiles * 8,
     }
 
 
@@ -529,16 +556,25 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
-        write_grayscale_png(path, decode_snes_2bpp_tiles(data, columns))
+        tile_data = trim_trailing_bytes(data, spec)
+        rows = decode_snes_2bpp_tiles(tile_data, columns)
+        write_grayscale_png(path, rows)
+        metadata.update(tile_sheet_metadata(rows, tile_data, 16))
+        if tile_data is not data:
+            metadata["trimmed_source_bytes"] = len(tile_data)
     elif kind == "snes_4bpp_tiles_png":
         columns = int(spec.get("columns", 16))
-        write_grayscale_png(path, decode_snes_4bpp_tiles(data, columns))
+        rows = decode_snes_4bpp_tiles(data, columns)
+        write_grayscale_png(path, rows)
+        metadata.update(tile_sheet_metadata(rows, data, 32))
     elif kind == "earthbound_lzhal_snes_4bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         decompressed, consumed = decompress_earthbound_lzhal(data)
-        write_grayscale_png(path, decode_snes_4bpp_tiles(decompressed, columns))
+        rows = decode_snes_4bpp_tiles(decompressed, columns)
+        write_grayscale_png(path, rows)
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
+        metadata.update(tile_sheet_metadata(rows, decompressed, 32))
     elif kind == "snes_4bpp_tiles_palette_png":
         metadata.update(write_snes_4bpp_palette_png(data, palette_source_data(rom, spec), path, spec))
     elif kind == "earthbound_lzhal_snes_4bpp_tiles_palette_png":
@@ -577,6 +613,7 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["colors"] = write_snes_palette_json(data, path, spec)
     elif kind == "snes_palette_swatch_png":
         metadata["colors"] = write_snes_palette_swatch_png(data, path, spec)
+        metadata.update(swatch_dimensions(metadata["colors"], spec))
     elif kind == "earthbound_lzhal_snes_palette_json":
         decompressed, consumed = decompress_earthbound_lzhal(data)
         metadata["colors"] = write_snes_palette_json(decompressed, path, spec)
@@ -587,6 +624,7 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["colors"] = write_snes_palette_swatch_png(decompressed, path, spec)
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
+        metadata.update(swatch_dimensions(metadata["colors"], spec))
     else:
         raise ValueError(f"Unsupported output kind: {kind}")
 
