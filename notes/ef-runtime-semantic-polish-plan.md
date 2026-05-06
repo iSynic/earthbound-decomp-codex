@@ -273,3 +273,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF revive/shield result label follow-up renamed `EF:6F7C..7160`
   direct result scripts with `ResultText`, preserving `ByteSubstitution` on
   `EF:70D2/70FA` because those PSI shield result scripts consume `19 1F`.
+- 2026-05-06: EF EBATTLE4 action-blocked status follow-up renamed
+  `EF:7186..720C` with `ActionBlockedStatusText` and marked `EF:7221` as the
+  PSI-seal `ByteSubstitutionResultText` consumer behind the player-side branch.

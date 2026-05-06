@@ -88,8 +88,9 @@ macros.
   result tail used by C2 timed substate and Thunder reflection helpers.
 - `EF:7186..7249` now splits EBATTLE4 action-blocking status text for
   diamondized, paralysis, nausea, poison, asleep, immobilized, and PSI-seal
-  turns, including the PSI-seal player-side sound branch and `19 1F` byte
-  substitution before `PRINT_PSI_NAME 0`.
+  turns, with `ActionBlockedStatusText` anchors in source. The PSI-seal
+  player-side branch leads to a `ByteSubstitutionResultText` script at
+  `EF:7221`, which consumes the PSI-name byte through `19 1F`.
 - `EF:7249..75AB` now splits EBATTLE4 guard, Fly Honey, homesickness,
   Runaway Five, Poo/Starstorm, Pokey, and companion event text before the
   central damage block.
@@ -218,6 +219,9 @@ anchors makes the central damage pipeline visible on the EF side.
 The remaining `EF:7186..75AB` prelude is now split around exact EBATTLE4
 labels. The front status run exposes action-blocking result text for
 diamondized, paralysis, nausea, poison, sleep, immobilization, and PSI seal.
+Those front anchors now use `ActionBlockedStatusText`, while the PSI-seal
+player-side branch and `EF:7221` result text keep the byte-substitution payload
+visible separately from the blocked-action text.
 The event half exposes guard, Fly Honey, homesick flavor, Runaway Five
 intervention, Poo/Starstorm, Pokey random talk branches, and companion text
 before the damage pipeline begins at `EF:75AB`.

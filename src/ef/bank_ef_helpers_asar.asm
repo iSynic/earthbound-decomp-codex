@@ -4715,48 +4715,48 @@ db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
 
 EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 
-; Original data gap before EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+; Original data gap before EF7186_EBattle4DiamondizedActionBlockedStatusText:
 db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95
 db $16,$E7,$96,$9C,$16,$A5,$95,$94,$00,$15,$95,$9C,$15,$BB,$16,$50
 db $51,$1F,$02,$5D,$03,$02
 
-EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+EF7186_EBattle4DiamondizedActionBlockedStatusText:
 
-; Original data gap before EF7192_EBattle4MsgBtlParalysisCannotMove:
+; Original data gap before EF7192_EBattle4ParalysisActionBlockedStatusText:
 db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02
 
-EF7192_EBattle4MsgBtlParalysisCannotMove:
+EF7192_EBattle4ParalysisActionBlockedStatusText:
 
-; Original data gap before EF71B4_EBattle4MsgBtlNauseaCannotMove:
+; Original data gap before EF71B4_EBattle4NauseaActionBlockedStatusText:
 db $01,$70,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$16,$00,$00,$50,$50,$9E
 db $A5,$9D,$92,$15,$04,$08,$02,$E6,$C7,$00,$15,$61,$9D,$16,$61,$51
 db $03,$02
 
-EF71B4_EBattle4MsgBtlNauseaCannotMove:
+EF71B4_EBattle4NauseaActionBlockedStatusText:
 
-; Original data gap before EF71CC_EBattle4MsgBtlPoisonStatus:
+; Original data gap before EF71CC_EBattle4PoisonActionBlockedStatusText:
 db $01,$70,$1C,$0D,$17,$20,$A3,$00,$50,$16,$40,$50,$A3,$15,$FA,$15
 db $0C,$9D,$9F,$A6,$15,$34,$03,$02
 
-EF71CC_EBattle4MsgBtlPoisonStatus:
+EF71CC_EBattle4PoisonActionBlockedStatusText:
 
-; Original data gap before EF71DF_EBattle4MsgBtlAsleepStatus:
+; Original data gap before EF71DF_EBattle4AsleepActionBlockedStatusText:
 db $01,$70,$1C,$0E,$16,$00,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E,$94
 db $51,$03,$02
 
-EF71DF_EBattle4MsgBtlAsleepStatus:
+EF71DF_EBattle4AsleepActionBlockedStatusText:
 
-; Original data gap before EF71F6_EBattle4MsgBtlImmobilizedStatus:
+; Original data gap before EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 db $01,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$50,$96,$15,$D8,$17,$46,$91
 db $A3,$9C,$15,$C9,$51,$03,$02
 
-EF71F6_EBattle4MsgBtlImmobilizedStatus:
+EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
-; Original data gap before EF720C_EBattle4MsgBtlPsiSealStatus:
+; Original data gap before EF720C_EBattle4PsiSealActionBlockedStatusText:
 db $01,$70,$1C,$0D,$17,$77,$9E,$16,$07,$00,$50,$50,$9D,$16,$61,$50
 db $91,$17,$10,$51,$03,$02
 
-EF720C_EBattle4MsgBtlPsiSealStatus:
+EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; Original data gap before EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 db $01,$1F,$41,$08,$1B,$02,$1E,$72,$EF,$00,$1F,$02,$37,$0A,$21,$72
@@ -4764,10 +4764,10 @@ db $EF,$00
 
 EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 
-; Original data gap before EF7221_EBattle4PsiSealResultText:
+; Original data gap before EF7221_EBattle4PsiSealByteSubstitutionResultText:
 db $1F,$02,$1D
 
-EF7221_EBattle4PsiSealResultText:
+EF7221_EBattle4PsiSealByteSubstitutionResultText:
 
 ; Original data gap before EF7249_EBattle4MsgBtlGuardOn:
 db $70,$1C,$0D,$19,$1F,$1B,$04,$50,$A4,$17,$B0,$00,$50,$50,$1C,$12

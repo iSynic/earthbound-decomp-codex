@@ -1120,44 +1120,44 @@ EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 ; ---------------------------------------------------------------------------
 ; EF:7186
 
-; EBATTLE4: diamondized cannot-move status text.
-EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+; EBATTLE4: diamondized action-blocked status text.
+EF7186_EBattle4DiamondizedActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7192
 
-; EBATTLE4: paralysis cannot-move status text.
-EF7192_EBattle4MsgBtlParalysisCannotMove:
+; EBATTLE4: paralysis action-blocked status text.
+EF7192_EBattle4ParalysisActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71B4
 
-; EBATTLE4: nausea cannot-move status text.
-EF71B4_EBattle4MsgBtlNauseaCannotMove:
+; EBATTLE4: nausea action-blocked status text.
+EF71B4_EBattle4NauseaActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71CC
 
-; EBATTLE4: poison status text.
-EF71CC_EBattle4MsgBtlPoisonStatus:
+; EBATTLE4: poison action-blocked status text.
+EF71CC_EBattle4PoisonActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71DF
 
-; EBATTLE4: asleep status text.
-EF71DF_EBattle4MsgBtlAsleepStatus:
+; EBATTLE4: asleep action-blocked status text.
+EF71DF_EBattle4AsleepActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71F6
 
-; EBATTLE4: immobilized status text.
-EF71F6_EBattle4MsgBtlImmobilizedStatus:
+; EBATTLE4: immobilized action-blocked status text.
+EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:720C
 
-; EBATTLE4: PSI-seal status text.
-EF720C_EBattle4MsgBtlPsiSealStatus:
+; EBATTLE4: PSI-seal action-blocked status text.
+EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:721E
@@ -1168,8 +1168,8 @@ EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 ; ---------------------------------------------------------------------------
 ; EF:7221
 
-; EBATTLE4: PSI-seal result text.
-EF7221_EBattle4PsiSealResultText:
+; EBATTLE4: PSI-seal result text; consumes the PSI-name byte through 19 1F.
+EF7221_EBattle4PsiSealByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7249

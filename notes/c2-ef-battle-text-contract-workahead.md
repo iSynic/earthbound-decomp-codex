@@ -223,6 +223,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   through `EF:6F7C..7160`, including revive success/failure, shield
   install/strengthen pairs, expiry/reflection, Neutralizer, Franklin Badge, and
   PSI-name shield `ByteSubstitutionResultText` scripts.
+- 2026-05-06: EF EBATTLE4 status-block label follow-up renamed
+  `EF:7186..720C` as `ActionBlockedStatusText` anchors and kept the PSI-seal
+  `EF:7221` branch as `ByteSubstitutionResultText`.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
   and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
   row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer

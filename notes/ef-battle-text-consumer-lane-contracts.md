@@ -68,6 +68,9 @@ Examples:
 - Revive, shield, Neutralizer, and Franklin Badge anchors in `EF:6F7C..7160`
   are also direct result lane text; `EF:70D2/70FA` additionally keep the
   `ByteSubstitution` suffix because they consume the staged PSI-name byte.
+- EBATTLE4 action-blocking status anchors in `EF:7186..720C` explain a blocked
+  turn; the adjacent PSI-seal result at `EF:7221` is a
+  `ByteSubstitutionResultText` consumer, not a row presentation anchor.
 - `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
   after rows `243` and `244` present their row messages.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
