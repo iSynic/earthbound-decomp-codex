@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -65,6 +66,26 @@ def cpu(address: int) -> str:
     return f"D5:{address:04X}"
 
 
+def pointer_bank(pointer: str) -> str:
+    return pointer.split(":")[0]
+
+
+def counter_dict(counter: Counter[Any]) -> dict[str, int]:
+    return {str(key): counter[key] for key in sorted(counter)}
+
+
+def hex_word_counter_dict(counter: Counter[int]) -> dict[str, int]:
+    return {f"0x{key:04X}": counter[key] for key in sorted(counter)}
+
+
+def hex_word(value: int) -> str:
+    return f"0x{value:04X}"
+
+
+def format_histogram(histogram: dict[str, int]) -> str:
+    return ", ".join(f"`{key}`: {value}" for key, value in histogram.items()) or "-"
+
+
 def build_contract(source_path: Path) -> dict[str, Any]:
     text = source_path.read_text(encoding="utf-8")
     initial_stats = parse_db_bytes(source_slice(text, "table_initial_stats.asm"))
@@ -101,6 +122,33 @@ def build_contract(source_path: Path) -> dict[str, Any]:
             }
         )
 
+    selector_bytes = [row["selector_byte"] for row in rows]
+    success_banks = Counter(pointer_bank(row["success_pointer"]) for row in rows)
+    failure_banks = Counter(pointer_bank(row["failure_pointer"]) for row in rows)
+    source_window_segments = [
+        {
+            "range": f"{cpu(EFFECTIVE_BASE)}..{cpu(SOURCE_SPLIT_BASE)}",
+            "bytes": SOURCE_SPLIT_BASE - EFFECTIVE_BASE,
+            "source": "tail of INITIAL_STATS",
+            "controller_rows": "row 0 offsets +0x00..+0x03",
+            "field_coverage": "sprite_object_descriptor, event_flag_gate",
+        },
+        {
+            "range": f"{cpu(SOURCE_SPLIT_BASE)}..{cpu(EFFECTIVE_BASE + ROW_COUNT * ROW_SIZE)}",
+            "bytes": ROW_COUNT * ROW_SIZE - (SOURCE_SPLIT_BASE - EFFECTIVE_BASE),
+            "source": "TIMED_DELIVERY_TABLE",
+            "controller_rows": "row 0 offsets +0x04..+0x13 and rows 1..9",
+            "field_coverage": "retry/wait/timer, success/failure pointers, enter/exit speeds, and rows 1..9 full records",
+        },
+        {
+            "range": f"{cpu(EFFECTIVE_BASE + ROW_COUNT * ROW_SIZE)}..{cpu(SOURCE_SPLIT_BASE + ROW_COUNT * ROW_SIZE)}",
+            "bytes": len(source_trailing_padding),
+            "source": "TIMED_DELIVERY_TABLE trailing bytes",
+            "controller_rows": "not part of effective controller rows",
+            "field_coverage": "zero padding",
+        },
+    ]
+
     return {
         "schema": SCHEMA,
         "title": "D5 Timed Delivery Row Contracts",
@@ -119,11 +167,30 @@ def build_contract(source_path: Path) -> dict[str, Any]:
             ),
             "source_split_trailing_padding_bytes": len(source_trailing_padding),
             "source_split_trailing_padding_all_zero": all(value == 0 for value in source_trailing_padding),
+            "controller_bytes_from_initial_stats_tail": SOURCE_SPLIT_BASE - EFFECTIVE_BASE,
+            "controller_bytes_from_timed_delivery_table": ROW_COUNT * ROW_SIZE - (SOURCE_SPLIT_BASE - EFFECTIVE_BASE),
+            "selector_min": min(selector_bytes),
+            "selector_max": max(selector_bytes),
+            "selector_rows_are_contiguous_1_based": selector_bytes == list(range(1, ROW_COUNT + 1)),
+            "family_counts": counter_dict(Counter(row["family"] for row in rows)),
+            "sprite_descriptor_histogram": hex_word_counter_dict(Counter(row["sprite_object_descriptor"] for row in rows)),
+            "event_flag_gate_histogram": counter_dict(Counter(row["event_flag_gate"] for row in rows)),
+            "retry_threshold_histogram": hex_word_counter_dict(Counter(row["retry_threshold"] for row in rows)),
+            "retry_wait_seconds_histogram": hex_word_counter_dict(Counter(row["retry_wait_seconds"] for row in rows)),
+            "delivery_time_histogram": hex_word_counter_dict(Counter(row["delivery_time"] for row in rows)),
+            "success_pointer_bank_histogram": counter_dict(success_banks),
+            "failure_pointer_bank_histogram": counter_dict(failure_banks),
+            "enter_speed_histogram": hex_word_counter_dict(Counter(row["enter_speed"] for row in rows)),
+            "exit_speed_histogram": hex_word_counter_dict(Counter(row["exit_speed"] for row in rows)),
+            "enter_exit_speed_pair_histogram": counter_dict(
+                Counter(f"{hex_word(row['enter_speed'])}/{hex_word(row['exit_speed'])}" for row in rows)
+            ),
             "row_7_retry_pair": {
                 "retry_threshold": rows[7]["retry_threshold"],
                 "retry_wait_seconds": rows[7]["retry_wait_seconds"],
             },
         },
+        "source_window_segments": source_window_segments,
         "record_shape": [
             {"offset": 0x00, "field": "sprite_object_descriptor", "size": 2, "consumer": "EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with placeholder fallback when zero"},
             {"offset": 0x02, "field": "event_flag_gate", "size": 2, "consumer": "EF:0EE8 tests this through C2:1628 while scanning rows"},
@@ -137,10 +204,6 @@ def build_contract(source_path: Path) -> dict[str, Any]:
         ],
         "rows": rows,
     }
-
-
-def hex_word(value: int) -> str:
-    return f"0x{value:04X}"
 
 
 def render_markdown(contract: dict[str, Any]) -> str:
@@ -159,6 +222,9 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- effective controller end: `{summary['effective_controller_end_exclusive']}`",
         f"- source split end: `{summary['source_split_end_exclusive']}`",
         f"- source split trailing padding: `{summary['source_split_trailing_padding_range']}` ({summary['source_split_trailing_padding_bytes']} zero bytes)",
+        f"- controller bytes from `INITIAL_STATS` tail: `{summary['controller_bytes_from_initial_stats_tail']}`",
+        f"- controller bytes from `TIMED_DELIVERY_TABLE`: `{summary['controller_bytes_from_timed_delivery_table']}`",
+        f"- selector range: `{summary['selector_min']}..{summary['selector_max']}`; contiguous 1-based: `{summary['selector_rows_are_contiguous_1_based']}`",
         "- row 7 retry pair: "
         f"`{hex_word(summary['row_7_retry_pair']['retry_threshold'])}`, "
         f"`{hex_word(summary['row_7_retry_pair']['retry_wait_seconds'])}`",
@@ -169,11 +235,44 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "The EF helper family uses `D5:F645` as the effective row base, so the first row's descriptor and flag gate live in the last four bytes of `INITIAL_STATS` by source-order boundary.",
         "The source split then carries controller rows through `D5:F70C` plus four zero bytes at `D5:F70D..D5:F710`.",
         "",
-        "## Record Shape",
-        "",
-        "| Offset | Field | Size | Consumer evidence |",
-        "| ---: | --- | ---: | --- |",
+        "| Range | Bytes | Source | Effective controller coverage |",
+        "| --- | ---: | --- | --- |",
     ]
+    for row in contract["source_window_segments"]:
+        lines.append(
+            f"| `{row['range']}` | {row['bytes']} | {row['source']} | {row['controller_rows']}; {row['field_coverage']} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Distribution Snapshot",
+            "",
+            "| Metric | Values |",
+            "| --- | --- |",
+            f"| family counts | {format_histogram(summary['family_counts'])} |",
+            f"| sprite descriptors | {format_histogram(summary['sprite_descriptor_histogram'])} |",
+            f"| event flags | {format_histogram(summary['event_flag_gate_histogram'])} |",
+            f"| retry thresholds | {format_histogram(summary['retry_threshold_histogram'])} |",
+            f"| retry wait seconds | {format_histogram(summary['retry_wait_seconds_histogram'])} |",
+            f"| delivery timers | {format_histogram(summary['delivery_time_histogram'])} |",
+            f"| success pointer banks | {format_histogram(summary['success_pointer_bank_histogram'])} |",
+            f"| failure pointer banks | {format_histogram(summary['failure_pointer_bank_histogram'])} |",
+            f"| enter speeds | {format_histogram(summary['enter_speed_histogram'])} |",
+            f"| exit speeds | {format_histogram(summary['exit_speed_histogram'])} |",
+            f"| enter/exit speed pairs | {format_histogram(summary['enter_exit_speed_pair_histogram'])} |",
+        ]
+    )
+
+    lines.extend(
+        [
+            "",
+            "## Record Shape",
+            "",
+            "| Offset | Field | Size | Consumer evidence |",
+            "| ---: | --- | ---: | --- |",
+        ]
+    )
     for field in contract["record_shape"]:
         lines.append(f"| `+0x{field['offset']:X}` | `{field['field']}` | {field['size']} | {field['consumer']} |")
 

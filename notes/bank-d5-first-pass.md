@@ -104,6 +104,13 @@ High confidence:
 - `TIMED_DELIVERY_CONTROLLER_TABLE` row fields are consumer-backed by the
   EF timed-delivery helper family and summarized in
   `notes/d5-timed-delivery-row-contracts.md`.
+- The timed-delivery contract now records source-emission ownership for the
+  split/effective-row overlap: 4 controller bytes come from the `INITIAL_STATS`
+  tail, 196 controller bytes come from `TIMED_DELIVERY_TABLE`, and the final 4
+  bytes of the source split are zero padding. Selectors are contiguous `1..10`;
+  success/failure far pointers target banks `C5`, `C6`, and `C7`; and the three
+  observed enter/exit speed pairs are summarized without adding story-specific
+  row names.
 - `src/d5/bank_d5_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline: `139` data-corridor modules, `65536` protected
   bytes, and `0` byte-equivalence mismatches.

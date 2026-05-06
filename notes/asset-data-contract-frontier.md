@@ -23,7 +23,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 | Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | 0 | 0 | Major battle visual joins are covered for phase 4; remaining work is optional alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding. |
 | Mixed asset/table banks | `CF, D0` | `contract-backed-with-known-followups` | 7 | 131072 | 95 | 0 | 0 | 0 | CF/D0 table contracts are now useful for source planning; remaining polish is generated source-emission polish, preserving the D0 battle-group gap, plus optional gameplay labels for the already-bounded CF trigger selectors. |
-| Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
+| Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels, D5 story-specific timed-delivery row labels, and unowned payload explanations as needed for contributor ergonomics. |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: D7 sector metadata, DA palette subrecords/script joins, and the DC current-position event-music selector are contract-backed, while D7/DC unresolved planes are value-bounded without promoted names; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 high-bit/DC second-plane semantics are deferred caller-evidence polish. |
 | UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | 5 | 0 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish. |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | 0 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
@@ -50,8 +50,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### Overworld sprites
 
 - maturity: `contract-backed`
-- proof: group, frame, animation-role, pointer-flag, and preview contracts cover the D1-D5 sprite payloads
-- checked docs: `notes/overworld-sprite-group-contracts.md`, `notes/overworld-sprite-frame-semantics.md`, `notes/overworld-sprite-animation-roles.md`, `notes/overworld-sprite-pointer-flag-semantics.md`, `notes/secondary-visual-descriptor-contracts.md`
+- proof: group, frame, animation-role, pointer-flag, and preview contracts cover the D1-D5 sprite payloads; D5 table splits and timed-delivery row/source-window contracts cover its post-sprite data tail
+- checked docs: `notes/overworld-sprite-group-contracts.md`, `notes/overworld-sprite-frame-semantics.md`, `notes/overworld-sprite-animation-roles.md`, `notes/overworld-sprite-pointer-flag-semantics.md`, `notes/secondary-visual-descriptor-contracts.md`, `notes/d5-table-splits.md`, `notes/d5-timed-delivery-row-contracts.md`
 - category mix: `graphics` 1146, `raw-gap` 1, `raw-table` 1
 - output recipe mix: `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146
 

@@ -46,7 +46,7 @@ Important correction: `ITEM_CONFIGURATION_TABLE` is `254` rows, not `256`. At `0
 - eb-decompile YAML gives row counts for the missing generated tables.
 - Existing local data contracts and C1/C2 notes corroborate the item, battle action, PSI ability, and enemy table anchors.
 - `TIMED_DELIVERY_TABLE` is the exact source-order split at `D5:F649..D5:F710`; `TIMED_DELIVERY_CONTROLLER_TABLE` is the consumer-effective row contract at `D5:F645..D5:F70C`.
-- `notes/d5-timed-delivery-row-contracts.md` pins the effective timed-delivery fields from EF helper consumers; story-specific row labels remain optional script evidence, not required table semantics.
+- `notes/d5-timed-delivery-row-contracts.md` pins the effective timed-delivery fields from EF helper consumers and records the 4-byte `INITIAL_STATS` prefix, 196 controller bytes inside `TIMED_DELIVERY_TABLE`, 4 source-window padding bytes, selector range, pointer-bank distribution, timers, retry values, and speed pairs; story-specific row labels remain optional script evidence, not required table semantics.
 - `UNKNOWN_D57A70` remains a bounded zero-filled 62-byte island.
 - `D5:F711..D5:FFFF` is zero-filled tail padding after the timed delivery table.
 
