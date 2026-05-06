@@ -27741,6 +27741,59 @@ org $C1F616
 !AutoWrapEnabledSentinel = $00FF
 !NewFileCreationMusicId = $009E
 !FileSelectEntityScriptBusyWaitFrames = $00B4
+!InitialStatsTableLo = $F5F5
+!InitialStatsTableBank = $00D5
+!InitialStatsStartYOffset = $0002
+!InitialStatsMoneyOffset = $0004
+!InitialStatsBattleStateOffset = $0006
+!InitialStatsExperienceAwardOffset = $0008
+!InitialStatsInventorySeedOffset = $000A
+!InitialStatsInventorySeedLength = $000A
+!NewFileInitialPartyCount = $0004
+!PartyCharacterInitialHpSource = $99D8
+!PartyCharacterInitialPpSource = $99DA
+!PartyCharacterHpTarget = $9A13
+!PartyCharacterHpDisplay = $9A15
+!PartyCharacterPpTarget = $9A19
+!PartyCharacterPpDisplay = $9A1B
+!PartyCharacterHpPpRollingState = $9A17
+!PartyCharacterCurrentHpPpWindowState = $9A11
+!PartyCharacterInventoryBase = $99F1
+!PartyCharacterInventoryClearLength = $000E
+!PartyCharacterBattleGaugeMarker = $9A1D
+!NewFileBattleGaugeMarkerValue = $0400
+!StartingMoneyLo = $9831
+!StartingMoneyHi = $9833
+!FavoriteThingCompositeBuffer = $9825
+!FavoriteThingPrefixGlyphP = $80
+!FavoriteThingPrefixGlyphS = $83
+!FavoriteThingPrefixGlyphI = $79
+!FavoriteThingPrefixGlyphSpace = $50
+!FavoriteThingPrefixLength = $0004
+!FavoriteThingTerminatorFillGlyph = $50
+!LandingDestinationSelectorByte = $98B8
+!CurrentPlayerWorldX = $9877
+!CurrentPlayerWorldY = $987B
+!SavedCoordinateXSnapshot = $9D1F
+!SavedCoordinateYSnapshot = $9D21
+!NewFileFallbackStartX = $06E8
+!NewFileFallbackStartY = $0840
+!NewFileStartScriptTextLo = $E70B
+!NewFileStartScriptTextBank = $00C5
+!NewFileInitialEventFlag = $000B
+!NewFileEventFlagEnabled = $0001
+!NewFileIntroStateFlag = $4A66
+!TextSpeedTimingTableLo = $FB1F
+!TextSpeedTimingTableBank = $00C3
+!TextSpeedTimingPointerBankOffset = $0002
+!TextPrintDelay = $9625
+!HpPpRollingStepPointerLo = $9627
+!HpPpRollingStepPointerBank = $9629
+!TextSpeedSlowEntry = $0003
+!DefaultPromptWaitTicks = $964B
+!MovementStateBusyFlag = $5DBA
+!StartSelectedFileTextLo = $DE2B
+!StartSelectedFileTextBank = $00C7
 !NoCursorLimit = $FFFF
 !ZeroWord = $0000
 C1F616_OpenOrRefreshSoundSettingSelection:
@@ -28580,9 +28633,9 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     inc $04
     lda $04
     sta $24
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $1E
     sta $04
@@ -28592,10 +28645,10 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     asl A
     asl A
     sta $02
-    ldy.w #$0000
+    ldy.w #!ZeroWord
     lda $02
     clc
-    adc.w #$0006
+    adc.w #!InitialStatsBattleStateOffset
     ldx $06
     stx $0A
     ldx $08
@@ -28610,7 +28663,7 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     jsr !C1D8D0_RefreshCharacterBattleStartState
     lda $02
     clc
-    adc.w #$0008
+    adc.w #!InitialStatsExperienceAwardOffset
     clc
     adc $06
     sta $06
@@ -28622,38 +28675,38 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     lda $04
     jsl !C1D9E9_AwardExperienceToCharacter
 C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     lda $1E
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
     sty $1A
-    lda $99D8,Y
-    sta $9A13,Y
-    sta $9A15,Y
-    lda $99DA,Y
-    sta $9A19,Y
-    sta $9A1B,Y
+    lda !PartyCharacterInitialHpSource,Y
+    sta !PartyCharacterHpTarget,Y
+    sta !PartyCharacterHpDisplay,Y
+    lda !PartyCharacterInitialPpSource,Y
+    sta !PartyCharacterPpTarget,Y
+    sta !PartyCharacterPpDisplay,Y
     tyx
-    stz $9A17,X
+    stz !PartyCharacterHpPpRollingState,X
     tyx
-    stz $9A11,X
+    stz !PartyCharacterCurrentHpPpWindowState,X
     tya
     clc
-    adc.w #$99F1
+    adc.w #!PartyCharacterInventoryBase
     sta $02
     sep #$20
     stz $0E
-    ldx.w #$000E
+    ldx.w #!PartyCharacterInventoryClearLength
     rep #$20
     lda $02
     jsl !C08EFC_CommitTileBufferToStaging
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $1E
     sta $04
@@ -28663,22 +28716,22 @@ C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     asl A
     asl A
     clc
-    adc.w #$000A
+    adc.w #!InitialStatsInventorySeedOffset
     clc
     adc $06
     sta $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$000A
+    ldx.w #!InitialStatsInventorySeedLength
     lda $02
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$0400
+    lda.w #!NewFileBattleGaugeMarkerValue
     ldy $1A
-    sta $9A1D,Y
+    sta !PartyCharacterBattleGaugeMarker,Y
     inc $1E
 C1FDE4_OpenOrRefreshSoundSettingSelection_LFDE4:
-    lda.w #$0004
+    lda.w #!NewFileInitialPartyCount
     clc
     sbc $1E
     bvs C1FDF1_OpenOrRefreshSoundSettingSelection_LFDF1
@@ -28688,27 +28741,27 @@ C1FDF1_OpenOrRefreshSoundSettingSelection_LFDF1:
     bpl C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6
     jmp.w C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E
 C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6:
-    lda.w #$F5F5
+    lda.w #!InitialStatsTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #!InitialStatsTableBank
     sta $08
     lda $06
     sta $16
     lda $08
     sta $18
-    ldy.w #$0004
+    ldy.w #!InitialStatsMoneyOffset
     lda [$06],Y
     sta $06
     stz $08
     lda $06
-    sta $9831
+    sta !StartingMoneyLo
     lda $08
-    sta $9833
+    sta !StartingMoneyHi
     lda $16
     sta $06
     lda $18
     sta $08
-    ldy.w #$0002
+    ldy.w #!InitialStatsStartYOffset
     lda [$06],Y
     asl A
     asl A
@@ -28720,28 +28773,28 @@ C1FDF6_OpenOrRefreshSoundSettingSelection_LFDF6:
     asl A
     jsl !C0B65F_SeedPlayerOverworldStartPosition
     sep #$20
-    lda.b #$80
-    sta $9825
-    lda.b #$83
-    sta $9826
-    lda.b #$79
-    sta $9827
-    lda.b #$50
-    sta $9828
+    lda.b #!FavoriteThingPrefixGlyphP
+    sta !FavoriteThingCompositeBuffer
+    lda.b #!FavoriteThingPrefixGlyphS
+    sta !FavoriteThingCompositeBuffer+1
+    lda.b #!FavoriteThingPrefixGlyphI
+    sta !FavoriteThingCompositeBuffer+2
+    lda.b #!FavoriteThingPrefixGlyphSpace
+    sta !FavoriteThingCompositeBuffer+3
     rep #$20
-    lda.w #$0004
+    lda.w #!FavoriteThingPrefixLength
     sta $1E
     bra C1FE71_OpenOrRefreshSoundSettingSelection_LFE71
 C1FE54_OpenOrRefreshSoundSettingSelection_LFE54:
     lda $1E
     clc
-    adc.w #$9825
+    adc.w #!FavoriteThingCompositeBuffer
     tax
     lda $0000,X
     and.w #$00FF
     bne C1FE6C_OpenOrRefreshSoundSettingSelection_LFE6C
     sep #$20
-    lda.b #$50
+    lda.b #!FavoriteThingTerminatorFillGlyph
     sta $0000,X
     bra C1FE81_OpenOrRefreshSoundSettingSelection_LFE81
 C1FE6C_OpenOrRefreshSoundSettingSelection_LFE6C:
@@ -28761,26 +28814,26 @@ C1FE7F_OpenOrRefreshSoundSettingSelection_LFE7F:
 C1FE81_OpenOrRefreshSoundSettingSelection_LFE81:
     sep #$20
     lda.b #!NewFileStartupFlagValue
-    sta $98B8
+    sta !LandingDestinationSelectorByte
     rep #$20
-    lda $9877
-    sta $9D1F
-    lda $987B
-    sta $9D21
+    lda !CurrentPlayerWorldX
+    sta !SavedCoordinateXSnapshot
+    lda !CurrentPlayerWorldY
+    sta !SavedCoordinateYSnapshot
     jsl !C064D4_LoadSelectedSaveGame
-    ldx.w #$06E8
-    lda.w #$0840
+    ldx.w #!NewFileFallbackStartX
+    lda.w #!NewFileFallbackStartY
     jsl !C0B65F_SeedPlayerOverworldStartPosition
-    lda.w #$E70B
+    lda.w #!NewFileStartScriptTextLo
     sta $0E
-    lda.w #$00C5
+    lda.w #!NewFileStartScriptTextBank
     sta $10
     jsl !C46881_SetAllRegistryFlagsAndQueueCallerMovement
-    ldx.w #$0001
-    lda.w #$000B
+    ldx.w #!NewFileEventFlagEnabled
+    lda.w #!NewFileInitialEventFlag
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0001
-    sta $4A66
+    lda.w #!NewFileEventFlagEnabled
+    sta !NewFileIntroStateFlag
 C1FEC2_StartSelectedFileFromFileSelect:
     jsr !C1008E_CloseAndDrainAllWindows
     jsl !C3EBCA_SyncPartyOverlayTrackedItemFamilyState
@@ -28789,9 +28842,9 @@ C1FEC2_StartSelectedFileFromFileSelect:
     sta $20
     tax
     dex
-    lda.w #$FB1F
+    lda.w #!TextSpeedTimingTableLo
     sta $0A
-    lda.w #$00C3
+    lda.w #!TextSpeedTimingTableBank
     sta $0C
     txa
     asl A
@@ -28799,21 +28852,21 @@ C1FEC2_StartSelectedFileFromFileSelect:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #!TextSpeedTimingPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
     sta $06
     sty $08
     lda $06
-    sta $9627
+    sta !HpPpRollingStepPointerLo
     lda $08
-    sta $9629
-    stx $9625
+    sta !HpPpRollingStepPointerBank
+    stx !TextPrintDelay
     lda $20
-    cmp.w #$0003
+    cmp.w #!TextSpeedSlowEntry
     bne C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra C1FF16_OpenOrRefreshSoundSettingSelection_LFF16
 C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A:
     sta $04
@@ -28825,11 +28878,11 @@ C1FF0A_OpenOrRefreshSoundSettingSelection_LFF0A:
     adc $04
     asl A
 C1FF16_OpenOrRefreshSoundSettingSelection_LFF16:
-    sta $964B
-    stz $5DBA
-    lda.w #$DE2B
+    sta !DefaultPromptWaitTicks
+    stz !MovementStateBusyFlag
+    lda.w #!StartSelectedFileTextLo
     sta $0E
-    lda.w #$00C7
+    lda.w #!StartSelectedFileTextBank
     sta $10
     jsl !C186B1_PrintTextFromPointer
     pld

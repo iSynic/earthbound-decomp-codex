@@ -561,6 +561,16 @@ This planning pass is documentation-only.
   result contract. C4 data source remains untouched; the C1 scaffold was
   regenerated from source, with exact byte-equivalence still blocked by the
   missing local ROM/asar gates.
+- 2026-05-06 follow-up: the new-file initialization and shared start-file tail
+  in `C1:F616` now names the C1-facing D5/C0/C3/C5/C7 joins. The promoted
+  names cover the `D5:F5F5` initial-stats table pointer and row offsets,
+  battle-state and experience-award inputs, HP/PP rolling display fields,
+  inventory seed/clear lengths, starting money and start position loads, the
+  fixed favorite-thing `"PSI "` prefix seed, `$98B8/$9D1F/$9D21` landing
+  snapshot, the C5 start script, initial event flag write, C3 text-speed timing
+  table pointer, `$9625/$9627/$9629/$964B` timing state, and final C7
+  start-file text pointer. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM/asar gates.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments
