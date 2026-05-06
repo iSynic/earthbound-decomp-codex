@@ -25,6 +25,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 - validate selectors without a ROM: `python tools/run_asset_output_smoke_fixtures.py --dry-run`
 - execute smoke fixtures with a ROM: `python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc`
 - default output root: `build/asset-output-smoke-fixtures`
+- dry-run validation checks fixture ids, command groups, selected asset ids, target output kind/path presence, and target decoder/renderer labels
 - post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, carries required typed report metadata, and matches statically known fixture preview geometry
 - check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`
 

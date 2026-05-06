@@ -79,6 +79,7 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
     fixture_ids = set()
     fixture_count_by_type: dict[str, int] = {}
     selected_by_manifest: dict[str, set[str]] = {}
+    fixtures_by_manifest: dict[str, list[dict[str, Any]]] = {}
 
     for fixture in plan["fixtures"]:
         fixture_id = fixture.get("id")
@@ -103,16 +104,43 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"{fixture_id}: target_output.kind is unsupported: {kind!r}")
         if not isinstance(path, str) or not path:
             raise ValueError(f"{fixture_id}: target_output.path must be a non-empty string")
+        contract = OUTPUT_RECIPE_CONTRACTS[kind]
+        if target_output.get("decoder") != contract.decoder:
+            raise ValueError(f"{fixture_id}: target_output.decoder is stale for {kind}")
+        if target_output.get("renderer") != contract.renderer:
+            raise ValueError(f"{fixture_id}: target_output.renderer is stale for {kind}")
         selected_by_manifest.setdefault(manifest, set()).add(asset_id)
+        fixtures_by_manifest.setdefault(manifest, []).append(fixture)
 
     manifest_asset_counts = {}
     for manifest, asset_ids in sorted(selected_by_manifest.items()):
         path = manifest_path(manifest)
         data = extract_assets.load_manifest(path)
-        known_ids = {str(asset["id"]) for asset in data["assets"]}
+        assets_by_id = {str(asset["id"]): asset for asset in data["assets"]}
+        known_ids = set(assets_by_id)
         missing = sorted(asset_ids - known_ids)
         if missing:
             raise ValueError(f"{manifest}: fixture asset ids not found: {missing}")
+        for fixture in fixtures_by_manifest[manifest]:
+            fixture_id = str(fixture["id"])
+            asset_id = str(fixture["asset_id"])
+            target_output = fixture["target_output"]
+            target_kind = str(target_output["kind"])
+            target_path = str(target_output["path"])
+            asset = assets_by_id[asset_id]
+            outputs = asset.get("outputs", [])
+            if not isinstance(outputs, list):
+                raise ValueError(f"{fixture_id}: asset outputs must be a list")
+            if not any(
+                isinstance(output, dict)
+                and output.get("kind") == target_kind
+                and output.get("path") == target_path
+                for output in outputs
+            ):
+                raise ValueError(
+                    f"{fixture_id}: target output not found on {asset_id}: "
+                    f"{target_kind} {target_path}"
+                )
         manifest_asset_counts[manifest] = len(asset_ids)
 
     command_group_assets = {
@@ -126,6 +154,7 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         "fixture_count": len(fixture_ids),
         "fixture_type_counts": dict(sorted(fixture_count_by_type.items())),
         "manifest_asset_counts": manifest_asset_counts,
+        "target_outputs_checked": len(fixture_ids),
         "unique_selected_assets": len({asset_id for asset_ids in selected_by_manifest.values() for asset_id in asset_ids}),
     }
 
@@ -328,6 +357,7 @@ def main() -> int:
         print(
             "asset output smoke fixtures dry-run: "
             f"{selector_summary['fixture_count']} fixtures, "
+            f"{selector_summary['target_outputs_checked']} target outputs, "
             f"{selector_summary['unique_selected_assets']} selected assets"
         )
         for manifest, count in selector_summary["manifest_asset_counts"].items():
