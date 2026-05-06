@@ -367,6 +367,12 @@ closure.
   the `$0030 = #$18` display selector. The C2 flyover cleanup remains a
   sequenced callee rather than a C4-owned contract. See
   `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 battle-background brightness follow-up: tightened the
+  movement-script battle-background loader and palette-brightness adapters
+  around BG mode/base queue arguments, C2 sprite-resource argument staging,
+  signed RGB555 component clamps, saved/work palette row bases, row counts,
+  current-slot signed magnitude reads, upload selector writes, and fixed-color
+  math modes. See `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
 
 ## Validation
 

@@ -31,6 +31,14 @@ passes only the derived magnitude and mode (`#$33` or `#$B3`) to `C4:249A`; the
 lower-level fixed-color register choreography remains documented with the C4
 window/color helper.
 
+2026-05-06 follow-up source polish: the source now uses the local constants in
+the helper bodies as well as the contract block. The battle-background loader
+names the BG mode/base queue arguments and the C2 sprite-resource `Y = 4`
+argument; the palette path names the signed-negative clamp boundary, 5-bit
+component masks, row count, saved-row/work-row bases, full-CGRAM upload
+selector, current-slot signed magnitude table, and fixed-color math mode values.
+This keeps C4's side of the contract at argument staging and row transformation.
+
 ## Component clamp
 
 `C4:73B2` is the shared 5-bit component clamp.
