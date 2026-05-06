@@ -12941,6 +12941,10 @@ TEST_YOUR_SANCTUARY_DISPLAY:
 hirom
 org $C4E4DA
 
+!CurrentEntitySlot = $1A42
+!Bg3VerticalScrollShadow = $003B
+!CastScrollThresholdTable = $0E5E
+!CastScrollThresholdPixelsPerArg = $0008
 SET_CAST_SCROLL_THRESHOLD:
 !C4E4DA_SetCastScrollThreshold = SET_CAST_SCROLL_THRESHOLD
     rep #$31
@@ -12951,7 +12955,7 @@ SET_CAST_SCROLL_THRESHOLD:
     tcd
     pla
     sta $0E
-    lda $1A42
+    lda !CurrentEntitySlot
     asl A
     tax
     lda $0E
@@ -12959,8 +12963,8 @@ SET_CAST_SCROLL_THRESHOLD:
     asl A
     asl A
     clc
-    adc $003B
-    sta $0E5E,X
+    adc !Bg3VerticalScrollShadow
+    sta !CastScrollThresholdTable,X
     pld
     rtl
 
@@ -12972,6 +12976,11 @@ SET_CAST_SCROLL_THRESHOLD:
 hirom
 org $C4E4F9
 
+!CurrentEntitySlot = $1A42
+!Bg3VerticalScrollShadow = $003B
+!CastScrollThresholdTable = $0E5E
+!False = $0000
+!True = $0001
 CHECK_CAST_SCROLL_THRESHOLD:
 !C4E4F9_CheckCastScrollThreshold = CHECK_CAST_SCROLL_THRESHOLD
     rep #$31
@@ -12979,17 +12988,17 @@ CHECK_CAST_SCROLL_THRESHOLD:
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0000
+    lda.w #!False
     sta $0E
-    lda $1A42
+    lda !CurrentEntitySlot
     asl A
     tax
-    lda $0E5E,X
-    cmp $003B
+    lda !CastScrollThresholdTable,X
+    cmp !Bg3VerticalScrollShadow
     beq C4E515_CheckCastScrollThreshold_LE515
     bcs C4E51A_CheckCastScrollThreshold_LE51A
 C4E515_CheckCastScrollThreshold_LE515:
-    lda.w #$0001
+    lda.w #!True
     sta $0E
 C4E51A_CheckCastScrollThreshold_LE51A:
     lda $0E
@@ -13005,6 +13014,16 @@ hirom
 org $C4E51E
 
 !C08616_QueueVramTransfer_FromDpSource = $C08616
+!CurrentEntitySlot = $1A42
+!LiveEntityWorldYTable = $0BCA
+!CastScrollUploadCursorYTable = $1002
+!Bg3VerticalScrollShadow = $003B
+!CastBlankBg3RowSource = $7FFE
+!CastBg3TilemapBase = $7C00
+!CastScrollRowStepPixels = $0008
+!CastBg3TilemapRowMask = $001F
+!CastBg3TilemapRowStride = $0020
+!CastBlankRowTransferBytes = $0040
 HANDLE_CAST_SCROLLING:
 !C4E51E_HandleCastScrolling = HANDLE_CAST_SCROLLING
     rep #$31
@@ -13012,39 +13031,39 @@ HANDLE_CAST_SCROLLING:
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$7FFE
+    lda.w #!CastBlankBg3RowSource
     sta $06
     lda.w #$007F
     sta $08
-    lda $1A42
+    lda !CurrentEntitySlot
     asl A
     tax
-    ldy $0BCA,X
-    sty $003B
+    ldy !LiveEntityWorldYTable,X
+    sty !Bg3VerticalScrollShadow
     txa
     clc
-    adc.w #$1002
+    adc.w #!CastScrollUploadCursorYTable
     tax
     lda $0000,X
     sty $02
     cmp $02
     bcs C4E581_HandleCastScrolling_LE581
     clc
-    adc.w #$0008
+    adc.w #!CastScrollRowStepPixels
     sta $0000,X
-    lda $003B
+    lda !Bg3VerticalScrollShadow
     lsr A
     lsr A
     lsr A
     dec A
-    and.w #$001F
+    and.w #!CastBg3TilemapRowMask
     asl A
     asl A
     asl A
     asl A
     asl A
     clc
-    adc.w #$7C00
+    adc.w #!CastBg3TilemapBase
     sta $12
     lda.w #$0000
     sta [$06]
@@ -13054,7 +13073,7 @@ HANDLE_CAST_SCROLLING:
     sta $10
     lda $12
     tay
-    ldx.w #$0040
+    ldx.w #!CastBlankRowTransferBytes
     sep #$20
     lda.b #$03
     jsl !C08616_QueueVramTransfer_FromDpSource
@@ -13084,6 +13103,15 @@ org $C4E369
 !MovementLoadBattleBg = $C47370
 !RefreshWindowFlavourPaletteBlock = $C47F87
 !PrepareCastNameTilemap = $C4E7AE
+!CastNameTileBaseOffset = $B4D1
+!CastSceneLatchB4CF = $B4CF
+!Bg3HScrollLow = $0031
+!Bg3VScrollLow = $0033
+!Bg3HScrollHigh = $0035
+!Bg3VScrollHigh = $0037
+!Bg3ScrollXExtra = $0039
+!Bg3ScrollYExtra = $003B
+!CastSceneEntitySlotCount = $001E
 LOAD_CAST_SCENE:
 !C4E369_LoadCastScene = LOAD_CAST_SCENE
     rep #$31
@@ -13123,7 +13151,7 @@ C4E3B1_LoadCastScene_LE3B1:
     inc A
     sta $16
 C4E3B6_LoadCastScene_LE3B6:
-    cmp.w #$001E
+    cmp.w #!CastSceneEntitySlotCount
     bcc C4E398_LoadCastScene_LE398
     ldx.w #$0000
     lda.w #$0117
@@ -13134,12 +13162,12 @@ C4E3B6_LoadCastScene_LE3B6:
     jsl !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
     lda.w #$0062
     jsl !C08D92_UpdateObjSizeAndBaseRegister
-    stz $0039
-    stz $003B
-    stz $0037
-    stz $0035
-    stz $0033
-    stz $0031
+    stz !Bg3ScrollXExtra
+    stz !Bg3ScrollYExtra
+    stz !Bg3VScrollHigh
+    stz !Bg3HScrollHigh
+    stz !Bg3VScrollLow
+    stz !Bg3HScrollLow
     jsl !C08B26_FlushQueuedSpriteOrTileWork
     lda.w #$0000
     sta [$06]
@@ -13228,8 +13256,8 @@ C4E3B6_LoadCastScene_LE3B6:
     lda.b #$14
     sta $001A
     rep #$20
-    stz $B4CF
-    stz $B4D1
+    stz !CastSceneLatchB4CF
+    stz !CastNameTileBaseOffset
     jsl !C08744_OpenDisplayTransitionBracket
     pld
     rtl
@@ -13913,6 +13941,11 @@ C4E826_PrepareCastNameTilemap_LE826:
 hirom
 org $C4EA9C
 
+!CastNameStagingBuffer = $4000
+!CastNameTileBaseOffset = $B4D1
+!CastNameTileLowNibbleMask = $000F
+!CastNameTileHighNibbleMask = $03F0
+!CastNameSecondRowPlaneOffset = $0040
 PREPARE_CAST_NAME_TILEMAP:
 !C4EA9C_CopyCastNameTilemap = PREPARE_CAST_NAME_TILEMAP
     rep #$31
@@ -13925,7 +13958,7 @@ PREPARE_CAST_NAME_TILEMAP:
     stx $04
     sta $02
     sta $0E
-    lda.w #$4000
+    lda.w #!CastNameStagingBuffer
     sta $06
     lda.w #$007F
     sta $08
@@ -13937,17 +13970,17 @@ PREPARE_CAST_NAME_TILEMAP:
     bra C4EAF6_CopyCastNameTilemap_LEAF6
 C4EABF_CopyCastNameTilemap_LEABF:
     lda $02
-    and.w #$000F
+    and.w #!CastNameTileLowNibbleMask
     pha
     lda $02
-    and.w #$03F0
+    and.w #!CastNameTileHighNibbleMask
     asl A
     ply
     sty $02
     clc
     adc $02
     clc
-    adc $B4D1
+    adc !CastNameTileBaseOffset
     ldx $06
     stx $0A
     ldx $08
@@ -13955,7 +13988,7 @@ C4EABF_CopyCastNameTilemap_LEABF:
     sta [$0A]
     clc
     adc.w #$0010
-    ldy.w #$0040
+    ldy.w #!CastNameSecondRowPlaneOffset
     sta [$06],Y
     inc $06
     inc $06
@@ -13983,6 +14016,12 @@ hirom
 org $C4EB04
 
 !QueueVramTransfer_FromDpSource = $C08616
+!Bg3VerticalScrollShadow = $003B
+!CastNameStagingBuffer = $4000
+!CastNameTilemapBase = $7C00
+!CastBg3TilemapRowMask = $001F
+!CastBg3TilemapRowStride = $0020
+!CastNameRowPlaneStride = $0040
 COPY_CAST_NAME_TILEMAP:
 !C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     rep #$31
@@ -13995,13 +14034,13 @@ COPY_CAST_NAME_TILEMAP:
     sty $18
     stx $02
     sta $16
-    lda $003B
+    lda !Bg3VerticalScrollShadow
     lsr A
     lsr A
     lsr A
     clc
     adc $02
-    and.w #$001F
+    and.w #!CastBg3TilemapRowMask
     sta $02
     sta $14
     lda $18
@@ -14017,13 +14056,13 @@ COPY_CAST_NAME_TILEMAP:
     clc
     adc $16
     clc
-    adc.w #$7C00
+    adc.w #!CastNameTilemapBase
     ply
     sty $02
     sec
     sbc $02
     sta $04
-    lda.w #$4000
+    lda.w #!CastNameStagingBuffer
     sta $06
     lda.w #$007F
     sta $08
@@ -14048,7 +14087,7 @@ COPY_CAST_NAME_TILEMAP:
     beq C4EB78_PrintCastName_LEB78
     lda $04
     clc
-    adc.w #$0020
+    adc.w #!CastBg3TilemapRowStride
     sta $12
     bra C4EB80_PrintCastName_LEB80
 C4EB78_PrintCastName_LEB78:
@@ -14057,14 +14096,14 @@ C4EB78_PrintCastName_LEB78:
     sbc.w #$03E0
     sta $12
 C4EB80_PrintCastName_LEB80:
-    lda.w #$4000
+    lda.w #!CastNameStagingBuffer
     sta $06
     lda.w #$007F
     sta $08
     lda $16
     asl A
     clc
-    adc.w #$0040
+    adc.w #!CastNameRowPlaneStride
     clc
     adc $06
     sta $06
@@ -14200,6 +14239,8 @@ hirom
 org $C4EC52
 
 !PrintCastNameParty = $C4EBAD
+!CurrentEntitySlot = $1A42
+!CastScrollThresholdTable = $0E5E
 PRINT_CAST_NAME_ENTITY_VAR0:
 !C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     rep #$31
@@ -14210,10 +14251,10 @@ PRINT_CAST_NAME_ENTITY_VAR0:
     tcd
     pla
     stx $0E
-    lda $1A42
+    lda !CurrentEntitySlot
     asl A
     tax
-    lda $0E5E,X
+    lda !CastScrollThresholdTable,X
     ldx $0E
     jsl !PrintCastNameParty
     pld
@@ -14274,6 +14315,12 @@ hirom
 org $C4ECAD
 
 !CreateEntityAtPositionMaybe = $C01E49
+!CurrentEntitySlot = $1A42
+!CastEntitySpawnXTable = $0E5E
+!CastEntitySpawnYTable = $0E9A
+!Bg3VerticalScrollShadow = $003B
+!CastSpawnVariantCounter = $B4D3
+!CastSpawnVariantMask = $0003
 CREATE_ENTITY_AT_V01_PLUS_BG3Y:
 !C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     rep #$31
@@ -14285,18 +14332,18 @@ CREATE_ENTITY_AT_V01_PLUS_BG3Y:
     pla
     stx $02
     sta $12
-    lda $B4D3
-    and.w #$0003
+    lda !CastSpawnVariantCounter
+    and.w #!CastSpawnVariantMask
     sta $0A38
-    inc $B4D3
-    lda $1A42
+    inc !CastSpawnVariantCounter
+    lda !CurrentEntitySlot
     asl A
     tax
-    lda $0E5E,X
+    lda !CastEntitySpawnXTable,X
     sta $0E
-    lda $0E9A,X
+    lda !CastEntitySpawnYTable,X
     clc
-    adc $003B
+    adc !Bg3VerticalScrollShadow
     sta $10
     ldy.w #$FFFF
     ldx $02
@@ -14313,6 +14360,12 @@ CREATE_ENTITY_AT_V01_PLUS_BG3Y:
 hirom
 org $C4ECE7
 
+!CurrentEntitySlot = $1A42
+!LiveEntityWorldYTable = $0BCA
+!Bg3VerticalScrollShadow = $003B
+!CastOnscreenTopMargin = $0008
+!False = $0000
+!True = $0001
 IS_ENTITY_STILL_ON_CAST_SCREEN:
 !C4ECE7_IsEntityStillOnCastScreen = IS_ENTITY_STILL_ON_CAST_SCREEN
     rep #$31
@@ -14320,17 +14373,17 @@ IS_ENTITY_STILL_ON_CAST_SCREEN:
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0000
+    lda.w #!False
     sta $0E
-    lda $1A42
+    lda !CurrentEntitySlot
     asl A
     tax
-    lda $003B
+    lda !Bg3VerticalScrollShadow
     sec
-    sbc.w #$0008
-    cmp $0BCA,X
+    sbc.w #!CastOnscreenTopMargin
+    cmp !LiveEntityWorldYTable,X
     bcs C4ED0A_IsEntityStillOnCastScreen_LED0A
-    lda.w #$0001
+    lda.w #!True
     sta $0E
 C4ED0A_IsEntityStillOnCastScreen_LED0A:
     lda $0E
@@ -14349,12 +14402,18 @@ org $C4ED0E
 !SetDisplayTransitionMode = $C08814
 !SetDisplayTransitionState = $C0886C
 !WaitOneFrameAndUpdateDisplayState = $C088B1
-!SpawnEntityByScriptMaybe = $C092F5
+!AllocateEntityOrSpriteSlot = $C092F5
+!InitDelayedActionState = $C09321
+!ResetPresentationTilemapState = $C02D29
+!RebuildMushroomizedWalkingState = $C03A24
 !RemoveEntityMaybe = $C09C35
 !RunTextSystemFrameMaybe = $C1004E
 !UpdateBattleBgVisualState = $C2DB3F
 !RestoreC4VisualState = $C4800B
 !LoadCastScene = $C4E369
+!CastSceneDriverScriptId = $0321
+!CastSceneFinishedLatch = $9641
+!CastSceneEntitySlotCount = $001E
 PLAY_CAST_SCENE:
 !C4ED0E_PlayCastScene = PLAY_CAST_SCENE
     rep #$31
@@ -14369,15 +14428,15 @@ PLAY_CAST_SCENE:
     jsl !SetDisplayTransitionState
     ldy.w #$0000
     tyx
-    lda.w #$0321
-    jsl !SpawnEntityByScriptMaybe
-    stz $9641
+    lda.w #!CastSceneDriverScriptId
+    jsl !AllocateEntityOrSpriteSlot
+    stz !CastSceneFinishedLatch
     bra C4ED3E_PlayCastScene_LED3E
 C4ED36_PlayCastScene_LED36:
     jsl !RunTextSystemFrameMaybe
     jsl !UpdateBattleBgVisualState
 C4ED3E_PlayCastScene_LED3E:
-    lda $9641
+    lda !CastSceneFinishedLatch
     beq C4ED36_PlayCastScene_LED36
     ldy.w #$0000
     ldx.w #$0001
@@ -14391,7 +14450,7 @@ C4ED55_PlayCastScene_LED55:
     asl A
     tax
     lda $0A62,X
-    cmp.w #$0321
+    cmp.w #!CastSceneDriverScriptId
     bne C4ED67_PlayCastScene_LED67
     ldx $0E
     txa
@@ -14401,7 +14460,7 @@ C4ED67_PlayCastScene_LED67:
     inx
     stx $0E
 C4ED6C_PlayCastScene_LED6C:
-    cpx.w #$001E
+    cpx.w #!CastSceneEntitySlotCount
     bcc C4ED55_PlayCastScene_LED55
     lda.w #$0017
     sta $0A4C
@@ -14410,9 +14469,9 @@ C4ED6C_PlayCastScene_LED6C:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C09321
-    jsl $C02D29
-    jsl $C03A24
+    jsl !InitDelayedActionState
+    jsl !ResetPresentationTilemapState
+    jsl !RebuildMushroomizedWalkingState
     jsl !C08726_BlankWaitAndDisableHdma
     jsl !RestoreC4VisualState
     sep #$20

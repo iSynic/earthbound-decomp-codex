@@ -72,19 +72,25 @@ several `E1`/`C3` asset payloads through `C4:1A9E`, prepares the cast-name
 tilemap, refreshes the window-flavor palette, sets `$0030 = 0x18` and
 `$001A = 0x14`, clears `$B4CF/$B4D1`, and opens the display transition bracket.
 
-`C4:E4DA` stores a BG3/cast-scroll threshold for the active cast slot. It uses
-`$1A42` as the slot index, scales the incoming value by eight, adds the current
-scroll position at `$003B`, and writes the result to `$0E5E + slot * 2`.
+`C4:E4DA` stores a BG3/cast-scroll threshold for the active cast slot. It is
+called by event 801's `WaitForCastScrollThreshold` short subroutine after the
+script writes a small spacing/delay value. The helper uses `$1A42` as the
+current cast driver slot, scales the incoming value by eight pixels, adds the
+current scroll position at `$003B`, and writes the absolute threshold to
+`$0E5E + slot * 2`.
 
 `C4:E4F9` checks whether the active slot has reached its stored threshold. It
 compares `$0E5E + slot * 2` against `$003B` and returns `1` once the threshold
 has been met or passed.
 
 `C4:E51E` advances the cast scrolling state and queues a small BG3 VRAM row
-transfer. It reads the active slot's scroll position via `$0BCA + slot * 2`,
-updates a per-slot position word near `$1002 + slot * 2`, derives a `$7C00`
-tilemap destination row, clears a word at `$7FFE`, and calls
-`C0:8616`/`QueueVramTransfer_FromDpSource` for a `$40` byte transfer.
+transfer. Event 801 installs it as a tick callback before setting the driver
+slot's Y velocity. The helper mirrors the active slot's live Y coordinate from
+`$0BCA + slot * 2` into the BG3 scroll shadow at `$003B`, advances a per-slot
+blank-row upload cursor at `$1002 + slot * 2` toward that scroll position in
+8-pixel steps, derives a wrapped `$7C00` tilemap destination row, clears a word
+at `$7FFE`, and calls `C0:8616`/`QueueVramTransfer_FromDpSource` for a `$40`
+byte transfer.
 
 `C4:E583` renders cast-name text into the `$3492` scratch rows. It formats a
 source name through the C1 file-select text layout helper, resolves glyph
@@ -96,17 +102,23 @@ as local cast-name tilemap data.
 
 `C4:E7AE..C4:EBAD` prepares and copies the cast-name tilemap rows, then queues
 the row upload used by the ending cast display. The helpers share the
-`C4:E796` tilemap patch data and use the C0 local-buffer copy/VRAM transfer
-contracts already seen in earlier text/window helpers.
+`C4:E796` tilemap patch data, write through the `$7F:4000` staging buffer,
+apply the cast-name base tile offset at `$B4D1`, and use the C0 local-buffer
+copy/VRAM transfer contracts already seen in earlier text/window helpers.
 
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 
 `C4:EC6E..C4:ED0E` covers a special cast palette upload helper and two entity
-position/onscreen helpers used by the cast controller.
+position/onscreen helpers used by the cast controller. The spawn helper reads
+staged cast X/Y fields from `$0E5E/$0E9A` and adds the live BG3 Y scroll at
+`$003B`; the onscreen check compares `$003B - 8` against the current slot's
+live Y at `$0BCA`.
 
 `C4:ED0E..C4:EDA3` is the promoted `PlayCastScene` controller. It brackets cast
-scene loading, transition state, per-frame updates, and final entity cleanup.
+scene loading, transition state, event-801 driver allocation (`#$0321`),
+per-frame updates until `$9641` is set, final driver cleanup, and restoration
+of the normal delayed-action/presentation state.
 
 `C4:EDA3..C4:EE9D` is ebsrc's following unused cast-name scratch renderer. It
 shares the same glyph-run renderer and VRAM queue contracts as the live
@@ -185,8 +197,12 @@ data loading, and the auto-sector music-change latch.
 
 - The named ebsrc tail is source/data-covered through `C4:FD4B`; bank-end
   padding remains outside the source scaffold.
-- Confirm the user-facing meaning of `$0BCA`, `$0E5E`, and the
-  `$1002 + slot * 2` cast-scene position word against the wider ending scene.
+- The cast-scroll side now has a cast-local contract for `$0BCA`, `$0E5E`, and
+  `$1002`: `$0BCA[current]` is the driver slot's live Y, `$0E5E[current]` is a
+  script-polled scroll threshold or staged cast spawn X depending on the helper
+  family, and `$1002[current]` is the blank-row upload cursor used only by the
+  scrolling tick callback. Keep these names local because the same per-slot
+  tables have broader action-script meanings elsewhere.
 - The credits side now identifies `$003B` as the high word consumed by the
   BG3 vertical-scroll/credits progress loop; the broader display-scroll naming
   still needs one cross-bank pass before making it a global symbol.

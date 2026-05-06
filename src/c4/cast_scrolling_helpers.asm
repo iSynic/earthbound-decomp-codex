@@ -12,50 +12,64 @@
 ; External contracts used by this module
 
 C08616_QueueVramTransfer_FromDpSource = $C08616
+CurrentEntitySlot                     = $1A42
+LiveEntityWorldYTable                 = $0BCA
+CastScrollUploadCursorYTable          = $1002
+Bg3VerticalScrollShadow               = $003B
+CastBlankBg3RowSource                 = $7FFE
+CastBg3TilemapBase                    = $7C00
+CastScrollRowStepPixels               = $0008
+CastBg3TilemapRowMask                 = $001F
+CastBg3TilemapRowStride               = $0020
+CastBlankRowTransferBytes             = $0040
 
 ; ---------------------------------------------------------------------------
 ; C4:E51E
 
 HANDLE_CAST_SCROLLING:
 C4E51E_HandleCastScrolling = HANDLE_CAST_SCROLLING
+    ; Tick callback installed by event 801. Mirror the driver slot's live Y into
+    ; the BG3 scroll shadow, then reveal one blank BG3 tilemap row whenever the
+    ; per-slot upload cursor trails that scroll position.
     rep #$31
     phd
     tdc
     adc.w #$FFEC
     tcd
-    lda.w #$7FFE
+    lda.w #CastBlankBg3RowSource
     sta $06
     lda.w #$007F
     sta $08
-    lda $1A42
+    lda CurrentEntitySlot
     asl A
     tax
-    ldy $0BCA,X
-    sty $003B
+    ldy LiveEntityWorldYTable,X
+    sty Bg3VerticalScrollShadow
     txa
     clc
-    adc.w #$1002
+    adc.w #CastScrollUploadCursorYTable
     tax
     lda $0000,X
     sty $02
     cmp $02
     bcs C4E581_HandleCastScrolling_LE581
     clc
-    adc.w #$0008
+    adc.w #CastScrollRowStepPixels
     sta $0000,X
-    lda $003B
+    lda Bg3VerticalScrollShadow
     lsr A
     lsr A
     lsr A
     dec A
-    and.w #$001F
+    and.w #CastBg3TilemapRowMask
+    ; Multiply the wrapped row by `CastBg3TilemapRowStride`.
     asl A
     asl A
     asl A
     asl A
     asl A
     clc
-    adc.w #$7C00
+    adc.w #CastBg3TilemapBase
     sta $12
     lda.w #$0000
     sta [$06]
@@ -65,7 +79,7 @@ C4E51E_HandleCastScrolling = HANDLE_CAST_SCROLLING
     sta $10
     lda $12
     tay
-    ldx.w #$0040
+    ldx.w #CastBlankRowTransferBytes
     sep #$20
     lda.b #$03
     jsl C08616_QueueVramTransfer_FromDpSource

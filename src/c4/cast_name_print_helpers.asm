@@ -12,12 +12,20 @@
 ; External contracts used by this module
 
 QueueVramTransfer_FromDpSource = $C08616
+Bg3VerticalScrollShadow        = $003B
+CastNameStagingBuffer          = $4000
+CastNameTilemapBase            = $7C00
+CastBg3TilemapRowMask          = $001F
+CastBg3TilemapRowStride        = $0020
+CastNameRowPlaneStride         = $0040
 
 ; ---------------------------------------------------------------------------
 ; C4:EB04
 
 COPY_CAST_NAME_TILEMAP:
 C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
+    ; Queue the two BG3 row transfers for one staged cast-name string. The live
+    ; BG3 scroll shadow selects the wrapped tilemap row.
     rep #$31
     phd
     pha
@@ -28,13 +36,13 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     sty $18
     stx $02
     sta $16
-    lda $003B
+    lda Bg3VerticalScrollShadow
     lsr A
     lsr A
     lsr A
     clc
     adc $02
-    and.w #$001F
+    and.w #CastBg3TilemapRowMask
     sta $02
     sta $14
     lda $18
@@ -50,13 +58,13 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     clc
     adc $16
     clc
-    adc.w #$7C00
+    adc.w #CastNameTilemapBase
     ply
     sty $02
     sec
     sbc $02
     sta $04
-    lda.w #$4000
+    lda.w #CastNameStagingBuffer
     sta $06
     lda.w #$007F
     sta $08
@@ -81,7 +89,7 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     beq C4EB78_PrintCastName_LEB78
     lda $04
     clc
-    adc.w #$0020
+    adc.w #CastBg3TilemapRowStride
     sta $12
     bra C4EB80_PrintCastName_LEB80
 C4EB78_PrintCastName_LEB78:
@@ -90,14 +98,14 @@ C4EB78_PrintCastName_LEB78:
     sbc.w #$03E0
     sta $12
 C4EB80_PrintCastName_LEB80:
-    lda.w #$4000
+    lda.w #CastNameStagingBuffer
     sta $06
     lda.w #$007F
     sta $08
     lda $16
     asl A
     clc
-    adc.w #$0040
+    adc.w #CastNameRowPlaneStride
     clc
     adc $06
     sta $06

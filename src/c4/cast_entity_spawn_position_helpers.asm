@@ -12,12 +12,20 @@
 ; External contracts used by this module
 
 CreateEntityAtPositionMaybe = $C01E49
+CurrentEntitySlot           = $1A42
+CastEntitySpawnXTable       = $0E5E
+CastEntitySpawnYTable       = $0E9A
+Bg3VerticalScrollShadow     = $003B
+CastSpawnVariantCounter     = $B4D3
+CastSpawnVariantMask        = $0003
 
 ; ---------------------------------------------------------------------------
 ; C4:ECAD
 
 CREATE_ENTITY_AT_V01_PLUS_BG3Y:
 C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
+    ; Spawn a cast-scene entity at its staged X plus staged Y relative to the
+    ; live BG3 scroll. The small `$B4D3` counter rotates the spawn variant.
     rep #$31
     phd
     pha
@@ -27,18 +35,18 @@ C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     pla
     stx $02
     sta $12
-    lda $B4D3
-    and.w #$0003
+    lda CastSpawnVariantCounter
+    and.w #CastSpawnVariantMask
     sta $0A38
-    inc $B4D3
-    lda $1A42
+    inc CastSpawnVariantCounter
+    lda CurrentEntitySlot
     asl A
     tax
-    lda $0E5E,X
+    lda CastEntitySpawnXTable,X
     sta $0E
-    lda $0E9A,X
+    lda CastEntitySpawnYTable,X
     clc
-    adc $003B
+    adc Bg3VerticalScrollShadow
     sta $10
     ldy.w #$FFFF
     ldx $02

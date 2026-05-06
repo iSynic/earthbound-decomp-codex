@@ -11,13 +11,17 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-PrintCastNameParty = $C4EBAD
+PrintCastNameParty        = $C4EBAD
+CurrentEntitySlot         = $1A42
+CastScrollThresholdTable  = $0E5E
 
 ; ---------------------------------------------------------------------------
 ; C4:EC52
 
 PRINT_CAST_NAME_ENTITY_VAR0:
 C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
+    ; Use the current slot's cast-scroll threshold as the cast-name row/source
+    ; selector before entering the shared print wrapper.
     rep #$31
     phd
     pha
@@ -26,10 +30,10 @@ C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     tcd
     pla
     stx $0E
-    lda $1A42
+    lda CurrentEntitySlot
     asl A
     tax
-    lda $0E5E,X
+    lda CastScrollThresholdTable,X
     ldx $0E
     jsl PrintCastNameParty
     pld

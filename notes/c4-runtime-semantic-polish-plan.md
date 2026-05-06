@@ -197,6 +197,14 @@ closure.
   BG3 scroll/progress comparison at `$003B`. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md` and
   `notes/frame-callback-bodies.md`.
+- 2026-05-06 cast-scroll presentation follow-up: tightened the ending cast
+  loader/scroll helpers, cast-name tilemap copy/print path, cast entity
+  spawn/onscreen helpers, and `PlayCastScene` controller. The source now names
+  the event-801 scroll threshold polling contract, `$0BCA` live-Y source,
+  `$1002` blank-row upload cursor, `$B4D1` cast-name tile offset, `$9641`
+  completion latch, and the C0 cleanup helper calls without assigning those
+  per-slot tables a global meaning. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 
 ## Validation
 

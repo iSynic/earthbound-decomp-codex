@@ -11,13 +11,19 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+CurrentEntitySlot               = $1A42
+Bg3VerticalScrollShadow         = $003B
+CastScrollThresholdTable        = $0E5E
+CastScrollThresholdPixelsPerArg = $0008
 
 ; ---------------------------------------------------------------------------
 ; C4:E4DA
 
 SET_CAST_SCROLL_THRESHOLD:
 C4E4DA_SetCastScrollThreshold = SET_CAST_SCROLL_THRESHOLD
+    ; Event 801 passes a short delay/spacing value in A before polling this
+    ; helper. Convert it to pixels and store the absolute BG3 scroll threshold
+    ; for the current cast-scene driver slot.
     rep #$31
     phd
     pha
@@ -26,15 +32,16 @@ C4E4DA_SetCastScrollThreshold = SET_CAST_SCROLL_THRESHOLD
     tcd
     pla
     sta $0E
-    lda $1A42
+    lda CurrentEntitySlot
     asl A
     tax
     lda $0E
+    ; Multiply by `CastScrollThresholdPixelsPerArg`.
     asl A
     asl A
     asl A
     clc
-    adc $003B
-    sta $0E5E,X
+    adc Bg3VerticalScrollShadow
+    sta CastScrollThresholdTable,X
     pld
     rtl

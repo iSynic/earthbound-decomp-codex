@@ -25,12 +25,24 @@ DecompressAssetToLongDest                    = $C41A9E
 MovementLoadBattleBg                         = $C47370
 RefreshWindowFlavourPaletteBlock             = $C47F87
 PrepareCastNameTilemap                       = $C4E7AE
+CastNameTileBaseOffset                       = $B4D1
+CastSceneLatchB4CF                           = $B4CF
+Bg3HScrollLow                                = $0031
+Bg3VScrollLow                                = $0033
+Bg3HScrollHigh                               = $0035
+Bg3VScrollHigh                               = $0037
+Bg3ScrollXExtra                              = $0039
+Bg3ScrollYExtra                              = $003B
+CastSceneEntitySlotCount                     = $001E
 
 ; ---------------------------------------------------------------------------
 ; C4:E369
 
 LOAD_CAST_SCENE:
 C4E369_LoadCastScene = LOAD_CAST_SCENE
+    ; Initialize the ending cast display: clear entity/display state, stage the
+    ; cast-name graphics and tilemaps, seed BG scroll shadows, and reset the
+    ; small cast-scene latches used by event 801.
     rep #$31
     phd
     tdc
@@ -68,7 +80,7 @@ C4E3B1_LoadCastScene_LE3B1:
     inc A
     sta $16
 C4E3B6_LoadCastScene_LE3B6:
-    cmp.w #$001E
+    cmp.w #CastSceneEntitySlotCount
     bcc C4E398_LoadCastScene_LE398
     ldx.w #$0000
     lda.w #$0117
@@ -79,12 +91,12 @@ C4E3B6_LoadCastScene_LE3B6:
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
     lda.w #$0062
     jsl C08D92_UpdateObjSizeAndBaseRegister
-    stz $0039
-    stz $003B
-    stz $0037
-    stz $0035
-    stz $0033
-    stz $0031
+    stz Bg3ScrollXExtra
+    stz Bg3ScrollYExtra
+    stz Bg3VScrollHigh
+    stz Bg3HScrollHigh
+    stz Bg3VScrollLow
+    stz Bg3HScrollLow
     jsl C08B26_FlushQueuedSpriteOrTileWork
     lda.w #$0000
     sta [$06]
@@ -173,8 +185,8 @@ C4E3B6_LoadCastScene_LE3B6:
     lda.b #$14
     sta $001A
     rep #$20
-    stz $B4CF
-    stz $B4D1
+    stz CastSceneLatchB4CF
+    stz CastNameTileBaseOffset
     jsl C08744_OpenDisplayTransitionBracket
     pld
     rtl

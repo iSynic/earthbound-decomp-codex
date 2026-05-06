@@ -15,18 +15,27 @@ C08726_BlankWaitAndDisableHdma    = $C08726
 SetDisplayTransitionMode          = $C08814
 SetDisplayTransitionState         = $C0886C
 WaitOneFrameAndUpdateDisplayState = $C088B1
-SpawnEntityByScriptMaybe          = $C092F5
+AllocateEntityOrSpriteSlot        = $C092F5
+InitDelayedActionState            = $C09321
+ResetPresentationTilemapState     = $C02D29
+RebuildMushroomizedWalkingState   = $C03A24
 RemoveEntityMaybe                 = $C09C35
 RunTextSystemFrameMaybe           = $C1004E
 UpdateBattleBgVisualState         = $C2DB3F
 RestoreC4VisualState              = $C4800B
 LoadCastScene                     = $C4E369
+CastSceneDriverScriptId           = $0321
+CastSceneFinishedLatch            = $9641
+CastSceneEntitySlotCount          = $001E
 
 ; ---------------------------------------------------------------------------
 ; C4:ED0E
 
 PLAY_CAST_SCENE:
 C4ED0E_PlayCastScene = PLAY_CAST_SCENE
+    ; Run the ending cast scene until event 801 signals completion through
+    ; `$9641`, then remove the driver entity and rebuild the normal presentation
+    ; state.
     rep #$31
     phd
     tdc
@@ -39,15 +48,15 @@ C4ED0E_PlayCastScene = PLAY_CAST_SCENE
     jsl SetDisplayTransitionState
     ldy.w #$0000
     tyx
-    lda.w #$0321
-    jsl SpawnEntityByScriptMaybe
-    stz $9641
+    lda.w #CastSceneDriverScriptId
+    jsl AllocateEntityOrSpriteSlot
+    stz CastSceneFinishedLatch
     bra C4ED3E_PlayCastScene_LED3E
 C4ED36_PlayCastScene_LED36:
     jsl RunTextSystemFrameMaybe
     jsl UpdateBattleBgVisualState
 C4ED3E_PlayCastScene_LED3E:
-    lda $9641
+    lda CastSceneFinishedLatch
     beq C4ED36_PlayCastScene_LED36
     ldy.w #$0000
     ldx.w #$0001
@@ -61,7 +70,7 @@ C4ED55_PlayCastScene_LED55:
     asl A
     tax
     lda $0A62,X
-    cmp.w #$0321
+    cmp.w #CastSceneDriverScriptId
     bne C4ED67_PlayCastScene_LED67
     ldx $0E
     txa
@@ -71,7 +80,7 @@ C4ED67_PlayCastScene_LED67:
     inx
     stx $0E
 C4ED6C_PlayCastScene_LED6C:
-    cpx.w #$001E
+    cpx.w #CastSceneEntitySlotCount
     bcc C4ED55_PlayCastScene_LED55
     lda.w #$0017
     sta $0A4C
@@ -80,9 +89,9 @@ C4ED6C_PlayCastScene_LED6C:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C09321
-    jsl $C02D29
-    jsl $C03A24
+    jsl InitDelayedActionState
+    jsl ResetPresentationTilemapState
+    jsl RebuildMushroomizedWalkingState
     jsl C08726_BlankWaitAndDisableHdma
     jsl RestoreC4VisualState
     sep #$20

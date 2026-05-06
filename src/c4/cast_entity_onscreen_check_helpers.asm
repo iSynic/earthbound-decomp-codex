@@ -11,29 +11,36 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+CurrentEntitySlot        = $1A42
+LiveEntityWorldYTable    = $0BCA
+Bg3VerticalScrollShadow  = $003B
+CastOnscreenTopMargin    = $0008
+False                    = $0000
+True                     = $0001
 
 ; ---------------------------------------------------------------------------
 ; C4:ECE7
 
 IS_ENTITY_STILL_ON_CAST_SCREEN:
 C4ECE7_IsEntityStillOnCastScreen = IS_ENTITY_STILL_ON_CAST_SCREEN
+    ; Return 1 while the current cast entity's live Y is still below the
+    ; scrolled top edge, with an 8-pixel margin.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0000
+    lda.w #False
     sta $0E
-    lda $1A42
+    lda CurrentEntitySlot
     asl A
     tax
-    lda $003B
+    lda Bg3VerticalScrollShadow
     sec
-    sbc.w #$0008
-    cmp $0BCA,X
+    sbc.w #CastOnscreenTopMargin
+    cmp LiveEntityWorldYTable,X
     bcs C4ED0A_IsEntityStillOnCastScreen_LED0A
-    lda.w #$0001
+    lda.w #True
     sta $0E
 C4ED0A_IsEntityStillOnCastScreen_LED0A:
     lda $0E
