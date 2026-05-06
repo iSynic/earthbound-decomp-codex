@@ -40,6 +40,12 @@ the primary and secondary context staging pairs at `$06/$08` and `$0A/$0C`,
 the temporary swap pair at `$12/$14`, and the scratch context snapshot slots at
 `$97CC..$97D4`.
 
+Source polish follow-up (2026-05-06): the `C1:7C36` body now also names its
+larger caller-frame offset and uses the common `$0E/$10` text-context source
+pointer aliases when reinstalling the swapped or restored primary and secondary
+contexts. That makes the `1B` contract line up with the adjacent `1A` menu and
+`1C` display handoff vocabulary.
+
 ## Why this family matters
 
 `0x1B` is the memory/context side that partners with the print/display family at `0x1C`.

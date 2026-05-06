@@ -137,6 +137,13 @@ Source polish follow-up (2026-05-06): the same corridor now names `1F 23` and
 signed result install, while the transition-landing snapshot leaf is labeled at
 `C1:7037` with its direct-argument fallback into `C2:30F3`.
 
+Source polish follow-up (2026-05-06): the dynamic source selector dispatcher at
+`C1:7B56..866D` now exposes the family-specific caller-frame offsets for
+`0x1A`, `0x1B`, `0x1C`, `0x1D`, and `0x1F`. The front `1A/1B` result and
+context reinstall sites now use the same `$0E/$10` text-context source pointer
+aliases used by the print/display and predicate leaves, keeping the dispatcher
+ABI readable across all high families.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

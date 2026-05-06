@@ -646,3 +646,9 @@ This planning pass is documentation-only.
   snapshot adapter. The source exposes the queued high-byte selector, zero
   fallback to direct text argument, signed result staging, and the explicit
   `C1:7037 -> C2:30F3` handoff label.
+- 2026-05-06 follow-up: the dynamic source selector dispatcher now names its
+  family-frame offsets for `0x1A`, `0x1B`, `0x1C`, `0x1D`, and `0x1F`, and the
+  front `1A/1B` result/context reinstall sites use the shared `$0E/$10`
+  text-context source pointer aliases. This closes the last raw frame-offset
+  and installer-handoff literals in `C1:7B56..866D` without moving any
+  dispatcher boundaries.

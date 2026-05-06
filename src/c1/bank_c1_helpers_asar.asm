@@ -17526,6 +17526,11 @@ org $C17B56
 !C4FD45_SetAutoSectorMusicChanges = $C4FD45
 !DisableAutoSectorMusicChanges = $0000
 !EnableAutoSectorMusicChanges = $0001
+!TextCommand1AFamilyFrameOffset = $FFEE
+!TextCommand1BFamilyFrameOffset = $FFE8
+!TextCommand1CDFamilyFrameOffset = $FFEE
+!TextCommand1DFamilyFrameOffset = $FFEA
+!TextCommand1FFamilyFrameOffset = $FFEC
 !TextCommand1A01PartySelectionSubcommand = $0001
 !TextCommand1A04SelectionMenuNoCancelSubcommand = $0004
 !TextCommand1A05DisplayInventorySubcommand = $0005
@@ -17860,7 +17865,7 @@ CC_1A_TREE:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommand1AFamilyFrameOffset
     tcd
     pla
     txa
@@ -17900,9 +17905,9 @@ C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     jsr !C11383_ClearLoadedTextStrings
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
@@ -17917,9 +17922,9 @@ C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD:
@@ -17928,9 +17933,9 @@ C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4:
@@ -17939,9 +17944,9 @@ C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B:
@@ -17949,9 +17954,9 @@ C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F:
@@ -17959,9 +17964,9 @@ C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F:
     sta !MenuSelectionResultLo
     stz !MenuSelectionResultBank
     lda !MenuSelectionResultLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !MenuSelectionResultBank
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
 C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31:
     lda.w #!TextCommandNoFollowupCallback
@@ -17972,7 +17977,7 @@ C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
     phd
     pha
     tdc
-    adc.w #$FFE8
+    adc.w #!TextCommand1BFamilyFrameOffset
     tcd
     pla
     tay
@@ -18078,18 +18083,18 @@ C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
     lda !SecondaryContextPointerHi
     sta !PrimaryContextPointerHi
     lda !PrimaryContextPointerLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !PrimaryContextPointerHi
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda !SavedPrimaryContextPointerLo
     sta !PrimaryContextPointerLo
     lda !SavedPrimaryContextPointerHi
     sta !PrimaryContextPointerHi
     lda !PrimaryContextPointerLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !PrimaryContextPointerHi
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36:
@@ -18113,18 +18118,18 @@ C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A:
     lda !ScratchPrimaryContextPointerHi
     sta !PrimaryContextPointerHi
     lda !PrimaryContextPointerLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !PrimaryContextPointerHi
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda !ScratchSecondaryContextPointerLo
     sta !PrimaryContextPointerLo
     lda !ScratchSecondaryContextPointerHi
     sta !PrimaryContextPointerHi
     lda !PrimaryContextPointerLo
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda !PrimaryContextPointerHi
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda !ScratchContextWorkmemByte
     and.b #$FF
@@ -18140,7 +18145,7 @@ C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommand1CDFamilyFrameOffset
     tcd
     pla
     txa
@@ -18335,7 +18340,7 @@ C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F:
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!TextCommand1DFamilyFrameOffset
     tcd
     pla
     txa
@@ -18685,7 +18690,7 @@ C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!TextCommand1FFamilyFrameOffset
     tcd
     pla
     txa

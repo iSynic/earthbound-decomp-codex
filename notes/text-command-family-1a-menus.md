@@ -77,6 +77,12 @@ selection, Escargo, phone-contact, and teleport-destination menu leaves. This
 keeps the menu family source-facing without changing the existing helper
 boundaries.
 
+Source polish follow-up (2026-05-06): the same dispatcher now names the
+`0x1A` family caller-frame offset and uses the shared text-context source
+pointer aliases at the menu-result handoff sites. The byte flow is unchanged:
+selection helpers still stage the menu result in `$06/$08`, then install it
+through the primary text context at `$0E/$10`.
+
 ## Best current case map
 
 ### `0x1A 00`
