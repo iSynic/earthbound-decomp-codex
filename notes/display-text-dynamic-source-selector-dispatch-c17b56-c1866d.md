@@ -43,6 +43,10 @@ See also:
   reflected-hit side article-token setup, attacker/target name-buffer base
   reads, fixed-string preflight printing, and the `$9D12/$9D14` amount pointer
   consumed by the decimal printer.
+- The front `0x1C` dispatcher also names its stable subselector ids for
+  `01..0F` and `11..15`, plus the battle user/target selector values,
+  staged name-buffer pointer bytes, text-context handoff pair, fixed-string
+  preflight length, and no-follow-up return value.
 - The later `1F` command corridor now names the text-context snapshot/restore,
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game

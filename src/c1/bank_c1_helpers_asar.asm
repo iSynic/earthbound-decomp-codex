@@ -17498,6 +17498,32 @@ org $C17B56
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!TextCommand1C01PrintStatisticSubcommand = $0001
+!TextCommand1C02PrintCharacterNameSubcommand = $0002
+!TextCommand1C03PrintCharacterSubcommand = $0003
+!TextCommand1C04ShowHpppWindowsSubcommand = $0004
+!TextCommand1C05PrintItemNameSubcommand = $0005
+!TextCommand1C06PrintTeleportDestinationNameSubcommand = $0006
+!TextCommand1C07PrintHorizontalTextStringSubcommand = $0007
+!TextCommand1C08PrintBattleSpecialGraphicsSubcommand = $0008
+!TextCommand1C09SetActiveWindowTextModeSubcommand = $0009
+!TextCommand1C0APrintNumberSubcommand = $000A
+!TextCommand1C0BPrintMoneyAmountSubcommand = $000B
+!TextCommand1C0CPrintVerticalTextStringSubcommand = $000C
+!TextCommand1C0DPrintActionUserNameSubcommand = $000D
+!TextCommand1C0EPrintActionTargetNameSubcommand = $000E
+!TextCommand1C0FPrintActionAmountSubcommand = $000F
+!TextCommand1C11LoadSpecialSelectorSubcommand = $0011
+!TextCommand1C12PrintPsiNameSubcommand = $0012
+!TextCommand1C13StageBattleVisualEffectResultSubcommand = $0013
+!TextCommand1C14LoadSpecialTextSelectorSubcommand = $0014
+!TextCommand1C15LoadSpecialForJumpMultiSelectorSubcommand = $0015
+!BattleActionUserSideSelector = $0000
+!BattleActionTargetSideSelector = $0001
+!BattleNameBufferPointerLo = $06
+!BattleNameBufferPointerBank = $08
+!BattleNameBufferPointerBankHi = $09
+!FixedStringPreflightLength = $0050
 !TextCommand0A24BitJumpCallback = $4103
 !TextCommand1A00PartySelectionMenuNoCancel = $463B
 !TextCommand1A01PartySelectionMenu = $467D
@@ -17910,83 +17936,83 @@ C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92:
     bne C17DA4_DispatchDisplayTextDynamicSourceSelector_L7DA4
     jmp.w C17E47_DispatchDisplayTextDynamicSourceSelector_L7E47
 C17DA4_DispatchDisplayTextDynamicSourceSelector_L7DA4:
-    cmp.w #$0001
+    cmp.w #!TextCommand1C01PrintStatisticSubcommand
     bne C17DAC_DispatchDisplayTextDynamicSourceSelector_L7DAC
     jmp.w C17E4D_DispatchDisplayTextDynamicSourceSelector_L7E4D
 C17DAC_DispatchDisplayTextDynamicSourceSelector_L7DAC:
-    cmp.w #$0002
+    cmp.w #!TextCommand1C02PrintCharacterNameSubcommand
     bne C17DB4_DispatchDisplayTextDynamicSourceSelector_L7DB4
     jmp.w C17E53_DispatchDisplayTextDynamicSourceSelector_L7E53
 C17DB4_DispatchDisplayTextDynamicSourceSelector_L7DB4:
-    cmp.w #$0003
+    cmp.w #!TextCommand1C03PrintCharacterSubcommand
     bne C17DBC_DispatchDisplayTextDynamicSourceSelector_L7DBC
     jmp.w C17E59_DispatchDisplayTextDynamicSourceSelector_L7E59
 C17DBC_DispatchDisplayTextDynamicSourceSelector_L7DBC:
-    cmp.w #$0004
+    cmp.w #!TextCommand1C04ShowHpppWindowsSubcommand
     bne C17DC4_DispatchDisplayTextDynamicSourceSelector_L7DC4
     jmp.w C17E5F_DispatchDisplayTextDynamicSourceSelector_L7E5F
 C17DC4_DispatchDisplayTextDynamicSourceSelector_L7DC4:
-    cmp.w #$0005
+    cmp.w #!TextCommand1C05PrintItemNameSubcommand
     bne C17DCC_DispatchDisplayTextDynamicSourceSelector_L7DCC
     jmp.w C17E65_DispatchDisplayTextDynamicSourceSelector_L7E65
 C17DCC_DispatchDisplayTextDynamicSourceSelector_L7DCC:
-    cmp.w #$0006
+    cmp.w #!TextCommand1C06PrintTeleportDestinationNameSubcommand
     bne C17DD4_DispatchDisplayTextDynamicSourceSelector_L7DD4
     jmp.w C17E6B_DispatchDisplayTextDynamicSourceSelector_L7E6B
 C17DD4_DispatchDisplayTextDynamicSourceSelector_L7DD4:
-    cmp.w #$0007
+    cmp.w #!TextCommand1C07PrintHorizontalTextStringSubcommand
     bne C17DDC_DispatchDisplayTextDynamicSourceSelector_L7DDC
     jmp.w C17E71_DispatchDisplayTextDynamicSourceSelector_L7E71
 C17DDC_DispatchDisplayTextDynamicSourceSelector_L7DDC:
-    cmp.w #$0008
+    cmp.w #!TextCommand1C08PrintBattleSpecialGraphicsSubcommand
     bne C17DE4_DispatchDisplayTextDynamicSourceSelector_L7DE4
     jmp.w C17E77_DispatchDisplayTextDynamicSourceSelector_L7E77
 C17DE4_DispatchDisplayTextDynamicSourceSelector_L7DE4:
-    cmp.w #$0009
+    cmp.w #!TextCommand1C09SetActiveWindowTextModeSubcommand
     bne C17DEC_DispatchDisplayTextDynamicSourceSelector_L7DEC
     jmp.w C17E7D_DispatchDisplayTextDynamicSourceSelector_L7E7D
 C17DEC_DispatchDisplayTextDynamicSourceSelector_L7DEC:
-    cmp.w #$000A
+    cmp.w #!TextCommand1C0APrintNumberSubcommand
     bne C17DF4_DispatchDisplayTextDynamicSourceSelector_L7DF4
     jmp.w C17E83_DispatchDisplayTextDynamicSourceSelector_L7E83
 C17DF4_DispatchDisplayTextDynamicSourceSelector_L7DF4:
-    cmp.w #$000B
+    cmp.w #!TextCommand1C0BPrintMoneyAmountSubcommand
     bne C17DFC_DispatchDisplayTextDynamicSourceSelector_L7DFC
     jmp.w C17E89_DispatchDisplayTextDynamicSourceSelector_L7E89
 C17DFC_DispatchDisplayTextDynamicSourceSelector_L7DFC:
-    cmp.w #$000C
+    cmp.w #!TextCommand1C0CPrintVerticalTextStringSubcommand
     bne C17E04_DispatchDisplayTextDynamicSourceSelector_L7E04
     jmp.w C17E8F_DispatchDisplayTextDynamicSourceSelector_L7E8F
 C17E04_DispatchDisplayTextDynamicSourceSelector_L7E04:
-    cmp.w #$0014
+    cmp.w #!TextCommand1C14LoadSpecialTextSelectorSubcommand
     bne C17E0C_DispatchDisplayTextDynamicSourceSelector_L7E0C
     jmp.w C17E95_DispatchDisplayTextDynamicSourceSelector_L7E95
 C17E0C_DispatchDisplayTextDynamicSourceSelector_L7E0C:
-    cmp.w #$0015
+    cmp.w #!TextCommand1C15LoadSpecialForJumpMultiSelectorSubcommand
     bne C17E14_DispatchDisplayTextDynamicSourceSelector_L7E14
     jmp.w C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A
 C17E14_DispatchDisplayTextDynamicSourceSelector_L7E14:
-    cmp.w #$000D
+    cmp.w #!TextCommand1C0DPrintActionUserNameSubcommand
     bne C17E1C_DispatchDisplayTextDynamicSourceSelector_L7E1C
     jmp.w C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F
 C17E1C_DispatchDisplayTextDynamicSourceSelector_L7E1C:
-    cmp.w #$000E
+    cmp.w #!TextCommand1C0EPrintActionTargetNameSubcommand
     bne C17E24_DispatchDisplayTextDynamicSourceSelector_L7E24
     jmp.w C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6
 C17E24_DispatchDisplayTextDynamicSourceSelector_L7E24:
-    cmp.w #$000F
+    cmp.w #!TextCommand1C0FPrintActionAmountSubcommand
     bne C17E2C_DispatchDisplayTextDynamicSourceSelector_L7E2C
     jmp.w C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED
 C17E2C_DispatchDisplayTextDynamicSourceSelector_L7E2C:
-    cmp.w #$0011
+    cmp.w #!TextCommand1C11LoadSpecialSelectorSubcommand
     bne C17E34_DispatchDisplayTextDynamicSourceSelector_L7E34
     jmp.w C17EFD_DispatchDisplayTextDynamicSourceSelector_L7EFD
 C17E34_DispatchDisplayTextDynamicSourceSelector_L7E34:
-    cmp.w #$0012
+    cmp.w #!TextCommand1C12PrintPsiNameSubcommand
     bne C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C
     jmp.w C17F02_DispatchDisplayTextDynamicSourceSelector_L7F02
 C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C:
-    cmp.w #$0013
+    cmp.w #!TextCommand1C13StageBattleVisualEffectResultSubcommand
     bne C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44
     jmp.w C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07
 C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44:
@@ -18037,39 +18063,39 @@ C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A:
     lda.w #!TextCommand1C15LoadSpecialForJumpMultiSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
-    lda.w #$0000
+    lda.w #!BattleActionUserSideSelector
     jsl !C3E75D_ResolveReflectedHitSideArticleTokens
     jsr !C1AC9B_GetBattleAttackerNameBufferBase
-    sta $06
+    sta !BattleNameBufferPointerLo
     phb
     sep #$20
     pla
-    sta $08
-    stz $09
+    sta !BattleNameBufferPointerBank
+    stz !BattleNameBufferPointerBankHi
     rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0050
+    lda !BattleNameBufferPointerLo
+    sta !TextContextSourcePointerLo
+    lda !BattleNameBufferPointerBank
+    sta !TextContextSourcePointerHi
+    lda.w #!FixedStringPreflightLength
     jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6:
-    lda.w #$0001
+    lda.w #!BattleActionTargetSideSelector
     jsl !C3E75D_ResolveReflectedHitSideArticleTokens
     jsr !C1ACF2_GetBattleTargetNameBufferBase
-    sta $06
+    sta !BattleNameBufferPointerLo
     phb
     sep #$20
     pla
-    sta $08
-    stz $09
+    sta !BattleNameBufferPointerBank
+    stz !BattleNameBufferPointerBankHi
     rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0050
+    lda !BattleNameBufferPointerLo
+    sta !TextContextSourcePointerLo
+    lda !BattleNameBufferPointerBank
+    sta !TextContextSourcePointerHi
+    lda.w #!FixedStringPreflightLength
     jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
@@ -18090,7 +18116,7 @@ C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07:
     lda.w #!TextCommand1C13StageBattleVisualEffectResult
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F:
     pld
     rts

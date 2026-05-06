@@ -60,6 +60,13 @@ Follow-up source polish also names the adjacent battle-name display pair. The
 setup, `C1:AC9B/C1:ACF2` attacker/target name-buffer base reads, and the
 `C4:47FB` fixed-string preflight printer by contract names.
 
+The decoded `C1:7D94` dispatcher now carries the front `0x1C` contract
+directly too. Its jump ladder names the stable `0x1C 01..0F` and `0x1C 11..15`
+subselector ids, while the battle-name pair names the user/target side
+selector values, the `$06/$08/$09` staged name-buffer pointer, the `$0E/$10`
+text-context handoff, the fixed-string preflight length, and the no-follow-up
+return value.
+
 Follow-up source polish now covers the front display leaves in
 `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` as well. The
 `0x1C 02`, `0x1C 0A`, `0x1C 0B`, and `0x1C 14/15` paths name the character

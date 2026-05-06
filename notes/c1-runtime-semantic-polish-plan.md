@@ -584,6 +584,13 @@ This planning pass is documentation-only.
   scratch context snapshot. This keeps the source aligned with the existing
   `text-command-family-1b-memory-context` contract while leaving the later
   `0x1C`, `0x1D`, and `0x1F` bodies for separate fenced passes.
+- 2026-05-06 follow-up: the front `0x1C` print/display dispatcher in
+  `C1:7D94..7F0F` now names its stable subselector ids for `01..0F` and
+  `11..15`, plus the battle user/target selector values, `$06/$08/$09`
+  name-buffer pointer staging, `$0E/$10` text-context handoff, fixed-string
+  preflight length, and no-follow-up return value. This continues the adjacent
+  text-command-family sweep while leaving the later `0x1D` inventory/money
+  ladder for its own pass.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments
