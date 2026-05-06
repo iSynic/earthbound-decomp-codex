@@ -593,6 +593,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-call-for-help-runtime-polish.md`,
   `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
   `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 eightieth slice: carried established action-dispatch and
+  selected-row contracts into the battle-start front/back controller callers.
+  The controllers now call the `C2:BAC5` second-stage row counter, `C2:BB18`
+  source-entry promoter, `C2:3BCF/3D05` battle-text context builders,
+  `C2:4477/4703` derived-action builder/dispatcher, `C2:416F` target-mask
+  row-state filter, `C2:7029` mask bit-test helper, `C0:9279` payload
+  dispatcher, and `C2:BCB9` PP target-loss helper by source-facing contract
+  names instead of raw long-call addresses. See
+  `notes/c2-action-dispatch-runtime-polish.md`,
+  `notes/c2-selected-row-controller-runtime-polish.md`, and
+  `notes/class2-second-stage-selector-a970.md`.
 
 ## Validation
 

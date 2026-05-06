@@ -167,6 +167,12 @@ battler removal, affliction-flagged pruning, and row-state filtering. The old
 anchors where they clarify inherited call names, but the action contract now
 reads as target-mask construction over battler rows.
 
+Battle-start controller follow-up: the front half now names its
+`BuildClass2DerivedActionCode`, `DispatchClass2DerivedAction`, and
+`FilterBattleActionTargetMaskByRowState` joins directly. This makes the
+fallback retargeting loop read as: build derived action bytes, build the
+current target mask, prune blocked row states, and retry when the mask is empty.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
@@ -200,6 +206,11 @@ This is the first source-backed spot where the newer `$9FAC == BATTLERS_TABLE`
 correction is carried directly through the battle-text context builders instead
 of only appearing in notes.
 
+Battle-start controller follow-up: the front and back controller halves now
+call `BuildBattleAttackerTextContext` and `BuildBattleTargetTextContext` by
+name when they refresh `$A970/$A972` before damage/status feedback, target-mask
+payload dispatch, and selected-row result text.
+
 ## Decomp Value
 
 This slice makes the selected-row controller more actionable:
@@ -213,6 +224,9 @@ This slice makes the selected-row controller more actionable:
   useful bridge for later table-entry naming.
 - `C2:3BCF` and `C2:3D05` now show how active battler pointers feed the
   attacker/target text buffers used by the C1 battle-text stack.
+- battle-start front/back controller callsites now use the same action-dispatch,
+  target-mask, bit-test, payload-dispatch, and text-context vocabulary as the
+  helper source bodies.
 
 ## Remaining Soft Spots
 

@@ -49,6 +49,10 @@ The battle consequence dispatcher at `C2:B2E0` reuses these helpers for selector
 `0`, selector `1`, and the chained selector `2`. That makes the helpers shared
 selected-row infrastructure, not one-off item or PSI leaves.
 
+The battle-start back half now also calls `C2:BCB9` /
+`ApplyBattlerPpTargetLoss` by name for the D5:7B68 PP-cost gate, keeping the
+PP target-loss edge aligned with the selected-row setter/clamp vocabulary.
+
 ## Heavy Recovery Reset
 
 `C2:7397` is the revival-grade reset helper used by curative paths when row
@@ -112,6 +116,9 @@ This slice ties together several previously separate-looking facts:
   wrappers that delegate to those setters.
 - `C2:69BE` is now named as the counted frame wait used by the selected-row
   visual refresh loops.
+- battle-start front/back controller callsites now name the second-stage row
+  counter and source-entry promoter that bridge battle-start row selection into
+  the collapse/affliction controller state.
 
 ## Remaining Soft Spots
 

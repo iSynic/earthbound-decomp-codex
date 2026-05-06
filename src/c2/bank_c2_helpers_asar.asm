@@ -27780,10 +27780,18 @@ org $C25024
 !C0915B_DivideUnsignedWordByY = $C0915B
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C1DD47_OpenBattleTextWindow = $C1DD47
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C26A2D_GetRandomBelow = $6A2D
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
+!C23BCF_BuildBattleAttackerTextContext = $C23BCF
+!C23D05_BuildBattleTargetTextContext = $C23D05
+!C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
+!C24477_BuildClass2DerivedActionCode = $C24477
+!C24703_DispatchClass2DerivedAction = $C24703
+!C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
+!C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 !C2BCE6_ApplyBattlerHpTargetLoss = $C2BCE6
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
@@ -27818,13 +27826,13 @@ C2503F_RunBattleStartCandidateControllerFront_L503F:
     sta $02
     jmp.w C25280_ScanBattleStartCandidateDescriptors
 C2504F_RunBattleStartCandidateControllerFront_L504F:
-    jsl $C2BB18
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C25069_RunBattleStartCandidateControllerFront_L5069
     lda.w #$000E
-    jsl $C1DD47
+    jsl !C1DD47_OpenBattleTextWindow
     jmp $5EF7
 C25069_RunBattleStartCandidateControllerFront_L5069:
     ldx $02
@@ -28359,7 +28367,7 @@ C254C6_RunBattleStartCandidateControllerFront_L54C6:
 C254CD_RunBattleStartCandidateControllerFront_L54CD:
     rep #$20
     lda $02
-    jsl $C24477
+    jsl !C24477_BuildClass2DerivedActionCode
 C254D5_RunBattleStartCandidateControllerFront_L54D5:
     lda $02
     clc
@@ -28376,7 +28384,7 @@ C254E4_RunBattleStartCandidateControllerFront_L54E4:
     jmp.w C2529B_RunBattleStartCandidateControllerFront_L529B
 C254EE_RunBattleStartCandidateControllerFront_L54EE:
     lda.w #$000E
-    jsl $C1DD47
+    jsl !C1DD47_OpenBattleTextWindow
     lda $1D
     cmp.w #$0002
     bne C2550A_RunBattleStartCandidateControllerFront_L550A
@@ -28516,15 +28524,15 @@ C25614_RunBattleStartCandidateControllerFront_L5614:
     stz $1D
     jmp $6081
 C25619_PromoteBattleStartSelectedRow:
-    jsl $C2BB18
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C2562C_RunBattleStartCandidateControllerFront_L562C
     jmp $5EF7
 C2562C_RunBattleStartCandidateControllerFront_L562C:
     lda.w #$0001
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C2563B_RunBattleStartCandidateControllerFront_L563B
     jmp $5EF7
@@ -28827,8 +28835,8 @@ C258BF_RunBattleStartCandidateControllerFront_L58BF:
     lda $A970
     sta $A972
     txa
-    jsl $C23BCF
-    jsl $C23D05
+    jsl !C23BCF_BuildBattleAttackerTextContext
+    jsl !C23D05_BuildBattleTargetTextContext
     ldx $A970
     lda $001D,X
     and.w #$00FF
@@ -28922,13 +28930,13 @@ C2598B_RunBattleStartCandidateControllerFront_L598B:
     lda $A970
     jsl !C27550_StartSelectedBattlerCollapseAfflictionPath
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C259B2_RunBattleStartCandidateControllerFront_L59B2
     jmp $5EF7
 C259B2_RunBattleStartCandidateControllerFront_L59B2:
     lda.w #$0001
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     beq C259C1_RunBattleStartCandidateControllerFront_L59C1
     jmp $6081
@@ -28941,7 +28949,7 @@ C259C4_RunBattleStartCandidateControllerFront_L59C4:
     cmp.w #$0001
     bne C259F0_RunBattleStartCandidateControllerFront_L59F0
     lda $A970
-    jsl $C24477
+    jsl !C24477_BuildClass2DerivedActionCode
     ldx $A970
     lda $0004,X
     cmp.w #$0042
@@ -28953,7 +28961,7 @@ C259C4_RunBattleStartCandidateControllerFront_L59C4:
 C259F0_RunBattleStartCandidateControllerFront_L59F0:
     rep #$20
     lda $A970
-    jsl $C24703
+    jsl !C24703_DispatchClass2DerivedAction
     ldx $A970
     lda $000E,X
     and.w #$00FF
@@ -28969,7 +28977,7 @@ C259F0_RunBattleStartCandidateControllerFront_L59F0:
     lda !D57B68_BattleActionTable,X
     and.w #$00FF
     bne C25A4F_RunBattleStartCandidateControllerFront_L5A4F
-    jsl $C2416F
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -28985,10 +28993,10 @@ C259F0_RunBattleStartCandidateControllerFront_L59F0:
 C25A3B_RunBattleStartCandidateControllerFront_L5A3B:
     bne C25A4F_RunBattleStartCandidateControllerFront_L5A4F
     lda $A970
-    jsl $C24477
+    jsl !C24477_BuildClass2DerivedActionCode
     lda $A970
-    jsl $C24703
-    jsl $C2416F
+    jsl !C24703_DispatchClass2DerivedAction
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
 C25A4F_RunBattleStartCandidateControllerFront_L5A4F:
     ldy.w #$0000
     sty $31
@@ -29024,7 +29032,7 @@ C25A7B_RunBattleStartCandidateControllerFront_L5A7B:
     sty $31
 C25A98_RunBattleStartCandidateControllerFront_L5A98:
     jsr $4009
-    jsl $C2416F
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -29056,7 +29064,7 @@ C25ABD_RunBattleStartCandidateControllerFront_L5ABD:
 C25AE2_RunBattleStartCandidateControllerFront_L5AE2:
     rep #$20
     lda.w #$0000
-    jsl $C23BCF
+    jsl !C23BCF_BuildBattleAttackerTextContext
     ldx $A970
     sep #$20
     lda $0008,X
@@ -29082,7 +29090,13 @@ org $C25AFB
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C09279_DispatchBattleActionPayload = $C09279
+!C23D05_BuildBattleTargetTextContext = $C23D05
 !C26A2D_GetRandomBelow = $6A2D
+!C27029_MaskSet_TestBit = $C27029
+!C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
+!C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
+!C2BCB9_ApplyBattlerPpTargetLoss = $C2BCB9
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
@@ -29168,7 +29182,7 @@ C25B3D_RunBattleStartCandidateControllerBack_L5B3D:
 C25B75_RunBattleStartCandidateControllerBack_L5B75:
     tax
     lda $A970
-    jsl $C2BCB9
+    jsl !C2BCB9_ApplyBattlerPpTargetLoss
 C25B7D_RunBattleStartCandidateControllerBack_L5B7D:
     ldx $A970
     lda $000E,X
@@ -29297,7 +29311,7 @@ C25C7B_RunBattleStartCandidateControllerBack_L5C7B:
     jmp.w C25D9F_RunBattleStartCandidateControllerBack_L5D9F
 C25C8C_RunBattleStartCandidateControllerBack_L5C8C:
     tya
-    jsl $C27029
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     bne C25C99_RunBattleStartCandidateControllerBack_L5C99
     jmp.w C25D9A_RunBattleStartCandidateControllerBack_L5D9A
@@ -29309,7 +29323,7 @@ C25C99_RunBattleStartCandidateControllerBack_L5C99:
     clc
     adc.w #$9FAC
     sta $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     ldx $A972
     lda $001D,X
     and.w #$00FF
@@ -29378,18 +29392,18 @@ C25D2B_RunBattleStartCandidateControllerBack_L5D2B:
     lda $08
     sta $00BE
     pla
-    jsl $C09279
-    jsl $C2BB18
+    jsl !C09279_DispatchBattleActionPayload
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     sep #$20
     lda.b #$01
     sta $9623
     rep #$20
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     beq C25D62_RunBattleStartCandidateControllerBack_L5D62
     lda.w #$0001
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C25D69_RunBattleStartCandidateControllerBack_L5D69
 C25D62_RunBattleStartCandidateControllerBack_L5D62:
@@ -29478,10 +29492,10 @@ C25DA9_RunBattleStartCandidateControllerBack_L5DA9:
 C25E14_RunBattleStartCandidateControllerBack_L5E14:
     jsl $C1DDD3
 C25E18_RunBattleStartCandidateControllerBack_L5E18:
-    jsl $C2BB18
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     lda $A970
     sta $A972
-    jsl $C23D05
+    jsl !C23D05_BuildBattleTargetTextContext
     ldx $A970
     lda $001F,X
     and.w #$00FF
@@ -29570,11 +29584,11 @@ C25ED9_RunBattleStartCandidateControllerBack_L5ED9:
 C25EEA_RunBattleStartCandidateControllerBack_L5EEA:
     cpx.w #$0020
     bcc C25ED9_RunBattleStartCandidateControllerBack_L5ED9
-    jsl $C2BB18
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     jsl $C1DD3B
 C25EF7_ResolveBattleStartCandidateCompletion:
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C25F1F_RunBattleStartCandidateControllerBack_L5F1F
     lda.w #$0001
@@ -29589,7 +29603,7 @@ C25EF7_ResolveBattleStartCandidateCompletion:
     sta $23
 C25F1F_RunBattleStartCandidateControllerBack_L5F1F:
     lda.w #$0001
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     beq C25F2E_RunBattleStartCandidateControllerBack_L5F2E
     jmp.w C26081_RunBattleStartCandidateControllerBack_L6081
@@ -29630,7 +29644,7 @@ C25F2E_RunBattleStartCandidateControllerBack_L5F2E:
     lda $08
     sta $0002,Y
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     dec A
     sta $0A
     stz $0C
@@ -29650,7 +29664,7 @@ C25F2E_RunBattleStartCandidateControllerBack_L5F2E:
     lda $08
     sta $A976
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     sta $0A
     stz $0C
     jsl !C090FF_AddLongPointerOffset
@@ -29820,7 +29834,7 @@ C260B9_RunBattleStartCandidateControllerBack_L60B9:
     sep #$20
     ldx $25
     sta $0000,X
-    jsl $C2BB18
+    jsl !C2BB18_PromoteSourceEntryToCollapseAfflictionController
     bra C26145_RunBattleStartCandidateControllerBack_L6145
 C2612E_RunBattleStartCandidateControllerBack_L612E:
     lda $2F
