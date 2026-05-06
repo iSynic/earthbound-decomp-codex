@@ -194,6 +194,13 @@ coffee/tea scene selector and flyover scene runner, and splits the flyover text
 pointer table into one long pointer per row with comments limiting the
 user-facing names to the three locally corroborated intro strings.
 
+2026-05-06 flyover pointer follow-up: the `C4:9EA4` table rows now have
+address-stable labels for all eight entries. The first three retain the local
+`Year199X`, `Onett`, and `NessHouse` roles; entries `3..7` remain numbered
+until the E1 text payload names are settled. The source also makes the row
+shape explicit as low word plus bank byte plus padding byte, matching the
+`C4:9EC4` indexed pointer walk.
+
 The routine has no direct `JSL`/same-bank `JSR` callers in the split-bank scan,
 so the current best read is that it is reached through a pointer/script/event
 path rather than a direct code reference.
@@ -226,6 +233,14 @@ path rather than a direct code reference.
 - `C4:9D16` = `RenderSingleCoffeeTeaTileToken`
 - `C4:9D1E` = `AdvanceCoffeeTeaVramOffsetByTileRow`
 - `C4:9EA4` = `FlyoverIntroTextPointerTable`
+- `C4:9EA4` = `FlyoverIntroTextYear199xPointer`
+- `C4:9EA8` = `FlyoverIntroTextOnettPointer`
+- `C4:9EAC` = `FlyoverIntroTextNessHousePointer`
+- `C4:9EB0` = `FlyoverIntroTextPointer3`
+- `C4:9EB4` = `FlyoverIntroTextPointer4`
+- `C4:9EB8` = `FlyoverIntroTextPointer5`
+- `C4:9EBC` = `FlyoverIntroTextPointer6`
+- `C4:9EC0` = `FlyoverIntroTextPointer7`
 - `C4:9EC4` = `RunFlyoverIntroTextSceneByIndex`
 
 ## Confidence boundaries

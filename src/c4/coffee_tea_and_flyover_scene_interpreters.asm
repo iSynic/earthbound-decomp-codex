@@ -50,6 +50,8 @@ TEA_SCENE_TEXT_BASE_LOW                      = $0652
 COFFEE_TEA_SCENE_TEXT_BANK                   = $00E1
 FLYOVER_TEXT_POINTER_TABLE                   = $C49EA4
 FLYOVER_TEXT_POINTER_TABLE_BANK              = $00C4
+FLYOVER_TEXT_POINTER_ROW_SIZE                = $0004
+FLYOVER_TEXT_POINTER_COUNT                   = $0008
 
 COFFEE_TEA_TILE_WINDOW_INDEX                 = $9F2D
 COFFEE_TEA_ROW_TILE_LIMIT                    = $2000
@@ -267,14 +269,31 @@ C49E86_RunCoffeeTeaScene_ClearTileBufferCheck:
 C49EA4_FlyoverIntroTextPointerTable:
     ; Eight long pointers to E1 flyover text scripts. The first three are the
     ; locally corroborated Year 199X, Onett, and Ness house intro strings.
-    db $86,$0B,$E1,$00
-    db $9C,$0B,$E1,$00
-    db $C2,$0B,$E1,$00
-    db $D2,$0B,$E1,$00
-    db $FD,$0B,$E1,$00
-    db $1B,$0C,$E1,$00
-    db $38,$0C,$E1,$00
-    db $61,$0C,$E1,$00
+    ; The runner indexes these as low word + bank byte + padding byte.
+C49EA4_FlyoverIntroTextYear199xPointer:
+    dw $0B86
+    db $E1,$00
+C49EA8_FlyoverIntroTextOnettPointer:
+    dw $0B9C
+    db $E1,$00
+C49EAC_FlyoverIntroTextNessHousePointer:
+    dw $0BC2
+    db $E1,$00
+C49EB0_FlyoverIntroTextPointer3:
+    dw $0BD2
+    db $E1,$00
+C49EB4_FlyoverIntroTextPointer4:
+    dw $0BFD
+    db $E1,$00
+C49EB8_FlyoverIntroTextPointer5:
+    dw $0C1B
+    db $E1,$00
+C49EBC_FlyoverIntroTextPointer6:
+    dw $0C38
+    db $E1,$00
+C49EC0_FlyoverIntroTextPointer7:
+    dw $0C61
+    db $E1,$00
 
 ; Entry:
 ;   A = index into FlyoverIntroTextPointerTable.
@@ -300,6 +319,8 @@ C49EC4_RunFlyoverIntroTextSceneByIndex:
     sta $0A
     lda #FLYOVER_TEXT_POINTER_TABLE_BANK
     sta $0C
+    ; Index the C4-owned pointer rows, then hand the selected E1 script stream
+    ; to the shared coffee/tea command interpreter below.
     lda $0E
     asl
     asl

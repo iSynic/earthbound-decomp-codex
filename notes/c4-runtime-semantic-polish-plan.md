@@ -293,6 +293,12 @@ closure.
   walk, and closeout handoff. C0/C2 renderer, transition, and battle-visual
   internals remain external callee contracts. See
   `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-06 flyover text pointer follow-up: tightened the C4:9EA4 flyover
+  intro text pointer table into eight explicit row labels, keeping only the
+  three locally corroborated user-facing names and leaving later rows numbered.
+  The `C4:9EC4` runner now marks the C4-owned low-word/bank/padding pointer
+  walk before handing control to the shared coffee/tea text command grammar.
+  See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 
