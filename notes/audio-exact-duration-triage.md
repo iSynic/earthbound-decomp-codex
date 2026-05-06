@@ -11,6 +11,14 @@ Status: exact-duration release promotion is still pending, but sequence work is 
 - sequence promotion allowed: `False`
 - release status: `exact_duration_not_promoted_sequence_triage_ready`
 
+## Lane Diagnostics
+
+| Lane | Packs | Tracks | Export classes | Terminators | EF edges | Blockers | Next step |
+| --- | ---: | ---: | --- | ---: | ---: | --- | --- |
+| `blocked_by_unpromoted_control` | 108 | 155 | `{'finite_trim_candidate': 15, 'finite_or_transition_review_candidate': 12, 'unknown_active_preview': 72, 'loop_or_held_candidate': 56}` | 854 | 994 | `{'0xFF': 149}` | decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion |
+| `candidate_for_zero_terminator_review` | 10 | 19 | `{'finite_or_transition_review_candidate': 10, 'unknown_active_preview': 7, 'loop_or_held_candidate': 2}` | 62 | 98 | `{}` | build focused pack report and confirm whether 0x00 marks sequence end or EF subroutine return |
+| `no_sequence_semantics_needed` | 1 | 1 | `{'finite_trim_candidate': 1}` | 6 | 0 | `{'0xFF': 1}` | no sequence-duration action required |
+
 ## candidate_for_zero_terminator_review
 
 | Pack | ROM range | Tracks | Export classes | EF edges | Terminators | Terminator commands | Blockers | Semantic evidence |

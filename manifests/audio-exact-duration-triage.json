@@ -42,6 +42,50 @@
       "external_semantic_family_promotes_exact_duration": false
     }
   },
+  "lane_diagnostics": {
+    "blocked_by_unpromoted_control": {
+      "pack_count": 108,
+      "track_count": 155,
+      "export_class_counts": {
+        "finite_trim_candidate": 15,
+        "finite_or_transition_review_candidate": 12,
+        "unknown_active_preview": 72,
+        "loop_or_held_candidate": 56
+      },
+      "terminators": 854,
+      "ef_call_edges": 994,
+      "blocker_counts": {
+        "0xFF": 149
+      },
+      "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
+    },
+    "candidate_for_zero_terminator_review": {
+      "pack_count": 10,
+      "track_count": 19,
+      "export_class_counts": {
+        "finite_or_transition_review_candidate": 10,
+        "unknown_active_preview": 7,
+        "loop_or_held_candidate": 2
+      },
+      "terminators": 62,
+      "ef_call_edges": 98,
+      "blocker_counts": {},
+      "recommended_next_step": "build focused pack report and confirm whether 0x00 marks sequence end or EF subroutine return"
+    },
+    "no_sequence_semantics_needed": {
+      "pack_count": 1,
+      "track_count": 1,
+      "export_class_counts": {
+        "finite_trim_candidate": 1
+      },
+      "terminators": 6,
+      "ef_call_edges": 0,
+      "blocker_counts": {
+        "0xFF": 1
+      },
+      "recommended_next_step": "no sequence-duration action required"
+    }
+  },
   "categories": {
     "candidate_for_zero_terminator_review": [
       {

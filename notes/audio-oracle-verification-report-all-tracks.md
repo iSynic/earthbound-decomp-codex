@@ -24,6 +24,14 @@ Status: all-track near-oracle passed; independent external-emulator gate remains
 - minimum normalized PCM correlation: `1.0`
 - maximum alignment offset samples: `0`
 
+## Independence Gap
+
+- independent reference captures: `0 / 190`
+- missing independent captures: `190`
+- current gap: current captures are ares-managed/backend-summary imports, so they are near-oracle evidence rather than independent emulator evidence
+- release blockers: `['independent_external_emulator_gate_open']`
+- residual accepted state deltas: `['full_apu_ram_differs_outside_audio_payload_regions']`
+
 ## APU Region Matches
 
 | Region | Matches |

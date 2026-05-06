@@ -22,6 +22,15 @@ Status: export policy ready; exact loop points and some sequence-level duration 
 - loop preview: `2` loops plus `5.0` second fade
 - finite trim policy: trim after the last sample above the silence threshold; keep no extra generated silence
 
+## Diagnostic Triage
+
+- finite exact trims allowed by PCM silence evidence: `20`
+- finite trim duration range: `0.667156`..`22.0855` seconds
+- minimum finite tail silence evidence: `7.9145` seconds
+- loop/held tracks with exact loop points missing: `63 / 63`
+- unknown active previews still requiring triage: `80`
+- tracks still requiring sequence semantics: `170`
+
 ## Release Gates
 
 - Finite trim candidates are usable where sustained trailing silence is observed, but sequence semantics can still refine exact musical intent.

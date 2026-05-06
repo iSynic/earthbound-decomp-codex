@@ -73,7 +73,14 @@ def validate(plan: dict[str, Any], *, allow_missing_source_outputs: bool) -> lis
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity",
     }
+    allowed_focuses = {
+        "finite_tail_or_transition_end",
+        "active_through_preview_or_loop_candidate",
+        "no_keyon_or_silent_load_path",
+        "general_playback_equivalence",
+    }
     seen_track_ids: set[int] = set()
+    focus_counts: dict[str, int] = {}
     for job in jobs:
         job_id = str(job.get("job_id", ""))
         track_id = int(job.get("track_id", -1))
@@ -89,6 +96,13 @@ def validate(plan: dict[str, Any], *, allow_missing_source_outputs: bool) -> lis
         missing_levels = required_levels - levels
         if missing_levels:
             errors.append(f"{job_id}: missing comparison levels {sorted(missing_levels)}")
+        focus = str(job.get("diagnostic_focus", ""))
+        if focus not in allowed_focuses:
+            errors.append(f"{job_id}: unexpected diagnostic focus {focus}")
+        focus_counts[focus] = focus_counts.get(focus, 0) + 1
+        requirements = job.get("independent_capture_requirements", [])
+        if len(requirements) < 3:
+            errors.append(f"{job_id}: independent capture requirements are too thin")
 
         source_spc = job.get("source_spc", {})
         source_render = job.get("source_render", {})
@@ -119,6 +133,13 @@ def validate(plan: dict[str, Any], *, allow_missing_source_outputs: bool) -> lis
         errors.append("PCM threshold minimum_seconds must cover current 30-second export jobs")
     if float(thresholds.get("minimum_normalized_correlation_after_alignment", 0.0)) < 0.95:
         errors.append("PCM correlation threshold is too loose for release-quality comparison")
+    if plan.get("diagnostic_focus_counts") != dict(sorted(focus_counts.items())):
+        errors.append("diagnostic focus counts do not match jobs")
+    capture_contract = plan.get("independent_capture_contract", {})
+    metadata_fields = set(capture_contract.get("minimum_metadata_fields", []))
+    for field in ("oracle_id", "independent_emulator_capture", "source_spc_sha1", "reference_wav_sha1"):
+        if field not in metadata_fields:
+            errors.append(f"independent capture contract missing {field}")
 
     release_gates = plan.get("release_gates", [])
     if len(release_gates) < 5:
