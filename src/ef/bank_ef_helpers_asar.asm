@@ -4682,19 +4682,19 @@ db $16,$56,$91,$17,$45,$51,$03,$02
 
 EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
 
-; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
 db $01,$15,$7F,$15,$FB,$17,$E8,$95,$9C,$94,$00,$50,$16,$E7,$96,$9C
 db $16,$A5,$15,$4A,$91,$A4,$A4,$17,$16,$51,$1F,$02,$5D,$10,$1E,$03
 db $02
 
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
 
-; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
 db $01,$15,$14,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17,$E8,$95,$9C
 db $94,$00,$19,$1F,$1B,$04,$50,$16,$E7,$96,$9C,$95,$93,$16,$B6,$1C
 db $12,$00,$51,$1F,$02,$5D,$03,$02
 
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
 
 ; Original data gap before EF7123_EBattle5MsgBtlNeutralizeResult:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
@@ -5877,13 +5877,13 @@ db $5C,$10,$3C,$03,$00,$16,$BF,$93,$16,$EC,$17,$08,$51,$03,$02
 
 EF8530_EBattle1MsgBtlCheck:
 
-; Original data gap before EF8543_EBattle1MsgBtlPsi:
+; Original data gap before EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
 ; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
 ; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsi:
+EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$68,$85,$EF,$00,$1F,$02,$37,$70,$1C,$0D

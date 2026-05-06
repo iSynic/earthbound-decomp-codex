@@ -1086,13 +1086,13 @@ EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
 ; EF:70D2
 
 ; EBATTLE5: psychic power shield reflected PSI-name byte-substitution text.
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiName:
+EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70FA
 
 ; EBATTLE5: psychic shield nullified PSI-name byte-substitution text.
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiName:
+EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7123
@@ -2246,7 +2246,7 @@ EF8530_EBattle1MsgBtlCheck:
 ; EBATTLE1: shared PSI action text with PSI-name byte substitution. D5:7B68
 ; rows 10..31 plus PSI-status rows 53 and 58 use this as row +4 `DD9F`
 ; presentation text; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsi:
+EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8568

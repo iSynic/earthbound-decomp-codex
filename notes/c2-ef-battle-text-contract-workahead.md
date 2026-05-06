@@ -109,8 +109,8 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-05: EF EBATTLE1 front follow-up split `EF:848C..8814` around the
   action-table text pointers already proved in
   `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
-  `EF:848C`, Spy/check `EF:8530`, and shared PSI text `EF:8543`, plus the
-  adjacent PSI animation/effect dispatch branches.
+  `EF:848C`, Spy/check `EF:8530`, and shared PSI `ByteSubstitution` text
+  `EF:8543`, plus the adjacent PSI animation/effect dispatch branches.
 - 2026-05-05: C1-side DD9F tail follow-up named the source-side consumer of
   the action-table Bash/Shoot text and companion payload offsets. The
   `C1:DD9F..E1A2` source now keeps `$00BC/$00BE` current text pointers
@@ -185,12 +185,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `101`, and `140` to the proved row `+4` crosswalk and documented C9 item and
   Final Prayer row-message lanes as non-EF presentation consumers.
 - 2026-05-06: EF PSI-status row-message follow-up added rows `53` and `58` as
-  shared `EF:8543` PSI presentation joins whose C2 bodies emit asleep and
-  strange direct-result scripts separately. The same pass extended the non-EF
-  C9 item row-message lane to the later bomb-family rows `310` and `311`, and
-  marked explosive rows `64` and `65` as blocked on exact row `+4` EF pointer
-  recovery. It also records PSI-side Lifeup rows `32..35` as behavior-known
-  but not yet row-message-pointer joined.
+  shared `EF:8543` PSI `ByteSubstitution` presentation joins whose C2 bodies
+  emit asleep and strange direct-result scripts separately. The same pass
+  extended the non-EF C9 item row-message lane to the later bomb-family rows
+  `310` and `311`, and marked explosive rows `64` and `65` as blocked on exact
+  row `+4` EF pointer recovery. It also records PSI-side Lifeup rows `32..35`
+  as behavior-known but not yet row-message-pointer joined.
 - 2026-05-06: EF row-pointer recovery frontier follow-up added
   `notes/ef-battle-text-row-pointer-recovery-frontier.md`, documenting the
   current local blocker for new row `+4` joins: D5 source preserves the table
@@ -402,9 +402,9 @@ These are core “amount/status result” scripts used by C2 feedback helpers.
     - `EF:7032` vs `EF:700C` (substate 2: psychic shield strengthened/installed)
     - `EF:707A` vs `EF:7050` (substate 1: psychic power shield strengthened/installed)
   - **C2 timed-substate blocker**: `src/c2/c2_941d_check_selected_battler_timed_substate_blocker.asm`
-    emits `EF:70D2` for psychic power shield PSI-name reflection,
-    `EF:70FA` for psychic shield PSI-name nullification, and `EF:7099`
-    when the timed shield expires.
+    emits `EF:70D2` for psychic power shield PSI-name `ByteSubstitution`
+    reflection, `EF:70FA` for psychic shield PSI-name `ByteSubstitution`
+    nullification, and `EF:7099` when the timed shield expires.
   - **C2 Thunder reflection tail**: `src/c2/c2_97a5_handle_psi_thunder_franklin_badge_reflection.asm`
     emits `EF:7160` when the Franklin Badge reflects Thunder.
 
@@ -551,6 +551,9 @@ EF payload anchor suffixes should mirror those wrapper contracts:
   `PRINT_ACTION_AMOUNT (1C 0F)`.
 - `ByteSubstitution`: EF script consumes the `C1:DD7C` byte slot through
   `LOAD_BYTE_SUBSTITUTION (19 1F)`.
+  High-confidence EF consumers now include present item text `EF:7BDF/7DD5`,
+  learned/shared PSI text `EF:7B77/8543`, and shield PSI-name scripts
+  `EF:70D2/70FA`.
 - `PointerSubstitution`: EF script consumes the staged pointer payload through
   `LOAD_POINTER_SUBSTITUTION (19 1E)`.
 

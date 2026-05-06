@@ -40,8 +40,8 @@ body, success text, and fallback text are all visible.
 
 | Row | Row `+4` EF message | Row `+8` C2 body | Behavior result payloads |
 | ---: | --- | --- | --- |
-| `53` | `EF:8543` shared PSI text | `C2:9F57 -> C2:9F06` | PSI-side asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
-| `58` | `EF:8543` shared PSI text | `C2:A056` | PSI-side strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
+| `53` | `EF:8543` shared PSI `ByteSubstitution` text | `C2:9F57 -> C2:9F06` | PSI-side asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
+| `58` | `EF:8543` shared PSI `ByteSubstitution` text | `C2:A056` | PSI-side strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
 | `75` | `EF:9C30` `MSG_BTL_HOUSHI` | `C2:8BBE` | Mushroomized/affliction+1 value `1`; emits `EF:6B81` or `EF:766E` |
 | `76` | `EF:9C51` `MSG_BTL_TORITUKI` | `C2:8BFD` | Possessed/affliction+1 value `2`; emits `EF:6B98` or `EF:766E` |
 | `78` | `EF:9CAD` `MSG_BTL_KABI_HOUSI` | `C2:8C69` | Crying/affliction+2 value `2`; emits `EF:6BBB` or `EF:766E` |
@@ -103,7 +103,7 @@ The early row-message joins remain the cleanest `DD9F` examples:
 | `5` | `EF:84B6` | `C2:8740` | Shoot |
 | `6` | `EF:8530` | `C2:8770` | Spy |
 | `7` | `EF:89E0` | `C2:AD1B` | Pray |
-| `10..31`, `53`, `58` | `EF:8543` | PSI wrapper/status families | Shared PSI row message; byte-substitution PSI name |
+| `10..31`, `53`, `58` | `EF:8543` | PSI wrapper/status families | Shared PSI row message; `ByteSubstitution` PSI name |
 
 ## How To Use This Crosswalk
 

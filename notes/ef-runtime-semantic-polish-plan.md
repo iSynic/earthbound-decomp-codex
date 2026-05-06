@@ -254,3 +254,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF level-up amount suffix follow-up renamed `EF:7A7D..7B46`
   stat-gain anchors as `ActionAmount` scripts and clarified that C1 level-up
   leaves stage their deltas through `C1:AD0A` before `1C 0F`.
+- 2026-05-06: EF byte-substitution suffix follow-up renamed the shield
+  PSI-name scripts `EF:70D2/70FA` and shared PSI row text `EF:8543` so their
+  `C1:DD7C -> $9D11 -> 19 1F` payload contract is visible at the source
+  anchor without changing the row-presentation lane model.

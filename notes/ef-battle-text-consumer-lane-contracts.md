@@ -46,8 +46,9 @@ Examples:
 - row `140 -> EF:8E27 -> C2:9AD8` and row `247 -> EF:8E27 -> C2:90C6`
   intentionally reuse one EF row-message anchor with different C2 behavior
   bodies.
-- rows `53` and `58` reuse shared `EF:8543` PSI presentation text, while their
-  behavior bodies emit asleep or strange result text through `DC1C`.
+- rows `53` and `58` reuse shared `EF:8543` PSI `ByteSubstitution`
+  presentation text, while their behavior bodies emit asleep or strange result
+  text through `DC1C`.
 
 ## Direct Result Lane
 
@@ -92,7 +93,9 @@ Examples:
 
 `C1:DD7C` stages `$9D11` for `LOAD_BYTE_SUBSTITUTION (19 1F)`. EF anchors that
 consume that byte should keep the `ByteSubstitution` suffix. Present/item-name
-and PSI-name examples are the current high-confidence cases.
+and PSI-name examples are the current high-confidence cases: `EF:7BDF` and
+`EF:7DD5` for present item names, `EF:7B77` and shared row text `EF:8543` for
+PSI names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
 
 `LOAD_POINTER_SUBSTITUTION (19 1E)` consumes `$9D12/$9D14`; EF branches that
 depend on that pointer should keep the `PointerSubstitution` suffix.

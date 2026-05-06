@@ -51,7 +51,7 @@ The front EBATTLE1 row-message joins are currently the strongest:
 | `0x0005` | `EF:84B6` | Shoot row message via `DD9F` |
 | `0x0006` | `EF:8530` | Spy/check row message via `DD9F` |
 | `0x0007` | `EF:89E0` | Pray row message via `DD9F` |
-| `0x000A..0x0019` | `EF:8543` | Shared PSI row message via `DD9F`, with PSI-name byte substitution |
+| `0x000A..0x0019` | `EF:8543` | Shared PSI row message via `DD9F`, with PSI-name `ByteSubstitution` |
 
 EBATTLE2 also has several late-table anchors that are strong enough to keep as
 consumer-ready handoff points:

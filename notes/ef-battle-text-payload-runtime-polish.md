@@ -84,8 +84,8 @@ macros.
   psychic shield, and psychic power shield.
 - `EF:7099`, `EF:70B1`, `EF:70D2`, `EF:70FA`, `EF:7123`, `EF:7142`, and
   `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
-  shield-nullify, Neutralizer, and Franklin Badge text tail used by C2 timed
-  substate and Thunder reflection helpers.
+  shield `ByteSubstitution`, Neutralizer, and Franklin Badge text tail used by
+  C2 timed substate and Thunder reflection helpers.
 - `EF:7186..7249` now splits EBATTLE4 action-blocking status text for
   diamondized, paralysis, nausea, poison, asleep, immobilized, and PSI-seal
   turns, including the PSI-seal player-side sound branch and `19 1F` byte
@@ -259,13 +259,17 @@ The first slice of `EF:848C..C51B` is now split through `EF:8814`. This is the
 runtime-facing battle-command front already tied to the C2 action table notes:
 `EF:848C` is the Bash/attack text pointer for the table's ordinary attack
 entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
-text pointer reused by many PSI-shaped action rows. The `EF:857E` dispatch and
-`EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
-have stable anchors for later PSI animation/effect consumer work.
+`ByteSubstitution` text pointer reused by many PSI-shaped action rows. The
+`EF:857E` dispatch and `EF:864C..8813` branches remain ROM-preserved
+text/effect bytecode, but now have stable anchors for later PSI
+animation/effect consumer work.
 
 The row-message consumer split is now explicit: `C2:5C66` selects the
 `D5:7B68` row `+4` message pointer and displays it through `C1:DD9F`, while
-the row `+8` behavior pointer is a separate C2 action payload.
+the row `+8` behavior pointer is a separate C2 action payload. The shared
+`EF:8543` PSI row message still belongs to that `DD9F` row-presentation lane;
+its `ByteSubstitution` suffix only records that the displayed script consumes
+the `C1:DD7C -> $9D11 -> 19 1F` PSI-name byte.
 
 ## Thunder, Effect, And Pray Follow-up
 
@@ -342,9 +346,10 @@ row-message lanes for C9 item wrappers and Final Prayer so EF anchor work does
 not accidentally claim presentation text that lives in another bank.
 
 It also calls out the PSI-side status rows `53` and `58`, which reuse the
-shared `EF:8543` PSI action text while their row `+8` bodies emit asleep and
-strange status-result scripts. This keeps shared PSI presentation text distinct
-from the later `EF:6C55` and `EF:6C3A` direct-result payloads.
+shared `EF:8543` PSI `ByteSubstitution` action text while their row `+8`
+bodies emit asleep and strange status-result scripts. This keeps shared PSI
+presentation text distinct from the later `EF:6C55` and `EF:6C3A`
+direct-result payloads.
 
 The non-EF row-message table also includes the later C9 bomb-family item rows
 `167`, `168`, `310`, and `311`, keeping those item presentation wrappers out
@@ -374,10 +379,10 @@ row-message lanes.
 The EF source comments now carry the strongest row-message lane joins directly
 at their anchors: special-event row presentation versus continuations
 (`EF:72F6`, `EF:72F7`, `EF:733D`, `EF:7415`, `EF:743B`), healing/explosive row
-messages (`EF:7E88`, `EF:7ED5`), shared PSI presentation (`EF:8543`), reused
-named-item/normalization presentation (`EF:8E27`), row `290` event
-presentation (`EF:8DDE`), and the late status row-message cluster in
-`EF:9C51..9DDA`.
+messages (`EF:7E88`, `EF:7ED5`), shared PSI `ByteSubstitution` presentation
+(`EF:8543`), reused named-item/normalization presentation (`EF:8E27`), row
+`290` event presentation (`EF:8DDE`), and the late status row-message cluster
+in `EF:9C51..9DDA`.
 
 The adjacent direct-result comments now also mark the status/no-effect islands
 that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
