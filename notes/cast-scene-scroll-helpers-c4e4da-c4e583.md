@@ -152,6 +152,12 @@ scene loading, transition state, event-801 driver allocation (`#$0321`),
 per-frame updates until `$9641` is set, final driver cleanup, and restoration
 of the normal delayed-action/presentation state.
 
+2026-05-06 cast controller follow-up: the controller now names the event-801
+driver id, `$9641` completion latch, live `$0A62` driver cleanup scan,
+delayed-action restore anchors `$0A4C/$0A4E = 17/18`, return transition mode,
+and final `$001A = #$17` display mode. The C0/C1/C2 frame/update/remove
+callees remain caller references.
+
 `C4:EDA3..C4:EE9D` is ebsrc's following unused cast-name scratch renderer. It
 shares the same glyph-run renderer and VRAM queue contracts as the live
 cast-name path, but is kept as a separate module because ebsrc gives it a hard

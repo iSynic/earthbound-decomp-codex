@@ -229,6 +229,11 @@ closure.
   `$0030 = #$10` display selector, `$0A38` rotating spawn variant, `$FFFF`
   default parent argument, and word-indexed live-Y onscreen comparison. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 cast controller follow-up: tightened `PlayCastScene` around the
+  event-801 driver id, `$9641` completion latch, `$0A62` driver cleanup scan,
+  delayed-action restore anchors `$0A4C/$0A4E`, return transition mode, and
+  final `$001A = #$17` display mode while leaving frame/update/remove callees
+  external. See `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 - 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
   the music dataset row fields, audio pack pointer row shape, US bank resolver
   mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,
