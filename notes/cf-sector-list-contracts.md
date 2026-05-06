@@ -12,6 +12,7 @@ The CF counted sector-list families now have reproducible subrecord boundaries:
 - `D0_DOOR_POINTER_TABLE` covers `D0:0000..D0:13FF`; all `1280` long pointers target `CF:264F..CF:58EE` with bank byte `CF` and zero reserved byte.
 - `SPRITE_PLACEMENT_POINTER_TABLE` covers `CF:61E7..CF:6BE6` with `627` nonzero pointers and `653` empty-sector sentinels.
 - `SPRITE_PLACEMENT_TABLE` covers `CF:6BE7..CF:8984` as `627` counted lists with `1582` four-byte placement rows.
+- Full decoded pointer rows, sector-list rows, overlap rows, and entry rows are checked in at `notes/cf-sector-list-contracts.json`.
 
 ## Record shapes
 
@@ -53,6 +54,12 @@ This table uses the source-order physical row view. The raw pointer-consumer vie
 | sector-local X range | `0x00..0xFC` |
 | sector-local Y range | `0x00..0xF8` |
 | NPC ids fit `NPC_CONFIG_TABLE[0..1583]` | `True` |
+
+## Source-Emission Readiness
+
+- `notes/cf-sector-list-contracts.json` now carries complete decoded rows for `D0_DOOR_POINTER_TABLE`, `CF_DOOR_CONFIG_TABLE`, `SPRITE_PLACEMENT_POINTER_TABLE`, and `SPRITE_PLACEMENT_TABLE`.
+- Door rows retain both source-order physical entries and raw pointer-consumer entries because the 19 overlapping starts are real consumer-visible pointer targets.
+- Sprite placement rows retain sector-list ownership plus `NPC_CONFIG_TABLE` ids so generated source can emit stable sector-local rows without re-parsing the scaffold.
 
 ## Evidence
 

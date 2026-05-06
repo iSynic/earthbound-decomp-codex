@@ -52,7 +52,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/cf-sector-list-contracts.md",
             "notes/d0-variable-list-contracts.md",
         ],
-        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is CF row-source emission and D0 MAP_TILE_EVENT chain decoding.",
+        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is CF DOOR_DATA/event-music payload decoding and D0 MAP_TILE_EVENT chain decoding.",
     },
     {
         "id": "overworld_sprites",

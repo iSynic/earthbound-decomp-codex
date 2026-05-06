@@ -244,6 +244,10 @@ def counter_dict(counter: Counter[int]) -> dict[str, int]:
     return {f"0x{key:02X}": counter[key] for key in sorted(counter)}
 
 
+def decimal_counter_dict(counter: Counter[int]) -> dict[str, int]:
+    return {str(key): counter[key] for key in sorted(counter)}
+
+
 def sample_rows(rows: list[dict[str, Any]], count: int = 5) -> list[dict[str, Any]]:
     return rows[:count]
 
@@ -287,6 +291,8 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
 
     door_logical_type_counter = Counter(entry["movement_trigger_type"] for entry in door_logical_entries)
     door_physical_type_counter = Counter(entry["movement_trigger_type"] for entry in door_physical_entries)
+    door_raw_count_counter = Counter(row["raw_count"] for row in door_lists)
+    door_physical_count_counter = Counter(row["source_order_physical_count"] for row in door_lists)
     door_payload_by_type: dict[str, dict[str, int]] = {}
     for trigger_type in sorted(door_physical_type_counter):
         payloads = [
@@ -305,6 +311,7 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
     sprite_npc_ids = [entry["npc_config_id"] for entry in sprite_entries]
     sprite_xs = [entry["sector_local_x"] for entry in sprite_entries]
     sprite_ys = [entry["sector_local_y"] for entry in sprite_entries]
+    sprite_list_count_counter = Counter(row["count"] for row in sprite_lists)
 
     validation = {
         "door_config_byte_count_ok": len(door_config) == expected_door_bytes,
@@ -338,6 +345,13 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
 
     return {
         "schema": SCHEMA,
+        "title": "CF Sector List Contracts",
+        "generator": "tools/build_cf_sector_list_contracts.py",
+        "source_policy": (
+            "Derived from byte-equivalent CF and D0 source scaffolds. This records "
+            "list boundaries, pointer ownership, consumer-backed field names, overlap "
+            "metadata, and decoded row values only; it does not commit raw table bytes."
+        ),
         "sources": {
             "cf_helper": rel(cf_helper),
             "d0_helper": rel(d0_helper),
@@ -355,11 +369,17 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
             "max_source_order_physical_entries_per_sector": max(
                 row["source_order_physical_count"] for row in door_lists
             ),
+            "raw_count_histogram": decimal_counter_dict(door_raw_count_counter),
+            "source_order_physical_count_histogram": decimal_counter_dict(door_physical_count_counter),
             "trigger_type_counts": counter_dict(door_physical_type_counter),
             "logical_pointer_trigger_type_counts": counter_dict(door_logical_type_counter),
             "payload_stats_by_trigger_type": door_payload_by_type,
             "overlap_count": len(door_overlaps),
             "overlap_bytes": sum(row["overlap_bytes"] for row in door_overlaps),
+            "sector_lists": door_lists,
+            "logical_pointer_entries": door_logical_entries,
+            "source_order_physical_entries": door_physical_entries,
+            "pointer_overlaps": door_overlaps,
             "sample_overlaps": sample_rows(door_overlaps),
             "sample_lists": sample_rows([row for row in door_lists if row["source_order_physical_count"]]),
             "sample_entries": sample_rows(door_physical_entries),
@@ -369,6 +389,7 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
             "row_count": len(d0_door_pointers),
             "target_bank_counts": counter_dict(Counter(row["pointer_bank"] for row in d0_door_pointers)),
             "reserved_byte_counts": counter_dict(Counter(row["reserved"] for row in d0_door_pointers)),
+            "rows": d0_door_pointers,
         },
         "sprite_placement": {
             "pointer_span": f"CF:{SPRITE_POINTER_START:04X}..CF:{SPRITE_TABLE_START - 1:04X}",
@@ -379,9 +400,13 @@ def build_contract(cf_helper: Path, d0_helper: Path) -> dict[str, Any]:
             "list_count": len(sprite_lists),
             "entry_count": len(sprite_entries),
             "max_entries_per_sector": max(row["count"] for row in sprite_lists),
+            "entry_count_histogram": decimal_counter_dict(sprite_list_count_counter),
             "npc_config_id_range": [min(sprite_npc_ids), max(sprite_npc_ids)],
             "sector_local_x_range": [min(sprite_xs), max(sprite_xs)],
             "sector_local_y_range": [min(sprite_ys), max(sprite_ys)],
+            "pointer_rows": sprite_pointers,
+            "sector_lists": sprite_lists,
+            "entries": sprite_entries,
             "sample_pointer_rows": sample_rows(nonzero_sprite_pointers),
             "sample_lists": sample_rows(sprite_lists),
             "sample_entries": sample_rows(sprite_entries),
@@ -409,6 +434,7 @@ def markdown(contract: dict[str, Any]) -> str:
         f"- `D0_DOOR_POINTER_TABLE` covers `D0:0000..D0:13FF`; all `{validation['d0_door_pointer_match_count']}` long pointers target `CF:264F..CF:58EE` with bank byte `CF` and zero reserved byte.",
         f"- `SPRITE_PLACEMENT_POINTER_TABLE` covers `{sprite['pointer_span']}` with `{sprite['nonzero_pointer_count']}` nonzero pointers and `{sprite['zero_pointer_count']}` empty-sector sentinels.",
         f"- `SPRITE_PLACEMENT_TABLE` covers `{sprite['table_span']}` as `{sprite['list_count']}` counted lists with `{sprite['entry_count']}` four-byte placement rows.",
+        f"- Full decoded pointer rows, sector-list rows, overlap rows, and entry rows are checked in at `notes/cf-sector-list-contracts.json`.",
         "",
         "## Record shapes",
         "",
@@ -451,6 +477,12 @@ def markdown(contract: dict[str, Any]) -> str:
             f"| sector-local X range | `0x{sprite['sector_local_x_range'][0]:02X}..0x{sprite['sector_local_x_range'][1]:02X}` |",
             f"| sector-local Y range | `0x{sprite['sector_local_y_range'][0]:02X}..0x{sprite['sector_local_y_range'][1]:02X}` |",
             f"| NPC ids fit `NPC_CONFIG_TABLE[0..1583]` | `{validation['sprite_npc_ids_within_npc_config_table']}` |",
+            "",
+            "## Source-Emission Readiness",
+            "",
+            "- `notes/cf-sector-list-contracts.json` now carries complete decoded rows for `D0_DOOR_POINTER_TABLE`, `CF_DOOR_CONFIG_TABLE`, `SPRITE_PLACEMENT_POINTER_TABLE`, and `SPRITE_PLACEMENT_TABLE`.",
+            "- Door rows retain both source-order physical entries and raw pointer-consumer entries because the 19 overlapping starts are real consumer-visible pointer targets.",
+            "- Sprite placement rows retain sector-list ownership plus `NPC_CONFIG_TABLE` ids so generated source can emit stable sector-local rows without re-parsing the scaffold.",
             "",
             "## Evidence",
             "",

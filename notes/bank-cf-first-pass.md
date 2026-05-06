@@ -89,11 +89,13 @@ High confidence:
   family with 2080 source-order physical movement-trigger rows across 601
   sectors. `notes/cf-sector-list-contracts.md` also records the 19
   overlapping pointer starts that make raw pointer-consumer row scans differ
-  from the flat source-order row view.
+  from the flat source-order row view, and `notes/cf-sector-list-contracts.json`
+  now carries the complete decoded pointer/list/entry rows.
 - `SPRITE_PLACEMENT_POINTER_TABLE` and `SPRITE_PLACEMENT_TABLE` now have a
   counted-list contract: 627 non-empty sector lists, 1582 four-byte placement
   rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
-  `sector_local_x` field names.
+  `sector_local_x` field names. The checked-in JSON includes every decoded
+  sector-list and placement row.
 - The audio tail contains US retail `AUDIO_PACK_94` and `AUDIO_PACK_96`.
 - Only `CF:FFF9..CF:FFFF` remains unclaimed tail slack.
 
@@ -108,6 +110,6 @@ Still intentionally out of scope:
 
 ## Recommended next move
 
-Use the same pointer/list strategy on the remaining D0 battle and enemy
-placement families, then return to CF only when a consumer-backed `DOOR_DATA`
-payload variant can be promoted.
+Use the checked-in CF sector-list JSON for source emission planning. The next
+CF semantic pass should join a consumer-backed `DOOR_DATA` payload variant or
+expand `OVERWORLD_EVENT_MUSIC_TABLE` rows.

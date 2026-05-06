@@ -763,12 +763,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `door_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 1280 D0-pointer-addressed counted door/trigger sector lists. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
+- note: 1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
 - evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; each list starts with a count word and five-byte movement-trigger rows |
+| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries |
 
 ### D0_DOOR_POINTER_TABLE
 
@@ -2375,12 +2375,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `sprite_placement_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 627 counted sprite-placement sector lists; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.
+- note: 627 counted sprite-placement sector lists with complete decoded rows in notes/cf-sector-list-contracts.json; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.
 - evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/coilsnake-field-join-report.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `counted_sprite_placement_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; each entry is npc_config_id, sector_local_y, sector_local_x |
+| `0x0` | `counted_sprite_placement_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; see notes/cf-sector-list-contracts.json for complete decoded lists and npc_config_id/sector_local_y/sector_local_x entries |
 
 ### NPC_CONFIG_TABLE
 
