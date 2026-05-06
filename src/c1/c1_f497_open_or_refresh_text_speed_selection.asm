@@ -50,6 +50,13 @@ TextEntryCursorRowOffset = $000A
 TextEntryBodyTextOffset = $0013
 RedrawSelectedSetupRowMode = $0006
 MenuSelectionEnabled = $0001
+SoundMonoEntry = $0002
+SoundDefaultEntry = $0000
+SoundMonoTextOffset = $0007
+SoundSettingPromptTextLo = $C0FE
+SoundSettingOptionTableLo = $C11A
+C4FileSelectMenuTextBank = $00C4
+SoundSettingPromptPrintLength = $001C
 NoCursorLimit = $FFFF
 ZeroWord = $0000
 
@@ -167,15 +174,15 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     lda.w #SoundSettingMenuWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_EnterWindowUpdateScope
-    lda.w #$C0FE
+    lda.w #SoundSettingPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$001C
+    lda.w #SoundSettingPromptPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$C11A
+    lda.w #SoundSettingOptionTableLo
     sta $0A
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $0C
     lda.w #ZeroWord
     sta $06
@@ -204,7 +211,7 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     ldx.w #MenuSelectionEnabled
     lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #SoundMonoTextOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -223,7 +230,7 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
+    ldx.w #SoundMonoEntry
     lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda CurrentSoundSetting
@@ -234,7 +241,7 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     dex
     bra C1F610_OpenOrRefreshTextSpeedSelection_LF610
 C1F60D_OpenOrRefreshTextSpeedSelection_LF60D:
-    ldx.w #$0000
+    ldx.w #SoundDefaultEntry
 C1F610_OpenOrRefreshTextSpeedSelection_LF610:
     txa
     jsr C11887_SelectActiveTextEntryByA

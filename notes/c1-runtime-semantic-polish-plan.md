@@ -544,6 +544,14 @@ This planning pass is documentation-only.
   window-flavour preview callback pointer, and the final selected-file text
   speed handoff. The scaffold was regenerated from source; exact
   byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the visible file-select action/copy/delete/setup menu
+  builders now name their C4 file-select text pointer contracts in source.
+  `C1:F07E`, `C1:F14F`, `C1:F2A8`, `C1:F3C2`, `C1:F568`, and `C1:F6E3` expose
+  their prompt/option pointer lows, C4 bank word, window/result ids, row/column
+  positions, generated copy-destination label buffer, and setup option entry
+  ids. The deeper new-file naming/body text pointer loads inside `C1:F616`
+  remain deferred. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM gate.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

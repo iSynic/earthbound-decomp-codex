@@ -91,8 +91,20 @@ RedrawSelectedSetupRowMode = $0006
 MenuSelectionEnabled = $0001
 MenuSelectionCancel = $0000
 WindowFlavourFirstChoice = $0002
+WindowFlavourSecondChoice = $0003
+WindowFlavourThirdChoice = $0004
+WindowFlavourFourthChoice = $0005
+WindowFlavourFifthChoice = $0006
 WindowFlavourDefault = $01
 NewFileStartupFlagValue = $01
+C4FileSelectMenuTextBank = $00C4
+WindowFlavourPromptTextLo = $C128
+WindowFlavourOption1TextLo = $C14D
+WindowFlavourOption2TextLo = $C15A
+WindowFlavourOption3TextLo = $C166
+WindowFlavourOption4TextLo = $C178
+WindowFlavourOption5TextLo = $C186
+WindowFlavourPromptPrintLength = $0025
 C1EC8F_WindowFlavourPreviewCallbackLow = $EC8F
 C1EC8F_WindowFlavourPreviewCallbackBank = $00C1
 NamingFieldRetrySentinel = $FFFF
@@ -213,19 +225,19 @@ C1F6E3_OpenOrRefreshWindowFlavourSelection = OPEN_FLAVOUR_MENU
     lda.w #WindowFlavourMenuWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_EnterWindowUpdateScope
-    lda.w #$C128
+    lda.w #WindowFlavourPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0025
+    lda.w #WindowFlavourPromptPrintLength
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $08
-    lda.w #$C14D
+    lda.w #WindowFlavourOption1TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
@@ -234,49 +246,49 @@ C1F6E3_OpenOrRefreshWindowFlavourSelection = OPEN_FLAVOUR_MENU
     ldx.w #WindowFlavourFirstChoice
     lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C15A
+    lda.w #WindowFlavourOption2TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #WindowFlavourSecondChoice
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C166
+    lda.w #WindowFlavourOption3TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0004
-    lda.w #$0000
+    ldx.w #WindowFlavourThirdChoice
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C178
+    lda.w #WindowFlavourOption4TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0005
-    lda.w #$0000
+    ldx.w #WindowFlavourFourthChoice
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C186
+    lda.w #WindowFlavourOption5TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0006
-    lda.w #$0000
+    ldx.w #WindowFlavourFifthChoice
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
     ldx.w #CurrentWindowFlavourSetting
     lda $0000,X

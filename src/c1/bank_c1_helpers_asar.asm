@@ -27680,8 +27680,20 @@ org $C1F616
 !MenuSelectionEnabled = $0001
 !MenuSelectionCancel = $0000
 !WindowFlavourFirstChoice = $0002
+!WindowFlavourSecondChoice = $0003
+!WindowFlavourThirdChoice = $0004
+!WindowFlavourFourthChoice = $0005
+!WindowFlavourFifthChoice = $0006
 !WindowFlavourDefault = $01
 !NewFileStartupFlagValue = $01
+!C4FileSelectMenuTextBank = $00C4
+!WindowFlavourPromptTextLo = $C128
+!WindowFlavourOption1TextLo = $C14D
+!WindowFlavourOption2TextLo = $C15A
+!WindowFlavourOption3TextLo = $C166
+!WindowFlavourOption4TextLo = $C178
+!WindowFlavourOption5TextLo = $C186
+!WindowFlavourPromptPrintLength = $0025
 !C1EC8F_WindowFlavourPreviewCallbackLow = $EC8F
 !C1EC8F_WindowFlavourPreviewCallbackBank = $00C1
 !NamingFieldRetrySentinel = $FFFF
@@ -27798,19 +27810,19 @@ OPEN_FLAVOUR_MENU:
     lda.w #!WindowFlavourMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$C128
+    lda.w #!WindowFlavourPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0025
+    lda.w #!WindowFlavourPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
-    lda.w #$C14D
+    lda.w #!WindowFlavourOption1TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
@@ -27819,49 +27831,49 @@ OPEN_FLAVOUR_MENU:
     ldx.w #!WindowFlavourFirstChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C15A
+    lda.w #!WindowFlavourOption2TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #!WindowFlavourSecondChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C166
+    lda.w #!WindowFlavourOption3TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0004
-    lda.w #$0000
+    ldx.w #!WindowFlavourThirdChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C178
+    lda.w #!WindowFlavourOption4TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0005
-    lda.w #$0000
+    ldx.w #!WindowFlavourFourthChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$C186
+    lda.w #!WindowFlavourOption5TextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldx.w #$0006
-    lda.w #$0000
+    ldx.w #!WindowFlavourFifthChoice
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     ldx.w #!CurrentWindowFlavourSetting
     lda $0000,X
@@ -34903,6 +34915,13 @@ org $C1F497
 !TextEntryBodyTextOffset = $0013
 !RedrawSelectedSetupRowMode = $0006
 !MenuSelectionEnabled = $0001
+!SoundMonoEntry = $0002
+!SoundDefaultEntry = $0000
+!SoundMonoTextOffset = $0007
+!SoundSettingPromptTextLo = $C0FE
+!SoundSettingOptionTableLo = $C11A
+!C4FileSelectMenuTextBank = $00C4
+!SoundSettingPromptPrintLength = $001C
 !NoCursorLimit = $FFFF
 !ZeroWord = $0000
 C1F497_OpenOrRefreshTextSpeedSelection:
@@ -35016,15 +35035,15 @@ OPEN_SOUND_MENU:
     lda.w #!SoundSettingMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$C0FE
+    lda.w #!SoundSettingPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$001C
+    lda.w #!SoundSettingPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$C11A
+    lda.w #!SoundSettingOptionTableLo
     sta $0A
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $0C
     lda.w #!ZeroWord
     sta $06
@@ -35053,7 +35072,7 @@ OPEN_SOUND_MENU:
     ldx.w #!MenuSelectionEnabled
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #!SoundMonoTextOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -35072,7 +35091,7 @@ OPEN_SOUND_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
+    ldx.w #!SoundMonoEntry
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda !CurrentSoundSetting
@@ -35083,7 +35102,7 @@ OPEN_SOUND_MENU:
     dex
     bra C1F610_OpenOrRefreshTextSpeedSelection_LF610
 C1F60D_OpenOrRefreshTextSpeedSelection_LF60D:
-    ldx.w #$0000
+    ldx.w #!SoundDefaultEntry
 C1F610_OpenOrRefreshTextSpeedSelection_LF610:
     txa
     jsr !C11887_SelectActiveTextEntryByA
@@ -35106,17 +35125,35 @@ org $C1F14F
 !C1196A_OpenMenuSelectionLoop = $196A
 !C3E4D4_PrepareMenuDisplayContext = $C3E4D4
 !EF0C15_CopySaveSlot = $EF0C15
+!CopyDestinationMultiSlotWindowId = $0015
+!CopyDestinationSingleSlotWindowId = $0016
+!SaveSlotStatusBase = $B49E
+!CurrentSaveSlot = $B4A1
+!CopyDestinationPromptTextLo = $C0B0
+!C4FileSelectMenuTextBank = $00C4
+!SaveSlotCount = $0003
+!SingleDestinationCount = $0001
+!MenuSelectionCancel = $0000
+!MenuSelectionEnabled = $0001
+!CopyPromptPrintLength = $000E
+!CopyDestinationLabelBuffer = $9C9F
+!CopyDestinationSlotLetterBase = $61
+!CopyDestinationSlotLabelSuffix = $6A
+!CopyDestinationRowColumn = $0000
+!SingleDestinationRow = $0001
+!ZeroPointerWord = $0000
+!AutoWrapPreflightGate = $5E6E
 C1F14F_OpenCopyDestinationMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    ldx.w #$0000
+    ldx.w #!MenuSelectionCancel
     txy
     bra C1F167_OpenCopyDestinationMenu_LF167
 C1F15D_OpenCopyDestinationMenu_LF15D:
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F166_OpenCopyDestinationMenu_LF166
     iny
@@ -35124,7 +35161,7 @@ C1F166_OpenCopyDestinationMenu_LF166:
     inx
 C1F167_OpenCopyDestinationMenu_LF167:
     stx $02
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F175_OpenCopyDestinationMenu_LF175
@@ -35133,37 +35170,37 @@ C1F167_OpenCopyDestinationMenu_LF167:
 C1F175_OpenCopyDestinationMenu_LF175:
     bmi C1F15D_OpenCopyDestinationMenu_LF15D
 C1F177_OpenCopyDestinationMenu_LF177:
-    cpy.w #$0001
+    cpy.w #!SingleDestinationCount
     beq C1F17F_OpenCopyDestinationMenu_LF17F
     jmp.w C1F1FE_OpenCopyDestinationMenu_LF1FE
 C1F17F_OpenCopyDestinationMenu_LF17F:
-    lda.w #$0016
+    lda.w #!CopyDestinationSingleSlotWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #!CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!CopyPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     sta $02
     bra C1F1ED_OpenCopyDestinationMenu_LF1ED
 C1F1A0_OpenCopyDestinationMenu_LF1A0:
     ldx $02
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F1EB_OpenCopyDestinationMenu_LF1EB
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #!CopyDestinationSlotLetterBase
+    sta !CopyDestinationLabelBuffer
+    lda.b #!CopyDestinationSlotLabelSuffix
+    sta !CopyDestinationLabelBuffer+1
+    stz !CopyDestinationLabelBuffer+2
     rep #$20
-    lda.w #$9C9F
+    lda.w #!CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -35175,19 +35212,19 @@ C1F1A0_OpenCopyDestinationMenu_LF1A0:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0001
-    ldx.w #$0000
+    ldy.w #!SingleDestinationRow
+    ldx.w #!CopyDestinationRowColumn
     lda $02
     inc A
     jsr !C1153B_AddSelectionMenuItem
 C1F1EB_OpenCopyDestinationMenu_LF1EB:
     inc $02
 C1F1ED_OpenCopyDestinationMenu_LF1ED:
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F1F9_OpenCopyDestinationMenu_LF1F9
@@ -35198,37 +35235,37 @@ C1F1F9_OpenCopyDestinationMenu_LF1F9:
 C1F1FB_OpenCopyDestinationMenu_LF1FB:
     jmp.w C1F281_OpenCopyDestinationMenu_LF281
 C1F1FE_OpenCopyDestinationMenu_LF1FE:
-    lda.w #$0015
+    lda.w #!CopyDestinationMultiSlotWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0B0
+    lda.w #!CopyDestinationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$000E
+    lda.w #!CopyPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$0000
+    lda.w #!MenuSelectionCancel
     sta $02
-    lda.w #$0001
+    lda.w #!SingleDestinationRow
     sta $04
     bra C1F273_OpenCopyDestinationMenu_LF273
 C1F224_OpenCopyDestinationMenu_LF224:
     ldx $02
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F271_OpenCopyDestinationMenu_LF271
     lda $02
     sep #$20
     clc
-    adc.b #$61
-    sta $9C9F
-    lda.b #$6A
-    sta $9CA0
-    stz $9CA1
+    adc.b #!CopyDestinationSlotLetterBase
+    sta !CopyDestinationLabelBuffer
+    lda.b #!CopyDestinationSlotLabelSuffix
+    sta !CopyDestinationLabelBuffer+1
+    stz !CopyDestinationLabelBuffer+2
     ldx $04
     rep #$20
     inc $04
-    lda.w #$9C9F
+    lda.w #!CopyDestinationLabelBuffer
     sta $06
     phb
     sep #$20
@@ -35240,19 +35277,19 @@ C1F224_OpenCopyDestinationMenu_LF224:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
     txy
-    ldx.w #$0000
+    ldx.w #!CopyDestinationRowColumn
     lda $02
     inc A
     jsr !C1153B_AddSelectionMenuItem
 C1F271_OpenCopyDestinationMenu_LF271:
     inc $02
 C1F273_OpenCopyDestinationMenu_LF273:
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F27F_OpenCopyDestinationMenu_LF27F
@@ -35262,12 +35299,12 @@ C1F27F_OpenCopyDestinationMenu_LF27F:
     bmi C1F224_OpenCopyDestinationMenu_LF224
 C1F281_OpenCopyDestinationMenu_LF281:
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tay
     sty $16
     beq C1F29D_OpenCopyDestinationMenu_LF29D
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     tax
     dex
@@ -35275,7 +35312,7 @@ C1F281_OpenCopyDestinationMenu_LF281:
     dec A
     jsl !EF0C15_CopySaveSlot
 C1F29D_OpenCopyDestinationMenu_LF29D:
-    stz $5E6E
+    stz !AutoWrapPreflightGate
     jsr CLOSE_FOCUS_WINDOW
     ldy $16
     tya
@@ -35294,57 +35331,79 @@ org $C1F07E
 !C1153B_AddSelectionMenuItem = $153B
 !C1163C_FinalizeSelectionMenu = $163C
 !C1196A_OpenMenuSelectionLoop = $196A
+!FileActionMenuWindowId = $0014
+!CurrentSaveSlot = $B4A1
+!SaveSlotStatusBase = $B49E
+!SaveSlotCount = $0003
+!FileActionContinueTextLo = $C094
+!FileActionCopyTextLo = $C09D
+!FileActionDeleteTextLo = $C0A2
+!FileActionSetupTextLo = $C0A9
+!C4FileSelectMenuTextBank = $00C4
+!MenuSelectionCancel = $0000
+!MenuSelectionEnabled = $0001
+!MenuActionContinue = $0001
+!MenuActionCopy = $0002
+!MenuActionDelete = $0003
+!MenuActionSetup = $0004
+!CopyRowColumn = $0006
+!DeleteRowColumn = $000A
+!SetupRowColumn = $000F
+!MenuRow = $0000
+!ZeroPointerWord = $0000
+!AutoWrapPreflightGate = $5E6E
+!AutoWrapEnabledSentinel = $00FF
 C1F07E_OpenFileSelectActionMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$0014
+    lda.w #!FileActionMenuWindowId
     jsr !C104EE_SetWindowFocus
-    lda.w #$C094
+    lda.w #!FileActionContinueTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0000
+    ldy.w #!MenuRow
     tyx
-    lda.w #$0001
+    lda.w #!MenuActionContinue
     jsr !C1153B_AddSelectionMenuItem
-    ldx.w #$0000
+    ldx.w #!MenuSelectionCancel
     bra C1F0E8_OpenFileSelectActionMenu_LF0E8
 C1F0AF_OpenFileSelectActionMenu_LF0AF:
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     sta $02
     txa
     cmp $02
     beq C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda $B49E,X
+    lda !SaveSlotStatusBase,X
     and.w #$00FF
     bne C1F0E7_OpenFileSelectActionMenu_LF0E7
-    lda.w #$C09D
+    lda.w #!FileActionCopyTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $12
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $14
-    ldy.w #$0000
-    ldx.w #$0006
-    lda.w #$0002
+    ldy.w #!MenuRow
+    ldx.w #!CopyRowColumn
+    lda.w #!MenuActionCopy
     jsr !C1153B_AddSelectionMenuItem
     bra C1F0F8_OpenFileSelectActionMenu_LF0F8
 C1F0E7_OpenFileSelectActionMenu_LF0E7:
     inx
 C1F0E8_OpenFileSelectActionMenu_LF0E8:
     stx $02
-    lda.w #$0003
+    lda.w #!SaveSlotCount
     clc
     sbc $02
     bvs C1F0F6_OpenFileSelectActionMenu_LF0F6
@@ -35353,38 +35412,38 @@ C1F0E8_OpenFileSelectActionMenu_LF0E8:
 C1F0F6_OpenFileSelectActionMenu_LF0F6:
     bmi C1F0AF_OpenFileSelectActionMenu_LF0AF
 C1F0F8_OpenFileSelectActionMenu_LF0F8:
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroPointerWord
     sta $08
-    lda.w #$C0A2
+    lda.w #!FileActionDeleteTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000A
-    lda.w #$0003
+    ldy.w #!MenuRow
+    ldx.w #!DeleteRowColumn
+    lda.w #!MenuActionDelete
     jsr !C1153B_AddSelectionMenuItem
-    lda.w #$C0A9
+    lda.w #!FileActionSetupTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0000
-    ldx.w #$000F
-    lda.w #$0004
+    ldy.w #!MenuRow
+    ldx.w #!SetupRowColumn
+    lda.w #!MenuActionSetup
     jsr !C1153B_AddSelectionMenuItem
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$00FF
-    sta $5E6E
-    lda.w #$0001
+    lda.w #!AutoWrapEnabledSentinel
+    sta !AutoWrapPreflightGate
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     pld
     rts
@@ -35456,34 +35515,65 @@ org $C1F2A8
 !C438A5_SetTextPosition = $C438A5
 !C43D75_StageGlyphVariantTileState = $C43D75
 !EF0BFA_DeleteSaveSlot = $EF0BFA
+!DeleteConfirmationWindowId = $0017
+!TextSpeedMenuWindowId = $0018
+!CurrentSaveSlot = $B4A1
+!SelectedFileLevel = $99D3
+!DeleteConfirmationPromptTextLo = $C0BE
+!LevelLabelTextLo = $C06E
+!DeleteNoTextLo = $C0DE
+!DeleteYesTextLo = $C0E1
+!TextSpeedPromptTextLo = $C0E5
+!TextSpeedOptionTableLo = $C07F
+!C4FileSelectMenuTextBank = $00C4
+!DeleteConfirmationPromptLength = $0020
+!LevelLabelPrintLength = $0006
+!TextSpeedPromptPrintLength = $0019
+!FileNumberSuffixGlyph = $006A
+!TopRow = $0000
+!SummaryRow = $0001
+!NameSummaryColumn = $0002
+!LevelLabelColumn = $0008
+!LevelValueColumn = $000C
+!NoOptionRow = $0002
+!YesOptionRow = $0003
+!MenuColumn = $0000
+!MenuSelectionEnabled = $0001
+!DeleteYesResult = $0001
+!TextSpeedFastEntry = $0001
+!TextSpeedMediumEntry = $0002
+!TextSpeedSlowEntry = $0003
+!TextSpeedMediumTextOffset = $0007
+!TextSpeedSlowTextOffset = $000E
+!ZeroWord = $0000
 C1F2A8_OpenDeleteFileConfirmationMenu:
     rep #$31
     phd
     tdc
     adc.w #$FFE8
     tcd
-    lda.w #$0017
+    lda.w #!DeleteConfirmationWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsr !C10EB4_ClearOrPrepareWindowContent
-    ldx.w #$0000
+    ldx.w #!TopRow
     txa
     jsl !C438A5_SetTextPosition
-    lda.w #$C0BE
+    lda.w #!DeleteConfirmationPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0020
+    lda.w #!DeleteConfirmationPromptLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!SummaryRow
+    lda.w #!MenuColumn
     jsl !C43D75_StageGlyphVariantTileState
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!SummaryRow
+    lda.w #!MenuColumn
     jsl !C438A5_SetTextPosition
     sep #$20
-    lda $B4A1
+    lda !CurrentSaveSlot
     sta $06
     stz $07
     stz $08
@@ -35494,27 +35584,27 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr !C10DF6_PrintNumberFromPointer
-    lda.w #$006A
+    lda.w #!FileNumberSuffixGlyph
     jsr PRINT_LETTER
-    ldx.w #$0001
-    lda.w #$0002
+    ldx.w #!SummaryRow
+    lda.w #!NameSummaryColumn
     jsl !C438A5_SetTextPosition
-    lda.w #$0001
+    lda.w #!SummaryRow
     jsr !C1931B_PrintSelectedFileCharacterSummary
-    ldx.w #$0001
-    lda.w #$0008
+    ldx.w #!SummaryRow
+    lda.w #!LevelLabelColumn
     jsl !C438A5_SetTextPosition
-    lda.w #$C06E
+    lda.w #!LevelLabelTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0006
+    lda.w #!LevelLabelPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    ldx.w #$0001
-    lda.w #$000C
+    ldx.w #!SummaryRow
+    lda.w #!LevelValueColumn
     jsl !C438A5_SetTextPosition
     sep #$20
-    lda $99D3
+    lda !SelectedFileLevel
     sta $06
     stz $07
     stz $08
@@ -35525,41 +35615,41 @@ C1F2A8_OpenDeleteFileConfirmationMenu:
     lda $08
     sta $10
     jsr !C10DF6_PrintNumberFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $08
-    lda.w #$C0DE
+    lda.w #!DeleteNoTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0002
-    ldx.w #$0000
+    ldy.w #!NoOptionRow
+    ldx.w #!MenuColumn
     txa
     jsr !C1153B_AddSelectionMenuItem
-    lda.w #$C0E1
+    lda.w #!DeleteYesTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0003
-    ldx.w #$0000
-    lda.w #$0001
+    ldy.w #!YesOptionRow
+    ldx.w #!MenuColumn
+    lda.w #!DeleteYesResult
     jsr !C1153B_AddSelectionMenuItem
     jsr !C1163C_FinalizeSelectionMenu
-    lda.w #$0001
+    lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tax
     stx $16
     beq C1F3B7_OpenDeleteFileConfirmationMenu_LF3B7
-    lda $B4A1
+    lda !CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl !EF0BFA_DeleteSaveSlot
@@ -35577,26 +35667,26 @@ OPEN_TEXT_SPEED_MENU:
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0018
+    lda.w #!TextSpeedMenuWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_PrepareMenuDisplayContext
-    lda.w #$C0E5
+    lda.w #!TextSpeedPromptTextLo
     sta $0E
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $10
-    lda.w #$0019
+    lda.w #!TextSpeedPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
-    lda.w #$C07F
+    lda.w #!TextSpeedOptionTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #!C4FileSelectMenuTextBank
     sta $08
     lda $06
     sta $16
     lda $08
     sta $18
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0A
-    lda.w #$0000
+    lda.w #!ZeroWord
     sta $0C
     lda $06
     sta $0E
@@ -35610,10 +35700,10 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #!TextSpeedFastEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$0007
+    lda.w #!TextSpeedMediumTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -35632,10 +35722,10 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0002
-    lda.w #$0000
+    ldx.w #!TextSpeedMediumEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda.w #$000E
+    lda.w #!TextSpeedSlowTextOffset
     ldx $16
     stx $06
     ldx $18
@@ -35654,8 +35744,8 @@ OPEN_TEXT_SPEED_MENU:
     sta $12
     lda $08
     sta $14
-    ldx.w #$0003
-    lda.w #$0000
+    ldx.w #!TextSpeedSlowEntry
+    lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda $98B6
     and.w #$00FF
@@ -35665,7 +35755,7 @@ OPEN_TEXT_SPEED_MENU:
     dex
     bra C1F491_OpenDeleteFileConfirmationMenu_LF491
 C1F48E_OpenDeleteFileConfirmationMenu_LF48E:
-    ldx.w #$0001
+    ldx.w #!TextSpeedFastEntry
 C1F491_OpenDeleteFileConfirmationMenu_LF491:
     txa
     jsr !C11887_SelectActiveTextEntryByA

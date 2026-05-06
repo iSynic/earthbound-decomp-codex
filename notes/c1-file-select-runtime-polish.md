@@ -87,6 +87,13 @@ the `$89D4` text-entry chain stride and selected-row text offsets, cancel
 results passed between the three setup stages, and the explicit `C1:EC8F`
 preview callback low/bank pair used by the window-flavour menu.
 
+The visible action/copy/delete/setup menu builders now also name their C4
+file-select text pointer lows and bank word in source. This covers the action
+labels, copy-destination prompt and generated slot-label buffer, delete
+confirmation prompt/options, text-speed prompt/options, sound prompt/options,
+and window-flavour prompt/options. The later new-file naming/body text pointer
+loads inside `C1:F616` remain intentionally deferred to a naming-flow pass.
+
 The source now names that persistence edge as `EF0A4D_SaveGameSlot`, matching
 the EF save/SRAM contract: C1 passes the visible one-based slot minus one, and
 EF expands it to the primary/backup save-block pair.
@@ -140,6 +147,8 @@ This slice makes the file-select path useful to future SRAM/setup work:
 - the setup UI wrappers now expose their window ids, cancel contract, active
   descriptor lookup, text-entry selected-row offsets, and window-flavour
   preview callback pointer as source names
+- visible C4 file-select menu text pointers now have local source names without
+  pulling the deeper new-file naming text tables into this slice
 - the bank-C1 session wrapper and transient redraw latch are separated from the
   larger menu loop
 - the main file-select loop now has named source edges for its submenu
