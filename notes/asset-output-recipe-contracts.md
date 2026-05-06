@@ -6,6 +6,8 @@ This report is a typed emitter/render/decode coverage map. It contains no ROM-de
 
 Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.
 
+Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.
+
 ## Snapshot
 
 - manifests: `38`

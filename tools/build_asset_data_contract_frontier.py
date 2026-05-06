@@ -13,6 +13,7 @@ DEFAULT_JSON_OUT = ROOT / "build" / "asset-data-contract-frontier.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-data-contract-frontier.md"
 OUTPUT_RECIPE_CONTRACTS_MARKDOWN = ROOT / "notes" / "asset-output-recipe-contracts.md"
 OUTPUT_SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+OUTPUT_CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 
 CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
     "E0": 1,
@@ -336,6 +337,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "generated_json": rel(DEFAULT_JSON_OUT),
             "typed_output_recipe_contracts": rel(OUTPUT_RECIPE_CONTRACTS_MARKDOWN),
             "output_smoke_fixtures": rel(OUTPUT_SMOKE_FIXTURES_MARKDOWN),
+            "output_codec_validation": rel(OUTPUT_CODEC_VALIDATION_MARKDOWN),
             "rom_outputs_policy": "Generated ROM-derived outputs remain under ignored build/assets and are not required to build this report.",
         },
         "totals": totals,
@@ -390,6 +392,8 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-recipe-contracts.md`; that report validates output kinds, renderer fields, palette/graphics source refs, and reproducible output paths.",
         "",
         "ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.",
+        "",
+        "ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.",
         "",
         "## Snapshot",
         "",

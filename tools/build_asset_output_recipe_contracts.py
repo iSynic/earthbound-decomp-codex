@@ -20,6 +20,8 @@ DEFAULT_JSON_OUT = ROOT / "build" / "asset-output-recipe-contracts.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-output-recipe-contracts.md"
 SMOKE_FIXTURES_JSON = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+CODEC_VALIDATION_JSON = ROOT / "build" / "asset-output-codec-validation.json"
+CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -286,6 +288,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(SMOKE_FIXTURES_MARKDOWN),
             "runner": "tools/run_asset_output_smoke_fixtures.py",
         },
+        "codec_validation": {
+            "generated_json": rel(CODEC_VALIDATION_JSON),
+            "tracked_markdown": rel(CODEC_VALIDATION_MARKDOWN),
+            "runner": "tools/validate_asset_output_codecs.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -313,6 +320,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "This report is a typed emitter/render/decode coverage map. It contains no ROM-derived payloads; it validates the reproducible recipes that `tools/extract_assets.py` uses when a user supplies a ROM.",
         "",
         "Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.",
+        "",
+        "Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.",
         "",
         "## Snapshot",
         "",

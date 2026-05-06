@@ -8,6 +8,8 @@ Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-rec
 
 ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.
 
+ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.
+
 ## Snapshot
 
 - manifests: `38`
