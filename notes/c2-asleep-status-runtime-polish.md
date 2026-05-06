@@ -21,7 +21,8 @@ Related evidence notes:
 
 `C2:9F06` is the shared asleep-status apply body. It gates through the selected
 battler default blocker, reads selected-row byte `+0x3C`, and passes that byte
-through `C2:6BB8` before applying a temporary-subgroup status value.
+through `C2:6BB8` / `RollActionChanceGate` before applying a
+temporary-subgroup status value.
 
 Promoted runtime contract:
 
@@ -29,8 +30,8 @@ Promoted runtime contract:
 | --- | --- |
 | blocker | `C2:7CFD` |
 | resistance byte | selected row `+0x3C`, locally named `hypnosis_resist` |
-| resistance helper | `C2:6BB8` |
-| status writer | `C2:724A` |
+| resistance helper | `C2:6BB8` / `RollActionChanceGate` |
+| status writer | `C2:724A` / `ApplySelectedRowAfflictionSlotValue` |
 | writer args | `Y = 1`, `X = 2` |
 | target field | selected row `+0x1F = 1` |
 | success text | `EF:6C55` |
@@ -38,6 +39,10 @@ Promoted runtime contract:
 
 This gives the temporary subgroup byte `+0x1F` another concrete runtime anchor:
 value `1` is asleep in this apply family and in the matching recovery path.
+
+The source call site now names both the selected-row action chance gate and the
+selected-row slot writer directly, rather than entering through inherited or
+overbroad helper labels.
 
 ## Wrapper Reuse
 
@@ -85,8 +90,9 @@ runtime row fields involved in asleep application and recovery.
 
 ## Remaining Soft Spots
 
-- `C2:6BB8` still needs its own naming pass; this slice only records the gate it
-  implements for the asleep family.
+- `C2:6BB8` is now locally named as the generic action chance gate; the exact
+  human-facing interpretation of selected-row `+0x3C` still belongs to the
+  broader resistance/immunity pass.
 - The exact player-facing names for action-table entries `53` and `90` remain
   table-crosswalk followups.
 - Global enum promotion for `+0x1F` should remain scoped until all non-recovery

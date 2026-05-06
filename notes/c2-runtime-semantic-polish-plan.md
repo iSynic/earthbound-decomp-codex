@@ -480,6 +480,151 @@ contract notes for C0/C1/C3/C4 consumers.
   and fallback `C0:6A07` current-position music refresh edge. See
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
   `notes/c0-current-position-music-refresh-c068f4-c069af.md`.
+- 2026-05-06 sixty-ninth slice: tightened the C2 action-dispatch and
+  mask-helper contract names now that `$9FAC` is settled as the battler table.
+  The mask family now exposes battler-domain aliases for active typed
+  battlers, enemy-side battlers, target-parameter matched battlers, all active
+  battlers, active NPC battler removal, affliction-flagged pruning, and
+  row-state filtering. `C2:4703`, `C2:40A4`, `C2:3D05`, Thunder,
+  normalization, and A89D payload-tail consumers now prefer those aliases while
+  preserving older `TARGET_*`/candidate labels as compatibility anchors. See
+  `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/class2-mask-helper-family.md`.
+- 2026-05-06 seventieth slice: carried the battler-table correction into the
+  second-stage target/result corridor. `C2:BAC5` now names its 32-row scan as
+  filtered second-stage battler-row counting, while `C2:BB18` and `C2:BC5C`
+  distinguish six selected-row source-entry passes from the live battler rows
+  they mirror into. The source now names the `$9FB8/$9FBA/$9FBB/$9FBC/$9FC9`
+  family as source-entry battler fields, `$A972` as the active target battler
+  pointer, the `+0x1D..+0x23` collapse-controller state bytes, and the
+  `EF:6C6B` collapse/affliction text edge. See
+  `notes/c2-target-selection-runtime-polish.md` and
+  `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 seventy-first slice: tightened the shared `C2:724A` status writer
+  contract across status/effect leaves. The source now exposes
+  `ApplySelectedRowAfflictionSlotValue` for the selected-row `+0x1D + X` slot
+  write, preserving `ApplyBattlerAfflictionSubgroupValue` only as a
+  compatibility alias. Flash, Freeze, hit-resolution status tails, late status
+  actions, asleep/strange wrappers, poison/diamondize physical actions, and
+  item-side solidification callers now use the selected-row slot-writer name
+  instead of the inherited `INFLICT_STATUS_BATTLE` label. See
+  `notes/class2-affliction-apply-helper-724a.md`,
+  `notes/c2-psi-flash-runtime-polish.md`,
+  `notes/c2-late-status-runtime-polish.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 seventy-second slice: named the caller-side `C2:6BB8` contract as
+  `RollActionChanceGate` across status, PSI, item, and call-for-help action
+  leaves. The same pass finished nearby raw ABI calls in the A89D and A3D1 item
+  clusters, so their chance gates, selected-row slot writes, target blockers,
+  random rollers, damage applicators, and HP/PP feedback helpers now use
+  source-facing contract names while staying byte-neutral. See
+  `notes/c2-asleep-status-runtime-polish.md`,
+  `notes/c2-late-status-runtime-polish.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-06 seventy-third slice: normalized the caller-side `C2:8125` damage
+  ABI as `ApplyDamageToSelectedTarget`. Hit-resolution, PSI damage helpers,
+  item-side damage/status leaves, bomb splash damage, A89D random-damage
+  leaves, and Final Prayer now share one selected-target damage vocabulary,
+  while preserving the inherited `CALC_RESIST_DAMAGE` body label. See
+  `notes/c2-hit-resolution-status-runtime-polish.md`,
+  `notes/c2-psi-common-runtime-polish.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-06 seventy-fourth slice: tightened the target/default-text and
+  threshold-gate caller vocabulary. Late status, PSI Flash, stat/action leaves,
+  hit-resolution tails, and item-side A3D1 now call `C2:7CFD` as
+  `CheckSelectedBattlerDefaultTextBlocker`, `C2:7C96` as
+  `RollSelectedRowThresholdGate`, and `C2:7CAF` as
+  `RollSelectedVsActiveRowOffsetGate` instead of inherited listing labels or
+  raw helper addresses. See `notes/c2-late-status-runtime-polish.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 seventy-fifth slice: normalized `C2:6A2D` as
+  `GetRandomBelow`, matching the inherited `RAND_LIMIT` body contract. Battle
+  action selection, candidate pools, battle-start front/back controllers,
+  instant-win present selection, late selected-row gates, hit-resolution rolls,
+  PSI/status/stat leaves, A89D item leaves, normalization, and stat-consequence
+  dispatch now use the same bounded-random helper name instead of raw `$6A2D`
+  or threshold-specific aliases. See
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-late-normalization-odor-runtime-polish.md`.
+- 2026-05-06 seventy-sixth slice: split the adjacent amount-shaping helper
+  vocabulary after the bounded-random pass. `C2:6A44` now has a source-body
+  label and caller vocabulary as `RollRandomAmount`, while `C2:6AFD` is
+  normalized across damage, healing, PP recovery, stat recovery, bottle-rocket,
+  Final Prayer, and battle consequence callers as
+  `ApplyTwentyFivePercentVariance`. The pass also named the HP/PP recovery
+  feedback joins in the `B342/B360` consequence leaves so the shaped amount
+  handoff is visible end to end. See `notes/c2-psi-common-runtime-polish.md`,
+  `notes/c2-lifeup-healing-runtime-polish.md`,
+  `notes/c2-stat-consequence-runtime-polish.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 seventy-seventh slice: tightened the selected-row HP/PP target
+  mutation vocabulary around `C2:7126/7191/71F0/721D` and the collapse startup
+  join at `C2:7550`. The helper body now exposes `SetBattlerHpTarget`,
+  `SetBattlerPpTarget`, `ReduceBattlerHpTarget`, and
+  `ReduceBattlerPpTarget`; HP-sucker, PP-drain, hit resolution, and the
+  `BCB9..BD13` target-loss sibling now call those names instead of raw setter
+  addresses or clamp-only aliases. Raw `C2:7550` long calls in battle-start and
+  HP-sucker result flow now use `StartSelectedBattlerCollapseAfflictionPath`.
+  See `notes/c2-selected-row-controller-runtime-polish.md`,
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 seventy-eighth slice: named the C2 local presentation wait helpers
+  that sit beside the action-contract helpers. `C2:69BE` is now
+  `WaitFrames`, the counted `C1:2DD5` frame-pump loop, and `C2:69DE` is
+  `WaitForDisplayTransitionBusyClear`, the matching loop that waits for the
+  display-transition busy byte at `$0028` to clear. Final Prayer transitions,
+  the finale opener, the selected-row visual refresh paths, and the
+  rainbow-colors special event now use these names instead of raw helper
+  addresses. See `notes/c2-final-prayer-runtime-polish.md` and
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
+- 2026-05-06 seventy-ninth slice: tightened the call-for-help and bomb splash
+  width corridor. `C2:EFFD` is now named as `GetBattleSpriteWidthBucket` in the
+  bomb splash, call-for-help placement, and active-enemy width-sum callers;
+  `C2:BD13` callers now use `SumActiveEnemyBattleSpriteWidths`, the adjacent
+  `C2:BD5E` prefix is labeled and called as
+  `ApplyCallForHelpEnemySelectionPrefix`, and the hidden `C2:BCE6` target-loss
+  sibling is labeled and used as `ApplyBattlerHpTargetLoss`. The call-for-help
+  placement path now also names the enemy-row initializer, loaded-sprite-slot
+  lookup, and target-text-context refresh joins. See
+  `notes/c2-call-for-help-runtime-polish.md`,
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 eightieth slice: carried established action-dispatch and
+  selected-row contracts into the battle-start front/back controller callers.
+  The controllers now call the `C2:BAC5` second-stage row counter, `C2:BB18`
+  source-entry promoter, `C2:3BCF/3D05` battle-text context builders,
+  `C2:4477/4703` derived-action builder/dispatcher, `C2:416F` target-mask
+  row-state filter, `C2:7029` mask bit-test helper, `C0:9279` payload
+  dispatcher, and `C2:BCB9` PP target-loss helper by source-facing contract
+  names instead of raw long-call addresses. See
+  `notes/c2-action-dispatch-runtime-polish.md`,
+  `notes/c2-selected-row-controller-runtime-polish.md`, and
+  `notes/class2-second-stage-selector-a970.md`.
+- 2026-05-06 eighty-first slice: tightened the result-flow corridor around
+  instant-win, battle-start completion, and the Time Stop retarget/status tail.
+  Instant-win now names `C1:DD47` as `OpenBattleTextWindow`, `C2:B930` as
+  `ExportBattleSelectionSnapshot`, and `C2:BAC5` as
+  `CountFilteredSecondStageBattlerRows`; battle-start completion names
+  `C2:BC5C` as `ClearInactiveSourceEntryLiveSlotTransientFields`; and the
+  hit-resolution Time Stop tail now names the `C2:416F` target-mask row-state
+  filter plus the `C2:7029` bit-test helper. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/class2-second-stage-selector-a970.md`.
+- 2026-05-06 eighty-second slice: closed the remaining battle-sprite
+  width/slot raw-call edge in the C2 layout lane. `C2:F0D1` and `C2:F121` now
+  call `C2:EFFD` as `GetBattleSpriteWidthBucket`, and `C2:F121` calls
+  `C2:F09F` as `FindLoadedBattleSpriteSlotById` while writing active enemy
+  row `+0x43`. This ties the core battle-sprite row assignment and width
+  trimming helpers to the same width and loaded-slot vocabulary already used
+  by call-for-help insertion and bomb splash overlap. See
+  `notes/c2-battle-sprite-runtime-polish.md` and
+  `notes/c2-call-for-help-runtime-polish.md`.
 
 ## Validation
 

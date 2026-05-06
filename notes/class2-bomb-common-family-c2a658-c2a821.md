@@ -37,8 +37,8 @@ That is strong enough to treat the current best local fits as:
 The local body has the same broad shape as the reference `BOMB_COMMON`:
 
 - incoming `A` is treated as the base damage parameter
-- `C2:6A44` shapes that parameter into the applied damage amount
-- damage is routed through `C2:8125`
+- `C2:6A44` / `RollRandomAmount` shapes that parameter into the applied damage amount
+- damage is routed through `C2:8125` / `ApplyDamageToSelectedTarget`
 - if the current target is in the ordinary battler domain, the helper then scans other battler rows rather than stopping at one target
 - it compares candidate rows against the current target's side, row, and spatial fields before deciding whether to include them
 - selected secondary targets are then revisited and damaged through the same common amount path
@@ -54,6 +54,7 @@ Current strongest read:
 - it uses the battler table rooted at `$9FAC`
 - it checks side through `ally_or_enemy`
 - it checks row through battler `row`
+- it calls `C2:EFFD` / `GetBattleSpriteWidthBucket` for the current and candidate sprite ids
 - it compares position-related or sprite-width-derived spatial fields before accepting secondary targets
 - it then reapplies the damage amount to accepted nearby targets
 
@@ -95,6 +96,7 @@ The safest current interpretation is:
 - `C2:A658` is the shared explosive splash-damage worker
 - `C2:A818` and `C2:A821` are the small bomb-family wrappers over that worker
 - the exact wrapper constants and the reference `bomb.asm` or `super_bomb.asm` files now line up cleanly enough to promote those two wrapper identities
+- the secondary-target overlap check now shares named width-bucket vocabulary with the call-for-help sprite-width budget path
 
 ## What is still open
 
@@ -114,4 +116,3 @@ The safest current takeaway is:
 ## Best next target
 
 The best next move is to pin the exact live table rows for `C2:A818` and then decide whether the surrounding projectile-flavored `A821` reuses deserve a small projectile-or-explosive subfamily note of their own.
-

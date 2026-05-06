@@ -47,8 +47,8 @@ Promoted runtime contract:
 - row ids `0xDA`, `0xDB`, `0xDD`, and `0xE5` bypass the late body
 - `C2:BAC5(1)` gates the six-entry source claim scan to the single phase-1 row
   case
-- the claim scan requires enabled `9FB8`, clear `9FBA`, candidate class
-  `9FC9 != 1`, clear `9FBB`, and clear linked `9A13`
+- the claim scan requires enabled `9FB8`, clear `9FBA`, source-entry
+  affliction/status byte `9FC9 != 1`, clear `9FBB`, and clear linked `9A13`
 - surviving entries set source byte `9FBF` and linked marker `9A15`
 - row-local `+0x3F/+0x41/+0x3D` contributions accumulate into
   `$A974/$A976/$A978`

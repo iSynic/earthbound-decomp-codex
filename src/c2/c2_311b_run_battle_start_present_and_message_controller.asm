@@ -21,6 +21,7 @@ C1DE31_OpenBattleItemSelectionLoopFar               = $C1DE31
 C1DE37_RunCharacterSelectionPromptFar               = $C1DE37
 C1DE3D_OpenBattlePsiCategorySelectionStageFar       = $C1DE3D
 C2032B_WriteWindowTitleAndUpload                    = $C2032B
+C26A2D_GetRandomBelow                               = $6A2D
 C2B930_ExportBattleSelectionSnapshot                = $C2B930
 C2BAC5_CountFilteredSecondStageRows                 = $C2BAC5
 C3E977_GetItemInCharacterInventorySlot              = $C3E977
@@ -553,7 +554,7 @@ C2353D_C2311B_RunBattleStartPresentAndMessageController_L353D:
     lda $AD56
     clc
     adc $AD58
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sep #$20
     inc A
     sta BattleActionSelectionTargetActorByte

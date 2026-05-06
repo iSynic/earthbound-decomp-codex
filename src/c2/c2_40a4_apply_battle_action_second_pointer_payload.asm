@@ -80,7 +80,7 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     bra C24113_ApplyBattleActionSecondPointerPayload_L4113
 C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
     txa
-    jsl IS_CHAR_TARGETTED
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     jsl FIX_TARGET_NAME
@@ -121,7 +121,7 @@ C24113_ApplyBattleActionSecondPointerPayload_L4113:
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
     txa
-    jsl IS_CHAR_TARGETTED
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     jsl FIX_TARGET_NAME
@@ -156,8 +156,9 @@ C24168_ApplyBattleActionSecondPointerPayload_L4168:
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
-REMOVE_STATUS_UNTARGETTABLE_TARGETS:
-C2416F_FilterBattleActionTargetMaskByRowState = REMOVE_STATUS_UNTARGETTABLE_TARGETS
+FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS:
+REMOVE_STATUS_UNTARGETTABLE_TARGETS = FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS
+C2416F_FilterBattleActionTargetMaskByRowState = FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS
     rep #$31
     phd
     tdc
@@ -184,7 +185,7 @@ C2418B_ApplyBattleActionSecondPointerPayload_L418B:
     bra C241D5_ApplyBattleActionSecondPointerPayload_L41D5
 C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     tya
-    jsl IS_CHAR_TARGETTED
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
     ; Remove targeted rows that are inactive or in blocked row states.
@@ -206,7 +207,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
 C241C9_ApplyBattleActionSecondPointerPayload_L41C9:
     ldy $0E
     tya
-    jsl REMOVE_TARGET
+    jsl C27089_MaskSet_ClearBit
 C241D0_ApplyBattleActionSecondPointerPayload_L41D0:
     ldy $0E
     iny

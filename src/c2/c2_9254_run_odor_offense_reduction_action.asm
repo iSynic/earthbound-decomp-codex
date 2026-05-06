@@ -26,7 +26,7 @@ C29254_RunOdorOffenseReductionAction = BTLACT_REDUCEOFF
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29296_RunOdorOffenseReductionAction_L9296
     ldx $A972

@@ -16,7 +16,7 @@ C08EED_CopyMemoryBlockLong         = $C08EED
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 
-C26A2D_RollRandomThreshold = $6A2D
+C26A2D_GetRandomBelow = $6A2D
 
 EnemyConfigurationTableBase = $D59589
 EnemyRecordStride = $005E
@@ -254,7 +254,7 @@ C2B0C0_SnapshotRestoreBattlerNormalizationContext_LB0C0:
     jmp.w C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
 C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     lda.w #PercentRollLimit
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     sta $16
     ldx $18
     txa

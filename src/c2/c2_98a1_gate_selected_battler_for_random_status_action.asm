@@ -18,7 +18,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                  = $6BB8
+C26BB8_RollActionChanceGate                     = $6BB8
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 
@@ -43,7 +43,7 @@ C298B6_GateSelectedBattlerForRandomStatusAction_L98B6:
     sep #$20
     lda $0039,X
     ; Flash-family selected-row gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C298CB_GateSelectedBattlerForRandomStatusAction_L98CB
     lda.w #$0001

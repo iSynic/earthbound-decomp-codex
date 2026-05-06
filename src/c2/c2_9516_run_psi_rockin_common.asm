@@ -21,7 +21,7 @@
 ; External contracts used by this module
 
 C26A44_RollRandomAmount                         = $6A44
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 C284AD_RunPhysicalAvoidanceGate                 = $84AD
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
@@ -62,7 +62,7 @@ C29516_RunPsiRockinCommon = PSI_ROCKIN_COMMON
 C29549_RunPsiRockinCommon_L9549:
     ldx.w #$00FF
     lda $12
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
 C29551_RunPsiRockinCommon_L9551:
     jsr WEAKEN_SHIELD
 C29554_RunPsiRockinCommon_L9554:

@@ -13,14 +13,14 @@
 ; - Requires row `+0x0C == 1` and row `+0x1D != 1`; otherwise returns
 ;   without emitting PP recovery text.
 ; - Uses row words `+0x19/+0x1B` as the bounded PP-side current/cap pair and
-;   helper `C2:7191` as the target clamp.
+;   helper `C2:7191` as the target setter/clamp.
 ; - Emits amount-bearing `EF:69D2` through `C1:DC66` with the staged recovered
 ;   PP delta.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C27191_ClampBattlerPpTargetDelta   = $7191
+C27191_SetBattlerPpTarget          = $7191
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 ; ---------------------------------------------------------------------------
@@ -79,7 +79,7 @@ C27363_ApplyBattlerPpRecoveryFeedback_L7363:
     adc $0019,X
     tax
     lda $02
-    jsr C27191_ClampBattlerPpTargetDelta
+    jsr C27191_SetBattlerPpTarget
     lda.w #$69D2
     sta $0E
     lda.w #$00EF

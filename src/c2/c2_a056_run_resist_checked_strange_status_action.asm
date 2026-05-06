@@ -22,10 +22,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                    = $6A2D
-C26AFD_RollDamageAmount                       = $6AFD
-C26BB8_BuildCandidateMaskPhase                = $6BB8
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C26A2D_GetRandomBelow                         = $6A2D
+C26AFD_ApplyTwentyFivePercentVariance         = $6AFD
+C26BB8_RollActionChanceGate                   = $6BB8
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27294_ApplyBattlerHpRecoveryFeedback         = $7294
 C27318_ApplyBattlerPpRecoveryFeedback         = $7318
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -61,21 +61,21 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
     ldx $A972
     sep #$20
     lda $003B,X
     ; Strange-family selected-row gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     ldy.w #$0001
     ldx.w #$0003
     ; Write strange subgroup `+0x20 = 1`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     ; Success/failure EF scripts both read the target-name battle text context.
@@ -103,7 +103,7 @@ BTLACT_HP_RECOVERY_1D4:
 C2A0AE_RunHpRecovery1d4Action = BTLACT_HP_RECOVERY_1D4
     rep #$31
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     tax
     inx
     lda $A972
@@ -113,7 +113,7 @@ BTLACT_HP_RECOVERY_50:
 C2A0BF_RunHpRecovery50Action = BTLACT_HP_RECOVERY_50
     rep #$31
     lda.w #$0032
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -122,7 +122,7 @@ BTLACT_HP_RECOVERY_200:
 C2A0CF_RunHpRecovery200Action = BTLACT_HP_RECOVERY_200
     rep #$31
     lda.w #$00C8
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -131,7 +131,7 @@ BTLACT_PP_RECOVERY_20:
 C2A0DF_RunPpRecovery20Action = BTLACT_PP_RECOVERY_20
     rep #$31
     lda.w #$0014
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -140,7 +140,7 @@ BTLACT_PP_RECOVERY_80:
 C2A0EF_RunPpRecovery80Action = BTLACT_PP_RECOVERY_80
     rep #$31
     lda.w #$0050
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -153,7 +153,7 @@ C2A0FF_RunIqUp1d4Action = BTLACT_IQ_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -193,7 +193,7 @@ C2A14B_RunGutsUp1d4Action = BTLACT_GUTS_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -231,7 +231,7 @@ C2A193_RunSpeedUp1d4Action = BTLACT_SPEED_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -269,7 +269,7 @@ C2A1DB_RunVitalityUp1d4Action = BTLACT_VITALITY_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -309,7 +309,7 @@ C2A227_RunLuckUp1d4Action = BTLACT_LUCK_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -343,7 +343,7 @@ BTLACT_HP_RECOVERY_300:
 C2A26F_RunHpRecovery300Action = BTLACT_HP_RECOVERY_300
     rep #$31
     lda.w #$012C
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -356,7 +356,7 @@ C2A27F_RunRandomStatUp1d4Action = BTLACT_RANDOM_STAT_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0007
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0000
     beq C2A2C2_RunRandomStatUpDefenseBranch
     cmp.w #$0001
@@ -384,7 +384,7 @@ C2A2BF_RunResistCheckedStrangeStatusAction_LA2BF:
     jmp.w C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A2C2_RunRandomStatUpDefenseBranch:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -415,7 +415,7 @@ C2A2F4_RunResistCheckedStrangeStatusAction_LA2F4:
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A302_RunRandomStatUpOffenseBranch:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -465,7 +465,7 @@ BTLACT_HP_RECOVERY_10:
 C2A360_RunHpRecovery10Action = BTLACT_HP_RECOVERY_10
     rep #$31
     lda.w #$000A
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -474,7 +474,7 @@ BTLACT_HP_RECOVERY_100:
 C2A370_RunHpRecovery100Action = BTLACT_HP_RECOVERY_100
     rep #$31
     lda.w #$0064
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP

@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C282F8_RunPhysicalPreHitGate                  = $82F8
 C283F8_RunPhysicalHitGate                     = $83F8
@@ -30,7 +30,7 @@ C28F97_RunPoisonOnHitPhysicalAction = BTLACT_LEVEL_2_ATK_POISON
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$0000
@@ -48,7 +48,7 @@ C28F97_RunPoisonOnHitPhysicalAction = BTLACT_LEVEL_2_ATK_POISON
     ldy.w #$0005
     ldx.w #$0000
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$6B18

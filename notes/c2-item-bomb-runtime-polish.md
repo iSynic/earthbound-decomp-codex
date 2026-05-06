@@ -39,7 +39,11 @@ The same source unit also contains neighboring item-side helpers such as
 HP-sucker and bottle-rocket common paths. HP-sucker is now source-promoted far
 enough to name the `EF:7710` self-drain direct text, the `EF:7729`
 amount-bearing drain text, and the `C1:DC66` substitution-payload call that
-prints the drained HP amount.
+prints the drained HP amount. Its target-max-HP amount roll now calls
+`C2:6A44` / `RollRandomAmount` by name, and its target HP loss, user HP gain,
+and collapse follow-up now call `ReduceBattlerHpTarget`,
+`SetBattlerHpTarget`, and `StartSelectedBattlerCollapseAfflictionPath`
+directly.
 
 The bottle-rocket family is now source-promoted as its own neighboring item
 slice. `C2:A57A` is the shared `BOTTLE_ROCKET_COMMON` helper; `C2:A5D1`,
@@ -55,34 +59,41 @@ damage; zero successful hits emits shared no-effect text `EF:766E`.
 
 The action:
 
-- gates through `C2:7CFD`
-- applies `C2:7CAF(0x00FA)`
+- gates through `C2:7CFD` / `CheckSelectedBattlerDefaultTextBlocker`
+- applies `C2:7CAF(0x00FA)` / `RollSelectedVsActiveRowOffsetGate`
 - computes damage as `0x0064 - target defense`
-- applies damage through `C2:8125`
+- applies damage through `C2:8125` / `ApplyDamageToSelectedTarget`
 - attempts `C2:724A(target, X=2, Y=4)`
 
 `C2:A630` is the solidification text tail. Success displays `EF:6BEF`; failure
-displays `EF:766E`. The source now names the shared `C2:724A` affliction writer,
-the EF scripts, the EF battle-text bank, and the `C1:DC1C` direct-text dispatch.
+displays `EF:766E`. The source now names the shared `C2:724A`
+`ApplySelectedRowAfflictionSlotValue` writer, the EF scripts, the EF
+battle-text bank, and the `C1:DC1C` direct-text dispatch.
 
 `C2:A82A` is the direct item-side solidification sibling after the bomb wrappers.
-It uses the selected-row threshold gate, applies subgroup `X = 2`, value `4`
-through `C2:724A`, and emits the same solidification/no-effect text pair.
+It uses `C2:7C96` / `RollSelectedRowThresholdGate`, applies subgroup `X = 2`,
+value `4` through `C2:724A`, and emits the same solidification/no-effect text
+pair.
 
-`C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF`,
-rolls a `1..4` damage amount with `C2:6A2D`, applies typed damage through
-`C2:8125`, and emits shared no-effect text on failure.
+`C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF` /
+`RollSelectedVsActiveRowOffsetGate`, rolls a `1..4` damage amount with
+`C2:6A2D` / `GetRandomBelow`, applies selected-target damage through
+`C2:8125` / `ApplyDamageToSelectedTarget`, and emits shared no-effect text on
+failure.
 
 ## Bomb Common
 
 `C2:A658` is the shared bomb/explosive splash-damage worker. Input A is the base
 damage parameter. It applies full shaped damage to the primary target through
-`C2:6A44` and `C2:8125`.
+`C2:6A44` / `RollRandomAmount` and `C2:8125` /
+`ApplyDamageToSelectedTarget`.
 
 When the target is in the battler domain, the helper scans nearby same-side and
 same-row battlers, using sprite width and x-position overlap checks. Up to two
 secondary targets receive half of the base damage. `$A972` is restored to the
-original target before returning.
+original target before returning. The overlap checks now call `C2:EFFD` /
+`GetBattleSpriteWidthBucket` by name for both the primary target and candidate
+secondary target widths.
 
 Wrappers:
 
@@ -126,11 +137,24 @@ This slice tightens several item-side runtime contracts:
   used by `D5:7B68` second-pointer consumers
 - the table-driven A89D payload leaves now share the same named mask-helper
   vocabulary as the standalone class-`2` target-set family
+- the A89D item-status and Pray leaves now call their local action chance gate,
+  selected-row slot writer, target blocker, random rollers, damage applicator,
+  and HP/PP recovery feedback helpers by source-facing contract names
+- the A3D1, A5EC, A658, A86B, and A89D item-side damage callers now share the
+  `ApplyDamageToSelectedTarget` name for the `C2:8125` selected-target damage
+  ABI
+- the A3D1 item-side continuation now also names its `C2:7C96` threshold gates
+  and uses the same `C2:7CAF` selected-vs-active row offset gate vocabulary as
+  A5EC/A86B/A89D
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane
+- the bomb splash overlap callers now name the same `GetBattleSpriteWidthBucket`
+  contract used by call-for-help width budgeting
 - bottle-rocket wrappers now have durable reference-backed names and attempt
   counts, with the shared speed-gated damage path named locally
+- amount-shaping callers now distinguish `C2:6A44` / `RollRandomAmount` from
+  `C2:6AFD` / `ApplyTwentyFivePercentVariance`
 
 ## Remaining Soft Spots
 

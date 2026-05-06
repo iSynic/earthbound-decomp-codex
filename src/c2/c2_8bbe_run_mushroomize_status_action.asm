@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 
@@ -31,14 +31,14 @@ C28BBE_RunMushroomizeStatusAction = BTLACT_MUSHROOMIZE
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28BFB_RunMushroomizeStatusAction_L8BFB
     ldy.w #$0001
     tyx
     ; Write persistent subgroup `+0x1E = 1`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28BED_RunMushroomizeStatusAction_L8BED
     lda.w #$6B81

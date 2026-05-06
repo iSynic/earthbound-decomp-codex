@@ -20,7 +20,7 @@ The body does all of the following in one entry path:
 - runs the ordinary target gate through `C2:7CFD`
 - runs a success gate through `C2:7CAF` with immediate `0x00FA`
 - computes a damage value from `100 - target defense`
-- routes that value through `C2:8125`
+- routes that value through `C2:8125` / `ApplyDamageToSelectedTarget`
 - then attempts `Y = 4`, `X = 2` through `C2:724A`
 - on success, displays `EF:6BEF` = `@{target}'s body solidified!`
 - on failure, displays `EF:766E`

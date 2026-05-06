@@ -44,7 +44,8 @@ That makes it a front-door blocker for the family.
 
 ### `C2:98A1`
 
-This routine first calls `C2:941D`, then checks current-slot byte `+39` through `C2:6BB8`.
+This routine first calls `C2:941D`, then checks current-slot byte `+39`
+through `C2:6BB8` / `RollActionChanceGate`.
 
 Current best reading:
 
@@ -114,7 +115,9 @@ Two nearby helper families plug into the same controller logic.
 
 ### `C2:9A80`
 
-This helper gates through `C2:941D`, computes a per-slot parameter through `C2:6AFD`, runs `C2:8125`, then falls into `C2:94CE`.
+This helper gates through `C2:941D`, computes a per-slot parameter through
+`C2:6AFD` / `ApplyTwentyFivePercentVariance`, runs `C2:8125` /
+`ApplyDamageToSelectedTarget`, then falls into `C2:94CE`.
 
 It has two tiny wrappers:
 
@@ -125,7 +128,7 @@ It has two tiny wrappers:
 
 This helper is no longer best read as timer- or duration-driven.
 
-It computes a fixed healing amount through `C2:6AFD`, then hands that amount to `C2:7294`, which now reads much more strongly as an HP recovery worker over battler `hp_target` and `hp_max`.
+It computes a fixed healing amount through `C2:6AFD` / `ApplyTwentyFivePercentVariance`, then hands that amount to `C2:7294`, which now reads much more strongly as an HP recovery worker over battler `hp_target` and `hp_max`.
 
 Its four tiny wrappers are:
 
@@ -156,5 +159,3 @@ The safest current interpretation is:
 ## Best next target
 
 - See `notes/class2-mask-helper-family.md` for the decoded bitset layer. The best next move is to map the candidate list rooted at `9FAC` or decode the metadata tables around `9FC9`, so the family can be named from concrete behavior instead of just transition structure.
-
-

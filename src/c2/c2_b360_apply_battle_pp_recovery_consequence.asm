@@ -19,7 +19,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C26A2D_GetRandomBelow = $6A2D
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+C27294_ApplyBattlerHpRecoveryFeedback = $7294
+C27318_ApplyBattlerPpRecoveryFeedback = $7318
 
 ; ---------------------------------------------------------------------------
 ; C2:B360
@@ -28,14 +31,14 @@ C2B360_ApplyBattlePpRecoveryConsequence:
     cpy.w #$0000
     beq C2B36C_ApplyBattlePpRecoveryConsequence_LB36C
     tya
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B36F_ApplyBattlePpRecoveryConsequence_LB36F
 C2B36C_ApplyBattlePpRecoveryConsequence_LB36C:
     ldx.w #$7530
 C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     lda $A972
-    jsr $7318
+    jsr C27318_ApplyBattlerPpRecoveryFeedback
     jmp $B5E3
     ; Selector 2: chained HP-side then PP-side bounded feedback.
     cpy.w #$0000
@@ -45,29 +48,29 @@ C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     asl A
     adc $04
     asl A
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B38D_ApplyBattlePpRecoveryConsequence_LB38D
 C2B38A_ApplyBattlePpRecoveryConsequence_LB38A:
     ldx.w #$7530
 C2B38D_ApplyBattlePpRecoveryConsequence_LB38D:
     lda $A972
-    jsr $7294
+    jsr C27294_ApplyBattlerHpRecoveryFeedback
     ldy $16
     beq C2B39E_ApplyBattlePpRecoveryConsequence_LB39E
     tya
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1
 C2B39E_ApplyBattlePpRecoveryConsequence_LB39E:
     ldx.w #$7530
 C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     lda $A972
-    jsr $7318
+    jsr C27318_ApplyBattlerPpRecoveryFeedback
     jmp $B5E3
     ; Selector 3: random IQ/guts/speed/vitality/luck increase.
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0000
     db $F0, $23
     cmp.w #$0001

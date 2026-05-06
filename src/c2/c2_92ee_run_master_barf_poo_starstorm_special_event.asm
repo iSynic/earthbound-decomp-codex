@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26AFD_RollDamageAmount                        = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance          = $6AFD
 C08FF7_ResolveIndexedPointerOffset             = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer            = $C1DC1C
 C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
@@ -143,7 +143,7 @@ C293BA_RunMasterBarfPooStarstormSpecialEvent_L93BA:
     sta $A972
     jsl FIX_TARGET_NAME
     lda.w #$0168
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr $7EAF

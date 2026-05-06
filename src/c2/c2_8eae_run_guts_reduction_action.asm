@@ -33,7 +33,7 @@ C28EAE_RunGutsReductionAction = BTLACT_CUTGUTS
     tdc
     adc.w #$FFE6
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28F1F_RunGutsReductionAction_L8F1F
     lda $A972

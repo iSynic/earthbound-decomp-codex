@@ -16,6 +16,7 @@ C08E9A_GetRandom16                   = $C08E9A
 C08EED_CopyToLocalTileBuffer         = $C08EED
 C08FF7_ResolveIndexedPointerOffset   = $C08FF7
 C0ABE0_SetupVisualPass               = $C0ABE0
+C12DD5_WindowTick                    = $C12DD5
 C426ED_AdvanceEventFrame             = $C426ED
 C496E7_StartMagicButterflyVisualPass = $C496E7
 C49740_EndMagicButterflyVisualPass   = $C49740
@@ -633,6 +634,7 @@ C2698B_LoadBattleActionTypeFromActionId = LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID
     lda $D59589,X
     and.w #$00FF
     rts
+C269BE_WaitFrames:
     rep #$31
     phd
     pha
@@ -644,7 +646,7 @@ C2698B_LoadBattleActionTypeFromActionId = LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID
     stx $0E
     bra C269D1_RunMagicButterflyPpRestoreAnimation_L69D1
 C269CD_RunMagicButterflyPpRestoreAnimation_L69CD:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
 C269D1_RunMagicButterflyPpRestoreAnimation_L69D1:
     ldx $0E
     txa
@@ -654,10 +656,11 @@ C269D1_RunMagicButterflyPpRestoreAnimation_L69D1:
     bne C269CD_RunMagicButterflyPpRestoreAnimation_L69CD
     pld
     rts
+C269DE_WaitForDisplayTransitionBusyClear:
     rep #$31
     bra C269E6_RunMagicButterflyPpRestoreAnimation_L69E6
 C269E2_RunMagicButterflyPpRestoreAnimation_L69E2:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
 C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     lda $0028
     and.w #$00FF
@@ -700,7 +703,8 @@ C269F8_RunMagicButterflyPpRestoreAnimation_L69F8 = TRUNCATE_16_TO_8
     pld
     rts
 RAND_LIMIT:
-C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = RAND_LIMIT
+C26A2D_GetRandomBelow = RAND_LIMIT
+C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     rep #$31
     phd
     pha
@@ -715,6 +719,7 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = RAND_LIMIT
     jsr.w TRUNCATE_16_TO_8
     pld
     rts
+C26A44_RollRandomAmount:
     rep #$31
     phd
     pha
@@ -827,6 +832,7 @@ C26AF9_RunMagicButterflyPpRestoreAnimation_L6AF9:
     lda $04
     pld
     rts
+C26AFD_ApplyTwentyFivePercentVariance:
     rep #$31
     phd
     pha

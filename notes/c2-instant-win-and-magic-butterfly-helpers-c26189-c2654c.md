@@ -63,8 +63,12 @@ The surrounding named handler also:
 
 - plays the sudden-victory music
 - copies graphics/tile data through C0 buffer helpers
-- opens the battle text window
+- opens the battle text window through `C1:DD47` / `OpenBattleTextWindow`
 - caches battle money/EXP/drop scratch values
+- exports party-side battle selection snapshots through `C2:B930` /
+  `ExportBattleSelectionSnapshot`
+- counts filtered second-stage battler rows through `C2:BAC5` /
+  `CountFilteredSecondStageBattlerRows`
 - deposits money to ATM
 - rebuilds/reset battler state
 - awards EXP and item drops

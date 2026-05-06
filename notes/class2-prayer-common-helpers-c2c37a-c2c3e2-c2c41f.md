@@ -39,7 +39,8 @@ Its local body does the same broad sequence every time:
 - preserves the incoming `X` and `A` parameters
 - copies the current text pointer from direct-page `$22/$24`
 - switches battle-display mode through `C0:887A`
-- ticks or waits through `C2:69DE`
+- waits for the display-transition busy byte to clear through `C2:69DE` /
+  `WaitForDisplayTransitionBusyClear`
 - clears `$9643` and `$5DD4`
 - runs `C1:DD5F`
 - displays the caller-selected text through `C1:DC1C`
@@ -47,7 +48,7 @@ Its local body does the same broad sequence every time:
 - routes the incoming `A/X` pair through `C2:C21F`
 - restores `$9643 = 1`
 - runs `C1:DD3B` and `C1:DD47`
-- waits `0x3C`
+- waits `0x3C` through `C2:69BE` / `WaitFrames`
 
 So the safest current local read is:
 
@@ -73,8 +74,9 @@ Its body is much more focused than the transition helpers:
 - calls `C2:3D05`
 - writes `$AD9E = 0x3C`
 - writes `$AA8E = 1`
-- passes the stored amount into `C2:6AFD`
-- then forces the actual amount application through `C2:8125` with `X = 0x00FF`
+- passes the stored amount into `C2:6AFD` / `ApplyTwentyFivePercentVariance`
+- then forces the actual amount application through `C2:8125` /
+  `ApplyDamageToSelectedTarget` with `X = 0x00FF`
 - waits another `0x3C`
 
 That makes the healthiest current local role:
@@ -94,7 +96,8 @@ Its body is a different presentation path from `C2:C37A`:
 - copies the current text pointer from `$22/$24`
 - switches display mode through `C0:887A`
 - calls `C0:AC0C` with literal `2`
-- ticks through `C2:69DE`
+- waits for the display-transition busy byte to clear through `C2:69DE` /
+  `WaitForDisplayTransitionBusyClear`
 - clears `$9643`
 - runs `C1:DD5F`
 - writes byte `$001A = 4`
@@ -125,5 +128,5 @@ The common helper layer is now in a usable state:
 Still open:
 
 - the exact display or sound meaning of the literal writes to `$001A`
-- the exact healthiest final names for `C2:69DE`, `C0:887A`, and `C0:886C` in this prayer-specific context
+- the exact healthiest final names for `C0:887A` and `C0:886C` in this prayer-specific context
 - whether `C2:3D05` in this lane should be described as focus-target setup, target-context setup, or something slightly broader

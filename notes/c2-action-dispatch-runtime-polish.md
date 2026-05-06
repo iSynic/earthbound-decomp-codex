@@ -158,6 +158,25 @@ all-active battler target-mask builder, and the A89D item/status tail now uses
 named calls for the `6BFB/6C82/6E00/6E77/6EF8/70E4` mask-helper family before
 handing the selected payload pointer to `C2:40A4`.
 
+Fourth follow-up: dispatch and payload-side consumers now prefer the battler
+domain helper aliases directly. `C2:4703`, `C2:3D05`, `C2:966B`, `C2:90C6`,
+and `C2:A89D` call the mask family as active typed battlers, enemy-side
+battlers, target-parameter matched battlers, active battlers, active NPC
+battler removal, affliction-flagged pruning, and row-state filtering. The old
+`TARGET_*`, `REMOVE_*`, and candidate-style labels remain as compatibility
+anchors where they clarify inherited call names, but the action contract now
+reads as target-mask construction over battler rows.
+
+Battle-start controller follow-up: the front half now names its
+`BuildClass2DerivedActionCode`, `DispatchClass2DerivedAction`, and
+`FilterBattleActionTargetMaskByRowState` joins directly. This makes the
+fallback retargeting loop read as: build derived action bytes, build the
+current target mask, prune blocked row states, and retry when the mask is empty.
+
+Hit-resolution follow-up: the Time Stop/retarget tail now uses the same named
+`FilterBattleActionTargetMaskByRowState` and `MaskSet_TestBit` contracts before
+refreshing the target text context and applying the selected hit payload.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
@@ -191,6 +210,11 @@ This is the first source-backed spot where the newer `$9FAC == BATTLERS_TABLE`
 correction is carried directly through the battle-text context builders instead
 of only appearing in notes.
 
+Battle-start controller follow-up: the front and back controller halves now
+call `BuildBattleAttackerTextContext` and `BuildBattleTargetTextContext` by
+name when they refresh `$A970/$A972` before damage/status feedback, target-mask
+payload dispatch, and selected-row result text.
+
 ## Decomp Value
 
 This slice makes the selected-row controller more actionable:
@@ -204,6 +228,11 @@ This slice makes the selected-row controller more actionable:
   useful bridge for later table-entry naming.
 - `C2:3BCF` and `C2:3D05` now show how active battler pointers feed the
   attacker/target text buffers used by the C1 battle-text stack.
+- battle-start front/back controller callsites now use the same action-dispatch,
+  target-mask, bit-test, payload-dispatch, and text-context vocabulary as the
+  helper source bodies.
+- the hit-resolution retarget/status tail now shares that target-mask filter
+  and bit-test vocabulary as well.
 
 ## Remaining Soft Spots
 

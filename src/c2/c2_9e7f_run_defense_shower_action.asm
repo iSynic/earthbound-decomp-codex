@@ -46,10 +46,10 @@ C29E86_RunDefenseDownAlphaAction = BTLACT_DEFENSE_DOWN_A
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29EFD_RunDefenseShowerAction_L9EFD
-    jsr SUCCESS_LUCK80
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C29EEF_RunDefenseShowerAction_L9EEF
     ldx $A972

@@ -27,9 +27,17 @@ C08FF7_ResolveIndexedPointerOffset              = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
+C26A44_RollRandomAmount                         = $6A44
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
-C27CAF_TestSpeedBasedSuccess                     = $7CAF
-C28125_CalculateResistAdjustedDamage            = $8125
+C27126_SetBattlerHpTarget                       = $7126
+C271F0_ReduceBattlerHpTarget                    = $71F0
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
+C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
+C27C96_RollSelectedRowThresholdGate             = $7C96
+C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
+C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
+C28D41_CheckTargetField2eThresholdGate          = $8D41
+C28125_ApplyDamageToSelectedTarget              = $8125
 
 EFMSG_ConcentrationSealInflicted                = $6C0B
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -62,10 +70,10 @@ C2A3D1_RunItemSideConcentrationSealAction = BTLACT_COUNTER_PSI
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A420_RunItemSideConcentrationSealAction_LA420
-    jsr $8D41
+    jsr C28D41_CheckTargetField2eThresholdGate
     cmp.w #$0000
     beq C2A412_RunItemSideConcentrationSealAction_LA412
     lda $A972
@@ -101,7 +109,7 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A45B_RunItemSideConcentrationSealAction_LA45B
     lda $A972
@@ -137,7 +145,7 @@ C2A46B_RunItemSideConcentrationSealAction_LA46B = BTLACT_HP_SUCKER
     tdc
     adc.w #$FFE8
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     bne C2A47E_RunItemSideConcentrationSealAction_LA47E
     jmp.w C2A4F7_RunItemSideConcentrationSealAction_LA4F7
@@ -157,7 +165,7 @@ C2A47E_RunItemSideConcentrationSealAction_LA47E:
 C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ldx $A972
     lda BattlerMaxHpWord,X
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     lsr A
     lsr A
     lsr A
@@ -166,7 +174,7 @@ C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ; HP-sucker path transfers a fraction of target HP back to the user.
     tyx
     lda $A972
-    jsr $71F0
+    jsr C271F0_ReduceBattlerHpTarget
     lda.w #EFMSG_HpSuckerDrainedTargetHpAmount
     sta $0E
     lda.w #EF_BattleTextScriptBank
@@ -190,12 +198,12 @@ C2A4C9_RunItemSideConcentrationSealAction_LA4C9:
     adc $0011,X
     tax
     lda $A970
-    jsr $7126
+    jsr C27126_SetBattlerHpTarget
     ldx $A972
     lda $0011,X
     bne C2A505_RunItemSideConcentrationSealAction_LA505
     lda $A972
-    jsl $C27550
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
     bra C2A505_RunItemSideConcentrationSealAction_LA505
 C2A4F7_RunItemSideConcentrationSealAction_LA4F7:
     lda.w #EFMSG_StatusNoEffect
@@ -214,11 +222,11 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     tdc
     adc.w #$FFEC
     tcd
-    jsr $7CFD
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #$00FA
-    jsr $7CAF
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A56A_RunItemSideConcentrationSealAction_LA56A
     ldx $A972
@@ -236,11 +244,11 @@ C2A53F_RunItemSideConcentrationSealAction_LA53F:
 C2A541_RunItemSideConcentrationSealAction_LA541:
     ldx.w #$00FF
     lda $12
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr $724A
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #EFMSG_SolidificationInflicted
@@ -276,7 +284,7 @@ C2A57A_RunBottleRocketCommon = BOTTLE_ROCKET_COMMON
     bra C2A5A5_RunItemSideConcentrationSealAction_LA5A5
 C2A590_RunItemSideConcentrationSealAction_LA590:
     lda.w #BottleRocketHitGatePercent
-    jsr C27CAF_TestSpeedBasedSuccess
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A5A0_RunItemSideConcentrationSealAction_LA5A0
     ldy $14
@@ -298,7 +306,7 @@ C2A5A5_RunItemSideConcentrationSealAction_LA5A5:
     jsr C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #BottleRocketDamageType
     ; Successful attempts scale the damage amount before applying it.
-    jsr C28125_CalculateResistAdjustedDamage
+    jsr C28125_ApplyDamageToSelectedTarget
     bra C2A5CF_RunItemSideConcentrationSealAction_LA5CF
 C2A5C1_RunItemSideConcentrationSealAction_LA5C1:
     lda.w #EFMSG_StatusNoEffect

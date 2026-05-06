@@ -22,8 +22,12 @@ C0943C_SaveCurrentCoordinateState             = $C0943C
 C09451_RestoreSavedCoordinateState            = $C09451
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1DD47_OpenBattleTextWindow                   = $C1DD47
 C1DD7C_SetBattleTextByteSubstitution          = $C1DD7C
 C1DD5F_WaitForTextOrMenuAcknowledge           = $C1DD5F
+C26A2D_GetRandomBelow                         = $6A2D
+C2B930_ExportBattleSelectionSnapshot          = $C2B930
+C2BAC5_CountFilteredSecondStageBattlerRows    = $C2BAC5
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
@@ -128,7 +132,7 @@ C26235_FillInstantWinTileBufferAndUpload_L6235:
     jsl C49740_FinishPaletteFadeWorkBuffer
     jsl C0943C_SaveCurrentCoordinateState
     lda.w #$000E
-    jsl $C1DD47
+    jsl C1DD47_OpenBattleTextWindow
     stz $A978
     lda.w #$0000
     sta $18
@@ -221,7 +225,7 @@ C262FC_FillInstantWinTileBufferAndUpload_L62FC:
     adc.w #$9FAC
     tax
     lda $18
-    jsl $C2B930
+    jsl C2B930_ExportBattleSelectionSnapshot
 C2630F_FillInstantWinTileBufferAndUpload_L630F:
     ldy $16
     iny
@@ -280,7 +284,7 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     cmp $9F8A
     bcc C2632C_FillInstantWinTileBufferAndUpload_L632C
     lda.w #$0000
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSecondStageBattlerRows
     dec A
     sta $0A
     stz $0C
@@ -300,7 +304,7 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     lda $08
     sta $A976
     lda.w #$0000
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSecondStageBattlerRows
     sta $0A
     stz $0C
     jsl C090FF_AddLongPointerOffset
@@ -363,7 +367,7 @@ C2643D_FillInstantWinTileBufferAndUpload_L643D:
     cmp.w #$0020
     bcc C263EC_FillInstantWinTileBufferAndUpload_L63EC
     lda $9F8A
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     asl A
     tax
     lda $9F8C,X

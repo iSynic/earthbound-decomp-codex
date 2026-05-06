@@ -31,7 +31,7 @@ C08E9A_RandomWord                               = $C08E9A
 BTLACT_PSI_FLASH_A:
 C29987_RunPsiFlashAlphaAction = BTLACT_PSI_FLASH_A
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C299AD_RunPsiFlashAlphaAction_L99AD
     jsr FLASH_IMMUNITY_TEST

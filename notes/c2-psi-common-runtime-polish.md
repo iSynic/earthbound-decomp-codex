@@ -78,16 +78,24 @@ single damage-like value in A to a shared helper.
 
 | Helper | Wrapper family | Core local behavior |
 | --- | --- | --- |
-| `C2:9516` | Rockin | blocker, random amount via `C2:6A44`, physical avoidance via `C2:84AD`, `EF:766E` on avoidance, type `0xFF` damage |
-| `C2:957A` | Fire | blocker, damage roll via `C2:6AFD`, selected-row `+0x3A` damage selector, damage apply |
-| `C2:95CF` | Freeze | default-target/NPC blocker, PSI blocker, damage roll via `C2:6AFD`, selected-row `+0x38` damage selector, chance-based subgroup status side effect, `EF:6BEF` on side-effect success |
-| `C2:9A80` | Starstorm | blocker, damage roll via `C2:6AFD`, type `0xFF` damage |
+| `C2:9516` | Rockin | blocker, random amount via `C2:6A44` / `RollRandomAmount`, physical avoidance via `C2:84AD`, `EF:766E` on avoidance, type `0xFF` damage |
+| `C2:957A` | Fire | blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, selected-row `+0x3A` damage selector, damage apply |
+| `C2:95CF` | Freeze | default-target/NPC blocker, PSI blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, selected-row `+0x38` damage selector, chance-based subgroup status side effect, `EF:6BEF` on side-effect success |
+| `C2:9A80` | Starstorm | blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, type `0xFF` damage |
 
 All four finish successful action bodies through `C2:94CE`.
 
 The Fire and Freeze row-byte selectors are intentionally documented as
 damage-selector fields rather than final resistance names until more non-PSI
 readers are joined.
+
+Source-vocabulary update: all one-parameter PSI damage helpers now call
+`C2:8125` by its selected-target damage role,
+`ApplyDamageToSelectedTarget`. A is the staged damage amount; X carries the
+damage/resistance selector, with `0xFF` used by default-damage callers.
+The adjacent amount-shaping helpers are now split by observed ABI:
+`C2:6A44` is `RollRandomAmount`, while the Fire/Freeze/Starstorm variance path
+uses `C2:6AFD` / `ApplyTwentyFivePercentVariance`.
 
 ## Thunder Common
 
@@ -109,7 +117,7 @@ Promoted local flow:
 - choose one surviving target and map it into selected row `$A972`
 - rebuild target text context
 - use the clamped active-count value as the strike success threshold through
-  `C2:6BB8`
+  `C2:6BB8` / `RollActionChanceGate`
 - emit `EF:8814` for the small Thunder presentation or `EF:8823` for the large
   Thunder presentation
 - wait on `C2:EACF` until the presentation is no longer busy
@@ -156,7 +164,7 @@ runtime-helpful action helpers:
 
 - final names for selected-row `+0x38/+0x3A` beyond damage-selector wording
 - exact symbolic name for descriptor type `3` in `D5:7B68`
-- one-to-one local names for `C2:6BB8`, `C2:8125`, and the damage/resistance
-  helper stack
+- deeper helper-body promotion for the damage/resistance helper stack beneath
+  the now-named `C2:8125` selected-target damage ABI
 - global promotion of the reflection item identity should wait until item table
   evidence is joined locally

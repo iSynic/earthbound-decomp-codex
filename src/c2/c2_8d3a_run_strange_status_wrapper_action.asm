@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                 = $6A2D
+C26A2D_GetRandomBelow                      = $6A2D
 C2A056_RunResistCheckedStrangeStatusAction = $C2A056
 
 ; ---------------------------------------------------------------------------
@@ -32,7 +32,7 @@ SUCCESS_LUCK40:
 C28D41_CheckTargetField2eThresholdGate = SUCCESS_LUCK40
     rep #$31
     lda.w #$0028
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     ldx $A972
     ; Compare the 40-point roll against selected-row luck `+0x2E`.
     cmp $002E,X

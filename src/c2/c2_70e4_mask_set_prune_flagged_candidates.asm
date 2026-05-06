@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:70E4..C2:724A MaskSet_PruneFlaggedCandidates
+; - C2:70E4..C2:724A MaskSet_PruneAfflictionFlaggedBattlers
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -25,7 +25,8 @@ BattlerAfflictionFlaggedState = $0001
 ; C2:70E4
 
 REMOVE_DEAD_TARGETTING:
-C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
+C270E4_MaskSet_PruneAfflictionFlaggedBattlers = REMOVE_DEAD_TARGETTING
+C270E4_MaskSet_PruneFlaggedCandidates = C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     rep #$31
     phd
     tdc
@@ -62,6 +63,7 @@ C2711F_MaskSet_PruneFlaggedCandidates_L711F:
     rts
 SET_HP:
 C27126_MaskSet_PruneFlaggedCandidates_L7126 = SET_HP
+C27126_SetBattlerHpTarget = SET_HP
     rep #$31
     phd
     pha
@@ -122,6 +124,7 @@ C2718F_MaskSet_PruneFlaggedCandidates_L718F:
     rts
 SET_PP:
 C27191_MaskSet_PruneFlaggedCandidates_L7191 = SET_PP
+C27191_SetBattlerPpTarget = SET_PP
     rep #$31
     phd
     pha
@@ -174,6 +177,7 @@ C271E6_MaskSet_PruneFlaggedCandidates_L71E6:
 C271EE_MaskSet_PruneFlaggedCandidates_L71EE:
     pld
     rts
+C271F0_ReduceBattlerHpTarget:
     rep #$31
     phd
     pha
@@ -202,6 +206,7 @@ C27216_MaskSet_PruneFlaggedCandidates_L7216:
     jsr.w SET_HP
     pld
     rts
+C2721D_ReduceBattlerPpTarget:
     rep #$31
     phd
     pha

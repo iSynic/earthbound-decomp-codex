@@ -17,7 +17,7 @@ See also [class2-d57b68-early-entry-name-crosswalk.md](notes/class2-d57b68-early
 
 Current safest local split:
 
-- `C2:9F06` -> all-target asleep-status apply body with one extra target-side gate through `row + 0x3C -> C2:6BB8`
+- `C2:9F06` -> all-target asleep-status apply body with one extra target-side gate through `row + 0x3C -> C2:6BB8` / `RollActionChanceGate`
 - `C2:9F57` -> thin wrapper that reuses `C2:9F06`
 
 The successful apply path is:
@@ -39,7 +39,7 @@ Locally `C2:9F06` does all of the following:
 
 - gates through `C2:7CFD`
 - reads target byte `row + 0x3C`
-- passes that byte through `C2:6BB8`
+- passes that byte through `C2:6BB8` / `RollActionChanceGate`
 - only continues on success of that extra target-side gate
 - then sets `Y = 1`, `X = 2`
 - applies that pair through `C2:724A`
@@ -88,7 +88,7 @@ The safest current interpretation is:
 
 - `C2:9F06` is a real all-target asleep-status apply body over `battler::afflictions+2 = 1`
 - `C2:9F57` is only a wrapper over that same body
-- the extra `row + 0x3C -> C2:6BB8` gate makes the family look more like a gated or resist-checked variant than a plain unconditional status writer
+- the extra `row + 0x3C -> C2:6BB8` / `RollActionChanceGate` path makes the family look more like a gated or resist-checked variant than a plain unconditional status writer
 
 ## What is still open
 
@@ -96,7 +96,7 @@ Still open:
 
 - the exact reference-side names for entries `53` and `90`
 - whether entry `53` is best matched to a PSI-side sleep family or another all-target ailment family with reused generic PSI-intro text
-- the exact semantic meaning of target byte `row + 0x3C` and helper `C2:6BB8`
+- the exact semantic meaning of target byte `row + 0x3C`
 
 ## Best next target
 

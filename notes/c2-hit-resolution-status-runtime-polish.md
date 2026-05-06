@@ -21,12 +21,26 @@ message constants without changing runtime bytes.
 - C2 helper ABIs:
   - `C2:3D05` target text-context rebuild.
   - `C2:69F8`, `C2:698B`, `C2:69BE`, `C2:6AFD`, `C2:6BB8`, and
-    `C2:6BDB` as shared math/probability helper joins.
+    `C2:6BDB` as shared math/probability/helper joins. `C2:69BE` is now called
+    by its counted-frame wait role, `WaitFrames`. `C2:6AFD` is now
+    called by its amount-shaping role:
+    `ApplyTwentyFivePercentVariance`. `C2:6BB8` is now called by its generic
+    action chance-gate role: `RollActionChanceGate`.
   - `C2:6EF8` as the mask-set first-match finder used when the reflected or
     retargeted hit path needs to select a surviving target from the current
     working mask.
   - `C2:7126`, `C2:71F0`, `C2:724A`, `C2:7550`, `C2:7C96`,
     `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
+    `C2:7126` is now called as `SetBattlerHpTarget`, `C2:71F0` as
+    `ReduceBattlerHpTarget`, and `C2:7550` as
+    `StartSelectedBattlerCollapseAfflictionPath`.
+    `C2:7CFD` is called as `CheckSelectedBattlerDefaultTextBlocker`, and
+    `C2:7C96` is called as `RollSelectedRowThresholdGate`.
+    `C2:724A` is now called by its selected-row slot writer role:
+    `ApplySelectedRowAfflictionSlotValue`.
+  - `C2:8125` as the selected-target damage ABI now called by its
+    `ApplyDamageToSelectedTarget` role. A is the staged damage amount, while X
+    is the damage/resistance selector (`0xFF` for default damage callers).
 - EF battle-text scripts for damage, miss/dodge, SMAAAASH, Spy readouts,
   Time Stop return, no-effect fallback, and late primary-status success text.
 - The shield/timed-substate join now uses the EF payload names from the
@@ -59,7 +73,7 @@ substate id:
 - when row `+0x25` expires, clear row `+0x23` and emit `EF:7099`.
 
 The SMAAAASH path refreshes row `+0x25 = 1` for substates `3` and `4` before
-entering the resist-adjusted damage path.
+entering the `ApplyDamageToSelectedTarget` path.
 
 ## Status Tails
 
@@ -73,6 +87,7 @@ The late action labels now match the action bodies and EF evidence:
 
 These bodies all feed `C2:724A` with primary status-group constants and then
 emit the corresponding EF success script or `EF:766E` no-effect fallback.
+The source now calls the named selected-row slot writer directly at each tail.
 
 ## Check Present Byte Slot
 
@@ -94,6 +109,12 @@ The retargeting tail now calls the named `C2:6EF8`
 `MaskSet_FindFirstMatchInRange` helper instead of a raw long address. That
 keeps the hit-resolution cluster aligned with the standalone class-`2` mask
 helper note and the A89D item/status payload lane.
+
+Result-corridor follow-up: the Time Stop/retarget status tail now also names
+the adjacent `C2:416F` / `FilterBattleActionTargetMaskByRowState` prune and
+`C2:7029` / `MaskSet_TestBit` scan helpers. The local flow is now explicit:
+prune the current target mask, pick the first surviving mask range, scan for
+the selected bit, rebuild target text context, and invoke the bash payload.
 
 ## Evidence Inputs
 

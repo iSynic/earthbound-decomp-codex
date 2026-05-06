@@ -38,6 +38,18 @@ as:
 
 This slice extends the Flash-local map into the late action-table status rows.
 
+Source-vocabulary update: the shared writer is now named
+`ApplySelectedRowAfflictionSlotValue` at source call sites, with the older
+`ApplyBattlerAfflictionSubgroupValue` alias retained inside the writer module.
+The late status leaves, hit-resolution status tails, asleep/strange wrappers,
+and item-side solidification leaves now call the selected-row slot ABI directly
+instead of the inherited `INFLICT_STATUS_BATTLE` label.
+
+The same caller cleanup now applies to the front-door gates: late status leaves
+call `C2:7CFD` as `CheckSelectedBattlerDefaultTextBlocker`, and thresholded
+solidification/defense-down leaves call `C2:7C96` as
+`RollSelectedRowThresholdGate`.
+
 ## Persistent Subgroup `+0x1E`
 
 | Module | Parameters | Result |
@@ -63,9 +75,11 @@ enemy id `0xD5` after neighboring `+0x1E == 2` checks. See
 
 The extra gates stay intentionally mechanical for now:
 
-- `C2:9F06` tests selected-row `+0x3C` through `C2:6BB8`
-- `C2:8C69` tests selected-row `+0x39` through `C2:6BB8`
-- `C2:8CF1` tests through threshold helper `C2:7C96`
+- `C2:9F06` tests selected-row `+0x3C` through `C2:6BB8` /
+  `RollActionChanceGate`
+- `C2:8C69` tests selected-row `+0x39` through `C2:6BB8` /
+  `RollActionChanceGate`
+- `C2:8CF1` tests through `C2:7C96` / `RollSelectedRowThresholdGate`
 
 ## Strange Subgroup `+0x20`
 
@@ -75,7 +89,7 @@ The strange-status bodies converge on `Y = 1`, `X = 3`, writing selected-row
 - `C2:8D3A` is a thin wrapper to the resist-checked body at `C2:A056`
 - `C2:8DBB` is the direct strange-status sibling without the extra `+0x3B` gate
 - `C2:A056` is the resist-checked body that tests selected-row `+0x3B` through
-  `C2:6BB8`
+  `C2:6BB8` / `RollActionChanceGate`
 
 Success text is `EF:6C3A`; failure text is `EF:766E`.
 

@@ -23,11 +23,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                      = $6A2D
-C26AFD_RollDamageAmount                         = $6AFD
-C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+C26A2D_GetRandomBelow                           = $6A2D
+C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
@@ -46,7 +46,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     pla
     tax
     stx $14
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29645_RunPsiFreezeCommon_L9645
     jsr PSI_SHIELD_NULLIFY
@@ -54,7 +54,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     bne C29645_RunPsiFreezeCommon_L9645
     ldx $14
     txa
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $12
     ldx $A972
     lda $0038,X
@@ -62,7 +62,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ; Freeze uses selected-row byte `+0x38` as the damage selector.
     tax
     lda $12
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     tax
     stx $14
     ldx $A972
@@ -74,14 +74,14 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldx $14
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$0064
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0019
     bcs C29642_RunPsiFreezeCommon_L9642
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
     ; Apply Freeze's chance-based subgroup status side effect.
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$6BEF

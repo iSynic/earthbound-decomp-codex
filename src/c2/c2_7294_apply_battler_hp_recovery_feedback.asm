@@ -14,14 +14,14 @@
 ; - Row `+0x1D == 1` is the hard/collapse state and emits no-visible-effect
 ;   text `EF:7696` instead of applying recovery feedback.
 ; - Uses row words `+0x13/+0x15` as the bounded HP-side current/cap pair and
-;   helper `C2:7126` as the target clamp before choosing the result text.
+;   helper `C2:7126` as the target setter/clamp before choosing result text.
 ; - Emits `EF:69A1` for cap/no-gain and amount-bearing `EF:69BA` through
 ;   `C1:DC66` for a successful recovered-HP delta.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C27126_ClampBattlerHpTargetDelta    = $7126
+C27126_SetBattlerHpTarget           = $7126
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
@@ -60,7 +60,7 @@ C27294_ApplyBattlerHpRecoveryFeedback = RECOVER_HP
     sty $16
     tyx
     lda $02
-    jsr C27126_ClampBattlerHpTargetDelta
+    jsr C27126_SetBattlerHpTarget
     ldx $02
     ldy $16
     tya

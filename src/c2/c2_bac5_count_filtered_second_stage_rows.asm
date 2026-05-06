@@ -1,4 +1,4 @@
-; EarthBound C2 battle candidate second-stage filtered row counter.
+; EarthBound C2 second-stage battler-row filtered counter.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,26 +6,36 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:BAC5..C2:BB18 CountFilteredSecondStageRows
+; - C2:BAC5..C2:BB18 CountFilteredSecondStageBattlerRows
 ;
 ; Runtime contract:
 ; - A = requested row state/group value.
-; - Scans the 32 candidate rows at `$9FAC + 0x4E * n`.
-; - Counts only rows with `+0x0C != 0`, `+0x0E == A`, `+0x0F == 0`, and
-;   `+0x1D` not equal to 1 or 2.
+; - Scans the 32 battler rows at `$9FAC + 0x4E * n`.
+; - Counts only rows with consciousness `+0x0C != 0`, phase/group byte
+;   `+0x0E == A`, route/subtype gate `+0x0F == 0`, and primary affliction
+;   byte `+0x1D` not equal to 1 or 2.
 ; - Returns the filtered row count in A. C1 target resolution uses this count
 ;   before selecting a random second-stage row.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+BattlersTableBase = $9FAC
+BattlerRowSize = $004E
+BattlerConsciousnessByte = $000C
+BattlerPhaseGroupByte = $000E
+BattlerRouteSubtypeGateByte = $000F
+BattlerPrimaryAfflictionByte = $001D
+BattlerHardStateValue = $0001
+BattlerBlockedStateValue = $0002
+TargetMaskBitLimit = $0020
 
 ; ---------------------------------------------------------------------------
 ; C2:BAC5
 
 COUNT_CHARS:
-C2BAC5_CountFilteredSecondStageRows = COUNT_CHARS
+C2BAC5_CountFilteredSecondStageBattlerRows = COUNT_CHARS
+C2BAC5_CountFilteredSecondStageRows = C2BAC5_CountFilteredSecondStageBattlerRows
     rep #$31
     phd
     pha
@@ -36,36 +46,36 @@ C2BAC5_CountFilteredSecondStageRows = COUNT_CHARS
     sta $04
     lda.w #$0000
     sta $02
-    ldx.w #$9FAC
+    ldx.w #BattlersTableBase
     tay
     bra C2BB0F_CountFilteredSecondStageRows_LBB0F
 C2BADC_CountFilteredSecondStageRows_LBADC:
-    lda $000C,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C2BB08_CountFilteredSecondStageRows_LBB08
-    ; Eligible row: active, requested group, no subtype gate, not collapsed.
-    lda $000E,X
+    ; Eligible row: active, requested group, no subtype gate, not hard/blocked.
+    lda.w BattlerPhaseGroupByte,X
     and.w #$00FF
     cmp $04
     bne C2BB08_CountFilteredSecondStageRows_LBB08
-    lda $000F,X
+    lda.w BattlerRouteSubtypeGateByte,X
     and.w #$00FF
     bne C2BB08_CountFilteredSecondStageRows_LBB08
-    lda $001D,X
+    lda.w BattlerPrimaryAfflictionByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #BattlerHardStateValue
     beq C2BB08_CountFilteredSecondStageRows_LBB08
-    cmp.w #$0002
+    cmp.w #BattlerBlockedStateValue
     beq C2BB08_CountFilteredSecondStageRows_LBB08
     inc $02
 C2BB08_CountFilteredSecondStageRows_LBB08:
     txa
     clc
-    adc.w #$004E
+    adc.w #BattlerRowSize
     tax
     iny
 C2BB0F_CountFilteredSecondStageRows_LBB0F:
-    cpy.w #$0020
+    cpy.w #TargetMaskBitLimit
     bcc C2BADC_CountFilteredSecondStageRows_LBADC
     lda $02
     pld

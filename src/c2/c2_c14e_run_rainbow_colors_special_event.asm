@@ -17,6 +17,7 @@ C08726_BlankWaitAndDisableHdma                = $C08726
 C08744_OpenDisplayTransitionBracket           = $C08744
 C0886C_SetDisplayTransitionState              = $C0886C
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
+C269DE_WaitForDisplayTransitionBusyClear      = $69DE
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2C8C8_ResetBattleVisualPresentationState     = $C2C8C8
 C2D121_LoadPresentationSpriteResource         = $C2D121
@@ -226,7 +227,7 @@ C2C2E6_RunRainbowColorsSpecialEvent_LC2E6:
     ldx.w #$0004
     lda.w #$0001
     jsl C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     bra C2C32A_RunRainbowColorsSpecialEvent_LC32A
 C2C2FD_RunRainbowColorsSpecialEvent_LC2FD:
     ldx.w #$0001

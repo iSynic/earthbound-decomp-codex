@@ -158,7 +158,8 @@ Current safest local summary:
 
 - it first gates through `C2:941D`
 - if that blocks, it returns `0`
-- otherwise it tests selected-row byte `+0x39` through `C2:6BB8`
+- otherwise it tests selected-row byte `+0x39` through `C2:6BB8` /
+  `RollActionChanceGate`
 - if that passes, it returns `1`
 - otherwise it dispatches the default failure text `EF:766E` and returns `0`
 

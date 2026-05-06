@@ -35,7 +35,7 @@ C28F21_RunOffenseDefenseReductionAction = BTLACT_REDUCEOFFDEF
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28F95_RunOffenseDefenseReductionAction_L8F95
     ldx $A972

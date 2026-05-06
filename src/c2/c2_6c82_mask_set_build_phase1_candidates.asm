@@ -39,7 +39,8 @@ MetadataMatchTwo = $0002
 ; C2:6C82
 
 TARGET_ALL_ENEMIES:
-C26C82_MaskSet_BuildPhase1Candidates = TARGET_ALL_ENEMIES
+C26C82_MaskSet_BuildEnemySideBattlers = TARGET_ALL_ENEMIES
+C26C82_MaskSet_BuildPhase1Candidates = C26C82_MaskSet_BuildEnemySideBattlers
     rep #$31
     phd
     tdc
@@ -105,7 +106,8 @@ C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
     pld
     rtl
 TARGET_ROW:
-C26D04_MaskSet_BuildMetadataMatchedCandidates = TARGET_ROW
+C26D04_MaskSet_BuildTargetParameterMatchedBattlers = TARGET_ROW
+C26D04_MaskSet_BuildMetadataMatchedCandidates = C26D04_MaskSet_BuildTargetParameterMatchedBattlers
     rep #$31
     phd
     pha
@@ -233,7 +235,8 @@ C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     pld
     rtl
 BUILD_ACTIVE_BATTLER_TARGET_MASK:
-C26E00_MaskSet_BuildActiveCandidates = BUILD_ACTIVE_BATTLER_TARGET_MASK
+C26E00_MaskSet_BuildActiveBattlers = BUILD_ACTIVE_BATTLER_TARGET_MASK
+C26E00_MaskSet_BuildActiveCandidates = C26E00_MaskSet_BuildActiveBattlers
     rep #$31
     phd
     tdc

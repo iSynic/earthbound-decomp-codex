@@ -1,4 +1,4 @@
-; EarthBound C2 inactive candidate live-slot transient field clearer.
+; EarthBound C2 inactive source-entry live-slot transient field clearer.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,26 +6,41 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:BC5C..C2:BCB9 ClearInactiveCandidateLiveSlotTransientFields
+; - C2:BC5C..C2:BCB9 ClearInactiveSourceEntryLiveSlotTransientFields
 ;
 ; Runtime contract:
-; - Scans the six source candidate entries in the `$9FB8..9FCF` family.
-; - For enabled candidates that are not blocked by `9FBA` or `9FBB`, resolves
-;   the linked live battler row from `9FBC` and clears row bytes `+0x10`,
-;   `+0x11`, `+0x12`, and `+0x14`.
-; - This is a transient-field cleanup pass for inactive or reset candidate rows,
-;   not a full candidate-pool reset.
+; - Scans the six selected-row source entries in the `$9FB8..9FCF`
+;   battler-field family.
+; - For enabled entries that are not blocked by `9FBA` or `9FBB`, resolves the
+;   linked live battler row from `9FBC` and clears row bytes `+0x10`, `+0x11`,
+;   `+0x12`, and `+0x14`.
+; - This is a transient-field cleanup pass for inactive or reset source
+;   entries, not a full target/candidate-pool reset.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
+SelectedRowSourceEntryCount = $0006
+BattlerRowSize = $004E
+CharacterRecordStride = $005F
+CharacterRecordsBase = $99CE
+SourceEntryActiveByteBase = $9FB8
+SourceEntryPhaseGroupByteBase = $9FBA
+SourceEntryRouteSubtypeGateByteBase = $9FBB
+SourceEntryLinkedCharacterSlotByteBase = $9FBC
+LiveBattlerRouteLinkByte = $0010
+LiveBattlerTransientByte1 = $0011
+LiveBattlerPostStatusMirrorByte = $0012
+LiveBattlerTransientByte2 = $0014
+
 ; ---------------------------------------------------------------------------
 ; C2:BC5C
 
 RESET_POST_BATTLE_STATS:
-C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = RESET_POST_BATTLE_STATS
+C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = RESET_POST_BATTLE_STATS
+C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields
     rep #$31
     phd
     tdc
@@ -35,37 +50,37 @@ C2BC5C_ClearInactiveCandidateLiveSlotTransientFields = RESET_POST_BATTLE_STATS
     sta $0E
     bra C2BCB2_ClearInactiveCandidateLiveSlotTransientFields_LBCB2
 C2BC6B_ClearInactiveCandidateLiveSlotTransientFields_LBC6B:
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w SourceEntryActiveByteBase,X
     and.w #$00FF
     beq C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBA,X
+    lda.w SourceEntryPhaseGroupByteBase,X
     and.w #$00FF
     bne C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBB,X
+    lda.w SourceEntryRouteSubtypeGateByteBase,X
     and.w #$00FF
     bne C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB
-    lda $9FBC,X
+    lda.w SourceEntryLinkedCharacterSlotByteBase,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #CharacterRecordsBase
     tax
     sep #$20
-    stz $0014,X
-    stz $0012,X
-    stz $0011,X
-    stz $0010,X
+    stz.w LiveBattlerTransientByte2,X
+    stz.w LiveBattlerPostStatusMirrorByte,X
+    stz.w LiveBattlerTransientByte1,X
+    stz.w LiveBattlerRouteLinkByte,X
 C2BCAB_ClearInactiveCandidateLiveSlotTransientFields_LBCAB:
     rep #$20
     lda $0E
     inc A
     sta $0E
 C2BCB2_ClearInactiveCandidateLiveSlotTransientFields_LBCB2:
-    cmp.w #$0006
+    cmp.w #SelectedRowSourceEntryCount
     bcc C2BC6B_ClearInactiveCandidateLiveSlotTransientFields_LBC6B
     pld
     rtl

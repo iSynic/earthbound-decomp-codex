@@ -27,6 +27,8 @@ C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 C1DC1C_DisplayBattleTextFromPointer  = $C1DC1C
 C1DD5F_WaitForTextOrMenuAcknowledge  = $C1DD5F
 C4FBBD_ChangeMusic                   = $C4FBBD
+C269BE_WaitFrames                    = $69BE
+C269DE_WaitForDisplayTransitionBusyClear = $69DE
 
 C8_BattleTextScriptBank        = $00C8
 C8MSG_MechPokeyFirstSpeechTail = $FC2E
@@ -54,7 +56,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsl C0887A_ClearDisplayTransitionState
     lda.w #$0002
     jsl C0AC0C_QueuePresentationSfxOrCounter
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     ; Pause battle-background updates during the late narrative presentation.
     stz $9643
     jsl C1DD5F_WaitForTextOrMenuAcknowledge
@@ -67,9 +69,9 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$0001
     txa
     jsl C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda $06
     sta $0E
     lda $08
@@ -78,13 +80,13 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     lda.w #$0001
     sta $9643
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0002
     jsl C0AC0C_QueuePresentationSfxOrCounter
     ldx.w #$0001
     txa
     jsl C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     jsl $C1DD3B
     lda.w #$000E
     jsl $C1DD47
@@ -99,7 +101,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$0001
     txa
     jsl C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     pld
     rts
     rep #$31

@@ -40,7 +40,7 @@ Accepted item ids are written to `$A9D4[count]`; A returns the count.
 `C2:4316` is the candidate selector for STEAL. It rebuilds `$A9D4`, returns
 `0` if no candidates exist, applies a 50 percent random failure gate with
 `RAND & #$0080`, and otherwise returns one candidate chosen with
-`RAND_LIMIT(count)`.
+`C2:6A2D` / `GetRandomBelow(count)`.
 
 `C2:4348` validates a pending stolen item id by rebuilding `$A9D4` and checking
 whether the item still appears in the current candidate list. This prevents a

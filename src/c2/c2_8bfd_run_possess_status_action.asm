@@ -20,7 +20,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C2B6EB_ApplyCandidateRecordPayload            = $C2B6EB
@@ -35,7 +35,7 @@ C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28C65_RunPossessStatusAction_L8C65
     ldx $A972
@@ -46,7 +46,7 @@ C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     ldx.w #$0001
     ; Write persistent subgroup `+0x1E = 2`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28C57_RunPossessStatusAction_L8C57
     lda.w #$6B98

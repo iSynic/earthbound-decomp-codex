@@ -34,7 +34,7 @@ Current safest reading:
 
 - the routine requires selected-row byte `+0x0C == 1`
 - it immediately returns if row byte `+0x1D == 1` is already set, except for a fallback script case
-- otherwise it combines the caller's `X` value with row word `+0x13`, normalizes through helper `C2:7126`, and compares the result against row word `+0x15`
+- otherwise it combines the caller's `X` value with row word `+0x13`, applies `C2:7126` / `SetBattlerHpTarget`, and compares the result against row word `+0x15`
 - if the comparison fails, it dispatches hardcoded script `EF:69A1` through `C1:DC1C`
 - if the comparison passes, it dispatches hardcoded script `EF:69BA` through `C1:DC66` with a parameter built from the caller's input value
 - if row byte `+0x1D == 1`, it instead dispatches hardcoded script `EF:7696`
@@ -49,7 +49,7 @@ Current safest reading:
 
 - it requires row byte `+0x0C == 1`
 - it returns immediately when row byte `+0x1D == 1`
-- otherwise it uses row words `+0x19` and `+0x1B`, clamps a derived value through helper `C2:7191`, and dispatches hardcoded script `EF:69D2` through `C1:DC66`
+- otherwise it uses row words `+0x19` and `+0x1B`, applies `C2:7191` / `SetBattlerPpTarget`, and dispatches hardcoded script `EF:69D2` through `C1:DC66`
 
 That makes `7318` look like the second axis or alternate-threshold sibling to `7294`, not a completely different subsystem.
 
@@ -68,7 +68,8 @@ Current safest reading:
 - it sets row byte `+0x0D = 1`
 - when row bytes `+0x0E` and `+0x0F` are both zero, it updates paired `9A15` and `9A13` tables through selector `#$005F` using ids stored at row `+0x10`
 - it clears row byte `+0x4B` across all 32 candidate rows, then marks the selected row's `+0x4B` byte
-- it runs two 16-step initialization loops through `C2:FAD8`, `C2:FB35`, and `C2:69BE`, keyed by selected-row byte `+0x43`
+- it runs two 16-step initialization loops through `C2:FAD8`, `C2:FB35`, and
+  `C2:69BE` / `WaitFrames`, keyed by selected-row byte `+0x43`
 
 That makes `7397` look broader than a simple controller-phase installer. The older controller note still holds structurally, but the now-pinned `EF:6F7C` text and the battle-side calls from `9CB8` show that this helper is also reused as a heavy recovery or revival-grade reset path over the selected row. See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 
@@ -111,7 +112,6 @@ Still open:
 - whether the remaining non-curative-looking `+0x1D` uses can all be re-read as battler affliction or collapse handling now that the `7550` startup branch clearly aligns with unconscious or collapsed state
 - the finer behavior of the alternate `7550` branches outside the `+0x0E == 0` and `+0x1E == 2` path
 - what gameplay meaning the paired feedback scripts `EF:69A1`, `EF:69BA`, `EF:69D2`, `EF:6F7C`, `EF:6C6B`, and `EF:7696` correspond to
-- whether helper pair `C2:7126` and `C2:7191` should be understood as range normalization, cursor clamping, or some other coordinate-domain translation
 
 ## Current safest takeaway
 

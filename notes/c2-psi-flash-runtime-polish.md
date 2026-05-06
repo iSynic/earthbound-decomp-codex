@@ -29,6 +29,11 @@ Related evidence notes:
 `C2:724A` is the small parameterized writer behind Flash status branches and the
 Freeze side effect.
 
+Source-vocabulary update: the helper is now exposed as
+`ApplySelectedRowAfflictionSlotValue`, with the older
+`ApplyBattlerAfflictionSubgroupValue` alias preserved for compatibility. The
+Flash and Freeze callers now use the selected-row slot-writer name directly.
+
 Runtime contract:
 
 - A = selected-row base
@@ -56,7 +61,8 @@ text `EF:766E` on failure.
 
 - first runs the shared PSI blocker `C2:941D`
 - if that blocker returns nonzero, returns `0`
-- otherwise tests selected-row byte `+0x39` through `C2:6BB8`
+- otherwise tests selected-row byte `+0x39` through `C2:6BB8` /
+  `RollActionChanceGate`
 - returns `1` on pass
 - emits `EF:766E` and returns `0` on failure
 

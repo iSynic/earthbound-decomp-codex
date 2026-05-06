@@ -17,6 +17,13 @@ Source-scaffold promotion:
 - `C2:BC5C..BCB9` is now decoded source in `src/c2/c2_bc5c_clear_inactive_candidate_live_slot_transient_fields.asm`.
 - `C2:BC5C` is split as a standalone routine because it has a direct caller at `C2:6145`; it should not be treated as an internal continuation label of `C2:BB18`.
 - The combined C2 scaffold validates after promotion: `C2 byte-equivalence: OK, 218 module(s), 0 mismatch(es).`
+- The battle-start front/back controller source now calls `C2:BAC5` as
+  `CountFilteredSecondStageBattlerRows` and `C2:BB18` as
+  `PromoteSourceEntryToCollapseAfflictionController`, so the controller
+  handoff is visible at both caller and callee.
+- The instant-win handler now also calls `C2:BAC5` by that row-count name when
+  preparing forced-victory reward text, and the battle-start tail calls
+  `C2:BC5C` as `ClearInactiveSourceEntryLiveSlotTransientFields`.
 
 ## Why this cluster matters
 
@@ -81,6 +88,11 @@ This selector layer fits cleanly with the existing findings:
 - `BAC5` matches the idea that the `5540` path performs best-candidate style filtering before deeper behavior
 - `BB18` explains how the winning row becomes the active object for later `44xx`, `47xx`, `6Axx`, and `72xx/73xx` helper families
 - `$A970` now looks like the working bridge between descriptor-backed candidate rows and the heavier interaction controller
+- the battle-start controller callsites now use the same named bridge helpers
+  before invoking the action derivation, target-mask, result-text, and
+  selected-row controller paths
+- instant-win reward flow now shares the named filtered-row counter, while
+  battle-start completion names the transient live-slot cleanup helper
 
 ## What is still unresolved
 

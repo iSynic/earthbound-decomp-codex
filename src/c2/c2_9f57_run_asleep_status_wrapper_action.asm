@@ -23,11 +23,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                    = $6A2D
-C26BB8_BuildCandidateMaskPhase                = $6BB8
-C27191_ClampBattlerPpTargetDelta              = $7191
+C26A2D_GetRandomBelow                         = $6A2D
+C26BB8_RollActionChanceGate                   = $6BB8
+C27191_SetBattlerPpTarget                     = $7191
 C2721D_ReduceBattlerPpTarget                  = $721D
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
@@ -64,11 +64,11 @@ C29F5E_RunHpSuckerStylePpDrainAction = BTLACT_MAGNET_A
     bra C29FDF_RunAsleepStatusWrapperAction_L9FDF
 C29F7E_RunAsleepStatusWrapperAction_L9F7E:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     tax
     stx $16
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     sta $02
     ; Drain amount is two small rolls plus two, capped by target current PP.
     ldx $16
@@ -109,7 +109,7 @@ C29FBB_RunAsleepStatusWrapperAction_L9FBB:
     adc $0019,X
     tax
     lda $A970
-    jsr C27191_ClampBattlerPpTargetDelta
+    jsr C27191_SetBattlerPpTarget
 C29FDF_RunAsleepStatusWrapperAction_L9FDF:
     pld
     rtl
@@ -135,21 +135,21 @@ C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A04D_RunAsleepStatusWrapperAction_LA04D
     ldx $A972
     sep #$20
     lda $0037,X
     ; Primary-affliction status gate byte.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ldy.w #$0003
     ldx.w #$0000
     ; Write primary affliction byte `+0x1D = 3`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ; Success/failure EF scripts both read the target-name battle text context.

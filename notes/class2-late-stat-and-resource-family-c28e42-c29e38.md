@@ -56,11 +56,12 @@ Current strongest local read:
 - gates on target battler `pp_target` at row `+0x19`
 - if that field is zero, fails through the ordinary no-effect path
 - otherwise reads the high nibble of battler `pp_max` at row `+0x1B`
-- runs that value through `C2:6A44` to get the action amount
-- passes the target row plus that amount into `C2:721D`
+- runs that value through `C2:6A44` / `RollRandomAmount` to get the action amount
+- passes the target row plus that amount into `C2:721D` /
+  `ReduceBattlerPpTarget`
 - then displays `EF:7755`, the `PRINT_ACTION_AMOUNT PP!` loss text family, through `C1:DC66`
 
-`C2:721D` is a useful local anchor here. Its body behaves like a capped resource reducer over battler row `+0x19`: if the requested reduction exceeds the current value, it clamps to zero before handing the final amount into `C2:7191`.
+`C2:721D` is a useful local anchor here. Its body behaves like a capped resource reducer over battler row `+0x19`: if the requested reduction exceeds the current value, it clamps to zero before handing the final amount into `C2:7191` / `SetBattlerPpTarget`.
 
 That makes the safest current interpretation:
 
@@ -192,9 +193,3 @@ The safest current takeaway is:
 ## Best next target
 
 The best next move is to keep following the next neighboring late entries that still print numeric deltas, because this cluster now gives us a clean pattern for separating status families from stat or resource mutation families.
-
-
-
-
-
-

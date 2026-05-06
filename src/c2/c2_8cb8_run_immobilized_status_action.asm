@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 
 ; ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@ C28CB8_RunImmobilizedStatusAction = BTLACT_IMMOBILIZE
     ldx.w #$0002
     ; Write temporary subgroup `+0x1F = 3`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28CE1_RunImmobilizedStatusAction_L8CE1
     lda.w #$6BD3

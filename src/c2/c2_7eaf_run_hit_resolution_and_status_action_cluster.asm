@@ -21,17 +21,20 @@ C23D05_BuildBattleTargetTextContext             = $C23D05
 C2698B_GetBattleActionType                      = $698B
 C269BE_WaitFrames                               = $69BE
 C269F8_Truncate16To8                            = $69F8
+C26A2D_GetRandomBelow                           = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
-C26BB8_BuildCandidateMaskPhase                  = $6BB8
+C26BB8_RollActionChanceGate                     = $6BB8
 C26BDB_Success500                               = $6BDB
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
-C27126_SetBattlerHp                             = $7126
-C271F0_ReduceBattlerHp                          = $71F0
-C2724A_InflictStatusBattle                      = $724A
-C27550_KnockOutBattler                          = $C27550
-C27C96_SuccessLuck80                            = $7C96
+C27029_MaskSet_TestBit                          = $C27029
+C27126_SetBattlerHpTarget                       = $7126
+C271F0_ReduceBattlerHpTarget                    = $71F0
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
+C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
+C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
+C2416F_FilterBattleActionTargetMaskByRowState   = $C2416F
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
 
 BattlerRecordSize             = $004E
@@ -182,7 +185,7 @@ C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
 C27F78_RunHitResolutionAndStatusActionCluster_L7F78:
     ldx $04
     tya
-    jsr C271F0_ReduceBattlerHp
+    jsr C271F0_ReduceBattlerHpTarget
 C27F7E_RunHitResolutionAndStatusActionCluster_L7F7E:
     ldy $1A
     lda $000E,Y
@@ -210,7 +213,7 @@ C27FA7_RunHitResolutionAndStatusActionCluster_L7FA7:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr C27126_SetBattlerHp
+    jsr C27126_SetBattlerHpTarget
 C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     lda $AA90
     beq C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
@@ -225,7 +228,7 @@ C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr C27126_SetBattlerHp
+    jsr C27126_SetBattlerHpTarget
 C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF:
     ldy $1A
     lda $000E,Y
@@ -374,7 +377,7 @@ C28123_HitResolutionStatusActionReturn:
     pld
     rts
 CALC_RESIST_DAMAGE:
-C28125_RunHitResolutionStatusActionGate = CALC_RESIST_DAMAGE
+C28125_ApplyDamageToSelectedTarget = CALC_RESIST_DAMAGE
     rep #$31
     phd
     pha
@@ -469,7 +472,7 @@ C281D6_RunHitResolutionAndStatusActionCluster_L81D6:
     lda $0011,X
     bne C281F4_RunHitResolutionAndStatusActionCluster_L81F4
     lda $A972
-    jsl C27550_KnockOutBattler
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
 C281F4_RunHitResolutionAndStatusActionCluster_L81F4:
     lda $02
     bne C281FD_RunHitResolutionAndStatusActionCluster_L81FD
@@ -515,7 +518,7 @@ C28235_RunHitResolutionAndStatusActionCluster_L8235:
     lda $0011,X
     bne C2825D_RunHitResolutionAndStatusActionCluster_L825D
     lda $A972
-    jsl C27550_KnockOutBattler
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
 C2825D_RunHitResolutionAndStatusActionCluster_L825D:
     jsr C27E8A_SwapReflectedHitBattleTextContexts
 C28260_RunHitResolutionAndStatusActionCluster_L8260:
@@ -564,7 +567,7 @@ C282BC_RunHitResolutionAndStatusActionCluster_L82BC:
     bne C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     sep #$20
     lda.b #$80
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C282F4_RunHitResolutionAndStatusActionCluster_L82F4
     ldx $A972
@@ -677,7 +680,7 @@ C283B8_RunHitResolutionAndStatusActionCluster_L83B8:
     ldx $12
     beq C283F3_RunHitResolutionAndStatusActionCluster_L83F3
     lda.w #$0010
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sta $02
     ldx $12
     txa
@@ -781,7 +784,7 @@ C28482_RunHitResolutionAndStatusActionCluster_L8482:
     sec
     sbc $0028,X
     ldx $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     lda.w #$0001
     bra C284AB_RunHitResolutionAndStatusActionCluster_L84AB
 C284A8_RunHitResolutionAndStatusActionCluster_L84A8:
@@ -891,7 +894,7 @@ C2855C_RunHitResolutionAndStatusActionCluster_L855C:
 C28561_RunHitResolutionAndStatusActionCluster_L8561:
     ldx.w #$00FF
     lda $0E
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     pld
     rts
 HEAL_STRANGENESS:
@@ -1001,7 +1004,7 @@ C2862F_RunHitResolutionAndStatusActionCluster_L862F:
 C28634_RunHitResolutionAndStatusActionCluster_L8634:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2864F_RunHitResolutionAndStatusActionCluster_L864F
 C28641_RunHitResolutionAndStatusActionCluster_L8641:
@@ -1065,7 +1068,7 @@ C286A9_RunHitResolutionAndStatusActionCluster_L86A9:
 C286AE_RunHitResolutionAndStatusActionCluster_L86AE:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C286C9_RunHitResolutionAndStatusActionCluster_L86C9
 C286BB_RunHitResolutionAndStatusActionCluster_L86BB:
@@ -1126,7 +1129,7 @@ C2871E_RunHitResolutionAndStatusActionCluster_L871E:
 C28723_RunHitResolutionAndStatusActionCluster_L8723:
     ldx.w #$00FF
     lda $12
-    jsr.w CALC_RESIST_DAMAGE
+    jsr.w C28125_ApplyDamageToSelectedTarget
     jsr.w HEAL_STRANGENESS
     bra C2873E_RunHitResolutionAndStatusActionCluster_L873E
 C28730_RunHitResolutionAndStatusActionCluster_L8730:
@@ -1332,7 +1335,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     tcd
     jsl $EF0256
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sta $02
     inc $02
     lda $A96C
@@ -1347,7 +1350,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     sty $14
     jmp.w C289A4_RunHitResolutionAndStatusActionCluster_L89A4
 C2891B_RunHitResolutionAndStatusActionCluster_L891B:
-    jsl $C2416F
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -1388,7 +1391,7 @@ C2893B_RunHitResolutionAndStatusActionCluster_L893B:
     bra C28981_RunHitResolutionAndStatusActionCluster_L8981
 C28972_RunHitResolutionAndStatusActionCluster_L8972:
     txa
-    jsl $C27029
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     bne C28986_RunHitResolutionAndStatusActionCluster_L8986
     ldx $12
@@ -1444,7 +1447,7 @@ C289E1_RunHitResolutionAndStatusActionCluster_L89E1:
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C289F4_RunHitResolutionAndStatusActionCluster_L89F4
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -1452,7 +1455,7 @@ C289F4_RunHitResolutionAndStatusActionCluster_L89F4:
     ldy.w #BattleStatusDiamondized
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     bne C28A08_RunHitResolutionAndStatusActionCluster_L8A08
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -1525,19 +1528,19 @@ C28A92_RunParalyzeStatusAction = BTLACT_PARALYZE
     jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9
-    jsr C27C96_SuccessLuck80
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldx $A972
     sep #$20
     lda $0037,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldy.w #BattleStatusParalyzed
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     lda.w #EFMSG_Paralyzed
@@ -1568,7 +1571,7 @@ C28AEB_RunNauseateStatusAction = BTLACT_NAUSEATE
     ldy.w #BattleStatusNauseous
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C
     lda.w #EFMSG_Nauseous
@@ -1599,7 +1602,7 @@ C28B2C_RunPoisonStatusAction = BTLACT_POISON
     ldy.w #BattleStatusPoisoned
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D
     lda.w #EFMSG_Poisoned
@@ -1630,13 +1633,13 @@ C28B6D_RunColdStatusAction = BTLACT_COLD
     ldx $A972
     sep #$20
     lda $0038,X
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
     ldy.w #BattleStatusCold
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
     lda.w #EFMSG_CaughtCold

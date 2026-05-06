@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 C1DC1C_DisplayBattleTextFromPointer        = $C1DC1C
 
 ; ---------------------------------------------------------------------------
@@ -34,7 +34,7 @@ C29950_TryApplyCryingStatusToSelectedBattler = FLASH_INFLICT_CRYING
     tyx
     ; Write value 2 to selected-row subgroup byte `+0x1F`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29977_TryApplyCryingStatusToSelectedBattler_L9977
     lda.w #$6BBB

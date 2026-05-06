@@ -12,9 +12,9 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
-C26A2D_RollRandomThreshold                      = $6A2D
+C26A2D_GetRandomBelow                           = $6A2D
 C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
-C28125_ApplyTypedDamageToSelectedTarget         = $8125
+C28125_ApplyDamageToSelectedTarget              = $8125
 
 EFMSG_StatusNoEffect                            = $766E
 EF_BattleTextScriptBank                         = $00EF
@@ -38,10 +38,10 @@ C2A86B_RunRandomDamageItemAction = BTLACT_YOGURT_DISPENSER
     cmp.w #$0000
     beq C2A88D_C2A86B_RunRandomDamageItemAction_LA88D
     lda.w #RandomDamageRollLimit
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     ldx.w #DefaultDamageType
     inc A
-    jsr C28125_ApplyTypedDamageToSelectedTarget
+    jsr C28125_ApplyDamageToSelectedTarget
     bra C2A89B_C2A86B_RunRandomDamageItemAction_LA89B
 C2A88D_C2A86B_RunRandomDamageItemAction_LA88D:
     lda.w #EFMSG_StatusNoEffect

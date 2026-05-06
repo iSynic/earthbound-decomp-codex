@@ -75,7 +75,7 @@ The important local conclusion is that Thunder is not just replaying a static ef
 
 ## Success branch: hit presentation, busy wait, and target-side handling
 
-Once the selected target is established, the local helper calls `C2:3D05`, then feeds the derived value in `$02` through `C2:6BB8`.
+Once the selected target is established, the local helper calls `C2:3D05`, then feeds the derived value in `$02` through `C2:6BB8` / `RollActionChanceGate`.
 
 Current safest interpretation:
 
@@ -97,7 +97,9 @@ After the busy wait, the local success path continues with a cluster that strong
 
 That is now a stronger local shape match for the reference Franklin Badge reflection logic. The row-byte-plus-one search pattern through `C4:5683`, plus the immediate `$AA96 = 1` write and `C2:7E8A` context-swap helper, line up closely enough that the Franklin Badge interpretation is now the best current working model rather than just a loose thematic guess.
 
-After that, the helper enters a target and damage cluster through `C2:941D`, `C2:6A44`, `C2:8125`, and `C2:94CE`.
+After that, the helper enters a target and damage cluster through `C2:941D`,
+`C2:6A44` / `RollRandomAmount`, `C2:8125` /
+`ApplyDamageToSelectedTarget`, and `C2:94CE`.
 
 The safest current summary is:
 

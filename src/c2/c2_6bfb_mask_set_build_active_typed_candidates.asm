@@ -33,7 +33,10 @@ TargetMaskBitLimit = $0020
 ; C2:6BFB
 
 TARGET_ALLIES:
-C26BFB_MaskSet_BuildActiveTypedCandidates = TARGET_ALLIES
+C26BFB_MaskSet_BuildActiveTypedBattlers = TARGET_ALLIES
+; Compatibility alias for older candidate-style callers; this routine builds
+; a battler target-mask union over `$9FAC`, not a candidate-list pool.
+C26BFB_MaskSet_BuildActiveTypedCandidates = C26BFB_MaskSet_BuildActiveTypedBattlers
     rep #$31
     phd
     tdc

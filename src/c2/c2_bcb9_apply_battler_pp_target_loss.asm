@@ -12,14 +12,15 @@
 ; - PP-target loss helper followed by the adjacent HP-target sibling.
 ; - Input A is the battler row pointer and X is the loss amount.
 ; - The first body subtracts from row `+0x19` (`pp_target`), floors at zero,
-;   and calls `SET_PP` at `C2:7191`.
+;   and calls the PP target setter/clamp at `C2:7191`.
 ; - The adjacent body has the same shape for row `+0x13` (`hp_target`) and
-;   calls `SET_HP` at `C2:7126`.
+;   calls the HP target setter/clamp at `C2:7126`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C27126_SetBattlerHpTarget = $7126
+C27191_SetBattlerPpTarget = $7191
 
 ; ---------------------------------------------------------------------------
 ; C2:BCB9
@@ -52,9 +53,10 @@ C2BCDF_C2BCB9_ApplyBattlerPpTargetLoss_LBCDF:
     tax
     tya
     ; Commit clamped PP target through the shared setter.
-    jsr $7191
+    jsr C27191_SetBattlerPpTarget
     pld
     rtl
+C2BCE6_ApplyBattlerHpTargetLoss:
     rep #$31
     phd
     pha
@@ -82,6 +84,6 @@ C2BD0C_C2BCB9_ApplyBattlerPpTargetLoss_LBD0C:
     tax
     tya
     ; Commit clamped HP target through the shared setter.
-    jsr $7126
+    jsr C27126_SetBattlerHpTarget
     pld
     rtl

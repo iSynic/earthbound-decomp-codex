@@ -12,7 +12,7 @@
 ; - A = selected-row base, X = recovery target amount or row-local target word.
 ; - Emits revival-grade text `EF:6F7C`, clears the selected row's affliction
 ;   bytes `+0x1D..+0x23` plus row word `+0x04`, and sets `+0x0D = 1`.
-; - Applies the HP-side clamp helper `C2:7126` to the selected row.
+; - Applies the HP-side target setter/clamp helper `C2:7126` to the selected row.
 ; - When row `+0x0E/+0x0F` are both clear, updates linked `0x5F`-stride
 ;   `9A15/9A13` markers through the id stored at row `+0x10`.
 ; - When row `+0x0E == 1` and `+0x0F == 0`, resets `+0x4B` membership across
@@ -22,7 +22,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C27126_ClampBattlerHpTargetDelta    = $7126
+C27126_SetBattlerHpTarget           = $7126
+C269BE_WaitFrames                   = $69BE
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 
@@ -74,7 +75,7 @@ C27397_InstallBattlerHeavyRecoveryReset = REVIVE_TARGET
     tyx
     rep #$20
     lda $04
-    jsr C27126_ClampBattlerHpTargetDelta
+    jsr C27126_SetBattlerHpTarget
     ldx $04
     lda $000E,X
     and.w #$00FF
@@ -194,7 +195,7 @@ C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     cmp.w #$0010
     bcc C274BB_InstallBattlerHeavyRecoveryReset_L74BB
     lda.w #$000A
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -247,7 +248,7 @@ C2753E_InstallBattlerHeavyRecoveryReset_L753E:
     cmp.w #$0010
     bcc C274F6_InstallBattlerHeavyRecoveryReset_L74F6
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
 C2754B_InstallBattlerHeavyRecoveryReset_L754B:
     lda.w #$0001
     pld

@@ -19,7 +19,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C23D05_BuildBattleTargetTextContext = $C23D05
+C269BE_WaitFrames = $69BE
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+C28125_ApplyDamageToSelectedTarget = $8125
 
 ; ---------------------------------------------------------------------------
 ; C2:C3E2
@@ -36,11 +39,11 @@ C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     tax
     stx $0E
     lda.w #$003C
-    jsr $69BE
+    jsr C269BE_WaitFrames
     ; Target context for the scripted Giygas prayer damage application.
     lda.w #$A21C
     sta $A972
-    jsl $C23D05
+    jsl C23D05_BuildBattleTargetTextContext
     lda.w #$003C
     sta $AD9E
     lda.w #$0001
@@ -48,10 +51,10 @@ C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     ldx $0E
     txa
     ; Prepare and apply the caller's staged damage amount.
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #$00FF
-    jsr $8125
+    jsr C28125_ApplyDamageToSelectedTarget
     lda.w #$003C
-    jsr $69BE
+    jsr C269BE_WaitFrames
     pld
     rts

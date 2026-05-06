@@ -19,15 +19,16 @@ Related evidence notes:
 ## Common Helper
 
 `C2:9AB8` is the common fixed-amount HP recovery wrapper. It accepts a base
-literal in A, passes that literal through `C2:6AFD`, then calls the selected-row
-HP recovery feedback helper at `C2:7294`.
+literal in A, passes that literal through `C2:6AFD` /
+`ApplyTwentyFivePercentVariance`, then calls the selected-row HP recovery
+feedback helper at `C2:7294`.
 
 Runtime contract:
 
 | Step | Runtime shape |
 | --- | --- |
 | caller input | A = base recovery literal |
-| amount shaping | `C2:6AFD`, returned through X |
+| amount shaping | `C2:6AFD` / `ApplyTwentyFivePercentVariance`, returned through X |
 | target row | `$A972` selected battler row |
 | recovery worker | `C2:7294` with A = row, X = effective amount |
 | text behavior | inherited from `C2:7294` maxed/amount/no-effect paths |
@@ -67,8 +68,6 @@ the fixed literal wrapper to the selected-row HP recovery feedback worker.
 
 ## Remaining Soft Spots
 
-- `C2:6AFD` still needs a focused pass to name the exact random/scaling behavior
-  applied to healing and damage literals.
 - Later item/other reuses of these wrappers should eventually get their own
   action-table row note so the shared helper is not overfit to PSI wording.
 - The corridor-only wrapper modules remain source anchors; the decoded combined

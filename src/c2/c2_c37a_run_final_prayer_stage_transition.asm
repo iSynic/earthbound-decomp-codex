@@ -22,6 +22,8 @@
 C0887A_ClearDisplayTransitionState  = $C0887A
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+C269BE_WaitFrames                   = $69BE
+C269DE_WaitForDisplayTransitionBusyClear = $69DE
 
 ; ---------------------------------------------------------------------------
 ; C2:C37A
@@ -45,7 +47,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx.w #$0004
     lda.w #$0001
     jsl C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     ; Pause battle-background frame updates while the prayer text displays.
     stz $9643
     stz $5DD4
@@ -58,7 +60,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx.w #$0002
     lda.w #$0001
     jsl C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr C269DE_WaitForDisplayTransitionBusyClear
     ldx $02
     ldy $12
     tya
@@ -70,6 +72,6 @@ C2C37A_RunFinalPrayerStageTransition:
     lda.w #$000E
     jsl $C1DD47
     lda.w #$003C
-    jsr $69BE
+    jsr C269BE_WaitFrames
     pld
     rts

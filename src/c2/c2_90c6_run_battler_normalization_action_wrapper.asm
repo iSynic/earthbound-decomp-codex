@@ -11,10 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C270E4_MaskSetPruneFlaggedCandidates              = $70E4
+C270E4_MaskSet_PruneAfflictionFlaggedBattlers     = $70E4
 C1DC1C_DisplayBattleTextFromPointer               = $C1DC1C
 C240A4_ApplyBattleActionSecondPointerPayload      = $C240A4
-C26E00_MaskSet_BuildActiveCandidates              = $C26E00
+C26E00_MaskSet_BuildActiveBattlers                = $C26E00
 C2AF1F_SnapshotRestoreBattlerNormalizationContext = $C2AF1F
 
 ; ---------------------------------------------------------------------------
@@ -87,8 +87,8 @@ C29146_RunBattlerNormalizationActionWrapper_L9146:
     cpy.w #$0020
     bcc C290DD_RunBattlerNormalizationActionWrapper_L90DD
 C2914B_RunBattlerNormalizationActionWrapper_L914B:
-    jsl C26E00_MaskSet_BuildActiveCandidates
-    jsr C270E4_MaskSetPruneFlaggedCandidates
+    jsl C26E00_MaskSet_BuildActiveBattlers
+    jsr C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     lda.w #$9051
     sta $0E
     lda.w #$00C2

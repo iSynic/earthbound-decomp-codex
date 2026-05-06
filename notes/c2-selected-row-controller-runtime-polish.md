@@ -31,7 +31,7 @@ selected-row base in A and a caller-provided amount in X.
 | row gate | requires `+0x0C == 1` |
 | hard-state gate | `+0x1D == 1` emits `EF:7696` |
 | bounded pair | row words `+0x13/+0x15` |
-| clamp helper | `C2:7126` |
+| target setter/clamp | `C2:7126` / `SetBattlerHpTarget` |
 | cap/no-gain text | `EF:69A1` |
 | success text | amount-bearing `EF:69BA` through `C1:DC66` |
 
@@ -42,12 +42,16 @@ selected-row base in A and a caller-provided amount in X.
 | row gate | requires `+0x0C == 1` |
 | hard-state gate | `+0x1D == 1` returns silently |
 | bounded pair | row words `+0x19/+0x1B` |
-| clamp helper | `C2:7191` |
+| target setter/clamp | `C2:7191` / `SetBattlerPpTarget` |
 | success text | amount-bearing `EF:69D2` through `C1:DC66` |
 
 The battle consequence dispatcher at `C2:B2E0` reuses these helpers for selector
 `0`, selector `1`, and the chained selector `2`. That makes the helpers shared
 selected-row infrastructure, not one-off item or PSI leaves.
+
+The battle-start back half now also calls `C2:BCB9` /
+`ApplyBattlerPpTargetLoss` by name for the D5:7B68 PP-cost gate, keeping the
+PP target-loss edge aligned with the selected-row setter/clamp vocabulary.
 
 ## Heavy Recovery Reset
 
@@ -60,12 +64,13 @@ Promoted runtime contract:
 - clear row bytes `+0x1D..+0x23`
 - clear row word `+0x04`
 - set row byte `+0x0D = 1`
-- clamp the row's HP-side target through `C2:7126`
+- set/clamp the row's HP-side target through `C2:7126` /
+  `SetBattlerHpTarget`
 - if row bytes `+0x0E/+0x0F` are both clear, update linked `9A15/9A13` marker
   tables through the id stored at row `+0x10`
 - if row `+0x0E == 1` and `+0x0F == 0`, reset row-membership byte `+0x4B`
   across candidate rows, mark the selected row, and run the visual refresh loops
-  through the `FAD8/FB35/69BE` helper family
+  through the `FAD8/FB35` helpers and `C2:69BE` / `WaitFrames`
 
 This keeps the helper named around behavior instead of final gameplay wording:
 it is wider than "print revived" because it also resets selected-row state,
@@ -106,11 +111,18 @@ This slice ties together several previously separate-looking facts:
   visual-refresh effects.
 - `C2:7550` now has a source-commented boundary between startup handling and the
   late `C2:77CA` controller path.
+- `C2:7126/7191` are now named as target setter/clamp helpers, while the
+  adjacent `C2:71F0/721D` bodies are the subtract-and-floor HP/PP target-loss
+  wrappers that delegate to those setters.
+- `C2:69BE` is now named as the counted frame wait used by the selected-row
+  visual refresh loops.
+- battle-start front/back controller callsites now name the second-stage row
+  counter and source-entry promoter that bridge battle-start row selection into
+  the collapse/affliction controller state.
 
 ## Remaining Soft Spots
 
 - final gameplay names for row bytes `+0x0D`, `+0x0F`, and `+0x10`
-- exact names for the `C2:7126` and `C2:7191` clamp domains
 - whether every non-curative reader of row `+0x1D == 1` should be promoted to
   the same global hard/collapsed enum
-- finer names for the `FAD8/FB35/69BE` visual-refresh helper family
+- finer names for the `FAD8/FB35` visual-refresh helper family

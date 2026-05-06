@@ -19,7 +19,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26BB8_BuildCandidateMaskPhase                = $6BB8
+C26BB8_RollActionChanceGate                   = $6BB8
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C28D41_CheckTargetField2eThresholdGate        = $8D41
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
@@ -36,7 +36,7 @@ C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28DB9_RunConcentrationSealAction_L8DB9
     jsr SUCCESS_LUCK40
@@ -46,7 +46,7 @@ C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     sep #$20
     lda $0037,X
     ; Secondary eligibility gate before writing the seal subgroup.
-    jsr C26BB8_BuildCandidateMaskPhase
+    jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     beq C28DAB_RunConcentrationSealAction_L8DAB
     lda $A972
