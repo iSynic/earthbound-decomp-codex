@@ -161,23 +161,30 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             )
         )
 
-    option_candidates: list[tuple[str, dict[str, Any], dict[str, Any]]] = []
+    option_candidates: list[tuple[str, str, dict[str, Any], dict[str, Any]]] = []
     for asset, output in candidates:
         kind = str(output["kind"])
-        if kind == "snes_2bpp_tiles_png" and int(output.get("trim_trailing_bytes", 0) or 0) > 0:
-            option_candidates.append((f"{kind}.trim_trailing_bytes", asset, output))
+        contract = OUTPUT_RECIPE_CONTRACTS[kind]
+        for field in contract.optional_fields:
+            if field in output:
+                option_candidates.append((f"{kind}.{field}", field, asset, output))
     seen_options: set[str] = set()
-    for option_key, asset, output in sorted(option_candidates, key=lambda item: (item[0], asset_sort_key(item[1]))):
+    for option_key, field, asset, output in sorted(option_candidates, key=lambda item: (item[0], asset_sort_key(item[2]))):
         if option_key in seen_options:
             continue
         seen_options.add(option_key)
+        decode_affecting = field == "trim_trailing_bytes"
         fixtures.append(
             make_fixture(
                 "recipe_option",
                 option_key,
                 asset,
                 output,
-                reason="Covers an optional recipe field that changes decode input bytes.",
+                reason=(
+                    "Covers an optional recipe field that changes decode input bytes."
+                    if decode_affecting
+                    else "Covers an optional recipe metadata field used by manifests."
+                ),
             )
         )
 

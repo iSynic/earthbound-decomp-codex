@@ -18,6 +18,8 @@ Output path uniqueness and bank-root coverage are tracked in `notes/asset-output
 
 Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md` and rebuildable via `tools/build_asset_output_raw_only_audit.py`.
 
+Optional typed recipe field coverage is tracked in `notes/asset-output-recipe-option-audit.md` and rebuildable via `tools/build_asset_output_recipe_option_audit.py`.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

@@ -13,7 +13,7 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 56,
+    "fixture_count": 60,
     "unique_selected_assets": 15,
     "unique_selected_manifest_asset_pairs": 15,
     "recipe_kinds_covered": 13,
@@ -25,13 +25,13 @@
       "family_renderer": 12,
       "family_renderer_geometry": 14,
       "recipe_kind": 13,
-      "recipe_option": 1
+      "recipe_option": 5
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 23,
+      "battle_visual_assets": 25,
       "ef_debug_and_late_tail": 5,
       "map_tilesets_and_runtime_tables": 7,
-      "overworld_sprites": 8,
+      "overworld_sprites": 10,
       "ui_font_town_map_assets": 13
     }
   },
@@ -398,6 +398,58 @@
       ]
     },
     {
+      "id": "fixture.recipe_option.earthbound_lzhal_snes_4bpp_tiles_palette_png_palette_id",
+      "type": "recipe_option",
+      "key": "earthbound_lzhal_snes_4bpp_tiles_palette_png.palette_id",
+      "reason": "Covers an optional recipe metadata field used by manifests.",
+      "family": "battle_visual_assets",
+      "bank": "CD",
+      "manifest_path": "asset-manifests/bank-cd-assets.json",
+      "asset_id": "asset.cd.battle_sprite_10",
+      "title": "BATTLE_SPRITE_10",
+      "category": "graphics",
+      "bytes": 812,
+      "target_output": {
+        "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+        "path": "cd/battle_sprites/10_palette_09_preview.png",
+        "decoder": "earthbound_lzhal+snes_4bpp_tiles+snes_palette",
+        "renderer": "palette_tile_sheet"
+      },
+      "all_output_kinds": [
+        "earthbound_lzhal",
+        "earthbound_lzhal_battle_sprite_png",
+        "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+        "earthbound_lzhal_snes_4bpp_tiles_png",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_option.earthbound_lzhal_snes_4bpp_tiles_palette_png_sprite_id",
+      "type": "recipe_option",
+      "key": "earthbound_lzhal_snes_4bpp_tiles_palette_png.sprite_id",
+      "reason": "Covers an optional recipe metadata field used by manifests.",
+      "family": "battle_visual_assets",
+      "bank": "CD",
+      "manifest_path": "asset-manifests/bank-cd-assets.json",
+      "asset_id": "asset.cd.battle_sprite_10",
+      "title": "BATTLE_SPRITE_10",
+      "category": "graphics",
+      "bytes": 812,
+      "target_output": {
+        "kind": "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+        "path": "cd/battle_sprites/10_palette_09_preview.png",
+        "decoder": "earthbound_lzhal+snes_4bpp_tiles+snes_palette",
+        "renderer": "palette_tile_sheet"
+      },
+      "all_output_kinds": [
+        "earthbound_lzhal",
+        "earthbound_lzhal_battle_sprite_png",
+        "earthbound_lzhal_snes_4bpp_tiles_palette_png",
+        "earthbound_lzhal_snes_4bpp_tiles_png",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.recipe_option.snes_2bpp_tiles_png_trim_trailing_bytes",
       "type": "recipe_option",
       "key": "snes_2bpp_tiles_png.trim_trailing_bytes",
@@ -418,6 +470,54 @@
       "all_output_kinds": [
         "raw",
         "snes_2bpp_tiles_png"
+      ]
+    },
+    {
+      "id": "fixture.recipe_option.snes_4bpp_tiles_palette_png_palette_id",
+      "type": "recipe_option",
+      "key": "snes_4bpp_tiles_palette_png.palette_id",
+      "reason": "Covers an optional recipe metadata field used by manifests.",
+      "family": "overworld_sprites",
+      "bank": "D1",
+      "manifest_path": "asset-manifests/bank-d1-assets.json",
+      "asset_id": "asset.d1.sprite_0000",
+      "title": "SPRITE_0000",
+      "category": "graphics",
+      "bytes": 768,
+      "target_output": {
+        "kind": "snes_4bpp_tiles_palette_png",
+        "path": "d1/overworld_sprites/gfx/0000_palette_00_preview.png",
+        "decoder": "snes_4bpp_tiles+snes_palette",
+        "renderer": "palette_tile_sheet"
+      },
+      "all_output_kinds": [
+        "raw",
+        "snes_4bpp_tiles_palette_png",
+        "snes_4bpp_tiles_png"
+      ]
+    },
+    {
+      "id": "fixture.recipe_option.snes_4bpp_tiles_palette_png_sprite_id",
+      "type": "recipe_option",
+      "key": "snes_4bpp_tiles_palette_png.sprite_id",
+      "reason": "Covers an optional recipe metadata field used by manifests.",
+      "family": "overworld_sprites",
+      "bank": "D1",
+      "manifest_path": "asset-manifests/bank-d1-assets.json",
+      "asset_id": "asset.d1.sprite_0000",
+      "title": "SPRITE_0000",
+      "category": "graphics",
+      "bytes": 768,
+      "target_output": {
+        "kind": "snes_4bpp_tiles_palette_png",
+        "path": "d1/overworld_sprites/gfx/0000_palette_00_preview.png",
+        "decoder": "snes_4bpp_tiles+snes_palette",
+        "renderer": "palette_tile_sheet"
+      },
+      "all_output_kinds": [
+        "raw",
+        "snes_4bpp_tiles_palette_png",
+        "snes_4bpp_tiles_png"
       ]
     },
     {

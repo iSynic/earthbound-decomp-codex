@@ -32,6 +32,8 @@ PATH_AUDIT_JSON = ROOT / "build" / "asset-output-path-audit.json"
 PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
 RAW_ONLY_AUDIT_JSON = ROOT / "build" / "asset-output-raw-only-audit.json"
 RAW_ONLY_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-raw-only-audit.md"
+RECIPE_OPTION_AUDIT_JSON = ROOT / "build" / "asset-output-recipe-option-audit.json"
+RECIPE_OPTION_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-recipe-option-audit.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -329,6 +331,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(RAW_ONLY_AUDIT_MARKDOWN),
             "runner": "tools/build_asset_output_raw_only_audit.py",
         },
+        "recipe_option_audit": {
+            "generated_json": rel(RECIPE_OPTION_AUDIT_JSON),
+            "tracked_markdown": rel(RECIPE_OPTION_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_recipe_option_audit.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -368,6 +375,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.",
         "",
         "Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md` and rebuildable via `tools/build_asset_output_raw_only_audit.py`.",
+        "",
+        "Optional typed recipe field coverage is tracked in `notes/asset-output-recipe-option-audit.md` and rebuildable via `tools/build_asset_output_recipe_option_audit.py`.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",

@@ -6,14 +6,14 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 
 ## Snapshot
 
-- fixture selectors: `56`
+- fixture selectors: `60`
 - unique selected assets: `15`
 - recipe kinds covered: `13`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
 - family/decoder pairs covered: `16`
-- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, `recipe_option` 1
-- fixture family mix: `battle_visual_assets` 23, `ui_font_town_map_assets` 13, `overworld_sprites` 8, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 5
+- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, `recipe_option` 5
+- fixture family mix: `battle_visual_assets` 25, `ui_font_town_map_assets` 13, `overworld_sprites` 10, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 5
 
 ## Runner
 
@@ -62,7 +62,11 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 
 | Recipe option | Asset | Manifest | Target recipe | Target output |
 | --- | --- | --- | --- | --- |
+| `earthbound_lzhal_snes_4bpp_tiles_palette_png.palette_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
+| `earthbound_lzhal_snes_4bpp_tiles_palette_png.sprite_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
 | `snes_2bpp_tiles_png.trim_trailing_bytes` | `asset.debug.menu_font` | `asset-manifests/ef-debug-assets.json` | `snes_2bpp_tiles_png` | `ef/debug_menu_font_preview.png` |
+| `snes_4bpp_tiles_palette_png.palette_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
+| `snes_4bpp_tiles_palette_png.sprite_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 
 ## Family Renderer Geometry Fixtures
 

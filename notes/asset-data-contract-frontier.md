@@ -20,6 +20,8 @@ Output path uniqueness is tracked in `notes/asset-output-path-audit.md`; it prov
 
 Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md`; it separates true decode/render candidates from intentionally preserved audio packs, tables, raw gaps, and mixed corridors.
 
+Optional typed recipe field coverage is tracked in `notes/asset-output-recipe-option-audit.md`; it proves manifest-used option fields have smoke fixture coverage, and decode-affecting options have synthetic codec coverage.
+
 Manifest source-range coverage is tracked in `notes/asset-source-range-audit.md`; it proves asset ranges are bank-local, byte-counted, non-overlapping, and collectively cover each manifest bank.
 
 Generated asset-output and source-range reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
@@ -34,7 +36,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 - assets with decoder recipes beyond raw extraction: `1835`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `9`
-- smoke fixture links from manifests: `56`
+- smoke fixture links from manifests: `60`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
