@@ -22,6 +22,12 @@ Status: oracle comparison contract ready; reference capture runner pending.
 - promotion gate: expand the same comparison contract from representative_tracks to all_tracks after the runner is stable
 - PCM thresholds: `{'sample_rate': 32000, 'channels': 2, 'bits_per_sample': 16, 'minimum_seconds': 30.0, 'minimum_normalized_correlation_after_alignment': 0.98, 'maximum_leading_silence_delta_samples': 4096}`
 
+## Independent Capture Contract
+
+- minimum metadata fields: `['oracle_id', 'oracle_kind', 'emulator_name', 'emulator_version', 'independent_emulator_capture', 'source_spc_sha1', 'reference_wav_sha1', 'capture_command_or_manual_steps']`
+- acceptance evidence: `['SPC/header/DSP state comparison where the emulator exposes it', 'PCM alignment and correlation summary', 'explicit classification for each mismatch or timing offset']`
+- diagnostic focus counts: `{'active_through_preview_or_loop_candidate': 18, 'finite_tail_or_transition_end': 1, 'general_playback_equivalence': 1}`
+
 ## Workflow
 
 1. Build or refresh this plan with `python tools/build_audio_oracle_comparison_plan.py`.

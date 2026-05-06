@@ -183,6 +183,26 @@ def build_report(summary_path: Path) -> dict[str, Any]:
         }
         for region in sorted(region_total_counts)
     }
+    independence_diagnostics = {
+        "independent_reference_count": independent_reference_count,
+        "ares_managed_or_imported_reference_count": job_count - independent_reference_count,
+        "missing_independent_reference_count": max(0, job_count - independent_reference_count),
+        "independent_gate_required_for_release_quality": True,
+        "candidate_external_oracles": ["bsnes/higan", "Mesen2", "Mednafen"],
+        "current_gap": (
+            "all compared captures are independent external-emulator captures"
+            if independent_reference_count == job_count and job_count
+            else "current captures are ares-managed/backend-summary imports, so they are near-oracle evidence rather than independent emulator evidence"
+        ),
+    }
+    release_blockers = []
+    if not independent_gate_passed:
+        release_blockers.append("independent_external_emulator_gate_open")
+    if not all_track_gate_passed:
+        release_blockers.append("all_track_oracle_gate_open")
+    residual_state_deltas = []
+    if full_apu_match_count != job_count:
+        residual_state_deltas.append("full_apu_ram_differs_outside_audio_payload_regions")
 
     return {
         "schema": "earthbound-decomp.audio-oracle-verification-report.v1",
@@ -208,6 +228,9 @@ def build_report(summary_path: Path) -> dict[str, Any]:
             "maximum_alignment_offset_samples": max_alignment_offset,
             "apu_region_match_counts": region_summary,
         },
+        "independence_diagnostics": independence_diagnostics,
+        "release_blockers": release_blockers,
+        "residual_state_deltas": residual_state_deltas,
         "interpretation": {
             "what_this_proves": what_this_proves,
             "why_not_final": why_not_final,
@@ -220,6 +243,9 @@ def build_report(summary_path: Path) -> dict[str, Any]:
 def render_markdown(report: dict[str, Any]) -> str:
     gates = report["gate_results"]
     audio = report["audio_equivalence"]
+    independence = report.get("independence_diagnostics", {})
+    blockers = report.get("release_blockers", [])
+    residual_state_deltas = report.get("residual_state_deltas", [])
     region_rows = [
         f"| `{region}` | {counts['matched']} / {counts['total']} |"
         for region, counts in audio["apu_region_match_counts"].items()
@@ -270,6 +296,14 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"- full APU RAM matches: `{audio['full_apu_ram_match_count']} / {report['job_count']}`",
             f"- minimum normalized PCM correlation: `{audio['minimum_normalized_pcm_correlation']}`",
             f"- maximum alignment offset samples: `{audio['maximum_alignment_offset_samples']}`",
+            "",
+            "## Independence Gap",
+            "",
+            f"- independent reference captures: `{independence.get('independent_reference_count', 0)} / {report['job_count']}`",
+            f"- missing independent captures: `{independence.get('missing_independent_reference_count', report['job_count'])}`",
+            f"- current gap: {independence.get('current_gap', 'not reported')}",
+            f"- release blockers: `{blockers}`",
+            f"- residual accepted state deltas: `{residual_state_deltas}`",
             "",
             "## APU Region Matches",
             "",

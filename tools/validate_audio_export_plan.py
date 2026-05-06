@@ -84,6 +84,11 @@ def validate(plan: dict[str, Any]) -> list[str]:
             finite = record.get("finite_metadata")
             if not isinstance(finite, dict) or finite.get("finite_end_sample") is None:
                 errors.append(f"track {track_id}: finite trim requires finite_metadata.finite_end_sample")
+            else:
+                if finite.get("tail_silence_seconds") is None:
+                    errors.append(f"track {track_id}: finite trim requires finite_metadata.tail_silence_seconds")
+                if finite.get("silence_threshold_abs_sample") is None:
+                    errors.append(f"track {track_id}: finite trim requires finite_metadata.silence_threshold_abs_sample")
         if mode == "loop_count_plus_fade_preview":
             if float(record.get("fade_seconds", 0.0)) <= 0:
                 errors.append(f"track {track_id}: loop preview requires fade seconds")
@@ -103,6 +108,12 @@ def validate(plan: dict[str, Any]) -> list[str]:
                     errors.append(f"track {track_id}: loop_metadata loop_count mismatch")
                 if float(preview.get("fade_seconds", 0.0)) != float(record.get("fade_seconds", -1.0)):
                     errors.append(f"track {track_id}: loop_metadata fade_seconds mismatch")
+                loop_evidence = loop.get("loop_point_evidence", {})
+                if loop_evidence.get("status") not in {
+                    "exact_loop_points_available",
+                    "placeholder_only_exact_loop_points_pending",
+                }:
+                    errors.append(f"track {track_id}: loop_metadata missing loop point evidence status")
         if export_class == "skip_no_audio" and mode != "skip":
             errors.append(f"track {track_id}: no-audio class must use skip mode")
         duration_semantics = record.get("duration_semantics")
@@ -128,6 +139,16 @@ def validate(plan: dict[str, Any]) -> list[str]:
         errors.append("needs_sequence_semantics_count does not match tracks")
     if "sequence_command_promotion_allowed" not in summary:
         errors.append("summary missing sequence_command_promotion_allowed")
+    diagnostics = plan.get("diagnostic_summary", {})
+    finite_diag = diagnostics.get("finite_end_policy", {})
+    if int(finite_diag.get("public_exact_trim_count", -1)) != class_counts["finite_trim_candidate"]:
+        errors.append("finite diagnostic count does not match finite trim candidates")
+    loop_diag = diagnostics.get("loop_point_evidence", {})
+    if int(loop_diag.get("loop_or_held_count", -1)) != class_counts["loop_or_held_candidate"]:
+        errors.append("loop diagnostic count does not match loop/held candidates")
+    preview_diag = diagnostics.get("preview_uncertainty", {})
+    if int(preview_diag.get("tracks_requiring_sequence_semantics", -1)) != semantics_count:
+        errors.append("preview diagnostic sequence semantics count mismatch")
     command_semantics = plan.get("command_semantics", {})
     if command_semantics.get("schema") != "earthbound-decomp.audio-sequence-command-semantics.v1":
         errors.append("missing command semantics reference")

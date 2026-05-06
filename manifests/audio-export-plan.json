@@ -245,6 +245,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -271,12 +285,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -303,6 +345,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -329,12 +385,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -361,6 +445,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -387,12 +485,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -561,7 +687,9 @@
         "finite_end_sample": 108510,
         "finite_end_seconds": 3.390938,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.609063,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -583,10 +711,12 @@
             "finite_end_sample": 108510,
             "finite_end_seconds": 3.390938,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.609063,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -607,7 +737,9 @@
         "finite_end_sample": 326469,
         "finite_end_seconds": 10.202156,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 19.797844,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -629,10 +761,12 @@
             "finite_end_sample": 326469,
             "finite_end_seconds": 10.202156,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 19.797844,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -653,7 +787,9 @@
         "finite_end_sample": 21349,
         "finite_end_seconds": 0.667156,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 29.332844,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -675,10 +811,12 @@
             "finite_end_sample": 21349,
             "finite_end_seconds": 0.667156,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 29.332844,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -699,7 +837,9 @@
         "finite_end_sample": 204602,
         "finite_end_seconds": 6.393813,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 23.606188,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -721,10 +861,12 @@
             "finite_end_sample": 204602,
             "finite_end_seconds": 6.393813,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 23.606188,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -1140,6 +1282,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1166,12 +1322,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -1198,6 +1382,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1224,12 +1422,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -1256,6 +1482,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1282,12 +1522,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -1806,6 +2074,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1832,12 +2114,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -1864,6 +2174,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1890,12 +2214,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -1922,6 +2274,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -1948,12 +2314,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2010,6 +2404,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2036,12 +2444,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2158,6 +2594,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2184,12 +2634,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2246,6 +2724,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2272,12 +2764,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2334,6 +2854,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2360,12 +2894,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2392,6 +2954,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2418,12 +2994,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2510,6 +3114,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2536,12 +3154,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2598,6 +3244,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2624,12 +3284,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2656,6 +3344,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2682,12 +3384,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2894,6 +3624,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2920,12 +3664,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -2952,6 +3724,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -2978,12 +3764,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3010,6 +3824,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3036,12 +3864,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3068,6 +3924,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3094,12 +3964,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3126,6 +4024,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3152,12 +4064,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3184,6 +4124,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3210,12 +4164,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3242,6 +4224,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3268,12 +4264,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3828,6 +4852,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3854,12 +4892,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3886,6 +4952,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3912,12 +4992,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -3944,6 +5052,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -3970,12 +5092,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4002,6 +5152,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4028,12 +5192,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4060,6 +5252,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4086,12 +5292,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4118,6 +5352,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4144,12 +5392,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4176,6 +5452,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4202,12 +5492,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4234,6 +5552,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4260,12 +5592,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4292,6 +5652,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4318,12 +5692,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4465,7 +5867,9 @@
         "finite_end_sample": 219283,
         "finite_end_seconds": 6.852594,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 23.147406,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -4487,10 +5891,12 @@
             "finite_end_sample": 219283,
             "finite_end_seconds": 6.852594,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 23.147406,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -4511,7 +5917,9 @@
         "finite_end_sample": 192463,
         "finite_end_seconds": 6.014469,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 23.985531,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -4533,10 +5941,12 @@
             "finite_end_sample": 192463,
             "finite_end_seconds": 6.014469,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 23.985531,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -4626,7 +6036,9 @@
         "finite_end_sample": 71891,
         "finite_end_seconds": 2.246594,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 27.753406,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -4648,10 +6060,12 @@
             "finite_end_sample": 71891,
             "finite_end_seconds": 2.246594,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 27.753406,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -4677,6 +6091,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4703,12 +6131,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4735,6 +6191,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4761,12 +6231,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4793,6 +6291,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4819,12 +6331,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4881,6 +6421,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -4907,12 +6461,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -4999,6 +6581,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5025,12 +6621,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5057,6 +6681,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5083,12 +6721,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5361,6 +7027,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5387,12 +7067,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5449,6 +7157,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5475,12 +7197,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5537,6 +7287,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5563,12 +7327,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5590,7 +7382,9 @@
         "finite_end_sample": 151833,
         "finite_end_seconds": 4.744781,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 25.255219,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -5612,10 +7406,12 @@
             "finite_end_sample": 151833,
             "finite_end_seconds": 4.744781,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 25.255219,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -5641,6 +7437,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5667,12 +7477,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -5694,7 +7532,9 @@
         "finite_end_sample": 706736,
         "finite_end_seconds": 22.0855,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 7.9145,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -5716,10 +7556,12 @@
             "finite_end_sample": 706736,
             "finite_end_seconds": 22.0855,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 7.9145,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -5740,7 +7582,9 @@
         "finite_end_sample": 706621,
         "finite_end_seconds": 22.081906,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 7.918094,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -5762,10 +7606,12 @@
             "finite_end_sample": 706621,
             "finite_end_seconds": 22.081906,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 7.918094,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -5786,7 +7632,9 @@
         "finite_end_sample": 706625,
         "finite_end_seconds": 22.082031,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 7.917969,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -5808,10 +7656,12 @@
             "finite_end_sample": 706625,
             "finite_end_seconds": 22.082031,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 7.917969,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -5867,6 +7717,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -5893,12 +7757,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6079,7 +7971,9 @@
         "finite_end_sample": 596843,
         "finite_end_seconds": 18.651344,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 11.348656,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6101,10 +7995,12 @@
             "finite_end_sample": 596843,
             "finite_end_seconds": 18.651344,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 11.348656,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6130,6 +8026,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6156,12 +8066,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6188,6 +8126,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6214,12 +8166,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6246,6 +8226,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6272,12 +8266,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6304,6 +8326,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6330,12 +8366,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6362,6 +8426,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6388,12 +8466,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6450,6 +8556,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6476,12 +8596,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6508,6 +8656,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6534,12 +8696,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6566,6 +8756,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -6592,12 +8796,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -6718,7 +8950,9 @@
         "finite_end_sample": 165008,
         "finite_end_seconds": 5.1565,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 24.8435,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6740,10 +8974,12 @@
             "finite_end_sample": 165008,
             "finite_end_seconds": 5.1565,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 24.8435,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6764,7 +9000,9 @@
         "finite_end_sample": 122889,
         "finite_end_seconds": 3.840281,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.159719,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6786,10 +9024,12 @@
             "finite_end_sample": 122889,
             "finite_end_seconds": 3.840281,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.159719,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6810,7 +9050,9 @@
         "finite_end_sample": 122859,
         "finite_end_seconds": 3.839344,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.160656,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6832,10 +9074,12 @@
             "finite_end_sample": 122859,
             "finite_end_seconds": 3.839344,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.160656,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6856,7 +9100,9 @@
         "finite_end_sample": 122954,
         "finite_end_seconds": 3.842312,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.157688,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6878,10 +9124,12 @@
             "finite_end_sample": 122954,
             "finite_end_seconds": 3.842312,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.157688,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6902,7 +9150,9 @@
         "finite_end_sample": 122956,
         "finite_end_seconds": 3.842375,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.157625,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6924,10 +9174,12 @@
             "finite_end_sample": 122956,
             "finite_end_seconds": 3.842375,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.157625,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6948,7 +9200,9 @@
         "finite_end_sample": 122810,
         "finite_end_seconds": 3.837813,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.162188,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -6970,10 +9224,12 @@
             "finite_end_sample": 122810,
             "finite_end_seconds": 3.837813,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.162188,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -6994,7 +9250,9 @@
         "finite_end_sample": 122858,
         "finite_end_seconds": 3.839313,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.160688,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -7016,10 +9274,12 @@
             "finite_end_sample": 122858,
             "finite_end_seconds": 3.839313,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.160688,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -7040,7 +9300,9 @@
         "finite_end_sample": 110961,
         "finite_end_seconds": 3.467531,
         "evidence": "sustained_tail_pcm_silence",
-        "measured_by": "audio_export_duration_measurement"
+        "measured_by": "audio_export_duration_measurement",
+        "tail_silence_seconds": 26.532469,
+        "silence_threshold_abs_sample": 16
       },
       "needs_sequence_semantics": false,
       "evidence": {
@@ -7062,10 +9324,12 @@
             "finite_end_sample": 110961,
             "finite_end_seconds": 3.467531,
             "evidence": "sustained_tail_pcm_silence",
-            "measured_by": "audio_export_duration_measurement"
+            "measured_by": "audio_export_duration_measurement",
+            "tail_silence_seconds": 26.532469,
+            "silence_threshold_abs_sample": 16
           },
           "pcm_corroboration": true,
-          "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending"
+          "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending"
         }
       }
     },
@@ -7160,6 +9424,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7186,12 +9464,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7218,6 +9524,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7244,12 +9564,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7306,6 +9654,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7332,12 +9694,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7520,6 +9910,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7546,12 +9950,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7677,6 +10109,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7703,12 +10149,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7735,6 +10209,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7761,12 +10249,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7793,6 +10309,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7819,12 +10349,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7851,6 +10409,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7877,12 +10449,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -7909,6 +10509,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -7935,12 +10549,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -8066,6 +10708,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -8092,12 +10748,40 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
@@ -8124,6 +10808,20 @@
           "mode": "loop_count_plus_fade_preview",
           "loop_count": 2,
           "fade_seconds": 5.0
+        },
+        "loop_point_evidence": {
+          "status": "placeholder_only_exact_loop_points_pending",
+          "missing_fields": [
+            "intro_samples",
+            "loop_start_sample",
+            "loop_end_sample",
+            "measured_by"
+          ],
+          "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted"
+          ]
         }
       },
       "finite_metadata": null,
@@ -8150,15 +10848,75 @@
               "mode": "loop_count_plus_fade_preview",
               "loop_count": 2,
               "fade_seconds": 5.0
+            },
+            "loop_point_evidence": {
+              "status": "placeholder_only_exact_loop_points_pending",
+              "missing_fields": [
+                "intro_samples",
+                "loop_start_sample",
+                "loop_end_sample",
+                "measured_by"
+              ],
+              "required_evidence": [
+                "decoded sequence loop/fallthrough control flow",
+                "runtime confirmation of loop restart or held-note policy",
+                "sample-accurate loop start/end once the sequence semantics are promoted"
+              ]
             }
           },
           "preview_policy": {
             "mode": "loop_count_plus_fade_preview",
             "loop_count": 2,
             "fade_seconds": 5.0
+          },
+          "loop_point_evidence": {
+            "status": "placeholder_only_exact_loop_points_pending",
+            "missing_fields": [
+              "intro_samples",
+              "loop_start_sample",
+              "loop_end_sample",
+              "measured_by"
+            ],
+            "required_evidence": [
+              "decoded sequence loop/fallthrough control flow",
+              "runtime confirmation of loop restart or held-note policy",
+              "sample-accurate loop start/end once the sequence semantics are promoted"
+            ]
           }
         }
       }
     }
-  ]
+  ],
+  "diagnostic_summary": {
+    "finite_end_policy": {
+      "public_exact_trim_count": 20,
+      "basis": "sustained_tail_pcm_silence_only",
+      "minimum_duration_seconds": 0.667156,
+      "maximum_duration_seconds": 22.0855,
+      "minimum_tail_silence_seconds": 7.9145,
+      "extra_generated_tail_seconds": 0.0,
+      "sequence_semantics_required_for_current_trim": false
+    },
+    "review_policy": {
+      "finite_or_transition_review_count": 27,
+      "public_exact_export_allowed": false,
+      "required_evidence": "manual or decoded sequence proof that observed silence is a musical end rather than a transition/loop setup"
+    },
+    "loop_point_evidence": {
+      "loop_or_held_count": 63,
+      "exact_loop_points_available": 0,
+      "exact_loop_points_missing": 63,
+      "public_exact_export_allowed": false
+    },
+    "preview_uncertainty": {
+      "unknown_active_preview_count": 80,
+      "unmeasured_or_missing_count": 1,
+      "tracks_requiring_sequence_semantics": 170
+    },
+    "oracle_release_gate": {
+      "all_track_near_oracle_passed": true,
+      "independent_emulator_gate_passed": false,
+      "release_quality_playback_claim_ready": false
+    }
+  }
 }

@@ -90,6 +90,19 @@ def oracle_output_root(track_id: int, track_name: str, output_root: str) -> str:
     return f"{output_root.rstrip('/')}/track-{track_id:03d}-{slug}"
 
 
+def diagnostic_focus(track: dict[str, Any]) -> str:
+    metrics = track.get("metrics", {})
+    rendered = int(metrics.get("rendered_samples", 0) or 0)
+    last_nonzero = int(metrics.get("last_nonzero_sample_index", -1) or -1)
+    if rendered > 0 and 0 <= last_nonzero < rendered - 32000:
+        return "finite_tail_or_transition_end"
+    if rendered > 0 and last_nonzero >= rendered - 1:
+        return "active_through_preview_or_loop_candidate"
+    if int(metrics.get("voice_count", 0) or 0) == 0:
+        return "no_keyon_or_silent_load_path"
+    return "general_playback_equivalence"
+
+
 def build_jobs(playback: dict[str, Any], *, all_tracks: bool, output_root: str) -> list[dict[str, Any]]:
     tracks = [track for track in playback.get("tracks", []) if track.get("status") == "ok" and track.get("valid")]
     tracks.sort(key=lambda item: int(item["track_id"]))
@@ -135,9 +148,24 @@ def build_jobs(playback: dict[str, Any], *, all_tracks: bool, output_root: str) 
                     "pcm_feature_similarity",
                     "pcm_alignment_tolerant_similarity",
                 ],
+                "diagnostic_focus": diagnostic_focus(track),
+                "independent_capture_requirements": [
+                    "start from the same source SPC snapshot listed in source_spc.path",
+                    "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+                    "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+                    "record whether the capture is independent_emulator_capture=true",
+                ],
             }
         )
     return jobs
+
+
+def job_focus_counts(jobs: list[dict[str, Any]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for job in jobs:
+        focus = str(job.get("diagnostic_focus", "general_playback_equivalence"))
+        counts[focus] = counts.get(focus, 0) + 1
+    return dict(sorted(counts.items()))
 
 
 def build_plan(playback_manifest_path: Path, *, all_tracks: bool, output_root: str) -> dict[str, Any]:
@@ -187,6 +215,26 @@ def build_plan(playback_manifest_path: Path, *, all_tracks: bool, output_root: s
                 "maximum_leading_silence_delta_samples": 4096,
             },
         },
+        "independent_capture_contract": {
+            "minimum_metadata_fields": [
+                "oracle_id",
+                "oracle_kind",
+                "emulator_name",
+                "emulator_version",
+                "independent_emulator_capture",
+                "source_spc_sha1",
+                "reference_wav_sha1",
+                "capture_command_or_manual_steps",
+            ],
+            "acceptance_evidence": [
+                "SPC/header/DSP state comparison where the emulator exposes it",
+                "PCM alignment and correlation summary",
+                "explicit classification for each mismatch or timing offset",
+            ],
+            "first_runner_target": "representative_tracks",
+            "promotion_runner_target": "all_tracks",
+        },
+        "diagnostic_focus_counts": job_focus_counts(jobs),
         "release_gates": [
             "Reference captures must be generated locally from a user-provided ROM.",
             "Reference SPC/WAV/PCM outputs must stay under ignored build/audio paths.",
@@ -214,6 +262,8 @@ def render_markdown(plan: dict[str, Any]) -> str:
     ]
     gates = [f"- {gate}" for gate in plan["release_gates"]]
     thresholds = plan["comparison_policy"]["recommended_pcm_thresholds"]
+    capture = plan.get("independent_capture_contract", {})
+    focus_counts = plan.get("diagnostic_focus_counts", {})
     return "\n".join(
         [
             "# Audio Oracle Comparison Plan",
@@ -238,6 +288,12 @@ def render_markdown(plan: dict[str, Any]) -> str:
             f"- first gate: {plan['comparison_policy']['minimum_first_gate']}",
             f"- promotion gate: {plan['comparison_policy']['promotion_gate']}",
             f"- PCM thresholds: `{thresholds}`",
+            "",
+            "## Independent Capture Contract",
+            "",
+            f"- minimum metadata fields: `{capture.get('minimum_metadata_fields', [])}`",
+            f"- acceptance evidence: `{capture.get('acceptance_evidence', [])}`",
+            f"- diagnostic focus counts: `{focus_counts}`",
             "",
             "## Workflow",
             "",

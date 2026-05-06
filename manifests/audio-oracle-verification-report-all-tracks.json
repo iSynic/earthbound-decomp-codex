@@ -4611,5 +4611,23 @@
       },
       "result_path": "build/audio/oracle-comparison-all-tracks/track-191-giygas_weakened/oracle-comparison-result.json"
     }
+  ],
+  "independence_diagnostics": {
+    "independent_reference_count": 0,
+    "ares_managed_or_imported_reference_count": 190,
+    "missing_independent_reference_count": 190,
+    "independent_gate_required_for_release_quality": true,
+    "candidate_external_oracles": [
+      "bsnes/higan",
+      "Mesen2",
+      "Mednafen"
+    ],
+    "current_gap": "current captures are ares-managed/backend-summary imports, so they are near-oracle evidence rather than independent emulator evidence"
+  },
+  "release_blockers": [
+    "independent_external_emulator_gate_open"
+  ],
+  "residual_state_deltas": [
+    "full_apu_ram_differs_outside_audio_payload_regions"
   ]
 }

@@ -166,6 +166,7 @@ def build_triage(
             "status": command_semantics.get("status"),
             "summary": command_semantics.get("summary", {}),
         },
+        "lane_diagnostics": lane_diagnostics(categories),
         "categories": categories,
         "findings": [
             "Exact-duration work now splits into packs with N-SPC 0x00 terminator candidates, packs blocked by unpromoted control, and packs needing loop/fallthrough semantics.",
@@ -194,8 +195,47 @@ def recommended_next_step(category: str) -> str:
     return "no sequence-duration action required"
 
 
+def lane_diagnostics(categories: dict[str, list[dict[str, Any]]]) -> dict[str, Any]:
+    diagnostics: dict[str, Any] = {}
+    for category, records in sorted(categories.items()):
+        export_class_counts: Counter[str] = Counter()
+        track_count = 0
+        terminators = 0
+        ef_edges = 0
+        blocker_counts: Counter[str] = Counter()
+        for record in records:
+            track_count += len(record.get("track_ids", []))
+            terminators += int(record.get("terminators", 0))
+            ef_edges += int(record.get("ef_call_edges", 0))
+            export_class_counts.update(record.get("export_class_counts", {}))
+            blocker_counts.update(record.get("blocker_counts", {}))
+        diagnostics[category] = {
+            "pack_count": len(records),
+            "track_count": track_count,
+            "export_class_counts": dict(export_class_counts),
+            "terminators": terminators,
+            "ef_call_edges": ef_edges,
+            "blocker_counts": dict(blocker_counts),
+            "recommended_next_step": recommended_next_step(category),
+        }
+    return diagnostics
+
+
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
+    lane_rows = [
+        "| `{category}` | {pack_count} | {track_count} | `{export_class_counts}` | {terminators} | {ef_call_edges} | `{blocker_counts}` | {next_step} |".format(
+            category=category,
+            pack_count=diag["pack_count"],
+            track_count=diag["track_count"],
+            export_class_counts=diag["export_class_counts"],
+            terminators=diag["terminators"],
+            ef_call_edges=diag["ef_call_edges"],
+            blocker_counts=diag["blocker_counts"],
+            next_step=diag["recommended_next_step"],
+        )
+        for category, diag in data.get("lane_diagnostics", {}).items()
+    ]
     sections = [
         "# Audio Exact-Duration Triage",
         "",
@@ -209,6 +249,12 @@ def render_markdown(data: dict[str, Any]) -> str:
         f"- command semantics status: `{summary['command_semantics_status']}`",
         f"- sequence promotion allowed: `{summary['sequence_promotion_allowed']}`",
         f"- release status: `{summary['release_status']}`",
+        "",
+        "## Lane Diagnostics",
+        "",
+        "| Lane | Packs | Tracks | Export classes | Terminators | EF edges | Blockers | Next step |",
+        "| --- | ---: | ---: | --- | ---: | ---: | --- | --- |",
+        *lane_rows,
         "",
     ]
     for category in [

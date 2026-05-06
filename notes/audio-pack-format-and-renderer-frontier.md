@@ -72,6 +72,35 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Build all-track renderer jobs directly from the SPC index: `python tools/build_audio_backend_jobs_from_spc_index.py`.
 - Build the all-track playback/export handoff: `python tools/build_audio_playback_export_manifest.py`.
 - Validate the all-track playback/export handoff: `python tools/validate_audio_playback_export_manifest.py`.
+- Build targeted 0x00 runtime probe jobs: `python tools/build_audio_zero_runtime_probe_plan.py`.
+- Validate targeted 0x00 runtime probe jobs: `python tools/validate_audio_zero_runtime_probe_plan.py`.
+- Build targeted 0x00 runtime probe runner contract and ignored job queue: `python tools/build_audio_zero_runtime_probe_runner_contract.py`.
+- Validate targeted 0x00 runtime probe runner contract: `python tools/validate_audio_zero_runtime_probe_runner_contract.py --require-generated-jobs`.
+- Dry-run targeted 0x00 runtime probe jobs: `python tools/run_audio_zero_runtime_probe_batch.py --limit 1 --force`.
+- Check targeted 0x00 external harness shape: `python tools/run_audio_zero_runtime_probe_batch.py --job-id zero-probe-track-001-gas_station --force --mode external --external python tools/audio_zero_runtime_probe_stub_harness.py --job "{job}" --result "{result}"`.
+- Validate targeted 0x00 runtime probe batch summary: `python tools/validate_audio_zero_runtime_probe_batch_summary.py`.
+- Collect targeted 0x00 runtime probe results: `python tools/collect_audio_zero_runtime_probe_results.py`.
+- Validate targeted 0x00 runtime probe results: `python tools/validate_audio_zero_runtime_probe_results_summary.py`.
+- Build duration uncertainty register: `python tools/build_audio_duration_uncertainty_register.py`.
+- Validate duration uncertainty register: `python tools/validate_audio_duration_uncertainty_register.py`.
+- Build non-0x00 control-semantics frontier: `python tools/build_audio_nonzero_control_semantics_frontier.py`.
+- Validate non-0x00 control-semantics frontier: `python tools/validate_audio_nonzero_control_semantics_frontier.py`.
+- Build non-0x00 control probe plan: `python tools/build_audio_nonzero_control_probe_plan.py`.
+- Validate non-0x00 control probe plan: `python tools/validate_audio_nonzero_control_probe_plan.py`.
+- Build non-0x00 control probe runner contract and ignored job queue: `python tools/build_audio_nonzero_control_probe_runner_contract.py`.
+- Validate non-0x00 control probe runner contract: `python tools/validate_audio_nonzero_control_probe_runner_contract.py --require-generated-jobs`.
+- Dry-run non-0x00 control probe jobs: `python tools/run_audio_nonzero_control_probe_batch.py --limit 1 --force`.
+- Check non-0x00 external harness shape: `python tools/run_audio_nonzero_control_probe_batch.py --job-id nonzero-probe-ff-pc-0957 --force --mode external --external python tools/audio_nonzero_control_probe_stub_harness.py --job "{job}" --result "{result}"`.
+- Validate non-0x00 control probe batch summary: `python tools/validate_audio_nonzero_control_probe_batch_summary.py`.
+- Validate one non-0x00 control probe result: `python tools/validate_audio_nonzero_control_probe_result.py <result-json>`.
+- Collect non-0x00 control probe results: `python tools/collect_audio_nonzero_control_probe_results.py`.
+- Validate non-0x00 control probe results: `python tools/validate_audio_nonzero_control_probe_results_summary.py`.
+- Build sequence-semantics probe-result intake plan: `python tools/build_audio_sequence_semantics_intake_plan.py`.
+- Validate sequence-semantics probe-result intake plan: `python tools/validate_audio_sequence_semantics_intake_plan.py`.
+- Build unified zero/nonzero probe campaign plan: `python tools/build_audio_probe_campaign_plan.py`.
+- Validate unified zero/nonzero probe campaign plan: `python tools/validate_audio_probe_campaign_plan.py`.
+- Run one unified probe campaign stub-shape job: `python tools/run_audio_probe_campaign.py --limit 1 --force --mode stub-shape`.
+- Validate unified probe campaign run summary: `python tools/validate_audio_probe_campaign_run_summary.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.

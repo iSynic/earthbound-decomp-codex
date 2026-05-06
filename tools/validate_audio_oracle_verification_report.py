@@ -99,6 +99,15 @@ def validate(report: dict[str, Any], *, require_representative_pass: bool) -> li
 
     if gates.get("independent_emulator_gate_passed") and independent_count != len(records):
         errors.append("independent gate passed but not every record is independent")
+    independence = report.get("independence_diagnostics", {})
+    if int(independence.get("independent_reference_count", -1)) != independent_count:
+        errors.append("independent diagnostic count does not match records")
+    missing_independent = max(0, len(records) - independent_count)
+    if int(independence.get("missing_independent_reference_count", -1)) != missing_independent:
+        errors.append("missing independent diagnostic count does not match records")
+    blockers = report.get("release_blockers", [])
+    if not gates.get("independent_emulator_gate_passed") and "independent_external_emulator_gate_open" not in blockers:
+        errors.append("missing independent external emulator release blocker")
     if "why_not_final" not in report.get("interpretation", {}):
         errors.append("report must include why_not_final interpretation")
     return errors

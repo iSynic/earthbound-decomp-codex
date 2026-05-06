@@ -35,6 +35,7 @@ def validate(data: dict[str, Any]) -> None:
     require(data.get("schema") == "earthbound-decomp.audio-exact-duration-triage.v1", "unexpected schema")
     summary = data.get("summary", {})
     categories = data.get("categories", {})
+    lane_diagnostics = data.get("lane_diagnostics", {})
     command_semantics = data.get("command_semantics", {})
     require(summary.get("sequence_packs_triaged", 0) > 0, "expected triaged sequence packs")
     require(
@@ -43,9 +44,13 @@ def validate(data: dict[str, Any]) -> None:
     )
     require("sequence_promotion_allowed" in summary, "summary missing sequence promotion flag")
     require(set(categories).issubset(EXPECTED_CATEGORIES), "unexpected triage category")
+    require(set(lane_diagnostics).issubset(EXPECTED_CATEGORIES), "unexpected triage diagnostic category")
     counted = sum(len(records) for records in categories.values())
     require(counted == summary.get("sequence_packs_triaged"), "triage category count mismatch")
     require("candidate_for_zero_terminator_review" in categories, "expected 0x00 terminator review lane")
+    require("candidate_for_zero_terminator_review" in lane_diagnostics, "expected 0x00 lane diagnostics")
+    diagnostic_pack_count = sum(int(diagnostic.get("pack_count", 0)) for diagnostic in lane_diagnostics.values())
+    require(diagnostic_pack_count == counted, "triage diagnostic pack count mismatch")
     for records in categories.values():
         for pack in records:
             require("pack_id" in pack, "pack missing id")

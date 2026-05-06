@@ -88,6 +88,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -128,6 +135,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -168,6 +182,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -208,6 +229,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -248,6 +276,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -288,6 +323,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -328,6 +370,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -368,6 +417,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -408,6 +464,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -448,6 +511,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -488,6 +558,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -528,6 +605,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -568,6 +652,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -608,6 +699,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "finite_tail_or_transition_end",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -648,6 +746,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -688,6 +793,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -728,6 +840,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -768,6 +887,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "general_playback_equivalence",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -808,6 +934,13 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     },
     {
@@ -848,7 +981,38 @@
         "dsp_register_snapshot",
         "pcm_feature_similarity",
         "pcm_alignment_tolerant_similarity"
+      ],
+      "diagnostic_focus": "active_through_preview_or_loop_candidate",
+      "independent_capture_requirements": [
+        "start from the same source SPC snapshot listed in source_spc.path",
+        "render 32 kHz stereo 16-bit PCM for at least the planned source_render duration",
+        "preserve emulator name, version/build, audio settings, and capture command in capture_metadata",
+        "record whether the capture is independent_emulator_capture=true"
       ]
     }
-  ]
+  ],
+  "independent_capture_contract": {
+    "minimum_metadata_fields": [
+      "oracle_id",
+      "oracle_kind",
+      "emulator_name",
+      "emulator_version",
+      "independent_emulator_capture",
+      "source_spc_sha1",
+      "reference_wav_sha1",
+      "capture_command_or_manual_steps"
+    ],
+    "acceptance_evidence": [
+      "SPC/header/DSP state comparison where the emulator exposes it",
+      "PCM alignment and correlation summary",
+      "explicit classification for each mismatch or timing offset"
+    ],
+    "first_runner_target": "representative_tracks",
+    "promotion_runner_target": "all_tracks"
+  },
+  "diagnostic_focus_counts": {
+    "active_through_preview_or_loop_candidate": 18,
+    "finite_tail_or_transition_end": 1,
+    "general_playback_equivalence": 1
+  }
 }

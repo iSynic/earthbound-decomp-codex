@@ -68,6 +68,25 @@ def best_measurement(track_id: int, base: dict[int, dict[str, Any]], extended: d
     return base_record or extended_record
 
 
+def loop_point_evidence(target: dict[str, Any]) -> dict[str, Any]:
+    exact_fields = {
+        "intro_samples": target.get("intro_samples"),
+        "loop_start_sample": target.get("loop_start_sample"),
+        "loop_end_sample": target.get("loop_end_sample"),
+        "measured_by": target.get("measured_by"),
+    }
+    missing = [key for key, value in exact_fields.items() if value is None]
+    return {
+        "status": "exact_loop_points_available" if not missing else "placeholder_only_exact_loop_points_pending",
+        "missing_fields": missing,
+        "required_evidence": [
+            "decoded sequence loop/fallthrough control flow",
+            "runtime confirmation of loop restart or held-note policy",
+            "sample-accurate loop start/end once the sequence semantics are promoted",
+        ],
+    }
+
+
 def duration_semantics_for_decision(
     export_class: str,
     recommended_mode: str,
@@ -93,7 +112,7 @@ def duration_semantics_for_decision(
             "evidence": {
                 "finite_metadata": finite_metadata,
                 "pcm_corroboration": finite_metadata is not None,
-                "sequence_command_semantics": "not_required_for_pcm_silence_trim_zero_control_pending",
+                "sequence_command_semantics": "not_required_for_current_pcm_silence_trim_policy_zero_control_pending",
             },
         }
     if export_class == "loop_or_held_candidate":
@@ -110,6 +129,7 @@ def duration_semantics_for_decision(
             "public_exact_export_allowed": False,
             "evidence": {
                 "loop_metadata": loop_metadata,
+                "loop_point_evidence": loop_metadata.get("loop_point_evidence") if isinstance(loop_metadata, dict) else None,
                 "preview_policy": loop_metadata.get("preview_policy") if isinstance(loop_metadata, dict) else None,
             },
         }
@@ -188,6 +208,8 @@ def export_decision(
             "finite_metadata": {
                 "finite_end_sample": candidate["end_frame"],
                 "finite_end_seconds": candidate["end_seconds"],
+                "tail_silence_seconds": candidate["tail_silence_seconds"],
+                "silence_threshold_abs_sample": candidate["silence_threshold_abs_sample"],
                 "evidence": "sustained_tail_pcm_silence",
                 "measured_by": "audio_export_duration_measurement",
             },
@@ -200,6 +222,7 @@ def export_decision(
         }, command_semantics)
 
     if status in ("looping_candidate_preview_still_active", "finite_candidate_no_end_seen_in_preview"):
+        loop_evidence = loop_point_evidence(target)
         return with_duration_semantics({
             "export_class": "loop_or_held_candidate",
             "export_status": "preview_policy_ready_exact_loop_pending",
@@ -214,6 +237,7 @@ def export_decision(
                 "loop_end_sample": target.get("loop_end_sample"),
                 "measured_by": target.get("measured_by"),
                 "status": "loop_points_pending",
+                "loop_point_evidence": loop_evidence,
                 "preview_policy": {
                     "mode": "loop_count_plus_fade_preview",
                     "loop_count": 2,
@@ -238,6 +262,8 @@ def export_decision(
             "finite_metadata": {
                 "finite_end_sample": candidate.get("end_frame") if candidate else None,
                 "finite_end_seconds": end_seconds,
+                "tail_silence_seconds": candidate.get("tail_silence_seconds") if candidate else None,
+                "silence_threshold_abs_sample": candidate.get("silence_threshold_abs_sample") if candidate else None,
                 "evidence": "trailing_pcm_silence_review_needed",
                 "measured_by": "audio_export_duration_measurement",
             },
@@ -270,6 +296,57 @@ def export_decision(
         "finite_metadata": None,
         "needs_sequence_semantics": track_id != 0,
     }, command_semantics)
+
+
+def diagnostic_summary(records: list[dict[str, Any]], oracle_report: dict[str, Any]) -> dict[str, Any]:
+    finite = [record for record in records if record["export_class"] == "finite_trim_candidate"]
+    review = [record for record in records if record["export_class"] == "finite_or_transition_review_candidate"]
+    loop_or_held = [record for record in records if record["export_class"] == "loop_or_held_candidate"]
+    unknown = [record for record in records if record["export_class"] == "unknown_active_preview"]
+    finite_durations = [float(record["duration_seconds"]) for record in finite if record.get("duration_seconds") is not None]
+    finite_tail_silence = [
+        float(record.get("finite_metadata", {}).get("tail_silence_seconds", 0.0))
+        for record in finite
+        if record.get("finite_metadata", {}).get("tail_silence_seconds") is not None
+    ]
+    missing_exact_loop_points = 0
+    for record in loop_or_held:
+        evidence = record.get("loop_metadata", {}).get("loop_point_evidence", {})
+        if evidence.get("status") != "exact_loop_points_available":
+            missing_exact_loop_points += 1
+    gate_results = oracle_report.get("gate_results", {})
+    return {
+        "finite_end_policy": {
+            "public_exact_trim_count": len(finite),
+            "basis": "sustained_tail_pcm_silence_only",
+            "minimum_duration_seconds": min(finite_durations) if finite_durations else None,
+            "maximum_duration_seconds": max(finite_durations) if finite_durations else None,
+            "minimum_tail_silence_seconds": min(finite_tail_silence) if finite_tail_silence else None,
+            "extra_generated_tail_seconds": 0.0,
+            "sequence_semantics_required_for_current_trim": False,
+        },
+        "review_policy": {
+            "finite_or_transition_review_count": len(review),
+            "public_exact_export_allowed": False,
+            "required_evidence": "manual or decoded sequence proof that observed silence is a musical end rather than a transition/loop setup",
+        },
+        "loop_point_evidence": {
+            "loop_or_held_count": len(loop_or_held),
+            "exact_loop_points_available": len(loop_or_held) - missing_exact_loop_points,
+            "exact_loop_points_missing": missing_exact_loop_points,
+            "public_exact_export_allowed": missing_exact_loop_points == 0 and bool(loop_or_held),
+        },
+        "preview_uncertainty": {
+            "unknown_active_preview_count": len(unknown),
+            "unmeasured_or_missing_count": sum(1 for record in records if record["export_class"] == "unmeasured_or_missing"),
+            "tracks_requiring_sequence_semantics": sum(1 for record in records if record.get("needs_sequence_semantics")),
+        },
+        "oracle_release_gate": {
+            "all_track_near_oracle_passed": bool(gate_results.get("all_track_oracle_gate_passed")),
+            "independent_emulator_gate_passed": bool(gate_results.get("independent_emulator_gate_passed")),
+            "release_quality_playback_claim_ready": bool(gate_results.get("release_quality_playback_claim_ready")),
+        },
+    }
 
 
 def build_plan(
@@ -354,6 +431,7 @@ def build_plan(
                 command_semantics.get("summary", {}).get("release_sequence_promotion_allowed")
             ),
         },
+        "diagnostic_summary": diagnostic_summary(records, oracle_report),
         "command_semantics": {
             "schema": command_semantics.get("schema"),
             "status": command_semantics.get("status"),
@@ -386,6 +464,10 @@ def render_markdown(plan: dict[str, Any]) -> str:
     ]
     loop_metadata_count = sum(1 for record in plan["tracks"] if record.get("loop_metadata"))
     gates = [f"- {gate}" for gate in plan["release_gates"]]
+    diagnostics = plan.get("diagnostic_summary", {})
+    finite_diag = diagnostics.get("finite_end_policy", {})
+    loop_diag = diagnostics.get("loop_point_evidence", {})
+    preview_diag = diagnostics.get("preview_uncertainty", {})
     return "\n".join(
         [
             "# Audio Export Plan",
@@ -411,6 +493,15 @@ def render_markdown(plan: dict[str, Any]) -> str:
             f"- sample format: `{plan['defaults']['sample_rate']}` Hz, `{plan['defaults']['channels']}` channels, `{plan['defaults']['bits_per_sample']}` bits",
             f"- loop preview: `{plan['defaults']['loop_preview_count']}` loops plus `{plan['defaults']['loop_preview_fade_seconds']}` second fade",
             f"- finite trim policy: {plan['defaults']['finite_trim_tail_policy']}",
+            "",
+            "## Diagnostic Triage",
+            "",
+            f"- finite exact trims allowed by PCM silence evidence: `{finite_diag.get('public_exact_trim_count', 0)}`",
+            f"- finite trim duration range: `{finite_diag.get('minimum_duration_seconds')}`..`{finite_diag.get('maximum_duration_seconds')}` seconds",
+            f"- minimum finite tail silence evidence: `{finite_diag.get('minimum_tail_silence_seconds')}` seconds",
+            f"- loop/held tracks with exact loop points missing: `{loop_diag.get('exact_loop_points_missing', 0)} / {loop_diag.get('loop_or_held_count', 0)}`",
+            f"- unknown active previews still requiring triage: `{preview_diag.get('unknown_active_preview_count', 0)}`",
+            f"- tracks still requiring sequence semantics: `{preview_diag.get('tracks_requiring_sequence_semantics', 0)}`",
             "",
             "## Release Gates",
             "",
