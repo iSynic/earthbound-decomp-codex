@@ -47,6 +47,15 @@ selector, tilemap attribute high-byte offset and bit rewrite, battle-visual
 tile-state word, `$ADE0/$AE00` chunk destinations, `$20` chunk size, script
 start value, and zero/byte-mask sentinels used by the loader tail.
 
+2026-05-06 source polish follow-up: the source now documents the loader phases
+at the call sites rather than only naming the constants. C4 owns the CA:F038
+selector byte, the CA:D7A1/CA:D93D graphics and tilemap pointer-table walks,
+the `$7F:0000` decompression staging buffer, the `$6000/$7C00` VRAM queue
+arguments, and the high-byte tilemap rewrite (`clear $20`, set `$08`). The tail
+is still intentionally bounded: C4 seeds `$ADD4`, `$AE20`, `$AE4B`, and the
+`$ADE0/$AE00` chunks, while C2 owns the decompressed battle-visual asset format
+and script runner behavior.
+
 ## Why this is not the battle overlay interpreter
 
 The include order places `C4:A377` near Giygas/static-transition and battle overlay data, and the next documented code family at `C4:A67E..A7B0` is the battle overlay script interpreter.

@@ -272,6 +272,13 @@ closure.
   and tilemap builders still treated as external callees. See
   `notes/landing-palette-interpolation-export-c4958e-c426ed.md` and
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 gas-station intro visual follow-up: tightened side-effect comments
+  for the CA:F038 selector, CA:D7A1/CA:D93D asset pointer-table walks,
+  `$7F:0000` decompression staging, `$6000/$7C00` VRAM queue arguments,
+  tilemap high-byte rewrite, and the C4-owned `$ADD4/$AE20/$AE4B` plus
+  `$ADE0/$AE00` battle-visual tail seeds. C0/C2 queue, asset-format, and script
+  runner internals remain out of scope. See
+  `notes/gas-station-intro-asset-loader-c4a377.md`.
 
 ## Validation
 

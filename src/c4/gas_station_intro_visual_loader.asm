@@ -69,13 +69,17 @@ ZeroWord                                     = $0000
 ; ---------------------------------------------------------------------------
 ; C4:A377
 
-; LoadGasStationIntroGraphicsAndTilemap
+; Loads the gas-station / War-on-Giygas intro visual package. C4 owns the CA
+; selector/pointer-table walk, $7F:0000 decompression staging, tilemap attribute
+; rewrite, VRAM queue arguments, and small battle-visual tail seeds; C0/C2 own
+; the display queue, decompressed battle-visual asset format, and script runner.
 C4A377_LoadGasStationIntroGraphicsAndTilemap:
     rep #$31
     phd
     tdc
     adc #$FFE0
     tcd
+    ; Queue BG mode/base setup for the intro screen and clear the BG3 tile area.
     lda #GAS_STATION_BG_MODE_3
     jsl C08D79_UpdateBgModeRegisterFromQueue
     ldy #ZeroWord
@@ -87,6 +91,8 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     lda #GAS_STATION_CLEAR_SELECTOR
     jsl C08DDE_UpdateBg3ScreenBaseRegistersFromQueue
 
+    ; First selector byte at CA:F038 chooses a CA:D7A1 graphics pointer.
+    ; Decompress that asset to $7F:0000 and queue $2000 bytes to VRAM $6000.
     lda #GAS_STATION_GRAPHICS_SELECTOR_SOURCE
     sta $0A
     lda #GAS_STATION_GRAPHICS_SELECTOR_SOURCE_BANK
@@ -139,6 +145,8 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     sep #$20
     lda.b #GAS_STATION_UPLOAD_SELECTOR_00
     jsl C08616_QueueVramTransfer_FromDpSource
+    ; Reuse the same selector for the CA:D93D tilemap pointer table, then
+    ; decompress the tilemap to the same $7F:0000 staging buffer.
     lda [$0A]
     and.w #LowByteMask
     asl
@@ -176,6 +184,8 @@ C4A377_LoadGasStationIntroGraphicsAndTilemap:
     sta $1A
     bra C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck
 
+; Rewrites the high byte of each tilemap word in $7F:0000..07FF, clearing bit
+; $20 and setting bit $08 before the tilemap is queued to VRAM-source $7C00.
 C4A455_LoadGasStationIntroGraphicsAndTilemap_AttrLoop:
     sta $06
     stz $08
@@ -209,6 +219,8 @@ C4A47A_LoadGasStationIntroGraphicsAndTilemap_AttrLoopCheck:
     sep #$20
     lda.b #GAS_STATION_UPLOAD_SELECTOR_00
     jsl C08616_QueueVramTransfer_FromDpSource
+    ; Tail setup: feed the C2 battle-visual asset/script side with CA:DCA1 and
+    ; CA:DAD9 table selections, plus the local $ADD4/$AE20/$AE4B state seeds.
     lda.w #GAS_STATION_GRAPHICS_POINTER_TABLE_C
     sta $0A
     lda.w #GAS_STATION_GRAPHICS_POINTER_TABLE_C_BANK
