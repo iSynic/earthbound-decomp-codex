@@ -70,7 +70,7 @@ def zero_status_counts(records: list[dict[str, Any]]) -> dict[str, int]:
 def validate(data: dict[str, Any]) -> None:
     require(data.get("schema") == "earthbound-decomp.audio-duration-uncertainty-register.v1", "unexpected schema")
     require(
-        data.get("status") == "duration_uncertainty_joined_zero_probe_outputs_pending",
+        data.get("status") == "duration_uncertainty_joined_probe_outputs_pending",
         f"unexpected status {data.get('status')}",
     )
     references = set(data.get("references", []))
@@ -78,6 +78,7 @@ def validate(data: dict[str, Any]) -> None:
         "manifests/audio-export-plan.json",
         "manifests/audio-exact-duration-triage.json",
         "manifests/audio-zero-runtime-probe-results-summary.json",
+        "manifests/audio-nonzero-control-probe-results-summary.json",
         "manifests/audio-oracle-verification-report-all-tracks.json",
     ):
         require(reference in references, f"missing reference {reference}")
@@ -95,6 +96,19 @@ def validate(data: dict[str, Any]) -> None:
     require(
         summary.get("remaining_zero_probe_blocker_track_counts") == blocker_counts(records),
         "remaining blocker counts mismatch",
+    )
+    require(summary.get("nonzero_control_probe_job_status_counts"), "missing nonzero probe status counts")
+    require(
+        summary.get("remaining_nonzero_control_probe_blocker_job_counts"),
+        "missing nonzero probe blocker counts",
+    )
+    require(
+        summary["nonzero_control_probe_job_status_counts"].get("pending") == 7,
+        "expected 7 pending nonzero control probe jobs",
+    )
+    require(
+        summary["remaining_nonzero_control_probe_blocker_job_counts"].get("non_zero_control_semantics_pending") == 7,
+        "expected 7 pending nonzero control semantics probe blockers",
     )
     require(summary.get("sequence_promotion_allowed") is False, "sequence promotion must remain blocked")
     require(

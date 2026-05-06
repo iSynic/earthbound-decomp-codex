@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_EXPORT_PLAN = ROOT / "manifests" / "audio-export-plan.json"
 DEFAULT_TRIAGE = ROOT / "manifests" / "audio-exact-duration-triage.json"
 DEFAULT_ZERO_RESULTS = ROOT / "manifests" / "audio-zero-runtime-probe-results-summary.json"
+DEFAULT_NONZERO_RESULTS = ROOT / "manifests" / "audio-nonzero-control-probe-results-summary.json"
 DEFAULT_ORACLE_REPORT = ROOT / "manifests" / "audio-oracle-verification-report-all-tracks.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-duration-uncertainty-register.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-duration-uncertainty-register.md"
@@ -24,6 +25,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--export-plan", default=str(DEFAULT_EXPORT_PLAN), help="Audio export plan JSON.")
     parser.add_argument("--triage", default=str(DEFAULT_TRIAGE), help="Exact-duration triage JSON.")
     parser.add_argument("--zero-results", default=str(DEFAULT_ZERO_RESULTS), help="0x00 probe results summary JSON.")
+    parser.add_argument(
+        "--nonzero-results",
+        default=str(DEFAULT_NONZERO_RESULTS),
+        help="Non-0x00 control probe results summary JSON.",
+    )
     parser.add_argument("--oracle-report", default=str(DEFAULT_ORACLE_REPORT), help="Oracle verification report JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Register JSON output.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Register markdown output.")
@@ -104,6 +110,7 @@ def build_register(
     export_plan: dict[str, Any],
     triage: dict[str, Any],
     zero_results: dict[str, Any],
+    nonzero_results: dict[str, Any],
     oracle_report: dict[str, Any],
 ) -> dict[str, Any]:
     triage_by_track = triage_category_by_track(triage)
@@ -157,11 +164,12 @@ def build_register(
 
     return {
         "schema": "earthbound-decomp.audio-duration-uncertainty-register.v1",
-        "status": "duration_uncertainty_joined_zero_probe_outputs_pending",
+        "status": "duration_uncertainty_joined_probe_outputs_pending",
         "references": [
             "manifests/audio-export-plan.json",
             "manifests/audio-exact-duration-triage.json",
             "manifests/audio-zero-runtime-probe-results-summary.json",
+            "manifests/audio-nonzero-control-probe-results-summary.json",
             "manifests/audio-oracle-verification-report-all-tracks.json",
         ],
         "source_policy": export_plan.get("inputs", {}),
@@ -171,6 +179,11 @@ def build_register(
             "export_class_counts": dict(sorted(export_class_counts.items())),
             "zero_probe_status_track_counts": dict(sorted(zero_status_counts.items())),
             "remaining_zero_probe_blocker_track_counts": dict(sorted(blocker_counts.items())),
+            "nonzero_control_probe_job_status_counts": nonzero_results.get("summary", {}).get("status_counts", {}),
+            "remaining_nonzero_control_probe_blocker_job_counts": nonzero_results.get("summary", {}).get(
+                "remaining_blocker_job_counts",
+                {},
+            ),
             "next_action_track_counts": dict(sorted(next_action_counts.items())),
             "sequence_promotion_allowed": bool(export_plan.get("summary", {}).get("sequence_command_promotion_allowed")),
             "public_exact_duration_track_count": sum(1 for record in records if record["public_exact_duration_allowed_now"]),
@@ -191,7 +204,7 @@ def build_register(
             {
                 "lane": "non_zero_control_semantics_pending",
                 "track_count": primary_counts.get("non_zero_control_semantics_pending", 0),
-                "recommended_work": "decode FD/FE/FF and dispatch effects for the broader sequence lane",
+                "recommended_work": "run the 7 nonzero control probe jobs, starting with the 0x0957 FF/FE/EF mix",
             },
             {
                 "lane": "loop_point_metadata_pending",
@@ -225,7 +238,7 @@ def render_markdown(data: dict[str, Any]) -> str:
         [
             "# Audio Duration Uncertainty Register",
             "",
-            "Status: duration/export uncertainty is joined across export policy, sequence triage, zero-probe results, and oracle gates.",
+            "Status: duration/export uncertainty is joined across export policy, sequence triage, zero/nonzero probe results, and oracle gates.",
             "",
             "## Summary",
             "",
@@ -234,6 +247,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- export classes: `{summary['export_class_counts']}`",
             f"- zero probe statuses: `{summary['zero_probe_status_track_counts']}`",
             f"- zero probe blockers: `{summary['remaining_zero_probe_blocker_track_counts']}`",
+            f"- nonzero probe statuses: `{summary['nonzero_control_probe_job_status_counts']}`",
+            f"- nonzero probe blockers: `{summary['remaining_nonzero_control_probe_blocker_job_counts']}`",
             f"- public exact-duration tracks now: `{summary['public_exact_duration_track_count']}`",
             f"- sequence promotion allowed: `{summary['sequence_promotion_allowed']}`",
             "",
@@ -270,6 +285,7 @@ def main() -> int:
         load_json(Path(args.export_plan)),
         load_json(Path(args.triage)),
         load_json(Path(args.zero_results)),
+        load_json(Path(args.nonzero_results)),
         load_json(Path(args.oracle_report)),
     )
     output = Path(args.output)

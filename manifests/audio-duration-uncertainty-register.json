@@ -1,10 +1,11 @@
 {
   "schema": "earthbound-decomp.audio-duration-uncertainty-register.v1",
-  "status": "duration_uncertainty_joined_zero_probe_outputs_pending",
+  "status": "duration_uncertainty_joined_probe_outputs_pending",
   "references": [
     "manifests/audio-export-plan.json",
     "manifests/audio-exact-duration-triage.json",
     "manifests/audio-zero-runtime-probe-results-summary.json",
+    "manifests/audio-nonzero-control-probe-results-summary.json",
     "manifests/audio-oracle-verification-report-all-tracks.json"
   ],
   "source_policy": {
@@ -44,6 +45,15 @@
       "finite_transition_review": 10,
       "loop_point_metadata": 2,
       "zero_runtime_effect_proof": 19
+    },
+    "nonzero_control_probe_job_status_counts": {
+      "pending": 7
+    },
+    "remaining_nonzero_control_probe_blocker_job_counts": {
+      "earthbound_variant_ff_effect": 1,
+      "ef_call_return_effect": 3,
+      "non_zero_control_semantics_pending": 7,
+      "timing_toggle_effect": 3
     },
     "next_action_track_counts": {
       "classify active preview as finite, held, looping, or unresolved": 1,
@@ -85,7 +95,7 @@
     {
       "lane": "non_zero_control_semantics_pending",
       "track_count": 155,
-      "recommended_work": "decode FD/FE/FF and dispatch effects for the broader sequence lane"
+      "recommended_work": "run the 7 nonzero control probe jobs, starting with the 0x0957 FF/FE/EF mix"
     },
     {
       "lane": "loop_point_metadata_pending",

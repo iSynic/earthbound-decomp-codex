@@ -1,6 +1,6 @@
 # Audio Duration Uncertainty Register
 
-Status: duration/export uncertainty is joined across export policy, sequence triage, zero-probe results, and oracle gates.
+Status: duration/export uncertainty is joined across export policy, sequence triage, zero/nonzero probe results, and oracle gates.
 
 ## Summary
 
@@ -9,6 +9,8 @@ Status: duration/export uncertainty is joined across export policy, sequence tri
 - export classes: `{'finite_or_transition_review_candidate': 27, 'finite_trim_candidate': 20, 'loop_or_held_candidate': 63, 'skip_no_audio': 1, 'unknown_active_preview': 80, 'unmeasured_or_missing': 1}`
 - zero probe statuses: `{'not_in_zero_probe_lane': 173, 'pending': 19}`
 - zero probe blockers: `{'active_preview_classification': 7, 'ef_return_stack_model': 15, 'finite_transition_review': 10, 'loop_point_metadata': 2, 'zero_runtime_effect_proof': 19}`
+- nonzero probe statuses: `{'pending': 7}`
+- nonzero probe blockers: `{'earthbound_variant_ff_effect': 1, 'ef_call_return_effect': 3, 'non_zero_control_semantics_pending': 7, 'timing_toggle_effect': 3}`
 - public exact-duration tracks now: `21`
 - sequence promotion allowed: `False`
 
@@ -24,7 +26,7 @@ Status: duration/export uncertainty is joined across export policy, sequence tri
 | Lane | Tracks | Recommended work |
 | --- | ---: | --- |
 | `zero_runtime_probe_pending` | 19 | run the 19 generated zero-runtime probe jobs, then collect and validate results |
-| `non_zero_control_semantics_pending` | 155 | decode FD/FE/FF and dispatch effects for the broader sequence lane |
+| `non_zero_control_semantics_pending` | 155 | run the 7 nonzero control probe jobs, starting with the 0x0957 FF/FE/EF mix |
 | `loop_point_metadata_pending` | 5 | extract loop entry/exit evidence before exact loop export |
 
 ## Decision Policy
