@@ -10984,9 +10984,10 @@ hirom
 org $C216AD
 
 !C4FBBD_ChangeMusic = $C4FBBD
-!CurrentMusicStateMirrorA = $5DD4
-!CurrentMusicStateMirrorB = $5DD6
-C216AD_ApplyMusicStateAndMirrorTo5DD4:
+!LatchedMapMusicTrackMirror = $5DD4
+!CurrentMapMusicTrack = $5DD6
+C216AD_ApplyMusicTrackAndSyncMirror:
+!C216AD_ApplyMusicStateAndMirrorTo5DD4 = C216AD_ApplyMusicTrackAndSyncMirror
     rep #$31
     phd
     pha
@@ -10999,8 +11000,8 @@ C216AD_ApplyMusicStateAndMirrorTo5DD4:
     txa
     jsl !C4FBBD_ChangeMusic
     ldx $0E
-    stx !CurrentMusicStateMirrorA
-    stx !CurrentMusicStateMirrorB
+    stx !LatchedMapMusicTrackMirror
+    stx !CurrentMapMusicTrack
     pld
     rtl
 
@@ -11028,12 +11029,13 @@ hirom
 org $C216D0
 
 !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
-!C12E42_RefreshHpPpRollersAfterSound = $C12E42
-PLAY_SOUND_AND_UNKNOWN:
-!C216D0_PlaySoundAndRefreshHpPpRollers = PLAY_SOUND_AND_UNKNOWN
+!C12E42_LightWindowTick = $C12E42
+PLAY_SOUND_AND_TICK_LIGHT_WINDOW:
+!C216D0_PlaySoundAndTickLightWindow = PLAY_SOUND_AND_TICK_LIGHT_WINDOW
+!C216D0_PlaySoundAndRefreshHpPpRollers = PLAY_SOUND_AND_TICK_LIGHT_WINDOW
     rep #$31
     jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
-    jsl !C12E42_RefreshHpPpRollersAfterSound
+    jsl !C12E42_LightWindowTick
     rtl
 
 

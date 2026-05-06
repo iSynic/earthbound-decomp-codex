@@ -208,3 +208,9 @@ This planning pass is documentation-only.
   `notes/battle-text-entry-tail-dd82-dd9f.md`,
   `notes/battle-text-entry-family-c1dc1c-dd7c.md`, and
   `notes/c2-ef-battle-text-contract-workahead.md`.
+- 2026-05-06: C1 text-command `1F 00..03` music/sound polish landed alongside
+  the C2 wrapper pass. The promoted constants name the C2 music-track mirror
+  applier, stop-music redirect, play-sound/light-window-tick wrapper, and the
+  C0 current-position music-id getter used by the restore-current-map-music
+  branch. See `notes/text-command-family-1f-deferred-callbacks.md` and
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.

@@ -8895,6 +8895,9 @@ hirom
 org $C1461A
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
+!C216C9_StopMusicRedirect = $C216C9
+!C216D0_PlaySoundAndTickLightWindow = $C216D0
 !C103DC_ReadTextCommandArgumentWord = $03DC
 !C10400_GetCurrentTextContextWorkmem = $0400
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
@@ -9088,6 +9091,7 @@ C1473A_ResolveActiveCharacterNumber:
     pld
     rts
 CC_1F_00:
+!C14751_QueueOrApplyMusicTrackTextCommand = CC_1F_00
 !C14751_HandleTextCommand4751 = CC_1F_00
     rep #$31
     phd
@@ -9128,19 +9132,21 @@ C1478E_HandleTextCommand0EStoreToArgmem_L478E:
     and.w #$00FF
     tax
     lda $06
-    jsl $C216AD
+    jsl !C216AD_ApplyMusicTrackAndSyncMirror
     lda.w #$0000
 C1479E_HandleTextCommand0EStoreToArgmem_L479E:
     pld
     rts
 CC_1F_01:
+!C147A0_StopMusicTextCommand = CC_1F_01
 !C147A0_SetEventFlagFromTextArgument = CC_1F_01
     rep #$31
     txa
-    jsl $C216C9
+    jsl !C216C9_StopMusicRedirect
     lda.w #$0000
     rts
 CC_1F_02:
+!C147AB_PlaySoundTextCommand = CC_1F_02
 !C147AB_CheckEventFlagFromTextArgument = CC_1F_02
     rep #$31
     phd
@@ -9158,7 +9164,7 @@ C147BE_HandleTextCommand0EStoreToArgmem_L47BE:
     jsr $03DC
 C147C1_HandleTextCommand0EStoreToArgmem_L47C1:
     lda $06
-    jsl $C216D0
+    jsl !C216D0_PlaySoundAndTickLightWindow
     lda.w #$0000
     pld
     rts
@@ -16787,8 +16793,10 @@ org $C17B56
 
 !C0886C_SetDisplayTransitionState = $C0886C
 !C0887A_ClearDisplayTransitionState = $C0887A
+!C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
 !C10DF6_PrintNumber = $0DF6
 !C1AD26_LoadBattleTextSubstitutionPointer = $AD26
+!C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
 !C2165E_SetEventFlagOrState = $C2165E
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
@@ -17935,9 +17943,9 @@ C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
     lda.w #$47AB
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
-    jsl $C069F7
+    jsl !C069F7_Get_CurrentPositionMusicOrAreaId
     ldx.w #$0000
-    jsl $C216AD
+    jsl !C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
     lda.w #$7254

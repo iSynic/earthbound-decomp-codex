@@ -13,13 +13,14 @@
 
 C4FBBD_ChangeMusic = $C4FBBD
 
-CurrentMusicStateMirrorA = $5DD4
-CurrentMusicStateMirrorB = $5DD6
+LatchedMapMusicTrackMirror = $5DD4
+CurrentMapMusicTrack       = $5DD6
 
 ; ---------------------------------------------------------------------------
 ; C2:16AD
 
-C216AD_ApplyMusicStateAndMirrorTo5DD4:
+C216AD_ApplyMusicTrackAndSyncMirror:
+C216AD_ApplyMusicStateAndMirrorTo5DD4 = C216AD_ApplyMusicTrackAndSyncMirror
     rep #$31
     phd
     pha
@@ -32,7 +33,7 @@ C216AD_ApplyMusicStateAndMirrorTo5DD4:
     txa
     jsl C4FBBD_ChangeMusic
     ldx $0E
-    stx CurrentMusicStateMirrorA
-    stx CurrentMusicStateMirrorB
+    stx LatchedMapMusicTrackMirror
+    stx CurrentMapMusicTrack
     pld
     rtl

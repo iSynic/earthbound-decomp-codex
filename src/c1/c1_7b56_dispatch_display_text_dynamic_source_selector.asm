@@ -13,8 +13,10 @@
 
 C0886C_SetDisplayTransitionState   = $C0886C
 C0887A_ClearDisplayTransitionState = $C0887A
+C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
 C10DF6_PrintNumber                 = $0DF6
 C1AD26_LoadBattleTextSubstitutionPointer = $AD26
+C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
 C2165E_SetEventFlagOrState         = $C2165E
 
 LoadedBattleTextAmountPointerLo    = $06
@@ -1167,9 +1169,10 @@ C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
     lda.w #$47AB
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
-    jsl $C069F7
+    ; Text command 1F 03: restore map music from the current position.
+    jsl C069F7_Get_CurrentPositionMusicOrAreaId
     ldx.w #$0000
-    jsl $C216AD
+    jsl C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
     lda.w #$7254

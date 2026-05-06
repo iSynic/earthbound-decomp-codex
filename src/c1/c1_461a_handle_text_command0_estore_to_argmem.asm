@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
+C216C9_StopMusicRedirect = $C216C9
+C216D0_PlaySoundAndTickLightWindow = $C216D0
 C103DC_ReadTextCommandArgumentWord = $03DC
 C10400_GetCurrentTextContextWorkmem = $0400
 C1045D_InstallPrimaryInteractionContextPointer = $045D
@@ -210,6 +213,7 @@ C1473A_ResolveActiveCharacterNumber:
     pld
     rts
 CC_1F_00:
+C14751_QueueOrApplyMusicTrackTextCommand = CC_1F_00
 C14751_HandleTextCommand4751 = CC_1F_00
     rep #$31
     phd
@@ -250,19 +254,21 @@ C1478E_HandleTextCommand0EStoreToArgmem_L478E:
     and.w #$00FF
     tax
     lda $06
-    jsl $C216AD
+    jsl C216AD_ApplyMusicTrackAndSyncMirror
     lda.w #$0000
 C1479E_HandleTextCommand0EStoreToArgmem_L479E:
     pld
     rts
 CC_1F_01:
+C147A0_StopMusicTextCommand = CC_1F_01
 C147A0_SetEventFlagFromTextArgument = CC_1F_01
     rep #$31
     txa
-    jsl $C216C9
+    jsl C216C9_StopMusicRedirect
     lda.w #$0000
     rts
 CC_1F_02:
+C147AB_PlaySoundTextCommand = CC_1F_02
 C147AB_CheckEventFlagFromTextArgument = CC_1F_02
     rep #$31
     phd
@@ -280,7 +286,7 @@ C147BE_HandleTextCommand0EStoreToArgmem_L47BE:
     jsr $03DC
 C147C1_HandleTextCommand0EStoreToArgmem_L47C1:
     lda $06
-    jsl $C216D0
+    jsl C216D0_PlaySoundAndTickLightWindow
     lda.w #$0000
     pld
     rts

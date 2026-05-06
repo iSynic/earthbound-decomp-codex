@@ -37,7 +37,10 @@ This note covers the next C2 audit gap after the early window/HPPP pass. The cor
 
 ## `C2:16AD`: music/state latch wrapper
 
-`C2:16AD` takes `A`, calls `C4:FBBD`, then stores the original value into both `$5DD4` and `$5DD6`.
+`C2:16AD` takes `A`, calls `C4:FBBD`, then stores the original value into both `$5DD4` and `$5DD6`. The best current local split is:
+
+- `$5DD4` = latched map-music mirror, still soft because it overlaps other staged-transition uses in C0/C4 contexts
+- `$5DD6` = current map music track, stronger because C0 current-position music helpers and the ebsrc `change_music_5DD6` include agree
 
 Direct callers:
 
@@ -46,7 +49,21 @@ Direct callers:
 
 The clearest caller-side clue is `C1:842F`, reached from the text-command `0x1F 03` branch that the legacy reference comments as "restore default music". That path calls `C0:69F7`, passes `X = 0`, then calls `C2:16AD`. So the safest current name is a behavior-level one: this is a music/audio state latch wrapper, not just a raw store into `$5DD4/$5DD6`.
 
-Working name: `ApplyMusicStateAndMirrorTo5DD4`.
+Working name: `ApplyMusicTrackAndSyncMirror`.
+
+Compatibility alias: `ApplyMusicStateAndMirrorTo5DD4`.
+
+The adjacent tiny audio wrappers are now pinned at the source contract level too:
+
+- `C2:16C9` is `StopMusicRedirect`, a one-call wrapper around `C0:ABC6`.
+- `C2:16D0` is `PlaySoundAndTickLightWindow`, a wrapper that sends the sound/effect id in `A` through `C0:ABE0`, then runs `C1:2E42`'s light window tick. This retires the inherited `PLAY_SOUND_AND_UNKNOWN` wording while keeping the older HP/PP-refresh alias as a compatibility clue.
+
+The C1 family-`1F` callers line up with those roles:
+
+- `1F 00` queues or applies a music track through `C2:16AD`.
+- `1F 01` stops music through `C2:16C9`.
+- `1F 02` plays a sound/effect and ticks the light window through `C2:16D0`.
+- `1F 03` restores map music by asking `C0:69F7` for the current-position music id, then applying it through `C2:16AD`.
 
 ## Party overlay and party registry mutations
 
@@ -206,6 +223,11 @@ Source polish:
   index inputs; the `C2:24E1/2524` item-subtype classifier tails now name the
   `D5:5000` item config row, packed class byte `+0x19`, `0x0C` equipment-slot
   subtype mask, and returned slot ordinals.
+- 2026-05-06: `C2:16AD` now distinguishes the current map music track at
+  `$5DD6` from the softer latched mirror at `$5DD4`; `C2:16D0` now uses the
+  source label `PlaySoundAndTickLightWindow`, replacing the inherited
+  `PLAY_SOUND_AND_UNKNOWN` name while preserving an HP/PP refresh compatibility
+  alias.
 
 ## Source Scaffold Promotion
 
@@ -245,7 +267,9 @@ The exact C1 command labels for the six direct callers remain a separate parser-
 
 ## Working Names
 
-- `C2:16AD` = `ApplyMusicStateAndMirrorTo5DD4`
+- `C2:16AD` = `ApplyMusicTrackAndSyncMirror`
+- `C2:16C9` = `StopMusicRedirect`
+- `C2:16D0` = `PlaySoundAndTickLightWindow`
 - `C2:23D9` = `LookupStatusTileValueForHpPpWindow`
 - `C2:2474` = `LookupStatusTileWidthOrOffsetForHpPpWindow`
 - `C2:24E1` = `ClassifyItemEquipSlotSubtypeOrdinal`
@@ -271,6 +295,6 @@ High confidence:
 
 Medium confidence:
 
-- `C2:16AD` as a music/default-audio state latch wrapper. The strongest caller supports it, but `$5DD4/$5DD6` need more downstream naming.
+- `C2:16AD` as a music/default-audio state latch wrapper. `$5DD6` is now strong as the current map music track; `$5DD4` remains a softer latched mirror because nearby transition code can reuse it in staged-coordinate contexts.
 - the exact semantic names for `$99DC` values `1` and `2`.
 - the user-facing reason the `0x1F` command pair needs the temporary `$983A/$983B` source-state save/restore.

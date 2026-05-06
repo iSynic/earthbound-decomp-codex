@@ -1,4 +1,4 @@
-; EarthBound C2 sound effect and HP/PP roller refresh wrapper.
+; EarthBound C2 sound effect and light window tick wrapper.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,20 +6,21 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:16D0..C2:16DB PlaySoundAndRefreshHpPpRollers
+; - C2:16D0..C2:16DB PlaySoundAndTickLightWindow
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
 C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
-C12E42_RefreshHpPpRollersAfterSound      = $C12E42
+C12E42_LightWindowTick                   = $C12E42
 
 ; ---------------------------------------------------------------------------
 ; C2:16D0
 
-PLAY_SOUND_AND_UNKNOWN:
-C216D0_PlaySoundAndRefreshHpPpRollers = PLAY_SOUND_AND_UNKNOWN
+PLAY_SOUND_AND_TICK_LIGHT_WINDOW:
+C216D0_PlaySoundAndTickLightWindow = PLAY_SOUND_AND_TICK_LIGHT_WINDOW
+C216D0_PlaySoundAndRefreshHpPpRollers = PLAY_SOUND_AND_TICK_LIGHT_WINDOW
     rep #$31
     jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
-    jsl C12E42_RefreshHpPpRollersAfterSound
+    jsl C12E42_LightWindowTick
     rtl

@@ -16,6 +16,12 @@ In the live parser path, top-level command byte `0x1F` dispatches through the ba
 
 The strongest currently pinned members are:
 
+- `0x1F 00` -> queue or apply a music track through `C2:16AD`
+- `0x1F 01` -> stop music through `C2:16C9`
+- `0x1F 02` -> play a sound/effect through `C2:16D0`, then tick the light
+  window path through `C1:2E42`
+- `0x1F 03` -> restore map music from the current-position music id via
+  `C0:69F7` and `C2:16AD`
 - `0x1F 40` -> stage the one-byte special-event argument used by the adjacent
   special-event dispatcher path
 - `0x1F 41` -> special-event dispatcher, with local wrapper at `C1:72DA` and
@@ -31,6 +37,12 @@ The strongest currently pinned members are:
 ## Source scaffold promotion
 
 The large `C1:621F..7274` callback corridor is now decoded source in `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`. That source covers the hidden `1F C0` / `JUMP_MULTI2` finalizer, Jeff repair's `D0` branch, several low-word event-helper leaves in the `0x1F 13..1F` and `E1..F2` bands, and the nearby `1F 04/62/63/66/67` leaves.
+
+The lower `C1:461A..4819` text-command source now also names the nearby
+`1F 00..02` music/sound leaves, and the dynamic source-selector corridor names
+the `1F 03` restore-current-map-music branch. These leaves call the C2 music
+track, stop-music, and play-sound/light-window wrappers by contract names
+instead of raw far addresses.
 
 The adjacent `C1:7274..7440` corridor is now decoded source in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. It covers `1F 40`, `1F 41`'s local special-event-dispatch wrapper, `1F D2`'s wandering-photographer helper bridge, `1F F3/F4`, the `C1:73C0` battle visual result stager, and `1F 07`. The `C1:7440` timed-delivery callback adapter itself is now decoded source in `src/c1/c1_7440_timed_delivery_row_selector_callback.asm`. The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 

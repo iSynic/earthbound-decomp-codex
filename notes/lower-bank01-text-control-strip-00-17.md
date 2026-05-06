@@ -90,7 +90,8 @@ The lower command strip around `C1:4103..4819` is now checked in as decoded sour
 
 - `C1:4103..4558`: direct jump, jump-multi, flag control, call-text, number-selector, and force-alignment helpers
 - `C1:4558..461A`: workmem test/copy helpers
-- `C1:461A..4819`: store-to-argmem plus adjacent text-queue, item-name, and event-flag argument helpers
+- `C1:461A..4819`: store-to-argmem plus adjacent text-queue, item-name, and
+  `1F 00..02` music/sound helper leaves
 
 The combined C1 scaffold validates byte-for-byte after promotion:
 

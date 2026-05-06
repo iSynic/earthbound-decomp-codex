@@ -163,6 +163,10 @@ battle-presentation callers:
   the `$88E0/$88E2` open-window chain, `$88E4/$8650` window-record map,
   `$894E` title-upload slots, `$89D4` text-entry records, `$8958` focus id,
   and the `C4:3F53` `$1AD6` mask-table reload.
+- `C2:16D0`, just outside this early corridor, now uses the
+  `PlaySoundAndTickLightWindow` source label for the text-command sound/effect
+  wrapper that queues the sound through `C0:ABE0` and immediately runs the
+  shared `C1:2E42` light window tick.
 
 ## Working Names
 

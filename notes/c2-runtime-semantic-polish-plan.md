@@ -444,6 +444,14 @@ contract notes for C0/C1/C3/C4 consumers.
   latches, and the `C4:3F53` menu/name-entry mask-table reload into `$1AD6`.
   See `notes/c2-symbol-only-stragglers-c200d1-c20d3f.md` and
   `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-06 sixty-fourth slice: tightened the tiny C2 audio/music wrapper
+  strip at `C2:16AD/16C9/16D0` and its C1 text-command callers. `C2:16AD`
+  now names `$5DD6` as the current map music track and `$5DD4` as the softer
+  latched mirror; `C2:16D0` now retires `PLAY_SOUND_AND_UNKNOWN` in favor of
+  `PlaySoundAndTickLightWindow`; C1 `1F 00..03` callers now use named C0/C2
+  contracts for play-music, stop-music, play-sound, and restore-current-map
+  music. See `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`
+  and `notes/text-command-family-1f-deferred-callbacks.md`.
 
 ## Validation
 
