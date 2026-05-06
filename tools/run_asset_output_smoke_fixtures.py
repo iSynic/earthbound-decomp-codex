@@ -177,11 +177,32 @@ def validate_report_metadata(output: dict[str, Any], fixture_id: str) -> list[st
     return errors
 
 
+def validate_report_preview_geometry(output: dict[str, Any], fixture: dict[str, Any]) -> tuple[list[str], int]:
+    geometry = fixture.get("target_preview_geometry")
+    if not isinstance(geometry, dict):
+        return [], 0
+    if geometry.get("status") != "known":
+        return [], 0
+    fixture_id = str(fixture["id"])
+    errors: list[str] = []
+    checked = 0
+    for field in ("width", "height", "tiles", "colors"):
+        expected = geometry.get(field)
+        if expected is None:
+            continue
+        checked += 1
+        actual = output.get(field)
+        if actual != expected:
+            errors.append(f"{fixture_id}: report {field}={actual!r}, expected {expected!r}")
+    return errors, checked
+
+
 def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root: Path) -> dict[str, Any]:
     assets_by_id = {str(asset["id"]): asset for asset in report["assets"]}
     errors: list[str] = []
     verified_output_keys: set[tuple[str, str, str]] = set()
     metadata_field_checks = 0
+    preview_geometry_field_checks = 0
 
     for fixture in plan["fixtures"]:
         fixture_id = str(fixture["id"])
@@ -213,6 +234,9 @@ def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root
         errors.extend(metadata_errors)
         if not metadata_errors:
             metadata_field_checks += len(OUTPUT_RECIPE_CONTRACTS[target_kind].report_required_fields)
+        geometry_errors, geometry_checks = validate_report_preview_geometry(matched_output, fixture)
+        errors.extend(geometry_errors)
+        preview_geometry_field_checks += geometry_checks
         verified_output_keys.add((asset_id, target_kind, target_path))
 
     if errors:
@@ -222,6 +246,7 @@ def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root
         "fixture_targets_checked": len(plan["fixtures"]),
         "unique_outputs_checked": len(verified_output_keys),
         "metadata_field_checks": metadata_field_checks,
+        "preview_geometry_field_checks": preview_geometry_field_checks,
     }
 
 

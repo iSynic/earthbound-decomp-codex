@@ -15,8 +15,8 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - decoder-backed outputs: `3956`
 - renderer-backed outputs: `3264`
 - PNG preview/render outputs: `3264`
-- smoke fixture selectors: `41`
-- distinct smoke target outputs: `21`
+- smoke fixture selectors: `55`
+- distinct smoke target outputs: `22`
 - smoke fixture assets: `14`
 - raw-only assets: `385`
 - preview geometry status mix: `known` 2783, `requires_decode` 481
@@ -29,7 +29,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Mixed asset/table banks | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 7 | `raw` 7 | - |
 | Overworld sprites | 1148 | 3440 | 2292 | 2292 | 2292 | 2 | 1 | 2 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | 130 | 282 | 152 | 55 | 55 | 4 | 3 | 33 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22 | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
-| UI, fonts, and town-map assets | 69 | 152 | 83 | 30 | 30 | 6 | 5 | 21 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more | `grayscale_tile_sheet` 18, `palette_swatch` 12 |
+| UI, fonts, and town-map assets | 69 | 152 | 83 | 30 | 30 | 7 | 5 | 21 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more | `grayscale_tile_sheet` 18, `palette_swatch` 12 |
 | Audio packs | 171 | 171 | 0 | 0 | 0 | 0 | 0 | 171 | `raw` 171 | - |
 | EF debug and late-tail data | 5 | 6 | 1 | 1 | 1 | 1 | 1 | 4 | `raw` 5, `snes_2bpp_tiles_png` 1 | `grayscale_tile_sheet` 1 |
 
@@ -49,4 +49,4 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `snes_4bpp_tiles_palette_png` | 1146 | 1146 | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` | 1 | `known` 1146 |
 | `snes_4bpp_tiles_png` | 1151 | 1151 | `snes_4bpp_tiles` | `grayscale_tile_sheet` | 2 | `known` 1151 |
 | `snes_palette_json` | 216 | 216 | `snes_palette` | - | 3 | - |
-| `snes_palette_swatch_png` | 216 | 216 | `snes_palette` | `palette_swatch` | 2 | `known` 216 |
+| `snes_palette_swatch_png` | 216 | 216 | `snes_palette` | `palette_swatch` | 3 | `known` 216 |

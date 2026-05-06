@@ -12,6 +12,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
+from build_asset_output_preview_geometry import preview_geometry
 from build_asset_output_recipe_contracts import FAMILIES, compact_counts, load_manifest_assets, rel
 
 
@@ -52,8 +53,9 @@ def make_fixture(
     output: dict[str, Any],
     *,
     reason: str,
+    target_preview_geometry: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    fixture = {
         "id": fixture_id("fixture", fixture_type, fixture_key),
         "type": fixture_type,
         "key": fixture_key,
@@ -68,6 +70,9 @@ def make_fixture(
         "target_output": output_summary(output),
         "all_output_kinds": sorted({str(item.get("kind")) for item in asset["outputs"] if isinstance(item, dict)}),
     }
+    if target_preview_geometry is not None:
+        fixture["target_preview_geometry"] = target_preview_geometry
+    return fixture
 
 
 def build_output_candidates(assets: list[dict[str, Any]]) -> list[tuple[dict[str, Any], dict[str, Any]]]:
@@ -119,8 +124,10 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
 
     output_counts: Counter[str] = Counter()
     family_renderer_counts: Counter[tuple[str, str]] = Counter()
+    family_renderer_geometry_counts: Counter[tuple[str, str, str]] = Counter()
     family_decoder_counts: Counter[tuple[str, str]] = Counter()
     family_output_counts: dict[str, Counter[str]] = defaultdict(Counter)
+    preview_geometry_by_candidate: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for asset, output in candidates:
         kind = str(output["kind"])
         contract = OUTPUT_RECIPE_CONTRACTS[kind]
@@ -128,6 +135,14 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
         family_output_counts[str(asset["family"])][kind] += 1
         if contract.renderer is not None:
             family_renderer_counts[(str(asset["family"]), contract.renderer)] += 1
+            if contract.extension == ".png":
+                geometry = preview_geometry(output, int(asset["bytes"]))
+                preview_geometry_by_candidate[
+                    (str(asset["manifest_path"]), str(asset["id"]), kind, str(output["path"]))
+                ] = geometry
+                family_renderer_geometry_counts[
+                    (str(asset["family"]), contract.renderer, str(geometry["status"]))
+                ] += 1
         if contract.decoder is not None:
             family_decoder_counts[(str(asset["family"]), contract.decoder)] += 1
 
@@ -164,6 +179,33 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
                 asset,
                 output,
                 reason="Covers one renderer in one asset family.",
+            )
+        )
+
+    for family, renderer, geometry_status in sorted(family_renderer_geometry_counts):
+        selected = first_candidate(
+            candidates,
+            lambda asset, output, wanted_family=family, wanted_renderer=renderer, wanted_status=geometry_status: (
+                asset["family"] == wanted_family
+                and OUTPUT_RECIPE_CONTRACTS[str(output["kind"])].renderer == wanted_renderer
+                and OUTPUT_RECIPE_CONTRACTS[str(output["kind"])].extension == ".png"
+                and preview_geometry(output, int(asset["bytes"]))["status"] == wanted_status
+            ),
+        )
+        if selected is None:
+            raise ValueError(f"No fixture candidate found for {family}/{renderer}/{geometry_status}")
+        asset, output = selected
+        geometry = preview_geometry_by_candidate[
+            (str(asset["manifest_path"]), str(asset["id"]), str(output["kind"]), str(output["path"]))
+        ]
+        fixtures.append(
+            make_fixture(
+                "family_renderer_geometry",
+                f"{family}.{renderer}.{geometry_status}",
+                asset,
+                output,
+                reason="Covers one renderer plus static preview geometry status in one asset family.",
+                target_preview_geometry=geometry,
             )
         )
 
@@ -220,6 +262,7 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             "unique_selected_manifest_asset_pairs": len(selected_manifest_asset_pairs),
             "recipe_kinds_covered": len(output_counts),
             "family_renderer_pairs_covered": len(family_renderer_counts),
+            "family_renderer_geometry_pairs_covered": len(family_renderer_geometry_counts),
             "family_decoder_pairs_covered": len(family_decoder_counts),
             "fixture_type_counts": dict(sorted(type_counts.items())),
             "fixture_family_counts": dict(sorted(family_counts.items())),
@@ -239,6 +282,7 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
                 "Every target output file exists and matches the reported byte count and SHA-1.",
                 "Every target output has positive bytes.",
                 "Every target output includes the report metadata required by its typed recipe contract.",
+                "Every statically known fixture preview geometry matches the extraction report dimensions and counts.",
             ],
         },
     }
@@ -259,6 +303,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
         f"- unique selected assets: `{coverage['unique_selected_assets']}`",
         f"- recipe kinds covered: `{coverage['recipe_kinds_covered']}`",
         f"- family/renderer pairs covered: `{coverage['family_renderer_pairs_covered']}`",
+        f"- family/renderer/geometry-status pairs covered: `{coverage['family_renderer_geometry_pairs_covered']}`",
         f"- family/decoder pairs covered: `{coverage['family_decoder_pairs_covered']}`",
         f"- fixture type mix: {compact_counts(coverage['fixture_type_counts'])}",
         f"- fixture family mix: {compact_counts(coverage['fixture_family_counts'])}",
@@ -268,7 +313,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
         "- validate selectors without a ROM: `python tools/run_asset_output_smoke_fixtures.py --dry-run`",
         "- execute smoke fixtures with a ROM: `python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc`",
         "- default output root: `build/asset-output-smoke-fixtures`",
-        "- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, and carries required typed report metadata",
+        "- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, carries required typed report metadata, and matches statically known fixture preview geometry",
         "- check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`",
         "",
         "## Recipe-Kind Fixtures",
@@ -306,6 +351,30 @@ def render_markdown(plan: dict[str, Any]) -> str:
         output = fixture["target_output"]
         lines.append(
             f"| `{fixture['key']}` | `{fixture['asset_id']}` | `{fixture['manifest_path']}` | `{output['kind']}` | `{output['path']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Family Renderer Geometry Fixtures",
+            "",
+            "| Family/renderer/status | Asset | Manifest | Target recipe | Target output | Geometry |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for fixture in plan["fixtures"]:
+        if fixture["type"] != "family_renderer_geometry":
+            continue
+        output = fixture["target_output"]
+        geometry = fixture.get("target_preview_geometry", {})
+        if isinstance(geometry, dict) and geometry.get("status") == "known":
+            geometry_text = f"`{geometry['status']}` {geometry.get('width')}x{geometry.get('height')}"
+        elif isinstance(geometry, dict):
+            geometry_text = f"`{geometry.get('status')}`"
+        else:
+            geometry_text = "-"
+        lines.append(
+            f"| `{fixture['key']}` | `{fixture['asset_id']}` | `{fixture['manifest_path']}` | `{output['kind']}` | `{output['path']}` | {geometry_text} |"
         )
 
     lines.extend(

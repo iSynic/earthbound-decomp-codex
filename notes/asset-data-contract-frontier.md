@@ -26,7 +26,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - assets with decoder recipes beyond raw extraction: `1834`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `9`
-- smoke fixture links from manifests: `41`
+- smoke fixture links from manifests: `55`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`

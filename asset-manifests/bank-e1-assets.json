@@ -66,7 +66,7 @@
       "grayscale_tile_sheet": 16,
       "palette_swatch": 12
     },
-    "smoke_fixture_count": 5,
+    "smoke_fixture_count": 7,
     "smoke_fixture_asset_ids": [
       "asset.e1.ape_palette",
       "asset.e1.staff_credits_font_palette"
@@ -74,12 +74,14 @@
     "smoke_fixture_type_counts": {
       "family_decoder": 2,
       "family_renderer": 1,
+      "family_renderer_geometry": 2,
       "recipe_kind": 2
     },
     "smoke_fixture_target_kind_counts": {
       "earthbound_lzhal_snes_palette_json": 2,
-      "earthbound_lzhal_snes_palette_swatch_png": 2,
-      "snes_palette_json": 1
+      "earthbound_lzhal_snes_palette_swatch_png": 3,
+      "snes_palette_json": 1,
+      "snes_palette_swatch_png": 1
     }
   },
   "assets": [

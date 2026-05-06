@@ -6,20 +6,21 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 
 ## Snapshot
 
-- fixture selectors: `41`
+- fixture selectors: `55`
 - unique selected assets: `14`
 - recipe kinds covered: `13`
 - family/renderer pairs covered: `12`
+- family/renderer/geometry-status pairs covered: `14`
 - family/decoder pairs covered: `16`
-- fixture type mix: `family_decoder` 16, `recipe_kind` 13, `family_renderer` 12
-- fixture family mix: `battle_visual_assets` 18, `ui_font_town_map_assets` 9, `overworld_sprites` 6, `map_tilesets_and_runtime_tables` 5, `ef_debug_and_late_tail` 3
+- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12
+- fixture family mix: `battle_visual_assets` 23, `ui_font_town_map_assets` 13, `overworld_sprites` 8, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 4
 
 ## Runner
 
 - validate selectors without a ROM: `python tools/run_asset_output_smoke_fixtures.py --dry-run`
 - execute smoke fixtures with a ROM: `python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc`
 - default output root: `build/asset-output-smoke-fixtures`
-- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, and carries required typed report metadata
+- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, carries required typed report metadata, and matches statically known fixture preview geometry
 - check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`
 
 ## Recipe-Kind Fixtures
@@ -56,6 +57,25 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 | `overworld_sprites.palette_tile_sheet` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `ui_font_town_map_assets.grayscale_tile_sheet` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
 | `ui_font_town_map_assets.palette_swatch` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_swatch_png` | `e1/intro/logos/ape_palette.png` |
+
+## Family Renderer Geometry Fixtures
+
+| Family/renderer/status | Asset | Manifest | Target recipe | Target output | Geometry |
+| --- | --- | --- | --- | --- | --- |
+| `battle_visual_assets.battle_background_arrangement.known` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_battle_bg_arrangement_png` | `ca/battle_bgs/arrangements/100_composed_preview.png` | `known` 256x256 |
+| `battle_visual_assets.battle_sprite.known` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_battle_sprite_png` | `cd/battle_sprites/10_palette_09_sprite.png` | `known` 32x64 |
+| `battle_visual_assets.grayscale_tile_sheet.requires_decode` | `asset.ca.battle_background_gfx_38` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `ca/battle_bgs/graphics/38_4bpp_preview.png` | `requires_decode` |
+| `battle_visual_assets.palette_swatch.known` | `asset.cb.battle_background_palette_0` | `asset-manifests/bank-cb-assets.json` | `snes_palette_swatch_png` | `cb/battle_bgs/palettes/0_palette.png` | `known` 64x16 |
+| `battle_visual_assets.palette_tile_sheet.requires_decode` | `asset.ca.battle_background_gfx_38` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `ca/battle_bgs/graphics/38_palette_preview.png` | `requires_decode` |
+| `ef_debug_and_late_tail.grayscale_tile_sheet.known` | `asset.debug.cursor_graphics` | `asset-manifests/ef-debug-assets.json` | `snes_2bpp_tiles_png` | `ef/debug_cursor_preview.png` | `known` 48x24 |
+| `map_tilesets_and_runtime_tables.grayscale_tile_sheet.requires_decode` | `asset.d8.anti_piracy_notice_graphics` | `asset-manifests/bank-d8-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `d8/errors/antipiracy_4bpp_preview.png` | `requires_decode` |
+| `map_tilesets_and_runtime_tables.palette_swatch.known` | `asset.d8.warning_palette` | `asset-manifests/bank-d8-assets.json` | `snes_palette_swatch_png` | `d8/errors/shared_palette.png` | `known` 64x16 |
+| `overworld_sprites.grayscale_tile_sheet.known` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` | `known` 64x24 |
+| `overworld_sprites.palette_tile_sheet.known` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` | `known` 64x24 |
+| `ui_font_town_map_assets.grayscale_tile_sheet.known` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` | `known` 64x96 |
+| `ui_font_town_map_assets.grayscale_tile_sheet.requires_decode` | `asset.e0.text_window_gfx` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e0/graphics/text_window_4bpp_preview.png` | `requires_decode` |
+| `ui_font_town_map_assets.palette_swatch.known` | `asset.e1.staff_credits_font_palette` | `asset-manifests/bank-e1-assets.json` | `snes_palette_swatch_png` | `e1/ending/credits_font_palette.png` | `known` 128x16 |
+| `ui_font_town_map_assets.palette_swatch.requires_decode` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_swatch_png` | `e1/intro/logos/ape_palette.png` | `requires_decode` |
 
 ## Family Decoder Fixtures
 
