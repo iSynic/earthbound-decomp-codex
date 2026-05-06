@@ -20,6 +20,12 @@ This is still partly inferential, but the local flow now matches the reference `
 
 `C2:941D` begins by setting `$AA94 = 1`, then reads the selected row from `$A970` and computes a `D5:7B68` entry address from row byte `+0x04`.
 
+Source polish now names those mechanical pieces directly:
+`$A970` is the active selected battler row pointer, `$A972` is the active target
+battler row pointer, selected row `+0x04` is the action id, selected row
+`+0x08` is the action argument byte staged through `C1:DD7C`, action row `+2`
+is the type byte, and type `3` is the PSI action type for this blocker.
+
 The important local check is:
 
 - load `D5:7B68 + selector * 12 + 2`
@@ -30,9 +36,9 @@ Given the earlier `D5:7B68` action-table work, that low byte is best read as the
 
 So `C2:941D` only continues its special handling for PSI-type actions.
 
-## Selected-row byte `+0x23` now reads like a PSI-shield subtype
+## Target-row byte `+0x23` now reads like a PSI-shield subtype
 
-After confirming a PSI action, `C2:941D` branches on selected-row byte `+0x23`:
+After confirming a PSI action, `C2:941D` branches on target-row byte `+0x23`:
 
 - `+0x23 == 1` -> one branch
 - `+0x23 == 2` -> second branch

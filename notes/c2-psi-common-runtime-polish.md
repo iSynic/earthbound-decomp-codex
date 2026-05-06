@@ -31,15 +31,15 @@ early PSI common helpers.
 
 `C2:941D`:
 
-- sets `$AA94 = 1`
-- stages active row `+0x08` through `C1:DD7C` for EF scripts that consume the
-  byte-substitution slot
-- reads the active `D5:7B68` action descriptor type byte
-- only descriptor type `3` enters timed-substate handling
-- selected-row `+0x23 == 1` emits `EF:70D2`
+- sets `PendingTimedSubstateMessageFlag` (`$AA94`) to `1`
+- stages the selected action argument byte (`+0x08`) through `C1:DD7C` for EF
+  scripts that consume the byte-substitution slot
+- reads the active `D5:7B68` action descriptor type byte at row `+0x02`
+- only `BattleActionTypePsi` (`3`) enters timed-substate handling
+- target-row `TimedSubstatePsychicPowerShield` (`+0x23 == 1`) emits `EF:70D2`
   (`MsgBtlPsychicPowerShieldReflectsPsiName`), sets `$AA96 = 1`, and swaps
   attacker/target text contexts
-- selected-row `+0x23 == 2` emits `EF:70FA`
+- target-row `TimedSubstatePsychicShield` (`+0x23 == 2`) emits `EF:70FA`
   (`MsgBtlPsychicShieldNullifiesPsiName`), decrements row `+0x25`, and when
   the counter expires clears `+0x23` and emits `EF:7099`
   (`MsgBtlShieldExpired`)
@@ -58,6 +58,11 @@ name before printing the shield reflection/nullification text.
 
 The promoted model is that `$AA96` is the reflected-hit or delayed cleanup
 marker shared by PSI shield/timed-substate handling and Thunder reflection.
+
+Implementation update: `src/c2/c2_941d_check_selected_battler_timed_substate_blocker.asm`
+now names the selected/target row pointers, `D5:7B68` table root, action row
+type offset, PSI action type constant, timed-substate byte, timed-substate turn
+byte, and `$AA94/$AA96` transient flags directly in source.
 
 The physical-hit path in
 `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm` uses the

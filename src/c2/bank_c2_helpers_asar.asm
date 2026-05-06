@@ -934,6 +934,8 @@ org $C240A4
 !CallerFrameSecondPayloadPointerHi = $20
 !LocalSecondPayloadPointerLo = $06
 !LocalSecondPayloadPointerHi = $08
+!CurrentActionPayloadPointerLo = $00BC
+!CurrentActionPayloadPointerBank = $00BE
 !NullPointerWord = $0000
 !ActorTargetRowDomainBase = $A21C
 !BattlerTargetRowDomainBase = $9FAC
@@ -949,6 +951,7 @@ org $C240A4
 !BattlerAfflictionsByteBase = $9FC9
 !BattlerAfflictionFlaggedState = $0001
 !BattlerAfflictionBlockedState = $0002
+!BattleActionSpecialCaseTable = $C4A08D
 C240A4_ApplyBattleActionSecondPointerPayload:
     rep #$31
     phd
@@ -990,9 +993,9 @@ C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     pha
     lda !LocalSecondPayloadPointerLo
-    sta $00BC
+    sta !CurrentActionPayloadPointerLo
     lda !LocalSecondPayloadPointerHi
-    sta $00BE
+    sta !CurrentActionPayloadPointerBank
     pla
     jsl !C09279_DispatchBattleActionPayload
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
@@ -1030,9 +1033,9 @@ C24147_ApplyBattleActionSecondPointerPayload_L4147:
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     pha
     lda !LocalSecondPayloadPointerLo
-    sta $00BC
+    sta !CurrentActionPayloadPointerLo
     lda !LocalSecondPayloadPointerHi
-    sta $00BE
+    sta !CurrentActionPayloadPointerBank
     pla
     jsl !C09279_DispatchBattleActionPayload
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
@@ -1069,7 +1072,7 @@ C2418B_ApplyBattleActionSecondPointerPayload_L418B:
     txa
     asl A
     tax
-    lda $C4A08D,X
+    lda !BattleActionSpecialCaseTable,X
     bne C2417E_ApplyBattleActionSecondPointerPayload_L417E
     ldy.w #$0000
     sty $0E
@@ -6378,6 +6381,20 @@ org $C2941D
 !EFMSG_PsychicShieldNullifiesPsiName = $70FA
 !EFMSG_ShieldExpired = $7099
 !EF_BattleTextScriptBank = $00EF
+!D57B68_BattleActionTable = $D57B68
+!ActiveSelectedBattlerRowPointer = $A970
+!ActiveTargetBattlerRowPointer = $A972
+!PendingTimedSubstateMessageFlag = $AA94
+!ReflectedHitContextSwappedFlag = $AA96
+!SelectedRowActionId = $0004
+!SelectedRowActionArgumentByte = $0008
+!BattleActionTableRowSize = $000C
+!BattleActionTableTypeOffset = $0002
+!BattleActionTypePsi = $0003
+!TargetRowTimedSubstateByte = $0023
+!TargetRowTimedSubstateTurnsByte = $0025
+!TimedSubstatePsychicPowerShield = $0001
+!TimedSubstatePsychicShield = $0002
 PSI_SHIELD_NULLIFY:
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     rep #$31
@@ -6386,13 +6403,13 @@ PSI_SHIELD_NULLIFY:
     adc.w #$FFEE
     tcd
     lda.w #$0001
-    sta $AA94
-    ldx $A970
+    sta !PendingTimedSubstateMessageFlag
+    ldx !ActiveSelectedBattlerRowPointer
     sep #$20
-    lda $0008,X
+    lda !SelectedRowActionArgumentByte,X
     jsl !C1DD7C_SetBattleTextByteSubstitution
-    ldx $A970
-    lda $0004,X
+    ldx !ActiveSelectedBattlerRowPointer
+    lda !SelectedRowActionId,X
     sta $04
     asl A
     adc $04
@@ -6401,19 +6418,19 @@ PSI_SHIELD_NULLIFY:
     tax
     inx
     inx
-    lda $D57B68,X
+    lda !D57B68_BattleActionTable,X
     and.w #$00FF
-    cmp.w #$0003
+    cmp.w #!BattleActionTypePsi
     beq C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458
     lda.w #$0000
     bra C294CC_CheckSelectedBattlerTimedSubstateBlocker_L94CC
 C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458:
-    ldx $A972
-    lda $0023,X
+    ldx !ActiveTargetBattlerRowPointer
+    lda !TargetRowTimedSubstateByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!TimedSubstatePsychicPowerShield
     beq C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D
-    cmp.w #$0002
+    cmp.w #!TimedSubstatePsychicShield
     beq C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
@@ -6423,7 +6440,7 @@ C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
-    sta $AA96
+    sta !ReflectedHitContextSwappedFlag
     jsr SWAP_ATTACKER_WITH_TARGET
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
@@ -6432,9 +6449,9 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    lda $A972
+    lda !ActiveTargetBattlerRowPointer
     clc
-    adc.w #$0025
+    adc.w #!TargetRowTimedSubstateTurnsByte
     tax
     sep #$20
     lda $0000,X
@@ -6443,9 +6460,9 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     rep #$20
     and.w #$00FF
     bne C294C4_CheckSelectedBattlerTimedSubstateBlocker_L94C4
-    ldx $A972
+    ldx !ActiveTargetBattlerRowPointer
     sep #$20
-    stz $0023,X
+    stz !TargetRowTimedSubstateByte,X
     rep #$20
     lda.w #!EFMSG_ShieldExpired
     sta $0E

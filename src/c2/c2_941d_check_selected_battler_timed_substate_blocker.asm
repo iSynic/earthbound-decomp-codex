@@ -31,6 +31,22 @@ EFMSG_PsychicPowerShieldReflectsPsiName   = $70D2
 EFMSG_PsychicShieldNullifiesPsiName        = $70FA
 EFMSG_ShieldExpired                       = $7099
 EF_BattleTextScriptBank                   = $00EF
+D57B68_BattleActionTable                  = $D57B68
+
+ActiveSelectedBattlerRowPointer           = $A970
+ActiveTargetBattlerRowPointer             = $A972
+PendingTimedSubstateMessageFlag           = $AA94
+ReflectedHitContextSwappedFlag            = $AA96
+
+SelectedRowActionId                       = $0004
+SelectedRowActionArgumentByte             = $0008
+BattleActionTableRowSize                  = $000C
+BattleActionTableTypeOffset               = $0002
+BattleActionTypePsi                       = $0003
+TargetRowTimedSubstateByte                = $0023
+TargetRowTimedSubstateTurnsByte           = $0025
+TimedSubstatePsychicPowerShield           = $0001
+TimedSubstatePsychicShield                = $0002
 
 ; ---------------------------------------------------------------------------
 ; C2:941D
@@ -43,14 +59,15 @@ C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     adc.w #$FFEE
     tcd
     lda.w #$0001
-    sta $AA94
-    ldx $A970
+    sta PendingTimedSubstateMessageFlag
+    ldx ActiveSelectedBattlerRowPointer
     sep #$20
-    lda $0008,X
+    lda SelectedRowActionArgumentByte,X
     jsl C1DD7C_SetBattleTextByteSubstitution
-    ldx $A970
-    lda $0004,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowActionId,X
     sta $04
+    ; X = action id * BattleActionTableRowSize + BattleActionTableTypeOffset.
     asl A
     adc $04
     asl A
@@ -58,21 +75,21 @@ C2941D_CheckSelectedBattlerTimedSubstateBlocker = PSI_SHIELD_NULLIFY
     tax
     inx
     inx
-    lda $D57B68,X
+    lda D57B68_BattleActionTable,X
     and.w #$00FF
-    ; Only action descriptor type 3 participates in this substate blocker.
-    cmp.w #$0003
+    ; Only PSI-type action descriptors participate in this substate blocker.
+    cmp.w #BattleActionTypePsi
     beq C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458
     lda.w #$0000
     bra C294CC_CheckSelectedBattlerTimedSubstateBlocker_L94CC
 C29458_CheckSelectedBattlerTimedSubstateBlocker_L9458:
-    ldx $A972
-    lda $0023,X
+    ldx ActiveTargetBattlerRowPointer
+    lda TargetRowTimedSubstateByte,X
     and.w #$00FF
     ; Timed substate 1 redirects/reflection-swaps the active text context.
-    cmp.w #$0001
+    cmp.w #TimedSubstatePsychicPowerShield
     beq C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D
-    cmp.w #$0002
+    cmp.w #TimedSubstatePsychicShield
     beq C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
@@ -83,7 +100,7 @@ C2946D_CheckSelectedBattlerTimedSubstateBlocker_L946D:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     lda.w #$0001
-    sta $AA96
+    sta ReflectedHitContextSwappedFlag
     jsr SWAP_ATTACKER_WITH_TARGET
     bra C294C9_CheckSelectedBattlerTimedSubstateBlocker_L94C9
 C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
@@ -92,10 +109,10 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    ; Timed substate 2 consumes row `+0x25` before clearing `+0x23`.
-    lda $A972
+    ; Psychic-shield substate consumes its turn byte before clearing state.
+    lda ActiveTargetBattlerRowPointer
     clc
-    adc.w #$0025
+    adc.w #TargetRowTimedSubstateTurnsByte
     tax
     sep #$20
     lda $0000,X
@@ -104,9 +121,9 @@ C29486_CheckSelectedBattlerTimedSubstateBlocker_L9486:
     rep #$20
     and.w #$00FF
     bne C294C4_CheckSelectedBattlerTimedSubstateBlocker_L94C4
-    ldx $A972
+    ldx ActiveTargetBattlerRowPointer
     sep #$20
-    stz $0023,X
+    stz TargetRowTimedSubstateByte,X
     rep #$20
     lda.w #EFMSG_ShieldExpired
     sta $0E

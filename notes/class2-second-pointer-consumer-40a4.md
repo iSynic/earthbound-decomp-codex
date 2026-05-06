@@ -32,9 +32,17 @@ Current safest reading from the local bytes:
 - the second pass walks all 32 candidate rows rooted at `$9FAC`
 - each pass uses `C2:7029`, the known bit-test helper from the class-`2` mask family
 - for each bit that passes the test, it calls `C2:3D05` to install the current target or row context
-- if the fixed caller-provided pointer in `$06/$08` is nonzero, it writes that same pair to `$00BC/$00BE` and dispatches through `C0:9279`
+- if the fixed caller-provided pointer in `$06/$08` is nonzero, it writes that
+  same pair to the current action-payload pointer slots `$00BC/$00BE` and
+  dispatches through `C0:9279`
 
 The strongest purely local interpretation is now narrower and better: `40A4` does not stream a bit-packed pointer payload. It iterates the bit-selected targets from the current action word, installs per-target context through `3D05`, and then applies one fixed second-pointer payload through `C0:9279` once per selected entry.
+
+Source polish: `src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm`
+now names `$00BC/$00BE` as `CurrentActionPayloadPointerLo/Bank` and names
+`C4:A08D` as the special-case table consulted by the sibling mask-prune helper.
+That keeps the consumer's payload slots distinct from the battle-text pointer
+ABI used by `C1:DC1C` and `C1:DD9F`.
 
 ## `C2:EACF` looks like a wait-or-busy helper
 

@@ -393,6 +393,17 @@ contract notes for C0/C1/C3/C4 consumers.
   rebuild route, separate from the `4Dxx` battle-start initializer family. See
   `notes/c2-late-selected-row-runtime-polish.md` and
   `notes/class2-b6eb-caller-family-760c.md`.
+- 2026-05-05 fifty-ninth slice: tightened the shared PSI timed-substate
+  blocker and second-pointer payload consumer after the C1 DD9F tail pointer
+  split. `C2:941D` now names the selected/target row pointers, selected-row
+  action id and argument byte, `D5:7B68` table root/type byte, PSI action type,
+  target timed-substate and countdown bytes, and `$AA94/$AA96` transient flags.
+  `C2:40A4` now names `$00BC/$00BE` as the current action-payload pointer and
+  `C4:A08D` as the special-case table used by the sibling mask-prune helper.
+  See `notes/c2-psi-common-runtime-polish.md`,
+  `notes/class2-psi-shield-post-hit-aa96.md`,
+  `notes/c2-action-dispatch-runtime-polish.md`, and
+  `notes/class2-second-pointer-consumer-40a4.md`.
 
 ## Validation
 

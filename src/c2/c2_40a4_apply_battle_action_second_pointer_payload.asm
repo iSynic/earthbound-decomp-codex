@@ -33,6 +33,8 @@ CallerFrameSecondPayloadPointerLo   = $1E
 CallerFrameSecondPayloadPointerHi   = $20
 LocalSecondPayloadPointerLo         = $06
 LocalSecondPayloadPointerHi         = $08
+CurrentActionPayloadPointerLo       = $00BC
+CurrentActionPayloadPointerBank     = $00BE
 NullPointerWord                     = $0000
 ActorTargetRowDomainBase            = $A21C
 BattlerTargetRowDomainBase          = $9FAC
@@ -48,6 +50,7 @@ BattlerConsciousnessByteBase        = $9FB8
 BattlerAfflictionsByteBase          = $9FC9
 BattlerAfflictionFlaggedState       = $0001
 BattlerAfflictionBlockedState       = $0002
+BattleActionSpecialCaseTable        = $C4A08D
 
 ; ---------------------------------------------------------------------------
 ; C2:40A4
@@ -94,9 +97,9 @@ C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     pha
     lda LocalSecondPayloadPointerLo
-    sta $00BC
+    sta CurrentActionPayloadPointerLo
     lda LocalSecondPayloadPointerHi
-    sta $00BE
+    sta CurrentActionPayloadPointerBank
     pla
     jsl C09279_DispatchBattleActionPayload
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
@@ -135,9 +138,9 @@ C24147_ApplyBattleActionSecondPointerPayload_L4147:
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     pha
     lda LocalSecondPayloadPointerLo
-    sta $00BC
+    sta CurrentActionPayloadPointerLo
     lda LocalSecondPayloadPointerHi
-    sta $00BE
+    sta CurrentActionPayloadPointerBank
     pla
     jsl C09279_DispatchBattleActionPayload
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
@@ -174,7 +177,7 @@ C2418B_ApplyBattleActionSecondPointerPayload_L418B:
     txa
     asl A
     tax
-    lda $C4A08D,X
+    lda BattleActionSpecialCaseTable,X
     bne C2417E_ApplyBattleActionSecondPointerPayload_L417E
     ldy.w #$0000
     sty $0E

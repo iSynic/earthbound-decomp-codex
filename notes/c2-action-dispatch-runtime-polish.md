@@ -140,6 +140,12 @@ the `$A21C` actor-target domain, the `$9FAC` battler-target domain, the
 shared `0x4E` battler-row stride, and the bit ranges used by the two payload
 passes.
 
+Follow-up update: the same source now names `$00BC/$00BE` as the current
+action-payload dispatch pointer and names the `C4:A08D` special-case table used
+by the sibling target-mask pruning helper. This keeps the second-pointer
+consumer aligned with the C1 DD9F tail's distinction between current payload
+slots and ordinary battle-text dispatch staging.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local

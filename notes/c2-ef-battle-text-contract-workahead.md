@@ -450,6 +450,9 @@ Promotion effect: keep the staged value type explicit (delta PP) and preserve th
   `src/c2/c2_94ce_tick_selected_battler_timed_substate_cleanup.asm` now keep
   the shield-expiry and PSI-name reflection/nullify EF pointers local:
   `EF:70D2`, `EF:70FA`, and `EF:7099`.
+  The blocker source now also names the `D5:7B68` action type byte and gates
+  this branch to PSI-type action descriptors before consulting target-row
+  timed-substate bytes.
 - `src/c2/c2_97a5_handle_psi_thunder_franklin_badge_reflection.asm` names the
   adjacent Franklin Badge reflection script at `EF:7160`.
 
@@ -495,6 +498,10 @@ And for the most actionable C2 call-site families:
 - 2026-05-01: the same follow-up corrected remaining `C1:DD7C` caller wording
   in `C2:92EE` and `C2:941D`; those calls stage the C1 byte-substitution slot
   rather than running a separate presentation command.
+- 2026-05-05: `src/c2/c2_941d_check_selected_battler_timed_substate_blocker.asm`
+  now names the selected-row action argument byte staged through `C1:DD7C`,
+  the action-table type-byte read, the PSI action type gate, and the
+  `$AA94/$AA96` transient flags used by PSI shield reflection/nullification.
 - 2026-05-01: `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`,
   `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`, and
   `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm` now name the
