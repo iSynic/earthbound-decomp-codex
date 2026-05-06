@@ -544,3 +544,9 @@ This planning pass is documentation-only.
   window-flavour preview callback pointer, and the final selected-file text
   speed handoff. The scaffold was regenerated from source; exact
   byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
+  core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
+  The byte stream is unchanged, but the unaligned generated decode fragments
+  in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm` now use
+  explicit `db` bytes, keeping raw helper-call scans focused on real C1
+  contracts. The structural split and deeper semantic naming remain deferred.

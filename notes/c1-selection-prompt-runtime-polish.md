@@ -62,6 +62,12 @@ and the exact producer-side names for `$AD5A/$AD6A/$AD7A/$AD82`. The controller
 shape is now source-commented, while the final list vocabulary should come from
 the routines that populate those lists.
 
+2026-05-06 follow-up: the misleading raw absolute `JMP`/`JSR` renderings inside
+the C1:244C mixed island were demoted to explicit `db` byte runs. This is still
+the same byte stream, but raw edge scans no longer report false local helper
+contracts for payload/control bytes that land inside unrelated instruction
+streams.
+
 Open followups:
 
 - split and polish the C1:244C character-select prompt core once its mixed
