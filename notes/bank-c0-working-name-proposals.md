@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `510`
+- Proposals: `514`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -59,7 +59,7 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:2C3E` | `RefreshSpecialTraversalModeState` | `notes/mushroomized-walking-builders-34de-37d0.md:12` |
 | `C0:2C83` | `ResetMushroomizedWalking` | `notes/mushroomized-walking-builders-34de-37d0.md:13` |
 | `C0:2C89` | `MushroomizationMovementSwap` | `notes/mushroomized-walking-builders-34de-37d0.md:14` |
-| `C0:2D29` | `ResetOverworldPartyRuntimeState` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:14` |
+| `C0:2D29` | `ResetOverworldPartyRuntimeState` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:15` |
 | `C0:2D8F` | `AdjustPositionHorizontal` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:254` |
 | `C0:3017` | `AdjustPositionVertical` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:255` |
 | `C0:329F` | `Clear_CharacterAfflictionBytes` | `notes/character-affliction-clear-c0329f.md:13` |
@@ -206,7 +206,7 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:8E1C` | `Update_Bg3ScreenBaseRegistersFromQueue` | `notes/landing-display-assembly-cluster-c007b6-c4b26b.md:484` |
 | `C0:8E5C` | `Update_Bg4ScreenBaseRegistersFromQueue` | `notes/landing-display-assembly-cluster-c007b6-c4b26b.md:485` |
 | `C0:8ED2` | `CopyWordsFromLongSource` | `notes/short-text-staging-buffer-9c9f.md:46` |
-| `C0:8F42` | `SnapshotContinuationFrame` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:15` |
+| `C0:8F42` | `SnapshotContinuationFrame` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:16` |
 | `C0:8FC2` | `VRAMPortTripleTable_Tail` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:117` |
 | `C0:8FE6` | `Multiply8x8_ViaHardwareRegisters` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:118` |
 | `C0:8FF7` | `Multiply16By8_ViaHardwareRegisters` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:119` |
@@ -405,16 +405,20 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:AE26` | `BattleBgDmaSourceDescriptorTemplates` | `notes/audio-apu-battlebg-transfer-frontier-c0ab06-c0ae44.md:124` |
 | `C0:AE34` | `ClearPendingDmaChannelBit` | `notes/audio-apu-battlebg-transfer-frontier-c0ab06-c0ae44.md:125` |
 | `C0:AE44` | `InverseDmaChannelMaskTable` | `notes/audio-apu-battlebg-transfer-frontier-c0ab06-c0ae44.md:126` |
-| `C0:AFCD` | `ApplyBattleBgColourMathPreset` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:98` |
-| `C0:B01A` | `SetFixedColourRgbComponents` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:99` |
-| `C0:B039` | `SetColourAddSubModeRegisters` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:100` |
-| `C0:B047` | `SetWindowMaskRegisters` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:101` |
-| `C0:B0A6` | `WindowMaskNibbleLookupTable` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:102` |
-| `C0:B0AA` | `ResetWindowLeftPositions` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:103` |
-| `C0:B0B8` | `ConfigureWindowPositionDmaFromSource` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:104` |
-| `C0:B0EF` | `BuildAndConfigureWindowPositionDmaDescriptor` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:105` |
-| `C0:B149` | `BuildBattleBgOffsetEffectTable3FD0` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:106` |
-| `C0:B2FF` | `BattleBgOffsetClampLookupTable` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:107` |
+| `C0:AFCD` | `ApplyBattleBgColourMathPreset` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:101` |
+| `C0:B01A` | `SetFixedColourRgbComponents` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:102` |
+| `C0:B039` | `SetColourAddSubModeRegisters` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:103` |
+| `C0:B047` | `SetWindowMaskRegisters` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:104` |
+| `C0:B0A6` | `WindowMaskNibbleLookupTable` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:105` |
+| `C0:B0AA` | `ResetWindowLeftPositions` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:106` |
+| `C0:B0B8` | `ConfigureWindowPositionDmaFromSource` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:107` |
+| `C0:B0EF` | `BuildAndConfigureWindowPositionDmaDescriptor` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:108` |
+| `C0:B149` | `BuildBattleBgOffsetEffectTable3FD0` | `notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:109` |
+| `C0:B2FF` | `BattleBgOffsetClampLookupTable` | `notes/file-select-init-and-projection-c0b2ff-c0b65f.md:44`<br>`notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:110` |
+| `C0:B400` | `ProjectPresentationXOffset` | `notes/file-select-init-and-projection-c0b2ff-c0b65f.md:45`<br>`notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:111` |
+| `C0:B40B` | `ProjectPresentationYOffset` | `notes/file-select-init-and-projection-c0b2ff-c0b65f.md:46`<br>`notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:112` |
+| `C0:B425` | `PresentationProjectionSineTable` | `notes/file-select-init-and-projection-c0b2ff-c0b65f.md:47`<br>`notes/ppu-colour-window-bg-offset-frontier-c0afcd-c0b3ff.md:113` |
+| `C0:B525` | `FileSelectInit` | `notes/file-select-init-and-projection-c0b2ff-c0b65f.md:48`<br>`notes/intro-overworld-position-init-c0b65f-c0b67f.md:14` |
 | `C0:B65F` | `SeedPlayerOverworldStartPosition` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:12` |
 | `C0:B67F` | `InitializeIntroOverworldScene` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:13` |
 | `C0:B967` | `TrySavedCoordinateReloadLanding` | `notes/saved-coordinate-reload-path-c4c718-c0b967.md:15` |

@@ -126,10 +126,14 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   predicates, C2 instant-win and battle-common joins, C4 intro/menu-name helpers,
   the continuation-frame snapshot pair, movement-record consumption, the
   get-off-bicycle text exit, Magic Truffle and Your Sanctuary debug helpers,
-  teleport mainloop calls, and the party condition-decay gate. The only raw call left in
-  the module is `jsr $B525`, which remains tied to the larger unpromoted
-  `C0:B2FF..B65F` intro setup corridor. See
+  teleport mainloop calls, and the party condition-decay gate. See
   `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
+- 2026-05-06 follow-up: the adjacent `C0:B2FF..B65F` corridor is now a mixed
+  source/data unit instead of a byte-only blob. The pass splits the battle BG
+  offset clamp table, projection helper pair, sine/projection table, and
+  `C0:B525` file-select initialization routine; the intro continuation now
+  calls `C0B525_FileSelectInit` by name. See
+  `notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
 
 ## Validation
 

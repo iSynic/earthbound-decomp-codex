@@ -38,6 +38,7 @@ C09321_InitDelayedActionState               = $C09321
 C0943C_SaveCurrentCoordinateState           = $C0943C
 C09451_RestoreSavedCoordinateState          = $C09451
 C09466_RefreshActiveEntitySpriteState       = $C09466
+C0B525_FileSelectInit                       = $B525
 C0EA99_TeleportMainloopStateMachine         = $C0EA99
 C12E63_DebugMenuSelectionDispatcher         = $C12E63
 C134A7_RunOpenMenuSelectionLoop             = $C134A7
@@ -210,7 +211,7 @@ C0B7D6_InitializeIntroOverworldScene_LB7D6:
     lda.w #$0A20
     jsl C08F42_SnapshotContinuationFrame
     jsl C4DAD2_InitIntroFileSelectStateDispatcher
-    jsr $B525
+    jsr.w C0B525_FileSelectInit
     jsr.w C0B67F_InitializeIntroOverworldScene
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState

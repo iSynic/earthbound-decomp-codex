@@ -11,20 +11,20 @@
       "EF"
     ],
     "total_bytes": 327680,
-    "decoded_asm_bytes": 254307,
-    "known_data_or_asset_bytes": 73373,
+    "decoded_asm_bytes": 255171,
+    "known_data_or_asset_bytes": 72509,
     "preserved_corridor_bytes": 0,
-    "source_like_bytes": 254307,
+    "source_like_bytes": 255171,
     "readable_source_percent": 100.0
   },
   "banks": [
     {
       "bank": "C0",
-      "decoded_asm_bytes": 62620,
-      "known_data_or_asset_bytes": 2916,
+      "decoded_asm_bytes": 63484,
+      "known_data_or_asset_bytes": 2052,
       "preserved_corridor_bytes": 0,
       "total_bytes": 65536,
-      "source_like_bytes": 62620,
+      "source_like_bytes": 63484,
       "readable_source_percent": 100.0,
       "largest_preserved_corridors": []
     },

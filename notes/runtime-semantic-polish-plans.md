@@ -63,6 +63,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   consumption, bicycle text exit, Magic Truffle/Sanctuary debug helpers,
   teleport mainloop calls, and the party condition-decay gate. See
   `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
+- 2026-05-06: C0 projection/file-select follow-up split the byte-only
+  `C0:B2FF..B65F` corridor into the battle BG offset clamp table,
+  `C0:B400/C0:B40B` projection helper pair, `C0:B425` sine/projection table,
+  and `C0:B525` file-select initialization routine. The intro continuation now
+  calls `C0B525_FileSelectInit` by name. See
+  `notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source

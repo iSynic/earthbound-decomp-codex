@@ -75,9 +75,12 @@ streams an existing table, and the other creates a tiny descriptor table first.
     produce a clamped byte pair stored into `$3FD0`.
 - The routine mirrors each generated word by writing a second copy offset by
   `row_count * 4`, giving the table its symmetric battle-background shape.
-- `C0:B2FF-C0:B3FF` is the signed/clamped lookup table consumed during the
+- `C0:B2FF-C0:B400` is the signed/clamped lookup table consumed during the
   divide/multiply pass. It descends from `$FF` through smaller values and
-  ends at `$00` immediately before the `COSINE` routine at `C0:B400`.
+  ends at `$00` immediately before the projection helper pair at `C0:B400`.
+- The adjacent source split names `C0:B400/C0:B40B` as the presentation X/Y
+  projection helpers and `C0:B425` as the signed sine/projection table. See
+  `notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
 
 ## Practical decomp notes
 
@@ -105,3 +108,6 @@ The group is already close to a portable rendering API:
 - `C0:B0EF` = `BuildAndConfigureWindowPositionDmaDescriptor`
 - `C0:B149` = `BuildBattleBgOffsetEffectTable3FD0`
 - `C0:B2FF` = `BattleBgOffsetClampLookupTable`
+- `C0:B400` = `ProjectPresentationXOffset`
+- `C0:B40B` = `ProjectPresentationYOffset`
+- `C0:B425` = `PresentationProjectionSineTable`

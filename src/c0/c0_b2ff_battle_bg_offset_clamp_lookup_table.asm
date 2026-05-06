@@ -1,4 +1,4 @@
-; EarthBound C0 BattleBgOffsetClampLookupTable.
+; EarthBound C0 BattleBgProjectionAndFileSelectInit.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate mixed source/data unit.
@@ -11,6 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C00013_SetupOverworldVramRegisters               = $C00013
+C005E7_PrepareAverageForSpritePalettes           = $C005E7
 C018F3_CloseOrResetPresentationState             = $C018F3
 C019B2_RestorePartyStateAfterTransition          = $C019B2
 C01A69_ResetEntitySlotStateTables                = $C01A69
@@ -22,7 +24,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-PREPARE_VRAM_COPY            = $C08616
+C08616_QueueVramTransfer_FromDpSource            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -40,8 +42,8 @@ C08D92_UpdateObjSizeAndBaseRegister              = $C08D92
 C08D9E_UpdateBg1ScreenBaseRegistersFromQueue     = $C08D9E
 C08E1C_UpdateBg2ScreenBaseRegistersFromQueue     = $C08E1C
 C08E9A_GetRandom16                               = $C08E9A
-C08ED2_QueueOrTransferDynamicTileBlock           = $C08ED2
-C08EED_CopyToVramOrRendererBuffer                = $C08EED
+C08ED2_CopyWordsFromLongSource                   = $C08ED2
+C08EED_CopyMemoryBlockLong                       = $C08EED
 C08EFC_CommitTileBufferToStaging                 = $C08EFC
 C08F15_ClearVramOrRendererBuffer                 = $C08F15
 C08FF7_ResolveIndexedPointerOffset               = $C08FF7
@@ -49,11 +51,14 @@ C09032_DivideUnsignedWordByIndex                 = $C09032
 C090FF_AddLongPointerOffset                      = $C090FF
 C0915B_DivideUnsignedWordByY                     = $C0915B
 C09231_ModUnsignedWordByIndex                    = $C09231
+C0927C_InitDelayedActionPools                    = $C0927C
 C092F5_AllocateEntityOrSpriteSlot                = $C092F5
+C09321_InitDelayedActionState                    = $C09321
 C093F9_RunEntityScriptRecordForSlot              = $C093F9
 C0943C_SaveCurrentCoordinateState                = $C0943C
 C09451_RestoreSavedCoordinateState               = $C09451
 C09466_RefreshActiveEntitySpriteState            = $C09466
+C09C35_CleanupEntitySlotState                    = $C09C35
 C0A48F_RefreshVisualProfileForSlot               = $C0A48F
 C0ABC6_ClearPresentationQueues                   = $C0ABC6
 C0AC0C_QueuePresentationSfxOrCounter             = $C0AC0C
@@ -64,6 +69,7 @@ C0B65F_SeedPlayerOverworldStartPosition          = $C0B65F
 C1004E_WaitWhileFileSelectEntityScriptBusy       = $C1004E
 C186B1_PrintTextFromPointer                      = $C186B1
 C1DD5F_WaitForTextOrMenuAcknowledge              = $C1DD5F
+C1FF6B_RunFileSelectSession                      = $C1FF6B
 C200D9_ClearBattleOrPresentationState            = $C200D9
 C21628_CheckEventFlag                            = $C21628
 C2165E_SetEventFlagOrState                       = $C2165E
@@ -84,8 +90,10 @@ C428FC_MergeMasked7fTileColumnRows               = $C428FC
 C42965_MergeMasked7fTileColumnPair               = $C42965
 C429AE_GenerateVisualProfileRenderDmaStrips      = $C429AE
 C42A63_VisualProfileFootprintWidthTable          = $C42A63
+C432B1_ResetPartyVisualMasksAndStatusBytes       = $C432B1
 C44963_ResetActiveTextGlyphRun                   = $C44963
 C46028_FindEntitySlotByCachedPoseDescriptorId    = $C46028
+C47370_LoadBackgroundAnimation                   = $C47370
 C47C3F_ClearWindowOrMenuMaskState                = $C47C3F
 C47F87_RefreshWindowFlavorPalette                = $C47F87
 C4800B_RestoreWorldDisplayState                  = $C4800B
@@ -96,12 +104,13 @@ C496E7_StartPaletteFadeFromWorkBuffer            = $C496E7
 C49740_FinishPaletteFadeWorkBuffer               = $C49740
 C4A7B0_StepBattleOverlayScriptState              = $C4A7B0
 C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
+C4FD18_SetAudioChannels                          = $C4FD18
 
 ; ---------------------------------------------------------------------------
 ; C0:B2FF
 
 C0B2FF_BattleBgOffsetClampLookupTable:
-    ; data bytes: C0:B2FF..C0:B65F
+    ; data bytes: C0:B2FF..C0:B400
     db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF
     db $FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FF,$FE,$FE,$FE,$FE
     db $FE,$FE,$FE,$FE,$FD,$FD,$FD,$FD,$FD,$FD,$FD,$FC,$FC,$FC,$FC,$FC
@@ -118,44 +127,175 @@ C0B2FF_BattleBgOffsetClampLookupTable:
     db $95,$94,$92,$91,$8F,$8E,$8C,$8B,$89,$88,$86,$85,$83,$81,$7F,$7E
     db $7C,$7A,$78,$76,$74,$72,$70,$6E,$6C,$6A,$68,$66,$63,$61,$5E,$5C
     db $59,$56,$53,$51,$4D,$4A,$47,$43,$3F,$3B,$37,$32,$2D,$27,$20,$17
-    db $00,$48,$8A,$38,$E9,$40,$00,$29,$FF,$00,$AA,$68,$E2,$20,$8F,$1B
-    db $21,$00,$EB,$8F,$1B,$21,$00,$BF,$25,$B4,$C0,$8F,$1C,$21,$00,$C2
-    db $20,$AF,$35,$21,$00,$6B,$00,$03,$06,$09,$0C,$0F,$12,$15,$18,$1C
-    db $1F,$22,$25,$28,$2B,$2E,$30,$33,$36,$39,$3C,$3F,$41,$44,$47,$49
-    db $4C,$4E,$51,$53,$55,$58,$5A,$5C,$5E,$60,$62,$64,$66,$68,$6A,$6C
-    db $6D,$6F,$70,$72,$73,$75,$76,$77,$78,$79,$7A,$7B,$7C,$7C,$7D,$7E
-    db $7E,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7F,$7E,$7E,$7D,$7C
-    db $7C,$7B,$7A,$79,$78,$77,$76,$75,$73,$72,$70,$6F,$6D,$6C,$6A,$68
-    db $66,$64,$62,$60,$5E,$5C,$5A,$58,$55,$53,$51,$4E,$4C,$49,$47,$44
-    db $41,$3F,$3C,$39,$36,$33,$30,$2E,$2B,$28,$25,$22,$1F,$1C,$18,$15
-    db $12,$0F,$0C,$09,$06,$03,$00,$FD,$FA,$F7,$F4,$F1,$EE,$EB,$E8,$E4
-    db $E1,$DE,$DB,$D8,$D5,$D2,$D0,$CD,$CA,$C7,$C4,$C1,$BF,$BC,$B9,$B7
-    db $B4,$B2,$AF,$AD,$AB,$A8,$A6,$A4,$A2,$A0,$9E,$9C,$9A,$98,$96,$94
-    db $93,$91,$90,$8E,$8D,$8B,$8A,$89,$88,$87,$86,$85,$84,$84,$83,$82
-    db $82,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$81,$82,$82,$83,$84
-    db $84,$85,$86,$87,$88,$89,$8A,$8B,$8D,$8E,$90,$91,$93,$94,$96,$98
-    db $9A,$9C,$9E,$A0,$A2,$A4,$A6,$A8,$AB,$AD,$AF,$B2,$B4,$B7,$B9,$BC
-    db $BF,$C1,$C4,$C7,$CA,$CD,$D0,$D2,$D5,$D8,$DB,$DE,$E1,$E4,$E8,$EB
-    db $EE,$F1,$F4,$F7,$FA,$FD,$C2,$31,$0B,$7B,$69,$EA,$FF,$5B,$22,$26
-    db $87,$C0,$22,$7C,$92,$C0,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$22,$86
-    db $1A,$C0,$A2,$00,$00,$A9,$00,$80,$22,$11,$1C,$C0,$22,$69,$1A,$C0
-    db $22,$13,$00,$C0,$22,$B1,$32,$C4,$22,$E7,$05,$C0,$A9,$00,$00,$85
-    db $0E,$A9,$C3,$00,$85,$10,$A2,$00,$01,$A9,$00,$03,$22,$D2,$8E,$C0
-    db $22,$D9,$00,$C2,$A9,$00,$00,$85,$06,$A9,$7F,$00,$85,$08,$A9,$00
-    db $00,$87,$06,$A5,$06,$85,$0E,$A5,$08,$85,$10,$A0,$00,$7C,$A2,$00
-    db $08,$E2,$20,$A9,$03,$22,$16,$86,$C0,$A9,$00,$00,$85,$0E,$A9,$E0
-    db $00,$85,$10,$A5,$06,$85,$12,$A5,$08,$85,$14,$22,$9E,$1A,$C4,$A9
-    db $00,$20,$85,$0E,$A9,$7F,$00,$85,$10,$A9,$00,$10,$85,$12,$A9,$7F
-    db $00,$85,$14,$A9,$00,$2A,$22,$ED,$8E,$C0,$A9,$01,$00,$22,$63,$49
-    db $C4,$A9,$C8,$1F,$85,$0E,$A9,$E0,$00,$85,$10,$A2,$40,$00,$A9,$00
-    db $02,$22,$D2,$8E,$C0,$E2,$20,$A9,$18,$8D,$30,$00,$A2,$00,$00,$C2
-    db $20,$A9,$E6,$00,$22,$70,$73,$C4,$A9,$17,$00,$8D,$4C,$0A,$A9,$18
-    db $00,$8D,$4E,$0A,$A0,$00,$00,$BB,$A9,$13,$03,$22,$21,$93,$C0,$E2
-    db $20,$A9,$16,$8D,$1A,$00,$C2,$20,$9C,$37,$00,$9C,$33,$00,$9C,$35
-    db $00,$9C,$31,$00,$22,$B1,$88,$C0,$22,$26,$8B,$C0,$A2,$01,$00,$8A
-    db $22,$6C,$88,$C0,$22,$6B,$FF,$C1,$A0,$00,$00,$A2,$01,$00,$8A,$22
-    db $14,$88,$C0,$A9,$17,$00,$22,$35,$9C,$C0,$E2,$20,$A9,$17,$8D,$1A
-    db $00,$C2,$20,$AD,$B7,$98,$29,$FF,$00,$3A,$22,$18,$FD,$C4,$2B,$60
+    db $00
 
-; C0:B65F
-C0B65F_BattleBgOffsetClampLookupTable_End:
+; C0:B400
+C0B400_BattleBgOffsetClampLookupTable_End:
+
+; ---------------------------------------------------------------------------
+; C0:B400
+
+C0B400_ProjectPresentationXOffset:
+    pha
+    txa
+    sec
+    sbc.w #$0040
+    and.w #$00FF
+    tax
+    pla
+C0B40B_ProjectPresentationYOffset:
+    sep #$20
+    sta $00211B
+    xba
+    sta $00211B
+    lda $C0B425,X
+    sta $00211C
+    rep #$20
+    lda $002135
+    rtl
+
+; ---------------------------------------------------------------------------
+; C0:B425
+
+C0B425_PresentationProjectionSineTable:
+    ; data bytes: C0:B425..C0:B525
+    db $00,$03,$06,$09,$0C,$0F,$12,$15,$18,$1C,$1F,$22,$25,$28,$2B,$2E
+    db $30,$33,$36,$39,$3C,$3F,$41,$44,$47,$49,$4C,$4E,$51,$53,$55,$58
+    db $5A,$5C,$5E,$60,$62,$64,$66,$68,$6A,$6C,$6D,$6F,$70,$72,$73,$75
+    db $76,$77,$78,$79,$7A,$7B,$7C,$7C,$7D,$7E,$7E,$7F,$7F,$7F,$7F,$7F
+    db $7F,$7F,$7F,$7F,$7F,$7F,$7E,$7E,$7D,$7C,$7C,$7B,$7A,$79,$78,$77
+    db $76,$75,$73,$72,$70,$6F,$6D,$6C,$6A,$68,$66,$64,$62,$60,$5E,$5C
+    db $5A,$58,$55,$53,$51,$4E,$4C,$49,$47,$44,$41,$3F,$3C,$39,$36,$33
+    db $30,$2E,$2B,$28,$25,$22,$1F,$1C,$18,$15,$12,$0F,$0C,$09,$06,$03
+    db $00,$FD,$FA,$F7,$F4,$F1,$EE,$EB,$E8,$E4,$E1,$DE,$DB,$D8,$D5,$D2
+    db $D0,$CD,$CA,$C7,$C4,$C1,$BF,$BC,$B9,$B7,$B4,$B2,$AF,$AD,$AB,$A8
+    db $A6,$A4,$A2,$A0,$9E,$9C,$9A,$98,$96,$94,$93,$91,$90,$8E,$8D,$8B
+    db $8A,$89,$88,$87,$86,$85,$84,$84,$83,$82,$82,$81,$81,$81,$81,$81
+    db $81,$81,$81,$81,$81,$81,$82,$82,$83,$84,$84,$85,$86,$87,$88,$89
+    db $8A,$8B,$8D,$8E,$90,$91,$93,$94,$96,$98,$9A,$9C,$9E,$A0,$A2,$A4
+    db $A6,$A8,$AB,$AD,$AF,$B2,$B4,$B7,$B9,$BC,$BF,$C1,$C4,$C7,$CA,$CD
+    db $D0,$D2,$D5,$D8,$DB,$DE,$E1,$E4,$E8,$EB,$EE,$F1,$F4,$F7,$FA,$FD
+
+; C0:B525
+C0B525_PresentationProjectionSineTable_End:
+
+; ---------------------------------------------------------------------------
+; C0:B525
+
+C0B525_FileSelectInit:
+    ; Reset renderer, entity, and overworld presentation state before file select.
+    rep #$31
+    phd
+    tdc
+    adc.w #$FFEA
+    tcd
+    jsl C08726_BlankWaitAndDisableHdma
+    jsl C0927C_InitDelayedActionPools
+    jsl C088B1_ResetRendererFrameState
+    jsl C08B26_FlushQueuedSpriteOrTileWork
+    jsl C01A86_ResetEntityBytePool467E
+    ldx.w #$0000
+    lda.w #$8000
+    jsl C01C11_InitializeEntityStateMask
+    jsl C01A69_ResetEntitySlotStateTables
+    jsl C00013_SetupOverworldVramRegisters
+    jsl C432B1_ResetPartyVisualMasksAndStatusBytes
+    jsl C005E7_PrepareAverageForSpritePalettes
+    lda.w #$0000
+    sta $0E
+    lda.w #$00C3
+    sta $10
+    ldx.w #$0100
+    lda.w #$0300
+    jsl C08ED2_CopyWordsFromLongSource
+    jsl C200D9_ClearBattleOrPresentationState
+    ; Clear the text-layer tilemap, then decompress and stage window graphics.
+    lda.w #$0000
+    sta $06
+    lda.w #$007F
+    sta $08
+    lda.w #$0000
+    sta [$06]
+    lda $06
+    sta $0E
+    lda $08
+    sta $10
+    ldy.w #$7C00
+    ldx.w #$0800
+    sep #$20
+    lda.b #$03
+    jsl C08616_QueueVramTransfer_FromDpSource
+    lda.w #$0000
+    sta $0E
+    lda.w #$00E0
+    sta $10
+    lda $06
+    sta $12
+    lda $08
+    sta $14
+    jsl C41A9E_GraphicsDecompressionRoutines_Main
+    lda.w #$2000
+    sta $0E
+    lda.w #$007F
+    sta $10
+    lda.w #$1000
+    sta $12
+    lda.w #$007F
+    sta $14
+    lda.w #$2A00
+    jsl C08EED_CopyMemoryBlockLong
+    lda.w #$0001
+    jsl C44963_ResetActiveTextGlyphRun
+    lda.w #$1FC8
+    sta $0E
+    lda.w #$00E0
+    sta $10
+    ldx.w #$0040
+    lda.w #$0200
+    jsl C08ED2_CopyWordsFromLongSource
+    sep #$20
+    lda.b #$18
+    sta $0030
+    ldx.w #$0000
+    rep #$20
+    lda.w #$00E6
+    jsl C47370_LoadBackgroundAnimation
+    lda.w #$0017
+    sta $0A4C
+    lda.w #$0018
+    sta $0A4E
+    ldy.w #$0000
+    tyx
+    lda.w #$0313
+    jsl C09321_InitDelayedActionState
+    ; Run the file-select entity, then restore transient display/audio state.
+    sep #$20
+    lda.b #$16
+    sta $001A
+    rep #$20
+    stz $0037
+    stz $0033
+    stz $0035
+    stz $0031
+    jsl C088B1_ResetRendererFrameState
+    jsl C08B26_FlushQueuedSpriteOrTileWork
+    ldx.w #$0001
+    txa
+    jsl C0886C_SetDisplayTransitionState
+    jsl C1FF6B_RunFileSelectSession
+    ldy.w #$0000
+    ldx.w #$0001
+    txa
+    jsl C08814_SetDisplayTransitionMode
+    lda.w #$0017
+    jsl C09C35_CleanupEntitySlotState
+    sep #$20
+    lda.b #$17
+    sta $001A
+    rep #$20
+    lda $98B7
+    and.w #$00FF
+    dec A
+    jsl C4FD18_SetAudioChannels
+    pld
+    rts

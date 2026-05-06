@@ -11,6 +11,7 @@ the game pans over Onett.
 
 - `C0:B65F` = `SeedPlayerOverworldStartPosition`
 - `C0:B67F` = `InitializeIntroOverworldScene`
+- `C0:B525` = `FileSelectInit`
 - `C0:2D29` = `ResetOverworldPartyRuntimeState`
 - `C0:8F42` = `SnapshotContinuationFrame`
 
@@ -75,6 +76,10 @@ party condition-decay gate.
 `C0:8F42` is named here as `SnapshotContinuationFrame`: it writes the current
 long-call return/processor/direct-page/stack state into the caller-selected
 buffer (`$0A20` or `$0A2A` in this module), while the already observed `C0:8F68`
-path restores that frame. The remaining raw `jsr $B525` is deliberately left
-unnamed because it targets the larger pre-`B67F` raw intro setup body inside the
-unpromoted `C0:B2FF..B65F` corridor.
+path restores that frame.
+
+The adjacent 2026-05-06 source-split pass promoted the pre-`B67F`
+`C0:B2FF..B65F` corridor into clamp-table, projection-helper, sine-table, and
+file-select-init pieces. The continuation now calls `C0:B525` as
+`FileSelectInit`, closing the previous numeric same-bank helper edge. See
+`notes/file-select-init-and-projection-c0b2ff-c0b65f.md`.
