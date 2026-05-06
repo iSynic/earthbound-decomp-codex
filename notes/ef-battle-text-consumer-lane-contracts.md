@@ -115,6 +115,10 @@ name EF result scripts if the C2 behavior body later emits an EF pointer.
 - Do not infer row messages from nearby English-looking EF action flavor text.
 - Do not fold Lifeup rows `32..35` into the shared `EF:8543` PSI bucket until
   their row `+4` pointers are recovered.
+- Do not treat Lifeup explanation text `EF:5173..51BB`, enemy Lifeup flavor
+  `EF:8D4C`, or explosive flavor candidates `EF:9A7E/9A9E` as row-message
+  joins for rows `32..35` or `64/65` until row `+4` pointer recovery proves
+  them.
 - Do not collapse no-op behavior rows into "no effect" result text; a no-op
   row `+8` body can still have meaningful row `+4` presentation text.
 
