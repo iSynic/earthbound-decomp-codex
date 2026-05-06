@@ -18,6 +18,7 @@ REQUIRED_REFERENCES = {
     "manifests/audio-oracle-verification-report-all-tracks.json",
     "manifests/audio-independent-oracle-campaign-plan.json",
     "manifests/audio-probe-campaign-plan.json",
+    "manifests/audio-nonzero-control-coverage-report.json",
 }
 REQUIRED_GATES = {
     "public_exact_duration_gate",
@@ -26,6 +27,7 @@ REQUIRED_GATES = {
     "near_oracle_gate",
     "independent_oracle_gate",
     "sequence_promotion_gate",
+    "nonzero_control_coverage_gate",
 }
 REQUIRED_LANES = {
     "non_zero_control_semantics",
@@ -62,6 +64,11 @@ def validate(data: dict[str, Any]) -> None:
     require(int(summary.get("finite_tail_records", 0)) == 5, "expected 5 finite tail records")
     require(int(summary.get("loop_tail_records", 0)) == 5, "expected 5 loop tail records")
     require(int(summary.get("probe_campaign_jobs", 0)) == 26, "expected 26 probe campaign jobs")
+    require(int(summary.get("nonzero_coverage_probe_jobs", 0)) == 7, "expected 7 nonzero coverage probe jobs")
+    require(
+        int(summary.get("nonzero_blocker_tracks_without_source_candidate", 0)) == 146,
+        "expected 146 nonzero blockers without source candidate",
+    )
     require(summary.get("release_ready") is False, "release readiness should remain blocked")
     require(summary.get("current_playback_export_behavior_preserved") is True, "behavior preservation flag missing")
     primary_counts = summary.get("primary_uncertainty_track_counts", {})
@@ -94,6 +101,16 @@ def validate(data: dict[str, Any]) -> None:
     require(sequence_gate.get("passed") is False, "sequence promotion gate should fail")
     require(sequence_gate.get("uncertainty_register_allows_sequence_promotion") is False, "uncertainty sequence promotion should be blocked")
     require(sequence_gate.get("probe_campaign_allows_sequence_promotion") is False, "probe campaign sequence promotion should be blocked")
+    nonzero_gate = gates["nonzero_control_coverage_gate"]
+    require(nonzero_gate.get("passed") is False, "nonzero coverage gate should fail")
+    require(int(nonzero_gate.get("blocker_track_count", 0)) == 155, "nonzero coverage blocker count mismatch")
+    require(int(nonzero_gate.get("probe_job_count", 0)) == 7, "nonzero coverage probe job count mismatch")
+    require(int(nonzero_gate.get("source_candidate_record_count", 0)) == 56, "nonzero coverage source record count mismatch")
+    require(int(nonzero_gate.get("unique_source_candidate_track_count", 0)) == 10, "nonzero coverage unique track count mismatch")
+    require(
+        int(nonzero_gate.get("blocker_tracks_without_source_candidate_count", 0)) == 146,
+        "nonzero coverage missing-source count mismatch",
+    )
 
     lanes = data.get("blocker_lanes", [])
     require({str(lane.get("lane")) for lane in lanes} == REQUIRED_LANES, "blocker lane coverage mismatch")

@@ -122,6 +122,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate frame-normalized finite-ending tail metrics: `python tools/validate_audio_finite_ending_tail_metrics.py`.
 - Build audio duration readiness rollup: `python tools/build_audio_duration_readiness_rollup.py`.
 - Validate audio duration readiness rollup: `python tools/validate_audio_duration_readiness_rollup.py`.
+- Build nonzero control coverage report: `python tools/build_audio_nonzero_control_coverage_report.py`.
+- Validate nonzero control coverage report: `python tools/validate_audio_nonzero_control_coverage_report.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.

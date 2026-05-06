@@ -7,7 +7,8 @@
     "manifests/audio-loop-point-tail-metrics.json",
     "manifests/audio-oracle-verification-report-all-tracks.json",
     "manifests/audio-independent-oracle-campaign-plan.json",
-    "manifests/audio-probe-campaign-plan.json"
+    "manifests/audio-probe-campaign-plan.json",
+    "manifests/audio-nonzero-control-coverage-report.json"
   ],
   "summary": {
     "track_count": 192,
@@ -28,6 +29,8 @@
     "finite_tail_records": 5,
     "loop_tail_records": 5,
     "probe_campaign_jobs": 26,
+    "nonzero_coverage_probe_jobs": 7,
+    "nonzero_blocker_tracks_without_source_candidate": 146,
     "release_ready": false,
     "current_playback_export_behavior_preserved": true
   },
@@ -73,6 +76,14 @@
       "passed": false,
       "uncertainty_register_allows_sequence_promotion": false,
       "probe_campaign_allows_sequence_promotion": false
+    },
+    "nonzero_control_coverage_gate": {
+      "passed": false,
+      "blocker_track_count": 155,
+      "probe_job_count": 7,
+      "source_candidate_record_count": 56,
+      "unique_source_candidate_track_count": 10,
+      "blocker_tracks_without_source_candidate_count": 146
     }
   },
   "blocker_lanes": [
@@ -111,6 +122,7 @@
     "This rollup is diagnostic only and does not promote sequence-derived durations or exact loop exports.",
     "Near-oracle equivalence is treated separately from independent external-emulator capture.",
     "Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.",
+    "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
     "Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence."
   ]
 }

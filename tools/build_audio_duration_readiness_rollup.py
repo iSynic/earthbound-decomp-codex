@@ -16,6 +16,7 @@ DEFAULT_LOOP_TAIL = ROOT / "manifests" / "audio-loop-point-tail-metrics.json"
 DEFAULT_ORACLE_REPORT = ROOT / "manifests" / "audio-oracle-verification-report-all-tracks.json"
 DEFAULT_INDEPENDENT_ORACLE = ROOT / "manifests" / "audio-independent-oracle-campaign-plan.json"
 DEFAULT_PROBE_CAMPAIGN = ROOT / "manifests" / "audio-probe-campaign-plan.json"
+DEFAULT_NONZERO_COVERAGE = ROOT / "manifests" / "audio-nonzero-control-coverage-report.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-duration-readiness-rollup.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-duration-readiness-rollup.md"
 
@@ -28,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--oracle-report", default=str(DEFAULT_ORACLE_REPORT), help="All-track oracle report JSON.")
     parser.add_argument("--independent-oracle", default=str(DEFAULT_INDEPENDENT_ORACLE), help="Independent oracle campaign JSON.")
     parser.add_argument("--probe-campaign", default=str(DEFAULT_PROBE_CAMPAIGN), help="Probe campaign plan JSON.")
+    parser.add_argument("--nonzero-coverage", default=str(DEFAULT_NONZERO_COVERAGE), help="Nonzero control coverage report JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Rollup JSON output.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Rollup markdown output.")
     return parser.parse_args()
@@ -44,6 +46,7 @@ def build_rollup(
     oracle_report: dict[str, Any],
     independent_oracle: dict[str, Any],
     probe_campaign: dict[str, Any],
+    nonzero_coverage: dict[str, Any],
 ) -> dict[str, Any]:
     uncertainty_summary = uncertainty.get("summary", {})
     oracle_gates = oracle_report.get("gate_results", {})
@@ -51,6 +54,7 @@ def build_rollup(
     finite_summary = finite_tail.get("summary", {})
     loop_summary = loop_tail.get("summary", {})
     probe_summary = probe_campaign.get("summary", {})
+    nonzero_summary = nonzero_coverage.get("summary", {})
     public_exact_count = int(uncertainty_summary.get("public_exact_duration_track_count", 0))
     track_count = int(uncertainty_summary.get("track_count", 0))
     primary_counts = uncertainty_summary.get("primary_uncertainty_track_counts", {})
@@ -95,6 +99,14 @@ def build_rollup(
             "uncertainty_register_allows_sequence_promotion": bool(uncertainty_summary.get("sequence_promotion_allowed")),
             "probe_campaign_allows_sequence_promotion": bool(probe_summary.get("sequence_promotion_allowed_by_campaign")),
         },
+        "nonzero_control_coverage_gate": {
+            "passed": False,
+            "blocker_track_count": int(nonzero_summary.get("blocker_track_count", 0)),
+            "probe_job_count": int(nonzero_summary.get("probe_job_count", 0)),
+            "source_candidate_record_count": int(nonzero_summary.get("source_candidate_record_count", 0)),
+            "unique_source_candidate_track_count": int(nonzero_summary.get("unique_source_candidate_track_count", 0)),
+            "blocker_tracks_without_source_candidate_count": int(nonzero_summary.get("blocker_tracks_without_source_candidate_count", 0)),
+        },
     }
     blocker_lanes = [
         {
@@ -138,6 +150,7 @@ def build_rollup(
             "manifests/audio-oracle-verification-report-all-tracks.json",
             "manifests/audio-independent-oracle-campaign-plan.json",
             "manifests/audio-probe-campaign-plan.json",
+            "manifests/audio-nonzero-control-coverage-report.json",
         ],
         "summary": {
             "track_count": track_count,
@@ -149,6 +162,10 @@ def build_rollup(
             "finite_tail_records": int(finite_summary.get("record_count", 0)),
             "loop_tail_records": int(loop_summary.get("record_count", 0)),
             "probe_campaign_jobs": int(probe_summary.get("campaign_job_count", 0)),
+            "nonzero_coverage_probe_jobs": int(nonzero_summary.get("probe_job_count", 0)),
+            "nonzero_blocker_tracks_without_source_candidate": int(
+                nonzero_summary.get("blocker_tracks_without_source_candidate_count", 0)
+            ),
             "release_ready": release_ready,
             "current_playback_export_behavior_preserved": True,
         },
@@ -158,6 +175,7 @@ def build_rollup(
             "This rollup is diagnostic only and does not promote sequence-derived durations or exact loop exports.",
             "Near-oracle equivalence is treated separately from independent external-emulator capture.",
             "Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.",
+            "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
             "Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.",
         ],
     }
@@ -199,6 +217,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- finite tail records: `{summary['finite_tail_records']}`",
             f"- loop tail records: `{summary['loop_tail_records']}`",
             f"- probe campaign jobs: `{summary['probe_campaign_jobs']}`",
+            f"- nonzero coverage probe jobs: `{summary['nonzero_coverage_probe_jobs']}`",
+            f"- nonzero blocker tracks without source candidate: `{summary['nonzero_blocker_tracks_without_source_candidate']}`",
             f"- release ready: `{summary['release_ready']}`",
             "",
             "## Gates",
@@ -236,6 +256,7 @@ def main() -> int:
         load_json(Path(args.oracle_report)),
         load_json(Path(args.independent_oracle)),
         load_json(Path(args.probe_campaign)),
+        load_json(Path(args.nonzero_coverage)),
     )
     output = Path(args.output)
     notes = Path(args.notes)
