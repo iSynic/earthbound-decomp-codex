@@ -809,13 +809,13 @@ EF6C55_EBattle5AsleepStatusResultText:
 ; EF:6C6B
 
 ; EBATTLE5: player-side incapacitated/collapsed text.
-EF6C6B_EBattle5MsgBtlIncapacitated:
+EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C84
 
 ; EBATTLE5: Flying Man death text and party-removal branch driver.
-EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+EF6C84_EBattle5FlyingManDeathText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6CC7
@@ -875,73 +875,73 @@ EF6D26_EBattle5FlyingManRemoveBranch5:
 ; EF:6D2A
 
 ; EBATTLE5: teddy bear destroyed text.
-EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+EF6D2A_EBattle5TeddyBearDestroyedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D4C
 
 ; EBATTLE5: super plush bear destroyed text.
-EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+EF6D4C_EBattle5SuperPlushBearDestroyedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D71
 
 ; EBATTLE5: enemy defeated text.
-EF6D71_EBattle5MsgBtlEnemyDefeated:
+EF6D71_EBattle5EnemyDefeatedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D83
 
 ; EBATTLE5: enemy stopped moving defeat text.
-EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D96
 
 ; EBATTLE5: enemy became tame defeat text.
-EF6D96_EBattle5MsgBtlEnemyBecameTame:
+EF6D96_EBattle5EnemyBecameTameDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DA7
 
 ; EBATTLE5: enemy disappeared defeat text.
-EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+EF6DA7_EBattle5EnemyDisappearedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DB8
 
 ; EBATTLE5: enemy figure melted away defeat text.
-EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DD8
 
 ; EBATTLE5: enemy broke into pieces defeat text.
-EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DF0
 
 ; EBATTLE5: enemy destroyed defeat text.
-EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+EF6DF0_EBattle5EnemyDestroyedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E03
 
 ; EBATTLE5: enemy scrapped defeat text.
-EF6E03_EBattle5MsgBtlEnemyScrapped:
+EF6E03_EBattle5EnemyScrappedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E19
 
 ; EBATTLE5: enemy turned back to normal defeat text.
-EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E31
 
 ; EBATTLE5: enemy returned to dust defeat text.
-EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E4A

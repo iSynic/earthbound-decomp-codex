@@ -147,6 +147,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:6C6B..6F9A` corridor into player collapse, Flying Man/teddy-bear death,
   enemy defeat flavor, affliction recovery/removal, revive success/failure, and
   shield-adjacent recovery payload anchors.
+- 2026-05-06: EF death/defeat naming follow-up tightened `EF:6C6B..6E31`:
+  player collapse, Flying Man/teddy-bear death payloads, and enemy defeat
+  flavor variants now have source names without inherited `MsgBtl`/`MsgSys`
+  shells, while Flying Man branch/helper labels remain control-flow anchors.
 - 2026-05-05: EF EBATTLE8 present-result follow-up split the
   `EF:7C42..7DD5` continuation behind `MSG_BTL_PRESENT` into
   recipient-cannot-receive, full-inventory, throw-away prompt, abandon

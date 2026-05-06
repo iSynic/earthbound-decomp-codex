@@ -173,6 +173,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:6F1E`, sunstroke cured `EF:6F38`, asleep recovered `EF:6F54`, and
   PSI-seal recovered `EF:6F64`, plus adjacent collapse/death/revive result
   payloads in `EF:6C6B..6F9A`.
+- 2026-05-06: EF death/defeat naming follow-up removed inherited
+  `MsgBtl`/`MsgSys` prose from `EF:6C6B..6E31`, naming player collapse,
+  Flying Man/teddy-bear death, and enemy defeat flavor anchors while leaving
+  Flying Man branch/helper labels as control-flow anchors.
 - 2026-05-06: EF source-only naming follow-up tightened the payload anchor
   suffixes used by C1/C2 joins. `ActionAmount` now names EF scripts that
   consume `C1:DC66` secondary payloads through `$9D12/$9D14 -> 1C 0F`;

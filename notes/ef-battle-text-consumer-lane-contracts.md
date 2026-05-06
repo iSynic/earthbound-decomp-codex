@@ -70,6 +70,9 @@ Examples:
   messages without separate `D5:7B68` row-pointer evidence.
 - `RecoveryResultText` and `RemovalResultText` EF anchors such as
   `EF:6E4A..6F64` are the cleanup side of the same direct-result lane.
+- Death/defeat text at `EF:6C6B..6E31` is direct death/defeat payload flow:
+  player collapse, Flying Man/teddy-bear death payloads, and enemy defeat
+  flavor variants. Do not promote these as row `+4` presentation text.
 - Revive, shield, Neutralizer, and Franklin Badge anchors in `EF:6F7C..7160`
   are also direct result lane text; `EF:70D2/70FA` additionally keep the
   `ByteSubstitution` suffix because they consume the staged PSI-name byte.

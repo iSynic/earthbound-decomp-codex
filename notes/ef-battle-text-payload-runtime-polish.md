@@ -72,7 +72,9 @@ macros.
   `StatusResultText` payloads instead of one broad affliction corridor.
 - `EF:6C6B..6E31` now splits the post-status EBATTLE5 death-result corridor:
   player collapse, Flying Man/teddy-bear NPC death payloads, and enemy defeat
-  flavor text now have source anchors instead of one anonymous status tail.
+  flavor text now have source anchors instead of one anonymous status tail. The
+  source labels now name player incapacitated/collapse, Flying Man/teddy-bear
+  death, and enemy defeat variants without inherited `MsgBtl`/`MsgSys` shells.
 - `EF:6E4A`, `EF:6E67`, `EF:6E81`, `EF:6E97`, `EF:6EBC`, `EF:6ED1`,
   `EF:6EED`, `EF:6F0B`, `EF:6F1E`, `EF:6F38`, `EF:6F54`, and `EF:6F64`
   now mark the EBATTLE5 `RecoveryResultText`/`RemovalResultText` scripts for
@@ -294,6 +296,13 @@ The C2 affliction-recovery source and notes repeatedly dispatch into the
 sunstroke, asleep, and PSI-seal cleanup. Splitting the wider `EF:6C6B..6F9A`
 island also exposes the adjacent player/NPC/enemy death-result payloads and the
 revive success/failure scripts that sit before the shield-result block.
+
+The adjacent death/defeat front now has source names that match its runtime
+role: `EF:6C6B` is player incapacitated/collapse text, `EF:6C84..6D4C`
+names Flying Man and teddy-bear death payloads while preserving the Flying Man
+branch/helper labels, and `EF:6D71..6E31` names enemy defeat flavor variants.
+These are death/defeat payload anchors, not row `+4` action presentation
+messages.
 
 The source labels now make the cleanup lane explicit: `EF:6E4A..6F64` are
 `RecoveryResultText` or `RemovalResultText` anchors, the direct-result mirror of

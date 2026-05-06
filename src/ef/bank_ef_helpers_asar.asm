@@ -4400,17 +4400,17 @@ db $17,$35,$9E,$97,$15,$34,$1F,$02,$53,$03,$02
 ; bodies, not a row +4 presentation message.
 EF6C55_EBattle5AsleepStatusResultText:
 
-; Original data gap before EF6C6B_EBattle5MsgBtlIncapacitated:
+; Original data gap before EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 db $01,$70,$1C,$0E,$50,$96,$16,$7F,$00,$50,$50,$91,$A3,$9C,$15,$C9
 db $51,$1F,$02,$53,$03,$02
 
-EF6C6B_EBattle5MsgBtlIncapacitated:
+EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 
-; Original data gap before EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+; Original data gap before EF6C84_EBattle5FlyingManDeathText:
 db $01,$70,$1C,$0E,$16,$4D,$98,$A5,$A2,$A4,$15,$04,$93,$16,$F9,$A0
 db $A3,$95,$16,$29,$1F,$02,$20,$03,$02
 
-EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+EF6C84_EBattle5FlyingManDeathText:
 
 ; Original data gap before EF6CC7_EBattle5FlyingManDeadBranchB:
 db $01,$70,$1C,$0E,$16,$4D,$98,$A5,$A2,$A4,$00,$50,$15,$04,$93,$16
@@ -4462,78 +4462,78 @@ db $1B,$01,$0B,$0E,$1B,$02,$26,$6D,$EF,$00,$1F,$12,$0E,$02
 
 EF6D26_EBattle5FlyingManRemoveBranch5:
 
-; Original data gap before EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+; Original data gap before EF6D2A_EBattle5TeddyBearDestroyedText:
 db $1F,$12,$0F,$02
 
-EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+EF6D2A_EBattle5TeddyBearDestroyedText:
 
-; Original data gap before EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+; Original data gap before EF6D4C_EBattle5SuperPlushBearDestroyedText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$00,$50,$15,$BC,$A0,$99,$9C,$15
 db $43,$96,$9C,$A5,$96,$96,$15,$03,$1F,$02,$20,$03,$00,$1D,$01,$FF
 db $02,$02
 
-EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+EF6D4C_EBattle5SuperPlushBearDestroyedText:
 
-; Original data gap before EF6D71_EBattle5MsgBtlEnemyDefeated:
+; Original data gap before EF6D71_EBattle5EnemyDefeatedText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$00,$50,$17,$33,$99,$97,$50,$A0
 db $99,$9C,$15,$43,$96,$9C,$A5,$96,$96,$15,$03,$1F,$02,$20,$03,$00
 db $1D,$01,$FF,$03,$02
 
-EF6D71_EBattle5MsgBtlEnemyDefeated:
+EF6D71_EBattle5EnemyDefeatedText:
 
-; Original data gap before EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+; Original data gap before EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$94,$95,$96,$95,$16,$66,$94,$51,$1F,$02
 db $21,$02
 
-EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 
-; Original data gap before EF6D96_EBattle5MsgBtlEnemyBecameTame:
+; Original data gap before EF6D96_EBattle5EnemyBecameTameDefeatText:
 db $01,$70,$1C,$0E,$50,$17,$91,$A0,$15,$57,$9D,$9F,$A6,$17,$7D,$1F
 db $02,$21,$02
 
-EF6D96_EBattle5MsgBtlEnemyBecameTame:
+EF6D96_EBattle5EnemyBecameTameDefeatText:
 
-; Original data gap before EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+; Original data gap before EF6DA7_EBattle5EnemyDisappearedDefeatText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$50,$A4,$17,$78,$51,$1F,$02,$21
 db $02
 
-EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+EF6DA7_EBattle5EnemyDisappearedDefeatText:
 
-; Original data gap before EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+; Original data gap before EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 db $01,$70,$1C,$0E,$16,$B1,$A3,$16,$56,$91,$17,$45,$51,$1F,$02,$21
 db $02
 
-EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 
-; Original data gap before EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+; Original data gap before EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 db $01,$15,$14,$96,$99,$97,$A5,$A2,$15,$43,$1C,$0E,$15,$B8,$9C,$A4
 db $95,$94,$16,$0B,$A4,$98,$17,$68,$91,$99,$A2,$51,$1F,$02,$21,$02
 
-EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 
-; Original data gap before EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+; Original data gap before EF6DF0_EBattle5EnemyDestroyedDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$92,$A2,$17,$09,$9E,$16,$0B,$A0,$99,$95
 db $93,$95,$A3,$51,$1F,$02,$21,$02
 
-EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+EF6DF0_EBattle5EnemyDestroyedDefeatText:
 
-; Original data gap before EF6E03_EBattle5MsgBtlEnemyScrapped:
+; Original data gap before EF6E03_EBattle5EnemyScrappedDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$94,$15,$F9,$A2,$9F,$A9,$95,$94,$51,$1F
 db $02,$21,$02
 
-EF6E03_EBattle5MsgBtlEnemyScrapped:
+EF6E03_EBattle5EnemyScrappedDefeatText:
 
-; Original data gap before EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+; Original data gap before EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$A4,$9F,$A4,$15,$DD,$A3,$93,$A2,$16,$56
 db $94,$51,$1F,$02,$21,$02
 
-EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 
-; Original data gap before EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+; Original data gap before EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 db $01,$70,$1C,$0E,$50,$17,$3C,$95,$94,$15,$85,$15,$0C,$9E,$9F,$A2
 db $9D,$91,$9C,$51,$1F,$02,$21,$02
 
-EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 
 ; Original data gap before EF6E4A_EBattle5DiamondizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$16,$97,$95,$94,$15,$06,$94,$17,$E6,$15,$09
