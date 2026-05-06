@@ -66,6 +66,9 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   plus `notes/c1-text-entry-runtime-polish.md`.
 - 2026-04-30: C1 selection prompt fifth slice landed as byte-neutral source
   comments plus `notes/c1-selection-prompt-runtime-polish.md`.
+- 2026-05-06: C1 selection-prompt dispatch/core follow-up landed as
+  byte-neutral named helper-call polish plus
+  `notes/character-selection-prompt-dispatch-c1242e-c12bf3.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

@@ -32,3 +32,24 @@ semantic names for all internal subroutines remain intentionally conservative
 until the callers at `C1:4666` / `C1:46A8` and the surrounding menu control flow
 are documented.
 
+## Source Polish Follow-Up (2026-05-06)
+
+`src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm` now carries the
+same named helper-call surface as the preceding `C1:2012..242E` prompt strip.
+The dispatch wrapper names the two prompt controllers directly:
+
+- `C1:2362` = `RunSimpleSideSelectionPrompt`
+- `C1:21B8` = `RunTwoListCharacterSelectionPrompt`
+
+The `C1:244C` character-select core now names its evidence-backed local and
+cross-bank joins: active interaction-context lookup, temporary text-event slot
+snapshot/restore, window/context binding, character-name pointer resolution,
+typed text-entry creation, active-chain refresh, selection-menu loop, prompt
+callback install/clear, window close, HP/PP row focus/clear helpers, text/window
+ticks, sound effects, delayed-action payload dispatch, text printing, pointer
+offset resolution, VRAM transfer, and text-entry chain counting.
+
+The remaining raw local absolute jumps and local calls at `C1:2227`, `C1:0285`,
+`C1:AE4C`, and `C1:764C` are intentionally left as-is. They sit inside the
+mixed internal decode for this corridor and need a separate structural split
+before promotion.

@@ -19,6 +19,27 @@ C08616_QueueVramTransfer_FromDpSource  = $C08616
 C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 C08FF7_ResolveIndexedPointerOffset     = $C08FF7
 C186B1_PrintTextFromPointer            = $C186B1
+C09279_DispatchDelayedActionTarget      = $C09279
+C0ABE0_PlaySoundEffect                  = $C0ABE0
+C10301_GetActiveInteractionContextRecord = $0301
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+C1138D_CountTextEntryChainRecordsLocal  = $138D
+C1153B_CreateTypedTextEntryRecord       = $153B
+C1163C_RefreshActiveTextEntryChain      = $163C
+C1196A_RunActiveTextEntrySelectionMenu  = $196A
+C11F5A_InstallSelectionPromptCallback   = $1F5A
+C11F8A_ClearActiveSelectionPromptScratch = $1F8A
+C121B8_RunTwoListCharacterSelectionPrompt = $21B8
+C12362_RunSimpleSideSelectionPrompt     = $2362
+C12DD5_TickWindowTextSystem             = $C12DD5
+C12E42_TickWindowInputState             = $C12E42
+C20A20_SnapshotManagedTextEventSlotState = $C20A20
+C20ABC_RestoreManagedTextEventSlotState = $C20ABC
+C222D3_ResolveCharacterNamePointer      = $C222D3
+C3E4CA_ClearInstantPrinting             = $C3E4CA
+C3E521_CloseWindowById                  = $C3E521
+C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
+C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
 
 ; ---------------------------------------------------------------------------
 ; C1:242E
@@ -37,13 +58,13 @@ C1242E_DispatchCharacterSelectionPromptMode:
     beq C12444_DispatchCharacterSelectionPromptMode_L2444
     ; Nonzero mode: choose between the two highlighted sides only.
     tya
-    jsr $2362
+    jsr C12362_RunSimpleSideSelectionPrompt
     bra C1244A_DispatchCharacterSelectionPromptMode_L244A
 C12444_DispatchCharacterSelectionPromptMode_L2444:
     ldx $02
     ; Zero mode: run the full two-list candidate prompt.
     tya
-    jsr $21B8
+    jsr C121B8_RunTwoListCharacterSelectionPrompt
 C1244A_DispatchCharacterSelectionPromptMode_L244A:
     pld
     rts
@@ -58,7 +79,7 @@ C1244C_CharacterSelectPrompt:
     sty $28
     stx $26
     sta $24
-    jsr $0301
+    jsr C10301_GetActiveInteractionContextRecord
     sta $22
     clc
     adc.w #$001B
@@ -77,7 +98,7 @@ C1244C_CharacterSelectPrompt:
     jmp.w C1255C_DispatchCharacterSelectionPromptMode_L255C
 C12482_DispatchCharacterSelectionPromptMode_L2482:
     lda.w #$9C8A
-    jsl $C20A20
+    jsl C20A20_SnapshotManagedTextEventSlotState
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
@@ -94,7 +115,7 @@ C1249F_DispatchCharacterSelectionPromptMode_L249F:
     lda $04
     sta $1C
     lda $04
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     stz $1A
     jmp.w C1252A_DispatchCharacterSelectionPromptMode_L252A
 C124AF_DispatchCharacterSelectionPromptMode_L24AF:
@@ -105,7 +126,7 @@ C124AF_DispatchCharacterSelectionPromptMode_L24AF:
     ldx $02
     lda $0000,X
     and.w #$00FF
-    jsl $C222D3
+    jsl C222D3_ResolveCharacterNamePointer
     lda $06
     sta $0E
     lda $08
@@ -154,7 +175,7 @@ C124AF_DispatchCharacterSelectionPromptMode_L24AF:
     lda $0000,X
     and.w #$00FF
     ldx $18
-    jsr $153B
+    jsr C1153B_CreateTypedTextEntryRecord
     inc $1A
 C1252A_DispatchCharacterSelectionPromptMode_L252A:
     lda $98A4
@@ -168,16 +189,16 @@ C1253A_DispatchCharacterSelectionPromptMode_L253A:
     bpl C1253F_DispatchCharacterSelectionPromptMode_L253F
     jmp.w C124AF_DispatchCharacterSelectionPromptMode_L24AF
 C1253F_DispatchCharacterSelectionPromptMode_L253F:
-    jsr $163C
+    jsr C1163C_RefreshActiveTextEntryChain
     lda $28
-    jsr $196A
+    jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
     stx $16
     lda $1C
     sta $04
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$9C8A
-    jsl $C20ABC
+    jsl C20ABC_RestoreManagedTextEventSlotState
     jmp $27CB
 C1255C_DispatchCharacterSelectionPromptMode_L255C:
     ldx.w #$0000
@@ -251,10 +272,10 @@ C125D7_DispatchCharacterSelectionPromptMode_L25D7:
     lda $26
     bne C125EB_DispatchCharacterSelectionPromptMode_L25EB
     lda $04
-    jsl $C43573
+    jsl C43573_SelectFocusedPartyHpPpActorAndBlankRow
 C125EB_DispatchCharacterSelectionPromptMode_L25EB:
-    jsl $C3E4CA
-    jsl $C12DD5
+    jsl C3E4CA_ClearInstantPrinting
+    jsl C12DD5_TickWindowTextSystem
     lda $04
     sta $24
     lda $5E7A
@@ -395,8 +416,8 @@ C126CA_DispatchCharacterSelectionPromptMode_L26CA:
     ldy.w #$001B
 C1270F_DispatchCharacterSelectionPromptMode_L270F:
     tya
-    jsl $C0ABE0
-    jsl $C3E6F8
+    jsl C0ABE0_PlaySoundEffect
+    jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     jmp $27CB
     lda $16
     inc A
@@ -456,7 +477,7 @@ C12779_DispatchCharacterSelectionPromptMode_L2779:
     cmp $04
     beq C127C1_DispatchCharacterSelectionPromptMode_L27C1
     tya
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     ldx $16
     stx $04
     lda $986F,X
@@ -536,7 +557,7 @@ C127C1_DispatchCharacterSelectionPromptMode_L27C1:
     sta $28
     lda $0C
     sta $2A
-    jsr $0301
+    jsr C10301_GetActiveInteractionContextRecord
     sta $26
     clc
     adc.w #$001B
@@ -555,7 +576,7 @@ C127C1_DispatchCharacterSelectionPromptMode_L27C1:
     jmp.w C12925_DispatchCharacterSelectionPromptMode_L2925
 C12843_DispatchCharacterSelectionPromptMode_L2843:
     lda.w #$9C8A
-    jsl $C20A20
+    jsl C20A20_SnapshotManagedTextEventSlotState
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
@@ -570,7 +591,7 @@ C1285A_DispatchCharacterSelectionPromptMode_L285A:
 C12860_DispatchCharacterSelectionPromptMode_L2860:
     stx $20
     lda $20
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0000
     sta $02
     bra C128DF_DispatchCharacterSelectionPromptMode_L28DF
@@ -583,7 +604,7 @@ C1286E_DispatchCharacterSelectionPromptMode_L286E:
     ldx $04
     lda $0000,X
     and.w #$00FF
-    jsl $C222D3
+    jsl C222D3_ResolveCharacterNamePointer
     lda $06
     sta $0E
     lda $08
@@ -624,7 +645,7 @@ C1286E_DispatchCharacterSelectionPromptMode_L286E:
     lda $0000,X
     and.w #$00FF
     ldx $1C
-    jsr $153B
+    jsr C1153B_CreateTypedTextEntryRecord
     inc $02
 C128DF_DispatchCharacterSelectionPromptMode_L28DF:
     lda $98A4
@@ -638,7 +659,7 @@ C128EF_DispatchCharacterSelectionPromptMode_L28EF:
     bpl C128F4_DispatchCharacterSelectionPromptMode_L28F4
     jmp.w C1286E_DispatchCharacterSelectionPromptMode_L286E
 C128F4_DispatchCharacterSelectionPromptMode_L28F4:
-    jsr $163C
+    jsr C1163C_RefreshActiveTextEntryChain
     lda $0A
     sta $06
     lda $0C
@@ -647,16 +668,16 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     sta $0E
     lda $08
     sta $10
-    jsr $1F5A
+    jsr C11F5A_InstallSelectionPromptCallback
     lda $32
-    jsr $196A
+    jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
     stx $1E
-    jsr $1F8A
+    jsr C11F8A_ClearActiveSelectionPromptScratch
     lda $20
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$9C8A
-    jsl $C20ABC
+    jsl C20ABC_RestoreManagedTextEventSlotState
     jmp $2BB1
 C12925_DispatchCharacterSelectionPromptMode_L2925:
     lda $89CA
@@ -692,7 +713,7 @@ C12952_DispatchCharacterSelectionPromptMode_L2952:
     lda $0C
     sta $00BE
     pla
-    jsl $C09279
+    jsl C09279_DispatchDelayedActionTarget
 C1296C_DispatchCharacterSelectionPromptMode_L296C:
     stz $5E7C
     lda.w #$000A
@@ -701,10 +722,10 @@ C1296C_DispatchCharacterSelectionPromptMode_L296C:
     lda $30
     bne C12980_DispatchCharacterSelectionPromptMode_L2980
     lda $04
-    jsl $C43573
+    jsl C43573_SelectFocusedPartyHpPpActorAndBlankRow
 C12980_DispatchCharacterSelectionPromptMode_L2980:
-    jsl $C3E4CA
-    jsl $C12DD5
+    jsl C3E4CA_ClearInstantPrinting
+    jsl C12DD5_TickWindowTextSystem
     lda $04
     sta $1A
     lda $5E7A
@@ -782,7 +803,7 @@ C12A18_DispatchCharacterSelectionPromptMode_L2A18:
     asl $B94C,X
     rol A
 C12A20_DispatchCharacterSelectionPromptMode_L2A20:
-    jsl $C12E42
+    jsl C12E42_TickWindowInputState
     lda $006D
     and.b #$00
     cop.b #$F0
@@ -846,8 +867,8 @@ C12AA5_DispatchCharacterSelectionPromptMode_L2AA5:
     ldy.w #$001B
 C12AA8_DispatchCharacterSelectionPromptMode_L2AA8:
     tya
-    jsl $C0ABE0
-    jsl $C3E6F8
+    jsl C0ABE0_PlaySoundEffect
+    jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     jmp $2BB1
     lda $1E
     inc A
@@ -932,7 +953,7 @@ C12B34_DispatchCharacterSelectionPromptMode_L2B34:
     lda $08
     sta $00BE
     pla
-    jsl $C09279
+    jsl C09279_DispatchDelayedActionTarget
     cmp.b #$00
     brk #$D0
     bpl C12AF7_DispatchCharacterSelectionPromptMode_L2AF7
@@ -951,7 +972,7 @@ C12B61_DispatchCharacterSelectionPromptMode_L2B61:
     beq C12BA7_DispatchCharacterSelectionPromptMode_L2BA7
     ldy $16
     tya
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     ldx $1A
     stx $04
     lda.b #$00
@@ -978,7 +999,7 @@ C12B8D_DispatchCharacterSelectionPromptMode_L2B8D:
     lda $0C
     sta $00BE
     pla
-    jsl $C09279
+    jsl C09279_DispatchDelayedActionTarget
 C12BA7_DispatchCharacterSelectionPromptMode_L2BA7:
     lda.b #$04
     brk #$85
@@ -1014,5 +1035,5 @@ C12BDF_DispatchCharacterSelectionPromptMode_L2BDF:
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda $867B,X
-    jsr $138D
+    jsr C1138D_CountTextEntryChainRecordsLocal
     rts

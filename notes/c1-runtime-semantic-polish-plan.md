@@ -281,3 +281,13 @@ This planning pass is documentation-only.
   refresh, two-list prompt control, simple side prompt control, row highlight
   helpers, enemy flashing toggles, ticks, sound, and close-focus cleanup. See
   `notes/c1-selection-prompt-runtime-polish.md`.
+- 2026-05-06 follow-up: the contiguous `C1:242E..2BF3` selection-prompt
+  dispatch/core now names its evidence-backed helper-call surface. The pass
+  covers dispatch to the two prompt controllers, interaction-context lookup,
+  text-event slot snapshot/restore, window binding, character-name staging,
+  typed text-entry creation, active-chain refresh, selection-loop control,
+  prompt callback install/clear, HP/PP row focus helpers, delayed-action
+  payload dispatch, ticks, sound, text printing, VRAM transfer, and the
+  terminal text-entry chain counter. The mixed internal local jumps/calls stay
+  raw until the corridor is structurally split. See
+  `notes/character-selection-prompt-dispatch-c1242e-c12bf3.md`.
