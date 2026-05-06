@@ -25,10 +25,10 @@ C08EFC_CommitTileBufferToStaging              = $C08EFC
 C08FF7_ResolveIndexedPointerOffset            = $C08FF7
 C23FEA_CheckBattleActionSpecialCase           = $C23FEA
 C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
-C26BFB_MaskSet_BuildActiveTypedCandidates     = $C26BFB
-C26C82_MaskSet_BuildPhase1Candidates          = $C26C82
-C26D04_MaskSet_BuildMetadataMatchedCandidates = $C26D04
-C26E77_MaskSet_RemoveActiveTypedCandidates    = $C26E77
+C26BFB_MaskSet_BuildActiveTypedBattlers       = $C26BFB
+C26C82_MaskSet_BuildEnemySideBattlers         = $C26C82
+C26D04_MaskSet_BuildTargetParameterMatchedBattlers = $C26D04
+C26E77_MaskSet_RemoveActiveNpcBattlers        = $C26E77
 C26FDC_MaskSet_AddBit                         = $C26FDC
 C2C8C8_ResetBattleVisualPresentationState     = $C2C8C8
 C2D121_LoadPresentationSpriteResource         = $C2D121
@@ -100,12 +100,12 @@ C24749_DispatchClass2DerivedAction_L4749:
     lda.w BattlerCurrentTargetByte,X
     and.w #$00FF
     dec A
-    jsl TARGET_BATTLER
+    jsl C26FDC_MaskSet_AddBit
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24757_DispatchClass2DerivedAction_L4757:
     ; Codes 2/4 begin with all active allies, then prune NPC/blocked rows when
     ; the action is not a special-case row and the actor is party-side.
-    jsl TARGET_ALLIES
+    jsl C26BFB_MaskSet_BuildActiveTypedBattlers
     ldx $0E
     lda.w BattlerCurrentActionWord,X
     jsl C23FEA_CheckBattleActionSpecialCase
@@ -115,9 +115,9 @@ C24757_DispatchClass2DerivedAction_L4757:
     lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
-    jsl REMOVE_NPC_TARGETTING
+    jsl C26E77_MaskSet_RemoveActiveNpcBattlers
 C24777_DispatchClass2DerivedAction_L4777:
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
     ; Code 0x11 consumes battler.current_target (+0x0A) as a ranked-list ordinal spanning AD7A/AD82.
@@ -132,14 +132,14 @@ C2477E_DispatchClass2DerivedAction_L477E:
     dex
     lda $AD82,X
     and.w #$00FF
-    jsl TARGET_BATTLER
+    jsl C26FDC_MaskSet_AddBit
     bra C247A9_DispatchClass2DerivedAction_L47A9
 C2479D_DispatchClass2DerivedAction_L479D:
     tax
     dex
     lda $AD7A,X
     and.w #$00FF
-    jsl TARGET_BATTLER
+    jsl C26FDC_MaskSet_AddBit
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
     lda.w BattlerCurrentActionWord,X
@@ -165,7 +165,7 @@ C247BA_DispatchClass2DerivedAction_L47BA:
     lda.w #$0000
     sta CurrentTargetMaskHi
     lda $0E
-    jsl TARGET_BATTLER
+    jsl C26FDC_MaskSet_AddBit
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247E9_DispatchClass2DerivedAction_L47E9:
     lda $0E
@@ -176,22 +176,22 @@ C247EE_DispatchClass2DerivedAction_L47EE:
     bcc C247BA_DispatchClass2DerivedAction_L47BA
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247F5_DispatchClass2DerivedAction_L47F5:
-    ; Code 0x12 consumes battler.current_target (+0x0A) as direct metadata for TARGET_ROW.
+    ; Code 0x12 consumes battler.current_target (+0x0A) as target-parameter metadata.
     lda.w BattlerCurrentTargetByte,X
     and.w #$00FF
-    jsl TARGET_ROW
-    jsl REMOVE_NPC_TARGETTING
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl C26D04_MaskSet_BuildTargetParameterMatchedBattlers
+    jsl C26E77_MaskSet_RemoveActiveNpcBattlers
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
     bra C2481F_DispatchClass2DerivedAction_L481F
 C24809_DispatchClass2DerivedAction_L4809:
-    jsl TARGET_ALL_ENEMIES
+    jsl C26C82_MaskSet_BuildEnemySideBattlers
     ldx $0E
     lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
-    jsl REMOVE_NPC_TARGETTING
+    jsl C26E77_MaskSet_RemoveActiveNpcBattlers
 C2481B_DispatchClass2DerivedAction_L481B:
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
 C2481F_DispatchClass2DerivedAction_L481F:
     pld
     rtl

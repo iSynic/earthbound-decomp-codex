@@ -19,11 +19,11 @@ C08FF7_ResolveIndexedPointerOffset         = $C08FF7
 C09231_ModUnsignedWordByIndex              = $C09231
 C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
 C1DD76_RedirectBuildBattleTargetNameBuffer = $C1DD76
-C26BFB_MaskSet_BuildActiveTypedCandidates  = $C26BFB
-C26C82_MaskSet_BuildPhase1Candidates       = $C26C82
-C26D04_MaskSet_BuildRandomSideCandidates   = $C26D04
-C26E00_MaskSet_BuildActiveCandidates       = $C26E00
-C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+C26BFB_MaskSet_BuildActiveTypedBattlers    = $C26BFB
+C26C82_MaskSet_BuildEnemySideBattlers      = $C26C82
+C26D04_MaskSet_BuildTargetParameterMatchedBattlers = $C26D04
+C26E00_MaskSet_BuildActiveBattlers         = $C26E00
+C26E77_MaskSet_RemoveActiveNpcBattlers     = $C26E77
 C26EF8_MaskSet_FindFirstMatchInRange       = $C26EF8
 C27029_MaskSet_TestBit                     = $C27029
 C2B66A_ReadBattlerNameVariantFlag          = $C2B66A
@@ -456,7 +456,7 @@ C24008_BuildBattleTargetTextContext_L4008:
     beq C24071_BuildBattleTargetTextContext_L4071
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C2403A_BuildBattleTargetTextContext_L403A:
-    jsl C26E00_MaskSet_BuildActiveCandidates
+    jsl C26E00_MaskSet_BuildActiveBattlers
     lda CurrentTargetMaskLo
     sta $06
     lda CurrentTargetMaskHi
@@ -475,16 +475,16 @@ C24060_BuildBattleTargetTextContext_L4060:
     jsl C08E9A_GetRandom16
     ldy.w #$0003
     jsl C09231_ModUnsignedWordByIndex
-    jsl C26D04_MaskSet_BuildRandomSideCandidates
+    jsl C26D04_MaskSet_BuildTargetParameterMatchedBattlers
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C24071_BuildBattleTargetTextContext_L4071:
     jsl C08E9A_GetRandom16
     and.w #$0001
     beq C24080_BuildBattleTargetTextContext_L4080
-    jsl C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl C26BFB_MaskSet_BuildActiveTypedBattlers
     bra C24084_BuildBattleTargetTextContext_L4084
 C24080_BuildBattleTargetTextContext_L4080:
-    jsl C26C82_MaskSet_BuildPhase1Candidates
+    jsl C26C82_MaskSet_BuildEnemySideBattlers
 C24084_BuildBattleTargetTextContext_L4084:
     ldx ActiveAttackerBattlerPointer
     lda.w BattlerCurrentActionWord,X
@@ -495,7 +495,7 @@ C24084_BuildBattleTargetTextContext_L4084:
     lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C240A2_BuildBattleTargetTextContext_L40A2
-    jsl C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl C26E77_MaskSet_RemoveActiveNpcBattlers
 C240A2_BuildBattleTargetTextContext_L40A2:
     pld
     rts

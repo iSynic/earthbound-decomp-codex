@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:70E4..C2:724A MaskSet_PruneFlaggedCandidates
+; - C2:70E4..C2:724A MaskSet_PruneAfflictionFlaggedBattlers
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -25,7 +25,8 @@ BattlerAfflictionFlaggedState = $0001
 ; C2:70E4
 
 REMOVE_DEAD_TARGETTING:
-C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
+C270E4_MaskSet_PruneAfflictionFlaggedBattlers = REMOVE_DEAD_TARGETTING
+C270E4_MaskSet_PruneFlaggedCandidates = C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     rep #$31
     phd
     tdc

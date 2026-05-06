@@ -440,11 +440,11 @@ org $C23D05
 !C09231_ModUnsignedWordByIndex = $C09231
 !C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
 !C1DD76_RedirectBuildBattleTargetNameBuffer = $C1DD76
-!C26BFB_MaskSet_BuildActiveTypedCandidates = $C26BFB
-!C26C82_MaskSet_BuildPhase1Candidates = $C26C82
-!C26D04_MaskSet_BuildRandomSideCandidates = $C26D04
-!C26E00_MaskSet_BuildActiveCandidates = $C26E00
-!C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+!C26BFB_MaskSet_BuildActiveTypedBattlers = $C26BFB
+!C26C82_MaskSet_BuildEnemySideBattlers = $C26C82
+!C26D04_MaskSet_BuildTargetParameterMatchedBattlers = $C26D04
+!C26E00_MaskSet_BuildActiveBattlers = $C26E00
+!C26E77_MaskSet_RemoveActiveNpcBattlers = $C26E77
 !C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
 !C27029_MaskSet_TestBit = $C27029
 !C2B66A_ReadBattlerNameVariantFlag = $C2B66A
@@ -871,7 +871,7 @@ C24008_BuildBattleTargetTextContext_L4008:
     beq C24071_BuildBattleTargetTextContext_L4071
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C2403A_BuildBattleTargetTextContext_L403A:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda !CurrentTargetMaskLo
     sta $06
     lda !CurrentTargetMaskHi
@@ -890,16 +890,16 @@ C24060_BuildBattleTargetTextContext_L4060:
     jsl !C08E9A_GetRandom16
     ldy.w #$0003
     jsl !C09231_ModUnsignedWordByIndex
-    jsl !C26D04_MaskSet_BuildRandomSideCandidates
+    jsl !C26D04_MaskSet_BuildTargetParameterMatchedBattlers
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C24071_BuildBattleTargetTextContext_L4071:
     jsl !C08E9A_GetRandom16
     and.w #$0001
     beq C24080_BuildBattleTargetTextContext_L4080
-    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
     bra C24084_BuildBattleTargetTextContext_L4084
 C24080_BuildBattleTargetTextContext_L4080:
-    jsl !C26C82_MaskSet_BuildPhase1Candidates
+    jsl !C26C82_MaskSet_BuildEnemySideBattlers
 C24084_BuildBattleTargetTextContext_L4084:
     ldx !ActiveAttackerBattlerPointer
     lda.w !BattlerCurrentActionWord,X
@@ -910,7 +910,7 @@ C24084_BuildBattleTargetTextContext_L4084:
     lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C240A2_BuildBattleTargetTextContext_L40A2
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
 C240A2_BuildBattleTargetTextContext_L40A2:
     pld
     rts
@@ -976,7 +976,7 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     bra C24113_ApplyBattleActionSecondPointerPayload_L4113
 C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
     txa
-    jsl IS_CHAR_TARGETTED
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     jsl FIX_TARGET_NAME
@@ -1016,7 +1016,7 @@ C24113_ApplyBattleActionSecondPointerPayload_L4113:
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
     txa
-    jsl IS_CHAR_TARGETTED
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     jsl FIX_TARGET_NAME
@@ -1051,8 +1051,9 @@ C24168_ApplyBattleActionSecondPointerPayload_L4168:
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
-REMOVE_STATUS_UNTARGETTABLE_TARGETS:
-!C2416F_FilterBattleActionTargetMaskByRowState = REMOVE_STATUS_UNTARGETTABLE_TARGETS
+FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS:
+!REMOVE_STATUS_UNTARGETTABLE_TARGETS = FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS
+!C2416F_FilterBattleActionTargetMaskByRowState = FILTER_UNTARGETTABLE_BATTLE_ACTION_ROWS
     rep #$31
     phd
     tdc
@@ -1079,7 +1080,7 @@ C2418B_ApplyBattleActionSecondPointerPayload_L418B:
     bra C241D5_ApplyBattleActionSecondPointerPayload_L41D5
 C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     tya
-    jsl IS_CHAR_TARGETTED
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
     ldy $0E
@@ -1100,7 +1101,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
 C241C9_ApplyBattleActionSecondPointerPayload_L41C9:
     ldy $0E
     tya
-    jsl REMOVE_TARGET
+    jsl !C27089_MaskSet_ClearBit
 C241D0_ApplyBattleActionSecondPointerPayload_L41D0:
     ldy $0E
     iny
@@ -1865,10 +1866,10 @@ org $C24703
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C23FEA_CheckBattleActionSpecialCase = $C23FEA
 !C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
-!C26BFB_MaskSet_BuildActiveTypedCandidates = $C26BFB
-!C26C82_MaskSet_BuildPhase1Candidates = $C26C82
-!C26D04_MaskSet_BuildMetadataMatchedCandidates = $C26D04
-!C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+!C26BFB_MaskSet_BuildActiveTypedBattlers = $C26BFB
+!C26C82_MaskSet_BuildEnemySideBattlers = $C26C82
+!C26D04_MaskSet_BuildTargetParameterMatchedBattlers = $C26D04
+!C26E77_MaskSet_RemoveActiveNpcBattlers = $C26E77
 !C26FDC_MaskSet_AddBit = $C26FDC
 !C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
 !C2D121_LoadPresentationSpriteResource = $C2D121
@@ -1933,10 +1934,10 @@ C24749_DispatchClass2DerivedAction_L4749:
     lda.w !BattlerCurrentTargetByte,X
     and.w #$00FF
     dec A
-    jsl TARGET_BATTLER
+    jsl !C26FDC_MaskSet_AddBit
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24757_DispatchClass2DerivedAction_L4757:
-    jsl TARGET_ALLIES
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
     ldx $0E
     lda.w !BattlerCurrentActionWord,X
     jsl !C23FEA_CheckBattleActionSpecialCase
@@ -1946,9 +1947,9 @@ C24757_DispatchClass2DerivedAction_L4757:
     lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
-    jsl REMOVE_NPC_TARGETTING
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
 C24777_DispatchClass2DerivedAction_L4777:
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
     lda.w !BattlerCurrentTargetByte,X
@@ -1962,14 +1963,14 @@ C2477E_DispatchClass2DerivedAction_L477E:
     dex
     lda $AD82,X
     and.w #$00FF
-    jsl TARGET_BATTLER
+    jsl !C26FDC_MaskSet_AddBit
     bra C247A9_DispatchClass2DerivedAction_L47A9
 C2479D_DispatchClass2DerivedAction_L479D:
     tax
     dex
     lda $AD7A,X
     and.w #$00FF
-    jsl TARGET_BATTLER
+    jsl !C26FDC_MaskSet_AddBit
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
     lda.w !BattlerCurrentActionWord,X
@@ -1994,7 +1995,7 @@ C247BA_DispatchClass2DerivedAction_L47BA:
     lda.w #$0000
     sta !CurrentTargetMaskHi
     lda $0E
-    jsl TARGET_BATTLER
+    jsl !C26FDC_MaskSet_AddBit
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247E9_DispatchClass2DerivedAction_L47E9:
     lda $0E
@@ -2007,19 +2008,19 @@ C247EE_DispatchClass2DerivedAction_L47EE:
 C247F5_DispatchClass2DerivedAction_L47F5:
     lda.w !BattlerCurrentTargetByte,X
     and.w #$00FF
-    jsl TARGET_ROW
-    jsl REMOVE_NPC_TARGETTING
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl !C26D04_MaskSet_BuildTargetParameterMatchedBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     bra C2481F_DispatchClass2DerivedAction_L481F
 C24809_DispatchClass2DerivedAction_L4809:
-    jsl TARGET_ALL_ENEMIES
+    jsl !C26C82_MaskSet_BuildEnemySideBattlers
     ldx $0E
     lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
-    jsl REMOVE_NPC_TARGETTING
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
 C2481B_DispatchClass2DerivedAction_L481B:
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
 C2481F_DispatchClass2DerivedAction_L481F:
     pld
     rtl
@@ -2389,7 +2390,8 @@ org $C26E77
 !WorkingMaskHi = $08
 !TargetMaskBitLimit = $0020
 REMOVE_NPC_TARGETTING:
-!C26E77_MaskSet_RemoveActiveTypedCandidates = REMOVE_NPC_TARGETTING
+!C26E77_MaskSet_RemoveActiveNpcBattlers = REMOVE_NPC_TARGETTING
+!C26E77_MaskSet_RemoveActiveTypedCandidates = C26E77_MaskSet_RemoveActiveNpcBattlers
     rep #$31
     phd
     tdc
@@ -2486,7 +2488,8 @@ org $C26C82
 !MetadataMatchOne = $0001
 !MetadataMatchTwo = $0002
 TARGET_ALL_ENEMIES:
-!C26C82_MaskSet_BuildPhase1Candidates = TARGET_ALL_ENEMIES
+!C26C82_MaskSet_BuildEnemySideBattlers = TARGET_ALL_ENEMIES
+!C26C82_MaskSet_BuildPhase1Candidates = C26C82_MaskSet_BuildEnemySideBattlers
     rep #$31
     phd
     tdc
@@ -2552,7 +2555,8 @@ C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
     pld
     rtl
 TARGET_ROW:
-!C26D04_MaskSet_BuildMetadataMatchedCandidates = TARGET_ROW
+!C26D04_MaskSet_BuildTargetParameterMatchedBattlers = TARGET_ROW
+!C26D04_MaskSet_BuildMetadataMatchedCandidates = C26D04_MaskSet_BuildTargetParameterMatchedBattlers
     rep #$31
     phd
     pha
@@ -2680,7 +2684,8 @@ C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     pld
     rtl
 BUILD_ACTIVE_BATTLER_TARGET_MASK:
-!C26E00_MaskSet_BuildActiveCandidates = BUILD_ACTIVE_BATTLER_TARGET_MASK
+!C26E00_MaskSet_BuildActiveBattlers = BUILD_ACTIVE_BATTLER_TARGET_MASK
+!C26E00_MaskSet_BuildActiveCandidates = C26E00_MaskSet_BuildActiveBattlers
     rep #$31
     phd
     tdc
@@ -2766,7 +2771,8 @@ org $C26BFB
 !WorkingMaskHi = $08
 !TargetMaskBitLimit = $0020
 TARGET_ALLIES:
-!C26BFB_MaskSet_BuildActiveTypedCandidates = TARGET_ALLIES
+!C26BFB_MaskSet_BuildActiveTypedBattlers = TARGET_ALLIES
+!C26BFB_MaskSet_BuildActiveTypedCandidates = C26BFB_MaskSet_BuildActiveTypedBattlers
     rep #$31
     phd
     tdc
@@ -3129,7 +3135,8 @@ org $C270E4
 !BattlerAfflictionsByteBase = $9FC9
 !BattlerAfflictionFlaggedState = $0001
 REMOVE_DEAD_TARGETTING:
-!C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
+!C270E4_MaskSet_PruneAfflictionFlaggedBattlers = REMOVE_DEAD_TARGETTING
+!C270E4_MaskSet_PruneFlaggedCandidates = C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     rep #$31
     phd
     tdc
@@ -5899,10 +5906,10 @@ BTLACT_NEUTRALIZE:
 hirom
 org $C290C6
 
-!C270E4_MaskSetPruneFlaggedCandidates = $70E4
+!C270E4_MaskSet_PruneAfflictionFlaggedBattlers = $70E4
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
-!C26E00_MaskSet_BuildActiveCandidates = $C26E00
+!C26E00_MaskSet_BuildActiveBattlers = $C26E00
 !C2AF1F_SnapshotRestoreBattlerNormalizationContext = $C2AF1F
 C290C6_RunBattlerNormalizationActionWrapper:
     rep #$31
@@ -5971,8 +5978,8 @@ C29146_RunBattlerNormalizationActionWrapper_L9146:
     cpy.w #$0020
     bcc C290DD_RunBattlerNormalizationActionWrapper_L90DD
 C2914B_RunBattlerNormalizationActionWrapper_L914B:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
-    jsr !C270E4_MaskSetPruneFlaggedCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
+    jsr !C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     lda.w #$9051
     sta $0E
     lda.w #$00C2
@@ -6823,7 +6830,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     sta $A96C
     lda $08
     sta $A96E
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -31425,12 +31432,12 @@ org $C2A89D
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
-!C26BFB_MaskSet_BuildActiveTypedCandidates = $C26BFB
-!C26C82_MaskSet_BuildPhase1Candidates = $C26C82
-!C26E00_MaskSet_BuildActiveCandidates = $C26E00
-!C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+!C26BFB_MaskSet_BuildActiveTypedBattlers = $C26BFB
+!C26C82_MaskSet_BuildEnemySideBattlers = $C26C82
+!C26E00_MaskSet_BuildActiveBattlers = $C26E00
+!C26E77_MaskSet_RemoveActiveNpcBattlers = $C26E77
 !C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
-!C270E4_MaskSetPruneFlaggedCandidates = $70E4
+!C270E4_MaskSet_PruneAfflictionFlaggedBattlers = $70E4
 !EFMSG_PoisonInflicted = $6B18
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_AsleepInflicted = $6C55
@@ -32078,8 +32085,8 @@ C2AD9C_RunRandomDamageAndStatusItemActionCluster_LAD9C:
 C2ADA4_RunRandomDamageAndStatusItemActionCluster_LADA4:
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADA7_RunRandomDamageAndStatusItemActionCluster_LADA7:
-    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
     lda.w #$AC2A
     sta $06
     lda.w #$00C2
@@ -32090,8 +32097,8 @@ C2ADA7_RunRandomDamageAndStatusItemActionCluster_LADA7:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADC4_RunRandomDamageAndStatusItemActionCluster_LADC4:
-    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
     lda.w #$AC3E
     sta $06
     lda.w #$00C2
@@ -32102,8 +32109,8 @@ C2ADC4_RunRandomDamageAndStatusItemActionCluster_LADC4:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADE1_RunRandomDamageAndStatusItemActionCluster_LADE1:
-    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
     lda.w #$AC68
     sta $06
     lda.w #$00C2
@@ -32114,9 +32121,9 @@ C2ADE1_RunRandomDamageAndStatusItemActionCluster_LADE1:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADFE_RunRandomDamageAndStatusItemActionCluster_LADFE:
-    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
-    jsr !C270E4_MaskSetPruneFlaggedCandidates
+    jsl !C26BFB_MaskSet_BuildActiveTypedBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
+    jsr !C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     lda $A96C
     sta $06
     lda $A96E
@@ -32140,9 +32147,9 @@ C2ADFE_RunRandomDamageAndStatusItemActionCluster_LADFE:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE3E_RunRandomDamageAndStatusItemActionCluster_LAE3E:
-    jsl !C26C82_MaskSet_BuildPhase1Candidates
-    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
-    jsr !C270E4_MaskSetPruneFlaggedCandidates
+    jsl !C26C82_MaskSet_BuildEnemySideBattlers
+    jsl !C26E77_MaskSet_RemoveActiveNpcBattlers
+    jsr !C270E4_MaskSet_PruneAfflictionFlaggedBattlers
     lda $A96C
     sta $06
     lda $A96E
@@ -32166,7 +32173,7 @@ C2AE3E_RunRandomDamageAndStatusItemActionCluster_LAE3E:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE7D_RunRandomDamageAndStatusItemActionCluster_LAE7D:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda.w #$9987
     sta $06
     lda.w #$00C2
@@ -32177,7 +32184,7 @@ C2AE7D_RunRandomDamageAndStatusItemActionCluster_LAE7D:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE95_RunRandomDamageAndStatusItemActionCluster_LAE95:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda.w #$AC7B
     sta $06
     lda.w #$00C2
@@ -32188,7 +32195,7 @@ C2AE95_RunRandomDamageAndStatusItemActionCluster_LAE95:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEAD_RunRandomDamageAndStatusItemActionCluster_LAEAD:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda.w #$AC99
     sta $06
     lda.w #$00C2
@@ -32199,7 +32206,7 @@ C2AEAD_RunRandomDamageAndStatusItemActionCluster_LAEAD:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEC5_RunRandomDamageAndStatusItemActionCluster_LAEC5:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda.w #$ACDA
     sta $06
     lda.w #$00C2
@@ -32210,7 +32217,7 @@ C2AEC5_RunRandomDamageAndStatusItemActionCluster_LAEC5:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEDD_RunRandomDamageAndStatusItemActionCluster_LAEDD:
-    jsl !C26E00_MaskSet_BuildActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveBattlers
     lda.w #$9E86
     sta $06
     lda.w #$00C2
@@ -32223,7 +32230,7 @@ C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3:
     lda $16
     cmp.w #$0006
     beq C2AEFD_RunRandomDamageAndStatusItemActionCluster_LAEFD
-    jsr !C270E4_MaskSetPruneFlaggedCandidates
+    jsr !C270E4_MaskSet_PruneAfflictionFlaggedBattlers
 C2AEFD_RunRandomDamageAndStatusItemActionCluster_LAEFD:
     lda $12
     sta $06

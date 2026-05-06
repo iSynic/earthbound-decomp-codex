@@ -32,7 +32,8 @@ TargetMaskBitLimit = $0020
 ; C2:6E77
 
 REMOVE_NPC_TARGETTING:
-C26E77_MaskSet_RemoveActiveTypedCandidates = REMOVE_NPC_TARGETTING
+C26E77_MaskSet_RemoveActiveNpcBattlers = REMOVE_NPC_TARGETTING
+C26E77_MaskSet_RemoveActiveTypedCandidates = C26E77_MaskSet_RemoveActiveNpcBattlers
     rep #$31
     phd
     tdc

@@ -480,6 +480,16 @@ contract notes for C0/C1/C3/C4 consumers.
   and fallback `C0:6A07` current-position music refresh edge. See
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
   `notes/c0-current-position-music-refresh-c068f4-c069af.md`.
+- 2026-05-06 sixty-ninth slice: tightened the C2 action-dispatch and
+  mask-helper contract names now that `$9FAC` is settled as the battler table.
+  The mask family now exposes battler-domain aliases for active typed
+  battlers, enemy-side battlers, target-parameter matched battlers, all active
+  battlers, active NPC battler removal, affliction-flagged pruning, and
+  row-state filtering. `C2:4703`, `C2:40A4`, `C2:3D05`, Thunder,
+  normalization, and A89D payload-tail consumers now prefer those aliases while
+  preserving older `TARGET_*`/candidate labels as compatibility anchors. See
+  `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/class2-mask-helper-family.md`.
 
 ## Validation
 

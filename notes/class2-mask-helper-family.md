@@ -7,14 +7,14 @@ See also `notes/class2-handoff-4477-4703.md`.
 ## Working Names
 
 - `C2:6BFB` = `MaskSet_BuildActiveTypedBattlers`
-- `C2:6C82` = `MaskSet_BuildPhase1Battlers`
+- `C2:6C82` = `MaskSet_BuildEnemySideBattlers`
 - `C2:6E00` = `MaskSet_BuildActiveBattlers`
-- `C2:6E77` = `MaskSet_RemoveActiveTypedBattlers`
+- `C2:6E77` = `MaskSet_RemoveActiveNpcBattlers`
 - `C2:6EF8` = `MaskSet_FindFirstMatchInRange`
 - `C2:6FDC` = `MaskSet_AddBit`
 - `C2:7029` = `MaskSet_TestBit`
 - `C2:7089` = `MaskSet_ClearBit`
-- `C2:70E4` = `MaskSet_PruneFlaggedBattlers`
+- `C2:70E4` = `MaskSet_PruneAfflictionFlaggedBattlers`
 
 ## `C4:A279` is a 32-entry one-hot bitmask table
 
@@ -61,9 +61,17 @@ names such as `consciousness`, `ally_or_enemy`, `npc_id`, `row`, and
 
 Third follow-up update: the embedded `C2:6E00` helper inside
 `src/c2/c2_6c82_mask_set_build_phase1_candidates.asm` now has its own source
-label as `MaskSet_BuildActiveCandidates`. It builds the current target mask
+label as `MaskSet_BuildActiveBattlers`. It builds the current target mask
 from every conscious battler row, and the A89D item/status payload tail now
 uses that named helper plus the named `6BFB/6C82/6E77/6EF8/70E4` mask helpers.
+
+Fourth follow-up update: the source-facing helper aliases now use the battler
+domain names directly while keeping the older candidate-style aliases as
+compatibility labels. `6C82` is named for the enemy-side battler union,
+`6E77` for active NPC battler removal, `6E00` for all active battlers, and
+`70E4` for affliction-flagged battler pruning. Dispatch, target text-context,
+Thunder, normalization, and A89D payload-tail consumers now call those
+contracts instead of the inherited `TARGET_*`/candidate labels.
 
 ## Confirmed helper roles
 
@@ -133,7 +141,7 @@ So this is not a generic intersection helper. It is a set-subtraction pass that 
 
 Current best working name:
 
-- `MaskSet_RemoveActiveTypedBattlers`
+- `MaskSet_RemoveActiveNpcBattlers`
 
 ### `C2:6BFB` -> build a union of active typed battlers
 
@@ -157,7 +165,7 @@ Behavior:
 
 Current best working name:
 
-- `MaskSet_BuildPhase1Battlers`
+- `MaskSet_BuildEnemySideBattlers`
 
 ### `C2:6E00` -> build a union of all active battlers
 
@@ -185,7 +193,7 @@ Current best reading:
 
 Current best working name:
 
-- `MaskSet_PruneFlaggedBattlers`
+- `MaskSet_PruneAfflictionFlaggedBattlers`
 
 ### `C2:6EF8`
 
@@ -221,8 +229,9 @@ not anonymous parallel candidate arrays.
 
 ## Remaining unknowns
 
-- whether the remaining helper names should be globally renamed from
-  candidate-style labels once downstream docs are fully updated
+- whether the source file names should eventually follow the newer battler
+  aliases, or remain as stable scaffold-era filenames with compatibility
+  labels inside the files
 - the exact gameplay enum names for the action-targeting modes that feed these
   battler-mask builders
 - whether every `+0x1D`/`9FC9` pruning use should be described as a specific

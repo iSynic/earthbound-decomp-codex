@@ -106,7 +106,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     lda $08
     sta $A96E
     ; Remove rows that are no longer targettable before choosing one strike.
-    jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $06
     lda.w #$0000

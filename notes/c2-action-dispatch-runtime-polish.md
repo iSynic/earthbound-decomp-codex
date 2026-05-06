@@ -158,6 +158,15 @@ all-active battler target-mask builder, and the A89D item/status tail now uses
 named calls for the `6BFB/6C82/6E00/6E77/6EF8/70E4` mask-helper family before
 handing the selected payload pointer to `C2:40A4`.
 
+Fourth follow-up: dispatch and payload-side consumers now prefer the battler
+domain helper aliases directly. `C2:4703`, `C2:3D05`, `C2:966B`, `C2:90C6`,
+and `C2:A89D` call the mask family as active typed battlers, enemy-side
+battlers, target-parameter matched battlers, active battlers, active NPC
+battler removal, affliction-flagged pruning, and row-state filtering. The old
+`TARGET_*`, `REMOVE_*`, and candidate-style labels remain as compatibility
+anchors where they clarify inherited call names, but the action contract now
+reads as target-mask construction over battler rows.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
