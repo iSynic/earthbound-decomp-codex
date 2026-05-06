@@ -210,3 +210,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   evidence boundaries: behavior-known numeric-effect and no-op/flavor rows are
   now listed as blocked on row `+4` EF pointer recovery rather than treated as
   nameable action-message joins.
+- 2026-05-06: EF special-event row-message follow-up promoted the locally
+  proved row `243` and `244` joins into the same crosswalk, keeping their
+  `C1:DD9F` row presentation messages separate from the direct event-result
+  continuations emitted by their C2 behavior bodies.

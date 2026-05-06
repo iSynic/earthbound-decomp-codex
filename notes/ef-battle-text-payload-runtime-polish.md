@@ -321,6 +321,12 @@ they should not drive EF row-message renames until their row `+4` EF pointers
 are locally recovered. This keeps `C1:DD9F` presentation text separate from
 `DC1C`/`DC66` result text and avoids overclaiming from behavior-only evidence.
 
+The special-event rows `243` and `244` are now joined in that crosswalk as
+proved EF row-message entries: `243 -> EF:72F6 -> C2:9298` and
+`244 -> EF:7415 -> C2:92EE`. Their behavior bodies then emit the already split
+continuations at `EF:72F7`, `EF:733D`, and `EF:743B`, so the row presentation
+and event-result text stay separate.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

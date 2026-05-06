@@ -71,7 +71,7 @@ The EBATTLE1 action tail has at least one strong late-table row-message join:
 The row-message crosswalk expands this into the currently source-backed status
 rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
 physical/special rows (`100`, `102`, `104`, `117`, `118`, `228`, `232`,
-`247`, `248`, `273`, and `290`).
+`243`, `244`, `247`, `248`, `273`, and `290`).
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
@@ -89,6 +89,9 @@ neighborhood and should remain visibly separate:
   displayed after C2 builds target text context.
 - `EF:845D` and `EF:8477` are random-action strange/mushroom status text
   emitted directly before the action-table row message selection.
+- `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
+  by the row `243` and `244` behavior bodies after their row `+4` presentation
+  messages at `EF:72F6` and `EF:7415`.
 - `EF:8814`, `EF:8823`, and `EF:8837` are Thunder presentation/miss scripts
   selected by the C2 Thunder common helper.
 - `EF:7843` is the Time Stop return/result script; it is separate from the

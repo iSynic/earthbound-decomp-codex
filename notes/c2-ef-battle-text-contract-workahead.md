@@ -177,6 +177,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   from proved EF message joins. Numeric-effect and no-op/flavor rows with known
   C2 row `+8` bodies now remain explicitly blocked on local row `+4` pointer
   recovery before EF action-message labels are promoted.
+- 2026-05-06: EF special-event row-message follow-up promoted rows `243` and
+  `244` into the row-message crosswalk: `EF:72F6 -> C2:9298` and
+  `EF:7415 -> C2:92EE`, with their behavior continuations kept as separate
+  direct-result text.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

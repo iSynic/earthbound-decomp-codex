@@ -67,6 +67,8 @@ writes.
 | `118` | `EF:80E4` `MSG_BTL_WATER` | `C2:902C` | Same all-target physical wrapper reuse |
 | `228` | `EF:8BE8` `MSG_BTL_KAMITSUKI_DIAMOND` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
 | `232` | `EF:8C58` `MSG_BTL_BAD_SMELL` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |
+| `243` | `EF:72F6` | `C2:9298` | Runaway Five / Clumsy Robot special-event controller; branches to `EF:72F7` or `EF:733D` |
+| `244` | `EF:7415` | `C2:92EE` | Master Barf defeat / Poo Starstorm event result; later emits `EF:743B` |
 | `247` | `EF:8E27` `MSG_BTL_WARP_NEAR` | `C2:90C6` | Battler normalization wrapper; can emit `EF:7142` and queue `EF:7123` |
 | `248` | `EF:8D9F` `MSG_BTL_NEUTRALIZE_SPARKLE` | `C2:90C6` | Same normalization wrapper reuse |
 | `273` | `EF:8EBE` `MSG_BTL_BAD_SMELL_GAS` | `C2:9254` | Odor/offense-reduction family reuse |
@@ -142,12 +144,16 @@ presentation message. Do not collapse those messages into "no effect" result
 text; the row message is consumed through `C1:DD9F` before the behavior body
 returns.
 
-### Special-Event Rows
+### Remaining Special-Event Rows
 
-Rows `243`, `244`, and Final Prayer rows `291..299` remain a separate frontier.
-Many of their row messages live outside EF, while secondary result scripts still
-affect the battle-text contract through C8/C9 direct-result lanes. Keep them
-out of EF row-message rename work unless a local row `+4` EF pointer is proved.
+Rows `243`, `244`, and `290` are now concrete EF row-message joins because the
+local special-event notes prove their row `+4` EF message pointers and row `+8`
+C2 bodies.
+
+Final Prayer rows `291..299` remain a separate frontier. Many of their row
+messages live outside EF, while secondary result scripts still affect the
+battle-text contract through C8/C9 direct-result lanes. Keep them out of EF
+row-message rename work unless a local row `+4` EF pointer is proved.
 
 ## Next Evidence To Add
 
