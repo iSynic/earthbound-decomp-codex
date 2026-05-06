@@ -90,6 +90,42 @@ No syntactic decode frontiers at the current bounds.
 | `$43` | `EVENT_SET_PRIORITY` | `byte` | `priority` | `state/operand` | `high` |
 | `$44` | `EVENT_WRITE_TEMPVAR_WAITTIMER` | - | - | `state/operand` | `high` |
 
+## Operand value seed catalog
+
+These names are source-pilot readability seeds from recurring decoded C3 actionscript values. Direction-word counts are candidate sightings from `EVENT_WRITE_WORD_TEMPVAR`; scripts can reuse tempvar for other roles, so the catalog treats them as labels to verify at callback boundaries.
+
+### Animation IDs
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$00` | `animation_frame0` | 62 | default/first script animation frame selector; often alternated with $01 for pulses |
+| `$01` | `animation_frame1` | 32 | alternate/second script animation frame selector; often paired with $00 |
+| `$FF` | `animation_hidden_or_off` | 10 | sentinel/off-frame animation selector used by blink or disappearance-style pulses |
+
+### Field $2B32 movement words
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$0040` | `field2b32_step_0040` | 2 | small movement/visual vector magnitude written to current slot field $2B32 |
+| `$0060` | `field2b32_step_0060` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
+| `$00C0` | `field2b32_step_00c0` | 2 | observed movement/visual vector magnitude written to current slot field $2B32 |
+| `$0100` | `field2b32_step_0100` | 12 | standard movement/visual vector magnitude written to current slot field $2B32 |
+| `$0140` | `field2b32_step_0140` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
+| `$0160` | `field2b32_step_0160` | 2 | larger movement/visual vector magnitude written to current slot field $2B32 |
+| `$0180` | `field2b32_step_0180` | 2 | observed movement/visual vector magnitude written to current slot field $2B32 |
+| `$0200` | `field2b32_step_0200` | 2 | large movement/visual vector magnitude written to current slot field $2B32 |
+| `$0280` | `field2b32_step_0280` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
+| `$0600` | `field2b32_step_0600` | 2 | very large movement/visual vector magnitude written to current slot field $2B32 |
+
+### Direction-class word candidates
+
+| Value | Name | Tempvar decode count | Contract |
+| --- | --- | ---: | --- |
+| `$0000` | `direction_down` | 3 | down/south-facing direction class word, commonly staged in tempvar before direction-class callbacks |
+| `$0002` | `direction_right` | 3 | right/east-facing direction class word, commonly staged in tempvar before direction-class callbacks |
+| `$0004` | `direction_up` | 6 | up/north-facing direction class word, commonly staged in tempvar before direction-class callbacks |
+| `$0006` | `direction_left` | 6 | left/west-facing direction class word, commonly staged in tempvar before direction-class callbacks |
+
 ## Native callback contract seed
 
 | Target | Preferred name | Group | Calls | Arg bytes | Args | Contract | Status |
@@ -404,7 +440,7 @@ C3:019B  0B AA A2             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_condition
 C3:019E  42 4C A8 C0 0D 00    EVENT_CALLROUTINE $C0:A84C <ActionScript_TestEventFlag_ReadWord>, event_flag_word=$000D
 C3:01A4  0A AA A2             EVENT_SHORTCALL_CONDITIONAL conditional_call_target=$C3:A2AA <TrafficLightWaitUntilOffscreenAndRelease>
 C3:01A7  1A 38 AA             EVENT_SHORTCALL call_target=$C3:AA38 <InitActionScriptMovementState>
-C3:01AA  3B FF                EVENT_SET_ANIMATION animation_id=$FF
+C3:01AA  3B FF                EVENT_SET_ANIMATION animation_id=$FF <animation_hidden_or_off>
 C3:01AC  42 2F A8 C0          EVENT_CALLROUTINE $C0:A82F <DisableCurrentSlotNeighborCache>
 C3:01B0  0E 04 01 00          EVENT_SET_VAR script_var=var4, value_word=$0001
 C3:01B4  0E 00 90 1A          EVENT_SET_VAR script_var=var0, value_word=$1A90
@@ -414,7 +450,7 @@ C3:01C0  0E 03 C0 00          EVENT_SET_VAR script_var=var3, value_word=$00C0
 C3:01C4  1A 8A AB             EVENT_SHORTCALL call_target=$C3:AB8A <WaitUntilPlayerLeavesActiveArea>
 C3:01C7  28 E8 1A             EVENT_SET_X x_word=$1AE8
 C3:01CA  29 68 1E             EVENT_SET_Y y_word=$1E68
-C3:01CD  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:01CD  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 ; ... 28 more decoded lines in JSON output
 ```
 
@@ -486,7 +522,7 @@ C3:0294  09                   EVENT_HALT
 ```text
 C3:0295  1A 38 AA             EVENT_SHORTCALL call_target=$C3:AA38 <InitActionScriptMovementState>
 C3:0298  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06, countdown_byte=$00
-C3:029E  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100
+C3:029E  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:02A4  0E 05 01 00          EVENT_SET_VAR script_var=var5, value_word=$0001
 C3:02A8  1A 59 AB             EVENT_SHORTCALL call_target=$C3:AB59 <WaitForActiveEntityMovementToFinish>
 C3:02AB  1B                   EVENT_SHORT_RETURN
@@ -503,10 +539,10 @@ C3:02AB  1B                   EVENT_SHORT_RETURN
 C3:43DB  06 08                EVENT_PAUSE frames=$08
 C3:43DD  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:43DF  0B E8 43             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:43E8 <TimedDeliveryDeparturePulseAnimation0Half>
-C3:43E2  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:43E2  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:43E4  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:43E8  06 08                EVENT_PAUSE frames=$08
-C3:43EA  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:43EA  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
@@ -524,7 +560,7 @@ C3:43FF  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 
 ```text
 C3:43E8  06 08                EVENT_PAUSE frames=$08
-C3:43EA  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:43EA  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:43EC  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:43F0  42 B6 C6 C0          EVENT_CALLROUTINE $C0:C6B6 <CheckCurrentSlotInsideLiveAreaWindow>
 C3:43F4  0B DB 43             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:43DB <LoopTimedDeliveryDeparturePulseUntilOffscreen>
@@ -621,7 +657,7 @@ C3:4485  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 - raw preview: `3B 00 07 9F A0 42 BF A4 C0 0E 02 16 00 0E 03 16`
 
 ```text
-C3:4488  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:4488  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:448A  07 9F A0             EVENT_START_TASK task_script=$C3:A09F <LoopActiveEntityWalkAnimationPulse>
 C3:448D  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:4491  0E 02 16 00          EVENT_SET_VAR script_var=var2, value_word=$0016
@@ -822,7 +858,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP jump_target=$C3:A052 <LoopIntroCam
 ```text
 C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK position_change_callback=$C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
 C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
-C3:A064  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A064  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>
 C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
@@ -865,10 +901,10 @@ C3:A07F  09                   EVENT_HALT
 
 ```text
 C3:A09F  06 08                EVENT_PAUSE frames=$08
-C3:A0A1  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0A1  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0A3  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0A7  06 08                EVENT_PAUSE frames=$08
-C3:A0A9  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0A9  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0AB  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0AF  19 9F A0             EVENT_SHORTJUMP jump_target=$C3:A09F <LoopActiveEntityWalkAnimationPulse>
 ```
@@ -882,10 +918,10 @@ C3:A0AF  19 9F A0             EVENT_SHORTJUMP jump_target=$C3:A09F <LoopActiveEn
 
 ```text
 C3:A0B2  06 18                EVENT_PAUSE frames=$18
-C3:A0B4  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0B4  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0B6  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0BA  06 18                EVENT_PAUSE frames=$18
-C3:A0BC  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0BC  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0BE  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0C2  19 B2 A0             EVENT_SHORTJUMP jump_target=$C3:A0B2 <LoopActiveEntityWalkPulse24Frame>
 ```
@@ -899,10 +935,10 @@ C3:A0C2  19 B2 A0             EVENT_SHORTJUMP jump_target=$C3:A0B2 <LoopActiveEn
 
 ```text
 C3:A0C5  06 0C                EVENT_PAUSE frames=$0C
-C3:A0C7  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0C7  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0C9  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0CD  06 0C                EVENT_PAUSE frames=$0C
-C3:A0CF  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0CF  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0D1  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0D5  19 C5 A0             EVENT_SHORTJUMP jump_target=$C3:A0C5 <LoopActiveEntityWalkPulse12Frame>
 ```
@@ -916,21 +952,21 @@ C3:A0D5  19 C5 A0             EVENT_SHORTJUMP jump_target=$C3:A0C5 <LoopActiveEn
 
 ```text
 C3:A0D8  06 09                EVENT_PAUSE frames=$09
-C3:A0DA  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0DA  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0DC  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0E0  06 09                EVENT_PAUSE frames=$09
-C3:A0E2  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0E2  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0E4  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0E8  0B D8 A0             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A0D8 <LoopActiveEntityWalkPulse9FrameConditional>
 C3:A0EB  06 06                EVENT_PAUSE frames=$06
-C3:A0ED  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0ED  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0EF  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0F3  06 06                EVENT_PAUSE frames=$06
-C3:A0F5  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0F5  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0F7  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0FB  0B EB A0             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A0EB <LoopActiveEntityWalkPulse6FrameConditional>
 C3:A0FE  06 02                EVENT_PAUSE frames=$02
-C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 ; ... 16 more decoded lines in JSON output
 ```
 
@@ -943,17 +979,17 @@ C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01
 
 ```text
 C3:A0EB  06 06                EVENT_PAUSE frames=$06
-C3:A0ED  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A0ED  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A0EF  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A0F3  06 06                EVENT_PAUSE frames=$06
-C3:A0F5  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A0F5  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A0F7  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A0FB  0B EB A0             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A0EB <LoopActiveEntityWalkPulse6FrameConditional>
 C3:A0FE  06 02                EVENT_PAUSE frames=$02
-C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A102  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A106  06 02                EVENT_PAUSE frames=$02
-C3:A108  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A108  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A10A  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A10E  0B FE A0             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A0FE <LoopActiveEntityWalkPulse2FrameConditional>
 C3:A111  06 08                EVENT_PAUSE frames=$08
@@ -970,21 +1006,21 @@ C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 
 ```text
 C3:A0FE  06 02                EVENT_PAUSE frames=$02
-C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A100  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A102  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A106  06 02                EVENT_PAUSE frames=$02
-C3:A108  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A108  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A10A  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A10E  0B FE A0             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A0FE <LoopActiveEntityWalkPulse2FrameConditional>
 C3:A111  06 08                EVENT_PAUSE frames=$08
 C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A11E <LoopActiveEntityWalkPulseVar4Gate_OffHalf>
-C3:A118  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A118  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A11A  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A11E  06 08                EVENT_PAUSE frames=$08
 C3:A120  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A122  0B 11 A1             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
-C3:A125  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A125  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 ; ... 2 more decoded lines in JSON output
 ```
 
@@ -999,12 +1035,12 @@ C3:A125  3B 00                EVENT_SET_ANIMATION animation_id=$00
 C3:A111  06 08                EVENT_PAUSE frames=$08
 C3:A113  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A115  0B 1E A1             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A11E <LoopActiveEntityWalkPulseVar4Gate_OffHalf>
-C3:A118  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A118  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A11A  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A11E  06 08                EVENT_PAUSE frames=$08
 C3:A120  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A122  0B 11 A1             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
-C3:A125  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A125  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A127  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A12B  19 11 A1             EVENT_SHORTJUMP jump_target=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
 ```
@@ -1024,7 +1060,7 @@ C3:A134  06 01                EVENT_PAUSE frames=$01
 C3:A136  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A138  16 59 A1             EVENT_BREAK_IF_FALSE break_target=$C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
 C3:A13B  02                   EVENT_LOOP_END
-C3:A13C  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A13C  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A13E  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A142  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A144  0A 59 A1             EVENT_SHORTCALL_CONDITIONAL conditional_call_target=$C3:A159 <LoopActiveEntityWalkPulseVar4Countdown_WaitAndRestart>
@@ -1048,7 +1084,7 @@ C3:A15E  42 23 00 C4          EVENT_CALLROUTINE $C4:0023 <StoreLowNibble1a42ToCu
 C3:A162  06 08                EVENT_PAUSE frames=$08
 C3:A164  20 04                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var4
 C3:A166  0B 6F A1             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A16F <LoopC40015Var4GatedPulseUntilRelease_CheckRelease>
-C3:A169  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A169  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A16B  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A16F  06 08                EVENT_PAUSE frames=$08
 C3:A171  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
@@ -1065,7 +1101,7 @@ C3:A178  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 
 ```text
 C3:A17B  06 18                EVENT_PAUSE frames=$18
-C3:A17D  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A17D  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A17F  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A183  06 30                EVENT_PAUSE frames=$30
 C3:A185  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
@@ -1082,7 +1118,7 @@ C3:A18C  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 
 ```text
 C3:A18F  06 18                EVENT_PAUSE frames=$18
-C3:A191  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A191  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A193  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A197  06 18                EVENT_PAUSE frames=$18
 C3:A199  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
@@ -1099,7 +1135,7 @@ C3:A1A0  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 
 ```text
 C3:A1DF  06 02                EVENT_PAUSE frames=$02
-C3:A1E1  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A1E1  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A1E3  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A1E7  06 02                EVENT_PAUSE frames=$02
 C3:A1E9  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
@@ -1116,7 +1152,7 @@ C3:A1F0  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 
 ```text
 C3:A1F3  06 10                EVENT_PAUSE frames=$10
-C3:A1F5  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A1F5  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A1F7  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A1FB  06 10                EVENT_PAUSE frames=$10
 C3:A1FD  42 15 00 C4          EVENT_CALLROUTINE $C4:0015 <ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea>
@@ -1157,7 +1193,7 @@ C3:A20B  19 04 A2             EVENT_SHORTJUMP jump_target=$C3:A204 <ReleaseCurre
 - raw preview: `3B 00 42 A8 A4 C0 20 00 11 05 2C A2 34 A2 3D A2`
 
 ```text
-C3:A20E  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A20E  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A210  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A214  20 00                EVENT_WRITE_VAR_TO_TEMPVAR script_var=var0
 C3:A216  11 05 2C A2 34 A2 3D A2 4E A2 5F A2 EVENT_SWITCH_CALL_TEMPVAR switch_call_targets=count=5 [$C3:A22C <Var0AnimationCase0Pulse8FrameOn>, $C3:A234 <Var0AnimationCase1Pulse8FrameOff>, $C3:A23D <Var0AnimationCase2Pulse4Frame>, $C3:A24E <Var0AnimationCase3Pulse32Frame>, $C3:A25F <Var0AnimationCase4Wait16Frame>]
@@ -1175,10 +1211,10 @@ C3:A229  19 7C A4             EVENT_SHORTJUMP jump_target=$C3:A47C <ReleaseCurre
 
 ```text
 C3:A22C  06 08                EVENT_PAUSE frames=$08
-C3:A22E  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A22E  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A230  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A234  06 08                EVENT_PAUSE frames=$08
-C3:A236  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A236  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A238  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A23C  1B                   EVENT_SHORT_RETURN
 ```
@@ -1192,7 +1228,7 @@ C3:A23C  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:A234  06 08                EVENT_PAUSE frames=$08
-C3:A236  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A236  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A238  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A23C  1B                   EVENT_SHORT_RETURN
 ```
@@ -1206,10 +1242,10 @@ C3:A23C  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:A23D  06 04                EVENT_PAUSE frames=$04
-C3:A23F  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A23F  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A241  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A245  06 04                EVENT_PAUSE frames=$04
-C3:A247  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A247  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A249  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A24D  1B                   EVENT_SHORT_RETURN
 ```
@@ -1223,10 +1259,10 @@ C3:A24D  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:A24E  06 20                EVENT_PAUSE frames=$20
-C3:A250  3B 01                EVENT_SET_ANIMATION animation_id=$01
+C3:A250  3B 01                EVENT_SET_ANIMATION animation_id=$01 <animation_frame1>
 C3:A252  42 B2 A4 C0          EVENT_CALLROUTINE $C0:A4B2 <RefreshCurrentSlotVisualProfile_Mode1IfAligned>
 C3:A256  06 20                EVENT_PAUSE frames=$20
-C3:A258  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A258  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A25A  42 A8 A4 C0          EVENT_CALLROUTINE $C0:A4A8 <RefreshCurrentSlotVisualProfile_Mode0IfAligned>
 C3:A25E  1B                   EVENT_SHORT_RETURN
 ```
@@ -1265,7 +1301,7 @@ C3:A26E  19 66 A2             EVENT_SHORTJUMP jump_target=$C3:A266 <LoopCollisio
 
 ```text
 C3:A2AA  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
-C3:A2AD  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A2AD  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A2AF  39                   EVENT_SET_VELOCITIES_ZERO
 C3:A2B0  42 DB C7 C0          EVENT_CALLROUTINE $C0:C7DB <UpdateCurrentSlotFootprintMask>
 C3:A2B4  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
@@ -1285,11 +1321,11 @@ C3:A2C5  00                   EVENT_END
 
 ```text
 C3:A381  25 60 A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A360 <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh>
-C3:A384  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A384  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A386  07 11 A1             EVENT_START_TASK task_script=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
 C3:A389  07 62 A2             EVENT_START_TASK task_script=$C3:A262 <LoopActiveEntityCollisionProbeRefresh>
 C3:A38C  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:A390  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100
+C3:A390  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords>, radius_x_word=$0008, radius_y_word=$0008
 C3:A39E  19 B7 A3             EVENT_SHORTJUMP jump_target=$C3:A3B7 <LoopRandomDirectionMovementWithRandomWait>
 ```
@@ -1303,11 +1339,11 @@ C3:A39E  19 B7 A3             EVENT_SHORTJUMP jump_target=$C3:A3B7 <LoopRandomDi
 
 ```text
 C3:A3A1  25 60 A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A360 <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh>
-C3:A3A4  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A3A4  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A3A6  07 5E A1             EVENT_START_TASK task_script=$C3:A15E <LoopC40015Var4GatedPulseUntilRelease>
 C3:A3A9  07 62 A2             EVENT_START_TASK task_script=$C3:A262 <LoopActiveEntityCollisionProbeRefresh>
 C3:A3AC  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:A3B0  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100
+C3:A3B0  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:A3B6  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1396,7 +1432,7 @@ C3:A40A  42 B8 A6 C0          EVENT_CALLROUTINE $C0:A6B8 <GetCurrentSlotHasNoCac
 C3:A40E  0B 25 A4             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A425 <ReturnFromNpcAttentionNeighborCacheCheck>
 C3:A411  08 F7 D7 C0          EVENT_SET_TICK_CALLBACK tick_callback=$C0:D7F7 <Consume_CurrentSlotAttentionPath>
 C3:A415  25 60 A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A360 <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh>
-C3:A418  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A418  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A41A  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:A41E  0E 00 00 00          EVENT_SET_VAR script_var=var0, value_word=$0000
 C3:A422  07 0E A2             EVENT_START_TASK task_script=$C3:A20E <LoopVar0SelectedAnimationUntilOffscreen>
@@ -1472,15 +1508,15 @@ C3:A459  19 48 A4             EVENT_SHORTJUMP jump_target=$C3:A448 <LoopNpcAtten
 C3:A45C  06 01                EVENT_PAUSE frames=$01
 C3:A45E  42 9B D5 C0          EVENT_CALLROUTINE $C0:D59B <Check_NpcAttentionCoordinatorActive>
 C3:A462  0B 5C A4             EVENT_SHORTCALL_CONDITIONAL_NOT inverted_conditional_call_target=$C3:A45C <FinishNpcAttentionAndReleaseActor>
-C3:A465  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A465  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A467  39                   EVENT_SET_VELOCITIES_ZERO
 C3:A468  25 F0 9F             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:9FF0 <ReturnFromPhysicsCallback_NoMovement>
 C3:A46B  0E 00 01 00          EVENT_SET_VAR script_var=var0, value_word=$0001
 C3:A46F  06 01                EVENT_PAUSE frames=$01
 C3:A471  01 03                EVENT_LOOP count=$03
-C3:A473  3B FF                EVENT_SET_ANIMATION animation_id=$FF
+C3:A473  3B FF                EVENT_SET_ANIMATION animation_id=$FF <animation_hidden_or_off>
 C3:A475  06 05                EVENT_PAUSE frames=$05
-C3:A477  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:A477  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A479  06 05                EVENT_PAUSE frames=$05
 C3:A47B  02                   EVENT_LOOP_END
 C3:A47C  42 F1 20 C0          EVENT_CALLROUTINE $C0:20F1 <ScriptRelease_CurrentEntityVisualState>
@@ -1508,7 +1544,7 @@ C3:A480  00                   EVENT_END
 
 ```text
 C3:AA38  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA3B  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA3B  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA3D  07 11 A1             EVENT_START_TASK task_script=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
 C3:AA40  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA41  0E 04 00 00          EVENT_SET_VAR script_var=var4, value_word=$0000
@@ -1524,11 +1560,11 @@ C3:AA45  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AA46  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA49  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA49  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA4B  07 B2 A0             EVENT_START_TASK task_script=$C3:A0B2 <LoopActiveEntityWalkPulse24Frame>
 C3:AA4E  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA4F  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AA53  42 85 A6 C0 40 00    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0040
+C3:AA53  42 85 A6 C0 40 00    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0040 <field2b32_step_0040>
 C3:AA59  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1541,11 +1577,11 @@ C3:AA59  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AA5A  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA5D  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA5D  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA5F  07 C5 A0             EVENT_START_TASK task_script=$C3:A0C5 <LoopActiveEntityWalkPulse12Frame>
 C3:AA62  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA63  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AA67  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100
+C3:AA67  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:AA6D  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1558,11 +1594,11 @@ C3:AA6D  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AA6E  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA71  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA71  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA73  07 D8 A0             EVENT_START_TASK task_script=$C3:A0D8 <LoopActiveEntityWalkPulse9FrameConditional>
 C3:AA76  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA77  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AA7B  42 85 A6 C0 60 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0160
+C3:AA7B  42 85 A6 C0 60 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0160 <field2b32_step_0160>
 C3:AA81  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1575,11 +1611,11 @@ C3:AA81  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AA82  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA85  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA85  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA87  07 EB A0             EVENT_START_TASK task_script=$C3:A0EB <LoopActiveEntityWalkPulse6FrameConditional>
 C3:AA8A  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA8B  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AA8F  42 85 A6 C0 00 02    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0200
+C3:AA8F  42 85 A6 C0 00 02    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0200 <field2b32_step_0200>
 C3:AA95  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1592,11 +1628,11 @@ C3:AA95  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AA96  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AA99  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AA99  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AA9B  07 FE A0             EVENT_START_TASK task_script=$C3:A0FE <LoopActiveEntityWalkPulse2FrameConditional>
 C3:AA9E  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AA9F  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AAA3  42 85 A6 C0 00 06    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0600
+C3:AAA3  42 85 A6 C0 00 06    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0600 <field2b32_step_0600>
 C3:AAA9  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1609,7 +1645,7 @@ C3:AAA9  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AAAA  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AAAD  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AAAD  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AAAF  07 2E A1             EVENT_START_TASK task_script=$C3:A12E <LoopActiveEntityWalkPulseVar4Countdown>
 C3:AAB2  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AAB3  0E 04 0C 00          EVENT_SET_VAR script_var=var4, value_word=$000C
@@ -1625,11 +1661,11 @@ C3:AAB7  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AB12  25 7A A3             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A37A <UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot>
-C3:AB15  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AB15  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AB17  07 DF A1             EVENT_START_TASK task_script=$C3:A1DF <LoopActiveEntityWalkPulse2FrameC40015Branch>
 C3:AB1A  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB1B  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
-C3:AB1F  42 85 A6 C0 00 06    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0600
+C3:AB1F  42 85 A6 C0 00 06    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0600 <field2b32_step_0600>
 C3:AB25  1B                   EVENT_SHORT_RETURN
 ```
 
@@ -1643,7 +1679,7 @@ C3:AB25  1B                   EVENT_SHORT_RETURN
 ```text
 C3:AB26  23 3A A0             EVENT_SET_POSITION_CHANGE_CALLBACK position_change_callback=$C0:A03A <ProjectWorldToScreen_FromCamera31AndHeight>
 C3:AB29  25 F1 9F             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:9FF1 <Integrate_XYAndZVelocity_WithSpriteRefresh>
-C3:AB2C  3B 00                EVENT_SET_ANIMATION animation_id=$00
+C3:AB2C  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:AB2E  07 11 A1             EVENT_START_TASK task_script=$C3:A111 <LoopActiveEntityWalkPulseVar4Gate>
 C3:AB31  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB32  0E 04 00 00          EVENT_SET_VAR script_var=var4, value_word=$0000

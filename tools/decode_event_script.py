@@ -850,6 +850,83 @@ EVENT_TARGET_SEMANTICS: dict[str, str] = {
 
 SCRIPT_VAR_NAMES = {index: f"var{index}" for index in range(8)}
 
+ACTIONSCRIPT_DIRECTION_WORDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "direction_down",
+        "contract": "down/south-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+    },
+    0x0002: {
+        "name": "direction_right",
+        "contract": "right/east-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+    },
+    0x0004: {
+        "name": "direction_up",
+        "contract": "up/north-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+    },
+    0x0006: {
+        "name": "direction_left",
+        "contract": "left/west-facing direction class word, commonly staged in tempvar before direction-class callbacks",
+    },
+}
+
+ACTIONSCRIPT_ANIMATION_IDS: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "animation_frame0",
+        "contract": "default/first script animation frame selector; often alternated with $01 for pulses",
+    },
+    0x01: {
+        "name": "animation_frame1",
+        "contract": "alternate/second script animation frame selector; often paired with $00",
+    },
+    0xFF: {
+        "name": "animation_hidden_or_off",
+        "contract": "sentinel/off-frame animation selector used by blink or disappearance-style pulses",
+    },
+}
+
+ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
+    0x0040: {
+        "name": "field2b32_step_0040",
+        "contract": "small movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0060: {
+        "name": "field2b32_step_0060",
+        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x00C0: {
+        "name": "field2b32_step_00c0",
+        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0100: {
+        "name": "field2b32_step_0100",
+        "contract": "standard movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0140: {
+        "name": "field2b32_step_0140",
+        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0160: {
+        "name": "field2b32_step_0160",
+        "contract": "larger movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0180: {
+        "name": "field2b32_step_0180",
+        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0200: {
+        "name": "field2b32_step_0200",
+        "contract": "large movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0280: {
+        "name": "field2b32_step_0280",
+        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+    },
+    0x0600: {
+        "name": "field2b32_step_0600",
+        "contract": "very large movement/visual vector magnitude written to current slot field $2B32",
+    },
+}
+
 BINOP_OPERATION_NAMES = {
     0x00: "AND",
     0x01: "OR",
@@ -1017,6 +1094,20 @@ def format_operation_byte(value: int) -> str:
     return format_byte(value)
 
 
+def format_named_word(value: int, names: dict[int, dict[str, str]]) -> str:
+    item = names.get(value)
+    if item:
+        return f"{format_word(value)} <{item['name']}>"
+    return format_word(value)
+
+
+def format_named_byte(value: int, names: dict[int, dict[str, str]]) -> str:
+    item = names.get(value)
+    if item:
+        return f"{format_byte(value)} <{item['name']}>"
+    return format_byte(value)
+
+
 def semantic_field(opcode_name: str, index: int) -> str | None:
     fields = OPCODE_ARG_FIELDS.get(opcode_name)
     if not fields or index >= len(fields):
@@ -1033,6 +1124,8 @@ def format_semantic_value(field: str | None, spec: str, value: int) -> str:
         return f"{field}={format_operation_byte(value)}"
     if field == "wram_addr":
         return f"{field}={format_wram_addr(value)}"
+    if field == "animation_id":
+        return f"{field}={format_named_byte(value, ACTIONSCRIPT_ANIMATION_IDS)}"
     if field.endswith("_velocity_word") or field.endswith("_delta_word"):
         return f"{field}={format_signed_word(value)}"
     if spec == "byte":
@@ -1075,6 +1168,8 @@ def format_call_arg_value(
         return f"{field}={format_byte(raw_args[cursor])}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
+        if field == "field2b32_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_FIELD2B32_WORDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2
     target = Address(raw_args[cursor + 2], raw_args[cursor] | (raw_args[cursor + 1] << 8))
     return f"{field}={format_target(target, names)}", cursor + 3

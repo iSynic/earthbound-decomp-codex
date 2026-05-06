@@ -11,6 +11,9 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
+    ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_FIELD2B32_WORDS,
     Address,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
@@ -45,6 +48,9 @@ UNKNOWN_OPCODE_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4}).*unknown event opcod
 UNKNOWN_CALL_TARGET_RE = re.compile(
     r"EVENT_CALLROUTINE\s+\$([0-9A-F]{2}:[0-9A-F]{4}).*args unknown"
 )
+ANIMATION_ID_RE = re.compile(r"EVENT_SET_ANIMATION\s+animation_id=\$([0-9A-F]{2})")
+FIELD2B32_WORD_RE = re.compile(r"field2b32_word=\$([0-9A-F]{4})")
+TEMPVAR_WORD_RE = re.compile(r"EVENT_WRITE_WORD_TEMPVAR\s+value_word=\$([0-9A-F]{4})")
 
 
 def rel(path: Path) -> str:
@@ -147,6 +153,32 @@ def build_opcode_catalog() -> list[dict[str, Any]]:
             }
         )
     return catalog
+
+
+def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
+    animation_ids: Counter[str] = Counter()
+    field2b32_words: Counter[str] = Counter()
+    tempvar_direction_word_candidates: Counter[str] = Counter()
+    direction_values = set(ACTIONSCRIPT_DIRECTION_WORDS)
+
+    for row in rows:
+        for line in row["decoded"]:
+            if match := ANIMATION_ID_RE.search(line):
+                animation_ids[f"${int(match.group(1), 16):02X}"] += 1
+            if match := FIELD2B32_WORD_RE.search(line):
+                field2b32_words[f"${int(match.group(1), 16):04X}"] += 1
+            if match := TEMPVAR_WORD_RE.search(line):
+                value = int(match.group(1), 16)
+                if value in direction_values:
+                    tempvar_direction_word_candidates[f"${value:04X}"] += 1
+
+    return {
+        "animation_ids": dict(animation_ids.most_common()),
+        "field2b32_words": dict(field2b32_words.most_common()),
+        "tempvar_direction_word_candidates": dict(
+            tempvar_direction_word_candidates.most_common()
+        ),
+    }
 
 
 def normalize_evidence(items: Any) -> list[str]:
@@ -469,6 +501,7 @@ def build_audit(
     installed_callback_groups = Counter(
         str(contract["semantic_group"]) for contract in installed_callback_contracts
     )
+    operand_value_signals = collect_operand_value_signals(rows)
 
     return {
         "schema": SCHEMA,
@@ -496,6 +529,7 @@ def build_audit(
             "installed_callback_groups": dict(installed_callback_groups.most_common()),
         },
         "opcode_catalog": build_opcode_catalog(),
+        "operand_value_catalog": operand_value_signals,
         "callback_contracts": callback_contracts,
         "installed_callback_contracts": installed_callback_contracts,
         "rows": rows,
@@ -514,10 +548,39 @@ def format_list(values: list[str], limit: int = 4) -> str:
     return ", ".join(f"`{value}`" for value in visible) + suffix
 
 
+def render_operand_rows(
+    catalog: dict[int, dict[str, str]],
+    counts: dict[str, int],
+    *,
+    width: int,
+) -> list[str]:
+    lines: list[str] = []
+    observed_values = {
+        int(value.strip("$"), 16)
+        for value in counts
+        if re.fullmatch(r"\$[0-9A-F]{2,4}", value)
+    }
+    for value in sorted(set(catalog) | observed_values):
+        key = f"${value:0{width}X}"
+        item = catalog.get(value)
+        lines.append(
+            "| `{value}` | `{name}` | {count} | {contract} |".format(
+                value=key,
+                name=markdown_escape(item["name"] if item else f"unknown_{key[1:].lower()}"),
+                count=counts.get(key, 0),
+                contract=markdown_escape(
+                    item["contract"] if item else "observed in current decode inventory; name not assigned yet"
+                ),
+            )
+        )
+    return lines
+
+
 def render_markdown(audit: dict[str, Any]) -> str:
     summary = audit["summary"]
     rows = audit["rows"]
     frontier_rows = [row for row in rows if row["decode_status"] != "complete"]
+    operand_values = audit["operand_value_catalog"]
 
     lines = [
         "# C3 actionscript semantics audit",
@@ -593,6 +656,59 @@ def render_markdown(audit: dict[str, Any]) -> str:
                 confidence=opcode["confidence"],
             )
         )
+
+    lines.extend(
+        [
+            "",
+            "## Operand value seed catalog",
+            "",
+            "These names are source-pilot readability seeds from recurring decoded C3 actionscript values. Direction-word counts are candidate sightings from `EVENT_WRITE_WORD_TEMPVAR`; scripts can reuse tempvar for other roles, so the catalog treats them as labels to verify at callback boundaries.",
+            "",
+            "### Animation IDs",
+            "",
+            "| Value | Name | Decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_ANIMATION_IDS,
+            operand_values["animation_ids"],
+            width=2,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "### Field $2B32 movement words",
+            "",
+            "| Value | Name | Decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_FIELD2B32_WORDS,
+            operand_values["field2b32_words"],
+            width=4,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "### Direction-class word candidates",
+            "",
+            "| Value | Name | Tempvar decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_DIRECTION_WORDS,
+            operand_values["tempvar_direction_word_candidates"],
+            width=4,
+        )
+    )
 
     lines.extend(
         [
