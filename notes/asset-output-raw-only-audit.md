@@ -10,14 +10,14 @@ Generated asset-output and source-range reports are freshness-checked together w
 
 - status: `ok`
 - assets with outputs: `2219`
-- decoder/renderer-backed assets: `1834`
-- extract-only assets: `385`
-- extract-only bytes: `1376829`
+- decoder/renderer-backed assets: `1835`
+- extract-only assets: `384`
+- extract-only bytes: `1375788`
 - extract-only categories: `6`
 - extract-only banks: `33`
 - unsupported output kinds: `0`
-- extract-only category mix: `audio` 168, `binary-asset` 141, `raw-table` 41, `raw-gap` 31, `graphics` 2, +1 more
-- extract-only boundary mix: `deferred_audio_pack` 168, `binary_asset_semantics` 141, `table_semantics` 41, `preserved_coverage_gap` 31, `graphics_decode_candidate` 2, +1 more
+- extract-only category mix: `audio` 168, `binary-asset` 141, `raw-table` 41, `raw-gap` 31, `raw-preserved-corridor` 2, +1 more
+- extract-only boundary mix: `deferred_audio_pack` 168, `binary_asset_semantics` 141, `table_semantics` 41, `preserved_coverage_gap` 31, `preserved_corridor` 2, +1 more
 
 ## Boundary Notes
 
@@ -25,7 +25,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | --- | ---: | ---: | --- |
 | `binary_asset_semantics` | 141 | 138513 | Byte-stable extraction exists; format-level decode depends on narrower table or runtime-owner evidence. |
 | `deferred_audio_pack` | 168 | 858695 | Raw-pack extraction is intentional until the audio pack/sample/sequence contract boundary is chosen. |
-| `graphics_decode_candidate` | 2 | 1573 | Graphic bytes are extractable but do not yet have a typed tile/font/preview recipe. |
+| `graphics_decode_candidate` | 1 | 532 | Graphic bytes are extractable but do not yet have a typed tile/font/preview recipe. |
 | `preserved_corridor` | 2 | 64136 | Mixed data/code corridor is intentionally preserved until source/runtime semantics split it safely. |
 | `preserved_coverage_gap` | 31 | 75549 | Raw gap output preserves source accounting and should not be flattened into a semantic asset blindly. |
 | `table_semantics` | 41 | 238363 | Table rows are byte-accounted; row-level decode should wait for caller/runtime context. |
@@ -40,7 +40,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | Map tilesets and runtime tables | 33 | 205650 | `binary-asset` 10, `audio` 9, `raw-gap` 9, `raw-table` 5 | `binary_asset_semantics` 10, `deferred_audio_pack` 9, `preserved_coverage_gap` 9, `table_semantics` 5 |
 | UI, fonts, and town-map assets | 21 | 19484 | `raw-table` 10, `binary-asset` 5, `audio` 3, `raw-gap` 2, `graphics` 1 | `table_semantics` 10, `binary_asset_semantics` 5, `deferred_audio_pack` 3, `preserved_coverage_gap` 2, `graphics_decode_candidate` 1 |
 | Audio packs | 171 | 851968 | `audio` 149, `raw-gap` 13, `raw-table` 9 | `deferred_audio_pack` 149, `preserved_coverage_gap` 13, `table_semantics` 9 |
-| EF debug and late-tail data | 4 | 65248 | `raw-preserved-corridor` 2, `graphics` 1, `raw-table` 1 | `preserved_corridor` 2, `graphics_decode_candidate` 1, `table_semantics` 1 |
+| EF debug and late-tail data | 3 | 64207 | `raw-preserved-corridor` 2, `raw-table` 1 | `preserved_corridor` 2, `table_semantics` 1 |
 
 ## Bank Extract-Only Pressure
 
@@ -78,13 +78,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `EC` | 15 | 65536 | `audio` 14, `raw-gap` 1 | `deferred_audio_pack` 14, `preserved_coverage_gap` 1 |
 | `ED` | 37 | 65536 | `audio` 36, `raw-gap` 1 | `deferred_audio_pack` 36, `preserved_coverage_gap` 1 |
 | `EE` | 47 | 65536 | `audio` 46, `raw-gap` 1 | `deferred_audio_pack` 46, `preserved_coverage_gap` 1 |
-| `EF` | 4 | 65248 | `raw-preserved-corridor` 2, `graphics` 1, `raw-table` 1 | `preserved_corridor` 2, `graphics_decode_candidate` 1, `table_semantics` 1 |
+| `EF` | 3 | 64207 | `raw-preserved-corridor` 2, `raw-table` 1 | `preserved_corridor` 2, `table_semantics` 1 |
 
 ## Decode Candidate Records
 
 | Asset | Manifest | Category | Bytes | Boundary |
 | --- | --- | --- | ---: | --- |
-| `asset.debug.menu_font` | `asset-manifests/ef-debug-assets.json` | `graphics` | 1041 | `graphics_decode_candidate` |
 | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `graphics` | 532 | `graphics_decode_candidate` |
 | `asset.d6.map_data_tile_table_chunk_3` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 12288 | `binary_asset_semantics` |
 | `asset.d6.map_data_tile_table_chunk_6` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 12288 | `binary_asset_semantics` |
@@ -134,3 +133,4 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `asset.ce.swirl_data_121` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 338 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_20` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 325 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_66` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 289 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_10` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 285 | `binary_asset_semantics` |

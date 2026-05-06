@@ -26,11 +26,11 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - manifests with typed output summaries: `38`
 - manifests with smoke fixture links: `9`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6175`
+- output recipes: `6176`
 - typed output recipe kinds: `13`
-- decoder-backed output recipes: `3956`
-- renderer-backed output recipes: `3264`
-- PNG preview/render recipes: `3264`
+- decoder-backed output recipes: `3957`
+- renderer-backed output recipes: `3265`
+- PNG preview/render recipes: `3265`
 
 ## Reproducibility Rules
 
@@ -52,7 +52,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_palette_json` | 10 | 10 | decompressed SNES palette JSON | `earthbound_lzhal+snes_palette` | - | - | `compressed_bytes_consumed`, `decompressed_bytes`, `colors` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.json` |
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | decompressed palette swatch PNG | `earthbound_lzhal+snes_palette` | `palette_swatch` | `per_row`, `swatch` | `compressed_bytes_consumed`, `decompressed_bytes`, `colors`, `width`, `height` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.png` |
 | `raw` | 2219 | 2219 | byte-for-byte extract | - | - | - | - | `asset.ca.battle_background_gfx_63` -> `ca/battle_bgs/graphics/63.gfx.lzhal` |
-| `snes_2bpp_tiles_png` | 1 | 1 | tile preview PNG | `snes_2bpp_tiles` | `grayscale_tile_sheet` | `columns` | `width`, `height`, `tiles` | `asset.debug.cursor_graphics` -> `ef/debug_cursor_preview.png` |
+| `snes_2bpp_tiles_png` | 2 | 2 | tile preview PNG | `snes_2bpp_tiles` | `grayscale_tile_sheet` | `columns` | `width`, `height`, `tiles` | `asset.debug.menu_font` -> `ef/debug_menu_font_preview.png` |
 | `snes_4bpp_tiles_palette_png` | 1146 | 1146 | palette-applied tile preview PNG | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` | `columns`, `colors`, `palette_source` | `colors`, `palette_source_range`, `width`, `height`, `tiles` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `snes_4bpp_tiles_png` | 1151 | 1151 | tile preview PNG | `snes_4bpp_tiles` | `grayscale_tile_sheet` | `columns` | `width`, `height`, `tiles` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_4bpp_preview.png` |
 | `snes_palette_json` | 216 | 216 | decoded SNES palette JSON | `snes_palette` | - | - | `colors` | `asset.cb.battle_background_palette_113` -> `cb/battle_bgs/palettes/113_palette.json` |
@@ -68,7 +68,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 282 | 152 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22 | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
 | UI, fonts, and town-map assets | `E0, E1` | 69 | 152 | 83 | 30 | 30 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more | `grayscale_tile_sheet` 18, `palette_swatch` 12 |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | 171 | 171 | 0 | 0 | 0 | `raw` 171 | - |
-| EF debug and late-tail data | `EF` | 5 | 6 | 1 | 1 | 1 | `raw` 5, `snes_2bpp_tiles_png` 1 | `grayscale_tile_sheet` 1 |
+| EF debug and late-tail data | `EF` | 5 | 7 | 2 | 2 | 2 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |
 
 ## Typed Output Boundary
 

@@ -96,6 +96,15 @@ def tile_sheet_geometry(source_bytes: int, tile_size: int, columns: int) -> dict
     }
 
 
+def effective_tile_source_bytes(output: dict[str, Any], source_bytes: int) -> int:
+    trim = int_field(output, "trim_trailing_bytes", 0)
+    if trim is None:
+        return source_bytes
+    if trim < 0:
+        return -1
+    return source_bytes - trim
+
+
 def palette_swatch_geometry(
     output: dict[str, Any],
     source_bytes: int,
@@ -129,7 +138,11 @@ def preview_geometry(output: dict[str, Any], source_bytes: int) -> dict[str, Any
         columns = int_field(output, "columns", 16)
         if columns is None or columns <= 0:
             return {"status": "invalid", "reason": "tile sheet columns must be positive"}
-        return tile_sheet_geometry(source_bytes, 16, columns)
+        effective_bytes = effective_tile_source_bytes(output, source_bytes)
+        geometry = tile_sheet_geometry(effective_bytes, 16, columns)
+        if geometry["status"] == "known" and effective_bytes != source_bytes:
+            geometry["source_bytes_after_trim"] = effective_bytes
+        return geometry
     if kind in {"snes_4bpp_tiles_png", "snes_4bpp_tiles_palette_png"}:
         columns = int_field(output, "columns", 16)
         if columns is None or columns <= 0:

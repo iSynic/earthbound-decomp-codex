@@ -38,6 +38,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="snes_2bpp_tiles",
         renderer="grayscale_tile_sheet",
         required_fields=("columns",),
+        optional_fields=("trim_trailing_bytes",),
         report_required_fields=("width", "height", "tiles"),
         extension=".png",
     ),
@@ -183,6 +184,7 @@ INT_FIELDS = {
     "per_row",
     "sprite_id",
     "swatch",
+    "trim_trailing_bytes",
     "width",
     "width_tiles",
 }

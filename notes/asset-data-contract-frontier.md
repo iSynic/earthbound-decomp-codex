@@ -29,12 +29,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 - manifests: `38`
 - assets/tables/gaps represented: `2219`
 - source bytes represented by manifests: `2490368`
-- output recipes: `6175`
-- assets with preview/swatch recipes: `1718`
-- assets with decoder recipes beyond raw extraction: `1834`
+- output recipes: `6176`
+- assets with preview/swatch recipes: `1719`
+- assets with decoder recipes beyond raw extraction: `1835`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `9`
-- smoke fixture links from manifests: `55`
+- smoke fixture links from manifests: `56`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
@@ -108,7 +108,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 - proof: debug font/cursor assets are identified; the large front mixed corridor is intentionally coarse
 - checked docs: `notes/bank-ef-asset-data-map.md`, `src/ef/bank_ef_helpers_asar.asm`
 - category mix: `graphics` 2, `raw-preserved-corridor` 2, `raw-table` 1
-- output recipe mix: `raw` 5, `snes_2bpp_tiles_png` 1
+- output recipe mix: `raw` 5, `snes_2bpp_tiles_png` 2
 
 ## Per-Bank Pressure Map
 
@@ -151,7 +151,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `EC` | `audio_packs` | `raw-pack-manifest` | 15 | 65536 | 15 | `audio` 14, `raw-gap` 1 | `raw` 15 | 108 | 0 |
 | `ED` | `audio_packs` | `raw-pack-manifest` | 37 | 65536 | 37 | `audio` 36, `raw-gap` 1 | `raw` 37 | 2 | 0 |
 | `EE` | `audio_packs` | `raw-pack-manifest` | 47 | 65536 | 47 | `audio` 46, `raw-gap` 1 | `raw` 47 | 28159 | 0 |
-| `EF` | `ef_debug_and_late_tail` | `seed-contract` | 5 | 65536 | 6 | `graphics` 2, `raw-preserved-corridor` 2, `raw-table` 1 | `raw` 5, `snes_2bpp_tiles_png` 1 | 0 | 0 |
+| `EF` | `ef_debug_and_late_tail` | `seed-contract` | 5 | 65536 | 7 | `graphics` 2, `raw-preserved-corridor` 2, `raw-table` 1 | `raw` 5, `snes_2bpp_tiles_png` 2 | 0 | 0 |
 
 ## Recommended Next Manual Seams
 

@@ -9,19 +9,19 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- typed output records: `6175`
-- unique output paths: `6175`
+- typed output records: `6176`
+- unique output paths: `6176`
 - duplicate output paths: `0`
 - invalid output records: `0`
 - root prefixes: `38`
-- bank-root aligned outputs: `6175`
+- bank-root aligned outputs: `6176`
 - bank-root mismatched outputs: `0`
-- output extension mix: `.png` 3264, `.gfx` 1429, `.lzhal` 466, `.json` 226, `.pal` 226, +5 more
-- path depth mix: `4` 5027, `3` 1119, `2` 29
+- output extension mix: `.png` 3265, `.gfx` 1429, `.lzhal` 466, `.json` 226, `.pal` 226, +5 more
+- path depth mix: `4` 5027, `3` 1119, `2` 30
 
 ## Output Root Prefixes
 
-`d3` 1017, `d4` 1005, `cb` 960, `d2` 693, `ce` 576, `d1` 369, `d5` 356, `cd` 319, `cc` 196, `e1` 125, `da` 105, `ca` 66, `df` 60, `ee` 47, `ed` 37, `de` 29, `e0` 27, `dc` 18, `d8` 16, `ec` 15, `db` 14, `dd` 14, `e6` 14, `d9` 12, `eb` 9, `d7` 8, `ea` 8, `e8` 7, `e9` 7, `d6` 6, `e4` 6, `e5` 6, `ef` 6, `e2` 5, `e3` 5, `e7` 5, `cf` 4, `d0` 3
+`d3` 1017, `d4` 1005, `cb` 960, `d2` 693, `ce` 576, `d1` 369, `d5` 356, `cd` 319, `cc` 196, `e1` 125, `da` 105, `ca` 66, `df` 60, `ee` 47, `ed` 37, `de` 29, `e0` 27, `dc` 18, `d8` 16, `ec` 15, `db` 14, `dd` 14, `e6` 14, `d9` 12, `eb` 9, `d7` 8, `ea` 8, `e8` 7, `e9` 7, `ef` 7, `d6` 6, `e4` 6, `e5` 6, `e2` 5, `e3` 5, `e7` 5, `cf` 4, `d0` 3
 
 ## Recipe Path Mix
 
@@ -37,4 +37,4 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Map tilesets and runtime tables | 282 | `da` 105, `df` 60, `de` 29, `dc` 18, `d8` 16, `db` 14, `dd` 14, `d9` 12, `d7` 8, `d6` 6 | `.lzhal` 64, `.png` 55, `.gfx` 42, `.json` 33, `.pal` 33, +3 more | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22 |
 | UI, fonts, and town-map assets | 152 | `e1` 125, `e0` 27 | `.lzhal` 41, `.png` 30, `.bin` 25, `.gfx` 21, `.json` 12, +3 more | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more |
 | Audio packs | 171 | `ee` 47, `ed` 37, `ec` 15, `e6` 14, `eb` 9, `ea` 8, `e8` 7, `e9` 7, `e4` 6, `e5` 6, `e2` 5, `e3` 5, +1 more | `.ebm` 149, `.bin` 22 | `raw` 171 |
-| EF debug and late-tail data | 6 | `ef` 6 | `.bin` 3, `.gfx` 2, `.png` 1 | `raw` 5, `snes_2bpp_tiles_png` 1 |
+| EF debug and late-tail data | 7 | `ef` 7 | `.bin` 3, `.gfx` 2, `.png` 2 | `raw` 5, `snes_2bpp_tiles_png` 2 |

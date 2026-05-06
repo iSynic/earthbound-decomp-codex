@@ -247,6 +247,15 @@ def decode_snes_2bpp_tiles(data: bytes, columns: int) -> list[list[int]]:
     return pixels
 
 
+def trim_trailing_bytes(data: bytes, spec: dict[str, Any]) -> bytes:
+    trim = int(spec.get("trim_trailing_bytes", 0) or 0)
+    if trim <= 0:
+        return data
+    if trim >= len(data):
+        raise ValueError(f"Cannot trim {trim} trailing bytes from {len(data)}-byte source")
+    return data[:-trim]
+
+
 def decode_snes_4bpp_tile_indices(data: bytes, columns: int) -> list[list[int]]:
     if len(data) % 32 != 0:
         raise ValueError(f"SNES 4bpp tile data must be a multiple of 32 bytes, got {len(data)}")
@@ -547,9 +556,12 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
-        rows = decode_snes_2bpp_tiles(data, columns)
+        tile_data = trim_trailing_bytes(data, spec)
+        rows = decode_snes_2bpp_tiles(tile_data, columns)
         write_grayscale_png(path, rows)
-        metadata.update(tile_sheet_metadata(rows, data, 16))
+        metadata.update(tile_sheet_metadata(rows, tile_data, 16))
+        if tile_data is not data:
+            metadata["trimmed_source_bytes"] = len(tile_data)
     elif kind == "snes_4bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         rows = decode_snes_4bpp_tiles(data, columns)

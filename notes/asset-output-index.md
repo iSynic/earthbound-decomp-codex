@@ -16,16 +16,16 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 - status: `ok`
 - assets with typed outputs: `2219`
-- typed output records: `6175`
+- typed output records: `6176`
 - output recipe kinds: `13`
-- decoder-backed outputs: `3956`
-- renderer-backed outputs: `3264`
-- PNG preview/render outputs: `3264`
-- smoke fixture selectors: `55`
-- distinct smoke target outputs: `22`
-- smoke fixture assets: `14`
-- raw-only assets: `385`
-- preview geometry status mix: `known` 2783, `requires_decode` 481
+- decoder-backed outputs: `3957`
+- renderer-backed outputs: `3265`
+- PNG preview/render outputs: `3265`
+- smoke fixture selectors: `56`
+- distinct smoke target outputs: `23`
+- smoke fixture assets: `15`
+- raw-only assets: `384`
+- preview geometry status mix: `known` 2784, `requires_decode` 481
 
 ## Family Output Coverage
 
@@ -37,7 +37,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Map tilesets and runtime tables | 130 | 282 | 152 | 55 | 55 | 4 | 3 | 33 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22 | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
 | UI, fonts, and town-map assets | 69 | 152 | 83 | 30 | 30 | 7 | 5 | 21 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more | `grayscale_tile_sheet` 18, `palette_swatch` 12 |
 | Audio packs | 171 | 171 | 0 | 0 | 0 | 0 | 0 | 171 | `raw` 171 | - |
-| EF debug and late-tail data | 5 | 6 | 1 | 1 | 1 | 1 | 1 | 4 | `raw` 5, `snes_2bpp_tiles_png` 1 | `grayscale_tile_sheet` 1 |
+| EF debug and late-tail data | 5 | 7 | 2 | 2 | 2 | 2 | 2 | 3 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |
 
 ## Recipe Output Coverage
 
@@ -51,7 +51,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_palette_json` | 10 | 10 | `earthbound_lzhal+snes_palette` | - | 1 | - |
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | `earthbound_lzhal+snes_palette` | `palette_swatch` | 1 | `requires_decode` 10 |
 | `raw` | 2219 | 2219 | - | - | 1 | - |
-| `snes_2bpp_tiles_png` | 1 | 1 | `snes_2bpp_tiles` | `grayscale_tile_sheet` | 1 | `known` 1 |
+| `snes_2bpp_tiles_png` | 2 | 2 | `snes_2bpp_tiles` | `grayscale_tile_sheet` | 2 | `known` 2 |
 | `snes_4bpp_tiles_palette_png` | 1146 | 1146 | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` | 1 | `known` 1146 |
 | `snes_4bpp_tiles_png` | 1151 | 1151 | `snes_4bpp_tiles` | `grayscale_tile_sheet` | 2 | `known` 1151 |
 | `snes_palette_json` | 216 | 216 | `snes_palette` | - | 3 | - |

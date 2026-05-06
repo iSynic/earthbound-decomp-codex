@@ -161,6 +161,26 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             )
         )
 
+    option_candidates: list[tuple[str, dict[str, Any], dict[str, Any]]] = []
+    for asset, output in candidates:
+        kind = str(output["kind"])
+        if kind == "snes_2bpp_tiles_png" and int(output.get("trim_trailing_bytes", 0) or 0) > 0:
+            option_candidates.append((f"{kind}.trim_trailing_bytes", asset, output))
+    seen_options: set[str] = set()
+    for option_key, asset, output in sorted(option_candidates, key=lambda item: (item[0], asset_sort_key(item[1]))):
+        if option_key in seen_options:
+            continue
+        seen_options.add(option_key)
+        fixtures.append(
+            make_fixture(
+                "recipe_option",
+                option_key,
+                asset,
+                output,
+                reason="Covers an optional recipe field that changes decode input bytes.",
+            )
+        )
+
     for family, renderer in sorted(family_renderer_counts):
         selected = first_candidate(
             candidates,
@@ -347,6 +367,23 @@ def render_markdown(plan: dict[str, Any]) -> str:
     )
     for fixture in plan["fixtures"]:
         if fixture["type"] != "family_renderer":
+            continue
+        output = fixture["target_output"]
+        lines.append(
+            f"| `{fixture['key']}` | `{fixture['asset_id']}` | `{fixture['manifest_path']}` | `{output['kind']}` | `{output['path']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Recipe Option Fixtures",
+            "",
+            "| Recipe option | Asset | Manifest | Target recipe | Target output |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for fixture in plan["fixtures"]:
+        if fixture["type"] != "recipe_option":
             continue
         output = fixture["target_output"]
         lines.append(

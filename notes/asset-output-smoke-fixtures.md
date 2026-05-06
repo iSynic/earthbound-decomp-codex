@@ -6,14 +6,14 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 
 ## Snapshot
 
-- fixture selectors: `55`
-- unique selected assets: `14`
+- fixture selectors: `56`
+- unique selected assets: `15`
 - recipe kinds covered: `13`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
 - family/decoder pairs covered: `16`
-- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12
-- fixture family mix: `battle_visual_assets` 23, `ui_font_town_map_assets` 13, `overworld_sprites` 8, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 4
+- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, `recipe_option` 1
+- fixture family mix: `battle_visual_assets` 23, `ui_font_town_map_assets` 13, `overworld_sprites` 8, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 5
 
 ## Runner
 
@@ -57,6 +57,12 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 | `overworld_sprites.palette_tile_sheet` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `ui_font_town_map_assets.grayscale_tile_sheet` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
 | `ui_font_town_map_assets.palette_swatch` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_swatch_png` | `e1/intro/logos/ape_palette.png` |
+
+## Recipe Option Fixtures
+
+| Recipe option | Asset | Manifest | Target recipe | Target output |
+| --- | --- | --- | --- | --- |
+| `snes_2bpp_tiles_png.trim_trailing_bytes` | `asset.debug.menu_font` | `asset-manifests/ef-debug-assets.json` | `snes_2bpp_tiles_png` | `ef/debug_menu_font_preview.png` |
 
 ## Family Renderer Geometry Fixtures
 
@@ -110,4 +116,4 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 | `asset-manifests/bank-d8-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-d8-assets.json --asset-id asset.d8.anti_piracy_notice_graphics --asset-id asset.d8.warning_palette --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e0-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e1-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/ef-debug-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/ef-debug-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --asset-id asset.debug.menu_font --out build/asset-output-smoke-fixtures` |

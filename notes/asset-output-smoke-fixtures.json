@@ -13,9 +13,9 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 55,
-    "unique_selected_assets": 14,
-    "unique_selected_manifest_asset_pairs": 14,
+    "fixture_count": 56,
+    "unique_selected_assets": 15,
+    "unique_selected_manifest_asset_pairs": 15,
     "recipe_kinds_covered": 13,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
@@ -24,11 +24,12 @@
       "family_decoder": 16,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 13
+      "recipe_kind": 13,
+      "recipe_option": 1
     },
     "fixture_family_counts": {
       "battle_visual_assets": 23,
-      "ef_debug_and_late_tail": 4,
+      "ef_debug_and_late_tail": 5,
       "map_tilesets_and_runtime_tables": 7,
       "overworld_sprites": 8,
       "ui_font_town_map_assets": 13
@@ -75,7 +76,7 @@
     },
     "ef_debug_and_late_tail": {
       "raw": 5,
-      "snes_2bpp_tiles_png": 1
+      "snes_2bpp_tiles_png": 2
     }
   },
   "fixtures": [
@@ -394,6 +395,29 @@
         "raw",
         "snes_palette_json",
         "snes_palette_swatch_png"
+      ]
+    },
+    {
+      "id": "fixture.recipe_option.snes_2bpp_tiles_png_trim_trailing_bytes",
+      "type": "recipe_option",
+      "key": "snes_2bpp_tiles_png.trim_trailing_bytes",
+      "reason": "Covers an optional recipe field that changes decode input bytes.",
+      "family": "ef_debug_and_late_tail",
+      "bank": "EF",
+      "manifest_path": "asset-manifests/ef-debug-assets.json",
+      "asset_id": "asset.debug.menu_font",
+      "title": "Debug menu font graphics",
+      "category": "graphics",
+      "bytes": 1041,
+      "target_output": {
+        "kind": "snes_2bpp_tiles_png",
+        "path": "ef/debug_menu_font_preview.png",
+        "decoder": "snes_2bpp_tiles",
+        "renderer": "grayscale_tile_sheet"
+      },
+      "all_output_kinds": [
+        "raw",
+        "snes_2bpp_tiles_png"
       ]
     },
     {
@@ -1548,9 +1572,10 @@
     {
       "manifest_path": "asset-manifests/ef-debug-assets.json",
       "asset_ids": [
-        "asset.debug.cursor_graphics"
+        "asset.debug.cursor_graphics",
+        "asset.debug.menu_font"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --asset-id asset.debug.menu_font --out build/asset-output-smoke-fixtures"
     }
   ],
   "runner": {
