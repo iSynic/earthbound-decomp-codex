@@ -6,14 +6,17 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 
 ## Snapshot
 
-- fixture selectors: `60`
-- unique selected assets: `15`
+- fixture selectors: `81`
+- unique selected assets: `30`
 - recipe kinds covered: `13`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
 - family/decoder pairs covered: `16`
-- fixture type mix: `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, `recipe_option` 5
-- fixture family mix: `battle_visual_assets` 25, `ui_font_town_map_assets` 13, `overworld_sprites` 10, `map_tilesets_and_runtime_tables` 7, `ef_debug_and_late_tail` 5
+- target bank-output policy banks: `22`
+- target banks with bank-output fixtures: `21`
+- target banks without typed non-raw outputs: `D6` 1
+- fixture type mix: `bank_output` 21, `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 30, `map_tilesets_and_runtime_tables` 16, `overworld_sprites` 15, `ui_font_town_map_assets` 15, `ef_debug_and_late_tail` 5
 
 ## Runner
 
@@ -68,6 +71,32 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 | `snes_4bpp_tiles_palette_png.palette_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 | `snes_4bpp_tiles_palette_png.sprite_id` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_palette_png` | `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
 
+## Bank Output Fixtures
+
+| Bank | Asset | Manifest | Target recipe | Target output |
+| --- | --- | --- | --- | --- |
+| `CA` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_battle_bg_arrangement_png` | `ca/battle_bgs/arrangements/100_composed_preview.png` |
+| `CB` | `asset.cb.battle_background_arr_0` | `asset-manifests/bank-cb-assets.json` | `earthbound_lzhal_battle_bg_arrangement_png` | `cb/battle_bgs/arrangements/0_composed_preview.png` |
+| `CC` | `asset.cc.psi_anim_gfx_set_3` | `asset-manifests/bank-cc-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `cc/psianims/gfx/2_4bpp_preview.png` |
+| `CD` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `cd/battle_sprites/10_4bpp_preview.png` |
+| `CE` | `asset.ce.battle_sprite_0` | `asset-manifests/bank-ce-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `ce/battle_sprites/0_4bpp_preview.png` |
+| `D1` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` |
+| `D2` | `asset.d2.sprite_0123` | `asset-manifests/bank-d2-assets.json` | `snes_4bpp_tiles_png` | `d2/overworld_sprites/gfx/0123_4bpp_preview.png` |
+| `D3` | `asset.d3.sprite_0354` | `asset-manifests/bank-d3-assets.json` | `snes_4bpp_tiles_png` | `d3/overworld_sprites/gfx/0354_4bpp_preview.png` |
+| `D4` | `asset.d4.sprite_0693` | `asset-manifests/bank-d4-assets.json` | `snes_4bpp_tiles_png` | `d4/overworld_sprites/gfx/0693_4bpp_preview.png` |
+| `D5` | `asset.d5.sprite_1028` | `asset-manifests/bank-d5-assets.json` | `snes_4bpp_tiles_png` | `d5/overworld_sprites/gfx/1028_4bpp_preview.png` |
+| `D7` | `asset.d7.map_data_tile_arrangement_0` | `asset-manifests/bank-d7-assets.json` | `earthbound_lzhal` | `d7/maps/arrangements/0.arr` |
+| `D8` | `asset.d8.anti_piracy_notice_graphics` | `asset-manifests/bank-d8-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `d8/errors/antipiracy_4bpp_preview.png` |
+| `D9` | `asset.d9.map_data_tile_arrangement_1` | `asset-manifests/bank-d9-assets.json` | `earthbound_lzhal` | `d9/maps/arrangements/1.arr` |
+| `DA` | `asset.da.map_data_palette_0` | `asset-manifests/bank-da-assets.json` | `snes_palette_swatch_png` | `da/maps/palettes/0_palette.png` |
+| `DB` | `asset.db.map_data_tile_arrangement_10` | `asset-manifests/bank-db-assets.json` | `earthbound_lzhal` | `db/maps/arrangements/10.arr` |
+| `DC` | `asset.dc.map_data_tile_arrangement_12` | `asset-manifests/bank-dc-assets.json` | `earthbound_lzhal` | `dc/maps/arrangements/12.arr` |
+| `DD` | `asset.dd.map_data_tile_set_graphics_0` | `asset-manifests/bank-dd-assets.json` | `earthbound_lzhal` | `dd/maps/gfx/0.gfx` |
+| `DE` | `asset.de.map_data_tile_animation_gfx_15` | `asset-manifests/bank-de-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `de/maps/anim_gfx/15_4bpp_preview.png` |
+| `DF` | `asset.df.map_data_tile_animation_gfx_0` | `asset-manifests/bank-df-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `df/maps/anim_gfx/0_4bpp_preview.png` |
+| `E0` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
+| `E1` | `asset.e1.ape_graphics` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e1/intro/logos/ape_4bpp_preview.png` |
+
 ## Family Renderer Geometry Fixtures
 
 | Family/renderer/status | Asset | Manifest | Target recipe | Target output | Geometry |
@@ -113,11 +142,24 @@ This is the reproducible smoke-test selector set for extraction, decode, and pre
 | Manifest | Selected assets | Command |
 | --- | ---: | --- |
 | `asset-manifests/bank-ca-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-cb-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cb-assets.json --asset-id asset.cb.battle_background_palette_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-cb-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-cb-assets.json --asset-id asset.cb.battle_background_arr_0 --asset-id asset.cb.battle_background_palette_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-cc-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cc-assets.json --asset-id asset.cc.psi_anim_gfx_set_3 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-cd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cd-assets.json --asset-id asset.cd.battle_sprite_10 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-ce-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d1-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d1-assets.json --asset-id asset.d1.sprite_0000 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-d2-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d2-assets.json --asset-id asset.d2.sprite_0123 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-d3-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d3-assets.json --asset-id asset.d3.sprite_0354 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-d4-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d4-assets.json --asset-id asset.d4.sprite_0693 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-d5-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d5-assets.json --asset-id asset.d5.sprite_1028 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d7-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d7-assets.json --asset-id asset.d7.map_data_tile_arrangement_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d8-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-d8-assets.json --asset-id asset.d8.anti_piracy_notice_graphics --asset-id asset.d8.warning_palette --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-d9-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d9-assets.json --asset-id asset.d9.map_data_tile_arrangement_1 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-da-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-da-assets.json --asset-id asset.da.map_data_palette_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-db-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-db-assets.json --asset-id asset.db.map_data_tile_arrangement_10 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-dc-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dc-assets.json --asset-id asset.dc.map_data_tile_arrangement_12 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-dd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dd-assets.json --asset-id asset.dd.map_data_tile_set_graphics_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-de-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-de-assets.json --asset-id asset.de.map_data_tile_animation_gfx_15 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-df-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-df-assets.json --asset-id asset.df.map_data_tile_animation_gfx_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e0-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-e1-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-e1-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/ef-debug-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --asset-id asset.debug.menu_font --out build/asset-output-smoke-fixtures` |

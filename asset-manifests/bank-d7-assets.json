@@ -50,15 +50,16 @@
       "earthbound_lzhal": 1
     },
     "renderer_counts": {},
-    "smoke_fixture_count": 1,
+    "smoke_fixture_count": 2,
     "smoke_fixture_asset_ids": [
       "asset.d7.map_data_tile_arrangement_0"
     ],
     "smoke_fixture_type_counts": {
+      "bank_output": 1,
       "family_decoder": 1
     },
     "smoke_fixture_target_kind_counts": {
-      "earthbound_lzhal": 1
+      "earthbound_lzhal": 2
     }
   },
   "assets": [

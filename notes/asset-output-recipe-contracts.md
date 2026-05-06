@@ -26,7 +26,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 - manifests: `38`
 - manifests with typed output summaries: `38`
-- manifests with smoke fixture links: `9`
+- manifests with smoke fixture links: `22`
 - assets/tables/gaps represented: `2219`
 - output recipes: `6176`
 - typed output recipe kinds: `13`

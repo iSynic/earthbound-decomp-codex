@@ -66,17 +66,20 @@
       "palette_swatch": 114,
       "palette_tile_sheet": 64
     },
-    "smoke_fixture_count": 5,
+    "smoke_fixture_count": 6,
     "smoke_fixture_asset_ids": [
+      "asset.cb.battle_background_arr_0",
       "asset.cb.battle_background_palette_0"
     ],
     "smoke_fixture_type_counts": {
+      "bank_output": 1,
       "family_decoder": 1,
       "family_renderer": 1,
       "family_renderer_geometry": 1,
       "recipe_kind": 2
     },
     "smoke_fixture_target_kind_counts": {
+      "earthbound_lzhal_battle_bg_arrangement_png": 1,
       "snes_palette_json": 2,
       "snes_palette_swatch_png": 3
     }

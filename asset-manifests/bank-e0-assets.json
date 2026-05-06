@@ -57,13 +57,14 @@
     "renderer_counts": {
       "grayscale_tile_sheet": 2
     },
-    "smoke_fixture_count": 6,
+    "smoke_fixture_count": 7,
     "smoke_fixture_asset_ids": [
       "asset.e0.compressed_sram",
       "asset.e0.mrsaturn_font_gfx",
       "asset.e0.text_window_gfx"
     ],
     "smoke_fixture_type_counts": {
+      "bank_output": 1,
       "family_decoder": 3,
       "family_renderer": 1,
       "family_renderer_geometry": 2
@@ -71,7 +72,7 @@
     "smoke_fixture_target_kind_counts": {
       "earthbound_lzhal": 1,
       "earthbound_lzhal_snes_4bpp_tiles_png": 2,
-      "snes_4bpp_tiles_png": 3
+      "snes_4bpp_tiles_png": 4
     }
   },
   "assets": [

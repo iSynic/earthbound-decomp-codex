@@ -20,6 +20,30 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_JSON_OUT = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+TARGET_BANK_OUTPUT_FIXTURE_BANKS = {
+    "CA",
+    "CB",
+    "CC",
+    "CD",
+    "CE",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "DA",
+    "DB",
+    "DC",
+    "DD",
+    "DE",
+    "DF",
+    "E0",
+    "E1",
+}
 
 
 def asset_sort_key(asset: dict[str, Any]) -> tuple[str, str]:
@@ -96,6 +120,17 @@ def first_candidate(
     return None
 
 
+def bank_output_priority(asset: dict[str, Any], output: dict[str, Any]) -> tuple[int, str, str, str]:
+    contract = OUTPUT_RECIPE_CONTRACTS[str(output["kind"])]
+    if contract.renderer is not None:
+        tier = 0
+    elif contract.decoder is not None:
+        tier = 1
+    else:
+        tier = 2
+    return (tier, str(asset["manifest_path"]), str(asset["id"]), str(output.get("path", "")))
+
+
 def command_groups(fixtures: list[dict[str, Any]]) -> list[dict[str, Any]]:
     grouped: dict[str, set[str]] = defaultdict(set)
     for fixture in fixtures:
@@ -127,12 +162,19 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
     family_renderer_geometry_counts: Counter[tuple[str, str, str]] = Counter()
     family_decoder_counts: Counter[tuple[str, str]] = Counter()
     family_output_counts: dict[str, Counter[str]] = defaultdict(Counter)
+    bank_output_fixture_candidates: dict[str, list[tuple[dict[str, Any], dict[str, Any]]]] = defaultdict(list)
     preview_geometry_by_candidate: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     for asset, output in candidates:
         kind = str(output["kind"])
         contract = OUTPUT_RECIPE_CONTRACTS[kind]
         output_counts[kind] += 1
         family_output_counts[str(asset["family"])][kind] += 1
+        if (
+            str(asset["bank"]) in TARGET_BANK_OUTPUT_FIXTURE_BANKS
+            and kind != "raw"
+            and (contract.decoder is not None or contract.renderer is not None)
+        ):
+            bank_output_fixture_candidates[str(asset["bank"])].append((asset, output))
         if contract.renderer is not None:
             family_renderer_counts[(str(asset["family"]), contract.renderer)] += 1
             if contract.extension == ".png":
@@ -185,6 +227,22 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
                     if decode_affecting
                     else "Covers an optional recipe metadata field used by manifests."
                 ),
+            )
+        )
+
+    for bank in sorted(bank_output_fixture_candidates):
+        selected = sorted(
+            bank_output_fixture_candidates[bank],
+            key=lambda item: bank_output_priority(item[0], item[1]),
+        )[0]
+        asset, output = selected
+        fixtures.append(
+            make_fixture(
+                "bank_output",
+                bank,
+                asset,
+                output,
+                reason="Covers one representative typed non-raw output from a target asset bank.",
             )
         )
 
@@ -268,6 +326,12 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
     )
     family_counts = Counter(str(fixture["family"]) for fixture in fixtures)
     type_counts = Counter(str(fixture["type"]) for fixture in fixtures)
+    bank_output_fixture_banks = sorted(
+        str(fixture["bank"]) for fixture in fixtures if fixture["type"] == "bank_output"
+    )
+    target_banks_without_typed_output = sorted(
+        TARGET_BANK_OUTPUT_FIXTURE_BANKS - set(bank_output_fixture_candidates)
+    )
 
     return {
         "schema": "earthbound-decomp.asset-output-smoke-fixtures.v1",
@@ -291,6 +355,9 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             "family_renderer_pairs_covered": len(family_renderer_counts),
             "family_renderer_geometry_pairs_covered": len(family_renderer_geometry_counts),
             "family_decoder_pairs_covered": len(family_decoder_counts),
+            "target_bank_output_fixture_policy_banks": len(TARGET_BANK_OUTPUT_FIXTURE_BANKS),
+            "bank_output_fixture_banks_covered": len(bank_output_fixture_banks),
+            "target_banks_without_typed_non_raw_outputs": target_banks_without_typed_output,
             "fixture_type_counts": dict(sorted(type_counts.items())),
             "fixture_family_counts": dict(sorted(family_counts.items())),
         },
@@ -332,6 +399,10 @@ def render_markdown(plan: dict[str, Any]) -> str:
         f"- family/renderer pairs covered: `{coverage['family_renderer_pairs_covered']}`",
         f"- family/renderer/geometry-status pairs covered: `{coverage['family_renderer_geometry_pairs_covered']}`",
         f"- family/decoder pairs covered: `{coverage['family_decoder_pairs_covered']}`",
+        f"- target bank-output policy banks: `{coverage['target_bank_output_fixture_policy_banks']}`",
+        f"- target banks with bank-output fixtures: `{coverage['bank_output_fixture_banks_covered']}`",
+        "- target banks without typed non-raw outputs: "
+        f"{compact_counts({bank: 1 for bank in coverage['target_banks_without_typed_non_raw_outputs']})}",
         f"- fixture type mix: {compact_counts(coverage['fixture_type_counts'])}",
         f"- fixture family mix: {compact_counts(coverage['fixture_family_counts'])}",
         "",
@@ -391,6 +462,23 @@ def render_markdown(plan: dict[str, Any]) -> str:
     )
     for fixture in plan["fixtures"]:
         if fixture["type"] != "recipe_option":
+            continue
+        output = fixture["target_output"]
+        lines.append(
+            f"| `{fixture['key']}` | `{fixture['asset_id']}` | `{fixture['manifest_path']}` | `{output['kind']}` | `{output['path']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Bank Output Fixtures",
+            "",
+            "| Bank | Asset | Manifest | Target recipe | Target output |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    for fixture in plan["fixtures"]:
+        if fixture["type"] != "bank_output":
             continue
         output = fixture["target_output"]
         lines.append(

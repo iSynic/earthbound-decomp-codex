@@ -35,8 +35,8 @@ Generated asset-output and source-range reports are freshness-checked together w
 - assets with preview/swatch recipes: `1719`
 - assets with decoder recipes beyond raw extraction: `1835`
 - manifests with typed output summaries: `38`
-- banks linked to smoke fixtures: `9`
-- smoke fixture links from manifests: `60`
+- banks linked to smoke fixtures: `22`
+- smoke fixture links from manifests: `81`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
